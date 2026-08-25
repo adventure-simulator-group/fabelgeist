@@ -6,6 +6,7 @@ use std::collections::{BTreeMap, BTreeSet};
 use adventuresim_armor_model::{AnatomicalSurface, SurfaceMorph, SurfaceVertex};
 
 const FOREARM_WEIGHT_THRESHOLD: f32 = 0.35;
+const AXIAL_SUPPORT_MARGIN: f32 = 0.1;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ForearmSide {
@@ -28,8 +29,22 @@ impl ForearmSide {
         }
     }
 
-    fn owns_joint(self, name: &str) -> bool {
+    fn upperarm(self) -> &'static str {
+        match self {
+            Self::Left => "l_upperarm",
+            Self::Right => "r_upperarm",
+        }
+    }
+
+    fn owns_forearm_joint(self, name: &str) -> bool {
         name == self.lowarm() || name.starts_with(&format!("{}_twist", self.lowarm()))
+    }
+
+    fn supports_forearm_boundary(self, name: &str) -> bool {
+        self.owns_forearm_joint(name)
+            || name == self.wrist()
+            || name == self.upperarm()
+            || name.starts_with(&format!("{}_twist", self.upperarm()))
     }
 }
 
@@ -77,18 +92,24 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
     {
         return Err("forearm surface inputs are inconsistent".into());
     }
-    let selected_joints = input
+    let forearm_joints = input
         .joint_names
         .iter()
         .enumerate()
-        .filter_map(|(index, name)| input.side.owns_joint(name).then_some(index))
+        .filter_map(|(index, name)| input.side.owns_forearm_joint(name).then_some(index))
         .collect::<BTreeSet<_>>();
-    if selected_joints.is_empty() {
+    if forearm_joints.is_empty() {
         return Err(format!(
             "MHR rig has no {} skin joints",
             input.side.lowarm()
         ));
     }
+    let support_joints = input
+        .joint_names
+        .iter()
+        .enumerate()
+        .filter_map(|(index, name)| input.side.supports_forearm_boundary(name).then_some(index))
+        .collect::<BTreeSet<_>>();
     let joint_position = |name: &str| {
         input
             .joint_names
@@ -107,33 +128,21 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
     if axis_length_squared <= f32::EPSILON {
         return Err("MHR forearm landmarks coincide".into());
     }
-    let forearm_weight = |vertex: usize| {
+    let joint_weight = |vertex: usize, joints: &BTreeSet<usize>| {
         input.joint_indices[vertex]
             .iter()
             .zip(&input.joint_weights[vertex])
-            .filter(|(joint, _)| selected_joints.contains(&(**joint as usize)))
+            .filter(|(joint, _)| joints.contains(&(**joint as usize)))
             .map(|(_, weight)| *weight)
             .sum::<f32>()
     };
     let raw_axial =
         |position: [f32; 3]| dot(subtract(position, proximal), axis) / axis_length_squared;
-    let bounds = input
-        .positions
-        .iter()
-        .copied()
-        .enumerate()
-        .filter(|(vertex, _)| forearm_weight(*vertex) >= FOREARM_WEIGHT_THRESHOLD)
-        .map(|(_, position)| raw_axial(position))
-        .fold(None::<(f32, f32)>, |bounds, axial| {
-            Some(bounds.map_or((axial, axial), |(minimum, maximum)| {
-                (minimum.min(axial), maximum.max(axial))
-            }))
-        })
-        .ok_or_else(|| "MHR forearm skin selected no vertices".to_owned())?;
-    let extent = bounds.1 - bounds.0;
-    if extent <= f32::EPSILON {
-        return Err("MHR forearm skin has no longitudinal extent".into());
-    }
+    let supports_surface = |vertex: usize| {
+        let axial = raw_axial(input.positions[vertex]);
+        (-AXIAL_SUPPORT_MARGIN..=1.0 + AXIAL_SUPPORT_MARGIN).contains(&axial)
+            && joint_weight(vertex, &support_joints) >= FOREARM_WEIGHT_THRESHOLD
+    };
 
     let selected_faces = input
         .faces
@@ -142,7 +151,7 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
         .zip(input.texcoord_faces.iter().copied())
         .filter(|(face, _)| {
             face.iter()
-                .filter(|vertex| forearm_weight(**vertex as usize) >= FOREARM_WEIGHT_THRESHOLD)
+                .filter(|vertex| supports_surface(**vertex as usize))
                 .count()
                 >= 2
         })
@@ -177,7 +186,11 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
                 })?;
             Ok(SurfaceVertex {
                 uv: texcoord,
-                axial: ((raw_axial(input.positions[*body]) - bounds.0) / extent).clamp(0.0, 1.0),
+                // The joint landmarks define the parameter domain. Boundary
+                // support geometry may extend past them, but is clamped so an
+                // endpoint contour crosses a complete elbow or wrist section
+                // instead of converging on a skin-weight extremum.
+                axial: raw_axial(input.positions[*body]).clamp(0.0, 1.0),
                 position: input.positions[*body],
                 normal: input.normals[*body],
                 joint_indices: input.joint_indices[*body],
@@ -255,5 +268,50 @@ mod tests {
         .unwrap();
         assert_eq!(surface.faces.len(), 2);
         assert_eq!(surface.vertices.len(), 6);
+    }
+
+    #[test]
+    fn wrist_weights_complete_the_distal_forearm_boundary() {
+        let positions = [
+            [-1.0, 0.8, 0.0],
+            [1.0, 0.8, 0.0],
+            [-1.0, 1.05, 0.0],
+            [1.0, 1.05, 0.0],
+        ];
+        let normals = [[0.0, 0.0, 1.0]; 4];
+        let faces = [[0, 2, 3], [0, 3, 1]];
+        let texcoords = [[0.0, 0.0], [1.0, 0.0], [0.0, 1.0], [1.0, 1.0]];
+        let joint_indices = [[0; 8], [0; 8], [1; 8], [1; 8]];
+        let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
+        let joint_names = vec!["l_lowarm".into(), "l_wrist".into()];
+        let states = [
+            [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
+            [0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
+        ];
+        let surface = build_forearm_surface(ForearmSurfaceInput {
+            domain: "test",
+            side: ForearmSide::Left,
+            positions: &positions,
+            normals: &normals,
+            faces: &faces,
+            texcoords: &texcoords,
+            texcoord_faces: &faces,
+            joint_indices: &joint_indices,
+            joint_weights: &joint_weights,
+            joint_names: &joint_names,
+            global_joint_states: &states,
+            morphs: &[],
+        })
+        .unwrap();
+
+        assert_eq!(surface.faces.len(), 2);
+        assert_eq!(
+            surface
+                .vertices
+                .iter()
+                .filter(|vertex| vertex.axial == 1.0)
+                .count(),
+            2
+        );
     }
 }

@@ -231,43 +231,38 @@ fn contour(
     };
     let u = normalized(cross(axis, reference)).ok_or(GenerateError::Degenerate)?;
     let v = cross(axis, u);
-    points.sort_by(|a, b| {
-        let angle = |point: &ContourPoint| {
-            let radial = subtract(point.position, center);
-            dot(radial, v).atan2(dot(radial, u))
-        };
-        angle(a).partial_cmp(&angle(b)).unwrap_or(Ordering::Equal)
-    });
+    let angle = |point: &ContourPoint| {
+        let radial = subtract(point.position, center);
+        dot(radial, v).atan2(dot(radial, u))
+    };
+    points.sort_by(|a, b| angle(a).partial_cmp(&angle(b)).unwrap_or(Ordering::Equal));
 
-    let mut cumulative = vec![0.0];
-    for index in 0..points.len() {
-        let next = (index + 1) % points.len();
-        cumulative.push(
-            cumulative[index] + length(subtract(points[next].position, points[index].position)),
-        );
-    }
-    let perimeter = *cumulative.last().unwrap();
-    if perimeter <= 1e-7 {
-        return Err(GenerateError::Degenerate);
-    }
+    let angles = points.iter().map(angle).collect::<Vec<_>>();
     let mut result = Vec::with_capacity(AROUND);
     for segment in 0..AROUND {
-        let distance = perimeter * segment as f32 / AROUND as f32;
-        let edge = cumulative
+        let target = -std::f32::consts::PI + std::f32::consts::TAU * segment as f32 / AROUND as f32;
+        let bracket = angles
             .windows(2)
-            .position(|interval| distance >= interval[0] && distance <= interval[1])
-            .unwrap_or(points.len() - 1);
-        let edge_length = cumulative[edge + 1] - cumulative[edge];
-        let factor = if edge_length <= 1e-8 {
-            0.0
+            .position(|pair| target >= pair[0] && target <= pair[1]);
+        let (a, b, start_angle, end_angle) = if let Some(edge) = bracket {
+            (edge, edge + 1, angles[edge], angles[edge + 1])
+        } else if target < angles[0] {
+            (
+                points.len() - 1,
+                0,
+                angles[points.len() - 1] - std::f32::consts::TAU,
+                angles[0],
+            )
         } else {
-            (distance - cumulative[edge]) / edge_length
+            (
+                points.len() - 1,
+                0,
+                angles[points.len() - 1],
+                angles[0] + std::f32::consts::TAU,
+            )
         };
-        result.push(blend(
-            &points[edge].sample,
-            &points[(edge + 1) % points.len()].sample,
-            factor,
-        ));
+        let factor = (target - start_angle) / (end_angle - start_angle);
+        result.push(blend(&points[a].sample, &points[b].sample, factor));
     }
     Ok(result)
 }

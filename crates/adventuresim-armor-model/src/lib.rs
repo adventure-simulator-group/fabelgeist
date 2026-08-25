@@ -8,7 +8,7 @@ pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 2;
+pub const GENERATOR_VERSION: u16 = 3;
 
 pub fn encode(design: &BracerDesign) -> Result<Vec<u8>, DesignError> {
     validate(design)?;

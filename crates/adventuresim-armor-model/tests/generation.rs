@@ -14,7 +14,10 @@ fn cylinder_surface(radius: f32) -> AnatomicalSurface {
     for ring in 0..rings {
         let axial = ring as f32 / (rings - 1) as f32;
         for segment in 0..=segments {
-            let angle = segment as f32 / segments as f32 * std::f32::consts::TAU;
+            // Stagger source rings so an arbitrary per-ring starting edge
+            // would twist the independently owned armor grid.
+            let phase = if ring % 2 == 0 { 0.0 } else { 0.04 };
+            let angle = segment as f32 / segments as f32 * std::f32::consts::TAU + phase;
             let normal = [angle.cos(), 0.0, angle.sin()];
             vertices.push(SurfaceVertex {
                 uv: [segment as f32 / segments as f32, axial],
