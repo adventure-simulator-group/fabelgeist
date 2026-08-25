@@ -1,0 +1,15 @@
+[package]
+name = "adventuresim-armor-model"
+version = "0.1.0"
+edition = "2024"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+license = "GPL-3.0"
+
+[dependencies]
+blake3 = { workspace = true }
+postcard = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

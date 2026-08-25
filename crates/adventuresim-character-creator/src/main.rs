@@ -1,11 +1,13 @@
 use std::path::PathBuf;
 
+use adventuresim_armor_model::{BracerDesign, GeneratedArmor, generate_bracer};
 use adventuresim_character_creator::{
-    CharacterRecipe, ClothingSelection, IdentityGroup,
+    CharacterRecipe, ClothingSelection, EXPRESSION_COUNT, IDENTITY_COUNT, IdentityGroup,
+    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
     clothing::{GarmentSpecification, generate_clothing_shells},
     export::{
-        MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedShell, RiggedSocket, SurfaceUvLayout,
-        export_rigged_glb, fitted_equipment_socket_from_uv,
+        MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell, RiggedSocket,
+        SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
     },
     item_catalog_schema::{EquipmentLocation, ItemCatalogDocument, ItemDefinition},
 };
@@ -74,6 +76,7 @@ struct Studio {
     seed: u64,
     selected_lod: u8,
     selected_correctives: bool,
+    bracer_design: BracerDesign,
 }
 
 #[derive(Component)]
@@ -120,7 +123,13 @@ fn main() -> Result<()> {
         return Ok(());
     }
     if args.export_only {
-        export_character(&args.glb, &model, &recipe, &catalog)?;
+        export_character(
+            &args.glb,
+            &model,
+            &recipe,
+            &catalog,
+            &BracerDesign::default(),
+        )?;
         println!("Exported {}", args.glb.display());
         return Ok(());
     }
@@ -141,6 +150,7 @@ fn main() -> Result<()> {
             seed: 1544,
             selected_lod: args.lod,
             selected_correctives: false,
+            bracer_design: BracerDesign::default(),
         })
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
@@ -298,6 +308,61 @@ fn studio_ui(
                 }
             });
             ui.small("Bone-weight shells follow the generated body and share its MHR skin.");
+            ui.collapsing("Parametric bracers", |ui| {
+                let mut changed = false;
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut studio.bracer_design.coverage.0, 50..=1_000)
+                            .text("Forearm coverage")
+                            .suffix(" ‰"),
+                    )
+                    .changed();
+                let maximum_offset = 1_000_u16 - studio.bracer_design.coverage.0;
+                if studio.bracer_design.wrist_offset.0 > maximum_offset {
+                    studio.bracer_design.wrist_offset.0 = maximum_offset;
+                    changed = true;
+                }
+                changed |= ui
+                    .add(
+                        egui::Slider::new(
+                            &mut studio.bracer_design.wrist_offset.0,
+                            0..=maximum_offset,
+                        )
+                        .text("Wrist offset")
+                        .suffix(" ‰"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut studio.bracer_design.wall_thickness.0, 1..=20)
+                            .text("Wall thickness")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut studio.bracer_design.clearance.0, 1..=30)
+                            .text("Body clearance")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                ui.horizontal(|ui| {
+                    if ui.button("Bracelet").clicked() {
+                        studio.bracer_design = BracerDesign::bracelet();
+                        changed = true;
+                    }
+                    if ui.button("Vambrace").clicked() {
+                        studio.bracer_design = BracerDesign::default();
+                        changed = true;
+                    }
+                    if ui.button("Full forearm").clicked() {
+                        studio.bracer_design = BracerDesign::full_forearm();
+                        changed = true;
+                    }
+                });
+                ui.small("Enable either Vambrace catalog placement above to preview it.");
+                studio.dirty |= changed;
+            });
             ui.separator();
 
             ui.horizontal(|ui| {
@@ -388,6 +453,7 @@ fn studio_ui(
                     &model,
                     &studio.recipe,
                     &catalog,
+                    &studio.bracer_design,
                 )
                 .map(|()| format!("Exported {}", studio.glb_path))
                 .unwrap_or_else(|error| format!("Export failed: {error:#}"));
@@ -458,6 +524,7 @@ fn selected_garments(
     recipe
         .clothing
         .iter()
+        .filter(|selection| selection.item_id != "vambrace")
         .map(|selection| {
             let item = procedural_items(catalog)
                 .find(|item| item.id == selection.item_id)
@@ -487,6 +554,45 @@ fn selected_garments(
             ))
         })
         .collect()
+}
+
+fn selected_vambrace_sides(recipe: &CharacterRecipe) -> Vec<ForearmSide> {
+    recipe
+        .clothing
+        .iter()
+        .filter(|selection| selection.item_id == "vambrace")
+        .filter_map(|selection| match selection.placement_id.as_str() {
+            "left" => Some(ForearmSide::Left),
+            "right" => Some(ForearmSide::Right),
+            _ => None,
+        })
+        .collect()
+}
+
+fn fitted_bracer(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &BracerDesign,
+    side: ForearmSide,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let character = &model.mhr.character;
+    let surface = build_forearm_surface(ForearmSurfaceInput {
+        domain: MHR_ANATOMICAL_UV_DOMAIN,
+        side,
+        positions: &generated.positions,
+        normals: &generated.normals,
+        faces: &character.mesh.faces,
+        texcoords: &character.mesh.texcoords,
+        texcoord_faces: &character.mesh.texcoord_faces,
+        joint_indices: &character.skin_weights.index,
+        joint_weights: &character.skin_weights.weight,
+        joint_names: &character.skeleton.names,
+        global_joint_states: &generated.global_joint_states,
+        morphs,
+    })
+    .map_err(anyhow::Error::msg)?;
+    generate_bracer(design, &surface).map_err(anyhow::Error::new)
 }
 
 fn placement_coverage(
@@ -526,12 +632,79 @@ fn generate_equipment_assets(
         .with_context(|| format!("creating equipment output {}", output.display()))?;
     let generated = generate_character(model, recipe)?;
     let character = &model.mhr.character;
+    let bracer_morphs = generate_morph_samples(model, recipe)?;
     let mut assets = Vec::new();
     let mut generated_files = std::collections::BTreeSet::new();
     for item in procedural_items(catalog) {
         let equipment = item.equipment.as_ref().expect("filtered equipment");
         for placement in &equipment.placements {
             if placement.surface.is_empty() {
+                continue;
+            }
+            if item.id == "vambrace" {
+                let side = match placement.id.as_str() {
+                    "left" => ForearmSide::Left,
+                    "right" => ForearmSide::Right,
+                    _ => anyhow::bail!("vambrace placement {} has no forearm side", placement.id),
+                };
+                let design = BracerDesign::default();
+                let armor = fitted_bracer(model, &generated, &design, side, &bracer_morphs)?;
+                let faces = armor.indices.as_chunks::<3>().0.to_vec();
+                let morph_targets = armor
+                    .morphs
+                    .iter()
+                    .map(|target| RiggedMorphTarget {
+                        name: &target.name,
+                        position_deltas: &target.position_deltas,
+                        normal_deltas: &target.normal_deltas,
+                    })
+                    .collect::<Vec<_>>();
+                let file_name = format!("{}--{}.glb", item.id, placement.id);
+                let path = output.join(&file_name);
+                let rigged_shell = RiggedShell {
+                    name: &item.display_name,
+                    positions: &armor.positions,
+                    normals: &armor.normals,
+                    faces: &faces,
+                    joint_indices: Some(&armor.joint_indices),
+                    joint_weights: Some(&armor.joint_weights),
+                    morph_targets: &morph_targets,
+                    base_color: [0.769, 0.776, 0.776, 1.0],
+                    metallic: 1.0,
+                    roughness: 0.20,
+                };
+                export_rigged_glb(
+                    &path,
+                    &item.id,
+                    recipe.version,
+                    model.lod,
+                    &RiggedMesh {
+                        positions: &generated.positions,
+                        normals: &generated.normals,
+                        faces: &character.mesh.faces,
+                        export_body: false,
+                        joint_indices: &character.skin_weights.index,
+                        joint_weights: &character.skin_weights.weight,
+                        joint_names: &character.skeleton.names,
+                        joint_parents: &character.skeleton.parents,
+                        global_joint_states: &generated.global_joint_states,
+                    },
+                    &[rigged_shell],
+                    &[],
+                )?;
+                generated_files.insert(file_name.clone());
+                assets.push(serde_json::json!({
+                    "item_id": item.id,
+                    "placement_id": placement.id,
+                    "file": file_name,
+                    "coverage": design.coverage.unit(),
+                    "material": equipment.material,
+                    "triangles": faces.len(),
+                    "armor_generator_version": adventuresim_armor_model::GENERATOR_VERSION,
+                    "armor_design_hash": armor.design_hash.iter().map(|byte| format!("{byte:02x}")).collect::<String>(),
+                    "morph_targets": armor.morphs.len(),
+                    "surface_uv_domain": armor.surface_domain,
+                }));
                 continue;
             }
             let specification = GarmentSpecification::from_catalog(
@@ -560,6 +733,9 @@ fn generate_equipment_assets(
                 positions: &shell.positions,
                 normals: &shell.normals,
                 faces: &shell.faces,
+                joint_indices: None,
+                joint_weights: None,
+                morph_targets: &[],
                 base_color: shell.specification.base_color,
                 metallic: shell.specification.metallic,
                 roughness: shell.specification.roughness,
@@ -746,11 +922,6 @@ fn regenerate_mesh(
             return;
         }
     };
-    let GeneratedCharacter {
-        positions,
-        normals,
-        global_joint_states,
-    } = generated;
     let faces = &model.mhr.character.mesh.faces;
     let specifications = match selected_garments(&studio.recipe, &catalog) {
         Ok(specifications) => specifications,
@@ -761,17 +932,28 @@ fn regenerate_mesh(
     };
     let clothed = match generate_clothing_shells(
         &specifications,
-        &positions,
-        &normals,
+        &generated.positions,
+        &generated.normals,
         faces,
         &model.mhr.character.skin_weights.index,
         &model.mhr.character.skin_weights.weight,
         &model.mhr.character.skeleton.names,
-        &global_joint_states,
+        &generated.global_joint_states,
     ) {
         Ok(clothed) => clothed,
         Err(error) => {
             studio.status = format!("Clothing generation failed: {error}");
+            return;
+        }
+    };
+    let bracers = match selected_vambrace_sides(&studio.recipe)
+        .into_iter()
+        .map(|side| fitted_bracer(&model, &generated, &studio.bracer_design, side, &[]))
+        .collect::<Result<Vec<_>>>()
+    {
+        Ok(bracers) => bracers,
+        Err(error) => {
+            studio.status = format!("Parametric bracer generation failed: {error:#}");
             return;
         }
     };
@@ -780,12 +962,13 @@ fn regenerate_mesh(
         .iter()
         .flat_map(|face| face.iter().copied())
         .collect::<Vec<_>>();
+    let clothing_shell_count = clothed.shells.len();
     let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
     )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, generated.positions.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, generated.normals.clone())
     .with_inserted_indices(Indices::U32(indices));
     for entity in &old {
         commands.entity(entity).despawn();
@@ -836,10 +1019,32 @@ fn regenerate_mesh(
             })),
         ));
     }
+    for (index, bracer) in bracers.iter().enumerate() {
+        let mesh = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::default(),
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, bracer.positions.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, bracer.normals.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, bracer.texcoords.clone())
+        .with_inserted_indices(Indices::U32(bracer.indices.clone()));
+        commands.spawn((
+            CharacterMesh,
+            Name::new(format!("Parametric bracer {}", index + 1)),
+            Mesh3d(meshes.add(mesh)),
+            MeshMaterial3d(materials.add(StandardMaterial {
+                base_color: Color::srgb(0.769, 0.776, 0.776),
+                metallic: 1.0,
+                perceptual_roughness: 0.20,
+                ..default()
+            })),
+        ));
+    }
     studio.status = format!(
-        "Generated {} vertices · {} clothing shells",
+        "Generated {} body vertices · {} clothing shells · {} parametric bracers",
         model.mhr.num_vertices(),
-        studio.recipe.clothing.len()
+        clothing_shell_count,
+        bracers.len(),
     );
 }
 
@@ -913,11 +1118,46 @@ fn generate_character(model: &BodyModel, recipe: &CharacterRecipe) -> Result<Gen
     })
 }
 
+fn generate_morph_samples(
+    model: &BodyModel,
+    base: &CharacterRecipe,
+) -> Result<Vec<ForearmMorphSample>> {
+    let names = &model.mhr.character.blend_shapes.names;
+    if names.len() != IDENTITY_COUNT + EXPRESSION_COUNT {
+        anyhow::bail!(
+            "MHR exposes {} morph targets, expected {} identity plus {} expression targets",
+            names.len(),
+            IDENTITY_COUNT,
+            EXPRESSION_COUNT,
+        );
+    }
+    names
+        .iter()
+        .enumerate()
+        .map(|(index, name)| {
+            let mut target = base.clone();
+            if index < IDENTITY_COUNT {
+                target.identity[index] += 1.0;
+            } else {
+                target.expression[index - IDENTITY_COUNT] += 1.0;
+            }
+            let generated = generate_character(model, &target)
+                .with_context(|| format!("generating armor morph target {name}"))?;
+            Ok(ForearmMorphSample {
+                name: name.clone(),
+                positions: generated.positions,
+                normals: generated.normals,
+            })
+        })
+        .collect()
+}
+
 fn export_character(
     path: &std::path::Path,
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
+    bracer_design: &BracerDesign,
 ) -> Result<()> {
     let generated = generate_character(model, recipe)?;
     let character = &model.mhr.character;
@@ -933,7 +1173,15 @@ fn export_character(
         &generated.global_joint_states,
     )
     .map_err(anyhow::Error::msg)?;
-    let shells = clothed
+    let bracers = selected_vambrace_sides(recipe)
+        .into_iter()
+        .map(|side| fitted_bracer(model, &generated, bracer_design, side, &[]))
+        .collect::<Result<Vec<_>>>()?;
+    let bracer_faces = bracers
+        .iter()
+        .map(|bracer| bracer.indices.as_chunks::<3>().0.to_vec())
+        .collect::<Vec<_>>();
+    let mut shells = clothed
         .shells
         .iter()
         .map(|shell| {
@@ -943,12 +1191,33 @@ fn export_character(
                 positions: &shell.positions,
                 normals: &shell.normals,
                 faces: &shell.faces,
+                joint_indices: None,
+                joint_weights: None,
+                morph_targets: &[],
                 base_color: specification.base_color,
                 metallic: specification.metallic,
                 roughness: specification.roughness,
             }
         })
         .collect::<Vec<_>>();
+    for (index, (bracer, faces)) in bracers.iter().zip(&bracer_faces).enumerate() {
+        shells.push(RiggedShell {
+            name: if index == 0 {
+                "Parametric vambrace"
+            } else {
+                "Parametric vambrace pair"
+            },
+            positions: &bracer.positions,
+            normals: &bracer.normals,
+            faces,
+            joint_indices: Some(&bracer.joint_indices),
+            joint_weights: Some(&bracer.joint_weights),
+            morph_targets: &[],
+            base_color: [0.769, 0.776, 0.776, 1.0],
+            metallic: 1.0,
+            roughness: 0.20,
+        });
+    }
     export_rigged_glb(
         path,
         &recipe.name,

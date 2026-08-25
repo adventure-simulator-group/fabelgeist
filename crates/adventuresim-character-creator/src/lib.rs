@@ -1,5 +1,6 @@
 //! Data model for the standalone MHR character creator.
 
+pub mod bracer;
 pub mod clothing;
 mod clothing_material;
 pub mod export;
