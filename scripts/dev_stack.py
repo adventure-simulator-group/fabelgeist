@@ -1423,10 +1423,13 @@ def executable_identity_matches(expected: object, actual: object) -> bool:
     # testable without weakening the exact executable-name allowlist on POSIX.
     expected_name = PureWindowsPath(expected_path).stem.casefold()
     actual_name = PureWindowsPath(actual_path).stem.casefold()
-    return (
-        expected_name in {"spacetime", "spacetimedb-cli"}
-        and actual_name in {"spacetime-standalone", "spacetimedb-standalone"}
-    )
+    spacetime_processes = {
+        "spacetime",
+        "spacetimedb-cli",
+        "spacetime-standalone",
+        "spacetimedb-standalone",
+    }
+    return expected_name in spacetime_processes and actual_name in spacetime_processes
 
 
 def identity_matches(expected: dict[str, object]) -> bool:
@@ -1746,7 +1749,11 @@ def run_profile(
                 print("Strategic layer and WASM client are not built or running.")
                 print("Run `just tactical` and `just client` in other terminals (no arguments needed).")
                 print("Press Ctrl+C to stop the isolated database.")
-                return stdb.wait()
+                try:
+                    return stdb.wait()
+                except KeyboardInterrupt:
+                    print("\nStopping isolated tactical database...")
+                    return 0
 
             gateway_token = spacetime_auth_token()
             if mode is ProfileMode.STRATEGIC:
@@ -1837,6 +1844,25 @@ def live_spacetime_for_profile(name: str, base_port: int) -> dict[str, str] | No
     if metadata.get("config") != expected_config or not identity_matches(metadata.get("process", {})):
         return None
     return {"server": server, "database": database}
+
+
+def stop_tactical_profile(name: str, base_port: int) -> int:
+    values = profile_values(name, base_port)
+    profile_dir = Path(str(values["profile_dir"]))
+    if not profile_dir.is_dir():
+        return 0
+    with ProfileLock(profile_dir / "lifecycle.lock"):
+        config = {
+            "role": "spacetimedb",
+            "profile": name,
+            "worktree_fingerprint": values["worktree_fingerprint"],
+            "server": f"http://127.0.0.1:{values['spacetime_port']}",
+            "database": values["database"],
+            "data_dir": str(values["data_dir"]),
+        }
+        stop_spacetime(profile_dir / "run" / "spacetime.identity.json", config)
+        remove_tactical_env_file()
+    return 0
 
 
 def reseed_tactical_mission(
@@ -3187,6 +3213,9 @@ def create_parser() -> argparse.ArgumentParser:
     )
     sub.add_parser("tactical-status")
     sub.add_parser("tactical-client")
+    tactical_stopper = sub.add_parser("stop-tactical-profile")
+    tactical_stopper.add_argument("name")
+    tactical_stopper.add_argument("base_port", type=int)
     reseeder = sub.add_parser("reseed-tactical-mission")
     reseeder.add_argument("--mission-id-prefix", default="mission:test-mission")
     reseeder.add_argument("--scene-key", default="hills")
@@ -3257,6 +3286,8 @@ def main() -> int:
             return tactical_status()
         if args.command == "tactical-client":
             return tactical_client_relaunch()
+        if args.command == "stop-tactical-profile":
+            return stop_tactical_profile(args.name, args.base_port)
         if args.command == "reseed-tactical-mission":
             return reseed_tactical_mission(
                 args.name, args.base_port, mission_id_prefix=args.mission_id_prefix,
