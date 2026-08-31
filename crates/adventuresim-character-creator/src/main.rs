@@ -1,9 +1,12 @@
 use std::path::PathBuf;
 
-use adventuresim_armor_model::{BracerDesign, GeneratedArmor, generate_bracer};
+use adventuresim_armor_model::{
+    BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
+};
 use adventuresim_character_creator::{
     CharacterRecipe, ClothingSelection, EXPRESSION_COUNT, IDENTITY_COUNT, IdentityGroup,
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
+    breastplate::{TorsoSurfaceInput, build_front_torso_surface},
     clothing::{GarmentSpecification, generate_clothing_shells},
     export::{
         MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell, RiggedSocket,
@@ -77,6 +80,7 @@ struct Studio {
     selected_lod: u8,
     selected_correctives: bool,
     bracer_design: BracerDesign,
+    breastplate_design: BreastplateDesign,
 }
 
 #[derive(Component)]
@@ -129,6 +133,7 @@ fn main() -> Result<()> {
             &recipe,
             &catalog,
             &BracerDesign::default(),
+            &BreastplateDesign::default(),
         )?;
         println!("Exported {}", args.glb.display());
         return Ok(());
@@ -151,6 +156,7 @@ fn main() -> Result<()> {
             selected_lod: args.lod,
             selected_correctives: false,
             bracer_design: BracerDesign::default(),
+            breastplate_design: BreastplateDesign::default(),
         })
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
@@ -363,6 +369,83 @@ fn studio_ui(
                 ui.small("Enable either Vambrace catalog placement above to preview it.");
                 studio.dirty |= changed;
             });
+            ui.collapsing("Parametric front breastplate", |ui| {
+                let design = &mut studio.breastplate_design;
+                let mut changed = false;
+                changed |= ui
+                    .add(egui::Slider::new(&mut design.neck_width.0, 200..=700).text("Neck width"))
+                    .changed();
+                changed |= ui
+                    .add(egui::Slider::new(&mut design.neck_depth.0, 0..=500).text("Neck depth"))
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.arm_opening_depth.0, 100..=600)
+                            .text("Arm opening depth"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.waist_width.0, 550..=1_000)
+                            .text("Waist width"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.stomach_height.0, 0..=350)
+                            .text("Stomach edge height"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.rigidity.0, 0..=1_000).text("Plate rigidity"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(egui::Slider::new(&mut design.wrap.0, 0..=1_000).text("Torso wrap"))
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.crown.0, 0..=80)
+                            .text("Rounded crown")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.skirt_length.0, 40..=250)
+                            .text("Skirt length")
+                            .suffix(" ‰"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.skirt_flare.0, 0..=120)
+                            .text("Skirt flare")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.wall_thickness.0, 1..=20)
+                            .text("Wall thickness")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut design.clearance.0, 1..=30)
+                            .text("Body clearance")
+                            .suffix(" mm"),
+                    )
+                    .changed();
+                if ui.button("Reset breastplate").clicked() {
+                    *design = BreastplateDesign::default();
+                    changed = true;
+                }
+                ui.small("Enable Breastplate · worn above to preview it.");
+                studio.dirty |= changed;
+            });
             ui.separator();
 
             ui.horizontal(|ui| {
@@ -454,6 +537,7 @@ fn studio_ui(
                     &studio.recipe,
                     &catalog,
                     &studio.bracer_design,
+                    &studio.breastplate_design,
                 )
                 .map(|()| format!("Exported {}", studio.glb_path))
                 .unwrap_or_else(|error| format!("Export failed: {error:#}"));
@@ -524,7 +608,7 @@ fn selected_garments(
     recipe
         .clothing
         .iter()
-        .filter(|selection| selection.item_id != "vambrace")
+        .filter(|selection| !matches!(selection.item_id.as_str(), "vambrace" | "breastplate"))
         .map(|selection| {
             let item = procedural_items(catalog)
                 .find(|item| item.id == selection.item_id)
@@ -569,6 +653,13 @@ fn selected_vambrace_sides(recipe: &CharacterRecipe) -> Vec<ForearmSide> {
         .collect()
 }
 
+fn breastplate_selected(recipe: &CharacterRecipe) -> bool {
+    recipe
+        .clothing
+        .iter()
+        .any(|selection| selection.item_id == "breastplate" && selection.placement_id == "worn")
+}
+
 fn fitted_bracer(
     model: &BodyModel,
     generated: &GeneratedCharacter,
@@ -593,6 +684,30 @@ fn fitted_bracer(
     })
     .map_err(anyhow::Error::msg)?;
     generate_bracer(design, &surface).map_err(anyhow::Error::new)
+}
+
+fn fitted_breastplate(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &BreastplateDesign,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let character = &model.mhr.character;
+    let surface = build_front_torso_surface(TorsoSurfaceInput {
+        domain: MHR_ANATOMICAL_UV_DOMAIN,
+        positions: &generated.positions,
+        normals: &generated.normals,
+        faces: &character.mesh.faces,
+        texcoords: &character.mesh.texcoords,
+        texcoord_faces: &character.mesh.texcoord_faces,
+        joint_indices: &character.skin_weights.index,
+        joint_weights: &character.skin_weights.weight,
+        joint_names: &character.skeleton.names,
+        global_joint_states: &generated.global_joint_states,
+        morphs,
+    })
+    .map_err(anyhow::Error::msg)?;
+    generate_breastplate(design, &surface).map_err(anyhow::Error::new)
 }
 
 fn placement_coverage(
@@ -622,6 +737,19 @@ fn belt_mount_outward(location: EquipmentLocation) -> Option<[f64; 3]> {
     })
 }
 
+fn signed_shape_zero_endpoint_recipe(source: &CharacterRecipe, sign: f32) -> CharacterRecipe {
+    CharacterRecipe {
+        version: source.version,
+        name: source.name.clone(),
+        identity: {
+            let mut identity = vec![0.0; IDENTITY_COUNT];
+            identity[0] = sign;
+            identity
+        },
+        expression: vec![0.0; EXPRESSION_COUNT],
+        clothing: Vec::new(),
+    }
+}
 fn generate_equipment_assets(
     output: &std::path::Path,
     model: &BodyModel,
@@ -641,14 +769,28 @@ fn generate_equipment_assets(
             if placement.surface.is_empty() {
                 continue;
             }
-            if item.id == "vambrace" {
-                let side = match placement.id.as_str() {
-                    "left" => ForearmSide::Left,
-                    "right" => ForearmSide::Right,
-                    _ => anyhow::bail!("vambrace placement {} has no forearm side", placement.id),
+            if matches!(item.id.as_str(), "vambrace" | "breastplate") {
+                let (armor, parametric_coverage) = if item.id == "vambrace" {
+                    let side = match placement.id.as_str() {
+                        "left" => ForearmSide::Left,
+                        "right" => ForearmSide::Right,
+                        _ => {
+                            anyhow::bail!("vambrace placement {} has no forearm side", placement.id)
+                        }
+                    };
+                    let design = BracerDesign::default();
+                    (
+                        fitted_bracer(model, &generated, &design, side, &bracer_morphs)?,
+                        design.coverage.unit(),
+                    )
+                } else {
+                    let design = BreastplateDesign::default();
+                    (
+                        fitted_breastplate(model, &generated, &design, &bracer_morphs)?,
+                        placement_coverage(placement),
+                    )
                 };
-                let design = BracerDesign::default();
-                let armor = fitted_bracer(model, &generated, &design, side, &bracer_morphs)?;
+                let armor = center_signed_armor_morphs(armor)?;
                 let faces = armor.indices.as_chunks::<3>().0.to_vec();
                 let morph_targets = armor
                     .morphs
@@ -697,7 +839,7 @@ fn generate_equipment_assets(
                     "item_id": item.id,
                     "placement_id": placement.id,
                     "file": file_name,
-                    "coverage": design.coverage.unit(),
+                    "coverage": parametric_coverage,
                     "material": equipment.material,
                     "triangles": faces.len(),
                     "armor_generator_version": adventuresim_armor_model::GENERATOR_VERSION,
@@ -957,6 +1099,17 @@ fn regenerate_mesh(
             return;
         }
     };
+    let breastplate = if breastplate_selected(&studio.recipe) {
+        match fitted_breastplate(&model, &generated, &studio.breastplate_design, &[]) {
+            Ok(breastplate) => Some(breastplate),
+            Err(error) => {
+                studio.status = format!("Parametric breastplate generation failed: {error:#}");
+                return;
+            }
+        }
+    } else {
+        None
+    };
     let indices = clothed
         .visible_body_faces
         .iter()
@@ -1040,11 +1193,33 @@ fn regenerate_mesh(
             })),
         ));
     }
+    if let Some(breastplate) = &breastplate {
+        let mesh = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::default(),
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, breastplate.positions.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, breastplate.normals.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, breastplate.texcoords.clone())
+        .with_inserted_indices(Indices::U32(breastplate.indices.clone()));
+        commands.spawn((
+            CharacterMesh,
+            Name::new("Parametric front breastplate"),
+            Mesh3d(meshes.add(mesh)),
+            MeshMaterial3d(materials.add(StandardMaterial {
+                base_color: Color::srgb(0.769, 0.776, 0.776),
+                metallic: 1.0,
+                perceptual_roughness: 0.20,
+                ..default()
+            })),
+        ));
+    }
     studio.status = format!(
-        "Generated {} body vertices · {} clothing shells · {} parametric bracers",
+        "Generated {} body vertices · {} clothing shells · {} bracers · {} breastplate",
         model.mhr.num_vertices(),
         clothing_shell_count,
         bracers.len(),
+        usize::from(breastplate.is_some()),
     );
 }
 
@@ -1131,25 +1306,175 @@ fn generate_morph_samples(
             EXPRESSION_COUNT,
         );
     }
-    names
-        .iter()
-        .enumerate()
-        .map(|(index, name)| {
-            let mut target = base.clone();
-            if index < IDENTITY_COUNT {
-                target.identity[index] += 1.0;
+    let mut samples = Vec::with_capacity(names.len() + 1);
+    for (index, name) in names.iter().enumerate() {
+        let signs: &[(f32, &str)] = if index == 0 {
+            &[(1.0, "positive"), (-1.0, "negative")]
+        } else {
+            &[(1.0, "positive")]
+        };
+        for &(sign, suffix) in signs {
+            let mut positive = if index == 0 {
+                // `shape_0` is the one signed runtime target. Its endpoints
+                // are absolute Body01 reference wearers, not one-unit offsets
+                // from the nonzero saved John recipe used by the zero-weight
+                // production mesh.
+                signed_shape_zero_endpoint_recipe(base, sign)
             } else {
-                target.expression[index - IDENTITY_COUNT] += 1.0;
+                base.clone()
+            };
+            if index != 0 {
+                if index < IDENTITY_COUNT {
+                    positive.identity[index] += sign;
+                } else {
+                    positive.expression[index - IDENTITY_COUNT] += sign;
+                }
             }
-            let generated = generate_character(model, &target)
-                .with_context(|| format!("generating armor morph target {name}"))?;
-            Ok(ForearmMorphSample {
-                name: name.clone(),
-                positions: generated.positions,
-                normals: generated.normals,
+            let positive = generate_character(model, &positive)
+                .with_context(|| format!("generating {suffix} armor morph target {name}"))?;
+            samples.push(ForearmMorphSample {
+                name: format!("{name}::{suffix}"),
+                positions: positive.positions,
+                normals: positive.normals,
+                global_joint_states: positive.global_joint_states,
+            });
+        }
+    }
+    Ok(samples)
+}
+
+fn center_signed_armor_morphs(mut armor: GeneratedArmor) -> Result<GeneratedArmor> {
+    if armor.morphs.is_empty() {
+        return Ok(armor);
+    }
+    let mut source = armor.morphs.into_iter();
+    let first_positive = source
+        .next()
+        .ok_or_else(|| anyhow::anyhow!("shape_0 positive armor morph is missing"))?;
+    let first_name = first_positive
+        .name
+        .strip_suffix("::positive")
+        .ok_or_else(|| anyhow::anyhow!("shape_0 positive suffix is missing"))?;
+    let mut first_negative = source
+        .next()
+        .ok_or_else(|| anyhow::anyhow!("shape_0 negative armor morph is missing"))?;
+    if first_negative.name.strip_suffix("::negative") != Some(first_name) {
+        anyhow::bail!("shape_0 signed armor pair names differ");
+    }
+    first_negative.name = first_name.to_owned();
+    // GLTF weight -1 must land on the explicitly fitted negative endpoint:
+    // base + (-1) * (base - negative) == negative.
+    for delta in &mut first_negative.position_deltas {
+        *delta = delta.map(|value| -value);
+    }
+    for delta in &mut first_negative.normal_deltas {
+        *delta = delta.map(|value| -value);
+    }
+    let mut centered = vec![first_negative];
+    for mut positive in source {
+        positive.name = positive
+            .name
+            .strip_suffix("::positive")
+            .ok_or_else(|| anyhow::anyhow!("positive armor morph suffix is missing"))?
+            .to_owned();
+        centered.push(positive);
+    }
+    for (index, morph) in centered.iter().enumerate() {
+        let weight = if index == 0 { -1.0 } else { 1.0 };
+        if morph.direct_positions.len() != armor.positions.len()
+            || morph.position_deltas.len() != armor.positions.len()
+        {
+            anyhow::bail!(
+                "armor morph {} has inconsistent endpoint topology",
+                morph.name
+            );
+        }
+        let maximum_error = armor
+            .positions
+            .iter()
+            .zip(&morph.position_deltas)
+            .zip(&morph.direct_positions)
+            .map(|((base, delta), direct)| {
+                (0..3)
+                    .map(|axis| (base[axis] + weight * delta[axis] - direct[axis]).abs())
+                    .fold(0.0_f32, f32::max)
             })
-        })
-        .collect()
+            .fold(0.0_f32, f32::max);
+        if maximum_error > 2.0e-6 {
+            anyhow::bail!(
+                "armor morph {} endpoint encoding error {maximum_error}m exceeds 0.000002m",
+                morph.name
+            );
+        }
+    }
+    armor.morphs = centered;
+    Ok(armor)
+}
+
+#[cfg(test)]
+mod equipment_morph_tests {
+    use super::*;
+    use adventuresim_armor_model::ArmorMorph;
+
+    #[test]
+    fn signed_shape_zero_endpoint_is_the_absolute_body01_wearer() {
+        let mut wearer = CharacterRecipe::default();
+        wearer.identity.fill(0.75);
+        wearer.expression.fill(-0.25);
+        let endpoint = signed_shape_zero_endpoint_recipe(&wearer, -1.0);
+        assert_eq!(endpoint.version, wearer.version);
+        assert_eq!(endpoint.identity[0], -1.0);
+        assert!(endpoint.identity[1..].iter().all(|value| *value == 0.0));
+        assert!(endpoint.expression.iter().all(|value| *value == 0.0));
+        assert!(endpoint.clothing.is_empty());
+    }
+
+    #[test]
+    fn runtime_negative_weight_reconstructs_the_independent_endpoint_vertices() {
+        let base = vec![[0.2, 1.1, -0.3], [-0.4, 0.7, 0.5]];
+        let negative_endpoint = [[0.1, 1.05, -0.28], [-0.36, 0.68, 0.44]];
+        let endpoint_deltas = negative_endpoint
+            .iter()
+            .zip(&base)
+            .map(|(endpoint, origin)| std::array::from_fn(|axis| endpoint[axis] - origin[axis]))
+            .collect::<Vec<_>>();
+        let zero_normals = vec![[0.0; 3]; base.len()];
+        let armor = GeneratedArmor {
+            design_hash: [0; 32],
+            surface_domain: "test".into(),
+            positions: base.clone(),
+            normals: zero_normals.clone(),
+            texcoords: vec![[0.0; 2]; base.len()],
+            joint_indices: vec![[0; 8]; base.len()],
+            joint_weights: vec![[0.0; 8]; base.len()],
+            indices: vec![0, 1, 0],
+            morphs: vec![
+                ArmorMorph {
+                    name: "shape_0::positive".into(),
+                    direct_positions: base.clone(),
+                    position_deltas: vec![[0.0; 3]; base.len()],
+                    normal_deltas: zero_normals.clone(),
+                },
+                ArmorMorph {
+                    name: "shape_0::negative".into(),
+                    direct_positions: negative_endpoint.to_vec(),
+                    position_deltas: endpoint_deltas,
+                    normal_deltas: zero_normals,
+                },
+            ],
+        };
+        let centered = center_signed_armor_morphs(armor).unwrap();
+        let applied = base
+            .iter()
+            .zip(&centered.morphs[0].position_deltas)
+            .map(|(origin, delta)| std::array::from_fn(|axis| origin[axis] - delta[axis]))
+            .collect::<Vec<[f32; 3]>>();
+        for (actual, expected) in applied.iter().zip(negative_endpoint) {
+            for axis in 0..3 {
+                assert!((actual[axis] - expected[axis]).abs() <= 1.0e-7);
+            }
+        }
+    }
 }
 
 fn export_character(
@@ -1158,6 +1483,7 @@ fn export_character(
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
     bracer_design: &BracerDesign,
+    breastplate_design: &BreastplateDesign,
 ) -> Result<()> {
     let generated = generate_character(model, recipe)?;
     let character = &model.mhr.character;
@@ -1181,6 +1507,12 @@ fn export_character(
         .iter()
         .map(|bracer| bracer.indices.as_chunks::<3>().0.to_vec())
         .collect::<Vec<_>>();
+    let breastplate = breastplate_selected(recipe)
+        .then(|| fitted_breastplate(model, &generated, breastplate_design, &[]))
+        .transpose()?;
+    let breastplate_faces = breastplate
+        .as_ref()
+        .map(|armor| armor.indices.as_chunks::<3>().0.to_vec());
     let mut shells = clothed
         .shells
         .iter()
@@ -1212,6 +1544,20 @@ fn export_character(
             faces,
             joint_indices: Some(&bracer.joint_indices),
             joint_weights: Some(&bracer.joint_weights),
+            morph_targets: &[],
+            base_color: [0.769, 0.776, 0.776, 1.0],
+            metallic: 1.0,
+            roughness: 0.20,
+        });
+    }
+    if let (Some(breastplate), Some(faces)) = (&breastplate, &breastplate_faces) {
+        shells.push(RiggedShell {
+            name: "Parametric front breastplate",
+            positions: &breastplate.positions,
+            normals: &breastplate.normals,
+            faces,
+            joint_indices: Some(&breastplate.joint_indices),
+            joint_weights: Some(&breastplate.joint_weights),
             morph_targets: &[],
             base_color: [0.769, 0.776, 0.776, 1.0],
             metallic: 1.0,

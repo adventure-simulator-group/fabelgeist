@@ -495,6 +495,7 @@ pub fn generate_bracer(
             let target_normals = generated_normals(&target_positions, &indices)?;
             Ok(ArmorMorph {
                 name: morph.name.clone(),
+                direct_positions: target_positions.clone(),
                 position_deltas: target_positions
                     .iter()
                     .zip(&positions)

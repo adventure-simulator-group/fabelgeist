@@ -122,6 +122,7 @@ dependencies = [
  "blake3",
  "postcard",
  "serde",
+ "spade",
  "thiserror 2.0.20",
 ]
 
@@ -8478,6 +8479,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "robust"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4e27ee8bb91ca0adcf0ecb116293afa12d393f9c2b9b9cd54d33e8078fe19839"
+
+[[package]]
 name = "rodio"
 version = "0.22.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9083,6 +9090,18 @@ checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
 dependencies = [
  "libc",
  "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "spade"
+version = "2.15.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9699399fd9349b00b184f5635b074f9ec93afffef30c853f8c875b32c0f8c7fa"
+dependencies = [
+ "hashbrown 0.16.1",
+ "num-traits",
+ "robust",
+ "smallvec",
 ]
 
 [[package]]

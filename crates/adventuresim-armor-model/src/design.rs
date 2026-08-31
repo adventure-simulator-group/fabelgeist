@@ -32,6 +32,53 @@ pub struct BracerDesign {
     pub wall_thickness: Millimeters,
 }
 
+#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct BreastplateDesign {
+    pub catalog_id: String,
+    /// Width of the neck opening across the upper front panel.
+    pub neck_width: Permille,
+    /// Distance the neckline descends below the shoulder peaks.
+    pub neck_depth: Permille,
+    /// Distance the armscyes descend below the shoulder peaks.
+    pub arm_opening_depth: Permille,
+    /// Width of the lower edge relative to the chest.
+    pub waist_width: Permille,
+    /// Height of the lower opening over the stomach.
+    pub stomach_height: Permille,
+    /// Strength of the plate fairing that suppresses anatomical detail.
+    pub rigidity: Permille,
+    /// Strength of the elliptical return from the sternum toward the flanks.
+    pub wrap: Permille,
+    /// Additional smooth forward crown at the center of the plate.
+    pub crown: Millimeters,
+    /// Length of the skirt below the waist rail, relative to torso height.
+    pub skirt_length: Permille,
+    /// Outward flare of the skirt's lower edge.
+    pub skirt_flare: Millimeters,
+    pub clearance: Millimeters,
+    pub wall_thickness: Millimeters,
+}
+
+impl Default for BreastplateDesign {
+    fn default() -> Self {
+        Self {
+            catalog_id: "breastplate".into(),
+            neck_width: Permille(260),
+            neck_depth: Permille(120),
+            arm_opening_depth: Permille(420),
+            waist_width: Permille(740),
+            stomach_height: Permille(350),
+            rigidity: Permille(1_000),
+            wrap: Permille(1_000),
+            crown: Millimeters(40),
+            skirt_length: Permille(130),
+            skirt_flare: Millimeters(90),
+            clearance: Millimeters(10),
+            wall_thickness: Millimeters(3),
+        }
+    }
+}
+
 impl Default for BracerDesign {
     fn default() -> Self {
         Self {
@@ -95,9 +142,87 @@ pub struct AnatomicalSurface {
     pub morphs: Vec<SurfaceMorph>,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TorsoVertex {
+    pub uv: [f32; 2],
+    /// Left-to-right coordinate centered on the sternum.
+    pub lateral: f32,
+    /// Stomach-to-neck coordinate defined by spinal landmarks.
+    pub vertical: f32,
+    pub position: [f32; 3],
+    pub normal: [f32; 3],
+    pub joint_indices: [u32; 8],
+    pub joint_weights: [f32; 8],
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TorsoCoronalAnchor {
+    pub vertical: f32,
+    pub depth: f32,
+}
+
+pub const TORSO_SHOULDER_ENVELOPE_SAMPLES: usize = 65;
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TorsoShoulderSample {
+    pub position: [f32; 3],
+    pub normal: [f32; 3],
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct TorsoClearanceMesh {
+    pub vertices: Vec<TorsoShoulderSample>,
+    pub faces: Vec<[u32; 3]>,
+    /// Morph-corresponding vertices, parallel to `TorsoSurface::morphs`.
+    pub morph_vertices: Vec<Vec<TorsoShoulderSample>>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TorsoUpperRigAnchors {
+    pub neck_base: [f32; 3],
+    pub clavicles: [[f32; 3]; 2],
+    pub shoulders: [[f32; 3]; 2],
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct TorsoSurface {
+    pub domain: String,
+    /// Model-space direction from the spine toward the anterior torso.
+    pub front: [f32; 3],
+    /// Per-morph anterior axes, parallel to `morphs`.  These are evaluated
+    /// from each fitted rig rather than inherited from the neutral wearer.
+    pub morph_fronts: Vec<[f32; 3]>,
+    /// Stable rig-authored anchors for the neck/clavicle/shoulder yoke.
+    pub upper_rig_anchors: TorsoUpperRigAnchors,
+    /// Morph-corresponding upper anchors, parallel to `morphs`.
+    pub morph_upper_rig_anchors: Vec<TorsoUpperRigAnchors>,
+    /// Per-morph normalized garment-domain coordinates for `vertices`.
+    /// Connectivity and vertex identity remain canonical, while each wearer
+    /// receives its own semantic lateral/vertical embedding.
+    pub morph_semantic_coordinates: Vec<Vec<[f32; 2]>>,
+    pub vertices: Vec<TorsoVertex>,
+    pub faces: Vec<[u32; 3]>,
+    /// Full-body sagittal midpoints measured before front-surface filtering.
+    pub coronal_anchors: Vec<TorsoCoronalAnchor>,
+    /// Anchor depths for each morph, parallel to `morphs` and `coronal_anchors`.
+    pub morph_coronal_depths: Vec<Vec<f32>>,
+    /// Full-body shoulder-top surface anchors measured before front filtering.
+    pub shoulder_envelope: Vec<TorsoShoulderSample>,
+    /// Ordered shoulder envelopes for each morph, parallel to `morphs`.
+    pub morph_shoulder_envelopes: Vec<Vec<TorsoShoulderSample>>,
+    /// Full upper-torso/neck/shoulder triangles used only for sparse anchor
+    /// placement and collision-clearance validation.
+    pub clearance_mesh: TorsoClearanceMesh,
+    pub morphs: Vec<SurfaceMorph>,
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct ArmorMorph {
     pub name: String,
+    /// Independently evaluated endpoint positions on the frozen production
+    /// topology. Exporters use these to verify signed-delta encoding exactly;
+    /// they are not a second mesh or alternate connectivity path.
+    pub direct_positions: Vec<[f32; 3]>,
     pub position_deltas: Vec<[f32; 3]>,
     pub normal_deltas: Vec<[f32; 3]>,
 }
@@ -129,4 +254,6 @@ pub enum DesignError {
     Clearance,
     #[error("armor recipe encoding failed")]
     Encoding,
+    #[error("breastplate edge parameters are outside their supported ranges")]
+    BreastplateEdges,
 }

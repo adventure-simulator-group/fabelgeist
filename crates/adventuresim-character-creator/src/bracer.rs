@@ -67,6 +67,10 @@ pub struct ForearmMorphSample {
     pub name: String,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
+    /// Global rig state fitted for this exact body realization.  Garment
+    /// semantic curves must be evaluated from these landmarks rather than
+    /// translating neutral landmarks by a nearest-envelope approximation.
+    pub global_joint_states: Vec<[f32; 8]>,
 }
 
 fn subtract(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {

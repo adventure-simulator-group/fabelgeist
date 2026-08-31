@@ -9,7 +9,11 @@ license = "GPL-3.0"
 blake3 = { workspace = true }
 postcard = { workspace = true }
 serde = { workspace = true }
+spade = { workspace = true }
 thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
 
 [lints]
 workspace = true
