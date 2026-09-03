@@ -25,6 +25,11 @@ mod underlayer_equipment;
 mod underlayer_preview;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
+mod drape_preview;
+use adventuresim_character_creator::garment::{
+    FabricPreset, GarmentPreset, GarmentSelection,
+};
+use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
@@ -189,6 +194,7 @@ fn main() -> Result<()> {
             &catalog,
             &bracer_design,
             &breastplate_design,
+            None,
         )?;
         println!("Exported {}", args.glb.display());
         return Ok(());
@@ -196,6 +202,7 @@ fn main() -> Result<()> {
 
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
+        .init_resource::<DrapeJob>()
         .insert_resource(args.clone())
         .init_resource::<underlayer_preview::MailMaps>()
         .insert_resource(model)
@@ -222,6 +229,7 @@ fn main() -> Result<()> {
             (
                 reload_model.before(regenerate_mesh),
                 regenerate_mesh,
+                drape_preview::poll.after(regenerate_mesh),
                 orbit_camera,
             ),
         )
@@ -234,6 +242,7 @@ fn main() -> Result<()> {
     reason = "egui's replacement requires a parent Ui, but this is the top-level panel"
 )]
 fn studio_ui(
+    drape_job: Res<DrapeJob>,
     mut contexts: EguiContexts,
     model: Res<BodyModel>,
     mut catalog: ResMut<EquipmentCatalog>,
@@ -243,113 +252,185 @@ fn studio_ui(
     egui::SidePanel::left("creator")
         .exact_width(360.0)
         .show(ctx, |ui| {
-            ui.add_space(8.0);
-            ui.label("Name");
-            ui.text_edit_singleline(&mut studio.recipe.name);
-            let lod_changed = ui
-                .add(
-                    egui::Slider::new(&mut studio.selected_lod, 0..=6)
-                        .text("Mesh LOD")
-                        .custom_formatter(|value, _| {
-                            let lod = value.round() as usize;
-                            let vertices = [73_639, 18_439, 10_661, 4_899, 2_461, 971, 595][lod];
-                            format!("{lod} · {vertices} vertices")
-                        }),
-                )
-                .changed();
-            if lod_changed {
-                studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
-            }
-            ui.small("LOD 0 is highest fidelity; LOD 6 is lowest.");
-            if ui
-                .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
-                .changed()
-            {
-                studio.status = format!(
-                    "Loading MHR LOD {} with correctives {}…",
-                    studio.selected_lod,
-                    if studio.selected_correctives {
-                        "enabled"
-                    } else {
-                        "disabled"
+            egui::ScrollArea::vertical()
+                .id_salt("creator_controls")
+                .show(ui, |ui| {
+                    ui.add_space(8.0);
+                    ui.label("Name");
+                    ui.text_edit_singleline(&mut studio.recipe.name);
+                    let lod_changed = ui
+                        .add(
+                            egui::Slider::new(&mut studio.selected_lod, 0..=6)
+                                .text("Mesh LOD")
+                                .custom_formatter(|value, _| {
+                                    let lod = value.round() as usize;
+                                    let vertices =
+                                        [73_639, 18_439, 10_661, 4_899, 2_461, 971, 595][lod];
+                                    format!("{lod} · {vertices} vertices")
+                                }),
+                        )
+                        .changed();
+                    if lod_changed {
+                        studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
                     }
-                );
-            }
-            ui.small(
+                    ui.small("LOD 0 is highest fidelity; LOD 6 is lowest.");
+                    if ui
+                        .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
+                        .changed()
+                    {
+                        studio.status = format!(
+                            "Loading MHR LOD {} with correctives {}…",
+                            studio.selected_lod,
+                            if studio.selected_correctives {
+                                "enabled"
+                            } else {
+                                "disabled"
+                            }
+                        );
+                    }
+                    ui.small(
                 "Correctives improve posed deformation but require substantially more memory.",
             );
-            ui.separator();
+                    ui.separator();
 
-            ui.collapsing("Catalog clothing and armor", |ui| {
-                for item in procedural_items(&catalog) {
-                    let equipment = item.equipment.as_ref().expect("filtered equipment");
-                    for placement in &equipment.placements {
-                        let selection = ClothingSelection {
-                            item_id: item.id.clone(),
-                            placement_id: placement.id.clone(),
-                        };
-                        let mut enabled = studio.recipe.clothing.contains(&selection);
-                        let label = if equipment.placements.len() == 1 {
-                            item.display_name.clone()
-                        } else {
-                            format!("{} · {}", item.display_name, placement.id)
-                        };
-                        if ui.checkbox(&mut enabled, label).changed() {
-                            if enabled {
-                                studio.recipe.clothing.push(selection.clone());
-                            } else {
-                                studio
-                                    .recipe
-                                    .clothing
-                                    .retain(|selected| selected != &selection);
+                    ui.collapsing("Draped clothing", |ui| {
+                        let before = studio.recipe.garment.clone();
+                        let mut enabled = before.is_some();
+                        if ui.checkbox(&mut enabled, "Wear a draped garment").changed() {
+                            studio.recipe.garment = enabled.then(GarmentSelection::default);
+                        }
+                        if let Some(selection) = &mut studio.recipe.garment {
+                            egui::ComboBox::from_id_salt("garment_preset")
+                                .selected_text(selection.preset.label())
+                                .show_ui(ui, |ui| {
+                                    for preset in GarmentPreset::ALL {
+                                        ui.selectable_value(
+                                            &mut selection.preset,
+                                            preset,
+                                            preset.label(),
+                                        );
+                                    }
+                                });
+                            egui::ComboBox::from_id_salt("fabric_preset")
+                                .selected_text(selection.fabric.label())
+                                .show_ui(ui, |ui| {
+                                    for fabric in FabricPreset::ALL {
+                                        ui.selectable_value(
+                                            &mut selection.fabric,
+                                            fabric,
+                                            fabric.label(),
+                                        );
+                                    }
+                                });
+                            ui.add(
+                                egui::Slider::new(&mut selection.resolution_cm, 2.5..=6.0)
+                                    .text("Mesh spacing (cm)"),
+                            );
+                            ui.add(
+                                egui::Slider::new(&mut selection.steps, 30..=600)
+                                    .text("Drape steps"),
+                            );
+                        }
+                        studio.dirty |= before != studio.recipe.garment;
+                        if ui.button("Drape again").clicked() {
+                            studio.dirty = true;
+                        }
+                    });
+                    ui.separator();
+                    ui.collapsing("Catalog clothing and armor", |ui| {
+                        for item in procedural_items(&catalog) {
+                            let equipment = item.equipment.as_ref().expect("filtered equipment");
+                            for placement in &equipment.placements {
+                                let selection = ClothingSelection {
+                                    item_id: item.id.clone(),
+                                    placement_id: placement.id.clone(),
+                                };
+                                let mut enabled = studio.recipe.clothing.contains(&selection);
+                                let label = if equipment.placements.len() == 1 {
+                                    item.display_name.clone()
+                                } else {
+                                    format!("{} · {}", item.display_name, placement.id)
+                                };
+                                let replaced = drape_replaces(&studio.recipe, placement);
+                                if ui
+                                    .add_enabled(
+                                        !replaced,
+                                        egui::Checkbox::new(&mut enabled, label),
+                                    )
+                                    .on_hover_text(if replaced {
+                                        "Replaced by the draped garment"
+                                    } else {
+                                        ""
+                                    })
+                                    .changed()
+                                {
+                                    if enabled {
+                                        studio.recipe.clothing.push(selection.clone());
+                                    } else {
+                                        studio
+                                            .recipe
+                                            .clothing
+                                            .retain(|selected| selected != &selection);
+                                    }
+                                    studio.dirty = true;
+                                }
                             }
-                            studio.dirty = true;
                         }
-                    }
-                }
-            });
-            ui.small("Armor recipes follow body proportions and share its MHR skin.");
-            equipment_controls::show(ui, &mut catalog, &mut studio);
-            ui.separator();
+                    });
+                    ui.small("Armor recipes follow body proportions and share its MHR skin.");
+                    equipment_controls::show(ui, &mut catalog, &mut studio);
+                    ui.separator();
 
-            proportion_controls::show(ui, &mut studio);
-            proportion_controls::show_identity(ui, &mut studio);
-            ui.add(egui::TextEdit::singleline(&mut studio.recipe_path).hint_text("character.json"));
-            ui.horizontal(|ui| {
-                if ui.button("Save recipe").clicked() {
-                    studio.status = save_recipe(&studio)
-                        .unwrap_or_else(|error| format!("Save failed: {error:#}"));
-                }
-                if ui.button("Load recipe").clicked() {
-                    match load_recipe(&studio.recipe_path) {
-                        Ok(recipe) => {
-                            studio.recipe = recipe;
-                            studio.dirty = true;
-                            studio.status = "Recipe loaded".into();
+                    proportion_controls::show(ui, &mut studio);
+                    proportion_controls::show_identity(ui, &mut studio);
+                    ui.add(
+                        egui::TextEdit::singleline(&mut studio.recipe_path)
+                            .hint_text("character.json"),
+                    );
+                    ui.horizontal(|ui| {
+                        if ui.button("Save recipe").clicked() {
+                            studio.status = save_recipe(&studio)
+                                .unwrap_or_else(|error| format!("Save failed: {error:#}"));
                         }
-                        Err(error) => studio.status = format!("Load failed: {error:#}"),
+                        if ui.button("Load recipe").clicked() {
+                            match load_recipe(&studio.recipe_path) {
+                                Ok(recipe) => {
+                                    studio.recipe = recipe;
+                                    studio.dirty = true;
+                                    studio.status = "Recipe loaded".into();
+                                }
+                                Err(error) => studio.status = format!("Load failed: {error:#}"),
+                            }
+                        }
+                    });
+                    ui.add(
+                        egui::TextEdit::singleline(&mut studio.glb_path)
+                            .hint_text("assets_src/biped/unarmed/base.glb"),
+                    );
+                    if ui
+                        .add_enabled(
+                            !studio.dirty
+                                && (studio.recipe.garment.is_none() || drape_job.ready.is_some()),
+                            egui::Button::new("Export rigged GLB"),
+                        )
+                        .clicked()
+                    {
+                        studio.status = export_character(
+                            std::path::Path::new(&studio.glb_path),
+                            &model,
+                            &studio.recipe,
+                            &catalog,
+                            &studio.bracer_design,
+                            &studio.breastplate_design,
+                            drape_job.ready.as_ref(),
+                        )
+                        .map(|()| format!("Exported {}", studio.glb_path))
+                        .unwrap_or_else(|error| format!("Export failed: {error:#}"));
                     }
-                }
-            });
-            ui.add(
-                egui::TextEdit::singleline(&mut studio.glb_path)
-                    .hint_text("assets_src/biped/unarmed/base.glb"),
-            );
-            if ui.button("Export rigged GLB").clicked() {
-                studio.status = export_character(
-                    std::path::Path::new(&studio.glb_path),
-                    &model,
-                    &studio.recipe,
-                    &catalog,
-                    &studio.bracer_design,
-                    &studio.breastplate_design,
-                )
-                .map(|()| format!("Exported {}", studio.glb_path))
-                .unwrap_or_else(|error| format!("Export failed: {error:#}"));
-            }
-            ui.add_space(6.0);
-            ui.small(&studio.status);
-            ui.small("Drag to orbit · wheel to zoom");
+                    ui.add_space(6.0);
+                    ui.small(&studio.status);
+                    ui.small("Drag to orbit · wheel to zoom");
+                });
         });
 }
 
@@ -372,6 +453,33 @@ fn load_recipe(path: &str) -> Result<CharacterRecipe> {
     Ok(recipe)
 }
 
+fn drape_replaces(
+    recipe: &CharacterRecipe,
+    placement: &adventuresim_character_creator::item_catalog_schema::EquipmentPlacement,
+) -> bool {
+    use adventuresim_character_creator::item_catalog_schema::EquipmentChannel;
+    let Some(garment) = &recipe.garment else {
+        return false;
+    };
+    placement.occupancy.iter().any(|slot| {
+        slot.channel == EquipmentChannel::BaseClothing
+            && match slot.location {
+                EquipmentLocation::Chest
+                | EquipmentLocation::Stomach
+                | EquipmentLocation::Back
+                | EquipmentLocation::LeftArm
+                | EquipmentLocation::RightArm
+                | EquipmentLocation::LeftShoulder
+                | EquipmentLocation::RightShoulder => {
+                    matches!(garment.preset, GarmentPreset::Shirt | GarmentPreset::Dress)
+                }
+                EquipmentLocation::LeftLeg | EquipmentLocation::RightLeg => {
+                    !matches!(garment.preset, GarmentPreset::Shirt)
+                }
+                _ => false,
+            }
+    })
+}
 fn selected_garments(
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
@@ -410,7 +518,13 @@ fn selected_garments(
                     .ok_or_else(|| format!("item {} has no procedural material", item.id))?,
             ))
         })
-        .collect()
+        .collect::<Result<Vec<_>, String>>()
+        .map(|specifications| {
+            specifications
+                .into_iter()
+                .filter(|spec| !drape_replaces(recipe, &spec.placement))
+                .collect()
+        })
 }
 
 fn placement_coverage(
@@ -502,5 +616,111 @@ mod belt_mount_tests {
             belt_mount_outward(EquipmentLocation::RightBelt),
             Some([-1.0, 0.0, 0.0])
         );
+    }
+}
+
+#[cfg(test)]
+mod garment_integration_tests {
+    use super::*;
+    #[test]
+    #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
+    fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
+        let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
+        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+        let mut recipe = CharacterRecipe::default();
+        recipe.clothing.clear();
+        let generated = generate_character(&model, &recipe)?;
+        if let Ok(name) = std::env::var("GARMENT_TEST_PRESET") {
+            assert!(
+                GarmentPreset::ALL
+                    .iter()
+                    .any(|preset| preset.label() == name),
+                "unknown GARMENT_TEST_PRESET"
+            );
+        }
+        for preset in GarmentPreset::ALL {
+            if std::env::var("GARMENT_TEST_PRESET").is_ok_and(|name| name != preset.label()) {
+                continue;
+            }
+            recipe.garment = Some(GarmentSelection {
+                preset,
+                ..Default::default()
+            });
+            println!("checking {}", preset.label());
+            let input = drape_preview::input(&model, &generated, recipe.garment.clone().unwrap());
+            let fitted = drape(
+                input,
+                &std::sync::atomic::AtomicBool::new(false),
+                |snapshot| {
+                    if snapshot.frame % 60 == 0 {
+                        println!(
+                            "drape step {}: {} vertices",
+                            snapshot.frame,
+                            snapshot.positions.len()
+                        );
+                    }
+                },
+            )?;
+            assert_eq!(fitted.frame, 180);
+            assert_eq!(fitted.indices.len(), fitted.positions.len());
+            assert_ne!(fitted.positions.len(), generated.positions.len());
+            let body = fabelgeist_bvh::TriangleBvh::new(
+                generated
+                    .positions
+                    .iter()
+                    .map(|p| fabelgeist_math::Vec3::from_array(*p))
+                    .collect(),
+                model.mhr.character.mesh.faces.clone(),
+            );
+            let distances: Vec<_> = fitted
+                .positions
+                .iter()
+                .map(|p| {
+                    body.closest_point(fabelgeist_math::Vec3::from_array(*p), f32::MAX)
+                        .unwrap()
+                        .2
+                })
+                .collect();
+            let mean = distances.iter().sum::<f32>() / distances.len() as f32;
+            println!("mean garment distance from body: {mean:.4} m");
+            std::fs::write(
+                std::env::temp_dir().join(format!("fabelgeist-drape-{preset:?}.json")),
+                serde_json::to_vec(
+                    &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces}),
+                )?,
+            )?;
+            let maximum_distance = match preset {
+                GarmentPreset::Shirt | GarmentPreset::Trousers => 0.08,
+                GarmentPreset::Skirt | GarmentPreset::Dress => 0.25,
+            };
+            assert!(
+                mean < maximum_distance,
+                "{} did not remain fitted to the body: {mean}",
+                preset.label()
+            );
+            let top = fitted
+                .positions
+                .iter()
+                .map(|p| p[1])
+                .fold(f32::NEG_INFINITY, f32::max);
+            assert!(top > 0.8, "garment fell below the waist");
+            let directory =
+                std::env::temp_dir().join(format!("fabelgeist-drape-{}", std::process::id()));
+            let path = directory.join(format!("{preset:?}.glb"));
+            export_character(
+                &path,
+                &model,
+                &recipe,
+                &EquipmentCatalog(vec![], Default::default()),
+                &BracerDesign::default(),
+                &BreastplateDesign::default(),
+                Some(&fitted),
+            )?;
+            let bytes = std::fs::read(&path)?;
+            let parsed = gltf::Gltf::from_slice(&bytes)?;
+            assert_eq!(parsed.meshes().next().unwrap().primitives().count(), 2);
+            println!("verified draped character: {}", path.display());
+        }
+        Ok(())
     }
 }

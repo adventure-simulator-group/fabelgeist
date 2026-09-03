@@ -53,6 +53,12 @@ impl Transform {
         }
     }
 
+    pub fn look_at(eye: Vec3, target: Vec3, up: Vec3) -> Self {
+        let view_mat = Mat4::look_at(eye, target, up);
+        let world_mat = view_mat.inverse().unwrap_or(Mat4::identity());
+        Self::from_mat4(world_mat)
+    }
+
     pub fn to_mat4(&self) -> Mat4 {
         let rad_x = self.rotation.x.to_radians();
         let rad_y = self.rotation.y.to_radians();
@@ -172,7 +178,7 @@ impl Transform {
 
     pub fn inverse(&self) -> Self {
         let mat = self.to_mat4();
-        let inv_mat = mat.inverse().unwrap_or_default();
+        let inv_mat = mat.inverse().unwrap_or(Mat4::identity());
         Self::from_mat4(inv_mat)
     }
 
@@ -297,5 +303,20 @@ mod tests {
         assert_eq!(t_added.position, Vec3::new(1.5, 1.5, 4.0));
         assert_eq!(t_added.rotation, Vec3::new(15.0, 10.0, 45.0));
         assert_eq!(t_added.scale, Vec3::new(3.0, 1.0, 4.0));
+    }
+
+    #[test]
+    fn test_transform_look_at() {
+        let eye = Vec3::new(0.0, 0.0, 5.0);
+        let target = Vec3::new(0.0, 0.0, 0.0);
+        let up = Vec3::new(0.0, 1.0, 0.0);
+
+        let t = Transform::look_at(eye, target, up);
+        assert!((t.position.x - 0.0).abs() < 1e-5);
+        assert!((t.position.y - 0.0).abs() < 1e-5);
+        assert!((t.position.z - 5.0).abs() < 1e-5);
+        assert!((t.scale.x - 1.0).abs() < 1e-5);
+        assert!((t.scale.y - 1.0).abs() < 1e-5);
+        assert!((t.scale.z - 1.0).abs() < 1e-5);
     }
 }

@@ -13,11 +13,13 @@ pub(super) fn regenerate_mesh(
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut mail_maps: ResMut<underlayer_preview::MailMaps>,
+    mut drape_job: ResMut<drape_preview::DrapeJob>,
 ) {
     if !studio.dirty {
         return;
     }
     studio.dirty = false;
+    drape_job.request(None);
     let generated = match generate_character(&model, &studio.recipe) {
         Ok(generated) => generated,
         Err(error) => {
@@ -25,6 +27,13 @@ pub(super) fn regenerate_mesh(
             return;
         }
     };
+    drape_job.request(
+        studio
+            .recipe
+            .garment
+            .clone()
+            .map(|selection| drape_preview::input(&model, &generated, selection)),
+    );
     let faces = &model.mhr.character.mesh.faces;
     let specifications = match selected_garments(&studio.recipe, &catalog) {
         Ok(specifications) => specifications,

@@ -140,11 +140,18 @@ dependencies = [
  "blake3",
  "burn",
  "clap",
+ "fabelgeist-bvh",
+ "fabelgeist-cloth",
+ "fabelgeist-garment-code",
+ "fabelgeist-garment-fit",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
  "fabelgeist-mhr",
  "gltf",
  "rand 0.9.5",
  "serde",
  "serde_json",
+ "tokio",
 ]
 
 [[package]]
@@ -4767,6 +4774,49 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-bvh"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+]
+
+[[package]]
+name = "fabelgeist-cloth"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-physics",
+ "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-compute"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "indexmap",
+ "naga 30.0.1",
+ "pollster",
+ "regex",
+ "serde",
+ "strum",
+ "wasm-bindgen-futures",
+ "wgpu 30.0.1",
+]
+
+[[package]]
 name = "fabelgeist-determinism"
 version = "0.1.0"
 
@@ -4801,6 +4851,63 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-garment-code"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+]
+
+[[package]]
+name = "fabelgeist-garment-fit"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "fabelgeist-bvh",
+ "fabelgeist-cloth",
+ "fabelgeist-compute",
+ "fabelgeist-garment-code",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-physics",
+ "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-gpu"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "async-lock",
+ "bytemuck",
+ "fabelgeist-math",
+ "fabelgeist-timer",
+ "futures-channel",
+ "indexmap",
+ "naga 30.0.1",
+ "parking_lot",
+ "pollster",
+ "regex",
+ "serde",
+ "strum",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "wgpu 30.0.1",
+]
+
+[[package]]
+name = "fabelgeist-math"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "serde",
+ "wgpu 30.0.1",
+]
+
+[[package]]
 name = "fabelgeist-mhr"
 version = "0.1.0"
 dependencies = [
@@ -4819,6 +4926,38 @@ dependencies = [
  "burn",
  "flate2",
  "memmap2",
+]
+
+[[package]]
+name = "fabelgeist-physics"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-timer"
+version = "0.1.0"
+dependencies = [
+ "gloo-timers",
+ "tokio",
+]
+
+[[package]]
+name = "fabelgeist-xpbd"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
 ]
 
 [[package]]
@@ -5337,6 +5476,18 @@ dependencies = [
  "libm",
  "rand 0.10.2",
  "serde_core",
+]
+
+[[package]]
+name = "gloo-timers"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbb143cf96099802033e0d4f4963b19fd2e0b728bcf076cd9cf7f6634f092994"
+dependencies = [
+ "futures-channel",
+ "futures-core",
+ "js-sys",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -6729,6 +6880,7 @@ dependencies = [
  "naga-types",
  "num-traits",
  "once_cell",
+ "pp-rs",
  "rustc-hash 1.1.0",
  "spirv",
  "thiserror 2.0.20",
@@ -8906,6 +9058,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_yaml"
+version = "0.9.34+deprecated"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a8b1a1a2ebf674015cc02edccce75287f1a0130d394307b36743c2f5d504b47"
+dependencies = [
+ "indexmap",
+ "itoa",
+ "ryu",
+ "serde",
+ "unsafe-libyaml",
+]
+
+[[package]]
 name = "sha1"
 version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9219,6 +9384,27 @@ name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
+
+[[package]]
+name = "strum"
+version = "0.27.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af23d6f6c1a224baef9d3f61e287d2761385a5b88fdab4eb4c6f11aeb54c4bcf"
+dependencies = [
+ "strum_macros",
+]
+
+[[package]]
+name = "strum_macros"
+version = "0.27.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7695ce3845ea4b33927c055a39dc438a45b059f7c1b3d91d38d10355fb8cbca7"
+dependencies = [
+ "heck",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+]
 
 [[package]]
 name = "subtle"
@@ -9923,6 +10109,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
 
 [[package]]
+name = "unsafe-libyaml"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "673aac59facbab8a9007c7f6108d11f63b603f7cabff99fabf650fea5c32b861"
+
+[[package]]
 name = "unsynn"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10483,7 +10675,7 @@ dependencies = [
  "smallvec",
  "thiserror 2.0.20",
  "wgpu-core-deps-apple 29.0.4",
- "wgpu-core-deps-wasm",
+ "wgpu-core-deps-wasm 29.0.4",
  "wgpu-core-deps-windows-linux-android 29.0.4",
  "wgpu-hal 29.0.4",
  "wgpu-naga-bridge 29.0.4",
@@ -10518,6 +10710,7 @@ dependencies = [
  "thiserror 2.0.20",
  "wgpu-core-deps-apple 30.0.1",
  "wgpu-core-deps-emscripten",
+ "wgpu-core-deps-wasm 30.0.1",
  "wgpu-core-deps-windows-linux-android 30.0.1",
  "wgpu-hal 30.0.1",
  "wgpu-naga-bridge 30.0.1",
@@ -10558,6 +10751,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "af1fb1798be2a912497d4c224f72d39bb0cb34af50e8bcc29865bc339c943059"
 dependencies = [
  "wgpu-hal 29.0.4",
+]
+
+[[package]]
+name = "wgpu-core-deps-wasm"
+version = "30.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d260ca2ca8adc654f513a869bf3cac0b47f5b8d3f87803d6942015f8de597aae"
+dependencies = [
+ "wgpu-hal 30.0.1",
 ]
 
 [[package]]

@@ -42,7 +42,6 @@ impl Default for Texture3d {
         }
     }
 }
-
 impl Texture3d {
     pub fn new(context: &WgpuContext, size: Vec3, format: TextureFormat) -> Result<Texture3d> {
         let _wgpu_format: wgpu::TextureFormat = format.into();
@@ -128,7 +127,6 @@ impl Texture3d {
     pub fn size(&self) -> Vec3 {
         Vec3::new(self.size.0 as f32, self.size.1 as f32, self.size.2 as f32)
     }
-
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let (width, height, depth) = self.size;
         let texture = self
@@ -156,7 +154,7 @@ impl Texture3d {
 
         encoder.copy_texture_to_buffer(
             wgpu::TexelCopyTextureInfo {
-                texture,
+                texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -235,7 +233,6 @@ impl Texture3d {
 
         Ok(bytemuck::cast_slice::<u8, T>(&result).to_vec())
     }
-
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let (width, height, depth) = self.size;
         let texture = self
@@ -247,7 +244,7 @@ impl Texture3d {
 
         context.queue.write_texture(
             wgpu::TexelCopyTextureInfo {
-                texture,
+                texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -267,7 +264,6 @@ impl Texture3d {
 
         Ok(())
     }
-
     pub fn view_with_format(
         &self,
         _context: &WgpuContext,

@@ -4714,6 +4714,52 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-bvh"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "tokio",
+]
+
+[[package]]
+name = "fabelgeist-cloth"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-physics",
+ "fabelgeist-xpbd",
+ "tokio",
+]
+
+[[package]]
+name = "fabelgeist-compute"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "indexmap 2.14.1",
+ "naga 30.0.1",
+ "pollster",
+ "regex",
+ "serde",
+ "strum 0.27.2",
+ "tokio",
+ "wasm-bindgen-futures",
+ "wgpu 30.0.0",
+]
+
+[[package]]
 name = "fabelgeist-determinism"
 version = "0.1.0"
 
@@ -4748,14 +4794,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-garment-code"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+]
+
+[[package]]
+name = "fabelgeist-garment-fit"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "fabelgeist-bvh",
+ "fabelgeist-cloth",
+ "fabelgeist-compute",
+ "fabelgeist-garment-code",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-physics",
+ "fabelgeist-xpbd",
+ "tokio",
+]
+
+[[package]]
 name = "fabelgeist-gpu"
 version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-lock",
- "async-trait",
  "bytemuck",
- "fabelgeist-animation",
  "fabelgeist-fs",
  "fabelgeist-math",
  "fabelgeist-timer",
@@ -4785,6 +4856,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-physics"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-xpbd",
+ "tokio",
+]
+
+[[package]]
 name = "fabelgeist-rust-quality"
 version = "0.1.0"
 dependencies = [
@@ -4802,6 +4887,18 @@ name = "fabelgeist-timer"
 version = "0.1.0"
 dependencies = [
  "gloo-timers",
+ "tokio",
+]
+
+[[package]]
+name = "fabelgeist-xpbd"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
  "tokio",
 ]
 
@@ -9543,6 +9640,7 @@ version = "1.0.151"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14"
 dependencies = [
+ "indexmap 2.14.1",
  "itoa",
  "memchr",
  "serde",
@@ -9624,6 +9722,19 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "serde_yaml"
+version = "0.9.34+deprecated"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a8b1a1a2ebf674015cc02edccce75287f1a0130d394307b36743c2f5d504b47"
+dependencies = [
+ "indexmap 2.14.1",
+ "itoa",
+ "ryu",
+ "serde",
+ "unsafe-libyaml",
 ]
 
 [[package]]
@@ -11203,6 +11314,12 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
+
+[[package]]
+name = "unsafe-libyaml"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "673aac59facbab8a9007c7f6108d11f63b603f7cabff99fabf650fea5c32b861"
 
 [[package]]
 name = "unsynn"

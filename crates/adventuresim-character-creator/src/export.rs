@@ -665,6 +665,7 @@ fn append_attachment(
     globals.push(transform);
 }
 
+
 fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
     positions.iter().fold(
         ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),
@@ -1330,6 +1331,83 @@ mod tests {
                 expected
             );
         }
+        let _ = fs::remove_dir_all(directory);
+    }
+
+    #[test]
+    fn exports_garment_with_independent_topology_and_skin() {
+        let directory =
+            std::env::temp_dir().join(format!("fabelgeist-garment-export-{}", std::process::id()));
+        let path = directory.join("character.glb");
+        let positions = [[-2.0, 0.98, -1.0], [2.0, 0.98, -1.0], [0.0, 0.98, 2.0]];
+        let shell_positions = [
+            [-2.0, 0.99, -1.0],
+            [2.0, 0.99, -1.0],
+            [0.0, 0.99, 2.0],
+            [0.0, 1.1, 0.0],
+        ];
+        let garment_normals = [[0.0, 1.0, 0.0]; 4];
+        let garment_faces = [[0, 1, 3], [1, 2, 3], [2, 0, 3]];
+        let garment_ids = [[0; 8]; 4];
+        let garment_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
+        let normals = [[0.0, -1.0, 0.0]; 3];
+        let faces = [[0, 1, 2]];
+        let joint_indices = [[0; 8]; 3];
+        let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
+        let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
+        let shell = RiggedShell {
+            skin: Some((&garment_ids, &garment_weights)),
+            name: "Tunic",
+            positions: &shell_positions,
+            normals: &garment_normals,
+            faces: &garment_faces,
+            base_color: [0.1, 0.2, 0.3, 1.0],
+            metallic: 0.0,
+            roughness: 0.9,
+        };
+        export_rigged_glb(
+            &path,
+            "Test",
+            2,
+            1,
+            &RiggedMesh {
+                positions: &positions,
+                normals: &normals,
+                faces: &faces,
+                export_body: true,
+                joint_indices: &joint_indices,
+                joint_weights: &joint_weights,
+                joint_names: &joint_names,
+                joint_parents: &joint_parents,
+                global_joint_states: &global_joint_states,
+            },
+            &[shell],
+            &[],
+        )
+        .unwrap();
+        let bytes = fs::read(&path).unwrap();
+        let document = read_document(&bytes);
+        let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
+        assert_eq!(parsed.meshes().next().unwrap().primitives().count(), 2);
+        assert_eq!(document["materials"][1]["name"], "Tunic");
+        let red = document["materials"][1]["pbrMetallicRoughness"]["baseColorFactor"][0]
+            .as_f64()
+            .unwrap();
+        assert!((red - 0.010_022_8).abs() < 1e-6);
+        assert_eq!(document["meshes"][0]["primitives"][1]["material"], 1);
+        assert_ne!(
+            document["meshes"][0]["primitives"][1]["attributes"]["NORMAL"],
+            document["meshes"][0]["primitives"][0]["attributes"]["NORMAL"]
+        );
+        assert_ne!(
+            document["meshes"][0]["primitives"][1]["attributes"]["JOINTS_1"],
+            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"]
+        );
+        let primitive = parsed.meshes().next().unwrap().primitives().nth(1).unwrap();
+        for (_, accessor) in primitive.attributes() {
+            assert_eq!(accessor.count(), 4);
+        }
+        assert_eq!(primitive.indices().unwrap().count(), 9);
         let _ = fs::remove_dir_all(directory);
     }
 

@@ -48,9 +48,11 @@ impl ComputeShader {
 
         // 3. WGPU Validation & Creation
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = context
-            .device
-            .push_error_scope(wgpu::ErrorFilter::Validation);
+        let error_scope = context.blocking_validation.then(|| {
+            context
+                .device
+                .push_error_scope(wgpu::ErrorFilter::Validation)
+        });
 
         let sm = context
             .device
@@ -63,7 +65,7 @@ impl ComputeShader {
         let error = Arc::new(Mutex::new(None));
 
         #[cfg(not(target_arch = "wasm32"))]
-        {
+        if let Some(error_scope) = error_scope {
             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
             if let Some(e) = pollster::block_on(error_scope.pop()) {
                 return Err(anyhow!("Compute Shader Validation Error: {}", e));

@@ -28,7 +28,6 @@ impl Default for BufferDefinition {
         Self::all()
     }
 }
-
 impl BufferDefinition {
     pub fn new() -> Self {
         Self {
@@ -59,7 +58,6 @@ impl BufferDefinition {
             map_read: false,
         }
     }
-
     pub fn with_label(mut self, label: impl ToString) -> Self {
         self.label = Some(label.to_string());
         self
@@ -146,7 +144,6 @@ impl BufferDefinition {
         self
     }
 }
-
 impl Buffer {
     pub fn new(context: &WgpuContext, bytes: u64, definition: BufferDefinition) -> Result<Buffer> {
         if bytes == 0 {
@@ -222,7 +219,6 @@ impl Buffer {
     ) -> Result<Buffer> {
         Self::from_slice(context, &data, definition.unwrap_or_default())
     }
-
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let size = self.size;
         let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
@@ -287,7 +283,10 @@ impl Buffer {
         // This prevents WebAssembly memory growth from detaching/invalidating the mapped range buffer view.
         let t_size = std::mem::size_of::<T>();
         let len_t = (size as usize) / t_size;
-        let mut result = vec![<T as bytemuck::Zeroable>::zeroed(); len_t];
+        let mut result = Vec::with_capacity(len_t);
+        unsafe {
+            result.set_len(len_t);
+        }
 
         // 4. Get data and unmap
         let slice = target_buffer.slice(..);
@@ -311,13 +310,11 @@ impl Buffer {
 
         Ok(result)
     }
-
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let bytes = bytemuck::cast_slice(data);
         context.queue.write_buffer(&self.buffer, 0, bytes);
         Ok(())
     }
-
     pub fn from_slice<T: bytemuck::NoUninit>(
         context: &WgpuContext,
         data: &[T],
@@ -326,7 +323,6 @@ impl Buffer {
         let bytes = bytemuck::cast_slice(data);
         Self::from_bytes(context, bytes, definition)
     }
-
     pub fn from_bytes(
         context: &WgpuContext,
         bytes: &[u8],

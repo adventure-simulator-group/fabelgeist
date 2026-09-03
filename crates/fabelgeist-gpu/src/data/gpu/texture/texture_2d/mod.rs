@@ -44,7 +44,6 @@ impl Default for Texture2d {
         }
     }
 }
-
 impl Texture2d {
     pub fn new(
         context: &WgpuContext,
@@ -57,7 +56,6 @@ impl Texture2d {
             format.unwrap_or_default(),
         )
     }
-
     pub fn create(context: &WgpuContext, size: Vec2, format: TextureFormat) -> Result<Texture2d> {
         let _wgpu_format: wgpu::TextureFormat = format.into();
 
@@ -179,7 +177,6 @@ impl Texture2d {
             format.unwrap_or(TextureFormat::Rgba8UnormSrgb),
         )
     }
-
     pub fn create_from_image(
         context: &WgpuContext,
         image: Image,
@@ -202,9 +199,7 @@ impl Texture2d {
             TextureFormat::Rgba8Unorm | TextureFormat::Bgra8Unorm => {
                 // Manual sRGB to Linear conversion for 8-bit linear formats
                 raw_data
-                    .as_chunks::<4>()
-                    .0
-                    .iter()
+                    .chunks_exact(4)
                     .flat_map(|rgba| {
                         let mut out = [0u8; 4];
                         for i in 0..3 {
@@ -229,9 +224,7 @@ impl Texture2d {
                 // Keep raw bits for sRGB formats (hardware will convert on sample)
                 if matches!(format, TextureFormat::Bgra8UnormSrgb) {
                     raw_data
-                        .as_chunks::<4>()
-                        .0
-                        .iter()
+                        .chunks_exact(4)
                         .flat_map(|rgba| [rgba[2], rgba[1], rgba[0], rgba[3]])
                         .collect()
                 } else {
@@ -240,9 +233,9 @@ impl Texture2d {
             }
             TextureFormat::Rgba32Float => {
                 let mut floats = Vec::with_capacity((width * height * 4) as usize);
-                for rgba in raw_data.as_chunks::<4>().0 {
-                    for channel in rgba.iter().take(3) {
-                        let f = *channel as f32 / 255.0;
+                for rgba in raw_data.chunks_exact(4) {
+                    for i in 0..3 {
+                        let f = rgba[i] as f32 / 255.0;
                         // Convert to linear for float formats
                         let linear = if f <= 0.04045 {
                             f / 12.92
@@ -257,7 +250,9 @@ impl Texture2d {
             }
             _ => {
                 // Fallback for other formats: copy if size matches, or error
-                if raw_data.len() == (width * height * pixel_size) as usize || pixel_size == 4 {
+                if raw_data.len() == (width * height * pixel_size) as usize {
+                    raw_data.to_vec()
+                } else if pixel_size == 4 {
                     raw_data.to_vec()
                 } else {
                     return Err(anyhow::anyhow!(
@@ -306,7 +301,6 @@ impl Texture2d {
             format.unwrap_or(TextureFormat::Rgba8UnormSrgb),
         )
     }
-
     pub fn create_from_color(
         context: &WgpuContext,
         size: Vec2,
@@ -317,7 +311,6 @@ impl Texture2d {
         tex.clear_raw(context, color)?;
         Ok(tex)
     }
-
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let (width, height) = self.size;
         let texture = self
@@ -345,7 +338,7 @@ impl Texture2d {
 
         encoder.copy_texture_to_buffer(
             wgpu::TexelCopyTextureInfo {
-                texture,
+                texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -420,17 +413,14 @@ impl Texture2d {
 
         Ok(bytemuck::cast_slice::<u8, T>(&result).to_vec())
     }
-
     pub async fn read_to_rgba8(&self, context: &WgpuContext) -> Result<Vec<u8>> {
         // For now, we assume it's already in a readable format or we should convert it.
         // If it's Rgba8UnormSrgb, read() works directly.
         self.read::<u8>(context).await
     }
-
-    pub async fn to_image(context: WgpuContext, self_tex: Texture2d) -> Result<Image> {
-        self_tex.read_image(&context).await
+    pub async fn to_image(context: &WgpuContext, self_tex: Texture2d) -> Result<Image> {
+        self_tex.read_image(context).await
     }
-
     pub async fn read_image(&self, context: &WgpuContext) -> Result<Image> {
         let (width, height) = self.size;
         if width == 0 || height == 0 {
@@ -452,16 +442,12 @@ impl Texture2d {
         let rgba_data = match self.format {
             TextureFormat::Rgba8UnormSrgb => raw_data,
             TextureFormat::Bgra8UnormSrgb => raw_data
-                .as_chunks::<4>()
-                .0
-                .iter()
+                .chunks_exact(4)
                 .flat_map(|bgra| [bgra[2], bgra[1], bgra[0], bgra[3]])
                 .collect(),
             TextureFormat::Rgba8Unorm => {
                 raw_data
-                    .as_chunks::<4>()
-                    .0
-                    .iter()
+                    .chunks_exact(4)
                     .flat_map(|rgba| {
                         [
                             linear_to_srgb(rgba[0] as f32 / 255.0),
@@ -473,9 +459,7 @@ impl Texture2d {
                     .collect()
             }
             TextureFormat::Bgra8Unorm => raw_data
-                .as_chunks::<4>()
-                .0
-                .iter()
+                .chunks_exact(4)
                 .flat_map(|bgra| {
                     [
                         linear_to_srgb(bgra[2] as f32 / 255.0),
@@ -488,9 +472,7 @@ impl Texture2d {
             TextureFormat::Rgba32Float => {
                 let floats = bytemuck::cast_slice::<u8, f32>(&raw_data);
                 floats
-                    .as_chunks::<4>()
-                    .0
-                    .iter()
+                    .chunks_exact(4)
                     .flat_map(|rgba| {
                         [
                             linear_to_srgb(rgba[0]),
@@ -533,7 +515,6 @@ impl Texture2d {
 
         Image::from_pixels(rgba_data, width, height)
     }
-
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let (width, height) = self.size;
         let texture = self
@@ -545,7 +526,7 @@ impl Texture2d {
 
         context.queue.write_texture(
             wgpu::TexelCopyTextureInfo {
-                texture,
+                texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
@@ -565,7 +546,6 @@ impl Texture2d {
 
         Ok(())
     }
-
     pub fn view_with_format(
         &self,
         _context: &WgpuContext,
@@ -613,6 +593,13 @@ impl Texture2d {
         Ok(Arc::new(view))
     }
 
+    pub fn to_view(self_tex: Texture2d) -> super::texture_view::TextureView {
+        super::texture_view::TextureView::from(&self_tex)
+    }
+    pub fn as_view(&self) -> super::texture_view::TextureView {
+        super::texture_view::TextureView::from(self)
+    }
+
     pub fn add(
         context: &WgpuContext,
         self_tex: Texture2d,
@@ -621,7 +608,6 @@ impl Texture2d {
     ) -> Result<Texture2d> {
         self_tex.add_raw(context, &other, amount.unwrap_or(1.0) as f32)
     }
-
     pub fn add_raw(
         &self,
         context: &WgpuContext,
@@ -654,7 +640,6 @@ impl Texture2d {
     ) -> Result<Texture2d> {
         self_tex.mix_raw(context, &other, amount.unwrap_or(0.5) as f32)
     }
-
     pub fn mix_raw(
         &self,
         context: &WgpuContext,
@@ -678,7 +663,6 @@ impl Texture2d {
 
         Ok(output)
     }
-
     pub fn blit(&self, context: &WgpuContext, target: &Texture2d) -> Result<()> {
         let blitter = crate::globals::Blitter::new(&context.device, target.format.into());
         let mut encoder = context
@@ -695,7 +679,6 @@ impl Texture2d {
         context.queue.submit(std::iter::once(encoder.finish()));
         Ok(())
     }
-
     pub fn clear(
         context: &WgpuContext,
         target: Texture2d,
@@ -707,7 +690,6 @@ impl Texture2d {
         )?;
         Ok(target)
     }
-
     pub fn clear_raw(&self, context: &WgpuContext, color: fabelgeist_math::Vec4) -> Result<()> {
         let view = self
             .view
@@ -729,7 +711,7 @@ impl Texture2d {
                     label: Some("Texture2d Clear Depth Pass"),
                     color_attachments: &[],
                     depth_stencil_attachment: Some(wgpu::RenderPassDepthStencilAttachment {
-                        view,
+                        view: &view,
                         depth_ops: Some(wgpu::Operations {
                             load: wgpu::LoadOp::Clear(depth_clear_value),
                             store: wgpu::StoreOp::Store,
@@ -763,7 +745,7 @@ impl Texture2d {
                 let _rp = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                     label: Some("Texture2d Clear Pass"),
                     color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                        view,
+                        view: &view,
                         depth_slice: None,
                         resolve_target: None,
                         ops: wgpu::Operations {

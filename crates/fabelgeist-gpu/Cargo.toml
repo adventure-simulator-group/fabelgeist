@@ -2,71 +2,42 @@
 name = "fabelgeist-gpu"
 version = "0.1.0"
 edition = "2024"
-repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
-fabelgeist-math = { path = "../fabelgeist-math", features = ["wgpu"] }
-fabelgeist-animation = { path = "../fabelgeist-animation" }
-fabelgeist-fs = { path = "../fabelgeist-fs" }
-fabelgeist-timer = { path = "../fabelgeist-timer" }
-anyhow = "1"
-async-lock = "3.4.0"
-async-trait = "0.1.89"
-bytemuck = { version = "1.16", features = ["derive"] }
-futures-channel = "0.3"
-image = { version = "0.25", default-features = false, features = [
-    "png",
-    "jpeg",
-    "bmp",
-    "tga",
-    "hdr",
-] }
-indexmap = { version = "2.12.1", features = ["serde"] }
-naga = { version = "30.0", features = ["wgsl-in", "glsl-in", "wgsl-out"] }
-parking_lot = "0.12"
-regex = "1.12.3"
-serde = { version = "1", features = ["derive"] }
-strum = { version = "0.27.2", features = ["derive"] }
+fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" = "../fabelgeist-math" }
+anyhow = { "version" = "1.0" }
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+indexmap = { "version" = "2.12.1", "features" = ["serde"] }
+serde = { "version" = "1", "features" = ["derive"] }
+strum = { "version" = "0.27.2", "features" = ["derive"] }
+regex = { "version" = "1.12.3" }
+naga = { "version" = "30.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+async-lock = { "version" = "3.4.0" }
+futures-channel = { "version" = "0.3" }
+fabelgeist-timer = { "path" = "../fabelgeist-timer" }
+parking_lot = { "version" = "0.12" }
+image = { "version" = "0.25", "optional" = true, "default-features" = false, "features" = ["png", "jpeg", "bmp", "tga", "hdr"] }
+fabelgeist-fs = { "optional" = true, "path" = "../fabelgeist-fs" }
 
 [dev-dependencies]
-serde_json = "1"
-tokio = { version = "1", features = ["full"] }
+tokio = { "version" = "1", "features" = ["full"] }
+serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
 
-# wgpu is target-specific so the WASM build can turn on
-# fragile-send-sync-non-atomic-wasm.
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-wgpu = { version = "30.0", default-features = false, features = [
-    "webgl",
-    "webgpu",
-    "wgsl",
-    "vulkan",
-    "metal",
-    "glsl",
-] }
-pollster = "0.4"
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies]
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+pollster = { "version" = "0.4" }
 
-[target.'cfg(target_arch = "wasm32")'.dependencies]
-wgpu = { version = "30.0", default-features = false, features = [
-    "webgl",
-    "webgpu",
-    "wgsl",
-    "fragile-send-sync-non-atomic-wasm",
-] }
-wasm-bindgen-futures = "0.4"
-web-sys = { version = "0.3", features = [
-    "Window",
-    "console",
-    "HtmlTextAreaElement",
-    "HtmlDivElement",
-    "KeyboardEvent",
-    "Event",
-    "Element",
-    "OffscreenCanvas",
-    "CanvasRenderingContext2d",
-    "Performance",
-    "PerformanceTiming",
-] }
+[target."cfg(target_arch = \"wasm32\")".dependencies]
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl", "fragile-send-sync-non-atomic-wasm"] }
+wasm-bindgen-futures = { "version" = "0.4" }
+web-sys = { "version" = "0.3", "features" = ["Window", "console", "OffscreenCanvas", "Performance", "PerformanceTiming"] }
+
+[features]
+default = ["image-io"]
+image-io = ["dep:image", "dep:fabelgeist-fs"]
 
 [lints]
 workspace = true
+

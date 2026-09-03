@@ -1,7 +1,7 @@
 use crate::data::{
     gpu::buffer::Buffer,
     gpu::sampler::Sampler,
-    texture::{Texture2d, Texture3d, TextureCube},
+    texture::{Texture2d, Texture3d, TextureCube, TextureView},
 };
 use fabelgeist_math::{Mat2, Mat3, Mat4, Transform, Vec2, Vec3, Vec4};
 
@@ -19,8 +19,15 @@ pub enum PassParameter {
     Texture2d(Texture2d),
     Texture3d(Texture3d),
     TextureCube(TextureCube),
+    TextureView(TextureView),
     Sampler(Sampler),
     Buffer(Buffer),
+}
+
+impl From<TextureView> for PassParameter {
+    fn from(value: TextureView) -> Self {
+        Self::TextureView(value)
+    }
 }
 
 impl From<Texture2d> for PassParameter {

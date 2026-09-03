@@ -18,7 +18,6 @@ pub struct Vec4 {
     pub z: f32,
     pub w: f32,
 }
-
 impl Vec4 {
     pub fn new(x: f32, y: f32, z: f32, w: f32) -> Vec4 {
         Self { x, y, z, w }
@@ -34,6 +33,31 @@ impl Vec4 {
 
     pub fn break_(self) -> (f32, f32, f32, f32) {
         (self.x, self.y, self.z, self.w)
+    }
+
+    /// Add two Vec4 values.
+    pub fn add(a: Self, b: Self) -> Self {
+        Self::new(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w)
+    }
+
+    /// Subtract two Vec4 values.
+    pub fn sub(a: Self, b: Self) -> Self {
+        Self::new(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w)
+    }
+
+    /// Multiply a Vec4 by a scalar.
+    pub fn mul(value: Self, scalar: f32) -> Self {
+        Self::new(
+            value.x * scalar,
+            value.y * scalar,
+            value.z * scalar,
+            value.w * scalar,
+        )
+    }
+
+    /// Negate a Vec4.
+    pub fn neg(value: Self) -> Self {
+        Self::new(-value.x, -value.y, -value.z, -value.w)
     }
 
     pub fn dot(self, other: Self) -> f32 {

@@ -21,6 +21,7 @@ pub mod proportions;
 pub mod surface_cut;
 pub mod underlayer;
 pub use adventuresim_core::item_catalog_schema;
+pub mod garment;
 
 use serde::{Deserialize, Serialize};
 
@@ -35,6 +36,7 @@ pub struct CharacterRecipe {
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
     pub clothing: Vec<ClothingSelection>,
+    pub garment: Option<garment::GarmentSelection>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -48,6 +50,7 @@ impl Default for CharacterRecipe {
         Self {
             version: 4,
             proportions: Default::default(),
+            garment: None,
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
@@ -95,6 +98,9 @@ impl CharacterRecipe {
             .any(|value| !value.is_finite())
         {
             return Err("recipe contains a non-finite coefficient".into());
+        }
+        if let Some(garment) = &self.garment {
+            garment.validate().map_err(|error| error.to_string())?;
         }
         for (index, selection) in self.clothing.iter().enumerate() {
             if selection.item_id.is_empty() || selection.placement_id.is_empty() {

@@ -1,0 +1,28 @@
+[package]
+name = "fabelgeist-compute"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
+fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" = "../fabelgeist-math" }
+anyhow = { "version" = "1.0" }
+bytemuck = { "version" = "1.16", "features" = ["derive"] }
+indexmap = { "version" = "2.12.1", "features" = ["serde"] }
+serde = { "version" = "1", "features" = ["derive"] }
+strum = { "version" = "0.27.2", "features" = ["derive"] }
+regex = { "version" = "1.12.3" }
+naga = { "version" = "30.0", "features" = ["wgsl-in", "glsl-in", "wgsl-out"] }
+
+[dev-dependencies]
+tokio = { "version" = "1", "features" = ["full"] }
+
+[target."cfg(not(target_arch = \"wasm32\"))".dependencies]
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+pollster = { "version" = "0.4" }
+
+[target."cfg(target_arch = \"wasm32\")".dependencies]
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl", "fragile-send-sync-non-atomic-wasm"] }
+wasm-bindgen-futures = { "version" = "0.4" }
