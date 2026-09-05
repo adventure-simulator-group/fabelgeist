@@ -366,3 +366,80 @@ fn panel_ranges_tile_the_mesh() {
     }
     assert_eq!(next, mesh.particle_count());
 }
+
+#[test]
+fn different_length_sewn_edges_have_one_partner_per_vertex() {
+    let rectangle = |name: &str, width: f32| {
+        Panel::new(
+            name,
+            vec![
+                Vec2::new(0.0, 0.0),
+                Vec2::new(width, 0.0),
+                Vec2::new(width, 1.0),
+                Vec2::new(0.0, 1.0),
+            ],
+        )
+    };
+    let panels = [rectangle("a", 1.0), rectangle("b", 0.61)];
+    let mesh = build(
+        &panels,
+        &[Seam::new(
+            SeamSide { panel: 0, edge: 0 },
+            SeamSide { panel: 1, edge: 0 },
+        )],
+        0.2,
+        0.2,
+    )
+    .unwrap();
+    let mut partners = std::collections::HashMap::new();
+    for &[a, b] in &mesh.seams {
+        assert!(partners.insert(a, b).is_none(), "gathered vertex {a}");
+        assert!(partners.insert(b, a).is_none(), "gathered vertex {b}");
+    }
+    assert_eq!(mesh.seams.len(), 6);
+}
+
+#[test]
+fn sewn_edges_have_bending_continuity_in_material_space() {
+    let panel = |name: &str| {
+        Panel::new(
+            name,
+            vec![
+                Vec2::new(0.0, 0.0),
+                Vec2::new(1.0, 0.0),
+                Vec2::new(1.0, 1.0),
+                Vec2::new(0.0, 1.0),
+            ],
+        )
+    };
+    let mesh = build(
+        &[
+            panel("a"),
+            panel("b").placed(Placement {
+                translation: Vec3::new(0.0, 0.0, 1.0),
+                ..Default::default()
+            }),
+        ],
+        &[Seam::new(
+            SeamSide { panel: 0, edge: 0 },
+            SeamSide { panel: 1, edge: 0 },
+        )],
+        0.2,
+        0.2,
+    )
+    .unwrap();
+    let hinges: Vec<_> = mesh
+        .bends
+        .iter()
+        .zip(&mesh.bend_weights)
+        .filter(|(b, _)| mesh.panel_of(b.wings[0]) != mesh.panel_of(b.wings[1]))
+        .collect();
+    assert_eq!(hinges.len(), 5);
+    for (_, weights) in hinges {
+        assert!(weights[..4].iter().sum::<f32>().abs() < 1e-6);
+        assert_eq!(
+            weights[4], 0.0,
+            "initial panel separation must not become a permanent crease"
+        );
+    }
+}

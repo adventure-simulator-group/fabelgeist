@@ -13,7 +13,7 @@ use anyhow::anyhow;
 use fabelgeist_math::{Vec2, Vec3};
 
 use crate::topology::{self, BendQuad};
-use crate::triangulate::{PanelMesh, triangulate};
+use crate::triangulate::{PanelMesh, triangulate_with_segments};
 
 /// Where a flat panel sits in space.
 ///
@@ -239,12 +239,50 @@ pub fn build(
     let mut mesh = GarmentMesh::default();
     let mut meshes: Vec<PanelMesh> = Vec::with_capacity(panels.len());
 
-    for panel in panels {
+    // Match boundary subdivisions before triangulation. Rounding independent
+    // chains onto each other pulls multiple vertices into a single stitch.
+    let mut counts: Vec<Vec<usize>> = panels
+        .iter()
+        .map(|panel| {
+            (0..panel.outline.len())
+                .map(|i| {
+                    (((panel.outline[(i + 1) % panel.outline.len()] - panel.outline[i]).length()
+                        / target_edge)
+                        .round() as usize)
+                        .max(1)
+                })
+                .collect()
+        })
+        .collect();
+    loop {
+        let mut changed = false;
+        for seam in seams {
+            let a = counts
+                .get(seam.a.panel)
+                .and_then(|c| c.get(seam.a.edge))
+                .copied()
+                .ok_or_else(|| anyhow!("invalid seam side {:?}", seam.a))?;
+            let b = counts
+                .get(seam.b.panel)
+                .and_then(|c| c.get(seam.b.edge))
+                .copied()
+                .ok_or_else(|| anyhow!("invalid seam side {:?}", seam.b))?;
+            let n = a.max(b);
+            changed |= a != n || b != n;
+            counts[seam.a.panel][seam.a.edge] = n;
+            counts[seam.b.panel][seam.b.edge] = n;
+        }
+        if !changed {
+            break;
+        }
+    }
+    for (panel_index, panel) in panels.iter().enumerate() {
         let offset = mesh.positions.len() as u32;
         mesh.panel_offsets.push(offset);
         mesh.panel_names.push(panel.name.clone());
 
-        let panel_mesh = triangulate(&panel.outline, target_edge);
+        let panel_mesh =
+            triangulate_with_segments(&panel.outline, target_edge, &counts[panel_index]);
         for vertex in &panel_mesh.vertices {
             mesh.positions.push(panel.placement.apply(*vertex));
             mesh.material.push(*vertex);
@@ -271,14 +309,8 @@ pub fn build(
         .collect();
     mesh.edges = derived.edges;
 
-    // A hinge across a seam does not exist -- seams are distance constraints,
-    // not shared triangles -- so a garment creases at its seams, which is what
-    // a real one does.
-    //
-    // The weights come from the flat layout, which is the fabric's rest shape,
-    // so the rest value is zero for every hinge in a flat panel. A hinge whose
-    // quad is degenerate has no unique weights and is dropped: leaving it in
-    // with arbitrary ones would apply a force out of nothing.
+    // Interior hinges use each panel's flat rest layout. Sewn hinges are
+    // added below once the boundary correspondence is known.
     for bend in derived.bends {
         let [i0, i1, i2, i3] = bend.particles();
         let points = [
@@ -314,8 +346,78 @@ pub fn build(
     mesh.seams
         .retain(|&[a, b]| a != b && !existing.contains(&[a.min(b), a.max(b)]));
 
+    add_seam_bends(&mut mesh);
     mesh.masses = topology::vertex_masses(&mesh.positions, &mesh.triangles, density);
     Ok(mesh)
+}
+
+// Unfold the two incident triangles into one material plane. Using their
+// separated 3D placement here would bake the initial panel gap into the cloth.
+fn add_seam_bends(mesh: &mut GarmentMesh) {
+    let mut roots: Vec<u32> = (0..mesh.positions.len() as u32).collect();
+    fn root(roots: &[u32], mut i: u32) -> u32 {
+        while roots[i as usize] != i {
+            i = roots[i as usize];
+        }
+        i
+    }
+    for &[a, b] in &mesh.seams {
+        let (a, b) = (root(&roots, a), root(&roots, b));
+        roots[b as usize] = a;
+    }
+    let roots: Vec<_> = (0..roots.len() as u32).map(|i| root(&roots, i)).collect();
+    let mut incident = std::collections::BTreeMap::<(u32, u32), Vec<[u32; 3]>>::new();
+    for f in &mesh.triangles {
+        for k in 0..3 {
+            let (mut a, mut b, c) = (f[k], f[(k + 1) % 3], f[(k + 2) % 3]);
+            if roots[a as usize] > roots[b as usize] {
+                std::mem::swap(&mut a, &mut b);
+            }
+            incident
+                .entry((roots[a as usize], roots[b as usize]))
+                .or_default()
+                .push([a, b, c]);
+        }
+    }
+    for ((a, b), sides) in incident {
+        if a == b || sides.len() != 2 || mesh.panel_of(sides[0][0]) == mesh.panel_of(sides[1][0]) {
+            continue;
+        }
+        let side_points = |side: [u32; 3]| {
+            let [a, b, c] = side.map(|i| mesh.positions[i as usize]);
+            let edge = b - a;
+            let length = edge.length();
+            let x = (c - a).dot(edge) / length;
+            let y = ((c - a).length_squared() - x * x).max(0.0).sqrt();
+            (length, x, y)
+        };
+        let (l0, x0, y0) = side_points(sides[0]);
+        let (l1, x1, y1) = side_points(sides[1]);
+        if l0 < 1e-8 || l1 < 1e-8 || y0 < 1e-8 || y1 < 1e-8 {
+            continue;
+        }
+        let length = (l0 + l1) * 0.5;
+        let points = [
+            Vec3::default(),
+            Vec3::new(length, 0.0, 0.0),
+            Vec3::new(x0 * length / l0, y0, 0.0),
+            Vec3::new(x1 * length / l1, -y1, 0.0),
+        ];
+        let Some(w) = topology::bending_weights(points) else {
+            continue;
+        };
+        let bend = BendQuad {
+            shared: [a, b],
+            wings: [sides[0][2], sides[1][2]],
+        };
+        let ids = bend.particles();
+        if (0..4).any(|i| ids[..i].contains(&ids[i])) {
+            continue;
+        }
+        mesh.bends.push(bend);
+        mesh.bend_weights
+            .push([w[0], w[1], w[2], w[3], 0.0, 0.0, 0.0, 0.0]);
+    }
 }
 
 /// Pair up the particles along two sewn edges.

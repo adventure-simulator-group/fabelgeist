@@ -14,12 +14,14 @@ pub(super) fn regenerate_mesh(
     mut images: ResMut<Assets<Image>>,
     mut mail_maps: ResMut<underlayer_preview::MailMaps>,
     mut drape_job: ResMut<drape_preview::DrapeJob>,
+    mut walk: ResMut<WalkPreview>,
+    mut inverse_bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
 ) {
     if !studio.dirty {
         return;
     }
     studio.dirty = false;
-    drape_job.request(None);
+    drape_job.request(Vec::new());
     let generated = match generate_character(&model, &studio.recipe) {
         Ok(generated) => generated,
         Err(error) => {
@@ -27,12 +29,21 @@ pub(super) fn regenerate_mesh(
             return;
         }
     };
+    animation_preview::rebuild(
+        &mut walk,
+        &mut commands,
+        &mut inverse_bindposes,
+        &model,
+        &generated,
+    );
     drape_job.request(
         studio
             .recipe
-            .garment
-            .clone()
-            .map(|selection| drape_preview::input(&model, &generated, selection)),
+            .garments
+            .iter()
+            .cloned()
+            .map(|selection| drape_preview::input(&model, &generated, selection))
+            .collect(),
     );
     let faces = &model.mhr.character.mesh.faces;
     let specifications = match selected_garments(&studio.recipe, &catalog) {
@@ -78,8 +89,23 @@ pub(super) fn regenerate_mesh(
     for entity in &old {
         commands.entity(entity).despawn();
     }
-    preview::spawn_body(&mut commands, &mut meshes, &mut materials, mesh);
-    preview::spawn_clothing(&mut commands, &mut meshes, &mut materials, clothed.shells);
+    preview::spawn_body(
+        &mut commands,
+        &mut meshes,
+        &mut materials,
+        &walk,
+        &model,
+        &generated,
+        mesh,
+    );
+    preview::spawn_clothing(
+        &mut commands,
+        &mut meshes,
+        &mut materials,
+        &walk,
+        &model,
+        clothed.shells,
+    );
     for piece in &armor {
         let material = catalog
             .material(&piece.item_id)

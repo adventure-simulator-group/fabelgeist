@@ -1356,7 +1356,12 @@ mod tests {
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
         let shell = RiggedShell {
-            skin: Some((&garment_ids, &garment_weights)),
+            textures: None,
+            texcoords: None,
+            hinge: None,
+            joint_indices: Some(&garment_ids),
+            joint_weights: Some(&garment_weights),
+            morph_targets: &[],
             name: "Tunic",
             positions: &shell_positions,
             normals: &garment_normals,
@@ -1366,11 +1371,13 @@ mod tests {
             roughness: 0.9,
         };
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "Test",
             2,
             1,
             &RiggedMesh {
+                joint_proportions: &[],
+                morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
@@ -1388,22 +1395,23 @@ mod tests {
         let bytes = fs::read(&path).unwrap();
         let document = read_document(&bytes);
         let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
-        assert_eq!(parsed.meshes().next().unwrap().primitives().count(), 2);
+        assert_eq!(parsed.meshes().count(), 2);
+        assert!(parsed.meshes().all(|mesh| mesh.primitives().count() == 1));
         assert_eq!(document["materials"][1]["name"], "Tunic");
         let red = document["materials"][1]["pbrMetallicRoughness"]["baseColorFactor"][0]
             .as_f64()
             .unwrap();
         assert!((red - 0.010_022_8).abs() < 1e-6);
-        assert_eq!(document["meshes"][0]["primitives"][1]["material"], 1);
+        assert_eq!(document["meshes"][1]["primitives"][0]["material"], 1);
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["NORMAL"],
+            document["meshes"][1]["primitives"][0]["attributes"]["NORMAL"],
             document["meshes"][0]["primitives"][0]["attributes"]["NORMAL"]
         );
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["JOINTS_1"],
-            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"]
+            document["meshes"][1]["primitives"][0]["attributes"]["JOINTS_0"],
+            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_0"]
         );
-        let primitive = parsed.meshes().next().unwrap().primitives().nth(1).unwrap();
+        let primitive = parsed.meshes().nth(1).unwrap().primitives().next().unwrap();
         for (_, accessor) in primitive.attributes() {
             assert_eq!(accessor.count(), 4);
         }

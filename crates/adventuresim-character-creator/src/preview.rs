@@ -7,6 +7,8 @@ pub(super) fn spawn_clothing(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
+    walk: &WalkPreview,
+    model: &BodyModel,
     shells: Vec<ClothingShell>,
 ) {
     for shell in shells {
@@ -16,16 +18,22 @@ pub(super) fn spawn_clothing(
             .iter()
             .flat_map(|face| face.iter().copied())
             .collect::<Vec<_>>();
-        let mesh = Mesh::new(
+        let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::default(),
         )
         .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, shell.positions)
         .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, shell.normals)
         .with_inserted_indices(Indices::U32(indices));
+        animation_preview::skin_mesh(
+            &mut mesh,
+            &model.mhr.character.skin_weights.index,
+            &model.mhr.character.skin_weights.weight,
+        );
         let [red, green, blue, alpha] = specification.base_color;
         commands.spawn((
             CharacterMesh,
+            animation_preview::skin(walk).expect("animation rig was just rebuilt"),
             Name::new(specification.name.clone()),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(materials.add(StandardMaterial {
@@ -87,10 +95,25 @@ pub(super) fn spawn_body(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
-    mesh: Mesh,
+    walk: &WalkPreview,
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    mut mesh: Mesh,
 ) {
+    animation_preview::skin_mesh(
+        &mut mesh,
+        &model.mhr.character.skin_weights.index,
+        &model.mhr.character.skin_weights.weight,
+    );
     commands.spawn((
         CharacterMesh,
+        animation_preview::BodySkin {
+            positions: generated.positions.clone(),
+            faces: model.mhr.character.mesh.faces.clone(),
+            indices: model.mhr.character.skin_weights.index.clone(),
+            weights: model.mhr.character.skin_weights.weight.clone(),
+        },
+        animation_preview::skin(walk).expect("animation rig was just rebuilt"),
         Mesh3d(meshes.add(mesh)),
         MeshMaterial3d(materials.add(StandardMaterial {
             // Skin is a rough dielectric with a small amount of diffuse

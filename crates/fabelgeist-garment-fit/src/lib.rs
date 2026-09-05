@@ -430,6 +430,22 @@ impl Fit {
         settings: &FitSettings,
         fabric: &Fabric,
     ) -> anyhow::Result<()> {
+        self.set_collision_mesh(vertices, triangles, settings, fabric)?;
+        self.body = Some(fabelgeist_bvh::TriangleBvh::new(
+            vertices.to_vec(),
+            triangles.to_vec(),
+        ));
+
+        self.clear_body(settings).await
+    }
+
+    pub fn set_collision_mesh(
+        &mut self,
+        vertices: &[Vec3],
+        triangles: &[[u32; 3]],
+        settings: &FitSettings,
+        fabric: &Fabric,
+    ) -> anyhow::Result<()> {
         let surface = MeshSurface {
             thickness: settings.body_offset_cm * CM_TO_M,
             friction: fabric.friction,
@@ -443,12 +459,7 @@ impl Fit {
             surface,
         )?;
         self.collisions.set_mesh(Some(mesh));
-        self.body = Some(fabelgeist_bvh::TriangleBvh::new(
-            vertices.to_vec(),
-            triangles.to_vec(),
-        ));
-
-        self.clear_body(settings).await
+        Ok(())
     }
 
     /// The posed positions on the host, before any body clearance.

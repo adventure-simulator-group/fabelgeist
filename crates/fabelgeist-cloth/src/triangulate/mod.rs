@@ -108,6 +108,14 @@ fn distance_to_segment(point: Vec2, a: Vec2, b: Vec2) -> f32 {
 /// whole simulation, since it sets both the particle count and how fine a fold
 /// the fabric can make.
 pub fn triangulate(outline: &[Vec2], target_edge: f32) -> PanelMesh {
+    triangulate_with_segments(outline, target_edge, &[])
+}
+
+pub(crate) fn triangulate_with_segments(
+    outline: &[Vec2],
+    target_edge: f32,
+    segments: &[usize],
+) -> PanelMesh {
     if outline.len() < 3 || !(target_edge > 0.0) {
         return PanelMesh::default();
     }
@@ -120,7 +128,8 @@ pub fn triangulate(outline: &[Vec2], target_edge: f32) -> PanelMesh {
     // winding anyway: `contains` counts ray crossings, which is
     // winding-agnostic, and `orient` makes every output triangle
     // counter-clockwise regardless.
-    let (mut vertices, edge_chains) = resample_boundary(outline, target_edge);
+    let (mut vertices, edge_chains) =
+        resample_boundary_with_segments(outline, target_edge, segments);
     let boundary_count = vertices.len();
     if boundary_count < 3 {
         return PanelMesh::default();
@@ -154,7 +163,11 @@ pub fn triangulate(outline: &[Vec2], target_edge: f32) -> PanelMesh {
 /// The chains record which vertices came from which input edge, which is how a
 /// seam declared between two *edges* becomes constraints between two lists of
 /// *particles*.
-fn resample_boundary(outline: &[Vec2], target_edge: f32) -> (Vec<Vec2>, Vec<Vec<u32>>) {
+fn resample_boundary_with_segments(
+    outline: &[Vec2],
+    target_edge: f32,
+    counts: &[usize],
+) -> (Vec<Vec2>, Vec<Vec<u32>>) {
     let mut vertices: Vec<Vec2> = Vec::new();
     let mut chains: Vec<Vec<u32>> = Vec::new();
 
@@ -162,7 +175,11 @@ fn resample_boundary(outline: &[Vec2], target_edge: f32) -> (Vec<Vec2>, Vec<Vec<
         let a = outline[i];
         let b = outline[(i + 1) % outline.len()];
         let length = (b - a).length();
-        let segments = ((length / target_edge).round() as usize).max(1);
+        let segments = counts
+            .get(i)
+            .copied()
+            .unwrap_or_else(|| ((length / target_edge).round() as usize).max(1))
+            .max(1);
 
         let mut chain = Vec::with_capacity(segments + 1);
         // The first vertex of this edge is the last of the previous one; only

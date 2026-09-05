@@ -36,7 +36,7 @@ pub struct CharacterRecipe {
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
     pub clothing: Vec<ClothingSelection>,
-    pub garment: Option<garment::GarmentSelection>,
+    pub garments: Vec<garment::GarmentSelection>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -48,9 +48,9 @@ pub struct ClothingSelection {
 impl Default for CharacterRecipe {
     fn default() -> Self {
         Self {
-            version: 4,
+            version: 5,
             proportions: Default::default(),
-            garment: None,
+            garments: Vec::new(),
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
@@ -78,7 +78,7 @@ impl Default for CharacterRecipe {
 
 impl CharacterRecipe {
     pub fn validate(&self) -> Result<(), String> {
-        if self.version != 4 {
+        if self.version != 5 {
             return Err(format!(
                 "unsupported character recipe version {}",
                 self.version
@@ -99,7 +99,7 @@ impl CharacterRecipe {
         {
             return Err("recipe contains a non-finite coefficient".into());
         }
-        if let Some(garment) = &self.garment {
+        for garment in &self.garments {
             garment.validate().map_err(|error| error.to_string())?;
         }
         for (index, selection) in self.clothing.iter().enumerate() {

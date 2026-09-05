@@ -245,6 +245,17 @@ struct ClothHook<'a> {
 }
 
 impl SubstepHook for ClothHook<'_> {
+    fn after_solve(
+        &mut self,
+        batch: &mut KernelBatch,
+        particles: &Particles,
+        _substep: f32,
+    ) -> Result<()> {
+        // Sewing and bending can pull a particle through the body after the
+        // prediction collision pass. Resolve that before storing velocity.
+        Collisions::record(self.collisions, batch, particles)
+    }
+
     fn record(
         &mut self,
         batch: &mut KernelBatch,

@@ -73,6 +73,15 @@ pub trait SubstepHook {
         particles: &Particles,
         substep: f32,
     ) -> Result<()>;
+
+    fn after_solve(
+        &mut self,
+        _batch: &mut KernelBatch,
+        _particles: &Particles,
+        _substep: f32,
+    ) -> Result<()> {
+        Ok(())
+    }
 }
 
 impl SubstepHook for () {
@@ -170,6 +179,7 @@ impl Solver {
             }
         }
 
+        hook.after_solve(batch, particles, substep)?;
         self.record_finalize(batch, particles, substep)
     }
 

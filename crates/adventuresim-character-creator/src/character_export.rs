@@ -10,26 +10,24 @@ pub(super) fn export_character(
     catalog: &EquipmentCatalog,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
-    draped: Option<&adventuresim_character_creator::garment::DrapedGarment>,
+    fitted: Option<&[adventuresim_character_creator::garment::DrapedGarment]>,
 ) -> Result<()> {
     let generated = generate_character(model, recipe)?;
-    let owned_drape = if draped.is_none() && recipe.garment.is_some() {
-        recipe
-            .garment
-            .clone()
-            .map(|selection| {
-                let input = drape_preview::input(model, &generated, selection);
-                adventuresim_character_creator::garment::drape(
-                    input,
-                    &std::sync::atomic::AtomicBool::new(false),
-                    |_| {},
-                )
-            })
-            .transpose()?
+    let owned_drape = if fitted.is_none() && !recipe.garments.is_empty() {
+        Some(adventuresim_character_creator::garment::drape_outfit(
+            recipe
+                .garments
+                .iter()
+                .cloned()
+                .map(|selection| drape_preview::input(model, &generated, selection))
+                .collect(),
+            &std::sync::atomic::AtomicBool::new(false),
+            |_| {},
+        )?)
     } else {
         None
     };
-    let draped = draped.or(owned_drape.as_ref());
+    let fitted = fitted.or(owned_drape.as_deref());
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
     let body_targets = morphs
         .body
@@ -96,22 +94,24 @@ pub(super) fn export_character(
         }
         shells.extend(parts);
     }
-    if let Some(garment) = draped {
-        shells.push(RiggedShell {
-            textures: None,
-            texcoords: None,
-            hinge: None,
-            name: &garment.name,
-            positions: &garment.positions,
-            normals: &garment.normals,
-            faces: &garment.faces,
-            joint_indices: Some(&garment.indices),
-            joint_weights: Some(&garment.weights),
-            morph_targets: &[],
-            base_color: [0.52, 0.42, 0.28, 1.0],
-            metallic: 0.0,
-            roughness: 0.85,
-        });
+    if let Some(garments) = fitted {
+        for garment in garments {
+            shells.push(RiggedShell {
+                textures: None,
+                texcoords: None,
+                hinge: None,
+                name: &garment.name,
+                positions: &garment.positions,
+                normals: &garment.normals,
+                faces: &garment.faces,
+                joint_indices: Some(&garment.indices),
+                joint_weights: Some(&garment.weights),
+                morph_targets: &[],
+                base_color: [0.52, 0.42, 0.28, 1.0],
+                metallic: 0.0,
+                roughness: 0.85,
+            });
+        }
     }
     export_rigged_glb(
         GlbOutput::Standalone(path),
