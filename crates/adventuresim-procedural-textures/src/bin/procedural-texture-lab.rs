@@ -1,3 +1,6 @@
+#[path = "procedural-texture-lab/preview.rs"]
+mod preview;
+
 use std::{fs, path::PathBuf};
 
 use adventuresim_procedural_textures::{
@@ -18,6 +21,16 @@ struct Arguments {
 enum Command {
     /// List stable recipe names and their implementation status.
     List,
+    /// Capture matching before/after exports with Bevy's standard material.
+    Compare {
+        recipe: String,
+        #[arg(long)]
+        directory: PathBuf,
+        #[arg(long)]
+        output: PathBuf,
+        #[arg(long)]
+        overview: bool,
+    },
     /// Export the current outputs for one implemented recipe as PNG files.
     Export {
         recipe: String,
@@ -40,6 +53,18 @@ fn main() -> Result<(), String> {
             Ok(())
         }
         Command::Export { recipe, output } => export(&recipe, &output),
+        Command::Compare {
+            recipe,
+            directory,
+            output,
+            overview,
+        } => {
+            let descriptor = PROCEDURAL_TEXTURE_CATALOGUE
+                .iter()
+                .find(|entry| entry.id.slug() == recipe)
+                .ok_or_else(|| format!("unknown recipe {recipe:?}"))?;
+            preview::run(descriptor.id, &directory, &output, overview)
+        }
     }
 }
 

@@ -1,11 +1,13 @@
-//! Weathered, hand-hewn structural oak with longitudinal grain and restrained adze marks.
+//! Weathered, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
 use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
-pub const HEWN_OAK_TEXTURE_SIZE: u32 = 512;
+mod grain;
+
+pub const HEWN_OAK_TEXTURE_SIZE: u32 = 1024;
 pub const HEWN_OAK_TILE_METRES: f32 = 2.0;
 pub const HEWN_OAK_HEIGHT_RANGE_METRES: f32 = 0.009;
 
@@ -13,6 +15,15 @@ const ADZE_COLUMNS: i32 = 7;
 const ADZE_ROWS: i32 = 10;
 const CHECK_COLUMNS: i32 = 4;
 const CHECK_ROWS: i32 = 5;
+const LATEWOOD_RELIEF: f32 = 0.028;
+const FIBER_RELIEF: f32 = 0.016;
+const KNOT_RING_RELIEF: f32 = 0.008;
+const LATEWOOD_DARKENING: f32 = 0.62;
+const FIBER_DARKENING: f32 = 0.32;
+const KNOT_RING_TONE: f32 = 0.18;
+const GRAIN_TONE_BALANCE: f32 = 0.17;
+const LATEWOOD_ROUGHNESS: f32 = 0.055;
+const FIBER_ROUGHNESS: f32 = 0.045;
 
 #[derive(Clone, Copy, Debug)]
 struct HewnOakSample {
@@ -137,49 +148,40 @@ fn check_field(u: f32, v: f32) -> f32 {
     check
 }
 
-fn knot_field(u: f32, v: f32) -> f32 {
-    let center_u = 0.713;
-    let center_v = 0.367;
-    let dx = periodic_delta(u - center_u);
-    let dy = periodic_delta(v - center_v);
-    let warp = value_noise(u, v, 8, 8, 0x5e91) - 0.5;
-    let radius = ((dx / 0.032).powi(2) + ((dy + warp * 0.006) / 0.060).powi(2)).sqrt();
-    smooth((1.0 - radius).clamp(0.0, 1.0))
-}
-
 fn sample_hewn_oak(u: f32, v: f32) -> HewnOakSample {
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
-    let warp = (value_noise(u, v, 4, 7, 0x7d13) - 0.5) * 0.40;
-    let grain_phase = std::f32::consts::TAU * (u * 25.0 + warp);
-    let fine_phase =
-        std::f32::consts::TAU * (u * 61.0 + (value_noise(u, v, 7, 13, 0x328b) - 0.5) * 0.32);
-    let grain = grain_phase.sin() * 0.58 + fine_phase.sin() * 0.24;
-    let broad_growth =
-        (std::f32::consts::TAU * (u * 8.0 + (value_noise(u, v, 3, 5, 0x81c7) - 0.5) * 0.2)).sin();
+    let growth = grain::sample(u, v);
+    let broad_growth = value_noise(u, v, 3, 5, 0x81c7) - 0.5;
     let timber_variation = value_noise(u, v, 6, 5, 0xd24f) - 0.5;
     let (adze_cut, adze_shoulder) = adze_relief(u, v);
     let check = check_field(u, v) * 0.18;
-    let knot = knot_field(u, v) * 0.10;
+    let knot = growth.knot * 0.10;
     let tool_recess = ((-adze_cut - 0.038) / 0.075).clamp(0.0, 1.0);
-    let height = (0.57
-        + broad_growth * 0.030
-        + grain * 0.018
+    let height = (0.57 + broad_growth * 0.030 + growth.latewood * LATEWOOD_RELIEF
+        - growth.fibers * FIBER_RELIEF
+        + growth.knot_rings * KNOT_RING_RELIEF
         + timber_variation * 0.045
         + adze_cut
         + adze_shoulder
         - check * 0.28
         - knot * 0.055)
         .clamp(0.0, 1.0);
-    let tone = (timber_variation * 0.62
-        + broad_growth * 0.22
-        + grain * 0.08
+    let tone = (timber_variation * 0.62 + broad_growth * 0.22
+        - growth.latewood * LATEWOOD_DARKENING
+        - growth.fibers * FIBER_DARKENING
+        + growth.knot_rings * KNOT_RING_TONE
+        + GRAIN_TONE_BALANCE
         + adze_cut * 4.5
         + adze_shoulder * 3.0
         - check * 0.85
         - knot * 0.48)
         .clamp(-1.0, 1.0);
-    let roughness = (0.79 + grain.abs() * 0.035 + adze_cut.abs() * 0.50 + check * 0.10
+    let roughness = (0.79
+        + growth.latewood * LATEWOOD_ROUGHNESS
+        + growth.fibers * FIBER_ROUGHNESS
+        + adze_cut.abs() * 0.50
+        + check * 0.10
         - knot * 0.035)
         .clamp(0.68, 0.94);
     HewnOakSample {
@@ -418,119 +420,5 @@ mod tests {
             assert_eq!(image.texture_descriptor.mip_level_count, expected_levels);
             assert_eq!(image.data.as_ref().unwrap().len(), expected_bytes);
         }
-    }
-
-    #[test]
-    #[ignore = "writes deterministic visual-review evidence under target"]
-    fn export_hewn_oak_visual_review() {
-        use std::{fs, path::Path};
-
-        use image::{ImageBuffer, Rgba, imageops};
-
-        fn base_rgba(images: &Assets<Image>, handle: &bevy::prelude::Handle<Image>) -> Vec<u8> {
-            let image = images.get(handle).unwrap();
-            image.data.as_ref().unwrap()[..(HEWN_OAK_TEXTURE_SIZE.pow(2) * 4) as usize].to_vec()
-        }
-
-        fn save_rgba(path: &Path, width: u32, height: u32, data: Vec<u8>) {
-            image::save_buffer_with_format(
-                path,
-                &data,
-                width,
-                height,
-                image::ColorType::Rgba8,
-                image::ImageFormat::Png,
-            )
-            .unwrap();
-        }
-
-        let output_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../target");
-        let output = output_root.join("procedural-texture-reviews/hewn-oak/candidate-6");
-        let before = output.parent().unwrap().join("before");
-        fs::create_dir_all(&output).unwrap();
-        fs::create_dir_all(&before).unwrap();
-        let (images, textures) = generated();
-        let channels = [
-            ("albedo", &textures.albedo),
-            ("normal", &textures.normal_gl),
-            ("height", &textures.height),
-            ("arm", &textures.arm),
-        ];
-        for (name, handle) in channels {
-            let data = base_rgba(&images, handle);
-            save_rgba(
-                &output.join(format!("hewn-oak-{name}.png")),
-                HEWN_OAK_TEXTURE_SIZE,
-                HEWN_OAK_TEXTURE_SIZE,
-                data.clone(),
-            );
-            let base = ImageBuffer::<Rgba<u8>, _>::from_raw(
-                HEWN_OAK_TEXTURE_SIZE,
-                HEWN_OAK_TEXTURE_SIZE,
-                data,
-            )
-            .unwrap();
-            let mut tiled = ImageBuffer::new(HEWN_OAK_TEXTURE_SIZE * 2, HEWN_OAK_TEXTURE_SIZE * 2);
-            for tile_y in 0..2 {
-                for tile_x in 0..2 {
-                    imageops::replace(
-                        &mut tiled,
-                        &base,
-                        i64::from(tile_x * HEWN_OAK_TEXTURE_SIZE),
-                        i64::from(tile_y * HEWN_OAK_TEXTURE_SIZE),
-                    );
-                }
-            }
-            tiled
-                .save(output.join(format!("hewn-oak-{name}-tile-2x2.png")))
-                .unwrap();
-            for preview_size in [128, 64] {
-                imageops::resize(
-                    &base,
-                    preview_size,
-                    preview_size,
-                    imageops::FilterType::Lanczos3,
-                )
-                .save(output.join(format!("hewn-oak-{name}-{preview_size}.png")))
-                .unwrap();
-            }
-        }
-
-        let arm = base_rgba(&images, &textures.arm);
-        for (name, channel) in [("ao", 0), ("roughness", 1), ("metallic", 2)] {
-            let separated = arm
-                .as_chunks::<4>()
-                .0
-                .iter()
-                .flat_map(|pixel| {
-                    let value = pixel[channel];
-                    [value, value, value, 255]
-                })
-                .collect::<Vec<_>>();
-            save_rgba(
-                &output.join(format!("hewn-oak-{name}.png")),
-                HEWN_OAK_TEXTURE_SIZE,
-                HEWN_OAK_TEXTURE_SIZE,
-                separated,
-            );
-        }
-
-        let baseline = (0..HEWN_OAK_TEXTURE_SIZE)
-            .flat_map(|y| {
-                (0..HEWN_OAK_TEXTURE_SIZE).flat_map(move |x| {
-                    if (x / 64 + y / 64) % 2 == 0 {
-                        [45, 24, 13, 255]
-                    } else {
-                        [91, 50, 25, 255]
-                    }
-                })
-            })
-            .collect::<Vec<_>>();
-        save_rgba(
-            &before.join("hewn-oak-albedo.png"),
-            HEWN_OAK_TEXTURE_SIZE,
-            HEWN_OAK_TEXTURE_SIZE,
-            baseline,
-        );
     }
 }
