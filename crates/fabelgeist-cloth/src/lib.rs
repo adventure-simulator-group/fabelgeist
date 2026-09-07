@@ -17,10 +17,12 @@
 //! Nothing here knows about any particular pattern library. A caller converts
 //! its own format into [`garment::Panel`]s and [`garment::Seam`]s.
 
+mod ccd;
 pub mod cloth;
 pub mod fabric;
 pub mod garment;
 pub mod selfcollision;
+pub mod surface_contact;
 pub mod topology;
 pub mod triangulate;
 pub mod wgsl;

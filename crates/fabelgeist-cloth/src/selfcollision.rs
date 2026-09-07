@@ -147,17 +147,15 @@ impl SelfCollision {
     pub fn set_radius(&mut self, radius: f32) {
         self.radius = radius;
         self.spacing = radius * 2.0;
+        self.built = false;
     }
 
-    /// Record one substep's worth of self-collision.
+    /// Record one self-collision pass.
     ///
-    /// `rebuild` says whether to rebuild the spatial hash first. Rebuilding is
-    /// most of the cost -- hashing, a four-pass radix sort and the bucket
-    /// table come to seventeen dispatches, against two for the collision
-    /// itself -- and it does not need doing every substep. The grid cell is
-    /// twice the particle radius, and a substep moves a particle a small
-    /// fraction of a millimetre; a grid built at the start of a step is still
-    /// describing where the cloth is at the end of it.
+    /// Rebuild after integration or constraint corrections: even a small
+    /// displacement can cross a hash cell boundary. Reuse is valid only when
+    /// every particle remains in its previously hashed cell. Cloth rebuilds
+    /// before and after its structural solve to satisfy that requirement.
     pub fn record(
         &mut self,
         batch: &mut KernelBatch,
@@ -272,8 +270,7 @@ impl SubstepHook for SelfCollision {
         particles: &Particles,
         _substep: f32,
     ) -> Result<()> {
-        // On its own, with no step to hang a rebuild off, it rebuilds every
-        // substep. `Cloth` drives it directly and does better.
+        // Integration can move particles across cell boundaries.
         SelfCollision::record(self, batch, particles, true)
     }
 }

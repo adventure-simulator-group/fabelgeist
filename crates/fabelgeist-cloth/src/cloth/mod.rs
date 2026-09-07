@@ -160,7 +160,6 @@ impl Cloth {
         let mut hook = ClothHook {
             collisions,
             self_collision: &mut self.self_collision,
-            substep: 0,
         };
 
         solver.record_step(
@@ -202,7 +201,6 @@ impl Cloth {
         let mut hook = ClothHook {
             collisions,
             self_collision: &mut self.self_collision,
-            substep: 0,
         };
 
         solver.step_interleaved(
@@ -239,9 +237,6 @@ impl Cloth {
 struct ClothHook<'a> {
     collisions: &'a mut Collisions,
     self_collision: &'a mut SelfCollision,
-    /// Which substep of the current step this is. The spatial hash is rebuilt
-    /// on the first one only -- see [`SelfCollision::record`].
-    substep: u32,
 }
 
 impl SubstepHook for ClothHook<'_> {
@@ -253,6 +248,7 @@ impl SubstepHook for ClothHook<'_> {
     ) -> Result<()> {
         // Sewing and bending can pull a particle through the body after the
         // prediction collision pass. Resolve that before storing velocity.
+        self.self_collision.record(batch, particles, true)?;
         Collisions::record(self.collisions, batch, particles)
     }
 
@@ -264,9 +260,7 @@ impl SubstepHook for ClothHook<'_> {
     ) -> Result<()> {
         let _ = substep;
         Collisions::record(self.collisions, batch, particles)?;
-        let rebuild = self.substep == 0;
-        self.substep += 1;
-        self.self_collision.record(batch, particles, rebuild)
+        self.self_collision.record(batch, particles, true)
     }
 }
 

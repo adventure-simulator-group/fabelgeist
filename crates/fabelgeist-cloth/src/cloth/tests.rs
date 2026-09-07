@@ -606,3 +606,27 @@ async fn interleaved_submission_gives_the_same_result() -> Result<()> {
     );
     Ok(())
 }
+
+#[tokio::test]
+async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() -> Result<()> {
+    let harness = Harness::new().await?;
+    let particles = fabelgeist_xpbd::Particles::from_positions(
+        &harness.context,
+        &[Vec3::default(), Vec3::default()],
+        &[0.0, 1.0],
+    )?;
+    let mut collision = crate::SelfCollision::new(
+        &harness.context,
+        &harness.cache,
+        2,
+        &[vec![], vec![]],
+        0.005,
+    )?;
+    let mut batch = KernelBatch::labelled(&harness.context, "coincident contact");
+    collision.record(&mut batch, &particles, true)?;
+    batch.submit();
+    let p = particles.read_positions(&harness.context).await?;
+    assert!(p[0].length() < 1e-6);
+    assert!((p[1] - p[0]).length() > 0.0099);
+    Ok(())
+}

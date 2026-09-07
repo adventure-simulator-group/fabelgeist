@@ -291,9 +291,10 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
             }
 
             let other_entry = positions[other];
+            if (any(cell_of(other_entry.xyz, params.inverse_spacing) != base + vec3<i32>(dx, dy, dz))) { continue; }
             let delta = position - other_entry.xyz;
             let distance = length(delta);
-            if (distance >= diameter || distance < 1e-9) {
+            if (distance >= diameter) {
                 continue;
             }
             // Mesh neighbours are already held at the right distance by a
@@ -309,7 +310,12 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
             }
             // Only this particle's share; the other particle's own thread
             // applies the opposite half.
-            let correction = (delta / distance) * ((diameter - distance) * (entry.w / total));
+            // Exact coincidence needs an antisymmetric fallback, otherwise
+            // overlapping layers remain stuck forever.
+            var direction = vec3<f32>(1.0, 0.0, 0.0);
+            if (index > other) { direction = -direction; }
+            if (distance > 1e-9) { direction = delta / distance; }
+            let correction = direction * ((diameter - distance) * (entry.w / total));
             accumulate(index, correction);
         }
     }

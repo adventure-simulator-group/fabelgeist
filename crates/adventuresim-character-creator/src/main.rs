@@ -481,6 +481,9 @@ fn studio_ui(
                         let ignore_weights = walk.ignore_cloth_weights;
                         let settings = &mut walk.simulation;
                         ui.small("Changes apply live during physics animation.");
+                        ui.checkbox(&mut settings.self_collision, "Cloth self-collision and layers");
+                        ui.add(egui::Slider::new(&mut settings.cloth_thickness, 0.001..=0.02).text("Cloth contact thickness (m)"));
+                        ui.add(egui::Slider::new(&mut settings.contact_iterations, 1..=8).text("Contact iterations"));
                         ui.add(egui::Slider::new(&mut settings.gravity, 0.0..=30.0).text("Gravity (m/s²)"));
                         ui.add(egui::Slider::new(&mut settings.damping, 0.0..=1.0).text("Velocity damping"));
                         ui.add(egui::Slider::new(&mut settings.stretch_stiffness, 0.0..=1.0).text("Stretch stiffness"));
