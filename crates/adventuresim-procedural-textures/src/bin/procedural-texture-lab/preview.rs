@@ -1,4 +1,4 @@
-//! Fixed-light Bevy captures of exported texture maps, with matching before/after crops.
+//! Mipmapped, configurable-light Bevy captures of exported texture maps, with matching before/after crops.
 
 use std::{
     fs,
@@ -33,6 +33,26 @@ const CAPTURE_FRAME_SECONDS: f64 = 1.0 / 30.0;
 const PANEL_SIZE: f32 = 1.50;
 const PANEL_OFFSET: f32 = 0.80;
 const VIEW_HEIGHT: f32 = 2.12;
+const DISTANCE_REPEATS: f32 = 4.0;
+const RAKING_LIGHT_DEPTH: f32 = 0.28;
+const OBLIQUE_PANEL_RADIANS: f32 = 0.65;
+const DIAGNOSTIC_ROUGHNESS: u8 = 210;
+const DIAGNOSTIC_GRAY: f32 = 0.42;
+
+#[derive(Clone, Copy, Debug, clap::ValueEnum)]
+pub(super) enum View {
+    Detail,
+    Overview,
+    Oblique,
+    Distance,
+}
+
+#[derive(Clone, Copy)]
+pub(super) struct Settings {
+    pub(super) view: View,
+    pub(super) diagnostic: bool,
+    pub(super) light_angle: f32,
+}
 
 #[derive(Resource)]
 struct Capture {
@@ -45,12 +65,22 @@ pub(super) fn run(
     recipe: TextureRecipeId,
     directory: &Path,
     output: &Path,
-    overview: bool,
+    settings: Settings,
 ) -> Result<(), String> {
-    let (crop, offset) = match (recipe, overview) {
-        (TextureRecipeId::HewnOak | TextureRecipeId::DressedStone, true) => (1.0, Vec2::ZERO),
-        (TextureRecipeId::HewnOak, false) => (0.38, Vec2::new(0.523, 0.177)),
-        (TextureRecipeId::DressedStone, false) => (0.25, Vec2::new(0.30, 0.36)),
+    if !settings.light_angle.is_finite() {
+        return Err("light angle must be finite".to_owned());
+    }
+    let (crop, offset) = match (recipe, settings.view) {
+        (TextureRecipeId::HewnOak | TextureRecipeId::DressedStone, View::Overview) => {
+            (1.0, Vec2::ZERO)
+        }
+        (TextureRecipeId::HewnOak, View::Detail | View::Oblique) => (0.38, Vec2::new(0.523, 0.177)),
+        (TextureRecipeId::DressedStone, View::Detail | View::Oblique) => {
+            (0.25, Vec2::new(0.30, 0.36))
+        }
+        (TextureRecipeId::HewnOak | TextureRecipeId::DressedStone, View::Distance) => {
+            (DISTANCE_REPEATS, Vec2::ZERO)
+        }
         _ => return Err("comparison previews support hewn-oak and dressed-stone".to_owned()),
     };
     if let Some(parent) = output.parent() {
@@ -82,7 +112,7 @@ pub(super) fn run(
         output,
         crop,
         offset,
-        overview,
+        settings,
     )?;
     app.add_systems(Update, capture).run();
     Ok(())
@@ -95,7 +125,7 @@ fn setup_scene(
     output: &Path,
     crop: f32,
     offset: Vec2,
-    overview: bool,
+    settings: Settings,
 ) -> Result<(), String> {
     let target = world
         .resource_mut::<Assets<Image>>()
@@ -124,18 +154,31 @@ fn setup_scene(
             shadow_maps_enabled: false,
             ..default()
         },
-        Transform::from_xyz(-3.0, 4.0, 2.0).looking_at(Vec3::ZERO, Vec3::Y),
+        Transform::from_translation(Vec3::new(
+            settings.light_angle.to_radians().sin(),
+            settings.light_angle.to_radians().cos(),
+            RAKING_LIGHT_DEPTH,
+        ))
+        .looking_at(Vec3::ZERO, Vec3::Y),
     ));
-    spawn_panels(world, recipe, directory, crop, offset)?;
+    spawn_panels(world, recipe, directory, crop, offset, settings)?;
     let title = format!(
-        "{}  /  {}  /  MATCHED LIGHTING",
+        "{}  /  {:?}  /  {}",
         recipe.slug().to_uppercase(),
-        if overview { "FULL TILE" } else { "DETAIL" }
+        settings.view,
+        if settings.diagnostic {
+            "CONSTANT COLOR + ROUGHNESS"
+        } else {
+            "PRODUCTION MAPS"
+        }
     );
     spawn_label(world, title, 28.0, 0.0, CAPTURE_WIDTH as f32, 26.0);
     spawn_label(
         world,
-        "Bevy material comparison | Identical lighting and crop".to_owned(),
+        format!(
+            "Bevy StandardMaterial | Full mip chains | Light azimuth {} degrees",
+            settings.light_angle
+        ),
         930.0,
         0.0,
         CAPTURE_WIDTH as f32,
@@ -155,6 +198,7 @@ fn spawn_panels(
     directory: &Path,
     crop: f32,
     offset: Vec2,
+    settings: Settings,
 ) -> Result<(), String> {
     for (label, x) in [("before", -PANEL_OFFSET), ("after", PANEL_OFFSET)] {
         let root = directory.join(label);
@@ -173,10 +217,34 @@ fn spawn_panels(
             &root.join(format!("{}-arm.png", recipe.slug())),
             false,
         )?;
+        if settings.diagnostic {
+            let mut images = world.resource_mut::<Assets<Image>>();
+            for pixel in images
+                .get_mut(&arm)
+                .unwrap()
+                .data
+                .as_mut()
+                .unwrap()
+                .as_chunks_mut::<4>()
+                .0
+            {
+                pixel[1] = DIAGNOSTIC_ROUGHNESS;
+                pixel[2] = 0;
+            }
+        }
         let material = world
             .resource_mut::<Assets<StandardMaterial>>()
             .add(StandardMaterial {
-                base_color_texture: Some(albedo),
+                base_color_texture: if settings.diagnostic {
+                    None
+                } else {
+                    Some(albedo)
+                },
+                base_color: if settings.diagnostic {
+                    Color::srgb(DIAGNOSTIC_GRAY, DIAGNOSTIC_GRAY, DIAGNOSTIC_GRAY)
+                } else {
+                    Color::WHITE
+                },
                 normal_map_texture: Some(normal),
                 metallic_roughness_texture: Some(arm.clone()),
                 occlusion_texture: Some(arm),
@@ -193,7 +261,13 @@ fn spawn_panels(
         world.spawn((
             Mesh3d(mesh),
             MeshMaterial3d(material),
-            Transform::from_xyz(x, -0.01, 0.0),
+            Transform::from_xyz(x, -0.01, 0.0).with_rotation(Quat::from_rotation_y(
+                if matches!(settings.view, View::Oblique) {
+                    OBLIQUE_PANEL_RADIANS
+                } else {
+                    0.0
+                },
+            )),
         ));
         let panel_pixels = PANEL_SIZE / VIEW_HEIGHT * CAPTURE_HEIGHT as f32;
         let left = CAPTURE_WIDTH as f32 * 0.5 + x / VIEW_HEIGHT * CAPTURE_HEIGHT as f32
@@ -224,7 +298,7 @@ fn spawn_label(world: &mut World, text: String, top: f32, left: f32, width: f32,
 
 fn load_map(world: &mut World, path: &Path, srgb: bool) -> Result<Handle<Image>, String> {
     let bytes = fs::read(path).map_err(|error| format!("{}: {error}", path.display()))?;
-    let image = Image::from_buffer(
+    let mut image = Image::from_buffer(
         &bytes,
         ImageType::Extension("png"),
         CompressedImageFormats::NONE,
@@ -232,11 +306,34 @@ fn load_map(world: &mut World, path: &Path, srgb: bool) -> Result<Handle<Image>,
         ImageSampler::Descriptor(ImageSamplerDescriptor {
             address_mode_u: ImageAddressMode::Repeat,
             address_mode_v: ImageAddressMode::Repeat,
+            anisotropy_clamp: 8,
             ..ImageSamplerDescriptor::linear()
         }),
         RenderAssetUsages::default(),
     )
     .map_err(|error| error.to_string())?;
+    let size = image.texture_descriptor.size;
+    if size.width != size.height || !size.width.is_power_of_two() {
+        return Err("comparison maps must be square power-of-two textures".to_owned());
+    }
+    let levels = size.width.ilog2() + 1;
+    let expected: usize = (0..levels)
+        .map(|level| ((size.width >> level).pow(2) * 4) as usize)
+        .sum();
+    let mips = fs::read(path.with_extension("mips"))
+        .map_err(|error| format!("{}: {error}", path.with_extension("mips").display()))?;
+    if mips.len() != expected {
+        return Err(format!("invalid mip payload for {}", path.display()));
+    }
+    let base = image.data.as_deref().ok_or("PNG has no pixel data")?;
+    if mips.get(..base.len()) != Some(base) {
+        return Err(format!(
+            "PNG and mip payload disagree for {}",
+            path.display()
+        ));
+    }
+    image.data = Some(mips);
+    image.texture_descriptor.mip_level_count = levels;
     Ok(world.resource_mut::<Assets<Image>>().add(image))
 }
 

@@ -17,24 +17,26 @@ const MIN_BLOCKS_PER_COURSE: usize = 11;
 const BEVEL_RELIEF: f32 = 0.17;
 const PORE_RELIEF: f32 = 0.055;
 const GRAIN_RELIEF: f32 = 0.008;
-const MINERAL_TONE: f32 = 5.0;
-const GRAIN_TONE: f32 = 3.0;
-const EXPOSED_CHIP_TONE: f32 = 7.0;
-const GRAIN_ROUGHNESS: f32 = 4.0;
-const PORE_ROUGHNESS: f32 = 8.0;
-const EXPOSED_CHIP_ROUGHNESS: f32 = 12.0;
+const SPALL_RELIEF: f32 = 0.11;
+const FACE_RELIEF: f32 = 0.022;
+const BLOCK_HEIGHT_VARIATION: f32 = 0.065;
+const STONE_PALETTE: [[u8; 3]; 6] = [
+    [128, 126, 113],
+    [130, 127, 112],
+    [126, 124, 111],
+    [132, 129, 115],
+    [125, 123, 110],
+    [129, 126, 114],
+];
+const STONE_ROUGHNESS_PALETTE: [u8; 3] = [218, 222, 226];
+const MORTAR_ALBEDO: [u8; 3] = [143, 139, 125];
+const MORTAR_ROUGHNESS: u8 = 236;
 
 #[derive(Clone, Copy, Debug)]
 struct StoneSample {
     height: f32,
-    stone_coverage: f32,
     stone_id: u64,
-    mineral: f32,
-    tool_strength: f32,
     edge_distance: f32,
-    detail: weathering::FaceDetail,
-    mortar: weathering::MortarDetail,
-    exposed_chip: f32,
 }
 
 fn hash_unit(value: u64) -> f32 {
@@ -199,71 +201,44 @@ fn sample_stonework(u: f32, v: f32) -> StoneSample {
     let antialias = DRESSED_STONE_TILE_METRES / DRESSED_STONE_TEXTURE_SIZE as f32 * 0.8;
     let stone_coverage = ((antialias - edge.distance) / (antialias * 2.0)).clamp(0.0, 1.0);
     let detail = weathering::face_detail(x * half_size[0], y * half_size[1], id);
-    let mortar =
-        weathering::mortar_detail(u * DRESSED_STONE_TILE_METRES, v * DRESSED_STONE_TILE_METRES);
+    let mortar = weathering::mortar_detail(
+        u * DRESSED_STONE_TILE_METRES,
+        v * DRESSED_STONE_TILE_METRES,
+        edge.distance,
+    );
 
     let planar_tilt =
         x * (hash_unit(id ^ 0x158d) - 0.5) * 0.030 + y * (hash_unit(id ^ 0xb4e7) - 0.5) * 0.022;
     let broad = periodic_wave(x * 0.5 + 0.5, id, 0xc7a9) * 0.005;
     let tools = tool_marks(x, y, id);
-    let face_height = 0.71 + (hash_unit(id ^ 0x53f1) - 0.5) * 0.09 + planar_tilt + broad + tools
+    let face_height = 0.71
+        + (hash_unit(id ^ 0x53f1) - 0.5) * BLOCK_HEIGHT_VARIATION
+        + planar_tilt
+        + broad
+        + tools
         - edge.bevel * BEVEL_RELIEF
         - detail.pore * PORE_RELIEF
-        + detail.grain * GRAIN_RELIEF;
+        + detail.grain * GRAIN_RELIEF
+        + detail.mineral * FACE_RELIEF
+        - edge.exposed_chip * SPALL_RELIEF;
 
     StoneSample {
         height: mortar.height + (face_height - mortar.height) * stone_coverage,
-        stone_coverage,
         stone_id: id,
-        mineral: hash_unit(id ^ 0x98c3),
-        tool_strength: tools.abs(),
         edge_distance,
-        detail,
-        mortar,
-        exposed_chip: edge.exposed_chip,
     }
 }
 
 fn stone_color(sample: StoneSample) -> ([u8; 3], u8) {
-    let palette = [
-        [128, 126, 113],
-        [130, 127, 112],
-        [126, 124, 111],
-        [132, 129, 115],
-        [125, 123, 110],
-        [129, 126, 114],
-    ];
-    let mut color = palette[sample.stone_id as usize % palette.len()];
-    let face_shift = ((sample.height - 0.71) * 22.0
-        + sample.detail.mineral * MINERAL_TONE
-        + sample.detail.grain * GRAIN_TONE
-        + sample.exposed_chip * EXPOSED_CHIP_TONE)
-        .round() as i16;
-    for channel in &mut color {
-        *channel = (*channel as i16 + face_shift).clamp(0, 255) as u8;
+    // Intrinsic substrate IDs own color and finish. Geometry, cavities and
+    // damage never brighten/darken albedo or add high-frequency roughness.
+    if sample.edge_distance > 0.0 {
+        return (MORTAR_ALBEDO, MORTAR_ROUGHNESS);
     }
-    let joint_roughness = (1.0 - (-sample.edge_distance * 25.0).clamp(0.0, 1.0)) * 5.0;
-    let roughness = (218.0
-        + sample.mineral * 8.0
-        + joint_roughness
-        + sample.tool_strength * 420.0
-        + sample.detail.grain * GRAIN_ROUGHNESS
-        + sample.detail.pore * PORE_ROUGHNESS
-        + sample.exposed_chip * EXPOSED_CHIP_ROUGHNESS)
-        .round()
-        .clamp(0.0, 255.0) as u8;
-    let mortar_base = [143.0, 139.0, 125.0];
-    for (channel, base) in color.iter_mut().zip(mortar_base) {
-        let mortar_color = base + sample.mortar.tone;
-        *channel = (mortar_color + (*channel as f32 - mortar_color) * sample.stone_coverage)
-            .round()
-            .clamp(0.0, 255.0) as u8;
-    }
-    let roughness = (sample.mortar.roughness
-        + (roughness as f32 - sample.mortar.roughness) * sample.stone_coverage)
-        .round()
-        .clamp(0.0, 255.0) as u8;
-    (color, roughness)
+    (
+        STONE_PALETTE[sample.stone_id as usize % STONE_PALETTE.len()],
+        STONE_ROUGHNESS_PALETTE[sample.stone_id as usize % STONE_ROUGHNESS_PALETTE.len()],
+    )
 }
 
 fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
@@ -410,9 +385,9 @@ mod tests {
         for y in 0..256 {
             for x in 0..256 {
                 let sample = sample_stonework((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
-                if sample.stone_coverage < 0.1 {
+                if sample.edge_distance > 0.02 {
                     joints.push(sample.height);
-                } else if sample.stone_coverage > 0.99 && sample.edge_distance < -0.30 {
+                } else if sample.edge_distance < -0.30 {
                     faces.push(sample.height);
                 }
             }
@@ -422,6 +397,27 @@ mod tests {
         let face_span = faces.iter().copied().fold(f32::NEG_INFINITY, f32::max) - face_min;
         assert!(face_min - joint_max > 0.35);
         assert!(face_span < 0.17, "planar face span: {face_span}");
+    }
+
+    #[test]
+    fn intrinsic_palette_is_independent_of_relief_and_damage() {
+        for y in 0..128 {
+            for x in 0..128 {
+                let sample = sample_stonework(x as f32 / 128.0, y as f32 / 128.0);
+                let (color, roughness) = stone_color(sample);
+                assert!(STONE_PALETTE.contains(&color) || color == MORTAR_ALBEDO);
+                assert!(
+                    STONE_ROUGHNESS_PALETTE.contains(&roughness) || roughness == MORTAR_ROUGHNESS
+                );
+                assert_eq!(
+                    stone_color(StoneSample {
+                        height: 0.0,
+                        ..sample
+                    }),
+                    (color, roughness)
+                );
+            }
+        }
     }
 
     #[test]
@@ -470,7 +466,7 @@ mod tests {
                 .copied()
                 .collect::<BTreeSet<_>>()
                 .len()
-                > 8
+                == 4
         );
     }
 }

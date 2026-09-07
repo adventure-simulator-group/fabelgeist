@@ -5,7 +5,8 @@ use std::{fs, path::PathBuf};
 
 use adventuresim_procedural_textures::{
     PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureAssets, SurfaceTextureSet, TextureRecipeId,
-    TextureRecipeStatus, generate_procedural_textures,
+    TextureRecipeStatus, generate_dressed_stone_textures, generate_hewn_oak_textures,
+    generate_procedural_textures,
 };
 use bevy::{asset::Assets, image::Image, prelude::Handle, render::render_resource::TextureFormat};
 use clap::{Parser, Subcommand};
@@ -28,8 +29,12 @@ enum Command {
         directory: PathBuf,
         #[arg(long)]
         output: PathBuf,
+        #[arg(long, value_enum, default_value_t = preview::View::Detail)]
+        view: preview::View,
         #[arg(long)]
-        overview: bool,
+        diagnostic: bool,
+        #[arg(long, default_value_t = -35.0, allow_hyphen_values = true)]
+        light_angle: f32,
     },
     /// Export the current outputs for one implemented recipe as PNG files.
     Export {
@@ -57,13 +62,24 @@ fn main() -> Result<(), String> {
             recipe,
             directory,
             output,
-            overview,
+            view,
+            diagnostic,
+            light_angle,
         } => {
             let descriptor = PROCEDURAL_TEXTURE_CATALOGUE
                 .iter()
                 .find(|entry| entry.id.slug() == recipe)
                 .ok_or_else(|| format!("unknown recipe {recipe:?}"))?;
-            preview::run(descriptor.id, &directory, &output, overview)
+            preview::run(
+                descriptor.id,
+                &directory,
+                &output,
+                preview::Settings {
+                    view,
+                    diagnostic,
+                    light_angle,
+                },
+            )
         }
     }
 }
@@ -80,8 +96,14 @@ fn export(slug: &str, output: &PathBuf) -> Result<(), String> {
     }
     fs::create_dir_all(output).map_err(|error| error.to_string())?;
     let mut images = Assets::<Image>::default();
-    let textures = generate_procedural_textures(&mut images);
-    for (channel, handle) in outputs(descriptor.id, &textures)? {
+    let maps = match descriptor.id {
+        TextureRecipeId::HewnOak => surface_outputs(&generate_hewn_oak_textures(&mut images)),
+        TextureRecipeId::DressedStone => {
+            surface_outputs(&generate_dressed_stone_textures(&mut images))
+        }
+        _ => outputs(descriptor.id, &generate_procedural_textures(&mut images))?,
+    };
+    for (channel, handle) in maps {
         save_png(
             &images,
             &handle,
@@ -188,6 +210,9 @@ fn save_png(images: &Assets<Image>, handle: &Handle<Image>, path: PathBuf) -> Re
         TextureFormat::Rg8Unorm => (ColorType::La8, 2),
         format => return Err(format!("unsupported export format {format:?}")),
     };
+    // Preserve the generator's exact mip payload for GPU comparisons. PNG is
+    // independently useful for channel inspection but contains only level zero.
+    fs::write(path.with_extension("mips"), data).map_err(|error| error.to_string())?;
     let base_mip_length = width as usize * height as usize * bytes_per_pixel;
     image::save_buffer_with_format(
         &path,

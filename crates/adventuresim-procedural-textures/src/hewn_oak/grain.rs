@@ -1,11 +1,24 @@
 //! Periodic growth bands and fibers sharing the displacement around branch knots.
 
-use super::{periodic_delta, smooth, value_noise};
+use super::{grid_hash, periodic_delta, smooth, value_noise};
 
-const RING_COUNT: f32 = 37.0;
+const GRAIN_FILTER_GRID: u32 = 4;
+const KNOT_TAPER: f32 = 0.30;
+const KNOT_RING_DISTORTION: f32 = 0.12;
+const KNOT_RING_COUNT: f32 = 2.0;
+const LATEWOOD_SHOULDER_RATIO: f32 = 0.45;
+const ANATOMICAL_MARK_DENSITY: f32 = 0.28;
+const VESSEL_RADII_CELLS: [f32; 2] = [0.30, 0.44];
+const RAY_RADII_CELLS: [f32; 2] = [0.43, 0.12];
+
+const RING_COUNT: f32 = 61.0;
 const FIBER_COUNT: f32 = 173.0;
-const LATEWOOD_START: f32 = 0.57;
-const LATEWOOD_END: f32 = 0.94;
+const RING_SPACING_WARP: f32 = 0.043;
+const LATEWOOD_WIDTH: [f32; 2] = [0.12, 0.30];
+const VESSEL_COLUMNS: i32 = 211;
+const VESSEL_ROWS: i32 = 43;
+const RAY_COLUMNS: i32 = 29;
+const RAY_ROWS: i32 = 47;
 const KNOT_INFLUENCE_RADII: f32 = 4.0;
 const KNOT_CORE_SOFTENING: f32 = 0.22;
 const RING_WANDER: f32 = 0.009;
@@ -36,9 +49,12 @@ const KNOTS: [Knot; 3] = [
     },
 ];
 
+#[derive(Default)]
 pub(super) struct GrainSample {
     pub(super) latewood: f32,
     pub(super) fibers: f32,
+    pub(super) vessels: f32,
+    pub(super) rays: f32,
     pub(super) knot: f32,
     pub(super) knot_rings: f32,
 }
@@ -50,7 +66,11 @@ fn growth_coordinate(u: f32, v: f32) -> (f32, f32, f32) {
     for knot in &KNOTS {
         let dy = periodic_delta(v - knot.center[1]);
         let dx = periodic_delta(u - knot.center[0]) - dy * knot.lean;
-        let radius_squared = (dx / knot.radii[0]).powi(2) + (dy / knot.radii[1]).powi(2);
+        // Branch cross-sections taper along their axis and lean unevenly.
+        let taper = 1.0 + KNOT_TAPER * (dy / knot.radii[1]).tanh();
+        let skew = dx - knot.lean * dy * (dy / knot.radii[1]).tanh();
+        let radius_squared =
+            (skew / (knot.radii[0] * taper)).powi(2) + (dy / knot.radii[1]).powi(2);
         let radius = radius_squared.sqrt();
         let envelope = 1.0 - smooth((radius / KNOT_INFLUENCE_RADII).clamp(0.0, 1.0));
         // Contours split around the branch intersection and converge along its axis.
@@ -58,20 +78,29 @@ fn growth_coordinate(u: f32, v: f32) -> (f32, f32, f32) {
         across -= dx / (radius_squared + KNOT_CORE_SOFTENING) * envelope;
         let core = 1.0 - smooth(((radius - 0.35) / 0.80).clamp(0.0, 1.0));
         knot_mask = knot_mask.max(core);
-        knot_rings += (radius * std::f32::consts::TAU * 3.0).sin() * core;
+        let distorted_radius =
+            radius + KNOT_RING_DISTORTION * (dy / knot.radii[1] + dx / knot.radii[0]).sin();
+        knot_rings += (distorted_radius * std::f32::consts::TAU * KNOT_RING_COUNT).sin() * core;
     }
     (across, knot_mask, knot_rings)
 }
 
 pub(super) fn sample(u: f32, v: f32) -> GrainSample {
+    let u = u.rem_euclid(1.0);
+    let v = v.rem_euclid(1.0);
     let (across, knot, knot_rings) = growth_coordinate(u, v);
     let growth = across + (value_noise(u, v, 5, 9, 0x7d13) - 0.5) * RING_WANDER;
+    let growth = growth + (value_noise(growth, v, 9, 2, 0x6ba1) - 0.5) * RING_SPACING_WARP;
     let phase = growth * RING_COUNT;
-    let spacing = (value_noise(growth, v, 13, 3, 0x81c7) - 0.5) * 0.85;
-    let band = ((phase + spacing) * std::f32::consts::TAU).sin() * 0.5 + 0.5;
-    // Thin, dense latewood alternates with a broad earlywood interval.
-    let latewood =
-        smooth(((band - LATEWOOD_START) / (LATEWOOD_END - LATEWOOD_START)).clamp(0.0, 1.0));
+    let ring = phase.floor() as i32;
+    let width = LATEWOOD_WIDTH[0]
+        + (LATEWOOD_WIDTH[1] - LATEWOOD_WIDTH[0])
+            * grid_hash(ring, 0, RING_COUNT as i32, 1, 0x481b);
+    let within = phase - phase.floor();
+    // Broad earlywood meets a narrow, asymmetric latewood ridge. Per-ring widths
+    // and nonuniform spacing break the equally spaced sinusoidal stripe pattern.
+    let latewood = smooth((within / width).clamp(0.0, 1.0))
+        * (1.0 - smooth(((within - width) / (width * LATEWOOD_SHOULDER_RATIO)).clamp(0.0, 1.0)));
     let fiber_coordinate = growth + (value_noise(growth, v, 19, 17, 0x328b) - 0.5) * FIBER_WANDER;
     let fiber_band = (fiber_coordinate * FIBER_COUNT * std::f32::consts::TAU).sin();
     let interruptions =
@@ -80,9 +109,62 @@ pub(super) fn sample(u: f32, v: f32) -> GrainSample {
     GrainSample {
         latewood,
         fibers,
+        vessels: anatomical_marks(
+            growth,
+            v,
+            [VESSEL_COLUMNS, VESSEL_ROWS],
+            VESSEL_RADII_CELLS,
+            0x67ae,
+        ) * (1.0 - latewood)
+            * (1.0 - knot),
+        rays: anatomical_marks(growth, v, [RAY_COLUMNS, RAY_ROWS], RAY_RADII_CELLS, 0x518d)
+            * (1.0 - knot),
         knot,
         knot_rings,
     }
+}
+
+/// Integrate the texture footprint before differentiating height into normals.
+/// Knot compression otherwise aliases the narrow latewood shoulder into dots.
+pub(super) fn filtered_sample(u: f32, v: f32) -> GrainSample {
+    let mut result = GrainSample::default();
+    let texel = 1.0 / super::HEWN_OAK_TEXTURE_SIZE as f32;
+    let weight = 1.0 / (GRAIN_FILTER_GRID * GRAIN_FILTER_GRID) as f32;
+    for y in 0..GRAIN_FILTER_GRID {
+        for x in 0..GRAIN_FILTER_GRID {
+            let du = ((x as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
+            let dv = ((y as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
+            let tap = sample(u + du, v + dv);
+            result.latewood += tap.latewood * weight;
+            result.fibers += tap.fibers * weight;
+            result.vessels += tap.vessels * weight;
+            result.rays += tap.rays * weight;
+            result.knot += tap.knot * weight;
+            result.knot_rings += tap.knot_rings * weight;
+        }
+    }
+    result
+}
+
+// Sparse, jittered anatomical features in the SAME deformed coordinates as
+// the growth rings. Vessel tracks run longitudinally; rays cross those tracks.
+fn anatomical_marks(u: f32, v: f32, cells: [i32; 2], radius: [f32; 2], salt: u64) -> f32 {
+    let x = u.rem_euclid(1.0) * cells[0] as f32;
+    let y = v.rem_euclid(1.0) * cells[1] as f32;
+    let mut field = 0.0_f32;
+    for iy in (y.floor() as i32 - 1)..=(y.floor() as i32 + 1) {
+        for ix in (x.floor() as i32 - 1)..=(x.floor() as i32 + 1) {
+            let random = |seed| grid_hash(ix, iy, cells[0], cells[1], salt ^ seed);
+            if random(0) < 1.0 - ANATOMICAL_MARK_DENSITY {
+                continue;
+            }
+            let dx = (x - ix as f32 - random(0x217a)) / radius[0];
+            let dy = (y - iy as f32 - random(0xe312)) / radius[1];
+            let shape = (1.0 - dx * dx - dy * dy).max(0.0);
+            field = field.max(shape * shape);
+        }
+    }
+    field
 }
 
 #[cfg(test)]
@@ -111,6 +193,8 @@ mod tests {
             ] {
                 assert!((a.latewood - b.latewood).abs() < 0.0002);
                 assert!((a.fibers - b.fibers).abs() < 0.0002);
+                assert!((a.vessels - b.vessels).abs() < 0.0002);
+                assert!((a.rays - b.rays).abs() < 0.0002);
                 assert!((a.knot - b.knot).abs() < 0.0002);
             }
         }

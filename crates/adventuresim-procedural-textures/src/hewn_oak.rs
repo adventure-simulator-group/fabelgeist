@@ -1,4 +1,4 @@
-//! Weathered, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
+//! Solid-color, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
 use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
@@ -15,21 +15,21 @@ const ADZE_COLUMNS: i32 = 7;
 const ADZE_ROWS: i32 = 10;
 const CHECK_COLUMNS: i32 = 4;
 const CHECK_ROWS: i32 = 5;
-const LATEWOOD_RELIEF: f32 = 0.028;
-const FIBER_RELIEF: f32 = 0.016;
-const KNOT_RING_RELIEF: f32 = 0.008;
-const LATEWOOD_DARKENING: f32 = 0.62;
-const FIBER_DARKENING: f32 = 0.32;
-const KNOT_RING_TONE: f32 = 0.18;
-const GRAIN_TONE_BALANCE: f32 = 0.17;
-const LATEWOOD_ROUGHNESS: f32 = 0.055;
-const FIBER_ROUGHNESS: f32 = 0.045;
+const LATEWOOD_RELIEF: f32 = 0.065;
+const FIBER_RELIEF: f32 = 0.040;
+const KNOT_RING_RELIEF: f32 = 0.035;
+const VESSEL_RELIEF: f32 = 0.075;
+const RAY_RELIEF: f32 = 0.025;
+const ADZE_RELIEF_GAIN: f32 = 2.8;
+const ADZE_BLEND_SHARPNESS: f32 = 8.0;
+const ADZE_EDGE_RELIEF: f32 = 0.020;
+const OAK_ALBEDO: [u8; 3] = [73, 48, 29];
+const OAK_ROUGHNESS: u8 = 202;
+const RELIEF_AO_STRENGTH: f32 = 3.0;
 
 #[derive(Clone, Copy, Debug)]
 struct HewnOakSample {
     height: f32,
-    tone: f32,
-    roughness: f32,
     check: f32,
     knot: f32,
     tool_recess: f32,
@@ -74,10 +74,11 @@ fn value_noise(u: f32, v: f32, cells_x: i32, cells_y: i32, salt: u64) -> f32 {
 fn adze_relief(u: f32, v: f32) -> (f32, f32) {
     let column = (u * ADZE_COLUMNS as f32).floor() as i32;
     let row = (v * ADZE_ROWS as f32).floor() as i32;
-    let mut closest = (f32::INFINITY, 0.0_f32);
-    let mut second = (f32::INFINITY, 0.0_f32);
-    for cell_y in (row - 1)..=(row + 1) {
-        for cell_x in (column - 1)..=(column + 1) {
+    let mut weight_sum = 0.0_f32;
+    let mut plane_sum = 0.0_f32;
+    let mut strongest_weight = 0.0_f32;
+    for cell_y in (row - 2)..=(row + 2) {
+        for cell_x in (column - 2)..=(column + 2) {
             let id = splitmix64(
                 0x9b71_d453
                     ^ ((cell_x.rem_euclid(ADZE_COLUMNS) as u64) << 32)
@@ -101,18 +102,16 @@ fn adze_relief(u: f32, v: f32) -> (f32, f32) {
             let slope_y = (hash_unit(id ^ 0xe459) - 0.5) * 0.14;
             let offset = (hash_unit(id ^ 0x917d) - 0.5) * 0.030;
             let plane = offset + local_x / cell_width * slope_x + local_y / cell_length * slope_y;
-            if distance < closest.0 {
-                second = closest;
-                closest = (distance, plane);
-            } else if distance < second.0 {
-                second = (distance, plane);
-            }
+            // Blend every nearby facet continuously. Selecting just the two
+            // nearest planes jumps when the second and third exchange order.
+            let weight = (-distance * ADZE_BLEND_SHARPNESS).exp();
+            weight_sum += weight;
+            plane_sum += plane * weight;
+            strongest_weight = strongest_weight.max(weight);
         }
     }
-    let separation = (second.0.sqrt() - closest.0.sqrt()).max(0.0);
-    let closest_weight = 0.5 + smooth((separation / 0.24).clamp(0.0, 1.0)) * 0.5;
-    let facet = second.1 + (closest.1 - second.1) * closest_weight;
-    let tool_edge = (1.0 - smooth((separation / 0.14).clamp(0.0, 1.0))) * 0.010;
+    let facet = plane_sum / weight_sum;
+    let tool_edge = (1.0 - strongest_weight / weight_sum) * ADZE_EDGE_RELIEF;
     (facet, tool_edge)
 }
 
@@ -151,7 +150,7 @@ fn check_field(u: f32, v: f32) -> f32 {
 fn sample_hewn_oak(u: f32, v: f32) -> HewnOakSample {
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
-    let growth = grain::sample(u, v);
+    let growth = grain::filtered_sample(u, v);
     let broad_growth = value_noise(u, v, 3, 5, 0x81c7) - 0.5;
     let timber_variation = value_noise(u, v, 6, 5, 0xd24f) - 0.5;
     let (adze_cut, adze_shoulder) = adze_relief(u, v);
@@ -162,32 +161,15 @@ fn sample_hewn_oak(u: f32, v: f32) -> HewnOakSample {
         - growth.fibers * FIBER_RELIEF
         + growth.knot_rings * KNOT_RING_RELIEF
         + timber_variation * 0.045
-        + adze_cut
-        + adze_shoulder
+        - growth.vessels * VESSEL_RELIEF
+        + growth.rays * RAY_RELIEF
+        + adze_cut * ADZE_RELIEF_GAIN
+        + adze_shoulder * ADZE_RELIEF_GAIN
         - check * 0.28
         - knot * 0.055)
         .clamp(0.0, 1.0);
-    let tone = (timber_variation * 0.62 + broad_growth * 0.22
-        - growth.latewood * LATEWOOD_DARKENING
-        - growth.fibers * FIBER_DARKENING
-        + growth.knot_rings * KNOT_RING_TONE
-        + GRAIN_TONE_BALANCE
-        + adze_cut * 4.5
-        + adze_shoulder * 3.0
-        - check * 0.85
-        - knot * 0.48)
-        .clamp(-1.0, 1.0);
-    let roughness = (0.79
-        + growth.latewood * LATEWOOD_ROUGHNESS
-        + growth.fibers * FIBER_ROUGHNESS
-        + adze_cut.abs() * 0.50
-        + check * 0.10
-        - knot * 0.035)
-        .clamp(0.68, 0.94);
     HewnOakSample {
         height,
-        tone,
-        roughness,
         check,
         knot,
         tool_recess,
@@ -199,21 +181,17 @@ fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-fn hewn_oak_color(sample: HewnOakSample) -> [u8; 3] {
-    let base = [73.0_f32, 48.0, 29.0];
-    let warm_shift = sample.tone * 24.0;
-    let weathering = (sample.check * 12.0 + sample.knot * 8.0).min(14.0);
-    [
-        (base[0] + warm_shift - weathering)
-            .round()
-            .clamp(0.0, 255.0) as u8,
-        (base[1] + warm_shift * 0.70 - weathering)
-            .round()
-            .clamp(0.0, 255.0) as u8,
-        (base[2] + warm_shift * 0.38 - weathering * 0.65)
-            .round()
-            .clamp(0.0, 255.0) as u8,
-    ]
+fn ambient_visibility(heights: &[f32], x: i32, y: i32) -> f32 {
+    let center = height_at(heights, x, y);
+    let mut obstruction = 0.0;
+    for (dx, dy) in [(1, 0), (-1, 0), (0, 1), (0, -1)] {
+        for step in [1, 3, 7] {
+            obstruction += ((height_at(heights, x + dx * step, y + dy * step) - center)
+                / step as f32)
+                .max(0.0);
+        }
+    }
+    (1.0 - obstruction * RELIEF_AO_STRENGTH).clamp(0.70, 1.0)
 }
 
 pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
@@ -243,7 +221,7 @@ pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureS
     for y in 0..size {
         for x in 0..size {
             let sample = samples[(y * size + x) as usize];
-            let color = hewn_oak_color(sample);
+            let color = OAK_ALBEDO;
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
             let dx = height_at(&heights, x as i32 + 1, y as i32)
                 - height_at(&heights, x as i32 - 1, y as i32);
@@ -261,11 +239,13 @@ pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureS
             ]);
             let encoded_height = (sample.height * 255.0).round() as u8;
             height.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
-            let ambient_visibility =
-                (1.0 - sample.check * 0.20 - sample.knot * 0.08 - sample.tool_recess * 0.035)
-                    .clamp(0.72, 1.0);
+            let ambient_visibility = (ambient_visibility(&heights, x as i32, y as i32)
+                - sample.check * 0.20
+                - sample.knot * 0.08
+                - sample.tool_recess * 0.035)
+                .clamp(0.72, 1.0);
             let ao = (ambient_visibility * 255.0).round() as u8;
-            let roughness = (sample.roughness * 255.0).round() as u8;
+            let roughness = OAK_ROUGHNESS;
             arm.extend_from_slice(&[ao, roughness, 0, 255]);
         }
     }
@@ -353,7 +333,7 @@ mod tests {
     }
 
     #[test]
-    fn channels_are_coherent_weathered_and_nonmetallic() {
+    fn sculptural_detail_does_not_leak_into_color_or_roughness() {
         let (images, textures) = generated();
         assert_eq!(
             images
@@ -378,7 +358,7 @@ mod tests {
                 .copied()
                 .collect::<BTreeSet<_>>()
                 .len()
-                > 24
+                == 1
         );
         assert!(
             arm.iter()
@@ -395,7 +375,14 @@ mod tests {
                 .copied()
                 .collect::<BTreeSet<_>>()
                 .len()
-                > 8
+                == 1
+        );
+        assert!(
+            albedo
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .all(|pixel| pixel[..3] == OAK_ALBEDO)
         );
         assert!(arm.iter().skip(2).step_by(4).all(|metallic| *metallic == 0));
     }
