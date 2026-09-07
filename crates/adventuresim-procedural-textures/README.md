@@ -11,7 +11,9 @@ locally varying bevels and sparse grouped cavities shape its edges and faces.
 Lime mortar combines discrete aggregate, tapered application ridges, recessed
 pockets and buildup where it meets stone.
 
-Hewn oak authors two intrinsic colors on broad, knot-deflected grain regions.
+Hewn oak authors two intrinsic colors, darkening selected latewood ridges along
+their exact relief boundaries, including where grain bends around knots. Fine
+fibers and pores remain relief detail; color does not trace every feature.
 Handmade brick uses five unit colors and dressed stone uses six; each has an
 independently selected mortar color. These are discrete material regions, with
 no painted lighting, wear or continuous color gradients. Wood coverage is

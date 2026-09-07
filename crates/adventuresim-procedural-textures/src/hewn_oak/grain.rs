@@ -11,9 +11,7 @@ const ANATOMICAL_MARK_DENSITY: f32 = 0.28;
 const VESSEL_RADII_CELLS: [f32; 2] = [0.30, 0.44];
 const RAY_RADII_CELLS: [f32; 2] = [0.43, 0.12];
 
-const COLOR_BAND_COUNT: i32 = 17;
-const COLOR_BAND_WIDTH: [f32; 2] = [0.19, 0.39];
-const KNOT_COLOR_CORE: f32 = 0.65;
+const DARK_RING_FRACTION: f32 = 0.55;
 
 const RING_COUNT: f32 = 61.0;
 const FIBER_COUNT: f32 = 173.0;
@@ -111,14 +109,13 @@ pub(super) fn sample(u: f32, v: f32) -> GrainSample {
     let interruptions =
         smooth(((value_noise(growth, v, 53, 31, 0x4ce7) - 0.34) / 0.40).clamp(0.0, 1.0));
     let fibers = ((fiber_band - 0.45) / 0.55).max(0.0).powi(2) * interruptions * (1.0 - knot);
-    let color_phase = growth * COLOR_BAND_COUNT as f32;
-    let color_width = COLOR_BAND_WIDTH[0]
-        + (COLOR_BAND_WIDTH[1] - COLOR_BAND_WIDTH[0])
-            * grid_hash(color_phase.floor() as i32, 0, COLOR_BAND_COUNT, 1, 0x942a);
+    // Select whole latewood ridges, using their exact footprint. Color follows
+    // both relief flanks through the knot warp without tracing every fine feature.
+    let dark_ring = grid_hash(ring, 0, RING_COUNT as i32, 1, 0x942a) < DARK_RING_FRACTION;
     GrainSample {
         // Discrete intrinsic regions at the authored sample. Only footprint
         // integration below introduces intermediate coverage at their edges.
-        dark_wood: f32::from(color_phase.rem_euclid(1.0) < color_width || knot > KNOT_COLOR_CORE),
+        dark_wood: f32::from(dark_ring && latewood > 0.0),
         latewood,
         fibers,
         vessels: anatomical_marks(
@@ -202,6 +199,37 @@ mod tests {
         }
         assert!((0.001..0.15).contains(&(partial as f32 / count as f32)));
         assert!((0.10..0.50).contains(&(dark as f32 / count as f32)));
+    }
+
+    #[test]
+    fn dark_regions_cover_complete_relief_ridges_including_knot_flanks() {
+        // Scan the actual warped field, including all three branch intersections.
+        // Each connected latewood ridge must have one intrinsic color throughout;
+        // earlywood must stay light. Independent color frequencies violate both.
+        let mut dark_ridges = 0;
+        let mut light_ridges = 0;
+        for v in [
+            0.5,
+            KNOTS[0].center[1],
+            KNOTS[1].center[1],
+            KNOTS[2].center[1],
+        ] {
+            let mut ridge_color = None;
+            for x in 0..8192 {
+                let grain = sample((x as f32 + 0.5) / 8192.0, v);
+                if grain.latewood == 0.0 {
+                    assert_eq!(grain.dark_wood, 0.0, "color escaped into earlywood");
+                    ridge_color = None;
+                } else if let Some(color) = ridge_color {
+                    assert_eq!(grain.dark_wood, color, "color cuts across a relief ridge");
+                } else {
+                    ridge_color = Some(grain.dark_wood);
+                    dark_ridges += usize::from(grain.dark_wood == 1.0);
+                    light_ridges += usize::from(grain.dark_wood == 0.0);
+                }
+            }
+        }
+        assert!(dark_ridges > 20 && light_ridges > 20);
     }
 
     #[test]
