@@ -1,9 +1,9 @@
-//! Solid-color, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
+//! Two-color, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
 
-use super::{SurfaceTextureSet, image_rgba_mipped};
+use super::{SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image};
 
 mod grain;
 
@@ -23,13 +23,24 @@ const RAY_RELIEF: f32 = 0.025;
 const ADZE_RELIEF_GAIN: f32 = 2.8;
 const ADZE_BLEND_SHARPNESS: f32 = 8.0;
 const ADZE_EDGE_RELIEF: f32 = 0.020;
-const OAK_ALBEDO: [u8; 3] = [73, 48, 29];
+/// Intrinsic wood colors, independent of grain relief and roughness.
+#[derive(Clone, Copy, Debug)]
+pub struct HewnOakColors {
+    pub light: SrgbColor,
+    pub dark: SrgbColor,
+}
+
+pub const HEWN_OAK_COLORS: HewnOakColors = HewnOakColors {
+    light: SrgbColor([78, 51, 30]),
+    dark: SrgbColor([65, 42, 25]),
+};
 const OAK_ROUGHNESS: u8 = 202;
 const RELIEF_AO_STRENGTH: f32 = 3.0;
 
 #[derive(Clone, Copy, Debug)]
 struct HewnOakSample {
     height: f32,
+    dark_wood: f32,
     check: f32,
     knot: f32,
     tool_recess: f32,
@@ -170,6 +181,7 @@ fn sample_hewn_oak(u: f32, v: f32) -> HewnOakSample {
         .clamp(0.0, 1.0);
     HewnOakSample {
         height,
+        dark_wood: growth.dark_wood,
         check,
         knot,
         tool_recess,
@@ -194,7 +206,10 @@ fn ambient_visibility(heights: &[f32], x: i32, y: i32) -> f32 {
     (1.0 - obstruction * RELIEF_AO_STRENGTH).clamp(0.70, 1.0)
 }
 
-pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
+pub fn generate_hewn_oak_textures(
+    images: &mut Assets<Image>,
+    colors: &HewnOakColors,
+) -> SurfaceTextureSet {
     let size = HEWN_OAK_TEXTURE_SIZE;
     let samples = (0..size)
         .flat_map(|y| {
@@ -221,7 +236,7 @@ pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureS
     for y in 0..size {
         for x in 0..size {
             let sample = samples[(y * size + x) as usize];
-            let color = OAK_ALBEDO;
+            let color = colors.light.covered_by(colors.dark, sample.dark_wood).0;
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
             let dx = height_at(&heights, x as i32 + 1, y as i32)
                 - height_at(&heights, x as i32 - 1, y as i32);
@@ -250,8 +265,7 @@ pub fn generate_hewn_oak_textures(images: &mut Assets<Image>) -> SurfaceTextureS
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -270,7 +284,7 @@ mod tests {
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
         let mut images = Assets::default();
-        let textures = generate_hewn_oak_textures(&mut images);
+        let textures = generate_hewn_oak_textures(&mut images, &HEWN_OAK_COLORS);
         (images, textures)
     }
 
@@ -358,7 +372,7 @@ mod tests {
                 .copied()
                 .collect::<BTreeSet<_>>()
                 .len()
-                == 1
+                > 2
         );
         assert!(
             arm.iter()
@@ -377,12 +391,20 @@ mod tests {
                 .len()
                 == 1
         );
+        let allowed = (0..=16)
+            .map(|step| {
+                HEWN_OAK_COLORS
+                    .light
+                    .covered_by(HEWN_OAK_COLORS.dark, step as f32 / 16.0)
+                    .0
+            })
+            .collect::<BTreeSet<_>>();
         assert!(
             albedo
                 .as_chunks::<4>()
                 .0
                 .iter()
-                .all(|pixel| pixel[..3] == OAK_ALBEDO)
+                .all(|pixel| allowed.contains(&[pixel[0], pixel[1], pixel[2]]))
         );
         assert!(arm.iter().skip(2).step_by(4).all(|metallic| *metallic == 0));
     }

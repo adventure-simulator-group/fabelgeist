@@ -11,6 +11,10 @@ const ANATOMICAL_MARK_DENSITY: f32 = 0.28;
 const VESSEL_RADII_CELLS: [f32; 2] = [0.30, 0.44];
 const RAY_RADII_CELLS: [f32; 2] = [0.43, 0.12];
 
+const COLOR_BAND_COUNT: i32 = 17;
+const COLOR_BAND_WIDTH: [f32; 2] = [0.19, 0.39];
+const KNOT_COLOR_CORE: f32 = 0.65;
+
 const RING_COUNT: f32 = 61.0;
 const FIBER_COUNT: f32 = 173.0;
 const RING_SPACING_WARP: f32 = 0.043;
@@ -51,6 +55,7 @@ const KNOTS: [Knot; 3] = [
 
 #[derive(Default)]
 pub(super) struct GrainSample {
+    pub(super) dark_wood: f32,
     pub(super) latewood: f32,
     pub(super) fibers: f32,
     pub(super) vessels: f32,
@@ -106,7 +111,14 @@ pub(super) fn sample(u: f32, v: f32) -> GrainSample {
     let interruptions =
         smooth(((value_noise(growth, v, 53, 31, 0x4ce7) - 0.34) / 0.40).clamp(0.0, 1.0));
     let fibers = ((fiber_band - 0.45) / 0.55).max(0.0).powi(2) * interruptions * (1.0 - knot);
+    let color_phase = growth * COLOR_BAND_COUNT as f32;
+    let color_width = COLOR_BAND_WIDTH[0]
+        + (COLOR_BAND_WIDTH[1] - COLOR_BAND_WIDTH[0])
+            * grid_hash(color_phase.floor() as i32, 0, COLOR_BAND_COUNT, 1, 0x942a);
     GrainSample {
+        // Discrete intrinsic regions at the authored sample. Only footprint
+        // integration below introduces intermediate coverage at their edges.
+        dark_wood: f32::from(color_phase.rem_euclid(1.0) < color_width || knot > KNOT_COLOR_CORE),
         latewood,
         fibers,
         vessels: anatomical_marks(
@@ -135,6 +147,7 @@ pub(super) fn filtered_sample(u: f32, v: f32) -> GrainSample {
             let du = ((x as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
             let dv = ((y as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
             let tap = sample(u + du, v + dv);
+            result.dark_wood += tap.dark_wood * weight;
             result.latewood += tap.latewood * weight;
             result.fibers += tap.fibers * weight;
             result.vessels += tap.vessels * weight;
@@ -172,6 +185,26 @@ mod tests {
     use super::*;
 
     #[test]
+    fn color_regions_are_discrete_with_filtering_confined_to_boundaries() {
+        let mut partial = 0;
+        let mut dark = 0;
+        let count = 128 * 128;
+        for y in 0..128 {
+            for x in 0..128 {
+                let u = (x as f32 + 0.5) / 128.0;
+                let v = (y as f32 + 0.5) / 128.0;
+                let authored = sample(u, v).dark_wood;
+                assert!(authored == 0.0 || authored == 1.0);
+                let coverage = filtered_sample(u, v).dark_wood;
+                partial += usize::from(coverage > 0.0 && coverage < 1.0);
+                dark += usize::from(coverage > 0.5);
+            }
+        }
+        assert!((0.001..0.15).contains(&(partial as f32 / count as f32)));
+        assert!((0.10..0.50).contains(&(dark as f32 / count as f32)));
+    }
+
+    #[test]
     fn grain_bends_around_both_flanks_and_recovers_beyond_the_knot() {
         let knot = &KNOTS[0];
         let displacement = |dx: f32, dy: f32| {
@@ -191,6 +224,7 @@ mod tests {
                 (sample(0.0, t), sample(1.0, t)),
                 (sample(t, 0.0), sample(t, 1.0)),
             ] {
+                assert_eq!(a.dark_wood, b.dark_wood);
                 assert!((a.latewood - b.latewood).abs() < 0.0002);
                 assert!((a.fibers - b.fibers).abs() < 0.0002);
                 assert!((a.vessels - b.vessels).abs() < 0.0002);

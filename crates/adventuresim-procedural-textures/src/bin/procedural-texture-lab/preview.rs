@@ -71,17 +71,30 @@ pub(super) fn run(
         return Err("light angle must be finite".to_owned());
     }
     let (crop, offset) = match (recipe, settings.view) {
-        (TextureRecipeId::HewnOak | TextureRecipeId::DressedStone, View::Overview) => {
-            (1.0, Vec2::ZERO)
-        }
+        (
+            TextureRecipeId::HewnOak
+            | TextureRecipeId::DressedStone
+            | TextureRecipeId::HandmadeBrick,
+            View::Overview,
+        ) => (1.0, Vec2::ZERO),
         (TextureRecipeId::HewnOak, View::Detail | View::Oblique) => (0.38, Vec2::new(0.523, 0.177)),
         (TextureRecipeId::DressedStone, View::Detail | View::Oblique) => {
             (0.25, Vec2::new(0.30, 0.36))
         }
-        (TextureRecipeId::HewnOak | TextureRecipeId::DressedStone, View::Distance) => {
-            (DISTANCE_REPEATS, Vec2::ZERO)
+        (
+            TextureRecipeId::HewnOak
+            | TextureRecipeId::DressedStone
+            | TextureRecipeId::HandmadeBrick,
+            View::Distance,
+        ) => (DISTANCE_REPEATS, Vec2::ZERO),
+        (TextureRecipeId::HandmadeBrick, View::Detail | View::Oblique) => {
+            (0.65, Vec2::new(0.17, 0.21))
         }
-        _ => return Err("comparison previews support hewn-oak and dressed-stone".to_owned()),
+        _ => {
+            return Err(
+                "comparison previews support hewn-oak, handmade-brick and dressed-stone".to_owned(),
+            );
+        }
     };
     if let Some(parent) = output.parent() {
         fs::create_dir_all(parent).map_err(|error| error.to_string())?;

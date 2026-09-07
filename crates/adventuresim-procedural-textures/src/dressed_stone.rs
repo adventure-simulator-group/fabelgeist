@@ -1,9 +1,11 @@
 //! Regular early-modern ashlar with chipped, beveled edges, sparse cavities, and granular lime joints.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
 
-use super::{SurfaceTextureSet, image_rgba_mipped};
+use super::{
+    MasonryColors, SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image,
+};
 
 mod weathering;
 
@@ -20,21 +22,24 @@ const GRAIN_RELIEF: f32 = 0.008;
 const SPALL_RELIEF: f32 = 0.11;
 const FACE_RELIEF: f32 = 0.022;
 const BLOCK_HEIGHT_VARIATION: f32 = 0.065;
-const STONE_PALETTE: [[u8; 3]; 6] = [
-    [128, 126, 113],
-    [130, 127, 112],
-    [126, 124, 111],
-    [132, 129, 115],
-    [125, 123, 110],
-    [129, 126, 114],
-];
+pub const DRESSED_STONE_COLORS: MasonryColors<6> = MasonryColors {
+    units: [
+        SrgbColor([128, 126, 113]),
+        SrgbColor([130, 127, 112]),
+        SrgbColor([126, 124, 111]),
+        SrgbColor([132, 129, 115]),
+        SrgbColor([125, 123, 110]),
+        SrgbColor([129, 126, 114]),
+    ],
+    mortar: SrgbColor([143, 139, 125]),
+};
 const STONE_ROUGHNESS_PALETTE: [u8; 3] = [218, 222, 226];
-const MORTAR_ALBEDO: [u8; 3] = [143, 139, 125];
 const MORTAR_ROUGHNESS: u8 = 236;
 
 #[derive(Clone, Copy, Debug)]
 struct StoneSample {
     height: f32,
+    stone_coverage: f32,
     stone_id: u64,
     edge_distance: f32,
 }
@@ -224,21 +229,21 @@ fn sample_stonework(u: f32, v: f32) -> StoneSample {
 
     StoneSample {
         height: mortar.height + (face_height - mortar.height) * stone_coverage,
+        stone_coverage,
         stone_id: id,
         edge_distance,
     }
 }
 
-fn stone_color(sample: StoneSample) -> ([u8; 3], u8) {
-    // Intrinsic substrate IDs own color and finish. Geometry, cavities and
-    // damage never brighten/darken albedo or add high-frequency roughness.
-    if sample.edge_distance > 0.0 {
-        return (MORTAR_ALBEDO, MORTAR_ROUGHNESS);
-    }
-    (
-        STONE_PALETTE[sample.stone_id as usize % STONE_PALETTE.len()],
-        STONE_ROUGHNESS_PALETTE[sample.stone_id as usize % STONE_ROUGHNESS_PALETTE.len()],
-    )
+fn stone_color(sample: StoneSample, colors: &MasonryColors<6>) -> ([u8; 3], u8) {
+    let unit = colors.units[sample.stone_id as usize % colors.units.len()];
+    let color = colors.mortar.covered_by(unit, sample.stone_coverage).0;
+    let roughness = if sample.edge_distance > 0.0 {
+        MORTAR_ROUGHNESS
+    } else {
+        STONE_ROUGHNESS_PALETTE[sample.stone_id as usize % STONE_ROUGHNESS_PALETTE.len()]
+    };
+    (color, roughness)
 }
 
 fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
@@ -259,7 +264,10 @@ fn ambient_visibility(heights: &[f32], x: i32, y: i32) -> f32 {
     (1.0 - obstruction * 2.8).clamp(0.48, 1.0)
 }
 
-pub fn generate_dressed_stone_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
+pub fn generate_dressed_stone_textures(
+    images: &mut Assets<Image>,
+    colors: &MasonryColors<6>,
+) -> SurfaceTextureSet {
     let size = DRESSED_STONE_TEXTURE_SIZE;
     let samples = (0..size)
         .flat_map(|y| {
@@ -285,7 +293,7 @@ pub fn generate_dressed_stone_textures(images: &mut Assets<Image>) -> SurfaceTex
     for y in 0..size {
         for x in 0..size {
             let sample = samples[(y * size + x) as usize];
-            let (color, roughness) = stone_color(sample);
+            let (color, roughness) = stone_color(sample, colors);
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
             let dx = height_at(&heights, x as i32 + 1, y as i32)
                 - height_at(&heights, x as i32 - 1, y as i32);
@@ -305,8 +313,7 @@ pub fn generate_dressed_stone_textures(images: &mut Assets<Image>) -> SurfaceTex
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -317,14 +324,47 @@ pub fn generate_dressed_stone_textures(images: &mut Assets<Image>) -> SurfaceTex
 
 #[cfg(test)]
 mod tests {
+    use bevy::render::render_resource::TextureFormat;
     use std::collections::BTreeSet;
 
     use super::*;
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
         let mut images = Assets::default();
-        let textures = generate_dressed_stone_textures(&mut images);
+        let textures = generate_dressed_stone_textures(&mut images, &DRESSED_STONE_COLORS);
         (images, textures)
+    }
+
+    #[test]
+    fn unit_and_mortar_colors_are_independent_with_antialiased_contacts() {
+        let colors = DRESSED_STONE_COLORS;
+        let mut recolored_units = colors;
+        recolored_units.units.fill(SrgbColor([40, 70, 100]));
+        let mut recolored_mortar = colors;
+        recolored_mortar.mortar = SrgbColor([210, 190, 160]);
+        let mut regions = [false; 3];
+        for y in 0..128 {
+            for x in 0..128 {
+                let sample = sample_stonework((x as f32 + 0.5) / 128.0, (y as f32 + 0.5) / 128.0);
+                let original = stone_color(sample, &colors);
+                let units = stone_color(sample, &recolored_units);
+                let mortar = stone_color(sample, &recolored_mortar);
+                assert_eq!(original.1, units.1);
+                assert_eq!(original.1, mortar.1);
+                if sample.stone_coverage == 0.0 {
+                    regions[0] = true;
+                    assert_eq!(units, original);
+                    assert_eq!(mortar.0, recolored_mortar.mortar.0);
+                } else if sample.stone_coverage == 1.0 {
+                    regions[1] = true;
+                    assert_eq!(mortar, original);
+                    assert_eq!(units.0, recolored_units.units[0].0);
+                } else {
+                    regions[2] = true;
+                }
+            }
+        }
+        assert!(regions.into_iter().all(|observed| observed));
     }
 
     #[test]
@@ -404,16 +444,24 @@ mod tests {
         for y in 0..128 {
             for x in 0..128 {
                 let sample = sample_stonework(x as f32 / 128.0, y as f32 / 128.0);
-                let (color, roughness) = stone_color(sample);
-                assert!(STONE_PALETTE.contains(&color) || color == MORTAR_ALBEDO);
+                let (color, roughness) = stone_color(sample, &DRESSED_STONE_COLORS);
+                if sample.stone_coverage == 0.0 {
+                    assert_eq!(color, DRESSED_STONE_COLORS.mortar.0);
+                }
+                if sample.stone_coverage == 1.0 {
+                    assert!(DRESSED_STONE_COLORS.units.contains(&SrgbColor(color)));
+                }
                 assert!(
                     STONE_ROUGHNESS_PALETTE.contains(&roughness) || roughness == MORTAR_ROUGHNESS
                 );
                 assert_eq!(
-                    stone_color(StoneSample {
-                        height: 0.0,
-                        ..sample
-                    }),
+                    stone_color(
+                        StoneSample {
+                            height: 0.0,
+                            ..sample
+                        },
+                        &DRESSED_STONE_COLORS
+                    ),
                     (color, roughness)
                 );
             }

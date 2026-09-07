@@ -15,7 +15,9 @@ mod dressed_stone;
 mod dry_white_oak_leaf;
 mod ironwork;
 mod lead_sheet;
+mod palette;
 mod plank_floor;
+pub use palette::{MasonryColors, SrgbColor};
 mod rock;
 mod slate_roof;
 mod timber_shingle;
@@ -256,11 +258,11 @@ pub fn generate_procedural_textures(images: &mut Assets<Image>) -> ProceduralTex
         forest_soil: generate_forest_soil_texture(images),
         rock: generate_rock_textures(images),
         lime_plaster: generate_lime_plaster_textures(images),
-        hewn_oak: generate_hewn_oak_textures(images),
+        hewn_oak: generate_hewn_oak_textures(images, &HEWN_OAK_COLORS),
         wattle_and_daub: generate_wattle_and_daub_textures(images),
-        handmade_brick: generate_handmade_brick_textures(images),
+        handmade_brick: generate_handmade_brick_textures(images, &HANDMADE_BRICK_COLORS),
         rubble_masonry: generate_rubble_masonry_textures(images),
-        dressed_stone: generate_dressed_stone_textures(images),
+        dressed_stone: generate_dressed_stone_textures(images, &DRESSED_STONE_COLORS),
         clay_roof_tile: generate_clay_roof_tile_textures(images),
         slate_roof: generate_slate_roof_textures(images),
         timber_shingle: generate_timber_shingle_textures(images),
@@ -315,18 +317,18 @@ pub use crenellation_mask::{
     CRENELLATION_MASK_TEXTURE_SIZE, CRENELLATION_MERLON_DUTY_CYCLE, generate_crenellation_mask,
 };
 pub use dressed_stone::{
-    DRESSED_STONE_HEIGHT_RANGE_METRES, DRESSED_STONE_TEXTURE_SIZE, DRESSED_STONE_TILE_METRES,
-    generate_dressed_stone_textures,
+    DRESSED_STONE_COLORS, DRESSED_STONE_HEIGHT_RANGE_METRES, DRESSED_STONE_TEXTURE_SIZE,
+    DRESSED_STONE_TILE_METRES, generate_dressed_stone_textures,
 };
 use foliage::*;
 use ground::*;
 pub use handmade_brick::{
-    HANDMADE_BRICK_HEIGHT_RANGE_METRES, HANDMADE_BRICK_TEXTURE_SIZE, HANDMADE_BRICK_TILE_METRES,
-    generate_handmade_brick_textures,
+    HANDMADE_BRICK_COLORS, HANDMADE_BRICK_HEIGHT_RANGE_METRES, HANDMADE_BRICK_TEXTURE_SIZE,
+    HANDMADE_BRICK_TILE_METRES, generate_handmade_brick_textures,
 };
 pub use hewn_oak::{
-    HEWN_OAK_HEIGHT_RANGE_METRES, HEWN_OAK_TEXTURE_SIZE, HEWN_OAK_TILE_METRES,
-    generate_hewn_oak_textures,
+    HEWN_OAK_COLORS, HEWN_OAK_HEIGHT_RANGE_METRES, HEWN_OAK_TEXTURE_SIZE, HEWN_OAK_TILE_METRES,
+    HewnOakColors, generate_hewn_oak_textures,
 };
 use image::*;
 pub use ironwork::{

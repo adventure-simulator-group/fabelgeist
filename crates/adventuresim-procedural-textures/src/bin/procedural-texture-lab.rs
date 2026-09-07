@@ -1,3 +1,5 @@
+#[path = "procedural-texture-lab/colors.rs"]
+mod colors;
 #[path = "procedural-texture-lab/preview.rs"]
 mod preview;
 
@@ -5,8 +7,7 @@ use std::{fs, path::PathBuf};
 
 use adventuresim_procedural_textures::{
     PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureAssets, SurfaceTextureSet, TextureRecipeId,
-    TextureRecipeStatus, generate_dressed_stone_textures, generate_hewn_oak_textures,
-    generate_procedural_textures,
+    TextureRecipeStatus, generate_procedural_textures,
 };
 use bevy::{asset::Assets, image::Image, prelude::Handle, render::render_resource::TextureFormat};
 use clap::{Parser, Subcommand};
@@ -39,6 +40,8 @@ enum Command {
     /// Export the current outputs for one implemented recipe as PNG files.
     Export {
         recipe: String,
+        #[command(flatten)]
+        colors: colors::Options,
         #[arg(long, default_value = "target/procedural-texture-lab")]
         output: PathBuf,
     },
@@ -57,7 +60,11 @@ fn main() -> Result<(), String> {
             }
             Ok(())
         }
-        Command::Export { recipe, output } => export(&recipe, &output),
+        Command::Export {
+            recipe,
+            output,
+            colors,
+        } => export(&recipe, &output, &colors),
         Command::Compare {
             recipe,
             directory,
@@ -84,7 +91,7 @@ fn main() -> Result<(), String> {
     }
 }
 
-fn export(slug: &str, output: &PathBuf) -> Result<(), String> {
+fn export(slug: &str, output: &PathBuf, colors: &colors::Options) -> Result<(), String> {
     let descriptor = PROCEDURAL_TEXTURE_CATALOGUE
         .iter()
         .find(|recipe| recipe.id.slug() == slug)
@@ -96,12 +103,10 @@ fn export(slug: &str, output: &PathBuf) -> Result<(), String> {
     }
     fs::create_dir_all(output).map_err(|error| error.to_string())?;
     let mut images = Assets::<Image>::default();
-    let maps = match descriptor.id {
-        TextureRecipeId::HewnOak => surface_outputs(&generate_hewn_oak_textures(&mut images)),
-        TextureRecipeId::DressedStone => {
-            surface_outputs(&generate_dressed_stone_textures(&mut images))
-        }
-        _ => outputs(descriptor.id, &generate_procedural_textures(&mut images))?,
+    let maps = if let Some(surface) = colors.generate(descriptor.id, &mut images)? {
+        surface_outputs(&surface)
+    } else {
+        outputs(descriptor.id, &generate_procedural_textures(&mut images))?
     };
     for (channel, handle) in maps {
         save_png(

@@ -1,13 +1,28 @@
 //! Hand-moulded early-modern brickwork with a seamless running bond.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
 
-use super::{SurfaceTextureSet, image_rgba_mipped};
+use super::{
+    MasonryColors, SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image,
+};
 
 pub const HANDMADE_BRICK_TEXTURE_SIZE: u32 = 512;
 pub const HANDMADE_BRICK_TILE_METRES: f32 = 2.4;
 pub const HANDMADE_BRICK_HEIGHT_RANGE_METRES: f32 = 0.014;
+
+pub const HANDMADE_BRICK_COLORS: MasonryColors<5> = MasonryColors {
+    units: [
+        SrgbColor([132, 63, 43]),
+        SrgbColor([145, 70, 47]),
+        SrgbColor([119, 54, 40]),
+        SrgbColor([154, 78, 51]),
+        SrgbColor([128, 58, 45]),
+    ],
+    mortar: SrgbColor([142, 134, 116]),
+};
+const BRICK_ROUGHNESS: u8 = 218;
+const MORTAR_ROUGHNESS: u8 = 236;
 
 const COURSES: i32 = 30;
 const BRICKS_PER_COURSE: i32 = 10;
@@ -19,8 +34,7 @@ struct BrickSample {
     height: f32,
     brick: bool,
     brick_id: u64,
-    face_noise: f32,
-    edge_distance: f32,
+    brick_coverage: f32,
 }
 
 fn hash_unit(value: u64) -> f32 {
@@ -117,44 +131,18 @@ fn sample_brickwork(u: f32, v: f32) -> BrickSample {
         height: mortar_height + (face_height - mortar_height) * brick_coverage,
         brick: brick_coverage >= 0.5,
         brick_id: id,
-        face_noise,
-        edge_distance,
+        brick_coverage,
     }
 }
 
-fn brick_color(sample: BrickSample) -> ([u8; 3], u8) {
-    if !sample.brick {
-        let mortar = if sample.face_noise > 0.2 {
-            [142, 134, 116]
-        } else {
-            [127, 121, 106]
-        };
-        return (mortar, 236);
-    }
-
-    let palette = [
-        [132, 63, 43],
-        [145, 70, 47],
-        [119, 54, 40],
-        [154, 78, 51],
-        [128, 58, 45],
-    ];
-    let index = (sample.brick_id as usize) % palette.len();
-    let mut color = palette[index];
-    let mineral_shift = if sample.face_noise > 0.32 {
-        3
-    } else if sample.face_noise < -0.38 {
-        -3
+fn brick_color(sample: BrickSample, colors: &MasonryColors<5>) -> ([u8; 3], u8) {
+    let unit = colors.units[sample.brick_id as usize % colors.units.len()];
+    let color = colors.mortar.covered_by(unit, sample.brick_coverage).0;
+    let roughness = if sample.brick {
+        BRICK_ROUGHNESS
     } else {
-        0
+        MORTAR_ROUGHNESS
     };
-    for channel in &mut color {
-        *channel = (*channel as i16 + mineral_shift).clamp(0, 255) as u8;
-    }
-    let edge_roughness = (1.0 - (-sample.edge_distance * 28.0).clamp(0.0, 1.0)) * 7.0;
-    let roughness = (215.0 + edge_roughness + sample.face_noise.abs() * 6.0)
-        .round()
-        .clamp(0.0, 255.0) as u8;
     (color, roughness)
 }
 
@@ -175,7 +163,10 @@ fn ambient_visibility(heights: &[f32], x: i32, y: i32) -> f32 {
     (1.0 - obstruction * 2.8).clamp(0.48, 1.0)
 }
 
-pub fn generate_handmade_brick_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
+pub fn generate_handmade_brick_textures(
+    images: &mut Assets<Image>,
+    colors: &MasonryColors<5>,
+) -> SurfaceTextureSet {
     let size = HANDMADE_BRICK_TEXTURE_SIZE;
     let samples = (0..size)
         .flat_map(|y| {
@@ -202,7 +193,7 @@ pub fn generate_handmade_brick_textures(images: &mut Assets<Image>) -> SurfaceTe
         for x in 0..size {
             let index = (y * size + x) as usize;
             let sample = samples[index];
-            let (color, roughness) = brick_color(sample);
+            let (color, roughness) = brick_color(sample, colors);
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
             let dx = height_at(&heights, x as i32 + 1, y as i32)
                 - height_at(&heights, x as i32 - 1, y as i32);
@@ -222,8 +213,7 @@ pub fn generate_handmade_brick_textures(images: &mut Assets<Image>) -> SurfaceTe
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -242,8 +232,40 @@ mod tests {
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
         let mut images = Assets::default();
-        let textures = generate_handmade_brick_textures(&mut images);
+        let textures = generate_handmade_brick_textures(&mut images, &HANDMADE_BRICK_COLORS);
         (images, textures)
+    }
+
+    #[test]
+    fn unit_and_mortar_colors_are_independent_with_antialiased_contacts() {
+        let colors = HANDMADE_BRICK_COLORS;
+        let mut recolored_units = colors;
+        recolored_units.units.fill(SrgbColor([40, 70, 100]));
+        let mut recolored_mortar = colors;
+        recolored_mortar.mortar = SrgbColor([210, 190, 160]);
+        let mut regions = [false; 3];
+        for y in 0..128 {
+            for x in 0..128 {
+                let sample = sample_brickwork((x as f32 + 0.5) / 128.0, (y as f32 + 0.5) / 128.0);
+                let original = brick_color(sample, &colors);
+                let units = brick_color(sample, &recolored_units);
+                let mortar = brick_color(sample, &recolored_mortar);
+                assert_eq!(original.1, units.1);
+                assert_eq!(original.1, mortar.1);
+                if sample.brick_coverage == 0.0 {
+                    regions[0] = true;
+                    assert_eq!(units, original);
+                    assert_eq!(mortar.0, recolored_mortar.mortar.0);
+                } else if sample.brick_coverage == 1.0 {
+                    regions[1] = true;
+                    assert_eq!(mortar, original);
+                    assert_eq!(units.0, recolored_units.units[0].0);
+                } else {
+                    regions[2] = true;
+                }
+            }
+        }
+        assert!(regions.into_iter().all(|observed| observed));
     }
 
     #[test]
@@ -352,7 +374,7 @@ mod tests {
         for y in 0..256 {
             for x in 0..256 {
                 let sample = sample_brickwork((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
-                if sample.brick && sample.edge_distance < -0.25 {
+                if sample.brick_coverage == 1.0 {
                     minimum = minimum.min(sample.height);
                     maximum = maximum.max(sample.height);
                     interior_samples += 1;
@@ -408,7 +430,7 @@ mod tests {
                 .copied()
                 .collect::<BTreeSet<_>>()
                 .len()
-                > 12
+                == 2
         );
     }
 
