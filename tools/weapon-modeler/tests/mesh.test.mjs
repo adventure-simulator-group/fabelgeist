@@ -430,6 +430,9 @@ test("round swept bars satisfy physical cross-section chord and sagitta budgets"
     assert.ok(chord <= 0.006 + 1e-12, `${radius}/${requested}: chord ${chord}`);
     assert.ok(sagitta <= 0.0003 + 1e-12, `${radius}/${requested}: sagitta ${sagitta}`);
     const mesh = tubePath([[0, 0], [0, 0.1]], radius, "steel", [0, 0, 0], "test bar", requested);
-    assert.equal(mesh.indices.length / 3, segments * 4);
+    const stations = new Set(Array.from({length: mesh.positions.length / 3}, (_, i) => mesh.positions[i * 3 + 1]));
+    assert.equal(mesh.indices.length / 3, segments * 2 * stations.size);
+    const startRing = new Set(Array.from({length: mesh.positions.length / 3}, (_, i) => mesh.positions.slice(i * 3, i * 3 + 3)).filter(p => p[1] === 0 && Math.hypot(p[0], p[2]) > radius / 2).map(p => p[0] + "," + p[2]));
+    assert.equal(startRing.size, segments);
   }
 });

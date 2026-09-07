@@ -27,6 +27,115 @@ Then open <http://127.0.0.1:4173>. The viewer has no package dependencies: the
 local server uses Node's standard library and the renderer uses WebGL 2
 directly.
 
+## Constructive geometry
+
+The generator resolves dimensions and mating positions before emitting faces.
+Crossbow stock stations lie inside the intervals before and after the nut
+cavity. Named attachments insert along the receiving face's inward direction,
+including upward insertion at shaft bottoms. Shield fitting feet use barycentric
+samples of the emitted rear skin. Oversized shaped-shield fittings scale as a
+whole to fit the receiving silhouette, including their attachment corners;
+stock inlays, nock loops, vanes, bindings and
+sight/bearing mounts derive their seats from the receiving construction.
+
+Planar regions share a triangulation and boundary identities between caps and
+walls. Concave fullered sections use polygon caps. Shaped shield skins lift the
+same planar triangulation with positive thickness; their rims are nested bands
+of the same outline, including at pointed ends. The figure-eight guard is one
+closed solid with two apertures. Separately assembled guard members remain
+separate closed parts rather than being welded at coincident vertices.
+
+`src/construction.js` contains deterministic construction helpers: shared-edge
+refinement, improving planar diagonals, station interpolation, path subdivision
+and bend envelopes. Sweeps transport their frames and share exact periodic
+seams. Tight bars reserve turning room before meshing. Subdivision retains the
+authored parameter at each station; blade samples get closer near narrow tips.
+Tapered plates are built at their final thickness, avoiding subdivisions of a
+unit-thickness solid that would collapse into slivers after scaling.
+
+These are construction rules, not runtime acceptance tests or randomized
+retries. The independent audit below remains development-only. Its finite
+corpus is regression evidence, not a proof over the continuous slider domain;
+aspect, wall-thickness and unclassified inter-part overlaps remain diagnostics.
+
+## Mesh integrity audit
+
+Run `npm run test:quality` for the independent geometry audit and its deliberately
+broken fixtures. This is an acceptance test: current generator defects make it
+exit nonzero, after writing all findings to `output/mesh-quality/sweep/`. The
+ordinary `npm test` includes the audit's fixture tests; the larger generator
+corpus runs through the separate command. The audit does not change the live
+viewer's validation or repair generated meshes.
+
+The sweep covers all presets at all three default LODs, combined slider extrema
+and adjacent steps, alternating extrema, three fixed seeds with discrete choices,
+each initially visible choice option, eight endpoint combinations of three
+construction dimensions per preset, authored adversarial cases, and every
+haft/head composition. Non-default specimens use low LOD. Exact definitions,
+part/triangle IDs, bounded examples and complete finding counts are saved in
+`cases.jsonl`; `summary.json` and `report.md` provide aggregate results.
+
+PowerShell examples:
+
+```powershell
+# All default presets at every LOD only.
+$env:QUALITY_PROFILE = 'defaults'
+npm run test:quality
+
+# Larger sweep, adding each slider's endpoints and adjacent steps individually.
+$env:QUALITY_PROFILE = 'deep'
+npm run test:quality
+
+# Focus a repeat on one recorded case; preserve the original report directory.
+$env:QUALITY_PROFILE = 'sweep'
+$env:QUALITY_PRESET = 'halberd-1540'
+$env:QUALITY_CASE = 'default/low'
+# QUALITY_KIND also filters by component kind, such as 'shapedShield'.
+# Filters combine; clear preset/case filters to audit a whole component family.
+$env:QUALITY_OUTPUT = 'output/mesh-quality/recheck'
+npm run test:quality
+```
+
+Unset these environment variables to return to the full default sweep. Audit
+predicates use a documented distance tolerance (normally one nanometre), with
+neighbor-cell spatial welding local to each part. They check buffer validity,
+triangle degeneracy and duplication, edge and vertex manifoldness, orientation
+including nested cavities, full 3D triangle intersections, and LOD shell/Euler
+signatures. Source and float32 topology and intersections are compared; an actual GLB round trip
+through a translated attachment checks exported triangle area and normals.
+
+A 100:1 longest-edge/altitude ratio and sampled walls below 50 micrometres are
+review diagnostics, not practicality restrictions. Thickness samples cover at
+most 32 face-centroid inward rays per default part and cannot certify a global
+minimum. Parts at defaults must form a geometric contact graph within two
+micrometres. Shield fittings must not intersect front-facing body triangles.
+Other inter-part and inter-shell contacts are recorded for joint-policy review;
+the relation auditor supports explicit joint envelopes, clearance, contact and
+containment contracts, but general per-joint regions have not been authored.
+
+These are tolerance-bounded numerical tests, not an exact-arithmetic proof of
+every slider combination. Full 3D intersection checks run on source and float32 coordinates;
+GLB checks cover the additional contracts described above. The audit
+does not yet certify all surface clearances, detect every near-coplanar exposed
+overlap, or prove that all apertures retain their dimensions across LODs.
+
+To reduce a recorded per-part failure to a small set of changed controls:
+
+```powershell
+node tests/quality/minimize.mjs output/mesh-quality/sweep/cases.jsonl heater-shield/all-alternating/low self-intersection output/mesh-quality/minimal-shield.json
+$env:QUALITY_REPLAY = 'output/mesh-quality/minimal-shield.json'
+$env:QUALITY_OUTPUT = 'output/mesh-quality/replay'
+npm run test:quality
+```
+
+The minimizer resets controls to preset defaults, preserves production validity
+and the requested part/finding, and reports whether its 200-evaluation budget
+was sufficient for a 1-minimal changed-control set. It does not claim a global
+minimum. `QUALITY_REPLAY` reads that exact saved definition instead of generating
+the corpus. For a disconnected default assembly, `tests/quality/gaps.mjs` takes
+the same case-file/case-ID/output arguments and measures the closest triangle
+surfaces between contact groups, including triangle IDs.
+
 Weapon presets are declarative graphs in `src/presets.js`. Shared generators in
 `src/mesh.js` currently cover tapered shafts, sockets, grips, pommels, guards,
 curved, fullered, and diamond-section blades, sampled axe heads, shaped hammer
