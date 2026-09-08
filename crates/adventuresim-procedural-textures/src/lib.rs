@@ -5,17 +5,23 @@
 
 #![cfg_attr(test, allow(clippy::chunks_exact_to_as_chunks))]
 
-mod beech_leaf;
-mod blackthorn_leaf;
+mod bake;
 pub mod building;
 mod catalogue;
+pub use bake::{BakedMap, BakedRecipe, MapChannel, PixelEncoding};
 mod clay_roof_tile;
 mod crenellation_mask;
 mod dressed_stone;
-mod dry_white_oak_leaf;
 mod ironwork;
 mod lead_sheet;
+mod normal;
+mod palette;
+mod parameters;
+pub use parameters::{
+    BakeResolution, ControlBounds, ControlPath, LeafSpecies, ParameterError, TextureParameters,
+};
 mod plank_floor;
+pub use palette::{MasonryColors, SrgbColor};
 mod rock;
 mod slate_roof;
 mod timber_shingle;
@@ -35,7 +41,7 @@ use bevy::{
     prelude::{Handle, IVec2, Resource},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::inclusive_unit_f32;
 
 fn unit_hash(value: u64) -> f32 {
     inclusive_unit_f32(value)
@@ -70,6 +76,8 @@ pub struct LeafTextureSet {
 #[derive(Clone, Debug)]
 pub struct SurfaceTextureSet {
     pub albedo: Handle<Image>,
+    /// OpenGL tangent-space normal: +X follows U, +Y opposes image-row V.
+    /// Custom projections must transform both components into their world basis.
     pub normal_gl: Handle<Image>,
     pub height: Handle<Image>,
     pub arm: Handle<Image>,
@@ -131,36 +139,16 @@ pub struct ProceduralTextureAssets {
     pub terrain_blood_mask: Handle<Image>,
 }
 
-#[derive(Clone, Copy, Debug)]
-struct LeafRecipe {
-    widest_point: f32,
-    base_power: f32,
-    tip_power: f32,
-    lobe_count: f32,
-    lobe_depth: f32,
-    tooth_count: f32,
-    tooth_depth: f32,
-    vein_pairs: u32,
-    bend: f32,
-    width_scale: f32,
-    blade: [u8; 3],
-    vein: [u8; 3],
-    back_blade: [u8; 3],
-    roughness: u8,
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+pub struct LeafRecipe {
+    pub blade: [u8; 3],
+    pub vein: [u8; 3],
+    pub back_blade: [u8; 3],
+    pub roughness: u8,
 }
 
 impl LeafRecipe {
     const WHITE_OAK: Self = Self {
-        widest_point: 0.48,
-        base_power: 0.72,
-        tip_power: 0.58,
-        lobe_count: 4.5,
-        lobe_depth: 0.25,
-        tooth_count: 0.0,
-        tooth_depth: 0.0,
-        vein_pairs: 7,
-        bend: 0.035,
-        width_scale: 0.43,
         blade: [76, 111, 48],
         vein: [139, 157, 76],
         back_blade: [91, 116, 65],
@@ -172,20 +160,9 @@ impl LeafRecipe {
         vein: [103, 73, 40],
         back_blade: [116, 94, 65],
         roughness: 236,
-        ..Self::WHITE_OAK
     };
 
     const HAZEL: Self = Self {
-        widest_point: 0.43,
-        base_power: 0.58,
-        tip_power: 0.72,
-        lobe_count: 0.0,
-        lobe_depth: 0.0,
-        tooth_count: 13.0,
-        tooth_depth: 0.075,
-        vein_pairs: 9,
-        bend: -0.025,
-        width_scale: 0.43,
         blade: [66, 112, 48],
         vein: [129, 154, 75],
         back_blade: [82, 119, 61],
@@ -193,16 +170,6 @@ impl LeafRecipe {
     };
 
     const BLACKTHORN: Self = Self {
-        widest_point: 0.46,
-        base_power: 0.82,
-        tip_power: 0.76,
-        lobe_count: 0.0,
-        lobe_depth: 0.0,
-        tooth_count: 11.0,
-        tooth_depth: 0.028,
-        vein_pairs: 6,
-        bend: 0.018,
-        width_scale: 0.43,
         blade: [61, 103, 42],
         vein: [117, 139, 66],
         back_blade: [77, 111, 56],
@@ -210,16 +177,6 @@ impl LeafRecipe {
     };
 
     const HAWTHORN: Self = Self {
-        widest_point: 0.44,
-        base_power: 0.72,
-        tip_power: 0.68,
-        lobe_count: 3.5,
-        lobe_depth: 0.14,
-        tooth_count: 9.0,
-        tooth_depth: 0.035,
-        vein_pairs: 6,
-        bend: -0.012,
-        width_scale: 0.43,
         blade: [72, 113, 44],
         vein: [132, 151, 68],
         back_blade: [84, 119, 58],
@@ -227,16 +184,6 @@ impl LeafRecipe {
     };
 
     const BEECH: Self = Self {
-        widest_point: 0.47,
-        base_power: 0.72,
-        tip_power: 0.76,
-        lobe_count: 0.0,
-        lobe_depth: 0.0,
-        tooth_count: 8.0,
-        tooth_depth: 0.018,
-        vein_pairs: 8,
-        bend: 0.022,
-        width_scale: 0.43,
         blade: [67, 108, 46],
         vein: [126, 147, 72],
         back_blade: [81, 117, 59],
@@ -244,31 +191,34 @@ impl LeafRecipe {
     };
 }
 
-pub fn generate_procedural_textures(images: &mut Assets<Image>) -> ProceduralTextureAssets {
+pub fn generate_procedural_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> ProceduralTextureAssets {
     ProceduralTextureAssets {
-        oak_leaf: generate_leaf_textures(images, LeafRecipe::WHITE_OAK),
-        dry_oak_leaf: generate_leaf_textures(images, LeafRecipe::DRY_WHITE_OAK),
-        hazel_leaf: generate_leaf_textures(images, LeafRecipe::HAZEL),
-        blackthorn_leaf: generate_leaf_textures(images, LeafRecipe::BLACKTHORN),
-        hawthorn_leaf: generate_leaf_textures(images, LeafRecipe::HAWTHORN),
-        beech_leaf: generate_leaf_textures(images, LeafRecipe::BEECH),
-        oak_bark: generate_oak_bark_texture(images),
-        forest_soil: generate_forest_soil_texture(images),
-        rock: generate_rock_textures(images),
-        lime_plaster: generate_lime_plaster_textures(images),
-        hewn_oak: generate_hewn_oak_textures(images),
-        wattle_and_daub: generate_wattle_and_daub_textures(images),
-        handmade_brick: generate_handmade_brick_textures(images),
-        rubble_masonry: generate_rubble_masonry_textures(images),
-        dressed_stone: generate_dressed_stone_textures(images),
-        clay_roof_tile: generate_clay_roof_tile_textures(images),
-        slate_roof: generate_slate_roof_textures(images),
-        timber_shingle: generate_timber_shingle_textures(images),
-        plank_floor: generate_plank_floor_textures(images),
-        lead_sheet: generate_lead_sheet_textures(images),
-        ironwork: generate_ironwork_textures(images),
-        window_glass: generate_window_glass_textures(images),
-        crenellation_mask: generate_crenellation_mask(images),
+        oak_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::WhiteOak),
+        dry_oak_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::DryWhiteOak),
+        hazel_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::Hazel),
+        blackthorn_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::Blackthorn),
+        hawthorn_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::Hawthorn),
+        beech_leaf: generate_leaf_textures(params, images, crate::LeafSpecies::Beech),
+        oak_bark: generate_oak_bark_texture(params, images),
+        forest_soil: generate_forest_soil_texture(params, images),
+        rock: generate_rock_textures(params, images),
+        lime_plaster: generate_lime_plaster_textures(params, images),
+        hewn_oak: generate_hewn_oak_textures(params, images),
+        wattle_and_daub: generate_wattle_and_daub_textures(params, images),
+        handmade_brick: generate_handmade_brick_textures(params, images),
+        rubble_masonry: generate_rubble_masonry_textures(params, images),
+        dressed_stone: generate_dressed_stone_textures(params, images),
+        clay_roof_tile: generate_clay_roof_tile_textures(params, images),
+        slate_roof: generate_slate_roof_textures(params, images),
+        timber_shingle: generate_timber_shingle_textures(params, images),
+        plank_floor: generate_plank_floor_textures(params, images),
+        lead_sheet: generate_lead_sheet_textures(params, images),
+        ironwork: generate_ironwork_textures(params, images),
+        window_glass: generate_window_glass_textures(params, images),
+        crenellation_mask: generate_crenellation_mask(params, images),
         terrain_blood_mask: images.add(empty_terrain_blood_mask()),
     }
 }
@@ -295,12 +245,14 @@ fn empty_terrain_blood_mask() -> Image {
 }
 
 mod foliage;
+pub mod leaf;
+pub use hewn_oak::grain::Knot;
+pub use wattle_and_daub::CapsuleLayer;
 mod ground;
 mod handmade_brick;
-mod hawthorn_leaf;
-mod hazel_leaf;
 mod hewn_oak;
 mod image;
+mod leaf_pixels;
 mod lime_plaster;
 mod rubble_masonry;
 mod surface;
@@ -315,18 +267,18 @@ pub use crenellation_mask::{
     CRENELLATION_MASK_TEXTURE_SIZE, CRENELLATION_MERLON_DUTY_CYCLE, generate_crenellation_mask,
 };
 pub use dressed_stone::{
-    DRESSED_STONE_HEIGHT_RANGE_METRES, DRESSED_STONE_TEXTURE_SIZE, DRESSED_STONE_TILE_METRES,
-    generate_dressed_stone_textures,
+    DRESSED_STONE_COLORS, DRESSED_STONE_HEIGHT_RANGE_METRES, DRESSED_STONE_TEXTURE_SIZE,
+    DRESSED_STONE_TILE_METRES, generate_dressed_stone_textures,
 };
 use foliage::*;
 use ground::*;
 pub use handmade_brick::{
-    HANDMADE_BRICK_HEIGHT_RANGE_METRES, HANDMADE_BRICK_TEXTURE_SIZE, HANDMADE_BRICK_TILE_METRES,
-    generate_handmade_brick_textures,
+    HANDMADE_BRICK_COLORS, HANDMADE_BRICK_HEIGHT_RANGE_METRES, HANDMADE_BRICK_TEXTURE_SIZE,
+    HANDMADE_BRICK_TILE_METRES, generate_handmade_brick_textures,
 };
 pub use hewn_oak::{
-    HEWN_OAK_HEIGHT_RANGE_METRES, HEWN_OAK_TEXTURE_SIZE, HEWN_OAK_TILE_METRES,
-    generate_hewn_oak_textures,
+    HEWN_OAK_COLORS, HEWN_OAK_HEIGHT_RANGE_METRES, HEWN_OAK_TEXTURE_SIZE, HEWN_OAK_TILE_METRES,
+    HewnOakColors, generate_hewn_oak_textures,
 };
 use image::*;
 pub use ironwork::{
@@ -370,3 +322,6 @@ pub use window_glass::{
 
 #[cfg(test)]
 mod tests;
+
+mod common_controls;
+pub use common_controls::Parameters;

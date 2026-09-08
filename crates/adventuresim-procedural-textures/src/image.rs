@@ -1,42 +1,5 @@
 use super::*;
 
-pub(super) fn image_rgba(data: Vec<u8>, srgb: bool, repeat: bool, linear_filter: bool) -> Image {
-    let mut image = Image::new(
-        Extent3d {
-            width: TEXTURE_SIZE,
-            height: TEXTURE_SIZE,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        data,
-        if srgb {
-            TextureFormat::Rgba8UnormSrgb
-        } else {
-            TextureFormat::Rgba8Unorm
-        },
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    image.sampler = if repeat {
-        use bevy::image::{ImageAddressMode, ImageSamplerDescriptor};
-        ImageSampler::Descriptor(ImageSamplerDescriptor {
-            address_mode_u: ImageAddressMode::Repeat,
-            address_mode_v: ImageAddressMode::Repeat,
-            address_mode_w: ImageAddressMode::Repeat,
-            anisotropy_clamp: if linear_filter { 8 } else { 1 },
-            ..if linear_filter {
-                ImageSamplerDescriptor::linear()
-            } else {
-                ImageSamplerDescriptor::nearest()
-            }
-        })
-    } else if linear_filter {
-        ImageSampler::linear()
-    } else {
-        ImageSampler::nearest()
-    };
-    image
-}
-
 pub(super) fn image_rg_mipped(data: Vec<u8>, size: u32, repeat: bool) -> Image {
     assert!(size.is_power_of_two());
     assert_eq!(data.len(), (size * size * 2) as usize);

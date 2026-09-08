@@ -17,7 +17,7 @@
 ## Review commands
 
 ```text
-cargo run -p adventuresim-procedural-textures --bin procedural-texture-lab -- list
-cargo run -p adventuresim-procedural-textures --bin procedural-texture-lab -- export oak-bark
+cargo run -p adventuresim-texture-studio --bin procedural-texture-lab -- list
+cargo run -p adventuresim-texture-studio --bin procedural-texture-lab -- export oak-bark --output target/oak-bark
 cargo test -p adventuresim-procedural-textures
 ```

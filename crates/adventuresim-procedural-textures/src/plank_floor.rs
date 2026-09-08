@@ -5,7 +5,7 @@
 //! constrained to an implicit 0.6 m joist spacing.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -28,8 +28,8 @@ struct PlankSample {
     nail: f32,
 }
 
-fn hash_unit(value: u64) -> f32 {
-    inclusive_unit_f32(splitmix64(value))
+fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
+    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
 }
 
 fn smooth(value: f32) -> f32 {
@@ -40,42 +40,57 @@ fn periodic_delta(value: f32) -> f32 {
     value - value.round()
 }
 
-fn board_weight(board: i32) -> f32 {
-    0.82 + hash_unit(0x8a31_f64d ^ board.rem_euclid(BOARD_COUNT) as u64) * 0.36
+fn board_weight(params: &crate::TextureParameters, board: i32) -> f32 {
+    0.82 + hash_unit(
+        params,
+        0x8a31_f64d ^ board.rem_euclid(params.plank_floor.board_count) as u64,
+    ) * 0.36
 }
 
-fn board_boundary(boundary: i32) -> f32 {
-    let boundary = boundary.clamp(0, BOARD_COUNT);
-    let total = (0..BOARD_COUNT).map(board_weight).sum::<f32>();
-    (0..boundary).map(board_weight).sum::<f32>() / total
+fn board_boundary(params: &crate::TextureParameters, boundary: i32) -> f32 {
+    let boundary = boundary.clamp(0, params.plank_floor.board_count);
+    let total = (0..params.plank_floor.board_count)
+        .map(|value| board_weight(params, value))
+        .sum::<f32>();
+    (0..boundary)
+        .map(|value| board_weight(params, value))
+        .sum::<f32>()
+        / total
 }
 
-fn edge_warp(boundary: i32, v: f32) -> f32 {
-    let id = boundary.rem_euclid(BOARD_COUNT) as u64;
-    let first_phase = hash_unit(0x2b7d_91a3 ^ id) * std::f32::consts::TAU;
-    let second_phase = hash_unit(0x913c_44e7 ^ id) * std::f32::consts::TAU;
-    let amplitude_metres = 0.0018 + hash_unit(0xaf67_205b ^ id) * 0.0024;
-    let amplitude = amplitude_metres / PLANK_FLOOR_TILE_METRES;
+fn edge_warp(params: &crate::TextureParameters, boundary: i32, v: f32) -> f32 {
+    let id = boundary.rem_euclid(params.plank_floor.board_count) as u64;
+    let first_phase = hash_unit(params, 0x2b7d_91a3 ^ id) * std::f32::consts::TAU;
+    let second_phase = hash_unit(params, 0x913c_44e7 ^ id) * std::f32::consts::TAU;
+    let amplitude_metres = params.plank_floor.edge_warp_amplitude_metres_1
+        + hash_unit(params, 0xaf67_205b ^ id) * params.plank_floor.edge_warp_amplitude_metres_2;
+    let amplitude = amplitude_metres / params.plank_floor.tile_metres;
     amplitude
         * ((std::f32::consts::TAU * v + first_phase).sin()
             + 0.45 * (std::f32::consts::TAU * 3.0 * v + second_phase).sin())
 }
 
-fn butt_joint_station(board: i32) -> i32 {
-    let jitter = (splitmix64(0xe473_b51f ^ board as u64) % 3) as i32;
-    (board * 5 + jitter).rem_euclid(JOIST_STATIONS)
+fn butt_joint_station(params: &crate::TextureParameters, board: i32) -> i32 {
+    let jitter = (crate::parameters::seeded_hash(params, 0xe473_b51f ^ board as u64) % 3) as i32;
+    (board * 5 + jitter).rem_euclid(params.plank_floor.joist_stations)
 }
 
-fn growth_field(local_u: f32, v: f32, board_id: u64) -> (f32, f32) {
-    let phase_offset = hash_unit(0x514c_a93b ^ board_id);
-    let slow_warp = value_noise_1d(v, 3 + (board_id % 3) as i32, 0x643a_11e9 ^ board_id) - 0.5;
-    let mode = splitmix64(0x31a8_f75d ^ board_id) % 5;
+fn growth_field(
+    params: &crate::TextureParameters,
+    local_u: f32,
+    v: f32,
+    board_id: u64,
+) -> (f32, f32) {
+    let phase_offset = hash_unit(params, 0x514c_a93b ^ board_id);
+    let slow_warp =
+        value_noise_1d(params, v, 3 + (board_id % 3) as i32, 0x643a_11e9 ^ board_id) - 0.5;
+    let mode = crate::parameters::seeded_hash(params, 0x31a8_f75d ^ board_id) % 5;
     let (coordinate, contrast, latewood_power) = match mode {
         0 | 1 => {
             // Rift-sawn faces: a few long, gently wandering growth bands.
             (
-                local_u * (1.8 + hash_unit(0x7d91_38af ^ board_id) * 1.8)
-                    + slow_warp * (0.18 + hash_unit(0xf26c_509d ^ board_id) * 0.20),
+                local_u * (1.8 + hash_unit(params, 0x7d91_38af ^ board_id) * 1.8)
+                    + slow_warp * (0.18 + hash_unit(params, 0xf26c_509d ^ board_id) * 0.20),
                 0.72,
                 4.0,
             )
@@ -83,12 +98,15 @@ fn growth_field(local_u: f32, v: f32, board_id: u64) -> (f32, f32) {
         2 | 3 => {
             // Flat-sawn faces: broad parabolic/cathedral sweeps rather than
             // a repeated stack of straight pinstripes.
-            let center = 0.34 + hash_unit(0x5c48_b73f ^ board_id) * 0.32;
-            let along = periodic_delta(v - hash_unit(0x8651_d24b ^ board_id));
-            let across = (local_u - center) * 1.45;
-            let radial = (across * across + (along * 0.34).powi(2)).sqrt();
+            let center = params.plank_floor.growth_field_center_1
+                + hash_unit(params, 0x5c48_b73f ^ board_id)
+                    * params.plank_floor.growth_field_center_2;
+            let along = periodic_delta(v - hash_unit(params, 0x8651_d24b ^ board_id));
+            let across = (local_u - center) * params.plank_floor.growth_field_across;
+            let radial =
+                (across * across + (along * params.plank_floor.growth_field_radial).powi(2)).sqrt();
             (
-                radial * (4.5 + hash_unit(0x43fb_216e ^ board_id) * 2.5) + slow_warp * 0.13,
+                radial * (4.5 + hash_unit(params, 0x43fb_216e ^ board_id) * 2.5) + slow_warp * 0.13,
                 0.88,
                 4.5,
             )
@@ -96,8 +114,8 @@ fn growth_field(local_u: f32, v: f32, board_id: u64) -> (f32, f32) {
         _ => {
             // A deliberately quiet face with only broad, oblique structure.
             (
-                local_u * (0.8 + hash_unit(0x238b_7f51 ^ board_id) * 0.8)
-                    + v * (0.08 + hash_unit(0xa371_09cd ^ board_id) * 0.10)
+                local_u * (0.8 + hash_unit(params, 0x238b_7f51 ^ board_id) * 0.8)
+                    + v * (0.08 + hash_unit(params, 0xa371_09cd ^ board_id) * 0.10)
                     + slow_warp * 0.10,
                 0.30,
                 3.0,
@@ -107,40 +125,72 @@ fn growth_field(local_u: f32, v: f32, board_id: u64) -> (f32, f32) {
     let phase = std::f32::consts::TAU * (coordinate + phase_offset);
     let broad = phase.sin();
     let latewood = ((phase.sin() + 1.0) * 0.5).powf(latewood_power);
-    let secondary = (phase * 0.47 + slow_warp * 2.2).sin();
-    let tone = (broad * 0.24 - latewood * 0.30 + secondary * 0.07) * contrast;
-    let relief = (broad * 0.005 - latewood * 0.009) * contrast;
+    let secondary = (phase * params.plank_floor.growth_field_secondary_1
+        + slow_warp * params.plank_floor.growth_field_secondary_2)
+        .sin();
+    let tone = (broad * params.plank_floor.growth_field_tone_1
+        - latewood * params.plank_floor.growth_field_tone_2
+        + secondary * params.plank_floor.growth_field_tone_3)
+        * contrast;
+    let relief = (broad * params.plank_floor.growth_field_relief_1
+        - latewood * params.plank_floor.growth_field_relief_2)
+        * contrast;
     (tone, relief)
 }
 
-fn finite_surface_features(u: f32, v: f32, board: i32, left: f32, right: f32) -> (f32, f32, f32) {
+fn finite_surface_features(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    board: i32,
+    left: f32,
+    right: f32,
+) -> (f32, f32, f32) {
     let id = board as u64;
     let board_width = right - left;
     let local_u = ((u - left) / board_width).clamp(0.0, 1.0);
     let mut check = 0.0_f32;
-    if hash_unit(0xa813_5f4d ^ id) > 0.70 {
-        let center_u = 0.18 + hash_unit(0x749b_c2e1 ^ id) * 0.64;
-        let center_v = hash_unit(0x19e4_8b73 ^ id);
-        let dx = (local_u - center_u + periodic_delta(v - center_v) * 0.035).abs();
+    if hash_unit(params, 0xa813_5f4d ^ id) > 0.70 {
+        let center_u = params.plank_floor.finite_surface_features_center_u_1
+            + hash_unit(params, 0x749b_c2e1 ^ id)
+                * params.plank_floor.finite_surface_features_center_u_2;
+        let center_v = hash_unit(params, 0x19e4_8b73 ^ id);
+        let dx = (local_u - center_u
+            + periodic_delta(v - center_v) * params.plank_floor.finite_surface_features_dx)
+            .abs();
         let dy = periodic_delta(v - center_v).abs();
-        let width = 0.006 + hash_unit(0xd457_2ca1 ^ id) * 0.006;
-        let half_length = (0.06 + hash_unit(0x61af_839d ^ id) * 0.09) / PLANK_FLOOR_TILE_METRES;
+        let width = params.plank_floor.finite_surface_features_width_1
+            + hash_unit(params, 0xd457_2ca1 ^ id)
+                * params.plank_floor.finite_surface_features_width_2;
+        let half_length = (params.plank_floor.finite_surface_features_half_length_1
+            + hash_unit(params, 0x61af_839d ^ id)
+                * params.plank_floor.finite_surface_features_half_length_2)
+            / params.plank_floor.tile_metres;
         check = (1.0 - smooth((dx / width).clamp(0.0, 1.0)))
             * (1.0 - smooth((dy / half_length).clamp(0.0, 1.0)));
     }
 
     let mut hand_mark = 0.0_f32;
-    if hash_unit(0x93c1_6e5b ^ id) > 0.62 {
+    if hash_unit(params, 0x93c1_6e5b ^ id) > 0.62 {
         for mark in 0..2_u64 {
-            let center_u = 0.14 + hash_unit(0x2f75_8c19 ^ id ^ mark) * 0.72;
-            let center_v = hash_unit(0xc486_31ad ^ id ^ mark);
-            let dx = (local_u - center_u) / (0.10 + hash_unit(0xa59d_17e3 ^ id ^ mark) * 0.08);
+            let center_u = params.plank_floor.finite_surface_features_center_u_1_layer
+                + hash_unit(params, 0x2f75_8c19 ^ id ^ mark)
+                    * params.plank_floor.finite_surface_features_center_u_2_layer;
+            let center_v = hash_unit(params, 0xc486_31ad ^ id ^ mark);
+            let dx = (local_u - center_u)
+                / (params.plank_floor.finite_surface_features_dx_1
+                    + hash_unit(params, 0xa59d_17e3 ^ id ^ mark)
+                        * params.plank_floor.finite_surface_features_dx_2);
             let dy = periodic_delta(v - center_v)
-                / ((0.10 + hash_unit(0x7db2_e451 ^ id ^ mark) * 0.16) / PLANK_FLOOR_TILE_METRES);
+                / ((params.plank_floor.finite_surface_features_dy_1
+                    + hash_unit(params, 0x7db2_e451 ^ id ^ mark)
+                        * params.plank_floor.finite_surface_features_dy_2)
+                    / params.plank_floor.tile_metres);
             let radius = dx * dx + dy * dy;
             if radius < 1.0 {
                 let facet = (1.0 - smooth(radius))
-                    * (dx * 0.45 + dy * 0.08)
+                    * (dx * params.plank_floor.finite_surface_features_facet_1
+                        + dy * params.plank_floor.finite_surface_features_facet_2)
                     * (if mark == 0 { 1.0 } else { -1.0 });
                 hand_mark += facet * 0.018;
             }
@@ -149,53 +199,79 @@ fn finite_surface_features(u: f32, v: f32, board: i32, left: f32, right: f32) ->
 
     // Tiny open pores occur on a minority of boards and remain subordinate to
     // the broad growth field.
-    let pore_phase =
-        std::f32::consts::TAU * (local_u * (31.0 + (id % 5) as f32) + v * (7.0 + (id % 3) as f32));
-    let pore = if hash_unit(0xb4d7_52a9 ^ id) > 0.48 {
-        ((pore_phase.sin() - 0.94) / 0.06).clamp(0.0, 1.0)
-            * ((std::f32::consts::TAU * (v * 19.0 + hash_unit(id))).sin() - 0.72).clamp(0.0, 0.28)
-            / 0.28
+    let pore_phase = std::f32::consts::TAU
+        * (local_u * (params.plank_floor.finite_surface_features_pore_phase_1 + (id % 5) as f32)
+            + v * (params.plank_floor.finite_surface_features_pore_phase_2 + (id % 3) as f32));
+    let pore = if hash_unit(params, 0xb4d7_52a9 ^ id)
+        > params.plank_floor.finite_surface_features_pore_1
+    {
+        ((pore_phase.sin() - params.plank_floor.finite_surface_features_pore_2)
+            / params.plank_floor.finite_surface_features_pore_3)
+            .clamp(0.0, 1.0)
+            * ((std::f32::consts::TAU
+                * (v * params.plank_floor.finite_surface_features_pore_4 + hash_unit(params, id)))
+            .sin()
+                - params.plank_floor.finite_surface_features_pore_5)
+                .clamp(0.0, params.plank_floor.finite_surface_features_pore_6)
+            / params.plank_floor.finite_surface_features_pore_7
     } else {
         0.0
     };
     (check, hand_mark, pore)
 }
 
-fn board_at(u: f32) -> (i32, f32, f32) {
+fn board_at(params: &crate::TextureParameters, u: f32) -> (i32, f32, f32) {
     let u = u.rem_euclid(1.0);
-    for board in 0..BOARD_COUNT {
-        let left = board_boundary(board);
-        let right = board_boundary(board + 1);
+    for board in 0..params.plank_floor.board_count {
+        let left = board_boundary(params, board);
+        let right = board_boundary(params, board + 1);
         if u < right {
             return (board, left, right);
         }
     }
-    (BOARD_COUNT - 1, board_boundary(BOARD_COUNT - 1), 1.0)
+    (
+        params.plank_floor.board_count - 1,
+        board_boundary(params, params.plank_floor.board_count - 1),
+        1.0,
+    )
 }
 
-fn value_noise_1d(value: f32, cells: i32, salt: u64) -> f32 {
+fn value_noise_1d(params: &crate::TextureParameters, value: f32, cells: i32, salt: u64) -> f32 {
     let scaled = value.rem_euclid(1.0) * cells as f32;
     let first = scaled.floor() as i32;
     let blend = smooth(scaled.fract());
-    let sample = |index: i32| hash_unit(salt ^ index.rem_euclid(cells) as u64);
+    let sample = |index: i32| hash_unit(params, salt ^ index.rem_euclid(cells) as u64);
     sample(first) + (sample(first + 1) - sample(first)) * blend
 }
 
-fn joint_profile(distance_metres: f32, half_width_metres: f32) -> f32 {
-    let feather = PLANK_FLOOR_TILE_METRES / PLANK_FLOOR_TEXTURE_SIZE as f32 * 0.85;
+fn joint_profile(
+    params: &crate::TextureParameters,
+    distance_metres: f32,
+    half_width_metres: f32,
+) -> f32 {
+    let feather = params.plank_floor.tile_metres / params.size(PLANK_FLOOR_TEXTURE_SIZE) as f32
+        * params.plank_floor.joint_profile_feather;
     1.0 - smooth(((distance_metres - half_width_metres) / feather).clamp(0.0, 1.0))
 }
 
-fn nail_profile(u: f32, v: f32, board: i32, left: f32, right: f32, station: i32) -> f32 {
+fn nail_profile(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    board: i32,
+    left: f32,
+    right: f32,
+    station: i32,
+) -> f32 {
     let board_width = right - left;
-    let joint_v = station as f32 / JOIST_STATIONS as f32;
+    let joint_v = station as f32 / params.plank_floor.joist_stations as f32;
     let mut nail = 0.0_f32;
-    let id = board.rem_euclid(BOARD_COUNT) as u64;
-    if hash_unit(0x9a72_4cd1 ^ id) > 0.38 {
+    let id = board.rem_euclid(params.plank_floor.board_count) as u64;
+    if hash_unit(params, 0x9a72_4cd1 ^ id) > 0.38 {
         for side in [0.12_f32, 0.88] {
             let center_u = left + board_width * side;
-            let dx = periodic_delta(u - center_u) * PLANK_FLOOR_TILE_METRES;
-            let dy = periodic_delta(v - joint_v) * PLANK_FLOOR_TILE_METRES;
+            let dx = periodic_delta(u - center_u) * params.plank_floor.tile_metres;
+            let dy = periodic_delta(v - joint_v) * params.plank_floor.tile_metres;
             let radius = (dx * dx + dy * dy).sqrt();
             nail = nail.max(1.0 - smooth((radius / 0.009).clamp(0.0, 1.0)));
         }
@@ -203,89 +279,119 @@ fn nail_profile(u: f32, v: f32, board: i32, left: f32, right: f32, station: i32)
 
     // Occasional surviving face nails at another supporting joist. These are
     // construction-related, not a decorative grid across every board.
-    if hash_unit(0xc173_4d2f ^ id) > 0.84 {
-        let support = (station + 3) % JOIST_STATIONS;
-        let side = if hash_unit(0x48d2_71a5 ^ id) > 0.5 {
-            0.14
+    if hash_unit(params, 0xc173_4d2f ^ id) > 0.84 {
+        let support = (station + 3) % params.plank_floor.joist_stations;
+        let side = if hash_unit(params, 0x48d2_71a5 ^ id) > 0.5 {
+            params.plank_floor.nail_profile_side_1
         } else {
-            0.86
+            params.plank_floor.nail_profile_side_2
         };
         let center_u = left + board_width * side;
-        let center_v = support as f32 / JOIST_STATIONS as f32;
-        let dx = periodic_delta(u - center_u) * PLANK_FLOOR_TILE_METRES;
-        let dy = periodic_delta(v - center_v) * PLANK_FLOOR_TILE_METRES;
+        let center_v = support as f32 / params.plank_floor.joist_stations as f32;
+        let dx = periodic_delta(u - center_u) * params.plank_floor.tile_metres;
+        let dy = periodic_delta(v - center_v) * params.plank_floor.tile_metres;
         let radius = (dx * dx + dy * dy).sqrt();
         nail = nail.max(1.0 - smooth((radius / 0.005).clamp(0.0, 1.0)));
     }
     nail
 }
 
-fn sample_plank_floor(u: f32, v: f32) -> PlankSample {
+fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> PlankSample {
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
-    let (board, left, right) = board_at(u);
+    let (board, left, right) = board_at(params, u);
     let board_id = board as u64;
     let board_width = right - left;
     let local_u = ((u - left) / board_width).clamp(0.0, 1.0);
 
-    let left_edge = left + edge_warp(board, v);
-    let right_edge = right + edge_warp(board + 1, v);
+    let left_edge = left + edge_warp(params, board, v);
+    let right_edge = right + edge_warp(params, board + 1, v);
     let edge_distance = periodic_delta(u - left_edge)
         .abs()
         .min(periodic_delta(u - right_edge).abs())
-        * PLANK_FLOOR_TILE_METRES;
-    let edge_joint = joint_profile(edge_distance, EDGE_GAP_METRES * 0.5);
+        * params.plank_floor.tile_metres;
+    let edge_joint = joint_profile(
+        params,
+        edge_distance,
+        params.plank_floor.edge_gap_metres * 0.5,
+    );
 
-    let station = butt_joint_station(board);
-    let cut_skew_metres = (hash_unit(0x273b_91f5 ^ board_id) - 0.5) * 0.010;
-    let cut_offset = (local_u - 0.5) * cut_skew_metres / PLANK_FLOOR_TILE_METRES;
-    let end_distance = periodic_delta(v - station as f32 / JOIST_STATIONS as f32 - cut_offset)
-        .abs()
-        * PLANK_FLOOR_TILE_METRES;
-    let end_joint = joint_profile(end_distance, END_GAP_METRES * 0.5);
-    let end_inside_board = smooth((local_u / 0.035).clamp(0.0, 1.0))
-        * smooth(((1.0 - local_u) / 0.035).clamp(0.0, 1.0));
+    let station = butt_joint_station(params, board);
+    let cut_skew_metres = (hash_unit(params, 0x273b_91f5 ^ board_id) - 0.5)
+        * params.plank_floor.sample_plank_floor_cut_skew_metres;
+    let cut_offset = (local_u - 0.5) * cut_skew_metres / params.plank_floor.tile_metres;
+    let end_distance =
+        periodic_delta(v - station as f32 / params.plank_floor.joist_stations as f32 - cut_offset)
+            .abs()
+            * params.plank_floor.tile_metres;
+    let end_joint = joint_profile(
+        params,
+        end_distance,
+        params.plank_floor.end_gap_metres * 0.5,
+    );
+    let end_inside_board = smooth(
+        (local_u / params.plank_floor.sample_plank_floor_end_inside_board_1).clamp(0.0, 1.0),
+    ) * smooth(
+        ((1.0 - local_u) / params.plank_floor.sample_plank_floor_end_inside_board_2)
+            .clamp(0.0, 1.0),
+    );
     let end_joint = end_joint * end_inside_board;
     let joint = edge_joint.max(end_joint);
-    let nail = nail_profile(u, v, board, left, right, station);
+    let nail = nail_profile(params, u, v, board, left, right, station);
 
-    let (grain_tone, grain_relief) = growth_field(local_u, v, board_id);
-    let (check, hand_mark, pore) = finite_surface_features(u, v, board, left, right);
-    let broad_length = value_noise_1d(v, 4, 0x159a_e271 ^ board_id) - 0.5;
-    let board_tone = hash_unit(0x11bd_7a35 ^ board_id) - 0.5;
+    let (grain_tone, grain_relief) = growth_field(params, local_u, v, board_id);
+    let (check, hand_mark, pore) = finite_surface_features(params, u, v, board, left, right);
+    let broad_length = value_noise_1d(params, v, 4, 0x159a_e271 ^ board_id) - 0.5;
+    let board_tone = hash_unit(params, 0x11bd_7a35 ^ board_id) - 0.5;
 
-    let cup_direction = if hash_unit(0x7531_ac49 ^ board_id) > 0.5 {
+    let cup_direction = if hash_unit(params, 0x7531_ac49 ^ board_id) > 0.5 {
         1.0
     } else {
         -1.0
     };
-    let cup = ((local_u - 0.5).powi(2) * 4.0 - 0.34)
+    let cup = ((local_u - 0.5).powi(2) * params.plank_floor.sample_plank_floor_cup_1
+        - params.plank_floor.sample_plank_floor_cup_2)
         * cup_direction
-        * (0.010 + hash_unit(0x43e9_65b1 ^ board_id) * 0.010);
-    let traffic_center = 0.56
-        + 0.055 * (std::f32::consts::TAU * v).sin()
-        + 0.025 * (std::f32::consts::TAU * 3.0 * v + 1.4).sin();
-    let traffic_distance = periodic_delta(u - traffic_center).abs();
-    let wear = smooth((1.0 - traffic_distance / 0.17).clamp(0.0, 1.0))
-        * (0.68 + value_noise_1d(v, 5, 0xb582_08cd) * 0.32);
+        * (params.plank_floor.sample_plank_floor_cup_3
+            + hash_unit(params, 0x43e9_65b1 ^ board_id)
+                * params.plank_floor.sample_plank_floor_cup_4);
+    let wear = traffic_wear(params, u, v);
 
-    let height = (0.66 + cup + grain_relief + broad_length * 0.018 + hand_mark
-        - check * 0.16
-        - pore * 0.035
-        - joint * 0.53
-        - nail * 0.16)
+    let height = (params.plank_floor.sample_plank_floor_height_1
+        + cup
+        + grain_relief
+        + broad_length * params.plank_floor.sample_plank_floor_height_2
+        + hand_mark
+        - check * params.plank_floor.sample_plank_floor_height_3
+        - pore * params.plank_floor.sample_plank_floor_height_4
+        - joint * params.plank_floor.sample_plank_floor_height_5
+        - nail * params.plank_floor.sample_plank_floor_height_6)
         .clamp(0.0, 1.0);
-    let tone = (board_tone * 0.42 + grain_tone * 0.34 + broad_length * 0.18
-        - check * 0.26
-        - pore * 0.16
-        - joint * 0.60
-        - nail * 0.34)
+    let tone = (board_tone * params.plank_floor.sample_plank_floor_tone_1
+        + grain_tone * params.plank_floor.sample_plank_floor_tone_2
+        + broad_length * params.plank_floor.sample_plank_floor_tone_3
+        - check * params.plank_floor.sample_plank_floor_tone_4
+        - pore * params.plank_floor.sample_plank_floor_tone_5
+        - joint * params.plank_floor.sample_plank_floor_tone_6
+        - nail * params.plank_floor.sample_plank_floor_tone_7)
         .clamp(-1.0, 1.0);
-    let roughness = (0.77 + grain_tone.abs() * 0.018 + joint * 0.12 + check * 0.08 + pore * 0.05
-        - wear * 0.15)
-        .clamp(0.54, 0.94);
-    let ao =
-        (1.0 - joint * (0.46 + (1.0 - wear) * 0.05) - nail * 0.24 - check * 0.08).clamp(0.48, 1.0);
+    let roughness = (params.plank_floor.sample_plank_floor_roughness_1
+        + grain_tone.abs() * params.plank_floor.sample_plank_floor_roughness_2
+        + joint * params.plank_floor.sample_plank_floor_roughness_3
+        + check * params.plank_floor.sample_plank_floor_roughness_4
+        + pore * params.plank_floor.sample_plank_floor_roughness_5
+        - wear * params.plank_floor.sample_plank_floor_roughness_6)
+        .clamp(
+            params.plank_floor.sample_plank_floor_roughness_7,
+            params.plank_floor.sample_plank_floor_roughness_8,
+        );
+    let ao = (1.0
+        - joint
+            * (params.plank_floor.sample_plank_floor_ao_1
+                + (1.0 - wear) * params.plank_floor.sample_plank_floor_ao_2)
+        - nail * params.plank_floor.sample_plank_floor_ao_3
+        - check * params.plank_floor.sample_plank_floor_ao_4)
+        .clamp(params.plank_floor.sample_plank_floor_ao_5, 1.0);
 
     PlankSample {
         height,
@@ -297,10 +403,15 @@ fn sample_plank_floor(u: f32, v: f32) -> PlankSample {
     }
 }
 
-fn plank_color(sample: PlankSample) -> [u8; 3] {
-    let base = [104.0_f32, 75.0, 45.0];
-    let shift = sample.tone * 40.0;
-    let embedded_dirt = sample.joint * 16.0 + sample.nail * 10.0;
+fn plank_color(params: &crate::TextureParameters, sample: PlankSample) -> [u8; 3] {
+    let base = [
+        104.0_f32,
+        params.plank_floor.plank_color_base_1,
+        params.plank_floor.plank_color_base_2,
+    ];
+    let shift = sample.tone * params.plank_floor.plank_color_shift;
+    let embedded_dirt = sample.joint * params.plank_floor.plank_color_embedded_dirt_1
+        + sample.nail * params.plank_floor.plank_color_embedded_dirt_2;
     [
         (base[0] + shift - embedded_dirt).clamp(0.0, 255.0) as u8,
         (base[1] + shift * 0.72 - embedded_dirt).clamp(0.0, 255.0) as u8,
@@ -308,17 +419,21 @@ fn plank_color(sample: PlankSample) -> [u8; 3] {
     ]
 }
 
-fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
-    let size = PLANK_FLOOR_TEXTURE_SIZE as i32;
+fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let size = params.size(PLANK_FLOOR_TEXTURE_SIZE) as i32;
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-pub fn generate_plank_floor_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let size = PLANK_FLOOR_TEXTURE_SIZE;
+pub fn generate_plank_floor_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(PLANK_FLOOR_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {
                 sample_plank_floor(
+                    params,
                     (x as f32 + 0.5) / size as f32,
                     (y as f32 + 0.5) / size as f32,
                 )
@@ -333,20 +448,21 @@ pub fn generate_plank_floor_textures(images: &mut Assets<Image>) -> SurfaceTextu
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());
     let mut arm = Vec::with_capacity(albedo.capacity());
-    let metres_per_texel = PLANK_FLOOR_TILE_METRES / size as f32;
-    let slope_scale = PLANK_FLOOR_HEIGHT_RANGE_METRES / (2.0 * metres_per_texel);
+    let metres_per_texel = params.plank_floor.tile_metres / size as f32;
+    let slope_scale = params.plank_floor.height_range_metres / (2.0 * metres_per_texel);
 
     for y in 0..size {
         for x in 0..size {
             let index = (y * size + x) as usize;
             let sample = samples[index];
-            let color = plank_color(sample);
+            let color = plank_color(params, sample);
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
-            let dx = height_at(&heights, x as i32 + 1, y as i32)
-                - height_at(&heights, x as i32 - 1, y as i32);
-            let dy = height_at(&heights, x as i32, y as i32 + 1)
-                - height_at(&heights, x as i32, y as i32 - 1);
-            let surface_normal = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
+            let dx = height_at(params, &heights, x as i32 + 1, y as i32)
+                - height_at(params, &heights, x as i32 - 1, y as i32);
+            let dy = height_at(params, &heights, x as i32, y as i32 + 1)
+                - height_at(params, &heights, x as i32, y as i32 - 1);
+            let surface_normal =
+                crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
             let encoded = ((surface_normal + Vec3::ONE) * 127.5)
                 .round()
                 .clamp(Vec3::ZERO, Vec3::splat(255.0));
@@ -379,8 +495,9 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let textures = generate_plank_floor_textures(&mut images);
+        let textures = generate_plank_floor_textures(params, &mut images);
         (images, textures)
     }
 
@@ -403,19 +520,24 @@ mod tests {
 
     #[test]
     fn field_is_periodic_in_both_directions() {
+        let params = &crate::TextureParameters::default();
         for (u, v) in [(0.031, 0.17), (0.28, 0.51), (0.63, 0.87), (0.94, 0.39)] {
-            let sample = sample_plank_floor(u, v);
-            assert!((sample.height - sample_plank_floor(u + 1.0, v).height).abs() < 1.0e-6);
-            assert!((sample.height - sample_plank_floor(u, v - 1.0).height).abs() < 1.0e-6);
-            assert!((sample.tone - sample_plank_floor(u + 1.0, v + 1.0).tone).abs() < 1.0e-5);
+            let sample = sample_plank_floor(params, u, v);
+            assert!((sample.height - sample_plank_floor(params, u + 1.0, v).height).abs() < 1.0e-6);
+            assert!((sample.height - sample_plank_floor(params, u, v - 1.0).height).abs() < 1.0e-6);
+            assert!(
+                (sample.tone - sample_plank_floor(params, u + 1.0, v + 1.0).tone).abs() < 1.0e-5
+            );
         }
     }
 
     #[test]
     fn boards_are_broad_and_joints_follow_joists() {
+        let params = &crate::TextureParameters::default();
         let widths = (0..BOARD_COUNT)
             .map(|board| {
-                (board_boundary(board + 1) - board_boundary(board)) * PLANK_FLOOR_TILE_METRES
+                (board_boundary(params, board + 1) - board_boundary(params, board))
+                    * PLANK_FLOOR_TILE_METRES
             })
             .collect::<Vec<_>>();
         assert!(
@@ -423,10 +545,10 @@ mod tests {
             "widths: {widths:?}"
         );
         for board in 0..BOARD_COUNT {
-            let station = butt_joint_station(board);
+            let station = butt_joint_station(params, board);
             let metres = station as f32 * PLANK_FLOOR_TILE_METRES / JOIST_STATIONS as f32;
             assert!((metres / 0.6 - (metres / 0.6).round()).abs() < 1.0e-5);
-            let next = butt_joint_station((board + 1).rem_euclid(BOARD_COUNT));
+            let next = butt_joint_station(params, (board + 1).rem_euclid(BOARD_COUNT));
             assert_ne!(
                 station,
                 next,
@@ -438,13 +560,15 @@ mod tests {
 
     #[test]
     fn gaps_and_fasteners_are_sparse_and_physically_scaled() {
+        let params = &crate::TextureParameters::default();
         assert!((0.004..=0.008).contains(&EDGE_GAP_METRES));
         assert!((0.003..=0.007).contains(&END_GAP_METRES));
         let mut joint = 0_usize;
         let mut nail = 0_usize;
         for y in 0..256 {
             for x in 0..256 {
-                let sample = sample_plank_floor((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
+                let sample =
+                    sample_plank_floor(params, (x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
                 joint += usize::from(sample.joint > 0.5);
                 nail += usize::from(sample.nail > 0.5);
             }
@@ -732,4 +856,22 @@ mod tests {
         .unwrap();
         write_manifest(&candidate, "candidate-3-awaiting-independent-review");
     }
+}
+
+mod controls;
+pub use controls::Parameters;
+
+fn traffic_wear(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let traffic_center = params.plank_floor.sample_plank_floor_traffic_center_1
+        + params.plank_floor.sample_plank_floor_traffic_center_2
+            * (std::f32::consts::TAU * v).sin()
+        + params.plank_floor.sample_plank_floor_traffic_center_3
+            * (std::f32::consts::TAU * 3.0 * v
+                + params.plank_floor.sample_plank_floor_traffic_center_4)
+                .sin();
+    let traffic_distance = periodic_delta(u - traffic_center).abs();
+    smooth((1.0 - traffic_distance / params.plank_floor.sample_plank_floor_wear_1).clamp(0.0, 1.0))
+        * (params.plank_floor.sample_plank_floor_wear_2
+            + value_noise_1d(params, v, 5, 0xb582_08cd)
+                * params.plank_floor.sample_plank_floor_wear_3)
 }

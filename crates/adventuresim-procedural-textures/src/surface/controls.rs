@@ -1,0 +1,72 @@
+//! Artist controls and canonical recipe defaults.
+use super::*;
+
+crate::parameters::parameter_block! {
+    pub struct Parameters {
+        oak_bark_local_cavity_cavity: f32 = 0.25;
+        oak_bark_height_distance: f32 = 0.46;
+        oak_bark_height_weight_1: f32 = 0.15;
+        oak_bark_height_weight_2: f32 = 1.0e-5;
+        oak_bark_height_graph_shoulder_1: f32 = 0.035;
+        oak_bark_height_graph_shoulder_2: f32 = 0.024;
+        oak_bark_height_graph_shoulder_3: f32 = 3.25;
+        oak_bark_height_graph_shoulder_4: f32 = 0.82;
+        oak_bark_height_graph_relief_1: f32 = 0.52;
+        oak_bark_height_graph_relief_2: f32 = 0.16;
+        oak_bark_height_face_mask_1: f32 = 0.012;
+        oak_bark_height_face_mask_2: f32 = 0.040;
+        oak_bark_height_asymmetric_crown_1: f32 = 0.028;
+        oak_bark_height_asymmetric_crown_2: f32 = 0.060;
+        oak_bark_height_asymmetric_crown_3: f32 = 0.010;
+        oak_bark_height_asymmetric_crown_4: f32 = 0.085;
+        oak_bark_height_asymmetric_crown_5: f32 = 0.72;
+        oak_bark_height_asymmetric_crown_6: f32 = 0.28;
+        oak_bark_height_asymmetric_crown_7: f32 = 2.1;
+        oak_bark_height_check_relief_1: f32 = 0.085;
+        oak_bark_height_check_relief_2: f32 = 0.0045;
+        oak_bark_height_fiber_relief_1: f32 = 0.032;
+        oak_bark_height_fiber_relief_2: f32 = 0.0030;
+        oak_bark_height_broad_breakup_1: f32 = 0.018;
+        oak_bark_height_broad_breakup_2: f32 = 7.0;
+        oak_bark_height_broad_breakup_3: f32 = 5.0;
+        oak_bark_height_broad_breakup_4: f32 = 0.73;
+        oak_bark_height_fine_breakup_1: f32 = 0.006;
+        oak_bark_height_fine_breakup_2: f32 = 17.0;
+        oak_bark_height_fine_breakup_3: f32 = 11.0;
+        oak_bark_height_fine_breakup_4: f32 = 13.0;
+        oak_bark_height_fine_breakup_5: f32 = 0.29;
+        oak_bark_fiber_distance_centre_1: f32 = 0.018;
+        oak_bark_fiber_distance_centre_2: f32 = 0.026;
+        oak_bark_fiber_distance_length_1: f32 = 0.040;
+        oak_bark_fiber_distance_length_2: f32 = 0.075;
+        oak_bark_fiber_distance_slant: f32 = 0.022;
+        oak_bark_fiber_distance_curve: f32 = 0.007;
+        oak_bark_check_curve_graph_t_1: f32 = 0.18;
+        oak_bark_check_curve_graph_t_2: f32 = 0.64;
+        oak_bark_check_curve_run_1: f32 = 0.034;
+        oak_bark_check_curve_run_2: f32 = 0.078;
+        oak_bark_check_curve_rise_1: f32 = 0.035;
+        oak_bark_check_curve_rise_2: f32 = 0.105;
+        oak_bark_check_curve_control_1: f32 = 0.36;
+        oak_bark_check_curve_control_2: f32 = 0.30;
+        oak_bark_check_curve_control_3: f32 = 0.45;
+        oak_bark_check_curve_control_4: f32 = 0.025;
+        oak_bark_curve_distance_end_t: f32 = 8.0;
+        oak_bark_curve_distance_local: f32 = 1.0e-6;
+        oak_bark_graph_distance_best_1: f32 = 0.007;
+        oak_bark_graph_distance_best_2: f32 = 0.8;
+        oak_bark_graph_distance_amplitude_1: f32 = 0.12;
+        oak_bark_graph_distance_amplitude_2: f32 = 0.42;
+        oak_bark_graph_distance_local_width: f32 = 0.08;
+        oak_bark_plate_site_x_1: f32 = 0.618_034;
+        oak_bark_plate_site_x_2: f32 = 0.012;
+        oak_bark_plate_site_y_1: f32 = 0.754_878;
+        oak_bark_plate_site_y_2: f32 = 0.012;
+        oak_bark_tile_metres: f32 = OAK_BARK_TILE_METRES;
+        oak_bark_height_range_metres: f32 = OAK_BARK_HEIGHT_RANGE_METRES;
+        oak_bark_plate_count: i32 = OAK_BARK_PLATE_COUNT;
+        oak_bark_check_count: i32 = OAK_BARK_CHECK_COUNT;
+        oak_bark_fiber_count: i32 = OAK_BARK_FIBER_COUNT;
+        oak_bark_graph_edges: [OakBarkGraphEdge; 20] = OAK_BARK_GRAPH_EDGES;
+    }
+}

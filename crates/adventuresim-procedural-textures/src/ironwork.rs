@@ -5,7 +5,7 @@
 //! following the long forging direction.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -13,27 +13,41 @@ pub const IRONWORK_TEXTURE_SIZE: u32 = 512;
 pub const IRONWORK_TILE_METRES: f32 = 0.64;
 pub const IRONWORK_HEIGHT_RANGE_METRES: f32 = 0.0018;
 
-fn hash(x: i32, y: i32, period_x: i32, period_y: i32, salt: u64) -> f32 {
+fn hash(
+    params: &crate::TextureParameters,
+    x: i32,
+    y: i32,
+    period_x: i32,
+    period_y: i32,
+    salt: u64,
+) -> f32 {
     let x = x.rem_euclid(period_x) as u64;
     let y = y.rem_euclid(period_y) as u64;
-    inclusive_unit_f32(splitmix64(salt ^ (x << 32) ^ y))
+    inclusive_unit_f32(crate::parameters::seeded_hash(params, salt ^ (x << 32) ^ y))
 }
 
 fn smooth(value: f32) -> f32 {
     value * value * (3.0 - 2.0 * value)
 }
 
-fn periodic_noise(u: f32, v: f32, cells_x: i32, cells_y: i32, salt: u64) -> f32 {
+fn periodic_noise(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    cells_x: i32,
+    cells_y: i32,
+    salt: u64,
+) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
     let ix = x.floor() as i32;
     let iy = y.floor() as i32;
     let tx = smooth(x.fract());
     let ty = smooth(y.fract());
-    let a = hash(ix, iy, cells_x, cells_y, salt);
-    let b = hash(ix + 1, iy, cells_x, cells_y, salt);
-    let c = hash(ix, iy + 1, cells_x, cells_y, salt);
-    let d = hash(ix + 1, iy + 1, cells_x, cells_y, salt);
+    let a = hash(params, ix, iy, cells_x, cells_y, salt);
+    let b = hash(params, ix + 1, iy, cells_x, cells_y, salt);
+    let c = hash(params, ix, iy + 1, cells_x, cells_y, salt);
+    let d = hash(params, ix + 1, iy + 1, cells_x, cells_y, salt);
     (a + (b - a) * tx) + ((c + (d - c) * tx) - (a + (b - a) * tx)) * ty
 }
 
@@ -41,23 +55,27 @@ fn periodic_delta(value: f32) -> f32 {
     value - value.round()
 }
 
-fn hammer_facets(u: f32, v: f32) -> (f32, f32) {
+fn hammer_facets(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) {
     let mut relief = 0.0;
     let mut crown: f32 = 0.0;
     for mark in 0..38_u64 {
-        let seed = splitmix64(0x5d77_a931 ^ mark.wrapping_mul(0x9e37_79b9));
+        let seed =
+            crate::parameters::seeded_hash(params, 0x5d77_a931 ^ mark.wrapping_mul(0x9e37_79b9));
         let dx = periodic_delta(u - inclusive_unit_f32(seed ^ 0x31c7));
         let dy = periodic_delta(v - inclusive_unit_f32(seed ^ 0xa579));
         let angle = if mark % 5 == 0 {
             std::f32::consts::FRAC_PI_2
         } else {
             0.0
-        } + (inclusive_unit_f32(seed ^ 0x6d21) - 0.5) * 0.62;
+        } + (inclusive_unit_f32(seed ^ 0x6d21) - 0.5)
+            * params.ironwork.hammer_facets_angle;
         let (sin_angle, cos_angle) = angle.sin_cos();
         let along = dx * cos_angle + dy * sin_angle;
         let across = -dx * sin_angle + dy * cos_angle;
-        let half_length = 0.052 + inclusive_unit_f32(seed ^ 0xf317) * 0.068;
-        let half_width = 0.018 + inclusive_unit_f32(seed ^ 0x8ca9) * 0.028;
+        let half_length = params.ironwork.hammer_facets_half_length_1
+            + inclusive_unit_f32(seed ^ 0xf317) * params.ironwork.hammer_facets_half_length_2;
+        let half_width = params.ironwork.hammer_facets_half_width_1
+            + inclusive_unit_f32(seed ^ 0x8ca9) * params.ironwork.hammer_facets_half_width_2;
         let local_u = along / half_length;
         let local_v = across / half_width;
         let radius_squared = local_u * local_u + local_v * local_v;
@@ -66,39 +84,54 @@ fn hammer_facets(u: f32, v: f32) -> (f32, f32) {
         }
         let envelope = smooth(1.0 - radius_squared);
         let tilt = local_u * (inclusive_unit_f32(seed ^ 0x42e1) - 0.5)
-            + local_v * (inclusive_unit_f32(seed ^ 0xb731) - 0.5) * 0.55;
+            + local_v
+                * (inclusive_unit_f32(seed ^ 0xb731) - 0.5)
+                * params.ironwork.hammer_facets_tilt;
         relief += envelope * tilt * 0.075;
         crown = crown.max(envelope * (1.0 - tilt.abs() * 0.35));
     }
     (relief.clamp(-0.14, 0.14), crown)
 }
 
-fn field(u: f32, v: f32) -> (f32, f32, f32, f32) {
-    let broad = periodic_noise(u, v, 4, 5, 0x10e4_91a7);
-    let fine = periodic_noise(u, v, 41, 37, 0x4f83_d2a1);
-    let (facets, crown) = hammer_facets(u, v);
-    let draw =
-        ((v * 7.0 + periodic_noise(u, v, 3, 7, 0x6b31_ef95) * 0.34) * std::f32::consts::TAU).sin();
-    let scale = periodic_noise(u, v, 17, 19, 0x39de_b647) * 0.62
-        + periodic_noise(u, v, 31, 23, 0x74a1_29dd) * 0.38;
-    let scale_recess = smooth(((scale - 0.79) / 0.13).clamp(0.0, 1.0));
-    let height = (0.50 + (broad - 0.5) * 0.045 + facets + draw * 0.0045 + (fine - 0.5) * 0.012
-        - scale_recess * 0.035)
+fn field(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32, f32, f32) {
+    let broad = periodic_noise(params, u, v, 4, 5, 0x10e4_91a7);
+    let fine = periodic_noise(params, u, v, 41, 37, 0x4f83_d2a1);
+    let (facets, crown) = hammer_facets(params, u, v);
+    let draw = ((v * params.ironwork.field_draw_1
+        + periodic_noise(params, u, v, 3, 7, 0x6b31_ef95) * params.ironwork.field_draw_2)
+        * std::f32::consts::TAU)
+        .sin();
+    let scale = periodic_noise(params, u, v, 17, 19, 0x39de_b647) * params.ironwork.field_scale_1
+        + periodic_noise(params, u, v, 31, 23, 0x74a1_29dd) * params.ironwork.field_scale_2;
+    let scale_recess = smooth(
+        ((scale - params.ironwork.field_scale_recess_1) / params.ironwork.field_scale_recess_2)
+            .clamp(0.0, 1.0),
+    );
+    let height = (0.50
+        + (broad - 0.5) * params.ironwork.field_height_1
+        + facets
+        + draw * params.ironwork.field_height_2
+        + (fine - 0.5) * params.ironwork.field_height_3
+        - scale_recess * params.ironwork.field_height_4)
         .clamp(0.0, 1.0);
     (height, crown, scale, scale_recess)
 }
 
-fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
-    let size = IRONWORK_TEXTURE_SIZE as i32;
+fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let size = params.size(IRONWORK_TEXTURE_SIZE) as i32;
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-pub fn generate_ironwork_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let size = IRONWORK_TEXTURE_SIZE;
+pub fn generate_ironwork_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(IRONWORK_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {
                 field(
+                    params,
                     (x as f32 + 0.5) / size as f32,
                     (y as f32 + 0.5) / size as f32,
                 )
@@ -111,20 +144,29 @@ pub fn generate_ironwork_textures(images: &mut Assets<Image>) -> SurfaceTextureS
     let mut normal = Vec::with_capacity(capacity);
     let mut height = Vec::with_capacity(capacity);
     let mut arm = Vec::with_capacity(capacity);
-    let slope_scale = IRONWORK_HEIGHT_RANGE_METRES / (2.0 * IRONWORK_TILE_METRES / size as f32);
+    let slope_scale =
+        params.ironwork.height_range_metres / (2.0 * params.ironwork.tile_metres / size as f32);
 
     for y in 0..size {
         for x in 0..size {
             let index = (y * size + x) as usize;
             let (surface_height, crown, scale, scale_recess) = samples[index];
-            let oxide = smooth(((scale - 0.48) / 0.34).clamp(0.0, 1.0));
+            let oxide = smooth(
+                ((scale - params.ironwork.generate_ironwork_textures_oxide_1)
+                    / params.ironwork.generate_ironwork_textures_oxide_2)
+                    .clamp(0.0, 1.0),
+            );
             let u = (x as f32 + 0.5) / size as f32;
             let v = (y as f32 + 0.5) / size as f32;
-            let contact_zone =
-                smooth(((periodic_noise(u, v, 3, 2, 0xf712_30c5) - 0.62) / 0.30).clamp(0.0, 1.0));
+            let contact_zone = smooth(
+                ((periodic_noise(params, u, v, 3, 2, 0xf712_30c5) - 0.62) / 0.30).clamp(0.0, 1.0),
+            );
             let polish = smooth(((crown - 0.72) / 0.24).clamp(0.0, 1.0)) * contact_zone;
             let draw = ((y as f32 + 0.5) / size as f32 * 7.0 * std::f32::consts::TAU).sin();
-            let base = 43.0 + oxide * 4.0 + polish * 2.0 + draw * 1.2;
+            let base = params.ironwork.generate_ironwork_textures_base_1
+                + oxide * params.ironwork.generate_ironwork_textures_base_2
+                + polish * 2.0
+                + draw * params.ironwork.generate_ironwork_textures_base_3;
             albedo.extend_from_slice(&[
                 (base + oxide * 4.0).round() as u8,
                 (base - oxide).round() as u8,
@@ -132,20 +174,29 @@ pub fn generate_ironwork_textures(images: &mut Assets<Image>) -> SurfaceTextureS
                 255,
             ]);
 
-            let dx = height_at(&heights, x as i32 + 1, y as i32)
-                - height_at(&heights, x as i32 - 1, y as i32);
-            let dy = height_at(&heights, x as i32, y as i32 + 1)
-                - height_at(&heights, x as i32, y as i32 - 1);
-            let n = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
+            let dx = height_at(params, &heights, x as i32 + 1, y as i32)
+                - height_at(params, &heights, x as i32 - 1, y as i32);
+            let dy = height_at(params, &heights, x as i32, y as i32 + 1)
+                - height_at(params, &heights, x as i32, y as i32 - 1);
+            let n = crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
             let encoded = ((n + Vec3::ONE) * 127.5)
                 .round()
                 .clamp(Vec3::ZERO, Vec3::splat(255.0));
             normal.extend_from_slice(&[encoded.x as u8, encoded.y as u8, encoded.z as u8, 255]);
             let h = (surface_height * 255.0).round() as u8;
             height.extend_from_slice(&[h, h, h, 255]);
-            let ao = ((0.995 - scale_recess * 0.075) * 255.0).round() as u8;
-            let roughness = (192.0 + oxide * 27.0 - polish * 22.0 + draw.abs() * 2.0)
-                .clamp(145.0, 222.0)
+            let ao = ((params.ironwork.generate_ironwork_textures_ao_1
+                - scale_recess * params.ironwork.generate_ironwork_textures_ao_2)
+                * 255.0)
+                .round() as u8;
+            let roughness = (params.ironwork.generate_ironwork_textures_roughness_1
+                + oxide * params.ironwork.generate_ironwork_textures_roughness_2
+                - polish * params.ironwork.generate_ironwork_textures_roughness_3
+                + draw.abs() * 2.0)
+                .clamp(
+                    params.ironwork.generate_ironwork_textures_roughness_4,
+                    params.ironwork.generate_ironwork_textures_roughness_5,
+                )
                 .round() as u8;
             arm.extend_from_slice(&[ao, roughness, 255, 255]);
         }
@@ -168,8 +219,9 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let textures = generate_ironwork_textures(&mut images);
+        let textures = generate_ironwork_textures(params, &mut images);
         (images, textures)
     }
 
@@ -488,3 +540,6 @@ mod tests {
         manifest(&candidate, "candidate-5-awaiting-independent-review");
     }
 }
+
+mod controls;
+pub use controls::Parameters;

@@ -156,13 +156,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "adventuresim-procedural-materials"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+]
+
+[[package]]
 name = "adventuresim-procedural-textures"
 version = "0.1.0"
 dependencies = [
  "bevy",
- "clap",
  "fabelgeist-determinism",
  "image",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -233,6 +241,7 @@ version = "0.1.0"
 dependencies = [
  "adventuresim-building-generator",
  "adventuresim-core",
+ "adventuresim-procedural-materials",
  "adventuresim-procedural-textures",
  "adventuresim-tactical-core",
  "adventuresim-tactical-netcode",
@@ -351,6 +360,24 @@ dependencies = [
  "sha2",
  "thiserror 2.0.20",
  "tiff",
+]
+
+[[package]]
+name = "adventuresim-texture-studio"
+version = "0.1.0"
+dependencies = [
+ "adventuresim-procedural-materials",
+ "adventuresim-procedural-textures",
+ "bevy",
+ "bevy_egui",
+ "clap",
+ "console_error_panic_hook",
+ "image",
+ "js-sys",
+ "serde",
+ "serde_json",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]

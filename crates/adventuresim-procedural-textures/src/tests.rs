@@ -15,27 +15,44 @@ fn rgba_palette(image: &Image) -> BTreeSet<[u8; 4]> {
 }
 
 #[test]
-fn leaf_presets_are_binary_and_use_small_solid_palettes() {
+fn leaf_presets_antialias_boundaries_without_detailed_albedo() {
+    let params = &crate::TextureParameters::default();
     for recipe in [
-        LeafRecipe::WHITE_OAK,
-        LeafRecipe::DRY_WHITE_OAK,
-        LeafRecipe::HAZEL,
-        LeafRecipe::BLACKTHORN,
-        LeafRecipe::HAWTHORN,
-        LeafRecipe::BEECH,
+        LeafSpecies::WhiteOak,
+        LeafSpecies::DryWhiteOak,
+        LeafSpecies::Hazel,
+        LeafSpecies::Blackthorn,
+        LeafSpecies::Hawthorn,
+        LeafSpecies::Beech,
     ] {
         let mut images = Assets::<Image>::default();
-        let textures = generate_leaf_textures(&mut images, recipe);
+        let textures = generate_leaf_textures(params, &mut images, recipe);
         let opacity = images.get(&textures.opacity).unwrap();
-        let opacity_values = rgba_palette(opacity);
-        assert!(opacity_values.len() <= 2);
-        assert!(
-            opacity_values
+        let base_len = (opacity.width() * opacity.height() * 4) as usize;
+        let base_palette = |image: &Image| {
+            image.data.as_ref().unwrap()[..base_len]
+                .as_chunks::<4>()
+                .0
                 .iter()
-                .all(|pixel| pixel[0] == 0 || pixel[0] == 255)
+                .copied()
+                .collect::<BTreeSet<_>>()
+        };
+        let opacity_values = base_palette(opacity);
+        assert!(
+            opacity_values.iter().any(|p| p[0] > 0 && p[0] < 255),
+            "leaf edges need antialiasing"
         );
-        assert!(rgba_palette(images.get(&textures.front_albedo).unwrap()).len() <= 3);
-        assert!(rgba_palette(images.get(&textures.back_albedo).unwrap()).len() <= 3);
+        assert!(
+            opacity_values.len() <= 8,
+            "coverage must remain localized to class boundaries"
+        );
+        for albedo in [&textures.front_albedo, &textures.back_albedo] {
+            let palette = base_palette(images.get(albedo).unwrap());
+            assert!(
+                palette.len() <= 16,
+                "leaf albedo must remain a small categorical palette with edge antialiasing"
+            );
+        }
         assert!(rgba_palette(images.get(&textures.height).unwrap()).len() > 16);
         let arm = rgba_palette(images.get(&textures.arm).unwrap());
         assert_eq!(
@@ -50,8 +67,9 @@ fn leaf_presets_are_binary_and_use_small_solid_palettes() {
 
 #[test]
 fn surface_albedo_and_roughness_are_palette_constrained_but_normals_are_detailed() {
+    let params = &crate::TextureParameters::default();
     let mut images = Assets::<Image>::default();
-    let textures = generate_rock_textures(&mut images);
+    let textures = generate_rock_textures(params, &mut images);
     let albedo = images.get(&textures.albedo).unwrap();
     let base_length = (ROCK_TEXTURE_SIZE * ROCK_TEXTURE_SIZE * 4) as usize;
     let albedo_palette = albedo.data.as_ref().unwrap()[..base_length]
@@ -105,8 +123,9 @@ fn surface_albedo_and_roughness_are_palette_constrained_but_normals_are_detailed
 
 #[test]
 fn oak_bark_is_one_specialized_1024_texture_with_a_complete_mip_chain() {
+    let params = &crate::TextureParameters::default();
     let mut images = Assets::<Image>::default();
-    let textures = generate_oak_bark_texture(&mut images);
+    let textures = generate_oak_bark_texture(params, &mut images);
     assert_eq!(images.len(), 1);
     let image = images.get(&textures.height_ao).unwrap();
     assert_eq!(image.width(), OAK_BARK_TEXTURE_SIZE);
@@ -145,8 +164,9 @@ fn oak_bark_is_one_specialized_1024_texture_with_a_complete_mip_chain() {
 
 #[test]
 fn forest_ground_uses_packed_surface_and_normal_textures_with_complete_mip_chains() {
+    let params = &crate::TextureParameters::default();
     let mut images = Assets::<Image>::default();
-    let textures = generate_forest_soil_texture(&mut images);
+    let textures = generate_forest_soil_texture(params, &mut images);
     assert_eq!(images.len(), 3);
     let image = images.get(&textures.height_ao).unwrap();
     assert_eq!((image.width(), image.height()), (1024, 1024));
@@ -187,14 +207,17 @@ fn forest_ground_uses_packed_surface_and_normal_textures_with_complete_mip_chain
 
 #[test]
 fn forest_soil_height_is_periodic_deterministic_and_physically_scaled() {
+    let params = &crate::TextureParameters::default();
     for (u, v) in [(0.0, 0.13), (0.07, 0.61), (0.48, 0.94), (0.91, 0.22)] {
-        let height = forest_soil_height(u, v);
-        assert_eq!(height.to_bits(), forest_soil_height(u, v).to_bits());
-        assert!((height - forest_soil_height(u + 1.0, v)).abs() < 1.0e-5);
-        assert!((height - forest_soil_height(u, v + 1.0)).abs() < 1.0e-5);
+        let height = forest_soil_height(params, u, v);
+        assert_eq!(height.to_bits(), forest_soil_height(params, u, v).to_bits());
+        assert!((height - forest_soil_height(params, u + 1.0, v)).abs() < 1.0e-5);
+        assert!((height - forest_soil_height(params, u, v + 1.0)).abs() < 1.0e-5);
     }
     let values = (0..128)
-        .flat_map(|y| (0..128).map(move |x| forest_soil_height(x as f32 / 128.0, y as f32 / 128.0)))
+        .flat_map(|y| {
+            (0..128).map(move |x| forest_soil_height(params, x as f32 / 128.0, y as f32 / 128.0))
+        })
         .collect::<Vec<_>>();
     let minimum = values.iter().copied().fold(f32::INFINITY, f32::min);
     let maximum = values.iter().copied().fold(f32::NEG_INFINITY, f32::max);
@@ -207,12 +230,16 @@ fn forest_soil_height_is_periodic_deterministic_and_physically_scaled() {
 
 #[test]
 fn forest_soil_ao_combines_half_resolution_horizons_with_local_cavities() {
+    let params = &crate::TextureParameters::default();
     let flat = vec![0.0; FOREST_SOIL_TEXTURE_SIZE.pow(2) as usize];
-    assert_eq!(forest_soil_horizon_ao(&flat, 17, 29), 1.0);
-    assert_eq!(forest_soil_local_cavity(&flat, 17, 29), 1.0);
+    assert_eq!(forest_soil_horizon_ao(params, &flat, 17, 29), 1.0);
+    assert_eq!(forest_soil_local_cavity(params, &flat, 17, 29), 1.0);
     let mut sharp_cavity = flat;
     sharp_cavity[(29 * FOREST_SOIL_TEXTURE_SIZE + 17) as usize] = -0.5;
-    assert_eq!(forest_soil_local_cavity(&sharp_cavity, 17, 29), 0.78);
+    assert_eq!(
+        forest_soil_local_cavity(params, &sharp_cavity, 17, 29),
+        0.78
+    );
     let horizon_samples = FOREST_SOIL_AO_SIZE.pow(2)
         * FOREST_SOIL_AO_DIRECTIONS.len() as u32
         * FOREST_SOIL_AO_STEPS.len() as u32;
@@ -221,6 +248,7 @@ fn forest_soil_ao_combines_half_resolution_horizons_with_local_cavities() {
 
 #[test]
 fn forest_litter_is_periodic_dense_and_retains_soil_gaps() {
+    let params = &crate::TextureParameters::default();
     let mut covered = 0_usize;
     let mut exposed = 0_usize;
     let mut minimum_ao = 1.0_f32;
@@ -229,8 +257,8 @@ fn forest_litter_is_periodic_dense_and_retains_soil_gaps() {
         for x in 0..128 {
             let u = (x as f32 + 0.5) / 128.0;
             let v = (y as f32 + 0.5) / 128.0;
-            let sample = forest_litter_sample(u, v);
-            let repeated = forest_litter_sample(u + 1.0, v - 1.0);
+            let sample = forest_litter_sample(params, u, v);
+            let repeated = forest_litter_sample(params, u + 1.0, v - 1.0);
             maximum_repeat_error = maximum_repeat_error
                 .max((sample.coverage - repeated.coverage).abs())
                 .max((sample.height - repeated.height).abs());
@@ -254,18 +282,19 @@ fn forest_litter_is_periodic_dense_and_retains_soil_gaps() {
 
 #[test]
 fn oak_bark_height_is_periodic_deterministic_and_deeply_fissured() {
+    let params = &crate::TextureParameters::default();
     let samples = [(0.0, 0.13), (0.07, 0.61), (0.48, 0.94), (0.91, 0.22)];
     let mut minimum = f32::INFINITY;
     let mut maximum = f32::NEG_INFINITY;
     for (u, v) in samples {
-        let height = oak_bark_height(u, v);
-        assert_eq!(height.to_bits(), oak_bark_height(u, v).to_bits());
-        assert!((height - oak_bark_height(u + 1.0, v)).abs() < 1.0e-5);
-        assert!((height - oak_bark_height(u, v + 1.0)).abs() < 1.0e-5);
+        let height = oak_bark_height(params, u, v);
+        assert_eq!(height.to_bits(), oak_bark_height(params, u, v).to_bits());
+        assert!((height - oak_bark_height(params, u + 1.0, v)).abs() < 1.0e-5);
+        assert!((height - oak_bark_height(params, u, v + 1.0)).abs() < 1.0e-5);
     }
     for y in 0..96 {
         for x in 0..96 {
-            let height = oak_bark_height(x as f32 / 96.0, y as f32 / 96.0);
+            let height = oak_bark_height(params, x as f32 / 96.0, y as f32 / 96.0);
             minimum = minimum.min(height);
             maximum = maximum.max(height);
         }
@@ -378,10 +407,12 @@ fn oak_bark_primary_fissure_depth_varies_without_breaking_edge_continuity() {
 
 #[test]
 fn oak_bark_ao_uses_reduced_neighboring_horizons_and_full_resolution_cavities() {
+    let params = &crate::TextureParameters::default();
     let heights = (0..OAK_BARK_TEXTURE_SIZE)
         .flat_map(|y| {
             (0..OAK_BARK_TEXTURE_SIZE).map(move |x| {
                 oak_bark_height(
+                    params,
                     (x as f32 + 0.5) / OAK_BARK_TEXTURE_SIZE as f32,
                     (y as f32 + 0.5) / OAK_BARK_TEXTURE_SIZE as f32,
                 )
@@ -394,7 +425,7 @@ fn oak_bark_ao_uses_reduced_neighboring_horizons_and_full_resolution_cavities() 
             let heights = &heights;
             (0..OAK_BARK_AO_SIZE as i32)
                 .step_by(16)
-                .map(move |x| oak_bark_horizon_ao(heights, x, y))
+                .map(move |x| oak_bark_horizon_ao(params, heights, x, y))
         })
         .collect::<Vec<_>>();
     let minimum = visibility.iter().copied().fold(f32::INFINITY, f32::min);
@@ -403,8 +434,8 @@ fn oak_bark_ao_uses_reduced_neighboring_horizons_and_full_resolution_cavities() 
     assert!(maximum > 0.92, "maximum horizon visibility: {maximum}");
 
     let flat = vec![0.0; OAK_BARK_TEXTURE_SIZE.pow(2) as usize];
-    assert_eq!(oak_bark_local_cavity(&flat, 17, 29), 1.0);
+    assert_eq!(oak_bark_local_cavity(params, &flat, 17, 29), 1.0);
     let mut sharp_cavity = flat;
     sharp_cavity[(29 * OAK_BARK_TEXTURE_SIZE + 17) as usize] = -0.5;
-    assert_eq!(oak_bark_local_cavity(&sharp_cavity, 17, 29), 0.72);
+    assert_eq!(oak_bark_local_cavity(params, &sharp_cavity, 17, 29), 0.72);
 }

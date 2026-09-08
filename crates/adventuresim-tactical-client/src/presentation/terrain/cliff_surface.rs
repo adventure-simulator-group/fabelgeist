@@ -142,7 +142,10 @@ mod tests {
     #[test]
     fn ordinary_terrain_disables_cliff_and_patch_recipe_enables_it() {
         let mut images = Assets::<Image>::default();
-        let procedural_assets = generate_procedural_textures(&mut images);
+        let procedural_assets = generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0);
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("cliff-material");
         let graphics = TacticalGraphicsSettings::default();

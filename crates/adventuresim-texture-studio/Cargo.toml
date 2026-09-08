@@ -1,0 +1,31 @@
+[package]
+name = "adventuresim-texture-studio"
+description = "Standalone Bevy material authoring and review studio"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+adventuresim-procedural-materials.workspace = true
+adventuresim-procedural-textures.workspace = true
+bevy = { workspace = true, features = ["default_app", "std", "bevy_winit", "web", "webgpu", "3d_bevy_render", "ui_bevy_render", "png", "tonemapping_luts", "zstd_rust"] }
+bevy_egui.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+image = { version = "0.25.10", default-features = false, features = ["png"] }
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+wasm-bindgen.workspace = true
+js-sys = "=0.3.85"
+web-sys = { version = "=0.3.85", features = ["Worker", "WorkerOptions", "WorkerType", "MessageEvent", "ErrorEvent", "Window", "Storage", "Performance", "console"] }
+console_error_panic_hook.workspace = true
+
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+clap.workspace = true
+
+[lints]
+workspace = true

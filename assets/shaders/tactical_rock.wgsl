@@ -40,6 +40,13 @@ fn triplanar_weights(normal: vec3<f32>) -> vec3<f32> {
     return softened / max(dot(softened, vec3<f32>(1.0)), 0.0001);
 }
 
+// These same rotations drive texture lookup and the inverse normal projection.
+const ROCK_PROJECTION_ROTATIONS = array<mat2x2<f32>, 3>(
+    mat2x2<f32>(vec2<f32>(0.819, 0.574), vec2<f32>(-0.574, 0.819)),
+    mat2x2<f32>(vec2<f32>(0.906, -0.423), vec2<f32>(0.423, 0.906)),
+    mat2x2<f32>(vec2<f32>(0.766, 0.643), vec2<f32>(-0.643, 0.766)),
+);
+
 fn axis_uvs(position: vec3<f32>) -> mat3x2<f32> {
     let phase = rock.geology.x;
     let point = position * rock.geology.y;
@@ -47,10 +54,30 @@ fn axis_uvs(position: vec3<f32>) -> mat3x2<f32> {
     let y_uv = point.xz + vec2<f32>(phase * 0.127, phase * 0.053);
     let z_uv = point.xy + vec2<f32>(phase * 0.089, phase * 0.137);
     return mat3x2<f32>(
-        vec2<f32>(0.819 * x_uv.x - 0.574 * x_uv.y, 0.574 * x_uv.x + 0.819 * x_uv.y),
-        vec2<f32>(0.906 * y_uv.x + 0.423 * y_uv.y, -0.423 * y_uv.x + 0.906 * y_uv.y),
-        vec2<f32>(0.766 * z_uv.x - 0.643 * z_uv.y, 0.643 * z_uv.x + 0.766 * z_uv.y),
+        ROCK_PROJECTION_ROTATIONS[0] * x_uv,
+        ROCK_PROJECTION_ROTATIONS[1] * y_uv,
+        ROCK_PROJECTION_ROTATIONS[2] * z_uv,
     );
+}
+
+fn unproject_normal(normal: vec3<f32>, rotation: mat2x2<f32>) -> vec3<f32> {
+    // GL green points opposite image V. Apply the chain rule for the rotated UVs.
+    let planar = transpose(rotation) * vec2<f32>(normal.x, -normal.y);
+    return vec3<f32>(planar, normal.z);
+}
+
+fn triplanar_surface_normal(
+    sampled_x: vec3<f32>, sampled_y: vec3<f32>, sampled_z: vec3<f32>,
+    weights: vec3<f32>, macro_normal: vec3<f32>,
+) -> vec3<f32> {
+    let nx = unproject_normal(sampled_x, ROCK_PROJECTION_ROTATIONS[0]);
+    let ny = unproject_normal(sampled_y, ROCK_PROJECTION_ROTATIONS[1]);
+    let nz = unproject_normal(sampled_z, ROCK_PROJECTION_ROTATIONS[2]);
+    let signs = select(vec3<f32>(-1.0), vec3<f32>(1.0), macro_normal >= vec3<f32>(0.0));
+    let world_x = vec3<f32>(signs.x * nx.z, nx.y, nx.x);
+    let world_y = vec3<f32>(ny.x, signs.y * ny.z, ny.y);
+    let world_z = vec3<f32>(nz.x, nz.y, signs.z * nz.z);
+    return normalize(world_x * weights.x + world_y * weights.y + world_z * weights.z);
 }
 
 fn triplanar_color(uvs: mat3x2<f32>, weights: vec3<f32>) -> vec3<f32> {
@@ -73,11 +100,7 @@ fn triplanar_normal(
     let nx = textureSample(rock_normal_gl, rock_normal_gl_sampler, uvs[0]).xyz * 2.0 - 1.0;
     let ny = textureSample(rock_normal_gl, rock_normal_gl_sampler, uvs[1]).xyz * 2.0 - 1.0;
     let nz = textureSample(rock_normal_gl, rock_normal_gl_sampler, uvs[2]).xyz * 2.0 - 1.0;
-    let signs = select(vec3<f32>(-1.0), vec3<f32>(1.0), macro_normal >= vec3<f32>(0.0));
-    let world_x = vec3<f32>(signs.x * nx.z, nx.y, nx.x);
-    let world_y = vec3<f32>(ny.x, signs.y * ny.z, ny.y);
-    let world_z = vec3<f32>(nz.x, nz.y, signs.z * nz.z);
-    let mapped = normalize(world_x * weights.x + world_y * weights.y + world_z * weights.z);
+    let mapped = triplanar_surface_normal(nx, ny, nz, weights, macro_normal);
     return normalize(mix(macro_normal, mapped, rock.geology.w));
 }
 

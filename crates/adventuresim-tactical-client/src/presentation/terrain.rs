@@ -1216,7 +1216,10 @@ mod tests {
         app.insert_resource(TacticalGraphicsSettings::default());
         let procedural_assets = {
             let mut images = app.world_mut().resource_mut::<Assets<Image>>();
-            generate_procedural_textures(&mut images)
+            generate_procedural_textures(
+                &adventuresim_procedural_textures::TextureParameters::default(),
+                &mut images,
+            )
         };
         app.insert_resource(procedural_assets);
         app.add_observer(on_game_scene_added);

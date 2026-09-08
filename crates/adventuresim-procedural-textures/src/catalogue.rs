@@ -1,5 +1,6 @@
 /// Stable identifier used by review tools and future recipe-specific agents.
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub enum TextureRecipeId {
     WhiteOakLeaf,
     DryWhiteOakLeaf,
