@@ -77,3 +77,11 @@ height check is included in this crate's tests. With Node, Playwright and a
 WebGPU-capable Chromium browser, `node scripts/test_texture_normal_projection.cjs`
 checks the production rock projection WGSL against geometric height gradients
 on all six axis directions.
+
+## Shared leaves
+
+Leaf species are presets of one compositional generator with 68 botanical controls,
+including continuous lobe/leaflet counts and simple-to-compound separation.
+`TextureParameters.leaves` owns shape and relief; `leaf_colors` owns independent
+front/back palettes. The studio exposes the shape catalog and parameter morphing.
+See [the model and reference verification](src/leaf/README.md).

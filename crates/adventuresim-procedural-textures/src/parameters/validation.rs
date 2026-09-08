@@ -27,6 +27,16 @@ impl ControlBounds {
             .rev()
             .find(|part| part.parse::<usize>().is_err())
             .unwrap_or(path);
+        if path.starts_with("/leaves/")
+            && path.contains("/shape/")
+            && let Some((min, max)) = crate::leaf::parameter_range(name)
+        {
+            return Self {
+                min: f64::from(min),
+                max: f64::from(max),
+                integer: false,
+            };
+        }
         let component = path
             .rsplit('/')
             .next()

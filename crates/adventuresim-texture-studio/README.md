@@ -70,3 +70,18 @@ its packed terrain channels. Glass uses Bevy's transmission material and nominal
 thickness; its per-texel thickness channel remains available for inspection.
 Native captures require a graphics adapter. All generated evidence belongs under
 `target/`.
+
+## Leaf authoring
+
+Select any leaf recipe to use the shared leaf generator. **Load shape preset**
+loads one of 38 botanical presets into that recipe. **Morph to** selects a target;
+the **Morph** slider interpolates the shape controls from the current shape.
+Palettes and surface relief remain independently editable. Changing the target or
+editing a botanical control starts a new morph from the current shape. Undo,
+import and recipe reset also re-anchor the morph to the restored parameters.
+
+Grouped controls expose blade profile, notches, lobes, teeth, venation, compound
+organization and posture. Structural constraints keep combinations defined;
+incompatible architectures can suppress controls and limit smooth interpolation.
+The resulting concrete parameters are saved in the JSON document, so saved morph
+results bake identically without the editor or its transient slider state.

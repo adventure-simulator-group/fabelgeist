@@ -1,4 +1,5 @@
 //! A typed parameter document supplies the values; the common schema supplies legal controls.
+mod leaf;
 use adventuresim_procedural_textures::{ControlBounds, ControlPath, TextureRecipeId};
 use bevy_egui::egui::{self, Ui};
 use serde_json::Value;
@@ -48,6 +49,7 @@ pub(crate) fn draw(
                 changed |= node(ui, path, value, default, search, allowed);
             });
     }
+    changed |= leaf::draw(ui, recipe, values, defaults, search);
     for group in groups(recipe) {
         let path = format!("/{group}");
         let Some(value) = values.pointer_mut(&path) else {
@@ -373,7 +375,11 @@ fn groups(recipe: TextureRecipeId) -> Vec<&'static str> {
     let mut groups = Vec::new();
     for path in recipe.control_paths() {
         let group = path.group();
-        if group != "leaf_colors" && group != "seed" && !groups.contains(&group) {
+        if group != "leaves"
+            && group != "leaf_colors"
+            && group != "seed"
+            && !groups.contains(&group)
+        {
             groups.push(group);
         }
     }

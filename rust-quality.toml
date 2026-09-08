@@ -47,10 +47,6 @@ kind = "authored_catalog"
 path = "crates/adventuresim-core/src/road_encounter_catalog.rs"
 reason = "Authored encounter definitions are cohesive catalog data."
 
-[[scopes]]
-kind = "authored_catalog"
-path = "crates/adventuresim-procedural-textures/src/foliage.rs"
-reason = "Authored deterministic leaf silhouettes and material recipes are cohesive asset data."
 
 [[scopes]]
 kind = "authored_catalog"
@@ -182,3 +178,13 @@ reason = "Egui button responses dispatch authoring actions; labels are display t
 kind = "boundary_adapter"
 path = "crates/adventuresim-texture-studio/src/ui/view_controls.rs"
 reason = "Egui view buttons dispatch actions through widget responses, without comparing their display labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-procedural-textures/src/leaf/ranges.rs"
+reason = "Maps serialized botanical field names to their reference-defined numeric domain."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-texture-studio/src/inspector/leaf.rs"
+reason = "Maps the serialized shared leaf schema and preset catalog to egui authoring controls."

@@ -15,7 +15,7 @@ fn rgba_palette(image: &Image) -> BTreeSet<[u8; 4]> {
 }
 
 #[test]
-fn leaf_presets_are_binary_and_use_small_solid_palettes() {
+fn leaf_presets_antialias_boundaries_without_detailed_albedo() {
     let params = &crate::TextureParameters::default();
     for recipe in [
         LeafSpecies::WhiteOak,
@@ -28,15 +28,31 @@ fn leaf_presets_are_binary_and_use_small_solid_palettes() {
         let mut images = Assets::<Image>::default();
         let textures = generate_leaf_textures(params, &mut images, recipe);
         let opacity = images.get(&textures.opacity).unwrap();
-        let opacity_values = rgba_palette(opacity);
-        assert!(opacity_values.len() <= 2);
-        assert!(
-            opacity_values
+        let base_len = (opacity.width() * opacity.height() * 4) as usize;
+        let base_palette = |image: &Image| {
+            image.data.as_ref().unwrap()[..base_len]
+                .as_chunks::<4>()
+                .0
                 .iter()
-                .all(|pixel| pixel[0] == 0 || pixel[0] == 255)
+                .copied()
+                .collect::<BTreeSet<_>>()
+        };
+        let opacity_values = base_palette(opacity);
+        assert!(
+            opacity_values.iter().any(|p| p[0] > 0 && p[0] < 255),
+            "leaf edges need antialiasing"
         );
-        assert!(rgba_palette(images.get(&textures.front_albedo).unwrap()).len() <= 3);
-        assert!(rgba_palette(images.get(&textures.back_albedo).unwrap()).len() <= 3);
+        assert!(
+            opacity_values.len() <= 8,
+            "coverage must remain localized to class boundaries"
+        );
+        for albedo in [&textures.front_albedo, &textures.back_albedo] {
+            let palette = base_palette(images.get(albedo).unwrap());
+            assert!(
+                palette.len() <= 16,
+                "leaf albedo must remain a small categorical palette with edge antialiasing"
+            );
+        }
         assert!(rgba_palette(images.get(&textures.height).unwrap()).len() > 16);
         let arm = rgba_palette(images.get(&textures.arm).unwrap());
         assert_eq!(

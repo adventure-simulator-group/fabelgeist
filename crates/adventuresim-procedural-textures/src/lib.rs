@@ -6,15 +6,12 @@
 #![cfg_attr(test, allow(clippy::chunks_exact_to_as_chunks))]
 
 mod bake;
-mod beech_leaf;
-mod blackthorn_leaf;
 pub mod building;
 mod catalogue;
 pub use bake::{BakedMap, BakedRecipe, MapChannel, PixelEncoding};
 mod clay_roof_tile;
 mod crenellation_mask;
 mod dressed_stone;
-mod dry_white_oak_leaf;
 mod ironwork;
 mod lead_sheet;
 mod normal;
@@ -248,12 +245,11 @@ fn empty_terrain_blood_mask() -> Image {
 }
 
 mod foliage;
+pub mod leaf;
 pub use hewn_oak::grain::Knot;
 pub use wattle_and_daub::CapsuleLayer;
 mod ground;
 mod handmade_brick;
-mod hawthorn_leaf;
-mod hazel_leaf;
 mod hewn_oak;
 mod image;
 mod leaf_pixels;
