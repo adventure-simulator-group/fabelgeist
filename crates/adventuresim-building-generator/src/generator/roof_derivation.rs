@@ -1,4 +1,5 @@
 fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
+    if let Some(roofs) = program.workplace_roofs() { return roofs; }
     let (width, depth) = program.footprint.dimensions();
     let size = Vec2::new(
         f32::from(width) * CELL_SIZE_METRES,
@@ -6,56 +7,9 @@ fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
     );
     let top = program.storeys.len() as f32 * program.storey_height_metres;
     match (program.archetype, program.footprint) {
-        (BuildingArchetype::TownHouse | BuildingArchetype::ParishChurch, _) => vec![RoofPiece {
-            kind: RoofKind::Gable,
-            centre: size * 0.5,
-            size,
-            base_height_metres: top,
-            pitch_degrees: program.roof_pitch_degrees,
-            ridge_axis: RidgeAxis::Z,
-            eave_metres: 0.45,
-            gable_profile: GableProfile::Plain,
-        }],
-        (BuildingArchetype::HallHouse, _) => vec![RoofPiece {
-            kind: RoofKind::HalfHip,
-            centre: size * 0.5,
-            size,
-            base_height_metres: top,
-            pitch_degrees: program.roof_pitch_degrees,
-            ridge_axis: RidgeAxis::Z,
-            eave_metres: 0.65,
-            gable_profile: GableProfile::Plain,
-        }],
-        (BuildingArchetype::FachwerkCottage, _) => vec![RoofPiece {
-            kind: RoofKind::Gable,
-            centre: size * 0.5,
-            size,
-            base_height_metres: top,
-            pitch_degrees: program.roof_pitch_degrees,
-            ridge_axis: RidgeAxis::Z,
-            eave_metres: 0.5,
-            gable_profile: GableProfile::Plain,
-        }],
-        (BuildingArchetype::FachwerkMerchantHouse, _) => vec![RoofPiece {
-            kind: RoofKind::Gable,
-            centre: size * 0.5,
-            size,
-            base_height_metres: top,
-            pitch_degrees: program.roof_pitch_degrees,
-            ridge_axis: RidgeAxis::Z,
-            eave_metres: 0.55,
-            gable_profile: GableProfile::Plain,
-        }],
-        (BuildingArchetype::RenaissanceTownHall, _) => vec![RoofPiece {
-            kind: RoofKind::HalfHip,
-            centre: size * 0.5,
-            size,
-            base_height_metres: top,
-            pitch_degrees: program.roof_pitch_degrees,
-            ridge_axis: RidgeAxis::X,
-            eave_metres: 0.65,
-            gable_profile: GableProfile::Stepped,
-        }],
+        (BuildingArchetype::TownHouse | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace
+            | BuildingArchetype::HallHouse | BuildingArchetype::FachwerkCottage
+            | BuildingArchetype::FachwerkMerchantHouse | BuildingArchetype::RenaissanceTownHall, _) => vec![RoofPiece::civilian(program)],
         (BuildingArchetype::Cathedral, _) => vec![
             RoofPiece {
                 kind: RoofKind::Gable,
@@ -302,6 +256,6 @@ fn derive_roof_dormers(program: &BuildingProgram) -> Vec<RoofDormer> {
                 GableProfile::Curved,
             ),
         ],
-        BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch => Vec::new(),
+        BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace => Vec::new(),
     }
 }

@@ -82,6 +82,7 @@ pub struct DistantBuildingPlacement {
     pub id: u64,
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
+    pub workplace_size: Option<adventuresim_building_generator::WorkplaceSize>,
     pub seed: u64,
     pub centre_metres: Vec2,
     pub base_elevation_metres: f32,
@@ -90,10 +91,14 @@ pub struct DistantBuildingPlacement {
 
 impl DistantBuildingPlacement {
     pub fn program(self) -> BuildingProgram {
-        match self.usage {
+        let mut program = match self.usage {
             Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
             None => BuildingProgram::fixture(self.archetype, self.seed),
+        };
+        if let Some(size) = self.workplace_size {
+            program = program.with_workplace_size(size);
         }
+        program
     }
 }
 
@@ -431,6 +436,7 @@ mod occupied_recipe_tests {
             id: 1,
             archetype: BuildingArchetype::HallHouse,
             usage: Some(BuildingUse::Stable),
+            workplace_size: Some(adventuresim_building_generator::WorkplaceSize::Large),
             seed: 42,
             centre_metres: Vec2::ZERO,
             base_elevation_metres: 0.0,
@@ -443,6 +449,7 @@ mod occupied_recipe_tests {
                 Some(BuildingUse::Stable),
                 42
             )
+            .with_workplace_size(adventuresim_building_generator::WorkplaceSize::Large)
         );
         assert_ne!(
             placement.program(),

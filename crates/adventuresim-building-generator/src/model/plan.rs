@@ -3,6 +3,7 @@ use super::*;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct BuildingPlan {
     pub archetype: BuildingArchetype,
+    pub workplace: Option<crate::WorkplacePlan>,
     pub seed: u64,
     pub footprint: Footprint,
     pub storey_height_metres: f32,

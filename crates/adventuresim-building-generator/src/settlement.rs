@@ -23,11 +23,12 @@ pub const fn settlement_archetype(usage: BuildingUse) -> BuildingArchetype {
         Inn | Warehouse | Bookshop | PrintingHouse | Apothecary | CustomsHouse | Manor => {
             BuildingArchetype::FachwerkMerchantHouse
         }
-        Barn | Stable | Granary | HorseMill | WaterMill | Windmill | FullingMill | PaperMill
-        | Sawmill | MarketHall | Hospital | Bathhouse | School | Monastery | Synagogue
-        | Malthouse | TimberYard | WoadStore | SaltWorks | Smelter | Brickworks | Glassworks => {
-            BuildingArchetype::HallHouse
+        Barn | Stable | Granary | Smithy | Weaponsmith | Bakehouse | MarketHall => {
+            BuildingArchetype::Workplace
         }
+        HorseMill | WaterMill | Windmill | FullingMill | PaperMill | Sawmill | Hospital
+        | Bathhouse | School | Monastery | Synagogue | Malthouse | TimberYard | WoadStore
+        | SaltWorks | Smelter | Brickworks | Glassworks => BuildingArchetype::HallHouse,
         Rectory | ExecutionerHouse => BuildingArchetype::FachwerkCottage,
         _ => BuildingArchetype::TownHouse,
     }
@@ -39,6 +40,7 @@ impl BuildingProgram {
         archetype: BuildingArchetype,
         usage: BuildingUse,
         initial_seed: u64,
+        size: Option<crate::WorkplaceSize>,
     ) -> Result<Self, crate::GenerationError> {
         let mut first_error = None;
         for attempt in 0..VALID_RECIPE_ATTEMPTS {
@@ -47,7 +49,10 @@ impl BuildingProgram {
             } else {
                 mix64(initial_seed ^ u64::from(attempt))
             };
-            let program = Self::settlement(archetype, Some(usage), seed);
+            let mut program = Self::settlement(archetype, Some(usage), seed);
+            if let Some(size) = size {
+                program = program.with_workplace_size(size);
+            }
             match crate::generate(&program) {
                 Ok(_) => return Ok(program),
                 Err(error) => {
@@ -90,6 +95,9 @@ impl BuildingProgram {
             program.roof_pitch_degrees += roof * ROOF_VARIATION_DEGREES;
             program.storey_height_metres += height * STOREY_VARIATION_METRES;
         }
+        if program.workplace_kind().is_some() {
+            program = program.with_workplace_size(crate::WorkplaceSize::Medium);
+        }
         program
     }
 
@@ -98,6 +106,7 @@ impl BuildingProgram {
         Self {
             archetype: BuildingArchetype::ParishChurch,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Rectangle {
                 width: 9,

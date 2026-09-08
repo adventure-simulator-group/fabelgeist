@@ -1,4 +1,4 @@
-use bevy::math::Vec3;
+use bevy::math::{Vec2, Vec3};
 
 use crate::{RoofEnclosureFace, RoofFace};
 
@@ -10,6 +10,20 @@ pub struct RoofSurfaceTriangle {
     pub positions: [Vec3; 3],
     pub normal: Vec3,
     pub surface: RoofSurface,
+}
+
+impl RoofSurfaceTriangle {
+    /// Metric texture coordinates on the actual surface, including vertical gables.
+    pub(crate) fn planar_uvs(self, metres_per_unit: f32) -> [Vec2; 3] {
+        let tangent = if self.normal.y.abs() < 0.99 {
+            Vec3::new(self.normal.z, 0.0, -self.normal.x).normalize()
+        } else {
+            Vec3::X
+        };
+        let bitangent = self.normal.cross(tangent).normalize();
+        self.positions
+            .map(|point| Vec2::new(point.dot(tangent), point.dot(bitangent)) / metres_per_unit)
+    }
 }
 
 /// Architectural side of a tessellated roof solid.

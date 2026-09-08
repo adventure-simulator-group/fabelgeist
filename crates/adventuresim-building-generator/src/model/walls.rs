@@ -3,6 +3,9 @@ use super::*;
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case", tag = "kind")]
 pub enum WallSourceId {
+    WorkplaceWall {
+        index: u32,
+    },
     StoreyWall {
         storey_level: u16,
         wall_index: usize,

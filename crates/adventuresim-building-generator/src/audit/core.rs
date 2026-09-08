@@ -6,45 +6,7 @@ pub struct AuditIssue {
 
 pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
     let mut issues = Vec::new();
-    let dimensions = plan.dimensions_metres();
-    let centre = dimensions * 0.5;
-
-    for (index, run) in plan.battlements.iter().enumerate() {
-        let midpoint = (run.start + run.end) * 0.5;
-        if (midpoint - centre).dot(direction_vector(run.outward)) <= 0.01 {
-            issues.push(issue(
-                "battlement_faces_inward",
-                format!("battlement run {index} faces the protected interior"),
-            ));
-        }
-        if run.kind != BattlementKind::Breteche
-            && !run_supported(plan, run.start, run.end, run.base_height_metres)
-        {
-            issues.push(issue(
-                "unsupported_battlement",
-                format!("battlement run {index} has no wall beneath it"),
-            ));
-        }
-        if run.kind != BattlementKind::Breteche
-            && !plan.wall_walks.iter().any(|walk| match walk {
-                WallWalk::Linear {
-                    start,
-                    end,
-                    elevation_metres,
-                    ..
-                } => {
-                    same_run(*start, *end, run.start, run.end)
-                        && close(*elevation_metres, run.base_height_metres)
-                }
-                WallWalk::Round { .. } | WallWalk::RectangularDeck { .. } => false,
-            })
-        {
-            issues.push(issue(
-                "missing_wall_walk",
-                format!("battlement run {index} has no fighting platform"),
-            ));
-        }
-    }
+    audit_battlement_runs(plan, &mut issues);
 
     for (index, walk) in plan.wall_walks.iter().enumerate() {
         if let WallWalk::Linear { width_metres, .. } = walk
@@ -94,6 +56,7 @@ pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
     audit_timber_frame(plan, &mut issues);
     audit_vertical_circulation(plan, &mut issues);
     audit_artillery_castle(plan, &mut issues);
+    crate::workplace::audit_workplace(plan, &mut issues);
 
     if matches!(
         plan.archetype,
@@ -154,4 +117,45 @@ pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
     audit_fortified_profile(plan, &mut issues);
     audit_gatehouse_assemblies(plan, &mut issues);
     issues
+}
+
+fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+    let centre = plan.dimensions_metres() * 0.5;
+    for (index, run) in plan.battlements.iter().enumerate() {
+        let midpoint = (run.start + run.end) * 0.5;
+        if (midpoint - centre).dot(direction_vector(run.outward)) <= 0.01 {
+            issues.push(issue(
+                "battlement_faces_inward",
+                format!("battlement run {index} faces the protected interior"),
+            ));
+        }
+        if run.kind != BattlementKind::Breteche
+            && !run_supported(plan, run.start, run.end, run.base_height_metres)
+        {
+            issues.push(issue(
+                "unsupported_battlement",
+                format!("battlement run {index} has no wall beneath it"),
+            ));
+        }
+        if run.kind != BattlementKind::Breteche
+            && !plan.wall_walks.iter().any(|walk| match walk {
+                WallWalk::Linear {
+                    start,
+                    end,
+                    elevation_metres,
+                    ..
+                } => {
+                    same_run(*start, *end, run.start, run.end)
+                        && close(*elevation_metres, run.base_height_metres)
+                }
+                WallWalk::Round { .. } | WallWalk::RectangularDeck { .. } => false,
+            })
+        {
+            issues.push(issue(
+                "missing_wall_walk",
+                format!("battlement run {index} has no fighting platform"),
+            ));
+        }
+    }
+
 }

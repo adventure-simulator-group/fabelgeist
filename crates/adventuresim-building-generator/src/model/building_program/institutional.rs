@@ -7,6 +7,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Rectangle {
                 width: 14,
@@ -52,6 +53,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Rectangle {
                 width: 28,

@@ -97,6 +97,15 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
         selected.extend(frame.circulation.stair_solids.iter().copied());
         selected.extend(frame.circulation.landing_solids.iter().copied());
     }
+    if let Some(workplace) = &plan.workplace {
+        selected.extend(
+            workplace
+                .parts
+                .iter()
+                .filter(|part| part.feature != crate::WorkplaceFeature::Boarding)
+                .map(|part| part.solid),
+        );
+    }
     let mut cuboids = selected
         .into_iter()
         .filter_map(|id| solids.get(&id).copied())

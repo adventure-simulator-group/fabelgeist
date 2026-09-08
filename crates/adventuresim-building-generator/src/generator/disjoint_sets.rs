@@ -522,6 +522,11 @@ mod tests {
                             .count()
                             >= 2
                     );
+                } else if let Some(workplace) = &first.workplace {
+                    assert!(storey.openings.is_empty());
+                    assert!(!workplace.passages.is_empty());
+                    assert!(!workplace.walls.is_empty());
+                    assert!(crate::audit_plan(&first).is_empty());
                 } else {
                     assert!(
                         storey

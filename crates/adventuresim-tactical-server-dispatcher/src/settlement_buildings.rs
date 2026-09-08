@@ -107,7 +107,8 @@ pub fn place_settlement_buildings(
             SERVICE_RECIPE_VARIANTS
         };
         let variant = selection % variants;
-        let key = (archetype.slug(), usage, variant);
+        let size = lot.workplace_size();
+        let key = (archetype.slug(), usage, variant, size);
         if let std::collections::btree_map::Entry::Vacant(entry) = palette.entry(key) {
             let recipe_seed = mix64(
                 settlement_seed
@@ -117,14 +118,13 @@ pub fn place_settlement_buildings(
                     ^ variant,
             );
             entry.insert(
-                BuildingProgram::validated_settlement(archetype, usage, recipe_seed).map_err(
-                    |cause| SettlementBuildingError::Recipe {
+                BuildingProgram::validated_settlement(archetype, usage, recipe_seed, size)
+                    .map_err(|cause| SettlementBuildingError::Recipe {
                         archetype,
                         usage,
                         initial_seed: recipe_seed,
                         cause,
-                    },
-                )?,
+                    })?,
             );
         }
         let program = &palette[&key];
@@ -138,6 +138,7 @@ pub fn place_settlement_buildings(
         } else {
             layout.distant.push(DistantBuildingPlacement {
                 usage: program.usage,
+                workplace_size: program.workplace_size,
                 id: lot.id,
                 archetype: program.archetype,
                 seed: program.seed,

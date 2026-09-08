@@ -26,6 +26,8 @@ fn grid_point(position: Vec2) -> GridPoint {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum GenerationError {
+    #[error("working building requires a supported use and physical size")]
+    InvalidWorkplaceProgram,
     #[error("building footprint is empty or invalid")]
     InvalidFootprint,
     #[error("storey {level} has no requested rooms")]
