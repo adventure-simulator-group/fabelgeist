@@ -10,7 +10,7 @@ pub use adventuresim_core::item_catalog_schema;
 
 use serde::{Deserialize, Serialize};
 
-pub const IDENTITY_COUNT: usize = 45;
+use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -33,7 +33,7 @@ impl Default for CharacterRecipe {
         Self {
             version: 3,
             name: "New adventurer".into(),
-            identity: vec![0.0; IDENTITY_COUNT],
+            identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
             clothing: vec![
                 ClothingSelection {
@@ -65,7 +65,8 @@ impl CharacterRecipe {
                 self.version
             ));
         }
-        if self.identity.len() != IDENTITY_COUNT || self.expression.len() != EXPRESSION_COUNT {
+        if self.identity.len() != IDENTITY_MORPH_COUNT || self.expression.len() != EXPRESSION_COUNT
+        {
             return Err("recipe has the wrong MHR coefficient counts".into());
         }
         if self.name.trim().is_empty() {

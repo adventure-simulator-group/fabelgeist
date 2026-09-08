@@ -22,15 +22,15 @@ pose-corrective network; installing every corrective basis is an explicit
 downloaded archive and extracted source assets are not committed; deliberately
 exported game and Cascadeur artifacts are tracked separately.
 
-The default project is John Fabelgeist. **Save recipe** writes his versioned
-parameters to `assets_src/characters/john_fabelgeist.json`; **Export rigged
-GLB** writes the Cascadeur source to `assets_src/biped/unarmed/base.glb`.
-The export is a zero-animation, identity-shaped T-pose containing MHR's 127
-joints plus the three Fabelgeist animation attachments, both sets of skinning
-influences, and inverse bind
-matrices computed for the generated body. Run `just prepare-john-rig` after
-saving to regenerate that source GLB and its validated spawnable copy at
-`assets/animations/biped/unarmed/base.glb` without opening the studio.
+The default project is the canonical zero-coefficient MHR body. **Save recipe**
+writes the current parameters to the selected recipe path (by default,
+`assets_src/characters/mhr_base.json`). **Export rigged GLB** writes to
+`assets_src/biped/unarmed/base.glb` by default. The export is a zero-animation
+T-pose containing MHR's 127 joints plus the three Fabelgeist animation
+attachments, both sets of skinning influences, and inverse bind matrices for the
+saved body. Use `just export-mhr-base <staging-path>` to export the canonical
+body without opening the studio, then prepare its runtime copy as described
+below.
 
 The zero-weight attachment joints follow MHR's side-prefix naming convention:
 `l_weapon` is parented to `l_wrist`, `r_weapon` to `r_wrist`, and `c_camera`
@@ -65,3 +65,33 @@ remains this recipe's 45 coefficients, so one retargeted clip works for every
 generated body. The creator currently shows a neutral pose; clip playback
 should reuse Prism's `Retargeter`, `MhrRig`, and `MhrPoseEncoder`, including its
 T-pose reference and hinge correction, rather than copying local rotations.
+
+## Identity morphs in game
+
+Character and procedural equipment exports contain 45 named identity morphs,
+`mhr_identity_00` through `mhr_identity_44`, with position deltas in metres and
+normal deltas. Zero weights reproduce the saved recipe; weight 1 adds one MHR
+identity coefficient relative to that recipe. Expression coefficients remain
+baked into its neutral face. Morphs deform the surface on the exported skeleton;
+they do not retarget bone lengths or change tactical physics and combat stats.
+
+Every primitive of a clothed character uses the same ordered channels. Fitted
+clothing retains its base trim triangles when refitted for each sample. Parametric
+vambraces and breastplates use the armor generator's corresponding body samples,
+including their anatomical joint landmarks.
+
+The tactical client derives bounded cosmetic weights from each persistent
+character ID, consistently across clients and reconnects. Equipment uses its
+current wearer's weights, updates when transferred, and returns to zero weights
+when dropped. Mesh assets remain shared; weights belong to each instance.
+
+Regenerate body and equipment from the same recipe. For the canonical game body:
+
+```powershell
+just export-mhr-base target/morph-assets/base.glb
+just generate-procedural-equipment target/morph-assets/equipment
+python scripts/prepare_rig_base.py target/morph-assets/base.glb assets/animations/biped/unarmed/base.glb
+```
+
+Inspect the staged equipment before copying its GLBs and manifest into
+`assets/equipment/procedural`. The base preparation step preserves morph data.

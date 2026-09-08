@@ -84,7 +84,7 @@ ceiling = 548
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
-ceiling = 623
+ceiling = 586
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
@@ -540,15 +540,11 @@ ceiling = 790
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-ceiling = 1228
+ceiling = 1221
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 ceiling = 1955
-
-[[files]]
-path = "crates/adventuresim-tactical-client/src/animation/presentation.rs"
-ceiling = 573
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -592,7 +588,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1810
+ceiling = 1776
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -1197,7 +1193,7 @@ ceiling = 218
 [[functions]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
 item = "generate_clothing_shells"
-ceiling = 255
+ceiling = 246
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
@@ -1213,11 +1209,6 @@ ceiling = 420
 path = "crates/adventuresim-character-creator/src/export.rs"
 item = "validate"
 ceiling = 120
-
-[[functions]]
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "generate_equipment_assets"
-ceiling = 161
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/main.rs"
@@ -3848,13 +3839,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-building-generator/src/viewer/timber_suite.rs"
 item = "validate_compact_evidence_suite"
 fingerprint = "string:artillery-rondel-cutaway"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "generate_equipment_assets"
-fingerprint = "string:glb"
 occurrences = 1
 
 [[findings]]
