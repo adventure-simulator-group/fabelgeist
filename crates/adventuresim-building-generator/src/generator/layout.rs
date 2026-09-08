@@ -354,13 +354,14 @@ fn seed_score(
         RoomKind::EntranceHall | RoomKind::Shop | RoomKind::Passage => south_centre,
         RoomKind::StairHall => centre_distance,
         RoomKind::Kitchen | RoomKind::Pantry => north_centre,
-        RoomKind::Workshop | RoomKind::Armoury => west_centre,
-        RoomKind::Guardroom => east_centre,
+        RoomKind::Workshop | RoomKind::Armoury | RoomKind::MillingFloor | RoomKind::KilnRoom | RoomKind::VatRoom => west_centre,
+        RoomKind::Guardroom | RoomKind::CountingRoom => east_centre,
         RoomKind::GreatHall
         | RoomKind::CommonRoom
         | RoomKind::Gallery
         | RoomKind::Chapel
         | RoomKind::Nave
+        | RoomKind::Ward | RoomKind::Schoolroom | RoomKind::Stalls
         | RoomKind::Chancel => north_centre + centre_distance,
         RoomKind::Storage | RoomKind::Sacristy => west_centre + north_centre,
         RoomKind::Bedchamber | RoomKind::TowerChamber => east_centre + north_centre,

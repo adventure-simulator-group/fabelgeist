@@ -11,7 +11,7 @@ const PLASTER_COOL_FLECK: Vec3 = Vec3::new(0.738, 0.706, 0.626);
 const PLASTER_ALBEDO_CELLS_PER_METRE: i32 = 256;
 const PLASTER_FLECK_FRACTION: f32 = 0.03;
 const PLASTER_HEIGHT_HALF_RANGE_METRES: f32 = LIME_PLASTER_HEIGHT_RANGE_METRES * 0.5;
-const TROWEL_BODY_HEIGHT_METRES: f32 = 0.002;
+const TROWEL_BODY_HEIGHT_METRES: f32 = 0.0022;
 const TROWEL_EDGE_HEIGHT_METRES: f32 = 0.000_28;
 const SAND_FLOAT_HEIGHT_METRES: f32 = 0.000_40;
 const FINE_AGGREGATE_HEIGHT_METRES: f32 = 0.000_28;
@@ -146,30 +146,17 @@ pub(super) fn lime_plaster_sample(
     u: f32,
     v: f32,
 ) -> LimePlasterSample {
-    // Lime plaster is built from overlapping, slightly oblique trowel passes.
-    // Keep the application gesture in relief rather than turning metre-scale
-    // value noise into baked clouds in the base colour.
-    let pass_warp =
-        periodic_noise(params, u, v, 9, 0x9c31) * params.lime_plaster.lime_plaster_sample_pass_warp;
-    let pass_phase = u * params.lime_plaster.lime_plaster_sample_pass_phase + v + pass_warp;
-    let pass = (core::f32::consts::TAU * pass_phase).sin();
-    let pass_edge = (core::f32::consts::TAU
-        * (pass_phase * 2.0 + params.lime_plaster.lime_plaster_sample_pass_edge))
-        .sin();
-    let trowel = pass * params.lime_plaster.lime_plaster_sample_trowel_1
-        + pass_edge * params.lime_plaster.lime_plaster_sample_trowel_2
-        + periodic_noise(params, u * 2.0 + v, v, 23, 0x537b)
-            * params.lime_plaster.lime_plaster_sample_trowel_3;
-    // A plasterer's float leaves shallow blade-edge tracks inside the broader
-    // sweep. These must remain physical relief: at roughly 25-40 mm spacing,
-    // a sub-0.2 mm edge survives a close tactical view without becoming a
-    // painted stripe or roughcast pebble.
-    let edge_warp = periodic_noise(params, u, v, 11, 0x49e3)
-        * params.lime_plaster.lime_plaster_sample_edge_warp;
-    let edge_phase = u * params.lime_plaster.lime_plaster_sample_edge_phase_1
-        + v * params.lime_plaster.lime_plaster_sample_edge_phase_2
-        + edge_warp;
-    let trowel_edge = (core::f32::consts::TAU * edge_phase).sin();
+    let strokes = params
+        .lime_plaster
+        .trowel_strokes
+        .sample(params, Vec2::new(u, v), 0x4f91);
+    let tracks = params
+        .lime_plaster
+        .float_tracks
+        .sample(params, Vec2::new(u, v), 0x7331);
+    let trowel = strokes.facet + tracks.bowl
+        - params.lime_plaster.float_tracks.depth * params.lime_plaster.float_center;
+    let trowel_edge = strokes.edge;
     let sand = periodic_noise(params, u, v, 73, 0xa8d5);
     let fine_aggregate = periodic_noise(params, u, v, 181, 0xb74d);
 

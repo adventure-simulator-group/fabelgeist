@@ -172,6 +172,7 @@ mod tests {
             pad_elevation_metres: 0.0,
         }];
         let distant = [DistantBuildingPlacement {
+            usage: None,
             id: 2,
             archetype: BuildingArchetype::FachwerkCottage,
             seed: 7,

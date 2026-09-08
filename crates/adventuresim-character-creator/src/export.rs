@@ -6,6 +6,9 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use serde_json::{Value, json};
 
+mod compact;
+mod morphs;
+
 const GLB_MAGIC: &[u8; 4] = b"glTF";
 const GLB_VERSION: u32 = 2;
 const JSON_CHUNK: u32 = 0x4E4F_534A;
@@ -39,6 +42,7 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
 };
 
 pub struct RiggedMesh<'a> {
+    pub morph_targets: &'a [RiggedMorphTarget<'a>],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
     pub faces: &'a [[u32; 3]],
@@ -58,8 +62,8 @@ pub struct RiggedShell<'a> {
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
     pub faces: &'a [[u32; 3]],
-    /// Independent armor topology supplies its own skin. Legacy fitted
-    /// clothing leaves these empty and reuses the body's body-sized arrays.
+    /// Independent armor topology supplies its own skin. Body-topology
+    /// clothing leaves these empty and reuses the body's skin arrays.
     pub joint_indices: Option<&'a [[u32; 8]]>,
     pub joint_weights: Option<&'a [[f32; 8]]>,
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
@@ -772,31 +776,8 @@ fn validate(
                 shell.name
             );
         }
-        let mut morph_names = std::collections::BTreeSet::new();
-        for target in shell.morph_targets {
-            if target.name.trim().is_empty()
-                || !morph_names.insert(target.name)
-                || target.position_deltas.len() != shell_vertices
-                || target.normal_deltas.len() != shell_vertices
-                || target
-                    .position_deltas
-                    .iter()
-                    .flatten()
-                    .chain(target.normal_deltas.iter().flatten())
-                    .any(|value| !value.is_finite())
-            {
-                bail!(
-                    "clothing shell '{}' has an invalid morph target",
-                    shell.name
-                );
-            }
-        }
     }
-    if shells.iter().any(|shell| !shell.morph_targets.is_empty())
-        && (mesh.export_body || shells.len() != 1)
-    {
-        bail!("morphable armor export requires one shell-only primitive");
-    }
+    morphs::validate(mesh, shells)?;
     let mut socket_ids = std::collections::BTreeSet::new();
     for socket in sockets {
         let state = socket.transform.to_skel_state();
@@ -859,6 +840,20 @@ pub fn export_rigged_glb(
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
     validate(mesh, shells, sockets)?;
+    let compact = shells
+        .iter()
+        .map(|shell| compact::CompactShell::new(mesh, shell))
+        .collect::<Vec<_>>();
+    let targets = compact
+        .iter()
+        .map(compact::CompactShell::targets)
+        .collect::<Vec<_>>();
+    let shells = compact
+        .iter()
+        .zip(&targets)
+        .map(|(shell, targets)| shell.rigged(targets))
+        .collect::<Vec<_>>();
+    let shells = shells.as_slice();
     let mut buffer = BufferBuilder::default();
     let positions = buffer.push(
         &f32_bytes(mesh.positions.iter().flatten().copied()),
@@ -954,22 +949,7 @@ pub fn export_rigged_glb(
                         (joints_0, weights_0, joints_1, weights_1)
                     },
                 );
-            let morphs = shell
-                .morph_targets
-                .iter()
-                .map(|target| {
-                    let positions = buffer.push(
-                        &f32_bytes(target.position_deltas.iter().flatten().copied()),
-                        Some(34_962),
-                    );
-                    let normals = buffer.push(
-                        &f32_bytes(target.normal_deltas.iter().flatten().copied()),
-                        Some(34_962),
-                    );
-                    (positions, normals)
-                })
-                .collect::<Vec<_>>();
-            (positions, normals, indices, skin, morphs)
+            (positions, normals, indices, skin)
         })
         .collect::<Vec<_>>();
 
@@ -1123,7 +1103,7 @@ pub fn export_rigged_glb(
             }
         }));
     }
-    for (shell, (position_view, normal_view, index_view, skin_views, morph_views)) in
+    for (shell, (position_view, normal_view, index_view, skin_views)) in
         shells.iter().zip(shell_views)
     {
         let (minimum, maximum) = position_bounds(shell.positions);
@@ -1153,16 +1133,8 @@ pub fn export_rigged_glb(
                     weights_1_accessor,
                 )
             };
-        let targets = morph_views
-            .into_iter()
-            .map(|(positions, normals)| {
-                let position = accessor(positions, 5_126, shell.positions.len(), "VEC3", None);
-                let normal = accessor(normals, 5_126, shell.positions.len(), "VEC3", None);
-                json!({"POSITION": position, "NORMAL": normal})
-            })
-            .collect::<Vec<_>>();
         let material = material_values.len();
-        let mut primitive = json!({
+        let primitive = json!({
             "attributes": {
                 "POSITION": shell_position_accessor,
                 "NORMAL": shell_normal_accessor,
@@ -1174,9 +1146,6 @@ pub fn export_rigged_glb(
             "indices": shell_index_accessor,
             "material": material,
         });
-        if !targets.is_empty() {
-            primitive["targets"] = json!(targets);
-        }
         primitives.push(primitive);
         material_values.push(json!({
             "name": shell.name,
@@ -1313,17 +1282,13 @@ pub fn export_rigged_glb(
         "name": character_name,
         "primitives": primitives,
     });
-    if let Some(shell) = shells.iter().find(|shell| !shell.morph_targets.is_empty()) {
-        exported_mesh["weights"] = json!(vec![0.0_f32; shell.morph_targets.len()]);
-        exported_mesh["extras"] = json!({
-            "targetNames": shell
-                .morph_targets
-                .iter()
-                .map(|target| target.name)
-                .collect::<Vec<_>>(),
-            "adventuresim_anatomical_uv_domain": MHR_ANATOMICAL_UV_DOMAIN,
-        });
-    }
+    morphs::write(
+        mesh,
+        shells,
+        &mut exported_mesh,
+        &mut buffer,
+        &mut accessors,
+    );
     let document = json!({
         "asset": {"version": "2.0", "generator": "Fabelgeist MHR character creator"},
         "scene": 0,
@@ -1453,6 +1418,7 @@ mod tests {
             1,
             1,
             &RiggedMesh {
+                morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
@@ -1563,6 +1529,7 @@ mod tests {
             1,
             1,
             &RiggedMesh {
+                morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
@@ -1586,13 +1553,36 @@ mod tests {
             std::process::id()
         ));
         let path = directory.join("character.glb");
-        let positions = [[-2.0, 0.98, -1.0], [2.0, 0.98, -1.0], [0.0, 0.98, 2.0]];
-        let shell_positions = [[-2.0, 0.99, -1.0], [2.0, 0.99, -1.0], [0.0, 0.99, 2.0]];
-        let normals = [[0.0, -1.0, 0.0]; 3];
+        let positions = [
+            [-2.0, 0.98, -1.0],
+            [2.0, 0.98, -1.0],
+            [0.0, 0.98, 2.0],
+            [0.0, 2.0, 0.0],
+        ];
+        let shell_positions = [
+            [-2.0, 0.99, -1.0],
+            [2.0, 0.99, -1.0],
+            [0.0, 0.99, 2.0],
+            [0.0, 2.0, 0.0],
+        ];
+        let normals = [[0.0, -1.0, 0.0]; 4];
         let faces = [[0, 1, 2]];
-        let joint_indices = [[0; 8]; 3];
-        let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
+        let joint_indices = [[0; 8]; 4];
+        let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
+        let body_delta = [[0.1, 0.0, 0.0]; 4];
+        let shell_delta = [[0.2, 0.0, 0.0]; 4];
+        let normal_delta = [[0.0; 3]; 4];
+        let body_targets = [RiggedMorphTarget {
+            name: "mhr_identity_00",
+            position_deltas: &body_delta,
+            normal_deltas: &normal_delta,
+        }];
+        let shell_targets = [RiggedMorphTarget {
+            name: "mhr_identity_00",
+            position_deltas: &shell_delta,
+            normal_deltas: &normal_delta,
+        }];
         let shell = RiggedShell {
             name: "Tunic",
             positions: &shell_positions,
@@ -1600,7 +1590,7 @@ mod tests {
             faces: &faces,
             joint_indices: None,
             joint_weights: None,
-            morph_targets: &[],
+            morph_targets: &shell_targets,
             base_color: [0.1, 0.2, 0.3, 1.0],
             metallic: 0.0,
             roughness: 0.9,
@@ -1611,6 +1601,7 @@ mod tests {
             2,
             1,
             &RiggedMesh {
+                morph_targets: &body_targets,
                 positions: &positions,
                 normals: &normals,
                 faces: &faces,
@@ -1639,10 +1630,31 @@ mod tests {
             document["meshes"][0]["primitives"][1]["attributes"]["NORMAL"],
             document["meshes"][0]["primitives"][0]["attributes"]["NORMAL"]
         );
-        assert_eq!(
+        assert_ne!(
             document["meshes"][0]["primitives"][1]["attributes"]["JOINTS_1"],
             document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"]
         );
+        assert_eq!(
+            document["meshes"][0]["extras"]["targetNames"],
+            json!(["mhr_identity_00"])
+        );
+        assert_eq!(document["meshes"][0]["weights"], json!([0.0]));
+        for (index, expected) in [0.1_f32, 0.2].into_iter().enumerate() {
+            let target = &document["meshes"][0]["primitives"][index]["targets"][0];
+            let accessor = &document["accessors"][target["POSITION"].as_u64().unwrap() as usize];
+            assert_eq!(accessor["count"], if index == 0 { 4 } else { 3 });
+            let skin = document["meshes"][0]["primitives"][index]["attributes"]["JOINTS_1"]
+                .as_u64()
+                .unwrap() as usize;
+            assert_eq!(document["accessors"][skin]["count"], accessor["count"]);
+            let view = &document["bufferViews"][accessor["bufferView"].as_u64().unwrap() as usize];
+            let offset = view["byteOffset"].as_u64().unwrap() as usize;
+            let binary = parsed.blob.as_ref().unwrap();
+            assert_eq!(
+                f32::from_le_bytes(binary[offset..offset + 4].try_into().unwrap()),
+                expected
+            );
+        }
         let _ = fs::remove_dir_all(directory);
     }
 
@@ -1693,6 +1705,7 @@ mod tests {
             1,
             1,
             &RiggedMesh {
+                morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
                 faces: &[],
@@ -1804,6 +1817,7 @@ mod tests {
             1,
             4,
             &RiggedMesh {
+                morph_targets: &[],
                 positions: &body_positions,
                 normals: &body_normals,
                 faces: &[],
@@ -1901,6 +1915,7 @@ mod tests {
             [-4.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
         ];
         let mesh = RiggedMesh {
+            morph_targets: &[],
             positions: &positions,
             normals: &normals,
             faces: &faces,

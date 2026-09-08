@@ -1,6 +1,6 @@
 use super::*;
 
-pub const ROCK_TEXTURE_SIZE: u32 = 256;
+pub const ROCK_TEXTURE_SIZE: u32 = 1024;
 pub const ROCK_TILE_METRES: f32 = 2.0;
 pub const ROCK_HEIGHT_RANGE_METRES: f32 = 0.032;
 
@@ -18,17 +18,18 @@ const HORIZON_DIRECTIONS: [(i32, i32); 8] = [
 ];
 const HORIZON_STEPS: [i32; 5] = [1, 3, 7, 15, 31];
 const ROCK_PALETTE: [[u8; 3]; 4] = [
-    [112, 111, 107],
-    [124, 122, 116],
-    [136, 133, 125],
-    [147, 144, 135],
+    [120, 119, 114],
+    [124, 122, 117],
+    [128, 125, 119],
+    [132, 128, 122],
 ];
-const ROCK_ROUGHNESS: [u8; 4] = [218, 226, 234, 222];
+const ROCK_ROUGHNESS: [u8; 4] = [201, 209, 215, 205];
 
 #[derive(Clone, Copy)]
 struct RockFieldSample {
     height: f32,
     palette_index: usize,
+    cavity: f32,
 }
 
 fn periodic_value_field(
@@ -74,7 +75,11 @@ fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSam
     // Smooth value-noise octaves make irregular pore/crystal grain without
     // the connected Voronoi edge graph that read as repeated U/Y/L stamps
     // once the tile was projected over broad cliff faces.
-    let height = (params.rock.rock_field_height_1 * broad
+    let uv = Vec2::new(u, v);
+    let facets = params.rock.facets.sample(params, uv, 0x1ab3);
+    let pores = params.rock.pores.sample(params, uv, 0x7719);
+    let height = (facets.facet - pores.bowl
+        + params.rock.rock_field_height_1 * broad
         + params.rock.rock_field_height_2 * structure
         + params.rock.rock_field_height_3 * aggregate
         + params.rock.rock_field_height_4 * grain)
@@ -93,6 +98,7 @@ fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSam
     RockFieldSample {
         height,
         palette_index: palette_index.min(params.rock.palette.len() - 1),
+        cavity: pores.bowl / params.rock.pores.depth.max(f32::EPSILON),
     }
 }
 
@@ -188,7 +194,10 @@ fn base_levels(params: &crate::TextureParameters) -> [Vec<u8>; 4] {
             )));
             let encoded_height = ((sample.height + 0.5) * 255.0).round() as u8;
             height.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
-            let ao = (rock_horizon_ao(params, &heights, x as i32, y as i32) * 255.0).round() as u8;
+            let ao = (rock_horizon_ao(params, &heights, x as i32, y as i32)
+                * (1.0 - sample.cavity * params.rock.cavity_occlusion)
+                * 255.0)
+                .round() as u8;
             arm.extend_from_slice(&[ao, params.rock.roughness[sample.palette_index], 0, 255]);
         }
     }
@@ -372,8 +381,11 @@ mod tests {
             let first_image = first_images.get(first_handle).unwrap();
             let second_image = second_images.get(second_handle).unwrap();
             assert_eq!(first_image.data, second_image.data);
-            assert_eq!(first_image.texture_descriptor.mip_level_count, 9);
-            let mip_texels = (0..9)
+            assert_eq!(
+                first_image.texture_descriptor.mip_level_count,
+                ROCK_TEXTURE_SIZE.ilog2() + 1
+            );
+            let mip_texels = (0..=ROCK_TEXTURE_SIZE.ilog2())
                 .map(|level| (ROCK_TEXTURE_SIZE >> level).pow(2))
                 .sum::<u32>();
             assert_eq!(

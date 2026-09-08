@@ -1,37 +1,44 @@
-//! Artist controls and canonical recipe defaults.
+//! Artist controls for forged impressions, oxide islands and scale loss.
 use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        generate_ironwork_textures_oxide_1: f32 = 0.48;
-        generate_ironwork_textures_oxide_2: f32 = 0.34;
-        generate_ironwork_textures_base_1: f32 = 43.0;
-        generate_ironwork_textures_base_2: f32 = 4.0;
-        generate_ironwork_textures_base_3: f32 = 1.2;
-        generate_ironwork_textures_ao_1: f32 = 0.995;
-        generate_ironwork_textures_ao_2: f32 = 0.075;
-        generate_ironwork_textures_roughness_1: f32 = 192.0;
-        generate_ironwork_textures_roughness_2: f32 = 27.0;
-        generate_ironwork_textures_roughness_3: f32 = 22.0;
-        generate_ironwork_textures_roughness_4: f32 = 145.0;
-        generate_ironwork_textures_roughness_5: f32 = 222.0;
-        field_draw_1: f32 = 7.0;
-        field_draw_2: f32 = 0.34;
-        field_scale_1: f32 = 0.62;
-        field_scale_2: f32 = 0.38;
-        field_scale_recess_1: f32 = 0.79;
-        field_scale_recess_2: f32 = 0.13;
-        field_height_1: f32 = 0.045;
-        field_height_2: f32 = 0.0045;
-        field_height_3: f32 = 0.012;
-        field_height_4: f32 = 0.035;
-        hammer_facets_angle: f32 = 0.62;
-        hammer_facets_half_length_1: f32 = 0.052;
-        hammer_facets_half_length_2: f32 = 0.068;
-        hammer_facets_half_width_1: f32 = 0.018;
-        hammer_facets_half_width_2: f32 = 0.028;
-        hammer_facets_tilt: f32 = 0.55;
         tile_metres: f32 = IRONWORK_TILE_METRES;
         height_range_metres: f32 = IRONWORK_HEIGHT_RANGE_METRES;
+        hammer_cells: [i32; 2] = [8, 12];
+        hammer_size_variation: f32 = 0.30;
+        hammer_depth_variation: f32 = 0.55;
+        hammer_jitter: f32 = 0.85;
+        hammer_radius: f32 = 0.55;
+        hammer_angle: f32 = 1.3;
+        hammer_depth: f32 = 0.20;
+        hammer_tilt: f32 = 0.07;
+        hammer_rim: f32 = 0.012;
+        hammer_roundness: f32 = 0.72;
+        body_cells: [i32; 2] = [4, 5];
+        body_relief: f32 = 0.035;
+        grain_cells: [i32; 2] = [157, 173];
+        grain_relief: f32 = 0.004;
+        scale_angle: f32 = std::f32::consts::PI;
+        scale_edge_breakup: f32 = 0.18;
+        scale_cells: [i32; 2] = [38, 43];
+        scale_density: f32 = 0.26;
+        scale_radius: f32 = 0.34;
+        scale_depth: f32 = 0.075;
+        scale_edge_width: f32 = 0.12;
+        pit_cells: [i32; 2] = [83, 79];
+        pit_density: f32 = 0.28;
+        pit_radius: f32 = 0.28;
+        pit_depth: f32 = 0.055;
+        oxide_cells: [i32; 2] = [5, 4];
+        oxide_fraction: f32 = 1.0;
+        polish_fraction: f32 = 0.0;
+        bare_srgb: crate::SrgbColor = crate::SrgbColor([150, 155, 160]);
+        oxide_srgb: crate::SrgbColor = crate::SrgbColor([39, 41, 44]);
+        bare_roughness: f32 = 0.62;
+        oxide_roughness: f32 = 0.67;
+        polish_roughness: f32 = 0.40;
+        cavity_roughness: f32 = 0.87;
+        cavity_occlusion: f32 = 0.22;
     }
 }

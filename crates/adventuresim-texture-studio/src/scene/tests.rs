@@ -2,6 +2,36 @@ use super::*;
 use adventuresim_procedural_textures::{BakeResolution, BakedRecipe};
 
 #[test]
+fn crenellation_preview_preserves_alpha_instead_of_using_masonry_red_as_coverage() {
+    use adventuresim_procedural_textures::{MapChannel, TextureRecipeId};
+    let document = Document::default();
+    let bake = BakedRecipe::generate(TextureRecipeId::CrenellationMask, &document.texture);
+    let source = bake.map(MapChannel::Opacity).unwrap();
+    let display = maps::image(source, true);
+    let displayed = display.data.unwrap();
+    assert!(displayed.as_chunks::<4>().0.iter().any(|p| p[0] == 255));
+    assert!(displayed.as_chunks::<4>().0.iter().any(|p| p[0] == 0));
+    let mut world = World::new();
+    world.init_resource::<Assets<Image>>();
+    world.init_resource::<Assets<StandardMaterial>>();
+    let mut assets = SceneAssets::default();
+    let handle = maps::material(&mut world, &mut assets, &bake, &document, None);
+    let material = world
+        .resource::<Assets<StandardMaterial>>()
+        .get(&handle)
+        .unwrap();
+    assert_eq!(
+        material.diffuse_transmission, 0.0,
+        "a masonry silhouette is opaque"
+    );
+    let image = world
+        .resource::<Assets<Image>>()
+        .get(material.base_color_texture.as_ref().unwrap())
+        .unwrap();
+    assert_eq!(image.data.as_ref().unwrap(), &source.bytes);
+}
+
+#[test]
 fn replacing_and_pinning_materials_releases_previous_gpu_assets() {
     let mut world = World::new();
     world.init_resource::<Assets<Image>>();

@@ -3,11 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        plank_color_base_1: f32 = 75.0;
-        plank_color_base_2: f32 = 45.0;
-        plank_color_shift: f32 = 40.0;
-        plank_color_embedded_dirt_1: f32 = 16.0;
-        plank_color_embedded_dirt_2: f32 = 10.0;
+        grain: crate::board_grain::Parameters = Default::default();
+        joint_srgb: [u8; 3] = [64, 45, 29];
+        nail_srgb: [u8; 3] = [42, 42, 40];
         sample_plank_floor_cut_skew_metres: f32 = 0.010;
         sample_plank_floor_end_inside_board_1: f32 = 0.035;
         sample_plank_floor_end_inside_board_2: f32 = 0.035;
@@ -28,13 +26,6 @@ crate::parameters::parameter_block! {
         sample_plank_floor_height_4: f32 = 0.035;
         sample_plank_floor_height_5: f32 = 0.53;
         sample_plank_floor_height_6: f32 = 0.16;
-        sample_plank_floor_tone_1: f32 = 0.42;
-        sample_plank_floor_tone_2: f32 = 0.34;
-        sample_plank_floor_tone_3: f32 = 0.18;
-        sample_plank_floor_tone_4: f32 = 0.26;
-        sample_plank_floor_tone_5: f32 = 0.16;
-        sample_plank_floor_tone_6: f32 = 0.60;
-        sample_plank_floor_tone_7: f32 = 0.34;
         sample_plank_floor_roughness_1: f32 = 0.77;
         sample_plank_floor_roughness_2: f32 = 0.018;
         sample_plank_floor_roughness_3: f32 = 0.12;
@@ -75,17 +66,6 @@ crate::parameters::parameter_block! {
         finite_surface_features_pore_5: f32 = 0.72;
         finite_surface_features_pore_6: f32 = 0.28;
         finite_surface_features_pore_7: f32 = 0.28;
-        growth_field_center_1: f32 = 0.34;
-        growth_field_center_2: f32 = 0.32;
-        growth_field_across: f32 = 1.45;
-        growth_field_radial: f32 = 0.34;
-        growth_field_secondary_1: f32 = 0.47;
-        growth_field_secondary_2: f32 = 2.2;
-        growth_field_tone_1: f32 = 0.24;
-        growth_field_tone_2: f32 = 0.30;
-        growth_field_tone_3: f32 = 0.07;
-        growth_field_relief_1: f32 = 0.005;
-        growth_field_relief_2: f32 = 0.009;
         edge_warp_amplitude_metres_1: f32 = 0.0018;
         edge_warp_amplitude_metres_2: f32 = 0.0024;
         tile_metres: f32 = PLANK_FLOOR_TILE_METRES;

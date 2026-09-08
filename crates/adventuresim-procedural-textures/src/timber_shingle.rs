@@ -5,12 +5,12 @@
 //! edges and sparse tail checks avoid both modern sawn uniformity and a field
 //! of inflated individual tiles.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
-pub const TIMBER_SHINGLE_TEXTURE_SIZE: u32 = 512;
+pub const TIMBER_SHINGLE_TEXTURE_SIZE: u32 = 1024;
 pub const TIMBER_SHINGLE_TILE_METRES: f32 = 3.2;
 pub const TIMBER_SHINGLE_HEIGHT_RANGE_METRES: f32 = 0.014;
 
@@ -21,10 +21,9 @@ const JOINT_HALF_WIDTH: f32 = 0.022;
 #[derive(Clone, Copy, Debug)]
 struct ShingleSample {
     height: f32,
-    shingle_id: u64,
     contact: f32,
-    fibre: f32,
     weathering: f32,
+    dark_wood: f32,
     checking: f32,
 }
 
@@ -237,8 +236,18 @@ fn sample_shingles(params: &crate::TextureParameters, u: f32, v: f32) -> Shingle
         + fibre * params.timber_shingle.sample_shingles_recessed_2;
     let (tail_coverage, tail_contact) = tail_shape(params, local_x, phase, id);
     let coverage = (1.0 - joint).powi(2) * tail_coverage;
+    let size = params.size(TIMBER_SHINGLE_TEXTURE_SIZE) as f32;
+    let grain = params.timber_shingle.grain.filtered(
+        params,
+        bevy::math::Vec2::new(local_x, phase),
+        bevy::math::Vec2::new(
+            params.timber_shingle.shingles_per_course as f32 / size,
+            params.timber_shingle.courses as f32 / size,
+        ),
+        id,
+    );
     let height = recessed
-        + (face + fibre * params.timber_shingle.sample_shingles_height_1
+        + (face + grain.height + fibre * params.timber_shingle.sample_shingles_height_1
             - checking * params.timber_shingle.sample_shingles_height_2
             - recessed)
             * coverage;
@@ -260,53 +269,21 @@ fn sample_shingles(params: &crate::TextureParameters, u: f32, v: f32) -> Shingle
 
     ShingleSample {
         height,
-        shingle_id: id,
+        dark_wood: grain.dark,
         contact,
-        fibre,
         weathering,
         checking,
     }
 }
 
 fn color_and_roughness(params: &crate::TextureParameters, sample: ShingleSample) -> ([u8; 3], u8) {
-    let piece = hash_unit(params, sample.shingle_id ^ 0xd517) - 0.5;
-    let fibre_shift = sample.fibre * params.timber_shingle.color_and_roughness_fibre_shift;
-    let sun_grey = sample.weathering * params.timber_shingle.color_and_roughness_sun_grey;
-    let check_darkening =
-        sample.checking * params.timber_shingle.color_and_roughness_check_darkening;
-    let base = [
-        params.timber_shingle.color_and_roughness_base_1,
-        params.timber_shingle.color_and_roughness_base_2,
-        params.timber_shingle.color_and_roughness_base_3,
-    ];
-    let color = [
-        base[0] + piece * params.timber_shingle.color_and_roughness_color_1 + fibre_shift
-            - sun_grey
-            - check_darkening,
-        base[1]
-            + piece * params.timber_shingle.color_and_roughness_color_2
-            + fibre_shift * params.timber_shingle.color_and_roughness_color_3
-            - sun_grey * params.timber_shingle.color_and_roughness_color_4
-            - check_darkening,
-        base[2]
-            + piece * params.timber_shingle.color_and_roughness_color_5
-            + fibre_shift * params.timber_shingle.color_and_roughness_color_6
-            - sun_grey * 0.50
-            - check_darkening,
-    ];
+    let color = params.timber_shingle.grain.color(sample.dark_wood);
     let roughness = (params.timber_shingle.color_and_roughness_roughness_1
         + sample.weathering * params.timber_shingle.color_and_roughness_roughness_2
         + sample.checking * params.timber_shingle.color_and_roughness_roughness_3)
         .round()
         .clamp(0.0, 255.0) as u8;
-    (
-        [
-            color[0].round().clamp(0.0, 255.0) as u8,
-            color[1].round().clamp(0.0, 255.0) as u8,
-            color[2].round().clamp(0.0, 255.0) as u8,
-        ],
-        roughness,
-    )
+    (color, roughness)
 }
 
 fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
@@ -366,8 +343,7 @@ pub fn generate_timber_shingle_textures(
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),

@@ -1,6 +1,6 @@
 //! Irregular, gravity-laid local fieldstone masonry with recessed lime mortar.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
@@ -75,12 +75,14 @@ fn row_at(params: &crate::TextureParameters, v: f32) -> (i32, f32, f32) {
 fn row_pitch(params: &crate::TextureParameters, row: i32) -> f32 {
     let total = (0..params.rubble_masonry.rows)
         .map(|candidate| {
-            params.rubble_masonry.row_pitch_total_1
+            params.rubble_masonry.row_at_weight_1
                 + hash_unit(params, row_id(params, candidate) ^ 0x5c2b)
-                    * params.rubble_masonry.row_pitch_total_2
+                    * params.rubble_masonry.row_at_weight_2
         })
         .sum::<f32>();
-    (0.84 + hash_unit(params, row_id(params, row) ^ 0x5c2b) * 0.32) / total
+    (params.rubble_masonry.row_at_weight_1
+        + hash_unit(params, row_id(params, row) ^ 0x5c2b) * params.rubble_masonry.row_at_weight_2)
+        / total
 }
 
 fn interval_weights(
@@ -175,31 +177,38 @@ fn sample_masonry(params: &crate::TextureParameters, u: f32, v: f32) -> MasonryS
         1.0
     };
     let top = top_extent - mortar_v * 2.0 + edge_wobble(params, local_x, id, 0x2f17);
-    let corner_cut = params.rubble_masonry.sample_masonry_corner_cut_1
-        + hash_unit(params, id ^ 0x4b6f) * params.rubble_masonry.sample_masonry_corner_cut_2;
-    let corner_bias =
-        (hash_unit(params, id ^ 0x907d) - 0.5) * params.rubble_masonry.sample_masonry_corner_bias;
-    let diagonal_a = (centered_x + centered_y + corner_bias).abs() - corner_cut;
-    let diagonal_b = (centered_x - centered_y - corner_bias).abs() - corner_cut;
+    let diagonal = [(1.0, 1.0), (1.0, -1.0), (-1.0, 1.0), (-1.0, -1.0)]
+        .into_iter()
+        .enumerate()
+        .map(|(corner, (x, y))| {
+            let cut = params.rubble_masonry.sample_masonry_corner_cut_1
+                + hash_unit(params, id ^ (corner as u64 + 1).wrapping_mul(0x4b6f))
+                    * params.rubble_masonry.sample_masonry_corner_cut_2;
+            centered_x * x + centered_y * y - cut
+        })
+        .fold(f32::NEG_INFINITY, f32::max);
     let edge_distance = (left - centered_x)
         .max(centered_x - right)
         .max(bottom - centered_y)
         .max(centered_y - top)
-        .max(diagonal_a)
-        .max(diagonal_b);
+        .max(diagonal);
     let minimum_extent = width.min(row_pitch);
     let antialias = params.rubble_masonry.sample_masonry_antialias
         / params.size(RUBBLE_MASONRY_TEXTURE_SIZE) as f32
         / minimum_extent;
     let stone_coverage = ((antialias - edge_distance) / (antialias * 2.0)).clamp(0.0, 1.0);
 
-    let face_height = face_relief(params, id, centered_x, centered_y);
+    let uv = bevy::math::Vec2::new(u, v);
+    let pores = params.rubble_masonry.pores.sample(params, uv, 0x5791);
+    let grit = params.rubble_masonry.mortar_grit.sample(params, uv, 0x1583);
+    let face_height = face_relief(params, id, centered_x, centered_y) - pores.bowl;
     let mortar_variation = ((u * params.rubble_masonry.sample_masonry_mortar_variation_1
         + v * params.rubble_masonry.sample_masonry_mortar_variation_2)
         * std::f32::consts::TAU)
         .sin()
         * params.rubble_masonry.sample_masonry_mortar_variation_3;
-    let mortar_height = params.rubble_masonry.sample_masonry_mortar_height_1
+    let mortar_height = grit.facet
+        + params.rubble_masonry.sample_masonry_mortar_height_1
         + mortar_variation
         + (hash_unit(params, id ^ 0x5fb3) - 0.5)
             * params.rubble_masonry.sample_masonry_mortar_height_2;
@@ -214,31 +223,14 @@ fn sample_masonry(params: &crate::TextureParameters, u: f32, v: f32) -> MasonryS
 }
 
 fn stone_color(params: &crate::TextureParameters, sample: MasonrySample) -> ([u8; 3], u8) {
-    if sample.stone_coverage < 0.5 {
-        let shade = if sample.mineral > params.rubble_masonry.stone_color_shade {
-            140
-        } else {
-            132
-        };
-        return ([shade + 5, shade + 2, shade - 7], 238);
-    }
-    let palette = [
-        [99, 98, 89],
-        [119, 108, 88],
-        [88, 91, 86],
-        [128, 116, 94],
-        [105, 99, 82],
-        [113, 104, 86],
-        [93, 96, 91],
-        [123, 111, 91],
-    ];
-    let mut color = palette[sample.stone_id as usize % palette.len()];
-    let face_shift = ((sample.height - params.rubble_masonry.stone_color_face_shift_1)
-        * params.rubble_masonry.stone_color_face_shift_2)
-        .round() as i16;
-    for channel in &mut color {
-        *channel = (*channel as i16 + face_shift).clamp(0, 255) as u8;
-    }
+    let colors = &params.rubble_masonry.colors;
+    let color = colors
+        .mortar
+        .covered_by(
+            colors.units[sample.stone_id as usize % colors.units.len()],
+            sample.stone_coverage,
+        )
+        .0;
     let near_joint = (1.0
         - (-sample.edge_distance * params.rubble_masonry.stone_color_near_joint_1).clamp(0.0, 1.0))
         * params.rubble_masonry.stone_color_near_joint_2;
@@ -246,7 +238,10 @@ fn stone_color(params: &crate::TextureParameters, sample: MasonrySample) -> ([u8
         + near_joint
         + sample.mineral * params.rubble_masonry.stone_color_roughness_2)
         .round() as u8;
-    (color, roughness)
+    (
+        color,
+        (238.0 + (roughness as f32 - 238.0) * sample.stone_coverage).round() as u8,
+    )
 }
 
 fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
@@ -316,8 +311,7 @@ pub fn generate_rubble_masonry_textures(
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -460,7 +454,10 @@ mod tests {
         let interior_min = interiors.iter().copied().fold(f32::INFINITY, f32::min);
         let interior_span =
             interiors.iter().copied().fold(f32::NEG_INFINITY, f32::max) - interior_min;
-        assert!(interior_min - mortar_max > 0.35);
+        assert!(
+            interior_min - mortar_max > 0.35,
+            "interior min {interior_min}, mortar max {mortar_max}, span {interior_span}"
+        );
         assert!(
             interior_span < 0.16,
             "interior relief span: {interior_span}"
@@ -661,17 +658,11 @@ fn face_relief(
     centered_x: f32,
     centered_y: f32,
 ) -> f32 {
-    let broad_phase = hash_unit(params, id ^ 0xc38b) * std::f32::consts::TAU;
-    let face_variation = (centered_x * params.rubble_masonry.sample_masonry_face_variation_1
-        + centered_y * params.rubble_masonry.sample_masonry_face_variation_2
-        + broad_phase)
-        .sin()
-        * params.rubble_masonry.sample_masonry_face_variation_3
-        + (centered_x * params.rubble_masonry.sample_masonry_face_variation_4
-            - centered_y * params.rubble_masonry.sample_masonry_face_variation_5
-            + broad_phase * params.rubble_masonry.sample_masonry_face_variation_6)
-            .sin()
-            * params.rubble_masonry.sample_masonry_face_variation_7;
+    let angle = hash_unit(params, id ^ 0xc38b) * std::f32::consts::TAU;
+    let cut = (centered_x * angle.cos() + centered_y * angle.sin()
+        - params.rubble_masonry.fracture_offset)
+        .max(0.0);
+    let face_variation = -cut * params.rubble_masonry.fracture_depth;
     let planar_tilt = centered_x
         * (hash_unit(params, id ^ 0x191f) - 0.5)
         * params.rubble_masonry.sample_masonry_planar_tilt_1

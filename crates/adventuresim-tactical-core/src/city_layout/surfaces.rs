@@ -9,7 +9,7 @@ use serde::{Deserialize, Serialize};
 use super::*;
 
 const YARD_SURFACE_DOMAIN: u64 = 0x7961_7264_5f73_7572;
-pub const MAX_CITY_STREET_PATCHES: usize = 2_048;
+pub const MAX_CITY_STREET_PATCHES: usize = 2 * STREET_LINE_COUNT * (STREET_LINE_COUNT - 1) + 1;
 pub const MAX_CITY_YARD_PATCHES: usize = BLOCK_COUNT * BLOCK_COUNT;
 
 /// Historically plausible surface treatment for one part of the urban street network.
@@ -152,6 +152,15 @@ pub(super) fn city_street_patches(
     for key in developed_blocks {
         let row = (key >> 32) as usize;
         let column = (*key as u32) as usize;
+        // Join every developed frontage to the market even when service plots
+        // precede residential infill on the edge of a small settlement.
+        let (market_row, market_column) = CENTRAL_MARKET_BLOCK;
+        for step in column.min(market_column)..column.max(market_column) {
+            edges.insert((row, step, row, step + 1));
+        }
+        for step in row.min(market_row)..row.max(market_row) {
+            edges.insert((step, market_column, step + 1, market_column));
+        }
         edges.extend([
             (row, column, row, column + 1),
             (row, column + 1, row + 1, column + 1),

@@ -6,8 +6,13 @@ use bevy::math::Vec2;
 use fabelgeist_determinism::mix64;
 
 use crate::scene_input::BuildingOrientation;
+use adventuresim_world_schema::{
+    SettlementEconomyProfile,
+    settlement_buildings::{BuildingDemand, BuildingUse, SettlementBuildingDemand},
+};
 
 mod houses;
+mod services;
 mod surfaces;
 
 pub use houses::CityHouseClass;
@@ -17,12 +22,13 @@ pub use surfaces::{
 };
 use surfaces::{city_street_patches, city_yard_patches};
 
-const STREET_LINE_COUNT: usize = 18;
+const STREET_LINE_COUNT: usize = 40;
 const BLOCK_COUNT: usize = STREET_LINE_COUNT - 1;
 const NOMINAL_BLOCK_METRES: f32 = 72.0;
-const CITY_RADIUS_X_METRES: f32 = 610.0;
-const CITY_RADIUS_Y_METRES: f32 = 570.0;
+const CITY_RADIUS_X_METRES: f32 = 1_300.0;
+const CITY_RADIUS_Y_METRES: f32 = 1_260.0;
 const STREET_LINE_JITTER_METRES: f32 = 8.0;
+const BLOCK_SPACING_VARIATION_METRES: f32 = 16.0;
 const STREET_CURVE_METRES: f32 = 6.0;
 const ORDINARY_STREET_HALF_WIDTH_METRES: f32 = 3.5;
 const SECONDARY_STREET_HALF_WIDTH_METRES: f32 = 4.5;
@@ -37,13 +43,15 @@ const CENTRAL_MARKET_BLOCK: (usize, usize) = (BLOCK_COUNT / 2, BLOCK_COUNT / 2);
 const STREET_GEOMETRY_DOMAIN: u64 = 0x7374_7265_6574_6765;
 const HOUSE_CLASS_DOMAIN: u64 = 0x686f_7573_655f_636c;
 const DEVELOPMENT_DOMAIN: u64 = 0x6465_7665_6c6f_706d;
-pub const MAX_CITY_LOTS: usize = 8_192;
+pub const MAX_CITY_LOTS: usize = 16_384;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedCityLayout {
     pub lots: Vec<CityBuildingLot>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
+    pub unplaced_services: Vec<BuildingDemand>,
+    pub unhoused_population: u32,
 }
 
 /// One rectangular building lot aligned to one locally straight street frontage.
@@ -53,6 +61,8 @@ pub struct CityBuildingLot {
     pub centre_metres: Vec2,
     pub orientation: BuildingOrientation,
     pub house_class: CityHouseClass,
+    pub footprint_metres: Vec2,
+    pub service: Option<BuildingDemand>,
 }
 
 #[derive(Clone, Copy)]
@@ -84,8 +94,12 @@ impl CityBlock {
     }
 }
 
-/// Builds one nested population-scaled city without regard to presentation or collision.
-pub fn generate_city(seed: u64, resident_population: u32) -> GeneratedCityLayout {
+/// Reserves service frontage, then houses residents around the same connected street graph.
+pub fn generate_city(
+    seed: u64,
+    resident_population: u32,
+    economy: &SettlementEconomyProfile,
+) -> GeneratedCityLayout {
     let nodes = street_nodes(seed);
     let mut candidates = city_blocks(nodes)
         .filter(|block| block_is_inside_city(*block) && !block.is_market())
@@ -98,24 +112,59 @@ pub fn generate_city(seed: u64, resident_population: u32) -> GeneratedCityLayout
             candidate.block_key,
         )
     });
-    let mut candidates = remove_overlapping_candidates(candidates);
+    let demand = SettlementBuildingDemand::new(seed, resident_population, economy);
+    if !demand.shortfalls.is_empty() {
+        let mut unplaced_services = demand.buildings;
+        unplaced_services.extend(demand.shortfalls.into_iter().map(|(usage, capacity)| {
+            BuildingDemand {
+                usage,
+                ordinal: u32::MAX,
+                capacity,
+            }
+        }));
+        return GeneratedCityLayout {
+            lots: Vec::new(),
+            streets: Vec::new(),
+            yards: Vec::new(),
+            unplaced_services,
+            unhoused_population: resident_population,
+        };
+    }
+
+    let (service_lots, unplaced_services) = services::place_services(
+        seed,
+        resident_population,
+        nodes,
+        &candidates,
+        &demand.buildings,
+    );
+    let mut candidates =
+        remove_overlapping_candidates(service_lots.into_iter().chain(candidates).collect());
     candidates.sort_by_key(|candidate| {
         let radial_band = (candidate.lot.centre_metres.length() / NOMINAL_BLOCK_METRES) as u32
             + u32::from(candidate.rear_court) * REAR_COURT_PRIORITY_PENALTY;
-        (radial_band, candidate.block_key, candidate.selection_key)
+        (
+            candidate.lot.service.is_none(),
+            radial_band,
+            candidate.block_key,
+            candidate.selection_key,
+        )
     });
 
-    let target_population = resident_population.max(1);
+    let target_population = resident_population;
     let mut represented_population = 0_u32;
     let mut selected = Vec::new();
     for candidate in candidates.into_iter().take(MAX_CITY_LOTS) {
-        if represented_population >= target_population {
+        if candidate.lot.service.is_none() && represented_population >= target_population {
             break;
         }
         let mut lot = candidate.lot;
         lot.id = selected.len() as u64 + 1;
-        represented_population =
-            represented_population.saturating_add(lot.house_class.resident_capacity());
+        represented_population = represented_population.saturating_add(if lot.service.is_none() {
+            lot.house_class.resident_capacity()
+        } else {
+            0
+        });
         selected.push(CandidateLot { lot, ..candidate });
     }
     let developed_blocks = selected
@@ -129,10 +178,14 @@ pub fn generate_city(seed: u64, resident_population: u32) -> GeneratedCityLayout
             .collect(),
         streets: city_street_patches(nodes, &developed_blocks),
         yards: city_yard_patches(seed, nodes, &developed_blocks),
+        unplaced_services,
+        unhoused_population: target_population.saturating_sub(represented_population),
     }
 }
 
 fn street_nodes(seed: u64) -> [[Vec2; STREET_LINE_COUNT]; STREET_LINE_COUNT] {
+    let column_positions = street_axis(seed);
+    let row_positions = street_axis(seed.rotate_left(29));
     core::array::from_fn(|row| {
         core::array::from_fn(|column| {
             let centred_column = column as f32 - (STREET_LINE_COUNT - 1) as f32 * 0.5;
@@ -144,15 +197,27 @@ fn street_nodes(seed: u64) -> [[Vec2; STREET_LINE_COUNT]; STREET_LINE_COUNT] {
             let vertical_phase = signed_sample(column_key.rotate_left(17)) * core::f32::consts::PI;
             let horizontal_phase = signed_sample(row_key.rotate_left(23)) * core::f32::consts::PI;
             Vec2::new(
-                centred_column * NOMINAL_BLOCK_METRES
+                column_positions[column]
                     + column_shift
                     + (centred_row * 0.48 + vertical_phase).sin() * STREET_CURVE_METRES,
-                centred_row * NOMINAL_BLOCK_METRES
+                row_positions[row]
                     + row_shift
                     + (centred_column * 0.44 + horizontal_phase).sin() * STREET_CURVE_METRES,
             )
         })
     })
+}
+
+fn street_axis(seed: u64) -> [f32; STREET_LINE_COUNT] {
+    let mut positions = [0.0; STREET_LINE_COUNT];
+    for index in 1..STREET_LINE_COUNT {
+        positions[index] = positions[index - 1]
+            + NOMINAL_BLOCK_METRES
+            + signed_sample(mix64(seed ^ STREET_GEOMETRY_DOMAIN ^ index as u64))
+                * BLOCK_SPACING_VARIATION_METRES;
+    }
+    let centre = (positions[BLOCK_COUNT / 2] + positions[BLOCK_COUNT / 2 + 1]) * 0.5;
+    positions.map(|position| position - centre)
 }
 
 fn city_blocks(
@@ -297,6 +362,11 @@ fn candidate(
             orientation: BuildingOrientation::from_frontage_tangent(frontage_tangent)
                 .expect("street frontage tangent is finite and nonzero"),
             house_class,
+            footprint_metres: Vec2::new(
+                house_class.frontage_width_metres(),
+                house_class.depth_metres(),
+            ),
+            service: None,
         },
         block_key,
         rear_court,
@@ -328,14 +398,8 @@ fn remove_overlapping_candidates(candidates: Vec<CandidateLot>) -> Vec<Candidate
 }
 
 fn lots_overlap(first: CityBuildingLot, second: CityBuildingLot) -> bool {
-    let first_half = Vec2::new(
-        first.house_class.frontage_width_metres(),
-        first.house_class.depth_metres(),
-    ) * 0.5;
-    let second_half = Vec2::new(
-        second.house_class.frontage_width_metres(),
-        second.house_class.depth_metres(),
-    ) * 0.5;
+    let first_half = first.dimensions_metres() * 0.5;
+    let second_half = second.dimensions_metres() * 0.5;
     let first_axes = [
         first.orientation.local_to_world(Vec2::X),
         first.orientation.local_to_world(Vec2::Y),
@@ -403,130 +467,4 @@ fn signed_sample(sample: u64) -> f32 {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn city_lots_are_deterministic_nested_and_follow_many_connected_street_segments() {
-        let small = generate_city(42, 8_000);
-        let large = generate_city(42, 40_000);
-        assert_eq!(small, generate_city(42, 8_000));
-        assert_eq!(small.lots, large.lots[..small.lots.len()]);
-        let mut headings = large
-            .lots
-            .iter()
-            .map(|lot| (lot.orientation.yaw_radians().to_degrees() / 2.0).round() as i16)
-            .collect::<Vec<_>>();
-        headings.sort_unstable();
-        headings.dedup();
-        assert!(headings.len() >= 12, "headings={headings:?}");
-    }
-
-    #[test]
-    fn population_is_represented_by_physical_house_capacity() {
-        for population in [900, 6_500, 40_000] {
-            let lots = generate_city(42, population).lots;
-            let capacity = lots
-                .iter()
-                .map(|lot| lot.house_class.resident_capacity())
-                .sum::<u32>();
-            assert!(
-                capacity >= population,
-                "population={population} capacity={capacity} lots={}",
-                lots.len()
-            );
-            assert!(capacity < population + 30);
-        }
-    }
-
-    #[test]
-    fn the_street_graph_shares_intersections_and_reserves_only_the_market_block() {
-        let nodes = street_nodes(42);
-        let blocks = city_blocks(nodes).collect::<Vec<_>>();
-        for row in 0..BLOCK_COUNT {
-            for column in 0..BLOCK_COUNT - 1 {
-                let left = blocks[row * BLOCK_COUNT + column];
-                let right = blocks[row * BLOCK_COUNT + column + 1];
-                assert_eq!(left.corners[1], right.corners[0]);
-                assert_eq!(left.corners[2], right.corners[3]);
-            }
-        }
-        assert_eq!(blocks.iter().filter(|block| block.is_market()).count(), 1);
-    }
-
-    #[test]
-    fn accepted_building_footprints_do_not_overlap() {
-        let lots = generate_city(42, 40_000).lots;
-        for (index, lot) in lots.iter().enumerate() {
-            assert!(
-                lots[index + 1..]
-                    .iter()
-                    .all(|other| !lots_overlap(*lot, *other))
-            );
-        }
-    }
-
-    #[test]
-    fn building_south_side_faces_out_of_its_block() {
-        let block = city_blocks(street_nodes(42)).next().unwrap();
-        let tangent = (block.corners[1] - block.corners[0]).normalize();
-        let inward = Vec2::new(-tangent.y, tangent.x);
-        let orientation = BuildingOrientation::from_frontage_tangent(tangent).unwrap();
-        assert!(orientation.local_to_world(-Vec2::Y).dot(-inward) > 0.999);
-    }
-
-    #[test]
-    fn street_surfaces_are_mixed_grass_free_patches_from_the_same_graph() {
-        let city = generate_city(42, 40_000);
-        assert!(city.streets.len() > 100);
-        for surface in [
-            CityStreetSurface::CompactedEarth,
-            CityStreetSurface::Gravel,
-            CityStreetSurface::Fieldstone,
-        ] {
-            assert!(city.streets.iter().any(|patch| patch.surface() == surface));
-        }
-        assert_eq!(
-            city.streets
-                .iter()
-                .filter(|patch| matches!(patch, CityStreetPatch::Market { .. }))
-                .count(),
-            1
-        );
-        for patch in &city.streets {
-            let centre = match *patch {
-                CityStreetPatch::Corridor {
-                    start_metres,
-                    end_metres,
-                    ..
-                } => (start_metres + end_metres) * 0.5,
-                CityStreetPatch::Market { corners_metres, .. } => {
-                    corners_metres.into_iter().sum::<Vec2>() * 0.25
-                }
-            };
-            assert!(patch.contains(centre));
-        }
-    }
-
-    #[test]
-    fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
-        let city = generate_city(42, 40_000);
-        assert!(!city.yards.is_empty());
-        assert!(city.yards.iter().all(|yard| yard.is_valid()));
-        assert!(
-            city.yards
-                .iter()
-                .any(|yard| yard.surface == CityYardSurface::PackedEarth)
-        );
-        assert!(
-            city.yards
-                .iter()
-                .any(|yard| yard.surface == CityYardSurface::KitchenGarden)
-        );
-        assert!(city.lots.iter().all(|lot| {
-            city.yards
-                .iter()
-                .any(|yard| yard.contains(lot.centre_metres))
-        }));
-    }
-}
+mod tests;

@@ -19,6 +19,7 @@ pub(super) fn image(map: &BakedMap, display: bool) -> Image {
             .flat_map(|p| match map.encoding {
                 PixelEncoding::R8 => [p[0], p[0], p[0], 255],
                 PixelEncoding::Rg8 => [p[0], p[1], 0, 255],
+                _ if map.channel == MapChannel::Opacity => [p[3], p[3], p[3], 255],
                 _ => [p[0], p[1], p[2], 255],
             })
             .collect();
@@ -133,16 +134,16 @@ pub(super) fn material(
         material.alpha_mode = AlphaMode::Mask(0.5);
         if albedo.is_none() {
             let mut opacity = map.clone();
-            opacity.bytes = map
-                .bytes
-                .chunks_exact(map.encoding.channels())
-                .flat_map(|p| [200, 200, 200, p[0]])
-                .collect();
+            if map.encoding.channels() < 4 {
+                opacity.bytes = map
+                    .bytes
+                    .chunks_exact(map.encoding.channels())
+                    .flat_map(|p| [200, 200, 200, p[0]])
+                    .collect();
+            }
             opacity.encoding = PixelEncoding::Srgb8;
             material.base_color_texture = Some(upload(world, assets, &opacity, false));
         }
-        material.diffuse_transmission = document.surface.leaf_transmission;
-        material.thickness = document.surface.leaf_thickness_metres;
     }
     if let Some(map) = bake.map(MapChannel::HeightAo) {
         packed_surface(world, assets, &mut material, bake, map, document);

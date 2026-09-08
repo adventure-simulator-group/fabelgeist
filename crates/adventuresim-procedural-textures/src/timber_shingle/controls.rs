@@ -3,19 +3,8 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        grain: crate::board_grain::Parameters = crate::board_grain::Parameters { ring_count: 7, sawn_arch_fraction: 0.0, knot_fraction: 0.12, ring_depth: 0.035, light_srgb: [106,91,68], dark_srgb: [85,73,54], ..Default::default() };
         generate_timber_shingle_textures_ao: f32 = 0.47;
-        color_and_roughness_fibre_shift: f32 = 5.2;
-        color_and_roughness_sun_grey: f32 = 17.0;
-        color_and_roughness_check_darkening: f32 = 24.0;
-        color_and_roughness_base_1: f32 = 105.0;
-        color_and_roughness_base_2: f32 = 82.0;
-        color_and_roughness_base_3: f32 = 57.0;
-        color_and_roughness_color_1: f32 = 10.0;
-        color_and_roughness_color_2: f32 = 8.0;
-        color_and_roughness_color_3: f32 = 0.75;
-        color_and_roughness_color_4: f32 = 0.78;
-        color_and_roughness_color_5: f32 = 6.0;
-        color_and_roughness_color_6: f32 = 0.55;
         color_and_roughness_roughness_1: f32 = 211.0;
         color_and_roughness_roughness_2: f32 = 23.0;
         color_and_roughness_roughness_3: f32 = 8.0;

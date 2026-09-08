@@ -7,6 +7,7 @@ pub struct TacticalSettlementSnapshot {
     pub id: String,
     pub population_level: i32,
     pub population_estimate: u32,
+    pub economy: adventuresim_world_schema::SettlementEconomyProfile,
 }
 
 pub(crate) fn tactical_settlement_snapshot(
@@ -23,6 +24,7 @@ pub(crate) fn tactical_settlement_snapshot(
         id: settlement.id,
         population_level: settlement.population_level,
         population_estimate: settlement.population_estimate,
+        economy: settlement.economy,
     })
 }
 

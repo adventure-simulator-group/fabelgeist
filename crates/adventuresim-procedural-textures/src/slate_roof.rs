@@ -11,7 +11,7 @@ use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
-pub const SLATE_ROOF_TEXTURE_SIZE: u32 = 512;
+pub const SLATE_ROOF_TEXTURE_SIZE: u32 = 2048;
 pub const SLATE_ROOF_TILE_METRES: f32 = 4.8;
 pub const SLATE_ROOF_HEIGHT_RANGE_METRES: f32 = 0.012;
 
@@ -56,27 +56,6 @@ fn piece_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i3
     (canonical_row, column, scaled - column as f32 - 0.5)
 }
 
-fn cleft_relief(
-    params: &crate::TextureParameters,
-    local_x: f32,
-    course_phase: f32,
-    id: u64,
-) -> f32 {
-    let phase = hash_unit(params, id ^ 0x6ca1) * std::f32::consts::TAU;
-    let rake = (hash_unit(params, id ^ 0x347b) - 0.5) * params.slate_roof.cleft_relief_rake;
-    let plane_a =
-        (local_x * params.slate_roof.cleft_relief_plane_a + course_phase * rake + phase).sin();
-    let plane_b = (local_x * params.slate_roof.cleft_relief_plane_b_1
-        - course_phase * params.slate_roof.cleft_relief_plane_b_2
-        + phase * params.slate_roof.cleft_relief_plane_b_3)
-        .sin();
-    let plane_c = (local_x * params.slate_roof.cleft_relief_plane_c_1
-        + course_phase * params.slate_roof.cleft_relief_plane_c_2
-        + phase * params.slate_roof.cleft_relief_plane_c_3)
-        .sin();
-    plane_a * 0.58 + plane_b * 0.29 + plane_c * 0.13
-}
-
 fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
     let heel_bias = (hash_unit(params, id ^ 0x728d) - 0.5) * params.slate_roof.lower_edge_heel_bias;
     let left_clip = ((-local_x - params.slate_roof.lower_edge_left_clip_1)
@@ -101,6 +80,8 @@ fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
 }
 
 fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSample {
+    // Keep course arithmetic near the origin before amplifying it into fine cleavage.
+    let (u, v) = (u.rem_euclid(1.0), v.rem_euclid(1.0));
     let scaled_v =
         v * params.slate_roof.courses as f32 - u * params.slate_roof.course_rise_per_repeat as f32;
     let row = scaled_v.floor() as i32;
@@ -136,7 +117,13 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     } else {
         (phase - face_end) * params.slate_roof.sample_slate_active_phase
     };
-    let cleavage = cleft_relief(params, active_local_x, active_phase, active_id);
+    let split = cleft::sample(
+        params,
+        active_local_x,
+        active_phase,
+        active_id,
+        lip_distance.min(side_distance),
+    );
     let piece_thickness = (hash_unit(params, active_id ^ 0xa673) - 0.5)
         * params.slate_roof.sample_slate_piece_thickness;
     let plane_tilt = active_local_x
@@ -154,8 +141,7 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     } else {
         params.slate_roof.sample_slate_base_2
     };
-    let mut height =
-        base + piece_thickness + plane_tilt + cleavage * params.slate_roof.sample_slate_height;
+    let mut height = base + piece_thickness + plane_tilt + split.height;
     if front {
         height += lip;
     }
@@ -180,8 +166,8 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
         height,
         piece_id: active_id,
         contact,
-        edge_wear,
-        cleavage,
+        edge_wear: edge_wear.max(split.edge),
+        cleavage: split.edge,
     }
 }
 
@@ -313,16 +299,18 @@ mod tests {
                 second_images.get(second_handle).unwrap().data
             );
         }
+        // Dyadic coordinates survive a whole-tile offset exactly in f32.
+        // Decimal multipliers can move the input before the field is sampled.
         for index in 0..256 {
             let coordinate = (index as f32 + 0.5) / 256.0;
-            let sample = sample_slate(params, coordinate, coordinate * 0.71);
+            let sample = sample_slate(params, coordinate, coordinate * 0.75);
             assert!(
-                (sample.height - sample_slate(params, coordinate + 1.0, coordinate * 0.71).height)
+                (sample.height - sample_slate(params, coordinate + 1.0, coordinate * 0.75).height)
                     .abs()
                     < 1.0e-5
             );
             assert!(
-                (sample.height - sample_slate(params, coordinate, coordinate * 0.71 + 1.0).height)
+                (sample.height - sample_slate(params, coordinate, coordinate * 0.75 + 1.0).height)
                     .abs()
                     < 1.0e-5
             );
@@ -596,5 +584,6 @@ mod tests {
     }
 }
 
+mod cleft;
 mod controls;
 pub use controls::Parameters;

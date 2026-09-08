@@ -22,6 +22,13 @@ pub enum RoomKind {
     Nave,
     Chancel,
     Sacristy,
+    Stalls,
+    MillingFloor,
+    KilnRoom,
+    VatRoom,
+    Ward,
+    Schoolroom,
+    CountingRoom,
 }
 
 impl fmt::Display for RoomKind {
@@ -194,6 +201,7 @@ pub enum BuildingArchetype {
     FachwerkMerchantHouse,
     RenaissanceTownHall,
     Cathedral,
+    ParishChurch,
     CastleGatehouse,
     CourtyardCastle,
     WalledKeep,
@@ -233,13 +241,14 @@ impl ChurchProgram {
 }
 
 impl BuildingArchetype {
-    pub const ALL: [Self; 10] = [
+    pub const ALL: [Self; 11] = [
         Self::TownHouse,
         Self::HallHouse,
         Self::FachwerkCottage,
         Self::FachwerkMerchantHouse,
         Self::RenaissanceTownHall,
         Self::Cathedral,
+        Self::ParishChurch,
         Self::CastleGatehouse,
         Self::CourtyardCastle,
         Self::WalledKeep,
@@ -254,6 +263,7 @@ impl BuildingArchetype {
             Self::FachwerkMerchantHouse => "fachwerk-merchant-house",
             Self::RenaissanceTownHall => "renaissance-town-hall",
             Self::Cathedral => "cathedral",
+            Self::ParishChurch => "parish-church",
             Self::CastleGatehouse => "castle-gatehouse",
             Self::CourtyardCastle => "courtyard-castle",
             Self::WalledKeep => "walled-keep",

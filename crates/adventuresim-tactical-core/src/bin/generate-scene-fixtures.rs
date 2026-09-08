@@ -283,25 +283,38 @@ fn massive_city_buildings() -> (
     let recipe_seeds = [42, 47, 101];
     let mut playable = Vec::new();
     let mut distant = Vec::new();
-    let city = generate_city(47_114, MASSIVE_CITY_RESIDENT_POPULATION);
+    let mut recipes = std::collections::BTreeMap::new();
+    let city = generate_city(
+        47_114,
+        MASSIVE_CITY_RESIDENT_POPULATION,
+        &massive_city_economy(),
+    );
     for lot in city.lots {
         let selection = splitmix64(47_114 ^ 0x6469_7374_616e_7401 ^ lot.id);
-        let archetype = match lot.house_class {
-            CityHouseClass::Cottage => BuildingArchetype::FachwerkCottage,
-            CityHouseClass::CraftTownHouse => BuildingArchetype::TownHouse,
-            CityHouseClass::HallHouse => BuildingArchetype::HallHouse,
-            CityHouseClass::MerchantHouse => BuildingArchetype::FachwerkMerchantHouse,
-        };
-        let seed = recipe_seeds[selection as usize % recipe_seeds.len()];
+        let archetype = lot.archetype();
+        let usage = lot
+            .building_use()
+            .unwrap_or(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling);
+        let initial_seed = recipe_seeds[selection as usize % recipe_seeds.len()];
+        let key = (archetype.slug(), usage, initial_seed);
+        let program = recipes
+            .entry(key)
+            .or_insert_with(|| {
+                BuildingProgram::validated_settlement(archetype, usage, initial_seed)
+                    .expect("city fixture needs a valid occupied building recipe")
+            })
+            .clone();
+        let seed = program.seed;
         if lot.centre_metres.abs().max_element() <= MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES {
             playable.push(TacticalBuildingPlacement {
                 id: lot.id,
-                program: BuildingProgram::fixture(archetype, seed),
+                program,
                 centre_metres: lot.centre_metres,
                 orientation: lot.orientation,
             });
         } else {
             distant.push(DistantBuildingPlacement {
+                usage: Some(usage),
                 id: lot.id,
                 archetype,
                 seed,
@@ -647,4 +660,19 @@ const fn weather(
             },
         },
     }
+}
+
+fn massive_city_economy() -> adventuresim_world_schema::SettlementEconomyProfile {
+    use adventuresim_world_schema::*;
+    infer_settlement_economy(
+        5,
+        MASSIVE_CITY_RESIDENT_POPULATION,
+        6,
+        true,
+        &InferredIndustryProfile::new(vec![IndustryEvidence::Fallback(
+            FallbackIndustry::CroplandGrain,
+        )])
+        .unwrap(),
+    )
+    .unwrap()
 }

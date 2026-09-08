@@ -3,6 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        draw_cells: [i32; 2] = [5, 11];
+        draw_strength: f32 = 0.3;
+        broad_roughness: f32 = 0.035;
         transmitted_color: [u8; 3] = [214,226,217];
         absorption_variation: f32 = 3.0;
         optical_normal_gain: f32 = 14.0;

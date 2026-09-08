@@ -10,6 +10,7 @@ pub mod book;
 pub mod capability;
 pub mod case;
 pub mod celestial;
+pub mod character_morph;
 pub mod combat;
 pub mod combat_style;
 pub mod composite;

@@ -50,6 +50,9 @@ impl ControlBounds {
             || path.contains("/transmitted_color/")
             || path.contains("palette")
             || name.ends_with("roughness");
+        if let Some(bounds) = Self::material_bounds(path, name, integer) {
+            return bounds;
+        }
         let (min, max) = match name {
             "bubbles" | "patches" if component.is_some_and(|index| index < 2) => (0.0, 1.0),
             "bubbles" | "patches" if component.is_some_and(|index| index < 4) => (0.001, 0.45),
@@ -88,6 +91,51 @@ impl ControlBounds {
             _ => ((value * 0.05).min(0.000_001), value * 4.0),
         };
         Self { min, max, integer }
+    }
+    fn material_bounds(path: &str, name: &str, integer: bool) -> Option<Self> {
+        if let Some((min, max)) = super::detail_bounds::bounds(path, name) {
+            return Some(Self { min, max, integer });
+        }
+        if path.starts_with("/ironwork/") {
+            let bounds = match name {
+                "hammer_cells" => Some((1.0, 48.0)),
+                "body_cells" | "oxide_cells" => Some((1.0, 16.0)),
+                "scale_cells" => Some((8.0, 96.0)),
+                "pit_cells" => Some((8.0, 160.0)),
+                "grain_cells" => Some((16.0, 512.0)),
+                "hammer_size_variation" | "hammer_depth_variation" => Some((0.0, 0.8)),
+                "scale_angle" => Some((0.0, std::f64::consts::TAU)),
+                "scale_edge_breakup" => Some((0.0, 0.4)),
+                "grain_relief" => Some((0.0, 0.02)),
+                "hammer_radius" => Some((0.2, 0.8)),
+                "hammer_jitter" => Some((0.0, 0.9)),
+                "hammer_angle" => Some((0.0, std::f64::consts::PI)),
+                "hammer_roundness" => Some((0.2, 1.0)),
+                "pit_radius" | "scale_radius" => Some((0.05, 0.55)),
+                "scale_edge_width" => Some((0.01, 1.0)),
+                "hammer_depth" | "hammer_rim" | "hammer_tilt" | "body_relief" | "scale_depth"
+                | "pit_depth" => Some((0.0, 0.3)),
+                "cavity_occlusion" => Some((0.0, 1.0)),
+                _ => None,
+            };
+            if let Some((min, max)) = bounds {
+                return Some(Self { min, max, integer });
+            }
+        }
+        if path.starts_with("/slate_roof/cleft/") {
+            let (min, max) = match name {
+                "layer_count" => (1.0, 12.0),
+                "layer_depth" => (0.0, 0.4),
+                "flake_depth" => (0.0, 0.15),
+                "split_direction" => (-std::f64::consts::PI, std::f64::consts::PI),
+                "direction_variation" => (0.0, std::f64::consts::PI),
+                "warp_frequency" | "fracture_frequency" | "flake_frequency" => (0.1, 24.0),
+                "layer_edge_width" | "flake_edge_width" | "flake_reach" => (0.01, 1.0),
+                _ => (0.0, 1.0),
+            };
+            return Some(Self { min, max, integer });
+        }
+        None
     }
 }
 
