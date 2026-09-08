@@ -1,5 +1,8 @@
 //! Fitted placeholder garments generated from catalog-authored anatomical spans.
 
+mod fitting;
+use fitting::fitted_surface;
+
 use std::collections::{HashMap, HashSet};
 
 use crate::item_catalog_schema::{
@@ -583,20 +586,12 @@ pub fn generate_clothing_shells(
                     .filter_map(|(index, selected)| selected.then_some(index)),
             );
         }
-        let relaxed_positions = relax_concavities(positions, normals, &selected_shell_faces);
-        let shell_normals = surface_normals(&relaxed_positions, normals, &selected_shell_faces);
-        let mut shell_positions = relaxed_positions
-            .iter()
-            .zip(&shell_normals)
-            .map(|(position, normal)| {
-                [
-                    position[0] + normal[0] * specification.normal_offset_metres,
-                    position[1] + normal[1] * specification.normal_offset_metres,
-                    position[2] + normal[2] * specification.normal_offset_metres,
-                ]
-            })
-            .collect::<Vec<_>>();
-        weld_split_vertex_positions(positions, &mut shell_positions);
+        let (shell_positions, shell_normals) = fitted_surface(
+            positions,
+            normals,
+            &selected_shell_faces,
+            specification.normal_offset_metres,
+        );
         let shell_faces = validated_placeholder_faces(
             &specification.name,
             &selected_shell_faces,
