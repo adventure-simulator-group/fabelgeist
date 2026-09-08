@@ -8,6 +8,16 @@ pub enum CityHouseClass {
 }
 
 impl CityHouseClass {
+    pub const fn archetype(self) -> adventuresim_building_generator::BuildingArchetype {
+        use adventuresim_building_generator::BuildingArchetype;
+        match self {
+            Self::Cottage => BuildingArchetype::FachwerkCottage,
+            Self::CraftTownHouse => BuildingArchetype::TownHouse,
+            Self::HallHouse => BuildingArchetype::HallHouse,
+            Self::MerchantHouse => BuildingArchetype::FachwerkMerchantHouse,
+        }
+    }
+
     pub const ALL: [Self; 4] = [
         Self::Cottage,
         Self::CraftTownHouse,

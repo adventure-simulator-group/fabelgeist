@@ -4,6 +4,8 @@
 //! whenever a new request appears. The spawned server will then call
 //! create_tactical_server_for_request to register itself.
 
+mod settlement_economy_adapter;
+
 use std::collections::HashSet;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
@@ -256,6 +258,7 @@ fn materialize_requested_scene(
             id: settlement.id.clone(),
             population_level: settlement.population_level,
             population_estimate: settlement.population_estimate,
+            economy: settlement_economy_adapter::economy_profile(&settlement.economy),
         });
     let input = scene_input::build_imported_scene(
         terrain,
