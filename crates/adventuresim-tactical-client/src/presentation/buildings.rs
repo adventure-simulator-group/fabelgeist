@@ -7,8 +7,10 @@ use bevy::ecs::hierarchy::ChildSpawnerCommands;
 use super::*;
 
 mod materials;
+mod signs;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
+pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 
 const DETAIL_LOD_END_START_METRES: f32 = 55.0;
 const DETAIL_LOD_END_END_METRES: f32 = 70.0;
@@ -51,6 +53,11 @@ struct CompiledBuildingLevels {
     program: BuildingProgram,
     dynamic_openings: bool,
     floor_offset_metres: f32,
+    local_origin: Vec3,
+    sign_sites: Vec<(
+        adventuresim_building_generator::signs::SignMount,
+        adventuresim_building_generator::signs::SignSite,
+    )>,
     lod0: Vec<CompiledBuildingBatch>,
     lod1: Vec<CompiledBuildingBatch>,
     lod2: Vec<CompiledBuildingBatch>,
@@ -66,6 +73,7 @@ pub(in crate::presentation) fn on_scene_building_added(
     mut meshes: ResMut<Assets<Mesh>>,
     materials: Res<TacticalBuildingMaterials>,
     mut cache: ResMut<TacticalBuildingMeshCache>,
+    mut signs: signs::SignAssets,
 ) -> Result {
     let building = buildings.get(event.entity)?;
     let compiled = cached_building_levels(&mut cache, &building.program, true, &mut meshes)?;
@@ -80,6 +88,7 @@ pub(in crate::presentation) fn on_scene_building_added(
                 BuildingPresentationScope::Playable,
                 &materials,
             );
+            signs.spawn(parent, building.id, &compiled, &mut meshes);
         });
     Ok(())
 }
@@ -91,6 +100,7 @@ pub(in crate::presentation) fn on_scene_vista_buildings(
     mut meshes: ResMut<Assets<Mesh>>,
     materials: Res<TacticalBuildingMaterials>,
     mut cache: ResMut<TacticalBuildingMeshCache>,
+    mut signs: signs::SignAssets,
 ) -> Result {
     for entity in &existing {
         commands.entity(entity).despawn();
@@ -119,6 +129,7 @@ pub(in crate::presentation) fn on_scene_vista_buildings(
                     BuildingPresentationScope::DistantCity,
                     &materials,
                 );
+                signs.spawn(parent, placement.id, &compiled, &mut meshes);
             });
     }
     Ok(())
@@ -161,6 +172,16 @@ fn cached_building_levels(
         program: program.clone(),
         dynamic_openings,
         floor_offset_metres,
+        local_origin,
+        sign_sites: if program
+            .usage
+            .and_then(adventuresim_building_generator::signs::shop_trade)
+            .is_some()
+        {
+            signs::sites(&plan)
+        } else {
+            Vec::new()
+        },
         lod0: compile_batches(&detail.meshes, meshes),
         lod1: compile_batches(&facade.meshes, meshes),
         lod2: compile_batches(&shell.meshes, meshes),

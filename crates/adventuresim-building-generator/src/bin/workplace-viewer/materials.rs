@@ -11,6 +11,9 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension},
 };
 
+#[derive(Resource, Default)]
+struct ReviewMaterialCache(std::collections::HashMap<TextureRecipeId, Handle<StandardMaterial>>);
+
 pub(super) fn material(
     world: &mut World,
     material: BuildingLodMaterial,
@@ -24,6 +27,10 @@ pub(super) fn material(
         BuildingLodMaterial::Iron => TextureRecipeId::Ironwork,
         _ => TextureRecipeId::RubbleMasonry,
     };
+    world.init_resource::<ReviewMaterialCache>();
+    if let Some(handle) = world.resource::<ReviewMaterialCache>().0.get(&recipe) {
+        return handle.clone();
+    }
     let baked = BakedRecipe::generate(recipe, &TextureParameters::default());
     let mut map = |channel| {
         let map = baked.map(channel).unwrap();
@@ -49,7 +56,7 @@ pub(super) fn material(
     };
     let albedo = map(MapChannel::Albedo);
     let normal = map(MapChannel::Normal);
-    world
+    let handle = world
         .resource_mut::<Assets<StandardMaterial>>()
         .add(StandardMaterial {
             base_color_texture: Some(albedo),
@@ -64,5 +71,10 @@ pub(super) fn material(
                 0.0
             },
             ..default()
-        })
+        });
+    world
+        .resource_mut::<ReviewMaterialCache>()
+        .0
+        .insert(recipe, handle.clone());
+    handle
 }

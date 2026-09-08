@@ -151,3 +151,15 @@ classification derived from HYDE 3.5 c9 historical cropland-area data. See the
 HYDE source contract in `scripts/world_source_init.py`,
 `MAP_DATA_LICENSE.md`, and the generated source release metadata for provenance
 and applicable terms.
+
+## Shop sign fonts
+
+Text-only shop signs bundle unmodified Grenze Gotisch Bold by Omnibus-Type and
+UnifrakturCook Bold from Google Fonts. Both are distributed under the SIL Open
+Font License 1.1. The complete copyright and license notices accompany the fonts
+in `crates/adventuresim-building-generator/assets/fonts/`.
+
+- Grenze Gotisch source: <https://github.com/Omnibus-Type/Grenze-Gotisch/blob/master/fonts/ttf/GrenzeGotisch-Bold.ttf>
+- Grenze Gotisch SHA-256: `822606a1aaf0dd58c653ca8b324c6ce7f5686dc91861d094537c4f486a610ddb`
+- UnifrakturCook source: <https://github.com/google/fonts/blob/main/ofl/unifrakturcook/UnifrakturCook-Bold.ttf>
+- UnifrakturCook SHA-256: `ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd`

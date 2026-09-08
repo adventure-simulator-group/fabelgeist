@@ -13,6 +13,7 @@ mod lod;
 mod model;
 mod roof_tessellation;
 mod settlement;
+pub mod signs;
 mod windows;
 mod workplace;
 pub use settlement::settlement_archetype;

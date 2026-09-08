@@ -301,8 +301,7 @@ impl Plugin for TacticalPresentationPlugin {
         .add_observer(terrain::on_environment_added)
         .add_observer(terrain::on_ground_added)
         .add_observer(on_scene_obstacle_added)
-        .add_observer(on_scene_building_added)
-        .add_observer(on_scene_vista_buildings)
+        .add_plugins(BuildingPresentationPlugin)
         .add_observer(on_scene_vista_bundle);
     }
 

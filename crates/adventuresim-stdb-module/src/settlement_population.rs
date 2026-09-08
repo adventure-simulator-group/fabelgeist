@@ -305,26 +305,7 @@ const SERVICES: [(&str, &str, &str, &str); 8] = [
     ("religion", "church", "cleric", "parish priest"),
     ("books", "bookstore", "merchant", "bookseller"),
 ];
-const FEMALE_NAMES: [&str; 10] = [
-    "Anna",
-    "Greta",
-    "Elsbeth",
-    "Klara",
-    "Marta",
-    "Ursula",
-    "Agnes",
-    "Ida",
-    "Dorothea",
-    "Margarete",
-];
-const MALE_NAMES: [&str; 10] = [
-    "Johann", "Hans", "Konrad", "Martin", "Peter", "Nikolaus", "Otto", "Lukas", "Heinrich",
-    "Wilhelm",
-];
-const SURNAMES: [&str; 12] = [
-    "Bauer", "Fischer", "Weber", "Schmidt", "Kramer", "Wagner", "Hoffmann", "Schulz", "Klein",
-    "Wolf", "Hartmann", "Vogel",
-];
+use adventuresim_world_schema::person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES};
 
 #[derive(Clone, Copy)]
 enum PopulationLocation<'a> {

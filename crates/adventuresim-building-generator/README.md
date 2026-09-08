@@ -601,3 +601,35 @@ directory, together with an HTML review gallery:
 ```powershell
 python scripts/capture_workplaces.py --output target/workplace-review
 ```
+
+## Text-only shop signs
+
+The `signs` module derives sign attachment sites from public ground-floor
+entrances. Public-facing trades receive stable establishment brands from the
+shared German name catalog and placed-lot identity, independently of cached
+building recipes. A brand does not create or imply an NPC ownership relation.
+
+Signs use a wall board or a double-sided projecting board with metal supports.
+Panels stay above pedestrian headroom and are rejected when they overlap the
+resolved building geometry. These are static presentation fixtures; they do not
+add tactical collision, swinging physics, or sign interactions. They do not
+change building footprints or service eligibility.
+
+The optional `sign-render` feature provides the same GPU components to the
+client and the review binary. The client loads lettering within 48 metres,
+fades it over 35–45 metres and releases lettering entities beyond 60 metres.
+The texture cache retains at most 64 painted materials; boards remain visible.
+Grenze Gotisch Bold is the default, with UnifrakturCook available for comparison.
+Fonts and their licenses are bundled locally. Long names wrap onto two lines.
+
+```powershell
+cargo run -p adventuresim-building-generator --features viewer --bin shop-sign-viewer -- --output target/shop-signs/projecting.png --mount projecting
+```
+
+Use `--mount wall`, `--font unifraktur-cook`, or `--scene along-street`,
+`--scene reverse`, and `--scene long-name` to review the other cases. Each capture
+writes an adjacent JSON record with its name, font, attachment clearance, and
+building audit.
+
+Capture both fonts and mounts, reverse reading, long names, and a street of shops
+into a fresh HTML gallery with `python scripts/capture_shop_signs.py --output target/shop-sign-review`.
