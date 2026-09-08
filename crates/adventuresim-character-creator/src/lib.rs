@@ -1,7 +1,10 @@
 //! Data model for the standalone MHR character creator.
 
+pub mod bracer;
+pub mod breastplate;
 pub mod clothing;
 mod clothing_material;
+pub mod design_input;
 pub mod export;
 pub use adventuresim_core::item_catalog_schema;
 
@@ -145,5 +148,16 @@ mod tests {
         let mut recipe = CharacterRecipe::default();
         recipe.identity.pop();
         assert!(recipe.validate().is_err());
+    }
+
+    #[test]
+    fn canonical_mhr_base_has_zero_coefficients_and_no_fitted_clothing() {
+        let recipe: CharacterRecipe =
+            serde_json::from_str(include_str!("../../../assets_src/characters/mhr_base.json"))
+                .unwrap();
+        assert!(recipe.validate().is_ok());
+        assert!(recipe.identity.iter().all(|value| *value == 0.0));
+        assert!(recipe.expression.iter().all(|value| *value == 0.0));
+        assert!(recipe.clothing.is_empty());
     }
 }

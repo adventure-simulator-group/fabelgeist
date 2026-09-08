@@ -229,18 +229,17 @@ init-mhr-lod1-correctives:
     @{{ python_bin }} scripts/init_mhr_assets.py --lod1-correctives
 verify-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py --verify-only
-# Edit the canonical John Fabelgeist MHR recipe and source rig.
+# Open the MHR creator on the canonical zero-coefficient base body.
 character-creator:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml
-generate-procedural-equipment:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 4
+generate-procedural-equipment output:
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 1 --recipe assets_src/characters/mhr_base.json --equipment-output {{ quote(output) }}
 # Model an animator reference weapon and export it against the character rig.
 weapon-modeler:
     @npm --prefix tools/weapon-modeler start
-# Re-export the saved John recipe and prepare its spawnable runtime base.
-prepare-john-rig:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only
-    @{{ python_bin }} scripts/prepare_rig_base.py assets_src/biped/unarmed/base.glb assets/animations/biped/unarmed/base.glb
+# Export the zero-coefficient MHR base to an explicit staging path.
+export-mhr-base output:
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 1 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
 # Publish every currently authored motion as a mesh-free runtime animation.
 prepare-animation-assets:
     @{{ python_bin }} scripts/prepare_animation_assets.py

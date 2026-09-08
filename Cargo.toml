@@ -8,6 +8,7 @@ members = [
   "crates/adventuresim-world-schema",
   "crates/adventuresim-world-import",
   "crates/adventuresim-terrain",
+  "crates/adventuresim-armor-model",
   "crates/adventuresim-weapon-model",
   "crates/adventuresim-building-generator",
   "crates/adventuresim-procedural-textures",
@@ -57,6 +58,7 @@ adventuresim-puzzles = { version = "0.1.0", path = "crates/adventuresim-puzzles"
 adventuresim-dialogue = { version = "0.1.0", path = "crates/adventuresim-dialogue" }
 adventuresim-strategic-sim = { version = "0.1.0" }
 adventuresim-world-schema = { version = "0.1.0", path = "crates/adventuresim-world-schema" }
+adventuresim-armor-model = { version = "0.1.0", path = "crates/adventuresim-armor-model" }
 adventuresim-weapon-model = { version = "0.1.0", path = "crates/adventuresim-weapon-model" }
 adventuresim-building-generator = { version = "0.1.0", path = "crates/adventuresim-building-generator" }
 adventuresim-procedural-textures = { version = "0.1.0", path = "crates/adventuresim-procedural-textures" }
@@ -136,6 +138,7 @@ html-escape = "0.2"
 image = { version = "0.25.10", default-features = false, features = ["avif"] }
 blake3 = "1"
 geo = "0.33.1"
+spade = "2.15.1"
 geozero = { version = "0.14.0", features = ["with-geo", "with-wkb"] }
 proj4rs = { version = "0.1.10", default-features = false }
 rusqlite = { version = "0.37.0", features = ["bundled"] }
