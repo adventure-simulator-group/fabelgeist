@@ -195,6 +195,11 @@ path = "crates/adventuresim-world-schema/src/settlement_buildings/catalog.rs"
 reason = "Authored historical building uses, eligibility, catchments, and siting preferences."
 
 [[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-procedural-textures/src/parameters/detail_bounds.rs"
+reason = "Maps serialized recipe control paths to sampling-support bounds at the JSON document and inspector boundary."
+
+[[scopes]]
 kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/settlement.rs"
 reason = "Authored building-use room programmes and parish-church recipe."
@@ -203,6 +208,8 @@ reason = "Authored building-use room programmes and parish-church recipe."
 kind = "fixture"
 path = "crates/adventuresim-tactical-core/src/bin/city-layout-report.rs"
 reason = "Deterministic city-layout review fixture with explicit population and economy samples."
+
+[[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/equipment_export.rs"
 reason = "Maps stable item and placement IDs from the authored equipment catalog to procedural exporters and writes the GLB manifest."

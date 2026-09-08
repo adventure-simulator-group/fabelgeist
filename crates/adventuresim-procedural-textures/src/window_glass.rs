@@ -110,7 +110,14 @@ fn localized_striation(params: &crate::TextureParameters, u: f32, v: f32) -> f32
 }
 
 fn sample_glass(params: &crate::TextureParameters, u: f32, v: f32) -> GlassSample {
-    let broad = periodic_noise(params, u, v);
+    let broad = periodic_noise(params, u, v)
+        + (crate::stamps::noise(
+            params,
+            bevy::math::Vec2::new(u, v),
+            bevy::math::IVec2::from_array(params.window_glass.draw_cells),
+            0xb517,
+        ) - 0.5)
+            * params.window_glass.draw_strength;
     let draw_striation = localized_striation(params, u, v);
     let bubble = bubble_lens(params, u, v);
     let optical_height = broad * params.window_glass.broad_relief
@@ -122,7 +129,7 @@ fn sample_glass(params: &crate::TextureParameters, u: f32, v: f32) -> GlassSampl
         + bubble * params.window_glass.bubble_thickness)
         .clamp(0.0, 1.0);
     let roughness = (params.window_glass.base_roughness
-        + broad.abs() * params.window_glass.bubble_relief
+        + broad.abs() * params.window_glass.broad_roughness
         + bubble * params.window_glass.bubble_roughness)
         .clamp(
             params.window_glass.minimum_roughness,

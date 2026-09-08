@@ -1,5 +1,9 @@
 # TimberShingle prior art
 
+The repository observations below describe the original research snapshot. For
+the current generator decisions and authoring controls, see the
+[catalogue approach review](../../catalogue-review.md).
+
 ## Scope and confidence
 
 This is an internal implementation report for the `TimberShingle` procedural

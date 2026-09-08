@@ -6,12 +6,12 @@
 //! tails and recessed contacts remain legible without turning every tile into
 //! a modern, uniformly bevelled extrusion.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
-pub const CLAY_ROOF_TILE_TEXTURE_SIZE: u32 = 512;
+pub const CLAY_ROOF_TILE_TEXTURE_SIZE: u32 = 1024;
 pub const CLAY_ROOF_TILE_TILE_METRES: f32 = 2.4;
 pub const CLAY_ROOF_TILE_HEIGHT_RANGE_METRES: f32 = 0.018;
 
@@ -23,6 +23,9 @@ const TAIL_START: f32 = 0.66;
 struct TileSample {
     height: f32,
     tile_id: u64,
+    upper_id: u64,
+    lower_id: u64,
+    coverage: f32,
     contact: f32,
     firing: f32,
     edge_wear: f32,
@@ -129,7 +132,10 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
         / params.clay_roof_tile.sample_tiles_lip_2)
         .clamp(0.0, 1.0);
     let lip = lip * lip * (3.0 - 2.0 * lip) * params.clay_roof_tile.sample_tiles_lip;
-    let face_height = params.clay_roof_tile.sample_tiles_face_height_1
+    let uv = bevy::math::Vec2::new(u, v);
+    let pores = params.clay_roof_tile.pores.sample(params, uv, 0x2a71);
+    let marks = params.clay_roof_tile.drag_marks.sample(params, uv, 0x8173);
+    let face_height = params.clay_roof_tile.sample_tiles_face_height_1 - pores.bowl - marks.bowl
         + raw_course_phase * params.clay_roof_tile.sample_tiles_face_height_2
         + lip
         + thickness
@@ -178,6 +184,9 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
     TileSample {
         height,
         tile_id: if coverage >= 0.5 { id } else { under_id },
+        upper_id: id,
+        lower_id: under_id,
+        coverage,
         contact,
         firing,
         edge_wear,
@@ -186,20 +195,13 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
 
 fn color_and_roughness(params: &crate::TextureParameters, sample: TileSample) -> ([u8; 3], u8) {
     let mineral = hash_unit(params, sample.tile_id ^ 0x1db5) - 0.5;
-    let kiln_shift = (sample.firing * params.clay_roof_tile.color_and_roughness_kiln_shift_1
-        + mineral * params.clay_roof_tile.color_and_roughness_kiln_shift_2
-        - sample.contact * 3.0)
-        .round() as i16;
-    let wear = (sample.edge_wear * params.clay_roof_tile.color_and_roughness_wear).round() as i16;
-    let mut color = [139_i16, 58, 41];
-    color[0] += kiln_shift + wear;
-    color[1] += kiln_shift / 2 + wear;
-    color[2] += kiln_shift / 3 + wear / 2;
-    let color = [
-        color[0].clamp(0, 255) as u8,
-        color[1].clamp(0, 255) as u8,
-        color[2].clamp(0, 255) as u8,
-    ];
+    let palette = &params.clay_roof_tile.palette;
+    let color = crate::SrgbColor(palette[sample.lower_id as usize % palette.len()])
+        .covered_by(
+            crate::SrgbColor(palette[sample.upper_id as usize % palette.len()]),
+            sample.coverage,
+        )
+        .0;
     let roughness = (params.clay_roof_tile.color_and_roughness_roughness_1
         - sample.firing * params.clay_roof_tile.color_and_roughness_roughness_2
         + mineral * params.clay_roof_tile.color_and_roughness_roughness_3
@@ -266,8 +268,7 @@ pub fn generate_clay_roof_tile_textures(
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
