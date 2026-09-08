@@ -43,7 +43,7 @@ the storey's room graph. The freeform grid remains permissive: a player-build
 document can represent a blocked stair, but `generate` rejects the same result
 from a procedural program.
 
-Ten curated programs exercise the current vocabulary:
+Twelve curated programmes exercise the current vocabulary:
 
 - `town-house`: narrow, two-storey timber-frame house with a steep street gable;
 - `hall-house`: broad hall plan beneath a steep half-hip roof;
@@ -54,6 +54,8 @@ Ten curated programs exercise the current vocabulary:
 - `renaissance-town-hall`: a broad civic building with an intersecting
   half-hip and cross-gable roofscape, a transverse wall dormer, smaller roof
   dormers, and stepped or curved gable details;
+- `workplace`: a working barn fixture; settlement uses select the other working programmes described below;
+- `parish-church`: a modest single-storey masonry church with nave, chancel and sacristy; and
 - `cathedral`: an east-oriented, four-bay, three-aisled cruciform basilica with
   a projecting transept, square crossing, two-bay choir, five-sided apse, and
   an integrated single west bell tower;
@@ -552,5 +554,50 @@ python scripts/render_city_layout_report.py target/city.json target/city.svg
 The report contains each lot's identity, use, service capacity, housing capacity,
 footprint and orientation, plus the actual streets and any capacity shortfalls.
 The SVG gives a building inventory and plot tooltips. Runtime palettes contain
-up to twelve recipes per residential family and two per service use, limiting
+up to twelve recipes per residential family and two per service use and size, limiting
 repeated structural compilation while varying ordinary street frontage.
+
+
+## Working buildings and plots
+
+Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
+premises), bakehouses and market halls use the `Workplace` structural family.
+Their capacity band selects a small, medium or large working footprint before
+city placement reserves the complete plot. Playable buildings and distant
+recipes carry the same size; roofs, yard fences, sheds and major equipment
+remain visible in both distant mesh representations.
+
+The workplace programme owns its wall bays and open passages. It does not run
+the residential wall/framing solver over a second copy of the envelope. Barns
+have broad through-passages, stables have repeated stalls and an open working
+side, and both reserve fenced yards with detached storage sheds. Granaries
+have ventilation openings, an upper loading opening, storage floors and stairs.
+Smithies and bakehouses have geometrically open furnace outlets and distinct
+working equipment. Market halls have open post-and-beam sides and trading
+counters. These are procedural architectural prototypes: machinery, fire and
+business activity are not simulated by the building generator.
+
+Parts retain stable geometry identities, material and purpose. Structural
+support, reserved plot bounds, required equipment and clear passages are audited;
+static collision consumes the same physical parts. Roofs continue through the
+existing roof resolver and audit. Generic grid-opening edits are rejected for
+this structural family; edit the working programme instead.
+
+Capture an actual GPU render, with the shared production texture recipes:
+
+```powershell
+cargo run -p adventuresim-building-generator --features viewer --bin workplace-viewer -- --kind stable --size medium --seed 42 --output target/workplace-captures/stable.png
+```
+
+Kinds are `barn`, `stable`, `granary`, `smithy`, `bakehouse` and `market-hall`.
+Add `--cutaway` to inspect the interior or `--representation shell` to inspect
+its distant silhouette. Each PNG has a JSON companion containing its programme,
+representation, structural audit and collision count. Cutaways remove surfaces
+only for the review render; the saved programme and collision remain complete.
+
+Capture all six families with exterior, cutaway and distant views into a fresh
+directory, together with an HTML review gallery:
+
+```powershell
+python scripts/capture_workplaces.py --output target/workplace-review
+```

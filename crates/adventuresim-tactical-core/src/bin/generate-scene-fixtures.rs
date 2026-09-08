@@ -296,11 +296,12 @@ fn massive_city_buildings() -> (
             .building_use()
             .unwrap_or(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling);
         let initial_seed = recipe_seeds[selection as usize % recipe_seeds.len()];
-        let key = (archetype.slug(), usage, initial_seed);
+        let size = lot.workplace_size();
+        let key = (archetype.slug(), usage, initial_seed, size);
         let program = recipes
             .entry(key)
             .or_insert_with(|| {
-                BuildingProgram::validated_settlement(archetype, usage, initial_seed)
+                BuildingProgram::validated_settlement(archetype, usage, initial_seed, size)
                     .expect("city fixture needs a valid occupied building recipe")
             })
             .clone();
@@ -315,6 +316,7 @@ fn massive_city_buildings() -> (
         } else {
             distant.push(DistantBuildingPlacement {
                 usage: Some(usage),
+                workplace_size: program.workplace_size,
                 id: lot.id,
                 archetype,
                 seed,

@@ -173,6 +173,7 @@ mod tests {
         }];
         let distant = [DistantBuildingPlacement {
             usage: None,
+            workplace_size: None,
             id: 2,
             archetype: BuildingArchetype::FachwerkCottage,
             seed: 7,

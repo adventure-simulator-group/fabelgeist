@@ -3,47 +3,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
         ClosureKind, OpeningHeadKind, OpeningProfile, OpeningUse, ResolvedItemId,
         WallMaterialClass, WallSourceId,
     };
-    let expected_walls = if let Some(church) = &plan.church {
-        usize::from(church.program.nave_bays) * 2
-            + usize::from(church.program.nave_bays) * 2
-            + usize::from(church.program.choir_bays) * 2
-            + 8
-            + usize::from(church.program.apse_sides)
-            + 8
-            + 4
-    } else {
-        plan.storeys
-            .iter()
-            .map(|storey| storey.walls.len())
-            .sum::<usize>()
-            + if matches!(
-                plan.archetype,
-                BuildingArchetype::CastleGatehouse
-                    | BuildingArchetype::CourtyardCastle
-                    | BuildingArchetype::WalledKeep
-                    | BuildingArchetype::ArtilleryRondelCastle
-            ) {
-                plan.towers.len()
-            } else {
-                0
-            }
-            + plan
-                .square_towers
-                .iter()
-                .filter(|tower| tower.bell_openings)
-                .count()
-                * 8
-            + if plan.archetype == BuildingArchetype::Cathedral {
-                2
-            } else {
-                0
-            }
-            + plan.roof_dormers.len()
-            + plan
-                .artillery_castle
-                .as_ref()
-                .map_or(0, |castle| castle.stations.len())
-    };
+    let expected_walls = wall_counts::expected_wall_count(plan);
     if plan.wall_assemblies.len() != expected_walls {
         issues.push(issue(
             "legacy_wall_not_migrated",
@@ -184,6 +144,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             }
             WallSourceId::StoreyWall { .. }
             | WallSourceId::CurtainWall { .. }
+            | WallSourceId::WorkplaceWall { .. }
             | WallSourceId::ArtilleryCurtain { .. }
             | WallSourceId::SquareTowerFace { .. }
             | WallSourceId::CathedralClerestory { .. }

@@ -7,6 +7,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Rectangle {
                 width: 10,
@@ -51,6 +52,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Courtyard {
                 width: 18,
@@ -100,6 +102,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             footprint: Footprint::Rectangle { width: 9, depth: 8 },
             storey_height_metres: 3.4,
@@ -150,6 +153,7 @@ impl BuildingProgram {
         Self {
             archetype,
             usage: None,
+            workplace_size: None,
             seed,
             // The room-grid footprint is the retained older keep. The
             // independent ArtilleryCastleAssembly owns the much larger

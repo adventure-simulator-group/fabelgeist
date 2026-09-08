@@ -39,6 +39,8 @@ include!("generator/timber_geometry.rs");
 include!("generator/timber.rs");
 include!("generator/roof_editing.rs");
 include!("generator/layout.rs");
+mod civilian_roofs;
+mod occupied_storeys;
 mod wall_material;
 use wall_material::wall_material_and_thickness;
 include!("generator/wall_derivation.rs");

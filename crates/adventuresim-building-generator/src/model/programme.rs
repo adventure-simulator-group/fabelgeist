@@ -206,6 +206,7 @@ pub enum BuildingArchetype {
     CourtyardCastle,
     WalledKeep,
     ArtilleryRondelCastle,
+    Workplace,
 }
 
 /// Frozen project type for the first cathedral kernel.  The orientation and
@@ -241,7 +242,7 @@ impl ChurchProgram {
 }
 
 impl BuildingArchetype {
-    pub const ALL: [Self; 11] = [
+    pub const ALL: [Self; 12] = [
         Self::TownHouse,
         Self::HallHouse,
         Self::FachwerkCottage,
@@ -249,6 +250,7 @@ impl BuildingArchetype {
         Self::RenaissanceTownHall,
         Self::Cathedral,
         Self::ParishChurch,
+        Self::Workplace,
         Self::CastleGatehouse,
         Self::CourtyardCastle,
         Self::WalledKeep,
@@ -264,6 +266,7 @@ impl BuildingArchetype {
             Self::RenaissanceTownHall => "renaissance-town-hall",
             Self::Cathedral => "cathedral",
             Self::ParishChurch => "parish-church",
+            Self::Workplace => "workplace",
             Self::CastleGatehouse => "castle-gatehouse",
             Self::CourtyardCastle => "courtyard-castle",
             Self::WalledKeep => "walled-keep",

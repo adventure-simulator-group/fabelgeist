@@ -32,7 +32,7 @@ const ROUND_LOD_SEGMENTS: usize = 24;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingLodLevel {
-    /// Joined wall runs, textured façade details, and geometric straight crowns.
+    /// Joined wall runs, textured faÃƒÂ§ade details, and geometric straight crowns.
     Facade,
     /// Joined shell surfaces with alpha-masked crown strips.
     Shell,
@@ -247,6 +247,13 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
         facade_runs,
         meshes: Vec::new(),
     };
+    if let Some(workplace) = &plan.workplace {
+        lod.facade_runs.retain(|run| {
+            !run.source_walls
+                .iter()
+                .any(|id| workplace.walls.contains(id))
+        });
+    }
     append_wall_envelopes(&mut lod);
     append_roofs(&mut lod, plan);
     if level == BuildingLodLevel::Facade {
@@ -254,6 +261,14 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
         append_timber_details(&mut lod, plan);
     }
     append_crowns(&mut lod, plan);
+    for batch in crate::detail::compile_workplace_lod(plan).meshes {
+        let target = lod.mesh_mut(batch.material);
+        let offset = target.vertices.len() as u32;
+        target.vertices.extend(batch.vertices);
+        target
+            .indices
+            .extend(batch.indices.into_iter().map(|index| index + offset));
+    }
     lod.meshes
         .retain(|mesh| !mesh.vertices.is_empty() && !mesh.indices.is_empty());
     lod
@@ -444,14 +459,15 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
             }
         }
         for face in &assembly.enclosure_faces {
-            let mesh = lod.mesh_mut(roof_lod_material(lod.level, face.material));
+            let mesh = lod.mesh_mut(plan.workplace.as_ref().map_or_else(
+                || roof_lod_material(lod.level, face.material),
+                |workplace| workplace.gable_material().render_material(),
+            ));
             for triangle in tessellate_roof_enclosure(face) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,
-                    triangle
-                        .positions
-                        .map(|point| Vec2::new(point.x, point.z) / TEXTURE_REPEAT_METRES),
+                    triangle.planar_uvs(TEXTURE_REPEAT_METRES),
                 );
             }
         }

@@ -1,7 +1,7 @@
 //! Reserve service lots before filling remaining frontage with residents.
 use super::*;
 use adventuresim_building_generator::{
-    BuildingArchetype, BuildingProgram, CELL_SIZE_METRES, settlement_archetype,
+    BuildingArchetype, BuildingProgram, WorkplaceSize, settlement_archetype,
 };
 use adventuresim_world_schema::settlement_buildings::BuildingDistrict;
 
@@ -20,6 +20,15 @@ impl CityBuildingLot {
         self.building_use()
             .map(settlement_archetype)
             .unwrap_or_else(|| self.house_class.archetype())
+    }
+
+    pub fn workplace_size(self) -> Option<adventuresim_building_generator::WorkplaceSize> {
+        self.service.and_then(|request| {
+            adventuresim_building_generator::WorkplaceSize::for_capacity(
+                request.usage,
+                request.capacity,
+            )
+        })
     }
 
     pub fn dimensions_metres(self) -> Vec2 {
@@ -49,10 +58,15 @@ pub(super) fn place_services(
                 ^ u64::from(request.ordinal),
         );
         let district = request.usage.definition().district;
-        let (width, depth) = BuildingProgram::fixture(settlement_archetype(request.usage), 0)
-            .footprint
-            .dimensions();
-        let footprint = Vec2::new(f32::from(width), f32::from(depth)) * CELL_SIZE_METRES;
+        let mut program = BuildingProgram::settlement(
+            settlement_archetype(request.usage),
+            Some(request.usage),
+            0,
+        );
+        if let Some(size) = WorkplaceSize::for_capacity(request.usage, request.capacity) {
+            program = program.with_workplace_size(size);
+        }
+        let footprint = program.plot_dimensions_metres();
         let mut choices = candidates
             .iter()
             .filter(|candidate| !candidate.rear_court)

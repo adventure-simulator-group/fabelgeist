@@ -64,6 +64,7 @@ pub enum StructuralNodeKind {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SolidRole {
+    WorkplacePart,
     LoadBearing,
     Breastwork,
     Merlon,
