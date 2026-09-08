@@ -7,6 +7,7 @@ use super::tactical_covered_parts;
 
 pub(super) fn projected_parametric_weapon(
     item: &ConnectedPlayerItem,
+    parameters: adventuresim_core::combat::WeaponContactParameters,
 ) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
     let Some(appearance) = item.weapon_appearance.as_ref() else {
         assert!(
@@ -15,13 +16,13 @@ pub(super) fn projected_parametric_weapon(
         );
         return None;
     };
-    parametric_combat_geometry(&item.item.id, item.item.reach, appearance)
+    parametric_combat_geometry(&item.item.id, appearance, parameters)
 }
 
 pub(super) fn parametric_combat_geometry(
     item_id: &str,
-    catalog_melee_reach_m: f32,
     appearance: &adventuresim_stdb_client::ConnectedWeaponAppearance,
+    parameters: adventuresim_core::combat::WeaponContactParameters,
 ) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
     use adventuresim_weapon_model::{GENERATOR_VERSION, decode, derive_properties, design_hash};
     assert_eq!(appearance.generator_version, GENERATOR_VERSION);
@@ -29,10 +30,6 @@ pub(super) fn parametric_combat_geometry(
     assert_eq!(design.catalog_id, item_id);
     assert_eq!(design_hash(&design).0.as_slice(), appearance.design_hash);
     let derived = derive_properties(&design).expect("strategic authority sent a valid recipe");
-    let default_grip = adventuresim_weapon_model::default_design(item_id)
-        .and_then(|design| derive_properties(&design).ok())
-        .expect("parametric weapon has a canonical default recipe")
-        .grip_to_tip_m;
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
         derived.length_m,
@@ -40,8 +37,7 @@ pub(super) fn parametric_combat_geometry(
         derived.striking_head_length_m,
         derived.moment_of_inertia_kg_m2,
         derived.balance,
-        catalog_melee_reach_m,
-        default_grip,
+        parameters.precision_for_design(&design).value(),
     )
 }
 

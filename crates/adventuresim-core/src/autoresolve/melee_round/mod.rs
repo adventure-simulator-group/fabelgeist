@@ -437,6 +437,21 @@ mod tests {
     use super::*;
 
     #[test]
+    fn short_generated_sword_recovers_from_haft_only_measure() {
+        let (fighter, _) = crate::autoresolve::melee_iteration_roster().unwrap();
+        let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+        assert_eq!(
+            movement_intent(&fighter.combatant, 0.01, parameters),
+            MovementIntent::Retreat
+        );
+        let preferred = preferred_melee_measure(&fighter.combatant, parameters);
+        assert_eq!(
+            movement_intent(&fighter.combatant, preferred, parameters),
+            MovementIntent::Hold
+        );
+    }
+
+    #[test]
     fn exact_reach_boundary_is_attackable_but_outside_measure_closes() {
         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
         let mut fighter = Combatant::new(1);

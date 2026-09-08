@@ -1,6 +1,12 @@
-schema_version: 7
+schema_version: 8
 
 resolution:
+  contact:
+    reference_control_length_metres: 1.0
+    point_reference_area_mm2: 2550.0
+    edge_reference_area_mm2: 800.0
+    broad_reference_area_mm2: 920.0
+    unarmed_precision: 0.0
   fatigue:
     mechanical_efficiency: 0.25
     capacity_joules_per_endurance: 16000.0

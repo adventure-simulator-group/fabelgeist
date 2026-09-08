@@ -44,7 +44,7 @@ const COMBAT_KEYS: &[&str] = &[
     "weight_kg",
     "attack",
     "ranged",
-    "precision_bonus_milli",
+    "precision_milli",
     "training_multiplier_milli",
     "perception",
     "stealth",
@@ -585,11 +585,11 @@ pub fn validate_documents(documents: &[Value], files: &[String]) -> Result<(), S
                                 "{at}.combat: bow attack and ranged flag must agree"
                             ));
                         }
-                        signed(
+                        unsigned(
                             combat,
-                            "precision_bonus_milli",
-                            i32::MIN.into(),
-                            i32::MAX.into(),
+                            "precision_milli",
+                            1,
+                            u16::MAX.into(),
                             &format!("{at}.combat"),
                         )?;
                         unsigned(

@@ -157,6 +157,7 @@ fn weapon_defense_alignment(
     response: DefenderResponse,
     sample: f32,
     contact_at_time: MeleeContactAtTime,
+    contact_parameters: adventuresim_core::combat::WeaponContactParameters,
 ) -> Option<adventuresim_core::combat::WeaponDefenseAlignment> {
     response.is_weapon_contact().then(|| {
         let attack_value = adventuresim_core::combat::melee_attack_value_by_parts(
@@ -178,6 +179,7 @@ fn weapon_defense_alignment(
             defender,
             defender,
             defender,
+            contact_parameters,
         );
         resolve_weapon_defense_alignment(response, attack_value, sample)
     })
@@ -190,7 +192,6 @@ fn weapon_defense_alignment(
 fn contact_after_defense(
     attacker: &TacticalPlayerView<'_, '_, '_>,
     defender: &TacticalPlayerView<'_, '_, '_>,
-    defender_categories: &[BestiaryCategory],
     attacker_side: BodySide,
     attack_style: MeleeAttackStyle,
     response: DefenderResponse,
@@ -203,7 +204,6 @@ fn contact_after_defense(
     super::contact::resolve_melee_contact(
         attacker,
         defender,
-        defender_categories,
         config.resolution,
         attacker_side,
         attack_style,
@@ -231,7 +231,6 @@ pub(super) fn resolve_melee_attack(
     mut q_states: Query<&mut TacticalCombatState>,
     mut q_skeletons: Query<&mut SkeletonState>,
     mut q_authorities: Query<&mut MeleeAttackAuthority>,
-    q_bestiary_categories: Query<&BestiaryCategories>,
     q_pending: Query<&PendingDefenderResponse>,
     q_scene_items: Query<Entity, With<TacticalSceneItem>>,
     time: Res<Time<()>>,
@@ -356,11 +355,6 @@ pub(super) fn resolve_melee_attack(
     cmd.entity(attack.target())
         .remove::<PendingDefenderResponse>();
 
-    let fallback_categories = BestiaryCategories::default();
-    let defender_categories = q_bestiary_categories
-        .get(attack.target())
-        .unwrap_or(&fallback_categories);
-
     let impaired_precision =
         ReportedPrecision::new(attack.reported_precision().get() * attacker_performance)
             .expect("incapacitation preserves finite bounded precision");
@@ -374,6 +368,7 @@ pub(super) fn resolve_melee_attack(
         attempted_defender_response,
         defense_alignment_sample,
         contact_at_time,
+        config.resolution.contact,
     );
     let effective_defender_response =
         defense_alignment.map_or(attempted_defender_response, |alignment| alignment.effective);
@@ -390,7 +385,6 @@ pub(super) fn resolve_melee_attack(
     let (contact, result) = contact_after_defense(
         &attacker_view,
         &defender_view,
-        &defender_categories.0,
         attacker_side,
         attack_style,
         effective_defender_response,

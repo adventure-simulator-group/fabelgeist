@@ -83,6 +83,7 @@ pub fn melee_attack_value_by_parts(
     defender_body: &impl PlayerBody,
     defender_essentials: &impl PlayerEssentials,
     defender_equip: &impl PlayerEquipment,
+    contact_parameters: super::WeaponContactParameters,
 ) -> f32 {
     let accuracy = melee_attack_accuracy_by_parts(
         attacker_skills,
@@ -93,6 +94,7 @@ pub fn melee_attack_value_by_parts(
         attacker_side,
         attack_style,
         hit_precision,
+        contact_parameters,
     );
     let defense = match defender_response {
         DefenderResponse::None => 0.0,
@@ -132,8 +134,9 @@ pub fn melee_attack_accuracy_by_parts(
     attacker_essentials: &impl PlayerEssentials,
     attacker_equip: &impl PlayerEquipment,
     attacker_side: BodySide,
-    attack_style: crate::combat_style::MeleeAttackStyle,
+    _attack_style: crate::combat_style::MeleeAttackStyle,
     hit_precision: f32,
+    contact_parameters: super::WeaponContactParameters,
 ) -> f32 {
     let weights = LimbWeights::arm(attacker_side, attacker_body.primary_side());
     attacker_equip
@@ -148,7 +151,7 @@ pub fn melee_attack_accuracy_by_parts(
                 weights,
             )
         })
-        * attacker_equip.weapon_melee_precision(attack_style)
+        * contact_parameters.handling_accuracy(attacker_equip)
         * hit_precision.clamp(0.0, 1.0)
 }
 
@@ -379,6 +382,7 @@ mod tests {
                 body,
                 &defender.essentials,
                 &defender.equipment,
+                crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
             )
         };
         let mut impaired_arms = defender.body.clone();

@@ -31,6 +31,30 @@ pub fn catalog() -> &'static [ItemDefinition] {
                 .flat_map(|document| document.items)
                 .collect();
             for item in &mut items {
+                if let ItemKind::Weapon {
+                    melee: true,
+                    precision,
+                    reach_m,
+                    moment_of_inertia_kg_m2,
+                    ..
+                } = &mut item.kind
+                {
+                    let design = adventuresim_weapon_model::default_design(&item.id)
+                        .expect("every melee catalog weapon requires a generated recipe");
+                    let physical = adventuresim_weapon_model::derive_properties(&design)
+                        .expect("valid generated catalog weapon");
+                    *precision = crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
+                        .contact
+                        .precision_for_design(&design)
+                        .value();
+                    *reach_m = physical.grip_to_tip_m;
+                    *moment_of_inertia_kg_m2 = physical.moment_of_inertia_kg_m2;
+                    item.weight_kg = physical.mass_kg;
+                    if let Some(equipment) = &mut item.equipment {
+                        equipment.physical.grip_to_tip_m = physical.grip_to_tip_m;
+                        equipment.physical.dimensions_m[1] = physical.length_m;
+                    }
+                }
                 let Some(equipment) = &item.equipment else {
                     continue;
                 };
@@ -97,6 +121,13 @@ pub fn weapon_carry(id: &str) -> Option<WeaponCarry> {
 pub fn weapon_handling(id: &str) -> Option<WeaponHandling> {
     match &definition(id)?.kind {
         ItemKind::Weapon { handling, .. } => Some(*handling),
+        _ => None,
+    }
+}
+
+pub fn weapon_precision(id: &str) -> Option<f32> {
+    match &definition(id)?.kind {
+        ItemKind::Weapon { precision, .. } => Some(*precision),
         _ => None,
     }
 }

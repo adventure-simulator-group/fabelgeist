@@ -878,7 +878,16 @@ export function hammerPoll(parameters, offset = [0, 0, 0], label = "hammer poll"
 }
 
 export function curvedBlade(parameters, offset = [0, 0, 0], label = "blade") {
-  return prism(curvedBladeOutline(parameters), parameters.thickness, "steel", offset, label);
+  return shapedPlate(curvedBladeOutline(parameters), (x, y) => {
+    const t = Math.max(0, Math.min(1, y / parameters.length));
+    const center = (parameters.curvature ?? 0) * t * t;
+    const halfWidth = parameters.width * 0.5 * ((parameters.tipWidth ?? 0.025) + (1 - (parameters.tipWidth ?? 0.025)) * (1 - t) ** (parameters.taper ?? 1.25)) * (1 + (parameters.belly ?? 0) * Math.sin(Math.PI * t));
+    const singleEdge = parameters.singleEdge ?? 0;
+    const left = center - halfWidth * (1 - singleEdge), right = center + halfWidth * (1 + singleEdge);
+    const ridge = left + (right - left) * (1 - singleEdge) / 2;
+    const bevel = x < ridge ? (x - left) / Math.max(ridge - left, 1e-9) : (right - x) / Math.max(right - ridge, 1e-9);
+    return 0.0006 + (parameters.thickness * (1 - 0.65 * t) - 0.0006) * Math.max(0, Math.min(1, bevel));
+  }, "steel", offset, label);
 }
 
 export function curvedBladeOutline(parameters) {
@@ -1398,7 +1407,7 @@ export function sectionBlade(parameters, offset = [0, 0, 0], label = "sectioned 
         [halfWidth * 0.28, halfDepth * 0.32],
         [halfWidth * 0.72, halfDepth],
         [halfWidth, 0],
-        [0, -halfDepth * 0.8],
+        [0, -halfDepth],
       ];
     return [
       [-halfWidth, 0],
@@ -1503,71 +1512,24 @@ export function partisanBlade(parameters, offset = [0, 0, 0], label = "partisan 
   );
 }
 
-export function glaiveSpineCurveSpans(parameters) {
-  const { length: bladeLength, width, curvature = 0.1 } = parameters,
-    apexX = curvature * 0.42;
-  const spineCurve = parameters.spineCurvature ?? 0.2,
-    pointLength = parameters.pointLength ?? 0.24;
-  const apex = [apexX, bladeLength],
-    spineTop = [apexX - width * 0.1, bladeLength * (1 - pointLength)],
-    spineLower = [-width * 0.42, bladeLength * 0.18];
-  const spineJoinHandle = [-width * 0.08, -bladeLength * pointLength * 0.12];
-  return [
-    {
-      name: "apex-to-spine",
-      points: [apex, [apexX - width * 0.012, bladeLength * 0.96], [spineTop[0] - spineJoinHandle[0], spineTop[1] - spineJoinHandle[1]], spineTop],
-      end: "spineTop",
-    },
-    {
-      name: "spine-to-root",
-      points: [spineTop, [spineTop[0] + spineJoinHandle[0], spineTop[1] + spineJoinHandle[1]], [-width * (0.34 + spineCurve * 0.04), bladeLength * 0.31], spineLower],
-      start: "spineTop",
-    },
-  ];
-}
-
 export function glaiveOutline(parameters) {
-  const { length: bladeLength, width, curvature = 0.1, root = 0.035 } = parameters,
-    apexX = curvature * 0.42;
-  const rootLength = parameters.rootLength ?? 0.08,
-    belly = parameters.bellyPosition ?? 0.42,
-    edgeCurve = parameters.edgeCurvature ?? 0.24,
-    spineCurve = parameters.spineCurvature ?? 0.2,
-    pointLength = parameters.pointLength ?? 0.24;
-  const points = [
-    [-root, -rootLength],
-    [root, -rootLength],
-    [root * 1.18, bladeLength * 0.025],
-    [width * 0.48, bladeLength * 0.12],
-  ];
-  const edgeLimit = 1 - pointLength * 0.34,
-    quality = {
-      minimumSegments: 12,
-      maxChord: bladeLength / 28,
-      maxDeviation: width / 180,
-    };
-  appendCurve(
-    points,
-    sampleAdaptiveCurve((u) => {
-      const t = u * edgeLimit;
-      return [apexX + (1 - t) * width * (0.54 + edgeCurve * Math.sin(Math.PI * Math.min(1, t / Math.max(0.1, belly)))), bladeLength * (0.08 + (0.84 - pointLength * 0.34) * t)];
-    }, quality),
-  );
-  const nearApex = points.at(-1),
-    apex = [apexX, bladeLength],
-    spineTop = [apexX - width * 0.1, bladeLength * (1 - pointLength)],
-    spineLower = [-width * 0.42, bladeLength * 0.18],
-    rootShoulder = [-root * 1.18, bladeLength * 0.025];
-  appendCurve(points, sampleCubicBezier([nearApex, [nearApex[0] * 0.72 + apexX * 0.28, bladeLength * 0.86], [apexX + width * 0.006, bladeLength * 0.96], apex], { ...quality, minimumSegments: 4 }));
-  const spineSpans = glaiveSpineCurveSpans(parameters);
-  appendCurve(points, sampleCubicBezier(spineSpans[0].points, { ...quality, minimumSegments: 4 }));
-  appendCurve(points, sampleCubicBezier(spineSpans[1].points, quality));
-  appendCurve(points, sampleCubicBezier([spineLower, [-width * 0.32, bladeLength * 0.13], [-root * 1.45, bladeLength * 0.05], rootShoulder], { ...quality, minimumSegments: 4 }));
-  return points;
+  const { length, width, root = 0.035, curvature = 0.1 } = parameters;
+  const belly = parameters.bellyPosition ?? 0.42, point = parameters.pointLength ?? 0.24;
+  const boundary = (side) => sampleAdaptiveCurve((t) => {
+    const bellyPhase = t < belly ? t / belly : (1 - t) / (1 - belly);
+    const swelling = Math.sin(Math.PI * bellyPhase / 2) ** 2;
+    const tip = Math.max(0, Math.min(1, (1 - t) / point));
+    const proportion = side > 0 ? 0.75 + (parameters.edgeCurvature ?? 0.24) * 0.2 : 0.25 + (parameters.spineCurvature ?? 0.2) * 0.2;
+    const breadth = (root / 2 * (1 - swelling) + width * swelling * proportion) * tip;
+    return [curvature * t * t + side * breadth, length * t];
+  }, { minimumSegments: 18, maxChord: length / 28, maxDeviation: width / 220 });
+  const edge = boundary(1), spine = boundary(-1);
+  spine.pop();
+  return [[root / 2, -(parameters.rootLength ?? 0.08)], ...edge, ...spine.reverse(), [-root / 2, -(parameters.rootLength ?? 0.08)]];
 }
 
 export function glaiveBlade(parameters, offset = [0, 0, 0], label = "glaive blade") {
-  return prism(glaiveOutline(parameters), parameters.thickness, "steel", offset, label);
+  return shapedPlate(glaiveOutline(parameters), (_x, y) => parameters.thickness * (1 - 0.6 * Math.max(0, Math.min(1, y / parameters.length))), "steel", offset, label);
 }
 
 function shieldCurve(component, x, y) {

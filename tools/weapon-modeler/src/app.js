@@ -143,7 +143,7 @@ elements["apply-definition"].addEventListener("click", () => {
 composer.build.addEventListener("click", () => {
   const definition = composeWeapon(composer.haft.value, composer.head.value), controls = compositionControls(definition), validation = validateWeapon(definition, controls, { lod: lod.value });
   if (!validation.valid) { composer.status.textContent = `Composition rejected: ${validation.errors.join(" · ")}`; return; }
-  active = { id: "composed", name: `${composer.haft.selectedOptions[0].textContent} + ${composer.head.selectedOptions[0].textContent}`, family: "Composed preview", description: "A validated modular assembly built from independent haft and head modules.", definition, controls };
+  active = { id: "composed", name: `${composer.haft.selectedOptions[0].textContent} + ${composer.head.selectedOptions[0].textContent}`, family: "Composed preview", description: "A construction study built from independent haft and head modules. Technical validation does not establish period authenticity.", definition, controls };
   elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description; renderControls(); rebuild(true); composer.status.textContent = "Composition valid: attachments, winding, manifold topology, and camera fit passed.";
 });
 

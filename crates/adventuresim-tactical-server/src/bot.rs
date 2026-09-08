@@ -438,20 +438,15 @@ mod tests {
             striking_material:
                 adventuresim_core::item_catalog_schema::EquipmentMaterial::RoughSteel,
             skill_weights: [0.0; 9],
-            accuracy: 1.0,
-            swing_precision: 0.45,
-            stab_precision: 0.6,
+
             prefers_stab: false,
-            penetration: 1.0,
+            precision: 1.0,
             reach: KATZBALGER_REACH,
             grip_to_tip_m: KATZBALGER_REACH,
             moment_of_inertia_kg_m2: 0.0,
-            precise: false,
+
             melee: true,
             ranged: false,
-            blunt: false,
-            slash: true,
-            pierce: false,
         });
         world.entity_mut(weapon).insert(EquipSlot::HoldingRight);
         actor
@@ -486,20 +481,15 @@ mod tests {
             striking_material:
                 adventuresim_core::item_catalog_schema::EquipmentMaterial::RoughSteel,
             skill_weights: [0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0],
-            accuracy: 1.0,
-            swing_precision: 0.45,
-            stab_precision: 0.6,
+
             prefers_stab: false,
-            penetration: 1.0,
+            precision: 1.0,
             reach: TEST_WEAPON_REACH,
             grip_to_tip_m: 1.0,
             moment_of_inertia_kg_m2: 0.0,
-            precise: false,
+
             melee: true,
             ranged: true,
-            blunt: false,
-            slash: false,
-            pierce: true,
         });
         world.entity_mut(weapon).insert(EquipSlot::HoldingRight);
         let ammo = world

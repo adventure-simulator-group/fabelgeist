@@ -8,6 +8,7 @@ mod design;
 mod editor;
 mod hash;
 mod icon;
+mod mass_properties;
 mod mesh;
 mod validation;
 
@@ -29,7 +30,7 @@ pub use mesh::{GenerateError, generate, generate_holder};
 pub use validation::{ValidationError, validate, validate_holder};
 
 pub const SCHEMA_VERSION: u16 = 5;
-pub const GENERATOR_VERSION: u16 = 7;
+pub const GENERATOR_VERSION: u16 = 8;
 pub const HOLDER_SCHEMA_VERSION: u16 = 1;
 pub const HOLDER_GENERATOR_VERSION: u16 = 1;
 
@@ -37,3 +38,6 @@ pub const HOLDER_GENERATOR_VERSION: u16 = 1;
 pub const MAX_ROUND_GRIP_RADIUS_MM: u32 = 22;
 pub const MAX_SWORD_GRIP_WIDTH_MM: u32 = 38;
 pub const MAX_SWORD_GRIP_THICKNESS_MM: u32 = 28;
+
+/// Finite cutting-edge land retained by forged plate meshes, in metres.
+pub(crate) const CUTTING_EDGE_THICKNESS_M: f32 = 0.0006;

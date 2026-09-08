@@ -77,20 +77,13 @@ impl InventoryItems {
 pub struct WeaponItem {
     pub striking_material: EquipmentMaterial,
     pub skill_weights: [f32; 9],
-    pub accuracy: f32,
-    pub swing_precision: f32,
-    pub stab_precision: f32,
     pub prefers_stab: bool,
-    pub penetration: f32,
+    pub precision: f32,
     pub reach: f32,
     pub grip_to_tip_m: f32,
     pub moment_of_inertia_kg_m2: f32,
-    pub precise: bool,
     pub melee: bool,
     pub ranged: bool,
-    pub blunt: bool,
-    pub slash: bool,
-    pub pierce: bool,
 }
 
 #[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq)]
@@ -404,27 +397,6 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
             throw: w[8],
         }
     }
-    fn weapon_accuracy(&self) -> f32 {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .map(|weapon| weapon.accuracy)
-            .unwrap_or_default()
-    }
-
-    fn weapon_swing_precision(&self) -> f32 {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .map(|weapon| weapon.swing_precision)
-            .unwrap_or(adventuresim_core::combat::UNARMED_SWING_PRECISION)
-    }
-
-    fn weapon_stab_precision(&self) -> f32 {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .map(|weapon| weapon.stab_precision)
-            .unwrap_or(adventuresim_core::combat::UNARMED_STAB_PRECISION)
-    }
-
     fn weapon_preferred_melee_style(&self) -> MeleeAttackStyle {
         if self
             .equipped_weapon()
@@ -453,24 +425,6 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
         self.equipped_weapon()
             .and_then(|item| item.weapon)
             .is_none()
-    }
-
-    fn weapon_does_blunt(&self) -> bool {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .is_none_or(|weapon| weapon.blunt)
-    }
-
-    fn weapon_does_slash(&self) -> bool {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .is_some_and(|weapon| weapon.slash)
-    }
-
-    fn weapon_does_pierce(&self) -> bool {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .is_some_and(|weapon| weapon.pierce)
     }
 
     fn weapon_holding_side(&self) -> Option<BodySide> {
@@ -539,13 +493,6 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
         self.melee_timing_for(style).recovery_secs
     }
 
-    fn weapon_is_precise(&self) -> bool {
-        self.equipped_weapon()
-            .and_then(|item| item.weapon)
-            .map(|weapon| weapon.precise)
-            .unwrap_or_default()
-    }
-
     fn weapon_balance(&self) -> f32 {
         match self.striking_item() {
             Some(item) if item.weapon.is_some() => {
@@ -597,11 +544,11 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
             .unwrap_or_default()
     }
 
-    fn weapon_penetration(&self) -> f32 {
+    fn weapon_precision(&self) -> f32 {
         self.equipped_weapon()
             .and_then(|item| item.weapon)
-            .map(|weapon| weapon.penetration)
-            .unwrap_or(1.0)
+            .map(|weapon| weapon.precision)
+            .unwrap_or_default()
     }
 
     fn armor_resistance(&self, part: BodyPart) -> f32 {
@@ -733,14 +680,7 @@ mod tests {
             inventory.get(owner).weapon_skill_distribution(),
             adventuresim_core::equipment::WeaponSkillDistribution::UNARMED
         );
-        assert_eq!(
-            inventory.get(owner).weapon_swing_precision(),
-            adventuresim_core::combat::UNARMED_SWING_PRECISION
-        );
-        assert_eq!(
-            inventory.get(owner).weapon_stab_precision(),
-            adventuresim_core::combat::UNARMED_STAB_PRECISION
-        );
+        assert_eq!(inventory.get(owner).weapon_precision(), 0.0);
     }
 
     #[test]
@@ -754,20 +694,15 @@ mod tests {
                 WeaponItem {
                     striking_material: EquipmentMaterial::RoughSteel,
                     skill_weights: [0.0; 9],
-                    accuracy: 0.0,
-                    swing_precision: 0.0,
-                    stab_precision: 0.0,
+
                     prefers_stab: false,
-                    penetration: 0.0,
+                    precision: 0.0,
                     reach: 1.0,
                     grip_to_tip_m: 1.0,
                     moment_of_inertia_kg_m2: 0.0,
-                    precise: false,
+
                     melee: true,
                     ranged: false,
-                    blunt: false,
-                    slash: true,
-                    pierce: false,
                 },
             ))
             .id();

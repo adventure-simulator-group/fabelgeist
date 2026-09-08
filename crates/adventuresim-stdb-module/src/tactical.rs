@@ -431,15 +431,10 @@ fn connected_player_items(
                 .find(inventory_item.id);
             if let Some(condition) = &condition {
                 let damage = condition.bins();
-                item.accuracy = adventuresim_core::durability::effective_weapon_stat(
-                    item.accuracy,
+                item.precision = adventuresim_core::durability::effective_weapon_stat(
+                    item.precision,
                     damage,
                     item.edge_sensitivity,
-                );
-                item.penetration = adventuresim_core::durability::effective_weapon_stat(
-                    item.penetration,
-                    damage,
-                    item.edge_sensitivity * 0.6,
                 );
                 item.block = adventuresim_core::durability::effective_weapon_stat(
                     item.block,

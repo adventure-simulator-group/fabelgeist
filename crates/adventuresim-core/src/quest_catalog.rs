@@ -130,7 +130,7 @@ pub struct MonsterCombat {
     pub weight_kg: f32,
     pub attack: String,
     pub ranged: bool,
-    pub precision_bonus_milli: i32,
+    pub precision_milli: u16,
     pub training_multiplier_milli: u16,
     pub perception: u8,
     pub stealth: u8,

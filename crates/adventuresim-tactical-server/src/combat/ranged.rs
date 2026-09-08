@@ -16,7 +16,6 @@ pub(super) fn resolve_ranged_attack(
     q_states: Query<&TacticalCombatState>,
     q_skeletons: Query<&SkeletonState>,
     mut q_authorities: Query<&mut RangedAttackAuthority>,
-    q_bestiary_categories: Query<&BestiaryCategories>,
     q_pending: Query<&PendingDefenderResponse>,
     q_scene_items: Query<Entity, With<TacticalSceneItem>>,
     q_ammo: Query<(Entity, &ItemOf, &ItemProperties, &TacticalItemQuantity)>,
@@ -144,10 +143,7 @@ pub(super) fn resolve_ranged_attack(
         &config.realtime_authority.defense,
     );
     cmd.entity(target).remove::<PendingDefenderResponse>();
-    let fallback_categories = BestiaryCategories::default();
-    let defender_categories = q_bestiary_categories
-        .get(target)
-        .unwrap_or(&fallback_categories);
+
     let attacker_performance = q_states.get(attacker).map_or(1.0, |state| {
         combat_incapacitation_performance(state.incapacitation)
     });
@@ -158,7 +154,6 @@ pub(super) fn resolve_ranged_attack(
     let result = attacker_view.resolve_ranged_attack(
         config.resolution,
         &defender_view,
-        &defender_categories.0,
         defender_response,
         shot.reported_precision().get() * attacker_performance,
         flanking,

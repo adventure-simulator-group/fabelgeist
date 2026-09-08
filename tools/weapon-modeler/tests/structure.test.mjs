@@ -363,7 +363,7 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
   const badFit = composeWeapon("wooden-polearm", "spear"),
     socket = badFit.components.find((part) => part.kind === "socket");
   socket.fitShaft = false;
-  socket.profile = socket.profile.map(([y]) => [y, 0.02]);
+  socket.profile = socket.profile.map(([y]) => [y, badFit.shaft.radius * 0.8]);
   assert.ok(validateWeapon(badFit, compositionControls(badFit)).errors.some((error) => error.includes("cannot fit shaft")));
   const mace = composeWeapon("steel-one-hand", "flanged-mace");
   mace.components.find((part) => part.id === "head").offset = [4, 4, 4];

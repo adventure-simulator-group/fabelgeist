@@ -727,19 +727,15 @@ mod debug_dump_world_tests {
                     striking_material:
                         adventuresim_core::item_catalog_schema::EquipmentMaterial::RoughSteel,
                     skill_weights: [0.0; 9],
-                    accuracy: 1.0,
-                    penetration: 1.0,
+
+                    precision: 1.0,
                     reach: 0.8,
                     grip_to_tip_m: 0.8,
                     moment_of_inertia_kg_m2: 0.0,
-                    precise: false,
+
                     melee: true,
                     ranged: false,
-                    blunt: false,
-                    slash: true,
-                    pierce: false,
-                    swing_precision: 0.0,
-                    stab_precision: 0.0,
+
                     prefers_stab: false,
                 },
             ))

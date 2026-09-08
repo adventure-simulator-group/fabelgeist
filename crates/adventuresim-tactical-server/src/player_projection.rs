@@ -785,7 +785,7 @@ fn spawn_connected_player(
         };
         let item_entity = tactical_items[&item.inventory_item_id];
         let mut item_cmd = cmd.entity(item_entity);
-        let instance_geometry = projected_parametric_weapon(item);
+        let instance_geometry = projected_parametric_weapon(item, combat_config.resolution.contact);
         let weapon_appearance = projected_weapon_appearance(item);
         let weapon_holder_appearance = projected_holder_appearance(item);
         item_cmd.insert((
@@ -883,14 +883,13 @@ fn spawn_connected_player(
                         item.item.weapon_skills.firearm,
                         item.item.weapon_skills.throw,
                     ],
-                    accuracy: item.item.accuracy,
-                    swing_precision: item.item.swing_precision,
-                    stab_precision: item.item.stab_precision,
                     prefers_stab: matches!(
                         item.item.preferred_melee_style,
                         adventuresim_stdb_client::MeleeAttackStyle::Stab
                     ),
-                    penetration: item.item.penetration,
+                    precision: instance_geometry.map_or(item.item.precision, |value| {
+                        value.conditioned_precision(&item.item.id, item.item.precision)
+                    }),
                     reach: instance_geometry.map_or(item.item.reach, |value| value.melee_reach_m()),
                     grip_to_tip_m: instance_geometry
                         .map_or(equipment.physical.grip_to_tip_m, |value| {
@@ -900,12 +899,8 @@ fn spawn_connected_player(
                         .map_or(item.item.moment_of_inertia_kg_m_2, |value| {
                             value.moment_of_inertia_kg_m2
                         }),
-                    precise: item.item.precise,
                     melee: item.item.melee,
                     ranged: item.item.ranged,
-                    blunt: item.item.blunt,
-                    slash: item.item.slash,
-                    pierce: item.item.pierce,
                 });
             }
             PersistedItemKind::Armor | PersistedItemKind::Clothing => {}
@@ -2337,19 +2332,15 @@ mod standalone_join_tests {
                     striking_material:
                         adventuresim_core::item_catalog_schema::EquipmentMaterial::RoughSteel,
                     skill_weights: [0.0; 9],
-                    accuracy: 1.0,
-                    penetration: 1.0,
+
+                    precision: 1.0,
                     reach: 0.8,
                     grip_to_tip_m: 0.8,
                     moment_of_inertia_kg_m2: 0.0,
-                    precise: false,
+
                     melee: true,
                     ranged: false,
-                    blunt: false,
-                    slash: true,
-                    pierce: false,
-                    swing_precision: 0.0,
-                    stab_precision: 0.0,
+
                     prefers_stab: false,
                 },
             ))
@@ -2479,8 +2470,18 @@ mod tests {
             length_m: 0.0,
             grip_to_tip_m: 0.0,
         };
-        let short = parametric_combat_geometry("halberd", 2.0, &appearance(&short)).unwrap();
-        let long = parametric_combat_geometry("halberd", 2.0, &appearance(&long)).unwrap();
+        let short = parametric_combat_geometry(
+            "halberd",
+            &appearance(&short),
+            adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
+        )
+        .unwrap();
+        let long = parametric_combat_geometry(
+            "halberd",
+            &appearance(&long),
+            adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
+        )
+        .unwrap();
 
         assert!((short.melee_reach_m() - 2.0).abs() < 1.0e-6);
         assert!(long.melee_reach_m() > short.melee_reach_m() + 0.10);

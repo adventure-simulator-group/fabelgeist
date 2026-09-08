@@ -2501,13 +2501,14 @@ mod tests {
             );
         }
         let halberd = crate::item_catalog::definition("halberd").unwrap();
-        let weapon = serde_json::to_string(&halberd.kind).unwrap();
-        assert!(weapon.contains("\"reach_m\":2.0") && weapon.contains("\"penetration\":2.0"));
-        assert!(
-            ["blunt", "slash", "pierce"]
-                .iter()
-                .all(|damage| weapon.contains(damage))
-        );
+        let crate::item_catalog::ItemKind::Weapon {
+            reach_m, precision, ..
+        } = halberd.kind
+        else {
+            panic!("halberd must be a weapon")
+        };
+        assert!(reach_m + crate::combat::HUMANOID_REFERENCE_ARM_REACH_METRES > 1.7);
+        assert!(precision > 1.0);
         let tagged =
             |route: &EncounterChoice, tag| route.outcome_tags.iter().any(|found| found == tag);
         let command = choice("coordinate_silent_rescue_relay");
@@ -2594,7 +2595,10 @@ mod tests {
         }
         let mace = crate::item_catalog::definition("flanged_mace").unwrap();
         let weapon = serde_json::to_string(&mace.kind).unwrap();
-        assert!(mace.base_value == 10 && weapon.contains(r#""damage_types":["blunt"]"#));
+        assert_eq!(mace.base_value, 10);
+        assert!(
+            (crate::item_catalog::weapon_precision("flanged_mace").unwrap() - 0.1).abs() < 0.01
+        );
         assert!(weapon.contains(r#""melee":true"#) && weapon.contains(r#""ranged":false"#));
         let retainer = crate::bestiary::ThreatId::ArmedRetainer.profile();
         assert!(retainer.combat.protection == crate::bestiary::Protection::Armored);

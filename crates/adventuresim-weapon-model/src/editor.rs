@@ -26,7 +26,7 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
         }
         match &component.shape {
             ComponentShape::Cylinder(_) => {
-                field!("Cylinder", "length", 20, 4_000, 5);
+                field!("Cylinder", "length", 2, 5_500, 1);
                 field!("Cylinder", "radius", 5, 80, 1);
                 field!("Cylinder", "bottom_scale", 500, 1_500, 25);
                 field!("Cylinder", "top_scale", 500, 1_500, 25);
@@ -43,7 +43,7 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
                 field!("Blade", "width", 15, 160, 1);
                 field!("Blade", "thickness", 3, 24, 1);
                 field!("Blade", "curvature", -300, 300, 5);
-                field!("Blade", "taper", 300, 1_000, 25);
+                field!("Blade", "taper", 100, 1_000, 25);
                 field!("Blade", "single_edge", 0, 1_000, 50);
                 field!("Blade", "belly", -300, 500, 25);
                 field!("Blade", "ricasso", 0, 500, 10);

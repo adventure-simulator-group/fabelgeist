@@ -27,15 +27,11 @@ pub struct CharacterCapability {
     pub character_id: u64,
     pub melee: bool,
     pub ranged: bool,
-    pub precise: bool,
     pub heavy: bool,
     pub quarter_armor: bool,
     pub half_armor: bool,
     pub three_quarter_armor: bool,
     pub full_armor: bool,
-    pub blunt: bool,
-    pub slash: bool,
-    pub pierce: bool,
     pub athletics: f32,
     pub endurance: f32,
     pub physiology: f32,
@@ -56,16 +52,11 @@ impl From<(u64, CharacterCapabilities)> for CharacterCapability {
             character_id,
             melee: value.melee,
             ranged: value.ranged,
-            precise: value.weapon_precision
-                >= adventuresim_core::capability::WEAPON_PRECISION_RAPIER,
             heavy: value.heavy,
             quarter_armor: value.quarter_armor,
             half_armor: value.half_armor,
             three_quarter_armor: value.three_quarter_armor,
             full_armor: value.full_armor,
-            blunt: false,
-            slash: false,
-            pierce: false,
             athletics: value.athletics,
             endurance: value.endurance,
             physiology: value.physiology,
@@ -342,7 +333,7 @@ impl StrategicEquipment {
             .as_ref()
             .zip(melee_weapon_inventory_id)
             .and_then(|(item, inventory_id)| {
-                crate::weapon_instance::combat_geometry(ctx, inventory_id, &item.id, item.reach)
+                crate::weapon_instance::combat_geometry(ctx, inventory_id, &item.id)
             });
         if let Some(item) = &melee_weapon
             && adventuresim_weapon_model::default_design(&item.id).is_some()
@@ -448,14 +439,9 @@ impl StrategicEquipment {
                             .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
                     let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some()
                     {
-                        crate::weapon_instance::combat_geometry(
-                            ctx,
-                            inventory.id,
-                            &item.id,
-                            item.reach,
-                        )
-                        .expect("parametric inventory weapon has valid physical recipe")
-                        .mass_kg
+                        crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)
+                            .expect("parametric inventory weapon has valid physical recipe")
+                            .mass_kg
                     } else {
                         item.weight
                     };
@@ -614,26 +600,6 @@ impl PlayerEquipment for StrategicEquipment {
     fn weapon_is_unarmed(&self) -> bool {
         self.weapon.is_none()
     }
-    fn weapon_does_blunt(&self) -> bool {
-        self.weapon.as_ref().is_none_or(|item| item.blunt)
-    }
-    fn weapon_does_slash(&self) -> bool {
-        self.weapon.as_ref().is_some_and(|item| item.slash)
-    }
-    fn weapon_does_pierce(&self) -> bool {
-        self.weapon.as_ref().is_some_and(|item| item.pierce)
-    }
-    fn weapon_accuracy(&self) -> f32 {
-        self.weapon.as_ref().map_or(0.0, |item| item.accuracy)
-    }
-    fn weapon_swing_precision(&self) -> f32 {
-        self.weapon
-            .as_ref()
-            .map_or(0.0, |item| item.swing_precision)
-    }
-    fn weapon_stab_precision(&self) -> f32 {
-        self.weapon.as_ref().map_or(0.0, |item| item.stab_precision)
-    }
     fn weapon_preferred_melee_style(&self) -> MeleeAttackStyle {
         self.weapon
             .as_ref()
@@ -642,17 +608,22 @@ impl PlayerEquipment for StrategicEquipment {
     fn weapon_weight(&self) -> f32 {
         self.weapon.as_ref().map_or(0.0, |item| item.weight)
     }
-    fn weapon_penetration(&self) -> f32 {
-        self.weapon.as_ref().map_or(0.0, |item| item.penetration)
+    fn weapon_precision(&self) -> f32 {
+        self.weapon.as_ref().map_or(0.0, |item| {
+            if item.melee
+                && let Some(geometry) = self.melee_weapon_geometry
+            {
+                geometry.conditioned_precision(&item.id, item.precision)
+            } else {
+                item.precision
+            }
+        })
     }
     fn weapon_reach(&self) -> f32 {
         self.weapon.as_ref().map_or(0.0, |item| item.reach)
     }
     fn weapon_holding_side(&self) -> Option<BodySide> {
         self.weapon_side
-    }
-    fn weapon_is_precise(&self) -> bool {
-        self.weapon.as_ref().is_some_and(|item| item.precise)
     }
     fn weapon_balance(&self) -> f32 {
         self.weapon.as_ref().map_or(0.0, |item| item.balance)
@@ -824,11 +795,11 @@ mod tests {
             ..Item::default()
         };
         let short = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.1, 1.9, 1.7, 0.25, 3.2, 0.52, 2.0, 1.9,
+            2.1, 1.9, 1.7, 0.25, 3.2, 0.52,
         )
         .unwrap();
         let long = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.5, 2.3, 2.1, 0.25, 5.1, 0.49, 2.0, 1.9,
+            2.5, 2.3, 2.1, 0.25, 5.1, 0.49,
         )
         .unwrap();
         let short = combat_weapon(&item, Some(short));

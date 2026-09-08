@@ -23,7 +23,7 @@ fn cutting_weapon_binding(
     scope: CarriedInventoryScope,
     row_id: u64,
     item_id: &str,
-    accuracy: f32,
+    precision: f32,
     edge_sensitivity: f32,
     damage: DamageBins,
 ) -> String {
@@ -36,7 +36,7 @@ fn cutting_weapon_binding(
         scope.as_str().as_bytes(),
         row_id.to_le_bytes().as_slice(),
         item_id.as_bytes(),
-        accuracy.to_bits().to_le_bytes().as_slice(),
+        precision.to_bits().to_le_bytes().as_slice(),
         edge_sensitivity.to_bits().to_le_bytes().as_slice(),
     ] {
         hash.update((value.len() as u64).to_le_bytes());
@@ -113,7 +113,7 @@ fn qualifying_cutting_weapon_binding(ctx: &ReducerContext, character_id: u64) ->
         .into_iter()
         .filter_map(|(scope, row_id, item_id)| {
             let item = ctx.db.item().id().find(item_id)?;
-            if !item.slash || item.accuracy < 0.5 {
+            if item.precision < 0.5 {
                 return None;
             }
             let damage = match scope {
@@ -133,13 +133,13 @@ fn qualifying_cutting_weapon_binding(ctx: &ReducerContext, character_id: u64) ->
                     }),
             }
             .unwrap_or_default();
-            (effective_weapon_stat(item.accuracy, damage, item.edge_sensitivity) >= 0.5).then(
+            (effective_weapon_stat(item.precision, damage, item.edge_sensitivity) >= 0.5).then(
                 || {
                     cutting_weapon_binding(
                         scope,
                         row_id,
                         &item.id,
-                        item.accuracy,
+                        item.precision,
                         item.edge_sensitivity,
                         damage,
                     )

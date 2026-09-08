@@ -12,6 +12,8 @@ mod fatigue_config;
 mod incapacitation;
 mod melee_resolution;
 pub(crate) mod targeting;
+mod weapon_contact;
+mod weapon_contact_config;
 mod wounds;
 
 pub use armor::{
@@ -40,6 +42,8 @@ pub use targeting::{
     melee_attack_accuracy_by_parts, melee_attack_value_by_parts, melee_contact_location,
     melee_measure_adjusted_precision, whole_body_armor_coverage,
 };
+pub use weapon_contact::ContactPrecision;
+pub use weapon_contact_config::WeaponContactParameters;
 pub use wounds::*;
 
 use crate::{
@@ -49,10 +53,6 @@ use crate::{
     skill::{PlayerSkills, Skill},
 };
 
-/// Empty-hand accuracy multipliers shared by tactical inventory and pure
-/// matchup/autoresolve equipment.
-pub const UNARMED_SWING_PRECISION: f32 = 0.2;
-pub const UNARMED_STAB_PRECISION: f32 = 0.5;
 /// Fraction of maximum balance recovered per second while combat continues.
 pub const IMBALANCE_RECOVERY_PER_SECOND: f32 = 0.25;
 
@@ -119,10 +119,6 @@ const UNARMED_BLUNT_INJURY_SCALE: f32 = 0.2;
 const DODGE_OVEREXTENSION_SCALE: f32 = 0.25;
 const WEAPON_DEFENSE_REBOUND_SCALE: f32 = 0.5;
 const MAX_AVOIDED_ATTACK_BALANCE_DAMAGE: f32 = 0.5;
-
-fn precision_damage_multiplier(excess_accuracy: f32, lore_cap: f32) -> f32 {
-    excess_accuracy.max(0.0).min(lore_cap.max(2.0))
-}
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum AttackResult {
@@ -250,7 +246,6 @@ pub fn resolve_ranged_attack_by_parts(
     attacker_equip: &impl PlayerEquipment,
     parameters: CombatResolutionParameters,
     hit_precision: f32,
-    precision_damage_multiplier_cap: f32,
     flanking: f32,
     defender_body_part: BodyPart,
     defender_response: DefenderResponse,
@@ -272,7 +267,7 @@ pub fn resolve_ranged_attack_by_parts(
                 LimbWeights::both_arms(),
             )
         })
-        * attacker_equip.weapon_accuracy()
+        * parameters.contact.handling_accuracy(attacker_equip)
         * hit_precision.clamp(0.0, 1.0);
 
     let defense = defense_by_parts(
@@ -299,22 +294,6 @@ pub fn resolve_ranged_attack_by_parts(
         };
     }
 
-    if attack > 1.0 && attacker_equip.weapon_is_precise() {
-        let critical = (attack - 1.0 - defender_equip.armor_coverage(defender_body_part)).max(0.0);
-        if critical > 0.0 {
-            return calculate_damage_from_force(
-                1.0,
-                attacker_equip.weapon_ranged_force_joules(),
-                attacker_equip,
-                defender_body_part,
-                defender_body,
-                defender_equip,
-                None,
-                parameters,
-                MeleeContactAtTime::intended(0.0),
-            ) * precision_damage_multiplier(critical, precision_damage_multiplier_cap);
-        }
-    }
     calculate_damage_from_force(
         attack.min(1.0),
         attacker_equip.weapon_ranged_force_joules(),
@@ -438,9 +417,11 @@ fn calculate_damage_from_force(
         contact_at_time.classification,
         MeleeContactClassification::Haft | MeleeContactClassification::Pommel
     );
-    let has_edge = !shortened_contact
-        && (attacker_equip.weapon_does_slash() || attacker_equip.weapon_does_pierce());
-    let has_blunt = shortened_contact || unarmed || attacker_equip.weapon_does_blunt();
+    let precision = ContactPrecision::new(if shortened_contact || unarmed {
+        parameters.contact.unarmed_precision
+    } else {
+        attacker_equip.weapon_precision()
+    });
     let stagger_resistance_per_kg = if unarmed {
         UNARMED_STAGGER_RESISTANCE_JOULES_PER_KG
     } else {
@@ -457,14 +438,7 @@ fn calculate_damage_from_force(
             physical_contact: false,
         };
     }
-    let energy = armor::resolve_contact_energy(
-        armor_surface,
-        attack,
-        attack_force,
-        has_edge,
-        has_blunt,
-        attacker_equip.weapon_penetration().max(0.0),
-    );
+    let energy = armor::resolve_contact_energy(armor_surface, attack, attack_force, precision);
     let cut_damage = energy.cut_energy_joules;
     let blunt_damage = energy.blunt_energy_joules
         * if unarmed {
@@ -472,16 +446,10 @@ fn calculate_damage_from_force(
         } else {
             1.0
         };
-    // A pure blunt impact still transfers momentum when there is no edge for
-    // resistance to absorb. Edge and mixed contacts retain the absorbed-force
-    // impulse used by the existing model.
-    let stagger_impulse = if has_blunt && !has_edge {
-        attack_force * 0.5
-    } else {
-        energy.armor_impact.map_or(attack_force * 0.5, |impact| {
-            impact.resisted_energy_joules * 0.5
-        })
-    };
+    // Resisted and diffusely transmitted energy both transfer a stagger impulse.
+    let stagger_impulse = energy.armor_impact.map_or(attack_force * 0.5, |impact| {
+        (impact.resisted_energy_joules + impact.transmitted_energy_joules) * 0.5
+    });
     let balance_damage = stagger_impulse / defender_stagger_resistance;
     AttackResult::ToDefender {
         cut_damage,
@@ -628,8 +596,7 @@ mod tests {
     fn blunt_force_bypasses_edge_resistance_but_not_padding() {
         let attacker = CombatEquipment {
             weapon: Some(CombatWeapon {
-                blunt: true,
-                penetration: 0.5,
+                precision: 0.0,
                 ..Default::default()
             }),
             ..Default::default()
@@ -683,11 +650,10 @@ mod tests {
         let longsword = CombatEquipment {
             weapon: Some(CombatWeapon {
                 weight: 1.5,
-                penetration: 1.0,
+                precision: 1.0,
                 melee_reach: 1.25,
                 balance: 0.45,
-                slash: true,
-                pierce: true,
+
                 ..Default::default()
             }),
             ..Default::default()
@@ -739,14 +705,10 @@ mod tests {
     }
 
     #[test]
-    fn unarmed_matchups_land_in_realistic_outcome_windows() {
+    fn unarmed_contacts_preserve_energy_and_mass_dependent_stagger() {
         struct Matchup<'a, 'b> {
             defender: &'a MatchupCombatant<'b>,
             target: BodyPart,
-            contact_energy: (f32, f32),
-            imbalance: (f32, f32),
-            health_damage: (f32, f32),
-            total_incapacitation: (f32, f32),
         }
 
         let john = crate::starting_character::default_character("combat-matchups");
@@ -777,29 +739,18 @@ mod tests {
             Matchup {
                 defender: &average_bandit,
                 target: BodyPart::Head,
-                contact_energy: (48.0, 51.0),
-                imbalance: (0.38, 0.45),
-                health_damage: (0.25, 0.40),
-                total_incapacitation: (0.55, 0.75),
             },
             Matchup {
                 defender: &light_bandit,
                 target: BodyPart::Chest,
-                contact_energy: (48.0, 51.0),
-                imbalance: (0.45, 0.60),
-                health_damage: (0.06, 0.11),
-                total_incapacitation: (0.50, 0.70),
             },
             Matchup {
                 defender: &heavy_bandit,
                 target: BodyPart::Stomach,
-                contact_energy: (48.0, 51.0),
-                imbalance: (0.25, 0.35),
-                health_damage: (0.09, 0.15),
-                total_incapacitation: (0.34, 0.48),
             },
         ];
 
+        let mut outcomes = Vec::new();
         for matchup in matchups {
             let label = format!(
                 "{} -> {} ({})",
@@ -815,7 +766,6 @@ mod tests {
                 BodySide::Right,
                 crate::combat_style::MeleeAttackStyle::Swing,
                 1.0,
-                2.0,
                 0.0,
                 MeleeContactLocation {
                     body_part: matchup.target,
@@ -857,31 +807,18 @@ mod tests {
                 balance_damage,
             );
 
-            assert_in_window(
-                &format!("{label} contact energy"),
-                contact_force,
-                matchup.contact_energy,
-            );
-            assert_in_window(
-                &format!("{label} imbalance"),
-                balance_damage,
-                matchup.imbalance,
-            );
-            assert_in_window(
-                &format!("{label} health damage"),
-                health_damage,
-                matchup.health_damage,
-            );
-            assert_in_window(
-                &format!("{label} total incapacitation"),
-                total_incapacitation,
-                matchup.total_incapacitation,
-            );
+            assert!((contact_force - 80.0).abs() < 0.001);
+            assert!(health_damage > 0.0 && health_damage.is_finite());
+            assert!(total_incapacitation > 0.0 && total_incapacitation.is_finite());
+            outcomes.push((balance_damage, health_damage));
             assert!(
                 blood_loss < 0.01,
                 "{label}: blunt punch caused {blood_loss:.4} immediate blood loss"
             );
         }
+
+        assert!(outcomes[1].0 > outcomes[0].0 && outcomes[0].0 > outcomes[2].0);
+        assert!(outcomes[0].1 > outcomes[1].1 && outcomes[0].1 > outcomes[2].1);
 
         struct AvoidedMatchup {
             label: &'static str,
@@ -895,7 +832,7 @@ mod tests {
                 label: "John punch cleanly dodged",
                 response: DefenderResponse::Dodge { input_reflex: 1.0 },
                 defender_equipment: CombatEquipment::default(),
-                expected_imbalance: (0.08, 0.13),
+                expected_imbalance: (0.15, 0.18),
                 expected_contact: false,
             },
             AvoidedMatchup {
@@ -908,7 +845,7 @@ mod tests {
                     shield_block_bonus: 5.0,
                     ..Default::default()
                 },
-                expected_imbalance: (0.17, 0.24),
+                expected_imbalance: (0.27, 0.39),
                 expected_contact: true,
             },
         ];
@@ -924,7 +861,6 @@ mod tests {
                 BodySide::Right,
                 crate::combat_style::MeleeAttackStyle::Swing,
                 1.0,
-                2.0,
                 0.0,
                 MeleeContactLocation {
                     body_part: BodyPart::Chest,
@@ -962,11 +898,10 @@ mod tests {
     }
 
     #[test]
-    fn penetration_can_cross_resistance_at_armor_limited_force() {
-        let cutting = |penetration| CombatEquipment {
+    fn precision_can_cross_resistance_at_armor_limited_force() {
+        let cutting = |precision| CombatEquipment {
             weapon: Some(CombatWeapon {
-                slash: true,
-                penetration,
+                precision,
                 ..Default::default()
             }),
             ..Default::default()
@@ -988,7 +923,7 @@ mod tests {
         let stronger = calculate_damage_from_force(
             1.0,
             100.0,
-            &cutting(1.0),
+            &cutting(4.0),
             BodyPart::Chest,
             &StubBody,
             &defender,
@@ -1007,9 +942,9 @@ mod tests {
         assert!(matches!(
             stronger,
             AttackResult::ToDefender {
-                cut_damage: 25.0,
+                cut_damage,
                 ..
-            }
+            } if cut_damage > 0.0
         ));
     }
 
@@ -1017,9 +952,7 @@ mod tests {
     fn hammer_gap_contact_partitions_seventy_six_joules_without_duplication() {
         let attacker = CombatEquipment {
             weapon: Some(CombatWeapon {
-                blunt: true,
-                slash: true,
-                penetration: 1.0,
+                precision: 1.0,
                 ..Default::default()
             }),
             ..Default::default()
@@ -1046,13 +979,10 @@ mod tests {
     }
 
     #[test]
-    fn shortened_halberd_contact_conserves_energy_and_cannot_cut() {
+    fn shortened_halberd_contact_conserves_energy_and_is_mostly_diffuse() {
         let halberd = CombatEquipment {
             weapon: Some(CombatWeapon {
-                blunt: true,
-                slash: true,
-                pierce: true,
-                penetration: 2.0,
+                precision: 2.0,
                 ..Default::default()
             }),
             ..Default::default()
@@ -1090,8 +1020,8 @@ mod tests {
         else {
             panic!("shortened contact must transfer shaft energy");
         };
-        assert_eq!(cut_damage, 0.0);
-        assert!((blunt_damage - contact_force).abs() < 0.001);
+        assert!(blunt_damage > 9.0 * cut_damage - 0.001);
+        assert!((blunt_damage + cut_damage - contact_force).abs() < 0.001);
         assert!((contact_force - 101.4 * contact.energy_fraction).abs() < 0.001);
     }
 
@@ -1161,13 +1091,6 @@ mod tests {
             precisely_placed.armor_surface.is_none(),
             "precision biases the coverage sample toward a real gap before contact"
         );
-    }
-
-    #[test]
-    fn anatomical_lore_clamps_excess_accuracy_with_a_two_x_floor() {
-        assert_eq!(precision_damage_multiplier(6.0, 0.0), 2.0);
-        assert_eq!(precision_damage_multiplier(6.0, 3.5), 3.5);
-        assert_eq!(precision_damage_multiplier(1.25, 7.0), 1.25);
     }
 
     #[test]

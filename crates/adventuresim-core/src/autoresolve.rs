@@ -1478,7 +1478,6 @@ fn ranged_exchange(
     attacker_view.resolve_ranged_attack(
         crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
         &defender.view_with_equipment(&defender.equipment),
-        &defender.bestiary_categories,
         response.scaled_for_performance(defender.incapacitation_performance()),
         precision * attacker.incapacitation_performance(),
         flanking,
@@ -1730,14 +1729,10 @@ mod tests {
             },
             melee: !ranged,
             ranged,
-            slash: !ranged,
-            pierce: ranged,
-            accuracy: 1.5,
-            swing_precision: if ranged { 0.0 } else { 1.5 },
-            stab_precision: if ranged { 0.0 } else { 1.5 },
+
             preferred_melee_style: crate::combat_style::MeleeAttackStyle::Swing,
             weight: 1.5,
-            penetration: 1.0,
+            precision: 1.0,
             melee_reach: if ranged { 0.0 } else { 1.0 },
             grip_to_tip_m: if ranged { 0.0 } else { 0.8 },
             total_length_m: if ranged { 0.0 } else { 1.0 },
@@ -1789,7 +1784,7 @@ mod tests {
 
         let mut penetrating = novice.clone();
         let weapon = penetrating.equipment.melee_weapon.as_mut().unwrap();
-        weapon.penetration *= 2.0;
+        weapon.precision *= 2.0;
         penetrating.equipment.weapon = penetrating.equipment.melee_weapon;
         assert!(autoresolve_combat_power(&penetrating) > autoresolve_combat_power(&novice));
 
@@ -1846,26 +1841,6 @@ mod tests {
         assert_eq!(combat_power_meets_safety_margin(u64::MAX, 1), None);
     }
 
-    #[test]
-    fn precision_cap_averages_every_target_bestiary_category() {
-        let mut attacker = fighter(1, 4.0, false);
-        attacker.skills.bestiary_hours.human = adventuresim_world_schema::BESTIARY_MASTERY_HOURS;
-        let mut human = fighter(2, 1.0, false);
-        human.bestiary_categories = vec![BestiaryCategory::Human];
-        let human_cap = attacker
-            .view_with_equipment(&attacker.equipment)
-            .precision_damage_multiplier_cap(&human.bestiary_categories);
-
-        human.bestiary_categories = vec![BestiaryCategory::Human, BestiaryCategory::Draconid];
-        let combined_cap = attacker
-            .view_with_equipment(&attacker.equipment)
-            .precision_damage_multiplier_cap(&human.bestiary_categories);
-
-        assert!(human_cap > 2.0);
-        assert!(combined_cap > 2.0);
-        assert!(combined_cap < human_cap);
-    }
-
     fn resolved_melee_health_damage(mut weapon: CombatWeapon, protection: CombatArmor) -> f32 {
         let mut attacker = fighter(1, 3.0, false);
         weapon.skills = crate::equipment::WeaponSkillDistribution {
@@ -1873,9 +1848,7 @@ mod tests {
             ..Default::default()
         };
         weapon.melee = true;
-        weapon.accuracy = 1.5;
-        weapon.swing_precision = 1.5;
-        weapon.stab_precision = 1.5;
+        weapon.grip_to_tip_m = 0.8;
         weapon.preferred_melee_style = crate::combat_style::MeleeAttackStyle::Swing;
         weapon.weight = 1.5;
         weapon.melee_reach = 1.0;
@@ -2237,6 +2210,7 @@ mod tests {
                 &defender.body,
                 &defender.essentials,
                 &defender.equipment,
+                crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
             )
         };
 
@@ -2280,12 +2254,12 @@ mod tests {
     }
 
     #[test]
-    fn precise_ranged_criticals_bypass_armor() {
+    fn concentrated_ranged_attacks_cannot_bypass_intact_armor() {
         let mut attacker = fighter(1, 5.0, true);
         attacker.skills.bow_hours = 100_000.0;
         let weapon = attacker.equipment.ranged_weapon.as_mut().unwrap();
-        weapon.accuracy = 2.0;
-        weapon.precise = true;
+        weapon.grip_to_tip_m = 0.1;
+        weapon.precision = 4.0;
 
         let mut defender = fighter(2, 1.0, false);
         defender.equipment.armor.fill(CombatArmor {
@@ -2305,7 +2279,7 @@ mod tests {
             BodyPart::Chest,
             DefenderResponse::None,
         );
-        attacker.equipment.ranged_weapon.as_mut().unwrap().precise = false;
+        attacker.equipment.ranged_weapon.as_mut().unwrap().precision = 0.1;
         let armored = ranged_exchange(
             &attacker,
             &defender,
@@ -2315,7 +2289,7 @@ mod tests {
             DefenderResponse::None,
         );
 
-        assert!(health_damage_from_attack(critical, BodyPart::Chest) > 0.0);
+        assert_eq!(health_damage_from_attack(critical, BodyPart::Chest), 0.0);
         assert_eq!(health_damage_from_attack(armored, BodyPart::Chest), 0.0);
         assert!(
             matches!(armored, AttackResult::ToDefender { contact_force, armor_impact: Some(_), .. } if contact_force > 0.0)
@@ -2327,8 +2301,8 @@ mod tests {
         let mut attacker = fighter(1, 5.0, false);
         attacker.skills.sword_hours = 100_000.0;
         let weapon = attacker.equipment.melee_weapon.as_mut().unwrap();
-        weapon.accuracy = 2.0;
-        weapon.precise = true;
+        weapon.grip_to_tip_m = 0.1;
+        weapon.precision = 4.0;
 
         let mut defender = fighter(2, 1.0, false);
         defender.equipment.armor.fill(CombatArmor {
@@ -2351,7 +2325,7 @@ mod tests {
                 defense_alignment: 0.5,
             },
         );
-        attacker.equipment.melee_weapon.as_mut().unwrap().precise = false;
+        attacker.equipment.melee_weapon.as_mut().unwrap().precision = 0.1;
         let armored = melee_exchange(
             &attacker,
             &defender,
@@ -2528,7 +2502,12 @@ mod tests {
     fn ranged_characters_fire_during_the_enemy_approach() {
         let mut archer = fighter(1, 5.0, true);
         archer.skills.bow_hours = 100_000.0;
-        archer.equipment.ranged_weapon.as_mut().unwrap().accuracy = 2.0;
+        archer
+            .equipment
+            .ranged_weapon
+            .as_mut()
+            .unwrap()
+            .grip_to_tip_m = 0.1;
         let mut allies = vec![archer];
         let mut enemies = vec![fighter(2, 1.0, false)];
 
@@ -2547,7 +2526,12 @@ mod tests {
     fn detour_volleys_only_target_surplus_melee() {
         let mut archer = fighter(1, 5.0, true);
         archer.skills.bow_hours = 100_000.0;
-        archer.equipment.ranged_weapon.as_mut().unwrap().accuracy = 2.0;
+        archer
+            .equipment
+            .ranged_weapon
+            .as_mut()
+            .unwrap()
+            .grip_to_tip_m = 0.1;
         let screen = fighter(2, 3.0, false);
         let mut attackers = vec![archer, screen];
         let mut defenders = vec![fighter(3, 1.0, false), fighter(4, 1.0, false)];
@@ -2806,18 +2790,16 @@ mod tests {
         let protection = CombatArmor::innate(innate.resistance_joules, innate.padding_joules);
         let cutting = resolved_melee_health_damage(
             CombatWeapon {
-                slash: true,
                 // Hand axe and sword catalog coefficient.
-                penetration: 1.0,
+                precision: 1.0,
                 ..Default::default()
             },
             protection,
         );
         let blunt = resolved_melee_health_damage(
             CombatWeapon {
-                blunt: true,
                 // Flanged mace and war hammer catalog coefficient.
-                penetration: 0.5,
+                precision: 0.5,
                 ..Default::default()
             },
             protection,
@@ -2830,16 +2812,14 @@ mod tests {
     fn ordinary_unprotected_damage_remains_coherent() {
         let unprotected_cut = resolved_melee_health_damage(
             CombatWeapon {
-                slash: true,
-                penetration: 1.0,
+                precision: 1.0,
                 ..Default::default()
             },
             CombatArmor::default(),
         );
         let unprotected_blunt = resolved_melee_health_damage(
             CombatWeapon {
-                blunt: true,
-                penetration: 0.5,
+                precision: 0.5,
                 ..Default::default()
             },
             CombatArmor::default(),

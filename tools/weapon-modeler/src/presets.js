@@ -54,7 +54,7 @@ const poleControls = (extra = [], range = {}) => [
   {
     label: "Shaft thickness",
     path: "shaft.radius",
-    min: 0.016,
+    min: 0.010,
     max: maximumAuthoredGripRadius({
       bottomScale: 0.9,
       topScale: 0.92,
@@ -80,8 +80,8 @@ const polearm = (id, name, family, description, shaftValue, components, controls
         label: "butt cap",
         attach: { to: "weapon.root", at: "top", overlap: 0.005 },
         profile: [
-          [0, shaftValue[1] ?? 0.021],
-          [0.04, (shaftValue[1] ?? 0.021) * 0.92],
+          [0, shaftValue[1] ?? 0.018],
+          [0.006, (shaftValue[1] ?? 0.018) * 0.92],
         ],
         material: "darkSteel",
       },
@@ -260,7 +260,7 @@ const sword = ({ id, name, family, description, pommel: p, grip: g, guards, blad
           {
             label: "Blade taper",
             path: `components.${bi}.taper`,
-            min: 0.3,
+            min: 0.15,
             max: 2.4,
             step: 0.01,
             unit: "",
@@ -464,7 +464,7 @@ const flangedMacePreset = (id, name, family, description, values) => ({
     {
       label: "Head sleeve length",
       path: "components.3.length",
-      min: 0.07,
+      min: 0.03,
       max: 0.17,
       step: 0.005,
       unit: "m",
@@ -480,7 +480,7 @@ const flangedMacePreset = (id, name, family, description, values) => ({
     {
       label: "Metal haft length",
       path: "shaft.length",
-      min: 0.48,
+      min: 0.40,
       max: 0.9,
       step: 0.01,
       unit: "m",
@@ -488,7 +488,7 @@ const flangedMacePreset = (id, name, family, description, values) => ({
     {
       label: "Metal haft radius",
       path: "shaft.radius",
-      min: 0.009,
+      min: 0.006,
       max: 0.017,
       step: 0.001,
       unit: "m",
@@ -539,7 +539,7 @@ export const PRESETS = [
     "German halberd",
     "Polearm · c. 1530–1550",
     "Compact forged head scaled to the Met's c.1525–50 German example (about 24.1 cm across), with narrow axe, downturned beak and central spike.",
-    [1.82, 0.022],
+    [1.82, 0.018],
     [
       socket(0.24, 0.033),
       mounted("axe", "narrow axe blade", [0, 0.015, 0], {
@@ -547,7 +547,7 @@ export const PRESETS = [
         height: 0.27,
         thickness: 0.022,
         beard: 0.42,
-        curvature: 0.08,
+        curvature: 0.02,
         side: 1,
       }),
       mounted("beak", "compact downturned beak", [-0.015, 0.075, 0], {
@@ -613,14 +613,14 @@ export const PRESETS = [
     "Lucerne hammer",
     "Polearm · early 16th century",
     "Compact poll and narrow armour beak flow from a reinforced central socket into the top spike.",
-    [1.74, 0.022],
+    [1.74, 0.018],
     [
       socket(0.24, 0.033),
       mounted("hammer", "compact hammer poll", [0, 0.045, 0], {
         length: 0.09,
-        face: 0.075,
-        neck: 0.046,
-        thickness: 0.07,
+        face: 0.04,
+        neck: 0.025,
+        thickness: 0.038,
         direction: 1,
         crown: 0.06,
       }),
@@ -671,7 +671,7 @@ export const PRESETS = [
     "Knightly pollaxe",
     "Polearm · c. 1500–1540",
     "Compact armoured-fighting head with a waisted axe and shaped poll joined through a reinforced eye.",
-    [1.48, 0.022],
+    [1.48, 0.018],
     [
       socket(0.25, 0.032),
       mounted("axe", "waisted narrow axe", [0, 0.01, 0], {
@@ -684,9 +684,9 @@ export const PRESETS = [
       }),
       mounted("hammer", "compact hammer poll", [0, 0.04, 0], {
         length: 0.09,
-        face: 0.065,
-        neck: 0.04,
-        thickness: 0.068,
+        face: 0.04,
+        neck: 0.024,
+        thickness: 0.038,
         direction: -1,
         crown: 0.08,
       }),
@@ -722,7 +722,7 @@ export const PRESETS = [
     "Kriegsspieß / pike",
     "Infantry spear · c. 1520–1550",
     "Long infantry pike with a compact diamond-section head and small reinforcing socket.",
-    [3.35, 0.019, { min: 3, max: 5.5 }],
+    [4.70, 0.018, { min: 4.2, max: 5.5 }],
     [
       socket(0.18, 0.027),
       mounted("spear", "pike head", [0, 0, 0], {
@@ -748,12 +748,12 @@ export const PRESETS = [
     "Short spear",
     "Spear · 16th century",
     "General-purpose stout spear with a leaf-shaped blade and iron shoe.",
-    [1.72, 0.02],
+    [1.72, 0.018],
     [
       socket(0.2, 0.031),
       mounted("spear", "leaf head", [0, 0, 0], {
         length: 0.31,
-        width: 0.085,
+        width: 0.055,
         thickness: 0.024,
         shoulder: 0.32,
       }),
@@ -764,15 +764,15 @@ export const PRESETS = [
     "Partisan",
     "Guard polearm · c. 1530–1550",
     "Broad spear blade forged continuously into short symmetrical basal lugs.",
-    [1.78, 0.021],
+    [1.78, 0.018],
     [
       socket(0.22),
       mounted("partisan", "blade and short root lugs", [0, 0, 0], {
         length: 0.42,
-        width: 0.135,
-        lugWidth: 0.145,
+        width: 0.09,
+        lugWidth: 0.12,
         lugDrop: 0.075,
-        thickness: 0.022,
+        thickness: 0.007,
       }),
       ...langets(0.32),
     ],
@@ -800,14 +800,14 @@ export const PRESETS = [
     "German Kuse / glaive",
     "Polearm · early 16th century",
     "Curved single-edged blade with an integral narrow root seated inside the socket.",
-    [1.72, 0.021],
+    [1.72, 0.018],
     [
       socket(0.25),
       mounted("glaive", "integral glaive blade", [0, 0, 0], {
         length: 0.54,
         width: 0.105,
-        thickness: 0.018,
-        curvature: 0.13,
+        thickness: 0.006,
+        curvature: 0.07,
         root: 0.032,
       }),
       ...langets(0.4),
@@ -824,7 +824,7 @@ export const PRESETS = [
       {
         label: "Blade width",
         path: "components.1.width",
-        min: 0.07,
+        min: 0.03,
         max: 0.15,
         step: 0.005,
         unit: "m",
@@ -836,14 +836,14 @@ export const PRESETS = [
     "Hooked bill",
     "Polearm · 16th century",
     "Single forged bill outline with an exposed 8 cm recurved hook, top point and integral socket root.",
-    [1.83, 0.022],
+    [1.83, 0.018],
     [
       socket(0.23, 0.033),
       mounted("bill", "continuous bill and hook", [0, 0, 0], {
         length: 0.38,
         width: 0.09,
         hook: 0.08,
-        thickness: 0.02,
+        thickness: 0.005,
         root: 0.03,
       }),
       ...langets(0.38),
@@ -860,7 +860,7 @@ export const PRESETS = [
       {
         label: "Bill body width",
         path: "components.1.width",
-        min: 0.07,
+        min: 0.03,
         max: 0.11,
         step: 0.005,
         unit: "m",
@@ -872,16 +872,16 @@ export const PRESETS = [
     "Military fork",
     "Polearm · 16th century",
     "A single forged head flowing from socket root through crotch into tapered tines.",
-    [1.86, 0.021],
+    [1.86, 0.018],
     [
       socket(0.24),
       mounted("fork", "forged fork head", [0, 0, 0], {
         length: 0.39,
-        width: 0.13,
+        width: 0.10,
         baseWidth: 0.055,
-        tineWidth: 0.026,
+        tineWidth: 0.018,
         crotch: 0.34,
-        thickness: 0.022,
+        thickness: 0.006,
       }),
       ...langets(0.34),
     ],
@@ -912,13 +912,13 @@ export const PRESETS = [
     description: "Long fullered blade, straight cross, two-handed grip and scent-stopper pommel.",
     pommel: pommel([
       [0, 0.012],
-      [0.01, 0.017],
-      [0.038, 0.02],
+      [0.01, 0.015],
+      [0.038, 0.018],
       [0.055, 0.01],
     ]),
-    grip: ovalGrip(0.12, 0.3, 0.033, 0.024),
-    guards: [cross(0.425, 0.31, 0.018)],
-    blade: sectionBlade(0.425, 1.02, 0.058, 0.008, "fullered"),
+    grip: ovalGrip(0.12, 0.22, 0.033, 0.024),
+    guards: [cross(0.345, 0.22, 0.018)],
+    blade: sectionBlade(0.345, 0.95, 0.05, 0.007, "fullered"),
   }),
   sword({
     id: "zweihander",
@@ -933,7 +933,7 @@ export const PRESETS = [
     ]),
     grip: ovalGrip(0.135, 0.415, MAX_SWORD_GRIP_WIDTH_M, MAX_SWORD_GRIP_THICKNESS_M),
     guards: [cross(0.555, 0.48, 0.035, 0.045), { ...cross(0.77, 0.18, 0, 0.025), controlWidth: false }],
-    blade: sectionBlade(0.555, 1.28, 0.072, 0.013, "fullered", { taper: 0.68 }),
+    blade: sectionBlade(0.555, 1.28, 0.06, 0.008, "fullered", { taper: 0.68 }),
   }),
   sword({
     id: "katzbalger",
@@ -947,7 +947,7 @@ export const PRESETS = [
       label: "compact fan cap",
       offset: [0, 0, 0],
       diameter: 0.055,
-      height: 0.045,
+      height: 0.031,
       thickness: 0.019,
     },
     grip: ovalGrip(0.04, 0.165, 0.034, 0.025),
@@ -961,7 +961,7 @@ export const PRESETS = [
         bar: 0.0065,
       },
     ],
-    blade: sectionBlade(0.205, 0.68, 0.06, 0.008, "fullered", { taper: 0.5 }),
+    blade: sectionBlade(0.205, 0.68, 0.05, 0.007, "fullered", { taper: 0.15 }),
     guardControl: { label: "Figure-eight span", min: 0.12, max: 0.17 },
   }),
   sword({
@@ -1013,7 +1013,7 @@ export const PRESETS = [
         rotation: [90, 0, 0],
       },
     ],
-    blade: blade(0.265, 0.84, 0.064, 0.011, {
+    blade: blade(0.265, 0.84, 0.052, 0.006, {
       curvature: 0.085,
       taper: 0.78,
       singleEdge: 0.72,
@@ -1041,12 +1041,12 @@ export const PRESETS = [
         offset: [0, 0.045, 0],
         width: 0.1,
         length: 0.155,
-        bar: 0.01,
+        bar: 0.006,
         thickness: 0.01,
         side: 1,
       },
     ],
-    blade: blade(0.2, 0.69, 0.068, 0.012, {
+    blade: blade(0.2, 0.59, 0.055, 0.006, {
       curvature: 0.13,
       taper: 0.82,
       singleEdge: 0.8,
@@ -1065,9 +1065,9 @@ export const PRESETS = [
       [0.036, 0.019],
       [0.052, 0.009],
     ]),
-    grip: ovalGrip(0.11, 0.28, 0.031, 0.023),
-    guards: [cross(0.39, 0.3, 0.005)],
-    blade: sectionBlade(0.39, 1.05, 0.034, 0.018, "diamond", { taper: 0.82 }),
+    grip: ovalGrip(0.11, 0.20, 0.031, 0.023),
+    guards: [cross(0.31, 0.24, 0.005)],
+    blade: sectionBlade(0.31, 1.05, 0.028, 0.010, "diamond", { taper: 0.82 }),
   }),
   sword({
     id: "rondel-dagger",
@@ -1075,25 +1075,25 @@ export const PRESETS = [
     family: "Dagger · late 15th–early 16th century",
     description: "Stiff diamond-section thrusting dagger with paired correctly wound rondels.",
     pommel: pommel([
-      [0, 0.022],
-      [0.008, 0.032],
-      [0.016, 0.022],
+      [0, 0.016],
+      [0.008, 0.023],
+      [0.016, 0.016],
     ]),
-    grip: ovalGrip(0.026, 0.125, 0.03, 0.022),
+    grip: ovalGrip(0.026, 0.11, 0.03, 0.016),
     guards: [
       {
         kind: "pommel",
   construction: "lathed",
         label: "upper rondel",
-        offset: [0, 0.148, 0],
+        offset: [0, 0.133, 0],
         profile: [
-          [0, 0.032],
-          [0.008, 0.032],
+          [0, 0.023],
+          [0.008, 0.023],
         ],
         material: "steel",
       },
     ],
-    blade: sectionBlade(0.155, 0.38, 0.032, 0.016, "diamond", { taper: 0.92 }),
+    blade: sectionBlade(0.140, 0.32, 0.026, 0.008, "diamond", { taper: 0.92 }),
     controls: false,
   }),
   sword({
@@ -1191,20 +1191,20 @@ export const PRESETS = [
     "Reiter war hammer",
     "Horseman's weapon · c. 1520–1550",
     "Reference-scale 14 cm head with compact crowned poll, near-square faceted beak and long steel haft sleeve.",
-    [0.58, 0.018],
+    [0.46, 0.012],
     [
       mounted("socket", "steel haft sheathing", [0, -0.32, 0], {
         profile: [
-          [0, 0.022],
-          [0.35, 0.02],
+          [0, 0.014],
+          [0.35, 0.014],
         ],
         material: "darkSteel",
       }),
       mounted("hammer", "compact crowned poll", [0, 0.015, 0], {
         length: 0.064,
-        face: 0.05,
-        neck: 0.03,
-        thickness: 0.05,
+        face: 0.032,
+        neck: 0.022,
+        thickness: 0.032,
         direction: 1,
         crown: 0.14,
       }),
@@ -1241,12 +1241,12 @@ export const PRESETS = [
     "Primitive bearded-axe study",
     "Primitive study · not curated",
     "Generator stress-test for the shared axe primitive; excluded from the curated 1544 baseline.",
-    [0.67, 0.021],
+    [0.57, 0.018],
     [
       socket(0.1, 0.027),
       mounted("axe", "bearded axe head", [0, 0, 0], {
-        width: 0.18,
-        height: 0.18,
+        width: 0.135,
+        height: 0.16,
         thickness: 0.028,
         beard: 0.5,
         curvature: 0.1,
@@ -1265,17 +1265,17 @@ export const PRESETS = [
     ],
   ),
   flangedMacePreset("flanged-mace", "Compact flanged mace", "Cavalry sidearm · early 16th century", "Compact endpoint of the shared sampled-flange system: gently curved sides, central cusps, steel haft and dark grip.", {
-    haftLength: 0.58,
-    haftRadius: 0.013,
-    gripLength: 0.17,
-    gripRadius: 0.02,
+    haftLength: 0.46,
+    haftRadius: 0.007,
+    gripLength: 0.12,
+    gripRadius: 0.016,
     collarWidth: 0.014,
-    collarRadius: 0.023,
+    collarRadius: 0.018,
     headLength: 0.14,
-    sleeveLength: 0.09,
+    sleeveLength: 0.04,
     rootRadius: 0.008,
     shoulderRadius: 0.007,
-    cuspRadius: 0.06,
+    cuspRadius: 0.04,
     cuspHeight: 0.5,
     concavity: 0.15,
     crownLength: 0.008,
@@ -1283,18 +1283,18 @@ export const PRESETS = [
     flangeThickness: 0.0025,
   }),
   flangedMacePreset("gothic-flanged-mace", "Elongated Gothic flanged mace", "Gothic mace endpoint · late 15th–early 16th century", "Reference-like endpoint of the same sampled generator: long inward-bowed flanges, high cusped shoulders, long sleeve, short pointed crown, steel haft, collars and near-black grip.", {
-    haftLength: 0.78,
-    haftRadius: 0.011,
-    gripLength: 0.2,
-    gripRadius: 0.019,
+    haftLength: 0.52,
+    haftRadius: 0.007,
+    gripLength: 0.13,
+    gripRadius: 0.016,
     gripMaterial: "darkLeather",
     collarWidth: 0.018,
-    collarRadius: 0.022,
-    headLength: 0.25,
-    sleeveLength: 0.15,
+    collarRadius: 0.018,
+    headLength: 0.17,
+    sleeveLength: 0.05,
     rootRadius: 0.009,
     shoulderRadius: 0.0065,
-    cuspRadius: 0.06,
+    cuspRadius: 0.04,
     cuspHeight: 0.75,
     concavity: 0.92,
     crownLength: 0.015,
@@ -1327,15 +1327,15 @@ for (const [id, index] of [
     rootWidth: Number(Math.min(head.width * 0.18, 0.055).toFixed(3)),
     upperShoulder: 0.38,
     lowerShoulder: 0.26,
-    flare: 0,
+    flare: id === "halberd-1540" ? -0.22 : 0,
     toe: 0,
     heel: 0,
-    beardDrop: Number(Math.max(0.04, head.beard * 0.45).toFixed(2)),
+    beardDrop: id === "halberd-1540" ? 0.09 : Number(Math.max(0.04, head.beard * 0.45).toFixed(2)),
     thickness: id === "halberd-1540" ? 0.008 : 0.012,
     upperCusp: id === "halberd-1540" ? 0.08 : 0,
     lowerCusp: id === "halberd-1540" ? 0.05 : 0,
   });
-  addControls(id, [c("Axe height", `components.${index}.height`, id === "pollaxe" ? 0.14 : 0.16, id === "halberd-1540" ? 0.33 : 0.26, 0.01, "m"), c("Axe root thickness", `components.${index}.thickness`, 0.006, 0.018, 0.001, "m"), c("Eye / root width", `components.${index}.rootWidth`, 0.018, 0.042, 0.001, "m"), c("Edge flare", `components.${index}.flare`, -0.08, 0.08, 0.01), c("Toe rise", `components.${index}.toe`, -0.04, 0.06, 0.01), c("Heel drop", `components.${index}.heel`, -0.02, 0.08, 0.01), c("Beard drop ratio", `components.${index}.beardDrop`, 0.04, 0.3, 0.01), c("Upper shoulder blend", `components.${index}.upperShoulder`, 0.35, 0.46, 0.01), c("Lower shoulder blend", `components.${index}.lowerShoulder`, 0.18, 0.32, 0.01), c("Axe side", `components.${index}.side`, -1, 1, 2), c("Upper shoulder cusp", `components.${index}.upperCusp`, 0, 0.16, 0.01), c("Lower shoulder cusp", `components.${index}.lowerCusp`, 0, 0.12, 0.01)]);
+  addControls(id, [c("Axe height", `components.${index}.height`, id === "pollaxe" ? 0.14 : 0.16, id === "halberd-1540" ? 0.33 : 0.26, 0.01, "m"), c("Axe root thickness", `components.${index}.thickness`, 0.006, 0.018, 0.001, "m"), c("Eye / root width", `components.${index}.rootWidth`, 0.018, 0.042, 0.001, "m"), c("Edge flare", `components.${index}.flare`, -0.3, 0.08, 0.01), c("Toe rise", `components.${index}.toe`, -0.04, 0.06, 0.01), c("Heel drop", `components.${index}.heel`, -0.02, 0.08, 0.01), c("Beard drop ratio", `components.${index}.beardDrop`, 0.04, 0.3, 0.01), c("Upper shoulder blend", `components.${index}.upperShoulder`, 0.35, 0.46, 0.01), c("Lower shoulder blend", `components.${index}.lowerShoulder`, 0.18, 0.32, 0.01), c("Axe side", `components.${index}.side`, -1, 1, 2), c("Upper shoulder cusp", `components.${index}.upperCusp`, 0, 0.16, 0.01), c("Lower shoulder cusp", `components.${index}.lowerCusp`, 0, 0.12, 0.01)]);
 }
 
 for (const [id, index] of [
@@ -1351,7 +1351,7 @@ for (const [id, index] of [
     rootWidth: Number((head.width * 0.4).toFixed(3)),
     bellyPosition: head.shoulder,
     acuteness: 1,
-    thickness: Math.min(head.thickness, 0.014),
+    thickness: Math.min(head.thickness, 0.010),
   });
   addControls(id, [c("Spear maximum width", `components.${index}.width`, minimumWidth, head.width + 0.035, 0.001, "m"), c("Spear root width", `components.${index}.rootWidth`, 0.01, Math.floor(minimumWidth * 750) / 1000, 0.001, "m"), c("Spear belly position", `components.${index}.bellyPosition`, 0.08, 0.46, 0.01), c("Point acuteness", `components.${index}.acuteness`, 0.55, 2.05, 0.05), c("Spear section depth", `components.${index}.thickness`, 0.006, 0.022, 0.001, "m")]);
 }
@@ -1370,7 +1370,7 @@ for (const [id, index] of [
     crownLength: Number((head.length * head.crown).toFixed(3)),
     faceThickness: head.thickness,
   });
-  addControls(id, [c("Poll length", `components.${index}.length`, 0.05, 0.12, 0.001, "m"), c("Poll neck length ratio", `components.${index}.neckRatio`, 0.35, 0.85, 0.01), c("Poll neck height", `components.${index}.neck`, 0.025, 0.06, 0.001, "m"), c("Poll face height", `components.${index}.face`, 0.04, 0.1, 0.001, "m"), c("Poll face depth", `components.${index}.faceThickness`, 0.035, 0.085, 0.001, "m"), c("Poll face flare", `components.${index}.faceFlare`, 0, 0.3, 0.02), c("Poll crown reach", `components.${index}.crownLength`, 0, 0.018, 0.001, "m")]);
+  addControls(id, [c("Poll length", `components.${index}.length`, 0.05, 0.12, 0.001, "m"), c("Poll neck length ratio", `components.${index}.neckRatio`, 0.35, 0.85, 0.01), c("Poll neck height", `components.${index}.neck`, 0.018, 0.06, 0.001, "m"), c("Poll face height", `components.${index}.face`, 0.025, 0.1, 0.001, "m"), c("Poll face depth", `components.${index}.faceThickness`, 0.025, 0.085, 0.001, "m"), c("Poll face flare", `components.${index}.faceFlare`, 0, 0.3, 0.02), c("Poll crown reach", `components.${index}.crownLength`, 0, 0.018, 0.001, "m")]);
 }
 
 for (const [id, index] of [
@@ -1396,7 +1396,7 @@ component("partisan", 1, {
   lugSweep: 0.055,
   acuteness: 1,
 });
-addControls("partisan", [c("Blade length", "components.1.length", 0.32, 0.56, 0.01, "m"), c("Blade belly position", "components.1.bellyPosition", 0.22, 0.44, 0.01), c("Blade root width", "components.1.rootWidth", 0.016, 0.038, 0.001, "m"), c("Point acuteness", "components.1.acuteness", 0.6, 1.8, 0.05), c("Lug drop", "components.1.lugDrop", 0.04, 0.12, 0.005), c("Lug sweep", "components.1.lugSweep", 0.03, 0.09, 0.005), c("Blade section depth", "components.1.thickness", 0.014, 0.028, 0.001, "m")]);
+addControls("partisan", [c("Blade length", "components.1.length", 0.32, 0.56, 0.01, "m"), c("Blade belly position", "components.1.bellyPosition", 0.22, 0.44, 0.01), c("Blade root width", "components.1.rootWidth", 0.016, 0.038, 0.001, "m"), c("Point acuteness", "components.1.acuteness", 0.6, 1.8, 0.05), c("Lug drop", "components.1.lugDrop", 0.04, 0.12, 0.005), c("Lug sweep", "components.1.lugSweep", 0.03, 0.09, 0.005), c("Blade section depth", "components.1.thickness", 0.005, 0.014, 0.001, "m")]);
 
 component("glaive", 1, {
   edgeCurvature: 0.24,
@@ -1405,7 +1405,7 @@ component("glaive", 1, {
   pointLength: 0.24,
   rootLength: 0.08,
 });
-addControls("glaive", [c("Blade length", "components.1.length", 0.42, 0.68, 0.01, "m"), c("Edge curvature", "components.1.edgeCurvature", 0.08, 0.38, 0.01), c("Spine curvature", "components.1.spineCurvature", 0, 0.4, 0.02), c("Belly position", "components.1.bellyPosition", 0.28, 0.62, 0.02), c("Point length ratio", "components.1.pointLength", 0.18, 0.34, 0.02), c("Tang width", "components.1.root", 0.022, 0.042, 0.001, "m"), c("Tang insertion length", "components.1.rootLength", 0.05, 0.12, 0.005, "m"), c("Blade section depth", "components.1.thickness", 0.012, 0.026, 0.001, "m")]);
+addControls("glaive", [c("Blade length", "components.1.length", 0.42, 0.68, 0.01, "m"), c("Edge curvature", "components.1.edgeCurvature", 0.08, 0.38, 0.01), c("Spine curvature", "components.1.spineCurvature", 0, 0.4, 0.02), c("Belly position", "components.1.bellyPosition", 0.28, 0.62, 0.02), c("Point length ratio", "components.1.pointLength", 0.18, 0.34, 0.02), c("Tang width", "components.1.root", 0.022, 0.042, 0.001, "m"), c("Tang insertion length", "components.1.rootLength", 0.05, 0.12, 0.005, "m"), c("Blade section depth", "components.1.thickness", 0.005, 0.014, 0.001, "m")]);
 
 component("hooked-bill", 1, {
   bellyPosition: 0.48,
@@ -1414,14 +1414,14 @@ component("hooked-bill", 1, {
   pointLength: 0.24,
   rootLength: 0.06,
 });
-addControls("hooked-bill", [c("Bill length", "components.1.length", 0.3, 0.5, 0.01, "m"), c("Body belly position", "components.1.bellyPosition", 0.34, 0.62, 0.02), c("Point length ratio", "components.1.pointLength", 0.16, 0.34, 0.02), c("Root width", "components.1.root", 0.022, 0.042, 0.001, "m"), c("Root insertion length", "components.1.rootLength", 0.04, 0.1, 0.005, "m"), c("Hook depth", "components.1.hookDepth", 0.12, 0.25, 0.01), c("Hook curvature", "components.1.hookCurvature", 0.1, 0.34, 0.02), c("Bill section depth", "components.1.thickness", 0.014, 0.028, 0.001, "m")]);
+addControls("hooked-bill", [c("Bill length", "components.1.length", 0.3, 0.5, 0.01, "m"), c("Body belly position", "components.1.bellyPosition", 0.34, 0.62, 0.02), c("Point length ratio", "components.1.pointLength", 0.16, 0.34, 0.02), c("Root width", "components.1.root", 0.022, 0.042, 0.001, "m"), c("Root insertion length", "components.1.rootLength", 0.04, 0.1, 0.005, "m"), c("Hook depth", "components.1.hookDepth", 0.12, 0.25, 0.01), c("Hook curvature", "components.1.hookCurvature", 0.1, 0.34, 0.02), c("Bill section depth", "components.1.thickness", 0.005, 0.014, 0.001, "m")]);
 
 component("military-fork", 1, {
   tineTaper: 0.55,
   shoulderBlend: 0.2,
   crotchRound: 0.05,
 });
-addControls("military-fork", [c("Tine width", "components.1.tineWidth", 0.018, 0.036, 0.001, "m"), c("Tine taper", "components.1.tineTaper", 0.35, 0.75, 0.05), c("Crotch depth", "components.1.crotch", 0.25, 0.48, 0.01), c("Crotch rounding", "components.1.crotchRound", 0.02, 0.1, 0.01), c("Root width", "components.1.baseWidth", 0.04, 0.075, 0.005, "m"), c("Shoulder blend", "components.1.shoulderBlend", 0.12, 0.3, 0.02), c("Fork section depth", "components.1.thickness", 0.014, 0.03, 0.001, "m")]);
+addControls("military-fork", [c("Tine width", "components.1.tineWidth", 0.018, 0.036, 0.001, "m"), c("Tine taper", "components.1.tineTaper", 0.35, 0.75, 0.05), c("Crotch depth", "components.1.crotch", 0.25, 0.48, 0.01), c("Crotch rounding", "components.1.crotchRound", 0.02, 0.1, 0.01), c("Root width", "components.1.baseWidth", 0.04, 0.075, 0.005, "m"), c("Shoulder blend", "components.1.shoulderBlend", 0.12, 0.3, 0.02), c("Fork section depth", "components.1.thickness", 0.005, 0.014, 0.001, "m")]);
 
 for (const id of ["halberd-1540", "lucerne-hammer", "pollaxe", "kriegsspiess", "short-spear", "partisan", "glaive", "hooked-bill", "military-fork", "hand-axe"]) {
   const preset = presetById(id),
@@ -1516,11 +1516,11 @@ messer.definition.components[nagelIndex + 1] = {
 };
 
 PRESETS.find((preset) => preset.id === "katzbalger").definition.components[0].thickness = 0.018;
-PRESETS.find((preset) => preset.id === "katzbalger").definition.components[1].length = 0.115;
+PRESETS.find((preset) => preset.id === "katzbalger").definition.components[1].length = 0.100;
 const reiterPoll = PRESETS.find((preset) => preset.id === "reiter-war-hammer").definition.components[1];
 reiterPoll.crown = 0.06;
-reiterPoll.neck = 0.026;
-reiterPoll.face = 0.046;
+reiterPoll.neck = 0.022;
+reiterPoll.face = 0.032;
 
 const shieldControl = (label, key, min, max, step, unit = "") => c(label, `components.0.${key}`, min, max, step, unit);
 const shieldChoices = (kind) => [
@@ -1669,12 +1669,15 @@ for (const preset of PRESETS) {
 // Representative defaults make each construction family visible in the
 // gallery while every sword retains the complete authoring choices.
 PRESETS.find((preset) => preset.id === "zweihander").definition.components[0].construction = "writhen";
-PRESETS.find((preset) => preset.id === "grosse-messer").definition.components[0].construction = "outline";
+Object.assign(PRESETS.find((preset) => preset.id === "grosse-messer").definition.components[0], { construction: "outline", diameter: 0.05, height: 0.04, thickness: 0.012 });
+PRESETS.find((preset) => preset.id === "grosse-messer").definition.components[1].thickness = 0.004;
 PRESETS.find((preset) => preset.id === "estoc").definition.components[0].construction = "plate";
-PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[0].construction = "faceted";
+Object.assign(PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[0], { construction: "faceted", diameter: 0.04, height: 0.04 });
+PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[1].length = 0.12;
+PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[4].thickness = 0.007;
 Object.assign(PRESETS.find((preset) => preset.id === "zweihander").definition.components[2], { section: "diamond", terminal: "pyramidal", sectionTwist: 0 });
-Object.assign(PRESETS.find((preset) => preset.id === "grosse-messer").definition.components[2], { section: "flat", terminal: "disk" });
-Object.assign(PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[2], { section: "diamond", terminal: "vase" });
+Object.assign(PRESETS.find((preset) => preset.id === "grosse-messer").definition.components[2], { section: "flat", terminal: "disk", sectionDepth: 0.012, thickness: 0.012, height: 0.022 });
+Object.assign(PRESETS.find((preset) => preset.id === "reitschwert-1540").definition.components[2], { section: "diamond", terminal: "vase", sectionDepth: 0.012, thickness: 0.012, height: 0.022 });
 const shieldContexts = {
   buckler: ["Hand shield – early 16th-century context", "Compact hand shield for sword fencing. Steel bowl and hollow boss; dimensions are authoring choices, not a museum reconstruction."],
   pavise: ["Pavise – older retained equipment", "Wooden shield with a raised center rib, informed by surviving late-fifteenth-century German pavises. Useful as older equipment in 1544."],
@@ -1692,7 +1695,7 @@ export const HAFT_MODULES = [
     name: "Wooden polearm shaft",
     shaft: {
       length: 1.82,
-      radius: 0.022,
+      radius: 0.018,
       topScale: 0.94,
       bottomScale: 0.9,
       segments: 16,
@@ -1706,8 +1709,8 @@ export const HAFT_MODULES = [
         label: "butt cap",
         attach: { to: "weapon.root", at: "top", overlap: 0.005 },
         profile: [
-          [0, 0.029],
-          [0.04, 0.027],
+          [0, 0.018],
+          [0.006, 0.017],
         ],
         material: "darkSteel",
       },
@@ -1717,8 +1720,8 @@ export const HAFT_MODULES = [
     id: "steel-one-hand",
     name: "Steel one-hand haft",
     shaft: {
-      length: 0.62,
-      radius: 0.013,
+      length: 0.46,
+      radius: 0.007,
       topScale: 0.94,
       bottomScale: 1,
       segments: 16,
@@ -1730,8 +1733,8 @@ export const HAFT_MODULES = [
         id: "composer-grip",
         label: "composer grip",
         attach: { to: "weapon.root", at: "base" },
-        length: 0.18,
-        radius: 0.02,
+        length: 0.12,
+        radius: 0.016,
         topScale: 0.98,
         wraps: 0,
         material: "darkLeather",
@@ -1742,7 +1745,7 @@ export const HAFT_MODULES = [
         label: "composer collar",
         attach: { to: "composer-grip.top", at: "center" },
         width: 0.016,
-        radius: 0.023,
+        radius: 0.018,
         material: "steel",
       },
     ],
@@ -1873,7 +1876,7 @@ export function compositionControls(definition) {
       label: "Haft radius",
       target: "shaft",
       key: "radius",
-      min: 0.01,
+      min: 0.006,
       max: maximumAuthoredGripRadius(definition.shaft),
       step: 0.001,
       unit: "m",

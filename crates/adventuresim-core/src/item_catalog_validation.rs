@@ -13,6 +13,7 @@ const MAX_ITEMS: usize = 4_096;
 const MAX_STRING_BYTES: usize = 256;
 const MAX_TAGS: usize = 32;
 const MAX_DIAGNOSTICS: usize = 128;
+const WEAPON_PRECISION_FIELD: &str = "precision";
 pub const MAX_SOURCE_BYTES: usize = 2 * 1024 * 1024;
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -337,17 +338,12 @@ fn validate_item(
             "padding",
             "flexibility",
             "range_of_motion",
-            "accuracy",
             "preferred_attack",
-            "swing_precision",
-            "stab_precision",
             "reach_m",
-            "penetration",
+            "precision",
             "moment_of_inertia_kg_m2",
-            "precise",
             "melee",
             "ranged",
-            "damage_types",
             "skills",
             "capabilities",
         ],
@@ -478,17 +474,12 @@ fn validate_item(
             }
         }
         for field in [
-            "accuracy",
             "preferred_attack",
-            "swing_precision",
-            "stab_precision",
             "reach_m",
-            "penetration",
+            "precision",
             "moment_of_inertia_kg_m2",
-            "precise",
             "melee",
             "ranged",
-            "damage_types",
             "skills",
         ] {
             if item.contains_key(field) {
@@ -1283,29 +1274,17 @@ fn validate_weapon(item: &Map<String, Value>, path: &str, errors: &mut CatalogDi
             "must be a safe lowercase animation pack ID",
         );
     }
-    for field in [
-        "accuracy",
-        "reach_m",
-        "penetration",
-        "moment_of_inertia_kg_m2",
-    ] {
+    for field in ["reach_m", "moment_of_inertia_kg_m2"] {
         finite_in(item, field, 0.0, 10_000.0, path, errors);
     }
     let melee = item.get("melee").and_then(Value::as_bool).unwrap_or(false);
     let ranged = item.get("ranged").and_then(Value::as_bool).unwrap_or(false);
     if melee {
-        for field in ["swing_precision", "stab_precision"] {
-            finite_in(item, field, 0.0, 10_000.0, path, errors);
-            if item
-                .get(field)
-                .and_then(Value::as_f64)
-                .is_none_or(|value| value <= 0.0)
-            {
-                errors.push(
-                    format!("{path}.{field}"),
-                    "melee weapons require an explicit positive value",
-                );
-            }
+        if item.contains_key(WEAPON_PRECISION_FIELD) {
+            errors.push(
+                format!("{path}.precision"),
+                "melee precision is derived from the generated recipe",
+            );
         }
         if !matches!(
             item.get("preferred_attack").and_then(Value::as_str),
@@ -1317,18 +1296,8 @@ fn validate_weapon(item: &Map<String, Value>, path: &str, errors: &mut CatalogDi
     if !melee && !ranged {
         errors.push(path, "weapon must be melee and/or ranged");
     }
-    let damage = item.get("damage_types").and_then(Value::as_array);
-    if damage.is_none_or(Vec::is_empty)
-        || damage.is_some_and(|values| {
-            values
-                .iter()
-                .any(|value| !matches!(value.as_str(), Some("blunt" | "slash" | "pierce")))
-        })
-    {
-        errors.push(
-            format!("{path}.damage_types"),
-            "explicit non-empty supported damage types required",
-        );
+    if ranged && !melee {
+        finite_in(item, "precision", 0.0, 10_000.0, path, errors);
     }
     let Some(skills) = item.get("skills").and_then(Value::as_object) else {
         errors.push(
@@ -1829,14 +1798,11 @@ mod tests {
             ("weight_kg".into(), json!(-1)),
             ("kind".into(), json!("weapon")),
             ("slot".into(), json!("head")),
-            ("accuracy".into(), json!(1)),
             ("reach_m".into(), json!(1)),
-            ("penetration".into(), json!(1)),
+            ("precision".into(), json!(1)),
             ("moment_of_inertia_kg_m2".into(), json!(1)),
-            ("precise".into(), json!(false)),
             ("melee".into(), json!(true)),
             ("ranged".into(), json!(false)),
-            ("damage_types".into(), json!([])),
             ("skills".into(), json!({"laser": 1.0})),
         ]);
         let error =
@@ -1852,8 +1818,8 @@ mod tests {
             ),
             ("item BAD-ID.slot", "weapon requires any_holding"),
             (
-                "item BAD-ID.damage_types",
-                "explicit non-empty supported damage types required",
+                "item BAD-ID.precision",
+                "melee precision is derived from the generated recipe",
             ),
             ("item BAD-ID.skills.laser", "unknown field"),
             (

@@ -12,19 +12,19 @@ const {
   syncPanelWidth,
 } = require("../static/inventory-browser.js");
 test("panel state is independently namespaced", () => {
-  const search = "?inv.left.q=sword&inv.left.sort=weight&inv.left.dir=desc&inv.left.cols=reach,damage&inv.right.q=mail";
-  assert.deepEqual(parsePanelState(search, "left", ["reach", "damage"]), {
-    query: "sword", sort: "weight", direction: "desc", columns: ["reach", "damage"],
+  const search = "?inv.left.q=sword&inv.left.sort=weight&inv.left.dir=desc&inv.left.cols=reach,precision&inv.right.q=mail";
+  assert.deepEqual(parsePanelState(search, "left", ["reach", "precision"]), {
+    query: "sword", sort: "weight", direction: "desc", columns: ["reach", "precision"],
   });
   assert.equal(parsePanelState(search, "right", []).query, "mail");
 });
 
-test("advertised sort types retain text damage and numeric target or durability values", () => {
+test("advertised sort types retain numeric precision, target and durability values", () => {
   assert.equal(normalizeSortValue("Slash, Pierce", "text"), "Slash, Pierce");
   assert.equal(normalizeSortValue("12", "number"), 12);
   assert.equal(normalizeSortValue("0.76", "number"), 0.76);
   assert.equal(normalizeSortValue("—", "number"), "");
-  const label = { dataset: { itemName: "Sword", statDamage: "Slash, Pierce" }, textContent: "Sword" };
+  const label = { dataset: { itemName: "Sword", statPrecision: "2" }, textContent: "Sword" };
   const durabilityBar = { dataset: { sortValue: "0.76" } };
   const durabilityCell = { dataset: {}, textContent: "Damaged", querySelector: () => durabilityBar };
   const row = { querySelector: (selector) => ({
@@ -32,7 +32,7 @@ test("advertised sort types retain text damage and numeric target or durability 
     ".inventory-target": { textContent: "12" },
     ".inventory-durability": durabilityCell,
   })[selector] || null };
-  assert.equal(rowValue(row, "damage"), "Slash, Pierce");
+  assert.equal(rowValue(row, "precision"), 2);
   assert.equal(rowValue(row, "target"), 12);
   assert.equal(rowValue(row, "durability"), 0.76);
 });

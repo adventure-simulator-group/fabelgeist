@@ -5,6 +5,9 @@ use serde::Deserialize;
 #[path = "../src/combat/fatigue_config.rs"]
 mod fatigue_config;
 use fatigue_config::CombatFatigueParameters;
+#[path = "../src/combat/weapon_contact_config.rs"]
+mod weapon_contact_config;
+use weapon_contact_config::WeaponContactParameters;
 
 #[derive(Deserialize)]
 struct CombatBuildConfig {
@@ -60,6 +63,7 @@ struct AiOffenseValues {
 #[derive(Deserialize)]
 struct ResolutionValues {
     fatigue: CombatFatigueParameters,
+    contact: WeaponContactParameters,
     armed_attack_energy_transfer: f64,
     stagger_resistance_joules_per_kg: f64,
 }
@@ -95,11 +99,16 @@ pub fn compile(root: &Path) {
     let resolution = values.resolution;
     let autoresolve = values.autoresolve;
     let fatigue = format!("{:?}", resolution.fatigue);
+    resolution
+        .contact
+        .validate()
+        .expect("valid weapon contact calibration");
+    let contact = format!("{:?}", resolution.contact);
     fs::write(
         Path::new(&env::var("OUT_DIR").unwrap()).join("combat_resolution_config.rs"),
         format!(
             "pub const EMBEDDED_COMBAT_RESOLUTION_PARAMETERS: CombatResolutionParameters = \
-             CombatResolutionParameters {{ fatigue: {fatigue}, armed_attack_energy_transfer: {:?}_f32, \
+             CombatResolutionParameters {{ fatigue: {fatigue}, contact: {contact}, armed_attack_energy_transfer: {:?}_f32, \
              stagger_resistance_joules_per_kg: {:?}_f32 }};\n\
              pub const EMBEDDED_AUTORESOLVE_PARAMETERS: AutoresolveParameters = \
              AutoresolveParameters {{ combat_round_seconds: {:?}_f32, formation_spacing_metres: \

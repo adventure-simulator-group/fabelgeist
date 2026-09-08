@@ -115,7 +115,7 @@ fn view_cutting_weapon_binding(ctx: &ViewContext, actor: &crate::Character) -> O
         .into_iter()
         .filter_map(|(scope, row_id, item_id)| {
             let item = ctx.db.item().id().find(item_id)?;
-            if !item.slash || item.accuracy < 0.5 {
+            if item.precision < 0.5 {
                 return None;
             }
             let damage = if scope == CarriedInventoryScope::Personal {
@@ -141,13 +141,13 @@ fn view_cutting_weapon_binding(ctx: &ViewContext, actor: &crate::Character) -> O
                     })
             }
             .unwrap_or_default();
-            (effective_weapon_stat(item.accuracy, damage, item.edge_sensitivity) >= 0.5).then(
+            (effective_weapon_stat(item.precision, damage, item.edge_sensitivity) >= 0.5).then(
                 || {
                     cutting_weapon_binding(
                         scope,
                         row_id,
                         &item.id,
-                        item.accuracy,
+                        item.precision,
                         item.edge_sensitivity,
                         damage,
                     )

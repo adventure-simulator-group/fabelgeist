@@ -286,7 +286,8 @@ recorded at 73.7 cm long, 62.4 cm wide, and 3 kg. The heavy default defines
 overall length as tiller butt through the outside of the modeled foot stirrup;
 its 61.2 cm tiller plus 12 cm stirrup generates about 73.5 cm overall, while
 the prod-tip center span is 62.4 cm and calculated construction mass is about
-2.85 kg (within the object's approximate 3 kg construction target). The mechanisms and furniture also follow the Museum's
+2.85 kg (within the object's approximate 3 kg construction target). The dimensional reference is an altered object: its replacement prod and later
+lock do not authenticate the modeled mechanism to 1544. The mechanisms and furniture also follow the Museum's
 [later German/Saxon crossbow and cranequin 14.25.3383a-c](https://www.metmuseum.org/art/collection/search/33739):
 walnut tiller, steel prod lashed with hemp, rotating nut, bolt-butt notch,
 long trigger, safety/sight furniture, transverse cranequin rest, and the
@@ -389,7 +390,10 @@ German halberd is 25.5 cm across, using the Metropolitan Museum's circa
 
 This is an asset-development experiment, not authoritative gameplay code.
 The viewer measures enclosed mesh volume, material-weighted mass, center of
-mass and moment about the grip. Fitted sockets and bosses are hollow shells;
+mass and moment about the grip. Curved cutting blades have a finite edge land
+and distal taper; section depth denotes the actual maximum forte thickness.
+The separate Rust gameplay generator integrates its own canonical component
+solids for those same properties, material masses, and controlling-grip reach. Fitted sockets and bosses are hollow shells;
 metal bucklers use thin plate, and wooden shields use leather edge binding.
 Mass remains a construction diagnostic: overlapping assembled parts, material
 simplifications and missing fasteners prevent museum-level mass calibration.
@@ -468,3 +472,35 @@ connection context. Capture views such as `front-pommel`, `oblique-pommel`,
 [Artistic criteria and museum references](review/artistic-criteria.md) include
 the first iteration’s findings. The [hilt review record](review/hilt-artistic-criteria.md)
 records the independent reviewer’s construction and LOD acceptance decision.
+
+
+## 1544 proportion audit
+
+The [historical and artistic audit](review/1544-audit/historical-assessment.md)
+covers all named presets in the browser and Rust catalogs, with separate
+classification for comparative studies. The assembly composer also retains
+freely interchangeable heads; its combinations are construction studies rather
+than twenty independently documented German weapon types.
+
+The defaults use museum measurements and explicitly identified engineering
+inferences for thickness, mass distribution, grip length, and furniture. The
+pike is approximately five metres long. One-handed hammer, mace, and short-blade
+hilts use one-handed proportions; axe plates taper to their cutting edges and
+the glaive has a continuous asymmetric outline. Slider ranges and arbitrary
+JSON edits remain experimentation space, not historical certification.
+
+Reproduce analytical and image evidence with:
+
+```powershell
+cargo run -p adventuresim-weapon-model --example audit_catalog -- output/weapon-audit/rust.json
+node tools/weapon-modeler/audit-catalog.mjs output/weapon-audit
+python tools/weapon-modeler/review/1544-audit/render-mesh-review.py output/weapon-audit/rust.json output/weapon-audit/rust-images
+python tools/weapon-modeler/review/1544-audit/render-mesh-review.py output/weapon-audit/browser.json output/weapon-audit/browser-images
+```
+
+The image renderer requires Pillow and NumPy. It draws the actual exported
+triangles in front and oblique views and supplies head detail plates. Exact
+recipe definitions and the corresponding calculated properties accompany the
+images. Summed component solids can still double-count assembly overlaps and
+omit unmodeled fasteners; material descriptions and historical attribution are
+family-level approximations, not exact object reconstructions.

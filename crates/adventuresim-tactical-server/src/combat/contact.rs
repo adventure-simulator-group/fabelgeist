@@ -60,6 +60,7 @@ pub(super) fn initial_melee_contact(
     event: &MeleeAttackStartedIntent,
     strike_family: StrikeFamily,
     random: &mut crate::bot::CombatRandom,
+    parameters: adventuresim_core::combat::WeaponContactParameters,
 ) -> InitialMeleeContact {
     let sample = random.unit_f32();
     let attacker = viewer.get_for_attack(event.attacker, event.hand).ok();
@@ -76,6 +77,7 @@ pub(super) fn initial_melee_contact(
                     &defender,
                     event.reported_precision.get(),
                     sample,
+                    parameters,
                 )
                 .body_part,
         )
@@ -112,7 +114,6 @@ pub(super) fn windup_duration(contact_tick: u64, start_tick: u64) -> CombatDurat
 pub(super) fn resolve_melee_contact(
     attacker: &TacticalPlayerView<'_, '_, '_>,
     defender: &TacticalPlayerView<'_, '_, '_>,
-    defender_categories: &[BestiaryCategory],
     parameters: adventuresim_core::combat::CombatResolutionParameters,
     attacker_side: BodySide,
     attack_style: MeleeAttackStyle,
@@ -129,6 +130,7 @@ pub(super) fn resolve_melee_contact(
         defender,
         reported_precision.get(),
         sample,
+        parameters.contact,
     );
     if let Some(body_part) = forced_body_part {
         let surface_coordinate = sample.clamp(0.0, 1.0 - f32::EPSILON);
@@ -145,7 +147,6 @@ pub(super) fn resolve_melee_contact(
         attacker_side,
         attack_style,
         defender,
-        defender_categories,
         defender_response,
         reported_precision.get(),
         flanking,

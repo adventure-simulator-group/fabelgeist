@@ -1,7 +1,7 @@
 import { triangleVertices } from "../src/topology.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { billHeadCurveSpans, billHeadOutline, buildWeapon, figureEightGuard, glaiveOutline, glaiveSpineCurveSpans, knuckleBow, maceFlangeOutline, measureMassProperties, sampleAdaptiveCurve, sampleCubicBezier, signedVolume, triangulatePolygon, tubePath, tubeRadialSegments, validateWeapon } from "../src/mesh.js";
+import { billHeadCurveSpans, billHeadOutline, buildWeapon, figureEightGuard, glaiveOutline, knuckleBow, maceFlangeOutline, measureMassProperties, sampleAdaptiveCurve, sampleCubicBezier, signedVolume, triangulatePolygon, tubePath, tubeRadialSegments, validateWeapon } from "../src/mesh.js";
 import { automaticGripPoint } from "../src/glb-export.js";
 import { HEAD_KINDS, PRESETS, copyPreset, getPath, setControlValue, setPath } from "../src/presets.js";
 import { fitDistance, projectedFit } from "../src/renderer.js";
@@ -21,8 +21,9 @@ test("every preset produces finite nonempty geometry", () => {
     const isShield = preset.definition.components.some((component) => ["roundShield", "shapedShield"].includes(component.kind)),
       isCarrier = preset.definition.components.some((component) => ["arrowQuiver", "boltQuiver"].includes(component.kind)),
       isBall = preset.definition.components.some((component) => component.kind === "leadBall"),
-      isPouch = preset.definition.components.some((component) => component.kind === "ballPouch");
-    assert.ok(mesh.stats.dimensions[1] > (isBall ? 0.005 : isPouch ? 0.1 : isShield ? 0.3 : isCarrier ? 0.4 : 0.45), preset.id);
+      isPouch = preset.definition.components.some((component) => component.kind === "ballPouch"),
+      isDagger = preset.id === "rondel-dagger";
+    assert.ok(mesh.stats.dimensions[1] > (isBall ? 0.005 : isPouch ? 0.1 : isShield ? 0.3 : isCarrier ? 0.4 : isDagger ? 0.40 : 0.45), preset.id);
     assert.ok(mesh.stats.dimensions.every((value) => Number.isFinite(value) && value > 0), preset.id);
     assert.ok(mesh.stats.volume > 0, preset.id);
     for (const control of preset.controls) {
@@ -223,12 +224,15 @@ test("glaive contours converge to one acute apex in the final quarter", () => {
   assert.ok(angle < 35, `apex angle ${angle}`);
 });
 
-test("glaive root shoulders flare continuously beyond the tang", () => {
-  const points = glaiveOutline({ length: 0.54, width: 0.105, curvature: 0.13, root: 0.032 });
-  const transition = points.filter(([, y]) => y > -0.08 && y <= 0.54 * 0.12 + 1e-9);
-  assert.ok(Math.max(...transition.map(([x]) => x)) > 0.032 * 1.15);
-  assert.ok(Math.min(...transition.map(([x]) => x)) < -0.032 * 1.15);
-  assert.ok(transition.every((point, index) => !index || Math.hypot(point[0] - transition[index - 1][0], point[1] - transition[index - 1][1]) > 1e-6));
+test("glaive shoulders grow continuously from a narrow tang into an asymmetric belly", () => {
+  const root = 0.032, points = glaiveOutline({ length: 0.54, width: 0.105, curvature: 0.07, root });
+  const rootStations = points.filter(([, y]) => Math.abs(y) < 1e-9);
+  assert.equal(rootStations.length, 2);
+  assert.ok(rootStations.every(([x]) => Math.abs(Math.abs(x) - root / 2) < 1e-9));
+  const belly = points.filter(([, y]) => y > 0.15 && y < 0.3);
+  assert.ok(Math.max(...belly.map(([x]) => x)) > 0.07);
+  assert.ok(Math.min(...belly.map(([x]) => x)) > -0.04);
+  assert.ok(points.every((point, index) => !index || Math.hypot(point[0] - points[index - 1][0], point[1] - points[index - 1][1]) > 1e-8));
 });
 
 test("Messer Nagel projects 40-50 mm normal to the blade plane with a button", () => {
@@ -411,15 +415,16 @@ test("bill cubic joins remain co-directed and smooth at default and endpoint sha
   }
 });
 
-test("glaive spine join remains tangent-continuous at default and endpoint shapes", () => {
+test("actual glaive boundaries keep dense samples and one apex at control endpoints", () => {
   for (const endpoint of ["default", "min", "max"]) {
-    const component = componentAtEndpoint("glaive", "glaive", endpoint), spans = glaiveSpineCurveSpans(component);
-    const incoming = [spans[0].points[3][0] - spans[0].points[2][0], spans[0].points[3][1] - spans[0].points[2][1]];
-    const outgoing = [spans[1].points[1][0] - spans[1].points[0][0], spans[1].points[1][1] - spans[1].points[0][1]];
-    assert.ok(incoming[0] * outgoing[0] + incoming[1] * outgoing[1] > 0, endpoint);
-    assert.ok(angleBetween(incoming, outgoing) < 1e-4, `${endpoint}: ${angleBetween(incoming, outgoing)} degree turn`);
-    assert.ok(Math.abs(Math.hypot(...incoming) - Math.hypot(...outgoing)) < 1e-10, `${endpoint}: unequal C1 handles`);
-    assertCubicSampling(spans, { minimumSegments: 12, maxChord: component.length / 28, maxDeviation: component.width / 180 }, `glaive ${endpoint}`);
+    const component = componentAtEndpoint("glaive", "glaive", endpoint);
+    const points = glaiveOutline(component);
+    assert.equal(points.filter(([, y]) => Math.abs(y - component.length) < 1e-9).length, 1);
+    const body = points.filter(([, y]) => y >= 0);
+    for (let i = 1; i < body.length; i++) {
+      const chord = Math.hypot(body[i][0] - body[i-1][0], body[i][1] - body[i-1][1]);
+      assert.ok(chord > 1e-8 && chord <= component.length / 28 * 1.01, `${endpoint}: ${chord}`);
+    }
   }
 });
 

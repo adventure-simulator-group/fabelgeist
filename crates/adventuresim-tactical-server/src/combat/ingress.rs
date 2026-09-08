@@ -185,8 +185,13 @@ pub(crate) fn on_melee_attack_started(
     let recovery =
         incapacitation_adjusted_attack_recovery(event.attacker, recovery, &combat_states);
     let start = animation_tick(&time);
-    let initial_contact =
-        super::contact::initial_melee_contact(&viewer, &event, strike_family, &mut random);
+    let initial_contact = super::contact::initial_melee_contact(
+        &viewer,
+        &event,
+        strike_family,
+        &mut random,
+        config.resolution.contact,
+    );
     let selected_body_part = initial_contact.body_part;
     let weapon_reach = initial_contact.weapon_reach;
     let lunge_delay = started_attack_lunge_delay(

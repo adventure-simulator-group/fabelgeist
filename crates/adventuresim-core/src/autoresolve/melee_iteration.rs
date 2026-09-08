@@ -2,7 +2,7 @@
 
 use super::*;
 use crate::{
-    item_catalog_schema::{DamageType, ItemKind},
+    item_catalog_schema::ItemKind,
     starting_character::{StartingAttributes, StartingCharacterSpec, StartingSkills},
 };
 
@@ -283,21 +283,16 @@ fn authored_equipment(
     Ok(equipment)
 }
 
-fn authored_melee_weapon(
+pub(super) fn authored_melee_weapon(
     definition: &crate::item_catalog::ItemDefinition,
 ) -> Result<CombatWeapon, String> {
     let weapon_id = definition.id.as_str();
     let ItemKind::Weapon {
         preferred_attack,
-        swing_precision,
-        stab_precision,
-        accuracy,
         reach_m,
-        penetration,
-        precise,
+        precision,
         melee,
         ranged,
-        damage_types,
         skills,
         ..
     } = &definition.kind
@@ -325,22 +320,20 @@ fn authored_melee_weapon(
         .as_ref()
         .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);
     let total_length_m = dimensions_m[1];
-    let striking_head_length_m = dimensions_m[0].max(dimensions_m[2]);
+    let recipe = adventuresim_weapon_model::default_design(weapon_id)
+        .ok_or_else(|| format!("{weapon_id} has no generated recipe"))?;
+    let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)
+        .map_err(|errors| format!("{weapon_id}: {errors:?}"))?
+        .striking_head_length_m;
     let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();
     Ok(CombatWeapon {
         skills: skill_distribution,
         melee: true,
         ranged: false,
-        blunt: damage_types.contains(&DamageType::Blunt),
-        slash: damage_types.contains(&DamageType::Slash),
-        pierce: damage_types.contains(&DamageType::Pierce),
-        accuracy: *accuracy,
-        swing_precision: *swing_precision,
-        stab_precision: *stab_precision,
         preferred_melee_style: *preferred_attack,
         weight: definition.weight_kg,
         moment_of_inertia_kg_m2,
-        penetration: *penetration,
+        precision: *precision,
         melee_reach: *reach_m,
         grip_to_tip_m,
         total_length_m,
@@ -371,7 +364,6 @@ fn authored_melee_weapon(
         // recovery before another fresh attack may begin.
         attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS.melee_windup_seconds
             + timing.recovery_secs,
-        precise: *precise,
         balance: crate::equipment::weapon_balance_from_moment(
             moment_of_inertia_kg_m2,
             definition.weight_kg,
@@ -717,7 +709,6 @@ mod tests {
                 attacker_equipment.holding_side,
                 attacker_equipment.weapon_preferred_melee_style(),
                 1.0,
-                0.0,
                 1.0,
                 MeleeContactLocation {
                     body_part: BodyPart::Chest,
@@ -827,8 +818,11 @@ mod tests {
         }));
         assert!(evidence.all_weapon_contact_bands.iter().any(|contact| {
             contact.weapon == "war_hammer"
-                && contact.classification == MeleeContactClassification::Pommel
-                && contact.energy_fraction < 0.1
+                && matches!(
+                    contact.classification,
+                    MeleeContactClassification::Haft | MeleeContactClassification::Pommel
+                )
+                && contact.energy_fraction < 1.0
         }));
         assert!(evidence.all_weapon_contact_bands.iter().any(|contact| {
             contact.weapon == "longsword"

@@ -136,17 +136,6 @@ pub(super) fn item_name_with_display_quality(
             }
         }
     });
-    let damage_types = definition.map(|item| {
-        [
-            item.blunt.then_some("Blunt"),
-            item.slash.then_some("Slash"),
-            item.pierce.then_some("Pierce"),
-        ]
-        .into_iter()
-        .flatten()
-        .collect::<Vec<_>>()
-        .join(", ")
-    });
     html! {
         span class=(quality.map_or_else(|| "inventory-item-label".to_string(), |quality| format!("inventory-item-label item-quality-{quality}"))) title=[label]
             data-item-name=(item_id)
@@ -159,12 +148,8 @@ pub(super) fn item_name_with_display_quality(
             data-food-lot=[adventuresim_core::food::definition(item_id).map(|_| "true")]
             data-container-capacity-ml=[definition.and_then(|item| (item.container_capacity_ml > 0).then_some(item.container_capacity_ml))]
             data-exterior-volume-ml=[definition.map(|item| item.exterior_volume_ml)]
-            data-stat-accuracy=[definition.map(|item| weight_display(item.accuracy))]
-            data-stat-swing-precision=[definition.map(|item| weight_display(item.swing_precision))]
-            data-stat-stab-precision=[definition.map(|item| weight_display(item.stab_precision))]
+            data-stat-precision=[definition.map(|item| weight_display(item.precision))]
             data-stat-reach=[definition.map(|item| weight_display(item.reach))]
-            data-stat-penetration=[definition.map(|item| weight_display(item.penetration))]
-            data-stat-damage=[damage_types]
             data-stat-block=[definition.map(|item| weight_display(item.block))]
             data-stat-coverage=[definition.map(|item| weight_display(item.coverage))]
             data-stat-resistance=[definition.map(|item| weight_display(item.resistance))]
@@ -174,7 +159,7 @@ pub(super) fn item_name_with_display_quality(
             data-detail-slot=[definition.map(|item| slot_wire_label(item.slot))]
             data-detail-balance=[definition.map(|item| weight_display(item.balance))]
             data-item-edit-url=[edit_url]
-            data-detail-mode=[definition.map(|item| match (item.melee, item.ranged, item.precise) { (true, true, true) => "Melee, ranged, precise", (true, true, false) => "Melee and ranged", (true, false, true) => "Melee, precise", (false, true, true) => "Ranged, precise", (true, false, false) => "Melee", (false, true, false) => "Ranged", (false, false, true) => "Precise", _ => "—" }.to_string())] {
+            data-detail-mode=[definition.map(|item| match (item.melee, item.ranged) { (true, true) => "Melee and ranged", (true, false) => "Melee", (false, true) => "Ranged", _ => "—" }.to_string())] {
             (display_name)
         }
     }

@@ -2,11 +2,8 @@
   "use strict";
 
   const OPTIONAL_COLUMNS = {
-    accuracy: ["Ranged precision", "accuracy"],
-    swingPrecision: ["Swing precision", "swing-precision"],
-    stabPrecision: ["Stab precision", "stab-precision"],
+    precision: ["Precision", "precision"],
     reach: ["Reach m", "reach"],
-    penetration: ["Penetration", "penetration"], damage: ["Damage types", "damage"],
     block: ["Block", "block"], coverage: ["Coverage", "coverage"],
     resistance: ["Resistance J", "resistance"], padding: ["Padding J", "padding"],
     flexibility: ["Flexibility", "flexibility"],
@@ -16,10 +13,8 @@
     Slot: "knapsack",
     Balance: "scales",
     Mode: "crossed-swords",
-    Precision: "bullseye",
+    Precision: "piercing-sword",
     "Reach m": "spear-hook",
-    Penetration: "piercing-sword",
-    "Damage types": "saber-slash",
     Block: "shield",
     Coverage: "armor-vest",
     "Resistance J": "bordered-shield",
@@ -82,7 +77,7 @@
     if (key === "type") return label?.dataset.itemKind || "";
     if (OPTIONAL_COLUMNS[key]) {
       const value = label?.dataset[`stat${OPTIONAL_COLUMNS[key][1][0].toUpperCase()}${OPTIONAL_COLUMNS[key][1].slice(1)}`];
-      return normalizeSortValue(value, key === "damage" ? "text" : "number");
+      return normalizeSortValue(value, "number");
     }
     const selectors = { quantity: ".inventory-count", target: ".inventory-target-value", equipped: ".inventory-equipped input", durability: ".inventory-durability", weight: ".inventory-weight", value: ".inventory-gold" };
     if (key === "equipped") return row.querySelector(selectors[key])?.checked ? 1 : 0;
@@ -155,14 +150,9 @@
     const property = `stat${dataKey[0].toUpperCase()}${dataKey.slice(1)}`;
     const label = row.querySelector("[data-item-name]");
     const kind = label?.dataset.itemKind;
-    const weaponColumn = ["accuracy", "swingPrecision", "stabPrecision", "reach", "penetration", "damage", "block"].includes(column);
+    const weaponColumn = ["precision", "reach", "block"].includes(column);
     const applicable = weaponColumn ? ["weapon", "shield"].includes(kind) : kind === "armor";
-    const styleApplicable = column === "accuracy"
-      ? label?.dataset.itemRanged === "true"
-      : ["swingPrecision", "stabPrecision"].includes(column)
-        ? label?.dataset.itemMelee === "true"
-        : true;
-    cell.textContent = applicable && styleApplicable ? (label?.dataset[property] || "—") : "—";
+    cell.textContent = applicable ? (label?.dataset[property] || "—") : "—";
     const actionCell = row.querySelector(":scope > .inventory-actions-cell");
     if (actionCell && actionCell === row.lastElementChild) row.insertBefore(cell, actionCell);
     else row.append(cell);

@@ -386,7 +386,6 @@ pub(crate) fn combat_geometry(
     ctx: &ReducerContext,
     inventory_row_id: u64,
     item_id: &str,
-    catalog_melee_reach_m: f32,
 ) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
     let object = crate::inventory_container::object_for_row(
         ctx,
@@ -403,10 +402,8 @@ pub(crate) fn combat_geometry(
     if !valid_instance(&instance, item_id) {
         return None;
     }
-    let derived = derive_properties(&decode(&instance.recipe).ok()?).ok()?;
-    let default_grip_to_tip_m = derive_properties(&default_design(item_id)?)
-        .ok()?
-        .grip_to_tip_m;
+    let design = decode(&instance.recipe).ok()?;
+    let derived = derive_properties(&design).ok()?;
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
         derived.length_m,
@@ -414,8 +411,10 @@ pub(crate) fn combat_geometry(
         derived.striking_head_length_m,
         derived.moment_of_inertia_kg_m2,
         derived.balance,
-        catalog_melee_reach_m,
-        default_grip_to_tip_m,
+        adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
+            .contact
+            .precision_for_design(&design)
+            .value(),
     )
 }
 
