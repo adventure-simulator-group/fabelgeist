@@ -21,8 +21,15 @@ pub(super) fn movement_intent(
 ) -> MovementIntent {
     let reach = melee_effective_reach(combatant);
     let preferred = preferred_melee_measure(combatant, parameters);
-    if combatant.equipment.weapon_reach() >= parameters.long_weapon_measure_threshold_metres
-        && distance < preferred
+    let head_length = combatant.equipment.weapon_striking_head_length();
+    let minimum_working_measure = if head_length > 0.0 {
+        (reach - head_length).max(0.0)
+    } else {
+        preferred
+    };
+    if distance < minimum_working_measure
+        || combatant.equipment.weapon_reach() >= parameters.long_weapon_measure_threshold_metres
+            && distance < preferred
     {
         MovementIntent::Retreat
     } else if distance > reach

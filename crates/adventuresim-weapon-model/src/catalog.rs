@@ -1,3 +1,5 @@
+mod furniture;
+
 use crate::*;
 
 pub const PRESET_IDS: &[&str] = &[
@@ -132,8 +134,8 @@ fn socket(parent: &str, length: u32, radius: u32, insertion: u32) -> ComponentDe
         ComponentShape::Socket(SocketSpec {
             length: Millimeters(length),
             outer_radius: Millimeters(radius),
-            top_radius: Millimeters(radius.saturating_sub(3)),
-            wall: Millimeters(4),
+            top_radius: Millimeters(radius),
+            wall: Millimeters(2),
             segments: Segments(18),
         }),
     )
@@ -143,12 +145,12 @@ fn langet(id: &str, x: i32, length: u32) -> ComponentDesign {
         id,
         ComponentRole::Structure,
         Some(("shaft", length.min(380))),
-        OffsetMm { x, y: 0, z: 0 },
+        OffsetMm { x: 0, y: 0, z: x },
         MaterialClass::Steel,
         ComponentShape::Langet(LangetSpec {
             length: Millimeters(length),
             width: Millimeters(13),
-            thickness: Millimeters(5),
+            thickness: Millimeters(3),
         }),
     )
 }
@@ -177,13 +179,7 @@ fn spear(
         }),
     )
 }
-fn polearm_base(
-    id: &str,
-    length: u32,
-    radius: u32,
-    socket_length: u32,
-    socket_radius: u32,
-) -> WeaponDesign {
+fn polearm_base(id: &str, length: u32, radius: u32, socket_length: u32) -> WeaponDesign {
     let shaft_segments = if matches!(
         id,
         "halberd-1540" | "lucerne-hammer" | "pollaxe" | "hooked-bill"
@@ -200,15 +196,20 @@ fn polearm_base(
         catalog_id: id.into(),
         components: vec![
             haft,
-            socket("shaft", socket_length, socket_radius, socket_length * 3 / 4),
+            socket(
+                "shaft",
+                socket_length,
+                (radius * 920).div_ceil(1000) + 2,
+                socket_length * 3 / 4,
+            ),
             component(
                 "butt-cap",
                 ComponentRole::Structure,
                 Some(("shaft", length)),
-                OffsetMm { x: 0, y: -40, z: 0 },
+                OffsetMm { x: 0, y: -6, z: 0 },
                 MaterialClass::DarkSteel,
                 ComponentShape::Cylinder(CylinderSpec {
-                    length: Millimeters(40),
+                    length: Millimeters(6),
                     radius: Millimeters(radius),
                     bottom_scale: Permille(1000),
                     top_scale: Permille(920),
@@ -219,8 +220,12 @@ fn polearm_base(
     }
 }
 fn polearm_finish(mut design: WeaponDesign, length: u32) -> WeaponDesign {
-    design.components.push(langet("langet-left", -18, length));
-    design.components.push(langet("langet-right", 18, length));
+    let ComponentShape::Cylinder(shaft) = &design.components[0].shape else {
+        unreachable!()
+    };
+    let seat = (shaft.radius.0 * 920 / 1000 + 1) as i32;
+    design.components.push(langet("langet-left", -seat, length));
+    design.components.push(langet("langet-right", seat, length));
     design
 }
 
@@ -285,7 +290,7 @@ fn sword(
         ComponentShape::Blade(BladeSpec {
             length: Millimeters(blade_length),
             width: Millimeters(width),
-            thickness: Millimeters(12),
+            thickness: Millimeters(7),
             curvature: SignedMillimeters(curvature),
             profile: BladeProfile::Straight,
             section,
@@ -304,7 +309,7 @@ fn sword(
 fn cross(span: u32, sweep: i32) -> ComponentShape {
     ComponentShape::Guard(GuardSpec {
         span: Millimeters(span),
-        radius: Millimeters(8),
+        radius: Millimeters(5),
         sweep: SignedMillimeters(sweep),
         samples: Segments(22),
         radial_segments: Segments(14),
@@ -391,9 +396,9 @@ fn gothic(id: &str, length: u32, haft: u32, concavity: u16) -> WeaponDesign {
         crown_length,
         flange_thickness,
     ) = if concavity > 500 {
-        (11, 200, 19, 18, 22, 150, 9, 7, 15, 2)
+        (7, 130, 16, 10, 18, 50, 8, 7, 12, 2)
     } else {
-        (13, 170, 20, 14, 23, 90, 8, 7, 8, 3)
+        (7, 120, 16, 8, 18, 40, 8, 7, 8, 2)
     };
     WeaponDesign {
         catalog_id: id.into(),
@@ -478,7 +483,7 @@ fn gothic(id: &str, length: u32, haft: u32, concavity: u16) -> WeaponDesign {
                     length: Millimeters(length),
                     root_radius: Millimeters(root_radius),
                     shoulder_radius: Millimeters(shoulder_radius),
-                    cusp_radius: Millimeters(60),
+                    cusp_radius: Millimeters(40),
                     cusp_height: Permille(if concavity > 500 { 750 } else { 500 }),
                     concavity: Permille(concavity),
                     crown_length: Millimeters(crown_length),
@@ -497,7 +502,7 @@ fn gothic(id: &str, length: u32, haft: u32, concavity: u16) -> WeaponDesign {
 pub fn preset_design(id: &str) -> Option<WeaponDesign> {
     Some(match id {
         "halberd-1540" => {
-            let mut d = polearm_base(id, 1820, 22, 240, 33);
+            let mut d = polearm_base(id, 1820, 18, 200);
             d.components.push(component(
                 "axe",
                 ComponentRole::Head,
@@ -507,17 +512,17 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 ComponentShape::Axe(AxeSpec {
                     reach: Millimeters(155),
                     height: Millimeters(270),
-                    thickness: Millimeters(22),
+                    thickness: Millimeters(7),
                     root_width: Millimeters(28),
                     beard: Permille(420),
-                    curvature: Permille(80),
+                    curvature: Permille(20),
                     side: 1,
                     upper_shoulder: Permille(380),
                     lower_shoulder: Permille(260),
-                    flare: SignedPermille(0),
+                    flare: SignedPermille(-220),
                     toe: SignedPermille(0),
                     heel: SignedPermille(0),
-                    beard_drop: Permille(189),
+                    beard_drop: Permille(90),
                 }),
             ));
             d.components.push(component(
@@ -535,7 +540,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                     root_section: Millimeters(33),
                     tip_section: Millimeters(3),
                     thickness: Millimeters(18),
-                    curvature: SignedMillimeters(-40),
+                    curvature: SignedMillimeters(-5),
                     direction: -1,
                     samples: Segments(18),
                     bend_position: Permille(550),
@@ -543,11 +548,11 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 }),
             ));
             d.components
-                .push(spear("spike", "socket", 320, 60, 22, 140));
+                .push(spear("spike", "socket", 320, 40, 10, 140));
             polearm_finish(d, 380)
         }
         "lucerne-hammer" => {
-            let mut d = polearm_base(id, 1740, 22, 240, 33);
+            let mut d = polearm_base(id, 1740, 18, 200);
             d.components.push(component(
                 "poll",
                 ComponentRole::Head,
@@ -556,15 +561,15 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::HammerPoll(HammerPollSpec {
                     length: Millimeters(90),
-                    face: Millimeters(75),
-                    neck: Millimeters(46),
-                    thickness: Millimeters(70),
+                    face: Millimeters(40),
+                    neck: Millimeters(25),
+                    thickness: Millimeters(38),
                     direction: 1,
                     crown: Permille(60),
                     neck_ratio: Permille(720),
                     face_flare: Permille(0),
                     crown_length: Millimeters(5),
-                    face_thickness: Millimeters(70),
+                    face_thickness: Millimeters(38),
                 }),
             ));
             d.components.push(component(
@@ -586,11 +591,11 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 }),
             ));
             d.components
-                .push(spear("spike", "socket", 310, 52, 22, 120));
+                .push(spear("spike", "socket", 310, 38, 10, 120));
             polearm_finish(d, 420)
         }
         "pollaxe" => {
-            let mut d = polearm_base(id, 1480, 22, 250, 32);
+            let mut d = polearm_base(id, 1480, 18, 200);
             d.components.push(component(
                 "axe",
                 ComponentRole::Head,
@@ -600,7 +605,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 ComponentShape::Axe(AxeSpec {
                     reach: Millimeters(115),
                     height: Millimeters(180),
-                    thickness: Millimeters(23),
+                    thickness: Millimeters(10),
                     root_width: Millimeters(30),
                     beard: Permille(80),
                     curvature: Permille(25),
@@ -621,35 +626,34 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::HammerPoll(HammerPollSpec {
                     length: Millimeters(90),
-                    face: Millimeters(65),
-                    neck: Millimeters(40),
-                    thickness: Millimeters(68),
+                    face: Millimeters(40),
+                    neck: Millimeters(24),
+                    thickness: Millimeters(38),
                     direction: -1,
                     crown: Permille(80),
                     neck_ratio: Permille(720),
                     face_flare: Permille(0),
                     crown_length: Millimeters(7),
-                    face_thickness: Millimeters(68),
+                    face_thickness: Millimeters(38),
                 }),
             ));
             d.components
-                .push(spear("spike", "socket", 250, 48, 22, 110));
+                .push(spear("spike", "socket", 250, 36, 10, 110));
             polearm_finish(d, 500)
         }
         "kriegsspiess" => {
-            let mut d = polearm_base(id, 3350, 19, 180, 27);
+            let mut d = polearm_base(id, 4700, 18, 180);
             d.components
-                .push(spear("spike", "socket", 250, 43, 22, 150));
+                .push(spear("spike", "socket", 250, 38, 10, 150));
             d
         }
         "short-spear" => {
-            let mut d = polearm_base(id, 1720, 20, 200, 31);
-            d.components
-                .push(spear("spike", "socket", 310, 85, 24, 320));
+            let mut d = polearm_base(id, 1720, 18, 180);
+            d.components.push(spear("spike", "socket", 310, 55, 9, 320));
             d
         }
         "partisan" => {
-            let mut d = polearm_base(id, 1780, 21, 220, 34);
+            let mut d = polearm_base(id, 1780, 18, 180);
             d.components.push(component(
                 "partisan",
                 ComponentRole::Head,
@@ -658,9 +662,9 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::Partisan(PartisanSpec {
                     length: Millimeters(420),
-                    width: Millimeters(135),
-                    lug_width: Millimeters(145),
-                    thickness: Millimeters(22),
+                    width: Millimeters(90),
+                    lug_width: Millimeters(120),
+                    thickness: Millimeters(7),
                     belly: Permille(320),
                     root_width: Millimeters(24),
                     lug_drop: Permille(75),
@@ -672,7 +676,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             polearm_finish(d, 320)
         }
         "glaive" => {
-            let mut d = polearm_base(id, 1720, 21, 250, 34);
+            let mut d = polearm_base(id, 1720, 18, 180);
             d.components.push(component(
                 "glaive",
                 ComponentRole::Head,
@@ -682,8 +686,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 ComponentShape::Glaive(GlaiveSpec {
                     length: Millimeters(540),
                     width: Millimeters(105),
-                    thickness: Millimeters(18),
-                    curvature: SignedMillimeters(130),
+                    thickness: Millimeters(6),
+                    curvature: SignedMillimeters(70),
                     root: Millimeters(32),
                     edge_curvature: Permille(240),
                     spine_curvature: Permille(200),
@@ -696,7 +700,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             polearm_finish(d, 400)
         }
         "hooked-bill" => {
-            let mut d = polearm_base(id, 1830, 22, 230, 33);
+            let mut d = polearm_base(id, 1830, 18, 180);
             d.components.push(component(
                 "bill",
                 ComponentRole::Head,
@@ -707,7 +711,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                     length: Millimeters(380),
                     width: Millimeters(90),
                     hook: Millimeters(80),
-                    thickness: Millimeters(20),
+                    thickness: Millimeters(5),
                     root: Millimeters(30),
                     hook_depth: Permille(190),
                     hook_curvature: Permille(220),
@@ -720,7 +724,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             polearm_finish(d, 380)
         }
         "military-fork" => {
-            let mut d = polearm_base(id, 1860, 21, 240, 34);
+            let mut d = polearm_base(id, 1860, 18, 180);
             d.components.push(component(
                 "fork",
                 ComponentRole::Head,
@@ -729,10 +733,10 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::Fork(ForkSpec {
                     length: Millimeters(390),
-                    width: Millimeters(130),
+                    width: Millimeters(100),
                     base_width: Millimeters(55),
-                    thickness: Millimeters(22),
-                    tine_width: Millimeters(26),
+                    thickness: Millimeters(6),
+                    tine_width: Millimeters(18),
                     crotch: Permille(340),
                     taper: Permille(550),
                     shoulder_blend: Permille(200),
@@ -744,12 +748,12 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
         "landsknecht-longsword" => {
             let mut d = sword(
                 id,
-                1020,
-                65,
-                300,
+                950,
+                50,
+                220,
                 BladeSection::Fullered,
                 0,
-                cross(310, 18),
+                cross(220, 18),
                 profiled(&[(0, 12), (10, 17), (38, 20), (55, 10)]),
             );
             set_oval_grip(&mut d, 33, 24);
@@ -759,7 +763,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             let mut d = sword(
                 id,
                 1280,
-                72,
+                60,
                 415,
                 BladeSection::Fullered,
                 0,
@@ -767,7 +771,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 profiled(&[(0, 14), (12, 21), (45, 24), (65, 12)]),
             );
             if let ComponentShape::Blade(blade) = &mut d.components[3].shape {
-                blade.thickness = Millimeters(13);
+                blade.thickness = Millimeters(8);
                 blade.taper = Permille(680);
                 blade.ricasso = Millimeters(260);
             }
@@ -785,9 +789,9 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
         "katzbalger" => {
             let mut d = sword(
                 id,
-                660,
-                70,
-                165,
+                682,
+                50,
+                100,
                 BladeSection::Fullered,
                 0,
                 ComponentShape::FigureEight(FigureEightSpec {
@@ -799,14 +803,14 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 }),
                 ComponentShape::FanPommel(FanPommelSpec {
                     width: Millimeters(55),
-                    height: Millimeters(45),
+                    height: Millimeters(31),
                     thickness: Millimeters(14),
                 }),
             );
             set_oval_grip(&mut d, 34, 25);
             if let ComponentShape::Blade(blade) = &mut d.components[3].shape {
-                blade.thickness = Millimeters(11);
-                blade.taper = Permille(500);
+                blade.thickness = Millimeters(7);
+                blade.taper = Permille(150);
             }
             d
         }
@@ -814,7 +818,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             let mut d = sword(
                 id,
                 840,
-                64,
+                52,
                 215,
                 BladeSection::Flat,
                 85,
@@ -829,7 +833,7 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 thickness: Millimeters(10),
                 scale_thickness: Millimeters(9),
             });
-            d.components[3].shape = curved_blade(840, 64, 11, 85, 780, 720, 160);
+            d.components[3].shape = curved_blade(840, 52, 6, 85, 780, 720, 160);
             d.components.push(component(
                 "nagel-stem",
                 ComponentRole::Guard,
@@ -860,15 +864,15 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
         "dussack" => {
             let mut d = sword(
                 id,
-                690,
-                68,
-                155,
+                590,
+                55,
+                115,
                 BladeSection::Flat,
                 130,
                 ComponentShape::KnuckleBow(KnuckleBowSpec {
-                    width: Millimeters(100),
-                    length: Millimeters(155),
-                    bar: Millimeters(10),
+                    width: Millimeters(65),
+                    length: Millimeters(115),
+                    bar: Millimeters(6),
                     side: 1,
                     bulge: Permille(0),
                     samples: Segments(24),
@@ -876,38 +880,49 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 }),
                 profiled(&[(0, 13), (15, 18), (32, 11)]),
             );
-            d.components[3].shape = curved_blade(690, 68, 12, 130, 820, 800, 320);
+            d.components[3].shape = curved_blade(590, 55, 6, 130, 820, 800, 320);
             d.components[1].material = MaterialClass::Brass;
+            d.components[3].attachment = Attachment::TopOf {
+                component: "grip".into(),
+                insertion: Millimeters(0),
+            };
+            d.components[2].attachment = Attachment::TopOf {
+                component: "grip".into(),
+                insertion: Millimeters(115),
+            };
             d
         }
         "estoc" => {
             let mut d = sword(
                 id,
                 1050,
-                34,
-                260,
+                28,
+                200,
                 BladeSection::Diamond,
                 0,
                 cross(240, 5),
                 profiled(&[(0, 12), (10, 17), (36, 19), (52, 9)]),
             );
+            if let ComponentShape::Blade(blade) = &mut d.components[3].shape {
+                blade.thickness = Millimeters(10);
+            }
             set_oval_grip(&mut d, 31, 23);
             d
         }
         "rondel-dagger" => {
             let mut d = sword(
                 id,
-                380,
-                32,
-                125,
+                320,
+                26,
+                110,
                 BladeSection::Diamond,
                 0,
                 ComponentShape::Rondel(RondelSpec {
-                    radius: Millimeters(32),
-                    thickness: Millimeters(8),
+                    radius: Millimeters(23),
+                    thickness: Millimeters(5),
                     segments: Segments(20),
                 }),
-                profiled(&[(0, 22), (8, 32), (16, 22)]),
+                profiled(&[(0, 16), (5, 23), (10, 16)]),
             );
             set_oval_grip(&mut d, 30, 22);
             d
@@ -916,8 +931,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             let mut d = sword(
                 id,
                 880,
-                46,
-                170,
+                42,
+                115,
                 BladeSection::Fullered,
                 0,
                 cross(230, 10),
@@ -928,11 +943,11 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 "side-ring",
                 ComponentRole::Guard,
                 Some(("guard", 0)),
-                OffsetMm { x: 0, y: 0, z: 12 },
+                OffsetMm { x: 0, y: 0, z: 8 },
                 MaterialClass::Steel,
                 ComponentShape::RingGuard(RingGuardSpec {
-                    radius: Millimeters(55),
-                    bar: Millimeters(6),
+                    radius: Millimeters(40),
+                    bar: Millimeters(5),
                     arc_start: MilliRadians(0),
                     arc_end: MilliRadians(3142),
                     samples: Segments(28),
@@ -942,13 +957,13 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             d.components.push(component(
                 "knuckle-bow",
                 ComponentRole::Guard,
-                Some(("grip", 0)),
+                Some(("grip", 115)),
                 OffsetMm::default(),
                 MaterialClass::Steel,
                 ComponentShape::KnuckleBow(KnuckleBowSpec {
-                    width: Millimeters(75),
-                    length: Millimeters(170),
-                    bar: Millimeters(7),
+                    width: Millimeters(55),
+                    length: Millimeters(115),
+                    bar: Millimeters(5),
                     side: 1,
                     bulge: Permille(0),
                     samples: Segments(24),
@@ -956,8 +971,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 }),
             ));
             for (name, x, z, parent) in [
-                ("left-side-ring-boss", -55, 12, "guard"),
-                ("right-side-ring-boss", 55, 12, "guard"),
+                ("left-side-ring-boss", -40, 8, "guard"),
+                ("right-side-ring-boss", 40, 8, "guard"),
                 ("upper-knuckle-boss", 0, 0, "guard"),
                 ("lower-knuckle-boss", 0, 0, "grip"),
             ] {
@@ -968,8 +983,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                     OffsetMm { x, y: 0, z },
                     MaterialClass::DarkSteel,
                     ComponentShape::Boss(BossSpec {
-                        radius: Millimeters(12),
-                        thickness: Millimeters(48),
+                        radius: Millimeters(7),
+                        thickness: Millimeters(15),
                         segments: Segments(16),
                     }),
                 ));
@@ -977,8 +992,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
             d
         }
         "reiter-war-hammer" => {
-            let mut d = polearm_base(id, 580, 18, 350, 22);
-            d.components[0].material = MaterialClass::Steel;
+            let mut d = polearm_base(id, 430, 11, 180);
+            d.components[0].material = MaterialClass::Wood;
             d.components.push(component(
                 "poll",
                 ComponentRole::Head,
@@ -987,15 +1002,15 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::HammerPoll(HammerPollSpec {
                     length: Millimeters(64),
-                    face: Millimeters(46),
+                    face: Millimeters(32),
                     neck: Millimeters(26),
-                    thickness: Millimeters(50),
+                    thickness: Millimeters(32),
                     direction: 1,
                     crown: Permille(60),
                     neck_ratio: Permille(720),
                     face_flare: Permille(0),
                     crown_length: Millimeters(4),
-                    face_thickness: Millimeters(50),
+                    face_thickness: Millimeters(32),
                 }),
             ));
             d.components.push(component(
@@ -1006,8 +1021,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 MaterialClass::Steel,
                 ComponentShape::FacetedBeak(FacetedBeakSpec {
                     length: Millimeters(75),
-                    root: Millimeters(38),
-                    tip: Millimeters(8),
+                    root: Millimeters(28),
+                    tip: Millimeters(3),
                     thickness: Millimeters(14),
                     set: SignedMillimeters(5),
                     direction: -1,
@@ -1020,8 +1035,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
         "hand-axe" => WeaponDesign {
             catalog_id: id.into(),
             components: vec![
-                shaft(670, 21, false),
-                socket("shaft", 100, 27, 80),
+                shaft(570, 18, false),
+                socket("shaft", 80, 19, 70),
                 component(
                     "axe",
                     ComponentRole::Head,
@@ -1029,9 +1044,9 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                     OffsetMm::default(),
                     MaterialClass::Steel,
                     ComponentShape::Axe(AxeSpec {
-                        reach: Millimeters(180),
-                        height: Millimeters(180),
-                        thickness: Millimeters(28),
+                        reach: Millimeters(135),
+                        height: Millimeters(160),
+                        thickness: Millimeters(10),
                         root_width: Millimeters(32),
                         beard: Permille(500),
                         curvature: Permille(100),
@@ -1047,11 +1062,11 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 component(
                     "butt-cap",
                     ComponentRole::Structure,
-                    Some(("shaft", 670)),
-                    OffsetMm { x: 0, y: -40, z: 0 },
+                    Some(("shaft", 570)),
+                    OffsetMm { x: 0, y: -6, z: 0 },
                     MaterialClass::DarkSteel,
                     ComponentShape::Cylinder(CylinderSpec {
-                        length: Millimeters(40),
+                        length: Millimeters(6),
                         radius: Millimeters(21),
                         bottom_scale: Permille(1000),
                         top_scale: Permille(920),
@@ -1060,8 +1075,8 @@ pub fn preset_design(id: &str) -> Option<WeaponDesign> {
                 ),
             ],
         },
-        "flanged-mace" => gothic(id, 140, 580, 150),
-        "gothic-flanged-mace" => gothic(id, 250, 780, 920),
+        "flanged-mace" => gothic(id, 115, 250, 150),
+        "gothic-flanged-mace" => gothic(id, 170, 280, 920),
         _ => return None,
     })
 }
@@ -1092,8 +1107,8 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
                     MaterialClass::Wood,
                     ComponentShape::Cylinder(CylinderSpec {
                         length: Millimeters(230),
-                        radius: Millimeters(48),
-                        bottom_scale: Permille(1000),
+                        radius: Millimeters(35),
+                        bottom_scale: Permille(600),
                         top_scale: Permille(1000),
                         segments: Segments(18),
                     }),
@@ -1102,6 +1117,7 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
         });
     }
     let configured_blade = |preset: &str,
+                            grip_length: Millimeters,
                             length: u32,
                             width: u32,
                             thickness: u32,
@@ -1131,6 +1147,7 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
         blade.belly = SignedPermille(belly);
         blade.curvature = SignedMillimeters(curvature);
         blade.ricasso = Millimeters(ricasso);
+        furniture::fit_catalog_grip(&mut design, grip_length);
         Some(design)
     };
     let retagged = |preset: &str| {
@@ -1141,9 +1158,10 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
     match catalog_id {
         "arming_sword" => configured_blade(
             "landsknecht-longsword",
+            Millimeters(110),
             820,
             54,
-            11,
+            7,
             BladeProfile::Straight,
             BladeSection::Fullered,
             790,
@@ -1151,12 +1169,14 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
             0,
             0,
             0,
-        ),
+        )
+        .map(|design| plain_blade_furniture(design, 180, 14)),
         "baselard" => configured_blade(
             "rondel-dagger",
+            Millimeters(110),
             430,
             48,
-            10,
+            7,
             BladeProfile::Spear,
             BladeSection::Diamond,
             760,
@@ -1165,12 +1185,13 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
             0,
             0,
         )
-        .map(|design| plain_blade_furniture(design, 105, 31)),
+        .map(|design| plain_blade_furniture(design, 90, 15)),
         "bauernwehr" => configured_blade(
             "grosse-messer",
+            Millimeters(110),
             480,
             55,
-            9,
+            6,
             BladeProfile::Curved,
             BladeSection::Flat,
             760,
@@ -1181,9 +1202,10 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
         ),
         "falchion" => configured_blade(
             "dussack",
+            Millimeters(120),
             720,
             74,
-            12,
+            6,
             BladeProfile::Cleaver,
             BladeSection::Flat,
             700,
@@ -1211,6 +1233,7 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
         "katzbalger" => retagged("katzbalger"),
         "knife" => configured_blade(
             "rondel-dagger",
+            Millimeters(110),
             210,
             30,
             5,
@@ -1222,9 +1245,10 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
             0,
             0,
         )
-        .map(|design| plain_blade_furniture(design, 62, 24)),
+        .map(|design| plain_blade_furniture(design, 48, 9)),
         "utility_knife" => configured_blade(
             "rondel-dagger",
+            Millimeters(100),
             135,
             26,
             4,
@@ -1236,9 +1260,10 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
             8,
             0,
         )
-        .map(|design| plain_blade_furniture(design, 48, 21)),
+        .map(|design| plain_blade_furniture(design, 40, 8)),
         "misericorde" => configured_blade(
             "estoc",
+            Millimeters(110),
             360,
             24,
             9,
@@ -1250,12 +1275,13 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
             0,
             0,
         )
-        .map(|design| plain_blade_furniture(design, 78, 27)),
+        .map(|design| plain_blade_furniture(design, 78, 12)),
         "kriegsmesser" => configured_blade(
             "grosse-messer",
+            Millimeters(280),
             1050,
             72,
-            13,
+            7,
             BladeProfile::Curved,
             BladeSection::Flat,
             730,
@@ -1266,9 +1292,10 @@ pub fn default_design(catalog_id: &str) -> Option<WeaponDesign> {
         ),
         "messer" => configured_blade(
             "grosse-messer",
+            Millimeters(120),
             720,
             58,
-            10,
+            6,
             BladeProfile::Curved,
             BladeSection::Flat,
             780,

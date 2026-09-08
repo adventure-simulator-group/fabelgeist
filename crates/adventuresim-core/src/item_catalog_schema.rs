@@ -411,19 +411,14 @@ pub enum ItemKind {
         carry: WeaponCarry,
         #[serde(default)]
         preferred_attack: MeleeAttackStyle,
-        #[serde(default)]
-        swing_precision: f32,
-        #[serde(default)]
-        stab_precision: f32,
-        accuracy: f32,
         reach_m: f32,
-        penetration: f32,
+        /// Contact concentration; generated melee recipes determine their own value.
+        #[serde(default)]
+        precision: f32,
         /// Rotational inertia around the controlling hand, in kg*m^2.
         moment_of_inertia_kg_m2: f32,
-        precise: bool,
         melee: bool,
         ranged: bool,
-        damage_types: Vec<DamageType>,
         skills: WeaponSkills,
     },
     Food,
@@ -464,14 +459,6 @@ pub enum Slot {
     AnyHolding,
     AnyArm,
     AnyLeg,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum DamageType {
-    Blunt,
-    Slash,
-    Pierce,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]

@@ -720,7 +720,7 @@ ceiling = 550
 
 [[files]]
 path = "crates/adventuresim-weapon-model/src/mesh.rs"
-ceiling = 1562
+ceiling = 1411
 
 [[files]]
 path = "crates/adventuresim-weapon-model/src/validation.rs"
@@ -1313,11 +1313,6 @@ ceiling = 105
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_item"
 ceiling = 242
-
-[[functions]]
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_weapon"
-ceiling = 111
 
 [[functions]]
 path = "crates/adventuresim-core/src/life_simulation.rs"
@@ -2865,19 +2860,9 @@ item = "reconstruct"
 ceiling = 116
 
 [[functions]]
-path = "crates/adventuresim-weapon-model/src/derive.rs"
-item = "volume"
-ceiling = 123
-
-[[functions]]
 path = "crates/adventuresim-weapon-model/src/editor.rs"
 item = "numeric_editor_fields"
 ceiling = 164
-
-[[functions]]
-path = "crates/adventuresim-weapon-model/src/mesh.rs"
-item = "generate"
-ceiling = 193
 
 [[functions]]
 path = "crates/adventuresim-weapon-model/src/validation.rs"

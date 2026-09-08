@@ -31,16 +31,12 @@ pub(super) fn combat_weapon(
         skills: item.weapon_skills,
         melee: item.melee,
         ranged: item.ranged,
-        blunt: item.blunt,
-        slash: item.slash,
-        pierce: item.pierce,
-        accuracy: item.accuracy,
-        swing_precision: item.swing_precision,
-        stab_precision: item.stab_precision,
         preferred_melee_style: item.preferred_melee_style,
         weight,
         moment_of_inertia_kg_m2,
-        penetration: item.penetration,
+        precision: instance.map_or(item.precision, |value| {
+            value.conditioned_precision(&item.id, item.precision)
+        }),
         melee_reach: melee_reach(item, instance),
         grip_to_tip_m,
         total_length_m: instance.map_or(total_length_m, |value| value.total_length_m),
@@ -55,7 +51,6 @@ pub(super) fn combat_weapon(
         striking_material: equipment.striking_material,
         ranged_range: if item.ranged { item.reach } else { 0.0 },
         attack_interval_seconds: weapon_attack_interval(item, moment_of_inertia_kg_m2),
-        precise: item.precise,
         balance: instance.map_or(item.balance, |value| value.balance),
         ranged_force_joules: 40.0 * weight.max(0.5),
     }

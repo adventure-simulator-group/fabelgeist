@@ -560,87 +560,14 @@ impl From<&StartingCharacterSpec> for CandidatePresentation {
             "war_hammer",
             "zweihander",
         ]);
-        let blunt = has(&["club", "flanged_mace", "walking_staff", "war_hammer"]);
-        let slash = has(&[
-            "arming_sword",
-            "baselard",
-            "bauernwehr",
-            "hand_axe",
-            "katzbalger",
-            "kriegsmesser",
-            "longsword",
-            "messer",
-            "utility_knife",
-            "zweihander",
-        ]);
-        let pierce = ranged
-            || has(&[
-                "halberd",
-                "hunting_spear",
-                "military_pike",
-                "misericorde",
-                "rapier",
-                "rondel_dagger",
-            ]);
-        let mut weapon_precision: f32 = 0.0;
-        for (present, skill, hours) in [
-            (
-                has(&["halberd", "hunting_spear", "military_pike"]),
-                Skill::Polearm,
-                spec.skills.polearm,
-            ),
-            (has(&["hand_axe"]), Skill::Axe, spec.skills.axe),
-            (
-                has(&["club", "flanged_mace", "walking_staff", "war_hammer"]),
-                Skill::Bludgeon,
-                spec.skills.bludgeon,
-            ),
-            (
-                has(&[
-                    "arming_sword",
-                    "katzbalger",
-                    "kriegsmesser",
-                    "longsword",
-                    "messer",
-                    "rapier",
-                    "zweihander",
-                ]),
-                Skill::Sword,
-                spec.skills.sword,
-            ),
-            (
-                has(&[
-                    "baselard",
-                    "bauernwehr",
-                    "misericorde",
-                    "rondel_dagger",
-                    "utility_knife",
-                ]),
-                Skill::Knife,
-                spec.skills.knife,
-            ),
-            (has(&["self_bow", "longbow"]), Skill::Bow, spec.skills.bow),
-            (
-                has(&["light_crossbow", "heavy_crossbow"]),
-                Skill::Crossbow,
-                spec.skills.crossbow,
-            ),
-            (
-                has(&["matchlock_arquebus", "hooked_arquebus"]),
-                Skill::Firearm,
-                spec.skills.firearm,
-            ),
-        ] {
-            if present {
-                weapon_precision =
-                    weapon_precision.max(skill.capped_training_rank(hours, &spec.attributes));
-            }
-        }
+        let weapon_precision = equipped_item_ids
+            .iter()
+            .filter_map(|id| adventuresim_core::item_catalog::weapon_precision(id))
+            .fold(0.0_f32, f32::max);
         let capability = CharacterCapability {
             character_id: spec.id,
             melee,
             ranged,
-            precise: has(&["rapier", "self_bow", "longbow", "light_crossbow"]),
             heavy: has(&[
                 "heavy_crossbow",
                 "hooked_arquebus",
@@ -652,9 +579,6 @@ impl From<&StartingCharacterSpec> for CandidatePresentation {
             half_armor: armor_slots >= 4,
             three_quarter_armor: armor_slots >= 6,
             full_armor: armor_slots >= 7,
-            blunt,
-            slash,
-            pierce,
             athletics: Skill::Dodge
                 .capped_training_rank(spec.skills.dodge, &spec.attributes)
                 .max(Skill::Balance.capped_training_rank(spec.skills.balance, &spec.attributes)),

@@ -26,8 +26,7 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
             TacticalEquipmentPhysical {
                 dimensions_m: Vec3::from_array(authored.physical.dimensions_m),
                 grip_to_tip_m: authored.physical.grip_to_tip_m,
-                striking_head_length_m: authored.physical.dimensions_m[0]
-                    .max(authored.physical.dimensions_m[2]),
+                striking_head_length_m: weapon.striking_head_length_m,
                 anchor_offset_m: Vec3::from_array(authored.physical.anchor_offset_m),
             },
             TacticalInventoryItemId(1),
@@ -47,14 +46,12 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                     0.0,
                     skills.throw,
                 ],
-                accuracy: weapon.accuracy,
-                swing_precision: weapon.swing_precision,
-                stab_precision: weapon.stab_precision,
+
                 prefers_stab: matches!(
                     weapon.preferred_melee_style,
                     adventuresim_core::combat_style::MeleeAttackStyle::Stab
                 ),
-                penetration: weapon.penetration,
+                precision: weapon.precision,
                 reach: weapon.melee_reach,
                 grip_to_tip_m: authored.physical.grip_to_tip_m,
                 moment_of_inertia_kg_m2: match definition.kind {
@@ -64,12 +61,9 @@ fn spawn_weapon(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                     } => moment_of_inertia_kg_m2,
                     _ => unreachable!(),
                 },
-                precise: weapon.precise,
+
                 melee: true,
                 ranged: false,
-                blunt: weapon.blunt,
-                slash: weapon.slash,
-                pierce: weapon.pierce,
             },
         ));
     }

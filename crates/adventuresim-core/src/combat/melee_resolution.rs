@@ -14,7 +14,6 @@ pub fn resolve_melee_attack_by_parts(
     attacker_side: BodySide,
     attack_style: crate::combat_style::MeleeAttackStyle,
     hit_precision: f32,
-    precision_damage_multiplier_cap: f32,
     flanking: f32,
     contact: MeleeContactLocation,
     contact_at_time: MeleeContactAtTime,
@@ -38,6 +37,7 @@ pub fn resolve_melee_attack_by_parts(
         attacker_side,
         attack_style,
         hit_precision,
+        parameters.contact,
     );
     let attack = melee_attack_value_by_parts(
         attacker_skills,
@@ -55,6 +55,7 @@ pub fn resolve_melee_attack_by_parts(
         defender_body,
         defender_essentials,
         defender_equip,
+        parameters.contact,
     );
     let armor_surface = contact.armor_surface;
     match attack {
@@ -67,23 +68,6 @@ pub fn resolve_melee_attack_by_parts(
             defender_response,
             contact_at_time,
         ),
-        1.0.. if armor_surface.is_none() && attacker_equip.weapon_is_precise() => {
-            calculate_damage(
-                1.0,
-                attacker_attr,
-                attacker_body,
-                attacker_equip,
-                contact.body_part,
-                defender_body,
-                defender_equip,
-                None,
-                parameters,
-                contact_at_time,
-            ) * precision_damage_multiplier(
-                attack - 1.0 - whole_body_armor_coverage(defender_equip),
-                precision_damage_multiplier_cap,
-            )
-        }
         _ => calculate_damage(
             attack,
             attacker_attr,

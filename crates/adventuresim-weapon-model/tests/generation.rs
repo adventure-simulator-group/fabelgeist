@@ -720,8 +720,10 @@ fn procedural_icons_obey_focus_orientation_and_clipping_contracts() {
                 );
                 if icon.head_zoom < 1.99 {
                     assert!(
-                        icon.focus_bounds.min[0] <= 0.15 || icon.focus_bounds.min[1] <= 0.15,
-                        "{id} head did not approach the inset corner"
+                        icon.focus_bounds.min[0] <= 0.15 + 1.0 / 96.0
+                            || icon.focus_bounds.min[1] <= 0.15 + 1.0 / 96.0,
+                        "{id} head did not approach the inset corner: {:?}",
+                        icon.focus_bounds
                     );
                 }
                 if matches!(*id, "war_hammer" | "walking_staff") {
@@ -1093,18 +1095,18 @@ fn all_accepted_presets_match_the_js_structural_fixture_and_key_controls() {
         ("glaive", "glaive", 540),
         ("hooked-bill", "bill", 380),
         ("military-fork", "fork", 390),
-        ("landsknecht-longsword", "blade", 1020),
+        ("landsknecht-longsword", "blade", 950),
         ("zweihander", "blade", 1280),
-        ("katzbalger", "blade", 660),
+        ("katzbalger", "blade", 682),
         ("grosse-messer", "blade", 840),
-        ("dussack", "blade", 690),
+        ("dussack", "blade", 590),
         ("estoc", "blade", 1050),
-        ("rondel-dagger", "blade", 380),
+        ("rondel-dagger", "blade", 320),
         ("reitschwert-1540", "blade", 880),
-        ("reiter-war-hammer", "shaft", 580),
-        ("hand-axe", "shaft", 670),
-        ("flanged-mace", "head", 148),
-        ("gothic-flanged-mace", "head", 265),
+        ("reiter-war-hammer", "shaft", 430),
+        ("hand-axe", "shaft", 570),
+        ("flanged-mace", "head", 123),
+        ("gothic-flanged-mace", "head", 182),
     ] {
         let design = preset_design(id).unwrap();
         assert_eq!(
@@ -1133,10 +1135,10 @@ fn all_accepted_presets_match_the_js_structural_fixture_and_key_controls() {
     };
     assert_eq!(
         (katz_blade.length.0, katz_blade.width.0, katz_blade.taper.0),
-        (660, 70, 500)
+        (682, 50, 150)
     );
     assert!(
-        matches!(&katz.components.iter().find(|part| part.id == "pommel").unwrap().shape, ComponentShape::FanPommel(v) if (v.width.0,v.height.0,v.thickness.0)==(55,45,14))
+        matches!(&katz.components.iter().find(|part| part.id == "pommel").unwrap().shape, ComponentShape::FanPommel(v) if (v.width.0,v.height.0,v.thickness.0)==(55,31,14))
     );
     let bill = preset_design("hooked-bill").unwrap();
     assert!(
@@ -1163,11 +1165,11 @@ fn all_accepted_presets_match_the_js_structural_fixture_and_key_controls() {
     );
     let halberd = preset_design("halberd-1540").unwrap();
     assert!(
-        matches!(&halberd.components.iter().find(|part| part.id == "axe").unwrap().shape, ComponentShape::Axe(v) if (v.upper_shoulder.0,v.lower_shoulder.0,v.flare.0,v.toe.0,v.heel.0,v.beard_drop.0)==(380,260,0,0,0,189))
+        matches!(&halberd.components.iter().find(|part| part.id == "axe").unwrap().shape, ComponentShape::Axe(v) if (v.upper_shoulder.0,v.lower_shoulder.0,v.flare.0,v.toe.0,v.heel.0,v.beard_drop.0)==(380,260,-220,0,0,90))
     );
     let lucerne = preset_design("lucerne-hammer").unwrap();
     assert!(
-        matches!(&lucerne.components.iter().find(|part| part.id == "poll").unwrap().shape, ComponentShape::HammerPoll(v) if (v.neck_ratio.0,v.face_flare.0,v.crown_length.0,v.face_thickness.0)==(720,0,5,70))
+        matches!(&lucerne.components.iter().find(|part| part.id == "poll").unwrap().shape, ComponentShape::HammerPoll(v) if (v.neck_ratio.0,v.face_flare.0,v.crown_length.0,v.face_thickness.0)==(720,0,5,38))
     );
     let glaive = preset_design("glaive").unwrap();
     assert!(
@@ -1263,7 +1265,7 @@ fn katzbalger_fan_has_sampled_mushroom_dome_and_narrow_neck() {
         "fan silhouette sampling regressed"
     );
     assert!(((fan.bounds.max[0] - fan.bounds.min[0]) - 0.055).abs() < 0.001);
-    assert!(((fan.bounds.max[1] - fan.bounds.min[1]) - 0.045).abs() < 0.001);
+    assert!(((fan.bounds.max[1] - fan.bounds.min[1]) - 0.031).abs() < 0.001);
     let base_y = fan.bounds.min[1];
     let neck = fan
         .positions

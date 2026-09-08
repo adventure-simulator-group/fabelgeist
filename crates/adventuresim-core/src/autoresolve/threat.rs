@@ -81,15 +81,6 @@ fn threat_skills(training: f32, ranged: bool, protection: Protection, morale: u8
 }
 
 fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
-    let (blunt, slash, pierce) = match profile.attack {
-        AttackStyle::Blunt => (true, false, false),
-        AttackStyle::Blade => (false, true, false),
-        AttackStyle::Knife
-        | AttackStyle::Spear
-        | AttackStyle::Bow
-        | AttackStyle::Bite
-        | AttackStyle::Claw => (false, false, true),
-    };
     CombatWeapon {
         skills: if profile.ranged {
             crate::equipment::WeaponSkillDistribution {
@@ -104,21 +95,15 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
         },
         melee: !profile.ranged,
         ranged: profile.ranged,
-        blunt,
-        slash,
-        pierce,
-        accuracy: 0.8 + profile.precision_bonus,
-        swing_precision: if profile.ranged {
-            0.0
-        } else {
-            0.8 + profile.precision_bonus
-        },
-        stab_precision: if profile.ranged {
-            0.0
-        } else {
-            0.8 + profile.precision_bonus
-        },
-        preferred_melee_style: if pierce && !slash {
+        precision: profile.precision,
+        preferred_melee_style: if matches!(
+            profile.attack,
+            AttackStyle::Knife
+                | AttackStyle::Spear
+                | AttackStyle::Bow
+                | AttackStyle::Bite
+                | AttackStyle::Claw
+        ) {
             crate::combat_style::MeleeAttackStyle::Stab
         } else {
             crate::combat_style::MeleeAttackStyle::Swing
@@ -128,17 +113,11 @@ fn threat_weapon(profile: crate::bestiary::CombatProfile) -> CombatWeapon {
         } else {
             1.5
         },
-        penetration: if matches!(profile.attack, AttackStyle::Spear | AttackStyle::Claw) {
-            1.5
-        } else {
-            0.8
-        },
         melee_reach: if profile.ranged { 0.0 } else { 0.8 },
-        grip_to_tip_m: if profile.ranged { 0.0 } else { 0.8 },
-        total_length_m: if profile.ranged { 0.0 } else { 0.8 },
+        grip_to_tip_m: 0.8,
+        total_length_m: 0.8,
         ranged_range: if profile.ranged { 20.0 } else { 0.0 },
         attack_interval_seconds: if profile.ranged { 1.0 } else { 0.75 },
-        precise: profile.precision_bonus > 0.0,
         balance: 0.3,
         ranged_force_joules: if profile.ranged { 40.0 } else { 0.0 },
         ..CombatWeapon::default()
@@ -149,18 +128,12 @@ fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: 
     if ranged {
         combatant.equipment.ranged_weapon = Some(weapon);
         combatant.equipment.ranged_projectile_kind = Some(CombatProjectileKind::Arrowhead);
-        combatant.equipment.melee_weapon = Some(CombatWeapon {
-            melee: true,
-            slash: true,
-            pierce: true,
-            accuracy: 1.0,
-            weight: 0.5,
-            penetration: 0.5,
-            melee_reach: 0.5,
-            attack_interval_seconds: 0.6,
-            balance: 0.5,
-            ..CombatWeapon::default()
-        });
+        combatant.equipment.melee_weapon = Some(
+            super::melee_iteration::authored_melee_weapon(
+                crate::item_catalog::definition("knife").expect("catalog knife"),
+            )
+            .expect("valid generated sidearm"),
+        );
         combatant.equipment.ammunition = 12;
         combatant.initial_ammunition = 12;
     } else {

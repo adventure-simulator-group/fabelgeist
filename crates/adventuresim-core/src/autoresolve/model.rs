@@ -35,16 +35,10 @@ pub struct CombatWeapon {
     pub skills: crate::equipment::WeaponSkillDistribution,
     pub melee: bool,
     pub ranged: bool,
-    pub blunt: bool,
-    pub slash: bool,
-    pub pierce: bool,
-    pub accuracy: f32,
-    pub swing_precision: f32,
-    pub stab_precision: f32,
     pub preferred_melee_style: crate::combat_style::MeleeAttackStyle,
     pub weight: f32,
     pub moment_of_inertia_kg_m2: f32,
-    pub penetration: f32,
+    pub precision: f32,
     pub melee_reach: f32,
     pub grip_to_tip_m: f32,
     pub total_length_m: f32,
@@ -54,7 +48,6 @@ pub struct CombatWeapon {
     pub striking_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
     pub ranged_range: f32,
     pub attack_interval_seconds: f32,
-    pub precise: bool,
     pub balance: f32,
     pub ranged_force_joules: f32,
 }
@@ -144,26 +137,6 @@ impl PlayerEquipment for CombatEquipment {
     fn weapon_is_unarmed(&self) -> bool {
         self.weapon.is_none()
     }
-    fn weapon_does_blunt(&self) -> bool {
-        self.weapon.is_none_or(|weapon| weapon.blunt)
-    }
-    fn weapon_does_slash(&self) -> bool {
-        self.weapon.is_some_and(|weapon| weapon.slash)
-    }
-    fn weapon_does_pierce(&self) -> bool {
-        self.weapon.is_some_and(|weapon| weapon.pierce)
-    }
-    fn weapon_accuracy(&self) -> f32 {
-        self.weapon.map_or(0.0, |weapon| weapon.accuracy)
-    }
-    fn weapon_swing_precision(&self) -> f32 {
-        self.weapon
-            .map_or(UNARMED_SWING_PRECISION, |weapon| weapon.swing_precision)
-    }
-    fn weapon_stab_precision(&self) -> f32 {
-        self.weapon
-            .map_or(UNARMED_STAB_PRECISION, |weapon| weapon.stab_precision)
-    }
     fn weapon_preferred_melee_style(&self) -> crate::combat_style::MeleeAttackStyle {
         self.weapon
             .map_or(crate::combat_style::MeleeAttackStyle::Swing, |weapon| {
@@ -173,8 +146,8 @@ impl PlayerEquipment for CombatEquipment {
     fn weapon_weight(&self) -> f32 {
         self.weapon.map_or(0.0, |weapon| weapon.weight)
     }
-    fn weapon_penetration(&self) -> f32 {
-        self.weapon.map_or(0.0, |weapon| weapon.penetration)
+    fn weapon_precision(&self) -> f32 {
+        self.weapon.map_or(0.0, |weapon| weapon.precision)
     }
     fn weapon_reach(&self) -> f32 {
         self.weapon.map_or(0.0, |weapon| weapon.melee_reach)
@@ -197,9 +170,6 @@ impl PlayerEquipment for CombatEquipment {
     }
     fn weapon_holding_side(&self) -> Option<BodySide> {
         self.weapon.map(|_| self.holding_side)
-    }
-    fn weapon_is_precise(&self) -> bool {
-        self.weapon.is_some_and(|weapon| weapon.precise)
     }
     fn weapon_balance(&self) -> f32 {
         self.weapon.map_or(0.0, |weapon| weapon.balance)

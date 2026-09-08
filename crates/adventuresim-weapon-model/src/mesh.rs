@@ -1,3 +1,6 @@
+mod components;
+pub(crate) mod construction;
+
 use std::collections::{BTreeMap, HashMap};
 use thiserror::Error;
 
@@ -6,8 +9,8 @@ use crate::{
     ComponentDesign, ComponentRole, ComponentShape, CurvedBeakSpec, FigureEightSpec,
     GeneratedWeapon, GeneratedWeaponHolder, GlaiveSpec, GothicMaceSpec, GuardSpec, MaceSpec,
     MaterialClass, MeshPart, PartisanSpec, SocketSpec, TubePathSpec, ValidationError, WeaponDesign,
-    WeaponHolderDesign, WeaponHolderKind, derive_holder_properties, derive_properties, design_hash,
-    holder_design_hash, validate, validate_holder,
+    WeaponHolderDesign, WeaponHolderKind, derive_holder_properties, design_hash,
+    holder_design_hash, validate_holder,
 };
 
 #[derive(Debug, Error)]
@@ -21,9 +24,9 @@ pub enum GenerateError {
 }
 
 #[derive(Default)]
-struct RawMesh {
-    positions: Vec<[f32; 3]>,
-    indices: Vec<u32>,
+pub(crate) struct RawMesh {
+    pub(crate) positions: Vec<[f32; 3]>,
+    pub(crate) indices: Vec<u32>,
 }
 
 impl RawMesh {
@@ -148,13 +151,13 @@ fn blade(spec: &BladeSpec) -> RawMesh {
                 [half_width * 0.28, depth * 0.32],
                 [half_width * 0.72, depth],
                 [half_width, 0.0],
-                [0.0, -depth * 0.8],
+                [0.0, -depth],
             ],
             BladeSection::Flat => vec![
                 [-half_width, 0.0],
-                [0.0, depth * 0.45],
+                [0.0, depth],
                 [half_width, 0.0],
-                [0.0, -depth * 0.45],
+                [0.0, -depth],
             ],
             BladeSection::Diamond => {
                 vec![
@@ -401,7 +404,16 @@ fn axe(spec: &AxeSpec) -> RawMesh {
     if s < 0.0 {
         points.reverse();
     }
-    prism(points, spec.thickness.meters())
+    let mut mesh = prism(points, spec.thickness.meters());
+    for point in &mut mesh.positions {
+        let t = ((0.42 - point[1] / h) / 0.9).clamp(0.0, 1.0);
+        let edge = w * (0.82 + flare * (t - 0.5) + curve * (std::f32::consts::PI * t).sin());
+        let remaining = (1.0 - (s * point[0] + r) / (edge + r)).clamp(0.0, 1.0);
+        let thickness = crate::CUTTING_EDGE_THICKNESS_M
+            + (spec.thickness.meters() - crate::CUTTING_EDGE_THICKNESS_M) * remaining;
+        point[2] *= thickness / spec.thickness.meters();
+    }
+    mesh
 }
 fn hammer(spec: &crate::HammerPollSpec) -> RawMesh {
     let s = spec.direction as f32;
@@ -553,91 +565,41 @@ fn bill(spec: &BillSpec) -> RawMesh {
 }
 
 fn glaive(spec: &GlaiveSpec) -> RawMesh {
-    let l = spec.length.meters();
-    let w = spec.width.meters();
-    let r = spec.root.meters();
-    let curve = spec.curvature.meters();
-    let point = spec.point_length.unit();
-    let n = spec.samples.0 as usize;
-    let mut p = vec![
-        [-r, -spec.root_length.meters()],
-        [r, -spec.root_length.meters()],
-        [r * 1.18, l * 0.025],
-        [w * 0.48, l * 0.12],
-    ];
-    let edge_limit = 1.0 - point * 0.34;
-    let edge: Vec<_> = (0..=n)
-        .map(|index| {
-            let t = index as f32 / n as f32 * edge_limit;
-            [
-                curve * 0.42
-                    + (1.0 - t)
-                        * w
-                        * (0.54
-                            + spec.edge_curvature.unit()
-                                * (std::f32::consts::PI
-                                    * (t / spec.belly_position.unit().max(0.1)).min(1.0))
-                                .sin()),
-                l * (0.08 + (0.84 - point * 0.34) * t),
-            ]
-        })
-        .collect();
-    append(&mut p, edge);
-    let near_apex = *p.last().unwrap();
-    let apex = [curve * 0.42, l];
-    append(
-        &mut p,
-        cubic(
-            [
-                near_apex,
-                [near_apex[0] * 0.72 + apex[0] * 0.28, l * 0.86],
-                [apex[0] + w * 0.006, l * 0.96],
-                apex,
-            ],
-            4,
-        ),
-    );
-    let spine_top = [apex[0] - w * 0.1, l * (1.0 - point)];
-    let spine_lower = [-w * 0.42, l * 0.18];
-    let join = [-w * 0.08, -l * point * 0.12];
-    append(
-        &mut p,
-        cubic(
-            [
-                apex,
-                [apex[0] - w * 0.012, l * 0.96],
-                [spine_top[0] - join[0], spine_top[1] - join[1]],
-                spine_top,
-            ],
-            4,
-        ),
-    );
-    append(
-        &mut p,
-        cubic(
-            [
-                spine_top,
-                [spine_top[0] + join[0], spine_top[1] + join[1]],
-                [-w * (0.34 + spec.spine_curvature.unit() * 0.04), l * 0.31],
-                spine_lower,
-            ],
-            n,
-        ),
-    );
-    let root_shoulder = [-r * 1.18, l * 0.025];
-    append(
-        &mut p,
-        cubic(
-            [
-                spine_lower,
-                [-w * 0.32, l * 0.13],
-                [-r * 1.45, l * 0.05],
-                root_shoulder,
-            ],
-            4,
-        ),
-    );
-    prism(p, spec.thickness.meters())
+    let length = spec.length.meters();
+    let root = spec.root.meters() * 0.5;
+    let width = spec.width.meters();
+    let belly = spec.belly_position.unit();
+    let samples = spec.samples.0 as usize;
+    let mut edge = vec![[root, -spec.root_length.meters()]];
+    let mut spine = vec![[-root, -spec.root_length.meters()]];
+    for index in 0..=samples {
+        let t = index as f32 / samples as f32;
+        let center = spec.curvature.meters() * t * t;
+        let phase = if t < belly {
+            t / belly
+        } else {
+            (1.0 - t) / (1.0 - belly)
+        };
+        let swelling = (std::f32::consts::PI * phase * 0.5).sin().powi(2);
+        let tip = ((1.0 - t) / spec.point_length.unit()).clamp(0.0, 1.0);
+        let edge_width = (root * (1.0 - swelling)
+            + width * swelling * (0.75 + spec.edge_curvature.unit() * 0.2))
+            * tip;
+        let spine_width = (root * (1.0 - swelling)
+            + width * swelling * (0.25 + spec.spine_curvature.unit() * 0.2))
+            * tip;
+        edge.push([center + edge_width, length * t]);
+        spine.push([center - spine_width, length * t]);
+    }
+    // The working apex is shared once by the two boundaries.
+    spine.pop();
+    edge.extend(spine.into_iter().rev());
+    let mut mesh = prism(edge, spec.thickness.meters());
+    for point in &mut mesh.positions {
+        let t = (point[1] / length).clamp(0.0, 1.0);
+        point[2] *= 1.0 - t * 0.6;
+    }
+    mesh
 }
 
 fn fork(spec: &crate::ForkSpec) -> RawMesh {
@@ -1347,127 +1309,16 @@ fn resolve_origin<'a>(
 }
 
 pub fn generate(design: &WeaponDesign) -> Result<GeneratedWeapon, GenerateError> {
-    validate(design).map_err(GenerateError::Invalid)?;
-    let derived = derive_properties(design).map_err(GenerateError::Invalid)?;
-    let by_id: HashMap<_, _> = design
-        .components
-        .iter()
-        .map(|component| (component.id.as_str(), component))
-        .collect();
-    let mut origins = HashMap::new();
-    for component in &design.components {
-        resolve_origin(component, &by_id, &mut origins, &mut Vec::new())?;
-    }
+    let construction =
+        construction::ConstructedWeapon::new(design).map_err(GenerateError::Invalid)?;
+    let derived = construction.properties();
     let mut parts = Vec::new();
     let mut anchors = Vec::new();
     let mut all_positions = Vec::new();
-    for component in &design.components {
-        let mut raw = match &component.shape {
-            ComponentShape::Cylinder(value) => frustum(
-                value.length.meters(),
-                value.radius.meters() * value.bottom_scale.unit(),
-                value.radius.meters() * value.top_scale.unit(),
-                value.segments.0,
-            ),
-            ComponentShape::OvalGrip(value) => elliptical_frustum(
-                value.length.meters(),
-                value.width.meters() * value.bottom_scale.unit() * 0.5,
-                value.width.meters() * value.top_scale.unit() * 0.5,
-                value.thickness.meters() / value.width.meters(),
-                value.segments.0,
-            ),
-            ComponentShape::Blade(value) => blade(value),
-            ComponentShape::Guard(value) => guard(value),
-            ComponentShape::Mace(value) => mace(value),
-            ComponentShape::Socket(value) => socket(value),
-            ComponentShape::Langet(value) => box_mesh(
-                [0.0, value.length.meters() / 2.0, 0.0],
-                [
-                    value.width.meters(),
-                    value.length.meters(),
-                    value.thickness.meters(),
-                ],
-                0.0,
-            ),
-            ComponentShape::Axe(value) => axe(value),
-            ComponentShape::HammerPoll(value) => hammer(value),
-            ComponentShape::CurvedBeak(value) => curved_beak(value),
-            ComponentShape::FacetedBeak(value) => faceted_beak(value),
-            ComponentShape::Glaive(value) => glaive(value),
-            ComponentShape::Bill(value) => bill(value),
-            ComponentShape::Fork(value) => fork(value),
-            ComponentShape::Partisan(value) => partisan(value),
-            ComponentShape::TubePath(value) => tube_path(value),
-            ComponentShape::RingGuard(value) => ring(value),
-            ComponentShape::FigureEight(value) => figure_eight(value),
-            ComponentShape::FanPommel(value) => fan_pommel(value),
-            ComponentShape::Rondel(value) => cylinder(
-                value.thickness.meters(),
-                value.radius.meters(),
-                value.segments.0,
-            ),
-            ComponentShape::GothicMace(value) => gothic_mace(value),
-            ComponentShape::SlabGrip(value) => box_mesh(
-                [0.0, value.length.meters() / 2.0, 0.0],
-                [
-                    value.width.meters(),
-                    value.length.meters(),
-                    value.thickness.meters() + value.scale_thickness.meters() * 2.0,
-                ],
-                0.0,
-            ),
-            ComponentShape::KnuckleBow(value) => {
-                let count = value.samples.0 as usize;
-                let centers: Vec<_> = (0..=count)
-                    .map(|index| {
-                        let t = index as f32 / count as f32;
-                        let arch = (std::f32::consts::PI * t).sin();
-                        [
-                            value.side as f32
-                                * value.width.meters()
-                                * arch
-                                * (1.0 + value.bulge.unit() * 0.25 * arch),
-                            value.length.meters() * t,
-                            0.0,
-                        ]
-                    })
-                    .collect();
-                tube_centers(
-                    &centers,
-                    value.bar.meters(),
-                    value.radial_segments.0 as usize,
-                    false,
-                )
-            }
-            ComponentShape::Collar(value) => cylinder(
-                value.width.meters(),
-                value.radius.meters(),
-                value.segments.0,
-            ),
-            ComponentShape::Sleeve(value) => socket(&SocketSpec {
-                length: value.length,
-                outer_radius: value.radius,
-                top_radius: value.top_radius,
-                wall: value.wall,
-                segments: value.segments,
-            }),
-            ComponentShape::Boss(value) => {
-                let mut mesh = cylinder(
-                    value.thickness.meters(),
-                    value.radius.meters(),
-                    value.segments.0,
-                );
-                for point in &mut mesh.positions {
-                    [point[1], point[2]] = [point[2], point[1]];
-                }
-                mesh.orient_positive();
-                mesh
-            }
-            ComponentShape::Spear(value) => spear(value),
-            ComponentShape::ProfiledPommel(value) => profiled_pommel(value),
-        };
-        let origin = origins[component.id.as_str()];
-        raw.translate(origin);
+    for constructed in &construction.parts {
+        let component = constructed.component;
+        let raw = &constructed.mesh;
+        let origin = constructed.origin;
         let part_bounds = bounds(&raw.positions);
         let crease = match &component.shape {
             ComponentShape::Cylinder(_)
@@ -1491,7 +1342,7 @@ pub fn generate(design: &WeaponDesign) -> Result<GeneratedWeapon, GenerateError>
             ComponentShape::Mace(value) => Some((origin, value.core_radius.meters())),
             _ => None,
         };
-        let (positions, indices, normals) = shaded(&raw, crease, smooth_core);
+        let (positions, indices, normals) = shaded(raw, crease, smooth_core);
         let top = [
             origin[0],
             origin[1] + component.shape.axial_length().meters(),

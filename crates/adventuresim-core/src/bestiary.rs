@@ -346,7 +346,7 @@ pub struct CombatProfile {
     pub weight_kg: f32,
     pub attack: AttackStyle,
     pub ranged: bool,
-    pub precision_bonus: f32,
+    pub precision: f32,
     pub training_multiplier: f32,
     pub perception: u8,
     pub stealth: u8,
@@ -542,7 +542,7 @@ fn compile_profile(
             weight_kg: 1.0,
             attack: AttackStyle::Blade,
             ranged: false,
-            precision_bonus: 0.0,
+            precision: 0.0,
             training_multiplier: 1.0,
             perception: 0,
             stealth: 0,
@@ -615,7 +615,7 @@ fn compile_profile(
         _ => unreachable!("validated attack style"),
     };
     profile.combat.ranged = authored.combat.ranged;
-    profile.combat.precision_bonus = authored.combat.precision_bonus_milli as f32 / 1_000.0;
+    profile.combat.precision = f32::from(authored.combat.precision_milli) / 1_000.0;
     profile.combat.training_multiplier =
         f32::from(authored.combat.training_multiplier_milli) / 1_000.0;
     profile.combat.perception = authored.combat.perception;

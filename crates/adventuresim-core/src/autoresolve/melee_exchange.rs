@@ -31,6 +31,7 @@ pub(super) fn melee_exchange_at_contact(
         &defender_view,
         precision * performance,
         contact_sample,
+        crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
     );
     let defense_alignment = response.is_weapon_contact().then(|| {
         let attack_value = melee_attack_value_by_parts(
@@ -49,6 +50,7 @@ pub(super) fn melee_exchange_at_contact(
             &defender.body,
             &defender.essentials,
             &defender_view,
+            crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
         );
         resolve_weapon_defense_alignment(response, attack_value, defense_alignment_sample)
     });
@@ -58,7 +60,6 @@ pub(super) fn melee_exchange_at_contact(
         attacker.equipment.melee_holding_side,
         attacker_equipment.weapon_preferred_melee_style(),
         &defender_view,
-        &defender.bestiary_categories,
         effective_response,
         precision * performance,
         flanking,
@@ -118,6 +119,7 @@ pub(super) fn autoresolve_melee_contact_location(
             &defender.view_with_equipment(&defender.equipment),
             precision * performance,
             contact_sample,
+            crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
         )
 }
 
@@ -236,13 +238,13 @@ mod tests {
                                         &defender.body,
                                         &defender.essentials,
                                         &defender_view,
+                                        EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
                                     );
                                     let tactical_projection = attacker_view.resolve_melee_attack(
                                         EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
                                         attacker.equipment.melee_holding_side,
                                         style,
                                         &defender_view,
-                                        &defender.bestiary_categories,
                                         response,
                                         precision * performance,
                                         flanking,

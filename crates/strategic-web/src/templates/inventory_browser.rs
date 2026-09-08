@@ -20,10 +20,10 @@ impl InventoryColumnSet {
     fn names(self) -> &'static str {
         match self {
             Self::Basic => "",
-            Self::Weapons => "accuracy,swingPrecision,stabPrecision,reach,penetration,damage,block",
+            Self::Weapons => "precision,reach,block",
             Self::Armor => "coverage,resistance,padding,flexibility,range-of-motion",
             Self::All => {
-                "accuracy,swingPrecision,stabPrecision,reach,penetration,damage,block,coverage,resistance,padding,flexibility,range-of-motion"
+                "precision,reach,block,coverage,resistance,padding,flexibility,range-of-motion"
             }
         }
     }
@@ -145,10 +145,7 @@ mod tests {
         assert!(rendered.contains("aria-label=\"Sort by Target quantity\""));
         assert!(!rendered.contains(">#<"));
         assert!(!rendered.contains(">#?<"));
-        assert!(
-            rendered
-                .contains("accuracy,swingPrecision,stabPrecision,reach,penetration,damage,block")
-        );
+        assert!(rendered.contains("precision,reach,block"));
         assert!(rendered.contains("inventory-browser-table-frame"));
         assert!(rendered.contains("inventory-actions-header"));
     }

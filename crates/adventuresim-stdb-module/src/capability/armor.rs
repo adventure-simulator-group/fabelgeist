@@ -60,9 +60,7 @@ pub(super) fn effective_item_definition(
     let mut item = ctx.db.item().id().find(&inventory.item_id)?;
     if let Some(condition) = ctx.db.item_condition().inventory_item_id().find(id) {
         let damage = condition.bins();
-        item.accuracy = effective_weapon_stat(item.accuracy, damage, item.edge_sensitivity);
-        item.penetration =
-            effective_weapon_stat(item.penetration, damage, item.edge_sensitivity * 0.6);
+        item.precision = effective_weapon_stat(item.precision, damage, item.edge_sensitivity);
         item.block = effective_weapon_stat(item.block, damage, item.handling_sensitivity);
         item.range_of_motion =
             effective_handling(item.range_of_motion, damage, item.handling_sensitivity);

@@ -116,19 +116,15 @@ pub struct Item {
     pub attachment_points: Vec<PersistedEquipmentAttachmentPoint>,
     /// Whether this definition has authored durability and receives condition rows.
     pub repairable: bool,
-    pub accuracy: f32,
-    pub swing_precision: f32,
-    pub stab_precision: f32,
     pub preferred_melee_style: MeleeAttackStyle,
     pub reach: f32,
     pub block: f32,
     pub coverage: f32,
-    pub penetration: f32,
+    pub precision: f32,
     pub resistance: f32,
     pub padding: f32,
     pub flexibility: f32,
     pub range_of_motion: f32,
-    pub precise: bool,
     /// Rotational inertia around the weapon grip, in kg*m^2.
     pub moment_of_inertia_kg_m2: f32,
     /// Derived user-facing radius-of-gyration coefficient. Lower is easier to
@@ -137,9 +133,6 @@ pub struct Item {
     pub melee: bool,
     pub ranged: bool,
     pub weapon_skills: WeaponSkillDistribution,
-    pub blunt: bool,
-    pub slash: bool,
-    pub pierce: bool,
     pub base_value: Option<u32>,
     /// Metabolizable energy supplied when this item is automatically eaten.
     pub nutrition_kcal: f32,
@@ -173,7 +166,7 @@ pub struct Item {
 /// Projects a typed authored definition into the authoritative strategic
 /// persistence schema.
 fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefinition) -> Item {
-    use adventuresim_core::item_catalog::{DamageType, ItemKind as K};
+    use adventuresim_core::item_catalog::ItemKind as K;
     let mut item = Item {
         id: definition.id.clone(),
         weight: definition.weight_kg,
@@ -257,26 +250,18 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
             animation_pack: _,
             carry: _,
             preferred_attack,
-            swing_precision,
-            stab_precision,
-            accuracy,
             reach_m,
-            penetration,
+            precision,
             moment_of_inertia_kg_m2,
-            precise,
             melee,
             ranged,
-            damage_types,
             skills,
         } => {
             item.kind = PersistedItemKind::Weapon;
             item.slot = *authored_slot;
-            item.accuracy = *accuracy;
-            item.swing_precision = *swing_precision;
-            item.stab_precision = *stab_precision;
             item.preferred_melee_style = *preferred_attack;
             item.reach = *reach_m;
-            item.penetration = *penetration;
+            item.precision = *precision;
             item.moment_of_inertia_kg_m2 = *moment_of_inertia_kg_m2;
             let grip_to_tip_m = definition
                 .equipment
@@ -287,12 +272,8 @@ fn project_definition(definition: &adventuresim_core::item_catalog::ItemDefiniti
                 definition.weight_kg,
                 grip_to_tip_m,
             );
-            item.precise = *precise;
             item.melee = *melee;
             item.ranged = *ranged;
-            item.blunt = damage_types.contains(&DamageType::Blunt);
-            item.slash = damage_types.contains(&DamageType::Slash);
-            item.pierce = damage_types.contains(&DamageType::Pierce);
             item.weapon_skills = (*skills).into();
         }
     }

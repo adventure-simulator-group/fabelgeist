@@ -301,7 +301,7 @@ pub fn evaluate_capabilities(
     CharacterCapabilities {
         melee: equipment.weapon_is_melee(),
         ranged: equipment.weapon_is_ranged(),
-        weapon_precision: equipment.weapon_accuracy().max(0.0),
+        weapon_precision: equipment.weapon_precision().max(0.0),
         heavy: equipment.weapon_weight() >= HEAVY_WEAPON_MIN_WEIGHT
             && arm_strength >= HEAVY_WEAPON_MIN_ARM_STRENGTH,
         quarter_armor,
@@ -373,13 +373,10 @@ mod tests {
     }
 
     impl PlayerEquipment for TestArmor {
-        fn weapon_accuracy(&self) -> f32 {
-            0.0
-        }
         fn weapon_weight(&self) -> f32 {
             0.0
         }
-        fn weapon_penetration(&self) -> f32 {
+        fn weapon_precision(&self) -> f32 {
             0.0
         }
         fn weapon_reach(&self) -> f32 {
@@ -387,9 +384,6 @@ mod tests {
         }
         fn weapon_holding_side(&self) -> Option<BodySide> {
             None
-        }
-        fn weapon_is_precise(&self) -> bool {
-            false
         }
         fn weapon_balance(&self) -> f32 {
             0.0

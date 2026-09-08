@@ -54,15 +54,11 @@ impl PlayerEssentials for StubEssentials {
 pub struct StubEquipment;
 
 impl PlayerEquipment for StubEquipment {
-    fn weapon_accuracy(&self) -> f32 {
-        1.0
-    }
-
     fn weapon_weight(&self) -> f32 {
         1.0
     }
 
-    fn weapon_penetration(&self) -> f32 {
+    fn weapon_precision(&self) -> f32 {
         1.0
     }
 
@@ -96,10 +92,6 @@ impl PlayerEquipment for StubEquipment {
 
     fn weapon_reach(&self) -> f32 {
         1.0
-    }
-
-    fn weapon_is_precise(&self) -> bool {
-        false
     }
 
     fn weapon_balance(&self) -> f32 {

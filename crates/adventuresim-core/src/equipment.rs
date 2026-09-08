@@ -569,36 +569,13 @@ pub trait PlayerEquipment {
     fn weapon_is_unarmed(&self) -> bool {
         false
     }
-    fn weapon_does_blunt(&self) -> bool {
-        false
-    }
-    fn weapon_does_slash(&self) -> bool {
-        false
-    }
-    fn weapon_does_pierce(&self) -> bool {
-        false
-    }
-    /// Precision for ranged attacks. Melee attacks use the style-specific
-    /// values below so a weapon can be easy to thrust accurately but hard to
-    /// place precisely during a swing (or vice versa).
-    fn weapon_accuracy(&self) -> f32;
-    fn weapon_swing_precision(&self) -> f32 {
-        self.weapon_accuracy()
-    }
-    fn weapon_stab_precision(&self) -> f32 {
-        self.weapon_accuracy()
-    }
+    /// Contact concentration: high values describe narrow points, low values
+    /// broad striking surfaces. This is independent of attack placement.
+    fn weapon_precision(&self) -> f32;
     fn weapon_preferred_melee_style(&self) -> MeleeAttackStyle {
         MeleeAttackStyle::Swing
     }
-    fn weapon_melee_precision(&self, style: MeleeAttackStyle) -> f32 {
-        match style {
-            MeleeAttackStyle::Swing => self.weapon_swing_precision(),
-            MeleeAttackStyle::Stab => self.weapon_stab_precision(),
-        }
-    }
     fn weapon_weight(&self) -> f32;
-    fn weapon_penetration(&self) -> f32;
     fn weapon_reach(&self) -> f32;
     /// Distance from the controlling grip to the distal striking tip, in metres.
     fn weapon_grip_to_tip(&self) -> f32 {
@@ -619,7 +596,6 @@ pub trait PlayerEquipment {
         None
     }
     fn weapon_holding_side(&self) -> Option<BodySide>;
-    fn weapon_is_precise(&self) -> bool;
     fn weapon_balance(&self) -> f32;
     /// Rotational inertia around the controlling hand, in kg*m^2.
     fn weapon_moment_of_inertia(&self) -> f32 {
@@ -805,14 +781,14 @@ mod tests {
     }
 
     #[test]
-    fn instance_geometry_preserves_attack_allowance_and_tracks_recipe_length() {
+    fn instance_geometry_uses_grip_to_tip_reach_and_tracks_recipe_length() {
         let short =
-            ParametricWeaponCombatGeometry::new(2.0, 2.0, 1.8, 0.25, 2.5, 0.46, 2.0, 1.8).unwrap();
+            ParametricWeaponCombatGeometry::new(2.0, 2.0, 1.8, 0.25, 2.5, 0.46, 1.0).unwrap();
         let long =
-            ParametricWeaponCombatGeometry::new(2.2, 2.3, 2.1, 0.25, 3.4, 0.44, 2.0, 1.8).unwrap();
+            ParametricWeaponCombatGeometry::new(2.2, 2.3, 2.1, 0.25, 3.4, 0.44, 1.0).unwrap();
 
-        assert!((short.melee_reach_m() - 2.0).abs() < 1.0e-6);
-        assert!((long.melee_reach_m() - 2.3).abs() < 1.0e-6);
+        assert!((short.melee_reach_m() - 1.8).abs() < 1.0e-6);
+        assert!((long.melee_reach_m() - 2.1).abs() < 1.0e-6);
         assert!((long.melee_reach_m() - short.melee_reach_m() - 0.3).abs() < 1.0e-6);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
 

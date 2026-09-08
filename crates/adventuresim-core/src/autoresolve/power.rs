@@ -36,17 +36,13 @@ fn weapon_output(
             weapon.weight.max(0.0) * (1.0 + weapon.balance.max(0.0) * weapon.melee_reach.max(0.0));
         (arm_strength.max(0.0) * (1.0 + striking_mass)).sqrt()
     };
-    let penetration = if weapon.slash || weapon.pierce {
-        1.0 + weapon.penetration.max(0.0).sqrt() * 0.25
-    } else {
-        1.0
-    };
+    let concentration = ContactPrecision::new(weapon.precision).concentrated_fraction();
     let reach = if weapon.melee {
         1.0 + weapon.melee_reach.max(0.0).sqrt() * 0.15
     } else {
         1.0
     };
-    check * tempo * contact.max(0.25) * penetration * reach
+    check * tempo * contact.max(0.25) * (1.0 + concentration) * reach
 }
 
 fn armor_power(combatant: &Combatant) -> f32 {
@@ -93,7 +89,9 @@ pub fn autoresolve_combat_power(combatant: &Combatant) -> u64 {
                     weights,
                 )
             })
-            * equipment.weapon_accuracy().max(0.0)
+            * crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
+                .contact
+                .handling_accuracy(equipment)
     };
     let melee = combatant.equipment.for_melee();
     let ranged = combatant.equipment.for_ranged();

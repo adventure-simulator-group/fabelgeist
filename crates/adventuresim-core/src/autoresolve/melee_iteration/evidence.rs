@@ -385,7 +385,6 @@ fn forced_melee_contact(
         attacker_equipment.holding_side,
         attacker_equipment.weapon_preferred_melee_style(),
         1.0,
-        0.0,
         1.0,
         MeleeContactLocation {
             body_part: BodyPart::Chest,
@@ -428,6 +427,7 @@ fn defense_evidence(
         &defender.body,
         &defender.essentials,
         &defender.equipment,
+        EMBEDDED_COMBAT_RESOLUTION_PARAMETERS.contact,
     );
     DefenseEvidence {
         defender: defender_name,

@@ -1,4 +1,4 @@
-use super::CombatFatigueParameters;
+use super::{CombatFatigueParameters, WeaponContactParameters};
 use serde::{Deserialize, Serialize};
 
 /// Physical tuning projected from the canonical tactical combat configuration.
@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 #[serde(deny_unknown_fields)]
 pub struct CombatResolutionParameters {
     pub fatigue: CombatFatigueParameters,
+    pub contact: super::WeaponContactParameters,
     /// Fraction of the gross muscular estimate delivered through a held weapon.
     pub armed_attack_energy_transfer: f32,
     /// Contact energy per kilogram needed to produce one point of imbalance.
@@ -52,6 +53,7 @@ pub struct AutoresolveParameters {
 impl CombatResolutionParameters {
     pub fn validate(self) -> Result<(), &'static str> {
         self.fatigue.validate()?;
+        self.contact.validate()?;
         if !self.armed_attack_energy_transfer.is_finite()
             || !(0.0..=1.0).contains(&self.armed_attack_energy_transfer)
             || self.armed_attack_energy_transfer == 0.0

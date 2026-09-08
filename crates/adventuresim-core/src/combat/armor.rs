@@ -150,44 +150,29 @@ pub(super) struct ContactEnergyResolution {
     pub blunt_energy_joules: f32,
 }
 
-pub(super) fn effective_edge_resistance(surface: ArmorSurface, penetration: f32) -> f32 {
-    // Garment flexibility describes articulation of the whole item. It must
-    // not turn an engaged rigid steel plate into compliant leather locally.
-    let flexibility = if surface.material.is_some_and(|material| material.is_metal()) {
-        0.0
-    } else {
-        surface.flexibility
-    };
-    (surface.resistance - flexibility * surface.resistance * penetration).max(0.0)
+pub(super) fn effective_edge_resistance(
+    surface: ArmorSurface,
+    precision: super::ContactPrecision,
+) -> f32 {
+    precision.resistance(surface.resistance)
 }
 
 pub(super) fn resolve_contact_energy(
     surface: Option<ArmorSurface>,
     attack: f32,
     incident_energy_joules: f32,
-    has_edge: bool,
-    has_blunt: bool,
-    penetration: f32,
+    precision: super::ContactPrecision,
 ) -> ContactEnergyResolution {
     let incident = incident_energy_joules.max(0.0);
-    let active_channels = u8::from(has_edge) + u8::from(has_blunt);
-    if active_channels == 0 || incident <= f32::EPSILON {
+    if incident <= f32::EPSILON {
         return ContactEnergyResolution {
             armor_impact: None,
             cut_energy_joules: 0.0,
             blunt_energy_joules: 0.0,
         };
     }
-    let edge_energy = if has_edge {
-        incident / f32::from(active_channels)
-    } else {
-        0.0
-    };
-    let blunt_energy = if has_blunt {
-        incident / f32::from(active_channels)
-    } else {
-        0.0
-    };
+    let edge_energy = incident * precision.concentrated_fraction();
+    let blunt_energy = incident - edge_energy;
     let Some(surface) = surface else {
         return ContactEnergyResolution {
             armor_impact: None,
@@ -196,7 +181,7 @@ pub(super) fn resolve_contact_energy(
         };
     };
 
-    let penetrated = (edge_energy - effective_edge_resistance(surface, penetration)).max(0.0);
+    let penetrated = (edge_energy - effective_edge_resistance(surface, precision)).max(0.0);
     let stopped_edge = edge_energy - penetrated;
     // Some stopped edge energy deforms the armor into the body; the remainder
     // is reflected or retained by the armor. Blunt-channel energy starts as a
@@ -257,7 +242,10 @@ mod tests {
             padding: 5.0,
             flexibility: 0.8,
         };
-        assert_eq!(effective_edge_resistance(surface, 1.0), 100.0);
+        assert_eq!(
+            effective_edge_resistance(surface, super::super::ContactPrecision::new(1.0)),
+            100.0
+        );
     }
 
     #[test]
@@ -270,14 +258,12 @@ mod tests {
             flexibility: 0.4,
         };
         for incident in [0.01, 1.0, 20.0, 76.5, 200.0] {
-            for channels in [(true, false), (false, true), (true, true)] {
+            for precision in [0.0, 0.1, 0.5, 1.0, 2.0, 4.0] {
                 let resolved = resolve_contact_energy(
                     Some(surface),
                     1.0,
                     incident,
-                    channels.0,
-                    channels.1,
-                    1.0,
+                    super::super::ContactPrecision::new(precision),
                 );
                 let impact = resolved.armor_impact.unwrap();
                 let partition = impact.resisted_energy_joules

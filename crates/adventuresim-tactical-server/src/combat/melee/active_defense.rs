@@ -44,6 +44,7 @@ pub(super) fn resolve_active_defense(
         defender_view,
         attack.reported_precision().get() * attacker_performance,
         contact_sample,
+        config.resolution.contact,
     );
     let response = shield_aligned_response(response, defender_view.shield_holding_side(), preview);
     charge_defense_work(response, attack, defender_view, q_states, config);
