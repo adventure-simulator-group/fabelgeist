@@ -86,6 +86,7 @@ pub(super) fn export_character(
         recipe.version,
         model.lod,
         &RiggedMesh {
+            joint_proportions: &generated.joint_proportions,
             morph_targets: &body_targets,
             positions: &generated.positions,
             normals: &generated.normals,

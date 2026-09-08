@@ -6,6 +6,7 @@ pub mod clothing;
 mod clothing_material;
 pub mod design_input;
 pub mod export;
+pub mod proportions;
 pub use adventuresim_core::item_catalog_schema;
 
 use serde::{Deserialize, Serialize};
@@ -15,6 +16,7 @@ pub const EXPRESSION_COUNT: usize = 72;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct CharacterRecipe {
+    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub version: u8,
     pub name: String,
     pub identity: Vec<f32>,
@@ -31,7 +33,8 @@ pub struct ClothingSelection {
 impl Default for CharacterRecipe {
     fn default() -> Self {
         Self {
-            version: 3,
+            version: 4,
+            proportions: Default::default(),
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
@@ -59,7 +62,7 @@ impl Default for CharacterRecipe {
 
 impl CharacterRecipe {
     pub fn validate(&self) -> Result<(), String> {
-        if self.version != 3 {
+        if self.version != 4 {
             return Err(format!(
                 "unsupported character recipe version {}",
                 self.version
@@ -96,6 +99,7 @@ impl CharacterRecipe {
 
     pub fn reset_body(&mut self) {
         self.identity.fill(0.0);
+        self.proportions = Default::default();
     }
     pub fn reset_face(&mut self) {
         self.expression.fill(0.0);

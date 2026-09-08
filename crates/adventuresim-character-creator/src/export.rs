@@ -8,6 +8,7 @@ use serde_json::{Value, json};
 
 mod compact;
 mod morphs;
+mod skeleton;
 
 const GLB_MAGIC: &[u8; 4] = b"glTF";
 const GLB_VERSION: u32 = 2;
@@ -42,6 +43,7 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
 };
 
 pub struct RiggedMesh<'a> {
+    pub joint_proportions: &'a [adventuresim_core::character_proportions::JointProportionBasis],
     pub morph_targets: &'a [RiggedMorphTarget<'a>],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
@@ -1157,36 +1159,7 @@ pub fn export_rigged_glb(
         }));
     }
 
-    let mut children = vec![Vec::<usize>::new(); joint_names.len()];
-    let mut roots = Vec::new();
-    for (joint, parent) in joint_parents.iter().copied().enumerate() {
-        if parent < 0 {
-            roots.push(joint);
-        } else {
-            children[parent as usize].push(joint);
-        }
-    }
-    let mut nodes = Vec::with_capacity(joint_names.len() + 2 + sockets.len());
-    for joint in 0..joint_names.len() {
-        let local = if joint_parents[joint] < 0 {
-            globals[joint]
-        } else {
-            globals[joint_parents[joint] as usize]
-                .inverse()
-                .compose(&globals[joint])
-        };
-        let state = local.to_skel_state();
-        let mut node = json!({
-            "name": joint_names[joint],
-            "translation": [state[0], state[1], state[2]],
-            "rotation": [state[3], state[4], state[5], state[6]],
-            "scale": [state[7], state[7], state[7]],
-        });
-        if !children[joint].is_empty() {
-            node["children"] = json!(children[joint]);
-        }
-        nodes.push(node);
-    }
+    let (mut nodes, roots) = skeleton::nodes(&joint_names, &joint_parents, &globals, mesh)?;
     // Keep one stable, non-joint hierarchy root. Bevy uses this node as the
     // beginning of every animation target path, and Cascadeur preserves it
     // when the base rig is used to author motion files.
@@ -1412,12 +1385,24 @@ mod tests {
             0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625, 0.0078125, 0.0078125,
         ]; 3];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
+        use adventuresim_core::character_proportions::{
+            BODY_PROPORTION_COUNT, BodyProportion, CharacterProportions, JointProportionBasis,
+        };
+        let mut bases = vec![
+            JointProportionBasis {
+                reference: CharacterProportions::default(),
+                translation_metres: [[0.0; 3]; BODY_PROPORTION_COUNT],
+            };
+            joint_names.len()
+        ];
+        bases[0].translation_metres[BodyProportion::HipWidth.index()] = [0.1, 0.0, 0.0];
         export_rigged_glb(
             &path,
             "Test",
             1,
             1,
             &RiggedMesh {
+                joint_proportions: &bases,
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
@@ -1435,6 +1420,11 @@ mod tests {
         .unwrap();
         let bytes = fs::read(&path).unwrap();
         let document = read_document(&bytes);
+        let exported_basis: JointProportionBasis = serde_json::from_value(
+            document["nodes"][0]["extras"]["adventuresim_proportions"].clone(),
+        )
+        .unwrap();
+        assert_eq!(exported_basis, bases[0]);
         let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
         assert_eq!(&bytes[..4], GLB_MAGIC);
         assert_eq!(parsed.skins().count(), 1);
@@ -1529,6 +1519,7 @@ mod tests {
             1,
             1,
             &RiggedMesh {
+                joint_proportions: &[],
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
@@ -1601,6 +1592,7 @@ mod tests {
             2,
             1,
             &RiggedMesh {
+                joint_proportions: &[],
                 morph_targets: &body_targets,
                 positions: &positions,
                 normals: &normals,
@@ -1705,6 +1697,7 @@ mod tests {
             1,
             1,
             &RiggedMesh {
+                joint_proportions: &[],
                 morph_targets: &[],
                 positions: &positions,
                 normals: &normals,
@@ -1817,6 +1810,7 @@ mod tests {
             1,
             4,
             &RiggedMesh {
+                joint_proportions: &[],
                 morph_targets: &[],
                 positions: &body_positions,
                 normals: &body_normals,
@@ -1915,6 +1909,7 @@ mod tests {
             [-4.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0],
         ];
         let mesh = RiggedMesh {
+            joint_proportions: &[],
             morph_targets: &[],
             positions: &positions,
             normals: &normals,

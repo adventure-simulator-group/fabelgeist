@@ -263,3 +263,8 @@ reason = "Converts sign boards and authored mounting hardware into GPU meshes an
 kind = "boundary_adapter"
 path = "crates/adventuresim-building-generator/src/signs/rendering/materials.rs"
 reason = "Binds rasterized sign text and authored paint and metal finishes to GPU materials."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/proportion_controls.rs"
+reason = "Egui appearance buttons dispatch actions through widget responses; their display labels are not compared as state."

@@ -72,8 +72,9 @@ Character and procedural equipment exports contain 45 named identity morphs,
 `mhr_identity_00` through `mhr_identity_44`, with position deltas in metres and
 normal deltas. Zero weights reproduce the saved recipe; weight 1 adds one MHR
 identity coefficient relative to that recipe. Expression coefficients remain
-baked into its neutral face. Morphs deform the surface on the exported skeleton;
-they do not retarget bone lengths or change tactical physics and combat stats.
+baked into its neutral face. Morphs deform the surface independently of skeletal
+proportions. Neither form of appearance variation changes tactical physics or
+combat stats.
 
 Every primitive of a clothed character uses the same ordered channels. Fitted
 clothing retains its base trim triangles when refitted for each sample. Parametric
@@ -85,6 +86,39 @@ character ID, consistently across clients and reconnects. Equipment uses its
 current wearer's weights, updates when transferred, and returns to zero weights
 when dropped. Mesh assets remain shared; weights belong to each instance.
 
+## Skeletal proportions
+
+Recipe version 4 also stores nine absolute MHR skeletal coefficients in
+`proportions`, ordered as hip width, shoulder width, upper arm length, lower arm
+length, upper leg length, lower leg length, spine length, neck length, and foot
+length. The creator's **Skeletal proportions** controls use the pinned model's
+limits. **Neutral** resets both surface and skeleton; **Randomize body** varies
+both. Zero is MHR's reference skeleton.
+
+Exports store `adventuresim_proportions` in joint-node extras: the recipe's
+reference coefficients and local joint translation deltas in metres per unit
+coefficient. These nine controls drive translations, including bone-length
+offsets; hand scaling, asymmetric lengths, and pose correctives are not part of
+this skeletal contract. Export validates the mapping against the MHR model.
+
+In game, character IDs determine stable skeletal coefficients independently of
+the surface morph seed. The pose buffer samples shared reference motion and
+adds instance-owned joint offsets before terrain and limb IK. A neutral-foot
+height correction raises or lowers the pelvis for different leg lengths. Neither
+the shared animation cache nor inverse bind matrices are modified. Equipment
+uses the wearer's joint entities, so skeletal deformation applies once through
+skinning, in addition to its surface morphs; transfers follow the new skeleton
+and dropped equipment returns to its exported shape.
+
+Two additional equipment targets, `mhr_skeletal_spine_short` and
+`mhr_skeletal_spine_long`, refit the shell at the spine-length limits. Their
+position deltas subtract the movement already supplied by skinning, preventing
+double deformation. Body primitives carry zero deltas for these channels. The
+client interpolates from the exported reference to either endpoint. Cadence and
+distance-to-phase curves are remeasured from each character's retargeted foot
+trajectories when its proportions change.
+
+Use the canonical zero-proportion body as the runtime animation reference.
 Regenerate body and equipment from the same recipe. For the canonical game body:
 
 ```powershell

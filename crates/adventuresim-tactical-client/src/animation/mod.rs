@@ -18,8 +18,11 @@ use bevy::{
     prelude::*,
 };
 
+mod bind_pose;
 mod capture_ids;
 mod identity_morphs;
+pub(crate) mod skeletal_proportions;
+use bind_pose::{capture_authored_bind_transforms, restore_authored_bind_pose};
 pub(crate) use capture_ids::{capture_animation_target_id, capture_entity_id};
 
 pub(crate) mod jitter;
@@ -410,6 +413,7 @@ mod full_ragdoll;
 mod loading;
 pub(crate) mod secondary_physics;
 use loading::*;
+
 #[expect(
     clippy::type_complexity,
     reason = "the Bevy query couples each presented skeleton with its route, inventory, and playback state"
@@ -426,13 +430,14 @@ fn evaluate_skeletons(
             &semantic_route::SemanticRouteTrace,
             Option<&InventoryItems>,
             Option<&mut AnimationPlayback>,
+            Option<&pose_buffer::CharacterLocomotionStrides>,
         ),
         With<Player>,
     >,
     weapons: Query<(&WeaponItem, &ItemProperties)>,
     equip_slots: Query<&EquipSlot>,
 ) {
-    for (entity, skeleton, route_trace, inventory, playback) in players {
+    for (entity, skeleton, route_trace, inventory, playback, character_strides) in players {
         // The preceding chained system directly routes authoritative
         // presentation state into deterministic semantic samples.
         let evaluation = route_trace.evaluation.clone();
@@ -456,7 +461,8 @@ fn evaluate_skeletons(
             runtime: &runtime,
             catalog: &catalog,
             pack: &route_trace.inputs.pack,
-            locomotion_strides: &locomotion_strides,
+            locomotion_strides: character_strides
+                .map_or(&*locomotion_strides, |strides| &strides.measurements),
         };
         for sample in samples {
             sample_resolver.append_layer(
@@ -481,34 +487,26 @@ fn evaluate_skeletons(
                 lower_layer,
             );
         }
-        let whole_body_mirror = {
-            let total = weighted.iter().map(|clip| clip.weight).sum::<f32>()
-                + extrapolated_spans
+        let (total_weight, mirrored_weight) = weighted
+            .iter()
+            .map(|clip| (clip.weight, clip.mirrored_weight))
+            .chain(
+                extrapolated_spans
                     .iter()
-                    .map(|span| span.weight)
-                    .sum::<f32>()
-                + continuation_spans
+                    .map(|span| (span.weight, span.mirrored_weight)),
+            )
+            .chain(
+                continuation_spans
                     .iter()
-                    .map(|span| span.weight)
-                    .sum::<f32>();
-            if total > f32::EPSILON {
-                ((weighted
-                    .iter()
-                    .map(|clip| clip.mirrored_weight)
-                    .sum::<f32>()
-                    + extrapolated_spans
-                        .iter()
-                        .map(|span| span.mirrored_weight)
-                        .sum::<f32>()
-                    + continuation_spans
-                        .iter()
-                        .map(|span| span.mirrored_weight)
-                        .sum::<f32>())
-                    / total)
-                    .clamp(0.0, 1.0)
-            } else {
-                0.0
-            }
+                    .map(|span| (span.weight, span.mirrored_weight)),
+            )
+            .fold((0.0, 0.0), |(total, mirrored), (weight, mirror)| {
+                (total + weight, mirrored + mirror)
+            });
+        let whole_body_mirror = if total_weight > f32::EPSILON {
+            (mirrored_weight / total_weight).clamp(0.0, 1.0)
+        } else {
+            0.0
         };
         if let Some((weapon, properties)) = equipped_main_weapon(inventory, &weapons, &equip_slots)
             && let Some(clip) = runtime.grips.get(&weapon_grip(&weapon.skill_weights))
@@ -757,48 +755,6 @@ fn combat_cycle_ik_weights(phase: f32) -> Vec2 {
         Vec2::X
     } else {
         Vec2::Y
-    }
-}
-
-#[expect(
-    clippy::type_complexity,
-    reason = "the Bevy query selects newly transformed nodes that do not yet own a captured bind transform"
-)]
-fn capture_authored_bind_transforms(
-    mut commands: Commands,
-    nodes: Query<(Entity, &Transform), (Added<Transform>, Without<AuthoredBindTransform>)>,
-    parents: Query<&ChildOf>,
-    roots: Query<&AnimationRigScene>,
-) {
-    for (entity, transform) in &nodes {
-        let mut current = entity;
-        for _ in 0..64 {
-            if let Ok(root) = roots.get(current) {
-                commands.entity(entity).insert(AuthoredBindTransform {
-                    owner: root.0,
-                    local: *transform,
-                });
-                break;
-            }
-            let Ok(parent) = parents.get(current) else {
-                break;
-            };
-            current = parent.parent();
-        }
-    }
-}
-
-fn restore_authored_bind_pose(
-    playbacks: Query<&AnimationPlayback>,
-    mut nodes: Query<(&AuthoredBindTransform, &mut Transform)>,
-) {
-    for (bind, mut transform) in &mut nodes {
-        if playbacks
-            .get(bind.owner)
-            .is_ok_and(|playback| playback.use_authored_bind_pose)
-        {
-            *transform = bind.local;
-        }
     }
 }
 

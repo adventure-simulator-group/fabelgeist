@@ -1,3 +1,6 @@
+mod generation;
+mod proportion_controls;
+use generation::generate_character;
 mod character_export;
 mod character_morphs;
 mod equipment_export;
@@ -101,6 +104,7 @@ struct Studio {
 struct CharacterMesh;
 
 struct GeneratedCharacter {
+    joint_proportions: Vec<adventuresim_core::character_proportions::JointProportionBasis>,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     global_joint_states: Vec<[f32; 8]>,
@@ -488,67 +492,8 @@ fn studio_ui(
             });
             ui.separator();
 
-            ui.horizontal(|ui| {
-                for group in IdentityGroup::ALL {
-                    ui.selectable_value(&mut studio.selected, group, group.label());
-                }
-            });
-            let selected = studio.selected;
-            egui::ScrollArea::vertical()
-                .max_height(400.0)
-                .show(ui, |ui| {
-                    for index in selected.range() {
-                        let response = ui.add(
-                            egui::Slider::new(&mut studio.recipe.identity[index], -3.0..=3.0)
-                                .text(format!(
-                                    "{} {:02}",
-                                    selected.label(),
-                                    index - selected.range().start + 1
-                                ))
-                                .fixed_decimals(2),
-                        );
-                        studio.dirty |= response.changed();
-                    }
-                });
-
-            ui.collapsing("Expression laboratory", |ui| {
-                ui.checkbox(
-                    &mut studio.show_expressions,
-                    "Show all 72 expression channels",
-                );
-                if studio.show_expressions {
-                    egui::ScrollArea::vertical()
-                        .max_height(180.0)
-                        .show(ui, |ui| {
-                            let mut changed = false;
-                            for (index, value) in studio.recipe.expression.iter_mut().enumerate() {
-                                changed |= ui
-                                    .add(
-                                        egui::Slider::new(value, -1.0..=1.0)
-                                            .text(format!("Expression {:02}", index + 1)),
-                                    )
-                                    .changed();
-                            }
-                            studio.dirty |= changed;
-                        });
-                }
-            });
-            ui.separator();
-            ui.horizontal(|ui| {
-                if ui.button("Randomize body").clicked() {
-                    studio.seed = studio.seed.wrapping_add(1);
-                    let mut rng = StdRng::seed_from_u64(studio.seed);
-                    for value in &mut studio.recipe.identity {
-                        *value = rng.random_range(-1.35..=1.35);
-                    }
-                    studio.dirty = true;
-                }
-                if ui.button("Neutral").clicked() {
-                    studio.recipe.reset_body();
-                    studio.recipe.reset_face();
-                    studio.dirty = true;
-                }
-            });
+            proportion_controls::show(ui, &mut studio);
+            proportion_controls::show_identity(ui, &mut studio);
             ui.add(egui::TextEdit::singleline(&mut studio.recipe_path).hint_text("character.json"));
             ui.horizontal(|ui| {
                 if ui.button("Save recipe").clicked() {
@@ -723,7 +668,10 @@ fn fitted_bracer(
         morphs,
     })
     .map_err(anyhow::Error::msg)?;
-    generate_bracer(design, &surface).map_err(anyhow::Error::new)
+    let armor = generate_bracer(design, &surface).map_err(anyhow::Error::new)?;
+    Ok(character_morphs::correct_armor_fit(
+        armor, generated, morphs,
+    ))
 }
 
 fn fitted_breastplate(
@@ -747,7 +695,10 @@ fn fitted_breastplate(
         morphs,
     })
     .map_err(anyhow::Error::msg)?;
-    generate_breastplate(design, &surface).map_err(anyhow::Error::new)
+    let armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
+    Ok(character_morphs::correct_armor_fit(
+        armor, generated, morphs,
+    ))
 }
 
 fn placement_coverage(
@@ -1002,79 +953,6 @@ fn regenerate_mesh(
         bracers.len(),
         usize::from(breastplate.is_some()),
     );
-}
-
-fn generate_character(model: &BodyModel, recipe: &CharacterRecipe) -> Result<GeneratedCharacter> {
-    recipe.validate().map_err(anyhow::Error::msg)?;
-    let device = Device::default();
-    let identity = Tensor::from_data(
-        TensorData::new(recipe.identity.clone(), [1, IDENTITY_MORPH_COUNT]),
-        &device,
-    );
-    let expression = Tensor::from_data(
-        TensorData::new(
-            recipe.expression.clone(),
-            [1, NUM_FACE_EXPRESSION_BLEND_SHAPES],
-        ),
-        &device,
-    );
-    let pose = model.mhr.zero_parameters(1);
-    let output = model.mhr.forward(identity, pose, Some(expression))?;
-    let vertex_values = output
-        .vertices
-        .into_data()
-        .into_vec::<f32>()
-        .map_err(|error| anyhow::anyhow!("GPU vertex readback failed: {error:?}"))?;
-    let (vertex_chunks, vertex_remainder) = vertex_values.as_chunks::<3>();
-    if !vertex_remainder.is_empty() {
-        return Err(anyhow::anyhow!(
-            "GPU vertex readback did not contain complete three-axis positions"
-        ));
-    }
-    let positions: Vec<[f32; 3]> = vertex_chunks
-        .iter()
-        .map(|v| [v[0] / 100.0, v[1] / 100.0, v[2] / 100.0])
-        .collect();
-
-    let normal_values = output
-        .normals
-        .into_data()
-        .into_vec::<f32>()
-        .map_err(|error| anyhow::anyhow!("GPU normal readback failed: {error:?}"))?;
-    let (normal_chunks, normal_remainder) = normal_values.as_chunks::<3>();
-    if !normal_remainder.is_empty() {
-        return Err(anyhow::anyhow!(
-            "GPU normal readback did not contain complete three-axis normals"
-        ));
-    }
-    let normals: Vec<[f32; 3]> = normal_chunks.iter().map(|n| [n[0], n[1], n[2]]).collect();
-
-    let skeleton_values = output
-        .skeleton_state
-        .into_data()
-        .into_vec::<f32>()
-        .map_err(|error| anyhow::anyhow!("GPU skeleton readback failed: {error:?}"))?;
-    let (skeleton_chunks, skeleton_remainder) = skeleton_values.as_chunks::<8>();
-    if !skeleton_remainder.is_empty() {
-        return Err(anyhow::anyhow!(
-            "GPU skeleton readback did not contain complete joint states"
-        ));
-    }
-    let global_joint_states = skeleton_chunks
-        .iter()
-        .map(|joint| {
-            let mut state = *joint;
-            state[0] /= 100.0;
-            state[1] /= 100.0;
-            state[2] /= 100.0;
-            state
-        })
-        .collect();
-    Ok(GeneratedCharacter {
-        positions,
-        normals,
-        global_joint_states,
-    })
 }
 
 fn orbit_camera(

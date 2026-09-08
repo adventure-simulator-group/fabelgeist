@@ -96,6 +96,7 @@ impl EquipmentExporter<'_> {
     fn mesh(&self) -> RiggedMesh<'_> {
         let character = &self.model.mhr.character;
         RiggedMesh {
+            joint_proportions: &self.generated.joint_proportions,
             morph_targets: &[],
             positions: &self.generated.positions,
             normals: &self.generated.normals,

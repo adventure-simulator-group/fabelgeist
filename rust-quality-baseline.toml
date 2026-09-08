@@ -88,7 +88,7 @@ ceiling = 1133
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/main.rs"
-ceiling = 955
+ceiling = 939
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
@@ -536,11 +536,11 @@ ceiling = 790
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
-ceiling = 1221
+ceiling = 1178
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-ceiling = 1955
+ceiling = 1817
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -560,7 +560,7 @@ ceiling = 935
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-ceiling = 1286
+ceiling = 1234
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
@@ -2419,12 +2419,7 @@ ceiling = 236
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
 item = "evaluate_skeletons"
-ceiling = 158
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "calibrate_authored_locomotion_strides"
-ceiling = 106
+ceiling = 152
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
@@ -2444,7 +2439,7 @@ ceiling = 323
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "update_pose_buffers"
-ceiling = 300
+ceiling = 222
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -3830,21 +3825,7 @@ occurrences = 1
 rule = "raw-string-branch"
 path = "crates/adventuresim-character-creator/src/main.rs"
 item = "studio_ui"
-fingerprint = "string:Neutral"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
 fingerprint = "string:Pose-corrective model"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Randomize body"
 occurrences = 1
 
 [[findings]]
@@ -9705,34 +9686,6 @@ path = "crates/adventuresim-tactical-client/src/animation/mod.rs"
 item = "AuthoredLocomotionStrides::clear_motion"
 fingerprint = "string:walk"
 occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "calibrate_authored_locomotion_strides"
-fingerprint = "string:run"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "calibrate_authored_locomotion_strides"
-fingerprint = "string:skip"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "calibrate_authored_locomotion_strides"
-fingerprint = "string:strafe"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
-item = "calibrate_authored_locomotion_strides"
-fingerprint = "string:walk"
-occurrences = 2
 
 [[findings]]
 rule = "raw-string-branch"

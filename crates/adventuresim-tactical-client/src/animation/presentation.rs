@@ -404,6 +404,7 @@ pub(super) fn update_presented_skeletons(
     time: Res<Time>,
     procedural_clock: Res<ProceduralAnimationClock>,
     authored_strides: Res<AuthoredLocomotionStrides>,
+    character_strides: Query<&pose_buffer::CharacterLocomotionStrides>,
     mut players: Query<(Entity, &SkeletonState, Option<&mut PresentedSkeleton>), With<Player>>,
 ) {
     for (entity, authoritative, presented) in &mut players {
@@ -425,7 +426,9 @@ pub(super) fn update_presented_skeletons(
             &mut presented,
             authoritative,
             delta_seconds,
-            &authored_strides,
+            character_strides
+                .get(entity)
+                .map_or(&*authored_strides, |strides| &strides.measurements),
         );
     }
 }
