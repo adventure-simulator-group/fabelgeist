@@ -731,7 +731,7 @@ fn item_display_name(item: &ItemQueryItem) -> String {
     };
 
     if let Some(weapon) = item.weapon {
-        format!("{slot}{name}{qty}\naccuracy: {:.1}", weapon.accuracy)
+        format!("{slot}{name}{qty}\nprecision: {:.1}", weapon.precision)
     } else if let Some(armor) = item.armor {
         format!(
             "{slot}{name}{qty}\ncoverage: {:.1} | padding: {:.1}\nrange_of_motion: {:.1} | flexibility: {:.1}",
