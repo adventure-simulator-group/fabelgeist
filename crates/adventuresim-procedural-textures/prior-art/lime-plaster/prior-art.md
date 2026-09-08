@@ -1,5 +1,9 @@
 # Lime plaster procedural texture prior art
 
+The repository observations below describe the original research snapshot. For
+the current generator decisions and authoring controls, see the
+[catalogue approach review](../../catalogue-review.md).
+
 ## Scope
 
 This report concerns exactly the `LimePlaster` procedural surface: a lime-rich,

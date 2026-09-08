@@ -1,5 +1,9 @@
 # Historic lead-sheet prior art
 
+The repository observations below describe the original research snapshot. For
+the current generator decisions and authoring controls, see the
+[catalogue approach review](../../catalogue-review.md).
+
 ## Scope and historical contract
 
 This report concerns exactly the `LeadSheet` procedural surface. Its intended

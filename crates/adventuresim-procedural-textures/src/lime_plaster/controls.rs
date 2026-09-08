@@ -3,15 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        lime_plaster_sample_pass_warp: f32 = 0.035;
-        lime_plaster_sample_pass_phase: f32 = 7.0;
-        lime_plaster_sample_pass_edge: f32 = 0.17;
-        lime_plaster_sample_trowel_1: f32 = 0.17;
-        lime_plaster_sample_trowel_2: f32 = 0.055;
-        lime_plaster_sample_trowel_3: f32 = 0.21;
-        lime_plaster_sample_edge_warp: f32 = 0.045;
-        lime_plaster_sample_edge_phase_1: f32 = 29.0;
-        lime_plaster_sample_edge_phase_2: f32 = 7.0;
+        float_center: f32 = 0.2;
+        float_tracks: crate::stamps::Parameters = crate::stamps::Parameters { cells: [17,19], radius: [0.83,0.38], density:0.85, depth:0.49, angle:0.45, angle_variation:1.2, roundness:0.7, ..Default::default() };
+        trowel_strokes: crate::stamps::Parameters = crate::stamps::Parameters { cells: [5, 5], radius: [0.86, 0.38], density: 0.85, depth: 0.13, angle: 0.45, angle_variation: 0.8, roundness: 0.1, edge_width: 0.15, ..Default::default() };
         lime_plaster_sample_aggregate_radius_1: f32 = 0.10;
         lime_plaster_sample_aggregate_radius_2: f32 = 0.10;
         lime_plaster_sample_aggregate: f32 = 0.085;

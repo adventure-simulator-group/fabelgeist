@@ -4,7 +4,7 @@
 //! Boards run along texture V; butt joints and the few visible forged nails are
 //! constrained to an implicit 0.6 m joist spacing.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
@@ -81,61 +81,14 @@ fn growth_field(
     v: f32,
     board_id: u64,
 ) -> (f32, f32) {
-    let phase_offset = hash_unit(params, 0x514c_a93b ^ board_id);
-    let slow_warp =
-        value_noise_1d(params, v, 3 + (board_id % 3) as i32, 0x643a_11e9 ^ board_id) - 0.5;
-    let mode = crate::parameters::seeded_hash(params, 0x31a8_f75d ^ board_id) % 5;
-    let (coordinate, contrast, latewood_power) = match mode {
-        0 | 1 => {
-            // Rift-sawn faces: a few long, gently wandering growth bands.
-            (
-                local_u * (1.8 + hash_unit(params, 0x7d91_38af ^ board_id) * 1.8)
-                    + slow_warp * (0.18 + hash_unit(params, 0xf26c_509d ^ board_id) * 0.20),
-                0.72,
-                4.0,
-            )
-        }
-        2 | 3 => {
-            // Flat-sawn faces: broad parabolic/cathedral sweeps rather than
-            // a repeated stack of straight pinstripes.
-            let center = params.plank_floor.growth_field_center_1
-                + hash_unit(params, 0x5c48_b73f ^ board_id)
-                    * params.plank_floor.growth_field_center_2;
-            let along = periodic_delta(v - hash_unit(params, 0x8651_d24b ^ board_id));
-            let across = (local_u - center) * params.plank_floor.growth_field_across;
-            let radial =
-                (across * across + (along * params.plank_floor.growth_field_radial).powi(2)).sqrt();
-            (
-                radial * (4.5 + hash_unit(params, 0x43fb_216e ^ board_id) * 2.5) + slow_warp * 0.13,
-                0.88,
-                4.5,
-            )
-        }
-        _ => {
-            // A deliberately quiet face with only broad, oblique structure.
-            (
-                local_u * (0.8 + hash_unit(params, 0x238b_7f51 ^ board_id) * 0.8)
-                    + v * (0.08 + hash_unit(params, 0xa371_09cd ^ board_id) * 0.10)
-                    + slow_warp * 0.10,
-                0.30,
-                3.0,
-            )
-        }
-    };
-    let phase = std::f32::consts::TAU * (coordinate + phase_offset);
-    let broad = phase.sin();
-    let latewood = ((phase.sin() + 1.0) * 0.5).powf(latewood_power);
-    let secondary = (phase * params.plank_floor.growth_field_secondary_1
-        + slow_warp * params.plank_floor.growth_field_secondary_2)
-        .sin();
-    let tone = (broad * params.plank_floor.growth_field_tone_1
-        - latewood * params.plank_floor.growth_field_tone_2
-        + secondary * params.plank_floor.growth_field_tone_3)
-        * contrast;
-    let relief = (broad * params.plank_floor.growth_field_relief_1
-        - latewood * params.plank_floor.growth_field_relief_2)
-        * contrast;
-    (tone, relief)
+    let size = params.size(PLANK_FLOOR_TEXTURE_SIZE) as f32;
+    let sample = params.plank_floor.grain.filtered(
+        params,
+        bevy::math::Vec2::new(local_u, v),
+        bevy::math::Vec2::new(params.plank_floor.board_count as f32 / size, 1.0 / size),
+        board_id,
+    );
+    (sample.dark, sample.height)
 }
 
 fn finite_surface_features(
@@ -342,7 +295,6 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
     let (grain_tone, grain_relief) = growth_field(params, local_u, v, board_id);
     let (check, hand_mark, pore) = finite_surface_features(params, u, v, board, left, right);
     let broad_length = value_noise_1d(params, v, 4, 0x159a_e271 ^ board_id) - 0.5;
-    let board_tone = hash_unit(params, 0x11bd_7a35 ^ board_id) - 0.5;
 
     let cup_direction = if hash_unit(params, 0x7531_ac49 ^ board_id) > 0.5 {
         1.0
@@ -367,14 +319,7 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
         - joint * params.plank_floor.sample_plank_floor_height_5
         - nail * params.plank_floor.sample_plank_floor_height_6)
         .clamp(0.0, 1.0);
-    let tone = (board_tone * params.plank_floor.sample_plank_floor_tone_1
-        + grain_tone * params.plank_floor.sample_plank_floor_tone_2
-        + broad_length * params.plank_floor.sample_plank_floor_tone_3
-        - check * params.plank_floor.sample_plank_floor_tone_4
-        - pore * params.plank_floor.sample_plank_floor_tone_5
-        - joint * params.plank_floor.sample_plank_floor_tone_6
-        - nail * params.plank_floor.sample_plank_floor_tone_7)
-        .clamp(-1.0, 1.0);
+    let tone = grain_tone;
     let roughness = (params.plank_floor.sample_plank_floor_roughness_1
         + grain_tone.abs() * params.plank_floor.sample_plank_floor_roughness_2
         + joint * params.plank_floor.sample_plank_floor_roughness_3
@@ -404,19 +349,13 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
 }
 
 fn plank_color(params: &crate::TextureParameters, sample: PlankSample) -> [u8; 3] {
-    let base = [
-        104.0_f32,
-        params.plank_floor.plank_color_base_1,
-        params.plank_floor.plank_color_base_2,
-    ];
-    let shift = sample.tone * params.plank_floor.plank_color_shift;
-    let embedded_dirt = sample.joint * params.plank_floor.plank_color_embedded_dirt_1
-        + sample.nail * params.plank_floor.plank_color_embedded_dirt_2;
-    [
-        (base[0] + shift - embedded_dirt).clamp(0.0, 255.0) as u8,
-        (base[1] + shift * 0.72 - embedded_dirt).clamp(0.0, 255.0) as u8,
-        (base[2] + shift * 0.42 - embedded_dirt * 0.72).clamp(0.0, 255.0) as u8,
-    ]
+    crate::SrgbColor(params.plank_floor.grain.color(sample.tone))
+        .covered_by(
+            crate::SrgbColor(params.plank_floor.joint_srgb),
+            sample.joint,
+        )
+        .covered_by(crate::SrgbColor(params.plank_floor.nail_srgb), sample.nail)
+        .0
 }
 
 fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
@@ -478,8 +417,7 @@ pub fn generate_plank_floor_textures(
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),

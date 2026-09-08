@@ -3,36 +3,26 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        aggregate: CapsuleLayer = CapsuleLayer {cells:96,salt:0x7361,enabled_threshold:0.94,half_length_range:(0.0,0.020),radius:0.070};
+        aggregate_roughness: f32 = 0.010;
+        application: crate::stamps::Parameters = crate::stamps::Parameters { cells: [6, 7], radius: [0.83, 0.43], density: 0.8, depth: 0.30, angle: 0.35, angle_variation: 1.4, roundness: 0.75, edge_width: 0.55, ..Default::default() };
+        aggregate: CapsuleLayer = CapsuleLayer {cells:96,salt:0x7361,enabled_threshold:0.82,half_length_range:(0.0,0.020),radius:0.130};
         fibre: CapsuleLayer = CapsuleLayer {cells:38,salt:0x19d7,enabled_threshold:0.965,half_length_range:(0.12,0.32),radius:0.028};
         shrink_crack: CapsuleLayer = CapsuleLayer {cells:7,salt:0x52b9,enabled_threshold:0.90,half_length_range:(0.040,0.105),radius:0.0035};
         generate_wattle_and_daub_textures_ao_1: f32 = 0.16;
         generate_wattle_and_daub_textures_ao_2: f32 = 0.05;
         sample_daub_warp: f32 = 0.028;
         sample_daub_smear: f32 = 0.35;
-        sample_daub_trowel_wave_a: f32 = 0.18;
-        sample_daub_trowel_wave_b: f32 = 0.13;
-        sample_daub_trowel_mass_1: f32 = 0.68;
-        sample_daub_trowel_mass_2: f32 = 0.32;
         sample_daub_surface_1: f32 = 0.61;
         sample_daub_surface_2: f32 = 0.055;
         sample_daub_surface_3: f32 = 0.025;
         sample_daub_surface_4: f32 = 0.006;
         sample_daub_surface_5: f32 = 0.030;
-        sample_daub_surface_6: f32 = 0.030;
-        sample_daub_surface_7: f32 = 0.018;
+        sample_daub_surface_6: f32 = 0.12;
+        sample_daub_surface_7: f32 = 0.014;
         sample_daub_surface_8: f32 = 0.012;
         sample_daub_surface_9: f32 = 0.075;
         sample_daub_height_1: f32 = 0.25;
         sample_daub_height_2: f32 = 0.16;
-        sample_daub_warm_mix_1: f32 = 0.75;
-        sample_daub_warm_mix_2: f32 = 0.80;
-        sample_daub_warm_mix_3: f32 = 0.68;
-        sample_daub_warm_mix_4: f32 = 0.32;
-        sample_daub_cavity_color_1: f32 = 0.39;
-        sample_daub_cavity_color_2: f32 = 0.33;
-        sample_daub_cavity_color_3: f32 = 0.25;
-        sample_daub_cavity_color_4: f32 = 0.65;
         exposed_wattle_dx: f32 = 0.22;
         exposed_wattle_dy: f32 = 0.31;
         exposed_wattle_theta_1: f32 = 0.0075;
@@ -61,10 +51,7 @@ crate::parameters::parameter_block! {
         sparse_capsules_center_4: f32 = 0.70;
         tile_metres: f32 = WATTLE_AND_DAUB_TILE_METRES;
         height_range_metres: f32 = WATTLE_AND_DAUB_HEIGHT_RANGE_METRES;
-        daub_cool: Vec3 = DAUB_COOL;
         daub_warm: Vec3 = DAUB_WARM;
-        aggregate_color: Vec3 = AGGREGATE_COLOR;
-        fibre_color: Vec3 = FIBRE_COLOR;
         wattle_color: Vec3 = WATTLE_COLOR;
     }
 }

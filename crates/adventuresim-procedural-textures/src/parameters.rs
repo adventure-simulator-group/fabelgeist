@@ -1,5 +1,6 @@
 //! Typed artistic recipe controls shared by native bakers and the browser studio.
 use serde::{Deserialize, Serialize};
+mod detail_bounds;
 mod inspector;
 mod validation;
 pub use inspector::ControlPath;

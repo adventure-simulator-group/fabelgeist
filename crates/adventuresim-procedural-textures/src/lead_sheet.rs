@@ -6,7 +6,7 @@
 //! only the quiet oxidized material within a sheet and must not be substituted
 //! for forged iron.
 
-use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
+use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
@@ -55,7 +55,7 @@ fn periodic_noise(
     upper + (lower - upper) * ty
 }
 
-fn field(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32, f32, f32) {
+fn field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     let broad = periodic_noise(params, u, v, 3, 5, 0x17ec_5b92);
     let medium = periodic_noise(params, u, v, 13, 17, 0x4d2a_9c31);
     let fine = periodic_noise(params, u, v, 43, 47, 0x8b17_63de);
@@ -68,24 +68,17 @@ fn field(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32, f32, f
         + u)
         * std::f32::consts::TAU)
         .sin();
-    let rolling = roll_primary * params.lead_sheet.field_rolling_1
-        + roll_secondary * params.lead_sheet.field_rolling_2;
-    // Patina is directionally dragged by the same working direction instead
-    // of appearing as independent cloudy stains.
-    let patina = (0.50
-        + roll_primary * params.lead_sheet.field_patina_1
-        + roll_secondary * params.lead_sheet.field_patina_2
-        + (periodic_noise(params, u, v, 5, 11, 0x72a3_d805) - 0.5)
-            * params.lead_sheet.field_patina_3)
-        .clamp(0.0, 1.0);
-    let height = (0.50
+    let dents = params
+        .lead_sheet
+        .dents
+        .sample(params, bevy::math::Vec2::new(u, v), 0x9145);
+    (0.50 - dents.bowl
         + (broad - 0.5) * params.lead_sheet.field_height_1
         + (medium - 0.5) * params.lead_sheet.field_height_2
         + (fine - 0.5) * params.lead_sheet.field_height_3
         + roll_primary * params.lead_sheet.field_height_4
         + roll_secondary * params.lead_sheet.field_height_5)
-        .clamp(0.0, 1.0);
-    (height, patina, rolling, roll_primary)
+        .clamp(0.0, 1.0)
 }
 
 fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
@@ -109,7 +102,7 @@ pub fn generate_lead_sheet_textures(
             })
         })
         .collect::<Vec<_>>();
-    let heights = samples.iter().map(|sample| sample.0).collect::<Vec<_>>();
+    let heights = samples.clone();
     let capacity = (size * size * 4) as usize;
     let mut albedo = Vec::with_capacity(capacity);
     let mut normal = Vec::with_capacity(capacity);
@@ -121,16 +114,9 @@ pub fn generate_lead_sheet_textures(
     for y in 0..size {
         for x in 0..size {
             let index = (y * size + x) as usize;
-            let (surface_height, patina, rolling, roll_primary) = samples[index];
-            let base = params.lead_sheet.generate_lead_sheet_textures_base_1
-                + (patina - 0.5) * params.lead_sheet.generate_lead_sheet_textures_base_2
-                + rolling * params.lead_sheet.generate_lead_sheet_textures_base_3;
-            albedo.extend_from_slice(&[
-                (base - 7.0).clamp(65.0, 118.0).round() as u8,
-                (base - 2.0).clamp(70.0, 124.0).round() as u8,
-                (base + 3.0).clamp(76.0, 132.0).round() as u8,
-                255,
-            ]);
+            let surface_height = samples[index];
+            let color = params.lead_sheet.patina_srgb;
+            albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
 
             let dx = height_at(params, &heights, x as i32 + 1, y as i32)
                 - height_at(params, &heights, x as i32 - 1, y as i32);
@@ -144,29 +130,14 @@ pub fn generate_lead_sheet_textures(
             let h = (surface_height * 255.0).round() as u8;
             height.extend_from_slice(&[h, h, h, 255]);
 
-            // Oxide dulls but does not turn the material into orange corrosion
-            // or erase the metallic substrate entirely.
-            let roughness = (params.lead_sheet.generate_lead_sheet_textures_roughness_1
-                + patina * params.lead_sheet.generate_lead_sheet_textures_roughness_2
-                + roll_primary * 2.0)
-                .clamp(
-                    params.lead_sheet.generate_lead_sheet_textures_roughness_3,
-                    params.lead_sheet.generate_lead_sheet_textures_roughness_4,
-                )
-                .round() as u8;
-            let metallic = (params.lead_sheet.generate_lead_sheet_textures_metallic_1
-                - patina * params.lead_sheet.generate_lead_sheet_textures_metallic_2)
-                .clamp(
-                    params.lead_sheet.generate_lead_sheet_textures_metallic_3,
-                    params.lead_sheet.generate_lead_sheet_textures_metallic_4,
-                )
-                .round() as u8;
+            // The continuous opaque patina is a dielectric layer above the lead.
+            let roughness = (params.lead_sheet.patina_roughness * 255.0).round() as u8;
+            let metallic = 0;
             arm.extend_from_slice(&[253, roughness, metallic, 255]);
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -247,11 +218,10 @@ mod tests {
             .step_by(4)
             .copied()
             .collect::<BTreeSet<_>>();
-        assert!(roughness.len() > 15);
+        assert_eq!(roughness.len(), 1, "intact patina is one finish");
         assert!(*roughness.first().unwrap() >= 150);
         assert!(*roughness.last().unwrap() <= 230);
-        assert!(*metallic.first().unwrap() >= 215);
-        assert!(*metallic.last().unwrap() >= 235);
+        assert_eq!(metallic, BTreeSet::from([0]), "opaque oxide is dielectric");
     }
 
     #[test]

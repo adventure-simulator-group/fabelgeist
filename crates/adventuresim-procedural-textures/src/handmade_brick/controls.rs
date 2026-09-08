@@ -3,6 +3,8 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [151,137], radius: [0.22,0.19], density:0.28, depth:0.017, ..Default::default() };
+        mortar_grit: crate::stamps::Parameters = crate::stamps::Parameters { cells: [191,179], radius: [0.26,0.24], density:0.6, depth:0.025, roundness:0.2, ..Default::default() };
         sample_brickwork_antialias: f32 = 0.7;
         sample_brickwork_broad_cup_1: f32 = 0.33;
         sample_brickwork_broad_cup_2: f32 = 0.33;

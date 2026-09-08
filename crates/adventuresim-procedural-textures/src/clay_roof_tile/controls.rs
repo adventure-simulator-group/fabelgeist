@@ -3,10 +3,10 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [113, 109], radius: [0.32, 0.28], density: 0.32, depth: 0.035, ..Default::default() };
+        drag_marks: crate::stamps::Parameters = crate::stamps::Parameters { cells: [83, 41], radius: [0.12, 0.75], density: 0.3, depth: 0.018, angle_variation: 0.15, roundness: 0.45, ..Default::default() };
+        palette: [[u8; 3]; 5] = [[139,58,41],[150,68,45],[129,55,40],[144,63,42],[136,61,46]];
         generate_clay_roof_tile_textures_ao: f32 = 0.32;
-        color_and_roughness_kiln_shift_1: f32 = 11.0;
-        color_and_roughness_kiln_shift_2: f32 = 4.0;
-        color_and_roughness_wear: f32 = 12.0;
         color_and_roughness_roughness_1: f32 = 210.0;
         color_and_roughness_roughness_2: f32 = 7.0;
         color_and_roughness_roughness_3: f32 = 4.0;

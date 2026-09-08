@@ -4,7 +4,6 @@ use bevy::{
     asset::Assets,
     image::Image,
     math::{FloatExt, Vec3},
-    render::render_resource::TextureFormat,
 };
 use fabelgeist_determinism::inclusive_unit_f32;
 
@@ -14,10 +13,7 @@ pub const WATTLE_AND_DAUB_TEXTURE_SIZE: u32 = 1024;
 pub const WATTLE_AND_DAUB_TILE_METRES: f32 = 1.5;
 pub const WATTLE_AND_DAUB_HEIGHT_RANGE_METRES: f32 = 0.012;
 
-const DAUB_COOL: Vec3 = Vec3::new(0.53, 0.48, 0.38);
 const DAUB_WARM: Vec3 = Vec3::new(0.66, 0.57, 0.42);
-const AGGREGATE_COLOR: Vec3 = Vec3::new(0.42, 0.38, 0.30);
-const FIBRE_COLOR: Vec3 = Vec3::new(0.47, 0.40, 0.29);
 const WATTLE_COLOR: Vec3 = Vec3::new(0.33, 0.23, 0.13);
 
 #[derive(Clone, Copy, Debug)]
@@ -229,19 +225,12 @@ fn sample_daub(params: &crate::TextureParameters, u: f32, v: f32) -> DaubSample 
         9,
         0x2ab5,
     );
-    let trowel_wave_a = (std::f32::consts::TAU
-        * (u * 3.0
-            + v * 1.0
-            + periodic_noise(params, u, v, 3, 3, 0xb49d)
-                * params.wattle_and_daub.sample_daub_trowel_wave_a))
-        .sin();
-    let trowel_wave_b = (std::f32::consts::TAU
-        * (u - v * 2.0
-            + periodic_noise(params, u, v, 2, 4, 0x8e63)
-                * params.wattle_and_daub.sample_daub_trowel_wave_b))
-        .sin();
-    let trowel_mass = trowel_wave_a * params.wattle_and_daub.sample_daub_trowel_mass_1
-        + trowel_wave_b * params.wattle_and_daub.sample_daub_trowel_mass_2;
+    let marks =
+        params
+            .wattle_and_daub
+            .application
+            .sample(params, bevy::math::Vec2::new(u, v), 0x7239);
+    let trowel_mass = marks.facet + marks.edge;
     let aggregate = aggregate_coverage(params, u, v);
     let fibre = fibre_coverage(params, u, v);
     let crack = shrink_crack(params, u, v);
@@ -261,30 +250,12 @@ fn sample_daub(params: &crate::TextureParameters, u: f32, v: f32) -> DaubSample 
             + wattle * params.wattle_and_daub.sample_daub_height_2)
             * exposed_cavity;
 
-    let warm_mix = smoothstep(
-        -params.wattle_and_daub.sample_daub_warm_mix_1,
-        params.wattle_and_daub.sample_daub_warm_mix_2,
-        broad * params.wattle_and_daub.sample_daub_warm_mix_3
-            + medium * params.wattle_and_daub.sample_daub_warm_mix_4,
-    );
-    let mut albedo = params
+    // A single lime/earth matrix; only exposed timber is another material.
+    // Cavity darkness is provided by AO, never multiplied into pigment.
+    let albedo = params
         .wattle_and_daub
-        .daub_cool
-        .lerp(params.wattle_and_daub.daub_warm, warm_mix);
-    albedo *= 0.94 + medium * 0.028 + smear * 0.024 + trowel_mass * 0.026;
-    albedo = albedo.lerp(params.wattle_and_daub.aggregate_color, aggregate * 0.55);
-    albedo = albedo.lerp(params.wattle_and_daub.fibre_color, fibre * 0.62);
-    albedo *= 1.0 - crack * 0.12;
-    let cavity_color = Vec3::new(
-        params.wattle_and_daub.sample_daub_cavity_color_1,
-        params.wattle_and_daub.sample_daub_cavity_color_2,
-        params.wattle_and_daub.sample_daub_cavity_color_3,
-    )
-    .lerp(
-        params.wattle_and_daub.wattle_color,
-        wattle * params.wattle_and_daub.sample_daub_cavity_color_4,
-    );
-    albedo = albedo.lerp(cavity_color, exposed_cavity * 0.86);
+        .daub_warm
+        .lerp(params.wattle_and_daub.wattle_color, wattle * exposed_cavity);
 
     DaubSample {
         height: height.clamp(0.0, 1.0),
@@ -293,7 +264,7 @@ fn sample_daub(params: &crate::TextureParameters, u: f32, v: f32) -> DaubSample 
             + broad * 0.008
             + smear.abs() * 0.012
             + trowel_mass.abs() * 0.010
-            + aggregate * 0.040
+            + aggregate * params.wattle_and_daub.aggregate_roughness
             + fibre * 0.028
             + crack * 0.018)
             .clamp(0.80, 0.96),
@@ -395,8 +366,7 @@ pub fn generate_wattle_and_daub_textures(
         }
     }
 
-    let mut albedo_image = image_rgba_mipped(albedo, size, true);
-    albedo_image.texture_descriptor.format = TextureFormat::Rgba8UnormSrgb;
+    let albedo_image = crate::palette::albedo_image(albedo, size);
     SurfaceTextureSet {
         albedo: images.add(albedo_image),
         normal_gl: images.add(image_rgba_mipped(normal, size, true)),
@@ -407,6 +377,7 @@ pub fn generate_wattle_and_daub_textures(
 
 #[cfg(test)]
 mod tests {
+    use bevy::render::render_resource::TextureFormat;
     use std::collections::BTreeSet;
 
     use super::*;

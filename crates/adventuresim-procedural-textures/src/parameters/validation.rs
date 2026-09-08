@@ -93,6 +93,9 @@ impl ControlBounds {
         Self { min, max, integer }
     }
     fn material_bounds(path: &str, name: &str, integer: bool) -> Option<Self> {
+        if let Some((min, max)) = super::detail_bounds::bounds(path, name) {
+            return Some(Self { min, max, integer });
+        }
         if path.starts_with("/ironwork/") {
             let bounds = match name {
                 "hammer_cells" => Some((1.0, 48.0)),

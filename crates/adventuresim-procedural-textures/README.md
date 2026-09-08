@@ -1,5 +1,10 @@
 # Procedural texture review
 
+The [catalogue approach review](catalogue-review.md) records the construction,
+reference techniques and iteration decisions for all 24 recipes, including the
+shared leaf presets. It also describes the finite surface features and filtered
+grain controls added to the remaining building materials.
+
 Recipes produce deterministic, repeating material maps. Hewn oak uses irregular,
 asymmetric growth bands, tapered branch knots, longitudinal vessel tracks and
 sparse transverse ray flecks in a shared deformed coordinate field. A 4x4

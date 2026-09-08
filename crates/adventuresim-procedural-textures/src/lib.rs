@@ -6,8 +6,10 @@
 #![cfg_attr(test, allow(clippy::chunks_exact_to_as_chunks))]
 
 mod bake;
+mod board_grain;
 pub mod building;
 mod catalogue;
+mod stamps;
 pub use bake::{BakedMap, BakedRecipe, MapChannel, PixelEncoding};
 mod clay_roof_tile;
 mod crenellation_mask;
