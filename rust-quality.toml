@@ -188,3 +188,8 @@ reason = "Maps serialized botanical field names to their reference-defined numer
 kind = "boundary_adapter"
 path = "crates/adventuresim-texture-studio/src/inspector/leaf.rs"
 reason = "Maps the serialized shared leaf schema and preset catalog to egui authoring controls."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/equipment_export.rs"
+reason = "Maps stable item and placement IDs from the authored equipment catalog to procedural exporters and writes the GLB manifest."
