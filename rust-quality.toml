@@ -190,6 +190,19 @@ path = "crates/adventuresim-texture-studio/src/inspector/leaf.rs"
 reason = "Maps the serialized shared leaf schema and preset catalog to egui authoring controls."
 
 [[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-world-schema/src/settlement_buildings/catalog.rs"
+reason = "Authored historical building uses, eligibility, catchments, and siting preferences."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/settlement.rs"
+reason = "Authored building-use room programmes and parish-church recipe."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-tactical-core/src/bin/city-layout-report.rs"
+reason = "Deterministic city-layout review fixture with explicit population and economy samples."
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/equipment_export.rs"
 reason = "Maps stable item and placement IDs from the authored equipment catalog to procedural exporters and writes the GLB manifest."

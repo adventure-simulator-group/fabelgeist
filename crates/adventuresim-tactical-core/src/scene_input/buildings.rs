@@ -81,6 +81,7 @@ pub struct TacticalBuildingPlacement {
 pub struct DistantBuildingPlacement {
     pub id: u64,
     pub archetype: BuildingArchetype,
+    pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
     pub seed: u64,
     pub centre_metres: Vec2,
     pub base_elevation_metres: f32,
@@ -89,7 +90,10 @@ pub struct DistantBuildingPlacement {
 
 impl DistantBuildingPlacement {
     pub fn program(self) -> BuildingProgram {
-        BuildingProgram::fixture(self.archetype, self.seed)
+        match self.usage {
+            Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
+            None => BuildingProgram::fixture(self.archetype, self.seed),
+        }
     }
 }
 
@@ -413,5 +417,36 @@ mod tests {
             half_extents,
             diagonal,
         ));
+    }
+}
+
+#[cfg(test)]
+mod occupied_recipe_tests {
+    use super::*;
+    use adventuresim_world_schema::settlement_buildings::BuildingUse;
+
+    #[test]
+    fn distant_buildings_reconstruct_the_same_occupied_recipe() {
+        let placement = DistantBuildingPlacement {
+            id: 1,
+            archetype: BuildingArchetype::HallHouse,
+            usage: Some(BuildingUse::Stable),
+            seed: 42,
+            centre_metres: Vec2::ZERO,
+            base_elevation_metres: 0.0,
+            orientation: BuildingOrientation::IDENTITY,
+        };
+        assert_eq!(
+            placement.program(),
+            BuildingProgram::settlement(
+                BuildingArchetype::HallHouse,
+                Some(BuildingUse::Stable),
+                42
+            )
+        );
+        assert_ne!(
+            placement.program(),
+            BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)
+        );
     }
 }

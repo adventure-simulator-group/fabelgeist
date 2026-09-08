@@ -1,9 +1,8 @@
-//! Standalone semantic and geometric prototype for procedural buildings.
+//! Audited semantic and geometric recipes for procedural buildings.
 //!
 //! This crate intentionally has no dependency on either the strategic or the
 //! tactical runtime. It turns a high-level [`BuildingProgram`] into a bounded,
-//! deterministic [`BuildingPlan`] that a renderer or future authoritative
-//! gameplay adapter can consume.
+//! deterministic [`BuildingPlan`] consumed by the viewer and tactical city adapter.
 
 mod audit;
 mod collision;
@@ -13,7 +12,9 @@ mod generator;
 mod lod;
 mod model;
 mod roof_tessellation;
+mod settlement;
 mod windows;
+pub use settlement::settlement_archetype;
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
 pub use collision::{

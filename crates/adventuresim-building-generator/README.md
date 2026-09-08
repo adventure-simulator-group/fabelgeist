@@ -1,9 +1,8 @@
 # Procedural building prototype
 
-This crate is a standalone experiment. It does not participate in either the
-strategic simulation or tactical runtime. It converts a high-level building
-program into deterministic semantic data, then optionally renders coarse Bevy
-geometry for review.
+This crate converts high-level building programmes into deterministic semantic
+data and audited geometry. The tactical city adapter consumes its recipes and
+collision meshes; the standalone viewer provides architectural inspection.
 
 ## Current boundary
 
@@ -510,3 +509,48 @@ ordinary host crown and circulation. Capture manifests identify the exact
 assembly solids, voids, ray count, deployment and tactical target; the
 projected-defense suite rejects mixed source builds, stale fixture/seed hashes,
 or missing proof IDs.
+
+## Settlement building programmes
+
+`adventuresim_world_schema::settlement_buildings` owns the building-use catalogue,
+eligibility rules and approximate service catchments. `SettlementBuildingDemand`
+reads the canonical economy profile: it never independently rolls for a
+weaponsmith, armorer, temple, inn or other existing strategic service. Repeated
+buildings cover their catchment with independently seeded capacities. Civic
+singletons stay single; evidence-dependent institutions and power sites are
+catalogued without being invented from population alone.
+
+`BuildingProgram::settlement` assigns working rooms to structural families:
+stalls, milling floors, kiln rooms, vats, wards, classrooms and counting rooms.
+Timber town houses can combine workshops below with dwellings above. Parish
+churches have their own masonry nave, chancel and sacristy recipe. The existing
+cathedral remains a separate monumental architecture. Seeded roof pitches and
+storey heights vary the silhouette without enlarging the reserved lot.
+
+The tactical layout reserves service plots along connected streets before
+housing residents. Market uses prefer central frontage; bulky and nuisance
+trades prefer the developing edge. Every output reports unplaced services and
+unhoused residents. The dispatcher rejects an incomplete city instead of
+silently claiming it has met population demand. Playable and distant buildings
+carry the same use and seed and reconstruct the same recipe.
+
+Catchments describe people served over time, not seats, beds, workers or actual
+resident occupancy. They are authored design values and are not historical
+measurements. Water mills, windmills and regional extraction sites require a
+surveyed site; their catalogue entries do not currently create waterways,
+millraces, exposed hilltops or resource deposits. Their machinery is not yet a
+simulated production system. Research context and the wider building inventory
+are in `research/city-building-variety-1544.md`.
+
+Export and inspect a real generated layout without starting a database:
+
+```sh
+cargo run -p adventuresim-tactical-core --bin city-layout-report -- 6500 42 > target/city.json
+python scripts/render_city_layout_report.py target/city.json target/city.svg
+```
+
+The report contains each lot's identity, use, service capacity, housing capacity,
+footprint and orientation, plus the actual streets and any capacity shortfalls.
+The SVG gives a building inventory and plot tooltips. Runtime palettes contain
+up to twelve recipes per residential family and two per service use, limiting
+repeated structural compilation while varying ordinary street frontage.
