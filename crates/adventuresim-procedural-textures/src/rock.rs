@@ -182,9 +182,10 @@ fn base_levels(params: &crate::TextureParameters) -> [Vec<u8>; 4] {
             );
             let slope_scale =
                 params.rock.height_range_metres / (2.0 * texel * params.rock.tile_metres);
-            normal.extend_from_slice(&encode_normal(
-                Vec3::new(-height_x * slope_scale, -height_y * slope_scale, 1.0).normalize(),
-            ));
+            normal.extend_from_slice(&encode_normal(crate::normal::from_image_gradient(
+                height_x * slope_scale,
+                height_y * slope_scale,
+            )));
             let encoded_height = ((sample.height + 0.5) * 255.0).round() as u8;
             height.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
             let ao = (rock_horizon_ao(params, &heights, x as i32, y as i32) * 255.0).round() as u8;

@@ -17,6 +17,7 @@ mod dressed_stone;
 mod dry_white_oak_leaf;
 mod ironwork;
 mod lead_sheet;
+mod normal;
 mod palette;
 mod parameters;
 pub use parameters::{
@@ -78,6 +79,8 @@ pub struct LeafTextureSet {
 #[derive(Clone, Debug)]
 pub struct SurfaceTextureSet {
     pub albedo: Handle<Image>,
+    /// OpenGL tangent-space normal: +X follows U, +Y opposes image-row V.
+    /// Custom projections must transform both components into their world basis.
     pub normal_gl: Handle<Image>,
     pub height: Handle<Image>,
     pub arm: Handle<Image>,

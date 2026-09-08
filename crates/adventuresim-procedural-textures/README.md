@@ -58,3 +58,22 @@ refines to the chosen final resolution without blocking its rendering thread.
 
 Run `cargo test -p adventuresim-procedural-textures` for repeatability, tiling,
 feature scale, channel packing, mip completeness and parameter behavior.
+
+## Normal direction
+
+RGBA surface and optical normals use OpenGL tangent space: red follows U and
+positive green points opposite image-row V. Increasing height down the image
+must tilt the normal upward. Custom projections must also transform the sampled
+normal through the same UV rotations used for color and height.
+
+Leaf fronts already use this convention; their back maps reverse green for the
+back-facing leaf frame. Forest litter instead packs world X/Z normals into RG.
+Bark and soil derive their shading normals directly from height. Those distinct
+contracts are intentional and must not receive a blanket green-channel flip.
+
+Run `cargo test -p adventuresim-texture-studio --lib normal_orientation` for
+height-versus-light direction checks using Bevy-generated tangents. The optical
+height check is included in this crate's tests. With Node, Playwright and a
+WebGPU-capable Chromium browser, `node scripts/test_texture_normal_projection.cjs`
+checks the production rock projection WGSL against geometric height gradients
+on all six axis directions.

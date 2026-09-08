@@ -2,6 +2,8 @@
 mod backdrop;
 mod geometry;
 mod maps;
+#[cfg(test)]
+mod normal_orientation;
 mod special;
 mod terrain;
 #[cfg(test)]

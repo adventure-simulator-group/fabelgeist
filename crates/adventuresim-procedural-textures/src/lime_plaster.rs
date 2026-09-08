@@ -263,7 +263,7 @@ pub fn generate_lime_plaster_textures(
                 / (2.0 * texel_metres);
             let dh_dy =
                 (up - down) * params.lime_plaster.height_range_metres * 0.5 / (2.0 * texel_metres);
-            let normal_vector = Vec3::new(-dh_dx, -dh_dy, 1.0).normalize();
+            let normal_vector = crate::normal::from_image_gradient(dh_dx, dh_dy);
             let roughness = slope_adjusted_roughness(sample.roughness, dh_dx.hypot(dh_dy));
 
             albedo.extend_from_slice(&[

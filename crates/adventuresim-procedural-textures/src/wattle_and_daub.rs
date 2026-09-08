@@ -371,7 +371,8 @@ pub fn generate_wattle_and_daub_textures(
                 - height_at(params, &samples, x as i32 - 1, y as i32);
             let dy = height_at(params, &samples, x as i32, y as i32 + 1)
                 - height_at(params, &samples, x as i32, y as i32 - 1);
-            let surface_normal = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
+            let surface_normal =
+                crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
             normal.extend_from_slice(&[
                 encode_unit(surface_normal.x * 0.5 + 0.5),
                 encode_unit(surface_normal.y * 0.5 + 0.5),

@@ -250,7 +250,7 @@ pub fn generate_clay_roof_tile_textures(
                 - height_at(params, &heights, x as i32 - 1, y as i32);
             let dy = height_at(params, &heights, x as i32, y as i32 + 1)
                 - height_at(params, &heights, x as i32, y as i32 - 1);
-            let n = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
+            let n = crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
             let encoded = ((n + Vec3::ONE) * 127.5)
                 .round()
                 .clamp(Vec3::ZERO, Vec3::splat(255.0));

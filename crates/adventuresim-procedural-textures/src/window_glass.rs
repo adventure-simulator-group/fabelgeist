@@ -191,7 +191,7 @@ pub fn generate_window_glass_textures(
                 - height_at(params, &heights, x as i32, y as i32 - 1);
             let gain = params.window_glass.optical_normal_gain * size as f32
                 / WINDOW_GLASS_TEXTURE_SIZE as f32;
-            let surface_normal = Vec3::new(-dx * gain, -dy * gain, 1.0).normalize();
+            let surface_normal = crate::normal::from_image_gradient(dx * gain, dy * gain);
             let encoded = ((surface_normal + Vec3::ONE) * 127.5)
                 .round()
                 .clamp(Vec3::ZERO, Vec3::splat(255.0));
@@ -582,3 +582,55 @@ const BUBBLES: [(f32, f32, f32, f32); 6] = [
 
 mod controls;
 pub use controls::Parameters;
+
+#[cfg(test)]
+mod normal_orientation {
+    use super::*;
+    use bevy::math::Vec2;
+
+    #[test]
+    fn optical_normals_agree_with_the_optical_height_field() {
+        let params = crate::TextureParameters {
+            resolution: crate::BakeResolution::Draft,
+            ..Default::default()
+        };
+        let mut images = Assets::default();
+        let texture = generate_window_glass_textures(&params, &mut images);
+        let bytes = images
+            .get(&texture.optical_normal_gl)
+            .unwrap()
+            .data
+            .as_ref()
+            .unwrap();
+        let size = params.size(WINDOW_GLASS_TEXTURE_SIZE);
+        let step = 1.0 / size as f32;
+        let mut signed = Vec2::ZERO;
+        let mut absolute = Vec2::ZERO;
+        for y in 1..size - 1 {
+            for x in 1..size - 1 {
+                let u = (x as f32 + 0.5) * step;
+                let v = (y as f32 + 0.5) * step;
+                let h = |u, v| sample_glass(&params, u, v).optical_height;
+                let slopes = Vec2::new(
+                    h(u + step, v) - h(u - step, v),
+                    h(u, v + step) - h(u, v - step),
+                );
+                let i = (y * size + x) as usize * 4;
+                let towards_light = Vec2::new(
+                    1.0 - bytes[i] as f32 / 127.5,
+                    bytes[i + 1] as f32 / 127.5 - 1.0,
+                );
+                for axis in 0..2 {
+                    if towards_light[axis].abs() < 0.01 {
+                        continue;
+                    }
+                    let product = towards_light[axis] * slopes[axis];
+                    signed[axis] += product;
+                    absolute[axis] += product.abs();
+                }
+            }
+        }
+        assert!(absolute.min_element() > 0.0);
+        assert!((signed / absolute).min_element() > 0.99);
+    }
+}
