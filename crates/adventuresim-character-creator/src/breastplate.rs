@@ -3,8 +3,8 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use adventuresim_armor_model::{
-    SurfaceMorph, TORSO_SHOULDER_ENVELOPE_SAMPLES, TorsoClearanceMesh, TorsoCoronalAnchor,
-    TorsoShoulderSample, TorsoSurface, TorsoUpperRigAnchors, TorsoVertex,
+    SurfaceMorph, TORSO_SHOULDER_ENVELOPE_SAMPLES, TorsoClearanceMesh, TorsoClearancePose,
+    TorsoCoronalAnchor, TorsoShoulderSample, TorsoSurface, TorsoUpperRigAnchors, TorsoVertex,
 };
 
 use crate::bracer::ForearmMorphSample;
@@ -831,23 +831,32 @@ pub fn build_front_torso_surface(input: TorsoSurfaceInput<'_>) -> Result<TorsoSu
             })
         })
         .collect::<Vec<_>>();
-    let clearance_samples = |positions: &[[f32; 3]], normals: &[[f32; 3]]| {
-        clearance_body_vertices
-            .iter()
-            .map(|vertex| TorsoShoulderSample {
-                position: positions[*vertex],
-                normal: normals[*vertex],
-            })
-            .collect::<Vec<_>>()
-    };
     let clearance_mesh = TorsoClearanceMesh {
-        vertices: clearance_samples(input.positions, input.normals),
+        base: TorsoClearancePose::from_full_body(
+            input.positions,
+            input.normals,
+            &clearance_body_vertices,
+        )
+        .map_err(|e| e.to_string())?,
         faces: clearance_faces,
-        morph_vertices: input
+        enclosure_faces: input.faces.to_vec(),
+        enclosure_torso_faces: section_faces,
+        enclosure_texcoords: input.texcoords.to_vec(),
+        enclosure_texcoord_faces: input.texcoord_faces.to_vec(),
+        enclosure_joint_indices: input.joint_indices.to_vec(),
+        enclosure_joint_weights: input.joint_weights.to_vec(),
+        morphs: input
             .morphs
             .iter()
-            .map(|morph| clearance_samples(&morph.positions, &morph.normals))
-            .collect(),
+            .map(|morph| {
+                TorsoClearancePose::from_full_body(
+                    &morph.positions,
+                    &morph.normals,
+                    &clearance_body_vertices,
+                )
+                .map_err(|e| e.to_string())
+            })
+            .collect::<Result<Vec<_>, String>>()?,
     };
     let upper_rig_anchors = TorsoUpperRigAnchors {
         neck_base: neck,

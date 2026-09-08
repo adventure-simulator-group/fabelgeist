@@ -35,27 +35,32 @@ pub struct BracerDesign {
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct BreastplateDesign {
     pub catalog_id: String,
-    /// Width of the neck opening across the upper front panel.
+    /// Scale of the neck opening around the wearer-derived default.
     pub neck_width: Permille,
-    /// Distance the neckline descends below the shoulder peaks.
+    /// Scale of the front and rear neckline drop.
     pub neck_depth: Permille,
-    /// Distance the armscyes descend below the shoulder peaks.
+    /// Scale of the armscye depth.
     pub arm_opening_depth: Permille,
-    /// Width of the lower edge relative to the chest.
+    /// Scale of the lower plate width around the wearer-derived default.
     pub waist_width: Permille,
-    /// Height of the lower opening over the stomach.
-    pub stomach_height: Permille,
-    /// Strength of the plate fairing that suppresses anatomical detail.
-    pub rigidity: Permille,
-    /// Strength of the elliptical return from the sternum toward the flanks.
-    pub wrap: Permille,
-    /// Additional smooth forward crown at the center of the plate.
-    pub crown: Millimeters,
-    /// Length of the skirt below the waist rail, relative to torso height.
+    /// Scale of neck-to-waist plate length.
+    pub plate_length: Permille,
+    /// Scale of the side return toward the coronal torso plane.
+    pub side_return: Permille,
+    /// Additional smooth longitudinal crown on the front plate.
+    pub front_crown: Millimeters,
+    /// Physical width of each floating shoulder band.
+    pub shoulder_band_width: Millimeters,
+    /// Scale of the default short skirt length.
     pub skirt_length: Permille,
     /// Outward flare of the skirt's lower edge.
     pub skirt_flare: Millimeters,
-    pub clearance: Millimeters,
+    /// Inner-surface clearance for the front plate.
+    pub front_clearance: Millimeters,
+    /// Inner-surface clearance for the rear plate.
+    pub back_clearance: Millimeters,
+    /// Minimum depth-plane separation between the independent plates.
+    pub plate_gap: Millimeters,
     pub wall_thickness: Millimeters,
 }
 
@@ -63,18 +68,20 @@ impl Default for BreastplateDesign {
     fn default() -> Self {
         Self {
             catalog_id: "breastplate".into(),
-            neck_width: Permille(260),
-            neck_depth: Permille(120),
-            arm_opening_depth: Permille(420),
-            waist_width: Permille(740),
-            stomach_height: Permille(350),
-            rigidity: Permille(1_000),
-            wrap: Permille(1_000),
-            crown: Millimeters(40),
-            skirt_length: Permille(130),
-            skirt_flare: Millimeters(90),
-            clearance: Millimeters(10),
-            wall_thickness: Millimeters(3),
+            neck_width: Permille(1_000),
+            neck_depth: Permille(1_000),
+            arm_opening_depth: Permille(1_000),
+            waist_width: Permille(1_000),
+            plate_length: Permille(1_000),
+            side_return: Permille(1_000),
+            front_crown: Millimeters(6),
+            shoulder_band_width: Millimeters(30),
+            skirt_length: Permille(1_000),
+            skirt_flare: Millimeters(30),
+            front_clearance: Millimeters(10),
+            back_clearance: Millimeters(14),
+            plate_gap: Millimeters(8),
+            wall_thickness: Millimeters(4),
         }
     }
 }
@@ -170,11 +177,105 @@ pub struct TorsoShoulderSample {
 }
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct TorsoClearanceMesh {
+pub struct TorsoClearancePose {
+    /// Cropped support/query vertices; these do not define a closed solid.
     pub vertices: Vec<TorsoShoulderSample>,
+    /// Full body vertices in the separate enclosure face index domain.
+    pub enclosure_vertices: Vec<TorsoShoulderSample>,
+}
+
+#[derive(Clone, Copy, Debug, thiserror::Error, PartialEq, Eq)]
+pub enum ClearancePoseError {
+    #[error("body enclosure position and normal arrays do not correspond")]
+    MismatchedArrays,
+    #[error("cropped clearance vertex is outside the body enclosure index domain")]
+    InvalidCroppedIndex,
+}
+
+impl TorsoClearancePose {
+    pub fn from_full_body(
+        positions: &[[f32; 3]],
+        normals: &[[f32; 3]],
+        cropped_indices: &[usize],
+    ) -> Result<Self, ClearancePoseError> {
+        if positions.len() != normals.len() {
+            return Err(ClearancePoseError::MismatchedArrays);
+        }
+        if cropped_indices.iter().any(|i| *i >= positions.len()) {
+            return Err(ClearancePoseError::InvalidCroppedIndex);
+        }
+        let enclosure_vertices = positions
+            .iter()
+            .zip(normals)
+            .map(|(position, normal)| TorsoShoulderSample {
+                position: *position,
+                normal: *normal,
+            })
+            .collect::<Vec<_>>();
+        let vertices = cropped_indices
+            .iter()
+            .map(|i| enclosure_vertices[*i])
+            .collect();
+        Ok(Self {
+            vertices,
+            enclosure_vertices,
+        })
+    }
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct TorsoClearanceMesh {
+    pub base: TorsoClearancePose,
+    /// Cropped upper-body faces, indexing each pose's `vertices`.
     pub faces: Vec<[u32; 3]>,
-    /// Morph-corresponding vertices, parallel to `TorsoSurface::morphs`.
-    pub morph_vertices: Vec<Vec<TorsoShoulderSample>>,
+    /// Full body enclosure faces, indexing each pose's `enclosure_vertices`.
+    pub enclosure_faces: Vec<[u32; 3]>,
+    /// Torso-supported subset of the enclosure topology used for smooth
+    /// front/back fit rays without treating the upper arms as torso volume.
+    pub enclosure_torso_faces: Vec<[u32; 3]>,
+    /// Full-body UV coordinates and face-corner indices, parallel to the
+    /// enclosure topology. These preserve seams for rear armor sampling.
+    pub enclosure_texcoords: Vec<[f32; 2]>,
+    pub enclosure_texcoord_faces: Vec<[u32; 3]>,
+    /// Full-body skin source, indexed by `enclosure_faces`.
+    pub enclosure_joint_indices: Vec<[u32; 8]>,
+    pub enclosure_joint_weights: Vec<[f32; 8]>,
+    /// Paired cropped/enclosure poses, parallel to `TorsoSurface::morphs`.
+    pub morphs: Vec<TorsoClearancePose>,
+}
+
+impl TorsoClearanceMesh {
+    pub fn has_corresponding_domains(&self, morph_count: usize) -> bool {
+        self.morphs.len() == morph_count
+            && self.morphs.iter().all(|pose| {
+                pose.vertices.len() == self.base.vertices.len()
+                    && pose.enclosure_vertices.len() == self.base.enclosure_vertices.len()
+            })
+            && self
+                .faces
+                .iter()
+                .flatten()
+                .all(|i| (*i as usize) < self.base.vertices.len())
+            && self
+                .enclosure_faces
+                .iter()
+                .flatten()
+                .all(|i| (*i as usize) < self.base.enclosure_vertices.len())
+            && !self.enclosure_torso_faces.is_empty()
+            && self
+                .enclosure_torso_faces
+                .iter()
+                .flatten()
+                .all(|i| (*i as usize) < self.base.enclosure_vertices.len())
+            && self.enclosure_texcoord_faces.len() == self.enclosure_faces.len()
+            && self
+                .enclosure_texcoord_faces
+                .iter()
+                .flatten()
+                .all(|i| (*i as usize) < self.enclosure_texcoords.len())
+            && self.enclosure_joint_indices.len() == self.base.enclosure_vertices.len()
+            && self.enclosure_joint_weights.len() == self.base.enclosure_vertices.len()
+    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

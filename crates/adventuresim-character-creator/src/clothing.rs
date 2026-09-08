@@ -272,51 +272,21 @@ fn surface_normals(
         .collect()
 }
 
-fn outward_wound_faces(
+fn validated_placeholder_faces(
     name: &str,
     faces: &[[u32; 3]],
     positions: &[[f32; 3]],
-    normals: &[[f32; 3]],
 ) -> Result<Vec<[u32; 3]>, String> {
-    faces
-        .iter()
-        .copied()
-        .filter_map(|mut face| {
-            let [a, b, c] = face.map(|vertex| positions[vertex as usize]);
-            let edge_ab = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
-            let edge_ac = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
-            let face_normal = [
-                edge_ab[1] * edge_ac[2] - edge_ab[2] * edge_ac[1],
-                edge_ab[2] * edge_ac[0] - edge_ab[0] * edge_ac[2],
-                edge_ab[0] * edge_ac[1] - edge_ab[1] * edge_ac[0],
-            ];
-            let area_squared = dot(face_normal, face_normal);
-            if !area_squared.is_finite() {
-                return Some(Err(format!("{name} contains a non-finite face: {face:?}")));
-            }
-            if area_squared <= f32::EPSILON.powi(2) {
-                return None;
-            }
-            let reference_normal = face
-                .iter()
-                .map(|vertex| normals[*vertex as usize])
-                .fold([0.0; 3], |sum, normal| {
-                    [sum[0] + normal[0], sum[1] + normal[1], sum[2] + normal[2]]
-                });
-            let orientation = face_normal[0] * reference_normal[0]
-                + face_normal[1] * reference_normal[1]
-                + face_normal[2] * reference_normal[2];
-            if !orientation.is_finite() || orientation.abs() <= f32::EPSILON {
-                return Some(Err(format!(
-                    "{name} contains a face whose winding cannot be established: {face:?}"
-                )));
-            }
-            if orientation < 0.0 {
-                face.swap(1, 2);
-            }
-            Some(Ok(face))
-        })
-        .collect()
+    if positions.iter().flatten().any(|value| !value.is_finite()) {
+        return Err(format!("{name} contains a non-finite fitted vertex"));
+    }
+    if let Some(face) = faces.iter().find(|face| {
+        face.iter()
+            .any(|vertex| *vertex as usize >= positions.len())
+    }) {
+        return Err(format!("{name} contains an out-of-range face: {face:?}"));
+    }
+    Ok(faces.to_vec())
 }
 
 fn weld_split_vertex_positions(source: &[[f32; 3]], shell: &mut [[f32; 3]]) {
@@ -627,11 +597,10 @@ pub fn generate_clothing_shells(
             })
             .collect::<Vec<_>>();
         weld_split_vertex_positions(positions, &mut shell_positions);
-        let shell_faces = outward_wound_faces(
+        let shell_faces = validated_placeholder_faces(
             &specification.name,
             &selected_shell_faces,
             &shell_positions,
-            normals,
         )?;
         shells.push(ClothingShell {
             specification: specification.clone(),
@@ -719,20 +688,17 @@ mod tests {
     }
 
     #[test]
-    fn garment_faces_are_wound_to_match_authored_normals() {
+    fn placeholder_faces_preserve_source_topology_after_arbitrary_deformation() {
         let positions = [[-1.0, -1.0, 0.0], [0.0, 1.0, 0.0], [1.0, -1.0, 0.0]];
-        let normals = [[0.0, 0.0, 1.0]; 3];
-
+        let rotated = [[-1.0, -1.0, 0.0], [0.0, 0.0, 1.0], [1.0, -1.0, 0.0]];
         assert_eq!(
-            outward_wound_faces("test garment", &[[0, 1, 2]], &positions, &normals)
-                .expect("reversed face should be repaired"),
-            vec![[0, 2, 1]]
+            validated_placeholder_faces("test garment", &[[0, 1, 2]], &rotated)
+                .expect("placeholder deformation is intentionally not a quality gate"),
+            vec![[0, 1, 2]]
         );
-        assert_eq!(
-            outward_wound_faces("test garment", &[[0, 0, 0]], &positions, &normals)
-                .expect("zero-area faces should be removed"),
-            Vec::<[u32; 3]>::new()
-        );
+        assert!(validated_placeholder_faces("test garment", &[[0, 1, 3]], &positions).is_err());
+        let nonfinite = [[f32::NAN, 0.0, 0.0], positions[1], positions[2]];
+        assert!(validated_placeholder_faces("test garment", &[[0, 1, 2]], &nonfinite).is_err());
     }
 
     #[test]

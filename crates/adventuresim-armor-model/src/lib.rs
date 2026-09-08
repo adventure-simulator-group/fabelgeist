@@ -1,7 +1,7 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples.
 
-#[path = "breastplate_fixed.rs"]
+#[path = "breastplate_carrier.rs"]
 mod breastplate;
 #[path = "breastplate_topology_surface.rs"]
 pub mod breastplate_topology;
@@ -13,7 +13,7 @@ pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 7;
+pub const GENERATOR_VERSION: u16 = 8;
 
 pub fn encode(design: &BracerDesign) -> Result<Vec<u8>, DesignError> {
     validate(design)?;
@@ -40,18 +40,20 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
     if design.catalog_id.trim().is_empty() {
         return Err(DesignError::EmptyCatalogId);
     }
-    if !(200..=700).contains(&design.neck_width.0)
-        || design.neck_depth.0 > 500
-        || !(100..=600).contains(&design.arm_opening_depth.0)
-        || !(550..=1_000).contains(&design.waist_width.0)
-        || design.stomach_height.0 > 500
-        || design.rigidity.0 > 1_000
-        || design.wrap.0 > 1_000
-        || design.crown.0 > 80
-        || !(40..=250).contains(&design.skirt_length.0)
-        || design.skirt_flare.0 > 120
+    if !(700..=1_300).contains(&design.neck_width.0)
+        || !(600..=1_400).contains(&design.neck_depth.0)
+        || !(700..=1_300).contains(&design.arm_opening_depth.0)
+        || !(750..=1_200).contains(&design.waist_width.0)
+        || !(650..=1_150).contains(&design.plate_length.0)
+        || !(850..=1_080).contains(&design.side_return.0)
+        || design.front_crown.0 > 30
+        || !(18..=55).contains(&design.shoulder_band_width.0)
+        || !(500..=1_600).contains(&design.skirt_length.0)
+        || design.skirt_flare.0 > 70
         || !(1..=20).contains(&design.wall_thickness.0)
-        || !(1..=30).contains(&design.clearance.0)
+        || !(4..=30).contains(&design.front_clearance.0)
+        || !(6..=35).contains(&design.back_clearance.0)
+        || !(4..=30).contains(&design.plate_gap.0)
     {
         return Err(DesignError::BreastplateEdges);
     }

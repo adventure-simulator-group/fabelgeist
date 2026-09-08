@@ -7,6 +7,9 @@ use spade::{ConstrainedDelaunayTriangulation, Point2, Triangulation};
 const BOUNDARY_VERTEX_COUNT: usize = 192;
 const INTERIOR_SPACING: f32 = 0.0085;
 
+#[path = "breastplate_metric_panel.rs"]
+mod metric_panel;
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum BreastplateBoundaryEdge {
     Neck,
@@ -73,6 +76,22 @@ pub struct CanonicalBreastplateTopology {
     semantic_ranges: Vec<SemanticBoundaryRange>,
     harmonic_neighbors: Vec<Vec<(usize, f32)>>,
     local_ring_stations: Vec<usize>,
+    structured_spoke_caps: Vec<StructuredSpokeCap>,
+    metric_panel: Option<metric_panel::MetricPanel>,
+}
+
+#[derive(Clone, Debug)]
+struct StructuredSpokeCap {
+    source: [[u32; 3]; 2],
+    rows: Vec<Vec<u32>>,
+    samples: Vec<StructuredSpokeSample>,
+}
+
+#[derive(Clone, Copy, Debug)]
+struct StructuredSpokeSample {
+    vertex: u32,
+    tangent: f32,
+    radial: f32,
 }
 
 impl CanonicalBreastplateTopology {
@@ -98,6 +117,7 @@ impl CanonicalBreastplateTopology {
         parameter_boundary: &[[f32; 2]],
         extra_chart_candidates: &[[f32; 2]],
         wrap_cap_along: f32,
+        refine_side_curvature: bool,
         chart_to_parameter: impl Fn([f32; 2]) -> [f32; 2],
     ) -> Self {
         assert_eq!(chart_boundary.len(), BOUNDARY_VERTEX_COUNT);
@@ -186,15 +206,36 @@ impl CanonicalBreastplateTopology {
         // and side spans; it collapses onto the first rail at both endpoints.
         // The CDT follows that deeper rail, while explicit quads/fans fill the
         // annulus without duplicate vertices or T-junctions.
-        const LOCAL_RING_SPANS: [(usize, usize); 3] = [(3, 25), (69, 95), (125, 151)];
+        // Carry the lateral ring through the lower armscye-to-side transition.
+        // The former side-only spans began at station 69 / ended at 151, so
+        // the final six armscye stations crossed the complete physical-width
+        // inset in one radial cell.  The exported matched mesh concentrated
+        // 38--40 degrees there even though both adjacent fields were smooth.
+        // Extending the same tapered ring is a sampling correction only: the
+        // semantic perimeter and evaluated surface remain unchanged.
+        let local_ring_spans = [(3, 25, 2.8), (55, 95, 2.3), (125, 165, 2.3)]
+            .into_iter()
+            .filter(|(start, _, _)| *start == 3 || refine_side_curvature)
+            .collect::<Vec<_>>();
         let second_boundary = semantic_panel_inner_boundary(&inner_boundary);
         let mut deep_offset_by_station = vec![None; BOUNDARY_VERTEX_COUNT];
         let mut deep_points = Vec::<[f32; 2]>::new();
         let mut local_ring_stations = Vec::<usize>::new();
-        for (start, end) in LOCAL_RING_SPANS {
+        for &(start, end, taper_stations) in &local_ring_spans {
+            // The extra side layer resolves the legacy graph field's tight
+            // lateral bend. A smooth angular loft has no such feature; its
+            // tiny terminal taper becomes a sliver at the coronal metric.
+            // Keep the full semantic first strip and neck refinement, but
+            // join the CDT directly to the side strip for that surface family.
             for station in start + 1..end {
-                let taper = ((station - start) as f32 / 3.0)
-                    .min((end - station) as f32 / 3.0)
+                // The high-curvature neck needs about three physical stations to
+                // grow the second ring without stretching its first/last
+                // cells on the broad design extreme.  The longer side spans
+                // retain the proven two-station collapse: using three there
+                // left a one-third-width terminal fan below ten degrees on
+                // the exact matched endpoint.
+                let taper = ((station - start) as f32 / taper_stations)
+                    .min((end - station) as f32 / taper_stations)
                     .min(1.0);
                 deep_offset_by_station[station] = Some(deep_points.len());
                 local_ring_stations.push(station);
@@ -206,6 +247,147 @@ impl CanonicalBreastplateTopology {
                     ],
                 ));
             }
+        }
+        // At the bottoms of the U-neck and waist curve, a single same-station
+        // spoke makes both neighboring strip cells hinge around one edge.  On
+        // the fair 3D crown that concentrates the curve's turn into a
+        // 40--55-degree dihedral even though the surrounding cells are sound.
+        // Replace each such hinge with a curvature-sized structured cap.  The
+        // interior rows have seven tangential samples and several radial
+        // layers, so neither the U turn nor the rail-to-rail turn is forced
+        // through one short diagonal.  Every sample is evaluated from the
+        // same garment field on every morph; no authored perimeter point or
+        // surface value is changed.
+        let inner_vertex_index = |station: usize| (BOUNDARY_VERTEX_COUNT + station) as u32;
+        let deep_vertex_index = |station: usize| {
+            deep_offset_by_station[station]
+                .map(|offset| (BOUNDARY_VERTEX_COUNT * 2 + cap_points.len() + offset) as u32)
+        };
+        let mut spoke_sources = vec![
+            (
+                [
+                    [13, 14, 15],
+                    [
+                        inner_vertex_index(13),
+                        inner_vertex_index(14),
+                        inner_vertex_index(15),
+                    ],
+                ],
+                4_usize,
+            ),
+            (
+                [
+                    [109, 110, 111],
+                    [
+                        inner_vertex_index(109),
+                        inner_vertex_index(110),
+                        inner_vertex_index(111),
+                    ],
+                ],
+                4_usize,
+            ),
+        ];
+        if let (Some(previous), Some(center), Some(next)) = (
+            deep_vertex_index(13),
+            deep_vertex_index(14),
+            deep_vertex_index(15),
+        ) {
+            spoke_sources.push((
+                [
+                    [
+                        inner_vertex_index(13),
+                        inner_vertex_index(14),
+                        inner_vertex_index(15),
+                    ],
+                    [previous, center, next],
+                ],
+                4,
+            ));
+        }
+        let structured_spoke_base =
+            BOUNDARY_VERTEX_COUNT * 2 + cap_points.len() + deep_points.len();
+        let mut structured_spoke_caps = Vec::<StructuredSpokeCap>::new();
+        let mut structured_spoke_points = Vec::<[f32; 2]>::new();
+        for (source, radial_layer_cap) in spoke_sources {
+            let source_point = |rail: usize, station: usize| {
+                chart_positions_for_source(
+                    source[rail][station] as usize,
+                    chart_boundary,
+                    &inner_boundary,
+                    &cap_points,
+                    &deep_points,
+                )
+            };
+            let radial_span = (0..3)
+                .map(|station| distance(source_point(0, station), source_point(1, station)))
+                .sum::<f32>()
+                / 3.0;
+            let tangent_span = (0..2)
+                .flat_map(|rail| {
+                    (0..2).map(move |station| {
+                        distance(source_point(rail, station), source_point(rail, station + 1))
+                    })
+                })
+                .sum::<f32>()
+                / 4.0;
+            // Five physical cells span the two-station turn.  Bias the first
+            // and last interior samples toward their endpoint spokes: the
+            // old .4/.8 pair gave the terminal zipper triangle a .4-cell base
+            // against a .8-cell diagonal and aspect 9.99 on the broad design.
+            // .2/.8 grows that base to .6 without changing row count, seams,
+            // or the manifold side-fan construction.
+            let tangent_cell = tangent_span / 2.5;
+            let radial_layers = ((radial_span / tangent_cell.max(1e-6)).round() as usize)
+                .saturating_sub(1)
+                .clamp(1, radial_layer_cap);
+            let interpolate = |tangent: f32, radial: f32| {
+                let first = tangent.floor().min(1.0) as usize;
+                let second = first + 1;
+                let along = tangent - first as f32;
+                let rail_point = |rail: usize| {
+                    let a = chart_positions_for_source(
+                        source[rail][first] as usize,
+                        chart_boundary,
+                        &inner_boundary,
+                        &cap_points,
+                        &deep_points,
+                    );
+                    let b = chart_positions_for_source(
+                        source[rail][second] as usize,
+                        chart_boundary,
+                        &inner_boundary,
+                        &cap_points,
+                        &deep_points,
+                    );
+                    add2(a, scale2(sub2(b, a), along))
+                };
+                let outer = rail_point(0);
+                let inner = rail_point(1);
+                add2(outer, scale2(sub2(inner, outer), radial))
+            };
+            let mut rows = vec![source[0].to_vec()];
+            let mut samples = Vec::<StructuredSpokeSample>::new();
+            for layer in 1..=radial_layers {
+                let radial = layer as f32 / (radial_layers + 1) as f32;
+                let mut row = Vec::<u32>::new();
+                for tangent in [0.2_f32, 0.8, 1.2, 1.8] {
+                    let vertex = (structured_spoke_base + structured_spoke_points.len()) as u32;
+                    structured_spoke_points.push(interpolate(tangent, radial));
+                    samples.push(StructuredSpokeSample {
+                        vertex,
+                        tangent,
+                        radial,
+                    });
+                    row.push(vertex);
+                }
+                rows.push(row);
+            }
+            rows.push(source[1].to_vec());
+            structured_spoke_caps.push(StructuredSpokeCap {
+                source,
+                rows,
+                samples,
+            });
         }
         #[derive(Clone, Copy)]
         enum CdtSource {
@@ -270,6 +452,7 @@ impl CanonicalBreastplateTopology {
         chart_positions.extend(inner_boundary.iter().copied());
         chart_positions.extend(cap_points.iter().copied());
         chart_positions.extend(deep_points.iter().copied());
+        chart_positions.extend(structured_spoke_points.iter().copied());
         chart_positions.extend(cdt_positions[cdt_boundary.len()..].iter().copied());
         let mut triangles = Vec::<[u32; 3]>::with_capacity(
             BOUNDARY_VERTEX_COUNT * 2
@@ -280,6 +463,9 @@ impl CanonicalBreastplateTopology {
         );
         for index in 0..BOUNDARY_VERTEX_COUNT {
             let next = (index + 1) % BOUNDARY_VERTEX_COUNT;
+            if matches!(index, 13 | 14 | 109 | 110) {
+                continue;
+            }
             let rail = (BOUNDARY_VERTEX_COUNT + index) as u32;
             let next_rail = (BOUNDARY_VERTEX_COUNT + next) as u32;
             let forward = [
@@ -308,9 +494,12 @@ impl CanonicalBreastplateTopology {
                 .map(|offset| (BOUNDARY_VERTEX_COUNT * 2 + cap_points.len() + offset) as u32)
                 .unwrap_or_else(|| inner_vertex(station))
         };
-        for (start, end) in LOCAL_RING_SPANS {
+        for &(start, end, _) in &local_ring_spans {
             for station in start..end {
                 let next = station + 1;
+                if matches!(station, 13 | 14) {
+                    continue;
+                }
                 let outer = inner_vertex(station);
                 let next_outer = inner_vertex(next);
                 let inner = deep_vertex(station);
@@ -334,6 +523,61 @@ impl CanonicalBreastplateTopology {
                         forward
                     });
                 }
+            }
+        }
+        for cap in &structured_spoke_caps {
+            for pair in cap.rows.windows(2) {
+                let outer = &pair[0];
+                let inner = &pair[1];
+                let mut outer_index = 0_usize;
+                let mut inner_index = 0_usize;
+                while outer_index + 1 < outer.len() || inner_index + 1 < inner.len() {
+                    let next_outer = if outer_index + 1 < outer.len() {
+                        (outer_index + 1) as f32 / (outer.len() - 1) as f32
+                    } else {
+                        f32::INFINITY
+                    };
+                    let next_inner = if inner_index + 1 < inner.len() {
+                        (inner_index + 1) as f32 / (inner.len() - 1) as f32
+                    } else {
+                        f32::INFINITY
+                    };
+                    if next_outer <= next_inner {
+                        triangles.push([
+                            outer[outer_index],
+                            outer[outer_index + 1],
+                            inner[inner_index],
+                        ]);
+                        outer_index += 1;
+                    } else {
+                        triangles.push([
+                            outer[outer_index],
+                            inner[inner_index + 1],
+                            inner[inner_index],
+                        ]);
+                        inner_index += 1;
+                    }
+                }
+            }
+            let outer = &cap.rows[0];
+            let inner = cap.rows.last().expect("structured cap has inner row");
+            let interior = &cap.rows[1..cap.rows.len() - 1];
+            let mut left_chain = interior.iter().map(|row| row[0]).collect::<Vec<_>>();
+            left_chain.push(inner[0]);
+            for pair in left_chain.windows(2) {
+                triangles.push([outer[0], pair[0], pair[1]]);
+            }
+            let mut right_chain = interior
+                .iter()
+                .map(|row| *row.last().expect("structured row is nonempty"))
+                .collect::<Vec<_>>();
+            right_chain.push(*inner.last().expect("structured cap has inner endpoint"));
+            for pair in right_chain.windows(2) {
+                triangles.push([
+                    *outer.last().expect("structured cap has outer endpoint"),
+                    pair[1],
+                    pair[0],
+                ]);
             }
         }
         for (group_index, [start, end]) in cap_groups.iter().copied().enumerate() {
@@ -389,7 +633,11 @@ impl CanonicalBreastplateTopology {
                         }
                     }
                 } else {
-                    (BOUNDARY_VERTEX_COUNT * 2 + cap_points.len() + deep_points.len() + index
+                    (BOUNDARY_VERTEX_COUNT * 2
+                        + cap_points.len()
+                        + deep_points.len()
+                        + structured_spoke_points.len()
+                        + index
                         - cdt_boundary.len()) as u32
                 }
             })
@@ -405,6 +653,31 @@ impl CanonicalBreastplateTopology {
             }
         }
         orient_triangles_consistently(&mut triangles, &chart_positions);
+        let mut edge_incidence = BTreeMap::<(u32, u32), usize>::new();
+        for face in &triangles {
+            for [a, b] in [[face[0], face[1]], [face[1], face[2]], [face[2], face[0]]] {
+                *edge_incidence.entry((a.min(b), a.max(b))).or_default() += 1;
+            }
+        }
+        let invalid_edges = edge_incidence
+            .iter()
+            .filter_map(|(&(a, b), &incidence)| {
+                let expected_boundary = a < BOUNDARY_VERTEX_COUNT as u32
+                    && b < BOUNDARY_VERTEX_COUNT as u32
+                    && ((a + 1) % BOUNDARY_VERTEX_COUNT as u32 == b
+                        || (b + 1) % BOUNDARY_VERTEX_COUNT as u32 == a);
+                (incidence != if expected_boundary { 1 } else { 2 }).then_some((
+                    a,
+                    b,
+                    incidence,
+                    expected_boundary,
+                ))
+            })
+            .collect::<Vec<_>>();
+        assert!(
+            invalid_edges.is_empty(),
+            "invalid structured-panel edge incidence: {invalid_edges:?}"
+        );
         let mut canonical_positions = chart_positions
             .iter()
             .copied()
@@ -420,6 +693,8 @@ impl CanonicalBreastplateTopology {
             semantic_ranges: Self::semantic_layout(),
             harmonic_neighbors,
             local_ring_stations,
+            structured_spoke_caps,
+            metric_panel: None,
         }
     }
 
@@ -469,6 +744,8 @@ impl CanonicalBreastplateTopology {
             semantic_ranges,
             harmonic_neighbors,
             local_ring_stations: Vec::new(),
+            structured_spoke_caps: Vec::new(),
+            metric_panel: None,
         }
     }
     pub fn canonical_positions(&self) -> &[[f32; 2]] {
@@ -484,12 +761,58 @@ impl CanonicalBreastplateTopology {
         &self.boundary_vertices
     }
 
+    pub fn is_structured_spoke_sample(&self, vertex: usize) -> bool {
+        self.structured_spoke_caps.iter().any(|cap| {
+            cap.samples
+                .iter()
+                .any(|sample| sample.vertex as usize == vertex)
+        })
+    }
+
+    fn refresh_structured_samples(
+        &mut self,
+        before_chart: &[[f32; 2]],
+        before_canonical: &[[f32; 2]],
+    ) {
+        // Construction emits derived sites in dependency order. Update only
+        // descendants of moved sources, preserving unrelated chart mappings.
+        for cap in &self.structured_spoke_caps {
+            for sample in &cap.samples {
+                let index = sample.vertex as usize;
+                debug_assert!(
+                    cap.source
+                        .iter()
+                        .flatten()
+                        .all(|&source| source < sample.vertex)
+                );
+                if cap.source.iter().flatten().any(|&source| {
+                    before_chart[source as usize] != self.chart_positions[source as usize]
+                }) {
+                    self.chart_positions[index] =
+                        structured_sample_position(&self.chart_positions, cap.source, *sample);
+                }
+                if cap.source.iter().flatten().any(|&source| {
+                    before_canonical[source as usize] != self.canonical_positions[source as usize]
+                }) {
+                    self.canonical_positions[index] =
+                        structured_sample_position(&self.canonical_positions, cap.source, *sample);
+                }
+            }
+        }
+    }
+
     pub fn inner_rail_vertex(&self, station: usize) -> Option<u32> {
+        if self.metric_panel.is_some() {
+            return None;
+        }
         (station < self.boundary_vertices.len())
             .then_some((self.boundary_vertices.len() + station) as u32)
     }
 
     pub fn cap_vertex(&self, offset: usize) -> Option<u32> {
+        if self.metric_panel.is_some() {
+            return None;
+        }
         (offset < semantic_cap_vertex_count())
             .then_some((self.boundary_vertices.len() * 2 + offset) as u32)
     }
@@ -516,7 +839,7 @@ impl CanonicalBreastplateTopology {
         if boundary
             .iter()
             .zip(&self.canonical_positions)
-            .all(|(target, reference)| distance(*target, *reference) <= 1e-6)
+            .all(|(target, reference)| target == reference)
         {
             return self.canonical_positions.clone();
         }
@@ -652,7 +975,25 @@ impl CanonicalBreastplateTopology {
                 ],
             ));
         }
-        harmonic_extension_with_fixed(&fixed, &self.harmonic_neighbors)
+        for cap in &self.structured_spoke_caps {
+            for sample in &cap.samples {
+                let first = sample.tangent.floor().min(1.0) as usize;
+                let second = first + 1;
+                let along = sample.tangent - first as f32;
+                let rail_point = |rail: usize| {
+                    let a = fixed[cap.source[rail][first] as usize]
+                        .expect("structured cap source is pinned");
+                    let b = fixed[cap.source[rail][second] as usize]
+                        .expect("structured cap source is pinned");
+                    add2(a, scale2(sub2(b, a), along))
+                };
+                let outer = rail_point(0);
+                let inner = rail_point(1);
+                fixed[sample.vertex as usize] =
+                    Some(add2(outer, scale2(sub2(inner, outer), sample.radial)));
+            }
+        }
+        harmonic_extension_with_fixed(&fixed, &self.harmonic_neighbors, &self.canonical_positions)
     }
     pub fn reference_hash(&self) -> u64 {
         let mut h = 0xcbf29ce484222325u64;
@@ -736,23 +1077,13 @@ impl CanonicalBreastplateTopology {
             before_canonical[index][0] + delta[0] * lateral_jacobian,
             before_canonical[index][1] + delta[1],
         ];
+        self.refresh_structured_samples(&before_chart, &before_canonical);
 
-        let valid = self.indices.as_chunks::<3>().0.iter().all(|face| {
-            if !face.contains(&(index as u32)) {
-                return true;
-            }
-            let old = signed_triangle_area(
-                before_canonical[face[0] as usize],
-                before_canonical[face[1] as usize],
-                before_canonical[face[2] as usize],
-            );
-            let new = signed_triangle_area(
-                self.canonical_positions[face[0] as usize],
-                self.canonical_positions[face[1] as usize],
-                self.canonical_positions[face[2] as usize],
-            );
-            old * new > 0.0 && new.abs() > 1e-10
-        });
+        let valid =
+            strip_quads_are_injective(
+                &self.chart_positions[..count],
+                &self.chart_positions[count..count * 2],
+            ) && moved_faces_are_valid(&before_canonical, &self.canonical_positions, &self.indices);
         if !valid {
             self.chart_positions = before_chart;
             self.canonical_positions = before_canonical;
@@ -820,22 +1151,9 @@ impl CanonicalBreastplateTopology {
             before_canonical[index][0] + delta[0] * lateral_jacobian,
             before_canonical[index][1] + delta[1],
         ];
-        let valid = self.indices.as_chunks::<3>().0.iter().all(|face| {
-            if !face.contains(&(index as u32)) {
-                return true;
-            }
-            let old = signed_triangle_area(
-                before_canonical[face[0] as usize],
-                before_canonical[face[1] as usize],
-                before_canonical[face[2] as usize],
-            );
-            let new = signed_triangle_area(
-                self.canonical_positions[face[0] as usize],
-                self.canonical_positions[face[1] as usize],
-                self.canonical_positions[face[2] as usize],
-            );
-            old * new > 0.0 && new.abs() > 1e-10
-        });
+        self.refresh_structured_samples(&before_chart, &before_canonical);
+        let valid =
+            moved_faces_are_valid(&before_canonical, &self.canonical_positions, &self.indices);
         if !valid {
             self.chart_positions = before_chart;
             self.canonical_positions = before_canonical;
@@ -855,8 +1173,19 @@ impl CanonicalBreastplateTopology {
         chart_y_fraction: f32,
     ) -> bool {
         let count = self.boundary_vertices.len();
-        if index < count * 2 + semantic_cap_vertex_count()
-            || index >= self.canonical_positions.len()
+        if (if self.metric_panel.is_some() {
+            index < count
+                || self
+                    .metric_panel
+                    .as_ref()
+                    .unwrap()
+                    .pins
+                    .iter()
+                    .any(|(id, _)| *id == index)
+        } else {
+            index < count * 2 + semantic_cap_vertex_count()
+        }) || index >= self.canonical_positions.len()
+            || self.is_structured_spoke_sample(index)
         {
             return false;
         }
@@ -893,6 +1222,8 @@ impl CanonicalBreastplateTopology {
         ];
         let mut accepted = false;
         for halving in 0..=10 {
+            self.chart_positions.clone_from(&before_chart);
+            self.canonical_positions.clone_from(&before_canonical);
             let fraction = 0.5_f32.powi(halving);
             let delta = [requested_delta[0] * fraction, requested_delta[1] * fraction];
             self.chart_positions[index] = add2(before_chart[index], delta);
@@ -900,22 +1231,9 @@ impl CanonicalBreastplateTopology {
                 before_canonical[index][0] + delta[0] * lateral_jacobian,
                 before_canonical[index][1] + delta[1],
             ];
-            accepted = self.indices.as_chunks::<3>().0.iter().all(|face| {
-                if !face.contains(&(index as u32)) {
-                    return true;
-                }
-                let old = signed_triangle_area(
-                    before_canonical[face[0] as usize],
-                    before_canonical[face[1] as usize],
-                    before_canonical[face[2] as usize],
-                );
-                let new = signed_triangle_area(
-                    self.canonical_positions[face[0] as usize],
-                    self.canonical_positions[face[1] as usize],
-                    self.canonical_positions[face[2] as usize],
-                );
-                old * new > 0.0 && new.abs() > 1e-10
-            });
+            self.refresh_structured_samples(&before_chart, &before_canonical);
+            accepted =
+                moved_faces_are_valid(&before_canonical, &self.canonical_positions, &self.indices);
             if accepted {
                 break;
             }
@@ -930,37 +1248,27 @@ impl CanonicalBreastplateTopology {
         true
     }
 
-    /// Move a quality-only CDT site without changing the previously solved
-    /// garment embedding. Render-edge flips and local metric relaxation refine
-    /// connectivity; they are not new interpolation constraints on the crown.
+    /// Move a quality-only CDT site without refitting the analytic garment
+    /// field. Rebuild correspondence weights on the moved reference chart so
+    /// subsequent morph displacements retain linear precision.
     pub fn relax_free_vertex_preserving_embedding(
         &mut self,
         index: usize,
         chart_x_fraction: f32,
         chart_y_fraction: f32,
     ) -> bool {
-        let embedding = self.harmonic_neighbors.clone();
-        let moved = self.relax_free_vertex(index, chart_x_fraction, chart_y_fraction);
-        if moved {
-            self.harmonic_neighbors = embedding;
-        }
-        moved
+        self.relax_free_vertex(index, chart_x_fraction, chart_y_fraction)
     }
 
-    /// Adjust a derived inner boundary layer for triangle quality while
-    /// retaining the authored semantic surface interpolation.
+    /// Adjust a derived inner boundary layer without refitting the authored
+    /// surface; correspondence weights follow the updated reference chart.
     pub fn relax_inner_rail_station_preserving_embedding(
         &mut self,
         station: usize,
         tangent_fraction: f32,
         normal_fraction: f32,
     ) -> bool {
-        let embedding = self.harmonic_neighbors.clone();
-        let moved = self.relax_inner_rail_station(station, tangent_fraction, normal_fraction);
-        if moved {
-            self.harmonic_neighbors = embedding;
-        }
-        moved
+        self.relax_inner_rail_station(station, tangent_fraction, normal_fraction)
     }
 
     /// Deterministic shared-connectivity refinement scored against every
@@ -1010,29 +1318,62 @@ impl CanonicalBreastplateTopology {
                 let deep_end = deep_start + self.local_ring_stations.len() as u32;
                 let a_deep = (deep_start..deep_end).contains(&a);
                 let b_deep = (deep_start..deep_end).contains(&b);
-                if (a_outer && b_outer && consecutive(a, b))
-                    || (a_inner && b_inner && consecutive(a - boundary, b - boundary))
-                    || (a_deep && b_deep)
-                    || (a_inner && b_deep)
-                    || (a_deep && b_inner)
-                {
-                    continue;
-                }
-                if (a_outer && b_inner) || (b_outer && a_inner) {
-                    let (outer, inner) = if a_outer {
-                        (a, b - boundary)
-                    } else {
-                        (b, a - boundary)
-                    };
-                    // Same-station spokes are strip rails and remain fixed;
-                    // adjacent-station spokes are quad diagonals and may flip.
-                    if outer == inner || !consecutive(outer, inner) {
+                let structured_cap_vertex = |vertex: u32| {
+                    self.structured_spoke_caps
+                        .iter()
+                        .any(|cap| cap.samples.iter().any(|sample| sample.vertex == vertex))
+                };
+                if self.metric_panel.is_some() {
+                    if a_outer && b_outer && consecutive(a, b) {
                         continue;
                     }
-                } else if a_outer || b_outer {
-                    // Do not connect the authored outer silhouette directly
-                    // to cap/CDT vertices across its explicit boundary strip.
-                    continue;
+                } else {
+                    if (a_outer && b_outer && consecutive(a, b))
+                        || (a_inner && b_inner && consecutive(a - boundary, b - boundary))
+                        || (a_deep && b_deep)
+                        || structured_cap_vertex(a)
+                        || structured_cap_vertex(b)
+                    {
+                        continue;
+                    }
+                    if (a_inner && b_deep) || (a_deep && b_inner) {
+                        let (inner_station, deep_vertex) = if a_inner {
+                            (a - boundary, b)
+                        } else {
+                            (b - boundary, a)
+                        };
+                        let deep_station =
+                            self.local_ring_stations[(deep_vertex - deep_start) as usize] as u32;
+                        // Same-station spokes and the deep-to-deep rail are the
+                        // semantic strip constraints.  An inner station joined to
+                        // the neighboring deep station is only a quad diagonal;
+                        // keeping it locked made the first tapered neck cell a
+                        // 9.44-degree sliver on the broad acceptance design even
+                        // though the other diagonal was legal.  Let the existing
+                        // full-surface lexicographic optimizer choose these local
+                        // diagonals across every accepted shape.
+                        if inner_station == deep_station
+                            || !consecutive(inner_station, deep_station)
+                        {
+                            continue;
+                        }
+                    }
+                    if (a_outer && b_inner) || (b_outer && a_inner) {
+                        let (outer, inner) = if a_outer {
+                            (a, b - boundary)
+                        } else {
+                            (b, a - boundary)
+                        };
+                        // Same-station spokes are strip rails and remain fixed;
+                        // adjacent-station spokes are quad diagonals and may flip.
+                        if outer == inner || !consecutive(outer, inner) {
+                            continue;
+                        }
+                    } else if a_outer || b_outer {
+                        // Do not connect the authored outer silhouette directly
+                        // to cap/CDT vertices across its explicit boundary strip.
+                        continue;
+                    }
                 }
                 let (left, c) = adjacent[0];
                 let (right, d) = adjacent[1];
@@ -1151,6 +1492,39 @@ impl CanonicalBreastplateTopology {
         self.indices = triangles.into_iter().flatten().collect();
         accepted
     }
+}
+
+fn structured_sample_position(
+    points: &[[f32; 2]],
+    source: [[u32; 3]; 2],
+    sample: StructuredSpokeSample,
+) -> [f32; 2] {
+    let first = sample.tangent.floor().min(1.0) as usize;
+    let second = first + 1;
+    let along = sample.tangent - first as f32;
+    let rail_point = |rail: usize| {
+        let a = points[source[rail][first] as usize];
+        let b = points[source[rail][second] as usize];
+        add2(a, scale2(sub2(b, a), along))
+    };
+    let outer = rail_point(0);
+    add2(outer, scale2(sub2(rail_point(1), outer), sample.radial))
+}
+
+fn moved_faces_are_valid(before: &[[f32; 2]], after: &[[f32; 2]], indices: &[u32]) -> bool {
+    indices.as_chunks::<3>().0.iter().all(|face| {
+        if face
+            .iter()
+            .all(|&index| before[index as usize] == after[index as usize])
+        {
+            return true;
+        }
+        let [a, b, c] = face.map(|index| before[index as usize]);
+        let old = signed_triangle_area(a, b, c);
+        let [a, b, c] = face.map(|index| after[index as usize]);
+        let new = signed_triangle_area(a, b, c);
+        old * new > 0.0 && new.abs() > 1e-10
+    })
 }
 
 fn local_inset_point(boundary: &[[f32; 2]], station: usize, scale: f32) -> [f32; 2] {
@@ -1514,6 +1888,15 @@ fn invalid_strip_stations(outer: &[[f32; 2]], rail: &[[f32; 2]]) -> BTreeSet<usi
     (0..outer.len())
         .filter(|&station| {
             let next = (station + 1) % outer.len();
+            // Orientation alone permits two neighboring inner stations to
+            // converge almost exactly at a reflex corner. Keep the paired
+            // rail edge at least a quarter of its semantic boundary edge:
+            // the cap optimizer may change spacing, but not collapse a cell.
+            // This relative condition is independent of wearer size/units
+            // and is also applied when mapping the frozen chart to a morph.
+            if distance(rail[station], rail[next]) < 0.25 * distance(outer[station], outer[next]) {
+                return true;
+            }
             let forward = [
                 [outer[station], outer[next], rail[station]],
                 [outer[next], rail[next], rail[station]],
@@ -1612,6 +1995,15 @@ fn triangulate_candidates(
     constraints: &[[usize; 2]],
     boundary: &[[f32; 2]],
 ) -> (Vec<[f32; 2]>, Vec<[u32; 3]>) {
+    triangulate_candidates_with_domain(candidates, constraints, boundary, false)
+}
+
+fn triangulate_candidates_with_domain(
+    candidates: &[Point2<f64>],
+    constraints: &[[usize; 2]],
+    boundary: &[[f32; 2]],
+    constraint_domain: bool,
+) -> (Vec<[f32; 2]>, Vec<[u32; 3]>) {
     let triangulation = ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(
         candidates.to_vec(),
         constraints.to_vec(),
@@ -1624,10 +2016,37 @@ fn triangulate_candidates(
             [point.x as f32, point.y as f32]
         })
         .collect::<Vec<_>>();
+    // A rounded f32 centroid can cross a sub-ULP-thin boundary ear. Instead
+    // flood the CDT dual graph from its infinite face, crossing only edges
+    // which are NOT constrained. This retains the exact authored polygon:
+    // neither a thin-face filter nor boundary-coordinate regularization.
+    let mut outside = vec![false; triangulation.num_all_faces()];
+    if constraint_domain {
+        let mut adjacency = vec![Vec::new(); outside.len()];
+        for edge in triangulation.directed_edges() {
+            if !edge.as_undirected().is_constraint_edge() {
+                adjacency[edge.face().fix().index()].push(edge.rev().face().fix().index());
+            }
+        }
+        let outer = triangulation.outer_face().fix().index();
+        outside[outer] = true;
+        let mut pending = vec![outer];
+        while let Some(face) = pending.pop() {
+            for &other in &adjacency[face] {
+                if !outside[other] {
+                    outside[other] = true;
+                    pending.push(other);
+                }
+            }
+        }
+    }
     let mut triangles = triangulation
         .inner_faces()
         .filter_map(|face| {
             let triangle = face.vertices().map(|vertex| vertex.fix().index() as u32);
+            if constraint_domain {
+                return (!outside[face.fix().index()]).then_some(triangle);
+            }
             let centroid = triangle.iter().fold([0.0; 2], |mut center, index| {
                 center[0] += positions[*index as usize][0] / 3.0;
                 center[1] += positions[*index as usize][1] / 3.0;
@@ -1875,19 +2294,40 @@ fn add_staggered_interior_points(c: &mut Vec<Point2<f64>>, b: &[[f32; 2]]) {
         y += INTERIOR_SPACING * 3.0_f32.sqrt() * 0.5;
     }
 }
-fn harmonic_neighbors(p: &[[f32; 2]], t: &[[u32; 3]]) -> Vec<Vec<(usize, f32)>> {
-    let mut a = vec![std::collections::BTreeSet::new(); p.len()];
-    for q in t {
-        for (x, y) in [(q[0], q[1]), (q[1], q[2]), (q[2], q[0])] {
-            a[x as usize].insert(y as usize);
-            a[y as usize].insert(x as usize);
+fn harmonic_neighbors(points: &[[f32; 2]], triangles: &[[u32; 3]]) -> Vec<Vec<(usize, f32)>> {
+    // Positive mean-value coordinates reproduce affine functions on each
+    // interior one-ring. Inverse-distance averages did not reproduce the
+    // reference chart and moved free sites even on a near-identity wearer.
+    let mut rows = vec![BTreeMap::<usize, f64>::new(); points.len()];
+    for triangle in triangles {
+        for corner in 0..3 {
+            let center = triangle[corner] as usize;
+            let first = triangle[(corner + 1) % 3] as usize;
+            let second = triangle[(corner + 2) % 3] as usize;
+            let edge = |index: usize| {
+                [
+                    f64::from(points[index][0]) - f64::from(points[center][0]),
+                    f64::from(points[index][1]) - f64::from(points[center][1]),
+                ]
+            };
+            let a = edge(first);
+            let b = edge(second);
+            let lengths = [a[0].hypot(a[1]), b[0].hypot(b[1])];
+            assert!(lengths.iter().all(|length| *length > 0.0));
+            let cross = (a[0] * b[1] - a[1] * b[0]).abs();
+            let dot = a[0] * b[0] + a[1] * b[1];
+            let half_angle = 0.5 * cross.atan2(dot);
+            let tangent = half_angle.tan();
+            *rows[center].entry(first).or_default() += tangent / lengths[0];
+            *rows[center].entry(second).or_default() += tangent / lengths[1];
         }
     }
-    a.into_iter()
-        .enumerate()
-        .map(|(v, n)| {
-            n.into_iter()
-                .map(|q| (q, 1.0 / distance(p[v], p[q]).max(1e-5)))
+    rows.into_iter()
+        .map(|row| {
+            let total = row.values().sum::<f64>();
+            assert!(total.is_finite() && total > 0.0);
+            row.into_iter()
+                .map(|(index, weight)| (index, (weight / total) as f32))
                 .collect()
         })
         .collect()
@@ -1929,8 +2369,21 @@ fn harmonic_extension<const D: usize>(
 fn harmonic_extension_with_fixed<const D: usize>(
     fixed: &[Option<[f32; D]>],
     neighbors: &[Vec<(usize, f32)>],
+    reference: &[[f32; D]],
 ) -> Vec<[f32; D]> {
     assert_eq!(fixed.len(), neighbors.len());
+    assert_eq!(fixed.len(), reference.len());
+    // Solve the semantic boundary displacement, never a fresh absolute
+    // embedding from a centroid. Identity then reproduces the canonical
+    // sites exactly; mean-value rows additionally reproduce affine motion.
+    let targets = fixed;
+    let fixed = targets
+        .iter()
+        .zip(reference)
+        .map(|(target, origin)| {
+            target.map(|point| std::array::from_fn(|axis| point[axis] - origin[axis]))
+        })
+        .collect::<Vec<_>>();
     let fixed_values = fixed.iter().flatten().copied().collect::<Vec<_>>();
     assert!(!fixed_values.is_empty());
     let center = fixed_values.iter().fold([0.0; D], |mut result, point| {
@@ -1968,6 +2421,13 @@ fn harmonic_extension_with_fixed<const D: usize>(
         }
     }
     values
+        .into_iter()
+        .zip(reference)
+        .zip(targets)
+        .map(|((delta, origin), target)| {
+            target.unwrap_or_else(|| std::array::from_fn(|axis| origin[axis] + delta[axis]))
+        })
+        .collect()
 }
 
 fn point_in_polygon(p: [f32; 2], q: &[[f32; 2]]) -> bool {
@@ -1995,6 +2455,27 @@ fn sub2(a: [f32; 2], b: [f32; 2]) -> [f32; 2] {
 fn add2(a: [f32; 2], b: [f32; 2]) -> [f32; 2] {
     [a[0] + b[0], a[1] + b[1]]
 }
+fn scale2(a: [f32; 2], scale: f32) -> [f32; 2] {
+    [a[0] * scale, a[1] * scale]
+}
+
+fn chart_positions_for_source(
+    index: usize,
+    outer: &[[f32; 2]],
+    inner: &[[f32; 2]],
+    caps: &[[f32; 2]],
+    deep: &[[f32; 2]],
+) -> [f32; 2] {
+    if index < BOUNDARY_VERTEX_COUNT {
+        outer[index]
+    } else if index < BOUNDARY_VERTEX_COUNT * 2 {
+        inner[index - BOUNDARY_VERTEX_COUNT]
+    } else if index < BOUNDARY_VERTEX_COUNT * 2 + caps.len() {
+        caps[index - BOUNDARY_VERTEX_COUNT * 2]
+    } else {
+        deep[index - BOUNDARY_VERTEX_COUNT * 2 - caps.len()]
+    }
+}
 fn dot2(a: [f32; 2], b: [f32; 2]) -> f32 {
     a[0] * b[0] + a[1] * b[1]
 }
@@ -2006,8 +2487,432 @@ fn distance(a: [f32; 2], b: [f32; 2]) -> f32 {
 }
 
 #[cfg(test)]
+#[path = "breastplate_harmonic_regression_tests.rs"]
+mod harmonic_regression_tests;
+
+#[cfg(test)]
 mod tests {
     use super::*;
+
+    fn assert_structured_samples_follow_sources(topology: &CanonicalBreastplateTopology) {
+        let count = topology.boundary_vertices.len();
+        let identity =
+            topology.semantic_domain_from_boundary(&topology.canonical_positions[..count]);
+        assert_eq!(identity, topology.canonical_positions);
+        let target_boundary = topology.canonical_positions[..count]
+            .iter()
+            .map(|point| [point[0] * 1.03, point[1] * 0.98 + 0.01])
+            .collect::<Vec<_>>();
+        let mapped = topology.semantic_domain_from_boundary(&target_boundary);
+        for cap in &topology.structured_spoke_caps {
+            for &sample in &cap.samples {
+                let index = sample.vertex as usize;
+                for points in [
+                    &topology.canonical_positions,
+                    &topology.chart_positions,
+                    &mapped,
+                ] {
+                    assert_eq!(
+                        points[index],
+                        structured_sample_position(points, cap.source, sample)
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn rail_and_deep_moves_update_derived_samples_and_rollback_the_entire_state() {
+        let (boundary, _) = canonical_boundary(Default::default());
+        let original = CanonicalBreastplateTopology::from_metric_chart_with_candidates(
+            &boundary,
+            &boundary,
+            &[],
+            0.5,
+            false,
+            |point| point,
+        );
+        assert_structured_samples_follow_sources(&original);
+        let count = original.boundary_vertices.len();
+        let mut rail_accepted = 0;
+        let mut deep_accepted = 0;
+        let mut rejected = 0;
+        for deep in [false, true] {
+            for station in [13, 14, 15] {
+                let offset = original
+                    .local_ring_stations
+                    .iter()
+                    .position(|&value| value == station)
+                    .unwrap();
+                for amount in [-0.06, 0.06, 1e8] {
+                    let mut trial = original.clone();
+                    let moved = if deep {
+                        trial.relax_free_vertex(
+                            count * 2 + semantic_cap_vertex_count() + offset,
+                            0.0,
+                            amount,
+                        )
+                    } else {
+                        trial.relax_inner_rail_station(station, 0.0, amount)
+                    };
+                    assert_eq!(trial.indices, original.indices);
+                    assert_eq!(
+                        &trial.canonical_positions[..count],
+                        &original.canonical_positions[..count]
+                    );
+                    if moved {
+                        if deep {
+                            deep_accepted += 1;
+                        } else {
+                            rail_accepted += 1;
+                        }
+                        assert_structured_samples_follow_sources(&trial);
+                        assert!(
+                            trial
+                                .structured_spoke_caps
+                                .iter()
+                                .flat_map(|cap| &cap.samples)
+                                .any(|sample| trial.canonical_positions[sample.vertex as usize]
+                                    != original.canonical_positions[sample.vertex as usize])
+                        );
+                        assert!(moved_faces_are_valid(
+                            &original.canonical_positions,
+                            &trial.canonical_positions,
+                            &trial.indices
+                        ));
+                    } else {
+                        rejected += 1;
+                        assert_eq!(trial.canonical_positions, original.canonical_positions);
+                        assert_eq!(trial.chart_positions, original.chart_positions);
+                        assert_eq!(trial.harmonic_neighbors, original.harmonic_neighbors);
+                    }
+                }
+            }
+        }
+        assert!(rail_accepted > 0 && deep_accepted > 0 && rejected > 0);
+    }
+
+    #[test]
+    fn failed_family_neck_fixture_requires_current_source_interpolation() {
+        // Exact canonical source coordinates from failed family18. The derived
+        // sample had stayed behind while quality search moved its source rails.
+        let points = [
+            [-0.004391718, 1.4272926],
+            [0.0002565818, 1.4271655],
+            [0.0047246506, 1.4268435],
+            [-0.004698389, 1.4252524],
+            [0.0002551077, 1.4250926],
+            [0.0046984283, 1.4252524],
+        ];
+        let sample = StructuredSpokeSample {
+            vertex: 6,
+            tangent: 0.8,
+            radial: 0.5,
+        };
+        let corrected = structured_sample_position(&points, [[0, 1, 2], [3, 4, 5]], sample);
+        let stale = [-0.0009351979, 1.42546];
+        assert!(corrected[1] - stale[1] > 0.00069);
+        // Restoring the derived point moves it away from the final deep-rail
+        // edge, rather than changing the underlying body field or its sources.
+        let old_area = signed_triangle_area(points[3], points[4], stale).abs();
+        let new_area = signed_triangle_area(points[3], points[4], corrected).abs();
+        assert!(new_area > old_area * 2.5);
+    }
+
+    #[test]
+    fn structured_dependency_refresh_preserves_order_and_unaffected_samples() {
+        let mut topology = CanonicalBreastplateTopology::generate();
+        let count = topology.boundary_vertices.len() as u32;
+        let deep_start = count * 2 + semantic_cap_vertex_count() as u32;
+        let deep_end = deep_start + topology.local_ring_stations.len() as u32;
+        for cap in &topology.structured_spoke_caps {
+            assert!(
+                cap.source
+                    .iter()
+                    .flatten()
+                    .all(|&source| source < count * 2 || (deep_start..deep_end).contains(&source))
+            );
+            assert!(cap.samples.iter().all(|sample| {
+                cap.source
+                    .iter()
+                    .flatten()
+                    .all(|&source| source < sample.vertex)
+            }));
+        }
+        // A compact two-level dependency graph also verifies future earlier-
+        // derived sources are propagated before their dependent is evaluated.
+        topology.canonical_positions = vec![
+            [0., 0.],
+            [1., 0.],
+            [2., 0.],
+            [0., 1.],
+            [1., 1.],
+            [2., 1.],
+            [0.5, 0.5],
+            [0.5, 0.25],
+            [0.7, 0.8],
+        ];
+        topology.chart_positions = topology.canonical_positions.clone();
+        topology.structured_spoke_caps = vec![
+            StructuredSpokeCap {
+                source: [[0, 1, 2], [3, 4, 5]],
+                rows: vec![],
+                samples: vec![StructuredSpokeSample {
+                    vertex: 6,
+                    tangent: 0.5,
+                    radial: 0.5,
+                }],
+            },
+            StructuredSpokeCap {
+                source: [[0, 1, 2], [6, 6, 6]],
+                rows: vec![],
+                samples: vec![StructuredSpokeSample {
+                    vertex: 7,
+                    tangent: 0.5,
+                    radial: 0.5,
+                }],
+            },
+            StructuredSpokeCap {
+                source: [[0, 1, 2], [0, 1, 2]],
+                rows: vec![],
+                samples: vec![StructuredSpokeSample {
+                    vertex: 8,
+                    tangent: 0.5,
+                    radial: 0.5,
+                }],
+            },
+        ];
+        let before = topology.canonical_positions.clone();
+        topology.canonical_positions[3][1] += 0.1;
+        topology.chart_positions[3][1] += 0.1;
+        topology.refresh_structured_samples(&before, &before);
+        for cap in &topology.structured_spoke_caps[..2] {
+            let sample = cap.samples[0];
+            assert_eq!(
+                topology.canonical_positions[sample.vertex as usize],
+                structured_sample_position(&topology.canonical_positions, cap.source, sample)
+            );
+        }
+        assert_ne!(topology.canonical_positions[7], before[7]);
+        assert_eq!(topology.canonical_positions[8], before[8]);
+        assert_eq!(topology.chart_positions, topology.canonical_positions);
+    }
+
+    #[test]
+    fn reference_precision_survives_accepted_quality_moves() {
+        let (boundary, _) = canonical_boundary(Default::default());
+        let mut topology = CanonicalBreastplateTopology::from_metric_chart_with_candidates(
+            &boundary,
+            &boundary,
+            &[],
+            0.5,
+            false,
+            |point| point,
+        );
+        let rail_moved = (0..BOUNDARY_VERTEX_COUNT).any(|station| {
+            topology.relax_inner_rail_station_preserving_embedding(station, 0.02, 0.0)
+        });
+        let free_moved = (2 * BOUNDARY_VERTEX_COUNT..topology.canonical_positions.len())
+            .any(|index| topology.relax_free_vertex_preserving_embedding(index, 0.02, 0.0));
+        assert!(rail_moved && free_moved);
+        let reference = &topology.canonical_positions;
+        // This local residual catches stale pre-relaxation weights without
+        // mistaking the bounded Jacobi iteration for an exact global solve.
+        for vertex in 2 * BOUNDARY_VERTEX_COUNT..reference.len() {
+            let average = topology.harmonic_neighbors[vertex].iter().fold(
+                [0.0_f64; 2],
+                |mut value, (neighbor, weight)| {
+                    for axis in 0..2 {
+                        value[axis] += f64::from(reference[*neighbor][axis]) * f64::from(*weight);
+                    }
+                    value
+                },
+            );
+            for axis in 0..2 {
+                assert!(
+                    (average[axis] - f64::from(reference[vertex][axis])).abs() < 2e-6,
+                    "vertex {vertex}, axis {axis}"
+                );
+            }
+        }
+        let fixed = reference
+            .iter()
+            .enumerate()
+            .map(|(index, point)| (index < 2 * BOUNDARY_VERTEX_COUNT).then_some(*point))
+            .collect::<Vec<_>>();
+        assert_eq!(
+            harmonic_extension_with_fixed(&fixed, &topology.harmonic_neighbors, reference),
+            *reference
+        );
+        // Small but representable body changes must not take the identity
+        // shortcut and silently replace the exact semantic boundary.
+        let boundary = reference[..BOUNDARY_VERTEX_COUNT]
+            .iter()
+            .map(|p| [p[0] + 2e-7, p[1] - 2e-7])
+            .collect::<Vec<_>>();
+        assert_ne!(&boundary, &reference[..BOUNDARY_VERTEX_COUNT]);
+        let mapped = topology.semantic_domain_from_boundary(&boundary);
+        assert_eq!(&mapped[..BOUNDARY_VERTEX_COUNT], &boundary);
+    }
+
+    #[test]
+    fn mean_value_boundary_extension_preserves_three_dimensional_affine_data() {
+        let reference = [[-2., -1.], [3., -1.], [2., 2.], [-1., 3.], [0.2, 0.4]];
+        let neighbors =
+            harmonic_neighbors(&reference, &[[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]]);
+        let affine = |p: [f32; 2]| [p[0] + 0.3 * p[1], 2.0 * p[1], 0.4 * p[0] - p[1] + 0.2];
+        let boundary = reference[..4]
+            .iter()
+            .copied()
+            .map(affine)
+            .collect::<Vec<_>>();
+        let mapped = harmonic_extension(&boundary, &neighbors);
+        assert_eq!(&mapped[..4], &boundary);
+        for (actual, expected) in mapped[4].iter().zip(affine(reference[4])) {
+            assert!((actual - expected).abs() < 5e-7);
+        }
+        let reference3 = reference.map(affine);
+        let targets = reference3
+            .iter()
+            .enumerate()
+            .map(|(index, point)| {
+                (index < 4).then_some([
+                    point[0] * 0.713 + 0.015,
+                    point[1] - 0.317,
+                    point[2] * 1.113,
+                ])
+            })
+            .collect::<Vec<_>>();
+        let displaced = harmonic_extension_with_fixed(&targets, &neighbors, &reference3);
+        for (actual, target) in displaced.iter().zip(targets).take(4) {
+            assert_eq!(*actual, target.unwrap());
+        }
+    }
+
+    #[test]
+    fn mean_value_embedding_reproduces_identity_and_affine_maps() {
+        let faces = [[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]];
+        for center in [[0.2, 0.4], [0.45, 0.7]] {
+            let reference = [[-2., -1.], [3., -1.], [2., 2.], [-1., 3.], center];
+            let neighbors = harmonic_neighbors(&reference, &faces);
+            let reproduced = neighbors[4]
+                .iter()
+                .fold([0.0; 2], |mut value, (index, weight)| {
+                    for axis in 0..2 {
+                        value[axis] += reference[*index][axis] * weight;
+                    }
+                    value
+                });
+            assert!(distance(reproduced, center) < 2e-7);
+            let fixed = reference
+                .iter()
+                .enumerate()
+                .map(|(i, p)| (i < 4).then_some(*p))
+                .collect::<Vec<_>>();
+            assert_eq!(
+                harmonic_extension_with_fixed(&fixed, &neighbors, &reference),
+                reference
+            );
+            let transform = |p: [f32; 2]| {
+                [
+                    1.2 * p[0] + 0.3 * p[1] + 0.1,
+                    -0.2 * p[0] + 0.9 * p[1] - 0.2,
+                ]
+            };
+            let fixed = fixed
+                .into_iter()
+                .map(|p| p.map(transform))
+                .collect::<Vec<_>>();
+            let mapped = harmonic_extension_with_fixed(&fixed, &neighbors, &reference);
+            for (actual, source) in mapped.iter().zip(reference) {
+                assert!(distance(*actual, transform(source)) < 5e-7);
+            }
+        }
+    }
+    #[test]
+    fn paired_inner_rail_rejects_near_coincident_stations_at_any_scale() {
+        for scale in [0.001, 1.0, 1000.0] {
+            let outer =
+                [[0., 0.], [1., 0.], [1., 1.], [0., 1.]].map(|p| [p[0] * scale, p[1] * scale]);
+            let regular = [[0.1, 0.1], [0.9, 0.1], [0.9, 0.9], [0.1, 0.9]]
+                .map(|p| [p[0] * scale, p[1] * scale]);
+            assert!(invalid_strip_stations(&outer, &regular).is_empty());
+            let mut collapsed = regular;
+            collapsed[1] = [0.1001 * scale, 0.1 * scale];
+            let invalid = invalid_strip_stations(&outer, &collapsed);
+            assert!(invalid.contains(&0) && invalid.contains(&1));
+        }
+    }
+    #[test]
+    fn accepted_rail_relaxations_preserve_metric_spacing() {
+        let (boundary, _) = canonical_boundary(Default::default());
+        let reference = CanonicalBreastplateTopology::from_metric_chart_with_candidates(
+            &boundary,
+            &boundary,
+            &[],
+            0.5,
+            true,
+            |point| point,
+        );
+        let count = reference.boundary_vertices.len();
+        let mut accepted = 0;
+        let mut rejected = 0;
+        for station in [0, 1, 28, 40, 68, 96, 124, 152, 180] {
+            for tangent in [-1.0, -0.4, 0.0, 0.4, 1.0] {
+                let mut trial = reference.clone();
+                if trial.relax_inner_rail_station(station, tangent, 0.0) {
+                    accepted += 1;
+                    assert!(
+                        invalid_strip_stations(
+                            &trial.chart_positions[..count],
+                            &trial.chart_positions[count..2 * count],
+                        )
+                        .is_empty()
+                    );
+                } else {
+                    rejected += 1;
+                    assert_eq!(trial.chart_positions, reference.chart_positions);
+                    assert_eq!(trial.canonical_positions, reference.canonical_positions);
+                }
+                assert_eq!(trial.indices, reference.indices);
+            }
+        }
+        assert!(
+            accepted > 0 && rejected > 0,
+            "accepted={accepted} rejected={rejected}; initial invalid={:?}",
+            invalid_strip_stations(
+                &reference.chart_positions[..count],
+                &reference.chart_positions[count..2 * count]
+            )
+        );
+    }
+    #[test]
+    fn angular_side_without_extra_ring_has_no_duplicate_transition_faces() {
+        let (boundary, _) = canonical_boundary(Default::default());
+        let topology = CanonicalBreastplateTopology::from_metric_chart_with_candidates(
+            &boundary,
+            &boundary,
+            &[],
+            0.5,
+            false,
+            |point| point,
+        );
+        assert!(
+            topology
+                .local_ring_stations
+                .iter()
+                .all(|station| (4..25).contains(station))
+        );
+        assert!(
+            topology
+                .indices
+                .as_chunks::<3>()
+                .0
+                .iter()
+                .all(|[a, b, c]| a != b && b != c && a != c)
+        );
+        assert!(inconsistent_oriented_edges(topology.indices.as_chunks::<3>().0).is_empty());
+    }
     #[test]
     fn reference_is_deterministic_and_well_formed() {
         let a = CanonicalBreastplateTopology::generate();
