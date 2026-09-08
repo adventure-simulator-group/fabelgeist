@@ -16,57 +16,40 @@ churches, castles, palaces, towers, civic buildings, and other high-status work.
 
 ## Repository facts and constraints
 
-The following are facts observed in this worktree, not claims from external
-sources.
+The full bake is 2048 by 2048 over a 4.8 metre period with a 12 mm represented
+height range. Draft and medium bakes still cap sampling at 128 and 256 pixels.
+The default layout retains 28 rising courses, 28 pieces per course, stable
+piece identities, clipped heels and recessed overlaps. Full resolution gives
+roughly 73 pixels across a piece rather than the previous 18.
 
-- `SlateRoof` produces 512 x 512 albedo, OpenGL tangent-space normal,
-  normalized height, and ARM maps. The recipe declares a 4.8 m square period
-  and a 12 mm represented height range.
-- The pattern has 28 pieces per nominal course and 28 courses per period, so
-  its tests assert approximately 171 mm visible width and 171 mm course
-  exposure. It creates a course rise of two course-heights across one repeat,
-  about 343 mm over 4.8 m if recipe scale is honored.
-- Each piece has a stable hashed identity, mildly irregular side boundaries,
-  an asymmetrically clipped heel, sparse small edge chips, low-amplitude planar
-  tilt, and a three-frequency sinusoidal “cleft” field. The front course rises
-  toward its lower lip and reveals a recessed under-course.
-- Color is a narrow cool dark gray-blue range. Per-piece mineral and cool-shift
-  hashes affect albedo, while roughness responds to mineral variation, edge
-  wear, contact, and absolute cleavage. AO darkens contacts; metallic is zero.
-- The current pattern repeats one nominal stone and course scale. It does not
-  diminish stone/course size from eave to ridge, maintain roof-level quarry
-  batches, expose grain/cleavage direction, distinguish sawn from hand-dressed
-  edges, represent nail/peg holes or fasteners, or include pyrite, oxide stains,
-  delamination, lichen, moss, soot, repairs, slips, or missing slates.
-- Numeric tests cover deterministic periodicity, visible scale and height
-  range, recessed laps/contacts, nonmetallic channel variation, and mip count.
-  The ignored evidence exporter produces separated maps, interpreted renders,
-  2 x 2 repeats, and 128/64 px downsamples, but not actual roof views, motion,
-  roof boundaries, or LOD transitions.
-- The common `image_rgba_mipped` helper byte-averages all channels. Thus sRGB
-  albedo is averaged in encoded space, normals are averaged as colors rather
-  than filtered/reconstructed as directions or slopes, and perceptual
-  roughness ignores unresolved normal variance.
-- Both detailed and LOD building meshes project roof UVs from world `X,Z / 2.0
-  m`, while the recipe declares a 4.8 m period. If bound unchanged, its intended
-  171 mm width/exposure would become about 71 mm and its 343 mm course rise per
-  repeat about 143 mm.
-- World-planar XZ mapping also violates the source comment that texture V runs
-  down-slope. It cannot maintain physical distance or course orientation across
-  roofs of different yaw and pitch, and it does not provide a deliberate seam
-  for curved or conical roofs.
-- Tactical materials currently route both `RoofMaterial::Slate` and
-  `RoofMaterial::Lead` to the same dark checker. Neither `slate_roof` nor the
-  separate `lead_sheet` procedural recipe is bound there, and the generated
-  slate normal/ARM maps are unused.
-- Roof surfaces are closed planar prisms with semantic faces, cutouts,
-  enclosures, dormers, and material identities. They have no slate-specific
-  geometry at eaves, verges, ridges, hips, valleys, chimneys, dormers, or
-  repair/missing-piece locations.
+Each piece carries an independently oriented, warped cleavage coordinate.
+Quantized terraces produce broad split planes and narrow beveled risers. Finer
+coordinate perturbation breaks the ledges; a separate mask removes flakes
+near exposed edges. Layer count/depth, direction and variation, warping,
+fracture breakup, flake coverage/reach/depth and bevel widths are artist controls.
+The overlap now has enough represented depth to read as stacked thin stone.
 
-These are system constraints. A better standalone bitmap cannot correct the
-wrong size and direction, make a flat eave reveal overlapping stone edges, or
-stop slate and lead from sharing a placeholder material.
+Albedo remains constant within each piece, with restrained mineral variation;
+cleavage and flakes add no color shading. Their masks change height, normals
+and roughness. AO remains tied to laps/joints, and metallic remains zero.
+The existing shared mip filter is retained. This tile does not generate
+roof-boundary geometry, diminishing eave-to-ridge courses, fixture-aware
+weathering or scene UVs; those roof-system recommendations below remain separate.
+
+## Procedural detail references used in this implementation
+
+[SideFX's organic texture tutorial](https://www.sidefx.com/tutorials/how-to-create-organic-textures/)
+emphasizes a hierarchy of larger facets and finer detail. The recipe adapts
+that hierarchy into directional terraces instead of smooth sine waves.
+[SideFX's curvature documentation](https://www.sidefx.com/docs/houdini/nodes/cop/curvature.html)
+separates convex, concave and flat features. Here analytic ledge/edge masks
+supply corresponding surface-response signals directly from the generating
+shapes; no image-space curvature pass or AO-to-albedo ramp is used.
+
+This is an art-directed height model, not a simulation of geological fracture.
+The broader historical sources and roof-level recommendations below still
+apply; a detailed tile alone cannot implement roof construction.
+
 
 ## Historical and material evidence
 

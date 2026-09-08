@@ -36,43 +36,42 @@ every hinge, grille, and latch the same object.
 
 ## Repository facts and constraints
 
-The following are current repository observations, not external claims.
+The recipe produces a seamless 1024 by 1024 tile representing 0.64 metres, with
+1.8 mm of represented relief. The generator scatters overlapping rounded die
+impressions on a jittered anisotropic lattice. Separate, smaller stamps cut
+angular scale losses and round pits; a coarse field controls their clustering.
+Stamp selection uses the field at each stamp's fixed site, so a feature cannot
+appear or disappear halfway across its footprint.
 
-- `ironwork.rs` owns a deterministic 512 by 512 repeatable surface. One repeat
-  represents 0.64 metres square, about 1.25 mm per base texel, with a declared
-  full height range of 1.8 mm.
-- It emits sRGB albedo, OpenGL tangent-space normal, scalar height, and packed
-  AO/roughness/metallic, with ten mip levels and repeat sampling.
-- Its U axis is documented as the long forging direction. The implementation
-  combines broad and fine periodic noise, 38 overlapping elongated hammer
-  facets, a seven-cycle sinusoidal draw signal, and two oxide-scale noises.
-- Hammer facets are roughly 33-77 mm long and 12-29 mm half-width at the stated
-  tile scale. Most align approximately with U; every fifth is approximately
-  transverse. These dimensions describe the current generator, not a validated
-  historical measurement.
-- Albedo is a narrow, very dark warm-grey range. Roughness is moderately high,
-  AO is nearly white except in scale recesses, and the metallic channel is 255
-  everywhere, including pixels labelled as oxide.
-- A generic 3 by 2 noise field chooses “contact” zones. It is not informed by a
-  handle, latch, hinge, fastener, wall, hand height, or direction of movement.
-- Tests establish determinism, bounded tile-edge value jumps, declared scale
-  and height bounds, broad roughness variation, high AO, all-metal metallicity,
-  and complete mip chains. They do not prove historically plausible forging,
-  fixture-aware wear, corrosion causality, semantic mip filtering, or runtime
-  appearance.
-- The shared RGBA mip helper averages encoded bytes for every channel. It does
-  not filter sRGB albedo in linear light, decode and renormalize normal vectors,
-  compensate roughness for unresolved normal variance, or preserve categorical
-  metal/oxide coverage explicitly.
-- The module documentation correctly assigns silhouette, shape masks, and
-  fastener geometry to the consuming mesh. The texture is the material visible
-  across those forms; it cannot know where a bar ends, turns, is punched,
-  welded, riveted, touched, sheltered, or embedded in masonry.
-- Existing visual-review provenance records useful rejected failure modes:
-  cloudy/wood-like fields, repeating diagonal stamps, cracked-leather cells,
-  and conspicuous Voronoi masks. The accepted candidate is intentionally
-  quieter,
-  but its physical and semantic contracts remain to be validated.
+The default finish is intact black forge film. Two independently editable sRGB
+colors represent bare iron and broad oxide
+islands. Four coverage samples antialias those boundaries; albedo mips average
+in linear light. Oxide coverage also makes the surface dielectric. Pit and
+scale masks affect relief, cavity occlusion and roughness; die shoulders can be
+smoother. This is a reusable surface finish, not a hand-contact or fixture-wear
+simulation. No object edges, fasteners, runoff or rust streaks are baked in.
+
+Cell counts, jitter, die rounding/orientation, relief depths, scale/pit sizes
+and coverage, film coverage, palettes and response controls are exposed in
+Texture Studio. Stable recipe IDs and the OpenGL normal convention are retained.
+Normal/ARM mips still use the existing shared filter; reflection-variance
+filtering and consumer-provided wear/exposure masks remain separate work.
+
+## Procedural detail references used in this implementation
+
+[SideFX's organic texture tutorial](https://www.sidefx.com/tutorials/how-to-create-organic-textures/)
+combines coarse forms, layered detail and seamless shape stamping. Here those
+stamps represent dies and scale loss instead of an undifferentiated noise sum.
+The [Worley node documentation](https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html)
+explains anisotropic cell size, jitter, metrics and periodicity; those ideas
+inform the bounded local scatter, without turning every cell boundary into a
+crack. These are adaptations in Rust, not a port of a Houdini graph.
+
+[Erik Svensson's rust project](https://eriksvensson.com/project-rust.html)
+separates substrate and deposited layers by surface depth. Its useful lesson
+here is to keep material coverage and response coupled. Scene-dependent rust
+and moss placement is intentionally outside this tile recipe.
+
 
 ## Material structure and forge scale
 
