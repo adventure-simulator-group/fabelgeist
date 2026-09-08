@@ -258,7 +258,10 @@ fn create_lod_textures(world: &mut World) -> LodTextures {
         stone: images.add(checker_texture([121, 122, 111, 255], [88, 91, 84, 255])),
         roof: images.add(checker_texture([102, 39, 29, 255], [66, 27, 24, 255])),
         details: images.add(facade_atlas()),
-        crown_mask: generate_crenellation_mask(&mut images),
+        crown_mask: generate_crenellation_mask(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        ),
     }
 }
 

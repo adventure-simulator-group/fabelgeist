@@ -1165,6 +1165,7 @@ mod tests {
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
         let assets = generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
             &mut app
                 .world_mut()
                 .resource_mut::<bevy::prelude::Assets<Image>>(),
@@ -1181,8 +1182,11 @@ mod tests {
         assert!(floor.physical_parameters.y < oak.physical_parameters.y);
         assert!((0.3..0.5).contains(&floor.physical_parameters.z));
         assert_eq!(oak.physical_parameters.z, 0.0);
-        let shader = include_str!("../../../../../assets/shaders/tactical_tree_leaf_card.wgsl")
-            .replace("\r\n", "\n");
+        let shader = include_str!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl"
+        ))
+        .replace("\r\n", "\n");
         assert!(shader.contains("pbr_input.material.base_color = vec4<f32>(\n        albedo,"));
         assert!(shader.contains("albedo = mix(albedo, in.color.rgb"));
         assert!(!shader.contains("spatial_hue"));

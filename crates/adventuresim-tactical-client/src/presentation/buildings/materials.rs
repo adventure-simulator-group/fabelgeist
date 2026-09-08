@@ -386,7 +386,10 @@ mod tests {
     #[test]
     fn standard_glass_uses_nominal_scalar_thickness_not_packed_red() {
         let mut images = Assets::default();
-        let textures = adventuresim_procedural_textures::generate_procedural_textures(&mut images);
+        let textures = adventuresim_procedural_textures::generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let packed_thickness_and_roughness = textures.window_glass.thickness_roughness.clone();
         let material = standard_window_glass_material(&textures);
 
@@ -406,7 +409,10 @@ mod tests {
     #[test]
     fn crown_material_uses_generated_mask_with_the_recipe_cutoff() {
         let mut images = Assets::default();
-        let textures = adventuresim_procedural_textures::generate_procedural_textures(&mut images);
+        let textures = adventuresim_procedural_textures::generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let generated_mask = textures.crenellation_mask.clone();
         let material = crenellation_mask_material(&textures);
 
@@ -421,7 +427,10 @@ mod tests {
     #[test]
     fn interior_surface_material_uses_the_complete_recipe_and_physical_tile_scale() {
         let mut images = Assets::default();
-        let textures = adventuresim_procedural_textures::generate_procedural_textures(&mut images);
+        let textures = adventuresim_procedural_textures::generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let material = surface_material(&textures.lime_plaster, LIME_PLASTER_TILE_METRES);
 
         assert_eq!(
@@ -446,7 +455,10 @@ mod tests {
     #[test]
     fn plaster_facades_use_the_same_high_resolution_surface_recipe() {
         let mut images = Assets::default();
-        let textures = adventuresim_procedural_textures::generate_procedural_textures(&mut images);
+        let textures = adventuresim_procedural_textures::generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let palette = BuildingAppearance::NaturalOak.spec().infill;
         let material = plaster_surface_material(&textures.lime_plaster, palette);
 

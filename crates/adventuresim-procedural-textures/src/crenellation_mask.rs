@@ -22,14 +22,18 @@ pub const CRENELLATION_ALPHA_CUTOFF: f32 = 0.5;
 const EDGE_SUPERSAMPLES: u32 = 4;
 const MASONRY_RGB: [u8; 3] = [121, 122, 111];
 
-fn texel_coverage(x: u32, y: u32, size: u32) -> u8 {
+fn texel_coverage(params: &crate::TextureParameters, x: u32, y: u32, size: u32) -> u8 {
     let x = x % size;
     let mut covered = 0_u32;
     for sub_y in 0..EDGE_SUPERSAMPLES {
         for sub_x in 0..EDGE_SUPERSAMPLES {
             let u = (x as f32 + (sub_x as f32 + 0.5) / EDGE_SUPERSAMPLES as f32) / size as f32;
             let v = (y as f32 + (sub_y as f32 + 0.5) / EDGE_SUPERSAMPLES as f32) / size as f32;
-            if v >= 1.0 - CRENELLATION_BREASTWORK_HEIGHT_RATIO || u < CRENELLATION_MERLON_DUTY_CYCLE
+            if v >= 1.0
+                - params
+                    .crenellation_mask
+                    .crenellation_breastwork_height_ratio
+                || u < params.crenellation_mask.crenellation_merlon_duty_cycle
             {
                 covered += 1;
             }
@@ -38,18 +42,27 @@ fn texel_coverage(x: u32, y: u32, size: u32) -> u8 {
     ((covered * 255 + EDGE_SUPERSAMPLES.pow(2) / 2) / EDGE_SUPERSAMPLES.pow(2)) as u8
 }
 
-fn base_level(size: u32) -> Vec<u8> {
+fn base_level(params: &crate::TextureParameters, size: u32) -> Vec<u8> {
     let mut pixels = Vec::with_capacity((size * size * 4) as usize);
     for y in 0..size {
         for x in 0..size {
-            let alpha = texel_coverage(x, y, size);
-            pixels.extend_from_slice(&[MASONRY_RGB[0], MASONRY_RGB[1], MASONRY_RGB[2], alpha]);
+            let alpha = texel_coverage(params, x, y, size);
+            pixels.extend_from_slice(&[
+                params.crenellation_mask.masonry_rgb[0],
+                params.crenellation_mask.masonry_rgb[1],
+                params.crenellation_mask.masonry_rgb[2],
+                alpha,
+            ]);
         }
     }
     pixels
 }
 
-fn downsample_coverage(previous: &[u8], previous_size: u32) -> Vec<u8> {
+fn downsample_coverage(
+    params: &crate::TextureParameters,
+    previous: &[u8],
+    previous_size: u32,
+) -> Vec<u8> {
     let next_size = previous_size / 2;
     let mut next = Vec::with_capacity((next_size * next_size * 4) as usize);
     for y in 0..next_size {
@@ -64,19 +77,27 @@ fn downsample_coverage(previous: &[u8], previous_size: u32) -> Vec<u8> {
                 }
             }
             let alpha = ((alpha_sum + 2) / 4) as u8;
-            next.extend_from_slice(&[MASONRY_RGB[0], MASONRY_RGB[1], MASONRY_RGB[2], alpha]);
+            next.extend_from_slice(&[
+                params.crenellation_mask.masonry_rgb[0],
+                params.crenellation_mask.masonry_rgb[1],
+                params.crenellation_mask.masonry_rgb[2],
+                alpha,
+            ]);
         }
     }
     next
 }
 
-pub fn generate_crenellation_mask(images: &mut Assets<Image>) -> Handle<Image> {
-    let base = base_level(CRENELLATION_MASK_TEXTURE_SIZE);
+pub fn generate_crenellation_mask(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> Handle<Image> {
+    let base = base_level(params, params.size(CRENELLATION_MASK_TEXTURE_SIZE));
     let mut packed_mips = base.clone();
     let mut previous = base.clone();
-    let mut previous_size = CRENELLATION_MASK_TEXTURE_SIZE;
+    let mut previous_size = params.size(CRENELLATION_MASK_TEXTURE_SIZE);
     while previous_size > 1 {
-        let next = downsample_coverage(&previous, previous_size);
+        let next = downsample_coverage(params, &previous, previous_size);
         packed_mips.extend_from_slice(&next);
         previous = next;
         previous_size /= 2;
@@ -84,8 +105,8 @@ pub fn generate_crenellation_mask(images: &mut Assets<Image>) -> Handle<Image> {
 
     let mut image = Image::new(
         Extent3d {
-            width: CRENELLATION_MASK_TEXTURE_SIZE,
-            height: CRENELLATION_MASK_TEXTURE_SIZE,
+            width: params.size(CRENELLATION_MASK_TEXTURE_SIZE),
+            height: params.size(CRENELLATION_MASK_TEXTURE_SIZE),
             depth_or_array_layers: 1,
         },
         TextureDimension::D2,
@@ -94,7 +115,8 @@ pub fn generate_crenellation_mask(images: &mut Assets<Image>) -> Handle<Image> {
         RenderAssetUsages::RENDER_WORLD,
     );
     image.data = Some(packed_mips);
-    image.texture_descriptor.mip_level_count = CRENELLATION_MASK_TEXTURE_SIZE.ilog2() + 1;
+    image.texture_descriptor.mip_level_count =
+        params.size(CRENELLATION_MASK_TEXTURE_SIZE).ilog2() + 1;
     image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
         address_mode_u: ImageAddressMode::Repeat,
         address_mode_v: ImageAddressMode::ClampToEdge,
@@ -119,8 +141,9 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, Handle<Image>) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let handle = generate_crenellation_mask(&mut images);
+        let handle = generate_crenellation_mask(params, &mut images);
         (images, handle)
     }
 
@@ -159,7 +182,8 @@ mod tests {
 
     #[test]
     fn base_duty_cycle_and_breastwork_ratio_match_the_declared_architecture() {
-        let pixels = base_level(CRENELLATION_MASK_TEXTURE_SIZE);
+        let params = &crate::TextureParameters::default();
+        let pixels = base_level(params, CRENELLATION_MASK_TEXTURE_SIZE);
         let top_row = &pixels[..(CRENELLATION_MASK_TEXTURE_SIZE * 4) as usize];
         let top_coverage = threshold_coverage(top_row);
         assert!((top_coverage - CRENELLATION_MERLON_DUTY_CYCLE).abs() <= 0.005);
@@ -172,10 +196,12 @@ mod tests {
 
     #[test]
     fn u_repeat_is_periodic_and_v_is_clamped() {
+        let params = &crate::TextureParameters::default();
         for y in 0..CRENELLATION_MASK_TEXTURE_SIZE {
             assert_eq!(
-                texel_coverage(0, y, CRENELLATION_MASK_TEXTURE_SIZE),
+                texel_coverage(params, 0, y, CRENELLATION_MASK_TEXTURE_SIZE),
                 texel_coverage(
+                    params,
                     CRENELLATION_MASK_TEXTURE_SIZE,
                     y,
                     CRENELLATION_MASK_TEXTURE_SIZE
@@ -417,3 +443,6 @@ mod tests {
         .unwrap();
     }
 }
+
+mod controls;
+pub use controls::Parameters;

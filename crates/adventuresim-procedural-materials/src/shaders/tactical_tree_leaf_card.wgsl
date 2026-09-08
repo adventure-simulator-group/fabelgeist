@@ -221,8 +221,9 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     var albedo = textureSample(front_albedo, front_albedo_sampler, in.uv).rgb;
     var tangent_normal = textureSample(front_normal, front_normal_sampler, in.uv).xyz * 2.0 - 1.0;
     if !is_front {
-        albedo = textureSample(back_albedo, back_albedo_sampler, in.uv).rgb;
-        tangent_normal = textureSample(back_normal, back_normal_sampler, in.uv).xyz * 2.0 - 1.0;
+        // Face selection can diverge within a fragment quad on WebGPU.
+        albedo = textureSampleGrad(back_albedo, back_albedo_sampler, in.uv, uv_dx, uv_dy).rgb;
+        tangent_normal = textureSampleGrad(back_normal, back_normal_sampler, in.uv, uv_dx, uv_dy).xyz * 2.0 - 1.0;
     }
     // Ground litter opts into deterministic per-leaf pigments. Tree foliage
     // leaves physical_parameters.z at zero, so its vertex color remains free

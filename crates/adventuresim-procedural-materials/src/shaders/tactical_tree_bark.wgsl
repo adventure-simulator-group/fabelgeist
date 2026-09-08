@@ -27,6 +27,7 @@ var soil_height_ao: texture_2d<f32>;
 var soil_height_ao_sampler: sampler;
 
 struct TacticalTreeBarkExtension {
+    uv_offset: vec4<f32>,
     relief: vec4<f32>,
     projection: vec4<f32>,
     lighting: vec4<f32>,
@@ -255,10 +256,11 @@ fn parallax_branch_coordinates(
     let fade = 1.0 - smoothstep(bark.projection.w * 0.45, bark.projection.w, camera_distance);
     let coordinate_dx = dpdx(branch_coordinates);
     let coordinate_dy = dpdy(branch_coordinates);
+    // Derivatives must be evaluated before the per-fragment distance cutoff.
+    let frame = cotangent_frame(normal, position, branch_coordinates);
     if bark.relief.y <= 0.0001 || fade <= 0.001 {
         return vec3<f32>(branch_coordinates, 0.0);
     }
-    let frame = cotangent_frame(normal, position, branch_coordinates);
     let tangent_view = transpose(frame) * view_direction;
     let layer_count = 6.0;
     let layer_depth = 1.0 / layer_count;
@@ -271,7 +273,7 @@ fn parallax_branch_coordinates(
         let height = textureSampleGrad(
             bark_height_ao,
             bark_height_ao_sampler,
-            coordinates,
+            bark.uv_offset.xy + coordinates,
             coordinate_dx,
             coordinate_dy,
         ).r;
@@ -293,10 +295,10 @@ fn directional_horizon_visibility(
     let fade = 1.0 - smoothstep(bark.projection.w * 0.45, bark.projection.w, camera_distance);
     let coordinate_dx = dpdx(branch_coordinates);
     let coordinate_dy = dpdy(branch_coordinates);
+    let frame = cotangent_frame(normal, position, branch_coordinates);
     if bark.relief.y <= 0.0001 || fade <= 0.001 || bark.lighting.w <= 0.001 {
         return 1.0;
     }
-    let frame = cotangent_frame(normal, position, branch_coordinates);
     let tangent_light = transpose(frame) * normalize(bark.lighting.xyz);
     let lateral_length = length(tangent_light.xy);
     if tangent_light.z <= 0.02 || lateral_length <= 0.02 {
@@ -312,7 +314,7 @@ fn directional_horizon_visibility(
         let neighbor = textureSampleGrad(
             bark_height_ao,
             bark_height_ao_sampler,
-            coordinates,
+            bark.uv_offset.xy + coordinates,
             coordinate_dx,
             coordinate_dy,
         ).r;
@@ -327,9 +329,9 @@ fn directional_horizon_visibility(
 }
 
 fn triplanar_height_ao(uvs: mat3x2<f32>, weights: vec3<f32>) -> vec2<f32> {
-    let x_sample = textureSample(bark_height_ao, bark_height_ao_sampler, uvs[0]).rg;
-    let y_sample = textureSample(bark_height_ao, bark_height_ao_sampler, uvs[1]).rg;
-    let z_sample = textureSample(bark_height_ao, bark_height_ao_sampler, uvs[2]).rg;
+    let x_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[0]).rg;
+    let y_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[1]).rg;
+    let z_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[2]).rg;
     return x_sample * weights.x + y_sample * weights.y + z_sample * weights.z;
 }
 

@@ -1,3 +1,8 @@
+#[cfg(test)]
+use adventuresim_procedural_materials::enable_leaf_transmission_shader_defs;
+pub use adventuresim_procedural_materials::{
+    TacticalTreeBarkExtension, TacticalTreeBarkMaterial, TacticalTreeLeafCardMaterial,
+};
 use adventuresim_tactical_core::prelude::SceneTerrain;
 use bevy::{
     pbr::{ExtendedMaterial, Material, MaterialExtension},
@@ -20,43 +25,8 @@ use adventuresim_procedural_textures::generate_procedural_textures;
 use adventuresim_procedural_textures::{FOREST_SOIL_HEIGHT_RANGE_METRES, FOREST_SOIL_TILE_METRES};
 
 const TREE_IMPOSTOR_SHADER: &str = "shaders/tactical_tree_impostor.wgsl";
-const TREE_LEAF_CARD_SHADER: &str = "shaders/tactical_tree_leaf_card.wgsl";
-const TREE_BARK_SHADER: &str = "shaders/tactical_tree_bark.wgsl";
 const TREE_AGGREGATE_BARK_SHADER: &str = "shaders/tactical_tree_aggregate_bark.wgsl";
 const CANOPY_SHADED_SOIL_LINEAR_SCALE: Vec3 = Vec3::new(0.38, 0.40, 0.37);
-
-#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(crate) struct TacticalTreeLeafCardMaterial {
-    #[texture(0)]
-    #[sampler(1)]
-    pub(crate) opacity: Handle<Image>,
-    #[texture(2)]
-    #[sampler(3)]
-    pub(crate) front_albedo: Handle<Image>,
-    #[texture(4)]
-    #[sampler(5)]
-    pub(crate) back_albedo: Handle<Image>,
-    #[texture(6)]
-    #[sampler(7)]
-    pub(crate) front_normal: Handle<Image>,
-    #[texture(8)]
-    #[sampler(9)]
-    pub(crate) back_normal: Handle<Image>,
-    #[texture(10)]
-    #[sampler(11)]
-    pub(crate) arm: Handle<Image>,
-    /// Wind direction XZ, strength, and CPU-synchronized phase time.
-    #[uniform(12)]
-    pub(crate) parameters: Vec4,
-    /// Opacity cutoff, tangent-space normal strength, canopy AO strength, and
-    /// diffuse transmission for the species' leaf thickness.
-    #[uniform(12)]
-    pub(crate) surface_parameters: Vec4,
-    /// Perceptual roughness, physical thickness in metres, ground-litter
-    /// vertex-pigment strength, and reserved.
-    #[uniform(12)]
-    pub(crate) physical_parameters: Vec4,
-}
 
 const OAK_LEAF_DIFFUSE_TRANSMISSION: f32 = 0.46;
 /// Representative alpha-weighted oak pigment for software-baked impostors.
@@ -75,62 +45,6 @@ pub(crate) fn oak_leaf_material(assets: &ProceduralTextureAssets) -> TacticalTre
         OAK_LEAF_DIFFUSE_TRANSMISSION,
     )
 }
-
-#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(crate) struct TacticalTreeBarkExtension {
-    /// Canonical scalar relief: normalized height in R and horizon AO in G.
-    #[texture(100)]
-    #[sampler(101)]
-    height_ao: Handle<Image>,
-    /// Tiles/metre, physical height range, normal strength, and AO strength.
-    #[uniform(102)]
-    relief: Vec4,
-    /// Triplanar exponent, branch alignment, parallax fraction, fade distance.
-    #[uniform(102)]
-    projection: Vec4,
-    /// Direction toward dominant light and normalized directional strength.
-    #[uniform(102)]
-    pub(in crate::presentation) lighting: Vec4,
-    /// Linear bark pigment and perceptual roughness.
-    #[uniform(102)]
-    surface: Vec4,
-    /// Linear soil pigment and perceptual roughness. Soil remains a single
-    /// molded albedo; only the binary coverage mask varies spatially.
-    #[uniform(102)]
-    soil_surface: Vec4,
-    /// Solid soil height, maximum speck height, cell size, minimum radius.
-    #[uniform(102)]
-    deposition: Vec4,
-    /// Playable half extents and encoded minimum/maximum terrain heights.
-    #[uniform(102)]
-    terrain_surface: Vec4,
-    /// Soil tiles/metre, physical height range, normal strength, AO strength.
-    #[uniform(102)]
-    soil_response: Vec4,
-    /// Soil dielectric reflectance; remaining components are reserved.
-    #[uniform(102)]
-    soil_optics: Vec4,
-    /// Row-major playable terrain heightfield encoded into two channels.
-    #[texture(103)]
-    terrain_heightmap: Handle<Image>,
-    /// The same packed height/AO surface sampled by tactical terrain.
-    #[texture(104)]
-    #[sampler(105)]
-    soil_height_ao: Handle<Image>,
-}
-
-impl MaterialExtension for TacticalTreeBarkExtension {
-    fn fragment_shader() -> ShaderRef {
-        TREE_BARK_SHADER.into()
-    }
-
-    fn deferred_fragment_shader() -> ShaderRef {
-        TREE_BARK_SHADER.into()
-    }
-}
-
-pub(crate) type TacticalTreeBarkMaterial =
-    ExtendedMaterial<StandardMaterial, TacticalTreeBarkExtension>;
 
 /// The deliberately small aggregate-wood extension is a separate material
 /// type, rather than a quality uniform on [`TacticalTreeBarkExtension`]. That
@@ -259,6 +173,7 @@ fn bark_material(
             ..default()
         },
         extension: TacticalTreeBarkExtension {
+            uv_offset: Vec4::ZERO,
             height_ao: assets.oak_bark.height_ao.clone(),
             relief,
             projection: Vec4::new(4.0, 0.92, 0.52, 12.0),
@@ -376,64 +291,6 @@ pub(in crate::presentation) fn leaf_material(
     }
 }
 
-impl Material for TacticalTreeLeafCardMaterial {
-    fn vertex_shader() -> ShaderRef {
-        TREE_LEAF_CARD_SHADER.into()
-    }
-
-    fn fragment_shader() -> ShaderRef {
-        TREE_LEAF_CARD_SHADER.into()
-    }
-
-    fn alpha_mode(&self) -> AlphaMode {
-        // Preserve the procedural cutout, then let 4x MSAA turn its remaining
-        // fractional opacity into sample coverage instead of a jagged binary
-        // silhouette. This is hardware multisampling and works on WebGPU.
-        AlphaMode::AlphaToCoverage
-    }
-
-    fn enable_prepass() -> bool {
-        true
-    }
-
-    fn enable_shadows() -> bool {
-        true
-    }
-
-    fn prepass_vertex_shader() -> ShaderRef {
-        TREE_LEAF_CARD_SHADER.into()
-    }
-
-    fn prepass_fragment_shader() -> ShaderRef {
-        TREE_LEAF_CARD_SHADER.into()
-    }
-
-    fn specialize(
-        _pipeline: &bevy::pbr::MaterialPipeline,
-        descriptor: &mut RenderPipelineDescriptor,
-        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
-        _key: bevy::pbr::MaterialPipelineKey<Self>,
-    ) -> Result<(), SpecializedMeshPipelineError> {
-        descriptor.primitive.cull_mode = None;
-        if let Some(fragment) = descriptor.fragment.as_mut() {
-            enable_leaf_transmission_shader_defs(&mut fragment.shader_defs);
-        }
-        Ok(())
-    }
-}
-
-fn enable_leaf_transmission_shader_defs(shader_defs: &mut Vec<bevy::shader::ShaderDefVal>) {
-    for name in [
-        "STANDARD_MATERIAL_DIFFUSE_TRANSMISSION",
-        "STANDARD_MATERIAL_DIFFUSE_OR_SPECULAR_TRANSMISSION",
-    ] {
-        let shader_def = bevy::shader::ShaderDefVal::from(name);
-        if !shader_defs.contains(&shader_def) {
-            shader_defs.push(shader_def);
-        }
-    }
-}
-
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
 pub(in crate::presentation) struct TacticalTreeImpostorMaterial {
     #[texture(0)]
@@ -495,8 +352,10 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets =
-            generate_procedural_textures(&mut app.world_mut().resource_mut::<Assets<Image>>());
+        let assets = generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut app.world_mut().resource_mut::<Assets<Image>>(),
+        );
         let terrain = SceneTerrain::new(2, 2, 1.0, |point| point.x * 0.1 + point.y * 0.2);
         let heightmap = Handle::<Image>::default();
         let terrain_height_range = Vec2::new(-0.075, 0.705);
@@ -576,7 +435,7 @@ mod tests {
         ));
         let full_shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_tree_bark.wgsl"
+            "/../adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
         ));
 
         assert!(aggregate_shader.contains("TacticalTreeAggregateBarkExtension"));
@@ -609,7 +468,7 @@ mod tests {
     fn bark_shader_blends_shared_soil_response_at_the_sampled_terrain_contact() {
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_tree_bark.wgsl"
+            "/../adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
         ))
         .replace("\r\n", "\n");
         assert!(shader.contains("fn triplanar_height_ao"));
@@ -661,7 +520,7 @@ mod tests {
     fn bark_shader_limits_terrain_and_soil_sampling_to_the_conservative_root_band() {
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_tree_bark.wgsl"
+            "/../adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
         ))
         .replace("\r\n", "\n");
         let root_band_start = shader
@@ -718,15 +577,17 @@ mod tests {
         let mut app = App::new();
         app.add_plugins(AssetPlugin::default());
         app.init_asset::<Image>();
-        let assets =
-            generate_procedural_textures(&mut app.world_mut().resource_mut::<Assets<Image>>());
+        let assets = generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut app.world_mut().resource_mut::<Assets<Image>>(),
+        );
         assert_eq!(
             oak_leaf_material(&assets).alpha_mode(),
             AlphaMode::AlphaToCoverage
         );
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/shaders/tactical_tree_leaf_card.wgsl"
+            "/../adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl"
         ));
         assert!(shader.contains("opacity * lod_coverage"));
         assert!(shader.contains("abs(f32(dither)) / 16.0"));

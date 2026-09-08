@@ -20,9 +20,7 @@ pub const WINDOW_GLASS_THICKNESS_VARIATION_METRES: f32 = 0.0012;
 /// thickness, but the current Bevy `StandardMaterial` cannot consume it.
 /// Fabelgeist therefore renders the nominal 3.2 mm scalar thickness today;
 /// the varying thickness remains generated and reviewed future-shader data.
-/// `fallback_alpha` is only for a renderer that cannot transmit a scene color;
-/// it is not an opacity map and must not replace the transmittance texture.
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct WindowGlassMaterialContract {
     pub index_of_refraction: f32,
     pub specular_transmission: f32,
@@ -33,7 +31,6 @@ pub struct WindowGlassMaterialContract {
     pub attenuation_distance_metres: f32,
     pub base_perceptual_roughness: f32,
     pub double_sided: bool,
-    pub fallback_alpha: f32,
 }
 
 pub const WINDOW_GLASS_MATERIAL_CONTRACT: WindowGlassMaterialContract =
@@ -46,7 +43,6 @@ pub const WINDOW_GLASS_MATERIAL_CONTRACT: WindowGlassMaterialContract =
         attenuation_distance_metres: 0.42,
         base_perceptual_roughness: 0.13,
         double_sided: true,
-        fallback_alpha: 0.24,
     };
 
 #[derive(Clone, Copy, Debug)]
@@ -57,12 +53,14 @@ struct GlassSample {
     transmittance: [u8; 3],
 }
 
-fn periodic_noise(u: f32, v: f32) -> f32 {
+fn periodic_noise(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     let tau = std::f32::consts::TAU;
-    (tau * (u + 0.11 * (tau * v).sin())).sin() * 0.42
-        + (tau * (v - 0.16 * (tau * u).sin())).sin() * 0.31
-        + (tau * (2.0 * u + v)).sin() * 0.12
-        + (tau * (u - 2.0 * v)).sin() * 0.08
+    (tau * (u + params.window_glass.horizontal_warp * (tau * v).sin())).sin()
+        * params.window_glass.horizontal_weight
+        + (tau * (v - params.window_glass.vertical_warp * (tau * u).sin())).sin()
+            * params.window_glass.vertical_weight
+        + (tau * (2.0 * u + v)).sin() * params.window_glass.cross_weight
+        + (tau * (u - 2.0 * v)).sin() * params.window_glass.diagonal_weight
 }
 
 fn toroidal_delta(value: f32, center: f32) -> f32 {
@@ -70,19 +68,15 @@ fn toroidal_delta(value: f32, center: f32) -> f32 {
     delta.min(1.0 - delta)
 }
 
-fn bubble_lens(u: f32, v: f32) -> f32 {
+fn bubble_lens(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     // Sparse, stretched inclusions associated with hand-blown cylinder glass.
     // Their low amplitude keeps them from reading as dense bubble noise.
-    const BUBBLES: [(f32, f32, f32, f32); 6] = [
-        (0.127, 0.223, 0.010, 0.019),
-        (0.714, 0.091, 0.006, 0.014),
-        (0.421, 0.632, 0.008, 0.023),
-        (0.882, 0.741, 0.005, 0.010),
-        (0.266, 0.891, 0.004, 0.012),
-        (0.603, 0.382, 0.004, 0.008),
-    ];
-    BUBBLES
-        .into_iter()
+
+    params
+        .window_glass
+        .bubbles
+        .iter()
+        .copied()
         .map(|(cx, cy, radius_x, radius_y)| {
             let x = toroidal_delta(u, cx) / radius_x;
             let y = toroidal_delta(v, cy) / radius_y;
@@ -93,44 +87,57 @@ fn bubble_lens(u: f32, v: f32) -> f32 {
         .min(1.0)
 }
 
-fn localized_striation(u: f32, v: f32) -> f32 {
+fn localized_striation(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     // A few finite draw marks interrupt broad quiet areas. Unlike candidate 1,
     // no high-frequency stripe traverses the whole repeat.
-    const PATCHES: [(f32, f32, f32, f32, f32, f32); 4] = [
-        (0.16, 0.29, 0.23, 0.10, 2.4, 0.013),
-        (0.71, 0.18, 0.18, 0.08, 3.1, 0.010),
-        (0.48, 0.77, 0.27, 0.09, 2.1, 0.012),
-        (0.89, 0.61, 0.14, 0.07, 2.8, 0.008),
-    ];
+
     let tau = std::f32::consts::TAU;
-    PATCHES
-        .into_iter()
+    params
+        .window_glass
+        .patches
+        .iter()
+        .copied()
         .map(|(cx, cy, radius_x, radius_y, cycles, amplitude)| {
             let dx = toroidal_delta(u, cx);
             let dy = toroidal_delta(v, cy);
             let normalized = ((dx / radius_x).powi(2) + (dy / radius_y).powi(2)).sqrt();
             let envelope = (1.0 - normalized).clamp(0.0, 1.0).powi(3);
-            let phase = cycles * dx / radius_x + 0.27 * (tau * dy / radius_y).sin();
+            let phase = cycles * dx / radius_x
+                + params.window_glass.striation_bend * (tau * dy / radius_y).sin();
             (tau * phase).sin() * envelope * amplitude
         })
         .sum()
 }
 
-fn sample_glass(u: f32, v: f32) -> GlassSample {
-    let broad = periodic_noise(u, v);
-    let draw_striation = localized_striation(u, v);
-    let bubble = bubble_lens(u, v);
-    let optical_height = broad * 0.15 + draw_striation + bubble * 0.035;
-    let thickness = (0.50 + broad * 0.17 + draw_striation * 0.60 + bubble * 0.22).clamp(0.0, 1.0);
-    let roughness = (0.11 + broad.abs() * 0.035 + bubble * 0.055).clamp(0.08, 0.24);
+fn sample_glass(params: &crate::TextureParameters, u: f32, v: f32) -> GlassSample {
+    let broad = periodic_noise(params, u, v);
+    let draw_striation = localized_striation(params, u, v);
+    let bubble = bubble_lens(params, u, v);
+    let optical_height = broad * params.window_glass.broad_relief
+        + draw_striation
+        + bubble * params.window_glass.bubble_relief;
+    let thickness = (0.50
+        + broad * params.window_glass.broad_thickness
+        + draw_striation * params.window_glass.striation_thickness
+        + bubble * params.window_glass.bubble_thickness)
+        .clamp(0.0, 1.0);
+    let roughness = (params.window_glass.base_roughness
+        + broad.abs() * params.window_glass.bubble_relief
+        + bubble * params.window_glass.bubble_roughness)
+        .clamp(
+            params.window_glass.minimum_roughness,
+            params.window_glass.maximum_roughness,
+        );
 
     // This is transmitted-light tint, not opaque surface color. Variation is
     // deliberately restrained so a pane does not become blue or milky.
-    let absorption = (broad * 3.0 - bubble * 4.0).round() as i16;
+    let absorption = (broad * params.window_glass.absorption_variation
+        - bubble * params.window_glass.sample_glass_absorption)
+        .round() as i16;
     let transmittance = [
-        (214_i16 + absorption).clamp(0, 255) as u8,
-        (226_i16 + absorption).clamp(0, 255) as u8,
-        (217_i16 + absorption).clamp(0, 255) as u8,
+        (i16::from(params.window_glass.transmitted_color[0]) + absorption).clamp(0, 255) as u8,
+        (i16::from(params.window_glass.transmitted_color[1]) + absorption).clamp(0, 255) as u8,
+        (i16::from(params.window_glass.transmitted_color[2]) + absorption).clamp(0, 255) as u8,
     ];
     GlassSample {
         optical_height,
@@ -140,17 +147,21 @@ fn sample_glass(u: f32, v: f32) -> GlassSample {
     }
 }
 
-fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
-    let size = WINDOW_GLASS_TEXTURE_SIZE as i32;
+fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let size = params.size(WINDOW_GLASS_TEXTURE_SIZE) as i32;
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-pub fn generate_window_glass_textures(images: &mut Assets<Image>) -> GlassTextureSet {
-    let size = WINDOW_GLASS_TEXTURE_SIZE;
+pub fn generate_window_glass_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> GlassTextureSet {
+    let size = params.size(WINDOW_GLASS_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {
                 sample_glass(
+                    params,
                     (x as f32 + 0.5) / size as f32,
                     (y as f32 + 0.5) / size as f32,
                 )
@@ -174,11 +185,13 @@ pub fn generate_window_glass_textures(images: &mut Assets<Image>) -> GlassTextur
                 sample.transmittance[2],
                 255,
             ]);
-            let dx = height_at(&heights, x as i32 + 1, y as i32)
-                - height_at(&heights, x as i32 - 1, y as i32);
-            let dy = height_at(&heights, x as i32, y as i32 + 1)
-                - height_at(&heights, x as i32, y as i32 - 1);
-            let surface_normal = Vec3::new(-dx * 14.0, -dy * 14.0, 1.0).normalize();
+            let dx = height_at(params, &heights, x as i32 + 1, y as i32)
+                - height_at(params, &heights, x as i32 - 1, y as i32);
+            let dy = height_at(params, &heights, x as i32, y as i32 + 1)
+                - height_at(params, &heights, x as i32, y as i32 - 1);
+            let gain = params.window_glass.optical_normal_gain * size as f32
+                / WINDOW_GLASS_TEXTURE_SIZE as f32;
+            let surface_normal = Vec3::new(-dx * gain, -dy * gain, 1.0).normalize();
             let encoded = ((surface_normal + Vec3::ONE) * 127.5)
                 .round()
                 .clamp(Vec3::ZERO, Vec3::splat(255.0));
@@ -206,8 +219,9 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, GlassTextureSet) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let textures = generate_window_glass_textures(&mut images);
+        let textures = generate_window_glass_textures(params, &mut images);
         (images, textures)
     }
 
@@ -229,19 +243,20 @@ mod tests {
 
     #[test]
     fn analytic_optical_field_tiles_continuously() {
+        let params = &crate::TextureParameters::default();
         let epsilon = 0.2 / WINDOW_GLASS_TEXTURE_SIZE as f32;
         let mut maximum_error = 0.0_f32;
         for index in 0..512 {
             let coordinate = (index as f32 + 0.5) / 512.0;
             maximum_error = maximum_error
                 .max(
-                    (sample_glass(epsilon, coordinate).optical_height
-                        - sample_glass(1.0 - epsilon, coordinate).optical_height)
+                    (sample_glass(params, epsilon, coordinate).optical_height
+                        - sample_glass(params, 1.0 - epsilon, coordinate).optical_height)
                         .abs(),
                 )
                 .max(
-                    (sample_glass(coordinate, epsilon).optical_height
-                        - sample_glass(coordinate, 1.0 - epsilon).optical_height)
+                    (sample_glass(params, coordinate, epsilon).optical_height
+                        - sample_glass(params, coordinate, 1.0 - epsilon).optical_height)
                         .abs(),
                 );
         }
@@ -548,3 +563,22 @@ mod tests {
         .unwrap();
     }
 }
+
+const PATCHES: [(f32, f32, f32, f32, f32, f32); 4] = [
+    (0.16, 0.29, 0.23, 0.10, 2.4, 0.013),
+    (0.71, 0.18, 0.18, 0.08, 3.1, 0.010),
+    (0.48, 0.77, 0.27, 0.09, 2.1, 0.012),
+    (0.89, 0.61, 0.14, 0.07, 2.8, 0.008),
+];
+
+const BUBBLES: [(f32, f32, f32, f32); 6] = [
+    (0.127, 0.223, 0.010, 0.019),
+    (0.714, 0.091, 0.006, 0.014),
+    (0.421, 0.632, 0.008, 0.023),
+    (0.882, 0.741, 0.005, 0.010),
+    (0.266, 0.891, 0.004, 0.012),
+    (0.603, 0.382, 0.004, 0.008),
+];
+
+mod controls;
+pub use controls::Parameters;

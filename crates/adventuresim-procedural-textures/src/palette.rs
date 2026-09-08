@@ -9,7 +9,7 @@ use bevy::{
 const CHANNEL_MAX: f32 = u8::MAX as f32;
 
 /// An opaque, display-encoded RGB palette color.
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct SrgbColor(pub [u8; 3]);
 
 impl SrgbColor {
@@ -50,7 +50,11 @@ impl SrgbColor {
 
 /// Colors of masonry units and their independently selected joint material.
 /// Recipe signatures fix N to their nonempty authored palette size.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+#[serde(bound(
+    serialize = "[SrgbColor; N]: serde::Serialize",
+    deserialize = "[SrgbColor; N]: serde::Deserialize<'de>"
+))]
 pub struct MasonryColors<const N: usize> {
     pub units: [SrgbColor; N],
     pub mortar: SrgbColor,

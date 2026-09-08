@@ -10,7 +10,10 @@ pub(super) fn setup_procedural_texture_assets(
 ) {
     let started = web_time::Instant::now();
     info!("Generating procedural texture assets");
-    commands.insert_resource(generate_procedural_textures(&mut images));
+    commands.insert_resource(generate_procedural_textures(
+        &adventuresim_procedural_textures::TextureParameters::default(),
+        &mut images,
+    ));
     info!(
         elapsed_ms = started.elapsed().as_millis(),
         "Generated procedural texture assets"

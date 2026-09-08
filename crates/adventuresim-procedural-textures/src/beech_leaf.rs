@@ -1,9 +1,6 @@
 use bevy::{asset::Assets, image::Image, math::Vec3};
 
-use crate::{
-    LeafRecipe, LeafTextureSet, TEXTURE_SIZE,
-    foliage::{LeafMipSemantic, leaf_mipped_image},
-};
+use crate::{LeafRecipe, LeafTextureSet, TEXTURE_SIZE};
 
 const EDGE_SAMPLES: u32 = 4;
 
@@ -22,8 +19,8 @@ impl BeechSide {
     }
 }
 
-#[derive(Clone, Copy)]
-struct BeechVein {
+#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct BeechVein {
     origin: f32,
     margin: f32,
     reach: f32,
@@ -141,10 +138,10 @@ struct BeechSample {
     back_height: f32,
 }
 
-fn veins(side: BeechSide) -> &'static [BeechVein; 8] {
+fn veins(params: &crate::TextureParameters, side: BeechSide) -> &[BeechVein; 8] {
     match side {
-        BeechSide::Left => &LEFT_VEINS,
-        BeechSide::Right => &RIGHT_VEINS,
+        BeechSide::Left => &params.beech_leaf.left_veins,
+        BeechSide::Right => &params.beech_leaf.right_veins,
     }
 }
 
@@ -162,21 +159,27 @@ fn rounded_pulse(t: f32, center: f32, radius: f32) -> f32 {
     }
 }
 
-fn side_width(t: f32, side: BeechSide) -> f32 {
+fn side_width(params: &crate::TextureParameters, t: f32, side: BeechSide) -> f32 {
     if !(0.0..=1.0).contains(&t) {
         return 0.0;
     }
     // The smooth elliptic lamina carries the silhouette. Vein-linked pulses
     // add mature beech's quiet blunt undulation without periodic sawteeth.
-    let envelope =
-        0.355 * (t * core::f32::consts::PI).sin().max(0.0).powf(0.64) * (1.08 - 0.16 * t);
+    let envelope = params.beech_leaf.side_width_envelope_1
+        * (t * core::f32::consts::PI)
+            .sin()
+            .max(0.0)
+            .powf(params.beech_leaf.side_width_envelope_2)
+        * (params.beech_leaf.side_width_envelope_3 - params.beech_leaf.side_width_envelope_4 * t);
     let side_scale = match side {
-        BeechSide::Left => 0.993,
-        BeechSide::Right => 1.007,
+        BeechSide::Left => params.beech_leaf.side_width_side_scale_1,
+        BeechSide::Right => params.beech_leaf.side_width_side_scale_2,
     };
-    let margin = veins(side)
+    let margin = veins(params, side)
         .iter()
-        .map(|vein| rounded_pulse(t, vein.margin, 0.043) * vein.crenation)
+        .map(|vein| {
+            rounded_pulse(t, vein.margin, params.beech_leaf.side_width_margin) * vein.crenation
+        })
         .sum::<f32>();
     envelope * side_scale + margin
 }
@@ -186,25 +189,41 @@ fn rounded_base_minimum_t(x: f32) -> f32 {
     0.034 * normalized * normalized
 }
 
-fn vein_target_x(side: BeechSide, vein: BeechVein, progress: f32) -> f32 {
-    let terminal = side_width(vein.margin, side) * vein.reach;
-    let bowed = (progress * core::f32::consts::PI).sin() * 0.010;
+fn vein_target_x(
+    params: &crate::TextureParameters,
+    side: BeechSide,
+    vein: BeechVein,
+    progress: f32,
+) -> f32 {
+    let terminal = side_width(params, vein.margin, side) * vein.reach;
+    let bowed = (progress * core::f32::consts::PI).sin() * params.beech_leaf.vein_target_x_bowed;
     side.sign() * (terminal * progress.powf(0.86) - bowed)
 }
 
-fn tissue_relief(u: f32, v: f32) -> f32 {
-    let broad = (u * 8.0 + v * 7.0 + 0.8).sin();
-    let cross = (u * 6.0 - v * 9.0 + 1.6).cos();
+fn tissue_relief(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let broad = (u * params.beech_leaf.tissue_relief_broad_1
+        + v * params.beech_leaf.tissue_relief_broad_2
+        + params.beech_leaf.tissue_relief_broad_3)
+        .sin();
+    let cross = (u * params.beech_leaf.tissue_relief_cross_1
+        - v * params.beech_leaf.tissue_relief_cross_2
+        + params.beech_leaf.tissue_relief_cross_3)
+        .cos();
     (broad * 0.62 + cross * 0.38) * 0.0025
 }
 
-fn sample(u: f32, v: f32) -> BeechSample {
+fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> BeechSample {
     let longitudinal = 1.0 - v;
-    let t = (longitudinal - 0.075) / 0.85;
+    let t = (longitudinal - params.beech_leaf.sample_t_1) / params.beech_leaf.sample_t_2;
     let x = (u - 0.5) - axis(t);
-    let petiole = (0.018..0.090).contains(&longitudinal) && x.abs() < 0.0085;
+    let petiole =
+        (0.018..0.090).contains(&longitudinal) && x.abs() < params.beech_leaf.sample_petiole;
     if !(0.0..=1.0).contains(&t) {
-        let height = if petiole { 0.085 } else { 0.0 };
+        let height = if petiole {
+            params.beech_leaf.sample_height
+        } else {
+            0.0
+        };
         return BeechSample {
             inside: petiole,
             vein: petiole,
@@ -219,7 +238,7 @@ fn sample(u: f32, v: f32) -> BeechSample {
     } else {
         BeechSide::Right
     };
-    let width = side_width(t, side);
+    let width = side_width(params, t, side);
     let inside_blade = x.abs() <= width && t >= rounded_base_minimum_t(x);
     if !inside_blade && !petiole {
         return BeechSample {
@@ -231,15 +250,16 @@ fn sample(u: f32, v: f32) -> BeechSample {
         };
     }
 
-    let midrib_width = 0.0065 - t * 0.0025;
+    let midrib_width =
+        params.beech_leaf.sample_midrib_width_1 - t * params.beech_leaf.sample_midrib_width_2;
     let mut vein_distance = x.abs();
     let mut vein = x.abs() <= midrib_width;
     let mut corrugation = 0.0;
-    for (index, secondary) in veins(side).iter().enumerate() {
+    for (index, secondary) in veins(params, side).iter().enumerate() {
         let progress =
             ((t - secondary.origin) / (secondary.margin - secondary.origin)).clamp(0.0, 1.0);
         if progress > 0.0 && progress < 1.0 {
-            let target_x = vein_target_x(side, *secondary, progress);
+            let target_x = vein_target_x(params, side, *secondary, progress);
             let distance = (x - target_x).abs();
             vein_distance = vein_distance.min(distance);
             vein |= distance < 0.0032;
@@ -248,25 +268,39 @@ fn sample(u: f32, v: f32) -> BeechSample {
                 * (1.0 - distance / 0.050).clamp(0.0, 1.0)
                 * (progress * core::f32::consts::PI).sin()
                 * 0.008;
-            let link_progress = ((progress - 0.38) / 0.45).clamp(0.0, 1.0);
+            let link_progress = ((progress - params.beech_leaf.sample_link_progress_1)
+                / params.beech_leaf.sample_link_progress_2)
+                .clamp(0.0, 1.0);
             if link_progress > 0.0 && link_progress < 1.0 {
-                let link_x = target_x - side.sign() * 0.018 * link_progress;
+                let link_x =
+                    target_x - side.sign() * params.beech_leaf.sample_link_x * link_progress;
                 vein_distance = vein_distance.min((x - link_x).abs());
             }
         }
     }
 
-    let transverse = (x / width.max(0.001)).clamp(-1.0, 1.0);
-    let blade_dome = (1.0 - transverse * transverse).powf(0.76) * 0.125;
+    let transverse = (x / width.max(params.beech_leaf.sample_transverse)).clamp(-1.0, 1.0);
+    let blade_dome = (1.0 - transverse * transverse).powf(params.beech_leaf.sample_blade_dome_1)
+        * params.beech_leaf.sample_blade_dome_2;
     let longitudinal_dome = (t * core::f32::consts::PI).sin().max(0.0).sqrt();
-    let vein_ridge = (1.0 - vein_distance / 0.012).clamp(0.0, 1.0).powi(2) * 0.090;
+    let vein_ridge = (1.0 - vein_distance / params.beech_leaf.sample_vein_ridge_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.beech_leaf.sample_vein_ridge_2;
     let height = if petiole && !inside_blade {
-        0.085
+        params.beech_leaf.sample_height_1
     } else {
-        (blade_dome * longitudinal_dome + vein_ridge + corrugation + tissue_relief(u, v))
-            .clamp(0.010, 0.275)
+        (blade_dome * longitudinal_dome + vein_ridge + corrugation + tissue_relief(params, u, v))
+            .clamp(
+                params.beech_leaf.sample_height_2,
+                params.beech_leaf.sample_height_3,
+            )
     };
-    let underside_vein_relief = (1.0 - vein_distance / 0.017).clamp(0.0, 1.0).powi(2) * 0.014;
+    let underside_vein_relief = (1.0
+        - vein_distance / params.beech_leaf.sample_underside_vein_relief_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.beech_leaf.sample_underside_vein_relief_2;
     BeechSample {
         inside: true,
         vein: vein || petiole,
@@ -276,13 +310,13 @@ fn sample(u: f32, v: f32) -> BeechSample {
     }
 }
 
-fn coverage(u: f32, v: f32, texel: f32) -> bool {
+fn coverage(params: &crate::TextureParameters, u: f32, v: f32, texel: f32) -> bool {
     let mut covered = 0;
     for sample_y in 0..EDGE_SAMPLES {
         for sample_x in 0..EDGE_SAMPLES {
             let offset_x = (sample_x as f32 + 0.5) / EDGE_SAMPLES as f32 - 0.5;
             let offset_y = (sample_y as f32 + 0.5) / EDGE_SAMPLES as f32 - 0.5;
-            covered += u32::from(sample(u + offset_x * texel, v + offset_y * texel).inside);
+            covered += u32::from(sample(params, u + offset_x * texel, v + offset_y * texel).inside);
         }
     }
     covered * 2 >= EDGE_SAMPLES.pow(2)
@@ -294,8 +328,12 @@ fn encoded_normal(left: f32, right: f32, down: f32, up: f32) -> [u8; 3] {
     [encoded.x as u8, encoded.y as u8, encoded.z as u8]
 }
 
-pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTextureSet {
-    let pixel_count = (TEXTURE_SIZE * TEXTURE_SIZE) as usize;
+pub(super) fn generate(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+    recipe: LeafRecipe,
+) -> LeafTextureSet {
+    let pixel_count = (params.size(TEXTURE_SIZE) * params.size(TEXTURE_SIZE)) as usize;
     let mut opacity = Vec::with_capacity(pixel_count * 4);
     let mut front = Vec::with_capacity(pixel_count * 4);
     let mut back = Vec::with_capacity(pixel_count * 4);
@@ -303,14 +341,14 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
     let mut normal_back = Vec::with_capacity(pixel_count * 4);
     let mut height_map = Vec::with_capacity(pixel_count * 4);
     let mut arm = Vec::with_capacity(pixel_count * 4);
-    let texel = 1.0 / TEXTURE_SIZE as f32;
+    let texel = 1.0 / params.size(TEXTURE_SIZE) as f32;
 
-    for y in 0..TEXTURE_SIZE {
-        for x in 0..TEXTURE_SIZE {
+    for y in 0..params.size(TEXTURE_SIZE) {
+        for x in 0..params.size(TEXTURE_SIZE) {
             let u = (x as f32 + 0.5) * texel;
             let v = (y as f32 + 0.5) * texel;
-            let leaf = sample(u, v);
-            let inside = coverage(u, v, texel);
+            let leaf = sample(params, u, v);
+            let inside = coverage(params, u, v, texel);
             let alpha = if inside { 255 } else { 0 };
             opacity.extend_from_slice(&[alpha; 4]);
             let front_color = if leaf.vein { recipe.vein } else { recipe.blade };
@@ -327,10 +365,10 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
                 back.extend_from_slice(&[0; 4]);
             }
 
-            let left = sample((u - texel).max(0.0), v);
-            let right = sample((u + texel).min(1.0), v);
-            let down = sample(u, (v - texel).max(0.0));
-            let up = sample(u, (v + texel).min(1.0));
+            let left = sample(params, (u - texel).max(0.0), v);
+            let right = sample(params, (u + texel).min(1.0), v);
+            let down = sample(params, u, (v - texel).max(0.0));
+            let up = sample(params, u, (v + texel).min(1.0));
             let front_encoded = encoded_normal(left.height, right.height, down.height, up.height);
             normal_front.extend_from_slice(&[
                 front_encoded[0],
@@ -357,9 +395,13 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
             } else if leaf.petiole {
                 236
             } else if leaf.vein {
-                (233.0 + height * 32.0).min(248.0) as u8
+                (params.beech_leaf.generate_ao_1 + height * params.beech_leaf.generate_ao_2)
+                    .min(params.beech_leaf.generate_ao_3) as u8
             } else {
-                (222.0 + height * 38.0).clamp(222.0, 244.0) as u8
+                (params.beech_leaf.generate_ao_4 + height * params.beech_leaf.generate_ao_5).clamp(
+                    params.beech_leaf.generate_ao_6,
+                    params.beech_leaf.generate_ao_7,
+                ) as u8
             };
             let encoded_height = (height * 255.0).clamp(0.0, 255.0) as u8;
             height_map.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
@@ -367,35 +409,16 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
         }
     }
 
-    LeafTextureSet {
-        opacity: images.add(leaf_mipped_image(opacity, false, LeafMipSemantic::Coverage)),
-        front_albedo: images.add(leaf_mipped_image(
-            front,
-            true,
-            LeafMipSemantic::ColorCoverage,
-        )),
-        back_albedo: images.add(leaf_mipped_image(
-            back,
-            true,
-            LeafMipSemantic::ColorCoverage,
-        )),
-        front_normal: images.add(leaf_mipped_image(
-            normal_front,
-            false,
-            LeafMipSemantic::Normal,
-        )),
-        back_normal: images.add(leaf_mipped_image(
-            normal_back,
-            false,
-            LeafMipSemantic::Normal,
-        )),
-        height: images.add(leaf_mipped_image(
-            height_map,
-            false,
-            LeafMipSemantic::Scalar,
-        )),
-        arm: images.add(leaf_mipped_image(arm, false, LeafMipSemantic::Scalar)),
+    crate::leaf_pixels::LeafPixels {
+        opacity,
+        front,
+        back,
+        normal_front,
+        normal_back,
+        height_map,
+        arm,
     }
+    .upload(params, images)
 }
 
 #[cfg(test)]
@@ -410,19 +433,27 @@ mod tests {
 
     #[test]
     fn silhouette_and_venation_match_mature_european_beech() {
-        let width = side_width(0.44, BeechSide::Left) + side_width(0.44, BeechSide::Right);
+        let params = &crate::TextureParameters::default();
+        let width =
+            side_width(params, 0.44, BeechSide::Left) + side_width(params, 0.44, BeechSide::Right);
         assert!((0.62..=0.72).contains(&width), "plate width ratio: {width}");
-        assert!(side_width(0.88, BeechSide::Left) > side_width(0.98, BeechSide::Left) * 2.0);
-        assert!(sample(0.5, 0.96).petiole);
+        assert!(
+            side_width(params, 0.88, BeechSide::Left)
+                > side_width(params, 0.98, BeechSide::Left) * 2.0
+        );
+        assert!(sample(params, 0.5, 0.96).petiole);
         assert!(LEFT_VEINS[0].crenation < LEFT_VEINS[3].crenation * 0.3);
         for side in [BeechSide::Left, BeechSide::Right] {
-            assert_eq!(veins(side).len(), 8);
-            for secondary in veins(side) {
+            assert_eq!(veins(params, side).len(), 8);
+            for secondary in veins(params, side) {
                 let progress = 0.90;
                 let t = secondary.origin + (secondary.margin - secondary.origin) * progress;
-                let u = 0.5 + axis(t) + vein_target_x(side, *secondary, progress);
+                let u = 0.5 + axis(t) + vein_target_x(params, side, *secondary, progress);
                 let v = 1.0 - (0.075 + t * 0.85);
-                assert!(sample(u, v).vein, "secondary at t={t} remains coherent");
+                assert!(
+                    sample(params, u, v).vein,
+                    "secondary at t={t} remains coherent"
+                );
             }
         }
         assert_ne!(LEFT_VEINS[3].margin, RIGHT_VEINS[3].margin);
@@ -430,8 +461,9 @@ mod tests {
 
     #[test]
     fn channels_are_palette_bounded_alpha_matched_and_mip_complete() {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::<Image>::default();
-        let textures = generate(&mut images, LeafRecipe::BEECH);
+        let textures = generate(params, &mut images, LeafRecipe::BEECH);
         for handle in [
             &textures.opacity,
             &textures.front_albedo,
@@ -479,8 +511,9 @@ mod tests {
 
     #[test]
     fn relief_normals_and_generation_are_valid_and_repeatable() {
+        let params = &crate::TextureParameters::default();
         let mut first_images = Assets::<Image>::default();
-        let first = generate(&mut first_images, LeafRecipe::BEECH);
+        let first = generate(params, &mut first_images, LeafRecipe::BEECH);
         let height = base_bytes(first_images.get(&first.height).unwrap());
         assert!(
             height
@@ -503,7 +536,7 @@ mod tests {
             }
         }
         let mut second_images = Assets::<Image>::default();
-        let second = generate(&mut second_images, LeafRecipe::BEECH);
+        let second = generate(params, &mut second_images, LeafRecipe::BEECH);
         for (first_handle, second_handle) in [
             (&first.opacity, &second.opacity),
             (&first.front_albedo, &second.front_albedo),
@@ -520,3 +553,6 @@ mod tests {
         }
     }
 }
+
+mod controls;
+pub use controls::Parameters;

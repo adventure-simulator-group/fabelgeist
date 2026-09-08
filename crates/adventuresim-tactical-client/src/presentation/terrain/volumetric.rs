@@ -201,7 +201,10 @@ mod tests {
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("one-cliff-draw");
         let graphics = TacticalGraphicsSettings::default();
         let mut images = Assets::<Image>::default();
-        let procedural_assets = generate_procedural_textures(&mut images);
+        let procedural_assets = generate_procedural_textures(
+            &adventuresim_procedural_textures::TextureParameters::default(),
+            &mut images,
+        );
         let material = terrain_material(
             &terrain,
             &environment,

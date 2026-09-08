@@ -7,7 +7,7 @@
 //! a modern, uniformly bevelled extrusion.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -28,92 +28,153 @@ struct TileSample {
     edge_wear: f32,
 }
 
-fn hash_unit(value: u64) -> f32 {
-    inclusive_unit_f32(splitmix64(value))
+fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
+    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
 }
 
-fn tile_id(row: i32, column: i32) -> u64 {
-    splitmix64(
+fn tile_id(params: &crate::TextureParameters, row: i32, column: i32) -> u64 {
+    crate::parameters::seeded_hash(
+        params,
         0x6a17_49d3
-            ^ ((row.rem_euclid(COURSES) as u64) << 32)
-            ^ column.rem_euclid(TILES_PER_COURSE) as u64,
+            ^ ((row.rem_euclid(params.clay_roof_tile.courses) as u64) << 32)
+            ^ column.rem_euclid(params.clay_roof_tile.tiles_per_course) as u64,
     )
 }
 
-fn tile_coordinates(u: f32, row: i32) -> (i32, f32) {
+fn tile_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i32, f32) {
     let offset = if row.rem_euclid(2) == 0 { 0.0 } else { 0.5 };
-    let scaled = u.rem_euclid(1.0) * TILES_PER_COURSE as f32 - offset;
+    let scaled = u.rem_euclid(1.0) * params.clay_roof_tile.tiles_per_course as f32 - offset;
     let column = scaled.floor() as i32;
     (column, scaled - (column as f32 + 0.5))
 }
 
-fn tail_side_width(course_phase: f32, id: u64, salt: u64) -> f32 {
-    let hand_width = 0.89 + hash_unit(id ^ salt) * 0.095;
-    let tail_start = TAIL_START + (hash_unit(id ^ salt.rotate_left(13)) - 0.5) * 0.070;
+fn tail_side_width(
+    params: &crate::TextureParameters,
+    course_phase: f32,
+    id: u64,
+    salt: u64,
+) -> f32 {
+    let hand_width = params.clay_roof_tile.tail_side_width_hand_width_1
+        + hash_unit(params, id ^ salt) * params.clay_roof_tile.tail_side_width_hand_width_2;
+    let tail_start = params.clay_roof_tile.tail_start
+        + (hash_unit(params, id ^ salt.rotate_left(13)) - 0.5)
+            * params.clay_roof_tile.tail_side_width_tail_start;
     if course_phase <= tail_start {
         return 0.5 * hand_width;
     }
     let tail = ((course_phase - tail_start) / (1.0 - tail_start)).clamp(0.0, 1.0);
-    let roundness = 1.65 + hash_unit(id ^ salt.rotate_left(29)) * 0.75;
+    let roundness = params.clay_roof_tile.tail_side_width_roundness_1
+        + hash_unit(params, id ^ salt.rotate_left(29))
+            * params.clay_roof_tile.tail_side_width_roundness_2;
     let rounded = (1.0 - tail.powf(roundness)).max(0.0).sqrt();
     0.5 * hand_width * rounded
 }
 
-fn face_variation(local_x: f32, course_phase: f32, id: u64) -> f32 {
-    let phase = hash_unit(id ^ 0x83b1) * std::f32::consts::TAU;
-    let broad = (local_x * 2.1 + course_phase * 0.8 + phase).sin();
-    let fine = (local_x * 7.0 - course_phase * 3.0 + phase * 1.7).sin();
+fn face_variation(
+    params: &crate::TextureParameters,
+    local_x: f32,
+    course_phase: f32,
+    id: u64,
+) -> f32 {
+    let phase = hash_unit(params, id ^ 0x83b1) * std::f32::consts::TAU;
+    let broad = (local_x * params.clay_roof_tile.face_variation_broad_1
+        + course_phase * params.clay_roof_tile.face_variation_broad_2
+        + phase)
+        .sin();
+    let fine = (local_x * params.clay_roof_tile.face_variation_fine_1 - course_phase * 3.0
+        + phase * params.clay_roof_tile.face_variation_fine_2)
+        .sin();
     broad * 0.72 + fine * 0.28
 }
 
-fn sample_tiles(u: f32, v: f32) -> TileSample {
+fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample {
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
-    let scaled_v = v * COURSES as f32;
+    let scaled_v = v * params.clay_roof_tile.courses as f32;
     let row = scaled_v.floor() as i32;
     let raw_course_phase = scaled_v - row as f32;
-    let (column, mut local_x) = tile_coordinates(u, row);
-    let id = tile_id(row, column);
-    let vertical_offset = (hash_unit(id ^ 0x24d9) - 0.5) * 0.070;
+    let (column, mut local_x) = tile_coordinates(params, u, row);
+    let id = tile_id(params, row, column);
+    let vertical_offset =
+        (hash_unit(params, id ^ 0x24d9) - 0.5) * params.clay_roof_tile.sample_tiles_vertical_offset;
     let course_phase = (raw_course_phase - vertical_offset).clamp(0.0, 1.0);
-    let yaw = (hash_unit(id ^ 0xc239) - 0.5) * 0.070;
-    let tail_asymmetry = (hash_unit(id ^ 0x37a1) - 0.5) * 0.070;
-    let side_warp =
-        (course_phase * std::f32::consts::PI + hash_unit(id ^ 0xb547) * 2.0).sin() * 0.007;
+    let yaw = (hash_unit(params, id ^ 0xc239) - 0.5) * params.clay_roof_tile.sample_tiles_yaw;
+    let tail_asymmetry =
+        (hash_unit(params, id ^ 0x37a1) - 0.5) * params.clay_roof_tile.sample_tiles_tail_asymmetry;
+    let side_warp = (course_phase * std::f32::consts::PI + hash_unit(params, id ^ 0xb547) * 2.0)
+        .sin()
+        * params.clay_roof_tile.sample_tiles_side_warp;
     local_x += yaw * (course_phase - 0.5) + side_warp + tail_asymmetry * course_phase.powi(3);
-    let left_width = tail_side_width(course_phase, id, 0xa4d7);
-    let right_width = tail_side_width(course_phase, id, 0x6e31);
+    let left_width = tail_side_width(params, course_phase, id, 0xa4d7);
+    let right_width = tail_side_width(params, course_phase, id, 0x6e31);
     let edge_distance = (local_x + left_width).min(right_width - local_x);
-    let antialias = 0.75 * TILES_PER_COURSE as f32 / CLAY_ROOF_TILE_TEXTURE_SIZE as f32;
+    let antialias = params.clay_roof_tile.sample_tiles_antialias
+        * params.clay_roof_tile.tiles_per_course as f32
+        / params.size(CLAY_ROOF_TILE_TEXTURE_SIZE) as f32;
     let coverage = ((edge_distance + antialias) / (2.0 * antialias)).clamp(0.0, 1.0);
 
     // The lower course seen between rounded tails is recessed. V increases in
     // the gravity direction, while height rises gently toward each lower lip.
-    let variation = face_variation(local_x, course_phase, id);
-    let thickness = (hash_unit(id ^ 0x47ad) - 0.5) * 0.024;
-    let cup = (local_x * local_x - 0.16) * ((hash_unit(id ^ 0x7193) - 0.35) * 0.026);
-    let twist = local_x * (course_phase - 0.5) * (hash_unit(id ^ 0xe45b) - 0.5) * 0.030;
-    let lip = ((course_phase - 0.54) / 0.19).clamp(0.0, 1.0);
-    let lip = lip * lip * (3.0 - 2.0 * lip) * 0.050;
-    let face_height =
-        0.60 + raw_course_phase * 0.038 + lip + thickness + cup + twist + variation * 0.004;
-    let under_id = tile_id(row + 1, tile_coordinates(u, row + 1).0);
-    let under_variation = face_variation(local_x, 0.12, under_id);
-    let under_height = 0.555 + under_variation * 0.004;
+    let variation = face_variation(params, local_x, course_phase, id);
+    let thickness =
+        (hash_unit(params, id ^ 0x47ad) - 0.5) * params.clay_roof_tile.sample_tiles_thickness;
+    let cup = (local_x * local_x - params.clay_roof_tile.sample_tiles_cup_1)
+        * ((hash_unit(params, id ^ 0x7193) - params.clay_roof_tile.sample_tiles_cup_2)
+            * params.clay_roof_tile.sample_tiles_cup_3);
+    let twist = local_x
+        * (course_phase - 0.5)
+        * (hash_unit(params, id ^ 0xe45b) - 0.5)
+        * params.clay_roof_tile.sample_tiles_twist;
+    let lip = ((course_phase - params.clay_roof_tile.sample_tiles_lip_1)
+        / params.clay_roof_tile.sample_tiles_lip_2)
+        .clamp(0.0, 1.0);
+    let lip = lip * lip * (3.0 - 2.0 * lip) * params.clay_roof_tile.sample_tiles_lip;
+    let face_height = params.clay_roof_tile.sample_tiles_face_height_1
+        + raw_course_phase * params.clay_roof_tile.sample_tiles_face_height_2
+        + lip
+        + thickness
+        + cup
+        + twist
+        + variation * params.clay_roof_tile.sample_tiles_face_height_3;
+    let under_id = tile_id(params, row + 1, tile_coordinates(params, u, row + 1).0);
+    let under_variation = face_variation(
+        params,
+        local_x,
+        params.clay_roof_tile.sample_tiles_under_variation,
+        under_id,
+    );
+    let under_height = params.clay_roof_tile.sample_tiles_under_height_1
+        + under_variation * params.clay_roof_tile.sample_tiles_under_height_2;
     let height = under_height + (face_height - under_height) * coverage;
-    let edge_proximity = (1.0 - edge_distance.abs() / 0.085).clamp(0.0, 1.0);
-    let lower_lip_contact = ((course_phase - 0.58) / 0.12).clamp(0.0, 1.0)
-        * ((0.94 - course_phase) / 0.16).clamp(0.0, 1.0);
-    let narrow_side_joint = usize::from(course_phase < TAIL_START) as f32 * edge_proximity;
-    let contact = (1.0 - coverage) * edge_proximity * 0.24
-        + coverage * (lower_lip_contact * 0.20 + narrow_side_joint * 0.05);
-    let wear_segment = (course_phase * 7.0).floor() as u64;
+    let edge_proximity = (1.0
+        - edge_distance.abs() / params.clay_roof_tile.sample_tiles_edge_proximity)
+        .clamp(0.0, 1.0);
+    let lower_lip_contact = ((course_phase
+        - params.clay_roof_tile.sample_tiles_lower_lip_contact_1)
+        / params.clay_roof_tile.sample_tiles_lower_lip_contact_2)
+        .clamp(0.0, 1.0)
+        * ((params.clay_roof_tile.sample_tiles_lower_lip_contact_3 - course_phase)
+            / params.clay_roof_tile.sample_tiles_lower_lip_contact_4)
+            .clamp(0.0, 1.0);
+    let narrow_side_joint =
+        usize::from(course_phase < params.clay_roof_tile.tail_start) as f32 * edge_proximity;
+    let contact = (1.0 - coverage) * edge_proximity * params.clay_roof_tile.sample_tiles_contact_1
+        + coverage
+            * (lower_lip_contact * params.clay_roof_tile.sample_tiles_contact_2
+                + narrow_side_joint * params.clay_roof_tile.sample_tiles_contact_3);
+    let wear_segment =
+        (course_phase * params.clay_roof_tile.sample_tiles_wear_segment).floor() as u64;
     let edge_wear = edge_proximity
         * coverage
-        * ((hash_unit(id ^ wear_segment.wrapping_mul(0x91a7)) - 0.78) / 0.22).clamp(0.0, 1.0);
+        * ((hash_unit(params, id ^ wear_segment.wrapping_mul(0x91a7))
+            - params.clay_roof_tile.sample_tiles_edge_wear_1)
+            / params.clay_roof_tile.sample_tiles_edge_wear_2)
+            .clamp(0.0, 1.0);
     let firing_cluster = ((u * 2.0 + v).fract() * std::f32::consts::TAU).sin() * 0.50
-        + ((u - v * 2.0).fract() * std::f32::consts::TAU).sin() * 0.28;
-    let firing = firing_cluster + (hash_unit(id ^ 0xf613) - 0.5) * 0.38;
+        + ((u - v * 2.0).fract() * std::f32::consts::TAU).sin()
+            * params.clay_roof_tile.sample_tiles_firing_cluster;
+    let firing = firing_cluster
+        + (hash_unit(params, id ^ 0xf613) - 0.5) * params.clay_roof_tile.sample_tiles_firing;
     TileSample {
         height,
         tile_id: if coverage >= 0.5 { id } else { under_id },
@@ -123,10 +184,13 @@ fn sample_tiles(u: f32, v: f32) -> TileSample {
     }
 }
 
-fn color_and_roughness(sample: TileSample) -> ([u8; 3], u8) {
-    let mineral = hash_unit(sample.tile_id ^ 0x1db5) - 0.5;
-    let kiln_shift = (sample.firing * 11.0 + mineral * 4.0 - sample.contact * 3.0).round() as i16;
-    let wear = (sample.edge_wear * 12.0).round() as i16;
+fn color_and_roughness(params: &crate::TextureParameters, sample: TileSample) -> ([u8; 3], u8) {
+    let mineral = hash_unit(params, sample.tile_id ^ 0x1db5) - 0.5;
+    let kiln_shift = (sample.firing * params.clay_roof_tile.color_and_roughness_kiln_shift_1
+        + mineral * params.clay_roof_tile.color_and_roughness_kiln_shift_2
+        - sample.contact * 3.0)
+        .round() as i16;
+    let wear = (sample.edge_wear * params.clay_roof_tile.color_and_roughness_wear).round() as i16;
     let mut color = [139_i16, 58, 41];
     color[0] += kiln_shift + wear;
     color[1] += kiln_shift / 2 + wear;
@@ -136,23 +200,30 @@ fn color_and_roughness(sample: TileSample) -> ([u8; 3], u8) {
         color[1].clamp(0, 255) as u8,
         color[2].clamp(0, 255) as u8,
     ];
-    let roughness = (210.0 - sample.firing * 7.0 + mineral * 4.0 + sample.edge_wear * 11.0)
+    let roughness = (params.clay_roof_tile.color_and_roughness_roughness_1
+        - sample.firing * params.clay_roof_tile.color_and_roughness_roughness_2
+        + mineral * params.clay_roof_tile.color_and_roughness_roughness_3
+        + sample.edge_wear * params.clay_roof_tile.color_and_roughness_roughness_4)
         .round()
         .clamp(0.0, 255.0) as u8;
     (color, roughness)
 }
 
-fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
-    let size = CLAY_ROOF_TILE_TEXTURE_SIZE as i32;
+fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let size = params.size(CLAY_ROOF_TILE_TEXTURE_SIZE) as i32;
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-pub fn generate_clay_roof_tile_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let size = CLAY_ROOF_TILE_TEXTURE_SIZE;
+pub fn generate_clay_roof_tile_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(CLAY_ROOF_TILE_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {
                 sample_tiles(
+                    params,
                     (x as f32 + 0.5) / size as f32,
                     (y as f32 + 0.5) / size as f32,
                 )
@@ -167,18 +238,18 @@ pub fn generate_clay_roof_tile_textures(images: &mut Assets<Image>) -> SurfaceTe
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());
     let mut arm = Vec::with_capacity(albedo.capacity());
-    let metres_per_texel = CLAY_ROOF_TILE_TILE_METRES / size as f32;
-    let slope_scale = CLAY_ROOF_TILE_HEIGHT_RANGE_METRES / (2.0 * metres_per_texel);
+    let metres_per_texel = params.clay_roof_tile.tile_metres / size as f32;
+    let slope_scale = params.clay_roof_tile.height_range_metres / (2.0 * metres_per_texel);
 
     for y in 0..size {
         for x in 0..size {
             let sample = samples[(y * size + x) as usize];
-            let (color, roughness) = color_and_roughness(sample);
+            let (color, roughness) = color_and_roughness(params, sample);
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
-            let dx = height_at(&heights, x as i32 + 1, y as i32)
-                - height_at(&heights, x as i32 - 1, y as i32);
-            let dy = height_at(&heights, x as i32, y as i32 + 1)
-                - height_at(&heights, x as i32, y as i32 - 1);
+            let dx = height_at(params, &heights, x as i32 + 1, y as i32)
+                - height_at(params, &heights, x as i32 - 1, y as i32);
+            let dy = height_at(params, &heights, x as i32, y as i32 + 1)
+                - height_at(params, &heights, x as i32, y as i32 - 1);
             let n = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
             let encoded = ((n + Vec3::ONE) * 127.5)
                 .round()
@@ -186,7 +257,9 @@ pub fn generate_clay_roof_tile_textures(images: &mut Assets<Image>) -> SurfaceTe
             normal.extend_from_slice(&[encoded.x as u8, encoded.y as u8, encoded.z as u8, 255]);
             let h = (sample.height * 255.0).round().clamp(0.0, 255.0) as u8;
             height.extend_from_slice(&[h, h, h, 255]);
-            let ao = ((1.0 - sample.contact * 0.32) * 255.0)
+            let ao = ((1.0
+                - sample.contact * params.clay_roof_tile.generate_clay_roof_tile_textures_ao)
+                * 255.0)
                 .round()
                 .clamp(0.0, 255.0) as u8;
             arm.extend_from_slice(&[ao, roughness, 0, 255]);
@@ -210,13 +283,15 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let textures = generate_clay_roof_tile_textures(&mut images);
+        let textures = generate_clay_roof_tile_textures(params, &mut images);
         (images, textures)
     }
 
     #[test]
     fn generation_is_deterministic_and_periodic() {
+        let params = &crate::TextureParameters::default();
         let (first_images, first) = generated();
         let (second_images, second) = generated();
         for (first_handle, second_handle) in [
@@ -232,13 +307,15 @@ mod tests {
         }
         for index in 0..256 {
             let coordinate = (index as f32 + 0.5) / 256.0;
-            let sample = sample_tiles(coordinate, coordinate * 0.73);
+            let sample = sample_tiles(params, coordinate, coordinate * 0.73);
             assert!(
-                (sample.height - sample_tiles(coordinate + 1.0, coordinate * 0.73).height).abs()
+                (sample.height - sample_tiles(params, coordinate + 1.0, coordinate * 0.73).height)
+                    .abs()
                     < 1.0e-5
             );
-            let repeat_error =
-                (sample.height - sample_tiles(coordinate, coordinate * 0.73 + 1.0).height).abs();
+            let repeat_error = (sample.height
+                - sample_tiles(params, coordinate, coordinate * 0.73 + 1.0).height)
+                .abs();
             assert!(
                 repeat_error < 0.001,
                 "vertical repeat error: {repeat_error}"
@@ -248,14 +325,15 @@ mod tests {
 
     #[test]
     fn scale_and_course_direction_describe_overlapping_plain_tiles() {
+        let params = &crate::TextureParameters::default();
         let visible_width = CLAY_ROOF_TILE_TILE_METRES / TILES_PER_COURSE as f32;
         let course_exposure = CLAY_ROOF_TILE_TILE_METRES / COURSES as f32;
         assert!((0.15..=0.18).contains(&visible_width));
         assert!((0.14..=0.17).contains(&course_exposure));
         assert!((0.014..=0.022).contains(&CLAY_ROOF_TILE_HEIGHT_RANGE_METRES));
         let tile_center = 0.5 / TILES_PER_COURSE as f32;
-        let upper = sample_tiles(tile_center, 0.011).height;
-        let lower_lip = sample_tiles(tile_center, 0.038).height;
+        let upper = sample_tiles(params, tile_center, 0.011).height;
+        let lower_lip = sample_tiles(params, tile_center, 0.038).height;
         assert!(
             lower_lip > upper,
             "course must rise toward its down-slope lip"
@@ -264,11 +342,13 @@ mod tests {
 
     #[test]
     fn rounded_tails_reveal_recessed_under_course_without_floating_gaps() {
+        let params = &crate::TextureParameters::default();
         let mut exposed = 0;
         let mut recessed = 0;
         for y in 0..256 {
             for x in 0..256 {
-                let sample = sample_tiles((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
+                let sample =
+                    sample_tiles(params, (x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
                 exposed += usize::from(sample.height >= 0.56);
                 recessed += usize::from(sample.height < 0.56);
                 assert!(sample.height >= 0.49);
@@ -542,3 +622,6 @@ mod tests {
         .unwrap();
     }
 }
+
+mod controls;
+pub use controls::Parameters;

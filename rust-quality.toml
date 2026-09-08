@@ -89,7 +89,7 @@ reason = "Binding generation adapts reflected external Rust type names."
 
 [[scopes]]
 kind = "boundary_adapter"
-path = "crates/adventuresim-procedural-textures/src/bin/procedural-texture-lab.rs"
+path = "crates/adventuresim-texture-studio/src/bin/procedural-texture-lab.rs"
 reason = "The texture lab adapts recipe images to CLI input and PNG filesystem output."
 
 [[semantic_families]]
@@ -162,3 +162,23 @@ name = "incapacitation-status"
 literals = ["ready", "staggered", "incapacitated"]
 identifier_pattern = '(?i)(incapacitation_status|strategic_incapacitation|status)'
 owners = ["crates/adventuresim-core/src/morale.rs"]
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-procedural-textures/src/parameters/validation.rs"
+reason = "Validates the serialized parameter field vocabulary at the JSON boundary."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-texture-studio/src/inspector.rs"
+reason = "Maps serialized control names to egui widgets; branching uses field keys and widget responses."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-texture-studio/src/ui.rs"
+reason = "Egui button responses dispatch authoring actions; labels are display text, never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-texture-studio/src/ui/view_controls.rs"
+reason = "Egui view buttons dispatch actions through widget responses, without comparing their display labels."

@@ -29,25 +29,30 @@ pub(super) struct LimePlasterSample {
     pub cavity: f32,
 }
 
-fn hash_grid(x: i32, y: i32, cells: i32, salt: u64) -> f32 {
+fn hash_grid(params: &crate::TextureParameters, x: i32, y: i32, cells: i32, salt: u64) -> f32 {
     let x = x.rem_euclid(cells) as u64;
     let y = y.rem_euclid(cells) as u64;
-    unit_hash(splitmix64(x | (y << 16) | salt.rotate_left(33)))
+    unit_hash(crate::parameters::seeded_hash(
+        params,
+        x | (y << 16) | salt.rotate_left(33),
+    ))
 }
 
 fn quintic(value: f32) -> f32 {
     value * value * value * (value * (value * 6.0 - 15.0) + 10.0)
 }
 
-fn periodic_noise(u: f32, v: f32, cells: i32, salt: u64) -> f32 {
+fn periodic_noise(params: &crate::TextureParameters, u: f32, v: f32, cells: i32, salt: u64) -> f32 {
     let x = u * cells as f32;
     let y = v * cells as f32;
     let ix = x.floor() as i32;
     let iy = y.floor() as i32;
     let tx = quintic(x - x.floor());
     let ty = quintic(y - y.floor());
-    let lower = hash_grid(ix, iy, cells, salt).lerp(hash_grid(ix + 1, iy, cells, salt), tx);
-    let upper = hash_grid(ix, iy + 1, cells, salt).lerp(hash_grid(ix + 1, iy + 1, cells, salt), tx);
+    let lower =
+        hash_grid(params, ix, iy, cells, salt).lerp(hash_grid(params, ix + 1, iy, cells, salt), tx);
+    let upper = hash_grid(params, ix, iy + 1, cells, salt)
+        .lerp(hash_grid(params, ix + 1, iy + 1, cells, salt), tx);
     lower.lerp(upper, ty) * 2.0 - 1.0
 }
 
@@ -55,7 +60,14 @@ fn wrapped_offset(value: f32) -> f32 {
     (value + 0.5).rem_euclid(1.0) - 0.5
 }
 
-fn cellular_feature(u: f32, v: f32, cells: i32, salt: u64, enabled_threshold: f32) -> (f32, f32) {
+fn cellular_feature(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    cells: i32,
+    salt: u64,
+    enabled_threshold: f32,
+) -> (f32, f32) {
     let scaled_x = u * cells as f32;
     let scaled_y = v * cells as f32;
     let cell_x = scaled_x.floor() as i32;
@@ -66,33 +78,43 @@ fn cellular_feature(u: f32, v: f32, cells: i32, salt: u64, enabled_threshold: f3
         for offset_x in -1..=1 {
             let candidate_x = cell_x + offset_x;
             let candidate_y = cell_y + offset_y;
-            let enabled = hash_grid(candidate_x, candidate_y, cells, salt ^ 0x61d3);
+            let enabled = hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x61d3);
             if enabled < enabled_threshold {
                 continue;
             }
             let site_x = candidate_x as f32
-                + 0.16
-                + hash_grid(candidate_x, candidate_y, cells, salt ^ 0x8a4f) * 0.68;
+                + params.lime_plaster.cellular_feature_site_x_1
+                + hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x8a4f)
+                    * params.lime_plaster.cellular_feature_site_x_2;
             let site_y = candidate_y as f32
-                + 0.16
-                + hash_grid(candidate_x, candidate_y, cells, salt ^ 0xc279) * 0.68;
+                + params.lime_plaster.cellular_feature_site_y_1
+                + hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0xc279)
+                    * params.lime_plaster.cellular_feature_site_y_2;
             let dx = wrapped_offset((scaled_x - site_x) / cells as f32) * cells as f32;
             let dy = wrapped_offset((scaled_y - site_y) / cells as f32) * cells as f32;
             let distance = (dx * dx + dy * dy).sqrt();
             if distance < nearest {
                 nearest = distance;
-                identity = hash_grid(candidate_x, candidate_y, cells, salt ^ 0x3e95);
+                identity = hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x3e95);
             }
         }
     }
     (nearest, identity)
 }
 
-fn oblique_micro_variation(u: f32, v: f32) -> f32 {
-    let warp_x = periodic_noise(u, v, 5, 0x47b9) * 0.024;
-    let warp_y = periodic_noise(u, v, 7, 0xd263) * 0.024;
-    let diagonal = periodic_noise(u + v + warp_x, v - u + warp_y, 19, 0x8e31);
-    let cross_diagonal = periodic_noise(u * 2.0 + v + warp_y, u - v * 2.0 + warp_x, 31, 0x35ad);
+fn oblique_micro_variation(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let warp_x = periodic_noise(params, u, v, 5, 0x47b9)
+        * params.lime_plaster.oblique_micro_variation_warp_x;
+    let warp_y = periodic_noise(params, u, v, 7, 0xd263)
+        * params.lime_plaster.oblique_micro_variation_warp_y;
+    let diagonal = periodic_noise(params, u + v + warp_x, v - u + warp_y, 19, 0x8e31);
+    let cross_diagonal = periodic_noise(
+        params,
+        u * 2.0 + v + warp_y,
+        u - v * 2.0 + warp_x,
+        31,
+        0x35ad,
+    );
     diagonal * 0.62 + cross_diagonal * 0.38
 }
 
@@ -100,76 +122,107 @@ fn slope_adjusted_roughness(base: f32, physical_slope: f32) -> f32 {
     (base + smoothstep(0.035, 0.28, physical_slope) * 0.045).clamp(0.74, 0.94)
 }
 
-fn plaster_albedo(u: f32, v: f32) -> Vec3 {
-    let cell_x = (u * PLASTER_ALBEDO_CELLS_PER_METRE as f32).floor() as i32;
-    let cell_y = (v * PLASTER_ALBEDO_CELLS_PER_METRE as f32).floor() as i32;
-    let mineral = hash_grid(cell_x, cell_y, PLASTER_ALBEDO_CELLS_PER_METRE, 0x2f49);
-    if mineral < PLASTER_FLECK_FRACTION * 0.5 {
-        PLASTER_COOL_FLECK
-    } else if mineral > 1.0 - PLASTER_FLECK_FRACTION * 0.5 {
-        PLASTER_WARM_FLECK
+fn plaster_albedo(params: &crate::TextureParameters, u: f32, v: f32) -> Vec3 {
+    let cell_x = (u * params.lime_plaster.plaster_albedo_cells_per_metre as f32).floor() as i32;
+    let cell_y = (v * params.lime_plaster.plaster_albedo_cells_per_metre as f32).floor() as i32;
+    let mineral = hash_grid(
+        params,
+        cell_x,
+        cell_y,
+        params.lime_plaster.plaster_albedo_cells_per_metre,
+        0x2f49,
+    );
+    if mineral < params.lime_plaster.plaster_fleck_fraction * 0.5 {
+        params.lime_plaster.plaster_cool_fleck
+    } else if mineral > 1.0 - params.lime_plaster.plaster_fleck_fraction * 0.5 {
+        params.lime_plaster.plaster_warm_fleck
     } else {
-        PLASTER_BASE
+        params.lime_plaster.plaster_base
     }
 }
 
-pub(super) fn lime_plaster_sample(u: f32, v: f32) -> LimePlasterSample {
+pub(super) fn lime_plaster_sample(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+) -> LimePlasterSample {
     // Lime plaster is built from overlapping, slightly oblique trowel passes.
     // Keep the application gesture in relief rather than turning metre-scale
     // value noise into baked clouds in the base colour.
-    let pass_warp = periodic_noise(u, v, 9, 0x9c31) * 0.035;
-    let pass_phase = u * 7.0 + v + pass_warp;
+    let pass_warp =
+        periodic_noise(params, u, v, 9, 0x9c31) * params.lime_plaster.lime_plaster_sample_pass_warp;
+    let pass_phase = u * params.lime_plaster.lime_plaster_sample_pass_phase + v + pass_warp;
     let pass = (core::f32::consts::TAU * pass_phase).sin();
-    let pass_edge = (core::f32::consts::TAU * (pass_phase * 2.0 + 0.17)).sin();
-    let trowel =
-        pass * 0.17 + pass_edge * 0.055 + periodic_noise(u * 2.0 + v, v, 23, 0x537b) * 0.21;
+    let pass_edge = (core::f32::consts::TAU
+        * (pass_phase * 2.0 + params.lime_plaster.lime_plaster_sample_pass_edge))
+        .sin();
+    let trowel = pass * params.lime_plaster.lime_plaster_sample_trowel_1
+        + pass_edge * params.lime_plaster.lime_plaster_sample_trowel_2
+        + periodic_noise(params, u * 2.0 + v, v, 23, 0x537b)
+            * params.lime_plaster.lime_plaster_sample_trowel_3;
     // A plasterer's float leaves shallow blade-edge tracks inside the broader
     // sweep. These must remain physical relief: at roughly 25-40 mm spacing,
     // a sub-0.2 mm edge survives a close tactical view without becoming a
     // painted stripe or roughcast pebble.
-    let edge_warp = periodic_noise(u, v, 11, 0x49e3) * 0.045;
-    let edge_phase = u * 29.0 + v * 7.0 + edge_warp;
+    let edge_warp = periodic_noise(params, u, v, 11, 0x49e3)
+        * params.lime_plaster.lime_plaster_sample_edge_warp;
+    let edge_phase = u * params.lime_plaster.lime_plaster_sample_edge_phase_1
+        + v * params.lime_plaster.lime_plaster_sample_edge_phase_2
+        + edge_warp;
     let trowel_edge = (core::f32::consts::TAU * edge_phase).sin();
-    let sand = periodic_noise(u, v, 73, 0xa8d5);
-    let fine_aggregate = periodic_noise(u, v, 181, 0xb74d);
+    let sand = periodic_noise(params, u, v, 73, 0xa8d5);
+    let fine_aggregate = periodic_noise(params, u, v, 181, 0xb74d);
 
-    let (aggregate_distance, aggregate_identity) = cellular_feature(u, v, 128, 0x63af, 0.82);
-    let aggregate_radius = 0.10 + aggregate_identity * 0.10;
+    let (aggregate_distance, aggregate_identity) =
+        cellular_feature(params, u, v, 128, 0x63af, 0.82);
+    let aggregate_radius = params.lime_plaster.lime_plaster_sample_aggregate_radius_1
+        + aggregate_identity * params.lime_plaster.lime_plaster_sample_aggregate_radius_2;
     let aggregate = 1.0
         - smoothstep(
             aggregate_radius,
-            aggregate_radius + 0.085,
+            aggregate_radius + params.lime_plaster.lime_plaster_sample_aggregate,
             aggregate_distance,
         );
 
-    let (cavity_distance, cavity_identity) = cellular_feature(u, v, 96, 0x91c7, 0.965);
-    let cavity_radius = 0.025 + cavity_identity * 0.035;
-    let cavity = 1.0 - smoothstep(cavity_radius, cavity_radius + 0.035, cavity_distance);
+    let (cavity_distance, cavity_identity) = cellular_feature(params, u, v, 96, 0x91c7, 0.965);
+    let cavity_radius = params.lime_plaster.lime_plaster_sample_cavity_radius_1
+        + cavity_identity * params.lime_plaster.lime_plaster_sample_cavity_radius_2;
+    let cavity = 1.0
+        - smoothstep(
+            cavity_radius,
+            cavity_radius + params.lime_plaster.lime_plaster_sample_cavity,
+            cavity_distance,
+        );
 
-    let micro_variation = oblique_micro_variation(u, v);
-    let height_metres = trowel * TROWEL_BODY_HEIGHT_METRES
-        + trowel_edge * TROWEL_EDGE_HEIGHT_METRES
-        + sand * SAND_FLOAT_HEIGHT_METRES
-        + fine_aggregate * FINE_AGGREGATE_HEIGHT_METRES
-        + micro_variation * OBLIQUE_TOOL_MARK_HEIGHT_METRES
-        + aggregate * EXPOSED_AGGREGATE_HEIGHT_METRES
-        - cavity * RARE_PULL_DEPTH_METRES;
+    let micro_variation = oblique_micro_variation(params, u, v);
+    let height_metres = trowel * params.lime_plaster.trowel_body_height_metres
+        + trowel_edge * params.lime_plaster.trowel_edge_height_metres
+        + sand * params.lime_plaster.sand_float_height_metres
+        + fine_aggregate * params.lime_plaster.fine_aggregate_height_metres
+        + micro_variation * params.lime_plaster.oblique_tool_mark_height_metres
+        + aggregate * params.lime_plaster.exposed_aggregate_height_metres
+        - cavity * params.lime_plaster.rare_pull_depth_metres;
     let height = (height_metres / PLASTER_HEIGHT_HALF_RANGE_METRES).clamp(-1.0, 1.0);
     // A nearly uniform lime matrix carries sparse mineral flecks at a physical
     // scale below four millimetres. The old quantized smooth noise formed
     // high-contrast, rounded 3-10 cm islands that read as stones. Trowel work,
     // aggregate, and cavities remain exclusively in relief and AO.
-    let albedo = plaster_albedo(u, v);
+    let albedo = plaster_albedo(params, u, v);
 
-    let occlusion = (cavity * 0.14 + (-height).max(0.0) * 0.025).clamp(0.0, 0.18);
-    let ao = (1.0 - occlusion).clamp(0.82, 1.0);
-    let roughness = (0.805
-        + (micro_variation + 1.0) * 0.018
-        + aggregate * 0.050
-        + cavity * 0.030
-        + fine_aggregate.max(0.0) * 0.018
-        - trowel.max(0.0) * 0.018)
-        .clamp(0.74, 0.94);
+    let occlusion = (cavity * params.lime_plaster.lime_plaster_sample_occlusion_1
+        + (-height).max(0.0) * params.lime_plaster.lime_plaster_sample_occlusion_2)
+        .clamp(0.0, params.lime_plaster.lime_plaster_sample_occlusion_3);
+    let ao = (1.0 - occlusion).clamp(params.lime_plaster.lime_plaster_sample_ao, 1.0);
+    let roughness = (params.lime_plaster.lime_plaster_sample_roughness_1
+        + (micro_variation + 1.0) * params.lime_plaster.lime_plaster_sample_roughness_2
+        + aggregate * params.lime_plaster.lime_plaster_sample_roughness_3
+        + cavity * params.lime_plaster.lime_plaster_sample_roughness_4
+        + fine_aggregate.max(0.0) * params.lime_plaster.lime_plaster_sample_roughness_5
+        - trowel.max(0.0) * params.lime_plaster.lime_plaster_sample_roughness_6)
+        .clamp(
+            params.lime_plaster.lime_plaster_sample_roughness_7,
+            params.lime_plaster.lime_plaster_sample_roughness_8,
+        );
     LimePlasterSample {
         height,
         ao,
@@ -184,28 +237,32 @@ fn encode_unit(value: f32) -> u8 {
     (value.clamp(0.0, 1.0) * 255.0).round() as u8
 }
 
-pub fn generate_lime_plaster_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let size = LIME_PLASTER_TEXTURE_SIZE;
+pub fn generate_lime_plaster_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(LIME_PLASTER_TEXTURE_SIZE);
     let pixel_count = size.pow(2) as usize;
     let mut albedo = Vec::with_capacity(pixel_count * 4);
     let mut normal = Vec::with_capacity(pixel_count * 4);
     let mut height = Vec::with_capacity(pixel_count * 4);
     let mut arm = Vec::with_capacity(pixel_count * 4);
-    let texel_metres = LIME_PLASTER_TILE_METRES / size as f32;
+    let texel_metres = params.lime_plaster.tile_metres / size as f32;
     let uv_step = 1.0 / size as f32;
 
     for y in 0..size {
         for x in 0..size {
             let u = (x as f32 + 0.5) / size as f32;
             let v = (y as f32 + 0.5) / size as f32;
-            let sample = lime_plaster_sample(u, v);
-            let left = lime_plaster_sample(u - uv_step, v).height;
-            let right = lime_plaster_sample(u + uv_step, v).height;
-            let down = lime_plaster_sample(u, v - uv_step).height;
-            let up = lime_plaster_sample(u, v + uv_step).height;
-            let dh_dx =
-                (right - left) * LIME_PLASTER_HEIGHT_RANGE_METRES * 0.5 / (2.0 * texel_metres);
-            let dh_dy = (up - down) * LIME_PLASTER_HEIGHT_RANGE_METRES * 0.5 / (2.0 * texel_metres);
+            let sample = lime_plaster_sample(params, u, v);
+            let left = lime_plaster_sample(params, u - uv_step, v).height;
+            let right = lime_plaster_sample(params, u + uv_step, v).height;
+            let down = lime_plaster_sample(params, u, v - uv_step).height;
+            let up = lime_plaster_sample(params, u, v + uv_step).height;
+            let dh_dx = (right - left) * params.lime_plaster.height_range_metres * 0.5
+                / (2.0 * texel_metres);
+            let dh_dy =
+                (up - down) * params.lime_plaster.height_range_metres * 0.5 / (2.0 * texel_metres);
             let normal_vector = Vec3::new(-dh_dx, -dh_dy, 1.0).normalize();
             let roughness = slope_adjusted_roughness(sample.roughness, dh_dx.hypot(dh_dy));
 
@@ -284,12 +341,13 @@ mod tests {
 
     #[test]
     fn sampling_is_deterministic_and_periodic() {
+        let params = &crate::TextureParameters::default();
         for (u, v) in [(0.0, 0.13), (0.07, 0.61), (0.48, 0.94), (0.91, 0.22)] {
-            let sample = lime_plaster_sample(u, v);
-            let repeated = lime_plaster_sample(u + 1.0, v - 1.0);
+            let sample = lime_plaster_sample(params, u, v);
+            let repeated = lime_plaster_sample(params, u + 1.0, v - 1.0);
             assert_eq!(
                 sample.height.to_bits(),
-                lime_plaster_sample(u, v).height.to_bits()
+                lime_plaster_sample(params, u, v).height.to_bits()
             );
             assert!((sample.height - repeated.height).abs() < 1.0e-4);
             assert!((sample.ao - repeated.ao).abs() < 1.0e-4);
@@ -300,9 +358,10 @@ mod tests {
 
     #[test]
     fn roughness_is_oblique_periodic_and_increases_with_relief_slope() {
+        let params = &crate::TextureParameters::default();
         for (u, v) in [(0.12, 0.37), (0.58, 0.81), (0.93, 0.04)] {
-            let variation = oblique_micro_variation(u, v);
-            assert!((variation - oblique_micro_variation(u + 1.0, v - 1.0)).abs() < 1.0e-4);
+            let variation = oblique_micro_variation(params, u, v);
+            assert!((variation - oblique_micro_variation(params, u + 1.0, v - 1.0)).abs() < 1.0e-4);
         }
         let base = 0.81;
         assert!(slope_adjusted_roughness(base, 0.18) > slope_adjusted_roughness(base, 0.0));
@@ -311,6 +370,7 @@ mod tests {
 
     #[test]
     fn physical_scale_preserves_worked_relief_and_sparse_cavities() {
+        let params = &crate::TextureParameters::default();
         assert_eq!(LIME_PLASTER_TILE_METRES, 1.0);
         assert!((0.003..=0.005).contains(&LIME_PLASTER_HEIGHT_RANGE_METRES));
         assert!(LIME_PLASTER_TILE_METRES / LIME_PLASTER_TEXTURE_SIZE as f32 <= 0.001);
@@ -321,7 +381,7 @@ mod tests {
         for y in 0..256 {
             for x in 0..256 {
                 let sample =
-                    lime_plaster_sample((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
+                    lime_plaster_sample(params, (x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
                 cavities += usize::from(sample.cavity > 0.5);
                 minimum = minimum.min(sample.height);
                 maximum = maximum.max(sample.height);
@@ -350,12 +410,13 @@ mod tests {
 
     #[test]
     fn albedo_is_a_bounded_palette_without_relief_shading_or_black_pores() {
+        let params = &crate::TextureParameters::default();
         let mut palette = BTreeSet::new();
         let mut heights_by_color = std::collections::BTreeMap::<[u32; 3], (f32, f32)>::new();
         for y in 0..128 {
             for x in 0..128 {
                 let sample =
-                    lime_plaster_sample((x as f32 + 0.5) / 128.0, (y as f32 + 0.5) / 128.0);
+                    lime_plaster_sample(params, (x as f32 + 0.5) / 128.0, (y as f32 + 0.5) / 128.0);
                 assert!(
                     sample.albedo.min_element() > 0.60,
                     "black plaster pore: {sample:?}"
@@ -386,12 +447,14 @@ mod tests {
 
     #[test]
     fn albedo_accents_are_sparse_millimetre_flecks_not_connected_cells() {
+        let params = &crate::TextureParameters::default();
         let side = PLASTER_ALBEDO_CELLS_PER_METRE as usize;
         let classes = (0..side * side)
             .map(|index| {
                 let x = index % side;
                 let y = index / side;
                 let albedo = plaster_albedo(
+                    params,
                     (x as f32 + 0.5) / side as f32,
                     (y as f32 + 0.5) / side as f32,
                 );
@@ -450,6 +513,7 @@ mod tests {
 
     #[test]
     fn albedo_has_no_low_frequency_coloured_region() {
+        let params = &crate::TextureParameters::default();
         let block_cells = 16;
         let blocks = PLASTER_ALBEDO_CELLS_PER_METRE as usize / block_cells;
         let mut maximum_block_deviation = 0.0_f32;
@@ -459,6 +523,7 @@ mod tests {
                 for y in 0..block_cells {
                     for x in 0..block_cells {
                         mean += plaster_albedo(
+                            params,
                             ((block_x * block_cells + x) as f32 + 0.5)
                                 / PLASTER_ALBEDO_CELLS_PER_METRE as f32,
                             ((block_y * block_cells + y) as f32 + 0.5)
@@ -478,6 +543,7 @@ mod tests {
 
     #[test]
     fn relief_has_no_dominant_metre_scale_cloud() {
+        let params = &crate::TextureParameters::default();
         let block_side = 128;
         let blocks = 2;
         let mut block_means = Vec::new();
@@ -488,7 +554,7 @@ mod tests {
                     for x in 0..block_side {
                         let u = (block_x * block_side + x) as f32 / (blocks * block_side) as f32;
                         let v = (block_y * block_side + y) as f32 / (blocks * block_side) as f32;
-                        total += lime_plaster_sample(u, v).height;
+                        total += lime_plaster_sample(params, u, v).height;
                     }
                 }
                 block_means.push(total / (block_side * block_side) as f32);
@@ -504,8 +570,9 @@ mod tests {
 
     #[test]
     fn generated_channels_are_coherent_and_have_complete_mips() {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::<Image>::default();
-        let textures = generate_lime_plaster_textures(&mut images);
+        let textures = generate_lime_plaster_textures(params, &mut images);
         assert_eq!(images.len(), 4);
         let expected_mips = LIME_PLASTER_TEXTURE_SIZE.ilog2() + 1;
         let mip_texels = (0..expected_mips)
@@ -597,3 +664,6 @@ mod tests {
         }
     }
 }
+
+mod controls;
+pub use controls::Parameters;

@@ -1,9 +1,6 @@
 use bevy::{asset::Assets, image::Image, math::Vec3};
 
-use crate::{
-    LeafRecipe, LeafTextureSet, TEXTURE_SIZE,
-    foliage::{LeafMipSemantic, leaf_mipped_image},
-};
+use crate::{LeafRecipe, LeafTextureSet, TEXTURE_SIZE};
 
 const EDGE_SAMPLES: u32 = 4;
 
@@ -22,8 +19,8 @@ impl HawthornSide {
     }
 }
 
-#[derive(Clone, Copy)]
-struct WidthLandmark {
+#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct WidthLandmark {
     t: f32,
     width: f32,
 }
@@ -98,8 +95,8 @@ const RIGHT_WIDTHS: [WidthLandmark; 8] = [
     },
 ];
 
-#[derive(Clone, Copy)]
-struct HawthornVein {
+#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct HawthornVein {
     origin_t: f32,
     target_t: f32,
     target_fraction: f32,
@@ -150,17 +147,17 @@ struct HawthornSample {
     back_height: f32,
 }
 
-fn landmarks(side: HawthornSide) -> &'static [WidthLandmark; 8] {
+fn landmarks(params: &crate::TextureParameters, side: HawthornSide) -> &[WidthLandmark; 8] {
     match side {
-        HawthornSide::Left => &LEFT_WIDTHS,
-        HawthornSide::Right => &RIGHT_WIDTHS,
+        HawthornSide::Left => &params.hawthorn_leaf.left_widths,
+        HawthornSide::Right => &params.hawthorn_leaf.right_widths,
     }
 }
 
-fn veins(side: HawthornSide) -> &'static [HawthornVein; 3] {
+fn veins(params: &crate::TextureParameters, side: HawthornSide) -> &[HawthornVein; 3] {
     match side {
-        HawthornSide::Left => &LEFT_VEINS,
-        HawthornSide::Right => &RIGHT_VEINS,
+        HawthornSide::Left => &params.hawthorn_leaf.left_veins,
+        HawthornSide::Right => &params.hawthorn_leaf.right_veins,
     }
 }
 
@@ -172,10 +169,10 @@ fn triangular_pulse(t: f32, center: f32, radius: f32) -> f32 {
     (1.0 - (t - center).abs() / radius).clamp(0.0, 1.0)
 }
 
-fn tooth_extension(t: f32, side: HawthornSide) -> f32 {
+fn tooth_extension(params: &crate::TextureParameters, t: f32, side: HawthornSide) -> f32 {
     let shift = match side {
-        HawthornSide::Left => -0.003,
-        HawthornSide::Right => 0.004,
+        HawthornSide::Left => -params.hawthorn_leaf.tooth_extension_shift_1,
+        HawthornSide::Right => params.hawthorn_leaf.tooth_extension_shift_2,
     };
     [
         (0.265, 0.010),
@@ -190,11 +187,11 @@ fn tooth_extension(t: f32, side: HawthornSide) -> f32 {
     .sum()
 }
 
-fn side_width(t: f32, side: HawthornSide) -> f32 {
+fn side_width(params: &crate::TextureParameters, t: f32, side: HawthornSide) -> f32 {
     if !(0.0..=1.0).contains(&t) {
         return 0.0;
     }
-    let points = landmarks(side);
+    let points = landmarks(params, side);
     let segment = points
         .windows(2)
         .find(|pair| (pair[0].t..=pair[1].t).contains(&t))
@@ -202,7 +199,7 @@ fn side_width(t: f32, side: HawthornSide) -> f32 {
     let linear_progress = (t - segment[0].t) / (segment[1].t - segment[0].t);
     let progress = linear_progress * linear_progress * (3.0 - 2.0 * linear_progress);
     let width = segment[0].width + (segment[1].width - segment[0].width) * progress;
-    width + tooth_extension(t, side)
+    width + tooth_extension(params, t, side)
 }
 
 fn distance_to_segment(point: Vec3, start: Vec3, end: Vec3) -> f32 {
@@ -211,19 +208,30 @@ fn distance_to_segment(point: Vec3, start: Vec3, end: Vec3) -> f32 {
     point.distance(start + direction * progress)
 }
 
-fn tissue_relief(u: f32, v: f32) -> f32 {
-    let broad = (u * 8.0 + v * 6.0 + 0.8).sin();
-    let cross = (u * 5.0 - v * 9.0 + 1.4).cos();
+fn tissue_relief(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let broad = (u * params.hawthorn_leaf.tissue_relief_broad_1
+        + v * params.hawthorn_leaf.tissue_relief_broad_2
+        + params.hawthorn_leaf.tissue_relief_broad_3)
+        .sin();
+    let cross = (u * params.hawthorn_leaf.tissue_relief_cross_1
+        - v * params.hawthorn_leaf.tissue_relief_cross_2
+        + params.hawthorn_leaf.tissue_relief_cross_3)
+        .cos();
     (broad * 0.62 + cross * 0.38) * 0.0025
 }
 
-fn sample(u: f32, v: f32) -> HawthornSample {
+fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> HawthornSample {
     let longitudinal = 1.0 - v;
-    let t = (longitudinal - 0.095) / 0.82;
+    let t = (longitudinal - params.hawthorn_leaf.sample_t_1) / params.hawthorn_leaf.sample_t_2;
     let x = (u - 0.5) - axis(t);
-    let petiole = (0.020..0.110).contains(&longitudinal) && x.abs() < 0.008;
+    let petiole =
+        (0.020..0.110).contains(&longitudinal) && x.abs() < params.hawthorn_leaf.sample_petiole;
     if !(0.0..=1.0).contains(&t) {
-        let height = if petiole { 0.09 } else { 0.0 };
+        let height = if petiole {
+            params.hawthorn_leaf.sample_height
+        } else {
+            0.0
+        };
         return HawthornSample {
             inside: petiole,
             vein: petiole,
@@ -238,7 +246,7 @@ fn sample(u: f32, v: f32) -> HawthornSample {
     } else {
         HawthornSide::Right
     };
-    let width = side_width(t, side);
+    let width = side_width(params, t, side);
     let inside_blade = x.abs() <= width;
     if !inside_blade && !petiole {
         return HawthornSample {
@@ -251,14 +259,15 @@ fn sample(u: f32, v: f32) -> HawthornSample {
     }
 
     let point = Vec3::new(x, t, 0.0);
-    let midrib_width = 0.0065 - t * 0.0025;
+    let midrib_width =
+        params.hawthorn_leaf.sample_midrib_width_1 - t * params.hawthorn_leaf.sample_midrib_width_2;
     let mut vein_distance = x.abs();
     let mut vein = x.abs() <= midrib_width;
     let mut corrugation = 0.0;
-    for (index, secondary) in veins(side).iter().enumerate() {
+    for (index, secondary) in veins(params, side).iter().enumerate() {
         let start = Vec3::new(0.0, secondary.origin_t, 0.0);
         let target = Vec3::new(
-            side.sign() * side_width(secondary.target_t, side) * secondary.target_fraction,
+            side.sign() * side_width(params, secondary.target_t, side) * secondary.target_fraction,
             secondary.target_t,
             0.0,
         );
@@ -277,22 +286,32 @@ fn sample(u: f32, v: f32) -> HawthornSample {
         }
     }
 
-    let transverse = (x / width.max(0.001)).clamp(-1.0, 1.0);
-    let blade_dome = (1.0 - transverse * transverse).powf(0.68) * 0.125;
+    let transverse = (x / width.max(params.hawthorn_leaf.sample_transverse)).clamp(-1.0, 1.0);
+    let blade_dome = (1.0 - transverse * transverse).powf(params.hawthorn_leaf.sample_blade_dome_1)
+        * params.hawthorn_leaf.sample_blade_dome_2;
     let longitudinal_dome = (t * core::f32::consts::PI).sin().max(0.0).sqrt();
-    let central_fold = (1.0 - x.abs() / 0.055).clamp(0.0, 1.0).powi(2) * 0.028;
-    let vein_ridge = (1.0 - vein_distance / 0.014).clamp(0.0, 1.0).powi(2) * 0.085;
+    let central_fold = (1.0 - x.abs() / params.hawthorn_leaf.sample_central_fold_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.hawthorn_leaf.sample_central_fold_2;
+    let vein_ridge = (1.0 - vein_distance / params.hawthorn_leaf.sample_vein_ridge_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.hawthorn_leaf.sample_vein_ridge_2;
     let height = if petiole && !inside_blade {
-        0.09
+        params.hawthorn_leaf.sample_height_1
     } else {
         (blade_dome * longitudinal_dome
             + central_fold
             + vein_ridge
             + corrugation
-            + tissue_relief(u, v))
-        .clamp(0.01, 0.30)
+            + tissue_relief(params, u, v))
+        .clamp(
+            params.hawthorn_leaf.sample_height_2,
+            params.hawthorn_leaf.sample_height_3,
+        )
     };
-    let underside_vein_relief = (1.0 - vein_distance / 0.019).clamp(0.0, 1.0).powi(2) * 0.009;
+    let underside_vein_relief = underside_relief(params, vein_distance);
     HawthornSample {
         inside: true,
         vein: vein || petiole,
@@ -302,13 +321,13 @@ fn sample(u: f32, v: f32) -> HawthornSample {
     }
 }
 
-fn coverage(u: f32, v: f32, texel: f32) -> bool {
+fn coverage(params: &crate::TextureParameters, u: f32, v: f32, texel: f32) -> bool {
     let mut covered = 0;
     for sample_y in 0..EDGE_SAMPLES {
         for sample_x in 0..EDGE_SAMPLES {
             let offset_x = (sample_x as f32 + 0.5) / EDGE_SAMPLES as f32 - 0.5;
             let offset_y = (sample_y as f32 + 0.5) / EDGE_SAMPLES as f32 - 0.5;
-            covered += u32::from(sample(u + offset_x * texel, v + offset_y * texel).inside);
+            covered += u32::from(sample(params, u + offset_x * texel, v + offset_y * texel).inside);
         }
     }
     covered * 2 >= EDGE_SAMPLES.pow(2)
@@ -320,8 +339,12 @@ fn encoded_normal(left: f32, right: f32, down: f32, up: f32) -> [u8; 3] {
     [encoded.x as u8, encoded.y as u8, encoded.z as u8]
 }
 
-pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTextureSet {
-    let pixel_count = (TEXTURE_SIZE * TEXTURE_SIZE) as usize;
+pub(super) fn generate(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+    recipe: LeafRecipe,
+) -> LeafTextureSet {
+    let pixel_count = (params.size(TEXTURE_SIZE) * params.size(TEXTURE_SIZE)) as usize;
     let mut opacity = Vec::with_capacity(pixel_count * 4);
     let mut front = Vec::with_capacity(pixel_count * 4);
     let mut back = Vec::with_capacity(pixel_count * 4);
@@ -329,14 +352,14 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
     let mut normal_back = Vec::with_capacity(pixel_count * 4);
     let mut height_map = Vec::with_capacity(pixel_count * 4);
     let mut arm = Vec::with_capacity(pixel_count * 4);
-    let texel = 1.0 / TEXTURE_SIZE as f32;
+    let texel = 1.0 / params.size(TEXTURE_SIZE) as f32;
 
-    for y in 0..TEXTURE_SIZE {
-        for x in 0..TEXTURE_SIZE {
+    for y in 0..params.size(TEXTURE_SIZE) {
+        for x in 0..params.size(TEXTURE_SIZE) {
             let u = (x as f32 + 0.5) * texel;
             let v = (y as f32 + 0.5) * texel;
-            let leaf = sample(u, v);
-            let inside = coverage(u, v, texel);
+            let leaf = sample(params, u, v);
+            let inside = coverage(params, u, v, texel);
             let alpha = if inside { 255 } else { 0 };
             opacity.extend_from_slice(&[alpha; 4]);
             let front_color = if leaf.vein { recipe.vein } else { recipe.blade };
@@ -353,10 +376,10 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
                 back.extend_from_slice(&[0; 4]);
             }
 
-            let left = sample((u - texel).max(0.0), v);
-            let right = sample((u + texel).min(1.0), v);
-            let down = sample(u, (v - texel).max(0.0));
-            let up = sample(u, (v + texel).min(1.0));
+            let left = sample(params, (u - texel).max(0.0), v);
+            let right = sample(params, (u + texel).min(1.0), v);
+            let down = sample(params, u, (v - texel).max(0.0));
+            let up = sample(params, u, (v + texel).min(1.0));
             let front_encoded = encoded_normal(left.height, right.height, down.height, up.height);
             normal_front.extend_from_slice(&[
                 front_encoded[0],
@@ -383,9 +406,14 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
             } else if leaf.petiole {
                 234
             } else if leaf.vein {
-                (230.0 + height * 36.0).min(248.0) as u8
+                (params.hawthorn_leaf.generate_ao_1 + height * params.hawthorn_leaf.generate_ao_2)
+                    .min(params.hawthorn_leaf.generate_ao_3) as u8
             } else {
-                (220.0 + height * 40.0).clamp(220.0, 244.0) as u8
+                (params.hawthorn_leaf.generate_ao_4 + height * params.hawthorn_leaf.generate_ao_5)
+                    .clamp(
+                        params.hawthorn_leaf.generate_ao_6,
+                        params.hawthorn_leaf.generate_ao_7,
+                    ) as u8
             };
             let encoded_height = (height * 255.0).clamp(0.0, 255.0) as u8;
             height_map.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
@@ -393,35 +421,16 @@ pub(super) fn generate(images: &mut Assets<Image>, recipe: LeafRecipe) -> LeafTe
         }
     }
 
-    LeafTextureSet {
-        opacity: images.add(leaf_mipped_image(opacity, false, LeafMipSemantic::Coverage)),
-        front_albedo: images.add(leaf_mipped_image(
-            front,
-            true,
-            LeafMipSemantic::ColorCoverage,
-        )),
-        back_albedo: images.add(leaf_mipped_image(
-            back,
-            true,
-            LeafMipSemantic::ColorCoverage,
-        )),
-        front_normal: images.add(leaf_mipped_image(
-            normal_front,
-            false,
-            LeafMipSemantic::Normal,
-        )),
-        back_normal: images.add(leaf_mipped_image(
-            normal_back,
-            false,
-            LeafMipSemantic::Normal,
-        )),
-        height: images.add(leaf_mipped_image(
-            height_map,
-            false,
-            LeafMipSemantic::Scalar,
-        )),
-        arm: images.add(leaf_mipped_image(arm, false, LeafMipSemantic::Scalar)),
+    crate::leaf_pixels::LeafPixels {
+        opacity,
+        front,
+        back,
+        normal_front,
+        normal_back,
+        height_map,
+        arm,
     }
+    .upload(params, images)
 }
 
 #[cfg(test)]
@@ -436,33 +445,38 @@ mod tests {
 
     #[test]
     fn silhouette_has_two_lateral_lobe_pairs_and_deep_open_sinuses() {
+        let params = &crate::TextureParameters::default();
         for side in [HawthornSide::Left, HawthornSide::Right] {
-            let points = landmarks(side);
+            let points = landmarks(params, side);
             assert!(points[2].width > points[3].width * 2.7);
             assert!(points[4].width > points[5].width * 2.5);
             assert!(points[3].width < points[2].width * 0.5);
             assert!(points[5].width < points[4].width * 0.5);
         }
-        assert!(sample(0.5, 0.95).petiole);
+        assert!(sample(params, 0.5, 0.95).petiole);
     }
 
     #[test]
     fn sparse_teeth_stay_on_distal_lobe_margins() {
+        let params = &crate::TextureParameters::default();
         for side in [HawthornSide::Left, HawthornSide::Right] {
-            assert_eq!(tooth_extension(0.47, side), 0.0);
-            assert_eq!(tooth_extension(0.72, side), 0.0);
-            assert!(tooth_extension(0.265, side) > 0.004);
-            assert!(tooth_extension(0.555, side) > 0.004);
+            assert_eq!(tooth_extension(params, 0.47, side), 0.0);
+            assert_eq!(tooth_extension(params, 0.72, side), 0.0);
+            assert!(tooth_extension(params, 0.265, side) > 0.004);
+            assert!(tooth_extension(params, 0.555, side) > 0.004);
         }
     }
 
     #[test]
     fn each_major_lobe_has_a_directed_secondary_vein() {
+        let params = &crate::TextureParameters::default();
         for side in [HawthornSide::Left, HawthornSide::Right] {
-            for secondary in veins(side) {
+            for secondary in veins(params, side) {
                 let start = Vec3::new(0.0, secondary.origin_t, 0.0);
                 let target = Vec3::new(
-                    side.sign() * side_width(secondary.target_t, side) * secondary.target_fraction,
+                    side.sign()
+                        * side_width(params, secondary.target_t, side)
+                        * secondary.target_fraction,
                     secondary.target_t,
                     0.0,
                 );
@@ -470,15 +484,16 @@ mod tests {
                 let longitudinal = 0.095 + midpoint.y * 0.82;
                 let u = 0.5 + axis(midpoint.y) + midpoint.x;
                 let v = 1.0 - longitudinal;
-                assert!(sample(u, v).vein);
+                assert!(sample(params, u, v).vein);
             }
         }
     }
 
     #[test]
     fn outputs_are_palette_bounded_alpha_matched_normalized_and_mipped() {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::<Image>::default();
-        let textures = generate(&mut images, LeafRecipe::HAWTHORN);
+        let textures = generate(params, &mut images, LeafRecipe::HAWTHORN);
         let opacity = base_bytes(images.get(&textures.opacity).unwrap());
         for handle in [&textures.front_albedo, &textures.back_albedo] {
             let image = images.get(handle).unwrap();
@@ -525,10 +540,11 @@ mod tests {
 
     #[test]
     fn generation_is_repeatable() {
+        let params = &crate::TextureParameters::default();
         let mut first_images = Assets::<Image>::default();
-        let first = generate(&mut first_images, LeafRecipe::HAWTHORN);
+        let first = generate(params, &mut first_images, LeafRecipe::HAWTHORN);
         let mut second_images = Assets::<Image>::default();
-        let second = generate(&mut second_images, LeafRecipe::HAWTHORN);
+        let second = generate(params, &mut second_images, LeafRecipe::HAWTHORN);
         for (first_handle, second_handle) in [
             (&first.opacity, &second.opacity),
             (&first.front_albedo, &second.front_albedo),
@@ -544,4 +560,14 @@ mod tests {
             );
         }
     }
+}
+
+mod controls;
+pub use controls::Parameters;
+
+fn underside_relief(params: &crate::TextureParameters, vein_distance: f32) -> f32 {
+    (1.0 - vein_distance / params.hawthorn_leaf.sample_underside_vein_relief_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.hawthorn_leaf.sample_underside_vein_relief_2
 }

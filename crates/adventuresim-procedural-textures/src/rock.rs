@@ -31,7 +31,14 @@ struct RockFieldSample {
     palette_index: usize,
 }
 
-fn periodic_value_field(u: f32, v: f32, columns: i32, rows: i32, salt: u64) -> f32 {
+fn periodic_value_field(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    columns: i32,
+    rows: i32,
+    salt: u64,
+) -> f32 {
     let x = u.rem_euclid(1.0) * columns as f32;
     let y = v.rem_euclid(1.0) * rows as f32;
     let x0 = x.floor() as i32;
@@ -41,7 +48,8 @@ fn periodic_value_field(u: f32, v: f32, columns: i32, rows: i32, salt: u64) -> f
     let value = |cell_x: i32, cell_y: i32| {
         let wrapped_x = cell_x.rem_euclid(columns) as u64;
         let wrapped_y = cell_y.rem_euclid(rows) as u64;
-        unit_hash(splitmix64(
+        unit_hash(crate::parameters::seeded_hash(
+            params,
             wrapped_x | (wrapped_y << 16) | salt.rotate_left(29),
         )) * 2.0
             - 1.0
@@ -51,17 +59,28 @@ fn periodic_value_field(u: f32, v: f32, columns: i32, rows: i32, salt: u64) -> f
     lower.lerp(upper, blend_y)
 }
 
-fn rock_field(u: f32, v: f32) -> RockFieldSample {
-    let broad = periodic_value_field(u, v, 3, 3, 0x4ad3);
-    let structure = periodic_value_field(u, v, ROCK_DOMAIN_COLUMNS, ROCK_DOMAIN_ROWS, 0xd513);
-    let aggregate = periodic_value_field(u, v, 19, 19, 0xb175);
-    let grain = periodic_value_field(u, v, 41, 41, 0x8c29);
+fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSample {
+    let broad = periodic_value_field(params, u, v, 3, 3, 0x4ad3);
+    let structure = periodic_value_field(
+        params,
+        u,
+        v,
+        params.rock.domain_columns,
+        params.rock.domain_rows,
+        0xd513,
+    );
+    let aggregate = periodic_value_field(params, u, v, 19, 19, 0xb175);
+    let grain = periodic_value_field(params, u, v, 41, 41, 0x8c29);
     // Smooth value-noise octaves make irregular pore/crystal grain without
     // the connected Voronoi edge graph that read as repeated U/Y/L stamps
     // once the tile was projected over broad cliff faces.
-    let height =
-        (0.13 * broad + 0.10 * structure + 0.055 * aggregate + 0.025 * grain).clamp(-0.5, 0.5);
-    let material = broad * 0.62 + structure * 0.38;
+    let height = (params.rock.rock_field_height_1 * broad
+        + params.rock.rock_field_height_2 * structure
+        + params.rock.rock_field_height_3 * aggregate
+        + params.rock.rock_field_height_4 * grain)
+        .clamp(-0.5, 0.5);
+    let material =
+        broad * params.rock.rock_field_material_1 + structure * params.rock.rock_field_material_2;
     let palette_index = if material < -0.28 {
         0
     } else if material < -0.02 {
@@ -73,13 +92,14 @@ fn rock_field(u: f32, v: f32) -> RockFieldSample {
     };
     RockFieldSample {
         height,
-        palette_index: palette_index.min(ROCK_PALETTE.len() - 1),
+        palette_index: palette_index.min(params.rock.palette.len() - 1),
     }
 }
 
-fn rock_horizon_ao(heights: &[f32], x: i32, y: i32) -> f32 {
-    let centre = periodic_sample(heights, ROCK_TEXTURE_SIZE, x, y) * ROCK_HEIGHT_RANGE_METRES;
-    let texel_metres = ROCK_TILE_METRES / ROCK_TEXTURE_SIZE as f32;
+fn rock_horizon_ao(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let centre = periodic_sample(heights, params.size(ROCK_TEXTURE_SIZE), x, y)
+        * params.rock.height_range_metres;
+    let texel_metres = params.rock.tile_metres / params.size(ROCK_TEXTURE_SIZE) as f32;
     let mut visibility = 0.0;
     for (direction_x, direction_y) in HORIZON_DIRECTIONS {
         let direction_length =
@@ -88,10 +108,10 @@ fn rock_horizon_ao(heights: &[f32], x: i32, y: i32) -> f32 {
         for step in HORIZON_STEPS {
             let neighbor = periodic_sample(
                 heights,
-                ROCK_TEXTURE_SIZE,
+                params.size(ROCK_TEXTURE_SIZE),
                 x + direction_x * step,
                 y + direction_y * step,
-            ) * ROCK_HEIGHT_RANGE_METRES;
+            ) * params.rock.height_range_metres;
             let run = step as f32 * direction_length * texel_metres;
             maximum_slope = maximum_slope.max(((neighbor - centre) / run).max(0.0));
         }
@@ -110,13 +130,14 @@ fn encode_normal(normal: Vec3) -> [u8; 4] {
     ]
 }
 
-fn base_levels() -> [Vec<u8>; 4] {
-    let pixel_count = (ROCK_TEXTURE_SIZE * ROCK_TEXTURE_SIZE) as usize;
-    let texel = 1.0 / ROCK_TEXTURE_SIZE as f32;
-    let samples = (0..ROCK_TEXTURE_SIZE)
+fn base_levels(params: &crate::TextureParameters) -> [Vec<u8>; 4] {
+    let pixel_count = (params.size(ROCK_TEXTURE_SIZE) * params.size(ROCK_TEXTURE_SIZE)) as usize;
+    let texel = 1.0 / params.size(ROCK_TEXTURE_SIZE) as f32;
+    let samples = (0..params.size(ROCK_TEXTURE_SIZE))
         .flat_map(|y| {
-            (0..ROCK_TEXTURE_SIZE)
-                .map(move |x| rock_field((x as f32 + 0.5) * texel, (y as f32 + 0.5) * texel))
+            (0..params.size(ROCK_TEXTURE_SIZE)).map(move |x| {
+                rock_field(params, (x as f32 + 0.5) * texel, (y as f32 + 0.5) * texel)
+            })
         })
         .collect::<Vec<_>>();
     let heights = samples
@@ -127,28 +148,47 @@ fn base_levels() -> [Vec<u8>; 4] {
     let mut normal = Vec::with_capacity(pixel_count * 4);
     let mut height = Vec::with_capacity(pixel_count * 4);
     let mut arm = Vec::with_capacity(pixel_count * 4);
-    for y in 0..ROCK_TEXTURE_SIZE {
-        for x in 0..ROCK_TEXTURE_SIZE {
-            let index = (y * ROCK_TEXTURE_SIZE + x) as usize;
+    for y in 0..params.size(ROCK_TEXTURE_SIZE) {
+        for x in 0..params.size(ROCK_TEXTURE_SIZE) {
+            let index = (y * params.size(ROCK_TEXTURE_SIZE) + x) as usize;
             let sample = samples[index];
             albedo.extend_from_slice(&[
-                ROCK_PALETTE[sample.palette_index][0],
-                ROCK_PALETTE[sample.palette_index][1],
-                ROCK_PALETTE[sample.palette_index][2],
+                params.rock.palette[sample.palette_index][0],
+                params.rock.palette[sample.palette_index][1],
+                params.rock.palette[sample.palette_index][2],
                 255,
             ]);
-            let height_x = periodic_sample(&heights, ROCK_TEXTURE_SIZE, x as i32 + 1, y as i32)
-                - periodic_sample(&heights, ROCK_TEXTURE_SIZE, x as i32 - 1, y as i32);
-            let height_y = periodic_sample(&heights, ROCK_TEXTURE_SIZE, x as i32, y as i32 + 1)
-                - periodic_sample(&heights, ROCK_TEXTURE_SIZE, x as i32, y as i32 - 1);
-            let slope_scale = ROCK_HEIGHT_RANGE_METRES / (2.0 * texel * ROCK_TILE_METRES);
+            let height_x = periodic_sample(
+                &heights,
+                params.size(ROCK_TEXTURE_SIZE),
+                x as i32 + 1,
+                y as i32,
+            ) - periodic_sample(
+                &heights,
+                params.size(ROCK_TEXTURE_SIZE),
+                x as i32 - 1,
+                y as i32,
+            );
+            let height_y = periodic_sample(
+                &heights,
+                params.size(ROCK_TEXTURE_SIZE),
+                x as i32,
+                y as i32 + 1,
+            ) - periodic_sample(
+                &heights,
+                params.size(ROCK_TEXTURE_SIZE),
+                x as i32,
+                y as i32 - 1,
+            );
+            let slope_scale =
+                params.rock.height_range_metres / (2.0 * texel * params.rock.tile_metres);
             normal.extend_from_slice(&encode_normal(
                 Vec3::new(-height_x * slope_scale, -height_y * slope_scale, 1.0).normalize(),
             ));
             let encoded_height = ((sample.height + 0.5) * 255.0).round() as u8;
             height.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
-            let ao = (rock_horizon_ao(&heights, x as i32, y as i32) * 255.0).round() as u8;
-            arm.extend_from_slice(&[ao, ROCK_ROUGHNESS[sample.palette_index], 0, 255]);
+            let ao = (rock_horizon_ao(params, &heights, x as i32, y as i32) * 255.0).round() as u8;
+            arm.extend_from_slice(&[ao, params.rock.roughness[sample.palette_index], 0, 255]);
         }
     }
     [albedo, normal, height, arm]
@@ -166,7 +206,11 @@ fn linear_to_srgb(value: f32) -> u8 {
     (value.clamp(0.0, 1.0).powf(1.0 / 2.2) * 255.0).round() as u8
 }
 
-fn downsample_levels(previous: [&[u8]; 4], previous_size: u32) -> [Vec<u8>; 4] {
+fn downsample_levels(
+    params: &crate::TextureParameters,
+    previous: [&[u8]; 4],
+    previous_size: u32,
+) -> [Vec<u8>; 4] {
     let next_size = previous_size / 2;
     let mut next =
         core::array::from_fn(|_| Vec::with_capacity((next_size * next_size * 4) as usize));
@@ -207,9 +251,11 @@ fn downsample_levels(previous: [&[u8]; 4], previous_size: u32) -> [Vec<u8>; 4] {
             next[1].extend_from_slice(&encode_normal(average_normal.normalize_or(Vec3::Z)));
             let encoded_height = ((height + 2) / 4) as u8;
             next[2].extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
-            let average_ao = ao * 0.25;
+            let average_ao = ao * params.rock.downsample_levels_average_ao;
             let filtered_ao = average_ao + (1.0 - average_ao) * normal_variance.min(1.0);
-            let filtered_roughness = (roughness_squared * 0.25 + normal_variance * 0.35)
+            let filtered_roughness = (roughness_squared
+                * params.rock.downsample_levels_filtered_roughness_1
+                + normal_variance * params.rock.downsample_levels_filtered_roughness_2)
                 .sqrt()
                 .clamp(0.0, 1.0);
             next[3].extend_from_slice(&[
@@ -223,12 +269,13 @@ fn downsample_levels(previous: [&[u8]; 4], previous_size: u32) -> [Vec<u8>; 4] {
     next
 }
 
-fn complete_mips(base: [Vec<u8>; 4]) -> [Vec<u8>; 4] {
+fn complete_mips(params: &crate::TextureParameters, base: [Vec<u8>; 4]) -> [Vec<u8>; 4] {
     let mut complete = base.clone();
     let mut previous = base;
-    let mut previous_size = ROCK_TEXTURE_SIZE;
+    let mut previous_size = params.size(ROCK_TEXTURE_SIZE);
     while previous_size > 1 {
         let next = downsample_levels(
+            params,
             [&previous[0], &previous[1], &previous[2], &previous[3]],
             previous_size,
         );
@@ -241,12 +288,13 @@ fn complete_mips(base: [Vec<u8>; 4]) -> [Vec<u8>; 4] {
     complete
 }
 
-fn rock_image(data: Vec<u8>, srgb: bool) -> Image {
-    let base_level_length = (ROCK_TEXTURE_SIZE * ROCK_TEXTURE_SIZE * 4) as usize;
+fn rock_image(params: &crate::TextureParameters, data: Vec<u8>, srgb: bool) -> Image {
+    let base_level_length =
+        (params.size(ROCK_TEXTURE_SIZE) * params.size(ROCK_TEXTURE_SIZE) * 4) as usize;
     let mut image = Image::new(
         Extent3d {
-            width: ROCK_TEXTURE_SIZE,
-            height: ROCK_TEXTURE_SIZE,
+            width: params.size(ROCK_TEXTURE_SIZE),
+            height: params.size(ROCK_TEXTURE_SIZE),
             depth_or_array_layers: 1,
         },
         TextureDimension::D2,
@@ -259,7 +307,7 @@ fn rock_image(data: Vec<u8>, srgb: bool) -> Image {
         RenderAssetUsages::RENDER_WORLD,
     );
     image.data = Some(data);
-    image.texture_descriptor.mip_level_count = ROCK_TEXTURE_SIZE.ilog2() + 1;
+    image.texture_descriptor.mip_level_count = params.size(ROCK_TEXTURE_SIZE).ilog2() + 1;
     use bevy::image::{ImageAddressMode, ImageSamplerDescriptor};
     image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
         address_mode_u: ImageAddressMode::Repeat,
@@ -271,13 +319,16 @@ fn rock_image(data: Vec<u8>, srgb: bool) -> Image {
     image
 }
 
-pub(super) fn generate_rock_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let [albedo, normal, height, arm] = complete_mips(base_levels());
+pub(super) fn generate_rock_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let [albedo, normal, height, arm] = complete_mips(params, base_levels(params));
     SurfaceTextureSet {
-        albedo: images.add(rock_image(albedo, true)),
-        normal_gl: images.add(rock_image(normal, false)),
-        height: images.add(rock_image(height, false)),
-        arm: images.add(rock_image(arm, false)),
+        albedo: images.add(rock_image(params, albedo, true)),
+        normal_gl: images.add(rock_image(params, normal, false)),
+        height: images.add(rock_image(params, height, false)),
+        arm: images.add(rock_image(params, arm, false)),
     }
 }
 
@@ -289,11 +340,15 @@ mod tests {
 
     #[test]
     fn field_is_periodic_deterministic_and_physically_scaled() {
+        let params = &crate::TextureParameters::default();
         for (u, v) in [(0.0, 0.17), (0.23, 0.51), (0.61, 0.97), (0.91, 0.08)] {
-            let sample = rock_field(u, v);
-            assert_eq!(sample.height.to_bits(), rock_field(u, v).height.to_bits());
-            assert!((sample.height - rock_field(u + 1.0, v).height).abs() < 1.0e-5);
-            assert!((sample.height - rock_field(u, v + 1.0).height).abs() < 1.0e-5);
+            let sample = rock_field(params, u, v);
+            assert_eq!(
+                sample.height.to_bits(),
+                rock_field(params, u, v).height.to_bits()
+            );
+            assert!((sample.height - rock_field(params, u + 1.0, v).height).abs() < 1.0e-5);
+            assert!((sample.height - rock_field(params, u, v + 1.0).height).abs() < 1.0e-5);
         }
         assert_eq!(ROCK_TILE_METRES / ROCK_DOMAIN_COLUMNS as f32, 0.25);
         assert!((0.024..=0.040).contains(&ROCK_HEIGHT_RANGE_METRES));
@@ -302,10 +357,11 @@ mod tests {
 
     #[test]
     fn outputs_are_deterministic_mipped_and_channel_correct() {
+        let params = &crate::TextureParameters::default();
         let mut first_images = Assets::<Image>::default();
-        let first = generate_rock_textures(&mut first_images);
+        let first = generate_rock_textures(params, &mut first_images);
         let mut second_images = Assets::<Image>::default();
-        let second = generate_rock_textures(&mut second_images);
+        let second = generate_rock_textures(params, &mut second_images);
         for (first_handle, second_handle) in [
             (&first.albedo, &second.albedo),
             (&first.normal_gl, &second.normal_gl),
@@ -335,6 +391,7 @@ mod tests {
 
     #[test]
     fn dense_microrelief_is_smooth_without_fracture_graph_jumps() {
+        let params = &crate::TextureParameters::default();
         let sample_count = 128;
         let texel = 1.0 / sample_count as f32;
         let mut minimum = f32::INFINITY;
@@ -344,12 +401,12 @@ mod tests {
             for x in 0..sample_count {
                 let u = x as f32 * texel;
                 let v = y as f32 * texel;
-                let height = rock_field(u, v).height;
+                let height = rock_field(params, u, v).height;
                 minimum = minimum.min(height);
                 maximum = maximum.max(height);
                 maximum_jump = maximum_jump
-                    .max((height - rock_field(u + texel, v).height).abs())
-                    .max((height - rock_field(u, v + texel).height).abs());
+                    .max((height - rock_field(params, u + texel, v).height).abs())
+                    .max((height - rock_field(params, u, v + texel).height).abs());
             }
         }
         assert!(
@@ -362,7 +419,8 @@ mod tests {
 
     #[test]
     fn base_color_and_roughness_use_restrained_solid_regions() {
-        let [albedo, _, _, arm] = base_levels();
+        let params = &crate::TextureParameters::default();
+        let [albedo, _, _, arm] = base_levels(params);
         let colors = albedo
             .as_chunks::<4>()
             .0
@@ -379,3 +437,6 @@ mod tests {
         assert_eq!(roughness, ROCK_ROUGHNESS.into_iter().collect());
     }
 }
+
+mod controls;
+pub use controls::Parameters;

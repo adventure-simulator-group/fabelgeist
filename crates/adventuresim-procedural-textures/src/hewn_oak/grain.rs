@@ -26,10 +26,11 @@ const KNOT_CORE_SOFTENING: f32 = 0.22;
 const RING_WANDER: f32 = 0.009;
 const FIBER_WANDER: f32 = 0.0015;
 
-struct Knot {
-    center: [f32; 2],
-    radii: [f32; 2],
-    lean: f32,
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy)]
+pub struct Knot {
+    pub center: [f32; 2],
+    pub radii: [f32; 2],
+    pub lean: f32,
 }
 
 // Authored branch intersections in the two-metre repeating timber face.
@@ -62,56 +63,100 @@ pub(super) struct GrainSample {
     pub(super) knot_rings: f32,
 }
 
-fn growth_coordinate(u: f32, v: f32) -> (f32, f32, f32) {
+fn growth_coordinate(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32, f32) {
     let mut across = u;
     let mut knot_mask = 0.0_f32;
     let mut knot_rings = 0.0_f32;
-    for knot in &KNOTS {
+    for knot in &params.hewn_oak_grain.knots {
         let dy = periodic_delta(v - knot.center[1]);
         let dx = periodic_delta(u - knot.center[0]) - dy * knot.lean;
         // Branch cross-sections taper along their axis and lean unevenly.
-        let taper = 1.0 + KNOT_TAPER * (dy / knot.radii[1]).tanh();
+        let taper = 1.0 + params.hewn_oak_grain.knot_taper * (dy / knot.radii[1]).tanh();
         let skew = dx - knot.lean * dy * (dy / knot.radii[1]).tanh();
         let radius_squared =
             (skew / (knot.radii[0] * taper)).powi(2) + (dy / knot.radii[1]).powi(2);
         let radius = radius_squared.sqrt();
-        let envelope = 1.0 - smooth((radius / KNOT_INFLUENCE_RADII).clamp(0.0, 1.0));
+        let envelope =
+            1.0 - smooth((radius / params.hewn_oak_grain.knot_influence_radii).clamp(0.0, 1.0));
         // Contours split around the branch intersection and converge along its axis.
         // Compact support keeps both value and slope continuous across tile boundaries.
-        across -= dx / (radius_squared + KNOT_CORE_SOFTENING) * envelope;
-        let core = 1.0 - smooth(((radius - 0.35) / 0.80).clamp(0.0, 1.0));
+        across -= dx / (radius_squared + params.hewn_oak_grain.knot_core_softening)
+            * envelope
+            * params.hewn_oak_grain.knot_flow_strength;
+        let core = 1.0
+            - smooth(
+                ((radius - params.hewn_oak_grain.knot_core_start)
+                    / params.hewn_oak_grain.knot_core_transition)
+                    .clamp(0.0, 1.0),
+            );
         knot_mask = knot_mask.max(core);
-        let distorted_radius =
-            radius + KNOT_RING_DISTORTION * (dy / knot.radii[1] + dx / knot.radii[0]).sin();
-        knot_rings += (distorted_radius * std::f32::consts::TAU * KNOT_RING_COUNT).sin() * core;
+        let distorted_radius = radius
+            + params.hewn_oak_grain.knot_ring_distortion
+                * (dy / knot.radii[1] + dx / knot.radii[0]).sin();
+        knot_rings +=
+            (distorted_radius * std::f32::consts::TAU * params.hewn_oak_grain.knot_ring_count)
+                .sin()
+                * core;
     }
     (across, knot_mask, knot_rings)
 }
 
-pub(super) fn sample(u: f32, v: f32) -> GrainSample {
+pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> GrainSample {
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
-    let (across, knot, knot_rings) = growth_coordinate(u, v);
-    let growth = across + (value_noise(u, v, 5, 9, 0x7d13) - 0.5) * RING_WANDER;
-    let growth = growth + (value_noise(growth, v, 9, 2, 0x6ba1) - 0.5) * RING_SPACING_WARP;
-    let phase = growth * RING_COUNT;
+    let (across, knot, knot_rings) = growth_coordinate(params, u, v);
+    let growth = across
+        + (value_noise(
+            params,
+            u,
+            v,
+            params.hewn_oak_grain.growth_wander_grid[0],
+            params.hewn_oak_grain.growth_wander_grid[1],
+            0x7d13,
+        ) - 0.5)
+            * params.hewn_oak_grain.ring_wander;
+    let growth = growth
+        + (value_noise(
+            params,
+            growth,
+            v,
+            params.hewn_oak_grain.spacing_warp_grid[0],
+            params.hewn_oak_grain.spacing_warp_grid[1],
+            0x6ba1,
+        ) - 0.5)
+            * params.hewn_oak_grain.ring_spacing_warp;
+    let phase = growth * params.hewn_oak_grain.ring_count;
     let ring = phase.floor() as i32;
-    let width = LATEWOOD_WIDTH[0]
-        + (LATEWOOD_WIDTH[1] - LATEWOOD_WIDTH[0])
-            * grid_hash(ring, 0, RING_COUNT as i32, 1, 0x481b);
+    let width = params.hewn_oak_grain.latewood_width[0]
+        + (params.hewn_oak_grain.latewood_width[1] - params.hewn_oak_grain.latewood_width[0])
+            * grid_hash(
+                params,
+                ring,
+                0,
+                params.hewn_oak_grain.ring_count as i32,
+                1,
+                0x481b,
+            );
     let within = phase - phase.floor();
     // Broad earlywood meets a narrow, asymmetric latewood ridge. Per-ring widths
     // and nonuniform spacing break the equally spaced sinusoidal stripe pattern.
     let latewood = smooth((within / width).clamp(0.0, 1.0))
-        * (1.0 - smooth(((within - width) / (width * LATEWOOD_SHOULDER_RATIO)).clamp(0.0, 1.0)));
-    let fiber_coordinate = growth + (value_noise(growth, v, 19, 17, 0x328b) - 0.5) * FIBER_WANDER;
-    let fiber_band = (fiber_coordinate * FIBER_COUNT * std::f32::consts::TAU).sin();
-    let interruptions =
-        smooth(((value_noise(growth, v, 53, 31, 0x4ce7) - 0.34) / 0.40).clamp(0.0, 1.0));
-    let fibers = ((fiber_band - 0.45) / 0.55).max(0.0).powi(2) * interruptions * (1.0 - knot);
+        * (1.0
+            - smooth(
+                ((within - width) / (width * params.hewn_oak_grain.latewood_shoulder_ratio))
+                    .clamp(0.0, 1.0),
+            ));
+    let fibers = fiber_response(params, growth, v, knot);
     // Select whole latewood ridges, using their exact footprint. Color follows
     // both relief flanks through the knot warp without tracing every fine feature.
-    let dark_ring = grid_hash(ring, 0, RING_COUNT as i32, 1, 0x942a) < DARK_RING_FRACTION;
+    let dark_ring = grid_hash(
+        params,
+        ring,
+        0,
+        params.hewn_oak_grain.ring_count as i32,
+        1,
+        0x942a,
+    ) < params.hewn_oak_grain.dark_ring_fraction;
     GrainSample {
         // Discrete intrinsic regions at the authored sample. Only footprint
         // integration below introduces intermediate coverage at their edges.
@@ -119,15 +164,28 @@ pub(super) fn sample(u: f32, v: f32) -> GrainSample {
         latewood,
         fibers,
         vessels: anatomical_marks(
+            params,
             growth,
             v,
-            [VESSEL_COLUMNS, VESSEL_ROWS],
-            VESSEL_RADII_CELLS,
+            [
+                params.hewn_oak_grain.vessel_columns,
+                params.hewn_oak_grain.vessel_rows,
+            ],
+            params.hewn_oak_grain.vessel_radii_cells,
             0x67ae,
         ) * (1.0 - latewood)
             * (1.0 - knot),
-        rays: anatomical_marks(growth, v, [RAY_COLUMNS, RAY_ROWS], RAY_RADII_CELLS, 0x518d)
-            * (1.0 - knot),
+        rays: anatomical_marks(
+            params,
+            growth,
+            v,
+            [
+                params.hewn_oak_grain.ray_columns,
+                params.hewn_oak_grain.ray_rows,
+            ],
+            params.hewn_oak_grain.ray_radii_cells,
+            0x518d,
+        ) * (1.0 - knot),
         knot,
         knot_rings,
     }
@@ -135,15 +193,15 @@ pub(super) fn sample(u: f32, v: f32) -> GrainSample {
 
 /// Integrate the texture footprint before differentiating height into normals.
 /// Knot compression otherwise aliases the narrow latewood shoulder into dots.
-pub(super) fn filtered_sample(u: f32, v: f32) -> GrainSample {
+pub(super) fn filtered_sample(params: &crate::TextureParameters, u: f32, v: f32) -> GrainSample {
     let mut result = GrainSample::default();
-    let texel = 1.0 / super::HEWN_OAK_TEXTURE_SIZE as f32;
+    let texel = 1.0 / params.size(super::HEWN_OAK_TEXTURE_SIZE) as f32;
     let weight = 1.0 / (GRAIN_FILTER_GRID * GRAIN_FILTER_GRID) as f32;
     for y in 0..GRAIN_FILTER_GRID {
         for x in 0..GRAIN_FILTER_GRID {
             let du = ((x as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
             let dv = ((y as f32 + 0.5) / GRAIN_FILTER_GRID as f32 - 0.5) * texel;
-            let tap = sample(u + du, v + dv);
+            let tap = sample(params, u + du, v + dv);
             result.dark_wood += tap.dark_wood * weight;
             result.latewood += tap.latewood * weight;
             result.fibers += tap.fibers * weight;
@@ -158,14 +216,21 @@ pub(super) fn filtered_sample(u: f32, v: f32) -> GrainSample {
 
 // Sparse, jittered anatomical features in the SAME deformed coordinates as
 // the growth rings. Vessel tracks run longitudinally; rays cross those tracks.
-fn anatomical_marks(u: f32, v: f32, cells: [i32; 2], radius: [f32; 2], salt: u64) -> f32 {
+fn anatomical_marks(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    cells: [i32; 2],
+    radius: [f32; 2],
+    salt: u64,
+) -> f32 {
     let x = u.rem_euclid(1.0) * cells[0] as f32;
     let y = v.rem_euclid(1.0) * cells[1] as f32;
     let mut field = 0.0_f32;
     for iy in (y.floor() as i32 - 1)..=(y.floor() as i32 + 1) {
         for ix in (x.floor() as i32 - 1)..=(x.floor() as i32 + 1) {
-            let random = |seed| grid_hash(ix, iy, cells[0], cells[1], salt ^ seed);
-            if random(0) < 1.0 - ANATOMICAL_MARK_DENSITY {
+            let random = |seed| grid_hash(params, ix, iy, cells[0], cells[1], salt ^ seed);
+            if random(0) < 1.0 - params.hewn_oak_grain.anatomical_mark_density {
                 continue;
             }
             let dx = (x - ix as f32 - random(0x217a)) / radius[0];
@@ -183,6 +248,7 @@ mod tests {
 
     #[test]
     fn color_regions_are_discrete_with_filtering_confined_to_boundaries() {
+        let params = &crate::TextureParameters::default();
         let mut partial = 0;
         let mut dark = 0;
         let count = 128 * 128;
@@ -190,9 +256,9 @@ mod tests {
             for x in 0..128 {
                 let u = (x as f32 + 0.5) / 128.0;
                 let v = (y as f32 + 0.5) / 128.0;
-                let authored = sample(u, v).dark_wood;
+                let authored = sample(params, u, v).dark_wood;
                 assert!(authored == 0.0 || authored == 1.0);
-                let coverage = filtered_sample(u, v).dark_wood;
+                let coverage = filtered_sample(params, u, v).dark_wood;
                 partial += usize::from(coverage > 0.0 && coverage < 1.0);
                 dark += usize::from(coverage > 0.5);
             }
@@ -203,6 +269,7 @@ mod tests {
 
     #[test]
     fn dark_regions_cover_complete_relief_ridges_including_knot_flanks() {
+        let params = &crate::TextureParameters::default();
         // Scan the actual warped field, including all three branch intersections.
         // Each connected latewood ridge must have one intrinsic color throughout;
         // earlywood must stay light. Independent color frequencies violate both.
@@ -216,7 +283,7 @@ mod tests {
         ] {
             let mut ridge_color = None;
             for x in 0..8192 {
-                let grain = sample((x as f32 + 0.5) / 8192.0, v);
+                let grain = sample(params, (x as f32 + 0.5) / 8192.0, v);
                 if grain.latewood == 0.0 {
                     assert_eq!(grain.dark_wood, 0.0, "color escaped into earlywood");
                     ridge_color = None;
@@ -234,10 +301,11 @@ mod tests {
 
     #[test]
     fn grain_bends_around_both_flanks_and_recovers_beyond_the_knot() {
+        let params = &crate::TextureParameters::default();
         let knot = &KNOTS[0];
         let displacement = |dx: f32, dy: f32| {
             let u = knot.center[0] + dx;
-            growth_coordinate(u, knot.center[1] + dy).0 - u
+            growth_coordinate(params, u, knot.center[1] + dy).0 - u
         };
         assert!(displacement(0.035, 0.0) < -0.008);
         assert!(displacement(-0.035, 0.0) > 0.008);
@@ -246,11 +314,12 @@ mod tests {
 
     #[test]
     fn growth_and_fiber_fields_match_across_the_repeat() {
+        let params = &crate::TextureParameters::default();
         for index in 0..512 {
             let t = (index as f32 + 0.5) / 512.0;
             for (a, b) in [
-                (sample(0.0, t), sample(1.0, t)),
-                (sample(t, 0.0), sample(t, 1.0)),
+                (sample(params, 0.0, t), sample(params, 1.0, t)),
+                (sample(params, t, 0.0), sample(params, t, 1.0)),
             ] {
                 assert_eq!(a.dark_wood, b.dark_wood);
                 assert!((a.latewood - b.latewood).abs() < 0.0002);
@@ -261,4 +330,39 @@ mod tests {
             }
         }
     }
+}
+
+mod controls;
+pub use controls::Parameters;
+
+fn fiber_response(params: &crate::TextureParameters, growth: f32, v: f32, knot: f32) -> f32 {
+    let fiber_coordinate = growth
+        + (value_noise(
+            params,
+            growth,
+            v,
+            params.hewn_oak_grain.fiber_wander_grid[0],
+            params.hewn_oak_grain.fiber_wander_grid[1],
+            0x328b,
+        ) - 0.5)
+            * params.hewn_oak_grain.fiber_wander;
+    let fiber_band =
+        (fiber_coordinate * params.hewn_oak_grain.fiber_count * std::f32::consts::TAU).sin();
+    let interruptions = smooth(
+        ((value_noise(
+            params,
+            growth,
+            v,
+            params.hewn_oak_grain.fiber_interruption_grid[0],
+            params.hewn_oak_grain.fiber_interruption_grid[1],
+            0x4ce7,
+        ) - params.hewn_oak_grain.fiber_interruption_threshold)
+            / params.hewn_oak_grain.fiber_interruption_transition)
+            .clamp(0.0, 1.0),
+    );
+    ((fiber_band - params.hewn_oak_grain.fiber_threshold) / params.hewn_oak_grain.fiber_transition)
+        .max(0.0)
+        .powi(2)
+        * interruptions
+        * (1.0 - knot)
 }

@@ -17,8 +17,8 @@ impl WhiteOakSide {
     }
 }
 
-#[derive(Clone, Copy)]
-struct WhiteOakLobe {
+#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct WhiteOakLobe {
     center: f32,
     proximal_radius: f32,
     distal_radius: f32,
@@ -141,97 +141,20 @@ pub(super) enum LeafMipSemantic {
     Scalar,
 }
 
-pub(super) fn leaf_width(recipe: LeafRecipe, t: f32) -> f32 {
-    let base = if t < recipe.widest_point {
-        (t / recipe.widest_point)
-            .clamp(0.0, 1.0)
-            .powf(recipe.base_power)
-    } else {
-        ((1.0 - t) / (1.0 - recipe.widest_point))
-            .clamp(0.0, 1.0)
-            .powf(recipe.tip_power)
-    };
-    let lobes = if recipe.lobe_count > 0.0 {
-        1.0 - recipe.lobe_depth
-            * (0.5 + 0.5 * (t * recipe.lobe_count * core::f32::consts::TAU).cos())
-            * (t * core::f32::consts::PI).sin().powi(2)
-    } else {
-        1.0
-    };
-    let teeth = if recipe.tooth_count > 0.0 {
-        1.0 - recipe.tooth_depth
-            * (0.5 + 0.5 * (t * recipe.tooth_count * core::f32::consts::TAU).cos())
-    } else {
-        1.0
-    };
-    base * lobes * teeth
-}
-
-fn leaf_sample(recipe: LeafRecipe, u: f32, v: f32) -> (bool, bool, f32) {
-    // A small petiole margin leaves room for the same parameter model to own
-    // both blade and skeleton, as in the organization leaf generator.
-    let t = ((1.0 - v) - 0.08) / 0.84;
-    let axis = recipe.bend * (t - 0.5).powi(2);
-    let x = (u - 0.5) * 2.15 - axis;
-    let petiole = (0.0..0.09).contains(&(1.0 - v)) && x.abs() < 0.018;
-    if !(0.0..=1.0).contains(&t) {
-        return (petiole, petiole, if petiole { 0.08 } else { 0.0 });
-    }
-    let width = leaf_width(recipe, t) * recipe.width_scale;
-    let inside = x.abs() <= width;
-    let midrib = x.abs() < 0.012;
-    let mut vein = midrib;
-    for index in 0..recipe.vein_pairs {
-        let origin_t = 0.13 + index as f32 / recipe.vein_pairs as f32 * 0.72;
-        let reach = leaf_width(recipe, origin_t) * 0.37;
-        let dy = t - origin_t;
-        if (0.0..0.16).contains(&dy) {
-            let target = reach * (dy / 0.16);
-            vein |= (x.abs() - target).abs() < 0.009;
-        }
-    }
-    let dome = if inside {
-        (1.0 - (x / width.max(0.001)).powi(2)).max(0.0) * 0.32 + if vein { 0.16 } else { 0.0 }
-    } else if petiole {
-        0.12
-    } else {
-        0.0
-    };
-    (inside || petiole, vein || petiole, dome)
-}
-
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum WhiteOakState {
     Living,
     Dry,
 }
 
-fn white_oak_state(recipe: LeafRecipe) -> Option<WhiteOakState> {
-    if recipe.blade == LeafRecipe::WHITE_OAK.blade
-        && recipe.vein == LeafRecipe::WHITE_OAK.vein
-        && recipe.back_blade == LeafRecipe::WHITE_OAK.back_blade
-        && recipe.roughness == LeafRecipe::WHITE_OAK.roughness
-    {
-        Some(WhiteOakState::Living)
-    } else if recipe.blade == LeafRecipe::DRY_WHITE_OAK.blade
-        && recipe.vein == LeafRecipe::DRY_WHITE_OAK.vein
-        && recipe.back_blade == LeafRecipe::DRY_WHITE_OAK.back_blade
-        && recipe.roughness == LeafRecipe::DRY_WHITE_OAK.roughness
-    {
-        Some(WhiteOakState::Dry)
-    } else {
-        None
-    }
-}
-
-fn white_oak_lobes(side: WhiteOakSide) -> &'static [WhiteOakLobe; 5] {
+fn white_oak_lobes(params: &crate::TextureParameters, side: WhiteOakSide) -> &[WhiteOakLobe; 5] {
     match side {
-        WhiteOakSide::Left => &WHITE_OAK_LEFT_LOBES,
-        WhiteOakSide::Right => &WHITE_OAK_RIGHT_LOBES,
+        WhiteOakSide::Left => &params.foliage.white_oak_left_lobes,
+        WhiteOakSide::Right => &params.foliage.white_oak_right_lobes,
     }
 }
 
-fn white_oak_side_width(t: f32, side: WhiteOakSide) -> f32 {
+fn white_oak_side_width(params: &crate::TextureParameters, t: f32, side: WhiteOakSide) -> f32 {
     if !(0.0..=1.0).contains(&t) {
         return 0.0;
     }
@@ -239,18 +162,24 @@ fn white_oak_side_width(t: f32, side: WhiteOakSide) -> f32 {
     // A continuous lamina keeps the sinuses connected well away from the
     // midrib. Q. robur's first independently authored contribution on each
     // side forms the auriculate blade base around its very short petiole.
-    let longitudinal_envelope = (t * core::f32::consts::PI).sin().max(0.0).powf(0.58);
-    let middle_breadth = 0.050 + 0.024 * (t * core::f32::consts::PI).sin().max(0.0);
+    let longitudinal_envelope = (t * core::f32::consts::PI)
+        .sin()
+        .max(0.0)
+        .powf(params.foliage.white_oak_side_width_longitudinal_envelope);
+    let middle_breadth = params.foliage.white_oak_side_width_middle_breadth_1
+        + params.foliage.white_oak_side_width_middle_breadth_2
+            * (t * core::f32::consts::PI).sin().max(0.0);
     let mut width = middle_breadth * longitudinal_envelope;
-    for lobe in white_oak_lobes(side) {
+    for lobe in white_oak_lobes(params, side) {
         let radius = if t < lobe.center {
             lobe.proximal_radius
         } else {
             lobe.distal_radius
-        } * 0.78;
+        } * params.foliage.white_oak_side_width_radius;
         let longitudinal = (t - lobe.center) / radius;
         if longitudinal.abs() < 1.0 {
-            let profile = (1.0 - longitudinal * longitudinal).powf(0.72);
+            let profile = (1.0 - longitudinal * longitudinal)
+                .powf(params.foliage.white_oak_side_width_profile);
             width += lobe.reach * profile;
         }
     }
@@ -272,13 +201,28 @@ fn white_oak_side_width(t: f32, side: WhiteOakSide) -> f32 {
 
 #[cfg(test)]
 fn white_oak_half_width(t: f32) -> f32 {
-    white_oak_side_width(t, WhiteOakSide::Left).max(white_oak_side_width(t, WhiteOakSide::Right))
+    let params = &crate::TextureParameters::default();
+
+    white_oak_side_width(params, t, WhiteOakSide::Left).max(white_oak_side_width(
+        params,
+        t,
+        WhiteOakSide::Right,
+    ))
 }
 
-fn white_oak_tissue_mottle(u: f32, v: f32) -> f32 {
-    let broad = (u * 8.0 + v * 5.0 + 0.7).sin();
-    let cross = (u * 5.0 - v * 9.0 + 1.9).cos();
-    let fine = (u * 19.0 + v * 17.0 + 0.3).sin();
+fn white_oak_tissue_mottle(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let broad = (u * params.foliage.white_oak_tissue_mottle_broad_1
+        + v * params.foliage.white_oak_tissue_mottle_broad_2
+        + params.foliage.white_oak_tissue_mottle_broad_3)
+        .sin();
+    let cross = (u * params.foliage.white_oak_tissue_mottle_cross_1
+        - v * params.foliage.white_oak_tissue_mottle_cross_2
+        + params.foliage.white_oak_tissue_mottle_cross_3)
+        .cos();
+    let fine = (u * params.foliage.white_oak_tissue_mottle_fine_1
+        + v * params.foliage.white_oak_tissue_mottle_fine_2
+        + params.foliage.white_oak_tissue_mottle_fine_3)
+        .sin();
     (broad * 0.52 + cross * 0.33 + fine * 0.15).clamp(-1.0, 1.0)
 }
 
@@ -286,9 +230,15 @@ fn white_oak_vein_run(lobe: WhiteOakLobe) -> f32 {
     lobe.vein_rise + (lobe.proximal_radius + lobe.distal_radius) * 0.09
 }
 
-fn white_oak_vein_x(side: WhiteOakSide, lobe: WhiteOakLobe, progress: f32) -> f32 {
-    let eased = progress.powf(0.78);
-    let inward_curve = (progress * core::f32::consts::PI).sin() * 0.010;
+fn white_oak_vein_x(
+    params: &crate::TextureParameters,
+    side: WhiteOakSide,
+    lobe: WhiteOakLobe,
+    progress: f32,
+) -> f32 {
+    let eased = progress.powf(params.foliage.white_oak_vein_x_eased);
+    let inward_curve =
+        (progress * core::f32::consts::PI).sin() * params.foliage.white_oak_vein_x_inward_curve;
     side.sign() * (lobe.vein_reach * eased - inward_curve)
 }
 
@@ -304,18 +254,21 @@ fn white_oak_mottled_color(base: [u8; 3], mottle: f32) -> [u8; 3] {
     ]
 }
 
-fn white_oak_sample(u: f32, v: f32) -> WhiteOakSample {
+fn white_oak_sample(params: &crate::TextureParameters, u: f32, v: f32) -> WhiteOakSample {
     let blade_y = 1.0 - v;
-    let t = (blade_y - 0.075) / 0.85;
-    let axis = 0.026 * (t - 0.42).powi(2) - 0.004;
+    let t = (blade_y - params.foliage.white_oak_sample_t_1) / params.foliage.white_oak_sample_t_2;
+    let axis = params.foliage.white_oak_sample_axis_1
+        * (t - params.foliage.white_oak_sample_axis_2).powi(2)
+        - params.foliage.white_oak_sample_axis_3;
     let x = (u - 0.5) - axis;
-    let petiole = (0.026..0.084).contains(&blade_y) && x.abs() < 0.008;
+    let petiole =
+        (0.026..0.084).contains(&blade_y) && x.abs() < params.foliage.white_oak_sample_petiole;
     let side = if x < 0.0 {
         WhiteOakSide::Left
     } else {
         WhiteOakSide::Right
     };
-    let side_width = white_oak_side_width(t, side);
+    let side_width = white_oak_side_width(params, t, side);
     let inside_blade = (0.0..=1.0).contains(&t) && x.abs() <= side_width;
     if !inside_blade && !petiole {
         return WhiteOakSample {
@@ -327,15 +280,16 @@ fn white_oak_sample(u: f32, v: f32) -> WhiteOakSample {
         };
     }
 
-    let midrib_width = 0.0035 + 0.003 * (1.0 - t.clamp(0.0, 1.0));
+    let midrib_width = params.foliage.white_oak_sample_midrib_width_1
+        + params.foliage.white_oak_sample_midrib_width_2 * (1.0 - t.clamp(0.0, 1.0));
     let mut vein_distance = x.abs();
     let mut vein = x.abs() <= midrib_width;
     let mut corrugation = 0.0_f32;
-    for (index, lobe) in white_oak_lobes(side).iter().enumerate() {
+    for (index, lobe) in white_oak_lobes(params, side).iter().enumerate() {
         let vein_run = white_oak_vein_run(*lobe);
         let progress = ((t - lobe.vein_origin) / vein_run).clamp(0.0, 1.0);
         if progress > 0.0 && progress < 1.0 {
-            let target_x = white_oak_vein_x(side, *lobe, progress);
+            let target_x = white_oak_vein_x(params, side, *lobe, progress);
             let distance = (x - target_x).abs();
             vein_distance = vein_distance.min(distance);
             vein |= distance < 0.0034;
@@ -347,9 +301,12 @@ fn white_oak_sample(u: f32, v: f32) -> WhiteOakSample {
 
             // A short fork supplies tertiary structure without turning the
             // albedo into a dense line drawing.
-            let fork_progress = ((progress - 0.48) / 0.42).clamp(0.0, 1.0);
+            let fork_progress = ((progress - params.foliage.white_oak_sample_fork_progress_1)
+                / params.foliage.white_oak_sample_fork_progress_2)
+                .clamp(0.0, 1.0);
             if fork_progress > 0.0 && fork_progress < 1.0 {
-                let fork_x = target_x - side.sign() * 0.024 * fork_progress;
+                let fork_x =
+                    target_x - side.sign() * params.foliage.white_oak_sample_fork_x * fork_progress;
                 let fork_distance = (x - fork_x).abs();
                 vein_distance = vein_distance.min(fork_distance);
                 vein |= fork_distance < 0.0018;
@@ -357,16 +314,28 @@ fn white_oak_sample(u: f32, v: f32) -> WhiteOakSample {
         }
     }
 
-    let transverse = (x / side_width.max(0.001)).clamp(-1.0, 1.0);
-    let blade_dome = (1.0 - transverse * transverse).powf(0.72) * 0.17;
+    let transverse =
+        (x / side_width.max(params.foliage.white_oak_sample_transverse)).clamp(-1.0, 1.0);
+    let blade_dome = (1.0 - transverse * transverse)
+        .powf(params.foliage.white_oak_sample_blade_dome_1)
+        * params.foliage.white_oak_sample_blade_dome_2;
     let longitudinal_dome = (t.clamp(0.0, 1.0) * core::f32::consts::PI).sin().sqrt();
-    let vein_ridge = (1.0 - vein_distance / 0.012).clamp(0.0, 1.0).powi(2) * 0.10;
-    let tissue_mottle = white_oak_tissue_mottle(u, v);
+    let vein_ridge = (1.0 - vein_distance / params.foliage.white_oak_sample_vein_ridge_1)
+        .clamp(0.0, 1.0)
+        .powi(2)
+        * params.foliage.white_oak_sample_vein_ridge_2;
+    let tissue_mottle = white_oak_tissue_mottle(params, u, v);
     let height = if petiole && !inside_blade {
-        0.10
+        params.foliage.white_oak_sample_height_1
     } else {
-        (blade_dome * longitudinal_dome + corrugation + vein_ridge + tissue_mottle * 0.004)
-            .clamp(0.015, 0.32)
+        (blade_dome * longitudinal_dome
+            + corrugation
+            + vein_ridge
+            + tissue_mottle * params.foliage.white_oak_sample_height_2)
+            .clamp(
+                params.foliage.white_oak_sample_height_3,
+                params.foliage.white_oak_sample_height_4,
+            )
     };
     WhiteOakSample {
         inside: true,
@@ -377,35 +346,42 @@ fn white_oak_sample(u: f32, v: f32) -> WhiteOakSample {
     }
 }
 
-fn white_oak_state_sample(u: f32, v: f32, state: WhiteOakState) -> WhiteOakSample {
-    let mut sample = white_oak_sample(u, v);
+fn white_oak_state_sample(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    state: WhiteOakState,
+) -> WhiteOakSample {
+    let mut sample = white_oak_sample(params, u, v);
     if state == WhiteOakState::Dry && sample.inside {
-        sample.height = crate::dry_white_oak_leaf::relief(sample.height, u, v);
+        sample.height = crate::dry_white_oak_leaf::relief(params, sample.height, u, v);
     }
     sample
 }
 
-fn white_oak_coverage(u: f32, v: f32, texel: f32) -> bool {
+fn white_oak_coverage(params: &crate::TextureParameters, u: f32, v: f32, texel: f32) -> bool {
     let mut covered = 0;
     for sample_y in 0..WHITE_OAK_EDGE_SAMPLES {
         for sample_x in 0..WHITE_OAK_EDGE_SAMPLES {
             let offset_x = (sample_x as f32 + 0.5) / WHITE_OAK_EDGE_SAMPLES as f32 - 0.5;
             let offset_y = (sample_y as f32 + 0.5) / WHITE_OAK_EDGE_SAMPLES as f32 - 0.5;
-            covered +=
-                u32::from(white_oak_sample(u + offset_x * texel, v + offset_y * texel).inside);
+            covered += u32::from(
+                white_oak_sample(params, u + offset_x * texel, v + offset_y * texel).inside,
+            );
         }
     }
     covered * 2 >= WHITE_OAK_EDGE_SAMPLES.pow(2)
 }
 
 pub(super) fn leaf_mipped_image(
+    params: &crate::TextureParameters,
     base_level: Vec<u8>,
     srgb: bool,
     semantic: LeafMipSemantic,
 ) -> Image {
     let mut mip_data = base_level.clone();
     let mut previous = base_level.clone();
-    let mut previous_size = TEXTURE_SIZE;
+    let mut previous_size = params.size(TEXTURE_SIZE);
     while previous_size > 1 {
         let next_size = previous_size / 2;
         let mut next = Vec::with_capacity((next_size * next_size * 4) as usize);
@@ -486,8 +462,8 @@ pub(super) fn leaf_mipped_image(
 
     let mut image = Image::new(
         Extent3d {
-            width: TEXTURE_SIZE,
-            height: TEXTURE_SIZE,
+            width: params.size(TEXTURE_SIZE),
+            height: params.size(TEXTURE_SIZE),
             depth_or_array_layers: 1,
         },
         TextureDimension::D2,
@@ -500,17 +476,18 @@ pub(super) fn leaf_mipped_image(
         RenderAssetUsages::RENDER_WORLD,
     );
     image.data = Some(mip_data);
-    image.texture_descriptor.mip_level_count = TEXTURE_SIZE.ilog2() + 1;
+    image.texture_descriptor.mip_level_count = params.size(TEXTURE_SIZE).ilog2() + 1;
     image.sampler = ImageSampler::linear();
     image
 }
 
 fn generate_white_oak_leaf_textures(
+    params: &crate::TextureParameters,
     images: &mut Assets<Image>,
     recipe: LeafRecipe,
     state: WhiteOakState,
 ) -> LeafTextureSet {
-    let pixel_count = (TEXTURE_SIZE * TEXTURE_SIZE) as usize;
+    let pixel_count = (params.size(TEXTURE_SIZE) * params.size(TEXTURE_SIZE)) as usize;
     let mut opacity = Vec::with_capacity(pixel_count * 4);
     let mut front = Vec::with_capacity(pixel_count * 4);
     let mut back = Vec::with_capacity(pixel_count * 4);
@@ -518,13 +495,13 @@ fn generate_white_oak_leaf_textures(
     let mut normal_back = Vec::with_capacity(pixel_count * 4);
     let mut height_map = Vec::with_capacity(pixel_count * 4);
     let mut arm = Vec::with_capacity(pixel_count * 4);
-    let texel = 1.0 / TEXTURE_SIZE as f32;
-    for y in 0..TEXTURE_SIZE {
-        for x in 0..TEXTURE_SIZE {
+    let texel = 1.0 / params.size(TEXTURE_SIZE) as f32;
+    for y in 0..params.size(TEXTURE_SIZE) {
+        for x in 0..params.size(TEXTURE_SIZE) {
             let u = (x as f32 + 0.5) * texel;
             let v = (y as f32 + 0.5) * texel;
-            let sample = white_oak_state_sample(u, v, state);
-            let inside = white_oak_coverage(u, v, texel);
+            let sample = white_oak_state_sample(params, u, v, state);
+            let inside = white_oak_coverage(params, u, v, texel);
             let alpha = if inside { 255 } else { 0 };
             opacity.extend_from_slice(&[alpha; 4]);
             let (front_color, back_color) = match state {
@@ -547,10 +524,10 @@ fn generate_white_oak_leaf_textures(
                 front.extend_from_slice(&[0; 4]);
                 back.extend_from_slice(&[0; 4]);
             }
-            let hx = white_oak_state_sample((u + texel).min(1.0), v, state).height
-                - white_oak_state_sample((u - texel).max(0.0), v, state).height;
-            let hy = white_oak_state_sample(u, (v + texel).min(1.0), state).height
-                - white_oak_state_sample(u, (v - texel).max(0.0), state).height;
+            let hx = white_oak_state_sample(params, (u + texel).min(1.0), v, state).height
+                - white_oak_state_sample(params, (u - texel).max(0.0), v, state).height;
+            let hy = white_oak_state_sample(params, u, (v + texel).min(1.0), state).height
+                - white_oak_state_sample(params, u, (v - texel).max(0.0), state).height;
             let front_surface_normal = Vec3::new(-hx * 7.0, hy * 7.0, 1.0).normalize();
             let encoded =
                 ((front_surface_normal + Vec3::ONE) * 127.5).clamp(Vec3::ZERO, Vec3::splat(255.0));
@@ -575,9 +552,17 @@ fn generate_white_oak_leaf_textures(
             } else if sample.petiole {
                 235
             } else if sample.vein {
-                (232.0 + height * 32.0).min(248.0) as u8
+                (params.foliage.generate_white_oak_leaf_textures_ao_1
+                    + height * params.foliage.generate_white_oak_leaf_textures_ao_2)
+                    .min(params.foliage.generate_white_oak_leaf_textures_ao_3) as u8
             } else {
-                (220.0 + height * 34.0 + sample.tissue_mottle * 1.5).clamp(216.0, 242.0) as u8
+                (params.foliage.generate_white_oak_leaf_textures_ao_4
+                    + height * params.foliage.generate_white_oak_leaf_textures_ao_5
+                    + sample.tissue_mottle * params.foliage.generate_white_oak_leaf_textures_ao_6)
+                    .clamp(
+                        params.foliage.generate_white_oak_leaf_textures_ao_7,
+                        params.foliage.generate_white_oak_leaf_textures_ao_8,
+                    ) as u8
             };
             let encoded_height = (height * 255.0).clamp(0.0, 255.0) as u8;
             height_map.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
@@ -586,128 +571,72 @@ fn generate_white_oak_leaf_textures(
     }
 
     LeafTextureSet {
-        opacity: images.add(leaf_mipped_image(opacity, false, LeafMipSemantic::Coverage)),
+        opacity: images.add(leaf_mipped_image(
+            params,
+            opacity,
+            false,
+            LeafMipSemantic::Coverage,
+        )),
         front_albedo: images.add(leaf_mipped_image(
+            params,
             front,
             true,
             LeafMipSemantic::ColorCoverage,
         )),
         back_albedo: images.add(leaf_mipped_image(
+            params,
             back,
             true,
             LeafMipSemantic::ColorCoverage,
         )),
         front_normal: images.add(leaf_mipped_image(
+            params,
             normal_front,
             false,
             LeafMipSemantic::Normal,
         )),
         back_normal: images.add(leaf_mipped_image(
+            params,
             normal_back,
             false,
             LeafMipSemantic::Normal,
         )),
         height: images.add(leaf_mipped_image(
+            params,
             height_map,
             false,
             LeafMipSemantic::Scalar,
         )),
-        arm: images.add(leaf_mipped_image(arm, false, LeafMipSemantic::Scalar)),
+        arm: images.add(leaf_mipped_image(
+            params,
+            arm,
+            false,
+            LeafMipSemantic::Scalar,
+        )),
     }
 }
 
 pub(super) fn generate_leaf_textures(
+    params: &crate::TextureParameters,
     images: &mut Assets<Image>,
-    recipe: LeafRecipe,
+    species: crate::LeafSpecies,
 ) -> LeafTextureSet {
-    if let Some(state) = white_oak_state(recipe) {
-        return generate_white_oak_leaf_textures(images, recipe, state);
-    }
-    if recipe.blade == LeafRecipe::HAZEL.blade
-        && recipe.back_blade == LeafRecipe::HAZEL.back_blade
-        && recipe.roughness == LeafRecipe::HAZEL.roughness
-    {
-        return crate::hazel_leaf::generate(images, recipe);
-    }
-    if recipe.blade == LeafRecipe::BLACKTHORN.blade
-        && recipe.back_blade == LeafRecipe::BLACKTHORN.back_blade
-        && recipe.roughness == LeafRecipe::BLACKTHORN.roughness
-    {
-        return crate::blackthorn_leaf::generate(images, recipe);
-    }
-    if recipe.blade == LeafRecipe::HAWTHORN.blade
-        && recipe.back_blade == LeafRecipe::HAWTHORN.back_blade
-        && recipe.roughness == LeafRecipe::HAWTHORN.roughness
-    {
-        return crate::hawthorn_leaf::generate(images, recipe);
-    }
-    if recipe.blade == LeafRecipe::BEECH.blade
-        && recipe.back_blade == LeafRecipe::BEECH.back_blade
-        && recipe.roughness == LeafRecipe::BEECH.roughness
-    {
-        return crate::beech_leaf::generate(images, recipe);
-    }
-    let pixel_count = (TEXTURE_SIZE * TEXTURE_SIZE) as usize;
-    let mut opacity = Vec::with_capacity(pixel_count * 4);
-    let mut front = Vec::with_capacity(pixel_count * 4);
-    let mut back = Vec::with_capacity(pixel_count * 4);
-    let mut normal_front = Vec::with_capacity(pixel_count * 4);
-    let mut normal_back = Vec::with_capacity(pixel_count * 4);
-    let mut height_map = Vec::with_capacity(pixel_count * 4);
-    let mut arm = Vec::with_capacity(pixel_count * 4);
-    let texel = 1.0 / TEXTURE_SIZE as f32;
-    for y in 0..TEXTURE_SIZE {
-        for x in 0..TEXTURE_SIZE {
-            let u = (x as f32 + 0.5) * texel;
-            let v = (y as f32 + 0.5) * texel;
-            let (inside, vein, height) = leaf_sample(recipe, u, v);
-            let alpha = if inside { 255 } else { 0 };
-            opacity.extend_from_slice(&[alpha, alpha, alpha, alpha]);
-            let front_color = if vein { recipe.vein } else { recipe.blade };
-            let back_color = if vein { recipe.vein } else { recipe.back_blade };
-            if inside {
-                front.extend_from_slice(&[front_color[0], front_color[1], front_color[2], alpha]);
-                back.extend_from_slice(&[back_color[0], back_color[1], back_color[2], alpha]);
-            } else {
-                front.extend_from_slice(&[0, 0, 0, 0]);
-                back.extend_from_slice(&[0, 0, 0, 0]);
-            }
-            let hx = leaf_sample(recipe, (u + texel).min(1.0), v).2
-                - leaf_sample(recipe, (u - texel).max(0.0), v).2;
-            let hy = leaf_sample(recipe, u, (v + texel).min(1.0)).2
-                - leaf_sample(recipe, u, (v - texel).max(0.0)).2;
-            let normal = Vec3::new(-hx * 9.0, hy * 9.0, 1.0).normalize();
-            let encoded = ((normal + Vec3::ONE) * 127.5).clamp(Vec3::ZERO, Vec3::splat(255.0));
-            normal_front.extend_from_slice(&[
-                encoded.x as u8,
-                encoded.y as u8,
-                encoded.z as u8,
-                255,
-            ]);
-            normal_back.extend_from_slice(&[
-                encoded.x as u8,
-                (255.0 - encoded.y) as u8,
-                encoded.z as u8,
-                255,
-            ]);
-            let ao = if inside {
-                (214.0 + height * 41.0).min(255.0) as u8
-            } else {
-                255
-            };
-            let encoded_height = (height * 255.0).clamp(0.0, 255.0) as u8;
-            height_map.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
-            arm.extend_from_slice(&[ao, recipe.roughness, 0, 255]);
-        }
-    }
-    LeafTextureSet {
-        opacity: images.add(image_rgba(opacity, false, false, false)),
-        front_albedo: images.add(image_rgba(front, true, false, false)),
-        back_albedo: images.add(image_rgba(back, true, false, false)),
-        front_normal: images.add(image_rgba(normal_front, false, false, true)),
-        back_normal: images.add(image_rgba(normal_back, false, false, true)),
-        height: images.add(image_rgba(height_map, false, false, true)),
-        arm: images.add(image_rgba(arm, false, false, false)),
+    use crate::LeafSpecies::*;
+    let recipe = match species {
+        WhiteOak => params.leaf_colors.white_oak,
+        DryWhiteOak => params.leaf_colors.dry_white_oak,
+        Hazel => params.leaf_colors.hazel,
+        Blackthorn => params.leaf_colors.blackthorn,
+        Hawthorn => params.leaf_colors.hawthorn,
+        Beech => params.leaf_colors.beech,
+    };
+    match species {
+        WhiteOak => generate_white_oak_leaf_textures(params, images, recipe, WhiteOakState::Living),
+        DryWhiteOak => generate_white_oak_leaf_textures(params, images, recipe, WhiteOakState::Dry),
+        Hazel => crate::hazel_leaf::generate(params, images, recipe),
+        Blackthorn => crate::blackthorn_leaf::generate(params, images, recipe),
+        Hawthorn => crate::hawthorn_leaf::generate(params, images, recipe),
+        Beech => crate::beech_leaf::generate(params, images, recipe),
     }
 }
 
@@ -719,15 +648,16 @@ mod white_oak_tests {
 
     #[test]
     fn living_white_oak_is_auriculate_and_has_independent_lobes_and_veins() {
+        let params = &crate::TextureParameters::default();
         for side in [WhiteOakSide::Left, WhiteOakSide::Right] {
-            let lobes = white_oak_lobes(side);
+            let lobes = white_oak_lobes(params, side);
             let sinus_ratios = lobes
                 .windows(2)
                 .map(|pair| {
                     let midpoint = (pair[0].center + pair[1].center) * 0.5;
-                    let sinus = white_oak_side_width(midpoint, side);
-                    let neighboring_lobes = white_oak_side_width(pair[0].center, side)
-                        .min(white_oak_side_width(pair[1].center, side));
+                    let sinus = white_oak_side_width(params, midpoint, side);
+                    let neighboring_lobes = white_oak_side_width(params, pair[0].center, side)
+                        .min(white_oak_side_width(params, pair[1].center, side));
                     sinus / neighboring_lobes
                 })
                 .collect::<Vec<_>>();
@@ -747,7 +677,7 @@ mod white_oak_tests {
             );
             for sample in 40..=340 {
                 let t = sample as f32 / 400.0;
-                assert!(white_oak_side_width(t, side) > 0.035);
+                assert!(white_oak_side_width(params, t, side) > 0.035);
             }
 
             for lobe in lobes {
@@ -755,10 +685,10 @@ mod white_oak_tests {
                 let vein_run = white_oak_vein_run(*lobe);
                 let t = lobe.vein_origin + vein_run * progress;
                 let axis = 0.026 * (t - 0.42).powi(2) - 0.004;
-                let x = white_oak_vein_x(side, *lobe, progress);
+                let x = white_oak_vein_x(params, side, *lobe, progress);
                 let u = 0.5 + axis + x;
                 let v = 1.0 - (0.075 + t * 0.85);
-                assert!(white_oak_sample(u, v).vein, "vein reaches its lobe");
+                assert!(white_oak_sample(params, u, v).vein, "vein reaches its lobe");
             }
         }
 
@@ -773,15 +703,16 @@ mod white_oak_tests {
         assert!(white_oak_half_width(0.075) > white_oak_half_width(0.015) * 1.8);
         assert!(white_oak_half_width(0.90) > white_oak_half_width(1.0));
         assert!(
-            white_oak_sample(0.5, 0.95).inside,
+            white_oak_sample(params, 0.5, 0.95).inside,
             "short petiole is present"
         );
     }
 
     #[test]
     fn living_white_oak_channels_are_detailed_palette_bounded_and_mip_complete() {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::<Image>::default();
-        let textures = generate_leaf_textures(&mut images, LeafRecipe::WHITE_OAK);
+        let textures = generate_leaf_textures(params, &mut images, crate::LeafSpecies::WhiteOak);
         for handle in [
             &textures.opacity,
             &textures.front_albedo,
@@ -917,10 +848,12 @@ mod white_oak_tests {
 
     #[test]
     fn living_white_oak_generation_is_repeatable() {
+        let params = &crate::TextureParameters::default();
         let mut first_images = Assets::<Image>::default();
-        let first = generate_leaf_textures(&mut first_images, LeafRecipe::WHITE_OAK);
+        let first = generate_leaf_textures(params, &mut first_images, crate::LeafSpecies::WhiteOak);
         let mut second_images = Assets::<Image>::default();
-        let second = generate_leaf_textures(&mut second_images, LeafRecipe::WHITE_OAK);
+        let second =
+            generate_leaf_textures(params, &mut second_images, crate::LeafSpecies::WhiteOak);
         for (first_handle, second_handle) in [
             (&first.opacity, &second.opacity),
             (&first.front_albedo, &second.front_albedo),
@@ -939,9 +872,10 @@ mod white_oak_tests {
 
     #[test]
     fn dry_white_oak_preserves_species_silhouette_with_distinct_material_response() {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::<Image>::default();
-        let living = generate_leaf_textures(&mut images, LeafRecipe::WHITE_OAK);
-        let dry = generate_leaf_textures(&mut images, LeafRecipe::DRY_WHITE_OAK);
+        let living = generate_leaf_textures(params, &mut images, crate::LeafSpecies::WhiteOak);
+        let dry = generate_leaf_textures(params, &mut images, crate::LeafSpecies::DryWhiteOak);
         let base_bytes = (TEXTURE_SIZE * TEXTURE_SIZE * 4) as usize;
 
         assert_eq!(
@@ -1007,10 +941,13 @@ mod white_oak_tests {
 
     #[test]
     fn dry_white_oak_generation_is_repeatable() {
+        let params = &crate::TextureParameters::default();
         let mut first_images = Assets::<Image>::default();
-        let first = generate_leaf_textures(&mut first_images, LeafRecipe::DRY_WHITE_OAK);
+        let first =
+            generate_leaf_textures(params, &mut first_images, crate::LeafSpecies::DryWhiteOak);
         let mut second_images = Assets::<Image>::default();
-        let second = generate_leaf_textures(&mut second_images, LeafRecipe::DRY_WHITE_OAK);
+        let second =
+            generate_leaf_textures(params, &mut second_images, crate::LeafSpecies::DryWhiteOak);
         for (first_handle, second_handle) in [
             (&first.opacity, &second.opacity),
             (&first.front_albedo, &second.front_albedo),
@@ -1027,3 +964,6 @@ mod white_oak_tests {
         }
     }
 }
+
+mod controls;
+pub use controls::Parameters;

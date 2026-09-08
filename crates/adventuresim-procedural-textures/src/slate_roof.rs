@@ -7,7 +7,7 @@
 //! curvature or modern machine-cut regularity.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -29,104 +29,152 @@ struct SlateSample {
     cleavage: f32,
 }
 
-fn hash_unit(value: u64) -> f32 {
-    inclusive_unit_f32(splitmix64(value))
+fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
+    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
 }
 
-fn piece_id(canonical_row: i32, column: i32) -> u64 {
-    splitmix64(
+fn piece_id(params: &crate::TextureParameters, canonical_row: i32, column: i32) -> u64 {
+    crate::parameters::seeded_hash(
+        params,
         0x51a7_3e29
-            ^ ((canonical_row.rem_euclid(COURSES) as u64) << 32)
-            ^ column.rem_euclid(PIECES_PER_COURSE) as u64,
+            ^ ((canonical_row.rem_euclid(params.slate_roof.courses) as u64) << 32)
+            ^ column.rem_euclid(params.slate_roof.pieces_per_course) as u64,
     )
 }
 
-fn piece_coordinates(u: f32, row: i32) -> (i32, i32, f32) {
-    let base_column = (u * PIECES_PER_COURSE as f32).floor() as i32;
-    let base_wrap = base_column.div_euclid(PIECES_PER_COURSE);
-    let row_key = (row + COURSE_RISE_PER_REPEAT * base_wrap).rem_euclid(COURSES) as u64;
-    let stagger = hash_unit(0x718d_295b ^ row_key) * 0.82;
-    let scaled = u * PIECES_PER_COURSE as f32 - stagger;
+fn piece_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i32, i32, f32) {
+    let base_column = (u * params.slate_roof.pieces_per_course as f32).floor() as i32;
+    let base_wrap = base_column.div_euclid(params.slate_roof.pieces_per_course);
+    let row_key = (row + params.slate_roof.course_rise_per_repeat * base_wrap)
+        .rem_euclid(params.slate_roof.courses) as u64;
+    let stagger =
+        hash_unit(params, 0x718d_295b ^ row_key) * params.slate_roof.piece_coordinates_stagger;
+    let scaled = u * params.slate_roof.pieces_per_course as f32 - stagger;
     let column = scaled.floor() as i32;
-    let wrap = column.div_euclid(PIECES_PER_COURSE);
-    let canonical_row = row + COURSE_RISE_PER_REPEAT * wrap;
+    let wrap = column.div_euclid(params.slate_roof.pieces_per_course);
+    let canonical_row = row + params.slate_roof.course_rise_per_repeat * wrap;
     (canonical_row, column, scaled - column as f32 - 0.5)
 }
 
-fn cleft_relief(local_x: f32, course_phase: f32, id: u64) -> f32 {
-    let phase = hash_unit(id ^ 0x6ca1) * std::f32::consts::TAU;
-    let rake = (hash_unit(id ^ 0x347b) - 0.5) * 0.75;
-    let plane_a = (local_x * 2.4 + course_phase * rake + phase).sin();
-    let plane_b = (local_x * 4.6 - course_phase * 1.2 + phase * 0.63).sin();
-    let plane_c = (local_x * 8.0 + course_phase * 2.1 + phase * 1.41).sin();
+fn cleft_relief(
+    params: &crate::TextureParameters,
+    local_x: f32,
+    course_phase: f32,
+    id: u64,
+) -> f32 {
+    let phase = hash_unit(params, id ^ 0x6ca1) * std::f32::consts::TAU;
+    let rake = (hash_unit(params, id ^ 0x347b) - 0.5) * params.slate_roof.cleft_relief_rake;
+    let plane_a =
+        (local_x * params.slate_roof.cleft_relief_plane_a + course_phase * rake + phase).sin();
+    let plane_b = (local_x * params.slate_roof.cleft_relief_plane_b_1
+        - course_phase * params.slate_roof.cleft_relief_plane_b_2
+        + phase * params.slate_roof.cleft_relief_plane_b_3)
+        .sin();
+    let plane_c = (local_x * params.slate_roof.cleft_relief_plane_c_1
+        + course_phase * params.slate_roof.cleft_relief_plane_c_2
+        + phase * params.slate_roof.cleft_relief_plane_c_3)
+        .sin();
     plane_a * 0.58 + plane_b * 0.29 + plane_c * 0.13
 }
 
-fn lower_edge(local_x: f32, id: u64) -> f32 {
-    let heel_bias = (hash_unit(id ^ 0x728d) - 0.5) * 0.080;
-    let left_clip = ((-local_x - 0.25) / 0.20).clamp(0.0, 1.0);
-    let right_clip = ((local_x - 0.29) / 0.16).clamp(0.0, 1.0);
-    let asymmetry = left_clip * (0.045 + hash_unit(id ^ 0x941f) * 0.050)
-        + right_clip * (0.025 + hash_unit(id ^ 0x2e57) * 0.045);
-    let chip_segment = ((local_x + 0.5) * 7.0).floor() as u64;
-    let chip =
-        ((hash_unit(id ^ chip_segment.wrapping_mul(0x85eb)) - 0.86) / 0.14).clamp(0.0, 1.0) * 0.024;
-    COURSE_FACE_END + heel_bias - asymmetry - chip
+fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
+    let heel_bias = (hash_unit(params, id ^ 0x728d) - 0.5) * params.slate_roof.lower_edge_heel_bias;
+    let left_clip = ((-local_x - params.slate_roof.lower_edge_left_clip_1)
+        / params.slate_roof.lower_edge_left_clip_2)
+        .clamp(0.0, 1.0);
+    let right_clip = ((local_x - params.slate_roof.lower_edge_right_clip_1)
+        / params.slate_roof.lower_edge_right_clip_2)
+        .clamp(0.0, 1.0);
+    let asymmetry = left_clip
+        * (params.slate_roof.lower_edge_asymmetry_1
+            + hash_unit(params, id ^ 0x941f) * params.slate_roof.lower_edge_asymmetry_2)
+        + right_clip
+            * (params.slate_roof.lower_edge_asymmetry_3
+                + hash_unit(params, id ^ 0x2e57) * params.slate_roof.lower_edge_asymmetry_4);
+    let chip_segment = ((local_x + 0.5) * params.slate_roof.lower_edge_chip_segment).floor() as u64;
+    let chip = ((hash_unit(params, id ^ chip_segment.wrapping_mul(0x85eb))
+        - params.slate_roof.lower_edge_chip_1)
+        / params.slate_roof.lower_edge_chip_2)
+        .clamp(0.0, 1.0)
+        * params.slate_roof.lower_edge_chip_3;
+    params.slate_roof.course_face_end + heel_bias - asymmetry - chip
 }
 
-fn sample_slate(u: f32, v: f32) -> SlateSample {
-    let scaled_v = v * COURSES as f32 - u * COURSE_RISE_PER_REPEAT as f32;
+fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSample {
+    let scaled_v =
+        v * params.slate_roof.courses as f32 - u * params.slate_roof.course_rise_per_repeat as f32;
     let row = scaled_v.floor() as i32;
     let phase = scaled_v - row as f32;
-    let (canonical_row, column, local_x) = piece_coordinates(u, row);
-    let id = piece_id(canonical_row, column);
+    let (canonical_row, column, local_x) = piece_coordinates(params, u, row);
+    let id = piece_id(params, canonical_row, column);
 
-    let left_boundary = -0.5 + (hash_unit(id ^ 0x14ad) - 0.5) * 0.150;
-    let right_boundary =
-        0.5 + (hash_unit(piece_id(canonical_row, column + 1) ^ 0x14ad) - 0.5) * 0.150;
+    let left_boundary = -0.5
+        + (hash_unit(params, id ^ 0x14ad) - 0.5) * params.slate_roof.sample_slate_left_boundary;
+    let right_boundary = 0.5
+        + (hash_unit(params, piece_id(params, canonical_row, column + 1) ^ 0x14ad) - 0.5)
+            * params.slate_roof.sample_slate_right_boundary;
     let side_distance = (local_x - left_boundary).min(right_boundary - local_x);
-    let side_joint = (1.0 - side_distance / 0.040).clamp(0.0, 1.0);
-    let face_end = lower_edge(local_x, id);
+    let side_joint =
+        (1.0 - side_distance / params.slate_roof.sample_slate_side_joint).clamp(0.0, 1.0);
+    let face_end = lower_edge(params, local_x, id);
     let lip_distance = (phase - face_end).abs();
     let front = phase <= face_end;
 
     let active_id = if front {
         id
     } else {
-        let (under_row, under_column, _) = piece_coordinates(u, row + 1);
-        piece_id(under_row, under_column)
+        let (under_row, under_column, _) = piece_coordinates(params, u, row + 1);
+        piece_id(params, under_row, under_column)
     };
     let active_local_x = if front {
         local_x
     } else {
-        piece_coordinates(u, row + 1).2
+        piece_coordinates(params, u, row + 1).2
     };
     let active_phase = if front {
         phase
     } else {
-        (phase - face_end) * 0.48
+        (phase - face_end) * params.slate_roof.sample_slate_active_phase
     };
-    let cleavage = cleft_relief(active_local_x, active_phase, active_id);
-    let piece_thickness = (hash_unit(active_id ^ 0xa673) - 0.5) * 0.012;
-    let plane_tilt = active_local_x * (hash_unit(active_id ^ 0x1f39) - 0.5) * 0.015
-        + (active_phase - 0.5) * (hash_unit(active_id ^ 0xdb42) - 0.5) * 0.012;
-    let lip = ((phase - (face_end - 0.10)) / 0.10).clamp(0.0, 1.0);
-    let lip = lip * lip * (3.0 - 2.0 * lip) * 0.038;
-    let base = if front { 0.604 } else { 0.548 };
-    let mut height = base + piece_thickness + plane_tilt + cleavage * 0.006;
+    let cleavage = cleft_relief(params, active_local_x, active_phase, active_id);
+    let piece_thickness = (hash_unit(params, active_id ^ 0xa673) - 0.5)
+        * params.slate_roof.sample_slate_piece_thickness;
+    let plane_tilt = active_local_x
+        * (hash_unit(params, active_id ^ 0x1f39) - 0.5)
+        * params.slate_roof.sample_slate_plane_tilt_1
+        + (active_phase - 0.5)
+            * (hash_unit(params, active_id ^ 0xdb42) - 0.5)
+            * params.slate_roof.sample_slate_plane_tilt_2;
+    let lip = ((phase - (face_end - params.slate_roof.sample_slate_lip_1))
+        / params.slate_roof.sample_slate_lip_2)
+        .clamp(0.0, 1.0);
+    let lip = lip * lip * (3.0 - 2.0 * lip) * params.slate_roof.sample_slate_lip;
+    let base = if front {
+        params.slate_roof.sample_slate_base_1
+    } else {
+        params.slate_roof.sample_slate_base_2
+    };
+    let mut height =
+        base + piece_thickness + plane_tilt + cleavage * params.slate_roof.sample_slate_height;
     if front {
         height += lip;
     }
     height -= side_joint * if front { 0.050 } else { 0.030 };
 
-    let lip_contact = (1.0 - lip_distance / 0.060).clamp(0.0, 1.0);
-    let contact = (side_joint * 0.70 + lip_contact * 0.82).clamp(0.0, 1.0);
-    let edge_band = (1.0 - lip_distance / 0.040)
+    let lip_contact =
+        (1.0 - lip_distance / params.slate_roof.sample_slate_lip_contact).clamp(0.0, 1.0);
+    let contact = (side_joint * params.slate_roof.sample_slate_contact_1
+        + lip_contact * params.slate_roof.sample_slate_contact_2)
+        .clamp(0.0, 1.0);
+    let edge_band = (1.0 - lip_distance / params.slate_roof.sample_slate_edge_band_1)
         .clamp(0.0, 1.0)
-        .max((1.0 - side_distance / 0.030).clamp(0.0, 1.0));
-    let wear_cell = ((local_x + 0.5) * 9.0).floor() as u64;
+        .max((1.0 - side_distance / params.slate_roof.sample_slate_edge_band_2).clamp(0.0, 1.0));
+    let wear_cell = ((local_x + 0.5) * params.slate_roof.sample_slate_wear_cell).floor() as u64;
     let edge_wear = edge_band
-        * ((hash_unit(id ^ wear_cell.wrapping_mul(0xb529)) - 0.72) / 0.28).clamp(0.0, 1.0);
+        * ((hash_unit(params, id ^ wear_cell.wrapping_mul(0xb529))
+            - params.slate_roof.sample_slate_edge_wear_1)
+            / params.slate_roof.sample_slate_edge_wear_2)
+            .clamp(0.0, 1.0);
 
     SlateSample {
         height,
@@ -137,15 +185,26 @@ fn sample_slate(u: f32, v: f32) -> SlateSample {
     }
 }
 
-fn color_and_roughness(sample: SlateSample) -> ([u8; 3], u8) {
-    let mineral = hash_unit(sample.piece_id ^ 0x45c7) - 0.5;
-    let cool_shift = (hash_unit(sample.piece_id ^ 0x8a13) - 0.5) * 5.0;
+fn color_and_roughness(params: &crate::TextureParameters, sample: SlateSample) -> ([u8; 3], u8) {
+    let mineral = hash_unit(params, sample.piece_id ^ 0x45c7) - 0.5;
+    let cool_shift = (hash_unit(params, sample.piece_id ^ 0x8a13) - 0.5)
+        * params.slate_roof.color_and_roughness_cool_shift;
     let color = [
-        (52.0 + mineral * 6.0).round(),
-        (59.0 + mineral * 7.0).round(),
-        (66.0 + mineral * 8.0 + cool_shift).round(),
+        (params.slate_roof.color_and_roughness_color_1
+            + mineral * params.slate_roof.color_and_roughness_color_2)
+            .round(),
+        (params.slate_roof.color_and_roughness_color_3
+            + mineral * params.slate_roof.color_and_roughness_color_4)
+            .round(),
+        (params.slate_roof.color_and_roughness_color_5
+            + mineral * params.slate_roof.color_and_roughness_color_6
+            + cool_shift)
+            .round(),
     ];
-    let roughness = (218.0 + mineral * 10.0 + sample.edge_wear * 9.0 - sample.contact * 5.0
+    let roughness = (params.slate_roof.color_and_roughness_roughness_1
+        + mineral * params.slate_roof.color_and_roughness_roughness_2
+        + sample.edge_wear * params.slate_roof.color_and_roughness_roughness_3
+        - sample.contact * params.slate_roof.color_and_roughness_roughness_4
         + sample.cleavage.abs() * 2.0)
         .round()
         .clamp(0.0, 255.0) as u8;
@@ -159,17 +218,21 @@ fn color_and_roughness(sample: SlateSample) -> ([u8; 3], u8) {
     )
 }
 
-fn height_at(heights: &[f32], x: i32, y: i32) -> f32 {
-    let size = SLATE_ROOF_TEXTURE_SIZE as i32;
+fn height_at(params: &crate::TextureParameters, heights: &[f32], x: i32, y: i32) -> f32 {
+    let size = params.size(SLATE_ROOF_TEXTURE_SIZE) as i32;
     heights[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize]
 }
 
-pub fn generate_slate_roof_textures(images: &mut Assets<Image>) -> SurfaceTextureSet {
-    let size = SLATE_ROOF_TEXTURE_SIZE;
+pub fn generate_slate_roof_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(SLATE_ROOF_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {
                 sample_slate(
+                    params,
                     (x as f32 + 0.5) / size as f32,
                     (y as f32 + 0.5) / size as f32,
                 )
@@ -184,18 +247,18 @@ pub fn generate_slate_roof_textures(images: &mut Assets<Image>) -> SurfaceTextur
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());
     let mut arm = Vec::with_capacity(albedo.capacity());
-    let metres_per_texel = SLATE_ROOF_TILE_METRES / size as f32;
-    let slope_scale = SLATE_ROOF_HEIGHT_RANGE_METRES / (2.0 * metres_per_texel);
+    let metres_per_texel = params.slate_roof.tile_metres / size as f32;
+    let slope_scale = params.slate_roof.height_range_metres / (2.0 * metres_per_texel);
 
     for y in 0..size {
         for x in 0..size {
             let sample = samples[(y * size + x) as usize];
-            let (color, roughness) = color_and_roughness(sample);
+            let (color, roughness) = color_and_roughness(params, sample);
             albedo.extend_from_slice(&[color[0], color[1], color[2], 255]);
-            let dx = height_at(&heights, x as i32 + 1, y as i32)
-                - height_at(&heights, x as i32 - 1, y as i32);
-            let dy = height_at(&heights, x as i32, y as i32 + 1)
-                - height_at(&heights, x as i32, y as i32 - 1);
+            let dx = height_at(params, &heights, x as i32 + 1, y as i32)
+                - height_at(params, &heights, x as i32 - 1, y as i32);
+            let dy = height_at(params, &heights, x as i32, y as i32 + 1)
+                - height_at(params, &heights, x as i32, y as i32 - 1);
             let n = Vec3::new(-dx * slope_scale, -dy * slope_scale, 1.0).normalize();
             let encoded = ((n + Vec3::ONE) * 127.5)
                 .round()
@@ -203,7 +266,8 @@ pub fn generate_slate_roof_textures(images: &mut Assets<Image>) -> SurfaceTextur
             normal.extend_from_slice(&[encoded.x as u8, encoded.y as u8, encoded.z as u8, 255]);
             let h = (sample.height * 255.0).round().clamp(0.0, 255.0) as u8;
             height.extend_from_slice(&[h, h, h, 255]);
-            let ao = ((1.0 - sample.contact * 0.34) * 255.0)
+            let ao = ((1.0 - sample.contact * params.slate_roof.generate_slate_roof_textures_ao)
+                * 255.0)
                 .round()
                 .clamp(0.0, 255.0) as u8;
             arm.extend_from_slice(&[ao, roughness, 0, 255]);
@@ -227,13 +291,15 @@ mod tests {
     use super::*;
 
     fn generated() -> (Assets<Image>, SurfaceTextureSet) {
+        let params = &crate::TextureParameters::default();
         let mut images = Assets::default();
-        let textures = generate_slate_roof_textures(&mut images);
+        let textures = generate_slate_roof_textures(params, &mut images);
         (images, textures)
     }
 
     #[test]
     fn generation_is_deterministic_and_periodic() {
+        let params = &crate::TextureParameters::default();
         let (first_images, first) = generated();
         let (second_images, second) = generated();
         for (first_handle, second_handle) in [
@@ -249,13 +315,15 @@ mod tests {
         }
         for index in 0..256 {
             let coordinate = (index as f32 + 0.5) / 256.0;
-            let sample = sample_slate(coordinate, coordinate * 0.71);
+            let sample = sample_slate(params, coordinate, coordinate * 0.71);
             assert!(
-                (sample.height - sample_slate(coordinate + 1.0, coordinate * 0.71).height).abs()
+                (sample.height - sample_slate(params, coordinate + 1.0, coordinate * 0.71).height)
+                    .abs()
                     < 1.0e-5
             );
             assert!(
-                (sample.height - sample_slate(coordinate, coordinate * 0.71 + 1.0).height).abs()
+                (sample.height - sample_slate(params, coordinate, coordinate * 0.71 + 1.0).height)
+                    .abs()
                     < 1.0e-5
             );
         }
@@ -263,20 +331,23 @@ mod tests {
 
     #[test]
     fn scale_and_direction_describe_thin_overlapping_slate() {
+        let params = &crate::TextureParameters::default();
         let visible_width = SLATE_ROOF_TILE_METRES / PIECES_PER_COURSE as f32;
         let course_exposure = SLATE_ROOF_TILE_METRES / COURSES as f32;
         assert!((0.15..=0.19).contains(&visible_width));
         assert!((0.15..=0.19).contains(&course_exposure));
         assert!((0.008..=0.014).contains(&SLATE_ROOF_HEIGHT_RANGE_METRES));
         let u = 0.25;
-        let (canonical_row, column, local_x) = piece_coordinates(u, 0);
-        let face_end = lower_edge(local_x, piece_id(canonical_row, column));
+        let (canonical_row, column, local_x) = piece_coordinates(params, u, 0);
+        let face_end = lower_edge(params, local_x, piece_id(params, canonical_row, column));
         let upper = sample_slate(
+            params,
             u,
             (u * COURSE_RISE_PER_REPEAT as f32 + 0.10) / COURSES as f32,
         )
         .height;
         let lower_lip = sample_slate(
+            params,
             u,
             (u * COURSE_RISE_PER_REPEAT as f32 + face_end - 0.01) / COURSES as f32,
         )
@@ -289,10 +360,12 @@ mod tests {
 
     #[test]
     fn recessed_laps_and_narrow_joints_remain_present() {
+        let params = &crate::TextureParameters::default();
         let values = (0..256)
             .flat_map(|y| {
-                (0..256)
-                    .map(move |x| sample_slate((x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0))
+                (0..256).map(move |x| {
+                    sample_slate(params, (x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0)
+                })
             })
             .collect::<Vec<_>>();
         let recessed = values.iter().filter(|sample| sample.height < 0.57).count();
@@ -522,3 +595,6 @@ mod tests {
         fs::write(output.join("manifest.txt"), manifest).unwrap();
     }
 }
+
+mod controls;
+pub use controls::Parameters;
