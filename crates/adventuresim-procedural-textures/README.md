@@ -85,3 +85,24 @@ including continuous lobe/leaflet counts and simple-to-compound separation.
 `TextureParameters.leaves` owns shape and relief; `leaf_colors` owns independent
 front/back palettes. The studio exposes the shape catalog and parameter morphing.
 See [the model and reference verification](src/leaf/README.md).
+
+## Forged iron and split slate
+
+Ironwork uses overlapping die impressions, clustered angular scale losses and
+small pits at a full resolution of 1024 pixels over 0.64 metres. The default
+finish is intact black forge film. Bare iron and oxide have separate editable colors; their shared
+coverage mask also controls metal/dielectric response. Albedo has two flat
+colors plus coverage antialiasing, with linear-light mip filtering.
+
+Slate retains its rising, overlapping roof layout and adds directional split
+terraces, broken ledges and edge delamination. Its full bake is 2048 pixels over
+4.8 metres; draft and medium remain 128/256. Surface detail changes relief and
+response, while albedo stays flat per piece. `slate_roof.cleft` exposes layer,
+warp, direction, fracture and flake controls; `ironwork` exposes stamp geometry,
+scale/pit coverage, palettes and response. Relief depths are fractions of each
+recipe's declared height range. Integer cell counts preserve periodicity.
+
+The [ironwork research](prior-art/ironwork/prior-art.md) and
+[slate research](prior-art/slate-roof/prior-art.md) describe the source techniques,
+adaptations and limits. These generators describe reusable surfaces; object
+contact wear and roof-boundary construction need consuming mesh/scene inputs.
