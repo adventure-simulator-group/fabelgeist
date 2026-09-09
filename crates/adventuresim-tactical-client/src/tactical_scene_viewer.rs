@@ -92,7 +92,7 @@ const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 18;
+const CAMERA_VERSION: u16 = 19;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -1768,7 +1768,13 @@ fn setup_scene(
     let city_exterior_cameras =
         building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
             .unwrap_or_else(|| {
-                city_capture::capture_cameras(&buildings, &input.distant_buildings, &profile)
+                city_capture::capture_cameras(
+                    &buildings,
+                    &input.distant_buildings,
+                    &input.streets,
+                    &terrain,
+                    &profile,
+                )
             });
     spawn_tactical_buildings(&mut commands, buildings);
     commands.spawn((

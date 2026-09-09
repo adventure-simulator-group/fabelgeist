@@ -107,9 +107,9 @@ mod tests {
     #[test]
     fn bearing_requires_physical_overlap_and_matching_owner_and_node() {
         let (solid, interface) = pitched_member();
-        let mut wrong_owner = interface.clone();
+        let mut wrong_owner = interface;
         wrong_owner.owner = GeometryOwnerId(2);
-        let mut wrong_node = interface.clone();
+        let mut wrong_node = interface;
         wrong_node.node = StructuralNodeId(2);
         let mut detached = interface;
         detached.bounds.min.x += 10.0;
