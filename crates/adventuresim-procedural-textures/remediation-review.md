@@ -46,7 +46,7 @@ Native captures and the full documents used to generate them are stored locally 
 
 Final validation passed 159 procedural-texture tests (10 visual-export tests ignored), all 9 Studio tests, and Clippy with warnings denied for the texture, material and Studio crates across all targets. The normal-orientation oracle uses independently exported heights with the matching derivative footprint and retains its strict signed agreement check through Bevy's actual tangent frame. Formatting and whitespace checks passed. The static WASM build completed and the local browser rendered the catalogue, new forms and reflection lighting.
 
-Repository-wide `just lint` passed generated-binding verification but failed the Rust quality gate on existing armor-model and character-creator debt. It reported no texture/material/Studio violations. A missing scope header in `rust-quality.toml` was repaired so the registry can be parsed; no quality ceilings were raised.
+Repository-wide `just lint` passed generated-binding verification but failed the Rust quality gate on existing armor-model and character-creator debt. It reported no texture/material/Studio violations. The branch includes main's repair of a missing scope header in `rust-quality.toml`; no quality ceilings were raised.
 
 
 ## Review outcome and remaining limits
