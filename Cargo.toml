@@ -49,6 +49,7 @@ repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
 [workspace.dependencies]
+ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
 adventuresim-tactical-core = { version = "0.1.0" }

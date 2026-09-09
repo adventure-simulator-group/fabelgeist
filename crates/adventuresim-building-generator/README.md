@@ -583,21 +583,58 @@ static collision consumes the same physical parts. Roofs continue through the
 existing roof resolver and audit. Generic grid-opening edits are rejected for
 this structural family; edit the working programme instead.
 
-Capture an actual GPU render, with the shared production texture recipes:
-
-```powershell
-cargo run -p adventuresim-building-generator --features viewer --bin workplace-viewer -- --kind stable --size medium --seed 42 --output target/workplace-captures/stable.png
-```
-
-Kinds are `barn`, `stable`, `granary`, `smithy`, `bakehouse` and `market-hall`.
-Add `--cutaway` to inspect the interior or `--representation shell` to inspect
-its distant silhouette. Each PNG has a JSON companion containing its programme,
-representation, structural audit and collision count. Cutaways remove surfaces
-only for the review render; the saved programme and collision remain complete.
-
-Capture all six families with exterior, cutaway and distant views into a fresh
-directory, together with an HTML review gallery:
+Capture all six families (barn, stable, granary, smithy, bakehouse and market hall)
+with the production tactical renderer:
 
 ```powershell
 python scripts/capture_workplaces.py --output target/workplace-review
 ```
+
+The checked-in `assets/tactical-scenes/workplace-review.json` supplies building
+programmes and placements. Its `.review.json` companion supplies camera targets.
+Exterior, intact interior and distant shots exercise production materials,
+operable door/window presentation, lighting, post-processing and automatic LODs.
+Edit these inputs to review another recipe; the capture layer contains no material
+mapping or building mesh conversion. Geometry editors and their cutaways remain
+useful diagnostics, but do not certify in-game appearance.
+
+## Text-only shop signs
+
+The `signs` module derives sign attachment sites from public ground-floor
+entrances. Public-facing trades receive stable establishment brands from the
+shared German name catalog and placed-lot identity, independently of cached
+building recipes. A brand does not create or imply an NPC ownership relation.
+
+Signs use a wall board or a double-sided projecting board with metal supports.
+Panels stay above pedestrian headroom and are rejected when they overlap the
+resolved building geometry. These are static presentation fixtures; they do not
+add tactical collision, swinging physics, or sign interactions. They do not
+change building footprints or service eligibility.
+
+The optional `sign-render` feature provides the same GPU components to the
+client and the review binary. The client loads lettering within 48 metres,
+fades it over 35–45 metres and releases lettering entities beyond 60 metres.
+The texture cache retains at most 64 painted materials; boards remain visible.
+Grenze Gotisch Bold is the default, with UnifrakturCook available for comparison.
+Fonts and their licenses are bundled locally. Long names wrap onto two lines.
+
+```powershell
+python scripts/capture_shop_signs.py --output target/shop-sign-review
+```
+
+The shop review fixture covers both fonts and mounts, reverse reading, long
+German names, street context, the mounting contact, glazed windows, plaster and
+production distance LODs. Sign plates require complete contact with a structural
+face; short beams use a horizontal plate. The arm reaches from that face to the
+board's separately calculated facade clearance.
+
+Both review scripts build and run `tactical-scene-viewer`, which installs the
+same `TacticalPresentationPlugin` as the game. The removed standalone review
+binaries must not be recreated. Review inputs may choose entities and cameras;
+only production presentation binds materials, compiles GPU meshes and sets LODs.
+Capture waits for production geometry, textures and nearby lettering, checks
+window glass and per-building material bindings, and fails if required inputs or
+assets are missing. `manifest.json` records camera, revision and lighting checks;
+`building-presentation.json` records the actual graphics adapter, backend and
+configuration. These are native GPU captures. Browser rendering requires its own
+smoke run against the actual web client; a native gallery is not WebGPU evidence.

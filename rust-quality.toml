@@ -245,11 +245,21 @@ path = "crates/adventuresim-building-generator/src/workplace/fittings.rs"
 reason = "Authored working furniture dimensions."
 
 [[scopes]]
-kind = "fixture"
-path = "crates/adventuresim-building-generator/src/bin/workplace-viewer.rs"
-reason = "Deterministic GPU capture harness for generated working buildings."
+kind = "authored_catalog"
+path = "crates/adventuresim-world-schema/src/person_names.rs"
+reason = "Shared authored German given-name and surname catalog."
 
 [[scopes]]
-kind = "fixture"
-path = "crates/adventuresim-building-generator/src/bin/workplace-viewer/materials.rs"
-reason = "Production texture binding for deterministic visual inspection."
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/signs.rs"
+reason = "Authored public storefront trade labels and sign style choices."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-building-generator/src/signs/rendering.rs"
+reason = "Converts sign boards and authored mounting hardware into GPU meshes and components."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-building-generator/src/signs/rendering/materials.rs"
+reason = "Binds rasterized sign text and authored paint and metal finishes to GPU materials."

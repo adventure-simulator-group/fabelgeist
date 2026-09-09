@@ -1,0 +1,198 @@
+{
+  "signs": {
+    "1": {
+      "name": {
+        "proprietor": "Heinrich’s",
+        "trade": "Tavern"
+      },
+      "mount": "wall",
+      "font": "grenze_gotisch",
+      "finish": "pale_paint"
+    },
+    "2": {
+      "name": {
+        "proprietor": "Heinrich’s",
+        "trade": "Tavern"
+      },
+      "mount": "projecting",
+      "font": "grenze_gotisch",
+      "finish": "pale_paint"
+    },
+    "3": {
+      "name": {
+        "proprietor": "Heinrich’s",
+        "trade": "Tavern"
+      },
+      "mount": "wall",
+      "font": "unifraktur_cook",
+      "finish": "pale_paint"
+    },
+    "4": {
+      "name": {
+        "proprietor": "Heinrich’s",
+        "trade": "Tavern"
+      },
+      "mount": "projecting",
+      "font": "unifraktur_cook",
+      "finish": "pale_paint"
+    },
+    "5": {
+      "name": {
+        "proprietor": "Margarete Großmüller’s",
+        "trade": "Apothecary"
+      },
+      "mount": "projecting",
+      "font": "unifraktur_cook",
+      "finish": "pale_paint"
+    },
+    "6": {
+      "name": {
+        "proprietor": "Heinrich’s",
+        "trade": "Tavern"
+      },
+      "font": "grenze_gotisch",
+      "mount": "projecting",
+      "finish": "pale_paint"
+    },
+    "7": {
+      "name": {
+        "proprietor": "Margarete’s",
+        "trade": "Bakery"
+      },
+      "font": "grenze_gotisch",
+      "mount": "projecting",
+      "finish": "pale_paint"
+    },
+    "8": {
+      "name": {
+        "proprietor": "Konrad’s",
+        "trade": "Smithy"
+      },
+      "font": "grenze_gotisch",
+      "mount": "projecting",
+      "finish": "pale_paint"
+    }
+  },
+  "views": [
+    {
+      "slug": "grenze-wall",
+      "building": 1,
+      "target": "sign",
+      "offset": [
+        1,
+        0.3,
+        -3
+      ]
+    },
+    {
+      "slug": "grenze-projecting",
+      "building": 2,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "fraktur-wall",
+      "building": 3,
+      "target": "sign",
+      "offset": [
+        1,
+        0.3,
+        -3
+      ]
+    },
+    {
+      "slug": "fraktur-projecting",
+      "building": 4,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "reverse",
+      "building": 4,
+      "target": "sign",
+      "offset": [
+        -3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "long-name",
+      "building": 5,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "street",
+      "building": 6,
+      "target": "exterior",
+      "offset": [
+        3,
+        0,
+        -37
+      ]
+    },
+    {
+      "slug": "mounting-detail",
+      "building": 4,
+      "target": "mounting",
+      "offset": [
+        0.9,
+        0.15,
+        -1.15
+      ]
+    },
+    {
+      "slug": "window-glass",
+      "building": 1,
+      "target": "window",
+      "offset": [
+        0.6,
+        0.1,
+        -2.2
+      ]
+    },
+    {
+      "slug": "plaster-facade",
+      "building": 1,
+      "target": "sign",
+      "offset": [
+        2,
+        0.4,
+        -8
+      ]
+    },
+    {
+      "slug": "facade-lod",
+      "building": 2,
+      "target": "exterior",
+      "offset": [
+        20,
+        8,
+        -88
+      ]
+    },
+    {
+      "slug": "shell-lod",
+      "building": 2,
+      "target": "exterior",
+      "offset": [
+        25,
+        12,
+        -205
+      ]
+    }
+  ]
+}

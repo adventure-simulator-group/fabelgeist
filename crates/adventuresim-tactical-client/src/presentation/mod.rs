@@ -63,7 +63,7 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
-pub(crate) use buildings::PresentedBuildingMesh;
+pub(crate) use buildings::{PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials};
 pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
@@ -301,8 +301,7 @@ impl Plugin for TacticalPresentationPlugin {
         .add_observer(terrain::on_environment_added)
         .add_observer(terrain::on_ground_added)
         .add_observer(on_scene_obstacle_added)
-        .add_observer(on_scene_building_added)
-        .add_observer(on_scene_vista_buildings)
+        .add_plugins(BuildingPresentationPlugin)
         .add_observer(on_scene_vista_bundle);
     }
 

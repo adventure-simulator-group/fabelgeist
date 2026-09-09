@@ -8,7 +8,9 @@ license.workspace = true
 
 [features]
 default = []
+sign-render = ["dep:ab_glyph", "bevy/bevy_pbr", "bevy/bevy_render"]
 viewer = [
+    "sign-render",
     "dep:adventuresim-procedural-textures",
     "bevy/default",
     "bevy/png",
@@ -18,6 +20,7 @@ viewer = [
 ]
 
 [dependencies]
+ab_glyph = { workspace = true, optional = true }
 adventuresim-world-schema.workspace = true
 adventuresim-procedural-textures = { workspace = true, optional = true }
 bevy.workspace = true
@@ -46,11 +49,5 @@ required-features = ["viewer"]
 [[bin]]
 name = "building-lod-viewer"
 path = "src/bin/building-lod-viewer.rs"
-doc = false
-required-features = ["viewer"]
-
-[[bin]]
-name = "workplace-viewer"
-path = "src/bin/workplace-viewer.rs"
 doc = false
 required-features = ["viewer"]

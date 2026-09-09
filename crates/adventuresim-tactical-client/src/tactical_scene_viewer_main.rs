@@ -44,6 +44,10 @@ enum CaptureProfile {
     InteriorReview,
     /// Facade, street, neighbourhood, and whole-settlement city review.
     CityReview,
+    /// Storefront lettering, mounting, glass, plaster and distance review.
+    ShopSignReview,
+    /// Working-building exteriors, interiors and production distance LODs.
+    WorkplaceReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -147,6 +151,8 @@ fn main() {
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
             CaptureProfile::InteriorReview => "interior-review",
             CaptureProfile::CityReview => "city-review",
+            CaptureProfile::ShopSignReview => "shop-sign-review",
+            CaptureProfile::WorkplaceReview => "workplace-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",
