@@ -1,11 +1,11 @@
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     forward_io::{Vertex, VertexOutput},
     mesh_functions,
     mesh_view_bindings::{globals, view},
     view_transformations::position_world_to_clip,
 }
-
-diagnostic(off, derivative_uniformity);
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(0)
 var baked_color: texture_2d<f32>;

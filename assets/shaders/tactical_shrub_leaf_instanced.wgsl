@@ -5,6 +5,8 @@
 // per-fragment cost. The front/back normal maps are now unused (kept bound for
 // now; a follow-up can drop bindings 6-9 from the material).
 
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     mesh_view_bindings::{globals, lights, view},
     shadows,
@@ -14,8 +16,6 @@
 #import bevy_eidolon::render::utils
 #import bevy_eidolon::render::bindings::instance_uniforms
 #import bevy_eidolon::render::io_types::Vertex
-
-diagnostic(off, derivative_uniformity);
 
 @group(3) @binding(0) var leaf_opacity: texture_2d<f32>;
 @group(3) @binding(1) var leaf_opacity_sampler: sampler;

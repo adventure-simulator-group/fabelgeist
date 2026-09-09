@@ -1,9 +1,9 @@
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     mesh_functions,
     view_transformations::position_world_to_clip,
 }
-
-diagnostic(off, derivative_uniformity);
 
 #ifdef PREPASS_PIPELINE
 // The prepass view layout binds the globals uniform at slot 1, but ships no

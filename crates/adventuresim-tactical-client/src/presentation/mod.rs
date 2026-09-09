@@ -295,3 +295,61 @@ impl Default for TacticalGraphicsSettings {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::{fs, path::Path};
+
+    /// WGSL requires every directive to precede the first declaration, and an
+    /// `#import` expands into declarations. A directive written below the
+    /// imports fails composition for the whole file, which surfaces only as a
+    /// log line while the material stops rendering on every backend.
+    #[test]
+    fn shader_directives_precede_declarations() {
+        // Both shader roots the tactical renderer composes: the runtime asset
+        // directory and the shaders embedded in the procedural materials crate.
+        const SHADER_ROOTS: [&str; 2] = [
+            concat!(env!("CARGO_MANIFEST_DIR"), "/../../assets/shaders"),
+            concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../adventuresim-procedural-materials/src/shaders"
+            ),
+        ];
+        let mut checked = 0;
+        for root in SHADER_ROOTS {
+            for entry in fs::read_dir(Path::new(root)).expect("tactical shader directory") {
+                let path = entry.expect("shader directory entry").path();
+                if path.extension().is_none_or(|extension| extension != "wgsl") {
+                    continue;
+                }
+                let source = fs::read_to_string(&path).expect("readable tactical shader");
+                assert_directives_precede_declarations(&path.display().to_string(), &source);
+                checked += 1;
+            }
+        }
+        assert!(checked > 0, "no tactical shaders were checked");
+    }
+
+    fn assert_directives_precede_declarations(label: &str, source: &str) {
+        let mut declared = false;
+        for (index, line) in source.lines().enumerate() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with("//") {
+                continue;
+            }
+            if line.starts_with("diagnostic(")
+                || line.starts_with("enable ")
+                || line.starts_with("requires ")
+            {
+                assert!(
+                    !declared,
+                    "{label}:{}: WGSL directive written after a declaration; \
+                     move it above the imports or the shader will not compile",
+                    index + 1
+                );
+            } else if !line.starts_with('#') || line.starts_with("#import") {
+                declared = true;
+            }
+        }
+    }
+}

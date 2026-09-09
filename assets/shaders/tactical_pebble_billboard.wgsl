@@ -1,3 +1,5 @@
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     forward_io::{Vertex, VertexOutput},
     mesh_functions,
@@ -5,8 +7,6 @@
     pbr_functions,
     view_transformations::position_world_to_clip,
 }
-
-diagnostic(off, derivative_uniformity);
 
 struct TacticalPebbleBillboardMaterial {
     color: vec4<f32>,
