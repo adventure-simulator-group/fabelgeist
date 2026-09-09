@@ -268,3 +268,14 @@ reason = "Binds rasterized sign text and authored paint and metal finishes to GP
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/proportion_controls.rs"
 reason = "Egui appearance buttons dispatch actions through widget responses; their display labels are not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/equipment_controls.rs"
+reason = "Egui equipment buttons dispatch actions through widget responses; display labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/main.rs"
+item = "selected_vambrace_sides"
+reason = "Decodes stable authored placement IDs into ForearmSide at the saved recipe boundary; these IDs are not display labels."

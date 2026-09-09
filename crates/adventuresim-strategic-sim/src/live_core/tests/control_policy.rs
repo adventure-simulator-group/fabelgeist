@@ -2,22 +2,18 @@ fn capability(
     character_id: u64,
     melee: bool,
     ranged: bool,
-    precise: bool,
+    weapon_precision: f32,
     heavy: bool,
 ) -> CharacterCapability {
     CharacterCapability {
         character_id,
         melee,
         ranged,
-        precise,
         heavy,
         quarter_armor: false,
         half_armor: false,
         three_quarter_armor: false,
         full_armor: false,
-        blunt: false,
-        slash: melee,
-        pierce: ranged,
         athletics: 1.0,
         endurance: 1.0,
         physiology: 0.0,
@@ -26,7 +22,7 @@ fn capability(
         surgery: 0.0,
         command: 0.0,
         religion: 0.0,
-        weapon_precision: if precise { 1.0 } else { 0.0 },
+        weapon_precision,
         autoresolve_combat_power: 7_000,
     }
 }
@@ -86,7 +82,7 @@ fn encounter_policy_is_permutation_invariant_and_never_attacks_during_evacuation
 #[test]
 fn public_contract_matchup_uses_readiness_count_difficulty_and_fails_closed() {
     let strong = |id, ready| {
-        let mut capability = capability(id, true, false, true, true);
+        let mut capability = capability(id, true, false, 1.0, true);
         capability.endurance = 2.0;
         capability.athletics = 2.0;
         PublicPartyCombatant { capability, ready }
@@ -270,9 +266,9 @@ fn party_grouping_balances_roles_and_promotes_quest_capable_leaders() {
 
 #[test]
 fn generated_defeat_policy_suppresses_work_until_public_capability_changes() {
-    let original = public_combat_fingerprint(vec![capability(1, true, false, false, false)]);
+    let original = public_combat_fingerprint(vec![capability(1, true, false, 0.0, false)]);
     let unchanged = original.clone();
-    let improved = public_combat_fingerprint(vec![capability(1, true, false, true, true)]);
+    let improved = public_combat_fingerprint(vec![capability(1, true, false, 1.0, false)]);
     let planned_work = |decision| match decision {
         GeneratedDefeatDecision::SuppressUnchanged => (0, 0, 0),
         GeneratedDefeatDecision::Proceed => (1, 1, 1),
@@ -326,7 +322,7 @@ fn departure_preflights_the_selected_travel_action_not_a_longer_alternative() {
 #[test]
 fn first_generated_combat_uses_the_same_checked_public_margin() {
     let members = [PublicPartyCombatant {
-        capability: capability(1, true, false, false, false),
+        capability: capability(1, true, false, 0.0, false),
         ready: true,
     }];
     let unsafe_assessment = public_contract_assessment(1, 1, u64::MAX, &members);

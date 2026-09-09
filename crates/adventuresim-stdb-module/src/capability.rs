@@ -786,25 +786,28 @@ mod tests {
     }
 
     #[test]
-    fn autoresolve_weapon_uses_per_instance_reach_mass_and_inertia() {
+    fn autoresolve_weapon_uses_per_instance_reach_mass_inertia_and_precision() {
         let item = Item {
             id: "halberd".to_owned(),
             melee: true,
             reach: 2.0,
+            precision: adventuresim_core::item_catalog::weapon_precision("halberd").unwrap(),
             moment_of_inertia_kg_m2: 4.0,
             ..Item::default()
         };
         let short = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.1, 1.9, 1.7, 0.25, 3.2, 0.52,
+            2.1, 1.9, 1.7, 0.25, 3.2, 0.52, 1.2,
         )
         .unwrap();
         let long = adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
-            2.5, 2.3, 2.1, 0.25, 5.1, 0.49,
+            2.5, 2.3, 2.1, 0.25, 5.1, 0.49, 0.9,
         )
         .unwrap();
         let short = combat_weapon(&item, Some(short));
         let long = combat_weapon(&item, Some(long));
 
+        assert!((short.precision - 1.2).abs() < 1e-6);
+        assert!((long.precision - 0.9).abs() < 1e-6);
         assert!(long.melee_reach > short.melee_reach);
         assert!(long.weight > short.weight);
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
