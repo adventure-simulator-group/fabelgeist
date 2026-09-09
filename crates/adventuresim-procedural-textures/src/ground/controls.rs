@@ -3,6 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        aggregate_angularity: f32 = 0.65;
+        litter_fold_gain: f32 = 1.2;
+        litter_patch_strength: f32 = 0.65;
         forest_litter_sample_with_detail_warp_1: f32 = 0.41;
         forest_litter_sample_with_detail_warp_2: f32 = 0.23;
         forest_litter_sample_with_detail_warp_3: f32 = 0.014;
@@ -10,13 +13,13 @@ crate::parameters::parameter_block! {
         forest_litter_sample_with_detail_humus_height_2: f32 = 0.12;
         forest_litter_sample_with_detail_lower_height_1: f32 = 0.52;
         forest_litter_sample_with_detail_lower_height_2: f32 = 0.12;
-        forest_litter_sample_with_detail_lower_height_3: f32 = 0.025;
+
         forest_litter_sample_with_detail_middle_height_1: f32 = 0.60;
         forest_litter_sample_with_detail_middle_height_2: f32 = 0.17;
-        forest_litter_sample_with_detail_middle_height_3: f32 = 0.055;
+
         forest_litter_sample_with_detail_upper_height_1: f32 = 0.70;
         forest_litter_sample_with_detail_upper_height_2: f32 = 0.19;
-        forest_litter_sample_with_detail_upper_height_3: f32 = 0.075;
+
         forest_litter_sample_with_detail_height_1: f32 = 0.48;
         forest_litter_sample_with_detail_height_2: f32 = 0.94;
         forest_litter_sample_with_detail_upper_support: f32 = 0.7;

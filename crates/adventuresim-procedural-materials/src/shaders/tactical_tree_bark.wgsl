@@ -42,6 +42,10 @@ struct TacticalTreeBarkExtension {
 @group(#{MATERIAL_BIND_GROUP}) @binding(102)
 var<uniform> bark: TacticalTreeBarkExtension;
 
+fn decode_surface_height_ao(p: vec4<f32>) -> vec2<f32> {
+    return vec2<f32>(dot(p.rg, vec2<f32>(256.0 / 257.0, 1.0 / 257.0)), p.b);
+}
+
 fn hash21(cell: vec2<f32>) -> f32 {
     let mixed = vec3<f32>(cell.x, cell.y, cell.x) * vec3<f32>(0.1031, 0.1030, 0.0973);
     let fractal = fract(mixed);
@@ -101,7 +105,7 @@ fn soil_surface_sample(world_position: vec3<f32>) -> vec2<f32> {
         sin(world_position.x * 0.23 - world_position.z * 0.17),
     ) * 0.035;
     let uv = world_position.xz * bark.soil_response.x + warp;
-    return textureSample(soil_height_ao, soil_height_ao_sampler, uv).rg;
+    return decode_surface_height_ao(textureSample(soil_height_ao, soil_height_ao_sampler, uv));
 }
 
 fn dominant_projection(position: vec3<f32>, normal: vec3<f32>) -> vec2<f32> {
@@ -262,24 +266,34 @@ fn parallax_branch_coordinates(
         return vec3<f32>(branch_coordinates, 0.0);
     }
     let tangent_view = transpose(frame) * view_direction;
-    let layer_count = 6.0;
+    let layer_count = 16.0;
     let layer_depth = 1.0 / layer_count;
     let texture_depth = bark.relief.y * bark.relief.x * bark.projection.z * fade;
     let ray_step = tangent_view.xy / max(abs(tangent_view.z), 0.28)
         * texture_depth / layer_count;
     var coordinates = branch_coordinates;
+    var previous_coordinates = coordinates;
     var travelled = 0.0;
-    for (var layer = 0; layer < 6; layer += 1) {
-        let height = textureSampleGrad(
-            bark_height_ao,
-            bark_height_ao_sampler,
-            bark.uv_offset.xy + coordinates,
-            coordinate_dx,
-            coordinate_dy,
-        ).r;
-        if travelled < 1.0 - height {
-            coordinates -= ray_step;
-            travelled += layer_depth;
+    var previous_gap = 1.0;
+    var marching = true;
+    for (var layer = 0; layer <= 16; layer += 1) {
+        let height = decode_surface_height_ao(textureSampleGrad(
+            bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + coordinates,
+            coordinate_dx, coordinate_dy,
+        )).r;
+        let gap = 1.0 - height - travelled;
+        if marching {
+            if gap <= 0.0 {
+                let fraction = clamp(previous_gap / max(previous_gap - gap, 0.000001), 0.0, 1.0);
+                coordinates = mix(previous_coordinates, coordinates, fraction);
+                travelled -= (1.0 - fraction) * layer_depth;
+                marching = false;
+            } else {
+                previous_coordinates = coordinates;
+                previous_gap = gap;
+                coordinates -= ray_step;
+                travelled += layer_depth;
+            }
         }
     }
     return vec3<f32>(coordinates, travelled * fade);
@@ -311,13 +325,13 @@ fn directional_horizon_visibility(
         let step_metres = f32(horizon_step) * 0.012;
         let coordinates = branch_coordinates
             + lateral_direction * step_metres * bark.relief.x;
-        let neighbor = textureSampleGrad(
+        let neighbor = decode_surface_height_ao(textureSampleGrad(
             bark_height_ao,
             bark_height_ao_sampler,
             bark.uv_offset.xy + coordinates,
             coordinate_dx,
             coordinate_dy,
-        ).r;
+        )).r;
         let neighbor_height_metres = (neighbor - 0.5) * bark.relief.y;
         let ray_height_metres = centre_height_metres + step_metres * light_slope;
         blockage = max(
@@ -329,9 +343,9 @@ fn directional_horizon_visibility(
 }
 
 fn triplanar_height_ao(uvs: mat3x2<f32>, weights: vec3<f32>) -> vec2<f32> {
-    let x_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[0]).rg;
-    let y_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[1]).rg;
-    let z_sample = textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[2]).rg;
+    let x_sample = decode_surface_height_ao(textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[0]));
+    let y_sample = decode_surface_height_ao(textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[1]));
+    let z_sample = decode_surface_height_ao(textureSample(bark_height_ao, bark_height_ao_sampler, bark.uv_offset.xy + uvs[2]));
     return x_sample * weights.x + y_sample * weights.y + z_sample * weights.z;
 }
 

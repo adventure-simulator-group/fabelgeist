@@ -74,3 +74,30 @@ fn asset_counts(world: &World) -> [usize; 3] {
         world.resource::<Assets<StandardMaterial>>().len(),
     ]
 }
+
+#[test]
+fn pinned_crown_strips_do_not_intersect() {
+    let mut document = Document::default();
+    document.view.shape = crate::document::Shape::CrownStrip;
+    document.texture.resolution = BakeResolution::Draft;
+    let bake = BakedRecipe::generate(
+        adventuresim_procedural_textures::TextureRecipeId::CrenellationMask,
+        &document.texture,
+    );
+    let mesh = geometry::mesh(&bake, &document.view);
+    let Some(bevy::mesh::VertexAttributeValues::Float32x3(positions)) =
+        mesh.attribute(Mesh::ATTRIBUTE_POSITION)
+    else {
+        panic!("positions");
+    };
+    let left_edge = positions.iter().map(|p| p[0]).fold(f32::INFINITY, f32::min);
+    let right_edge = positions
+        .iter()
+        .map(|p| p[0])
+        .fold(f32::NEG_INFINITY, f32::max);
+    let offset = geometry::comparison_offset(document.view.shape);
+    assert!(
+        right_edge - offset < left_edge + offset,
+        "pinned strips must have a clear gap"
+    );
+}

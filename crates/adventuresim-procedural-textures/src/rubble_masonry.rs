@@ -118,13 +118,14 @@ fn stone_at(params: &crate::TextureParameters, row: i32, u: f32) -> (usize, f32,
 fn edge_wobble(params: &crate::TextureParameters, coordinate: f32, id: u64, salt: u64) -> f32 {
     let phase = hash_unit(params, id ^ salt) * std::f32::consts::TAU;
     let secondary = hash_unit(params, id ^ salt.rotate_left(19)) * std::f32::consts::TAU;
-    (coordinate * std::f32::consts::TAU + phase).sin() * 0.115
-        + (coordinate * std::f32::consts::TAU * 2.0 + secondary).sin() * 0.038
+    ((coordinate * std::f32::consts::TAU + phase).sin() * 0.115
+        + (coordinate * std::f32::consts::TAU * 2.0 + secondary).sin() * 0.038)
+        * params.rubble_masonry.edge_irregularity
 }
 
 fn sample_masonry(params: &crate::TextureParameters, u: f32, v: f32) -> MasonrySample {
     let u = u.rem_euclid(1.0);
-    let v = v.rem_euclid(1.0);
+    let v = warped_course(params, u, v);
     let (mut row, mut local_y, mut row_pitch) = row_at(params, v);
     let (mut stone, mut local_x, mut width) = stone_at(params, row, u);
     let previous_row = row - 1;
@@ -202,19 +203,19 @@ fn sample_masonry(params: &crate::TextureParameters, u: f32, v: f32) -> MasonryS
     let pores = params.rubble_masonry.pores.sample(params, uv, 0x5791);
     let grit = params.rubble_masonry.mortar_grit.sample(params, uv, 0x1583);
     let face_height = face_relief(params, id, centered_x, centered_y) - pores.bowl;
-    let mortar_variation = ((u * params.rubble_masonry.sample_masonry_mortar_variation_1
-        + v * params.rubble_masonry.sample_masonry_mortar_variation_2)
-        * std::f32::consts::TAU)
-        .sin()
-        * params.rubble_masonry.sample_masonry_mortar_variation_3;
-    let mortar_height = grit.facet
-        + params.rubble_masonry.sample_masonry_mortar_height_1
-        + mortar_variation
-        + (hash_unit(params, id ^ 0x5fb3) - 0.5)
-            * params.rubble_masonry.sample_masonry_mortar_height_2;
+    let mortar_height = mortar_relief(params, u, v, id, grit.facet);
 
     MasonrySample {
-        height: mortar_height + (face_height - mortar_height) * stone_coverage,
+        height: mortar_height
+            + (face_height - mortar_height)
+                * crate::stamps::smooth(
+                    -edge_distance * minimum_extent * params.rubble_masonry.tile_metres
+                        / (2.0
+                            * params.rubble_masonry.edge_width_metres
+                            * (1.0
+                                + (hash_unit(params, id ^ 0x7691) - 0.5)
+                                    * params.rubble_masonry.edge_width_variation)),
+                ),
         stone_coverage,
         stone_id: id,
         mineral: hash_unit(params, id ^ 0xd651),
@@ -331,6 +332,23 @@ mod tests {
         let mut images = Assets::default();
         let textures = generate_rubble_masonry_textures(params, &mut images);
         (images, textures)
+    }
+
+    #[test]
+    fn physical_relief_is_independent_of_coverage_resolution() {
+        let full = crate::TextureParameters::default();
+        let mut draft = full.clone();
+        draft.resolution = crate::BakeResolution::Draft;
+        for y in 0..32 {
+            for x in 0..32 {
+                let u = (x as f32 + 0.37) / 32.0;
+                let v = (y as f32 + 0.19) / 32.0;
+                assert_eq!(
+                    sample_masonry(&full, u, v).height,
+                    sample_masonry(&draft, u, v).height
+                );
+            }
+        }
     }
 
     #[test]
@@ -455,11 +473,11 @@ mod tests {
         let interior_span =
             interiors.iter().copied().fold(f32::NEG_INFINITY, f32::max) - interior_min;
         assert!(
-            interior_min - mortar_max > 0.35,
+            (interior_min - mortar_max) * params.rubble_masonry.height_range_metres > 0.005,
             "interior min {interior_min}, mortar max {mortar_max}, span {interior_span}"
         );
         assert!(
-            interior_span < 0.16,
+            interior_span > 0.16 && interior_span < 0.48,
             "interior relief span: {interior_span}"
         );
     }
@@ -658,11 +676,17 @@ fn face_relief(
     centered_x: f32,
     centered_y: f32,
 ) -> f32 {
-    let angle = hash_unit(params, id ^ 0xc38b) * std::f32::consts::TAU;
-    let cut = (centered_x * angle.cos() + centered_y * angle.sin()
-        - params.rubble_masonry.fracture_offset)
-        .max(0.0);
-    let face_variation = -cut * params.rubble_masonry.fracture_depth;
+    // Intersect oblique fracture planes: a few coherent shelves, not a dome.
+    let mut face_variation = 0.0_f32;
+    for fracture in 0..params.rubble_masonry.fracture_count {
+        let salt = id ^ (fracture as u64 + 1).wrapping_mul(0xc38b);
+        let angle = hash_unit(params, salt) * std::f32::consts::TAU;
+        let cut = (centered_x * angle.cos() + centered_y * angle.sin()
+            - params.rubble_masonry.fracture_offset
+            - hash_unit(params, salt ^ 0x3751) * params.rubble_masonry.fracture_offset_variation)
+            .max(0.0);
+        face_variation = face_variation.min(-cut * params.rubble_masonry.fracture_depth);
+    }
     let planar_tilt = centered_x
         * (hash_unit(params, id ^ 0x191f) - 0.5)
         * params.rubble_masonry.sample_masonry_planar_tilt_1
@@ -674,4 +698,28 @@ fn face_relief(
             * params.rubble_masonry.sample_masonry_face_height_2
         + planar_tilt
         + face_variation
+}
+
+fn warped_course(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    let v = v.rem_euclid(1.0);
+    (v + (crate::stamps::noise(
+        params,
+        bevy::math::Vec2::new(u, v),
+        bevy::math::IVec2::new(7, 3),
+        0xa739,
+    ) - 0.5)
+        * params.rubble_masonry.course_warp)
+        .rem_euclid(1.0)
+}
+
+fn mortar_relief(params: &crate::TextureParameters, u: f32, v: f32, id: u64, grit: f32) -> f32 {
+    let mortar_variation = ((u * params.rubble_masonry.sample_masonry_mortar_variation_1
+        + v * params.rubble_masonry.sample_masonry_mortar_variation_2)
+        * std::f32::consts::TAU)
+        .sin()
+        * params.rubble_masonry.sample_masonry_mortar_variation_3;
+    grit + params.rubble_masonry.sample_masonry_mortar_height_1
+        + mortar_variation
+        + (hash_unit(params, id ^ 0x5fb3) - 0.5)
+            * params.rubble_masonry.sample_masonry_mortar_height_2
 }

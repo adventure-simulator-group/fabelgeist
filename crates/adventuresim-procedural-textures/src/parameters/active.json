@@ -10,13 +10,13 @@
     "/leaf_colors/blackthorn"
   ],
   "clay-roof-tile": [
-    "/seed",
     "/clay_roof_tile/color_and_roughness_roughness_1",
     "/clay_roof_tile/color_and_roughness_roughness_2",
     "/clay_roof_tile/color_and_roughness_roughness_3",
     "/clay_roof_tile/color_and_roughness_roughness_4",
     "/clay_roof_tile/courses",
     "/clay_roof_tile/drag_marks",
+    "/clay_roof_tile/edge_width_metres",
     "/clay_roof_tile/face_variation_broad_1",
     "/clay_roof_tile/face_variation_broad_2",
     "/clay_roof_tile/face_variation_fine_1",
@@ -64,7 +64,8 @@
     "/clay_roof_tile/tail_side_width_tail_start",
     "/clay_roof_tile/tail_start",
     "/clay_roof_tile/tile_metres",
-    "/clay_roof_tile/tiles_per_course"
+    "/clay_roof_tile/tiles_per_course",
+    "/seed"
   ],
   "crenellation-mask": [
     "/crenellation_mask/crenellation_breastwork_height_ratio",
@@ -115,6 +116,7 @@
     "/dressed_stone/tool_marks_taper",
     "/dressed_stone/tool_marks_width_1",
     "/dressed_stone/tool_marks_width_2",
+    "/dressed_stone/tool_relief_gain",
     "/dressed_stone_weathering/bevel_width_metres",
     "/dressed_stone_weathering/bevel_width_variation",
     "/dressed_stone_weathering/chip_depth_metres",
@@ -239,14 +241,11 @@
     "/ground/forest_litter_sample_with_detail_layer_contact_6",
     "/ground/forest_litter_sample_with_detail_lower_height_1",
     "/ground/forest_litter_sample_with_detail_lower_height_2",
-    "/ground/forest_litter_sample_with_detail_lower_height_3",
     "/ground/forest_litter_sample_with_detail_middle_height_1",
     "/ground/forest_litter_sample_with_detail_middle_height_2",
-    "/ground/forest_litter_sample_with_detail_middle_height_3",
     "/ground/forest_litter_sample_with_detail_middle_support",
     "/ground/forest_litter_sample_with_detail_upper_height_1",
     "/ground/forest_litter_sample_with_detail_upper_height_2",
-    "/ground/forest_litter_sample_with_detail_upper_height_3",
     "/ground/forest_litter_sample_with_detail_upper_support",
     "/ground/forest_litter_sample_with_detail_warp_1",
     "/ground/forest_litter_sample_with_detail_warp_2",
@@ -293,6 +292,7 @@
     "/ground/humified_fragment_sample_edge_noise_3",
     "/ground/humified_fragment_sample_edge_noise_4",
     "/ground/humified_fragment_sample_edge_noise_5",
+    "/ground/litter_fold_gain",
     "/ground/litter_leaf_field_with_detail_centre_1",
     "/ground/litter_leaf_field_with_detail_centre_2",
     "/ground/litter_leaf_field_with_detail_centre_3",
@@ -307,6 +307,7 @@
     "/ground/litter_leaf_field_with_detail_pigment_tone_1",
     "/ground/litter_leaf_field_with_detail_pigment_tone_2",
     "/ground/litter_leaf_field_with_detail_pigment_tone_3",
+    "/ground/litter_patch_strength",
     "/ground/litter_strata",
     "/ground/oak_tissue_sample_contact_band_1",
     "/ground/oak_tissue_sample_contact_band_2",
@@ -402,6 +403,7 @@
   "forest-soil": [
     "/common/forest_soil_height_range_metres",
     "/common/forest_soil_tile_metres",
+    "/ground/aggregate_angularity",
     "/ground/forest_soil_context_broad_1",
     "/ground/forest_soil_context_broad_2",
     "/ground/forest_soil_context_compaction_1",
@@ -520,6 +522,8 @@
     "/handmade_brick/edge_bow_variation",
     "/handmade_brick/edge_chip_center_1",
     "/handmade_brick/edge_chip_center_2",
+    "/handmade_brick/edge_width_metres",
+    "/handmade_brick/edge_width_variation",
     "/handmade_brick/face_height",
     "/handmade_brick/face_noise_relief",
     "/handmade_brick/fine_cross_frequency",
@@ -531,10 +535,12 @@
     "/handmade_brick/horizontal_jitter",
     "/handmade_brick/horizontal_mortar_metres",
     "/handmade_brick/minimum_visibility",
+    "/handmade_brick/mortar_grit",
     "/handmade_brick/mortar_height",
     "/handmade_brick/mortar_noise_relief",
     "/handmade_brick/mortar_roughness",
     "/handmade_brick/occlusion_strength",
+    "/handmade_brick/pores",
     "/handmade_brick/sample_brickwork_antialias",
     "/handmade_brick/sample_brickwork_broad_cup_1",
     "/handmade_brick/sample_brickwork_broad_cup_2",
@@ -546,9 +552,7 @@
     "/handmade_brick/vertical_mortar_metres",
     "/handmade_brick/width_minimum",
     "/handmade_brick/width_variation",
-    "/seed",
-    "/handmade_brick/pores",
-    "/handmade_brick/mortar_grit"
+    "/seed"
   ],
   "hawthorn-leaf": [
     "/seed",
@@ -708,13 +712,14 @@
     "/lead_sheet/tile_metres"
   ],
   "lime-plaster": [
-    "/seed",
     "/lime_plaster/cellular_feature_site_x_1",
     "/lime_plaster/cellular_feature_site_x_2",
     "/lime_plaster/cellular_feature_site_y_1",
     "/lime_plaster/cellular_feature_site_y_2",
     "/lime_plaster/exposed_aggregate_height_metres",
     "/lime_plaster/fine_aggregate_height_metres",
+    "/lime_plaster/float_center",
+    "/lime_plaster/float_tracks",
     "/lime_plaster/height_range_metres",
     "/lime_plaster/lime_plaster_sample_aggregate",
     "/lime_plaster/lime_plaster_sample_aggregate_radius_1",
@@ -745,11 +750,11 @@
     "/lime_plaster/rare_pull_depth_metres",
     "/lime_plaster/sand_float_height_metres",
     "/lime_plaster/tile_metres",
+    "/lime_plaster/tool_smoothing",
     "/lime_plaster/trowel_body_height_metres",
     "/lime_plaster/trowel_edge_height_metres",
     "/lime_plaster/trowel_strokes",
-    "/lime_plaster/float_tracks",
-    "/lime_plaster/float_center"
+    "/seed"
   ],
   "oak-bark": [
     "/seed",
@@ -789,7 +794,6 @@
     "/surface/oak_bark_height_broad_breakup_1",
     "/surface/oak_bark_height_broad_breakup_2",
     "/surface/oak_bark_height_broad_breakup_3",
-    "/surface/oak_bark_height_broad_breakup_4",
     "/surface/oak_bark_height_check_relief_1",
     "/surface/oak_bark_height_check_relief_2",
     "/surface/oak_bark_height_distance",
@@ -799,9 +803,7 @@
     "/surface/oak_bark_height_fiber_relief_2",
     "/surface/oak_bark_height_fine_breakup_1",
     "/surface/oak_bark_height_fine_breakup_2",
-    "/surface/oak_bark_height_fine_breakup_3",
     "/surface/oak_bark_height_fine_breakup_4",
-    "/surface/oak_bark_height_fine_breakup_5",
     "/surface/oak_bark_height_graph_relief_1",
     "/surface/oak_bark_height_graph_relief_2",
     "/surface/oak_bark_height_graph_shoulder_1",
@@ -817,10 +819,10 @@
     "/surface/oak_bark_plate_site_x_2",
     "/surface/oak_bark_plate_site_y_1",
     "/surface/oak_bark_plate_site_y_2",
-    "/surface/oak_bark_tile_metres"
+    "/surface/oak_bark_tile_metres",
+    "/surface/plates"
   ],
   "plank-floor": [
-    "/seed",
     "/plank_floor/board_count",
     "/plank_floor/edge_gap_metres",
     "/plank_floor/edge_warp_amplitude_metres_1",
@@ -891,10 +893,11 @@
     "/plank_floor/sample_plank_floor_wear_1",
     "/plank_floor/sample_plank_floor_wear_2",
     "/plank_floor/sample_plank_floor_wear_3",
-    "/plank_floor/tile_metres"
+    "/plank_floor/segments_per_strip",
+    "/plank_floor/tile_metres",
+    "/seed"
   ],
   "rock": [
-    "/seed",
     "/rock/cavity_occlusion",
     "/rock/domain_columns",
     "/rock/domain_rows",
@@ -912,13 +915,20 @@
     "/rock/rock_field_material_1",
     "/rock/rock_field_material_2",
     "/rock/roughness",
-    "/rock/tile_metres"
+    "/rock/spalls",
+    "/rock/tile_metres",
+    "/seed"
   ],
   "rubble-masonry": [
-    "/seed",
     "/rubble_masonry/colors",
+    "/rubble_masonry/course_warp",
+    "/rubble_masonry/edge_irregularity",
+    "/rubble_masonry/edge_width_metres",
+    "/rubble_masonry/edge_width_variation",
+    "/rubble_masonry/fracture_count",
     "/rubble_masonry/fracture_depth",
     "/rubble_masonry/fracture_offset",
+    "/rubble_masonry/fracture_offset_variation",
     "/rubble_masonry/height_range_metres",
     "/rubble_masonry/max_stones_per_row",
     "/rubble_masonry/min_stones_per_row",
@@ -955,7 +965,8 @@
     "/rubble_masonry/stone_color_near_joint_2",
     "/rubble_masonry/stone_color_roughness_1",
     "/rubble_masonry/stone_color_roughness_2",
-    "/rubble_masonry/tile_metres"
+    "/rubble_masonry/tile_metres",
+    "/seed"
   ],
   "slate-roof": [
     "/seed",

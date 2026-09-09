@@ -100,19 +100,17 @@ pub(crate) fn generate_oak_bark_texture(
     for y in 0..size {
         for x in 0..size {
             let height = periodic_sample(&heights, size, x as i32, y as i32);
-            let encoded_height = ((height + 0.5) * 255.0).round().clamp(0.0, 255.0) as u8;
+            let encoded_height = height + 0.5;
             let u = (x as f32 + 0.5) / size as f32;
             let v = (y as f32 + 0.5) / size as f32;
             let broad_visibility =
                 periodic_bilinear_sample(&horizon_ao, params.size(OAK_BARK_AO_SIZE), u, v);
             let local_visibility = oak_bark_local_cavity(params, &heights, x as i32, y as i32);
-            let ao = (broad_visibility * local_visibility * 255.0)
-                .round()
-                .clamp(0.0, 255.0) as u8;
-            height_ao.extend_from_slice(&[encoded_height, ao]);
+            let ao = broad_visibility * local_visibility;
+            height_ao.push([encoded_height, ao]);
         }
     }
     BarkTextureSet {
-        height_ao: images.add(image_rg_mipped(height_ao, size, true)),
+        height_ao: images.add(crate::height_ao::image(height_ao, size)),
     }
 }

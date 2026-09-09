@@ -3,16 +3,17 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        plates: crate::fracture_planes::Parameters = crate::fracture_planes::Parameters { cells: [17,6], depth: 0.04, roundness: 0.15, ..Default::default() };
         oak_bark_local_cavity_cavity: f32 = 0.25;
         oak_bark_height_distance: f32 = 0.46;
         oak_bark_height_weight_1: f32 = 0.15;
         oak_bark_height_weight_2: f32 = 1.0e-5;
-        oak_bark_height_graph_shoulder_1: f32 = 0.035;
-        oak_bark_height_graph_shoulder_2: f32 = 0.024;
+        oak_bark_height_graph_shoulder_1: f32 = 0.008;
+        oak_bark_height_graph_shoulder_2: f32 = 0.012;
         oak_bark_height_graph_shoulder_3: f32 = 3.25;
         oak_bark_height_graph_shoulder_4: f32 = 0.82;
         oak_bark_height_graph_relief_1: f32 = 0.52;
-        oak_bark_height_graph_relief_2: f32 = 0.16;
+        oak_bark_height_graph_relief_2: f32 = 0.08;
         oak_bark_height_face_mask_1: f32 = 0.012;
         oak_bark_height_face_mask_2: f32 = 0.040;
         oak_bark_height_asymmetric_crown_1: f32 = 0.028;
@@ -29,12 +30,12 @@ crate::parameters::parameter_block! {
         oak_bark_height_broad_breakup_1: f32 = 0.018;
         oak_bark_height_broad_breakup_2: f32 = 7.0;
         oak_bark_height_broad_breakup_3: f32 = 5.0;
-        oak_bark_height_broad_breakup_4: f32 = 0.73;
+
         oak_bark_height_fine_breakup_1: f32 = 0.006;
         oak_bark_height_fine_breakup_2: f32 = 17.0;
-        oak_bark_height_fine_breakup_3: f32 = 11.0;
+
         oak_bark_height_fine_breakup_4: f32 = 13.0;
-        oak_bark_height_fine_breakup_5: f32 = 0.29;
+
         oak_bark_fiber_distance_centre_1: f32 = 0.018;
         oak_bark_fiber_distance_centre_2: f32 = 0.026;
         oak_bark_fiber_distance_length_1: f32 = 0.040;

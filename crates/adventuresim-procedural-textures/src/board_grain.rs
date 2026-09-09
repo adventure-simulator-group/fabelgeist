@@ -10,9 +10,9 @@ mod tests;
 crate::parameters::parameter_block! {
     pub struct Parameters {
         ring_count: i32 = 9;
-        ring_wander: f32 = 0.09;
+        ring_wander: f32 = 0.035;
         ring_width: f32 = 0.22;
-        ring_depth: f32 = 0.024;
+        ring_depth: f32 = 0.014;
         dark_ring_fraction: f32 = 0.55;
         knot_fraction: f32 = 0.35;
         knot_radius: [f32; 2] = [0.13, 0.10];
@@ -25,7 +25,7 @@ crate::parameters::parameter_block! {
         wander_cells: [i32; 2] = [3, 7];
         sawn_arch_fraction: f32 = 0.4;
         sawn_arch_depth: f32 = 0.2;
-        sawn_arch_scale: f32 = 0.7;
+        sawn_arch_scale: f32 = 0.35;
         fiber_count: i32 = 43;
         fiber_depth: f32 = 0.006;
         light_srgb: [u8; 3] = [115, 82, 48];
@@ -55,11 +55,11 @@ impl Parameters {
             across -= d.x / (radius + self.knot_core) * self.knot_flow * envelope;
         }
         if random(0x7943) < self.sawn_arch_fraction {
-            let along =
-                ((uv.y - random(0x4217)) * std::f32::consts::TAU).sin() * self.sawn_arch_scale;
-            across =
-                ((across - random(0x1247)).powi(2) + along.powi(2) + self.sawn_arch_depth.powi(2))
-                    .sqrt();
+            // An oblique longitudinal cut opens rings into cathedral arches.
+            // Periodic sine-squared distances made repeated closed target motifs.
+            let center = random(0x1247);
+            let along = (uv.y - random(0x4217)) * self.sawn_arch_scale;
+            across = ((across - center).powi(2) + self.sawn_arch_depth.powi(2)).sqrt() + along;
         }
         let warp = noise(
             params,

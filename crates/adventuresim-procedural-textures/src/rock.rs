@@ -78,7 +78,8 @@ fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSam
     let uv = Vec2::new(u, v);
     let facets = params.rock.facets.sample(params, uv, 0x1ab3);
     let pores = params.rock.pores.sample(params, uv, 0x7719);
-    let height = (facets.facet - pores.bowl
+    let spalls = params.rock.spalls.sample(params, uv, 0x7175);
+    let height = (facets - spalls.facet - pores.bowl
         + params.rock.rock_field_height_1 * broad
         + params.rock.rock_field_height_2 * structure
         + params.rock.rock_field_height_3 * aggregate

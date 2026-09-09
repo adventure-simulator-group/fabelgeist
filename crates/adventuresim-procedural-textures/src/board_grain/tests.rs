@@ -30,8 +30,8 @@ fn pigment_tracks_growth_and_knot_flow_without_tracking_relief_amplitude() {
             bent += usize::from(
                 (a.height - straight.filtered(&params, uv, footprint, 17).height).abs() > 0.001,
             );
-            let repeated = grain.filtered(&params, uv + Vec2::Y, footprint, 17);
-            assert!((a.height - repeated.height).abs() < 0.00001);
+            // Unit-local cut grain may differ at its ends; the owning board
+            // layout supplies the tile period and hides the cut under its joint.
         }
     }
     assert!(bent > 10, "knot flow must bend the actual relief");

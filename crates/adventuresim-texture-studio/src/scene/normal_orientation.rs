@@ -2,6 +2,7 @@
 use super::*;
 use adventuresim_procedural_textures::{
     BakeResolution, BakedMap, BakedRecipe, MapChannel, PROCEDURAL_TEXTURE_CATALOGUE,
+    TextureRecipeId,
 };
 use bevy::mesh::VertexAttributeValues;
 
@@ -32,7 +33,20 @@ fn procedural_normals_light_raised_edges_from_above_and_left() {
         };
         let t = Vec4::from_array(tangents[0]);
         let frame = Mat3::from_cols(t.truncate(), Vec3::Z.cross(t.truncate()) * t.w, Vec3::Z);
-        let agreement = slope_agreement(height, normal, bake.map(MapChannel::Opacity), frame);
+        let filtered = matches!(
+            descriptor.id,
+            TextureRecipeId::WattleAndDaub
+                | TextureRecipeId::ClayRoofTile
+                | TextureRecipeId::SlateRoof
+                | TextureRecipeId::TimberShingle
+        );
+        let agreement = slope_agreement(
+            height,
+            normal,
+            bake.map(MapChannel::Opacity),
+            frame,
+            filtered,
+        );
         println!(
             "{}: left/top slope agreement {agreement:?}",
             descriptor.id.slug()
@@ -57,9 +71,11 @@ fn slope_agreement(
     normal: &BakedMap,
     opacity: Option<&BakedMap>,
     frame: Mat3,
+    filtered: bool,
 ) -> Vec2 {
     let size = height.size as usize;
     assert_eq!(normal.size, height.size);
+    let heights = reference_heights(height, filtered);
     let mut signed = Vec2::ZERO;
     let mut absolute = Vec2::ZERO;
     for y in 1..size - 1 {
@@ -69,7 +85,7 @@ fn slope_agreement(
             if opacity.is_some_and(|mask| neighbors.iter().any(|j| mask.bytes[j * 4] < 128)) {
                 continue;
             }
-            let h = |j: usize| height.bytes[j * 4] as f32;
+            let h = |j: usize| heights[j];
             let delta = Vec2::new(h(i + 1) - h(i - 1), h(i + size) - h(i - size));
             let p = &normal.bytes[i * 4..i * 4 + 3];
             let n = frame * (Vec3::new(p[0] as f32, p[1] as f32, p[2] as f32) / 127.5 - Vec3::ONE);
@@ -87,4 +103,31 @@ fn slope_agreement(
     }
     assert!(absolute.min_element() > 0.0, "no measurable relief");
     signed / absolute
+}
+
+// The direction oracle uses the independently exported physical height. For
+// footprint-filtered normals, compare equal spatial support: a raw thin ridge
+// can slope the other way inside the surrounding one-texel filtered ridge.
+fn reference_heights(height: &BakedMap, filtered: bool) -> Vec<f32> {
+    let size = height.size as i32;
+    let at = |x: i32, y: i32| {
+        height.bytes[((y.rem_euclid(size) * size + x.rem_euclid(size)) * 4) as usize] as f32
+    };
+    let weights = [1.0, 4.0, 6.0, 4.0, 1.0];
+    (0..size)
+        .flat_map(|y| {
+            (0..size).map(move |x| {
+                if !filtered {
+                    return at(x, y);
+                }
+                let mut sum = 0.0;
+                for (dy, wy) in weights.iter().enumerate() {
+                    for (dx, wx) in weights.iter().enumerate() {
+                        sum += at(x + dx as i32 - 2, y + dy as i32 - 2) * wx * wy / 256.0;
+                    }
+                }
+                sum
+            })
+        })
+        .collect()
 }

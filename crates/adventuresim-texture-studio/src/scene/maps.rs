@@ -174,12 +174,12 @@ fn packed_surface(
     ao.encoding = PixelEncoding::Rgba8;
     ao.bytes = map
         .bytes
-        .as_chunks::<2>()
+        .as_chunks::<4>()
         .0
         .iter()
         .flat_map(|p| {
             [
-                (255.0 - (255 - p[1]) as f32 * document.surface.ao_strength) as u8,
+                (255.0 - (255 - p[2]) as f32 * document.surface.ao_strength) as u8,
                 255,
                 0,
                 255,
@@ -195,9 +195,11 @@ fn packed_surface(
     let mut offset = 0;
     for level in 0..map.mip_levels {
         let side = (map.size >> level) as i32;
-        let data = &map.bytes[offset..offset + (side * side * 2) as usize];
+        let data = &map.bytes[offset..offset + (side * side * 4) as usize];
         let height = |x: i32, y: i32| {
-            data[((y.rem_euclid(side) * side + x.rem_euclid(side)) * 2) as usize] as f32 / 255.0
+            adventuresim_procedural_textures::decode_height_ao(
+                &data[((y.rem_euclid(side) * side + x.rem_euclid(side)) * 4) as usize..],
+            )
         };
         let strength = bake.height_range_metres / (2.0 * bake.tile_metres / side as f32)
             * document.surface.normal_strength;
@@ -217,7 +219,7 @@ fn packed_surface(
                 ]);
             }
         }
-        offset += (side * side * 2) as usize;
+        offset += (side * side * 4) as usize;
     }
     material.normal_map_texture = Some(upload(world, assets, &normal, false));
 }

@@ -4,17 +4,17 @@ use crate::TextureParameters;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        layer_count: i32 = 4;
+        layer_count: i32 = 2;
         layer_depth: f32 = 0.24;
         layer_edge_width: f32 = 0.10;
         split_direction: f32 = 0.45;
         direction_variation: f32 = 0.80;
         warp_frequency: f32 = 3.0;
-        warp_strength: f32 = 0.45;
+        warp_strength: f32 = 0.22;
         fracture_frequency: f32 = 13.0;
         fracture_strength: f32 = 0.06;
         flake_frequency: f32 = 7.0;
-        flake_fraction: f32 = 0.38;
+        flake_fraction: f32 = 0.20;
         flake_reach: f32 = 0.14;
         flake_depth: f32 = 0.075;
         flake_edge_width: f32 = 0.18;

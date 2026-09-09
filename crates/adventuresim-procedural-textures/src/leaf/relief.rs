@@ -4,13 +4,13 @@ use bevy::math::{Vec2, Vec3};
 crate::parameters::parameter_block! {
  pub struct LeafRelief {
   dome: f32 = 0.12;
-  vein_height: f32 = 0.055;
-  back_vein_height: f32 = 0.085;
+  vein_height: f32 = 0.018;
+  back_vein_height: f32 = 0.03;
   vein_softness: f32 = 0.004;
   curl: f32 = 0.015;
   corrugation: f32 = 0.008;
-  corrugation_frequency: f32 = 28.0;
-  tissue_height: f32 = 0.003;
+  corrugation_frequency: f32 = 3.0;
+  tissue_height: f32 = 0.0004;
   tissue_frequency: f32 = 75.0;
   normal_strength: f32 = 0.06;
   ao_strength: f32 = 0.4;
@@ -24,10 +24,13 @@ impl LeafRelief {
         let envelope = (core::f32::consts::PI * t).sin();
         let dome = (1.0 - across * across).max(0.0) * envelope * self.dome;
         let curl = across * across * envelope * self.curl;
-        let ribs = (t * self.corrugation_frequency + across.abs()).sin() * self.corrugation;
-        let tissue = (p.x * self.tissue_frequency).sin()
-            * (p.y * self.tissue_frequency).cos()
-            * self.tissue_height;
+        let ribs =
+            (t * self.corrugation_frequency + across).sin() * across * envelope * self.corrugation;
+        let tissue = (p.x * self.tissue_frequency + (p.y * self.tissue_frequency).sin()).sin()
+            * self.tissue_height
+            * envelope
+            * (1.0 - vein);
+        let vein = vein * (1.0 - across.abs().clamp(0.0, 1.0));
         (0.25
             + dome
             + curl

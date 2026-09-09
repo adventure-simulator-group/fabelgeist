@@ -125,8 +125,16 @@ impl SoilClusterRecipe {
                         + params.ground.sample_edge_warp_2
                             * (angle * second_lobes - phase * params.ground.sample_edge_warp_3)
                                 .sin();
-                    let distance = normalized.length() * edge_warp;
-                    let lump = (1.0 - smoothstep(params.ground.sample_lump, 1.0, distance))
+                    let distance = normalized.length().lerp(
+                        normalized.abs().max_element(),
+                        params.ground.aggregate_angularity,
+                    ) * edge_warp;
+                    let rounded = 1.0 - smoothstep(params.ground.sample_lump, 1.0, distance);
+                    let faceted = ((1.0 - distance)
+                        / (1.0 - params.ground.sample_lump).max(f32::EPSILON))
+                    .clamp(0.0, 1.0);
+                    let lump = rounded
+                        .lerp(faceted, params.ground.aggregate_angularity)
                         .powf(self.sharpness)
                         .clamp(0.0, 1.0);
                     // Probabilistic union preserves rounded sub-lumps while
@@ -420,6 +428,7 @@ struct LitterLeafImprint {
     dome: f32,
     tone: f32,
     vein: f32,
+    #[cfg(test)]
     edge: f32,
     contact: f32,
     order: f32,
@@ -644,7 +653,7 @@ fn oak_tissue_sample(
         ));
     LitterShapeSample {
         coverage,
-        dome: ((1.0 - lateral.powi(2)).max(0.0) * 0.58 + ordinary_edge * 0.18) * coverage,
+        dome: (1.0 - lateral.powi(2)).max(0.0) * 0.58 * coverage,
         vein: midrib.max(side_vein) * coverage,
         edge: ordinary_edge * coverage,
         lift: contact_band * lifted_sector * 0.42 * coverage,
@@ -1034,114 +1043,8 @@ fn litter_shape_visible(
     }
 }
 
-fn litter_leaf_field_with_detail(
-    params: &crate::TextureParameters,
-    point: Vec2,
-    recipe: LitterStratumRecipe,
-    detail: LitterDetail,
-) -> LitterLeafImprint {
-    let scaled = point * recipe.grid as f32;
-    let base_cell = scaled.floor().as_ivec2();
-    let mut field = LitterLeafImprint {
-        order: f32::NEG_INFINITY,
-        ..LitterLeafImprint::default()
-    };
-    for offset_y in -1..=1 {
-        for offset_x in -1..=1 {
-            let cell = base_cell + IVec2::new(offset_x, offset_y);
-            let occupancy = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x5de3);
-            let decay_pocket = if recipe.stratum == LitterStratum::Lower {
-                smoothstep(
-                    -params.ground.litter_leaf_field_with_detail_decay_pocket_1,
-                    params.ground.litter_leaf_field_with_detail_decay_pocket_2,
-                    soil_value_noise(
-                        params,
-                        point
-                            + Vec2::new(
-                                params.ground.litter_leaf_field_with_detail_decay_pocket_3,
-                                params.ground.litter_leaf_field_with_detail_decay_pocket_4,
-                            ),
-                        6,
-                        recipe.salt ^ 0x77a1,
-                    ),
-                )
-            } else {
-                1.0
-            };
-            let effective_density = recipe.density
-                * (params
-                    .ground
-                    .litter_leaf_field_with_detail_effective_density_1
-                    + decay_pocket
-                        * params
-                            .ground
-                            .litter_leaf_field_with_detail_effective_density_2);
-            if occupancy > effective_density {
-                continue;
-            }
-            let centre = cell.as_vec2()
-                + Vec2::new(
-                    params.ground.litter_leaf_field_with_detail_centre_1
-                        + soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x13a7)
-                            * params.ground.litter_leaf_field_with_detail_centre_2,
-                    params.ground.litter_leaf_field_with_detail_centre_3
-                        + soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x91cb)
-                            * params.ground.litter_leaf_field_with_detail_centre_4,
-                );
-            let angle = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0xc72d)
-                * core::f32::consts::TAU;
-            let long_axis = Vec2::new(angle.cos(), angle.sin());
-            let delta = scaled - centre;
-            let local = Vec2::new(delta.dot(long_axis), delta.perp_dot(long_axis));
-            let radius = recipe.minimum_radius
-                + soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x27f1)
-                    * recipe.radius_span;
-            let aspect = recipe.minimum_aspect
-                + soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0xe419)
-                    * recipe.aspect_span;
-            let phase = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x41af)
-                * core::f32::consts::TAU;
-            let class = litter_shape_class(params, cell, recipe);
-            if !litter_shape_visible(class, recipe.stratum, detail) {
-                continue;
-            }
-            let side = (soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x998b)
-                - 0.5)
-                .signum();
-            let shape = sample_litter_shape(params, class, local, radius, aspect, phase, side);
-            if shape.coverage <= 0.0 {
-                continue;
-            }
-            let order = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0xd34f)
-                + shape.coverage * params.ground.litter_leaf_field_with_detail_order;
-            if order <= field.order {
-                continue;
-            }
-            let pigment = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0xa531);
-            let pigment_tone = (params.ground.litter_leaf_field_with_detail_pigment_tone_1
-                - recipe.decomposition
-                    * params.ground.litter_leaf_field_with_detail_pigment_tone_2)
-                + (pigment - 0.5) * params.ground.litter_leaf_field_with_detail_pigment_tone_3;
-            field = LitterLeafImprint {
-                coverage: shape.coverage,
-                dome: shape.dome,
-                tone: (pigment_tone + shape.vein * 0.12
-                    - shape.edge * 0.06
-                    - if class == LitterShapeClass::Humified {
-                        0.10
-                    } else {
-                        0.0
-                    })
-                .clamp(0.0, 1.0),
-                vein: shape.vein,
-                edge: shape.edge,
-                contact: shape.lift,
-                order,
-            };
-        }
-    }
-    field
-}
+mod scatter;
+use scatter::litter_leaf_field_with_detail;
 
 #[cfg(test)]
 fn litter_leaf_field(point: Vec2, recipe: LitterStratumRecipe) -> LitterLeafImprint {
@@ -1281,33 +1184,21 @@ fn forest_litter_sample_with_detail(
         + lower.dome
             * params
                 .ground
-                .forest_litter_sample_with_detail_lower_height_2
-        + lower.edge
-            * params
-                .ground
-                .forest_litter_sample_with_detail_lower_height_3;
+                .forest_litter_sample_with_detail_lower_height_2;
     let middle_height = params
         .ground
         .forest_litter_sample_with_detail_middle_height_1
         + middle.dome
             * params
                 .ground
-                .forest_litter_sample_with_detail_middle_height_2
-        + middle.edge
-            * params
-                .ground
-                .forest_litter_sample_with_detail_middle_height_3;
+                .forest_litter_sample_with_detail_middle_height_2;
     let upper_height = params
         .ground
         .forest_litter_sample_with_detail_upper_height_1
         + upper.dome
             * params
                 .ground
-                .forest_litter_sample_with_detail_upper_height_2
-        + upper.edge
-            * params
-                .ground
-                .forest_litter_sample_with_detail_upper_height_3;
+                .forest_litter_sample_with_detail_upper_height_2;
     let height = humus_height
         .lerp(lower_height, lower.coverage)
         .lerp(middle_height, middle.coverage)
@@ -1472,6 +1363,28 @@ mod litter_tests {
             rgb.extend_from_slice(&[pixel[0], ((y * 0.5 + 0.5) * 255.0).round() as u8, pixel[1]]);
         }
         rgb
+    }
+
+    #[test]
+    fn intact_leaf_body_has_no_full_perimeter_embossed_rim() {
+        let params = crate::TextureParameters::default();
+        let width = broad_oak_width(&params, 0.5, 0.0, 1.0);
+        let profile: Vec<f32> = (1..95)
+            .map(|i| {
+                oak_tissue_sample(
+                    &params,
+                    Vec2::new(0.0, width * i as f32 / 100.0),
+                    1.0,
+                    1.0,
+                    0.0,
+                )
+                .dome
+            })
+            .collect();
+        assert!(
+            profile.windows(2).all(|h| h[1] <= h[0]),
+            "ordinary edges must not turn the body into a raised ring"
+        );
     }
 
     #[test]
@@ -1866,20 +1779,18 @@ pub(crate) fn generate_soil_height_ao(params: &crate::TextureParameters) -> Imag
     for y in 0..size {
         for x in 0..size {
             let height = periodic_sample(&heights, size, x as i32, y as i32);
-            let encoded_height = ((height + 0.5) * 255.0).round().clamp(0.0, 255.0) as u8;
+            let encoded_height = height + 0.5;
             let u = (x as f32 + 0.5) / size as f32;
             let v = (y as f32 + 0.5) / size as f32;
             let broad_visibility =
                 periodic_bilinear_sample(&horizon_ao, params.size(FOREST_SOIL_AO_SIZE), u, v);
             let local_visibility = forest_soil_local_cavity(params, &heights, x as i32, y as i32);
-            let ao = (broad_visibility * local_visibility * 255.0)
-                .round()
-                .clamp(0.0, 255.0) as u8;
-            height_ao.extend_from_slice(&[encoded_height, ao]);
+            let ao = broad_visibility * local_visibility;
+            height_ao.push([encoded_height, ao]);
         }
     }
 
-    image_rg_mipped(height_ao, size, true)
+    crate::height_ao::image(height_ao, size)
 }
 
 pub(super) fn generate_forest_soil_texture(
@@ -1995,9 +1906,9 @@ mod forest_soil_tests {
         let mut previous_range = u8::MAX;
         for level in 0..=6 {
             let side = (FOREST_SOIL_TEXTURE_SIZE >> level) as usize;
-            let level_bytes = side * side * 2;
+            let level_bytes = side * side * 4;
             let height_values = data[offset..offset + level_bytes]
-                .as_chunks::<2>()
+                .as_chunks::<4>()
                 .0
                 .iter()
                 .map(|pixel| pixel[0]);
@@ -2011,7 +1922,7 @@ mod forest_soil_tests {
             if level <= 4 {
                 assert!(range >= 18, "mip {level} lost aggregate signal: {range}");
             }
-            for ao in data[offset + 1..offset + level_bytes].iter().step_by(2) {
+            for ao in data[offset + 2..offset + level_bytes].iter().step_by(4) {
                 assert!(*ao >= 140, "mip {level} AO underflow: {ao}");
             }
             previous_range = range;

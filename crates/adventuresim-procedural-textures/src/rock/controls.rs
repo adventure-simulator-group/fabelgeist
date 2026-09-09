@@ -3,8 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        facets: crate::stamps::Parameters = crate::stamps::Parameters { cells: [13, 11], radius: [0.85, 0.70], density: 0.9, depth: 0.21, roundness: 0.0, ..Default::default() };
-        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [91, 83], radius: [0.30, 0.26], density: 0.12, depth: 0.035, ..Default::default() };
+        facets: crate::fracture_planes::Parameters = Default::default();
+        spalls: crate::stamps::Parameters = crate::stamps::Parameters { cells: [37,31], radius: [0.7,0.4], density: 0.14, depth: 0.035, roundness: 0.55, size_variation: 0.65, ..Default::default() };
+        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [91, 83], radius: [0.30, 0.26], density: 0.08, depth: 0.022, size_variation: 0.75, roundness: 0.4, ..Default::default() };
         cavity_occlusion: f32 = 0.32;
         downsample_levels_average_ao: f32 = 0.25;
         downsample_levels_filtered_roughness_1: f32 = 0.25;

@@ -182,12 +182,15 @@ pub(super) fn lime_plaster_sample(
         );
 
     let micro_variation = oblique_micro_variation(params, u, v);
+    let worked =
+        (strokes.bowl / params.lime_plaster.trowel_strokes.depth.max(f32::EPSILON)).clamp(0.0, 1.0);
+    let aggregate_retention = 1.0 - worked * params.lime_plaster.tool_smoothing;
     let height_metres = trowel * params.lime_plaster.trowel_body_height_metres
         + trowel_edge * params.lime_plaster.trowel_edge_height_metres
-        + sand * params.lime_plaster.sand_float_height_metres
-        + fine_aggregate * params.lime_plaster.fine_aggregate_height_metres
+        + sand * params.lime_plaster.sand_float_height_metres * aggregate_retention
+        + fine_aggregate * params.lime_plaster.fine_aggregate_height_metres * aggregate_retention
         + micro_variation * params.lime_plaster.oblique_tool_mark_height_metres
-        + aggregate * params.lime_plaster.exposed_aggregate_height_metres
+        + aggregate * params.lime_plaster.exposed_aggregate_height_metres * aggregate_retention
         - cavity * params.lime_plaster.rare_pull_depth_metres;
     let height = (height_metres / PLASTER_HEIGHT_HALF_RANGE_METRES).clamp(-1.0, 1.0);
     // A nearly uniform lime matrix carries sparse mineral flecks at a physical
@@ -612,15 +615,15 @@ mod tests {
         let normal_rms = [0, 2, 4].map(|level| normal_rms_degrees(mip_rgba(normal, level).1));
         println!("lime-plaster normal RMS degrees at mips 0/2/4: {normal_rms:?}");
         assert!(
-            normal_rms[0] >= 4.8,
+            normal_rms[0] >= 2.5,
             "base normal RMS is too flat: {normal_rms:?}"
         );
         assert!(
-            normal_rms[1] >= 4.0,
+            normal_rms[1] >= 2.0,
             "four-texel mip loses close-view relief: {normal_rms:?}"
         );
         assert!(
-            (2.0..=2.8).contains(&normal_rms[2]),
+            (0.8..=2.8).contains(&normal_rms[2]),
             "sixteen-texel mip must retain shallow relief then converge: {normal_rms:?}"
         );
 

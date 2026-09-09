@@ -38,7 +38,10 @@ Dragging coalesces edits; obsolete browser refinement jobs are terminated. Light
 camera and surface-response edits do not regenerate the procedural maps. The
 native editor uses one background baking thread and discards obsolete results.
 
-View a plane, sphere, beveled cube, cylinder or beam. Drag to orbit, scroll to
+View a plane, sphere, beveled cube, cylinder, beam, folded sheet, framed pane or
+repeated crown strip. Reflection studio adds a procedural softbox environment;
+the light azimuth rotates its reflection cards. Glass background distance
+separates optical warp from surface marks. Drag to orbit, scroll to
 zoom, and use UV repeats/offsets to inspect tiling or a detail. Channel views show
 the generated maps without lighting. Pin a completed material for comparison
 under the same camera and lights. Diagnostic displacement applies height to a

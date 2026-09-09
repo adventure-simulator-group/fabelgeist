@@ -85,7 +85,10 @@ fn growth_field(
     let sample = params.plank_floor.grain.filtered(
         params,
         bevy::math::Vec2::new(local_u, v),
-        bevy::math::Vec2::new(params.plank_floor.board_count as f32 / size, 1.0 / size),
+        bevy::math::Vec2::new(
+            params.plank_floor.board_count as f32 / size,
+            params.plank_floor.segments_per_strip as f32 / size,
+        ),
         board_id,
     );
     (sample.dark, sample.height)
@@ -273,10 +276,13 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
     let cut_skew_metres = (hash_unit(params, 0x273b_91f5 ^ board_id) - 0.5)
         * params.plank_floor.sample_plank_floor_cut_skew_metres;
     let cut_offset = (local_u - 0.5) * cut_skew_metres / params.plank_floor.tile_metres;
-    let end_distance =
-        periodic_delta(v - station as f32 / params.plank_floor.joist_stations as f32 - cut_offset)
-            .abs()
-            * params.plank_floor.tile_metres;
+    let segment_position =
+        (v - station as f32 / params.plank_floor.joist_stations as f32 - cut_offset)
+            * params.plank_floor.segments_per_strip as f32;
+    let segment =
+        (segment_position.floor() as i32).rem_euclid(params.plank_floor.segments_per_strip);
+    let end_distance = periodic_delta(segment_position).abs() * params.plank_floor.tile_metres
+        / params.plank_floor.segments_per_strip as f32;
     let end_joint = joint_profile(
         params,
         end_distance,
@@ -292,7 +298,12 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
     let joint = edge_joint.max(end_joint);
     let nail = nail_profile(params, u, v, board, left, right, station);
 
-    let (grain_tone, grain_relief) = growth_field(params, local_u, v, board_id);
+    let (grain_tone, grain_relief) = growth_field(
+        params,
+        local_u,
+        segment_position.rem_euclid(1.0),
+        board_id ^ (segment as u64 + 1).wrapping_mul(0x517c),
+    );
     let (check, hand_mark, pore) = finite_surface_features(params, u, v, board, left, right);
     let broad_length = value_noise_1d(params, v, 4, 0x159a_e271 ^ board_id) - 0.5;
 
@@ -437,6 +448,24 @@ mod tests {
         let mut images = Assets::default();
         let textures = generate_plank_floor_textures(params, &mut images);
         (images, textures)
+    }
+
+    #[test]
+    fn butt_joints_start_a_new_growth_identity() {
+        let params = crate::TextureParameters::default();
+        let mut changed = 0;
+        // Two points at the same coordinates inside adjacent physical boards
+        // must not repeat the same strip-long grain field.
+        for x in 1..128 {
+            let u = x as f32 / 128.0;
+            let a = sample_plank_floor(&params, u, 0.23);
+            let b = sample_plank_floor(&params, u, 0.73);
+            changed += usize::from((a.tone - b.tone).abs() > 0.1);
+        }
+        assert!(
+            changed > 12,
+            "adjacent board segments reused grain: {changed}"
+        );
     }
 
     #[test]

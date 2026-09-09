@@ -34,6 +34,7 @@ pub struct Environment {
     pub azimuth_degrees: f32,
     pub incidence_degrees: f32,
     pub ambient: f32,
+    pub reflection_strength: f32,
     pub exposure_ev: f32,
     pub background: [f32; 3],
     pub fill_lux: f32,
@@ -49,6 +50,7 @@ impl Default for Environment {
             azimuth_degrees: -35.0,
             incidence_degrees: 0.28_f32.atan().to_degrees(),
             ambient: 120.0,
+            reflection_strength: 0.0,
             exposure_ev: 0.0,
             background: [0.035, 0.043, 0.052],
             fill_lux: 0.0,
@@ -65,14 +67,20 @@ pub enum Shape {
     BeveledCube,
     Cylinder,
     Beam,
+    FoldedSheet,
+    Pane,
+    CrownStrip,
 }
 impl Shape {
-    pub const ALL: [Self; 5] = [
+    pub const ALL: [Self; 8] = [
         Self::Plane,
         Self::Sphere,
         Self::BeveledCube,
         Self::Cylinder,
         Self::Beam,
+        Self::FoldedSheet,
+        Self::Pane,
+        Self::CrownStrip,
     ];
 }
 
@@ -88,6 +96,7 @@ pub struct View {
     pub orthographic: bool,
     pub turntable: bool,
     pub displacement: f32,
+    pub backdrop_distance: f32,
 }
 impl Default for View {
     fn default() -> Self {
@@ -101,6 +110,7 @@ impl Default for View {
             orthographic: true,
             turntable: false,
             displacement: 0.0,
+            backdrop_distance: 0.95,
         }
     }
 }
@@ -164,6 +174,8 @@ impl Document {
         if !(0.0..=200_000.0).contains(&e.key_lux)
             || !(0.0..=200_000.0).contains(&e.fill_lux)
             || !(0.0..=10_000.0).contains(&e.ambient)
+            || !(0.0..=10_000.0).contains(&e.reflection_strength)
+            || !(0.1..=5.0).contains(&v.backdrop_distance)
             || !(-10.0..=10.0).contains(&e.exposure_ev)
             || !(0.1..=100.0).contains(&v.distance)
             || !(0.01..=32.0).contains(&v.repeats)
@@ -206,6 +218,23 @@ impl Document {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn new_review_views_round_trip_and_bound_lighting() {
+        let mut document = Document::default();
+        for shape in [Shape::FoldedSheet, Shape::Pane, Shape::CrownStrip] {
+            document.view.shape = shape;
+            document.view.backdrop_distance = 2.0;
+            document.environment.reflection_strength = 700.0;
+            let loaded = Document::from_json(&document.to_json()).unwrap();
+            assert_eq!(loaded.view.shape, shape);
+            assert_eq!(loaded.environment.reflection_strength, 700.0);
+        }
+        document.environment.reflection_strength = -1.0;
+        assert!(Document::from_json(&document.to_json()).is_err());
+        document.environment.reflection_strength = 700.0;
+        document.view.backdrop_distance = 0.0;
+        assert!(Document::from_json(&document.to_json()).is_err());
+    }
     #[test]
     fn portable_document_round_trips_and_rejects_invalid_preview_values() {
         let mut document = Document::default();

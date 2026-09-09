@@ -272,7 +272,7 @@ fn sample_stonework(params: &crate::TextureParameters, u: f32, v: f32) -> StoneS
             * params.dressed_stone.sample_stonework_planar_tilt_2;
     let broad = periodic_wave(params, x * 0.5 + 0.5, id, 0xc7a9)
         * params.dressed_stone.sample_stonework_broad;
-    let tools = tool_marks(params, x, y, id);
+    let tools = tool_marks(params, x, y, id) * params.dressed_stone.tool_relief_gain;
     let face_height = params.dressed_stone.sample_stonework_face_height
         + (hash_unit(params, id ^ 0x53f1) - 0.5) * params.dressed_stone.block_height_variation
         + planar_tilt
@@ -285,7 +285,7 @@ fn sample_stonework(params: &crate::TextureParameters, u: f32, v: f32) -> StoneS
         - edge.exposed_chip * params.dressed_stone.spall_relief;
 
     StoneSample {
-        height: mortar.height + (face_height - mortar.height) * stone_coverage,
+        height: mortar.height + (face_height - mortar.height) * (1.0 - edge.bevel),
         stone_coverage,
         stone_id: id,
         edge_distance,

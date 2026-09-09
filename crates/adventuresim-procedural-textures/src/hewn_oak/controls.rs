@@ -19,9 +19,9 @@ crate::parameters::parameter_block! {
         knot_ring_relief: f32 = KNOT_RING_RELIEF;
         vessel_relief: f32 = VESSEL_RELIEF;
         ray_relief: f32 = RAY_RELIEF;
-        adze_relief_gain: f32 = ADZE_RELIEF_GAIN;
+        adze_relief_gain: f32 = 4.8;
         adze_blend_sharpness: f32 = ADZE_BLEND_SHARPNESS;
-        adze_edge_relief: f32 = ADZE_EDGE_RELIEF;
+        adze_edge_relief: f32 = 0.035;
         colors: HewnOakColors = HEWN_OAK_COLORS;
         oak_roughness: u8 = OAK_ROUGHNESS;
         relief_ao_strength: f32 = RELIEF_AO_STRENGTH;
