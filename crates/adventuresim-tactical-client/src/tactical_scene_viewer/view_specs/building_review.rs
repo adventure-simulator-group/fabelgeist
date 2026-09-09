@@ -108,7 +108,7 @@ pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 
     .vista(),
 ];
 
-pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewSpec; 57] = [
+pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewSpec; 63] = [
     CaptureViewSpec::new(
         "warmup",
         "Production building material warmup",
@@ -562,6 +562,54 @@ pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewS
         "tannery-distant",
         "Tannery distant",
         CapturePose::CityExterior { camera: 55 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-exterior",
+        "Horse mill exterior",
+        CapturePose::CityExterior { camera: 56 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-interior",
+        "Horse mill drive and animal circuit",
+        CapturePose::CityExterior { camera: 57 },
+        65.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-millstone",
+        "Horse mill stone and grain feed",
+        CapturePose::CityExterior { camera: 58 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-sweep",
+        "Horse mill overhead sweep and gearing",
+        CapturePose::CityExterior { camera: 59 },
+        65.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-facade",
+        "Horse mill facade",
+        CapturePose::CityExterior { camera: 60 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "horse-mill-distant",
+        "Horse mill distant",
+        CapturePose::CityExterior { camera: 61 },
         12.0,
         100,
     )

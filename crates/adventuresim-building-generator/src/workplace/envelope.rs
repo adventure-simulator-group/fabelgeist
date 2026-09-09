@@ -6,6 +6,10 @@ const BEAM_DEPTH_METRES: f32 = 0.28;
 const BOARD_WIDTH_METRES: f32 = 0.22;
 
 pub(super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingProgram) {
+    if a.plan.kind == WorkplaceKind::HorseMill {
+        super::horse_mill::build_envelope(a, program);
+        return;
+    }
     if matches!(a.plan.kind, WorkplaceKind::Dyer | WorkplaceKind::Tannery) {
         super::wet::build_envelope(a, program);
         return;

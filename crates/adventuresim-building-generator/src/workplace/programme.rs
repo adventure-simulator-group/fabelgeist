@@ -91,6 +91,7 @@ impl BuildingProgram {
             WorkplaceKind::Warehouse => (7, 14, 6.4, 47.0, RoomKind::Storage),
             WorkplaceKind::Dyer => (6, 8, 3.2, 40.0, RoomKind::VatRoom),
             WorkplaceKind::Tannery => (6, 8, 2.8, 32.0, RoomKind::VatRoom),
+            WorkplaceKind::HorseMill => (8, 10, 4.2, 30.0, RoomKind::Workshop),
         };
         let depth = depth + size.extra_bays() * 2;
         self.footprint = Footprint::Rectangle { width, depth };

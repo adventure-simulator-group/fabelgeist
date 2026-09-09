@@ -11,6 +11,7 @@ mod brewing;
 mod craft;
 mod envelope;
 mod equipment;
+mod horse_mill;
 mod programme;
 mod surfaces;
 mod validation;
@@ -36,10 +37,11 @@ pub enum WorkplaceKind {
     Warehouse,
     Dyer,
     Tannery,
+    HorseMill,
 }
 
 impl WorkplaceKind {
-    pub const ALL: [Self; 13] = [
+    pub const ALL: [Self; 14] = [
         Self::Barn,
         Self::Stable,
         Self::Granary,
@@ -53,6 +55,7 @@ impl WorkplaceKind {
         Self::Warehouse,
         Self::Dyer,
         Self::Tannery,
+        Self::HorseMill,
     ];
     pub const fn from_use(usage: BuildingUse) -> Option<Self> {
         match usage {
@@ -71,6 +74,7 @@ impl WorkplaceKind {
             BuildingUse::Warehouse => Some(Self::Warehouse),
             BuildingUse::Dyer => Some(Self::Dyer),
             BuildingUse::Tannery => Some(Self::Tannery),
+            BuildingUse::HorseMill => Some(Self::HorseMill),
             _ => None,
         }
     }
@@ -89,6 +93,7 @@ impl WorkplaceKind {
             Self::Warehouse => BuildingUse::Warehouse,
             Self::Dyer => BuildingUse::Dyer,
             Self::Tannery => BuildingUse::Tannery,
+            Self::HorseMill => BuildingUse::HorseMill,
         }
     }
     pub const fn slug(self) -> &'static str {
@@ -106,6 +111,7 @@ impl WorkplaceKind {
             Self::Warehouse => "warehouse",
             Self::Dyer => "dyer",
             Self::Tannery => "tannery",
+            Self::HorseMill => "horse-mill",
         }
     }
 }
@@ -152,6 +158,7 @@ pub enum WorkplaceMaterial {
     ProcessLiquid,
     HempRope,
     Masonry,
+    DressedStone,
     Iron,
 }
 
@@ -180,6 +187,10 @@ pub enum WorkplaceFeature {
     Kiln,
     Louver,
     LoadingHoist,
+    MillDrive,
+    MillSweep,
+    Millstone,
+    Hopper,
     DyeKettle,
     SoakingTank,
     DryingFrame,
@@ -243,7 +254,8 @@ impl WorkplacePlan {
             | WorkplaceKind::Carpenter
             | WorkplaceKind::Warehouse
             | WorkplaceKind::Dyer
-            | WorkplaceKind::Tannery => WorkplaceMaterial::Timber,
+            | WorkplaceKind::Tannery
+            | WorkplaceKind::HorseMill => WorkplaceMaterial::Timber,
             _ => WorkplaceMaterial::Masonry,
         }
     }

@@ -8,6 +8,7 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
     let Some(workplace) = &plan.workplace else {
         return;
     };
+    super::horse_mill::audit_circuit(plan, issues);
     let solids = &plan.resolved_geometry.solids;
     for part in &workplace.parts {
         let Some(solid) = solids.iter().find(|solid| solid.id == part.solid) else {
@@ -64,6 +65,7 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
         WorkplaceKind::Warehouse => WorkplaceFeature::LoadingHoist,
         WorkplaceKind::Dyer => WorkplaceFeature::DyeKettle,
         WorkplaceKind::Tannery => WorkplaceFeature::SoakingTank,
+        WorkplaceKind::HorseMill => WorkplaceFeature::Millstone,
     };
     if !workplace.parts.iter().any(|part| part.feature == essential) {
         issues.push(AuditIssue {

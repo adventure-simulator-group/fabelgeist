@@ -210,6 +210,7 @@ impl TacticalBuildingMaterials {
             BuildingLodMaterial::FachwerkBaked => palette.fachwerk_baked.clone(),
             BuildingLodMaterial::Timber => palette.timber.clone(),
             BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
+            BuildingLodMaterial::DressedStone => self.stone.clone(),
             BuildingLodMaterial::Iron => self.iron.clone(),
             BuildingLodMaterial::Grain => self.workplace.grain.clone(),
             BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),

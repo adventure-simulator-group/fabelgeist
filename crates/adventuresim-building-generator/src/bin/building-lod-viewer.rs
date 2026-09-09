@@ -274,7 +274,9 @@ fn lod_material(
     let texture = match material {
         BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill) => &textures.plaster,
         BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => &textures.brick,
-        BuildingLodMaterial::Wall(_) | BuildingLodMaterial::CrownMasonry => &textures.stone,
+        BuildingLodMaterial::Wall(_)
+        | BuildingLodMaterial::CrownMasonry
+        | BuildingLodMaterial::DressedStone => &textures.stone,
         BuildingLodMaterial::Roof(_) => &textures.roof,
         BuildingLodMaterial::FachwerkBaked => &textures.plaster,
         BuildingLodMaterial::Timber | BuildingLodMaterial::Floor => &textures.roof,

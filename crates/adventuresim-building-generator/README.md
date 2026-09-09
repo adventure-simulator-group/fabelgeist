@@ -562,7 +562,7 @@ repeated structural compilation while varying ordinary street frontage.
 
 Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
 and armorer premises), bakehouses, market halls, breweries, malt houses, timber
-yards, carpenter workshops, merchant warehouses, dyers and tanneries use the `Workplace`
+yards, carpenter workshops, merchant warehouses, dyers, tanneries and horse mills use the `Workplace`
 structural family.
 Their capacity band selects a small, medium or large working footprint before
 city placement reserves the complete plot. Playable buildings and distant
@@ -618,6 +618,18 @@ and [1488 leatherworker with hanging hides](https://online-service.nuernberg.de/
 The complete workshops are procedural arrangements, not reconstructions of the
 rooms in those illustrations.
 
+Horse mills use a broad timber hall around a clear animal circuit, with an
+overhead sweep, wooden gearing, paired millstones, a grain hopper and rear
+storage bays. The worker passage remains separate from the animal circuit.
+Audits check the full sweep envelope rather than only its parked position;
+the unhitched draw rope is part of the static machinery. Capacity extends
+storage bays without enlarging the mechanism. Millstones use dressed stone
+independently of facade paint. No horse or machinery simulation is introduced.
+Regional precedents include the small Windsheim horse mill recorded in 1419
+and [Rothenburg's civic horse mill of 1516](https://www.rothenburg.de/en/entdecken/sehenswuerdigkeiten/historische-gebaeude).
+The mechanism is an authored architectural arrangement, not a reconstruction
+of either building.
+
 The structural audit memoizes completed support paths. Stacked boards and
 other assemblies can share bearings without repeatedly expanding the same
 ancestry. Every ungrounded member still requires all declared parents to exist
@@ -643,7 +655,7 @@ The building-use catalogue is broader than the physical programmes. A different
 room name or painted shop sign does not imply a distinct building envelope.
 The next useful additions are:
 
-- Mills: an actual horse sweep, waterwheel and race, or braced post-mill body
+- Mills: a waterwheel and race, or braced post-mill body
   and sails. Water-powered forms need surveyed water siting before placement.
 - Storage and trade: drying structures for woad, open cooper and wheelwright
   work bays, and kiln/drying sheds for potters and brickmakers.

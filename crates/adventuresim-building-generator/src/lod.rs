@@ -59,6 +59,7 @@ pub enum BuildingLodMaterial {
     Hide,
     ProcessLiquid,
     HempRope,
+    DressedStone,
     /// Room-facing lime-plaster finish, including the inner face of an exterior wall.
     InteriorPlaster,
     Floor,
