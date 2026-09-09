@@ -1,19 +1,22 @@
 //! Deterministic binary glTF export for an identity-shaped MHR character.
 
-use std::{fs, path::Path};
+#[cfg(test)]
+use glb::GLB_MAGIC;
+#[cfg(test)]
+use std::fs;
+use std::path::Path;
 
 use anyhow::{Context, Result, bail};
 use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use serde_json::{Value, json};
 
 mod compact;
+mod glb;
 mod morphs;
 mod skeleton;
-
-const GLB_MAGIC: &[u8; 4] = b"glTF";
-const GLB_VERSION: u32 = 2;
-const JSON_CHUNK: u32 = 0x4E4F_534A;
-const BIN_CHUNK: u32 = 0x004E_4942;
+mod sockets;
+mod validation;
+use validation::validate;
 
 pub const LEFT_WEAPON_JOINT: &str = "l_weapon";
 pub const RIGHT_WEAPON_JOINT: &str = "r_weapon";
@@ -653,159 +656,6 @@ fn append_attachment(
     globals.push(transform);
 }
 
-fn validate(
-    mesh: &RiggedMesh<'_>,
-    shells: &[RiggedShell<'_>],
-    sockets: &[RiggedSocket<'_>],
-) -> Result<()> {
-    let vertices = mesh.positions.len();
-    if vertices == 0 || mesh.normals.len() != vertices {
-        bail!("positions and normals must contain the same non-zero vertex count");
-    }
-    if mesh.joint_indices.len() != vertices || mesh.joint_weights.len() != vertices {
-        bail!("skinning arrays must match the vertex count");
-    }
-    let joints = mesh.joint_names.len();
-    if joints == 0 || mesh.joint_parents.len() != joints || mesh.global_joint_states.len() != joints
-    {
-        bail!("joint names, parents, and transforms must have the same non-zero length");
-    }
-    if joints > u16::MAX as usize {
-        bail!("glTF export supports at most 65535 joints");
-    }
-    for (index, parent) in mesh.joint_parents.iter().copied().enumerate() {
-        if parent >= index as i32 || parent < -1 {
-            bail!("joint {index} has invalid parent {parent}");
-        }
-    }
-    if mesh
-        .faces
-        .iter()
-        .flatten()
-        .any(|index| *index as usize >= vertices)
-    {
-        bail!("a face references a missing vertex");
-    }
-    for (vertex, (indices, weights)) in mesh
-        .joint_indices
-        .iter()
-        .zip(mesh.joint_weights)
-        .enumerate()
-    {
-        if indices
-            .iter()
-            .zip(weights)
-            .any(|(joint, weight)| *weight > 0.0 && *joint as usize >= joints)
-        {
-            bail!("vertex {vertex} references a missing joint");
-        }
-        let sum: f32 = weights.iter().sum();
-        if !sum.is_finite() || (sum - 1.0).abs() > 1e-4 {
-            bail!("vertex {vertex} skin weights sum to {sum}, not 1");
-        }
-    }
-    for shell in shells {
-        let shell_vertices = shell.positions.len();
-        if shell.name.trim().is_empty() {
-            bail!("clothing shell name cannot be empty");
-        }
-        if shell_vertices == 0 || shell.normals.len() != shell_vertices || shell.faces.is_empty() {
-            bail!(
-                "clothing shell '{}' must have matching non-empty positions, normals, and faces",
-                shell.name
-            );
-        }
-        let (shell_joint_indices, shell_joint_weights) =
-            match (shell.joint_indices, shell.joint_weights) {
-                (Some(indices), Some(weights)) => (indices, weights),
-                (None, None) if shell_vertices == vertices => {
-                    (mesh.joint_indices, mesh.joint_weights)
-                }
-                _ => bail!(
-                    "clothing shell '{}' must supply both skin arrays for independent topology",
-                    shell.name
-                ),
-            };
-        if shell_joint_indices.len() != shell_vertices
-            || shell_joint_weights.len() != shell_vertices
-        {
-            bail!("clothing shell '{}' has mismatched skin arrays", shell.name);
-        }
-        for (vertex, (indices, weights)) in shell_joint_indices
-            .iter()
-            .zip(shell_joint_weights)
-            .enumerate()
-        {
-            if indices
-                .iter()
-                .zip(weights)
-                .any(|(joint, weight)| *weight > 0.0 && *joint as usize >= joints)
-            {
-                bail!("shell vertex {vertex} references a missing joint");
-            }
-            let sum = weights.iter().sum::<f32>();
-            if !sum.is_finite() || (sum - 1.0).abs() > 1e-4 {
-                bail!("shell vertex {vertex} skin weights sum to {sum}, not 1");
-            }
-        }
-        if shell
-            .faces
-            .iter()
-            .flatten()
-            .any(|index| *index as usize >= shell_vertices)
-        {
-            bail!(
-                "clothing shell '{}' references a missing vertex",
-                shell.name
-            );
-        }
-        if shell
-            .positions
-            .iter()
-            .flatten()
-            .any(|value| !value.is_finite())
-            || shell
-                .normals
-                .iter()
-                .flatten()
-                .any(|value| !value.is_finite())
-            || !shell.metallic.is_finite()
-            || !shell.roughness.is_finite()
-            || shell.base_color.iter().any(|value| !value.is_finite())
-        {
-            bail!(
-                "clothing shell '{}' contains a non-finite value",
-                shell.name
-            );
-        }
-    }
-    morphs::validate(mesh, shells)?;
-    let mut socket_ids = std::collections::BTreeSet::new();
-    for socket in sockets {
-        let state = socket.transform.to_skel_state();
-        if socket.attachment_point_id.trim().is_empty()
-            || !socket_ids.insert(socket.attachment_point_id)
-        {
-            bail!("equipment socket attachment-point IDs must be non-empty and unique");
-        }
-        if state.iter().any(|value| !value.is_finite()) {
-            bail!(
-                "equipment socket '{}' contains a non-finite transform",
-                socket.attachment_point_id
-            );
-        }
-        if socket.surface_uv_domain.trim().is_empty()
-            || socket.surface_uv.iter().any(|value| !value.is_finite())
-        {
-            bail!(
-                "equipment socket '{}' has an invalid anatomical surface UV",
-                socket.attachment_point_id
-            );
-        }
-    }
-    Ok(())
-}
-
 fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
     positions.iter().fold(
         ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),
@@ -1172,52 +1022,7 @@ pub fn export_rigged_glb(
         .iter()
         .position(|parent| *parent < 0)
         .context("MHR skeleton has no root")?;
-    let socket_parent = if sockets.is_empty() {
-        None
-    } else {
-        Some(
-            mesh.joint_names
-                .iter()
-                .position(|name| name == "root")
-                .context("MHR skeleton has no anatomical pelvis joint")?,
-        )
-    };
-    let socket_nodes = sockets
-        .iter()
-        .map(|socket| {
-            let node = nodes.len();
-            let state = socket.transform.to_skel_state();
-            nodes.push(json!({
-                "name": format!("{EQUIPMENT_SOCKET_NODE_PREFIX}{}", socket.attachment_point_id),
-                "translation": [state[0], state[1], state[2]],
-                "rotation": [state[3], state[4], state[5], state[6]],
-                "scale": [state[7], state[7], state[7]],
-                "extras": {
-                    "adventuresim_equipment_socket": {
-                        "attachment_point_id": socket.attachment_point_id,
-                        "space": "pelvis_local",
-                        "surface_uv": {
-                            "domain": socket.surface_uv_domain,
-                            "uv": socket.surface_uv
-                        },
-                        "tangent_axis": "+Y",
-                        "normal_axis": "+Z"
-                    }
-                }
-            }));
-            node
-        })
-        .collect::<Vec<_>>();
-    if let Some(socket_parent) = socket_parent {
-        let root_children = nodes[socket_parent]
-            .as_object_mut()
-            .context("MHR anatomical pelvis node is not an object")?
-            .entry("children")
-            .or_insert_with(|| json!([]))
-            .as_array_mut()
-            .context("MHR anatomical pelvis children are not an array")?;
-        root_children.extend(socket_nodes.iter().copied().map(Value::from));
-    }
+    sockets::append(&mut nodes, mesh, sockets)?;
     let scene_nodes = vec![skeleton_node, mesh_node];
     let mut extras = json!({
         "adventuresim_character": {
@@ -1281,31 +1086,7 @@ pub fn export_rigged_glb(
         "extras": extras
     });
 
-    let mut json_bytes = serde_json::to_vec(&document)?;
-    json_bytes.resize(json_bytes.len().next_multiple_of(4), b' ');
-    buffer
-        .bytes
-        .resize(buffer.bytes.len().next_multiple_of(4), 0);
-    let total_length = 12 + 8 + json_bytes.len() + 8 + buffer.bytes.len();
-    let mut glb = Vec::with_capacity(total_length);
-    glb.extend_from_slice(GLB_MAGIC);
-    glb.extend_from_slice(&GLB_VERSION.to_le_bytes());
-    glb.extend_from_slice(&(total_length as u32).to_le_bytes());
-    glb.extend_from_slice(&(json_bytes.len() as u32).to_le_bytes());
-    glb.extend_from_slice(&JSON_CHUNK.to_le_bytes());
-    glb.extend_from_slice(&json_bytes);
-    glb.extend_from_slice(&(buffer.bytes.len() as u32).to_le_bytes());
-    glb.extend_from_slice(&BIN_CHUNK.to_le_bytes());
-    glb.extend_from_slice(&buffer.bytes);
-
-    if let Some(parent) = path
-        .parent()
-        .filter(|parent| !parent.as_os_str().is_empty())
-    {
-        fs::create_dir_all(parent)
-            .with_context(|| format!("creating export directory {}", parent.display()))?;
-    }
-    fs::write(path, glb).with_context(|| format!("writing {}", path.display()))
+    glb::write(path, &document, buffer.bytes)
 }
 
 #[cfg(test)]

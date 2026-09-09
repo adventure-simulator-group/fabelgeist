@@ -911,9 +911,8 @@ mod tests {
             match definition.kind {
                 PersistedItemKind::Weapon => {
                     assert_eq!(definition.slot, Slot::AnyHolding);
-                    assert!(definition.accuracy > 0.0);
+                    assert!(definition.precision > 0.0);
                     assert!(definition.reach > 0.0);
-                    assert!(definition.blunt || definition.slash || definition.pierce);
                     assert_ne!(definition.melee, definition.ranged);
                 }
                 PersistedItemKind::Armor => {

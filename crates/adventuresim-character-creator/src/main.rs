@@ -1,8 +1,10 @@
 mod generation;
+mod preview;
 mod proportion_controls;
 use generation::generate_character;
 mod character_export;
 mod character_morphs;
+mod equipment_controls;
 mod equipment_export;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
@@ -335,161 +337,8 @@ fn studio_ui(
                 }
             });
             ui.small("Bone-weight shells follow the generated body and share its MHR skin.");
-            ui.collapsing("Parametric bracers", |ui| {
-                let mut changed = false;
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut studio.bracer_design.coverage.0, 50..=1_000)
-                            .text("Forearm coverage")
-                            .suffix(" ‰"),
-                    )
-                    .changed();
-                let maximum_offset = 1_000_u16 - studio.bracer_design.coverage.0;
-                if studio.bracer_design.wrist_offset.0 > maximum_offset {
-                    studio.bracer_design.wrist_offset.0 = maximum_offset;
-                    changed = true;
-                }
-                changed |= ui
-                    .add(
-                        egui::Slider::new(
-                            &mut studio.bracer_design.wrist_offset.0,
-                            0..=maximum_offset,
-                        )
-                        .text("Wrist offset")
-                        .suffix(" ‰"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut studio.bracer_design.wall_thickness.0, 1..=20)
-                            .text("Wall thickness")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut studio.bracer_design.clearance.0, 1..=30)
-                            .text("Body clearance")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                ui.horizontal(|ui| {
-                    if ui.button("Bracelet").clicked() {
-                        studio.bracer_design = BracerDesign::bracelet();
-                        changed = true;
-                    }
-                    if ui.button("Vambrace").clicked() {
-                        studio.bracer_design = BracerDesign::default();
-                        changed = true;
-                    }
-                    if ui.button("Full forearm").clicked() {
-                        studio.bracer_design = BracerDesign::full_forearm();
-                        changed = true;
-                    }
-                });
-                ui.small("Enable either Vambrace catalog placement above to preview it.");
-                studio.dirty |= changed;
-            });
-            ui.collapsing("Parametric breastplate", |ui| {
-                let design = &mut studio.breastplate_design;
-                let mut changed = false;
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.neck_width.0, 700..=1_300).text("Neck width"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.neck_depth.0, 600..=1_400).text("Neck depth"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.arm_opening_depth.0, 700..=1_300)
-                            .text("Arm opening depth"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.waist_width.0, 750..=1_200)
-                            .text("Waist width"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.plate_length.0, 650..=1_150)
-                            .text("Plate length"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.side_return.0, 850..=1_080)
-                            .text("Side return"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.front_crown.0, 0..=30)
-                            .text("Front crown")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.shoulder_band_width.0, 18..=55)
-                            .text("Shoulder band width")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.skirt_length.0, 500..=1_600)
-                            .text("Skirt length")
-                            .suffix(" ‰"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.skirt_flare.0, 0..=70)
-                            .text("Skirt flare")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.wall_thickness.0, 1..=20)
-                            .text("Wall thickness")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.front_clearance.0, 4..=30)
-                            .text("Front clearance")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.back_clearance.0, 6..=35)
-                            .text("Back clearance")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                changed |= ui
-                    .add(
-                        egui::Slider::new(&mut design.plate_gap.0, 4..=30)
-                            .text("Front/back gap")
-                            .suffix(" mm"),
-                    )
-                    .changed();
-                if ui.button("Reset breastplate").clicked() {
-                    *design = BreastplateDesign::default();
-                    changed = true;
-                }
-                ui.small("Enable Breastplate · worn above to preview it.");
-                studio.dirty |= changed;
-            });
+            equipment_controls::bracer(ui, &mut studio);
+            equipment_controls::breastplate(ui, &mut studio);
             ui.separator();
 
             proportion_controls::show(ui, &mut studio);
@@ -858,93 +707,25 @@ fn regenerate_mesh(
     for entity in &old {
         commands.entity(entity).despawn();
     }
-    commands.spawn((
-        CharacterMesh,
-        Mesh3d(meshes.add(mesh)),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            // Skin is a rough dielectric with a small amount of diffuse
-            // transmission. This keeps thin features such as the nose, ears,
-            // and fingers warm instead of crushing them to black.
-            base_color: Color::srgb(0.64, 0.39, 0.30),
-            metallic: 0.0,
-            perceptual_roughness: 0.52,
-            reflectance: 0.46,
-            specular_tint: Color::srgb(1.0, 0.93, 0.89),
-            // A small back-diffuse lobe is Bevy's inexpensive approximation
-            // of the short scattering distance seen in skin. Kept subtle so
-            // the body remains opaque and shadowed rather than wax-like.
-            diffuse_transmission: 0.045,
-            ..default()
-        })),
-    ));
-    for shell in clothed.shells {
-        let specification = shell.specification;
-        let indices = shell
-            .faces
-            .iter()
-            .flat_map(|face| face.iter().copied())
-            .collect::<Vec<_>>();
-        let mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::default(),
-        )
-        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, shell.positions)
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, shell.normals)
-        .with_inserted_indices(Indices::U32(indices));
-        let [red, green, blue, alpha] = specification.base_color;
-        commands.spawn((
-            CharacterMesh,
-            Name::new(specification.name.clone()),
-            Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: Color::srgba(red, green, blue, alpha),
-                metallic: specification.metallic,
-                perceptual_roughness: specification.roughness,
-                ..default()
-            })),
-        ));
-    }
+    preview::spawn_body(&mut commands, &mut meshes, &mut materials, mesh);
+    preview::spawn_clothing(&mut commands, &mut meshes, &mut materials, clothed.shells);
     for (index, bracer) in bracers.iter().enumerate() {
-        let mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::default(),
-        )
-        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, bracer.positions.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, bracer.normals.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, bracer.texcoords.clone())
-        .with_inserted_indices(Indices::U32(bracer.indices.clone()));
-        commands.spawn((
-            CharacterMesh,
-            Name::new(format!("Parametric bracer {}", index + 1)),
-            Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: Color::srgb(0.769, 0.776, 0.776),
-                metallic: 1.0,
-                perceptual_roughness: 0.20,
-                ..default()
-            })),
-        ));
+        preview::spawn_armor(
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+            bracer,
+            format!("Parametric bracer {}", index + 1),
+        );
     }
     if let Some(breastplate) = &breastplate {
-        let mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::default(),
-        )
-        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, breastplate.positions.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, breastplate.normals.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, breastplate.texcoords.clone())
-        .with_inserted_indices(Indices::U32(breastplate.indices.clone()));
-        commands.spawn((
-            CharacterMesh,
-            Name::new("Parametric front breastplate"),
-            Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(StandardMaterial {
-                base_color: Color::srgb(0.769, 0.776, 0.776),
-                metallic: 1.0,
-                perceptual_roughness: 0.20,
-                ..default()
-            })),
-        ));
+        preview::spawn_armor(
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+            breastplate,
+            "Parametric front breastplate".into(),
+        );
     }
     studio.status = format!(
         "Generated {} body vertices · {} clothing shells · {} bracers · {} breastplate",

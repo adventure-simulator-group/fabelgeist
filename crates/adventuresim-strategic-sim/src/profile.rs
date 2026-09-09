@@ -496,7 +496,6 @@ mod tests {
         resolve_battle,
     };
     use adventuresim_core::combat::ArmorCoverageSpan;
-    use adventuresim_core::equipment::WeaponSkillDistribution;
 
     fn attributes(endurance: f32, arm_strength: f32) -> PlayerAttributeValues {
         PlayerAttributeValues {
@@ -566,6 +565,58 @@ mod tests {
         assert_eq!(decoded, profile);
     }
 
+    fn fixture_weapon() -> CombatWeapon {
+        use adventuresim_core::item_catalog::{ItemKind, definition};
+        let definition = definition("katzbalger").unwrap();
+        let ItemKind::Weapon {
+            preferred_attack,
+            reach_m,
+            precision,
+            moment_of_inertia_kg_m2,
+            skills,
+            ..
+        } = definition.kind
+        else {
+            panic!("fixture item must be a weapon")
+        };
+        let equipment = definition.equipment.as_ref().unwrap();
+        let [width, total_length_m, depth] = equipment.physical.dimensions_m;
+        let grip_to_tip_m = equipment.physical.grip_to_tip_m;
+        let striking_head_length_m = width.max(depth);
+        let timing = adventuresim_core::equipment::melee_attack_timing(
+            preferred_attack,
+            moment_of_inertia_kg_m2,
+            false,
+        );
+        CombatWeapon {
+            skills: skills.into(),
+            melee: true,
+            preferred_melee_style: preferred_attack,
+            weight: definition.weight_kg,
+            precision,
+            moment_of_inertia_kg_m2,
+            melee_reach: reach_m,
+            grip_to_tip_m,
+            total_length_m,
+            striking_head_length_m,
+            body_material: equipment.material,
+            striking_material: equipment.striking_material,
+            distal_headed: adventuresim_core::combat::has_distal_striking_surface(
+                grip_to_tip_m,
+                striking_head_length_m,
+                equipment.material,
+                equipment.striking_material,
+            ),
+            attack_interval_seconds: timing.preparation_secs + timing.recovery_secs,
+            balance: adventuresim_core::equipment::weapon_balance_from_moment(
+                moment_of_inertia_kg_m2,
+                definition.weight_kg,
+                grip_to_tip_m,
+            ),
+            ..CombatWeapon::default()
+        }
+    }
+
     /// Load-equivalent combatant for a freshly configured simulator agent:
     /// generated attributes/skills plus the ordinary default katzbalger,
     /// buckler, and region-specific padded equipment created for every adult.
@@ -616,23 +667,7 @@ mod tests {
             tailoring_hours: s.tailoring,
             smithing_hours: s.smithing,
         };
-        let weapon = CombatWeapon {
-            skills: WeaponSkillDistribution {
-                knife: 0.5,
-                sword: 0.5,
-                ..Default::default()
-            },
-            melee: true,
-            slash: true,
-            pierce: true,
-            accuracy: 1.5,
-            weight: 1.1,
-            penetration: 1.0,
-            melee_reach: 0.8,
-            attack_interval_seconds: 0.675,
-            balance: 0.55,
-            ..CombatWeapon::default()
-        };
+        let weapon = fixture_weapon();
         let armor = |resistance, padding, coverage, flexibility, range_of_motion| CombatArmor {
             inventory_item_id: None,
             material: None,
@@ -680,18 +715,6 @@ mod tests {
             "padded_chausses",
         ] {
             assert!(adult_fixture.contains(&format!("\"{item_id}\"")));
-        }
-        let item_catalog = include_str!("../../../content/items/catalog.yaml");
-        for authored_stat in [
-            "\"id\": \"katzbalger\"",
-            "\"weight_kg\": 1.1",
-            "\"accuracy\": 1.5",
-            "\"reach_m\": 0.8",
-            "\"moment_of_inertia_kg_m2\": 0.136294",
-            "\"id\": \"buckler\"",
-            "\"block\": 1.5",
-        ] {
-            assert!(item_catalog.contains(authored_stat));
         }
         let profiles = (0..4)
             .map(|agent_id| generate_profile(42, agent_id))

@@ -81,57 +81,81 @@ fn dot(a: [f32; 3], b: [f32; 3]) -> f32 {
     a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
 }
 
-pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<AnatomicalSurface, String> {
-    let vertices = input.positions.len();
-    if input.domain.trim().is_empty()
-        || input.normals.len() != vertices
-        || input.joint_indices.len() != vertices
-        || input.joint_weights.len() != vertices
-        || input.faces.len() != input.texcoord_faces.len()
-        || input.joint_names.len() != input.global_joint_states.len()
-        || input
-            .morphs
+impl ForearmSurfaceInput<'_> {
+    fn validate(&self) -> Result<(), String> {
+        let vertices = self.positions.len();
+        if self.domain.trim().is_empty()
+            || self.normals.len() != vertices
+            || self.joint_indices.len() != vertices
+            || self.joint_weights.len() != vertices
+            || self.faces.len() != self.texcoord_faces.len()
+            || self.joint_names.len() != self.global_joint_states.len()
+            || self
+                .morphs
+                .iter()
+                .any(|morph| morph.positions.len() != vertices || morph.normals.len() != vertices)
+        {
+            return Err("forearm surface inputs are inconsistent".into());
+        }
+        let forearm_joints = self
+            .joint_names
             .iter()
-            .any(|morph| morph.positions.len() != vertices || morph.normals.len() != vertices)
-    {
-        return Err("forearm surface inputs are inconsistent".into());
+            .enumerate()
+            .filter_map(|(index, name)| self.side.owns_forearm_joint(name).then_some(index))
+            .collect::<BTreeSet<_>>();
+        if forearm_joints.is_empty() {
+            return Err(format!("MHR rig has no {} skin joints", self.side.lowarm()));
+        }
+        Ok(())
     }
-    let forearm_joints = input
-        .joint_names
-        .iter()
-        .enumerate()
-        .filter_map(|(index, name)| input.side.owns_forearm_joint(name).then_some(index))
-        .collect::<BTreeSet<_>>();
-    if forearm_joints.is_empty() {
-        return Err(format!(
-            "MHR rig has no {} skin joints",
-            input.side.lowarm()
-        ));
+}
+
+struct ForearmFrame {
+    proximal: [f32; 3],
+    axis: [f32; 3],
+    axis_length_squared: f32,
+}
+
+impl ForearmFrame {
+    fn new(input: &ForearmSurfaceInput<'_>) -> Result<Self, String> {
+        let joint_position = |name: &str| {
+            input
+                .joint_names
+                .iter()
+                .position(|candidate| candidate == name)
+                .map(|index| {
+                    let state = input.global_joint_states[index];
+                    [state[0], state[1], state[2]]
+                })
+                .ok_or_else(|| format!("MHR rig is missing {name}"))
+        };
+        let proximal = joint_position(input.side.lowarm())?;
+        let distal = joint_position(input.side.wrist())?;
+        let axis = subtract(distal, proximal);
+        let axis_length_squared = dot(axis, axis);
+        if axis_length_squared <= f32::EPSILON {
+            return Err("MHR forearm landmarks coincide".into());
+        }
+        Ok(Self {
+            proximal,
+            axis,
+            axis_length_squared,
+        })
     }
+    fn axial(&self, position: [f32; 3]) -> f32 {
+        dot(subtract(position, self.proximal), self.axis) / self.axis_length_squared
+    }
+}
+
+pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<AnatomicalSurface, String> {
+    input.validate()?;
     let support_joints = input
         .joint_names
         .iter()
         .enumerate()
         .filter_map(|(index, name)| input.side.supports_forearm_boundary(name).then_some(index))
         .collect::<BTreeSet<_>>();
-    let joint_position = |name: &str| {
-        input
-            .joint_names
-            .iter()
-            .position(|candidate| candidate == name)
-            .map(|index| {
-                let state = input.global_joint_states[index];
-                [state[0], state[1], state[2]]
-            })
-            .ok_or_else(|| format!("MHR rig is missing {name}"))
-    };
-    let proximal = joint_position(input.side.lowarm())?;
-    let distal = joint_position(input.side.wrist())?;
-    let axis = subtract(distal, proximal);
-    let axis_length_squared = dot(axis, axis);
-    if axis_length_squared <= f32::EPSILON {
-        return Err("MHR forearm landmarks coincide".into());
-    }
+    let frame = ForearmFrame::new(&input)?;
     let joint_weight = |vertex: usize, joints: &BTreeSet<usize>| {
         input.joint_indices[vertex]
             .iter()
@@ -140,10 +164,8 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
             .map(|(_, weight)| *weight)
             .sum::<f32>()
     };
-    let raw_axial =
-        |position: [f32; 3]| dot(subtract(position, proximal), axis) / axis_length_squared;
     let supports_surface = |vertex: usize| {
-        let axial = raw_axial(input.positions[vertex]);
+        let axial = frame.axial(input.positions[vertex]);
         (-AXIAL_SUPPORT_MARGIN..=1.0 + AXIAL_SUPPORT_MARGIN).contains(&axial)
             && joint_weight(vertex, &support_joints) >= FOREARM_WEIGHT_THRESHOLD
     };
@@ -194,7 +216,7 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
                 // support geometry may extend past them, but is clamped so an
                 // endpoint contour crosses a complete elbow or wrist section
                 // instead of converging on a skin-weight extremum.
-                axial: raw_axial(input.positions[*body]).clamp(0.0, 1.0),
+                axial: frame.axial(input.positions[*body]).clamp(0.0, 1.0),
                 position: input.positions[*body],
                 normal: input.normals[*body],
                 joint_indices: input.joint_indices[*body],

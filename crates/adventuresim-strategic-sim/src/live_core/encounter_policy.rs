@@ -171,7 +171,6 @@ pub(super) struct PublicCombatMemberFingerprint {
     pub(super) melee: bool,
     pub(super) ranged: bool,
     pub(super) armored: bool,
-    pub(super) precise: bool,
     pub(super) endurance_centipoints: u32,
     pub(super) athletics_centipoints: u32,
     pub(super) weapon_precision_centipoints: u32,
@@ -286,7 +285,6 @@ pub(super) fn public_combat_fingerprint(
                 melee: row.melee,
                 ranged: row.ranged,
                 armored: row.heavy || row.half_armor,
-                precise: row.precise,
                 endurance_centipoints: (row.endurance.max(0.0) * SKILL_CENTIPOINTS_PER_POINT)
                     .round() as u32,
                 athletics_centipoints: (row.athletics.max(0.0) * SKILL_CENTIPOINTS_PER_POINT)

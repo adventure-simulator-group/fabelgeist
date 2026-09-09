@@ -16,6 +16,7 @@ mod config;
 mod doors;
 mod environment;
 pub(crate) mod ground_scatter;
+mod materials;
 mod obstacles;
 mod procedural;
 mod procedural_texture_setup;
@@ -172,15 +173,6 @@ impl Default for TacticalPresentationPlugin {
     }
 }
 
-struct TacticalWeatherAndDoorPlugin;
-
-impl Plugin for TacticalWeatherAndDoorPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_plugins(MaterialPlugin::<TacticalWeatherMaterial>::default())
-            .add_plugins((DoorPresentationPlugin, WindowPresentationPlugin));
-    }
-}
-
 fn tactical_global_ambient_light() -> GlobalAmbientLight {
     GlobalAmbientLight {
         color: Color::srgb(0.36, 0.48, 0.72),
@@ -196,114 +188,95 @@ impl Plugin for TacticalPresentationPlugin {
         // indirect-draw fallback lands.
         #[cfg(all(feature = "instanced-grass", not(target_family = "wasm")))]
         app.add_plugins(ground_scatter::InstancedGrassPlugin);
-        app.add_plugins((
-            MaterialPlugin::<TacticalTerrainMaterial>::default(),
-            MaterialPlugin::<TacticalVistaMaterial>::default(),
-            MaterialPlugin::<TacticalRockMaterial>::default(),
-            MaterialPlugin::<TacticalFoliageMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
-            adventuresim_procedural_materials::ProceduralMaterialsPlugin,
-            MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
-            MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
-            MaterialPlugin::<TacticalMoonMaterial>::default(),
-            MaterialPlugin::<TacticalSunMaterial>::default(),
-            MaterialPlugin::<TacticalStarMaterial>::default(),
-            MaterialPlugin::<TacticalCloudMaterial>::default(),
-            MaterialPlugin::<TacticalCloudCompositeMaterial>::default(),
-        ))
-        // Split from the tuple above so the material-plugin group stays within
-        // Bevy's 15-element `Plugins` tuple arity limit.
-        .add_plugins(TacticalWeatherAndDoorPlugin)
-        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
-        // Tactical play uses one compact close-range cascade for whichever
-        // celestial light is active. Keep the map allocation identical in the
-        // game and all tactical review viewers.
-        .insert_resource(DirectionalLightShadowMap {
-            size: self.config.rendering.shadows.map_size,
-        })
-        .insert_resource(TacticalGraphicsSettings {
-            config: self.config.clone(),
-        })
-        .init_resource::<TacticalCameraSetup>()
-        // The sky observer preserves this low, cool floor at night and restores
-        // physically scaled diffuse sky irradiance during daylight.
-        .insert_resource(tactical_global_ambient_light())
-        .add_systems(
-            Startup,
-            (
-                setup_procedural_texture_assets,
-                setup_tactical_building_materials,
-                setup_tactical_presentation,
-                setup_tactical_sky,
-                setup_tactical_clouds,
+        app.add_plugins(materials::TacticalMaterialsPlugin)
+            // Tactical play uses one compact close-range cascade for whichever
+            // celestial light is active. Keep the map allocation identical in the
+            // game and all tactical review viewers.
+            .insert_resource(DirectionalLightShadowMap {
+                size: self.config.rendering.shadows.map_size,
+            })
+            .insert_resource(TacticalGraphicsSettings {
+                config: self.config.clone(),
+            })
+            .init_resource::<TacticalCameraSetup>()
+            // The sky observer preserves this low, cool floor at night and restores
+            // physically scaled diffuse sky irradiance during daylight.
+            .insert_resource(tactical_global_ambient_light())
+            .add_systems(
+                Startup,
+                (
+                    setup_procedural_texture_assets,
+                    setup_tactical_building_materials,
+                    setup_tactical_presentation,
+                    setup_tactical_sky,
+                    setup_tactical_clouds,
+                )
+                    .chain(),
             )
-                .chain(),
-        )
-        .init_resource::<GrassInteractionState>()
-        .init_resource::<WoodyUnderstoryPresentationCache>()
-        .init_resource::<GroundFoliagePresentationCache>()
-        .init_resource::<TreePresentationCache>()
-        .init_resource::<TreeAssetResidencyDiagnostics>()
-        .init_resource::<VistaTreePresentationCache>()
-        .init_resource::<ActiveVistaSurface>()
-        .init_resource::<TreeLodRenderOverride>()
-        .init_resource::<TacticalTreeBenchmarkIsolation>()
-        .init_resource::<ActiveTacticalScene>()
-        .init_resource::<PresentedCelestialLighting>()
-        .init_resource::<FrozenAtmosphereStatus>()
-        .init_resource::<AtmosphereIblAmbientHandoff>()
-        .init_resource::<TacticalCloudCaptureOverride>()
-        .init_resource::<TacticalCloudBenchmarkIsolation>()
-        .init_resource::<WeatherOcclusionState>()
-        .add_systems(
-            Update,
-            (
-                update_grass_interaction,
+            .init_resource::<GrassInteractionState>()
+            .init_resource::<WoodyUnderstoryPresentationCache>()
+            .init_resource::<GroundFoliagePresentationCache>()
+            .init_resource::<TreePresentationCache>()
+            .init_resource::<TreeAssetResidencyDiagnostics>()
+            .init_resource::<VistaTreePresentationCache>()
+            .init_resource::<ActiveVistaSurface>()
+            .init_resource::<TreeLodRenderOverride>()
+            .init_resource::<TacticalTreeBenchmarkIsolation>()
+            .init_resource::<ActiveTacticalScene>()
+            .init_resource::<PresentedCelestialLighting>()
+            .init_resource::<FrozenAtmosphereStatus>()
+            .init_resource::<AtmosphereIblAmbientHandoff>()
+            .init_resource::<TacticalCloudCaptureOverride>()
+            .init_resource::<TacticalCloudBenchmarkIsolation>()
+            .init_resource::<WeatherOcclusionState>()
+            .add_systems(
+                Update,
                 (
-                    present_pending_terrain,
-                    update_terrain_detail_patch,
-                    present_ground_scatter,
-                )
-                    .chain(),
-                (
-                    refresh_active_tactical_scene,
-                    update_presented_celestial_lighting,
-                    apply_presented_celestial_lighting,
-                )
-                    .chain(),
-                update_celestial_material_lighting
-                    .after(update_presented_celestial_lighting)
-                    .after(present_pending_trees),
-                (
-                    present_pending_trees,
-                    stream_tree_lod_children,
-                    update_tree_projected_lod_ranges,
-                )
-                    .chain(),
-                keep_celestial_visuals_centered.after(update_presented_celestial_lighting),
-                update_tactical_clouds.after(update_presented_celestial_lighting),
-                update_tactical_cloud_offscreen_target,
-                update_global_ambient_policy.after(apply_presented_celestial_lighting),
-                freeze_initialized_atmosphere
-                    .after(update_global_ambient_policy)
-                    .after(update_presented_celestial_lighting),
-                apply_active_environment_fog.after(refresh_active_tactical_scene),
-                apply_active_scene_weather
-                    .after(refresh_active_tactical_scene)
-                    .after(present_pending_trees),
-                update_weather_occlusion_map
-                    .after(apply_active_scene_weather)
-                    .after(present_pending_trees),
-            ),
-        )
-        .add_observer(on_game_scene_added)
-        .add_observer(activate_tactical_scene)
-        .add_observer(terrain::on_environment_added)
-        .add_observer(terrain::on_ground_added)
-        .add_observer(on_scene_obstacle_added)
-        .add_plugins(BuildingPresentationPlugin)
-        .add_observer(on_scene_vista_bundle);
+                    update_grass_interaction,
+                    (
+                        present_pending_terrain,
+                        update_terrain_detail_patch,
+                        present_ground_scatter,
+                    )
+                        .chain(),
+                    (
+                        refresh_active_tactical_scene,
+                        update_presented_celestial_lighting,
+                        apply_presented_celestial_lighting,
+                    )
+                        .chain(),
+                    update_celestial_material_lighting
+                        .after(update_presented_celestial_lighting)
+                        .after(present_pending_trees),
+                    (
+                        present_pending_trees,
+                        stream_tree_lod_children,
+                        update_tree_projected_lod_ranges,
+                    )
+                        .chain(),
+                    keep_celestial_visuals_centered.after(update_presented_celestial_lighting),
+                    update_tactical_clouds.after(update_presented_celestial_lighting),
+                    update_tactical_cloud_offscreen_target,
+                    update_global_ambient_policy.after(apply_presented_celestial_lighting),
+                    freeze_initialized_atmosphere
+                        .after(update_global_ambient_policy)
+                        .after(update_presented_celestial_lighting),
+                    apply_active_environment_fog.after(refresh_active_tactical_scene),
+                    apply_active_scene_weather
+                        .after(refresh_active_tactical_scene)
+                        .after(present_pending_trees),
+                    update_weather_occlusion_map
+                        .after(apply_active_scene_weather)
+                        .after(present_pending_trees),
+                ),
+            )
+            .add_observer(on_game_scene_added)
+            .add_observer(activate_tactical_scene)
+            .add_observer(terrain::on_environment_added)
+            .add_observer(terrain::on_ground_added)
+            .add_observer(on_scene_obstacle_added)
+            .add_plugins(BuildingPresentationPlugin)
+            .add_observer(on_scene_vista_bundle);
     }
 
     fn finish(&self, app: &mut App) {

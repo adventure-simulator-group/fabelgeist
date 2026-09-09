@@ -274,9 +274,9 @@ fn typed_event_payload_preserves_public_event_wire() {
 #[test]
 fn typed_failure_recorder_preserves_v9_wire_without_detail_prose() {
     let path = std::env::temp_dir().join(format!(
-        "adventuresim-typed-failure-{}-{}.json",
+        "adventuresim-typed-failure-{}-{:?}.json",
         std::process::id(),
-        std::thread::current().name().unwrap_or("test")
+        std::thread::current().id()
     ));
     let _ = std::fs::remove_file(&path);
     let recorder = FailureRecorder::new(Some(path.clone()), DEFAULT_SIMULATION_DISEASE.into());

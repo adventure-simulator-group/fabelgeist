@@ -3,8 +3,6 @@
 
 #[path = "breastplate_carrier.rs"]
 mod breastplate;
-#[path = "breastplate_topology_surface.rs"]
-pub mod breastplate_topology;
 mod design;
 mod mesh;
 
