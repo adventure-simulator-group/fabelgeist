@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::equipment_channel_type::EquipmentChannel;
+use super::equipment_fit_zone_type::EquipmentFitZone;
 use super::equipment_location_type::EquipmentLocation;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
@@ -12,6 +13,7 @@ use super::equipment_location_type::EquipmentLocation;
 pub struct OccupancyRequirement {
     pub location: EquipmentLocation,
     pub channel: EquipmentChannel,
+    pub fit_zone: Option<EquipmentFitZone>,
     pub order: u16,
 }
 

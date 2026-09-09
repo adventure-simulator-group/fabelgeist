@@ -20,10 +20,12 @@ use crate::animation::AttackHand;
 use crate::inventory_armor::fold_armor_layers;
 
 mod armor;
+mod ordering;
 mod quantity;
 mod query;
 
 pub use armor::*;
+pub use ordering::EquipmentRootOrder;
 pub use quantity::*;
 
 pub const TACTICAL_TERRAIN_LAYER: LayerMask = LayerMask(1 << 5);

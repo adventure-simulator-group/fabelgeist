@@ -78,8 +78,9 @@ combat stats.
 
 Every primitive of a clothed character uses the same ordered channels. Fitted
 clothing retains its base trim triangles when refitted for each sample. Parametric
-vambraces and breastplates use the armor generator's corresponding body samples,
-including their anatomical joint landmarks.
+armor uses the armor generator's corresponding body samples, including its
+anatomical joint landmarks. Each recipe retains its authored vertex and index
+correspondence across morph samples. Export fails if fitting changes either.
 
 The tactical client derives bounded cosmetic weights from each persistent
 character ID, consistently across clients and reconnects. Equipment uses its
@@ -129,3 +130,57 @@ python scripts/prepare_rig_base.py target/morph-assets/base.glb assets/animation
 
 Inspect the staged equipment before copying its GLBs and manifest into
 `assets/equipment/procedural`. The base preparation step preserves morph data.
+
+## Parametric armor authoring
+
+All armor catalog entries have authored parametric recipes. Preview, character
+export and equipment export use the same recipe dispatch, fit and material.
+Catalog loading rejects armor without a recipe. The geometry code lives in
+`adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit envelopes,
+and transfer of UVs, skinning and morph targets.
+
+Use `--write-armor-designs target/armor-designs.json` to write the editable
+helmet, limb and garment defaults. Pass `--armor-designs` with that file to
+preview or export overrides. Keys are catalog IDs; a recipe must retain its
+construction family and pass its parameter validation. The existing
+`--breastplate-design` option controls the paired torso plates. Measurements use
+millimetres and ratios use permille. The serialized design contributes to the
+asset's design hash and generator version.
+
+For reproducible body-visible review, run the creator with
+`--armor-review-dir target/armor-review/candidate`, then:
+
+```powershell
+blender --background --python scripts/render_armor_review.py -- target/armor-review/candidate target/armor-review/candidate/renders
+python scripts/armor_review_boards.py target/armor-review/candidate/renders
+blender --background --python scripts/check_armor_review.py -- target/armor-review/candidate
+python scripts/assemble_armor_review.py target/armor-review/candidate
+blender --background --python scripts/render_armor_review.py -- target/armor-review/candidate/assemblies target/armor-review/candidate/assemblies/renders
+```
+
+These exports include the actual body, triangles, runtime vertex normals and
+design parameters. The four-view boards preserve those normals and use back-face
+culling. The mesh checker reports closed-edge
+winding, triangle area, material volume and sampled body distances; those local
+distance signs are diagnostics, not a proof of continuous clearance. Assembled
+views combine unchanged parts to expose interface problems. Static review does
+not replace inspection of installed equipment under runtime animation.
+
+Filtered equipment exports accept comma-separated IDs with `--equipment-item`
+and require an empty staging directory. Run
+`python scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit
+actual GLB winding, skin weights, all 47 morph endpoints and representative
+blends. Use `--allow-partial` only for a deliberately filtered export.
+
+For static review of the exported identity morphs, run
+`python scripts/export_armor_morph_review.py STAGING_DIRECTORY OUTPUT_DIRECTORY`.
+This evaluates the actual body and armor GLBs at neutral, positive, negative and
+mixed identity blends. It does not refit substitute geometry. Use the rendering and
+mesh-check commands above on each resulting directory. Skeletal proportions
+and animation still require the gameplay renderer.
+
+The native `animation-viewer` supports `--armor-harness plate|mail|padded` with
+`--hidden` for automated captures. It uses the shared gameplay equipment visual
+plugin and waits for every installed GLB, material, skin and morph component;
+unresolved assets fail the capture. Rebuild it after updating the equipment
+manifest, then capture idle, walking and raised-guard scenarios.

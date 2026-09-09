@@ -343,6 +343,8 @@ pub struct GeneratedArmor {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum DesignError {
+    #[error("armor shape parameters are outside their supported ranges")]
+    ParametricParameters,
     #[error("armor catalog ID cannot be empty")]
     EmptyCatalogId,
     #[error("bracer coverage must be between 50 and 1000 permille")]

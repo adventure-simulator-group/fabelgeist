@@ -87,10 +87,6 @@ path = "crates/adventuresim-character-creator/src/export.rs"
 ceiling = 1008
 
 [[files]]
-path = "crates/adventuresim-character-creator/src/main.rs"
-ceiling = 726
-
-[[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
 ceiling = 1511
 
@@ -136,7 +132,7 @@ ceiling = 788
 
 [[files]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-ceiling = 1707
+ceiling = 1624
 
 [[files]]
 path = "crates/adventuresim-core/src/knowledge.rs"
@@ -252,7 +248,7 @@ ceiling = 791
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3351
+ceiling = 3235
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -560,7 +556,7 @@ ceiling = 935
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
-ceiling = 1234
+ceiling = 1193
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
@@ -584,7 +580,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1776
+ceiling = 1693
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -684,7 +680,7 @@ ceiling = 768
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-ceiling = 917
+ceiling = 798
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
@@ -900,7 +896,7 @@ ceiling = 781
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
-ceiling = 805
+ceiling = 799
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/travel.rs"
@@ -1198,11 +1194,6 @@ ceiling = 398
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/main.rs"
-item = "regenerate_mesh"
-ceiling = 110
-
-[[functions]]
-path = "crates/adventuresim-character-creator/src/main.rs"
 item = "studio_ui"
 ceiling = 122
 
@@ -1279,7 +1270,7 @@ ceiling = 237
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-ceiling = 498
+ceiling = 444
 
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
@@ -1419,7 +1410,7 @@ ceiling = 296
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "equip_equipment_internal"
-ceiling = 321
+ceiling = 288
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -2534,27 +2525,22 @@ ceiling = 267
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "draw_slot_hud"
-ceiling = 299
+ceiling = 293
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "hud_layers"
-ceiling = 115
+ceiling = 104
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "resolve_procedural_equipment_models"
-ceiling = 148
+ceiling = 137
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "spawn_item_placeholders"
 ceiling = 123
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "update_grab_input"
-ceiling = 110
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
@@ -3419,7 +3405,7 @@ ceiling = 292
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
 item = "equipment_control"
-ceiling = 435
+ceiling = 428
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"

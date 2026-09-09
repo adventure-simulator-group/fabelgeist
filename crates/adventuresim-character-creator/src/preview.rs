@@ -44,7 +44,9 @@ pub(super) fn spawn_armor(
     materials: &mut Assets<StandardMaterial>,
     armor: &GeneratedArmor,
     name: String,
+    material: adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
 ) {
+    let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
     let mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
@@ -58,9 +60,9 @@ pub(super) fn spawn_armor(
         Name::new(name),
         Mesh3d(meshes.add(mesh)),
         MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: Color::srgb(0.769, 0.776, 0.776),
-            metallic: 1.0,
-            perceptual_roughness: 0.20,
+            base_color: Color::srgba(color[0], color[1], color[2], color[3]),
+            metallic,
+            perceptual_roughness: roughness,
             ..default()
         })),
     ));

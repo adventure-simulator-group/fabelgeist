@@ -713,6 +713,7 @@ mod tests {
         let placement = EquipmentPlacement {
             id: "left".into(),
             occupancy: vec![crate::item_catalog_schema::OccupancyRequirement {
+                fit_zone: None,
                 location: crate::item_catalog_schema::EquipmentLocation::LeftArm,
                 channel: EquipmentChannel::RigidArmor,
                 order: 0,

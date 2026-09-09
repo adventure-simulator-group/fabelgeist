@@ -1,0 +1,100 @@
+{
+  "captures": [
+    {
+      "capture": "mail-boot25-final-idle",
+      "frame_count": 65,
+      "png_count": 195,
+      "exit_code": 1,
+      "failed_checks": [],
+      "failed_quality_categories": [
+        "jitter_and_jerk_failed"
+      ],
+      "jitter_incidents": 7,
+      "all_artifacts_written": true,
+      "all_scenarios_complete": true,
+      "no_ground_penetration": true,
+      "boot_hashes": {
+        "leather_boot--left.glb": "bab454252766b20c27b28d5c5c2846da5d0c8f0375bffa0d764200e8896473d2",
+        "leather_boot--right.glb": "55041e3bfd6d0d51d80f19efa0a1d5bf583c9e2a1828ba4fff5cf66075f1f9f6"
+      },
+      "executable_sha256": "52866C8A6A6C4B57FE369307D44F56CC72D4F2ECC561A924DE25EF865BDD9EA8",
+      "manifest_sha256": "6AEF2697710E03698154B8B5E5F56804ED3D8A09D5C7C9A95B8B09272DB9B302"
+    },
+    {
+      "capture": "mail-boot25-final-guard",
+      "frame_count": 55,
+      "png_count": 165,
+      "exit_code": 0,
+      "failed_checks": [],
+      "failed_quality_categories": [
+        "foot_dragging_failed"
+      ],
+      "jitter_incidents": 0,
+      "all_artifacts_written": true,
+      "all_scenarios_complete": true,
+      "no_ground_penetration": true,
+      "boot_hashes": {
+        "leather_boot--left.glb": "bab454252766b20c27b28d5c5c2846da5d0c8f0375bffa0d764200e8896473d2",
+        "leather_boot--right.glb": "55041e3bfd6d0d51d80f19efa0a1d5bf583c9e2a1828ba4fff5cf66075f1f9f6"
+      },
+      "executable_sha256": "52866C8A6A6C4B57FE369307D44F56CC72D4F2ECC561A924DE25EF865BDD9EA8",
+      "manifest_sha256": "6AEF2697710E03698154B8B5E5F56804ED3D8A09D5C7C9A95B8B09272DB9B302"
+    },
+    {
+      "capture": "padded-boot25-final-idle",
+      "frame_count": 65,
+      "png_count": 195,
+      "exit_code": 1,
+      "failed_checks": [],
+      "failed_quality_categories": [
+        "jitter_and_jerk_failed"
+      ],
+      "jitter_incidents": 11,
+      "all_artifacts_written": true,
+      "all_scenarios_complete": true,
+      "no_ground_penetration": true,
+      "boot_hashes": {
+        "leather_boot--left.glb": "bab454252766b20c27b28d5c5c2846da5d0c8f0375bffa0d764200e8896473d2",
+        "leather_boot--right.glb": "55041e3bfd6d0d51d80f19efa0a1d5bf583c9e2a1828ba4fff5cf66075f1f9f6"
+      },
+      "executable_sha256": "52866C8A6A6C4B57FE369307D44F56CC72D4F2ECC561A924DE25EF865BDD9EA8",
+      "manifest_sha256": "6AEF2697710E03698154B8B5E5F56804ED3D8A09D5C7C9A95B8B09272DB9B302"
+    },
+    {
+      "capture": "padded-boot25-final-guard",
+      "frame_count": 55,
+      "png_count": 165,
+      "exit_code": 1,
+      "failed_checks": [
+        "biomechanics_within_review_bounds"
+      ],
+      "failed_quality_categories": [
+        "foot_dragging_failed"
+      ],
+      "jitter_incidents": 0,
+      "all_artifacts_written": true,
+      "all_scenarios_complete": true,
+      "no_ground_penetration": true,
+      "boot_hashes": {
+        "leather_boot--left.glb": "bab454252766b20c27b28d5c5c2846da5d0c8f0375bffa0d764200e8896473d2",
+        "leather_boot--right.glb": "55041e3bfd6d0d51d80f19efa0a1d5bf583c9e2a1828ba4fff5cf66075f1f9f6"
+      },
+      "executable_sha256": "52866C8A6A6C4B57FE369307D44F56CC72D4F2ECC561A924DE25EF865BDD9EA8",
+      "manifest_sha256": "6AEF2697710E03698154B8B5E5F56804ED3D8A09D5C7C9A95B8B09272DB9B302"
+    }
+  ],
+  "expected_boot_sha256": {
+    "leather_boot--left.glb": "bab454252766b20c27b28d5c5c2846da5d0c8f0375bffa0d764200e8896473d2",
+    "leather_boot--right.glb": "55041e3bfd6d0d51d80f19efa0a1d5bf583c9e2a1828ba4fff5cf66075f1f9f6"
+  },
+  "distinct_fixture_glb_hashes_verified": 16,
+  "prior_plate_final_guard_quality_categories": {
+    "catastrophic_foot_displacement_failed": false,
+    "guard_step_liveness_failed": false,
+    "anatomical_invalid_joints_failed": false,
+    "contact_foot_airborne_failed": false,
+    "both_feet_behind_hips_failed": false,
+    "foot_dragging_failed": true,
+    "jitter_and_jerk_failed": false
+  }
+}

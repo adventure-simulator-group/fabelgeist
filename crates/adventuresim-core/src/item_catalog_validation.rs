@@ -8,6 +8,9 @@ use std::{error::Error, fmt};
 
 use crate::item_catalog_validation_material::is_equipment_material_name;
 
+#[path = "item_catalog_validation_occupancy.rs"]
+mod occupancy;
+
 const MAX_DOCUMENTS: usize = 32;
 const MAX_ITEMS: usize = 4_096;
 const MAX_STRING_BYTES: usize = 256;
@@ -793,67 +796,13 @@ fn validate_equipment(
                         "must have at least one physical occupancy or parent requirement",
                     );
                 }
-                let mut occupied = BTreeSet::new();
-                for (occupancy_index, requirement) in occupancy.iter().enumerate() {
-                    let Some(requirement) = requirement.as_object() else {
-                        errors.push(
-                            format!("{placement_path}.occupancy.{occupancy_index}"),
-                            "must be an object",
-                        );
-                        continue;
-                    };
-                    reject_unknown(
-                        requirement,
-                        &["location", "channel", "order"],
-                        &format!("{placement_path}.occupancy.{occupancy_index}"),
-                        errors,
-                    );
-                    let location = requirement
-                        .get("location")
-                        .and_then(Value::as_str)
-                        .unwrap_or("");
-                    let channel = requirement
-                        .get("channel")
-                        .and_then(Value::as_str)
-                        .unwrap_or("");
-                    if !valid_locations.contains(location) {
-                        errors.push(
-                            format!("{placement_path}.occupancy.{occupancy_index}.location"),
-                            "invalid location",
-                        );
-                    }
-                    if !valid_channels.contains(channel) {
-                        errors.push(
-                            format!("{placement_path}.occupancy.{occupancy_index}.channel"),
-                            "invalid channel",
-                        );
-                    }
-                    let order = requirement
-                        .get("order")
-                        .and_then(Value::as_u64)
-                        .unwrap_or(0);
-                    if matches!(
-                        channel,
-                        "held"
-                            | "base_clothing"
-                            | "padding"
-                            | "flexible_armor"
-                            | "rigid_armor"
-                            | "outerwear"
-                    ) && order != 0
-                    {
-                        errors.push(
-                            format!("{placement_path}.occupancy.{occupancy_index}.order"),
-                            "singleton channel requires order 0",
-                        );
-                    }
-                    if order > u16::MAX.into() || !occupied.insert((location, channel, order)) {
-                        errors.push(
-                            format!("{placement_path}.occupancy.{occupancy_index}"),
-                            "duplicate or invalid ordered occupancy",
-                        );
-                    }
-                }
+                occupancy::validate_occupancy(
+                    &occupancy,
+                    &placement_path,
+                    &valid_locations,
+                    &valid_channels,
+                    errors,
+                );
                 for (parent_index, parent) in parents.iter().enumerate() {
                     let Some(parent) = parent.as_object() else {
                         errors.push(

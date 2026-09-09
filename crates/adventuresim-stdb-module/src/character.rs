@@ -1,6 +1,9 @@
+mod occupancy;
+use occupancy::{character_occupancy_id, conflicting_equipment_roots};
+
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
-    item_catalog::{EquipmentChannel, OccupancyRequirement, ParentRequirement},
+    item_catalog::{EquipmentChannel, ParentRequirement},
     organization::OrganizationMembershipStatus,
     starting_character::{
         StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
@@ -598,8 +601,9 @@ pub enum EquipmentAnchorKind {
     index(accessor = inventory_item_id, btree(columns = [inventory_item_id]))
 )]
 pub struct EquipmentOccupancy {
-    /// Stable composite key for either a character anchor/channel/order cell
-    /// or one capacity cell on an item-provided attachment point.
+    /// Stable key for an item's character requirement or one capacity cell
+    /// on an item-provided attachment point. Anatomical conflicts are validated
+    /// against all equipped placements before inserting character roots.
     #[primary_key]
     pub id: String,
     pub character_id: u64,
@@ -612,24 +616,6 @@ pub struct EquipmentOccupancy {
     pub order: u16,
     pub requirement_index: u16,
     pub capacity_index: u16,
-}
-
-fn character_occupancy_id(
-    character_id: u64,
-    channel: EquipmentChannel,
-    order: u16,
-    location: adventuresim_core::item_catalog::EquipmentLocation,
-) -> String {
-    let order = if channel.singleton_per_location() {
-        0
-    } else {
-        order
-    };
-    format!(
-        "equipment-occupancy:v1:character:{character_id}:{}:{}:{order}",
-        location.stable_id(),
-        channel.order()
-    )
 }
 
 fn attachment_occupancy_id(
@@ -674,20 +660,6 @@ fn attachment_would_create_cycle(
         );
     }
     false
-}
-
-fn conflicting_root_requirements(
-    requirements: &[OccupancyRequirement],
-    inventory_item_id: u64,
-    mut occupant_at: impl FnMut(OccupancyRequirement) -> Option<u64>,
-) -> Vec<OccupancyRequirement> {
-    requirements
-        .iter()
-        .copied()
-        .filter(|requirement| {
-            occupant_at(*requirement).is_some_and(|occupant| occupant != inventory_item_id)
-        })
-        .collect()
 }
 
 fn first_free_attachment_capacity(
@@ -3038,23 +3010,11 @@ fn equip_equipment_internal(
     }
 
     // Validate the entire graph move before mutating either normalized table.
-    let conflicts =
-        conflicting_root_requirements(&placement.occupancy, inventory_item_id, |requirement| {
-            ctx.db
-                .equipment_occupancy()
-                .id()
-                .find(character_occupancy_id(
-                    character_id,
-                    requirement.channel,
-                    requirement.order,
-                    requirement.location,
-                ))
-                .map(|row| row.inventory_item_id)
-        });
+    let conflicts = conflicting_equipment_roots(ctx, character_id, inventory_item_id, placement)?;
     if !replace_occupied && !conflicts.is_empty() {
         let details = conflicts
             .iter()
-            .map(|requirement| {
+            .map(|(requirement, _)| {
                 format!(
                     "{:?} ({:?}, order {})",
                     requirement.location, requirement.channel, requirement.order
@@ -3069,23 +3029,7 @@ fn equip_equipment_internal(
     }
     let mut displaced_item_ids = std::collections::BTreeSet::new();
     if replace_occupied {
-        for requirement in &conflicts {
-            if let Some(occupant) = ctx
-                .db
-                .equipment_occupancy()
-                .id()
-                .find(character_occupancy_id(
-                    character_id,
-                    requirement.channel,
-                    requirement.order,
-                    requirement.location,
-                ))
-                .map(|row| row.inventory_item_id)
-                .filter(|occupant| *occupant != inventory_item_id)
-            {
-                displaced_item_ids.insert(occupant);
-            }
-        }
+        displaced_item_ids.extend(conflicts.iter().map(|(_, item_id)| *item_id));
     }
     if targets.len() != placement.parents.len() {
         return Err(format!(
@@ -3239,12 +3183,7 @@ fn equip_equipment_internal(
         });
     for (requirement_index, requirement) in root_occupancies {
         ctx.db.equipment_occupancy().insert(EquipmentOccupancy {
-            id: character_occupancy_id(
-                character_id,
-                requirement.channel,
-                requirement.order,
-                requirement.location,
-            ),
+            id: character_occupancy_id(character_id, inventory_item_id, requirement_index),
             character_id,
             inventory_item_id,
             anchor_kind: EquipmentAnchorKind::CharacterLocation,
@@ -3558,9 +3497,8 @@ mod starting_character_boundary_tests {
     use super::{
         CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
         attachment_point_matches_requirement, attachment_would_create_cycle,
-        character_occupancy_id, conflicting_root_requirements, first_free_attachment_capacity,
-        hand_only_placement_is_held_root, initial_membership_minutes, named_character_id,
-        select_sheath_compatible_parent_placement,
+        character_occupancy_id, first_free_attachment_capacity, hand_only_placement_is_held_root,
+        initial_membership_minutes, named_character_id, select_sheath_compatible_parent_placement,
     };
 
     use crate::item::{PersistedEquipmentAttachmentPoint, PersistedEquipmentPlacement};
@@ -3570,10 +3508,10 @@ mod starting_character_boundary_tests {
     };
 
     #[test]
-    fn character_occupancy_id_has_an_explicit_versioned_location_code() {
+    fn character_occupancy_id_identifies_each_item_requirement() {
         assert_eq!(
-            character_occupancy_id(7, EquipmentChannel::Held, 3, EquipmentLocation::LeftHand),
-            "equipment-occupancy:v1:character:7:left_hand:0:0"
+            character_occupancy_id(7, 12, 3),
+            "character:7:item:12:requirement:3"
         );
     }
 
@@ -3984,6 +3922,7 @@ mod starting_character_boundary_tests {
     #[test]
     fn durable_hand_only_boundary_accepts_only_one_held_hand_root() {
         let held = OccupancyRequirement {
+            fit_zone: None,
             location: EquipmentLocation::LeftHand,
             channel: EquipmentChannel::Held,
             order: 0,
@@ -4071,29 +4010,6 @@ mod starting_character_boundary_tests {
             .unwrap();
         assert!(reducer.contains("require_strategic_character_authority"));
         assert!(reducer.contains("true,\n        true,"));
-    }
-
-    #[test]
-    fn multi_location_conflicts_are_collected_without_displacing_any_item() {
-        let left = OccupancyRequirement {
-            location: EquipmentLocation::LeftArm,
-            channel: EquipmentChannel::Padding,
-            order: 0,
-        };
-        let right = OccupancyRequirement {
-            location: EquipmentLocation::RightArm,
-            channel: EquipmentChannel::Padding,
-            order: 0,
-        };
-        let conflicts = conflicting_root_requirements(&[left, right], 10, |requirement| {
-            match requirement.location {
-                EquipmentLocation::LeftArm => Some(20),
-                EquipmentLocation::RightArm => Some(30),
-                _ => None,
-            }
-        });
-        assert_eq!(conflicts, vec![left, right]);
-        assert!(conflicting_root_requirements(&[left], 20, |_| Some(20)).is_empty());
     }
 
     #[test]

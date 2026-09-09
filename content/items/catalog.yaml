@@ -1120,15 +1120,15 @@
         "placements": [
           {
             "id": "left",
-            "occupancy": [{"location": "left_leg", "channel": "rigid_armor"}],
+            "occupancy": [{"location": "left_leg", "channel": "rigid_armor", "fit_zone": "shin"}],
             "protection": ["left_leg"],
-            "surface": [{"regions": ["left_lower_leg"], "anchor": "distal", "coverage": 0.65}]
+            "surface": [{"regions": ["left_lower_leg"], "anchor": "center", "coverage": 0.97}]
           },
           {
             "id": "right",
-            "occupancy": [{"location": "right_leg", "channel": "rigid_armor"}],
+            "occupancy": [{"location": "right_leg", "channel": "rigid_armor", "fit_zone": "shin"}],
             "protection": ["right_leg"],
-            "surface": [{"regions": ["right_lower_leg"], "anchor": "distal", "coverage": 0.65}]
+            "surface": [{"regions": ["right_lower_leg"], "anchor": "center", "coverage": 0.97}]
           }
         ]
       },
@@ -3592,13 +3592,13 @@
         "placements": [
           {
             "id": "left",
-            "occupancy": [{"location": "left_arm", "channel": "rigid_armor"}],
+            "occupancy": [{"location": "left_arm", "channel": "rigid_armor", "fit_zone": "forearm"}],
             "protection": ["left_arm"],
             "surface": [{"regions": ["left_forearm"], "anchor": "distal", "coverage": 0.65}]
           },
           {
             "id": "right",
-            "occupancy": [{"location": "right_arm", "channel": "rigid_armor"}],
+            "occupancy": [{"location": "right_arm", "channel": "rigid_armor", "fit_zone": "forearm"}],
             "protection": ["right_arm"],
             "surface": [{"regions": ["right_forearm"], "anchor": "distal", "coverage": 0.65}]
           }
@@ -4446,6 +4446,272 @@
       "tags": ["quest_token", "blessed", "countermeasure"],
       "presentation": {"icon": "holy-symbol"},
       "kind": "simple"
+    },
+    {
+      "id": "cuisse",
+      "display_name": "Cuisse",
+      "weight_kg": 1.2,
+      "exterior_volume_ml": 1500,
+      "base_value": 40,
+      "tags": ["armor"],
+      "presentation": {"icon": "armor-cuisses"},
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.2, 0.38, 0.18], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_leg", "channel": "rigid_armor", "fit_zone": "thigh"}],
+            "protection": ["left_leg"],
+            "surface": [{"regions": ["left_thigh"], "anchor": "center", "coverage": 0.92}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_leg", "channel": "rigid_armor", "fit_zone": "thigh"}],
+            "protection": ["right_leg"],
+            "surface": [{"regions": ["right_thigh"], "anchor": "center", "coverage": 0.92}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "rerebrace",
+      "display_name": "Rerebrace",
+      "weight_kg": 0.65,
+      "exterior_volume_ml": 812,
+      "base_value": 30,
+      "tags": ["armor"],
+      "presentation": {"icon": "bracer"},
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.15, 0.28, 0.15], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_arm", "channel": "rigid_armor", "fit_zone": "upper_arm"}],
+            "protection": ["left_arm"],
+            "surface": [{"regions": ["left_upper_arm"], "anchor": "center", "coverage": 0.91}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_arm", "channel": "rigid_armor", "fit_zone": "upper_arm"}],
+            "protection": ["right_arm"],
+            "surface": [{"regions": ["right_upper_arm"], "anchor": "center", "coverage": 0.91}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "poleyn",
+      "display_name": "Poleyn",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 20,
+      "tags": ["armor"],
+      "presentation": {"icon": "greaves"},
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.18, 0.13, 0.11], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_leg", "channel": "rigid_armor", "fit_zone": "knee"}],
+            "protection": ["left_leg"],
+            "surface": [{"regions": ["left_thigh", "left_lower_leg"], "anchor": "center", "coverage": 0.18}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_leg", "channel": "rigid_armor", "fit_zone": "knee"}],
+            "protection": ["right_leg"],
+            "surface": [{"regions": ["right_thigh", "right_lower_leg"], "anchor": "center", "coverage": 0.18}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "couter",
+      "display_name": "Couter",
+      "weight_kg": 0.3,
+      "exterior_volume_ml": 375,
+      "base_value": 20,
+      "tags": ["armor"],
+      "presentation": {"icon": "bracer"},
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.15, 0.12, 0.1], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_arm", "channel": "rigid_armor", "fit_zone": "elbow"}],
+            "protection": ["left_arm"],
+            "surface": [{"regions": ["left_upper_arm", "left_forearm"], "anchor": "center", "coverage": 0.18}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_arm", "channel": "rigid_armor", "fit_zone": "elbow"}],
+            "protection": ["right_arm"],
+            "surface": [{"regions": ["right_upper_arm", "right_forearm"], "anchor": "center", "coverage": 0.18}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "spaulder",
+      "display_name": "Lamed spaulder",
+      "weight_kg": 0.65,
+      "exterior_volume_ml": 812,
+      "base_value": 30,
+      "tags": ["armor"],
+      "presentation": {"icon": "layered-armor"},
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.18, 0.22, 0.18], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_shoulder", "channel": "rigid_armor"}],
+            "protection": ["left_arm"],
+            "surface": [{"regions": ["left_upper_arm"], "anchor": "proximal", "coverage": 0.36}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_shoulder", "channel": "rigid_armor"}],
+            "protection": ["right_arm"],
+            "surface": [{"regions": ["right_upper_arm"], "anchor": "proximal", "coverage": 0.36}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "mitten_gauntlet",
+      "display_name": "Mitten gauntlet",
+      "weight_kg": 0.55,
+      "exterior_volume_ml": 688,
+      "base_value": 35,
+      "tags": ["armor"],
+      "presentation": {"icon": "bracer"},
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.13, 0.27, 0.08], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_hand", "channel": "rigid_armor"}],
+            "protection": ["left_arm"],
+            "surface": [{"regions": ["left_forearm"], "anchor": "distal", "coverage": 0.15}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_hand", "channel": "rigid_armor"}],
+            "protection": ["right_arm"],
+            "surface": [{"regions": ["right_forearm"], "anchor": "distal", "coverage": 0.15}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "sabaton",
+      "display_name": "Rounded sabaton",
+      "weight_kg": 0.55,
+      "exterior_volume_ml": 688,
+      "base_value": 30,
+      "tags": ["armor"],
+      "presentation": {"icon": "greaves"},
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.14, 0.11, 0.3], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [{"location": "left_foot", "channel": "rigid_armor"}],
+            "protection": ["left_leg"],
+            "surface": [{"regions": ["left_lower_leg"], "anchor": "distal", "coverage": 0.15}]
+          },
+          {
+            "id": "right",
+            "occupancy": [{"location": "right_foot", "channel": "rigid_armor"}],
+            "protection": ["right_leg"],
+            "surface": [{"regions": ["right_lower_leg"], "anchor": "distal", "coverage": 0.15}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "gorget",
+      "display_name": "Plate gorget",
+      "weight_kg": 0.8,
+      "exterior_volume_ml": 1000,
+      "base_value": 30,
+      "tags": ["armor"],
+      "presentation": {"icon": "breastplate"},
+      "kind": "armor",
+      "slot": "head",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {"dimensions_m": [0.28, 0.12, 0.24], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.0, 0.0]},
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [{"location": "neck", "channel": "rigid_armor"}],
+            "protection": ["head"],
+            "surface": [{"regions": ["neck"], "anchor": "center", "coverage": 1.0}]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
     }
   ]
 }

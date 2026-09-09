@@ -2,6 +2,8 @@
 
 use super::*;
 
+mod fit;
+
 pub(super) fn equipment_target_is_self_or_descendant(
     equip: &CharacterEquipmentGraph,
     moving_inventory_item_id: u64,
@@ -446,20 +448,19 @@ pub(in crate::templates::settlement) fn equipment_control(
                         .join(", ");
                     let conflicts = equip
                         .into_iter()
-                        .flat_map(|equip| equip.equipment_occupancies.iter())
-                        .filter(|occupied| occupied.inventory_item_id != inventory.id)
-                        .filter(|occupied| {
+                        .flat_map(|equip| {
+                            equip
+                                .equipment_occupancies
+                                .iter()
+                                .map(move |row| (equip, row))
+                        })
+                        .filter(|(_, occupied)| occupied.inventory_item_id != inventory.id)
+                        .filter(|(equip, occupied)| {
                             placement.occupancy.iter().any(|requirement| {
-                                occupied
-                                    .location
-                                    .map(crate::spacetimedb::core_equipment_location)
-                                    == Some(requirement.location)
-                                    && core_equipment_channel(occupied.channel)
-                                        == requirement.channel
-                                    && occupied.order == requirement.order
+                                fit::reservation_conflicts(equip, occupied, *requirement)
                             })
                         })
-                        .map(|occupied| format!("#{}", occupied.inventory_item_id))
+                        .map(|(_, occupied)| format!("#{}", occupied.inventory_item_id))
                         .collect::<Vec<_>>();
                     let anchor_or_parent = if parent.is_empty() { anchors } else { parent };
                     format!(
@@ -609,13 +610,7 @@ pub(in crate::templates::settlement) fn equipment_control(
                                                     (equip, row)
                                                 })
                                             })
-                                            .find(|(_, occupied)| {
-                                        occupied.location.map(crate::spacetimedb::core_equipment_location)
-                                            == Some(requirement.location)
-                                                    && core_equipment_channel(occupied.channel)
-                                                        == requirement.channel
-                                                    && occupied.order == requirement.order
-                                            })
+                                            .find(|(equip, occupied)| fit::reservation_conflicts(equip, occupied, *requirement))
                                     })
                                     .max_by_key(|(_, occupied)| {
                                         (
@@ -832,6 +827,7 @@ pub(in crate::templates::settlement) fn equipment_control(
 #[cfg(test)]
 mod tests {
     use super::*;
+
     use crate::spacetimedb::*;
     use crate::spacetimedb::{EquipmentAnchorKind, EquipmentLocation};
 
@@ -875,6 +871,7 @@ mod tests {
             equipment_placements: vec![CatalogEquipmentPlacement {
                 id: "left_hand".into(),
                 occupancy: vec![OccupancyRequirement {
+                    fit_zone: None,
                     location: EquipmentLocation::LeftHand,
                     channel: CoreEquipmentChannel::Held,
                     order: 0,
@@ -902,6 +899,7 @@ mod tests {
             .push(CatalogEquipmentPlacement {
                 id: "left_hand".into(),
                 occupancy: vec![OccupancyRequirement {
+                    fit_zone: None,
                     location: EquipmentLocation::LeftHand,
                     channel: CoreEquipmentChannel::Held,
                     order: 0,
@@ -934,11 +932,13 @@ mod tests {
             id: id.into(),
             occupancy: vec![
                 OccupancyRequirement {
+                    fit_zone: None,
                     location: EquipmentLocation::Chest,
                     channel,
                     order: 0,
                 },
                 OccupancyRequirement {
+                    fit_zone: None,
                     location: EquipmentLocation::Stomach,
                     channel,
                     order: 0,

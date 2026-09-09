@@ -5,13 +5,30 @@
 mod breastplate;
 mod design;
 mod mesh;
+pub mod parametric;
+pub use parametric::{PartFrame, PartMesh};
+mod garment_armor;
+mod helmets;
+mod limb_armor;
+pub use garment_armor::{
+    GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
+    GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
+    generate_garment_armor,
+};
+pub use helmets::*;
+pub use limb_armor::*;
 
 pub use breastplate::generate_breastplate;
 pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 8;
+pub const GENERATOR_VERSION: u16 = 9;
+
+/// Hash a serialized typed parametric recipe for exported asset provenance.
+pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
+    *blake3::hash(encoded).as_bytes()
+}
 
 pub fn encode(design: &BracerDesign) -> Result<Vec<u8>, DesignError> {
     validate(design)?;

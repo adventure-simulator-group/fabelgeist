@@ -1,0 +1,465 @@
+[
+  {
+    "capture": "plate-idle",
+    "body_proportions": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "jitter": {
+      "diagnostics_complete": true,
+      "sampled_frame_count": 65,
+      "final_incident_count": 11,
+      "unacceptable_final_incident_count": 11,
+      "worst_incident": {
+        "scenario": "ordinary-camera-pitch",
+        "bone": "right_hand",
+        "class": "AngularJerk",
+        "frame": 3,
+        "window_start": 1,
+        "window_end": 5,
+        "value": 52209.516,
+        "threshold": 12000.0,
+        "severity": 4.350793
+      },
+      "top_incidents": [
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 52209.516,
+          "threshold": 12000.0,
+          "severity": 4.350793
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionJerk",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 3218.1294,
+          "threshold": 900.0,
+          "severity": 3.5756993
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 818.6021,
+          "threshold": 240.0,
+          "severity": 3.4108422
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionAcceleration",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 57.7238,
+          "threshold": 18.0,
+          "severity": 3.2068777
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularJerk",
+          "frame": 4,
+          "window_start": 2,
+          "window_end": 6,
+          "value": 22499.516,
+          "threshold": 12000.0,
+          "severity": 1.8749596
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularAcceleration",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 351.55493,
+          "threshold": 240.0,
+          "severity": 1.4648122
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_shoulder",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 16105.25,
+          "threshold": 12000.0,
+          "severity": 1.3421042
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 16079.158,
+          "threshold": 12000.0,
+          "severity": 1.3399298
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "left_shoulder",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 15957.489,
+          "threshold": 12000.0,
+          "severity": 1.3297908
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "left_shoulder",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 252.1642,
+          "threshold": 240.0,
+          "severity": 1.0506842
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_shoulder",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 251.64453,
+          "threshold": 240.0,
+          "severity": 1.0485189
+        }
+      ],
+      "thresholds": {
+        "angular_acceleration_absolute": 240.0,
+        "angular_acceleration_relative": 3.5,
+        "angular_acceleration_noise_floor": 8.0,
+        "angular_jerk_absolute": 12000.0,
+        "angular_jerk_relative": 3.5,
+        "angular_jerk_noise_floor": 400.0,
+        "local_position_acceleration_absolute": 18.0,
+        "local_position_acceleration_relative": 4.0,
+        "local_position_acceleration_noise_floor": 0.5,
+        "local_position_jerk_absolute": 900.0,
+        "local_position_jerk_relative": 4.0,
+        "local_position_jerk_noise_floor": 25.0
+      }
+    },
+    "other_failed_validation_fields": []
+  },
+  {
+    "capture": "plate-idle-close",
+    "body_proportions": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "jitter": {
+      "diagnostics_complete": true,
+      "sampled_frame_count": 65,
+      "final_incident_count": 7,
+      "unacceptable_final_incident_count": 7,
+      "worst_incident": {
+        "scenario": "ordinary-camera-pitch",
+        "bone": "right_hand",
+        "class": "AngularJerk",
+        "frame": 3,
+        "window_start": 1,
+        "window_end": 5,
+        "value": 64645.465,
+        "threshold": 12000.0,
+        "severity": 5.387122
+      },
+      "top_incidents": [
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 64645.465,
+          "threshold": 12000.0,
+          "severity": 5.387122
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 1012.9138,
+          "threshold": 240.0,
+          "severity": 4.2204742
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularJerk",
+          "frame": 4,
+          "window_start": 2,
+          "window_end": 6,
+          "value": 25195.895,
+          "threshold": 12000.0,
+          "severity": 2.0996578
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularAcceleration",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 394.6097,
+          "threshold": 240.0,
+          "severity": 1.6442071
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionJerk",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 1472.6127,
+          "threshold": 900.0,
+          "severity": 1.6362363
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionAcceleration",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 25.654037,
+          "threshold": 18.0,
+          "severity": 1.4252243
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 329.3496,
+          "threshold": 240.0,
+          "severity": 1.37229
+        }
+      ],
+      "thresholds": {
+        "angular_acceleration_absolute": 240.0,
+        "angular_acceleration_relative": 3.5,
+        "angular_acceleration_noise_floor": 8.0,
+        "angular_jerk_absolute": 12000.0,
+        "angular_jerk_relative": 3.5,
+        "angular_jerk_noise_floor": 400.0,
+        "local_position_acceleration_absolute": 18.0,
+        "local_position_acceleration_relative": 4.0,
+        "local_position_acceleration_noise_floor": 0.5,
+        "local_position_jerk_absolute": 900.0,
+        "local_position_jerk_relative": 4.0,
+        "local_position_jerk_noise_floor": 25.0
+      }
+    },
+    "other_failed_validation_fields": []
+  },
+  {
+    "capture": "unarmored-idle-control",
+    "body_proportions": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "jitter": {
+      "diagnostics_complete": true,
+      "sampled_frame_count": 65,
+      "final_incident_count": 11,
+      "unacceptable_final_incident_count": 11,
+      "worst_incident": {
+        "scenario": "ordinary-camera-pitch",
+        "bone": "right_hand",
+        "class": "AngularJerk",
+        "frame": 3,
+        "window_start": 1,
+        "window_end": 5,
+        "value": 52210.14,
+        "threshold": 12000.0,
+        "severity": 4.350845
+      },
+      "top_incidents": [
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 52210.14,
+          "threshold": 12000.0,
+          "severity": 4.350845
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_hand",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 818.6119,
+          "threshold": 240.0,
+          "severity": 3.4108827
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionJerk",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 3036.8477,
+          "threshold": 900.0,
+          "severity": 3.3742752
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "LocalPositionAcceleration",
+          "frame": 0,
+          "window_start": 0,
+          "window_end": 2,
+          "value": 55.8318,
+          "threshold": 18.0,
+          "severity": 3.1017666
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularJerk",
+          "frame": 4,
+          "window_start": 2,
+          "window_end": 6,
+          "value": 20238.213,
+          "threshold": 12000.0,
+          "severity": 1.6865177
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 18662.664,
+          "threshold": 12000.0,
+          "severity": 1.555222
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "left_shoulder",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 16318.524,
+          "threshold": 12000.0,
+          "severity": 1.359877
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_shoulder",
+          "class": "AngularJerk",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 16103.216,
+          "threshold": 12000.0,
+          "severity": 1.3419347
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "chest",
+          "class": "AngularAcceleration",
+          "frame": 3,
+          "window_start": 1,
+          "window_end": 5,
+          "value": 316.22208,
+          "threshold": 240.0,
+          "severity": 1.317592
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "left_shoulder",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 254.97694,
+          "threshold": 240.0,
+          "severity": 1.0624039
+        },
+        {
+          "scenario": "ordinary-camera-pitch",
+          "bone": "right_shoulder",
+          "class": "AngularAcceleration",
+          "frame": 2,
+          "window_start": 0,
+          "window_end": 4,
+          "value": 251.61275,
+          "threshold": 240.0,
+          "severity": 1.0483865
+        }
+      ],
+      "thresholds": {
+        "angular_acceleration_absolute": 240.0,
+        "angular_acceleration_relative": 3.5,
+        "angular_acceleration_noise_floor": 8.0,
+        "angular_jerk_absolute": 12000.0,
+        "angular_jerk_relative": 3.5,
+        "angular_jerk_noise_floor": 400.0,
+        "local_position_acceleration_absolute": 18.0,
+        "local_position_acceleration_relative": 4.0,
+        "local_position_acceleration_noise_floor": 0.5,
+        "local_position_jerk_absolute": 900.0,
+        "local_position_jerk_relative": 4.0,
+        "local_position_jerk_noise_floor": 25.0
+      }
+    },
+    "other_failed_validation_fields": []
+  }
+]
