@@ -10,11 +10,13 @@ pub(super) fn generate_equipment_assets(
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
     breastplate_design: &BreastplateDesign,
-    item_filter: Option<&str>,
+    item_filter: &[String],
 ) -> Result<()> {
-    if let Some(filter) = item_filter {
-        if !procedural_items(catalog).any(|item| item.id == filter) {
-            anyhow::bail!("unknown procedural equipment item {filter}");
+    if !item_filter.is_empty() {
+        for filter in item_filter {
+            if !procedural_items(catalog).any(|item| item.id == *filter) {
+                anyhow::bail!("unknown procedural equipment item {filter}");
+            }
         }
         if output.exists()
             && std::fs::read_dir(output)
@@ -38,11 +40,12 @@ pub(super) fn generate_equipment_assets(
         generated: &generated,
         morphs: &morphs,
         breastplate_design,
+        catalog,
     };
     let mut assets = Vec::new();
     let mut generated_files = std::collections::BTreeSet::new();
     for item in procedural_items(catalog) {
-        if item_filter.is_some_and(|filter| item.id != filter) {
+        if !item_filter.is_empty() && !item_filter.contains(&item.id) {
             continue;
         }
         let equipment = item.equipment.as_ref().expect("filtered equipment");
@@ -50,9 +53,17 @@ pub(super) fn generate_equipment_assets(
             if placement.surface.is_empty() {
                 continue;
             }
-            let asset = if matches!(item.id.as_str(), "vambrace" | "breastplate") {
+            let asset = if adventuresim_character_creator::armor_recipes::is_parametric(&item.id) {
                 exporter.armor(output, item, placement)?
             } else {
+                anyhow::ensure!(
+                    !matches!(
+                        item.kind,
+                        adventuresim_character_creator::item_catalog_schema::ItemKind::Armor { .. }
+                    ),
+                    "armor {} has no parametric generator",
+                    item.id
+                );
                 exporter.garment(output, item, placement)?
             };
             generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
@@ -85,6 +96,7 @@ pub(super) fn generate_equipment_assets(
 }
 
 struct EquipmentExporter<'a> {
+    catalog: &'a EquipmentCatalog,
     model: &'a BodyModel,
     recipe: &'a CharacterRecipe,
     generated: &'a GeneratedCharacter,
@@ -134,9 +146,23 @@ impl EquipmentExporter<'_> {
                 fitted_bracer(model, generated, &design, side, &morphs.samples)?,
                 design.coverage.unit(),
             )
-        } else {
+        } else if matches!(item.id.as_str(), "breastplate" | "cuirass") {
             (
                 fitted_breastplate(model, generated, breastplate_design, &morphs.samples)?,
+                placement_coverage(placement),
+            )
+        } else {
+            (
+                parametric_equipment::fitted_design(
+                    model,
+                    generated,
+                    &self
+                        .catalog
+                        .design(&item.id)
+                        .context("missing parametric recipe")?,
+                    &placement.id,
+                    &morphs.samples,
+                )?,
                 placement_coverage(placement),
             )
         };
@@ -144,7 +170,13 @@ impl EquipmentExporter<'_> {
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
         let path = output.join(&file_name);
-        let rigged_shell = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
+        let mut rigged_shell = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
+        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
+            equipment.material.context("armor material missing")?,
+        );
+        rigged_shell.base_color = color;
+        rigged_shell.metallic = metallic;
+        rigged_shell.roughness = roughness;
         export_rigged_glb(
             &path,
             &item.id,

@@ -276,6 +276,20 @@ reason = "Egui equipment buttons dispatch actions through widget responses; disp
 
 [[scopes]]
 kind = "boundary_adapter"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "selected_vambrace_sides"
-reason = "Decodes stable authored placement IDs into ForearmSide at the saved recipe boundary; these IDs are not display labels."
+path = "crates/adventuresim-character-creator/src/armor_recipes.rs"
+reason = "Parses stable content-catalog IDs into typed historical armor recipes at the authoring boundary."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/armor_frames.rs"
+reason = "Adapts serialized placement IDs and the external MHR skeleton's named landmarks to typed anatomical frames."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/parametric_equipment.rs"
+reason = "Adapts serialized character clothing selections into typed parametric generators and GLB skin/morph arrays."
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/review_export.rs"
+item = "existing"
+reason = "Dispatches stable authored item IDs to the established bracer and paired torso generators for review exports."

@@ -3,6 +3,10 @@
 use crate::combat_style::MeleeAttackStyle;
 use serde::{Deserialize, Serialize};
 
+#[path = "item_catalog_fit.rs"]
+mod fit;
+pub use fit::EquipmentFitZone;
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ItemCatalogDocument {
@@ -205,6 +209,10 @@ impl EquipmentChannel {
 pub struct OccupancyRequirement {
     pub location: EquipmentLocation,
     pub channel: EquipmentChannel,
+    /// Reserved anatomical fit zone. Omission reserves the entire location;
+    /// neighboring articulated plates may overlap visibly without sharing a fit zone.
+    #[serde(default)]
+    pub fit_zone: Option<EquipmentFitZone>,
     /// Ordering within a channel supports repeated deeper selection without
     /// making occupancy compatibility depend on enum declaration order.
     #[serde(default)]
@@ -587,6 +595,7 @@ mod tests {
     #[test]
     fn equipment_requirements_round_trip_as_shared_boundary_values() {
         let occupancy = OccupancyRequirement {
+            fit_zone: None,
             location: EquipmentLocation::LeftHand,
             channel: EquipmentChannel::Held,
             order: 2,

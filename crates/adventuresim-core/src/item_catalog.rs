@@ -191,7 +191,7 @@ mod tests {
     fn embedded_catalog_is_sorted_unique_complete_and_revisioned() {
         // The source catalog expands each availability epoch into a compiled
         // definition; the generated weapon loop adds four epoch rows.
-        assert_eq!(catalog().len(), 167);
+        assert_eq!(catalog().len(), 175);
         assert!(revision().len() == 64 && revision().bytes().all(|b| b.is_ascii_hexdigit()));
         assert!(
             catalog()
@@ -223,8 +223,8 @@ mod tests {
             + "\n";
         assert_eq!(
             format!("{:x}", Sha256::digest(stable_ids.as_bytes())),
-            "3225263028af61c4b6aa5645c8686a05dfd2efa30d6c7b6a156b3ce89cb5fe7e",
-            "stable-ID golden changed intentionally: linen breeches were added; development data must be reseeded"
+            "18f979ee1740f78a890b9aefcc5e880155f5e8688c6bce8bf93b9e942d0597f1",
+            "stable-ID golden changed intentionally: complete plate harness was added; development data must be reseeded"
         );
 
         let counts = catalog().iter().fold([0_u16; 10], |mut counts, item| {
@@ -245,7 +245,7 @@ mod tests {
         });
         // Holder chassis are simple catalog rows; their individual procedural
         // identities live in WeaponHolderInstance.
-        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 25, 29, 21]);
+        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 33, 29, 21]);
     }
 
     #[test]
@@ -522,7 +522,7 @@ mod tests {
             .iter()
             .filter_map(|item| item.equipment.as_ref().map(|equipment| (item, equipment)))
             .collect();
-        assert_eq!(equipment.len(), 69);
+        assert_eq!(equipment.len(), 77);
         for (item, equipment) in equipment {
             assert!(
                 equipment

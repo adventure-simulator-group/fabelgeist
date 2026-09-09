@@ -10,6 +10,7 @@
 mod animation;
 mod animation_viewer;
 mod camera;
+mod equipment;
 mod player;
 mod presentation;
 mod targeting;
@@ -47,6 +48,14 @@ struct Args {
     /// JSON array of nine absolute MHR skeletal coefficients for this capture.
     #[arg(long)]
     body_proportions: Option<PathBuf>,
+
+    /// Equip installed procedural assets for a complete armor capture fixture.
+    #[arg(long, value_enum)]
+    armor_harness: Option<animation_viewer::ArmorHarness>,
+
+    /// Render automated screenshots without showing a desktop window.
+    #[arg(long)]
+    hidden: bool,
 }
 
 fn main() {
@@ -85,14 +94,16 @@ fn main() {
         let text = std::fs::read_to_string(&path).expect("read body proportions JSON");
         serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
     });
-    let exit = animation_viewer::run(
-        args.output,
+    let exit = animation_viewer::run(animation_viewer::CaptureOptions {
+        output: args.output,
         asset_root,
-        args.frames_per_sample.max(1),
-        args.scenario.as_deref(),
+        settle_frames: args.frames_per_sample.max(1),
+        scenario: args.scenario,
         combat_config,
         body_proportions,
-    );
+        armor_harness: args.armor_harness,
+        hidden: args.hidden,
+    });
     if let bevy::app::AppExit::Error(code) = exit {
         std::process::exit(code.get() as i32);
     }

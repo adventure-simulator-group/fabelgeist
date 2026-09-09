@@ -1,9 +1,18 @@
 //! Data model for the standalone MHR character creator.
 
+mod armor_clearance;
+pub mod armor_design_input;
+pub mod armor_frames;
+pub mod armor_recipes;
 pub mod bracer;
 pub mod breastplate;
 pub mod clothing;
 mod clothing_material;
+mod coif_fit;
+pub mod garment_fit;
+mod gorget_fit;
+pub mod limb_fit;
+pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
 pub mod export;
 pub mod proportions;

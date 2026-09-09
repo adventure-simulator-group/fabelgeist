@@ -1128,11 +1128,20 @@ impl From<sats::Item> for CatalogItemView {
                             .into_iter()
                             .map(|requirement| {
                                 let sats::OccupancyRequirement {
+                                    fit_zone,
                                     location,
                                     channel,
                                     order,
                                 } = requirement;
                                 OccupancyRequirement {
+                                    fit_zone: fit_zone.map(|zone| match zone {
+                                        sats::EquipmentFitZone::UpperArm => adventuresim_core::item_catalog::EquipmentFitZone::UpperArm,
+                                        sats::EquipmentFitZone::Elbow => adventuresim_core::item_catalog::EquipmentFitZone::Elbow,
+                                        sats::EquipmentFitZone::Forearm => adventuresim_core::item_catalog::EquipmentFitZone::Forearm,
+                                        sats::EquipmentFitZone::Thigh => adventuresim_core::item_catalog::EquipmentFitZone::Thigh,
+                                        sats::EquipmentFitZone::Knee => adventuresim_core::item_catalog::EquipmentFitZone::Knee,
+                                        sats::EquipmentFitZone::Shin => adventuresim_core::item_catalog::EquipmentFitZone::Shin,
+                                    }),
                                     location: core_equipment_location(location),
                                     channel: core_equipment_channel(channel),
                                     order,
@@ -2166,6 +2175,7 @@ mod tests {
             equipment_placements: vec![sats::PersistedEquipmentPlacement {
                 id: "right_hand".into(),
                 occupancy: vec![sats::OccupancyRequirement {
+                    fit_zone: None,
                     location: sats::EquipmentLocation::RightHand,
                     channel: sats::EquipmentChannel::Held,
                     order: 2,

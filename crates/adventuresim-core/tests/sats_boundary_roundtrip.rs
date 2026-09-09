@@ -76,6 +76,7 @@ fn shared_struct_boundaries_roundtrip_through_sats_serde() {
         ..RoleRequirements::default()
     });
     sats_json_roundtrip(OccupancyRequirement {
+        fit_zone: None,
         location: EquipmentLocation::Head,
         channel: EquipmentChannel::RigidArmor,
         order: 7,
