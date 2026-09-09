@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import argparse
 import json
 import shutil
 import subprocess
@@ -49,7 +50,17 @@ def sync_assets() -> None:
             shutil.copytree(source, ASSET_DIR, dirs_exist_ok=True)
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--keep-name-section",
+        action="store_true",
+        help=(
+            "keep wasm function names, for readable panic traces at the cost "
+            "of roughly doubling the module"
+        ),
+    )
+    args = parser.parse_args(argv)
     wasm_bindgen = shutil.which("wasm-bindgen")
     if wasm_bindgen is None:
         print("Missing wasm-bindgen. Install with: cargo install wasm-bindgen-cli", file=sys.stderr)
@@ -66,10 +77,17 @@ def main() -> int:
         wasm = target_dir() / "wasm32-unknown-unknown" / "release" / "adventuresim-tactical-client.wasm"
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
-        run([
+        bindgen = [
             wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
-            str(wasm),
-        ])
+        ]
+        if not args.keep_name_section:
+            # The name section is about half the module and the browser pays
+            # for it twice: in the download and again when devtools indexes
+            # the module as a source, which is what makes Firefox report the
+            # page as slow. Pass --keep-name-section when a panic trace needs
+            # readable frames.
+            bindgen.extend(["--remove-name-section", "--remove-producers-section"])
+        run([*bindgen, str(wasm)])
         print("Syncing browser assets...")
         sync_assets()
     except (OSError, subprocess.CalledProcessError) as error:
