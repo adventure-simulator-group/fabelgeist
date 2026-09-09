@@ -36,8 +36,8 @@ pub use buildings::{
     SceneWindow, TacticalBuildingPlacement,
 };
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 16;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 32;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 17;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 33;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
 pub const TREE_TRUNK_HEIGHT_METRES: f32 = 5.0;
@@ -1406,7 +1406,7 @@ mod tests {
         let empty_digest = input.digest().unwrap();
         input.distant_buildings.push(DistantBuildingPlacement {
             usage: None,
-            workplace_size: None,
+            service_size: None,
             id: 1,
             archetype: BuildingArchetype::TownHouse,
             seed: 42,

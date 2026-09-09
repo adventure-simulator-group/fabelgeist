@@ -55,7 +55,8 @@ fn resolve_roof_assemblies(
                 let child_id = assemblies[index].id;
                 assemblies[index].parent = Some(parent.0);
                 assemblies[index].phase = RoofPhase::AttachedChild;
-                let enclosure_material = if walls
+                let belfry_top = small_church::belfry_enclosure_top(program, index);
+                let enclosure_material = if belfry_top.is_some() || walls
                     .iter()
                     .any(|wall| wall.material == crate::WallMaterialClass::TimberInfill)
                 {
@@ -63,83 +64,9 @@ fn resolve_roof_assemblies(
                 } else {
                     RoofMaterial::MasonryInfill
                 };
-                let enclosure_supports = assemblies[index].support_nodes.clone();
-                let top = child_recipe.base_height_metres;
+                let top = belfry_top.unwrap_or(child_recipe.base_height_metres);
                 let parent_snapshot = assemblies[0].clone();
-                let parent_height = |point: Vec2| {
-                    roof_surface_height_at(&parent_snapshot, point)
-                        .unwrap_or(parent_recipe.base_height_metres)
-                };
-                for (slot, polygon) in [
-                    vec![
-                        Vec3::new(
-                            child_min.x,
-                            parent_height(Vec2::new(child_min.x, child_min.y)),
-                            child_min.y,
-                        ),
-                        Vec3::new(
-                            child_max.x,
-                            parent_height(Vec2::new(child_max.x, child_min.y)),
-                            child_min.y,
-                        ),
-                        Vec3::new(child_max.x, top, child_min.y),
-                        Vec3::new(child_min.x, top, child_min.y),
-                    ],
-                    vec![
-                        Vec3::new(
-                            child_max.x,
-                            parent_height(Vec2::new(child_max.x, child_max.y)),
-                            child_max.y,
-                        ),
-                        Vec3::new(
-                            child_min.x,
-                            parent_height(Vec2::new(child_min.x, child_max.y)),
-                            child_max.y,
-                        ),
-                        Vec3::new(child_min.x, top, child_max.y),
-                        Vec3::new(child_max.x, top, child_max.y),
-                    ],
-                    vec![
-                        Vec3::new(
-                            child_min.x,
-                            parent_height(Vec2::new(child_min.x, child_max.y)),
-                            child_max.y,
-                        ),
-                        Vec3::new(
-                            child_min.x,
-                            parent_height(Vec2::new(child_min.x, child_min.y)),
-                            child_min.y,
-                        ),
-                        Vec3::new(child_min.x, top, child_min.y),
-                        Vec3::new(child_min.x, top, child_max.y),
-                    ],
-                    vec![
-                        Vec3::new(
-                            child_max.x,
-                            parent_height(Vec2::new(child_max.x, child_min.y)),
-                            child_min.y,
-                        ),
-                        Vec3::new(
-                            child_max.x,
-                            parent_height(Vec2::new(child_max.x, child_max.y)),
-                            child_max.y,
-                        ),
-                        Vec3::new(child_max.x, top, child_max.y),
-                        Vec3::new(child_max.x, top, child_min.y),
-                    ],
-                ]
-                .into_iter()
-                .enumerate()
-                {
-                    assemblies[index].enclosure_faces.push(RoofEnclosureFace {
-                        id: ResolvedItemId(
-                            (0xA_u64 << 60) | (child_id.0 << 16) | 0x4200 | slot as u64,
-                        ),
-                        polygon,
-                        material: enclosure_material,
-                        support_nodes: enclosure_supports.clone(),
-                    });
-                }
+                roof_child_enclosure::append(&mut assemblies[index], &parent_snapshot, child_recipe, parent_recipe.base_height_metres, top, enclosure_material);
                 let cut_id = ResolvedItemId((0xF_u64 << 60) | child_id.0);
                 let bounds = ResolvedBounds {
                     min: Vec3::new(
@@ -163,6 +90,9 @@ fn resolve_roof_assemblies(
                 });
                 let child_supports = assemblies[index].support_nodes.clone();
                 let child_copy = assemblies[index].clone();
+                roof_internal_cut::split_internal_edges(&mut assemblies[0], bounds, geometry);
+                trim_roof_edge_treatments_for_cut(assemblies[0].owner, bounds, geometry);
+                trim_roof_boundary_edges_for_cut(&mut assemblies[0], bounds);
                 let cut_edges =
                     cut_parent_roof_face(&mut assemblies[0], &child_copy, bounds, geometry);
                 let valleys =

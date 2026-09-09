@@ -20,6 +20,7 @@ use crate::{
 /// tile size. Keeping the geometry contract material-agnostic lets plaster,
 /// timber, and floorboards share a mesh compiler without stretching.
 pub const BUILDING_DETAIL_UV_METRES_PER_UNIT: f32 = 2.0;
+mod arches;
 mod materials;
 mod workplace;
 use materials::{material_for_solid, wall_for_solid};
@@ -66,6 +67,29 @@ pub fn compile_static_building_detail(plan: &BuildingPlan) -> BuildingDetail {
     compile_detail(plan, &dynamic_closure_solids)
 }
 
+/// One canonical architectural solid, shared by exact detail and facade LODs.
+pub(crate) fn compile_solid_detail(plan: &BuildingPlan, solid: &ResolvedSolid) -> BuildingDetail {
+    let mut detail = BuildingDetail { meshes: Vec::new() };
+    append_shaped_solid(
+        &mut detail,
+        material_for_solid(plan, solid),
+        solid,
+        wall_for_solid(plan, solid),
+    );
+    detail
+}
+
+fn append_shaped_solid(
+    detail: &mut BuildingDetail,
+    material: BuildingLodMaterial,
+    solid: &ResolvedSolid,
+    wall: Option<&crate::WallAssembly>,
+) {
+    if !arches::append(detail, material, solid, wall) {
+        append_oriented_cuboid(detail, material, solid, wall);
+    }
+}
+
 fn compile_detail(
     plan: &BuildingPlan,
     excluded_solids: &BTreeSet<crate::ResolvedItemId>,
@@ -89,7 +113,9 @@ fn compile_detail(
                 | SolidRole::OpeningHead
                 | SolidRole::OpeningSpandrel
                 | SolidRole::OpeningReveal
-        ) {
+        ) && plan.timber_frame.as_ref().is_some_and(|frame| {
+            wall.is_some_and(|wall| frame.bays.iter().any(|bay| bay.wall == Some(wall.id)))
+        }) {
             // These are recessed structural bearing solids, not a second
             // visible finish. The resolved infill and timber opening frame
             // already own the exposed Fachwerk surface.
@@ -116,7 +142,7 @@ fn compile_detail(
                     })
                 }),
             ),
-            _ => append_oriented_cuboid(&mut detail, material, solid, wall),
+            _ => append_shaped_solid(&mut detail, material, solid, wall),
         }
     }
     for bar in compile_window_bars(plan) {

@@ -18,7 +18,7 @@ impl BuildingProgram {
         edits: &[crate::BuildingEdit],
     ) -> Result<(), crate::GenerationError> {
         if self.archetype == crate::BuildingArchetype::Workplace
-            && (self.workplace_kind().is_none() || self.workplace_size.is_none())
+            && (self.workplace_kind().is_none() || self.service_size.is_none())
         {
             return Err(crate::GenerationError::InvalidWorkplaceProgram);
         }
@@ -70,13 +70,12 @@ impl BuildingProgram {
         Some(roofs)
     }
 
-    /// Select the physical programme before reserving its plot or compiling any representation.
-    pub fn with_workplace_size(mut self, size: WorkplaceSize) -> Self {
+    pub(crate) fn configure_workplace_size(&mut self, size: ServiceBuildingSize) {
         let Some(kind) = self.workplace_kind() else {
-            return self;
+            return;
         };
         self.archetype = crate::BuildingArchetype::Workplace;
-        self.workplace_size = Some(size);
+        self.service_size = Some(size);
         let (width, depth, height, pitch, room) = match kind {
             WorkplaceKind::Barn => (8, 10, 4.2, 48.0, RoomKind::Storage),
             WorkplaceKind::Stable => (7, 10, 3.3, 40.0, RoomKind::Stalls),
@@ -91,7 +90,7 @@ impl BuildingProgram {
             WorkplaceKind::Warehouse => (7, 14, 6.4, 47.0, RoomKind::Storage),
             WorkplaceKind::Dyer => (6, 8, 3.2, 40.0, RoomKind::VatRoom),
             WorkplaceKind::Tannery => (6, 8, 2.8, 32.0, RoomKind::VatRoom),
-            WorkplaceKind::HorseMill => (8, 10, 4.2, 30.0, RoomKind::Workshop),
+            WorkplaceKind::HorseMill => (8, 10, 4.2, 30.0, RoomKind::MillingFloor),
         };
         let depth = depth + size.extra_bays() * 2;
         self.footprint = Footprint::Rectangle { width, depth };
@@ -117,6 +116,5 @@ impl BuildingProgram {
         } else {
             WallStyle::TimberFrame
         };
-        self
     }
 }

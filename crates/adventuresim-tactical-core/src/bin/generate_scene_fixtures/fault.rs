@@ -11,6 +11,7 @@ pub(super) fn fixture() -> Fixture {
         weather: clear(),
         vista: VistaKind::Ordinary,
         buildings: BuildingFixture::Empty,
+        playable_spacing_metres: 12.5,
         landform: Some(TerrainLandformRecipe {
             kind: TerrainLandformKind::FaultScarp,
             surface: TerrainSurfaceRecipe::new(

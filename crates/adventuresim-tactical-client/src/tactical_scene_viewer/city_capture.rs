@@ -317,7 +317,7 @@ mod tests {
         )];
         let distant_city = DistantBuildingPlacement {
             usage: None,
-            workplace_size: None,
+            service_size: None,
             id: 2,
             archetype: BuildingArchetype::FachwerkCottage,
             seed: 7,

@@ -11,6 +11,10 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+#[cfg(test)]
+#[path = "collision/arch_tests.rs"]
+mod arch_tests;
+
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CollisionBounds {
     pub min: Vec3,
@@ -113,7 +117,7 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
     let mut cuboids = selected
         .into_iter()
         .filter_map(|id| solids.get(&id).copied())
-        .map(CollisionCuboid::from_solid)
+        .flat_map(|solid| collision_parts(plan, solid))
         .collect::<Vec<_>>();
     cuboids.extend(
         compile_window_bars(plan)
@@ -129,6 +133,46 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
     );
     let bounds = collision_bounds(plan, &cuboids);
     BuildingCollision { bounds, cuboids }
+}
+
+fn collision_parts(plan: &BuildingPlan, solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
+    let wall = plan
+        .wall_assemblies
+        .iter()
+        .find(|wall| wall.host_solids.contains(&solid.id));
+    let Some(arch) = crate::arch_geometry::ArchGeometry::from_solid(solid, wall) else {
+        return vec![CollisionCuboid::from_solid(solid)];
+    };
+    // Each convex arch section has a conservative box. This keeps the clear
+    // crown traversable while retaining masonry above it, with bounded steps
+    // along the curved intrados rather than one aperture-blocking host box.
+    arch.strips()
+        .into_iter()
+        .map(|strip| {
+            let outward = -strip.depth.normalize();
+            let tangent = Vec3::Y.cross(outward);
+            let local = |point: Vec3| Vec3::new(point.dot(tangent), point.y, point.dot(outward));
+            let mut min = Vec3::splat(f32::INFINITY);
+            let mut max = Vec3::splat(f32::NEG_INFINITY);
+            for point in strip
+                .front
+                .into_iter()
+                .flat_map(|point| [point, point + strip.depth])
+            {
+                min = min.min(local(point));
+                max = max.max(local(point));
+            }
+            let centre = (min + max) * 0.5;
+            CollisionCuboid {
+                source: solid.id,
+                centre: tangent * centre.x + Vec3::Y * centre.y + outward * centre.z,
+                size: max - min,
+                yaw_radians: (-tangent.z).atan2(tangent.x),
+                crossfall_radians: 0.0,
+                longfall_radians: 0.0,
+            }
+        })
+        .collect()
 }
 
 fn collision_bounds(plan: &BuildingPlan, cuboids: &[CollisionCuboid]) -> CollisionBounds {

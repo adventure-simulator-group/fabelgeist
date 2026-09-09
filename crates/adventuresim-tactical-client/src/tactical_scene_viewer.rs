@@ -87,7 +87,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 28;
+const CAPTURE_PROFILE_VERSION: u16 = 29;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
@@ -884,10 +884,7 @@ pub(crate) fn run(
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
-    if matches!(
-        profile,
-        building_review::SHOP_PROFILE | building_review::WORKPLACE_PROFILE
-    ) {
+    if building_review::is_profile(profile) {
         app.add_plugins(building_review::BuildingReviewPlugin);
     }
     if terrain_wireframe {
@@ -1110,6 +1107,7 @@ fn selected_capture_views(
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
+        building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),

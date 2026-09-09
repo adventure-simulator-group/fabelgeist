@@ -296,37 +296,7 @@ fn opening_profile_for(
     crate::OpeningHeadKind,
 ) {
     match opening.kind {
-        OpeningKind::Door => (
-            crate::OpeningUse::Door,
-            crate::OpeningProfile::Rectangular {
-                width_metres: if matches!(
-                    archetype,
-                    BuildingArchetype::CastleGatehouse
-                        | BuildingArchetype::CourtyardCastle
-                        | BuildingArchetype::WalledKeep
-                        | BuildingArchetype::ArtilleryRondelCastle
-                ) {
-                    // Project gate: a 0.78 m service-door pinch is permitted in
-                    // thick inherited masonry where a full 0.90 m route would
-                    // erase the bonded corner pier of a single-cell bay.
-                    0.78
-                } else {
-                    opening.width_metres
-                },
-                height_metres: opening.height_metres,
-            },
-            if matches!(
-                archetype,
-                BuildingArchetype::TownHouse
-                    | BuildingArchetype::HallHouse
-                    | BuildingArchetype::FachwerkCottage
-                    | BuildingArchetype::FachwerkMerchantHouse
-            ) {
-                crate::OpeningHeadKind::TimberLintel
-            } else {
-                crate::OpeningHeadKind::StoneLintel
-            },
-        ),
+        OpeningKind::Door => door_profile::resolve(archetype, opening),
         OpeningKind::Gate => (
             crate::OpeningUse::Gate,
             crate::OpeningProfile::Segmental {
@@ -336,6 +306,16 @@ fn opening_profile_for(
                 intrados_depth_metres: 0.24,
             },
             crate::OpeningHeadKind::SegmentalArch,
+        ),
+        OpeningKind::Window if archetype == BuildingArchetype::ParishChurch => (
+            crate::OpeningUse::Window,
+            crate::OpeningProfile::PointedTwoCentred {
+                width_metres: opening.width_metres,
+                spring_height_metres: opening.height_metres - 0.55,
+                apex_height_metres: opening.height_metres,
+                arc_radius_metres: two_centred_arc_radius(opening.width_metres, 0.55),
+            },
+            crate::OpeningHeadKind::PointedVoussoir,
         ),
         OpeningKind::Window if archetype == BuildingArchetype::Cathedral => (
             crate::OpeningUse::Window,

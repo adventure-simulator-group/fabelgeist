@@ -604,14 +604,7 @@ fn resolve_one_roof(
             (position.y / GRID_UNIT_METRES).round() as i32,
         )
     };
-    let infill_material = if walls
-        .iter()
-        .any(|wall| wall.material == crate::WallMaterialClass::TimberInfill)
-    {
-        RoofMaterial::TimberInfill
-    } else {
-        RoofMaterial::MasonryInfill
-    };
+    let infill_material = roof_enclosure_material::for_walls(walls);
     let mut enclosure_faces = Vec::new();
     if roof.kind == RoofKind::Gable {
         let apex_y = faces

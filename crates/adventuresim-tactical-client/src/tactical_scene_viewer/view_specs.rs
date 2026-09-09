@@ -661,6 +661,8 @@ mod landform;
 pub(super) use environment::ENVIRONMENT_REVIEW_VIEWS;
 pub(super) use landform::LANDFORM_REVIEW_VIEWS;
 mod building_review;
+mod parish;
+pub(super) use parish::PARISH_REVIEW_VIEWS;
 mod city;
 pub(super) use building_review::{SHOP_REVIEW_VIEWS, WORKPLACE_REVIEW_VIEWS};
 mod interiors;

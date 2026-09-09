@@ -42,6 +42,7 @@ fn generate_unchecked(
         &mut resolved_geometry,
     );
     let workplace = crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
+    let small_church = small_church::resolve(program, &mut wall_assemblies, &mut resolved_geometry);
     if program.archetype == BuildingArchetype::Cathedral {
         suppress_cathedral_legacy_storey_walls(
             &mut wall_assemblies,
@@ -66,39 +67,7 @@ fn generate_unchecked(
     } else {
         None
     };
-    if matches!(
-        program.archetype,
-        BuildingArchetype::CastleGatehouse
-            | BuildingArchetype::CourtyardCastle
-            | BuildingArchetype::WalledKeep
-            | BuildingArchetype::ArtilleryRondelCastle
-    ) {
-        resolve_round_tower_wall_assemblies(
-            &towers,
-            &crowns,
-            &mut wall_assemblies,
-            &mut resolved_geometry,
-        );
-        if matches!(
-            program.archetype,
-            BuildingArchetype::CastleGatehouse | BuildingArchetype::CourtyardCastle
-        ) {
-            replace_storey_wall_sources_inside_round_towers(
-                &towers,
-                &mut wall_assemblies,
-                &mut opening_assemblies,
-                &mut resolved_geometry,
-            );
-        }
-        if program.archetype == BuildingArchetype::CastleGatehouse {
-            resolve_gatehouse_tower_chord_bonds(
-                &towers,
-                &projected_defenses,
-                &wall_assemblies,
-                &mut resolved_geometry,
-            );
-        }
-    }
+    fortified_envelope::resolve(program, &towers, &crowns, &projected_defenses, &mut wall_assemblies, &mut opening_assemblies, &mut resolved_geometry);
     let artillery_castle = resolve_artillery_castle(
         program,
         &towers,
@@ -176,6 +145,7 @@ fn generate_unchecked(
         gatehouse_assemblies,
         bartizans,
         church,
+        small_church,
         timber_frame,
         castle_phase: if program.archetype == BuildingArchetype::ArtilleryRondelCastle {
             Some(crate::CastleConstructionPhase::ArtilleryRetrofit1544)

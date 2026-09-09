@@ -31,7 +31,7 @@ fn spawn_resolved_roof(
                 RoofMaterial::ClayTile | RoofMaterial::TimberShingle => &palette.roof,
                 RoofMaterial::Slate | RoofMaterial::Lead => &palette.roof_secondary,
                 RoofMaterial::TimberInfill => &palette.plaster,
-                RoofMaterial::MasonryInfill => &palette.stone,
+                RoofMaterial::MasonryInfill | RoofMaterial::RubbleInfill => &palette.stone,
             }
         };
         let bounds = face.polygon.iter().fold(
@@ -68,7 +68,7 @@ fn spawn_resolved_roof(
         } else {
             match enclosure.material {
                 RoofMaterial::TimberInfill => &palette.plaster,
-                RoofMaterial::MasonryInfill => &palette.stone,
+                RoofMaterial::MasonryInfill | RoofMaterial::RubbleInfill => &palette.stone,
                 RoofMaterial::ClayTile | RoofMaterial::TimberShingle => &palette.roof,
                 RoofMaterial::Slate | RoofMaterial::Lead => &palette.roof_secondary,
             }

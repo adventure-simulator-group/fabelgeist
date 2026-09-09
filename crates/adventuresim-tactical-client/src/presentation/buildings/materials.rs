@@ -8,8 +8,8 @@ use adventuresim_procedural_textures::{
     CLAY_ROOF_TILE_TILE_METRES, CRENELLATION_ALPHA_CUTOFF, DRESSED_STONE_TILE_METRES,
     HANDMADE_BRICK_TILE_METRES, HEWN_OAK_TILE_METRES, IRONWORK_TILE_METRES, LEAD_SHEET_TILE_METRES,
     LIME_PLASTER_REFERENCE_SRGB, LIME_PLASTER_TILE_METRES, PLANK_FLOOR_TILE_METRES,
-    ProceduralTextureAssets, SLATE_ROOF_TILE_METRES, SurfaceTextureSet, TIMBER_SHINGLE_TILE_METRES,
-    WINDOW_GLASS_MATERIAL_CONTRACT,
+    ProceduralTextureAssets, RUBBLE_MASONRY_TILE_METRES, SLATE_ROOF_TILE_METRES, SurfaceTextureSet,
+    TIMBER_SHINGLE_TILE_METRES, WINDOW_GLASS_MATERIAL_CONTRACT,
 };
 use bevy::math::{Affine2, Vec2};
 use bevy::render::render_resource::Face;
@@ -168,6 +168,7 @@ pub(crate) struct TacticalBuildingMaterials {
     appearances: Vec<AppearanceMaterials>,
     brick: Handle<StandardMaterial>,
     stone: Handle<StandardMaterial>,
+    rubble: Handle<StandardMaterial>,
     slate: Handle<StandardMaterial>,
     lead: Handle<StandardMaterial>,
     timber_roof: Handle<StandardMaterial>,
@@ -197,6 +198,7 @@ impl TacticalBuildingMaterials {
                 palette.infill.clone()
             }
             BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => self.brick.clone(),
+            BuildingLodMaterial::Wall(WallMaterialClass::RubbleMasonry) => self.rubble.clone(),
             BuildingLodMaterial::Wall(
                 WallMaterialClass::InternalTimber | WallMaterialClass::InternalMasonry,
             ) => self.interior_plaster.clone(),
@@ -207,6 +209,7 @@ impl TacticalBuildingMaterials {
             BuildingLodMaterial::Roof(RoofMaterial::TimberShingle) => self.timber_roof.clone(),
             BuildingLodMaterial::Roof(RoofMaterial::TimberInfill) => palette.timber.clone(),
             BuildingLodMaterial::Roof(RoofMaterial::MasonryInfill) => self.stone.clone(),
+            BuildingLodMaterial::Roof(RoofMaterial::RubbleInfill) => self.rubble.clone(),
             BuildingLodMaterial::FachwerkBaked => palette.fachwerk_baked.clone(),
             BuildingLodMaterial::Timber => palette.timber.clone(),
             BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
@@ -254,6 +257,10 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
         stone: materials.add(surface_material(
             &procedural_textures.dressed_stone,
             DRESSED_STONE_TILE_METRES,
+        )),
+        rubble: materials.add(surface_material(
+            &procedural_textures.rubble_masonry,
+            RUBBLE_MASONRY_TILE_METRES,
         )),
         slate: materials.add(surface_material(
             &procedural_textures.slate_roof,

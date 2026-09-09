@@ -1,10 +1,10 @@
 //! Working buildings share structural components and reserve their entire working plot.
-use adventuresim_world_schema::settlement_buildings::{BuildingUse, ServiceCapacity};
+use adventuresim_world_schema::settlement_buildings::BuildingUse;
 use bevy::math::{Vec2, Vec3};
 use clap::ValueEnum;
 use serde::{Deserialize, Serialize};
 
-use crate::{BuildingProgram, ResolvedItemId, WallAssemblyId};
+use crate::{BuildingProgram, ResolvedItemId, ServiceBuildingSize, WallAssemblyId};
 
 mod assembly;
 mod brewing;
@@ -116,36 +116,6 @@ impl WorkplaceKind {
     }
 }
 
-/// Capacity bands select larger working footprints without multiplying every recipe per person.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize, ValueEnum)]
-#[serde(rename_all = "snake_case")]
-pub enum WorkplaceSize {
-    Small,
-    Medium,
-    Large,
-}
-
-impl WorkplaceSize {
-    pub fn for_capacity(usage: BuildingUse, capacity: ServiceCapacity) -> Option<Self> {
-        WorkplaceKind::from_use(usage)?;
-        let range = usage.definition().capacity;
-        let span = range.maximum.0 - range.minimum.0 + 1;
-        let band = capacity.0.saturating_sub(range.minimum.0).saturating_mul(3) / span;
-        Some(match band {
-            0 => Self::Small,
-            1 => Self::Medium,
-            _ => Self::Large,
-        })
-    }
-    pub(crate) const fn extra_bays(self) -> u16 {
-        match self {
-            Self::Small => 0,
-            Self::Medium => 1,
-            Self::Large => 2,
-        }
-    }
-}
-
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum WorkplaceMaterial {
     Timber,
@@ -220,7 +190,7 @@ pub struct WorkplacePassage {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct WorkplacePlan {
     pub kind: WorkplaceKind,
-    pub size: WorkplaceSize,
+    pub size: ServiceBuildingSize,
     pub plot_dimensions_metres: Vec2,
     pub walls: Vec<WallAssemblyId>,
     pub parts: Vec<WorkplacePart>,

@@ -62,15 +62,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                 ),
             ));
         }
-        let valid_thickness = match wall.material {
-            WallMaterialClass::TimberInfill => (0.18..=0.24).contains(&wall.thickness_metres),
-            WallMaterialClass::CivilianMasonry => (0.40..=0.70).contains(&wall.thickness_metres),
-            WallMaterialClass::CathedralMasonry => (0.75..=1.10).contains(&wall.thickness_metres),
-            WallMaterialClass::FortifiedMasonry => wall.thickness_metres >= 1.20,
-            WallMaterialClass::InternalTimber => (0.12..=0.18).contains(&wall.thickness_metres),
-            WallMaterialClass::InternalMasonry => (0.20..=0.35).contains(&wall.thickness_metres),
-        };
-        if !valid_thickness {
+        if !wall.has_valid_structural_thickness() {
             issues.push(issue(
                 "wall_profile_thickness",
                 format!(

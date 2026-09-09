@@ -8,6 +8,31 @@ excluded_paths = [
 ]
 
 [[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/small_church.rs"
+reason = "Authored compact chapel and parish nave/chancel dimension families."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/small_church/programme.rs"
+reason = "Authored service-size programmes and canonical nave, chancel and bell-turret roof recipes."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/small_church/storey.rs"
+reason = "Authored church bay rhythm, portal and genuine open connection to the chancel."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/small_church/fittings.rs"
+reason = "Authored floor, chancel bearing and grounded bell-frame dimensions."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/parish.rs"
+reason = "Six deterministic capacity review placements built through the canonical service programme API."
+
+[[scopes]]
 kind = "fixture"
 path = "crates/adventuresim-core/src/tactical_fixture.rs"
 reason = "This module supplies explicit deterministic tactical fixture data."

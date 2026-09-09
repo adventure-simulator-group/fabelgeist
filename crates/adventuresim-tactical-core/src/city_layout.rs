@@ -468,3 +468,6 @@ fn signed_sample(sample: u64) -> f32 {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod capacity_tests;

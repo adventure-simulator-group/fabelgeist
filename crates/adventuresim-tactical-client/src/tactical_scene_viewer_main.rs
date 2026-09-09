@@ -48,6 +48,8 @@ enum CaptureProfile {
     ShopSignReview,
     /// Working-building exteriors, interiors and production distance LODs.
     WorkplaceReview,
+    /// Capacity-scaled chapel and parish church architectural review.
+    ParishReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -153,6 +155,7 @@ fn main() {
             CaptureProfile::CityReview => "city-review",
             CaptureProfile::ShopSignReview => "shop-sign-review",
             CaptureProfile::WorkplaceReview => "workplace-review",
+            CaptureProfile::ParishReview => "parish-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",
@@ -164,6 +167,30 @@ fn main() {
 #[cfg(all(test, not(target_family = "wasm")))]
 mod tests {
     use super::*;
+
+    #[test]
+    fn authored_building_review_profiles_are_available_from_the_cli() {
+        let fixtures =
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../assets/tactical-scenes");
+        let mut reviews = 0;
+        for entry in std::fs::read_dir(fixtures).unwrap() {
+            let name = entry.unwrap().file_name();
+            let name = name.to_str().unwrap();
+            let Some(profile) = name.strip_suffix(".review.json") else {
+                continue;
+            };
+            Args::try_parse_from([
+                "tactical-scene-viewer",
+                "--scene-input",
+                profile,
+                "--profile",
+                profile,
+            ])
+            .unwrap_or_else(|error| panic!("authored review {profile} is inaccessible: {error}"));
+            reviews += 1;
+        }
+        assert!(reviews > 0, "building review fixtures must be present");
+    }
 
     #[test]
     fn landform_review_profile_parses_as_a_typed_cli_value() {

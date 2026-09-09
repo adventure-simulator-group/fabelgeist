@@ -1,7 +1,7 @@
 //! Reserve service lots before filling remaining frontage with residents.
 use super::*;
 use adventuresim_building_generator::{
-    BuildingArchetype, BuildingProgram, WorkplaceSize, settlement_archetype,
+    BuildingArchetype, BuildingProgram, ServiceBuildingSize, settlement_archetype,
 };
 use adventuresim_world_schema::settlement_buildings::BuildingDistrict;
 
@@ -22,9 +22,9 @@ impl CityBuildingLot {
             .unwrap_or_else(|| self.house_class.archetype())
     }
 
-    pub fn workplace_size(self) -> Option<adventuresim_building_generator::WorkplaceSize> {
+    pub fn service_size(self) -> Option<adventuresim_building_generator::ServiceBuildingSize> {
         self.service.and_then(|request| {
-            adventuresim_building_generator::WorkplaceSize::for_capacity(
+            adventuresim_building_generator::ServiceBuildingSize::for_capacity(
                 request.usage,
                 request.capacity,
             )
@@ -63,8 +63,8 @@ pub(super) fn place_services(
             Some(request.usage),
             0,
         );
-        if let Some(size) = WorkplaceSize::for_capacity(request.usage, request.capacity) {
-            program = program.with_workplace_size(size);
+        if let Some(size) = ServiceBuildingSize::for_capacity(request.usage, request.capacity) {
+            program = program.with_service_size(size);
         }
         let footprint = program.plot_dimensions_metres();
         let mut choices = candidates

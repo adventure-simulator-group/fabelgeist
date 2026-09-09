@@ -11,7 +11,7 @@ VIEWER = ROOT / "crates/adventuresim-tactical-client/src/tactical_scene_viewer"
 
 class BuildingReviewBoundaryTests(unittest.TestCase):
     def test_review_inputs_reference_existing_buildings_and_unique_views(self):
-        for name in ("shop-sign-review", "workplace-review"):
+        for name in ("shop-sign-review", "workplace-review", "parish-review"):
             scene = json.loads((ROOT / f"assets/tactical-scenes/{name}.json").read_text())
             review = json.loads((ROOT / f"assets/tactical-scenes/{name}.review.json").read_text(encoding="utf-8"))
             ids = {building["id"] for building in scene["buildings"]}

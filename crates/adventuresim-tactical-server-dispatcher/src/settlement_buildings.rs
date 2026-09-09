@@ -107,7 +107,7 @@ pub fn place_settlement_buildings(
             SERVICE_RECIPE_VARIANTS
         };
         let variant = selection % variants;
-        let size = lot.workplace_size();
+        let size = lot.service_size();
         let key = (archetype.slug(), usage, variant, size);
         if let std::collections::btree_map::Entry::Vacant(entry) = palette.entry(key) {
             let recipe_seed = mix64(
@@ -138,7 +138,7 @@ pub fn place_settlement_buildings(
         } else {
             layout.distant.push(DistantBuildingPlacement {
                 usage: program.usage,
-                workplace_size: program.workplace_size,
+                service_size: program.service_size,
                 id: lot.id,
                 archetype: program.archetype,
                 seed: program.seed,
