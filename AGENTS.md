@@ -44,6 +44,15 @@
   greenfield reference-audit process.
 - Keep documented behavior, architecture, and developer workflow synchronized
   with implementation changes.
+- When a task explicitly asks for code that implements or materially derives
+  from a paper, article, or external reference implementation, record its
+  provenance beside the narrowest code unit that owns the adaptation. Identify
+  the source unambiguously and include a stable canonical link when one exists
+  (prefer a DOI, arXiv URL, standard identifier, or pinned revision). Briefly
+  state what was adapted and any intentional deviations. Cite once per coherent
+  implementation, not at every call site. If the explanation or bibliography
+  is substantial, put it in a colocated Markdown file and point to it from a
+  module-level comment. The wiki must not be the sole location of the citation.
 - For wiki prose, first follow
   `wiki/contributing/wiki-writing.md`, which defines the project's editorial
   voice.
