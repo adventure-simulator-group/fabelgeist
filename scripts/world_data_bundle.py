@@ -65,7 +65,7 @@ NOTICE_TEMPLATES = {
     "copernicus-dem-glo30": "Copernicus DEM GLO-30 — retain the prescribed Copernicus/WorldDEM production credit and European Commission/ESA no-liability notice; do not imply endorsement.\n",
     "clms-forest-2018": "Copernicus Forest 2018 — credit the European Union/Copernicus Land Monitoring Service, identify clipping/classification modifications, and do not imply endorsement.\n",
     "jung-european-pnv-v1-1": "Jung/IIASA European PNV v1.1 — CC BY 4.0. Retain attribution and https://creativecommons.org/licenses/by/4.0/; identify gameplay conversion modifications.\n",
-    "eu-trees4f-v2": "EU-Trees4F v2 — CC0 1.0. Retain the dataset and publication citation despite CC0: https://doi.org/10.6084/m9.figshare.17032328.\n",
+    "eu-trees4f-v2": "EU-Trees4F v2 — CC0 1.0. Retain the dataset and publication citations despite CC0: https://doi.org/10.6084/m9.figshare.17032328 and https://doi.org/10.1038/s41597-022-01128-5.\n",
     "soilgrids-europe-prepared": "ISRIC SoilGrids prepared European subset — CC BY 4.0. Retain attribution, https://creativecommons.org/licenses/by/4.0/, retrieval provenance, and preparation modifications.\n",
     "egdi-surface-geology-1m": "EGDI Surface Geology — CC BY 4.0 plus Maltese contribution/disclaimer. Retain attribution, https://creativecommons.org/licenses/by/4.0/, and identify gameplay conversion modifications.\n",
     "hike-fault-db-v17b": "HIKE European Fault Database v17b — contributor-specific terms apply. Retain HIKE, EGDI, BGR, and contributing-survey attribution; identify clipping and terrain-generation modifications; do not present the result as seismic hazard data.\n",

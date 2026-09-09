@@ -5,6 +5,11 @@
 //! wear are geometry- or placement-mask responsibilities. This generic tile is
 //! only the quiet oxidized material within a sheet and must not be substituted
 //! for forged iron.
+//!
+//! Original design evidence:
+//! prior-art/lead-sheet/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

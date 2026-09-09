@@ -1,4 +1,8 @@
 //! Authored 1544 Central German building catchments and siting preferences.
+//!
+//! Historical typology and evidence boundaries are recorded in
+//! research/city-building-variety-1544.md. Its sources support the inventory and
+//! siting rules; the capacity ranges remain gameplay tuning, not census values.
 use super::CapacityRange;
 use crate::{SettlementService, StockCategory};
 use serde::{Deserialize, Serialize};

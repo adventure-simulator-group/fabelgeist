@@ -1,4 +1,9 @@
 //! Regular early-modern ashlar with chipped, beveled edges, sparse cavities, and granular lime joints.
+//!
+//! Original design evidence:
+//! prior-art/dressed-stone/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

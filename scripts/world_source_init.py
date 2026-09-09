@@ -191,7 +191,7 @@ def canonical_manifest(contract: Contract, files: list[dict[str, object]], statu
     if reason is not None:
         result["blocked_reason"] = reason
     if contract.source == "eu-trees4f-v2":
-        result["distribution_note"] = "Identity pins the exact JRC ENS_CLIM archive; byte equivalence to a Figshare-hosted archive has not been established. Retain the EU-Trees4F v2 citation and CC0 notice."
+        result["distribution_note"] = "Identity pins the exact JRC ENS_CLIM archive; byte equivalence to a Figshare-hosted archive has not been established. Retain the EU-Trees4F v2 dataset (doi:10.6084/m9.figshare.17032328), data descriptor (doi:10.1038/s41597-022-01128-5), and CC0 notice."
     return result
 
 

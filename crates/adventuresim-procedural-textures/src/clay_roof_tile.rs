@@ -5,6 +5,11 @@
 //! profiles. Each visible course overlaps the course below it; the rounded
 //! tails and recessed contacts remain legible without turning every tile into
 //! a modern, uniformly bevelled extrusion.
+//!
+//! Original design evidence:
+//! prior-art/clay-roof-tile/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

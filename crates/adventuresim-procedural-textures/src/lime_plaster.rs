@@ -1,3 +1,10 @@
+//! Procedural lime-plaster surface.
+//!
+//! Original design evidence:
+//! prior-art/lime-plaster/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
+
 use super::*;
 
 pub const LIME_PLASTER_TEXTURE_SIZE: u32 = 1024;

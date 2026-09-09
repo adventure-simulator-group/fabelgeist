@@ -3,6 +3,11 @@
 //! The generated maps describe imperfections in the glass itself. Lead cames,
 //! wooden frames, latches, and bars remain geometry or separate masks: baking
 //! them here would make the material repeat structural members within a pane.
+//!
+//! Original design evidence:
+//! prior-art/window-glass/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
 

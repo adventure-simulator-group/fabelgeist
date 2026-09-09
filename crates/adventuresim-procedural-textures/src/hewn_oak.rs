@@ -1,4 +1,9 @@
 //! Two-color, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
+//!
+//! Original design evidence:
+//! prior-art/hewn-oak/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

@@ -1,4 +1,10 @@
 //! EU-Trees4F v2 current-climate habitat sampling.
+//!
+//! Dataset and CC0 record: <https://doi.org/10.6084/m9.figshare.17032328>.
+//! Data descriptor: Mauri et al., "EU-Trees4F, a dataset on the future
+//! distribution of European tree species",
+//! <https://doi.org/10.1038/s41597-022-01128-5>.
+//! This importer consumes only the pinned JRC current-climate ensemble archive.
 
 use std::{
     collections::{BTreeMap, BTreeSet},

@@ -114,7 +114,9 @@ fn baseline_weight(class: SecondaryMotionClass, role: BoneRole) -> f32 {
         SecondaryMotionClass::Relaxed if arm => 0.36,
         SecondaryMotionClass::Moving if distal_arm => 0.40,
         SecondaryMotionClass::Moving if arm => 0.32,
-        // Overgrowth stiffens ordinary arms as running speed rises.
+        // Overgrowth's aschar.as makes arm physics stiffer as velocity approaches
+        // maximum speed. This table retains that semantic split, not its formula:
+        // https://github.com/WolfireGames/overgrowth/blob/245fe4828631c84c0023d29d1525f5716ccb6106/Data/Scripts/aschar.as
         SecondaryMotionClass::Running if distal_arm => 0.34,
         SecondaryMotionClass::Running if arm => 0.26,
         SecondaryMotionClass::Airborne if distal_arm => 0.52,

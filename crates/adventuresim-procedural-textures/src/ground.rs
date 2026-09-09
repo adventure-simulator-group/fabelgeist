@@ -1,3 +1,12 @@
+//! Procedural forest-ground surfaces.
+//!
+//! Original design evidence:
+//! - prior-art/forest-soil/prior-art.md
+//! - prior-art/forest-litter/prior-art.md
+//!
+//! Those reports record research snapshots; this module and its tests define
+//! current behavior.
+
 use super::*;
 
 fn soil_random(

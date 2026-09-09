@@ -1,4 +1,9 @@
 //! Irregular, gravity-laid local fieldstone masonry with recessed lime mortar.
+//!
+//! Original design evidence:
+//! prior-art/rubble-masonry/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

@@ -1,4 +1,9 @@
 //! Weathered earth-and-lime daub with rare, localized exposed wattle.
+//!
+//! Original design evidence:
+//! prior-art/wattle-and-daub/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{
     asset::Assets,

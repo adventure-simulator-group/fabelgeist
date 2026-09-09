@@ -1,3 +1,12 @@
+//! Multi-tier tactical grass geometry.
+//!
+//! The high/low blade geometry and strategy of replacing distant grass with
+//! cheaper representations are informed by Eric Wohllaib's GDC 2021 talk,
+//! "Procedural Grass in Ghost of Tsushima":
+//! <https://gdcvault.com/play/1027033/>.
+//! Fabelgeist uses its own ribbon topologies, tuft-impostor geometry, continuous
+//! ecological coverage, material paths, dithered transitions, and distances.
+
 use adventuresim_tactical_core::prelude::{
     EnvironmentalSample, GroundCover, SceneEnvironment, SceneGround, SceneTerrain, TacticalSurface,
 };

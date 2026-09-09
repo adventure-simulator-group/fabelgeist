@@ -227,6 +227,15 @@ pub fn armor_tiers(equipment: &impl PlayerEquipment) -> (bool, bool, bool, bool)
     // alternate lighter loadout. Three-quarter armor adds complete arm defenses
     // and thigh/knee defenses. Until the anatomy distinguishes upper and lower
     // limbs, high per-region coverage is the proxy for a head-to-toe harness.
+    // Later collection records document these broad silhouettes rather than an
+    // exact 1544 German loadout: Art Institute of Chicago, "Half Armor for a
+    // Pikeman Officer" (https://archive.artic.edu/arms-and-armor/artwork/106286),
+    // and The Metropolitan Museum of Art, "Armor with Matching Shaffron and
+    // Saddle Plates" (https://www.metmuseum.org/art/collection/search/35372).
+    // The latter contrasts full heavy-cavalry armor with cuirassiers armored only
+    // to the knees.
+    // The shield alternative and regional coverage threshold are gameplay
+    // abstractions.
     let quarter = (cuirass && helmet) || shield;
     let half = cuirass && helmet && (both_legs || shield);
     let three_quarter = cuirass && helmet && both_arms && both_legs;

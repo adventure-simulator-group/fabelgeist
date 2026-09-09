@@ -1,3 +1,10 @@
+//! Procedural bark and related surface fields.
+//!
+//! Oak-bark design evidence:
+//! prior-art/oak-bark/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
+
 use super::*;
 
 pub(super) const OAK_BARK_TILE_METRES: f32 = 0.5;

@@ -4,6 +4,11 @@
 //! (merlon plus embrasure), while V spans the complete breastwork and merlon
 //! height. Close, collidable crowns remain geometry owned by the building
 //! generator; this mask is only a stable silhouette substitute for shell LODs.
+//!
+//! Original design evidence:
+//! prior-art/crenellation-mask/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{
     asset::{Assets, RenderAssetUsages},

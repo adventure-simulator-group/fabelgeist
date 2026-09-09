@@ -405,7 +405,7 @@ pub(crate) fn trees(archive: &Path) -> Result<SourceProvenance> {
         Some("10.6084/m9.figshare.17032328"),
         SourceLicense::Cc0_1_0,
         &[
-            "Cite the EU-Trees4F v2 Figshare dataset and associated publication even though the data are dedicated under CC0 1.0.",
+            "Cite the EU-Trees4F v2 Figshare dataset and Mauri et al. data descriptor (doi:10.1038/s41597-022-01128-5) even though the data are dedicated under CC0 1.0.",
         ],
         SourceAccess::AnonymousDownload,
         SourceSpatialCoverage::Geographic {
@@ -419,7 +419,7 @@ pub(crate) fn trees(archive: &Path) -> Result<SourceProvenance> {
         SourceContentIdentity::RawSha256 {
             sha256: sha256_file(archive)?,
         },
-        "[EU-Trees4F v2](https://doi.org/10.6084/m9.figshare.17032328), CC0 with citation retained.",
+        "[EU-Trees4F v2](https://doi.org/10.6084/m9.figshare.17032328), CC0 with citation retained; [Mauri et al., *EU-Trees4F, a dataset on the future distribution of European tree species*](https://doi.org/10.1038/s41597-022-01128-5).",
     ))
 }
 

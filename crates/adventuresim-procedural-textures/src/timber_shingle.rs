@@ -4,6 +4,11 @@
 //! courses. Longitudinal split fibres follow the roof pitch; shared irregular
 //! edges and sparse tail checks avoid both modern sawn uniformity and a field
 //! of inflated individual tiles.
+//!
+//! Original design evidence:
+//! prior-art/timber-shingle/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

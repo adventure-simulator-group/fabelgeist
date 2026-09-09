@@ -1,3 +1,16 @@
+//! Species-specific leaf preset provenance.
+//!
+//! Original design evidence:
+//! - prior-art/white-oak-leaf/prior-art.md
+//! - prior-art/dry-white-oak-leaf/prior-art.md
+//! - prior-art/hazel-leaf/prior-art.md
+//! - prior-art/blackthorn-leaf/prior-art.md
+//! - prior-art/hawthorn-leaf/prior-art.md
+//! - prior-art/beech-leaf/prior-art.md
+//!
+//! Those reports record research snapshots; this module and its tests define
+//! current behavior.
+
 use super::{LeafShape, relief::LeafRelief};
 use crate::LeafSpecies;
 use serde::{Deserialize, Serialize};

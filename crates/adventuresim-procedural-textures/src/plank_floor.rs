@@ -3,6 +3,11 @@
 //! The recipe assumes unfinished or lightly waxed local oak laid over joists.
 //! Boards run along texture V; butt joints and the few visible forged nails are
 //! constrained to an implicit 0.6 m joist spacing.
+//!
+//! Original design evidence:
+//! prior-art/plank-floor/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
 use fabelgeist_determinism::inclusive_unit_f32;

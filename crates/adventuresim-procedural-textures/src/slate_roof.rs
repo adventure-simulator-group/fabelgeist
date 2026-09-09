@@ -5,6 +5,11 @@
 //! covering: gently rising courses of irregularly dressed scales with clipped heels,
 //! narrow recessed side joints, and shallow cleft planes rather than clay-tile
 //! curvature or modern machine-cut regularity.
+//!
+//! Original design evidence:
+//! prior-art/slate-roof/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
 
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
 use fabelgeist_determinism::inclusive_unit_f32;

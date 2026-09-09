@@ -1,3 +1,10 @@
+//! Procedural rock surface.
+//!
+//! Original design evidence:
+//! prior-art/rock/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
+
 use super::*;
 
 pub const ROCK_TEXTURE_SIZE: u32 = 1024;

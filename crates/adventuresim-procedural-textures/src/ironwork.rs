@@ -1,5 +1,11 @@
 //! Seamless forged iron: overlapping die faces, clustered scale loss and pitting.
 //! U follows the long forging direction. Fasteners and object-edge wear belong to meshes.
+//!
+//! Original design evidence:
+//! prior-art/ironwork/prior-art.md.
+//! That report records a research snapshot; this module and its tests define
+//! current behavior.
+
 use super::{SurfaceTextureSet, image_rgba_mipped, palette::albedo_image};
 use bevy::{asset::Assets, image::Image, math::Vec3};
 
