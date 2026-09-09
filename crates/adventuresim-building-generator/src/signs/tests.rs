@@ -38,6 +38,25 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
         let plan = generate(&program).unwrap();
         let site =
             SignSite::for_plan(&plan).unwrap_or_else(|| panic!("{usage:?} has no sign site"));
+        assert!(site.mounting.is_supported(&plan, site.outward));
+        let mut floating = site.mounting;
+        floating.contact += site.outward * 0.1;
+        assert!(
+            !floating.is_supported(&plan, site.outward),
+            "partial or absent plate support must fail"
+        );
+        let support = plan
+            .resolved_geometry
+            .solids
+            .iter()
+            .find(|solid| solid.id == site.mounting.support)
+            .unwrap();
+        let mut partial = site.mounting;
+        partial.contact.y = support.centre.y + super::site::solid_extent(support).y;
+        assert!(
+            !partial.is_supported(&plan, site.outward),
+            "a plate half hanging off its support must fail"
+        );
         for mount in [SignMount::Wall, SignMount::Projecting] {
             assert!(
                 site.supports(&plan, mount),

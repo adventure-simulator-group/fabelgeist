@@ -26,6 +26,7 @@ use bevy::{
 };
 use serde::Serialize;
 
+mod building_review;
 mod buildings;
 mod capture_state;
 mod capture_visibility;
@@ -86,7 +87,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 25;
+const CAPTURE_PROFILE_VERSION: u16 = 26;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
@@ -883,6 +884,12 @@ pub(crate) fn run(
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
+    if matches!(
+        profile,
+        building_review::SHOP_PROFILE | building_review::WORKPLACE_PROFILE
+    ) {
+        app.add_plugins(building_review::BuildingReviewPlugin);
+    }
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
             .insert_resource(TerrainWireframeCaptureState::new(wireframe_output));
@@ -924,7 +931,7 @@ pub(crate) fn run(
     } else if scene_performance_benchmarking {
         app.add_systems(Last, benchmark_scene_performance);
     } else {
-        app.add_systems(Last, capture_views);
+        app.add_systems(Last, capture_views.run_if(building_review::ready));
     }
     let exit = app.run();
     if exit != AppExit::Success {
@@ -1101,6 +1108,8 @@ fn selected_capture_views(
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
         INTERIOR_REVIEW_PROFILE => INTERIOR_REVIEW_VIEWS.as_slice(),
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
+        building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
+        building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
@@ -1757,7 +1766,10 @@ fn setup_scene(
 
     let building_interior_cameras = interior_capture::capture_cameras(&buildings, &profile);
     let city_exterior_cameras =
-        city_capture::capture_cameras(&buildings, &input.distant_buildings, &profile);
+        building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
+            .unwrap_or_else(|| {
+                city_capture::capture_cameras(&buildings, &input.distant_buildings, &profile)
+            });
     spawn_tactical_buildings(&mut commands, buildings);
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),

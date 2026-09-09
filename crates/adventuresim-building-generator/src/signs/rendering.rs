@@ -14,7 +14,6 @@ pub const LETTERING_FADE_START_METRES: f32 = 35.0;
 pub const LETTERING_FADE_END_METRES: f32 = 45.0;
 const MAX_CACHED_SIGN_TEXTURES: usize = 64;
 const BRACKET_WIDTH_METRES: f32 = 0.045;
-const HANGER_HEIGHT_METRES: f32 = 0.12;
 
 #[derive(Clone)]
 pub struct SignRenderPart {
@@ -117,12 +116,14 @@ impl ShopSignRenderCache {
                 lettering: false,
             })
         };
-        let top = site.attachment + Vec3::Y * (board.size.y * 0.5 + HANGER_HEIGHT_METRES);
+        let top = site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES;
+        let hanger_height = top.y - board.centre.y - board.size.y * 0.5;
         let bracket_rotation = Quat::from_rotation_arc(Vec3::Z, site.outward);
-        let length = match sign.mount {
-            SignMount::Wall => 0.15,
-            SignMount::Projecting => SIGN_MAX_PROJECTION_METRES,
-        };
+        let length = (board.centre - top).dot(site.outward)
+            + match sign.mount {
+                SignMount::Wall => 0.0,
+                SignMount::Projecting => board.size.x * 0.5 + BRACKET_WIDTH_METRES,
+            };
         metal(
             top + site.outward * length * 0.5,
             Vec3::new(BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES, length),
@@ -130,23 +131,27 @@ impl ShopSignRenderCache {
         );
         if sign.mount == SignMount::Wall {
             metal(
-                board.centre + Vec3::Y * (board.size.y * 0.5 + HANGER_HEIGHT_METRES),
+                board.centre + Vec3::Y * (board.size.y * 0.5 + hanger_height),
                 Vec3::new(board.size.x, BRACKET_WIDTH_METRES, BRACKET_WIDTH_METRES),
                 board.rotation,
             );
         }
         metal(
-            top - Vec3::Y * 0.12,
-            Vec3::new(0.09, 0.32, 0.04),
+            site.mounting.contact + site.outward * MOUNTING_PLATE_THICKNESS_METRES * 0.5,
+            Vec3::new(
+                site.mounting.size.x,
+                site.mounting.size.y,
+                MOUNTING_PLATE_THICKNESS_METRES,
+            ),
             bracket_rotation,
         );
         for side in [-0.35, 0.35] {
             let position = board.centre
                 + board.rotation * Vec3::X * (board.size.x * side)
-                + Vec3::Y * (board.size.y * 0.5 + HANGER_HEIGHT_METRES * 0.5);
+                + Vec3::Y * (board.size.y * 0.5 + hanger_height * 0.5);
             metal(
                 position,
-                Vec3::new(0.025, HANGER_HEIGHT_METRES, 0.025),
+                Vec3::new(0.025, hanger_height, 0.025),
                 Quat::IDENTITY,
             );
         }
@@ -194,6 +199,11 @@ mod tests {
             attachment: Vec3::new(0.0, 2.7, 0.0),
             outward: Vec3::NEG_Z,
             panel_size: Vec2::new(1.35, 0.62),
+            mounting: SignMounting {
+                contact: Vec3::new(0.0, 3.13, 0.0),
+                size: Vec2::new(0.09, 0.32),
+                support: crate::ResolvedItemId(1),
+            },
         };
         let mut sign = ShopSign::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
         sign.mount = SignMount::Projecting;

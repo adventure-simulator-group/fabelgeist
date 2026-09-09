@@ -63,7 +63,7 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
-pub(crate) use buildings::PresentedBuildingMesh;
+pub(crate) use buildings::{PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials};
 pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,

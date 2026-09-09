@@ -11,6 +11,7 @@ mod signs;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
+pub(crate) use signs::PresentedSign;
 
 const DETAIL_LOD_END_START_METRES: f32 = 55.0;
 const DETAIL_LOD_END_END_METRES: f32 = 70.0;
@@ -66,16 +67,19 @@ struct CompiledBuildingLevels {
 #[derive(Default, Resource)]
 pub(in crate::presentation) struct TacticalBuildingMeshCache(Vec<CompiledBuildingLevels>);
 
-pub(in crate::presentation) fn on_scene_building_added(
+fn on_scene_building_added(
     event: On<Add, SceneBuilding>,
     mut commands: Commands,
-    buildings: Query<&SceneBuilding>,
+    buildings: Query<(
+        &SceneBuilding,
+        Option<&adventuresim_building_generator::signs::ShopSign>,
+    )>,
     mut meshes: ResMut<Assets<Mesh>>,
     materials: Res<TacticalBuildingMaterials>,
     mut cache: ResMut<TacticalBuildingMeshCache>,
     mut signs: signs::SignAssets,
 ) -> Result {
-    let building = buildings.get(event.entity)?;
+    let (building, authored_sign) = buildings.get(event.entity)?;
     let compiled = cached_building_levels(&mut cache, &building.program, true, &mut meshes)?;
     commands
         .entity(event.entity)
@@ -88,12 +92,12 @@ pub(in crate::presentation) fn on_scene_building_added(
                 BuildingPresentationScope::Playable,
                 &materials,
             );
-            signs.spawn(parent, building.id, &compiled, &mut meshes);
+            signs.spawn(parent, building.id, authored_sign, &compiled, &mut meshes);
         });
     Ok(())
 }
 
-pub(in crate::presentation) fn on_scene_vista_buildings(
+fn on_scene_vista_buildings(
     bundle: On<SceneVistaBundle>,
     mut commands: Commands,
     existing: Query<Entity, With<DistantCityBuildingPresentation>>,
@@ -129,7 +133,7 @@ pub(in crate::presentation) fn on_scene_vista_buildings(
                     BuildingPresentationScope::DistantCity,
                     &materials,
                 );
-                signs.spawn(parent, placement.id, &compiled, &mut meshes);
+                signs.spawn(parent, placement.id, None, &compiled, &mut meshes);
             });
     }
     Ok(())

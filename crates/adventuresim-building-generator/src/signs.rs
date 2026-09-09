@@ -6,7 +6,10 @@ use adventuresim_world_schema::{
 use bevy::math::{Quat, Vec2, Vec3};
 use clap::ValueEnum;
 use fabelgeist_determinism::mix64;
+use serde::{Deserialize, Serialize};
 
+mod mounting;
+pub use mounting::{MOUNTING_PLATE_THICKNESS_METRES, SignMounting};
 mod site;
 pub use site::SignSite;
 #[cfg(feature = "sign-render")]
@@ -26,7 +29,7 @@ pub const SIGN_MAX_PROJECTION_METRES: f32 = 1.5;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub struct EstablishmentId(pub u64);
 
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
 pub struct ShopName {
     pub proprietor: String,
     pub trade: String,
@@ -89,24 +92,28 @@ pub const fn shop_trade(usage: BuildingUse) -> Option<&'static str> {
     })
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, ValueEnum)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, ValueEnum, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum SignMount {
     Wall,
     Projecting,
 }
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Hash, ValueEnum)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Hash, ValueEnum, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum SignFont {
     #[default]
     GrenzeGotisch,
     UnifrakturCook,
 }
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
 pub enum SignFinish {
     PalePaint,
     DarkWood,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, bevy::prelude::Component, Serialize, Deserialize)]
+#[component(immutable)]
 pub struct ShopSign {
     pub name: ShopName,
     pub mount: SignMount,

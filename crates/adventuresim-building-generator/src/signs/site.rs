@@ -19,6 +19,7 @@ pub struct SignSite {
     pub attachment: Vec3,
     pub outward: Vec3,
     pub panel_size: Vec2,
+    pub mounting: SignMounting,
 }
 
 impl SignSite {
@@ -68,35 +69,24 @@ impl SignSite {
         if height < MIN_PANEL_HEIGHT_METRES {
             return None;
         }
-        let mut site = Self {
+        let outward = Vec3::new(outward.x, 0.0, outward.y);
+        let panel_size = Vec2::new(PANEL_WIDTH_METRES, height);
+        let attachment = facade_attachment(
+            plan,
+            Vec3::new(point.x, bottom + height * 0.5, point.y),
+            outward,
+            panel_size,
+        );
+        let mounting = SignMounting::find(plan, attachment, outward, panel_size)?;
+        let attachment =
+            attachment + outward * (mounting.contact - attachment).dot(outward).max(0.0);
+        Some(Self {
             wall: wall_id,
-            attachment: Vec3::new(point.x, bottom + height * 0.5, point.y),
-            outward: Vec3::new(outward.x, 0.0, outward.y),
-            panel_size: Vec2::new(PANEL_WIDTH_METRES, height),
-        };
-        site.seat_on_facade(plan);
-        Some(site)
-    }
-
-    /// Seat the bracket on visible timberwork or masonry rather than the abstract wall plane.
-    fn seat_on_facade(&mut self, plan: &BuildingPlan) {
-        let tangent = Vec3::Y.cross(self.outward);
-        let mut projection = 0.0_f32;
-        for solid in &plan.resolved_geometry.solids {
-            let extent = solid_extent(solid);
-            let offset = solid.centre - self.attachment;
-            let side = offset.dot(tangent).abs();
-            if side > self.panel_size.x * 0.5 + extent.dot(tangent.abs())
-                || offset.y.abs() > self.panel_size.y * 0.5 + BRACKET_HEADROOM_METRES + extent.y
-            {
-                continue;
-            }
-            let face = offset.dot(self.outward) + extent.dot(self.outward.abs());
-            if (0.0..=MAX_FACADE_PROJECTION_METRES).contains(&face) {
-                projection = projection.max(face);
-            }
-        }
-        self.attachment += self.outward * projection;
+            attachment,
+            outward,
+            panel_size,
+            mounting,
+        })
     }
 
     pub fn board(self, mount: SignMount) -> SignBoard {
@@ -124,7 +114,9 @@ impl SignSite {
             + (board.rotation * Vec3::Z).abs() * half.z;
         let min = board.centre - extent;
         let max = board.centre + extent;
-        if min.y < SIGN_PEDESTRIAN_CLEARANCE_METRES {
+        if min.y < SIGN_PEDESTRIAN_CLEARANCE_METRES
+            || !self.mounting.is_supported(plan, self.outward)
+        {
             return false;
         }
         !plan.resolved_geometry.solids.iter().any(|solid| {
@@ -134,8 +126,42 @@ impl SignSite {
     }
 }
 
-fn solid_extent(solid: &crate::ResolvedSolid) -> Vec3 {
-    let rotation = Quat::from_rotation_y(solid.yaw_radians);
+/// Keep the panel clear of visible timberwork and masonry.
+fn facade_attachment(
+    plan: &BuildingPlan,
+    attachment: Vec3,
+    outward: Vec3,
+    panel_size: Vec2,
+) -> Vec3 {
+    let tangent = Vec3::Y.cross(outward);
+    let mut projection = 0.0_f32;
+    for solid in &plan.resolved_geometry.solids {
+        let extent = solid_extent(solid);
+        let offset = solid.centre - attachment;
+        let side = offset.dot(tangent).abs();
+        if side > panel_size.x * 0.5 + extent.dot(tangent.abs())
+            || offset.y.abs() > panel_size.y * 0.5 + BRACKET_HEADROOM_METRES + extent.y
+        {
+            continue;
+        }
+        let face = offset.dot(outward) + extent.dot(outward.abs());
+        if (0.0..=MAX_FACADE_PROJECTION_METRES).contains(&face) {
+            projection = projection.max(face);
+        }
+    }
+    attachment + outward * projection
+}
+
+pub(super) fn solid_extent(solid: &crate::ResolvedSolid) -> Vec3 {
+    let rotation = solid_rotation(solid);
     let half = solid.size * 0.5;
-    (rotation * Vec3::X).abs() * half.x + Vec3::Y * half.y + (rotation * Vec3::Z).abs() * half.z
+    (rotation * Vec3::X).abs() * half.x
+        + (rotation * Vec3::Y).abs() * half.y
+        + (rotation * Vec3::Z).abs() * half.z
+}
+
+pub(super) fn solid_rotation(solid: &crate::ResolvedSolid) -> Quat {
+    Quat::from_rotation_y(solid.yaw_radians)
+        * Quat::from_rotation_x(solid.crossfall_radians)
+        * Quat::from_rotation_z(solid.longfall_radians)
 }

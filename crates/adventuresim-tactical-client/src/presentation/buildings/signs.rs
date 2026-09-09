@@ -27,11 +27,11 @@ pub(super) struct SignAssets<'w> {
 }
 
 #[derive(Component)]
-struct PresentedSign {
-    sign: ShopSign,
-    site: SignSite,
+pub(crate) struct PresentedSign {
+    pub(crate) sign: ShopSign,
+    pub(crate) site: SignSite,
     origin: Vec3,
-    lettering: Option<Entity>,
+    pub(crate) lettering: Option<Entity>,
 }
 
 impl SignAssets<'_> {
@@ -39,6 +39,7 @@ impl SignAssets<'_> {
         &mut self,
         parent: &mut ChildSpawnerCommands,
         id: u64,
+        authored: Option<&ShopSign>,
         compiled: &CompiledBuildingLevels,
         meshes: &mut Assets<Mesh>,
     ) {
@@ -48,6 +49,9 @@ impl SignAssets<'_> {
         let Some(mut sign) = ShopSign::for_establishment(EstablishmentId(id), usage) else {
             return;
         };
+        if let Some(authored) = authored {
+            sign = authored.clone();
+        }
         let Some(&(mount, site)) = compiled
             .sign_sites
             .iter()
@@ -134,10 +138,10 @@ fn update_lettering(
                 .id();
             commands.entity(entity).add_child(child);
             presented.lettering = Some(child);
-        } else if distance > LETTERING_RELEASE_DISTANCE_METRES {
-            if let Some(child) = presented.lettering.take() {
-                commands.entity(child).despawn();
-            }
+        } else if distance > LETTERING_RELEASE_DISTANCE_METRES
+            && let Some(child) = presented.lettering.take()
+        {
+            commands.entity(child).despawn();
         }
     }
 }
