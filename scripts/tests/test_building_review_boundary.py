@@ -22,7 +22,7 @@ class BuildingReviewBoundaryTests(unittest.TestCase):
             self.assertTrue(all(sum(v * v for v in view["offset"]) > 0 for view in review["views"]))
 
     def test_review_adapters_cannot_construct_a_second_render_pipeline(self):
-        paths = [VIEWER / "buildings.rs", VIEWER / "building_review.rs", *sorted((VIEWER / "building_review").glob("*.rs"))]
+        paths = [VIEWER / "buildings.rs", VIEWER / "furniture_capture.rs", VIEWER / "furniture_readiness.rs", VIEWER / "gpu_readiness.rs", VIEWER / "building_review.rs", *sorted((VIEWER / "building_review").glob("*.rs"))]
         forbidden = r"StandardMaterial\s*\{|Mesh::new|Mesh::from|Mesh::try_from|meshes\.add|materials\.add|compile_building_detail|compile_static_building_detail|compile_building_lod|DefaultPlugins"
         for path in paths:
             with self.subTest(path=path.name):

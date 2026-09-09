@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, path::Path};
 
 mod cameras;
-mod gpu_readiness;
 mod openings;
 mod readiness;
 pub(super) use openings::spawn_openings;

@@ -45,6 +45,8 @@ pub struct SceneVistaBundle {
     pub streets: Vec<CityStreetPatch>,
     /// Developed block interiors that replace blanket meadow ground cover.
     pub yards: Vec<CityYardPatch>,
+    /// Accepted activity areas drive local ground wear around outdoor furniture.
+    pub furniture_groups: Vec<FurnitureGroup>,
     pub lods: Vec<VistaLod>,
 }
 

@@ -8,6 +8,8 @@ use fabelgeist_determinism::splitmix64;
 
 #[path = "generate_scene_fixtures/fault.rs"]
 mod fault;
+#[path = "generate_scene_fixtures/furniture.rs"]
+mod furniture;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
 #[path = "generate_scene_fixtures/parish.rs"]
@@ -46,6 +48,7 @@ enum BuildingFixture {
     Cottage,
     MassiveCity,
     ParishReview,
+    FurnitureReview,
 }
 
 fn main() {
@@ -73,9 +76,10 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 21] {
+fn fixtures() -> [Fixture; 22] {
     [
         parish::fixture(),
+        furniture::fixture(),
         Fixture {
             buildings: BuildingFixture::Cottage,
             ..fixture(
@@ -286,6 +290,12 @@ fn fixture_buildings(
         BuildingFixture::ParishReview => {
             (Vec::new(), parish::yards(), parish::buildings(), Vec::new())
         }
+        BuildingFixture::FurnitureReview => (
+            furniture::streets(),
+            furniture::yards(),
+            furniture::buildings(),
+            Vec::new(),
+        ),
     }
 }
 

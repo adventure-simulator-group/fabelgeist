@@ -9,6 +9,7 @@ mod audit;
 mod collision;
 mod detail;
 mod doors;
+pub mod furniture;
 mod generator;
 mod lod;
 mod model;

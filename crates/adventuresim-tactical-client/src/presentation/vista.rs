@@ -3,8 +3,11 @@ use fabelgeist_determinism::splitmix64;
 
 mod grass_mask;
 mod streets;
+mod surface;
 
+pub(in crate::presentation) use streets::CityGroundMaterial;
 use streets::UrbanGround;
+pub(super) use surface::ActiveVistaSurface;
 
 /// Marker for a distant tree billboard spawned as part of a vista ring.
 #[derive(Component)]
@@ -17,50 +20,6 @@ pub(crate) struct VistaGrassPresentation;
 #[derive(Component)]
 pub(crate) struct VistaRockPresentation;
 
-/// Retains nearby presentation-only heights after the event for camera-local refinement.
-/// Outside the playable rectangle, quality follows camera distance, not gameplay bounds.
-#[derive(Resource, Default, Clone)]
-pub(super) struct ActiveVistaSurface {
-    revision: u64,
-    scene_digest: String,
-    playable_half_extent: Vec2,
-    lods: Vec<VistaLod>,
-}
-
-impl ActiveVistaSurface {
-    pub(super) fn revision(&self) -> u64 {
-        self.revision
-    }
-
-    pub(super) fn presented_height_at(
-        &self,
-        scene_digest: &str,
-        terrain: &SceneTerrain,
-        local: Vec2,
-    ) -> Option<f32> {
-        if let Some(height) = terrain.height_at(local) {
-            return Some(height);
-        }
-        if self.scene_digest != scene_digest {
-            return None;
-        }
-        let lod = self.lods.first()?;
-        let world = local
-            + Vec2::new(
-                lod.origin_east_metres as f32,
-                lod.origin_north_metres as f32,
-            );
-        let vista_height = presented_height_at(lod, world, self.lods.get(1))?;
-        Some(stitch_vista_height_to_playable_edge(
-            terrain,
-            local,
-            self.playable_half_extent,
-            lod.spacing_metres,
-            vista_height,
-        ))
-    }
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "Bevy injects vista scene state, presentation asset stores, and the shared tree cache independently"
@@ -70,7 +29,12 @@ pub(super) fn on_scene_vista_bundle(
     mut commands: Commands,
     mut active_surface: ResMut<ActiveVistaSurface>,
     existing: Query<Entity, With<VistaTerrain>>,
-    playable_scenes: Query<(&SceneTerrain, &SceneGround, &SceneEnvironment)>,
+    playable_scenes: Query<(
+        &SceneTerrain,
+        &SceneGround,
+        &SceneEnvironment,
+        Option<&TerrainLandformRecipe>,
+    )>,
     settings: Res<TacticalGraphicsSettings>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<TacticalVistaMaterial>>,
@@ -79,16 +43,12 @@ pub(super) fn on_scene_vista_bundle(
     mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
+    mut city_ground: streets::CityGroundAssets,
 ) {
     let started = web_time::Instant::now();
     let mut presented_chunk_count = 0_usize;
     info!("Generating tactical vista presentation");
-    *active_surface = ActiveVistaSurface {
-        revision: active_surface.revision.wrapping_add(1),
-        scene_digest: bundle.scene_digest.clone(),
-        playable_half_extent: bundle.playable_half_extent_metres,
-        lods: bundle.lods.iter().take(2).cloned().collect(),
-    };
+    active_surface.update(&bundle);
     for entity in &existing {
         commands.entity(entity).despawn();
     }
@@ -99,11 +59,14 @@ pub(super) fn on_scene_vista_bundle(
         .collect::<Vec<_>>();
     let playable_scene = playable_scenes
         .iter()
-        .find(|(_, _, environment)| environment.scene_digest == bundle.scene_digest);
-    let playable_terrain = playable_scene.map(|(terrain, _, _)| terrain);
-    let playable_environment = playable_scene.map(|(_, _, environment)| environment);
+        .find(|(_, _, environment, _)| environment.scene_digest == bundle.scene_digest);
+    let playable_terrain = playable_scene.map(|(terrain, _, _, _)| terrain);
+    let playable_environment = playable_scene.map(|(_, _, environment, _)| environment);
+    if let Some((terrain, _, _, landform)) = playable_scene {
+        active_surface.retain_playable(terrain, landform);
+    }
     let weather = playable_scene
-        .map(|(_, _, environment)| environment.weather)
+        .map(|(_, _, environment, _)| environment.weather)
         .unwrap_or_else(clear_vista_weather);
     let vista_grass_color = playable_environment
         .map(grass_terminal_pigment)
@@ -132,21 +95,14 @@ pub(super) fn on_scene_vista_bundle(
         let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
         for (chunk, mesh) in meshes_for_lod.into_iter().enumerate() {
             presented_chunk_count += 1;
-            let triangle_count = mesh_triangle_count(&mesh);
-            commands.spawn((
-                Name::new(format!("Tactical vista LOD {} chunk {chunk}", lod.level)),
-                VistaTerrain(lod.level),
-                VistaTerrainMesh(lod.level),
-                TerrainTriangleCount(triangle_count),
-                NotShadowCaster,
-                Mesh3d(meshes.add(mesh)),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(
-                    lod.origin_east_metres as f32,
-                    0.0,
-                    lod.origin_north_metres as f32,
-                ),
-            ));
+            active_surface.present_chunk(
+                &mut commands,
+                &mut meshes,
+                material.clone(),
+                mesh,
+                lod,
+                chunk,
+            );
         }
         if index <= 1 {
             spawn_vista_trees(
@@ -155,7 +111,7 @@ pub(super) fn on_scene_vista_bundle(
                 visible_lods.get(index + 1).copied(),
                 inner_half_extent,
                 &bundle.scene_digest,
-                playable_scene.map(|(_, _, environment)| environment),
+                playable_scene.map(|(_, _, environment, _)| environment),
                 &mut meshes,
                 &mut tree_materials,
                 &mut images,
@@ -167,7 +123,7 @@ pub(super) fn on_scene_vista_bundle(
             f32::from(lod.depth.saturating_sub(1)) * lod.spacing_metres * 0.5,
         );
     }
-    if let (Some(lod), Some((playable_terrain, playable_ground, environment))) =
+    if let (Some(lod), Some((playable_terrain, playable_ground, environment, _))) =
         (visible_lods.first().copied(), playable_scene)
     {
         spawn_near_vista_details(
@@ -184,6 +140,7 @@ pub(super) fn on_scene_vista_bundle(
             &mut standard_materials,
             &mut images,
             &settings.config.grass,
+            &mut city_ground,
         );
     }
     log_vista_generation(presented_chunk_count, visible_lods.len(), started);
@@ -216,16 +173,18 @@ fn spawn_near_vista_details(
     standard_materials: &mut Assets<StandardMaterial>,
     images: &mut Assets<Image>,
     grass: &crate::presentation::config::GrassConfig,
+    city_ground: &mut streets::CityGroundAssets,
 ) {
     streets::spawn(
         commands,
         &bundle.streets,
         &bundle.yards,
-        active_surface,
-        &bundle.scene_digest,
-        playable_terrain,
+        &bundle.furniture_groups,
+        active_surface.ground_support(),
+        environment,
         meshes,
-        standard_materials,
+        &mut city_ground.materials,
+        &city_ground.textures,
     );
     let urban_ground = UrbanGround::new(&bundle.streets, &bundle.yards);
     spawn_near_vista_scatter(
@@ -1554,40 +1513,6 @@ mod tests {
         assert_eq!(vista.end_margin, 42.0..50.0);
         assert_eq!(vista.end_margin.start, TERMINAL_SWARD_FADE_START_METRES);
         assert_eq!(vista.end_margin.end, TERMINAL_SWARD_FADE_END_METRES);
-    }
-
-    #[test]
-    fn retained_near_vista_surface_continues_detail_patch_across_playable_bounds() {
-        let terrain =
-            SceneTerrain::from_heightmap(3, 3, 2.0, vec![10.0; 9]).expect("playable terrain");
-        let lod = VistaLod {
-            level: 0,
-            spacing_metres: 2.0,
-            width: 5,
-            depth: 5,
-            origin_east_metres: 0.0,
-            origin_north_metres: 0.0,
-            heights_metres: vec![20.0; 25],
-            environment: vec![EnvironmentalSample::default(); 25],
-        };
-        let retained = ActiveVistaSurface {
-            revision: 1,
-            scene_digest: "boundary".into(),
-            playable_half_extent: Vec2::splat(2.0),
-            lods: vec![lod],
-        };
-        assert_eq!(
-            retained.presented_height_at("boundary", &terrain, Vec2::new(2.0, 0.0)),
-            Some(10.0)
-        );
-        let outside = retained
-            .presented_height_at("boundary", &terrain, Vec2::new(3.0, 0.0))
-            .unwrap();
-        assert!((outside - 15.0).abs() < 0.0001, "{outside}");
-        assert_eq!(
-            retained.presented_height_at("different", &terrain, Vec2::new(3.0, 0.0)),
-            None
-        );
     }
 
     #[test]

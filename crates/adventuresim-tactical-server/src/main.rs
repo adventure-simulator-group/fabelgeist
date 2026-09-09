@@ -3,9 +3,11 @@
 mod bot;
 mod combat;
 mod equipment;
+mod furniture;
 mod mission;
 mod openings;
 mod player_projection;
+mod scene_obstacles;
 mod scene_setup;
 mod stdb;
 mod terrain_collision;
@@ -283,8 +285,7 @@ fn main() {
     .add_systems(OnEnter(ServerState::Running), on_server_started)
     .add_observer(on_player_input)
     .add_observer(on_player_added)
-    .add_observer(on_scene_terrain_added)
-    .add_observer(openings::on_scene_building_added);
+    .add_plugins(scene_setup::SceneGeometryPlugin);
 
     // Standalone (`--world-dump`) runs never touch SpacetimeDB: a loaded
     // dump already carries every bit of gameplay state a live stdb
@@ -412,6 +413,8 @@ fn on_debug_dump_world_request(_request: On<FromClient<DebugDumpWorldRequest>>, 
         .allow_component::<SceneId>()
         .allow_component::<SceneTerrain>()
         .allow_component::<SceneBuilding>()
+        .allow_component::<SceneFurniture>()
+        .allow_component::<SceneFurnitureGroup>()
         .allow_component::<crate::bot::MissionEnemy>()
         .allow_component::<crate::bot::OffensiveCombatAi>()
         .allow_component::<crate::bot::CombatantBehaviorPackages>()
@@ -546,6 +549,7 @@ fn load_world_dump(world: &mut World) {
 
 #[cfg(all(test, feature = "debug"))]
 mod debug_dump_world_tests {
+    mod furniture_restore;
     use std::{collections::HashSet, path::PathBuf};
 
     use adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId;
@@ -881,58 +885,22 @@ fn on_server_started(
             removed_building_obstacles = generated.repairs.removed_building_obstacles,
             "Loaded deterministic tactical scene input"
         );
-        let scene_id = input.scene_key.clone();
         let terrain = generated.terrain;
         let terrain_patch = generated.terrain_patch;
-        let ground = generated.ground;
         let environment = input.environment_snapshot(generated.digest);
-        let obstacles = generated.obstacles;
-        let buildings = generated.buildings;
-        let obstacle_spacing = input.playable.spacing_metres;
-        for obstacle in obstacles {
-            let (grid_x, grid_z, kind, collider, height_offset, label) = match obstacle {
-                GeneratedObstacle::Tree { x, z } => (
-                    x,
-                    z,
-                    SceneObstacle::Tree,
-                    Collider::cylinder(TREE_TRUNK_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES),
-                    TREE_TRUNK_HEIGHT_METRES * 0.5,
-                    "tree trunk",
-                ),
-                GeneratedObstacle::Rock { x, z, recipe } => (
-                    x,
-                    z,
-                    SceneObstacle::Rock(recipe),
-                    Collider::sphere(recipe.collision_radius_metres()),
-                    recipe.collision_radius_metres(),
-                    "rock",
-                ),
-            };
-            let x = f32::from(grid_x) * obstacle_spacing - terrain.width() * 0.5;
-            let z = f32::from(grid_z) * obstacle_spacing - terrain.depth() * 0.5;
-            let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + height_offset;
-            let yaw = match kind {
-                SceneObstacle::Rock(recipe) => {
-                    (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * core::f32::consts::TAU
-                }
-                SceneObstacle::Tree => 0.0,
-            };
-            commands.spawn((
-                Replicated,
-                Name::new(format!("Tactical scene {label}")),
-                kind,
-                RigidBody::Static,
-                CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-                collider,
-                Transform::from_xyz(x, y, z).with_rotation(Quat::from_rotation_y(yaw)),
-            ));
-        }
-        openings::spawn_generated_buildings(&mut commands, buildings);
+        scene_obstacles::spawn(
+            &mut commands,
+            generated.obstacles,
+            &terrain,
+            input.playable.spacing_metres,
+        );
+        openings::spawn_generated_buildings(&mut commands, generated.buildings);
+        furniture::spawn(&mut commands, generated.furniture);
         terrain_collision::spawn_scene(
             &mut commands,
-            scene_id,
+            input.scene_key.clone(),
             terrain,
-            ground,
+            generated.ground,
             environment,
             terrain_patch.as_ref(),
             input.landform,

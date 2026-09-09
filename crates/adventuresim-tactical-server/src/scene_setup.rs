@@ -2,6 +2,17 @@ use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
 
+pub(crate) struct SceneGeometryPlugin;
+
+impl Plugin for SceneGeometryPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_observer(super::on_scene_terrain_added)
+            .add_observer(super::openings::on_scene_building_added)
+            .add_observer(super::furniture::on_furniture_added)
+            .add_observer(super::furniture::on_group_added);
+    }
+}
+
 pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundle> {
     Some(SceneVistaBundle {
         scene_digest: input.digest().expect("loaded scene input was validated"),
@@ -12,6 +23,7 @@ pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundl
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        furniture_groups: Vec::new(),
         lods: input.vista.lods.clone(),
     })
 }

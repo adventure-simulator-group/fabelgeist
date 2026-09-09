@@ -14,7 +14,7 @@ const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
 pub(in crate::tactical_scene_viewer) struct BuildingReviewPlugin;
 impl Plugin for BuildingReviewPlugin {
     fn build(&self, app: &mut App) {
-        super::gpu_readiness::GpuReadiness::install(app);
+        crate::tactical_scene_viewer::gpu_readiness::GpuReadiness::install(app);
         app.init_resource::<Readiness>().add_systems(
             Last,
             observe.before(crate::tactical_scene_viewer::capture_views),
@@ -93,7 +93,7 @@ struct Observation<'w, 's> {
     palette: Res<'w, TacticalBuildingMaterials>,
     textures: Res<'w, ProceduralTextureAssets>,
     materials: Res<'w, Assets<StandardMaterial>>,
-    gpu: Res<'w, super::gpu_readiness::GpuReadiness>,
+    gpu: Res<'w, crate::tactical_scene_viewer::gpu_readiness::GpuReadiness>,
     adapter: Res<'w, RenderAdapterInfo>,
     graphics: Res<'w, TacticalGraphicsSettings>,
 }

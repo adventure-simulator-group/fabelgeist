@@ -44,6 +44,8 @@ enum CaptureProfile {
     InteriorReview,
     /// Facade, street, neighbourhood, and whole-settlement city review.
     CityReview,
+    /// Outdoor furniture, market access and street surface review.
+    FurnitureReview,
     /// Storefront lettering, mounting, glass, plaster and distance review.
     ShopSignReview,
     /// Working-building exteriors, interiors and production distance LODs.
@@ -153,6 +155,7 @@ fn main() {
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
             CaptureProfile::InteriorReview => "interior-review",
             CaptureProfile::CityReview => "city-review",
+            CaptureProfile::FurnitureReview => "furniture-review",
             CaptureProfile::ShopSignReview => "shop-sign-review",
             CaptureProfile::WorkplaceReview => "workplace-review",
             CaptureProfile::ParishReview => "parish-review",

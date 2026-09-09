@@ -367,3 +367,20 @@ multiple-animation, or short motion files are unavailable.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.
+
+## City ground and outdoor furniture
+
+City streets and developed yards use one production material policy across
+playable and distant ground. Metre-space cobble and gravel detail blends with
+compacted earth, broken edges, static traffic wear, and weather-dependent
+dampness. Accepted vendor, receiving, and horse-stop footprints contribute
+local wear masks. Ground meshes sample the same presented terrain surface;
+material relief does not change tactical collision or create physical ruts.
+
+Outdoor furniture arrives as compact immutable recipe references and normal
+entity transforms. Shared mesh handles and the building material palette
+render each accepted instance. Small furniture fades over 90-110 metres;
+canvas stalls remain visible to 220-260 metres. Placement currently covers
+the authoritative playable area, while road surfaces continue into the vista.
+`python scripts/capture_furniture_review.py --output target/furniture-review`
+captures the production implementation with GPU residency and material checks.

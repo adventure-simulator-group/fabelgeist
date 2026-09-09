@@ -78,6 +78,24 @@ pub(super) struct TerrainSummary {
     pub(super) maximum_height_metres: f32,
 }
 
+impl TerrainSummary {
+    pub(super) fn new(
+        input: &adventuresim_tactical_core::prelude::TacticalSceneInput,
+        terrain: &adventuresim_tactical_core::prelude::SceneTerrain,
+    ) -> Self {
+        Self {
+            width_metres: terrain.width(),
+            depth_metres: terrain.depth(),
+            source_spacing_metres: input.playable.spacing_metres,
+            spacing_metres: terrain.grid_scale(),
+            source_samples: input.playable.heights_metres.len(),
+            generated_samples: terrain.grid_width() * terrain.grid_depth(),
+            minimum_height_metres: terrain.minimum_height(),
+            maximum_height_metres: terrain.maximum_height(),
+        }
+    }
+}
+
 #[derive(Serialize)]
 pub(super) struct ObstacleSummary {
     pub(super) generated_trees: usize,

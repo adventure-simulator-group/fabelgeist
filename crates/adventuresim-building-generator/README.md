@@ -765,3 +765,31 @@ image handles alone do not establish readiness.
 `building-presentation.json` records the actual graphics adapter, backend and
 configuration. These are native GPU captures. Browser rendering requires its own
 smoke run against the actual web client; a native gallery is not WebGPU evidence.
+
+## Outdoor furniture
+
+`furniture::FurnitureKey` selects one of ten cached ground-centred recipes:
+compact and broad barrels, cargo stacks, table/bench sets, canvas stalls, and
+hitching rails with troughs. Each recipe owns metre-space meshes, physical
+collision cuboids, actual support samples, and access/working clearances.
+Canvas and trough water have no collision. The tactical runtime places these
+recipes as vendor, receiving, and horse-stop groups; it reserves circulation
+and checks authoritative terrain support before accepting a group.
+
+Placement is deterministic and currently covers the playable terrain. Market
+rows use the market polygon's local axes; frontage groups use building-local
+metres. Roads, doors, market crossings, and handling spaces remain clear.
+The same accepted instances drive rendering, server collision, and debug-world
+restoration. The client caches GPU meshes by recipe and shares the production
+building material palette.
+
+```powershell
+python scripts/capture_furniture_review.py --output target/furniture-review
+```
+
+The production capture profile reviews all five families, the market, street
+surfaces, and placement clearances. `furniture-layout.json` records accepted
+instances and reserved spaces; `furniture-presentation.json` verifies actual
+mesh/material bindings and GPU residency for each view. Yellow outlines mark
+activity clearances; cyan outlines mark circulation in the diagnostic plate.
+Use `--scene-input` to review another deterministic seed or terrain variant.

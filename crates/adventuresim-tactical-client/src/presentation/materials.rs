@@ -25,6 +25,7 @@ impl Plugin for TacticalMaterialsPlugin {
         // Split from the tuple above so the material-plugin group stays within
         // Bevy's 15-element `Plugins` tuple arity limit.
         .add_plugins((
+            MaterialPlugin::<CityGroundMaterial>::default(),
             MaterialPlugin::<TacticalWeatherMaterial>::default(),
             DoorPresentationPlugin,
             WindowPresentationPlugin,

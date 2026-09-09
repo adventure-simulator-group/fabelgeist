@@ -31,6 +31,10 @@ mod buildings;
 mod capture_state;
 mod capture_visibility;
 mod city_capture;
+mod furniture_capture;
+mod furniture_overlay;
+mod furniture_readiness;
+mod gpu_readiness;
 mod interior_capture;
 mod manifest;
 mod terrain_setup;
@@ -87,7 +91,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 29;
+const CAPTURE_PROFILE_VERSION: u16 = 30;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
@@ -884,9 +888,7 @@ pub(crate) fn run(
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
-    if building_review::is_profile(profile) {
-        app.add_plugins(building_review::BuildingReviewPlugin);
-    }
+    furniture_readiness::install(&mut app, profile);
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
             .insert_resource(TerrainWireframeCaptureState::new(wireframe_output));
@@ -928,7 +930,12 @@ pub(crate) fn run(
     } else if scene_performance_benchmarking {
         app.add_systems(Last, benchmark_scene_performance);
     } else {
-        app.add_systems(Last, capture_views.run_if(building_review::ready));
+        app.add_systems(
+            Last,
+            capture_views
+                .run_if(building_review::ready)
+                .run_if(furniture_readiness::ready),
+        );
     }
     let exit = app.run();
     if exit != AppExit::Success {
@@ -1105,6 +1112,7 @@ fn selected_capture_views(
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
         INTERIOR_REVIEW_PROFILE => INTERIOR_REVIEW_VIEWS.as_slice(),
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
+        furniture_capture::PROFILE => view_specs::FURNITURE_REVIEW_VIEWS.as_slice(),
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
@@ -1331,6 +1339,7 @@ mod capture_lighting_tests {
             "semantic",
             "environment-review",
             "landform-review",
+            furniture_capture::PROFILE,
             "animation-play",
             "tree-cold-traversal",
             "beech-leaf-motion",
@@ -1722,19 +1731,11 @@ fn setup_scene(
         ground,
         obstacles,
         buildings,
+        furniture,
         repairs,
         terrain_patch,
     } = generated;
-    let terrain_summary = TerrainSummary {
-        width_metres: terrain.width(),
-        depth_metres: terrain.depth(),
-        source_spacing_metres: input.playable.spacing_metres,
-        spacing_metres: terrain.grid_scale(),
-        source_samples: input.playable.heights_metres.len(),
-        generated_samples: terrain.grid_width() * terrain.grid_depth(),
-        minimum_height_metres: terrain.minimum_height(),
-        maximum_height_metres: terrain.maximum_height(),
-    };
+    let terrain_summary = TerrainSummary::new(&input, &terrain);
     let (
         vista_diameter_metres,
         vista_minimum_metres,
@@ -1774,6 +1775,17 @@ fn setup_scene(
                     &profile,
                 )
             });
+    let city_exterior_cameras = furniture_capture::setup(
+        &mut commands,
+        &furniture,
+        &terrain,
+        &profile,
+        &output,
+        &mut meshes,
+        &mut materials,
+    )
+    .unwrap_or(city_exterior_cameras);
+    furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
@@ -2092,6 +2104,7 @@ fn setup_scene(
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        furniture_groups: furniture.groups,
         lods: input.vista.lods.clone(),
     });
     commands.insert_resource(SceneCaptureState {

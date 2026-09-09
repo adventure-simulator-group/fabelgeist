@@ -99,6 +99,11 @@ pub mod prelude {
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
         TerrainGenerator,
     };
+    pub use crate::scene_input::furniture::{
+        FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
+        FurnitureInstanceId, FurnitureLayout, GeneratedFurniture, SceneFurniture,
+        SceneFurnitureGroup, furniture_collider,
+    };
     pub use crate::scene_input::{
         BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBuilding,
         GeneratedObstacle, GeneratedTacticalScene, ROCK_RADIUS_METRES, RockArchetype,
