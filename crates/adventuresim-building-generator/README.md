@@ -679,7 +679,10 @@ binaries must not be recreated. Review inputs may choose entities and cameras;
 only production presentation binds materials, compiles GPU meshes and sets LODs.
 Capture waits for production geometry, textures and nearby lettering, checks
 window glass and per-building material bindings, and fails if required inputs or
-assets are missing. `manifest.json` records camera, revision and lighting checks;
+assets are missing. Production atmosphere baking waits for completed GPU
+generation and filtering before freezing its sky and lighting textures; allocated
+image handles alone do not establish readiness.
+`manifest.json` records camera, revision and lighting checks;
 `building-presentation.json` records the actual graphics adapter, backend and
 configuration. These are native GPU captures. Browser rendering requires its own
 smoke run against the actual web client; a native gallery is not WebGPU evidence.
