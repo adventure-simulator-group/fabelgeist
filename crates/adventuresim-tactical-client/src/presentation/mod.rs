@@ -215,6 +215,7 @@ impl Plugin for TacticalPresentationPlugin {
         // Split from the tuple above so the material-plugin group stays within
         // Bevy's 15-element `Plugins` tuple arity limit.
         .add_plugins(TacticalWeatherAndDoorPlugin)
+        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
         // Tactical play uses one compact close-range cascade for whichever
         // celestial light is active. Keep the map allocation identical in the
         // game and all tactical review viewers.

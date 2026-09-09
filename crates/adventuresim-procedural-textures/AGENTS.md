@@ -10,7 +10,10 @@
 - Every recipe needs deterministic tests for repeatability, edge tiling when
   applicable, physical feature scale, channel packing, and mip completeness.
 - Review through `procedural-texture-lab`. Export only the recipe being changed
-  and keep generated PNGs under `target/`, never in source control.
+  and keep review PNGs under `target/`. Runtime `.ptex` assets belong in
+  `assets/textures/procedural/` and are committed alongside recipe changes.
+  Rebuild them explicitly with `just bake-procedural-textures <recipe-slug>`;
+  never run generators during tactical initialization or as a build hook.
 - A texture-focused change should not tune another recipe. If shared helpers
   must change, prove unchanged outputs or coordinate that change separately.
 

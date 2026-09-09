@@ -33,6 +33,12 @@ simulate volumetric tree growth or physical erosion.
 
 ## Parameters and authoring
 
+Tactical clients load [committed runtime bakes](../../assets/textures/procedural/README.md)
+instead of generating textures during initialization. After editing a recipe,
+run `just bake-procedural-textures <recipe-slug>` and commit its `.ptex` asset
+with the source changes. Omit the slug to rebuild all recipes. The bake retains
+the full-resolution pixels, complete mip chains, color spaces, and samplers.
+
 Every generator accepts `&TextureParameters` plus the destination `Assets<Image>`.
 Its typed recipe block owns the canonical defaults. For example:
 
