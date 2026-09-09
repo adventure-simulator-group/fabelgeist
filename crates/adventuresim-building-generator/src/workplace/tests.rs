@@ -58,7 +58,8 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                             .iter()
                             .find(|solid| solid.id == part.solid)
                             .unwrap();
-                        let corner = solid.centre + solid.size * 0.5;
+                        let corner = solid.centre
+                            + super::assembly::contact::rotation(solid) * (solid.size * 0.5);
                         assert!(
                             lod.meshes
                                 .iter()

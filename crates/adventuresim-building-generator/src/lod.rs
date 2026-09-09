@@ -49,9 +49,11 @@ pub enum BuildingLodMaterial {
     /// Timber grid and braces baked into a plaster texture for shell LODs.
     FachwerkBaked,
     Timber,
-    /// Hewn structural timber visible from the room side.
+    /// Unpainted hewn wood, including interior structure and working stock.
     InteriorTimber,
     Iron,
+    /// Dry cereal grain covering malt-drying beds or stored in open working vessels.
+    Grain,
     /// Room-facing lime-plaster finish, including the inner face of an exterior wall.
     InteriorPlaster,
     Floor,

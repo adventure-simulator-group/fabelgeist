@@ -22,5 +22,11 @@ pub(super) fn fit_workplace(a: &mut Assembly<'_>, program: &BuildingProgram) {
         WorkplaceKind::Smithy => smithy(a, w, d),
         WorkplaceKind::Bakehouse => bakehouse(a, w, d),
         WorkplaceKind::MarketHall => market(a, w, d),
+        WorkplaceKind::Brewery => super::brewing::brewery(a, w, d),
+        WorkplaceKind::Malthouse => super::brewing::malthouse(a, w, d),
+        WorkplaceKind::Warehouse => super::warehouse::fit_workplace(a, w, d),
+        WorkplaceKind::TimberYard | WorkplaceKind::Carpenter => {
+            super::craft::fit_workplace(a, w, d)
+        }
     }
 }

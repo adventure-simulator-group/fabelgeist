@@ -1,5 +1,6 @@
 use super::*;
 use crate::*;
+pub(super) mod contact;
 
 const WORKPLACE_OWNER: GeometryOwnerId = GeometryOwnerId(95_000);
 const WORKPLACE_WALL_BASE: u64 = 95_000;
@@ -15,6 +16,45 @@ pub(super) struct Assembly<'a> {
 }
 
 impl Assembly<'_> {
+    /// Rotate a fitted cuboid and rebuild its actual bearing contacts before attaching later parts.
+    pub fn orient_part(&mut self, id: ResolvedItemId, yaw: f32) {
+        let solid = self
+            .geometry
+            .solids
+            .iter_mut()
+            .find(|solid| solid.id == id)
+            .unwrap();
+        solid.yaw_radians = yaw;
+        let solid = solid.clone();
+        let node_id = solid.supported_by[0];
+        let contacts = self
+            .geometry
+            .solids
+            .iter()
+            .filter(|other| other.id != id && contact::touches(&solid, other, BEARING_DEPTH_METRES))
+            .flat_map(|other| other.supported_by.iter().copied())
+            .collect();
+        self.geometry
+            .structural_nodes
+            .iter_mut()
+            .find(|node| node.id == node_id)
+            .unwrap()
+            .supported_by = contacts;
+        let bounds = contact::bounds(&solid);
+        self.geometry
+            .support_interfaces
+            .iter_mut()
+            .find(|interface| interface.node == node_id)
+            .unwrap()
+            .bounds = ResolvedBounds {
+            min: bounds.min,
+            max: Vec3::new(
+                bounds.max.x,
+                bounds.min.y + BEARING_DEPTH_METRES,
+                bounds.max.z,
+            ),
+        };
+    }
     /// Every part owns a bearing node and records contact with existing support geometry.
     pub fn part(
         &mut self,

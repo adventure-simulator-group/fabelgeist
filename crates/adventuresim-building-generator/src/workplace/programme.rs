@@ -4,8 +4,9 @@ use crate::{Footprint, RoomKind, RoomRequirement, StoreyProgram, WallStyle};
 impl WorkplaceKind {
     pub(crate) const fn yard_width_metres(self) -> f32 {
         match self {
-            Self::Stable | Self::Barn => 4.5,
-            Self::Smithy | Self::Bakehouse => 6.0,
+            Self::Stable | Self::Barn | Self::Malthouse => 4.5,
+            Self::Smithy | Self::Bakehouse | Self::Brewery => 6.0,
+            Self::Warehouse => 8.0,
             _ => 0.0,
         }
     }
@@ -57,6 +58,12 @@ impl BuildingProgram {
                 gable_profile: GableProfile::Plain,
             });
         }
+        if kind == WorkplaceKind::Brewery {
+            roofs.push(super::brewing::service_roof(size));
+        }
+        if kind == WorkplaceKind::Warehouse {
+            roofs.push(super::warehouse::loading_roof(size));
+        }
         Some(roofs)
     }
 
@@ -74,6 +81,11 @@ impl BuildingProgram {
             WorkplaceKind::Smithy => (6, 6, 3.2, 42.0, RoomKind::Workshop),
             WorkplaceKind::Bakehouse => (5, 6, 3.1, 48.0, RoomKind::KilnRoom),
             WorkplaceKind::MarketHall => (8, 10, 4.0, 45.0, RoomKind::GreatHall),
+            WorkplaceKind::Brewery => (7, 8, 3.6, 43.0, RoomKind::VatRoom),
+            WorkplaceKind::Malthouse => (8, 10, 3.1, 36.0, RoomKind::KilnRoom),
+            WorkplaceKind::TimberYard => (8, 10, 3.7, 32.0, RoomKind::Storage),
+            WorkplaceKind::Carpenter => (7, 7, 3.7, 47.0, RoomKind::Workshop),
+            WorkplaceKind::Warehouse => (7, 14, 6.4, 47.0, RoomKind::Storage),
         };
         let depth = depth + size.extra_bays() * 2;
         self.footprint = Footprint::Rectangle { width, depth };
@@ -87,7 +99,12 @@ impl BuildingProgram {
         self.upper_storey_projection_metres = 0.0;
         self.wall_style = if matches!(
             kind,
-            WorkplaceKind::Smithy | WorkplaceKind::Bakehouse | WorkplaceKind::Granary
+            WorkplaceKind::Smithy
+                | WorkplaceKind::Bakehouse
+                | WorkplaceKind::Granary
+                | WorkplaceKind::Brewery
+                | WorkplaceKind::Malthouse
+                | WorkplaceKind::Warehouse
         ) {
             WallStyle::Stone
         } else {

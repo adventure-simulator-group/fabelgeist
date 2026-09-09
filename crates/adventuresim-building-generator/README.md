@@ -561,7 +561,9 @@ repeated structural compilation while varying ordinary street frontage.
 ## Working buildings and plots
 
 Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
-premises), bakehouses and market halls use the `Workplace` structural family.
+and armorer premises), bakehouses, market halls, breweries, malt houses, timber
+yards, carpenter workshops and merchant warehouses use the `Workplace`
+structural family.
 Their capacity band selects a small, medium or large working footprint before
 city placement reserves the complete plot. Playable buildings and distant
 recipes carry the same size; roofs, yard fences, sheds and major equipment
@@ -583,8 +585,28 @@ static collision consumes the same physical parts. Roofs continue through the
 existing roof resolver and audit. Generic grid-opening edits are rejected for
 this structural family; edit the working programme instead.
 
-Capture all six families (barn, stable, granary, smithy, bakehouse and market hall)
-with the production tactical renderer:
+Breweries combine a masonry hall with a lower timber service shelter, open
+coopered vessels and a separate firing area. Malt houses have long ventilated
+walls and an external drying kiln. Timber yards are open stock shelters with
+separated timber stacks and handling lanes; joinery workshops keep an enclosed
+rear workshop behind a deep open working bay. These forms distinguish working
+space and rooflines, while capacity bands extend the useful bays rather than
+enlarging tools. Armorer premises share the smithy's forge programme.
+
+Warehouses have a long two-level masonry body, repeated ventilation and loading
+bays, and a covered loading apron with a hoist. A separate clear cart lane
+passes outside the loading shelter; the upper storage floor has an internal
+stair. The long masonry storage form draws on the fifteenth-century
+[Kornhofspeicher in Erfurt](https://www.denkmalschutz.de/denkmal/kornhofspeicher-grosse-ackerhofgasse-11-12.html).
+The loading arrangement is a procedural design, not a reconstruction of that
+specific building.
+
+The structural audit memoizes completed support paths. Stacked boards and
+other assemblies can share bearings without repeatedly expanding the same
+ancestry. Every ungrounded member still requires all declared parents to exist
+and reach ground through an acyclic graph.
+
+Capture the working families with the production tactical renderer:
 
 ```powershell
 python scripts/capture_workplaces.py --output target/workplace-review
@@ -597,6 +619,29 @@ operable door/window presentation, lighting, post-processing and automatic LODs.
 Edit these inputs to review another recipe; the capture layer contains no material
 mapping or building mesh conversion. Geometry editors and their cutaways remain
 useful diagnostics, but do not certify in-game appearance.
+
+### Remaining architectural opportunities
+
+The building-use catalogue is broader than the physical programmes. A different
+room name or painted shop sign does not imply a distinct building envelope.
+The next useful additions are:
+
+- Mills: an actual horse sweep, waterwheel and race, or braced post-mill body
+  and sails. Water-powered forms need surveyed water siting before placement.
+- Storage and trade: drying structures for woad, open cooper and wheelwright
+  work bays, wet yards for dyers and
+  tanners, and kiln/drying sheds for potters and brickmakers.
+- Public frontages: covered weighing bays, inn carriage passages, guard porches,
+  prison bars, and a smaller chapel programme. Weigh houses, guildhalls,
+  universities and mints still share the town-hall family; inns and
+  several shops still share merchant-house architecture.
+- Institutional plots: connected ranges, courts and covered passages for
+  hospitals, monasteries and universities. Their current room programmes do
+  not yet supply these arrangements.
+
+Ordinary domestic trades can continue to share houses. Work openings, shutters,
+covered frontage and useful yard space can identify their occupations without
+turning every business into a landmark.
 
 ## Text-only shop signs
 

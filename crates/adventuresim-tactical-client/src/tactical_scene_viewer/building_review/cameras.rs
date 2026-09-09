@@ -19,6 +19,8 @@ enum ReviewTarget {
     Window,
     Exterior,
     Interior,
+    /// A measured building-local point for working bays and human-height street views.
+    LocalPoint(Vec3),
 }
 
 impl ReviewView {
@@ -33,6 +35,10 @@ impl ReviewView {
             .expect("review camera building exists");
         let bounds = building.collision.bounds;
         let target = match self.target {
+            ReviewTarget::LocalPoint(point) => {
+                assert!(point.is_finite(), "invalid local review target");
+                point
+            }
             ReviewTarget::Sign => {
                 let sign = signs
                     .get(&self.building)

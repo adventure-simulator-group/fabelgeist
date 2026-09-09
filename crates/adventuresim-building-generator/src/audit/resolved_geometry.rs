@@ -99,29 +99,9 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         }
     }
-    fn reaches_ground(
-        id: crate::StructuralNodeId,
-        nodes: &std::collections::HashMap<crate::StructuralNodeId, &crate::StructuralNode>,
-        visiting: &mut std::collections::HashSet<crate::StructuralNodeId>,
-    ) -> bool {
-        let Some(node) = nodes.get(&id) else {
-            return false;
-        };
-        if node.grounded {
-            return true;
-        }
-        if !visiting.insert(id) {
-            return false;
-        }
-        let reaches = node
-            .supported_by
-            .iter()
-            .all(|parent| reaches_ground(*parent, nodes, visiting));
-        visiting.remove(&id);
-        reaches && !node.supported_by.is_empty()
-    }
+    let mut support = support::GroundSupport::new(&nodes);
     for node in nodes.values() {
-        if !reaches_ground(node.id, &nodes, &mut std::collections::HashSet::new()) {
+        if !support.reaches_ground(node.id) {
             issues.push(issue(
                 "unsupported_resolved_structure",
                 format!(

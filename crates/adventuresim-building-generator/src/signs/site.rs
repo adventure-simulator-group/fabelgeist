@@ -10,6 +10,7 @@ const BRACKET_HEADROOM_METRES: f32 = 0.20;
 const FACADE_OFFSET_METRES: f32 = 0.12;
 const MAX_FACADE_PROJECTION_METRES: f32 = 0.8;
 pub(super) const PANEL_THICKNESS_METRES: f32 = 0.06;
+#[cfg(feature = "sign-render")]
 pub(super) const PAINT_OFFSET_METRES: f32 = PANEL_THICKNESS_METRES * 0.5 + 0.001;
 
 #[derive(Clone, Copy, Debug)]

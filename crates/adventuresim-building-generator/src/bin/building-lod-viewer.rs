@@ -281,6 +281,16 @@ fn lod_material(
         BuildingLodMaterial::InteriorTimber => &textures.roof,
         BuildingLodMaterial::InteriorPlaster => &textures.plaster,
         BuildingLodMaterial::Iron | BuildingLodMaterial::Glass => &textures.details,
+        BuildingLodMaterial::Grain => {
+            let color = adventuresim_building_generator::GRAIN_REFERENCE_SRGB;
+            return world
+                .resource_mut::<Assets<StandardMaterial>>()
+                .add(StandardMaterial {
+                    base_color: Color::srgb(color[0], color[1], color[2]),
+                    perceptual_roughness: 1.0,
+                    ..default()
+                });
+        }
         BuildingLodMaterial::FacadeDetails => &textures.details,
         BuildingLodMaterial::CrownMask => &textures.crown_mask,
     };

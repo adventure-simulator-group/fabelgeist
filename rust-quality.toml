@@ -246,6 +246,46 @@ reason = "Authored working furniture dimensions."
 
 [[scopes]]
 kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/craft/envelope.rs"
+reason = "Authored timber-trade structural bays, enclosure and handling clearances."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/craft/stock.rs"
+reason = "Authored supported timber stacks and joinery furniture dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing.rs"
+reason = "Authored brew-house service canopy, hearth and working clearances."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing/drying.rs"
+reason = "Authored malt-drying ventilation, floor, and kiln geometry."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse.rs"
+reason = "Authored long storehouse loading hood dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/envelope.rs"
+reason = "Authored masonry storehouse ventilation bays, loading portals and handling apron."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/loading.rs"
+reason = "Authored supported loading hood and lifting frame dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/storage.rs"
+reason = "Authored storehouse floor, stair and physical storage clearances."
+
+[[scopes]]
+kind = "authored_catalog"
 path = "crates/adventuresim-world-schema/src/person_names.rs"
 reason = "Shared authored German given-name and surname catalog."
 
@@ -279,3 +319,8 @@ kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/main.rs"
 item = "selected_vambrace_sides"
 reason = "Decodes stable authored placement IDs into ForearmSide at the saved recipe boundary; these IDs are not display labels."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing/kiln.rs"
+reason = "Authored malt-drying chamber, loading and firing apertures, grate and hollow hood dimensions."

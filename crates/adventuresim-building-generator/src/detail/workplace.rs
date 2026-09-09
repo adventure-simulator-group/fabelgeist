@@ -4,6 +4,8 @@ impl crate::WorkplaceMaterial {
     pub(crate) fn render_material(self) -> BuildingLodMaterial {
         match self {
             Self::Timber => BuildingLodMaterial::Timber,
+            Self::UnpaintedTimber => BuildingLodMaterial::InteriorTimber,
+            Self::Grain => BuildingLodMaterial::Grain,
             Self::Masonry => BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry),
             Self::Iron => BuildingLodMaterial::Iron,
         }
