@@ -62,6 +62,10 @@ var cliff_arm: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(114)
 var cliff_arm_sampler: sampler;
 
+fn decode_surface_height_ao(p: vec4<f32>) -> vec2<f32> {
+    return vec2<f32>(dot(p.rg, vec2<f32>(256.0 / 257.0, 1.0 / 257.0)), p.b);
+}
+
 fn cliff_triplanar_weights(normal: vec3<f32>) -> vec3<f32> {
     let sharpened = pow(abs(normal), vec3<f32>(4.0));
     return sharpened / max(dot(sharpened, vec3<f32>(1.0)), 0.00001);
@@ -185,7 +189,7 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
         sin(position.x * 0.23 - position.z * 0.17),
     ) * 0.035;
     let soil_uv = position.xz * terrain.soil_detail.x + soil_warp;
-    let soil_sample = textureSample(soil_height_ao, soil_height_ao_sampler, soil_uv).rg;
+    let soil_sample = decode_surface_height_ao(textureSample(soil_height_ao, soil_height_ao_sampler, soil_uv));
     let litter_warp = vec2<f32>(
         sin(position.z * 0.17 - position.x * 0.07),
         sin(position.x * 0.13 + position.z * 0.09),

@@ -1,5 +1,6 @@
 //! Shared Bevy preview scene for interactive authoring and native review captures.
 mod backdrop;
+mod environment;
 mod geometry;
 mod maps;
 #[cfg(test)]
@@ -41,7 +42,9 @@ pub(crate) fn setup(world: &mut World) {
         brightness: 120.0,
         ..default()
     });
+    let reflection = environment::studio_map(world);
     world.spawn((
+        reflection,
         PreviewCamera,
         Camera3d::default(),
         Transform::from_xyz(0.0, 0.0, 3.2).looking_at(Vec3::ZERO, Vec3::Y),
@@ -86,6 +89,7 @@ pub(crate) fn update(world: &mut World) {
         document.view.repeats,
         document.view.offset,
         document.view.displacement,
+        document.view.backdrop_distance,
         &document.surface,
     ))
     .unwrap();
@@ -104,6 +108,10 @@ fn lighting(world: &mut World, environment: &Environment) {
     *world.resource_mut::<ClearColor>() =
         ClearColor(Color::srgb_from_array(environment.background));
     world.resource_mut::<GlobalAmbientLight>().brightness = environment.ambient;
+    for mut reflection in world.query::<&mut EnvironmentMapLight>().iter_mut(world) {
+        reflection.intensity = environment.reflection_strength;
+        reflection.rotation = Quat::from_rotation_y(environment.azimuth_degrees.to_radians());
+    }
     let azimuth = environment.azimuth_degrees.to_radians();
     let incidence = environment.incidence_degrees.to_radians();
     let direction = Vec3::new(
@@ -148,7 +156,7 @@ fn camera(world: &mut World, document: &Document, rect: bevy_egui::egui::Rect, c
                 let size = UVec2::new((rect.width() * scale) as u32, (rect.height() * scale) as u32).max(UVec2::ONE).min(extent - origin);
                 camera.viewport = Some(Viewport { physical_position: origin, physical_size: size, ..default() });
             }
-        let distance = view.distance * if comparison {1.7} else {1.0};
+        let distance = view.distance * if comparison {1.7 * geometry::comparison_offset(view.shape) / geometry::comparison_offset(crate::document::Shape::Plane)} else {1.0};
         let position = Quat::from_euler(EulerRot::YXZ, view.yaw, view.pitch, 0.0) * Vec3::Z * distance;
         *transform = Transform::from_translation(position).looking_at(Vec3::ZERO, Vec3::Y);
         *projection = if view.orthographic {
@@ -194,18 +202,15 @@ fn rebuild(world: &mut World) {
     for mesh in assets.meshes.drain(..) {
         world.resource_mut::<Assets<Mesh>>().remove(mesh.id());
     }
-    let x = if pinned.is_some() { 0.82 } else { 0.0 };
+    let x = if pinned.is_some() {
+        geometry::comparison_offset(document.view.shape)
+    } else {
+        0.0
+    };
     spawn_material(world, &mut assets, &current, &document, channel, x);
     if let Some((pinned, mut pinned_document)) = pinned {
         pinned_document.view = document.view.clone();
-        spawn_material(
-            world,
-            &mut assets,
-            &pinned,
-            &pinned_document,
-            channel,
-            -0.82,
-        );
+        spawn_material(world, &mut assets, &pinned, &pinned_document, channel, -x);
     }
     world.insert_resource(assets);
 }
@@ -221,7 +226,10 @@ fn spawn_material(
     if bake.recipe == adventuresim_procedural_textures::TextureRecipeId::WindowGlass
         && channel.is_none()
     {
-        backdrop::spawn(world, assets, x);
+        backdrop::spawn(world, assets, x, document.view.backdrop_distance);
+        if document.view.shape == crate::document::Shape::Pane {
+            backdrop::frame(world, assets, x);
+        }
     }
     let mesh = world
         .resource_mut::<Assets<Mesh>>()

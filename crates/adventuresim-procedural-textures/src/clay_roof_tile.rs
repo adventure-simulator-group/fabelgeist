@@ -142,16 +142,13 @@ fn sample_tiles(params: &crate::TextureParameters, u: f32, v: f32) -> TileSample
         + cup
         + twist
         + variation * params.clay_roof_tile.sample_tiles_face_height_3;
-    let under_id = tile_id(params, row + 1, tile_coordinates(params, u, row + 1).0);
-    let under_variation = face_variation(
-        params,
-        local_x,
-        params.clay_roof_tile.sample_tiles_under_variation,
-        under_id,
+    let (under_id, under_height) = under_course(params, u, row, local_x);
+    let physical_edge = crate::stamps::smooth(
+        edge_distance * params.clay_roof_tile.tile_metres
+            / params.clay_roof_tile.tiles_per_course as f32
+            / params.clay_roof_tile.edge_width_metres,
     );
-    let under_height = params.clay_roof_tile.sample_tiles_under_height_1
-        + under_variation * params.clay_roof_tile.sample_tiles_under_height_2;
-    let height = under_height + (face_height - under_height) * coverage;
+    let height = under_height + (face_height - under_height) * physical_edge;
     let edge_proximity = (1.0
         - edge_distance.abs() / params.clay_roof_tile.sample_tiles_edge_proximity)
         .clamp(0.0, 1.0);
@@ -236,6 +233,7 @@ pub fn generate_clay_roof_tile_textures(
         .iter()
         .map(|sample| sample.height)
         .collect::<Vec<_>>();
+    let heights = crate::normal::filter_heights_periodic(&heights, size);
     let mut albedo = Vec::with_capacity((size * size * 4) as usize);
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());
@@ -626,3 +624,16 @@ mod tests {
 
 mod controls;
 pub use controls::Parameters;
+
+fn under_course(params: &crate::TextureParameters, u: f32, row: i32, local_x: f32) -> (u64, f32) {
+    let under_id = tile_id(params, row + 1, tile_coordinates(params, u, row + 1).0);
+    let under_variation = face_variation(
+        params,
+        local_x,
+        params.clay_roof_tile.sample_tiles_under_variation,
+        under_id,
+    );
+    let under_height = params.clay_roof_tile.sample_tiles_under_height_1
+        + under_variation * params.clay_roof_tile.sample_tiles_under_height_2;
+    (under_id, under_height)
+}

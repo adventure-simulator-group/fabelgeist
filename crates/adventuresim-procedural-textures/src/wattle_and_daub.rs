@@ -140,7 +140,11 @@ fn sparse_capsules(params: &crate::TextureParameters, u: f32, v: f32, layer: Cap
                 (center.0 - direction.0, center.1 - direction.1),
                 (center.0 + direction.0, center.1 + direction.1),
             );
-            coverage = coverage.max(1.0 - smoothstep(radius, radius * 1.7, distance));
+            let footprint = cells as f32 / params.size(WATTLE_AND_DAUB_TEXTURE_SIZE) as f32;
+            let filtered_radius = (radius * radius + footprint * footprint / 12.0).sqrt();
+            let profile =
+                (-0.5 * (distance / filtered_radius).powi(2)).exp() * radius / filtered_radius;
+            coverage = coverage.max(profile);
         }
     }
     coverage
@@ -322,6 +326,13 @@ pub fn generate_wattle_and_daub_textures(
             })
         })
         .collect::<Vec<_>>();
+    let normal_heights = crate::normal::filter_heights_periodic(
+        &samples
+            .iter()
+            .map(|sample| sample.height)
+            .collect::<Vec<_>>(),
+        size,
+    );
     let mut albedo = Vec::with_capacity((size * size * 4) as usize);
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());
@@ -338,10 +349,12 @@ pub fn generate_wattle_and_daub_textures(
                 encode_unit(sample.albedo.z),
                 255,
             ]);
-            let dx = height_at(params, &samples, x as i32 + 1, y as i32)
-                - height_at(params, &samples, x as i32 - 1, y as i32);
-            let dy = height_at(params, &samples, x as i32, y as i32 + 1)
-                - height_at(params, &samples, x as i32, y as i32 - 1);
+            let at = |xx: i32, yy: i32| {
+                normal_heights[(yy.rem_euclid(size as i32) * size as i32
+                    + xx.rem_euclid(size as i32)) as usize]
+            };
+            let dx = at(x as i32 + 1, y as i32) - at(x as i32 - 1, y as i32);
+            let dy = at(x as i32, y as i32 + 1) - at(x as i32, y as i32 - 1);
             let surface_normal =
                 crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
             normal.extend_from_slice(&[

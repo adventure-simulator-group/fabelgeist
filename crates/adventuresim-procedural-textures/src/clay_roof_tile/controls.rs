@@ -3,7 +3,7 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
-        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [113, 109], radius: [0.32, 0.28], density: 0.32, depth: 0.035, ..Default::default() };
+        pores: crate::stamps::Parameters = crate::stamps::Parameters { cells: [113, 109], radius: [0.32, 0.28], density: 0.14, depth: 0.022, size_variation: 0.75, cluster_strength: 0.85, ..Default::default() };
         drag_marks: crate::stamps::Parameters = crate::stamps::Parameters { cells: [83, 41], radius: [0.12, 0.75], density: 0.3, depth: 0.018, angle_variation: 0.15, roundness: 0.45, ..Default::default() };
         palette: [[u8; 3]; 5] = [[139,58,41],[150,68,45],[129,55,40],[144,63,42],[136,61,46]];
         generate_clay_roof_tile_textures_ao: f32 = 0.32;
@@ -13,8 +13,9 @@ crate::parameters::parameter_block! {
         color_and_roughness_roughness_4: f32 = 11.0;
         sample_tiles_vertical_offset: f32 = 0.070;
         sample_tiles_yaw: f32 = 0.070;
-        sample_tiles_tail_asymmetry: f32 = 0.070;
+        sample_tiles_tail_asymmetry: f32 = 0.12;
         sample_tiles_side_warp: f32 = 0.007;
+        edge_width_metres: f32 = 0.006;
         sample_tiles_antialias: f32 = 0.75;
         sample_tiles_thickness: f32 = 0.024;
         sample_tiles_cup_1: f32 = 0.16;

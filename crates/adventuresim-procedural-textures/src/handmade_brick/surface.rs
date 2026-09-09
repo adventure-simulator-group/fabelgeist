@@ -34,9 +34,35 @@ pub(super) fn finish(
         * params.handmade_brick.mortar_noise_relief;
     let mortar_height = params.handmade_brick.mortar_height + mortar_noise + grit.facet;
     BrickSample {
-        height: mortar_height + (face_height - mortar_height) * brick_coverage,
+        height: mortar_height
+            + (face_height - mortar_height)
+                * crate::stamps::smooth(
+                    -edge_distance * minimum_half_extent * params.handmade_brick.tile_metres
+                        / (params.handmade_brick.edge_width_metres
+                            * (1.0
+                                + (hash_unit(params, id ^ 0x7691) - 0.5)
+                                    * params.handmade_brick.edge_width_variation)),
+                ),
         brick: brick_coverage >= 0.5,
         brick_id: id,
         brick_coverage,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn clay_rollover_keeps_its_physical_width_at_draft_resolution() {
+        let full = crate::TextureParameters::default();
+        let mut draft = full.clone();
+        draft.resolution = crate::BakeResolution::Draft;
+        for i in -20..20 {
+            let unit = (i as f32 / 100.0, 17, 0.2, 0.3, 0.03);
+            assert_eq!(
+                finish(&full, 0.21, 0.35, unit).height,
+                finish(&draft, 0.21, 0.35, unit).height
+            );
+        }
     }
 }

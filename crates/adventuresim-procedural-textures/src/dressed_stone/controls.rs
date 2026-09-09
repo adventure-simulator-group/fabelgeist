@@ -3,6 +3,7 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        tool_relief_gain: f32 = 2.5;
         sample_stonework_bed_joint_1: f32 = 0.010;
         sample_stonework_bed_joint_2: f32 = 0.004;
         sample_stonework_head_joint_1: f32 = 0.008;

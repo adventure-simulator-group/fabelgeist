@@ -3,8 +3,9 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        tool_smoothing: f32 = 0.85;
         float_center: f32 = 0.2;
-        float_tracks: crate::stamps::Parameters = crate::stamps::Parameters { cells: [17,19], radius: [0.83,0.38], density:0.85, depth:0.49, angle:0.45, angle_variation:1.2, roundness:0.7, ..Default::default() };
+        float_tracks: crate::stamps::Parameters = crate::stamps::Parameters { cells: [9,11], radius: [0.83,0.38], density:0.65, depth:0.22, angle:0.45, angle_variation:1.2, roundness:0.7, ..Default::default() };
         trowel_strokes: crate::stamps::Parameters = crate::stamps::Parameters { cells: [5, 5], radius: [0.86, 0.38], density: 0.85, depth: 0.13, angle: 0.45, angle_variation: 0.8, roundness: 0.1, edge_width: 0.15, ..Default::default() };
         lime_plaster_sample_aggregate_radius_1: f32 = 0.10;
         lime_plaster_sample_aggregate_radius_2: f32 = 0.10;

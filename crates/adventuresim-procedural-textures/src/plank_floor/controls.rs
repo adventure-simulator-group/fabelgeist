@@ -3,6 +3,7 @@ use super::*;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
+        segments_per_strip: i32 = 2;
         grain: crate::board_grain::Parameters = Default::default();
         joint_srgb: [u8; 3] = [64, 45, 29];
         nail_srgb: [u8; 3] = [42, 42, 40];

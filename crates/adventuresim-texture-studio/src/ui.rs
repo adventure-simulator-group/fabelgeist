@@ -123,6 +123,7 @@ fn environment(ui: &mut egui::Ui, document: &mut Document) {
     ui.add(egui::Slider::new(&mut e.azimuth_degrees, -180.0..=180.0).text("Azimuth °"));
     ui.add(egui::Slider::new(&mut e.incidence_degrees, 0.0..=90.0).text("Incidence °"));
     ui.add(egui::Slider::new(&mut e.ambient, 0.0..=1500.0).text("Ambient"));
+    ui.add(egui::Slider::new(&mut e.reflection_strength, 0.0..=10000.0).text("Reflection studio"));
     ui.add(egui::Slider::new(&mut e.exposure_ev, -5.0..=5.0).text("Exposure EV"));
     egui::CollapsingHeader::new("Fill and background").show(ui, |ui| {
         ui.color_edit_button_rgb(&mut e.fill_color);

@@ -311,6 +311,7 @@ pub fn generate_timber_shingle_textures(
         .iter()
         .map(|sample| sample.height)
         .collect::<Vec<_>>();
+    let heights = crate::normal::filter_heights_periodic(&heights, size);
     let mut albedo = Vec::with_capacity((size * size * 4) as usize);
     let mut normal = Vec::with_capacity(albedo.capacity());
     let mut height = Vec::with_capacity(albedo.capacity());

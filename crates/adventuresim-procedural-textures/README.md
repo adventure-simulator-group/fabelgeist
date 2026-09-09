@@ -111,3 +111,22 @@ The [ironwork research](prior-art/ironwork/prior-art.md) and
 [slate research](prior-art/slate-roof/prior-art.md) describe the source techniques,
 adaptations and limits. These generators describe reusable surfaces; object
 contact wear and roof-boundary construction need consuming mesh/scene inputs.
+
+## Surface review and precision
+
+Bark and soil pack normalized 16-bit height into RG (most significant byte first),
+AO into B, and opaque alpha into A. Mips average float heights before packing;
+renderers decode with `decode_height_ao` or its linear WGSL equivalent. This
+preserves shallow slopes and byte carries through texture filtering.
+
+Masonry and clay roof edges have a physical rollover width independent of pigment
+antialias coverage. Rubble combines stone-local fracture planes with varied course
+boundaries. Flooring owns grain coordinates per butt segment; the shared cut-board
+program creates open cathedral traces and locally deflected knots. Game leaf
+presets refine the reference shape controls while retaining the common morphing
+program and the original reference catalogue. Beech's game preset targets European
+beech; reference presets remain available in the Studio.
+
+The native material lab provides folded-sheet, framed-pane and repeated-crown
+views, a reflection studio, and adjustable glass background separation. These
+views supplement neutral/raking, tiling and raw-channel comparisons.

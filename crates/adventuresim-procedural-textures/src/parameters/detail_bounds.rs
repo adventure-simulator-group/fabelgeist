@@ -1,9 +1,24 @@
 //! Sampling support bounds for finite stamps and cut-board anatomy.
 pub(super) fn bounds(path: &str, name: &str) -> Option<(f64, f64)> {
+    if path.starts_with("/rock/facets/") || path.starts_with("/surface/plates/") {
+        return Some(match name {
+            "cells" => (1.0, 64.0),
+            _ => (0.0, 1.0),
+        });
+    }
+    if matches!(
+        name,
+        "aggregate_angularity" | "litter_patch_strength" | "tool_smoothing"
+    ) {
+        return Some((0.0, 1.0));
+    }
+    if name == "edge_width_metres" {
+        return Some((0.001, 0.04));
+    }
     let stamp_roots = [
         "/handmade_brick/pores/",
         "/handmade_brick/mortar_grit/",
-        "/rock/facets/",
+        "/rock/spalls/",
         "/rock/pores/",
         "/lime_plaster/trowel_strokes/",
         "/lime_plaster/float_tracks/",

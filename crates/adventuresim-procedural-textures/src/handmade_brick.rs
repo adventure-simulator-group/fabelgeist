@@ -395,29 +395,30 @@ mod tests {
     }
 
     #[test]
-    fn face_interiors_are_near_planar_without_uniform_inflation() {
+    fn face_interiors_keep_shallow_handmade_variation() {
         let params = &crate::TextureParameters::default();
         let mut minimum = f32::INFINITY;
         let mut maximum = f32::NEG_INFINITY;
-        let mut interior_samples = 0;
-        for y in 0..256 {
-            for x in 0..256 {
-                let sample =
-                    sample_brickwork(params, (x as f32 + 0.5) / 256.0, (y as f32 + 0.5) / 256.0);
-                if sample.brick_coverage == 1.0 {
+        // Sample the physical face away from the rollover, independently of
+        // the pigment coverage ramp (which also covers bevelled clay).
+        for id in 0..32 {
+            for y in -4..=4 {
+                for x in -4..=4 {
+                    let sample = surface::finish(
+                        params,
+                        0.2,
+                        0.3,
+                        (-1.0, id, x as f32 / 5.0, y as f32 / 5.0, 0.03),
+                    );
                     minimum = minimum.min(sample.height);
                     maximum = maximum.max(sample.height);
-                    interior_samples += 1;
                 }
             }
         }
+        assert!(maximum - minimum > 0.015);
         assert!(
-            interior_samples > 25_000,
-            "interior samples: {interior_samples}"
-        );
-        assert!(
-            maximum - minimum < 0.055,
-            "interior relief span: {}",
+            maximum - minimum < 0.12,
+            "face relief: {}",
             maximum - minimum
         );
     }

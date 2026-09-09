@@ -13,6 +13,9 @@ pub(super) fn draw(ui: &mut egui::Ui, document: &mut Document) {
             }
         });
     ui.checkbox(&mut v.orthographic, "Orthographic");
+    ui.add(
+        egui::Slider::new(&mut v.backdrop_distance, 0.1..=5.0).text("Glass background distance"),
+    );
     if v.shape != Shape::Plane {
         v.displacement = 0.0;
     }

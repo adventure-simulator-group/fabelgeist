@@ -139,9 +139,9 @@ fn oak_bark_is_one_specialized_1024_texture_with_a_complete_mip_chain() {
         .sum::<u32>();
     assert_eq!(
         image.data.as_ref().unwrap().len(),
-        (mip_texels * 2) as usize
+        (mip_texels * 4) as usize
     );
-    assert_eq!(image.texture_descriptor.format, TextureFormat::Rg8Unorm);
+    assert_eq!(image.texture_descriptor.format, TextureFormat::Rgba8Unorm);
     assert_eq!(OAK_BARK_AO_SIZE, OAK_BARK_TEXTURE_SIZE / 2);
     let old_horizon_samples = OAK_BARK_TEXTURE_SIZE.pow(2) * 8 * 6;
     let reduced_horizon_samples = OAK_BARK_AO_SIZE.pow(2)
@@ -149,17 +149,19 @@ fn oak_bark_is_one_specialized_1024_texture_with_a_complete_mip_chain() {
         * OAK_BARK_AO_STEPS.len() as u32;
     assert_eq!(old_horizon_samples / reduced_horizon_samples, 12);
     let data = image.data.as_ref().unwrap();
-    let first_mip_offset = (OAK_BARK_TEXTURE_SIZE * OAK_BARK_TEXTURE_SIZE * 2) as usize;
-    for channel in 0..2_usize {
-        let source = [
-            data[channel],
-            data[2 + channel],
-            data[(OAK_BARK_TEXTURE_SIZE * 2) as usize + channel],
-            data[(OAK_BARK_TEXTURE_SIZE * 2 + 2) as usize + channel],
-        ];
-        let expected = ((source.iter().map(|value| *value as u32).sum::<u32>() + 2) / 4) as u8;
-        assert_eq!(data[first_mip_offset + channel], expected);
-    }
+    let first_mip_offset = (OAK_BARK_TEXTURE_SIZE * OAK_BARK_TEXTURE_SIZE * 4) as usize;
+    let source = [
+        0,
+        4,
+        (OAK_BARK_TEXTURE_SIZE * 4) as usize,
+        (OAK_BARK_TEXTURE_SIZE * 4 + 4) as usize,
+    ];
+    let expected = source
+        .iter()
+        .map(|i| crate::decode_height_ao(&data[*i..]))
+        .sum::<f32>()
+        * 0.25;
+    assert!((crate::decode_height_ao(&data[first_mip_offset..]) - expected).abs() < 2.0 / 65535.0);
 }
 
 #[test]
@@ -170,14 +172,14 @@ fn forest_ground_uses_packed_surface_and_normal_textures_with_complete_mip_chain
     assert_eq!(images.len(), 3);
     let image = images.get(&textures.height_ao).unwrap();
     assert_eq!((image.width(), image.height()), (1024, 1024));
-    assert_eq!(image.texture_descriptor.format, TextureFormat::Rg8Unorm);
+    assert_eq!(image.texture_descriptor.format, TextureFormat::Rgba8Unorm);
     assert_eq!(image.texture_descriptor.mip_level_count, 11);
     let mip_texels = (0..11)
         .map(|level| (FOREST_SOIL_TEXTURE_SIZE >> level).pow(2))
         .sum::<u32>();
     assert_eq!(
         image.data.as_ref().unwrap().len(),
-        (mip_texels * 2) as usize
+        (mip_texels * 4) as usize
     );
     assert_eq!(FOREST_SOIL_AO_SIZE, FOREST_SOIL_TEXTURE_SIZE / 2);
 

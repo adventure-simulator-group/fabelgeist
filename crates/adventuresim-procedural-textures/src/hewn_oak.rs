@@ -20,9 +20,7 @@ const FIBER_RELIEF: f32 = 0.040;
 const KNOT_RING_RELIEF: f32 = 0.035;
 const VESSEL_RELIEF: f32 = 0.075;
 const RAY_RELIEF: f32 = 0.025;
-const ADZE_RELIEF_GAIN: f32 = 2.8;
 const ADZE_BLEND_SHARPNESS: f32 = 8.0;
-const ADZE_EDGE_RELIEF: f32 = 0.020;
 /// Intrinsic wood colors, independent of grain relief and roughness.
 #[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub struct HewnOakColors {

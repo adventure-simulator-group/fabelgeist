@@ -9,14 +9,17 @@ mod bake;
 mod board_grain;
 pub mod building;
 mod catalogue;
+mod fracture_planes;
 mod stamps;
 pub use bake::{BakedMap, BakedRecipe, MapChannel, PixelEncoding};
 mod clay_roof_tile;
 mod crenellation_mask;
 mod dressed_stone;
+mod height_ao;
 mod ironwork;
 mod lead_sheet;
 mod normal;
+pub use height_ao::decode_height_ao;
 mod palette;
 mod parameters;
 pub use parameters::{
