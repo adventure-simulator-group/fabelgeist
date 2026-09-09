@@ -2,6 +2,8 @@
     pbr_fragment::pbr_input_from_standard_material,
     pbr_functions::alpha_discard,
 }
+diagnostic(off, derivative_uniformity);
+
 #ifdef PREPASS_PIPELINE
 #import bevy_pbr::{
     prepass_io::{VertexOutput, FragmentOutput},

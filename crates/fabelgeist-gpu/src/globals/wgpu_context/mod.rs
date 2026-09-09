@@ -56,13 +56,27 @@ impl WgpuContext {
 
         let adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions {
-                power_preference: wgpu::PowerPreference::default(),
+                power_preference: wgpu::PowerPreference::HighPerformance,
                 compatible_surface,
                 force_fallback_adapter: false,
                 apply_limit_buckets: false,
             })
             .await
             .map_err(|_| anyhow!("Failed to find an appropriate adapter"))?;
+
+        // Ground truth for which GPU we actually got (watch for device_type: Cpu
+        // == SwiftShader software fallback, backend: Vulkan + DiscreteGpu == NVIDIA).
+        {
+            let i = adapter.get_info();
+            let msg = format!(
+                "[fabelgeist-gpu] adapter: {} | type: {:?} | backend: {:?} | driver: {} {}",
+                i.name, i.device_type, i.backend, i.driver, i.driver_info
+            );
+            #[cfg(target_arch = "wasm32")]
+            web_sys::console::log_1(&msg.as_str().into());
+            #[cfg(not(target_arch = "wasm32"))]
+            eprintln!("{msg}");
+        }
 
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor {

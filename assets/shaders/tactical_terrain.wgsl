@@ -4,6 +4,8 @@
     mesh_view_bindings::{view, lights},
     shadows,
 }
+diagnostic(off, derivative_uniformity);
+
 #ifdef PREPASS_PIPELINE
 #import bevy_pbr::{
     prepass_io::{VertexOutput, FragmentOutput},

@@ -6,6 +6,8 @@
     view_transformations::position_world_to_clip,
 }
 
+diagnostic(off, derivative_uniformity);
+
 struct TacticalPebbleBillboardMaterial {
     color: vec4<f32>,
     lighting: vec4<f32>,

@@ -15,6 +15,8 @@
 #import bevy_eidolon::render::bindings::instance_uniforms
 #import bevy_eidolon::render::io_types::Vertex
 
+diagnostic(off, derivative_uniformity);
+
 @group(3) @binding(0) var leaf_opacity: texture_2d<f32>;
 @group(3) @binding(1) var leaf_opacity_sampler: sampler;
 @group(3) @binding(2) var front_albedo: texture_2d<f32>;

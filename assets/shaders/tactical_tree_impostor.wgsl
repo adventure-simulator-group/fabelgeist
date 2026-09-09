@@ -5,6 +5,8 @@
     view_transformations::position_world_to_clip,
 }
 
+diagnostic(off, derivative_uniformity);
+
 @group(#{MATERIAL_BIND_GROUP}) @binding(0)
 var baked_color: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(1)

@@ -5,6 +5,8 @@
     view_transformations::position_world_to_clip,
 }
 
+diagnostic(off, derivative_uniformity);
+
 @group(#{MATERIAL_BIND_GROUP}) @binding(0)
 var<uniform> cloud_lighting: vec4<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(1)

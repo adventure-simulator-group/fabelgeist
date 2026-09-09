@@ -75,7 +75,6 @@
         developPrograms =
           (with pkgs; [
             cargo-edit
-            clippy
             rust-analyzer-unwrapped
             just
             pythonWithTestLibs

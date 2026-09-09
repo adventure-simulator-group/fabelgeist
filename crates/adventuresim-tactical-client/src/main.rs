@@ -332,6 +332,18 @@ fn run(
     .add_input_context::<Player>();
     add_gameplay_plugins(&mut app, graphics_config);
     app.insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.15)))
+        // Browser WebGPU rejects some pipelines the native backend accepts (shader
+        // modules / limits it doesn't expose). Bevy's default render-error handler
+        // hard-quits the whole app on the first such validation error, blanking the
+        // canvas. Log and keep rendering instead, so the rest of the scene -- the
+        // instanced grass has its own pipeline -- still draws and every incompatible
+        // pipeline is surfaced rather than just the first. Native compiles every
+        // pipeline, so this handler never fires there (no per-target behaviour gate).
+        .insert_resource(bevy::render::error_handler::RenderErrorHandler(
+            |_error, _main_world, _render_world| {
+                bevy::render::error_handler::RenderErrorPolicy::Ignore
+            },
+        ))
         .insert_resource(audio_config)
         .insert_resource(presentation::ClientStartupTiming::new(startup_started_at))
         .add_systems(Startup, setup_initial_client)
@@ -446,6 +458,9 @@ fn native_asset_root() -> std::path::PathBuf {
 }
 
 #[cfg(not(target_family = "wasm"))]
+/// Only shaders the client loads from the asset root belong here. Tree bark and
+/// leaf cards ship embedded in `adventuresim-procedural-materials`, so they are
+/// not asset-root files at all.
 fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(), String> {
     // Only filesystem assets belong here; ProceduralMaterialsPlugin embeds its shaders.
     const REQUIRED_ASSETS: &[&str] = &[

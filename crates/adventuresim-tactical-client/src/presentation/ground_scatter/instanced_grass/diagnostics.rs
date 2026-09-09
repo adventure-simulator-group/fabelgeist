@@ -25,15 +25,6 @@ pub(super) fn casts_shadows(
     }
 }
 
-pub(super) const fn tier_index(lod: GrassMeshLod) -> usize {
-    match lod {
-        GrassMeshLod::Near => 0,
-        GrassMeshLod::NearEdge => 1,
-        GrassMeshLod::Far => 2,
-        GrassMeshLod::Vista => 3,
-    }
-}
-
 pub(super) fn material(
     lod: GrassMeshLod,
     grass: &crate::presentation::config::GrassConfig,

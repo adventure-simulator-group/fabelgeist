@@ -183,10 +183,9 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
-        // GPU-instanced grass renders through bevy_eidolon on native builds;
-        // the browser bundle keeps the legacy patch renderer until the wasm
-        // indirect-draw fallback lands.
-        #[cfg(all(feature = "instanced-grass", not(target_family = "wasm")))]
+        // GPU-instanced grass renders through bevy_eidolon on native and wasm
+        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
+        // multi-draw-indirect on the browser backend).
         app.add_plugins(ground_scatter::InstancedGrassPlugin);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             // Tactical play uses one compact close-range cascade for whichever
@@ -213,7 +212,6 @@ impl Plugin for TacticalPresentationPlugin {
                 )
                     .chain(),
             )
-            .init_resource::<GrassInteractionState>()
             .init_resource::<WoodyUnderstoryPresentationCache>()
             .init_resource::<GroundFoliagePresentationCache>()
             .init_resource::<TreePresentationCache>()
@@ -232,7 +230,6 @@ impl Plugin for TacticalPresentationPlugin {
             .add_systems(
                 Update,
                 (
-                    update_grass_interaction,
                     (
                         present_pending_terrain,
                         update_terrain_detail_patch,

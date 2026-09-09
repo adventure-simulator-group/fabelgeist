@@ -3,6 +3,8 @@
     view_transformations::position_world_to_clip,
 }
 
+diagnostic(off, derivative_uniformity);
+
 #ifdef PREPASS_PIPELINE
 // The prepass view layout binds the globals uniform at slot 1, but ships no
 // importable WGSL module for it, so declare the binding directly.
