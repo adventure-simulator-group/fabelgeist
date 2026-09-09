@@ -447,6 +447,7 @@ fn native_asset_root() -> std::path::PathBuf {
 
 #[cfg(not(target_family = "wasm"))]
 fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(), String> {
+    // Only filesystem assets belong here; ProceduralMaterialsPlugin embeds its shaders.
     const REQUIRED_ASSETS: &[&str] = &[
         "shaders/tactical_foliage.wgsl",
         "shaders/tactical_clouds.wgsl",
@@ -455,7 +456,6 @@ fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(
         "shaders/tactical_terrain.wgsl",
         "shaders/tactical_weather.wgsl",
         "shaders/tactical_tree_impostor.wgsl",
-        "shaders/tactical_tree_leaf_card.wgsl",
         "tactical-equipment-icons.png",
         "textures/moon/lroc_color_2k.jpg",
     ];
