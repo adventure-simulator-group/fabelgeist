@@ -15,6 +15,8 @@ const PROFILE_SAMPLES: usize = 48;
 const PROFILE_WINDOW_M: f32 = 0.008;
 const MINIMUM_RADIAL_EXTENT_M: f32 = 0.008;
 const PROFILE_CLEARANCE_MARGIN_M: f32 = 0.002;
+#[path = "boot_layer_fit.rs"]
+mod boot_layer_fit;
 // Linear identity blends need a little extra room at the torso-facing armpit
 // edge. Distal trimming creates that space without widening the arm cylinder.
 const REREBRACE_AXILLARY_MORPH_TRIM_M: f32 = 0.008;
@@ -51,7 +53,8 @@ pub fn fitted_limb(
             let FitRegion::Foot(side) = region else {
                 anyhow::bail!("boot requires foot landmarks")
             };
-            fit_foot_envelope(mesh, d.gauge, None, wearer, side, &frame)
+            let mesh = fit_foot_envelope(mesh, d.gauge, None, wearer, side, &frame)?;
+            boot_layer_fit::fit(mesh, d.gauge, wearer, side, &frame)
         }
         LimbArmorDesign::Sabaton(d) => {
             let FitRegion::Foot(side) = region else {

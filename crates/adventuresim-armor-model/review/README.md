@@ -40,6 +40,18 @@ the exported morph targets, without generating substitute fitted meshes.
   final four-body visual assessment and its limits. Broad historical reviewers
   separately assessed the helmet, limb and garment families during iteration.
 
+Boot shafts fit outside cross-sections of the supported default mail and
+padded chausses. A conservative ankle transition joins that envelope to the
+vamp. The [boot layering audit](boot-layering.json) checks both legs at neutral,
+all 47 morph endpoints and three identity blends. Reproduce it with
+`blender --background --python scripts/check_boot_layering.py -- assets/equipment/procedural OUTPUT.json`.
+Custom garment dimensions and animated poses need their own fit review.
+The [boot artistic review](boot-artistic-review.md) assesses the
+[front](boot/combined-front.png), [side](boot/combined-side.png) and
+[three-quarter](boot/combined-quarter.png) source-preview views; orange is
+leather, cyan is mail and magenta is the body. The ordinary exported GLBs are
+reviewed separately in the part and outfit boards above.
+
 ## Historical shape references
 
 Reference examples include the Met's [morion](https://www.metmuseum.org/art/collection/search/27150),
@@ -62,4 +74,43 @@ documents typed design overrides, filtered exports, GLB audits, static renders
 and native armor capture fixtures. Use the installed asset manifest and the
 same body coefficients when comparing a new candidate with this evidence.
 
-Runtime capture validation is recorded separately from the static checks.
+## Runtime checks
+
+The native viewer uses the gameplay equipment renderer. Fifteen captures cover
+plate, mail and padded outfits in idle, walking and raised guard, plus idle at
+both spine-length extremes. All captures completed without GPU layout errors;
+all three raised-guard runs passed the full viewer validator. Each piece had to
+resolve its mesh, material, morphs and complete wearer skin before capture.
+
+![Plate outfit in raised guard](runtime/plate-guard-front.png)
+
+![Foot armor during a walk on the flat review grid](runtime/plate-flat-walk-side.png)
+
+[Capture results](runtime/runtime-final-summary.json) and
+[per-run asset provenance](runtime/provenance/) distinguish the installed
+geometry used in each run. Four [boot follow-up captures](runtime/boot-followup-summary.json)
+use the corrected pair in mail and padded idle and guard scenarios; the
+original captures retain their original asset hashes. All four complete
+without GPU errors. Mail guard passes the full validator. The padded guard
+follow-up reports a biomechanics/foot-dragging failure with zero jitter;
+the two idle follow-ups report startup jitter.
+
+![Corrected boots with mail leggings in guard](runtime/mail-boot-guard-front.png)
+
+The [independent runtime review](runtime/visual-regression-review.md) records
+the original defect and its final image-based follow-up separately.
+
+The viewer's animation validator does not pass every scenario. Matched
+unarmored controls reproduce idle startup jitter and the ordinary walking
+continuity, biomechanics, ground-penetration, height and repeated-evaluation
+failures. The supplemental flat-grid walk exposes the feet and passes ground
+penetration. See the [control results](runtime/runtime-supplemental-summary.json).
+No animation thresholds were relaxed. Bevy still ignores secondary skin
+influences; their total is at most 0.5% for new armor/body and 0.96% for the
+retained vambraces in these assets.
+
+These simple pieces preserve openings around joints, hems and necklines. The
+fixtures omit ordinary underclothes; a raised skirt can expose the groin
+between separate chausses. Region coverage does not imply sealed protection
+through every pose. Numerical geometry checks, visual fit and animation
+validation are reported separately.
