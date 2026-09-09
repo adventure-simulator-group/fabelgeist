@@ -562,7 +562,7 @@ repeated structural compilation while varying ordinary street frontage.
 
 Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
 and armorer premises), bakehouses, market halls, breweries, malt houses, timber
-yards, carpenter workshops and merchant warehouses use the `Workplace`
+yards, carpenter workshops, merchant warehouses, dyers and tanneries use the `Workplace`
 structural family.
 Their capacity band selects a small, medium or large working footprint before
 city placement reserves the complete plot. Playable buildings and distant
@@ -584,6 +584,9 @@ support, reserved plot bounds, required equipment and clear passages are audited
 static collision consumes the same physical parts. Roofs continue through the
 existing roof resolver and audit. Generic grid-opening edits are rejected for
 this structural family; edit the working programme instead.
+Vessel bottoms and rims collide; their rendered liquid fills do not create solid
+floors. Pitched equipment shares its full orientation across support auditing,
+rendering and collision bounds.
 
 Breweries combine a masonry hall with a lower timber service shelter, open
 coopered vessels and a separate firing area. Malt houses have long ventilated
@@ -599,7 +602,21 @@ passes outside the loading shelter; the upper storage floor has an internal
 stair. The long masonry storage form draws on the fifteenth-century
 [Kornhofspeicher in Erfurt](https://www.denkmalschutz.de/denkmal/kornhofspeicher-grosse-ackerhofgasse-11-12.html).
 The loading arrangement is a procedural design, not a reconstruction of that
-specific building.
+specific building. Its static lifting tackle includes a strapped pulley block,
+paired hemp rope runs, an open iron hook and a post cleat.
+
+Dyers have an open heated work bay, a kettle and draining bench, and tall rails
+carrying folded cloth. Tanneries combine low soaking tanks, sloped fleshing
+beams and irregular hanging hides beneath a drying canopy. Their working yards
+remain inside the reserved plot. Edge-district placement does not identify a
+riverbank, so these programmes do not fabricate watercourses or outlets beyond
+the plot. Cloth, hides, grain, rope and liquid fills use a shared authored surface
+palette independently of facade paint.
+
+Period craft details draw on the Nuremberg housebooks' [1525 cloth worker](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/284/)
+and [1488 leatherworker with hanging hides](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/215/).
+The complete workshops are procedural arrangements, not reconstructions of the
+rooms in those illustrations.
 
 The structural audit memoizes completed support paths. Stacked boards and
 other assemblies can share bearings without repeatedly expanding the same
@@ -629,8 +646,7 @@ The next useful additions are:
 - Mills: an actual horse sweep, waterwheel and race, or braced post-mill body
   and sails. Water-powered forms need surveyed water siting before placement.
 - Storage and trade: drying structures for woad, open cooper and wheelwright
-  work bays, wet yards for dyers and
-  tanners, and kiln/drying sheds for potters and brickmakers.
+  work bays, and kiln/drying sheds for potters and brickmakers.
 - Public frontages: covered weighing bays, inn carriage passages, guard porches,
   prison bars, and a smaller chapel programme. Weigh houses, guildhalls,
   universities and mints still share the town-hall family; inns and

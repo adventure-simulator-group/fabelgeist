@@ -33,52 +33,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 format!("resolved solid {index} {:?} owner={} centre={:?} size={:?} support={:?} has invalid extent, owner, or support provenance",solid.role,solid.owner.0,solid.centre,solid.size,solid.supported_by),
             ));
         }
-        let has_bearing = plan
-            .resolved_geometry
-            .support_interfaces
-            .iter()
-            .any(|bearing| {
-                let timber_member = matches!(
-                    solid.role,
-                    SolidRole::FrameSill
-                        | SolidRole::FramePost
-                        | SolidRole::FramePlate
-                        | SolidRole::FrameRail
-                        | SolidRole::FrameJoist
-                        | SolidRole::FrameGirder
-                        | SolidRole::FrameTie
-                        | SolidRole::FrameBrace
-                        | SolidRole::FrameJettyBeam
-                        | SolidRole::FrameKnagge
-                        | SolidRole::FrameGableMember
-                        | SolidRole::FrameDormerTrimmer
-                        | SolidRole::FrameOrnament
-                );
-                bearing.owner == solid.owner
-                    && solid.supported_by.contains(&bearing.node)
-                    && if timber_member {
-                        resolved_solid_overlaps_bounds(
-                            solid,
-                            (bearing.bounds.min, bearing.bounds.max),
-                            0.001,
-                        )
-                    } else {
-                        bounds_overlap_3d(
-                            resolved_solid_bounds(solid),
-                            (bearing.bounds.min, bearing.bounds.max),
-                            0.001,
-                        )
-                    }
-            });
-        if !has_bearing {
-            issues.push(issue(
-                "missing_positive_bearing",
-                format!(
-                    "resolved solid {} has no positive bearing interface",
-                    solid.id.0
-                ),
-            ));
-        }
+        bearing::audit_positive_bearing(solid, &plan.resolved_geometry.support_interfaces, issues);
     }
     for surface in &plan.resolved_geometry.surfaces {
         if !item_ids.insert(surface.id) {

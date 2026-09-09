@@ -281,13 +281,20 @@ fn lod_material(
         BuildingLodMaterial::InteriorTimber => &textures.roof,
         BuildingLodMaterial::InteriorPlaster => &textures.plaster,
         BuildingLodMaterial::Iron | BuildingLodMaterial::Glass => &textures.details,
-        BuildingLodMaterial::Grain => {
-            let color = adventuresim_building_generator::GRAIN_REFERENCE_SRGB;
+        BuildingLodMaterial::Grain
+        | BuildingLodMaterial::DyedCloth
+        | BuildingLodMaterial::UndyedCloth
+        | BuildingLodMaterial::Hide
+        | BuildingLodMaterial::ProcessLiquid
+        | BuildingLodMaterial::HempRope => {
+            let surface = material
+                .workplace_surface()
+                .expect("workplace surface role");
             return world
                 .resource_mut::<Assets<StandardMaterial>>()
                 .add(StandardMaterial {
-                    base_color: Color::srgb(color[0], color[1], color[2]),
-                    perceptual_roughness: 1.0,
+                    base_color: Color::srgb(surface.srgb[0], surface.srgb[1], surface.srgb[2]),
+                    perceptual_roughness: surface.perceptual_roughness,
                     ..default()
                 });
         }

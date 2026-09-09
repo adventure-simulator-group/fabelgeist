@@ -4,8 +4,8 @@ use crate::{Footprint, RoomKind, RoomRequirement, StoreyProgram, WallStyle};
 impl WorkplaceKind {
     pub(crate) const fn yard_width_metres(self) -> f32 {
         match self {
-            Self::Stable | Self::Barn | Self::Malthouse => 4.5,
-            Self::Smithy | Self::Bakehouse | Self::Brewery => 6.0,
+            Self::Stable | Self::Barn | Self::Malthouse | Self::Dyer => 4.5,
+            Self::Smithy | Self::Bakehouse | Self::Brewery | Self::Tannery => 6.0,
             Self::Warehouse => 8.0,
             _ => 0.0,
         }
@@ -64,6 +64,9 @@ impl BuildingProgram {
         if kind == WorkplaceKind::Warehouse {
             roofs.push(super::warehouse::loading_roof(size));
         }
+        if kind == WorkplaceKind::Tannery {
+            roofs.push(super::wet::service_roof(size));
+        }
         Some(roofs)
     }
 
@@ -86,6 +89,8 @@ impl BuildingProgram {
             WorkplaceKind::TimberYard => (8, 10, 3.7, 32.0, RoomKind::Storage),
             WorkplaceKind::Carpenter => (7, 7, 3.7, 47.0, RoomKind::Workshop),
             WorkplaceKind::Warehouse => (7, 14, 6.4, 47.0, RoomKind::Storage),
+            WorkplaceKind::Dyer => (6, 8, 3.2, 40.0, RoomKind::VatRoom),
+            WorkplaceKind::Tannery => (6, 8, 2.8, 32.0, RoomKind::VatRoom),
         };
         let depth = depth + size.extra_bays() * 2;
         self.footprint = Footprint::Rectangle { width, depth };
@@ -105,6 +110,7 @@ impl BuildingProgram {
                 | WorkplaceKind::Brewery
                 | WorkplaceKind::Malthouse
                 | WorkplaceKind::Warehouse
+                | WorkplaceKind::Dyer
         ) {
             WallStyle::Stone
         } else {

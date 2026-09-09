@@ -54,6 +54,11 @@ pub enum BuildingLodMaterial {
     Iron,
     /// Dry cereal grain covering malt-drying beds or stored in open working vessels.
     Grain,
+    DyedCloth,
+    UndyedCloth,
+    Hide,
+    ProcessLiquid,
+    HempRope,
     /// Room-facing lime-plaster finish, including the inner face of an exterior wall.
     InteriorPlaster,
     Floor,

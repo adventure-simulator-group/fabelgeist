@@ -16,15 +16,18 @@ pub(super) struct Assembly<'a> {
 }
 
 impl Assembly<'_> {
-    /// Rotate a fitted cuboid and rebuild its actual bearing contacts before attaching later parts.
-    pub fn orient_part(&mut self, id: ResolvedItemId, yaw: f32) {
+    /// Orient a fitted cuboid and rebuild its actual bearings before attaching later parts.
+    pub fn orient_part(&mut self, id: ResolvedItemId, rotation: bevy::math::Quat) {
         let solid = self
             .geometry
             .solids
             .iter_mut()
             .find(|solid| solid.id == id)
             .unwrap();
+        let (yaw, crossfall, longfall) = rotation.to_euler(bevy::math::EulerRot::YXZ);
         solid.yaw_radians = yaw;
+        solid.crossfall_radians = crossfall;
+        solid.longfall_radians = longfall;
         let solid = solid.clone();
         let node_id = solid.supported_by[0];
         let contacts = self
@@ -34,13 +37,16 @@ impl Assembly<'_> {
             .filter(|other| other.id != id && contact::touches(&solid, other, BEARING_DEPTH_METRES))
             .flat_map(|other| other.supported_by.iter().copied())
             .collect();
-        self.geometry
+        let bounds = contact::bounds(&solid);
+        let node = self
+            .geometry
             .structural_nodes
             .iter_mut()
             .find(|node| node.id == node_id)
-            .unwrap()
-            .supported_by = contacts;
-        let bounds = contact::bounds(&solid);
+            .unwrap();
+        node.supported_by = contacts;
+        node.position = Vec3::new(solid.centre.x, bounds.min.y, solid.centre.z);
+        node.grounded = bounds.min.y <= BEARING_DEPTH_METRES;
         self.geometry
             .support_interfaces
             .iter_mut()
@@ -68,26 +74,7 @@ impl Assembly<'_> {
         let id = ResolvedItemId((1_u64 << 60) | (u64::from(WORKPLACE_OWNER.0) << 32) | slot);
         let node = StructuralNodeId(WORKPLACE_NODE_BASE + slot);
         let bottom = centre.y - size.y * 0.5;
-        let supported_by = self
-            .geometry
-            .solids
-            .iter()
-            .filter(|other| {
-                let overlap = (other.centre + other.size * 0.5).min(centre + size * 0.5)
-                    - (other.centre - other.size * 0.5).max(centre - size * 0.5);
-                overlap.min_element() >= -BEARING_DEPTH_METRES
-            })
-            .flat_map(|other| other.supported_by.iter().copied())
-            .collect();
-        self.geometry.structural_nodes.push(StructuralNode {
-            id: node,
-            owner: WORKPLACE_OWNER,
-            kind: StructuralNodeKind::WallBearing,
-            position: Vec3::new(centre.x, bottom, centre.z),
-            supported_by,
-            grounded: bottom <= BEARING_DEPTH_METRES,
-        });
-        self.geometry.solids.push(ResolvedSolid {
+        let solid = ResolvedSolid {
             id,
             owner: WORKPLACE_OWNER,
             centre,
@@ -98,7 +85,23 @@ impl Assembly<'_> {
             role: SolidRole::WorkplacePart,
             shape: ResolvedSolidShape::Cuboid,
             supported_by: vec![node],
+        };
+        let supported_by = self
+            .geometry
+            .solids
+            .iter()
+            .filter(|other| contact::touches(&solid, other, BEARING_DEPTH_METRES))
+            .flat_map(|other| other.supported_by.iter().copied())
+            .collect();
+        self.geometry.structural_nodes.push(StructuralNode {
+            id: node,
+            owner: WORKPLACE_OWNER,
+            kind: StructuralNodeKind::WallBearing,
+            position: Vec3::new(centre.x, bottom, centre.z),
+            supported_by,
+            grounded: bottom <= BEARING_DEPTH_METRES,
         });
+        self.geometry.solids.push(solid);
         self.geometry.support_interfaces.push(SupportInterface {
             id: ResolvedItemId((4_u64 << 60) | (u64::from(WORKPLACE_OWNER.0) << 32) | slot),
             owner: WORKPLACE_OWNER,

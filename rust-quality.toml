@@ -281,6 +281,11 @@ reason = "Authored supported loading hood and lifting frame dimensions."
 
 [[scopes]]
 kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/hoist.rs"
+reason = "Authored pulley block, sheave, rope, open hook and post cleat geometry."
+
+[[scopes]]
+kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/workplace/warehouse/storage.rs"
 reason = "Authored storehouse floor, stair and physical storage clearances."
 
@@ -324,3 +329,28 @@ reason = "Decodes stable authored placement IDs into ForearmSide at the saved re
 kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/workplace/brewing/kiln.rs"
 reason = "Authored malt-drying chamber, loading and firing apertures, grate and hollow hood dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet.rs"
+reason = "Authored dyeing and tanning yard placements, canopy dimensions and capacity bays."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/envelope.rs"
+reason = "Authored open working bays, rear rooms and clear circulation for wet trades."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/soaking.rs"
+reason = "Authored vessel rims, floors, liquid levels, heating enclosures and supported fleshing beams."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/textiles.rs"
+reason = "Authored cloth folds, irregular hide profiles, drying frames and folded stock dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/surfaces.rs"
+reason = "Canonical authored workplace surface colors and roughness for grain, rope, cloth, hides and liquid fills."

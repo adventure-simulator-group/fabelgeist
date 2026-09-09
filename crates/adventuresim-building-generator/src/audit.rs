@@ -20,6 +20,8 @@ include!("audit/timber_geometry.rs");
 include!("audit/timber.rs");
 include!("audit/church.rs");
 include!("audit/roofs.rs");
+#[path = "audit/bearing.rs"]
+mod bearing;
 #[path = "audit/support.rs"]
 mod support;
 #[path = "audit/wall_counts.rs"]

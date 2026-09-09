@@ -12,13 +12,13 @@ mod craft;
 mod envelope;
 mod equipment;
 mod programme;
+mod surfaces;
 mod validation;
 mod warehouse;
+mod wet;
 pub(crate) use assembly::resolve_workplace;
+pub use surfaces::WorkplaceSurface;
 pub(crate) use validation::audit_workplace;
-
-/// Dry malt grain's reference surface color, shared by production and geometry-review bindings.
-pub const GRAIN_REFERENCE_SRGB: [f32; 3] = [0.72, 0.58, 0.34];
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, ValueEnum)]
 #[serde(rename_all = "snake_case")]
@@ -34,10 +34,12 @@ pub enum WorkplaceKind {
     TimberYard,
     Carpenter,
     Warehouse,
+    Dyer,
+    Tannery,
 }
 
 impl WorkplaceKind {
-    pub const ALL: [Self; 11] = [
+    pub const ALL: [Self; 13] = [
         Self::Barn,
         Self::Stable,
         Self::Granary,
@@ -49,6 +51,8 @@ impl WorkplaceKind {
         Self::TimberYard,
         Self::Carpenter,
         Self::Warehouse,
+        Self::Dyer,
+        Self::Tannery,
     ];
     pub const fn from_use(usage: BuildingUse) -> Option<Self> {
         match usage {
@@ -65,6 +69,8 @@ impl WorkplaceKind {
             BuildingUse::TimberYard => Some(Self::TimberYard),
             BuildingUse::Carpenter => Some(Self::Carpenter),
             BuildingUse::Warehouse => Some(Self::Warehouse),
+            BuildingUse::Dyer => Some(Self::Dyer),
+            BuildingUse::Tannery => Some(Self::Tannery),
             _ => None,
         }
     }
@@ -81,6 +87,8 @@ impl WorkplaceKind {
             Self::TimberYard => BuildingUse::TimberYard,
             Self::Carpenter => BuildingUse::Carpenter,
             Self::Warehouse => BuildingUse::Warehouse,
+            Self::Dyer => BuildingUse::Dyer,
+            Self::Tannery => BuildingUse::Tannery,
         }
     }
     pub const fn slug(self) -> &'static str {
@@ -96,6 +104,8 @@ impl WorkplaceKind {
             Self::TimberYard => "timber-yard",
             Self::Carpenter => "carpenter",
             Self::Warehouse => "warehouse",
+            Self::Dyer => "dyer",
+            Self::Tannery => "tannery",
         }
     }
 }
@@ -136,6 +146,11 @@ pub enum WorkplaceMaterial {
     /// Unfinished working wood stays independent from the building's painted facade palette.
     UnpaintedTimber,
     Grain,
+    DyedCloth,
+    UndyedCloth,
+    Hide,
+    ProcessLiquid,
+    HempRope,
     Masonry,
     Iron,
 }
@@ -165,6 +180,14 @@ pub enum WorkplaceFeature {
     Kiln,
     Louver,
     LoadingHoist,
+    DyeKettle,
+    SoakingTank,
+    DryingFrame,
+    Cloth,
+    Hide,
+    FleshingBeam,
+    /// Rendered liquid fill; the vessel's rim and bottom supply physical collision.
+    ProcessLiquid,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -218,7 +241,9 @@ impl WorkplacePlan {
             | WorkplaceKind::Brewery
             | WorkplaceKind::TimberYard
             | WorkplaceKind::Carpenter
-            | WorkplaceKind::Warehouse => WorkplaceMaterial::Timber,
+            | WorkplaceKind::Warehouse
+            | WorkplaceKind::Dyer
+            | WorkplaceKind::Tannery => WorkplaceMaterial::Timber,
             _ => WorkplaceMaterial::Masonry,
         }
     }

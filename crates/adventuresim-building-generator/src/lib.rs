@@ -18,8 +18,8 @@ mod windows;
 mod workplace;
 pub use settlement::settlement_archetype;
 pub use workplace::{
-    GRAIN_REFERENCE_SRGB, WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart,
-    WorkplacePassage, WorkplacePlan, WorkplaceSize,
+    WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart, WorkplacePassage,
+    WorkplacePlan, WorkplaceSize, WorkplaceSurface,
 };
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};

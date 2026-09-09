@@ -1,6 +1,5 @@
 use adventuresim_building_generator::{
-    BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingLodMaterial, GRAIN_REFERENCE_SRGB, RoofMaterial,
-    WallMaterialClass,
+    BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingLodMaterial, RoofMaterial, WallMaterialClass,
 };
 use adventuresim_procedural_textures::building::{
     BuildingSurfacePalette, FacadeFinish, facade_atlas, fachwerk_baked_texture,
@@ -17,6 +16,9 @@ use bevy::render::render_resource::Face;
 use fabelgeist_determinism::splitmix64;
 
 use super::super::*;
+
+mod workplace;
+use workplace::WorkplaceMaterials;
 
 const APPEARANCE_DOMAIN: u64 = 0x6275_696c_645f_636f;
 
@@ -170,7 +172,7 @@ pub(crate) struct TacticalBuildingMaterials {
     lead: Handle<StandardMaterial>,
     timber_roof: Handle<StandardMaterial>,
     iron: Handle<StandardMaterial>,
-    grain: Handle<StandardMaterial>,
+    workplace: WorkplaceMaterials,
     interior_timber: Handle<StandardMaterial>,
     interior_plaster: Handle<StandardMaterial>,
     floor: Handle<StandardMaterial>,
@@ -209,7 +211,12 @@ impl TacticalBuildingMaterials {
             BuildingLodMaterial::Timber => palette.timber.clone(),
             BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
             BuildingLodMaterial::Iron => self.iron.clone(),
-            BuildingLodMaterial::Grain => self.grain.clone(),
+            BuildingLodMaterial::Grain => self.workplace.grain.clone(),
+            BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),
+            BuildingLodMaterial::UndyedCloth => self.workplace.undyed_cloth.clone(),
+            BuildingLodMaterial::Hide => self.workplace.hide.clone(),
+            BuildingLodMaterial::ProcessLiquid => self.workplace.process_liquid.clone(),
+            BuildingLodMaterial::HempRope => self.workplace.hemp_rope.clone(),
             BuildingLodMaterial::InteriorPlaster => self.interior_plaster.clone(),
             BuildingLodMaterial::Floor => self.floor.clone(),
             BuildingLodMaterial::Glass => self.glass.clone(),
@@ -263,15 +270,7 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
             &procedural_textures.ironwork,
             IRONWORK_TILE_METRES,
         )),
-        grain: materials.add(StandardMaterial {
-            base_color: Color::srgb(
-                GRAIN_REFERENCE_SRGB[0],
-                GRAIN_REFERENCE_SRGB[1],
-                GRAIN_REFERENCE_SRGB[2],
-            ),
-            perceptual_roughness: 1.0,
-            ..default()
-        }),
+        workplace: WorkplaceMaterials::new(&mut materials),
         interior_timber: materials.add(surface_material(
             &procedural_textures.hewn_oak,
             HEWN_OAK_TILE_METRES,

@@ -64,5 +64,5 @@ fn oriented_part(
     yaw: f32,
 ) {
     let id = a.part(WorkplaceFeature::Vat, material, centre, size, true);
-    a.orient_part(id, yaw);
+    a.orient_part(id, bevy::math::Quat::from_rotation_y(yaw));
 }

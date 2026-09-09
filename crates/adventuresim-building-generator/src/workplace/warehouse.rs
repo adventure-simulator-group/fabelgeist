@@ -3,6 +3,7 @@ use super::{assembly::Assembly, *};
 use crate::{GableProfile, RidgeAxis, RoofKind, RoofPiece};
 
 mod envelope;
+mod hoist;
 mod loading;
 mod storage;
 #[cfg(test)]

@@ -108,7 +108,7 @@ pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 
     .vista(),
 ];
 
-pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewSpec; 45] = [
+pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewSpec; 57] = [
     CaptureViewSpec::new(
         "warmup",
         "Production building material warmup",
@@ -466,6 +466,102 @@ pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewS
         "warehouse-distant",
         "Warehouse distant",
         CapturePose::CityExterior { camera: 43 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-exterior",
+        "Dyer exterior",
+        CapturePose::CityExterior { camera: 44 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-interior",
+        "Dyer covered work bay",
+        CapturePose::CityExterior { camera: 45 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-work-bay",
+        "Dyer working yard",
+        CapturePose::CityExterior { camera: 46 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-drying-detail",
+        "Dyer drying detail",
+        CapturePose::CityExterior { camera: 47 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-facade",
+        "Dyer facade",
+        CapturePose::CityExterior { camera: 48 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "dyer-distant",
+        "Dyer distant",
+        CapturePose::CityExterior { camera: 49 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-exterior",
+        "Tannery exterior",
+        CapturePose::CityExterior { camera: 50 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-interior",
+        "Tannery covered work bay",
+        CapturePose::CityExterior { camera: 51 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-work-bay",
+        "Tannery working yard",
+        CapturePose::CityExterior { camera: 52 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-drying-detail",
+        "Tannery drying detail",
+        CapturePose::CityExterior { camera: 53 },
+        58.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-facade",
+        "Tannery facade",
+        CapturePose::CityExterior { camera: 54 },
+        12.0,
+        100,
+    )
+    .vista(),
+    CaptureViewSpec::new(
+        "tannery-distant",
+        "Tannery distant",
+        CapturePose::CityExterior { camera: 55 },
         12.0,
         100,
     )

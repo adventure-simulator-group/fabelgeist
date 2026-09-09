@@ -50,18 +50,5 @@ pub(super) fn loading_hood(a: &mut Assembly<'_>, w: f32, d: f32) {
         Vec3::new(3.8, 0.24, 0.3),
         true,
     );
-    a.part(
-        WorkplaceFeature::LoadingHoist,
-        WorkplaceMaterial::Iron,
-        Vec3::new(w + 2.8, 2.32, z + 1.55),
-        Vec3::new(0.06, 1.4, 0.06),
-        true,
-    );
-    a.part(
-        WorkplaceFeature::LoadingHoist,
-        WorkplaceMaterial::Iron,
-        Vec3::new(w + 2.8, 1.62, z + 1.6),
-        Vec3::new(0.06, 0.08, 0.16),
-        true,
-    );
+    super::hoist::rig(a, Vec2::new(w + 2.8, z + 1.55));
 }

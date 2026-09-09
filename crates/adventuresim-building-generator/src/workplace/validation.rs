@@ -62,6 +62,8 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
         WorkplaceKind::Brewery => WorkplaceFeature::Vat,
         WorkplaceKind::Malthouse => WorkplaceFeature::Kiln,
         WorkplaceKind::Warehouse => WorkplaceFeature::LoadingHoist,
+        WorkplaceKind::Dyer => WorkplaceFeature::DyeKettle,
+        WorkplaceKind::Tannery => WorkplaceFeature::SoakingTank,
     };
     if !workplace.parts.iter().any(|part| part.feature == essential) {
         issues.push(AuditIssue {
