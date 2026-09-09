@@ -22,6 +22,7 @@ struct MapHeader {
     size: u32,
     mip_levels: u32,
     encoding: PixelEncoding,
+    sampler: bevy::image::ImageSampler,
 }
 
 impl BakedRecipe {
@@ -38,6 +39,7 @@ impl BakedRecipe {
                     size: map.size,
                     mip_levels: map.mip_levels,
                     encoding: map.encoding,
+                    sampler: map.sampler.clone(),
                 })
                 .collect(),
         };
@@ -105,6 +107,7 @@ impl BakedRecipe {
                 size: map.size,
                 mip_levels: map.mip_levels,
                 encoding: map.encoding,
+                sampler: map.sampler,
                 bytes: data,
             });
         }
@@ -135,6 +138,7 @@ mod tests {
                 size: 2,
                 mip_levels: 2,
                 encoding: PixelEncoding::R8,
+                sampler: bevy::image::ImageSampler::linear(),
                 bytes: vec![0, 255, 128, 64, 112],
             }],
         };

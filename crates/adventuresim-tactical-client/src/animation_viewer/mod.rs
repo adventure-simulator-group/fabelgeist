@@ -47,6 +47,13 @@ use crate::{
 };
 
 mod capture;
+mod setup;
+use setup::setup_viewer;
+
+#[derive(Resource)]
+struct CaptureBodyProportions(
+    Option<adventuresim_core::character_proportions::CharacterProportions>,
+);
 mod report;
 mod scenarios;
 
@@ -60,11 +67,13 @@ pub(crate) fn run(
     settle_frames: u32,
     scenario: Option<&str>,
     combat_config: TacticalCombatConfig,
+    body_proportions: Option<adventuresim_core::character_proportions::CharacterProportions>,
 ) -> AppExit {
     fs::create_dir_all(&output).unwrap_or_else(|error| {
         panic!("failed to create animation capture directory {output:?}: {error}")
     });
     invalidate_previous_report(&output);
+    setup::write_body_proportions(&output, body_proportions);
     let initial_terrain_ik = scenario.is_some_and(|name| {
         scenario_metadata(name).kind == ScenarioKind::Terrain || name.contains("terrain")
     });
@@ -74,6 +83,7 @@ pub(crate) fn run(
         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None);
     App::new()
         .insert_resource(combat_config)
+        .insert_resource(CaptureBodyProportions(body_proportions))
         .register_asset_source("workspace", workspace_asset_source)
         // The live debug client registers the same default through
         // `DebugPlugin`. The fixture does not install that input/network

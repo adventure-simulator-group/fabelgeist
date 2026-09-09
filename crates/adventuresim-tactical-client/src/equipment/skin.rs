@@ -37,3 +37,63 @@ pub(super) fn sync_procedural_equipment_skins(
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use bevy::ecs::system::RunSystemOnce;
+
+    #[test]
+    fn skeletal_proportions_follow_equipment_transfer_without_rebinding_shared_assets() {
+        let mut world = World::new();
+        let first = world.spawn_empty().id();
+        let second = world.spawn_empty().id();
+        let narrow = world
+            .spawn((
+                MhrBone { owner: first },
+                Name::new("l_upleg"),
+                Transform::from_xyz(0.05, 1.0, 0.0),
+            ))
+            .id();
+        let wide = world
+            .spawn((
+                MhrBone { owner: second },
+                Name::new("l_upleg"),
+                Transform::from_xyz(0.15, 1.0, 0.0),
+            ))
+            .id();
+        let item = world.spawn(ItemOf(first)).id();
+        let bindposes = Handle::default();
+        let part = world
+            .spawn(ProceduralEquipmentPart {
+                item,
+                inverse_bindposes: bindposes.clone(),
+                joint_names: vec!["l_upleg".into()],
+            })
+            .id();
+        world
+            .run_system_once(sync_procedural_equipment_skins)
+            .unwrap();
+        assert_eq!(world.get::<SkinnedMesh>(part).unwrap().joints, [narrow]);
+        world.entity_mut(item).insert(ItemOf(second));
+        world
+            .run_system_once(sync_procedural_equipment_skins)
+            .unwrap();
+        let skin = world.get::<SkinnedMesh>(part).unwrap();
+        assert_eq!(skin.joints, [wide]);
+        assert_eq!(skin.inverse_bindposes, bindposes);
+        assert_eq!(
+            world
+                .get::<Transform>(skin.joints[0])
+                .unwrap()
+                .translation
+                .x,
+            0.15
+        );
+        world.entity_mut(item).insert(TacticalSceneItem);
+        world
+            .run_system_once(sync_procedural_equipment_skins)
+            .unwrap();
+        assert!(world.get::<SkinnedMesh>(part).is_none());
+    }
+}

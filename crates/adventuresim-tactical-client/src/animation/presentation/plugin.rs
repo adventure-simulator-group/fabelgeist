@@ -16,6 +16,10 @@ impl Plugin for TacticalAnimationPlugin {
             .register_required_components::<procedural::HumanoidBone, secondary_physics::SecondaryBoneDynamics>()
             .add_message::<LocomotionPresentationEvent>()
             .add_systems(Startup, request_animation_packs)
+            .add_systems(Update, (
+                super::super::skeletal_proportions::load_skeletal_bases,
+                super::super::skeletal_proportions::sync_skeletal_proportions,
+            ).chain().after(capture_authored_bind_transforms).before(pose_buffer::update_pose_buffers))
             .add_observer(on_successful_attack)
             .add_systems(
                 Update,
@@ -36,6 +40,7 @@ impl Plugin for TacticalAnimationPlugin {
                     tick_impact_reactions,
                     pose_buffer::update_pose_buffers,
                     pose_buffer::calibrate_authored_locomotion_strides,
+                    pose_buffer::calibrate_character_strides,
                     update_rig_visibility,
                     emit_locomotion_presentation_events,
                     trace_locomotion_presentation_events,

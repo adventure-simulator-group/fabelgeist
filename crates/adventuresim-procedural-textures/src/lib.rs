@@ -6,6 +6,8 @@
 #![cfg_attr(test, allow(clippy::chunks_exact_to_as_chunks))]
 
 mod bake;
+mod runtime;
+pub use runtime::BakedTexturesPlugin;
 mod board_grain;
 pub mod building;
 mod catalogue;

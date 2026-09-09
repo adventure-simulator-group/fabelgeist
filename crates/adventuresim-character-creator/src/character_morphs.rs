@@ -3,6 +3,8 @@
 use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
+use adventuresim_core::character_proportions::BodyProportion;
+use adventuresim_core::skeletal_fit::SkeletalFitMorph;
 
 pub(super) struct MorphDelta {
     name: String,
@@ -47,6 +49,9 @@ impl MorphDelta {
 pub(super) struct CharacterMorphs {
     pub samples: Vec<ForearmMorphSample>,
     pub body: Vec<MorphDelta>,
+    reference_joints: Vec<[f32; 8]>,
+    joint_indices: Vec<[u32; 8]>,
+    joint_weights: Vec<[f32; 8]>,
 }
 
 impl CharacterMorphs {
@@ -75,7 +80,32 @@ impl CharacterMorphs {
                 global_joint_states: sample.global_joint_states,
             });
         }
-        Ok(Self { samples, body })
+        for target in SkeletalFitMorph::ALL {
+            let mut sample_recipe = recipe.clone();
+            sample_recipe
+                .proportions
+                .set(BodyProportion::SpineLength, target.endpoint())
+                .map_err(anyhow::Error::msg)?;
+            let sample = generate_character(model, &sample_recipe)?;
+            body.push(MorphDelta {
+                name: target.name().into(),
+                positions: vec![[0.0; 3]; base.positions.len()],
+                normals: vec![[0.0; 3]; base.normals.len()],
+            });
+            samples.push(ForearmMorphSample {
+                name: target.name().into(),
+                positions: sample.positions,
+                normals: sample.normals,
+                global_joint_states: sample.global_joint_states,
+            });
+        }
+        Ok(Self {
+            samples,
+            body,
+            reference_joints: base.global_joint_states.clone(),
+            joint_indices: model.mhr.character.skin_weights.index.clone(),
+            joint_weights: model.mhr.character.skin_weights.weight.clone(),
+        })
     }
 
     pub(super) fn clothing(&self, shells: &[ClothingShell]) -> Result<Vec<Vec<MorphDelta>>> {
@@ -88,18 +118,70 @@ impl CharacterMorphs {
                         let fitted = base
                             .refit(&sample.positions, &sample.normals)
                             .map_err(anyhow::Error::msg)?;
-                        MorphDelta::between(
+                        let mut delta = MorphDelta::between(
                             sample.name.clone(),
                             &base.positions,
                             &base.normals,
                             &fitted.positions,
                             &fitted.normals,
-                        )
+                        )?;
+                        remove_skeletal_translation(
+                            &mut delta.positions,
+                            sample,
+                            &self.reference_joints,
+                            &self.joint_indices,
+                            &self.joint_weights,
+                        );
+                        Ok(delta)
                     })
                     .collect()
             })
             .collect()
     }
+}
+
+/// Fit targets contain only the displacement not already produced by the bones.
+fn remove_skeletal_translation(
+    deltas: &mut [[f32; 3]],
+    sample: &ForearmMorphSample,
+    reference: &[[f32; 8]],
+    indices: &[[u32; 8]],
+    weights: &[[f32; 8]],
+) {
+    if SkeletalFitMorph::from_name(&sample.name).is_none() {
+        return;
+    }
+    for ((delta, indices), weights) in deltas.iter_mut().zip(indices).zip(weights) {
+        for (&joint, &weight) in indices.iter().zip(weights) {
+            if weight == 0.0 {
+                continue;
+            }
+            for (axis, value) in delta.iter_mut().enumerate() {
+                *value -= weight
+                    * (sample.global_joint_states[joint as usize][axis]
+                        - reference[joint as usize][axis]);
+            }
+        }
+    }
+}
+
+pub(super) fn correct_armor_fit(
+    mut armor: GeneratedArmor,
+    reference: &GeneratedCharacter,
+    samples: &[ForearmMorphSample],
+) -> GeneratedArmor {
+    for target in &mut armor.morphs {
+        if let Some(sample) = samples.iter().find(|sample| sample.name == target.name) {
+            remove_skeletal_translation(
+                &mut target.position_deltas,
+                sample,
+                &reference.global_joint_states,
+                &armor.joint_indices,
+                &armor.joint_weights,
+            );
+        }
+    }
+    armor
 }
 
 pub(super) fn armor_targets(armor: &GeneratedArmor) -> Vec<RiggedMorphTarget<'_>> {
@@ -150,5 +232,30 @@ pub(super) fn rigged_armor<'a>(
         base_color: [0.769, 0.776, 0.776, 1.0],
         metallic: 1.0,
         roughness: 0.20,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn skeletal_fit_corrects_surface_without_counting_bone_translation_twice() {
+        let sample = ForearmMorphSample {
+            name: SkeletalFitMorph::LongSpine.name().into(),
+            positions: vec![],
+            normals: vec![],
+            global_joint_states: vec![[0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+        };
+        let mut deltas = [[0.0, 0.12, 0.0]];
+        remove_skeletal_translation(
+            &mut deltas,
+            &sample,
+            &[[0.0; 8]],
+            &[[0; 8]],
+            &[[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+        );
+        assert!((deltas[0][1] - 0.02).abs() < 1e-6);
+        assert!((deltas[0][1] + 0.1 - 0.12).abs() < 1e-6);
     }
 }

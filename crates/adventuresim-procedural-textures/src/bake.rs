@@ -1,5 +1,6 @@
 //! One-recipe baking with owned pixel data, usable without a renderer or filesystem.
 
+mod compressed;
 mod wire;
 
 use bevy::{prelude::*, render::render_resource::TextureFormat};
@@ -80,6 +81,7 @@ pub struct BakedMap {
     pub size: u32,
     pub mip_levels: u32,
     pub encoding: PixelEncoding,
+    pub sampler: bevy::image::ImageSampler,
     /// Complete production mip payload, not only the base image.
     pub bytes: Vec<u8>,
 }
@@ -112,6 +114,7 @@ impl BakedRecipe {
                     size: image.width(),
                     mip_levels: image.texture_descriptor.mip_level_count,
                     encoding,
+                    sampler: image.sampler.clone(),
                     bytes: image.data.take().expect("CPU recipe produces pixels"),
                 }
             })

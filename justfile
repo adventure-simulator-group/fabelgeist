@@ -658,6 +658,10 @@ strategic-sim-core-loop-world output_dir seed="42" population="4" cycles="100" d
 test: test-chat test-schedule test-dev-stack build-strategic
     @cargo test --workspace --exclude adventuresim-stdb-module
 
+# Rebuild committed full-resolution runtime textures, all or one recipe slug.
+bake-procedural-textures recipe="all":
+    @cargo run -p adventuresim-procedural-textures --bin bake-procedural-textures -- {{ recipe }}
+
 fmt:
     @cargo fmt --all
     @cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml

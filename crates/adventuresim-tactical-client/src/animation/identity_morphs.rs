@@ -1,22 +1,33 @@
 //! Per-character morph weights for asynchronously loaded body scenes.
 
+use super::skeletal_proportions::{CharacterSkeletalProportions, SkeletalProportionReference};
 use adventuresim_core::character_morph::CharacterMorphWeights;
+use adventuresim_core::character_proportions::CharacterProportions;
+use adventuresim_core::skeletal_fit::SkeletalFitMorph;
 use bevy::mesh::morph::MorphWeights;
 
 use super::*;
 
 pub(super) fn sync_character_morphs(
     roots: Query<(Entity, &AnimationRigScene)>,
-    characters: Query<&CharacterId>,
+    characters: Query<(
+        &CharacterId,
+        Option<&CharacterSkeletalProportions>,
+        Option<&SkeletalProportionReference>,
+    )>,
     children: Query<&Children>,
     meshes: Res<Assets<Mesh>>,
     mut morphs: Query<&mut MorphWeights>,
 ) {
     for (root, owner) in &roots {
-        let Ok(character_id) = characters.get(owner.0) else {
+        let Ok((character_id, explicit, reference)) = characters.get(owner.0) else {
             continue;
         };
         let identity = CharacterMorphWeights::from_character_id(character_id.0);
+        let proportions = explicit
+            .map(|p| p.0)
+            .unwrap_or_else(|| CharacterProportions::from_character_id(character_id.0));
+        let reference = reference.map(|p| p.0).unwrap_or_default();
         for entity in descendants_including(root, &children) {
             let Ok(mut weights) = morphs.get_mut(entity) else {
                 continue;
@@ -29,11 +40,12 @@ pub(super) fn sync_character_morphs(
                 continue;
             };
             for (index, name) in names.iter().enumerate() {
-                if let Some(value) = identity.named_weight(name)
-                    && weights
-                        .weights()
-                        .get(index)
-                        .is_some_and(|current| *current != value)
+                if let Some(value) = identity.named_weight(name).or_else(|| {
+                    SkeletalFitMorph::from_name(name).map(|m| m.weight(proportions, reference))
+                }) && weights
+                    .weights()
+                    .get(index)
+                    .is_some_and(|current| *current != value)
                 {
                     weights.weights_mut()[index] = value;
                 }

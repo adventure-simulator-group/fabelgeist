@@ -43,6 +43,10 @@ struct Args {
     /// Runtime tactical combat and animation tuning YAML.
     #[arg(long, default_value = "content/tactical/combat.yaml")]
     combat_config: PathBuf,
+
+    /// JSON array of nine absolute MHR skeletal coefficients for this capture.
+    #[arg(long)]
+    body_proportions: Option<PathBuf>,
 }
 
 fn main() {
@@ -77,12 +81,17 @@ fn main() {
             .expect("animation viewer needs a working directory")
             .join(args.asset_root)
     };
+    let body_proportions = args.body_proportions.map(|path| {
+        let text = std::fs::read_to_string(&path).expect("read body proportions JSON");
+        serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
+    });
     let exit = animation_viewer::run(
         args.output,
         asset_root,
         args.frames_per_sample.max(1),
         args.scenario.as_deref(),
         combat_config,
+        body_proportions,
     );
     if let bevy::app::AppExit::Error(code) = exit {
         std::process::exit(code.get() as i32);

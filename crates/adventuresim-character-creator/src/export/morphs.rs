@@ -120,6 +120,7 @@ mod tests {
             normal_deltas: &deltas,
         }];
         let mesh = RiggedMesh {
+            joint_proportions: &[],
             positions: &deltas,
             normals: &deltas,
             faces: &[],

@@ -21,6 +21,11 @@ use bevy::{
 use super::*;
 use crate::presentation::TacticalGameplayCamera;
 
+mod proportions;
+mod rig;
+mod stride_calibration;
+use proportions::sample_character_plan;
+pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 mod spline;
 use spline::clamped_cubic_spline_vec3;
 
@@ -423,6 +428,7 @@ pub(super) fn update_pose_buffers(
         Option<&ChildOf>,
     )>,
     transforms: Query<&Transform>,
+    proportion_offsets: Query<&skeletal_proportions::SkeletalJointOffset>,
     mut definitions: ResMut<RigDefinitions>,
     mut bank: ResMut<BakedClipBank>,
     mut metrics: ResMut<PoseBufferMetrics>,
@@ -440,92 +446,8 @@ pub(super) fn update_pose_buffers(
         let mut rig = if let Some(rig) = rig {
             rig
         } else {
-            let found = targets
-                .iter()
-                .filter(|(_, _, bind, _, _)| bind.owner == owner)
-                .map(|(entity, target, bind, name, parent)| {
-                    (
-                        entity,
-                        *target,
-                        LocalPose::from_transform(bind.local),
-                        name.map(|name| name.as_str().to_owned()),
-                        parent.map(ChildOf::parent),
-                    )
-                })
-                .collect::<Vec<_>>();
-            if found.is_empty() {
+            let Some(pose_rig) = definitions.bind(owner, family, &targets, &transforms) else {
                 continue;
-            }
-            let definition = definitions
-                .0
-                .entry(family.clone())
-                .or_insert_with(|| {
-                    let mut ordered = found
-                        .iter()
-                        .map(|(entity, target, bind, name, parent)| {
-                            (*entity, target, bind, name, *parent)
-                        })
-                        .collect::<Vec<_>>();
-                    ordered.sort_by(|left, right| left.3.cmp(right.3));
-                    let indices = ordered
-                        .iter()
-                        .enumerate()
-                        .map(|(index, (entity, ..))| (*entity, index))
-                        .collect::<HashMap<_, _>>();
-                    Arc::new(RigDefinition {
-                        family: family.clone(),
-                        joints: ordered
-                            .into_iter()
-                            .map(|(_entity, target, bind, name, parent)| RigJoint {
-                                target: *target,
-                                bind: *bind,
-                                parent: parent.and_then(|parent| indices.get(&parent).copied()),
-                                name: name.clone(),
-                                lower_body: name
-                                    .as_deref()
-                                    .is_some_and(is_lower_body_animation_target),
-                            })
-                            .collect(),
-                    })
-                })
-                .clone();
-            let by_target = found
-                .into_iter()
-                .map(|(entity, target, _, _, _)| (target, entity))
-                .collect::<HashMap<_, _>>();
-            let entities = definition
-                .joints
-                .iter()
-                .map(|joint| by_target.get(&joint.target).copied())
-                .collect::<Vec<_>>();
-            let current = definition
-                .joints
-                .iter()
-                .zip(&entities)
-                .map(|(joint, entity)| {
-                    entity
-                        .and_then(|entity| transforms.get(entity).ok().copied())
-                        .map(LocalPose::from_transform)
-                        .unwrap_or(joint.bind)
-                })
-                .collect::<Vec<_>>();
-            let joint_count = definition.joints.len();
-            let pose_rig = PoseBufferRig {
-                definition,
-                entities,
-                previous: current.clone(),
-                next: current,
-                sample_accumulator: 0.0,
-                interpolation_alpha: 0.0,
-                last_evaluation_tick: None,
-                decay_delta_seconds: 0.0,
-                offsets: vec![JointInertialOffset::default(); joint_count],
-                target_linear_velocities: vec![Vec3::ZERO; joint_count],
-                target_angular_velocities: vec![Vec3::ZERO; joint_count],
-                terrain_plants: [None; 2],
-                plan: None,
-                active: false,
-                frozen: false,
             };
             commands.entity(owner).insert(pose_rig);
             continue;
@@ -575,9 +497,14 @@ pub(super) fn update_pose_buffers(
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.active || rig.plan.as_ref() != Some(&key);
         rig.sample_accumulator += delta_seconds;
-        let Some(mut sampled) =
-            sample_plan(playback, &rig.definition, &clips, &mut bank, &mut metrics)
-        else {
+        let Some(mut sampled) = sample_character_plan(
+            playback,
+            &rig,
+            &clips,
+            &mut bank,
+            &mut metrics,
+            &proportion_offsets,
+        ) else {
             continue;
         };
         let locomotion_ik_owns = procedural::authored_locomotion_ik_owns(skeleton);
@@ -1554,78 +1481,8 @@ pub(super) fn calibrate_authored_locomotion_strides(
     let Some(definition) = definitions.0.get("humanoid") else {
         return;
     };
-    for (motion, axis) in [("walk", 2), ("run", 2), ("strafe", 0), ("skip", 2)] {
-        let Some(loaded) = runtime
-            .clips
-            .get(&(HUMANOID_UNARMED_PACK.to_owned(), motion.to_owned()))
-        else {
-            continue;
-        };
-        let id = loaded.handle.id();
-        if strides.measured_clips.get(motion) == Some(&id) {
-            continue;
-        }
-        strides.clear_motion(motion);
-        let Some(clip) = clips.get(&loaded.handle) else {
-            continue;
-        };
-        let baked = bake_clip(clip, definition);
-        let calibration = match motion {
-            // Walk and run use a measured distance-domain phase curve while
-            // the live sampler interpolates only their sparse semantic poses.
-            "walk" | "run" => {
-                measure_authored_contact_step_distance(definition, &baked, axis, -1.0)
-            }
-            // Combat cycles currently expose alternating contact poses but no
-            // typed support interval. Retain their geometric calibration until
-            // that contact timing is part of the authored motion contract.
-            "strafe" | "skip" => {
-                measure_authored_foot_range(definition, &baked, axis).map(|step_distance| {
-                    AuthoredLocomotionCalibration {
-                        stride: AuthoredStrideMeasurement {
-                            step_distance,
-                            maximum_stance_slip: 0.0,
-                        },
-                        phase_curve: None,
-                    }
-                })
-            }
-            _ => unreachable!("fixed authored locomotion calibration table"),
-        };
-        let Some(calibration) = calibration else {
-            warn!(motion, "Could not infer authored locomotion stride");
-            strides.measured_clips.insert(motion.to_owned(), id);
-            continue;
-        };
-        let AuthoredLocomotionCalibration {
-            stride,
-            phase_curve,
-        } = calibration;
-        if let Some(phase_curve) = phase_curve {
-            strides.phase_curves.insert(motion.to_owned(), phase_curve);
-        }
-        info!(
-            motion,
-            stride_metres = stride.step_distance,
-            maximum_stance_slip_metres = stride.maximum_stance_slip,
-            "Measured authored locomotion stride"
-        );
-        if stride.maximum_stance_slip > presentation::maximum_authored_stance_slip_metres() {
-            warn!(
-                motion,
-                stride_metres = stride.step_distance,
-                maximum_stance_slip_metres = stride.maximum_stance_slip,
-                "Authored locomotion contact fit exceeds the stance-slip budget"
-            );
-        }
-        match motion {
-            "walk" => strides.walk = Some(stride),
-            "run" => strides.run = Some(stride),
-            "strafe" => strides.strafe = Some(stride),
-            "skip" => strides.skip = Some(stride),
-            _ => unreachable!("fixed authored locomotion calibration table"),
-        }
-        strides.measured_clips.insert(motion.to_owned(), id);
+    if stride_calibration::has_unmeasured_motion(&runtime, &clips, &strides) {
+        stride_calibration::calibrate(&runtime, &clips, definition, &mut strides, &[]);
     }
 }
 
