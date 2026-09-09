@@ -7,7 +7,7 @@ use crate::{
 };
 use crate::{
     combat_style::MeleeAttackStyle,
-    item_catalog_schema::{EquipmentChannel, EquipmentLocation},
+    item_catalog_schema::{EquipmentChannel, EquipmentLocation, OccupancyRequirement},
 };
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -196,7 +196,7 @@ pub struct EquipmentGraph {
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct EquipmentGraphPlacement {
-    pub body: Vec<(EquipmentLocation, EquipmentChannel, u16)>,
+    pub body: Vec<OccupancyRequirement>,
     pub parents: Vec<EquipmentGraphEdge>,
 }
 
@@ -216,13 +216,21 @@ impl EquipmentGraph {
         if self.has_children(inventory_item_id) {
             return Err("item has equipped children");
         }
-        for (_, channel, order) in &mut placement.body {
-            if channel.singleton_per_location() {
-                *order = 0;
+        for requirement in &mut placement.body {
+            if requirement.channel.singleton_per_location() {
+                requirement.order = 0;
             }
         }
-        let body_keys = placement.body.iter().copied().collect::<BTreeSet<_>>();
-        if body_keys.len() != placement.body.len() {
+        if placement
+            .body
+            .iter()
+            .enumerate()
+            .any(|(index, requirement)| {
+                placement.body[..index]
+                    .iter()
+                    .any(|other| requirement.conflicts_with(*other))
+            })
+        {
             return Err("duplicate body occupancy");
         }
         let edge_keys = placement.parents.iter().cloned().collect::<BTreeSet<_>>();
@@ -233,7 +241,12 @@ impl EquipmentGraph {
             if *other_id == inventory_item_id {
                 continue;
             }
-            if other.body.iter().any(|cell| body_keys.contains(cell)) {
+            if other.body.iter().any(|cell| {
+                placement
+                    .body
+                    .iter()
+                    .any(|requirement| requirement.conflicts_with(*cell))
+            }) {
                 return Err("body occupancy conflict");
             }
             if other.parents.iter().any(|edge| edge_keys.contains(edge)) {
@@ -1067,7 +1080,12 @@ mod tests {
             .equip(
                 1,
                 EquipmentGraphPlacement {
-                    body: vec![(EquipmentLocation::LeftBelt, EquipmentChannel::Accessory, 0)],
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::LeftBelt,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
                     parents: vec![],
                 },
             )
@@ -1094,11 +1112,12 @@ mod tests {
             .equip(
                 4,
                 EquipmentGraphPlacement {
-                    body: vec![(
-                        EquipmentLocation::LeftShoulder,
-                        EquipmentChannel::Accessory,
-                        0,
-                    )],
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::LeftShoulder,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
                     parents: vec![],
                 },
             )
@@ -1132,15 +1151,16 @@ mod tests {
                 .equip(
                     id,
                     EquipmentGraphPlacement {
-                        body: vec![(
-                            if id == 10 {
+                        body: vec![OccupancyRequirement {
+                            location: if id == 10 {
                                 EquipmentLocation::LeftShoulder
                             } else {
                                 EquipmentLocation::RightShoulder
                             },
-                            EquipmentChannel::Mount,
-                            0,
-                        )],
+                            channel: EquipmentChannel::Mount,
+                            order: 0,
+                            fit_zone: None,
+                        }],
                         parents: vec![],
                     },
                 )
@@ -1186,7 +1206,12 @@ mod tests {
             .equip(
                 1,
                 EquipmentGraphPlacement {
-                    body: vec![(EquipmentLocation::Chest, EquipmentChannel::RigidArmor, 0)],
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::RigidArmor,
+                        order: 0,
+                        fit_zone: None,
+                    }],
                     parents: vec![],
                 },
             )
@@ -1195,7 +1220,12 @@ mod tests {
             graph.equip(
                 2,
                 EquipmentGraphPlacement {
-                    body: vec![(EquipmentLocation::Chest, EquipmentChannel::RigidArmor, 1,)],
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::RigidArmor,
+                        order: 1,
+                        fit_zone: None
+                    }],
                     parents: vec![],
                 },
             ),
@@ -1205,7 +1235,12 @@ mod tests {
             .equip(
                 3,
                 EquipmentGraphPlacement {
-                    body: vec![(EquipmentLocation::Chest, EquipmentChannel::Accessory, 0)],
+                    body: vec![OccupancyRequirement {
+                        location: EquipmentLocation::Chest,
+                        channel: EquipmentChannel::Accessory,
+                        order: 0,
+                        fit_zone: None,
+                    }],
                     parents: vec![],
                 },
             )

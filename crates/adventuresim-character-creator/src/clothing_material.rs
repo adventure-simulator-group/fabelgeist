@@ -1,6 +1,6 @@
 use crate::item_catalog_schema::EquipmentMaterial;
 
-pub(crate) fn pbr(material: EquipmentMaterial) -> ([f32; 4], f32, f32) {
+pub fn pbr(material: EquipmentMaterial) -> ([f32; 4], f32, f32) {
     match material {
         EquipmentMaterial::PolishedSteel => ([0.769, 0.776, 0.776, 1.0], 1.0, 0.20),
         EquipmentMaterial::RoughSteel => ([0.769, 0.776, 0.776, 1.0], 1.0, 0.58),

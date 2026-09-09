@@ -112,6 +112,14 @@ impl CaptureSequence {
         }
     }
 
+    pub(super) fn view(&self) -> CaptureView {
+        VIEWS[self.view_index.min(VIEWS.len() - 1)]
+    }
+
+    pub(super) fn applied_frame(&self) -> Option<&PlannedFrame> {
+        self.applied.then(|| self.plan.get(self.index)).flatten()
+    }
+
     pub(super) fn uses_flat_grid(&self) -> bool {
         self.plan
             .iter()
@@ -588,59 +596,6 @@ pub(super) fn drive_sequence(
     }
     sequence.applied = true;
     sequence.settled = 0;
-}
-
-pub(super) fn position_capture_camera(
-    sequence: Res<CaptureSequence>,
-    subjects: Query<(&Transform, &PresentedSkeleton), With<CaptureSubject>>,
-    mut cameras: Query<&mut Transform, (With<TacticalGameplayCamera>, Without<CaptureSubject>)>,
-    mut labels: Query<(&mut Text, &mut Visibility), With<CaptureLabel>>,
-) {
-    let (Ok((subject, skeleton)), Ok(mut camera)) = (subjects.single(), cameras.single_mut())
-    else {
-        return;
-    };
-    let focus = subject.translation + Vec3::Y * 0.95;
-    let view = VIEWS[sequence.view_index.min(VIEWS.len() - 1)];
-    match view {
-        CaptureView::Gameplay => {
-            // Physics simulation is disabled in this fixture, so ahoy does
-            // not refresh its controller-follow base transform. Reconstruct
-            // that default base and apply the exact gameplay camera offset;
-            // otherwise the offset accumulates and the first raw frame is a
-            // pelvis-level/empty view.
-            camera.translation =
-                subject.translation + animation_capture_camera_offset(Quat::IDENTITY);
-            camera.rotation = Quat::IDENTITY;
-        }
-        CaptureView::Side => {
-            camera.translation = focus + Vec3::new(5.0, 0.45, 0.0);
-            camera.look_at(focus, Vec3::Y);
-        }
-        CaptureView::Front => {
-            camera.translation = focus + Vec3::new(0.0, 0.45, -5.0);
-            camera.look_at(focus, Vec3::Y);
-        }
-    }
-    if sequence.applied
-        && let Some(frame) = sequence.plan.get(sequence.index)
-    {
-        for (mut label, mut visibility) in &mut labels {
-            *visibility = if matches!(view, CaptureView::Gameplay) {
-                Visibility::Hidden
-            } else {
-                Visibility::Inherited
-            };
-            **label = format!(
-                "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
-                frame.scenario,
-                frame.speed,
-                skeleton.gait_phase,
-                view.slug(),
-                frame.scenario_frame,
-            );
-        }
-    }
 }
 
 pub(super) fn draw_skeleton_overlay(
@@ -1302,7 +1257,7 @@ pub(super) fn wait_or_fail(
     exit: &mut MessageWriter<AppExit>,
 ) {
     sequence.waiting += 1;
-    if sequence.waiting < 1200 {
+    if sequence.waiting < CAPTURE_LOAD_FRAME_LIMIT {
         return;
     }
     let message = format!(

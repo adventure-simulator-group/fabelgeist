@@ -10,7 +10,11 @@ use bevy::prelude::*;
 use std::collections::{HashMap, HashSet, VecDeque};
 
 mod environment;
+mod fit;
 mod lifecycle;
+mod transfer;
+
+use transfer::transfer_slot;
 
 use environment::EquipmentEnvironment;
 pub(crate) use lifecycle::{purge_equipment_lifecycle, reconnect_equipment_lifecycle};
@@ -282,21 +286,13 @@ fn ordered_at_location(
         .filter(|(_, _, owner, _, _, _, scene, _)| {
             !scene && owner.is_some_and(|owner| owner.0 == actor)
         })
-        .filter_map(|(entity, _, _, topology, _, _, _, _)| {
+        .filter_map(|(entity, properties, _, topology, _, _, _, _)| {
             topology
-                .occupancies
-                .iter()
-                .filter_map(|occupancy| match occupancy.anchor {
-                    TacticalEquipmentAnchor::CharacterLocation(found) if found == location => {
-                        Some((occupancy.channel.order(), occupancy.order, entity.to_bits()))
-                    }
-                    _ => None,
-                })
-                .max()
+                .root_order(location, &properties.id)
                 .map(|key| (key, entity))
         })
         .collect();
-    found.sort_by_key(|left| std::cmp::Reverse(left.0));
+    found.sort_by_key(|(key, _)| *key);
     let mut reachable = Vec::new();
     let mut visited = HashSet::new();
     for (_, entity) in found {
@@ -672,28 +668,7 @@ fn parent_placement_allowed(item_id: &str) -> bool {
     item_catalog::weapon_carry(item_id) != Some(item_catalog::WeaponCarry::HandOnly)
 }
 
-fn topology_conflicts(
-    actor: Entity,
-    proposed: &EquipmentTopology,
-    ignored: &[Entity],
-    items: &Query<ItemView<'_>>,
-) -> bool {
-    items
-        .iter()
-        .any(|(entity, _, owner, topology, _, _, scene, _)| {
-            !scene
-                && !ignored.contains(&entity)
-                && owner.is_some_and(|owner| owner.0 == actor)
-                && proposed.occupancies.iter().any(|candidate| {
-                    topology
-                        .occupancies
-                        .iter()
-                        .any(|current| occupancies_conflict(candidate, current))
-                })
-        })
-}
-
-fn occupancies_conflict(
+fn attachment_occupancies_conflict(
     candidate: &EquipmentTopologyOccupancy,
     current: &EquipmentTopologyOccupancy,
 ) -> bool {
@@ -712,104 +687,7 @@ fn occupancies_conflict(
                 && left_point == right_point
                 && candidate.capacity_index == current.capacity_index
         }
-        (
-            TacticalEquipmentAnchor::CharacterLocation(left),
-            TacticalEquipmentAnchor::CharacterLocation(right),
-        ) => {
-            left == right
-                && candidate.channel == current.channel
-                && (candidate.channel.singleton_per_location() || candidate.order == current.order)
-        }
         _ => false,
-    }
-}
-
-fn transfer_slot(
-    commands: &mut Commands,
-    actor: Entity,
-    hand: EquipmentHand,
-    location: EquipmentLocation,
-    depth: u16,
-    items: &Query<ItemView<'_>>,
-) -> bool {
-    if matches!(
-        location,
-        EquipmentLocation::LeftHand | EquipmentLocation::RightHand
-    ) {
-        return false;
-    }
-    let held = hand_item(actor, hand, items);
-    let destination = ordered_at_location(actor, location, items)
-        .get(depth as usize)
-        .cloned();
-    match held {
-        None => {
-            let Some(ReachableTarget::Occupied(item)) = destination else {
-                return false;
-            };
-            if has_children(item, items) {
-                return false;
-            }
-            commands
-                .entity(item)
-                .insert((hand_topology(hand), hand.slot()));
-            true
-        }
-        Some(moving) => {
-            let Ok((_, properties, _, _, _, _, _, _)) = items.get(moving) else {
-                return false;
-            };
-            if has_children(moving, items) {
-                return false;
-            }
-            let selected_entity = destination.as_ref().map(ReachableTarget::expected_entity);
-            let proposed = match destination.as_ref() {
-                Some(ReachableTarget::EmptyAttachment { .. }) => {
-                    attachment_topology(&properties.id, destination.as_ref().unwrap(), actor, items)
-                }
-                Some(ReachableTarget::Occupied(item))
-                    if items
-                        .get(*item)
-                        .is_ok_and(|(_, _, _, topology, _, _, _, _)| {
-                            topology.occupancies.iter().any(|occupancy| {
-                                matches!(
-                                    occupancy.anchor,
-                                    TacticalEquipmentAnchor::ItemAttachment { .. }
-                                )
-                            })
-                        }) =>
-                {
-                    attachment_topology(&properties.id, destination.as_ref().unwrap(), actor, items)
-                }
-                _ => placement_topology(&properties.id, location),
-            };
-            let Some(proposed) = proposed else {
-                return false;
-            };
-            if destination.as_ref().is_some_and(|target| match target {
-                ReachableTarget::Occupied(item) => has_children(*item, items),
-                ReachableTarget::EmptyAttachment { .. } => false,
-            }) || topology_conflicts(
-                actor,
-                &proposed,
-                &selected_entity.map_or(vec![moving], |item| vec![moving, item]),
-                items,
-            ) {
-                return false;
-            }
-            // Every condition is proven before these deferred mutations: a
-            // multi-location placement or occupied swap commits as one batch.
-            commands
-                .entity(moving)
-                .insert(proposed)
-                .remove::<EquipSlot>();
-            if let Some(ReachableTarget::Occupied(swapped)) = destination {
-                commands
-                    .entity(swapped)
-                    .insert((hand_topology(hand), hand.slot()));
-            }
-            true
-        }
     }
 }
 
@@ -1107,8 +985,14 @@ mod tests {
             requirement_index: 0,
             capacity_index,
         };
-        assert!(occupancies_conflict(&occupancy(0), &occupancy(0)));
-        assert!(!occupancies_conflict(&occupancy(0), &occupancy(1)));
+        assert!(attachment_occupancies_conflict(
+            &occupancy(0),
+            &occupancy(0)
+        ));
+        assert!(!attachment_occupancies_conflict(
+            &occupancy(0),
+            &occupancy(1)
+        ));
     }
 
     #[test]

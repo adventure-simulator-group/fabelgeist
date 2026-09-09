@@ -47,6 +47,12 @@ use crate::{
 };
 
 mod capture;
+mod harness;
+pub(crate) use harness::ArmorHarness;
+
+const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+mod view;
+use view::position_capture_camera;
 mod setup;
 use setup::setup_viewer;
 
@@ -61,14 +67,29 @@ use capture::*;
 use report::*;
 use scenarios::*;
 
-pub(crate) fn run(
-    output: PathBuf,
-    asset_root: PathBuf,
-    settle_frames: u32,
-    scenario: Option<&str>,
-    combat_config: TacticalCombatConfig,
-    body_proportions: Option<adventuresim_core::character_proportions::CharacterProportions>,
-) -> AppExit {
+pub(crate) struct CaptureOptions {
+    pub output: PathBuf,
+    pub asset_root: PathBuf,
+    pub settle_frames: u32,
+    pub scenario: Option<String>,
+    pub combat_config: TacticalCombatConfig,
+    pub body_proportions: Option<adventuresim_core::character_proportions::CharacterProportions>,
+    pub armor_harness: Option<ArmorHarness>,
+    pub hidden: bool,
+}
+
+pub(crate) fn run(options: CaptureOptions) -> AppExit {
+    let CaptureOptions {
+        output,
+        asset_root,
+        settle_frames,
+        scenario,
+        combat_config,
+        body_proportions,
+        armor_harness,
+        hidden,
+    } = options;
+    let scenario = scenario.as_deref();
     fs::create_dir_all(&output).unwrap_or_else(|error| {
         panic!("failed to create animation capture directory {output:?}: {error}")
     });
@@ -84,6 +105,7 @@ pub(crate) fn run(
     App::new()
         .insert_resource(combat_config)
         .insert_resource(CaptureBodyProportions(body_proportions))
+        .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
         .register_asset_source("workspace", workspace_asset_source)
         // The live debug client registers the same default through
         // `DebugPlugin`. The fixture does not install that input/network
@@ -100,6 +122,7 @@ pub(crate) fn run(
                         title: "Fabelgeist Animation Review Capture".into(),
                         resolution: (960, 720).into(),
                         present_mode: PresentMode::AutoVsync,
+                        visible: !hidden,
                         ..default()
                     }),
                     ..default()
@@ -116,6 +139,7 @@ pub(crate) fn run(
         ))
         .add_plugins((
             PlayerPlugin,
+            crate::equipment::EquipmentVisualPlugin,
             TacticalAnimationPlugin,
             TacticalCameraPlugin,
             TacticalPresentationPlugin::default(),
@@ -145,7 +169,12 @@ pub(crate) fn run(
         )
         .add_systems(
             Last,
-            (collect_locomotion_presentation_events, capture_frame).chain(),
+            (
+                harness::update_readiness,
+                collect_locomotion_presentation_events,
+                capture_frame.run_if(harness::ready),
+            )
+                .chain(),
         )
         .run()
 }

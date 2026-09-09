@@ -4,6 +4,7 @@ pub(super) fn setup_viewer(
     mut commands: Commands,
     sequence: Res<CaptureSequence>,
     proportions: Res<CaptureBodyProportions>,
+    armor: Res<harness::ArmorCapture>,
 ) {
     let default_player = Player::default();
     let mut generator = TerrainGenerator::new(0xA11C_E5E1);
@@ -37,6 +38,7 @@ pub(super) fn setup_viewer(
             tactical_character_controller(),
         ))
         .id();
+    armor.spawn(&mut commands, subject);
     if let Some(proportions) = proportions.0 {
         commands.entity(subject).insert(
             crate::animation::skeletal_proportions::CharacterSkeletalProportions(proportions),

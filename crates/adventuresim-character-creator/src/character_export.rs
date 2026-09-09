@@ -31,54 +31,42 @@ pub(super) fn export_character(
         &generated.global_joint_states,
     )
     .map_err(anyhow::Error::msg)?;
-    let bracers = selected_vambrace_sides(recipe)
-        .into_iter()
-        .map(|side| fitted_bracer(model, &generated, bracer_design, side, &morphs.samples))
-        .collect::<Result<Vec<_>>>()?;
-    let bracer_faces = bracers
-        .iter()
-        .map(|bracer| bracer.indices.as_chunks::<3>().0.to_vec())
-        .collect::<Vec<_>>();
-    let breastplate = breastplate_selected(recipe)
-        .then(|| fitted_breastplate(model, &generated, breastplate_design, &morphs.samples))
-        .transpose()?;
-    let breastplate_faces = breastplate
-        .as_ref()
-        .map(|armor| armor.indices.as_chunks::<3>().0.to_vec());
     let clothing_morphs = morphs.clothing(&clothed.shells)?;
     let clothing_targets = clothing_morphs
         .iter()
         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
         .collect::<Vec<_>>();
-    let bracer_targets = bracers.iter().map(armor_targets).collect::<Vec<_>>();
-    let breastplate_targets = breastplate.as_ref().map(armor_targets);
+    let armor = parametric_equipment::selected(
+        model,
+        &generated,
+        recipe,
+        catalog,
+        bracer_design,
+        breastplate_design,
+        &morphs.samples,
+    )?;
+    let armor_faces = armor
+        .iter()
+        .map(|(_, a)| a.indices.as_chunks::<3>().0.to_vec())
+        .collect::<Vec<_>>();
+    let armor_targets = armor
+        .iter()
+        .map(|(_, a)| armor_targets(a))
+        .collect::<Vec<_>>();
     let mut shells = clothed
         .shells
         .iter()
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
-    for (index, (bracer, faces)) in bracers.iter().zip(&bracer_faces).enumerate() {
-        shells.push(rigged_armor(
-            if index == 0 {
-                "Parametric vambrace"
-            } else {
-                "Parametric vambrace pair"
-            },
-            bracer,
-            faces,
-            &bracer_targets[index],
-        ));
-    }
-    if let (Some(breastplate), Some(faces), Some(targets)) =
-        (&breastplate, &breastplate_faces, &breastplate_targets)
-    {
-        shells.push(rigged_armor(
-            "Parametric front breastplate",
-            breastplate,
-            faces,
-            targets,
-        ));
+    for (i, (id, piece)) in armor.iter().enumerate() {
+        let mut shell = rigged_armor(id, piece, &armor_faces[i], &armor_targets[i]);
+        let (color, metallic, roughness) =
+            adventuresim_character_creator::equipment_pbr(catalog.material(id)?);
+        shell.base_color = color;
+        shell.metallic = metallic;
+        shell.roughness = roughness;
+        shells.push(shell);
     }
     export_rigged_glb(
         path,

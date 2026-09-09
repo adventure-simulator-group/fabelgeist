@@ -31,8 +31,13 @@ use serde::Deserialize;
 
 mod grab_world;
 mod morphs;
+mod render_binding;
 mod skin;
+mod slot_selection;
+mod visuals;
+pub(crate) use render_binding::ProceduralEquipmentPart;
 use skin::sync_procedural_equipment_skins;
+pub(crate) use visuals::EquipmentVisualPlugin;
 
 use grab_world::*;
 
@@ -126,27 +131,14 @@ pub(crate) struct TacticalEquipmentPlugin;
 
 impl Plugin for TacticalEquipmentPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(OutlinePlugin::JUMP_FLOOD)
+        app.add_plugins(EquipmentVisualPlugin)
             .init_resource::<GrabSession>()
-            .init_resource::<WeaponMeshCache>()
             .init_resource::<WeaponIconCache>()
             .add_systems(
                 PreUpdate,
                 update_grab_input.after(bevy::input::InputSystems),
             )
-            .add_systems(
-                Update,
-                (
-                    spawn_item_placeholders,
-                    request_procedural_equipment_models,
-                    resolve_procedural_equipment_models,
-                    sync_procedural_equipment_skins,
-                    morphs::sync_equipment_morphs,
-                    update_item_placeholders,
-                    update_pickup_outlines,
-                )
-                    .chain(),
-            )
+            .add_systems(Update, update_pickup_outlines)
             .add_systems(EguiPrimaryContextPass, draw_slot_hud);
     }
 }
@@ -167,7 +159,7 @@ enum GrabSelection {
 struct GrabSession {
     active: Option<EquipmentHand>,
     selection: Option<GrabSelection>,
-    repeated_input: Option<(&'static str, u16)>,
+    repeated_input: Option<(&'static str, usize)>,
     invalid_flash_remaining: f32,
     next_sequence: u32,
 }
@@ -219,7 +211,7 @@ struct WeaponIconCacheKey {
 }
 
 #[derive(Component)]
-struct ItemPlaceholder(Entity);
+pub(crate) struct ItemPlaceholder(pub(crate) Entity);
 
 #[derive(Component, Deserialize)]
 struct ProceduralEquipmentManifest {
@@ -284,20 +276,13 @@ struct ProceduralEquipmentPresentation {
 struct ProceduralEquipmentRequest(Handle<Gltf>);
 
 #[derive(Component)]
-struct ProceduralEquipmentResolved;
+pub(crate) struct ProceduralEquipmentResolved;
 
 #[derive(Component)]
-struct ProceduralEquipmentFailed;
+pub(crate) struct ProceduralEquipmentFailed;
 
 #[derive(Component)]
 struct ItemFallback(Entity);
-
-#[derive(Component)]
-struct ProceduralEquipmentPart {
-    item: Entity,
-    inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
-    joint_names: Vec<String>,
-}
 
 #[derive(Component, Default)]
 struct EquipmentAttachmentSockets(BTreeMap<String, Transform>);
@@ -371,42 +356,12 @@ fn update_grab_input(
         held.is_some(),
         world_targets.pointed(actor_transform),
     );
-    for mapping in INPUT_ADDRESS_MAPPINGS {
-        let Some(key) = key_code(mapping.input) else {
-            continue;
-        };
-        if !keys.just_pressed(key) {
-            continue;
-        }
-        let repeat = if session
-            .repeated_input
-            .is_some_and(|(input, _)| input == mapping.input)
-        {
-            session.repeated_input.unwrap().1.saturating_add(1)
-        } else {
-            0
-        };
-        let location_index = repeat as usize % mapping.locations.len();
-        let location = mapping.locations[location_index];
-        let layers = ordered_preview_at_location(actor, location, &topologies);
-        let depth = if let Some(held) = held {
-            properties
-                .get(held)
-                .ok()
-                .and_then(|properties| eligible_slot_depth(&properties.id, location, &layers))
-        } else {
-            outermost_occupied_depth(&layers)
-        };
-        if let Some(depth) = depth {
-            session.repeated_input = Some((mapping.input, repeat));
-            session.selection = Some(GrabSelection::Slot {
-                location,
-                depth: depth as u16,
-            });
-        } else {
-            session.invalid_flash_remaining = INVALID_FLASH_SECS;
-        }
-    }
+    let held_item_id = held
+        .and_then(|entity| properties.get(entity).ok())
+        .map(|properties| properties.id.as_str());
+    slot_selection::keyboard_slots(&mut session, &keys, held_item_id, |location| {
+        ordered_preview_at_location(actor, location, &topologies)
+    });
     let released = match hand {
         EquipmentHand::Right => mouse.just_released(MouseButton::Left),
         EquipmentHand::Left => mouse.just_released(MouseButton::Middle),
@@ -488,24 +443,13 @@ fn ordered_preview_at_location(
     let mut found: Vec<_> = topologies
         .iter()
         .filter(|(_, owner, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, topology, _)| {
+        .filter_map(|(entity, _, topology, properties)| {
             topology
-                .occupancies
-                .iter()
-                .find_map(|occupancy| match occupancy.anchor {
-                    TacticalEquipmentAnchor::CharacterLocation(found) if found == location => {
-                        Some(((occupancy.channel.order(), occupancy.order), entity))
-                    }
-                    _ => None,
-                })
+                .root_order(location, &properties.id)
+                .map(|key| (key, entity))
         })
         .collect();
-    found.sort_by(|left, right| {
-        right
-            .0
-            .cmp(&left.0)
-            .then(left.1.to_bits().cmp(&right.1.to_bits()))
-    });
+    found.sort_by_key(|(key, _)| *key);
     let mut output = Vec::new();
     let mut visited = std::collections::HashSet::new();
     for (_, entity) in found {
@@ -602,24 +546,13 @@ fn hud_layers(
     let mut roots: Vec<_> = items
         .iter()
         .filter(|(_, owner, _, _, _)| owner.0 == actor)
-        .filter_map(|(entity, _, _, _, topology)| {
+        .filter_map(|(entity, _, _, properties, topology)| {
             topology
-                .occupancies
-                .iter()
-                .find_map(|occupancy| match occupancy.anchor {
-                    TacticalEquipmentAnchor::CharacterLocation(found) if found == location => {
-                        Some(((occupancy.channel.order(), occupancy.order), entity))
-                    }
-                    _ => None,
-                })
+                .root_order(location, &properties.id)
+                .map(|key| (key, entity))
         })
         .collect();
-    roots.sort_by(|left, right| {
-        right
-            .0
-            .cmp(&left.0)
-            .then(left.1.to_bits().cmp(&right.1.to_bits()))
-    });
+    roots.sort_by_key(|(key, _)| *key);
     let mut output = Vec::new();
     let mut visited = std::collections::HashSet::new();
     fn append(
@@ -895,15 +828,12 @@ fn draw_slot_hud(
                         if let Some(mapping) = INPUT_ADDRESS_MAPPINGS.iter().find(|mapping| {
                             mapping.keyboard_row == row && mapping.keyboard_column == column
                         }) {
-                            let location = mapping.locations[0];
+                            let slot = slot_selection::hud_slot(&session, mapping, held.map(|(_, _, _, properties, _)| properties.id.as_str()), |location| hud_layers(actor, location, &items));
+                            let location = slot.map_or(mapping.locations[0], |slot| slot.location);
                             let layers = hud_layers(actor, location, &items);
                             let outermost = outermost_occupied_depth(&layers)
                                 .and_then(|depth| Some((depth, *layers.get(depth)?)));
-                            let selection_depth = if let Some((_, _, _, held, _)) = held {
-                                eligible_slot_depth(&held.id, location, &layers)
-                            } else {
-                                outermost.map(|(depth, _)| depth)
-                            };
+                            let selection_depth = slot.map(|slot| usize::from(slot.depth));
                             let eligible = selection_depth.is_some();
                             let selected = matches!(
                                 session.selection,
@@ -1019,12 +949,9 @@ fn draw_slot_hud(
                                 )
                                 .on_hover_text(tooltip);
                             if response.clicked()
-                                && let Some(depth) = selection_depth
+                                && let Some(slot) = slot
                             {
-                                session.selection = Some(GrabSelection::Slot {
-                                    location,
-                                    depth: depth as u16,
-                                });
+                                slot_selection::apply_slot(&mut session, mapping, slot);
                             }
                         } else {
                             ui.allocate_space(size);
@@ -1539,25 +1466,14 @@ fn resolve_procedural_equipment_models(
         );
         let material: Handle<StandardMaterial> =
             asset_server.load(format!("{}#{material_label}", presentation.asset_path));
-        commands.entity(root).with_child((
-            Name::new("Procedural armor or clothing"),
-            Mesh3d(primitive.mesh.clone()),
-            MeshMaterial3d(material),
-            Transform::IDENTITY,
-            NoFrustumCulling,
+        commands.entity(root).with_child(
             ProceduralEquipmentPart {
                 item: placeholder.0,
                 inverse_bindposes: skin.inverse_bind_matrices.clone(),
                 joint_names,
-            },
-            GrabTargetOutline(placeholder.0),
-            OutlineVolume {
-                visible: false,
-                colour: Color::WHITE,
-                width: 4.0,
-            },
-            OutlineMode::FloodFlat,
-        ));
+            }
+            .render_bundle(primitive.mesh.clone(), material),
+        );
         commands
             .entity(placeholder.0)
             .insert(EquipmentAttachmentSockets(attachment_sockets));

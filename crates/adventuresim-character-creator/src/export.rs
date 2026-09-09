@@ -1030,7 +1030,7 @@ pub fn export_rigged_glb(
             "recipe_version": recipe_version,
             "mhr_release": "v1.0.1",
             "lod": lod,
-            "placeholder_clothing": shells.iter().map(|shell| shell.name).collect::<Vec<_>>(),
+            "equipment": shells.iter().map(|shell| shell.name).collect::<Vec<_>>(),
         },
         "adventuresim_rig": {
             "family": "mhr",

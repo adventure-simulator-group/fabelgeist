@@ -1,3 +1,13 @@
+mod studio_scene;
+use studio_scene::{orbit_camera, setup};
+mod cli;
+use cli::Args;
+mod catalog;
+use catalog::{EquipmentCatalog, load_item_catalog, procedural_items};
+mod fitted_existing;
+use fitted_existing::{fitted_bracer, fitted_breastplate};
+mod studio_generation;
+use studio_generation::regenerate_mesh;
 mod generation;
 mod preview;
 mod proportion_controls;
@@ -6,11 +16,12 @@ mod character_export;
 mod character_morphs;
 mod equipment_controls;
 mod equipment_export;
+mod parametric_equipment;
+mod review_export;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
-use std::path::PathBuf;
 
 use adventuresim_armor_model::{
     BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
@@ -29,11 +40,7 @@ use adventuresim_character_creator::{
 };
 use anyhow::{Context, Result};
 use bevy::{
-    asset::RenderAssetUsages,
-    input::mouse::{MouseMotion, MouseWheel},
-    mesh::Indices,
-    prelude::*,
-    render::render_resource::PrimitiveTopology,
+    asset::RenderAssetUsages, mesh::Indices, prelude::*, render::render_resource::PrimitiveTopology,
 };
 use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
 use burn::tensor::{Device, Tensor, TensorData};
@@ -41,50 +48,12 @@ use clap::Parser;
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
 use rand::{Rng, SeedableRng, rngs::StdRng};
 
-#[derive(Parser, Resource, Clone)]
-#[command(about = "Fabelgeist's MHR character design studio")]
-struct Args {
-    #[arg(
-        long,
-        env = "MHR_ASSETS",
-        default_value = "target/mhr-assets/v1.0.1/assets"
-    )]
-    assets: PathBuf,
-    // LOD 1 retains enough facial, ear, and finger topology for close creator
-    // views while remaining inexpensive with pose correctives disabled.
-    #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u8).range(0..=6))]
-    lod: u8,
-    #[arg(long, default_value = "assets_src/characters/mhr_base.json")]
-    recipe: PathBuf,
-    #[arg(long, default_value = "assets_src/biped/unarmed/base.glb")]
-    glb: PathBuf,
-    #[arg(long, default_value = "content/items")]
-    catalog: PathBuf,
-    #[arg(long, default_value = "assets/equipment/procedural")]
-    equipment_output: PathBuf,
-    /// BreastplateDesign JSON for studio, character, and equipment exports.
-    #[arg(long)]
-    breastplate_design: Option<PathBuf>,
-    /// Export the selected recipe without opening the studio window.
-    #[arg(long)]
-    export_only: bool,
-    /// Generate one procedural MHR asset for every armor/clothing placement.
-    #[arg(long)]
-    generate_equipment: bool,
-    /// Restrict procedural equipment generation to one catalog item.
-    #[arg(long, requires = "generate_equipment")]
-    equipment_item: Option<String>,
-}
-
 #[derive(Resource)]
 struct BodyModel {
     mhr: Mhr,
     lod: u8,
     correctives: bool,
 }
-
-#[derive(Resource)]
-struct EquipmentCatalog(Vec<ItemDefinition>);
 
 #[derive(Resource)]
 struct Studio {
@@ -112,27 +81,35 @@ struct GeneratedCharacter {
     global_joint_states: Vec<[f32; 8]>,
 }
 
-#[derive(Component)]
-struct OrbitCamera {
-    yaw: f32,
-    pitch: f32,
-    radius: f32,
-    focus: Vec3,
-}
-
 fn main() -> Result<()> {
     let args = Args::parse();
     let breastplate_design = load_breastplate_design(args.breastplate_design.as_deref())?;
     let device = Device::default();
     let model = load_body_model(&args.assets, args.lod, false, &device)
         .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
-    let catalog = EquipmentCatalog(load_item_catalog(&args.catalog)?);
+    let catalog = EquipmentCatalog(
+        load_item_catalog(&args.catalog)?,
+        adventuresim_character_creator::armor_design_input::load(args.armor_designs.as_deref())?,
+    );
+    if let Some(path) = &args.write_armor_designs {
+        let designs = catalog
+            .0
+            .iter()
+            .filter_map(|item| catalog.design(&item.id).map(|d| (item.id.clone(), d)))
+            .collect::<adventuresim_character_creator::armor_design_input::ArmorDesigns>();
+        std::fs::write(path, serde_json::to_vec_pretty(&designs)?)?;
+        return Ok(());
+    }
 
     let recipe: CharacterRecipe = serde_json::from_slice(
         &std::fs::read(&args.recipe)
             .with_context(|| format!("reading character recipe {}", args.recipe.display()))?,
     )?;
     recipe.validate().map_err(anyhow::Error::msg)?;
+
+    if let Some(output) = &args.armor_review_dir {
+        return review_export::export(output, &model, &recipe, &catalog, &breastplate_design);
+    }
 
     if args.generate_equipment {
         generate_equipment_assets(
@@ -141,7 +118,7 @@ fn main() -> Result<()> {
             &recipe,
             &catalog,
             &breastplate_design,
-            args.equipment_item.as_deref(),
+            &args.equipment_item,
         )?;
         println!(
             "Generated equipment under {}",
@@ -202,59 +179,6 @@ fn main() -> Result<()> {
         )
         .run();
     Ok(())
-}
-
-fn setup(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-) {
-    commands.spawn((
-        Camera3d::default(),
-        // A restrained ambient term stands in for indirect room bounce. It
-        // prevents fully black occlusion without flattening the spotlight's
-        // form and floor shadow.
-        AmbientLight {
-            color: Color::srgb(0.78, 0.84, 0.94),
-            brightness: 155.0,
-            ..default()
-        },
-        Transform::default(),
-        OrbitCamera {
-            yaw: 0.1,
-            pitch: -0.05,
-            radius: 2.7,
-            focus: Vec3::new(0.0, 1.0, 0.0),
-        },
-    ));
-
-    let light_position = Vec3::new(-2.4, 4.2, 3.0);
-    commands.spawn((
-        SpotLight {
-            color: Color::srgb(1.0, 0.90, 0.79),
-            intensity: 1_050_000.0,
-            range: 8.0,
-            radius: 0.38,
-            inner_angle: 0.30,
-            outer_angle: 0.58,
-            shadow_maps_enabled: true,
-            shadow_depth_bias: 0.025,
-            shadow_normal_bias: 1.9,
-            shadow_map_near_z: 0.1,
-            ..default()
-        },
-        Transform::from_translation(light_position).looking_at(Vec3::new(0.0, 1.0, 0.0), Vec3::Y),
-    ));
-
-    commands.spawn((
-        Mesh3d(meshes.add(Plane3d::default().mesh().size(12.0, 12.0))),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: Color::srgb(0.16, 0.17, 0.18),
-            perceptual_roughness: 0.86,
-            reflectance: 0.12,
-            ..default()
-        })),
-    ));
 }
 
 #[expect(
@@ -336,7 +260,7 @@ fn studio_ui(
                     }
                 }
             });
-            ui.small("Bone-weight shells follow the generated body and share its MHR skin.");
+            ui.small("Armor recipes follow body proportions and share its MHR skin.");
             equipment_controls::bracer(ui, &mut studio);
             equipment_controls::breastplate(ui, &mut studio);
             ui.separator();
@@ -401,40 +325,6 @@ fn load_recipe(path: &str) -> Result<CharacterRecipe> {
     Ok(recipe)
 }
 
-fn load_item_catalog(directory: &std::path::Path) -> Result<Vec<ItemDefinition>> {
-    let mut files = std::fs::read_dir(directory)
-        .with_context(|| format!("reading item catalog directory {}", directory.display()))?
-        .map(|entry| entry.map(|entry| entry.path()))
-        .collect::<std::io::Result<Vec<_>>>()?;
-    files.retain(|path| {
-        path.extension()
-            .is_some_and(|extension| extension == "yaml")
-    });
-    files.sort();
-    let mut items = Vec::new();
-    for path in files {
-        let document: ItemCatalogDocument = serde_json::from_slice(&std::fs::read(&path)?)
-            .with_context(|| format!("parsing item catalog {}", path.display()))?;
-        items.extend(document.items);
-    }
-    if items.is_empty() {
-        anyhow::bail!("item catalog contains no definitions");
-    }
-    Ok(items)
-}
-
-fn procedural_items(catalog: &EquipmentCatalog) -> impl Iterator<Item = &ItemDefinition> {
-    catalog.0.iter().filter(|item| {
-        item.equipment.as_ref().is_some_and(|equipment| {
-            equipment.material.is_some()
-                && equipment
-                    .placements
-                    .iter()
-                    .any(|placement| !placement.surface.is_empty())
-        })
-    })
-}
-
 fn selected_garments(
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
@@ -442,7 +332,9 @@ fn selected_garments(
     recipe
         .clothing
         .iter()
-        .filter(|selection| !matches!(selection.item_id.as_str(), "vambrace" | "breastplate"))
+        .filter(|selection| {
+            !adventuresim_character_creator::armor_recipes::is_parametric(&selection.item_id)
+        })
         .map(|selection| {
             let item = procedural_items(catalog)
                 .find(|item| item.id == selection.item_id)
@@ -472,82 +364,6 @@ fn selected_garments(
             ))
         })
         .collect()
-}
-
-fn selected_vambrace_sides(recipe: &CharacterRecipe) -> Vec<ForearmSide> {
-    recipe
-        .clothing
-        .iter()
-        .filter(|selection| selection.item_id == "vambrace")
-        .filter_map(|selection| match selection.placement_id.as_str() {
-            "left" => Some(ForearmSide::Left),
-            "right" => Some(ForearmSide::Right),
-            _ => None,
-        })
-        .collect()
-}
-
-fn breastplate_selected(recipe: &CharacterRecipe) -> bool {
-    recipe
-        .clothing
-        .iter()
-        .any(|selection| selection.item_id == "breastplate" && selection.placement_id == "worn")
-}
-
-fn fitted_bracer(
-    model: &BodyModel,
-    generated: &GeneratedCharacter,
-    design: &BracerDesign,
-    side: ForearmSide,
-    morphs: &[ForearmMorphSample],
-) -> Result<GeneratedArmor> {
-    let character = &model.mhr.character;
-    let surface = build_forearm_surface(ForearmSurfaceInput {
-        domain: MHR_ANATOMICAL_UV_DOMAIN,
-        side,
-        positions: &generated.positions,
-        normals: &generated.normals,
-        faces: &character.mesh.faces,
-        texcoords: &character.mesh.texcoords,
-        texcoord_faces: &character.mesh.texcoord_faces,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-        global_joint_states: &generated.global_joint_states,
-        morphs,
-    })
-    .map_err(anyhow::Error::msg)?;
-    let armor = generate_bracer(design, &surface).map_err(anyhow::Error::new)?;
-    Ok(character_morphs::correct_armor_fit(
-        armor, generated, morphs,
-    ))
-}
-
-fn fitted_breastplate(
-    model: &BodyModel,
-    generated: &GeneratedCharacter,
-    design: &BreastplateDesign,
-    morphs: &[ForearmMorphSample],
-) -> Result<GeneratedArmor> {
-    let character = &model.mhr.character;
-    let surface = build_front_torso_surface(TorsoSurfaceInput {
-        domain: MHR_ANATOMICAL_UV_DOMAIN,
-        positions: &generated.positions,
-        normals: &generated.normals,
-        faces: &character.mesh.faces,
-        texcoords: &character.mesh.texcoords,
-        texcoord_faces: &character.mesh.texcoord_faces,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-        global_joint_states: &generated.global_joint_states,
-        morphs,
-    })
-    .map_err(anyhow::Error::msg)?;
-    let armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
-    Ok(character_morphs::correct_armor_fit(
-        armor, generated, morphs,
-    ))
 }
 
 fn placement_coverage(
@@ -623,150 +439,6 @@ fn reload_model(args: Res<Args>, mut model: ResMut<BodyModel>, mut studio: ResMu
             );
         }
     }
-}
-
-fn regenerate_mesh(
-    mut commands: Commands,
-    model: Res<BodyModel>,
-    catalog: Res<EquipmentCatalog>,
-    mut studio: ResMut<Studio>,
-    old: Query<Entity, With<CharacterMesh>>,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-) {
-    if !studio.dirty {
-        return;
-    }
-    studio.dirty = false;
-    let generated = match generate_character(&model, &studio.recipe) {
-        Ok(generated) => generated,
-        Err(error) => {
-            studio.status = format!("Generation failed: {error:#}");
-            return;
-        }
-    };
-    let faces = &model.mhr.character.mesh.faces;
-    let specifications = match selected_garments(&studio.recipe, &catalog) {
-        Ok(specifications) => specifications,
-        Err(error) => {
-            studio.status = format!("Clothing selection failed: {error}");
-            return;
-        }
-    };
-    let clothed = match generate_clothing_shells(
-        &specifications,
-        &generated.positions,
-        &generated.normals,
-        faces,
-        &model.mhr.character.skin_weights.index,
-        &model.mhr.character.skin_weights.weight,
-        &model.mhr.character.skeleton.names,
-        &generated.global_joint_states,
-    ) {
-        Ok(clothed) => clothed,
-        Err(error) => {
-            studio.status = format!("Clothing generation failed: {error}");
-            return;
-        }
-    };
-    let bracers = match selected_vambrace_sides(&studio.recipe)
-        .into_iter()
-        .map(|side| fitted_bracer(&model, &generated, &studio.bracer_design, side, &[]))
-        .collect::<Result<Vec<_>>>()
-    {
-        Ok(bracers) => bracers,
-        Err(error) => {
-            studio.status = format!("Parametric bracer generation failed: {error:#}");
-            return;
-        }
-    };
-    let breastplate = if breastplate_selected(&studio.recipe) {
-        match fitted_breastplate(&model, &generated, &studio.breastplate_design, &[]) {
-            Ok(breastplate) => Some(breastplate),
-            Err(error) => {
-                studio.status = format!("Parametric breastplate generation failed: {error:#}");
-                return;
-            }
-        }
-    } else {
-        None
-    };
-    let indices = clothed
-        .visible_body_faces
-        .iter()
-        .flat_map(|face| face.iter().copied())
-        .collect::<Vec<_>>();
-    let clothing_shell_count = clothed.shells.len();
-    let mesh = Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
-    )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, generated.positions.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, generated.normals.clone())
-    .with_inserted_indices(Indices::U32(indices));
-    for entity in &old {
-        commands.entity(entity).despawn();
-    }
-    preview::spawn_body(&mut commands, &mut meshes, &mut materials, mesh);
-    preview::spawn_clothing(&mut commands, &mut meshes, &mut materials, clothed.shells);
-    for (index, bracer) in bracers.iter().enumerate() {
-        preview::spawn_armor(
-            &mut commands,
-            &mut meshes,
-            &mut materials,
-            bracer,
-            format!("Parametric bracer {}", index + 1),
-        );
-    }
-    if let Some(breastplate) = &breastplate {
-        preview::spawn_armor(
-            &mut commands,
-            &mut meshes,
-            &mut materials,
-            breastplate,
-            "Parametric front breastplate".into(),
-        );
-    }
-    studio.status = format!(
-        "Generated {} body vertices · {} clothing shells · {} bracers · {} breastplate",
-        model.mhr.num_vertices(),
-        clothing_shell_count,
-        bracers.len(),
-        usize::from(breastplate.is_some()),
-    );
-}
-
-fn orbit_camera(
-    buttons: Res<ButtonInput<MouseButton>>,
-    mut contexts: EguiContexts,
-    mut motion: MessageReader<MouseMotion>,
-    mut wheel: MessageReader<MouseWheel>,
-    mut camera: Query<(&mut Transform, &mut OrbitCamera)>,
-) {
-    let Ok((mut transform, mut orbit)) = camera.single_mut() else {
-        return;
-    };
-    let pointer_owned_by_ui = contexts
-        .ctx_mut()
-        .is_ok_and(|context| context.egui_wants_pointer_input());
-    if buttons.pressed(MouseButton::Left) && !pointer_owned_by_ui {
-        for event in motion.read() {
-            orbit.yaw -= event.delta.x * 0.007;
-            orbit.pitch = (orbit.pitch - event.delta.y * 0.007).clamp(-1.2, 1.2);
-        }
-    } else {
-        motion.clear();
-    }
-    if pointer_owned_by_ui {
-        wheel.clear();
-    } else {
-        for event in wheel.read() {
-            orbit.radius = (orbit.radius * (-event.y * 0.1).exp()).clamp(1.2, 6.0);
-        }
-    }
-    let rotation = Quat::from_euler(EulerRot::YXZ, orbit.yaw, orbit.pitch, 0.0);
-    transform.translation = orbit.focus + rotation * Vec3::new(0.0, 0.0, orbit.radius);
-    transform.look_at(orbit.focus, Vec3::Y);
 }
 
 #[cfg(test)]
