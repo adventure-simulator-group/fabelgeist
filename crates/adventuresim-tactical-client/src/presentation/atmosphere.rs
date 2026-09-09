@@ -10,12 +10,13 @@ use bevy::{
     },
 };
 
+mod gpu_bake;
+use gpu_bake::AtmosphereBakeGpu;
+
 // Bevy #24884 contains the native fix. Delete this backport when 0.20 is released
 // and the project upgrades: https://github.com/bevyengine/bevy/pull/24884
 todo_or_die::crates_io!("bevy", ">=0.20.0");
 
-const ATMOSPHERE_CUBEMAP_BAKE_FRAMES: u8 = 60;
-const ATMOSPHERE_QUIESCENCE_FRAMES: u8 = 8;
 /// 64 * 64 * 6 RGBA16F texels = 192 KiB.
 const FROZEN_SKY_CUBEMAP_SIZE: u32 = 64;
 
@@ -27,10 +28,7 @@ pub(crate) struct FrozenAtmosphereStatus {
 
 impl FrozenAtmosphereStatus {
     pub(crate) fn is_frozen(&self) -> bool {
-        matches!(
-            self.phase,
-            FrozenAtmospherePhase::Quiescing { .. } | FrozenAtmospherePhase::Frozen { .. }
-        )
+        matches!(self.phase, FrozenAtmospherePhase::Frozen { .. })
     }
 }
 
@@ -40,11 +38,6 @@ enum FrozenAtmospherePhase {
     WaitingForScene,
     Baking {
         scene: Entity,
-        ready_frames: u8,
-    },
-    Quiescing {
-        scene: Entity,
-        elapsed_frames: u8,
     },
     Frozen {
         scene: Entity,
@@ -68,6 +61,7 @@ struct FrozenAtmosphereProbeAssets {
 /// render world, which keeps the atmospheric PBR pipeline specialization and
 /// its per-fragment transmittance work alive after the sky has been frozen.
 pub(in crate::presentation) fn install_atmosphere_cleanup_backport(app: &mut App) {
+    AtmosphereBakeGpu::install(app);
     let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
         return;
     };
@@ -116,6 +110,7 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
     mut commands: Commands,
     celestial: Res<PresentedCelestialLighting>,
     mut status: ResMut<FrozenAtmosphereStatus>,
+    gpu_bake: Res<AtmosphereBakeGpu>,
     settings: Option<Res<TacticalGraphicsSettings>>,
     camera: Single<(Entity, &GlobalTransform), With<TacticalGameplayCamera>>,
     probe: Query<
@@ -146,28 +141,6 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
     };
     let (camera_entity, camera_transform) = camera.into_inner();
 
-    if let FrozenAtmospherePhase::Quiescing {
-        scene,
-        ref mut elapsed_frames,
-    } = status.phase
-    {
-        *elapsed_frames = elapsed_frames.saturating_add(1);
-        if *elapsed_frames < ATMOSPHERE_QUIESCENCE_FRAMES {
-            return;
-        }
-        if let Ok((probe_entity, _, _)) = probe.single() {
-            commands.entity(probe_entity).remove::<(
-                AtmosphereBakeProbe,
-                AtmosphereEnvironmentMapLight,
-                GeneratedEnvironmentMapLight,
-                EnvironmentMapLight,
-            )>();
-        }
-        status.phase = FrozenAtmospherePhase::Frozen { scene };
-        status.completed_bakes += 1;
-        return;
-    }
-
     if let FrozenAtmospherePhase::Frozen { scene } = status.phase {
         if scene == snapshot.scene {
             return;
@@ -183,16 +156,11 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
         );
         status.phase = FrozenAtmospherePhase::Baking {
             scene: snapshot.scene,
-            ready_frames: 0,
         };
         return;
     }
 
-    let FrozenAtmospherePhase::Baking {
-        scene,
-        ref mut ready_frames,
-    } = status.phase
-    else {
+    let FrozenAtmospherePhase::Baking { scene } = status.phase else {
         spawn_bake_probe(
             &mut commands,
             camera_transform.translation(),
@@ -200,23 +168,19 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
         );
         status.phase = FrozenAtmospherePhase::Baking {
             scene: snapshot.scene,
-            ready_frames: 0,
         };
         return;
     };
     if scene != snapshot.scene {
         status.phase = FrozenAtmospherePhase::Baking {
             scene: snapshot.scene,
-            ready_frames: 0,
         };
         return;
     }
     let Ok((probe_entity, Some(generated), Some(filtered))) = probe.single() else {
-        *ready_frames = 0;
         return;
     };
-    *ready_frames = ready_frames.saturating_add(1);
-    if *ready_frames < ATMOSPHERE_CUBEMAP_BAKE_FRAMES {
+    if !gpu_bake.is_complete(scene, camera_entity, probe_entity, generated, filtered) {
         return;
     }
 
@@ -233,17 +197,16 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
     if environment_light_enabled {
         camera_commands.insert(filtered.clone());
     }
-    commands
-        .entity(probe_entity)
-        .insert(FrozenAtmosphereProbeAssets {
-            _environment_map: generated.environment_map.clone(),
-            _diffuse_map: filtered.diffuse_map.clone(),
-            _specular_map: filtered.specular_map.clone(),
-        });
-    status.phase = FrozenAtmospherePhase::Quiescing {
-        scene,
-        elapsed_frames: 0,
-    };
+    camera_commands.insert(FrozenAtmosphereProbeAssets {
+        _environment_map: generated.environment_map.clone(),
+        _diffuse_map: filtered.diffuse_map.clone(),
+        _specular_map: filtered.specular_map.clone(),
+    });
+    // The camera retains all three completed textures. Despawning also retires
+    // Bevy's private extracted atmosphere-map producer component on the probe.
+    commands.entity(probe_entity).despawn();
+    status.phase = FrozenAtmospherePhase::Frozen { scene };
+    status.completed_bakes += 1;
 }
 
 fn spawn_bake_probe(commands: &mut Commands, observer_translation: Vec3, size: u32) {
@@ -264,9 +227,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn frozen_cube_budget_and_submission_windows_are_bounded() {
-        assert_eq!(ATMOSPHERE_CUBEMAP_BAKE_FRAMES, 60);
-        assert_eq!(ATMOSPHERE_QUIESCENCE_FRAMES, 8);
+    fn frozen_cube_budget_is_bounded() {
         assert_eq!(FROZEN_SKY_CUBEMAP_SIZE.pow(2) * 6 * 8, 192 * 1024);
     }
 
@@ -274,6 +235,7 @@ mod tests {
     fn completed_bake_installs_both_consumers_and_retires_producers() {
         let mut app = App::new();
         app.init_resource::<FrozenAtmosphereStatus>()
+            .init_resource::<AtmosphereBakeGpu>()
             .init_resource::<PresentedCelestialLighting>()
             .init_resource::<ActiveTacticalScene>()
             .add_systems(
@@ -309,9 +271,18 @@ mod tests {
             GeneratedEnvironmentMapLight::default(),
             EnvironmentMapLight::default(),
         ));
-        for _ in 0..ATMOSPHERE_CUBEMAP_BAKE_FRAMES {
+        for _ in 0..120 {
             app.update();
         }
+
+        // Allocating handles, even for twice the former timeout, is not proof
+        // that an asynchronous GPU compute pipeline has ever written them.
+        assert!(app.world().entity(camera).contains::<AtmosphereSettings>());
+        assert!(!app.world().entity(camera).contains::<Skybox>());
+        app.world()
+            .resource::<AtmosphereBakeGpu>()
+            .complete_for_test();
+        app.update();
 
         let camera_ref = app.world().entity(camera);
         assert_eq!(camera_ref.get::<Skybox>().unwrap().brightness, 1.0);
@@ -319,18 +290,11 @@ mod tests {
         assert!(!camera_ref.contains::<AtmosphereSettings>());
         assert!(
             app.world()
-                .entity(probe)
+                .entity(camera)
                 .contains::<FrozenAtmosphereProbeAssets>()
         );
 
-        for _ in 0..ATMOSPHERE_QUIESCENCE_FRAMES {
-            app.update();
-        }
-        let retired_probe = app.world().entity(probe);
-        assert!(!retired_probe.contains::<AtmosphereBakeProbe>());
-        assert!(!retired_probe.contains::<AtmosphereEnvironmentMapLight>());
-        assert!(!retired_probe.contains::<GeneratedEnvironmentMapLight>());
-        assert!(retired_probe.contains::<FrozenAtmosphereProbeAssets>());
+        assert!(app.world().get_entity(probe).is_err());
         assert_eq!(
             app.world()
                 .resource::<FrozenAtmosphereStatus>()

@@ -13,6 +13,9 @@ const RECIPE_VARIATION_DOMAIN: u64 = 0x7661_7269_6174_696f;
 
 pub const fn settlement_archetype(usage: BuildingUse) -> BuildingArchetype {
     use BuildingUse::*;
+    if crate::WorkplaceKind::from_use(usage).is_some() {
+        return BuildingArchetype::Workplace;
+    }
     match usage {
         ParishChurch | Chapel => BuildingArchetype::ParishChurch,
         Cathedral => BuildingArchetype::Cathedral,
@@ -20,15 +23,12 @@ pub const fn settlement_archetype(usage: BuildingUse) -> BuildingArchetype {
             BuildingArchetype::RenaissanceTownHall
         }
         Castle | Arsenal => BuildingArchetype::WalledKeep,
-        Inn | Warehouse | Bookshop | PrintingHouse | Apothecary | CustomsHouse | Manor => {
+        Inn | Bookshop | PrintingHouse | Apothecary | CustomsHouse | Manor => {
             BuildingArchetype::FachwerkMerchantHouse
         }
-        Barn | Stable | Granary | Smithy | Weaponsmith | Bakehouse | MarketHall => {
-            BuildingArchetype::Workplace
-        }
         HorseMill | WaterMill | Windmill | FullingMill | PaperMill | Sawmill | Hospital
-        | Bathhouse | School | Monastery | Synagogue | Malthouse | TimberYard | WoadStore
-        | SaltWorks | Smelter | Brickworks | Glassworks => BuildingArchetype::HallHouse,
+        | Bathhouse | School | Monastery | Synagogue | WoadStore | SaltWorks | Smelter
+        | Brickworks | Glassworks => BuildingArchetype::HallHouse,
         Rectory | ExecutionerHouse => BuildingArchetype::FachwerkCottage,
         _ => BuildingArchetype::TownHouse,
     }

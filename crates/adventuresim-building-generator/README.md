@@ -561,7 +561,9 @@ repeated structural compilation while varying ordinary street frontage.
 ## Working buildings and plots
 
 Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
-premises), bakehouses and market halls use the `Workplace` structural family.
+and armorer premises), bakehouses, market halls, breweries, malt houses, timber
+yards, carpenter workshops, merchant warehouses, dyers, tanneries and horse mills use the `Workplace`
+structural family.
 Their capacity band selects a small, medium or large working footprint before
 city placement reserves the complete plot. Playable buildings and distant
 recipes carry the same size; roofs, yard fences, sheds and major equipment
@@ -582,9 +584,58 @@ support, reserved plot bounds, required equipment and clear passages are audited
 static collision consumes the same physical parts. Roofs continue through the
 existing roof resolver and audit. Generic grid-opening edits are rejected for
 this structural family; edit the working programme instead.
+Vessel bottoms and rims collide; their rendered liquid fills do not create solid
+floors. Pitched equipment shares its full orientation across support auditing,
+rendering and collision bounds.
 
-Capture all six families (barn, stable, granary, smithy, bakehouse and market hall)
-with the production tactical renderer:
+Breweries combine a masonry hall with a lower timber service shelter, open
+coopered vessels and a separate firing area. Malt houses have long ventilated
+walls and an external drying kiln. Timber yards are open stock shelters with
+separated timber stacks and handling lanes; joinery workshops keep an enclosed
+rear workshop behind a deep open working bay. These forms distinguish working
+space and rooflines, while capacity bands extend the useful bays rather than
+enlarging tools. Armorer premises share the smithy's forge programme.
+
+Warehouses have a long two-level masonry body, repeated ventilation and loading
+bays, and a covered loading apron with a hoist. A separate clear cart lane
+passes outside the loading shelter; the upper storage floor has an internal
+stair. The long masonry storage form draws on the fifteenth-century
+[Kornhofspeicher in Erfurt](https://www.denkmalschutz.de/denkmal/kornhofspeicher-grosse-ackerhofgasse-11-12.html).
+The loading arrangement is a procedural design, not a reconstruction of that
+specific building. Its static lifting tackle includes a strapped pulley block,
+paired hemp rope runs, an open iron hook and a post cleat.
+
+Dyers have an open heated work bay, a kettle and draining bench, and tall rails
+carrying folded cloth. Tanneries combine low soaking tanks, sloped fleshing
+beams and irregular hanging hides beneath a drying canopy. Their working yards
+remain inside the reserved plot. Edge-district placement does not identify a
+riverbank, so these programmes do not fabricate watercourses or outlets beyond
+the plot. Cloth, hides, grain, rope and liquid fills use a shared authored surface
+palette independently of facade paint.
+
+Period craft details draw on the Nuremberg housebooks' [1525 cloth worker](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/284/)
+and [1488 leatherworker with hanging hides](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/215/).
+The complete workshops are procedural arrangements, not reconstructions of the
+rooms in those illustrations.
+
+Horse mills use a broad timber hall around a clear animal circuit, with an
+overhead sweep, wooden gearing, paired millstones, a grain hopper and rear
+storage bays. The worker passage remains separate from the animal circuit.
+Audits check the full sweep envelope rather than only its parked position;
+the unhitched draw rope is part of the static machinery. Capacity extends
+storage bays without enlarging the mechanism. Millstones use dressed stone
+independently of facade paint. No horse or machinery simulation is introduced.
+Regional precedents include the small Windsheim horse mill recorded in 1419
+and [Rothenburg's civic horse mill of 1516](https://www.rothenburg.de/en/entdecken/sehenswuerdigkeiten/historische-gebaeude).
+The mechanism is an authored architectural arrangement, not a reconstruction
+of either building.
+
+The structural audit memoizes completed support paths. Stacked boards and
+other assemblies can share bearings without repeatedly expanding the same
+ancestry. Every ungrounded member still requires all declared parents to exist
+and reach ground through an acyclic graph.
+
+Capture the working families with the production tactical renderer:
 
 ```powershell
 python scripts/capture_workplaces.py --output target/workplace-review
@@ -597,6 +648,28 @@ operable door/window presentation, lighting, post-processing and automatic LODs.
 Edit these inputs to review another recipe; the capture layer contains no material
 mapping or building mesh conversion. Geometry editors and their cutaways remain
 useful diagnostics, but do not certify in-game appearance.
+
+### Remaining architectural opportunities
+
+The building-use catalogue is broader than the physical programmes. A different
+room name or painted shop sign does not imply a distinct building envelope.
+The next useful additions are:
+
+- Mills: a waterwheel and race, or braced post-mill body
+  and sails. Water-powered forms need surveyed water siting before placement.
+- Storage and trade: drying structures for woad, open cooper and wheelwright
+  work bays, and kiln/drying sheds for potters and brickmakers.
+- Public frontages: covered weighing bays, inn carriage passages, guard porches,
+  prison bars, and a smaller chapel programme. Weigh houses, guildhalls,
+  universities and mints still share the town-hall family; inns and
+  several shops still share merchant-house architecture.
+- Institutional plots: connected ranges, courts and covered passages for
+  hospitals, monasteries and universities. Their current room programmes do
+  not yet supply these arrangements.
+
+Ordinary domestic trades can continue to share houses. Work openings, shutters,
+covered frontage and useful yard space can identify their occupations without
+turning every business into a landmark.
 
 ## Text-only shop signs
 
@@ -634,7 +707,10 @@ binaries must not be recreated. Review inputs may choose entities and cameras;
 only production presentation binds materials, compiles GPU meshes and sets LODs.
 Capture waits for production geometry, textures and nearby lettering, checks
 window glass and per-building material bindings, and fails if required inputs or
-assets are missing. `manifest.json` records camera, revision and lighting checks;
+assets are missing. Production atmosphere baking waits for completed GPU
+generation and filtering before freezing its sky and lighting textures; allocated
+image handles alone do not establish readiness.
+`manifest.json` records camera, revision and lighting checks;
 `building-presentation.json` records the actual graphics adapter, backend and
 configuration. These are native GPU captures. Browser rendering requires its own
 smoke run against the actual web client; a native gallery is not WebGPU evidence.

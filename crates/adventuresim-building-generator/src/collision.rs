@@ -51,13 +51,12 @@ impl CollisionCuboid {
 
     fn bounds(self) -> CollisionBounds {
         let half = self.size * 0.5;
-        let sin = self.yaw_radians.sin().abs();
-        let cos = self.yaw_radians.cos().abs();
-        let rotated_half = Vec3::new(
-            half.x * cos + half.z * sin,
-            half.y,
-            half.x * sin + half.z * cos,
-        );
+        let orientation = bevy::math::Quat::from_rotation_y(self.yaw_radians)
+            * bevy::math::Quat::from_rotation_x(self.crossfall_radians)
+            * bevy::math::Quat::from_rotation_z(self.longfall_radians);
+        let rotated_half = (orientation * Vec3::X).abs() * half.x
+            + (orientation * Vec3::Y).abs() * half.y
+            + (orientation * Vec3::Z).abs() * half.z;
         CollisionBounds {
             min: self.centre - rotated_half,
             max: self.centre + rotated_half,
@@ -102,7 +101,12 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
             workplace
                 .parts
                 .iter()
-                .filter(|part| part.feature != crate::WorkplaceFeature::Boarding)
+                .filter(|part| {
+                    !matches!(
+                        part.feature,
+                        crate::WorkplaceFeature::Boarding | crate::WorkplaceFeature::ProcessLiquid
+                    )
+                })
                 .map(|part| part.solid),
         );
     }
@@ -145,6 +149,35 @@ fn collision_bounds(plan: &BuildingPlan, cuboids: &[CollisionCuboid]) -> Collisi
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn pitched_and_rolled_collision_bounds_contain_all_transformed_corners() {
+        use super::*;
+        let rotation = bevy::math::Quat::from_euler(bevy::math::EulerRot::YXZ, 0.3, 0.6, 0.25);
+        let cuboid = CollisionCuboid {
+            source: ResolvedItemId(1),
+            centre: Vec3::new(2.0, 1.0, 3.0),
+            size: Vec3::new(0.4, 0.16, 3.0),
+            yaw_radians: 0.3,
+            crossfall_radians: 0.6,
+            longfall_radians: 0.25,
+        };
+        let bounds = cuboid.bounds();
+        let mut minimum = Vec3::splat(f32::INFINITY);
+        let mut maximum = Vec3::splat(f32::NEG_INFINITY);
+        for x in [-1.0, 1.0] {
+            for y in [-1.0, 1.0] {
+                for z in [-1.0, 1.0] {
+                    let corner =
+                        cuboid.centre + rotation * (cuboid.size * Vec3::new(x, y, z) * 0.5);
+                    minimum = minimum.min(corner);
+                    maximum = maximum.max(corner);
+                }
+            }
+        }
+        assert!((bounds.min - minimum).abs().max_element() < 0.001);
+        assert!((bounds.max - maximum).abs().max_element() < 0.001);
+        assert!(bounds.max.y - bounds.min.y > cuboid.size.y * 5.0);
+    }
     use super::*;
     use crate::{BuildingArchetype, BuildingProgram, OpeningUse, generate};
 

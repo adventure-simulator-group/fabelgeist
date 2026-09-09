@@ -8,6 +8,7 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
     let Some(workplace) = &plan.workplace else {
         return;
     };
+    super::horse_mill::audit_circuit(plan, issues);
     let solids = &plan.resolved_geometry.solids;
     for part in &workplace.parts {
         let Some(solid) = solids.iter().find(|solid| solid.id == part.solid) else {
@@ -17,8 +18,9 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
             });
             continue;
         };
-        let min = solid.centre - solid.size * 0.5;
-        let max = solid.centre + solid.size * 0.5;
+        let bounds = super::assembly::contact::bounds(solid);
+        let min = bounds.min;
+        let max = bounds.max;
         if min.x < -PLOT_EDGE_ALLOWANCE_METRES
             || min.z < -PLOT_EDGE_ALLOWANCE_METRES
             || max.x > workplace.plot_dimensions_metres.x + PLOT_EDGE_ALLOWANCE_METRES
@@ -32,12 +34,7 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
         if min.y > CONTACT_TOLERANCE_METRES
             && !solids.iter().any(|other| {
                 other.id != solid.id
-                    && touches(
-                        min,
-                        max,
-                        other.centre - other.size * 0.5,
-                        other.centre + other.size * 0.5,
-                    )
+                    && super::assembly::contact::touches(solid, other, CONTACT_TOLERANCE_METRES)
             })
         {
             issues.push(AuditIssue {
@@ -61,6 +58,14 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
         WorkplaceKind::Smithy => WorkplaceFeature::Forge,
         WorkplaceKind::Bakehouse => WorkplaceFeature::Oven,
         WorkplaceKind::MarketHall => WorkplaceFeature::Counter,
+        WorkplaceKind::TimberYard => WorkplaceFeature::TimberStack,
+        WorkplaceKind::Carpenter => WorkplaceFeature::SawBench,
+        WorkplaceKind::Brewery => WorkplaceFeature::Vat,
+        WorkplaceKind::Malthouse => WorkplaceFeature::Kiln,
+        WorkplaceKind::Warehouse => WorkplaceFeature::LoadingHoist,
+        WorkplaceKind::Dyer => WorkplaceFeature::DyeKettle,
+        WorkplaceKind::Tannery => WorkplaceFeature::SoakingTank,
+        WorkplaceKind::HorseMill => WorkplaceFeature::Millstone,
     };
     if !workplace.parts.iter().any(|part| part.feature == essential) {
         issues.push(AuditIssue {
@@ -68,8 +73,4 @@ pub(crate) fn audit_workplace(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>)
             message: format!("{:?} lacks {essential:?}", workplace.kind),
         });
     }
-}
-
-fn touches(a_min: Vec3, a_max: Vec3, b_min: Vec3, b_max: Vec3) -> bool {
-    (a_max.min(b_max) - a_min.max(b_min)).min_element() >= -CONTACT_TOLERANCE_METRES
 }

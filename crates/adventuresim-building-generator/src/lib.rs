@@ -19,7 +19,7 @@ mod workplace;
 pub use settlement::settlement_archetype;
 pub use workplace::{
     WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart, WorkplacePassage,
-    WorkplacePlan, WorkplaceSize,
+    WorkplacePlan, WorkplaceSize, WorkplaceSurface,
 };
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};

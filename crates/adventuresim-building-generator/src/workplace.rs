@@ -7,11 +7,18 @@ use serde::{Deserialize, Serialize};
 use crate::{BuildingProgram, ResolvedItemId, WallAssemblyId};
 
 mod assembly;
+mod brewing;
+mod craft;
 mod envelope;
 mod equipment;
+mod horse_mill;
 mod programme;
+mod surfaces;
 mod validation;
+mod warehouse;
+mod wet;
 pub(crate) use assembly::resolve_workplace;
+pub use surfaces::WorkplaceSurface;
 pub(crate) use validation::audit_workplace;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, ValueEnum)]
@@ -23,25 +30,51 @@ pub enum WorkplaceKind {
     Smithy,
     Bakehouse,
     MarketHall,
+    Brewery,
+    Malthouse,
+    TimberYard,
+    Carpenter,
+    Warehouse,
+    Dyer,
+    Tannery,
+    HorseMill,
 }
 
 impl WorkplaceKind {
-    pub const ALL: [Self; 6] = [
+    pub const ALL: [Self; 14] = [
         Self::Barn,
         Self::Stable,
         Self::Granary,
         Self::Smithy,
         Self::Bakehouse,
         Self::MarketHall,
+        Self::Brewery,
+        Self::Malthouse,
+        Self::TimberYard,
+        Self::Carpenter,
+        Self::Warehouse,
+        Self::Dyer,
+        Self::Tannery,
+        Self::HorseMill,
     ];
     pub const fn from_use(usage: BuildingUse) -> Option<Self> {
         match usage {
             BuildingUse::Barn => Some(Self::Barn),
             BuildingUse::Stable => Some(Self::Stable),
             BuildingUse::Granary => Some(Self::Granary),
-            BuildingUse::Smithy | BuildingUse::Weaponsmith => Some(Self::Smithy),
+            BuildingUse::Smithy | BuildingUse::Weaponsmith | BuildingUse::Armorer => {
+                Some(Self::Smithy)
+            }
             BuildingUse::Bakehouse => Some(Self::Bakehouse),
             BuildingUse::MarketHall => Some(Self::MarketHall),
+            BuildingUse::Brewery => Some(Self::Brewery),
+            BuildingUse::Malthouse => Some(Self::Malthouse),
+            BuildingUse::TimberYard => Some(Self::TimberYard),
+            BuildingUse::Carpenter => Some(Self::Carpenter),
+            BuildingUse::Warehouse => Some(Self::Warehouse),
+            BuildingUse::Dyer => Some(Self::Dyer),
+            BuildingUse::Tannery => Some(Self::Tannery),
+            BuildingUse::HorseMill => Some(Self::HorseMill),
             _ => None,
         }
     }
@@ -53,6 +86,14 @@ impl WorkplaceKind {
             Self::Smithy => BuildingUse::Smithy,
             Self::Bakehouse => BuildingUse::Bakehouse,
             Self::MarketHall => BuildingUse::MarketHall,
+            Self::Brewery => BuildingUse::Brewery,
+            Self::Malthouse => BuildingUse::Malthouse,
+            Self::TimberYard => BuildingUse::TimberYard,
+            Self::Carpenter => BuildingUse::Carpenter,
+            Self::Warehouse => BuildingUse::Warehouse,
+            Self::Dyer => BuildingUse::Dyer,
+            Self::Tannery => BuildingUse::Tannery,
+            Self::HorseMill => BuildingUse::HorseMill,
         }
     }
     pub const fn slug(self) -> &'static str {
@@ -63,6 +104,14 @@ impl WorkplaceKind {
             Self::Smithy => "smithy",
             Self::Bakehouse => "bakehouse",
             Self::MarketHall => "market-hall",
+            Self::Brewery => "brewery",
+            Self::Malthouse => "malthouse",
+            Self::TimberYard => "timber-yard",
+            Self::Carpenter => "carpenter",
+            Self::Warehouse => "warehouse",
+            Self::Dyer => "dyer",
+            Self::Tannery => "tannery",
+            Self::HorseMill => "horse-mill",
         }
     }
 }
@@ -100,12 +149,23 @@ impl WorkplaceSize {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum WorkplaceMaterial {
     Timber,
+    /// Unfinished working wood stays independent from the building's painted facade palette.
+    UnpaintedTimber,
+    Grain,
+    DyedCloth,
+    UndyedCloth,
+    Hide,
+    ProcessLiquid,
+    HempRope,
     Masonry,
+    DressedStone,
     Iron,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum WorkplaceFeature {
+    TimberStack,
+    SawBench,
     Wall,
     Post,
     Beam,
@@ -123,6 +183,22 @@ pub enum WorkplaceFeature {
     Counter,
     Fence,
     Rack,
+    Vat,
+    Kiln,
+    Louver,
+    LoadingHoist,
+    MillDrive,
+    MillSweep,
+    Millstone,
+    Hopper,
+    DyeKettle,
+    SoakingTank,
+    DryingFrame,
+    Cloth,
+    Hide,
+    FleshingBeam,
+    /// Rendered liquid fill; the vessel's rim and bottom supply physical collision.
+    ProcessLiquid,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -170,9 +246,16 @@ mod tests;
 impl WorkplacePlan {
     pub(crate) fn gable_material(&self) -> WorkplaceMaterial {
         match self.kind {
-            WorkplaceKind::Barn | WorkplaceKind::Stable | WorkplaceKind::MarketHall => {
-                WorkplaceMaterial::Timber
-            }
+            WorkplaceKind::Barn
+            | WorkplaceKind::Stable
+            | WorkplaceKind::MarketHall
+            | WorkplaceKind::Brewery
+            | WorkplaceKind::TimberYard
+            | WorkplaceKind::Carpenter
+            | WorkplaceKind::Warehouse
+            | WorkplaceKind::Dyer
+            | WorkplaceKind::Tannery
+            | WorkplaceKind::HorseMill => WorkplaceMaterial::Timber,
             _ => WorkplaceMaterial::Masonry,
         }
     }

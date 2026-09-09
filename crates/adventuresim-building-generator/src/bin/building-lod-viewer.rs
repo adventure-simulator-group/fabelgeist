@@ -274,13 +274,32 @@ fn lod_material(
     let texture = match material {
         BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill) => &textures.plaster,
         BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => &textures.brick,
-        BuildingLodMaterial::Wall(_) | BuildingLodMaterial::CrownMasonry => &textures.stone,
+        BuildingLodMaterial::Wall(_)
+        | BuildingLodMaterial::CrownMasonry
+        | BuildingLodMaterial::DressedStone => &textures.stone,
         BuildingLodMaterial::Roof(_) => &textures.roof,
         BuildingLodMaterial::FachwerkBaked => &textures.plaster,
         BuildingLodMaterial::Timber | BuildingLodMaterial::Floor => &textures.roof,
         BuildingLodMaterial::InteriorTimber => &textures.roof,
         BuildingLodMaterial::InteriorPlaster => &textures.plaster,
         BuildingLodMaterial::Iron | BuildingLodMaterial::Glass => &textures.details,
+        BuildingLodMaterial::Grain
+        | BuildingLodMaterial::DyedCloth
+        | BuildingLodMaterial::UndyedCloth
+        | BuildingLodMaterial::Hide
+        | BuildingLodMaterial::ProcessLiquid
+        | BuildingLodMaterial::HempRope => {
+            let surface = material
+                .workplace_surface()
+                .expect("workplace surface role");
+            return world
+                .resource_mut::<Assets<StandardMaterial>>()
+                .add(StandardMaterial {
+                    base_color: Color::srgb(surface.srgb[0], surface.srgb[1], surface.srgb[2]),
+                    perceptual_roughness: surface.perceptual_roughness,
+                    ..default()
+                });
+        }
         BuildingLodMaterial::FacadeDetails => &textures.details,
         BuildingLodMaterial::CrownMask => &textures.crown_mask,
     };

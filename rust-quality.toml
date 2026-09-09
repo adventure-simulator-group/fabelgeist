@@ -246,6 +246,51 @@ reason = "Authored working furniture dimensions."
 
 [[scopes]]
 kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/craft/envelope.rs"
+reason = "Authored timber-trade structural bays, enclosure and handling clearances."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/craft/stock.rs"
+reason = "Authored supported timber stacks and joinery furniture dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing.rs"
+reason = "Authored brew-house service canopy, hearth and working clearances."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing/drying.rs"
+reason = "Authored malt-drying ventilation, floor, and kiln geometry."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse.rs"
+reason = "Authored long storehouse loading hood dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/envelope.rs"
+reason = "Authored masonry storehouse ventilation bays, loading portals and handling apron."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/loading.rs"
+reason = "Authored supported loading hood and lifting frame dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/hoist.rs"
+reason = "Authored pulley block, sheave, rope, open hook and post cleat geometry."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/warehouse/storage.rs"
+reason = "Authored storehouse floor, stair and physical storage clearances."
+
+[[scopes]]
+kind = "authored_catalog"
 path = "crates/adventuresim-world-schema/src/person_names.rs"
 reason = "Shared authored German given-name and surname catalog."
 
@@ -274,6 +319,55 @@ kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/equipment_controls.rs"
 reason = "Egui equipment buttons dispatch actions through widget responses; display labels are never compared as state."
 
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/brewing/kiln.rs"
+reason = "Authored malt-drying chamber, loading and firing apertures, grate and hollow hood dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet.rs"
+reason = "Authored dyeing and tanning yard placements, canopy dimensions and capacity bays."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/envelope.rs"
+reason = "Authored open working bays, rear rooms and clear circulation for wet trades."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/soaking.rs"
+reason = "Authored vessel rims, floors, liquid levels, heating enclosures and supported fleshing beams."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/wet/textiles.rs"
+reason = "Authored cloth folds, irregular hide profiles, drying frames and folded stock dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/surfaces.rs"
+reason = "Canonical authored workplace surface colors and roughness for grain, rope, cloth, hides and liquid fills."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/horse_mill.rs"
+reason = "Authored horse-mill fixed drive location, animal circuit and rear capacity bays."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/horse_mill/envelope.rs"
+reason = "Authored open mill hall, bearing supports and separate worker routes."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/horse_mill/drive.rs"
+reason = "Authored wooden cogwheel, spindle and overhead sweep dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/workplace/horse_mill/milling.rs"
+reason = "Authored faceted millstones, lantern pinion, grain hopper and storage bins."
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/armor_recipes.rs"

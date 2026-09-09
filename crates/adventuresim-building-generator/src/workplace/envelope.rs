@@ -6,6 +6,25 @@ const BEAM_DEPTH_METRES: f32 = 0.28;
 const BOARD_WIDTH_METRES: f32 = 0.22;
 
 pub(super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingProgram) {
+    if a.plan.kind == WorkplaceKind::HorseMill {
+        super::horse_mill::build_envelope(a, program);
+        return;
+    }
+    if matches!(a.plan.kind, WorkplaceKind::Dyer | WorkplaceKind::Tannery) {
+        super::wet::build_envelope(a, program);
+        return;
+    }
+    if a.plan.kind == WorkplaceKind::Warehouse {
+        super::warehouse::build_envelope(a, program);
+        return;
+    }
+    if matches!(
+        a.plan.kind,
+        WorkplaceKind::TimberYard | WorkplaceKind::Carpenter
+    ) {
+        super::craft::build_envelope(a, program);
+        return;
+    }
     let (width, depth) = program.footprint.dimensions();
     let w = f32::from(width) * CELL_SIZE_METRES;
     let d = f32::from(depth) * CELL_SIZE_METRES;
@@ -25,13 +44,15 @@ pub(super) fn build_envelope(a: &mut Assembly<'_>, program: &BuildingProgram) {
     if kind == WorkplaceKind::MarketHall {
         market_frame(a, w, d, h);
     } else {
-        let portal_width = if kind == WorkplaceKind::Barn {
+        let portal_width = if matches!(kind, WorkplaceKind::Barn | WorkplaceKind::Brewery) {
             3.8
         } else {
             2.4
         };
         let portal_height = if kind == WorkplaceKind::Barn {
             3.2
+        } else if kind == WorkplaceKind::Brewery {
+            2.8
         } else {
             2.5
         };
@@ -279,6 +300,10 @@ fn working_yard(a: &mut Assembly<'_>, w: f32, d: f32) {
 }
 
 fn ventilated_side(a: &mut Assembly<'_>, x: f32, d: f32, h: f32, outward: Vec2) {
+    if a.plan.kind == WorkplaceKind::Malthouse {
+        super::brewing::drying_wall(a, x, d, h, outward);
+        return;
+    }
     let bays = (d / 3.0) as u32;
     let bay_length = d / bays as f32;
     for bay in 0..bays {

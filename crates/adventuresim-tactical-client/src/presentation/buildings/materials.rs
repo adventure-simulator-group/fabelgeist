@@ -17,6 +17,9 @@ use fabelgeist_determinism::splitmix64;
 
 use super::super::*;
 
+mod workplace;
+use workplace::WorkplaceMaterials;
+
 const APPEARANCE_DOMAIN: u64 = 0x6275_696c_645f_636f;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
@@ -118,6 +121,48 @@ struct AppearanceMaterials {
     fachwerk_baked: Handle<StandardMaterial>,
 }
 
+impl AppearanceMaterials {
+    fn new(
+        appearance: BuildingAppearance,
+        textures: &ProceduralTextureAssets,
+        images: &mut Assets<Image>,
+        materials: &mut Assets<StandardMaterial>,
+    ) -> Self {
+        let spec = appearance.spec();
+        let infill = if spec.finish == FacadeFinish::BrickInfill {
+            materials.add(palette_surface_material(
+                &textures.handmade_brick,
+                HANDMADE_BRICK_TILE_METRES,
+                spec.infill,
+                [0.49, 0.235, 0.155],
+            ))
+        } else {
+            materials.add(plaster_surface_material(
+                &textures.lime_plaster,
+                spec.infill,
+            ))
+        };
+        let fachwerk = images.add(fachwerk_baked_texture(spec));
+        Self {
+            finish: spec.finish,
+            infill,
+            timber: materials.add(palette_surface_material(
+                &textures.hewn_oak,
+                HEWN_OAK_TILE_METRES,
+                spec.timber,
+                [0.30, 0.18, 0.10],
+            )),
+            tile: materials.add(palette_surface_material(
+                &textures.clay_roof_tile,
+                CLAY_ROOF_TILE_TILE_METRES,
+                spec.tile,
+                [0.40, 0.18, 0.12],
+            )),
+            fachwerk_baked: materials.add(opaque_material(fachwerk)),
+        }
+    }
+}
+
 #[derive(Resource)]
 pub(crate) struct TacticalBuildingMaterials {
     appearances: Vec<AppearanceMaterials>,
@@ -127,6 +172,7 @@ pub(crate) struct TacticalBuildingMaterials {
     lead: Handle<StandardMaterial>,
     timber_roof: Handle<StandardMaterial>,
     iron: Handle<StandardMaterial>,
+    workplace: WorkplaceMaterials,
     interior_timber: Handle<StandardMaterial>,
     interior_plaster: Handle<StandardMaterial>,
     floor: Handle<StandardMaterial>,
@@ -164,7 +210,14 @@ impl TacticalBuildingMaterials {
             BuildingLodMaterial::FachwerkBaked => palette.fachwerk_baked.clone(),
             BuildingLodMaterial::Timber => palette.timber.clone(),
             BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
+            BuildingLodMaterial::DressedStone => self.stone.clone(),
             BuildingLodMaterial::Iron => self.iron.clone(),
+            BuildingLodMaterial::Grain => self.workplace.grain.clone(),
+            BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),
+            BuildingLodMaterial::UndyedCloth => self.workplace.undyed_cloth.clone(),
+            BuildingLodMaterial::Hide => self.workplace.hide.clone(),
+            BuildingLodMaterial::ProcessLiquid => self.workplace.process_liquid.clone(),
+            BuildingLodMaterial::HempRope => self.workplace.hemp_rope.clone(),
             BuildingLodMaterial::InteriorPlaster => self.interior_plaster.clone(),
             BuildingLodMaterial::Floor => self.floor.clone(),
             BuildingLodMaterial::Glass => self.glass.clone(),
@@ -183,38 +236,12 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
     let appearances = BuildingAppearance::ALL
         .into_iter()
         .map(|appearance| {
-            let spec = appearance.spec();
-            let infill = if spec.finish == FacadeFinish::BrickInfill {
-                materials.add(palette_surface_material(
-                    &procedural_textures.handmade_brick,
-                    HANDMADE_BRICK_TILE_METRES,
-                    spec.infill,
-                    [0.49, 0.235, 0.155],
-                ))
-            } else {
-                materials.add(plaster_surface_material(
-                    &procedural_textures.lime_plaster,
-                    spec.infill,
-                ))
-            };
-            let fachwerk = images.add(fachwerk_baked_texture(spec));
-            AppearanceMaterials {
-                finish: spec.finish,
-                infill,
-                timber: materials.add(palette_surface_material(
-                    &procedural_textures.hewn_oak,
-                    HEWN_OAK_TILE_METRES,
-                    spec.timber,
-                    [0.30, 0.18, 0.10],
-                )),
-                tile: materials.add(palette_surface_material(
-                    &procedural_textures.clay_roof_tile,
-                    CLAY_ROOF_TILE_TILE_METRES,
-                    spec.tile,
-                    [0.40, 0.18, 0.12],
-                )),
-                fachwerk_baked: materials.add(opaque_material(fachwerk)),
-            }
+            AppearanceMaterials::new(
+                appearance,
+                &procedural_textures,
+                &mut images,
+                &mut materials,
+            )
         })
         .collect();
     let details = images.add(facade_atlas());
@@ -244,6 +271,7 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
             &procedural_textures.ironwork,
             IRONWORK_TILE_METRES,
         )),
+        workplace: WorkplaceMaterials::new(&mut materials),
         interior_timber: materials.add(surface_material(
             &procedural_textures.hewn_oak,
             HEWN_OAK_TILE_METRES,

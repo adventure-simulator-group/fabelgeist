@@ -24,11 +24,12 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                 let work = plan.workplace.as_ref().unwrap();
                 assert!(!work.passages.is_empty());
                 let collision = compile_building_collision(&plan);
-                for part in work
-                    .parts
-                    .iter()
-                    .filter(|part| part.feature != WorkplaceFeature::Boarding)
-                {
+                for part in work.parts.iter().filter(|part| {
+                    !matches!(
+                        part.feature,
+                        WorkplaceFeature::Boarding | WorkplaceFeature::ProcessLiquid
+                    )
+                }) {
                     assert!(
                         collision
                             .cuboids
@@ -58,7 +59,8 @@ fn workplace_matrix_has_clear_passages_and_shared_geometry() {
                             .iter()
                             .find(|solid| solid.id == part.solid)
                             .unwrap();
-                        let corner = solid.centre + solid.size * 0.5;
+                        let corner = solid.centre
+                            + super::assembly::contact::rotation(solid) * (solid.size * 0.5);
                         assert!(
                             lod.meshes
                                 .iter()
