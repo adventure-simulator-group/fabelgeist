@@ -210,7 +210,7 @@ pub(crate) fn resolve_workplace(
     let mut assembly = Assembly {
         plan: WorkplacePlan {
             kind,
-            size: program.workplace_size?,
+            size: program.service_size?,
             plot_dimensions_metres: program.plot_dimensions_metres(),
             walls: vec![],
             parts: vec![],

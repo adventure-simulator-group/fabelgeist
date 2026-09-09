@@ -77,6 +77,7 @@ pub enum ChurchTowerStage {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum WallMaterialClass {
+    RubbleMasonry,
     TimberInfill,
     CivilianMasonry,
     CathedralMasonry,
@@ -93,6 +94,20 @@ pub enum WallStructuralRole {
     Buttressed,
     Curtain,
     TowerShell,
+}
+
+impl WallAssembly {
+    pub(crate) fn has_valid_structural_thickness(&self) -> bool {
+        match self.material {
+            WallMaterialClass::RubbleMasonry => (0.45..=1.20).contains(&self.thickness_metres),
+            WallMaterialClass::TimberInfill => (0.18..=0.24).contains(&self.thickness_metres),
+            WallMaterialClass::CivilianMasonry => (0.40..=0.70).contains(&self.thickness_metres),
+            WallMaterialClass::CathedralMasonry => (0.75..=1.10).contains(&self.thickness_metres),
+            WallMaterialClass::FortifiedMasonry => self.thickness_metres >= 1.20,
+            WallMaterialClass::InternalTimber => (0.12..=0.18).contains(&self.thickness_metres),
+            WallMaterialClass::InternalMasonry => (0.20..=0.35).contains(&self.thickness_metres),
+        }
+    }
 }
 
 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]

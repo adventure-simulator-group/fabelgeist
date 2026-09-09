@@ -3,6 +3,12 @@ use crate::{BuildingArchetype, BuildingPlan};
 pub(super) fn expected_wall_count(plan: &BuildingPlan) -> usize {
     if let Some(workplace) = &plan.workplace {
         workplace.walls.len()
+    } else if let Some(church) = &plan.small_church {
+        plan.storeys
+            .iter()
+            .map(|storey| storey.walls.len())
+            .sum::<usize>()
+            + church.bearing_walls.len()
     } else if let Some(church) = &plan.church {
         usize::from(church.program.nave_bays) * 2
             + usize::from(church.program.nave_bays) * 2

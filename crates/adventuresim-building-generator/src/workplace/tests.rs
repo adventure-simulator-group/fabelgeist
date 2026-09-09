@@ -4,18 +4,18 @@ use crate::{
     compile_building_lod, generate, settlement_archetype,
 };
 
-fn recipe(kind: WorkplaceKind, size: WorkplaceSize, seed: u64) -> BuildingProgram {
+fn recipe(kind: WorkplaceKind, size: ServiceBuildingSize, seed: u64) -> BuildingProgram {
     BuildingProgram::settlement(settlement_archetype(kind.usage()), Some(kind.usage()), seed)
-        .with_workplace_size(size)
+        .with_service_size(size)
 }
 
 #[test]
 fn workplace_matrix_has_clear_passages_and_shared_geometry() {
     for kind in WorkplaceKind::ALL {
         for size in [
-            WorkplaceSize::Small,
-            WorkplaceSize::Medium,
-            WorkplaceSize::Large,
+            ServiceBuildingSize::Small,
+            ServiceBuildingSize::Medium,
+            ServiceBuildingSize::Large,
         ] {
             for seed in [0, 42, 101] {
                 let program = recipe(kind, size, seed);
@@ -117,8 +117,8 @@ fn assert_gable_uvs(meshes: &[crate::LodMesh], work: &WorkplacePlan, eaves: f32)
 fn capacity_changes_working_space_and_roundtrips_recipe() {
     for kind in WorkplaceKind::ALL {
         let range = kind.usage().definition().capacity;
-        let small = WorkplaceSize::for_capacity(kind.usage(), range.minimum).unwrap();
-        let large = WorkplaceSize::for_capacity(kind.usage(), range.maximum).unwrap();
+        let small = ServiceBuildingSize::for_capacity(kind.usage(), range.minimum).unwrap();
+        let large = ServiceBuildingSize::for_capacity(kind.usage(), range.maximum).unwrap();
         let small = recipe(kind, small, 42);
         let large = recipe(kind, large, 42);
         assert!(small.plot_dimensions_metres().y < large.plot_dimensions_metres().y);
@@ -130,7 +130,12 @@ fn capacity_changes_working_space_and_roundtrips_recipe() {
 
 #[test]
 fn workplace_audit_rejects_blocked_passage_and_missing_equipment() {
-    let mut plan = generate(&recipe(WorkplaceKind::Stable, WorkplaceSize::Small, 42)).unwrap();
+    let mut plan = generate(&recipe(
+        WorkplaceKind::Stable,
+        ServiceBuildingSize::Small,
+        42,
+    ))
+    .unwrap();
     let workplace = plan.workplace.as_ref().unwrap();
     let stall = workplace
         .parts

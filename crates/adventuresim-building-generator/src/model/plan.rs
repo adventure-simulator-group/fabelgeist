@@ -34,6 +34,7 @@ pub struct BuildingPlan {
     pub gatehouse_assemblies: Vec<GatehouseAssemblySpec>,
     pub bartizans: Vec<Bartizan>,
     pub church: Option<ChurchAssembly>,
+    pub small_church: Option<crate::SmallChurchPlan>,
     pub timber_frame: Option<TimberFrameAssembly>,
     pub castle_phase: Option<CastleConstructionPhase>,
     pub artillery_castle: Option<ArtilleryCastleAssembly>,

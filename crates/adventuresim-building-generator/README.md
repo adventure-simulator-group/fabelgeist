@@ -55,7 +55,7 @@ Twelve curated programmes exercise the current vocabulary:
   half-hip and cross-gable roofscape, a transverse wall dormer, smaller roof
   dormers, and stepped or curved gable details;
 - `workplace`: a working barn fixture; settlement uses select the other working programmes described below;
-- `parish-church`: a modest single-storey masonry church with nave, chancel and sacristy; and
+- `parish-church`: a masonry parish nave with a lower chancel and a supported bell turret; and
 - `cathedral`: an east-oriented, four-bay, three-aisled cruciform basilica with
   a projecting transept, square crossing, two-bay choir, five-sided apse, and
   an integrated single west bell tower;
@@ -524,9 +524,9 @@ catalogued without being invented from population alone.
 
 `BuildingProgram::settlement` assigns working rooms to structural families:
 stalls, milling floors, kiln rooms, vats, wards, classrooms and counting rooms.
-Timber town houses can combine workshops below with dwellings above. Parish
-churches have their own masonry nave, chancel and sacristy recipe. The existing
-cathedral remains a separate monumental architecture. Seeded roof pitches and
+Timber town houses can combine workshops below with dwellings above. Chapels
+have a compact single volume; parish churches have a longer nave and a lower,
+narrower chancel. The existing cathedral remains a separate monumental architecture. Seeded roof pitches and
 storey heights vary the silhouette without enlarging the reserved lot.
 
 The tactical layout reserves service plots along connected streets before
@@ -557,6 +557,57 @@ The SVG gives a building inventory and plot tooltips. Runtime palettes contain
 up to twelve recipes per residential family and two per service use and size, limiting
 repeated structural compilation while varying ordinary street frontage.
 
+
+## Chapels and parish churches
+
+`ServiceBuildingSize` selects small, medium or large programmes from the
+building use's service-capacity range. It applies to working buildings and
+small churches before city lots are reserved. The serialized `service_size`
+travels with playable programmes and distant recipe keys, so both reconstruct
+the same footprint and architecture.
+
+Chapels are single-volume rubble-masonry buildings with narrow Gothic windows,
+steep tiled roofs and modest bell turrets. Parish churches have longer naves,
+lower and narrower chancels, and a repeated window rhythm. Capacity adds nave
+bays rather than enlarging the bell structure. Their authored wall topology
+uses the canonical wall, opening and roof resolvers; the cathedral retains its
+separate structural programme.
+
+Rubble infill continues through the gables at the wall texture's physical scale.
+The lower chancel roof abuts the nave without an indoor tiled verge. The bell
+frame's posts reach the ground on either side of the entrance aisle.
+
+The distinction draws on [Lollar's chapel of about 1480](https://www.hessenpark.de/lexikon/historische-gebaeude/baugruppe-mittelhessen/kapelle-aus-lollar/),
+whose rectangular plan has no separate choir, and the [nave and recessed choir
+at St Wenzel, Langeneichstädt, around 1500](https://www.stiftung-kiba.de/kirchen/st-wenzel-langeneichstaedt).
+These are procedural arrangements, not reconstructions of either building.
+The Lollar museum's later galleries and reconstructed floor do not define the
+1544 programme.
+
+Masonry opening surrounds remain physical wall components in detailed rendering.
+Only opening solids replaced by canonical timber-infill finishes are suppressed;
+omitting masonry jambs, sills and heads would expose the interior through whole
+wall bays. Near meshes, facade LODs and collision preserve the opening profiles.
+Resolved pointed and segmental arch sections feed detailed masonry meshes and
+oriented collision segments, preserving the clear crown instead of filling the
+whole head's bounding box.
+
+Church facade LODs retain outward opening surfaces and the exposed bell frame;
+shell LODs retain the joined wall masses, roof silhouettes and a simplified
+bell stage. Interior floors and the hidden lengths of support posts are omitted.
+The six programme/size combinations must reduce triangle counts by at least
+half at each distance step while preserving canonical roof silhouette vertices.
+
+Generate and capture the six capacity-selected review recipes through production:
+
+```powershell
+cargo run -p adventuresim-tactical-core --bin generate-scene-fixtures
+python scripts/capture_parish_buildings.py --output target/parish-review
+```
+
+The generated scene owns building programmes and placements; its authored
+review sidecar owns camera targets. The review uses the existing production
+presentation plugin and its material-readiness checks.
 
 ## Working buildings and plots
 
@@ -660,7 +711,7 @@ The next useful additions are:
 - Storage and trade: drying structures for woad, open cooper and wheelwright
   work bays, and kiln/drying sheds for potters and brickmakers.
 - Public frontages: covered weighing bays, inn carriage passages, guard porches,
-  prison bars, and a smaller chapel programme. Weigh houses, guildhalls,
+  prison bars and distinctive civic entrances. Weigh houses, guildhalls,
   universities and mints still share the town-hall family; inns and
   several shops still share merchant-house architecture.
 - Institutional plots: connected ranges, courts and covered passages for

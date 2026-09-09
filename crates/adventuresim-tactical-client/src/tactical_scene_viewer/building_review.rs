@@ -17,6 +17,11 @@ pub(super) use openings::spawn_openings;
 pub(super) use readiness::{BuildingReviewPlugin, ready};
 pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
 pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
+pub(super) const PARISH_PROFILE: &str = "parish-review";
+
+pub(super) fn is_profile(profile: &str) -> bool {
+    matches!(profile, SHOP_PROFILE | WORKPLACE_PROFILE | PARISH_PROFILE)
+}
 
 #[derive(Resource, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -41,7 +46,7 @@ pub(super) fn setup(
     output: &Path,
     profile: &str,
 ) -> Option<Vec<BuildingReviewCamera>> {
-    if !matches!(profile, SHOP_PROFILE | WORKPLACE_PROFILE) {
+    if !is_profile(profile) {
         return None;
     }
     let path = input.with_extension("review.json");

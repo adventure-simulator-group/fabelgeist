@@ -6,15 +6,15 @@ use crate::{
 #[test]
 fn warehouses_provide_loading_routes_to_two_real_storage_floors() {
     for size in [
-        WorkplaceSize::Small,
-        WorkplaceSize::Medium,
-        WorkplaceSize::Large,
+        ServiceBuildingSize::Small,
+        ServiceBuildingSize::Medium,
+        ServiceBuildingSize::Large,
     ] {
         for seed in [0, 42, 101] {
             let usage = BuildingUse::Warehouse;
             let program =
                 BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
-                    .with_workplace_size(size);
+                    .with_service_size(size);
             assert_eq!(program.archetype, BuildingArchetype::Workplace);
             let plan =
                 generate(&program).unwrap_or_else(|error| panic!("{size:?} {seed}: {error:?}"));

@@ -1,8 +1,5 @@
 //! Occupied building uses reuse structural families, with purpose-specific room programmes.
-use crate::{
-    BuildingArchetype, BuildingProgram, Footprint, RoomKind, RoomRequirement, StoreyProgram,
-    WallStyle,
-};
+use crate::{BuildingArchetype, BuildingProgram, RoomKind};
 use adventuresim_world_schema::settlement_buildings::BuildingUse;
 use fabelgeist_determinism::mix64;
 
@@ -10,6 +7,9 @@ const ROOF_VARIATION_DEGREES: f32 = 4.0;
 const STOREY_VARIATION_METRES: f32 = 0.15;
 const VALID_RECIPE_ATTEMPTS: u8 = 64;
 const RECIPE_VARIATION_DOMAIN: u64 = 0x7661_7269_6174_696f;
+
+mod size;
+pub use size::ServiceBuildingSize;
 
 pub const fn settlement_archetype(usage: BuildingUse) -> BuildingArchetype {
     use BuildingUse::*;
@@ -40,7 +40,7 @@ impl BuildingProgram {
         archetype: BuildingArchetype,
         usage: BuildingUse,
         initial_seed: u64,
-        size: Option<crate::WorkplaceSize>,
+        size: Option<crate::ServiceBuildingSize>,
     ) -> Result<Self, crate::GenerationError> {
         let mut first_error = None;
         for attempt in 0..VALID_RECIPE_ATTEMPTS {
@@ -51,7 +51,7 @@ impl BuildingProgram {
             };
             let mut program = Self::settlement(archetype, Some(usage), seed);
             if let Some(size) = size {
-                program = program.with_workplace_size(size);
+                program = program.with_service_size(size);
             }
             match crate::generate(&program) {
                 Ok(_) => return Ok(program),
@@ -66,7 +66,9 @@ impl BuildingProgram {
     /// The same compact recipe is used for playable buildings and distant shells.
     pub fn settlement(archetype: BuildingArchetype, usage: Option<BuildingUse>, seed: u64) -> Self {
         let mut program = Self::fixture(archetype, seed);
-        program.usage = usage;
+        program.usage = usage.or_else(|| {
+            (archetype == BuildingArchetype::ParishChurch).then_some(BuildingUse::ParishChurch)
+        });
         if let Some(usage) = usage {
             program.assign_use(usage);
         }
@@ -95,41 +97,18 @@ impl BuildingProgram {
             program.roof_pitch_degrees += roof * ROOF_VARIATION_DEGREES;
             program.storey_height_metres += height * STOREY_VARIATION_METRES;
         }
-        if program.workplace_kind().is_some() {
-            program = program.with_workplace_size(crate::WorkplaceSize::Medium);
+        if program.workplace_kind().is_some() || archetype == BuildingArchetype::ParishChurch {
+            program = program.with_service_size(crate::ServiceBuildingSize::Medium);
         }
         program
     }
 
     pub(crate) fn parish_church(seed: u64) -> Self {
-        use RoomKind::*;
-        Self {
-            archetype: BuildingArchetype::ParishChurch,
-            usage: None,
-            workplace_size: None,
-            seed,
-            footprint: Footprint::Rectangle {
-                width: 9,
-                depth: 13,
-            },
-            storey_height_metres: 6.0,
-            storeys: vec![StoreyProgram {
-                rooms: vec![
-                    RoomRequirement::new(Nave, 80).exterior().beside(Chancel),
-                    RoomRequirement::new(Chancel, 25)
-                        .exterior()
-                        .beside(Sacristy),
-                    RoomRequirement::new(Sacristy, 12).exterior(),
-                ],
-            }],
-            vertical_connections: Vec::new(),
-            wall_style: WallStyle::Stone,
-            timber_frame_style: None,
-            upper_storey_projection_metres: 0.0,
-            roof_pitch_degrees: 55.0,
-            roof_demonstrator: None,
-            church_program: None,
-        }
+        let mut program = Self::fixture(BuildingArchetype::TownHouse, seed);
+        program.archetype = BuildingArchetype::ParishChurch;
+        program.usage = Some(BuildingUse::ParishChurch);
+        program.configure_small_church_size(crate::ServiceBuildingSize::Medium);
+        program
     }
 
     fn assign_use(&mut self, usage: BuildingUse) {

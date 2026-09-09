@@ -13,7 +13,7 @@ mod residential;
 pub struct BuildingProgram {
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
-    pub workplace_size: Option<crate::WorkplaceSize>,
+    pub service_size: Option<crate::ServiceBuildingSize>,
     pub seed: u64,
     pub footprint: Footprint,
     pub storey_height_metres: f32,
@@ -40,7 +40,7 @@ impl BuildingProgram {
                 let mut program = Self::town_house(seed);
                 program.usage =
                     Some(adventuresim_world_schema::settlement_buildings::BuildingUse::Barn);
-                program.with_workplace_size(crate::WorkplaceSize::Medium)
+                program.with_service_size(crate::ServiceBuildingSize::Medium)
             }
             BuildingArchetype::ParishChurch => Self::parish_church(seed),
             BuildingArchetype::TownHouse => Self::town_house(seed),
@@ -57,4 +57,4 @@ impl BuildingProgram {
     }
 }
 
-pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 5;
+pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 6;

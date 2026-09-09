@@ -1,19 +1,19 @@
 use super::*;
 use crate::{BuildingPlan, audit_plan, generate, settlement_archetype};
 
-fn mill(size: WorkplaceSize) -> BuildingPlan {
+fn mill(size: ServiceBuildingSize) -> BuildingPlan {
     let usage = BuildingUse::HorseMill;
     generate(
         &BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 42)
-            .with_workplace_size(size),
+            .with_service_size(size),
     )
     .unwrap()
 }
 
 #[test]
 fn capacity_adds_grain_bays_without_expanding_the_drive_or_animal_track() {
-    let small = mill(WorkplaceSize::Small);
-    let large = mill(WorkplaceSize::Large);
+    let small = mill(ServiceBuildingSize::Small);
+    let large = mill(ServiceBuildingSize::Large);
     for feature in [
         WorkplaceFeature::MillDrive,
         WorkplaceFeature::MillSweep,
@@ -60,7 +60,7 @@ fn capacity_adds_grain_bays_without_expanding_the_drive_or_animal_track() {
 #[test]
 fn full_rotation_rejects_obstacles_away_from_the_parked_sweep_including_its_high_brace() {
     for centre in [Vec3::new(8.0, 3.875, 6.0), Vec3::new(10.4, 1.9, 6.0)] {
-        let mut plan = mill(WorkplaceSize::Small);
+        let mut plan = mill(ServiceBuildingSize::Small);
         let id = plan
             .workplace
             .as_ref()
@@ -89,7 +89,7 @@ fn full_rotation_rejects_obstacles_away_from_the_parked_sweep_including_its_high
 
 #[test]
 fn animal_circuit_and_low_draw_link_are_enforced_independently_of_worker_passages() {
-    let mut plan = mill(WorkplaceSize::Small);
+    let mut plan = mill(ServiceBuildingSize::Small);
     let work = plan.workplace.as_ref().unwrap();
     let stock = work
         .parts

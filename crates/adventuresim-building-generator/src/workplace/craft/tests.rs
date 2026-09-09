@@ -5,14 +5,14 @@ use crate::{BuildingArchetype, audit_plan, generate, settlement_archetype};
 fn timber_trades_keep_visible_supported_stock_outside_the_handling_lane() {
     for usage in [BuildingUse::TimberYard, BuildingUse::Carpenter] {
         for size in [
-            WorkplaceSize::Small,
-            WorkplaceSize::Medium,
-            WorkplaceSize::Large,
+            ServiceBuildingSize::Small,
+            ServiceBuildingSize::Medium,
+            ServiceBuildingSize::Large,
         ] {
             for seed in [0, 42, 101] {
                 let program =
                     BuildingProgram::settlement(settlement_archetype(usage), Some(usage), seed)
-                        .with_workplace_size(size);
+                        .with_service_size(size);
                 let plan = generate(&program)
                     .unwrap_or_else(|error| panic!("{usage:?} {size:?} {seed}: {error:?}"));
                 let work = plan.workplace.as_ref().unwrap();

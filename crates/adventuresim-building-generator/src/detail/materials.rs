@@ -99,6 +99,9 @@ pub(super) fn material_for_solid_body(
         | SolidRole::RoofEdgeTreatment
         | SolidRole::RoofGutter => BuildingLodMaterial::Roof(RoofMaterial::ClayTile),
         SolidRole::FrameInfill => BuildingLodMaterial::Wall(infill_material),
+        SolidRole::OpeningHead if wall_material == Some(WallMaterialClass::RubbleMasonry) => {
+            BuildingLodMaterial::DressedStone
+        }
         SolidRole::OpeningJamb | SolidRole::OpeningHead
             if wall_material == Some(WallMaterialClass::InternalTimber) =>
         {

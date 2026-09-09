@@ -34,7 +34,7 @@ fn resolve_storey_wall_assemblies(
                 material,
                 storey.level,
                 base,
-                program.storey_height_metres,
+                small_church::wall_height(program, wall),
             );
             let wall_node = StructuralNodeId(2_000_000 + global_index * 8);
             geometry.structural_nodes.push(StructuralNode {

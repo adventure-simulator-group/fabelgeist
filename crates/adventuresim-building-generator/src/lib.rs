@@ -4,6 +4,7 @@
 //! tactical runtime. It turns a high-level [`BuildingProgram`] into a bounded,
 //! deterministic [`BuildingPlan`] consumed by the viewer and tactical city adapter.
 
+mod arch_geometry;
 mod audit;
 mod collision;
 mod detail;
@@ -16,10 +17,10 @@ mod settlement;
 pub mod signs;
 mod windows;
 mod workplace;
-pub use settlement::settlement_archetype;
+pub use settlement::{ServiceBuildingSize, settlement_archetype};
 pub use workplace::{
     WorkplaceFeature, WorkplaceKind, WorkplaceMaterial, WorkplacePart, WorkplacePassage,
-    WorkplacePlan, WorkplaceSize, WorkplaceSurface,
+    WorkplacePlan, WorkplaceSurface,
 };
 
 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
@@ -31,6 +32,7 @@ pub use detail::{
     compile_static_building_detail,
 };
 pub use doors::{DoorSpec, compile_operable_doors};
+pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
 pub use generator::{GenerationError, edit_document, generate, generate_document, set_roof_pitch};
 pub use lod::{
     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,

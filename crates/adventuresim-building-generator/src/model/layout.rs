@@ -103,6 +103,7 @@ pub enum RoofMaterial {
     TimberShingle,
     TimberInfill,
     MasonryInfill,
+    RubbleInfill,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]

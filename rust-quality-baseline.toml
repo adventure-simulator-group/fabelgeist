@@ -28,7 +28,7 @@ ceiling = 1820
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
-ceiling = 1015
+ceiling = 1007
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/artillery_castle.rs"
@@ -56,7 +56,7 @@ ceiling = 1349
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs"
-ceiling = 603
+ceiling = 533
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs"
@@ -68,7 +68,7 @@ ceiling = 964
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
-ceiling = 800
+ceiling = 793
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
@@ -918,11 +918,6 @@ item = "audit_church_assembly"
 ceiling = 1100
 
 [[functions]]
-path = "crates/adventuresim-building-generator/src/audit/core.rs"
-item = "audit_plan"
-ceiling = 109
-
-[[functions]]
 path = "crates/adventuresim-building-generator/src/audit/crowns.rs"
 item = "audit_crowns"
 ceiling = 861
@@ -970,7 +965,7 @@ ceiling = 425
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
 item = "audit_wall_opening_assemblies"
-ceiling = 1015
+ceiling = 1007
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/artillery_castle.rs"
@@ -1055,7 +1050,7 @@ ceiling = 102
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/orchestration.rs"
 item = "generate_unchecked"
-ceiling = 188
+ceiling = 158
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/projected_defenses.rs"
@@ -1070,7 +1065,7 @@ ceiling = 304
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs"
 item = "resolve_roof_assemblies"
-ceiling = 603
+ceiling = 533
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs"
@@ -1120,7 +1115,7 @@ ceiling = 964
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
 item = "resolve_one_roof"
-ceiling = 800
+ceiling = 793
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs"
@@ -1166,11 +1161,6 @@ ceiling = 201
 path = "crates/adventuresim-building-generator/src/generator/wall_derivation.rs"
 item = "derive_openings"
 ceiling = 237
-
-[[functions]]
-path = "crates/adventuresim-building-generator/src/generator/wall_derivation.rs"
-item = "opening_profile_for"
-ceiling = 108
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/model/player_build.rs"
