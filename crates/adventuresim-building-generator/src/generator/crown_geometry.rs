@@ -387,18 +387,10 @@ fn resolve_crown_geometry(
                     })
                 };
                 let stair_arrival = stairs.iter().find_map(|stair| match *stair {
-                    Stair::Spiral {
-                        centre: stair_centre,
-                        turns,
-                        clockwise,
-                        tread_count,
-                        ..
-                    } if (stair_centre - centre).length() < 0.02 => {
-                        let progress = f32::from(tread_count.saturating_sub(1))
-                            / f32::from(tread_count.max(1));
-                        let handedness = if clockwise { -1.0 } else { 1.0 };
-                        Some(handedness * progress * turns * std::f32::consts::TAU)
-                    }
+                    Stair::Spiral { centre: stair_centre, .. }
+                        if (stair_centre - centre).length() < 0.02 => {
+                            crate::spiral_stairs::arrival_angle(*stair)
+                        }
                     _ => None,
                 });
                 for index in 0..segments {

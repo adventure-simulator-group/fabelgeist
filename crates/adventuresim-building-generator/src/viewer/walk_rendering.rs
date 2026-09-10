@@ -1,4 +1,4 @@
-fn spawn_stair(world: &mut World, palette: &RenderPalette, stair: Stair, origin: Vec2) {
+fn spawn_stair(world: &mut World, palette: &RenderPalette, stair: Stair, origin: Vec2, storey_height: f32) {
     match stair {
         Stair::Straight {
             start,
@@ -57,47 +57,18 @@ fn spawn_stair(world: &mut World, palette: &RenderPalette, stair: Stair, origin:
                 );
             }
         }
-        Stair::Spiral {
-            centre,
-            base_height_metres,
-            rise_metres,
-            inner_radius_metres,
-            outer_radius_metres,
-            turns,
-            clockwise,
-            tread_count,
-        } => {
-            let centre = centre + origin;
-            spawn_box(
-                world,
-                &palette.stair,
-                Vec3::new(
-                    inner_radius_metres * 2.0,
-                    rise_metres + 0.5,
-                    inner_radius_metres * 2.0,
-                ),
-                Vec3::new(centre.x, base_height_metres + rise_metres * 0.5, centre.y),
-                Quat::IDENTITY,
-                "spiral stair newel",
-            );
-            for tread in 0..tread_count {
-                let progress = tread as f32 / tread_count.max(1) as f32;
-                let handedness = if clockwise { -1.0 } else { 1.0 };
-                let angle = handedness * progress * turns * std::f32::consts::TAU;
-                let radius = (inner_radius_metres + outer_radius_metres) * 0.5;
-                let position = centre + Vec2::new(angle.cos(), angle.sin()) * radius;
-                spawn_box(
-                    world,
-                    &palette.stair,
-                    Vec3::new(outer_radius_metres - inner_radius_metres, 0.12, 0.32),
-                    Vec3::new(
-                        position.x,
-                        base_height_metres + progress * rise_metres,
-                        position.y,
-                    ),
-                    Quat::from_rotation_y(-angle),
-                    "spiral stair tread",
-                );
+        Stair::Spiral { .. } => {
+            let flight = adventuresim_building_generator::spiral_stairs::compile_flight(stair, storey_height)
+                .expect("spiral descriptor compiles a flight");
+            for member in flight.members {
+                let name = match member.role {
+                    SolidRole::StairNewel => "spiral stair newel",
+                    SolidRole::Landing => "spiral stair landing",
+                    _ => "spiral stair tread",
+                };
+                spawn_box(world, &palette.stair, member.size,
+                    member.centre + Vec3::new(origin.x, 0.0, origin.y),
+                    Quat::from_rotation_y(member.yaw_radians), name);
             }
         }
     }

@@ -46,6 +46,10 @@ enum CaptureProfile {
     CityReview,
     /// Outdoor furniture, market access and street surface review.
     FurnitureReview,
+    /// Compact and broad interior furniture models rendered as catalog specimens.
+    InteriorFurnitureCatalog,
+    /// Furnished rooms with independently validated entrance access.
+    FurnishedRoomReview,
     /// Storefront lettering, mounting, glass, plaster and distance review.
     ShopSignReview,
     /// Working-building exteriors, interiors and production distance LODs.
@@ -156,6 +160,8 @@ fn main() {
             CaptureProfile::InteriorReview => "interior-review",
             CaptureProfile::CityReview => "city-review",
             CaptureProfile::FurnitureReview => "furniture-review",
+            CaptureProfile::InteriorFurnitureCatalog => "interior-furniture-catalog",
+            CaptureProfile::FurnishedRoomReview => "furnished-room-review",
             CaptureProfile::ShopSignReview => "shop-sign-review",
             CaptureProfile::WorkplaceReview => "workplace-review",
             CaptureProfile::ParishReview => "parish-review",

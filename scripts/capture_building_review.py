@@ -12,7 +12,8 @@ import tempfile
 from capture_tactical_scenes import source_identity
 
 
-def capture(profile, title, *, evidence_name="building-presentation.json", review_input="input.review.json"):
+def capture(profile, title, *, evidence_name="building-presentation.json", review_input="input.review.json",
+            additional_evidence_names=()):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, required=True, help="Fresh capture directory")
     parser.add_argument("--skip-build", action="store_true")
@@ -46,11 +47,15 @@ def capture(profile, title, *, evidence_name="building-presentation.json", revie
             raise RuntimeError("Production renderer reported an error: " + line)
     manifest = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     evidence = json.loads((output / evidence_name).read_text(encoding="utf-8"))
-    if not manifest["validation"]["passed"] or not evidence["material_bindings_verified"]:
+    if not manifest["validation"]["passed"]:
         raise RuntimeError("Production presentation validation failed")
+    for name in (evidence_name, *additional_evidence_names):
+        checks = json.loads((output / name).read_text(encoding="utf-8"))
+        if not checks["material_bindings_verified"]:
+            raise RuntimeError(f"Production material validation failed: {name}")
+        if len(checks["captured_views_ready"]) != len(manifest["captures"]) + 1:
+            raise RuntimeError(f"Not every captured view passed the production asset gate: {name}")
     (output / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
-    if len(evidence["captured_views_ready"]) != len(manifest["captures"]) + 1:
-        raise RuntimeError("Not every captured view passed the production asset gate")
     cards = []
     for record in manifest["captures"]:
         path = output / record["screenshot"]

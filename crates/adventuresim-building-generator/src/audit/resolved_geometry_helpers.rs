@@ -483,13 +483,13 @@ fn round_shell_clears_inner_solid(shell: &ResolvedSolid, inner: &ResolvedSolid) 
     else {
         return false;
     };
-    let (min, max) = resolved_solid_bounds(inner);
-    [
-        Vec2::new(min.x, min.z),
-        Vec2::new(min.x, max.z),
-        Vec2::new(max.x, min.z),
-        Vec2::new(max.x, max.z),
-    ]
+    let rotation = Quat::from_rotation_y(inner.yaw_radians);
+    let half = inner.size * 0.5;
+    [(-1.0,-1.0),(-1.0,1.0),(1.0,-1.0),(1.0,1.0)]
+    .map(|(x,z)| {
+        let corner = inner.centre + rotation * Vec3::new(x * half.x, 0.0, z * half.z);
+        Vec2::new(corner.x,corner.z)
+    })
     .into_iter()
     .all(|corner| {
         corner.distance(Vec2::new(shell.centre.x, shell.centre.z)) <= inner_radius_metres - 0.005

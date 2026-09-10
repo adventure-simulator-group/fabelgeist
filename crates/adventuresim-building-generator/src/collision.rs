@@ -114,6 +114,22 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
                 .map(|part| part.solid),
         );
     }
+    selected.extend(
+        plan.resolved_geometry
+            .solids
+            .iter()
+            .filter(|solid| {
+                matches!(
+                    solid.role,
+                    crate::SolidRole::InteriorFloor
+                        | crate::SolidRole::ChurchFloor
+                        | crate::SolidRole::GalleryFloor
+                        | crate::SolidRole::StairTread
+                        | crate::SolidRole::StairNewel
+                ) || crate::spiral_stairs::owns_landing(solid)
+            })
+            .map(|solid| solid.id),
+    );
     let mut cuboids = selected
         .into_iter()
         .filter_map(|id| solids.get(&id).copied())
@@ -135,7 +151,7 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
     BuildingCollision { bounds, cuboids }
 }
 
-fn collision_parts(plan: &BuildingPlan, solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
+pub(crate) fn collision_parts(plan: &BuildingPlan, solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
     let wall = plan
         .wall_assemblies
         .iter()

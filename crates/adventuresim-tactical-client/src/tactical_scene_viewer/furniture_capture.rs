@@ -12,7 +12,7 @@ const CAMERA_OBJECT_CLEARANCE_METRES: f32 = 3.0;
 pub(super) fn spawn(commands: &mut Commands, layout: &FurnitureLayout) {
     for instance in &layout.instances {
         commands.spawn((
-            Name::new(format!("Outdoor furniture {}", instance.scene.id.0)),
+            Name::new(format!("Furniture {}", instance.scene.id.0)),
             instance.scene,
             RigidBody::Static,
             CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
@@ -41,7 +41,7 @@ pub(super) fn setup(
         target,
         plaster_raking_light: None,
     };
-    let mut cameras = FurnitureKind::ALL
+    let mut cameras = FurnitureKind::OUTDOOR
         .into_iter()
         .map(|kind| {
             let mut matching = layout
@@ -127,6 +127,7 @@ fn write_layout(layout: &FurnitureLayout, output: &std::path::Path) {
         "distant_instances": layout.distant_instances,
         "groups": layout.groups,
         "reserved_routes": layout.reserved_routes,
+        "interiors": layout.interiors,
     });
     std::fs::write(
         output.join("furniture-layout.json"),

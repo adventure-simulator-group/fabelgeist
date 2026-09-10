@@ -84,7 +84,7 @@ fn production_review_input_places_every_furniture_family() {
     let scene = input.generate().unwrap();
     city_acceptance::report_terrain_delta("furniture-review", &input, &scene.terrain);
     city_acceptance::assert_vendor_stock_variety(&scene.furniture);
-    for kind in FurnitureKind::ALL {
+    for kind in FurnitureKind::OUTDOOR {
         let count = scene
             .furniture
             .instances
@@ -137,7 +137,7 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
         *height += (x as f32 - (width - 1) as f32 * 0.5) * input.playable.spacing_metres * 0.004;
     }
     let scene = input.generate().unwrap();
-    for kind in FurnitureKind::ALL {
+    for kind in FurnitureKind::OUTDOOR {
         assert!(
             scene
                 .furniture
@@ -155,7 +155,7 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
     let first = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
     let second = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
     assert_eq!(first, second);
-    for kind in FurnitureKind::ALL {
+    for kind in FurnitureKind::OUTDOOR {
         assert!(
             first
                 .instances

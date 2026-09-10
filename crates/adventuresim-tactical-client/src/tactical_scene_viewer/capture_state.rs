@@ -183,6 +183,61 @@ pub(super) fn lighting_samples_stable(samples: &[f32]) -> bool {
     luminance_delta(samples) <= (mean * 0.02).max(1.5)
 }
 
+/// Maximum settled readbacks for asynchronous production lighting to converge.
+const LIGHTING_READBACK_BUDGET: usize = 8;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum LightingConvergence {
+    Pending,
+    Ready,
+    Exhausted,
+}
+
+/// Preserve the full diagnostic trace while testing the latest consecutive pair.
+pub(super) fn settled_luminance_samples(samples: &[f32]) -> &[f32] {
+    &samples[samples.len().saturating_sub(2)..]
+}
+
+pub(super) fn lighting_convergence(samples: &[f32]) -> LightingConvergence {
+    if lighting_samples_stable(settled_luminance_samples(samples)) {
+        LightingConvergence::Ready
+    } else if samples.len() >= LIGHTING_READBACK_BUDGET {
+        LightingConvergence::Exhausted
+    } else {
+        LightingConvergence::Pending
+    }
+}
+
+#[cfg(test)]
+mod lighting_tests {
+    use super::*;
+
+    #[test]
+    fn delayed_lighting_convergence_retains_initial_readback_evidence() {
+        let mut trace = vec![58.356556, 69.16572];
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
+        trace.push(69.16572);
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Ready);
+        assert_eq!(trace.len(), 3);
+        assert!(luminance_delta(&trace) > 10.0);
+        assert_eq!(luminance_delta(settled_luminance_samples(&trace)), 0.0);
+    }
+
+    #[test]
+    fn unstable_lighting_exhausts_its_budget_without_becoming_ready() {
+        let mut trace = Vec::new();
+        for sample in 0..LIGHTING_READBACK_BUDGET {
+            assert_eq!(lighting_convergence(&trace), LightingConvergence::Pending);
+            trace.push(if sample % 2 == 0 { 40.0 } else { 80.0 });
+        }
+        assert_eq!(lighting_convergence(&trace), LightingConvergence::Exhausted);
+        assert_eq!(
+            lighting_convergence(&[f32::NAN; LIGHTING_READBACK_BUDGET]),
+            LightingConvergence::Exhausted
+        );
+    }
+}
+
 pub(super) fn foliage_detail_pixel_bps(data: Option<&[u8]>, width: u32, height: u32) -> u16 {
     if width == 0 || height == 0 {
         return 0;

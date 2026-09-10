@@ -1,4 +1,4 @@
-//! Outdoor recipes use the same mesh conversion and semantic materials as buildings.
+//! Furniture uses the same mesh conversion and semantic materials as buildings.
 use std::collections::BTreeMap;
 
 use adventuresim_building_generator::{
@@ -7,6 +7,9 @@ use adventuresim_building_generator::{
 };
 
 use super::{recipe_mesh::recipe_mesh, *};
+
+mod visibility;
+pub(crate) use visibility::InteriorFurnitureExhibition;
 
 const SMALL_FURNITURE_FADE_METRES: std::ops::Range<f32> = 180.0..230.0;
 const STALL_FADE_METRES: std::ops::Range<f32> = 350.0..450.0;
@@ -22,7 +25,13 @@ impl Plugin for FurniturePresentationPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<FurnitureMeshCache>()
             .add_observer(on_furniture_added)
-            .add_observer(on_vista_furniture);
+            .add_observer(on_vista_furniture)
+            .add_systems(
+                PostUpdate,
+                visibility::update_interior_visibility
+                    .after(bevy::transform::TransformSystems::Propagate)
+                    .before(bevy::camera::visibility::VisibilitySystems::VisibilityPropagate),
+            );
     }
 }
 
@@ -55,16 +64,23 @@ fn on_furniture_added(
             })
             .collect()
     });
-    let end_margin = match instance.key.kind {
-        FurnitureKind::CanvasStall => STALL_FADE_METRES,
-        _ => SMALL_FURNITURE_FADE_METRES,
+    let range = match instance.location {
+        FurnitureLocation::Interior { .. } => None,
+        FurnitureLocation::Outdoor { .. } => Some(VisibilityRange {
+            start_margin: 0.0..0.0,
+            end_margin: match instance.key.kind {
+                FurnitureKind::CanvasStall => STALL_FADE_METRES,
+                _ => SMALL_FURNITURE_FADE_METRES,
+            },
+            use_aabb: false,
+        }),
     };
     commands
         .entity(event.entity)
         .insert(Visibility::default())
         .with_children(|parent| {
             for batch in batches.iter() {
-                parent.spawn((
+                let mut mesh = parent.spawn((
                     Name::new(format!("{:?} furniture", instance.key.kind)),
                     PresentedFurnitureMesh {
                         material: batch.material,
@@ -72,12 +88,10 @@ fn on_furniture_added(
                     Mesh3d(batch.mesh.clone()),
                     MeshMaterial3d(materials.get_for_building(instance.id.0, batch.material)),
                     Transform::IDENTITY,
-                    VisibilityRange {
-                        start_margin: 0.0..0.0,
-                        end_margin: end_margin.clone(),
-                        use_aabb: false,
-                    },
                 ));
+                if let Some(range) = &range {
+                    mesh.insert(range.clone());
+                }
             }
         });
     Ok(())

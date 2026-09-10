@@ -1207,42 +1207,6 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 .iter()
                 .filter_map(|id| members.get(id).copied())
                 .collect::<Vec<_>>();
-            let closes_triangle = |brace: &crate::TimberFrameMember| {
-                let endpoints = [brace.start_node, brace.end_node];
-                storey_members.iter().any(|first| {
-                    if first.id == brace.id {
-                        return false;
-                    }
-                    let third = if first.start_node == endpoints[0] {
-                        Some(first.end_node)
-                    } else if first.end_node == endpoints[0] {
-                        Some(first.start_node)
-                    } else {
-                        None
-                    };
-                    third.is_some_and(|third| {
-                        third != endpoints[1]
-                            && storey_members.iter().any(|second| {
-                                second.id != brace.id
-                                    && second.id != first.id
-                                    && ((second.start_node == third
-                                        && second.end_node == endpoints[1])
-                                        || (second.end_node == third
-                                            && second.start_node == endpoints[1]))
-                            })
-                            && nodes
-                                .get(&endpoints[0])
-                                .zip(nodes.get(&endpoints[1]))
-                                .zip(nodes.get(&third))
-                                .is_some_and(|((a, b), c)| {
-                                    (b.position - a.position)
-                                        .cross(c.position - a.position)
-                                        .length()
-                                        > 0.08
-                                })
-                    })
-                })
-            };
             let valid_braces = storey_members
                 .iter()
                 .filter(|member| {
@@ -1251,7 +1215,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                         crate::TimberMemberRole::HeadBrace
                             | crate::TimberMemberRole::FootBrace
                             | crate::TimberMemberRole::StoreyBrace
-                    ) && closes_triangle(member)
+                    ) && timber_bracing::closes_triangle(member,&storey_members)
                 })
                 .collect::<Vec<_>>();
             let brace_cycles_valid = if line.internal || line.length_metres < 4.5 {
