@@ -18,6 +18,7 @@ mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod environment;
 pub(crate) mod ground_scatter;
+pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
 mod procedural;
@@ -192,6 +193,7 @@ impl Plugin for TacticalPresentationPlugin {
         #[cfg(all(feature = "instanced-grass", not(target_family = "wasm")))]
         app.add_plugins(ground_scatter::InstancedGrassPlugin);
         app.add_plugins(materials::TacticalMaterialsPlugin)
+            .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever
             // celestial light is active. Keep the map allocation identical in the
             // game and all tactical review viewers.

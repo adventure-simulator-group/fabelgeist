@@ -52,6 +52,7 @@ struct CompiledBuildingBatch {
 
 #[derive(Clone)]
 struct CompiledBuildingLevels {
+    interior: super::interior_lighting::InteriorField,
     program: BuildingProgram,
     dynamic_openings: bool,
     floor_offset_metres: f32,
@@ -84,7 +85,7 @@ fn on_scene_building_added(
     let compiled = cached_building_levels(&mut cache, &building.program, true, &mut meshes)?;
     commands
         .entity(event.entity)
-        .insert(Visibility::default())
+        .insert((Visibility::default(), compiled.interior.clone()))
         .with_children(|parent| {
             spawn_building_levels(
                 parent,
@@ -174,6 +175,7 @@ fn cached_building_levels(
             .collect()
     };
     let compiled = CompiledBuildingLevels {
+        interior: super::interior_lighting::InteriorField::from_plan(&plan, local_origin),
         program: program.clone(),
         dynamic_openings,
         floor_offset_metres,

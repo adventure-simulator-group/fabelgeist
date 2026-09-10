@@ -1,3 +1,5 @@
+use crate::presentation::interior_lighting::{InteriorMaterial, InteriorMaterialSource};
+use bevy::render::storage::ShaderBuffer;
 use bevy::{
     asset::RenderAssetUsages,
     image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
@@ -23,6 +25,8 @@ impl Plugin for BloodDecalPlugin {
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
 pub(super) struct BloodMaskExtension {
+    #[storage(200, read_only)]
+    field: Handle<ShaderBuffer>,
     #[texture(100)]
     #[sampler(101)]
     mask: Handle<Image>,
@@ -52,12 +56,13 @@ pub(super) type BloodSurfaceQuery<'w, 's> = Query<
         Entity,
         &'static Mesh3d,
         &'static GlobalTransform,
-        Option<&'static MeshMaterial3d<StandardMaterial>>,
+        Option<&'static InteriorMaterialSource>,
         Option<&'static BloodMaskSurface>,
     ),
 >;
 
 pub(super) struct BloodMaterialAssets<'a> {
+    pub(super) field: Handle<ShaderBuffer>,
     pub(super) meshes: &'a Assets<Mesh>,
     pub(super) images: &'a mut Assets<Image>,
     pub(super) standard: &'a Assets<StandardMaterial>,
@@ -90,11 +95,14 @@ pub(super) fn stamp_character_blood(
         let mask = assets.images.add(empty_blood_mask());
         let material = assets.blood.add(ExtendedMaterial {
             base: base.clone(),
-            extension: BloodMaskExtension { mask: mask.clone() },
+            extension: BloodMaskExtension {
+                mask: mask.clone(),
+                field: assets.field.clone(),
+            },
         });
         commands
             .entity(hit.entity)
-            .remove::<MeshMaterial3d<StandardMaterial>>()
+            .remove::<(InteriorMaterialSource, MeshMaterial3d<InteriorMaterial>)>()
             .insert((
                 MeshMaterial3d(material),
                 BloodMaskSurface { mask: mask.clone() },
