@@ -113,7 +113,7 @@ fn generate_unchecked(
         church.roof_assemblies = roof_assemblies.iter().map(|roof| roof.id).collect();
     }
 
-    Ok(BuildingPlan {
+    Ok(church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
         archetype: program.archetype,
         workplace,
         seed: program.seed,
@@ -159,7 +159,7 @@ fn generate_unchecked(
             .then_some(crate::CastleConstructionPhase::InheritedMedieval)
         },
         artillery_castle,
-    })
+    })))
 }
 
 fn apply_opening_edits(

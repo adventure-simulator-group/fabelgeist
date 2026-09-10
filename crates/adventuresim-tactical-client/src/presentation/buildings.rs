@@ -14,8 +14,8 @@ pub(in crate::presentation) use materials::setup_tactical_building_materials;
 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 pub(crate) use signs::PresentedSign;
 
-const DETAIL_LOD_END_START_METRES: f32 = 55.0;
-const DETAIL_LOD_END_END_METRES: f32 = 70.0;
+pub(super) const DETAIL_LOD_END_START_METRES: f32 = 55.0;
+pub(super) const DETAIL_LOD_END_END_METRES: f32 = 70.0;
 const FACADE_LOD_END_START_METRES: f32 = 150.0;
 const FACADE_LOD_END_END_METRES: f32 = 175.0;
 

@@ -11,10 +11,17 @@ use crate::presentation::{CityGroundMaterial, PresentedFurnitureMesh, TacticalBu
 const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
 
 pub(super) fn install(app: &mut App, profile: &str) {
-    if super::building_review::is_profile(profile) {
+    let requires_buildings = super::building_review::is_profile(profile)
+        || profile == super::interior_furniture_capture::ROOMS_PROFILE;
+    if requires_buildings {
         app.add_plugins(super::building_review::BuildingReviewPlugin);
-    } else if profile == super::furniture_capture::PROFILE {
-        GpuReadiness::install(app);
+    }
+    if profile == super::furniture_capture::PROFILE
+        || super::interior_furniture_capture::is_profile(profile)
+    {
+        if !requires_buildings {
+            GpuReadiness::install(app);
+        }
         app.init_resource::<Readiness>()
             .add_systems(Last, observe.before(super::capture_views));
     }

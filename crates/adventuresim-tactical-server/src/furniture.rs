@@ -25,7 +25,7 @@ pub(crate) fn spawn(commands: &mut Commands, layout: FurnitureLayout) {
     }
     for instance in layout.instances {
         commands.spawn((
-            Name::new(format!("Outdoor furniture {}", instance.scene.id.0)),
+            Name::new(format!("Furniture {}", instance.scene.id.0)),
             instance.scene,
             Transform::from_translation(instance.position_metres)
                 .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),

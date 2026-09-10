@@ -1,4 +1,4 @@
-//! Deterministic metre-scale outdoor groups shared by server and presentation.
+//! Deterministic furniture placement shared by server and presentation.
 use adventuresim_building_generator::furniture::FurnitureKey;
 use bevy::{
     math::{Vec2, Vec3},
@@ -12,11 +12,13 @@ use crate::scene::{SceneGround, SceneTerrain};
 mod candidates;
 mod collision;
 mod ground;
+mod interior;
 mod occupancy;
 mod placement;
 mod reservations;
 mod sites;
 pub use collision::furniture_collider;
+pub use interior::InteriorBuildingLayout;
 #[cfg(test)]
 mod tests;
 
@@ -30,6 +32,19 @@ pub struct FurnitureInstanceId(pub u64);
 )]
 pub struct FurnitureGroupId(pub u64);
 
+/// Ownership distinguishes street activity groups from rooms inside buildings.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, Reflect)]
+pub enum FurnitureLocation {
+    Outdoor {
+        group_id: FurnitureGroupId,
+    },
+    Interior {
+        building_id: u64,
+        room_id: u16,
+        storey: u16,
+    },
+}
+
 /// Compact recipe identity; transform is replicated through the usual ECS path.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Component, Serialize, Deserialize, Reflect)]
 #[component(immutable)]
@@ -37,7 +52,7 @@ pub struct FurnitureGroupId(pub u64);
 pub struct SceneFurniture {
     pub id: FurnitureInstanceId,
     pub key: FurnitureKey,
-    pub group_id: FurnitureGroupId,
+    pub location: FurnitureLocation,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
@@ -150,6 +165,16 @@ pub struct FurnitureLayout {
     pub distant_instances: Vec<GeneratedFurniture>,
     pub groups: Vec<FurnitureGroup>,
     pub reserved_routes: Vec<FurnitureFootprint>,
+    pub interiors: Vec<InteriorBuildingLayout>,
+}
+
+impl FurnitureLayout {
+    pub(super) fn furnish_interiors(
+        &mut self,
+        buildings: &[GeneratedBuilding],
+    ) -> Result<(), super::SceneInputError> {
+        interior::append(self, buildings)
+    }
 }
 
 pub(super) fn generate(

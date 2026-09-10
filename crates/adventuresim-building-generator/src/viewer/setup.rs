@@ -371,6 +371,7 @@ fn setup(
         spawn_square_tower(world, &palette, tower, origin, view);
     }
     for stair in plan.stairs.iter().copied() {
+        if matches!(stair, Stair::Spiral { .. }) { continue; }
         // The programme renderer already draws the timber resolver's flight
         // from resolved geometry. The semantic recipe remains for detached
         // editing, but rendering it here would duplicate that same stair.
@@ -412,7 +413,7 @@ fn setup(
                 continue;
             }
         }
-        spawn_stair(world, &palette, stair, origin);
+        spawn_stair(world, &palette, stair, origin, plan.storey_height_metres);
     }
     for (walk_index, mut wall_walk) in plan.wall_walks.iter().copied().enumerate() {
         if projected_proof || architectural_proof {

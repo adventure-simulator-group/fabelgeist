@@ -26,7 +26,7 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
     let scene = SceneFurniture {
         id: FurnitureInstanceId(92),
         key,
-        group_id: group.id,
+        location: FurnitureLocation::Outdoor { group_id: group.id },
     };
     let transform = Transform::from_xyz(5.0, 0.0, 7.0);
     let mut app = App::new();

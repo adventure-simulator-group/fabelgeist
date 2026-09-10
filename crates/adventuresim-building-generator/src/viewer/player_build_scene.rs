@@ -75,7 +75,7 @@ fn setup_player_build_scene(world: &mut World, document: &PlayerBuildDocument) {
         role: EditorVisibilityRole::Structure,
     });
     for stair in document.assembly.stairs.iter().copied() {
-        spawn_stair(world, &palette, stair, origin);
+        spawn_stair(world, &palette, stair, origin, document.assembly.storey_height_metres);
     }
     world.remove_resource::<PlayerBuildSpawnContext>();
     world.insert_resource(PlayerBuildSpawnContext {
@@ -122,6 +122,10 @@ fn player_stair_floor_cuts(
     stairs
         .iter()
         .filter_map(|stair| match *stair {
+            Stair::Spiral { base_height_metres, rise_metres, .. }
+                if floor_y > base_height_metres && floor_y <= base_height_metres + rise_metres => {
+                    adventuresim_building_generator::spiral_stairs::well_bounds(*stair)
+                }
             Stair::Straight {
                 start,
                 direction,

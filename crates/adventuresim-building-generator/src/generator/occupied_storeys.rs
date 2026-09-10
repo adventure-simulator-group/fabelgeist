@@ -77,6 +77,18 @@ fn allocate_storey(
                 .map(|cell| (cell, room_index)),
         );
     }
+    let keep_cells = crate::spiral_stairs::keep_reserved_cells(program, footprint_cells);
+    if !keep_cells.is_empty() {
+        let room_index = storey_program
+            .rooms
+            .iter()
+            .position(|room| room.kind == RoomKind::StairHall)
+            .ok_or_else(|| GenerationError::UnsatisfiedVerticalCirculation {
+                connection: 0,
+                reason: format!("storey {level} has no StairHall for its keep spiral"),
+            })?;
+        reservations.extend(keep_cells.into_iter().map(|cell| (cell, room_index)));
+    }
     let assignments = allocate_rooms(
         footprint_cells,
         width,

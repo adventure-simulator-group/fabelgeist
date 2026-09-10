@@ -370,67 +370,7 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                 .all()
                             && penetration <= bond.maximum_penetration_metres + 0.025
                             && bond.minimum_interface_area_square_metres > 0.0
-                            && (bond.maximum_penetration_metres <= 0.18
-                                || matches!(
-                                    (a.role, b.role),
-                                    (
-                                        SolidRole::RoofFlashing,
-                                        SolidRole::WallHost
-                                            | SolidRole::OpeningJamb
-                                            | SolidRole::OpeningHead
-                                            | SolidRole::OpeningSpandrel
-                                    ) | (
-                                        SolidRole::WallHost
-                                            | SolidRole::OpeningJamb
-                                            | SolidRole::OpeningHead
-                                            | SolidRole::OpeningSpandrel
-                                            | SolidRole::ArtilleryRevetment
-                                            | SolidRole::ArtilleryEarthCore
-                                            | SolidRole::ArtilleryRetainingWall,
-                                        SolidRole::RoofFlashing
-                                    )
-                                )
-                                || matches!(
-                                    (a.role, b.role),
-                                    (
-                                        SolidRole::WallHost
-                                            | SolidRole::DefenseHostWall
-                                            | SolidRole::CircuitWalk
-                                            | SolidRole::LoadBearing
-                                            | SolidRole::Breastwork
-                                            | SolidRole::WalkSurface
-                                            | SolidRole::DrainageChannel
-                                            | SolidRole::Landing
-                                            | SolidRole::DefenseHostButtress
-                                            | SolidRole::ProjectionSupport
-                                            | SolidRole::GalleryFloor
-                                            | SolidRole::OpeningJamb
-                                            | SolidRole::OpeningSill
-                                            | SolidRole::OpeningHead
-                                            | SolidRole::OpeningSpandrel
-                                            | SolidRole::ArtilleryRevetment
-                                            | SolidRole::ArtilleryEarthCore
-                                            | SolidRole::ArtilleryRetainingWall,
-                                        SolidRole::WallHost
-                                            | SolidRole::DefenseHostWall
-                                            | SolidRole::CircuitWalk
-                                            | SolidRole::LoadBearing
-                                            | SolidRole::Breastwork
-                                            | SolidRole::WalkSurface
-                                            | SolidRole::DrainageChannel
-                                            | SolidRole::Landing
-                                            | SolidRole::DefenseHostButtress
-                                            | SolidRole::ProjectionSupport
-                                            | SolidRole::GalleryFloor
-                                            | SolidRole::OpeningJamb
-                                            | SolidRole::OpeningSill
-                                            | SolidRole::OpeningHead
-                                            | SolidRole::OpeningSpandrel
-                                            | SolidRole::ArtilleryRevetment
-                                            | SolidRole::ArtilleryEarthCore
-                                            | SolidRole::ArtilleryRetainingWall
-                                    )
-                                ))
+                            && junction_bearing::permits(a, b, bond)
                     });
                 if !valid_bond {
                     issues.push(issue(

@@ -8,9 +8,13 @@ use serde::{Deserialize, Serialize};
 
 mod builder;
 mod containers;
+mod domestic;
 mod horse_stop;
 mod seating;
+mod spec;
 mod stall;
+mod trade;
+pub use spec::{FurnitureAccessFace, InteriorFurnitureSpec};
 #[cfg(test)]
 mod tests;
 
@@ -24,15 +28,126 @@ pub enum FurnitureKind {
     TableBenchSet,
     CanvasStall,
     HitchingTrough,
+    DiningTable,
+    Bench,
+    Chair,
+    Stool,
+    Bed,
+    BunkBed,
+    StorageChest,
+    Cupboard,
+    Shelving,
+    WritingDesk,
+    Lectern,
+    ChurchBench,
+    Altar,
+    WardBed,
+    BathTub,
+    WashStand,
+    Workbench,
+    CuttingTable,
+    ToolRack,
+    WeaponRack,
+    ArmourStand,
+    GrainBin,
+    StorageCrate,
+    Counter,
+    CounterLeftEnd,
+    CounterRightEnd,
+    CounterCorner,
+    DisplayCounter,
+    DryingRack,
+    KneadingTrough,
+    ButchersBlock,
+    CaskRack,
+    HayRack,
+    FeedTrough,
 }
 
 impl FurnitureKind {
-    pub const ALL: [Self; 5] = [
+    pub const OUTDOOR: [Self; 5] = [
         Self::Barrel,
         Self::CargoStack,
         Self::TableBenchSet,
         Self::CanvasStall,
         Self::HitchingTrough,
+    ];
+    pub const INTERIOR: [Self; 34] = [
+        Self::DiningTable,
+        Self::Bench,
+        Self::Chair,
+        Self::Stool,
+        Self::Bed,
+        Self::BunkBed,
+        Self::StorageChest,
+        Self::Cupboard,
+        Self::Shelving,
+        Self::WritingDesk,
+        Self::Lectern,
+        Self::ChurchBench,
+        Self::Altar,
+        Self::WardBed,
+        Self::BathTub,
+        Self::WashStand,
+        Self::Workbench,
+        Self::CuttingTable,
+        Self::ToolRack,
+        Self::WeaponRack,
+        Self::ArmourStand,
+        Self::GrainBin,
+        Self::StorageCrate,
+        Self::Counter,
+        Self::CounterLeftEnd,
+        Self::CounterRightEnd,
+        Self::CounterCorner,
+        Self::DisplayCounter,
+        Self::DryingRack,
+        Self::KneadingTrough,
+        Self::ButchersBlock,
+        Self::CaskRack,
+        Self::HayRack,
+        Self::FeedTrough,
+    ];
+    pub const ALL: [Self; 39] = [
+        Self::Barrel,
+        Self::CargoStack,
+        Self::TableBenchSet,
+        Self::CanvasStall,
+        Self::HitchingTrough,
+        Self::DiningTable,
+        Self::Bench,
+        Self::Chair,
+        Self::Stool,
+        Self::Bed,
+        Self::BunkBed,
+        Self::StorageChest,
+        Self::Cupboard,
+        Self::Shelving,
+        Self::WritingDesk,
+        Self::Lectern,
+        Self::ChurchBench,
+        Self::Altar,
+        Self::WardBed,
+        Self::BathTub,
+        Self::WashStand,
+        Self::Workbench,
+        Self::CuttingTable,
+        Self::ToolRack,
+        Self::WeaponRack,
+        Self::ArmourStand,
+        Self::GrainBin,
+        Self::StorageCrate,
+        Self::Counter,
+        Self::CounterLeftEnd,
+        Self::CounterRightEnd,
+        Self::CounterCorner,
+        Self::DisplayCounter,
+        Self::DryingRack,
+        Self::KneadingTrough,
+        Self::ButchersBlock,
+        Self::CaskRack,
+        Self::HayRack,
+        Self::FeedTrough,
     ];
 }
 
@@ -59,50 +174,27 @@ pub struct FurnitureKey {
 }
 
 impl FurnitureKey {
-    pub const ALL: [Self; 10] = [
-        Self {
+    pub const ALL: [Self; FurnitureKind::ALL.len() * FurnitureVariant::ALL.len()] = {
+        let mut keys = [Self {
             kind: FurnitureKind::Barrel,
             variant: FurnitureVariant::Compact,
-        },
-        Self {
-            kind: FurnitureKind::Barrel,
-            variant: FurnitureVariant::Broad,
-        },
-        Self {
-            kind: FurnitureKind::CargoStack,
-            variant: FurnitureVariant::Compact,
-        },
-        Self {
-            kind: FurnitureKind::CargoStack,
-            variant: FurnitureVariant::Broad,
-        },
-        Self {
-            kind: FurnitureKind::TableBenchSet,
-            variant: FurnitureVariant::Compact,
-        },
-        Self {
-            kind: FurnitureKind::TableBenchSet,
-            variant: FurnitureVariant::Broad,
-        },
-        Self {
-            kind: FurnitureKind::CanvasStall,
-            variant: FurnitureVariant::Compact,
-        },
-        Self {
-            kind: FurnitureKind::CanvasStall,
-            variant: FurnitureVariant::Broad,
-        },
-        Self {
-            kind: FurnitureKind::HitchingTrough,
-            variant: FurnitureVariant::Compact,
-        },
-        Self {
-            kind: FurnitureKind::HitchingTrough,
-            variant: FurnitureVariant::Broad,
-        },
-    ];
+        }; FurnitureKind::ALL.len() * FurnitureVariant::ALL.len()];
+        let mut kind = 0;
+        while kind < FurnitureKind::ALL.len() {
+            let mut variant = 0;
+            while variant < FurnitureVariant::ALL.len() {
+                keys[kind * FurnitureVariant::ALL.len() + variant] = Self {
+                    kind: FurnitureKind::ALL[kind],
+                    variant: FurnitureVariant::ALL[variant],
+                };
+                variant += 1;
+            }
+            kind += 1;
+        }
+        keys
+    };
 
-    /// All ten authored recipes share one immutable cache, independent of placement seed.
+    /// All authored recipes share one immutable cache, independent of placement seed.
     pub fn recipe(self) -> &'static FurnitureRecipe {
         static RECIPES: OnceLock<[FurnitureRecipe; FurnitureKey::ALL.len()]> = OnceLock::new();
         let recipes = RECIPES.get_or_init(|| Self::ALL.map(Self::compile));
@@ -117,6 +209,46 @@ impl FurnitureKey {
             FurnitureKind::TableBenchSet => seating::table_and_benches(&mut builder, self.variant),
             FurnitureKind::CanvasStall => stall::canopy(&mut builder, self.variant),
             FurnitureKind::HitchingTrough => horse_stop::assemble(&mut builder, self.variant),
+            FurnitureKind::DiningTable => domestic::assemble(&mut builder, self),
+            FurnitureKind::Bench => domestic::assemble(&mut builder, self),
+            FurnitureKind::Chair => domestic::assemble(&mut builder, self),
+            FurnitureKind::Stool => domestic::assemble(&mut builder, self),
+            FurnitureKind::Bed => domestic::assemble(&mut builder, self),
+            FurnitureKind::BunkBed => domestic::assemble(&mut builder, self),
+            FurnitureKind::StorageChest => domestic::assemble(&mut builder, self),
+            FurnitureKind::Cupboard => domestic::assemble(&mut builder, self),
+            FurnitureKind::Shelving => domestic::assemble(&mut builder, self),
+            FurnitureKind::WritingDesk => domestic::assemble(&mut builder, self),
+            FurnitureKind::Lectern => domestic::assemble(&mut builder, self),
+            FurnitureKind::ChurchBench => domestic::assemble(&mut builder, self),
+            FurnitureKind::Altar => domestic::assemble(&mut builder, self),
+            FurnitureKind::WardBed => domestic::assemble(&mut builder, self),
+            FurnitureKind::BathTub => domestic::assemble(&mut builder, self),
+            FurnitureKind::WashStand => domestic::assemble(&mut builder, self),
+            FurnitureKind::Workbench => trade::assemble(&mut builder, self),
+            FurnitureKind::CuttingTable => trade::assemble(&mut builder, self),
+            FurnitureKind::ToolRack => trade::assemble(&mut builder, self),
+            FurnitureKind::WeaponRack => trade::assemble(&mut builder, self),
+            FurnitureKind::ArmourStand => trade::assemble(&mut builder, self),
+            FurnitureKind::GrainBin => trade::assemble(&mut builder, self),
+            FurnitureKind::StorageCrate => trade::assemble(&mut builder, self),
+            FurnitureKind::Counter => trade::assemble(&mut builder, self),
+            FurnitureKind::CounterLeftEnd => trade::assemble(&mut builder, self),
+            FurnitureKind::CounterRightEnd => trade::assemble(&mut builder, self),
+            FurnitureKind::CounterCorner => trade::assemble(&mut builder, self),
+            FurnitureKind::DisplayCounter => trade::assemble(&mut builder, self),
+            FurnitureKind::DryingRack => trade::assemble(&mut builder, self),
+            FurnitureKind::KneadingTrough => trade::assemble(&mut builder, self),
+            FurnitureKind::ButchersBlock => trade::assemble(&mut builder, self),
+            FurnitureKind::CaskRack => trade::assemble(&mut builder, self),
+            FurnitureKind::HayRack => trade::assemble(&mut builder, self),
+            FurnitureKind::FeedTrough => trade::assemble(&mut builder, self),
+        }
+        if let Some(spec) = self.interior_spec() {
+            for &face in spec.required_faces {
+                let bounds = spec.access_bounds(face);
+                builder.clearance(FurnitureClearanceKind::Access, bounds.min, bounds.max);
+            }
         }
         builder.finish()
     }

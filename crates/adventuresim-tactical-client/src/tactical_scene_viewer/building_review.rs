@@ -34,8 +34,46 @@ pub(super) struct ReviewRequirements {
     buildings: usize,
     doors: usize,
     windows: usize,
-    sites: BTreeMap<u64, SignSite>,
+    signs: BTreeMap<u64, ExpectedSign>,
     output: std::path::PathBuf,
+}
+
+struct ExpectedSign {
+    sign: ShopSign,
+    site: SignSite,
+}
+
+impl ReviewRequirements {
+    fn for_buildings(buildings: &[GeneratedBuilding], output: &Path) -> Self {
+        for building in buildings {
+            assert!(
+                adventuresim_building_generator::audit_plan(&building.plan).is_empty(),
+                "review building must pass the structural audit"
+            );
+        }
+        Self {
+            buildings: buildings.len(),
+            doors: buildings
+                .iter()
+                .map(|b| compile_operable_doors(&b.plan).len())
+                .sum(),
+            windows: buildings
+                .iter()
+                .map(|b| compile_operable_windows(&b.plan).len())
+                .sum(),
+            signs: BTreeMap::new(),
+            output: output.to_owned(),
+        }
+    }
+}
+
+/// Furnished rooms require the identical production building and opening checks as facade reviews.
+pub(super) fn setup_geometry_requirements(
+    commands: &mut Commands,
+    buildings: &[GeneratedBuilding],
+    output: &Path,
+) {
+    commands.insert_resource(ReviewRequirements::for_buildings(buildings, output));
 }
 
 pub(super) fn setup(
@@ -62,13 +100,7 @@ pub(super) fn setup(
     for (view, spec) in fixture.views.iter().zip(&specs[1..]) {
         assert_eq!(view.slug, spec.slug);
     }
-    for building in buildings {
-        assert!(
-            adventuresim_building_generator::audit_plan(&building.plan).is_empty(),
-            "review building must pass the structural audit"
-        );
-    }
-    let mut sites = BTreeMap::new();
+    let mut requirements = ReviewRequirements::for_buildings(buildings, output);
     for (&id, sign) in &fixture.signs {
         let building = buildings
             .iter()
@@ -88,7 +120,13 @@ pub(super) fn setup(
             site.supports(&building.plan, sign.mount),
             "review sign must fit its specified mount"
         );
-        sites.insert(id, site);
+        requirements.signs.insert(
+            id,
+            ExpectedSign {
+                sign: sign.clone(),
+                site,
+            },
+        );
     }
     let cameras = fixture
         .views
@@ -96,19 +134,7 @@ pub(super) fn setup(
         .map(|view| view.camera(buildings, &fixture.signs))
         .collect();
     std::fs::write(output.join("input.review.json"), bytes).expect("copy review provenance");
-    commands.insert_resource(ReviewRequirements {
-        buildings: buildings.len(),
-        doors: buildings
-            .iter()
-            .map(|b| compile_operable_doors(&b.plan).len())
-            .sum(),
-        windows: buildings
-            .iter()
-            .map(|b| compile_operable_windows(&b.plan).len())
-            .sum(),
-        sites,
-        output: output.to_owned(),
-    });
+    commands.insert_resource(requirements);
     commands.insert_resource(fixture);
     Some(cameras)
 }

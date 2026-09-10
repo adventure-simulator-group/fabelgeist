@@ -12,6 +12,8 @@ mod fault;
 mod furniture;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
+#[path = "generate_scene_fixtures/interior.rs"]
+mod interior;
 #[path = "generate_scene_fixtures/parish.rs"]
 mod parish;
 
@@ -49,6 +51,8 @@ enum BuildingFixture {
     MassiveCity,
     ParishReview,
     FurnitureReview,
+    InteriorFurnitureCatalog,
+    InteriorFurnitureRooms,
 }
 
 fn main() {
@@ -76,10 +80,12 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 22] {
+fn fixtures() -> [Fixture; 24] {
     [
         parish::fixture(),
         furniture::fixture(),
+        interior::catalog_fixture(),
+        interior::rooms_fixture(),
         Fixture {
             buildings: BuildingFixture::Cottage,
             ..fixture(
@@ -274,6 +280,15 @@ fn fixture_buildings(
 ) {
     match buildings {
         BuildingFixture::Empty => (Vec::new(), Vec::new(), Vec::new(), Vec::new()),
+        BuildingFixture::InteriorFurnitureCatalog => {
+            (Vec::new(), interior::yards(), Vec::new(), Vec::new())
+        }
+        BuildingFixture::InteriorFurnitureRooms => (
+            Vec::new(),
+            interior::yards(),
+            interior::buildings(),
+            Vec::new(),
+        ),
         BuildingFixture::Cottage => (
             Vec::new(),
             Vec::new(),

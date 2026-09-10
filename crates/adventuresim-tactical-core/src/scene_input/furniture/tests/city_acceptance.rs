@@ -21,7 +21,7 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
         scene.furniture.groups.len(),
         vendors.len()
     );
-    for kind in FurnitureKind::ALL {
+    for kind in FurnitureKind::OUTDOOR {
         println!(
             "{kind:?}: {}",
             scene
@@ -129,7 +129,8 @@ pub(super) fn assert_vendor_stock_variety(layout: &FurnitureLayout) {
             .filter(|group| {
                 group.kind == FurnitureGroupKind::Vendor
                     && layout.instances.iter().any(|instance| {
-                        instance.scene.group_id == group.id && instance.scene.key.kind == stock
+                        instance.scene.location == FurnitureLocation::Outdoor { group_id: group.id }
+                            && instance.scene.key.kind == stock
                     })
             })
             .count();

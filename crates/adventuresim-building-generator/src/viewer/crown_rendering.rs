@@ -142,6 +142,7 @@ fn spawn_resolved_crowns(
                     WallStyle::TimberFrame | WallStyle::Plaster => &palette.plaster,
                 },
                 SolidRole::FrameFloor
+                | SolidRole::InteriorFloor
                 | SolidRole::WalkSurface
                 | SolidRole::DrainageChannel
                 | SolidRole::DrainageFloor
@@ -151,7 +152,7 @@ fn spawn_resolved_crowns(
                 | SolidRole::ChurchFloor
                 | SolidRole::ChurchBellFloor
                 | SolidRole::ChurchVaultShell => &palette.floor,
-                SolidRole::ChurchStairTread | SolidRole::ArtilleryStairTread => &palette.stair,
+                SolidRole::ChurchStairTread | SolidRole::ArtilleryStairTread | SolidRole::StairTread | SolidRole::StairNewel => &palette.stair,
                 SolidRole::ChurchStairNewel | SolidRole::ChurchServiceLadder => &palette.timber,
                 SolidRole::RoofFlashing if solid.size.y <= 0.03 && solid.size.z <= 0.12 => {
                     &palette.roof

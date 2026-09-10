@@ -74,6 +74,7 @@ pub(super) fn material_for_solid_body(
         | SolidRole::FrameOrnament
         | SolidRole::OpeningClosure
         | SolidRole::ChurchStairNewel
+        | SolidRole::StairNewel
         | SolidRole::ChurchServiceLadder
         | SolidRole::ArtilleryBridgeBeam
         | SolidRole::ArtilleryBridgeDeck
@@ -85,6 +86,8 @@ pub(super) fn material_for_solid_body(
         | SolidRole::RoofPlate => BuildingLodMaterial::InteriorTimber,
         SolidRole::LeadedGlazing => BuildingLodMaterial::Glass,
         SolidRole::FrameFloor
+        | SolidRole::InteriorFloor
+        | SolidRole::StairTread
         | SolidRole::WalkSurface
         | SolidRole::DrainageChannel
         | SolidRole::DrainageFloor

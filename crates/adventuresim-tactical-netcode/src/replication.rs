@@ -130,12 +130,22 @@ mod tests {
     use super::*;
 
     #[test]
-    fn outdoor_recipe_identity_round_trips_without_mesh_or_collider_payloads() {
+    fn furniture_recipe_and_location_round_trip_without_mesh_or_collider_payloads() {
         for key in adventuresim_building_generator::furniture::FurnitureKey::ALL {
             let instance = SceneFurniture {
                 id: FurnitureInstanceId(u64::MAX),
                 key,
-                group_id: FurnitureGroupId(u64::MAX - 1),
+                location: if key.interior_spec().is_some() {
+                    FurnitureLocation::Interior {
+                        building_id: u64::MAX - 1,
+                        room_id: u16::MAX,
+                        storey: u16::MAX,
+                    }
+                } else {
+                    FurnitureLocation::Outdoor {
+                        group_id: FurnitureGroupId(u64::MAX - 1),
+                    }
+                },
             };
             let mut bytes = Vec::new();
             postcard_utils::to_extend_mut(&instance, &mut bytes).unwrap();

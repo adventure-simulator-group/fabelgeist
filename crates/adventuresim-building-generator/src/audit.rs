@@ -22,8 +22,10 @@ include!("audit/church.rs");
 include!("audit/roofs.rs");
 #[path = "audit/bearing.rs"]
 mod bearing;
+mod junction_bearing;
 #[path = "audit/support.rs"]
 mod support;
+mod timber_bracing;
 #[path = "audit/wall_counts.rs"]
 mod wall_counts;
 include!("audit/wall_openings.rs");

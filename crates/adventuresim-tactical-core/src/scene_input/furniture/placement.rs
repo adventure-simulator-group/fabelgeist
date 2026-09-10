@@ -145,7 +145,9 @@ fn supported_instances(
                 scene: SceneFurniture {
                     id: FurnitureInstanceId(mix64(candidate.id.0 ^ INSTANCE_DOMAIN ^ index as u64)),
                     key: item.key,
-                    group_id: candidate.id,
+                    location: FurnitureLocation::Outdoor {
+                        group_id: candidate.id,
+                    },
                 },
                 position_metres: Vec3::new(centre.x, max, centre.y),
                 orientation: candidate.footprint.orientation,

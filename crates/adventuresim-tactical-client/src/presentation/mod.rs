@@ -15,7 +15,7 @@ mod clouds;
 mod config;
 mod doors;
 mod furniture;
-pub(crate) use furniture::PresentedFurnitureMesh;
+pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod environment;
 pub(crate) mod ground_scatter;
 mod materials;

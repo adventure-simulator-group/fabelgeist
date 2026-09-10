@@ -459,6 +459,7 @@ fn load_world_dump(world: &mut World) {
 #[cfg(all(test, feature = "debug"))]
 mod debug_dump_world_tests {
     mod furniture_restore;
+    mod interior_furniture_restore;
     use std::{collections::HashSet, path::PathBuf};
 
     use adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId;

@@ -36,16 +36,20 @@ mod furniture_overlay;
 mod furniture_readiness;
 mod gpu_readiness;
 mod interior_capture;
+mod interior_furniture_capture;
 mod manifest;
 mod terrain_setup;
 mod triangle_census;
 mod view_camera;
 mod view_specs;
 use buildings::spawn_tactical_buildings;
+#[cfg(test)]
+use capture_state::lighting_samples_stable;
 use capture_state::{
-    CapturePhase, CaptureReadback, SceneCaptureState, deterministic_readback_hash,
-    foliage_detail_pixel_bps, foreground_pixel_bps, lighting_samples_stable, luminance_delta,
-    mean_luminance, tree_canopy_pixel_bps,
+    CapturePhase, CaptureReadback, LightingConvergence, SceneCaptureState,
+    deterministic_readback_hash, foliage_detail_pixel_bps, foreground_pixel_bps,
+    lighting_convergence, luminance_delta, mean_luminance, settled_luminance_samples,
+    tree_canopy_pixel_bps,
 };
 use manifest::{
     CaptureRecord, CaptureTonemapping, CelestialProvenance, FoliageSummary,
@@ -91,12 +95,12 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 32;
+const CAPTURE_PROFILE_VERSION: u16 = 33;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 19;
+const CAMERA_VERSION: u16 = 21;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -1113,6 +1117,10 @@ fn selected_capture_views(
         INTERIOR_REVIEW_PROFILE => INTERIOR_REVIEW_VIEWS.as_slice(),
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
         furniture_capture::PROFILE => view_specs::FURNITURE_REVIEW_VIEWS.as_slice(),
+        interior_furniture_capture::PROFILE => interior_furniture_capture::VIEWS.as_slice(),
+        interior_furniture_capture::ROOMS_PROFILE => {
+            interior_furniture_capture::ROOM_VIEWS.as_slice()
+        }
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
@@ -1340,6 +1348,8 @@ mod capture_lighting_tests {
             "environment-review",
             "landform-review",
             furniture_capture::PROFILE,
+            interior_furniture_capture::PROFILE,
+            interior_furniture_capture::ROOMS_PROFILE,
             "animation-play",
             "tree-cold-traversal",
             "beech-leaf-motion",
@@ -1731,7 +1741,7 @@ fn setup_scene(
         ground,
         obstacles,
         buildings,
-        furniture,
+        mut furniture,
         repairs,
         terrain_patch,
     } = generated;
@@ -1763,7 +1773,21 @@ fn setup_scene(
     let mut rock_focus = None;
     let mut tree_focus_entity = None;
 
-    let building_interior_cameras = interior_capture::capture_cameras(&buildings, &profile);
+    let catalog_cameras = interior_furniture_capture::setup_catalog(
+        &mut commands,
+        &mut furniture,
+        &terrain,
+        &profile,
+        &output,
+    );
+    let building_interior_cameras = interior_furniture_capture::setup_rooms(
+        &mut commands,
+        &buildings,
+        &furniture,
+        &profile,
+        &output,
+    )
+    .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
     let city_exterior_cameras =
         building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
             .unwrap_or_else(|| {
@@ -1785,6 +1809,7 @@ fn setup_scene(
         &mut materials,
     )
     .unwrap_or(city_exterior_cameras);
+    let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
     furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
     commands.spawn((
@@ -3716,10 +3741,11 @@ fn capture_views(
     }
 
     // Bevy's asynchronous window readback can still contain the render world
-    // from before a camera transition. Prime one disposable readback per view,
-    // then capture again without changing any scene or camera state.
-    let required_prime_readbacks = if temporal_motion { 0 } else { 2 };
-    if prime_readbacks < required_prime_readbacks {
+    // from before a camera transition. Retain bounded disposable readbacks until
+    // consecutive lighting samples settle, without changing scene or camera state.
+    if !temporal_motion
+        && lighting_convergence(&state.lighting_luminance_samples) == LightingConvergence::Pending
+    {
         state.phase = CapturePhase::Readback {
             view: state.view,
             prime_readbacks,
@@ -3784,9 +3810,11 @@ fn capture_views(
         record
             .lighting_luminance_samples
             .clone_from(&state.lighting_luminance_samples);
-        record.lighting_luminance_delta = luminance_delta(&state.lighting_luminance_samples);
-        record.lighting_ready =
-            temporal_motion || lighting_samples_stable(&state.lighting_luminance_samples);
+        record.lighting_luminance_delta =
+            luminance_delta(settled_luminance_samples(&state.lighting_luminance_samples));
+        record.lighting_ready = temporal_motion
+            || lighting_convergence(&state.lighting_luminance_samples)
+                == LightingConvergence::Ready;
     }
     let celestial = capture_celestial(
         state.absolute_minute,
