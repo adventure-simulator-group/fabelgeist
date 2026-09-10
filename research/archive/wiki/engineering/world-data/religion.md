@@ -4,7 +4,8 @@ Settlement religion is reconstructed from the Institute of European History
 (IEG) maps of the legally recognized religion of European territories in 1500
 and 1555. This models public law and institutions, not personal belief.
 
-- IEG map collection: <https://www.ieg-maps.uni-mainz.de/mapsp/mapconfession.htm>
+- IEG map collection:
+  <https://www.ieg-maps.uni-mainz.de/mapsp/mapconfession.htm>
 - Source rights statement: © IEG Mainz / Andreas Kunz. The source page does
   not state an open-data license; only the project's coarse derived
   intermediate is checked in.

@@ -24,10 +24,10 @@ the five-member total at 1000. Independent saturation severity allows a
 
 Viabundus supplies topology and endpoint coordinates rather than complete road
 polylines. Documented edges therefore retain the endpoint interpolation below.
-Terrain-inferred edges instead sample their canonical A* polyline. The compiler chooses
-`N = min(1000, max(1, ceil(length / grid-cell-size)))` segments, yielding a
-bounded profile of two through 1,001 samples with unique permille progress and
-required 0/1000 endpoints.
+Terrain-inferred edges instead sample their canonical A* polyline. The compiler
+chooses `N = min(1000, max(1, ceil(length / grid-cell-size)))` segments,
+yielding a bounded profile of two through 1,001 samples with unique permille
+progress and required 0/1000 endpoints.
 
 Each profile point samples GLO-30 at the center and the eight positions one
 configured canonical-grid cell away. The shared strict reader validates tile
@@ -71,9 +71,9 @@ Viabundus `slope_multiplier` remains a separate source cost hint and is not DEM
 grade.
 
 Both the offline validator and strategic import reducer recompute profile
-ascent/descent, grade extrema, relief, class, seasonal risks, and encounter tags.
-Malformed or contradictory derived facts are rejected. Collection decoding is
-capped before allocation and canonical uniqueness is defined by logical key
+ascent/descent, grade extrema, relief, class, seasonal risks, and encounter
+tags. Malformed or contradictory derived facts are rejected. Collection decoding
+is capped before allocation and canonical uniqueness is defined by logical key
 (progress, feature, hazard, or tag), not by the complete payload.
 
 The official full GLO-30 and EU-Hydro audit remains blocked until their
@@ -83,12 +83,12 @@ document does not claim issue #62 complete.
 
 ## Native routing skill mixture
 
-The separate native terrain-routing pack (schema 6) retains wetland, canopy,
-and hill coverage independently. Runtime routing cells normalize them to
-exactly 1,000 permille: Wetlands receives its area share first, Forest follows
-canopy density over the remaining land, Hills receives the hill-covered share
-of the remaining non-forest ground, and Plains receives the remainder. Urban is part
-of the Terrain skill domain but has zero route weight until an authoritative
+The separate native terrain-routing pack (schema 6) retains wetland, canopy, and
+hill coverage independently. Runtime routing cells normalize them to exactly
+1,000 permille: Wetlands receives its area share first, Forest follows canopy
+density over the remaining land, Hills receives the hill-covered share of the
+remaining non-forest ground, and Plains receives the remainder. Urban is part of
+the Terrain skill domain but has zero route weight until an authoritative
 built-up-land source is added; roads are infrastructure over their underlying
 terrain and are never treated as Urban.
 
@@ -108,12 +108,12 @@ Wetland road exposure is 0.10, from 0.5 km/h divided by 5 km/h.
 
 `terrain-routing-base-v3` is a documented-road-only inference input and cannot
 be served as the final pack. `terrain-routing-v3` is rebuilt after world
-compilation with the accepted inferred polylines. Both manifests carry a purpose,
-road-geometry digest, Jung wetland source digest, and package digest. Wetland
-ground moves at 0.5 km/h unless overridden by water or a road.
-Schema 6 uses one flag bit for the canonical EPSG:3035 1 km cultivation
-classification and another for native wetland coverage, so cells remain five
-bytes. Both bits decode to area fractions when cells are coarsened. The manifest validates
-the grid CRS/resolution, HYDE dependency digest, allocator rules version, and
+compilation with the accepted inferred polylines. Both manifests carry a
+purpose, road-geometry digest, Jung wetland source digest, and package digest.
+Wetland ground moves at 0.5 km/h unless overridden by water or a road. Schema 6
+uses one flag bit for the canonical EPSG:3035 1 km cultivation classification
+and another for native wetland coverage, so cells remain five bytes. Both bits
+decode to area fractions when cells are coarsened. The manifest validates the
+grid CRS/resolution, HYDE dependency digest, allocator rules version, and
 square/native-cell counts. Runtime sampling is bounded by the existing chunk
 LRU.

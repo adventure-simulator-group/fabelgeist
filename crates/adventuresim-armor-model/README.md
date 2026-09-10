@@ -51,7 +51,7 @@ morph correspondence, and parameter variation.
 
 Run `cargo test -p adventuresim-armor-model` for the crate's regression tests.
 Run `just fmt-check` and `just lint` for the repository quality gates.
-See [installed armor review](review/README.md) for body-visible images and
-the scope of the exported-asset checks.
+See [armor references and validation](review/README.md) for source references
+and reproducible checks.
 Set `BREASTPLATE_REPORT_FIT` to emit fitting diagnostics when investigating a
 body or design that fails clearance validation.

@@ -28,19 +28,20 @@ guaranteed for the same simulator format. Canonical hashing quantizes floating
 values to four decimal places so harmless JSON and cross-platform subprecision
 differences do not change the digest; stored balance metrics retain their full
 precision. A future fixed-point game-state migration can strengthen guarantees
-beyond that explicit tolerance. Config and report inputs are streamed with a 64 MiB limit,
-and their vector bounds are revalidated before hashing or replay.
+beyond that explicit tolerance. Config and report inputs are streamed with a 64
+MiB limit, and their vector bounds are revalidated before hashing or replay.
 
 Daily scheduling is intentional and represents repeated one-day player actions.
 It gives future incident policies a single canonical decision granularity. Pure
 schedule training and settlement activity calculations live in
 `adventuresim-core`; both the SpacetimeDB module and simulator call those same
 functions. The live reducer's bulk rest currently trains and then evaluates one
-aggregate activity interval; rounded income and single incident interruption
-can therefore differ from repeated one-day actions. Bulk-rest strategy testing
-is follow-up work rather than part of this first-slice contract. Gold from labor
-and thievery is an intentional economic source. Future purchases, provisions, lodging, and losses will be explicit
-sinks; the runner therefore does not assert naive currency conservation.
+aggregate activity interval; rounded income and single incident interruption can
+therefore differ from repeated one-day actions. Bulk-rest strategy testing is
+follow-up work rather than part of this first-slice contract. Gold from labor
+and thievery is an intentional economic source. Future purchases, provisions,
+lodging, and losses will be explicit sinks; the runner therefore does not assert
+naive currency conservation.
 
 ## Profiles and results
 
@@ -48,32 +49,35 @@ Simulator-authored schedules currently allocate zero Reading minutes, keeping
 existing policy behavior stable. Camp and travel policy explicitly mask the
 player-facing Reading allocation.
 
-Profiles retain their seed and all inputs needed for inspection: a deterministic sparse personality
-(two through four non-neutral axes across thirteen behavioral axes), plus
-always-assigned Sex, Presentation, and Inclination; correlated, bounded attributes; an explicit personality-by-attribute
-build role; initial leaf skills; activity allocations that produce training;
-activity-versus-quest, risk, and recovery preferences; equipment style and
-utility weights; and provisioning, reserve, and spending preferences. Some
-fields are recorded for later slices and do not yet affect settlement choices. Build derivation keeps
-skills, training, activity, quest risk/recovery, and equipment style coherent. Content leaders are
-activity-only; ambition increases quest propensity. Bravery selects heavy front-line melee only when
-endurance and both-arm strength make it viable, while fearful agents prefer ranged/light roles when
-their perception supports one. Followers still defer to the current leader's quest/activity decision;
-individual follower policy is applied to training, recovery, treatment, and equipment, which is a known
-party-decision limitation. Bootstrap distributes build roles deterministically across bounded
-party groups, then selects the lowest-ID non-Content member in each group as its founding leader
-when one exists. An all-Content group remains activity-only. Ordinary party reducers remain
-authoritative for joining and later leadership succession.
+Profiles retain their seed and all inputs needed for inspection: a deterministic
+sparse personality (two through four non-neutral axes across thirteen behavioral
+axes), plus always-assigned Sex, Presentation, and Inclination; correlated,
+bounded attributes; an explicit personality-by-attribute build role; initial
+leaf skills; activity allocations that produce training; activity-versus-quest,
+risk, and recovery preferences; equipment style and utility weights; and
+provisioning, reserve, and spending preferences. Some fields are recorded for
+later slices and do not yet affect settlement choices. Build derivation keeps
+skills, training, activity, quest risk/recovery, and equipment style coherent.
+Content leaders are activity-only; ambition increases quest propensity. Bravery
+selects heavy front-line melee only when endurance and both-arm strength make it
+viable, while fearful agents prefer ranged/light roles when their perception
+supports one. Followers still defer to the current leader's quest/activity
+decision; individual follower policy is applied to training, recovery,
+treatment, and equipment, which is a known party-decision limitation. Bootstrap
+distributes build roles deterministically across bounded party groups, then
+selects the lowest-ID non-Content member in each group as its founding leader
+when one exists. An all-Content group remains activity-only. Ordinary party
+reducers remain authoritative for joining and later leadership succession.
 
 Reports include a bounded decision trace, bounded periodic snapshots, terminal
 reason, wealth, final and gained skill hours, activity and leisure time,
-settlement-aware Infamy, and cumulative risk exposure. Reports also contain the typed Pareto
-frontier that maximizes wealth and skill-hour gain while minimizing Infamy
-and risk exposure; the human summary prints its stable agent IDs. Risk exposure is a metric, not a fake
-combat or incident outcome. Pareto utilities require typed maximize/minimize
-objectives, preserve exact ties, and reject nonfinite values. The `matched`
-command holds a profile and seed constant while changing only its declared
-labor/thievery activity preference and allocation.
+settlement-aware Infamy, and cumulative risk exposure. Reports also contain the
+typed Pareto frontier that maximizes wealth and skill-hour gain while minimizing
+Infamy and risk exposure; the human summary prints its stable agent IDs. Risk
+exposure is a metric, not a fake combat or incident outcome. Pareto utilities
+require typed maximize/minimize objectives, preserve exact ties, and reject
+nonfinite values. The `matched` command holds a profile and seed constant while
+changing only its declared labor/thievery activity preference and allocation.
 
 ## Authoritative core-loop backend
 
@@ -94,18 +98,17 @@ affordable shortfall through the ordinary merchant reducer. A co-located living
 party member may pay using the shared treasury plus their purse, while retaining
 their observable medical reserve. Pricing fails closed without that payer's
 public local-price effect and exactly one public default merchant present at
-that payer's own public character time. If
-either staple is unavailable or unaffordable, the party
-remains at the settlement and performs sustainable activity instead of
-knowingly departing empty. Questing then travels through persisted camp stops,
-autoresolves, stores loot, returns,
-turns in, liquidates party loot, withdraws the member's earned stake, purchases
-from the merchant, and equips an upgrade. Followers travel and run their own
-daily schedules. Defeat causes a retreat, bounded settlement convalescence, and
-abandonment of the direct contract; the driver never gambles on a new autoresolve
-roll against an unchanged threat. A generated-case finale records a bounded
-fingerprint made only from subscribed public party capability rows and will not
-reattempt the same defeated threat until that fingerprint materially changes.
+that payer's own public character time. If either staple is unavailable or
+unaffordable, the party remains at the settlement and performs sustainable
+activity instead of knowingly departing empty. Questing then travels through
+persisted camp stops, autoresolves, stores loot, returns, turns in, liquidates
+party loot, withdraws the member's earned stake, purchases from the merchant,
+and equips an upgrade. Followers travel and run their own daily schedules.
+Defeat causes a retreat, bounded settlement convalescence, and abandonment of
+the direct contract; the driver never gambles on a new autoresolve roll against
+an unchanged threat. A generated-case finale records a bounded fingerprint made
+only from subscribed public party capability rows and will not reattempt the
+same defeated threat until that fingerprint materially changes.
 
 Direct contracts are eligible only when a conservative public matchup estimate
 accepts them. The estimate combines disclosed difficulty and an exact,
@@ -115,9 +118,9 @@ base-rating curve and requires a 25 percent party-power margin; unknown count
 wording fails closed. Risk tolerance ranks only the eligible set. Accepted
 contracts are revalidated before continuation and again after travel; an unsafe
 deterioration causes retreat and abandonment, while `ReadyToReport` contracts
-remain turn-in eligible. When offered contracts exist but none is safe, the trace
-records `no_safe_contract` and the party uses generated discovery or settlement
-activity instead. Hidden hostile authority is never a policy input.
+remain turn-in eligible. When offered contracts exist but none is safe, the
+trace records `no_safe_contract` and the party uses generated discovery or
+settlement activity instead. Hidden hostile authority is never a policy input.
 
 Core-loop reports are explicitly tagged `spacetimedb_authoritative_core_loop`
 and retain the server origin, disposable database, claimed run nonce, generated
@@ -127,10 +130,10 @@ withdrawals, purchases, upgrades, unexpected reducer failures/retries, stuck
 detection, and duplicate semantic events. Final agent rows distinguish the
 legacy character gold field, personal gold-coin stacks, party treasury, and
 party stake. They also expose the public settlement or exact case-site
-occupancy, active public journey destination, and symptomatic/critical flags,
-so `ready` does not conceal illness and a remote party is not mistaken for a
-stranded journey. Generated preferences drive quest/activity choice, quest risk, and
-weighted equipment utility (protection, mobility, price, and reach) for
+occupancy, active public journey destination, and symptomatic/critical flags, so
+`ready` does not conceal illness and a remote party is not mistaken for a
+stranded journey. Generated preferences drive quest/activity choice, quest risk,
+and weighted equipment utility (protection, mobility, price, and reach) for
 unarmored, light, heavy, and ranged styles. An upgrade counts only after the
 authoritative equipment row shows the purchased inventory item.
 
@@ -168,15 +171,15 @@ protective response exists. Evacuation never attacks. The encounter event
 records the stable reason, evacuation flag, public run eligibility, and
 projected choice set.
 
-Absolute character clocks are sampled after bootstrap and all duration gates
-and final elapsed-time fields use monotonic deltas from that baseline. A fresh
-run in a mature world therefore receives its configured duration instead of
-being mistaken for a run that already exhausted it. For narrative road
-challenges, public available choice IDs are joined to the public authored
-catalog. The policy may select a uniquely identified, check-free, non-combat
-route only when it positively aligns with the leader's personality. Public
-requirements and availability are legality gates, not evidence that spending
-resources is desirable. Checked and combat-starting routes are rejected; the catalog's
+Absolute character clocks are sampled after bootstrap and all duration gates and
+final elapsed-time fields use monotonic deltas from that baseline. A fresh run
+in a mature world therefore receives its configured duration instead of being
+mistaken for a run that already exhausted it. For narrative road challenges,
+public available choice IDs are joined to the public authored catalog. The
+policy may select a uniquely identified, check-free, non-combat route only when
+it positively aligns with the leader's personality. Public requirements and
+availability are legality gates, not evidence that spending resources is
+desirable. Checked and combat-starting routes are rejected; the catalog's
 unconditional unchecked `ignore` remains the fallback. Telemetry records the
 visible alternatives, conservative meaningful candidates, and selection reason.
 
@@ -184,13 +187,13 @@ Generated investigation actions are ranked by a stable pure score. It considers
 projected availability and progress (perform, travel, or bounded wait), the
 owner profile's fit for the projected method, public uncertainty, public
 duration, and public wait. `action_id` is only the final tie-break. The policy
-reads no canonical generated-case rows or private hostile authority.
-Its skill-fit mirror uses Insight for inspect, search, locate, watch, patrol, and
+reads no canonical generated-case rows or private hostile authority. Its
+skill-fit mirror uses Insight for inspect, search, locate, watch, patrol, and
 approach; averages Insight and Stealth for ambush; and gives tracking no claimed
-fit because the public projection does not disclose the governing terrain.
-After a generated-finale defeat, an unchanged owner/case public combat
-fingerprint suppresses the case before any further provisioning or travel, with
-the same guard retained at the site.
+fit because the public projection does not disclose the governing terrain. After
+a generated-finale defeat, an unchanged owner/case public combat fingerprint
+suppresses the case before any further provisioning or travel, with the same
+guard retained at the site.
 
 Camp handling subscribes only
 to the public `party_journey` and `party_journey_itinerary` projections. At
@@ -277,43 +280,42 @@ the resulting avoiding-authority rearrest loop.
 
 Off-settlement health is an explicit expedition state, not a reason to repeat
 quest suppression indefinitely. Before selecting another quest action, the
-runner reads only public party membership/location, strategic condition,
-illness signal, needs, concrete supplies, journey itinerary, and owner-visible
-case-site pins. It immediately records a recovery plan and makes at most two
-one-day field-rest attempts when pooled concrete stored food and portable water
-cover every living member's daily requirement and nobody is critical. Injury
-or disease boundaries may clip an attempt, so actual elapsed minutes are
-measured rather than assuming a completed day. The expedition resumes
-only when there is a living actionable member and every living member is ready
-and asymptomatic. A successful field recovery resumes the same bounded policy
-cycle, allowing an already-public on-site action to proceed instead of losing
-the final cycle to recovery bookkeeping. When recovery began inside the
-configured duration but its bounded rests cross the duration threshold, only
-that same cycle's one public quest/on-site action is allowed; the next cycle
-observes the ordinary duration cutoff. A cycle with no recovery does not cross
-the cutoff, and the final bounded rescue pass never selects a quest action.
-Evacuation or a fail-closed hold consumes the cycle. Otherwise a ready companion directs an ordinary journey back
-to the one public origin settlement. If the leader is unready, reducers
+runner reads only public party membership/location, strategic condition, illness
+signal, needs, concrete supplies, journey itinerary, and owner-visible case-site
+pins. It immediately records a recovery plan and makes at most two one-day
+field-rest attempts when pooled concrete stored food and portable water cover
+every living member's daily requirement and nobody is critical. Injury or
+disease boundaries may clip an attempt, so actual elapsed minutes are measured
+rather than assuming a completed day. The expedition resumes only when there is
+a living actionable member and every living member is ready and asymptomatic. A
+successful field recovery resumes the same bounded policy cycle, allowing an
+already-public on-site action to proceed instead of losing the final cycle to
+recovery bookkeeping. When recovery began inside the configured duration but its
+bounded rests cross the duration threshold, only that same cycle's one public
+quest/on-site action is allowed; the next cycle observes the ordinary duration
+cutoff. A cycle with no recovery does not cross the cutoff, and the final
+bounded rescue pass never selects a quest action. Evacuation or a fail-closed
+hold consumes the cycle. Otherwise a ready companion directs an ordinary journey
+back to the one public origin settlement. If the leader is unready, reducers
 narrowly permit that ready party member to direct off-settlement camp rest,
 return-route continuation, and protective (never attack/objective) encounter
 choices; this does not transfer leadership or grant contract, combat-objective,
 or ordinary quest authority. Evacuation counts as complete only when public
 state shows a living party at that settlement with no remaining camp
-destination; an incomplete leg is logged as stalled.
-The recovery loop reselects a public ready, asymptomatic, noncritical actor
-before every individual field rest. If the previous rest leaves nobody
-actionable, it does not reuse the stale actor. One narrow passive-recovery mode
-may still apply when no living member is publicly actionable. Public symptoms
-may be the reason even when a member's condition status is `ready`; every
-living member must have a known ready, staggered, or incapacitated status and
-none may be critical. The authoritative leader must be alive, the party must
-be off-settlement at a coherent persisted journey camp, and concrete pooled
-supplies must cover the requested day. The simulator represents this with a
-separate typed `PassiveNoActionable` rest actor which can reach only the camp
-rest call boundary. It cannot continue travel, resolve an encounter, perform a
-case action, accept or report a contract, vote on leadership, or invoke any
-other reducer. This is passive convalescence—the state is resting—not action
-authority.
+destination; an incomplete leg is logged as stalled. The recovery loop reselects
+a public ready, asymptomatic, noncritical actor before every individual field
+rest. If the previous rest leaves nobody actionable, it does not reuse the stale
+actor. One narrow passive-recovery mode may still apply when no living member is
+publicly actionable. Public symptoms may be the reason even when a member's
+condition status is `ready`; every living member must have a known ready,
+staggered, or incapacitated status and none may be critical. The authoritative
+leader must be alive, the party must be off-settlement at a coherent persisted
+journey camp, and concrete pooled supplies must cover the requested day. The
+simulator represents this with a separate typed `PassiveNoActionable` rest actor
+which can reach only the camp rest call boundary. It cannot continue travel,
+resolve an encounter, perform a case action, accept or report a contract, vote
+on leadership, or invoke any other reducer. This is passive convalescence—the
+state is resting—not action authority.
 
 Passive eligibility and the public member/supply state are recalculated before
 each of at most two rest attempts. If any member becomes actionable, the
@@ -483,110 +485,121 @@ realism and the invariant that an active journey cannot have completed elapsed
 time beyond its total forecast.
 
 Reports separately count direct-contract attempts/completions, generated case
-intakes and owner-projection continuations, generated cases discovered, completed by the
-simulated party's immediate dialogue/action/autoresolve transition, and closed
-externally by background resident NPCs. They also count projected investigation
-actions, temporal waits and wait minutes, observer-safe replans, and witness
-dialogues. Generated-case trace events contain only public
+intakes and owner-projection continuations, generated cases discovered,
+completed by the simulated party's immediate dialogue/action/autoresolve
+transition, and closed externally by background resident NPCs. They also count
+projected investigation actions, temporal waits and wait minutes, observer-safe
+replans, and witness dialogues. Generated-case trace events contain only public
 case IDs/subjects, NPC names and locations already visible in the selected
 dialogue, projected action summaries, and public outcome wording; they never
 read generation manifests, canonical causes/sites, reliability, hostile
-authority, custody authority, or outcome authority.
-The same report exposes unique owner-party discoveries, exact-site-ready cases,
-finance-blocked cycles, case-site journeys, provision purchases, and actual
-public gold spent. Identical affordability signatures enter backoff until the
-required budget or observable funds change. That cache is scoped by party,
-acting owner, and public case/contract finance key, so two owners cannot inherit
-one another's backoff. Direct contracts preflight against
-the greatest public distance among their case destinations before acceptance,
-then select the disclosed owner-scoped pin by minimum-distance, stable-site
-ordering and re-run observer-safe provisioning for that exact pin before
-travel. Thus a temporary shortfall does not withdraw the offer or fund travel
-to a different destination. An explicit post-defeat
-cannot-reprovision abandonment is
-reported as abandonment rather than deferral.
+authority, custody authority, or outcome authority. The same report exposes
+unique owner-party discoveries, exact-site-ready cases, finance-blocked cycles,
+case-site journeys, provision purchases, and actual public gold spent. Identical
+affordability signatures enter backoff until the required budget or observable
+funds change. That cache is scoped by party, acting owner, and public
+case/contract finance key, so two owners cannot inherit one another's backoff.
+Direct contracts preflight against the greatest public distance among their case
+destinations before acceptance, then select the disclosed owner-scoped pin by
+minimum-distance, stable-site ordering and re-run observer-safe provisioning for
+that exact pin before travel. Thus a temporary shortfall does not withdraw the
+offer or fund travel to a different destination. An explicit post-defeat
+cannot-reprovision abandonment is reported as abandonment rather than deferral.
 
-Live simulated NPCs inspect persistent equipment condition before choosing quests or settlement
-activity. They submit repairable damaged equipment to the appropriate local smith, wait through the
-ordinary rest reducer until the longest ETA, and retrieve every completed order before continuing.
-Their replacement utility is discounted by current condition, so maintenance competes coherently
-with buying a replacement. Reports include submissions, retrievals, repair wait time, worst final
-condition, and outstanding orders; deterministic simulation setup seeds damage through a reducer
-guarded to registered simulation characters.
+Live simulated NPCs inspect persistent equipment condition before choosing
+quests or settlement activity. They submit repairable damaged equipment to the
+appropriate local smith, wait through the ordinary rest reducer until the
+longest ETA, and retrieve every completed order before continuing. Their
+replacement utility is discounted by current condition, so maintenance competes
+coherently with buying a replacement. Reports include submissions, retrievals,
+repair wait time, worst final condition, and outstanding orders; deterministic
+simulation setup seeds damage through a reducer guarded to registered simulation
+characters.
 
-Before any settlement departure, the driver now prepares every living party member rather than only
-the leader. Where a public general-market storefront and provider exist, it buys a single field tent
-directly into ordinary party custody; a settlement with no such public provider authorizes a tracked
-bivouac fallback instead of trapping the party in settlement forever. It equips
-only upgrades that preserve at least 20 percent of the public linear carrying margin, and maintains
-twenty personally owned arrows for each member whose public equipped capability is ranged. Shared
-earned stake may be withdrawn through the ordinary custody reducer to fund a member's arrows, while
-the same visible medical reserve used elsewhere remains protected. Equipment replacements route
-through their matching public forge, armoury, or tailor provider. They require both the canonical
-service and item stock category, reject ambiguous default providers before applying current hours,
-and use one authoritative transaction to debit only the member's earned stake and complete the
-personal purchase within the conservative observer-safe quote. If a visible provider exists but
-shelter,
-ammunition, quote, or carrying margin cannot be made safe, the party performs settlement activity
-instead of departing. Current wetness above 80 percent or absolute thermal strain above 2,500 also
-requires indoor recovery before departure. The SDK exposes neither route-weather forecasts nor
-item insulation/weatherproofing to this simulator, so route-weather readiness is explicitly recorded
-as unavailable and only the current public condition can gate departure; this is a projection gap,
-not a claim that future exposure is safe.
-Every field-rest path selects a party-owned tent when present, including forecast camps, bounded
-expedition recovery, passive/evacuation recovery, and field investigation waits. The authoritative
-rest reducer still validates custody and applies the actual exposure mechanics.
+Before any settlement departure, the driver now prepares every living party
+member rather than only the leader. Where a public general-market storefront and
+provider exist, it buys a single field tent directly into ordinary party
+custody; a settlement with no such public provider authorizes a tracked bivouac
+fallback instead of trapping the party in settlement forever. It equips only
+upgrades that preserve at least 20 percent of the public linear carrying margin,
+and maintains twenty personally owned arrows for each member whose public
+equipped capability is ranged. Shared earned stake may be withdrawn through the
+ordinary custody reducer to fund a member's arrows, while the same visible
+medical reserve used elsewhere remains protected. Equipment replacements route
+through their matching public forge, armoury, or tailor provider. They require
+both the canonical service and item stock category, reject ambiguous default
+providers before applying current hours, and use one authoritative transaction
+to debit only the member's earned stake and complete the personal purchase
+within the conservative observer-safe quote. If a visible provider exists but
+shelter, ammunition, quote, or carrying margin cannot be made safe, the party
+performs settlement activity instead of departing. Current wetness above 80
+percent or absolute thermal strain above 2,500 also requires indoor recovery
+before departure. The SDK exposes neither route-weather forecasts nor item
+insulation/weatherproofing to this simulator, so route-weather readiness is
+explicitly recorded as unavailable and only the current public condition can
+gate departure; this is a projection gap, not a claim that future exposure is
+safe. Every field-rest path selects a party-owned tent when present, including
+forecast camps, bounded expedition recovery, passive/evacuation recovery, and
+field investigation waits. The authoritative rest reducer still validates
+custody and applies the actual exposure mechanics.
 
-For an owner-scoped generated case site, the driver combines the public route, action, return,
-fatigue, and thermal projections before departing. A delayed safe window advances every living
-party member to one common clock frontier, verifies that no member was skipped, reruns medical and
-departure readiness, and follows through in the same turn. The forecast searches the next seven
-days but performs public settlement rest in at most one-day increments. It samples every legal
-hour for the four policy-relevant walking schedules (current, widened round-trip, action breakpoint,
-and movement breakpoint), while the exhaustive lower-priority schedule variants retain one daily
-walking-start sample so a cold unsafe route does not require tens of thousands of full party
-forecasts. A delayed candidate's recovered baseline can authorize only that real settlement wait;
-the party cannot depart until the public rest and revalidation actually succeed. Failure telemetry
-classifies a route as thermally unsafe in all windows only when every complete candidate is thermal
-unsafe; one thermally viable candidate instead permits bounded fatigue recovery. No thermal result
-is cached across changing public party, equipment, action, route, or condition state.
+For an owner-scoped generated case site, the driver combines the public route,
+action, return, fatigue, and thermal projections before departing. A delayed
+safe window advances every living party member to one common clock frontier,
+verifies that no member was skipped, reruns medical and departure readiness, and
+follows through in the same turn. The forecast searches the next seven days but
+performs public settlement rest in at most one-day increments. It samples every
+legal hour for the four policy-relevant walking schedules (current, widened
+round-trip, action breakpoint, and movement breakpoint), while the exhaustive
+lower-priority schedule variants retain one daily walking-start sample so a cold
+unsafe route does not require tens of thousands of full party forecasts. A
+delayed candidate's recovered baseline can authorize only that real settlement
+wait; the party cannot depart until the public rest and revalidation actually
+succeed. Failure telemetry classifies a route as thermally unsafe in all windows
+only when every complete candidate is thermal unsafe; one thermally viable
+candidate instead permits bounded fatigue recovery. No thermal result is cached
+across changing public party, equipment, action, route, or condition state.
 
-Each per-member settlement rest in that safe-departure wait rechecks the party's public location
-before another member acts. If the rest relocates the party to an activity-incident case site, the
-wait stops immediately, records a bounded `safe_departure_wait_relocated` event instead of claiming
-clock-frontier lag, and retains only the exact observed `(party, case site) -> origin settlement`
-fallback used by ordinary idle-site return policy. The simulator neither subscribes to nor parses
-the private incident.
+Each per-member settlement rest in that safe-departure wait rechecks the party's
+public location before another member acts. If the rest relocates the party to
+an activity-incident case site, the wait stops immediately, records a bounded
+`safe_departure_wait_relocated` event instead of claiming clock-frontier lag,
+and retains only the exact observed `(party, case site) -> origin settlement`
+fallback used by ordinary idle-site return policy. The simulator neither
+subscribes to nor parses the private incident.
 
-After an off-settlement action, the driver refreshes the versioned public frontier. It may continue
-at the occupied site only when the next available action requires that exact site and a fresh
-worst-case action-plus-return fatigue and thermal projection is `Ready`. Otherwise the reserved
-return remains mandatory. The existing per-cycle step cap bounds repeated same-site fieldwork.
+After an off-settlement action, the driver refreshes the versioned public
+frontier. It may continue at the occupied site only when the next available
+action requires that exact site and a fresh worst-case action-plus-return
+fatigue and thermal projection is `Ready`. Otherwise the reserved return
+remains mandatory. The existing per-cycle step cap bounds repeated same-site
+fieldwork.
 
-Core-loop reports expose per-agent thermal state, wetness, thermal strain, personal ammunition,
-carried load, carrying capacity, equipment readiness, and party-tent quantity. Aggregate metrics
-record tent purchases and uses, tent-rest failures, ammunition purchases and shortages, readiness
-suppressions, provider-unavailable bivouac departures, route-projection gaps, peak load/capacity,
-minimum carrying margin, and peak exposure. Death events include the authoritative cause, source,
-source ID, and strategic minute, and the
-structured failure artifact carry the same observer-safe survival context so a policy mistake can be
-distinguished from an authoritative reducer or mechanics failure without importing private state.
-General merchant presence has the same actor-clock authority race as contract
-issuers. An exact authoritative `Merchant service provider is not available`
-rejection is treated like the corresponding public provider-unavailable result
-only for the simulator's known tent, journey-provision, ammunition, first-aid,
-and optional equipment operations. Tent readiness explicitly chooses its
-existing bivouac policy; essential provisions and ammunition defer departure;
-optional first-aid material and equipment purchases are skipped. These races do
-not increment reducer-failure, purchase, unit, or spend metrics. Different
-operations (including the typed herbalist path), different messages, and all
-other merchant failures remain fatal and counted.
-The simulator subscribes to public physical-object, containment, measured
-amount, and container-liquid projections. Load and recovery-supply accounting
-resolve ultimate personal or party custody, include nested objects and
-contained water, scale measured non-food material mass, and reject malformed or
-fixture-rooted object graphs. This is observer-safe accounting, not custody
-authority.
+Core-loop reports expose per-agent thermal state, wetness, thermal strain,
+personal ammunition, carried load, carrying capacity, equipment readiness, and
+party-tent quantity. Aggregate metrics record tent purchases and uses, tent-rest
+failures, ammunition purchases and shortages, readiness suppressions,
+provider-unavailable bivouac departures, route-projection gaps, peak
+load/capacity, minimum carrying margin, and peak exposure. Death events include
+the authoritative cause, source, source ID, and strategic minute, and the
+structured failure artifact carry the same observer-safe survival context so a
+policy mistake can be distinguished from an authoritative reducer or mechanics
+failure without importing private state. General merchant presence has the same
+actor-clock authority race as contract issuers. An exact authoritative
+`Merchant service provider is not available` rejection is treated like the
+corresponding public provider-unavailable result only for the simulator's known
+tent, journey-provision, ammunition, first-aid, and optional equipment
+operations. Tent readiness explicitly chooses its existing bivouac policy;
+essential provisions and ammunition defer departure; optional first-aid material
+and equipment purchases are skipped. These races do not increment
+reducer-failure, purchase, unit, or spend metrics. Different operations
+(including the typed herbalist path), different messages, and all other merchant
+failures remain fatal and counted. The simulator subscribes to public
+physical-object, containment, measured amount, and container-liquid projections.
+Load and recovery-supply accounting resolve ultimate personal or party custody,
+include nested objects and contained water, scale measured non-food material
+mass, and reject malformed or fixture-rooted object graphs. This is
+observer-safe accounting, not custody authority.
 
 Completed investigation failures publish an ordinary public outcome. When a
 successful reducer call advances the public party clock but publishes no new
@@ -603,89 +616,99 @@ Foraging remains intentionally outside autonomous policy. Its ordinary gateway
 flow requires authoritative terrain attestation; the simulator neither forges
 that attestation nor reads private terrain or resource authority to bypass it.
 
-Medical needs are evaluated before repairs, and repairs before equipment upgrades. The disposable
-fixture accepts a validated disease scenario ID, defaulting to influenza, behind the same claimed-run
-capability boundary as other simulator-only setup. Policy observes only public condition, the narrow
-public symptomatic/critical signal, and the gateway-authorized physiology chart. It never subscribes
-to infection episodes or reconstructs hidden disease truth. A usable chart must belong to the patient,
-name a simulator-controlled living observer who is a co-located member of the patient's current party,
-and meet the public confidence floor. Charts older than one strategic day are rejected. Among fresh
-rows, confidence ranks before recency, then stable observer/chart identity breaks ties, so a
-minute-newer weak self-reading cannot displace a skilled party clinician; that observer performs the
-ordinary intervention reducer as clinician.
+Medical needs are evaluated before repairs, and repairs before equipment
+upgrades. The disposable fixture accepts a validated disease scenario ID,
+defaulting to influenza, behind the same claimed-run capability boundary as
+other simulator-only setup. Policy observes only public condition, the narrow
+public symptomatic/critical signal, and the gateway-authorized physiology chart.
+It never subscribes to infection episodes or reconstructs hidden disease truth.
+A usable chart must belong to the patient, name a simulator-controlled living
+observer who is a co-located member of the patient's current party, and meet the
+public confidence floor. Charts older than one strategic day are rejected. Among
+fresh rows, confidence ranks before recency, then stable observer/chart identity
+breaks ties, so a minute-newer weak self-reading cannot displace a skilled party
+clinician; that observer performs the ordinary intervention reducer as
+clinician.
 
-For every positively scored preparation that the visible herbalist stocks, the policy reproduces the
-authoritative public quote and scores its public generic meter deltas against the chart's public weighted
-differential and disease meter definitions. Expected relief is reduced by direct worsening and adverse
-meter effects. Scores are quantized and ties break by quote then preparation ID, so identical chart,
-inventory, and storefront state yields the same choice. The course is bought into (or reused from) the
-patient's inventory and consumed through the ordinary administration reducer; private sensitivity and
-outcome remain authoritative. Low/no confidence, an active matching intervention, no positive profile,
-missing stock, or an unaffordable course falls back to supportive/natural rest. ORS remains the concrete
-conservative reserve course used by discretionary-spending policy; the medical selector may choose a
-different publicly supported preparation. A positively scored course already in the patient's
-inventory is eligible without any herbalist, stock, or quote; storefront authority is required only
-when purchase is necessary, and suitable owned medicine ranks before purchases. A public active
-intervention suppresses additional administration until it ends. Affordability includes the
-visible cost of the required one-day rest venue, preferring a free temple to a paid inn. An affordable symptomatic character buys a course;
-an unaffordable character, a settlement without an herbalist, or a nonsymptomatic convalescent
-instead takes bounded one-day natural recovery. Equipment maintenance retains one locally quoted
-course as an emergency reserve rather than consuming every coin before a later symptom becomes
-visible. It rests in bounded one-day steps until ready. Before each choice, the
-trace records only public condition, symptomatic status, settlement, purse, observer ID, confidence
-band, a bounded differential summary, preparation, public score, route, quote, authoritative reducer
-outcome, affordability, action, and reason. Recovery completion records
+For every positively scored preparation that the visible herbalist stocks, the
+policy reproduces the authoritative public quote and scores its public generic
+meter deltas against the chart's public weighted differential and disease meter
+definitions. Expected relief is reduced by direct worsening and adverse meter
+effects. Scores are quantized and ties break by quote then preparation ID, so
+identical chart, inventory, and storefront state yields the same choice. The
+course is bought into (or reused from) the patient's inventory and consumed
+through the ordinary administration reducer; private sensitivity and outcome
+remain authoritative. Low/no confidence, an active matching intervention, no
+positive profile, missing stock, or an unaffordable course falls back to
+supportive/natural rest. ORS remains the concrete conservative reserve course
+used by discretionary-spending policy; the medical selector may choose a
+different publicly supported preparation. A positively scored course already in
+the patient's inventory is eligible without any herbalist, stock, or quote;
+storefront authority is required only when purchase is necessary, and suitable
+owned medicine ranks before purchases. A public active intervention suppresses
+additional administration until it ends. Affordability includes the visible cost
+of the required one-day rest venue, preferring a free temple to a paid inn. An
+affordable symptomatic character buys a course; an unaffordable character, a
+settlement without an herbalist, or a nonsymptomatic convalescent instead takes
+bounded one-day natural recovery. Equipment maintenance retains one locally
+quoted course as an emergency reserve rather than consuming every coin before a
+later symptom becomes visible. It rests in bounded one-day steps until ready.
+Before each choice, the trace records only public condition, symptomatic status,
+settlement, purse, observer ID, confidence band, a bounded differential summary,
+preparation, public score, route, quote, authoritative reducer outcome,
+affordability, action, and reason. Recovery completion records
 `recovery_context=public_symptoms` and keeps the pre-rest symptomatic
 observation separate from the newly read post-rest observation; it does not
-claim a private physiological cause.
-The medical-rest schedule is installed before chart, co-location, inventory, and quote selection,
-because that authority call may synchronize a lagging clock; all inputs are re-read before any
-charge. Administration is another terminal boundary: liveness and public condition are re-read
-immediately, actual spend and outcome are recorded, and a dead patient is never sent to a rest
-reducer. Medicated rest reports 1,440 requested minutes separately from the authoritative patient-clock
-delta and contributes only that actual delta to treatment-rest metrics.
-For a nonsymptomatic patient who cannot afford the inn and lacks a supplied
-temple rest, the policy deterministically selects the solvent co-located living
-party member with the greatest public purse after retaining that payer's own
-visible medical reserve (lowest character ID breaks a tie). The patient still
-pays normally whenever able. Sponsorship invokes a narrow ordinary reducer:
-the patient contributes their available purse and the authenticated payer pays
-only the remaining portion of the inn's exact authoritative one-day quote
-directly for the named patient. It rejects stale quotes, self-sponsorship,
-affordable patients, missing party membership, different settlements, missing
-Inn service, insufficient payer funds, and patients without a public recovery
-need; it never transfers arbitrary coin. Party treasury and payer stake are
-diagnostic context, not an extra source of spendable personal funds. If neither
-self-payment nor sponsorship is available, an available Temple remains a
-free, time-advancing last resort even without a full day of visible food, with
-ordinary hunger consequences instead of a zero-time suppression loop.
-Sponsored-rest metrics and bounded events record payer, patient, public quote
-and split, the payer's reserve and spendable funds, public treasury/stake, exact spend,
-pre/post purses, and pre/post public condition. They do not read private disease
-or exposure state. Medication itself remains patient-funded; sponsorship is
+claim a private physiological cause. The medical-rest schedule is installed
+before chart, co-location, inventory, and quote selection, because that
+authority call may synchronize a lagging clock; all inputs are re-read before
+any charge. Administration is another terminal boundary: liveness and public
+condition are re-read immediately, actual spend and outcome are recorded, and a
+dead patient is never sent to a rest reducer. Medicated rest reports 1,440
+requested minutes separately from the authoritative patient-clock delta and
+contributes only that actual delta to treatment-rest metrics. For a
+nonsymptomatic patient who cannot afford the inn and lacks a supplied temple
+rest, the policy deterministically selects the solvent co-located living party
+member with the greatest public purse after retaining that payer's own visible
+medical reserve (lowest character ID breaks a tie). The patient still pays
+normally whenever able. Sponsorship invokes a narrow ordinary reducer: the
+patient contributes their available purse and the authenticated payer pays only
+the remaining portion of the inn's exact authoritative one-day quote directly
+for the named patient. It rejects stale quotes, self-sponsorship, affordable
+patients, missing party membership, different settlements, missing Inn service,
+insufficient payer funds, and patients without a public recovery need; it never
+transfers arbitrary coin. Party treasury and payer stake are diagnostic context,
+not an extra source of spendable personal funds. If neither self-payment nor
+sponsorship is available, an available Temple remains a free, time-advancing
+last resort even without a full day of visible food, with ordinary hunger
+consequences instead of a zero-time suppression loop. Sponsored-rest metrics and
+bounded events record payer, patient, public quote and split, the payer's
+reserve and spendable funds, public treasury/stake, exact spend, pre/post
+purses, and pre/post public condition. They do not read private disease or
+exposure state. Medication itself remains patient-funded; sponsorship is
 deliberately limited to lodging until treatment purchase and custody can be
-extended without broad transfer authority.
-The sponsored-rest requested-minute and elapsed-minute metrics are separate:
-elapsed time is the public patient-clock delta observed after the reducer, so a
-terminal zero-minute or partial interval is not reported as a full day.
-`sponsored_settlement_rests` counts successful reducer callbacks, including a
-zero-time terminal clip; `sponsored_settlement_rest_elapsed_minutes` also
-contributes to the broader `treatment_rest_minutes`, and sponsored payment
-contributes to `treatment_gold_spent`, so those aggregates intentionally
-overlap rather than representing disjoint categories. Medical-decision events
-derive `rest_venue` from the selected action: natural, sponsored, and emergency
-recovery use the natural venue, while buy-and-rest uses the medicated venue.
-While recovery is active it authoritatively replaces the saved
-personality schedule with pure rest, then restores that profile schedule after recovery so labor or
-thievery cannot interrupt convalescence with an incident. Passive party Physiology observation remains
-automatic and authoritative; the simulator does not invoke a diagnosis shortcut. Quests remain suppressed while a member is unsafe. Reports audit
-purchases, administrations, treatment gold and time,
-recoveries, suppression, and terminal deaths.
-Because preparation and treatment can advance time, both generated-case and
-direct-contract drivers re-read the public current leader, owner relationship,
-party membership, life, and readiness after each such batch. They defer before
-choosing a projection or invoking the next quest reducer if ownership changed
-or any member remains unsafe.
+extended without broad transfer authority. The sponsored-rest requested-minute
+and elapsed-minute metrics are separate: elapsed time is the public
+patient-clock delta observed after the reducer, so a terminal zero-minute or
+partial interval is not reported as a full day. `sponsored_settlement_rests`
+counts successful reducer callbacks, including a zero-time terminal clip;
+`sponsored_settlement_rest_elapsed_minutes` also contributes to the broader
+`treatment_rest_minutes`, and sponsored payment contributes to
+`treatment_gold_spent`, so those aggregates intentionally overlap rather than
+representing disjoint categories. Medical-decision events derive `rest_venue`
+from the selected action: natural, sponsored, and emergency recovery use the
+natural venue, while buy-and-rest uses the medicated venue. While recovery is
+active it authoritatively replaces the saved personality schedule with pure
+rest, then restores that profile schedule after recovery so labor or thievery
+cannot interrupt convalescence with an incident. Passive party Physiology
+observation remains automatic and authoritative; the simulator does not invoke a
+diagnosis shortcut. Quests remain suppressed while a member is unsafe. Reports
+audit purchases, administrations, treatment gold and time, recoveries,
+suppression, and terminal deaths. Because preparation and treatment can advance
+time, both generated-case and direct-contract drivers re-read the public current
+leader, owner relationship, party membership, life, and readiness after each
+such batch. They defer before choosing a projection or invoking the next quest
+reducer if ownership changed or any member remains unsafe.
 
 Safety is intentionally strict. URLs are parsed structurally and must be an
 exact credential-free HTTP loopback origin with no path, query, or fragment.
@@ -718,8 +741,11 @@ binary digest.
 
 Current limitations are:
 
-- no native Raiding execution until an authoritative equipped-capability observation exists (generated schedules exclude it and custom schedules are rejected);
-- no parity claim for live bulk multi-day rest, whose aggregate rounding and incident interruption semantics differ from repeated one-day actions;
+- no native Raiding execution until an authoritative equipped-capability
+  observation exists (generated schedules exclude it and custom schedules are
+  rejected);
+- no parity claim for live bulk multi-day rest, whose aggregate rounding and
+  incident interruption semantics differ from repeated one-day actions;
 - the bounded bootstrap applies generated attributes, initial skills, and
   downtime schedules, while equipment starts from the normal character
   creator before policy-driven upgrades;

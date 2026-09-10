@@ -1,6 +1,7 @@
 # Character creator
 
-Native, non-authoritative character design tool backed by `fabelgeist-mhr`. It loads
+Native, non-authoritative character design tool backed by `fabelgeist-mhr`. It
+loads
 Meta's Momentum Human Rig assets locally, exposes its 45 identity coefficients
 and 72 expression coefficients, and previews the generated mesh in Bevy.
 
@@ -40,12 +41,12 @@ joint is positioned at the midpoint of the generated eye joints. Their
 rotations inherit the wrist or head without mirrored negative scale.
 
 Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The
-tool defaults to MHR LOD 1 with pose correctives disabled, preserving facial
-and finger topology while keeping edits interactive. The **Pose-corrective
-model** checkbox reloads the selected LOD with or without MHR's corrective
-network for direct comparison. Recipes contain model coordinates, not authoritative character
-state, and must be regenerated and validated when connected to game creation.
+viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD
+1 with pose correctives disabled, preserving facial and finger topology while
+keeping edits interactive. The **Pose-corrective model** checkbox reloads the
+selected LOD with or without MHR's corrective network for direct comparison.
+Recipes contain model coordinates, not authoritative character state, and must
+be regenerated and validated when connected to game creation.
 
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
@@ -57,14 +58,15 @@ not sent to Bevy as the character's shading normal.
 ## Animation integration
 
 The exported base establishes MHR's stable bone names and hierarchy as the
-animation-pack contract. The preview keeps body identity separate from animation. Prism's retargeting
-pipeline establishes the intended boundary: import a clip into an engine
-skeleton, retarget model-space deltas through semantic rig profiles, then
-encode the resulting MHR joint pose into MHR's 204 model parameters. Identity
-remains this recipe's 45 coefficients, so one retargeted clip works for every
-generated body. The creator currently shows a neutral pose; clip playback
-should reuse Prism's `Retargeter`, `MhrRig`, and `MhrPoseEncoder`, including its
-T-pose reference and hinge correction, rather than copying local rotations.
+animation-pack contract. The preview keeps body identity separate from
+animation. Prism's retargeting pipeline establishes the intended boundary:
+import a clip into an engine skeleton, retarget model-space deltas through
+semantic rig profiles, then encode the resulting MHR joint pose into MHR's 204
+model parameters. Identity remains this recipe's 45 coefficients, so one
+retargeted clip works for every generated body. The creator currently shows a
+neutral pose; clip playback should reuse Prism's `Retargeter`, `MhrRig`, and
+`MhrPoseEncoder`, including its T-pose reference and hinge correction, rather
+than copying local rotations.
 
 ## Identity morphs in game
 
@@ -77,10 +79,11 @@ proportions. Neither form of appearance variation changes tactical physics or
 combat stats.
 
 Every primitive of a clothed character uses the same ordered channels. Fitted
-clothing retains its base trim triangles when refitted for each sample. Parametric
-armor uses the armor generator's corresponding body samples, including its
-anatomical joint landmarks. Each recipe retains its authored vertex and index
-correspondence across morph samples. Export fails if fitting changes either.
+clothing retains its base trim triangles when refitted for each sample.
+Parametric armor uses the armor generator's corresponding body samples,
+including its anatomical joint landmarks. Each recipe retains its authored
+vertex and index correspondence across morph samples. Export fails if fitting
+changes either.
 
 Breastplate identity targets transfer body displacement through fixed
 correspondence on the smooth carrier. Refined flute vertices interpolate that
@@ -144,7 +147,8 @@ Inspect the staged equipment before copying its GLBs and manifest into
 All armor catalog entries have authored parametric recipes. Preview, character
 export and equipment export use the same recipe dispatch, fit and material.
 Catalog loading rejects armor without a recipe. The geometry code lives in
-`adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit envelopes,
+`adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit
+envelopes,
 and transfer of UVs, skinning and morph targets.
 
 Use `--write-armor-designs target/armor-designs.json` to write the editable
@@ -156,10 +160,12 @@ millimetres and ratios use permille. The serialized design contributes to the
 asset's design hash and generator version.
 
 The breastplate editor provides Rounded, Central ridge, Peascod, and Fluted
-starting points. Its `profile` controls projection, upper-chest recession, the height of that projection,
-lateral fullness, medial ridge, and waist-point drop/width. Waist projection is independent of chest fullness; the flange follows the
-waist point without a discontinuity when chest projection height changes. Opening, length,
-waist width, clearance, and flange controls remain independent.
+starting points. Its `profile` controls projection, upper-chest recession, the
+height of that projection, lateral fullness, medial ridge, and waist-point
+drop/width. Waist projection is independent of chest fullness; the flange
+follows the waist point without a discontinuity when chest projection height
+changes. Opening, length, waist width, clearance, and flange controls remain
+independent.
 
 Set `fluting` to `null` for a plain plate, or provide the flute recipe. Count
 (2–24), width (350–850 permille of pitch), depth (1–4 mm), spread, lower spread,
@@ -205,8 +211,8 @@ blends. Use `--allow-partial` only for a deliberately filtered export.
 For static review of the exported identity morphs, run
 `python scripts/export_armor_morph_review.py STAGING_DIRECTORY OUTPUT_DIRECTORY`.
 This evaluates the actual body and armor GLBs at neutral, positive, negative and
-mixed identity blends. It does not refit substitute geometry. Use the rendering and
-mesh-check commands above on each resulting directory. Skeletal proportions
+mixed identity blends. It does not refit substitute geometry. Use the rendering
+and mesh-check commands above on each resulting directory. Skeletal proportions
 and animation still require the gameplay renderer.
 
 The native `animation-viewer` supports `--armor-harness plate|mail|padded` with

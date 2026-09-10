@@ -26,7 +26,8 @@ brighter than magnitude 6.5.
 
 - Source catalogue: <https://cdsarc.cds.unistra.fr/ftp/cats/I/239/>
 - Catalogue documentation: <https://cdsarc.cds.unistra.fr/ftp/cats/I/239/ReadMe>
-- Mission and catalogue overview: <https://www.cosmos.esa.int/web/hipparcos/catalogues>
+- Mission and catalogue overview:
+  <https://www.cosmos.esa.int/web/hipparcos/catalogues>
 - Credit: ESA, 1997, *The Hipparcos and Tycho Catalogues*, ESA SP-1200
 
 ## Fantastic-disease folklore research
@@ -72,8 +73,10 @@ The strategic web interface vendors monochrome SVG artwork from
 [Game-Icons.net](https://game-icons.net/), obtained from Iconify's
 `@iconify-json/game-icons` package version 1.2.4.
 
-- License: [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/)
-- Upstream repository and license: <https://github.com/game-icons/icons/blob/master/license.txt>
+- License:
+  [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/)
+- Upstream repository and license:
+  <https://github.com/game-icons/icons/blob/master/license.txt>
 - Iconify collection: <https://icon-sets.iconify.design/game-icons/>
 
 Upstream contributors (the complete roster in the upstream license): Lorc,
@@ -89,26 +92,25 @@ Iconify metadata does not preserve per-glyph authorship or CC0 status.
 Vendored icon names:
 
 acrobatic, ancient-sword, anvil, arm, arm-bandage, armor-cuisses, armor-vest,
-awareness, bandage-roll, barbute, bed, beer-stein, belt-armor, biceps, bleeding-eye,
-bleeding-wound, bo, bordered-shield, bow-arrow, bowie-knife, bracer, brain,
-bread, breastplate, broad-dagger, broadsword, brodie-helmet, broken-heart,
-bullseye, byzantin-temple, caduceus, calendar, campfire, camping-tent, castle, chain-mail, check-mark,
-chest-armor, church, clothes, coins, coma, conversation, crested-helmet,
-cross-mark, crossbow, crossed-swords, crown, daggers, death-skull, dodge, duration,
-eye-target, flame, flanged-mace, gothic-cross, greaves, halberd, hammer-nails, hammer-sickle,
-heart-beats, heart-minus, heavy-helm, helmet, help, holy-symbol, hood, house,
-human-ear, inner-self, juggler, knapsack, layered-armor, leg, light-helm,
-lockpicks, mailed-fist, mail-shirt, meal, medical-pack, metal-skirt,
-mounted-knight, musket, night-sleep, open-book, open-chest, person, piercing-sword,
-plain-arrow, plain-dagger, pocket-bow, prayer, pteruges, relic-blade, rifle,
-roman-shield, rose, round-shield, running-ninja, saber-slash, samara-mosque,
-scales, scalpel, shield,
-shield-echoes, shirt, shop, skirt, sleeveless-jacket, spear-hook, spears,
-snowflake-1, spiked-halo, split-cross, stiletto, stomach, stopwatch, sun, sword-brandish, sword-clash,
-sword-hilt, templar-shield,
-terror, tightrope, torch, treasure-map, trousers, two-handed-sword, visored-helm,
-warhammer, water-bottle, water-drop, waterskin, weight, wingfoot, wood-axe,
-wood-club.
+awareness, bandage-roll, barbute, bed, beer-stein, belt-armor, biceps,
+bleeding-eye, bleeding-wound, bo, bordered-shield, bow-arrow, bowie-knife,
+bracer, brain, bread, breastplate, broad-dagger, broadsword, brodie-helmet,
+broken-heart, bullseye, byzantin-temple, caduceus, calendar, campfire,
+camping-tent, castle, chain-mail, check-mark, chest-armor, church, clothes,
+coins, coma, conversation, crested-helmet, cross-mark, crossbow, crossed-swords,
+crown, daggers, death-skull, dodge, duration, eye-target, flame, flanged-mace,
+gothic-cross, greaves, halberd, hammer-nails, hammer-sickle, heart-beats,
+heart-minus, heavy-helm, helmet, help, holy-symbol, hood, house, human-ear,
+inner-self, juggler, knapsack, layered-armor, leg, light-helm, lockpicks,
+mailed-fist, mail-shirt, meal, medical-pack, metal-skirt, mounted-knight,
+musket, night-sleep, open-book, open-chest, person, piercing-sword, plain-arrow,
+plain-dagger, pocket-bow, prayer, pteruges, relic-blade, rifle, roman-shield,
+rose, round-shield, running-ninja, saber-slash, samara-mosque, scales, scalpel,
+shield, shield-echoes, shirt, shop, skirt, sleeveless-jacket, spear-hook,
+spears, snowflake-1, spiked-halo, split-cross, stiletto, stomach, stopwatch,
+sun, sword-brandish, sword-clash, sword-hilt, templar-shield, terror, tightrope,
+torch, treasure-map, trousers, two-handed-sword, visored-helm, warhammer,
+water-bottle, water-drop, waterskin, weight, wingfoot, wood-axe, wood-club.
 
 The files in `crates/strategic-web/static/icons/game/` were converted from
 Iconify JSON bodies into standalone SVGs without altering the artwork. CSS
@@ -121,7 +123,9 @@ The Religion skill icons `fontawesome-cross.svg`,
 from Font Awesome Free 7.3.1 by Fonticons, Inc. They are licensed under
 [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-- Sources: <https://fontawesome.com/icons/cross>, <https://fontawesome.com/icons/star-and-crescent>, and <https://fontawesome.com/icons/star-of-david>
+- Sources: <https://fontawesome.com/icons/cross>,
+  <https://fontawesome.com/icons/star-and-crescent>, and
+  <https://fontawesome.com/icons/star-of-david>
 - License: <https://fontawesome.com/license/free>
 
 ## NASA Scientific Visualization Studio CGI Moon Kit
@@ -159,7 +163,11 @@ UnifrakturCook Bold from Google Fonts. Both are distributed under the SIL Open
 Font License 1.1. The complete copyright and license notices accompany the fonts
 in `crates/adventuresim-building-generator/assets/fonts/`.
 
-- Grenze Gotisch source: <https://github.com/Omnibus-Type/Grenze-Gotisch/blob/master/fonts/ttf/GrenzeGotisch-Bold.ttf>
-- Grenze Gotisch SHA-256: `822606a1aaf0dd58c653ca8b324c6ce7f5686dc91861d094537c4f486a610ddb`
-- UnifrakturCook source: <https://github.com/google/fonts/blob/main/ofl/unifrakturcook/UnifrakturCook-Bold.ttf>
-- UnifrakturCook SHA-256: `ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd`
+- Grenze Gotisch source:
+  <https://github.com/Omnibus-Type/Grenze-Gotisch/blob/master/fonts/ttf/GrenzeGotisch-Bold.ttf>
+- Grenze Gotisch SHA-256:
+  `822606a1aaf0dd58c653ca8b324c6ce7f5686dc91861d094537c4f486a610ddb`
+- UnifrakturCook source:
+  <https://github.com/google/fonts/blob/main/ofl/unifrakturcook/UnifrakturCook-Bold.ttf>
+- UnifrakturCook SHA-256:
+  `ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd`

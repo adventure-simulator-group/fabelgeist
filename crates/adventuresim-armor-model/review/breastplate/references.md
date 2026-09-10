@@ -7,7 +7,8 @@ from faulds, tassets, gussets, reinforcing plates, straps, and decoration, which
 are outside this simple breastplate recipe's scope. Reference photographs and
 generated render images remain outside Git.
 
-The Met's [survey of sixteenth-century armor fashion](https://www.metmuseum.org/pt/essays/fashion-in-european-armor-1500-1600)
+The Met's
+[survey of sixteenth-century armor fashion](https://www.metmuseum.org/pt/essays/fashion-in-european-armor-1500-1600)
 describes an early rounded breast, a return of the medial ridge and projecting
 point from the 1530s, then a progressively lower point towards the late-century
 peascod. These are shape families rather than an exact chronology for every
@@ -15,9 +16,11 @@ region. The following specific objects anchor visual comparison.
 
 ## Rounded, without flutes
 
-- [Met 22741, Greenwich garniture dated 1527](https://www.metmuseum.org/art/collection/search/22741), accession 19.131.1a-r, t-w, .2a-f, l.
+- [Met 22741, Greenwich garniture dated 1527](https://www.metmuseum.org/art/collection/search/22741),
+  accession 19.131.1a-r, t-w, .2a-f, l.
 - [Viewed three-quarter photograph](https://collectionapi.metmuseum.org/api/collection/v1/iiif/22741/60375/main-image).
-- Visible target: a broad, softly convex front, smooth chest-to-belly transition,
+- Visible target: a broad, softly convex front, smooth chest-to-belly
+  transition,
   short torso ending at a restrained waist, and no long pendant point. The front
   should read as one enclosing volume rather than two anatomical pectoral cups.
 - Scope limitation: the full mounted garniture contains reinforcing pieces and
@@ -32,7 +35,8 @@ region. The following specific objects anchor visual comparison.
   halves; the lower chest projects while the waist returns inward. The front is
   compact, with a shallow central drop at the lower edge and tall curved arm
   openings. It does not have the long lower point of the peascod reference.
-- This is a restrained medial-ridged reference. The viewed front photograph alone
+- This is a restrained medial-ridged reference. The viewed front photograph
+  alone
   does not establish the depth of a sharply projecting tapul; a stronger tapul
   preset needs a corresponding verified side photograph before shape acceptance.
 
@@ -59,8 +63,10 @@ region. The following specific objects anchor visual comparison.
   the volume. The lowest point is smoothly rounded rather than a needle or
   free-standing spike. The museum explicitly identifies its point as below the
   waistline. Its articulated gussets and etched bands are separate details.
-- [Met 23939, George Clifford's Greenwich garniture, 1586](https://www.metmuseum.org/art/collection/search/23939), accession 32.130.6a-y, provides the worn silhouette.
-- [Viewed three-quarter photograph](https://collectionapi.metmuseum.org/api/collection/v1/iiif/23939/64763/main-image): a narrow waist at the flanks, a longer front
+- [Met 23939, George Clifford's Greenwich garniture, 1586](https://www.metmuseum.org/art/collection/search/23939),
+  accession 32.130.6a-y, provides the worn silhouette.
+- [Viewed three-quarter photograph](https://collectionapi.metmuseum.org/api/collection/v1/iiif/23939/64763/main-image):
+  a narrow waist at the flanks, a longer front
   descending centrally, and a clear transition to separate flaring hip defenses.
 
 ## Rounded with flutes
@@ -71,10 +77,13 @@ region. The following specific objects anchor visual comparison.
   closely spaced vertical channels fan modestly outward towards their upper
   ends. Fluting occupies a bounded band across the front, leaving broad smooth
   upper-chest and waist margins. The underlying shell remains legible beneath
-  the corrugation; these are surface channels, not rods laid on top of the plate.
+  the corrugation; these are surface channels, not rods laid on top of the
+  plate.
   The attached fauld is outside the front-shell comparison.
-- [Met 24807, Nuremberg armor, ca. 1520 and later](https://www.metmuseum.org/art/collection/search/24807), accession 49.163.1a-s.
-- [Viewed three-quarter photograph](https://collectionapi.metmuseum.org/api/collection/v1/iiif/24807/65320/main-image) supplements the rounded worn volume and finer fluting.
+- [Met 24807, Nuremberg armor, ca. 1520 and later](https://www.metmuseum.org/art/collection/search/24807),
+  accession 49.163.1a-s.
+- [Viewed three-quarter photograph](https://collectionapi.metmuseum.org/api/collection/v1/iiif/24807/65320/main-image)
+  supplements the rounded worn volume and finer fluting.
   The museum identifies its breastplate as unusually two-piece and its waist
   plates/tassets as later: do not claim a single-shell recipe reconstructs that
   plate arrangement.

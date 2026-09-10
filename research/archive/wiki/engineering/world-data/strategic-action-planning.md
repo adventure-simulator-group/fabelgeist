@@ -53,16 +53,17 @@ private requirement list, snapshot digest, authority binding, or effect plan.
 ## Time and interruption laws
 
 `resolve_time` clips one requested interval against the earliest terminal or
-interruption boundary. A boundary exactly at the requested endpoint is still
-a boundary outcome, not completion. Boundaries at or before the actor's
-current minute produce zero elapsed minutes, and a terminal boundary wins a
-tie, avoiding order-dependent results. If the positive duration would reach or
-overflow the strategic clock ceiling, `ClockExhausted` clips at `u64::MAX`;
-the ceiling is never reported as successful completion. Clipping a duration in partitions reaches
-the same end minute and completion-effect eligibility as clipping the combined
-duration once. Domains must use `permits_completion_effects` before emitting
-completion-only consequences; interrupted, terminal, exhausted-clock, and
-zero-elapsed plans remain non-completions.
+interruption boundary. A boundary exactly at the requested endpoint is still a
+boundary outcome, not completion. Boundaries at or before the actor's current
+minute produce zero elapsed minutes, and a terminal boundary wins a tie,
+avoiding order-dependent results. If the positive duration would reach or
+overflow the strategic clock ceiling, `ClockExhausted` clips at `u64::MAX`; the
+ceiling is never reported as successful completion. Clipping a duration in
+partitions reaches the same end minute and completion-effect eligibility as
+clipping the combined duration once. Domains must use
+`permits_completion_effects` before emitting completion-only consequences;
+interrupted, terminal, exhausted-clock, and zero-elapsed plans remain
+non-completions.
 
 ## Domain integrations
 

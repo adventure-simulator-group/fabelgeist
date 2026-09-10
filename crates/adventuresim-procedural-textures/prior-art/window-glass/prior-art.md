@@ -2,7 +2,7 @@
 
 The repository observations below describe the original research snapshot. For
 the current generator decisions and authoring controls, see the
-[catalogue approach review](../../catalogue-review.md).
+[crate documentation](../../README.md).
 
 ## Scope and historical contract
 
@@ -24,7 +24,8 @@ Research on fifteenth- and sixteenth-century Low Countries glass similarly
 connects the region to those production centres and finds that technique,
 composition, thickness, pane size, and leadwork all affect transmitted daylight
 ([Heritage Science: interaction between daylight and fifteenth- and
-sixteenth-century glass windows](https://pmc.ncbi.nlm.nih.gov/articles/PMC8556355/)).
+sixteenth-century glass
+windows](https://pmc.ncbi.nlm.nih.gov/articles/PMC8556355/)).
 
 **Evidence boundary.** These sources establish plausible manufacturing families
 and optical consequences, not a census of every German urban window. Glazing
@@ -203,7 +204,8 @@ components; code synchronized their transforms when a window or shutter
 opened. The authors explicitly describe the result as a real-time interactive
 Unreal scene rather than an offline material study
 ([Van der Heijden et al., "Virtual Reconstruction of the Birthplace of
-Rembrandt van Rijn"](https://isprs-archives.copernicus.org/articles/XLII-2-W15/397/2019/isprs-archives-XLII-2-W15-397-2019.pdf)).
+Rembrandt van
+Rijn"](https://isprs-archives.copernicus.org/articles/XLII-2-W15/397/2019/isprs-archives-XLII-2-W15-397-2019.pdf)).
 
 A narrower practitioner tutorial by technical VFX artist Jen S Abbott builds a
 two-sided translucent Unreal master material with parameterized specular,

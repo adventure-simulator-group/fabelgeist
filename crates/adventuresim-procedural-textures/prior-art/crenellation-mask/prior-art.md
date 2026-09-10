@@ -84,7 +84,8 @@ An NVIDIA Texture Tools engineer also cautions that coverage scaling can make a
 coarse mip substantially more opaque, especially for thin features and grazing
 views; preserving aggregate coverage can reveal the underlying card shape in
 ways the original nearly invisible mip did not ([NVIDIA Developer Forums:
-Scaling alpha for mipmaps](https://forums.developer.nvidia.com/t/nvidia-texture-tools-exporter-scaling-alpha-for-mipmaps-grass/155854)).
+Scaling alpha for
+mipmaps](https://forums.developer.nvidia.com/t/nvidia-texture-tools-exporter-scaling-alpha-for-mipmaps-grass/155854)).
 
 **Inference for this recipe.** Box-filtering alpha preserves integrated alpha,
 but that is not identical to preserving occupancy after a 0.5 alpha test. The
@@ -105,7 +106,8 @@ thresholded at 0.5. Bilinear interpolation then reconstructs the boundary more
 faithfully than interpolating binary coverage under magnification. Valve calls
 out alpha-tested impostors as an intended use, but also documents topology and
 spread limitations ([Valve: Improved Alpha-Tested Magnification for Vector
-Textures and Special Effects](https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf)).
+Textures and Special
+Effects](https://steamcdn-a.akamaihd.net/apps/valve/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf)).
 
 Guerrilla's GDC slides are an important qualification: their foliage used
 signed-distance alpha and still required a custom coverage-preserving mip chain.

@@ -12,7 +12,8 @@ Run `just init-jung-pnv` to download the categorical current raster plus the six
 current-class COGs into `target/world-data-sources/raw/jung-pnv/`. The atomic
 initializer pins every official filename, byte size, published MD5, and verified
 SHA-256, rejects oversized streams, and writes a deterministic adjacent
-`jung-pnv-manifest.json`. Rasters and the manifest are ignored local source data;
+`jung-pnv-manifest.json`. Rasters and the manifest are ignored local source
+data;
 they are never distributed with the repository. Use `--potential-vegetation-dir`
 to select another verified initialization directory.
 
@@ -33,8 +34,8 @@ scores are stored; they are not asserted to sum to 10,000. Otherwise the
 categorical raster is used, choosing greatest valid overlap with stable class
 ties. A cell with neither form of source evidence receives a deterministic
 non-unknown class inferred from already typed forest, elevation, latitude, and
-HYDE 3.5 context. Reports reconcile posterior, categorical, and inferred outcomes
-exactly to settlement count.
+HYDE 3.5 context. Reports reconcile posterior, categorical, and inferred
+outcomes exactly to settlement count.
 
 Inference-rules version 10 and world schema version 26 identify the complete
 post-hydrology synthesis contract. Older artifacts or caches cannot share
@@ -42,23 +43,24 @@ identity with Jung-derived or reconstructed historical results.
 
 Potential vegetation remains stored unchanged as the modern-climate ecological
 envelope. After soil and hydrology finalization, the compiler separately stores
-dominant 1544 cover. The greatest sampled HYDE 3.5 human fraction is selected first
-(stable tie order: built, cropland, pasture), then becomes direct only when it
-meets its own threshold: 10% built or 35% cropland/pasture.
+dominant 1544 cover. The greatest sampled HYDE 3.5 human fraction is selected
+first (stable tie order: built, cropland, pasture), then becomes direct only
+when it meets its own threshold: 10% built or 35% cropland/pasture.
 Deterministic missing-HYDE profiles are never labeled direct. Natural cover is
-derived from Jung, Copernicus forest structure,
-EU-Trees4F candidates, soil/geology, elevation, hydrology, latitude, and OWDA
-moisture. Only genuinely close natural scores use coordinate-and-schema hashing
-as a deterministic tie-break. Fallback Jung wetland/marine classes cannot emit
-water cover: wetlands require wet soil plus freshwater/tidal convergence, while
-transitional water requires tidal evidence.
+derived from Jung, Copernicus forest structure, EU-Trees4F candidates,
+soil/geology, elevation, hydrology, latitude, and OWDA moisture. Only genuinely
+close natural scores use coordinate-and-schema hashing as a deterministic
+tie-break. Fallback Jung wetland/marine classes cannot emit water cover:
+wetlands require wet soil plus freshwater/tidal convergence, while transitional
+water requires tidal evidence.
 
-Attribution/modification notice: Fabelgeist downloads Jung's published
-v1.1 rasters unchanged, then projects settlement cells, area-aggregates posterior
+Attribution/modification notice: Fabelgeist downloads Jung's published v1.1
+rasters unchanged, then projects settlement cells, area-aggregates posterior
 means, quantizes values, and applies documented categorical/inference fallbacks.
 
 The terrain pipeline separately extracts a bounded wetland mask from the pinned
 1 km wetland posterior (`mean >= 0.5`), using categorical class 5 only where the
 posterior is nodata. Pixel centers are clipped to playable bounds and capped at
-100,000 candidates. The pinned SHA-256, accepted pixel count, and terrain package
-digest are recorded; this is source coverage, not settlement extrapolation.
+100,000 candidates. The pinned SHA-256, accepted pixel count, and terrain
+package digest are recorded; this is source coverage, not settlement
+extrapolation.

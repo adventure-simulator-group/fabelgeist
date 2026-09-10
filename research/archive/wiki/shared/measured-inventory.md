@@ -31,7 +31,8 @@ Material-lot or batch identity remains a separate conserved referent.
 
 Capabilities compose. Measurement, armor, weapon, food, alcohol, durability,
 and similar profiles are authored as typed capability payloads in the embedded
-[item definition catalog](../contributing/item-authoring.md), keyed by stable `item_id`,
+[item definition catalog](../contributing/item-authoring.md), keyed by stable
+`item_id`,
 not variants in one giant exclusive `ItemKind` union. A bottled medicine may
 be both alcohol and food; clothing may also be armor. An exhaustive union would
 make those legitimate combinations awkward or impossible.
@@ -443,12 +444,12 @@ container separately in expanded details; empty containers say "Empty" rather
 than "0 bottles." Search and sort use effective total mass/value.
 
 Opening is normally implicit on first use but can be explicit where the player
-must choose a bottle. Transfer, discard, drink/eat/wash, cooking, surgery, trade,
-and liquidation dialogs preview the exact row, amount, effective mass/value
-change, and post-action remainder. Controls use integer step sizes declared by
-the family profile and clamp only in the UI; reducers independently reject
-invalid input. The initial UI offers complete-row transfer/sale and bounded
-consumption, not pouring/mixing.
+must choose a bottle. Transfer, discard, drink/eat/wash, cooking, surgery,
+trade, and liquidation dialogs preview the exact row, amount, effective
+mass/value change, and post-action remainder. Controls use integer step sizes
+declared by the family profile and clamp only in the UI; reducers independently
+reject invalid input. The initial UI offers complete-row transfer/sale and
+bounded consumption, not pouring/mixing.
 
 Public personal and party projections add the standard profile plus stable
 measured-object ID, immutable object basis/family display fields, and current

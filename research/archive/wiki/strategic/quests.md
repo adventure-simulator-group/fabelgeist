@@ -149,5 +149,6 @@ world authority:
   objectives, missions, outcomes, local problems, recruitment, and incidents.
 - [Bestiary authority](../shared/bestiary.md) covers stable threat identity,
   physical knowledge, and preparation information.
-- [Strategic simulation](../engineering/strategic-simulation.md) covers automated
+- [Strategic simulation](../engineering/strategic-simulation.md) covers
+  automated
   balance and regression evaluation.

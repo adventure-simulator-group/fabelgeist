@@ -2,14 +2,17 @@
 
 The [museum photographs](references.md) guide rounded, centrally ridged, low
 peascod, and fluted rounded front plates. These recipes simplify the front/back
-shells and their integral waist flanges. They do not recreate separate plackarts,
-articulated gussets, lance rests, or separate fauld lames from the references.
+shells and their integral waist flanges. They do not recreate separate
+plackarts, articulated gussets, lance rests, or separate fauld lames from the
+references.
 
 ## Editable recipes
 
-- [Rounded](designs/rounded.json): upper belly fullness and a shorter, contracted waist.
+- [Rounded](designs/rounded.json): upper belly fullness and a shorter,
+  contracted waist.
 - [Central ridge](designs/tapul.json): medial ridge and lower chest projection.
-- [Peascod](designs/peascod.json): fullness at the waist with a descending central point.
+- [Peascod](designs/peascod.json): fullness at the waist with a descending
+  central point.
 - [Fluted](designs/fluted.json): rounded shell with 16 flutes and a modest fan.
 
 The creator exposes the same parameters in its breastplate panel and accepts
@@ -20,12 +23,12 @@ implementation. A separate plackart would require separate construction.
 `profile.projection_height` locates chest fullness between waist and neckline.
 `waist_projection` independently controls projection at the flange seam.
 `upper_chest_recession` independently straightens the upper slope of ridged
-profiles without moving the waist or neckline. Projection,
-medial ridge, and waist-point drop use millimetres. `waist_point_width` controls
-how far the pointed lower boundary extends towards the flanks. Fullness controls the lateral
+profiles without moving the waist or neckline. Projection, medial ridge, and
+waist-point drop use millimetres. `waist_point_width` controls how far the
+pointed lower boundary extends towards the flanks. Fullness controls the lateral
 spread of the projected front. `fluting.width` is the fraction of each flute's
-pitch occupied by relief; count and width can change independently. `spread`
-and `lower_spread` control total pattern breadth and fan, while `start`, `end`,
+pitch occupied by relief; count and width can change independently. `spread` and
+`lower_spread` control total pattern breadth and fan, while `start`, `end`,
 and `fade` leave smooth margins. Fluting is confined to the front shell.
 
 Detail sampling follows flute centers and edges. The fan uses lateral planes
@@ -53,12 +56,12 @@ blender --background --python-exit-code 1 --python scripts/check_breastplate_ass
 
 The GLB audit checks 110 static identity configurations: neutral, 45 individual
 channels at both +/-0.35 bounds, three aggregate mixtures, and 16 seeded corner
-mixtures (seed 1640). It checks closure/winding, export attributes and morph seams,
-nonadjacent triangle intersections, and body clearance sampled at all vertices,
-edge midpoints and face centroids, with a 1 mm penetration tolerance. Reports
-retain exact input hashes, weights, and failures locally. Skeletal poses and
-animation are outside this static identity audit; finite nearest-surface samples
-are not a continuous containment proof.
+mixtures (seed 1640). It checks closure/winding, export attributes and morph
+seams, nonadjacent triangle intersections, and body clearance sampled at all
+vertices, edge midpoints and face centroids, with a 1 mm penetration tolerance.
+Reports retain exact input hashes, weights, and failures locally. Skeletal poses
+and animation are outside this static identity audit; finite nearest-surface
+samples are not a continuous containment proof.
 
 ## Fitting and morphs
 
@@ -77,5 +80,5 @@ been replaced; installed game assets, skeletal poses, and animation have not
 been validated for these new recipes. Parameter limits constrain inputs, not a
 claim that every combination throughout the Cartesian product is certified.
 
-Review reports, images, exports, binaries, and raw diagnostics remain local under
-`target/breastplate-review`. Recipes and source links are retained here.
+Review reports, images, exports, binaries, and raw diagnostics remain local
+under `target/breastplate-review`. Recipes and source links are retained here.

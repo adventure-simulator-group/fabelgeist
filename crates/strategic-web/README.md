@@ -19,16 +19,20 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 
 ## Features
 
-- **SSR (Server-Side Rendering)**: All HTML is rendered on the server using Maud templates
-- **HATEOAS**: Hypermedia-driven navigation with Datastar for partial page updates
+- **SSR (Server-Side Rendering)**: All HTML is rendered on the server using Maud
+  templates
+- **HATEOAS**: Hypermedia-driven navigation with Datastar for partial page
+  updates
 - **SpacetimeDB Integration**: Uses the HTTP API to query and call reducers
-- **Environmental shell**: dark neutral entry screens and location-aware strategic lighting
+- **Environmental shell**: dark neutral entry screens and location-aware
+  strategic lighting
 
 ## Running Locally
 
 ### Prerequisites
 
-1. SpacetimeDB CLI/server 2.6.1 running locally with `adventuresim-stdb-module` published
+1. SpacetimeDB CLI/server 2.6.1 running locally with `adventuresim-stdb-module`
+   published
 2. Rust toolchain
 
 ### Start SpacetimeDB
@@ -77,8 +81,10 @@ Environment variables:
 
 ### Characters
 - `GET /characters` - List characters
-- `GET /characters/candidates` - Bootstrap or render five preview-only first-character candidates
-- `POST /characters/candidates` - Confirm and authoritatively create one generated candidate
+- `GET /characters/candidates` - Bootstrap or render five preview-only
+  first-character candidates
+- `POST /characters/candidates` - Confirm and authoritatively create one
+  generated candidate
 - `GET /characters/new` - Redirect to generated candidate onboarding
 - `GET /characters/:id` - Character sheet
 - `POST /characters/:id` - Update character
@@ -108,7 +114,8 @@ Environment variables:
 
 ### Missions
 - `POST /missions/enter` - Enter a tactical mission (party leader only)
-- `GET /missions/:id/status` - Mission status page/fragment (authorized members only)
+- `GET /missions/:id/status` - Mission status page/fragment (authorized members
+  only)
 - `POST /missions/:id/cancel` - Cancel mission (party leader or solo owner)
 
 ## Docker
@@ -165,10 +172,10 @@ Server returns HTML fragments that get merged into the page.
 ## Frontend type boundaries
 
 Route inputs are parsed into closed Rust types before strategic logic runs.
-Character-session IDs, location kinds, quest and mission states, queued
-party actions, and inventory transfer entries do not remain arbitrary strings.
-Queued party actions serialize a tagged `PartyAction` enum; approval reconstructs
-the reducer call from that variant instead of replaying an arbitrary reducer name
+Character-session IDs, location kinds, quest and mission states, queued party
+actions, and inventory transfer entries do not remain arbitrary strings. Queued
+party actions serialize a tagged `PartyAction` enum; approval reconstructs the
+reducer call from that variant instead of replaying an arbitrary reducer name
 and positional JSON arguments.
 
 Cross-feature route support is organized under `routes/data.rs`,

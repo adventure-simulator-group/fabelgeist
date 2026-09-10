@@ -1,6 +1,7 @@
 # SoilGrids prediction and soil finalization
 
-Settlement soil is based on [ISRIC SoilGrids](https://www.isric.org/explore/soilgrids),
+Settlement soil is based on
+[ISRIC SoilGrids](https://www.isric.org/explore/soilgrids),
 rolling version 2, under CC BY 4.0. Restricted legacy European vector data is
 not an accepted runtime or distributable input.
 
@@ -25,18 +26,19 @@ python scripts/init_soilgrids.py --verify-only --grid-cell-size-meters 1000
 ```
 
 Only strictly constructed official `files.isric.org` WebDAV/VRT URLs are used.
-GDAL opens the exact allowlisted master VRT through `/vsicurl/` so relative tile references
-remain attached to the official URL. Only the exact HTTPS host and
+GDAL opens the exact allowlisted master VRT through `/vsicurl/` so relative tile
+references remain attached to the official URL. Only the exact HTTPS host and
 `/soilgrids/latest/` path are accepted. Metadata-probe redirects are disabled
-and fail closed; a metadata redirect requires an explicit code/source-contract update. Preparation is
-fixed to the aligned EPSG:3035 Europe extent and invokes `gdalwarp` with
-`-t_srs EPSG:3035 -tr N N -tap`. The atomic manifest records retrieval time,
-source inventory, source and prepared sizes/SHA-256 hashes, extent, origin,
-CRS, and cell size. A complete generation is staged under a content-addressed
-directory and becomes active only when the root manifest pointer is atomically
-replaced, so a failed 207-file build cannot corrupt the prior generation. The
-Rust importer rechecks inventory, hashes, dimensions, nodata, Float32 band and
-compression shape, EPSG:3035 GeoKeys, transform, units, and canonical grid.
+and fail closed; a metadata redirect requires an explicit code/source-contract
+update. Preparation is fixed to the aligned EPSG:3035 Europe extent and invokes
+`gdalwarp` with `-t_srs EPSG:3035 -tr N N -tap`. The atomic manifest records
+retrieval time, source inventory, source and prepared sizes/SHA-256 hashes,
+extent, origin, CRS, and cell size. A complete generation is staged under a
+content-addressed directory and becomes active only when the root manifest
+pointer is atomically replaced, so a failed 207-file build cannot corrupt the
+prior generation. The Rust importer rechecks inventory, hashes, dimensions,
+nodata, Float32 band and compression shape, EPSG:3035 GeoKeys, transform, units,
+and canonical grid.
 
 Interrupted preparation preserves its private `.soilgrids-staging` directory.
 Each completed raster is validated and hash-checkpointed before the next layer
@@ -98,9 +100,10 @@ layers are prepared. Plan and unit-test modes remain useful without GDAL.
 6. The final historical-environment stage consumes the finalized profile. It
    can use acidity/fertility for heath, shallow/rocky/dry conditions for sparse
    cover, and convergent soil/hydrology/Jung evidence for wetland. It does not
-   mutate peat from SOC alone, invent slope/roughness, or replace geology-derived
+   mutate peat from SOC alone, invent slope/roughness, or replace
+   geology-derived
    parent material.
 
 Rules are deterministic and versioned. A full prepared-source audit remains
-blocked by the absent official HYDE 3.5, forest, EU-Hydro, and prepared SoilGrids
-inputs; this repository does not claim full #67/#68 source coverage.
+blocked by the absent official HYDE 3.5, forest, EU-Hydro, and prepared
+SoilGrids inputs; this repository does not claim full #67/#68 source coverage.

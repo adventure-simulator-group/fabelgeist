@@ -32,7 +32,8 @@ art.
 - Four by four sub-texel sampling produces a binary mip-zero opacity mask.
 - The recipe emits opacity, front/back albedo, front/back normals, height, and
   packed AO/roughness/metallic. Front albedo has exactly two solid colors:
-  lamina `[66, 112, 48]` and vein `[129, 154, 75]`; the reverse lamina is lighter
+  lamina `[66, 112, 48]` and vein `[129, 154, 75]`; the reverse lamina is
+  lighter
   `[82, 119, 61]`. Roughness is 216/255 and metallic is zero.
 - Opacity mips take the maximum of each 2 by 2 source block. This guarantees
   survival but dilates the mask. Color mips select an existing covered palette
@@ -49,7 +50,8 @@ leaves as broadly ovate to elliptic, 5–12 cm long and 4–12 cm wide, with a
 narrowly cordate to rounded base, abruptly acuminate apex, and coarsely doubly
 serrate margin. It records seven to eight, occasionally nine, pairs of primary
 secondary veins ([Hicks 2023, Biological Flora of Britain and Ireland:
-*Corylus avellana*](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2745.14008)).
+*Corylus
+avellana*](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/1365-2745.14008)).
 Trees and Shrubs Online independently describes a rounded to obovate blade,
 narrowly cordate base, abrupt acuminate tip, and coarsely double-toothed or
 slightly lobulate margin ([Trees and Shrubs Online: *Corylus
@@ -115,7 +117,8 @@ vein axils. Keep it below the frequency of the double teeth.
 exposes shape controls, adds rough displacement, and creates variations in
 planted shape and size. Insect bites are an optional variation layered on the
 leaf rather than the basis of its silhouette ([SideFX: Creating a Procedural
-Leaf Recipe](https://www.sidefx.com/tutorials/creating-a-procedural-leaf-recipe-in-houdini-intermediate-tutorial/)).
+Leaf
+Recipe](https://www.sidefx.com/tutorials/creating-a-procedural-leaf-recipe-in-houdini-intermediate-tutorial/)).
 
 The SideFX Labs Tree Leaf Generator accepts generated cards or custom leaf
 inputs and treats atlas variants, scale, orientation, pruning, deformation,
@@ -136,7 +139,8 @@ texture per leaf instance.
 botanical illustrations, or painted elements, then extracts a clean alpha;
 illustrations offer diffuse lighting and easy separation while photos require
 careful masking and lighting removal ([Game Developer, February 2002: tree
-texture methods](https://media.gdcvault.com/GD_Mag_Archives/GDM_February_2002.pdf)).
+texture
+methods](https://media.gdcvault.com/GD_Mag_Archives/GDM_February_2002.pdf)).
 A photometric practitioner workflow uses multiple light directions to recover
 normal response, then cleans/expands the opacity selection and exports albedo,
 normal, and opacity ([PolyCG: Photometric scan texture

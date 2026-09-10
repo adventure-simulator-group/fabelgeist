@@ -12,11 +12,13 @@ changes do not require a modeling or artistic-review cycle.
   requirements take precedence over ambiguous details in an image.
 - For historical helmets, find a photograph of a real surviving helmet with the
   intended shape before accepting the modeled shape. Record its museum or other
-  reliable collection source, object identifier, date, and image. A helmet of the
+  reliable collection source, object identifier, date, and image. A helmet of
+  the
   same broad category is insufficient: the reference must support the modeled
   silhouette, proportions, and plate arrangement. If no matching example is
   established, keep shape acceptance unresolved and revise the model or research
-  the target; do not use the model itself to justify an invented historical form.
+  the target; do not use the model itself to justify an invented historical
+  form.
 - Judge the reference design adapted to the wearer, not exact pixels or
   identical
   body proportions. Merely producing a plausible member of the equipment
@@ -106,7 +108,8 @@ statement containing user requirements and exclusions, not known-defect hints:
 > viewed.
 > For a historical helmet, identify the photographed real helmet used as the
 > shape reference. Compare the silhouette and proportions of the skull, visor,
-> jaw, and neck, and the plate boundaries and overlaps directly with that object.
+> jaw, and neck, and the plate boundaries and overlaps directly with that
+> object.
 > Explain any visible shape differences and their evidence. A category match or
 > an unsupported claim of simplification cannot satisfy the real-shape match.
 > Does the modeled equipment accurately represent the reference design's shape,
@@ -115,7 +118,8 @@ statement containing user requirements and exclusions, not known-defect hints:
 > reference. Category membership, technical validity, or improvement is not
 > enough.
 > Explicitly assess proportions relative to the wearer's anatomy and to the
-> reference: compare the major enclosing volumes, their transitions at anatomical
+> reference: compare the major enclosing volumes, their transitions at
+> anatomical
 > landmarks, and the size and placement of openings. Assess how adjacent plates
 > seat, overlap, and maintain construction-scale separation. State which visible
 > evidence supports these judgments; request an unobscured body view or section
@@ -165,8 +169,8 @@ average away a consequential failure or treat a reviewer PASS as automatic
 acceptance. Resolve conflicts using targeted views or measurements; unresolved
 evidence stays unresolved. Technical validity is not visual acceptance, and
 visual acceptance is not production readiness. Retain exact reviewer outputs and
-the reason for the final decision, including changed thresholds or superseded
-verdicts.
+the reason for the final decision locally under `target/`, including changed
+thresholds or superseded verdicts.
 
 ## Proportionate validation and durable state
 

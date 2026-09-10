@@ -62,8 +62,8 @@ Before applying a non-replay receipt, reducers must call the pure commit
 validator in the same transaction with fresh authoritative snapshots. It
 requires the exact lot, physical object, custody, revision, full measure,
 preparation, and private truth captured by planning, and separately reports
-missing or ambiguous sources, identity mismatch, stale revision, overconsumption,
-and other snapshot mismatch.
+missing or ambiguous sources, identity mismatch, stale revision,
+overconsumption, and other snapshot mismatch.
 
 ## Planned adapters
 

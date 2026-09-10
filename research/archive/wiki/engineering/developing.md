@@ -127,7 +127,8 @@ administration paths.
 ## Item content
 
 Item YAML uses the production build validator. Run `just content-check` for all
-compiled core catalogs plus dialogue, or `just content-check items` while iterating on
+compiled core catalogs plus dialogue, or `just content-check items` while
+iterating on
 `content/items/*.yaml`; see
 [Item definition authoring](../contributing/item-authoring.md).
 
@@ -145,7 +146,8 @@ Viabundus world with:
 python scripts/validate_organization_world.py --world path\to\compiled-world.json
 ```
 
-See [organizations.md](../strategic/organizations.md) for the schema and authority boundary.
+See [organizations.md](../strategic/organizations.md) for the schema and
+authority boundary.
 
 ## Developer quest spawning
 
@@ -249,7 +251,8 @@ executable and OS creation token, checks that identity throughout readiness and
 immediately before reset-publish, and uses the same identity for cleanup. It
 will not treat an unrelated listener as its SpacetimeDB or signal a reused PID.
 Only this guarded workflow may pass
-`--delete-data=always`; it rejects remote servers, non-loopback binds, mismatched
+`--delete-data=always`; it rejects remote servers, non-loopback binds,
+mismatched
 database names, and unsafe profile strings. It stops its own SpacetimeDB and
 spawner when the foreground web process exits. The isolated database files are
 retained under the fingerprinted profile directory for inspection and are reset
@@ -428,7 +431,8 @@ Schema changes are clean pre-launch changes. Regenerate client bindings and
 recreate the development database; do not add migrations, compatibility shims,
 or parallel paths. Routine `just web` and `just publish` preserve data.
 `just load-world` is the explicit destructive exception: it accepts only
-a bare loopback server and a lowercase `adventuresim-*` database, reset-publishes
+a bare loopback server and a lowercase `adventuresim-*` database,
+reset-publishes
 the current module, and discards all existing data before importing the pinned
 world. `web-reset` and `publish-reset` remain unavailable; never pass
 destructive publish flags manually against a public or player-bearing database
@@ -510,16 +514,19 @@ Source preparation, verification, licensing, and canonical model details live
 in the World Data references:
 
 - [World-data bundles](world-data/world-data-bundles.md) and
-  [Source manifests](world-data/source-manifests.md) define release and identity rules.
+  [Source manifests](world-data/source-manifests.md) define release and identity
+  rules.
 - [Viabundus](world-data/viabundus.md), [Elevation](world-data/elevation.md),
   [Historical land use](world-data/historical-land-use.md), and
   [Forest cover](world-data/forest-cover.md) cover the base geographic inputs.
 - [Potential vegetation](world-data/potential-vegetation.md),
   [Tree species](world-data/tree-species.md), [Soil](world-data/soil.md),
   [Geology](world-data/geology.md), [Religion](world-data/religion.md),
-  [Drought](world-data/drought.md), and [Hydrology](world-data/hydrology.md) cover enrichment stages.
+  [Drought](world-data/drought.md), and [Hydrology](world-data/hydrology.md)
+  cover enrichment stages.
 - [Strategic route terrain](world-data/route-terrain.md),
-  [Industries](world-data/industries.md), and [Canonical spatial grid](world-data/spatial-grid.md)
+  [Industries](world-data/industries.md), and
+  [Canonical spatial grid](world-data/spatial-grid.md)
   cover derived gameplay facts and shared build identity.
 
 ## Strategic UI
@@ -631,7 +638,8 @@ quarter-metre grid lines for bounce and foot-sliding review.
 Use `just tactical-play diagnostic` to run the same native gameplay client
 with a bounded analogue-input script and a per-render-frame animation-state
 JSONL log. The generated script, `animation-state-<session>.jsonl`, and process
-logs are written to the supervised run directory reported by `just tactical-status`.
+logs are written to the supervised run directory reported by
+`just tactical-status`.
 The bounded script keeps forward movement held while raising guard, then sends
 forward, backward, leftward, and rightward aimed dives through the real input,
 server, replication, and presentation path, standing between each, before
@@ -807,7 +815,8 @@ terrain-package digest, and complete `SceneSource::ImportedPackage` scene in
 `input.json`; its five plates cover the ground composition, overhead playable
 area, horizon, and unobstructed playable-to-highest and playable-to-lowest
 vista transitions. The manifest records minimum, maximum, and total regional
-relief so a summit capture cannot be mistaken for flat source data. `play` launches
+relief so a summit capture cannot be mistaken for flat source data. `play`
+launches
 the ordinary supervised animation demo with the identical immutable scene
 document. Coordinates are deterministic inputs; these commands never query a
 live map service or silently synthesize missing terrain.
@@ -869,7 +878,8 @@ those queries add enough
 observer/synchronization overhead that their frame times must not be compared
 directly with the timing-only results.
 
-The acceptance target follows [Apple's current MacBook Air specifications](https://www.apple.com/macbook-air/specs/):
+The acceptance target follows
+[Apple's current MacBook Air specifications](https://www.apple.com/macbook-air/specs/):
 the base 13-inch 2026 MacBook Air with Apple M5, a
 10-core CPU, 8-core GPU, 16 GiB unified memory, 153 GiB/s memory bandwidth, and
 fanless cooling. Run the checked-in dense-woodland acceptance case on that

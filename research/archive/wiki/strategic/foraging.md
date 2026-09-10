@@ -1,7 +1,8 @@
 # Foraging
 
 Willow bark, comfrey, poppy, and sage feed the bounded
-[Herbalism](../shared/herbalism.md) loop. Their public Poor/Ordinary/Fine catalogue
+[Herbalism](../shared/herbalism.md) loop. Their public Poor/Ordinary/Fine
+catalogue
 identities preserve grade through stacking, trade, and transfer without hidden
 lot state.
 
@@ -13,17 +14,17 @@ encounters, unlocated characters, and stale locations are rejected.
 
 The browser gateway samples the immutable final terrain pack at that coordinate
 and attests the package digest, coordinate, location context, normalized
-Plains/Forest/Hills/Wetlands mixture, wet/coast access, and cultivation bit. The reducer
-accepts this only from the registered gateway, requires terrain routing schema
-6 through gateway contract version 3, re-derives the character's location, and rejects
-stale digests or mismatched coordinates/context. A browser never supplies a
-trusted cultivated boolean.
+Plains/Forest/Hills/Wetlands mixture, wet/coast access, and cultivation bit. The
+reducer accepts this only from the registered gateway, requires terrain routing
+schema 6 through gateway contract version 3, re-derives the character's
+location, and rejects stale digests or mismatched coordinates/context. A browser
+never supplies a trusted cultivated boolean.
 
 For an isolated browser demonstration, select **Herbalism and Foraging Demo**
 from the normal development scenario roster. Its character and solo party are
 durably seeded together at Foraging Demo Woods, an empirically sampled
-uncultivated deep-woods cell in the final terrain pack, so the integrated Terrain
-skill action opens a real foraging form without one-off spawn controls.
+uncultivated deep-woods cell in the final terrain pack, so the integrated
+Terrain skill action opens a real foraging form without one-off spawn controls.
 
 ## Resolution
 

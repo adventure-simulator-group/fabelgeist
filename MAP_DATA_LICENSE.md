@@ -61,7 +61,8 @@ Copernicus programme endorses Fabelgeist or these modifications.
 ## Copernicus Land Monitoring Service forest data
 
 Generated using European Union's Copernicus Land Monitoring Service
-information: [High Resolution Layer Forest 2018](https://doi.org/10.2909/82f93572-9888-47ef-97a1-5cac5985a26a).
+information:
+[High Resolution Layer Forest 2018](https://doi.org/10.2909/82f93572-9888-47ef-97a1-5cac5985a26a).
 
 Fabelgeist aggregates the available Tree Cover Density and leaf-type
 products, classifies canopy coverage, and naturalizes forest boundaries for map

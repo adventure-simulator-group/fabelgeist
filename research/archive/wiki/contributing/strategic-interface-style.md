@@ -184,7 +184,8 @@ styles/gothic/frame/relief/top-left.png
   for how those parts attach, scale, and repeat.
 - `<variant>` names a **component skin**: an interchangeable visual treatment
   that obeys the component's anatomy and geometry contract.
-- `<part>` names one role in the anatomy, such as `top-left`, `middle`, `shaft`,
+- `<part>` names one role in the anatomy, such as `top-left`, `middle`,
+  `shaft`,
   or `bottom`.
 - Use lowercase kebab-case for directory and file names.
 

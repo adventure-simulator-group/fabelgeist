@@ -62,7 +62,8 @@ filtering and consumer-provided wear/exposure masks remain separate work.
 [SideFX's organic texture tutorial](https://www.sidefx.com/tutorials/how-to-create-organic-textures/)
 combines coarse forms, layered detail and seamless shape stamping. Here those
 stamps represent dies and scale loss instead of an undifferentiated noise sum.
-The [Worley node documentation](https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html)
+The
+[Worley node documentation](https://www.sidefx.com/docs/houdini/nodes/cop/worleynoise.html)
 explains anisotropic cell size, jitter, metrics and periodicity; those ideas
 inform the bounded local scatter, without turning every cell boundary into a
 crack. These are adaptations in Rust, not a port of a Houdini graph.

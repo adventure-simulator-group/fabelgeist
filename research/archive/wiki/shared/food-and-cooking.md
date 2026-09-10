@@ -33,7 +33,8 @@ together with their fixed-point remaining amount; quality remains unchanged.
 Transfers and sales therefore
 move a complete remaining batch rather than manufacturing rounded sub-units.
 Food item metadata, including dual-purpose ingredient capabilities, is
-canonical in the embedded [item definition catalog](../contributing/item-authoring.md);
+canonical in the embedded
+[item definition catalog](../contributing/item-authoring.md);
 spoilage, cooking, and ingestion mechanics remain Rust rules.
 Food definitions are validated before either personal or party inventory is
 mutated, so an acquisition cannot leave an inedible inventory row without its
@@ -87,27 +88,27 @@ that building's availability; camp authority separately proves the fixture's
 party, journey departure minute, and reached movement minute, preventing a
 station from leaking between camps or journeys. Non-canonical fixture strings,
 tactical actors, and stale or remote places are rejected. A station holds at
-most one dish and one installed
-instrument. Trading a pan, pot, or portable oven into an idle station selects
-pan-fry, stew, or bake; no instrument selects roast. A dish captures its exact
-operational character or party return custody before ingredients are consumed,
-using the shared physical-object custody vocabulary. Retrieval returns the
-cooked meal only to that immutable custody, even if the
-character later changes parties; a caller-selected destination cannot redirect
-it, and a missing original party fails closed. Replacing or removing a tool
-returns it to its recorded character or exact party custody. If that custody is no longer
-available, the tool stays installed rather than being lost. Party-sourced tools
-remember the exact originating party rather than following the character into a
-new party. Equipped tools are ineligible, and instruments cannot change while a
-dish occupies the fireplace. A party cannot break its current camp while any
-member still has a dish or instrument in that exact camp context; the camp must
-be cleared first. A member likewise cannot leave or be removed, and a camped
-party cannot disband, while affected private custody remains. Death is the one
-deterministic exception: the dead owner's unfinished dish is abandoned, an
-installed tool returns to its exact personal or recorded party source when
-possible, and an unavailable party return falls back to the dead character's
-personal estate inventory. If no character record remains, the tool is
-abandoned with the station. Only that owner's private rows are cleaned.
+most one dish and one installed instrument. Trading a pan, pot, or portable oven
+into an idle station selects pan-fry, stew, or bake; no instrument selects
+roast. A dish captures its exact operational character or party return custody
+before ingredients are consumed, using the shared physical-object custody
+vocabulary. Retrieval returns the cooked meal only to that immutable custody,
+even if the character later changes parties; a caller-selected destination
+cannot redirect it, and a missing original party fails closed. Replacing or
+removing a tool returns it to its recorded character or exact party custody. If
+that custody is no longer available, the tool stays installed rather than being
+lost. Party-sourced tools remember the exact originating party rather than
+following the character into a new party. Equipped tools are ineligible, and
+instruments cannot change while a dish occupies the fireplace. A party cannot
+break its current camp while any member still has a dish or instrument in that
+exact camp context; the camp must be cleared first. A member likewise cannot
+leave or be removed, and a camped party cannot disband, while affected private
+custody remains. Death is the one deterministic exception: the dead owner's
+unfinished dish is abandoned, an installed tool returns to its exact personal or
+recorded party source when possible, and an unavailable party return falls back
+to the dead character's personal estate inventory. If no character record
+remains, the tool is abandoned with the station. Only that owner's private rows
+are cleaned.
 
 Duration is method setup plus the slowest ingredient's safety/doneness time plus
 square-root batch scaling. The reducer atomically preflights actor, exact
@@ -124,27 +125,27 @@ retrievable like every other dish and is never auto-eaten or discarded.
 Progress is evaluated lazily from the owner's `CharacterTime`, so resting,
 travelling, or spending time elsewhere cooks the dish. The fireplace page shows
 the contributor, start-relative status, target, and remaining minutes, but never
-hidden microbial load. Its convenience rest control uses minutes and defaults
-to the remaining target time; once ready it stays visible with method-specific
-late status. Retrieval may put the meal in personal or current
-party inventory, frees the dish, and leaves the tool installed. Early retrieval
-reduces quality and interpolates calories from the raw total toward the normal
-ready retention. It geometrically interpolates microbial kill from raw load to
-the method's complete kill and linearly interpolates microbial growth from the
-raw ingredient rate to the cooked rate. This preserves meaningful Dysentery
-risk. Exact-target retrieval gives the ordinary cooking result. Late pan-frying
-and baking reduce calories linearly to zero and lower quality to tier 1 by one
-additional target duration. Wet pot cooking reaches readiness and safely
-plateaus: it never burns or dries and preserves ready nutrition, quality, and
-microbial kill. Roasting never burns. Late roast time progressively changes the
-durable state to dried/smoked and approaches one additional fixed 15% nutrition
-loss without reapplying ordinary ready roast retention. Extreme elapsed values
-are bounded. Fireplace waiting and retrieval award no passive
-Cooking experience, mastery, or morale. Remainders stay as independent lots,
-and their current lot mass and value drive encumbrance and merchant quotes. A character can
-also apprentice as a cook through the inn's ordinary profession dialogue;
-apprenticeship and later independent practice follow the same progression and
-payment rules as the other non-religious settlement professions.
+hidden microbial load. Its convenience rest control uses minutes and defaults to
+the remaining target time; once ready it stays visible with method-specific late
+status. Retrieval may put the meal in personal or current party inventory, frees
+the dish, and leaves the tool installed. Early retrieval reduces quality and
+interpolates calories from the raw total toward the normal ready retention. It
+geometrically interpolates microbial kill from raw load to the method's complete
+kill and linearly interpolates microbial growth from the raw ingredient rate to
+the cooked rate. This preserves meaningful Dysentery risk. Exact-target
+retrieval gives the ordinary cooking result. Late pan-frying and baking reduce
+calories linearly to zero and lower quality to tier 1 by one additional target
+duration. Wet pot cooking reaches readiness and safely plateaus: it never burns
+or dries and preserves ready nutrition, quality, and microbial kill. Roasting
+never burns. Late roast time progressively changes the durable state to
+dried/smoked and approaches one additional fixed 15% nutrition loss without
+reapplying ordinary ready roast retention. Extreme elapsed values are bounded.
+Fireplace waiting and retrieval award no passive Cooking experience, mastery, or
+morale. Remainders stay as independent lots, and their current lot mass and
+value drive encumbrance and merchant quotes. A character can also apprentice as
+a cook through the inn's ordinary profession dialogue; apprenticeship and later
+independent practice follow the same progression and payment rules as the other
+non-religious settlement professions.
 
 The authoritative Cooking check includes the documented one-pass Knife
 transfer after direct Cooking study. Each rank removes 6% of setup and batch
