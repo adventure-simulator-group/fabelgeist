@@ -121,7 +121,9 @@ morale commit transactionally; invalid receipts remain retryable.
 ### Skill check algorithm
 Broadly speaking, the flow goes like this:
 1. Calculate accuracy based on:
-	1. The attacker's weighted weapon [skill check](../shared/stats.md#skills). Each weapon distributes its check across Polearm, Axe, Bludgeon, Sword, Knife, Bow, Crossbow, Firearm, and Throw; hybrid tags are normalized.
+	1. The attacker's weighted weapon [skill check](../shared/stats.md#skills).
+    Each weapon distributes its check across Polearm, Axe, Bludgeon, Sword,
+    Knife, Bow, Crossbow, Firearm, and Throw; hybrid tags are normalized.
 		1. pass in LimbWeights configured for whatever limb(s) they are attacking with
 		2. If they are two handing, 0.75 for main and 0.25 for off-hand
 	2. Multiply by weapon term (small knife: 2.0, long hammer: 0.5)
@@ -136,10 +138,14 @@ weapons retain their single accuracy term. Damage type is not a recruitment
 role.
 2. calculate `dodge_defense`:
 	1. Calculate `armor_dodge_term` from their armor.
-		1. This isn't actually the weight of the armor; it's based on articulations on joints.
-		2. Full-plate gives 0.6, full-body chainmail is 0.8, and unobstructed joints is 1.0.
-	2. Calculate [encumbrance_term](../shared/encumbrance.md) from total weight versus leg-strength
-	3. Multiply a dodge [skill_check](../shared/stats.md#skills) by `armor_dodge_term` and `encumbrance_term`
+		1. This isn't actually the weight of the armor; it's based on articulations on
+     joints.
+		2. Full-plate gives 0.6, full-body chainmail is 0.8, and unobstructed joints
+     is 1.0.
+	2. Calculate [encumbrance_term](../shared/encumbrance.md) from total weight
+    versus leg-strength
+	3. Multiply a dodge [skill_check](../shared/stats.md#skills) by
+    `armor_dodge_term` and `encumbrance_term`
 		1. LimbWeights should be something like 0.4 for each leg and 0.1 for each arm
 3. calculate `block_defense`:
    
@@ -166,8 +172,11 @@ $$
    		defense = block_defense
    ```
 5. Modify defense by flanking penalty
-	1. a is the angle that the attacker is facing and b is the angle that the defender is facing
-	2. In layman's terms, you have zero defense if someone attacks from behind, full defense if they attack from in front, but the modifier starts at 1 below 45 degrees and is 0 at 135 degrees, rather than at 0 and 180
+	1. a is the angle that the attacker is facing and b is the angle that the
+    defender is facing
+	2. In layman's terms, you have zero defense if someone attacks from behind,
+    full defense if they attack from in front, but the modifier starts at 1
+    below 45 degrees and is 0 at 135 degrees, rather than at 0 and 180
  	3.
 	
 $$
@@ -177,14 +186,21 @@ D_{\text{final}} =D_{\text{base}}
 $$
 
 6. Attack value is accuracy - defense
-7. If attack is less than 0, miss and apply surplus defense as unbalance penalty to attacker
+7. If attack is less than 0, miss and apply surplus defense as unbalance penalty
+   to attacker
 8. If attack is between 0 and 1, multiply attack force by attack
 	1. 0.1 barely grazes the opponent, 1 is square-on, 0.5 is a glancing blow
-9. If attack is *above* 1 and the attacker's weapon is precise, attacker now attempts to bypass armor with surplus attack.
-	1. An armor's "coverage" is subtracted from the surplus attack to obtain the "critical attack"
-	2. If critical attack is greater than 0, attack bypasses armor completely and its final damage is multiplied by this number
-	3. Though not necessarily relevant for the MVP, critical attacks are relevant even when targets are unarmored because this allows the damage multiplier to exceed 1.0, allowing for instantaneous stealth one-hit-kills.
-	4. If a critical hit cannot be made, then attack just stays at 1.0 for a direct hit
+9. If attack is *above* 1 and the attacker's weapon is precise, attacker now
+   attempts to bypass armor with surplus attack.
+	1. An armor's "coverage" is subtracted from the surplus attack to obtain the
+    "critical attack"
+	2. If critical attack is greater than 0, attack bypasses armor completely and
+    its final damage is multiplied by this number
+	3. Though not necessarily relevant for the MVP, critical attacks are relevant
+    even when targets are unarmored because this allows the damage multiplier to
+    exceed 1.0, allowing for instantaneous stealth one-hit-kills.
+	4. If a critical hit cannot be made, then attack just stays at 1.0 for a direct
+    hit
 
 ### Ranged attacks
 
@@ -241,7 +257,8 @@ emphasizes the relative contribution of each source.
 
 Each of the following factors range from 0% to at least 100%.
 ### Imbalance (white)
-> Halbe: This was written in terms of energy, but might make more sense in terms of momentum.
+> Halbe: This was written in terms of energy, but might make more sense in terms
+> of momentum.
 
 The most direct way of being incapacitated, attacks which impart force on your
 character or losing your footing in difficult terrain can cause imbalance.
@@ -303,7 +320,8 @@ fn update_stamina(player):
 	player.breath_damage += dt * breath_delta * TACTICAL_BREATH_RESPONSE_SCALE
 ```
 ### Pain (pink)
-[Injuries](../shared/health.md) are a source of constant pain. Pain is divided by will.
+[Injuries](../shared/health.md) are a source of constant pain. Pain is divided
+by will.
 
 $$
 \mathrm{pain}(\mathrm{damage}, \mathrm{will}) =
@@ -346,7 +364,7 @@ Penetration coefficient examples:
 - Maces: 0.5
 - Swords/axes/musket ball: 1.0
 - Broadhead arrows or spear: 2.0
-- Mail breaker, rapier, or bodkin arrows: 4.0 
+- Mail breaker, rapier, or bodkin arrows: 4.0
 
 Any edged or pointed energy that penetrates is then applied as cut damage.
 
@@ -365,15 +383,27 @@ extra damage against flesh.
 
 Calibration:
 - 80kg male's forearm is about 1.2kg
-- A 20j direct hit dagger stab against an unarmored forearm should do just enough damage to incapacitate
-- The point of having more powerful attacks is not to do more damage to flesh, but to get past armor
-- A knight in full-plate still should be vulnerable to a mail breaker or bodkin arrow in the gaps between plates which are guarded only by chainmail
-- A 20j stab from a mail breaker should just barely be able to penetrate chainmail and damage flesh
+- A 20j direct hit dagger stab against an unarmored forearm should do just
+  enough damage to incapacitate
+- The point of having more powerful attacks is not to do more damage to flesh,
+  but to get past armor
+- A knight in full-plate still should be vulnerable to a mail breaker or bodkin
+  arrow in the gaps between plates which are guarded only by chainmail
+- A 20j stab from a mail breaker should just barely be able to penetrate
+  chainmail and damage flesh
 ### Blunt
 
-> Halbe: We may want to distinguish between bruising and bone fracturing, perhaps by picking an arbitrary amount of blunt damage energy after which it starts to fracture the bone.
+> Halbe: We may want to distinguish between bruising and bone fracturing,
+> perhaps by picking an arbitrary amount of blunt damage energy after which it
+> starts to fracture the bone.
 
-> Halbe: I'm not certain what a good physical base measurement is that we could use for mapping kj of energy to damage. Damage might be best represented as how many kgs of mass have been rendered inoperable, but its not clear to me how to convert between the two. Ultimately though, the damage value relevant to [stats](../shared/stats.md) maps "0" to "gains no function from the body part" and "1" means "body part is fully functioning", so the "displaced kgs of mass" would itself be an intermediate value not displayed to the player.
+> Halbe: I'm not certain what a good physical base measurement is that we could
+> use for mapping kj of energy to damage. Damage might be best represented as
+> how many kgs of mass have been rendered inoperable, but its not clear to me
+> how to convert between the two. Ultimately though, the damage value relevant
+> to [stats](../shared/stats.md) maps "0" to "gains no function from the body
+> part" and "1" means "body part is fully functioning", so the "displaced kgs of
+> mass" would itself be an intermediate value not displayed to the player.
 ## Durability
 Every durable item defines an elastic/yield threshold, catastrophic fracture
 threshold, ordinary wear rate, and catastrophic failure share. Impacts below

@@ -346,9 +346,11 @@ must animate a non-empty subset of those exact targets; a motion containing a
 foreign target is rejected without invalidating the base or any other motion.
 
 A file may contain more than one required semantic pose when those poses are
-phases of the same coherent motion. For example, `biped/unarmed/walk.casc` contains a
+phases of the same coherent motion. For example, `biped/unarmed/walk.casc`
+contains a
 complete walk cycle, with particular keyframes designated as `walk_contact`
-and `walk_passing`. The corresponding `biped/unarmed/walk.glb` preserves the full
+and `walk_passing`. The corresponding `biped/unarmed/walk.glb` preserves the
+full
 motion. The animation catalog maps each semantic pose to a file and frame; the
 semantic poses are not separate glTF clips. Frames not named by the catalog are
 ordinary in-betweens or endpoint references.
@@ -571,7 +573,8 @@ Locomotion semantic anchors use the **left** side as their canonical first
 half-cycle. Generated mirrored clips reflect the complete bilateral motion to
 construct the opposite half and closure before runtime FK blending.
 
-Main-hand guard is frame 0 of the selected `swing` or `thrust` motion. Attack-set
+Main-hand guard is frame 0 of the selected `swing` or `thrust` motion.
+Attack-set
 parent fallback follows the pack-local capability rule described above, while
 offhand and ordinary poses retain their independent fallback chains.
 ## Required semantic poses
@@ -672,7 +675,8 @@ between normal and quarter-speed game time. Both client presentation and the
 authoritative server clock change together, so movement, physics, combat, and
 animation remain synchronized during slow-motion inspection.
 
-The preferred end-to-end animation diagnostic is `just tactical-play diagnostic`.
+The preferred end-to-end animation diagnostic is
+`just tactical-play diagnostic`.
 It executes a structured JSON input script through the ordinary native client,
 network transport, authoritative server, prediction, reconciliation, semantic
 evaluation, and final procedural pose. Its default scenario walks, aims,
@@ -683,7 +687,8 @@ global transform of every authored animation target. The standalone
 checks attack hand excursion without loading the trace into an interactive
 review.
 
-The native `animation-viewer` remains a deterministic gameplay-presentation fixture
+The native `animation-viewer` remains a deterministic gameplay-presentation
+fixture
 for regression and visual review. It uses the gameplay player-spawn observer,
 character mesh, camera, terrain presentation, authored animation evaluator, and
 procedural passes rather than maintaining parallel fixture implementations.
@@ -1024,7 +1029,8 @@ only after another sector is committed. Releasing aim settles to whichever
 prone/supine contact endpoint is nearer to the camera angle. This path reuses
 the same two roll midpoints and requires no additional animation.
 Supine may also result from a hit or physical fall and uses the direct
-`supine_transition` motion when recovery does not first require a ragdoll handoff.
+`supine_transition` motion when recovery does not first require a ragdoll
+handoff.
 The initial controls do not include prone strafing.
 
 Prone travel uses the ordinary pace controls with crawl-specific speeds: walking

@@ -67,7 +67,12 @@ simulator documented in the
 Its live mode drives the same party, quest, travel, autoresolve, loot, trade,
 and equipment reducers as players, against an explicitly disposable local
 database.
-The nearest games for inspiration are [*Mount and Blade*](https://www.taleworlds.com/en/games/mountandblade), [*Battle Brothers*](https://battlebrothersgame.com/), [*Jagged Alliance*](https://store.steampowered.com/app/1084160/Jagged_Alliance_3/), [*Starsector*](https://fractalsoftworks.com/), and to some extent [*Kenshi*](https://lofigames.com/).
+The nearest games for inspiration are
+[*Mount and Blade*](https://www.taleworlds.com/en/games/mountandblade),
+[*Battle Brothers*](https://battlebrothersgame.com/),
+[*Jagged Alliance*](https://store.steampowered.com/app/1084160/Jagged_Alliance_3/),
+[*Starsector*](https://fractalsoftworks.com/), and to some extent
+[*Kenshi*](https://lofigames.com/).
 
 Like the former three, the world of _Fabelgeist_ is separated between the
 "tactical" layer (a real-time simulation) and the "strategic" layer (which
@@ -142,7 +147,10 @@ of Earth. Players of _Warhammer Fantasy_ or readers of
 with the concept: the setting is a real-world historical period with generic
 fantasy elements inexplicably sprinkled throughout.
 
-> Science fiction historian Brian Stableford has defined "historical fantasy" as "a term applied to fantasies in which the actual history of the primary world is conscientiously reproduced, save for limited infusions of working magic located within a 'secret history.'"
+> Science fiction historian Brian Stableford has defined "historical fantasy" as
+> "a term applied to fantasies in which the actual history of the primary world
+> is conscientiously reproduced, save for limited infusions of working magic
+> located within a 'secret history.'"
 
 The heuristic for the fantasy elements is to put them in places that don't
 fundamentally alter historical conditions. Elves generally keep to forests or
@@ -182,7 +190,8 @@ The AGPL applies to Fabelgeist software unless a file or artifact says
 otherwise. Generated strategic map tiles and terrain-routing packs are data
 artifacts with a separate licence boundary: project-owned contributions are
 offered under CC BY-SA 4.0 and underlying datasets retain their own terms. See
-[MAP_DATA_LICENSE.md](../MAP_DATA_LICENSE.md) before distributing or hosting those
+[MAP_DATA_LICENSE.md](../MAP_DATA_LICENSE.md) before distributing or hosting
+those
 artifacts.
 
 It's clear to us that _Fabelgeist_ is very much the kind of project which will

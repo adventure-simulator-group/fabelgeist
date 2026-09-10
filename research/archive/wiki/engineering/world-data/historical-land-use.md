@@ -5,7 +5,8 @@ HYDE is a global 5-arcminute historical reconstruction: it is regional
 evidence, not an exact observation of an individual settlement.
 
 - Project and release archive: <https://landuse.sites.uu.nl/hyde-project/>
-- The HYDE 3.5 release README applies [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- The HYDE 3.5 release README applies
+  [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   to all HYDE data.
 
 ## Manual preparation contract
@@ -27,7 +28,8 @@ Place exactly these release files in the Git-ignored
 - `cropland.nc` / `cropland` — cropland area in km²
 - `grazing_land.nc` / `grazing_land` — grazing-land area in km²
 - `urban_area.nc` / `urban_area` — urban area in km²
-- `general_files.zip` / `general_files/garea_cr.asc` — HYDE grid-cell area in km²
+- `general_files.zip` / `general_files/garea_cr.asc` — HYDE grid-cell area in
+  km²
 
 For normal development, `just init-world-data` installs these exact four files
 into that directory from the pinned reviewed source-separated input bundle. Its

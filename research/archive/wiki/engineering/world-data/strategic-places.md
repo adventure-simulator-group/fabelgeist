@@ -58,20 +58,21 @@ contract. Each presence names a Character, a canonical `StrategicPlaceId`, the
 authorized observer's personal-time frontier, and one closed evidence basis:
 coarse settlement membership, validated instantaneous venue selection, scheduled
 resident presence, chronological residence occupancy, physical case-site
-occupancy, or an active revision-matched case-context membership. Co-presence requires
-the same canonical place projected for the same observer frontier. It does not
-require the observed Character's independent clock to equal the observer's;
-pairwise-soft consumers continue to inspect only the actor's chronology.
+occupancy, or an active revision-matched case-context membership. Co-presence
+requires the same canonical place projected for the same observer frontier. It
+does not require the observed Character's independent clock to equal the
+observer's; pairwise-soft consumers continue to inspect only the actor's
+chronology.
 
-A coarse settlement membership never equals an exact venue. The strategic
-layer does not currently persist within-settlement travel or interior position.
-A reducer request may therefore select any currently navigable venue inside the
+A coarse settlement membership never equals an exact venue. The strategic layer
+does not currently persist within-settlement travel or interior position. A
+reducer request may therefore select any currently navigable venue inside the
 actor's authoritative current settlement. A browser route or location parameter
-is only that candidate: server-side navigability must resolve its canonical venue
-before the selection becomes exact actor presence. This preserves instantaneous
-venue selection without inventing durable navigation state. NPC presence then
-applies historical alive, schedule, health, and context-suppression authority at
-that actor-relative minute. Service-linked
+is only that candidate: server-side navigability must resolve its canonical
+venue before the selection becomes exact actor presence. This preserves
+instantaneous venue selection without inventing durable navigation state. NPC
+presence then applies historical alive, schedule, health, and
+context-suppression authority at that actor-relative minute. Service-linked
 chapter representatives therefore share the ordinary service place, while a
 standalone chapter retains its authored chapter place.
 
@@ -107,8 +108,8 @@ coherently off-settlement at that reached stop. The party destination must equal
 the active journey destination, the journey must use a supported canonical plan
 version and remain incomplete, and the current movement minute must be an
 actually reached stop. Legacy and unknown plan versions cannot mint a place;
-forecast intervals do not prove that a camp exists. Fireplace custody and reducer transport persist the
-canonical `StrategicFixtureId::Fireplace` encoding, and the fixture's embedded
-place is parse-validated before current-camp or exact settlement-venue authority
-is checked. The former `camp|...` and `settlement|...` context strings are not
-accepted aliases.
+forecast intervals do not prove that a camp exists. Fireplace custody and
+reducer transport persist the canonical `StrategicFixtureId::Fireplace`
+encoding, and the fixture's embedded place is parse-validated before
+current-camp or exact settlement-venue authority is checked. The former
+`camp|...` and `settlement|...` context strings are not accepted aliases.

@@ -28,7 +28,8 @@ The mechanics live in the dependency-light `adventuresim-puzzles` crate and
 are re-exported by `adventuresim-core::errantry`. Each private authority also
 retains a validated generation specification, allowing the same engine to be
 parameterized and replayed exactly in the `puzzle-lab` CLI without importing
-quest presentation or persistence. See [Puzzle laboratory](../engineering/puzzle-lab.md).
+quest presentation or persistence. See
+[Puzzle laboratory](../engineering/puzzle-lab.md).
 
 The presenter catalog is a separate boundary. The Lady Beneath the Thorn has
 closed introduction, instruction, failure, and success verse for every engine.
@@ -81,11 +82,11 @@ needed. The public projection omits both the canonical path and liar.
 
 ## Rune-transformation puzzle
 
-The standard rune engine gives each of three named gates one of five typed exchange
-operations over the same bounded five-sigil domain. Each law exchanges one
-adjacent pair in a closed ring and leaves the other three unchanged. It shows two input/output
-examples for each gate, then asks which sigil emerges after a new input passes
-through all three gates in a generated order.
+The standard rune engine gives each of three named gates one of five typed
+exchange operations over the same bounded five-sigil domain. Each law exchanges
+one adjacent pair in a closed ring and leaves the other three unchanged. It
+shows two input/output examples for each gate, then asks which sigil emerges
+after a new input passes through all three gates in a generated order.
 
 The public prompt names the five sigils and enumerates all five candidate
 exchange rules. Each gate independently selects one
@@ -219,32 +220,31 @@ as decorative bookkeeping.
 ## Direct development demo
 
 Run the single isolated strategic scenario-gallery command, select the desired
-puzzle scenario character, and enable developer
-mode, and choose **Sigil puzzle**, **Witness puzzle**, **Rune puzzle**,
-**Logic-grid puzzle**, or **Provision puzzle**. The development-only reducer creates or
-reuses a deterministic Order-sourced case, accepted contract, finale site and
-hostile group, active journey, persisted camp, and observer-bound challenge.
-The isolated development bootstrap seeds an authored Order chapter and its
-canonical organization representative so a fresh demo profile has a valid
-Order issuer even though the selected Social Demo character begins in
-Riverdale.
-The HTTP adapter redirects directly to the chat puzzle, skipping ordinary
-dialogue acceptance and travel setup. Solving shows the modeled tactical
-insight, which remains visible after returning to camp so equipment can be
-prepared accordingly. Rest at least one hour to exercise the wounded-courier interruption, or
-use **Continue travel** to bypass either preliminary challenge and reach the
-bound finale.
+puzzle scenario character, and enable developer mode, and choose **Sigil
+puzzle**, **Witness puzzle**, **Rune puzzle**, **Logic-grid puzzle**, or
+**Provision puzzle**. The development-only reducer creates or reuses a
+deterministic Order-sourced case, accepted contract, finale site and hostile
+group, active journey, persisted camp, and observer-bound challenge. The
+isolated development bootstrap seeds an authored Order chapter and its canonical
+organization representative so a fresh demo profile has a valid Order issuer
+even though the selected Social Demo character begins in Riverdale. The HTTP
+adapter redirects directly to the chat puzzle, skipping ordinary dialogue
+acceptance and travel setup. Solving shows the modeled tactical insight, which
+remains visible after returning to camp so equipment can be prepared
+accordingly. Rest at least one hour to exercise the wounded-courier
+interruption, or use **Continue travel** to bypass either preliminary challenge
+and reach the bound finale.
 
 Wounded couriers and knights are durable Characters with an actual untreated
-limb wound and explicit contextual contact and treatment decisions. Their authored outcome observes an ordinary
-successful bandage rather than consuming a bandage through a bespoke effect.
-The camp projects every active Character-backed cast member in authored order.
-Allowed contact is requested through the ordinary contextual social reducer;
-refused and unavailable decisions are rendered without attempting mutation.
-An available wounded Patient exposes the ordinary bandage request. Resolving or
-ignoring the occurrence deactivates only context membership; it never deletes
-the Characters or their relationship history.
-The wounded-courier fixture explicitly refuses conversation and is
-incapacitated with unavailable ordinary treatment, so its canonically selected
-open-cut limb exercises the narrow **Emergency treatment** presentation and
-authority path.
+limb wound and explicit contextual contact and treatment decisions. Their
+authored outcome observes an ordinary successful bandage rather than consuming a
+bandage through a bespoke effect. The camp projects every active
+Character-backed cast member in authored order. Allowed contact is requested
+through the ordinary contextual social reducer; refused and unavailable
+decisions are rendered without attempting mutation. An available wounded Patient
+exposes the ordinary bandage request. Resolving or ignoring the occurrence
+deactivates only context membership; it never deletes the Characters or their
+relationship history. The wounded-courier fixture explicitly refuses
+conversation and is incapacitated with unavailable ordinary treatment, so its
+canonically selected open-cut limb exercises the narrow **Emergency treatment**
+presentation and authority path.

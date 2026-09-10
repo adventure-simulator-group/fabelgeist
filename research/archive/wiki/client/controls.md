@@ -126,7 +126,11 @@ from a presentation muzzle origin. The reticle reports a blocked muzzle path,
 so the displaced camera cannot grant a shot through nearby cover. In debug
 builds, <kbd>F6</kbd> exposes rig, collision, smoothing, and aim telemetry.
 
-> Halbe: I assume that first person is easier because with third-person cameras, you need to handle a lot of edge cases to avoid awkwardness in tight spaces or near thin obstacles like trees, not to mention smoothing out the motion or reconciling the shoulder offset when aiming. However, if I am mistaken in my assumptions, we should implement whichever is easier for the MVP.
+> Halbe: I assume that first person is easier because with third-person cameras,
+> you need to handle a lot of edge cases to avoid awkwardness in tight spaces or
+> near thin obstacles like trees, not to mention smoothing out the motion or
+> reconciling the shoulder offset when aiming. However, if I am mistaken in my
+> assumptions, we should implement whichever is easier for the MVP.
 
 | **M+KB** | **Controller** | **Function** | **Notes** |
 |-|-|-|-|
@@ -152,9 +156,18 @@ specifically accuracy and reaction time.[^3]
 
 [^3]: This is trivial to [cheat](../engineering/networking.md), but since combat is still (largely) based on stats and (entirely) mediated by the server, it's not a huge deal.
 
-* **Precision** is the value between 0 and 1 representing how much of the hitbox the attack has penetrated. Each hitbox is a skin of the body part, while its scaled version is a core; and the ratio between distance of the hitreg to skin to full distance between skin to core is hit precision. 
-* **Reflex** is the value between 0 and 1 representing how quickly the defender pressed the dodge/parry button after the attack began. Like with precision, we aren't sure exactly how to derive this, but a value of 1.0 would correspond to pro gamer reaction time (0.1s) and ~0.75 would correspond to old person reaction time (0.25s).
-  * There is no need to "time" your input to correspond with when an attack will actually hit as is convention in most action games. As soon as an enemy begins its attack animation, you should press the button.
+* **Precision** is the value between 0 and 1 representing how much of the hitbox
+  the attack has penetrated. Each hitbox is a skin of the body part, while its
+  scaled version is a core; and the ratio between distance of the hitreg to skin
+  to full distance between skin to core is hit precision.
+* **Reflex** is the value between 0 and 1 representing how quickly the defender
+  pressed the dodge/parry button after the attack began. Like with precision, we
+  aren't sure exactly how to derive this, but a value of 1.0 would correspond to
+  pro gamer reaction time (0.1s) and ~0.75 would correspond to old person
+  reaction time (0.25s).
+  * There is no need to "time" your input to correspond with when an attack will
+    actually hit as is convention in most action games. As soon as an enemy
+    begins its attack animation, you should press the button.
 
 For CPU-controlled characters (NPCs or [indirect mode](#indirect-controls)), the
 server... [usually](../shared/magic.md)... randomly samples these parameters
@@ -190,9 +203,14 @@ for small parties or individuals.
 ### Universal
 These inputs would theoretically find use in both direct and indirect modes.
 
-> Halbe: I have not thought too hard about their mapping. They should be remapped so that the most commonly pressed buttons are the most convenient to move your finger to.
+> Halbe: I have not thought too hard about their mapping. They should be
+> remapped so that the most commonly pressed buttons are the most convenient to
+> move your finger to.
 >
-> Bruno: It'll likely be the case that these inputs are unavailable when a grab or select button is held due to overlapping with [slots](slots.md). When you hold RB, X is a slot/group button representing a holster on your left hip; if you aren't holding RB, X can be used for one of the menu inputs below.
+> Bruno: It'll likely be the case that these inputs are unavailable when a grab
+> or select button is held due to overlapping with [slots](slots.md). When you
+> hold RB, X is a slot/group button representing a holster on your left hip; if
+> you aren't holding RB, X can be used for one of the menu inputs below.
 
 * Toggle [inventory](../shared/inventory.md) menu.
 * Toggle logout/[character](../strategic/character.md) menu.
@@ -200,5 +218,10 @@ These inputs would theoretically find use in both direct and indirect modes.
 * Toggle [rest](../shared/health.md) menu.
 * Toggle direct/indirect control.
 * Skip [time](../strategic/time.md).
-	* In normal use, this toggles between real time and [sim-time](../strategic/time.md). When camped, it skips straight to the end of your rest. Either way, it's automatically interrupted if the party spots an enemy or encounters difficult terrain.
-	* In the strategic layer (GSG mode), you continue to see the map at a consistent speed. In the direct camera or tactical layer (RTS mode), we can display a cinematic montage of travel or night passing. Not in MVP.
+	* In normal use, this toggles between real time and
+   [sim-time](../strategic/time.md). When camped, it skips straight to the end
+   of your rest. Either way, it's automatically interrupted if the party spots
+   an enemy or encounters difficult terrain.
+	* In the strategic layer (GSG mode), you continue to see the map at a
+   consistent speed. In the direct camera or tactical layer (RTS mode), we can
+   display a cinematic montage of travel or night passing. Not in MVP.

@@ -1,9 +1,8 @@
-# Weapon proportion review: Germany in 1544
+# Weapon proportion references: Germany in 1544
 
-Independent artistic/historical reviewer, 8 September 2026. Baseline: `f2b3fb27`.
-This is implementation review evidence, not wiki prose. The review covers the
-21 Rust presets, all 23 runtime melee catalog designs, and all 42 browser
-presets, including ranged weapons, ammunition, carriers, and shields.
+These research notes collect museum observations and proposed engineering
+ranges for weapon families. The proposed ranges are research recommendations,
+not an acceptance record or a specification of current generated assets.
 
 ## Evidence and confidence
 
@@ -35,32 +34,7 @@ distinguish a plausible family reconstruction from an exact object replica.
 | [Met 14.25.1425, Peter Peck pistol, c.1540–1545](https://www.metmuseum.org/art/collection/search/22387) | Overall 492 mm; dated within the requested setting. Existing recipe identifies the 254/194 mm stacked barrels and 11.7 mm bore. |
 | [Met 28.100.6, German matchlock, sixteenth century](https://www.metmuseum.org/art/collection/search/34811) | Overall 1603 mm, barrel 1216 mm, bore 17.7 mm, 6.15 kg. The broad dating does not establish exact availability in 1544. |
 
-## Blocking analytical findings
-
-1. Rust physical properties use approximate shape-volume multipliers and place
-   every component's mass at its axial midpoint. Blade taper, ricasso, curvature,
-   and profile changes can alter the visible solid without affecting mass or
-   balance appropriately. Lateral offsets are omitted from inertia. Derive
-   volume, first moments, and second moments from the same canonical solids as
-   rendering; verify parameter sensitivity and conservation, rather than adding
-   per-catalog weight or balance overrides.
-2. The Rust cutting sword constructor supplies 12 mm thickness by default;
-   several curved swords author 9–13 mm but the Flat mesh scales this depth by 0.45. Broad polearm heads are 18–28 mm plates.
-   The inconsistent thickness semantics and oversized polls produce excessive mass and rotational
-   inertia. Cutting blades need realistic distal taper and generally 5–8 mm
-   forte thickness. Stiff thrusting estocs/daggers can retain deeper sections.
-3. Rust `arming_sword` inherits the longsword's 300 mm grip and 310 mm guard;
-   `misericorde` inherits the estoc's 260 mm grip; `bauernwehr` inherits a 215 mm
-   messer grip. These are family-construction defects, not just stat tuning.
-4. The 3350 mm pike shaft produces only about 3.6 m overall. Set the military
-   pike near 4.8–5.2 m overall and derive its reach and inertia from that actual
-   length. Keep the ordinary spear a separate, shorter design.
-5. The Rust cavalry hammer has a solid steel shaft of 18 mm radius, whereas the
-   close museum comparator uses a steel sheath around wood. Correct both the
-   material construction and scale. Maces also need shortened shafts/heads and
-   physically credible steel sections.
-
-## Complete melee coverage and proposed acceptance envelopes
+## Melee reference ranges
 
 These envelopes guide the named default; they are not a certification of every
 freeform slider combination. Mass envelopes are whole-weapon checks, not inputs
@@ -125,18 +99,6 @@ to the physics calculation. Dimensions are millimetres.
 | `kite-shield` | Earlier medieval comparative study; exclude from claims of ordinary 1544 German equipment. |
 | `roman-tower-shield` | Ancient comparative study; explicitly outside 1544. |
 
-## Visual acceptance required
-
-Analytical acceptance does not substitute for image inspection. Final review must
-inspect labeled full-length and head/hilt detail views plus edge-on or oblique
-views of both actual Rust and browser meshes. Check axe cutting-edge inclination,
-beard and socket junction; blade taper and edge section; fork tine shape; mace
-flange concavity; guard/ring orientation; hilt scale; ranged construction and
-shield curvature. Attach the captured corpus and final disposition separately.
-
-Initial status: analytical findings issued; visual acceptance pending images. Read baseline-interpretation.md alongside this document: old authored Flat-blade thickness is scaled by the mesh, so authored depth alone is not an actual thickness measurement. baseline-runtime-metrics.csv records the original heuristic gameplay outputs.
-
-
 ## Limits of historically grounded gameplay inference
 
 Weapon mass, dimensions, centre of mass and rotational inertia are physical
@@ -153,7 +115,3 @@ contextual inputs without claiming to simulate every metallurgical detail.
 Actor skill, technique selection and situational accuracy are properties of
 the actor and combat event, not dimensions of the weapon. Keeping those separate
 is consistent with the request to derive weapon-intrinsic gameplay statistics.
-
-## Final review disposition
-
-The analytical recommendations above were followed by implementation changes and actual before/after mesh inspection. See `after-review.md` for the final independent disposition covering 44 Rust recipes, 42 browser presets and 20 composer combinations. It supersedes the initial pending status in this document. `before-after-physical-metrics.csv` contains all 106 numerical records, and `accepted-evidence-manifest.json` identifies the final reviewed exports and image sheets.

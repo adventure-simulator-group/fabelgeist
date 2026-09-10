@@ -54,8 +54,10 @@ Twelve curated programmes exercise the current vocabulary:
 - `renaissance-town-hall`: a broad civic building with an intersecting
   half-hip and cross-gable roofscape, a transverse wall dormer, smaller roof
   dormers, and stepped or curved gable details;
-- `workplace`: a working barn fixture; settlement uses select the other working programmes described below;
-- `parish-church`: a masonry parish nave with a lower chancel and a supported bell turret; and
+- `workplace`: a working barn fixture; settlement uses select the other working
+  programmes described below;
+- `parish-church`: a masonry parish nave with a lower chancel and a supported
+  bell turret; and
 - `cathedral`: an east-oriented, four-bay, three-aisled cruciform basilica with
   a projecting transept, square crossing, two-bay choir, five-sided apse, and
   an integrated single west bell tower;
@@ -514,7 +516,8 @@ or missing proof IDs.
 
 ## Settlement building programmes
 
-`adventuresim_world_schema::settlement_buildings` owns the building-use catalogue,
+`adventuresim_world_schema::settlement_buildings` owns the building-use
+catalogue,
 eligibility rules and approximate service catchments. `SettlementBuildingDemand`
 reads the canonical economy profile: it never independently rolls for a
 weaponsmith, armorer, temple, inn or other existing strategic service. Repeated
@@ -526,8 +529,9 @@ catalogued without being invented from population alone.
 stalls, milling floors, kiln rooms, vats, wards, classrooms and counting rooms.
 Timber town houses can combine workshops below with dwellings above. Chapels
 have a compact single volume; parish churches have a longer nave and a lower,
-narrower chancel. The existing cathedral remains a separate monumental architecture. Seeded roof pitches and
-storey heights vary the silhouette without enlarging the reserved lot.
+narrower chancel. The existing cathedral remains a separate monumental
+architecture. Seeded roof pitches and storey heights vary the silhouette without
+enlarging the reserved lot.
 
 The tactical layout reserves service plots along connected streets before
 housing residents. Market uses prefer central frontage; bulky and nuisance
@@ -551,11 +555,12 @@ cargo run -p adventuresim-tactical-core --bin city-layout-report -- 6500 42 > ta
 python scripts/render_city_layout_report.py target/city.json target/city.svg
 ```
 
-The report contains each lot's identity, use, service capacity, housing capacity,
-footprint and orientation, plus the actual streets and any capacity shortfalls.
-The SVG gives a building inventory and plot tooltips. Runtime palettes contain
-up to twelve recipes per residential family and two per service use and size, limiting
-repeated structural compilation while varying ordinary street frontage.
+The report contains each lot's identity, use, service capacity, housing
+capacity, footprint and orientation, plus the actual streets and any capacity
+shortfalls. The SVG gives a building inventory and plot tooltips. Runtime
+palettes contain up to twelve recipes per residential family and two per service
+use and size, limiting repeated structural compilation while varying ordinary
+street frontage.
 
 
 ## Chapels and parish churches
@@ -577,9 +582,11 @@ Rubble infill continues through the gables at the wall texture's physical scale.
 The lower chancel roof abuts the nave without an indoor tiled verge. The bell
 frame's posts reach the ground on either side of the entrance aisle.
 
-The distinction draws on [Lollar's chapel of about 1480](https://www.hessenpark.de/lexikon/historische-gebaeude/baugruppe-mittelhessen/kapelle-aus-lollar/),
+The distinction draws on
+[Lollar's chapel of about 1480](https://www.hessenpark.de/lexikon/historische-gebaeude/baugruppe-mittelhessen/kapelle-aus-lollar/),
 whose rectangular plan has no separate choir, and the [nave and recessed choir
-at St Wenzel, Langeneichstädt, around 1500](https://www.stiftung-kiba.de/kirchen/st-wenzel-langeneichstaedt).
+at St Wenzel, Langeneichstädt, around
+1500](https://www.stiftung-kiba.de/kirchen/st-wenzel-langeneichstaedt).
 These are procedural arrangements, not reconstructions of either building.
 The Lollar museum's later galleries and reconstructed floor do not define the
 1544 programme.
@@ -598,7 +605,8 @@ bell stage. Interior floors and the hidden lengths of support posts are omitted.
 The six programme/size combinations must reduce triangle counts by at least
 half at each distance step while preserving canonical roof silhouette vertices.
 
-Generate and capture the six capacity-selected review recipes through production:
+Generate and capture the six capacity-selected review recipes through
+production:
 
 ```powershell
 cargo run -p adventuresim-tactical-core --bin generate-scene-fixtures
@@ -611,14 +619,14 @@ presentation plugin and its material-readiness checks.
 
 ## Working buildings and plots
 
-Settlement recipes for barns, stables, granaries, smithies (including weaponsmith
-and armorer premises), bakehouses, market halls, breweries, malt houses, timber
-yards, carpenter workshops, merchant warehouses, dyers, tanneries and horse mills use the `Workplace`
-structural family.
-Their capacity band selects a small, medium or large working footprint before
-city placement reserves the complete plot. Playable buildings and distant
-recipes carry the same size; roofs, yard fences, sheds and major equipment
-remain visible in both distant mesh representations.
+Settlement recipes for barns, stables, granaries, smithies (including
+weaponsmith and armorer premises), bakehouses, market halls, breweries, malt
+houses, timber yards, carpenter workshops, merchant warehouses, dyers, tanneries
+and horse mills use the `Workplace` structural family. Their capacity band
+selects a small, medium or large working footprint before city placement
+reserves the complete plot. Playable buildings and distant recipes carry the
+same size; roofs, yard fences, sheds and major equipment remain visible in both
+distant mesh representations.
 
 The workplace programme owns its wall bays and open passages. It does not run
 the residential wall/framing solver over a second copy of the envelope. Barns
@@ -631,11 +639,11 @@ counters. These are procedural architectural prototypes: machinery, fire and
 business activity are not simulated by the building generator.
 
 Parts retain stable geometry identities, material and purpose. Structural
-support, reserved plot bounds, required equipment and clear passages are audited;
-static collision consumes the same physical parts. Roofs continue through the
-existing roof resolver and audit. Generic grid-opening edits are rejected for
-this structural family; edit the working programme instead.
-Vessel bottoms and rims collide; their rendered liquid fills do not create solid
+support, reserved plot bounds, required equipment and clear passages are
+audited; static collision consumes the same physical parts. Roofs continue
+through the existing roof resolver and audit. Generic grid-opening edits are
+rejected for this structural family; edit the working programme instead. Vessel
+bottoms and rims collide; their rendered liquid fills do not create solid
 floors. Pitched equipment shares its full orientation across support auditing,
 rendering and collision bounds.
 
@@ -661,11 +669,13 @@ carrying folded cloth. Tanneries combine low soaking tanks, sloped fleshing
 beams and irregular hanging hides beneath a drying canopy. Their working yards
 remain inside the reserved plot. Edge-district placement does not identify a
 riverbank, so these programmes do not fabricate watercourses or outlets beyond
-the plot. Cloth, hides, grain, rope and liquid fills use a shared authored surface
-palette independently of facade paint.
+the plot. Cloth, hides, grain, rope and liquid fills use a shared authored
+surface palette independently of facade paint.
 
-Period craft details draw on the Nuremberg housebooks' [1525 cloth worker](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/284/)
-and [1488 leatherworker with hanging hides](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/215/).
+Period craft details draw on the Nuremberg housebooks'
+[1525 cloth worker](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/284/)
+and
+[1488 leatherworker with hanging hides](https://online-service.nuernberg.de/viewer/image/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/215/).
 The complete workshops are procedural arrangements, not reconstructions of the
 rooms in those illustrations.
 
@@ -677,7 +687,8 @@ the unhitched draw rope is part of the static machinery. Capacity extends
 storage bays without enlarging the mechanism. Millstones use dressed stone
 independently of facade paint. No horse or machinery simulation is introduced.
 Regional precedents include the small Windsheim horse mill recorded in 1419
-and [Rothenburg's civic horse mill of 1516](https://www.rothenburg.de/en/entdecken/sehenswuerdigkeiten/historische-gebaeude).
+and
+[Rothenburg's civic horse mill of 1516](https://www.rothenburg.de/en/entdecken/sehenswuerdigkeiten/historische-gebaeude).
 The mechanism is an authored architectural arrangement, not a reconstruction
 of either building.
 
@@ -696,9 +707,9 @@ The checked-in `assets/tactical-scenes/workplace-review.json` supplies building
 programmes and placements. Its `.review.json` companion supplies camera targets.
 Exterior, intact interior and distant shots exercise production materials,
 operable door/window presentation, lighting, post-processing and automatic LODs.
-Edit these inputs to review another recipe; the capture layer contains no material
-mapping or building mesh conversion. Geometry editors and their cutaways remain
-useful diagnostics, but do not certify in-game appearance.
+Edit these inputs to review another recipe; the capture layer contains no
+material mapping or building mesh conversion. Geometry editors and their
+cutaways remain useful diagnostics, but do not certify in-game appearance.
 
 ### Remaining architectural opportunities
 
@@ -736,11 +747,12 @@ add tactical collision, swinging physics, or sign interactions. They do not
 change building footprints or service eligibility.
 
 The optional `sign-render` feature provides the same GPU components to the
-client and the review binary. The client loads lettering within 48 metres,
-fades it over 35–45 metres and releases lettering entities beyond 60 metres.
-The texture cache retains at most 64 painted materials; boards remain visible.
-Grenze Gotisch Bold is the default, with UnifrakturCook available for comparison.
-Fonts and their licenses are bundled locally. Long names wrap onto two lines.
+client and the review binary. The client loads lettering within 48 metres, fades
+it over 35–45 metres and releases lettering entities beyond 60 metres. The
+texture cache retains at most 64 painted materials; boards remain visible.
+Grenze Gotisch Bold is the default, with UnifrakturCook available for
+comparison. Fonts and their licenses are bundled locally. Long names wrap onto
+two lines.
 
 ```powershell
 python scripts/capture_shop_signs.py --output target/shop-sign-review
@@ -759,12 +771,12 @@ only production presentation binds materials, compiles GPU meshes and sets LODs.
 Capture waits for production geometry, textures and nearby lettering, checks
 window glass and per-building material bindings, and fails if required inputs or
 assets are missing. Production atmosphere baking waits for completed GPU
-generation and filtering before freezing its sky and lighting textures; allocated
-image handles alone do not establish readiness.
-`manifest.json` records camera, revision and lighting checks;
-`building-presentation.json` records the actual graphics adapter, backend and
-configuration. These are native GPU captures. Browser rendering requires its own
-smoke run against the actual web client; a native gallery is not WebGPU evidence.
+generation and filtering before freezing its sky and lighting textures;
+allocated image handles alone do not establish readiness. `manifest.json`
+records camera, revision and lighting checks; `building-presentation.json`
+records the actual graphics adapter, backend and configuration. These are native
+GPU captures. Browser rendering requires its own smoke run against the actual
+web client; a native gallery is not WebGPU evidence.
 
 ## Outdoor furniture
 
@@ -779,12 +791,13 @@ and checks authoritative terrain support before accepting a group.
 Placement is deterministic across playable terrain and the nearest vista ring.
 Market rows scale with usable area and preserve paired service rows and customer
 aisles. Houses and workshops receive smaller frontage clusters; stalls carry
-grain bins and sacks on their counters. Frontage groups use building-local metres. Roads, doors, market crossings, and handling spaces remain clear.
-The same accepted instances drive rendering and debug-world restoration. Only
+grain bins and sacks on their counters. Frontage groups use building-local
+metres. Roads, doors, market crossings, and handling spaces remain clear. The
+same accepted instances drive rendering and debug-world restoration. Only
 instances inside the tactical bounds receive server collision; distant furniture
 travels in the immutable vista bundle. Vista support uses the same clipped cells
-and vertex heights as the renderer. The client caches GPU meshes by recipe and shares the production
-building material palette.
+and vertex heights as the renderer. The client caches GPU meshes by recipe and
+shares the production building material palette.
 
 ```powershell
 python scripts/capture_furniture_review.py --output target/furniture-review

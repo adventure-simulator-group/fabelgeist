@@ -6,7 +6,10 @@ chronology, carrier, or exact remediation. A remediation fact is accepted only
 when its source and ID match that authority. See
 [Outbreak investigations](outbreaks.md).
 
-This page is the canonical technical reference for durable cases, objectives, contracts, local problems, mission and battle outcomes, NPC recruitment, and strategic incidents. These systems may interact, but none uses legacy quest identity as its authority boundary.
+This page is the canonical technical reference for durable cases, objectives,
+contracts, local problems, mission and battle outcomes, NPC recruitment, and
+strategic incidents. These systems may interact, but none uses legacy quest
+identity as its authority boundary.
 
 ## Cases, objectives, and contracts
 
@@ -63,11 +66,11 @@ identify, expose, proof, testimony, and negotiation may advance a known case
 without accepting a contract; report-to-issuer additionally requires the
 session-bound active contract and exact issuer. Before exposing an eligible
 response, the server derives one exact case from session-relevant observer
-provenance and pre-issues a private session/case/objective binding. Effects
-only revalidate and consume that binding after the owning producer succeeds;
-they never search the character's other known cases. Each fact source includes the dialogue
-session, stable action ID, and objective ID, so retries are idempotent and
-distinct actions in the same minute cannot alias. There is no public generic
+provenance and pre-issues a private session/case/objective binding. Effects only
+revalidate and consume that binding after the owning producer succeeds; they
+never search the character's other known cases. Each fact source includes the
+dialogue session, stable action ID, and objective ID, so retries are idempotent
+and distinct actions in the same minute cannot alias. There is no public generic
 fact or complete-objective reducer.
 
 ### Objective producers
@@ -215,17 +218,17 @@ follow-up operational improvement.
 
 Tactical servers keep positions, health, enemies, and per-tick simulation
 transient. Their completion enum is only a compatibility transport: `Failed`
-means failure, `CaptureTargetKilled` is explicit contradictory terminal
-evidence that also fails without sampling, and the other values are the same
-opaque authenticated success signal. Tactical requests and servers contain no strategic approach,
-objective, subject, weight, or expected-result field. On success, strategic
-authority revalidates the prebound candidates, canonically sorts them, and
-performs a deterministic SHA-256-derived weighted draw from private
+means failure, `CaptureTargetKilled` is explicit contradictory terminal evidence
+that also fails without sampling, and the other values are the same opaque
+authenticated success signal. Tactical requests and servers contain no strategic
+approach, objective, subject, weight, or expected-result field. On success,
+strategic authority revalidates the prebound candidates, canonically sorts them,
+and performs a deterministic SHA-256-derived weighted draw from private
 server-generated mission entropy. Caller-selected mission IDs therefore cannot
 grind outcomes, while retries reuse the persisted entropy and select the same
-result. Stale capture custody removes that
-candidate; if none remains, the attempt fails without fabrication. Allied
-autoresolve victory uses the same sampler.
+result. Stale capture custody removes that candidate; if none remains, the
+attempt fails without fabrication. Allied autoresolve victory uses the same
+sampler.
 
 The strategic commit validates party, mission, site, hostile-group, objective,
 candidate, and capture custody attribution and inserts one private

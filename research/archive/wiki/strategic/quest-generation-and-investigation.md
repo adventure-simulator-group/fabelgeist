@@ -11,7 +11,9 @@ area. Those bodies derive from the ordinary combat outcome rather than authored
 wound clues; see [Autopsies](autopsies.md). Generated victim incidents should
 use the same bounded autoresolve seam when a producer is added.
 
-This page is the canonical technical reference for authored quest content, deterministic case generation, observer-specific investigation knowledge, evidence, and discovery.
+This page is the canonical technical reference for authored quest content,
+deterministic case generation, observer-specific investigation knowledge,
+evidence, and discovery.
 
 ## Source-aware ambiguity
 
@@ -441,15 +443,15 @@ dialogue producer to remain intact.
 
 Entering an inn guarantees symptom discovery when an available unknown
 **validated generated quest problem** exists. This records the rumor in the
-player's dry journal and grants a private referral authority; it does not
-accept a contract or disclose testimony. Legacy/manual
-seeded `LocalProblemAuthority` rows currently drive settlement simulation
-modifiers and effects only and are intentionally non-discoverable; retiring
-that producer is separate work. Any local can repeat a validated generated
-rumor and name the referred persistent NPC by visible description, profession,
-and expected location tab. Testimony is issued only when the addressed NPC is the bound
-witness. Corrections reuse the proposition they revise, preserving an earlier
-false believed pin until the correction is learned.
+player's dry journal and grants a private referral authority; it does not accept
+a contract or disclose testimony. Legacy/manual seeded `LocalProblemAuthority`
+rows currently drive settlement simulation modifiers and effects only and are
+intentionally non-discoverable; retiring that producer is separate work. Any
+local can repeat a validated generated rumor and name the referred persistent
+NPC by visible description, profession, and expected location tab. Testimony is
+issued only when the addressed NPC is the bound witness. Corrections reuse the
+proposition they revise, preserving an earlier false believed pin until the
+correction is learned.
 
 Witness discovery is an explicit authored graph, not permission inferred from
 private manifest membership. The initial rumor grants an observer-bound
@@ -854,17 +856,17 @@ kilometers. Site and area modes must agree. Later
 site-targeting actions require actual site occupancy. Traveling elsewhere
 invalidates the attempt before time is spent or a lead is written.
 
-Retrieve and rescue consequences re-read current custody and require the case objective,
-object kind, site holder, occupied site, and next version to agree. A purely
-stale version reissues the capability without spending time; a holder, site,
-or case mismatch fails closed. Investigation can discover, track, position, and
-prepare an ambush, but it never creates a mission, battle receipt, hostile
-disposition, drive-off fact, or capture fact. Authoritative non-kill tactical
-resolution begins only after authenticated combat succeeds. Strategic mission
-authority privately snapshots exact observer-authorized pending objective
-approaches and deterministically selects among compatible defeat, drive-off,
-and capture consequences at commit time. Investigation actions cannot select
-or invoke that result.
+Retrieve and rescue consequences re-read current custody and require the case
+objective, object kind, site holder, occupied site, and next version to agree. A
+purely stale version reissues the capability without spending time; a holder,
+site, or case mismatch fails closed. Investigation can discover, track,
+position, and prepare an ambush, but it never creates a mission, battle receipt,
+hostile disposition, drive-off fact, or capture fact. Authoritative non-kill
+tactical resolution begins only after authenticated combat succeeds. Strategic
+mission authority privately snapshots exact observer-authorized pending
+objective approaches and deterministically selects among compatible defeat,
+drive-off, and capture consequences at commit time. Investigation actions cannot
+select or invoke that result.
 
 ## Disease evidence hooks
 

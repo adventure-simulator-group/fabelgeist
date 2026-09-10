@@ -14,12 +14,12 @@ consume these signals, but rules v6 does not create prices, inventory, or
 shipping flows.
 
 For the current strategic prototype, each available storefront exposes an
-unlimited catalogue selected from the settlement's economy profile. Items have a base coin value; merchant buy and sell prices are
-derived from it with shared hidden profit-margin and sales-tax multipliers.
-Both the merchant and player inventory tables display each item's per-unit
-weight and relevant coin value.
-Coin is authoritative inventory rather than a separate character resource.
-Every settlement reproducibly selects one denomination from a fixed 1544-flavoured
+unlimited catalogue selected from the settlement's economy profile. Items have a
+base coin value; merchant buy and sell prices are derived from it with shared
+hidden profit-margin and sales-tax multipliers. Both the merchant and player
+inventory tables display each item's per-unit weight and relevant coin value.
+Coin is authoritative inventory rather than a separate character resource. Every
+settlement reproducibly selects one denomination from a fixed 1544-flavoured
 set: Rhenish gulden, Lübeck mark, Hamburg mark, Saxon thaler, Brandenburg
 groschen, and Danish mark. Starter funds and newly issued payments use the
 issuing settlement's denomination; quest and battle rewards use the quest's
@@ -65,24 +65,27 @@ are allowed; every medication course enters personal inventory as its own
 quantity-one row. The herbalist page deliberately omits party-inventory buying
 and explains that restriction so courses cannot become unusable shared stacks.
 
-Weaponsmith and Armourer storefronts also accept individual equipment instances for repair through
-separate actions that never enter the sale draft. A smith repairs only condition bins at or below
-their independently seeded skill (minimum 3), but may accept an item with additional harder damage
-and leave that residual condition untouched. Custody and the quoted ETA persist across travel and
-have no collection deadline. The smith quotes the full job when accepting it: the item's base value
-multiplied by the share of damage that smith can repair, rounded up to at least one coin. The quote
-is stable while the item is in custody and is paid from personal coin when completed work is
-retrieved. The custody table shows durability, ETA, and this full-job cost. A row arrow retrieves
-that exact quoted order by default; Shift changes it to retrieve up to two matching ready orders,
-and Control changes it to retrieve all matching ready orders. The header arrow defaults to two and
-Control changes it to all ready work in that shop. Bulk retrieval stops before the first order the
-character cannot afford rather than failing already-affordable retrievals.
-Removing a staged purchase before offering it simply cancels that purchase;
-it does not create a sale or apply a merchant fee.
-The confirmation popup appears in the center of the view only while an
-exchange is pending and includes **Offer** and **Cancel** controls; Cancel
-discards the entire draft. Loot, discard, character trade, merchant trade, and
-party-inventory transfers all use this same centered confirmation pattern.
+Weaponsmith and Armourer storefronts also accept individual equipment instances
+for repair through separate actions that never enter the sale draft. A smith
+repairs only condition bins at or below their independently seeded skill
+(minimum 3), but may accept an item with additional harder damage and leave that
+residual condition untouched. Custody and the quoted ETA persist across travel
+and have no collection deadline. The smith quotes the full job when accepting
+it: the item's base value multiplied by the share of damage that smith can
+repair, rounded up to at least one coin. The quote is stable while the item is
+in custody and is paid from personal coin when completed work is retrieved. The
+custody table shows durability, ETA, and this full-job cost. A row arrow
+retrieves that exact quoted order by default; Shift changes it to retrieve up to
+two matching ready orders, and Control changes it to retrieve all matching ready
+orders. The header arrow defaults to two and Control changes it to all ready
+work in that shop. Bulk retrieval stops before the first order the character
+cannot afford rather than failing already-affordable retrievals. Removing a
+staged purchase before offering it simply cancels that purchase; it does not
+create a sale or apply a merchant fee. The confirmation popup appears in the
+center of the view only while an exchange is pending and includes **Offer** and
+**Cancel** controls; Cancel discards the entire draft. Loot, discard, character
+trade, merchant trade, and party-inventory transfers all use this same centered
+confirmation pattern.
 
 Every inventory action exposes one inward-pointing arrow control. Row controls
 default to one arrow, become two while Shift is held, and become three while
@@ -100,4 +103,7 @@ the player stages quantities into the left-side **Discard** list, may cancel the
 draft, and must press **Discard** before the server removes anything. Equipped
 items are never eligible for deletion.
 
-The best shared Oral-language coefficient is authoritative for merchant quotes. Lower mutual proficiency raises purchase prices and lowers sale proceeds; the web quote and reducer use the same core rounding helpers. Prepared medicines remain on their existing specialized purchase path.
+The best shared Oral-language coefficient is authoritative for merchant quotes.
+Lower mutual proficiency raises purchase prices and lowers sale proceeds; the
+web quote and reducer use the same core rounding helpers. Prepared medicines
+remain on their existing specialized purchase path.

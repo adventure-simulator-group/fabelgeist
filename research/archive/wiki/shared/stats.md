@@ -20,18 +20,28 @@ blends into the check. Cover conservatively splits the existing
 road-discounted exposure between Snow and the underlying biome.
 
 The strategic interface represents attributes, skills, schedule activities,
-condition metrics, Fervor, Morale, Age, settlement Fame/Infamy, and Religion with recolourable
-CSS masks. Most use locally vendored monochrome Game Icons; arm and leg Strength
-and Agility plus Immunity retain the original strategic-interface artwork for
-legibility at compact sizes. Labels and tooltips remain available to assistive
-technology.
-The maximum value of your characters' attributes is determined by their genetics, but the actual value may be quite a bit lower if they are not properly conditioned. For example, even if you have the theoretical ability to build a large amount of muscle, if you have poor nutrition or don't exercise then you will realize very little of it. Conditioning is different for each attribute, but generally no one will be able to condition all of their attributes to their maximum potential due to there only being 24 hours in a day.
+condition metrics, Fervor, Morale, Age, settlement Fame/Infamy, and Religion
+with recolourable CSS masks. Most use locally vendored monochrome Game Icons;
+arm and leg Strength and Agility plus Immunity retain the original
+strategic-interface artwork for legibility at compact sizes. Labels and tooltips
+remain available to assistive technology. The maximum value of your characters'
+attributes is determined by their genetics, but the actual value may be quite a
+bit lower if they are not properly conditioned. For example, even if you have
+the theoretical ability to build a large amount of muscle, if you have poor
+nutrition or don't exercise then you will realize very little of it.
+Conditioning is different for each attribute, but generally no one will be able
+to condition all of their attributes to their maximum potential due to there
+only being 24 hours in a day.
 
-Attributes are grouped between Chest/Stomach/Head/Limbs (L/R, A/L). Damage to one of these areas will affect all attributes within.
+Attributes are grouped between Chest/Stomach/Head/Limbs (L/R, A/L). Damage to
+one of these areas will affect all attributes within.
 
 ## Chest
 ### Endurance
-Represents the strength of your heart, capacity of your lungs, and proportion of slow-twitch/fast-twitch muscle fiber. It determines how long you can go without suffering from exhaustion and how fast you move when traveling. Conditioned by traveling on foot.
+Represents the strength of your heart, capacity of your lungs, and proportion of
+slow-twitch/fast-twitch muscle fiber. It determines how long you can go without
+suffering from exhaustion and how fast you move when traveling. Conditioned by
+traveling on foot.
 
 0. Asphyxiated
 1. Dainty sheltered nobles
@@ -43,7 +53,8 @@ Represents the strength of your heart, capacity of your lungs, and proportion of
 
 ## Stomach
 ### Immunity
-This is essentially a combination of the liver, spleen, and other organs which regulate your immune system and ability to filter out toxins.
+This is essentially a combination of the liver, spleen, and other organs which
+regulate your immune system and ability to filter out toxins.
 
 0. AIDS
 1. Infants
@@ -53,7 +64,11 @@ This is essentially a combination of the liver, spleen, and other organs which r
 5. Vampires (immune to disease)
 
 ### Gut
-Your stomach, intestines, pancreas, and other organs involved with your digestive system. Determines how edible food needs to be in order for you to effectively digest it and how much variety you need to be decently healthy. Cooking makes food more edible, but food that is more fibrous and less nutritious can only be improved by so much.
+Your stomach, intestines, pancreas, and other organs involved with your
+digestive system. Determines how edible food needs to be in order for you to
+effectively digest it and how much variety you need to be decently healthy.
+Cooking makes food more edible, but food that is more fibrous and less
+nutritious can only be improved by so much.
 
 0. Vampires (cannot digest food, must get calories directly from blood glucose)
 1. Elves (can only eat meat, fat, and luxurious elven plants)
@@ -68,10 +83,17 @@ These attributes are separate among 4 limbs:
 * Left arm
 * Right leg
 * Left leg
-Every physical check will use some proportion of these. For example, swinging a sword in your right hand is largely dependent on your right arm, but your left arm is also being used for balance and your legs are helping put force into it. Your torso is also twisting to support this, but rather than being a separate limb, your torso is essentially a fuzzy mix of all limb attributes (mostly arms).
+Every physical check will use some proportion of these. For example, swinging a
+sword in your right hand is largely dependent on your right arm, but your left
+arm is also being used for balance and your legs are helping put force into it.
+Your torso is also twisting to support this, but rather than being a separate
+limb, your torso is essentially a fuzzy mix of all limb attributes (mostly
+arms).
 
 ### Strength
-Proportional to the total muscle mass of the limb. Arm-strength is important for attack damage, climb speed, and how well you keep your balance while blocking attacks. Leg-strength is important for movement speed and jump height.
+Proportional to the total muscle mass of the limb. Arm-strength is important for
+attack damage, climb speed, and how well you keep your balance while blocking
+attacks. Leg-strength is important for movement speed and jump height.
 
 0. Cripple
 1. Child
@@ -81,7 +103,10 @@ Proportional to the total muscle mass of the limb. Arm-strength is important for
 5. Olympic athlete
 
 ### Agility
-The speed of your muscular reflexes and your ability to control them. Arm-agility is important for accuracy and parrying, leg-agility is important for stealth and dodging. The mean Agility of both arms supplies 50% of Surgery's weighted governing aptitude; see the Surgery section for the complete formula.
+The speed of your muscular reflexes and your ability to control them.
+Arm-agility is important for accuracy and parrying, leg-agility is important for
+stealth and dodging. The mean Agility of both arms supplies 50% of Surgery's
+weighted governing aptitude; see the Surgery section for the complete formula.
 
 0. Paralyzed, unaware, or tied up
 1. Drunken oaf, orcs, zombies
@@ -91,7 +116,11 @@ The speed of your muscular reflexes and your ability to control them. Arm-agilit
 5. Elven heroes
 
 ## Head
-In theory eyesight/hearing should be further subdivided into eyes/ears for damage purposes, while intelligence and instinct are brain. In fact, ask a neurologist but intelligence/instinct would be correlated with different physical locations in the brain. But this is fine for now, we do not need infinite detail for the MVP.
+In theory eyesight/hearing should be further subdivided into eyes/ears for
+damage purposes, while intelligence and instinct are brain. In fact, ask a
+neurologist but intelligence/instinct would be correlated with different
+physical locations in the brain. But this is fine for now, we do not need
+infinite detail for the MVP.
 
 ### Intelligence
 The depth at which your character can think. Intelligence governs learning and
@@ -161,11 +190,33 @@ effective-rank limit; trained skill rank supplies the check itself. Agility
 components also name their fixed limb distribution, such as both arms or both
 legs. Governing weights never add directly to a skill check.
 ## Training
-Skills increase on a much longer timescale than is conventional for RPGs. They are not increased via an abstract XP/leveling system, and very little of their value comes from using them during tactical play. Instead they are trained through activities in the character's off-screen settlement-downtime schedule. Individual skill-study allocations are not available.
+Skills increase on a much longer timescale than is conventional for RPGs. They
+are not increased via an abstract XP/leveling system, and very little of their
+value comes from using them during tactical play. Instead they are trained
+through activities in the character's off-screen settlement-downtime schedule.
+Individual skill-study allocations are not available.
 
-Combat Training practices the leaf skills relevant to the equipped weapons plus Dodge, Block, Balance, and Will; it includes both sparring and target practice. Carousing trains Charm and improves Morale; only a disorder incident adds Infamy. Prayer, Labor, Thievery, and Raiding retain their related training and strategic results when available at the character's current location. The saved daily allocation remains globally editable and unchanged when moving. At execution, every unavailable 15-minute segment is reassigned to one of the character's other available planned activities, weighted by those activities' saved allocations; it becomes Leisure only when that pool is empty. Profession activities cover Physiology, Surgery, Knife, Tailoring, Smithing, Command, and knowledge of the settlement church's religious tradition. An activity conserves its training time when it covers several skills rather than awarding the full allocation to every skill. Travel never performs scheduled settlement activities. Activity rows preview signed Gold, Fame/Infamy, Morale, and Fatigue generated per day. Leisure is the unallocated remainder and includes sleep.
+Combat Training practices the leaf skills relevant to the equipped weapons plus
+Dodge, Block, Balance, and Will; it includes both sparring and target practice.
+Carousing trains Charm and improves Morale; only a disorder incident adds
+Infamy. Prayer, Labor, Thievery, and Raiding retain their related training and
+strategic results when available at the character's current location. The saved
+daily allocation remains globally editable and unchanged when moving. At
+execution, every unavailable 15-minute segment is reassigned to one of the
+character's other available planned activities, weighted by those activities'
+saved allocations; it becomes Leisure only when that pool is empty. Profession
+activities cover Physiology, Surgery, Knife, Tailoring, Smithing, Command, and
+knowledge of the settlement church's religious tradition. An activity conserves
+its training time when it covers several skills rather than awarding the full
+allocation to every skill. Travel never performs scheduled settlement
+activities. Activity rows preview signed Gold, Fame/Infamy, Morale, and Fatigue
+generated per day. Leisure is the unallocated remainder and includes sleep.
 
-Selecting an explicit activity icon previews and performs one continuous one-to-24-hour interval using the same training and outcome rules. Its preview is based on the chosen duration; Prayer/Meditation and Carousing are nonlinear, so increasing their duration has diminishing Morale returns. Immediate activity never includes implicit Leisure or modifies the recurring allocation.
+Selecting an explicit activity icon previews and performs one continuous
+one-to-24-hour interval using the same training and outcome rules. Its preview
+is based on the chosen duration; Prayer/Meditation and Carousing are nonlinear,
+so increasing their duration has diminishing Morale returns. Immediate activity
+never includes implicit Leisure or modifies the recurring allocation.
 
 A character may join multiple YAML-defined organizations. Each organization
 chooses its own name, chapters, recognition, admission fee, recurring dues,
@@ -181,9 +232,45 @@ next rank's YAML requirements rather than universal
 apprentice/journeyman/master thresholds. Skills with no invested training hours
 remain omitted until training first awards hours.
 
-An ordinary day generates 600 fatigue-reservoir units before tiring activities. Leisure removes 100 units per hour, so six hours exactly offsets ordinary wakefulness. Labor adds another 50 units per hour. Leisure beyond six hours first removes activity fatigue, then fatigue carried into the interval; only the portion of the interval after the reservoir reaches zero earns morale, approaching 4 points per full qualifying day with a 200-unit diminishing-return scale. The schedule displays a one-day preview, but the server awards the result proportionally to the settlement-downtime time actually applied. Earned Leisure morale is kept as one refreshable source capped at 4 points, rather than being projected from the post-rest schedule or stacked into separate events. It decays at a fixed rate when no qualifying Leisure is occurring; qualifying Leisure refreshes it while adding the newly earned amount. This makes the result independent of whether downtime is applied all at once or through frequent synchronization. The compact schedule preview shows one Fatigue point per 100 reservoir units: Labor therefore shows `+0.5` per hour, while Leisure includes baseline and recovery so all visible Fatigue rows sum to the authoritative net change. Positive preview values remain green and negative values red, including negative Fatigue values that represent recovery.
+An ordinary day generates 600 fatigue-reservoir units before tiring activities.
+Leisure removes 100 units per hour, so six hours exactly offsets ordinary
+wakefulness. Labor adds another 50 units per hour. Leisure beyond six hours
+first removes activity fatigue, then fatigue carried into the interval; only the
+portion of the interval after the reservoir reaches zero earns morale,
+approaching 4 points per full qualifying day with a 200-unit diminishing-return
+scale. The schedule displays a one-day preview, but the server awards the result
+proportionally to the settlement-downtime time actually applied. Earned Leisure
+morale is kept as one refreshable source capped at 4 points, rather than being
+projected from the post-rest schedule or stacked into separate events. It decays
+at a fixed rate when no qualifying Leisure is occurring; qualifying Leisure
+refreshes it while adding the newly earned amount. This makes the result
+independent of whether downtime is applied all at once or through frequent
+synchronization. The compact schedule preview shows one Fatigue point per 100
+reservoir units: Labor therefore shows `+0.5` per hour, while Leisure includes
+baseline and recovery so all visible Fatigue rows sum to the authoritative net
+change. Positive preview values remain green and negative values red, including
+negative Fatigue values that represent recovery.
 
-The rank meter is a five-segment display using the same yellow-green, yellow, orange, red, and violet progression as equipment repair difficulty. Skill icons use the color of the segment containing the current effective rank rather than the governing aptitude's color. Bands do not round to the nearest rank: 0 through 1 uses yellow-green, values above 1 through 2 use yellow, and so on through violet; injury or another current-rank penalty can therefore lower the icon's band along with the bright portion of the meter. Daily allocations are changed in 15-minute steps with the left/right buttons or mouse wheel. Clicking a displayed allocation opens a time field. It accepts `h` or `hh` as whole hours, `h:mm` or `hh:mm`, and compact three- or four-digit times such as `830` or `0830`; entered values snap to the nearest 15 minutes and may not exceed `24:00`. The underlying schedule stores minutes, and the Leisure allocation shows the unallocated remainder. The editor updates these values immediately, serializes background saves, and reconciles with the server after the latest change is saved so live updates cannot momentarily restore an older plan. A failed save leaves the optimistic plan visible and presents a Retry action; making another edit also retries using the newest plan. Compact column icons label Currency (`💎`), Fame/Infamy (`⚖️`), Morale (`🙂`), Fatigue (`💤`), and daily allocation (`⌛`); each icon exposes the same label to assistive technology.
+The rank meter is a five-segment display using the same yellow-green, yellow,
+orange, red, and violet progression as equipment repair difficulty. Skill icons
+use the color of the segment containing the current effective rank rather than
+the governing aptitude's color. Bands do not round to the nearest rank: 0
+through 1 uses yellow-green, values above 1 through 2 use yellow, and so on
+through violet; injury or another current-rank penalty can therefore lower the
+icon's band along with the bright portion of the meter. Daily allocations are
+changed in 15-minute steps with the left/right buttons or mouse wheel. Clicking
+a displayed allocation opens a time field. It accepts `h` or `hh` as
+whole hours, `h:mm` or `hh:mm`, and compact three- or four-digit times such
+as `830` or `0830`; entered values snap to the nearest 15 minutes and may
+not exceed `24:00`. The underlying schedule stores minutes, and the Leisure
+allocation shows the unallocated remainder. The editor updates these values
+immediately, serializes background saves, and reconciles with the server after
+the latest change is saved so live updates cannot momentarily restore an older
+plan. A failed save leaves the optimistic plan visible and presents a Retry
+action; making another edit also retries using the newest plan. Compact column
+icons label Currency (`💎`), Fame/Infamy (`⚖️`), Morale (`🙂`),
+Fatigue (`💤`), and daily allocation (`⌛`); each icon exposes the same
+label to assistive technology.
 
 Character summaries use that same five-color rank progression on compact,
 keyboard-focusable icons. Equipped hands contribute one icon for every unique
@@ -205,7 +292,14 @@ their exact ranks. Standalone skills use their own icon and rank. The visible
 color is supplementary: every icon exposes its identity and score through the
 shared instant tooltip and accessible name.
 
-The main difference between this and directly allocating skill points is that if your character is [convalescing](health.md) or [traveling](../strategic/travel.md) they cannot train. Not all skills are equal though in terms of how much training time they need to be effective, they all have their own falloff curve. The number in parentheses next to a listed skill is its asymptotic training calibration; half that many effective hours produces rank 2.5. The rate of increase from training is lower the higher they get, providing an upper asymptote for skill rank.
+The main difference between this and directly allocating skill points is that if
+your character is [convalescing](health.md) or
+[traveling](../strategic/travel.md) they cannot train. Not all skills are equal
+though in terms of how much training time they need to be effective, they all
+have their own falloff curve. The number in parentheses next to a listed skill
+is its asymptotic training calibration; half that many effective hours produces
+rank 2.5. The rate of increase from training is lower the higher they get,
+providing an upper asymptote for skill rank.
 
 Real training time is converted to effective learned hours by the governing
 aptitude:
@@ -227,9 +321,22 @@ existing enjoyment first decays linearly through the interval, then the combined
 award refreshes it at the endpoint. It reaches zero after seven days without
 another award. Aptitude zero earns neither effective hours nor mastery morale.
 
-The skill rail has three computed combat groups: **Melee**, **Ranged**, and **Defense**. They have no stored hours and are never used directly for a tactical check. Melee expands to Polearm, Axe, Bludgeon, Sword, and Knife; Ranged expands to Bow, Crossbow, Firearm, and Throw; Defense expands to Dodge, Block, Balance, and Will. Equipped weapon distributions determine the relevant weapon leaves. A shield gives Block full relevance; without one, the best-balanced equipped melee weapon gives Block a weight of `1 - balance`. Combat Training and Raiding divide their conserved activity award deterministically across those relevance weights.
+The skill rail has three computed combat groups: **Melee**, **Ranged**, and
+**Defense**. They have no stored hours and are never used directly for a
+tactical check. Melee expands to Polearm, Axe, Bludgeon, Sword, and Knife;
+Ranged expands to Bow, Crossbow, Firearm, and Throw; Defense expands to Dodge,
+Block, Balance, and Will. Equipped weapon distributions determine the relevant
+weapon leaves. A shield gives Block full relevance; without one, the
+best-balanced equipped melee weapon gives Block a weight of `1 - balance`.
+Combat Training and Raiding divide their conserved activity award
+deterministically across those relevance weights.
 
-Every weapon stores a nine-field skill distribution. A halberd uses Polearm, Axe, and Bludgeon equally; a glaive uses Polearm and Sword; short swords and daggers use Sword and Knife; a hand axe uses Axe and Knife. An attack averages the complete leaf-skill checks using those weights, including each check's attributes and penalties. Knife means short weapons rather than only literal knives.
+Every weapon stores a nine-field skill distribution. A halberd uses Polearm,
+Axe, and Bludgeon equally; a glaive uses Polearm and Sword; short swords and
+daggers use Sword and Knife; a hand axe uses Axe and Knife. An attack averages
+the complete leaf-skill checks using those weights, including each check's
+attributes and penalties. Knife means short weapons rather than only literal
+knives.
 ## Intuitive vs Trained
 This distinction applies only to correlated training. An intuitive target may
 benefit from correlated hours without formal training in that target. A trained
@@ -304,11 +411,16 @@ fn skill_check(character, skill, limb_weights: LimbWeights):
 	return check
 ```
 
-Each skill is represented in the stats window with its uncapped rank projected from effective hours (direct plus correlated) behind its current aptitude- and injury-limited rank. Hover text reports the direct hours, correlated contribution, resulting effective hours, and governing aptitude. Penalties such as encumbrance, armor, or injuries reduce only the current effective portion.
+Each skill is represented in the stats window with its uncapped rank projected
+from effective hours (direct plus correlated) behind its current aptitude- and
+injury-limited rank. Hover text reports the direct hours, correlated
+contribution, resulting effective hours, and governing aptitude. Penalties such
+as encumbrance, armor, or injuries reduce only the current effective portion.
 
 ## Mental
 ### Will (intuitive, 5000 hours)
-Ability to resist [pain](../tactical/combat.md) or avoid [morale](morale.md) penalties.
+Ability to resist [pain](../tactical/combat.md) or avoid [morale](morale.md)
+penalties.
 0. Generalized anxiety disorder / panic disorder
 1. Coward
 2. Cautious, sensitive to pain
@@ -321,7 +433,17 @@ There's no persuasion system or anything for the MVP, this is primarily a
 [morale](morale.md) and relationship system. All current Social leaves are
 governed by Instinct.
 
-Insight reads others and oneself, Charm powers both humor and compatible flirtation, Command rallies and coordinates, and Deception sustains false impressions. Joke and Flirt remain separate morale actions: Grave actors cannot Joke and Proper actors cannot Flirt, while each of those reserved traits adds 0.35 to Rally Command. Party Command is led by the strongest individual check. Additional members receive a saturating coordination benefit, then contribute half of their deviation from a 2.5 baseline. Checks above 2.5 help and checks below 2.5 burden the party's social leadership. The result is capped from 0 to 5; adding arbitrarily many low-Command members cannot manufacture a high result. Character sheets summarize these four skills with an expandable Social meta-skill whose rank is their average.
+Insight reads others and oneself, Charm powers both humor and compatible
+flirtation, Command rallies and coordinates, and Deception sustains false
+impressions. Joke and Flirt remain separate morale actions: Grave actors cannot
+Joke and Proper actors cannot Flirt, while each of those reserved traits adds
+0.35 to Rally Command. Party Command is led by the strongest individual check.
+Additional members receive a saturating coordination benefit, then contribute
+half of their deviation from a 2.5 baseline. Checks above 2.5 help and checks
+below 2.5 burden the party's social leadership. The result is capped from 0 to
+5; adding arbitrarily many low-Command members cannot manufacture a high result.
+Character sheets summarize these four skills with an expandable Social
+meta-skill whose rank is their average.
 
 0. Autistic
 1. Cold and aloof
@@ -348,13 +470,20 @@ intrinsic route. A compact current-medication status allows an active course to
 be stopped and disappears after a stop or natural expiry. These actions operate
 on generic, versioned physiology profiles rather than disease-keyed cures.
 
-Physiology uses a bounded party-check equation. Individual checks are sorted strongest-first, the leader receives full weight, and successive contributors receive weights of `1/2`, `1/4`, `1/8`, and so on:
+Physiology uses a bounded party-check equation. Individual checks are sorted
+strongest-first, the leader receives full weight, and successive contributors
+receive weights of `1/2`, `1/4`, `1/8`, and so on:
 
 \[
 P = 5\left(1-\prod_{i=1}^{n}\left(1-\frac{x_i}{5}\right)^{(1/2)^{i-1}}\right)
 \]
 
-A solo character retains their exact individual check. The result never exceeds 5 and needs no final clamp. Because all supporting weights together equal the leader's weight, arbitrarily many equally skilled supporters can add at most the influence of one additional copy of the leader: Physiology 1 approaches 1.8, Physiology 2 approaches 3.2, Physiology 3 approaches 4.2, and Physiology 4 approaches 4.8.
+A solo character retains their exact individual check. The result never exceeds
+5 and needs no final clamp. Because all supporting weights together equal the
+leader's weight, arbitrarily many equally skilled supporters can add at most the
+influence of one additional copy of the leader: Physiology 1 approaches 1.8,
+Physiology 2 approaches 3.2, Physiology 3 approaches 4.2, and Physiology 4
+approaches 4.8.
 
 0. Provides no help to anyone injured
 1. Knows to disinfect wounds with alcohol
@@ -364,13 +493,33 @@ A solo character retains their exact individual check. The result never exceeds 
 5. Can treat all organ damage and all diseases
 
 ### Religion (trained, 5000 hours per tradition)
-Religion represents knowledge, not conviction. It includes Roman Catholicism, Lutheranism, Reformed Christianity, Anglicanism, Eastern Orthodoxy, Islam, and Judaism. Canonical state records only hours learned in each tradition. Effective hours for a tradition are derived once by multiplying those hours by the symmetric correlation matrix; derived hours are never stored or recursively correlated. Prayer activity teaches the character's professed tradition. The skill rail can expand a primary tradition to show other traditions with nonzero direct knowledge, and each meter's hover text reports effective and directly learned hours.
+Religion represents knowledge, not conviction. It includes Roman Catholicism,
+Lutheranism, Reformed Christianity, Anglicanism, Eastern Orthodoxy, Islam, and
+Judaism. Canonical state records only hours learned in each tradition. Effective
+hours for a tradition are derived once by multiplying those hours by the
+symmetric correlation matrix; derived hours are never stored or recursively
+correlated. Prayer activity teaches the character's professed tradition. The
+skill rail can expand a primary tradition to show other traditions with nonzero
+direct knowledge, and each meter's hover text reports effective and directly
+learned hours.
 
-The diagonal is 1.0. The upper-triangle correlations in stable order (Roman Catholic, Lutheran, Reformed, Anglican, Eastern Orthodox, Islam, Judaism) are: RC to the remaining traditions `0.80, 0.75, 0.80, 0.65, 0.10, 0.10`; Lutheran `0.90, 0.85, 0.50, 0.10, 0.10`; Reformed `0.85, 0.45, 0.10, 0.10`; Anglican `0.55, 0.10, 0.10`; Eastern Orthodox `0.15, 0.10`; and Islam to Judaism `0.35`.
+The diagonal is 1.0. The upper-triangle correlations in stable order (Roman
+Catholic, Lutheran, Reformed, Anglican, Eastern Orthodox, Islam, Judaism) are:
+RC to the remaining traditions `0.80, 0.75, 0.80, 0.65, 0.10, 0.10`; Lutheran
+`0.90, 0.85, 0.50, 0.10, 0.10`; Reformed `0.85, 0.45, 0.10, 0.10`; Anglican
+`0.55, 0.10, 0.10`; Eastern Orthodox `0.15, 0.10`; and Islam to Judaism
+`0.35`.
 
-A party's check for a particular religion includes every living member's effective knowledge of that tradition, regardless of what they personally profess. This permits a knowledgeable nonbeliever or member of another religion to lead prayers and sermons. The generic recruitment summary uses the character's maximum effective Religion check as a UI-only measure of coverage; authoritative morale and prayer always select the relevant tradition.
+A party's check for a particular religion includes every living member's
+effective knowledge of that tradition, regardless of what they personally
+profess. This permits a knowledgeable nonbeliever or member of another religion
+to lead prayers and sermons. The generic recruitment summary uses the
+character's maximum effective Religion check as a UI-only measure of coverage;
+authoritative morale and prayer always select the relevant tradition.
 
-Conviction lives on the personality axis instead: Zealous contributes 5.0 pressure, Neutral 2.5, and Irreverent 0.0. A profession and conviction are separate; an Irreverent character may still officially profess a religion.
+Conviction lives on the personality axis instead: Zealous contributes 5.0
+pressure, Neutral 2.5, and Irreverent 0.0. A profession and conviction are
+separate; an Irreverent character may still officially profess a religion.
 
 ### Bestiary (trained, 5000 hours per category)
 
@@ -419,7 +568,8 @@ average healthy Agility of both arms. Hybrid weapons use a weighted average of
 all tagged leaves. Knife covers short weapons, including daggers, short swords,
 hand axes, and compact butchery tools.
 
-0. Has never been shown how to use a weapon or observed for an extended period of time
+0. Has never been shown how to use a weapon or observed for an extended period
+   of time
 1. Can split firewood with an axe, zombies
 2. Peasant levy, orcs, goblins
 3. Professional soldier
@@ -449,7 +599,9 @@ one leaf.
 4. Knight
 5. Elven warrior
 ### Block (intuitive, 12000 hours)
-The larger your shield is, the less you rely on your block skill to use it effectively. A pavise requires almost none (though considerable strength), a buckler or weapon require high skill to use effectively.
+The larger your shield is, the less you rely on your block skill to use it
+effectively. A pavise requires almost none (though considerable strength), a
+buckler or weapon require high skill to use effectively.
 
 0. Never been in a fight
 1. Has been in some barfights
@@ -486,8 +638,9 @@ Surgery represents trained operative wound care. Its governing aptitude is
 This weighted aptitude controls training speed and the mastery cap. Surgery
 remains a mental skill, so head injury remains its performance penalty; arm
 injury, armor, encumbrance, and fatigue do not gain new Surgery performance
-penalties from the aptitude blend. The Fellowship of Herbalists trains Herbalism; the College of
-Physicians trains Physiology; and the Surgeons' Guild trains Surgery.
+penalties from the aptitude blend. The Fellowship of Herbalists trains
+Herbalism; the College of Physicians trains Physiology; and the Surgeons' Guild
+trains Surgery.
 
 Projectile extraction, stitching, bandaging, and splinting all check Surgery
 directly. Self-treatment applies the shared 2.5-point penalty. Surgery has
@@ -496,22 +649,30 @@ practice to contribute indirectly without making either a procedure input.
 
 ### Terrain (computed meta-skill; intuitive subskills, 30000 hours each)
 
-Terrain stores no hours of its own. Its expandable subskills are Plains,
-Forest, Hills, Wetlands, Urban, and Snow. Each is an intuitive, Instinct-governed
-mental skill. A route cell supplies a normalized mixture, and the
-displayed route/local Terrain value is the weighted combination of those
-subskills; without context the character rail shows their unweighted mean.
-Urban is stored and displayed now but has zero routing weight until the world
-pipeline has an authoritative urban-coverage source. Roads exercise the
-underlying terrain rather than Urban and reduce training in proportion to the
-time they save.
+Terrain stores no hours of its own. Its expandable subskills are Plains, Forest,
+Hills, Wetlands, Urban, and Snow. Each is an intuitive, Instinct-governed mental
+skill. A route cell supplies a normalized mixture, and the displayed route/local
+Terrain value is the weighted combination of those subskills; without context
+the character rail shows their unweighted mean. Urban is stored and displayed
+now but has zero routing weight until the world pipeline has an authoritative
+urban-coverage source. Roads exercise the underlying terrain rather than Urban
+and reduce training in proportion to the time they save.
 
 ### Tailoring (trained, 10000 hours)
-Tailoring makes and repairs cloth goods. Settlement tailors and field maintenance use it for clothing durability. It is modestly correlated with Surgery but is not a direct stitching check.
+Tailoring makes and repairs cloth goods. Settlement tailors and field
+maintenance use it for clothing durability. It is modestly correlated with
+Surgery but is not a direct stitching check.
 
 ### Smithing (trained, 10000 hours)
-Smithing makes and repairs weapons, armor, and shields. It does not repair clothing.
+Smithing makes and repairs weapons, armor, and shields. It does not repair
+clothing.
 
 ### Languages
 
-Oral and Written are expandable skill families rather than generic leaf `Skill` values. Oral includes East-central, West-central, Low, Yiddish, Latin, Romani, Elven, and Dwarfish; Written includes German chancery, Low, Latin, Hebrew, Yiddish, Elven, and Dwarfish. Direct hours are authoritative. Effective hours are a one-pass symmetric correlation, following the Religion model. A pair uses the language with the highest shared coefficient, with stable enum order breaking ties.
+Oral and Written are expandable skill families rather than generic leaf `Skill`
+values. Oral includes East-central, West-central, Low, Yiddish, Latin, Romani,
+Elven, and Dwarfish; Written includes German chancery, Low, Latin, Hebrew,
+Yiddish, Elven, and Dwarfish. Direct hours are authoritative. Effective hours
+are a one-pass symmetric correlation, following the Religion model. A pair uses
+the language with the highest shared coefficient, with stable enum order
+breaking ties.

@@ -184,10 +184,26 @@ effects are linear.
 
 Activities combine reduced-rate training with another strategic result:
 
-- **Apprenticeship** is available after accepting a service NPC's offer to teach their profession. It costs Gold and divides conserved training time among that profession's associated skills. At profession rank 2, **Practice** replaces paid instruction and earns a small wage; at rank 4 it earns a substantially better master's income. Religious variants are called novice, cleric, and teacher rather than apprentice, journeyman, and master, and their visible independent practice earns local Fame instead of Gold.
-- **Combat Training** includes sparring and target practice. It trains equipment-relevant Melee, Ranged, Dodge, and Block along with Will and Balance.
-- **Carousing** requires a settlement with an inn, trains Charm, and grants saturating Morale. Ordinary carousing changes no reputation, but it can cause a disorder incident that adds local Infamy; Drunkards have substantially higher risk and Temperate characters lower risk.
-- **Prayer** recites and practices prayers rather than studying doctrine. For a professed character it trains their own Religion tradition at 25% speed, and its saturating morale is scaled by the party's knowledge of that tradition. A character with no professed religion instead sees **Meditate**, receives one quarter of the ordinary saturating morale independently of party Religion, and gains no Religion hours, Fervor, or neglect.
+- **Apprenticeship** is available after accepting a service NPC's offer to teach
+  their profession. It costs Gold and divides conserved training time among that
+  profession's associated skills. At profession rank 2, **Practice** replaces
+  paid instruction and earns a small wage; at rank 4 it earns a substantially
+  better master's income. Religious variants are called novice, cleric, and
+  teacher rather than apprentice, journeyman, and master, and their visible
+  independent practice earns local Fame instead of Gold.
+- **Combat Training** includes sparring and target practice. It trains
+  equipment-relevant Melee, Ranged, Dodge, and Block along with Will and
+  Balance.
+- **Carousing** requires a settlement with an inn, trains Charm, and grants
+  saturating Morale. Ordinary carousing changes no reputation, but it can cause
+  a disorder incident that adds local Infamy; Drunkards have substantially
+  higher risk and Temperate characters lower risk.
+- **Prayer** recites and practices prayers rather than studying doctrine. For a
+  professed character it trains their own Religion tradition at 25% speed, and
+  its saturating morale is scaled by the party's knowledge of that tradition. A
+  character with no professed religion instead sees **Meditate**, receives one
+  quarter of the ordinary saturating morale independently of party Religion, and
+  gains no Religion hours, Fervor, or neglect.
 
 Religion stores only direct hours in each tradition. Correlated knowledge is
 derived from those direct hours and never fed back into storage. Religious
@@ -200,9 +216,18 @@ Training deterministically catches the lowest normalized trained hours up before
 maintaining their weighted balance, while also practicing Will and Balance.
 Changing equipment redirects future training without rewriting the saved
 schedule.
-- **Labor** earns personal gold from effective Strength and Endurance checks during settlement downtime (`hours × (Strength + Endurance) / 4`, rounded) and trains Will at 25% speed.
-- **Thievery** is available only inside settlements, earns more gold in more populous settlements, and trains Stealth at 25% speed. Stealth improves the take while reducing both Infamy and the continuous chance of discovery.
-- **Raiding** is available only outside settlements at stationary named locations. It earns gold against the location's origin-settlement economy and feeds the same equipment-derived leaf-skill distribution as Combat Training at 25% speed. It does not prefer Ranged over Melee or derive Block and Dodge practice from armor. Raiding produces origin-settlement Infamy and a high retaliation chance.
+- **Labor** earns personal gold from effective Strength and Endurance checks
+  during settlement downtime (`hours × (Strength + Endurance) / 4`, rounded) and
+  trains Will at 25% speed.
+- **Thievery** is available only inside settlements, earns more gold in more
+  populous settlements, and trains Stealth at 25% speed. Stealth improves the
+  take while reducing both Infamy and the continuous chance of discovery.
+- **Raiding** is available only outside settlements at stationary named
+  locations. It earns gold against the location's origin-settlement economy and
+  feeds the same equipment-derived leaf-skill distribution as Combat Training at
+  25% speed. It does not prefer Ranged over Melee or derive Block and Dodge
+  practice from armor. Raiding produces origin-settlement Infamy and a high
+  retaliation chance.
 
 The schedule previews each activity's daily Gold, Fame/Infamy, Morale, and
 Fatigue at the currently assigned time. Fame is positive and Infamy is negative

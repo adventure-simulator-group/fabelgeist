@@ -17,7 +17,8 @@ Severity Index (PDSI) across Europe and the Mediterranean.
 - Time coverage: AD 0 through 2012.
 - Maintainer audit/derivation input: NetCDF-4 classic-model/HDF5.
 
-Release maintainers run `just init-owda` to download or verify the pinned file at
+Release maintainers run `just init-owda` to download or verify the pinned file
+at
 `target/world-data-sources/raw/climate/owda.nc`. Preparation is atomic: a
 temporary sibling is size- and checksum-verified before replacement. An
 adjacent ignored `.owda-source.json` records the version, URL, both DOIs, size,
@@ -33,9 +34,9 @@ shared schema or database module.
 Developers install the reviewed bundle's
 `target/world-data-sources/prepared/owda/settlement-profiles-1544.json` and run
 the ordinary `just compile-world`. That bounded profile contains exactly one
-sorted entry per bundled Viabundus settlement, its selected-year/20-year summary,
-and truthful `direct` or `nearest` sampling classification. It contains neither
-OWDA coordinates nor annual values.
+sorted entry per bundled Viabundus settlement, its selected-year/20-year
+summary, and truthful `direct` or `nearest` sampling classification. It contains
+neither OWDA coordinates nor annual values.
 
 After auditing the raw file and preparing the matching Viabundus
 `.viabundus-source.json` sidecar, a release maintainer produces that

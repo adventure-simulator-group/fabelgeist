@@ -50,9 +50,11 @@ rather than manually approximate the shortest geometric line.
 
 The source and artifact contracts are documented separately:
 
-- [Viabundus](../engineering/world-data/viabundus.md) covers the historical road and
+- [Viabundus](../engineering/world-data/viabundus.md) covers the historical road
+  and
   settlement source.
-- [Strategic route terrain](../engineering/world-data/route-terrain.md) covers compiled
+- [Strategic route terrain](../engineering/world-data/route-terrain.md) covers
+  compiled
   elevation, water, terrain, and routing facts.
 
 ## Speed

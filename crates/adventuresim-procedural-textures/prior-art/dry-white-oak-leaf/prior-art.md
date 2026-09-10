@@ -62,7 +62,8 @@ Research on physically based real-time leaves uses separate scans of the upper
 and lower surfaces, aligns them, makes simplified geometry, and bakes normal,
 displacement, thickness, and albedo data; it warns that specular highlights may
 need removing from measured albedo ([Physically Based Real-Time Translucency
-for Leaves](https://studyres.com/doc/20348584/physically-based-real-time-translucency-for-leaves)).
+for
+Leaves](https://studyres.com/doc/20348584/physically-based-real-time-translucency-for-leaves)).
 
 **Inference for this recipe.** The current fully analytic workflow is valid, but
 its outputs should correspond to those same semantic observations: clean
@@ -164,7 +165,8 @@ non-shrinking midvein develops curling- or folding-dominated shapes. It reports
 both C- and S-curls, with C-curls more common in the modeled regime, and folds
 accompanied by edge waviness. The relative bending stiffness of lamina and
 midvein controls the outcome ([Guo et al.: Midveins regulate the shape formation
-of drying leaves](https://www.sciencedirect.com/science/article/pii/S0022509625003655)).
+of drying
+leaves](https://www.sciencedirect.com/science/article/pii/S0022509625003655)).
 An earlier morphometric study finds that primary vein frameworks strengthen the
 long axis, so dried shape change is expressed mainly as narrowing; dehydration
 shrinks cells and reduces total leaf area ([Tung et al.: Is Shape of a Fresh and

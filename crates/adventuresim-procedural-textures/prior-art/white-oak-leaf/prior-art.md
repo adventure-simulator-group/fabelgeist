@@ -61,7 +61,8 @@ veins per side
 The Botanical Society of Scotland emphasizes that *Q. robur* has rounder and
 fewer lobes than sessile oak, an auriculate base, a very short petiole, and
 generally has intercalary veins between lobes ([Botanical Society of Scotland:
-*Quercus robur*](https://botsoc.scot/2021/11/14/plant-of-the-week-november-9th-2021-quercus-robur-l-the-common-oak-the-english-oak-or-the-pedunculate-oak/)).
+*Quercus
+robur*](https://botsoc.scot/2021/11/14/plant-of-the-week-november-9th-2021-quercus-robur-l-the-common-oak-the-english-oak-or-the-pedunculate-oak/)).
 
 **Inference for this recipe.** The current explicit lobe family, unequal sides,
 auricles, and short petiole are the correct semantic model. Preserve the
@@ -164,7 +165,8 @@ Physically based leaf acquisition separately scans upper and lower surfaces,
 aligns geometry, simplifies it, and derives top/bottom albedo, normals,
 displacement, and thickness. The workflow notes that captured specular
 highlights may need removal from albedo ([Physically Based Real-Time
-Translucency for Leaves](https://studyres.com/doc/20348584/physically-based-real-time-translucency-for-leaves)).
+Translucency for
+Leaves](https://studyres.com/doc/20348584/physically-based-real-time-translucency-for-leaves)).
 
 **Inference for this recipe.** Retain source-image-free deterministic synthesis,
 but build a reference board from several healthy *Q. robur* leaves photographed
@@ -199,7 +201,8 @@ silently changing relief or opacity.
 for dynamic per-pixel leaf-card lighting and an explicit two-sided model. It
 observes that when leaves are lit from behind, transmitted light rather than
 reflected light is the major contribution ([GPU Gems 3: Next-Generation
-SpeedTree Rendering](https://developer.nvidia.com/gpugems/gpugems3/part-i-geometry/chapter-4-next-generation-speedtree-rendering)).
+SpeedTree
+Rendering](https://developer.nvidia.com/gpugems/gpugems3/part-i-geometry/chapter-4-next-generation-speedtree-rendering)).
 
 Guerrilla's *Horizon Zero Dawn* vegetation pipeline stores alpha, tangent-space
 normal, albedo, translucency amount, masks, and AO, and handles double-sided

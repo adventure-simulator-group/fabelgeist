@@ -9,7 +9,8 @@ continuous simulation.
 
 The strategic layer is the persistent world. Players create and manage
 [characters](../strategic/character.md), organize parties, travel between
-[settlements](../strategic/settlement.md), investigate [quests](../strategic/quests.md),
+[settlements](../strategic/settlement.md), investigate
+[quests](../strategic/quests.md),
 trade, rest, train, and manage [inventory](../shared/inventory.md).
 
 Time advances in explicit chunks when a party travels, rests, trains, works, or

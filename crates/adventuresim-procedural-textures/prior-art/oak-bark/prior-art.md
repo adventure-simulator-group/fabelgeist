@@ -89,7 +89,8 @@ warns that bark varies enough that *Q. robur* and sessile oak, *Q. petraea*,
 cannot reliably be separated by bark alone ([University of Göttingen, "Rinde
 und Borke"](https://www.uni-goettingen.de/de/rinde%2Bund%2Bborke/16693.html)).
 Kew independently describes common oak as having thick, rough, grooved,
-dark-brown bark ([Royal Botanic Gardens, Kew, "Oak tree"](https://www.kew.org/plants/oak-tree)).
+dark-brown bark
+([Royal Botanic Gardens, Kew, "Oak tree"](https://www.kew.org/plants/oak-tree)).
 
 **Inference for this recipe.** A radius/age control must change pattern class:
 
@@ -122,7 +123,8 @@ variation, bevels transitions, and then introduces more restrained
 microsurface detail. He evaluates the material on correctly UV-mapped cylinder
 geometry specifically to judge pattern scale and interaction between forms
 ([Pablo Blanes, "Making Bark Procedural Materials in Substance 3D Designer &
-Marmoset Toolbag"](https://80.lv/articles/making-bark-procedural-materials-in-substance-3d-designer-marmoset-toolbag)).
+Marmoset
+Toolbag"](https://80.lv/articles/making-bark-procedural-materials-in-substance-3d-designer-marmoset-toolbag)).
 Pixar's production bark system similarly starts from artist guide curves,
 interpolates a smooth directional field, integrates streamlines, and aligns
 stochastic bark tiling to that field; the important transferable idea is that
@@ -262,7 +264,8 @@ masks and prefiltered independently.
 Research on non-vascular epiphytes identifies bark water storage as a meaningful
 resource and suggests that inter-species differences in bark storage help
 explain epiphyte richness ([Porada et al., "Bark Water Storage Plays Key Role
-for Growth of Mediterranean Epiphytic Lichens"](https://www.frontiersin.org/journals/forests-and-global-change/articles/10.3389/ffgc.2021.668682/full)).
+for Growth of Mediterranean Epiphytic
+Lichens"](https://www.frontiersin.org/journals/forests-and-global-change/articles/10.3389/ffgc.2021.668682/full)).
 A Central European lichen dataset records bark pH, conductivity, water-holding
 capacity, periderm-crack depth, trunk light, humidity, and diameter as distinct
 host and microhabitat variables ([Łubek et al., data article on epiphytic

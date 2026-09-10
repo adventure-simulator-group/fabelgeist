@@ -1,13 +1,52 @@
 # Weapon contact and handling model
 
-`content/tactical/combat.yaml` owns the calibration, consumed through shared typed combat configuration. Generated melee weapons derive mass, transverse inertia, balance, reach and precision from their recipes. There are no authored melee accuracy, swing/stab precision, penetration, precise-critical or weapon damage-type fields.
+`content/tactical/combat.yaml` owns the calibration, consumed through shared
+typed combat configuration. Generated melee weapons derive mass, transverse
+inertia, balance, reach and precision from their recipes. There are no authored
+melee accuracy, swing/stab precision, penetration, precise-critical or weapon
+damage-type fields.
 
-Handling accuracy is `1 / sqrt(1 + (L / Lref * (1 + B))²)`, where L is grip-to-tip length and B is the existing dimensionless imbalance measure. Lref is one metre. Shorter and better-balanced weapons improve placement. Skill, the reported aiming quality, limb condition and general incapacitation still affect the actor's attack check; pointiness does not enter this check.
+Handling accuracy is `1 / sqrt(1 + (L / Lref * (1 + B))²)`, where L is
+grip-to-tip length and B is the existing dimensionless imbalance measure. Lref
+is one metre. Shorter and better-balanced weapons improve placement. Skill, the
+reported aiming quality, limb condition and general incapacitation still affect
+the actor's attack check; pointiness does not enter this check.
 
-Precision P represents contact concentration. The requested working-section anchors are misericorde approximately 4, narrow sword 2, broad sword 1, axe 0.5 and mace 0.1. Pointed sections use calibrated inverse squared width/depth, axe edges inverse height×thickness, and broad heads inverse length×diameter. The review CSV records all 44 generated results. Multiple head components are alternatives: the highest usable contact precision is retained, never their sum. Smooth fist/haft/pommel contacts use zero concentration. Furniture cannot increase it. Bare staffs use the same broad footprint convention as clubs. Edge condition scales the resulting precision once.
+Precision P represents contact concentration. The requested working-section
+anchors are misericorde approximately 4, narrow sword 2, broad sword 1, axe 0.5
+and mace 0.1. Pointed sections use calibrated inverse squared width/depth, axe
+edges inverse height×thickness, and broad heads inverse length×diameter. The
+review CSV records all 44 generated results. Multiple head components are
+alternatives: the highest usable contact precision is retained, never their sum.
+Smooth fist/haft/pommel contacts use zero concentration. Furniture cannot
+increase it. Bare staffs use the same broad footprint convention as clubs. Edge
+condition scales the resulting precision once.
 
-The concentrated share of impact energy is P/(1+P); the remaining share is diffuse. The same fraction weights access to an actual armor opening. Armor resistance against the concentrated share is R/P; padding acts once on the transmitted diffuse budget. Consequently concentrated penetration begins at incident energy greater than R(1+P)/P². This nonlinear contrast is deliberate: concentration controls both the energy share and resistance. Increasing P cannot create energy. Accurate hits no longer trigger a separate damage multiplier or turn an intact armor surface into a gap.
+The concentrated share of impact energy is P/(1+P); the remaining share is
+diffuse. The same fraction weights access to an actual armor opening. Armor
+resistance against the concentrated share is R/P; padding acts once on the
+transmitted diffuse budget. Consequently concentrated penetration begins at
+incident energy greater than R(1+P)/P². This nonlinear contrast is deliberate:
+concentration controls both the energy share and resistance. Increasing P cannot
+create energy. Accurate hits no longer trigger a separate damage multiplier or
+turn an intact armor surface into a gap.
 
-Melee impact energy retains the existing strength/striking-mass model: upper-body muscle mass×muscle energy calibration×(effective punching mass + weapon mass×(1 + imbalance×reach)), then armed-transfer efficiency, actual contact-lever efficiency and the bounded successful-attack margin. Projectile launch energy remains the ranged input. Armor, the struck body region and the injury/health conversion determine the resulting harm. The internal cut/concentrated and blunt injury outcomes remain necessary for wounds; weapons do not select them with flags.
+Melee impact energy retains the existing strength/striking-mass model:
+upper-body muscle mass×muscle energy calibration×(effective punching mass +
+weapon mass×(1 + imbalance×reach)), then armed-transfer efficiency, actual
+contact-lever efficiency and the bounded successful-attack margin. Projectile
+launch energy remains the ranged input. Armor, the struck body region and the
+injury/health conversion determine the resulting harm. The internal
+cut/concentrated and blunt injury outcomes remain necessary for wounds; weapons
+do not select them with flags.
 
-This is a game-scale model, not a penetration experiment. The construction grammar does not describe microscopic edge sharpness, exact terminal contact area, temper or fracture mechanics. Utility-knife tip-profile differences are not fully represented by the working-section estimate. A multiheaded weapon has one best-available rating rather than distinct pick/poll/axe action ratings. Ranged payloads and natural creature attacks currently author the same single precision scalar because their combat representations are not generated melee solids; bows/crossbows use the bodkin reference 4. Preferred animations and skill distributions are semantic authoring, not independent accuracy or damage bonuses.
+This is a game-scale model, not a penetration experiment. The construction
+grammar does not describe microscopic edge sharpness, exact terminal contact
+area, temper or fracture mechanics. Utility-knife tip-profile differences are
+not fully represented by the working-section estimate. A multiheaded weapon has
+one best-available rating rather than distinct pick/poll/axe action ratings.
+Ranged payloads and natural creature attacks currently author the same single
+precision scalar because their combat representations are not generated melee
+solids; bows/crossbows use the bodkin reference 4. Preferred animations and
+skill distributions are semantic authoring, not independent accuracy or damage
+bonuses.
