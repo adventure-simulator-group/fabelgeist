@@ -28,6 +28,7 @@ use serde::Serialize;
 
 mod building_review;
 mod buildings;
+mod camera_obstruction;
 mod capture_state;
 mod capture_visibility;
 mod city_capture;
@@ -3478,16 +3479,24 @@ fn capture_views(
                 },
             );
         }
+        if let Projection::Perspective(projection) = &mut *camera.3 {
+            projection.fov = view.fov_degrees.to_radians();
+        }
         let (transform, target, obstruction) = match view.pose {
             CapturePose::AnimationPlayObstruction { yaw_degrees } => {
-                animation_play_obstruction_camera(state, &lighting.spatial, yaw_degrees)
+                camera_obstruction::animation_play_obstruction_camera(
+                    state,
+                    &lighting.spatial,
+                    &camera.3,
+                    yaw_degrees,
+                )
             }
             CapturePose::AnimationPlayBoundary {
                 player_x,
                 player_z,
                 yaw_degrees,
-            } => animation_play_boundary_camera(
-                state,
+            } => camera_obstruction::animation_play_boundary_camera(
+                &camera.3,
                 lighting.terrain.single().expect("one tactical terrain"),
                 &lighting.spatial,
                 player_x,
@@ -3588,9 +3597,6 @@ fn capture_views(
             } else {
                 0.0
             };
-        }
-        if let Projection::Perspective(projection) = &mut *camera.3 {
-            projection.fov = view.fov_degrees.to_radians();
         }
         for mut visibility in &mut overlays {
             *visibility = if view.overlay {
@@ -4142,100 +4148,6 @@ fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, 
     (
         Transform::from_translation(position).looking_at(target, up),
         target,
-    )
-}
-
-fn animation_play_obstruction_camera(
-    state: &SceneCaptureState,
-    spatial: &SpatialQuery,
-    yaw_degrees: f32,
-) -> (Transform, Vec3, Option<CameraObstructionObservation>) {
-    let config = CameraRigConfig::default();
-    let Some(tree) = state.tree_focus else {
-        let (transform, target) =
-            camera_for_view(CapturePose::AnimationPlay { yaw_degrees }, state);
-        return (
-            transform,
-            target,
-            Some(CameraObstructionObservation {
-                desired_metres: config.lowered.distance,
-                resolved_metres: config.lowered.distance,
-                hit: false,
-            }),
-        );
-    };
-    let yaw = Quat::from_rotation_y(yaw_degrees.to_radians());
-    let outward = yaw * Vec3::Z;
-    let tree_root_y = tree.y - TREE_TRUNK_HEIGHT_METRES * 0.5;
-    let target = Vec3::new(tree.x, tree_root_y + 1.35, tree.z) + outward * 0.95;
-    let backward = -outward;
-    let cast_direction = Dir3::new(backward).unwrap_or(Dir3::Z);
-    let cast = spatial.cast_shape(
-        &Collider::sphere(config.collision_radius),
-        target,
-        Quat::IDENTITY,
-        cast_direction,
-        &ShapeCastConfig::from_max_distance(config.lowered.distance)
-            .with_target_distance(config.collision_margin),
-        &SpatialQueryFilter::default(),
-    );
-    let distance = cast
-        .map_or(config.lowered.distance, |hit| hit.distance)
-        .clamp(0.0, config.lowered.distance);
-    let position = target + backward * distance;
-    let observation = CameraObstructionObservation {
-        desired_metres: config.lowered.distance,
-        resolved_metres: distance,
-        hit: cast.is_some(),
-    };
-    (
-        Transform::from_translation(position).looking_at(target, Vec3::Y),
-        target,
-        Some(observation),
-    )
-}
-
-fn animation_play_boundary_camera(
-    _state: &SceneCaptureState,
-    terrain: &SceneTerrain,
-    spatial: &SpatialQuery,
-    player_x: f32,
-    player_z: f32,
-    yaw_degrees: f32,
-) -> (Transform, Vec3, Option<CameraObstructionObservation>) {
-    let config = CameraRigConfig::default();
-    let yaw = Quat::from_rotation_y(yaw_degrees.to_radians());
-    let backward = yaw * Vec3::Z;
-    let focus = Vec3::new(
-        player_x,
-        terrain
-            .height_at(Vec2::new(player_x, player_z))
-            .unwrap_or_default()
-            + 1.48,
-        player_z,
-    );
-    let cast_direction = Dir3::new(backward).unwrap_or(Dir3::Z);
-    let cast = spatial.cast_shape(
-        &Collider::sphere(config.collision_radius),
-        focus,
-        yaw,
-        cast_direction,
-        &ShapeCastConfig::from_max_distance(config.lowered.distance)
-            .with_target_distance(config.collision_margin),
-        &SpatialQueryFilter::default(),
-    );
-    let distance = cast
-        .map_or(config.lowered.distance, |hit| hit.distance)
-        .clamp(0.0, config.lowered.distance);
-    let position = focus + backward * distance;
-    (
-        Transform::from_translation(position).looking_at(focus, Vec3::Y),
-        focus,
-        Some(CameraObstructionObservation {
-            desired_metres: config.lowered.distance,
-            resolved_metres: distance,
-            hit: cast.is_some(),
-        }),
     )
 }
 
