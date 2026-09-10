@@ -510,6 +510,7 @@ pub fn generate_bracer(
         })
         .collect::<Result<Vec<_>, GenerateError>>()?;
     Ok(GeneratedArmor {
+        components: Vec::new(),
         design_hash: design_hash(design)?,
         surface_domain: surface.domain.clone(),
         positions,

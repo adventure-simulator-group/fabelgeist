@@ -330,6 +330,7 @@ pub struct ArmorMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedArmor {
+    pub components: Vec<crate::ArmorComponent>,
     pub design_hash: [u8; 32],
     pub surface_domain: String,
     pub positions: Vec<[f32; 3]>,
@@ -343,6 +344,10 @@ pub struct GeneratedArmor {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum DesignError {
+    #[error(
+        "visor slots do not fit their pattern span or row spacing with a 3 mm metal web; reduce count/size or increase spacing"
+    )]
+    VisorOpeningSpacing,
     #[error("armor shape parameters are outside their supported ranges")]
     ParametricParameters,
     #[error("armor catalog ID cannot be empty")]

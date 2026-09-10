@@ -14,8 +14,10 @@ from check_parametric_armor_assets import EXPECTED_TARGETS, Glb
 
 def geometry(path, weights):
     glb = Glb(path)
-    positions, normals, indices = [], [], []
-    for mesh in glb.doc["meshes"]:
+    positions, normals, indices, components = [], [], [], []
+    for mesh_index, mesh in enumerate(glb.doc["meshes"]):
+        node = next(node for node in glb.doc["nodes"] if node.get("mesh") == mesh_index)
+        vertex_start, index_start = len(positions), len(indices)
         assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS
         for primitive in mesh["primitives"]:
             fitted = glb.array(primitive["attributes"]["POSITION"]).copy()
@@ -28,7 +30,11 @@ def geometry(path, weights):
             positions.extend(fitted.tolist())
             shading /= np.linalg.norm(shading, axis=1)[:, None]
             normals.extend(shading.tolist())
-    return {"positions": positions, "normals": normals, "indices": indices}
+        components.append({"role": mesh["name"],
+                           "vertices": {"start": vertex_start, "end": len(positions)},
+                           "indices": {"start": index_start, "end": len(indices)},
+                           "hinge": node.get("extras", {}).get("adventuresim_hinge")})
+    return {"positions": positions, "normals": normals, "indices": indices, "components": components}
 
 
 def main():

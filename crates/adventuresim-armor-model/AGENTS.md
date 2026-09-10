@@ -10,6 +10,13 @@ changes do not require a modeling or artistic-review cycle.
 - Identify the user-approved reference images, intended geometric relationships,
   adjustable features, supported bodies, and acceptance milestone. Explicit user
   requirements take precedence over ambiguous details in an image.
+- For historical helmets, find a photograph of a real surviving helmet with the
+  intended shape before accepting the modeled shape. Record its museum or other
+  reliable collection source, object identifier, date, and image. A helmet of the
+  same broad category is insufficient: the reference must support the modeled
+  silhouette, proportions, and plate arrangement. If no matching example is
+  established, keep shape acceptance unresolved and revise the model or research
+  the target; do not use the model itself to justify an invented historical form.
 - Judge the reference design adapted to the wearer, not exact pixels or
   identical
   body proportions. Merely producing a plausible member of the equipment
@@ -97,17 +104,31 @@ statement containing user requirements and exclusions, not known-defect hints:
 > body-included render before reading code, measurements, implementation notes,
 > previous candidates, or other reviewers' conclusions. Identify what you
 > viewed.
+> For a historical helmet, identify the photographed real helmet used as the
+> shape reference. Compare the silhouette and proportions of the skull, visor,
+> jaw, and neck, and the plate boundaries and overlaps directly with that object.
+> Explain any visible shape differences and their evidence. A category match or
+> an unsupported claim of simplification cannot satisfy the real-shape match.
 > Does the modeled equipment accurately represent the reference design's shape,
 > adapted to this wearer? Describe the major volumes, surface flow, boundaries,
 > and relationship to the wearer as a coherent whole, then compare them with the
 > reference. Category membership, technical validity, or improvement is not
 > enough.
+> Explicitly assess proportions relative to the wearer's anatomy and to the
+> reference: compare the major enclosing volumes, their transitions at anatomical
+> landmarks, and the size and placement of openings. Assess how adjacent plates
+> seat, overlap, and maintain construction-scale separation. State which visible
+> evidence supports these judgments; request an unobscured body view or section
+> overlay when the equipment hides anatomy needed for a decision.
 >
 > Allow different wearer proportions and reasonable fit adaptation. Observe the
 > supplied scope exclusions and explicit geometric intent. Do not infer defects
 > from a metallic highlight alone or invent problems. Separate visible
 > observations from hypotheses about their cause and from uncertainty about
 > fitting.
+> Simplifying decoration or surface detail does not waive the proportions,
+> anatomical seating, or structural relationships that define the reference.
+> Do not assume a shape difference is required for fit without evidence.
 >
 > Return PASS, FAIL, or UNCERTAIN with confidence, at most three consequential
 > mismatches ranked by visual impact, evidence tied to named views and regions,

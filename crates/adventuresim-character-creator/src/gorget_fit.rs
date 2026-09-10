@@ -224,6 +224,8 @@ impl CollarCage {
             positions,
             indices,
             design.wall_thickness.metres(),
+            adventuresim_armor_model::BoundaryNormals::Smooth,
+            adventuresim_armor_model::ShellExtrusion::Normal,
         )?)
     }
 

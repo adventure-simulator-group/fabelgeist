@@ -42,6 +42,7 @@ pub(super) fn export(
                 output.join(format!("{}--{}.json", item.id, placement.id)),
                 serde_json::to_vec(&serde_json::json!({
                     "id":item.id,"placement":placement.id,"design":design,"positions":mesh.positions,"normals":mesh.normals()?,"indices":mesh.indices,
+                    "components":mesh.components,
                     "frame":{"origin":frame.origin,"axes":frame.axes,"half_extents":frame.half_extents},
                     "generator_version":adventuresim_armor_model::GENERATOR_VERSION
                 }))?,

@@ -10,6 +10,7 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use serde_json::{Value, json};
 
+mod assembly;
 mod compact;
 mod glb;
 mod morphs;
@@ -63,6 +64,7 @@ pub struct RiggedMesh<'a> {
 }
 
 pub struct RiggedShell<'a> {
+    pub hinge: Option<adventuresim_armor_model::ArmorHinge>,
     pub name: &'a str,
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
@@ -1015,47 +1017,21 @@ pub fn export_rigged_glb(
     // when the base rig is used to author motion files.
     let skeleton_node = nodes.len();
     nodes.push(json!({"name": "Skeleton", "children": roots}));
-    let mesh_node = nodes.len();
-    nodes.push(json!({"name": character_name, "mesh": 0, "skin": 0}));
     let skeleton_root = mesh
         .joint_parents
         .iter()
         .position(|parent| *parent < 0)
         .context("MHR skeleton has no root")?;
     sockets::append(&mut nodes, mesh, sockets)?;
-    let scene_nodes = vec![skeleton_node, mesh_node];
-    let mut extras = json!({
-        "adventuresim_character": {
-            "name": character_name,
-            "recipe_version": recipe_version,
-            "mhr_release": "v1.0.1",
-            "lod": lod,
-            "equipment": shells.iter().map(|shell| shell.name).collect::<Vec<_>>(),
-        },
-        "adventuresim_rig": {
-            "family": "mhr",
-            "neutral_pose": "T-pose",
-            "units": "metres",
-            "up_axis": "+Y",
-            "forward_axis": "-Z",
-            "attachments": attachments,
-        },
-    });
-    if !sockets.is_empty() {
-        extras["adventuresim_equipment"] = json!({
-            "attachment_sockets": sockets.iter().map(|socket| json!({
-                "attachment_point_id": socket.attachment_point_id,
-                "node": format!("{EQUIPMENT_SOCKET_NODE_PREFIX}{}", socket.attachment_point_id),
-                "space": "pelvis_local",
-                "surface_uv": {
-                    "domain": socket.surface_uv_domain,
-                    "uv": socket.surface_uv
-                },
-                "tangent_axis": "+Y",
-                "normal_axis": "+Z"
-            })).collect::<Vec<_>>(),
-        });
-    }
+    let mut scene_nodes = vec![skeleton_node];
+    let extras = assembly::extras(
+        character_name,
+        recipe_version,
+        lod,
+        shells,
+        sockets,
+        &attachments,
+    );
     let mut exported_mesh = json!({
         "name": character_name,
         "primitives": primitives,
@@ -1067,12 +1043,20 @@ pub fn export_rigged_glb(
         &mut buffer,
         &mut accessors,
     );
+    let exported_meshes = assembly::append(
+        exported_mesh,
+        mesh,
+        shells,
+        character_name,
+        &mut nodes,
+        &mut scene_nodes,
+    );
     let document = json!({
         "asset": {"version": "2.0", "generator": "Fabelgeist MHR character creator"},
         "scene": 0,
         "scenes": [{"name": "Character", "nodes": scene_nodes}],
         "nodes": nodes,
-        "meshes": [exported_mesh],
+        "meshes": exported_meshes,
         "materials": material_values,
         "skins": [{
             "name": "MHR",
@@ -1356,6 +1340,7 @@ mod tests {
             normal_deltas: &normal_delta,
         }];
         let shell = RiggedShell {
+            hinge: None,
             name: "Tunic",
             positions: &shell_positions,
             normals: &normals,
@@ -1392,19 +1377,20 @@ mod tests {
         let bytes = fs::read(&path).unwrap();
         let document = read_document(&bytes);
         let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
-        assert_eq!(parsed.meshes().next().unwrap().primitives().count(), 2);
+        assert_eq!(parsed.meshes().count(), 2);
+        assert!(parsed.meshes().all(|mesh| mesh.primitives().count() == 1));
         assert_eq!(document["materials"][1]["name"], "Tunic");
         let red = document["materials"][1]["pbrMetallicRoughness"]["baseColorFactor"][0]
             .as_f64()
             .unwrap();
         assert!((red - 0.010_022_8).abs() < 1e-6);
-        assert_eq!(document["meshes"][0]["primitives"][1]["material"], 1);
+        assert_eq!(document["meshes"][1]["primitives"][0]["material"], 1);
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["NORMAL"],
+            document["meshes"][1]["primitives"][0]["attributes"]["NORMAL"],
             document["meshes"][0]["primitives"][0]["attributes"]["NORMAL"]
         );
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["JOINTS_1"],
+            document["meshes"][1]["primitives"][0]["attributes"]["JOINTS_1"],
             document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"]
         );
         assert_eq!(
@@ -1413,10 +1399,10 @@ mod tests {
         );
         assert_eq!(document["meshes"][0]["weights"], json!([0.0]));
         for (index, expected) in [0.1_f32, 0.2].into_iter().enumerate() {
-            let target = &document["meshes"][0]["primitives"][index]["targets"][0];
+            let target = &document["meshes"][index]["primitives"][0]["targets"][0];
             let accessor = &document["accessors"][target["POSITION"].as_u64().unwrap() as usize];
             assert_eq!(accessor["count"], if index == 0 { 4 } else { 3 });
-            let skin = document["meshes"][0]["primitives"][index]["attributes"]["JOINTS_1"]
+            let skin = document["meshes"][index]["primitives"][0]["attributes"]["JOINTS_1"]
                 .as_u64()
                 .unwrap() as usize;
             assert_eq!(document["accessors"][skin]["count"], accessor["count"]);
@@ -1450,6 +1436,7 @@ mod tests {
         ];
         let shell_faces = [[0, 1, 2]];
         let shell = RiggedShell {
+            hinge: None,
             name: "Leather belt",
             positions: &positions,
             normals: &normals,
@@ -1574,6 +1561,7 @@ mod tests {
             normal_deltas: &normal_deltas,
         };
         let shell = RiggedShell {
+            hinge: None,
             name: "Parametric bracer",
             positions: &armor_positions,
             normals: &armor_normals,
@@ -1703,6 +1691,7 @@ mod tests {
             global_joint_states: &global_joint_states,
         };
         let shell = RiggedShell {
+            hinge: None,
             name: "Belt",
             positions: &positions,
             normals: &normals,
@@ -1755,6 +1744,7 @@ mod tests {
         assert!((bootstrapped[1] - 0.5).abs() < 1e-6);
 
         let open_shell = RiggedShell {
+            hinge: None,
             name: "Invalid open belt",
             positions: &positions,
             normals: &normals,

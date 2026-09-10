@@ -76,16 +76,16 @@ pub(super) fn regenerate_mesh(
     }
     preview::spawn_body(&mut commands, &mut meshes, &mut materials, mesh);
     preview::spawn_clothing(&mut commands, &mut meshes, &mut materials, clothed.shells);
-    for (id, piece) in &armor {
+    for piece in &armor {
         let material = catalog
-            .material(id)
+            .material(&piece.item_id)
             .expect("selected catalog equipment has a material");
         preview::spawn_armor(
             &mut commands,
             &mut meshes,
             &mut materials,
-            piece,
-            id.clone(),
+            &piece.generated,
+            piece.name.clone(),
             material,
         );
     }

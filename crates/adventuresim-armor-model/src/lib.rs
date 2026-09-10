@@ -3,10 +3,12 @@
 
 #[path = "breastplate_carrier.rs"]
 mod breastplate;
+mod components;
 mod design;
+pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
 mod mesh;
 pub mod parametric;
-pub use parametric::{PartFrame, PartMesh};
+pub use parametric::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
 mod garment_armor;
 mod helmets;
 mod limb_armor;
@@ -23,7 +25,7 @@ pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 9;
+pub const GENERATOR_VERSION: u16 = 10;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
