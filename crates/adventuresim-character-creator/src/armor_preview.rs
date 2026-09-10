@@ -3,7 +3,7 @@ use bevy::{
     image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_armor::{Armor, ArmorPart, Construction, Layer};
+use fabelgeist_armor::{Armor, ArmorPart, Construction};
 
 pub fn editor(ui: &mut egui::Ui, selection: &mut Option<Armor>) -> bool {
     let before = selection.clone();
@@ -53,7 +53,7 @@ pub fn editor(ui: &mut egui::Ui, selection: &mut Option<Armor>) -> bool {
                 slider(ui, label, &mut a.translation[i], -3.0..=3.0);
             }
         });
-        if a.construction != Construction::Solid {
+        if a.construction != Construction::Solid || a.fauld.construction != Construction::Solid {
             ui.collapsing("Small plates", |ui| {
                 let p = &mut a.plate;
                 slider(ui, "Plate gap (m)", &mut p.gap, 0.0..=0.005);
@@ -67,31 +67,44 @@ pub fn editor(ui: &mut egui::Ui, selection: &mut Option<Armor>) -> bool {
                 ui.add(egui::Slider::new(&mut p.hole_pairs, 0..=3).text("Hole pairs"));
             });
         }
-        ui.collapsing("Fauld layers", |ui| {
-            let mut remove = None;
-            for (i, l) in a.layers.iter_mut().enumerate() {
-                ui.push_id(i, |ui| {
-                    ui.horizontal(|ui| {
-                        ui.label(format!("Layer {}", i + 1));
-                        if ui.small_button("Remove").clicked() {
-                            remove = Some(i);
+        ui.collapsing("Fauld generator", |ui| {
+            ui.horizontal(|ui| {
+                ui.label("Construction");
+                for (label, mode) in [
+                    ("Solid", Construction::Solid),
+                    ("Lamellar", Construction::Lamellar),
+                    ("Scale", Construction::Scale),
+                ] {
+                    if ui
+                        .selectable_label(a.fauld.construction == mode, label)
+                        .clicked()
+                    {
+                        a.fauld.construction = mode;
+                        if mode == Construction::Scale {
+                            a.plate.roundness = 1.0;
+                            a.plate.stagger = 0.5;
+                            a.plate.hole_pairs = 1;
                         }
-                    });
-                    slider(ui, "Layer height (m)", &mut l.height, 0.025..=0.15);
-                    slider(ui, "Overlap", &mut l.overlap, 0.0..=0.5);
-                    slider(ui, "Flare (m)", &mut l.flare, 0.0..=0.05);
-                });
-            }
-            if let Some(i) = remove {
-                a.layers.remove(i);
-            }
-            if a.layers.len() < 12 && ui.button("Add layer").clicked() {
-                a.layers.push(Layer {
-                    height: 0.065,
-                    overlap: 0.25,
-                    flare: 0.015,
-                });
-            }
+                        if mode == Construction::Lamellar {
+                            a.plate.roundness = 0.25;
+                            a.plate.stagger = 0.0;
+                            a.plate.hole_pairs = 3;
+                        }
+                    }
+                }
+            });
+            ui.add(egui::Slider::new(&mut a.fauld.layer_count, 0..=12).text("Layer count"));
+            slider(
+                ui,
+                "Layer height (m)",
+                &mut a.fauld.layer_height,
+                0.025..=0.15,
+            );
+            slider(ui, "Overlap", &mut a.fauld.overlap, 0.0..=0.5);
+            slider(ui, "Flare (m)", &mut a.fauld.flare, 0.0..=0.05);
+            let total_height =
+                a.fauld.layer_count as f32 * a.fauld.layer_height * (1.0 - a.fauld.overlap);
+            ui.label(format!("Generated fauld length: {total_height:.3} m"));
         });
         ui.collapsing("Metal and scratches", |ui| {
             let m = &mut a.metal;

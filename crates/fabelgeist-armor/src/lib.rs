@@ -25,9 +25,12 @@ pub struct Plate {
     pub hole_radius: f32,
     pub hole_pairs: u32,
 }
+/// Parameters used to generate uniform overlapping fauld layers.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Layer {
-    pub height: f32,
+pub struct Fauld {
+    pub construction: Construction,
+    pub layer_count: u32,
+    pub layer_height: f32,
     pub overlap: f32,
     pub flare: f32,
 }
@@ -45,7 +48,7 @@ pub struct Armor {
     pub ridge_sharpness: f32,
     pub center_point: f32,
     pub plate: Plate,
-    pub layers: Vec<Layer>,
+    pub fauld: Fauld,
     pub metal: material::Metal,
     pub translation: [f32; 3],
 }
@@ -74,13 +77,13 @@ impl Default for Armor {
                 hole_radius: 0.003,
                 hole_pairs: 2,
             },
-            layers: (0..3)
-                .map(|_| Layer {
-                    height: 0.065,
-                    overlap: 0.25,
-                    flare: 0.015,
-                })
-                .collect(),
+            fauld: Fauld {
+                construction: Construction::Solid,
+                layer_count: 3,
+                layer_height: 0.065,
+                overlap: 0.25,
+                flare: 0.015,
+            },
             metal: material::Metal::default(),
             translation: [0.0, 1.05, 0.025],
         }
@@ -121,12 +124,11 @@ impl Armor {
         {
             return Err("Plate dimensions or hole spacing are invalid".into());
         }
-        if self.layers.len() > 12
-            || self.layers.iter().any(|l| {
-                !range(l.height, 0.025, 0.15)
-                    || !range(l.overlap, 0.0, 0.5)
-                    || !range(l.flare, 0.0, 0.05)
-            })
+        let f = &self.fauld;
+        if f.layer_count > 12
+            || !range(f.layer_height, 0.025, 0.15)
+            || !range(f.overlap, 0.0, 0.5)
+            || !range(f.flare, 0.0, 0.05)
         {
             return Err("Armor supports up to twelve bounded overlapping layers".into());
         }

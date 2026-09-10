@@ -311,31 +311,52 @@ pub fn build(a: &Armor) -> Result<Vec<ArmorPart>, String> {
     }
     let mut bottom = 0.0;
     let mut flare = 0.0;
-    for (i, l) in a.layers.iter().enumerate() {
-        bottom -= l.height * (1.0 - l.overlap);
-        flare += l.flare;
-        let polys = extrude(
-            &[
-                [-a.width * 0.5, 0.0],
-                [a.width * 0.5, 0.0],
-                [a.width * 0.5, l.height],
-                [-a.width * 0.5, l.height],
-            ],
-            a.thickness,
-        );
-        let mesh = mapped(
-            &polys,
-            |v| {
-                surface(
-                    a,
-                    v.x,
-                    v.y + bottom,
-                    v.z + (a.layers.len() - i) as f32 * (a.thickness + 0.001),
-                    flare,
-                )
-            },
-            4,
-        );
+    for i in 0..a.fauld.layer_count as usize {
+        bottom -= a.fauld.layer_height * (1.0 - a.fauld.overlap);
+        flare += a.fauld.flare;
+        let z = (a.fauld.layer_count as usize - i) as f32 * (a.thickness + 0.001);
+        let mesh = if a.fauld.construction == Construction::Solid {
+            let polys = extrude(
+                &[
+                    [-a.width * 0.5, 0.0],
+                    [a.width * 0.5, 0.0],
+                    [a.width * 0.5, a.fauld.layer_height],
+                    [-a.width * 0.5, a.fauld.layer_height],
+                ],
+                a.thickness,
+            );
+            mapped(&polys, |v| surface(a, v.x, v.y + bottom, v.z + z, flare), 4)
+        } else {
+            let p = &a.plate;
+            let rows = (a.fauld.layer_height / (p.height * (1.0 - p.overlap)))
+                .ceil()
+                .max(1.0) as u32;
+            let cols = ((a.width + p.gap) / (p.width + p.gap)).floor().max(1.0) as u32;
+            let polys = tile(a);
+            let mut mesh = ArmorMesh::default();
+            for row in 0..rows {
+                let y = bottom + a.fauld.layer_height - p.height * 0.5
+                    - row as f32 * p.height * (1.0 - p.overlap);
+                if y - p.height * 0.5 < bottom - 0.001 {
+                    continue;
+                }
+                let stagger = if row % 2 == 1 { p.stagger } else { 0.0 };
+                for col in 0..cols {
+                    let x = (col as f32 - (cols - 1) as f32 * 0.5 + stagger) * (p.width + p.gap);
+                    let tile_mesh = mapped(
+                        &polys,
+                        |v| surface(a, v.x + x, v.y + y, v.z + z, flare),
+                        0,
+                    );
+                    let offset = mesh.positions.len() as u32;
+                    mesh.positions.extend(tile_mesh.positions);
+                    mesh.normals.extend(tile_mesh.normals);
+                    mesh.uvs.extend(tile_mesh.uvs);
+                    mesh.faces.extend(tile_mesh.faces.into_iter().map(|f| f.map(|n| n + offset)));
+                }
+            }
+            mesh
+        };
         parts.push(ArmorPart {
             name: format!("Fauld layer {}", i + 1),
             mesh,
@@ -421,7 +442,7 @@ mod tests {
                 ..Armor::default()
             };
             let parts = build(&a).unwrap();
-            assert!(parts.len() > a.layers.len());
+            assert!(parts.len() > a.fauld.layer_count as usize);
             assert!(parts.iter().map(|p| p.mesh.positions.len()).sum::<usize>() < 250_000);
             for part in &parts {
                 let m = &part.mesh;
@@ -444,7 +465,7 @@ mod tests {
     #[test]
     fn ridge_and_layers_change_geometry() {
         let mut a = Armor::default();
-        a.layers.clear();
+        a.fauld.layer_count = 0;
         a.ridge = 0.0;
         let flat = build(&a).unwrap();
         a.ridge = 0.1;
@@ -457,13 +478,33 @@ mod tests {
                 .zip(&ridged[0].mesh.positions)
                 .any(|(p, q)| q[2] - p[2] > 0.09)
         );
-        a.layers.push(crate::Layer {
-            height: 0.1,
-            overlap: 0.25,
-            flare: 0.02,
-        });
+        a.fauld.layer_count = 1;
+        a.fauld.layer_height = 0.1;
+        a.fauld.overlap = 0.25;
+        a.fauld.flare = 0.02;
         assert_eq!(build(&a).unwrap().len(), 2);
         a.width = f32::NAN;
         assert!(build(&a).is_err());
+    }
+    #[test]
+    fn fauld_constructions_generate_meshes() {
+        for construction in [
+            Construction::Solid,
+            Construction::Lamellar,
+            Construction::Scale,
+        ] {
+            let mut a = Armor::default();
+            a.fauld.construction = construction;
+            if construction == Construction::Scale {
+                a.plate.roundness = 1.0;
+            }
+            let parts = build(&a).unwrap();
+            let fauld = parts
+                .iter()
+                .filter(|part| part.name.starts_with("Fauld layer"))
+                .collect::<Vec<_>>();
+            assert_eq!(fauld.len(), a.fauld.layer_count as usize);
+            assert!(fauld.iter().all(|part| !part.mesh.faces.is_empty()));
+        }
     }
 }
