@@ -1,14 +1,15 @@
 # Interior furnishing rules
 
-The solver consumes accepted room cells, authoritative wall collision and openings,
-existing process equipment, and stair landings. Furniture footprints and usable
-faces come from the mesh-independent `interior_spec` catalogue. Models are never
-compiled to decide whether a layout works.
+The solver consumes accepted room cells, authoritative wall collision and
+openings, existing process equipment, and stair landings. Furniture footprints
+and usable faces come from the mesh-independent `interior_spec` catalogue.
+Models are never compiled to decide whether a layout works.
 
-Counts are area-based targets, not promises to fill every available square metre.
-Each rejected target is reported in `unmet_budgets`. A building with no furniture,
-a disconnected room, or an inaccessible stair is an error. An accepted placement
-must preserve access to every earlier placement and every room.
+Counts are area-based targets, not promises to fill every available square
+metre. Each rejected target is reported in `unmet_budgets`. A building with no
+furniture, a disconnected room, or an inaccessible stair is an error. An
+accepted placement must preserve access to every earlier placement and every
+room.
 
 | Room | Target budget and placement |
 | --- | --- |
@@ -55,23 +56,24 @@ All 66 building uses select an explicit trade kit:
 | School, university | Writing desk / bench / shelving |
 | Guardhouse, prison, castle, arsenal | Bunk bed / armour stand / weapon rack |
 
-Counter runs are accepted atomically: matching left end, middle and right
-end modules sit exactly one module width apart. Both customer and staff faces
-must remain accessible. Their clear strips can overlap other circulation space,
-but cannot contain other furniture. Tables with two benches and desks with chairs
-are also accepted as whole groups. Church seating faces the chancel. Hospital ward beds share the room axis,
-with opposing headings towards the side walls rather than independent rotations. The building
-seed selects a compact or broad preference; broad groups can fall back to compact
-dimensions when the larger furniture cannot fit.
+Counter runs are accepted atomically: matching left end, middle and right end
+modules sit exactly one module width apart. Both customer and staff faces must
+remain accessible. Their clear strips can overlap other circulation space, but
+cannot contain other furniture. Tables with two benches and desks with chairs
+are also accepted as whole groups. Church seating faces the chancel. Hospital
+ward beds share the room axis, with opposing headings towards the side walls
+rather than independent rotations. The building seed selects a compact or broad
+preference; broad groups can fall back to compact dimensions when the larger
+furniture cannot fit.
 
 The 34 model families are dining table, bench, chair, stool, bed, bunk bed,
 storage chest, cupboard, shelving, writing desk, lectern, church bench, altar,
 ward bed, bath tub, washstand, workbench, cutting table, tool rack, weapon rack,
 armour stand, grain bin, storage crate, counter middle, counter left end,
-counter right end, counter corner, display counter, drying rack, kneading trough,
-butcher's block, cask rack, hay rack, and feed trough. Stool and counter corner
-are available model families; generated compositions currently use benches,
-chairs, and straight counter runs.
+counter right end, counter corner, display counter, drying rack, kneading
+trough, butcher's block, cask rack, hay rack, and feed trough. Stool and counter
+corner are available model families; generated compositions currently use
+benches, chairs, and straight counter runs.
 
 Access uses a 25 cm cardinal lattice and a swept 60 cm square person footprint.
 This is the standard routing clearance, not a promise for every character size.
@@ -89,24 +91,26 @@ footprint and clear architectural solids over its full height, including tall
 cupboards above the routing agent's head. Mesh origins use the actual floor top.
 
 Timber upper floors reach the end of their stair flight, and jetty beams bear
-below the floor deck through a rim sill and post continuations. Spiral circulation
-uses resolved landing slabs and occupied floors; the well blocks planar travel.
-Keep room allocation reserves the actual spiral well and landing approaches as a
-stair hall. Cathedral rooms and continuous paving follow the resolved church
-envelope, including the west entrance, transept, choir, and apse. The paving
-finishes at the doorway sill datum, with its slab below the occupied floor.
-Hall-house frames use high knee braces to keep the central aisle open; their
-reach stays above any partition top plate crossed by the bay.
-Post rows and cross-ties share bay stations that avoid door approaches. Floor
-support follows each slab's actual rotation, and tilted architectural members are
+below the floor deck through a rim sill and post continuations. Spiral
+circulation uses resolved landing slabs and occupied floors; the well blocks
+planar travel. Keep room allocation reserves the actual spiral well and landing
+approaches as a stair hall. Cathedral rooms and continuous paving follow the
+resolved church envelope, including the west entrance, transept, choir, and
+apse. The paving finishes at the doorway sill datum, with its slab below the
+occupied floor. Hall-house frames use high knee braces to keep the central aisle
+open; their reach stays above any partition top plate crossed by the bay. Post
+rows and cross-ties share bay stations that avoid door approaches. Floor support
+follows each slab's actual rotation, and tilted architectural members are
 clipped to the relevant vertical interval before checking furniture or headroom.
 
 Physical floor slabs are required on every occupied level, including the ground
 floor. Room cells alone never provide support. Courtyard-castle and gatehouse
 prototype interiors remain unsupported until their occupied decks are authored;
-the solver rejects these missing-floor plans instead of placing floating objects.
+the solver rejects these missing-floor plans instead of placing floating
+objects.
 
 Inn counters and complete table-and-two-bench groups retain their full customer,
 staff, and seating access. A narrow ground common room may accommodate either
-ensemble but cannot necessarily accommodate both; its unmet dining budget remains
-explicit, and a wider upper common room can provide the dining and service area.
+ensemble but cannot necessarily accommodate both; its unmet dining budget
+remains explicit, and a wider upper common room can provide the dining and
+service area.
