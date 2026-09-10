@@ -60,34 +60,7 @@ retain exact input hashes, weights, and failures locally. Skeletal poses and
 animation are outside this static identity audit; finite nearest-surface samples
 are not a continuous containment proof.
 
-## Review checkpoint
-
-Branch: `codex/breastplate-shapes-fluting`, created from remote `main` at
-`e219b008`. Current iteration artifacts remain under
-`target/breastplate-review`, with immutable `creator-NN.exe` builder snapshots.
-These are ordinary generator outputs on the zero-coefficient MHR body.
-
-Candidate 43 is accepted for the four authored recipes and the static identity
-scope described above. All four 110-configuration sweeps pass with zero detected
-self intersections or body contacts; minimum sampled clearance is 3.288 mm.
-Four additional neutral-body fluting recipes pass, including 2 broad deep flutes,
-24 narrow flutes, 24 broad deep flutes, and a ridged/fluted combination.
-All 47 armor tests, 7 creator design-input tests, `just fmt-check`, and `just lint`
-pass. [Validation details and artifact hashes](validation.md) identify the exact
-outputs; renders are at `target/breastplate-review/43/{style}/renders`.
-
-The coordinating review accepts the independent evidence as follows. Fresh
-review `reports/fresh-27.md` rejected the shallow peascod point and narrow flute
-field; `reports/returning-29.md` accepts their corrections. The revised central
-ridge passes against the photographed historical side profile in
-`reports/profile-31.md`. `reports/back-42.md` resolves the remaining backplate
-pinch, and `reports/regression-42.md` passes the four front-shell regressions.
-Candidate 43 then corrects a small upper-rim self contact found in three tapul
-morph combinations, without changing the carrier shape. The outer-wall change
-is at most 0.301 mm across these recipes, with identical connectivity; current
-renders remain coherent. `reports/rim-43.md` passes the final visible rim and
-profile, and `reports/code-43.md` finds no consequential code issue. Earlier
-failed reports remain evidence, not acceptance of those earlier candidates.
+## Fitting and morphs
 
 The carrier uses a separate upper armscye boundary and aligns lateral lap width
 without pulling the back's depth contour forward to the front arm cutaway.
@@ -104,5 +77,5 @@ been replaced; installed game assets, skeletal poses, and animation have not
 been validated for these new recipes. Parameter limits constrain inputs, not a
 claim that every combination throughout the Cartesian product is certified.
 
-Review images, exports, binaries, and raw diagnostics remain local. Only recipes,
-source links, concise results, and exact reviewer decisions belong in Git.
+Review reports, images, exports, binaries, and raw diagnostics remain local under
+`target/breastplate-review`. Recipes and source links are retained here.
