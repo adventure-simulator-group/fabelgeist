@@ -126,6 +126,21 @@ pub(super) fn regenerate_mesh(
             return;
         }
     }
+    if let Some(armor) = &studio.recipe.armor {
+        if let Err(error) = armor_preview::spawn(
+            armor,
+            &model,
+            &generated.global_joint_states,
+            &walk,
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+            &mut images,
+        ) {
+            studio.status = format!("Armor generation failed: {error}");
+            return;
+        }
+    }
     studio.status = format!(
         "Generated {} body vertices · {} clothing shells · {} armor pieces",
         model.mhr.num_vertices(),

@@ -37,6 +37,7 @@ pub struct CharacterRecipe {
     pub expression: Vec<f32>,
     pub clothing: Vec<ClothingSelection>,
     pub garments: Vec<garment::GarmentSelection>,
+    pub armor: Option<fabelgeist_armor::Armor>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
@@ -48,8 +49,9 @@ pub struct ClothingSelection {
 impl Default for CharacterRecipe {
     fn default() -> Self {
         Self {
-            version: 5,
+            version: 6,
             proportions: Default::default(),
+            armor: None,
             garments: Vec::new(),
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
@@ -78,7 +80,7 @@ impl Default for CharacterRecipe {
 
 impl CharacterRecipe {
     pub fn validate(&self) -> Result<(), String> {
-        if self.version != 5 {
+        if self.version != 6 {
             return Err(format!(
                 "unsupported character recipe version {}",
                 self.version
@@ -98,6 +100,9 @@ impl CharacterRecipe {
             .any(|value| !value.is_finite())
         {
             return Err("recipe contains a non-finite coefficient".into());
+        }
+        if let Some(armor) = &self.armor {
+            armor.validate()?;
         }
         for garment in &self.garments {
             garment.validate().map_err(|error| error.to_string())?;
@@ -183,6 +188,20 @@ mod tests {
         assert!(recipe.identity.iter().all(|value| *value == 0.0));
         assert!(recipe.expression.iter().all(|value| *value == 0.0));
         assert!(recipe.clothing.is_empty());
+    }
+
+    #[test]
+    fn armor_parameters_round_trip_in_recipe() {
+        let mut recipe = CharacterRecipe::default();
+        let mut armor = fabelgeist_armor::Armor::default();
+        armor.construction = fabelgeist_armor::Construction::Scale;
+        armor.plate.roundness = 0.9;
+        armor.metal.seed = 42;
+        recipe.armor = Some(armor);
+        let parsed: CharacterRecipe =
+            serde_json::from_slice(&serde_json::to_vec(&recipe).unwrap()).unwrap();
+        assert_eq!(recipe, parsed);
+        assert!(parsed.validate().is_ok());
     }
 }
 

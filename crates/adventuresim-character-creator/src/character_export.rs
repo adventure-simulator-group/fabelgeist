@@ -97,6 +97,7 @@ pub(super) fn export_character(
     if let Some(garments) = fitted {
         for garment in garments {
             shells.push(RiggedShell {
+                surface: None,
                 textures: None,
                 texcoords: None,
                 hinge: None,
@@ -110,6 +111,46 @@ pub(super) fn export_character(
                 base_color: [0.52, 0.42, 0.28, 1.0],
                 metallic: 0.0,
                 roughness: 0.85,
+            });
+        }
+    }
+    let armor_textures = recipe
+        .armor
+        .as_ref()
+        .map(|a| adventuresim_character_creator::export::ShellTextures::armor(&a.metal))
+        .transpose()?;
+    let armor_parts = recipe
+        .armor
+        .as_ref()
+        .map(|armor| armor_preview::rigged_parts(armor, model, &generated.global_joint_states))
+        .transpose()
+        .map_err(anyhow::Error::msg)?
+        .unwrap_or_default();
+    if let Some(armor) = &recipe.armor {
+        for part in &armor_parts {
+            shells.push(RiggedShell {
+                surface: Some((
+                    &part.part.mesh.uvs,
+                    armor_textures.as_ref().expect("armor textures"),
+                )),
+                textures: None,
+                texcoords: None,
+                hinge: None,
+                name: &part.part.name,
+                positions: &part.part.mesh.positions,
+                normals: &part.part.mesh.normals,
+                faces: &part.part.mesh.faces,
+                joint_indices: Some(&part.indices),
+                joint_weights: Some(&part.weights),
+                morph_targets: &[],
+                base_color: [
+                    armor.metal.color[0],
+                    armor.metal.color[1],
+                    armor.metal.color[2],
+                    1.0,
+                ],
+                metallic: 1.0,
+                roughness: armor.metal.roughness,
             });
         }
     }

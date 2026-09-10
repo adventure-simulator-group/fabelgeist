@@ -26,6 +26,7 @@ mod underlayer_preview;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 mod animation_preview;
+mod armor_preview;
 mod drape_preview;
 use adventuresim_character_creator::garment::{
     FabricPreset, GarmentPreset, GarmentSelection,
@@ -313,6 +314,9 @@ fn studio_ui(
             );
                     ui.separator();
 
+                    if armor_preview::editor(ui, &mut studio.recipe.armor) {
+                        studio.dirty = true;
+                    }
                     ui.collapsing("Draped clothing", |ui| {
                         let before = studio.recipe.garments.clone();
                         let mut remove = None;

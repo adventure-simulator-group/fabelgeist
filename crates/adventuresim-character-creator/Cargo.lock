@@ -140,6 +140,7 @@ dependencies = [
  "blake3",
  "burn",
  "clap",
+ "fabelgeist-armor",
  "fabelgeist-bvh",
  "fabelgeist-cloth",
  "fabelgeist-garment-code",
@@ -148,6 +149,7 @@ dependencies = [
  "fabelgeist-math",
  "fabelgeist-mhr",
  "gltf",
+ "image",
  "rand 0.9.5",
  "serde",
  "serde_json",
@@ -4771,6 +4773,15 @@ dependencies = [
  "rayon-core",
  "smallvec",
  "zune-inflate",
+]
+
+[[package]]
+name = "fabelgeist-armor"
+version = "0.1.0"
+dependencies = [
+ "fabelgeist-garment-code",
+ "fabelgeist-math",
+ "serde",
 ]
 
 [[package]]

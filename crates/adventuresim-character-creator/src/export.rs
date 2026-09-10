@@ -18,7 +18,7 @@ mod shell;
 mod skeleton;
 pub mod skinning;
 mod textures;
-pub use textures::{GlbOutput, SurfaceTextures};
+pub use textures::{GlbOutput, ShellTextures, SurfaceTextures};
 mod sockets;
 mod validation;
 use validation::validate;
@@ -68,6 +68,7 @@ pub struct RiggedMesh<'a> {
 }
 
 pub struct RiggedShell<'a> {
+    pub surface: Option<(&'a [[f32; 2]], &'a ShellTextures)>,
     pub textures: Option<SurfaceTextures>,
     /// Exact per-vertex UVs, including seam splits and interpolated cut edges.
     pub texcoords: Option<&'a [[f32; 2]]>,
@@ -1255,6 +1256,7 @@ mod tests {
             normal_deltas: &normal_delta,
         }];
         let shell = RiggedShell {
+            surface: None,
             textures: None,
             texcoords: None,
             hinge: None,
@@ -1335,7 +1337,7 @@ mod tests {
     }
 
     #[test]
-    fn exports_garment_with_independent_topology_and_skin() {
+    fn exports_textured_garment_with_independent_topology_and_skin() {
         let directory =
             std::env::temp_dir().join(format!("fabelgeist-garment-export-{}", std::process::id()));
         let path = directory.join("character.glb");
@@ -1349,6 +1351,8 @@ mod tests {
         let garment_normals = [[0.0, 1.0, 0.0]; 4];
         let garment_faces = [[0, 1, 3], [1, 2, 3], [2, 0, 3]];
         let garment_ids = [[0; 8]; 4];
+        let uvs = [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]];
+        let textures = ShellTextures::armor(&fabelgeist_armor::material::Metal::default()).unwrap();
         let garment_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let normals = [[0.0, -1.0, 0.0]; 3];
         let faces = [[0, 1, 2]];
@@ -1356,6 +1360,7 @@ mod tests {
         let joint_weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
         let (joint_names, joint_parents, global_joint_states) = attachment_test_skeleton();
         let shell = RiggedShell {
+            surface: Some((&uvs, &textures)),
             textures: None,
             texcoords: None,
             hinge: None,
@@ -1412,10 +1417,41 @@ mod tests {
             document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_0"]
         );
         let primitive = parsed.meshes().nth(1).unwrap().primitives().next().unwrap();
-        for (_, accessor) in primitive.attributes() {
+        assert_eq!(primitive.attributes().count(), 5);
+        for semantic in [
+            gltf::Semantic::Positions,
+            gltf::Semantic::Normals,
+            gltf::Semantic::Joints(0),
+            gltf::Semantic::Weights(0),
+            gltf::Semantic::TexCoords(0),
+        ] {
+            let (_, accessor) = primitive
+                .attributes()
+                .find(|(candidate, _)| *candidate == semantic)
+                .unwrap();
             assert_eq!(accessor.count(), 4);
         }
         assert_eq!(primitive.indices().unwrap().count(), 9);
+        assert_eq!(parsed.images().count(), 2);
+        assert!(primitive.material().normal_texture().is_some());
+        assert!(
+            primitive
+                .material()
+                .pbr_metallic_roughness()
+                .metallic_roughness_texture()
+                .is_some()
+        );
+        for image in parsed.images() {
+            let gltf::image::Source::View { view, mime_type } = image.source() else {
+                panic!("embedded image expected")
+            };
+            assert_eq!(mime_type, "image/png");
+            let blob = parsed.blob.as_ref().unwrap();
+            let decoded =
+                image::load_from_memory(&blob[view.offset()..view.offset() + view.length()])
+                    .unwrap();
+            assert_eq!((decoded.width(), decoded.height()), (512, 512));
+        }
         let _ = fs::remove_dir_all(directory);
     }
 
@@ -1438,6 +1474,7 @@ mod tests {
         ];
         let shell_faces = [[0, 1, 2]];
         let shell = RiggedShell {
+            surface: None,
             textures: None,
             texcoords: None,
             hinge: None,
@@ -1565,6 +1602,7 @@ mod tests {
             normal_deltas: &normal_deltas,
         };
         let shell = RiggedShell {
+            surface: None,
             textures: None,
             texcoords: None,
             hinge: None,
@@ -1697,6 +1735,7 @@ mod tests {
             global_joint_states: &global_joint_states,
         };
         let shell = RiggedShell {
+            surface: None,
             textures: None,
             texcoords: None,
             hinge: None,
@@ -1752,6 +1791,7 @@ mod tests {
         assert!((bootstrapped[1] - 0.5).abs() < 1e-6);
 
         let open_shell = RiggedShell {
+            surface: None,
             textures: None,
             texcoords: None,
             hinge: None,

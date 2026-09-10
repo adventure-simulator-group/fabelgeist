@@ -138,6 +138,7 @@ mod tests {
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            surface: None,
             textures: Some(maps),
             texcoords: Some(&texcoords),
             name,

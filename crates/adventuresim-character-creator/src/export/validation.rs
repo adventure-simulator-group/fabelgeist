@@ -55,6 +55,15 @@ pub(super) fn validate(
         }
     }
     for shell in shells {
+        if let Some((uvs, textures)) = shell.surface {
+            if uvs.len() != shell.positions.len()
+                || uvs.iter().flatten().any(|x| !x.is_finite())
+                || textures.normal_png.is_empty()
+                || textures.metal_roughness_png.is_empty()
+            {
+                bail!("invalid textured shell {}", shell.name);
+            }
+        }
         anyhow::ensure!(
             shell.textures.is_none() || shell.texcoords.is_some(),
             "textured shell requires UVs"
