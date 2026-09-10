@@ -111,6 +111,9 @@ pub fn fitted_mesh(
     placement: &str,
     wearer: &Wearer<'_>,
 ) -> Result<PartMesh> {
+    if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
+        return crate::close_helmet_fit::fit(helmet, wearer);
+    }
     if let ParametricDesign::Helmet(HelmetDesign::MailCoif(coif)) = design {
         return crate::coif_fit::fit(coif, wearer);
     }

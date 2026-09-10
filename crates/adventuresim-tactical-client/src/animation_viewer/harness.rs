@@ -3,7 +3,7 @@ use super::*;
 use adventuresim_core::item_catalog::{self, EquipmentPlacement, ItemDefinition};
 use clap::ValueEnum;
 mod readiness;
-use readiness::{EquipmentVisualState, EquipmentVisualStatus};
+use readiness::{EquipmentVisualRequirements, EquipmentVisualState, EquipmentVisualStatus};
 
 #[derive(Clone, Copy, Debug, ValueEnum, Serialize)]
 #[serde(rename_all = "snake_case")]
@@ -11,11 +11,13 @@ pub(crate) enum ArmorHarness {
     Plate,
     Mail,
     Padded,
+    CloseHelmet,
 }
 
 impl ArmorHarness {
     fn item_ids(self) -> &'static [&'static str] {
         match self {
+            Self::CloseHelmet => &["close_helmet"],
             Self::Plate => &[
                 "morion",
                 "gorget",
@@ -47,6 +49,19 @@ impl ArmorHarness {
                 "padded_chausses",
                 "leather_boot",
             ],
+        }
+    }
+
+    fn visual_requirements(self) -> EquipmentVisualRequirements {
+        match self {
+            Self::CloseHelmet => EquipmentVisualRequirements {
+                names: &["skull", "bevor", "visor"],
+                morph_targets: Some(
+                    adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
+                        + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len(),
+                ),
+            },
+            _ => EquipmentVisualRequirements::default(),
         }
     }
 
@@ -84,23 +99,30 @@ impl ArmorCapture {
         &self,
         view: CaptureView,
         subject: &Transform,
+        head: Option<Vec3>,
     ) -> Option<Transform> {
-        self.harness?;
+        let harness = self.harness?;
         const REVIEW_CAMERA_DISTANCE_METRES: f32 = 2.4;
         const REVIEW_CAMERA_ELEVATION_METRES: f32 = 0.2;
-        let focus = subject.translation;
-        let offset = match view {
-            CaptureView::Gameplay => return None,
-            CaptureView::Side => Vec3::new(
+        const HELMET_REVIEW_DISTANCE_METRES: f32 = 0.72;
+        const HELMET_FOCUS_ABOVE_HEAD_METRES: f32 = 0.07;
+        let (focus, distance, elevation) = if matches!(harness, ArmorHarness::CloseHelmet) {
+            (
+                head? + Vec3::Y * HELMET_FOCUS_ABOVE_HEAD_METRES,
+                HELMET_REVIEW_DISTANCE_METRES,
+                0.0,
+            )
+        } else {
+            (
+                subject.translation,
                 REVIEW_CAMERA_DISTANCE_METRES,
                 REVIEW_CAMERA_ELEVATION_METRES,
-                0.0,
-            ),
-            CaptureView::Front => Vec3::new(
-                0.0,
-                REVIEW_CAMERA_ELEVATION_METRES,
-                -REVIEW_CAMERA_DISTANCE_METRES,
-            ),
+            )
+        };
+        let offset = match view {
+            CaptureView::Gameplay => return None,
+            CaptureView::Side => Vec3::new(distance, elevation, 0.0),
+            CaptureView::Front => Vec3::new(0.0, elevation, -distance),
         };
         Some(Transform::from_translation(focus + offset).looking_at(focus, Vec3::Y))
     }
@@ -188,9 +210,10 @@ pub(super) fn update_readiness(
     if capture.failed {
         return;
     }
+    let was_ready = capture.ready;
     capture.ready = armor.iter().count() == harness.placements().count();
     for (entity, item) in &armor {
-        match visuals.state(entity) {
+        match visuals.state(entity, harness.visual_requirements()) {
             EquipmentVisualState::Ready => {}
             EquipmentVisualState::Failed => {
                 capture.fail(
@@ -201,6 +224,21 @@ pub(super) fn update_readiness(
             }
             EquipmentVisualState::Missing | EquipmentVisualState::Loading => capture.ready = false,
         }
+    }
+    if capture.ready && !was_ready {
+        let parts = armor
+            .iter()
+            .map(|(entity, item)| {
+                serde_json::json!({
+                    "item_id": item.id, "parts": visuals.summary(entity),
+                })
+            })
+            .collect::<Vec<_>>();
+        fs::write(
+            capture.output.join("armor-readiness.json"),
+            serde_json::to_vec_pretty(&parts).expect("serialize armor readiness"),
+        )
+        .expect("write armor readiness");
     }
     if !capture.ready {
         capture.waited += 1;
@@ -220,11 +258,55 @@ mod tests {
     use adventuresim_core::equipment::{EquipmentGraph, EquipmentGraphPlacement};
 
     #[test]
+    fn helmet_review_tracks_head_without_overriding_gameplay_camera() {
+        let capture = ArmorCapture {
+            harness: Some(ArmorHarness::CloseHelmet),
+            output: PathBuf::new(),
+            ready: false,
+            waited: 0,
+            failed: false,
+        };
+        let subject = Transform::from_xyz(2.0, 0.95, 3.0);
+        let head = subject.translation + Vec3::Y * 0.7;
+        assert!(
+            capture
+                .review_camera(CaptureView::Gameplay, &subject, Some(head))
+                .is_none()
+        );
+        assert!(
+            capture
+                .review_camera(CaptureView::Front, &subject, None)
+                .is_none()
+        );
+        let front = capture
+            .review_camera(CaptureView::Front, &subject, Some(head))
+            .unwrap();
+        let side = capture
+            .review_camera(CaptureView::Side, &subject, Some(head))
+            .unwrap();
+        assert_ne!(front.translation, side.translation);
+        for camera in [front, side] {
+            assert!(camera.translation.distance(head) < 1.0);
+            assert!(
+                camera
+                    .forward()
+                    .dot((head - camera.translation).normalize())
+                    > 0.99
+            );
+        }
+        let moved = capture
+            .review_camera(CaptureView::Front, &subject, Some(head + Vec3::Y))
+            .unwrap();
+        assert!((moved.translation - front.translation).abs_diff_eq(Vec3::Y, 1e-5));
+    }
+
+    #[test]
     fn review_harnesses_use_nonconflicting_catalog_placements() {
         for (harness, count) in [
             (ArmorHarness::Plate, 22),
             (ArmorHarness::Mail, 9),
             (ArmorHarness::Padded, 9),
+            (ArmorHarness::CloseHelmet, 1),
         ] {
             let mut graph = EquipmentGraph::default();
             for (index, (_, placement)) in harness.placements().enumerate() {

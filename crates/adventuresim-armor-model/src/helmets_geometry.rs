@@ -87,7 +87,13 @@ impl Surface {
     }
 
     pub fn shell(self, thickness: f32) -> Result<PartMesh, GenerateError> {
-        PartMesh::from_surface(self.positions, self.indices, thickness)
+        PartMesh::from_surface(
+            self.positions,
+            self.indices,
+            thickness,
+            crate::BoundaryNormals::Smooth,
+            crate::ShellExtrusion::Normal,
+        )
     }
 }
 

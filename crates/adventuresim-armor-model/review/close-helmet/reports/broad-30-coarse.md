@@ -1,0 +1,19 @@
+# Candidate 30 broad review: coarse shape
+
+Verdict: **PASS — moderate confidence, for coarse shape only.** This is acceptance of the principal enclosing volumes and silhouette as the photographed Met helmet adapted to this wearer. It is not finished-surface or production acceptance.
+
+I actually reopened all five original reference photographs, all four candidate-30 diffuse worn renders, and all four matched bare-body renders before assessing the current candidate. I did not read current code, numerical checks, implementation notes, or earlier written reports. I have reviewed earlier candidates, so this is not a fresh unprimed review.
+
+Photographed reference: Metropolitan Museum of Art object 25397, German close helmet, circa 1500, accession 04.3.243, as identified in the supplied source information. Images viewed: `historical-shape-sources/met-25397-main.jpg`, `met-25397-1483085.jpg` (front), `met-25397-1483086.jpg` (side), `met-25397-1483087.jpg` (rear), and `met-25397-1483088.jpg` (opposite side). Candidate images viewed: `candidate-30/diffuse/close_helmet--worn-{front,side,quarter,rear}.png` and all four corresponding images under `candidate-30/bare/`, each at 1200x1400.
+
+The candidate carries the reference's essential shape relationships: a smooth rounded skull enclosing the crown and occiput; a broad brow and face visor with its lower boundary sweeping from chin toward the temple; a separate enclosing jaw continuing under the chin and narrowing into the neck; and overlapping rear plates descending into a broad flared nape fan. The front and quarter no longer read as a lower face attached to an unrelated skull volume. The side has the photographed near-upright facial envelope, recognizable jaw projection, and transition from the rear skull into neck protection. The rear fan has a high center and lower outward corners, consistent with the museum rear photograph, and the side shows meaningful descent from the nape rather than an isolated horizontal shelf.
+
+Anatomical evidence supports the principal fitting adaptations. Matched front and side bare views show a tall cranial volume, relatively compact lower face, prominent nose, and substantial neck/shoulders. The helmet crown and rear skull sit a modest visible distance outside those contours; the sight slots cross the eyes; the face plate encloses the nose; and the jaw follows below the chin. The rear plates occupy the descending neck-to-shoulder region. This supports the taller, rounder dome and compact jaw as adaptation to the actual wearer. The matched side evidence does not show the apparent large empty cranial extension that previously complicated assessment.
+
+Ranked remaining visible differences, neither blocking this coarse milestone:
+
+1. **The visor front is rounder and less distinctly keeled.** Museum main/front images show a more pronounced central ridge organizing the face into two planes; candidate front/quarter are softer across the central facial volume. The broad visor extent, near-upright side profile, and rising cheek boundary are nevertheless retained. This remains a difference to consider when moving beyond the coarse form.
+
+2. **The rear fan is somewhat broader and more angular relative to the neck.** Candidate rear/side spread the plate ends more assertively than museum rear `1483087` and sides `1483086`/`1483088`. Its overall flared, descending arrangement and relation to the wearer's broad shoulders are coherent, so this does not constitute a different coarse construction.
+
+Small opening rims, decoration, fasteners, minor surface details, and material matching are excluded from this verdict at the user's direction. I do not infer whole-mesh clearance, absence of intersections, topology, physical thickness, hinge behavior, adjustment behavior, runtime integration, or support for other bodies from these images. Those remain separate checks.

@@ -33,8 +33,95 @@ pub(super) fn fitted_design(
         ),
     )?;
     let normals = mesh.normals()?;
-    let nearest = mesh
-        .positions
+    let (nearest, uv) = source_correspondence(model, generated, &mesh.positions);
+    let mut targets = Vec::new();
+    for sample in morphs {
+        let endpoint = armor_recipes::fitted_mesh(
+            design,
+            placement,
+            &wearer(
+                &sample.positions,
+                &sample.normals,
+                &sample.global_joint_states,
+            ),
+        )?;
+        validate_correspondence(&mesh, &endpoint)?;
+        let endpoint_normals = endpoint.normals()?;
+        targets.push(ArmorMorph {
+            name: sample.name.clone(),
+            position_deltas: deltas(&mesh.positions, &endpoint.positions),
+            normal_deltas: deltas(&normals, &endpoint_normals),
+            direct_positions: endpoint.positions,
+        });
+    }
+    let bytes = serde_json::to_vec(design)?;
+    let mut armor = GeneratedArmor {
+        design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
+        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
+        positions: mesh.positions,
+        normals,
+        texcoords: nearest.iter().map(|i| uv[*i]).collect(),
+        joint_indices: nearest
+            .iter()
+            .map(|i| character.skin_weights.index[*i])
+            .collect(),
+        joint_weights: nearest
+            .iter()
+            .map(|i| character.skin_weights.weight[*i])
+            .collect(),
+        indices: mesh.indices,
+        morphs: targets,
+        components: mesh.components,
+    };
+    if matches!(
+        design,
+        ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
+    ) {
+        let head = character
+            .skeleton
+            .names
+            .iter()
+            .position(|name| name == "c_head")
+            .context("rigid helmet requires c_head joint")? as u32;
+        armor.joint_indices.fill([head; 8]);
+        armor
+            .joint_weights
+            .fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+    }
+    Ok(character_morphs::correct_armor_fit(
+        armor, generated, morphs,
+    ))
+}
+
+fn validate_correspondence(
+    mesh: &adventuresim_armor_model::PartMesh,
+    endpoint: &adventuresim_armor_model::PartMesh,
+) -> Result<()> {
+    anyhow::ensure!(
+        endpoint.indices == mesh.indices && endpoint.positions.len() == mesh.positions.len(),
+        "armor fit changed morph topology"
+    );
+    anyhow::ensure!(
+        endpoint
+            .components
+            .iter()
+            .map(|part| (&part.role, &part.vertices, &part.indices))
+            .eq(mesh
+                .components
+                .iter()
+                .map(|part| (&part.role, &part.vertices, &part.indices))),
+        "armor fit changed component correspondence"
+    );
+    Ok(())
+}
+
+fn source_correspondence(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    positions: &[[f32; 3]],
+) -> (Vec<usize>, Vec<[f32; 2]>) {
+    let character = &model.mhr.character;
+    let nearest = positions
         .iter()
         .map(|point| {
             generated
@@ -59,50 +146,7 @@ pub(super) fn fitted_design(
             uv[face[corner] as usize] = character.mesh.texcoords[uv_face[corner] as usize];
         }
     }
-    let mut targets = Vec::new();
-    for sample in morphs {
-        let endpoint = armor_recipes::fitted_mesh(
-            design,
-            placement,
-            &wearer(
-                &sample.positions,
-                &sample.normals,
-                &sample.global_joint_states,
-            ),
-        )?;
-        anyhow::ensure!(
-            endpoint.indices == mesh.indices && endpoint.positions.len() == mesh.positions.len(),
-            "armor fit changed morph topology"
-        );
-        let endpoint_normals = endpoint.normals()?;
-        targets.push(ArmorMorph {
-            name: sample.name.clone(),
-            position_deltas: deltas(&mesh.positions, &endpoint.positions),
-            normal_deltas: deltas(&normals, &endpoint_normals),
-            direct_positions: endpoint.positions,
-        });
-    }
-    let bytes = serde_json::to_vec(design)?;
-    let armor = GeneratedArmor {
-        design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
-        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
-        positions: mesh.positions,
-        normals,
-        texcoords: nearest.iter().map(|i| uv[*i]).collect(),
-        joint_indices: nearest
-            .iter()
-            .map(|i| character.skin_weights.index[*i])
-            .collect(),
-        joint_weights: nearest
-            .iter()
-            .map(|i| character.skin_weights.weight[*i])
-            .collect(),
-        indices: mesh.indices,
-        morphs: targets,
-    };
-    Ok(character_morphs::correct_armor_fit(
-        armor, generated, morphs,
-    ))
+    (nearest, uv)
 }
 
 fn squared_distance(a: [f32; 3], b: [f32; 3]) -> f32 {
@@ -115,6 +159,12 @@ fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
         .collect()
 }
 
+pub(super) struct SelectedArmor {
+    pub item_id: String,
+    pub name: String,
+    pub generated: GeneratedArmor,
+}
+
 pub(super) fn selected(
     model: &BodyModel,
     generated: &GeneratedCharacter,
@@ -123,7 +173,7 @@ pub(super) fn selected(
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
     morphs: &[ForearmMorphSample],
-) -> Result<Vec<(String, GeneratedArmor)>> {
+) -> Result<Vec<SelectedArmor>> {
     let mut pieces = Vec::new();
     for selection in &recipe.clothing {
         let id = &selection.item_id;
@@ -146,7 +196,11 @@ pub(super) fn selected(
                 fitted_design(model, generated, &design, &selection.placement_id, morphs)?
             }
         };
-        pieces.push((id.clone(), piece));
+        pieces.push(SelectedArmor {
+            item_id: id.clone(),
+            name: format!("{id}--{}", selection.placement_id),
+            generated: piece,
+        });
     }
     Ok(pieces)
 }

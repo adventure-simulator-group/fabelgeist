@@ -4,11 +4,13 @@ use super::*;
 pub(super) fn position_capture_camera(
     sequence: Res<CaptureSequence>,
     armor: Res<harness::ArmorCapture>,
-    subjects: Query<(&Transform, &PresentedSkeleton), With<CaptureSubject>>,
+    subjects: Query<(Entity, &Transform, &PresentedSkeleton), With<CaptureSubject>>,
+    bones: Query<(&HumanoidBone, &GlobalTransform)>,
     mut cameras: Query<&mut Transform, (With<TacticalGameplayCamera>, Without<CaptureSubject>)>,
     mut labels: Query<(&mut Text, &mut Visibility), With<CaptureLabel>>,
 ) {
-    let (Ok((subject, skeleton)), Ok(mut camera)) = (subjects.single(), cameras.single_mut())
+    let (Ok((subject_entity, subject, skeleton)), Ok(mut camera)) =
+        (subjects.single(), cameras.single_mut())
     else {
         return;
     };
@@ -34,7 +36,11 @@ pub(super) fn position_capture_camera(
             camera.look_at(focus, Vec3::Y);
         }
     }
-    if let Some(review_camera) = armor.review_camera(view, subject) {
+    let head = bones
+        .iter()
+        .find(|(bone, _)| bone.owner == subject_entity && bone.role == BoneRole::Head)
+        .map(|(_, transform)| transform.translation());
+    if let Some(review_camera) = armor.review_camera(view, subject, head) {
         *camera = review_camera;
     }
     if let Some(frame) = sequence.applied_frame() {

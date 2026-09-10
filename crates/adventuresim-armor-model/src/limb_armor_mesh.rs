@@ -16,7 +16,13 @@ pub(super) fn patch(
     point: impl Fn(f32, f32) -> [f32; 3],
 ) -> Result<PartMesh, GenerateError> {
     let (positions, indices) = grid(columns, rows, cyclic, point);
-    PartMesh::from_surface(positions, indices, thickness)
+    PartMesh::from_surface(
+        positions,
+        indices,
+        thickness,
+        crate::BoundaryNormals::Smooth,
+        crate::ShellExtrusion::Normal,
+    )
 }
 
 /// A continuous upper and sole, with the ankle as its only open boundary.
@@ -35,7 +41,13 @@ pub(super) fn boot_shell(
     for index in 0..columns {
         indices.extend([center, ((index + 1) % columns) as u32, index as u32]);
     }
-    PartMesh::from_surface(positions, indices, thickness)
+    PartMesh::from_surface(
+        positions,
+        indices,
+        thickness,
+        crate::BoundaryNormals::Smooth,
+        crate::ShellExtrusion::Normal,
+    )
 }
 
 fn grid(
@@ -115,5 +127,11 @@ pub(super) fn half_dome(
         let a = ((RINGS - 1) * stride + column) as u32;
         indices.extend_from_slice(&[a, a + 1, tip]);
     }
-    PartMesh::from_surface(positions, indices, gauge)
+    PartMesh::from_surface(
+        positions,
+        indices,
+        gauge,
+        crate::BoundaryNormals::Smooth,
+        crate::ShellExtrusion::Normal,
+    )
 }

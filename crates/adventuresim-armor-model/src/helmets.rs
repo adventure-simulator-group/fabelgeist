@@ -4,6 +4,12 @@
 
 #[path = "helmets_close.rs"]
 mod close;
+#[path = "helmets_close_design.rs"]
+mod close_design;
+pub use close_design::{CloseHelmetDesign, SlotInclination, VentSides, VisorBreaths};
+#[path = "helmets_close_profile.rs"]
+mod close_profile;
+pub use close_profile::{CloseHelmetProfile, generate_close_helmet};
 #[path = "helmets_drape.rs"]
 mod drape;
 pub use drape::{
@@ -154,30 +160,6 @@ impl Default for VisoredSalletDesign {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-pub struct CloseHelmetDesign {
-    pub fit: HelmetFit,
-    pub visor_projection: Millimeters,
-    pub sight_gap: Millimeters,
-    pub comb_height: Millimeters,
-    pub throat_flare: Millimeters,
-    /// Upward sweep behind the neck, independently of the front throat lip.
-    pub back_edge_lift: Millimeters,
-}
-
-impl Default for CloseHelmetDesign {
-    fn default() -> Self {
-        Self {
-            fit: HelmetFit::default(),
-            visor_projection: Millimeters(18),
-            sight_gap: Millimeters(7),
-            comb_height: Millimeters(15),
-            throat_flare: Millimeters(28),
-            back_edge_lift: Millimeters(32),
-        }
-    }
-}
-
 /// Visby construction: head enclosure with separate breast and back flaps.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct CoifDesign {
@@ -294,10 +276,8 @@ impl HelmetDesign {
                 valid_sallet(&d.skull) && valid_visor(d.visor_projection, d.sight_gap)
             }
             Self::CloseHelmet(d) => {
-                valid_visor(d.visor_projection, d.sight_gap)
-                    && d.comb_height.0 <= 40
-                    && (15..=40).contains(&d.throat_flare.0)
-                    && (10..=45).contains(&d.back_edge_lift.0)
+                d.validate_shape()?;
+                true
             }
             Self::ArmingCap(_) => true,
             Self::MailCoif(d) => {

@@ -73,6 +73,7 @@ impl<'a> CompactShell<'a> {
 
     pub(super) fn rigged<'b>(&'b self, targets: &'b [RiggedMorphTarget<'b>]) -> RiggedShell<'b> {
         RiggedShell {
+            hinge: self.source.hinge,
             name: self.source.name,
             positions: &self.positions,
             normals: &self.normals,

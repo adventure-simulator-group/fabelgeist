@@ -2,7 +2,7 @@
 
 use std::collections::BTreeMap;
 
-use crate::GenerateError;
+use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError};
 
 /// Anatomical placement, separate from a recipe's artistic controls.
 /// Local coordinates are metres. Reflected frames are supported explicitly.
@@ -43,6 +43,7 @@ impl PartFrame {
 pub struct PartMesh {
     pub positions: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
+    pub components: Vec<ArmorComponent>,
     shells: Vec<ShellLayout>,
 }
 
@@ -53,6 +54,51 @@ struct ShellLayout {
     first_index: usize,
     index_count: usize,
     thickness: f32,
+    boundary_normals: BoundaryNormals,
+    extrusion: ShellExtrusion,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum ShellExtrusion {
+    Normal,
+    /// Cut returns parallel to this plane while retaining normal plate gauge.
+    /// A visor uses its horizontal plane so thick slits admit level sight rays.
+    InPlane {
+        normal: [f32; 3],
+    },
+}
+
+impl ShellExtrusion {
+    fn offset(self, normal_vector: [f32; 3]) -> Result<[f32; 3], GenerateError> {
+        let offset = match self {
+            ShellExtrusion::Normal => normal_vector,
+            ShellExtrusion::InPlane { normal } => {
+                if !normal.iter().all(|v| v.is_finite())
+                    || (dot(normal, normal) - 1.0).abs() > 0.001
+                {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                let projected = subtract(
+                    normal_vector,
+                    normal.map(|v| v * dot(normal_vector, normal)),
+                );
+                let cosine_squared = dot(projected, projected);
+                const MINIMUM_EXTRUSION_COSINE_SQUARED: f32 = 1e-6;
+                if cosine_squared < MINIMUM_EXTRUSION_COSINE_SQUARED {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                projected.map(|v| v / cosine_squared)
+            }
+        };
+        Ok(offset)
+    }
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum BoundaryNormals {
+    Smooth,
+    /// Duplicate return-wall vertices so plate surfaces keep their own normals.
+    Separate,
 }
 
 impl PartMesh {
@@ -60,9 +106,26 @@ impl PartMesh {
         Self::default()
     }
 
+    pub fn with_component(mut self, role: ArmorComponentRole, hinge: Option<ArmorHinge>) -> Self {
+        self.components = vec![ArmorComponent {
+            role,
+            vertices: 0..self.positions.len(),
+            indices: 0..self.indices.len(),
+            hinge,
+        }];
+        self
+    }
+
     pub fn append(&mut self, other: Self) {
         let offset = self.positions.len() as u32;
         let index_offset = self.indices.len();
+        self.components
+            .extend(other.components.into_iter().map(|mut part| {
+                part.vertices =
+                    part.vertices.start + offset as usize..part.vertices.end + offset as usize;
+                part.indices = part.indices.start + index_offset..part.indices.end + index_offset;
+                part
+            }));
         self.shells
             .extend(other.shells.into_iter().map(|mut shell| {
                 shell.first_vertex += offset as usize;
@@ -90,13 +153,35 @@ impl PartMesh {
                 .map(|i| i - shell.first_vertex as u32)
                 .collect();
             fit(&mut positions);
-            result.append(Self::from_surface(positions, indices, shell.thickness)?);
+            result.append(Self::from_surface(
+                positions,
+                indices,
+                shell.thickness,
+                shell.boundary_normals,
+                shell.extrusion,
+            )?);
         }
+        result.components = self.components.clone();
         Ok(result)
     }
 
     pub fn transformed(mut self, frame: &PartFrame) -> Self {
         self.positions.iter_mut().for_each(|p| *p = frame.point(*p));
+        for shell in &mut self.shells {
+            if let ShellExtrusion::InPlane { normal } = &mut shell.extrusion {
+                *normal = std::array::from_fn(|axis| {
+                    (0..3).map(|i| frame.axes[i][axis] * normal[i]).sum()
+                });
+            }
+        }
+        for part in &mut self.components {
+            if let Some(hinge) = &mut part.hinge {
+                hinge.origin = frame.point(hinge.origin);
+                hinge.axis = std::array::from_fn(|axis| {
+                    (0..3).map(|i| frame.axes[i][axis] * hinge.axis[i]).sum()
+                });
+            }
+        }
         if dot(cross(frame.axes[0], frame.axes[1]), frame.axes[2]) < 0.0 {
             for triangle in self.indices.as_chunks_mut::<3>().0 {
                 triangle.swap(1, 2);
@@ -107,6 +192,7 @@ impl PartMesh {
 
     /// Area-weighted vertex normals, with finite, index and triangle checks.
     pub fn normals(&self) -> Result<Vec<[f32; 3]>, GenerateError> {
+        self.validate_components()?;
         if self.positions.is_empty()
             || self.indices.is_empty()
             || !self.indices.len().is_multiple_of(3)
@@ -143,12 +229,54 @@ impl PartMesh {
             .collect()
     }
 
+    fn validate_components(&self) -> Result<(), GenerateError> {
+        if self.components.is_empty() {
+            return Ok(());
+        }
+        let (mut vertices, mut indices) = (0, 0);
+        for (i, part) in self.components.iter().enumerate() {
+            let valid_hinge = part.hinge.is_none_or(|hinge| {
+                hinge
+                    .origin
+                    .iter()
+                    .chain(&hinge.axis)
+                    .all(|x| x.is_finite())
+                    && (dot(hinge.axis, hinge.axis) - 1.0).abs() < 0.0001
+            });
+            if part.vertices.start != vertices
+                || part.indices.start != indices
+                || part.vertices.is_empty()
+                || part.indices.is_empty()
+                || part.vertices.end > self.positions.len()
+                || part.indices.end > self.indices.len()
+                || !part.indices.end.is_multiple_of(3)
+                || !valid_hinge
+                || self.components[..i]
+                    .iter()
+                    .any(|other| other.role == part.role)
+                || self.indices[part.indices.clone()]
+                    .iter()
+                    .any(|v| !part.vertices.contains(&(*v as usize)))
+            {
+                return Err(GenerateError::InvalidSurface);
+            }
+            vertices = part.vertices.end;
+            indices = part.indices.end;
+        }
+        if vertices != self.positions.len() || indices != self.indices.len() {
+            return Err(GenerateError::InvalidSurface);
+        }
+        Ok(())
+    }
+
     /// Thicken an outward-wound carrier and close every boundary edge.
     /// The input must have shared indices along its intended seams.
     pub fn from_surface(
         positions: Vec<[f32; 3]>,
         indices: Vec<u32>,
         thickness: f32,
+        boundary_normals: BoundaryNormals,
+        extrusion: ShellExtrusion,
     ) -> Result<Self, GenerateError> {
         if !thickness.is_finite() || thickness <= 0.0 {
             return Err(GenerateError::InvalidSurface);
@@ -159,10 +287,13 @@ impl PartMesh {
             first_index: 0,
             index_count: indices.len(),
             thickness,
+            boundary_normals,
+            extrusion,
         };
         let mut mesh = Self {
             positions,
             indices,
+            components: Vec::new(),
             shells: vec![layout],
         };
         let normals = mesh.normals()?;
@@ -187,8 +318,13 @@ impl PartMesh {
             .positions
             .iter()
             .zip(normals)
-            .map(|(p, n)| std::array::from_fn(|axis| p[axis] - thickness * n[axis]))
-            .collect::<Vec<_>>();
+            .map(|(p, n)| {
+                let offset = extrusion.offset(n)?;
+                Ok(std::array::from_fn(|axis| {
+                    p[axis] - thickness * offset[axis]
+                }))
+            })
+            .collect::<Result<Vec<_>, GenerateError>>()?;
         let inner_indices = mesh
             .indices
             .as_chunks::<3>()
@@ -200,11 +336,23 @@ impl PartMesh {
         mesh.indices.extend(inner_indices);
         for edge in edges.values().filter(|e| e.len() == 1) {
             let (a, b) = edge[0];
-            mesh.indices
-                .extend([b, a, a + count, b, a + count, b + count]);
+            mesh.append_return([a, b, a + count, b + count], boundary_normals);
         }
         mesh.normals()?;
         Ok(mesh)
+    }
+
+    fn append_return(&mut self, [a, b, c, d]: [u32; 4], shading: BoundaryNormals) {
+        let [a, b, c, d] = match shading {
+            BoundaryNormals::Smooth => [a, b, c, d],
+            BoundaryNormals::Separate => {
+                let offset = self.positions.len() as u32;
+                let points = [a, b, c, d].map(|i| self.positions[i as usize]);
+                self.positions.extend(points);
+                [offset, offset + 1, offset + 2, offset + 3]
+            }
+        };
+        self.indices.extend([b, a, c, b, c, d]);
     }
 }
 

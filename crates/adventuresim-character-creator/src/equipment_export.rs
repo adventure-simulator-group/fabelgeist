@@ -170,20 +170,22 @@ impl EquipmentExporter<'_> {
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
         let path = output.join(&file_name);
-        let mut rigged_shell = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
+        let mut rigged_shells = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
             equipment.material.context("armor material missing")?,
         );
-        rigged_shell.base_color = color;
-        rigged_shell.metallic = metallic;
-        rigged_shell.roughness = roughness;
+        for shell in &mut rigged_shells {
+            shell.base_color = color;
+            shell.metallic = metallic;
+            shell.roughness = roughness;
+        }
         export_rigged_glb(
             &path,
             &item.id,
             recipe.version,
             model.lod,
             &self.mesh(),
-            &[rigged_shell],
+            &rigged_shells,
             &[],
         )?;
         Ok(serde_json::json!({

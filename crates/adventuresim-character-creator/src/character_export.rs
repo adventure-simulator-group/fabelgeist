@@ -47,11 +47,11 @@ pub(super) fn export_character(
     )?;
     let armor_faces = armor
         .iter()
-        .map(|(_, a)| a.indices.as_chunks::<3>().0.to_vec())
+        .map(|piece| piece.generated.indices.as_chunks::<3>().0.to_vec())
         .collect::<Vec<_>>();
     let armor_targets = armor
         .iter()
-        .map(|(_, a)| armor_targets(a))
+        .map(|piece| armor_targets(&piece.generated))
         .collect::<Vec<_>>();
     let mut shells = clothed
         .shells
@@ -59,14 +59,21 @@ pub(super) fn export_character(
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
-    for (i, (id, piece)) in armor.iter().enumerate() {
-        let mut shell = rigged_armor(id, piece, &armor_faces[i], &armor_targets[i]);
+    for (i, piece) in armor.iter().enumerate() {
+        let mut parts = rigged_armor(
+            &piece.name,
+            &piece.generated,
+            &armor_faces[i],
+            &armor_targets[i],
+        );
         let (color, metallic, roughness) =
-            adventuresim_character_creator::equipment_pbr(catalog.material(id)?);
-        shell.base_color = color;
-        shell.metallic = metallic;
-        shell.roughness = roughness;
-        shells.push(shell);
+            adventuresim_character_creator::equipment_pbr(catalog.material(&piece.item_id)?);
+        for shell in &mut parts {
+            shell.base_color = color;
+            shell.metallic = metallic;
+            shell.roughness = roughness;
+        }
+        shells.extend(parts);
     }
     export_rigged_glb(
         path,

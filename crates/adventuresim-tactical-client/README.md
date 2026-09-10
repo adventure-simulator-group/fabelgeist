@@ -159,6 +159,15 @@ Run it from the repository root:
 cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
 
+Use `--armor-harness close-helmet` to equip the installed close helmet through
+normal gameplay equipment loading. Capture waits for the separate skull, bevor,
+and visor meshes, their materials, wearer skin bindings, and all 47 morph weights.
+Front and side views follow the head at inspection distance; the gameplay view
+keeps its usual framing. `armor-readiness.json` records the resolved parts and
+weights. `--scenario ordinary-camera-pitch` exercises lowered-guard idle and head
+pitch; `--scenario raised-guard-stationary-turn` exercises guard and turning.
+Add `--hidden` for automated captures without a visible desktop window.
+
 Use `--asset-root` when invoking it outside the repository root,
 `--scenario steady-walk-2.0` for a focused iteration, and
 `--frames-per-sample` to change the render settle interval (not the simulated

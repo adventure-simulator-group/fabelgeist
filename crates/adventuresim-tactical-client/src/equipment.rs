@@ -30,7 +30,9 @@ use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
 use serde::Deserialize;
 
 mod grab_world;
+mod model_loading;
 mod morphs;
+use model_loading::resolve_procedural_equipment_models;
 mod render_binding;
 mod skin;
 mod slot_selection;
@@ -1335,154 +1337,6 @@ fn request_procedural_equipment_models(
         commands.entity(entity).insert(ProceduralEquipmentRequest(
             asset_server.load(&presentation.asset_path),
         ));
-    }
-}
-
-fn mark_procedural_equipment_failed(
-    commands: &mut Commands,
-    entity: Entity,
-    path: &str,
-    reason: &str,
-) {
-    warn!(asset = path, %reason, "Procedural equipment asset is unusable; retaining cuboid fallback");
-    commands.entity(entity).insert(ProceduralEquipmentFailed);
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    clippy::type_complexity,
-    reason = "Bevy injects each procedural-equipment asset store and resolution query independently"
-)]
-fn resolve_procedural_equipment_models(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    gltfs: Res<Assets<Gltf>>,
-    gltf_meshes: Res<Assets<GltfMesh>>,
-    gltf_skins: Res<Assets<GltfSkin>>,
-    gltf_nodes: Res<Assets<GltfNode>>,
-    pending: Query<
-        (
-            Entity,
-            &ItemPlaceholder,
-            &ProceduralEquipmentPresentation,
-            &ProceduralEquipmentRequest,
-        ),
-        (
-            Without<ProceduralEquipmentResolved>,
-            Without<ProceduralEquipmentFailed>,
-        ),
-    >,
-    fallbacks: Query<(Entity, &ItemFallback)>,
-) {
-    for (root, placeholder, presentation, request) in &pending {
-        if matches!(
-            asset_server.load_state(request.0.id()),
-            LoadState::Failed(_)
-        ) {
-            mark_procedural_equipment_failed(
-                &mut commands,
-                root,
-                &presentation.asset_path,
-                "root glTF failed to load",
-            );
-            continue;
-        }
-        let Some(gltf) = gltfs.get(&request.0) else {
-            continue;
-        };
-        let Some(gltf_mesh) = gltf.meshes.first().and_then(|mesh| gltf_meshes.get(mesh)) else {
-            mark_procedural_equipment_failed(
-                &mut commands,
-                root,
-                &presentation.asset_path,
-                "missing mesh zero",
-            );
-            continue;
-        };
-        let Some(primitive) = gltf_mesh.primitives.first() else {
-            mark_procedural_equipment_failed(
-                &mut commands,
-                root,
-                &presentation.asset_path,
-                "mesh zero has no primitive",
-            );
-            continue;
-        };
-        let Some(skin) = gltf.skins.first().and_then(|skin| gltf_skins.get(skin)) else {
-            continue;
-        };
-        let Some(joint_names) = skin
-            .joints
-            .iter()
-            .map(|joint| gltf_nodes.get(joint).map(|node| node.name.clone()))
-            .collect::<Option<Vec<_>>>()
-        else {
-            continue;
-        };
-        let Some(attachment_sockets) = gltf
-            .named_nodes
-            .iter()
-            .filter_map(|(name, node)| {
-                name.strip_prefix(EQUIPMENT_SOCKET_NODE_PREFIX)
-                    .map(|attachment_point_id| (attachment_point_id, node))
-            })
-            .map(|(attachment_point_id, node)| {
-                gltf_nodes
-                    .get(node)
-                    .map(|node| (attachment_point_id.to_owned(), node.transform))
-            })
-            .collect::<Option<BTreeMap<_, _>>>()
-        else {
-            continue;
-        };
-        let Some(material) = primitive.material.as_ref() else {
-            mark_procedural_equipment_failed(
-                &mut commands,
-                root,
-                &presentation.asset_path,
-                "primitive has no material",
-            );
-            continue;
-        };
-        let Some(material_index) = gltf
-            .materials
-            .iter()
-            .position(|candidate| candidate.id() == material.id())
-        else {
-            mark_procedural_equipment_failed(
-                &mut commands,
-                root,
-                &presentation.asset_path,
-                "primitive material is absent from the glTF material table",
-            );
-            continue;
-        };
-        let material_label = format!(
-            "{}/std",
-            GltfAssetLabel::Material {
-                index: material_index,
-                is_scale_inverted: false,
-            }
-        );
-        let material: Handle<StandardMaterial> =
-            asset_server.load(format!("{}#{material_label}", presentation.asset_path));
-        commands.entity(root).with_child(
-            ProceduralEquipmentPart {
-                item: placeholder.0,
-                inverse_bindposes: skin.inverse_bind_matrices.clone(),
-                joint_names,
-            }
-            .render_bundle(primitive.mesh.clone(), material),
-        );
-        commands
-            .entity(placeholder.0)
-            .insert(EquipmentAttachmentSockets(attachment_sockets));
-        for (fallback, item) in &fallbacks {
-            if item.0 == placeholder.0 {
-                commands.entity(fallback).despawn();
-            }
-        }
-        commands.entity(root).insert(ProceduralEquipmentResolved);
     }
 }
 

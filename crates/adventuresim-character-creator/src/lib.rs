@@ -6,6 +6,7 @@ pub mod armor_frames;
 pub mod armor_recipes;
 pub mod bracer;
 pub mod breastplate;
+mod close_helmet_fit;
 pub mod clothing;
 mod clothing_material;
 mod coif_fit;

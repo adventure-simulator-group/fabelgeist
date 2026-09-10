@@ -202,6 +202,7 @@ pub(super) fn rigged_clothing<'a>(
 ) -> RiggedShell<'a> {
     let specification = &shell.specification;
     RiggedShell {
+        hinge: None,
         name: &specification.name,
         positions: &shell.positions,
         normals: &shell.normals,
@@ -220,9 +221,10 @@ pub(super) fn rigged_armor<'a>(
     armor: &'a GeneratedArmor,
     faces: &'a [[u32; 3]],
     targets: &'a [RiggedMorphTarget<'a>],
-) -> RiggedShell<'a> {
-    RiggedShell {
+) -> Vec<RiggedShell<'a>> {
+    let shell = |name, faces, hinge| RiggedShell {
         name,
+        hinge,
         positions: &armor.positions,
         normals: &armor.normals,
         faces,
@@ -232,6 +234,21 @@ pub(super) fn rigged_armor<'a>(
         base_color: [0.769, 0.776, 0.776, 1.0],
         metallic: 1.0,
         roughness: 0.20,
+    };
+    if armor.components.is_empty() {
+        vec![shell(name, faces, None)]
+    } else {
+        armor
+            .components
+            .iter()
+            .map(|component| {
+                shell(
+                    component.role.name(),
+                    &faces[component.indices.start / 3..component.indices.end / 3],
+                    component.hinge,
+                )
+            })
+            .collect()
     }
 }
 

@@ -49,6 +49,8 @@ def area(positions, faces):
 def audit(path):
     glb = Glb(path)
     results = []
+    if path.stem == "close_helmet--worn":
+        audit_close_helmet_assembly(glb)
     for mesh in glb.doc["meshes"]:
         assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS, "morph names/order"
         assert all(weight == 0 for weight in mesh["weights"]), "nonzero exported baseline"
@@ -87,6 +89,31 @@ def audit(path):
             assert min(areas.values()) > MINIMUM_TRIANGLE_AREA_M2, (path, "degenerate morph triangle", areas)
             results.append({"vertices": len(positions), "triangles": len(faces), "minimum_areas_m2": areas})
     return results
+
+
+def audit_close_helmet_assembly(glb):
+    expected = ["skull", "bevor", "visor"]
+    assert [mesh["name"] for mesh in glb.doc["meshes"]] == expected, "helmet component meshes"
+    nodes = [node for node in glb.doc["nodes"] if "mesh" in node]
+    assert [node["name"] for node in nodes] == expected, "helmet component nodes"
+    for index, node in enumerate(nodes):
+        assert node["mesh"] == index and node["skin"] == 0, "component mesh/skin binding"
+        assert not any(key in node for key in ("matrix", "translation", "rotation", "scale")), "reference-body component transform"
+        hinge = node.get("extras", {}).get("adventuresim_hinge")
+        if node["name"] == "skull":
+            assert hinge is None, "fixed skull"
+        else:
+            assert hinge["space"] == "reference_body"
+            assert np.isfinite(hinge["origin"]).all() and len(hinge["origin"]) == 3
+            assert abs(np.linalg.norm(hinge["axis"]) - 1) < 1e-6, "unit hinge axis"
+        mesh = glb.doc["meshes"][index]
+        assert len(mesh["primitives"]) == 1, "independent component primitive"
+        attributes = mesh["primitives"][0]["attributes"]
+        joints = np.concatenate([glb.array(attributes[key]) for key in ("JOINTS_0", "JOINTS_1")], axis=1)
+        weights = np.concatenate([glb.array(attributes[key]) for key in ("WEIGHTS_0", "WEIGHTS_1")], axis=1)
+        skin = glb.doc["skins"][node["skin"]]
+        head = next(i for i, joint in enumerate(skin["joints"]) if glb.doc["nodes"][joint]["name"] == "c_head")
+        assert np.all(joints[weights > 0] == head), "rigid helmet must follow head, not jaw"
 
 
 def main():

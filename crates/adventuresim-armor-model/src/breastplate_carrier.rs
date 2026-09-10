@@ -231,6 +231,7 @@ pub fn generate_breastplate(
         .collect::<Vec<_>>();
     let morphs = generate_morphs(surface, design, &base)?;
     Ok(GeneratedArmor {
+        components: Vec::new(),
         design_hash: breastplate_design_hash(design)?,
         surface_domain: surface.domain.clone(),
         positions: base.positions,

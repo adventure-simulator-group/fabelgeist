@@ -133,6 +133,7 @@ mod tests {
             global_joint_states: &[],
         };
         let mut shell = RiggedShell {
+            hinge: None,
             name: "test",
             positions: &deltas,
             normals: &deltas,
