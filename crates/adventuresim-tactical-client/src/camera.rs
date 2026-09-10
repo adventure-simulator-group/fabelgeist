@@ -1,7 +1,14 @@
+pub(crate) mod collision;
+mod smoothing;
+
+use collision::{BoomRecovery, CameraFrame, CameraVolume, CloseCameraProfile};
+use smoothing::{
+    blend_profile, camera_view_metrics, critical_damp_scalar, damp_focus, sweet_spot_target,
+};
+
 use adventuresim_tactical_core::prelude::{
-    BodyState, CharacterControllerCameraOf, CharacterControllerState, Collider, PlayerEquipment,
-    ShapeCastConfig, SkeletonState, SpatialQuery, SpatialQueryFilter, TacticalPlayerViewer,
-    WeaponGuardState,
+    BodyState, CharacterControllerCameraOf, CharacterControllerState, PlayerEquipment,
+    SkeletonState, SpatialQuery, SpatialQueryFilter, TacticalPlayerViewer, WeaponGuardState,
 };
 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
 use bevy::prelude::*;
@@ -76,10 +83,12 @@ pub struct CameraRigConfig {
     pub lowered: CameraProfile,
     pub raised: CameraProfile,
     pub transition_time: f32,
-    pub collision_radius: f32,
+    pub close: CloseCameraProfile,
     pub collision_margin: f32,
     pub collision_recovery_time: f32,
     pub collision_hysteresis: f32,
+    /// Seconds to hold a retracted view before recovering through a doorway.
+    pub collision_hold_time: f32,
     pub teleport_distance: f32,
     pub crouch_focus_adjustment: f32,
     pub prone_focus_adjustment: f32,
@@ -110,10 +119,11 @@ impl Default for CameraRigConfig {
                 sweet_spot: Vec2::splat(0.01),
             },
             transition_time: 0.18,
-            collision_radius: 0.22,
+            close: CloseCameraProfile::default(),
             collision_margin: 0.04,
             collision_recovery_time: 0.32,
             collision_hysteresis: 0.08,
+            collision_hold_time: 0.12,
             teleport_distance: 2.0,
             crouch_focus_adjustment: -0.45,
             prone_focus_adjustment: -0.82,
@@ -132,8 +142,7 @@ pub(crate) struct CameraRigState {
     focus_velocity: Vec3,
     blend: f32,
     blend_velocity: f32,
-    boom_distance: f32,
-    boom_velocity: f32,
+    boom: BoomRecovery,
     shoulder_offset: f32,
     shoulder_velocity: f32,
     last_anchor: Vec3,
@@ -148,8 +157,7 @@ impl Default for CameraRigState {
             focus_velocity: Vec3::ZERO,
             blend: 0.0,
             blend_velocity: 0.0,
-            boom_distance: 0.0,
-            boom_velocity: 0.0,
+            boom: BoomRecovery::default(),
             shoulder_offset: 0.0,
             shoulder_velocity: 0.0,
             last_anchor: Vec3::ZERO,
@@ -164,7 +172,8 @@ pub(crate) struct CameraRigDebugState {
     pub(crate) raised_blend: f32,
     pub(crate) subject: Vec3,
     pub(crate) focus: Vec3,
-    pub(crate) shoulder: Vec3,
+    pub(crate) collision_origin: Vec3,
+    pub(crate) collision_volume: Transform,
     pub(crate) desired_endpoint: Vec3,
     pub(crate) final_endpoint: Vec3,
     pub(crate) collision_normal: Vec3,
@@ -233,11 +242,7 @@ fn update_camera_rig(
         ),
         Without<CharacterControllerCameraOf>,
     >,
-    mut cameras: Query<(
-        &mut Transform,
-        &CharacterControllerCameraOf,
-        Option<&Projection>,
-    )>,
+    mut cameras: Query<(&mut Transform, &CharacterControllerCameraOf, &Projection)>,
     mut state: ResMut<CameraRigState>,
     mut debug: ResMut<CameraRigDebugState>,
 ) {
@@ -279,8 +284,7 @@ fn update_camera_rig(
             state.initialized = true;
             state.focus = anchor;
             state.focus_velocity = Vec3::ZERO;
-            state.boom_distance = profile.distance;
-            state.boom_velocity = 0.0;
+            state.boom.reset(profile.distance);
             state.shoulder_offset = profile.shoulder_offset;
             state.shoulder_velocity = 0.0;
         }
@@ -293,7 +297,7 @@ fn update_camera_rig(
             anchor,
             state.focus,
             rotation,
-            profile.distance,
+            state.boom.distance,
             profile.sweet_spot,
             aspect,
             tan_half_fov,
@@ -320,40 +324,25 @@ fn update_camera_rig(
             config.transition_time,
             dt,
         );
-        let right = rotation * Vec3::X;
-        let backward = rotation * Vec3::Z;
-        let shoulder = state.focus + right * state.shoulder_offset;
-        let desired_endpoint = shoulder + backward * profile.distance;
-        let cast_direction = Dir3::new(backward).unwrap_or(Dir3::Z);
-        let cast = spatial.cast_shape_predicate(
-            &Collider::sphere(config.collision_radius),
-            shoulder,
+        let frame = CameraFrame {
+            origin: controller.translation,
+            anchor,
+            focus: state.focus,
             rotation,
-            cast_direction,
-            &ShapeCastConfig::from_max_distance(profile.distance)
-                .with_target_distance(config.collision_margin),
+            shoulder_offset: state.shoulder_offset,
+            distance: profile.distance,
+        };
+        let volume = CameraVolume::new(projection, config.collision_margin);
+        let placement = state.boom.place(
+            &frame,
+            &volume,
+            &spatial,
             &SpatialQueryFilter::from_excluded_entities([camera_of.character_controller]),
             &|entity| !soft_occluders.contains(entity),
-        );
-        let limited_distance = cast
-            .map_or(profile.distance, |hit| hit.distance)
-            .clamp(0.0, profile.distance);
-        state.boom_distance = update_boom_distance(
-            state.boom_distance,
-            profile.distance,
-            limited_distance,
-            &mut state.boom_velocity,
-            config.collision_recovery_time,
-            config.collision_hysteresis,
+            &config,
             dt,
         );
-        let shoulder_clearance = if profile.distance > 0.0 {
-            (state.boom_distance / profile.distance).clamp(0.0, 1.0)
-        } else {
-            0.0
-        };
-        let collision_shoulder = state.focus + right * state.shoulder_offset * shoulder_clearance;
-        camera.translation = collision_shoulder + backward * state.boom_distance;
+        camera.translation = placement.position;
         let subject_delta = anchor - camera.translation;
         let subject_distance = subject_delta.length();
         let subject_direction = Dir3::new(subject_delta).unwrap_or(Dir3::NEG_Z);
@@ -371,18 +360,23 @@ fn update_camera_rig(
             raised_blend: state.blend,
             subject: anchor,
             focus: state.focus,
-            shoulder: collision_shoulder,
-            desired_endpoint,
+            collision_origin: frame.origin,
+            collision_volume: Transform {
+                translation: camera.translation + rotation * volume.local_center,
+                rotation,
+                scale: volume.size,
+            },
+            desired_endpoint: placement.desired,
             final_endpoint: camera.translation,
-            collision_normal: cast.map_or(Vec3::ZERO, |hit| hit.normal1),
-            collision_entity: cast.map(|hit| hit.entity),
+            collision_normal: placement.hit.map_or(Vec3::ZERO, |hit| hit.normal1),
+            collision_entity: placement.hit.map(|hit| hit.entity),
             soft_occluder: soft_occlusion.map(|hit| hit.entity),
             soft_occluder_point: camera.translation
                 + *subject_direction * soft_occlusion.map_or(0.0, |hit| hit.distance),
             desired_distance: profile.distance,
-            limited_distance,
+            limited_distance: placement.limited_distance,
             focus_velocity: state.focus_velocity,
-            boom_velocity: state.boom_velocity,
+            boom_velocity: state.boom.velocity,
             screen_error,
             sweet_spot: profile.sweet_spot,
         };
@@ -479,144 +473,6 @@ fn update_camera_aim(
     }
 }
 
-fn camera_view_metrics(projection: Option<&Projection>) -> (f32, f32) {
-    match projection {
-        Some(Projection::Perspective(perspective)) => (
-            perspective.aspect_ratio.max(0.1),
-            (perspective.fov * 0.5).tan(),
-        ),
-        _ => (16.0 / 9.0, 40.0_f32.to_radians().tan()),
-    }
-}
-
-fn blend_profile(a: CameraProfile, b: CameraProfile, t: f32) -> CameraProfile {
-    CameraProfile {
-        distance: a.distance.lerp(b.distance, t),
-        shoulder_offset: a.shoulder_offset.lerp(b.shoulder_offset, t),
-        focus_height: a.focus_height.lerp(b.focus_height, t),
-        horizontal_follow_time: a.horizontal_follow_time.lerp(b.horizontal_follow_time, t),
-        vertical_follow_time: a.vertical_follow_time.lerp(b.vertical_follow_time, t),
-        maximum_follow_error: a.maximum_follow_error.lerp(b.maximum_follow_error, t),
-        sweet_spot: a.sweet_spot.lerp(b.sweet_spot, t),
-    }
-}
-
-fn sweet_spot_target(
-    anchor: Vec3,
-    focus: Vec3,
-    rotation: Quat,
-    distance: f32,
-    sweet_spot: Vec2,
-    aspect: f32,
-    tan_half_fov: f32,
-) -> (Vec3, Vec2) {
-    let right = rotation * Vec3::X;
-    let up = rotation * Vec3::Y;
-    let error = anchor - focus;
-    let half_height = distance * tan_half_fov;
-    let allowed_x = half_height * aspect * sweet_spot.x;
-    let allowed_y = half_height * sweet_spot.y;
-    let x = error.dot(right);
-    let y = error.dot(up);
-    let retained_x = x.clamp(-allowed_x, allowed_x);
-    let retained_y = y.clamp(-allowed_y, allowed_y);
-    let target = anchor - right * retained_x - up * retained_y;
-    let screen_error = Vec2::new(
-        if half_height > 0.0 {
-            x / (half_height * aspect)
-        } else {
-            0.0
-        },
-        if half_height > 0.0 {
-            y / half_height
-        } else {
-            0.0
-        },
-    );
-    (target, screen_error)
-}
-
-fn damp_focus(
-    current: Vec3,
-    target: Vec3,
-    velocity: &mut Vec3,
-    profile: CameraProfile,
-    dt: f32,
-) -> Vec3 {
-    let mut horizontal_velocity = Vec3::new(velocity.x, 0.0, velocity.z);
-    let horizontal = critical_damp_vec3(
-        Vec3::new(current.x, 0.0, current.z),
-        Vec3::new(target.x, 0.0, target.z),
-        &mut horizontal_velocity,
-        profile.horizontal_follow_time,
-        dt,
-    );
-    let mut vertical_velocity = velocity.y;
-    let y = critical_damp_scalar(
-        current.y,
-        target.y,
-        &mut vertical_velocity,
-        profile.vertical_follow_time,
-        dt,
-    );
-    *velocity = Vec3::new(
-        horizontal_velocity.x,
-        vertical_velocity,
-        horizontal_velocity.z,
-    );
-    Vec3::new(horizontal.x, y, horizontal.z)
-}
-
-fn critical_damp_vec3(
-    current: Vec3,
-    target: Vec3,
-    velocity: &mut Vec3,
-    smooth_time: f32,
-    dt: f32,
-) -> Vec3 {
-    let omega = 2.0 / smooth_time.max(0.0001);
-    let displacement = current - target;
-    let exponential = (-omega * dt).exp();
-    let temporary = (*velocity + displacement * omega) * dt;
-    *velocity = (*velocity - temporary * omega) * exponential;
-    target + (displacement + temporary) * exponential
-}
-
-fn critical_damp_scalar(
-    current: f32,
-    target: f32,
-    velocity: &mut f32,
-    smooth_time: f32,
-    dt: f32,
-) -> f32 {
-    let omega = 2.0 / smooth_time.max(0.0001);
-    let displacement = current - target;
-    let exponential = (-omega * dt).exp();
-    let temporary = (*velocity + displacement * omega) * dt;
-    *velocity = (*velocity - temporary * omega) * exponential;
-    target + (displacement + temporary) * exponential
-}
-
-fn update_boom_distance(
-    current: f32,
-    desired: f32,
-    limited: f32,
-    velocity: &mut f32,
-    recovery_time: f32,
-    hysteresis: f32,
-    dt: f32,
-) -> f32 {
-    if limited < current {
-        *velocity = 0.0;
-        return limited;
-    }
-    if limited < desired && limited - current <= hysteresis {
-        *velocity = 0.0;
-        return current.min(limited);
-    }
-    critical_damp_scalar(current, desired.min(limited), velocity, recovery_time, dt).min(limited)
-}
-
 fn muzzle_path_is_blocked(
     camera_hit: Option<Entity>,
     muzzle_hit: Option<Entity>,
@@ -645,67 +501,6 @@ mod tests {
         world.insert_resource(CameraMode::default());
         world.run_system_cached(toggle_camera_mode).unwrap();
         assert!(!world.resource::<CameraMode>().third_person);
-    }
-
-    #[test]
-    fn critical_damping_is_nearly_render_rate_independent() {
-        let simulate = |steps: usize| {
-            let mut value = Vec3::ZERO;
-            let mut velocity = Vec3::ZERO;
-            for _ in 0..steps {
-                value = critical_damp_vec3(
-                    value,
-                    Vec3::new(2.0, 1.0, -3.0),
-                    &mut velocity,
-                    0.25,
-                    1.0 / steps as f32,
-                );
-            }
-            value
-        };
-        assert!(simulate(30).abs_diff_eq(simulate(144), 0.0001));
-    }
-
-    #[test]
-    fn sweet_spot_absorbs_small_motion_and_bounds_large_motion() {
-        let profile = CameraRigConfig::default().lowered;
-        let focus = Vec3::ZERO;
-        let (small, _) = sweet_spot_target(
-            Vec3::new(0.05, 0.02, 0.0),
-            focus,
-            Quat::IDENTITY,
-            profile.distance,
-            profile.sweet_spot,
-            16.0 / 9.0,
-            40.0_f32.to_radians().tan(),
-        );
-        assert!(small.abs_diff_eq(focus, 0.0001));
-        let (large, _) = sweet_spot_target(
-            Vec3::new(2.0, 0.0, 0.0),
-            focus,
-            Quat::IDENTITY,
-            profile.distance,
-            profile.sweet_spot,
-            16.0 / 9.0,
-            40.0_f32.to_radians().tan(),
-        );
-        assert!(large.x > 1.0 && large.x < 2.0);
-    }
-
-    #[test]
-    fn collision_pulls_in_immediately_and_recovers_monotonically() {
-        let mut velocity = 0.0;
-        let pulled = update_boom_distance(3.75, 3.75, 1.2, &mut velocity, 0.32, 0.08, 1.0 / 60.0);
-        assert_eq!(pulled, 1.2);
-        let first = update_boom_distance(pulled, 3.75, 3.75, &mut velocity, 0.32, 0.08, 1.0 / 60.0);
-        let second = update_boom_distance(first, 3.75, 3.75, &mut velocity, 0.32, 0.08, 1.0 / 60.0);
-        assert!(first > pulled && second > first && second <= 3.75);
-        let mut recovered = second;
-        for _ in 0..120 {
-            recovered =
-                update_boom_distance(recovered, 3.75, 3.75, &mut velocity, 0.32, 0.08, 1.0 / 60.0);
-        }
-        assert!(recovered > 3.74);
     }
 
     #[test]

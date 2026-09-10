@@ -16,12 +16,18 @@ the visible maximum.
 The gameplay camera is likewise client presentation. A single retained rig
 blends from centered lowered-guard exploration to raised-guard right-shoulder
 aiming without smoothing manual yaw or pitch. Focus translation uses bounded
-anisotropic critical damping and a screen-space sweet spot. A sphere sweep
-retracts the boom around hard geometry, with hysteretic recovery and
-tight-space shoulder recentering. Raised aiming resolves the center-screen
-camera target and the subsequent muzzle path separately. Debug builds use
-`F6` to show rig, collision, smoothing, occlusion classification, and aim-ray
-telemetry.
+anisotropic critical damping and a screen-space sweet spot sized to the current
+boom distance. A box enclosing the eye and near-plane corners sweeps from the
+controller center around hard geometry. The final framed position is swept
+again, so shoulder offsets and focus lag cannot bypass the collision check.
+Tight spaces blend toward a close shoulder view with a small height offset and
+reduced focus lag. Collision and close framing are resolved together before
+recovery, including corners where the close view meets a second obstacle.
+Retraction is immediate; recovery waits briefly and then uses critical damping
+and distance hysteresis. Soft occluders remain excluded from camera collision.
+Raised aiming resolves the center-screen camera target and the subsequent
+muzzle path separately. Debug builds use `F6` to show rig, collision, smoothing,
+occlusion classification, and aim-ray telemetry.
 
 The tactical workspace targets Bevy 0.19, Avian 0.7, Ahoy 0.2, Replicon
 0.41, Aeronet 0.21, Enhanced Input 0.26, and Flair 0.8. The engine upgrade does
