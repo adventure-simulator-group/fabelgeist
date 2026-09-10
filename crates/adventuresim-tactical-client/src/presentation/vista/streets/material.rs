@@ -37,6 +37,7 @@ impl CityGroundKind {
         self,
         weather: WeatherSnapshot,
         textures: &ProceduralTextureAssets,
+        traffic: &super::traffic::TrafficMask,
     ) -> CityGroundMaterial {
         let (stone_cover, stone_spacing, garden) = match self {
             Self::EarthStreet | Self::PackedYard => (0.0, FIELDSTONE_SPACING_METRES, 0.0),
@@ -50,6 +51,8 @@ impl CityGroundKind {
                 ..default()
             },
             extension: CityGroundExtension {
+                traffic_transform: traffic.transform,
+                traffic_mask: traffic.image.clone(),
                 surface: Vec4::new(stone_cover, stone_spacing, garden, 0.0),
                 weather: Vec4::new(
                     bps(weather.ground_moisture_bps),
@@ -91,13 +94,18 @@ impl From<CityYardSurface> for CityGroundKind {
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-pub(in crate::presentation) struct CityGroundExtension {
+pub(crate) struct CityGroundExtension {
     #[uniform(100)]
     surface: Vec4,
     #[uniform(100)]
     weather: Vec4,
     #[uniform(100)]
     texture_scale: Vec4,
+    #[uniform(100)]
+    traffic_transform: Vec4,
+    #[texture(107)]
+    #[sampler(108)]
+    traffic_mask: Handle<Image>,
     #[texture(101)]
     #[sampler(102)]
     soil_height_ao: Handle<Image>,
@@ -118,5 +126,17 @@ impl MaterialExtension for CityGroundExtension {
     }
 }
 
-pub(in crate::presentation) type CityGroundMaterial =
-    ExtendedMaterial<StandardMaterial, CityGroundExtension>;
+pub(crate) type CityGroundMaterial = ExtendedMaterial<StandardMaterial, CityGroundExtension>;
+
+impl CityGroundExtension {
+    pub(crate) fn texture_ids(&self) -> impl Iterator<Item = AssetId<Image>> {
+        [
+            &self.soil_height_ao,
+            &self.stone_albedo,
+            &self.stone_arm,
+            &self.traffic_mask,
+        ]
+        .into_iter()
+        .map(Handle::id)
+    }
+}

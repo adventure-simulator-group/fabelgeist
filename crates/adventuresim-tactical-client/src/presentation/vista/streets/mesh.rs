@@ -9,6 +9,11 @@ const YARD_SURFACE_LIFT_METRES: f32 = 0.003;
 
 #[derive(Default)]
 pub(super) struct CitySurfaceMeshBuilder {
+    chunks: std::collections::BTreeMap<traffic::TrafficTile, SurfaceVertices>,
+}
+
+#[derive(Default)]
+struct SurfaceVertices {
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     uvs: Vec<[f32; 2]>,
@@ -95,23 +100,51 @@ impl CitySurfaceMeshBuilder {
             let normal = (triangle[1] - triangle[0])
                 .cross(triangle[2] - triangle[0])
                 .normalize();
-            for mut point in triangle {
-                let uv = support::footprint_uv(patch.corners, point.xz());
-                self.uvs.push(uv.to_array());
-                self.activities.push(activity.at(point.xz()).to_array());
-                self.footprints
-                    .push([width, depth, f32::from(patch.kind as u8), 1.0]);
-                point.y += patch.lift_metres;
-                self.positions.push(point.to_array());
-                self.normals.push(normal.to_array());
+            let minimum = triangle
+                .map(|p| p.xz())
+                .into_iter()
+                .fold(Vec2::splat(f32::INFINITY), Vec2::min);
+            let maximum = triangle
+                .map(|p| p.xz())
+                .into_iter()
+                .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
+            for tile in traffic::TrafficTile::covering(minimum, maximum) {
+                let polygon = support::clip_polygon(triangle.to_vec(), tile.corners());
+                for index in 1..polygon.len().saturating_sub(1) {
+                    let clipped = [polygon[0], polygon[index], polygon[index + 1]];
+                    if (clipped[1] - clipped[0])
+                        .cross(clipped[2] - clipped[0])
+                        .length_squared()
+                        <= f32::EPSILON
+                    {
+                        continue;
+                    }
+                    let vertices = self.chunks.entry(tile).or_default();
+                    for mut point in clipped {
+                        let uv = support::footprint_uv(patch.corners, point.xz());
+                        vertices.uvs.push(uv.to_array());
+                        vertices.activities.push(activity.at(point.xz()).to_array());
+                        vertices
+                            .footprints
+                            .push([width, depth, f32::from(patch.kind as u8), 1.0]);
+                        point.y += patch.lift_metres;
+                        vertices.positions.push(point.to_array());
+                        vertices.normals.push(normal.to_array());
+                    }
+                }
             }
         });
     }
 
-    pub(super) fn build(self) -> Option<Mesh> {
-        if self.positions.is_empty() {
-            return None;
-        }
+    pub(super) fn build(self) -> impl Iterator<Item = (traffic::TrafficTile, Mesh)> {
+        self.chunks
+            .into_iter()
+            .map(|(tile, vertices)| (tile, vertices.build()))
+    }
+}
+
+impl SurfaceVertices {
+    fn build(self) -> Mesh {
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::RENDER_WORLD,
@@ -122,7 +155,7 @@ impl CitySurfaceMeshBuilder {
         mesh.insert_attribute(Mesh::ATTRIBUTE_UV_1, self.activities);
         // RGB encodes physical patch dimensions and shape, not a vertex tint.
         mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, self.footprints);
-        Some(mesh)
+        mesh
     }
 }
 
@@ -160,23 +193,25 @@ mod tests {
                 &support,
                 &[],
             );
-            assert!(!builder.positions.is_empty());
-            for points in builder.positions.as_chunks::<3>().0 {
-                let [a, b, c] = [points[0], points[1], points[2]].map(Vec3::from_array);
-                assert!((b - a).cross(c - a).y > 0.0);
-                // Several interior barycentric probes catch missing spikes
-                // and the wrong diagonal, rather than just testing vertices.
-                for weights in [
-                    Vec3::splat(1.0 / 3.0),
-                    Vec3::new(0.1, 0.3, 0.6),
-                    Vec3::new(0.6, 0.1, 0.3),
-                ] {
-                    let point = a * weights.x + b * weights.y + c * weights.z;
-                    let clearance = point.y - terrain.height_at(point.xz()).unwrap();
-                    assert!(
-                        (clearance - 0.01).abs() < 0.0001,
-                        "clearance {clearance} at {point:?}"
-                    );
+            assert!(!builder.chunks.is_empty());
+            for vertices in builder.chunks.values() {
+                for points in vertices.positions.as_chunks::<3>().0 {
+                    let [a, b, c] = [points[0], points[1], points[2]].map(Vec3::from_array);
+                    assert!((b - a).cross(c - a).y > 0.0);
+                    // Several interior barycentric probes catch missing spikes
+                    // and the wrong diagonal, rather than just testing vertices.
+                    for weights in [
+                        Vec3::splat(1.0 / 3.0),
+                        Vec3::new(0.1, 0.3, 0.6),
+                        Vec3::new(0.6, 0.1, 0.3),
+                    ] {
+                        let point = a * weights.x + b * weights.y + c * weights.z;
+                        let clearance = point.y - terrain.height_at(point.xz()).unwrap();
+                        assert!(
+                            (clearance - 0.01).abs() < 0.0001,
+                            "clearance {clearance} at {point:?}"
+                        );
+                    }
                 }
             }
         }
@@ -198,11 +233,12 @@ mod tests {
             &support,
             &[],
         );
-        assert!(!builder.positions.is_empty());
+        assert!(!builder.chunks.is_empty());
         assert!(
             builder
-                .positions
-                .iter()
+                .chunks
+                .values()
+                .flat_map(|v| &v.positions)
                 .all(|point| point[1] > 7.0 && point[0].abs() <= 4.0001)
         );
     }

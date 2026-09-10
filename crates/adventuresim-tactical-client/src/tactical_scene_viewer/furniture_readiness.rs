@@ -6,7 +6,7 @@ use super::{
     capture_state::{CapturePhase, SceneCaptureState},
     gpu_readiness::GpuReadiness,
 };
-use crate::presentation::{PresentedFurnitureMesh, TacticalBuildingMaterials};
+use crate::presentation::{CityGroundMaterial, PresentedFurnitureMesh, TacticalBuildingMaterials};
 
 const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
 
@@ -55,6 +55,8 @@ struct Observation<'w, 's> {
         ),
     >,
     materials: Res<'w, Assets<StandardMaterial>>,
+    ground: Query<'w, 's, (&'static Mesh3d, &'static MeshMaterial3d<CityGroundMaterial>)>,
+    ground_materials: Res<'w, Assets<CityGroundMaterial>>,
     palette: Res<'w, TacticalBuildingMaterials>,
     gpu: Res<'w, GpuReadiness>,
     adapter: Res<'w, RenderAdapterInfo>,
@@ -62,7 +64,15 @@ struct Observation<'w, 's> {
 
 impl Observation<'_, '_> {
     fn check(&self, expected: &ExpectedFurniture) -> bool {
-        self.furniture.iter().count() == expected.instances
+        !self.ground.is_empty()
+            && self.ground.iter().all(|(mesh, handle)| {
+                self.ground_materials
+                    .get(&handle.0)
+                    .is_some_and(|material| {
+                        self.gpu.contains(&mesh.0, material.extension.texture_ids())
+                    })
+            })
+            && self.furniture.iter().count() == expected.instances
             && self.batches.iter().count() == expected.batches
             && self.batches.iter().all(|(batch, parent, mesh, handle)| {
                 let Ok(instance) = self.furniture.get(parent.parent()) else {
@@ -118,7 +128,7 @@ fn observe(
         let evidence = serde_json::json!({
             "renderer": "TacticalPresentationPlugin", "backend": format!("{:?}", observation.adapter.backend),
             "adapter": observation.adapter.name, "instances": expected.instances, "batches": expected.batches,
-            "material_bindings_verified": true, "captured_views_ready": readiness.recorded,
+            "material_bindings_verified": true, "ground_traffic_masks_gpu_resident": true, "captured_views_ready": readiness.recorded,
         });
         std::fs::write(
             state.output.join("furniture-presentation.json"),

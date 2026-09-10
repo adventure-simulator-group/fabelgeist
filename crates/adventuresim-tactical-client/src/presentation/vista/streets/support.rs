@@ -98,7 +98,7 @@ impl GroundSupport {
     }
 }
 
-fn clip_polygon(mut polygon: Vec<Vec3>, corners: [Vec2; 4]) -> Vec<Vec3> {
+pub(super) fn clip_polygon(mut polygon: Vec<Vec3>, corners: [Vec2; 4]) -> Vec<Vec3> {
     let winding = (corners[1] - corners[0])
         .perp_dot(corners[3] - corners[0])
         .signum();

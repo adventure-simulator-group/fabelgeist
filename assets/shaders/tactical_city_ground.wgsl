@@ -15,6 +15,7 @@ struct CityGroundParameters {
     surface: vec4<f32>,
     weather: vec4<f32>,
     texture_scale: vec4<f32>,
+    traffic_transform: vec4<f32>,
 }
 @group(#{MATERIAL_BIND_GROUP}) @binding(100) var<uniform> ground: CityGroundParameters;
 @group(#{MATERIAL_BIND_GROUP}) @binding(101) var soil_height_ao: texture_2d<f32>;
@@ -23,6 +24,8 @@ struct CityGroundParameters {
 @group(#{MATERIAL_BIND_GROUP}) @binding(104) var stone_sampler: sampler;
 @group(#{MATERIAL_BIND_GROUP}) @binding(105) var stone_arm: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(106) var stone_arm_sampler: sampler;
+@group(#{MATERIAL_BIND_GROUP}) @binding(107) var traffic_mask: texture_2d<f32>;
+@group(#{MATERIAL_BIND_GROUP}) @binding(108) var traffic_sampler: sampler;
 
 fn cell_hash(point: vec2<f32>) -> vec2<f32> {
     var p = fract(vec3<f32>(point.xyx) * vec3<f32>(0.1031, 0.1030, 0.0973));
@@ -87,8 +90,6 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     let world = position.xz;
     let footprint = in.color;
     let local = in.uv * footprint.xy;
-    let half_width = footprint.x * 0.5;
-    let across = local.x - half_width;
     let to_end = min(local.y, footprint.y - local.y);
     let to_side = min(local.x, footprint.x - local.x);
     let corridor = 1.0 - step(0.5, footprint.z);
@@ -97,23 +98,25 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     let broad = ground_noise(world * 0.16);
     let broken = ground_noise(world * 1.7);
     let edge_width = 0.55 + broad * 0.95;
-    let shoulder = 1.0 - smoothstep(0.12, edge_width, edge_distance + (broken - 0.5) * 0.65);
+    let traffic_uv = (world - ground.traffic_transform.xy) * ground.traffic_transform.zw;
+    let traffic = textureSample(traffic_mask, traffic_sampler, traffic_uv).rgb;
+    let local_shoulder = 1.0 - smoothstep(0.12, edge_width, edge_distance + (broken - 0.5) * 0.65);
+    let street_surface = 1.0 - step(1.5, footprint.z);
+    // All road and market patches read the union shoulder, including overlaps.
+    let shoulder = mix(local_shoulder, clamp(1.0 - traffic.b + (broken - 0.5) * 0.20, 0.0, 1.0), street_surface);
 
-    // Fade wheel bands before intersections. A market owns broad pedestrian
-    // crossing wear, while separate lower streets never show through it.
-    let wheel_spacing = min(0.78, half_width * 0.45);
-    let wander = (ground_noise(vec2<f32>(local.y * 0.1, 17.0)) - 0.5) * 0.18;
-    let wheel = 1.0 - smoothstep(0.09, 0.31, abs(abs(across + wander) - wheel_spacing));
-    let lane = (1.0 - smoothstep(0.4, half_width * 0.85, abs(across))) * 0.25;
-    let approach = smoothstep(1.0, 4.5, to_end);
-    let street_wear = max(wheel * (0.55 + broken * 0.45), lane) * approach;
+    // Seven carriage widths and curved front/rear axle paths are baked once.
+    // Broken marks sit inside a much wider, irregular bed of churned earth.
+    let rut = traffic.g * (0.40 + broken * 0.60);
+    let churn = traffic.r * (0.72 + broad * 0.28);
+    let street_wear = max(churn, rut * 0.85);
     let plaza_crossing = max(
         1.0 - smoothstep(0.8, 2.8, abs(local.x - footprint.x * 0.5)),
         1.0 - smoothstep(0.8, 2.8, abs(local.y - footprint.y * 0.5)));
     let activity_wear = in.uv_b.x;
     let activity_dampness = in.uv_b.y;
     let wear = max(mix(plaza_crossing * market * (0.25 + broad * 0.35), street_wear, corridor),
-        activity_wear * (0.75 + broken * 0.25));
+        max(street_wear * street_surface, activity_wear * (0.75 + broken * 0.25)));
 
     let soil = textureSample(soil_height_ao, soil_sampler, world * ground.texture_scale.x);
     let soil_height = dot(soil.rg, vec2<f32>(256.0 / 257.0, 1.0 / 257.0));
@@ -137,14 +140,19 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     let deposit_noise = ground_noise(world * 0.65 + vec2<f32>(23.0, 71.0));
     let deposits = smoothstep(0.40, 0.73, deposit_noise * 0.65 + broad * 0.35);
     let soil_level = 0.075 + shoulder * 0.91 + deposits * (0.20 + wear * 0.8)
-        + wear * 0.20 + activity_wear * deposits * 0.28;
+        + wear * 0.20 + activity_wear * deposits * 0.28
+        + churn * street_surface * (0.48 + deposits * 0.42) + rut * street_surface * 0.14;
     let edge_filter = max(fwidth(crown), 0.10);
     let exposed_near = smoothstep(soil_level - edge_filter, soil_level + edge_filter, crown);
     let exposed_average = 1.0 - smoothstep(0.02, 0.82, soil_level);
     let exposed_stone = mix(exposed_average, exposed_near, resolved) * ground.surface.x;
     let damp = clamp(moisture * (0.5 + 0.25 * wear + 0.25 * (1.0 - broad) + activity_dampness * 0.4), 0.0, 1.0);
     let earth_tint = mix(vec3<f32>(0.16, 0.117, 0.073), vec3<f32>(0.13, 0.105, 0.061), ground.surface.z);
-    let earth = earth_tint * (0.78 + soil_height * 0.3 + broad * 0.18) * (1.0 - damp * 0.35);
+    // Compacted wheel beds retain darker fine soil even in dry weather. This
+    // contrast survives when shallow normal relief becomes subpixel.
+    let rut_pigment = 1.0 - rut * street_surface * (0.65 + damp * 0.15);
+    let earth = earth_tint * (0.65 + soil_height * 0.28 + broad * 0.42)
+        * (1.0 - damp * 0.35) * rut_pigment;
     let stone_tone = mix(0.5, stones.y, resolved);
     let stone_tint = mix(vec3<f32>(0.64, 0.48, 0.30), vec3<f32>(0.94, 1.0, 1.07), stone_tone);
     let dust = deposits * (0.12 + wear * 0.22);
@@ -155,7 +163,8 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     color = mix(color, vec3<f32>(0.79, 0.84, 0.86), snow);
     let macro_normal = normalize(cross(dpdy(position), dpdx(position)));
     let upward = select(-macro_normal, macro_normal, macro_normal.y >= 0.0);
-    let earth_height = soil_height * 0.014 * (1.0 - wear * 0.55);
+    let earth_height = soil_height * 0.014 * (1.0 - wear * 0.55)
+        - rut * street_surface * 0.012 * (1.0 - exposed_stone);
     // A buried stone emerges above its soil bed; the edge must not form an
     // artificial trench with a one-pixel dark rim. Fade unresolved relief
     // before its derivatives become a screen-space stipple pattern.
@@ -166,7 +175,7 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     pbr.N = normalize(mix(upward, height_normal(position, upward, composed_height), bump_resolved));
     pbr.world_normal = upward;
     pbr.material.base_color = vec4<f32>(color, 1.0);
-    pbr.material.perceptual_roughness = mix(mix(0.96, arm.g, exposed_stone) - damp * 0.28, 0.92, snow);
+    pbr.material.perceptual_roughness = mix(mix(0.96, arm.g, exposed_stone) - damp * (0.28 + rut * 0.10), 0.92, snow);
     pbr.diffuse_occlusion = vec3<f32>(mix(mix(0.73, 1.0, soil.b), arm.r, exposed_stone));
 #ifdef PREPASS_PIPELINE
     return deferred_output(in, pbr);

@@ -98,7 +98,7 @@ pub(crate) use terrain::{
     DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
     terrain_heightmap_image,
 };
-pub(crate) use vista::{VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
+pub(crate) use vista::{CityGroundMaterial, VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
 pub(crate) use weather::WeatherParticle;
 
 use adventuresim_tactical_core::prelude::*;

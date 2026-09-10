@@ -6,7 +6,7 @@ mod grass_mask;
 mod streets;
 mod surface;
 
-pub(in crate::presentation) use streets::CityGroundMaterial;
+pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
 pub(super) use surface::ActiveVistaSurface;
 
@@ -176,16 +176,13 @@ fn spawn_near_vista_details(
     grass: &crate::presentation::config::GrassConfig,
     city_ground: &mut streets::CityGroundAssets,
 ) {
-    streets::spawn(
+    city_ground.spawn(
         commands,
-        &bundle.streets,
-        &bundle.yards,
-        &bundle.furniture_groups,
+        bundle,
         active_surface.ground_support(),
         environment,
         meshes,
-        &mut city_ground.materials,
-        &city_ground.textures,
+        images,
     );
     let urban_ground = UrbanGround::new(&bundle.streets, &bundle.yards);
     spawn_near_vista_scatter(

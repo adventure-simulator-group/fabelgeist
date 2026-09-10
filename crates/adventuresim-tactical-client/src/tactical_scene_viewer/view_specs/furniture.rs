@@ -1,6 +1,6 @@
 use super::*;
 
-pub(in crate::tactical_scene_viewer) const FURNITURE_REVIEW_VIEWS: [CaptureViewSpec; 9] = [
+pub(in crate::tactical_scene_viewer) const FURNITURE_REVIEW_VIEWS: [CaptureViewSpec; 11] = [
     v!(
         "warmup",
         "Furniture and road production pipeline warmup",
@@ -63,6 +63,22 @@ pub(in crate::tactical_scene_viewer) const FURNITURE_REVIEW_VIEWS: [CaptureViewS
         "Cobbles, joint fill and traffic wear at eye height",
         CapturePose::CityExterior { camera: 6 },
         60.0,
+        100
+    )
+    .vista(),
+    v!(
+        "junction-oblique",
+        "Curved carriage paths and shared junction mud",
+        CapturePose::CityExterior { camera: 7 },
+        55.0,
+        100
+    )
+    .vista(),
+    v!(
+        "junction-close",
+        "Overlapping axle widths and turning wheel paths",
+        CapturePose::CityExterior { camera: 8 },
+        55.0,
         100
     )
     .vista(),

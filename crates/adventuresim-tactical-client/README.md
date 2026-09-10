@@ -374,7 +374,18 @@ City streets and developed yards use one production material policy across
 playable and distant ground. Metre-space cobble and gravel detail blends with
 compacted earth, broken edges, static traffic wear, and weather-dependent
 dampness. Accepted vendor, receiving, and horse-stop footprints contribute
-local wear masks. Ground meshes sample the same presented terrain surface;
+local wear masks. Static traffic history adds seven carriage gauges, lateral
+variation, and tangent-continuous turns at shared endpoints and interior
+crossings. Turning front and rear axles leave overlapping marks in both travel
+directions, constrained to the visible road/market union. Broad churn covers
+most of the central carriageway; wheel marks break up within those deposits.
+
+Traffic, churn, and road-union shoulders are baked once into 64-metre tiles at
+four texels per metre. Neighboring tiles share world-space filter gutters, and
+all overlapping ground patches sample the same masks. Ground meshes split at
+tile boundaries while retaining canonical terrain support. The furniture
+capture gate checks the ground masks are GPU resident, and its junction views
+show turning continuity and axle variation. Ground meshes sample the same presented terrain surface;
 material relief does not change tactical collision or create physical ruts.
 
 Outdoor furniture arrives as compact immutable recipe references and normal

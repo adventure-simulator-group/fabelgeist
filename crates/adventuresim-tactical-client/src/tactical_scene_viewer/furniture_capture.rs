@@ -89,9 +89,20 @@ pub(super) fn setup(
     let target = Vec3::new(centre.x, terrain.height_at(centre).unwrap(), centre.y);
     cameras.push(camera(target + Vec3::new(48.0, 40.0, -58.0), target));
     cameras.push(camera(
-        target + Vec3::new(0.0, EYE_HEIGHT_METRES, -8.0),
-        target + Vec3::Z * 5.0,
+        Vec3::new(
+            -10.0,
+            terrain.height_at(Vec2::new(-10.0, -30.0)).unwrap() + EYE_HEIGHT_METRES,
+            -30.0,
+        ),
+        Vec3::new(
+            15.0,
+            terrain.height_at(Vec2::new(15.0, -30.0)).unwrap(),
+            -30.0,
+        ),
     ));
+    let junction = Vec3::new(-30.0, terrain.height_at(Vec2::splat(-30.0)).unwrap(), -30.0);
+    cameras.push(camera(junction + Vec3::new(-21.0, 24.0, -23.0), junction));
+    cameras.push(camera(junction + Vec3::new(-9.0, 7.0, -10.0), junction));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
         instances: layout.instances.len() + layout.distant_instances.len(),
         batches: layout
