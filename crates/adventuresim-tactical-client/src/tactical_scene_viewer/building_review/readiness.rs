@@ -49,7 +49,7 @@ struct Observation<'w, 's> {
             &'static PresentedBuildingMesh,
             &'static ChildOf,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     doors: Query<
@@ -58,7 +58,7 @@ struct Observation<'w, 's> {
         (
             &'static SceneDoor,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     windows: Query<
@@ -67,7 +67,7 @@ struct Observation<'w, 's> {
         (
             &'static SceneWindow,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     signs: Query<
@@ -84,7 +84,7 @@ struct Observation<'w, 's> {
         's,
         (
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
             &'static ChildOf,
         ),
     >,
@@ -99,7 +99,11 @@ struct Observation<'w, 's> {
 }
 
 impl Observation<'_, '_> {
-    fn assets_ready(&self, mesh: &Mesh3d, handle: &MeshMaterial3d<StandardMaterial>) -> bool {
+    fn assets_ready(
+        &self,
+        mesh: &Mesh3d,
+        handle: &crate::presentation::interior_lighting::InteriorMaterialSource,
+    ) -> bool {
         self.materials.get(&handle.0).is_some_and(|material| {
             self.gpu.contains(
                 &mesh.0,

@@ -26,7 +26,7 @@ pub(in crate::animation_viewer) struct EquipmentVisualRequirements {
 type EquipmentRenderPart = (
     &'static ProceduralEquipmentPart,
     &'static Mesh3d,
-    &'static MeshMaterial3d<StandardMaterial>,
+    &'static crate::presentation::interior_lighting::InteriorMaterialSource,
     Option<&'static SkinnedMesh>,
     Option<&'static MeshMorphWeights>,
     Option<&'static Name>,
@@ -170,7 +170,9 @@ mod tests {
                         ProceduralEquipmentPart::new(item, default(), vec!["c_head".into()]),
                         Name::new(*name),
                         Mesh3d(mesh.clone()),
-                        MeshMaterial3d(material.clone()),
+                        crate::presentation::interior_lighting::InteriorMaterialSource(
+                            material.clone(),
+                        ),
                         SkinnedMesh {
                             inverse_bindposes: default(),
                             joints: vec![item],

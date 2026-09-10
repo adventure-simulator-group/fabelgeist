@@ -1,5 +1,13 @@
 # Third-party notices
 
+## Bevy PBR shader
+
+`assets/shaders/tactical_interior_material.wgsl` adapts Bevy 0.19.1's
+`crates/bevy_pbr/src/render/pbr.wgsl` under the MIT license. The license is
+retained in `assets/shaders/BEVY_LICENSE_MIT.txt`.
+
+- Source: <https://github.com/bevyengine/bevy/blob/v0.19.1/crates/bevy_pbr/src/render/pbr.wgsl>
+
 ## Meta Momentum Human Rig
 
 The character authoring pipeline uses Meta's Momentum Human Rig (MHR) v1.0.1.

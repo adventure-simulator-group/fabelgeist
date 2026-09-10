@@ -58,7 +58,7 @@ struct Observation<'w, 's> {
             &'static PresentedFurnitureMesh,
             &'static ChildOf,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     materials: Res<'w, Assets<StandardMaterial>>,
