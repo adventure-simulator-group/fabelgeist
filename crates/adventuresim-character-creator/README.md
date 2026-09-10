@@ -82,6 +82,14 @@ armor uses the armor generator's corresponding body samples, including its
 anatomical joint landmarks. Each recipe retains its authored vertex and index
 correspondence across morph samples. Export fails if fitting changes either.
 
+Breastplate identity targets transfer body displacement through fixed
+correspondence on the smooth carrier. Refined flute vertices interpolate that
+coarse displacement, and corresponding inner/outer wall vertices share it.
+This avoids accumulating independent nonlinear fitting corrections in signed
+identity blends. It preserves carrier gauge vectors, not exact normal thickness
+under arbitrary deformation; installed skeletal animation needs its own checks.
+
+
 The tactical client derives bounded cosmetic weights from each persistent
 character ID, consistently across clients and reconnects. Equipment uses its
 current wearer's weights, updates when transferred, and returns to zero weights
@@ -146,6 +154,28 @@ construction family and pass its parameter validation. The existing
 `--breastplate-design` option controls the paired torso plates. Measurements use
 millimetres and ratios use permille. The serialized design contributes to the
 asset's design hash and generator version.
+
+The breastplate editor provides Rounded, Central ridge, Peascod, and Fluted
+starting points. Its `profile` controls projection, upper-chest recession, the height of that projection,
+lateral fullness, medial ridge, and waist-point drop/width. Waist projection is independent of chest fullness; the flange follows the
+waist point without a discontinuity when chest projection height changes. Opening, length,
+waist width, clearance, and flange controls remain independent.
+
+Set `fluting` to `null` for a plain plate, or provide the flute recipe. Count
+(2–24), width (350–850 permille of pitch), depth (1–4 mm), spread, lower spread,
+start/end heights, and end taper are independent controls. Width is a proportion
+of spacing, not an absolute millimetre width: increasing count at fixed spread
+makes the flutes closer and physically narrower. Changing width at fixed count
+changes the flute/land ratio. Spread and width scale with the fitted wearer;
+flute relief depth remains in millimetres. Both surfaces carry the relief;
+plate gauge follows the smooth carrier's extrusion direction, rather than the
+local flute normal. Unknown fields and invalid fade intervals are rejected.
+
+[Example recipes and historical references](../adventuresim-armor-model/review/breastplate/README.md)
+provide editable starting points. Each recipe has one front plate and one back
+plate; a separate plackart or articulated waist plate requires a different
+construction recipe. The upper armscye is a smooth boundary of the shell, and
+the back returns seat over the front at the lower flanks.
 
 For reproducible body-visible review, run the creator with
 `--armor-review-dir target/armor-review/candidate`, then:

@@ -2,6 +2,39 @@
 
 use super::*;
 
+/// Detail vertices share displacement from the coarse carrier that defines
+/// their surface. Sampling the body independently at each flute ridge can
+/// introduce high-frequency displacement and fold narrow relief channels.
+pub(super) fn carrier_samples(
+    mesh: &MidMesh,
+    wearer: Wearer<'_>,
+    eligible_faces: &[usize],
+) -> Vec<MorphSample> {
+    if let Some(carrier) = &mesh.morph_carrier {
+        let coarse = carrier
+            .positions
+            .iter()
+            .map(|point| source_sample(*point, wearer, eligible_faces))
+            .collect::<Vec<_>>();
+        carrier
+            .samples
+            .iter()
+            .map(|(index, blend)| MorphSample {
+                endpoints: [coarse[*index], coarse[*index + 1]],
+                blend: *blend,
+            })
+            .collect()
+    } else {
+        mesh.positions
+            .iter()
+            .map(|point| MorphSample {
+                endpoints: [source_sample(*point, wearer, eligible_faces); 2],
+                blend: 0.0,
+            })
+            .collect()
+    }
+}
+
 pub(super) fn source_sample(
     point: [f32; 3],
     wearer: Wearer<'_>,
@@ -121,4 +154,27 @@ pub(super) fn sampled_skin(sample: SourceSample, surface: &TorsoSurface) -> ([u3
         result[slot] = weight / total;
     }
     (joints, result)
+}
+
+/// Map the torso subset to full enclosure face indices for surface attributes.
+pub(super) fn eligible_torso_faces(surface: &TorsoSurface) -> Result<Vec<usize>, GenerateError> {
+    let source_face_indices = surface
+        .clearance_mesh
+        .enclosure_faces
+        .iter()
+        .copied()
+        .enumerate()
+        .map(|(index, face)| (face, index))
+        .collect::<BTreeMap<_, _>>();
+    surface
+        .clearance_mesh
+        .enclosure_torso_faces
+        .iter()
+        .map(|face| {
+            source_face_indices
+                .get(face)
+                .copied()
+                .ok_or(GenerateError::InvalidSurface)
+        })
+        .collect()
 }

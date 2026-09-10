@@ -12,6 +12,7 @@ mod generation;
 mod preview;
 mod proportion_controls;
 use generation::generate_character;
+mod breastplate_controls;
 mod character_export;
 mod character_morphs;
 mod equipment_controls;

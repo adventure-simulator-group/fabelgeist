@@ -434,7 +434,6 @@ fn paired_carrier_is_two_closed_components_with_stable_morphs_and_runtime_skinni
             neck_width: Permille(1_150),
             plate_length: Permille(850),
             side_return: Permille(900),
-            shoulder_band_width: Millimeters(42),
             ..BreastplateDesign::default()
         },
         &surface,
@@ -442,4 +441,206 @@ fn paired_carrier_is_two_closed_components_with_stable_morphs_and_runtime_skinni
     .unwrap();
     assert_eq!(varied.indices, armor.indices);
     assert_ne!(varied.positions, armor.positions);
+}
+
+#[test]
+fn historical_profiles_and_flutes_keep_closed_morph_correspondence() {
+    let surface = torso();
+    let mut designs = vec![
+        BreastplateDesign::globose(),
+        BreastplateDesign::tapul(),
+        BreastplateDesign::peascod(),
+        BreastplateDesign::fluted(),
+    ];
+    for (count, width, depth) in [(2, 850, 4), (24, 350, 1), (24, 850, 4)] {
+        let mut design = BreastplateDesign::fluted();
+        let flutes = design.fluting.as_mut().unwrap();
+        flutes.count = adventuresim_armor_model::FluteCount(count);
+        flutes.width = Permille(width);
+        flutes.depth = Millimeters(depth);
+        designs.push(design);
+    }
+    for design in designs {
+        let mesh = generate_breastplate(&design, &surface).unwrap();
+        assert_closed(&mesh.positions, &mesh.indices);
+        for weight in [-0.35, 0.35, 1.0] {
+            let positions: Vec<_> = mesh
+                .positions
+                .iter()
+                .zip(&mesh.morphs[0].position_deltas)
+                .map(|(base, delta)| std::array::from_fn(|axis| base[axis] + weight * delta[axis]))
+                .collect();
+            assert_closed(&positions, &mesh.indices);
+            assert!(positions.iter().flatten().all(|v| v.is_finite()));
+            for face in mesh.indices.as_chunks::<3>().0 {
+                let [a, b, c] = [face[0], face[1], face[2]].map(|i| positions[i as usize]);
+                let ab = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+                let ac = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+                let cross = [
+                    ab[1] * ac[2] - ab[2] * ac[1],
+                    ab[2] * ac[0] - ab[0] * ac[2],
+                    ab[0] * ac[1] - ab[1] * ac[0],
+                ];
+                assert!(
+                    cross.iter().map(|v| v * v).sum::<f32>() > 1e-18,
+                    "area {:?} face {face:?} points {a:?} {b:?} {c:?} weight {weight} design {design:?}",
+                    cross
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn new_controls_reject_invalid_spacing_and_round_trip() {
+    use adventuresim_armor_model::{breastplate_design_hash, validate_breastplate};
+    let mut design = BreastplateDesign::fluted();
+    let hash = breastplate_design_hash(&design).unwrap();
+    let json = serde_json::to_vec(&design).unwrap();
+    assert_eq!(
+        serde_json::from_slice::<BreastplateDesign>(&json).unwrap(),
+        design
+    );
+    design.fluting.as_mut().unwrap().width = Permille(800);
+    assert_ne!(breastplate_design_hash(&design).unwrap(), hash);
+    design.fluting.as_mut().unwrap().end = Permille(200);
+    assert!(validate_breastplate(&design).is_err());
+    let mut unknown = serde_json::to_value(BreastplateDesign::fluted()).unwrap();
+    unknown["fluting"]["widht"] = serde_json::json!(700);
+    assert!(serde_json::from_value::<BreastplateDesign>(unknown).is_err());
+}
+
+#[test]
+fn example_recipes_match_editor_presets() {
+    for (json, expected) in [
+        (
+            include_str!("../review/breastplate/designs/rounded.json"),
+            BreastplateDesign::globose(),
+        ),
+        (
+            include_str!("../review/breastplate/designs/tapul.json"),
+            BreastplateDesign::tapul(),
+        ),
+        (
+            include_str!("../review/breastplate/designs/peascod.json"),
+            BreastplateDesign::peascod(),
+        ),
+        (
+            include_str!("../review/breastplate/designs/fluted.json"),
+            BreastplateDesign::fluted(),
+        ),
+    ] {
+        assert_eq!(
+            serde_json::from_str::<BreastplateDesign>(json).unwrap(),
+            expected
+        );
+    }
+}
+
+#[test]
+fn wide_flute_fades_preserve_side_edges_and_medial_ridge() {
+    let surface = torso();
+    let design = BreastplateDesign::tapul();
+    let smooth = generate_breastplate(&design, &surface).unwrap();
+    let mut fluted_design = design;
+    fluted_design.fluting = Some(adventuresim_armor_model::BreastplateFluting {
+        lower_spread: Permille(1000),
+        spread: Permille(850),
+        start: Permille(50),
+        end: Permille(950),
+        fade: Permille(250),
+        ..Default::default()
+    });
+    let fluted = generate_breastplate(&fluted_design, &surface).unwrap();
+    // The coarse carrier's first 33 rows have 49 points each. Compare the
+    // generated inner side boundaries and central fold, including attachments.
+    for row in 0..33 {
+        for column in [0, 24, 48] {
+            let source = row * 49 + column;
+            let point = smooth.positions[source];
+            let coincident: Vec<_> = fluted
+                .positions
+                .iter()
+                .enumerate()
+                .filter(|(_, p)| p.iter().zip(point).all(|(a, b)| (a - b).abs() < 2e-6))
+                .map(|(i, _)| i)
+                .collect();
+            assert!(
+                !coincident.is_empty(),
+                "relief moved boundary/fold at row {row}, column {column}"
+            );
+            for index in coincident {
+                for (base_morph, fluted_morph) in smooth.morphs.iter().zip(&fluted.morphs) {
+                    assert!(
+                        base_morph.direct_positions[source]
+                            .iter()
+                            .zip(fluted_morph.direct_positions[index])
+                            .all(|(a, b)| (a - b).abs() < 2e-6)
+                    );
+                }
+            }
+        }
+    }
+    assert_closed(&fluted.positions, &fluted.indices);
+}
+
+#[test]
+fn identity_morphs_preserve_the_carrier_gauge_vectors() {
+    let mesh = generate_breastplate(&BreastplateDesign::peascod(), &torso()).unwrap();
+    // The smooth front has 33 main rows and eight additional flange rows.
+    // Its first two blocks are corresponding inner and outer surface points.
+    let count = 49 * 41;
+    for morph in &mesh.morphs {
+        for index in 0..count {
+            for axis in 0..3 {
+                let gauge = mesh.positions[index + count][axis] - mesh.positions[index][axis];
+                for weight in [-0.35, 0.35, 1.0] {
+                    let inner =
+                        mesh.positions[index][axis] + weight * morph.position_deltas[index][axis];
+                    let outer = mesh.positions[index + count][axis]
+                        + weight * morph.position_deltas[index + count][axis];
+                    assert!(
+                        (outer - inner - gauge).abs() < 2e-6,
+                        "identity transfer changed wall thickness"
+                    );
+                }
+            }
+        }
+    }
+}
+
+#[test]
+fn cut_edges_have_distinct_shading_without_tearing_morph_seams() {
+    let mesh = generate_breastplate(&BreastplateDesign::globose(), &torso()).unwrap();
+    // A top-row corner has separate inner-surface and cut-wall normals.
+    let corner = 32 * 49 + 24;
+    let aliases = mesh
+        .positions
+        .iter()
+        .enumerate()
+        .filter(|(_, point)| {
+            point
+                .iter()
+                .zip(mesh.positions[corner])
+                .all(|(a, b)| (a - b).abs() < 1e-6)
+        })
+        .map(|(index, _)| index)
+        .collect::<Vec<_>>();
+    assert!(
+        aliases.iter().any(|index| {
+            mesh.normals[*index]
+                .iter()
+                .zip(mesh.normals[corner])
+                .map(|(a, b)| a * b)
+                .sum::<f32>()
+                < 0.8
+        }),
+        "cut-wall shading must not bend the plate face"
+    );
+    for index in aliases {
+        for morph in &mesh.morphs {
+            assert_eq!(morph.position_deltas[index], morph.position_deltas[corner]);
+        }
+    }
+    assert_closed(&mesh.positions, &mesh.indices);
 }
