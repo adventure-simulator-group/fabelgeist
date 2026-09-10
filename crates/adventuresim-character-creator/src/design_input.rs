@@ -16,19 +16,6 @@ pub fn load_breastplate_design(path: Option<&Path>) -> Result<BreastplateDesign>
 }
 
 fn parse_breastplate_design(bytes: &[u8]) -> Result<BreastplateDesign> {
-    // Derive the accepted keys from the serialized schema instead of keeping
-    // a second list that can drift when design fields are added. Still parse
-    // the original bytes below so duplicate fields are rejected by Serde.
-    let document: serde_json::Value =
-        serde_json::from_slice(bytes).context("parsing breastplate design JSON")?;
-    let schema = serde_json::to_value(BreastplateDesign::default())?;
-    if let Some(fields) = document.as_object() {
-        for name in fields.keys() {
-            if schema.get(name).is_none() {
-                anyhow::bail!("unknown breastplate design field {name:?}");
-            }
-        }
-    }
     let design = serde_json::from_slice(bytes).context("parsing breastplate design JSON")?;
     validate_breastplate(&design).context("invalid breastplate design parameters")?;
     Ok(design)

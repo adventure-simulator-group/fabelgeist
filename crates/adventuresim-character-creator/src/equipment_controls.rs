@@ -82,20 +82,7 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
         changed |= ui
             .add(egui::Slider::new(&mut design.side_return.0, 850..=1_080).text("Side return"))
             .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.front_crown.0, 0..=30)
-                    .text("Front crown")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.shoulder_band_width.0, 18..=55)
-                    .text("Shoulder band width")
-                    .suffix(" mm"),
-            )
-            .changed();
+        changed |= crate::breastplate_controls::shape(ui, design);
         changed |= ui
             .add(
                 egui::Slider::new(&mut design.skirt_length.0, 500..=1_600)
@@ -128,13 +115,6 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
             .add(
                 egui::Slider::new(&mut design.back_clearance.0, 6..=35)
                     .text("Back clearance")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.plate_gap.0, 4..=30)
-                    .text("Front/back gap")
                     .suffix(" mm"),
             )
             .changed();

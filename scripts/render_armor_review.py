@@ -1,6 +1,6 @@
 """Render actual recipe triangles against the exported MHR body with Blender.
 
-blender --background --python scripts/render_armor_review.py -- INPUT_DIR OUTPUT_DIR [ID]
+blender --background --python scripts/render_armor_review.py -- INPUT_DIR OUTPUT_DIR [ID] [--bare-body]
 """
 import json
 import math
@@ -26,6 +26,8 @@ def mesh_object(name, positions, faces, color, normals):
 
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
+    bare_body = "--bare-body" in args
+    args = [arg for arg in args if arg != "--bare-body"]
     source, output = [Path(p).resolve() for p in args[:2]]
     output.mkdir(parents=True, exist_ok=True)
     selected = args[2] if len(args) > 2 else None
@@ -90,11 +92,19 @@ def main():
             camera_data.ortho_scale = scale
             scene.render.filepath = str(output / f"{path.stem}-{name}.png")
             bpy.ops.render.render(write_still=True)
+            if bare_body:
+                for obj in armor:
+                    obj.hide_render = True
+                scene.render.filepath = str(output / f"{path.stem}-{name}-body.png")
+                bpy.ops.render.render(write_still=True)
+                for obj in armor:
+                    obj.hide_render = False
         for obj in armor:
             bpy.data.objects.remove(obj, do_unlink=True)
     (output / "render-settings.json").write_text(json.dumps({
         "engine": scene.render.engine, "size": [600, 700], "body": str(source / "body.json"),
         "views": ["front", "side", "quarter", "rear"], "body_included": True, "normals": "preserved exported runtime vertex normals",
+        "matched_bare_body_views": bare_body,
         "stage": "ordinary generator output; external static render"
     }, indent=2))
 

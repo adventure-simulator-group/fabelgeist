@@ -3,6 +3,8 @@
 
 #[path = "breastplate_carrier.rs"]
 mod breastplate;
+mod breastplate_design;
+pub use breastplate_design::*;
 mod components;
 mod design;
 pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
@@ -25,7 +27,7 @@ pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 10;
+pub const GENERATOR_VERSION: u16 = 11;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
@@ -54,6 +56,10 @@ pub fn breastplate_design_hash(design: &BreastplateDesign) -> Result<[u8; 32], D
 }
 
 pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignError> {
+    design.profile.validate()?;
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
+    }
     if design.catalog_id.trim().is_empty() {
         return Err(DesignError::EmptyCatalogId);
     }
@@ -61,16 +67,14 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
         || !(600..=1_400).contains(&design.neck_depth.0)
         || !(700..=1_300).contains(&design.arm_opening_depth.0)
         || !(750..=1_200).contains(&design.waist_width.0)
+        || !(700..=1100).contains(&design.back_depth.0)
         || !(650..=1_150).contains(&design.plate_length.0)
         || !(850..=1_080).contains(&design.side_return.0)
-        || design.front_crown.0 > 30
-        || !(18..=55).contains(&design.shoulder_band_width.0)
         || !(500..=1_600).contains(&design.skirt_length.0)
         || design.skirt_flare.0 > 70
         || !(1..=20).contains(&design.wall_thickness.0)
         || !(4..=30).contains(&design.front_clearance.0)
         || !(6..=35).contains(&design.back_clearance.0)
-        || !(4..=30).contains(&design.plate_gap.0)
     {
         return Err(DesignError::BreastplateEdges);
     }
