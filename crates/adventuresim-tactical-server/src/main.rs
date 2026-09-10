@@ -1,11 +1,17 @@
 //! Tactical Server - Replicon + Aeronet websocket game server.
+#[cfg(feature = "debug")]
+mod debug_dump;
+#[cfg(feature = "debug")]
+use debug_dump::on_debug_dump_world_request;
 
 mod bot;
 mod combat;
 mod equipment;
+mod furniture;
 mod mission;
 mod openings;
 mod player_projection;
+mod scene_obstacles;
 mod scene_setup;
 mod stdb;
 mod terrain_collision;
@@ -283,8 +289,7 @@ fn main() {
     .add_systems(OnEnter(ServerState::Running), on_server_started)
     .add_observer(on_player_input)
     .add_observer(on_player_added)
-    .add_observer(on_scene_terrain_added)
-    .add_observer(openings::on_scene_building_added);
+    .add_plugins(scene_setup::SceneGeometryPlugin);
 
     // Standalone (`--world-dump`) runs never touch SpacetimeDB: a loaded
     // dump already carries every bit of gameplay state a live stdb
@@ -372,99 +377,6 @@ fn on_debug_game_time_scale_request(
     info!(relative_speed, "Debug tactical game speed changed");
 }
 
-/// Serializes only the "core" reflectable character/level components (see
-/// [`on_player_added`](player_projection::on_player_added) and
-/// [`on_scene_terrain_added`] for the corresponding derive-the-rest hooks)
-/// on every entity to a `.scn.ron` file under `world_dumps/`.
-///
-/// Deliberately an *allowlist*, not "every reflected component/resource on
-/// every entity" - `reflect_auto_register` registers third-party types for
-/// all sorts of unrelated reasons (BRP inspection, entity mapping, engine
-/// bookkeeping), and any of them landing in the dump breaks the *entire*
-/// dump if it lacks full reflection-based serialization support, not just
-/// that one field. Both `Time<Real>` (a resource `.extract_resources()`
-/// pulled in from `TimePlugin`) and `aeronet_io::Session` (a component on
-/// every connected client's entity) hit exactly this - each contains a
-/// `bevy_platform::time::Instant` with no `ReflectSerialize` registered.
-/// Neither is reachable from a bare `App::new()` (what this file's own
-/// tests use), which is why this took two rounds to actually surface.
-#[cfg(feature = "debug")]
-fn on_debug_dump_world_request(_request: On<FromClient<DebugDumpWorldRequest>>, world: &World) {
-    let entities: Vec<Entity> = world
-        .archetypes()
-        .iter()
-        .flat_map(|archetype| archetype.entities().iter().map(|entity| entity.id()))
-        .collect();
-    let registry = world.resource::<AppTypeRegistry>().read();
-    // The filter must be set up *before* `extract_entities` - it's applied
-    // immediately as entities are extracted, not lazily at `build()`.
-    let scene = DynamicWorldBuilder::from_world(world, &registry)
-        .deny_all_components()
-        .allow_component::<Player>()
-        .allow_component::<CharacterId>()
-        .allow_component::<Skills>()
-        .allow_component::<Limbs>()
-        .allow_component::<TacticalAttributes>()
-        .allow_component::<Stats>()
-        .allow_component::<TacticalCombatState>()
-        .allow_component::<TacticalCombatSide>()
-        .allow_component::<Transform>()
-        .allow_component::<SceneId>()
-        .allow_component::<SceneTerrain>()
-        .allow_component::<SceneBuilding>()
-        .allow_component::<crate::bot::MissionEnemy>()
-        .allow_component::<crate::bot::OffensiveCombatAi>()
-        .allow_component::<crate::bot::CombatantBehaviorPackages>()
-        .allow_component::<crate::bot::ReactiveDefenseAi>()
-        .allow_component::<crate::bot::DefenseChances>()
-        .allow_component::<crate::bot::RaisedGuardAi>()
-        .allow_component::<crate::bot::AimAtNearestOpponentAi>()
-        .allow_component::<crate::bot::RecoverToUprightAi>()
-        // Inventory items are separate entities (linked back to their
-        // owning character via `ItemOf`), not components on the character
-        // itself - without these, a dumped/loaded character's equipment is
-        // silently empty. `InventoryItems` (the reverse side of the
-        // `ItemOf` relationship) MUST be captured too: scene loading
-        // applies components with `RelationshipHookMode::Skip`, so nothing
-        // reconstructs the reverse side on load - a dump carries both sides
-        // of the relationship verbatim, exactly like bevy's own
-        // `ChildOf`/`Children` pair in dynamic scenes.
-        .allow_component::<InventoryItems>()
-        .allow_component::<ItemOf>()
-        .allow_component::<TacticalItemQuantity>()
-        .allow_component::<ItemProperties>()
-        .allow_component::<WeaponItem>()
-        .allow_component::<ShieldItem>()
-        .allow_component::<ArmorItem>()
-        .allow_component::<EquipmentTopology>()
-        .allow_component::<EquipSlot>()
-        .extract_entities(entities.into_iter())
-        .build();
-    let ron = match scene.serialize(&registry) {
-        Ok(ron) => ron,
-        Err(error) => {
-            error!(?error, "Failed to serialize world dump");
-            return;
-        }
-    };
-    drop(registry);
-
-    let dir = std::path::Path::new("world_dumps");
-    if let Err(error) = std::fs::create_dir_all(dir) {
-        error!(?error, "Failed to create world_dumps directory");
-        return;
-    }
-    let timestamp = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
-        .unwrap_or_default()
-        .as_millis();
-    let path = dir.join(format!("world_dump_{timestamp}.scn.ron"));
-    match std::fs::write(&path, ron) {
-        Ok(()) => info!(path = %path.display(), "Dumped world state"),
-        Err(error) => error!(?error, path = %path.display(), "Failed to write world dump"),
-    }
-}
-
 /// [`WorldDeserializer`](bevy::world_serialization::serde::WorldDeserializer)
 /// requires a [`LoadFromPath`](bevy::asset::LoadFromPath) to resolve any
 /// `Handle<T>` fields found while deserializing. None of the allowlisted
@@ -546,6 +458,7 @@ fn load_world_dump(world: &mut World) {
 
 #[cfg(all(test, feature = "debug"))]
 mod debug_dump_world_tests {
+    mod furniture_restore;
     use std::{collections::HashSet, path::PathBuf};
 
     use adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId;
@@ -881,58 +794,22 @@ fn on_server_started(
             removed_building_obstacles = generated.repairs.removed_building_obstacles,
             "Loaded deterministic tactical scene input"
         );
-        let scene_id = input.scene_key.clone();
         let terrain = generated.terrain;
         let terrain_patch = generated.terrain_patch;
-        let ground = generated.ground;
         let environment = input.environment_snapshot(generated.digest);
-        let obstacles = generated.obstacles;
-        let buildings = generated.buildings;
-        let obstacle_spacing = input.playable.spacing_metres;
-        for obstacle in obstacles {
-            let (grid_x, grid_z, kind, collider, height_offset, label) = match obstacle {
-                GeneratedObstacle::Tree { x, z } => (
-                    x,
-                    z,
-                    SceneObstacle::Tree,
-                    Collider::cylinder(TREE_TRUNK_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES),
-                    TREE_TRUNK_HEIGHT_METRES * 0.5,
-                    "tree trunk",
-                ),
-                GeneratedObstacle::Rock { x, z, recipe } => (
-                    x,
-                    z,
-                    SceneObstacle::Rock(recipe),
-                    Collider::sphere(recipe.collision_radius_metres()),
-                    recipe.collision_radius_metres(),
-                    "rock",
-                ),
-            };
-            let x = f32::from(grid_x) * obstacle_spacing - terrain.width() * 0.5;
-            let z = f32::from(grid_z) * obstacle_spacing - terrain.depth() * 0.5;
-            let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + height_offset;
-            let yaw = match kind {
-                SceneObstacle::Rock(recipe) => {
-                    (recipe.seed >> 40) as f32 / ((1_u32 << 24) - 1) as f32 * core::f32::consts::TAU
-                }
-                SceneObstacle::Tree => 0.0,
-            };
-            commands.spawn((
-                Replicated,
-                Name::new(format!("Tactical scene {label}")),
-                kind,
-                RigidBody::Static,
-                CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
-                collider,
-                Transform::from_xyz(x, y, z).with_rotation(Quat::from_rotation_y(yaw)),
-            ));
-        }
-        openings::spawn_generated_buildings(&mut commands, buildings);
+        scene_obstacles::spawn(
+            &mut commands,
+            generated.obstacles,
+            &terrain,
+            input.playable.spacing_metres,
+        );
+        openings::spawn_generated_buildings(&mut commands, generated.buildings);
+        furniture::spawn(&mut commands, generated.furniture);
         terrain_collision::spawn_scene(
             &mut commands,
-            scene_id,
+            input.scene_key.clone(),
             terrain,
-            ground,
+            generated.ground,
             environment,
             terrain_patch.as_ref(),
             input.landform,

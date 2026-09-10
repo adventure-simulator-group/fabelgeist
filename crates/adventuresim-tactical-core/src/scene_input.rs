@@ -21,7 +21,7 @@ use thiserror::Error;
 use crate::{
     city_layout::{CityStreetPatch, CityYardPatch, MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES},
     scene::{GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain},
-    volumetric_terrain::{SceneTerrainPatch, TerrainLandformRecipe},
+    volumetric_terrain::TerrainLandformRecipe,
 };
 
 use crate::scene_ground::build_scene_ground;
@@ -29,7 +29,10 @@ use crate::scene_ground::build_scene_ground;
 use crate::scene_ground::tree_leaf_litter_probability;
 
 pub(crate) mod buildings;
+mod generated;
 mod generation;
+pub use generated::{GeneratedTacticalScene, SceneRepairReport};
+pub mod furniture;
 
 pub use buildings::{
     BuildingOrientation, DistantBuildingPlacement, GeneratedBuilding, SceneBuilding, SceneDoor,
@@ -37,7 +40,7 @@ pub use buildings::{
 };
 
 pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 17;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 33;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 35;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
 pub const TREE_TRUNK_HEIGHT_METRES: f32 = 5.0;
@@ -274,38 +277,6 @@ pub enum SceneObstacle {
 pub enum GeneratedObstacle {
     Tree { x: u16, z: u16 },
     Rock { x: u16, z: u16, recipe: RockRecipe },
-}
-
-#[derive(Debug)]
-pub struct GeneratedTacticalScene {
-    pub digest: String,
-    pub terrain: SceneTerrain,
-    pub ground: SceneGround,
-    pub obstacles: Vec<GeneratedObstacle>,
-    pub terrain_patch: Option<SceneTerrainPatch>,
-    pub buildings: Vec<GeneratedBuilding>,
-    pub repairs: SceneRepairReport,
-}
-
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
-pub struct SceneRepairReport {
-    pub upsampled_height_samples: u32,
-    pub microrelief_adjusted_samples: u32,
-    pub adjusted_height_samples: u32,
-    pub repaired_water_samples: u32,
-    pub removed_corridor_obstacles: u32,
-    pub levelled_building_samples: u32,
-    pub removed_building_obstacles: u32,
-}
-
-impl SceneRepairReport {
-    pub const fn was_repaired(self) -> bool {
-        self.adjusted_height_samples != 0
-            || self.repaired_water_samples != 0
-            || self.removed_corridor_obstacles != 0
-            || self.levelled_building_samples != 0
-            || self.removed_building_obstacles != 0
-    }
 }
 
 #[derive(Debug, Error)]

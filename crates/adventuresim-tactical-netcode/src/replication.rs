@@ -61,6 +61,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .replicate::<SceneGround>()
             .replicate::<SceneEnvironment>()
             .replicate::<SceneObstacle>()
+            .replicate_once::<SceneFurniture>()
             .replicate_once::<TerrainLandformRecipe>()
             .replicate_with(RuleFns::new(
                 serialize_scene_building,
@@ -127,6 +128,27 @@ mod tests {
     use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 
     use super::*;
+
+    #[test]
+    fn outdoor_recipe_identity_round_trips_without_mesh_or_collider_payloads() {
+        for key in adventuresim_building_generator::furniture::FurnitureKey::ALL {
+            let instance = SceneFurniture {
+                id: FurnitureInstanceId(u64::MAX),
+                key,
+                group_id: FurnitureGroupId(u64::MAX - 1),
+            };
+            let mut bytes = Vec::new();
+            postcard_utils::to_extend_mut(&instance, &mut bytes).unwrap();
+            assert_eq!(
+                bevy_replicon::postcard::from_bytes::<SceneFurniture>(&bytes).unwrap(),
+                instance
+            );
+            assert!(
+                bytes.len() < 32,
+                "static furniture must remain a compact recipe reference"
+            );
+        }
+    }
 
     fn building() -> SceneBuilding {
         SceneBuilding {

@@ -44,6 +44,11 @@ impl SceneTerrain {
     }
 
     #[cfg(feature = "meshgen")]
+    pub fn mesh_with_transition(&self, collar: TerrainTransitionCollar) -> Mesh {
+        self.mesh_with_stride_and_transition(1, collar)
+    }
+
+    #[cfg(feature = "meshgen")]
     pub fn coarse_mesh_with_transition(&self, collar: TerrainTransitionCollar) -> Mesh {
         self.mesh_with_stride_and_transition(self.coarse_stride(), collar)
     }

@@ -14,7 +14,7 @@ const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
 
 /// Rotation of one orthogonal building grid in the settlement plane.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, bevy::prelude::Reflect)]
 #[serde(transparent)]
 pub struct BuildingOrientation(f32);
 

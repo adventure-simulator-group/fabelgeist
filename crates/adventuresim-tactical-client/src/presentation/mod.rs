@@ -14,12 +14,15 @@ mod buildings;
 mod clouds;
 mod config;
 mod doors;
+mod furniture;
+pub(crate) use furniture::PresentedFurnitureMesh;
 mod environment;
 pub(crate) mod ground_scatter;
 mod materials;
 mod obstacles;
 mod procedural;
 mod procedural_texture_setup;
+mod recipe_mesh;
 mod sky;
 mod terrain;
 mod vista;
@@ -95,7 +98,7 @@ pub(crate) use terrain::{
     DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
     terrain_heightmap_image,
 };
-pub(crate) use vista::{VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
+pub(crate) use vista::{CityGroundMaterial, VistaTerrain, VistaTerrainMesh, VistaTreePresentation};
 pub(crate) use weather::WeatherParticle;
 
 use adventuresim_tactical_core::prelude::*;
@@ -276,6 +279,8 @@ impl Plugin for TacticalPresentationPlugin {
             .add_observer(terrain::on_ground_added)
             .add_observer(on_scene_obstacle_added)
             .add_plugins(BuildingPresentationPlugin)
+            .add_plugins(furniture::FurniturePresentationPlugin)
+            .add_plugins(terrain::UrbanGroundCoveragePlugin)
             .add_observer(on_scene_vista_bundle);
     }
 

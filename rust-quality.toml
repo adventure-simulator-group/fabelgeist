@@ -34,6 +34,11 @@ reason = "Six deterministic capacity review placements built through the canonic
 
 [[scopes]]
 kind = "fixture"
+path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/furniture.rs"
+reason = "A deterministic market, roads and service frontages exercise canonical furniture placement."
+
+[[scopes]]
+kind = "fixture"
 path = "crates/adventuresim-core/src/tactical_fixture.rs"
 reason = "This module supplies explicit deterministic tactical fixture data."
 
@@ -412,3 +417,38 @@ kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/review_export.rs"
 item = "existing"
 reason = "Dispatches stable authored item IDs to the established bracer and paired torso generators for review exports."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/containers.rs"
+reason = "Authored coopered barrel and cargo dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/seating.rs"
+reason = "Authored outdoor table and bench proportions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/stall.rs"
+reason = "Authored canopy structure, fabric shape and counter proportions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/horse_stop.rs"
+reason = "Authored hitching rail, trough and horse-clearance dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs"
+reason = "Authored physical appearance policy for earth, gravel, fieldstone and developed yards."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs"
+reason = "Authored wear intensities for accepted vendor, receiving and horse-stop activity areas."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/stall/stock.rs"
+reason = "Authored dimensions for goods seated on the stall counter."

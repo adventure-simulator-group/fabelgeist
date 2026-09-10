@@ -4,6 +4,7 @@ use adventuresim_building_generator::{
 };
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
 
+use super::recipe_mesh::recipe_mesh;
 use super::*;
 
 mod materials;
@@ -167,7 +168,7 @@ fn cached_building_levels(
             .iter()
             .map(|batch| CompiledBuildingBatch {
                 material: batch.material,
-                mesh: meshes.add(building_mesh(batch, local_origin)),
+                mesh: meshes.add(recipe_mesh(batch, local_origin)),
                 triangles: batch.indices.len() / 3,
             })
             .collect()
@@ -246,58 +247,11 @@ pub(super) fn building_lod_visibility(level: BuildingRenderLevel) -> VisibilityR
     }
 }
 
-fn building_mesh(batch: &LodMesh, local_origin: Vec3) -> Mesh {
-    let mut mesh = Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::RENDER_WORLD | RenderAssetUsages::MAIN_WORLD,
-    );
-    mesh.insert_attribute(
-        Mesh::ATTRIBUTE_POSITION,
-        batch
-            .vertices
-            .iter()
-            .map(|vertex| (vertex.position - local_origin).to_array())
-            .collect::<Vec<_>>(),
-    );
-    mesh.insert_attribute(
-        Mesh::ATTRIBUTE_NORMAL,
-        batch
-            .vertices
-            .iter()
-            .map(|vertex| vertex.normal.to_array())
-            .collect::<Vec<_>>(),
-    );
-    mesh.insert_attribute(
-        Mesh::ATTRIBUTE_UV_0,
-        batch
-            .vertices
-            .iter()
-            .map(|vertex| vertex.uv.to_array())
-            .collect::<Vec<_>>(),
-    );
-    mesh.insert_indices(Indices::U32(batch.indices.clone()));
-    if matches!(
-        batch.material,
-        BuildingLodMaterial::Wall(_)
-            | BuildingLodMaterial::CrownMasonry
-            | BuildingLodMaterial::Roof(_)
-            | BuildingLodMaterial::Timber
-            | BuildingLodMaterial::InteriorTimber
-            | BuildingLodMaterial::Iron
-            | BuildingLodMaterial::InteriorPlaster
-            | BuildingLodMaterial::Floor
-            | BuildingLodMaterial::Glass
-    ) {
-        mesh.generate_tangents()
-            .expect("interior building UVs must support tangent-space normal maps");
-    }
-    mesh
-}
-
 #[cfg(test)]
 mod tests {
     use adventuresim_building_generator::LodVertex;
 
+    use super::recipe_mesh::recipe_mesh;
     use super::*;
 
     #[test]
@@ -335,7 +289,7 @@ mod tests {
             indices: vec![0, 1, 2, 0, 2, 3],
         };
 
-        let mesh = building_mesh(&batch, Vec3::ZERO);
+        let mesh = recipe_mesh(&batch, Vec3::ZERO);
 
         assert!(mesh.attribute(Mesh::ATTRIBUTE_TANGENT).is_some());
     }

@@ -376,3 +376,34 @@ multiple-animation, or short motion files are unavailable.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.
+
+## City ground and outdoor furniture
+
+City streets and developed yards use one production material policy across
+playable and distant ground. Metre-space cobble and gravel detail blends with
+compacted earth, broken edges, static traffic wear, and weather-dependent
+dampness. Accepted vendor, receiving, and horse-stop footprints contribute
+local wear masks. Static traffic history adds seven carriage gauges, lateral
+variation, and tangent-continuous turns at shared endpoints and interior
+crossings. Turning front and rear axles leave overlapping marks in both travel
+directions, constrained to the visible road/market union. Broad churn covers
+most of the central carriageway; wheel marks break up within those deposits.
+
+Traffic, churn, and road-union shoulders are baked once into 64-metre tiles at
+four texels per metre. Neighboring tiles share world-space filter gutters, and
+all overlapping ground patches sample the same masks. Ground meshes split at
+tile boundaries while retaining canonical terrain support. The furniture
+capture gate checks the ground masks are GPU resident, and its junction views
+show turning continuity and axle variation. Ground meshes sample the same presented terrain surface;
+material relief does not change tactical collision or create physical ruts.
+
+Outdoor furniture arrives as compact immutable recipe references and normal
+entity transforms. Shared mesh handles and the building material palette
+render each accepted instance. Small furniture fades over 180-230 metres;
+canvas stalls remain visible to 350-450 metres. Market and frontage placement
+extends through the nearest vista ring. Distant furniture shares the production
+recipe renderer but receives no physics or ordinary entity replication.
+The core owns the clipped vista cells and vertex-height policy used by both
+placement and terrain rendering, including seams and LOD morphs.
+`python scripts/capture_furniture_review.py --output target/furniture-review`
+captures the production implementation with GPU residency and material checks.
