@@ -186,7 +186,7 @@ fn crate_box(builder: &mut Builder, origin: Vec3, size: Vec3) {
     builder.collider(origin + Vec3::Y * height * 0.5, size);
 }
 
-fn sack(builder: &mut Builder, p: Vec2, base: f32, radius: f32, height: f32) {
+pub(super) fn sack(builder: &mut Builder, p: Vec2, base: f32, radius: f32, height: f32) {
     let levels = [
         (base, radius * 0.78),
         (base + height * 0.18, radius),

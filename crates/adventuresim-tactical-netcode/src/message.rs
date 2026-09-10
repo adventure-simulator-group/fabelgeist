@@ -47,6 +47,8 @@ pub struct SceneVistaBundle {
     pub yards: Vec<CityYardPatch>,
     /// Accepted activity areas drive local ground wear around outdoor furniture.
     pub furniture_groups: Vec<FurnitureGroup>,
+    /// Accepted visual furniture outside the tactical world bounds.
+    pub distant_furniture: Vec<GeneratedFurniture>,
     pub lods: Vec<VistaLod>,
 }
 

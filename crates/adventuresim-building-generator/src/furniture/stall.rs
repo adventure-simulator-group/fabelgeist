@@ -5,6 +5,11 @@ use super::{
 use crate::BuildingLodMaterial;
 use bevy::math::Quat;
 
+mod stock;
+
+const COUNTER_HEIGHT_METRES: f32 = 0.85;
+const COUNTER_CENTRE_Z_METRES: f32 = -0.37;
+
 pub(super) fn canopy(builder: &mut Builder, variant: FurnitureVariant) {
     let half_width = match variant {
         FurnitureVariant::Compact => 1.2,
@@ -54,11 +59,12 @@ pub(super) fn canopy(builder: &mut Builder, variant: FurnitureVariant) {
     canvas(builder, half_width, half_depth, eave + 0.035, ridge + 0.045);
     super::seating::table(
         builder,
-        Vec3::new(0.0, 0.0, -0.37),
+        Vec3::new(0.0, 0.0, COUNTER_CENTRE_Z_METRES),
         half_width * 2.0 - 0.2,
         0.55,
-        0.85,
+        COUNTER_HEIGHT_METRES,
     );
+    stock::display(builder, variant);
     builder.clearance(
         FurnitureClearanceKind::Access,
         Vec3::new(-half_width + 0.1, 0.0, -1.8),

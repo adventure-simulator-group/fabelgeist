@@ -1,8 +1,8 @@
 use super::*;
 use crate::city_layout::CityStreetPatch;
 
-const DOOR_APPROACH_METRES: f32 = 4.0;
-const DOOR_SHOULDER_METRES: f32 = 0.5;
+pub(super) const DOOR_APPROACH_METRES: f32 = 4.0;
+pub(super) const DOOR_SHOULDER_METRES: f32 = 0.5;
 pub(super) const MARKET_AISLE_HALF_WIDTH_METRES: f32 = 2.0;
 const EDGE_ROAD_MIN_ALIGNMENT: f32 = 0.95;
 
@@ -65,7 +65,7 @@ pub(super) fn route(start: Vec2, end: Vec2, half_width: f32) -> FurnitureFootpri
 
 pub(super) fn routes(
     input: &TacticalSceneInput,
-    buildings: &[GeneratedBuilding],
+    buildings: &[sites::FurnitureSite],
 ) -> Vec<FurnitureFootprint> {
     let mut routes = Vec::new();
     for patch in &input.streets {
@@ -100,56 +100,22 @@ pub(super) fn routes(
         }
     }
     for building in buildings {
-        for opening in building.plan.opening_assemblies.iter().filter(|opening| {
-            opening.use_kind == adventuresim_building_generator::OpeningUse::Door
-                && opening.frame.outside_room.is_none()
-        }) {
-            let start = building_point(building, opening.frame.origin);
-            let outward = building
-                .placement
-                .orientation
-                .local_to_world(opening.frame.outward);
-            routes.push(route(
-                start,
-                start + outward * DOOR_APPROACH_METRES,
-                opening.profile.exterior_width_metres() * 0.5 + DOOR_SHOULDER_METRES,
-            ));
-        }
-        if let Some(workplace) = &building.plan.workplace {
-            for passage in &workplace.passages {
-                let min = Vec2::new(passage.min.x, passage.min.z);
-                let max = Vec2::new(passage.max.x, passage.max.z);
-                routes.push(FurnitureFootprint {
-                    centre_metres: building_point(building, (min + max) * 0.5),
-                    half_extents_metres: (max - min) * 0.5,
-                    orientation: building.placement.orientation,
-                });
-            }
-        }
+        routes.extend(building.routes.iter().copied());
     }
     routes
-}
-
-pub(super) fn building_point(building: &GeneratedBuilding, local: Vec2) -> Vec2 {
-    let origin = building.collision.bounds.centre();
-    building.placement.centre_metres
-        + building
-            .placement
-            .orientation
-            .local_to_world(local - Vec2::new(origin.x, origin.z))
 }
 
 pub(super) fn obstacles(
     input: &TacticalSceneInput,
     terrain: &SceneTerrain,
-    buildings: &[GeneratedBuilding],
+    buildings: &[sites::FurnitureSite],
     obstacles: &[GeneratedObstacle],
 ) -> Vec<FurnitureFootprint> {
     let mut footprints = buildings
         .iter()
         .map(|building| FurnitureFootprint {
             centre_metres: building.placement.centre_metres,
-            half_extents_metres: building.collision.bounds.plan_half_extents(),
+            half_extents_metres: building.half_extents,
             orientation: building.placement.orientation,
         })
         .collect::<Vec<_>>();

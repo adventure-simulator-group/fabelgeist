@@ -1,4 +1,5 @@
 use super::*;
+use adventuresim_tactical_core::vista_surface::*;
 use fabelgeist_determinism::splitmix64;
 
 mod grass_mask;
@@ -1030,118 +1031,6 @@ fn presented_vista_vertex_color(
     )
 }
 
-fn presented_vista_vertex_height(
-    lod: &VistaLod,
-    coarser_lod: Option<&VistaLod>,
-    playable_terrain: Option<&SceneTerrain>,
-    local: Vec2,
-    playable_half_extent: Vec2,
-) -> Option<f32> {
-    let world = local
-        + Vec2::new(
-            lod.origin_east_metres as f32,
-            lod.origin_north_metres as f32,
-        );
-    let vista_height = presented_height_at(lod, world, coarser_lod)?;
-    Some(playable_terrain.map_or(vista_height, |terrain| {
-        stitch_vista_height_to_playable_edge(
-            terrain,
-            local,
-            playable_half_extent,
-            lod.spacing_metres,
-            vista_height,
-        )
-    }))
-}
-
-fn subdivide_playable_boundary_rectangle(
-    rectangle: [f32; 4],
-    playable_half_extent: Vec2,
-    terrain: Option<&SceneTerrain>,
-) -> Vec<[f32; 4]> {
-    let Some(terrain) = terrain else {
-        return vec![rectangle];
-    };
-    let [minimum_x, maximum_x, minimum_z, maximum_z] = rectangle;
-    let epsilon = terrain.grid_scale() * 0.01;
-    if (minimum_x - playable_half_extent.x).abs() <= epsilon
-        || (maximum_x + playable_half_extent.x).abs() <= epsilon
-    {
-        return split_rectangle_axis(
-            rectangle,
-            1,
-            terrain.depth() * -0.5,
-            terrain.grid_scale(),
-            terrain.grid_depth(),
-        );
-    }
-    if (minimum_z - playable_half_extent.y).abs() <= epsilon
-        || (maximum_z + playable_half_extent.y).abs() <= epsilon
-    {
-        return split_rectangle_axis(
-            rectangle,
-            0,
-            terrain.width() * -0.5,
-            terrain.grid_scale(),
-            terrain.grid_width(),
-        );
-    }
-    vec![rectangle]
-}
-
-fn split_rectangle_axis(
-    rectangle: [f32; 4],
-    axis: usize,
-    terrain_minimum: f32,
-    spacing: f32,
-    sample_count: usize,
-) -> Vec<[f32; 4]> {
-    let (minimum, maximum) = if axis == 0 {
-        (rectangle[0], rectangle[1])
-    } else {
-        (rectangle[2], rectangle[3])
-    };
-    let mut boundaries = vec![minimum, maximum];
-    boundaries.extend((0..sample_count).filter_map(|index| {
-        let coordinate = terrain_minimum + index as f32 * spacing;
-        (coordinate > minimum && coordinate < maximum).then_some(coordinate)
-    }));
-    boundaries.sort_by(f32::total_cmp);
-    boundaries.dedup_by(|left, right| (*left - *right).abs() < spacing * 0.001);
-    boundaries
-        .windows(2)
-        .map(|interval| {
-            let mut split = rectangle;
-            if axis == 0 {
-                split[0] = interval[0];
-                split[1] = interval[1];
-            } else {
-                split[2] = interval[0];
-                split[3] = interval[1];
-            }
-            split
-        })
-        .collect()
-}
-
-fn stitch_vista_height_to_playable_edge(
-    terrain: &SceneTerrain,
-    local: Vec2,
-    playable_half_extent: Vec2,
-    transition_width: f32,
-    vista_height: f32,
-) -> f32 {
-    let boundary = local.clamp(-playable_half_extent, playable_half_extent);
-    let Some(playable_height) = terrain.height_at(boundary) else {
-        return vista_height;
-    };
-    let outside_distance = (local.abs() - playable_half_extent)
-        .max(Vec2::ZERO)
-        .max_element();
-    let vista_weight = (outside_distance / transition_width.max(f32::EPSILON)).clamp(0.0, 1.0);
-    playable_height.lerp(vista_height, vista_weight)
-}
-
 fn stitch_vista_color_to_playable_edge(
     local: Vec2,
     playable_half_extent: Vec2,
@@ -1160,68 +1049,6 @@ fn stitch_vista_color_to_playable_edge(
     stitched
 }
 
-fn cell_rectangles_outside_inner_rectangle(
-    minimum: Vec2,
-    maximum: Vec2,
-    inner_half_extent: Vec2,
-) -> Vec<[f32; 4]> {
-    if inner_half_extent.x <= 0.0
-        || inner_half_extent.y <= 0.0
-        || maximum.x <= -inner_half_extent.x
-        || minimum.x >= inner_half_extent.x
-        || maximum.y <= -inner_half_extent.y
-        || minimum.y >= inner_half_extent.y
-    {
-        return vec![[minimum.x, maximum.x, minimum.y, maximum.y]];
-    }
-    if minimum.x >= -inner_half_extent.x
-        && maximum.x <= inner_half_extent.x
-        && minimum.y >= -inner_half_extent.y
-        && maximum.y <= inner_half_extent.y
-    {
-        return Vec::new();
-    }
-
-    let mut rectangles = Vec::with_capacity(4);
-    if minimum.x < -inner_half_extent.x {
-        rectangles.push([
-            minimum.x,
-            maximum.x.min(-inner_half_extent.x),
-            minimum.y,
-            maximum.y,
-        ]);
-    }
-    if maximum.x > inner_half_extent.x {
-        rectangles.push([
-            minimum.x.max(inner_half_extent.x),
-            maximum.x,
-            minimum.y,
-            maximum.y,
-        ]);
-    }
-    let middle_minimum_x = minimum.x.max(-inner_half_extent.x);
-    let middle_maximum_x = maximum.x.min(inner_half_extent.x);
-    if middle_minimum_x < middle_maximum_x {
-        if minimum.y < -inner_half_extent.y {
-            rectangles.push([
-                middle_minimum_x,
-                middle_maximum_x,
-                minimum.y,
-                maximum.y.min(-inner_half_extent.y),
-            ]);
-        }
-        if maximum.y > inner_half_extent.y {
-            rectangles.push([
-                middle_minimum_x,
-                middle_maximum_x,
-                minimum.y.max(inner_half_extent.y),
-                maximum.y,
-            ]);
-        }
-    }
-    rectangles
-}
-
 #[cfg(test)]
 fn presented_height(
     lod: &VistaLod,
@@ -1238,22 +1065,6 @@ fn presented_height(
     sample_vista_height(coarser, world)
         .map(|height| own.lerp(height, weight))
         .unwrap_or(own)
-}
-
-fn presented_height_at(lod: &VistaLod, world: Vec2, coarser_lod: Option<&VistaLod>) -> Option<f32> {
-    let own = sample_vista_height(lod, world)?;
-    let Some(coarser) = coarser_lod else {
-        return Some(own);
-    };
-    let weight = lod_transition_weight(lod, coarser, world);
-    if weight <= 0.0 {
-        return Some(own);
-    }
-    Some(
-        sample_vista_height(coarser, world)
-            .map(|height| own.lerp(height, weight))
-            .unwrap_or(own),
-    )
 }
 
 #[cfg(test)]
@@ -1293,49 +1104,6 @@ fn presented_color_at(
             .unwrap_or(own)
             .to_array(),
     )
-}
-
-fn lod_transition_weight(lod: &VistaLod, coarser: &VistaLod, world: Vec2) -> f32 {
-    let center = Vec2::new(
-        lod.origin_east_metres as f32,
-        lod.origin_north_metres as f32,
-    );
-    let half_extent = f32::from(lod.width.saturating_sub(1)) * lod.spacing_metres * 0.5;
-    // Begin morphing one coarse sample before the boundary. A one-fine-cell
-    // band still exposes the square footprint whenever adjacent LOD spacing
-    // grows rapidly (50 m -> 250 m -> 1 km).
-    let transition_width = coarser
-        .spacing_metres
-        .min(half_extent)
-        .max(lod.spacing_metres);
-    let radius = (world - center).abs().max_element();
-    ((radius - (half_extent - transition_width)) / transition_width).clamp(0.0, 1.0)
-}
-
-fn sample_vista_height(lod: &VistaLod, world: Vec2) -> Option<f32> {
-    let width = usize::from(lod.width);
-    let depth = usize::from(lod.depth);
-    let local = world
-        - Vec2::new(
-            lod.origin_east_metres as f32,
-            lod.origin_north_metres as f32,
-        );
-    let coordinate =
-        local / lod.spacing_metres + Vec2::new((width - 1) as f32 * 0.5, (depth - 1) as f32 * 0.5);
-    if coordinate.x < 0.0
-        || coordinate.y < 0.0
-        || coordinate.x > (width - 1) as f32
-        || coordinate.y > (depth - 1) as f32
-    {
-        return None;
-    }
-    let lower = coordinate.floor().as_uvec2();
-    let upper = (lower + UVec2::ONE).min(UVec2::new(width as u32 - 1, depth as u32 - 1));
-    let fraction = coordinate.fract();
-    let at = |x: u32, z: u32| lod.heights_metres[z as usize * width + x as usize];
-    let near = at(lower.x, lower.y).lerp(at(upper.x, lower.y), fraction.x);
-    let far = at(lower.x, upper.y).lerp(at(upper.x, upper.y), fraction.x);
-    Some(near.lerp(far, fraction.y))
 }
 
 fn vista_sample_color(sample: EnvironmentalSample, weather: WeatherSnapshot) -> Vec4 {
@@ -2017,5 +1785,67 @@ mod tests {
             ),
             vista_sample_color(forest, clear_vista_weather()).to_array()
         );
+    }
+}
+
+#[cfg(test)]
+mod furniture_support_tests {
+    use super::*;
+    #[test]
+    fn furniture_support_matches_presented_triangles_at_seams_and_morphs() {
+        let terrain = SceneTerrain::from_heightmap(5, 5, 2.0, vec![3.0; 25]).unwrap();
+        let lod = VistaLod {
+            level: 0,
+            spacing_metres: 5.0,
+            width: 9,
+            depth: 9,
+            origin_east_metres: 0.0,
+            origin_north_metres: 0.0,
+            heights_metres: (0..81).map(|i| ((i * 17) % 13) as f32).collect(),
+            environment: vec![EnvironmentalSample::default(); 81],
+        };
+        let coarser = VistaLod {
+            level: 1,
+            spacing_metres: 10.0,
+            heights_metres: vec![7.0; 81],
+            ..lod.clone()
+        };
+        let meshes = vista_lod_meshes_with_morph(
+            &lod,
+            Vec2::splat(4.0),
+            Some(&coarser),
+            Some(&terrain),
+            None,
+            clear_vista_weather(),
+        );
+        let mut checked = 0;
+        for mesh in meshes {
+            let positions = mesh
+                .attribute(Mesh::ATTRIBUTE_POSITION)
+                .unwrap()
+                .as_float3()
+                .unwrap();
+            let indices = mesh.indices().unwrap().iter().collect::<Vec<_>>();
+            for index in indices.as_chunks::<3>().0 {
+                let t = index.map(|i| Vec3::from_array(positions[i]));
+                if (t[1] - t[0]).cross(t[2] - t[0]).y <= 0.0 {
+                    continue;
+                }
+                let p = t[0] * 0.2 + t[1] * 0.3 + t[2] * 0.5;
+                if p.x.abs() >= 20.0 || p.z.abs() >= 20.0 {
+                    continue;
+                }
+                let actual = adventuresim_tactical_core::vista_surface::vista_triangle_height(
+                    &lod,
+                    Some(&coarser),
+                    &terrain,
+                    p.xz(),
+                )
+                .unwrap();
+                assert!((actual - p.y).abs() < 0.0001, "{p:?}: {actual}");
+                checked += 1;
+            }
+        }
+        assert!(checked > 100);
     }
 }

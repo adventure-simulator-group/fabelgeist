@@ -35,7 +35,8 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
     )))
     .add_observer(on_debug_dump_world_request)
     .add_observer(crate::furniture::on_furniture_added)
-    .add_observer(crate::furniture::on_group_added);
+    .add_observer(crate::furniture::on_group_added)
+    .add_observer(crate::furniture::on_vista_furniture_added);
     app.world_mut().spawn((scene, transform));
     app.world_mut().spawn(SceneFurnitureGroup(group.clone()));
     app.world_mut().flush();
@@ -49,6 +50,21 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
         .clone();
     assert_eq!(expected_groups, vec![group]);
 
+    let distant = GeneratedFurniture {
+        scene: SceneFurniture {
+            id: FurnitureInstanceId(93),
+            ..scene
+        },
+        position_metres: Vec3::new(250.0, 2.0, 10.0),
+        orientation: BuildingOrientation::IDENTITY,
+    };
+    let vista_entity = app
+        .world_mut()
+        .spawn(SceneVistaFurniture(vec![distant]))
+        .id();
+    app.world_mut().flush();
+    assert!(app.world().get::<Collider>(vista_entity).is_none());
+    assert!(app.world().get::<RigidBody>(vista_entity).is_none());
     let before = dump_dir_snapshot();
     app.world_mut().trigger(FromClient {
         client_id: ClientId::Server,
@@ -62,7 +78,8 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
             &input,
         )))
         .add_observer(crate::furniture::on_furniture_added)
-        .add_observer(crate::furniture::on_group_added);
+        .add_observer(crate::furniture::on_group_added)
+        .add_observer(crate::furniture::on_vista_furniture_added);
     load_world_dump(restored.world_mut());
     restored.world_mut().flush();
     let mut query = restored
@@ -97,5 +114,21 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
             .furniture_groups,
         expected_groups
     );
+    assert_eq!(
+        restored
+            .world()
+            .resource::<SceneVistaBundleResource>()
+            .0
+            .as_ref()
+            .unwrap()
+            .distant_furniture,
+        vec![distant]
+    );
+    let mut vista_query = restored
+        .world_mut()
+        .query::<(Entity, &SceneVistaFurniture)>();
+    let (entity, scenery) = vista_query.single(restored.world()).unwrap();
+    assert_eq!(scenery.0, vec![distant]);
+    assert!(restored.world().get::<Collider>(entity).is_none());
     std::fs::remove_file(dump_path).unwrap();
 }

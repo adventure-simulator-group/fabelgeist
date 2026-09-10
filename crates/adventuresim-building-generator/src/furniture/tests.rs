@@ -2,6 +2,62 @@ use super::*;
 use crate::BuildingLodMaterial;
 use bevy::math::{Quat, Vec2};
 
+#[test]
+fn stall_stock_is_supported_inside_counter_and_broad_display_has_more_goods() {
+    let mut grain_spans = Vec::new();
+    for variant in FurnitureVariant::ALL {
+        let recipe = FurnitureKey {
+            kind: FurnitureKind::CanvasStall,
+            variant,
+        }
+        .recipe();
+        let counter_half_width = match variant {
+            FurnitureVariant::Compact => 1.1,
+            FurnitureVariant::Broad => 1.55,
+        };
+        let stock = recipe
+            .colliders
+            .iter()
+            .filter(|collider| {
+                let min_y = collider.centre.y - collider.size.y * 0.5;
+                let max_y = collider.centre.y + collider.size.y * 0.5;
+                min_y >= 0.849 && max_y < 1.5
+            })
+            .collect::<Vec<_>>();
+        assert!(stock.len() >= 8, "stall counter must carry visible stock");
+        for collider in stock {
+            for point in corners(collider) {
+                assert!(point.x.abs() <= counter_half_width);
+                assert!((-0.645..=-0.095).contains(&point.z));
+                assert!(point.y >= 0.849, "goods sunk through counter");
+            }
+        }
+        let grain = recipe
+            .meshes
+            .iter()
+            .find(|mesh| mesh.material == BuildingLodMaterial::Grain)
+            .unwrap();
+        let mut minimum = Vec3::splat(f32::INFINITY);
+        let mut maximum = Vec3::splat(f32::NEG_INFINITY);
+        for vertex in &grain.vertices {
+            minimum = minimum.min(vertex.position);
+            maximum = maximum.max(vertex.position);
+            assert!(recipe.colliders.iter().any(|collider| contains(
+                collider,
+                vertex.position,
+                0.002
+            )));
+        }
+        assert!(minimum.y >= 0.88 && maximum.y > 1.08);
+        assert!(
+            all_members_grounded(recipe),
+            "stock is floating above its counter"
+        );
+        grain_spans.push(maximum.x - minimum.x);
+    }
+    assert!(grain_spans[1] > grain_spans[0] + 0.8);
+}
+
 fn rotation(cuboid: &CollisionCuboid) -> Quat {
     Quat::from_rotation_y(cuboid.yaw_radians)
         * Quat::from_rotation_x(cuboid.crossfall_radians)

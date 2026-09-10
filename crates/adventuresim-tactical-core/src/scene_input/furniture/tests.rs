@@ -152,8 +152,8 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
 #[test]
 fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
     let (input, buildings, terrain, ground) = fixture();
-    let first = generate(&input, &buildings, &terrain, &ground, &[]);
-    let second = generate(&input, &buildings, &terrain, &ground, &[]);
+    let first = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    let second = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
     assert_eq!(first, second);
     for kind in FurnitureKind::ALL {
         assert!(
@@ -211,7 +211,7 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
 #[test]
 fn inserted_street_obstruction_removes_every_conflicting_group() {
     let (mut input, buildings, terrain, ground) = fixture();
-    let original = generate(&input, &buildings, &terrain, &ground, &[]);
+    let original = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
     let group = original
         .groups
         .iter()
@@ -224,7 +224,7 @@ fn inserted_street_obstruction_removes_every_conflicting_group() {
         half_width_metres: 3.0,
         surface: CityStreetSurface::CompactedEarth,
     });
-    let changed = generate(&input, &buildings, &terrain, &ground, &[]);
+    let changed = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
     assert!(
         !changed
             .groups
@@ -249,6 +249,7 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
     assert!(terrain.rewrite_heights(|point, _| point.x * 0.3));
     assert!(
         generate(&input, &buildings, &terrain, &ground, &[])
+            .unwrap()
             .instances
             .is_empty()
     );
@@ -262,6 +263,7 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
     );
     assert!(
         generate(&input, &buildings, &terrain, &water, &[])
+            .unwrap()
             .instances
             .is_empty()
     );
@@ -326,4 +328,39 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
             )
             .is_none()
     );
+}
+
+#[test]
+fn market_population_scales_with_area_without_obstructing_aisles() {
+    let (mut input, buildings, terrain, ground) = fixture();
+    let count = |layout: &FurnitureLayout| {
+        layout
+            .groups
+            .iter()
+            .filter(|g| g.kind == FurnitureGroupKind::Vendor)
+            .count()
+    };
+    let small = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    if let CityStreetPatch::Market { corners_metres, .. } = &mut input.streets[0] {
+        for p in corners_metres {
+            *p *= 1.4;
+        }
+    }
+    let large = generate(&input, &buildings, &terrain, &ground, &[]).unwrap();
+    assert!(
+        count(&small) > 24,
+        "baseline market must exceed former fixed cap"
+    );
+    assert!(
+        count(&large) > count(&small) * 3 / 2,
+        "larger market should grow with available space: {} -> {}",
+        count(&small),
+        count(&large)
+    );
+    assert!(large.groups.iter().all(|g| {
+        large
+            .reserved_routes
+            .iter()
+            .all(|r| !r.intersects(g.footprint))
+    }));
 }

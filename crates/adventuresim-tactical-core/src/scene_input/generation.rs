@@ -60,7 +60,7 @@ impl TacticalSceneInput {
             &building_pads,
         )?;
         let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
-        let furniture = furniture::generate(self, &buildings, &terrain, &ground, &obstacles);
+        let furniture = furniture::generate(self, &buildings, &terrain, &ground, &obstacles)?;
         Ok(GeneratedTacticalScene {
             digest: self.digest()?,
             terrain,

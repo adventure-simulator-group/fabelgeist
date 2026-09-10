@@ -1,4 +1,5 @@
 use super::*;
+use bevy::math::Vec3Swizzles;
 
 #[test]
 fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
@@ -36,9 +37,37 @@ fn real_city_places_market_vendors_behind_its_wide_street_reservations() {
     }
     report_terrain_delta("massive-city", &input, &scene.terrain);
     assert!(
-        !vendors.is_empty(),
+        vendors.len() >= 45,
         "real market lost all vendors to wider perimeter roads"
     );
+    assert!(
+        scene.furniture.distant_instances.len() >= 200,
+        "visible city needs frontage coverage beyond playable terrain"
+    );
+    assert!(
+        scene
+            .furniture
+            .groups
+            .iter()
+            .any(|g| g.kind == FurnitureGroupKind::Domestic)
+    );
+    let support = ground::PlacementGround::new(&input, &scene.terrain, &scene.ground);
+    for instance in &scene.furniture.distant_instances {
+        assert!(
+            scene
+                .terrain
+                .height_at(instance.position_metres.xz())
+                .is_none()
+        );
+        for foot in &instance.scene.key.recipe().support_points_metres {
+            let point =
+                instance.position_metres.xz() + instance.orientation.local_to_world(foot.xz());
+            assert!(
+                (support.height_at(point).unwrap() - instance.position_metres.y - foot.y).abs()
+                    <= 0.0451
+            );
+        }
+    }
     for group in &scene.furniture.groups {
         assert!(
             scene

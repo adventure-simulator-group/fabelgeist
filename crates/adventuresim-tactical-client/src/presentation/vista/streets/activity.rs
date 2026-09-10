@@ -40,6 +40,8 @@ impl<'a> ActivityWear<'a> {
                 FurnitureGroupKind::Vendor => (0.55, 0.12),
                 FurnitureGroupKind::Receiving => (0.7, 0.25),
                 FurnitureGroupKind::HorseStop => (0.9, 0.85),
+                FurnitureGroupKind::Domestic => (0.25, 0.1),
+                FurnitureGroupKind::Workshop => (0.65, 0.2),
             };
             combined.max(Vec2::new(wear, dampness) * coverage)
         })

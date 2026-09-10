@@ -776,11 +776,14 @@ Canvas and trough water have no collision. The tactical runtime places these
 recipes as vendor, receiving, and horse-stop groups; it reserves circulation
 and checks authoritative terrain support before accepting a group.
 
-Placement is deterministic and currently covers the playable terrain. Market
-rows use the market polygon's local axes; frontage groups use building-local
-metres. Roads, doors, market crossings, and handling spaces remain clear.
-The same accepted instances drive rendering, server collision, and debug-world
-restoration. The client caches GPU meshes by recipe and shares the production
+Placement is deterministic across playable terrain and the nearest vista ring.
+Market rows scale with usable area and preserve paired service rows and customer
+aisles. Houses and workshops receive smaller frontage clusters; stalls carry
+grain bins and sacks on their counters. Frontage groups use building-local metres. Roads, doors, market crossings, and handling spaces remain clear.
+The same accepted instances drive rendering and debug-world restoration. Only
+instances inside the tactical bounds receive server collision; distant furniture
+travels in the immutable vista bundle. Vista support uses the same clipped cells
+and vertex heights as the renderer. The client caches GPU meshes by recipe and shares the production
 building material palette.
 
 ```powershell

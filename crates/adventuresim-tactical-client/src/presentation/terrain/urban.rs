@@ -195,6 +195,7 @@ mod tests {
             playable_half_extent_metres: Vec2::splat(4.0),
             distant_buildings: vec![],
             furniture_groups: vec![],
+            distant_furniture: vec![],
             lods: vec![],
             yards: vec![],
             streets: vec![CityStreetPatch::Corridor {

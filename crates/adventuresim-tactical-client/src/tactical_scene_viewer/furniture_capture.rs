@@ -32,6 +32,7 @@ pub(super) fn setup(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
 ) -> Option<Vec<BuildingReviewCamera>> {
+    write_layout(layout, output);
     if profile != PROFILE {
         return None;
     }
@@ -92,14 +93,19 @@ pub(super) fn setup(
         target + Vec3::Z * 5.0,
     ));
     commands.insert_resource(super::furniture_readiness::ExpectedFurniture {
-        instances: layout.instances.len(),
+        instances: layout.instances.len() + layout.distant_instances.len(),
         batches: layout
             .instances
             .iter()
+            .chain(&layout.distant_instances)
             .map(|instance| instance.scene.key.recipe().meshes.len())
             .sum(),
     });
     super::furniture_overlay::annotate(commands, layout, terrain, meshes, materials);
+    Some(cameras)
+}
+
+fn write_layout(layout: &FurnitureLayout, output: &std::path::Path) {
     let evidence = serde_json::json!({
         "instances": layout.instances.iter().map(|instance| serde_json::json!({
             "scene": instance.scene, "position_metres": instance.position_metres,
@@ -107,6 +113,7 @@ pub(super) fn setup(
             "colliders": instance.scene.key.recipe().colliders.len(),
             "triangles": instance.scene.key.recipe().meshes.iter().map(|mesh| mesh.indices.len() / 3).sum::<usize>(),
         })).collect::<Vec<_>>(),
+        "distant_instances": layout.distant_instances,
         "groups": layout.groups,
         "reserved_routes": layout.reserved_routes,
     });
@@ -115,5 +122,4 @@ pub(super) fn setup(
         serde_json::to_vec_pretty(&evidence).unwrap(),
     )
     .expect("write authoritative furniture placement evidence");
-    Some(cameras)
 }

@@ -11,8 +11,11 @@ use crate::scene::{SceneGround, SceneTerrain};
 
 mod candidates;
 mod collision;
+mod ground;
+mod occupancy;
 mod placement;
 mod reservations;
+mod sites;
 pub use collision::furniture_collider;
 #[cfg(test)]
 mod tests;
@@ -37,7 +40,7 @@ pub struct SceneFurniture {
     pub group_id: FurnitureGroupId,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 pub struct GeneratedFurniture {
     pub scene: SceneFurniture,
     pub position_metres: Vec3,
@@ -49,6 +52,8 @@ pub enum FurnitureGroupKind {
     Vendor,
     Receiving,
     HorseStop,
+    Domestic,
+    Workshop,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, Reflect)]
@@ -132,9 +137,17 @@ pub struct FurnitureGroup {
 #[reflect(Component, Serialize, Deserialize)]
 pub struct SceneFurnitureGroup(pub FurnitureGroup);
 
+/// Immutable vista furniture payload retained in debug world snapshots.
+#[derive(Clone, Debug, Component, Reflect, Serialize, Deserialize)]
+#[component(immutable)]
+#[reflect(Component, Serialize, Deserialize)]
+pub struct SceneVistaFurniture(pub Vec<GeneratedFurniture>);
+
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct FurnitureLayout {
     pub instances: Vec<GeneratedFurniture>,
+    /// Accepted scenery beyond tactical world bounds; never receives physics.
+    pub distant_instances: Vec<GeneratedFurniture>,
     pub groups: Vec<FurnitureGroup>,
     pub reserved_routes: Vec<FurnitureFootprint>,
 }
@@ -145,6 +158,9 @@ pub(super) fn generate(
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
-) -> FurnitureLayout {
-    placement::generate(input, buildings, terrain, ground, obstacles)
+) -> Result<FurnitureLayout, super::SceneInputError> {
+    let sites = sites::collect(input, buildings)?;
+    Ok(placement::generate(
+        input, &sites, terrain, ground, obstacles,
+    ))
 }

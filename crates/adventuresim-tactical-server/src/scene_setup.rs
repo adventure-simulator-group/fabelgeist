@@ -9,7 +9,8 @@ impl Plugin for SceneGeometryPlugin {
         app.add_observer(super::on_scene_terrain_added)
             .add_observer(super::openings::on_scene_building_added)
             .add_observer(super::furniture::on_furniture_added)
-            .add_observer(super::furniture::on_group_added);
+            .add_observer(super::furniture::on_group_added)
+            .add_observer(super::furniture::on_vista_furniture_added);
     }
 }
 
@@ -24,6 +25,7 @@ pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundl
         streets: input.streets.clone(),
         yards: input.yards.clone(),
         furniture_groups: Vec::new(),
+        distant_furniture: Vec::new(),
         lods: input.vista.lods.clone(),
     })
 }

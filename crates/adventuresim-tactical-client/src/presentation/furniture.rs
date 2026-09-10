@@ -8,8 +8,8 @@ use adventuresim_building_generator::{
 
 use super::{recipe_mesh::recipe_mesh, *};
 
-const SMALL_FURNITURE_FADE_METRES: std::ops::Range<f32> = 90.0..110.0;
-const STALL_FADE_METRES: std::ops::Range<f32> = 220.0..260.0;
+const SMALL_FURNITURE_FADE_METRES: std::ops::Range<f32> = 180.0..230.0;
+const STALL_FADE_METRES: std::ops::Range<f32> = 350.0..450.0;
 
 #[derive(Component)]
 pub(crate) struct PresentedFurnitureMesh {
@@ -21,7 +21,8 @@ pub(super) struct FurniturePresentationPlugin;
 impl Plugin for FurniturePresentationPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<FurnitureMeshCache>()
-            .add_observer(on_furniture_added);
+            .add_observer(on_furniture_added)
+            .add_observer(on_vista_furniture);
     }
 }
 
@@ -80,4 +81,24 @@ fn on_furniture_added(
             }
         });
     Ok(())
+}
+
+#[derive(Component)]
+struct VistaFurniturePresentation;
+fn on_vista_furniture(
+    bundle: On<SceneVistaBundle>,
+    mut commands: Commands,
+    existing: Query<Entity, With<VistaFurniturePresentation>>,
+) {
+    for entity in &existing {
+        commands.entity(entity).despawn();
+    }
+    for instance in &bundle.distant_furniture {
+        commands.spawn((
+            VistaFurniturePresentation,
+            instance.scene,
+            Transform::from_translation(instance.position_metres)
+                .with_rotation(Quat::from_rotation_y(instance.orientation.yaw_radians())),
+        ));
+    }
 }

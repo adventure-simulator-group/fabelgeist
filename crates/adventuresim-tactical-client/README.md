@@ -379,8 +379,11 @@ material relief does not change tactical collision or create physical ruts.
 
 Outdoor furniture arrives as compact immutable recipe references and normal
 entity transforms. Shared mesh handles and the building material palette
-render each accepted instance. Small furniture fades over 90-110 metres;
-canvas stalls remain visible to 220-260 metres. Placement currently covers
-the authoritative playable area, while road surfaces continue into the vista.
+render each accepted instance. Small furniture fades over 180-230 metres;
+canvas stalls remain visible to 350-450 metres. Market and frontage placement
+extends through the nearest vista ring. Distant furniture shares the production
+recipe renderer but receives no physics or ordinary entity replication.
+The core owns the clipped vista cells and vertex-height policy used by both
+placement and terrain rendering, including seams and LOD morphs.
 `python scripts/capture_furniture_review.py --output target/furniture-review`
 captures the production implementation with GPU residency and material checks.

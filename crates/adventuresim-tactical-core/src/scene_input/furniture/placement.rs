@@ -1,17 +1,15 @@
 use super::*;
-use crate::scene::GroundSubstrate;
 use candidates::Candidate;
 use fabelgeist_determinism::mix64;
+use ground::PlacementGround;
 
-const MAX_GROUPS: usize = 96;
-const MAX_MARKET_GROUPS: usize = 24;
 const MAX_SUPPORT_ERROR_METRES: f32 = 0.045;
 const MAX_GROUP_GRADE: f32 = 0.08;
 const INSTANCE_DOMAIN: u64 = 0x6675_726e_6974_656d;
 
 pub(super) fn generate(
     input: &TacticalSceneInput,
-    buildings: &[GeneratedBuilding],
+    buildings: &[sites::FurnitureSite],
     terrain: &SceneTerrain,
     ground: &SceneGround,
     obstacles: &[GeneratedObstacle],
@@ -20,36 +18,29 @@ pub(super) fn generate(
         reserved_routes: reservations::routes(input, buildings),
         ..Default::default()
     };
-    let mut occupied = reservations::obstacles(input, terrain, buildings, obstacles);
-    for candidate in candidates::market(input) {
-        if layout.groups.len() >= MAX_MARKET_GROUPS {
-            break;
-        }
-        accept(
-            input,
-            terrain,
-            ground,
-            candidate,
-            &mut occupied,
-            &mut layout,
-        );
+    let mut occupied = occupancy::Occupancy::default();
+    let support = PlacementGround::new(input, terrain, ground);
+    let market = candidates::market(input);
+    layout.reserved_routes.extend(market.aisles);
+    for footprint in reservations::obstacles(input, terrain, buildings, obstacles)
+        .into_iter()
+        .chain(layout.reserved_routes.iter().copied())
+    {
+        occupied.insert(footprint);
+    }
+    for candidate in market.groups {
+        accept(input, &support, candidate, &mut occupied, &mut layout);
     }
     let mut ordered = buildings.iter().collect::<Vec<_>>();
     ordered.sort_by_key(|building| building.placement.id);
     for building in ordered {
-        if layout.groups.len() >= MAX_GROUPS {
-            break;
-        }
+        let mut accepted = 0;
         for candidate in candidates::building(input, building) {
-            if accept(
-                input,
-                terrain,
-                ground,
-                candidate,
-                &mut occupied,
-                &mut layout,
-            ) {
-                break;
+            if accept(input, &support, candidate, &mut occupied, &mut layout) {
+                accepted += 1;
+                if accepted >= candidates::group_limit(building) {
+                    break;
+                }
             }
         }
     }
@@ -58,18 +49,16 @@ pub(super) fn generate(
 
 fn accept(
     input: &TacticalSceneInput,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
+    support: &PlacementGround,
     candidate: Candidate,
-    occupied: &mut Vec<FurnitureFootprint>,
+    occupied: &mut occupancy::Occupancy,
     layout: &mut FurnitureLayout,
 ) -> bool {
     let footprint = candidate.footprint;
-    if occupied
-        .iter()
-        .chain(&layout.reserved_routes)
-        .any(|other| footprint.intersects(*other))
-    {
+    let Some(playable) = support.scope(footprint) else {
+        return false;
+    };
+    if occupied.intersects(footprint) {
         return false;
     }
     let corners = footprint.corners();
@@ -89,15 +78,10 @@ fn accept(
             {
                 return None;
             }
-            if ground.ground_at(point).is_none_or(|surface| {
-                matches!(
-                    surface.substrate,
-                    GroundSubstrate::Water | GroundSubstrate::Mud
-                )
-            }) {
-                return None;
-            }
-            terrain.height_at(point)
+            support
+                .allows_activity(point)
+                .then(|| support.height_at(point))
+                .flatten()
         })
         .collect::<Option<Vec<_>>>();
     let Some(samples) = samples else {
@@ -108,23 +92,27 @@ fn accept(
     if max - min > footprint.half_extents_metres.length() * 2.0 * MAX_GROUP_GRADE {
         return false;
     }
-    let Some(instances) = supported_instances(&candidate, terrain) else {
+    let Some(instances) = supported_instances(&candidate, support) else {
         return false;
     };
-    occupied.push(footprint);
+    occupied.insert(footprint);
     layout.groups.push(FurnitureGroup {
         id: candidate.id,
         kind: candidate.kind,
         anchor: candidate.anchor,
         footprint,
     });
-    layout.instances.extend(instances);
+    if matches!(playable, ground::PlacementScope::Playable) {
+        layout.instances.extend(instances);
+    } else {
+        layout.distant_instances.extend(instances);
+    }
     true
 }
 
 fn supported_instances(
     candidate: &Candidate,
-    terrain: &SceneTerrain,
+    support: &PlacementGround,
 ) -> Option<Vec<GeneratedFurniture>> {
     candidate
         .items
@@ -145,7 +133,7 @@ fn supported_instances(
                             .footprint
                             .orientation
                             .local_to_world(Vec2::new(point.x, point.z));
-                    terrain.height_at(position).map(|height| height - point.y)
+                    support.height_at(position).map(|height| height - point.y)
                 })
                 .collect::<Option<Vec<_>>>()?;
             let min = heights.iter().copied().fold(f32::INFINITY, f32::min);

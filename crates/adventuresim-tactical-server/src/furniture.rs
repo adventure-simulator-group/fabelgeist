@@ -19,6 +19,7 @@ pub(crate) fn on_furniture_added(
 }
 
 pub(crate) fn spawn(commands: &mut Commands, layout: FurnitureLayout) {
+    commands.spawn(SceneVistaFurniture(layout.distant_instances));
     for group in layout.groups {
         commands.spawn(SceneFurnitureGroup(group));
     }
@@ -42,6 +43,18 @@ pub(crate) fn on_group_added(
         bundle.furniture_groups.retain(|old| old.id != group.id);
         bundle.furniture_groups.push(group.clone());
         bundle.furniture_groups.sort_by_key(|group| group.id);
+    }
+    Ok(())
+}
+
+/// Vista scenery is retained for reconnect/dump, without collider or Replicated.
+pub(crate) fn on_vista_furniture_added(
+    event: On<Add, SceneVistaFurniture>,
+    scenery: Query<&SceneVistaFurniture>,
+    mut vista: ResMut<crate::SceneVistaBundleResource>,
+) -> Result {
+    if let Some(bundle) = &mut vista.0 {
+        bundle.distant_furniture = scenery.get(event.entity)?.0.clone();
     }
     Ok(())
 }

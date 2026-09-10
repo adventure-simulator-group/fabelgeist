@@ -91,7 +91,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 30;
+const CAPTURE_PROFILE_VERSION: u16 = 31;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
@@ -2105,6 +2105,7 @@ fn setup_scene(
         streets: input.streets.clone(),
         yards: input.yards.clone(),
         furniture_groups: furniture.groups,
+        distant_furniture: furniture.distant_instances,
         lods: input.vista.lods.clone(),
     });
     commands.insert_resource(SceneCaptureState {
