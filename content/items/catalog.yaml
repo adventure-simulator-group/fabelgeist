@@ -4887,6 +4887,96 @@
       "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
     },
     {
+      "id": "pauldron",
+      "display_name": "Full pauldron",
+      "weight_kg": 1.25,
+      "exterior_volume_ml": 1500,
+      "base_value": 45,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "layered-armor"
+      },
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {
+          "dimensions_m": [
+            0.28,
+            0.267,
+            0.22
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [
+              {
+                "location": "left_shoulder",
+                "channel": "rigid_armor"
+              }
+            ],
+            "protection": [
+              "left_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "left_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.36
+              }
+            ]
+          },
+          {
+            "id": "right",
+            "occupancy": [
+              {
+                "location": "right_shoulder",
+                "channel": "rigid_armor"
+              }
+            ],
+            "protection": [
+              "right_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "right_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.36
+              }
+            ]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
+    },
+    {
       "id": "spaulder",
       "display_name": "Lamed spaulder",
       "weight_kg": 0.65,

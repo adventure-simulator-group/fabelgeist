@@ -28,7 +28,7 @@ impl ArmorHarness {
                 "morion",
                 "gorget",
                 "cuirass",
-                "spaulder",
+                "pauldron",
                 "rerebrace",
                 "couter",
                 "vambrace",

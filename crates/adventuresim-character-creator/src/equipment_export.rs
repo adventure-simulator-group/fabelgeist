@@ -164,6 +164,8 @@ impl EquipmentExporter<'_> {
                         .design(&item.id)
                         .context("missing parametric recipe")?,
                     &placement.id,
+                    self.catalog,
+                    breastplate_design,
                     &morphs.samples,
                 )?,
                 placement_coverage(placement),

@@ -12,6 +12,8 @@ pub(super) fn fitted_design(
     generated: &GeneratedCharacter,
     design: &ParametricDesign,
     placement: &str,
+    catalog: &EquipmentCatalog,
+    breastplate: &BreastplateDesign,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     if let ParametricDesign::Underlayer(d) = design {
@@ -27,27 +29,46 @@ pub(super) fn fitted_design(
         joint_weights: &character.skin_weights.weight,
         joint_names: &character.skeleton.names,
     };
-    let mesh = armor_recipes::fitted_mesh(
+    let support = matches!(
         design,
-        placement,
+        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_))
+    )
+    .then(|| {
+        crate::pauldron_support::PauldronSupport::new(
+            model,
+            generated,
+            catalog,
+            breastplate,
+            morphs,
+        )
+    })
+    .transpose()?;
+    let fitted = |body: &Wearer<'_>, target: Option<&str>| {
+        if let Some(support) = &support {
+            support.mesh(design, placement, body, target)
+        } else {
+            armor_recipes::fitted_mesh(design, placement, body, &[])
+        }
+    };
+    let mesh = fitted(
         &wearer(
             &generated.positions,
             &generated.normals,
             &generated.global_joint_states,
         ),
+        None,
     )?;
     let normals = mesh.normals()?;
     let (nearest, uv) = source_correspondence(model, generated, &mesh.positions);
     let mut targets = Vec::new();
     for sample in morphs {
-        let endpoint = armor_recipes::fitted_mesh(
-            design,
-            placement,
+        let endpoint = fitted(
             &wearer(
                 &sample.positions,
                 &sample.normals,
                 &sample.global_joint_states,
             ),
+            Some(&sample.name),
         )
         .with_context(|| format!("fitting armor morph {} ({placement})", sample.name))?;
         validate_correspondence(&mesh, &endpoint)?;
@@ -79,24 +100,42 @@ pub(super) fn fitted_design(
         morphs: targets,
         components: mesh.components,
     };
-    if matches!(
-        design,
-        ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
-    ) {
-        let head = character
-            .skeleton
-            .names
-            .iter()
-            .position(|name| name == "c_head")
-            .context("rigid helmet requires c_head joint")? as u32;
-        armor.joint_indices.fill([head; 8]);
-        armor
-            .joint_weights
-            .fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
-    }
+    attach_plates(model, generated, design, placement, &mut armor)?;
     Ok(character_morphs::correct_armor_fit(
         armor, generated, morphs,
     ))
+}
+
+/// Plate attachments exclude unrelated elbow and skin-twist translations.
+fn attach_plates(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &ParametricDesign,
+    placement: &str,
+    armor: &mut GeneratedArmor,
+) -> Result<()> {
+    let anchor = match design {
+        ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_)) => {
+            "c_head"
+        }
+        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_)) => {
+            return crate::pauldron_skin::attach(model, generated, placement, armor);
+        }
+        _ => return Ok(()),
+    };
+    let joint = model
+        .mhr
+        .character
+        .skeleton
+        .names
+        .iter()
+        .position(|name| name == anchor)
+        .context("missing rigid armor attachment joint")? as u32;
+    armor.joint_indices.fill([joint; 8]);
+    armor
+        .joint_weights
+        .fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
+    Ok(())
 }
 
 fn validate_correspondence(
@@ -199,7 +238,15 @@ pub(super) fn selected(
                 let Some(design) = catalog.design(id) else {
                     continue;
                 };
-                fitted_design(model, generated, &design, &selection.placement_id, morphs)?
+                fitted_design(
+                    model,
+                    generated,
+                    &design,
+                    &selection.placement_id,
+                    catalog,
+                    breastplate_design,
+                    morphs,
+                )?
             }
         };
         pieces.push(SelectedArmor {

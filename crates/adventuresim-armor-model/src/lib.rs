@@ -24,6 +24,7 @@ pub use garment_plate_design::GarmentPlateShape;
 pub use gorget_plates::{generate_gorget_plates, gorget_control_angle, gorget_surface_angle};
 mod helmets;
 mod limb_armor;
+mod pauldron;
 pub use garment_armor::{
     GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
     GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
@@ -31,6 +32,7 @@ pub use garment_armor::{
 };
 pub use helmets::*;
 pub use limb_armor::*;
+pub use pauldron::{PauldronCarrier, PauldronDesign};
 
 pub use breastplate::generate_breastplate;
 pub use design::*;

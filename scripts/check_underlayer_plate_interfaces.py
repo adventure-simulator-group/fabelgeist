@@ -24,7 +24,7 @@ from check_parametric_armor_assets import EXPECTED_TARGETS
 PLATES = [
     "morion--worn", "gorget--worn", "cuirass--worn", "fauld--worn",
     *[f"{item}--{side}" for item in (
-        "spaulder", "rerebrace", "couter", "vambrace", "mitten_gauntlet",
+        "pauldron", "rerebrace", "couter", "vambrace", "mitten_gauntlet",
         "cuisse", "poleyn", "greave", "sabaton") for side in ("left", "right")],
 ]
 POSE_SAMPLE_COUNT = 8

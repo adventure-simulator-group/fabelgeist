@@ -298,6 +298,7 @@ pub enum LimbArmorDesign {
     Poleyn(JointCupDesign),
     Couter(JointCupDesign),
     Spaulder(SpaulderDesign),
+    Pauldron(crate::PauldronDesign),
     MittenGauntlet(GauntletDesign),
     Sabaton(FootArmorDesign),
     LeatherBoot(BootDesign),
@@ -312,6 +313,7 @@ impl LimbArmorDesign {
             Self::Poleyn(d) => Some(&mut d.fluting),
             Self::Couter(d) => Some(&mut d.fluting),
             Self::Spaulder(d) => Some(&mut d.fluting),
+            Self::Pauldron(d) => Some(&mut d.fluting),
             Self::MittenGauntlet(d) => Some(&mut d.fluting),
             Self::Sabaton(d) => Some(&mut d.fluting),
             Self::LeatherBoot(_) => None,
@@ -325,6 +327,7 @@ impl LimbArmorDesign {
             Self::Poleyn(d) => d.fluting.as_ref(),
             Self::Couter(d) => d.fluting.as_ref(),
             Self::Spaulder(d) => d.fluting.as_ref(),
+            Self::Pauldron(d) => d.fluting.as_ref(),
             Self::MittenGauntlet(d) => d.fluting.as_ref(),
             Self::Sabaton(d) => d.fluting.as_ref(),
             Self::LeatherBoot(_) => None,
@@ -383,6 +386,7 @@ impl LimbArmorDesign {
                     && ratio(d.wrap, 450, 700)
                     && ratio(d.rear_extension, 800, 1400),
             ),
+            Self::Pauldron(d) => (d.gauge, d.valid_shape()),
             Self::MittenGauntlet(d) => (
                 d.gauge,
                 d.cuff_clearance.0 <= 15
@@ -433,6 +437,7 @@ pub fn generate_limb_armor(
         LimbArmorDesign::Rerebrace(d) => shapes::rerebrace(d, fit),
         LimbArmorDesign::Poleyn(d) | LimbArmorDesign::Couter(d) => shapes::joint_cup(d, fit),
         LimbArmorDesign::Spaulder(d) => shapes::spaulder(d, fit),
+        LimbArmorDesign::Pauldron(d) => return crate::pauldron::generate(d, fit),
         LimbArmorDesign::MittenGauntlet(d) => extremities::gauntlet(d, fit),
         LimbArmorDesign::Sabaton(d) => extremities::sabaton(d, fit),
         LimbArmorDesign::LeatherBoot(d) => extremities::boot(d, fit),

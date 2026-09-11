@@ -1,6 +1,6 @@
 //! Controls follow the construction of each limb defense.
 use super::number;
-use adventuresim_armor_model::{LimbArmorDesign as L, PlateGauge};
+use adventuresim_armor_model::LimbArmorDesign as L;
 use bevy_egui::egui;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
@@ -52,6 +52,10 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
                 (&mut d.rear_extension.0, 800..=1400, "Rear coverage"),
             ]
         }
+        L::Pauldron(d) => {
+            changed |= pauldron_controls(ui, d);
+            vec![]
+        }
         L::MittenGauntlet(d) => {
             changed |= ui
                 .add(egui::Slider::new(&mut d.finger_lames, 2..=6).text("Hand lames"))
@@ -85,24 +89,62 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
     for (value, range, label) in rows {
         changed |= number(ui, value, range, label);
     }
+    changed | material_controls(ui, design)
+}
+
+fn material_controls(ui: &mut egui::Ui, design: &mut L) -> bool {
+    let thickness_range = if matches!(design, L::Pauldron(_)) {
+        adventuresim_armor_model::PauldronDesign::THICKNESS_RANGE
+    } else {
+        1..=6
+    };
     let gauge = match design {
         L::Greave(d) => &mut d.gauge,
         L::Cuisse(d) => &mut d.gauge,
         L::Rerebrace(d) => &mut d.gauge,
         L::Poleyn(d) | L::Couter(d) => &mut d.gauge,
         L::Spaulder(d) => &mut d.gauge,
+        L::Pauldron(d) => &mut d.gauge,
         L::MittenGauntlet(d) => &mut d.gauge,
         L::Sabaton(d) => &mut d.gauge,
         L::LeatherBoot(d) => &mut d.gauge,
     };
-    changed |= gauge_controls(ui, gauge);
+    let mut changed = number(ui, &mut gauge.clearance.0, 2..=25, "Padding clearance (mm)")
+        | number(
+            ui,
+            &mut gauge.thickness.0,
+            thickness_range,
+            "Wall thickness (mm)",
+        );
     if let Some(fluting) = design.fluting_mut() {
         changed |= crate::fluting_controls::show(ui, fluting);
     }
     changed
 }
 
-fn gauge_controls(ui: &mut egui::Ui, d: &mut PlateGauge) -> bool {
-    number(ui, &mut d.clearance.0, 2..=25, "Padding clearance (mm)")
-        | number(ui, &mut d.thickness.0, 1..=6, "Wall thickness (mm)")
+fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::PauldronDesign) -> bool {
+    let mut changed = ui
+        .add(egui::Slider::new(&mut d.upper_lames, 1..=3).text("Neck lames"))
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut d.lower_lames, 3..=7).text("Arm lames"))
+        .changed();
+    for (value, range, label) in [
+        (&mut d.front_reach.0, 40..=120, "Front wing reach (mm)"),
+        (&mut d.rear_reach.0, 60..=145, "Rear wing reach (mm)"),
+        (&mut d.front_drop.0, 0..=60, "Front wing drop (mm)"),
+        (&mut d.rear_drop.0, 0..=75, "Rear wing drop (mm)"),
+        (&mut d.neck_reach.0, 20..=60, "Neck reach (mm)"),
+        (
+            &mut d.plate_clearance.0,
+            2..=12,
+            "Supporting plate separation (mm)",
+        ),
+        (&mut d.arm_allowance.0, 0..=20, "Rerebrace allowance (mm)"),
+        (&mut d.crown_height.0, 1000..=1450, "Shoulder crown"),
+        (&mut d.arm_length.0, 65..=125, "Arm lames length (mm)"),
+    ] {
+        changed |= number(ui, value, range, label);
+    }
+    changed
 }

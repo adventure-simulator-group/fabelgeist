@@ -64,7 +64,7 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             LimbArmorDesign::Rerebrace(_) => F::UpperArm(side()?),
             LimbArmorDesign::Poleyn(_) => F::Knee(side()?),
             LimbArmorDesign::Couter(_) => F::Elbow(side()?),
-            LimbArmorDesign::Spaulder(_) => F::Shoulder(side()?),
+            LimbArmorDesign::Spaulder(_) | LimbArmorDesign::Pauldron(_) => F::Shoulder(side()?),
             LimbArmorDesign::MittenGauntlet(_) => F::Hand(side()?),
             LimbArmorDesign::Sabaton(_) | LimbArmorDesign::LeatherBoot(_) => F::Foot(side()?),
         },
@@ -82,6 +82,7 @@ pub fn fitted_mesh(
     design: &ParametricDesign,
     placement: &str,
     wearer: &Wearer<'_>,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
     if let ParametricDesign::Underlayer(d) = design {
         let pattern =
@@ -98,7 +99,7 @@ pub fn fitted_mesh(
         return crate::garment_fit::fitted_garment(garment, placement, wearer);
     }
     if let ParametricDesign::Limb(limb) = design {
-        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?);
+        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?, layers);
     }
     let frame = wearer.frame(fit_region(design, placement)?)?;
     let mesh = design.generate(&frame)?;
@@ -140,6 +141,7 @@ mod tests {
             ("morion", "Helmet", "Morion"),
             ("padded_chausses", "Underlayer", "PaddedHose"),
             ("padded_skirt", "Garment", "PaddedSkirt"),
+            ("pauldron", "Limb", "Pauldron"),
             ("poleyn", "Limb", "Poleyn"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
             ("rerebrace", "Limb", "Rerebrace"),

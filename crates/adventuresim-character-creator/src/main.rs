@@ -20,6 +20,8 @@ mod equipment_controls;
 mod equipment_export;
 mod fluting_controls;
 mod parametric_equipment;
+mod pauldron_skin;
+mod pauldron_support;
 mod review_export;
 mod underlayer_equipment;
 mod underlayer_preview;
