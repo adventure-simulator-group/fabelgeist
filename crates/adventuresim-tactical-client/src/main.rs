@@ -17,6 +17,7 @@ use bevy::asset::AssetPlugin;
 use bevy::asset::io::AssetSourceBuilder;
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
+use bevy::render::error_handler::{RenderErrorHandler, RenderErrorPolicy};
 use bevy::{
     ecs::schedule::common_conditions::any_with_component,
     input::common_conditions::input_just_pressed,
@@ -232,6 +233,18 @@ pub fn wasm_quote_weapon_design(design_json: String) -> Result<String, JsValue> 
     browser_runtime::quote_design_json(&design_json).map_err(|error| JsValue::from_str(&error))
 }
 
+/// Keeps rendering after a pipeline fails validation instead of quitting.
+///
+/// Browser WebGPU rejects some pipelines the native backend accepts (shader
+/// modules and limits it does not expose). Bevy's default handler hard-quits
+/// the app on the first such error, blanking the canvas. Ignoring it lets the
+/// rest of the scene draw -- the instanced grass has its own pipeline -- and
+/// surfaces every incompatible pipeline rather than only the first. Native
+/// compiles every pipeline, so this never fires there.
+fn resilient_render_errors() -> RenderErrorHandler {
+    RenderErrorHandler(|_error, _main_world, _render_world| RenderErrorPolicy::Ignore)
+}
+
 fn run(
     args: Args,
     initial_tactical: bool,
@@ -257,14 +270,7 @@ fn run(
     #[cfg(not(feature = "debug"))]
     let headless = false;
     if headless {
-        graphics_config.rendering.shadows.enabled = false;
-        graphics_config.rendering.bloom.enabled = false;
-        graphics_config.rendering.atmosphere.enabled = false;
-        graphics_config.rendering.atmosphere.environment_light = false;
-        graphics_config.rendering.clouds.enabled = false;
-        graphics_config.rendering.vista.maximum_lods = 1;
-        graphics_config.rendering.anti_aliasing = presentation::AntiAliasingConfig::Off;
-        graphics_config.grass.enabled = false;
+        graphics_config.disable_headless_rendering();
     }
     #[cfg(not(target_family = "wasm"))]
     let default_plugins = {
@@ -332,18 +338,7 @@ fn run(
     .add_input_context::<Player>();
     add_gameplay_plugins(&mut app, graphics_config);
     app.insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.15)))
-        // Browser WebGPU rejects some pipelines the native backend accepts (shader
-        // modules / limits it doesn't expose). Bevy's default render-error handler
-        // hard-quits the whole app on the first such validation error, blanking the
-        // canvas. Log and keep rendering instead, so the rest of the scene -- the
-        // instanced grass has its own pipeline -- still draws and every incompatible
-        // pipeline is surfaced rather than just the first. Native compiles every
-        // pipeline, so this handler never fires there (no per-target behaviour gate).
-        .insert_resource(bevy::render::error_handler::RenderErrorHandler(
-            |_error, _main_world, _render_world| {
-                bevy::render::error_handler::RenderErrorPolicy::Ignore
-            },
-        ))
+        .insert_resource(resilient_render_errors())
         .insert_resource(audio_config)
         .insert_resource(presentation::ClientStartupTiming::new(startup_started_at))
         .add_systems(Startup, setup_initial_client)

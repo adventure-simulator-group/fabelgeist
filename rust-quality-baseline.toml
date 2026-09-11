@@ -592,7 +592,7 @@ ceiling = 1021
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
-ceiling = 1495
+ceiling = 786
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs"
@@ -604,7 +604,7 @@ ceiling = 549
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
-ceiling = 726
+ceiling = 514
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs"
@@ -632,11 +632,11 @@ ceiling = 646
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-ceiling = 681
+ceiling = 628
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 1406
+ceiling = 1334
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -684,7 +684,7 @@ ceiling = 798
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
-ceiling = 554
+ceiling = 505
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -2550,7 +2550,7 @@ ceiling = 107
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/main.rs"
 item = "run"
-ceiling = 161
+ceiling = 155
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -2578,16 +2578,6 @@ item = "grass_ribbon_patch_mesh_with_rows"
 ceiling = 233
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
-item = "spawn"
-ceiling = 123
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs"
-item = "spawn"
-ceiling = 104
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs"
 item = "spawn"
 ceiling = 127
@@ -2610,7 +2600,7 @@ ceiling = 151
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
 item = "spawn_ground_foliage"
-ceiling = 245
+ceiling = 114
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
@@ -2670,12 +2660,7 @@ ceiling = 116
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
-ceiling = 127
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_near_vista_scatter"
-ceiling = 111
+ceiling = 126
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
@@ -2765,7 +2750,7 @@ ceiling = 146
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
 item = "main"
-ceiling = 160
+ceiling = 138
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
@@ -3061,11 +3046,6 @@ ceiling = 142
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
 item = "Blitter::new"
 ceiling = 188
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs"
-item = "WgpuContext::new"
-ceiling = 111
 
 [[functions]]
 path = "crates/fabelgeist-mhr/src/model.rs"

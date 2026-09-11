@@ -17,6 +17,60 @@ pub struct WgpuContext {
     pub blit_lock: Arc<async_lock::Mutex<()>>,
 }
 
+/// Reports which GPU the adapter request actually landed on. `device_type: Cpu`
+/// means a software fallback (SwiftShader); `backend: Vulkan` with
+/// `device_type: DiscreteGpu` is the intended discrete card.
+fn report_adapter(adapter: &Adapter) {
+    let info = adapter.get_info();
+    let message = format!(
+        "[fabelgeist-gpu] adapter: {} | type: {:?} | backend: {:?} | driver: {} {}",
+        info.name, info.device_type, info.backend, info.driver, info.driver_info
+    );
+    #[cfg(target_arch = "wasm32")]
+    web_sys::console::log_1(&message.as_str().into());
+    #[cfg(not(target_arch = "wasm32"))]
+    eprintln!("{message}");
+}
+
+/// The optional features we use where the adapter offers them. Each is a
+/// graceful degradation, not a requirement, so requesting one the adapter
+/// lacks would fail device creation outright.
+fn optional_features(adapter: &Adapter) -> wgpu::Features {
+    const OPTIONAL: [wgpu::Features; 3] = [
+        wgpu::Features::FLOAT32_FILTERABLE,
+        wgpu::Features::FLOAT32_BLENDABLE,
+        wgpu::Features::TIMESTAMP_QUERY,
+    ];
+    OPTIONAL
+        .into_iter()
+        .filter(|feature| adapter.features().contains(*feature))
+        .fold(wgpu::Features::empty(), |features, feature| {
+            features | feature
+        })
+}
+
+/// Raises the baseline limits to what the adapter actually supports. The
+/// downlevel/WebGL2 baseline caps compute invocations at 256, but our kernels
+/// dispatch workgroups of up to 1024 invocations.
+fn required_limits(adapter: &Adapter) -> wgpu::Limits {
+    let adapter_limits = adapter.limits();
+    let mut limits = if cfg!(target_arch = "wasm32") {
+        wgpu::Limits::downlevel_webgl2_defaults().using_resolution(adapter.limits())
+    } else {
+        wgpu::Limits::default()
+    };
+    limits.max_buffer_size = adapter_limits.max_buffer_size;
+    limits.max_storage_buffer_binding_size = adapter_limits.max_storage_buffer_binding_size;
+    limits.max_compute_invocations_per_workgroup =
+        adapter_limits.max_compute_invocations_per_workgroup;
+    limits.max_compute_workgroup_size_x = adapter_limits.max_compute_workgroup_size_x;
+    limits.max_compute_workgroup_size_y = adapter_limits.max_compute_workgroup_size_y;
+    limits.max_compute_workgroup_size_z = adapter_limits.max_compute_workgroup_size_z;
+    limits.max_compute_workgroups_per_dimension =
+        adapter_limits.max_compute_workgroups_per_dimension;
+    limits
+}
+
 impl WgpuContext {
     pub async fn new() -> Result<Self> {
         // Platform specific initialization
@@ -64,67 +118,13 @@ impl WgpuContext {
             .await
             .map_err(|_| anyhow!("Failed to find an appropriate adapter"))?;
 
-        // Ground truth for which GPU we actually got (watch for device_type: Cpu
-        // == SwiftShader software fallback, backend: Vulkan + DiscreteGpu == NVIDIA).
-        {
-            let i = adapter.get_info();
-            let msg = format!(
-                "[fabelgeist-gpu] adapter: {} | type: {:?} | backend: {:?} | driver: {} {}",
-                i.name, i.device_type, i.backend, i.driver, i.driver_info
-            );
-            #[cfg(target_arch = "wasm32")]
-            web_sys::console::log_1(&msg.as_str().into());
-            #[cfg(not(target_arch = "wasm32"))]
-            eprintln!("{msg}");
-        }
+        report_adapter(&adapter);
 
         let (device, queue) = adapter
             .request_device(&wgpu::DeviceDescriptor {
                 label: None,
-                required_features: {
-                    let mut features = wgpu::Features::empty();
-                    if adapter
-                        .features()
-                        .contains(wgpu::Features::FLOAT32_FILTERABLE)
-                    {
-                        features |= wgpu::Features::FLOAT32_FILTERABLE;
-                    }
-                    if adapter
-                        .features()
-                        .contains(wgpu::Features::FLOAT32_BLENDABLE)
-                    {
-                        features |= wgpu::Features::FLOAT32_BLENDABLE;
-                    }
-                    if adapter.features().contains(wgpu::Features::TIMESTAMP_QUERY) {
-                        features |= wgpu::Features::TIMESTAMP_QUERY;
-                    }
-                    features
-                },
-                required_limits: {
-                    let mut limits = if cfg!(target_arch = "wasm32") {
-                        wgpu::Limits::downlevel_webgl2_defaults().using_resolution(adapter.limits())
-                    } else {
-                        wgpu::Limits::default()
-                    };
-                    let adapter_limits = adapter.limits();
-                    limits.max_buffer_size = adapter_limits.max_buffer_size;
-                    limits.max_storage_buffer_binding_size =
-                        adapter_limits.max_storage_buffer_binding_size;
-                    // The downlevel/WebGL2 baseline caps compute invocations at 256,
-                    // but our kernels dispatch workgroups of up to 1024 invocations.
-                    // Raise the compute limits to whatever the adapter actually supports.
-                    limits.max_compute_invocations_per_workgroup =
-                        adapter_limits.max_compute_invocations_per_workgroup;
-                    limits.max_compute_workgroup_size_x =
-                        adapter_limits.max_compute_workgroup_size_x;
-                    limits.max_compute_workgroup_size_y =
-                        adapter_limits.max_compute_workgroup_size_y;
-                    limits.max_compute_workgroup_size_z =
-                        adapter_limits.max_compute_workgroup_size_z;
-                    limits.max_compute_workgroups_per_dimension =
-                        adapter_limits.max_compute_workgroups_per_dimension;
-                    limits
-                },
+                required_features: optional_features(&adapter),
+                required_limits: required_limits(&adapter),
                 memory_hints: wgpu::MemoryHints::Performance,
                 experimental_features: wgpu::ExperimentalFeatures::default(),
                 trace: Default::default(),
