@@ -44,10 +44,30 @@ pub(super) fn export(
             )?;
             continue;
         };
+        let support = matches!(
+            &design,
+            armor_recipes::ParametricDesign::Limb(
+                adventuresim_armor_model::LimbArmorDesign::Pauldron(_)
+            )
+        )
+        .then(|| {
+            crate::pauldron_support::PauldronSupport::new(
+                model,
+                &body,
+                catalog,
+                breastplate_design,
+                &[],
+            )
+        })
+        .transpose()?;
         for placement in &item.equipment.as_ref().expect("procedural item").placements {
             let frame = wearer.frame(armor_recipes::fit_region(&design, &placement.id)?)?;
-            let mesh = armor_recipes::fitted_mesh(&design, &placement.id, &wearer)
-                .with_context(|| format!("review generation {}/{}", item.id, placement.id))?;
+            let mesh = if let Some(support) = &support {
+                support.mesh(&design, &placement.id, &wearer, None)
+            } else {
+                armor_recipes::fitted_mesh(&design, &placement.id, &wearer, &[])
+            }
+            .with_context(|| format!("review generation {}/{}", item.id, placement.id))?;
             std::fs::write(
                 output.join(format!("{}--{}.json", item.id, placement.id)),
                 serde_json::to_vec(&serde_json::json!({

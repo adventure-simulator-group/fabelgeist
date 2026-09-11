@@ -81,3 +81,48 @@ fn whole_limb_and_same_fit_zone_conflict_but_adjacent_plates_and_padding_coexist
         ..forearm
     }));
 }
+
+#[test]
+fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates() {
+    let mut graph = EquipmentGraph::default();
+    let mut instance = 1;
+    for item in ["cuirass", "gorget", "pauldron", "rerebrace"] {
+        for placement in &item_catalog::definition(item)
+            .unwrap()
+            .equipment
+            .as_ref()
+            .unwrap()
+            .placements
+        {
+            graph
+                .equip(
+                    instance,
+                    EquipmentGraphPlacement {
+                        body: placement.occupancy.clone(),
+                        parents: vec![],
+                    },
+                )
+                .unwrap();
+            instance += 1;
+        }
+    }
+    for placement in &item_catalog::definition("spaulder")
+        .unwrap()
+        .equipment
+        .as_ref()
+        .unwrap()
+        .placements
+    {
+        assert_eq!(
+            graph.equip(
+                instance,
+                EquipmentGraphPlacement {
+                    body: placement.occupancy.clone(),
+                    parents: vec![]
+                }
+            ),
+            Err("body occupancy conflict")
+        );
+        instance += 1;
+    }
+}

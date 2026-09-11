@@ -458,3 +458,66 @@ A 6147, illustrated in
 [Christopher Retsch's catalogue, pp. 190-211](https://d-nb.info/139208119X/34).
 That surviving hose contains sewn-in plates; it is evidence for the mail strip
 arrangement, not a claim that the game's padded hose replicates that garment.
+
+## Full pauldrons
+
+`pauldron` is a separate catalog choice from the smaller `spaulder`. A formed
+shoulder plate has independent front and rear wing reach and drop, proximal
+neck lames, and a narrowing stack of upper-arm lames. These are closed plate
+shells with authored physical rims, automatic material UVs, baked normal/AO
+maps, and optional fluting and texture trim.
+
+The construction follows the broad wings and articulated upper-arm coverage
+of the Met's [Italian pauldrons, ca. 1560, 14.25.827a-d](https://www.metmuseum.org/art/collection/search/22301).
+The rear view of [Henry VIII's armor, ca. 1544, 32.130.7a-l](https://www.metmuseum.org/art/collection/search/23936)
+supplies the relationship of full rear wings to the backplate and wearer.
+These references support the construction family; the default is not an
+exact reconstruction of either object.
+
+The selected breastplate and gorget geometry constrain the wings in preview,
+review export, and equipment export. `plate_clearance` sets separation from
+those surfaces; `arm_allowance` reserves room for the rerebrace. Padding
+clearance and plate gauge remain separate controls. Changing a supporting
+recipe refits the wings; the resulting assembly still requires checking. The
+support envelope omits torso fluting and reserves its relief height, so that
+a smooth shoulder plate does not inherit its neighbor's decorative ridges.
+Lame spacing reserves the selected wall thickness and flute relief. The shared
+fitted carrier preserves overlaps before extrusion. The chest-facing wings
+blend into the upper-arm attachment across the crown to accommodate shoulder
+width. This deformation does not simulate sliding rivets or individual lames.
+
+The plate animation-viewer fixture uses full pauldrons. For automated unposed
+body, self, and neighboring-piece intersection checks:
+
+```sh
+blender --background --python-exit-code 1 --python scripts/check_armor_clearance.py -- \
+  assets/equipment/procedural assets/animations/biped/unarmed/base.glb \
+  target/pauldron-clearance.json --item pauldron--left --item pauldron--right \
+  --neighbor cuirass--worn --neighbor gorget--worn
+```
+
+The default audit covers 189 sampled identity and skeletal configurations.
+Use repeated `--only` arguments for focused checks, such as `--only neutral`.
+Reports distinguish intersections from sampled signed distances and make no
+continuous or posed collision guarantee.
+
+A saved review body also supports a construction sweep without loading MHR:
+
+```sh
+cargo build --manifest-path crates/adventuresim-character-creator/Cargo.toml \
+  --example armor_fit_review
+python scripts/export_pauldron_variants.py target/review/body.json \
+  target/pauldron-variants \
+  --fitter crates/adventuresim-character-creator/target/debug/examples/armor_fit_review
+blender --background --python-exit-code 1 \
+  --python scripts/check_armor_construction.py -- \
+  target/pauldron-variants target/pauldron-variants/check.json
+```
+
+The sweep covers both sides at 23 representative parameter settings, including
+thin and thick walls with seven lames, minimal crown height, wing limits, and
+sparse/dense fluting. This shoulder construction supports 1-3 mm sheet stock;
+heavier stock requires a wider bend treatment at the wing returns. It checks
+each piece against the body independently;
+the exported-asset audit above checks the selected neighboring torso pieces.
+These samples do not establish every combination of controls.

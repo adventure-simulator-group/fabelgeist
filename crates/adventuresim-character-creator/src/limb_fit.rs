@@ -17,6 +17,8 @@ const MINIMUM_RADIAL_EXTENT_M: f32 = 0.008;
 const PROFILE_CLEARANCE_MARGIN_M: f32 = 0.002;
 #[path = "boot_layer_fit.rs"]
 mod boot_layer_fit;
+#[path = "pauldron_fit.rs"]
+mod pauldron_fit;
 #[path = "sabaton_fit.rs"]
 mod sabaton_fit;
 // Linear identity blends need a little extra room at the torso-facing armpit
@@ -27,7 +29,11 @@ pub fn fitted_limb(
     design: &LimbArmorDesign,
     wearer: &Wearer<'_>,
     region: FitRegion,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
+    if let LimbArmorDesign::Pauldron(d) = design {
+        return pauldron_fit::fit(d, wearer, region, layers);
+    }
     let frame = wearer.frame(region)?;
     let mesh = generate_limb_armor(design, &frame)?;
     match design {

@@ -109,6 +109,47 @@ fn check_closed_winding(mesh: &PartMesh) {
 }
 
 #[test]
+fn full_pauldrons_keep_closed_walls_and_correspondence_across_shoulder_sizes() {
+    use adventuresim_armor_model::{PauldronCarrier, PauldronDesign};
+    let diagonal = std::f32::consts::FRAC_1_SQRT_2;
+    for scale in [0.72, 1.0, 1.4] {
+        for side in [-1.0, 1.0] {
+            let fit = PartFrame {
+                origin: [side * 0.18, 1.42, -0.03],
+                axes: [
+                    [0.0, 0.0, -side],
+                    [-side * diagonal, diagonal, 0.0],
+                    [side * diagonal, diagonal, 0.0],
+                ],
+                half_extents: [0.083 * scale, 0.061 * scale, 0.058 * scale],
+            };
+            for lames in [3, 4, 7] {
+                let d = PauldronDesign {
+                    lower_lames: lames,
+                    ..Default::default()
+                };
+                let mut carrier = PauldronCarrier::new(&d, &fit).unwrap();
+                let base = carrier.mesh().unwrap();
+                check_closed_winding(&base);
+                carrier
+                    .fit(|mut p| {
+                        if p[2] > 0.0 {
+                            p[2] = p[2].max(0.11);
+                        }
+                        p
+                    })
+                    .unwrap();
+                let fitted = carrier.mesh().unwrap();
+                assert_eq!(base.indices, fitted.indices);
+                assert_eq!(base.positions.len(), fitted.positions.len());
+                check_closed_winding(&fitted);
+                assert!(!fitted.plate_edges().is_empty());
+            }
+        }
+    }
+}
+
+#[test]
 fn every_family_has_closed_walls_and_consistent_winding_at_body_extremes() {
     for (design, base) in families() {
         for scale in [0.72, 1.0, 1.4] {
@@ -252,4 +293,56 @@ fn separate_thumb_uses_its_anatomical_axis_and_closed_tip() {
         );
         assert!(mesh.positions.iter().all(|p| p[2] >= fit.origin[2] - 0.01));
     }
+}
+
+#[test]
+fn low_crown_lames_reserve_the_arm_envelope_even_with_thick_walls() {
+    use adventuresim_armor_model::{PauldronDesign, PlateGauge};
+    let diagonal = std::f32::consts::FRAC_1_SQRT_2;
+    let fit = PartFrame {
+        origin: [0.0; 3],
+        axes: [
+            [0.0, 0.0, -1.0],
+            [-diagonal, diagonal, 0.0],
+            [diagonal, diagonal, 0.0],
+        ],
+        half_extents: [0.083, 0.061, 0.058],
+    };
+    for thickness in [1, 2, 3] {
+        for count in [3, 7] {
+            let d = PauldronDesign {
+                gauge: PlateGauge {
+                    clearance: Millimeters(2),
+                    thickness: Millimeters(thickness),
+                },
+                arm_allowance: Millimeters(0),
+                crown_height: Permille(1000),
+                lower_lames: count,
+                ..Default::default()
+            };
+            let mesh = generate_limb_armor(&LimbArmorDesign::Pauldron(d), &fit).unwrap();
+            let crown = mesh
+                .positions
+                .iter()
+                .map(|p| {
+                    fit.axes
+                        .map(|a| a.into_iter().zip(p).map(|(a, b)| a * b).sum::<f32>())
+                })
+                .filter(|p| p[0].abs() < 0.00001 && p[1] < -0.08 && p[2] > 0.0)
+                .collect::<Vec<_>>();
+            assert!(!crown.is_empty());
+            assert!(
+                crown.iter().all(|p| p[2] >= fit.half_extents[2] + 0.002),
+                "{thickness}mm, {count} lames"
+            );
+            check_closed_winding(&mesh);
+        }
+    }
+}
+
+#[test]
+fn pauldron_rejects_stock_too_thick_for_its_wing_returns() {
+    let mut design = adventuresim_armor_model::PauldronDesign::default();
+    design.gauge.thickness = Millimeters(6);
+    assert!(LimbArmorDesign::Pauldron(design).validate().is_err());
 }
