@@ -234,6 +234,11 @@ character-creator:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml
 generate-procedural-equipment output:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 1 --recipe assets_src/characters/mhr_base.json --equipment-output {{ quote(output) }}
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }}
+
+# Unwrap existing generated assets without rebuilding their shapes or rigs.
+unwrap-equipment output:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }}
 # Model an animator reference weapon and export it against the character rig.
 weapon-modeler:
     @npm --prefix tools/weapon-modeler start
