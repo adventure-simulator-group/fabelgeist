@@ -98,6 +98,21 @@ fn structured_indices(
     indices
 }
 
+fn rim_edges(sample_count: usize) -> Vec<[u32; 2]> {
+    let around = sample_count / (ALONG + 1);
+    [0, ALONG]
+        .into_iter()
+        .flat_map(|ring| {
+            (0..around).map(move |segment| {
+                [
+                    (ring * around + segment) as u32,
+                    (ring * around + (segment + 1) % around) as u32,
+                ]
+            })
+        })
+        .collect()
+}
+
 fn sample_skin(sample: &Sample, surface: &AnatomicalSurface) -> ([u32; 8], [f32; 8]) {
     let mut weights = BTreeMap::<u32, f32>::new();
     for (vertex, sample_weight) in &sample.0 {
@@ -240,6 +255,7 @@ pub fn generate_bracer(
         })
         .collect::<Result<Vec<_>, GenerateError>>()?;
     Ok(GeneratedArmor {
+        plate_edges: rim_edges(samples.len()),
         components: Vec::new(),
         design_hash: design_hash(design)?,
         surface_domain: surface.domain.clone(),

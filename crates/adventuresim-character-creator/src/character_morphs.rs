@@ -202,6 +202,7 @@ pub(super) fn rigged_clothing<'a>(
 ) -> RiggedShell<'a> {
     let specification = &shell.specification;
     RiggedShell {
+        plate_edges: &[],
         textures: None,
         texcoords: None,
         hinge: None,
@@ -225,6 +226,7 @@ pub(super) fn rigged_armor<'a>(
     targets: &'a [RiggedMorphTarget<'a>],
 ) -> Vec<RiggedShell<'a>> {
     let shell = |name, faces, hinge| RiggedShell {
+        plate_edges: &armor.plate_edges,
         textures: None,
         texcoords: Some(&armor.texcoords),
         name,

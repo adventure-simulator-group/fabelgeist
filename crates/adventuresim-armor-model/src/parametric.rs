@@ -3,6 +3,8 @@
 use std::collections::BTreeMap;
 #[path = "parametric_normals.rs"]
 mod normals;
+#[path = "plate_edges.rs"]
+mod plate_edges;
 
 use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError};
 

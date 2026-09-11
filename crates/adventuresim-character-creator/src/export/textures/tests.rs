@@ -17,6 +17,7 @@ fn export_equipment(path: &Path) -> Result<()> {
     let joints = [[0; 8]; 3];
     let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
     let shell = RiggedShell {
+        plate_edges: &[],
         name: "mail",
         hinge: None,
         positions: &positions,

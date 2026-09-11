@@ -322,6 +322,33 @@ ray trace ambient occlusion rather than
 multiplying the exported AO map into albedo; runtime glTF uses the separate AO
 channel for ambient lighting.
 
+## Plate edge finishes
+
+`assets_src/equipment/armor-finishes.json` selects texture-only trim for metal
+plates. Generation applies this after UV unwrapping and normal/AO baking. Use
+`just trim-equipment DIRECTORY` on an unfinished bake, or pass `--finish-recipe`
+to `scripts/finish_equipment.py` for a different finish document. Python needs
+NumPy and Pillow. Regenerate before changing an already applied finish.
+
+The document has `defaults` and per-item `items` overrides. Patterns are `none`,
+`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1–30 mm;
+`repeats` accepts 1–128 repetitions around each closed rim. `color` is an sRGB
+`#RRGGBB` value; `metallic` and `roughness` accept 0–1. The vine is a stylized
+ornament, not an exact historical engraving reproduction.
+
+Generators record the outer-sheet boundaries before closing plate returns.
+Compaction preserves the applicable boundaries for each helmet component, and
+glTF records them in reference-body metres. Finishing measures distance to those
+segments within the same connected plate and carries pattern phase around each
+rim. UV seams never become decorative boundaries. Widths are measured on the
+reference body; the texture follows the existing UVs when the wearer morphs.
+
+Finishes write independent base-color and metallic/roughness maps in UV0. They
+leave geometry, skinning, morphs, normal maps, and AO unchanged. The base-color
+map contains only the unlit steel and selected trim colors. Mail keeps its own
+material system. `scripts/check_armor_trim.py SOURCE FINISHED` checks these
+contracts on exported assets.
+
 ## Body-conforming underlayers
 
 `arming_doublet`, `padded_chausses`, `mail_voiders`, `mail_brayette`,

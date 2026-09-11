@@ -128,6 +128,7 @@ struct MorphSample {
 }
 
 struct SolidMesh {
+    plate_edges: Vec<[u32; 2]>,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     indices: Vec<u32>,
@@ -148,6 +149,12 @@ fn combine(front: SolidMesh, back: SolidMesh) -> SolidMesh {
         .copied()
         .max()
         .map_or(0, |index| index + 1);
+    let mut plate_edges = front.plate_edges;
+    plate_edges.extend(
+        back.plate_edges
+            .into_iter()
+            .map(|edge| edge.map(|i| i + offset)),
+    );
     let mut positions = front.positions;
     positions.extend(back.positions);
     let mut normals = front.normals;
@@ -161,6 +168,7 @@ fn combine(front: SolidMesh, back: SolidMesh) -> SolidMesh {
             .map(|index| index + front_mid_count),
     );
     SolidMesh {
+        plate_edges,
         positions,
         normals,
         indices,
@@ -242,6 +250,7 @@ pub fn generate_breastplate(
         .collect::<Vec<_>>();
     let morphs = generate_morphs(surface, &base, &solid_morph_samples)?;
     Ok(GeneratedArmor {
+        plate_edges: base.plate_edges,
         components: Vec::new(),
         design_hash: breastplate_design_hash(design)?,
         surface_domain: surface.domain.clone(),

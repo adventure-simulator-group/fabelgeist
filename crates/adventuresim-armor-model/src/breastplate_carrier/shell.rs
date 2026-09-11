@@ -143,9 +143,10 @@ pub(super) fn solidify(mid: MidMesh, thickness: f32) -> Result<SolidMesh, Genera
         indices.extend([outer(*a), outer(*b), outer(*c)]);
         indices.extend([inner(*c), inner(*b), inner(*a)]);
     }
-    for edge in boundary_edges(&mid.faces)? {
+    let rim = boundary_edges(&mid.faces)?;
+    for edge in &rim {
         append_cut_wall(
-            edge,
+            *edge,
             count,
             &mut positions,
             &mut source_mid_indices,
@@ -161,6 +162,10 @@ pub(super) fn solidify(mid: MidMesh, thickness: f32) -> Result<SolidMesh, Genera
         .collect::<Vec<_>>();
     validate_closed_shell(&faces, &welded_indices)?;
     let mut solid = SolidMesh {
+        plate_edges: rim
+            .into_iter()
+            .map(|[a, b]| [a + count, b + count])
+            .collect(),
         positions,
         normals: Vec::new(),
         indices,
