@@ -521,3 +521,53 @@ heavier stock requires a wider bend treatment at the wing returns. It checks
 each piece against the body independently;
 the exported-asset audit above checks the selected neighboring torso pieces.
 These samples do not establish every combination of controls.
+
+## Plate fastenings
+
+`assets_src/equipment/armor-fasteners.json` authors leather retention straps,
+metal buckle frames, tongues, and rivet heads independently of plate shape.
+The studio's fastening controls and `--fastener-designs PATH` feed the same
+geometry in preview, character export, and equipment export. Controls include
+strap width, gauge, count, height, spacing, arc, buckle position, leather color,
+lining allowance, and underarm drop. Dimensions use millimetres; fit does not
+scale the leather gauge with the wearer.
+An arc without room for the selected buckle and return fold is rejected for
+that wearer instead of generating a reversed strip.
+
+Closures follow a taut cross-section around the supporting body and plates.
+Knee and foot closures additionally account for the selected greave recipe.
+Shoulder and elbow closures account for the upper-arm plate. A small assembly
+allowance keeps closures clear of separately attached neighboring plates.
+Descending shoulder bands follow cross-sections at each height along the arm.
+Both endpoints must land on their supporting plate.
+Leather and metal retain separate material components through UV unwrapping,
+normal/AO baking, skinning, and all 47 morph targets. Texture trim applies to
+the plate's authored rims, not to leather or buckle edges.
+
+The tasset item includes its fauld: the two occupy one waist equipment slot.
+Its independent fauld and tasset controls preserve both component identities.
+One to three short buckled hangers support each panel. This attachment layout
+is based on the three upper buckles described for Henry VIII's 1544 armor,
+Met 32.130.7a-l, in
+[Blair and Pyhrr's construction study](https://resources.metmuseum.org/resources/metpublications/pdf/Wilton_Montmorency_Armor_Italian_Armor_for_Henry_VIII_The_Metropolitan_Museum_Journal_v_38_2003.pdf).
+Straps model attachment and retention; they are not a leather tension simulation
+or an articulated hinge/slide solver.
+The tasset tops fit below the fauld hem. Their attachments blend from the
+pelvis to the primary leg joints, preserving the medial gap as hip width
+changes. Each leather wall shares its mate's attachment field.
+
+Audit exported closures against the unposed body, their own plates, and
+declared neighboring plates with:
+
+```sh
+blender --background --python-exit-code 1 \
+  --python scripts/check_fastener_assets.py -- \
+  target/fastener-assets target/body.glb target/fastener-clearance.json
+```
+
+The default sweep uses 189 sampled identity and skeletal configurations.
+`--only neutral` narrows the bodies; `--item couter--left` narrows the reported
+closures while retaining neighboring assets for contact checks. Leather must
+have closed, consistently wound walls and no self-intersections. Contact
+between the metal tongue and frame is intentional. These checks do not claim
+collision-free movement in posed animations or every continuous parameter blend.

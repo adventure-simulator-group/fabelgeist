@@ -115,11 +115,17 @@ fn attach_plates(
     armor: &mut GeneratedArmor,
 ) -> Result<()> {
     let anchor = match design {
+        ParametricDesign::WaistAssembly(_) => {
+            return crate::waist_skin::attach(model, generated, armor);
+        }
         ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_)) => {
             "c_head"
         }
-        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_)) => {
-            return crate::pauldron_skin::attach(model, generated, placement, armor);
+        ParametricDesign::Limb(
+            adventuresim_armor_model::LimbArmorDesign::Pauldron(_)
+            | adventuresim_armor_model::LimbArmorDesign::Spaulder(_),
+        ) => {
+            return crate::shoulder_skin::attach(model, generated, placement, armor);
         }
         _ => return Ok(()),
     };
@@ -249,6 +255,15 @@ pub(super) fn selected(
                 )?
             }
         };
+        let piece = crate::fastener_equipment::attach(
+            model,
+            generated,
+            morphs,
+            catalog,
+            id,
+            &selection.placement_id,
+            piece,
+        )?;
         pieces.push(SelectedArmor {
             item_id: id.clone(),
             name: format!("{id}--{}", selection.placement_id),

@@ -171,6 +171,15 @@ impl EquipmentExporter<'_> {
                 placement_coverage(placement),
             )
         };
+        let armor = crate::fastener_equipment::attach(
+            model,
+            generated,
+            &morphs.samples,
+            self.catalog,
+            &item.id,
+            &placement.id,
+            armor,
+        )?;
         let faces = armor.indices.as_chunks::<3>().0.to_vec();
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
@@ -187,6 +196,7 @@ impl EquipmentExporter<'_> {
                 self.catalog.design(&item.id).as_ref(),
             );
         }
+        crate::character_morphs::component_materials(&armor, &mut rigged_shells);
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),
             &item.id,

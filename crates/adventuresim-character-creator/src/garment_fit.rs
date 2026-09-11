@@ -40,7 +40,7 @@ pub fn fitted_garment(
             limb::fit(design, placement, wearer)
         }
         Kind::Gorget => crate::gorget_fit::fit(design, wearer),
-        _ => skirt(design, wearer),
+        _ => skirt(design, wearer, None),
     }
 }
 
@@ -69,7 +69,23 @@ fn upright(
     })
 }
 
-fn skirt(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
+pub fn suspended_tassets(
+    design: &GarmentArmorDesign,
+    wearer: &Wearer<'_>,
+    top: f32,
+) -> Result<PartMesh> {
+    anyhow::ensure!(
+        design.kind == Kind::Tassets,
+        "suspension requires a tasset panel"
+    );
+    skirt(design, wearer, Some(top))
+}
+
+fn skirt(
+    design: &GarmentArmorDesign,
+    wearer: &Wearer<'_>,
+    attachment_top: Option<f32>,
+) -> Result<PartMesh> {
     let mut frame = wearer.frame(FitRegion::Hips)?;
     if design.kind == Kind::Fauld {
         let adventuresim_armor_model::GarmentPlateShape::Fauld { waist_rise, .. } =
@@ -121,6 +137,9 @@ fn skirt(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
             frame.half_extents[2],
             frame.origin,
         )?;
+    }
+    if let Some(top) = attachment_top {
+        frame.origin[1] += top - (frame.origin[1] + frame.half_extents[1]);
     }
     let mesh = generate_garment_armor(design, &frame)?;
     if design.kind == Kind::Tassets {

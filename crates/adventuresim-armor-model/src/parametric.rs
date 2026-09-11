@@ -157,6 +157,7 @@ impl PartMesh {
             vertices: 0..self.positions.len(),
             indices: 0..self.indices.len(),
             hinge,
+            material: None,
         }];
         self
     }

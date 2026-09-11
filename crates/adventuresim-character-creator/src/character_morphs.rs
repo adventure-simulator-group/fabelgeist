@@ -196,6 +196,19 @@ pub(super) fn armor_targets(armor: &GeneratedArmor) -> Vec<RiggedMorphTarget<'_>
         .collect()
 }
 
+/// Hardware has its own surface, regardless of the catalog's plate material.
+pub(super) fn component_materials(armor: &GeneratedArmor, shells: &mut [RiggedShell<'_>]) {
+    for (component, shell) in armor.components.iter().zip(shells) {
+        if let Some(material) = component.material {
+            shell.base_color = material.base_color;
+            shell.metallic = material.metallic;
+            shell.roughness = material.roughness;
+            shell.textures = None;
+            shell.plate_edges = &[];
+        }
+    }
+}
+
 pub(super) fn rigged_clothing<'a>(
     shell: &'a ClothingShell,
     targets: &'a [RiggedMorphTarget<'a>],
