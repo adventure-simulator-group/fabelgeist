@@ -44,6 +44,23 @@ def build(path, detail, color=None):
                     u, v = uv[loop.vertex_index]
                     layer.data[loop.index].uv = (float(u), float(1 - v))
             surface = asset.doc["materials"][primitive["material"]]
+            if detail and not color:
+                nodes, links = material.node_tree.nodes, material.node_tree.links
+                for channel in ("baseColorTexture", "metallicRoughnessTexture"):
+                    if channel not in pbr:
+                        continue
+                    texture = asset.doc["textures"][pbr[channel]["index"]]
+                    filename = asset.doc["images"][texture["source"]]["uri"]
+                    sampler = nodes.new("ShaderNodeTexImage")
+                    sampler.image = bpy.data.images.load(str((path.parent / filename).resolve()))
+                    if channel == "baseColorTexture":
+                        links.new(sampler.outputs["Color"], shader.inputs["Base Color"])
+                    else:
+                        sampler.image.colorspace_settings.name = "Non-Color"
+                        split = nodes.new("ShaderNodeSeparateXYZ")
+                        links.new(sampler.outputs["Color"], split.inputs[0])
+                        links.new(split.outputs["Y"], shader.inputs["Roughness"])
+                        links.new(split.outputs["Z"], shader.inputs["Metallic"])
             if detail and "normalTexture" in surface:
                 texture = asset.doc["textures"][surface["normalTexture"]["index"]]
                 image = asset.doc["images"][texture["source"]]
@@ -124,7 +141,7 @@ def main():
     scene.render.resolution_x, scene.render.resolution_y = 1000, 800
     scene.world.color = (.18, .18, .18)
     body = build(args.body, False, [.24, .16, .10, 1])
-    original = build(args.source, False)
+    original = build(args.source, True)
     baked = build(args.finished, True)
     low = build(args.finished, True)
     for obj, source in zip(low, baked):

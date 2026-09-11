@@ -84,6 +84,7 @@ pub(super) fn fitted(
     }
     let attributes = SurfaceAttributes::from_pattern(model, &pattern)?;
     let armor = GeneratedArmor {
+        plate_edges: Vec::new(),
         design_hash: adventuresim_armor_model::parametric_design_hash(&serde_json::to_vec(design)?),
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
         positions: mesh.positions,

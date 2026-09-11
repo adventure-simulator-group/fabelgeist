@@ -322,6 +322,8 @@ pub struct ArmorMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedArmor {
+    /// Outer-sheet rim segments in the generated vertex index domain.
+    pub plate_edges: Vec<[u32; 2]>,
     pub components: Vec<crate::ArmorComponent>,
     pub design_hash: [u8; 32],
     pub surface_domain: String,

@@ -61,6 +61,7 @@ pub(super) fn fitted_design(
     }
     let bytes = serde_json::to_vec(design)?;
     let mut armor = GeneratedArmor {
+        plate_edges: mesh.plate_edges(),
         design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
         positions: mesh.positions,
