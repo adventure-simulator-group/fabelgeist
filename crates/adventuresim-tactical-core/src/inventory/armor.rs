@@ -15,8 +15,6 @@ pub struct ArmorItem {
     pub flexibility: f32,
     pub covered_parts: [bool; 7],
     #[reflect(ignore)]
-    pub coverage_spans: [Option<adventuresim_core::combat::ArmorCoverageSpan>; 7],
-    #[reflect(ignore)]
     pub coverage_geometry: [Option<adventuresim_core::combat::AuthoredArmorCoverage>; 7],
     /// Higher authored equipment channels are physically farther from tissue.
     pub layer_order: u8,

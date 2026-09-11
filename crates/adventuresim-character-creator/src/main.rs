@@ -21,6 +21,8 @@ mod equipment_export;
 mod fluting_controls;
 mod parametric_equipment;
 mod review_export;
+mod underlayer_equipment;
+mod underlayer_preview;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 
@@ -36,8 +38,8 @@ use adventuresim_character_creator::{
     clothing::{GarmentSpecification, generate_clothing_shells},
     design_input::load_breastplate_design,
     export::{
-        MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell, RiggedSocket,
-        SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
+        GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
+        RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
     },
     item_catalog_schema::{EquipmentLocation, ItemCatalogDocument, ItemDefinition},
 };
@@ -195,6 +197,7 @@ fn main() -> Result<()> {
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
         .insert_resource(args.clone())
+        .init_resource::<underlayer_preview::MailMaps>()
         .insert_resource(model)
         .insert_resource(catalog)
         .insert_resource(Studio::new(

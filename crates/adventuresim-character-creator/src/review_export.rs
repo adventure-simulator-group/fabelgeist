@@ -17,6 +17,7 @@ pub(super) fn export(
         output.join("body.json"),
         serde_json::to_vec(&serde_json::json!({
             "positions":body.positions,"normals":body.normals,"faces":character.mesh.faces,"recipe":recipe,
+            "texcoords":character.mesh.texcoords,"texcoord_faces":character.mesh.texcoord_faces,
             "joint_names":character.skeleton.names,"joints":body.global_joint_states,
             "joint_indices":character.skin_weights.index,"joint_weights":character.skin_weights.weight,
             "generator_version":adventuresim_armor_model::GENERATOR_VERSION

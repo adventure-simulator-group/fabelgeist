@@ -17,11 +17,7 @@ pub(super) fn forced_armor_contacts(
             let surface = defender
                 .equipment
                 .armor_surface(BodyPart::Chest, coordinate);
-            let geometry = authored_armor_coverage(
-                placement,
-                BodyPart::Chest,
-                defender.equipment.armor[body_part_index(BodyPart::Chest)].coverage,
-            );
+            let geometry = AuthoredArmorCoverage::from_placement(placement, BodyPart::Chest);
             ForcedArmorContactEvidence {
                 armor: "brigandine",
                 coverage_contact,
@@ -32,7 +28,7 @@ pub(super) fn forced_armor_contacts(
                     item: "brigandine",
                     material: equipment.material,
                     geometry,
-                    intersected: geometry.span.contains(coordinate),
+                    intersected: geometry.contains(coordinate),
                     selected: surface.is_some(),
                 }],
                 result: forced_melee_contact(attacker, defender, coordinate, surface),
@@ -56,9 +52,11 @@ pub(super) fn mirrored_vambrace_contacts() -> Result<Vec<MirroredArmorContactEvi
     Ok(cases
         .into_iter()
         .map(|(side, body_part, placement_index, coordinate)| {
-            let geometry =
-                authored_armor_coverage(&equipment.placements[placement_index], body_part, 0.65);
-            let intersected = geometry.span.contains(coordinate);
+            let geometry = AuthoredArmorCoverage::from_placement(
+                &equipment.placements[placement_index],
+                body_part,
+            );
+            let intersected = geometry.contains(coordinate);
             MirroredArmorContactEvidence {
                 side,
                 body_part,

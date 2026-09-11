@@ -127,11 +127,7 @@ pub(super) fn autoresolve_armor_layer_chain(
 ) -> Vec<ArmorLayerTelemetry> {
     let armor = equipment.armor[body_part_index(contact.body_part)];
     let geometry = armor.coverage_geometry;
-    let span = geometry
-        .map(|geometry| geometry.span)
-        .or(armor.coverage_span)
-        .unwrap_or_else(|| ArmorCoverageSpan::centered(armor.coverage));
-    let intersected = span.contains(contact.surface_coordinate);
+    let intersected = geometry.contains(contact.surface_coordinate);
     vec![ArmorLayerTelemetry {
         inventory_item_id: armor.inventory_item_id,
         material: armor.material,

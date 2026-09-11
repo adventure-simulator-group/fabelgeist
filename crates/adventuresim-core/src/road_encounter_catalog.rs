@@ -2422,7 +2422,10 @@ mod tests {
                 if *coverage > 0.0 && *resistance > 0.0 && *padding > 0.0));
         let topology = serde_json::to_string(&doublet.equipment).unwrap();
         assert!(topology.contains(r#""location":"chest","channel":"padding"#));
-        assert!(topology.contains(r#""protection":["chest"]"#));
+        let protection = &doublet.equipment.as_ref().unwrap().placements[0].protection;
+        assert!(protection.contains(&crate::item_catalog::EquipmentBodyPart::Chest));
+        assert!(protection.contains(&crate::item_catalog::EquipmentBodyPart::LeftArm));
+        assert!(protection.contains(&crate::item_catalog::EquipmentBodyPart::RightArm));
         let retainer = crate::bestiary::ThreatId::ArmedRetainer.profile();
         assert_eq!(retainer.combat.attack, crate::bestiary::AttackStyle::Blade);
         assert!(!retainer.combat.ranged);

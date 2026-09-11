@@ -113,18 +113,14 @@ fn spawn_armor(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
         let armor = build.combatant.equipment.armor[body_part_index(part)];
         let material = authored.material.expect("armor material metadata");
         let mut covered_parts = [false; 7];
-        let mut coverage_spans = [None; 7];
         let mut coverage_geometry = [None; 7];
         for authored_part in &placement.protection {
             let body_part = adventuresim_core::equipment::equipment_body_part(*authored_part);
             let part_index = body_part_index(body_part);
             covered_parts[part_index] = true;
-            let geometry = adventuresim_core::combat::authored_armor_coverage(
-                placement,
-                body_part,
-                armor.coverage,
+            let geometry = adventuresim_core::combat::AuthoredArmorCoverage::from_placement(
+                placement, body_part,
             );
-            coverage_spans[part_index] = Some(geometry.span);
             coverage_geometry[part_index] = Some(geometry);
         }
         world.spawn((
@@ -144,13 +140,10 @@ fn spawn_armor(world: &mut World, owner: Entity, build: &MeleeIterationBuild) {
                 padding: armor.padding,
                 flexibility: armor.flexibility,
                 covered_parts,
-                coverage_spans,
                 coverage_geometry,
                 layer_order: placement
-                    .occupancy
-                    .iter()
-                    .map(|occupancy| occupancy.channel.order())
-                    .max()
+                    .outermost_channel()
+                    .map(|channel| channel.order())
                     .unwrap_or_default(),
             },
         ));

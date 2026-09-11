@@ -72,11 +72,14 @@ pub(super) fn export_character(
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
+            shell.textures = adventuresim_character_creator::underlayer_material::textures(
+                catalog.design(&piece.item_id).as_ref(),
+            );
         }
         shells.extend(parts);
     }
     export_rigged_glb(
-        path,
+        GlbOutput::Standalone(path),
         &recipe.name,
         recipe.version,
         model.lod,

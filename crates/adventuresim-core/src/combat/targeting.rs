@@ -20,8 +20,11 @@ const BODY_PART_CONTACT_WEIGHTS: [(BodyPart, f32); 7] = [
 /// surfaces dominate; vulnerable openings remain named, bounded destinations.
 const CHEST_STERNUM_END: f32 = 0.38;
 const CHEST_LATERAL_RIBS_END: f32 = 0.72;
-const CHEST_LOWER_EDGE_END: f32 = 0.85;
-const CHEST_AXILLA_END: f32 = 0.92;
+pub(super) const CHEST_LOWER_EDGE_END: f32 = 0.85;
+pub(super) const CHEST_AXILLA_END: f32 = 0.92;
+/// Structural boundary in the lower-trunk surface coordinate used by both
+/// anatomical targeting and authored coverage; abdominal plates stop here.
+pub(super) const ABDOMEN_END: f32 = 0.85;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -36,6 +39,7 @@ pub enum AnatomicalSubregion {
     ChestNeckline,
     ChestLowerEdge,
     Abdomen,
+    Groin,
     Head,
 }
 
@@ -213,7 +217,8 @@ pub fn anatomical_subregion(body_part: BodyPart, area_sample: f32) -> Anatomical
         BodyPart::RightArm => AnatomicalSubregion::RightArm,
         BodyPart::LeftLeg => AnatomicalSubregion::LeftLeg,
         BodyPart::RightLeg => AnatomicalSubregion::RightLeg,
-        BodyPart::Stomach => AnatomicalSubregion::Abdomen,
+        BodyPart::Stomach if area_sample < ABDOMEN_END => AnatomicalSubregion::Abdomen,
+        BodyPart::Stomach => AnatomicalSubregion::Groin,
         BodyPart::Head => AnatomicalSubregion::Head,
         BodyPart::Chest if area_sample < CHEST_STERNUM_END => AnatomicalSubregion::ChestSternum,
         BodyPart::Chest if area_sample < CHEST_LATERAL_RIBS_END => {

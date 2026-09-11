@@ -6,6 +6,7 @@ mod armor;
 mod capability;
 mod config;
 mod contact_geometry;
+mod coverage;
 mod defense;
 mod fatigue;
 mod fatigue_config;
@@ -16,10 +17,7 @@ mod weapon_contact;
 mod weapon_contact_config;
 mod wounds;
 
-pub use armor::{
-    ArmorCoverageSpan, ArmorImpact, ArmorImpactOutcome, AuthoredArmorCoverage,
-    authored_armor_coverage, authored_armor_coverage_span, layered_armor_contact_index,
-};
+pub use armor::{ArmorImpact, ArmorImpactOutcome};
 pub use capability::{MeleeAttackCapability, melee_attack_capability};
 pub use config::*;
 pub use contact_geometry::{
@@ -27,6 +25,9 @@ pub use contact_geometry::{
     HUMANOID_REFERENCE_ARM_REACH_METRES, MeleeContactAtTime, MeleeContactAtTimeFacts,
     MeleeContactClassification, MeleeContactInvalidationCause, has_distal_striking_surface,
     preferred_melee_striking_measure, resolve_melee_contact_at_time,
+};
+pub use coverage::{
+    ArmorCoverageSegment, ArmorCoverageSpan, AuthoredArmorCoverage, layered_armor_contact_index,
 };
 pub use defense::{
     CommittedThreatChoice, CommittedThreatDecision, CommittedThreatFacts, WeaponDefenseAlignment,
@@ -608,6 +609,9 @@ mod tests {
             flexibility: 0.5,
             range_of_motion: 1.0,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             ..Default::default()
         });
 
@@ -668,6 +672,9 @@ mod tests {
             flexibility: 27.0 / 115.0,
             range_of_motion: 0.78,
             coverage: 0.7475,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(0.7475),
+            ),
             ..Default::default()
         };
 
@@ -1057,6 +1064,9 @@ mod tests {
             flexibility: 0.08,
             range_of_motion: 0.65,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             ..Default::default()
         };
 
@@ -1077,8 +1087,7 @@ mod tests {
             coverage: 0.7,
             inventory_item_id: Some(42),
             material: Some(crate::item_catalog_schema::EquipmentMaterial::RoughSteel),
-            coverage_span: None,
-            coverage_geometry: None,
+            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(0.7)),
         };
         let surface = melee_contact_location(&defender, 0.524, 0.0);
         let gap = melee_contact_location(&defender, 0.689, 0.0);

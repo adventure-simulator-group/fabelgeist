@@ -139,7 +139,7 @@ just generate-procedural-equipment target/morph-assets/equipment
 python scripts/prepare_rig_base.py target/morph-assets/base.glb assets/animations/biped/unarmed/base.glb
 ```
 
-Inspect the staged equipment before copying its GLBs and manifest into
+Inspect the staged equipment before copying its GLBs, shared PNGs and manifest into
 `assets/equipment/procedural`. The base preparation step preserves morph data.
 
 ## Parametric armor authoring
@@ -246,6 +246,13 @@ scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit actual GLB
 winding, skin weights, all 47 morph endpoints and representative blends. Use
 `--allow-partial` only for a deliberately filtered export.
 
+Individual equipment GLBs reference shared `texture-<BLAKE3>.png` files beside
+them. Install those PNGs from the staging directory together with the GLBs;
+their content-addressed names let the runtime reuse each image across pieces.
+Base color remains sRGB, while normal and ambient-occlusion maps remain linear
+through their glTF material roles. Assembled character exports embed their maps
+and remain standalone files.
+
 For static review of the exported identity morphs, run
 `python scripts/export_armor_morph_review.py STAGING_DIRECTORY OUTPUT_DIRECTORY`.
 This evaluates the actual body and armor GLBs at neutral, positive, negative and
@@ -254,9 +261,120 @@ and mesh-check commands above on each resulting directory. Skeletal proportions
 and animation still require the gameplay renderer.
 
 The native `animation-viewer` supports `--armor-harness` with `plate`,
-`plate-tassets`, `mail`, `padded` and `close-helmet`, plus `--hidden` for
+`plate-tassets`, `plate-underlayers`, `underlayers`, `mail`, `padded` and
+`close-helmet`, plus `--hidden` for
 automated captures. `plate-tassets` replaces the fauld with tassets because
 those defenses share a rigid-armor catalog slot. It uses the shared gameplay
 equipment visual plugin and waits for every installed GLB, material, skin and
 morph component; unresolved assets fail the capture. Rebuild it after updating
 the equipment manifest, then capture idle, walking and raised-guard scenarios.
+
+## Body-conforming underlayers
+
+`arming_doublet`, `padded_chausses`, `mail_voiders`, `mail_brayette`,
+`mail_knee_voider`, and `mail_standard` use the `Underlayer` recipe. The doublet
+and hose occupy the padding layer. Voiders attach to the
+doublet's `mail_voiders` attachment point in the flexible-armor layer. Removing
+plate reveals the same clothing and mail; exposed cloth never changes material
+automatically. The doublet now covers the torso and sleeves, so separate quilted
+sleeves conflict with it. Captive plate or helmet linings are not independent
+equipment articles. The brayette independently covers the groin, seat, and
+upper thighs. Knee voiders attach to the matching left or right padded hose;
+removing that hose also removes its attached mail. The optional mail standard
+protects the neck. The plate fixture uses its gorget instead of the standard.
+
+The mesh follows source body triangles with outward standoff. Shading normals
+are corrected against incident face planes before offsetting. Include volumes
+and Boolean subtraction boxes split crossed triangles, interpolate their source
+UVs and skin weights, and close the cut edge with an inner surface. Uncut source
+triangles retain their connectivity. A frozen barycentric cut plan gives every
+morph the same vertices, UVs and triangle indices. Canonical UV seams remain
+split for texturing and physically joined at the garment surface.
+
+Offset directions also satisfy the sampled unposed proportion shapes. The
+shared layer envelope accounts for both local folds and nearby opposing body
+surfaces, including the space between the thighs. Bone-translation checks use
+the same reference offset vectors that the exported mesh retains. These fitting
+constraints do not repair a self-intersecting source body.
+
+Recipe distances are millimetres. `clearance` accepts 1–10 and `thickness` 1–8.
+They describe the uncompressed stack: tight concave body creases reduce both
+distances together using a shared body field. Doublet `length` accepts 700–1200
+permille; hose length accepts 700–1000. `sleeve_length` accepts 500–1000 and
+`patch_width` 35–100 mm. `cuts` contains boxes with `minimum` and `maximum`
+three-coordinate points in the reference body's metre space. Cuts follow the
+body after morphing rather than remaining stationary in world space.
+
+Mail uses shared color/alpha, tangent normal, and ambient-occlusion atlases in
+the body's canonical UVs. Albedo contains a uniform unlit steel color;
+ring relief and recess shading belong to the normal and AO maps. Normal and AO
+channels are linear data; color is sRGB. AO is bound to the native material
+and glTF occlusion channel, never multiplied into albedo. A construction unwrap
+carries the weave around curved panels;
+the atlas is baked back into the original UV layout. Separate torus rings
+provide the weave bake, including overlap and apertures. Production meshes
+remain lightweight skinned surfaces, not individual animated links. Regenerate
+a carrier covering every mail family at maximum width and length before
+rebuilding an atlas:
+
+```powershell
+blender --background --python scripts/unwrap_underlayer_charts.py -- MAIL_REVIEW_DIRECTORY target/mail/charts.json
+blender --background --python scripts/bake_mail_weave.py -- target/mail/weave
+python scripts/bake_underlayer_materials.py target/mail/charts.json target/mail/weave assets_src/equipment/materials
+blender --background --python-exit-code 1 --python scripts/check_underlayer_assets.py -- STAGING_DIRECTORY assets/animations/biped/unarmed/base.glb target/mail/intersections.json
+blender --background --python-exit-code 1 --python scripts/check_underlayer_plate_interfaces.py -- STAGING_DIRECTORY assets/equipment/procedural target/mail/plate-interfaces.json
+```
+
+The intersection checker tests exported triangles against the body and adjacent
+underlayers, all identity basis targets, signed runtime identity bounds,
+representative blends, and skeletal proportion endpoints. It applies skeletal
+fit residuals together with bone translations. It supplements the common GLB
+topology audit and native animation fixture; sampled tests do not establish a
+continuous guarantee over all possible bodies and motions.
+
+Repeat `--only CONFIGURATION_NAME` to run a focused set of unposed cases. The
+report records source-body self-intersections separately; source defects never
+exempt a garment from its intersection checks.
+
+Use `--pose-trace PATH/global-bone-transforms.jsonl` to audit eight sampled
+frames from an actual animation-viewer capture. Keep its `armor-readiness.json`
+and `body-proportions.json` beside the trace: they supply the captured wearer
+configuration. Both proportion and pose audits use the four normalized skin
+influences consumed by Bevy. Exports merge joint
+influences, retain the four strongest, and renormalize them before writing
+`JOINTS_0` and `WEIGHTS_0`. The runtime consumes those four coefficients
+directly; the checker does not divide by a homogeneous weight sum. Linear skinning
+can
+produce intersecting folds, including folds already present in the source body;
+the underlayers do not provide cloth collision resolution. Keep a failing
+intersection report distinct from a successful asset-loading capture.
+
+The neutral plate fixture reserves space for these defaults through its cuirass,
+gorget, fauld, and spaulder clearance parameters. Cuirass section fitting
+preserves the requested front and back clearance after seating its returns.
+Increasing garment thickness still requires checking the assembled kit; changing
+an underlayer does not automatically refit every equipped plate.
+
+Construction references are the Philadelphia Museum of Art's
+[arming doublet, 1977-167-240, c. 1550–1650](https://www.philamuseum.org/objects/71390),
+and the Met's German sixteenth-century
+[armpit defense, 27.183.35](https://www.metmuseum.org/art/collection/search/34856).
+The latter supplies the mail link dimensions: 6.2 mm outside and 4.0 mm inside
+diameter. The Met's
+[half sleeve, 29.158.186](https://www.metmuseum.org/art/collection/search/23246)
+describes attached armpit and elbow gussets. These support separate textile
+foundations and localized mail, not a universal requirement for a full mail
+shirt beneath plate. The fitted hose is a simplified game garment; it is not a
+reconstruction of a photographed surviving padded hose. Period arming dress
+varied, including ordinary hose with local knee padding. Closures, stitching,
+and individual lacing cords are simplified in these meshes.
+
+The brayette's broad hip and seat wrap with a perineal bridge follows the
+[Met's German sixteenth-century brayette, 27.183.14](https://www.metmuseum.org/art/collection/search/34839).
+The optional standing collar follows
+[Met 27.183.8](https://www.metmuseum.org/art/collection/search/34834).
+Longitudinal knee strips adapt the surviving mail in Bavarian Army Museum
+A 6147, illustrated in
+[Christopher Retsch's catalogue, pp. 190-211](https://d-nb.info/139208119X/34).
+That surviving hose contains sewn-in plates; it is evidence for the mail strip
+arrangement, not a claim that the game's padded hose replicates that garment.

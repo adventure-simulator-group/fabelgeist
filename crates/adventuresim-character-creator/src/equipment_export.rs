@@ -181,9 +181,12 @@ impl EquipmentExporter<'_> {
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
+            shell.textures = adventuresim_character_creator::underlayer_material::textures(
+                self.catalog.design(&item.id).as_ref(),
+            );
         }
         export_rigged_glb(
-            &path,
+            GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
             model.lod,
@@ -246,7 +249,7 @@ impl EquipmentExporter<'_> {
         let rigged_mesh = self.mesh();
         let sockets = self.sockets(item, &rigged_mesh, &rigged_shell)?;
         export_rigged_glb(
-            &path,
+            GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
             model.lod,

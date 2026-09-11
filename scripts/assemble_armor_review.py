@@ -23,9 +23,13 @@ assemblies = {
     + paired("spaulder", "rerebrace", "couter", "vambrace", "mitten_gauntlet", "cuisse", "poleyn", "greave", "sabaton"),
     "mail_harness": ["mail_coif--worn", "mail_shirt--worn", "mail_skirt--worn"]
     + paired("mail_sleeve", "mail_chausses", "leather_boot"),
-    "padded_harness": ["arming_cap--worn", "arming_doublet--worn", "padded_skirt--worn"]
-    + paired("quilted_sleeve", "padded_chausses", "leather_boot"),
+    "padded_harness": ["arming_cap--worn", "arming_doublet--worn"]
+    + paired("padded_chausses", "leather_boot"),
+    "underlayers": ["arming_doublet--worn", "mail_voiders--worn", "mail_brayette--worn"]
+    + paired("padded_chausses", "mail_knee_voider"),
 }
+assemblies["plate_underlayers"] = assemblies["plate_harness"] + assemblies["underlayers"]
+assemblies["underlayers"] = assemblies["underlayers"] + ["mail_standard--worn"]
 for name, parts in assemblies.items():
     positions, normals, indices, provenance = [], [], [], []
     for part in parts:

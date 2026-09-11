@@ -9,16 +9,14 @@
     }
   },
   "arming_doublet": {
-    "Garment": {
-      "clearance": 3,
-      "flare": 180,
-      "fluting": null,
+    "Underlayer": {
       "kind": "ArmingDoublet",
-      "lame_count": 4,
+      "clearance": 4,
+      "thickness": 1,
       "length": 1000,
-      "plate_shape": "None",
-      "waist": 900,
-      "wall_thickness": 5
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
     }
   },
   "barbute": {
@@ -190,7 +188,7 @@
         },
         "gauge": {
           "clearance": 10,
-          "thickness": 2
+          "thickness": 1
         },
         "length": 900,
         "wing": 450,
@@ -217,7 +215,7 @@
         },
         "gauge": {
           "clearance": 6,
-          "thickness": 2
+          "thickness": 1
         },
         "knee_taper": 740,
         "length": 920,
@@ -228,7 +226,7 @@
   },
   "fauld": {
     "Garment": {
-      "clearance": 3,
+      "clearance": 10,
       "flare": 180,
       "fluting": {
         "count": 10,
@@ -255,7 +253,7 @@
   },
   "gorget": {
     "Garment": {
-      "clearance": 4,
+      "clearance": 12,
       "flare": 180,
       "fluting": {
         "count": 10,
@@ -277,7 +275,7 @@
           "collar_slope": 750,
           "front_depth": 1250,
           "hem_flatness": 250,
-          "neck_clearance": 5,
+          "neck_clearance": 13,
           "rear_hem_flatness": 1000,
           "rear_sweep": 850,
           "front_width": 1000,
@@ -297,7 +295,7 @@
         "fluting": null,
         "gauge": {
           "clearance": 10,
-          "thickness": 2
+          "thickness": 1
         },
         "knee_taper": 880,
         "length": 970,
@@ -416,6 +414,17 @@
       "wall_thickness": 3
     }
   },
+  "mail_voiders": {
+    "Underlayer": {
+      "kind": "MailVoiders",
+      "clearance": 6,
+      "thickness": 1,
+      "length": 1000,
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
+    }
+  },
   "mitten_gauntlet": {
     "Limb": {
       "MittenGauntlet": {
@@ -434,7 +443,7 @@
         },
         "gauge": {
           "clearance": 4,
-          "thickness": 2
+          "thickness": 1
         },
         "knuckle_ridge": 0,
         "knuckle_width": 1000,
@@ -465,16 +474,14 @@
     }
   },
   "padded_chausses": {
-    "Garment": {
-      "clearance": 3,
-      "flare": 180,
-      "fluting": null,
-      "kind": "PaddedChausses",
-      "lame_count": 4,
+    "Underlayer": {
+      "kind": "PaddedHose",
+      "clearance": 1,
+      "thickness": 2,
       "length": 1000,
-      "plate_shape": "None",
-      "waist": 900,
-      "wall_thickness": 5
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
     }
   },
   "padded_skirt": {
@@ -622,7 +629,7 @@
           "width": 750
         },
         "gauge": {
-          "clearance": 16,
+          "clearance": 24,
           "thickness": 2
         },
         "lame_count": 4,
@@ -693,6 +700,39 @@
         "visor_height": 55,
         "visor_projection": 12
       }
+    }
+  },
+  "mail_brayette": {
+    "Underlayer": {
+      "kind": "MailBrayette",
+      "clearance": 6,
+      "thickness": 1,
+      "length": 1000,
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
+    }
+  },
+  "mail_knee_voider": {
+    "Underlayer": {
+      "kind": "MailKneeVoider",
+      "clearance": 6,
+      "thickness": 1,
+      "length": 1000,
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
+    }
+  },
+  "mail_standard": {
+    "Underlayer": {
+      "kind": "MailStandard",
+      "clearance": 6,
+      "thickness": 1,
+      "length": 1000,
+      "sleeve_length": 1000,
+      "patch_width": 80,
+      "cuts": []
     }
   }
 }

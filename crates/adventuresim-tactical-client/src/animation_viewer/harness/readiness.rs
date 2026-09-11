@@ -3,6 +3,7 @@ use crate::equipment::{
     ItemPlaceholder, ProceduralEquipmentFailed, ProceduralEquipmentPart,
     ProceduralEquipmentResolved,
 };
+use crate::presentation::interior_lighting::InteriorMaterial;
 use bevy::{
     ecs::system::SystemParam,
     mesh::{morph::MeshMorphWeights, skinning::SkinnedMesh},
@@ -30,6 +31,7 @@ type EquipmentRenderPart = (
     Option<&'static SkinnedMesh>,
     Option<&'static MeshMorphWeights>,
     Option<&'static Name>,
+    Option<&'static MeshMaterial3d<InteriorMaterial>>,
 );
 
 /// Readiness requires a resolved procedural mesh, its material and a bound skin.
@@ -48,6 +50,8 @@ pub(in crate::animation_viewer) struct EquipmentVisualStatus<'w, 's> {
     parts: Query<'w, 's, EquipmentRenderPart>,
     meshes: Res<'w, Assets<Mesh>>,
     materials: Res<'w, Assets<StandardMaterial>>,
+    images: Res<'w, Assets<Image>>,
+    render_materials: Option<Res<'w, Assets<InteriorMaterial>>>,
 }
 
 impl EquipmentVisualStatus<'_, '_> {
@@ -68,7 +72,7 @@ impl EquipmentVisualStatus<'_, '_> {
         }
         let mut count = 0;
         let mut names = std::collections::BTreeSet::new();
-        for (part, mesh, material, skin, morphs, name) in
+        for (part, mesh, material, skin, morphs, name, _) in
             self.parts.iter().filter(|(part, ..)| part.item == item)
         {
             count += 1;
@@ -78,6 +82,11 @@ impl EquipmentVisualStatus<'_, '_> {
             let Some(mesh) = self.meshes.get(&mesh.0) else {
                 return EquipmentVisualState::Loading;
             };
+            if super::skinning::WeightSummary::from_mesh(mesh)
+                .is_none_or(|weights| !weights.valid())
+            {
+                return EquipmentVisualState::Failed;
+            }
             if required.morph_targets.is_some_and(|count| {
                 mesh.morph_target_names().is_none_or(|names| names.len() != count)
                     || !matches!(morphs, Some(MeshMorphWeights::Value { weights })
@@ -85,14 +94,21 @@ impl EquipmentVisualStatus<'_, '_> {
             }) {
                 return EquipmentVisualState::Loading;
             }
-            if self.materials.get(&material.0).is_none()
-                || skin.is_none_or(|skin| {
-                    skin.joints.is_empty() || skin.joints.len() != part.joint_names.len()
-                })
-                || (mesh
-                    .morph_target_names()
-                    .is_some_and(|names| !names.is_empty())
-                    && morphs.is_none())
+            if self.materials.get(&material.0).is_none_or(|material| {
+                [
+                    &material.base_color_texture,
+                    &material.normal_map_texture,
+                    &material.occlusion_texture,
+                ]
+                .into_iter()
+                .flatten()
+                .any(|texture| self.images.get(texture).is_none())
+            }) || skin.is_none_or(|skin| {
+                skin.joints.is_empty() || skin.joints.len() != part.joint_names.len()
+            }) || (mesh
+                .morph_target_names()
+                .is_some_and(|names| !names.is_empty())
+                && morphs.is_none())
             {
                 return EquipmentVisualState::Loading;
             }
@@ -111,14 +127,21 @@ impl EquipmentVisualStatus<'_, '_> {
         self.parts
             .iter()
             .filter(|(part, ..)| part.item == item)
-            .map(|(part, mesh, material, skin, morphs, name)| {
+            .map(|(part, mesh, material, skin, morphs, name, rendered)| {
                 let mesh = self.meshes.get(&mesh.0);
+                let source = self.materials.get(&material.0);
+                let rendered = rendered.and_then(|handle| {
+                    self.render_materials.as_ref()?.get(&handle.0).map(|material| &material.base)
+                });
                 serde_json::json!({
                     "name": name.map(Name::as_str),
                     "mesh_loaded": mesh.is_some(),
-                    "material_loaded": self.materials.get(&material.0).is_some(),
+                    "material_loaded": source.is_some(),
+                    "source_material_textures": source.map(|material| super::material::textures(material, &self.images)),
+                    "render_material_textures": rendered.map(|material| super::material::textures(material, &self.images)),
                     "skin_joints": skin.map(|skin| skin.joints.len()),
                     "expected_skin_joints": part.joint_names.len(),
+                    "primary_skin_weights": mesh.and_then(super::skinning::WeightSummary::from_mesh),
                     "morph_targets": mesh.and_then(Mesh::morph_target_names).map(<[String]>::len),
                     "morph_weights": match morphs {
                         Some(MeshMorphWeights::Value { weights }) => Some(weights),
@@ -140,11 +163,13 @@ mod tests {
         let mut world = World::new();
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
+        world.init_resource::<Assets<Image>>();
         let item = world.spawn_empty().id();
         world.spawn((ItemPlaceholder(item), ProceduralEquipmentResolved));
         let required = super::super::ArmorHarness::CloseHelmet.visual_requirements();
         let morph_count = required.morph_targets.unwrap();
         let mut mesh = Mesh::new(bevy::mesh::PrimitiveTopology::TriangleList, default());
+        mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[1.0, 0.0, 0.0, 0.0]]);
         mesh.set_morph_target_names(
             (0..morph_count)
                 .map(|index| format!("fit_{index}"))
@@ -185,6 +210,34 @@ mod tests {
             );
         }
         assert_eq!(state(&mut world), EquipmentVisualState::Ready);
+        world
+            .resource_mut::<Assets<Mesh>>()
+            .get_mut(&mesh)
+            .unwrap()
+            .insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[0.4, 0.3, 0.2, 0.0]]);
+        assert_eq!(state(&mut world), EquipmentVisualState::Failed);
+        world
+            .resource_mut::<Assets<Mesh>>()
+            .get_mut(&mesh)
+            .unwrap()
+            .insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, vec![[0.4, 0.3, 0.2, 0.1]]);
+        assert_eq!(state(&mut world), EquipmentVisualState::Ready);
+        let normal = world.resource_mut::<Assets<Image>>().add(Image::default());
+        world
+            .resource_mut::<Assets<StandardMaterial>>()
+            .get_mut(&material)
+            .unwrap()
+            .normal_map_texture = Some(normal.clone());
+        let pixels = world
+            .resource_mut::<Assets<Image>>()
+            .remove(normal.id())
+            .unwrap();
+        assert_eq!(state(&mut world), EquipmentVisualState::Loading);
+        world
+            .resource_mut::<Assets<Image>>()
+            .insert(normal.id(), pixels)
+            .unwrap();
+        assert_eq!(state(&mut world), EquipmentVisualState::Ready);
         world.entity_mut(entities[2]).remove::<SkinnedMesh>();
         assert_eq!(state(&mut world), EquipmentVisualState::Loading);
         world.entity_mut(entities[2]).insert(SkinnedMesh {
@@ -213,6 +266,7 @@ mod tests {
         let mut world = World::new();
         world.init_resource::<Assets<Mesh>>();
         world.init_resource::<Assets<StandardMaterial>>();
+        world.init_resource::<Assets<Image>>();
         let item = world.spawn_empty().id();
         let state = |world: &mut World| {
             world

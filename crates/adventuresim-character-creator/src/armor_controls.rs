@@ -36,6 +36,7 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
                 ParametricDesign::Limb(d) => limb::show(ui, d),
                 ParametricDesign::Helmet(d) => helmet::show(ui, d),
                 ParametricDesign::Garment(d) => garment(ui, d),
+                ParametricDesign::Underlayer(d) => underlayer(ui, d),
             })
             .body_returned
             .unwrap_or(false);
@@ -73,6 +74,49 @@ fn save(catalog: &EquipmentCatalog, studio: &Studio) -> anyhow::Result<()> {
         &studio.bracer_design,
         &studio.breastplate_design,
     )
+}
+
+fn underlayer(
+    ui: &mut egui::Ui,
+    d: &mut adventuresim_character_creator::underlayer::UnderlayerDesign,
+) -> bool {
+    use adventuresim_character_creator::underlayer::{self, UnderlayerKind};
+    let mut changed = number(
+        ui,
+        &mut d.clearance.0,
+        underlayer::CLEARANCE_MM,
+        "Body clearance (mm)",
+    );
+    changed |= number(
+        ui,
+        &mut d.thickness.0,
+        underlayer::THICKNESS_MM,
+        "Material thickness (mm)",
+    );
+    if d.kind != UnderlayerKind::MailVoiders {
+        let range = d.length_range();
+        changed |= number(ui, &mut d.length.0, range, "Garment length");
+        if d.kind == UnderlayerKind::ArmingDoublet {
+            changed |= number(
+                ui,
+                &mut d.sleeve_length.0,
+                underlayer::SLEEVE_LENGTH,
+                "Sleeve length",
+            );
+        }
+    }
+    if matches!(
+        d.kind,
+        UnderlayerKind::MailVoiders | UnderlayerKind::MailKneeVoider | UnderlayerKind::MailStandard
+    ) {
+        changed |= number(
+            ui,
+            &mut d.patch_width.0,
+            underlayer::PATCH_WIDTH_MM,
+            "Mail patch width (mm)",
+        );
+    }
+    changed
 }
 
 fn garment(ui: &mut egui::Ui, d: &mut GarmentArmorDesign) -> bool {

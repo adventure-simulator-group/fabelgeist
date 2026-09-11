@@ -18,6 +18,8 @@ pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
 pub mod export;
 pub mod proportions;
+pub mod surface_cut;
+pub mod underlayer;
 pub use adventuresim_core::item_catalog_schema;
 
 use serde::{Deserialize, Serialize};
@@ -177,3 +179,5 @@ mod tests {
         assert!(recipe.clothing.is_empty());
     }
 }
+
+pub mod underlayer_material;

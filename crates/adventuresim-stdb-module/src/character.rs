@@ -3084,12 +3084,7 @@ fn equip_equipment_internal(
             .iter()
             .find(|point| point.id == point_id)
             .ok_or_else(|| format!("Parent has no attachment point {point_id}"))?;
-        if !attachment_point_matches_requirement(point, *requirement) {
-            return Err(format!(
-                "Attachment point {point_id} uses {:?} order {}, but placement requires {:?} order {}",
-                point.channel, point.order, requirement.channel, requirement.order
-            ));
-        }
+        occupancy::validate_attachment_requirement(ctx, parent_id, point, *requirement)?;
         if !point.accepts_tags.is_empty()
             && !definition
                 .attachment_tags
@@ -3942,6 +3937,7 @@ mod starting_character_boundary_tests {
         assert!(!hand_only_placement_is_held_root(&placement));
         placement.occupancy.pop();
         placement.parents.push(ParentRequirement {
+            location: None,
             channel: EquipmentChannel::Containment,
             order: 0,
         });
@@ -3960,6 +3956,7 @@ mod starting_character_boundary_tests {
             parent_placement(
                 "mounted",
                 vec![ParentRequirement {
+                    location: None,
                     channel: EquipmentChannel::Mount,
                     order: 0,
                 }],
@@ -3968,10 +3965,12 @@ mod starting_character_boundary_tests {
                 "two_parents",
                 vec![
                     ParentRequirement {
+                        location: None,
                         channel: EquipmentChannel::Containment,
                         order: 0,
                     },
                     ParentRequirement {
+                        location: None,
                         channel: EquipmentChannel::Containment,
                         order: 0,
                     },
@@ -3980,6 +3979,7 @@ mod starting_character_boundary_tests {
             parent_placement(
                 "wrong_order",
                 vec![ParentRequirement {
+                    location: None,
                     channel: EquipmentChannel::Containment,
                     order: 1,
                 }],
@@ -3987,6 +3987,7 @@ mod starting_character_boundary_tests {
             parent_placement(
                 "sheathed",
                 vec![ParentRequirement {
+                    location: None,
                     channel: EquipmentChannel::Containment,
                     order: 0,
                 }],
@@ -4042,6 +4043,7 @@ mod starting_character_boundary_tests {
         assert!(attachment_point_matches_requirement(
             &point,
             ParentRequirement {
+                location: None,
                 channel: EquipmentChannel::Mount,
                 order: 1,
             }
@@ -4049,6 +4051,7 @@ mod starting_character_boundary_tests {
         assert!(!attachment_point_matches_requirement(
             &point,
             ParentRequirement {
+                location: None,
                 channel: EquipmentChannel::Mount,
                 order: 0,
             }
