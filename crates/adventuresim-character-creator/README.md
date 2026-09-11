@@ -331,9 +331,9 @@ to `scripts/finish_equipment.py` for a different finish document. Python needs
 NumPy and Pillow. Regenerate before changing an already applied finish.
 
 The document has `defaults` and per-item `items` overrides. Patterns are `none`,
-`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1–30 mm;
-`repeats` accepts 1–128 repetitions around each closed rim. `color` is an sRGB
-`#RRGGBB` value; `metallic` and `roughness` accept 0–1. The vine is a stylized
+`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1â€“30 mm;
+`repeats` accepts 1â€“128 repetitions around each closed rim. `color` is an sRGB
+`#RRGGBB` value; `metallic` and `roughness` accept 0â€“1. The vine is a stylized
 ornament, not an exact historical engraving reproduction.
 
 Generators record the outer-sheet boundaries before closing plate returns.
