@@ -6,6 +6,11 @@ use serde::{Deserialize, Serialize};
 #[path = "item_catalog_fit.rs"]
 mod fit;
 pub use fit::EquipmentFitZone;
+#[path = "item_catalog_surface.rs"]
+mod surface;
+pub use surface::{
+    EquipmentAnatomicalRegion, EquipmentSurfaceSpan, MAX_EQUIPMENT_SURFACE_SEGMENTS, SurfaceAnchor,
+};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -102,6 +107,17 @@ pub struct EquipmentPlacement {
     pub surface: Vec<EquipmentSurfaceSpan>,
 }
 
+impl EquipmentPlacement {
+    /// Physical layer order also applies to garments carried by attachment points.
+    pub fn outermost_channel(&self) -> Option<EquipmentChannel> {
+        self.occupancy
+            .iter()
+            .map(|entry| entry.channel)
+            .chain(self.parents.iter().map(|entry| entry.channel))
+            .max_by_key(|channel| channel.order())
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum EquipmentMaterial {
@@ -115,43 +131,6 @@ pub enum EquipmentMaterial {
     QuiltedTextile,
     Hardwood,
     Lead,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct EquipmentSurfaceSpan {
-    /// Ordered proximal-to-distal anatomical chain. More than one region makes
-    /// a continuous span across multiple bones.
-    pub regions: Vec<EquipmentAnatomicalRegion>,
-    /// Which end remains fixed while the other end is clipped to `coverage`.
-    pub anchor: SurfaceAnchor,
-    /// Fraction of the combined region-chain length retained.
-    pub coverage: f32,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum SurfaceAnchor {
-    Proximal,
-    Distal,
-    Center,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum EquipmentAnatomicalRegion {
-    Head,
-    Neck,
-    Chest,
-    Stomach,
-    LeftUpperArm,
-    LeftForearm,
-    RightUpperArm,
-    RightForearm,
-    LeftThigh,
-    LeftLowerLeg,
-    RightThigh,
-    RightLowerLeg,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
@@ -229,6 +208,10 @@ pub struct ParentRequirement {
     pub channel: EquipmentChannel,
     #[serde(default)]
     pub order: u16,
+    /// Required body location reached through the supporting parent's graph.
+    /// A sided attachment must not bind to the opposite limb's garment.
+    #[serde(default)]
+    pub location: Option<EquipmentLocation>,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -601,6 +584,7 @@ mod tests {
             order: 2,
         };
         let parent = ParentRequirement {
+            location: Some(EquipmentLocation::RightLeg),
             channel: EquipmentChannel::Containment,
             order: 1,
         };

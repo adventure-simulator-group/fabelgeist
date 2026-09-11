@@ -9,8 +9,7 @@ pub struct CombatArmor {
     pub flexibility: f32,
     pub range_of_motion: f32,
     pub coverage: f32,
-    pub coverage_span: Option<ArmorCoverageSpan>,
-    pub coverage_geometry: Option<AuthoredArmorCoverage>,
+    pub coverage_geometry: AuthoredArmorCoverage,
 }
 
 impl CombatArmor {
@@ -24,8 +23,7 @@ impl CombatArmor {
             flexibility: 0.5,
             range_of_motion: 1.0,
             coverage: 1.0,
-            coverage_span: Some(ArmorCoverageSpan::centered(1.0)),
-            coverage_geometry: None,
+            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(1.0)),
         }
     }
 }
@@ -206,9 +204,6 @@ impl PlayerEquipment for CombatEquipment {
         let armor = self.armor[body_part_index(part)];
         armor
             .coverage_geometry
-            .map(|geometry| geometry.span)
-            .or(armor.coverage_span)
-            .unwrap_or_else(|| ArmorCoverageSpan::centered(armor.coverage))
             .contains(sample)
             .then_some(crate::equipment::ArmorSurface {
                 inventory_item_id: armor.inventory_item_id,

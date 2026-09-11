@@ -75,6 +75,10 @@ impl BodyProportion {
             Self::FootLength => 0.1,
         }
     }
+
+    pub fn generated_limit(self) -> f32 {
+        self.limit() * GENERATED_RANGE_FRACTION
+    }
 }
 
 /// Absolute MHR skeletal coefficients. Zero is the reference skeleton.

@@ -211,6 +211,14 @@ pub(super) fn section_clearance_fit(
     design: &BreastplateDesign,
 ) -> Result<FitProfile, GenerateError> {
     let original = mesh.positions.clone();
+    // Seating and section correction must preserve the requested inner room,
+    // including where a lateral return approaches a mail-covered armpit.
+    let clearance = if rear {
+        design.back_clearance.metres()
+    } else {
+        design.front_clearance.metres()
+    }
+    .max(FIT_SURFACE_MARGIN);
     let bottom = if rear {
         BACK_HEIGHTS[0]
     } else {
@@ -234,7 +242,7 @@ pub(super) fn section_clearance_fit(
             let Some(body_radius) = body_radial_extent(*position, direction, wearer) else {
                 continue;
             };
-            let residual = body_radius + FIT_SURFACE_MARGIN - radius;
+            let residual = body_radius + clearance - radius;
             if residual > 1e-5 && constraint.is_none_or(|current| residual > current.0) {
                 constraint = Some((
                     residual,

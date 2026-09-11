@@ -406,7 +406,7 @@ fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> 
         for authored_part in &placement.protection {
             let part = crate::equipment::equipment_body_part(*authored_part);
             let coverage_geometry =
-                crate::combat::authored_armor_coverage(placement, part, coverage);
+                crate::combat::AuthoredArmorCoverage::from_placement(placement, part);
             equipment.armor[body_part_index(part)] = CombatArmor {
                 inventory_item_id: Some(stable_id(&format!("{armor_id}:{occurrence}"))),
                 material: authored.material,
@@ -415,8 +415,7 @@ fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> 
                 flexibility,
                 range_of_motion,
                 coverage,
-                coverage_span: Some(coverage_geometry.span),
-                coverage_geometry: Some(coverage_geometry),
+                coverage_geometry,
             };
         }
         equipment.inventory_weight += armor.weight_kg;
@@ -564,8 +563,16 @@ mod tests {
                 first
                     .iter()
                     .all(|resolution| *resolution != BattleResolution::Timeout),
-                "{} did not reach a victor",
-                opponent.name
+                "{} did not reach a victor (timeout seeds {:?})",
+                opponent.name,
+                first
+                    .iter()
+                    .enumerate()
+                    .filter_map(
+                        |(index, resolution)| (*resolution == BattleResolution::Timeout)
+                            .then_some(index + 1)
+                    )
+                    .collect::<Vec<_>>()
             );
         }
     }
@@ -757,8 +764,18 @@ mod tests {
         let left_gap = &evidence.mirrored_vambrace_contacts[2];
         let right_gap = &evidence.mirrored_vambrace_contacts[3];
         assert_eq!(
-            left_surface.layer.geometry.span,
-            right_surface.layer.geometry.span
+            left_surface
+                .layer
+                .geometry
+                .segments()
+                .map(|s| s.span)
+                .collect::<Vec<_>>(),
+            right_surface
+                .layer
+                .geometry
+                .segments()
+                .map(|s| s.span)
+                .collect::<Vec<_>>()
         );
         assert!(left_surface.layer.intersected && right_surface.layer.intersected);
         assert!(!left_gap.layer.intersected && !right_gap.layer.intersected);

@@ -98,6 +98,19 @@ mod tests {
             [0.0, 0.0, 1.0],
         ];
         let normals = [[0.0, 0.0, 1.0]; 4];
+        let texcoords = [[0.0, 0.0], [0.2, 0.3], [0.4, 0.6], [0.8, 0.9]];
+        let maps = SurfaceTextures {
+            base_color_png: include_bytes!(
+                "../../../../assets_src/equipment/materials/mail-base-color.png"
+            ),
+            normal_png: include_bytes!(
+                "../../../../assets_src/equipment/materials/mail-normal.png"
+            ),
+            occlusion_png: Some(include_bytes!(
+                "../../../../assets_src/equipment/materials/mail-occlusion.png"
+            )),
+            cutout: true,
+        };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let names = ["c_head".to_owned()];
@@ -125,6 +138,8 @@ mod tests {
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            textures: Some(maps),
+            texcoords: Some(&texcoords),
             name,
             hinge: (name != "skull").then_some(hinge),
             positions: &positions,
@@ -138,7 +153,7 @@ mod tests {
             roughness: 0.2,
         });
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "close_helmet",
             1,
             1,
@@ -161,12 +176,67 @@ mod tests {
         .unwrap();
         let bytes = std::fs::read(&path).unwrap();
         let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
+        assert_eq!(parsed.images().count(), 9);
+        for (image, expected) in parsed.images().zip(
+            [
+                maps.base_color_png,
+                maps.normal_png,
+                maps.occlusion_png.unwrap(),
+            ]
+            .repeat(3),
+        ) {
+            let gltf::image::Source::View { view, mime_type } = image.source() else {
+                panic!("surface images must be embedded");
+            };
+            assert_eq!(mime_type, "image/png");
+            assert_eq!(
+                &parsed.blob.as_ref().unwrap()[view.offset()..view.offset() + view.length()],
+                expected
+            );
+        }
         assert_eq!(parsed.meshes().count(), 3);
         for (mesh, expected) in parsed.meshes().zip(["skull", "bevor", "visor"]) {
             assert_eq!(mesh.name(), Some(expected));
             assert_eq!(mesh.weights().unwrap(), &[0.0; 47]);
             let primitive = mesh.primitives().next().unwrap();
             let reader = primitive.reader(|_| parsed.blob.as_deref());
+            assert_eq!(
+                reader
+                    .read_tex_coords(0)
+                    .unwrap()
+                    .into_f32()
+                    .collect::<Vec<_>>(),
+                texcoords[1..]
+            );
+            assert_eq!(
+                primitive.material().alpha_mode(),
+                gltf::material::AlphaMode::Mask
+            );
+            assert!(primitive.material().normal_texture().is_some());
+            let material = primitive.material();
+            let color = material
+                .pbr_metallic_roughness()
+                .base_color_texture()
+                .unwrap();
+            let normal = material.normal_texture().unwrap();
+            let occlusion = material.occlusion_texture().unwrap();
+            assert_eq!(occlusion.strength(), 1.0);
+            assert_ne!(color.texture().index(), normal.texture().index());
+            assert_ne!(color.texture().index(), occlusion.texture().index());
+            assert_ne!(normal.texture().index(), occlusion.texture().index());
+            for (texture, expected) in [
+                (color.texture(), maps.base_color_png),
+                (normal.texture(), maps.normal_png),
+                (occlusion.texture(), maps.occlusion_png.unwrap()),
+            ] {
+                let gltf::image::Source::View { view, .. } = texture.source().source() else {
+                    panic!("material channels must use their embedded images");
+                };
+                assert_eq!(
+                    &parsed.blob.as_ref().unwrap()[view.offset()..view.offset() + view.length()],
+                    expected
+                );
+            }
             assert_eq!(
                 reader.read_positions().unwrap().collect::<Vec<_>>(),
                 positions[1..]

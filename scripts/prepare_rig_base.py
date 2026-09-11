@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import pathlib
 import struct
 import sys
@@ -75,7 +76,38 @@ def read_glb(path: pathlib.Path) -> tuple[dict, bytes]:
     return document, binary
 
 
-def validate_and_prepare(document: dict) -> dict:
+def validate_skin_weights(document: dict, binary: bytes, attributes: dict,
+                          vertex_count: int, joint_count: int) -> None:
+    """Runtime uses four weights as affine coefficients without dividing by w."""
+    skin_attributes = {key for key in attributes if key.startswith(("JOINTS_", "WEIGHTS_"))}
+    if skin_attributes != {"JOINTS_0", "WEIGHTS_0"}:
+        raise GlbError("runtime requires exactly four skin influences")
+    try:
+        for name, component, format in [("WEIGHTS_0", 5126, "<4f"), ("JOINTS_0", 5123, "<4H")]:
+            accessor = document["accessors"][attributes[name]]
+            view = document["bufferViews"][accessor["bufferView"]]
+            width = struct.calcsize(format)
+            stride = view.get("byteStride", width)
+            relative = accessor.get("byteOffset", 0)
+            offset = view.get("byteOffset", 0) + relative
+            if (accessor["type"] != "VEC4" or accessor["componentType"] != component
+                    or accessor["count"] != vertex_count or vertex_count <= 0
+                    or view.get("buffer", 0) != 0 or stride < width or offset < 0
+                    or relative < 0 or relative + (vertex_count - 1) * stride + width > view["byteLength"]):
+                raise GlbError("invalid primary skin accessor")
+            for index in range(vertex_count):
+                values = struct.unpack_from(format, binary, offset + index * stride)
+                if name == "WEIGHTS_0":
+                    if (any(not math.isfinite(value) or value < 0 for value in values)
+                            or abs(sum(values) - 1) > 1e-4):
+                        raise GlbError(f"vertex {index} primary skin weights must sum to one")
+                elif any(value >= joint_count for value in values):
+                    raise GlbError(f"vertex {index} references a missing joint")
+    except (KeyError, IndexError, TypeError, struct.error) as error:
+        raise GlbError(f"invalid primary skin accessor: {error}") from error
+
+
+def validate_and_prepare(document: dict, binary: bytes) -> dict:
     if not isinstance(document, dict):
         raise GlbError("top-level JSON must be an object")
     nodes = document.get("nodes")
@@ -154,9 +186,11 @@ def validate_and_prepare(document: dict) -> dict:
     if not isinstance(primitives, list) or len(primitives) != 1:
         raise GlbError("expected exactly one MHR mesh primitive")
     attributes = primitives[0].get("attributes") if isinstance(primitives[0], dict) else None
-    required_attributes = {"POSITION", "NORMAL", "JOINTS_0", "WEIGHTS_0", "JOINTS_1", "WEIGHTS_1"}
+    required_attributes = {"POSITION", "NORMAL", "JOINTS_0", "WEIGHTS_0"}
     if not isinstance(attributes, dict) or not required_attributes.issubset(attributes):
         raise GlbError("MHR mesh is missing required geometry or skinning attributes")
+    validate_skin_weights(document, binary, attributes,
+                          document["accessors"][attributes["POSITION"]]["count"], len(joints))
     if not isinstance(skins[0].get("inverseBindMatrices"), int):
         raise GlbError("MHR skin is missing inverse bind matrices")
 
@@ -197,7 +231,7 @@ def main() -> int:
     args = parser.parse_args()
     try:
         document, binary = read_glb(args.source)
-        prepared = encode_glb(validate_and_prepare(document), binary)
+        prepared = encode_glb(validate_and_prepare(document, binary), binary)
     except (OSError, GlbError) as error:
         print(f"base rig preparation failed: {error}", file=sys.stderr)
         return 1

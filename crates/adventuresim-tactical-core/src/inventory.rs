@@ -737,7 +737,6 @@ mod tests {
             padding: 30.0,
             flexibility: 0.8,
             covered_parts: [false, false, false, false, true, false, false],
-            coverage_spans: [None; 7],
             coverage_geometry: [None; 7],
             layer_order: 0,
         };
@@ -750,7 +749,6 @@ mod tests {
             padding: 10.0,
             flexibility: 0.2,
             covered_parts: [false, false, false, false, true, false, false],
-            coverage_spans: [None; 7],
             coverage_geometry: [None; 7],
             layer_order: 0,
         };
@@ -773,7 +771,6 @@ mod tests {
             padding: 3.0,
             flexibility: 0.75,
             covered_parts: [true, true, false, false, false, false, false],
-            coverage_spans: [None; 7],
             coverage_geometry: [None; 7],
             layer_order: 0,
         };

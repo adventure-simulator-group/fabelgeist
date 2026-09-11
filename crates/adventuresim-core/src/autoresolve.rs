@@ -556,7 +556,7 @@ impl std::fmt::Display for BattleAttackOutcome {
 pub struct ArmorLayerTelemetry {
     pub inventory_item_id: Option<u64>,
     pub material: Option<crate::item_catalog_schema::EquipmentMaterial>,
-    pub geometry: Option<AuthoredArmorCoverage>,
+    pub geometry: AuthoredArmorCoverage,
     pub intersected: bool,
     pub selected: bool,
 }
@@ -1768,6 +1768,9 @@ mod tests {
             resistance: 25.0,
             padding: 15.0,
             coverage: 0.8,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(0.8),
+            ),
             ..CombatArmor::default()
         });
         assert!(autoresolve_combat_power(&armored) > autoresolve_combat_power(&novice));
@@ -1805,6 +1808,9 @@ mod tests {
             resistance: 25.0,
             padding: 15.0,
             coverage: 0.8,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(0.8),
+            ),
             flexibility: 0.8,
             ..CombatArmor::default()
         };
@@ -1823,6 +1829,9 @@ mod tests {
             resistance: f32::INFINITY,
             padding: f32::MAX,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             range_of_motion: 0.5,
             ..CombatArmor::default()
         });
@@ -2137,6 +2146,9 @@ mod tests {
             padding: 10_000.0,
             range_of_motion: 1.0,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             ..CombatArmor::default()
         };
 
@@ -2268,6 +2280,9 @@ mod tests {
             flexibility: 0.0,
             range_of_motion: 1.0,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             ..CombatArmor::default()
         });
 
@@ -2311,6 +2326,9 @@ mod tests {
             flexibility: 0.0,
             range_of_motion: 1.0,
             coverage: 1.0,
+            coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+                crate::combat::ArmorCoverageSpan::centered(1.0),
+            ),
             ..CombatArmor::default()
         });
 

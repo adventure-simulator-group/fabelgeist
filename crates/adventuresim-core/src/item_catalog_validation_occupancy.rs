@@ -2,6 +2,23 @@ use super::{CatalogDiagnostics, reject_unknown};
 use serde_json::Value;
 use std::collections::BTreeSet;
 
+pub(super) fn validate_parents(
+    parents: &[Value],
+    placement_path: &str,
+    errors: &mut CatalogDiagnostics<'_>,
+) {
+    for (index, parent) in parents.iter().enumerate() {
+        if let Err(error) =
+            serde_json::from_value::<crate::item_catalog_schema::ParentRequirement>(parent.clone())
+        {
+            errors.push(
+                format!("{placement_path}.parents.{index}"),
+                error.to_string(),
+            );
+        }
+    }
+}
+
 pub(super) fn validate_occupancy(
     occupancy: &[Value],
     placement_path: &str,

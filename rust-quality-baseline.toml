@@ -80,15 +80,15 @@ ceiling = 1210
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
-ceiling = 586
+ceiling = 502
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 992
+ceiling = 891
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
-ceiling = 1511
+ceiling = 1498
 
 [[files]]
 path = "crates/adventuresim-core/src/bestiary.rs"
@@ -132,7 +132,7 @@ ceiling = 788
 
 [[files]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-ceiling = 1624
+ceiling = 1474
 
 [[files]]
 path = "crates/adventuresim-core/src/knowledge.rs"
@@ -244,11 +244,11 @@ ceiling = 547
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
-ceiling = 791
+ceiling = 724
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3235
+ceiling = 3230
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -656,7 +656,7 @@ ceiling = 1304
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
-ceiling = 602
+ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
@@ -676,7 +676,7 @@ ceiling = 768
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-ceiling = 798
+ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -888,7 +888,7 @@ ceiling = 781
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
-ceiling = 799
+ceiling = 789
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/travel.rs"
@@ -1167,7 +1167,7 @@ ceiling = 111
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
 item = "export_rigged_glb"
-ceiling = 380
+ceiling = 273
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/main.rs"
@@ -1247,17 +1247,12 @@ ceiling = 237
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-ceiling = 444
-
-[[functions]]
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment_surface"
-ceiling = 105
+ceiling = 420
 
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_item"
-ceiling = 242
+ceiling = 232
 
 [[functions]]
 path = "crates/adventuresim-core/src/life_simulation.rs"
@@ -1377,7 +1372,7 @@ ceiling = 104
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
 item = "StrategicEquipment::load"
-ceiling = 243
+ceiling = 212
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -1387,7 +1382,7 @@ ceiling = 296
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "equip_equipment_internal"
-ceiling = 288
+ceiling = 283
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -2726,11 +2721,6 @@ ceiling = 204
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-item = "attachment_topology"
-ceiling = 175
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/equipment.rs"
 item = "process_equipment_actions"
 ceiling = 146
 
@@ -3372,7 +3362,7 @@ ceiling = 292
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
 item = "equipment_control"
-ceiling = 428
+ceiling = 417
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
@@ -4469,90 +4459,6 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:chest"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:head"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_forearm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_lower_leg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_thigh"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_upper_arm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:neck"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_forearm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_lower_leg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_thigh"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_upper_arm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:stomach"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_capabilities"
 fingerprint = "string:alcohol"
 occurrences = 1
@@ -4667,7 +4573,7 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
 fingerprint = "string:channel"
-occurrences = 2
+occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
@@ -4737,13 +4643,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
 fingerprint = "string:uv"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment_surface"
-fingerprint = "string:anchor"
 occurrences = 1
 
 [[findings]]

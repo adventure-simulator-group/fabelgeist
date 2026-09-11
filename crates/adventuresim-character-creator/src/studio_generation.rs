@@ -1,4 +1,8 @@
 use super::*;
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects the independent scene, asset and generation resources into this system"
+)]
 pub(super) fn regenerate_mesh(
     mut commands: Commands,
     model: Res<BodyModel>,
@@ -7,6 +11,8 @@ pub(super) fn regenerate_mesh(
     old: Query<Entity, With<CharacterMesh>>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut images: ResMut<Assets<Image>>,
+    mut mail_maps: ResMut<underlayer_preview::MailMaps>,
 ) {
     if !studio.dirty {
         return;
@@ -58,19 +64,8 @@ pub(super) fn regenerate_mesh(
             return;
         }
     };
-    let indices = clothed
-        .visible_body_faces
-        .iter()
-        .flat_map(|face| face.iter().copied())
-        .collect::<Vec<_>>();
     let clothing_shell_count = clothed.shells.len();
-    let mesh = Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
-    )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, generated.positions.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, generated.normals.clone())
-    .with_inserted_indices(Indices::U32(indices));
+    let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
     for entity in &old {
         commands.entity(entity).despawn();
     }
@@ -80,14 +75,21 @@ pub(super) fn regenerate_mesh(
         let material = catalog
             .material(&piece.item_id)
             .expect("selected catalog equipment has a material");
-        preview::spawn_armor(
+        if let Err(error) = preview::spawn_armor(
             &mut commands,
             &mut meshes,
             &mut materials,
             &piece.generated,
             piece.name.clone(),
-            material,
-        );
+            mail_maps.material(
+                &mut images,
+                material,
+                catalog.design(&piece.item_id).as_ref(),
+            ),
+        ) {
+            studio.status = format!("Armor preview failed: {error:#}");
+            return;
+        }
     }
     studio.status = format!(
         "Generated {} body vertices · {} clothing shells · {} armor pieces",
@@ -95,4 +97,14 @@ pub(super) fn regenerate_mesh(
         clothing_shell_count,
         armor.len(),
     );
+}
+
+fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {
+    Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::default(),
+    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, generated.positions.clone())
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, generated.normals.clone())
+    .with_inserted_indices(Indices::U32(faces.iter().flatten().copied().collect()))
 }

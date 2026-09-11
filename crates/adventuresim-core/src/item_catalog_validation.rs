@@ -10,6 +10,9 @@ use crate::item_catalog_validation_material::is_equipment_material_name;
 
 #[path = "item_catalog_validation_occupancy.rs"]
 mod occupancy;
+#[path = "item_catalog_validation_surface.rs"]
+mod surface;
+use surface::validate_equipment_surface;
 
 const MAX_DOCUMENTS: usize = 32;
 const MAX_ITEMS: usize = 4_096;
@@ -803,31 +806,7 @@ fn validate_equipment(
                     &valid_channels,
                     errors,
                 );
-                for (parent_index, parent) in parents.iter().enumerate() {
-                    let Some(parent) = parent.as_object() else {
-                        errors.push(
-                            format!("{placement_path}.parents.{parent_index}"),
-                            "must be an object",
-                        );
-                        continue;
-                    };
-                    reject_unknown(
-                        parent,
-                        &["channel", "order"],
-                        &format!("{placement_path}.parents.{parent_index}"),
-                        errors,
-                    );
-                    if !parent
-                        .get("channel")
-                        .and_then(Value::as_str)
-                        .is_some_and(|channel| valid_channels.contains(channel))
-                    {
-                        errors.push(
-                            format!("{placement_path}.parents.{parent_index}.channel"),
-                            "invalid channel",
-                        );
-                    }
-                }
+                occupancy::validate_parents(&parents, &placement_path, errors);
                 let mut protected = BTreeSet::new();
                 for body_part in placement
                     .get("protection")
@@ -1071,138 +1050,6 @@ fn validate_equipment(
             }
         }
     }
-}
-
-fn validate_equipment_surface(
-    value: Option<&Value>,
-    placement_path: &str,
-    item_kind: &str,
-    has_material: bool,
-    protected: &BTreeSet<&str>,
-    errors: &mut CatalogDiagnostics<'_>,
-) {
-    let path = format!("{placement_path}.surface");
-    let required = matches!(item_kind, "armor" | "clothing");
-    let Some(spans) = value.and_then(Value::as_array) else {
-        if required {
-            errors.push(
-                &path,
-                "armor and clothing require non-empty anatomical surface spans",
-            );
-        }
-        return;
-    };
-    if spans.is_empty() {
-        if required {
-            errors.push(
-                &path,
-                "armor and clothing require non-empty anatomical surface spans",
-            );
-        }
-        return;
-    }
-    if !has_material {
-        errors.push(
-            &path,
-            "anatomical surface spans require a procedural PBR material",
-        );
-    }
-    let valid_regions = [
-        "head",
-        "neck",
-        "chest",
-        "stomach",
-        "left_upper_arm",
-        "left_forearm",
-        "right_upper_arm",
-        "right_forearm",
-        "left_thigh",
-        "left_lower_leg",
-        "right_thigh",
-        "right_lower_leg",
-    ];
-    for (index, span) in spans.iter().enumerate() {
-        let span_path = format!("{path}.{index}");
-        let Some(span) = span.as_object() else {
-            errors.push(&span_path, "must be an object");
-            continue;
-        };
-        reject_unknown(span, &["regions", "anchor", "coverage"], &span_path, errors);
-        let regions = span
-            .get("regions")
-            .and_then(Value::as_array)
-            .cloned()
-            .unwrap_or_default();
-        if regions.is_empty()
-            || regions.iter().any(|region| {
-                !region
-                    .as_str()
-                    .is_some_and(|name| valid_regions.contains(&name))
-            })
-        {
-            errors.push(
-                format!("{span_path}.regions"),
-                "expected a non-empty anatomical region chain",
-            );
-            continue;
-        }
-        let region_names = regions.iter().filter_map(Value::as_str).collect::<Vec<_>>();
-        if region_names
-            .windows(2)
-            .any(|pair| !contiguous_regions(pair[0], pair[1]))
-        {
-            errors.push(
-                format!("{span_path}.regions"),
-                "regions must form a proximal-to-distal contiguous chain",
-            );
-        }
-        for region in &region_names {
-            let body_part = anatomical_body_part(region);
-            if !protected.is_empty() && !protected.contains(body_part) {
-                errors.push(
-                    format!("{span_path}.regions"),
-                    format!("{region:?} is outside placement protection {protected:?}"),
-                );
-            }
-        }
-        if !span
-            .get("anchor")
-            .and_then(Value::as_str)
-            .is_some_and(|anchor| matches!(anchor, "proximal" | "distal" | "center"))
-        {
-            errors.push(
-                format!("{span_path}.anchor"),
-                "expected proximal, distal, or center",
-            );
-        }
-        finite_in(span, "coverage", f64::EPSILON, 1.0, &span_path, errors);
-    }
-}
-
-fn anatomical_body_part(region: &str) -> &str {
-    match region {
-        "head" | "neck" => "head",
-        "chest" => "chest",
-        "stomach" => "stomach",
-        "left_upper_arm" | "left_forearm" => "left_arm",
-        "right_upper_arm" | "right_forearm" => "right_arm",
-        "left_thigh" | "left_lower_leg" => "left_leg",
-        "right_thigh" | "right_lower_leg" => "right_leg",
-        _ => "",
-    }
-}
-
-fn contiguous_regions(proximal: &str, distal: &str) -> bool {
-    matches!(
-        (proximal, distal),
-        ("stomach", "chest")
-            | ("chest", "neck")
-            | ("neck", "head")
-            | ("left_upper_arm", "left_forearm")
-            | ("right_upper_arm", "right_forearm")
-            | ("left_thigh", "left_lower_leg")
-            | ("right_thigh", "right_lower_leg")
-    )
 }
 
 fn validate_weapon(item: &Map<String, Value>, path: &str, errors: &mut CatalogDiagnostics<'_>) {

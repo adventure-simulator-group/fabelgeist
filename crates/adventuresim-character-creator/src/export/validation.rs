@@ -55,6 +55,16 @@ pub(super) fn validate(
         }
     }
     for shell in shells {
+        anyhow::ensure!(
+            shell.textures.is_none() || shell.texcoords.is_some(),
+            "textured shell requires UVs"
+        );
+        if let Some(uv) = shell.texcoords {
+            anyhow::ensure!(
+                uv.len() == shell.positions.len() && uv.iter().flatten().all(|v| v.is_finite()),
+                "shell UVs must be finite and match its vertex count"
+            );
+        }
         validate_shell(mesh, shell)?;
     }
     morphs::validate(mesh, shells)?;

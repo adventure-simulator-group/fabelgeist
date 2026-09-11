@@ -14,6 +14,9 @@ pub(super) fn fitted_design(
     placement: &str,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
+    if let ParametricDesign::Underlayer(d) = design {
+        return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
+    }
     let character = &model.mhr.character;
     let wearer = |positions, normals, joints| Wearer {
         faces: &character.mesh.faces,

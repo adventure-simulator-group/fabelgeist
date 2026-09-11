@@ -68,10 +68,13 @@ def audit(path):
             edges = Counter((int(a), int(b)) for face in physical_faces for a, b in zip(face, np.roll(face, -1)))
             assert all(count == 1 and edges[(b, a)] == 1 for (a, b), count in edges.items()), "unclosed or inconsistently wound physical edges"
             assert glb.array(attributes["NORMAL"]).shape == positions.shape
-            weights = glb.array(attributes["WEIGHTS_0"]).sum(axis=1) + glb.array(attributes["WEIGHTS_1"]).sum(axis=1)
-            assert np.max(np.abs(weights - 1)) < 1e-4, "unnormalized skin weights"
+            assert {key for key in attributes if key.startswith(("JOINTS_", "WEIGHTS_"))} == {"JOINTS_0", "WEIGHTS_0"}, "runtime requires exactly four skin influences"
+            weights = glb.array(attributes["WEIGHTS_0"])
+            assert weights.shape == (len(positions), 4) and np.all(weights >= 0), "invalid primary skin weights"
+            assert np.max(np.abs(weights.sum(axis=1) - 1)) < 1e-4, "unnormalized primary skin weights"
             joint_count = len(glb.doc["skins"][0]["joints"])
-            assert max(glb.array(attributes[name]).max() for name in ("JOINTS_0", "JOINTS_1")) < joint_count
+            joints = glb.array(attributes["JOINTS_0"])
+            assert joints.shape == weights.shape and joints.max() < joint_count
             targets = [glb.array(target["POSITION"]) for target in primitive["targets"]]
             assert len(targets) == 47 and all(target.shape == positions.shape for target in targets)
             for delta in targets:
@@ -109,8 +112,8 @@ def audit_close_helmet_assembly(glb):
         mesh = glb.doc["meshes"][index]
         assert len(mesh["primitives"]) == 1, "independent component primitive"
         attributes = mesh["primitives"][0]["attributes"]
-        joints = np.concatenate([glb.array(attributes[key]) for key in ("JOINTS_0", "JOINTS_1")], axis=1)
-        weights = np.concatenate([glb.array(attributes[key]) for key in ("WEIGHTS_0", "WEIGHTS_1")], axis=1)
+        joints = glb.array(attributes["JOINTS_0"])
+        weights = glb.array(attributes["WEIGHTS_0"])
         skin = glb.doc["skins"][node["skin"]]
         head = next(i for i, joint in enumerate(skin["joints"]) if glb.doc["nodes"][joint]["name"] == "c_head")
         assert np.all(joints[weights > 0] == head), "rigid helmet must follow head, not jaw"

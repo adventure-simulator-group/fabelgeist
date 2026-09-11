@@ -148,6 +148,9 @@ fn armored_threat_armor() -> CombatArmor {
         flexibility: 0.8,
         range_of_motion: 0.9,
         coverage: 0.5,
+        coverage_geometry: crate::combat::AuthoredArmorCoverage::from_span(
+            crate::combat::ArmorCoverageSpan::centered(0.5),
+        ),
         ..CombatArmor::default()
     }
 }

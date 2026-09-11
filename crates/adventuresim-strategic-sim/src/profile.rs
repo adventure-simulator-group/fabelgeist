@@ -495,7 +495,7 @@ mod tests {
         authored_threat_combatant, autoresolve_combat_power, combat_power_meets_safety_margin,
         resolve_battle,
     };
-    use adventuresim_core::combat::ArmorCoverageSpan;
+    use adventuresim_core::combat::{ArmorCoverageSpan, AuthoredArmorCoverage};
 
     fn attributes(endurance: f32, arm_strength: f32) -> PlayerAttributeValues {
         PlayerAttributeValues {
@@ -676,8 +676,9 @@ mod tests {
             coverage,
             flexibility,
             range_of_motion,
-            coverage_span: Some(ArmorCoverageSpan::centered(coverage)),
-            coverage_geometry: None,
+            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(
+                coverage,
+            )),
         };
         combatant.equipment = CombatEquipment {
             weapon: Some(weapon),

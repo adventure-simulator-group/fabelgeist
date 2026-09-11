@@ -82,6 +82,7 @@ fn shared_struct_boundaries_roundtrip_through_sats_serde() {
         order: 7,
     });
     sats_json_roundtrip(ParentRequirement {
+        location: Some(EquipmentLocation::RightLeg),
         channel: EquipmentChannel::Containment,
         order: 11,
     });

@@ -82,12 +82,11 @@ pub(super) fn armor_material(
         .and_then(|equipment| equipment.material)
 }
 
-pub(super) fn armor_coverage_span(
+pub(super) fn equipped_armor_coverage(
     ctx: &ReducerContext,
     inventory_item_id: u64,
     part: BodyPart,
-    fallback_coverage: f32,
-) -> Option<adventuresim_core::combat::ArmorCoverageSpan> {
+) -> Option<adventuresim_core::combat::AuthoredArmorCoverage> {
     let inventory = ctx.db.inventory_item().id().find(inventory_item_id)?;
     let equipped = ctx
         .db
@@ -100,9 +99,5 @@ pub(super) fn armor_coverage_span(
         .placements
         .iter()
         .find(|placement| placement.id == equipped.placement_id)?;
-    Some(adventuresim_core::combat::authored_armor_coverage_span(
-        placement,
-        part,
-        fallback_coverage,
-    ))
+    Some(adventuresim_core::combat::AuthoredArmorCoverage::from_placement(placement, part))
 }

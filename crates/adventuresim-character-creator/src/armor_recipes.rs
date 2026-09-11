@@ -12,6 +12,7 @@ pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
     Garment(GarmentArmorDesign),
+    Underlayer(crate::underlayer::UnderlayerDesign),
 }
 
 impl ParametricDesign {
@@ -20,6 +21,9 @@ impl ParametricDesign {
             Self::Helmet(d) => generate_helmet(d, frame)?,
             Self::Limb(d) => generate_limb_armor(d, frame)?,
             Self::Garment(d) => generate_garment_armor(d, frame)?,
+            Self::Underlayer(_) => {
+                anyhow::bail!("body-conforming garments require source body triangles")
+            }
         })
     }
 }
@@ -46,6 +50,13 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
     use GarmentArmorKind as G;
     let side = || Side::from_placement(placement);
     Ok(match design {
+        ParametricDesign::Underlayer(d) => match d.kind {
+            crate::underlayer::UnderlayerKind::PaddedHose => F::WholeLeg(side()?),
+            crate::underlayer::UnderlayerKind::MailBrayette => F::Hips,
+            crate::underlayer::UnderlayerKind::MailKneeVoider => F::Knee(side()?),
+            crate::underlayer::UnderlayerKind::MailStandard => F::Neck,
+            _ => F::Torso,
+        },
         ParametricDesign::Helmet(_) => F::Head,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
@@ -72,6 +83,11 @@ pub fn fitted_mesh(
     placement: &str,
     wearer: &Wearer<'_>,
 ) -> Result<PartMesh> {
+    if let ParametricDesign::Underlayer(d) = design {
+        let pattern =
+            crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
+        return Ok(pattern.evaluate(d, wearer));
+    }
     if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
         return crate::close_helmet_fit::fit(helmet, wearer);
     }
@@ -98,7 +114,7 @@ mod tests {
     fn embedded_catalog_preserves_every_item_and_construction_family() {
         let expected = [
             ("arming_cap", "Helmet", "ArmingCap"),
-            ("arming_doublet", "Garment", "ArmingDoublet"),
+            ("arming_doublet", "Underlayer", "ArmingDoublet"),
             ("barbute", "Helmet", "Barbute"),
             ("brigandine", "Garment", "Brigandine"),
             ("burgonet", "Helmet", "Burgonet"),
@@ -116,9 +132,13 @@ mod tests {
             ("mail_shirt", "Garment", "MailShirt"),
             ("mail_skirt", "Garment", "MailSkirt"),
             ("mail_sleeve", "Garment", "MailSleeve"),
+            ("mail_voiders", "Underlayer", "MailVoiders"),
+            ("mail_brayette", "Underlayer", "MailBrayette"),
+            ("mail_knee_voider", "Underlayer", "MailKneeVoider"),
+            ("mail_standard", "Underlayer", "MailStandard"),
             ("mitten_gauntlet", "Limb", "MittenGauntlet"),
             ("morion", "Helmet", "Morion"),
-            ("padded_chausses", "Garment", "PaddedChausses"),
+            ("padded_chausses", "Underlayer", "PaddedHose"),
             ("padded_skirt", "Garment", "PaddedSkirt"),
             ("poleyn", "Limb", "Poleyn"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
@@ -134,7 +154,7 @@ mod tests {
         for (id, category, family) in expected {
             let encoded = serde_json::to_value(catalog.get(id).unwrap()).unwrap();
             let shape = &encoded[category];
-            if category == "Garment" {
+            if matches!(category, "Garment" | "Underlayer") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

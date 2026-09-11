@@ -4,6 +4,54 @@ use crate::item::{PersistedEquipmentPlacement, inventory_item, item};
 use adventuresim_core::item_catalog::OccupancyRequirement;
 use spacetimedb::ReducerContext;
 
+pub(super) fn validate_attachment_requirement(
+    ctx: &ReducerContext,
+    parent_id: u64,
+    point: &crate::item::PersistedEquipmentAttachmentPoint,
+    requirement: adventuresim_core::item_catalog::ParentRequirement,
+) -> Result<(), String> {
+    if !super::attachment_point_matches_requirement(point, requirement) {
+        return Err(format!(
+            "Attachment point {} uses {:?} order {}, but placement requires {:?} order {}",
+            point.id, point.channel, point.order, requirement.channel, requirement.order
+        ));
+    }
+    if requirement
+        .location
+        .is_some_and(|location| !reaches_location(ctx, parent_id, location))
+    {
+        return Err("Parent garment does not reach the required body location".into());
+    }
+    Ok(())
+}
+
+pub(super) fn reaches_location(
+    ctx: &ReducerContext,
+    inventory_item_id: u64,
+    location: adventuresim_core::item_catalog::EquipmentLocation,
+) -> bool {
+    use super::equipment_occupancy;
+    let mut pending = vec![inventory_item_id];
+    let mut visited = std::collections::BTreeSet::new();
+    while let Some(item) = pending.pop() {
+        if !visited.insert(item) {
+            continue;
+        }
+        for occupancy in ctx
+            .db
+            .equipment_occupancy()
+            .inventory_item_id()
+            .filter(item)
+        {
+            if occupancy.location == Some(location) {
+                return true;
+            }
+            pending.extend(occupancy.parent_inventory_item_id);
+        }
+    }
+    false
+}
+
 pub(super) fn character_occupancy_id(
     character_id: u64,
     inventory_item_id: u64,

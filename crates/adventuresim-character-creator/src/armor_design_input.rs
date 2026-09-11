@@ -33,6 +33,7 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
                 std::mem::discriminant(a) == std::mem::discriminant(b)
             }
             (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
+            (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
             _ => false,
         };
         ensure!(
@@ -55,6 +56,7 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<ArmorDesigns> {
             ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new),
             ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
             ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
+            ParametricDesign::Underlayer(d) => d.validate(),
         }
         .with_context(|| format!("invalid armor design for item {id}"))?;
     }
