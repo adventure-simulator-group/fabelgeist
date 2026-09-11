@@ -163,12 +163,15 @@ adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
 adventuresim-core = { path = "crates/adventuresim-core" }
 adventuresim-puzzles = { path = "crates/adventuresim-puzzles" }
 adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
-# Fork carrying two fixes over 0.5.0: (1) the duplicate CullComputeCamera
+# Fork carrying three fixes over 0.5.0: (1) the duplicate CullComputeCamera
 # extraction plugin that panics when more than one InstancedMaterialPlugin
-# registers, and (2) skipping instanced meshes whose specialized pipeline
-# hasn't finished compiling, so the GPU-driven indirect draw doesn't fire
-# against a stale pipeline during runtime view-layout switches (atmosphere ->
-# environment_map at sky-bake freeze). Consumed from our fork until upstreamed.
+# registers, (2) skipping instanced meshes whose specialized pipeline hasn't
+# finished compiling, so the GPU-driven indirect draw doesn't fire against a
+# stale pipeline during runtime view-layout switches (atmosphere ->
+# environment_map at sky-bake freeze), and (3) the WebGPU draw path that loops
+# draw_indexed_indirect with a per-batch vertex offset where the native backend
+# issues multi_draw_indexed_indirect - the whole browser sward depends on it
+# (upstream PR NicoZweifel/bevy_eidolon#19). Consumed from our fork until merged.
 bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = "fablegeist-0.19" }
 
 [profile.win-dev]

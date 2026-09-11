@@ -1,3 +1,5 @@
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     forward_io::{Vertex, VertexOutput},
     mesh_functions,

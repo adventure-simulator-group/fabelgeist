@@ -339,7 +339,7 @@ _spawner-stop:
 # connects to SpacetimeDB at all (no `tactical-isolated` needed first).
 tactical mission_id=env_var_or_default("TACTICAL_MISSION_ID", "test-mission") scene_key=env_var_or_default("TACTICAL_SCENE_KEY", "woodland") enemy_fixture=env_var_or_default("TACTICAL_ENEMY_FIXTURE", "standard-bandit") port=env_var_or_default("TACTICAL_PORT", tactical_port) url=env_var_or_default("TACTICAL_SPACETIMEDB_URL", spacetime_url) module=env_var_or_default("TACTICAL_SPACETIMEDB_MODULE", spacetime_module) enemy_combat_scale_bps=env_var_or_default("TACTICAL_ENEMY_COMBAT_SCALE_BPS", "10000") brp_port=env_var_or_default("TACTICAL_BRP_PORT", "") world_dump=env_var_or_default("TACTICAL_WORLD_DUMP", "") scene_input=env_var_or_default("TACTICAL_SCENE_INPUT", "dense-woodland"):
     @if [ {{ quote(world_dump) }} = "" ]; then {{ python_bin }} scripts/dev_stack.py reseed-tactical-mission --if-live --scene-key {{ quote(scene_key) }} --enemy-fixture {{ quote(enemy_fixture) }} tactical-dev 23200; fi
-    @MISSION_ID={{ quote(mission_id) }}; if [ -f .env.tactical ] && [ {{ quote(world_dump) }} = "" ]; then FRESH=$(grep '^TACTICAL_MISSION_ID=' .env.tactical | cut -d= -f2-); [ -n "$FRESH" ] && MISSION_ID="$FRESH"; FRESH_CLAIM=$(grep '^ADVENTURESIM_TACTICAL_CLAIM=' .env.tactical | cut -d= -f2-); [ -n "$FRESH_CLAIM" ] && export ADVENTURESIM_TACTICAL_CLAIM="$FRESH_CLAIM"; fi; cargo run --package adventuresim-tactical-server --features "debug" -- --addr "0.0.0.0:{{ port }}" --mission-id "$MISSION_ID" --scene-key {{ quote(scene_key) }} --scene-input {{ quote(scene_input) }} --spacetimedb-url {{ url }} --spacetimedb-module {{ module }} --expected-party-members 1 --required-enemy-kills 1 --enemy-combat-scale-bps {{ enemy_combat_scale_bps }} --no-timeout {{ if brp_port != "" { "--brp-port " + brp_port } else { "" } }} {{ if world_dump != "" { "--world-dump " + quote(world_dump) } else { "--enemy-fixture " + quote(enemy_fixture) } }}
+    @MISSION_ID={{ quote(mission_id) }}; if [ -f .env.tactical ] && [ {{ quote(world_dump) }} = "" ]; then FRESH=$(grep '^TACTICAL_MISSION_ID=' .env.tactical | cut -d= -f2-); [ -n "$FRESH" ] && MISSION_ID="$FRESH"; FRESH_CLAIM=$(grep '^ADVENTURESIM_TACTICAL_CLAIM=' .env.tactical | cut -d= -f2-); [ -n "$FRESH_CLAIM" ] && export ADVENTURESIM_TACTICAL_CLAIM="$FRESH_CLAIM"; fi; cargo run --package adventuresim-tactical-server --bin adventuresim-tactical-server --features "debug" -- --addr "0.0.0.0:{{ port }}" --mission-id "$MISSION_ID" --scene-key {{ quote(scene_key) }} --scene-input {{ quote(scene_input) }} --spacetimedb-url {{ url }} --spacetimedb-module {{ module }} --expected-party-members 1 --required-enemy-kills 1 --enemy-combat-scale-bps {{ enemy_combat_scale_bps }} --no-timeout {{ if brp_port != "" { "--brp-port " + brp_port } else { "" } }} {{ if world_dump != "" { "--world-dump " + quote(world_dump) } else { "--enemy-fixture " + quote(enemy_fixture) } }}
 
 # Run a native tactical client (for testing `just tactical`). Defaults come
 # from `.env.tactical` when present, same as `tactical` above. Set brp_port
@@ -380,6 +380,15 @@ tactical-reseed profile="tactical-dev" base_port="23200" mission_id_prefix="miss
 # omits the client while retaining the validated database/server fixture.
 tactical-play mode="animation" base_port="24920" graphics_config="assets/config/tactical-graphics.yaml" presentation_trace="auto" window_capture="auto" capture_source="window" render_backend="auto" scene_input="dense-woodland" enemy_fixture="" input_script="" client_profile="dev" frame_timing_seconds="" frame_timing_warmup_seconds="5": preflight verify-db-client
     @{{ python_bin }} scripts/dev_stack.py tactical-play {{ quote(mode) }} {{ quote(base_port) }} --graphics-config {{ quote(graphics_config) }} --presentation-trace {{ quote(presentation_trace) }} --window-capture {{ quote(window_capture) }} --capture-source {{ quote(capture_source) }} --render-backend {{ quote(render_backend) }} --scene-input {{ quote(scene_input) }} --client-profile {{ quote(client_profile) }} --frame-timing-warmup-seconds {{ quote(frame_timing_warmup_seconds) }} {{ if enemy_fixture != "" { "--enemy-fixture " + quote(enemy_fixture) } else { "" } }} {{ if input_script != "" { "--input-script " + quote(input_script) } else { "" } }} {{ if frame_timing_seconds != "" { "--frame-timing-seconds " + quote(frame_timing_seconds) } else { "" } }}
+
+# The browser counterpart of `tactical-play`: one disposable session with an
+# isolated database, a seeded standalone mission, the tactical server, and the
+# wasm client served over loopback and opened in the default browser. Uses its
+# own base port so it can run alongside a native `tactical-play`. The page
+# reads its graphics and audio configs from the served bundle, so rebuild with
+# `just build-wasm` (a dependency here) after changing them.
+tactical-wasm base_port="24930" scene_input="dense-woodland" enemy_fixture="": preflight verify-db-client build-wasm
+    @{{ python_bin }} scripts/dev_stack.py tactical-play browser {{ quote(base_port) }} --scene-input {{ quote(scene_input) }} {{ if enemy_fixture != "" { "--enemy-fixture " + quote(enemy_fixture) } else { "" } }}
 
 # Launch an unbounded animation session against a named generated scene fixture.
 tactical-play-fixture fixture: preflight verify-db-client
@@ -624,7 +633,7 @@ test-schedule:
 
 # Test local workflow policy without leaving Python bytecode in the worktree.
 test-dev-stack:
-    @{{ python_bin }} -B -m unittest scripts.tests.test_dev_stack scripts.tests.test_just_tasks -v
+    @{{ python_bin }} -B -m unittest scripts.tests.test_dev_stack scripts.tests.test_just_tasks scripts.tests.test_tactical_static_server -v
 
 # Run a deterministic sample strategic NPC population.
 strategic-sim seed="42" population="100" days="":

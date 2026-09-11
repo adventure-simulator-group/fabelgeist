@@ -187,10 +187,9 @@ fn tactical_global_ambient_light() -> GlobalAmbientLight {
 
 impl Plugin for TacticalPresentationPlugin {
     fn build(&self, app: &mut App) {
-        // GPU-instanced grass renders through bevy_eidolon on native builds;
-        // the browser bundle keeps the legacy patch renderer until the wasm
-        // indirect-draw fallback lands.
-        #[cfg(all(feature = "instanced-grass", not(target_family = "wasm")))]
+        // GPU-instanced grass renders through bevy_eidolon on native and wasm
+        // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
+        // multi-draw-indirect on the browser backend).
         app.add_plugins(ground_scatter::InstancedGrassPlugin);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
@@ -218,7 +217,6 @@ impl Plugin for TacticalPresentationPlugin {
                 )
                     .chain(),
             )
-            .init_resource::<GrassInteractionState>()
             .init_resource::<WoodyUnderstoryPresentationCache>()
             .init_resource::<GroundFoliagePresentationCache>()
             .init_resource::<TreePresentationCache>()
@@ -237,7 +235,6 @@ impl Plugin for TacticalPresentationPlugin {
             .add_systems(
                 Update,
                 (
-                    update_grass_interaction,
                     (
                         present_pending_terrain,
                         update_terrain_detail_patch,
@@ -302,6 +299,64 @@ impl Default for TacticalGraphicsSettings {
     fn default() -> Self {
         Self {
             config: TacticalPresentationPlugin::default().config,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::{fs, path::Path};
+
+    /// WGSL requires every directive to precede the first declaration, and an
+    /// `#import` expands into declarations. A directive written below the
+    /// imports fails composition for the whole file, which surfaces only as a
+    /// log line while the material stops rendering on every backend.
+    #[test]
+    fn shader_directives_precede_declarations() {
+        // Both shader roots the tactical renderer composes: the runtime asset
+        // directory and the shaders embedded in the procedural materials crate.
+        const SHADER_ROOTS: [&str; 2] = [
+            concat!(env!("CARGO_MANIFEST_DIR"), "/../../assets/shaders"),
+            concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/../adventuresim-procedural-materials/src/shaders"
+            ),
+        ];
+        let mut checked = 0;
+        for root in SHADER_ROOTS {
+            for entry in fs::read_dir(Path::new(root)).expect("tactical shader directory") {
+                let path = entry.expect("shader directory entry").path();
+                if path.extension().is_none_or(|extension| extension != "wgsl") {
+                    continue;
+                }
+                let source = fs::read_to_string(&path).expect("readable tactical shader");
+                assert_directives_precede_declarations(&path.display().to_string(), &source);
+                checked += 1;
+            }
+        }
+        assert!(checked > 0, "no tactical shaders were checked");
+    }
+
+    fn assert_directives_precede_declarations(label: &str, source: &str) {
+        let mut declared = false;
+        for (index, line) in source.lines().enumerate() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with("//") {
+                continue;
+            }
+            if line.starts_with("diagnostic(")
+                || line.starts_with("enable ")
+                || line.starts_with("requires ")
+            {
+                assert!(
+                    !declared,
+                    "{label}:{}: WGSL directive written after a declaration; \
+                     move it above the imports or the shader will not compile",
+                    index + 1
+                );
+            } else if !line.starts_with('#') || line.starts_with("#import") {
+                declared = true;
+            }
         }
     }
 }

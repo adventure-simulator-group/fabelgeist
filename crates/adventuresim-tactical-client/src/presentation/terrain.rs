@@ -1002,23 +1002,6 @@ pub(super) fn grass_cover_mask_pixels(ground: &SceneGround, seed: u64) -> (u32, 
     (width, height, mask)
 }
 
-pub(super) fn grass_cover_mask_image(ground: &SceneGround, seed: u64) -> Image {
-    let (width, height, mask) = grass_cover_mask_pixels(ground, seed);
-    let mut image = Image::new(
-        Extent3d {
-            width,
-            height,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        mask,
-        TextureFormat::R8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    image.sampler = ImageSampler::linear();
-    image
-}
-
 fn ground_map_image(ground: Option<&SceneGround>, seed: u64) -> Image {
     let (width, height, pixels) = ground.map_or_else(
         || (1, 1, vec![0, 0, 0, 0]),
@@ -1689,10 +1672,10 @@ mod tests {
             }
         }
         let ground = SceneGround::from_samples(17, 17, 2.0, samples).unwrap();
-        let image = grass_cover_mask_image(&ground, 91);
-        let repeated = grass_cover_mask_image(&ground, 91);
-        let values = image.data.as_deref().unwrap();
-        assert_eq!(image.data, repeated.data);
+        let (_, _, values) = grass_cover_mask_pixels(&ground, 91);
+        let (_, _, repeated) = grass_cover_mask_pixels(&ground, 91);
+        assert_eq!(values, repeated);
+        let values = values.as_slice();
         assert!(values.contains(&0), "non-grass must reject every blade");
         assert!(
             values.iter().copied().max().unwrap_or_default() > 200,

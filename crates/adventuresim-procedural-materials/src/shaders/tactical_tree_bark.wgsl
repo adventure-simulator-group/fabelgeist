@@ -1,8 +1,11 @@
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     mesh_view_bindings::view,
     pbr_fragment::pbr_input_from_standard_material,
     pbr_functions::alpha_discard,
 }
+
 #ifdef PREPASS_PIPELINE
 #import bevy_pbr::{
     prepass_io::{VertexOutput, FragmentOutput},

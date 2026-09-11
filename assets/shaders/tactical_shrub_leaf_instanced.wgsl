@@ -5,6 +5,8 @@
 // per-fragment cost. The front/back normal maps are now unused (kept bound for
 // now; a follow-up can drop bindings 6-9 from the material).
 
+diagnostic(off, derivative_uniformity);
+
 #import bevy_pbr::{
     mesh_view_bindings::{globals, lights, view},
     shadows,
