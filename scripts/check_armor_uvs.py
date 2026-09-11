@@ -62,10 +62,13 @@ def audit(original, current):
     assert len(source.doc["meshes"]) == len(asset.doc["meshes"])
     result = []
     for old_mesh, mesh in zip(source.doc["meshes"], asset.doc["meshes"]):
-        for key in ("name", "extras", "weights"):
+        for key in ("name", "weights"):
             assert old_mesh.get(key) == mesh.get(key), f"changed mesh {key}"
+        assert old_mesh.get("extras", {}).get("targetNames") == mesh.get("extras", {}).get("targetNames")
         assert len(old_mesh["primitives"]) == len(mesh["primitives"])
         for old, new in zip(old_mesh["primitives"], mesh["primitives"]):
+            material = source.doc["materials"][old["material"]]
+            retained = retains_body_uvs(original) or "baseColorTexture" in material.get("pbrMetallicRoughness", {})
             a = source.array(old["indices"]).flatten()
             b = asset.array(new["indices"]).flatten()
             assert len(a) == len(b), "triangle count changed"
@@ -74,15 +77,17 @@ def audit(original, current):
                                      [new["attributes"], *new.get("targets", [])]):
                 for name, index in before.items():
                     if name == "TANGENT":
-                        continue  # Tangent frame now belongs to material UV1.
+                        continue  # Tangent frame now belongs to material UV0.
+                    output_name = "TEXCOORD_1" if name == "TEXCOORD_0" and not retained else name
                     np.testing.assert_array_equal(source.array(index)[a],
-                                                  asset.array(after[name])[b], err_msg=name)
-            material = source.doc["materials"][old["material"]]
-            if retains_body_uvs(original) or "baseColorTexture" in material.get("pbrMetallicRoughness", {}):
+                                                  asset.array(after[output_name])[b], err_msg=name)
+            if retained:
                 continue
-            assert new.get("extras", {}).get("adventuresim_material_uv", {}).get("channel") == 1, "missing material atlas"
-            assert {"TEXCOORD_1", "TANGENT"} <= new["attributes"].keys(), "missing material attributes"
-            uv = asset.array(new["attributes"]["TEXCOORD_1"])
+            assert new.get("extras", {}).get("adventuresim_material_uv", {}).get("channel") == 0, "missing material atlas"
+            assert {"TEXCOORD_0", "TANGENT"} <= new["attributes"].keys(), "missing material attributes"
+            if "TEXCOORD_0" in old["attributes"]:
+                assert mesh["extras"]["adventuresim_anatomical_uv"]["channel"] == 1
+            uv = asset.array(new["attributes"]["TEXCOORD_0"])
             assert np.isfinite(uv).all() and uv.min() >= 0 and uv.max() <= 1
             triangles = uv[b.reshape(-1, 3)]
             e, f = triangles[:, 1] - triangles[:, 0], triangles[:, 2] - triangles[:, 0]

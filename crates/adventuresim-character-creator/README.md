@@ -277,8 +277,11 @@ it is not on PATH. `just unwrap-equipment DIRECTORY` applies the same step to
 an existing export; run it again after changing geometry parameters. Direct
 creator CLI exports contain construction UVs until this finishing step runs.
 
-The material atlas occupies `TEXCOORD_1`; anatomical correspondence remains in
-`TEXCOORD_0`. Sharp rims and transitions between front, side, and rim-facing
+The material atlas occupies `TEXCOORD_0`; existing anatomical coordinates move
+losslessly to `TEXCOORD_1`, with their domain and channel recorded explicitly.
+Socket coordinates are independent and unchanged. UV0 also gives runtime blood
+decals a nonoverlapping surface on each plate. Sharp rims and transitions
+between front, side, and rim-facing
 zones separate plate faces from edge walls. Concealed rear
 meridians and arm undersides provide cuts through curved panels. Blender's
 angle-based solver unwraps those charts and packs them with a 0.004 UV margin.
@@ -288,8 +291,7 @@ mail and padding keep their existing material coordinates.
 
 Seam splits copy all original vertex and morph attributes without changing
 triangle order, the rig, or component hinges. Tangents use the material UV
-channel, because automatic runtime tangent generation uses the anatomical
-channel. Material textures must select glTF `texCoord: 1` for these atlases.
+channel. Material textures select glTF `texCoord: 0` for these atlases.
 Compare source and finished exports with
 `python scripts/check_armor_uvs.py ORIGINAL_DIRECTORY FINISHED_DIRECTORY` to
 check correspondence, nondegenerate charts, overlap, and tangent frames.

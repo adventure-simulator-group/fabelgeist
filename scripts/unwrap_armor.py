@@ -1,8 +1,8 @@
 """Author material UVs on exported equipment using Blender angle-based unwrap.
 
 blender --background --python-exit-code 1 --python scripts/unwrap_armor.py -- DIRECTORY
-Canonical anatomical TEXCOORD_0 remains untouched. The material atlas occupies
-TEXCOORD_1. Textured body-conforming garments retain their authored UV layout.
+The material atlas occupies TEXCOORD_0. Existing anatomical coordinates move
+losslessly to TEXCOORD_1. Body-conforming garments retain their authored layout.
 """
 import argparse
 import json
@@ -122,6 +122,8 @@ def process(path):
     for mesh in asset.doc["meshes"]:
         for primitive in mesh["primitives"]:
             material = asset.doc.get("materials", [])[primitive["material"]]
+            if "adventuresim_surface_bake" in primitive.get("extras", {}):
+                raise ValueError(f"regenerate {path.name} before changing its baked UV atlas")
             pbr = material.get("pbrMetallicRoughness", {})
             if "baseColorTexture" in pbr:
                 continue  # Body-conforming mail/padding already has authored maps.
@@ -138,10 +140,18 @@ def process(path):
             if area.min() <= 1e-14:
                 raise ValueError(f"collapsed chart triangle: {path} {mesh['name']}")
             asset.remap(primitive, source, indices)
-            attributes["TEXCOORD_1"] = asset.append(uv)
+            if "adventuresim_material_uv" not in primitive.get("extras", {}):
+                if "TEXCOORD_0" in attributes:
+                    attributes["TEXCOORD_1"] = attributes.pop("TEXCOORD_0")
+                    mesh.setdefault("extras", {})["adventuresim_anatomical_uv"] = {
+                        "channel": 1, "domain": mesh.get("extras", {}).get(
+                            "adventuresim_anatomical_uv_domain", "mhr_body_v1"),
+                    }
+                mesh.get("extras", {}).pop("adventuresim_anatomical_uv_domain", None)
+            attributes["TEXCOORD_0"] = asset.append(uv)
             attributes["TANGENT"] = asset.append(tangents)
             primitive.setdefault("extras", {})["adventuresim_material_uv"] = {
-                "channel": 1, "unwrap": "ANGLE_BASED", "margin": ATLAS_MARGIN,
+                "channel": 0, "unwrap": "ANGLE_BASED", "margin": ATLAS_MARGIN,
             }
             counts.append({"mesh": mesh["name"], "vertices": len(source),
                            "triangles": len(faces), "uv_area": float(area.sum())})
