@@ -6,9 +6,9 @@
 use adventuresim_armor_model::{
     LimbArmorDesign, PartFrame, PartMesh, PlateGauge, generate_gauntlet_thumb, generate_limb_armor,
 };
-use anyhow::{Context, Result, ensure};
+use anyhow::{Context, Result};
 
-use crate::armor_clearance::{LAME_SPACING_GAUGES, PlateLayering};
+use crate::armor_clearance::{LAME_SPACING_GAUGES, PlateFit};
 use crate::armor_frames::{FitRegion, Side, Wearer};
 
 const PROFILE_SAMPLES: usize = 48;
@@ -17,9 +17,11 @@ const MINIMUM_RADIAL_EXTENT_M: f32 = 0.008;
 const PROFILE_CLEARANCE_MARGIN_M: f32 = 0.002;
 #[path = "boot_layer_fit.rs"]
 mod boot_layer_fit;
+#[path = "sabaton_fit.rs"]
+mod sabaton_fit;
 // Linear identity blends need a little extra room at the torso-facing armpit
 // edge. Distal trimming creates that space without widening the arm cylinder.
-const REREBRACE_AXILLARY_MORPH_TRIM_M: f32 = 0.008;
+const REREBRACE_AXILLARY_MORPH_TRIM_M: f32 = 0.030;
 
 pub fn fitted_limb(
     design: &LimbArmorDesign,
@@ -39,14 +41,12 @@ pub fn fitted_limb(
                 region,
                 d.gauge.clearance,
                 d.gauge.thickness,
-                PlateLayering::Mitten {
-                    finger_lames: d.finger_lames,
+                PlateFit::Mitten {
+                    cuff_length: d.cuff_length.unit(),
+                    cuff_clearance: d.cuff_clearance,
                 },
             )?;
-            mesh.append(generate_gauntlet_thumb(
-                d,
-                &thumb_frame(wearer, side, &frame)?,
-            )?);
+            mesh.append(generate_gauntlet_thumb(d, &thumb_frame(wearer, side)?)?);
             Ok(mesh)
         }
         LimbArmorDesign::LeatherBoot(d) => {
@@ -60,7 +60,7 @@ pub fn fitted_limb(
             let FitRegion::Foot(side) = region else {
                 anyhow::bail!("sabaton requires foot landmarks")
             };
-            fit_foot_envelope(mesh, d.gauge, Some(d.lame_count), wearer, side, &frame)
+            sabaton_fit::fit(mesh, d, wearer, side, &frame)
         }
         LimbArmorDesign::Greave(d) => crate::armor_clearance::fit(
             &mesh,
@@ -68,7 +68,7 @@ pub fn fitted_limb(
             region,
             d.gauge.clearance,
             d.gauge.thickness,
-            PlateLayering::Single,
+            PlateFit::Greave(d),
         ),
         LimbArmorDesign::Cuisse(d) => {
             let mesh = trim_proximal(&mesh, &frame, region)?;
@@ -78,7 +78,7 @@ pub fn fitted_limb(
                 region,
                 d.gauge.clearance,
                 d.gauge.thickness,
-                PlateLayering::Single,
+                PlateFit::Cuisse(d),
             )
         }
         LimbArmorDesign::Rerebrace(d) => {
@@ -89,7 +89,7 @@ pub fn fitted_limb(
                 region,
                 d.gauge.clearance,
                 d.gauge.thickness,
-                PlateLayering::Single,
+                PlateFit::Rerebrace(d),
             )
         }
         _ => Ok(mesh),
@@ -108,15 +108,30 @@ fn trim_proximal(mesh: &PartMesh, frame: &PartFrame, region: FitRegion) -> Resul
         -1.0
     };
     Ok(mesh.refit_surfaces(|points| {
+        const MINIMUM_REMAINING_SPAN: f32 = 0.30;
+        let low = points
+            .iter()
+            .map(|p| local(frame, *p)[1])
+            .fold(f32::INFINITY, f32::min);
+        let high = points
+            .iter()
+            .map(|p| local(frame, *p)[1])
+            .fold(f32::NEG_INFINITY, f32::max);
+        let maximum_trim = (high - low) * (1.0 - MINIMUM_REMAINING_SPAN);
         for point in points {
             let mut p = local(frame, *point);
             let radial = frame.axes[0][0] * p[0] + frame.axes[2][0] * p[2];
-            let inward = (-outward * radial / frame.half_extents[0]).clamp(0.0, 1.0);
-            let proximal = ((p[1] / frame.half_extents[1] + 1.0) * 0.5).clamp(0.0, 1.0);
-            p[1] -= frame.half_extents[1] * depth * inward.powi(2) * proximal.powi(4);
-            if matches!(region, FitRegion::UpperArm(_)) {
-                p[1] -= REREBRACE_AXILLARY_MORPH_TRIM_M * inward * proximal.powi(2);
-            }
+            let inward = (-outward * radial / p[0].hypot(p[2]).max(1e-6)).clamp(0.0, 1.0);
+            let proximal = ((p[1] - low) / (high - low)).clamp(0.0, 1.0);
+            let reserve = if matches!(region, FitRegion::UpperArm(_)) {
+                REREBRACE_AXILLARY_MORPH_TRIM_M * inward
+            } else {
+                0.0
+            };
+            // Cut the upper boundary and interpolate toward it. A high-power
+            // axial displacement can reverse rows and fold the sheet back.
+            let trim = (frame.half_extents[1] * depth * inward.powi(2) + reserve).min(maximum_trim);
+            p[1] -= trim * proximal;
             *point = frame.point(p);
         }
     })?)
@@ -138,58 +153,9 @@ fn joint(wearer: &Wearer<'_>, name: &str) -> Result<[f32; 3]> {
     Ok(std::array::from_fn(|axis| wearer.joints[index][axis]))
 }
 
-fn thumb_frame(wearer: &Wearer<'_>, side: Side, hand: &PartFrame) -> Result<PartFrame> {
-    let prefix = prefix(side);
-    let root = joint(wearer, &format!("{prefix}_thumb2"))?;
-    let tip = joint(wearer, &format!("{prefix}_thumb_null"))?;
-    let axial = normalize(subtract(root, tip));
-    let dorsal = normalize(subtract(
-        hand.axes[2],
-        scale(axial, dot(hand.axes[2], axial)),
-    ));
-    let across = cross(axial, dorsal);
-    let mut frame = PartFrame {
-        origin: scale(add(root, tip), 0.5),
-        axes: [across, axial, dorsal],
-        half_extents: [
-            MINIMUM_RADIAL_EXTENT_M,
-            dot(subtract(root, tip), axial) * 0.5,
-            MINIMUM_RADIAL_EXTENT_M,
-        ],
-    };
-    let owners = wearer
-        .joint_names
-        .iter()
-        .map(|n| n.starts_with(&format!("{prefix}_thumb")))
-        .collect::<Vec<_>>();
-    let mut low = [f32::INFINITY; 2];
-    let mut high = [f32::NEG_INFINITY; 2];
-    for (index, point) in wearer.positions.iter().enumerate() {
-        let weight: f32 = wearer.joint_indices[index]
-            .iter()
-            .zip(wearer.joint_weights[index])
-            .filter(|(i, _)| owners[**i as usize])
-            .map(|(_, w)| w)
-            .sum();
-        if weight < 0.3 {
-            continue;
-        }
-        let local = local(&frame, *point);
-        for (i, axis) in [0, 2].into_iter().enumerate() {
-            low[i] = low[i].min(local[axis]);
-            high[i] = high[i].max(local[axis]);
-        }
-    }
-    ensure!(
-        low.iter().chain(&high).all(|v| v.is_finite()),
-        "no anatomical thumb envelope"
-    );
-    frame.origin = frame.point([(low[0] + high[0]) * 0.5, 0.0, (low[1] + high[1]) * 0.5]);
-    frame.half_extents[0] = ((high[0] - low[0]) * 0.5).max(MINIMUM_RADIAL_EXTENT_M);
-    frame.half_extents[2] = ((high[1] - low[1]) * 0.5).max(MINIMUM_RADIAL_EXTENT_M);
-    frame.validate()?;
-    Ok(frame)
-}
+#[path = "thumb_fit.rs"]
+mod thumb_fit;
+use thumb_fit::thumb_frame;
 
 #[derive(Clone, Copy)]
 struct FootSection {

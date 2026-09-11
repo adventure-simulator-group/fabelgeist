@@ -16,6 +16,7 @@ pub(super) fn fitted_design(
 ) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
     let wearer = |positions, normals, joints| Wearer {
+        faces: &character.mesh.faces,
         positions,
         normals,
         joints,
@@ -44,7 +45,8 @@ pub(super) fn fitted_design(
                 &sample.normals,
                 &sample.global_joint_states,
             ),
-        )?;
+        )
+        .with_context(|| format!("fitting armor morph {} ({placement})", sample.name))?;
         validate_correspondence(&mesh, &endpoint)?;
         let endpoint_normals = endpoint.normals()?;
         targets.push(ArmorMorph {

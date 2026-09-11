@@ -1,31 +1,32 @@
 //! An authored neck collar and short shoulder bib fitted from sectional bounds.
-//! Three broad anatomical sections define each smooth front/back depth curve;
-//! individual output vertices are never projected onto body triangles.
+//! Broad anatomical sections define the bib, with a coarse radial cage around
+//! the shoulders and chest. Output tessellation is independent of body topology.
 
-use std::f32::consts::TAU;
-
-use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind, PartFrame, PartMesh};
+use adventuresim_armor_model::{
+    GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape, PartFrame, PartMesh,
+};
 use anyhow::{Context, Result, ensure};
 
 use crate::armor_frames::{FitRegion, Wearer};
 
-const AROUND: usize = 64;
-const COLLAR_ROWS: usize = 4;
-const BIB_ROWS: usize = 10;
+#[path = "gorget_bib_fit.rs"]
+mod bib_fit;
+#[path = "gorget_plate_mesh.rs"]
+mod plate_mesh;
+use bib_fit::BibFit;
 const SECTION_HALF_BAND_M: f32 = 0.006;
+const MAXIMUM_SECTION_HALF_BAND_M: f32 = 0.018;
 const MINIMUM_SECTION_SAMPLES: usize = 4;
 const COLLAR_HEIGHT_NECK_RATIO: f32 = 0.20;
-const SIDE_TOP_NECK_RATIO: f32 = 0.91;
-const FRONT_TOP_NECK_RATIO: f32 = 0.49;
-const REAR_TOP_NECK_RATIO: f32 = 0.97;
+const COLLAR_BASE_NECK_RATIO: f32 = 0.58;
+const SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO: f32 = 0.18;
+const COLLAR_MAX_PITCH: f32 = 0.45;
 const FRONT_BIB_DROP_NECK_RATIO: f32 = 0.48;
-const REAR_BIB_RISE_NECK_RATIO: f32 = 0.12;
+const REAR_BIB_DROP_NECK_RATIO: f32 = 0.30;
 const SIDE_BIB_RISE_NECK_RATIO: f32 = 0.45;
-const NECK_FRONT_CROP_RATIO: f32 = 0.95;
+const SHOULDER_WIDTH_SECTION_NECK_RATIO: f32 = 0.30;
 const BIB_FLARE_WIDTH_GAIN: f32 = 0.25;
-const BIB_HEM_CROSS_SECTION_EXPONENT: f32 = 0.5;
-const POSTERIOR_SHOULDER_CROWN_NECK_RATIO: f32 = 0.10;
-const FRONT_COLLAR_MORPH_RESERVE_M: f32 = 0.003;
+const POSTERIOR_SHOULDER_CROWN_NECK_RATIO: f32 = 0.20;
 
 pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
     design.validate()?;
@@ -43,15 +44,23 @@ pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh>
         axes: heading.axes,
         half_extents: [height; 3],
     };
-    let mut support = wearer.support_indices(FitRegion::Neck)?;
-    support.extend(wearer.support_indices(FitRegion::Torso)?);
-    support.sort_unstable();
-    support.dedup();
-    let samples = support
+    let samples = wearer
+        .positions
         .iter()
-        .map(|i| local(&frame, wearer.positions[*i]))
+        .map(|p| local(&frame, *p))
         .collect::<Vec<_>>();
-    let cage = CollarCage::new(design, height, &samples)?;
+    let mut cage = CollarCage::new(design, height, &samples, wearer.faces)?;
+    cage.bib_fit = BibFit::measure(
+        |t, angle| {
+            cage.bib_point(
+                t,
+                adventuresim_armor_model::gorget_control_angle(angle, cage.rear_sweep),
+            )
+        },
+        &samples,
+        wearer.faces,
+        design.clearance.metres() + design.wall_thickness.metres(),
+    );
     Ok(cage.mesh(design)?.transformed(&frame))
 }
 
@@ -91,22 +100,30 @@ impl Section {
             low: [f32::INFINITY; 3],
             high: [f32::NEG_INFINITY; 3],
         };
-        let mut count = 0;
-        for point in samples.iter().filter(|p| {
-            (p[1] - y).abs() <= SECTION_HALF_BAND_M
-                && front_limit.is_none_or(|limit| p[2] < limit)
-                && half_width.is_none_or(|limit| p[0].abs() <= limit)
-        }) {
-            count += 1;
+        let mut nearby = samples
+            .iter()
+            .filter(|p| {
+                front_limit.is_none_or(|limit| p[2] < limit)
+                    && half_width.is_none_or(|limit| p[0].abs() <= limit)
+                    && (p[1] - y).abs() <= MAXIMUM_SECTION_HALF_BAND_M
+            })
+            .collect::<Vec<_>>();
+        nearby.sort_unstable_by(|a, b| (a[1] - y).abs().total_cmp(&(b[1] - y).abs()));
+        ensure!(
+            nearby.len() >= MINIMUM_SECTION_SAMPLES,
+            "insufficient gorget section support at {y}m"
+        );
+        let count = nearby
+            .iter()
+            .take_while(|p| (p[1] - y).abs() <= SECTION_HALF_BAND_M)
+            .count()
+            .max(MINIMUM_SECTION_SAMPLES);
+        for point in &nearby[..count] {
             for (axis, value) in point.iter().enumerate() {
                 result.low[axis] = result.low[axis].min(*value);
                 result.high[axis] = result.high[axis].max(*value);
             }
         }
-        ensure!(
-            count >= MINIMUM_SECTION_SAMPLES,
-            "insufficient gorget section support at {y}m"
-        );
         Ok(result)
     }
 }
@@ -123,53 +140,91 @@ impl DepthCurve {
 }
 
 struct CollarCage {
+    bib_fit: BibFit,
     center: [f32; 2],
     collar_radius: [f32; 2],
-    outer_width: f32,
-    top: [f32; 3],
-    base: [f32; 3],
+    base_radius: f32,
+    outer_width: [f32; 2],
+    top: CollarPlane,
+    base: CollarPlane,
     hem: [f32; 3],
     front: DepthCurve,
     back: DepthCurve,
     posterior_shoulder_crown: f32,
+    side_collar_rise: f32,
+    hem_flatness: f32,
+    rear_hem_flatness: f32,
+    rear_sweep: adventuresim_armor_model::Permille,
 }
 
 impl CollarCage {
-    fn new(design: &GarmentArmorDesign, height: f32, samples: &[[f32; 3]]) -> Result<Self> {
+    fn new(
+        design: &GarmentArmorDesign,
+        height: f32,
+        samples: &[[f32; 3]],
+        faces: &[[u32; 3]],
+    ) -> Result<Self> {
+        let GarmentPlateShape::Gorget {
+            neck_clearance,
+            collar_slope,
+            collar_height,
+            hem_flatness,
+            rear_hem_flatness,
+            rear_sweep,
+            front_depth,
+            back_depth,
+            front_width,
+            back_width,
+        } = design.plate_shape
+        else {
+            anyhow::bail!("gorget requires collar shape controls");
+        };
         let clearance = design.clearance.metres() + design.wall_thickness.metres();
-        let top = [
-            FRONT_TOP_NECK_RATIO,
-            SIDE_TOP_NECK_RATIO,
-            REAR_TOP_NECK_RATIO,
-        ]
-        .map(|v| v * height);
-        let base = top.map(|v| v - COLLAR_HEIGHT_NECK_RATIO * height);
+        let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
+        // A planar oval rim follows the oblique neck section beneath the jaw.
+        // Horizontal bounds at the low throat include shoulder tissue and cannot
+        // define the lateral collar width.
+        let top = CollarPlane {
+            height: (COLLAR_BASE_NECK_RATIO + COLLAR_HEIGHT_NECK_RATIO * collar_height.unit())
+                * height,
+            pitch: COLLAR_MAX_PITCH * collar_slope.unit(),
+        };
+        let base = CollarPlane {
+            height: COLLAR_BASE_NECK_RATIO * height,
+            pitch: top.pitch,
+        };
         let hem = [
-            -FRONT_BIB_DROP_NECK_RATIO * design.length.unit(),
+            -FRONT_BIB_DROP_NECK_RATIO * design.length.unit() * front_depth.unit(),
             SIDE_BIB_RISE_NECK_RATIO,
-            REAR_BIB_RISE_NECK_RATIO,
+            -REAR_BIB_DROP_NECK_RATIO * back_depth.unit(),
         ]
         .map(|v| v * height);
-        let neck = Section::measure(samples, base[1], Some(height * NECK_FRONT_CROP_RATIO))?;
+        let neck = top.section(samples, faces)?;
+        let lower_neck = base.section(samples, faces)?;
         let center = [
             (neck.low[0] + neck.high[0]) * 0.5,
             (neck.low[2] + neck.high[2]) * 0.5,
         ];
         let collar_radius = [
-            (neck.high[0] - neck.low[0]) * 0.5 + clearance,
-            (neck.high[2] - neck.low[2]) * 0.5 + clearance,
+            (neck.high[0] - neck.low[0]) * 0.5 + collar_padding,
+            (neck.high[2] - neck.low[2]) * 0.5 + collar_padding,
         ];
-        let shoulder = Section::measure(samples, hem[1], None)?;
+        let base_radius = (lower_neck.high[0] - lower_neck.low[0]) * 0.5 + collar_padding;
+        let shoulder = Section::measure(samples, height * SHOULDER_WIDTH_SECTION_NECK_RATIO, None)?;
         let outer_width = ((shoulder.high[0] - shoulder.low[0]) * 0.5 + clearance)
             * (1.0 + design.flare.unit() * BIB_FLARE_WIDTH_GAIN);
+        let outer_width = [
+            front_width.unit() * outer_width,
+            back_width.unit() * outer_width,
+        ];
         let mut front = [0.0; 3];
         let mut back = [0.0; 3];
         for (i, t) in [0.0, 0.5, 1.0].into_iter().enumerate() {
             front[i] = Section::measure_bounded(
                 samples,
-                base[0] + (hem[0] - base[0]) * t,
+                base.at(lower_neck.high[2]) + (hem[0] - base.at(lower_neck.high[2])) * t,
                 None,
-                Some(collar_radius[0]),
+                Some(height * SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
             )?
             .high[2]
                 - center[1]
@@ -177,16 +232,20 @@ impl CollarCage {
             back[i] = center[1]
                 - Section::measure_bounded(
                     samples,
-                    base[2] + (hem[2] - base[2]) * t,
+                    base.at(lower_neck.low[2]) + (hem[2] - base.at(lower_neck.low[2])) * t,
                     None,
-                    Some(collar_radius[0]),
+                    Some(height * SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO),
                 )?
                 .low[2]
                 + clearance;
         }
+        front[0] = lower_neck.high[2] - center[1] + collar_padding;
+        back[0] = center[1] - lower_neck.low[2] + collar_padding;
         Ok(Self {
+            bib_fit: BibFit::default(),
             center,
             collar_radius,
+            base_radius,
             outer_width,
             top,
             base,
@@ -194,42 +253,15 @@ impl CollarCage {
             front: DepthCurve(front),
             back: DepthCurve(back),
             posterior_shoulder_crown: height * POSTERIOR_SHOULDER_CROWN_NECK_RATIO,
+            side_collar_rise: height * 0.15,
+            hem_flatness: hem_flatness.unit(),
+            rear_hem_flatness: rear_hem_flatness.unit(),
+            rear_sweep,
         })
     }
 
-    fn mesh(&self, design: &GarmentArmorDesign) -> Result<PartMesh> {
-        let mut positions = Vec::new();
-        let mut indices = Vec::new();
-        for row in 0..=COLLAR_ROWS + BIB_ROWS {
-            for i in 0..AROUND {
-                let angle = i as f32 / AROUND as f32 * TAU;
-                positions.push(if row <= COLLAR_ROWS {
-                    self.collar_point(row as f32 / COLLAR_ROWS as f32, angle)
-                } else {
-                    self.bib_point((row - COLLAR_ROWS) as f32 / BIB_ROWS as f32, angle)
-                });
-            }
-            if row == 0 {
-                continue;
-            }
-            for i in 0..AROUND {
-                let a = ((row - 1) * AROUND + i) as u32;
-                let b = (row * AROUND + i) as u32;
-                let c = (row * AROUND + (i + 1) % AROUND) as u32;
-                let d = ((row - 1) * AROUND + (i + 1) % AROUND) as u32;
-                indices.extend([a, b, c, a, c, d]);
-            }
-        }
-        Ok(PartMesh::from_surface(
-            positions,
-            indices,
-            design.wall_thickness.metres(),
-            adventuresim_armor_model::BoundaryNormals::Smooth,
-            adventuresim_armor_model::ShellExtrusion::Normal,
-        )?)
-    }
-
     fn collar_point(&self, t: f32, angle: f32) -> [f32; 3] {
+        let angle = self.surface_angle(angle);
         let start_depth = self.collar_radius[1];
         let end_depth = if angle.cos() >= 0.0 {
             self.front.at(0.0)
@@ -237,50 +269,142 @@ impl CollarCage {
             self.back.at(0.0)
         };
         let depth = start_depth + (end_depth - start_depth) * t;
+        let width = self.collar_radius[0] + (self.base_radius - self.collar_radius[0]) * t;
+        let radius = polar_radius(width, depth, collar_power(angle), angle);
+        let z = self.center[1] + radius * angle.cos();
         [
-            self.center[0] + self.collar_radius[0] * angle.sin(),
-            height_at(self.top, angle)
-                + (height_at(self.base, angle) - height_at(self.top, angle)) * t
-                - FRONT_COLLAR_MORPH_RESERVE_M * angle.cos().max(0.0).powi(4) * (1.0 - t).powi(2),
-            self.center[1] + depth * angle.cos(),
+            self.center[0] + radius * angle.sin(),
+            self.top.at(z) + (self.base_height(angle, z) - self.top.at(z)) * t,
+            z,
         ]
     }
 
-    fn bib_point(&self, t: f32, angle: f32) -> [f32; 3] {
-        let width = self.collar_radius[0] + (self.outer_width - self.collar_radius[0]) * t.powi(2);
+    fn base_height(&self, angle: f32, z: f32) -> f32 {
+        self.base.at(z) + self.side_collar_rise * angle.sin().powi(2)
+    }
+
+    fn hem_height(&self, angle: f32) -> f32 {
+        let cosine = angle.cos();
+        let end = if cosine >= 0.0 {
+            self.hem[0]
+        } else {
+            self.hem[2]
+        };
+        let flatness = if cosine >= 0.0 {
+            self.hem_flatness
+        } else {
+            self.rear_hem_flatness
+        };
+        self.hem[1]
+            + (end - self.hem[1])
+                * (cosine * cosine
+                    / (cosine * cosine + (1.0 - 0.975 * flatness) * angle.sin().powi(2)))
+    }
+
+    fn surface_angle(&self, control: f32) -> f32 {
+        adventuresim_armor_model::gorget_surface_angle(control, self.rear_sweep)
+    }
+
+    fn bib_point(&self, t: f32, control_angle: f32) -> [f32; 3] {
+        let hem_height = self.hem_height(control_angle);
+        let angle = self.surface_angle(control_angle);
+        let outer = self.outer_width[if angle.cos() >= 0.0 { 0 } else { 1 }];
+        let side =
+            self.base_radius + (self.outer_width[0].min(self.outer_width[1]) - self.base_radius);
+        let width = self.base_radius
+            + (outer - self.base_radius + (side - outer) * angle.sin().powi(2)) * t;
         let cosine = angle.cos();
         let depth = if cosine >= 0.0 {
             self.front.at(t)
         } else {
             self.back.at(t)
         };
-        let profile = cosine.signum()
-            * cosine
-                .abs()
-                .powf(1.0 + (BIB_HEM_CROSS_SECTION_EXPONENT - 1.0) * t);
-        let shoulder_crown = self.posterior_shoulder_crown
-            * 4.0
+        let hem_power = if cosine >= 0.0 { 2.0 } else { 6.0 };
+        let radius = polar_radius(
+            width,
+            depth,
+            collar_power(angle) + (hem_power - collar_power(angle)) * t,
+            angle,
+        );
+        // The authored chart descends smoothly before anatomical seating.
+        // Limit its shoulder crown to the available collar-to-hem drop.
+        let base_depth = if cosine >= 0.0 {
+            self.front.at(0.0)
+        } else {
+            self.back.at(0.0)
+        };
+        let base_z = self.center[1]
+            + polar_radius(self.base_radius, base_depth, collar_power(angle), angle) * cosine;
+        let base_height = self.base_height(angle, base_z);
+        let available_drop = base_height - hem_height;
+        let shoulder_crown = self
+            .posterior_shoulder_crown
+            .min(available_drop * 0.8 / std::f32::consts::PI)
             * angle.sin().powi(2)
-            * (-cosine).max(0.0).powi(2)
             * (std::f32::consts::PI * t).sin();
+        let offset = self.bib_fit.offset(t, angle);
         [
-            self.center[0] + width * angle.sin(),
-            height_at(self.base, angle)
-                + (height_at(self.hem, angle) - height_at(self.base, angle)) * t
-                + shoulder_crown,
-            self.center[1] + depth * profile,
+            self.center[0] + radius * angle.sin(),
+            base_height + (hem_height - base_height) * t + shoulder_crown + offset[1],
+            self.center[1] + radius * angle.cos() + offset[2],
         ]
     }
 }
 
-fn height_at(heights: [f32; 3], angle: f32) -> f32 {
-    let cosine = angle.cos();
-    let end = if cosine >= 0.0 {
-        heights[0]
-    } else {
-        heights[2]
-    };
-    heights[1] + (end - heights[1]) * cosine.powi(2)
+/// The posterior neck flattens across the trapezius; the throat stays rounded.
+fn collar_power(angle: f32) -> f32 {
+    if angle.cos() >= 0.0 { 2.0 } else { 3.0 }
+}
+
+/// A true polar chart keeps anatomical angular boundaries fixed while its
+/// cross-section changes from elliptical neck to rounded shoulder bib.
+fn polar_radius(width: f32, depth: f32, power: f32, angle: f32) -> f32 {
+    ((angle.sin() / width).abs().powf(power) + (angle.cos() / depth).abs().powf(power))
+        .powf(-1.0 / power)
+}
+
+/// Plane height decreases toward the throat; all rim points remain coplanar.
+#[derive(Clone, Copy)]
+struct CollarPlane {
+    height: f32,
+    pitch: f32,
+}
+
+impl CollarPlane {
+    fn at(self, z: f32) -> f32 {
+        self.height - self.pitch * z
+    }
+
+    fn section(self, samples: &[[f32; 3]], faces: &[[u32; 3]]) -> Result<Section> {
+        let mut section = Section {
+            low: [f32::INFINITY; 3],
+            high: [f32::NEG_INFINITY; 3],
+        };
+        let mut count = 0;
+        for face in faces {
+            for (a, b) in [(0, 1), (1, 2), (2, 0)] {
+                let a = samples[face[a] as usize];
+                let b = samples[face[b] as usize];
+                let da = a[1] - self.at(a[2]);
+                let db = b[1] - self.at(b[2]);
+                if (da > 0.0) == (db > 0.0) {
+                    continue;
+                }
+                let t = da / (da - db);
+                for axis in 0..3 {
+                    let value = a[axis] + (b[axis] - a[axis]) * t;
+                    section.low[axis] = section.low[axis].min(value);
+                    section.high[axis] = section.high[axis].max(value);
+                }
+                count += 1;
+            }
+        }
+        ensure!(
+            count >= MINIMUM_SECTION_SAMPLES,
+            "collar plane does not cross a supported neck section"
+        );
+        Ok(section)
+    }
 }
 
 #[cfg(test)]
@@ -291,15 +415,27 @@ mod tests {
     #[test]
     fn collar_and_bib_form_one_closed_consistently_wound_material_shell() {
         let cage = CollarCage {
+            bib_fit: BibFit::default(),
             center: [0.0, 0.02],
             collar_radius: [0.078, 0.075],
-            outer_width: 0.15,
-            top: [0.047, 0.086, 0.092],
-            base: [0.028, 0.067, 0.073],
+            base_radius: 0.09,
+            outer_width: [0.15; 2],
+            top: CollarPlane {
+                height: 0.074,
+                pitch: 0.30,
+            },
+            base: CollarPlane {
+                height: 0.055,
+                pitch: 0.30,
+            },
             hem: [-0.046, 0.043, 0.011],
             front: DepthCurve([0.065, 0.071, 0.092]),
             back: DepthCurve([0.078, 0.109, 0.131]),
             posterior_shoulder_crown: 0.0095,
+            side_collar_rise: 0.014,
+            hem_flatness: 0.0,
+            rear_hem_flatness: 0.0,
+            rear_sweep: adventuresim_armor_model::Permille(0),
         };
         let mesh = cage
             .mesh(&GarmentArmorDesign::new(GarmentArmorKind::Gorget))
@@ -315,6 +451,47 @@ mod tests {
             assert_eq!(incident.len(), 2);
             assert_eq!(incident[0], (incident[1].1, incident[1].0));
         }
+    }
+
+    #[test]
+    fn oblique_section_interpolates_the_neck_instead_of_inflating_to_nearby_vertices() {
+        let plane = CollarPlane {
+            height: 0.075,
+            pitch: 0.35,
+        };
+        let mut points = Vec::new();
+        for offset in [-0.012, 0.012] {
+            for i in 0..48 {
+                let angle = i as f32 / 48.0 * std::f32::consts::TAU;
+                let z = (0.075 + offset) * angle.cos();
+                points.push([(0.060 + offset) * angle.sin(), plane.at(z) + offset, z]);
+            }
+        }
+        let mut faces = Vec::new();
+        for i in 0..48u32 {
+            let next = (i + 1) % 48;
+            faces.extend([[i, next, 48 + next], [i, 48 + next, 48 + i]]);
+        }
+        let neck = plane.section(&points, &faces).unwrap();
+        assert!((neck.high[0] - 0.060).abs() < 1e-6);
+        assert!((neck.high[2] - 0.075).abs() < 1e-6);
+        assert!((neck.low[2] + 0.075).abs() < 1e-6);
+        assert!(plane.section(&points, &[]).is_err());
+    }
+
+    #[test]
+    fn sparse_section_uses_nearby_support_without_admitting_distant_anatomy() {
+        let samples = [
+            [-0.05, -0.008, 0.04],
+            [0.05, -0.008, 0.04],
+            [-0.05, 0.008, -0.04],
+            [0.05, 0.008, -0.04],
+            [0.20, 0.030, 0.0],
+        ];
+        let section = Section::measure(&samples, 0.0, None).unwrap();
+        assert!((section.high[0] - 0.05).abs() < 1e-6);
+        assert!((section.low[2] + 0.04).abs() < 1e-6);
+        assert!(Section::measure(&samples, 0.10, None).is_err());
     }
 
     #[test]

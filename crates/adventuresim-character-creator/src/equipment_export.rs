@@ -9,6 +9,7 @@ pub(super) fn generate_equipment_assets(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
+    bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
     item_filter: &[String],
 ) -> Result<()> {
@@ -39,6 +40,7 @@ pub(super) fn generate_equipment_assets(
         recipe,
         generated: &generated,
         morphs: &morphs,
+        bracer_design,
         breastplate_design,
         catalog,
     };
@@ -101,6 +103,7 @@ struct EquipmentExporter<'a> {
     recipe: &'a CharacterRecipe,
     generated: &'a GeneratedCharacter,
     morphs: &'a CharacterMorphs,
+    bracer_design: &'a BracerDesign,
     breastplate_design: &'a BreastplateDesign,
 }
 
@@ -141,9 +144,9 @@ impl EquipmentExporter<'_> {
                     anyhow::bail!("vambrace placement {} has no forearm side", placement.id)
                 }
             };
-            let design = BracerDesign::default();
+            let design = self.bracer_design;
             (
-                fitted_bracer(model, generated, &design, side, &morphs.samples)?,
+                fitted_bracer(model, generated, design, side, &morphs.samples)?,
                 design.coverage.unit(),
             )
         } else if matches!(item.id.as_str(), "breastplate" | "cuirass") {

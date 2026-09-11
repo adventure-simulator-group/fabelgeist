@@ -3,6 +3,7 @@
 use adventuresim_armor_model::*;
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
+use std::{collections::BTreeMap, sync::LazyLock};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 
@@ -23,57 +24,17 @@ impl ParametricDesign {
     }
 }
 
-/// Stable item IDs are parsed once at the content boundary.
+const CATALOG_SOURCE: &str = include_str!("../../../assets_src/equipment/armor-designs.json");
+
+static CATALOG: LazyLock<BTreeMap<String, ParametricDesign>> = LazyLock::new(|| {
+    crate::armor_design_input::decode(CATALOG_SOURCE.as_bytes()).unwrap_or_else(|error| {
+        panic!("invalid embedded assets_src/equipment/armor-designs.json: {error:#}")
+    })
+});
+
+/// Look up the authored item recipe in the embedded equipment catalog.
 pub fn recipe(id: &str) -> Option<ParametricDesign> {
-    use GarmentArmorKind as G;
-    use HelmetKind as H;
-    let helmet = match id {
-        "morion" => Some(H::Morion),
-        "kettle_hat" => Some(H::KettleHat),
-        "barbute" => Some(H::Barbute),
-        "burgonet" => Some(H::Burgonet),
-        "sallet" => Some(H::Sallet),
-        "visored_sallet" => Some(H::VisoredSallet),
-        "close_helmet" => Some(H::CloseHelmet),
-        "arming_cap" => Some(H::ArmingCap),
-        "mail_coif" => Some(H::MailCoif),
-        _ => None,
-    };
-    if let Some(kind) = helmet {
-        return Some(ParametricDesign::Helmet(HelmetDesign::catalog(kind)));
-    }
-    let garment = match id {
-        "arming_doublet" => Some(G::ArmingDoublet),
-        "brigandine" => Some(G::Brigandine),
-        "jack_of_plates" => Some(G::JackOfPlates),
-        "fauld" => Some(G::Fauld),
-        "mail_chausses" => Some(G::MailChausses),
-        "mail_shirt" => Some(G::MailShirt),
-        "mail_skirt" => Some(G::MailSkirt),
-        "mail_sleeve" => Some(G::MailSleeve),
-        "padded_chausses" => Some(G::PaddedChausses),
-        "padded_skirt" => Some(G::PaddedSkirt),
-        "quilted_sleeve" => Some(G::QuiltedSleeve),
-        "tassets" => Some(G::Tassets),
-        "gorget" => Some(G::Gorget),
-        _ => None,
-    };
-    if let Some(kind) = garment {
-        return Some(ParametricDesign::Garment(GarmentArmorDesign::new(kind)));
-    }
-    let limb = match id {
-        "greave" => LimbArmorDesign::Greave(Default::default()),
-        "cuisse" => LimbArmorDesign::Cuisse(Default::default()),
-        "rerebrace" => LimbArmorDesign::Rerebrace(Default::default()),
-        "poleyn" => LimbArmorDesign::Poleyn(JointCupDesign::poleyn()),
-        "couter" => LimbArmorDesign::Couter(JointCupDesign::couter()),
-        "spaulder" => LimbArmorDesign::Spaulder(Default::default()),
-        "mitten_gauntlet" => LimbArmorDesign::MittenGauntlet(Default::default()),
-        "sabaton" => LimbArmorDesign::Sabaton(Default::default()),
-        "leather_boot" => LimbArmorDesign::LeatherBoot(Default::default()),
-        _ => return None,
-    };
-    Some(ParametricDesign::Limb(limb))
+    CATALOG.get(id).cloned()
 }
 
 pub fn is_parametric(id: &str) -> bool {
@@ -126,4 +87,114 @@ pub fn fitted_mesh(
     let frame = wearer.frame(fit_region(design, placement)?)?;
     let mesh = design.generate(&frame)?;
     Ok(mesh)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::armor_design_input::decode;
+
+    #[test]
+    fn embedded_catalog_preserves_every_item_and_construction_family() {
+        let expected = [
+            ("arming_cap", "Helmet", "ArmingCap"),
+            ("arming_doublet", "Garment", "ArmingDoublet"),
+            ("barbute", "Helmet", "Barbute"),
+            ("brigandine", "Garment", "Brigandine"),
+            ("burgonet", "Helmet", "Burgonet"),
+            ("close_helmet", "Helmet", "CloseHelmet"),
+            ("couter", "Limb", "Couter"),
+            ("cuisse", "Limb", "Cuisse"),
+            ("fauld", "Garment", "Fauld"),
+            ("gorget", "Garment", "Gorget"),
+            ("greave", "Limb", "Greave"),
+            ("jack_of_plates", "Garment", "JackOfPlates"),
+            ("kettle_hat", "Helmet", "KettleHat"),
+            ("leather_boot", "Limb", "LeatherBoot"),
+            ("mail_chausses", "Garment", "MailChausses"),
+            ("mail_coif", "Helmet", "MailCoif"),
+            ("mail_shirt", "Garment", "MailShirt"),
+            ("mail_skirt", "Garment", "MailSkirt"),
+            ("mail_sleeve", "Garment", "MailSleeve"),
+            ("mitten_gauntlet", "Limb", "MittenGauntlet"),
+            ("morion", "Helmet", "Morion"),
+            ("padded_chausses", "Garment", "PaddedChausses"),
+            ("padded_skirt", "Garment", "PaddedSkirt"),
+            ("poleyn", "Limb", "Poleyn"),
+            ("quilted_sleeve", "Garment", "QuiltedSleeve"),
+            ("rerebrace", "Limb", "Rerebrace"),
+            ("sabaton", "Limb", "Sabaton"),
+            ("sallet", "Helmet", "Sallet"),
+            ("spaulder", "Limb", "Spaulder"),
+            ("tassets", "Garment", "Tassets"),
+            ("visored_sallet", "Helmet", "VisoredSallet"),
+        ];
+        let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
+        assert_eq!(catalog.len(), expected.len());
+        for (id, category, family) in expected {
+            let encoded = serde_json::to_value(catalog.get(id).unwrap()).unwrap();
+            let shape = &encoded[category];
+            if category == "Garment" {
+                assert_eq!(shape["kind"], family, "{id}");
+            } else {
+                assert!(shape.get(family).is_some(), "{id} lost its {family} family");
+            }
+        }
+        let content: crate::item_catalog_schema::ItemCatalogDocument =
+            serde_json::from_str(include_str!("../../../content/items/catalog.yaml")).unwrap();
+        for item in &content.items {
+            if matches!(
+                item.kind,
+                crate::item_catalog_schema::ItemKind::Armor { .. }
+            ) {
+                assert!(is_parametric(&item.id), "missing armor recipe {}", item.id);
+            }
+        }
+        for id in catalog.keys() {
+            assert!(
+                content.items.iter().any(|item| &item.id == id),
+                "orphan recipe {id}"
+            );
+        }
+    }
+
+    #[test]
+    fn recipe_lookup_returns_authored_shapes_without_unknown_item_fallback() {
+        let authored: serde_json::Value = serde_json::from_str(CATALOG_SOURCE).unwrap();
+        let selected = recipe("barbute").unwrap();
+        assert_eq!(
+            serde_json::to_value(&selected).unwrap(),
+            authored["barbute"]
+        );
+        assert_ne!(
+            serde_json::to_value(selected).unwrap(),
+            serde_json::to_value(ParametricDesign::Helmet(HelmetDesign::catalog(
+                HelmetKind::Barbute
+            )))
+            .unwrap()
+        );
+        assert!(recipe("unknown_armor").is_none());
+        for id in ["vambrace", "breastplate", "cuirass"] {
+            assert!(is_parametric(id));
+            assert!(recipe(id).is_none());
+        }
+    }
+
+    #[test]
+    fn embedded_schema_rejects_missing_unknown_and_invalid_controls() {
+        let source: serde_json::Value = serde_json::from_str(CATALOG_SOURCE).unwrap();
+        let mut missing = source.clone();
+        missing["morion"]["Helmet"]["Morion"]["fit"]
+            .as_object_mut()
+            .unwrap()
+            .remove("clearance");
+        assert!(decode(&serde_json::to_vec(&missing).unwrap()).is_err());
+        let mut unknown = source.clone();
+        unknown["morion"]["Helmet"]["Morion"]["fit"]["clearence"] = 8.into();
+        assert!(decode(&serde_json::to_vec(&unknown).unwrap()).is_err());
+        let mut invalid = source;
+        invalid["morion"]["Helmet"]["Morion"]["fit"]["wall_thickness"] = 0.into();
+        let error = decode(&serde_json::to_vec(&invalid).unwrap()).unwrap_err();
+        assert!(format!("{error:#}").contains("morion"));
+    }
 }

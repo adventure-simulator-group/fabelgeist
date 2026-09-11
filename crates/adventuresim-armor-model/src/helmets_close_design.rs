@@ -54,6 +54,10 @@ impl Default for VisorBreaths {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct CloseHelmetDesign {
+    pub neck_length: Millimeters,
+    pub sight_ledge: Millimeters,
+    pub crown: crate::HelmetCrown,
+    pub visor_fluting: Option<crate::PlateFluting>,
     pub fit: HelmetFit,
     /// Skin clearance at the jaw and neck, independent of cranial lining space.
     pub face_clearance: Millimeters,
@@ -69,6 +73,8 @@ pub struct CloseHelmetDesign {
     pub sight_bridge: Millimeters,
     pub comb_height: Millimeters,
     pub throat_flare: Millimeters,
+    /// Rear neck flange, independent of the throat's terminal flare.
+    pub back_flare: Millimeters,
     pub back_edge_lift: Millimeters,
     /// Length and outward sweep of the three overlapping nape lames.
     pub nape_length: Millimeters,
@@ -84,6 +90,10 @@ pub struct CloseHelmetDesign {
 impl Default for CloseHelmetDesign {
     fn default() -> Self {
         Self {
+            neck_length: Millimeters(0),
+            sight_ledge: Millimeters(0),
+            crown: crate::HelmetCrown::default(),
+            visor_fluting: None,
             fit: HelmetFit {
                 clearance: Millimeters(10),
                 crown_height: Permille(1000),
@@ -99,6 +109,7 @@ impl Default for CloseHelmetDesign {
             sight_bridge: Millimeters(5),
             comb_height: Millimeters(6),
             throat_flare: Millimeters(3),
+            back_flare: Millimeters(3),
             back_edge_lift: Millimeters(24),
             nape_length: Millimeters(50),
             nape_flare: Millimeters(70),
@@ -112,10 +123,16 @@ impl Default for CloseHelmetDesign {
 
 impl CloseHelmetDesign {
     pub(super) fn validate_shape(&self) -> Result<(), DesignError> {
+        self.crown.validate()?;
+        if let Some(pattern) = &self.visor_fluting {
+            pattern.validate()?;
+        }
         let b = self.breaths;
         // The pierced lifting plate uses the same gauge as the bowl. Larger
         // gauges require a different visor construction and opening treatment.
-        let valid = self.fit.wall_thickness.0 <= 4
+        let valid = self.neck_length.0 <= 45
+            && self.sight_ledge.0 <= 12
+            && self.fit.wall_thickness.0 <= 4
             && (3..=20).contains(&self.face_clearance.0)
             && (3..=15).contains(&self.temple_clearance.0)
             && (700..=1000).contains(&self.jaw_width.0)
@@ -126,6 +143,7 @@ impl CloseHelmetDesign {
             && self.sight_bridge.0 <= 12
             && self.comb_height.0 <= 40
             && self.throat_flare.0 <= 15
+            && self.back_flare.0 <= 20
             && (10..=45).contains(&self.back_edge_lift.0)
             && self.nape_length.0 <= 80
             && self.nape_flare.0 <= 90

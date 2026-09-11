@@ -12,11 +12,13 @@ mod generation;
 mod preview;
 mod proportion_controls;
 use generation::generate_character;
+mod armor_controls;
 mod breastplate_controls;
 mod character_export;
 mod character_morphs;
 mod equipment_controls;
 mod equipment_export;
+mod fluting_controls;
 mod parametric_equipment;
 mod review_export;
 use character_export::export_character;
@@ -68,8 +70,47 @@ struct Studio {
     seed: u64,
     selected_lod: u8,
     selected_correctives: bool,
+    armor_designs_path: String,
+    bracer_design_path: String,
+    breastplate_design_path: String,
     bracer_design: BracerDesign,
     breastplate_design: BreastplateDesign,
+}
+
+impl Studio {
+    fn new(
+        args: &Args,
+        recipe: CharacterRecipe,
+        bracer_design: BracerDesign,
+        breastplate_design: BreastplateDesign,
+    ) -> Self {
+        Self {
+            recipe,
+            selected: IdentityGroup::Body,
+            show_expressions: false,
+            dirty: true,
+            status: format!("MHR LOD {} ready", args.lod),
+            recipe_path: args.recipe.display().to_string(),
+            glb_path: args.glb.display().to_string(),
+            seed: 1544,
+            selected_lod: args.lod,
+            selected_correctives: false,
+            armor_designs_path: args.armor_designs.as_ref().map_or_else(
+                || "target/armor-designs.json".into(),
+                |path| path.display().to_string(),
+            ),
+            bracer_design,
+            breastplate_design,
+            bracer_design_path: args.bracer_design.as_ref().map_or_else(
+                || "target/bracer-design.json".into(),
+                |path| path.display().to_string(),
+            ),
+            breastplate_design_path: args.breastplate_design.as_ref().map_or_else(
+                || "target/breastplate-design.json".into(),
+                |path| path.display().to_string(),
+            ),
+        }
+    }
 }
 
 #[derive(Component)]
@@ -84,6 +125,9 @@ struct GeneratedCharacter {
 
 fn main() -> Result<()> {
     let args = Args::parse();
+    let bracer_design = adventuresim_character_creator::design_input::load_bracer_design(
+        args.bracer_design.as_deref(),
+    )?;
     let breastplate_design = load_breastplate_design(args.breastplate_design.as_deref())?;
     let device = Device::default();
     let model = load_body_model(&args.assets, args.lod, false, &device)
@@ -109,7 +153,14 @@ fn main() -> Result<()> {
     recipe.validate().map_err(anyhow::Error::msg)?;
 
     if let Some(output) = &args.armor_review_dir {
-        return review_export::export(output, &model, &recipe, &catalog, &breastplate_design);
+        return review_export::export(
+            output,
+            &model,
+            &recipe,
+            &catalog,
+            &bracer_design,
+            &breastplate_design,
+        );
     }
 
     if args.generate_equipment {
@@ -118,6 +169,7 @@ fn main() -> Result<()> {
             &model,
             &recipe,
             &catalog,
+            &bracer_design,
             &breastplate_design,
             &args.equipment_item,
         )?;
@@ -133,7 +185,7 @@ fn main() -> Result<()> {
             &model,
             &recipe,
             &catalog,
-            &BracerDesign::default(),
+            &bracer_design,
             &breastplate_design,
         )?;
         println!("Exported {}", args.glb.display());
@@ -145,20 +197,12 @@ fn main() -> Result<()> {
         .insert_resource(args.clone())
         .insert_resource(model)
         .insert_resource(catalog)
-        .insert_resource(Studio {
+        .insert_resource(Studio::new(
+            &args,
             recipe,
-            selected: IdentityGroup::Body,
-            show_expressions: false,
-            dirty: true,
-            status: format!("MHR LOD {} ready", args.lod),
-            recipe_path: args.recipe.display().to_string(),
-            glb_path: args.glb.display().to_string(),
-            seed: 1544,
-            selected_lod: args.lod,
-            selected_correctives: false,
-            bracer_design: BracerDesign::default(),
+            bracer_design,
             breastplate_design,
-        })
+        ))
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
                 title: "Fabelgeist · Character Studio".into(),
@@ -189,7 +233,7 @@ fn main() -> Result<()> {
 fn studio_ui(
     mut contexts: EguiContexts,
     model: Res<BodyModel>,
-    catalog: Res<EquipmentCatalog>,
+    mut catalog: ResMut<EquipmentCatalog>,
     mut studio: ResMut<Studio>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
@@ -262,8 +306,7 @@ fn studio_ui(
                 }
             });
             ui.small("Armor recipes follow body proportions and share its MHR skin.");
-            equipment_controls::bracer(ui, &mut studio);
-            equipment_controls::breastplate(ui, &mut studio);
+            equipment_controls::show(ui, &mut catalog, &mut studio);
             ui.separator();
 
             proportion_controls::show(ui, &mut studio);
