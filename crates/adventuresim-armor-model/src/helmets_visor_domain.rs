@@ -14,6 +14,7 @@ const CORNER_STEPS: usize = 4;
 pub(super) struct VisorDomain {
     pub points: Vec<[f64; 2]>,
     pub indices: Vec<u32>,
+    pub relief: Vec<f32>,
 }
 
 impl VisorDomain {
@@ -48,41 +49,9 @@ impl VisorDomain {
         {
             return Err(DesignError::VisorOpeningSpacing.into());
         }
-        let mut points = Vec::new();
-        let mut constraints = Vec::new();
-        for boundary in std::iter::once(&outer).chain(holes.iter()) {
-            let start = points.len();
-            for (a, b) in edges(boundary) {
-                let steps = (distance(*a, *b) / SAMPLE_SPACING_MM).ceil() as usize;
-                for i in 0..steps.max(1) {
-                    let t = i as f64 / steps.max(1) as f64;
-                    points.push(Point2::new(
-                        a[0] + (b[0] - a[0]) * t,
-                        a[1] + (b[1] - a[1]) * t,
-                    ));
-                }
-            }
-            let end = points.len();
-            constraints.extend((start..end).map(|i| [i, if i + 1 == end { start } else { i + 1 }]));
-        }
-        for y in 1..20 {
-            for x in -31..32 {
-                let p = [
-                    f64::from(x) * SAMPLE_SPACING_MM,
-                    f64::from(y) * SAMPLE_SPACING_MM,
-                ];
-                if inside(p, &outer)
-                    && edge_distance(p, &outer) > GRID_EDGE_CLEARANCE_MM
-                    && holes
-                        .iter()
-                        .all(|h| !inside(p, h) && edge_distance(p, h) > GRID_EDGE_CLEARANCE_MM)
-                {
-                    points.push(Point2::new(p[0], p[1]));
-                }
-            }
-        }
+        let (samples, constraints) = sample_domain(design, &outer, &holes);
         let cdt =
-            ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(points, constraints)
+            ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(samples, constraints)
                 .map_err(|_| GenerateError::InvalidSurface)?;
         let points: Vec<_> = cdt
             .vertices()
@@ -106,8 +75,94 @@ impl VisorDomain {
                 indices.extend([ids[0] as u32, ids[2] as u32, ids[1] as u32]);
             }
         }
-        Ok(Self { points, indices })
+        let relief = points
+            .iter()
+            .map(|p| {
+                design.visor_fluting.as_ref().map_or(0.0, |pattern| {
+                    let v = 1.0 - p[1] as f32 / HEIGHT_MM;
+                    let u = pattern.unfan_coordinate((p[0] as f32 / HALF_WIDTH_MM + 1.0) * 0.5, v);
+                    let distance = holes
+                        .iter()
+                        .map(|h| edge_distance(*p, h))
+                        .fold(edge_distance(*p, &outer), f64::min);
+                    let margin = (distance / MINIMUM_WEB_MM).clamp(0.0, 1.0) as f32;
+                    let relief = pattern.relief(u, v) * margin * margin * (3.0 - 2.0 * margin);
+                    // A raised flute beside a steep ledge must not cross a pierced return.
+                    relief.min(distance as f32 * 0.001 * 0.35)
+                })
+            })
+            .collect();
+        Ok(Self {
+            points,
+            indices,
+            relief,
+        })
     }
+}
+
+fn sample_domain(
+    design: &CloseHelmetDesign,
+    outer: &[[f64; 2]],
+    holes: &[Vec<[f64; 2]>],
+) -> (Vec<Point2<f64>>, Vec<[usize; 2]>) {
+    let mut points = Vec::new();
+    let mut constraints = Vec::new();
+    for boundary in std::iter::once(outer).chain(holes.iter().map(Vec::as_slice)) {
+        let start = points.len();
+        for (a, b) in edges(boundary) {
+            let steps = (distance(*a, *b) / SAMPLE_SPACING_MM).ceil() as usize;
+            for i in 0..steps.max(1) {
+                let t = i as f64 / steps.max(1) as f64;
+                points.push(Point2::new(
+                    a[0] + (b[0] - a[0]) * t,
+                    a[1] + (b[1] - a[1]) * t,
+                ));
+            }
+        }
+        let end = points.len();
+        constraints.extend((start..end).map(|i| [i, if i + 1 == end { start } else { i + 1 }]));
+    }
+    let mut rows = (1..20)
+        .map(|y| f64::from(y) * SAMPLE_SPACING_MM)
+        .collect::<Vec<_>>();
+    // The ocular ledge and narrow central bridge need their own sampling.
+    rows.extend((20..=55).map(f64::from));
+    rows.sort_by(f64::total_cmp);
+    rows.dedup();
+    for y in rows {
+        let v = 1.0 - y as f32 / HEIGHT_MM;
+        let mut columns = design.visor_fluting.as_ref().map_or_else(
+            || {
+                (-31..32)
+                    .map(|x| f64::from(x) * SAMPLE_SPACING_MM)
+                    .collect::<Vec<_>>()
+            },
+            |pattern| {
+                pattern
+                    .columns(64)
+                    .into_iter()
+                    .map(|u| f64::from((pattern.fan_coordinate(u, v) * 2.0 - 1.0) * HALF_WIDTH_MM))
+                    .collect()
+            },
+        );
+        if (20.0..=55.0).contains(&y) {
+            columns.extend((-15..=15).map(f64::from));
+            columns.sort_by(f64::total_cmp);
+            columns.dedup_by(|a, b| (*a - *b).abs() < 0.1);
+        }
+        for x in columns {
+            let p = [x, y];
+            if inside(p, outer)
+                && edge_distance(p, outer) > GRID_EDGE_CLEARANCE_MM
+                && holes
+                    .iter()
+                    .all(|h| !inside(p, h) && edge_distance(p, h) > GRID_EDGE_CLEARANCE_MM)
+            {
+                points.push(Point2::new(p[0], p[1]));
+            }
+        }
+    }
+    (points, constraints)
 }
 
 fn openings(d: &CloseHelmetDesign) -> Vec<Vec<[f64; 2]>> {

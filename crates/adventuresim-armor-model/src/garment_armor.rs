@@ -4,8 +4,13 @@
 //! represents the garment envelope; individual links belong to material detail.
 use serde::{Deserialize, Serialize};
 
-use crate::{DesignError, GenerateError, Millimeters, PartFrame, PartMesh, Permille};
+use crate::{
+    DesignError, GarmentPlateShape, GenerateError, Millimeters, PartFrame, PartMesh, Permille,
+    PlateFluting,
+};
 
+#[path = "garment_plate_shapes.rs"]
+mod plates;
 #[path = "garment_armor_shapes.rs"]
 mod shapes;
 #[path = "garment_armor_shell.rs"]
@@ -37,6 +42,8 @@ pub enum GarmentArmorKind {
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct GarmentArmorDesign {
+    pub plate_shape: GarmentPlateShape,
+    pub fluting: Option<PlateFluting>,
     pub kind: GarmentArmorKind,
     pub clearance: Millimeters,
     pub wall_thickness: Millimeters,
@@ -60,6 +67,8 @@ impl GarmentArmorDesign {
                 | GarmentArmorKind::QuiltedSleeve
         );
         Self {
+            plate_shape: GarmentPlateShape::for_kind(kind),
+            fluting: None,
             kind,
             clearance: Millimeters(if padded { 3 } else { 10 }),
             wall_thickness: Millimeters(if padded { 5 } else { 3 }),
@@ -86,6 +95,13 @@ impl GarmentArmorDesign {
     }
 
     pub fn validate(&self) -> Result<(), GenerateError> {
+        self.plate_shape.validate(self.kind)?;
+        if let Some(pattern) = &self.fluting {
+            if self.plate_shape == GarmentPlateShape::None {
+                return Err(DesignError::ParametricParameters.into());
+            }
+            pattern.validate()?;
+        }
         if !(1..=40).contains(&self.clearance.0)
             || !(1..=16).contains(&self.wall_thickness.0)
             || !(500..=1_300).contains(&self.length.0)
@@ -113,8 +129,9 @@ pub fn generate_garment_armor(
         | GarmentArmorKind::Brigandine
         | GarmentArmorKind::JackOfPlates
         | GarmentArmorKind::MailShirt => shapes::torso(design, fit),
-        GarmentArmorKind::Tassets => shapes::tassets(design, fit),
-        GarmentArmorKind::Gorget => shapes::gorget(design, fit),
+        GarmentArmorKind::Fauld => plates::fauld(design, fit),
+        GarmentArmorKind::Tassets => plates::tassets(design, fit),
+        GarmentArmorKind::Gorget => plates::gorget(design, fit),
         _ => shapes::tube(design, fit),
     }?;
     Ok(mesh.transformed(fit))

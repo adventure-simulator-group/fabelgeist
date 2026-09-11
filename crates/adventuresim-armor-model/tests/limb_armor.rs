@@ -14,6 +14,33 @@ fn frame(extents: [f32; 3]) -> PartFrame {
     }
 }
 
+#[test]
+fn sabaton_rejects_ankle_trim_that_consumes_the_instep_span() {
+    let foot = FootArmorDesign {
+        ankle_cutaway: Millimeters(30),
+        ..Default::default()
+    };
+    let design = LimbArmorDesign::Sabaton(foot);
+    design.validate().unwrap();
+    for half_length in [0.030, 0.030 / 0.70] {
+        let fit = frame([0.040, 0.030, half_length]);
+        fit.validate().unwrap();
+        let result = generate_limb_armor(&design, &fit);
+        assert!(
+            matches!(
+                result,
+                Err(adventuresim_armor_model::GenerateError::SabatonTrimExceedsFoot { .. })
+            ),
+            "half length {half_length}: {result:?}"
+        );
+    }
+    let compatible = frame([0.040, 0.030, 0.060]);
+    generate_limb_armor(&design, &compatible)
+        .unwrap()
+        .normals()
+        .unwrap();
+}
+
 fn families() -> Vec<(LimbArmorDesign, PartFrame)> {
     vec![
         (

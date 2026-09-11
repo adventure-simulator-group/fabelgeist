@@ -3,7 +3,7 @@ use std::f32::consts::{FRAC_PI_2, PI};
 
 use super::{
     CloseHelmetDesign, CloseHelmetProfile,
-    geometry::{AROUND, Surface, comb},
+    geometry::{AROUND, Surface},
 };
 use crate::{ArmorComponentRole, ArmorHinge, GenerateError, PartMesh};
 
@@ -14,11 +14,11 @@ use domain::{HALF_WIDTH_MM, HEIGHT_MM, VisorDomain};
 const JAW_ROWS: usize = 12;
 const NECK_ROWS: usize = 6;
 const BEVOR_COLUMNS: usize = 32;
-const PLATE_GAP_M: f32 = 0.0007;
+const PLATE_GAP_M: f32 = 0.002;
 const VISOR_BROW_OVERLAP_M: f32 = 0.030;
 const SIDE_WRAP_RADIANS: f32 = PI * 0.55;
 pub(super) const NECK_HEM_HEAD_RATIO: f32 = 1.20;
-const CHIN_HEAD_RATIO: f32 = 1.03;
+pub(super) const CHIN_HEAD_RATIO: f32 = 1.03;
 const EAR_LOBE_TAPER_START: f32 = 0.40;
 const LOWER_FACE_PROJECTION_FRACTION: f32 = 0.25;
 const VISOR_SEATING_TRANSITION: f32 = 0.25;
@@ -96,7 +96,7 @@ impl Carrier<'_> {
     }
 
     fn hem_height(&self, angle: f32) -> f32 {
-        -self.half_height * NECK_HEM_HEAD_RATIO
+        -self.half_height * NECK_HEM_HEAD_RATIO - self.d.neck_length.metres()
             + self.d.back_edge_lift.metres() * (1.0 - angle.cos().max(0.0).powi(2))
     }
 
@@ -149,11 +149,15 @@ impl Carrier<'_> {
         let jaw = self.jaw_height(angle);
         let t = (self.brow - y) / (self.brow - jaw);
         let jaw_blend = smooth((t - EAR_LOBE_TAPER_START) / (1.0 - EAR_LOBE_TAPER_START));
-        let neck_blend = smooth((jaw - y) / (jaw - self.hem_height(angle)));
+        let neck_fraction = ((jaw - y) / (jaw - self.hem_height(angle))).clamp(0.0, 1.0);
+        let neck_blend = smooth(neck_fraction);
         let [x, z] = self
             .profile
-            .section(self.d, angle, jaw_blend, neck_blend, smooth(t));
-        let lip = self.d.throat_flare.metres() * neck_blend.powi(4) * 0.5;
+            .section(self.d, angle, jaw_blend, neck_fraction, smooth(t));
+        let front = angle.cos().max(0.0).powi(2);
+        let flare =
+            self.d.throat_flare.metres() * front + self.d.back_flare.metres() * (1.0 - front);
+        let lip = flare * neck_blend.powi(4) * 0.5;
         // Both overlapping plates share the lower face projection. The visor's
         // exit must lead into a receding chin, rather than ending behind it.
         let mouth = -self.half_height * FACE_PROJECTION_HEAD_RATIO;
@@ -183,7 +187,7 @@ impl Carrier<'_> {
             self.crown,
             self.profile.skull_depth(),
         ];
-        let rim = surface.dome(radii, self.brow);
+        let rim = surface.styled_dome(radii, self.brow, &self.d.crown, self.d.comb_height.metres());
         for p in &mut surface.positions {
             let crown_blend = smooth((p[1] - self.brow) / (self.crown - self.brow));
             p[0] *= 1.0
@@ -204,19 +208,10 @@ impl Carrier<'_> {
             surface.connect(&previous, &ring, false);
             previous = ring;
         }
-        let mut mesh = surface.shell(self.d.fit.wall_thickness.metres())?;
-        if self.d.comb_height.0 > 0 {
-            let mut crest = comb(
-                radii,
-                self.brow,
-                self.d.comb_height.metres(),
-                self.d.fit.wall_thickness.metres(),
-            )?;
-            for p in &mut crest.positions {
-                p[2] += self.profile.skull_center();
-            }
-            mesh.append(crest);
-        }
+        let mut mesh = surface.shell(
+            self.d.fit.wall_thickness.metres(),
+            crate::ShellExtrusion::Normal,
+        )?;
         if self.d.nape_length.0 > 0 {
             mesh.append(self.nape()?);
         }
@@ -251,7 +246,10 @@ impl Carrier<'_> {
                 }
                 previous = ring;
             }
-            tail.append(surface.shell(self.d.fit.wall_thickness.metres())?);
+            tail.append(surface.shell(
+                self.d.fit.wall_thickness.metres(),
+                crate::ShellExtrusion::Normal,
+            )?);
         }
         Ok(tail)
     }
@@ -311,7 +309,10 @@ impl Carrier<'_> {
             }
             previous = ring;
         }
-        surface.shell(self.d.fit.wall_thickness.metres())
+        surface.shell(
+            self.d.fit.wall_thickness.metres(),
+            crate::ShellExtrusion::Normal,
+        )
     }
 
     fn visor_height(&self) -> f32 {
@@ -352,17 +353,22 @@ impl Carrier<'_> {
                 point[2] += projection
                     * smooth((1.0 - t) / VISOR_SEATING_TRANSITION)
                     * angle.cos().max(0.0).powi(2);
+                let sight = domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM;
+                let ledge = smooth((t - sight) / 0.10) * (1.0 - smooth((t - sight - 0.10) / 0.16));
+                point[2] += self.d.sight_ledge.metres() * ledge * angle.cos().max(0.0).powi(2);
                 point
             })
             .collect();
-        PartMesh::from_surface(
+        PartMesh::from_relief_surface(
             positions,
             domain.indices,
             self.d.fit.wall_thickness.metres(),
             crate::BoundaryNormals::Separate,
-            crate::ShellExtrusion::InPlane {
-                normal: [0.0, 1.0, 0.0],
+            crate::ShellExtrusion::Radial {
+                origin: [0.0, 0.0, self.profile.skull_center()],
+                axis: [0.0, 1.0, 0.0],
             },
+            self.d.visor_fluting.as_ref().map(|_| domain.relief),
         )
     }
 }

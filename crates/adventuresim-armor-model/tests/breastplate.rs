@@ -543,7 +543,7 @@ fn wide_flute_fades_preserve_side_edges_and_medial_ridge() {
     let design = BreastplateDesign::tapul();
     let smooth = generate_breastplate(&design, &surface).unwrap();
     let mut fluted_design = design;
-    fluted_design.fluting = Some(adventuresim_armor_model::BreastplateFluting {
+    fluted_design.fluting = Some(adventuresim_armor_model::PlateFluting {
         lower_spread: Permille(1000),
         spread: Permille(850),
         start: Permille(50),

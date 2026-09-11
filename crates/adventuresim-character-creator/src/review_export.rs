@@ -7,6 +7,7 @@ pub(super) fn export(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
+    bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
 ) -> Result<()> {
     std::fs::create_dir_all(output)?;
@@ -22,6 +23,7 @@ pub(super) fn export(
         }))?,
     )?;
     let wearer = Wearer {
+        faces: &character.mesh.faces,
         positions: &body.positions,
         normals: &body.normals,
         joints: &body.global_joint_states,
@@ -31,7 +33,14 @@ pub(super) fn export(
     };
     for item in procedural_items(catalog) {
         let Some(design) = catalog.design(&item.id) else {
-            existing(output, model, &body, item, breastplate_design)?;
+            existing(
+                output,
+                model,
+                &body,
+                item,
+                bracer_design,
+                breastplate_design,
+            )?;
             continue;
         };
         for placement in &item.equipment.as_ref().expect("procedural item").placements {
@@ -57,6 +66,7 @@ fn existing(
     model: &BodyModel,
     body: &GeneratedCharacter,
     item: &ItemDefinition,
+    bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
 ) -> Result<()> {
     for placement in &item.equipment.as_ref().expect("procedural item").placements {
@@ -68,9 +78,9 @@ fn existing(
                     adventuresim_character_creator::armor_frames::Side::Left => ForearmSide::Left,
                     adventuresim_character_creator::armor_frames::Side::Right => ForearmSide::Right,
                 };
-                let design = BracerDesign::default();
+                let design = bracer_design;
                 (
-                    fitted_bracer(model, body, &design, side, &[])?,
+                    fitted_bracer(model, body, design, side, &[])?,
                     serde_json::to_value(design)?,
                 )
             }

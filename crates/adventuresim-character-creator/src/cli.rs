@@ -23,6 +23,9 @@ pub(super) struct Args {
     pub(super) catalog: PathBuf,
     #[arg(long, default_value = "assets/equipment/procedural")]
     pub(super) equipment_output: PathBuf,
+    /// Vambrace design for studio, review, character and equipment exports.
+    #[arg(long)]
+    pub(super) bracer_design: Option<PathBuf>,
     /// BreastplateDesign JSON for studio, character, and equipment exports.
     #[arg(long)]
     pub(super) breastplate_design: Option<PathBuf>,

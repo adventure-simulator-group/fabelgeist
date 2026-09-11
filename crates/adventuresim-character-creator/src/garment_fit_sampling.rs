@@ -3,6 +3,52 @@ use crate::armor_frames::Wearer;
 use adventuresim_armor_model::PartFrame;
 const SECTION_HALF_WIDTH_M: f32 = 0.018;
 const SURFACE_SAMPLE_COUNT: usize = 12;
+/// A shared smooth depth datum keeps neighboring plate laps on the same surface.
+pub(super) struct PlateDepth {
+    samples: Vec<f32>,
+    extents: [f32; 3],
+}
+impl PlateDepth {
+    const SIDE: usize = 17;
+    pub(super) fn new(surface: &SurfaceSampler, extents: [f32; 3]) -> Self {
+        let mut samples = Vec::new();
+        for row in 0..Self::SIDE {
+            for column in 0..Self::SIDE {
+                let x = (2.0 * column as f32 / (Self::SIDE - 1) as f32 - 1.0) * extents[0] * 1.2;
+                let y = (2.0 * row as f32 / (Self::SIDE - 1) as f32 - 1.0) * extents[1] * 1.2;
+                samples.push(surface.depth([x, y, extents[2]], 1.0));
+            }
+        }
+        Self { samples, extents }
+    }
+    pub(super) fn at(&self, point: [f32; 3]) -> f32 {
+        let axis = |i: usize| {
+            let position =
+                ((point[i] / (self.extents[i] * 1.2) + 1.0) * 0.5 * (Self::SIDE - 1) as f32)
+                    .clamp(0.0, (Self::SIDE - 1) as f32);
+            let base = position.floor() as isize;
+            let t = position - base as f32;
+            let weights = [
+                (1.0 - t).powi(3) / 6.0,
+                (3.0 * t.powi(3) - 6.0 * t * t + 4.0) / 6.0,
+                (-3.0 * t.powi(3) + 3.0 * t * t + 3.0 * t + 1.0) / 6.0,
+                t.powi(3) / 6.0,
+            ];
+            (base, weights)
+        };
+        let (x, wx) = axis(0);
+        let (y, wy) = axis(1);
+        let mut depth = 0.0;
+        for (j, b) in wy.iter().enumerate() {
+            for (i, a) in wx.iter().enumerate() {
+                let column = (x + i as isize - 1).clamp(0, Self::SIDE as isize - 1) as usize;
+                let row = (y + j as isize - 1).clamp(0, Self::SIDE as isize - 1) as usize;
+                depth += a * b * self.samples[row * Self::SIDE + column];
+            }
+        }
+        depth
+    }
+}
 /// Low-resolution anatomical cross sections control the entire garment surface.
 /// Interpolating this cage preserves smooth flow across all authored patches.
 pub(super) struct SectionCage {

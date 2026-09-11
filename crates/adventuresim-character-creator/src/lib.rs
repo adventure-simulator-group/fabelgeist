@@ -2,6 +2,7 @@
 
 mod armor_clearance;
 pub mod armor_design_input;
+pub mod armor_design_output;
 pub mod armor_frames;
 pub mod armor_recipes;
 pub mod bracer;

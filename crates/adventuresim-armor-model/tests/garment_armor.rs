@@ -138,3 +138,236 @@ fn invalid_parameters_and_frames_are_rejected() {
     invalid.axes[0] = invalid.axes[1];
     assert!(generate_garment_armor(&design, &invalid).is_err());
 }
+
+fn connected_parts(mesh: &PartMesh) -> Vec<Vec<usize>> {
+    let mut neighbors = vec![Vec::new(); mesh.positions.len()];
+    for triangle in mesh.indices.as_chunks::<3>().0 {
+        for (a, b) in [
+            (triangle[0], triangle[1]),
+            (triangle[1], triangle[2]),
+            (triangle[2], triangle[0]),
+        ] {
+            neighbors[a as usize].push(b as usize);
+            neighbors[b as usize].push(a as usize);
+        }
+    }
+    let mut seen = vec![false; mesh.positions.len()];
+    let mut parts = Vec::new();
+    for start in 0..seen.len() {
+        if seen[start] {
+            continue;
+        }
+        let mut pending = vec![start];
+        let mut part = Vec::new();
+        seen[start] = true;
+        while let Some(index) = pending.pop() {
+            part.push(index);
+            for &next in &neighbors[index] {
+                if !seen[next] {
+                    seen[next] = true;
+                    pending.push(next);
+                }
+            }
+        }
+        parts.push(part);
+    }
+    parts
+}
+
+fn assert_welded_solid(mesh: &PartMesh) {
+    // Match the review checker's micrometre weld so duplicated caps meeting
+    // at the same physical edge cannot masquerade as two independent solids.
+    let mut vertices = BTreeMap::<[i64; 3], u32>::new();
+    let mapping = mesh
+        .positions
+        .iter()
+        .map(|point| {
+            let key = point.map(|v| (v * 1_000_000.0).round() as i64);
+            let next = vertices.len() as u32;
+            *vertices.entry(key).or_insert(next)
+        })
+        .collect::<Vec<_>>();
+    let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();
+    for triangle in mesh.indices.as_chunks::<3>().0 {
+        let [a, b, c] = [triangle[0], triangle[1], triangle[2]].map(|i| mapping[i as usize]);
+        assert!(
+            a != b && b != c && a != c,
+            "collapsed triangle after physical weld"
+        );
+        for (start, end) in [(a, b), (b, c), (c, a)] {
+            edges
+                .entry((start.min(end), start.max(end)))
+                .or_default()
+                .push((start, end));
+        }
+    }
+    for uses in edges.values() {
+        assert_eq!(
+            uses.len(),
+            2,
+            "physical edge must have exactly two incident faces"
+        );
+        assert_eq!(
+            uses[0],
+            (uses[1].1, uses[1].0),
+            "physical winding must agree"
+        );
+    }
+}
+
+fn angular_height_bounds(mesh: &PartMesh, part: &[usize], angle: f32) -> [f32; 2] {
+    let mut bounds = [f32::INFINITY, f32::NEG_INFINITY];
+    for &index in part {
+        let [x, y, z] = mesh.positions[index];
+        let projected = x * angle.sin() + z * angle.cos();
+        let across = x * angle.cos() - z * angle.sin();
+        if projected > 0.0 && across.abs() < 1e-6 {
+            bounds[0] = bounds[0].min(y);
+            bounds[1] = bounds[1].max(y);
+        }
+    }
+    assert!(bounds.iter().all(|v| v.is_finite()));
+    bounds
+}
+
+#[test]
+fn gorget_lowest_neck_band_and_bib_are_one_physically_closed_sheet() {
+    for count in [1, 3, 8] {
+        let mut design = GarmentArmorDesign::new(GarmentArmorKind::Gorget);
+        design.lame_count = count;
+        let mesh = adventuresim_armor_model::generate_gorget_plates(
+            &design,
+            [0.0; 2],
+            |t, angle| {
+                [
+                    0.08 * angle.sin(),
+                    (0.05 + 0.015 * angle.cos()) * (1.0 - t),
+                    0.08 * angle.cos(),
+                ]
+            },
+            |t, angle| {
+                [
+                    (0.08 + 0.08 * t) * angle.sin(),
+                    -0.04 * t,
+                    (0.08 + 0.08 * t) * angle.cos(),
+                ]
+            },
+        )
+        .unwrap();
+        assert_solid(&mesh);
+        assert_welded_solid(&mesh);
+        let parts = connected_parts(&mesh);
+        assert_eq!(parts.len(), usize::from(count));
+        let bib = parts
+            .iter()
+            .find(|part| {
+                part.iter().any(|&i| {
+                    let p = mesh.positions[i];
+                    p[0].hypot(p[2]) > 0.10
+                })
+            })
+            .unwrap();
+        assert!(bib.iter().any(|&i| mesh.positions[i][1] > 0.001));
+        assert!(bib.iter().any(|&i| mesh.positions[i][1] < -0.001));
+        // Each transition point belongs to the same connected sheet as both
+        // the raised neck band and descending bib, without a separate seam cap.
+        for station in 0..16 {
+            let angle = station as f32 * std::f32::consts::TAU / 16.0;
+            let rim = [0.08 * angle.sin(), 0.0, 0.08 * angle.cos()];
+            let distance = bib
+                .iter()
+                .map(|&index| {
+                    let point = mesh.positions[index];
+                    (0..3)
+                        .map(|axis| (point[axis] - rim[axis]).powi(2))
+                        .sum::<f32>()
+                        .sqrt()
+                })
+                .fold(f32::INFINITY, f32::min);
+            assert!(distance < 1e-6, "missing continuous seam at angle {angle}");
+        }
+    }
+}
+
+#[test]
+fn standalone_gorget_count_creates_separate_overlapping_neck_plates() {
+    for count in [1, 3, 8] {
+        let mut design = GarmentArmorDesign::new(GarmentArmorKind::Gorget);
+        design.lame_count = count;
+        let mesh = generate_garment_armor(&design, &frame(design.kind)).unwrap();
+        assert_welded_solid(&mesh);
+        let parts = connected_parts(&mesh);
+        assert_eq!(parts.len(), usize::from(count));
+        for angle in [0.0, std::f32::consts::FRAC_PI_2, std::f32::consts::PI] {
+            let mut heights = parts
+                .iter()
+                .map(|p| angular_height_bounds(&mesh, p, angle))
+                .collect::<Vec<_>>();
+            heights.sort_by(|a, b| b[1].total_cmp(&a[1]));
+            for pair in heights.windows(2) {
+                assert!(
+                    pair[0][0] < pair[1][1] - 1e-5,
+                    "adjacent collar plates must overlap"
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn tasset_inner_cutaways_and_rounded_hems_do_not_reverse_narrow_lames() {
+    use adventuresim_armor_model::GarmentPlateShape;
+    for count in [3, 8] {
+        for cutaway in [0, 400] {
+            let mut design = GarmentArmorDesign::new(GarmentArmorKind::Tassets);
+            design.lame_count = count;
+            if let GarmentPlateShape::Tassets {
+                inner_cutaway,
+                hem_roundness,
+                hem_point,
+                ..
+            } = &mut design.plate_shape
+            {
+                *inner_cutaway = Permille(cutaway);
+                *hem_roundness = Permille(300);
+                *hem_point = Permille(200);
+            }
+            let mesh = generate_garment_armor(&design, &frame(design.kind)).unwrap();
+            mesh.refit_surfaces(|points| {
+                let stride = points.len() / 9;
+                for row in 1..9 {
+                    for col in 0..stride {
+                        assert!(
+                            points[row * stride + col][1] > points[(row - 1) * stride + col][1],
+                            "lame folded back along its length"
+                        );
+                    }
+                }
+            })
+            .unwrap();
+        }
+    }
+}
+
+#[test]
+fn increasing_gorget_slope_lowers_the_front_rim() {
+    use adventuresim_armor_model::GarmentPlateShape;
+    let mut design = GarmentArmorDesign::new(GarmentArmorKind::Gorget);
+    let mut front_heights = Vec::new();
+    for value in [0, 1000] {
+        let GarmentPlateShape::Gorget { collar_slope, .. } = &mut design.plate_shape else {
+            unreachable!()
+        };
+        *collar_slope = Permille(value);
+        let mesh = generate_garment_armor(&design, &frame(GarmentArmorKind::Gorget)).unwrap();
+        assert_solid(&mesh);
+        front_heights.push(
+            mesh.positions
+                .iter()
+                .filter(|p| p[0].abs() < 0.01 && p[2] > 0.06)
+                .map(|p| p[1])
+                .fold(f32::NEG_INFINITY, f32::max),
+        );
+    }
+    assert!(front_heights[0] - front_heights[1] > 0.005);
+}

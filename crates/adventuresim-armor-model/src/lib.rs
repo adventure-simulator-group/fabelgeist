@@ -1,10 +1,16 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples.
 
+mod helmet_crown;
+pub use helmet_crown::HelmetCrown;
+
 #[path = "breastplate_carrier.rs"]
 mod breastplate;
 mod breastplate_design;
 pub use breastplate_design::*;
+mod plate_fluting;
+mod plate_patch;
+pub use plate_fluting::{FluteCount, PlateFluting};
 mod components;
 mod design;
 pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
@@ -12,6 +18,10 @@ mod mesh;
 pub mod parametric;
 pub use parametric::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
 mod garment_armor;
+mod garment_plate_design;
+mod gorget_plates;
+pub use garment_plate_design::GarmentPlateShape;
+pub use gorget_plates::{generate_gorget_plates, gorget_control_angle, gorget_surface_angle};
 mod helmets;
 mod limb_armor;
 pub use garment_armor::{
@@ -27,7 +37,7 @@ pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 11;
+pub const GENERATOR_VERSION: u16 = 12;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
@@ -82,6 +92,12 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
 }
 
 pub fn validate(design: &BracerDesign) -> Result<(), DesignError> {
+    if design.elbow_flare.0 > 15 || design.wrist_flare.0 > 15 || design.center_ridge.0 > 8 {
+        return Err(DesignError::Clearance);
+    }
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
+    }
     if design.catalog_id.trim().is_empty() {
         return Err(DesignError::EmptyCatalogId);
     }

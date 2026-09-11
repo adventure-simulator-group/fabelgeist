@@ -512,3 +512,8 @@ reason = "Authored interior furniture dimensions, joinery proportions and room d
 kind = "fixture"
 path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/interior.rs"
 reason = "Deterministic interior catalog and furnished settlement review fixtures."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/armor_controls.rs"
+reason = "Egui controls dispatch design edits and save actions through widget responses, without comparing display labels."

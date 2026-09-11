@@ -1,5 +1,5 @@
 //! Shape controls for paired torso plates and their integral waist flanges.
-use crate::{DesignError, Millimeters, Permille};
+use crate::{DesignError, Millimeters, Permille, PlateFluting};
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
@@ -22,7 +22,7 @@ pub struct BreastplateDesign {
     /// Scale of rear shell depth; fitting still encloses the wearer.
     pub back_depth: Permille,
     pub profile: BreastplateProfile,
-    pub fluting: Option<BreastplateFluting>,
+    pub fluting: Option<PlateFluting>,
     /// Scale of the default short skirt length.
     pub skirt_length: Permille,
     /// Outward flare of the skirt's lower edge.
@@ -91,43 +91,6 @@ impl Default for BreastplateProfile {
     }
 }
 
-/// Raised, rounded flutes separated by smooth lands on the front plate.
-/// Width is a fraction of flute pitch, independent of count. Dimensions are
-/// in the authored carrier chart; physical widths scale with the wearer.
-#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct BreastplateFluting {
-    pub count: FluteCount,
-    pub width: Permille,
-    pub depth: Millimeters,
-    /// Fraction of front chart width occupied by the pattern at its top.
-    pub spread: Permille,
-    /// Lower pattern width relative to its top; 1000 adds no fan in the carrier chart.
-    pub lower_spread: Permille,
-    pub start: Permille,
-    pub end: Permille,
-    /// Fade length at each end, as a fraction of plate height.
-    pub fade: Permille,
-}
-
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub struct FluteCount(pub u16);
-
-impl Default for BreastplateFluting {
-    fn default() -> Self {
-        Self {
-            count: FluteCount(16),
-            width: Permille(850),
-            depth: Millimeters(2),
-            spread: Permille(850),
-            lower_spread: Permille(900),
-            start: Permille(150),
-            end: Permille(800),
-            fade: Permille(100),
-        }
-    }
-}
-
 impl BreastplateProfile {
     pub const UPPER_RECESSION_RANGE: RangeInclusive<u16> = 0..=50;
     pub const PROJECTION_RANGE: RangeInclusive<u16> = 0..=80;
@@ -148,34 +111,6 @@ impl BreastplateProfile {
             || !Self::WAIST_POINT_WIDTH_RANGE.contains(&self.waist_point_width.0)
         {
             return Err(DesignError::BreastplateShape);
-        }
-        Ok(())
-    }
-}
-
-impl BreastplateFluting {
-    pub const COUNT_RANGE: RangeInclusive<u16> = 2..=24;
-    pub const WIDTH_RANGE: RangeInclusive<u16> = 350..=850;
-    pub const DEPTH_RANGE: RangeInclusive<u16> = 1..=4;
-    pub const SPREAD_RANGE: RangeInclusive<u16> = 400..=850;
-    pub const LOWER_SPREAD_RANGE: RangeInclusive<u16> = 500..=1000;
-    pub const FADE_RANGE: RangeInclusive<u16> = 100..=250;
-    pub const MIN_START: u16 = 50;
-    pub const MAX_END: u16 = 950;
-
-    pub(crate) fn validate(&self) -> Result<(), DesignError> {
-        if !Self::COUNT_RANGE.contains(&self.count.0)
-            || !Self::WIDTH_RANGE.contains(&self.width.0)
-            || !Self::DEPTH_RANGE.contains(&self.depth.0)
-            || !Self::SPREAD_RANGE.contains(&self.spread.0)
-            || !Self::LOWER_SPREAD_RANGE.contains(&self.lower_spread.0)
-            || self.start.0 < Self::MIN_START
-            || self.end.0 > Self::MAX_END
-            || self.end.0 <= self.start.0
-            || !Self::FADE_RANGE.contains(&self.fade.0)
-            || self.end.0 - self.start.0 < self.fade.0 * 2
-        {
-            return Err(DesignError::BreastplateFluting);
         }
         Ok(())
     }
@@ -255,7 +190,7 @@ impl BreastplateDesign {
 
     pub fn fluted() -> Self {
         Self {
-            fluting: Some(BreastplateFluting::default()),
+            fluting: Some(PlateFluting::default()),
             ..Self::globose()
         }
     }

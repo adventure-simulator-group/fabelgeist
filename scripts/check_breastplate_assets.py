@@ -1,4 +1,4 @@
-"""Check breastplate shells, self-intersections and body clearance in Blender.
+"""Check armor shells, component intersections and body clearance in Blender.
 
 blender --background --python-exit-code 1 --python scripts/check_breastplate_assets.py -- ARMOR BODY REPORT
 ARMOR/BODY may be review JSON for a neutral check or exported GLBs for a morph sweep.
@@ -29,12 +29,20 @@ def load(path):
         faces = np.asarray(row['faces'] if 'faces' in row else row['indices']).reshape(-1, 3)
         return np.asarray(row['positions']), faces, None
     glb = Glb(path)
-    mesh, = glb.doc['meshes']
-    primitive, = mesh['primitives']
-    assert mesh['extras']['targetNames'] == EXPECTED_TARGETS
-    return (glb.array(primitive['attributes']['POSITION']),
-            glb.array(primitive['indices']).reshape(-1, 3),
-            np.stack([glb.array(t['POSITION']) for t in primitive['targets']]))
+    positions, faces, morphs = [], [], []
+    offset = 0
+    for node in glb.doc['nodes']:
+        if 'mesh' in node:
+            assert not any(key in node for key in ('matrix', 'translation', 'rotation', 'scale')), 'Expected reference-body component coordinates'
+    for mesh in glb.doc['meshes']:
+        assert mesh['extras']['targetNames'] == EXPECTED_TARGETS
+        for primitive in mesh['primitives']:
+            points = glb.array(primitive['attributes']['POSITION'])
+            positions.append(points)
+            faces.append(glb.array(primitive['indices']).reshape(-1, 3) + offset)
+            morphs.append(np.stack([glb.array(t['POSITION']) for t in primitive['targets']]))
+            offset += len(points)
+    return np.concatenate(positions), np.concatenate(faces), np.concatenate(morphs, axis=1)
 
 
 def configurations(morphs):

@@ -9,20 +9,20 @@ use readiness::{EquipmentVisualRequirements, EquipmentVisualState, EquipmentVisu
 #[serde(rename_all = "snake_case")]
 pub(crate) enum ArmorHarness {
     Plate,
+    PlateTassets,
     Mail,
     Padded,
     CloseHelmet,
 }
 
 impl ArmorHarness {
-    fn item_ids(self) -> &'static [&'static str] {
-        match self {
+    fn item_ids(self) -> impl Iterator<Item = &'static str> {
+        let items: &'static [&'static str] = match self {
             Self::CloseHelmet => &["close_helmet"],
-            Self::Plate => &[
+            Self::Plate | Self::PlateTassets => &[
                 "morion",
                 "gorget",
                 "cuirass",
-                "fauld",
                 "spaulder",
                 "rerebrace",
                 "couter",
@@ -49,7 +49,14 @@ impl ArmorHarness {
                 "padded_chausses",
                 "leather_boot",
             ],
-        }
+        };
+        // These waist defenses occupy the same rigid-armor catalog slot.
+        let waist = match self {
+            Self::Plate => Some("fauld"),
+            Self::PlateTassets => Some("tassets"),
+            _ => None,
+        };
+        items.iter().copied().chain(waist)
     }
 
     fn visual_requirements(self) -> EquipmentVisualRequirements {
@@ -68,7 +75,7 @@ impl ArmorHarness {
     fn placements(
         self,
     ) -> impl Iterator<Item = (&'static ItemDefinition, &'static EquipmentPlacement)> {
-        self.item_ids().iter().flat_map(|item_id| {
+        self.item_ids().flat_map(|item_id| {
             let definition = item_catalog::definition(item_id).expect("authored harness item");
             definition
                 .equipment
@@ -301,9 +308,30 @@ mod tests {
     }
 
     #[test]
+    fn tassets_fixture_changes_only_the_conflicting_waist_defense() {
+        let plate = ArmorHarness::Plate.item_ids().collect::<BTreeSet<_>>();
+        let tassets = ArmorHarness::PlateTassets
+            .item_ids()
+            .collect::<BTreeSet<_>>();
+        assert_eq!(
+            plate.difference(&tassets).copied().collect::<Vec<_>>(),
+            ["fauld"]
+        );
+        assert_eq!(
+            tassets.difference(&plate).copied().collect::<Vec<_>>(),
+            ["tassets"]
+        );
+        assert!(matches!(
+            ArmorHarness::from_str("plate-tassets", false).unwrap(),
+            ArmorHarness::PlateTassets
+        ));
+    }
+
+    #[test]
     fn review_harnesses_use_nonconflicting_catalog_placements() {
         for (harness, count) in [
             (ArmorHarness::Plate, 22),
+            (ArmorHarness::PlateTassets, 22),
             (ArmorHarness::Mail, 9),
             (ArmorHarness::Padded, 9),
             (ArmorHarness::CloseHelmet, 1),

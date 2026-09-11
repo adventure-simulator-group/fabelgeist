@@ -28,6 +28,56 @@ fn frame(scale: f32) -> PartFrame {
 }
 
 #[test]
+fn temple_fan_crowns_preserve_closed_walls_and_lower_plate_connections() {
+    use adventuresim_armor_model::{FluteCount, HelmetCrown, PlateFluting};
+    for count in [2, 7, 24] {
+        let crown = HelmetCrown {
+            fluting: Some(PlateFluting {
+                count: FluteCount(count),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        for design in [
+            HelmetDesign::Morion(MorionDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::KettleHat(KettleHatDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Barbute(BarbuteDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Burgonet(BurgonetDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Sallet(SalletDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::CloseHelmet(CloseHelmetDesign {
+                crown,
+                visor_fluting: crown.fluting,
+                ..Default::default()
+            }),
+        ] {
+            let small = generate_helmet(&design, &frame(0.8)).unwrap();
+            let large = generate_helmet(&design, &frame(1.2)).unwrap();
+            assert_eq!(
+                small.indices, large.indices,
+                "body dimensions changed fluted topology"
+            );
+            assert_closed_solid(&small);
+            assert_closed_solid(&large);
+        }
+    }
+}
+
+#[test]
 fn close_helmet_keeps_independent_plate_partitions() {
     let mesh = generate_helmet(
         &HelmetDesign::CloseHelmet(CloseHelmetDesign {
@@ -182,14 +232,14 @@ fn extreme_style_controls_preserve_solid_topology() {
             ..Default::default()
         }),
         HelmetDesign::Barbute(BarbuteDesign {
-            eye_opening: Permille(850),
-            mouth_opening: Permille(120),
+            eye_opening: adventuresim_armor_model::Milliradians(850),
+            mouth_opening: adventuresim_armor_model::Milliradians(120),
             cheek_depth: Permille(1050),
             ..Default::default()
         }),
         HelmetDesign::Barbute(BarbuteDesign {
-            eye_opening: Permille(500),
-            mouth_opening: Permille(400),
+            eye_opening: adventuresim_armor_model::Milliradians(500),
+            mouth_opening: adventuresim_armor_model::Milliradians(400),
             cheek_depth: Permille(750),
             ..Default::default()
         }),
@@ -300,7 +350,7 @@ fn reflected_placement_preserves_outward_winding() {
 #[test]
 fn bad_style_and_invalid_anatomical_frames_are_rejected() {
     let invalid = HelmetDesign::Barbute(BarbuteDesign {
-        mouth_opening: Permille(0),
+        mouth_opening: adventuresim_armor_model::Milliradians(0),
         ..Default::default()
     });
     assert!(generate_helmet(&invalid, &frame(1.0)).is_err());
@@ -313,7 +363,7 @@ fn bad_style_and_invalid_anatomical_frames_are_rejected() {
 fn mouth_control_changes_face_opening_without_changing_skull() {
     let closed = HelmetDesign::Barbute(BarbuteDesign::default());
     let open = HelmetDesign::Barbute(BarbuteDesign {
-        mouth_opening: Permille(400),
+        mouth_opening: adventuresim_armor_model::Milliradians(400),
         ..Default::default()
     });
     let a = generate_helmet(&closed, &frame(1.0)).unwrap();

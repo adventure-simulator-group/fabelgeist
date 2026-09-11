@@ -4,6 +4,8 @@ use serde::{Deserialize, Serialize};
 use super::{CloseHelmetDesign, HelmetDesign};
 use crate::{DesignError, GenerateError, PartFrame, PartMesh};
 
+const SUBMENTAL_NECK_FRACTION: f32 = 0.35;
+
 /// Outer sectional bounds in metres in the head frame, including the chosen
 /// padding and plate reserve. Anatomy sets these bounds; style sets projection,
 /// ridge, lip and openings. No output vertex is projected onto body topology.
@@ -15,6 +17,7 @@ pub struct CloseHelmetProfile {
     pub skull_back: f32,
     pub jaw_half_width: f32,
     pub jaw_front: f32,
+    pub submental_front: f32,
     pub neck_half_width: f32,
     pub throat_front: f32,
     pub nape_back: f32,
@@ -45,7 +48,8 @@ impl CloseHelmetProfile {
             })
             .collect();
         let chin = -frame.half_extents[1];
-        let front_hem = -frame.half_extents[1] * super::close::NECK_HEM_HEAD_RATIO;
+        let front_hem = -frame.half_extents[1] * super::close::NECK_HEM_HEAD_RATIO
+            - design.neck_length.metres();
         let side_hem = front_hem + design.back_edge_lift.metres();
         let skull = Bounds::measure(
             &points,
@@ -57,6 +61,13 @@ impl CloseHelmetProfile {
         let head_width = Bounds::measure(&points, chin, f32::INFINITY)?;
         let jaw = Bounds::measure(&points, chin + JAW_WIDTH_LOWER_M, chin + JAW_WIDTH_UPPER_M)?;
         let face = Bounds::measure(&points, chin, chin + JAW_FACE_HEIGHT_M)?;
+        let jaw_height = chin * super::close::CHIN_HEAD_RATIO;
+        let submental_height = jaw_height + (front_hem - jaw_height) * SUBMENTAL_NECK_FRACTION;
+        let submental = Bounds::measure(
+            &points,
+            submental_height - SECTION_HALF_BAND_M,
+            submental_height + SECTION_HALF_BAND_M,
+        )?;
         let neck = Bounds::measure(
             &points,
             side_hem - SECTION_HALF_BAND_M,
@@ -85,6 +96,7 @@ impl CloseHelmetProfile {
             skull_back: skull.low[2] - gap,
             jaw_half_width: jaw.half_width() + face_gap,
             jaw_front: face.high[2] + face_gap,
+            submental_front: submental.high[2] + face_gap,
             neck_half_width: neck.half_width() + face_gap,
             throat_front: throat.high[2] + face_gap,
             nape_back: neck.low[2] - face_gap,
@@ -105,6 +117,7 @@ impl CloseHelmetProfile {
             skull_back: -radii[2],
             jaw_half_width: radii[0] * 0.73 + reserve,
             jaw_front: radii[2] * 0.84 + reserve,
+            submental_front: radii[2] * 0.52 + reserve,
             neck_half_width: radii[0] * 0.67 + reserve,
             throat_front: radii[2] * 0.43 + reserve,
             nape_back: -radii[2] * 0.80 - reserve,
@@ -123,6 +136,7 @@ impl CloseHelmetProfile {
             self.skull_front,
             self.skull_back,
             self.jaw_front,
+            self.submental_front,
             self.throat_front,
             self.nape_back,
             self.nape_waist,
@@ -151,9 +165,10 @@ impl CloseHelmetProfile {
         design: &CloseHelmetDesign,
         angle: f32,
         jaw_blend: f32,
-        neck_blend: f32,
+        neck_fraction: f32,
         back_blend: f32,
     ) -> [f32; 2] {
+        let neck_blend = neck_fraction * neck_fraction * (3.0 - 2.0 * neck_fraction);
         let upper_width = self.temple_half_width;
         let jaw_width = self
             .jaw_half_width
@@ -166,11 +181,19 @@ impl CloseHelmetProfile {
             neck_width,
             neck_blend,
         );
-        let front = lerp(
-            lerp(self.skull_front, self.jaw_front, jaw_blend),
-            self.throat_front,
-            neck_blend,
-        );
+        let front = if neck_fraction <= SUBMENTAL_NECK_FRACTION {
+            lerp(
+                lerp(self.skull_front, self.jaw_front, jaw_blend),
+                self.submental_front,
+                neck_fraction / SUBMENTAL_NECK_FRACTION,
+            )
+        } else {
+            lerp(
+                self.submental_front,
+                self.throat_front,
+                (neck_fraction - SUBMENTAL_NECK_FRACTION) / (1.0 - SUBMENTAL_NECK_FRACTION),
+            )
+        };
         let back = lerp(
             lerp(self.skull_back, self.nape_waist, back_blend),
             self.nape_back,
@@ -255,6 +278,7 @@ mod tests {
             (-0.09, 0.06, 0.095, -0.08),
             (-0.105, 0.06, 0.095, -0.08),
             (-0.114, 0.055, 0.07, -0.075),
+            (-0.125, 0.05, 0.045, -0.071),
             (-0.138, 0.05, 0.04, -0.07),
         ] {
             points.extend([

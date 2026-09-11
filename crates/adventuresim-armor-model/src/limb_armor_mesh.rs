@@ -7,23 +7,7 @@ use crate::{GenerateError, parametric::PartMesh};
 pub(super) const AROUND: usize = 40;
 pub(super) const ALONG: usize = 16;
 
-/// The sampled surface must have outward `du × dv`; cyclic patches weld their seam.
-pub(super) fn patch(
-    columns: usize,
-    rows: usize,
-    cyclic: bool,
-    thickness: f32,
-    point: impl Fn(f32, f32) -> [f32; 3],
-) -> Result<PartMesh, GenerateError> {
-    let (positions, indices) = grid(columns, rows, cyclic, point);
-    PartMesh::from_surface(
-        positions,
-        indices,
-        thickness,
-        crate::BoundaryNormals::Smooth,
-        crate::ShellExtrusion::Normal,
-    )
-}
+pub(super) use crate::plate_patch::fluted_patch;
 
 /// A continuous upper and sole, with the ankle as its only open boundary.
 pub(super) fn boot_shell(
@@ -96,6 +80,7 @@ pub(super) fn half_dome(
     start: f32,
     end: f32,
     gauge: f32,
+    roundness: f32,
 ) -> Result<PartMesh, GenerateError> {
     const RINGS: usize = 8;
     let stride = AROUND + 1;
@@ -106,7 +91,7 @@ pub(super) fn half_dome(
         for column in 0..=AROUND {
             let theta = (0.5 - column as f32 / AROUND as f32) * PI;
             positions.push([
-                width * theta.sin() * latitude.cos(),
+                width * theta.sin() * latitude.cos().powf(roundness),
                 sole + height * theta.cos() * latitude.cos(),
                 lerp(start, end, latitude.sin()),
             ]);

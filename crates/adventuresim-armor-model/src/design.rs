@@ -19,8 +19,23 @@ impl Permille {
     }
 }
 
+/// A nonnegative angle stored in thousandths of a radian.
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct Milliradians(pub u16);
+impl Milliradians {
+    pub fn radians(self) -> f32 {
+        f32::from(self.0) / 1_000.0
+    }
+}
+
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct BracerDesign {
+    pub fluting: Option<crate::PlateFluting>,
+    /// Extra opening radius; the middle of the forearm remains close fitting.
+    pub elbow_flare: Millimeters,
+    pub wrist_flare: Millimeters,
+    pub center_ridge: Millimeters,
     pub catalog_id: String,
     /// Fraction of the canonical elbow-to-wrist forearm span.
     pub coverage: Permille,
@@ -35,6 +50,10 @@ pub struct BracerDesign {
 impl Default for BracerDesign {
     fn default() -> Self {
         Self {
+            fluting: None,
+            elbow_flare: Millimeters(0),
+            wrist_flare: Millimeters(0),
+            center_ridge: Millimeters(0),
             catalog_id: "vambrace".into(),
             coverage: Permille(650),
             wrist_offset: Permille(20),
@@ -45,6 +64,33 @@ impl Default for BracerDesign {
 }
 
 impl BracerDesign {
+    pub(crate) fn columns(&self) -> Vec<f32> {
+        const BASE_SEGMENTS: usize = 32;
+        let mut columns = self.fluting.as_ref().map_or_else(
+            || {
+                (0..=BASE_SEGMENTS)
+                    .map(|i| i as f32 / BASE_SEGMENTS as f32)
+                    .collect()
+            },
+            |fluting| fluting.columns(BASE_SEGMENTS),
+        );
+        columns.pop();
+        columns
+    }
+
+    pub(crate) fn relief(&self, u: f32, v: f32) -> f32 {
+        let edge =
+            self.elbow_flare.metres() * (1.0 - v).powi(6) + self.wrist_flare.metres() * v.powi(6);
+        let ridge = (std::f32::consts::TAU * (u - 0.5)).cos().max(0.0).powi(8)
+            * (std::f32::consts::PI * v).sin().powi(2)
+            * self.center_ridge.metres();
+        edge + ridge
+            + self
+                .fluting
+                .as_ref()
+                .map_or(0.0, |fluting| fluting.relief(u, 1.0 - v))
+    }
+
     pub fn bracelet() -> Self {
         Self {
             coverage: Permille(120),
@@ -293,7 +339,7 @@ pub enum DesignError {
     #[error("breastplate profile parameters are outside their supported ranges")]
     BreastplateShape,
     #[error("breastplate flute parameters or fade spacing are outside their supported ranges")]
-    BreastplateFluting,
+    PlateFluting,
     #[error(
         "visor slots do not fit their pattern span or row spacing with a 3 mm metal web; reduce count/size or increase spacing"
     )]

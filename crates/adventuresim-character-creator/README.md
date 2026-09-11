@@ -1,9 +1,9 @@
 # Character creator
 
 Native, non-authoritative character design tool backed by `fabelgeist-mhr`. It
-loads
-Meta's Momentum Human Rig assets locally, exposes its 45 identity coefficients
-and 72 expression coefficients, and previews the generated mesh in Bevy.
+loads Meta's Momentum Human Rig assets locally, exposes its 45 identity
+coefficients and 72 expression coefficients, and previews the generated mesh in
+Bevy.
 
 Install the pinned upstream assets into the ignored local authoring cache, then
 start the creator from the repository root:
@@ -14,9 +14,9 @@ just character-creator
 ```
 
 The importer verifies Meta's MHR v1.0.1 release by size and SHA-256 and installs
-the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`.
-That default cache is about 50 MB after extraction. Run
-`just init-mhr-lod1-correctives` only when comparing the optional LOD 1
+the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`. That
+default cache is about 50 MB after extraction. Run `just
+init-mhr-lod1-correctives` only when comparing the optional LOD 1
 pose-corrective network; installing every corrective basis is an explicit
 `scripts/init_mhr_assets.py --all-correctives` operation and consumes about
 4 GB. Override the location with `--assets` or `MHR_ASSETS` when needed. The
@@ -34,11 +34,11 @@ body without opening the studio, then prepare its runtime copy as described
 below.
 
 The zero-weight attachment joints follow MHR's side-prefix naming convention:
-`l_weapon` is parented to `l_wrist`, `r_weapon` to `r_wrist`, and `c_camera`
-to `c_head`. Each weapon joint is positioned halfway from its wrist toward the
+`l_weapon` is parented to `l_wrist`, `r_weapon` to `r_wrist`, and `c_camera` to
+`c_head`. Each weapon joint is positioned halfway from its wrist toward the
 corresponding `*_middle1` knuckle, placing it in the generated palm. The camera
-joint is positioned at the midpoint of the generated eye joints. Their
-rotations inherit the wrist or head without mirrored negative scale.
+joint is positioned at the midpoint of the generated eye joints. Their rotations
+inherit the wrist or head without mirrored negative scale.
 
 Use the left panel to edit, randomize, reset, save, load, and export. Drag the
 viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD
@@ -87,10 +87,10 @@ changes either.
 
 Breastplate identity targets transfer body displacement through fixed
 correspondence on the smooth carrier. Refined flute vertices interpolate that
-coarse displacement, and corresponding inner/outer wall vertices share it.
-This avoids accumulating independent nonlinear fitting corrections in signed
-identity blends. It preserves carrier gauge vectors, not exact normal thickness
-under arbitrary deformation; installed skeletal animation needs its own checks.
+coarse displacement, and corresponding inner/outer wall vertices share it. This
+avoids accumulating independent nonlinear fitting corrections in signed identity
+blends. It preserves carrier gauge vectors, not exact normal thickness under
+arbitrary deformation; installed skeletal animation needs its own checks.
 
 
 The tactical client derives bounded cosmetic weights from each persistent
@@ -114,11 +114,11 @@ offsets; hand scaling, asymmetric lengths, and pose correctives are not part of
 this skeletal contract. Export validates the mapping against the MHR model.
 
 In game, character IDs determine stable skeletal coefficients independently of
-the surface morph seed. The pose buffer samples shared reference motion and
-adds instance-owned joint offsets before terrain and limb IK. A neutral-foot
-height correction raises or lowers the pelvis for different leg lengths. Neither
-the shared animation cache nor inverse bind matrices are modified. Equipment
-uses the wearer's joint entities, so skeletal deformation applies once through
+the surface morph seed. The pose buffer samples shared reference motion and adds
+instance-owned joint offsets before terrain and limb IK. A neutral-foot height
+correction raises or lowers the pelvis for different leg lengths. Neither the
+shared animation cache nor inverse bind matrices are modified. Equipment uses
+the wearer's joint entities, so skeletal deformation applies once through
 skinning, in addition to its surface morphs; transfers follow the new skeleton
 and dropped equipment returns to its exported shape.
 
@@ -148,16 +148,53 @@ All armor catalog entries have authored parametric recipes. Preview, character
 export and equipment export use the same recipe dispatch, fit and material.
 Catalog loading rejects armor without a recipe. The geometry code lives in
 `adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit
-envelopes,
-and transfer of UVs, skinning and morph targets.
+envelopes, and transfer of UVs, skinning and morph targets.
+
+The authored helmet, limb and garment defaults live in
+[`assets_src/equipment/armor-designs.json`](../../assets_src/equipment/armor-designs.json).
+The paired torso and vambrace defaults live beside it in
+`breastplate-design.json` and `vambrace-design.json`. The creator embeds these
+authored inputs and validates every recipe before use. Edit the catalog, rebuild
+the creator, then regenerate equipment assets to change the game's default
+shapes. Invalid entries fail explicitly; there is no generated default fallback.
 
 Use `--write-armor-designs target/armor-designs.json` to write the editable
 helmet, limb and garment defaults. Pass `--armor-designs` with that file to
 preview or export overrides. Keys are catalog IDs; a recipe must retain its
-construction family and pass its parameter validation. The existing
-`--breastplate-design` option controls the paired torso plates. Measurements use
-millimetres and ratios use permille. The serialized design contributes to the
-asset's design hash and generator version.
+construction family and pass its parameter validation. Use `--bracer-design` for
+the vambrace and `--breastplate-design` for the paired torso plates; these are
+separate recipe files, outside the catalog override map. The editor's **Save all
+armor designs** button writes the catalog, vambrace and breastplate recipes to
+the three displayed paths. Each path must be distinct and its parent directory
+must exist. Pass all three files back through their corresponding options to
+reproduce the saved set in preview or export.
+
+Measurements use millimetres and ratios use permille. The sallet's
+`opening_width` is an angular exception: it is the face-opening half-angle in
+milliradians. The serialized design contributes to the asset's design hash and
+generator version. Generate current defaults before editing; recipe files must
+include the required fields of the current schema.
+
+Metal recipes expose construction-specific shape controls. Helmet crowns have
+fullness, ridge height and optional fluting; sallets add face-opening width and
+sweep, tail shape, and separate visor side-panel depth. Limb plates expose
+section shape and edge flare, greaves add ankle extension, and joint cops add
+wing shape and notch depth. Tassets have width, separation, inner cutaway and
+rounded or pointed hems; gorgets have collar height, independent front/rear
+depth and width, independent front/rear hem flatness, rear sweep and separate
+neck clearance. Gorget fluting follows the front bib and leaves the shoulder
+return plain. These controls shape fitted carrier surfaces, with physical
+padding clearance and metal gauge kept separate.
+
+The shared `PlateFluting` recipe applies to metal limb and garment plates,
+vambraces, helmet crowns and close-helmet visors. Set the appropriate `fluting`
+field to `null` for a plain surface (`crown.fluting` or `visor_fluting` on
+helmets). Its fields are `count` (2–24), `width` (350–850 permille of pitch),
+`depth` (1–4 mm), `spread` (400–850), `lower_spread` (500–1000), `start`, `end`,
+and `fade` (100–250). The pattern runs from lower to upper plate coordinates;
+start/end must remain within 50–950 and leave room for both fades. Lower spread
+controls the fan at the bottom of the pattern. Mail and textile recipes do not
+accept metal fluting.
 
 The breastplate editor provides Rounded, Central ridge, Peascod, and Fluted
 starting points. Its `profile` controls projection, upper-chest recession, the
@@ -167,15 +204,16 @@ follows the waist point without a discontinuity when chest projection height
 changes. Opening, length, waist width, clearance, and flange controls remain
 independent.
 
-Set `fluting` to `null` for a plain plate, or provide the flute recipe. Count
-(2–24), width (350–850 permille of pitch), depth (1–4 mm), spread, lower spread,
+The breastplate uses the shared flute recipe with a torso-specific distribution.
+Set `fluting` to `null` for a plain plate, or provide that recipe. Count (2–24),
+width (350–850 permille of pitch), depth (1–4 mm), spread, lower spread,
 start/end heights, and end taper are independent controls. Width is a proportion
 of spacing, not an absolute millimetre width: increasing count at fixed spread
 makes the flutes closer and physically narrower. Changing width at fixed count
 changes the flute/land ratio. Spread and width scale with the fitted wearer;
-flute relief depth remains in millimetres. Both surfaces carry the relief;
-plate gauge follows the smooth carrier's extrusion direction, rather than the
-local flute normal. Unknown fields and invalid fade intervals are rejected.
+flute relief depth remains in millimetres. Both surfaces carry the relief; plate
+gauge follows the smooth carrier's extrusion direction, rather than the local
+flute normal. Unknown fields and invalid fade intervals are rejected.
 
 [Example recipes and historical references](../adventuresim-armor-model/review/breastplate/README.md)
 provide editable starting points. Each recipe has one front plate and one back
@@ -183,8 +221,8 @@ plate; a separate plackart or articulated waist plate requires a different
 construction recipe. The upper armscye is a smooth boundary of the shell, and
 the back returns seat over the front at the lower flanks.
 
-For reproducible body-visible review, run the creator with
-`--armor-review-dir target/armor-review/candidate`, then:
+For reproducible body-visible review, run the creator with `--armor-review-dir
+target/armor-review/candidate`, then:
 
 ```powershell
 blender --background --python scripts/render_armor_review.py -- target/armor-review/candidate target/armor-review/candidate/renders
@@ -196,17 +234,17 @@ blender --background --python scripts/render_armor_review.py -- target/armor-rev
 
 These exports include the actual body, triangles, runtime vertex normals and
 design parameters. The four-view boards preserve those normals and use back-face
-culling. The mesh checker reports closed-edge
-winding, triangle area, material volume and sampled body distances; those local
-distance signs are diagnostics, not a proof of continuous clearance. Assembled
-views combine unchanged parts to expose interface problems. Static review does
-not replace inspection of installed equipment under runtime animation.
+culling. The mesh checker reports closed-edge winding, triangle area, material
+volume and sampled body distances; those local distance signs are diagnostics,
+not a proof of continuous clearance. Assembled views combine unchanged parts to
+expose interface problems. Static review does not replace inspection of
+installed equipment under runtime animation.
 
 Filtered equipment exports accept comma-separated IDs with `--equipment-item`
-and require an empty staging directory. Run
-`python scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit
-actual GLB winding, skin weights, all 47 morph endpoints and representative
-blends. Use `--allow-partial` only for a deliberately filtered export.
+and require an empty staging directory. Run `python
+scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit actual GLB
+winding, skin weights, all 47 morph endpoints and representative blends. Use
+`--allow-partial` only for a deliberately filtered export.
 
 For static review of the exported identity morphs, run
 `python scripts/export_armor_morph_review.py STAGING_DIRECTORY OUTPUT_DIRECTORY`.
@@ -215,8 +253,10 @@ mixed identity blends. It does not refit substitute geometry. Use the rendering
 and mesh-check commands above on each resulting directory. Skeletal proportions
 and animation still require the gameplay renderer.
 
-The native `animation-viewer` supports `--armor-harness plate|mail|padded` with
-`--hidden` for automated captures. It uses the shared gameplay equipment visual
-plugin and waits for every installed GLB, material, skin and morph component;
-unresolved assets fail the capture. Rebuild it after updating the equipment
-manifest, then capture idle, walking and raised-guard scenarios.
+The native `animation-viewer` supports `--armor-harness` with `plate`,
+`plate-tassets`, `mail`, `padded` and `close-helmet`, plus `--hidden` for
+automated captures. `plate-tassets` replaces the fauld with tassets because
+those defenses share a rigid-armor catalog slot. It uses the shared gameplay
+equipment visual plugin and waits for every installed GLB, material, skin and
+morph component; unresolved assets fail the capture. Rebuild it after updating
+the equipment manifest, then capture idle, walking and raised-guard scenarios.

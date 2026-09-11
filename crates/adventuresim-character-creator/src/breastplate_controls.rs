@@ -1,5 +1,5 @@
 //! Breastplate silhouette presets and independent relief controls.
-use adventuresim_armor_model::{BreastplateDesign, BreastplateFluting, BreastplateProfile};
+use adventuresim_armor_model::{BreastplateDesign, BreastplateProfile};
 use bevy_egui::egui;
 
 pub(super) fn shape(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
@@ -86,80 +86,5 @@ pub(super) fn shape(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
                 .suffix(" ‰"),
         )
         .changed();
-    changed | fluting(ui, design)
-}
-
-fn fluting(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
-    let mut changed = false;
-    let mut enabled = design.fluting.is_some();
-    let fluting_toggle = ui.checkbox(&mut enabled, "Fluting");
-    if fluting_toggle.changed() {
-        design.fluting = enabled.then(BreastplateFluting::default);
-        changed = true;
-    }
-    if let Some(pattern) = &mut design.fluting {
-        let max_start = pattern.end.0 - pattern.fade.0 * 2;
-        let min_end = pattern.start.0 + pattern.fade.0 * 2;
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut pattern.count.0, BreastplateFluting::COUNT_RANGE)
-                    .text("Flute count"),
-            )
-            .changed();
-        for (value, range, label, unit) in [
-            (
-                &mut pattern.width.0,
-                BreastplateFluting::WIDTH_RANGE,
-                "Flute width / spacing",
-                " ‰",
-            ),
-            (
-                &mut pattern.depth.0,
-                BreastplateFluting::DEPTH_RANGE,
-                "Flute depth",
-                " mm",
-            ),
-            (
-                &mut pattern.spread.0,
-                BreastplateFluting::SPREAD_RANGE,
-                "Pattern spread",
-                " ‰",
-            ),
-            (
-                &mut pattern.lower_spread.0,
-                BreastplateFluting::LOWER_SPREAD_RANGE,
-                "Lower spread / upper spread",
-                " ‰",
-            ),
-            (
-                &mut pattern.start.0,
-                BreastplateFluting::MIN_START..=max_start,
-                "Start above waist",
-                " ‰",
-            ),
-            (
-                &mut pattern.end.0,
-                min_end..=BreastplateFluting::MAX_END,
-                "End above waist",
-                " ‰",
-            ),
-        ] {
-            changed |= ui
-                .add(egui::Slider::new(value, range).text(label).suffix(unit))
-                .changed();
-        }
-        let max_fade =
-            ((pattern.end.0 - pattern.start.0) / 2).min(*BreastplateFluting::FADE_RANGE.end());
-        changed |= ui
-            .add(
-                egui::Slider::new(
-                    &mut pattern.fade.0,
-                    *BreastplateFluting::FADE_RANGE.start()..=max_fade,
-                )
-                .text("Flute end taper")
-                .suffix(" ‰"),
-            )
-            .changed();
-    }
-    changed
+    changed | crate::fluting_controls::show(ui, &mut design.fluting)
 }
