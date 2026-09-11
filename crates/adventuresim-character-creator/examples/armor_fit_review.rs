@@ -72,6 +72,7 @@ fn main() -> Result<()> {
         serde_json::to_vec(&serde_json::json!({
             "id": "review", "placement": args[2], "design": design,
             "positions": mesh.positions, "normals": mesh.normals()?, "indices": mesh.indices,
+            "components": mesh.components,
         }))?,
     )?;
     Ok(())

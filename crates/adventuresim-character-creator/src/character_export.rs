@@ -76,6 +76,7 @@ pub(super) fn export_character(
                 catalog.design(&piece.item_id).as_ref(),
             );
         }
+        crate::character_morphs::component_materials(&piece.generated, &mut parts);
         shells.extend(parts);
     }
     export_rigged_glb(

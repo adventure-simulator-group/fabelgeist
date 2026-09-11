@@ -34,6 +34,7 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
             }
             (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
             (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
+            (ParametricDesign::WaistAssembly(_), ParametricDesign::WaistAssembly(_)) => true,
             _ => false,
         };
         ensure!(
@@ -57,6 +58,7 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<ArmorDesigns> {
             ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
             ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
             ParametricDesign::Underlayer(d) => d.validate(),
+            ParametricDesign::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
         }
         .with_context(|| format!("invalid armor design for item {id}"))?;
     }

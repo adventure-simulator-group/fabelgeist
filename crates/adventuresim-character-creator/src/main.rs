@@ -4,7 +4,11 @@ mod cli;
 use cli::Args;
 mod catalog;
 use catalog::{EquipmentCatalog, load_item_catalog, procedural_items};
+mod fastener_controls;
+mod fastener_equipment;
+mod fastener_skin;
 mod fitted_existing;
+mod waist_skin;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
 mod studio_generation;
 use studio_generation::regenerate_mesh;
@@ -20,9 +24,9 @@ mod equipment_controls;
 mod equipment_export;
 mod fluting_controls;
 mod parametric_equipment;
-mod pauldron_skin;
 mod pauldron_support;
 mod review_export;
+mod shoulder_skin;
 mod underlayer_equipment;
 mod underlayer_preview;
 use character_export::export_character;
@@ -75,6 +79,7 @@ struct Studio {
     selected_lod: u8,
     selected_correctives: bool,
     armor_designs_path: String,
+    fastener_designs_path: String,
     bracer_design_path: String,
     breastplate_design_path: String,
     bracer_design: BracerDesign,
@@ -101,6 +106,10 @@ impl Studio {
             selected_correctives: false,
             armor_designs_path: args.armor_designs.as_ref().map_or_else(
                 || "target/armor-designs.json".into(),
+                |path| path.display().to_string(),
+            ),
+            fastener_designs_path: args.fastener_designs.as_ref().map_or_else(
+                || "target/armor-fasteners.json".into(),
                 |path| path.display().to_string(),
             ),
             bracer_design,
@@ -139,6 +148,7 @@ fn main() -> Result<()> {
     let catalog = EquipmentCatalog(
         load_item_catalog(&args.catalog)?,
         adventuresim_character_creator::armor_design_input::load(args.armor_designs.as_deref())?,
+        adventuresim_character_creator::fasteners::catalog::load(args.fastener_designs.as_deref())?,
     );
     if let Some(path) = &args.write_armor_designs {
         let designs = catalog

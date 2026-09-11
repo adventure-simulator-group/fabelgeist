@@ -12,6 +12,7 @@ pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
     Garment(GarmentArmorDesign),
+    WaistAssembly(WaistArmorDesign),
     Underlayer(crate::underlayer::UnderlayerDesign),
 }
 
@@ -21,6 +22,10 @@ impl ParametricDesign {
             Self::Helmet(d) => generate_helmet(d, frame)?,
             Self::Limb(d) => generate_limb_armor(d, frame)?,
             Self::Garment(d) => generate_garment_armor(d, frame)?,
+            Self::WaistAssembly(d) => compose_waist(
+                generate_garment_armor(&d.fauld, frame)?,
+                generate_garment_armor(&d.tassets, frame)?,
+            ),
             Self::Underlayer(_) => {
                 anyhow::bail!("body-conforming garments require source body triangles")
             }
@@ -58,6 +63,7 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             _ => F::Torso,
         },
         ParametricDesign::Helmet(_) => F::Head,
+        ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
             LimbArmorDesign::Cuisse(_) => F::Thigh(side()?),
@@ -88,6 +94,17 @@ pub fn fitted_mesh(
         let pattern =
             crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
         return Ok(pattern.evaluate(d, wearer));
+    }
+    if let ParametricDesign::WaistAssembly(d) = design {
+        let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer)?;
+        let top = fauld
+            .positions
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min)
+            - TASSET_SUSPENSION_GAP_M;
+        let tassets = crate::garment_fit::suspended_tassets(&d.tassets, wearer, top)?;
+        return Ok(compose_waist(fauld, tassets));
     }
     if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
         return crate::close_helmet_fit::fit(helmet, wearer);
@@ -148,7 +165,7 @@ mod tests {
             ("sabaton", "Limb", "Sabaton"),
             ("sallet", "Helmet", "Sallet"),
             ("spaulder", "Limb", "Spaulder"),
-            ("tassets", "Garment", "Tassets"),
+            ("tassets", "WaistAssembly", "Tassets"),
             ("visored_sallet", "Helmet", "VisoredSallet"),
         ];
         let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
@@ -156,7 +173,10 @@ mod tests {
         for (id, category, family) in expected {
             let encoded = serde_json::to_value(catalog.get(id).unwrap()).unwrap();
             let shape = &encoded[category];
-            if matches!(category, "Garment" | "Underlayer") {
+            if category == "WaistAssembly" {
+                assert_eq!(shape["fauld"]["kind"], "Fauld");
+                assert_eq!(shape["tassets"]["kind"], family);
+            } else if matches!(category, "Garment" | "Underlayer") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

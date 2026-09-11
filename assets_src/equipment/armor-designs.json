@@ -664,33 +664,60 @@
     }
   },
   "tassets": {
-    "Garment": {
-      "clearance": 10,
-      "flare": 180,
-      "fluting": {
-        "count": 5,
-        "depth": 2,
-        "end": 900,
-        "fade": 150,
-        "lower_spread": 750,
-        "spread": 750,
-        "start": 100,
-        "width": 750
+    "WaistAssembly": {
+      "fauld": {
+        "clearance": 10,
+        "flare": 180,
+        "fluting": {
+          "count": 10,
+          "depth": 2,
+          "end": 900,
+          "fade": 150,
+          "lower_spread": 750,
+          "spread": 750,
+          "start": 100,
+          "width": 750
+        },
+        "kind": "Fauld",
+        "lame_count": 4,
+        "length": 750,
+        "plate_shape": {
+          "Fauld": {
+            "front_arch": 350,
+            "waist_rise": 75
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 3
       },
-      "kind": "Tassets",
-      "lame_count": 3,
-      "length": 1000,
-      "plate_shape": {
-        "Tassets": {
-          "gap": 160,
-          "hem_point": 100,
-          "hem_roundness": 80,
-          "inner_cutaway": 250,
-          "width": 1000
-        }
-      },
-      "waist": 900,
-      "wall_thickness": 3
+      "tassets": {
+        "clearance": 14,
+        "flare": 180,
+        "fluting": {
+          "count": 5,
+          "depth": 2,
+          "end": 900,
+          "fade": 150,
+          "lower_spread": 750,
+          "spread": 750,
+          "start": 100,
+          "width": 750
+        },
+        "kind": "Tassets",
+        "lame_count": 3,
+        "length": 1000,
+        "plate_shape": {
+          "Tassets": {
+            "gap": 160,
+            "hem_point": 100,
+            "hem_roundness": 80,
+            "inner_cutaway": 250,
+            "width": 1000
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 3
+      }
     }
   },
   "visored_sallet": {

@@ -37,6 +37,17 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
                 ParametricDesign::Helmet(d) => helmet::show(ui, d),
                 ParametricDesign::Garment(d) => garment(ui, d),
                 ParametricDesign::Underlayer(d) => underlayer(ui, d),
+                ParametricDesign::WaistAssembly(d) => {
+                    let fauld = ui
+                        .collapsing("Fauld", |ui| garment(ui, &mut d.fauld))
+                        .body_returned
+                        .unwrap_or(false);
+                    let tassets = ui
+                        .collapsing("Tassets", |ui| garment(ui, &mut d.tassets))
+                        .body_returned
+                        .unwrap_or(false);
+                    fauld || tassets
+                }
             })
             .body_returned
             .unwrap_or(false);
@@ -45,7 +56,9 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
             studio.dirty = true;
         }
     }
+    super::fastener_controls::show(ui, catalog, studio);
     for (label, path) in [
+        ("Fastenings", &mut studio.fastener_designs_path),
         ("Catalog armor", &mut studio.armor_designs_path),
         ("Vambrace", &mut studio.bracer_design_path),
         ("Breastplate", &mut studio.breastplate_design_path),
@@ -57,13 +70,20 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
     }
     if ui.button("Save all armor designs").clicked() {
         studio.status = match save(catalog, studio) {
-            Ok(()) => "Saved catalog, vambrace and breastplate designs".into(),
+            Ok(()) => "Saved armor shapes and fastenings".into(),
             Err(error) => format!("Could not save armor designs: {error}"),
         };
     }
 }
 
 fn save(catalog: &EquipmentCatalog, studio: &Studio) -> anyhow::Result<()> {
+    for recipe in catalog.2.values() {
+        recipe.validate()?;
+    }
+    std::fs::write(
+        &studio.fastener_designs_path,
+        serde_json::to_vec_pretty(&catalog.2)?,
+    )?;
     adventuresim_character_creator::armor_design_output::DesignPaths {
         catalog: std::path::Path::new(&studio.armor_designs_path),
         bracer: std::path::Path::new(&studio.bracer_design_path),

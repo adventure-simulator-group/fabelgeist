@@ -44,6 +44,9 @@ pub(super) struct Args {
     /// Typed recipe overrides, keyed by catalog item ID, for preview and exports.
     #[arg(long)]
     pub(super) armor_designs: Option<PathBuf>,
+    /// Leather closure dimensions and fastening layouts for preview and exports.
+    #[arg(long)]
+    pub(super) fastener_designs: Option<PathBuf>,
     /// Write editable default recipes for every new parametric family.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,

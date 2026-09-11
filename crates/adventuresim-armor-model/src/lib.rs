@@ -13,7 +13,7 @@ mod plate_patch;
 pub use plate_fluting::{FluteCount, PlateFluting};
 mod components;
 mod design;
-pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
+pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
 mod mesh;
 pub mod parametric;
 pub use parametric::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
@@ -25,6 +25,7 @@ pub use gorget_plates::{generate_gorget_plates, gorget_control_angle, gorget_sur
 mod helmets;
 mod limb_armor;
 mod pauldron;
+mod waist_armor;
 pub use garment_armor::{
     GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
     GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
@@ -33,13 +34,14 @@ pub use garment_armor::{
 pub use helmets::*;
 pub use limb_armor::*;
 pub use pauldron::{PauldronCarrier, PauldronDesign};
+pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign, compose_waist};
 
 pub use breastplate::generate_breastplate;
 pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 12;
+pub const GENERATOR_VERSION: u16 = 13;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

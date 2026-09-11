@@ -18,6 +18,7 @@ pub mod limb_fit;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
 pub mod export;
+pub mod fasteners;
 pub mod proportions;
 pub mod surface_cut;
 pub mod underlayer;

@@ -29,17 +29,29 @@ ITEMS = ["arming_doublet--worn", "padded_chausses--left",
 
 
 class Surface:
-    def __init__(self, path):
+    def __init__(self, path, mesh_names=None):
         self.glb = glb = Glb(path)
-        mesh, = glb.doc["meshes"]
-        primitive, = mesh["primitives"]
-        assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS
-        attributes = primitive["attributes"]
-        self.positions = glb.array(attributes["POSITION"])
-        self.faces = glb.array(primitive["indices"]).reshape(-1, 3)
-        self.targets = np.stack([glb.array(t["POSITION"]) for t in primitive["targets"]])
-        self.joints = glb.array(attributes["JOINTS_0"])
-        self.weights = glb.array(attributes["WEIGHTS_0"])
+        positions, faces, targets, joints, weights = [], [], [], [], []
+        offset = 0
+        for mesh in glb.doc["meshes"]:
+            if mesh_names is not None and mesh.get("name") not in mesh_names:
+                continue
+            assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS
+            for primitive in mesh["primitives"]:
+                attributes = primitive["attributes"]
+                points = glb.array(attributes["POSITION"])
+                positions.append(points)
+                faces.append(glb.array(primitive["indices"]).reshape(-1, 3) + offset)
+                targets.append(np.stack([glb.array(t["POSITION"]) for t in primitive["targets"]]))
+                joints.append(glb.array(attributes["JOINTS_0"]))
+                weights.append(glb.array(attributes["WEIGHTS_0"]))
+                offset += len(points)
+        assert positions, "No matching skinned surface components"
+        self.positions = np.concatenate(positions)
+        self.faces = np.concatenate(faces)
+        self.targets = np.concatenate(targets, axis=1)
+        self.joints = np.concatenate(joints)
+        self.weights = np.concatenate(weights)
         self.edges = np.unique(np.sort(np.concatenate([self.faces[:, [0, 1]],
             self.faces[:, [1, 2]], self.faces[:, [2, 0]]]), axis=1), axis=0)
         _, welded = np.unique(np.round(self.positions, 6), axis=0, return_inverse=True)
