@@ -16,12 +16,18 @@ the visible maximum.
 The gameplay camera is likewise client presentation. A single retained rig
 blends from centered lowered-guard exploration to raised-guard right-shoulder
 aiming without smoothing manual yaw or pitch. Focus translation uses bounded
-anisotropic critical damping and a screen-space sweet spot. A sphere sweep
-retracts the boom around hard geometry, with hysteretic recovery and
-tight-space shoulder recentering. Raised aiming resolves the center-screen
-camera target and the subsequent muzzle path separately. Debug builds use
-`F6` to show rig, collision, smoothing, occlusion classification, and aim-ray
-telemetry.
+anisotropic critical damping and a screen-space sweet spot sized to the current
+boom distance. A box enclosing the eye and near-plane corners sweeps from the
+controller center around hard geometry. The final framed position is swept
+again, so shoulder offsets and focus lag cannot bypass the collision check.
+Tight spaces blend toward a close shoulder view with a small height offset and
+reduced focus lag. Collision and close framing are resolved together before
+recovery, including corners where the close view meets a second obstacle.
+Retraction is immediate; recovery waits briefly and then uses critical damping
+and distance hysteresis. Soft occluders remain excluded from camera collision.
+Raised aiming resolves the center-screen camera target and the subsequent
+muzzle path separately. Debug builds use `F6` to show rig, collision, smoothing,
+occlusion classification, and aim-ray telemetry.
 
 The tactical workspace targets Bevy 0.19, Avian 0.7, Ahoy 0.2, Replicon
 0.41, Aeronet 0.21, Enhanced Input 0.26, and Flair 0.8. The engine upgrade does
@@ -69,7 +75,8 @@ has its scene attached. The
 30fps `AnimationPackCatalog` explicitly owns every semantic pose through a
 file/frame anchor and includes unnamed endpoint/closure frames. Source motion
 files belong under `assets_src/biped/unarmed/`; `assets_src/base.*` remains the
-rig-source special case until `assets_src/biped/unarmed/base.casc` has a matching
+rig-source special case until `assets_src/biped/unarmed/base.casc` has a
+matching
 base GLB export.
 
 Publish and verify every currently available runtime animation without changing
@@ -136,28 +143,37 @@ same command with `--check`. The publisher requires Python 3 and NumPy.
 
 The native `animation-viewer` binary is a deterministic gameplay-presentation
 fixture rather than a separate pose renderer. It installs the gameplay player,
-camera, scene presentation, authored FK, pre-mirrored gait endpoints,
-whole-body fallback mirroring, look, and
-terrain-IK plugins,
-then advances the shared authoritative locomotion projector at its real 64Hz
-fixed tick. Default-off scenarios retain authored ordinary leg motion with a
-vertically fixed gameplay root; the explicit cross-slope scenario opts into
-the seeded terrain-IK pass. Coverage includes two-cycle 2.0m/s walk, 3.75m/s
-blend, 5.5m/s run, raised-guard full/half-speed movement, and start/stop,
-guard-entry, and guard-release transitions. Every logical tick is captured first from the raw
-gameplay third-person camera, then from side and front diagnostic cameras with
-a skeleton overlay and yellow supported-foot / pink swing-foot markers. The
-simulation is frozen while those three views are rendered, so they describe
-one pose. The output includes per-view PNG sequences, `manifest.json` bone and
-support telemetry, and an `index.html` normal/half/quarter-speed reviewer with
-representative contact sheets. A missing rig or unresolved locomotion clip
-times out with `failure.txt` rather than hanging.
+camera, scene presentation, authored FK, pre-mirrored gait endpoints, whole-body
+fallback mirroring, look, and terrain-IK plugins, then advances the shared
+authoritative locomotion projector at its real 64Hz fixed tick. Default-off
+scenarios retain authored ordinary leg motion with a vertically fixed gameplay
+root; the explicit cross-slope scenario opts into the seeded terrain-IK pass.
+Coverage includes two-cycle 2.0m/s walk, 3.75m/s blend, 5.5m/s run, raised-guard
+full/half-speed movement, and start/stop, guard-entry, and guard-release
+transitions. Every logical tick is captured first from the raw gameplay
+third-person camera, then from side and front diagnostic cameras with a skeleton
+overlay and yellow supported-foot / pink swing-foot markers. The simulation is
+frozen while those three views are rendered, so they describe one pose. The
+output includes per-view PNG sequences, `manifest.json` bone and support
+telemetry, and an `index.html` normal/half/quarter-speed reviewer with
+representative contact sheets. A missing rig or unresolved locomotion clip times
+out with `failure.txt` rather than hanging.
 
 Run it from the repository root:
 
 ```powershell
 cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output target/animation-captures/locomotion-review
 ```
+
+Use `--armor-harness close-helmet` to equip the installed close helmet through
+normal gameplay equipment loading. Capture waits for the separate skull, bevor,
+and visor meshes, their materials, wearer skin bindings, and all 47 morph
+weights. Front and side views follow the head at inspection distance; the
+gameplay view keeps its usual framing. `armor-readiness.json` records the
+resolved parts and weights. `--scenario ordinary-camera-pitch` exercises
+lowered-guard idle and head pitch; `--scenario raised-guard-stationary-turn`
+exercises guard and turning. Add `--hidden` for automated captures without a
+visible desktop window.
 
 Use `--asset-root` when invoking it outside the repository root,
 `--scenario steady-walk-2.0` for a focused iteration, and
@@ -293,10 +309,11 @@ frame and advances retained lean only once per authoritative tick, including
 bounded coalesced gaps. A hard stop retains the effective authored locomotion
 pose and releases it to exact idle over a fixed-tick 0.18-second crossfade,
 preventing the sparse run/idle clips from switching in one frame. Landing
-response compresses once on a real airborne
-landing, retains both pre-compression world foot plants through recovery, and
-solves the actual hip/knee chains back to them; it never translates or stretches thigh roots. Stationary and
-stopping ordinary locomotion blends both feet back to full support.
+response compresses once on a real airborne landing, retains both
+pre-compression world foot plants through recovery, and solves the actual
+hip/knee chains back to them; it never translates or stretches thigh roots.
+Stationary and stopping ordinary locomotion blends both feet back to full
+support.
 
 Rendering uses a client-only shadow of `SkeletonState`. Between authoritative
 samples it advances gait phase from the most recently measured physical speed
@@ -305,7 +322,8 @@ differences are treated as packet-timing jitter. Larger persistent drift is
 low-pass filtered before a slow bounded circular correction is applied, while
 posture, actions, contacts, landings, and large discontinuities snap to
 authority. This removes packet-cadence pose holds and packet-by-packet speed
-modulation without predicting gameplay events or changing the replicated component.
+modulation without predicting gameplay events or changing the replicated
+component.
 
 Contact and landing messages are deduplicated presentation hooks for future
 audio/VFX. Plausible contact gaps reconstruct at most eight ordered alternating
@@ -316,9 +334,9 @@ not an invented historical contact timestamp.
 
 Terrain conformity starts off. In debug builds, press `F8` to opt into its
 height, slope, and pelvis corrections. The HUD reports whether it is on or off;
-authored FK, gait endpoint blending, torso stabilization, and procedural guard stepping
-remain active. Ordinary flat-ground locomotion does not run the terrain leg
-solver while the toggle is off.
+authored FK, gait endpoint blending, torso stabilization, and procedural guard
+stepping remain active. Ordinary flat-ground locomotion does not run the terrain
+leg solver while the toggle is off.
 
 In debug builds, `F7` switches both peers between normal and quarter-speed game
 time. The server retains the latest validated analogue movement request across
@@ -367,3 +385,35 @@ multiple-animation, or short motion files are unavailable.
 Every local or remote character also gets a generated T-pose safety net until
 the base scene is available. Bind locals are reset before every animation
 evaluation so partial clips cannot accumulate stale or procedural transforms.
+
+## City ground and outdoor furniture
+
+City streets and developed yards use one production material policy across
+playable and distant ground. Metre-space cobble and gravel detail blends with
+compacted earth, broken edges, static traffic wear, and weather-dependent
+dampness. Accepted vendor, receiving, and horse-stop footprints contribute
+local wear masks. Static traffic history adds seven carriage gauges, lateral
+variation, and tangent-continuous turns at shared endpoints and interior
+crossings. Turning front and rear axles leave overlapping marks in both travel
+directions, constrained to the visible road/market union. Broad churn covers
+most of the central carriageway; wheel marks break up within those deposits.
+
+Traffic, churn, and road-union shoulders are baked once into 64-metre tiles at
+four texels per metre. Neighboring tiles share world-space filter gutters, and
+all overlapping ground patches sample the same masks. Ground meshes split at
+tile boundaries while retaining canonical terrain support. The furniture capture
+gate checks the ground masks are GPU resident, and its junction views show
+turning continuity and axle variation. Ground meshes sample the same presented
+terrain surface; material relief does not change tactical collision or create
+physical ruts.
+
+Outdoor furniture arrives as compact immutable recipe references and normal
+entity transforms. Shared mesh handles and the building material palette
+render each accepted instance. Small furniture fades over 180-230 metres;
+canvas stalls remain visible to 350-450 metres. Market and frontage placement
+extends through the nearest vista ring. Distant furniture shares the production
+recipe renderer but receives no physics or ordinary entity replication.
+The core owns the clipped vista cells and vertex-height policy used by both
+placement and terrain rendering, including seams and LOD morphs.
+`python scripts/capture_furniture_review.py --output target/furniture-review`
+captures the production implementation with GPU residency and material checks.

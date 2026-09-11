@@ -6,7 +6,9 @@ use adventuresim_procedural_textures::{
 use fabelgeist_determinism::splitmix64;
 
 mod cliff_surface;
+mod urban;
 mod volumetric;
+pub(in crate::presentation) use urban::{UrbanGroundCoveragePlugin, urban_playable_mesh};
 
 use cliff_surface::enable_cliff_surface;
 pub(in crate::presentation) use cliff_surface::{
@@ -282,6 +284,9 @@ pub(in crate::presentation) fn update_terrain_detail_patch(
         let Ok((terrain, environment, landform)) = scenes.get(source.0) else {
             continue;
         };
+        if vista.is_urban_scene(&environment.scene_digest) {
+            continue;
+        }
         let Some(mut mesh) = meshes.get_mut(&mesh_handle.0) else {
             continue;
         };

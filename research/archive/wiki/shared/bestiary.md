@@ -3,7 +3,8 @@
 In an outbreak investigation, Bestiary can connect physical or testimonial
 vector evidence to the kind of creature capable of carrying it. It does not
 substitute for Surgery's preservation of tissue evidence or Physiology's
-interpretation of bodily effects. See [Outbreak investigations](../strategic/outbreaks.md).
+interpretation of bodily effects. See
+[Outbreak investigations](../strategic/outbreaks.md).
 
 Canonical authoring records live in `content/quests/bestiary.yaml`. They are
 sorted, validated, embedded and content-hashed at build time; see
@@ -41,15 +42,15 @@ open catalog strings. New physical trace identities therefore do not require a
 Rust enum edit; code changes only when a new executable interpretation is
 needed.
 
-The strategic autoresolver consumes identity, loadout, protection, speed,
-loot, perception/stealth, morale, encounter scaling, and innate protection.
-Skeleton bone contributes full-coverage resistance but no padding through the
-ordinary armor calculation, so cutting attacks are inefficient while blunt
-contact remains damaging. No species-level damage multiplier is applied;
-weapon force and penetration, worn armor, ranged loadouts, speed, and party
-size also produce mechanically testable preparation choices. Fire, silver,
-daylight, and ritual courage are stored separately as **unimplemented investigation
-hypotheses**. UI copy must not claim they modify autoresolve. Other fields are typed for the
+The strategic autoresolver consumes identity, loadout, protection, speed, loot,
+perception/stealth, morale, encounter scaling, and innate protection. Skeleton
+bone contributes full-coverage resistance but no padding through the ordinary
+armor calculation, so cutting attacks are inefficient while blunt contact
+remains damaging. No species-level damage multiplier is applied; weapon force
+and penetration, worn armor, ranged loadouts, speed, and party size also produce
+mechanically testable preparation choices. Fire, silver, daylight, and ritual
+courage are stored separately as **unimplemented investigation hypotheses**. UI
+copy must not claim they modify autoresolve. Other fields are typed for the
 investigative generator and future tactical combat; they are not all simulated
 yet. Tactical servers do not yet receive bestiary identity, and tactical enemy
 instances, position, HP, and damage remain transient.
@@ -73,15 +74,16 @@ Human. Wildmen are their own primary category.
 `BestiaryHours` stores only direct study by category. Effective knowledge is a
 single, nonrecursive pass through a symmetric diagnostic-correlation matrix,
 then capped at the Bestiary skill's 5,000-hour mastery calibration so several
-related fields cannot add beyond the skill's authored mastery range. Correlation means transferable identification
-knowledge, not merely that two tags can coexist. Wildmen transfer strongly
-with Human (`0.65`) and more modestly with Fey (`0.30`).
+related fields cannot add beyond the skill's authored mastery range. Correlation
+means transferable identification knowledge, not merely that two tags can
+coexist. Wildmen transfer strongly with Human (`0.65`) and more modestly with
+Fey (`0.30`).
 
 Surgery is a direct trained skill. Projectile extraction, stitching, bandaging,
 and splinting all use its effective check. Knife and Tailoring are correlated
-with Surgery, so practice in those crafts can contribute indirectly after
-direct Surgery study unlocks that transfer; neither craft is a procedure input.
-Each skill retains its own governing aptitude, mastery cap, and injury penalties.
+with Surgery, so practice in those crafts can contribute indirectly after direct
+Surgery study unlocks that transfer; neither craft is a procedure input. Each
+skill retains its own governing aptitude, mastery cap, and injury penalties.
 
 Procedural physical-evidence topics may author atomic Bestiary implications.
 Each implication names exactly one category, a fixed support value from 0 to
@@ -132,11 +134,21 @@ These are game adaptations, not claims that every motif was believed across
 northern Germany in 1544. Names, dates, regions, and motifs changed between
 tellings. The small current subset also fits reusable humanoid/quadruped rigs.
 
-- **Kobold:** the Grimms' collected [Der Kobold](https://de.wikisource.org/wiki/Der_Kobold_%28Br%C3%BCder_Grimm%29).
-- **Werewolf:** the Grimms' collected [Der Wärwolf](https://de.wikisource.org/wiki/Der_W%C3%A4rwolf); silver is an unimplemented investigative hypothesis and not asserted by that text.
-- **Nachzehrer/Wiedergänger:** early-modern mortuary context in this [academic overview](https://www.eaz-journal.org/index.php/eaz/article/view/851); fire is an unimplemented investigative hypothesis.
-- **Wild man:** early-modern German visual/cultural context in this [art-historical study](https://onlinelibrary.wiley.com/doi/10.1111/j.1467-8365.2008.00607.x), not one uniform folk belief.
-- **Spectral hound:** the later regional [Der schwarze Hund (1839)](https://de.wikisource.org/wiki/Der_schwarze_Hund_%28Gr%C3%A4ve%2C_1839%29). Its later date makes it evidence of a collected tradition, not proof of the exact motif in 1544.
+- **Kobold:** the Grimms' collected
+  [Der Kobold](https://de.wikisource.org/wiki/Der_Kobold_%28Br%C3%BCder_Grimm%29).
+- **Werewolf:** the Grimms' collected
+  [Der Wärwolf](https://de.wikisource.org/wiki/Der_W%C3%A4rwolf); silver is an
+  unimplemented investigative hypothesis and not asserted by that text.
+- **Nachzehrer/Wiedergänger:** early-modern mortuary context in this
+  [academic overview](https://www.eaz-journal.org/index.php/eaz/article/view/851);
+  fire is an unimplemented investigative hypothesis.
+- **Wild man:** early-modern German visual/cultural context in this
+  [art-historical study](https://onlinelibrary.wiley.com/doi/10.1111/j.1467-8365.2008.00607.x),
+  not one uniform folk belief.
+- **Spectral hound:** the later regional
+  [Der schwarze Hund (1839)](https://de.wikisource.org/wiki/Der_schwarze_Hund_%28Gr%C3%A4ve%2C_1839%29).
+  Its later date makes it evidence of a collected tradition, not proof of the
+  exact motif in 1544.
 - **Alp:** included conservatively as a nocturnal identification challenge;
   its mechanics are an adaptation pending dedicated region-specific sourcing.
 

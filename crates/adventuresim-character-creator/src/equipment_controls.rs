@@ -2,6 +2,12 @@
 
 use super::{BracerDesign, BreastplateDesign, Studio, egui};
 
+pub(super) fn show(ui: &mut egui::Ui, catalog: &mut super::EquipmentCatalog, studio: &mut Studio) {
+    super::armor_controls::show(ui, catalog, studio);
+    bracer(ui, studio);
+    breastplate(ui, studio);
+}
+
 pub(super) fn bracer(ui: &mut egui::Ui, studio: &mut Studio) {
     ui.collapsing("Parametric bracers", |ui| {
         let mut changed = false;
@@ -38,6 +44,20 @@ pub(super) fn bracer(ui: &mut egui::Ui, studio: &mut Studio) {
                     .suffix(" mm"),
             )
             .changed();
+        for (value, maximum, label) in [
+            (&mut studio.bracer_design.elbow_flare.0, 15, "Elbow flare"),
+            (&mut studio.bracer_design.wrist_flare.0, 15, "Wrist flare"),
+            (&mut studio.bracer_design.center_ridge.0, 8, "Central ridge"),
+        ] {
+            changed |= ui
+                .add(
+                    egui::Slider::new(value, 0..=maximum)
+                        .text(label)
+                        .suffix(" mm"),
+                )
+                .changed();
+        }
+        changed |= crate::fluting_controls::show(ui, &mut studio.bracer_design.fluting);
         ui.horizontal(|ui| {
             if ui.button("Bracelet").clicked() {
                 studio.bracer_design = BracerDesign::bracelet();
@@ -82,20 +102,7 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
         changed |= ui
             .add(egui::Slider::new(&mut design.side_return.0, 850..=1_080).text("Side return"))
             .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.front_crown.0, 0..=30)
-                    .text("Front crown")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.shoulder_band_width.0, 18..=55)
-                    .text("Shoulder band width")
-                    .suffix(" mm"),
-            )
-            .changed();
+        changed |= crate::breastplate_controls::shape(ui, design);
         changed |= ui
             .add(
                 egui::Slider::new(&mut design.skirt_length.0, 500..=1_600)
@@ -128,13 +135,6 @@ pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
             .add(
                 egui::Slider::new(&mut design.back_clearance.0, 6..=35)
                     .text("Back clearance")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.plate_gap.0, 4..=30)
-                    .text("Front/back gap")
                     .suffix(" mm"),
             )
             .changed();

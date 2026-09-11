@@ -10,8 +10,10 @@ struct Target {
 
 pub(super) struct CompactShell<'a> {
     source: &'a RiggedShell<'a>,
+    plate_edges: Vec<[u32; 2]>,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
+    texcoords: Option<Vec<[f32; 2]>>,
     faces: Vec<[u32; 3]>,
     joints: Vec<[u32; 8]>,
     weights: Vec<[f32; 8]>,
@@ -39,6 +41,15 @@ impl<'a> CompactShell<'a> {
         let weights = shell.joint_weights.unwrap_or(body.joint_weights);
         Self {
             source: shell,
+            plate_edges: shell
+                .plate_edges
+                .iter()
+                .filter(|edge| edge.iter().all(|i| used.contains(i)))
+                .map(|edge| edge.map(|i| remap[i as usize]))
+                .collect(),
+            texcoords: shell
+                .texcoords
+                .map(|uv| used.iter().map(|i| uv[*i as usize]).collect()),
             positions: pick(shell.positions),
             normals: pick(shell.normals),
             faces: shell
@@ -73,6 +84,10 @@ impl<'a> CompactShell<'a> {
 
     pub(super) fn rigged<'b>(&'b self, targets: &'b [RiggedMorphTarget<'b>]) -> RiggedShell<'b> {
         RiggedShell {
+            plate_edges: &self.plate_edges,
+            textures: self.source.textures,
+            texcoords: self.texcoords.as_deref(),
+            hinge: self.source.hinge,
             name: self.source.name,
             positions: &self.positions,
             normals: &self.normals,

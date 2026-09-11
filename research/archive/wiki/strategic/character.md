@@ -526,23 +526,36 @@ In the case of feybloods who can shift between forms, the half-bloods may be
 unable to shift. Instead, they might take on some intermediate characteristics
 of the two forms.
 
-> Halbe: Yes, half-blooded beastmen are the "designated furry race." And I think gnomes are just elf-halfling hybrids.
+> Halbe: Yes, half-blooded beastmen are the "designated furry race." And I think
+> gnomes are just elf-halfling hybrids.
 
-> Bruno: And I was expecting something tasteful and classy, like the half-bloods are our way of capturing the aesthetic of ancient Egyptian deities in a post-Christian world. Alas.
+> Bruno: And I was expecting something tasteful and classy, like the half-bloods
+> are our way of capturing the aesthetic of ancient Egyptian deities in a
+> post-Christian world. Alas.
 ### Vilebloods
 When a mundane character consumes fey blood, he can *become* fey-blooded.
 However, this is evil, so it also curses him. The exact nature of the curse
 depends on the kind of fey blood.
 * Werewolves/bears/etc are beastmen-blooded.
 * True vampires are elf-blooded.
-    * Mostly analogous to *Warhammer* Dark Elves. They do not burn in the sun, and they are not actually undead.
-* The aesthetic of Freaky Devil-Looking Thing (e.g. [imps](https://en.wikipedia.org/wiki/Imp)) is captured by mongrel vilebloods. They may take features from a mix of reptilian, mammalian, Draconic, and/or Elven blood.
+    * Mostly analogous to *Warhammer* Dark Elves. They do not burn in the sun,
+      and they are not actually undead.
+* The aesthetic of Freaky Devil-Looking Thing (e.g.
+  [imps](https://en.wikipedia.org/wiki/Imp)) is captured by mongrel vilebloods.
+  They may take features from a mix of reptilian, mammalian, Draconic, and/or
+  Elven blood.
 ### Undead
 Mortals risen from the dead through unnatural magic.
-* A vampire is created when another vampire offers a mortal his blood and buries him alive. After the mortal suffocates to death, he becomes a vampire.
-* Zombies and skeletons are not elf-blooded; they are risen via necromancy. They are mindless and must be consciously puppeted by a necromancer.
-    * Ghouls/wights are zombies/skeletons who have a soul bound to them (the ritual requires elf blood). They are not mindless, and though bound to their necromantic masters, they can act autonomously.
-* A lich is a necromancer who has turned himself into a wight. As his soul is bound to himself, a lich is the only type of wight with free will. (This implies the possibility of ghoul-liches, who retain their flesh.)
+* A vampire is created when another vampire offers a mortal his blood and buries
+  him alive. After the mortal suffocates to death, he becomes a vampire.
+* Zombies and skeletons are not elf-blooded; they are risen via necromancy. They
+  are mindless and must be consciously puppeted by a necromancer.
+    * Ghouls/wights are zombies/skeletons who have a soul bound to them (the
+      ritual requires elf blood). They are not mindless, and though bound to
+      their necromantic masters, they can act autonomously.
+* A lich is a necromancer who has turned himself into a wight. As his soul is
+  bound to himself, a lich is the only type of wight with free will. (This
+  implies the possibility of ghoul-liches, who retain their flesh.)
 ## Death
 
 Characters begin alive. Death is an authoritative strategic transition:

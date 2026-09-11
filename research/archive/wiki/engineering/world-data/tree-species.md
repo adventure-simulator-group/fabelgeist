@@ -5,12 +5,15 @@ dataset for 67 European tree species. The importer uses the current-climate
 ensemble layers as environmental evidence for world generation; it does not
 treat them as observations from 1544.
 
-- JRC project page: <https://forest.jrc.ec.europa.eu/en/activities/forests-and-climate-change/>
+- JRC project page:
+  <https://forest.jrc.ec.europa.eu/en/activities/forests-and-climate-change/>
 - Dataset and CC0 licence: <https://doi.org/10.6084/m9.figshare.17032328>
 - Data descriptor: <https://doi.org/10.1038/s41597-022-01128-5>
-- Archive SHA-256: `be115f771e5598e6fd180621e1a32922880cf7ac8e2cb59ba0eabd7f15bfeda4`
+- Archive SHA-256:
+  `be115f771e5598e6fd180621e1a32922880cf7ac8e2cb59ba0eabd7f15bfeda4`
 - Archive size: `73,796,217` bytes
-- Pinned JRC ENS_CLIM URL: <https://ies-ows.jrc.ec.europa.eu/efdac/download/EU-Trees4F/EU-Trees4F_ens-clim.zip>
+- Pinned JRC ENS_CLIM URL:
+  <https://ies-ows.jrc.ec.europa.eu/efdac/download/EU-Trees4F/EU-Trees4F_ens-clim.zip>
 
 The automated identity applies to that exact JRC ENS_CLIM archive. Its byte
 equivalence to a Figshare-hosted archive has not been established and remains

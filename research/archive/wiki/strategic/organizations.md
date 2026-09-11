@@ -13,10 +13,10 @@ generated starting professionals and later scheduled organization training.
 
 `content/organizations/*.yaml` is compiled into `adventuresim-core`. Definitions
 declare stable IDs, names, chapters, recognition, admission requirements and
-fees, arbitrary roles and direct role transitions, recurring dues, activity training and rewards,
-and privileges such as bearing arms, wearing armor, or licensed foraging.
-Organization-level privileges are inherited by every role; role-level
-privileges are additive.
+fees, arbitrary roles and direct role transitions, recurring dues, activity
+training and rewards, and privileges such as bearing arms, wearing armor, or
+licensed foraging. Organization-level privileges are inherited by every role;
+role-level privileges are additive.
 
 Definitions also declare a typed organization `kind` and a `roles` catalog.
 Each role names a profession and may author an address title, address priority,
@@ -86,32 +86,32 @@ informed fictional institutions rather than claims that each exact organization
 existed in every listed settlement.
 
 The character sheet exposes the presented organization as a compact profession
-picker; it is only a self-presentation control. Joining, dues, reactivation,
-and promotion are conducted by speaking to the representative in the
-organization's local chapter venue. Its large label combines the member's role with the service profession
-where one exists (for example, `Apprentice Weaponsmith`), while the smaller
-label names the organization. Crests are stable heraldic marks derived from the
-organization ID and service using the locally vendored Game Icons charges, so
-every catalog organization has a stable heraldic identity without
+picker; it is only a self-presentation control. Joining, dues, reactivation, and
+promotion are conducted by speaking to the representative in the organization's
+local chapter venue. Its large label combines the member's role with the service
+profession where one exists (for example, `Apprentice Weaponsmith`), while the
+smaller label names the organization. Crests are stable heraldic marks derived
+from the organization ID and service using the locally vendored Game Icons
+charges, so every catalog organization has a stable heraldic identity without
 presentation-only persistence fields.
 
 ## Persistence and authority
 
-SpacetimeDB owns membership, canonical role assignment, dues, presentation, payment, promotion, and
-equipment-law enforcement. Startup seeds exactly one deterministic persistent
-representative per authored chapter. The NPC carries an explicit organization
-binding and has an all-day authoritative presence at either the mapped ordinary
-service building or, when no such service is available, the chapter building,
-and uses the compiled `organization-representative` conversation. Dialogue
-effects carry no organization ID: authority resolves it from that live NPC and
-revalidates the actor, session settlement, authored local chapter, derived
-physical location, and organization-bound representative ID before
-reusing membership reducers. Joining is idempotent; the joining fee is charged once.
-Crossing a paid-through boundary suspends membership and clears its
-presentation. Service operators refer prospective apprentices to the named
-representative when one is present; the representative remains the authority
-for joining and membership. Paying at a chapter reactivates it without
-retroactive arrears.
+SpacetimeDB owns membership, canonical role assignment, dues, presentation,
+payment, promotion, and equipment-law enforcement. Startup seeds exactly one
+deterministic persistent representative per authored chapter. The NPC carries an
+explicit organization binding and has an all-day authoritative presence at
+either the mapped ordinary service building or, when no such service is
+available, the chapter building, and uses the compiled
+`organization-representative` conversation. Dialogue effects carry no
+organization ID: authority resolves it from that live NPC and revalidates the
+actor, session settlement, authored local chapter, derived physical location,
+and organization-bound representative ID before reusing membership reducers.
+Joining is idempotent; the joining fee is charged once. Crossing a paid-through
+boundary suspends membership and clears its presentation. Service operators
+refer prospective apprentices to the named representative when one is present;
+the representative remains the authority for joining and membership. Paying at a
+chapter reactivates it without retroactive arrears.
 
 Forester (ranger), witch-hunter, and knightly organizations explicitly author
 `public_threat_referrals`; the capability is never inferred from names, skills,
@@ -142,11 +142,10 @@ pre-launch schema does not yet add a composite unique index.
 ## Validation
 
 Build validation rejects unknown fields and invalid or duplicate IDs,
-requirements, roles, entry roles, direct transitions, weights, organization- and role-level privileges,
-religions, skill leaves, malformed chapter locations, duplicate chapter
-settlements, and
-settlement policies. A canonical check against a compiled Viabundus world is
-also required:
+requirements, roles, entry roles, direct transitions, weights, organization- and
+role-level privileges, religions, skill leaves, malformed chapter locations,
+duplicate chapter settlements, and settlement policies. A canonical check
+against a compiled Viabundus world is also required:
 
 ```powershell
 python scripts/validate_organization_world.py --world path\to\compiled-world.json
@@ -166,13 +165,13 @@ second, conflicting role for that pair. Actor deletion removes the assignments
 and then removes only organization instances left wholly unreferenced.
 
 The specifically authored House of Habsburg and Habsburg Crown Lordships remain
-available for explicit historical content and tests. Generic assignment does
-not claim that every settlement belongs to them: chapterless local-house and
+available for explicit historical content and tests. Generic assignment does not
+claim that every settlement belongs to them: chapterless local-house and
 local-lordship templates instead produce distinct `noble-house:<settlement-id>`
 and `lordship:<settlement-id>` instances. Civic communities similarly use
 `civic:<settlement-id>`. None creates buildings, services, or representatives.
-Urban civic membership confers the `citizen` profession;
-`free_resident` remains explicit, never inferred from missing data. Initial role selection uses the
+Urban civic membership confers the `citizen` profession; `free_resident` remains
+explicit, never inferred from missing data. Initial role selection uses the
 persistence-contract stable hash with versioned settlement and actor-domain
 keys, is order-independent, and does not consume reducer RNG.
 

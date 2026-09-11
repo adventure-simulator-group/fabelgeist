@@ -49,6 +49,8 @@ def area(positions, faces):
 def audit(path):
     glb = Glb(path)
     results = []
+    if path.stem == "close_helmet--worn":
+        audit_close_helmet_assembly(glb)
     for mesh in glb.doc["meshes"]:
         assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS, "morph names/order"
         assert all(weight == 0 for weight in mesh["weights"]), "nonzero exported baseline"
@@ -66,10 +68,13 @@ def audit(path):
             edges = Counter((int(a), int(b)) for face in physical_faces for a, b in zip(face, np.roll(face, -1)))
             assert all(count == 1 and edges[(b, a)] == 1 for (a, b), count in edges.items()), "unclosed or inconsistently wound physical edges"
             assert glb.array(attributes["NORMAL"]).shape == positions.shape
-            weights = glb.array(attributes["WEIGHTS_0"]).sum(axis=1) + glb.array(attributes["WEIGHTS_1"]).sum(axis=1)
-            assert np.max(np.abs(weights - 1)) < 1e-4, "unnormalized skin weights"
+            assert {key for key in attributes if key.startswith(("JOINTS_", "WEIGHTS_"))} == {"JOINTS_0", "WEIGHTS_0"}, "runtime requires exactly four skin influences"
+            weights = glb.array(attributes["WEIGHTS_0"])
+            assert weights.shape == (len(positions), 4) and np.all(weights >= 0), "invalid primary skin weights"
+            assert np.max(np.abs(weights.sum(axis=1) - 1)) < 1e-4, "unnormalized primary skin weights"
             joint_count = len(glb.doc["skins"][0]["joints"])
-            assert max(glb.array(attributes[name]).max() for name in ("JOINTS_0", "JOINTS_1")) < joint_count
+            joints = glb.array(attributes["JOINTS_0"])
+            assert joints.shape == weights.shape and joints.max() < joint_count
             targets = [glb.array(target["POSITION"]) for target in primitive["targets"]]
             assert len(targets) == 47 and all(target.shape == positions.shape for target in targets)
             for delta in targets:
@@ -87,6 +92,31 @@ def audit(path):
             assert min(areas.values()) > MINIMUM_TRIANGLE_AREA_M2, (path, "degenerate morph triangle", areas)
             results.append({"vertices": len(positions), "triangles": len(faces), "minimum_areas_m2": areas})
     return results
+
+
+def audit_close_helmet_assembly(glb):
+    expected = ["skull", "bevor", "visor"]
+    assert [mesh["name"] for mesh in glb.doc["meshes"]] == expected, "helmet component meshes"
+    nodes = [node for node in glb.doc["nodes"] if "mesh" in node]
+    assert [node["name"] for node in nodes] == expected, "helmet component nodes"
+    for index, node in enumerate(nodes):
+        assert node["mesh"] == index and node["skin"] == 0, "component mesh/skin binding"
+        assert not any(key in node for key in ("matrix", "translation", "rotation", "scale")), "reference-body component transform"
+        hinge = node.get("extras", {}).get("adventuresim_hinge")
+        if node["name"] == "skull":
+            assert hinge is None, "fixed skull"
+        else:
+            assert hinge["space"] == "reference_body"
+            assert np.isfinite(hinge["origin"]).all() and len(hinge["origin"]) == 3
+            assert abs(np.linalg.norm(hinge["axis"]) - 1) < 1e-6, "unit hinge axis"
+        mesh = glb.doc["meshes"][index]
+        assert len(mesh["primitives"]) == 1, "independent component primitive"
+        attributes = mesh["primitives"][0]["attributes"]
+        joints = glb.array(attributes["JOINTS_0"])
+        weights = glb.array(attributes["WEIGHTS_0"])
+        skin = glb.doc["skins"][node["skin"]]
+        head = next(i for i, joint in enumerate(skin["joints"]) if glb.doc["nodes"][joint]["name"] == "c_head")
+        assert np.all(joints[weights > 0] == head), "rigid helmet must follow head, not jaw"
 
 
 def main():

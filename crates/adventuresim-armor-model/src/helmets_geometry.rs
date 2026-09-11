@@ -11,12 +11,34 @@ const DOME_RINGS: usize = 12;
 pub(super) struct Surface {
     pub positions: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
+    pub relief: Vec<f32>,
 }
 
 impl Surface {
+    /// Redistribute a bowl's angular samples to register a sized face aperture.
+    pub fn reshape_front_arc(&mut self, radii: [f32; 3], original: f32, opening: f32) {
+        for point in &mut self.positions {
+            let x = point[0] / radii[0];
+            let z = point[2] / radii[2];
+            let angle = x.atan2(z);
+            let absolute = angle.abs();
+            let mapped = if absolute <= original {
+                absolute * opening / original
+            } else {
+                opening
+                    + (std::f32::consts::PI - opening) * (absolute - original)
+                        / (std::f32::consts::PI - original)
+            } * angle.signum();
+            let radius = x.hypot(z);
+            point[0] = radii[0] * radius * mapped.sin();
+            point[2] = radii[2] * radius * mapped.cos();
+        }
+    }
+
     pub fn vertex(&mut self, point: [f32; 3]) -> u32 {
         let id = self.positions.len() as u32;
         self.positions.push(point);
+        self.relief.push(0.0);
         id
     }
 
@@ -37,11 +59,6 @@ impl Surface {
                 upper[next],
             ]);
         }
-    }
-
-    /// Axisymmetric skull bowl with a true single pole, not collapsed quads.
-    pub fn dome(&mut self, radii: [f32; 3], brow: f32) -> Vec<u32> {
-        self.full_dome(radii, brow, 1.0)
     }
 
     /// A lower exponent retains width higher up a broad skull's meridian.
@@ -86,34 +103,23 @@ impl Surface {
         previous
     }
 
-    pub fn shell(self, thickness: f32) -> Result<PartMesh, GenerateError> {
-        PartMesh::from_surface(self.positions, self.indices, thickness)
+    pub fn shell(
+        self,
+        thickness: f32,
+        extrusion: crate::ShellExtrusion,
+    ) -> Result<PartMesh, GenerateError> {
+        let relief = self
+            .relief
+            .iter()
+            .any(|height| *height > 0.0)
+            .then_some(self.relief);
+        PartMesh::from_relief_surface(
+            self.positions,
+            self.indices,
+            thickness,
+            crate::BoundaryNormals::Smooth,
+            extrusion,
+            relief,
+        )
     }
-}
-
-/// Independent polygonal sheet with real thickness, useful for a sagittal comb.
-pub(super) fn comb(
-    radii: [f32; 3],
-    brow: f32,
-    height: f32,
-    thickness: f32,
-) -> Result<PartMesh, GenerateError> {
-    const COMB_SEGMENTS: usize = 24;
-    const COMB_BASE_INSET: f32 = 0.004;
-    const COMB_HALF_WIDTH: f32 = 0.003;
-    let mut surface = Surface::default();
-    for i in 0..=COMB_SEGMENTS {
-        let t = i as f32 / COMB_SEGMENTS as f32;
-        let angle = (0.08 + 0.84 * t) * std::f32::consts::PI;
-        let base = brow + (radii[1] - brow) * angle.sin();
-        let z = radii[2] * angle.cos();
-        surface.vertex([COMB_HALF_WIDTH, base - COMB_BASE_INSET, z]);
-        let crest = (std::f32::consts::PI * t).sin().max(0.0).powf(0.8);
-        surface.vertex([COMB_HALF_WIDTH, base + height * crest, z]);
-    }
-    for i in 0..COMB_SEGMENTS as u32 {
-        let a = i * 2;
-        surface.indices.extend([a, a + 2, a + 3, a, a + 3, a + 1]);
-    }
-    surface.shell(thickness.max(COMB_HALF_WIDTH * 2.0))
 }

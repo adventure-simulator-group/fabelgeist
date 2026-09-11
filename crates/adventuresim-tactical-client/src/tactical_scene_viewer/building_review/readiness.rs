@@ -14,7 +14,7 @@ const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
 pub(in crate::tactical_scene_viewer) struct BuildingReviewPlugin;
 impl Plugin for BuildingReviewPlugin {
     fn build(&self, app: &mut App) {
-        super::gpu_readiness::GpuReadiness::install(app);
+        crate::tactical_scene_viewer::gpu_readiness::GpuReadiness::install(app);
         app.init_resource::<Readiness>().add_systems(
             Last,
             observe.before(crate::tactical_scene_viewer::capture_views),
@@ -49,7 +49,7 @@ struct Observation<'w, 's> {
             &'static PresentedBuildingMesh,
             &'static ChildOf,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     doors: Query<
@@ -58,7 +58,7 @@ struct Observation<'w, 's> {
         (
             &'static SceneDoor,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     windows: Query<
@@ -67,7 +67,7 @@ struct Observation<'w, 's> {
         (
             &'static SceneWindow,
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
         ),
     >,
     signs: Query<
@@ -84,7 +84,7 @@ struct Observation<'w, 's> {
         's,
         (
             &'static Mesh3d,
-            &'static MeshMaterial3d<StandardMaterial>,
+            &'static crate::presentation::interior_lighting::InteriorMaterialSource,
             &'static ChildOf,
         ),
     >,
@@ -93,13 +93,17 @@ struct Observation<'w, 's> {
     palette: Res<'w, TacticalBuildingMaterials>,
     textures: Res<'w, ProceduralTextureAssets>,
     materials: Res<'w, Assets<StandardMaterial>>,
-    gpu: Res<'w, super::gpu_readiness::GpuReadiness>,
+    gpu: Res<'w, crate::tactical_scene_viewer::gpu_readiness::GpuReadiness>,
     adapter: Res<'w, RenderAdapterInfo>,
     graphics: Res<'w, TacticalGraphicsSettings>,
 }
 
 impl Observation<'_, '_> {
-    fn assets_ready(&self, mesh: &Mesh3d, handle: &MeshMaterial3d<StandardMaterial>) -> bool {
+    fn assets_ready(
+        &self,
+        mesh: &Mesh3d,
+        handle: &crate::presentation::interior_lighting::InteriorMaterialSource,
+    ) -> bool {
         self.materials.get(&handle.0).is_some_and(|material| {
             self.gpu.contains(
                 &mesh.0,
@@ -115,7 +119,7 @@ impl Observation<'_, '_> {
         })
     }
 
-    fn check(&self, requirements: &ReviewRequirements, fixture: &ReviewFixture) -> bool {
+    fn check(&self, requirements: &ReviewRequirements) -> bool {
         if self.buildings.iter().count() != requirements.buildings
             || self.doors.iter().count() != requirements.doors
             || self.windows.iter().count() != requirements.windows
@@ -194,7 +198,7 @@ impl Observation<'_, '_> {
                     .get_for_building(door.building_id, BuildingLodMaterial::Timber)
             );
         }
-        for (&id, expected) in &fixture.signs {
+        for (&id, expected) in &requirements.signs {
             let Some((presented, _, transform)) = self.signs.iter().find(|(_, parent, _)| {
                 self.buildings
                     .get(parent.parent())
@@ -202,13 +206,13 @@ impl Observation<'_, '_> {
             }) else {
                 return false;
             };
-            assert_eq!(presented.sign.name, expected.name);
-            assert_eq!(presented.sign.font, expected.font);
-            assert_eq!(presented.sign.mount, expected.mount);
-            assert_eq!(presented.sign.finish, expected.finish);
+            assert_eq!(presented.sign.name, expected.sign.name);
+            assert_eq!(presented.sign.font, expected.sign.font);
+            assert_eq!(presented.sign.mount, expected.sign.mount);
+            assert_eq!(presented.sign.finish, expected.sign.finish);
             assert_eq!(
                 presented.site.mounting.contact,
-                requirements.sites[&id].mounting.contact
+                expected.site.mounting.contact
             );
             // Nearby lettering is streamed by production. The fixture check uses the
             // actual root placement, including orientation, in the saved camera inputs.
@@ -226,12 +230,11 @@ impl Observation<'_, '_> {
 fn observe(
     mut readiness: ResMut<Readiness>,
     requirements: Option<Res<ReviewRequirements>>,
-    fixture: Option<Res<ReviewFixture>>,
     state: Option<Res<SceneCaptureState>>,
     time: Res<Time<Real>>,
     observation: Observation,
 ) {
-    let (Some(requirements), Some(fixture), Some(state)) = (requirements, fixture, state) else {
+    let (Some(requirements), Some(state)) = (requirements, state) else {
         return;
     };
     if state.phase == CapturePhase::Configure {
@@ -239,7 +242,7 @@ fn observe(
         readiness.pending_since = None;
         return;
     }
-    readiness.ready = observation.check(&requirements, &fixture);
+    readiness.ready = observation.check(&requirements);
     if !readiness.ready {
         let since = *readiness
             .pending_since
@@ -255,7 +258,7 @@ fn observe(
             "renderer": "TacticalPresentationPlugin", "backend": format!("{:?}", observation.adapter.backend),
             "adapter": observation.adapter.name, "graphics": format!("{:?}", observation.graphics.config),
             "buildings": requirements.buildings, "doors": requirements.doors, "windows": requirements.windows,
-            "supported_signs": requirements.sites.keys().collect::<Vec<_>>(),
+            "supported_signs": requirements.signs.keys().collect::<Vec<_>>(),
             "material_bindings_verified": true, "lod_levels_per_building": 3, "captured_views_ready": readiness.recorded,
         });
         std::fs::write(

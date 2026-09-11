@@ -7,7 +7,10 @@ use anyhow::{Context, Result};
 
 pub fn load_breastplate_design(path: Option<&Path>) -> Result<BreastplateDesign> {
     let Some(path) = path else {
-        return Ok(BreastplateDesign::default());
+        return parse_breastplate_design(include_bytes!(
+            "../../../assets_src/equipment/breastplate-design.json"
+        ))
+        .context("invalid authored breastplate recipe");
     };
     let bytes = std::fs::read(path)
         .with_context(|| format!("reading breastplate design {}", path.display()))?;
@@ -16,21 +19,25 @@ pub fn load_breastplate_design(path: Option<&Path>) -> Result<BreastplateDesign>
 }
 
 fn parse_breastplate_design(bytes: &[u8]) -> Result<BreastplateDesign> {
-    // Derive the accepted keys from the serialized schema instead of keeping
-    // a second list that can drift when design fields are added. Still parse
-    // the original bytes below so duplicate fields are rejected by Serde.
-    let document: serde_json::Value =
-        serde_json::from_slice(bytes).context("parsing breastplate design JSON")?;
-    let schema = serde_json::to_value(BreastplateDesign::default())?;
-    if let Some(fields) = document.as_object() {
-        for name in fields.keys() {
-            if schema.get(name).is_none() {
-                anyhow::bail!("unknown breastplate design field {name:?}");
-            }
-        }
-    }
     let design = serde_json::from_slice(bytes).context("parsing breastplate design JSON")?;
     validate_breastplate(&design).context("invalid breastplate design parameters")?;
+    Ok(design)
+}
+
+pub fn load_bracer_design(path: Option<&Path>) -> Result<adventuresim_armor_model::BracerDesign> {
+    let Some(path) = path else {
+        return parse_bracer_design(include_bytes!(
+            "../../../assets_src/equipment/vambrace-design.json"
+        ))
+        .context("invalid authored vambrace recipe");
+    };
+    parse_bracer_design(&std::fs::read(path)?)
+        .with_context(|| format!("loading vambrace design {}", path.display()))
+}
+
+fn parse_bracer_design(bytes: &[u8]) -> Result<adventuresim_armor_model::BracerDesign> {
+    let design = serde_json::from_slice(bytes).context("parsing vambrace design")?;
+    adventuresim_armor_model::validate(&design).context("invalid vambrace design")?;
     Ok(design)
 }
 
@@ -41,11 +48,36 @@ mod tests {
     use super::*;
 
     #[test]
-    fn absent_path_keeps_the_existing_default() {
-        assert_eq!(
-            load_breastplate_design(None).unwrap(),
-            BreastplateDesign::default()
+    fn misspelled_optional_vambrace_fluting_is_rejected() {
+        let mut document =
+            serde_json::to_value(adventuresim_armor_model::BracerDesign::default()).unwrap();
+        document.as_object_mut().unwrap().remove("fluting");
+        document["flutng"] = serde_json::json!({"count":9});
+        assert!(
+            serde_json::from_value::<adventuresim_armor_model::BracerDesign>(document).is_err()
         );
+    }
+
+    #[test]
+    fn absent_paths_load_valid_authored_equipment_recipes() {
+        let breastplate = load_breastplate_design(None).unwrap();
+        let vambrace = load_bracer_design(None).unwrap();
+        assert_eq!(
+            breastplate,
+            parse_breastplate_design(include_bytes!(
+                "../../../assets_src/equipment/breastplate-design.json"
+            ))
+            .unwrap()
+        );
+        assert_eq!(
+            vambrace,
+            parse_bracer_design(include_bytes!(
+                "../../../assets_src/equipment/vambrace-design.json"
+            ))
+            .unwrap()
+        );
+        assert_ne!(breastplate, BreastplateDesign::default());
+        assert_ne!(vambrace, adventuresim_armor_model::BracerDesign::default());
     }
 
     #[test]

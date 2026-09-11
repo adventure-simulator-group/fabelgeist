@@ -11,7 +11,7 @@ VIEWER = ROOT / "crates/adventuresim-tactical-client/src/tactical_scene_viewer"
 
 class BuildingReviewBoundaryTests(unittest.TestCase):
     def test_review_inputs_reference_existing_buildings_and_unique_views(self):
-        for name in ("shop-sign-review", "workplace-review"):
+        for name in ("shop-sign-review", "workplace-review", "parish-review"):
             scene = json.loads((ROOT / f"assets/tactical-scenes/{name}.json").read_text())
             review = json.loads((ROOT / f"assets/tactical-scenes/{name}.review.json").read_text(encoding="utf-8"))
             ids = {building["id"] for building in scene["buildings"]}
@@ -22,7 +22,7 @@ class BuildingReviewBoundaryTests(unittest.TestCase):
             self.assertTrue(all(sum(v * v for v in view["offset"]) > 0 for view in review["views"]))
 
     def test_review_adapters_cannot_construct_a_second_render_pipeline(self):
-        paths = [VIEWER / "buildings.rs", VIEWER / "building_review.rs", *sorted((VIEWER / "building_review").glob("*.rs"))]
+        paths = [VIEWER / "buildings.rs", VIEWER / "furniture_capture.rs", VIEWER / "furniture_readiness.rs", VIEWER / "gpu_readiness.rs", VIEWER / "building_review.rs", *sorted((VIEWER / "building_review").glob("*.rs"))]
         forbidden = r"StandardMaterial\s*\{|Mesh::new|Mesh::from|Mesh::try_from|meshes\.add|materials\.add|compile_building_detail|compile_static_building_detail|compile_building_lod|DefaultPlugins"
         for path in paths:
             with self.subTest(path=path.name):

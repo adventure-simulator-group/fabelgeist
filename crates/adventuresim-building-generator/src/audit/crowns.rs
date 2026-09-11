@@ -735,22 +735,10 @@ fn audit_crowns(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 }
                 let Some(WallWalk::Round { stairwell_radius_metres, .. }) = plan.wall_walks.iter().find(|walk| matches!(walk, WallWalk::Round { centre: walk_centre, .. } if (*walk_centre-centre).length()<0.02)) else { continue; };
                 let Some(arrival) = plan.stairs.iter().find_map(|stair| match *stair {
-                    Stair::Spiral {
-                        centre: stair_centre,
-                        turns,
-                        clockwise,
-                        tread_count,
-                        ..
-                    } if (stair_centre - centre).length() < 0.02 => {
-                        let progress = f32::from(tread_count.saturating_sub(1))
-                            / f32::from(tread_count.max(1));
-                        Some(
-                            if clockwise { -1.0 } else { 1.0 }
-                                * progress
-                                * turns
-                                * std::f32::consts::TAU,
-                        )
-                    }
+                    Stair::Spiral { centre: stair_centre, .. }
+                        if (stair_centre - centre).length() < 0.02 => {
+                            crate::spiral_stairs::arrival_angle(*stair)
+                        }
                     _ => None,
                 }) else {
                     continue;

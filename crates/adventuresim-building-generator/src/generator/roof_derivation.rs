@@ -1,5 +1,5 @@
 fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
-    if let Some(roofs) = program.workplace_roofs() { return roofs; }
+    if let Some(roofs) = program.workplace_roofs().or_else(|| small_church::roofs(program)) { return roofs; }
     let (width, depth) = program.footprint.dimensions();
     let size = Vec2::new(
         f32::from(width) * CELL_SIZE_METRES,

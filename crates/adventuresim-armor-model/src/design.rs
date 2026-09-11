@@ -19,8 +19,23 @@ impl Permille {
     }
 }
 
+/// A nonnegative angle stored in thousandths of a radian.
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+pub struct Milliradians(pub u16);
+impl Milliradians {
+    pub fn radians(self) -> f32 {
+        f32::from(self.0) / 1_000.0
+    }
+}
+
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct BracerDesign {
+    pub fluting: Option<crate::PlateFluting>,
+    /// Extra opening radius; the middle of the forearm remains close fitting.
+    pub elbow_flare: Millimeters,
+    pub wrist_flare: Millimeters,
+    pub center_ridge: Millimeters,
     pub catalog_id: String,
     /// Fraction of the canonical elbow-to-wrist forearm span.
     pub coverage: Permille,
@@ -32,63 +47,13 @@ pub struct BracerDesign {
     pub wall_thickness: Millimeters,
 }
 
-#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub struct BreastplateDesign {
-    pub catalog_id: String,
-    /// Scale of the neck opening around the wearer-derived default.
-    pub neck_width: Permille,
-    /// Scale of the front and rear neckline drop.
-    pub neck_depth: Permille,
-    /// Scale of the armscye depth.
-    pub arm_opening_depth: Permille,
-    /// Scale of the lower plate width around the wearer-derived default.
-    pub waist_width: Permille,
-    /// Scale of neck-to-waist plate length.
-    pub plate_length: Permille,
-    /// Scale of the side return toward the coronal torso plane.
-    pub side_return: Permille,
-    /// Additional smooth longitudinal crown on the front plate.
-    pub front_crown: Millimeters,
-    /// Physical width of each floating shoulder band.
-    pub shoulder_band_width: Millimeters,
-    /// Scale of the default short skirt length.
-    pub skirt_length: Permille,
-    /// Outward flare of the skirt's lower edge.
-    pub skirt_flare: Millimeters,
-    /// Inner-surface clearance for the front plate.
-    pub front_clearance: Millimeters,
-    /// Inner-surface clearance for the rear plate.
-    pub back_clearance: Millimeters,
-    /// Minimum depth-plane separation between the independent plates.
-    pub plate_gap: Millimeters,
-    pub wall_thickness: Millimeters,
-}
-
-impl Default for BreastplateDesign {
-    fn default() -> Self {
-        Self {
-            catalog_id: "breastplate".into(),
-            neck_width: Permille(1_000),
-            neck_depth: Permille(1_000),
-            arm_opening_depth: Permille(1_000),
-            waist_width: Permille(1_000),
-            plate_length: Permille(1_000),
-            side_return: Permille(1_000),
-            front_crown: Millimeters(6),
-            shoulder_band_width: Millimeters(30),
-            skirt_length: Permille(1_000),
-            skirt_flare: Millimeters(30),
-            front_clearance: Millimeters(10),
-            back_clearance: Millimeters(14),
-            plate_gap: Millimeters(8),
-            wall_thickness: Millimeters(4),
-        }
-    }
-}
-
 impl Default for BracerDesign {
     fn default() -> Self {
         Self {
+            fluting: None,
+            elbow_flare: Millimeters(0),
+            wrist_flare: Millimeters(0),
+            center_ridge: Millimeters(0),
             catalog_id: "vambrace".into(),
             coverage: Permille(650),
             wrist_offset: Permille(20),
@@ -99,6 +64,33 @@ impl Default for BracerDesign {
 }
 
 impl BracerDesign {
+    pub(crate) fn columns(&self) -> Vec<f32> {
+        const BASE_SEGMENTS: usize = 32;
+        let mut columns = self.fluting.as_ref().map_or_else(
+            || {
+                (0..=BASE_SEGMENTS)
+                    .map(|i| i as f32 / BASE_SEGMENTS as f32)
+                    .collect()
+            },
+            |fluting| fluting.columns(BASE_SEGMENTS),
+        );
+        columns.pop();
+        columns
+    }
+
+    pub(crate) fn relief(&self, u: f32, v: f32) -> f32 {
+        let edge =
+            self.elbow_flare.metres() * (1.0 - v).powi(6) + self.wrist_flare.metres() * v.powi(6);
+        let ridge = (std::f32::consts::TAU * (u - 0.5)).cos().max(0.0).powi(8)
+            * (std::f32::consts::PI * v).sin().powi(2)
+            * self.center_ridge.metres();
+        edge + ridge
+            + self
+                .fluting
+                .as_ref()
+                .map_or(0.0, |fluting| fluting.relief(u, 1.0 - v))
+    }
+
     pub fn bracelet() -> Self {
         Self {
             coverage: Permille(120),
@@ -320,7 +312,7 @@ pub struct TorsoSurface {
 #[derive(Clone, Debug, PartialEq)]
 pub struct ArmorMorph {
     pub name: String,
-    /// Independently evaluated endpoint positions on the frozen production
+    /// Absolute endpoint positions on the frozen production
     /// topology. Exporters use these to verify signed-delta encoding exactly;
     /// they are not a second mesh or alternate connectivity path.
     pub direct_positions: Vec<[f32; 3]>,
@@ -330,6 +322,9 @@ pub struct ArmorMorph {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedArmor {
+    /// Outer-sheet rim segments in the generated vertex index domain.
+    pub plate_edges: Vec<[u32; 2]>,
+    pub components: Vec<crate::ArmorComponent>,
     pub design_hash: [u8; 32],
     pub surface_domain: String,
     pub positions: Vec<[f32; 3]>,
@@ -343,6 +338,14 @@ pub struct GeneratedArmor {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum DesignError {
+    #[error("breastplate profile parameters are outside their supported ranges")]
+    BreastplateShape,
+    #[error("breastplate flute parameters or fade spacing are outside their supported ranges")]
+    PlateFluting,
+    #[error(
+        "visor slots do not fit their pattern span or row spacing with a 3 mm metal web; reduce count/size or increase spacing"
+    )]
+    VisorOpeningSpacing,
     #[error("armor shape parameters are outside their supported ranges")]
     ParametricParameters,
     #[error("armor catalog ID cannot be empty")]

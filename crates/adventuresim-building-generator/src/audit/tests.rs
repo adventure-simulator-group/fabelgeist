@@ -4270,17 +4270,7 @@ mod tests {
             .find(|stair| matches!(stair, Stair::Spiral { centre: stair_centre, .. } if (*stair_centre-centre).length()<0.02))
             .copied()
             .unwrap();
-        let Stair::Spiral {
-            turns,
-            clockwise,
-            tread_count,
-            ..
-        } = stair
-        else {
-            unreachable!()
-        };
-        let progress = f32::from(tread_count.saturating_sub(1)) / f32::from(tread_count.max(1));
-        let angle = if clockwise { -1.0 } else { 1.0 } * progress * turns * std::f32::consts::TAU;
+        let angle = crate::spiral_stairs::arrival_angle(stair).unwrap();
         let stairwell_radius = blocked_spiral
             .wall_walks
             .iter()
@@ -4858,13 +4848,18 @@ mod tests {
                     })
             })
             .unwrap();
+        let braced_member_count = line.storeys[0].member_ids.len();
         line.storeys[0].member_ids.retain(|id| {
             frame
                 .members
                 .iter()
                 .find(|member| member.id == *id)
-                .is_none_or(|member| member.role != crate::TimberMemberRole::StoreyBrace)
+                .is_none_or(|member| !matches!(member.role,
+                    crate::TimberMemberRole::HeadBrace
+                        | crate::TimberMemberRole::FootBrace
+                        | crate::TimberMemberRole::StoreyBrace))
         });
+        assert!(line.storeys[0].member_ids.len() < braced_member_count);
         assert!(has(&broken_transverse, "unbraced_timber_storey"));
 
         let mut swapped_joint = fixture(crate::BuildingArchetype::TownHouse);

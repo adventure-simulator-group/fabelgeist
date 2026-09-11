@@ -99,7 +99,7 @@ pub(super) fn generate_fitted(
         &drape.back,
         FlapFacing::Back,
     );
-    surface.shell(d.fit.wall_thickness.metres())
+    surface.shell(d.fit.wall_thickness.metres(), crate::ShellExtrusion::Normal)
 }
 
 fn neck_tube(surface: &mut Surface, upper: &[u32], drape: &CoifDrapeProfile) -> Vec<u32> {

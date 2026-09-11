@@ -54,6 +54,7 @@ impl CombatEffectAssets {
 
 #[derive(SystemParam)]
 struct CombatEffectResources<'w> {
+    interior: Res<'w, crate::presentation::interior_lighting::InteriorLightingGpu>,
     meshes: ResMut<'w, Assets<Mesh>>,
     materials: ResMut<'w, Assets<StandardMaterial>>,
     images: ResMut<'w, Assets<Image>>,
@@ -153,6 +154,7 @@ fn spawn_combat_effects(
             &parents,
             &surfaces,
             &mut BloodMaterialAssets {
+                field: resources.interior.buffer.clone(),
                 meshes: &resources.meshes,
                 images: &mut resources.images,
                 standard: &resources.materials,

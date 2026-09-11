@@ -5,6 +5,14 @@ pub(super) fn generate_storeys(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
 ) -> Result<(Vec<StoreyPlan>, Option<StraightStairCore>), GenerationError> {
+    if let Some(storey) = small_church::occupied_storey(program) {
+        if !edits.is_empty() {
+            return Err(GenerationError::UnsupportedEdit(
+                "small church bays are edited through their service programme".to_owned(),
+            ));
+        }
+        return Ok((vec![storey], None));
+    }
     let footprint_cells = footprint_cells(program.footprint)?;
     // Preserve the public boundary's earliest programme-shape errors before
     // validating requirements that refer to those storeys.
@@ -68,6 +76,18 @@ fn allocate_storey(
                 .copied()
                 .map(|cell| (cell, room_index)),
         );
+    }
+    let keep_cells = crate::spiral_stairs::keep_reserved_cells(program, footprint_cells);
+    if !keep_cells.is_empty() {
+        let room_index = storey_program
+            .rooms
+            .iter()
+            .position(|room| room.kind == RoomKind::StairHall)
+            .ok_or_else(|| GenerationError::UnsatisfiedVerticalCirculation {
+                connection: 0,
+                reason: format!("storey {level} has no StairHall for its keep spiral"),
+            })?;
+        reservations.extend(keep_cells.into_iter().map(|cell| (cell, room_index)));
     }
     let assignments = allocate_rooms(
         footprint_cells,

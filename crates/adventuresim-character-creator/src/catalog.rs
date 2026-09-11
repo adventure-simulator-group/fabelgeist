@@ -4,7 +4,11 @@ use adventuresim_character_creator::item_catalog_schema::{EquipmentMaterial, Ite
 use adventuresim_character_creator::{armor_design_input::ArmorDesigns, armor_recipes};
 
 #[derive(Resource)]
-pub(super) struct EquipmentCatalog(pub Vec<ItemDefinition>, pub ArmorDesigns);
+pub(super) struct EquipmentCatalog(
+    pub Vec<ItemDefinition>,
+    pub ArmorDesigns,
+    pub adventuresim_character_creator::fasteners::catalog::FastenerRecipes,
+);
 
 impl EquipmentCatalog {
     pub(super) fn material(&self, id: &str) -> Result<EquipmentMaterial> {

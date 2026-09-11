@@ -7,18 +7,19 @@ binding, client transport, or free-form proposition format.
 
 An envelope always names a stable record, exact observer, typed subject and
 domain proposition, typed source, source and learning minutes, bounded private
-confidence, visibility, and checked revision lineage. Construction requires the source
-to precede learning and learning to be no later than the observer's personal
-time. Missing provenance therefore cannot produce an observer record.
+confidence, visibility, and checked revision lineage. Construction requires the
+source to precede learning and learning to be no later than the observer's
+personal time. Missing provenance therefore cannot produce an observer record.
 
 `AuthoritativeTruth` is a separate private type. There is deliberately no
 conversion from canonical truth to observer belief or public presentation.
 Observer records retain their domain-owned belief payload even when it is false,
 incomplete, or contradicted. The core projection exposes only learning minute, a
 bounded Weak/Plausible/Strong confidence band, and an adapter-authored
-observer-safe presentation; it never copies source, subject, proposition, belief,
-rolls, disease identity, or canonical truth. Only the exact observer also receives
-an observer-owned record/revision reference for later dialogue or referral.
+observer-safe presentation; it never copies source, subject, proposition,
+belief, rolls, disease identity, or canonical truth. Only the exact observer
+also receives an observer-owned record/revision reference for later dialogue or
+referral.
 
 Private and shareable records project directly only to their exact observer.
 Projection requires an opaque grant that only trusted core server code can mint
@@ -33,11 +34,12 @@ them themselves.
 Shareable visibility does not make a record transferable: a checked sharing
 receipt binds the exact source record/revision, typed subject and proposition,
 sharer, recipient, rule, and chronology. Its only recipient-construction method
-creates a new envelope for that exact recipient and fact, with source minute equal
-to the sharing minute and visibility fixed to observer-private. Opaque shared
-provenance is revalidated by the envelope, so copying it cannot retarget another
-recipient, fact, source chronology, or disclosure scope. Any later re-share or
-public disclosure requires separate future reducer-owned authorization.
+creates a new envelope for that exact recipient and fact, with source minute
+equal to the sharing minute and visibility fixed to observer-private. Opaque
+shared provenance is revalidated by the envelope, so copying it cannot retarget
+another recipient, fact, source chronology, or disclosure scope. Any later
+re-share or public disclosure requires separate future reducer-owned
+authorization.
 
 Revision one has no predecessor; every later revision names exactly one record.
 Supersession requires the same observer, subject, and proposition, the exact
@@ -48,7 +50,8 @@ they neither reveal truth nor silently replace either belief.
 
 All later record, share, and contradiction reducers can use the same typed
 mutation receipt. It binds a nonzero request identity to the exact typed server
-input and committed typed outcome. A new request returns `Apply`; an exact replay
+input and committed typed outcome. A new request returns `Apply`; an exact
+replay
 returns the committed outcome as a top-level no-apply decision; reusing the
 request identity with different input returns `Collision`.
 Multiple prior receipts for one request identity return

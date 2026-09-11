@@ -8,8 +8,14 @@ use fabelgeist_determinism::splitmix64;
 
 #[path = "generate_scene_fixtures/fault.rs"]
 mod fault;
+#[path = "generate_scene_fixtures/furniture.rs"]
+mod furniture;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
+#[path = "generate_scene_fixtures/interior.rs"]
+mod interior;
+#[path = "generate_scene_fixtures/parish.rs"]
+mod parish;
 
 const DEFAULT_TEST_MINUTE: u64 = 339_840 + 10 * 60;
 const MASSIVE_CITY_RESIDENT_POPULATION: u32 = 40_000;
@@ -28,6 +34,7 @@ struct Fixture {
     vista: VistaKind,
     landform: Option<TerrainLandformRecipe>,
     buildings: BuildingFixture,
+    playable_spacing_metres: f32,
 }
 
 #[derive(Clone, Copy)]
@@ -42,6 +49,10 @@ enum BuildingFixture {
     Empty,
     Cottage,
     MassiveCity,
+    ParishReview,
+    FurnitureReview,
+    InteriorFurnitureCatalog,
+    InteriorFurnitureRooms,
 }
 
 fn main() {
@@ -69,8 +80,12 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 20] {
+fn fixtures() -> [Fixture; 24] {
     [
+        parish::fixture(),
+        furniture::fixture(),
+        interior::catalog_fixture(),
+        interior::rooms_fixture(),
         Fixture {
             buildings: BuildingFixture::Cottage,
             ..fixture(
@@ -215,6 +230,7 @@ const fn fixture(
         vista: VistaKind::Ordinary,
         landform: None,
         buildings: BuildingFixture::Empty,
+        playable_spacing_metres: 12.5,
     }
 }
 
@@ -237,7 +253,13 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         absolute_minute: fixture.weather.interval_start_minute,
         lunar_phase_minute: fixture.weather.interval_start_minute,
         absolute_elevation_metres: 42,
-        playable: grid(9, 9, 12.5, fixture.terrain, fixture.environment),
+        playable: grid(
+            9,
+            9,
+            fixture.playable_spacing_metres,
+            fixture.terrain,
+            fixture.environment,
+        ),
         landform: fixture.landform,
         streets,
         yards,
@@ -258,6 +280,15 @@ fn fixture_buildings(
 ) {
     match buildings {
         BuildingFixture::Empty => (Vec::new(), Vec::new(), Vec::new(), Vec::new()),
+        BuildingFixture::InteriorFurnitureCatalog => {
+            (Vec::new(), interior::yards(), Vec::new(), Vec::new())
+        }
+        BuildingFixture::InteriorFurnitureRooms => (
+            Vec::new(),
+            interior::yards(),
+            interior::buildings(),
+            Vec::new(),
+        ),
         BuildingFixture::Cottage => (
             Vec::new(),
             Vec::new(),
@@ -271,6 +302,15 @@ fn fixture_buildings(
             Vec::new(),
         ),
         BuildingFixture::MassiveCity => massive_city_buildings(),
+        BuildingFixture::ParishReview => {
+            (Vec::new(), parish::yards(), parish::buildings(), Vec::new())
+        }
+        BuildingFixture::FurnitureReview => (
+            furniture::streets(),
+            furniture::yards(),
+            furniture::buildings(),
+            Vec::new(),
+        ),
     }
 }
 
@@ -296,7 +336,7 @@ fn massive_city_buildings() -> (
             .building_use()
             .unwrap_or(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling);
         let initial_seed = recipe_seeds[selection as usize % recipe_seeds.len()];
-        let size = lot.workplace_size();
+        let size = lot.service_size();
         let key = (archetype.slug(), usage, initial_seed, size);
         let program = recipes
             .entry(key)
@@ -316,7 +356,7 @@ fn massive_city_buildings() -> (
         } else {
             distant.push(DistantBuildingPlacement {
                 usage: Some(usage),
-                workplace_size: program.workplace_size,
+                service_size: program.service_size,
                 id: lot.id,
                 archetype,
                 seed,

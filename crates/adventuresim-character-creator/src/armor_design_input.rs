@@ -5,6 +5,13 @@ use std::{collections::BTreeMap, path::Path};
 
 pub type ArmorDesigns = BTreeMap<String, ParametricDesign>;
 
+/// Use the same schema and parameter checks for saved edits and loaded recipes.
+pub fn encode(designs: &ArmorDesigns) -> Result<Vec<u8>> {
+    let bytes = serde_json::to_vec_pretty(designs)?;
+    parse(&bytes)?;
+    Ok(bytes)
+}
+
 pub fn load(path: Option<&Path>) -> Result<ArmorDesigns> {
     let Some(path) = path else {
         return Ok(BTreeMap::new());
@@ -14,11 +21,7 @@ pub fn load(path: Option<&Path>) -> Result<ArmorDesigns> {
 }
 
 fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
-    let designs: ArmorDesigns = serde_json::from_slice(bytes)?;
-    reject_unknown_fields(
-        &serde_json::from_slice(bytes)?,
-        &serde_json::to_value(&designs)?,
-    )?;
+    let designs = decode(bytes)?;
     for (id, design) in &designs {
         let default = armor_recipes::recipe(id)
             .with_context(|| format!("unknown parametric armor recipe {id}"))?;
@@ -30,17 +33,34 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
                 std::mem::discriminant(a) == std::mem::discriminant(b)
             }
             (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
+            (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
+            (ParametricDesign::WaistAssembly(_), ParametricDesign::WaistAssembly(_)) => true,
             _ => false,
         };
         ensure!(
             same_family,
             "recipe {id} must retain its historical construction family"
         );
+    }
+    Ok(designs)
+}
+
+/// Decode the shared schema before applying override-specific family checks.
+pub(crate) fn decode(bytes: &[u8]) -> Result<ArmorDesigns> {
+    let designs: ArmorDesigns = serde_json::from_slice(bytes)?;
+    reject_unknown_fields(
+        &serde_json::from_slice(bytes)?,
+        &serde_json::to_value(&designs)?,
+    )?;
+    for (id, design) in &designs {
         match design {
-            ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new)?,
-            ParametricDesign::Limb(d) => d.validate()?,
-            ParametricDesign::Garment(d) => d.validate()?,
+            ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new),
+            ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
+            ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
+            ParametricDesign::Underlayer(d) => d.validate(),
+            ParametricDesign::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
         }
+        .with_context(|| format!("invalid armor design for item {id}"))?;
     }
     Ok(designs)
 }
@@ -60,6 +80,19 @@ fn reject_unknown_fields(input: &serde_json::Value, decoded: &serde_json::Value)
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn invalid_edits_cannot_be_saved_as_loadable_recipes() {
+        let mut designs = ArmorDesigns::new();
+        let mut helmet = adventuresim_armor_model::CloseHelmetDesign::default();
+        helmet.breaths.count_per_row = 8;
+        helmet.breaths.span = adventuresim_armor_model::Millimeters(20);
+        designs.insert(
+            "close_helmet".into(),
+            ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(helmet)),
+        );
+        assert!(encode(&designs).is_err());
+    }
 
     #[test]
     fn rejects_misspelled_nested_controls_and_wrong_construction_families() {

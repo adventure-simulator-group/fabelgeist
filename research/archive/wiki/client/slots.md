@@ -10,7 +10,8 @@ Combat continues to target only left/right arm, left/right leg, head, chest,
 and stomach; worn protection is projected back onto those stable regions.
 
 For example, the right hip can be a slot:
-* If you have a belt on, you can place a sheath on your left hip with <kbd>Q</kbd>.
+* If you have a belt on, you can place a sheath on your left hip with
+  <kbd>Q</kbd>.
 * If you have a sheath on your left hip, you can put a sword in it.
 
 The goal is for slots to replace menus to access most of your inventory.
@@ -102,9 +103,14 @@ to those slots are unavailable.
 The screen normally gives no indicator for what is in your slots or your hands.
 However, holding down any grab button brings up a "map" of your slots with a few
 properties:
-* This map includes icons for each button and approximately corresponds to the keyboard/controller; the relative position of each slot should be based on the relative position of each button.
-* When holding an item, any slot it may be placed in is white, and all others are grayed out; if your hand is empty, slots with items in them are white, and empty ones are greyed out.
-* Only the outermost occupied item in a slot is visible. Items that occupy multiple slots contiguously span all relevant slots.
+* This map includes icons for each button and approximately corresponds to the
+  keyboard/controller; the relative position of each slot should be based on the
+  relative position of each button.
+* When holding an item, any slot it may be placed in is white, and all others
+  are grayed out; if your hand is empty, slots with items in them are white, and
+  empty ones are greyed out.
+* Only the outermost occupied item in a slot is visible. Items that occupy
+  multiple slots contiguously span all relevant slots.
 
 The strategic inventory uses a compact version of this map. An equipped row
 shows every applicable QWERTY key; lighter key text is nearer the surface and

@@ -48,7 +48,7 @@ pub(super) struct FitProfile {
     side: [f32; 3],
 }
 
-pub(super) fn quadratic_weights(reference_y: f32, bottom: f32) -> [f32; 3] {
+pub(super) fn height_weights(reference_y: f32, bottom: f32) -> [f32; 3] {
     let t = ((reference_y - bottom) / (REFERENCE_CARRIER_TOP_HEIGHT - bottom)).clamp(0.0, 1.0);
     [(1.0 - t).powi(2), 2.0 * t * (1.0 - t), t.powi(2)]
 }
@@ -192,7 +192,7 @@ pub(super) fn apply_fit(
     } else {
         FRONT_HEIGHTS[0]
     };
-    let weights = quadratic_weights(reference_y, bottom);
+    let weights = height_weights(reference_y, bottom);
     let Some((direction, _, side_blend)) = radial_direction(original, wearer) else {
         return position;
     };
@@ -211,6 +211,14 @@ pub(super) fn section_clearance_fit(
     design: &BreastplateDesign,
 ) -> Result<FitProfile, GenerateError> {
     let original = mesh.positions.clone();
+    // Seating and section correction must preserve the requested inner room,
+    // including where a lateral return approaches a mail-covered armpit.
+    let clearance = if rear {
+        design.back_clearance.metres()
+    } else {
+        design.front_clearance.metres()
+    }
+    .max(FIT_SURFACE_MARGIN);
     let bottom = if rear {
         BACK_HEIGHTS[0]
     } else {
@@ -224,7 +232,7 @@ pub(super) fn section_clearance_fit(
         let mut constraint = None::<(f32, [f32; 3], f32, [f32; 3], f32)>;
         for (position, original) in mesh.positions.iter().zip(&original) {
             let reference_y = reference_height(*original, wearer, design);
-            let weights = quadratic_weights(reference_y, bottom);
+            let weights = height_weights(reference_y, bottom);
             let Some((direction, radius, side_blend)) = radial_direction(*position, wearer) else {
                 continue;
             };
@@ -234,7 +242,7 @@ pub(super) fn section_clearance_fit(
             let Some(body_radius) = body_radial_extent(*position, direction, wearer) else {
                 continue;
             };
-            let residual = body_radius + FIT_SURFACE_MARGIN - radius;
+            let residual = body_radius + clearance - radius;
             if residual > 1e-5 && constraint.is_none_or(|current| residual > current.0) {
                 constraint = Some((
                     residual,
@@ -263,11 +271,13 @@ pub(super) fn section_clearance_fit(
             );
         }
     }
+    // The carrier radii scale with torso depth; its admissible fitting travel
+    // must use the same scale for full-strength identity export targets.
     if fit
         .center
         .into_iter()
         .chain(fit.side)
-        .any(|value| !value.is_finite() || value > MAX_FIT_CORRECTION)
+        .any(|value| !value.is_finite() || value > MAX_FIT_CORRECTION * wearer.z_scale)
     {
         if report_fit() {
             eprintln!("breastplate rejected section_fit rear={rear} fit={fit:?}");
@@ -300,43 +310,20 @@ pub(super) fn build_pair(
             );
         }
     }
-    let mut front = build_mid(false, wearer, design)?;
+    let mut smooth_design = design.clone();
+    smooth_design.fluting = None;
+    let mut front = build_mid(false, wearer, &smooth_design)?;
     let mut back = build_mid(true, wearer, design)?;
     let front_fit = section_clearance_fit(&mut front, false, wearer, design)?;
     let back_fit = section_clearance_fit(&mut back, true, wearer, design)?;
     if report_fit() {
         eprintln!("breastplate section_fit front={front_fit:?} back={back_fit:?}");
     }
-    let thickness = design.wall_thickness.metres();
-    let front_normals = vertex_normals(&front.positions, &front.faces)?;
-    let back_normals = vertex_normals(&back.positions, &back.faces)?;
-    let front_min = front
-        .positions
-        .iter()
-        .zip(front_normals)
-        .flat_map(|(p, n)| {
-            [
-                dot(*p, wearer.frame.front),
-                dot(add(*p, scale(n, thickness)), wearer.frame.front),
-            ]
-        })
-        .fold(f32::INFINITY, f32::min);
-    let back_max = back
-        .positions
-        .iter()
-        .zip(back_normals)
-        .flat_map(|(p, n)| {
-            [
-                dot(*p, wearer.frame.front),
-                dot(add(*p, scale(n, thickness)), wearer.frame.front),
-            ]
-        })
-        .fold(f32::NEG_INFINITY, f32::max);
-    let required = design.plate_gap.metres();
-    let correction = ((required - (front_min - back_max)) * 0.5).max(0.0);
-    if correction > 0.0 {
-        translate(&mut front, scale(wearer.frame.front, correction));
-        translate(&mut back, scale(wearer.frame.front, -correction));
-    }
+    align_back_lap_width(&mut back, &front, wearer, design);
+    // Restore the enclosure with a smooth profile after seating the lap.
+    section_clearance_fit(&mut back, true, wearer, design)?;
+    upper_extrusion(&mut front)?;
+    front = refine_front(front, wearer, design)?;
+    apply_fluting(&mut front, design)?;
     Ok((front, back))
 }

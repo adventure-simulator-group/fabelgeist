@@ -2,6 +2,7 @@
 
 use super::*;
 
+mod attachment;
 mod fit;
 
 pub(super) fn equipment_target_is_self_or_descendant(
@@ -515,18 +516,7 @@ pub(in crate::templates::settlement) fn equipment_control(
                                 .into_iter()
                                 .flat_map(|equip| {
                                     equip.attachment_targets.iter().filter(move |target| {
-                                        target.channel == requirement.channel
-                                            && target.order == requirement.order
-                                            && (target.accepts_tags.is_empty()
-                                                || definition
-                                                    .attachment_tags
-                                                    .iter()
-                                                    .any(|tag| target.accepts_tags.contains(tag)))
-                                            && !equipment_target_is_self_or_descendant(
-                                                equip,
-                                                inventory.id,
-                                                target.parent_inventory_item_id,
-                                            )
+                                        attachment::accepts(equip, inventory.id, &definition.attachment_tags, target, requirement)
                                     })
                                 })
                                 .map(|target| {

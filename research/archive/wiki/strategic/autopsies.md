@@ -69,11 +69,11 @@ topic in ordinary dialogue. Explicitly bound family members, a local priest, or
 a local secular authority may grant it after a Charm-based social check; refusal
 is reported in the dialogue transcript. Examination and exhumation are separate
 permissions, and exhumation is substantially harder to secure. Family permission
-avoids social penalties. Priest or authority permission prevents settlement infamy, but
-bypassing bound family causes a modest family morale and affinity loss.
-Proceeding without any permission remains possible after a qualitative warning
-and causes a much larger family penalty plus settlement infamy. Receipts make
-all actions and consequences retry-safe.
+avoids social penalties. Priest or authority permission prevents settlement
+infamy, but bypassing bound family causes a modest family morale and affinity
+loss. Proceeding without any permission remains possible after a qualitative
+warning and causes a much larger family penalty plus settlement infamy. Receipts
+make all actions and consequences retry-safe.
 
 Burning is an irreversible alternative beside burial whenever a body is
 accessible. It destroys the body and all remaining evidence and cannot be

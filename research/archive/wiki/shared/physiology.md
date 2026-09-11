@@ -25,7 +25,8 @@ canonical limb order and posts that exact limb, including for emergency care.
 
 Dead subjects remain available to the medical interface. External and internal
 post-mortem interpretation, its separation from Surgery and Bestiary, and
-observer-safe corpse findings are documented in [Autopsies](../strategic/autopsies.md).
+observer-safe corpse findings are documented in
+[Autopsies](../strategic/autopsies.md).
 
 Physiology is the skill for preventing avoidable disease exposure, observing
 health, administering prepared interventions, and improving wound recovery. It
@@ -132,9 +133,9 @@ The authoritative database initializes private key material from runtime
 randomness and persists one private key for the lifetime of the database.
 Changing its version requires recreating the disposable pre-launch database;
 older causal rows fail closed instead of being re-derived with new material.
-Infection and administration causal rows pin the ruleset and key versions used to interpret
-them. No secret is compiled into the module, placed in an environment-backed
-WASM constant, or exposed through a public view.
+Infection and administration causal rows pin the ruleset and key versions used
+to interpret them. No secret is compiled into the module, placed in an
+environment-backed WASM constant, or exposed through a public view.
 
 ## Observer notebooks
 

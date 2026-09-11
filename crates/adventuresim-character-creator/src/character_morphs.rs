@@ -196,12 +196,29 @@ pub(super) fn armor_targets(armor: &GeneratedArmor) -> Vec<RiggedMorphTarget<'_>
         .collect()
 }
 
+/// Hardware has its own surface, regardless of the catalog's plate material.
+pub(super) fn component_materials(armor: &GeneratedArmor, shells: &mut [RiggedShell<'_>]) {
+    for (component, shell) in armor.components.iter().zip(shells) {
+        if let Some(material) = component.material {
+            shell.base_color = material.base_color;
+            shell.metallic = material.metallic;
+            shell.roughness = material.roughness;
+            shell.textures = None;
+            shell.plate_edges = &[];
+        }
+    }
+}
+
 pub(super) fn rigged_clothing<'a>(
     shell: &'a ClothingShell,
     targets: &'a [RiggedMorphTarget<'a>],
 ) -> RiggedShell<'a> {
     let specification = &shell.specification;
     RiggedShell {
+        plate_edges: &[],
+        textures: None,
+        texcoords: None,
+        hinge: None,
         name: &specification.name,
         positions: &shell.positions,
         normals: &shell.normals,
@@ -220,9 +237,13 @@ pub(super) fn rigged_armor<'a>(
     armor: &'a GeneratedArmor,
     faces: &'a [[u32; 3]],
     targets: &'a [RiggedMorphTarget<'a>],
-) -> RiggedShell<'a> {
-    RiggedShell {
+) -> Vec<RiggedShell<'a>> {
+    let shell = |name, faces, hinge| RiggedShell {
+        plate_edges: &armor.plate_edges,
+        textures: None,
+        texcoords: Some(&armor.texcoords),
         name,
+        hinge,
         positions: &armor.positions,
         normals: &armor.normals,
         faces,
@@ -232,6 +253,21 @@ pub(super) fn rigged_armor<'a>(
         base_color: [0.769, 0.776, 0.776, 1.0],
         metallic: 1.0,
         roughness: 0.20,
+    };
+    if armor.components.is_empty() {
+        vec![shell(name, faces, None)]
+    } else {
+        armor
+            .components
+            .iter()
+            .map(|component| {
+                shell(
+                    component.role.name(),
+                    &faces[component.indices.start / 3..component.indices.end / 3],
+                    component.hinge,
+                )
+            })
+            .collect()
     }
 }
 

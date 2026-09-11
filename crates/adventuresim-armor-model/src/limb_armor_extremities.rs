@@ -2,7 +2,7 @@
 
 use std::f32::consts::{PI, TAU};
 
-use super::mesh::{AROUND, boot_shell, half_dome, lerp, patch, smooth};
+use super::mesh::{AROUND, boot_shell, half_dome, lerp, smooth};
 use super::{BootDesign, FootArmorDesign, GauntletDesign};
 use crate::{
     GenerateError,
@@ -13,43 +13,66 @@ pub(super) fn gauntlet(d: &GauntletDesign, fit: &PartFrame) -> Result<PartMesh, 
     let [width, length, depth] = fit.half_extents;
     let gauge = d.gauge.thickness.metres();
     let clearance = d.gauge.clearance.metres() + gauge;
-    let mut mesh = patch(AROUND, 8, true, gauge, |u, v| {
-        let theta = TAU * u;
-        let radius = lerp(0.73, 0.73 * d.cuff_flare.unit(), smooth(v));
-        [
-            (width * radius + clearance) * theta.sin(),
-            length * (1.0 + v * d.cuff_length.unit() * 2.0),
-            (depth * lerp(1.0, 1.35, v) + clearance) * theta.cos(),
-        ]
-    })?;
+    let mut mesh = crate::plate_patch::fluted_radial_patch(
+        12,
+        true,
+        gauge,
+        d.fluting.as_ref(),
+        [0.0, 1.0],
+        |_, _| gauge * 2.0,
+        |u, v| {
+            let theta = TAU * (u - 0.5);
+            let radius = lerp(0.73, 0.73 * d.cuff_flare.unit(), smooth(v));
+            [
+                (width * radius + clearance + d.cuff_clearance.metres()) * theta.sin(),
+                length * (0.94 + v * d.cuff_length.unit() * 2.0),
+                (depth * lerp(1.0, 1.35, v) + clearance + d.cuff_clearance.metres()) * theta.cos(),
+            ]
+        },
+    )?;
     let count = usize::from(d.finger_lames);
     for lame in 0..count {
         let low = lame as f32 / count as f32;
         let high = ((lame + 1) as f32 / count as f32 + 0.045).min(1.0);
-        mesh.append(patch(AROUND, 5, false, gauge, |u, v| {
+        let point = |u: f32, v: f32| {
             let axial = lerp(low, high, v);
             let theta = (2.0 * u - 1.0) * PI * 0.5;
-            let taper = lerp(0.84, 1.0, smooth(axial));
-            let step = gauge * 1.5 * lame as f32;
+            let taper = if axial < 0.55 {
+                lerp(0.84, d.knuckle_width.unit(), smooth(axial / 0.55))
+            } else {
+                lerp(d.knuckle_width.unit(), 0.73, smooth((axial - 0.55) / 0.45))
+            };
             [
-                (width * taper + clearance + step) * theta.sin(),
+                (width * taper + clearance) * theta.sin(),
                 length * lerp(-0.81, 1.04, axial),
-                (depth + clearance + step) * theta.cos(),
+                (depth + clearance) * theta.cos()
+                    + d.knuckle_ridge.metres()
+                        * (1.0 - ((axial - 0.55) / 0.18).abs()).max(0.0).powi(2)
+                        * theta.cos().max(0.0),
             ]
-        })?);
+        };
+        mesh.append(if lame == 0 {
+            crate::plate_patch::capped_fluted_patch(
+                8,
+                gauge,
+                d.fluting.as_ref(),
+                [1.0 - low, 1.0 - high],
+                point,
+                length * 0.29,
+                |_, axial| gauge * 2.0 * (axial - (1.0 - high)) / (high - low),
+            )?
+        } else {
+            crate::plate_patch::fluted_radial_patch(
+                8,
+                false,
+                gauge,
+                d.fluting.as_ref(),
+                [1.0 - low, 1.0 - high],
+                |_, axial| gauge * 2.0 * (axial - (1.0 - high)) / (high - low),
+                point,
+            )?
+        });
     }
-    let mut fingertips = half_dome(
-        width * 0.84 + clearance,
-        depth + clearance,
-        0.0,
-        length * 0.78,
-        length * 1.10,
-        gauge,
-    )?;
-    for point in &mut fingertips.positions {
-        *point = [point[0], -point[2], point[1]];
-    }
-    mesh.append(fingertips);
     Ok(mesh)
 }
 
@@ -61,27 +84,24 @@ pub(super) fn gauntlet_thumb(
     let [width, length, depth] = fit.half_extents;
     let gauge = d.gauge.thickness.metres();
     let clearance = d.gauge.clearance.metres() + gauge;
-    let mut mesh = patch(24, 10, false, gauge, |u, v| {
-        let theta = (2.0 * u - 1.0) * PI * 0.5;
-        [
-            (width + clearance) * theta.sin(),
-            length * lerp(-0.68, 0.55, v),
-            (depth + clearance) * theta.cos(),
-        ]
-    })?;
-    let mut tip = half_dome(
-        width + clearance,
-        depth + clearance,
-        0.0,
-        length * 0.65,
-        length + clearance,
+    crate::plate_patch::capped_fluted_patch(
+        10,
         gauge,
-    )?;
-    for point in &mut tip.positions {
-        *point = [point[0], -point[2], point[1]];
-    }
-    mesh.append(tip);
-    Ok(mesh)
+        None,
+        [0.0, 1.0],
+        |u, v| {
+            // Leave the palm-facing boundary beneath the mitten side plates.
+            let theta = (2.0 * u - 1.0) * PI * 0.30;
+            // The distal thumb plate ends before the mitten's metacarpal coverage.
+            [
+                (width + clearance) * theta.sin(),
+                length * lerp(-0.68, 0.30, v),
+                (depth + clearance) * theta.cos(),
+            ]
+        },
+        length * 0.48 + clearance,
+        |_, _| 0.0,
+    )
 }
 
 fn foot_width(t: f32, toe_width: f32) -> f32 {
@@ -94,6 +114,15 @@ fn foot_width(t: f32, toe_width: f32) -> f32 {
 
 pub(super) fn sabaton(d: &FootArmorDesign, fit: &PartFrame) -> Result<PartMesh, GenerateError> {
     let [width, height, length] = fit.half_extents;
+    let available_span_m = length * 0.70;
+    // Compare the required foot length so an exactly consumed span does not
+    // slip through when multiplying the rounded length back by 0.70.
+    if length <= d.ankle_cutaway.metres() / 0.70 {
+        return Err(GenerateError::SabatonTrimExceedsFoot {
+            cutaway_m: d.ankle_cutaway.metres(),
+            available_span_m,
+        });
+    }
     let gauge = d.gauge.thickness.metres();
     let clearance = d.gauge.clearance.metres() + gauge;
     let mut mesh = PartMesh::new();
@@ -101,26 +130,35 @@ pub(super) fn sabaton(d: &FootArmorDesign, fit: &PartFrame) -> Result<PartMesh, 
     // Transverse instep lames descend from the ankle toward a rounded toe cap.
     for lame in 0..count {
         let low = lame as f32 / count as f32;
-        let high = ((lame + 1) as f32 / count as f32 + 0.055).min(1.0);
-        mesh.append(patch(AROUND, 4, false, gauge, |u, v| {
-            let t = lerp(low, high, v);
-            let theta = (0.5 - u) * PI;
-            let step = gauge * 1.5 * (count - lame) as f32;
-            let arch = height * lerp(1.75, 1.1, smooth(t));
-            [
-                (width * foot_width(t, d.toe_width.unit()) + clearance + step) * theta.sin(),
-                -height + gauge + (arch + step) * theta.cos(),
-                length * lerp(-0.05, 0.65, t),
-            ]
-        })?);
+        let high = ((lame + 1) as f32 / count as f32 + 0.080).min(1.0);
+        mesh.append(crate::plate_patch::fluted_foot_patch(
+            8,
+            -height + gauge,
+            gauge,
+            d.fluting.as_ref(),
+            [low, high],
+            |_, axial| gauge * 2.0 * (axial - low) / (high - low),
+            |u, v| {
+                let t = lerp(low, high, v);
+                let theta = (0.5 - u) * PI;
+
+                let arch = height * d.instep_height.unit() * lerp(1.75, 1.1, smooth(t));
+                [
+                    (width * foot_width(t, d.toe_width.unit()) + clearance) * theta.sin(),
+                    -height + gauge + arch * theta.cos(),
+                    lerp(-length * 0.05 + d.ankle_cutaway.metres(), length * 0.65, t),
+                ]
+            },
+        )?);
     }
     mesh.append(half_dome(
         width * d.toe_width.unit() + clearance,
-        height * 1.1,
+        height * 1.1 * d.instep_height.unit(),
         -height + gauge,
         length * 0.60,
         length + d.toe_extension.metres(),
         gauge,
+        d.toe_roundness.unit(),
     )?);
     Ok(mesh)
 }

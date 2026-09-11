@@ -1,8 +1,12 @@
 //! Construction-independent geometry and anatomical placement for armor families.
 
 use std::collections::BTreeMap;
+#[path = "parametric_normals.rs"]
+mod normals;
+#[path = "plate_edges.rs"]
+mod plate_edges;
 
-use crate::GenerateError;
+use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError};
 
 /// Anatomical placement, separate from a recipe's artistic controls.
 /// Local coordinates are metres. Reflected frames are supported explicitly.
@@ -43,6 +47,7 @@ impl PartFrame {
 pub struct PartMesh {
     pub positions: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
+    pub components: Vec<ArmorComponent>,
     shells: Vec<ShellLayout>,
 }
 
@@ -53,6 +58,92 @@ struct ShellLayout {
     first_index: usize,
     index_count: usize,
     thickness: f32,
+    boundary_normals: BoundaryNormals,
+    extrusion: ShellExtrusion,
+    relief: Option<SurfaceRelief>,
+}
+
+#[derive(Clone, Debug)]
+struct SurfaceRelief {
+    carrier: Vec<[f32; 3]>,
+    heights: Vec<f32>,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum ShellExtrusion {
+    Normal,
+    /// Angular contributions preserve narrow creases under unequal tessellation.
+    AngleWeightedNormal,
+    /// Rounded terminal plates return toward their cap's center.
+    CappedAxis {
+        origin: [f32; 3],
+        axis: [f32; 3],
+    },
+    /// A graph-like plate returns along one direction without moving its trim boundary.
+    Along {
+        direction: [f32; 3],
+    },
+    /// Cut returns towards an axis while retaining normal plate gauge. Visor
+    /// returns stay horizontal and do not shear a narrow bridge sideways when
+    /// neighboring triangles have different slopes around an ocular ledge.
+    Radial {
+        origin: [f32; 3],
+        axis: [f32; 3],
+    },
+}
+
+impl ShellExtrusion {
+    fn offset(self, point: [f32; 3], normal_vector: [f32; 3]) -> Result<[f32; 3], GenerateError> {
+        let offset = match self {
+            ShellExtrusion::Normal | ShellExtrusion::AngleWeightedNormal => normal_vector,
+            ShellExtrusion::CappedAxis { origin, axis } => {
+                let delta = subtract(point, origin);
+                let along = dot(delta, axis).max(0.0);
+                let radial = subtract(delta, axis.map(|v| v * along));
+                let projection = dot(radial, normal_vector);
+                if !origin.iter().chain(&axis).all(|v| v.is_finite())
+                    || (dot(axis, axis) - 1.0).abs() > 0.001
+                    || projection <= 1e-6
+                {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                radial.map(|v| v / projection)
+            }
+            ShellExtrusion::Along { direction } => {
+                let projection = dot(direction, normal_vector);
+                if !direction.iter().all(|v| v.is_finite())
+                    || (dot(direction, direction) - 1.0).abs() > 0.001
+                    || projection <= 1e-6
+                {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                direction.map(|v| v / projection)
+            }
+            ShellExtrusion::Radial { origin, axis } => {
+                if !axis.iter().chain(&origin).all(|v| v.is_finite())
+                    || (dot(axis, axis) - 1.0).abs() > 0.001
+                {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                let radial = subtract(point, origin);
+                let projected = subtract(radial, axis.map(|v| v * dot(radial, axis)));
+                let normal_projection = dot(projected, normal_vector);
+                const MINIMUM_RADIAL_PROJECTION_M: f32 = 1e-6;
+                if normal_projection < MINIMUM_RADIAL_PROJECTION_M {
+                    return Err(GenerateError::InvalidSurface);
+                }
+                projected.map(|v| v / normal_projection)
+            }
+        };
+        Ok(offset)
+    }
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum BoundaryNormals {
+    Smooth,
+    /// Duplicate return-wall vertices so plate surfaces keep their own normals.
+    Separate,
 }
 
 impl PartMesh {
@@ -60,9 +151,27 @@ impl PartMesh {
         Self::default()
     }
 
+    pub fn with_component(mut self, role: ArmorComponentRole, hinge: Option<ArmorHinge>) -> Self {
+        self.components = vec![ArmorComponent {
+            role,
+            vertices: 0..self.positions.len(),
+            indices: 0..self.indices.len(),
+            hinge,
+            material: None,
+        }];
+        self
+    }
+
     pub fn append(&mut self, other: Self) {
         let offset = self.positions.len() as u32;
         let index_offset = self.indices.len();
+        self.components
+            .extend(other.components.into_iter().map(|mut part| {
+                part.vertices =
+                    part.vertices.start + offset as usize..part.vertices.end + offset as usize;
+                part.indices = part.indices.start + index_offset..part.indices.end + index_offset;
+                part
+            }));
         self.shells
             .extend(other.shells.into_iter().map(|mut shell| {
                 shell.first_vertex += offset as usize;
@@ -82,21 +191,65 @@ impl PartMesh {
     ) -> Result<Self, GenerateError> {
         let mut result = Self::new();
         for shell in &self.shells {
-            let mut positions = self.positions
-                [shell.first_vertex..shell.first_vertex + shell.vertex_count]
-                .to_vec();
+            let mut positions = shell.relief.as_ref().map_or_else(
+                || {
+                    self.positions[shell.first_vertex..shell.first_vertex + shell.vertex_count]
+                        .to_vec()
+                },
+                |relief| relief.carrier.clone(),
+            );
             let indices = self.indices[shell.first_index..shell.first_index + shell.index_count]
                 .iter()
                 .map(|i| i - shell.first_vertex as u32)
                 .collect();
             fit(&mut positions);
-            result.append(Self::from_surface(positions, indices, shell.thickness)?);
+            result.append(Self::from_relief_surface(
+                positions,
+                indices,
+                shell.thickness,
+                shell.boundary_normals,
+                shell.extrusion,
+                shell.relief.as_ref().map(|relief| relief.heights.clone()),
+            )?);
         }
+        result.components = self.components.clone();
         Ok(result)
     }
 
     pub fn transformed(mut self, frame: &PartFrame) -> Self {
         self.positions.iter_mut().for_each(|p| *p = frame.point(*p));
+        for shell in &mut self.shells {
+            if let Some(relief) = &mut shell.relief {
+                relief.carrier.iter_mut().for_each(|p| *p = frame.point(*p));
+            }
+            if let ShellExtrusion::Along { direction } = &mut shell.extrusion {
+                *direction = std::array::from_fn(|coordinate| {
+                    (0..3)
+                        .map(|i| frame.axes[i][coordinate] * direction[i])
+                        .sum()
+                });
+            }
+            if let ShellExtrusion::CappedAxis { origin, axis } = &mut shell.extrusion {
+                *origin = frame.point(*origin);
+                *axis = std::array::from_fn(|coordinate| {
+                    (0..3).map(|i| frame.axes[i][coordinate] * axis[i]).sum()
+                });
+            }
+            if let ShellExtrusion::Radial { origin, axis } = &mut shell.extrusion {
+                *origin = frame.point(*origin);
+                *axis = std::array::from_fn(|coordinate| {
+                    (0..3).map(|i| frame.axes[i][coordinate] * axis[i]).sum()
+                });
+            }
+        }
+        for part in &mut self.components {
+            if let Some(hinge) = &mut part.hinge {
+                hinge.origin = frame.point(hinge.origin);
+                hinge.axis = std::array::from_fn(|axis| {
+                    (0..3).map(|i| frame.axes[i][axis] * hinge.axis[i]).sum()
+                });
+            }
+        }
         if dot(cross(frame.axes[0], frame.axes[1]), frame.axes[2]) < 0.0 {
             for triangle in self.indices.as_chunks_mut::<3>().0 {
                 triangle.swap(1, 2);
@@ -107,6 +260,7 @@ impl PartMesh {
 
     /// Area-weighted vertex normals, with finite, index and triangle checks.
     pub fn normals(&self) -> Result<Vec<[f32; 3]>, GenerateError> {
+        self.validate_components()?;
         if self.positions.is_empty()
             || self.indices.is_empty()
             || !self.indices.len().is_multiple_of(3)
@@ -143,14 +297,85 @@ impl PartMesh {
             .collect()
     }
 
+    fn validate_components(&self) -> Result<(), GenerateError> {
+        if self.components.is_empty() {
+            return Ok(());
+        }
+        let (mut vertices, mut indices) = (0, 0);
+        for (i, part) in self.components.iter().enumerate() {
+            let valid_hinge = part.hinge.is_none_or(|hinge| {
+                hinge
+                    .origin
+                    .iter()
+                    .chain(&hinge.axis)
+                    .all(|x| x.is_finite())
+                    && (dot(hinge.axis, hinge.axis) - 1.0).abs() < 0.0001
+            });
+            if part.vertices.start != vertices
+                || part.indices.start != indices
+                || part.vertices.is_empty()
+                || part.indices.is_empty()
+                || part.vertices.end > self.positions.len()
+                || part.indices.end > self.indices.len()
+                || !part.indices.end.is_multiple_of(3)
+                || !valid_hinge
+                || self.components[..i]
+                    .iter()
+                    .any(|other| other.role == part.role)
+                || self.indices[part.indices.clone()]
+                    .iter()
+                    .any(|v| !part.vertices.contains(&(*v as usize)))
+            {
+                return Err(GenerateError::InvalidSurface);
+            }
+            vertices = part.vertices.end;
+            indices = part.indices.end;
+        }
+        if vertices != self.positions.len() || indices != self.indices.len() {
+            return Err(GenerateError::InvalidSurface);
+        }
+        Ok(())
+    }
+
     /// Thicken an outward-wound carrier and close every boundary edge.
     /// The input must have shared indices along its intended seams.
     pub fn from_surface(
         positions: Vec<[f32; 3]>,
         indices: Vec<u32>,
         thickness: f32,
+        boundary_normals: BoundaryNormals,
+        extrusion: ShellExtrusion,
+    ) -> Result<Self, GenerateError> {
+        Self::from_relief_surface(
+            positions,
+            indices,
+            thickness,
+            boundary_normals,
+            extrusion,
+            None,
+        )
+    }
+
+    /// Add relief along the smooth carrier normals on both walls. Fitting uses
+    /// the retained carrier and reapplies relief, so neither fit nor gauge is
+    /// derived from the tight curvature of the flute troughs.
+    pub fn from_relief_surface(
+        positions: Vec<[f32; 3]>,
+        indices: Vec<u32>,
+        thickness: f32,
+        boundary_normals: BoundaryNormals,
+        extrusion: ShellExtrusion,
+        relief: Option<Vec<f32>>,
     ) -> Result<Self, GenerateError> {
         if !thickness.is_finite() || thickness <= 0.0 {
+            return Err(GenerateError::InvalidSurface);
+        }
+        if relief.as_ref().is_some_and(|heights| {
+            heights.len() != positions.len()
+                || heights
+                    .iter()
+                    .any(|height| !height.is_finite() || *height < 0.0)
+        }) {
             return Err(GenerateError::InvalidSurface);
         }
         let layout = ShellLayout {
@@ -159,13 +384,23 @@ impl PartMesh {
             first_index: 0,
             index_count: indices.len(),
             thickness,
+            boundary_normals,
+            extrusion,
+            relief: relief.map(|heights| SurfaceRelief {
+                carrier: positions.clone(),
+                heights,
+            }),
         };
         let mut mesh = Self {
             positions,
             indices,
+            components: Vec::new(),
             shells: vec![layout],
         };
-        let normals = mesh.normals()?;
+        let normals = match extrusion {
+            ShellExtrusion::AngleWeightedNormal => mesh.angle_weighted_normals()?,
+            _ => mesh.normals()?,
+        };
         let count = mesh.positions.len() as u32;
         let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();
         for triangle in mesh.indices.as_chunks::<3>().0 {
@@ -183,12 +418,25 @@ impl PartMesh {
         {
             return Err(GenerateError::InvalidSurface);
         }
+        if let Some(relief) = &mesh.shells[0].relief {
+            for ((point, normal), height) in
+                mesh.positions.iter_mut().zip(&normals).zip(&relief.heights)
+            {
+                let direction = extrusion.offset(*point, *normal)?;
+                *point = add(*point, direction.map(|component| component * height));
+            }
+        }
         let inner = mesh
             .positions
             .iter()
             .zip(normals)
-            .map(|(p, n)| std::array::from_fn(|axis| p[axis] - thickness * n[axis]))
-            .collect::<Vec<_>>();
+            .map(|(p, n)| {
+                let offset = extrusion.offset(*p, n)?;
+                Ok(std::array::from_fn(|axis| {
+                    p[axis] - thickness * offset[axis]
+                }))
+            })
+            .collect::<Result<Vec<_>, GenerateError>>()?;
         let inner_indices = mesh
             .indices
             .as_chunks::<3>()
@@ -200,11 +448,30 @@ impl PartMesh {
         mesh.indices.extend(inner_indices);
         for edge in edges.values().filter(|e| e.len() == 1) {
             let (a, b) = edge[0];
-            mesh.indices
-                .extend([b, a, a + count, b, a + count, b + count]);
+            mesh.append_return([a, b, a + count, b + count], boundary_normals);
         }
         mesh.normals()?;
         Ok(mesh)
+    }
+
+    fn append_return(&mut self, [a, b, c, d]: [u32; 4], shading: BoundaryNormals) {
+        // Keep alias ordering independent of winding, including reflected fits.
+        let reversed = a > b;
+        let [a, b, c, d] = if reversed { [b, a, d, c] } else { [a, b, c, d] };
+        let [a, b, c, d] = match shading {
+            BoundaryNormals::Smooth => [a, b, c, d],
+            BoundaryNormals::Separate => {
+                let offset = self.positions.len() as u32;
+                let points = [a, b, c, d].map(|i| self.positions[i as usize]);
+                self.positions.extend(points);
+                [offset, offset + 1, offset + 2, offset + 3]
+            }
+        };
+        self.indices.extend(if reversed {
+            [b, c, a, b, d, c]
+        } else {
+            [b, a, c, b, c, d]
+        });
     }
 }
 

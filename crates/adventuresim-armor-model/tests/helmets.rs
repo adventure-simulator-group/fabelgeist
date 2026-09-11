@@ -28,7 +28,57 @@ fn frame(scale: f32) -> PartFrame {
 }
 
 #[test]
-fn close_neck_guard_is_connected_to_the_bowl_across_the_whole_lower_enclosure() {
+fn temple_fan_crowns_preserve_closed_walls_and_lower_plate_connections() {
+    use adventuresim_armor_model::{FluteCount, HelmetCrown, PlateFluting};
+    for count in [2, 7, 24] {
+        let crown = HelmetCrown {
+            fluting: Some(PlateFluting {
+                count: FluteCount(count),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        for design in [
+            HelmetDesign::Morion(MorionDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::KettleHat(KettleHatDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Barbute(BarbuteDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Burgonet(BurgonetDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::Sallet(SalletDesign {
+                crown,
+                ..Default::default()
+            }),
+            HelmetDesign::CloseHelmet(CloseHelmetDesign {
+                crown,
+                visor_fluting: crown.fluting,
+                ..Default::default()
+            }),
+        ] {
+            let small = generate_helmet(&design, &frame(0.8)).unwrap();
+            let large = generate_helmet(&design, &frame(1.2)).unwrap();
+            assert_eq!(
+                small.indices, large.indices,
+                "body dimensions changed fluted topology"
+            );
+            assert_closed_solid(&small);
+            assert_closed_solid(&large);
+        }
+    }
+}
+
+#[test]
+fn close_helmet_keeps_independent_plate_partitions() {
     let mesh = generate_helmet(
         &HelmetDesign::CloseHelmet(CloseHelmetDesign {
             comb_height: Millimeters(0),
@@ -37,39 +87,22 @@ fn close_neck_guard_is_connected_to_the_bowl_across_the_whole_lower_enclosure() 
         &frame(1.0),
     )
     .unwrap();
-    let crown = mesh
-        .positions
-        .iter()
-        .enumerate()
-        .max_by(|(_, a), (_, b)| a[1].total_cmp(&b[1]))
-        .unwrap()
-        .0;
-    let hem = mesh
-        .positions
-        .iter()
-        .enumerate()
-        .min_by(|(_, a), (_, b)| a[1].total_cmp(&b[1]))
-        .unwrap()
-        .0;
-    let mut neighbors = vec![Vec::new(); mesh.positions.len()];
-    for &[a, b, c] in mesh.indices.as_chunks::<3>().0 {
-        for (u, v) in [(a, b), (b, c), (c, a)] {
-            neighbors[u as usize].push(v as usize);
-            neighbors[v as usize].push(u as usize);
-        }
+    assert_eq!(mesh.components.len(), 3);
+    let mut vertex_end = 0;
+    let mut index_end = 0;
+    for part in &mesh.components {
+        assert_eq!(part.vertices.start, vertex_end);
+        assert_eq!(part.indices.start, index_end);
+        assert!(
+            mesh.indices[part.indices.clone()]
+                .iter()
+                .all(|i| part.vertices.contains(&(*i as usize)))
+        );
+        vertex_end = part.vertices.end;
+        index_end = part.indices.end;
     }
-    let mut seen = vec![false; mesh.positions.len()];
-    let mut pending = vec![crown];
-    while let Some(v) = pending.pop() {
-        if !seen[v] {
-            seen[v] = true;
-            pending.extend(&neighbors[v]);
-        }
-    }
-    assert!(
-        seen[hem],
-        "lower front guard must share a material surface with the rear bowl"
-    );
+    assert_eq!(vertex_end, mesh.positions.len());
+    assert_eq!(index_end, mesh.indices.len());
 }
 
 #[test]
@@ -128,11 +161,23 @@ fn assert_closed_solid(mesh: &PartMesh) {
         .expect("finite, nondegenerate triangles and normals");
     let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();
     let mut volume = 0.0_f64;
+    let mut welded = BTreeMap::new();
+    let mapping: Vec<_> = mesh
+        .positions
+        .iter()
+        .map(|p| {
+            let next = welded.len() as u32;
+            *welded
+                .entry(p.map(|v| (f64::from(v) * 1e7).round() as i64))
+                .or_insert(next)
+        })
+        .collect();
     for triangle in mesh.indices.as_chunks::<3>().0 {
+        let physical = triangle.map(|i| mapping[i as usize]);
         for (a, b) in [
-            (triangle[0], triangle[1]),
-            (triangle[1], triangle[2]),
-            (triangle[2], triangle[0]),
+            (physical[0], physical[1]),
+            (physical[1], physical[2]),
+            (physical[2], physical[0]),
         ] {
             edges.entry((a.min(b), a.max(b))).or_default().push((a, b));
         }
@@ -187,14 +232,14 @@ fn extreme_style_controls_preserve_solid_topology() {
             ..Default::default()
         }),
         HelmetDesign::Barbute(BarbuteDesign {
-            eye_opening: Permille(850),
-            mouth_opening: Permille(120),
+            eye_opening: adventuresim_armor_model::Milliradians(850),
+            mouth_opening: adventuresim_armor_model::Milliradians(120),
             cheek_depth: Permille(1050),
             ..Default::default()
         }),
         HelmetDesign::Barbute(BarbuteDesign {
-            eye_opening: Permille(500),
-            mouth_opening: Permille(400),
+            eye_opening: adventuresim_armor_model::Milliradians(500),
+            mouth_opening: adventuresim_armor_model::Milliradians(400),
             cheek_depth: Permille(750),
             ..Default::default()
         }),
@@ -217,7 +262,7 @@ fn extreme_style_controls_preserve_solid_topology() {
         }),
         HelmetDesign::CloseHelmet(CloseHelmetDesign {
             comb_height: Millimeters(40),
-            throat_flare: Millimeters(25),
+            throat_flare: Millimeters(15),
             visor_projection: Millimeters(50),
             sight_gap: Millimeters(5),
             back_edge_lift: Millimeters(45),
@@ -305,7 +350,7 @@ fn reflected_placement_preserves_outward_winding() {
 #[test]
 fn bad_style_and_invalid_anatomical_frames_are_rejected() {
     let invalid = HelmetDesign::Barbute(BarbuteDesign {
-        mouth_opening: Permille(0),
+        mouth_opening: adventuresim_armor_model::Milliradians(0),
         ..Default::default()
     });
     assert!(generate_helmet(&invalid, &frame(1.0)).is_err());
@@ -318,7 +363,7 @@ fn bad_style_and_invalid_anatomical_frames_are_rejected() {
 fn mouth_control_changes_face_opening_without_changing_skull() {
     let closed = HelmetDesign::Barbute(BarbuteDesign::default());
     let open = HelmetDesign::Barbute(BarbuteDesign {
-        mouth_opening: Permille(400),
+        mouth_opening: adventuresim_armor_model::Milliradians(400),
         ..Default::default()
     });
     let a = generate_helmet(&closed, &frame(1.0)).unwrap();

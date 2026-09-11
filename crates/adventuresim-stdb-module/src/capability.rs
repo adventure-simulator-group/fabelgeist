@@ -267,7 +267,7 @@ pub(crate) struct StrategicEquipment {
     armor: [adventuresim_core::equipment::LayeredArmor; 7],
     armor_inventory_item_ids: [Option<u64>; 7],
     armor_materials: [Option<adventuresim_core::item_catalog::EquipmentMaterial>; 7],
-    armor_coverage_spans: [Option<adventuresim_core::combat::ArmorCoverageSpan>; 7],
+    armor_coverage_geometry: [Option<adventuresim_core::combat::AuthoredArmorCoverage>; 7],
     survival_clothing: adventuresim_core::survival::ClothingExposure,
     inventory_weight: f32,
 }
@@ -378,7 +378,7 @@ impl StrategicEquipment {
         let mut armor = [adventuresim_core::equipment::LayeredArmor::default(); 7];
         let mut armor_inventory_item_ids = [None; 7];
         let mut armor_materials = [None; 7];
-        let mut armor_coverage_spans = [None; 7];
+        let mut armor_coverage_geometry = [None; 7];
         let mut survival_layers = Vec::new();
         let mut weatherproofing_total = 0_u32;
         let mut peripheral_protection_bps = [0_u16; 4];
@@ -391,8 +391,8 @@ impl StrategicEquipment {
                 let part_index = body_part_index(part);
                 armor_inventory_item_ids[part_index] = Some(piece.inventory_item_id);
                 armor_materials[part_index] = armor_material(ctx, piece.inventory_item_id);
-                armor_coverage_spans[part_index] =
-                    armor_coverage_span(ctx, piece.inventory_item_id, part, piece.coverage);
+                armor_coverage_geometry[part_index] =
+                    equipped_armor_coverage(ctx, piece.inventory_item_id, part);
                 let protection = adventuresim_core::survival::weatherproofing_from_outer_layer(
                     piece.resistance,
                     piece.coverage,
@@ -472,7 +472,7 @@ impl StrategicEquipment {
             armor,
             armor_inventory_item_ids,
             armor_materials,
-            armor_coverage_spans,
+            armor_coverage_geometry,
             survival_clothing: adventuresim_core::survival::ClothingExposure {
                 insulation_bps: adventuresim_core::survival::insulation_from_layers(
                     survival_layers,
@@ -525,8 +525,8 @@ impl StrategicEquipment {
                 flexibility: item.flexibility,
                 range_of_motion: item.range_of_motion,
                 coverage: item.coverage,
-                coverage_span: self.armor_coverage_spans[body_part_index(part)],
-                coverage_geometry: None,
+                coverage_geometry: self.armor_coverage_geometry[body_part_index(part)]
+                    .unwrap_or_default(),
             };
         }
         CombatEquipment {

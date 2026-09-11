@@ -248,7 +248,6 @@
       "id": "arming_doublet",
       "display_name": "Arming doublet",
       "weight_kg": 2.5,
-
       "exterior_volume_ml": 3125,
       "base_value": 12,
       "tags": [
@@ -261,13 +260,121 @@
       "slot": "chest",
       "equipment": {
         "material": "quilted_textile",
-        "physical": {"dimensions_m": [0.44, 0.52, 0.20], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.12, 0.0]},
-        "placements": [{
-          "id": "worn",
-          "occupancy": [{"location": "chest", "channel": "padding"}],
-          "protection": ["chest"],
-          "surface": [{"regions": ["chest"], "anchor": "center", "coverage": 0.6}]
-        }]
+        "physical": {
+          "dimensions_m": [
+            0.44,
+            0.52,
+            0.2
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.12,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [
+              {
+                "location": "chest",
+                "channel": "padding"
+              },
+              {
+                "location": "stomach",
+                "channel": "padding"
+              },
+              {
+                "location": "left_arm",
+                "channel": "padding"
+              },
+              {
+                "location": "right_arm",
+                "channel": "padding"
+              }
+            ],
+            "protection": [
+              "chest",
+              "stomach",
+              "left_arm",
+              "right_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "chest"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "stomach"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "left_upper_arm"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "left_forearm"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "right_upper_arm"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "right_forearm"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "left_axilla"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "right_axilla"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              }
+            ]
+          }
+        ],
+        "attachment_points": [
+          {
+            "id": "mail_voiders",
+            "channel": "flexible_armor",
+            "capacity": 1,
+            "locations": [
+              "chest",
+              "left_arm",
+              "right_arm"
+            ],
+            "accepts_tags": [
+              "mail_voiders"
+            ]
+          }
+        ]
       },
       "resistance": 60,
       "padding": 45,
@@ -1952,7 +2059,6 @@
       "id": "lubeck_mark",
       "display_name": "LÃƒÆ’Ã‚Â¼beck mark",
       "weight_kg": 0.01,
-
       "exterior_volume_ml": 13,
       "base_value": 1,
       "tags": [
@@ -2503,7 +2609,6 @@
       "id": "padded_chausses",
       "display_name": "Padded chausses",
       "weight_kg": 1.2,
-
       "exterior_volume_ml": 1500,
       "base_value": 8,
       "tags": [
@@ -2516,19 +2621,73 @@
       "slot": "any_leg",
       "equipment": {
         "material": "quilted_textile",
-        "physical": {"dimensions_m": [0.20, 0.55, 0.18], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, -0.22, 0.0]},
+        "physical": {
+          "dimensions_m": [
+            0.2,
+            0.55,
+            0.18
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            -0.22,
+            0.0
+          ]
+        },
         "placements": [
           {
             "id": "left",
-            "occupancy": [{"location": "left_leg", "channel": "padding"}],
-            "protection": ["left_leg"],
-            "surface": [{"regions": ["left_thigh", "left_lower_leg"], "anchor": "proximal", "coverage": 0.45}]
+            "occupancy": [
+              {
+                "location": "left_leg",
+                "channel": "padding"
+              }
+            ],
+            "protection": [
+              "left_leg"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "left_thigh",
+                  "left_lower_leg"
+                ],
+                "anchor": "proximal",
+                "coverage": 1.0
+              }
+            ]
           },
           {
             "id": "right",
-            "occupancy": [{"location": "right_leg", "channel": "padding"}],
-            "protection": ["right_leg"],
-            "surface": [{"regions": ["right_thigh", "right_lower_leg"], "anchor": "proximal", "coverage": 0.45}]
+            "occupancy": [
+              {
+                "location": "right_leg",
+                "channel": "padding"
+              }
+            ],
+            "protection": [
+              "right_leg"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "right_thigh",
+                  "right_lower_leg"
+                ],
+                "anchor": "proximal",
+                "coverage": 1.0
+              }
+            ]
+          }
+        ],
+        "attachment_points": [
+          {
+            "id": "mail_knee_voider",
+            "channel": "flexible_armor",
+            "capacity": 1,
+            "accepts_tags": [
+              "mail_knee_voider"
+            ]
           }
         ]
       },
@@ -3421,10 +3580,10 @@
     },
     {
       "id": "tassets",
-      "display_name": "Tassets",
-      "weight_kg": 2,
+      "display_name": "Fauld with tassets",
+      "weight_kg": 3.6,
 
-      "exterior_volume_ml": 2500,
+      "exterior_volume_ml": 4500,
       "base_value": 55,
       "tags": [
         "armor"
@@ -3436,7 +3595,7 @@
       "slot": "stomach",
       "equipment": {
         "material": "polished_steel",
-        "physical": {"dimensions_m": [0.42, 0.40, 0.18], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.12, 0.0]},
+        "physical": {"dimensions_m": [0.50, 0.44, 0.40], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, 0.12, 0.0]},
         "placements": [{
           "id": "worn",
           "occupancy": [{"location": "stomach", "channel": "rigid_armor"}],
@@ -4055,28 +4214,100 @@
       }
     },
     {
-      "id": "primer_german_latin", "display_name": "Vocabularius ex quo (GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Latin)",
-      "weight_kg": 0.35, "exterior_volume_ml": 438, "base_value": 18, "tags": ["book"],
-      "presentation": {"icon": "open-book"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "written", "language": "Latin"}, "quality": 1}}
+      "id": "primer_german_latin",
+      "display_name": "Vocabularius ex quo (GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Latin)",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 18,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "open-book"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "written",
+            "language": "Latin"
+          },
+          "quality": 1
+        }
+      }
     },
     {
-      "id": "primer_latin_german", "display_name": "Vocabularius ex quo (LatinÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“German)",
-      "weight_kg": 0.35, "exterior_volume_ml": 438, "base_value": 18, "tags": ["book"],
-      "presentation": {"icon": "open-book"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "Latin", "target": {"kind": "written", "language": "German"}, "quality": 1}}
+      "id": "primer_latin_german",
+      "display_name": "Vocabularius ex quo (LatinÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“German)",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 18,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "open-book"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "Latin",
+          "target": {
+            "kind": "written",
+            "language": "German"
+          },
+          "quality": 1
+        }
+      }
     },
     {
-      "id": "primer_low_german", "display_name": "Teuthonista (Low GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“German)",
-      "weight_kg": 0.35, "exterior_volume_ml": 438, "base_value": 16, "tags": ["book"],
-      "presentation": {"icon": "open-book"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "Low", "target": {"kind": "written", "language": "German"}, "quality": 1}}
+      "id": "primer_low_german",
+      "display_name": "Teuthonista (Low GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“German)",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 16,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "open-book"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "Low",
+          "target": {
+            "kind": "written",
+            "language": "German"
+          },
+          "quality": 1
+        }
+      }
     },
     {
-      "id": "primer_german_low", "display_name": "Teuthonista (GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Low German)",
-      "weight_kg": 0.35, "exterior_volume_ml": 438, "base_value": 16, "tags": ["book"],
-      "presentation": {"icon": "open-book"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "written", "language": "Low"}, "quality": 1}}
+      "id": "primer_german_low",
+      "display_name": "Teuthonista (GermanÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“Low German)",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 16,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "open-book"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "written",
+            "language": "Low"
+          },
+          "quality": 1
+        }
+      }
     },
     {
       "id": "latin_rhetoric_advanced", "display_name": "De oratore",
@@ -4103,10 +4334,28 @@
       "capabilities": {"book": {"medium": "Latin", "target": {"kind": "skill", "skill": "physiology"}, "quality": 4}}
     },
     {
-      "id": "german_herbal", "display_name": "New KreÃƒÆ’Ã‚Â¼tter Buch",
-      "weight_kg": 0.6, "exterior_volume_ml": 750, "base_value": 45, "tags": ["book"],
-      "presentation": {"icon": "caduceus"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "skill", "skill": "herbalism"}, "quality": 4}}
+      "id": "german_herbal",
+      "display_name": "New KreÃƒÆ’Ã‚Â¼tter Buch",
+      "weight_kg": 0.6,
+      "exterior_volume_ml": 750,
+      "base_value": 45,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "caduceus"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "skill",
+            "skill": "herbalism"
+          },
+          "quality": 4
+        }
+      }
     },
     {
       "id": "forest_wayfinding", "display_name": "Gejaidbuch (woodcraft)",
@@ -4121,22 +4370,76 @@
       "capabilities": {"book": {"medium": "German", "target": {"kind": "skill", "skill": "surgery"}, "quality": 2}}
     },
     {
-      "id": "kitchen_book", "display_name": "KÃƒÆ’Ã‚Â¼chenmeisterei",
-      "weight_kg": 0.35, "exterior_volume_ml": 438, "base_value": 24, "tags": ["book"],
-      "presentation": {"icon": "meal"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "skill", "skill": "cooking"}, "quality": 2}}
+      "id": "kitchen_book",
+      "display_name": "KÃƒÆ’Ã‚Â¼chenmeisterei",
+      "weight_kg": 0.35,
+      "exterior_volume_ml": 438,
+      "base_value": 24,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "meal"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "skill",
+            "skill": "cooking"
+          },
+          "quality": 2
+        }
+      }
     },
     {
-      "id": "tailors_pattern_book", "display_name": "Hausbuch der Mendelschen ZwÃƒÆ’Ã‚Â¶lfbrÃƒÆ’Ã‚Â¼derstiftung",
-      "weight_kg": 0.4, "exterior_volume_ml": 500, "base_value": 30, "tags": ["book"],
-      "presentation": {"icon": "clothes"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "skill", "skill": "tailoring"}, "quality": 2}}
+      "id": "tailors_pattern_book",
+      "display_name": "Hausbuch der Mendelschen ZwÃƒÆ’Ã‚Â¶lfbrÃƒÆ’Ã‚Â¼derstiftung",
+      "weight_kg": 0.4,
+      "exterior_volume_ml": 500,
+      "base_value": 30,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "clothes"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "skill",
+            "skill": "tailoring"
+          },
+          "quality": 2
+        }
+      }
     },
     {
-      "id": "smiths_handbook", "display_name": "ProbierbÃƒÆ’Ã‚Â¼chlein",
-      "weight_kg": 0.45, "exterior_volume_ml": 563, "base_value": 34, "tags": ["book"],
-      "presentation": {"icon": "anvil"}, "kind": "simple",
-      "capabilities": {"book": {"medium": "German", "target": {"kind": "skill", "skill": "smithing"}, "quality": 2}}
+      "id": "smiths_handbook",
+      "display_name": "ProbierbÃƒÆ’Ã‚Â¼chlein",
+      "weight_kg": 0.45,
+      "exterior_volume_ml": 563,
+      "base_value": 34,
+      "tags": [
+        "book"
+      ],
+      "presentation": {
+        "icon": "anvil"
+      },
+      "kind": "simple",
+      "capabilities": {
+        "book": {
+          "medium": "German",
+          "target": {
+            "kind": "skill",
+            "skill": "smithing"
+          },
+          "quality": 2
+        }
+      }
     },
     {
       "id": "captains_discourses", "display_name": "De re militari",
@@ -4584,6 +4887,96 @@
       "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
     },
     {
+      "id": "pauldron",
+      "display_name": "Full pauldron",
+      "weight_kg": 1.25,
+      "exterior_volume_ml": 1500,
+      "base_value": 45,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "layered-armor"
+      },
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "polished_steel",
+        "physical": {
+          "dimensions_m": [
+            0.28,
+            0.267,
+            0.22
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [
+              {
+                "location": "left_shoulder",
+                "channel": "rigid_armor"
+              }
+            ],
+            "protection": [
+              "left_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "left_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.36
+              }
+            ]
+          },
+          {
+            "id": "right",
+            "occupancy": [
+              {
+                "location": "right_shoulder",
+                "channel": "rigid_armor"
+              }
+            ],
+            "protection": [
+              "right_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "right_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.36
+              }
+            ]
+          }
+        ]
+      },
+      "resistance": 95,
+      "padding": 25,
+      "flexibility": 0.15,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
+    },
+    {
       "id": "spaulder",
       "display_name": "Lamed spaulder",
       "weight_kg": 0.65,
@@ -4712,6 +5105,400 @@
       "flexibility": 0.15,
       "range_of_motion": 0.8,
       "capabilities": {"durability": {"quality": 3, "yield_j": 35, "fracture_j": 130, "wear": 0.18, "failure_share": 0.65, "edge_sensitivity": 0.2, "handling_sensitivity": 0.7}}
+    },
+    {
+      "id": "mail_voiders",
+      "display_name": "Detachable mail voiders",
+      "weight_kg": 0.8,
+      "exterior_volume_ml": 1000,
+      "base_value": 28,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "mailed-fist"
+      },
+      "kind": "armor",
+      "slot": "chest",
+      "equipment": {
+        "material": "mail_steel",
+        "physical": {
+          "dimensions_m": [
+            0.18,
+            0.48,
+            0.16
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            -0.19,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [],
+            "protection": [
+              "chest",
+              "left_arm",
+              "right_arm"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "left_upper_arm"
+                ],
+                "anchor": "distal",
+                "coverage": 0.25
+              },
+              {
+                "regions": [
+                  "left_forearm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.25
+              },
+              {
+                "regions": [
+                  "right_upper_arm"
+                ],
+                "anchor": "distal",
+                "coverage": 0.25
+              },
+              {
+                "regions": [
+                  "right_forearm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.25
+              },
+              {
+                "regions": [
+                  "left_axilla"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "left_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.25
+              },
+              {
+                "regions": [
+                  "right_axilla"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "right_upper_arm"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.25
+              }
+            ],
+            "parents": [
+              {
+                "channel": "flexible_armor"
+              }
+            ]
+          }
+        ],
+        "attachment_tags": [
+          "mail_voiders"
+        ]
+      },
+      "resistance": 70,
+      "padding": 0,
+      "flexibility": 0.8,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
+    },
+    {
+      "id": "mail_brayette",
+      "display_name": "Mail brayette",
+      "weight_kg": 1.2,
+      "exterior_volume_ml": 1500,
+      "base_value": 35,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "chain-mail"
+      },
+      "kind": "armor",
+      "slot": "stomach",
+      "equipment": {
+        "material": "mail_steel",
+        "physical": {
+          "dimensions_m": [
+            0.42,
+            0.26,
+            0.26
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [
+              {
+                "location": "stomach",
+                "channel": "flexible_armor"
+              },
+              {
+                "location": "left_leg",
+                "channel": "flexible_armor"
+              },
+              {
+                "location": "right_leg",
+                "channel": "flexible_armor"
+              }
+            ],
+            "protection": [
+              "stomach",
+              "left_leg",
+              "right_leg"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "groin"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              },
+              {
+                "regions": [
+                  "left_thigh"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.3
+              },
+              {
+                "regions": [
+                  "right_thigh"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.3
+              }
+            ]
+          }
+        ]
+      },
+      "resistance": 70,
+      "padding": 0,
+      "flexibility": 0.8,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
+    },
+    {
+      "id": "mail_knee_voider",
+      "display_name": "Mail knee voider",
+      "weight_kg": 0.2,
+      "exterior_volume_ml": 250,
+      "base_value": 10,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "chain-mail"
+      },
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "mail_steel",
+        "physical": {
+          "dimensions_m": [
+            0.16,
+            0.18,
+            0.12
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "left",
+            "occupancy": [],
+            "parents": [
+              {
+                "channel": "flexible_armor",
+                "location": "left_leg"
+              }
+            ],
+            "protection": [
+              "left_leg"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "left_thigh"
+                ],
+                "anchor": "distal",
+                "coverage": 0.2
+              },
+              {
+                "regions": [
+                  "left_lower_leg"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.2
+              }
+            ]
+          },
+          {
+            "id": "right",
+            "occupancy": [],
+            "parents": [
+              {
+                "channel": "flexible_armor",
+                "location": "right_leg"
+              }
+            ],
+            "protection": [
+              "right_leg"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "right_thigh"
+                ],
+                "anchor": "distal",
+                "coverage": 0.2
+              },
+              {
+                "regions": [
+                  "right_lower_leg"
+                ],
+                "anchor": "proximal",
+                "coverage": 0.2
+              }
+            ]
+          }
+        ],
+        "attachment_tags": [
+          "mail_knee_voider"
+        ]
+      },
+      "resistance": 70,
+      "padding": 0,
+      "flexibility": 0.8,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
+    },
+    {
+      "id": "mail_standard",
+      "display_name": "Mail standard",
+      "weight_kg": 0.5,
+      "exterior_volume_ml": 625,
+      "base_value": 18,
+      "tags": [
+        "armor"
+      ],
+      "presentation": {
+        "icon": "chain-mail"
+      },
+      "kind": "armor",
+      "slot": "head",
+      "equipment": {
+        "material": "mail_steel",
+        "physical": {
+          "dimensions_m": [
+            0.3,
+            0.16,
+            0.28
+          ],
+          "grip_to_tip_m": 0.0,
+          "anchor_offset_m": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "placements": [
+          {
+            "id": "worn",
+            "occupancy": [
+              {
+                "location": "neck",
+                "channel": "flexible_armor"
+              }
+            ],
+            "protection": [
+              "head"
+            ],
+            "surface": [
+              {
+                "regions": [
+                  "neck"
+                ],
+                "anchor": "center",
+                "coverage": 1.0
+              }
+            ]
+          }
+        ]
+      },
+      "resistance": 70,
+      "padding": 0,
+      "flexibility": 0.8,
+      "range_of_motion": 0.8,
+      "capabilities": {
+        "durability": {
+          "quality": 3,
+          "yield_j": 35,
+          "fracture_j": 130,
+          "wear": 0.18,
+          "failure_share": 0.65,
+          "edge_sensitivity": 0.2,
+          "handling_sensitivity": 0.7
+        }
+      }
     }
   ]
 }

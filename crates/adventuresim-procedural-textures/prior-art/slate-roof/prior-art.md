@@ -24,17 +24,18 @@ roughly 73 pixels across a piece rather than the previous 18.
 
 Each piece carries an independently oriented, warped cleavage coordinate.
 Quantized terraces produce broad split planes and narrow beveled risers. Finer
-coordinate perturbation breaks the ledges; a separate mask removes flakes
-near exposed edges. Layer count/depth, direction and variation, warping,
-fracture breakup, flake coverage/reach/depth and bevel widths are artist controls.
-The overlap now has enough represented depth to read as stacked thin stone.
+coordinate perturbation breaks the ledges; a separate mask removes flakes near
+exposed edges. Layer count/depth, direction and variation, warping, fracture
+breakup, flake coverage/reach/depth and bevel widths are artist controls. The
+overlap now has enough represented depth to read as stacked thin stone.
 
 Albedo remains constant within each piece, with restrained mineral variation;
-cleavage and flakes add no color shading. Their masks change height, normals
-and roughness. AO remains tied to laps/joints, and metallic remains zero.
-The existing shared mip filter is retained. This tile does not generate
+cleavage and flakes add no color shading. Their masks change height, normals and
+roughness. AO remains tied to laps/joints, and metallic remains zero. The
+existing shared mip filter is retained. This tile does not generate
 roof-boundary geometry, diminishing eave-to-ridge courses, fixture-aware
-weathering or scene UVs; those roof-system recommendations below remain separate.
+weathering or scene UVs; those roof-system recommendations below remain
+separate.
 
 ## Procedural detail references used in this implementation
 
@@ -427,7 +428,8 @@ the 1544 preset unless separately evidenced.
 ### 2. Repair the coordinate and runtime binding
 
 Generate metric slope-local UVs plus eave-to-ridge fraction for detail and every
-LOD. Bind `slate_roof` to `RoofMaterial::Slate` and keep `Lead` on its own recipe.
+LOD. Bind `slate_roof` to `RoofMaterial::Slate` and keep `Lead` on its own
+recipe.
 Validate constant physical scale across yaw/pitch and correct down-slope V.
 
 ### 3. Implement diminishing causal layout

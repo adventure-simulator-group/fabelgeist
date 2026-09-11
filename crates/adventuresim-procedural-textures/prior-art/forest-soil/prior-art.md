@@ -229,7 +229,8 @@ double-darken crevices.
 from the harder problem of avoiding distortion, blur, and obvious internal
 landmarks when a tile repeats
 ([Game Developer, August 2011: Creating Seamlessly Tiling Perlin Noise for
-Procedural Generation](https://media.gdcvault.com/GD_Mag_Archives/GDM_August_2011.pdf)).
+Procedural
+Generation](https://media.gdcvault.com/GD_Mag_Archives/GDM_August_2011.pdf)).
 Hemmens explicitly builds enough primary and secondary forms to avoid obvious
 landmarks when the material tiles. Activision's large-scale terrain talk calls
 out the collapse of tiled detail to a single color at distance and samples a
@@ -257,7 +258,8 @@ four material samples per shaded pixel. Measure that cost before adopting it.
 **Evidence.** Houdini's heightfield tools assume metres and expose feature size,
 debris scale, and repose angle in spatial terms
 ([SideFX: HeightField geometry
-node](https://www.sidefx.com/docs/houdini/nodes/sop/heightfield.html)). This makes
+node](https://www.sidefx.com/docs/houdini/nodes/sop/heightfield.html)). This
+makes
 the graph portable across resolution changes and allows erosion/slump controls
 to refer to actual terrain processes rather than texture pixels.
 

@@ -108,12 +108,12 @@ when promoting replay candidates.
 ## Development demo
 
 Run the single isolated strategic scenario-gallery command, then select the
-**Discovered outbreak** scenario character. Use browser-local developer mode
-to expose the gallery and inspector. Bootstrap has already raised useful
+**Discovered outbreak** scenario character. Use browser-local developer mode to
+expose the gallery and inspector. Bootstrap has already raised useful
 investigation skills, supplied a surgery kit, and materialized one deterministic
-generated outbreak in a scenario-owned settlement, with private progressing patients and an
-optional exact-course disease or carrier-autoresolve corpse. It does not grant
-a journal entry or evidence. Instead, it privately marks the generated
-outbreak as that character's next eligible ordinary rumor, so pre-existing
-settlement quests cannot hide the demo. Ask around for local rumors to discover
-it normally, then follow either route to the exact remediation.
+generated outbreak in a scenario-owned settlement, with private progressing
+patients and an optional exact-course disease or carrier-autoresolve corpse. It
+does not grant a journal entry or evidence. Instead, it privately marks the
+generated outbreak as that character's next eligible ordinary rumor, so
+pre-existing settlement quests cannot hide the demo. Ask around for local rumors
+to discover it normally, then follow either route to the exact remediation.

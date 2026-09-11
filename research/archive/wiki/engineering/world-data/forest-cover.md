@@ -6,8 +6,10 @@ Cover Density (TCD) and Dominant Leaf Type (DLT) products. This is modern data,
 used as a plausibility input for the game's 1544 setting rather than as a claim
 about the exact historical tree cover around a settlement.
 
-- Product family: <https://land.copernicus.eu/en/products/high-resolution-layer-forests-and-tree-cover>
-- DLT dataset DOI: <https://doi.org/10.2909/82f93572-9888-47ef-97a1-5cac5985a26a>
+- Product family:
+  <https://land.copernicus.eu/en/products/high-resolution-layer-forests-and-tree-cover>
+- DLT dataset DOI:
+  <https://doi.org/10.2909/82f93572-9888-47ef-97a1-5cac5985a26a>
 - Terms: Copernicus full, free, and open data policy
 
 Initialize the default playable-area coverage with:
@@ -132,8 +134,8 @@ with redistributed bundles or be available through an equivalent prominent
 link.
 
 Forest cover is stored on settlements because it describes the immediate area
-and can drive timber and foraging products, scene vegetation density, visibility,
-encounters, and fuel availability. Continuous route or canonical regional
-forest data still belongs in later spatial products rather than being inferred
-from one settlement sample; the generalized raster layer is not such a
+and can drive timber and foraging products, scene vegetation density,
+visibility, encounters, and fuel availability. Continuous route or canonical
+regional forest data still belongs in later spatial products rather than being
+inferred from one settlement sample; the generalized raster layer is not such a
 canonical world product.

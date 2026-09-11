@@ -227,6 +227,11 @@ fn derive_stairs(
     if storeys.len() < 2 {
         return Vec::new();
     }
+    // Rondel circulation is owned by the artillery assembly, including its
+    // casemate openings, guarded treads and terreplein arrival.
+    if program.archetype == BuildingArchetype::ArtilleryRondelCastle {
+        return crate::spiral_stairs::keep_stair(program).into_iter().collect();
+    }
     // A roof-kernel demonstrator may add an isolated round tower to an
     // otherwise civilian fixture. It is evidence geometry, not the occupied
     // building's circulation authority, so it must not replace the real
@@ -255,31 +260,12 @@ fn derive_stairs(
                     turns: tower.wall_height_metres / program.storey_height_metres * 0.9,
                     clockwise: stable_noise(layout_seed(program), 11, Cell::new(0, 0))
                         .is_multiple_of(2),
-                    tread_count: (tower.wall_height_metres / 0.19).ceil() as u16,
+                    tread_count: crate::spiral_stairs::required_treads(base_height_metres, tower.wall_height_metres - base_height_metres, program.storey_height_metres),
                 }
             })
             .collect::<Vec<_>>();
-        if matches!(
-            program.archetype,
-            BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle
-        ) {
-            let (width, depth) = program.footprint.dimensions();
-            let base_height_metres = 0.15;
-            let rise_metres =
-                storeys.len() as f32 * program.storey_height_metres - base_height_metres;
-            stairs.push(Stair::Spiral {
-                centre: Vec2::new(
-                    f32::from(width) * CELL_SIZE_METRES * 0.5,
-                    f32::from(depth) * CELL_SIZE_METRES * 0.5,
-                ),
-                base_height_metres,
-                rise_metres,
-                inner_radius_metres: 0.25,
-                outer_radius_metres: 1.25,
-                turns: 2.8,
-                clockwise: true,
-                tread_count: (rise_metres / 0.19).ceil() as u16,
-            });
+        if let Some(stair) = crate::spiral_stairs::keep_stair(program) {
+            stairs.push(stair);
         }
         return stairs;
     }

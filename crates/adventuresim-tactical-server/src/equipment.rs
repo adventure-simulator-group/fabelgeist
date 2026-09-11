@@ -9,6 +9,8 @@ use adventuresim_tactical_netcode::{
 use bevy::prelude::*;
 use std::collections::{HashMap, HashSet, VecDeque};
 
+mod attachment;
+use attachment::attachment_topology;
 mod environment;
 mod fit;
 mod lifecycle;
@@ -450,218 +452,6 @@ fn root_placement_allowed(item_id: &str, placement: &item_catalog::EquipmentPlac
         )
         && placement.occupancy[0].channel == EquipmentChannel::Held
         && placement.occupancy[0].order == 0
-}
-
-#[derive(Clone)]
-struct AttachmentTarget {
-    parent: Entity,
-    attachment_point_id: String,
-    channel: EquipmentChannel,
-    capacity_index: u16,
-}
-
-fn attachment_target_accepts(
-    moving_tags: &[String],
-    target: &AttachmentTarget,
-    items: &Query<ItemView<'_>>,
-) -> bool {
-    let Ok((_, parent_properties, _, _, _, _, _, _)) = items.get(target.parent) else {
-        return false;
-    };
-    item_catalog::definition(&parent_properties.id)
-        .and_then(|definition| definition.equipment.as_ref())
-        .and_then(|equipment| {
-            equipment
-                .attachment_points
-                .iter()
-                .find(|point| point.id == target.attachment_point_id)
-        })
-        .is_some_and(|point| {
-            point.channel == target.channel
-                && (point.accepts_tags.is_empty()
-                    || point
-                        .accepts_tags
-                        .iter()
-                        .any(|accepted| moving_tags.contains(accepted)))
-        })
-}
-
-fn attachment_topology(
-    item_id: &str,
-    selected: &ReachableTarget,
-    actor: Entity,
-    items: &Query<ItemView<'_>>,
-) -> Option<EquipmentTopology> {
-    if !parent_placement_allowed(item_id) {
-        return None;
-    }
-    let moving = item_catalog::definition(item_id)?.equipment.as_ref()?;
-    let mut available = Vec::<AttachmentTarget>::new();
-    let mut explicitly_selected = Vec::<(Entity, String, u16)>::new();
-    match selected {
-        ReachableTarget::EmptyAttachment {
-            parent,
-            attachment_point_id,
-            channel,
-            capacity_index,
-        } => {
-            explicitly_selected.push((*parent, attachment_point_id.clone(), *capacity_index));
-            available.push(AttachmentTarget {
-                parent: *parent,
-                attachment_point_id: attachment_point_id.clone(),
-                channel: *channel,
-                capacity_index: *capacity_index,
-            });
-        }
-        ReachableTarget::Occupied(entity) => {
-            let (_, _, _, topology, _, _, _, _) = items.get(*entity).ok()?;
-            available.extend(topology.occupancies.iter().filter_map(|occupancy| {
-                match &occupancy.anchor {
-                    TacticalEquipmentAnchor::ItemAttachment {
-                        parent,
-                        attachment_point_id,
-                    } => {
-                        explicitly_selected.push((
-                            *parent,
-                            attachment_point_id.clone(),
-                            occupancy.capacity_index,
-                        ));
-                        Some(AttachmentTarget {
-                            parent: *parent,
-                            attachment_point_id: attachment_point_id.clone(),
-                            channel: occupancy.channel,
-                            capacity_index: occupancy.capacity_index,
-                        })
-                    }
-                    _ => None,
-                }
-            }));
-        }
-    }
-    // Additional empty points are selected deterministically for multi-parent
-    // placements. Existing occupied capacities are never silently displaced.
-    for (parent, parent_properties, owner, _, _, _, scene, _) in items.iter() {
-        if scene || owner.is_none_or(|owner| owner.0 != actor) {
-            continue;
-        }
-        let Some(parent_equipment) = item_catalog::definition(&parent_properties.id)
-            .and_then(|definition| definition.equipment.as_ref())
-        else {
-            continue;
-        };
-        for point in &parent_equipment.attachment_points {
-            for capacity_index in 0..point.capacity {
-                let occupied = items.iter().any(|(_, _, _, topology, _, _, _, _)| {
-                    topology.occupancies.iter().any(|occupancy| {
-                        matches!(
-                            &occupancy.anchor,
-                            TacticalEquipmentAnchor::ItemAttachment { parent: found, attachment_point_id }
-                                if *found == parent
-                                    && attachment_point_id == &point.id
-                                    && occupancy.capacity_index == capacity_index
-                        )
-                    })
-                });
-                if !occupied
-                    && !available.iter().any(|target| {
-                        target.parent == parent
-                            && target.attachment_point_id == point.id
-                            && target.capacity_index == capacity_index
-                    })
-                {
-                    available.push(AttachmentTarget {
-                        parent,
-                        attachment_point_id: point.id.clone(),
-                        channel: point.channel,
-                        capacity_index,
-                    });
-                }
-            }
-        }
-    }
-    available.sort_by(|left, right| {
-        let left_selected = explicitly_selected.iter().any(|selected| {
-            selected
-                == &(
-                    left.parent,
-                    left.attachment_point_id.clone(),
-                    left.capacity_index,
-                )
-        });
-        let right_selected = explicitly_selected.iter().any(|selected| {
-            selected
-                == &(
-                    right.parent,
-                    right.attachment_point_id.clone(),
-                    right.capacity_index,
-                )
-        });
-        right_selected.cmp(&left_selected).then(
-            left.parent
-                .to_bits()
-                .cmp(&right.parent.to_bits())
-                .then(left.attachment_point_id.cmp(&right.attachment_point_id))
-                .then(left.capacity_index.cmp(&right.capacity_index)),
-        )
-    });
-    for placement in &moving.placements {
-        if placement.occupancy.is_empty() && !placement.parents.is_empty() {
-            let mut chosen = Vec::new();
-            for requirement in &placement.parents {
-                let Some(target) = available.iter().find(|target| {
-                    target.channel == requirement.channel
-                        && attachment_target_accepts(&moving.attachment_tags, target, items)
-                        && !chosen.iter().any(|chosen: &&AttachmentTarget| {
-                            chosen.parent == target.parent
-                                && chosen.attachment_point_id == target.attachment_point_id
-                                && chosen.capacity_index == target.capacity_index
-                        })
-                }) else {
-                    break;
-                };
-                chosen.push(target);
-            }
-            if chosen.len() != placement.parents.len() {
-                continue;
-            }
-            if !explicitly_selected.iter().all(|selected| {
-                chosen.iter().any(|target| {
-                    selected
-                        == &(
-                            target.parent,
-                            target.attachment_point_id.clone(),
-                            target.capacity_index,
-                        )
-                })
-            }) {
-                continue;
-            }
-            return Some(EquipmentTopology {
-                placement_id: Some(placement.id.clone()),
-                occupancies: chosen
-                    .into_iter()
-                    .enumerate()
-                    .map(|(index, target)| EquipmentTopologyOccupancy {
-                        occupancy_id: format!(
-                            "tactical:{}:{}:{}",
-                            target.parent.to_bits(),
-                            target.attachment_point_id,
-                            target.capacity_index
-                        ),
-                        anchor: TacticalEquipmentAnchor::ItemAttachment {
-                            parent: target.parent,
-                            attachment_point_id: target.attachment_point_id.clone(),
-                        },
-                        channel: target.channel,
-                        order: placement.parents[index].order,
-                        requirement_index: index as u16,
-                        capacity_index: target.capacity_index,
-                    })
-                    .collect(),
-            });
-        }
-    }
-    None
 }
 
 fn parent_placement_allowed(item_id: &str) -> bool {
@@ -1191,5 +981,143 @@ mod tests {
         let terrain = CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL);
         assert!(item.interacts_with(terrain));
         assert!(!item.interacts_with(CollisionLayers::DEFAULT));
+    }
+
+    #[test]
+    fn voiders_require_doublet_and_can_be_removed_and_laced_on_again() {
+        let mut world = World::new();
+        let actor = world.spawn_empty().id();
+        assert!(placement_topology("mail_voiders", EquipmentLocation::Chest).is_none());
+        let doublet = spawn_test_item(
+            &mut world,
+            actor,
+            "arming_doublet",
+            placement_topology("arming_doublet", EquipmentLocation::Chest).unwrap(),
+        );
+        let target = ReachableTarget::EmptyAttachment {
+            parent: doublet,
+            attachment_point_id: "mail_voiders".into(),
+            channel: EquipmentChannel::FlexibleArmor,
+            capacity_index: 0,
+        };
+        let selected = target.clone();
+        let topology = world
+            .run_system_once(move |items: Query<ItemView<'_>>| {
+                attachment_topology("mail_voiders", &selected, actor, &items)
+            })
+            .unwrap()
+            .expect("doublet has lacing points");
+        assert_eq!(topology.occupancies.len(), 1);
+        let voiders = spawn_test_item(&mut world, actor, "mail_voiders", topology);
+        assert!(
+            world
+                .run_system_once(move |items: Query<ItemView<'_>>| has_children(doublet, &items))
+                .unwrap()
+        );
+        for location in [
+            EquipmentLocation::Chest,
+            EquipmentLocation::LeftArm,
+            EquipmentLocation::RightArm,
+        ] {
+            let order = world
+                .run_system_once(move |items: Query<ItemView<'_>>| {
+                    ordered_at_location(actor, location, &items)
+                })
+                .unwrap();
+            assert_eq!(order.first(), Some(&ReachableTarget::Occupied(voiders)));
+        }
+        // Taking off the detachable panels clears the edge, preserving the doublet.
+        world
+            .entity_mut(voiders)
+            .insert(EquipmentTopology::default());
+        assert!(
+            !world
+                .run_system_once(move |items: Query<ItemView<'_>>| has_children(doublet, &items))
+                .unwrap()
+        );
+        let selected = target.clone();
+        let topology = world
+            .run_system_once(move |items: Query<ItemView<'_>>| {
+                attachment_topology("mail_voiders", &selected, actor, &items)
+            })
+            .unwrap()
+            .expect("removed panels can be laced on again");
+        world.entity_mut(voiders).insert(topology);
+        assert!(
+            world
+                .run_system_once(move |items: Query<ItemView<'_>>| has_children(doublet, &items))
+                .unwrap()
+        );
+        world
+            .entity_mut(voiders)
+            .insert(EquipmentTopology::default());
+        world.entity_mut(doublet).despawn();
+        assert!(
+            world
+                .run_system_once(move |items: Query<ItemView<'_>>| {
+                    attachment_topology("mail_voiders", &target, actor, &items)
+                })
+                .unwrap()
+                .is_none(),
+            "panels cannot be attached without the supporting garment"
+        );
+    }
+
+    #[test]
+    fn knee_voiders_follow_the_selected_hose_side_and_require_equipped_padding() {
+        let mut world = World::new();
+        let actor = world.spawn_empty().id();
+        for (location, placement) in [
+            (EquipmentLocation::LeftLeg, "left"),
+            (EquipmentLocation::RightLeg, "right"),
+        ] {
+            let hose = spawn_test_item(
+                &mut world,
+                actor,
+                "padded_chausses",
+                placement_topology("padded_chausses", location).unwrap(),
+            );
+            let selected = ReachableTarget::EmptyAttachment {
+                parent: hose,
+                attachment_point_id: "mail_knee_voider".into(),
+                channel: EquipmentChannel::FlexibleArmor,
+                capacity_index: 0,
+            };
+            let target = selected.clone();
+            let topology = world
+                .run_system_once(move |items: Query<ItemView<'_>>| {
+                    attachment_topology("mail_knee_voider", &target, actor, &items)
+                })
+                .unwrap()
+                .expect("matching hose supports a knee panel");
+            assert_eq!(topology.placement_id.as_deref(), Some(placement));
+            assert!(matches!(&topology.occupancies[0].anchor,
+                TacticalEquipmentAnchor::ItemAttachment { parent, .. } if *parent == hose));
+            let knee = spawn_test_item(&mut world, actor, "mail_knee_voider", topology.clone());
+            assert!(
+                world
+                    .run_system_once(move |items: Query<ItemView<'_>>| has_children(hose, &items))
+                    .unwrap()
+            );
+            world.entity_mut(knee).insert(EquipmentTopology::default());
+            let target = selected.clone();
+            assert!(
+                world
+                    .run_system_once(move |items: Query<ItemView<'_>>| {
+                        attachment_topology("mail_knee_voider", &target, actor, &items)
+                    })
+                    .unwrap()
+                    .is_some()
+            );
+            world.entity_mut(hose).insert(EquipmentTopology::default());
+            assert!(
+                world
+                    .run_system_once(move |items: Query<ItemView<'_>>| {
+                        attachment_topology("mail_knee_voider", &selected, actor, &items)
+                    })
+                    .unwrap()
+                    .is_none()
+            );
+        }
     }
 }

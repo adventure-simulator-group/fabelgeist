@@ -100,7 +100,8 @@ lib included) does not pay to compile that module tree a second time; only
 `--features remote-types` does.
 
 Regenerate after adding, renaming, or moving a `#[reflect(Component)]`/
-`#[reflect(Resource)]` type. This has already caught a real gap: `EquipmentTopology`
+`#[reflect(Resource)]` type. This has already caught a real gap:
+`EquipmentTopology`
 (`adventuresim-tactical-core/src/inventory.rs`) derives `Reflect` but is
 missing `#[reflect(Component)]`, so despite looking reflect-registered it is
 not actually BRP-queryable - a hand-typed constant for it would have looked
@@ -144,7 +145,8 @@ than assume the naive translation:
     class to work with, but `to_brp()` returns the bare `int`, not `{"value":
     ...}`.
 - `Option<T>` is `None` or a bare `T`, not `{"Some": ...}`.
-- A small set of `glam` types (`Vec2`/`Vec3`/`Vec3A`/`Vec4`/`Quat`/`IVec*`/
+- A small set of `glam` types
+  (`Vec2`/`Vec3`/`Vec3A`/`Vec4`/`Quat`/`IVec*`/
   `UVec*`) have a custom `Serialize` impl the reflected shape can't see at
   all - hardcoded to their known `list[float]`/`list[int]` wire shape rather
   than resolved generically.

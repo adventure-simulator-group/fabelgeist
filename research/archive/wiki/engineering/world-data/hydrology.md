@@ -3,9 +3,11 @@
 Settlement water access and travel-edge crossings are sourced from the
 **Copernicus EU-Hydro River Network Database v1.3**.
 
-- Product: <https://land.copernicus.eu/en/products/eu-hydro/eu-hydro-river-network-database>
+- Product:
+  <https://land.copernicus.eu/en/products/eu-hydro/eu-hydro-river-network-database>
 - DOI: <https://doi.org/10.2909/393359a7-7ebd-4a52-80ac-1a18d5f3db9c>
-- User guide: <https://land.copernicus.eu/en/technical-library/eu-hydro_user_guide>
+- User guide:
+  <https://land.copernicus.eu/en/technical-library/eu-hydro_user_guide>
 - Projection: ETRS89 / LAEA Europe (EPSG:3035).
 - Source period: primarily 2006, 2009, and 2012 imagery, supplemented by
   EU-DEM drainage modeling. This is used as plausible geography for 1544, not

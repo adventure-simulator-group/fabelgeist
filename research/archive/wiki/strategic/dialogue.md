@@ -9,7 +9,8 @@ the established family-bypass consequences. See
 
 Settlement dialogue is the markerless discovery boundary for local problems.
 Inns surface unknown unresolved symptoms; overview is fallback only when no inn
-NPC is available. Locals repeat referrals. Hidden causes and destinations stay private.
+NPC is available. Locals repeat referrals. Hidden causes and destinations stay
+private.
 
 Publicly notorious recurring hostile cases are the exception to investigation
 secrecy. An eligible innkeeper, or an explicitly capable organization chapter
@@ -91,21 +92,22 @@ reason alongside human-readable detail, so dialogue presentation never depends
 on matching error prose. JSON keeps the corresponding snake-case values as the
 browser wire representation.
 
-A challenge succeeds only when that particular claim is factually inaccurate
-and its social check succeeds. Accurate claims and insufficient checks share the same safe
-failure wording. Success may release only the canonical withheld testimony
-already authored for the exact witness; released testimony follows the same
-structured claim and passive-assessment path. The response shows only the
+A challenge succeeds only when that particular claim is factually inaccurate and
+its social check succeeds. Accurate claims and insufficient checks share the
+same safe failure wording. Success may release only the canonical withheld
+testimony already authored for the exact witness; released testimony follows the
+same structured claim and passive-assessment path. The response shows only the
 realized clamped affinity change, never the exact relationship value.
 
 ## Persistent settlement actors
 
-Settlement dialogue is authorized against persistent `settlement_resident` identities and
-their authoritative strategic `settlement_resident_presence`, rather than a client-created
-`<settlement>:<service>` name. A location may contain several NPCs; changing the
-addressed portrait changes the actor while the character remains at that location.
-Service providers retain their service conversation, while ordinary residents use the
-compiled `local-resident` conversation and cannot receive service-only topics.
+Settlement dialogue is authorized against persistent `settlement_resident`
+identities and their authoritative strategic `settlement_resident_presence`,
+rather than a client-created `<settlement>:<service>` name. A location may
+contain several NPCs; changing the addressed portrait changes the actor while
+the character remains at that location. Service providers retain their service
+conversation, while ordinary residents use the compiled `local-resident`
+conversation and cannot receive service-only topics.
 
 The route location is only a candidate. The server first proves that it is a
 navigable location in the actor's current settlement, resolves its canonical
@@ -115,26 +117,28 @@ persist within-settlement travel: a dialogue reducer may instantaneously select
 any server-validated, currently navigable venue in that settlement. The client
 cannot bypass settlement, navigability, schedule, health, or NPC checks, and the
 selection does not create navigation state. Historical death, infection-course,
-and remediation facts determine NPC suppression at the observer frontier. A service-linked chapter
-representative may share the service venue; the chapter fixture and exact
-representative fields still authorize organization business separately.
+and remediation facts determine NPC suppression at the observer frontier. A
+service-linked chapter representative may share the service venue; the chapter
+fixture and exact representative fields still authorize organization business
+separately.
 
-The public NPC row contains only visible identity and presentation: name, age band,
-presentation, height, build, hair/facial hair, complexion, visible features, clothing,
-profession, household, and local role. Private demographic sex, the internal projection
-key, population seed explanations, and relation weights remain private. Dialogue facts
-include typed age, profession, status,
-clothing presence, prior interaction, language compatibility, observable location role,
-and time period. Hidden causal circumstances remain private until a future discovery
-system deliberately reveals them. Greeting response priority remains deterministic.
+The public NPC row contains only visible identity and presentation: name, age
+band, presentation, height, build, hair/facial hair, complexion, visible
+features, clothing, profession, household, and local role. Private demographic
+sex, the internal projection key, population seed explanations, and relation
+weights remain private. Dialogue facts include typed age, profession, status,
+clothing presence, prior interaction, language compatibility, observable
+location role, and time period. Hidden causal circumstances remain private until
+a future discovery system deliberately reveals them. Greeting response priority
+remains deterministic.
 
-Population choices use contextual weighted relations. Zero plausibility is a hard
-exclusion; low positive values remain rare. Curation weight stays separate from world
-plausibility, and unusual demographic/location combinations require a causal bridge.
-One relation owns each conditional weight; inverse tables are not duplicated. Production
-population creation calls the canonical typed evaluator in `adventuresim-core`, and its
-private serialized explanation records the input context and every selected relation,
-factor, decision, and required bridge.
+Population choices use contextual weighted relations. Zero plausibility is a
+hard exclusion; low positive values remain rare. Curation weight stays separate
+from world plausibility, and unusual demographic/location combinations require a
+causal bridge. One relation owns each conditional weight; inverse tables are not
+duplicated. Production population creation calls the canonical typed evaluator
+in `adventuresim-core`, and its private serialized explanation records the input
+context and every selected relation, factor, decision, and required bridge.
 
 Scripted dialogue is a compiled, server-authoritative strategic system. It is
 separate from free-form local chat. Authors edit the JSON-compatible subset of
@@ -161,34 +165,36 @@ authoritative testimony because those execution paths do not carry the exact
 emitted claim-event sequence into the receiving effect.
 
 Each conversation has a stable ID and named participant roles. A role declares
-`player` or `npc` plus minimum/maximum cardinality, so one authored exchange can
-require a shopkeeper and assistant or address several players. Optional
+`player` or `npc` plus minimum/maximum cardinality, so one authored exchange
+can require a shopkeeper and assistant or address several players. Optional
 `on_start` responses use the same conditions, priority rules, attributed turns,
 effects, and automatic source mapping as topic responses. The server evaluates
 one start response exactly once when it creates a session; use it for greetings
-instead of making the browser select a topic implicitly. Topics have
-stable IDs, labels, knowledge/eligibility conditions, and explicitly prioritized
-responses. A response contains attributed turns composed of text and inline
-topic fragments. Every turn explicitly addresses either the acting participant,
-one role that must bind exactly one participant, or an explicitly group-addressed
-role. It may also contain an allowlisted typed runtime slot for a
-speaker's visible identity, place, symptom, claim, uncertainty, referral,
-evidence, testimony, or contract terms. Authored literals and runtime slots
-remain distinct in the compiled catalog and source map. The server resolves
-slots from authoritative strategic rows and persists only bounded inert text;
-generated values are never scripts, conditions, effects, or canonical truth.
-Runtime testimony is the one structured binding: each authoritative draft
-becomes a claim boundary with surrounding punctuation retained as text, and
-multiple drafts retain deterministic event-local order. The compiler rejects
-a testimony slot without its receive effect, the effect without exactly one
-slot, and attempts to place more than one testimony slot in a response.
-Prompts support `yes_no`, `single`, and `multi` choices and
-`first_response`, `unanimous`, `majority`, or `all_respondents` resolution.
-Choices may contain `result_turns`; these are appended to the durable transcript
-only after the prompt resolves and its effects succeed.
+instead of making the browser select a topic implicitly. Topics have stable IDs,
+labels, knowledge/eligibility conditions, and explicitly prioritized responses.
+A response contains attributed turns composed of text and inline topic
+fragments. Every turn explicitly addresses either the acting participant, one
+role that must bind exactly one participant, or an explicitly group-addressed
+role. It may also contain an allowlisted typed runtime slot for a speaker's
+visible identity, place, symptom, claim, uncertainty, referral, evidence,
+testimony, or contract terms. Authored literals and runtime slots remain
+distinct in the compiled catalog and source map. The server resolves slots from
+authoritative strategic rows and persists only bounded inert text; generated
+values are never scripts, conditions, effects, or canonical truth. Runtime
+testimony is the one structured binding: each authoritative draft becomes a
+claim boundary with surrounding punctuation retained as text, and multiple
+drafts retain deterministic event-local order. The compiler rejects a testimony
+slot without its receive effect, the effect without exactly one slot, and
+attempts to place more than one testimony slot in a response. Prompts support
+`yes_no`, `single`, and `multi` choices and `first_response`, `unanimous`,
+`majority`, or `all_respondents` resolution. Choices may contain `result_turns`;
+these are appended to the durable transcript only after the prompt resolves and
+its effects succeed.
 
-Conditions are a typed tree: `always`, `all`, `any`, `not`, and `fact`. Fact keys
-are allowlisted in `FactKey`; participant role/profession, organization, religion,
+Conditions are a typed tree: `always`, `all`, `any`, `not`, and
+`fact`. Fact keys
+are allowlisted in `FactKey`; participant role/profession, organization,
+religion,
 familiarity, clothing,
 service role, location, time period, quest state, and flags are supported. New
 world facts require a Rust resolver change. Never put executable code, SQL, or
@@ -205,15 +211,16 @@ resident's presented service profession semantics where that narrower fact is
 desired.
 
 Direct address uses typed runtime fragments for the visible title and the
-second-person subject, object, possessives, reflexive, and verb agreement.
-Only an explicitly group-addressed role receives plural formal `you`. A singular addressee receives
-familiar `thou` when the speaker socially outranks them or the pair are spouse,
-active lovers/courtiers, immediate parent/child/siblings, or have forty shared
-hours; otherwise speech uses formal `you`. The register is resolved once when
-the shared transcript event is authored, never separately per viewer. Public
-role metadata chooses one winning public identity by address priority, and
-both title and social precedence come from that same role: clergy overrides
-family, noble family overrides citizen, and unrecognized roles cannot leak.
+second-person subject, object, possessives, reflexive, and verb agreement. Only
+an explicitly group-addressed role receives plural formal `you`. A singular
+addressee receives familiar `thou` when the speaker socially outranks them or
+the pair are spouse, active lovers/courtiers, immediate parent/child/siblings,
+or have forty shared hours; otherwise speech uses formal `you`. The register
+is resolved once when the shared transcript event is authored, never separately
+per viewer. Public role metadata chooses one winning public identity by address
+priority, and both title and social precedence come from that same role: clergy
+overrides family, noble family overrides citizen, and unrecognized roles cannot
+leak.
 
 Investigation dialogue uses generic facts and effects rather than per-case
 content IDs. A local-problem referral records the character-owned safe rumor
@@ -291,11 +298,11 @@ Tidings**, and **Of Thee**. Each compiled topic carries a typed presentation
 category; the browser never infers it from an ID. The tab list is built only
 from owner-scoped authoritative topic-option rows, so it cannot reveal an
 undiscovered topic. Recent Tidings is privacy-safe for residents when detailed
-source authorization is absent, while Of Thee expresses qualitative
-relationship state as spoken questions and answers. While a prompt is open, the shared composer
-matches its choices, shows a unique prefix as grey inline completion, and lets
-Tab accept it. Multi-select answers use comma-separated choice labels. Other
-text continues through the independent free-form chat stream.
+source authorization is absent, while Of Thee expresses qualitative relationship
+state as spoken questions and answers. While a prompt is open, the shared
+composer matches its choices, shows a unique prefix as grey inline completion,
+and lets Tab accept it. Multi-select answers use comma-separated choice labels.
+Other text continues through the independent free-form chat stream.
 
 Of Thee answers are server-authored observer-safe projections bound to the
 selected subject and projection revision. They are appended as transient
@@ -313,11 +320,12 @@ The hammer button immediately left of the character portrait toggles developer
 mode. It is off by default and persisted locally in the browser. Its
 content-editing consumers include dialogue and item definitions: authored NPC
 lines receive keyboard-accessible GitHub editor links, and expanding a concrete
-inventory row reveals an **Edit YAML** button. Repository and ref are centralized by
-the server (`ADVENTURESIM_SOURCE_REF`, default `main`); source paths and spans
-come from compilation, so writers never maintain line numbers. Unsupported or
-unsafe paths do not produce links. Extend developer mode only by querying the
-root `data-developer-mode` attribute; do not create independent toggles.
+inventory row reveals an **Edit YAML** button. Repository and ref are
+centralized by the server (`ADVENTURESIM_SOURCE_REF`, default `main`); source
+paths and spans come from compilation, so writers never maintain line numbers.
+Unsupported or unsafe paths do not produce links. Extend developer mode only by
+querying the root `data-developer-mode` attribute; do not create independent
+toggles.
 
 Schema changes are pre-launch and intentionally have no migration or legacy
 compatibility path. Recreate/reseed the development database and regenerate the

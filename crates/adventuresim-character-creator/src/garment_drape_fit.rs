@@ -89,7 +89,15 @@ impl DrapeCage {
         }
     }
 
-    pub(super) fn radius(&self, y: f32, col: usize) -> f32 {
+    pub(super) fn radius_at_angle(&self, y: f32, angle: f32) -> f32 {
+        let column = angle.rem_euclid(TAU) / TAU * GARMENT_RING_SEGMENTS as f32;
+        let lower = column.floor() as usize % GARMENT_RING_SEGMENTS;
+        let fraction = column.fract();
+        self.radius(y, lower) * (1.0 - fraction)
+            + self.radius(y, (lower + 1) % GARMENT_RING_SEGMENTS) * fraction
+    }
+
+    fn radius(&self, y: f32, col: usize) -> f32 {
         let station = ((y / self.half_height + 1.0) * 0.5 * (STATIONS - 1) as f32)
             .clamp(0.0, (STATIONS - 1) as f32);
         let lower = (station.floor() as usize).min(STATIONS - 2);

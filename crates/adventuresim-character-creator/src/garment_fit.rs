@@ -40,7 +40,7 @@ pub fn fitted_garment(
             limb::fit(design, placement, wearer)
         }
         Kind::Gorget => crate::gorget_fit::fit(design, wearer),
-        _ => skirt(design, wearer),
+        _ => skirt(design, wearer, None),
     }
 }
 
@@ -69,10 +69,31 @@ fn upright(
     })
 }
 
-fn skirt(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
+pub fn suspended_tassets(
+    design: &GarmentArmorDesign,
+    wearer: &Wearer<'_>,
+    top: f32,
+) -> Result<PartMesh> {
+    anyhow::ensure!(
+        design.kind == Kind::Tassets,
+        "suspension requires a tasset panel"
+    );
+    skirt(design, wearer, Some(top))
+}
+
+fn skirt(
+    design: &GarmentArmorDesign,
+    wearer: &Wearer<'_>,
+    attachment_top: Option<f32>,
+) -> Result<PartMesh> {
     let mut frame = wearer.frame(FitRegion::Hips)?;
     if design.kind == Kind::Fauld {
-        let top = joint(wearer, "c_spine1")?[1] - 0.018;
+        let adventuresim_armor_model::GarmentPlateShape::Fauld { waist_rise, .. } =
+            design.plate_shape
+        else {
+            anyhow::bail!("fauld shape required")
+        };
+        let top = joint(wearer, "c_spine1")?[1] + waist_rise.metres();
         let bottom = joint(wearer, "root")?[1] - 0.085;
         let mut support = wearer.support_indices(FitRegion::Hips)?;
         support.extend(wearer.support_indices(FitRegion::Torso)?);
@@ -117,6 +138,9 @@ fn skirt(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
             frame.origin,
         )?;
     }
+    if let Some(top) = attachment_top {
+        frame.origin[1] += top - (frame.origin[1] + frame.half_extents[1]);
+    }
     let mesh = generate_garment_armor(design, &frame)?;
     if design.kind == Kind::Tassets {
         let support = wearer.support_indices(FitRegion::Hips)?;
@@ -129,11 +153,12 @@ fn skirt(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
 /// Move the authored plate above the anatomical depth datum while retaining
 /// its flare, transverse crown and separate lame offsets.
 fn fit_tassets(mesh: PartMesh, frame: &PartFrame, sample: &SurfaceSampler) -> Result<PartMesh> {
+    let depth = sampling::PlateDepth::new(sample, frame.half_extents);
     Ok(mesh.refit_surfaces(|positions| {
         for point in positions {
             let mut local = local_point(frame, *point);
             let authored_offset = local[2] - frame.half_extents[2];
-            local[2] = sample.depth(local, 1.0) + authored_offset;
+            local[2] = depth.at(local) + authored_offset;
             *point = frame.point(local);
         }
     })?)
@@ -170,36 +195,20 @@ fn wrap_skirt(
             .iter()
             .map(|point| point[1])
             .fold(f32::INFINITY, f32::min);
-        for (index, point) in positions.iter_mut().enumerate() {
+        for point in positions.iter_mut() {
             let local = local_point(frame, *point);
-            let col = index % adventuresim_armor_model::GARMENT_RING_SEGMENTS;
-            let angle = std::f32::consts::TAU * col as f32
-                / adventuresim_armor_model::GARMENT_RING_SEGMENTS as f32;
+            let angle = local[0].atan2(local[2]);
             let descent = ((frame.half_extents[1] - local[1]) / (2.0 * frame.half_extents[1]))
                 .clamp(0.0, 1.0);
-            let radius = cage.radius(local[1], col);
+            let radius = cage.radius_at_angle(local[1], angle);
             let step = if flexible {
                 0.0
             } else {
                 design.wall_thickness.metres() * 2.5 * (top - point[1]) / (top - bottom)
             };
             let flare = design.flare.unit() * descent;
-            let plate_overlap = if design.kind == Kind::Fauld {
-                frame.half_extents[0] * design.flare.unit() * 0.8 + GARMENT_FIT_MARGIN_M
-            } else {
-                0.0
-            };
-            let x = (radius * (1.0 + flare) + gap + step + plate_overlap) * angle.sin();
-            let breastplate_overlap = if design.kind == Kind::Fauld {
-                frame.half_extents[2]
-                    * design.flare.unit()
-                    * (1.0 - 0.5 * descent)
-                    * angle.cos().max(0.0).powi(2)
-            } else {
-                0.0
-            };
-            let z = (radius * (1.0 + flare) + gap + step + plate_overlap) * angle.cos()
-                + breastplate_overlap;
+            let x = (radius * (1.0 + flare) + gap + step) * angle.sin();
+            let z = (radius * (1.0 + flare) + gap + step) * angle.cos();
             let mut fitted = frame.point([x, local[1], z]);
             if let Some(attachment) = &attachment {
                 let transition = (descent / 0.45).clamp(0.0, 1.0);
@@ -297,6 +306,7 @@ mod tests {
         let points = vec![[0.0, 0.0, 0.08]];
         let normals = vec![[0.0, 0.0, 1.0]];
         let wearer = Wearer {
+            faces: &[],
             positions: &points,
             normals: &normals,
             joints: &[],

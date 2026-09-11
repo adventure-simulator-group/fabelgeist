@@ -10,7 +10,6 @@ use super::{
     GARMENT_RING_SEGMENTS as AROUND, GARMENT_SHOULDER_DEPTH_SEGMENTS as SHOULDER_DEPTH_SEGMENTS,
 };
 const QUILT_RELIEF_METRES: f32 = 0.0015;
-const LAME_OVERLAP: f32 = 0.12;
 
 fn padded(kind: GarmentArmorKind) -> bool {
     matches!(
@@ -166,57 +165,31 @@ pub(super) fn tube(
 ) -> Result<PartMesh, GenerateError> {
     let skirt = matches!(
         design.kind,
-        GarmentArmorKind::Fauld | GarmentArmorKind::MailSkirt | GarmentArmorKind::PaddedSkirt
+        GarmentArmorKind::MailSkirt | GarmentArmorKind::PaddedSkirt
     );
-    let count = if design.kind == GarmentArmorKind::Fauld {
-        usize::from(design.lame_count)
-    } else {
-        1
-    };
-    let mut mesh = PartMesh::new();
-    for lame in 0..count {
-        let mut pattern = Pattern::default();
-        for row in 0..=ALONG {
-            let v = row as f32 / ALONG as f32;
-            let top = 1.0 - lame as f32 / count as f32;
-            let bottom = (1.0
-                - (lame + 1) as f32 / count as f32
-                - if lame + 1 < count {
-                    LAME_OVERLAP / count as f32
-                } else {
-                    0.0
-                })
-            .max(0.0);
-            let axial = bottom + (top - bottom) * v;
-            let [width, height, depth] = fit.half_extents;
-            let radius = if skirt {
-                1.0 + design.flare.unit() * (1.0 - axial)
-            } else {
-                0.70 + 0.30 * axial
-            };
-            let step = if count > 1 {
-                design.wall_thickness.metres() * 2.5 * (1.0 - v)
-            } else {
-                0.0
-            };
-            for col in 0..AROUND {
-                let u = col as f32 / AROUND as f32;
-                let angle = u * TAU;
-                let padding = design.clearance.metres()
-                    + design.wall_thickness.metres()
-                    + step
-                    + quilt(design.kind, u);
-                pattern.vertex([
-                    (width * radius + padding) * angle.sin(),
-                    height - 2.0 * height * design.length.unit() * (1.0 - axial),
-                    (depth * radius + padding) * angle.cos(),
-                ]);
-            }
+    let mut pattern = Pattern::default();
+    let [width, height, depth] = fit.half_extents;
+    for row in 0..=ALONG {
+        let axial = row as f32 / ALONG as f32;
+        let radius = if skirt {
+            1.0 + design.flare.unit() * (1.0 - axial)
+        } else {
+            0.70 + 0.30 * axial
+        };
+        for col in 0..AROUND {
+            let u = col as f32 / AROUND as f32;
+            let angle = u * TAU;
+            let padding =
+                design.clearance.metres() + design.wall_thickness.metres() + quilt(design.kind, u);
+            pattern.vertex([
+                (width * radius + padding) * angle.sin(),
+                height - 2.0 * height * design.length.unit() * (1.0 - axial),
+                (depth * radius + padding) * angle.cos(),
+            ]);
         }
-        connect_rings(&mut pattern, ALONG);
-        mesh.append(pattern.lined(design.wall_thickness.metres())?);
     }
-    Ok(mesh)
+    connect_rings(&mut pattern, ALONG);
+    pattern.lined(design.wall_thickness.metres())
 }
 
 fn connect_rings(pattern: &mut Pattern, rows: usize) {
@@ -227,78 +200,4 @@ fn connect_rings(pattern: &mut Pattern, rows: usize) {
             pattern.quad(a, b, b + AROUND as u32, a + AROUND as u32);
         }
     }
-}
-
-/// A high collar expands smoothly into a shoulder/chest bib, without a flat
-/// annular disk or an intersecting separate collar.
-pub(super) fn gorget(
-    design: &GarmentArmorDesign,
-    fit: &PartFrame,
-) -> Result<PartMesh, GenerateError> {
-    let [width, height, depth] = fit.half_extents;
-    let padding = design.clearance.metres() + design.wall_thickness.metres();
-    let mut pattern = Pattern::default();
-    for row in 0..=ALONG {
-        let v = row as f32 / ALONG as f32;
-        let spread = ((0.60 - v) / 0.60).max(0.0).powi(2);
-        for col in 0..AROUND {
-            let angle = col as f32 / AROUND as f32 * TAU;
-            let front_drop = 0.35 + 2.8 * angle.cos().max(0.0) + 0.85 * (-angle.cos()).max(0.0);
-            pattern.vertex([
-                (width * (1.0 + (0.7 + design.flare.unit()) * spread) + padding) * angle.sin(),
-                height * design.length.unit() * (v - (1.0 - v) * front_drop),
-                (depth * (1.0 + 0.85 * spread) + padding) * angle.cos(),
-            ]);
-        }
-    }
-    connect_rings(&mut pattern, ALONG);
-    pattern.lined(design.wall_thickness.metres())
-}
-
-/// Two separately articulated, convex thigh aprons. A central gap permits the
-/// wearer to separate the thighs; every lame is a solid shell with closed rims.
-pub(super) fn tassets(
-    design: &GarmentArmorDesign,
-    fit: &PartFrame,
-) -> Result<PartMesh, GenerateError> {
-    let [width, height, depth] = fit.half_extents;
-    let count = usize::from(design.lame_count);
-    let padding = design.clearance.metres() + design.wall_thickness.metres();
-    let mut mesh = PartMesh::new();
-    for side in [-1.0, 1.0] {
-        for lame in 0..count {
-            let mut pattern = Pattern::default();
-            for row in 0..=4 {
-                let v = row as f32 / 4.0;
-                let descent = (lame as f32
-                    + (1.0 - v) * (1.0 + if lame + 1 < count { LAME_OVERLAP } else { 0.0 }))
-                    / count as f32;
-                for col in 0..=PANEL_ACROSS {
-                    let u = 2.0 * col as f32 / PANEL_ACROSS as f32 - 1.0;
-                    let taper = 1.0 - 0.14 * descent;
-                    let rounded_hem = if lame + 1 == count {
-                        0.08 * u.powi(8) * (1.0 - v)
-                    } else {
-                        0.0
-                    };
-                    let x = side * width * 0.52 + width * 0.44 * taper * u;
-                    let y = height - 2.0 * height * design.length.unit() * (descent - rounded_hem);
-                    let z = depth * (1.0 + design.flare.unit() * descent)
-                        + padding
-                        + width * 0.18 * (1.0 - u * u)
-                        + design.wall_thickness.metres() * 2.5 * (1.0 - v);
-                    pattern.vertex([x, y, z]);
-                }
-            }
-            for row in 0..4 {
-                for col in 0..PANEL_ACROSS {
-                    let a = (row * (PANEL_ACROSS + 1) + col) as u32;
-                    let d = a + (PANEL_ACROSS + 1) as u32;
-                    pattern.quad(a, a + 1, d + 1, d);
-                }
-            }
-            mesh.append(pattern.lined(design.wall_thickness.metres())?);
-        }
-    }
-    Ok(mesh)
 }

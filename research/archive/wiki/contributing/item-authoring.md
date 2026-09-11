@@ -79,10 +79,14 @@ gameplay abstraction rather than a claim that the historical text was a modern
 coursebook. Useful collection records include the
 [Bodleian copy of *Vocabularius ex quo*](https://textinc7.bodleian.ox.ac.uk/catalog/tiv00363000),
 [National Library of Medicine records for Gersdorff](https://www.nlm.nih.gov/exhibition/historicalanatomies/gersdorff_bio.html)
-and [Vesalius](https://www.nlm.nih.gov/exhibition/historicalanatomies/vesalius_biblio.html),
-the [Bibliothèque nationale de France record for Erasmus](https://catalogue.bnf.fr/ark:/12148/cb30402412n),
-the [Metropolitan Museum's Talhoffer *Fechtbuch*](https://www.metmuseum.org/art/collection/search/32426),
-and the [Nuremberg Mendel Housebook](https://online-service.nuernberg.de/viewer/!toc/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/307/-/).
+and
+[Vesalius](https://www.nlm.nih.gov/exhibition/historicalanatomies/vesalius_biblio.html),
+the
+[Bibliothèque nationale de France record for Erasmus](https://catalogue.bnf.fr/ark:/12148/cb30402412n),
+the
+[Metropolitan Museum's Talhoffer *Fechtbuch*](https://www.metmuseum.org/art/collection/search/32426),
+and the
+[Nuremberg Mendel Housebook](https://online-service.nuernberg.de/viewer/!toc/5d64f831-7a9d-47b4-9a01-d6a28f29ad99/307/-/).
 
 Every item requires `id`, `display_name`, `weight_kg`, `base_value`, `tags`,
 `presentation.icon`, and a tagged `kind`. Physical units are part of field

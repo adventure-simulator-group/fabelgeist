@@ -9,6 +9,7 @@ pub(super) fn generate_equipment_assets(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
+    bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
     item_filter: &[String],
 ) -> Result<()> {
@@ -39,6 +40,7 @@ pub(super) fn generate_equipment_assets(
         recipe,
         generated: &generated,
         morphs: &morphs,
+        bracer_design,
         breastplate_design,
         catalog,
     };
@@ -101,6 +103,7 @@ struct EquipmentExporter<'a> {
     recipe: &'a CharacterRecipe,
     generated: &'a GeneratedCharacter,
     morphs: &'a CharacterMorphs,
+    bracer_design: &'a BracerDesign,
     breastplate_design: &'a BreastplateDesign,
 }
 
@@ -141,9 +144,9 @@ impl EquipmentExporter<'_> {
                     anyhow::bail!("vambrace placement {} has no forearm side", placement.id)
                 }
             };
-            let design = BracerDesign::default();
+            let design = self.bracer_design;
             (
-                fitted_bracer(model, generated, &design, side, &morphs.samples)?,
+                fitted_bracer(model, generated, design, side, &morphs.samples)?,
                 design.coverage.unit(),
             )
         } else if matches!(item.id.as_str(), "breastplate" | "cuirass") {
@@ -161,29 +164,46 @@ impl EquipmentExporter<'_> {
                         .design(&item.id)
                         .context("missing parametric recipe")?,
                     &placement.id,
+                    self.catalog,
+                    breastplate_design,
                     &morphs.samples,
                 )?,
                 placement_coverage(placement),
             )
         };
+        let armor = crate::fastener_equipment::attach(
+            model,
+            generated,
+            &morphs.samples,
+            self.catalog,
+            &item.id,
+            &placement.id,
+            armor,
+        )?;
         let faces = armor.indices.as_chunks::<3>().0.to_vec();
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
         let path = output.join(&file_name);
-        let mut rigged_shell = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
+        let mut rigged_shells = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
             equipment.material.context("armor material missing")?,
         );
-        rigged_shell.base_color = color;
-        rigged_shell.metallic = metallic;
-        rigged_shell.roughness = roughness;
+        for shell in &mut rigged_shells {
+            shell.base_color = color;
+            shell.metallic = metallic;
+            shell.roughness = roughness;
+            shell.textures = adventuresim_character_creator::underlayer_material::textures(
+                self.catalog.design(&item.id).as_ref(),
+            );
+        }
+        crate::character_morphs::component_materials(&armor, &mut rigged_shells);
         export_rigged_glb(
-            &path,
+            GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
             model.lod,
             &self.mesh(),
-            &[rigged_shell],
+            &rigged_shells,
             &[],
         )?;
         Ok(serde_json::json!({
@@ -241,7 +261,7 @@ impl EquipmentExporter<'_> {
         let rigged_mesh = self.mesh();
         let sockets = self.sockets(item, &rigged_mesh, &rigged_shell)?;
         export_rigged_glb(
-            &path,
+            GlbOutput::SharedTextures(&path),
             &item.id,
             recipe.version,
             model.lod,

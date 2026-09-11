@@ -1,6 +1,6 @@
 """Render actual recipe triangles against the exported MHR body with Blender.
 
-blender --background --python scripts/render_armor_review.py -- INPUT_DIR OUTPUT_DIR [ID]
+blender --background --python scripts/render_armor_review.py -- INPUT_DIR OUTPUT_DIR [ID] [--bare-body]
 """
 import json
 import math
@@ -26,6 +26,8 @@ def mesh_object(name, positions, faces, color, normals):
 
 def main():
     args = sys.argv[sys.argv.index("--") + 1:]
+    bare_body = "--bare-body" in args
+    args = [arg for arg in args if arg != "--bare-body"]
     source, output = [Path(p).resolve() for p in args[:2]]
     output.mkdir(parents=True, exist_ok=True)
     selected = args[2] if len(args) > 2 else None
@@ -61,7 +63,22 @@ def main():
             continue
         positions = row["positions"]
         faces = [row["indices"][i:i + 3] for i in range(0, len(row["indices"]), 3)]
-        armor = mesh_object(row["id"], positions, faces, (0.56, 0.62, 0.68, 1), row["normals"])
+        components = row.get("components", [])
+        if components:
+            armor = []
+            for part in components:
+                start, end = part["vertices"]["start"], part["vertices"]["end"]
+                first, last = part["indices"]["start"] // 3, part["indices"]["end"] // 3
+                component_faces = [[index - start for index in face] for face in faces[first:last]]
+                surface = part.get("material")
+                color = surface["base_color"] if surface else (0.56, 0.62, 0.68, 1)
+                obj = mesh_object(f"{row['id']}.{part['role']}", positions[start:end], component_faces,
+                                  color, row["normals"][start:end])
+                if part.get("hinge"):
+                    obj["reference_body_hinge"] = json.dumps(part["hinge"])
+                armor.append(obj)
+        else:
+            armor = [mesh_object(row["id"], positions, faces, (0.56, 0.62, 0.68, 1), row["normals"])]
         low = Vector([min(p[i] for p in positions) for i in range(3)])
         high = Vector([max(p[i] for p in positions) for i in range(3)])
         center = (low + high) * 0.5
@@ -77,10 +94,19 @@ def main():
             camera_data.ortho_scale = scale
             scene.render.filepath = str(output / f"{path.stem}-{name}.png")
             bpy.ops.render.render(write_still=True)
-        bpy.data.objects.remove(armor, do_unlink=True)
+            if bare_body:
+                for obj in armor:
+                    obj.hide_render = True
+                scene.render.filepath = str(output / f"{path.stem}-{name}-body.png")
+                bpy.ops.render.render(write_still=True)
+                for obj in armor:
+                    obj.hide_render = False
+        for obj in armor:
+            bpy.data.objects.remove(obj, do_unlink=True)
     (output / "render-settings.json").write_text(json.dumps({
         "engine": scene.render.engine, "size": [600, 700], "body": str(source / "body.json"),
         "views": ["front", "side", "quarter", "rear"], "body_included": True, "normals": "preserved exported runtime vertex normals",
+        "matched_bare_body_views": bare_body,
         "stage": "ordinary generator output; external static render"
     }, indent=2))
 

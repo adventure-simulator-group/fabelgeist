@@ -9,14 +9,27 @@ pub(crate) struct ProceduralEquipmentPart {
 }
 
 impl ProceduralEquipmentPart {
+    pub(crate) fn new(
+        item: Entity,
+        inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
+        joint_names: Vec<String>,
+    ) -> Self {
+        Self {
+            item,
+            inverse_bindposes,
+            joint_names,
+        }
+    }
+
     /// A loaded asset remains hidden until its wearer binding is renderable.
     pub(super) fn render_bundle(
         self,
+        name: String,
         mesh: Handle<Mesh>,
         material: Handle<StandardMaterial>,
     ) -> impl Bundle {
         (
-            Name::new("Procedural armor or clothing"),
+            Name::new(name),
             Visibility::Hidden,
             Mesh3d(mesh),
             MeshMaterial3d(material),

@@ -93,17 +93,12 @@ pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
         EquipmentBodyPart::Chest => ArmorSlot::Chest,
         EquipmentBodyPart::Stomach => ArmorSlot::Stomach,
     };
-    let mut coverage_spans = [None; 7];
     let mut coverage_geometry = [None; 7];
     for protected in &placement.protection {
         let body_part = adventuresim_core::equipment::equipment_body_part(*protected);
-        let geometry = adventuresim_core::combat::authored_armor_coverage(
-            placement,
-            body_part,
-            item.item.coverage,
-        );
+        let geometry =
+            adventuresim_core::combat::AuthoredArmorCoverage::from_placement(placement, body_part);
         let index = adventuresim_core::autoresolve::body_part_index(body_part);
-        coverage_spans[index] = Some(geometry.span);
         coverage_geometry[index] = Some(geometry);
     }
     Some(ArmorItem {
@@ -115,13 +110,10 @@ pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
         padding: item.item.padding,
         flexibility: item.item.flexibility,
         covered_parts: tactical_covered_parts(&item.protected_body_parts),
-        coverage_spans,
         coverage_geometry,
         layer_order: placement
-            .occupancy
-            .iter()
-            .map(|occupancy| occupancy.channel.order())
-            .max()
+            .outermost_channel()
+            .map(|channel| channel.order())
             .unwrap_or_default(),
     })
 }

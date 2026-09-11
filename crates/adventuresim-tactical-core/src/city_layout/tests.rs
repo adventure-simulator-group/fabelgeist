@@ -1,5 +1,5 @@
 use super::*;
-fn economy() -> SettlementEconomyProfile {
+pub(super) fn economy() -> SettlementEconomyProfile {
     let mut economy = SettlementEconomyProfile::stage_placeholder();
     economy.services = vec![
         adventuresim_world_schema::SettlementService::Inn,

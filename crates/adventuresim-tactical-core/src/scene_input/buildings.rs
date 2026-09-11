@@ -14,7 +14,7 @@ const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
 
 /// Rotation of one orthogonal building grid in the settlement plane.
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, bevy::prelude::Reflect)]
 #[serde(transparent)]
 pub struct BuildingOrientation(f32);
 
@@ -82,7 +82,7 @@ pub struct DistantBuildingPlacement {
     pub id: u64,
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
-    pub workplace_size: Option<adventuresim_building_generator::WorkplaceSize>,
+    pub service_size: Option<adventuresim_building_generator::ServiceBuildingSize>,
     pub seed: u64,
     pub centre_metres: Vec2,
     pub base_elevation_metres: f32,
@@ -95,8 +95,8 @@ impl DistantBuildingPlacement {
             Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
             None => BuildingProgram::fixture(self.archetype, self.seed),
         };
-        if let Some(size) = self.workplace_size {
-            program = program.with_workplace_size(size);
+        if let Some(size) = self.service_size {
+            program = program.with_service_size(size);
         }
         program
     }
@@ -436,7 +436,7 @@ mod occupied_recipe_tests {
             id: 1,
             archetype: BuildingArchetype::HallHouse,
             usage: Some(BuildingUse::Stable),
-            workplace_size: Some(adventuresim_building_generator::WorkplaceSize::Large),
+            service_size: Some(adventuresim_building_generator::ServiceBuildingSize::Large),
             seed: 42,
             centre_metres: Vec2::ZERO,
             base_elevation_metres: 0.0,
@@ -449,7 +449,7 @@ mod occupied_recipe_tests {
                 Some(BuildingUse::Stable),
                 42
             )
-            .with_workplace_size(adventuresim_building_generator::WorkplaceSize::Large)
+            .with_service_size(adventuresim_building_generator::ServiceBuildingSize::Large)
         );
         assert_ne!(
             placement.program(),
@@ -457,3 +457,6 @@ mod occupied_recipe_tests {
         );
     }
 }
+
+#[cfg(test)]
+mod service_recipe_tests;

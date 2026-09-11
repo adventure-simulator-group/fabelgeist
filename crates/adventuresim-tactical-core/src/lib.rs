@@ -99,6 +99,11 @@ pub mod prelude {
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
         TerrainGenerator,
     };
+    pub use crate::scene_input::furniture::{
+        FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
+        FurnitureInstanceId, FurnitureLayout, FurnitureLocation, GeneratedFurniture,
+        SceneFurniture, SceneFurnitureGroup, SceneVistaFurniture, furniture_collider,
+    };
     pub use crate::scene_input::{
         BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBuilding,
         GeneratedObstacle, GeneratedTacticalScene, ROCK_RADIUS_METRES, RockArchetype,
@@ -133,3 +138,6 @@ bevy::app::plugin_group! {
         physics:::AdventureSimulatorPhysicsPlugin,
     }
 }
+
+/// Canonical vista vertex heights and clipped cell topology.
+pub mod vista_surface;

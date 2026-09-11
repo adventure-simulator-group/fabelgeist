@@ -23,7 +23,8 @@ should be presented as a measured historical population.
 
 ## Regional inventory
 
-- Domestic and agricultural: cottages, urban workshop-dwellings, merchant houses,
+- Domestic and agricultural: cottages, urban workshop-dwellings, merchant
+  houses,
   hall houses, manor houses, lodging houses, barns, threshing floors, stables,
   cart sheds, byres, pigsties, hay stores and granaries. Small household
   outbuildings can share a plot rather than becoming separate institutions.
@@ -34,11 +35,13 @@ should be presented as a measured historical population.
   saddlers, harness makers, rope makers, chandlers, potters, stonecutters,
   glaziers, locksmiths, cutlers and goldsmiths. Many share the workshop-house
   structural family; business identity need not imply a wholly unique shell.
-- Textiles and hides: weavers, tailors, cloth finishers, fulling mills, dye houses,
+- Textiles and hides: weavers, tailors, cloth finishers, fulling mills, dye
+  houses,
   tanneries, furriers and cloth stores. Put water-dependent and unpleasant
   processes on verified water sites and keep drying/work yards legible.
 - Trade and administration: warehouses, grain stores, weigh houses, customs and
-  toll houses, guildhalls, town halls, council chambers, counting rooms, municipal
+  toll houses, guildhalls, town halls, council chambers, counting rooms,
+  municipal
   prisons and watch houses. Road gates and bridges are infrastructure with their
   own geometry, not arbitrary shop buildings.
 - Religion, care and learning: parish churches, chapels, rectories, collegiate
@@ -79,16 +82,17 @@ The following sources support the regional typology, not numerical catchments.
   distinguishes water mills and post windmills. Museum buildings of later dates
   should not be copied wholesale into 1544.
 - [Erfurt's account of expulsion](https://juedisches-leben.erfurt.de/jl/de/mittelalter/index.html)
-  dates the forced departure of its Jewish community to 1453. A surviving medieval
+  dates the forced departure of its Jewish community to 1453. A surviving
+  medieval
   synagogue cannot justify generating an active 1544 community there.
 
 ## Further variation requiring separate authored evidence
 
-Terrain-following streets, market rights, bridge/toll sites, historic wall circuits,
-regional wall/roof materials, parcel subdivision and building age would add
-further city identity. Courtyard annexes, gardens, animal pens, ovens, signs,
-loading equipment and trade machinery would make purposes visible outdoors.
-Water mills require a millrace and power-site model before automatic placement;
-post windmills need a distinct elevated mechanical structure. Historical
-institutions should be supplied by reviewed 1544 settlement evidence. These
-constraints should be implemented directly, without legacy schema paths.
+Terrain-following streets, market rights, bridge/toll sites, historic wall
+circuits, regional wall/roof materials, parcel subdivision and building age
+would add further city identity. Courtyard annexes, gardens, animal pens, ovens,
+signs, loading equipment and trade machinery would make purposes visible
+outdoors. Water mills require a millrace and power-site model before automatic
+placement; post windmills need a distinct elevated mechanical structure.
+Historical institutions should be supplied by reviewed 1544 settlement evidence.
+These constraints should be implemented directly, without legacy schema paths.

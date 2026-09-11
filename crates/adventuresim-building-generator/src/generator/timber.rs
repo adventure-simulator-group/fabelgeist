@@ -1019,158 +1019,15 @@ fn resolve_timber_frame_assembly(
             }
             storey_member_ids.sort_unstable();
             storey_member_ids.dedup();
-            let jetty = if level == 1 && program.upper_storey_projection_metres > 0.01 {
-                let projection = program.upper_storey_projection_metres;
-                let backspan = 0.95_f32;
-                let mut jetty_beams = Vec::new();
-                let mut knaggen = Vec::new();
-                let mut corner_supports = Vec::new();
-                for (index, wall) in facade_walls.iter().enumerate() {
-                    let plane = wall.frame.origin
-                        + wall.frame.outward * (wall.thickness_metres * 0.5 - section.y * 0.5);
-                    for sign in [-1.0_f32, 1.0] {
-                        let boundary = plane + tangent * sign * wall.length_metres * 0.5;
-                        let outer = Vec3::new(boundary.x, base, boundary.y);
-                        let inner_plan = boundary - outward * (projection + backspan);
-                        let inner = Vec3::new(inner_plan.x, base, inner_plan.y);
-                        let beam = builder.member(
-                            crate::TimberMemberRole::JettyBeam,
-                            inner,
-                            outer,
-                            section,
-                            crate::TimberFramePhase::UpperStoreyAddition,
-                        );
-                        jetty_beams.push(beam);
-                        let lower_plan = boundary - outward * projection;
-                        let lower = Vec3::new(
-                            lower_plan.x,
-                            base - program.storey_height_metres * 0.28,
-                            lower_plan.y,
-                        );
-                        let knagge = builder.member(
-                            crate::TimberMemberRole::Knagge,
-                            lower,
-                            outer,
-                            section * 0.9,
-                            crate::TimberFramePhase::UpperStoreyAddition,
-                        );
-                        knaggen.push(knagge);
-                        if index == 0 || index + 1 == facade_walls.len() {
-                            corner_supports.push(knagge);
-                        }
-                    }
-                }
-                jetty_beams.sort_unstable();
-                jetty_beams.dedup();
-                let mut inner_bearings = jetty_beams
-                    .iter()
-                    .filter_map(|id| builder.members.iter().find(|member| member.id == *id))
-                    .map(|member| member.start)
-                    .collect::<Vec<_>>();
-                inner_bearings.sort_by(|left, right| {
-                    Vec2::new(left.x, left.z)
-                        .dot(tangent)
-                        .total_cmp(&Vec2::new(right.x, right.z).dot(tangent))
-                });
-                if let (Some(first), Some(last)) = (
-                    inner_bearings.first().copied(),
-                    inner_bearings.last().copied(),
-                ) && first.distance(last) > 0.10
-                {
-                    let inner_girder = builder.member(
-                        crate::TimberMemberRole::Girder,
-                        first,
-                        last,
-                        section * 1.12,
-                        crate::TimberFramePhase::UpperStoreyAddition,
-                    );
-                    storey_member_ids.push(inner_girder);
-                }
-                knaggen.sort_unstable();
-                knaggen.dedup();
-                corner_supports.sort_unstable();
-                corner_supports.dedup();
-                storey_member_ids.extend(jetty_beams.iter().copied());
-                storey_member_ids.extend(knaggen.iter().copied());
-                let outer_plane = facade_walls
-                    .iter()
-                    .map(|wall| {
-                        wall.frame.origin
-                            + wall.frame.outward * (wall.thickness_metres * 0.5 - section.y * 0.5)
-                    })
-                    .sum::<Vec2>()
-                    / facade_walls.len() as f32;
-                // Only the projecting strip is a separate jetty plate. The
-                // backspan remains part of the main storey floor assembled
-                // below, avoiding duplicate overlapping floor authority.
-                let floor_depth = projection;
-                let floor_centre_plan = outer_plane - outward * floor_depth * 0.5;
-                let floor_solid = ResolvedItemId(
-                    (1_u64 << 60) | (u64::from(owner.0) << 32) | 0x0f00_0000 | next_storey,
-                );
-                let floor_support_nodes = jetty_beams
-                    .iter()
-                    .filter_map(|id| builder.members.iter().find(|member| member.id == *id))
-                    .flat_map(|member| [member.start_node, member.end_node])
-                    .collect::<BTreeSet<_>>()
-                    .into_iter()
-                    .collect::<Vec<_>>();
-                builder.geometry.solids.push(ResolvedSolid {
-                    id: floor_solid,
-                    owner,
-                    centre: Vec3::new(floor_centre_plan.x, base - 0.08, floor_centre_plan.y),
-                    size: Vec3::new(line_length, 0.16, floor_depth),
-                    yaw_radians: (-tangent.y).atan2(tangent.x),
-                    crossfall_radians: 0.0,
-                    longfall_radians: 0.0,
-                    role: SolidRole::FrameFloor,
-                    shape: crate::ResolvedSolidShape::Cuboid,
-                    supported_by: floor_support_nodes,
-                });
-                let mut floor_bearing_interfaces = Vec::new();
-                for member in jetty_beams
-                    .iter()
-                    .filter_map(|id| builder.members.iter().find(|member| member.id == *id))
-                {
-                    let inward = (member.start - member.end).normalize_or_zero();
-                    let contact = member.end + inward * (projection * 0.5) - Vec3::Y * 0.04;
-                    let interface = ResolvedItemId(
-                        (4_u64 << 60)
-                            | (u64::from(owner.0) << 32)
-                            | 0x300_000
-                            | builder.next_interface,
-                    );
-                    builder.next_interface += 1;
-                    builder.geometry.support_interfaces.push(SupportInterface {
-                        id: interface,
-                        owner,
-                        node: member.end_node,
-                        bounds: ResolvedBounds {
-                            min: contact - Vec3::new(0.07, 0.025, 0.07),
-                            max: contact + Vec3::new(0.07, 0.025, 0.07),
-                        },
-                    });
-                    floor_bearing_interfaces.push(interface);
-                }
-                let half_length = line_length * 0.5;
-                let left_outer = outer_plane - tangent * half_length;
-                let right_outer = outer_plane + tangent * half_length;
-                let structural_depth = projection + backspan;
-                let left_inner = left_outer - outward * structural_depth;
-                let right_inner = right_outer - outward * structural_depth;
-                Some(crate::TimberJettyAssembly {
-                    projection_metres: projection,
-                    backspan_metres: backspan,
-                    jetty_beams,
-                    knaggen,
-                    corner_supports,
-                    floor_solid,
-                    floor_bearing_interfaces,
-                    support_polygon: vec![left_inner, right_inner, right_outer, left_outer],
-                })
-            } else {
-                None
-            };
+            let jetty = (level == 1 && program.upper_storey_projection_metres > 0.01).then(|| {
+                timber_jetty::JettyFrame {
+                    projection: program.upper_storey_projection_metres,
+                    storey_height: program.storey_height_metres,
+                    base, section, tangent, outward,
+                    facade_walls: &facade_walls,
+                    line_length, storey_id: next_storey,
+                }.build(&mut builder, &mut storey_member_ids)
+            });
             line_storeys.push(crate::TimberStoreyFrame {
                 id: crate::TimberStoreyFrameId(next_storey),
                 level,
@@ -1231,57 +1088,29 @@ fn resolve_timber_frame_assembly(
         // 0.60 m end clearances are a coarse animation/buildability gate.
         let length = (if ridge_x { dimensions.x } else { dimensions.y } - 1.20).max(3.0);
         let row_offset = if ridge_x { dimensions.y } else { dimensions.x } * 0.20;
+        let stations=timber_hall::post_stations(centre,tangent,cross,row_offset,length,section*timber_hall::POST_SECTION_SCALE,openings);
+        let count=stations.len()-1;
         for side in [-1.0_f32, 1.0] {
             let row_centre = centre + cross * row_offset * side;
-            let count = (length / 3.0).ceil() as usize;
             let mut member_ids = Vec::new();
-            for index in 0..=count {
-                let along = -length * 0.5 + length * index as f32 / count as f32;
+            for (index,&along) in stations.iter().enumerate() {
                 let plan = row_centre + tangent * along;
                 member_ids.push(builder.member(
                     crate::TimberMemberRole::PrimaryPost,
                     Vec3::new(plan.x, 0.0, plan.y),
                     Vec3::new(plan.x, program.storey_height_metres, plan.y),
-                    section * 1.15,
+                    section * timber_hall::POST_SECTION_SCALE,
                     crate::TimberFramePhase::PrimaryConstruction,
                 ));
                 if index < count {
-                    let next_along = -length * 0.5 + length * (index + 1) as f32 / count as f32;
+                    let next_along = stations[index+1];
                     let next = row_centre + tangent * next_along;
-                    let brace_start = Vec3::new(plan.x, 0.0, plan.y);
-                    let brace_end = Vec3::new(next.x, program.storey_height_metres, next.y);
-                    let crosses_opening = openings.iter().any(|opening| {
-                        builder
-                            .geometry
-                            .voids
-                            .iter()
-                            .find(|void| void.id == opening.void_id)
-                            .is_some_and(|void| {
-                                (0..=32).any(|sample| {
-                                    let point = brace_start.lerp(brace_end, sample as f32 / 32.0);
-                                    point.x >= void.bounds.min.x - 0.08
-                                        && point.x <= void.bounds.max.x + 0.08
-                                        && point.y >= void.bounds.min.y - 0.08
-                                        && point.y <= void.bounds.max.y + 0.08
-                                        && point.z >= void.bounds.min.z - 0.08
-                                        && point.z <= void.bounds.max.z + 0.08
-                                })
-                            })
-                    });
-                    if !crosses_opening {
-                        member_ids.push(builder.member(
-                            crate::TimberMemberRole::FootBrace,
-                            brace_start,
-                            brace_end,
-                            section * 0.82,
-                            crate::TimberFramePhase::PrimaryConstruction,
-                        ));
-                    }
+                    member_ids.extend(timber_hall::aisle_head_braces(&mut builder,plan,next,program.storey_height_metres,section));
                 }
             }
             for index in 0..count {
-                let a_along = -length * 0.5 + length * index as f32 / count as f32;
-                let b_along = -length * 0.5 + length * (index + 1) as f32 / count as f32;
+                let a_along = stations[index];
+                let b_along = stations[index+1];
                 let a = row_centre + tangent * a_along;
                 let b = row_centre + tangent * b_along;
                 member_ids.push(builder.member(
@@ -1313,44 +1142,10 @@ fn resolve_timber_frame_assembly(
             next_line += 1;
             next_storey += 1;
         }
-        let tie_count = (length / 3.0).ceil() as usize;
-        for index in 0..=tie_count {
-            let along = -length * 0.5 + length * index as f32 / tie_count as f32;
+        for &along in &stations {
             let plan = centre + tangent * along;
             let a = plan - cross * row_offset;
             let b = plan + cross * row_offset;
-            let (brace_start, brace_end) = if index.is_multiple_of(2) {
-                (
-                    Vec3::new(a.x, 0.0, a.y),
-                    Vec3::new(b.x, program.storey_height_metres, b.y),
-                )
-            } else {
-                (
-                    Vec3::new(b.x, 0.0, b.y),
-                    Vec3::new(a.x, program.storey_height_metres, a.y),
-                )
-            };
-            let crosses_opening = openings.iter().any(|opening| {
-                builder
-                    .geometry
-                    .voids
-                    .iter()
-                    .find(|void| void.id == opening.void_id)
-                    .is_some_and(|void| {
-                        (0..=32).any(|sample| {
-                            let point = brace_start.lerp(brace_end, sample as f32 / 32.0);
-                            point.x >= void.bounds.min.x - 0.08
-                                && point.x <= void.bounds.max.x + 0.08
-                                && point.y >= void.bounds.min.y - 0.08
-                                && point.y <= void.bounds.max.y + 0.08
-                                && point.z >= void.bounds.min.z - 0.08
-                                && point.z <= void.bounds.max.z + 0.08
-                        })
-                    })
-            });
-            if crosses_opening {
-                continue;
-            }
             let tie = builder.member(
                 crate::TimberMemberRole::TransverseTie,
                 Vec3::new(a.x, program.storey_height_metres, a.y),
@@ -1358,14 +1153,8 @@ fn resolve_timber_frame_assembly(
                 section * 1.1,
                 crate::TimberFramePhase::RoofConstruction,
             );
-            let brace = builder.member(
-                crate::TimberMemberRole::StoreyBrace,
-                brace_start,
-                brace_end,
-                section * 0.82,
-                crate::TimberFramePhase::PrimaryConstruction,
-            );
-            let mut transverse_members = vec![tie, brace];
+            let mut transverse_members = vec![tie];
+            transverse_members.extend(timber_hall::aisle_head_braces(&mut builder, a, b, program.storey_height_metres, section));
             transverse_members.extend(builder.members.iter().filter_map(|member| {
                 (member.role == crate::TimberMemberRole::PrimaryPost
                     && ((member.start.distance(Vec3::new(a.x, 0.0, a.y)) <= 0.003
@@ -2088,7 +1877,8 @@ fn resolve_timber_frame_assembly(
             - 0.30)
             .clamp(0.0, stair_run);
         let cut_inner = flight_origin + flight_axis * clearance_start;
-        let cut_outer = flight_end + flight_axis * 0.30;
+        // The floor is the final tread: preserve its bearing at the flight end.
+        let cut_outer = flight_end;
         let clear_min = (cut_inner - clear_side)
             .min(cut_inner + clear_side)
             .min(cut_outer - clear_side)

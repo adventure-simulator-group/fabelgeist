@@ -45,6 +45,7 @@ pub enum FitRegion {
 }
 
 pub struct Wearer<'a> {
+    pub faces: &'a [[u32; 3]],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
     pub joint_indices: &'a [[u32; 8]],
@@ -116,6 +117,9 @@ impl Wearer<'_> {
     }
 
     pub fn frame(&self, region: FitRegion) -> Result<PartFrame> {
+        if let FitRegion::Elbow(side) = region {
+            return self.elbow_frame(side);
+        }
         let (proximal, distal, owners) = self.landmarks(region)?;
         let axial = normalized(subtract(proximal, distal))?;
         let eyes = midpoint(self.joint("l_eye")?, self.joint("r_eye")?);
@@ -253,7 +257,8 @@ impl Wearer<'_> {
                 ],
             ),
             UpperArm(s) | Shoulder(s) => limb(s, "uparm", "lowarm", &["uparm"]),
-            Forearm(s) | Elbow(s) => limb(s, "lowarm", "wrist", &["lowarm"]),
+            Forearm(s) => limb(s, "lowarm", "wrist", &["lowarm"]),
+            Elbow(s) => limb(s, "lowarm", "wrist", &["uparm", "lowarm"]),
             WholeArm(s) => limb(s, "uparm", "wrist", &["uparm", "lowarm"]),
             Thigh(s) => limb(s, "upleg", "lowleg", &["upleg"]),
             LowerLeg(s) | Knee(s) => limb(s, "lowleg", "foot", &["lowleg"]),
@@ -292,18 +297,9 @@ impl Wearer<'_> {
                 frame.origin = self.joint(&format!("{}_uparm", s.prefix()))?;
                 frame.half_extents[1] *= 0.48;
             }
-            FitRegion::Elbow(s) | FitRegion::Knee(s) => {
-                let joint = if matches!(region, FitRegion::Elbow(_)) {
-                    "lowarm"
-                } else {
-                    "lowleg"
-                };
-                frame.origin = self.joint(&format!("{}_{joint}", s.prefix()))?;
+            FitRegion::Knee(s) => {
+                frame.origin = self.joint(&format!("{}_lowleg", s.prefix()))?;
                 frame.half_extents[1] = frame.half_extents[0] * 0.85;
-                if matches!(region, FitRegion::Elbow(_)) {
-                    frame.axes[0] = frame.axes[0].map(|v| -v);
-                    frame.axes[2] = frame.axes[2].map(|v| -v);
-                }
                 // A cop's side fan must point away from the body on both limbs.
                 let outward = if matches!(s, Side::Left) { 1.0 } else { -1.0 };
                 if frame.axes[0][0] * outward < 0.0 {
@@ -315,6 +311,9 @@ impl Wearer<'_> {
         Ok(())
     }
 }
+
+#[path = "elbow_frame.rs"]
+mod elbow_frame;
 
 fn dot(a: [f32; 3], b: [f32; 3]) -> f32 {
     (0..3).map(|i| a[i] * b[i]).sum()
@@ -354,6 +353,7 @@ mod tests {
         let weights = [[0.125; 8]; 3];
         let joints = [[0.0; 8]; 4];
         let wearer = Wearer {
+            faces: &[],
             positions: &positions,
             normals: &positions,
             joint_indices: &indices,

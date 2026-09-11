@@ -1,15 +1,31 @@
 //! Deterministic, renderer-independent parametric armor fitted to canonical
 //! anatomical surface samples.
 
+mod helmet_crown;
+pub use helmet_crown::HelmetCrown;
+
 #[path = "breastplate_carrier.rs"]
 mod breastplate;
+mod breastplate_design;
+pub use breastplate_design::*;
+mod plate_fluting;
+mod plate_patch;
+pub use plate_fluting::{FluteCount, PlateFluting};
+mod components;
 mod design;
+pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
 mod mesh;
 pub mod parametric;
-pub use parametric::{PartFrame, PartMesh};
+pub use parametric::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
 mod garment_armor;
+mod garment_plate_design;
+mod gorget_plates;
+pub use garment_plate_design::GarmentPlateShape;
+pub use gorget_plates::{generate_gorget_plates, gorget_control_angle, gorget_surface_angle};
 mod helmets;
 mod limb_armor;
+mod pauldron;
+mod waist_armor;
 pub use garment_armor::{
     GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
     GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
@@ -17,13 +33,15 @@ pub use garment_armor::{
 };
 pub use helmets::*;
 pub use limb_armor::*;
+pub use pauldron::{PauldronCarrier, PauldronDesign};
+pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign, compose_waist};
 
 pub use breastplate::generate_breastplate;
 pub use design::*;
 pub use mesh::{GenerateError, generate_bracer};
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 9;
+pub const GENERATOR_VERSION: u16 = 13;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
@@ -52,6 +70,10 @@ pub fn breastplate_design_hash(design: &BreastplateDesign) -> Result<[u8; 32], D
 }
 
 pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignError> {
+    design.profile.validate()?;
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
+    }
     if design.catalog_id.trim().is_empty() {
         return Err(DesignError::EmptyCatalogId);
     }
@@ -59,16 +81,14 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
         || !(600..=1_400).contains(&design.neck_depth.0)
         || !(700..=1_300).contains(&design.arm_opening_depth.0)
         || !(750..=1_200).contains(&design.waist_width.0)
+        || !(700..=1100).contains(&design.back_depth.0)
         || !(650..=1_150).contains(&design.plate_length.0)
         || !(850..=1_080).contains(&design.side_return.0)
-        || design.front_crown.0 > 30
-        || !(18..=55).contains(&design.shoulder_band_width.0)
         || !(500..=1_600).contains(&design.skirt_length.0)
         || design.skirt_flare.0 > 70
         || !(1..=20).contains(&design.wall_thickness.0)
         || !(4..=30).contains(&design.front_clearance.0)
         || !(6..=35).contains(&design.back_clearance.0)
-        || !(4..=30).contains(&design.plate_gap.0)
     {
         return Err(DesignError::BreastplateEdges);
     }
@@ -76,6 +96,12 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
 }
 
 pub fn validate(design: &BracerDesign) -> Result<(), DesignError> {
+    if design.elbow_flare.0 > 15 || design.wrist_flare.0 > 15 || design.center_ridge.0 > 8 {
+        return Err(DesignError::Clearance);
+    }
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
+    }
     if design.catalog_id.trim().is_empty() {
         return Err(DesignError::EmptyCatalogId);
     }

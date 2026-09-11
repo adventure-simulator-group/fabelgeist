@@ -2,10 +2,13 @@
 
 mod armor_clearance;
 pub mod armor_design_input;
+pub mod armor_design_output;
 pub mod armor_frames;
+pub mod armor_layer;
 pub mod armor_recipes;
 pub mod bracer;
 pub mod breastplate;
+mod close_helmet_fit;
 pub mod clothing;
 mod clothing_material;
 mod coif_fit;
@@ -15,7 +18,10 @@ pub mod limb_fit;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
 pub mod export;
+pub mod fasteners;
 pub mod proportions;
+pub mod surface_cut;
+pub mod underlayer;
 pub use adventuresim_core::item_catalog_schema;
 
 use serde::{Deserialize, Serialize};
@@ -175,3 +181,5 @@ mod tests {
         assert!(recipe.clothing.is_empty());
     }
 }
+
+pub mod underlayer_material;

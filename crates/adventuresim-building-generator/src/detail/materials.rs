@@ -74,6 +74,7 @@ pub(super) fn material_for_solid_body(
         | SolidRole::FrameOrnament
         | SolidRole::OpeningClosure
         | SolidRole::ChurchStairNewel
+        | SolidRole::StairNewel
         | SolidRole::ChurchServiceLadder
         | SolidRole::ArtilleryBridgeBeam
         | SolidRole::ArtilleryBridgeDeck
@@ -85,6 +86,8 @@ pub(super) fn material_for_solid_body(
         | SolidRole::RoofPlate => BuildingLodMaterial::InteriorTimber,
         SolidRole::LeadedGlazing => BuildingLodMaterial::Glass,
         SolidRole::FrameFloor
+        | SolidRole::InteriorFloor
+        | SolidRole::StairTread
         | SolidRole::WalkSurface
         | SolidRole::DrainageChannel
         | SolidRole::DrainageFloor
@@ -99,6 +102,9 @@ pub(super) fn material_for_solid_body(
         | SolidRole::RoofEdgeTreatment
         | SolidRole::RoofGutter => BuildingLodMaterial::Roof(RoofMaterial::ClayTile),
         SolidRole::FrameInfill => BuildingLodMaterial::Wall(infill_material),
+        SolidRole::OpeningHead if wall_material == Some(WallMaterialClass::RubbleMasonry) => {
+            BuildingLodMaterial::DressedStone
+        }
         SolidRole::OpeningJamb | SolidRole::OpeningHead
             if wall_material == Some(WallMaterialClass::InternalTimber) =>
         {

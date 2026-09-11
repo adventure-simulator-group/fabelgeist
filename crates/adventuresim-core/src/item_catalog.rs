@@ -191,7 +191,7 @@ mod tests {
     fn embedded_catalog_is_sorted_unique_complete_and_revisioned() {
         // The source catalog expands each availability epoch into a compiled
         // definition; the generated weapon loop adds four epoch rows.
-        assert_eq!(catalog().len(), 175);
+        assert_eq!(catalog().len(), 180);
         assert!(revision().len() == 64 && revision().bytes().all(|b| b.is_ascii_hexdigit()));
         assert!(
             catalog()
@@ -223,8 +223,8 @@ mod tests {
             + "\n";
         assert_eq!(
             format!("{:x}", Sha256::digest(stable_ids.as_bytes())),
-            "18f979ee1740f78a890b9aefcc5e880155f5e8688c6bce8bf93b9e942d0597f1",
-            "stable-ID golden changed intentionally: complete plate harness was added; development data must be reseeded"
+            "e66b5f7c62c3bc3a1d1462c3a96ff383740ce19ebf909230d9910d46b16942d1",
+            "stable-ID golden includes the full pauldron"
         );
 
         let counts = catalog().iter().fold([0_u16; 10], |mut counts, item| {
@@ -245,7 +245,7 @@ mod tests {
         });
         // Holder chassis are simple catalog rows; their individual procedural
         // identities live in WeaponHolderInstance.
-        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 33, 29, 21]);
+        assert_eq!(counts, [47, 6, 16, 14, 3, 1, 5, 38, 29, 21]);
     }
 
     #[test]
@@ -357,7 +357,8 @@ mod tests {
                 equipment
                     .placements
                     .iter()
-                    .all(|placement| !placement.occupancy.is_empty()),
+                    .all(|placement| !placement.occupancy.is_empty()
+                        || !placement.parents.is_empty()),
                 "{}",
                 item.id
             );
@@ -522,7 +523,7 @@ mod tests {
             .iter()
             .filter_map(|item| item.equipment.as_ref().map(|equipment| (item, equipment)))
             .collect();
-        assert_eq!(equipment.len(), 77);
+        assert_eq!(equipment.len(), 82);
         for (item, equipment) in equipment {
             assert!(
                 equipment

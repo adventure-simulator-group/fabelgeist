@@ -10,10 +10,15 @@ use anyhow::{Context, Result, bail};
 use fabelgeist_mhr::math::{Transform, quat_from_matrix, quat_normalize};
 use serde_json::{Value, json};
 
+mod assembly;
 mod compact;
 mod glb;
 mod morphs;
+mod shell;
 mod skeleton;
+pub mod skinning;
+mod textures;
+pub use textures::{GlbOutput, SurfaceTextures};
 mod sockets;
 mod validation;
 use validation::validate;
@@ -45,44 +50,8 @@ const WEAPON_SOCKET_CALIBRATION: Transform = Transform {
     scale: 1.0,
 };
 
-pub struct RiggedMesh<'a> {
-    pub joint_proportions: &'a [adventuresim_core::character_proportions::JointProportionBasis],
-    pub morph_targets: &'a [RiggedMorphTarget<'a>],
-    pub positions: &'a [[f32; 3]],
-    pub normals: &'a [[f32; 3]],
-    pub faces: &'a [[u32; 3]],
-    /// Whether the source body faces are emitted as a rendered primitive.
-    /// Shell-only equipment still supplies them to locate authored sockets.
-    pub export_body: bool,
-    pub joint_indices: &'a [[u32; 8]],
-    pub joint_weights: &'a [[f32; 8]],
-    pub joint_names: &'a [String],
-    pub joint_parents: &'a [i32],
-    /// Identity-shaped global MHR transforms, in metres.
-    pub global_joint_states: &'a [[f32; 8]],
-}
-
-pub struct RiggedShell<'a> {
-    pub name: &'a str,
-    pub positions: &'a [[f32; 3]],
-    pub normals: &'a [[f32; 3]],
-    pub faces: &'a [[u32; 3]],
-    /// Independent armor topology supplies its own skin. Body-topology
-    /// clothing leaves these empty and reuses the body's skin arrays.
-    pub joint_indices: Option<&'a [[u32; 8]]>,
-    pub joint_weights: Option<&'a [[f32; 8]]>,
-    pub morph_targets: &'a [RiggedMorphTarget<'a>],
-    /// Artist-facing sRGB color. glTF factors are converted to linear RGB.
-    pub base_color: [f32; 4],
-    pub metallic: f32,
-    pub roughness: f32,
-}
-
-pub struct RiggedMorphTarget<'a> {
-    pub name: &'a str,
-    pub position_deltas: &'a [[f32; 3]],
-    pub normal_deltas: &'a [[f32; 3]],
-}
+mod rigged;
+pub use rigged::{RiggedMesh, RiggedMorphTarget, RiggedShell};
 
 pub struct RiggedSocket<'a> {
     pub attachment_point_id: &'a str,
@@ -680,10 +649,9 @@ fn linear_base_color([red, green, blue, alpha]: [f32; 4]) -> [f32; 4] {
     [channel(red), channel(green), channel(blue), alpha]
 }
 
-/// Writes a self-contained, zero-animation GLB suitable for Cascadeur and the
-/// runtime base-rig preparation pipeline.
+/// Writes a zero-animation GLB using the requested texture packaging contract.
 pub fn export_rigged_glb(
-    path: &Path,
+    output: GlbOutput<'_>,
     character_name: &str,
     recipe_version: u8,
     lod: u8,
@@ -715,38 +683,8 @@ pub fn export_rigged_glb(
         &f32_bytes(mesh.normals.iter().flatten().copied()),
         Some(34_962),
     );
-    let joints_0 = buffer.push(
-        &u16_bytes(
-            mesh.joint_indices
-                .iter()
-                .flat_map(|indices| indices[..4].iter().map(|value| *value as u16)),
-        ),
-        Some(34_962),
-    );
-    let weights_0 = buffer.push(
-        &f32_bytes(
-            mesh.joint_weights
-                .iter()
-                .flat_map(|weights| weights[..4].iter().copied()),
-        ),
-        Some(34_962),
-    );
-    let joints_1 = buffer.push(
-        &u16_bytes(
-            mesh.joint_indices
-                .iter()
-                .flat_map(|indices| indices[4..].iter().map(|value| *value as u16)),
-        ),
-        Some(34_962),
-    );
-    let weights_1 = buffer.push(
-        &f32_bytes(
-            mesh.joint_weights
-                .iter()
-                .flat_map(|weights| weights[4..].iter().copied()),
-        ),
-        Some(34_962),
-    );
+    let (joints_0, weights_0) =
+        skinning::append(&mut buffer, mesh.joint_indices, mesh.joint_weights);
     let exported_faces = if mesh.export_body { mesh.faces } else { &[] };
     let indices = buffer.push(
         &u32_bytes(exported_faces.iter().flatten().copied()),
@@ -767,40 +705,10 @@ pub fn export_rigged_glb(
                 &u32_bytes(shell.faces.iter().flatten().copied()),
                 Some(34_963),
             );
-            let skin =
-                shell.joint_indices.zip(shell.joint_weights).map(
-                    |(joint_indices, joint_weights)| {
-                        let joints_0 = buffer.push(
-                            &u16_bytes(joint_indices.iter().flat_map(|indices| {
-                                indices[..4].iter().map(|value| *value as u16)
-                            })),
-                            Some(34_962),
-                        );
-                        let weights_0 = buffer.push(
-                            &f32_bytes(
-                                joint_weights
-                                    .iter()
-                                    .flat_map(|weights| weights[..4].iter().copied()),
-                            ),
-                            Some(34_962),
-                        );
-                        let joints_1 = buffer.push(
-                            &u16_bytes(joint_indices.iter().flat_map(|indices| {
-                                indices[4..].iter().map(|value| *value as u16)
-                            })),
-                            Some(34_962),
-                        );
-                        let weights_1 = buffer.push(
-                            &f32_bytes(
-                                joint_weights
-                                    .iter()
-                                    .flat_map(|weights| weights[4..].iter().copied()),
-                            ),
-                            Some(34_962),
-                        );
-                        (joints_0, weights_0, joints_1, weights_1)
-                    },
-                );
+            let skin = shell
+                .joint_indices
+                .zip(shell.joint_weights)
+                .map(|(joints, weights)| skinning::append(&mut buffer, joints, weights));
             (positions, normals, indices, skin)
         })
         .collect::<Vec<_>>();
@@ -921,8 +829,6 @@ pub fn export_rigged_glb(
     let normal_accessor = accessor(normals, 5_126, mesh.normals.len(), "VEC3", None);
     let joints_0_accessor = accessor(joints_0, 5_123, mesh.positions.len(), "VEC4", None);
     let weights_0_accessor = accessor(weights_0, 5_126, mesh.positions.len(), "VEC4", None);
-    let joints_1_accessor = accessor(joints_1, 5_123, mesh.positions.len(), "VEC4", None);
-    let weights_1_accessor = accessor(weights_1, 5_126, mesh.positions.len(), "VEC4", None);
     let index_accessor = accessor(indices, 5_125, exported_faces.len() * 3, "SCALAR", None);
     let inverse_bind_accessor = accessor(
         inverse_bind_matrices,
@@ -940,8 +846,6 @@ pub fn export_rigged_glb(
                 "NORMAL": normal_accessor,
                 "JOINTS_0": joints_0_accessor,
                 "WEIGHTS_0": weights_0_accessor,
-                "JOINTS_1": joints_1_accessor,
-                "WEIGHTS_1": weights_1_accessor,
             },
             "indices": index_accessor,
             "material": 0,
@@ -955,59 +859,15 @@ pub fn export_rigged_glb(
             }
         }));
     }
-    for (shell, (position_view, normal_view, index_view, skin_views)) in
-        shells.iter().zip(shell_views)
-    {
-        let (minimum, maximum) = position_bounds(shell.positions);
-        let shell_position_accessor = accessor(
-            position_view,
-            5_126,
-            shell.positions.len(),
-            "VEC3",
-            Some((minimum, maximum)),
-        );
-        let shell_index_accessor =
-            accessor(index_view, 5_125, shell.faces.len() * 3, "SCALAR", None);
-        let shell_normal_accessor = accessor(normal_view, 5_126, shell.normals.len(), "VEC3", None);
-        let (shell_joints_0, shell_weights_0, shell_joints_1, shell_weights_1) =
-            if let Some((joints_0, weights_0, joints_1, weights_1)) = skin_views {
-                (
-                    accessor(joints_0, 5_123, shell.positions.len(), "VEC4", None),
-                    accessor(weights_0, 5_126, shell.positions.len(), "VEC4", None),
-                    accessor(joints_1, 5_123, shell.positions.len(), "VEC4", None),
-                    accessor(weights_1, 5_126, shell.positions.len(), "VEC4", None),
-                )
-            } else {
-                (
-                    joints_0_accessor,
-                    weights_0_accessor,
-                    joints_1_accessor,
-                    weights_1_accessor,
-                )
-            };
-        let material = material_values.len();
-        let primitive = json!({
-            "attributes": {
-                "POSITION": shell_position_accessor,
-                "NORMAL": shell_normal_accessor,
-                "JOINTS_0": shell_joints_0,
-                "WEIGHTS_0": shell_weights_0,
-                "JOINTS_1": shell_joints_1,
-                "WEIGHTS_1": shell_weights_1,
-            },
-            "indices": shell_index_accessor,
-            "material": material,
-        });
-        primitives.push(primitive);
-        material_values.push(json!({
-            "name": shell.name,
-            "pbrMetallicRoughness": {
-                "baseColorFactor": linear_base_color(shell.base_color),
-                "metallicFactor": shell.metallic,
-                "roughnessFactor": shell.roughness,
-            }
-        }));
+    let mut texture_images = textures::TextureImages::new(output);
+    shell::Writer {
+        buffer: &mut buffer,
+        primitives: &mut primitives,
+        materials: &mut material_values,
+        body_skin: [joints_0_accessor, weights_0_accessor],
+        textures: &mut texture_images,
     }
+    .append(shells, shell_views, accessor);
 
     let (mut nodes, roots) = skeleton::nodes(&joint_names, &joint_parents, &globals, mesh)?;
     // Keep one stable, non-joint hierarchy root. Bevy uses this node as the
@@ -1015,47 +875,21 @@ pub fn export_rigged_glb(
     // when the base rig is used to author motion files.
     let skeleton_node = nodes.len();
     nodes.push(json!({"name": "Skeleton", "children": roots}));
-    let mesh_node = nodes.len();
-    nodes.push(json!({"name": character_name, "mesh": 0, "skin": 0}));
     let skeleton_root = mesh
         .joint_parents
         .iter()
         .position(|parent| *parent < 0)
         .context("MHR skeleton has no root")?;
     sockets::append(&mut nodes, mesh, sockets)?;
-    let scene_nodes = vec![skeleton_node, mesh_node];
-    let mut extras = json!({
-        "adventuresim_character": {
-            "name": character_name,
-            "recipe_version": recipe_version,
-            "mhr_release": "v1.0.1",
-            "lod": lod,
-            "equipment": shells.iter().map(|shell| shell.name).collect::<Vec<_>>(),
-        },
-        "adventuresim_rig": {
-            "family": "mhr",
-            "neutral_pose": "T-pose",
-            "units": "metres",
-            "up_axis": "+Y",
-            "forward_axis": "-Z",
-            "attachments": attachments,
-        },
-    });
-    if !sockets.is_empty() {
-        extras["adventuresim_equipment"] = json!({
-            "attachment_sockets": sockets.iter().map(|socket| json!({
-                "attachment_point_id": socket.attachment_point_id,
-                "node": format!("{EQUIPMENT_SOCKET_NODE_PREFIX}{}", socket.attachment_point_id),
-                "space": "pelvis_local",
-                "surface_uv": {
-                    "domain": socket.surface_uv_domain,
-                    "uv": socket.surface_uv
-                },
-                "tangent_axis": "+Y",
-                "normal_axis": "+Z"
-            })).collect::<Vec<_>>(),
-        });
-    }
+    let mut scene_nodes = vec![skeleton_node];
+    let extras = assembly::extras(
+        character_name,
+        recipe_version,
+        lod,
+        shells,
+        sockets,
+        &attachments,
+    );
     let mut exported_mesh = json!({
         "name": character_name,
         "primitives": primitives,
@@ -1067,12 +901,20 @@ pub fn export_rigged_glb(
         &mut buffer,
         &mut accessors,
     );
-    let document = json!({
+    let exported_meshes = assembly::append(
+        exported_mesh,
+        mesh,
+        shells,
+        character_name,
+        &mut nodes,
+        &mut scene_nodes,
+    );
+    let mut document = json!({
         "asset": {"version": "2.0", "generator": "Fabelgeist MHR character creator"},
         "scene": 0,
         "scenes": [{"name": "Character", "nodes": scene_nodes}],
         "nodes": nodes,
-        "meshes": [exported_mesh],
+        "meshes": exported_meshes,
         "materials": material_values,
         "skins": [{
             "name": "MHR",
@@ -1086,7 +928,9 @@ pub fn export_rigged_glb(
         "extras": extras
     });
 
-    glb::write(path, &document, buffer.bytes)
+    texture_images.finish(output, &mut document)?;
+
+    glb::write(output.path(), &document, buffer.bytes)
 }
 
 #[cfg(test)]
@@ -1154,7 +998,7 @@ mod tests {
     }
 
     #[test]
-    fn exports_two_sets_of_skin_influences_and_a_zero_animation_rig() {
+    fn exports_four_normalized_skin_influences_and_a_zero_animation_rig() {
         let directory =
             std::env::temp_dir().join(format!("fabelgeist-mhr-export-{}", std::process::id()));
         let path = directory.join("character.glb");
@@ -1178,7 +1022,7 @@ mod tests {
         ];
         bases[0].translation_metres[BodyProportion::HipWidth.index()] = [0.1, 0.0, 0.0];
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "Test",
             1,
             1,
@@ -1275,10 +1119,24 @@ mod tests {
                 .sum::<f64>();
             assert!(rotation_alignment.abs() > 1.0 - 1e-6);
         }
-        assert_eq!(
-            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"],
-            4
-        );
+        let attributes = &document["meshes"][0]["primitives"][0]["attributes"];
+        assert!(attributes.get("JOINTS_1").is_none());
+        assert!(attributes.get("WEIGHTS_1").is_none());
+        let accessor = &document["accessors"][attributes["WEIGHTS_0"].as_u64().unwrap() as usize];
+        let view = &document["bufferViews"][accessor["bufferView"].as_u64().unwrap() as usize];
+        let offset = view["byteOffset"].as_u64().unwrap() as usize;
+        for row in parsed.blob.as_ref().unwrap()[offset..offset + positions.len() * 16]
+            .as_chunks::<16>()
+            .0
+        {
+            let sum: f32 = row
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .map(|bytes| f32::from_le_bytes(*bytes))
+                .sum();
+            assert!((sum - 1.0).abs() < 1e-6);
+        }
         assert!(document.get("animations").is_none());
         assert_eq!(document["extras"]["adventuresim_rig"]["family"], "mhr");
         let _ = fs::remove_dir_all(directory);
@@ -1295,7 +1153,7 @@ mod tests {
         let joint_parents = [-1];
         let global_joint_states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
         let result = export_rigged_glb(
-            Path::new("unused.glb"),
+            GlbOutput::Standalone(Path::new("unused.glb")),
             "Test",
             1,
             1,
@@ -1356,6 +1214,10 @@ mod tests {
             normal_deltas: &normal_delta,
         }];
         let shell = RiggedShell {
+            plate_edges: &[],
+            textures: None,
+            texcoords: None,
+            hinge: None,
             name: "Tunic",
             positions: &shell_positions,
             normals: &normals,
@@ -1368,7 +1230,7 @@ mod tests {
             roughness: 0.9,
         };
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "Test",
             2,
             1,
@@ -1392,20 +1254,21 @@ mod tests {
         let bytes = fs::read(&path).unwrap();
         let document = read_document(&bytes);
         let parsed = gltf::Gltf::from_slice(&bytes).unwrap();
-        assert_eq!(parsed.meshes().next().unwrap().primitives().count(), 2);
+        assert_eq!(parsed.meshes().count(), 2);
+        assert!(parsed.meshes().all(|mesh| mesh.primitives().count() == 1));
         assert_eq!(document["materials"][1]["name"], "Tunic");
         let red = document["materials"][1]["pbrMetallicRoughness"]["baseColorFactor"][0]
             .as_f64()
             .unwrap();
         assert!((red - 0.010_022_8).abs() < 1e-6);
-        assert_eq!(document["meshes"][0]["primitives"][1]["material"], 1);
+        assert_eq!(document["meshes"][1]["primitives"][0]["material"], 1);
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["NORMAL"],
+            document["meshes"][1]["primitives"][0]["attributes"]["NORMAL"],
             document["meshes"][0]["primitives"][0]["attributes"]["NORMAL"]
         );
         assert_ne!(
-            document["meshes"][0]["primitives"][1]["attributes"]["JOINTS_1"],
-            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_1"]
+            document["meshes"][1]["primitives"][0]["attributes"]["JOINTS_0"],
+            document["meshes"][0]["primitives"][0]["attributes"]["JOINTS_0"]
         );
         assert_eq!(
             document["meshes"][0]["extras"]["targetNames"],
@@ -1413,10 +1276,10 @@ mod tests {
         );
         assert_eq!(document["meshes"][0]["weights"], json!([0.0]));
         for (index, expected) in [0.1_f32, 0.2].into_iter().enumerate() {
-            let target = &document["meshes"][0]["primitives"][index]["targets"][0];
+            let target = &document["meshes"][index]["primitives"][0]["targets"][0];
             let accessor = &document["accessors"][target["POSITION"].as_u64().unwrap() as usize];
             assert_eq!(accessor["count"], if index == 0 { 4 } else { 3 });
-            let skin = document["meshes"][0]["primitives"][index]["attributes"]["JOINTS_1"]
+            let skin = document["meshes"][index]["primitives"][0]["attributes"]["JOINTS_0"]
                 .as_u64()
                 .unwrap() as usize;
             assert_eq!(document["accessors"][skin]["count"], accessor["count"]);
@@ -1450,6 +1313,10 @@ mod tests {
         ];
         let shell_faces = [[0, 1, 2]];
         let shell = RiggedShell {
+            plate_edges: &[],
+            textures: None,
+            texcoords: None,
+            hinge: None,
             name: "Leather belt",
             positions: &positions,
             normals: &normals,
@@ -1473,7 +1340,7 @@ mod tests {
         };
 
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "leather_belt",
             1,
             1,
@@ -1574,6 +1441,10 @@ mod tests {
             normal_deltas: &normal_deltas,
         };
         let shell = RiggedShell {
+            plate_edges: &[],
+            textures: None,
+            texcoords: None,
+            hinge: None,
             name: "Parametric bracer",
             positions: &armor_positions,
             normals: &armor_normals,
@@ -1586,7 +1457,7 @@ mod tests {
             roughness: 0.2,
         };
         export_rigged_glb(
-            &path,
+            GlbOutput::Standalone(&path),
             "bracer",
             1,
             4,
@@ -1703,6 +1574,10 @@ mod tests {
             global_joint_states: &global_joint_states,
         };
         let shell = RiggedShell {
+            plate_edges: &[],
+            textures: None,
+            texcoords: None,
+            hinge: None,
             name: "Belt",
             positions: &positions,
             normals: &normals,
@@ -1755,6 +1630,10 @@ mod tests {
         assert!((bootstrapped[1] - 0.5).abs() < 1e-6);
 
         let open_shell = RiggedShell {
+            plate_edges: &[],
+            textures: None,
+            texcoords: None,
+            hinge: None,
             name: "Invalid open belt",
             positions: &positions,
             normals: &normals,

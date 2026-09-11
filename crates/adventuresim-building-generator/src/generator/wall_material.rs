@@ -46,7 +46,12 @@ pub(super) fn wall_material_and_thickness(
             crate::WallStructuralRole::Infill,
             0.22,
         ),
-        BuildingArchetype::ParishChurch | BuildingArchetype::Workplace => (
+        BuildingArchetype::ParishChurch => (
+            crate::WallMaterialClass::RubbleMasonry,
+            crate::WallStructuralRole::LoadBearing,
+            0.50,
+        ),
+        BuildingArchetype::Workplace => (
             crate::WallMaterialClass::CivilianMasonry,
             crate::WallStructuralRole::LoadBearing,
             0.50,

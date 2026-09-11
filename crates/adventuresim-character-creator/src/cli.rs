@@ -23,6 +23,9 @@ pub(super) struct Args {
     pub(super) catalog: PathBuf,
     #[arg(long, default_value = "assets/equipment/procedural")]
     pub(super) equipment_output: PathBuf,
+    /// Vambrace design for studio, review, character and equipment exports.
+    #[arg(long)]
+    pub(super) bracer_design: Option<PathBuf>,
     /// BreastplateDesign JSON for studio, character, and equipment exports.
     #[arg(long)]
     pub(super) breastplate_design: Option<PathBuf>,
@@ -41,6 +44,9 @@ pub(super) struct Args {
     /// Typed recipe overrides, keyed by catalog item ID, for preview and exports.
     #[arg(long)]
     pub(super) armor_designs: Option<PathBuf>,
+    /// Leather closure dimensions and fastening layouts for preview and exports.
+    #[arg(long)]
+    pub(super) fastener_designs: Option<PathBuf>,
     /// Write editable default recipes for every new parametric family.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,

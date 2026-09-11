@@ -28,20 +28,29 @@ use serde::Serialize;
 
 mod building_review;
 mod buildings;
+mod camera_obstruction;
 mod capture_state;
 mod capture_visibility;
 mod city_capture;
+mod furniture_capture;
+mod furniture_overlay;
+mod furniture_readiness;
+mod gpu_readiness;
 mod interior_capture;
+mod interior_furniture_capture;
 mod manifest;
 mod terrain_setup;
 mod triangle_census;
 mod view_camera;
 mod view_specs;
 use buildings::spawn_tactical_buildings;
+#[cfg(test)]
+use capture_state::lighting_samples_stable;
 use capture_state::{
-    CapturePhase, CaptureReadback, SceneCaptureState, deterministic_readback_hash,
-    foliage_detail_pixel_bps, foreground_pixel_bps, lighting_samples_stable, luminance_delta,
-    mean_luminance, tree_canopy_pixel_bps,
+    CapturePhase, CaptureReadback, LightingConvergence, SceneCaptureState,
+    deterministic_readback_hash, foliage_detail_pixel_bps, foreground_pixel_bps,
+    lighting_convergence, luminance_delta, mean_luminance, settled_luminance_samples,
+    tree_canopy_pixel_bps,
 };
 use manifest::{
     CaptureRecord, CaptureTonemapping, CelestialProvenance, FoliageSummary,
@@ -87,12 +96,12 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 28;
+const CAPTURE_PROFILE_VERSION: u16 = 33;
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 19;
+const CAMERA_VERSION: u16 = 21;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -884,12 +893,7 @@ pub(crate) fn run(
     .add_plugins(capture_presentation_plugin())
     .insert_resource(ClearColor(Color::srgb_u8(158, 181, 195)))
     .insert_resource(SceneSetup(Some(setup)));
-    if matches!(
-        profile,
-        building_review::SHOP_PROFILE | building_review::WORKPLACE_PROFILE
-    ) {
-        app.add_plugins(building_review::BuildingReviewPlugin);
-    }
+    furniture_readiness::install(&mut app, profile);
     if terrain_wireframe {
         app.add_plugins(WireframePlugin::default())
             .insert_resource(TerrainWireframeCaptureState::new(wireframe_output));
@@ -931,7 +935,12 @@ pub(crate) fn run(
     } else if scene_performance_benchmarking {
         app.add_systems(Last, benchmark_scene_performance);
     } else {
-        app.add_systems(Last, capture_views.run_if(building_review::ready));
+        app.add_systems(
+            Last,
+            capture_views
+                .run_if(building_review::ready)
+                .run_if(furniture_readiness::ready),
+        );
     }
     let exit = app.run();
     if exit != AppExit::Success {
@@ -1108,8 +1117,14 @@ fn selected_capture_views(
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
         INTERIOR_REVIEW_PROFILE => INTERIOR_REVIEW_VIEWS.as_slice(),
         CITY_REVIEW_PROFILE => CITY_REVIEW_VIEWS.as_slice(),
+        furniture_capture::PROFILE => view_specs::FURNITURE_REVIEW_VIEWS.as_slice(),
+        interior_furniture_capture::PROFILE => interior_furniture_capture::VIEWS.as_slice(),
+        interior_furniture_capture::ROOMS_PROFILE => {
+            interior_furniture_capture::ROOM_VIEWS.as_slice()
+        }
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
+        building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
@@ -1333,6 +1348,9 @@ mod capture_lighting_tests {
             "semantic",
             "environment-review",
             "landform-review",
+            furniture_capture::PROFILE,
+            interior_furniture_capture::PROFILE,
+            interior_furniture_capture::ROOMS_PROFILE,
             "animation-play",
             "tree-cold-traversal",
             "beech-leaf-motion",
@@ -1724,19 +1742,11 @@ fn setup_scene(
         ground,
         obstacles,
         buildings,
+        mut furniture,
         repairs,
         terrain_patch,
     } = generated;
-    let terrain_summary = TerrainSummary {
-        width_metres: terrain.width(),
-        depth_metres: terrain.depth(),
-        source_spacing_metres: input.playable.spacing_metres,
-        spacing_metres: terrain.grid_scale(),
-        source_samples: input.playable.heights_metres.len(),
-        generated_samples: terrain.grid_width() * terrain.grid_depth(),
-        minimum_height_metres: terrain.minimum_height(),
-        maximum_height_metres: terrain.maximum_height(),
-    };
+    let terrain_summary = TerrainSummary::new(&input, &terrain);
     let (
         vista_diameter_metres,
         vista_minimum_metres,
@@ -1764,7 +1774,21 @@ fn setup_scene(
     let mut rock_focus = None;
     let mut tree_focus_entity = None;
 
-    let building_interior_cameras = interior_capture::capture_cameras(&buildings, &profile);
+    let catalog_cameras = interior_furniture_capture::setup_catalog(
+        &mut commands,
+        &mut furniture,
+        &terrain,
+        &profile,
+        &output,
+    );
+    let building_interior_cameras = interior_furniture_capture::setup_rooms(
+        &mut commands,
+        &buildings,
+        &furniture,
+        &profile,
+        &output,
+    )
+    .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
     let city_exterior_cameras =
         building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
             .unwrap_or_else(|| {
@@ -1776,6 +1800,18 @@ fn setup_scene(
                     &profile,
                 )
             });
+    let city_exterior_cameras = furniture_capture::setup(
+        &mut commands,
+        &furniture,
+        &terrain,
+        &profile,
+        &output,
+        &mut meshes,
+        &mut materials,
+    )
+    .unwrap_or(city_exterior_cameras);
+    let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
+    furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
@@ -2094,6 +2130,8 @@ fn setup_scene(
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        furniture_groups: furniture.groups,
+        distant_furniture: furniture.distant_instances,
         lods: input.vista.lods.clone(),
     });
     commands.insert_resource(SceneCaptureState {
@@ -3441,16 +3479,24 @@ fn capture_views(
                 },
             );
         }
+        if let Projection::Perspective(projection) = &mut *camera.3 {
+            projection.fov = view.fov_degrees.to_radians();
+        }
         let (transform, target, obstruction) = match view.pose {
             CapturePose::AnimationPlayObstruction { yaw_degrees } => {
-                animation_play_obstruction_camera(state, &lighting.spatial, yaw_degrees)
+                camera_obstruction::animation_play_obstruction_camera(
+                    state,
+                    &lighting.spatial,
+                    &camera.3,
+                    yaw_degrees,
+                )
             }
             CapturePose::AnimationPlayBoundary {
                 player_x,
                 player_z,
                 yaw_degrees,
-            } => animation_play_boundary_camera(
-                state,
+            } => camera_obstruction::animation_play_boundary_camera(
+                &camera.3,
                 lighting.terrain.single().expect("one tactical terrain"),
                 &lighting.spatial,
                 player_x,
@@ -3551,9 +3597,6 @@ fn capture_views(
             } else {
                 0.0
             };
-        }
-        if let Projection::Perspective(projection) = &mut *camera.3 {
-            projection.fov = view.fov_degrees.to_radians();
         }
         for mut visibility in &mut overlays {
             *visibility = if view.overlay {
@@ -3704,10 +3747,11 @@ fn capture_views(
     }
 
     // Bevy's asynchronous window readback can still contain the render world
-    // from before a camera transition. Prime one disposable readback per view,
-    // then capture again without changing any scene or camera state.
-    let required_prime_readbacks = if temporal_motion { 0 } else { 2 };
-    if prime_readbacks < required_prime_readbacks {
+    // from before a camera transition. Retain bounded disposable readbacks until
+    // consecutive lighting samples settle, without changing scene or camera state.
+    if !temporal_motion
+        && lighting_convergence(&state.lighting_luminance_samples) == LightingConvergence::Pending
+    {
         state.phase = CapturePhase::Readback {
             view: state.view,
             prime_readbacks,
@@ -3772,9 +3816,11 @@ fn capture_views(
         record
             .lighting_luminance_samples
             .clone_from(&state.lighting_luminance_samples);
-        record.lighting_luminance_delta = luminance_delta(&state.lighting_luminance_samples);
-        record.lighting_ready =
-            temporal_motion || lighting_samples_stable(&state.lighting_luminance_samples);
+        record.lighting_luminance_delta =
+            luminance_delta(settled_luminance_samples(&state.lighting_luminance_samples));
+        record.lighting_ready = temporal_motion
+            || lighting_convergence(&state.lighting_luminance_samples)
+                == LightingConvergence::Ready;
     }
     let celestial = capture_celestial(
         state.absolute_minute,
@@ -4102,100 +4148,6 @@ fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, 
     (
         Transform::from_translation(position).looking_at(target, up),
         target,
-    )
-}
-
-fn animation_play_obstruction_camera(
-    state: &SceneCaptureState,
-    spatial: &SpatialQuery,
-    yaw_degrees: f32,
-) -> (Transform, Vec3, Option<CameraObstructionObservation>) {
-    let config = CameraRigConfig::default();
-    let Some(tree) = state.tree_focus else {
-        let (transform, target) =
-            camera_for_view(CapturePose::AnimationPlay { yaw_degrees }, state);
-        return (
-            transform,
-            target,
-            Some(CameraObstructionObservation {
-                desired_metres: config.lowered.distance,
-                resolved_metres: config.lowered.distance,
-                hit: false,
-            }),
-        );
-    };
-    let yaw = Quat::from_rotation_y(yaw_degrees.to_radians());
-    let outward = yaw * Vec3::Z;
-    let tree_root_y = tree.y - TREE_TRUNK_HEIGHT_METRES * 0.5;
-    let target = Vec3::new(tree.x, tree_root_y + 1.35, tree.z) + outward * 0.95;
-    let backward = -outward;
-    let cast_direction = Dir3::new(backward).unwrap_or(Dir3::Z);
-    let cast = spatial.cast_shape(
-        &Collider::sphere(config.collision_radius),
-        target,
-        Quat::IDENTITY,
-        cast_direction,
-        &ShapeCastConfig::from_max_distance(config.lowered.distance)
-            .with_target_distance(config.collision_margin),
-        &SpatialQueryFilter::default(),
-    );
-    let distance = cast
-        .map_or(config.lowered.distance, |hit| hit.distance)
-        .clamp(0.0, config.lowered.distance);
-    let position = target + backward * distance;
-    let observation = CameraObstructionObservation {
-        desired_metres: config.lowered.distance,
-        resolved_metres: distance,
-        hit: cast.is_some(),
-    };
-    (
-        Transform::from_translation(position).looking_at(target, Vec3::Y),
-        target,
-        Some(observation),
-    )
-}
-
-fn animation_play_boundary_camera(
-    _state: &SceneCaptureState,
-    terrain: &SceneTerrain,
-    spatial: &SpatialQuery,
-    player_x: f32,
-    player_z: f32,
-    yaw_degrees: f32,
-) -> (Transform, Vec3, Option<CameraObstructionObservation>) {
-    let config = CameraRigConfig::default();
-    let yaw = Quat::from_rotation_y(yaw_degrees.to_radians());
-    let backward = yaw * Vec3::Z;
-    let focus = Vec3::new(
-        player_x,
-        terrain
-            .height_at(Vec2::new(player_x, player_z))
-            .unwrap_or_default()
-            + 1.48,
-        player_z,
-    );
-    let cast_direction = Dir3::new(backward).unwrap_or(Dir3::Z);
-    let cast = spatial.cast_shape(
-        &Collider::sphere(config.collision_radius),
-        focus,
-        yaw,
-        cast_direction,
-        &ShapeCastConfig::from_max_distance(config.lowered.distance)
-            .with_target_distance(config.collision_margin),
-        &SpatialQueryFilter::default(),
-    );
-    let distance = cast
-        .map_or(config.lowered.distance, |hit| hit.distance)
-        .clamp(0.0, config.lowered.distance);
-    let position = focus + backward * distance;
-    (
-        Transform::from_translation(position).looking_at(focus, Vec3::Y),
-        focus,
-        Some(CameraObstructionObservation {
-            desired_metres: config.lowered.distance,
-            resolved_metres: distance,
-            hit: cast.is_some(),
-        }),
     )
 }
 

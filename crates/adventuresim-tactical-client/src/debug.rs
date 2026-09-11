@@ -15,7 +15,7 @@ use bevy_enhanced_input::prelude::{ActionMock, Actions};
 
 use crate::{
     animation::TerrainIkEnabled,
-    camera::{CameraAimState, CameraDebugEnabled, CameraRigConfig, CameraRigDebugState},
+    camera::{CameraAimState, CameraDebugEnabled, CameraRigDebugState},
     player::{ClientPlayer, HitPerformed, LimbHitbox},
 };
 
@@ -277,16 +277,19 @@ fn draw_camera_rig(
     enabled: Res<CameraDebugEnabled>,
     rig: Res<CameraRigDebugState>,
     aim: Res<CameraAimState>,
-    config: Res<CameraRigConfig>,
     mut gizmos: Gizmos,
 ) {
     if !enabled.0 || !rig.active {
         return;
     }
     gizmos.line(rig.subject, rig.focus, tailwind::LIME_400);
-    gizmos.line(rig.focus, rig.shoulder, tailwind::SKY_300);
-    gizmos.line(rig.shoulder, rig.desired_endpoint, tailwind::AMBER_300);
-    gizmos.line(rig.shoulder, rig.final_endpoint, tailwind::CYAN_300);
+    gizmos.line(rig.focus, rig.collision_origin, tailwind::SKY_300);
+    gizmos.line(
+        rig.collision_origin,
+        rig.desired_endpoint,
+        tailwind::AMBER_300,
+    );
+    gizmos.line(rig.collision_origin, rig.final_endpoint, tailwind::CYAN_300);
     if rig.collision_entity.is_some() {
         gizmos.line(
             rig.final_endpoint,
@@ -301,17 +304,7 @@ fn draw_camera_rig(
             tailwind::ORANGE_400,
         );
     }
-    let radius = Vec3::splat(config.collision_radius);
-    gizmos.line(
-        rig.final_endpoint - Vec3::X * radius.x,
-        rig.final_endpoint + Vec3::X * radius.x,
-        tailwind::CYAN_200,
-    );
-    gizmos.line(
-        rig.final_endpoint - Vec3::Y * radius.y,
-        rig.final_endpoint + Vec3::Y * radius.y,
-        tailwind::CYAN_200,
-    );
+    gizmos.cube(rig.collision_volume, tailwind::CYAN_200);
     if aim.active {
         gizmos.line(aim.camera_origin, aim.camera_target, tailwind::PURPLE_300);
         gizmos.line(

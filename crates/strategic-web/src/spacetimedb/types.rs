@@ -1151,8 +1151,9 @@ impl From<sats::Item> for CatalogItemView {
                         parents: parents
                             .into_iter()
                             .map(|requirement| {
-                                let sats::ParentRequirement { channel, order } = requirement;
+                                let sats::ParentRequirement { channel, order, location } = requirement;
                                 ParentRequirement {
+                                    location: location.map(core_equipment_location),
                                     channel: core_equipment_channel(channel),
                                     order,
                                 }
@@ -2181,6 +2182,7 @@ mod tests {
                     order: 2,
                 }],
                 parents: vec![sats::ParentRequirement {
+                    location: None,
                     channel: sats::EquipmentChannel::Mount,
                     order: 3,
                 }],

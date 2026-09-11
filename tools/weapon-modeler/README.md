@@ -1,8 +1,9 @@
 # Parametric weapon modeler
 
 This standalone browser tool experiments with modular, parameterized weapon
-geometry, including melee weapons, shields, hand bows, and crossbows with independent ammunition and carriers. It is deliberately outside the Rust workspace and does not
-participate in strategic or tactical builds.
+geometry, including melee weapons, shields, hand bows, and crossbows with
+independent ammunition and carriers. It is deliberately outside the Rust
+workspace and does not participate in strategic or tactical builds.
 
 Curved outlines and swept bars use shared adaptive sampling with explicit
 maximum-chord and curve-deviation budgets. The sampler preserves authored
@@ -60,7 +61,8 @@ aspect, wall-thickness and unclassified inter-part overlaps remain diagnostics.
 
 ## Mesh integrity audit
 
-Run `npm run test:quality` for the independent geometry audit and its deliberately
+Run `npm run test:quality` for the independent geometry audit and its
+deliberately
 broken fixtures. This is an acceptance test: current generator defects make it
 exit nonzero, after writing all findings to `output/mesh-quality/sweep/`. The
 ordinary `npm test` includes the audit's fixture tests; the larger generator
@@ -68,9 +70,9 @@ corpus runs through the separate command. The audit does not change the live
 viewer's validation or repair generated meshes.
 
 The sweep covers all presets at all three default LODs, combined slider extrema
-and adjacent steps, alternating extrema, three fixed seeds with discrete choices,
-each initially visible choice option, eight endpoint combinations of three
-construction dimensions per preset, authored adversarial cases, and every
+and adjacent steps, alternating extrema, three fixed seeds with discrete
+choices, each initially visible choice option, eight endpoint combinations of
+three construction dimensions per preset, authored adversarial cases, and every
 haft/head composition. Non-default specimens use low LOD. Exact definitions,
 part/triangle IDs, bounded examples and complete finding counts are saved in
 `cases.jsonl`; `summary.json` and `report.md` provide aggregate results.
@@ -101,8 +103,9 @@ predicates use a documented distance tolerance (normally one nanometre), with
 neighbor-cell spatial welding local to each part. They check buffer validity,
 triangle degeneracy and duplication, edge and vertex manifoldness, orientation
 including nested cavities, full 3D triangle intersections, and LOD shell/Euler
-signatures. Source and float32 topology and intersections are compared; an actual GLB round trip
-through a translated attachment checks exported triangle area and normals.
+signatures. Source and float32 topology and intersections are compared; an
+actual GLB round trip through a translated attachment checks exported triangle
+area and normals.
 
 A 100:1 longest-edge/altitude ratio and sampled walls below 50 micrometres are
 review diagnostics, not practicality restrictions. Thickness samples cover at
@@ -114,10 +117,11 @@ the relation auditor supports explicit joint envelopes, clearance, contact and
 containment contracts, but general per-joint regions have not been authored.
 
 These are tolerance-bounded numerical tests, not an exact-arithmetic proof of
-every slider combination. Full 3D intersection checks run on source and float32 coordinates;
-GLB checks cover the additional contracts described above. The audit
-does not yet certify all surface clearances, detect every near-coplanar exposed
-overlap, or prove that all apertures retain their dimensions across LODs.
+every slider combination. Full 3D intersection checks run on source and float32
+coordinates; GLB checks cover the additional contracts described above. The
+audit does not yet certify all surface clearances, detect every near-coplanar
+exposed overlap, or prove that all apertures retain their dimensions across
+LODs.
 
 To reduce a recorded per-part failure to a small set of changed controls:
 
@@ -131,7 +135,8 @@ npm run test:quality
 The minimizer resets controls to preset defaults, preserves production validity
 and the requested part/finding, and reports whether its 200-evaluation budget
 was sufficient for a 1-minimal changed-control set. It does not claim a global
-minimum. `QUALITY_REPLAY` reads that exact saved definition instead of generating
+minimum. `QUALITY_REPLAY` reads that exact saved definition instead of
+generating
 the corpus. For a disconnected default assembly, `tests/quality/gaps.mjs` takes
 the same case-file/case-ID/output arguments and measures the closest triangle
 surfaces between contact groups, including triangle IDs.
@@ -140,14 +145,13 @@ Weapon presets are declarative graphs in `src/presets.js`. Shared generators in
 `src/mesh.js` currently cover tapered shafts, sockets, grips, pommels, guards,
 curved, fullered, and diamond-section blades, sampled axe heads, shaped hammer
 polls, curved beaks, continuously forged fork/partisan/glaive heads, spear
-points, smooth swept knuckle bows, side and finger rings, fan pommels, flanged mace
-heads, langets, and butt caps. Geometry placement resolves through named frames
-such as `weapon.root`, `shaft.top`, `grip.top`, `guard.center`, and
+points, smooth swept knuckle bows, side and finger rings, fan pommels, flanged
+mace heads, langets, and butt caps. Geometry placement resolves through named
+frames such as `weapon.root`, `shaft.top`, `grip.top`, `guard.center`, and
 `blade.base`. A component can attach one of its local endpoints to a frame or
-stretch between two frames. Consequently, changing a grip or shaft length
-moves its dependent furniture and head instead of opening a gap. Optional
-component Euler rotations allow the same local head to face left, right, or out
-of plane.
+stretch between two frames. Consequently, changing a grip or shaft length moves
+its dependent furniture and head instead of opening a gap. Optional component
+Euler rotations allow the same local head to face left, right, or out of plane.
 
 The assembly composer independently combines either a wooden polearm shaft or
 steel one-hand haft with mace, halberd, spear, hammer/pick, axe, armour beak,
@@ -211,7 +215,8 @@ both strap anchors are evaluated against the tapered body profile and overlap
 it intentionally rather than floating at the mouth radius.
 
 Dimensional anchors are intentionally transparent. The [Mary Rose Museum's
-longbow and arrow survey](https://maryrose.org/discover/collections/the-weaponry-of-the-mary-rose/longbows-and-arrows/)
+longbow and arrow
+survey](https://maryrose.org/discover/collections/the-weaponry-of-the-mary-rose/longbows-and-arrows/)
 records mid-sixteenth-century yew self bows at 1.839–2.113 m, mostly D-sectioned
 at about 35 by 33 mm at the center, and arrows from 667–880 mm. The self-bow
 default therefore uses a 36 by 32 mm D-section rather than a thin rectangular
@@ -220,7 +225,9 @@ wood, horn, and sinew intervals use one taper-aware layout, meeting exactly at
 every limb station without gaps or unintended overlap. Composite
 construction and strongly reflexed/recurved geometry follow the Metropolitan
 Museum's material account and measured examples in [Islamic Arms and Armor in
-The Metropolitan Museum of Art](https://resources.metmuseum.org/resources/metpublications/pdf/Islamic_Arms_and_Armor_in_The_Metropolitan_Museum_of_Art.pdf): wood core, horn
+The Metropolitan Museum of
+Art](https://resources.metmuseum.org/resources/metpublications/pdf/Islamic_Arms_and_Armor_in_The_Metropolitan_Museum_of_Art.pdf):
+wood core, horn
 belly, sinew back, curved end sections, and string loops at the nocks. The
 composite preset represents a contemporary family encountered through Central
 European and Ottoman contact, not a claim that its decorative treatment is a
@@ -232,15 +239,16 @@ The `crossbow`, `crossbowBolt`, and `boltQuiver` components are independent
 exportable assets. Three curated crossbow endpoints cover a heavy German
 steel-prod hunting weapon prepared for a cranequin, a retained Central European
 horn-wood-sinew composite arbalest with goat's-foot accommodation, and a compact
-belt-hook/target family study. The compact endpoint is deliberately labeled as
-a family study rather than a reconstruction of a dated 1544 German object.
+belt-hook/target family study. The compact endpoint is deliberately labeled as a
+family study rather than a reconstruction of a dated 1544 German object.
 Crossbow controls cover tiller length and straight, waisted, or swollen plan;
-vertical butt drop, lock-table height, fore-end rise and optional staghorn facing;
-prod span, depth, thickness, sweep and taper; steel or layered composite
+vertical butt drop, lock-table height, fore-end rise and optional staghorn
+facing; prod span, depth, thickness, sweep and taper; steel or layered composite
 construction; draw/nut position; string, serving and tip loops; bridle spacing;
 split rotating nut cheeks around a real string notch, axle/bearing, bolt-butt
-shelf, sear and connected long trigger; paired recessed runner rails; stirrup; cranequin, goat's-foot, or
-belt-hook spanning accommodation; and optional peep/post furniture.
+shelf, sear and connected long trigger; paired recessed runner rails; stirrup;
+cranequin, goat's-foot, or belt-hook spanning accommodation; and optional
+peep/post furniture.
 
 The tiller is a combined plan-and-side-profile loft, not a uniformly extruded
 slab: butt, waist, and fore-end widths own separate stations while butt drop,
@@ -279,20 +287,22 @@ binding, sealed wood base, and an attached shoulder strap. Its default is 44.6
 cm high and 29 cm across the broad bottom and generates approximately 0.46 kg,
 close to the catalog's roughly 448 g record.
 
-Dimensional anchors come from the Metropolitan Museum's catalog and [*A Deadly
-Art: European Crossbows, 1250–1850*](https://www.metmuseum.org/met-publications/a-deadly-art-european-crossbows-1250-1850).
+Dimensional anchors come from the Metropolitan Museum's catalog and
+[*A Deadly Art: European Crossbows, 1250–1850*](https://www.metmuseum.org/met-publications/a-deadly-art-european-crossbows-1250-1850).
 The early-sixteenth-century southern German steel crossbow 14.25.1572a is
 recorded at 73.7 cm long, 62.4 cm wide, and 3 kg. The heavy default defines
 overall length as tiller butt through the outside of the modeled foot stirrup;
-its 61.2 cm tiller plus 12 cm stirrup generates about 73.5 cm overall, while
-the prod-tip center span is 62.4 cm and calculated construction mass is about
-2.85 kg (within the object's approximate 3 kg construction target). The dimensional reference is an altered object: its replacement prod and later
-lock do not authenticate the modeled mechanism to 1544. The mechanisms and furniture also follow the Museum's
+its 61.2 cm tiller plus 12 cm stirrup generates about 73.5 cm overall, while the
+prod-tip center span is 62.4 cm and calculated construction mass is about 2.85
+kg (within the object's approximate 3 kg construction target). The dimensional
+reference is an altered object: its replacement prod and later lock do not
+authenticate the modeled mechanism to 1544. The mechanisms and furniture also
+follow the Museum's
 [later German/Saxon crossbow and cranequin 14.25.3383a-c](https://www.metmuseum.org/art/collection/search/33739):
-walnut tiller, steel prod lashed with hemp, rotating nut, bolt-butt notch,
-long trigger, safety/sight furniture, transverse cranequin rest, and the
-documented distinction between cranequin spanning and light belt-hook or
-goat's-foot weapons. That object is later (ca. 1575-1650) and is used only as a
+walnut tiller, steel prod lashed with hemp, rotating nut, bolt-butt notch, long
+trigger, safety/sight furniture, transverse cranequin rest, and the documented
+distinction between cranequin spanning and light belt-hook or goat's-foot
+weapons. That object is later (ca. 1575-1650) and is used only as a
 construction/mechanism reference, not passed off as a 1544 specimen. Bolt and
 carrier proportions follow the early-sixteenth-century German and Central
 European bolt/quiver records cataloged in *A Deadly Art*; the generator exposes
@@ -309,20 +319,21 @@ single-barrel wheellock family study. Family selectors deliberately constrain
 barrel count, lock type, and stock form to coherent combinations rather than
 offering an ahistorical matchlock pistol or double-barreled arquebus.
 
-Firearm controls cover overall and primary/secondary barrel length, bore and wall thickness,
-octagonal breech share, ringed or plain muzzle, butt/lock/fore-end widths,
-stock depth and drop, wheel or pivot size, pan and trigger dimensions, ramrod,
-sights, and optional staghorn facing. The stock is a combined plan-and-vertical
-profile loft: butt, lock waist, and fore-stock widths materially alter separate
-stations, while the shallow swept cherry pistol stock has an attached solid
-spiral-fluted bulb pommel and the walnut/red-beech matchlock has a broad cheek
-stock. Shaped staghorn or bone side plaques, mother-of-pearl/staghorn inlays,
-and latten/brass/gilt-steel furniture are placed as legible construction rather
-than one generic slab. Each barrel is a manifold hollow tube with an open muzzle, joined
-octagonal and round stages, and a separately sealed breech. Bands, sights,
-ramrod, trigger guard, and decorative facing remain named construction parts.
-Bands are closed XZ enclosures perpendicular to the bore; the trigger guard is
-a YZ side-elevation loop enclosing its reachable trigger blade.
+Firearm controls cover overall and primary/secondary barrel length, bore and
+wall thickness, octagonal breech share, ringed or plain muzzle,
+butt/lock/fore-end widths, stock depth and drop, wheel or pivot size, pan and
+trigger dimensions, ramrod, sights, and optional staghorn facing. The stock is a
+combined plan-and-vertical profile loft: butt, lock waist, and fore-stock widths
+materially alter separate stations, while the shallow swept cherry pistol stock
+has an attached solid spiral-fluted bulb pommel and the walnut/red-beech
+matchlock has a broad cheek stock. Shaped staghorn or bone side plaques,
+mother-of-pearl/staghorn inlays, and latten/brass/gilt-steel furniture are
+placed as legible construction rather than one generic slab. Each barrel is a
+manifold hollow tube with an open muzzle, joined octagonal and round stages, and
+a separately sealed breech. Bands, sights, ramrod, trigger guard, and decorative
+facing remain named construction parts. Bands are closed XZ enclosures
+perpendicular to the bore; the trigger guard is a YZ side-elevation loop
+enclosing its reachable trigger blade.
 
 The Peck wheellock assembly carries two complete ignition trains on one lock
 plate. Each has its own wheel, axle/bearing, mainspring, cock arm, split jaws
@@ -388,18 +399,18 @@ presets carry constrained reference-scale breadths; for example, the default
 German halberd is 25.5 cm across, using the Metropolitan Museum's circa
 1525–1550 German halberd (24.1 cm recorded width) as its dimensional anchor.
 
-This is an asset-development experiment, not authoritative gameplay code.
-The viewer measures enclosed mesh volume, material-weighted mass, center of
-mass and moment about the grip. Curved cutting blades have a finite edge land
-and distal taper; section depth denotes the actual maximum forte thickness.
-The separate Rust gameplay generator integrates its own canonical component
-solids for those same properties, material masses, and controlling-grip reach. Fitted sockets and bosses are hollow shells;
-metal bucklers use thin plate, and wooden shields use leather edge binding.
-Mass remains a construction diagnostic: overlapping assembled parts, material
-simplifications and missing fasteners prevent museum-level mass calibration.
-The animator export preserves indexed geometry and the selected LOD in a
-skinned GLB. UVs, texture-space tangents, normal maps and collision geometry are
-not generated by this tool.
+This is an asset-development experiment, not authoritative gameplay code. The
+viewer measures enclosed mesh volume, material-weighted mass, center of mass and
+moment about the grip. Curved cutting blades have a finite edge land and distal
+taper; section depth denotes the actual maximum forte thickness. The separate
+Rust gameplay generator integrates its own canonical component solids for those
+same properties, material masses, and controlling-grip reach. Fitted sockets and
+bosses are hollow shells; metal bucklers use thin plate, and wooden shields use
+leather edge binding. Mass remains a construction diagnostic: overlapping
+assembled parts, material simplifications and missing fasteners prevent
+museum-level mass calibration. The animator export preserves indexed geometry
+and the selected LOD in a skinned GLB. UVs, texture-space tangents, normal maps
+and collision geometry are not generated by this tool.
 
 `npm test` includes deterministic seeded parameter sweeps. Every preset control
 is exercised at its default, minimum, maximum, random values, adjacent pairs,
@@ -469,14 +480,15 @@ inputs and supports fixed-fixture replay and adversarial joint/LOD cases.
 The **Pommel** and **Guard** focus buttons frame furniture with its immediate
 connection context. Capture views such as `front-pommel`, `oblique-pommel`,
 `rear-pommel`, and `oblique-guard` use the same semantic bounds at every LOD.
-[Artistic criteria and museum references](review/artistic-criteria.md) include
-the first iteration’s findings. The [hilt review record](review/hilt-artistic-criteria.md)
-records the independent reviewer’s construction and LOD acceptance decision.
+[Weapon review criteria](review/artistic-criteria.md) and
+[hilt review criteria](review/hilt-artistic-criteria.md) provide reusable
+construction checks and museum references.
 
 
-## 1544 proportion audit
+## Historical proportion references
 
-The [historical and artistic audit](review/1544-audit/historical-assessment.md)
+The
+[historical proportion references](review/1544-audit/historical-assessment.md)
 covers all named presets in the browser and Rust catalogs, with separate
 classification for comparative studies. The assembly composer also retains
 freely interchangeable heads; its combinations are construction studies rather

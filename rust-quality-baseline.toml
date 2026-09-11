@@ -8,7 +8,7 @@ ceiling = 1100
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/crowns.rs"
-ceiling = 861
+ceiling = 849
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/projected_defenses.rs"
@@ -16,7 +16,7 @@ ceiling = 1061
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
-ceiling = 603
+ceiling = 543
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/roofs.rs"
@@ -24,11 +24,11 @@ ceiling = 1488
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
-ceiling = 1820
+ceiling = 1784
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
-ceiling = 1015
+ceiling = 1007
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/artillery_castle.rs"
@@ -48,7 +48,7 @@ ceiling = 880
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/crown_geometry.rs"
-ceiling = 1171
+ceiling = 1163
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/projected_defenses.rs"
@@ -56,7 +56,7 @@ ceiling = 1349
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs"
-ceiling = 603
+ceiling = 533
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs"
@@ -68,11 +68,11 @@ ceiling = 964
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
-ceiling = 800
+ceiling = 793
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
-ceiling = 3085
+ceiling = 2863
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
@@ -80,15 +80,15 @@ ceiling = 1210
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
-ceiling = 586
+ceiling = 502
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 1008
+ceiling = 860
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
-ceiling = 1511
+ceiling = 1498
 
 [[files]]
 path = "crates/adventuresim-core/src/bestiary.rs"
@@ -132,7 +132,7 @@ ceiling = 788
 
 [[files]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-ceiling = 1624
+ceiling = 1474
 
 [[files]]
 path = "crates/adventuresim-core/src/knowledge.rs"
@@ -244,11 +244,11 @@ ceiling = 547
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
-ceiling = 791
+ceiling = 724
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3235
+ceiling = 3230
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -571,16 +571,12 @@ path = "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
 ceiling = 1231
 
 [[files]]
-path = "crates/adventuresim-tactical-client/src/camera.rs"
-ceiling = 591
-
-[[files]]
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
 ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 1693
+ceiling = 1549
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -632,11 +628,11 @@ ceiling = 646
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-ceiling = 628
+ceiling = 633
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 1334
+ceiling = 1077
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -660,7 +656,7 @@ ceiling = 1304
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
-ceiling = 602
+ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
@@ -668,7 +664,7 @@ ceiling = 1020
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 1114
+ceiling = 1088
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -680,11 +676,7 @@ ceiling = 768
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-ceiling = 798
-
-[[files]]
-path = "crates/adventuresim-tactical-server/src/main.rs"
-ceiling = 505
+ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -896,7 +888,7 @@ ceiling = 781
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
-ceiling = 799
+ceiling = 789
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/travel.rs"
@@ -918,14 +910,9 @@ item = "audit_church_assembly"
 ceiling = 1100
 
 [[functions]]
-path = "crates/adventuresim-building-generator/src/audit/core.rs"
-item = "audit_plan"
-ceiling = 109
-
-[[functions]]
 path = "crates/adventuresim-building-generator/src/audit/crowns.rs"
 item = "audit_crowns"
-ceiling = 861
+ceiling = 849
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/gatehouses.rs"
@@ -950,7 +937,7 @@ ceiling = 1061
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
 item = "audit_resolved_geometry"
-ceiling = 603
+ceiling = 543
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/roofs.rs"
@@ -960,7 +947,7 @@ ceiling = 1488
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
 item = "audit_timber_frame"
-ceiling = 1820
+ceiling = 1784
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber_intersections.rs"
@@ -970,7 +957,7 @@ ceiling = 425
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
 item = "audit_wall_opening_assemblies"
-ceiling = 1015
+ceiling = 1007
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/artillery_castle.rs"
@@ -1010,7 +997,7 @@ ceiling = 462
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/crown_geometry.rs"
 item = "resolve_crown_geometry"
-ceiling = 1154
+ceiling = 1146
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/defense_derivation.rs"
@@ -1055,7 +1042,7 @@ ceiling = 102
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/orchestration.rs"
 item = "generate_unchecked"
-ceiling = 188
+ceiling = 158
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/projected_defenses.rs"
@@ -1070,7 +1057,7 @@ ceiling = 304
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs"
 item = "resolve_roof_assemblies"
-ceiling = 603
+ceiling = 533
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs"
@@ -1120,7 +1107,7 @@ ceiling = 964
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
 item = "resolve_one_roof"
-ceiling = 800
+ceiling = 793
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs"
@@ -1140,12 +1127,7 @@ ceiling = 126
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
 item = "resolve_timber_frame_assembly"
-ceiling = 2473
-
-[[functions]]
-path = "crates/adventuresim-building-generator/src/generator/tower_derivation.rs"
-item = "derive_stairs"
-ceiling = 109
+ceiling = 2264
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/tower_derivation.rs"
@@ -1168,11 +1150,6 @@ item = "derive_openings"
 ceiling = 237
 
 [[functions]]
-path = "crates/adventuresim-building-generator/src/generator/wall_derivation.rs"
-item = "opening_profile_for"
-ceiling = 108
-
-[[functions]]
 path = "crates/adventuresim-building-generator/src/model/player_build.rs"
 item = "PlayerBuildDocument::apply"
 ceiling = 218
@@ -1190,7 +1167,7 @@ ceiling = 111
 [[functions]]
 path = "crates/adventuresim-character-creator/src/export.rs"
 item = "export_rigged_glb"
-ceiling = 398
+ceiling = 273
 
 [[functions]]
 path = "crates/adventuresim-character-creator/src/main.rs"
@@ -1270,17 +1247,12 @@ ceiling = 237
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-ceiling = 444
-
-[[functions]]
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment_surface"
-ceiling = 105
+ceiling = 420
 
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_item"
-ceiling = 242
+ceiling = 232
 
 [[functions]]
 path = "crates/adventuresim-core/src/life_simulation.rs"
@@ -1400,7 +1372,7 @@ ceiling = 104
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
 item = "StrategicEquipment::load"
-ceiling = 243
+ceiling = 212
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -1410,7 +1382,7 @@ ceiling = 296
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "equip_equipment_internal"
-ceiling = 288
+ceiling = 283
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -2515,7 +2487,7 @@ ceiling = 195
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/camera.rs"
 item = "update_camera_rig"
-ceiling = 169
+ceiling = 154
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
@@ -2531,11 +2503,6 @@ ceiling = 293
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "hud_layers"
 ceiling = 104
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "resolve_procedural_equipment_models"
-ceiling = 137
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
@@ -2660,7 +2627,7 @@ ceiling = 116
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
-ceiling = 126
+ceiling = 125
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
@@ -2739,23 +2706,13 @@ ceiling = 204
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-item = "attachment_topology"
-ceiling = 175
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/equipment.rs"
 item = "process_equipment_actions"
 ceiling = 146
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
 item = "main"
-ceiling = 138
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/main.rs"
-item = "on_server_started"
-ceiling = 104
+ceiling = 137
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -3385,7 +3342,7 @@ ceiling = 292
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
 item = "equipment_control"
-ceiling = 428
+ceiling = 417
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
@@ -4482,90 +4439,6 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:chest"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:head"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_forearm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_lower_leg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_thigh"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:left_upper_arm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:neck"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_forearm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_lower_leg"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_thigh"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:right_upper_arm"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "anatomical_body_part"
-fingerprint = "string:stomach"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_capabilities"
 fingerprint = "string:alcohol"
 occurrences = 1
@@ -4680,7 +4553,7 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
 fingerprint = "string:channel"
-occurrences = 2
+occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
@@ -4750,13 +4623,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
 fingerprint = "string:uv"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment_surface"
-fingerprint = "string:anchor"
 occurrences = 1
 
 [[findings]]

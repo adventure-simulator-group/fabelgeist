@@ -44,28 +44,54 @@ pub(super) fn spawn_armor(
     materials: &mut Assets<StandardMaterial>,
     armor: &GeneratedArmor,
     name: String,
-    material: adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
-) {
-    let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-    let mesh = Mesh::new(
-        PrimitiveTopology::TriangleList,
-        RenderAssetUsages::default(),
-    )
-    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
-    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, armor.texcoords.clone())
-    .with_inserted_indices(Indices::U32(armor.indices.clone()));
-    commands.spawn((
-        CharacterMesh,
-        Name::new(name),
-        Mesh3d(meshes.add(mesh)),
-        MeshMaterial3d(materials.add(StandardMaterial {
-            base_color: Color::srgba(color[0], color[1], color[2], color[3]),
-            metallic,
-            perceptual_roughness: roughness,
-            ..default()
-        })),
-    ));
+    material: StandardMaterial,
+) -> Result<()> {
+    let parts = if armor.components.is_empty() {
+        vec![(name, armor.indices.as_slice(), None)]
+    } else {
+        armor
+            .components
+            .iter()
+            .map(|part| {
+                (
+                    format!("{name}.{}", part.role.name()),
+                    &armor.indices[part.indices.clone()],
+                    part.material,
+                )
+            })
+            .collect()
+    };
+    for (part_name, indices, surface) in parts {
+        let mut material = material.clone();
+        if let Some(surface) = surface {
+            let [r, g, b, a] = surface.base_color;
+            material = StandardMaterial {
+                base_color: Color::srgba(r, g, b, a),
+                metallic: surface.metallic,
+                perceptual_roughness: surface.roughness,
+                ..default()
+            };
+        }
+        let mut mesh = Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::default(),
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, armor.texcoords.clone())
+        .with_inserted_indices(Indices::U32(indices.to_vec()));
+        if material.normal_map_texture.is_some() {
+            mesh.generate_tangents()
+                .context("generating tangents for textured armor preview")?;
+        }
+        commands.spawn((
+            CharacterMesh,
+            Name::new(part_name),
+            Mesh3d(meshes.add(mesh)),
+            MeshMaterial3d(materials.add(material.clone())),
+        ));
+    }
+    Ok(())
 }
 
 pub(super) fn spawn_body(

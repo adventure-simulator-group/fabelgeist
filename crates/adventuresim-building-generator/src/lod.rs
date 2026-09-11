@@ -16,6 +16,8 @@ use crate::{
 mod crowns;
 #[path = "lod/details.rs"]
 mod details;
+#[path = "lod/small_church.rs"]
+mod small_church;
 #[path = "lod/walls.rs"]
 mod walls;
 
@@ -249,6 +251,9 @@ impl BuildingLod {
 
 /// Compiles a render-only LOD from the accepted semantic plan.
 pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
+    if plan.small_church.is_some() {
+        return small_church::compile(plan, level);
+    }
     let facade_runs = extract_facade_runs(plan);
     let mut lod = BuildingLod {
         level,

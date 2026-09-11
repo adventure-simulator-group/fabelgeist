@@ -44,6 +44,10 @@
   greenfield reference-audit process.
 - Keep documented behavior, architecture, and developer workflow synchronized
   with implementation changes.
+- Keep iteration reports, reviewer verdicts, validation transcripts, and
+  completion summaries in ignored local output directories such as `target/`.
+  Commit durable usage guides, design contracts, and source references instead.
+  Wrap Markdown prose at 80 columns, preserving code blocks, tables, and links.
 - For wiki prose, first follow
   `wiki/contributing/wiki-writing.md`, which defines the project's editorial
   voice.
