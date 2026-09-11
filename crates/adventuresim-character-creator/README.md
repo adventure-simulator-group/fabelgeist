@@ -272,8 +272,9 @@ the equipment manifest, then capture idle, walking and raised-guard scenarios.
 ## Equipment material UVs
 
 `just generate-procedural-equipment DIRECTORY` includes an offline Blender
-unwrap after geometry export. Set `BLENDER_BIN` to the Blender executable when
-it is not on PATH. `just unwrap-equipment DIRECTORY` applies the same step to
+unwrap and normal/AO bake after geometry export. Set `BLENDER_BIN` to the
+Blender executable when it is not on PATH. `just unwrap-equipment DIRECTORY`
+applies the unwrap step to
 an existing export; run it again after changing geometry parameters. Direct
 creator CLI exports contain construction UVs until this finishing step runs.
 
@@ -295,6 +296,30 @@ channel. Material textures select glTF `texCoord: 0` for these atlases.
 Compare source and finished exports with
 `python scripts/check_armor_uvs.py ORIGINAL_DIRECTORY FINISHED_DIRECTORY` to
 check correspondence, nondegenerate charts, overlap, and tangent frames.
+
+`just bake-equipment DIRECTORY` bakes an already unwrapped export. Normal maps
+encode the detailed mesh normals, including fluting, relative to a smoothed
+shading carrier. The export carries those low-frequency vertex normals and the
+matching tangent frame. Each morph endpoint receives the same smoothing rule;
+positions and skin weights are unchanged. AO comes from Cycles rays against the
+actual plates within the item. Maps are separate linear glTF normal and occlusion
+channels, both using UV0; the unlit albedo is unchanged.
+
+The default bake uses 1024-square images, 32 AO samples, and two-pixel gutters.
+`scripts/bake_armor.py` exposes resolution and sample controls for offline work.
+Unused AO atlas space is white to avoid dark mip bleeding.
+Texture filenames are content-addressed. Regenerate geometry before changing
+an already baked atlas; repeatedly smoothing an existing bake is unsupported.
+Compare source and finished exports using `scripts/check_armor_bakes.py`.
+
+A simplified mesh must preserve the carrier normals and material coordinates,
+and regenerate a matching tangent frame; recomputing geometric normals would
+apply the flute relief twice. `scripts/render_armor_materials.py` demonstrates
+this with a static decimation and UV-based carrier-normal transfer.
+The reduction ratio is adjustable; validate thin plate walls after simplification. It does not implement
+runtime LOD selection. Cycles previews ray trace ambient occlusion rather than
+multiplying the exported AO map into albedo; runtime glTF uses the separate AO
+channel for ambient lighting.
 
 ## Body-conforming underlayers
 

@@ -238,7 +238,11 @@ generate-procedural-equipment output:
 
 # Unwrap existing generated assets without rebuilding their shapes or rigs.
 unwrap-equipment output:
-    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }}
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage uv
+
+# Bake surface detail into the material atlas of an unwrapped equipment export.
+bake-equipment output:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake
 # Model an animator reference weapon and export it against the character rig.
 weapon-modeler:
     @npm --prefix tools/weapon-modeler start
