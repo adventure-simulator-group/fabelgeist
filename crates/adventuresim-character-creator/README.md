@@ -302,8 +302,8 @@ encode the detailed mesh normals, including fluting, relative to a smoothed
 shading carrier. The export carries those low-frequency vertex normals and the
 matching tangent frame. Each morph endpoint receives the same smoothing rule;
 positions and skin weights are unchanged. AO comes from Cycles rays against the
-actual plates within the item. Maps are separate linear glTF normal and occlusion
-channels, both using UV0; the unlit albedo is unchanged.
+actual plates within the item. Maps are separate linear glTF normal and
+occlusion channels, both using UV0; the unlit albedo is unchanged.
 
 The default bake uses 1024-square images, 32 AO samples, and two-pixel gutters.
 `scripts/bake_armor.py` exposes resolution and sample controls for offline work.
@@ -316,8 +316,9 @@ A simplified mesh must preserve the carrier normals and material coordinates,
 and regenerate a matching tangent frame; recomputing geometric normals would
 apply the flute relief twice. `scripts/render_armor_materials.py` demonstrates
 this with a static decimation and UV-based carrier-normal transfer.
-The reduction ratio is adjustable; validate thin plate walls after simplification. It does not implement
-runtime LOD selection. Cycles previews ray trace ambient occlusion rather than
+The reduction ratio is adjustable; validate thin plate walls after
+simplification. It does not implement runtime LOD selection. Cycles previews
+ray trace ambient occlusion rather than
 multiplying the exported AO map into albedo; runtime glTF uses the separate AO
 channel for ambient lighting.
 
