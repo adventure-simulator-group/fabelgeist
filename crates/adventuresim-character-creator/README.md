@@ -269,6 +269,31 @@ equipment visual plugin and waits for every installed GLB, material, skin and
 morph component; unresolved assets fail the capture. Rebuild it after updating
 the equipment manifest, then capture idle, walking and raised-guard scenarios.
 
+## Equipment material UVs
+
+`just generate-procedural-equipment DIRECTORY` includes an offline Blender
+unwrap after geometry export. Set `BLENDER_BIN` to the Blender executable when
+it is not on PATH. `just unwrap-equipment DIRECTORY` applies the same step to
+an existing export; run it again after changing geometry parameters. Direct
+creator CLI exports contain construction UVs until this finishing step runs.
+
+The material atlas occupies `TEXCOORD_1`; anatomical correspondence remains in
+`TEXCOORD_0`. Sharp rims and transitions between front, side, and rim-facing
+zones separate plate faces from edge walls. Concealed rear
+meridians and arm undersides provide cuts through curved panels. Blender's
+angle-based solver unwraps those charts and packs them with a 0.004 UV margin.
+Each independently articulated component has its own atlas. Layouts need not
+remain identical between parameter configurations. Body-conforming textured
+mail and padding keep their existing material coordinates.
+
+Seam splits copy all original vertex and morph attributes without changing
+triangle order, the rig, or component hinges. Tangents use the material UV
+channel, because automatic runtime tangent generation uses the anatomical
+channel. Material textures must select glTF `texCoord: 1` for these atlases.
+Compare source and finished exports with
+`python scripts/check_armor_uvs.py ORIGINAL_DIRECTORY FINISHED_DIRECTORY` to
+check correspondence, nondegenerate charts, overlap, and tangent frames.
+
 ## Body-conforming underlayers
 
 `arming_doublet`, `padded_chausses`, `mail_voiders`, `mail_brayette`,
