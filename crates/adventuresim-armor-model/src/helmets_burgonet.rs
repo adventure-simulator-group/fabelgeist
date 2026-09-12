@@ -4,6 +4,12 @@ use crate::{GenerateError, PartMesh};
 use std::f32::consts::{FRAC_PI_3, TAU};
 const SKIRT_ROWS: usize = 8;
 
+pub(super) fn peak_rise(d: &super::BurgonetDesign, angle: f32) -> f32 {
+    d.peak_rise.metres()
+        * (1.0 - angle.sin().abs() / FRAC_PI_3.sin()).max(0.0)
+        * angle.cos().max(0.0)
+}
+
 pub(super) fn generate(
     radii: [f32; 3],
     brow: f32,
@@ -43,7 +49,7 @@ pub(super) fn generate(
                 let reach = d.peak_length.metres() * angle.cos() * t;
                 skull.vertex([
                     (radii[0] + reach) * angle.sin(),
-                    brow - d.peak_drop.metres() * angle.cos() * t,
+                    brow - d.peak_drop.metres() * angle.cos() * t + peak_rise(d, angle) * t,
                     (radii[2] + reach) * angle.cos(),
                 ])
             })
@@ -89,6 +95,10 @@ pub(super) fn generate(
     for side in [-1.0, 1.0] {
         let cheek = super::cheek::generate(radii, brow, half_height, d)?;
         mesh.append(if side < 0.0 { mirror(cheek) } else { cheek });
+    }
+    if let Some(buffe) = &d.buffe {
+        mesh = mesh.with_component(crate::ArmorComponentRole::Skull, None);
+        mesh.append(super::buffe::generate(radii, brow, half_height, d, buffe)?);
     }
     Ok(mesh)
 }

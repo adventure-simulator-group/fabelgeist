@@ -119,7 +119,7 @@ impl Surface {
             thickness,
             crate::BoundaryNormals::Smooth,
             extrusion,
-            relief,
+            relief.map(crate::SurfaceRelief::ShellHeights),
         )
     }
 }

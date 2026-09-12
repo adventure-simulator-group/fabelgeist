@@ -4,23 +4,9 @@ use std::collections::BTreeMap;
 
 const ATTACHMENT_BLEND_M: f32 = 0.025;
 
-pub(super) fn attach_suspenders(plate: &GeneratedArmor, hardware: &mut GeneratedArmor) {
-    let mut front = BTreeMap::<[i64; 2], f32>::new();
-    let key = |p: &[f32; 3]| [p[0], p[1]].map(|v| (v * 1e6).round() as i64);
-    for p in &hardware.positions {
-        front
-            .entry(key(p))
-            .and_modify(|z| *z = z.max(p[2]))
-            .or_insert(p[2]);
-    }
-    let mut sample = hardware.positions.clone();
-    for p in &mut sample {
-        p[2] = front[&key(p)];
-    }
-    let actual = std::mem::replace(&mut hardware.positions, sample);
-    attach(plate, hardware);
-    hardware.positions = actual;
-}
+#[path = "suspender_skin.rs"]
+mod suspenders;
+pub(super) use suspenders::attach_suspenders;
 
 pub(super) fn attach(plate: &GeneratedArmor, hardware: &mut GeneratedArmor) {
     for (vertex, point) in hardware.positions.iter().enumerate() {
@@ -62,79 +48,6 @@ pub(super) fn attach(plate: &GeneratedArmor, hardware: &mut GeneratedArmor) {
             hardware.joint_weights[vertex][slot] = weight / sum;
         }
     }
-}
-
-/// Suspenders follow their attachment plates' shape targets. Re-solving a
-/// convex drape independently at each endpoint would not commute with a blend
-/// of those targets and can pull a hanger inside the fauld between endpoints.
-pub(super) fn bind_suspenders(plate: &GeneratedArmor, hardware: &mut GeneratedArmor) -> Result<()> {
-    // Opposite walls share one material attachment. Sampling them independently
-    // can invert the leather gauge in a blend even when each endpoint is valid.
-    let mut front = BTreeMap::<[i64; 2], f32>::new();
-    let key = |p: &[f32; 3]| [p[0], p[1]].map(|v| (v * 1e6).round() as i64);
-    for p in &hardware.positions {
-        front
-            .entry(key(p))
-            .and_modify(|z| *z = z.max(p[2]))
-            .or_insert(p[2]);
-    }
-    let bindings = hardware
-        .positions
-        .iter()
-        .map(|point| {
-            let point = [point[0], point[1], front[&key(point)]];
-            let distances = plate
-                .positions
-                .iter()
-                .enumerate()
-                .map(|(index, p)| {
-                    let distance = (0..3)
-                        .map(|axis| (p[axis] - point[axis]).powi(2))
-                        .sum::<f32>();
-                    (index, distance)
-                })
-                .collect::<Vec<_>>();
-            let minimum = distances
-                .iter()
-                .map(|(_, d)| *d)
-                .fold(f32::INFINITY, f32::min);
-            let mut weights = distances
-                .into_iter()
-                .map(|(i, d)| (i, (-(d - minimum) / ATTACHMENT_BLEND_M.powi(2)).exp()))
-                .filter(|(_, w)| *w >= 0.0001)
-                .collect::<Vec<_>>();
-            let sum: f32 = weights.iter().map(|(_, w)| w).sum();
-            for (_, w) in &mut weights {
-                *w /= sum;
-            }
-            weights
-        })
-        .collect::<Vec<_>>();
-    for (target, source) in hardware.morphs.iter_mut().zip(&plate.morphs) {
-        for (vertex, binding) in bindings.iter().enumerate() {
-            let delta = std::array::from_fn(|axis| {
-                binding
-                    .iter()
-                    .map(|(i, w)| {
-                        w * (source.direct_positions[*i][axis] - plate.positions[*i][axis])
-                    })
-                    .sum::<f32>()
-            });
-            target.position_deltas[vertex] = delta;
-            target.direct_positions[vertex] =
-                std::array::from_fn(|axis| hardware.positions[vertex][axis] + delta[axis]);
-        }
-        let mut mesh = adventuresim_armor_model::PartMesh::new();
-        mesh.positions = target.direct_positions.clone();
-        mesh.indices = hardware.indices.clone();
-        target.normal_deltas = mesh
-            .normals()?
-            .iter()
-            .zip(&hardware.normals)
-            .map(|(a, b)| std::array::from_fn(|axis| a[axis] - b[axis]))
-            .collect();
-    }
-    Ok(())
 }
 
 #[cfg(test)]
@@ -201,7 +114,7 @@ mod tests {
                 .collect(),
         });
         hanger.morphs = plate.morphs.clone();
-        bind_suspenders(&plate, &mut hanger).unwrap();
+        attach_suspenders(&plate, &mut hanger).unwrap();
         for (base, target) in hanger
             .positions
             .iter()
@@ -211,5 +124,66 @@ mod tests {
                 assert!((target[axis] - base[axis] - movement[axis]).abs() < 1e-6);
             }
         }
+    }
+    #[test]
+    fn suspension_uses_its_physical_plate_instead_of_blending_a_nearby_layer() {
+        let mut plate = triangle();
+        plate.joint_indices.fill([0; 8]);
+        let back = plate
+            .positions
+            .iter()
+            .map(|p| [p[0], p[1], -0.008])
+            .collect::<Vec<_>>();
+        plate.positions.extend(back);
+        plate.indices.extend([3, 4, 5]);
+        plate.joint_indices.extend([[1; 8]; 3]);
+        plate
+            .joint_weights
+            .extend([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3]);
+        let motion = [0.0, 0.02, 0.01];
+        plate.morphs.push(adventuresim_armor_model::ArmorMorph {
+            name: "independent_plate_motion".into(),
+            position_deltas: Vec::new(),
+            normal_deltas: Vec::new(),
+            direct_positions: plate
+                .positions
+                .iter()
+                .enumerate()
+                .map(|(i, p)| {
+                    std::array::from_fn(|axis| {
+                        p[axis] + if i < 3 { motion[axis] } else { -motion[axis] }
+                    })
+                })
+                .collect(),
+        });
+        let mut hanger = triangle();
+        hanger.positions = vec![
+            [-0.003, 0.003, 0.003],
+            [-0.003, 0.003, 0.005],
+            [0.003, 0.004, 0.005],
+        ];
+        hanger.morphs.push(adventuresim_armor_model::ArmorMorph {
+            name: "independent_plate_motion".into(),
+            position_deltas: vec![[0.0; 3]; 3],
+            normal_deltas: vec![[0.0; 3]; 3],
+            direct_positions: hanger.positions.clone(),
+        });
+        let reference = hanger.positions.clone();
+        attach_suspenders(&plate, &mut hanger).unwrap();
+        assert_eq!(
+            hanger.positions, reference,
+            "binding must preserve the reference silhouette"
+        );
+        for vertex in 0..3 {
+            assert_eq!(hanger.joint_indices[vertex][0], 0);
+            assert!((hanger.joint_weights[vertex][0] - 1.0).abs() < 1e-6);
+            for (axis, expected) in motion.into_iter().enumerate() {
+                assert!((hanger.morphs[0].position_deltas[vertex][axis] - expected).abs() < 1e-6);
+            }
+        }
+        assert_eq!(
+            hanger.morphs[0].position_deltas[0], hanger.morphs[0].position_deltas[1],
+            "opposite leather walls must retain one attachment"
+        );
     }
 }

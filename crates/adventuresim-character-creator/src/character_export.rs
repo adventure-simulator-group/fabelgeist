@@ -73,7 +73,7 @@ pub(super) fn export_character(
             shell.metallic = metallic;
             shell.roughness = roughness;
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                catalog.design(&piece.item_id).as_ref(),
+                catalog.design(&piece.item_id, &piece.placement_id).as_ref(),
             );
         }
         crate::character_morphs::component_materials(&piece.generated, &mut parts);

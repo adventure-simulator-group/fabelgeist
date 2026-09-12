@@ -27,7 +27,7 @@ fn fitted(design: &LimbArmorDesign) -> PartMesh {
         .collect::<Vec<_>>();
     let mesh = generate_limb_armor(design, &frame)
         .unwrap()
-        .refit_surfaces(|p| fit_carrier(p, &frame, region, &sections, 0.012, style))
+        .refit_surfaces(|p, _| fit_carrier(p, &frame, region, &sections, 0.012, style))
         .unwrap();
     mesh.normals().unwrap();
     mesh

@@ -1,5 +1,8 @@
 //! Closure dimensions and leather color shared by preview and saved recipes.
 use super::{EquipmentCatalog, Studio};
+use adventuresim_character_creator::fasteners::{
+    FULL_TURN_MILLIRADIANS, MIN_STRAP_ARC_MILLIRADIANS,
+};
 use bevy_egui::egui;
 
 pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &mut Studio) {
@@ -23,8 +26,6 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
                         (&mut strap.thickness.0, 1..=4, "Leather thickness (mm)"),
                         (&mut strap.height.0, 100..=900, "Height on plate"),
                         (&mut strap.spacing.0, 0..=350, "Strap spacing"),
-                        (&mut strap.start_angle.0, 0..=5500, "Arc start (mrad)"),
-                        (&mut strap.end_angle.0, 500..=6283, "Arc end (mrad)"),
                         (&mut strap.buckle_position.0, 150..=850, "Buckle position"),
                         (
                             &mut strap.lining_clearance.0,
@@ -35,6 +36,21 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
                     ] {
                         changed |= super::armor_controls::number(ui, value, range, label);
                     }
+                    changed |= super::armor_controls::number(
+                        ui,
+                        &mut strap.start_angle.0,
+                        0..=FULL_TURN_MILLIRADIANS,
+                        "Arc start (mrad)",
+                    );
+                    let end_range = (strap.start_angle.0 + MIN_STRAP_ARC_MILLIRADIANS)
+                        ..=(strap.start_angle.0 + FULL_TURN_MILLIRADIANS);
+                    strap.end_angle.0 = strap.end_angle.0.clamp(*end_range.start(), *end_range.end());
+                    changed |= super::armor_controls::number(
+                        ui,
+                        &mut strap.end_angle.0,
+                        end_range,
+                        "Arc end (mrad)",
+                    );
                     changed |= ui
                         .add(egui::Slider::new(&mut strap.count, 1..=3).text("Strap count"))
                         .changed();
@@ -44,14 +60,13 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
                     strap.thickness.0 = strap.thickness.0.min(strap.width.0 / 4);
                     let spread = u16::from(strap.count - 1) * strap.spacing.0 / 2;
                     strap.height.0 = strap.height.0.clamp(100 + spread, 900 - spread);
-                    strap.end_angle.0 = strap.end_angle.0.max(strap.start_angle.0 + 500);
                     studio.dirty |= changed;
                 }
                 adventuresim_character_creator::fasteners::catalog::FastenerRecipe::TassetSuspension(d) => {
                     for (value, range, label) in [
                         (&mut d.width.0, 12..=24, "Hanger width (mm)"),
                         (&mut d.thickness.0, 1..=3, "Leather thickness (mm)"),
-                        (&mut d.fauld_inset.0, 40..=100, "Inset from fauld edge (mm)"),
+                        (&mut d.fauld_inset.0, 8..=100, "Inset from fauld edge (mm)"),
                         (&mut d.tasset_inset.0, 20..=60, "Inset from tasset edge (mm)"),
                     ] { studio.dirty |= super::armor_controls::number(ui, value, range, label); }
                     studio.dirty |= ui.add(egui::Slider::new(&mut d.count_per_panel, 1..=3).text("Hangers per tasset")).changed();

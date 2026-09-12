@@ -27,6 +27,10 @@ pub(super) fn align_back_lap_width(
     design: &BreastplateDesign,
 ) {
     let columns = back.main_columns;
+    let course_lift = match &design.construction {
+        crate::BreastplateConstruction::Solid => 0.0,
+        crate::BreastplateConstruction::Anime(shape) => shape.lap_lift.metres(),
+    };
     for (side, column) in [(-1.0, 0), (1.0, columns - 1)] {
         let mut front_edge: Vec<_> = front
             .positions
@@ -46,7 +50,8 @@ pub(super) fn align_back_lap_width(
             // The back's sagittal contour already defines its arm cutaway.
             // Closing that opening by translating it to the front edge bends
             // a deep crease into the plate. Only align the fastening width.
-            let target_x = front_point[0] + side * (design.wall_thickness.metres() + LAP_CLEARANCE);
+            let target_x = front_point[0]
+                + side * (design.wall_thickness.metres() + LAP_CLEARANCE + course_lift);
             let offset = world([target_x - original_local[0], 0.0, 0.0], wearer.frame);
             for (index, point) in row.iter_mut().enumerate() {
                 let u = -1.0 + 2.0 * index as f32 / (columns - 1) as f32;

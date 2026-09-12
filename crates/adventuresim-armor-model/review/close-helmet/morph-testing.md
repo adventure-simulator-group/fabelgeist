@@ -13,16 +13,17 @@ and random seed. Use `--only NAME` to reproduce one reported configuration.
 
 ## Configurations and checks
 
-The sweep contains 240 configurations: neutral; each of the 45 identity channels
-at both game-range limits (+/-0.35); all 47 positive basis endpoints; all 45
+The sweep contains 280 configurations: neutral; each of the 45 identity channels
+at both game-range limits (+/-0.35); all 57 positive basis endpoints; all 45
 negative identity unit weights; all-positive, all-negative, and alternating game
-weights; those three mixtures with each spine residual; 32 seeded random game
+weights; those three mixtures with each skeletal residual; 32 seeded random game
 identities; and 16 seeded corner combinations. The seed is 25397.
 
-150 configurations are within the runtime test scope. The other 90 are identity
+190 configurations use runtime-range inputs. The other 90 are identity
 basis/stress cases at +/-1, outside the game's generated identity range. They
 remain in the report as diagnostics; failures there do not make the runtime gate
-fail. The two spine endpoints are runtime cases, not out-of-range stress tests.
+fail. Skeletal residual cases exercise reference-space mesh integrity only;
+this tool does not apply their bone translations or certify their final fit.
 
 For every configuration the test checks intersections between the skull, bevor,
 and visor; intersections within each physical shell and between the three nape
@@ -40,9 +41,11 @@ sampled penetration fails the runtime gate. Shallower contacts remain visible in
 the report. These finite samples and nearest-normal signs are diagnostics, not
 continuous containment proofs.
 
-Body clearance is omitted for the eight configurations with nonzero skeletal
-residual weights: those equipment residuals require the matching skeletal pose,
+Body clearance is omitted for the 48 configurations with nonzero skeletal
+residual weights: those equipment residuals require matching bone translations,
 while the body's corresponding exported morph deltas are zero. Applying only the
 residual and comparing with an unposed body would produce misleading results.
-Plate-intersection checks still run for those eight configurations. This sweep
-does not certify animated or every skeletal pose.
+Plate-intersection checks still run for those 48 configurations. This sweep
+does not certify animated or every skeletal pose. Use a checker that applies
+the joint proportion basis together with the residuals, such as
+`scripts/check_underlayer_assets.py`, when assessing skeletal fit.

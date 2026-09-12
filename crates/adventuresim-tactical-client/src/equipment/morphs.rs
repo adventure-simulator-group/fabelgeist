@@ -74,6 +74,88 @@ mod tests {
     use super::*;
 
     #[test]
+    fn all_fit_targets_follow_nonzero_reference_on_transfer_and_drop() {
+        use adventuresim_core::character_proportions::BodyProportion;
+        let mut app = App::new();
+        app.init_resource::<Assets<Mesh>>()
+            .add_systems(Update, sync_equipment_morphs);
+        let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, default());
+        mesh.set_morph_target_names(
+            SkeletalFitMorph::ALL
+                .iter()
+                .map(|m| m.name().into())
+                .collect(),
+        );
+        let mesh = app.world_mut().resource_mut::<Assets<Mesh>>().add(mesh);
+        let mut reference = CharacterProportions::default();
+        for proportion in BodyProportion::ALL {
+            reference.set(proportion, proportion.limit() * 0.2).unwrap();
+        }
+        let first = app
+            .world_mut()
+            .spawn((
+                CharacterId(42),
+                CharacterSkeletalProportions(reference),
+                SkeletalProportionReference(reference),
+            ))
+            .id();
+        let second = app
+            .world_mut()
+            .spawn((
+                CharacterId(43),
+                CharacterSkeletalProportions(reference),
+                SkeletalProportionReference(reference),
+            ))
+            .id();
+        let item = app.world_mut().spawn(ItemOf(first)).id();
+        let part = app
+            .world_mut()
+            .spawn((
+                Mesh3d(mesh),
+                ProceduralEquipmentPart {
+                    item,
+                    inverse_bindposes: default(),
+                    joint_names: vec![],
+                },
+            ))
+            .id();
+        let weights = |app: &App| match app.world().get::<MeshMorphWeights>(part).unwrap() {
+            MeshMorphWeights::Value { weights } => weights.clone(),
+            MeshMorphWeights::Reference(_) => panic!("equipment owns its weights"),
+        };
+        app.update();
+        assert!(weights(&app).iter().all(|w| *w == 0.0));
+        for (index, target) in SkeletalFitMorph::ALL.into_iter().enumerate() {
+            let mut endpoint = reference;
+            endpoint
+                .set(target.proportion(), target.endpoint())
+                .unwrap();
+            app.world_mut()
+                .entity_mut(second)
+                .insert(CharacterSkeletalProportions(endpoint));
+            app.world_mut().entity_mut(item).insert(ItemOf(second));
+            app.update();
+            let actual = weights(&app);
+            assert_eq!(actual[index], 1.0);
+            assert!(
+                actual
+                    .iter()
+                    .enumerate()
+                    .all(|(i, w)| i == index || *w == 0.0)
+            );
+            app.world_mut().entity_mut(item).insert(ItemOf(first));
+            app.update();
+            assert!(weights(&app).iter().all(|w| *w == 0.0));
+        }
+        app.world_mut().entity_mut(item).insert(ItemOf(second));
+        app.update();
+        assert!(weights(&app).contains(&1.0));
+        app.world_mut().entity_mut(item).remove::<ItemOf>();
+        app.update();
+        assert!(weights(&app).iter().all(|w| *w == 0.0));
+    }
+
+    #[test]
     fn equipment_refits_on_transfer_and_resets_when_dropped() {
         let mut app = App::new();
         app.init_resource::<Assets<Mesh>>()

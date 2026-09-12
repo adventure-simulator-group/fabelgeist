@@ -12,10 +12,9 @@ mod domain;
 use domain::{HALF_WIDTH_MM, HEIGHT_MM, VisorDomain};
 
 const JAW_ROWS: usize = 12;
-const NECK_ROWS: usize = 6;
+pub(super) const NECK_ROWS: usize = 6;
 const BEVOR_COLUMNS: usize = 32;
 const PLATE_GAP_M: f32 = 0.002;
-const VISOR_BROW_OVERLAP_M: f32 = 0.030;
 const SIDE_WRAP_RADIANS: f32 = PI * 0.55;
 pub(super) const NECK_HEM_HEAD_RATIO: f32 = 1.20;
 pub(super) const CHIN_HEAD_RATIO: f32 = 1.03;
@@ -26,8 +25,12 @@ const VISOR_LOWER_EDGE_HEAD_RATIO: f32 = 0.86;
 const BEVOR_MOUTH_HEAD_RATIO: f32 = 0.76;
 const FACE_PROJECTION_HEAD_RATIO: f32 = 0.35;
 const SIGHT_BROW_DROP_HEAD_RATIO: f32 = 0.07;
-const BROW_PEAK_M: f32 = 0.025;
 const BEVOR_PIVOT_BROW_DROP_M: f32 = 0.008;
+const BEVOR_MINIMUM_ROW_SEPARATION_RATIO: f32 = 0.25;
+
+pub(super) fn neck_lip_radius(flare: f32, neck_blend: f32) -> f32 {
+    flare * neck_blend.powi(4) * 0.5
+}
 
 pub(super) fn generate(
     radii: [f32; 3],
@@ -60,7 +63,7 @@ pub(super) fn generate_fitted(
     let hinge = ArmorHinge {
         origin: [
             0.0,
-            carrier.brow + VISOR_BROW_OVERLAP_M - height * 0.20,
+            carrier.brow + d.brow_overlap.metres() - height * 0.20,
             profile.skull_center() + profile.skull_depth() * SIDE_WRAP_RADIANS.cos(),
         ],
         axis: [1.0, 0.0, 0.0],
@@ -110,12 +113,18 @@ impl Carrier<'_> {
     }
 
     fn point(&self, angle: f32, y: f32, layer: f32) -> [f32; 3] {
-        const NORMAL_SAMPLE_ANGLE: f32 = 0.001;
-        const NORMAL_SAMPLE_HEIGHT_M: f32 = 0.0001;
         let p = self.base_point(angle, y);
         if layer == 0.0 {
             return p;
         }
+        let normal = self.normal(angle, y);
+        let offset = (self.d.fit.wall_thickness.metres() + PLATE_GAP_M) * layer;
+        std::array::from_fn(|i| p[i] + normal[i] * offset)
+    }
+
+    fn normal(&self, angle: f32, y: f32) -> [f32; 3] {
+        const NORMAL_SAMPLE_ANGLE: f32 = 0.001;
+        const NORMAL_SAMPLE_HEIGHT_M: f32 = 0.0001;
         let across: [f32; 3] = std::array::from_fn(|i| {
             self.base_point(angle + NORMAL_SAMPLE_ANGLE, y)[i]
                 - self.base_point(angle - NORMAL_SAMPLE_ANGLE, y)[i]
@@ -130,8 +139,69 @@ impl Carrier<'_> {
             across[0] * up[1] - across[1] * up[0],
         ];
         let length = normal.iter().map(|v| v * v).sum::<f32>().sqrt();
+        normal.map(|v| v / length)
+    }
+
+    /// Seat the chin plate without reversing its closely spaced neck rows.
+    /// The radial displacement retains the same normal-distance reserve as
+    /// the plate wall, while preserving the carrier's axial construction.
+    fn radial_point(&self, angle: f32, y: f32, layer: f32) -> Result<[f32; 3], GenerateError> {
+        let p = self.base_point(angle, y);
+        let direction = crate::ShellExtrusion::Radial {
+            origin: [0.0, 0.0, self.profile.skull_center()],
+            axis: [0.0, 1.0, 0.0],
+        }
+        .offset(p, self.normal(angle, y))?;
         let offset = (self.d.fit.wall_thickness.metres() + PLATE_GAP_M) * layer;
-        std::array::from_fn(|i| p[i] + normal[i] / length * offset)
+        Ok(std::array::from_fn(|i| p[i] + direction[i] * offset))
+    }
+
+    fn bevor_row_height(&self, angle: f32, row: usize) -> f32 {
+        let front = angle.cos().max(0.0);
+        let top = self.brow
+            - BEVOR_PIVOT_BROW_DROP_M
+            - (self.half_height * BEVOR_MOUTH_HEAD_RATIO + self.brow - BEVOR_PIVOT_BROW_DROP_M)
+                * front.powi(2);
+        self.row_height(top, angle, row)
+    }
+
+    /// Retain normal seating wherever its axial reserve leaves room for the
+    /// neighboring row. Radial seating supplies the same normal clearance
+    /// without consuming the small axial spacing of a tight chin transition.
+    fn bevor_normal_fraction(&self) -> f32 {
+        let reserve = self.d.fit.wall_thickness.metres() + PLATE_GAP_M;
+        let mut fraction = 1.0_f32;
+        for column in 0..=BEVOR_COLUMNS {
+            let angle = (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
+            for row in 1..=JAW_ROWS + NECK_ROWS {
+                let upper = self.bevor_row_height(angle, row - 1);
+                let lower = self.bevor_row_height(angle, row);
+                let offset_gap =
+                    reserve * (self.normal(angle, upper)[1] - self.normal(angle, lower)[1]);
+                if offset_gap < 0.0 {
+                    fraction = fraction.min(
+                        (upper - lower) * (1.0 - BEVOR_MINIMUM_ROW_SEPARATION_RATIO) / -offset_gap,
+                    );
+                }
+            }
+        }
+        fraction
+    }
+
+    fn bevor_point(
+        &self,
+        angle: f32,
+        y: f32,
+        normal_fraction: f32,
+    ) -> Result<[f32; 3], GenerateError> {
+        let normal = self.point(angle, y, 1.0);
+        if normal_fraction == 1.0 {
+            return Ok(normal);
+        }
+        let radial = self.radial_point(angle, y, 1.0)?;
+        Ok(std::array::from_fn(|i| {
+            radial[i] + (normal[i] - radial[i]) * normal_fraction
+        }))
     }
 
     fn base_point(&self, angle: f32, y: f32) -> [f32; 3] {
@@ -157,7 +227,7 @@ impl Carrier<'_> {
         let front = angle.cos().max(0.0).powi(2);
         let flare =
             self.d.throat_flare.metres() * front + self.d.back_flare.metres() * (1.0 - front);
-        let lip = flare * neck_blend.powi(4) * 0.5;
+        let lip = neck_lip_radius(flare, neck_blend);
         // Both overlapping plates share the lower face projection. The visor's
         // exit must lead into a receding chin, rather than ending behind it.
         let mouth = -self.half_height * FACE_PROJECTION_HEAD_RATIO;
@@ -290,20 +360,19 @@ impl Carrier<'_> {
     fn bevor(&self) -> Result<PartMesh, GenerateError> {
         let mut surface = Surface::default();
         let mut previous = Vec::new();
+        let normal_fraction = self.bevor_normal_fraction();
         for row in 0..=JAW_ROWS + NECK_ROWS {
             let ring = (0..=BEVOR_COLUMNS)
                 .map(|column| {
                     let angle =
                         (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
-                    let front = angle.cos().max(0.0);
-                    let top = self.brow
-                        - BEVOR_PIVOT_BROW_DROP_M
-                        - (self.half_height * BEVOR_MOUTH_HEAD_RATIO + self.brow
-                            - BEVOR_PIVOT_BROW_DROP_M)
-                            * front.powi(2);
-                    surface.vertex(self.point(angle, self.row_height(top, angle, row), 1.0))
+                    Ok(surface.vertex(self.bevor_point(
+                        angle,
+                        self.bevor_row_height(angle, row),
+                        normal_fraction,
+                    )?))
                 })
-                .collect::<Vec<_>>();
+                .collect::<Result<Vec<_>, GenerateError>>()?;
             if !previous.is_empty() {
                 surface.connect(&previous, &ring, false);
             }
@@ -311,23 +380,30 @@ impl Carrier<'_> {
         }
         surface.shell(
             self.d.fit.wall_thickness.metres(),
-            crate::ShellExtrusion::Normal,
+            crate::ShellExtrusion::Radial {
+                origin: [0.0, 0.0, self.profile.skull_center()],
+                axis: [0.0, 1.0, 0.0],
+            },
         )
     }
 
     fn visor_height(&self) -> f32 {
-        self.brow + VISOR_BROW_OVERLAP_M + self.half_height * VISOR_LOWER_EDGE_HEAD_RATIO
+        self.brow + self.d.brow_overlap.metres() + self.half_height * VISOR_LOWER_EDGE_HEAD_RATIO
     }
 
     fn visor_y(&self, angle: f32, t: f32) -> f32 {
         let sight_t = domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM;
         let eye = self.brow - self.half_height * SIGHT_BROW_DROP_HEAD_RATIO;
         if t <= sight_t {
-            let top = self.brow + VISOR_BROW_OVERLAP_M + BROW_PEAK_M * angle.cos().max(0.0).powi(2);
+            let top = self.brow
+                + self.d.brow_overlap.metres()
+                + self.d.brow_peak.metres() * angle.cos().max(0.0).powi(2);
             top + (eye - top) * t / sight_t
         } else {
             let bottom = -self.half_height * VISOR_LOWER_EDGE_HEAD_RATIO;
-            eye + (bottom - eye) * (t - sight_t) / (1.0 - sight_t)
+            let down = (t - sight_t) / (1.0 - sight_t);
+            let sweep = self.d.bellows.map_or(0.0, |b| b.cheek_rise.metres());
+            eye + (bottom - eye) * down + sweep * down * angle.sin().powi(2)
         }
     }
 
@@ -356,6 +432,8 @@ impl Carrier<'_> {
                 let sight = domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM;
                 let ledge = smooth((t - sight) / 0.10) * (1.0 - smooth((t - sight - 0.10) / 0.16));
                 point[2] += self.d.sight_ledge.metres() * ledge * angle.cos().max(0.0).powi(2);
+                point[2] +=
+                    self.d.bellows.map_or(0.0, |b| b.relief(t)) * angle.cos().max(0.0).powi(2);
                 point
             })
             .collect();
@@ -368,7 +446,10 @@ impl Carrier<'_> {
                 origin: [0.0, 0.0, self.profile.skull_center()],
                 axis: [0.0, 1.0, 0.0],
             },
-            self.d.visor_fluting.as_ref().map(|_| domain.relief),
+            self.d
+                .visor_fluting
+                .as_ref()
+                .map(|_| crate::SurfaceRelief::ShellHeights(domain.relief)),
         )
     }
 }
@@ -382,6 +463,106 @@ fn smooth(t: f32) -> f32 {
 mod tests {
     use super::*;
     use crate::Millimeters;
+
+    #[test]
+    fn chin_plate_reserve_preserves_tight_neck_rows_and_normal_clearance() {
+        let design = CloseHelmetDesign {
+            throat_flare: Millimeters(15),
+            visor_projection: Millimeters(50),
+            back_edge_lift: Millimeters(45),
+            ..Default::default()
+        };
+        let profile = CloseHelmetProfile::authored([0.07575, 0.09825, 0.09075], &design);
+        let carrier = Carrier {
+            crown: 0.09825,
+            half_height: 0.08625,
+            brow: 0.08625 * super::super::shapes::BROW_HEIGHT,
+            d: &design,
+            profile: &profile,
+        };
+        let reserve = design.fit.wall_thickness.metres() + PLATE_GAP_M;
+        let fraction = carrier.bevor_normal_fraction();
+        assert!(fraction > 0.0 && fraction < 1.0);
+        for row in JAW_ROWS..=JAW_ROWS + NECK_ROWS {
+            for column in 0..=BEVOR_COLUMNS {
+                let angle = (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
+                let y = carrier.bevor_row_height(angle, row);
+                let base = carrier.base_point(angle, y);
+                let seated = carrier.bevor_point(angle, y, fraction).unwrap();
+                if row > JAW_ROWS {
+                    let upper_y = carrier.bevor_row_height(angle, row - 1);
+                    let upper = carrier.bevor_point(angle, upper_y, fraction).unwrap();
+                    assert!(
+                        upper[1] - seated[1]
+                            >= (upper_y - y) * BEVOR_MINIMUM_ROW_SEPARATION_RATIO - 1e-7
+                    );
+                }
+                let normal = carrier.normal(angle, y);
+                let clearance = (0..3)
+                    .map(|i| (seated[i] - base[i]) * normal[i])
+                    .sum::<f32>();
+                assert!((clearance - reserve).abs() < 1e-6);
+            }
+        }
+        carrier.bevor().unwrap().normals().unwrap();
+    }
+
+    #[test]
+    fn chin_plate_with_room_for_its_gauge_retains_the_formed_normal_offset() {
+        let design = CloseHelmetDesign::default();
+        let profile = CloseHelmetProfile::authored([0.10, 0.13, 0.12], &design);
+        let carrier = Carrier {
+            crown: 0.13,
+            half_height: 0.115,
+            brow: 0.115 * super::super::shapes::BROW_HEIGHT,
+            d: &design,
+            profile: &profile,
+        };
+        let fraction = carrier.bevor_normal_fraction();
+        assert_eq!(fraction, 1.0);
+        for column in 0..=BEVOR_COLUMNS {
+            let angle = (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
+            for row in 0..=JAW_ROWS + NECK_ROWS {
+                let y = carrier.bevor_row_height(angle, row);
+                assert_eq!(
+                    carrier.bevor_point(angle, y, fraction).unwrap(),
+                    carrier.point(angle, y, 1.0)
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn visor_brow_styles_keep_the_sight_and_lower_face_at_the_same_height() {
+        let mut design = CloseHelmetDesign::default();
+        let profile = CloseHelmetProfile::authored([0.10, 0.13, 0.12], &design);
+        let mut sights = Vec::new();
+        let mut tops = Vec::new();
+        for (overlap, peak) in [(8, 0), (10, 5), (30, 25), (40, 30)] {
+            design.brow_overlap = Millimeters(overlap);
+            design.brow_peak = Millimeters(peak);
+            let carrier = Carrier {
+                crown: 0.13,
+                half_height: 0.115,
+                brow: 0.115 * super::super::shapes::BROW_HEIGHT,
+                d: &design,
+                profile: &profile,
+            };
+            sights.push(carrier.visor_y(0.0, domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM));
+            tops.push(carrier.visor_y(0.0, 0.0));
+            let mesh = generate_fitted(0.13, 0.115, &design, &profile).unwrap();
+            assert!(mesh.positions.iter().flatten().all(|v| v.is_finite()));
+            let point = carrier.point(30.0 / HALF_WIDTH_MM * SIDE_WRAP_RADIANS, sights[0], 2.0);
+            assert!(!blocks_sight(&mesh, point, profile.skull_center()));
+            assert!((carrier.visor_y(0.0, 1.0) + 0.115 * VISOR_LOWER_EDGE_HEAD_RATIO).abs() < 1e-6);
+        }
+        assert!(
+            sights
+                .iter()
+                .all(|height| (height - sights[0]).abs() < 1e-6)
+        );
+        assert!(tops.windows(2).all(|pair| pair[0] < pair[1]));
+    }
 
     #[test]
     fn sights_open_into_the_head_cavity_instead_of_facing_another_plate() {

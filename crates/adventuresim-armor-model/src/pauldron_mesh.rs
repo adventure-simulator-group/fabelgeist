@@ -1,24 +1,20 @@
-use std::f32::consts::PI;
+use std::f32::consts::{FRAC_PI_2, PI};
 
 use super::PauldronDesign;
 use crate::{GenerateError, PartFrame, PartMesh, plate_patch::fluted_patch};
 
 const MAIN_ROWS: usize = 24;
 const LAME_ROWS: usize = 8;
-const FRONT_RETURN_RAD: f32 = 2.60;
-const REAR_RETURN_RAD: f32 = 2.68;
-const TERMINAL_WRAP_SCALE: f32 = 0.72;
 const DELTOID_JOIN_M: f32 = 0.040;
 const CROWN_BOW_M: f32 = 0.012;
 const MAIN_RIM_RESERVE_M: f32 = 0.006;
-const LAME_WRAP_RAD: f32 = 1.68;
 const LAME_WIDTH_TAPER_M: f32 = 0.014;
 const LAME_HEIGHT_TAPER_M: f32 = 0.010;
 const LAME_OVERLAP_M: f32 = 0.004;
-const NECK_LAME_START: f32 = 0.74;
-const MAIN_PLATE_END: f32 = 0.76;
 const NECK_LAME_OVERLAP: f32 = 0.02;
-const NECK_LAME_SPACING_GAUGES: f32 = 1.5;
+// Reserve lap clearance when the fitted carrier tilts away from the formed
+// separation direction during identity morph interpolation.
+const NECK_LAME_SPACING_GAUGES: f32 = 2.0;
 const ARM_CROWN_SCALE: f32 = 1.1;
 const ARM_LAME_SCALE: f32 = 1.04;
 const WING_RETURN_TAPER: f32 = 0.08;
@@ -26,8 +22,6 @@ const MEDIAL_WIDTH_SCALE: f32 = 1.1;
 const LAP_GAUGE_RESERVE: f32 = 1.25;
 const MAIN_JOIN_GAUGE_RESERVE: f32 = 2.0;
 const MINIMUM_ARM_CLEARANCE_M: f32 = 0.002;
-const REAR_RETURN_BASE_RAD: f32 = 2.40;
-const REAR_RETURN_FULL_DROP_M: f32 = 0.050;
 
 pub(super) struct Saddle<'a> {
     design: &'a PauldronDesign,
@@ -94,19 +88,63 @@ impl<'a> Saddle<'a> {
             * f32::from(self.design.lower_lames - 1)
     }
 
+    fn theta(&self, u: f32, v: f32) -> f32 {
+        let d = self.design;
+        let rear_return = d.outline.rear_return.radians();
+        let front_return = d.outline.front_return.radians();
+        let (rear, front) = if self.front_sign > 0.0 {
+            (rear_return, front_return)
+        } else {
+            (front_return, rear_return)
+        };
+        let main_end = 1.0 - d.outline.upper_span.unit() + NECK_LAME_OVERLAP;
+        let corner_span = main_end * d.outline.corner_rounding.unit();
+        let corner = rounded_end(v, corner_span);
+        let arm_wrap = d.outline.arm_wrap.radians();
+        let rear = arm_wrap + (rear - arm_wrap) * corner;
+        let front = arm_wrap + (front - arm_wrap) * corner;
+        -rear + (rear + front) * u
+    }
+
+    fn wing_drop(&self, theta: f32, v: f32) -> f32 {
+        let d = self.design;
+        let anterior = theta * self.front_sign > 0.0;
+        let wing = if anterior {
+            d.outline.front_extension
+        } else {
+            d.outline.rear_extension
+        };
+        let edge_angle = if anterior {
+            d.outline.front_return
+        } else {
+            d.outline.rear_return
+        }
+        .radians();
+        let wing_start = d.outline.wing_start.radians();
+        // Extension is the actual downward reach at the returned boundary.
+        // Normalizing against PI made shorter, rounded returns suppress nearly
+        // all of the requested wing depth.
+        let wing_fraction = if edge_angle > wing_start {
+            ((theta.abs() - wing_start) / (edge_angle - wing_start)).clamp(0.0, 1.0)
+        } else {
+            0.0
+        };
+        let main_end = 1.0 - d.outline.upper_span.unit() + NECK_LAME_OVERLAP;
+        let (position, rounding) = if anterior {
+            (d.outline.front_wing_position, d.outline.front_wing_rounding)
+        } else {
+            (d.outline.rear_wing_position, d.outline.rear_wing_rounding)
+        };
+        wing.metres()
+            * wing_fraction
+            * wing_fraction
+            * (3.0 - 2.0 * wing_fraction)
+            * hanging_profile(v / main_end, position.unit(), rounding.unit())
+    }
+
     pub(super) fn point(&self, u: f32, v: f32) -> [f32; 3] {
         let d = self.design;
-        let rear_return = REAR_RETURN_BASE_RAD
-            + (REAR_RETURN_RAD - REAR_RETURN_BASE_RAD)
-                * (d.rear_drop.metres() / REAR_RETURN_FULL_DROP_M).min(1.0);
-        let (rear, front) = if self.front_sign > 0.0 {
-            (rear_return, FRONT_RETURN_RAD)
-        } else {
-            (FRONT_RETURN_RAD, rear_return)
-        };
-        let round = (PI * v).sin().max(0.0);
-        let theta = (-rear + (rear + front) * u)
-            * (TERMINAL_WRAP_SCALE + (1.0 - TERMINAL_WRAP_SCALE) * round);
+        let theta = self.theta(u, v);
         let anterior = theta * self.front_sign > 0.0;
         let reach = if anterior {
             d.front_reach
@@ -114,7 +152,12 @@ impl<'a> Saddle<'a> {
             d.rear_reach
         };
         let drop = if anterior { d.front_drop } else { d.rear_drop };
-        let medial = d.neck_reach.metres() + reach.metres() * theta.sin().powi(2);
+        let wing_drop = self.wing_drop(theta, v);
+        let arm_wrap = d.outline.arm_wrap.radians();
+        // Returned wings retain their medial reach. Turning sin² back toward
+        // the arm folds the chart when chest clearance projects it in depth.
+        let medial =
+            d.neck_reach.metres() + reach.metres() * theta.abs().min(FRAC_PI_2).sin().powi(2);
         let join_gap = (d.gauge.thickness.metres() * MAIN_JOIN_GAUGE_RESERVE
             + d.fluting.as_ref().map_or(0.0, |f| f.depth.metres()))
         .max(MAIN_RIM_RESERVE_M);
@@ -126,20 +169,43 @@ impl<'a> Saddle<'a> {
         };
         let inner_x = width * transverse * MEDIAL_WIDTH_SCALE;
         let inner_z = self.height() * theta.cos() - drop.metres() * (-theta.cos()).max(0.0);
-        let outer = [
+        let crown_height = (self.height() * ARM_CROWN_SCALE)
+            .max(self.height() * ARM_LAME_SCALE + join_gap)
+            + d.arm_allowance.metres()
+            + self.lap_reserve(LAME_HEIGHT_TAPER_M);
+        let mut outer = [
             width * theta.sin(),
             -DELTOID_JOIN_M,
-            ((self.height() * ARM_CROWN_SCALE).max(self.height() * ARM_LAME_SCALE + join_gap)
-                + d.arm_allowance.metres()
-                + self.lap_reserve(LAME_HEIGHT_TAPER_M))
-                * theta.cos(),
+            crown_height * theta.cos(),
         ];
+        // Beyond the arm's open edge, continue the carrier downward without
+        // curling its horizontal section back through the hanging wing.
+        let return_shift = crown_height
+            * (theta.abs().min(arm_wrap.min(FRAC_PI_2)).cos() - theta.cos())
+            * self.medial[2];
+        for (axis, point) in outer.iter_mut().enumerate() {
+            *point += self.medial[axis] * return_shift;
+        }
         std::array::from_fn(|i| {
             let inner =
                 if i == 0 { inner_x } else { 0.0 } + self.medial[i] * medial + self.up[i] * inner_z;
-            outer[i] * (1.0 - v) + inner * v + self.up[i] * CROWN_BOW_M * (PI * v).sin()
+            outer[i] * (1.0 - v)
+                + inner * v
+                + self.up[i] * (CROWN_BOW_M * (PI * v).sin() - wing_drop)
         })
     }
+}
+
+fn rounded_end(distance: f32, span: f32) -> f32 {
+    let t = (distance / span).clamp(0.0, 1.0);
+    t * t * (3.0 - 2.0 * t)
+}
+
+fn hanging_profile(v: f32, position: f32, rounding: f32) -> f32 {
+    let low_radius = position.min(1.0 - position) * (1.0 - rounding);
+    let rising_span = position - low_radius;
+    let falling_span = 1.0 - position - low_radius;
+    rounded_end(v, rising_span) * rounded_end(1.0 - v, falling_span)
 }
 
 pub(crate) fn generate(d: &PauldronDesign, fit: &PartFrame) -> Result<PartMesh, GenerateError> {
@@ -150,18 +216,20 @@ pub(super) fn plates(carrier: &super::PauldronCarrier) -> Result<PartMesh, Gener
     let d = &carrier.design;
     let saddle = Saddle::new(d, &carrier.frame)?;
     let gauge = d.gauge.thickness.metres();
+    let neck_start = 1.0 - d.outline.upper_span.unit();
+    let main_end = neck_start + NECK_LAME_OVERLAP;
     let mut result = fluted_patch(
         MAIN_ROWS,
         false,
         gauge,
         d.fluting.as_ref(),
-        [0.0, MAIN_PLATE_END],
+        [0.0, main_end],
         |_, _| 0.0,
-        |u, v| carrier.point(u, v * MAIN_PLATE_END, 0.0),
+        |u, v| carrier.point(u, v * main_end, 0.0),
     )?;
     for index in 0..d.upper_lames {
-        let step = (1.0 - NECK_LAME_START) / f32::from(d.upper_lames);
-        let start = NECK_LAME_START + f32::from(index) * step;
+        let step = d.outline.upper_span.unit() / f32::from(d.upper_lames);
+        let start = neck_start + f32::from(index) * step;
         let end = (start + step + NECK_LAME_OVERLAP).min(1.0);
         result.append(fluted_patch(
             LAME_ROWS,
@@ -193,7 +261,7 @@ pub(super) fn plates(carrier: &super::PauldronCarrier) -> Result<PartMesh, Gener
             ],
             |_, _| 0.0,
             |u, v| {
-                let theta = LAME_WRAP_RAD * (2.0 * u - 1.0);
+                let theta = d.outline.arm_wrap.radians() * (2.0 * u - 1.0);
                 let width = saddle.width() + saddle.lap_reserve(LAME_WIDTH_TAPER_M)
                     - saddle.lap_step(LAME_WIDTH_TAPER_M) * f32::from(index);
                 let height = saddle.height() * ARM_LAME_SCALE

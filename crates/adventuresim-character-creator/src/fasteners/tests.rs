@@ -257,3 +257,141 @@ fn tension_path_endpoints_remain_supported_across_rotated_hulls() {
         mesh::closure(&section, 0.1, &design).unwrap();
     }
 }
+
+#[test]
+fn seam_crossing_arcs_keep_endpoint_and_underarm_height_correspondence() {
+    let design = StrapDesign {
+        start_angle: Milliradians(2750),
+        end_angle: Milliradians(6600),
+        ..Default::default()
+    };
+    design.validate().unwrap();
+    let start = design.start_angle.radians();
+    let span = design.end_angle.radians() - start;
+    for fraction in [0.0, 0.25, 0.5, 0.75, 1.0] {
+        let angle = start + span * fraction;
+        for turn in [-1.0, 0.0, 1.0] {
+            assert!(
+                (design.arc_fraction(angle + turn * std::f32::consts::TAU) - fraction).abs() < 1e-6
+            );
+        }
+    }
+    assert_eq!(design.arc_fraction(start - 0.01), 0.0);
+    assert_eq!(design.arc_fraction(design.end_angle.radians() + 0.01), 1.0);
+    let before = design.arc_fraction(std::f32::consts::TAU - 0.0001);
+    let after = design.arc_fraction(0.0001);
+    assert!(
+        after > before && after - before < 0.0001,
+        "the measured polar seam must not jump to the opposite strap endpoint"
+    );
+    for (start, end) in [(6284, 7000), (2750, 9200), (2750, 3100), (2750, 2700)] {
+        assert!(
+            StrapDesign {
+                start_angle: Milliradians(start),
+                end_angle: Milliradians(end),
+                ..Default::default()
+            }
+            .validate()
+            .is_err()
+        );
+    }
+}
+
+#[test]
+fn suspended_besagew_does_not_supply_band_support_or_main_plate_anchors() {
+    let plate = tapered_support(true).with_component(ArmorComponentRole::Plate, None);
+    let frame = PartFrame {
+        origin: [0.0; 3],
+        axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+        half_extents: [1.0; 3],
+    };
+    let region = FitRegion::UpperArm(crate::armor_frames::Side::Left);
+    let mut design = StrapDesign {
+        underarm_drop: Millimeters(60),
+        height: Permille(500),
+        start_angle: Milliradians(1000),
+        end_angle: Milliradians(2000),
+        ..Default::default()
+    };
+    let mut distant = tapered_support(false).with_component(ArmorComponentRole::Besagew, None);
+    for point in &mut distant.positions {
+        point[2] += 0.2;
+    }
+    let mut assembly = plate.clone();
+    assembly.append(distant);
+    let obstacles = support::local_mesh(&assembly, None, &frame, region, &design).unwrap();
+    assert_eq!(obstacles.indices, plate.indices);
+    assert_eq!(
+        obstacles.positions, assembly.positions,
+        "support filtering must not move the independently suspended disc"
+    );
+    for height in [0.02, 0.05, 0.08] {
+        let own = section::ClosureSection::new(
+            &[],
+            &[],
+            &plate.positions,
+            plate.indices.as_chunks::<3>().0,
+            height,
+            design.width.metres(),
+            0.0,
+        )
+        .unwrap();
+        let layered = section::ClosureSection::new(
+            &[],
+            &[],
+            &obstacles.positions,
+            obstacles.indices.as_chunks::<3>().0,
+            height,
+            design.width.metres(),
+            0.0,
+        )
+        .unwrap();
+        for angle in [1.0, 1.5, 2.0] {
+            assert_eq!(own.radius(angle).unwrap(), layered.radius(angle).unwrap());
+        }
+    }
+    design.end_angle = Milliradians(4700);
+    let mut misleading = plate;
+    misleading.append(tapered_support(false).with_component(ArmorComponentRole::Besagew, None));
+    assert!(
+        support::local_mesh(&misleading, None, &frame, region, &design).is_err(),
+        "another component cannot supply the missing shoulder attachment"
+    );
+}
+
+#[test]
+fn seam_crossing_shoulder_route_builds_closed_leather_and_hardware() {
+    let arm = tapered_support(false);
+    let design = StrapDesign {
+        width: Millimeters(14),
+        underarm_drop: Millimeters(60),
+        start_angle: Milliradians(2750),
+        end_angle: Milliradians(6600),
+        ..Default::default()
+    };
+    let mut section = section::ClosureSection::new(
+        &arm.positions,
+        arm.indices.as_chunks::<3>().0,
+        &[],
+        &[],
+        0.07,
+        0.08,
+        0.006,
+    )
+    .unwrap();
+    section
+        .follow_underarm(
+            section::SupportSurfaces {
+                body: &arm.positions,
+                body_faces: arm.indices.as_chunks::<3>().0,
+                plate: &[],
+                plate_faces: &[],
+            },
+            0.1,
+            &design,
+        )
+        .unwrap();
+    let (leather, hardware) = mesh::closure(&section, 0.1, &design).unwrap();
+    closed(&leather);
+    closed(&hardware);
+}

@@ -28,7 +28,7 @@ pub(super) fn attach(
         &generated.normals,
         &generated.global_joint_states,
     )?;
-    let normals = mesh.normals()?;
+    let normals = mesh.normals().context("reference fastening normals")?;
     let nearest = mesh
         .positions
         .iter()
@@ -67,7 +67,12 @@ pub(super) fn attach(
         morphs.push(ArmorMorph {
             name: target.name.clone(),
             position_deltas: deltas(&mesh.positions, &endpoint.positions),
-            normal_deltas: deltas(&normals, &endpoint.normals()?),
+            normal_deltas: deltas(
+                &normals,
+                &endpoint.normals().with_context(|| {
+                    format!("fastening normals at morph {} ({placement})", target.name)
+                })?,
+            ),
             direct_positions: endpoint.positions,
         });
     }
@@ -88,8 +93,7 @@ pub(super) fn attach(
         recipe,
         adventuresim_character_creator::fasteners::catalog::FastenerRecipe::TassetSuspension(_)
     ) {
-        crate::fastener_skin::attach_suspenders(&armor, &mut hardware);
-        crate::fastener_skin::bind_suspenders(&armor, &mut hardware)?;
+        crate::fastener_skin::attach_suspenders(&armor, &mut hardware)?;
     } else {
         crate::fastener_skin::attach(&armor, &mut hardware);
     }
@@ -183,21 +187,19 @@ impl ClosureFitter<'_> {
         plate.positions = positions.to_vec();
         plate.indices = self.armor.indices.clone();
         plate.components = self.armor.components.clone();
-        let support = self
-            .recipe
-            .support_item()
-            .map(|id| {
-                adventuresim_character_creator::armor_recipes::fitted_mesh(
-                    &self
-                        .catalog
-                        .design(id)
-                        .context("missing closure support recipe")?,
-                    self.placement,
-                    &wearer,
-                    &[],
-                )
-            })
-            .transpose()?;
+        let support =
+            self.recipe
+                .fitted_support(&self.catalog.2, &wearer, self.placement, &|id| {
+                    adventuresim_character_creator::armor_recipes::fitted_mesh(
+                        &self
+                            .catalog
+                            .design(id, self.placement)
+                            .context("missing closure support recipe")?,
+                        self.placement,
+                        &wearer,
+                        &[],
+                    )
+                })?;
         self.recipe
             .generate(&plate, &wearer, self.placement, support.as_ref())
     }

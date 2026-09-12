@@ -15,6 +15,44 @@ fn frame(extents: [f32; 3]) -> PartFrame {
 }
 
 #[test]
+fn named_spaulder_parts_preserve_geometry_and_isolate_crown_fitting() {
+    for count in [2, 6] {
+        for coverage in [600, 1000] {
+            let d = SpaulderDesign {
+                lame_count: count,
+                crown_coverage: Permille(coverage),
+                besagew: None,
+                fluting: Some(adventuresim_armor_model::PlateFluting::default()),
+                ..Default::default()
+            };
+            let fit = frame([0.065, 0.045, 0.060]);
+            let original =
+                generate_limb_armor(&LimbArmorDesign::Spaulder(d.clone()), &fit).unwrap();
+            let mut parts = adventuresim_armor_model::SpaulderPlates::new(&d, &fit).unwrap();
+            let complete = adventuresim_armor_model::SpaulderPlates::new(&d, &fit)
+                .unwrap()
+                .mesh();
+            assert_eq!(original.positions, complete.positions);
+            assert_eq!(original.indices, complete.indices);
+            let lames = parts.lames.positions.clone();
+            parts.crown = parts
+                .crown
+                .refit_surfaces(|points, _| {
+                    let rim = points.iter().map(|p| p[1]).fold(f32::INFINITY, f32::min);
+                    for p in points {
+                        p[1] = rim + (p[1] - rim) * 1.25;
+                    }
+                })
+                .unwrap();
+            let fitted = parts.mesh();
+            assert_eq!(&fitted.positions[..lames.len()], lames);
+            assert_eq!(fitted.indices, complete.indices);
+            fitted.normals().unwrap();
+        }
+    }
+}
+
+#[test]
 fn sabaton_rejects_ankle_trim_that_consumes_the_instep_span() {
     let foot = FootArmorDesign {
         ankle_cutaway: Millimeters(30),

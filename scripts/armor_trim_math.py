@@ -69,3 +69,21 @@ def pattern_mask(distance, phase, width, pattern):
         leaf_b = ((phase - .73) / .18) ** 2 + ((t - .73) / .19) ** 2 < 1
         return band & ((np.abs(t - stem) < .05) | leaf_a | leaf_b)
     raise ValueError(f"unknown plate trim pattern {pattern}")
+
+
+def surface_band_mask(points, bounds, band):
+    """Evaluate a physical slab in the original mesh coordinate system.
+
+    Signed transverse distance maps the whole stripe to the existing pattern,
+    avoiding a mirrored/reset pattern at its center. Phase uses a perpendicular
+    object-space axis, so neither coordinate resets at an atlas seam or lame.
+    """
+    axis = 'xyz'.index(band['axis'])
+    phase_axis = 'xyz'.index(band.get('phase_axis', 'y' if axis != 1 else 'x'))
+    lower, upper = bounds
+    center = lower[axis] + band['position'] * (upper[axis] - lower[axis])
+    width = band['width_mm'] / 1000
+    distance = points[:, axis] - center + width / 2
+    span = upper[phase_axis] - lower[phase_axis]
+    phase = (points[:, phase_axis] - lower[phase_axis]) / max(float(span), 1e-12)
+    return pattern_mask(distance, phase * band['repeats'], width, band['pattern'])

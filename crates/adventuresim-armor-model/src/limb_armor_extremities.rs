@@ -189,8 +189,41 @@ pub(super) fn boot(d: &BootDesign, fit: &PartFrame) -> Result<PartMesh, Generate
         let flare = lerp(1.0, d.shaft_flare.unit(), smooth(shaft));
         [
             lerp(outer_x, inner_x * flare, transition),
-            -height - gauge + rise,
+            -height - gauge + rise - d.gauge.clearance.metres() * (1.0 - transition),
             lerp(outer_z, ankle_z + (inner_z - ankle_z) * flare, transition),
         ]
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{Millimeters, PlateGauge};
+
+    #[test]
+    fn inner_boot_sole_keeps_requested_clearance_below_the_foot() {
+        let frame = PartFrame {
+            origin: [0.0; 3],
+            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            half_extents: [0.05, 0.035, 0.12],
+        };
+        for clearance in [2, 8, 14] {
+            let design = BootDesign {
+                gauge: PlateGauge {
+                    clearance: Millimeters(clearance),
+                    thickness: Millimeters(3),
+                },
+                ..BootDesign::default()
+            };
+            let mesh = boot(&design, &frame).unwrap();
+            let sole_top = mesh
+                .positions
+                .iter()
+                .filter(|p| p[0].hypot(p[2]) < 1e-6)
+                .map(|p| p[1])
+                .fold(f32::NEG_INFINITY, f32::max);
+            assert!(sole_top.is_finite());
+            assert!(sole_top <= -frame.half_extents[1] - design.gauge.clearance.metres() + 1e-6);
+        }
+    }
 }

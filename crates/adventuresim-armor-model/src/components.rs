@@ -14,6 +14,9 @@ pub enum ArmorComponentRole {
     Skull,
     Bevor,
     Visor,
+    Buffe,
+    Besagew,
+    JointExtension,
 }
 
 impl ArmorComponentRole {
@@ -27,6 +30,9 @@ impl ArmorComponentRole {
             Self::Skull => "skull",
             Self::Bevor => "bevor",
             Self::Visor => "visor",
+            Self::Buffe => "buffe",
+            Self::Besagew => "besagew",
+            Self::JointExtension => "joint_extension",
         }
     }
 }

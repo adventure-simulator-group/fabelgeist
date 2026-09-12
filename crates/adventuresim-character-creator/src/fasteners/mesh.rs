@@ -8,6 +8,21 @@ const BAND_SEGMENTS: usize = 192;
 const SEATING_GAP_M: f32 = 0.0025;
 const BAR_GAUGE_M: f32 = 0.0025;
 
+struct StripSample {
+    point: [f32; 2],
+    normal: [f32; 2],
+}
+
+impl StripSample {
+    fn new(point: [f32; 2], tangent: [f32; 2]) -> Self {
+        let length = tangent[0].hypot(tangent[1]);
+        Self {
+            point,
+            normal: [-tangent[1] / length, tangent[0] / length],
+        }
+    }
+}
+
 pub(super) fn closure(
     section: &ClosureSection,
     height: f32,
@@ -99,22 +114,31 @@ fn fixed_loop(
         let t = i as f32 / BAND_SEGMENTS as f32;
         let x = (start - end) * radius * (1.0 - t);
         let rise = ((x + width) / width).clamp(0.0, 1.0);
-        path.push([x, base + (bottom - base) * rise * rise * (3.0 - 2.0 * rise)]);
+        let slope = (bottom - base) * 6.0 * rise * (1.0 - rise) / width;
+        path.push(StripSample::new(
+            [x, base + (bottom - base) * rise * rise * (3.0 - 2.0 * rise)],
+            [1.0, slope],
+        ));
     }
     for i in 1..=FOLD_SEGMENTS {
         let angle = PI * i as f32 / FOLD_SEGMENTS as f32;
-        path.push([
-            bend_radius * angle.sin(),
-            center - bend_radius * angle.cos(),
-        ]);
+        path.push(StripSample::new(
+            [
+                bend_radius * angle.sin(),
+                center - bend_radius * angle.cos(),
+            ],
+            [angle.cos(), angle.sin()],
+        ));
     }
-    path.push([-width * 0.7, center + bend_radius]);
+    path.push(StripSample::new(
+        [-width * 0.7, center + bend_radius],
+        [-1.0, 0.0],
+    ));
     let mut mesh = PartMesh::new();
-    for (i, p) in path.iter().enumerate() {
-        let a = path[i.saturating_sub(1)];
-        let b = path[(i + 1).min(path.len() - 1)];
-        let length = (b[0] - a[0]).hypot(b[1] - a[1]);
-        let normal = [-(b[1] - a[1]) / length, (b[0] - a[0]) / length];
+    // Exact tangents retain wall separation where densely sampled straight
+    // leather meets the coarser bend. A neighbor chord tilts that junction's
+    // normal and can fold the outer wall back onto its preceding sample.
+    for StripSample { point: p, normal } in &path {
         for (edge, wall) in [(-0.5, -0.5), (0.5, -0.5), (-0.5, 0.5), (0.5, 0.5)] {
             let angle = end + (p[0] + normal[0] * thickness * wall) / radius;
             mesh.positions.push(radial_point(
@@ -305,6 +329,56 @@ fn outward(mesh: &mut PartMesh) {
     if volume < 0.0 {
         for triangle in mesh.indices.as_chunks_mut::<3>().0 {
             triangle.swap(1, 2);
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_armor_model::Millimeters;
+
+    #[test]
+    fn narrow_wrist_closures_keep_both_walls_advancing_into_the_buckle_bend() {
+        let design = StrapDesign {
+            width: Millimeters(12),
+            thickness: Millimeters(2),
+            ..StrapDesign::default()
+        };
+        let mut topology = None;
+        for radius in [0.035, 0.045, 0.055] {
+            let plate = cuboid([radius, 0.1, radius * 0.8]);
+            let section = ClosureSection::new(
+                &[],
+                &[],
+                &plate.positions,
+                plate.indices.as_chunks::<3>().0,
+                0.0,
+                0.04,
+                0.006,
+            )
+            .unwrap();
+            let (leather, _) = closure(&section, 0.0, &design).unwrap();
+            leather
+                .normals()
+                .expect("closed thickness must not collapse at the bend");
+            for wall in [0, 2] {
+                let angles = (0..=BAND_SEGMENTS)
+                    .map(|row| leather.positions[row * 4 + wall])
+                    .map(|p| p[0].atan2(p[2]))
+                    .collect::<Vec<_>>();
+                assert!(
+                    angles.windows(2).all(|pair| pair[1] > pair[0]),
+                    "straight strap wall folded backward at the buckle junction"
+                );
+            }
+            if let Some(expected) = &topology {
+                assert_eq!(
+                    &leather.indices, expected,
+                    "wearer changed closure connectivity"
+                );
+            }
+            topology = Some(leather.indices);
         }
     }
 }

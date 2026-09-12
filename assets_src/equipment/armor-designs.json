@@ -99,7 +99,9 @@
         "neck_flare": 22,
         "neck_guard_fraction": 400,
         "peak_drop": 6,
-        "peak_length": 55
+        "peak_length": 55,
+        "buffe": null,
+        "peak_rise": 0
       }
     }
   },
@@ -166,7 +168,10 @@
           "start": 100,
           "width": 750
         },
-        "visor_projection": 35
+        "visor_projection": 35,
+        "bellows": null,
+        "brow_overlap": 30,
+        "brow_peak": 25
       }
     }
   },
@@ -195,7 +200,11 @@
         "wing_height": 1000,
         "wing_notch": 300,
         "wing_roundness": 1000,
-        "proximal_flare": 12
+        "proximal_flare": 12,
+        "construction": "Wrapped",
+        "flute_orientation": "Longitudinal",
+        "medial_wrap": 520,
+        "lateral_wrap": 850
       }
     }
   },
@@ -244,7 +253,9 @@
       "plate_shape": {
         "Fauld": {
           "front_arch": 350,
-          "waist_rise": 75
+          "waist_rise": 75,
+          "chevron_slope": 0,
+          "front_arch_width": 500
         }
       },
       "waist": 900,
@@ -253,7 +264,7 @@
   },
   "gorget": {
     "Garment": {
-      "clearance": 12,
+      "clearance": 10,
       "flare": 180,
       "fluting": {
         "count": 10,
@@ -515,7 +526,21 @@
         "crown_height": 1200,
         "arm_length": 96,
         "upper_lames": 2,
-        "lower_lames": 4
+        "lower_lames": 4,
+        "outline": {
+          "front_extension": 0,
+          "rear_extension": 0,
+          "wing_start": 1100,
+          "corner_rounding": 320,
+          "upper_span": 260,
+          "arm_wrap": 1680,
+          "front_return": 2600,
+          "rear_return": 2680,
+          "front_wing_position": 500,
+          "rear_wing_position": 500,
+          "front_wing_rounding": 800,
+          "rear_wing_rounding": 800
+        }
       }
     }
   },
@@ -544,7 +569,11 @@
         "wing_height": 1000,
         "wing_notch": 350,
         "wing_roundness": 1000,
-        "proximal_flare": 8
+        "proximal_flare": 8,
+        "construction": "Wrapped",
+        "flute_orientation": "Longitudinal",
+        "medial_wrap": 520,
+        "lateral_wrap": 850
       }
     }
   },
@@ -659,7 +688,9 @@
         "rear_extension": 1000,
         "wrap": 560,
         "lower_flare": 12,
-        "crown_reach": 800
+        "crown_reach": 800,
+        "besagew": null,
+        "crown_coverage": 1000
       }
     }
   },
@@ -684,7 +715,9 @@
         "plate_shape": {
           "Fauld": {
             "front_arch": 350,
-            "waist_rise": 75
+            "waist_rise": 75,
+            "chevron_slope": 0,
+            "front_arch_width": 500
           }
         },
         "waist": 900,

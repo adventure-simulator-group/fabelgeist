@@ -1,4 +1,5 @@
 //! Boot shaft clearance over the supported leg garments.
+use super::boot_shaft_profile::{self, RING_PLANE_TOLERANCE_M};
 use super::{PROFILE_SAMPLES, PROFILE_WINDOW_M, foot_exponent, foot_sections, local};
 use crate::armor_frames::{Side, Wearer};
 use adventuresim_armor_model::{PartFrame, PartMesh, PlateGauge};
@@ -8,7 +9,6 @@ const BOOT_HEM_TRANSITION_M: f32 = 0.04;
 const ANKLE_FAIRING_BELOW_HEM_M: f32 = 0.05;
 const ANKLE_FAIRING_ABOVE_HEM_M: f32 = 0.08;
 const ANKLE_FAIRING_PASSES: usize = 64;
-const RING_PLANE_TOLERANCE_M: f32 = 0.000001;
 
 /// The boot shaft encloses either supported leg garment. Its foot and sole
 /// retain the anatomical fit outside the continued lower-shaft envelope.
@@ -41,8 +41,12 @@ pub(super) fn fit(
         GarmentArmorKind::MailChausses,
         GarmentArmorKind::PaddedChausses,
     ] {
-        let garment =
-            crate::garment_fit::fitted_garment(&GarmentArmorDesign::new(kind), placement, wearer)?;
+        let garment = crate::garment_fit::fitted_garment(
+            &GarmentArmorDesign::new(kind),
+            placement,
+            wearer,
+            &[],
+        )?;
         let points = garment
             .positions
             .iter()
@@ -59,39 +63,80 @@ pub(super) fn fit(
         ));
     }
     let dressed = foot_sections(&support, low, high, gauge, frame.half_extents[1]);
-    Ok(mesh.refit_surfaces(|carrier| {
-        for point in carrier.iter_mut() {
-            let mut p = local(frame, *point);
-            let t = ((p[1] - hem + BOOT_HEM_TRANSITION_M) / BOOT_HEM_TRANSITION_M).clamp(0.0, 1.0);
-            if t == 0.0 {
-                continue;
-            }
-            let axial = ((p[1] - low) / (high - low) * (PROFILE_SAMPLES - 1) as f32)
-                .clamp(0.0, (PROFILE_SAMPLES - 1) as f32);
-            let index = (axial.floor() as usize).min(PROFILE_SAMPLES - 2);
-            let fraction = axial - index as f32;
-            let center: [f32; 2] = std::array::from_fn(|axis| {
-                dressed[index].center[axis]
-                    + (dressed[index + 1].center[axis] - dressed[index].center[axis]) * fraction
-            });
-            let radius: [f32; 2] = std::array::from_fn(|axis| {
-                dressed[index].radius[axis]
-                    + (dressed[index + 1].radius[axis] - dressed[index].radius[axis]) * fraction
-            });
-            let delta = [p[0] - center[0], p[2] - center[1]];
-            let exponent = foot_exponent(p[1], frame.half_extents[1]);
-            let normalized = ((delta[0] / radius[0]).abs().powf(exponent)
-                + (delta[1] / radius[1]).abs().powf(exponent))
-            .powf(exponent.recip());
-            if normalized > f32::EPSILON && normalized < 1.0 {
-                let expansion = (normalized.recip() - 1.0) * t * t * (3.0 - 2.0 * t);
-                p[0] += delta[0] * expansion;
-                p[2] += delta[1] * expansion;
-                *point = frame.point(p);
-            }
-        }
+    refit_supported_shaft(mesh, frame, low..high, hem, &dressed)
+}
+
+fn refit_supported_shaft(
+    mesh: PartMesh,
+    frame: &PartFrame,
+    height: std::ops::Range<f32>,
+    hem: f32,
+    dressed: &[super::FootSection],
+) -> Result<PartMesh> {
+    let mut shaft_error = None;
+    let result = mesh.refit_surfaces(|carrier, _| {
+        seat_on_layers(carrier.iter_mut(), frame, &height, hem, dressed);
         fair_ankle(carrier, frame, hem, dressed[PROFILE_SAMPLES - 1].center);
-    })?)
+        if let Err(error) =
+            boot_shaft_profile::regularize(carrier, frame, hem, ANKLE_FAIRING_ABOVE_HEM_M)
+        {
+            shaft_error = Some(error);
+            return;
+        }
+        // Coordinate redistribution is followed by the authoritative support
+        // projection, including nonelliptical intermediate ankle sections.
+        seat_on_layers(
+            carrier.iter_mut().filter(|p| local(frame, **p)[1] > hem),
+            frame,
+            &height,
+            hem,
+            dressed,
+        );
+    })?;
+    if let Some(error) = shaft_error {
+        return Err(error.into());
+    }
+    Ok(result)
+}
+
+fn seat_on_layers<'a>(
+    carrier: impl Iterator<Item = &'a mut [f32; 3]>,
+    frame: &PartFrame,
+    height: &std::ops::Range<f32>,
+    hem: f32,
+    dressed: &[super::FootSection],
+) {
+    for point in carrier {
+        let mut p = local(frame, *point);
+        let t = ((p[1] - hem + BOOT_HEM_TRANSITION_M) / BOOT_HEM_TRANSITION_M).clamp(0.0, 1.0);
+        if t == 0.0 {
+            continue;
+        }
+        let axial = ((p[1] - height.start) / (height.end - height.start)
+            * (PROFILE_SAMPLES - 1) as f32)
+            .clamp(0.0, (PROFILE_SAMPLES - 1) as f32);
+        let index = (axial.floor() as usize).min(PROFILE_SAMPLES - 2);
+        let fraction = axial - index as f32;
+        let center: [f32; 2] = std::array::from_fn(|axis| {
+            dressed[index].center[axis]
+                + (dressed[index + 1].center[axis] - dressed[index].center[axis]) * fraction
+        });
+        let radius: [f32; 2] = std::array::from_fn(|axis| {
+            dressed[index].radius[axis]
+                + (dressed[index + 1].radius[axis] - dressed[index].radius[axis]) * fraction
+        });
+        let delta = [p[0] - center[0], p[2] - center[1]];
+        let exponent = foot_exponent(p[1], frame.half_extents[1]);
+        let normalized = ((delta[0] / radius[0]).abs().powf(exponent)
+            + (delta[1] / radius[1]).abs().powf(exponent))
+        .powf(exponent.recip());
+        if normalized > f32::EPSILON && normalized < 1.0 {
+            let expansion = (normalized.recip() - 1.0) * t * t * (3.0 - 2.0 * t);
+            p[0] += delta[0] * expansion;
+            p[2] += delta[1] * expansion;
+            *point = frame.point(p);
+        }
+    }
 }
 
 /// Relax ankle valleys outward along the authored meridians. Fixed foot/shaft
@@ -165,6 +210,33 @@ fn boot_layer_sections(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn redistributed_shaft_is_projected_back_to_support_without_reseating_the_foot() {
+        let frame = PartFrame {
+            origin: [0.0; 3],
+            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            half_extents: [0.1, 0.05, 0.08],
+        };
+        let dressed: Vec<_> = (0..PROFILE_SAMPLES)
+            .map(|_| super::super::FootSection {
+                center: [0.03, -0.02],
+                radius: [0.095, 0.075],
+            })
+            .collect();
+        let mut points = [[0.02, -0.01, 0.0], [0.10268, 0.04, -0.05565]];
+        let foot = points[0];
+        seat_on_layers(
+            points.iter_mut().filter(|p| p[1] > 0.0),
+            &frame,
+            &(-0.01..0.09),
+            0.0,
+            &dressed,
+        );
+        assert_eq!(points[0], foot);
+        let radius = ((points[1][0] - 0.03) / 0.095).hypot((points[1][2] + 0.02) / 0.075);
+        assert!((radius - 1.0).abs() < 1e-6);
+    }
 
     #[test]
     fn ankle_fairing_fills_a_valley_outward_without_moving_its_anchors() {

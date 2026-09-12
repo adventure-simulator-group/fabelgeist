@@ -6,7 +6,10 @@
 mod close;
 #[path = "helmets_close_design.rs"]
 mod close_design;
-pub use close_design::{CloseHelmetDesign, SlotInclination, VentSides, VisorBreaths};
+pub use close_design::CloseHelmetDesign;
+#[path = "visor_breaths.rs"]
+mod breaths;
+pub use breaths::{SlotInclination, VentSides, VisorBreaths};
 #[path = "helmets_close_profile.rs"]
 mod close_profile;
 pub use close_profile::{CloseHelmetProfile, generate_close_helmet};
@@ -18,8 +21,11 @@ pub use drape::{
 };
 #[path = "helmets_barbute.rs"]
 mod barbute;
+#[path = "helmets_buffe.rs"]
+mod buffe;
 #[path = "helmets_burgonet.rs"]
 mod burgonet;
+pub use buffe::{BuffeCourses, BuffeDesign};
 #[path = "helmets_cheek.rs"]
 mod cheek;
 #[path = "helmets_coif.rs"]
@@ -137,6 +143,7 @@ impl Default for BarbuteDesign {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct BurgonetDesign {
+    pub buffe: Option<BuffeDesign>,
     /// Fraction of the nape covered by a separate overlapping neck guard.
     pub neck_guard_fraction: Permille,
     pub chin_tab: Millimeters,
@@ -148,6 +155,8 @@ pub struct BurgonetDesign {
     pub cheek_width: Permille,
     pub cheek_taper: Permille,
     pub peak_drop: Millimeters,
+    /// Central rise of the peak, independent of its downward pitch.
+    pub peak_rise: Millimeters,
     pub crown: crate::HelmetCrown,
     pub fit: HelmetFit,
     pub peak_length: Millimeters,
@@ -159,6 +168,7 @@ pub struct BurgonetDesign {
 impl Default for BurgonetDesign {
     fn default() -> Self {
         Self {
+            buffe: None,
             neck_guard_fraction: Permille(400),
             chin_tab: Millimeters(20),
             nape_depth: Permille(920),
@@ -168,6 +178,7 @@ impl Default for BurgonetDesign {
             cheek_width: Permille(1000),
             cheek_taper: Permille(900),
             peak_drop: Millimeters(6),
+            peak_rise: Millimeters(0),
             crown: crate::HelmetCrown::default(),
             fit: HelmetFit::default(),
             peak_length: Millimeters(38),
@@ -365,6 +376,9 @@ impl HelmetDesign {
                     && (750..=1400).contains(&d.cheek_depth.0)
             }
             Self::Burgonet(d) => {
+                if let Some(buffe) = &d.buffe {
+                    buffe.validate()?;
+                }
                 if let Some(pattern) = &d.cheek_fluting {
                     pattern.validate()?;
                 }
@@ -375,6 +389,7 @@ impl HelmetDesign {
                     && (750..=1250).contains(&d.cheek_width.0)
                     && (800..=1050).contains(&d.cheek_taper.0)
                     && d.peak_drop.0 <= 20
+                    && d.peak_rise.0 <= 20
                     && (20..=65).contains(&d.peak_length.0)
                     && (0..=60).contains(&d.comb_height.0)
                     && (750..=1150).contains(&d.cheek_depth.0)
