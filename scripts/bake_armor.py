@@ -15,7 +15,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bpy
 import numpy as np
 from armor_glb import Asset, retains_body_uvs
-from armor_bake_math import carrier_normals, dilate, frame_tangents, normal_atlas, unit
+from armor_bake_math import carrier_normals, dilate, normal_atlas, unit
+from armor_tangents import condition_carrier_normals, corner_frame
 
 
 def save_image(image, directory, channel):
@@ -69,6 +70,30 @@ def ao_objects(asset, resolution):
     return objects
 
 
+def carrier_tangents(mesh, normals):
+    """Return a seam-split carrier chart with its V-up MikkTSpace frames.
+
+    Projecting a detailed mesh's old tangents onto new normals does not give
+    the frame a glTF consumer reconstructs from the carrier surface.
+    """
+    mesh.normals_split_custom_set_from_vertices(normals.tolist())
+    mesh.calc_tangents(uvmap="armor_material")
+    sources, indices, result, groups = [], [], [], {}
+    for loop in mesh.loops:
+        value = corner_frame(mesh, loop, normals)
+        candidates = groups.setdefault(loop.vertex_index, [])
+        index = next((i for i in candidates if np.allclose(result[i], value, atol=1e-5)), None)
+        if index is None:
+            index = len(sources)
+            candidates.append(index)
+            sources.append(loop.vertex_index)
+            result.append(value)
+        indices.append(index)
+    if len(groups) != len(normals):
+        raise ValueError("carrier contains unreferenced vertices")
+    return np.array(sources), np.array(indices), np.array(result)
+
+
 def process(path, resolution, samples):
     if retains_body_uvs(path):
         return []
@@ -100,7 +125,16 @@ def process(path, resolution, samples):
             unit(original + asset.array(target["NORMAL"])) for target in primitive.get("targets", [])
         ]], axis=1)
         smooth = carrier_normals(positions, faces, fields)
-        tangent = frame_tangents(smooth[:, 0], asset.array(attributes["TANGENT"]))
+        smooth[:, 0] = condition_carrier_normals(obj.data, smooth[:, 0])
+        source, indices, tangent = carrier_tangents(obj.data, smooth[:, 0])
+        obj.data.normals_split_custom_set_from_vertices(original.tolist())
+        # A carrier's new shading normals can introduce Mikk discontinuities
+        # absent from the detailed surface. Duplicate those corners together
+        # with every skin/UV/morph attribute, without changing any triangle.
+        if not np.array_equal(source, np.arange(len(original))) or not np.array_equal(indices, faces.flatten()):
+            asset.remap(primitive, source, indices)
+        faces = indices.reshape(-1, 3)
+        original, smooth, uv = original[source], smooth[source], uv[source]
         pixels, covered = normal_atlas(uv, faces, original, smooth[:, 0], tangent, resolution)
         detail = float(np.max(np.linalg.norm(pixels[covered, :2] - .5, axis=1)))
         pixels = dilate(pixels, covered.copy())

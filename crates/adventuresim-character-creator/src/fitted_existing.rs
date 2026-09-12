@@ -49,7 +49,24 @@ pub(super) fn fitted_breastplate(
         morphs,
     })
     .map_err(anyhow::Error::msg)?;
-    let armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
+    let mut armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
+    breastplate_skeletal_fit::refit(&mut armor, morphs, |sample| {
+        let surface = build_front_torso_surface(TorsoSurfaceInput {
+            domain: MHR_ANATOMICAL_UV_DOMAIN,
+            positions: &sample.positions,
+            normals: &sample.normals,
+            faces: &character.mesh.faces,
+            texcoords: &character.mesh.texcoords,
+            texcoord_faces: &character.mesh.texcoord_faces,
+            joint_indices: &character.skin_weights.index,
+            joint_weights: &character.skin_weights.weight,
+            joint_names: &character.skeleton.names,
+            global_joint_states: &sample.global_joint_states,
+            morphs: &[],
+        })
+        .map_err(anyhow::Error::msg)?;
+        Ok(generate_breastplate(design, &surface)?)
+    })?;
     Ok(character_morphs::correct_armor_fit(
         armor, generated, morphs,
     ))

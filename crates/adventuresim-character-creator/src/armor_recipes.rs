@@ -1,7 +1,7 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
 use adventuresim_armor_model::*;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 
@@ -22,10 +22,12 @@ impl ParametricDesign {
             Self::Helmet(d) => generate_helmet(d, frame)?,
             Self::Limb(d) => generate_limb_armor(d, frame)?,
             Self::Garment(d) => generate_garment_armor(d, frame)?,
-            Self::WaistAssembly(d) => compose_waist(
-                generate_garment_armor(&d.fauld, frame)?,
-                generate_garment_armor(&d.tassets, frame)?,
-            ),
+            Self::WaistAssembly(d) => {
+                let fauld = generate_garment_armor(&d.fauld, frame)?;
+                let tassets =
+                    suspend_horizontal_tassets(&fauld, generate_garment_armor(&d.tassets, frame)?);
+                compose_waist(fauld, tassets)
+            }
             Self::Underlayer(_) => {
                 anyhow::bail!("body-conforming garments require source body triangles")
             }
@@ -96,24 +98,50 @@ pub fn fitted_mesh(
         return Ok(pattern.evaluate(d, wearer));
     }
     if let ParametricDesign::WaistAssembly(d) = design {
-        let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer)?;
+        let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, layers)
+            .context("fitting waist assembly fauld")?;
         let top = fauld
             .positions
             .iter()
             .map(|p| p[1])
             .fold(f32::INFINITY, f32::min)
             - TASSET_SUSPENSION_GAP_M;
-        let tassets = crate::garment_fit::suspended_tassets(&d.tassets, wearer, top)?;
+        let tassets = crate::garment_fit::suspended_tassets(&d.tassets, wearer, top, layers)
+            .context("fitting suspended tassets")?;
+        let tassets = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
+            tassets
+        } else {
+            suspend_horizontal_tassets(&fauld, tassets)
+        };
+        let fauld = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
+            let mut supports = layers
+                .iter()
+                .map(|layer| crate::armor_layer::ArmorLayerSurface {
+                    relief: layer.relief,
+                    positions: layer.positions,
+                    faces: layer.faces,
+                })
+                .collect::<Vec<_>>();
+            supports.push(crate::armor_layer::ArmorLayerSurface {
+                relief: Millimeters(0),
+                positions: &tassets.positions,
+                faces: tassets.indices.as_chunks::<3>().0,
+            });
+            crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, &supports)
+                .context("seating fauld over suspended tassets")?
+        } else {
+            fauld
+        };
         return Ok(compose_waist(fauld, tassets));
     }
     if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
-        return crate::close_helmet_fit::fit(helmet, wearer);
+        return crate::close_helmet_fit::fit(helmet, wearer, layers);
     }
     if let ParametricDesign::Helmet(HelmetDesign::MailCoif(coif)) = design {
         return crate::coif_fit::fit(coif, wearer);
     }
     if let ParametricDesign::Garment(garment) = design {
-        return crate::garment_fit::fitted_garment(garment, placement, wearer);
+        return crate::garment_fit::fitted_garment(garment, placement, wearer, layers);
     }
     if let ParametricDesign::Limb(limb) = design {
         return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?, layers);

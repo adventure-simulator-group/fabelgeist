@@ -14,10 +14,28 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bpy
 import numpy as np
 from armor_glb import Asset, retains_body_uvs
+from armor_tangents import corner_frame
 from check_armor_uvs import overlap_pairs
 
 RIM_ANGLE = math.radians(65)
 ATLAS_MARGIN = 0.004
+
+
+def invalid_tangent_faces(mesh, normals):
+    """A noncollapsed atlas must also admit the consumer's shading frame."""
+    for polygon in mesh.polygons:
+        polygon.use_smooth = True
+    mesh.normals_split_custom_set_from_vertices(normals.tolist())
+    mesh.calc_tangents(uvmap="armor_material")
+    invalid = set()
+    for polygon in mesh.polygons:
+        for index in polygon.loop_indices:
+            loop = mesh.loops[index]
+            try:
+                corner_frame(mesh, loop, normals)
+            except ValueError:
+                invalid.add(polygon.index)
+    return invalid
 
 
 def seams(mesh):
@@ -60,6 +78,9 @@ def unwrap(positions, faces, normals):
     seams(mesh)
     obj = bpy.data.objects.new(mesh.name, mesh)
     bpy.context.collection.objects.link(obj)
+    # The library entry point can be called in a populated scene. Multi-object
+    # edit mode must not pack unrelated objects into this material's atlas.
+    bpy.ops.object.select_all(action="DESELECT")
     bpy.context.view_layer.objects.active = obj
     obj.select_set(True)
     mesh.uv_layers.new(name="armor_material")
@@ -76,10 +97,12 @@ def unwrap(positions, faces, normals):
         a, b = coords[:, 1] - coords[:, 0], coords[:, 2] - coords[:, 0]
         collapsed = np.abs(a[:, 0] * b[:, 1] - a[:, 1] * b[:, 0]) <= 2e-14
         collisions = overlap_pairs(coords)
-        if not collapsed.any() and not collisions:
-            break
         invalid = set(np.flatnonzero(collapsed)) | {face for pair in collisions for face in pair}
-        print("splitting folded or collapsed rim charts", attempt, len(invalid), flush=True)
+        if not invalid:
+            invalid = invalid_tangent_faces(mesh, normals)
+        if not invalid:
+            break
+        print("splitting invalid UV or tangent charts", attempt, len(invalid), flush=True)
         # A thin corner/rim may collapse in the enclosing curved chart. Give
         # that physical face its own boundary and let the solver unwrap again.
         edges = {tuple(sorted(edge.vertices)): edge for edge in mesh.edges}
@@ -87,22 +110,16 @@ def unwrap(positions, faces, normals):
             for key in mesh.polygons[int(index)].edge_keys:
                 edges[tuple(sorted(key))].use_seam = True
     else:
-        raise ValueError("material chart still folds after splitting invalid rim faces")
-    for polygon in mesh.polygons:
-        polygon.use_smooth = True
-    mesh.normals_split_custom_set_from_vertices(normals.tolist())
-    mesh.calc_tangents(uvmap="armor_material")
+        raise ValueError("material chart still has invalid UVs or tangents after splitting rim faces")
     sources, uv, tangents, indices, vertices = [], [], [], [], {}
     for loop in mesh.loops:
         coord = tuple(mesh.uv_layers.active.data[loop.index].uv)
         # Blender compresses custom normals internally. Orthogonalize to the
         # exact source normal exported to glTF, not that quantized surrogate.
-        normal = normals[loop.vertex_index].astype(np.float64)
-        normal /= np.linalg.norm(normal)
-        direction = np.array(loop.tangent)
-        direction -= normal * np.dot(normal, direction)
-        direction /= np.linalg.norm(direction)
-        tangent = (*direction, loop.bitangent_sign)
+        frame = corner_frame(mesh, loop, normals)
+        # Stored coordinates are glTF's V-down atlas. The normal-map frame
+        # follows the corresponding V-up sampling chart, as in glTF export.
+        tangent = (*frame[:3], -frame[3])
         key = (loop.vertex_index, coord, tangent)
         if key not in vertices:
             vertices[key] = len(sources)

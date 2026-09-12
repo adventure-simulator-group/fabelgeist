@@ -9,6 +9,11 @@ use serde::{Deserialize, Serialize};
 use crate::armor_frames::{FitRegion, Wearer};
 const ANKLE_SUPPORT_SWEEP_M: f32 = 0.04;
 const ELBOW_SUPPORT_SWEEP_M: f32 = 0.04;
+/// Largest supported strap sweep, rounded down to a whole milliradian.
+pub const FULL_TURN_MILLIRADIANS: u16 = 6283;
+/// Minimum sweep with room to form a retention closure.
+pub const MIN_STRAP_ARC_MILLIRADIANS: u16 = 500;
+mod assembly;
 pub mod catalog;
 mod mesh;
 mod section;
@@ -55,10 +60,11 @@ impl StrapDesign {
             "straps must remain within the central 80% of the plate span"
         );
         ensure!(
-            self.end_angle.0 <= 6283
+            self.start_angle.0 <= FULL_TURN_MILLIRADIANS
                 && self.start_angle.0 < self.end_angle.0
-                && self.end_angle.0 - self.start_angle.0 >= 500,
-            "strap arc must span at least 0.5 radians within one revolution"
+                && (MIN_STRAP_ARC_MILLIRADIANS..=FULL_TURN_MILLIRADIANS)
+                    .contains(&(self.end_angle.0 - self.start_angle.0)),
+            "strap arc must start in the first revolution and span 0.5 radians to one turn"
         );
         ensure!(
             (150..=850).contains(&self.buckle_position.0),
@@ -69,6 +75,17 @@ impl StrapDesign {
             "strap lining allowance is at most 15 mm and underarm drop at most 60 mm"
         );
         Ok(())
+    }
+
+    /// Place a measured polar angle on this unwrapped arc. Referencing its
+    /// midpoint also keeps geometry just outside either endpoint on that end.
+    fn arc_fraction(&self, angle: f32) -> f32 {
+        let start = self.start_angle.radians();
+        let span = self.end_angle.radians() - start;
+        let middle = start + span * 0.5;
+        let offset = (angle - middle + std::f32::consts::PI).rem_euclid(std::f32::consts::TAU)
+            - std::f32::consts::PI;
+        ((middle + offset - start) / span).clamp(0.0, 1.0)
     }
 }
 
@@ -115,7 +132,8 @@ pub fn rear_closures(
     let metal = section::local_points(&plate.positions, frame);
     let mut lo = f32::INFINITY;
     let mut hi = f32::NEG_INFINITY;
-    for point in &metal {
+    for vertex in support::attachment_faces(plate)?.iter().flatten() {
+        let point = metal[*vertex as usize];
         lo = lo.min(point[1]);
         hi = hi.max(point[1]);
     }
@@ -170,11 +188,8 @@ pub fn rear_closures(
     }
     let mut result = finish(leather, buckles, design.leather_color);
     if design.underarm_drop.0 > 0 {
-        let start = design.start_angle.radians();
-        let span = design.end_angle.radians() - start;
         for p in &mut result.positions {
-            let angle = p[0].atan2(p[2]).rem_euclid(std::f32::consts::TAU);
-            let fraction = ((angle - start) / span).clamp(0.0, 1.0);
+            let fraction = design.arc_fraction(p[0].atan2(p[2]));
             p[1] -= design.underarm_drop.metres() * (fraction * std::f32::consts::PI).sin();
         }
     }

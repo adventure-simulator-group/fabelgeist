@@ -81,7 +81,13 @@ const HAND_SKIN_JOINTS: &[&str] = &[
 
 impl Wearer<'_> {
     pub fn support_indices(&self, region: FitRegion) -> Result<Vec<usize>> {
-        let (_, _, owners) = self.landmarks(region)?;
+        let (_, _, mut owners) = self.landmarks(region)?;
+        // The shoulder cap spans the deltoid and the clavicular transition.
+        // Its frame remains anchored by the upper arm, while its support also
+        // includes the proximal surface that does not shorten with that bone.
+        if let FitRegion::Shoulder(side) = region {
+            owners.push(format!("{}_clavicle", side.prefix()));
+        }
         let owned = self
             .joint_names
             .iter()
@@ -344,6 +350,53 @@ fn normalized(a: [f32; 3]) -> Result<[f32; 3]> {
 #[cfg(test)]
 mod tests {
     use super::{FitRegion, Side, Wearer};
+
+    #[test]
+    fn shoulder_support_unites_clavicle_and_arm_without_crossing_body_regions() {
+        let names = [
+            "l_uparm",
+            "l_lowarm",
+            "l_uparm_twist0_proc",
+            "l_clavicle",
+            "r_clavicle",
+            "c_spine3",
+        ]
+        .map(String::from);
+        let positions = [[0.0; 3]; 6];
+        let joints = [[0.0; 8]; 6];
+        let indices = [
+            [2; 8],
+            [3; 8],
+            [4; 8],
+            [5; 8],
+            [2, 3, 5, 5, 5, 5, 5, 5],
+            [2, 3, 5, 5, 5, 5, 5, 5],
+        ];
+        let mut weights = [[0.125; 8]; 6];
+        weights[4] = [0.2, 0.2, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0];
+        weights[5] = [0.1, 0.1, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0];
+        let wearer = Wearer {
+            faces: &[],
+            positions: &positions,
+            normals: &positions,
+            joint_indices: &indices,
+            joint_weights: &weights,
+            joint_names: &names,
+            joints: &joints,
+        };
+        assert_eq!(
+            wearer
+                .support_indices(FitRegion::Shoulder(Side::Left))
+                .unwrap(),
+            [0, 1, 4]
+        );
+        assert_eq!(
+            wearer
+                .support_indices(FitRegion::UpperArm(Side::Left))
+                .unwrap(),
+            [0]
+        );
+    }
 
     #[test]
     fn hand_envelope_includes_skin_owned_by_finger_terminal_joints() {

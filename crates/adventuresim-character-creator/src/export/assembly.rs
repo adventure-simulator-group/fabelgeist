@@ -125,7 +125,9 @@ mod tests {
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let names = ["c_head".to_owned()];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
-        let target_names = (0..47)
+        let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
+            + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
+        let target_names = (0..target_count)
             .map(|index| format!("fit_{index}"))
             .collect::<Vec<_>>();
         let deltas = [
@@ -208,7 +210,7 @@ mod tests {
         assert_eq!(parsed.meshes().count(), 3);
         for (mesh, expected) in parsed.meshes().zip(["skull", "bevor", "visor"]) {
             assert_eq!(mesh.name(), Some(expected));
-            assert_eq!(mesh.weights().unwrap(), &[0.0; 47]);
+            assert_eq!(mesh.weights().unwrap(), &vec![0.0; target_count]);
             let primitive = mesh.primitives().next().unwrap();
             let extras: Value =
                 serde_json::from_str(primitive.extras().as_ref().unwrap().get()).unwrap();
@@ -267,7 +269,7 @@ mod tests {
                 vec![[0; 4]; 3]
             );
             let morphs = reader.read_morph_targets().collect::<Vec<_>>();
-            assert_eq!(morphs.len(), 47);
+            assert_eq!(morphs.len(), target_count);
             for (positions, _, _) in morphs {
                 assert_eq!(positions.unwrap().collect::<Vec<_>>(), deltas[1..]);
             }

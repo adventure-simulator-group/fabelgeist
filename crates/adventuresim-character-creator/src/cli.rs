@@ -41,13 +41,21 @@ pub(super) struct Args {
     /// Export actual body and recipe triangles for reproducible artistic review.
     #[arg(long)]
     pub(super) armor_review_dir: Option<PathBuf>,
-    /// Typed recipe overrides, keyed by catalog item ID, for preview and exports.
+    /// Review the complete catalog, the recipe's outfit, or only its body.
+    #[arg(
+        long,
+        value_enum,
+        default_value = "catalog",
+        requires = "armor_review_dir"
+    )]
+    pub(super) armor_review_selection: super::review_export::ReviewSelection,
+    /// Saved item defaults and placement-specific armor recipes for preview and exports.
     #[arg(long)]
     pub(super) armor_designs: Option<PathBuf>,
     /// Leather closure dimensions and fastening layouts for preview and exports.
     #[arg(long)]
     pub(super) fastener_designs: Option<PathBuf>,
-    /// Write editable default recipes for every new parametric family.
+    /// Write editable item defaults and any loaded placement-specific recipes.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,
 }

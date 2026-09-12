@@ -39,7 +39,7 @@ pub(super) fn fit(
     let ankle_start = -length * 0.05 + d.ankle_cutaway.metres();
     let profile = FootProfile::new(&points, ankle_start, front - 0.004);
     let mut carrier = 0;
-    Ok(mesh.refit_surfaces(|surface| {
+    Ok(mesh.refit_surfaces(|surface, _| {
         let toe = carrier == usize::from(d.lame_count);
         for point in surface {
             let mut p = local(frame, *point);

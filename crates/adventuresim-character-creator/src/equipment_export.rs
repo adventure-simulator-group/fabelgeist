@@ -56,7 +56,9 @@ pub(super) fn generate_equipment_assets(
                 continue;
             }
             let asset = if adventuresim_character_creator::armor_recipes::is_parametric(&item.id) {
-                exporter.armor(output, item, placement)?
+                exporter
+                    .armor(output, item, placement)
+                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
             } else {
                 anyhow::ensure!(
                     !matches!(
@@ -161,7 +163,7 @@ impl EquipmentExporter<'_> {
                     generated,
                     &self
                         .catalog
-                        .design(&item.id)
+                        .design(&item.id, &placement.id)
                         .context("missing parametric recipe")?,
                     &placement.id,
                     self.catalog,
@@ -193,7 +195,7 @@ impl EquipmentExporter<'_> {
             shell.metallic = metallic;
             shell.roughness = roughness;
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                self.catalog.design(&item.id).as_ref(),
+                self.catalog.design(&item.id, &placement.id).as_ref(),
             );
         }
         crate::character_morphs::component_materials(&armor, &mut rigged_shells);

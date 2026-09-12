@@ -167,7 +167,7 @@ cargo run -p adventuresim-tactical-client --bin animation-viewer -- --output tar
 
 Use `--armor-harness close-helmet` to equip the installed close helmet through
 normal gameplay equipment loading. Capture waits for the separate skull, bevor,
-and visor meshes, their materials, wearer skin bindings, and all 47 morph
+and visor meshes, their materials, wearer skin bindings, and all 57 morph
 weights. Front and side views follow the head at inspection distance; the
 gameplay view keeps its usual framing. `armor-readiness.json` records the
 resolved parts and weights. `--scenario ordinary-camera-pitch` exercises

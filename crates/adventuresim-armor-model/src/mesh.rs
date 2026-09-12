@@ -25,7 +25,7 @@ pub enum GenerateError {
     InvalidSurface,
     #[error("anatomical surface has no closed forearm contour at the requested placement")]
     EmptySelection,
-    #[error("generated bracer geometry is degenerate")]
+    #[error("generated armor geometry is degenerate")]
     Degenerate,
 }
 

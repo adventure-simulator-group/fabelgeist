@@ -26,7 +26,7 @@ impl SuspensionDesign {
             "tassets require 1–3 hangers per panel"
         );
         ensure!(
-            (40..=100).contains(&self.fauld_inset.0) && (20..=60).contains(&self.tasset_inset.0),
+            (8..=100).contains(&self.fauld_inset.0) && (20..=60).contains(&self.tasset_inset.0),
             "invalid suspension anchor inset"
         );
         Ok(())
@@ -39,6 +39,17 @@ impl SuspensionDesign {
             .iter()
             .map(|p| p[0].abs())
             .fold(0.0_f32, f32::max);
+        let fauld_extent = fauld
+            .positions
+            .iter()
+            .map(|p| p[0].abs())
+            .fold(0.0_f32, f32::max)
+            - self.width.metres();
+        let extent = extent.min(fauld_extent);
+        ensure!(
+            extent > self.width.metres(),
+            "fauld is too narrow for suspension straps"
+        );
         let mut leather = PartMesh::new();
         let mut metal = PartMesh::new();
         for side in [-1.0, 1.0] {

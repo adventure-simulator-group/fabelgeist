@@ -1,4 +1,6 @@
-use adventuresim_armor_model::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
+use adventuresim_armor_model::{
+    BoundaryNormals, PartFrame, PartMesh, ShellExtrusion, SurfaceRelief,
+};
 
 fn plate() -> PartMesh {
     PartMesh::from_relief_surface(
@@ -12,16 +14,118 @@ fn plate() -> PartMesh {
         0.002,
         BoundaryNormals::Separate,
         ShellExtrusion::Normal,
-        Some(vec![0.0, 0.003, 0.001, 0.0]),
+        Some(SurfaceRelief::ShellHeights(vec![0.0, 0.003, 0.001, 0.0])),
     )
     .unwrap()
+}
+
+#[test]
+fn chart_relief_survives_fitting_blending_and_reflection_with_normal_gauge() {
+    let offsets = vec![
+        [0.0, 0.0, 0.0],
+        [0.0, 0.001, 0.003],
+        [0.0, 0.002, 0.001],
+        [0.0, 0.0, 0.0],
+    ];
+    let carrier = oblique_carrier();
+    let make = |positions| {
+        PartMesh::from_relief_surface(
+            positions,
+            vec![0, 1, 2, 0, 2, 3],
+            0.002,
+            BoundaryNormals::Separate,
+            ShellExtrusion::AngleWeightedNormal,
+            Some(SurfaceRelief::ChartOffsets(offsets.clone())),
+        )
+        .unwrap()
+    };
+    let base = make(carrier.clone());
+    let mut targets = Vec::new();
+    for slope in [-0.8, 1.2] {
+        let mut expected = carrier.clone();
+        for p in &mut expected {
+            p[2] += slope * p[0];
+        }
+        let fitted = base
+            .refit_surfaces(|positions, _| {
+                for p in positions {
+                    p[2] += slope * p[0];
+                }
+            })
+            .unwrap();
+        assert_eq!(fitted.indices, base.indices);
+        for i in 0..4 {
+            for axis in 0..3 {
+                assert!(
+                    (fitted.positions[i][axis] - expected[i][axis] - offsets[i][axis]).abs() < 1e-8
+                );
+            }
+            let wall: f32 = (0..3)
+                .map(|a| (fitted.positions[i][a] - fitted.positions[i + 4][a]).powi(2))
+                .sum();
+            assert!((wall.sqrt() - 0.002).abs() < 1e-8);
+        }
+        targets.push((fitted, expected));
+    }
+    for i in 0..4 {
+        for axis in 0..3 {
+            let blended = base.positions[i][axis]
+                - 0.35
+                    * targets
+                        .iter()
+                        .map(|(m, _)| m.positions[i][axis] - base.positions[i][axis])
+                        .sum::<f32>();
+            let expected = carrier[i][axis]
+                - 0.35
+                    * targets
+                        .iter()
+                        .map(|(_, c)| c[i][axis] - carrier[i][axis])
+                        .sum::<f32>()
+                + offsets[i][axis];
+            assert!(
+                (blended - expected).abs() < 1e-8,
+                "relief added nonlinear normal motion"
+            );
+        }
+    }
+    let frame = PartFrame {
+        origin: [0.3, 0.4, 0.5],
+        axes: [[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]],
+        half_extents: [1.0; 3],
+    };
+    let transformed = base.transformed(&frame);
+    let refitted = transformed.refit_surfaces(|_, _| {}).unwrap();
+    assert_eq!(transformed.indices, refitted.indices);
+    for (a, b) in transformed.positions.iter().zip(refitted.positions) {
+        assert!(
+            (0..3).all(|i| (a[i] - b[i]).abs() < 1e-7),
+            "chart vector was translated or not reflected"
+        );
+    }
+}
+
+#[test]
+fn invalid_chart_relief_is_rejected() {
+    for offsets in [vec![[0.0; 3]; 2], vec![[f32::NAN, 0.0, 0.0]; 4]] {
+        assert!(
+            PartMesh::from_relief_surface(
+                oblique_carrier(),
+                vec![0, 1, 2, 0, 2, 3],
+                0.002,
+                BoundaryNormals::Smooth,
+                ShellExtrusion::AngleWeightedNormal,
+                Some(SurfaceRelief::ChartOffsets(offsets))
+            )
+            .is_err()
+        );
+    }
 }
 
 #[test]
 fn fitting_operates_on_the_carrier_and_preserves_relief_and_gauge() {
     let original = plate();
     let fitted = original
-        .refit_surfaces(|points| {
+        .refit_surfaces(|points, _| {
             assert!(
                 points.iter().all(|p| p[2] == 0.0),
                 "fitter received relief instead of the carrier"
@@ -38,7 +142,7 @@ fn fitting_operates_on_the_carrier_and_preserves_relief_and_gauge() {
     for index in 0..4 {
         assert!((fitted.positions[index][2] - fitted.positions[index + 4][2] - 0.002).abs() < 1e-6);
     }
-    let refitted = fitted.refit_surfaces(|_| {}).unwrap();
+    let refitted = fitted.refit_surfaces(|_, _| {}).unwrap();
     assert_eq!(
         refitted.positions, fitted.positions,
         "repeated fitting accumulated relief"
@@ -60,7 +164,7 @@ fn relief_carriers_follow_reflected_frames_and_appended_shells() {
     }));
     let mut shells = 0;
     let fitted = mesh
-        .refit_surfaces(|points| {
+        .refit_surfaces(|points, _| {
             shells += 1;
             assert!(
                 points
@@ -91,7 +195,7 @@ fn invalid_relief_arrays_fail_before_shell_generation() {
                 0.002,
                 BoundaryNormals::Separate,
                 ShellExtrusion::Normal,
-                Some(heights)
+                Some(SurfaceRelief::ShellHeights(heights))
             )
             .is_err()
         );
@@ -114,7 +218,7 @@ fn directed_plate(extrusion: ShellExtrusion) -> PartMesh {
         0.002,
         BoundaryNormals::Separate,
         extrusion,
-        Some(vec![0.0, 0.003, 0.001, 0.0]),
+        Some(SurfaceRelief::ShellHeights(vec![0.0, 0.003, 0.001, 0.0])),
     )
     .unwrap()
 }
@@ -183,7 +287,7 @@ fn directed_shells_keep_extrusion_and_outward_winding_after_rigid_frames_and_ref
             let original = directed_plate(extrusion);
             let original_normals = original.normals().unwrap();
             let transformed = original.transformed(&frame);
-            let rebuilt = transformed.refit_surfaces(|_| {}).unwrap();
+            let rebuilt = transformed.refit_surfaces(|_, _| {}).unwrap();
             assert_eq!(transformed.indices, rebuilt.indices);
             assert_eq!(transformed.positions.len(), rebuilt.positions.len());
             for (a, b) in transformed.positions.iter().zip(&rebuilt.positions) {
@@ -253,7 +357,7 @@ fn directed_extrusion_rejects_invalid_and_tangent_directions() {
                 0.002,
                 BoundaryNormals::Separate,
                 extrusion,
-                Some(vec![0.003; 4]),
+                Some(SurfaceRelief::ShellHeights(vec![0.003; 4])),
             )
             .is_err(),
             "accepted invalid extrusion {extrusion:?}"
@@ -264,7 +368,7 @@ fn directed_extrusion_rejects_invalid_and_tangent_directions() {
 #[test]
 fn directed_extrusion_rejects_a_backward_carrier_with_or_without_relief() {
     for extrusion in directed_extrusions() {
-        for relief in [None, Some(vec![0.003; 4])] {
+        for relief in [None, Some(SurfaceRelief::ShellHeights(vec![0.003; 4]))] {
             assert!(
                 PartMesh::from_relief_surface(
                     oblique_carrier(),

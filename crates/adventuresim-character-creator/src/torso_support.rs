@@ -1,4 +1,4 @@
-//! Resolve the selected torso recipes for shoulder fitting in preview/export.
+//! Resolve selected torso plates for adjoining shoulder and waist armor.
 use super::*;
 use adventuresim_character_creator::{
     armor_frames::Wearer,
@@ -6,14 +6,14 @@ use adventuresim_character_creator::{
     armor_recipes::{self, ParametricDesign},
 };
 
-pub(super) struct PauldronSupport {
+pub(super) struct TorsoSupport {
     torso: GeneratedArmor,
     relief: adventuresim_armor_model::Millimeters,
     torso_faces: Vec<[u32; 3]>,
     gorget: ParametricDesign,
 }
 
-impl PauldronSupport {
+impl TorsoSupport {
     pub(super) fn new(
         model: &BodyModel,
         body: &GeneratedCharacter,
@@ -35,8 +35,8 @@ impl PauldronSupport {
             relief,
             torso_faces,
             gorget: catalog
-                .design("gorget")
-                .context("pauldron support requires a gorget recipe")?,
+                .design("gorget", "worn")
+                .context("torso support requires a gorget recipe")?,
         })
     }
 

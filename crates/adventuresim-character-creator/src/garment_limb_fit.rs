@@ -63,7 +63,7 @@ pub(super) fn fit(
         arm,
         attachment,
     };
-    Ok(mesh.refit_surfaces(|positions| {
+    Ok(mesh.refit_surfaces(|positions, _| {
         for point in positions {
             let local = local_point(&cage.frame, *point);
             *point = cage.point(design, wearer, local);

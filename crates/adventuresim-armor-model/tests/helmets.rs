@@ -276,8 +276,12 @@ fn extreme_style_controls_preserve_solid_topology() {
         }),
     ];
     for design in designs {
-        assert_closed_solid(&generate_helmet(&design, &frame(0.75)).unwrap());
-        assert_closed_solid(&generate_helmet(&design, &frame(1.3)).unwrap());
+        for scale in [0.75, 1.3] {
+            assert_closed_solid(
+                &generate_helmet(&design, &frame(scale))
+                    .unwrap_or_else(|error| panic!("{design:?} at scale {scale}: {error:?}")),
+            );
+        }
     }
 }
 

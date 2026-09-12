@@ -21,6 +21,23 @@ const KINDS: [GarmentArmorKind; 13] = [
     GarmentArmorKind::Gorget,
 ];
 
+#[test]
+fn standalone_fauld_exposes_its_whole_attachment_component() {
+    for count in [1, 6, 8] {
+        let mut design = GarmentArmorDesign::new(GarmentArmorKind::Fauld);
+        design.lame_count = count;
+        let mesh = generate_garment_armor(&design, &frame(design.kind)).unwrap();
+        assert_eq!(mesh.components.len(), 1);
+        let component = &mesh.components[0];
+        assert_eq!(
+            component.role,
+            adventuresim_armor_model::ArmorComponentRole::Fauld
+        );
+        assert_eq!(component.vertices, 0..mesh.positions.len());
+        assert_eq!(component.indices, 0..mesh.indices.len());
+    }
+}
+
 fn frame(kind: GarmentArmorKind) -> PartFrame {
     let half_extents = match kind {
         GarmentArmorKind::Gorget => [0.065, 0.055, 0.060],
@@ -69,6 +86,55 @@ fn assert_solid(mesh: &PartMesh) {
             (incidences[1].1, incidences[1].0),
             "neighboring triangles must have opposite edge winding"
         );
+    }
+}
+
+#[test]
+fn dense_fauld_flutes_keep_resolved_crests_and_closed_plates() {
+    use adventuresim_armor_model::{FluteCount, PlateFluting};
+    let mut design = GarmentArmorDesign::new(GarmentArmorKind::Fauld);
+    for count in [48, 64] {
+        let pattern = PlateFluting {
+            count: FluteCount(count),
+            ..Default::default()
+        };
+        let columns = pattern.columns(64);
+        let crests = columns
+            .windows(3)
+            .filter(|samples| {
+                let values = [0, 1, 2].map(|i| pattern.relief(samples[i], 0.5));
+                values[1] > values[0] && values[1] > values[2]
+            })
+            .count();
+        assert_eq!(crests, usize::from(count));
+        design.fluting = Some(pattern);
+        let mut mesh = generate_garment_armor(&design, &frame(GarmentArmorKind::Fauld)).unwrap();
+        mesh.normals()
+            .expect("finite fluted geometry before seam welding");
+        let mut vertices = BTreeMap::new();
+        let mut positions = Vec::new();
+        let welded = mesh
+            .positions
+            .iter()
+            .map(|p| {
+                *vertices
+                    .entry(p.map(|x| if x == 0.0 { 0 } else { x.to_bits() }))
+                    .or_insert_with(|| {
+                        positions.push(*p);
+                        (positions.len() - 1) as u32
+                    })
+            })
+            .collect::<Vec<_>>();
+        mesh.positions = positions;
+        for index in &mut mesh.indices {
+            *index = welded[*index as usize];
+        }
+        for component in &mut mesh.components {
+            let vertices = &welded[component.vertices.clone()];
+            component.vertices = *vertices.iter().min().unwrap() as usize
+                ..*vertices.iter().max().unwrap() as usize + 1;
+        }
+        assert_solid(&mesh);
     }
 }
 
@@ -217,13 +283,28 @@ fn assert_welded_solid(mesh: &PartMesh) {
 
 fn angular_height_bounds(mesh: &PartMesh, part: &[usize], angle: f32) -> [f32; 2] {
     let mut bounds = [f32::INFINITY, f32::NEG_INFINITY];
-    for &index in part {
-        let [x, y, z] = mesh.positions[index];
-        let projected = x * angle.sin() + z * angle.cos();
-        let across = x * angle.cos() - z * angle.sin();
-        if projected > 0.0 && across.abs() < 1e-6 {
-            bounds[0] = bounds[0].min(y);
-            bounds[1] = bounds[1].max(y);
+    let members = part
+        .iter()
+        .copied()
+        .collect::<std::collections::BTreeSet<_>>();
+    for face in mesh.indices.as_chunks::<3>().0 {
+        if !members.contains(&(face[0] as usize)) {
+            continue;
+        }
+        for (a, b) in [(0, 1), (1, 2), (2, 0)] {
+            let a = mesh.positions[face[a] as usize];
+            let b = mesh.positions[face[b] as usize];
+            let da = a[0] * angle.cos() - a[2] * angle.sin();
+            let db = b[0] * angle.cos() - b[2] * angle.sin();
+            if (da > 0.0) == (db > 0.0) || da == db {
+                continue;
+            }
+            let t = da / (da - db);
+            let point: [f32; 3] = std::array::from_fn(|axis| a[axis] + (b[axis] - a[axis]) * t);
+            if point[0] * angle.sin() + point[2] * angle.cos() > 0.0 {
+                bounds[0] = bounds[0].min(point[1]);
+                bounds[1] = bounds[1].max(point[1]);
+            }
         }
     }
     assert!(bounds.iter().all(|v| v.is_finite()));
@@ -237,7 +318,6 @@ fn gorget_lowest_neck_band_and_bib_are_one_physically_closed_sheet() {
         design.lame_count = count;
         let mesh = adventuresim_armor_model::generate_gorget_plates(
             &design,
-            [0.0; 2],
             |t, angle| {
                 [
                     0.08 * angle.sin(),
@@ -307,7 +387,7 @@ fn standalone_gorget_count_creates_separate_overlapping_neck_plates() {
             for pair in heights.windows(2) {
                 assert!(
                     pair[0][0] < pair[1][1] - 1e-5,
-                    "adjacent collar plates must overlap"
+                    "adjacent collar plates must overlap: count={count}, angle={angle}, bounds={pair:?}"
                 );
             }
         }
@@ -333,7 +413,7 @@ fn tasset_inner_cutaways_and_rounded_hems_do_not_reverse_narrow_lames() {
                 *hem_point = Permille(200);
             }
             let mesh = generate_garment_armor(&design, &frame(design.kind)).unwrap();
-            mesh.refit_surfaces(|points| {
+            mesh.refit_surfaces(|points, _| {
                 let stride = points.len() / 9;
                 for row in 1..9 {
                     for col in 0..stride {
@@ -370,4 +450,48 @@ fn increasing_gorget_slope_lowers_the_front_rim() {
         );
     }
     assert!(front_heights[0] - front_heights[1] > 0.005);
+}
+#[test]
+fn flared_short_gorget_collars_keep_compact_returns_at_physical_gauge() {
+    for height in [0.002, 0.008, 0.030] {
+        let mut design = GarmentArmorDesign::new(GarmentArmorKind::Gorget);
+        design.lame_count = 3;
+        design.wall_thickness = Millimeters(1);
+        let mesh = adventuresim_armor_model::generate_gorget_plates(
+            &design,
+            |t, angle| {
+                let radius = 0.075 + 0.02 * t;
+                [
+                    radius * angle.sin(),
+                    height * (1.0 - t),
+                    radius * angle.cos(),
+                ]
+            },
+            |t, angle| {
+                let radius = 0.095 + 0.04 * t;
+                [radius * angle.sin(), -0.04 * t, radius * angle.cos()]
+            },
+        )
+        .unwrap();
+        assert_welded_solid(&mesh);
+        let parts = connected_parts(&mesh);
+        assert_eq!(parts.len(), 3);
+        for part in &parts[1..] {
+            let start = *part.iter().min().unwrap();
+            let end = *part.iter().max().unwrap() + 1;
+            let surface_vertices = (end - start) / 2;
+            for index in start..start + surface_vertices {
+                let outside = mesh.positions[index];
+                let inside = mesh.positions[index + surface_vertices];
+                let distance = (0..3)
+                    .map(|axis| (outside[axis] - inside[axis]).powi(2))
+                    .sum::<f32>()
+                    .sqrt();
+                assert!(
+                    (distance - design.wall_thickness.metres()).abs() < 1e-7,
+                    "short collars must not turn their gauge into long lateral blades"
+                );
+            }
+        }
+    }
 }

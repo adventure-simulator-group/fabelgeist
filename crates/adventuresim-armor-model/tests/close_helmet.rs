@@ -134,13 +134,38 @@ fn body_fitting_preserves_component_and_aperture_correspondence() {
         }
         assert_eq!(visor_genus(&mesh), 14);
         let refitted = mesh
-            .refit_surfaces(|points| {
+            .refit_surfaces(|points, _| {
                 for p in points {
                     p[2] += 0.001;
                 }
             })
             .unwrap();
         assert_eq!(refitted.components, mesh.components);
+    }
+}
+
+#[test]
+fn bevor_returns_preserve_neck_stations_across_head_sizes() {
+    for scale in [0.75, 1.0, 1.3] {
+        let mesh = generate(CloseHelmetDesign::default(), scale);
+        let component = mesh
+            .components
+            .iter()
+            .find(|part| part.role == Role::Bevor)
+            .unwrap();
+        let positions = &mesh.positions[component.vertices.clone()];
+        let (outer, inner) = positions.split_at(positions.len() / 2);
+        for (a, b) in outer.iter().zip(inner) {
+            assert_eq!(
+                a[1], b[1],
+                "a return must not slide into an adjoining neck row"
+            );
+            let radial_gauge = (a[0] - b[0]).hypot(a[2] - b[2]);
+            assert!(
+                radial_gauge >= 0.001,
+                "the return must retain positive plate thickness"
+            );
+        }
     }
 }
 

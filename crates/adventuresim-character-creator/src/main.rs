@@ -4,11 +4,13 @@ mod cli;
 use cli::Args;
 mod catalog;
 use catalog::{EquipmentCatalog, load_item_catalog, procedural_items};
+mod breastplate_skeletal_fit;
 mod fastener_controls;
 mod fastener_equipment;
 mod fastener_skin;
 mod fitted_existing;
 mod waist_skin;
+mod wrapped_tasset_controls;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
 mod studio_generation;
 use studio_generation::regenerate_mesh;
@@ -16,19 +18,26 @@ mod generation;
 mod preview;
 mod proportion_controls;
 use generation::generate_character;
+mod anime_controls;
 mod armor_controls;
+mod bellows_controls;
+mod besagew_controls;
 mod breastplate_controls;
+mod buffe_controls;
 mod character_export;
 mod character_morphs;
 mod equipment_controls;
 mod equipment_export;
 mod fluting_controls;
+mod garment_controls;
+mod joint_extension_controls;
 mod parametric_equipment;
-mod pauldron_support;
 mod review_export;
 mod shoulder_skin;
+mod torso_support;
 mod underlayer_equipment;
 mod underlayer_preview;
+mod visor_breath_controls;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 
@@ -151,13 +160,7 @@ fn main() -> Result<()> {
         adventuresim_character_creator::fasteners::catalog::load(args.fastener_designs.as_deref())?,
     );
     if let Some(path) = &args.write_armor_designs {
-        let designs = catalog
-            .0
-            .iter()
-            .filter_map(|item| catalog.design(&item.id).map(|d| (item.id.clone(), d)))
-            .collect::<adventuresim_character_creator::armor_design_input::ArmorDesigns>();
-        std::fs::write(path, serde_json::to_vec_pretty(&designs)?)?;
-        return Ok(());
+        return write_armor_designs(path, &catalog);
     }
 
     let recipe: CharacterRecipe = serde_json::from_slice(
@@ -174,6 +177,7 @@ fn main() -> Result<()> {
             &catalog,
             &bracer_design,
             &breastplate_design,
+            args.armor_review_selection,
         );
     }
 
@@ -238,6 +242,24 @@ fn main() -> Result<()> {
             ),
         )
         .run();
+    Ok(())
+}
+
+fn write_armor_designs(path: &std::path::Path, catalog: &EquipmentCatalog) -> Result<()> {
+    let mut designs = catalog.1.clone();
+    designs.defaults = catalog
+        .0
+        .iter()
+        .filter_map(|item| {
+            catalog
+                .default_design(&item.id)
+                .map(|d| (item.id.clone(), d))
+        })
+        .collect();
+    std::fs::write(
+        path,
+        adventuresim_character_creator::armor_design_input::encode(&designs)?,
+    )?;
     Ok(())
 }
 

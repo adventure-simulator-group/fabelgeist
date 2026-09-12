@@ -31,6 +31,8 @@ use seating::*;
 #[path = "breastplate_carrier/sampling.rs"]
 mod sampling;
 use sampling::*;
+#[path = "breastplate_carrier/anime.rs"]
+mod anime;
 
 use std::collections::BTreeMap;
 
@@ -112,6 +114,7 @@ struct MidMesh {
     main_columns: usize,
     extrusion_normals: Option<Vec<[f32; 3]>>,
     morph_carrier: Option<MorphCarrier>,
+    morph_samples: Option<Vec<MorphSample>>,
     medial_crease: Vec<bool>,
     crease_right: Vec<bool>,
 }
@@ -123,8 +126,8 @@ struct MorphCarrier {
 
 #[derive(Clone, Copy)]
 struct MorphSample {
-    endpoints: [SourceSample; 2],
-    blend: f32,
+    endpoints: [SourceSample; 4],
+    weights: [f32; 4],
 }
 
 struct SolidMesh {
@@ -214,6 +217,9 @@ pub fn generate_breastplate(
     )?;
     let eligible_faces = eligible_torso_faces(surface)?;
     let (front_mid, back_mid) = build_pair(base_wearer, design)?;
+    let mut front_mid = anime::articulate(front_mid, false, base_wearer, design, &eligible_faces)?;
+    let back_mid = anime::articulate(back_mid, true, base_wearer, design, &eligible_faces)?;
+    front_mid.triangulate_left_cut();
     let mid_positions = front_mid
         .positions
         .iter()
@@ -292,10 +298,12 @@ fn generate_morphs(
                                 add(sum, scale(sub(target, original), weight))
                             })
                     });
-                    add(
-                        scale(displacement[0], 1.0 - sample.blend),
-                        scale(displacement[1], sample.blend),
-                    )
+                    displacement
+                        .into_iter()
+                        .zip(sample.weights)
+                        .fold([0.0; 3], |sum, (delta, weight)| {
+                            add(sum, scale(delta, weight))
+                        })
                 })
                 .collect::<Vec<_>>();
             let direct_positions = base

@@ -11,8 +11,22 @@ from pathlib import Path
 
 import numpy as np
 
+SKELETAL_FIT_TARGETS = [
+    ("mhr_skeletal_spine_short", 6, -1.1),
+    ("mhr_skeletal_spine_long", 6, 1.1),
+    ("mhr_skeletal_neck_short", 7, -0.4),
+    ("mhr_skeletal_neck_long", 7, 0.4),
+    ("mhr_skeletal_upper_arm_short", 2, -1.0),
+    ("mhr_skeletal_upper_arm_long", 2, 1.0),
+    ("mhr_skeletal_upper_leg_short", 4, -0.5),
+    ("mhr_skeletal_upper_leg_long", 4, 0.5),
+    ("mhr_skeletal_hip_narrow", 0, -0.5),
+    ("mhr_skeletal_hip_wide", 0, 0.5),
+    ("mhr_skeletal_lower_leg_short", 5, -1.0),
+    ("mhr_skeletal_lower_leg_long", 5, 1.0),
+]
 EXPECTED_TARGETS = [f"mhr_identity_{i:02}" for i in range(45)] + [
-    "mhr_skeletal_spine_short", "mhr_skeletal_spine_long"]
+    name for name, _, _ in SKELETAL_FIT_TARGETS]
 MINIMUM_TRIANGLE_AREA_M2 = 1e-12
 
 
@@ -76,7 +90,7 @@ def audit(path):
             joints = glb.array(attributes["JOINTS_0"])
             assert joints.shape == weights.shape and joints.max() < joint_count
             targets = [glb.array(target["POSITION"]) for target in primitive["targets"]]
-            assert len(targets) == 47 and all(target.shape == positions.shape for target in targets)
+            assert len(targets) == len(EXPECTED_TARGETS) and all(target.shape == positions.shape for target in targets)
             for delta in targets:
                 assert np.max(np.abs(delta - delta[representatives][welded])) < 2e-6, "morph tears a welded seam"
             for target in primitive["targets"]:
@@ -134,7 +148,7 @@ def main():
               "limitations": "Fixed topology, finite attributes and sampled morph triangle areas; does not prove all-body clearance or animation fit.", "assets": []}
     for row in armor:
         assert isinstance(row["armor_generator_version"], int) and row["armor_generator_version"] > 0
-        assert len(row["armor_design_hash"]) == 64 and row["morph_targets"] == 47
+        assert len(row["armor_design_hash"]) == 64 and row["morph_targets"] == len(EXPECTED_TARGETS)
         result = audit(args.directory / row["file"])
         report["assets"].append({"file": row["file"], "primitives": result})
         print(f"PASS {row['file']}", flush=True)

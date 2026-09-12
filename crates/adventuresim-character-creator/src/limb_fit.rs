@@ -2,6 +2,11 @@
 //!
 //! Thumb placement uses actual rig anchors. Footwear cross-sections fit the foot
 //! and the lower leg as one smooth envelope, without copying skin topology.
+//!
+//! Fitting requires the canonical unposed MHR frame: Y is vertical, the
+//! anatomical sagittal plane follows the pelvis X coordinate, and +Z faces
+//! forward. Limb axes are derived from rig landmarks within that frame.
+//! Animation poses are applied after fitting and are not valid fitting inputs.
 
 use adventuresim_armor_model::{
     LimbArmorDesign, PartFrame, PartMesh, PlateGauge, generate_gauntlet_thumb, generate_limb_armor,
@@ -17,6 +22,10 @@ const MINIMUM_RADIAL_EXTENT_M: f32 = 0.008;
 const PROFILE_CLEARANCE_MARGIN_M: f32 = 0.002;
 #[path = "boot_layer_fit.rs"]
 mod boot_layer_fit;
+#[path = "boot_shaft_profile.rs"]
+mod boot_shaft_profile;
+#[path = "cuisse_fit.rs"]
+mod cuisse_fit;
 #[path = "pauldron_fit.rs"]
 mod pauldron_fit;
 #[path = "sabaton_fit.rs"]
@@ -33,6 +42,16 @@ pub fn fitted_limb(
 ) -> Result<PartMesh> {
     if let LimbArmorDesign::Pauldron(d) = design {
         return pauldron_fit::fit(d, wearer, region, layers);
+    }
+    if let LimbArmorDesign::Spaulder(d) = design {
+        let FitRegion::Shoulder(side) = region else {
+            anyhow::bail!("besagew needs a shoulder");
+        };
+        return if d.besagew.is_some() {
+            crate::besagew_fit::fit(d, wearer, side, layers)
+        } else {
+            crate::spaulder_fit::fit(d, wearer, side)
+        };
     }
     let frame = wearer.frame(region)?;
     let mesh = generate_limb_armor(design, &frame)?;
@@ -76,19 +95,9 @@ pub fn fitted_limb(
             d.gauge.thickness,
             PlateFit::Greave(d),
         ),
-        LimbArmorDesign::Cuisse(d) => {
-            let mesh = trim_proximal(&mesh, &frame, region)?;
-            crate::armor_clearance::fit(
-                &mesh,
-                wearer,
-                region,
-                d.gauge.clearance,
-                d.gauge.thickness,
-                PlateFit::Cuisse(d),
-            )
-        }
+        LimbArmorDesign::Cuisse(d) => cuisse_fit::fit(&mesh, d, wearer, region, &frame),
         LimbArmorDesign::Rerebrace(d) => {
-            let mesh = trim_proximal(&mesh, &frame, region)?;
+            let mesh = trim_proximal(&mesh, &frame, region, 0.0)?;
             crate::armor_clearance::fit(
                 &mesh,
                 wearer,
@@ -102,7 +111,12 @@ pub fn fitted_limb(
     }
 }
 
-fn trim_proximal(mesh: &PartMesh, frame: &PartFrame, region: FitRegion) -> Result<PartMesh> {
+fn trim_proximal(
+    mesh: &PartMesh,
+    frame: &PartFrame,
+    region: FitRegion,
+    additional_medial_trim: f32,
+) -> Result<PartMesh> {
     let (side, depth) = match region {
         FitRegion::Thigh(side) => (side, 0.65),
         FitRegion::UpperArm(side) => (side, 1.5),
@@ -113,7 +127,7 @@ fn trim_proximal(mesh: &PartMesh, frame: &PartFrame, region: FitRegion) -> Resul
     } else {
         -1.0
     };
-    Ok(mesh.refit_surfaces(|points| {
+    Ok(mesh.refit_surfaces(|points, _| {
         const MINIMUM_REMAINING_SPAN: f32 = 0.30;
         let low = points
             .iter()
@@ -136,7 +150,9 @@ fn trim_proximal(mesh: &PartMesh, frame: &PartFrame, region: FitRegion) -> Resul
             };
             // Cut the upper boundary and interpolate toward it. A high-power
             // axial displacement can reverse rows and fold the sheet back.
-            let trim = (frame.half_extents[1] * depth * inward.powi(2) + reserve).min(maximum_trim);
+            let trim = ((frame.half_extents[1] * depth + additional_medial_trim) * inward.powi(2)
+                + reserve)
+                .min(maximum_trim);
             p[1] -= trim * proximal;
             *point = frame.point(p);
         }
@@ -195,7 +211,7 @@ fn fit_foot_envelope(
         .fold(f32::NEG_INFINITY, f32::max);
     let sections = foot_sections(&points, low, high, gauge, frame.half_extents[1]);
     let mut carrier_index = 0;
-    Ok(mesh.refit_surfaces(|carrier| {
+    Ok(mesh.refit_surfaces(|carrier, _| {
         let layer = lames.map_or(0.0, |count| {
             usize::from(count).saturating_sub(carrier_index) as f32
                 * gauge.thickness.metres()

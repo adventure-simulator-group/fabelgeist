@@ -23,8 +23,9 @@ impl WaistArmorDesign {
     }
 }
 
-/// Preserve distinct plate identities through fitting, baking, and export.
-pub fn compose_waist(fauld: PartMesh, mut tassets: PartMesh) -> PartMesh {
+/// Seat a horizontal suspension edge below the lowest fauld hem. Shaped
+/// suspension edges are seated by their anatomical fitter instead.
+pub fn suspend_horizontal_tassets(fauld: &PartMesh, mut tassets: PartMesh) -> PartMesh {
     let hem = fauld
         .positions
         .iter()
@@ -43,6 +44,11 @@ pub fn compose_waist(fauld: PartMesh, mut tassets: PartMesh) -> PartMesh {
             half_extents: [1.0; 3],
         });
     }
+    tassets
+}
+
+/// Preserve fitted positions and distinct plate identities through export.
+pub fn compose_waist(fauld: PartMesh, tassets: PartMesh) -> PartMesh {
     let mut mesh = fauld.with_component(ArmorComponentRole::Fauld, None);
     mesh.append(tassets.with_component(ArmorComponentRole::Tassets, None));
     mesh

@@ -2,6 +2,8 @@
 
 use super::*;
 
+const UPPER_RIM_ROWS: usize = 3;
+
 pub(super) fn face_normal(face: [u32; 3], positions: &[[f32; 3]]) -> [f32; 3] {
     let [a, b, c] = face.map(|index| positions[index as usize]);
     cross(sub(b, a), sub(c, a))
@@ -25,12 +27,11 @@ pub(super) fn vertex_normals(
     normals.into_iter().map(normalized).collect()
 }
 
-/// Continue the upper carrier's extrusion field from the interior. The curved
-/// trim can have a tighter radius than the plate gauge, so its local boundary
-/// normals must not make the outer wall fold over itself.
-pub(super) fn upper_extrusion(mesh: &mut MidMesh) -> Result<(), GenerateError> {
+/// Continue the carrier's extrusion field from the interior. The curved trim
+/// can have a tighter radius than the gauge or articulated lap lift; offsetting
+/// along its local boundary normals would turn the rim back into the plate.
+pub(super) fn rim_extrusion(mesh: &mut MidMesh) -> Result<(), GenerateError> {
     let mut normals = vertex_normals(&mesh.positions, &mesh.faces)?;
-    const UPPER_RIM_ROWS: usize = 3;
     let start = V_SAMPLES - 1 - UPPER_RIM_ROWS;
     for row in start + 1..V_SAMPLES {
         let blend = (row - start) as f32 / UPPER_RIM_ROWS as f32;
@@ -42,7 +43,55 @@ pub(super) fn upper_extrusion(mesh: &mut MidMesh) -> Result<(), GenerateError> {
             ))?;
         }
     }
+    for row in normals.chunks_exact_mut(mesh.main_columns) {
+        continue_lateral_extrusion(row)?;
+    }
     mesh.extrusion_normals = Some(normals);
+    Ok(())
+}
+
+impl MidMesh {
+    /// The front neckline rises across the shoulder while the chest recedes.
+    /// Continue its gauge toward the front at the cut: lateral or upward
+    /// extrusion from the chest can enter another face of that twisted strip.
+    pub(super) fn front_neckline_extrusion(&mut self, frame: Frame) -> Result<(), GenerateError> {
+        let normals = self
+            .extrusion_normals
+            .as_mut()
+            .ok_or(GenerateError::InvalidSurface)?;
+        let start = V_SAMPLES - 1 - UPPER_RIM_ROWS;
+        for row in start + 1..V_SAMPLES {
+            let blend = (row - start) as f32 / UPPER_RIM_ROWS as f32;
+            for column in 0..self.main_columns {
+                let normal = &mut normals[row * self.main_columns + column];
+                *normal = normalized(add(
+                    scale(*normal, 1.0 - blend),
+                    scale(frame.front, dot(*normal, frame.front) * blend),
+                ))?;
+            }
+        }
+        Ok(())
+    }
+}
+
+fn continue_lateral_extrusion(row: &mut [[f32; 3]]) -> Result<(), GenerateError> {
+    const LATERAL_RIM_COLUMNS: usize = 2;
+    let columns = row.len();
+    for from_end in [false, true] {
+        let index = |distance: usize| {
+            if from_end {
+                columns - 1 - distance
+            } else {
+                distance
+            }
+        };
+        let interior = row[index(LATERAL_RIM_COLUMNS)];
+        for distance in 0..LATERAL_RIM_COLUMNS {
+            let column = index(distance);
+            let blend = (LATERAL_RIM_COLUMNS - distance) as f32 / LATERAL_RIM_COLUMNS as f32;
+            row[column] = normalized(add(scale(row[column], 1.0 - blend), scale(interior, blend)))?;
+        }
+    }
     Ok(())
 }
 
@@ -239,4 +288,80 @@ pub(super) fn validate_closed_shell(
         return Err(GenerateError::Degenerate);
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod rim_tests {
+    use super::*;
+
+    #[test]
+    fn front_neckline_gauge_stays_outside_a_twisted_shoulder_strip() {
+        let columns = 2;
+        let mut mesh = MidMesh {
+            main_columns: columns,
+            positions: vec![[0.0; 3]; V_SAMPLES * columns],
+            extrusion_normals: Some(vec![
+                normalized([-0.73, 0.30, 0.68]).unwrap();
+                V_SAMPLES * columns
+            ]),
+            ..MidMesh::default()
+        };
+        // A receding front neckline from the narrow museum mannequin.
+        let start = (V_SAMPLES - 2) * columns;
+        mesh.positions[start..].copy_from_slice(&[
+            [0.096_027, 1.425_819, 0.087_574],
+            [0.099_899, 1.426_434, 0.087_537],
+            [0.119_578, 1.437_261, 0.075_968],
+            [0.123_352, 1.438_168, 0.072_315],
+        ]);
+        let face = [start as u32, (start + 3) as u32, (start + 2) as u32];
+        let normal = normalized(face_normal(face, &mesh.positions)).unwrap();
+        let old = mesh.extrusion_normals.as_ref().unwrap().clone();
+        assert!(dot(normal, old[start]) < 0.0);
+        let carrier = mesh.positions.clone();
+        mesh.front_neckline_extrusion(Frame::from_front([0.0, 0.0, 1.0]).unwrap())
+            .unwrap();
+        assert_eq!(mesh.positions, carrier);
+        let normals = mesh.extrusion_normals.unwrap();
+        let unaffected = (V_SAMPLES - UPPER_RIM_ROWS) * columns;
+        assert_eq!(normals[..unaffected], old[..unaffected]);
+        for index in face {
+            let direction = normals[index as usize];
+            assert!(dot(normal, direction) > 0.0, "gauge entered the carrier");
+            assert!((length(scale(direction, 0.002)) - 0.002).abs() < 1e-7);
+        }
+    }
+
+    #[test]
+    fn lateral_rim_does_not_reverse_under_a_lap_or_wall_offset() {
+        let positions = [-0.004, -0.003, -0.002, 0.0, 0.002, 0.003, 0.004];
+        let mut directions = [
+            [0.0, 0.0, 1.0],
+            [-0.8, 0.0, 0.6],
+            [-0.8, 0.0, 0.6],
+            [0.0, 0.0, 1.0],
+            [0.8, 0.0, 0.6],
+            [0.8, 0.0, 0.6],
+            [0.0, 0.0, 1.0],
+        ];
+        // Local boundary normals drive the next vertex past the rim.
+        assert!(positions[1] + directions[1][0] * 0.005 < positions[0]);
+        let interior = directions[2..5].to_vec();
+        continue_lateral_extrusion(&mut directions).unwrap();
+        assert_eq!(directions[2..5], interior);
+        for offset in [0.002, 0.005, 0.007, 0.016] {
+            let points = positions
+                .into_iter()
+                .zip(directions)
+                .map(|(x, n)| add([x, 0.0, 0.0], scale(n, offset)))
+                .collect::<Vec<_>>();
+            for pair in points.windows(2) {
+                assert!(pair[1][0] > pair[0][0], "offset reversed the carrier strip");
+            }
+            for (left, right) in points.iter().zip(points.iter().rev()) {
+                assert!((left[0] + right[0]).abs() < 1e-6);
+                assert!((left[2] - right[2]).abs() < 1e-6);
+            }
+        }
+    }
 }

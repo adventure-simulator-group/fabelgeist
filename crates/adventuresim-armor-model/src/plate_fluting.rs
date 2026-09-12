@@ -41,7 +41,7 @@ impl Default for PlateFluting {
 }
 
 impl PlateFluting {
-    pub const COUNT_RANGE: RangeInclusive<u16> = 2..=24;
+    pub const COUNT_RANGE: RangeInclusive<u16> = 2..=64;
     pub const WIDTH_RANGE: RangeInclusive<u16> = 350..=850;
     pub const DEPTH_RANGE: RangeInclusive<u16> = 1..=4;
     pub const SPREAD_RANGE: RangeInclusive<u16> = 400..=850;

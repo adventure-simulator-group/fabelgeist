@@ -10,6 +10,9 @@ pub(super) fn carrier_samples(
     wearer: Wearer<'_>,
     eligible_faces: &[usize],
 ) -> Vec<MorphSample> {
+    if let Some(samples) = &mesh.morph_samples {
+        return samples.clone();
+    }
     if let Some(carrier) = &mesh.morph_carrier {
         let coarse = carrier
             .positions
@@ -20,16 +23,21 @@ pub(super) fn carrier_samples(
             .samples
             .iter()
             .map(|(index, blend)| MorphSample {
-                endpoints: [coarse[*index], coarse[*index + 1]],
-                blend: *blend,
+                endpoints: [
+                    coarse[*index],
+                    coarse[*index + 1],
+                    coarse[*index],
+                    coarse[*index],
+                ],
+                weights: [1.0 - blend, *blend, 0.0, 0.0],
             })
             .collect()
     } else {
         mesh.positions
             .iter()
             .map(|point| MorphSample {
-                endpoints: [source_sample(*point, wearer, eligible_faces); 2],
-                blend: 0.0,
+                endpoints: [source_sample(*point, wearer, eligible_faces); 4],
+                weights: [1.0, 0.0, 0.0, 0.0],
             })
             .collect()
     }
