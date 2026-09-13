@@ -557,7 +557,14 @@ impl Plugin for AdventureSimulatorPhysicsPlugin {
         #[cfg(feature = "avian_debug")]
         app.add_plugins(PhysicsDebugPlugin)
             .insert_gizmo_config(
-                PhysicsGizmos::default(),
+                PhysicsGizmos {
+                    // Joint gizmos have no per-entity switch, and the only
+                    // joints on a client are presentation ragdolls, whose
+                    // anchor lines hide the body under review.
+                    joint_anchor_color: None,
+                    joint_separation_color: None,
+                    ..default()
+                },
                 GizmoConfig {
                     depth_bias: -1.0,
                     ..default()

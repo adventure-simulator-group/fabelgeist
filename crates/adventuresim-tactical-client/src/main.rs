@@ -93,6 +93,10 @@ struct Args {
     /// Server URL or host:port
     #[arg(long)]
     server_addr: String,
+    /// Root directory containing native runtime assets.
+    #[cfg(not(target_family = "wasm"))]
+    #[arg(long)]
+    asset_root: Option<std::path::PathBuf>,
     /// JSON command sequence that replaces physical movement input.
     #[arg(long)]
     input_script: Option<String>,
@@ -131,7 +135,7 @@ struct Args {
 #[cfg(not(target_family = "wasm"))]
 fn main() {
     let args = Args::parse();
-    let asset_root = native_asset_root();
+    let asset_root = native_asset_root(args.asset_root.as_deref());
     let path = args
         .graphics_config
         .clone()
@@ -256,7 +260,7 @@ fn run(
     eprintln!("[startup] native client process entry");
     let mut app = App::new();
     #[cfg(not(target_family = "wasm"))]
-    let asset_root = native_asset_root();
+    let asset_root = native_asset_root(args.asset_root.as_deref());
     #[cfg(not(target_family = "wasm"))]
     validate_native_presentation_assets(&asset_root)
         .unwrap_or_else(|error| panic!("invalid tactical client asset root: {error}"));
@@ -445,9 +449,10 @@ fn configure_headless_render_target(
 }
 
 #[cfg(not(target_family = "wasm"))]
-fn native_asset_root() -> std::path::PathBuf {
-    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../assets")
+fn native_asset_root(configured: Option<&std::path::Path>) -> std::path::PathBuf {
+    configured
+        .map(std::path::Path::to_path_buf)
+        .unwrap_or_else(|| std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets"))
         .canonicalize()
         .unwrap_or_else(|error| panic!("could not resolve native asset directory: {error}"))
 }
@@ -543,7 +548,7 @@ mod graphics_config_tests {
     #[cfg(not(target_family = "wasm"))]
     #[test]
     fn native_asset_root_contains_required_presentation_assets() {
-        validate_native_presentation_assets(&native_asset_root()).unwrap();
+        validate_native_presentation_assets(&native_asset_root(None)).unwrap();
     }
 
     #[test]

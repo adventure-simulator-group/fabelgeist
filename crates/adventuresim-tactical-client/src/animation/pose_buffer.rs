@@ -21,9 +21,15 @@ use bevy::{
 use super::*;
 use crate::presentation::TacticalGameplayCamera;
 
+mod inertialization;
+mod physics_pose;
 mod proportions;
 mod rig;
 mod stride_calibration;
+use inertialization::{
+    JointInertialOffset, hemisphere_slerp, local_pose_velocity, quaternion_exp, quaternion_log,
+    shortest_rotation,
+};
 use proportions::sample_character_plan;
 pub(super) use stride_calibration::{CharacterLocomotionStrides, calibrate_character_strides};
 mod spline;
@@ -116,11 +122,12 @@ impl BakedClip {
     }
 }
 
+/// One joint's local transform in the pose buffer.
 #[derive(Debug, Clone, Copy, PartialEq)]
-struct LocalPose {
-    translation: Vec3,
-    rotation: Quat,
-    scale: Vec3,
+pub(in crate::animation) struct LocalPose {
+    pub(in crate::animation) translation: Vec3,
+    pub(in crate::animation) rotation: Quat,
+    pub(in crate::animation) scale: Vec3,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -311,6 +318,12 @@ pub(super) struct PoseBufferRig {
     plan: Option<PosePlanKey>,
     active: bool,
     frozen: bool,
+    /// Every inertial offset has decayed to zero: the decay is skipped until
+    /// the next transition captures a new one.
+    settled: bool,
+    /// A physics ragdoll writes this buffer; authored sampling, transitions,
+    /// and LOD freezing stand down until it hands the pose back.
+    physics_owned: bool,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -325,76 +338,11 @@ struct AuthoredContactPlant {
 }
 
 impl PoseBufferRig {
-    fn displayed_pose(&self, joint: usize) -> LocalPose {
-        let pose = self.previous[joint].interpolate(self.next[joint], self.interpolation_alpha);
-        self.offsets[joint].peek(pose)
-    }
-
     fn displayed_velocity(&self, joint: usize) -> (Vec3, Vec3) {
         (
-            self.target_linear_velocities[joint] + self.offsets[joint].translation_velocity,
-            self.target_angular_velocities[joint] + self.offsets[joint].angular_velocity,
+            self.target_linear_velocities[joint] + self.offsets[joint].translation_velocity(),
+            self.target_angular_velocities[joint] + self.offsets[joint].angular_velocity(),
         )
-    }
-}
-
-#[derive(Clone, Copy, Debug)]
-struct JointInertialOffset {
-    translation: Vec3,
-    translation_velocity: Vec3,
-    rotation: Quat,
-    angular_velocity: Vec3,
-}
-
-impl Default for JointInertialOffset {
-    fn default() -> Self {
-        Self {
-            translation: Vec3::ZERO,
-            translation_velocity: Vec3::ZERO,
-            rotation: Quat::IDENTITY,
-            angular_velocity: Vec3::ZERO,
-        }
-    }
-}
-
-impl JointInertialOffset {
-    fn capture(
-        &mut self,
-        displayed: LocalPose,
-        displayed_linear_velocity: Vec3,
-        displayed_angular_velocity: Vec3,
-        target: LocalPose,
-        target_linear_velocity: Vec3,
-        target_angular_velocity: Vec3,
-    ) {
-        self.translation = displayed.translation - target.translation;
-        self.translation_velocity = displayed_linear_velocity - target_linear_velocity;
-        self.rotation = shortest_rotation(displayed.rotation * target.rotation.inverse());
-        self.angular_velocity = displayed_angular_velocity - target_angular_velocity;
-    }
-
-    fn update(&mut self, input: LocalPose, delta_seconds: f32) -> LocalPose {
-        decay_spring_vec3(
-            &mut self.translation,
-            &mut self.translation_velocity,
-            pose_tuning().inertial_halflife_seconds,
-            delta_seconds,
-        );
-        decay_spring_quaternion(
-            &mut self.rotation,
-            &mut self.angular_velocity,
-            pose_tuning().inertial_halflife_seconds,
-            delta_seconds,
-        );
-        self.peek(input)
-    }
-
-    fn peek(&self, input: LocalPose) -> LocalPose {
-        LocalPose {
-            translation: input.translation + self.translation,
-            rotation: (self.rotation * input.rotation).normalize(),
-            scale: input.scale,
-        }
     }
 }
 
@@ -468,6 +416,14 @@ pub(super) fn update_pose_buffers(
             }
         };
         rig.decay_delta_seconds = delta_seconds;
+
+        if rig.physics_owned {
+            // The ragdoll readback owns `previous`/`next`; a culled or
+            // resampled buffer here would drag driven bones off their
+            // bodies.
+            rig.frozen = false;
+            continue;
+        }
 
         let position = owner_transform.translation();
         let frozen = camera.is_some_and(|(camera_transform, frustum)| {
@@ -595,8 +551,10 @@ pub(super) fn update_pose_buffers(
                     target_pose,
                     target_velocities[joint].0,
                     target_velocities[joint].1,
+                    pose_tuning().inertial_blend_seconds,
                 );
             }
+            rig.settled = false;
             for (joint, (linear, angular)) in target_velocities.iter().copied().enumerate() {
                 rig.target_linear_velocities[joint] = linear;
                 rig.target_angular_velocities[joint] = angular;
@@ -667,12 +625,15 @@ pub(super) fn apply_pose_buffers(
         }
         let alpha = rig.interpolation_alpha;
         let delta_seconds = rig.decay_delta_seconds;
+        let rig = &mut *rig;
         for joint in 0..rig.entities.len() {
             let Some(entity) = rig.entities[joint] else {
                 continue;
             };
             let input = rig.previous[joint].interpolate(rig.next[joint], alpha);
-            let pose = if delta_seconds > 0.0 {
+            let pose = if rig.settled {
+                input
+            } else if delta_seconds > 0.0 {
                 rig.offsets[joint].update(input, delta_seconds)
             } else {
                 rig.offsets[joint].peek(input)
@@ -682,6 +643,12 @@ pub(super) fn apply_pose_buffers(
                 transform.rotation = pose.rotation;
                 transform.scale = pose.scale;
             }
+        }
+        // Once every quintic has run its full length the offsets are exactly
+        // zero; clear them so at-rest rigs skip the decay entirely.
+        if !rig.settled && rig.offsets.iter().all(JointInertialOffset::done) {
+            rig.settled = true;
+            rig.offsets.fill(JointInertialOffset::default());
         }
     }
 }
@@ -1906,91 +1873,6 @@ fn samples_due(accumulator: f32) -> u32 {
     (accumulator.max(0.0) / pose_sample_seconds()).floor() as u32
 }
 
-fn hemisphere_slerp(first: Quat, mut second: Quat, alpha: f32) -> Quat {
-    if first.dot(second) < 0.0 {
-        second = -second;
-    }
-    first.slerp(second, alpha.clamp(0.0, 1.0)).normalize()
-}
-
-fn shortest_rotation(rotation: Quat) -> Quat {
-    if rotation.w < 0.0 {
-        -rotation
-    } else {
-        rotation
-    }
-}
-
-fn quaternion_exp(value: Vec3) -> Quat {
-    let half_angle = value.length();
-    if half_angle < 1e-8 {
-        Quat::from_xyzw(value.x, value.y, value.z, 1.0).normalize()
-    } else {
-        let scale = half_angle.sin() / half_angle;
-        Quat::from_xyzw(
-            scale * value.x,
-            scale * value.y,
-            scale * value.z,
-            half_angle.cos(),
-        )
-    }
-}
-
-fn quaternion_log(rotation: Quat) -> Vec3 {
-    let vector = Vec3::new(rotation.x, rotation.y, rotation.z);
-    let length = vector.length();
-    if length < 1e-8 {
-        vector
-    } else {
-        rotation.w.clamp(-1.0, 1.0).acos() * vector / length
-    }
-}
-
-fn scaled_angle_axis(rotation: Quat) -> Vec3 {
-    2.0 * quaternion_log(rotation)
-}
-
-fn quaternion_angular_velocity(next: Quat, current: Quat, delta_seconds: f32) -> Vec3 {
-    scaled_angle_axis(shortest_rotation(next * current.inverse())) / delta_seconds.max(1e-5)
-}
-
-fn local_pose_velocity(
-    previous: LocalPose,
-    current: LocalPose,
-    delta_seconds: f32,
-) -> (Vec3, Vec3) {
-    (
-        (current.translation - previous.translation) / delta_seconds.max(1.0e-5),
-        quaternion_angular_velocity(current.rotation, previous.rotation, delta_seconds),
-    )
-}
-
-fn halflife_to_damping(halflife: f32) -> f32 {
-    (4.0 * core::f32::consts::LN_2) / (halflife + 1e-5)
-}
-
-fn decay_spring_vec3(value: &mut Vec3, velocity: &mut Vec3, halflife: f32, delta: f32) {
-    let damping = halflife_to_damping(halflife) / 2.0;
-    let intermediate = *velocity + *value * damping;
-    let decay = (-damping * delta.max(0.0)).exp();
-    *value = decay * (*value + intermediate * delta);
-    *velocity = decay * (*velocity - intermediate * damping * delta);
-}
-
-fn decay_spring_quaternion(
-    value: &mut Quat,
-    angular_velocity: &mut Vec3,
-    halflife: f32,
-    delta: f32,
-) {
-    let damping = halflife_to_damping(halflife) / 2.0;
-    let angle = scaled_angle_axis(*value);
-    let intermediate = *angular_velocity + angle * damping;
-    let decay = (-damping * delta.max(0.0)).exp();
-    *value = quaternion_exp(decay * (angle + intermediate * delta) / 2.0);
-    *angular_velocity = decay * (*angular_velocity - intermediate * damping * delta);
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2236,20 +2118,6 @@ mod tests {
             + end_rotation_vector(before_end_two))
             / (2.0 * step);
         assert!(end_angular_velocity.length() < 0.01);
-    }
-
-    #[test]
-    fn quaternion_antipodes_interpolate_without_a_teleport() {
-        let rotation = Quat::from_rotation_y(1.2);
-        let halfway = hemisphere_slerp(rotation, -rotation, 0.5);
-        assert!(rotation.angle_between(halfway) < 0.0001);
-    }
-
-    #[test]
-    fn angular_velocity_uses_the_short_quaternion_hemisphere() {
-        let rotation = Quat::from_rotation_x(0.4);
-        let velocity = quaternion_angular_velocity(-rotation, rotation, pose_sample_seconds());
-        assert!(velocity.length() < 0.0001);
     }
 
     #[test]
@@ -2804,70 +2672,5 @@ mod tests {
             slid.position_world.xz().distance(far_authored_world.xz())
                 <= pose_tuning().authored_contact_plant_limit_metres + 0.0001
         );
-    }
-
-    #[test]
-    fn chained_interruptions_preserve_the_displayed_pose() {
-        let first = pose(Vec3::new(1.0, 0.0, 0.0), Quat::from_rotation_y(0.4));
-        let second = pose(Vec3::new(-1.0, 0.0, 0.0), Quat::from_rotation_y(-0.7));
-        let third = pose(Vec3::new(0.0, 1.0, 0.0), Quat::from_rotation_x(0.8));
-        let mut offset = JointInertialOffset::default();
-        offset.capture(
-            first,
-            Vec3::ZERO,
-            Vec3::ZERO,
-            second,
-            Vec3::ZERO,
-            Vec3::ZERO,
-        );
-        let displayed = offset.update(second, 0.025);
-        offset.capture(
-            displayed,
-            Vec3::ZERO,
-            Vec3::ZERO,
-            third,
-            Vec3::ZERO,
-            Vec3::ZERO,
-        );
-        let after_interrupt = offset.peek(third);
-        assert!(displayed.translation.distance(after_interrupt.translation) < 0.0001);
-        assert!(displayed.rotation.angle_between(after_interrupt.rotation) < 0.0001);
-    }
-
-    #[test]
-    fn pose_plan_transition_preserves_displayed_velocity_without_cross_plan_derivative() {
-        let displayed = pose(Vec3::X * 0.2, Quat::from_rotation_y(0.3));
-        let target = pose(Vec3::NEG_X, Quat::from_rotation_x(2.8));
-        let linear_velocity = Vec3::new(0.5, -0.2, 0.1);
-        let angular_velocity = Vec3::new(0.3, -0.4, 0.2);
-        let mut offset = JointInertialOffset::default();
-        offset.capture(
-            displayed,
-            linear_velocity,
-            angular_velocity,
-            target,
-            Vec3::ZERO,
-            Vec3::ZERO,
-        );
-
-        let preserved = offset.peek(target);
-        assert!(preserved.translation.distance(displayed.translation) < 1.0e-6);
-        assert!(preserved.rotation.angle_between(displayed.rotation) < 1.0e-6);
-        assert_eq!(offset.translation_velocity, linear_velocity);
-        assert_eq!(offset.angular_velocity, angular_velocity);
-    }
-
-    #[test]
-    fn critically_damped_offsets_remain_finite_after_a_large_delta() {
-        let mut offset = JointInertialOffset {
-            translation: Vec3::splat(100.0),
-            rotation: Quat::from_rotation_z(2.8),
-            ..default()
-        };
-        let result = offset.update(pose(Vec3::ZERO, Quat::IDENTITY), 2.0);
-        assert!(result.translation.is_finite());
-        assert!(result.rotation.is_finite());
-        assert!(result.translation.length() < 0.01);
-        assert!(result.rotation.angle_between(Quat::IDENTITY) < 0.01);
     }
 }
