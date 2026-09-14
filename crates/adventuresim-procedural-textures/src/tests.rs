@@ -350,24 +350,26 @@ fn oak_bark_major_profile_has_a_broad_valley_and_a_raised_crown() {
 
 #[test]
 fn oak_bark_primary_cracks_meander_periodically_without_crossing_columns() {
+    let params = &crate::TextureParameters::default();
     for crack in 0..OAK_BARK_COLUMNS {
         let mut minimum = f32::INFINITY;
         let mut maximum = f32::NEG_INFINITY;
         for sample in 0..128 {
             let v = sample as f32 / 128.0;
-            let x = oak_bark_crack_x(crack, v);
-            assert!((x - oak_bark_crack_x(crack, v + 1.0)).abs() < 1.0e-5);
+            let x = oak_bark_crack_x(params, crack, v);
+            assert!((x - oak_bark_crack_x(params, crack, v + 1.0)).abs() < 1.0e-5);
             minimum = minimum.min(x);
             maximum = maximum.max(x);
         }
         assert!(maximum - minimum > 0.006);
-        let next = oak_bark_crack_x(crack + 1, 0.37);
-        assert!(next - oak_bark_crack_x(crack, 0.37) > 0.06);
+        let next = oak_bark_crack_x(params, crack + 1, 0.37);
+        assert!(next - oak_bark_crack_x(params, crack, 0.37) > 0.06);
     }
 }
 
 #[test]
 fn oak_bark_terminating_cracks_are_sparse_finite_segments() {
+    let params = &crate::TextureParameters::default();
     assert_eq!(distance_to_segment(Vec2::ZERO, Vec2::ZERO, Vec2::X), 0.0);
     assert!(
         (distance_to_segment(Vec2::new(2.0, 1.0), Vec2::ZERO, Vec2::X) - 2.0_f32.sqrt()).abs()
@@ -376,7 +378,7 @@ fn oak_bark_terminating_cracks_are_sparse_finite_segments() {
 
     let enabled = (0..OAK_BARK_COLUMNS)
         .flat_map(|column| (0..OAK_BARK_ROWS).map(move |row| (column, row)))
-        .filter(|(column, row)| bark_random(*column, *row, 0x64ab) > 0.54)
+        .filter(|(column, row)| bark_random(params, *column, *row, 0x64ab) > 0.54)
         .count();
     assert!(
         (12..=38).contains(&enabled),
@@ -386,19 +388,21 @@ fn oak_bark_terminating_cracks_are_sparse_finite_segments() {
 
 #[test]
 fn oak_bark_primary_fissure_depth_varies_without_breaking_edge_continuity() {
+    let params = &crate::TextureParameters::default();
     let first = (2, 1);
     let second = (3, 1);
     let mut minimum = f32::INFINITY;
     let mut maximum = f32::NEG_INFINITY;
     for index in 0..256 {
         let point = Vec2::new(0.17, index as f32 / 256.0);
-        let modulation = bark_segment_modulation(point, first, second);
+        let modulation = bark_segment_modulation(params, point, first, second);
         assert_eq!(
             modulation.to_bits(),
-            bark_segment_modulation(point, second, first).to_bits()
+            bark_segment_modulation(params, point, second, first).to_bits()
         );
         assert!(
-            (modulation - bark_segment_modulation(point + Vec2::ONE, first, second)).abs() < 1.0e-5
+            (modulation - bark_segment_modulation(params, point + Vec2::ONE, first, second)).abs()
+                < 1.0e-5
         );
         minimum = minimum.min(modulation);
         maximum = maximum.max(modulation);

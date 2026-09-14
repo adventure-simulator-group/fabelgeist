@@ -1,133 +1,102 @@
 use super::*;
-/// Periodic oak relief with continuous longitudinal furrows. A shared plate
-/// field contributes only smoothly blended crown variation; subordinate checks
-/// begin at major furrows and taper before they can outline closed cells.
+
+/// Periodic oak relief built from meandering longitudinal crack lines. The
+/// intervening strips receive staggered, interrupted transverse closures so
+/// they read as raised bark masses rather than a complete Voronoi mosaic.
 pub(crate) fn oak_bark_height(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     let tau = core::f32::consts::TAU;
-    let point = Vec2::new(u.rem_euclid(1.0), v.rem_euclid(1.0));
-    let (crown_height, tilt, fracture_phase) = crown(params, point);
-
-    let (graph_normalized, graph_width, graph_depth) = oak_bark_graph_distance(params, point);
-    let graph_core = (-graph_normalized.powi(4)).exp();
-    let graph_valley = (-0.5 * (graph_normalized / 3.0).powi(2)).exp();
-    let graph_shoulder = (params.surface.oak_bark_height_graph_shoulder_1
-        + params.surface.oak_bark_height_graph_shoulder_2 * graph_depth)
-        * (-0.5
-            * ((graph_normalized - params.surface.oak_bark_height_graph_shoulder_3)
-                / params.surface.oak_bark_height_graph_shoulder_4)
-                .powi(2))
-        .exp();
-    let graph_relief = graph_depth
-        * (-params.surface.oak_bark_height_graph_relief_1 * graph_core
-            - params.surface.oak_bark_height_graph_relief_2 * graph_valley);
-    let physical_graph_distance = graph_normalized * graph_width;
-    let face_mask = smoothstep(
-        params.surface.oak_bark_height_face_mask_1,
-        params.surface.oak_bark_height_face_mask_2,
-        physical_graph_distance,
+    let point = Vec2::new(u, v);
+    let sample = warped_point(point);
+    let approximate_crack = (sample.x * params.surface.columns as f32).round() as i32;
+    let mut nearest_crack = approximate_crack;
+    let mut signed_edge_distance = f32::INFINITY;
+    for crack in (approximate_crack - 2)..=(approximate_crack + 2) {
+        let signed_distance = sample.x - oak_bark_crack_x(params, crack, sample.y);
+        if signed_distance.abs() < signed_edge_distance.abs() {
+            signed_edge_distance = signed_distance;
+            nearest_crack = crack;
+        }
+    }
+    let edge_distance = signed_edge_distance.abs();
+    let nearest_cell = (nearest_crack - 1, 0);
+    let second_cell = (nearest_crack, 0);
+    let primary_run =
+        0.72 + 0.28 * bark_segment_modulation(params, point, nearest_cell, second_cell);
+    let core_width = params.surface.fissure_width_min
+        + params.surface.fissure_width_span
+            * bark_edge_random(params, nearest_cell, second_cell, 0x1337);
+    let valley_width = params.surface.valley_width_min
+        + params.surface.valley_width_span
+            * bark_edge_random(params, nearest_cell, second_cell, 0x4f29);
+    let column = (sample.x * params.surface.columns as f32).floor() as i32;
+    let row_offset = bark_random(params, column, 0, 0x8bd1);
+    let row_coordinate = sample.y * params.surface.rows as f32
+        + row_offset
+        + 0.13 * (tau * (sample.x * 3.0 + row_offset)).sin();
+    let row = row_coordinate.floor() as i32;
+    let within_row = row_coordinate - row_coordinate.floor();
+    let plate_variation = bark_random(params, column, row, 0x2d91) - 0.5;
+    let crown_height = params.surface.crown_height_min
+        + params.surface.crown_height_span * bark_random(params, column, row, 0x61e3);
+    let shoulder_bias = 0.72
+        + 0.56
+            * bark_random(
+                params,
+                nearest_crack,
+                row + i32::from(signed_edge_distance >= 0.0),
+                0xa91f,
+            );
+    let shoulder_height = (0.025
+        + 0.055 * bark_edge_random(params, nearest_cell, second_cell, 0xa91f))
+        * shoulder_bias;
+    let macro_relief = oak_bark_major_profile(
+        edge_distance,
+        core_width,
+        valley_width,
+        primary_run,
+        crown_height,
+        shoulder_height,
     );
-    let asymmetric_crown = (params.surface.oak_bark_height_asymmetric_crown_1
-        + params.surface.oak_bark_height_asymmetric_crown_2 * fracture_phase)
-        * smoothstep(
-            params.surface.oak_bark_height_asymmetric_crown_3,
-            params.surface.oak_bark_height_asymmetric_crown_4,
-            physical_graph_distance,
-        )
-        * (params.surface.oak_bark_height_asymmetric_crown_5
-            + params.surface.oak_bark_height_asymmetric_crown_6
-                * (tau
-                    * (point.y * params.surface.oak_bark_height_asymmetric_crown_7
-                        + fracture_phase))
-                    .sin());
-    let (check_distance, check_taper) = oak_bark_check_distance(params, point);
-    let check_relief = -params.surface.oak_bark_height_check_relief_1
-        * (-(check_distance / params.surface.oak_bark_height_check_relief_2).powi(4)).exp()
-        * check_taper;
-    let (fiber_distance, fiber_envelope) = oak_bark_fiber_distance(params, point);
-    let fiber_relief = -params.surface.oak_bark_height_fiber_relief_1
-        * (-(fiber_distance / params.surface.oak_bark_height_fiber_relief_2).powi(2)).exp()
-        * fiber_envelope
-        * face_mask;
-    // Irregular face breakup avoids directional sine bands across the plates.
-    let broad_breakup = params.surface.oak_bark_height_broad_breakup_1
-        * (crate::stamps::noise(
-            params,
-            point,
-            bevy::math::IVec2::new(
-                params
-                    .surface
-                    .oak_bark_height_broad_breakup_2
-                    .round()
-                    .max(1.0) as i32,
-                params
-                    .surface
-                    .oak_bark_height_broad_breakup_3
-                    .round()
-                    .max(1.0) as i32,
-            ),
-            0xa915,
-        ) - 0.5)
-        * face_mask;
-    let fine_breakup = params.surface.oak_bark_height_fine_breakup_1
-        * (crate::stamps::noise(
-            params,
-            point,
-            bevy::math::IVec2::new(
-                params
-                    .surface
-                    .oak_bark_height_fine_breakup_2
-                    .round()
-                    .max(1.0) as i32,
-                params
-                    .surface
-                    .oak_bark_height_fine_breakup_4
-                    .round()
-                    .max(1.0) as i32,
-            ),
-            0xd673,
-        ) - 0.5)
-        * face_mask;
-    let fissure_relief = graph_relief.min(check_relief);
-
-    (crown_height
-        + tilt
-        + asymmetric_crown
-        + graph_shoulder
-        + fissure_relief
-        + fiber_relief
-        + broad_breakup
-        + fine_breakup
-        + params.surface.plates.sample(params, point, 0x7319))
-    .clamp(-0.5, 0.32)
+    let crown = smoothstep(core_width * 0.8, valley_width * 1.6, edge_distance);
+    let transverse_relief =
+        details::transverse_closure(params, column, row, within_row, sample.x, crown);
+    let column_coordinate = sample.x * params.surface.columns as f32;
+    let within_column = column_coordinate - column_coordinate.floor();
+    let plate_tilt =
+        ((within_column - 0.5) * 0.15 + (within_row - 0.5) * 0.055) * plate_variation * crown;
+    let vertical_bulge = (1.0 - ((within_row - 0.5) * 2.0).powi(2)).max(0.0);
+    let plate_bulge =
+        (0.035 + 0.055 * bark_random(params, column, row, 0x19d7)) * vertical_bulge * crown;
+    let chipped_face = details::chipped_face(params, column, row, within_column, within_row, crown);
+    let terminating_branch =
+        details::terminating_branch(params, column, row, within_column, within_row, crown);
+    let fractured_notch = details::fractured_notch(
+        params,
+        nearest_crack,
+        row,
+        edge_distance,
+        valley_width,
+        within_row,
+    );
+    let grain = details::grain(sample, crown);
+    (macro_relief
+        + transverse_relief
+        + chipped_face
+        + terminating_branch
+        + fractured_notch
+        + plate_bulge
+        + 0.045 * plate_variation * crown
+        + plate_tilt
+        + grain)
+        .clamp(-0.5, 0.38)
 }
 
-fn crown(params: &crate::TextureParameters, point: Vec2) -> (f32, f32, f32) {
-    let mut weight_sum = 0.0;
-    let mut crown_height = 0.0;
-    let mut tilt = 0.0;
-    let mut fracture_phase = 0.0;
-    // The coherent shared metric is sampled with a smooth compact-looking
-    // kernel over every site. No nearest-site rank switch can introduce an
-    // ownership seam into crown, tilt, or fracture phase.
-    for index in 0..params.surface.oak_bark_plate_count {
-        let site = oak_bark_plate_site(params, index);
-        let offset = oak_bark_toroidal_offset(point, site.position);
-        let distance = (offset.x.powi(2)
-            + (offset.y * params.surface.oak_bark_height_distance).powi(2))
-        .sqrt();
-        let weight = (-(distance / params.surface.oak_bark_height_weight_1).powi(4)).exp()
-            + params.surface.oak_bark_height_weight_2;
-        let id = site.id;
-        weight_sum += weight;
-        crown_height += weight * (0.070 + 0.110 * oak_bark_site_value(params, id, 0x61e3));
-        tilt += weight
-            * ((oak_bark_site_value(params, id, 0x19d7) - 0.5) * offset.x * 0.30
-                + (oak_bark_site_value(params, id, 0x2d91) - 0.5) * offset.y * 0.13);
-        fracture_phase += weight * oak_bark_site_value(params, id, 0x8d31);
-    }
-    crown_height /= weight_sum;
-    tilt /= weight_sum;
-    fracture_phase /= weight_sum;
-
-    (crown_height, tilt, fracture_phase)
+fn warped_point(point: Vec2) -> Vec2 {
+    let tau = core::f32::consts::TAU;
+    let Vec2 { x: u, y: v } = point;
+    let warp = Vec2::new(
+        0.022 * (tau * (v * 2.0 + 0.17)).sin() + 0.009 * (tau * (u * 2.0 - v * 3.0 + 0.41)).sin(),
+        0.008 * (tau * (u * 3.0 + 0.63)).sin() + 0.004 * (tau * (u * 5.0 + v * 2.0)).sin(),
+    );
+    point + warp
 }
