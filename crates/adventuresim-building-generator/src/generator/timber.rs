@@ -772,16 +772,16 @@ fn resolve_timber_frame_assembly(
                 .map(|wall| wall.frame.origin)
                 .sum::<Vec2>()
                 / facade_walls.len() as f32;
-            line_length = facade_walls.len() as f32 * CELL_SIZE_METRES;
+            line_length = facade_walls.iter().map(|wall| wall.length_metres).sum();
             let base = f32::from(level) * program.storey_height_metres;
             let top = base + program.storey_height_metres;
             let mut storey_member_ids = Vec::new();
             let mut bay_ids = Vec::new();
             for (wall_index, wall) in facade_walls.iter().enumerate() {
-                let plane = wall.frame.origin
-                    + wall.frame.outward * (wall.thickness_metres * 0.5 - section.y * 0.5);
-                let left_plan = plane - tangent * wall.length_metres * 0.5;
-                let right_plan = plane + tangent * wall.length_metres * 0.5;
+                let span = wall_spans::WallSpan::for_frame(wall, walls, (wall.thickness_metres - section.y) * 0.5);
+                let plane = span.centre();
+                let left_plan = span.start;
+                let right_plan = span.end;
                 let left_bottom = Vec3::new(left_plan.x, base, left_plan.y);
                 let right_bottom = Vec3::new(right_plan.x, base, right_plan.y);
                 let left_top = Vec3::new(left_plan.x, top, left_plan.y);
@@ -1025,7 +1025,7 @@ fn resolve_timber_frame_assembly(
                     storey_height: program.storey_height_metres,
                     base, section, tangent, outward,
                     facade_walls: &facade_walls,
-                    line_length, storey_id: next_storey,
+                    line_length, storey_id: next_storey, walls,
                 }.build(&mut builder, &mut storey_member_ids)
             });
             line_storeys.push(crate::TimberStoreyFrame {
@@ -1200,119 +1200,7 @@ fn resolve_timber_frame_assembly(
     // Do not overlay them with a second ground-to-roof post: that former
     // shortcut created nested positive-volume timbers and two competing load
     // authorities at every corner.
-    if let Some(roof) = roofs.first() {
-        let half_width = if roof.ridge_axis == RidgeAxis::X {
-            roof.size.y * 0.5
-        } else {
-            roof.size.x * 0.5
-        };
-        let rise = half_width * roof.pitch_degrees.to_radians().tan();
-        let ridge_tangent = if roof.ridge_axis == RidgeAxis::X {
-            Vec2::X
-        } else {
-            Vec2::Y
-        };
-        let gable_tangent = Vec2::new(-ridge_tangent.y, ridge_tangent.x);
-        let half_length = if roof.ridge_axis == RidgeAxis::X {
-            roof.size.x * 0.5
-        } else {
-            roof.size.y * 0.5
-        };
-        let frame_count = ((half_length * 2.0) / 1.80).ceil().max(1.0) as usize;
-        let mut roof_frames = Vec::new();
-        for frame_index in 0..=frame_count {
-            let along = -half_length + half_length * 2.0 * frame_index as f32 / frame_count as f32;
-            let gable_centre = roof.centre + ridge_tangent * along;
-            if frame_index != 0
-                && frame_index != frame_count
-                && dormers.iter().any(|dormer| {
-                    (dormer.centre - gable_centre).dot(ridge_tangent).abs()
-                        <= dormer.width_metres * 0.5 + 0.40
-                })
-            {
-                // The child roof owns its cut and four-sided trimmer frame;
-                // a regular parent truss may not continue through that cut.
-                continue;
-            }
-            let left = gable_centre - gable_tangent * half_width;
-            let right = gable_centre + gable_tangent * half_width;
-            // A half-hip does not have the full ridge elevation at its end
-            // frames.  The former full-height A-frame recipe was structurally
-            // grounded but projected through the two upper hip faces.  Match
-            // the Stage 4 half-hip construction: the retained lower gable
-            // reaches 55% of the rise at the end, then the frame apex climbs
-            // along the short hip to the main ridge.
-            let station_rise = if roof.kind == RoofKind::HalfHip {
-                let hip_run = (half_width * 0.45).max(0.001);
-                let distance_from_end = (half_length - along.abs()).max(0.0);
-                rise * (0.55 + 0.45 * (distance_from_end / hip_run).clamp(0.0, 1.0))
-            } else {
-                rise
-            };
-            let apex = Vec3::new(gable_centre.x, top + station_rise, gable_centre.y);
-            let left_base = Vec3::new(left.x, top, left.y);
-            let right_base = Vec3::new(right.x, top, right.y);
-            builder.member(
-                crate::TimberMemberRole::GableTie,
-                left_base,
-                right_base,
-                section,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            builder.member(
-                crate::TimberMemberRole::GablePost,
-                Vec3::new(gable_centre.x, top, gable_centre.y),
-                apex,
-                section,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            let collar_y = top + station_rise * 0.58;
-            let collar_half = half_width * (1.0 - 0.58);
-            let collar_left = gable_centre - gable_tangent * collar_half;
-            let collar_right = gable_centre + gable_tangent * collar_half;
-            let collar_left = Vec3::new(collar_left.x, collar_y, collar_left.y);
-            let collar_right = Vec3::new(collar_right.x, collar_y, collar_right.y);
-            for (base, collar) in [(left_base, collar_left), (right_base, collar_right)] {
-                builder.member(
-                    crate::TimberMemberRole::Rafter,
-                    base,
-                    collar,
-                    section * 0.9,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-                builder.member(
-                    crate::TimberMemberRole::Rafter,
-                    collar,
-                    apex,
-                    section * 0.9,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-            }
-            builder.member(
-                crate::TimberMemberRole::Collar,
-                collar_left,
-                collar_right,
-                section * 0.82,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            roof_frames.push((collar_left, apex, collar_right));
-        }
-        for pair in roof_frames.windows(2) {
-            for (left, right) in [
-                (pair[0].0, pair[1].0),
-                (pair[0].1, pair[1].1),
-                (pair[0].2, pair[1].2),
-            ] {
-                builder.member(
-                    crate::TimberMemberRole::Purlin,
-                    left,
-                    right,
-                    section * 1.05,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-            }
-        }
-    }
+    roof_frame::build(&mut builder, roofs, roof_assemblies, dormers, top, section);
 
     let mut dormer_trimmer_members = Vec::new();
     for (dormer_index, dormer) in dormers.iter().enumerate() {
@@ -2730,8 +2618,7 @@ fn resolve_timber_frame_assembly(
                                     .collect::<Vec<_>>();
                                 plan_point_in_polygon(plan, &cutout)
                             });
-                        let underside = roof_plane_height(face.plane, plan)
-                            - face.plane.normal.normalize_or_zero().y * face.thickness_metres;
+                        let underside = face.underside_height_at(plan);
                         inside_face && (underside - position.y).abs() <= 0.03
                     });
                     if on_parent_plane {

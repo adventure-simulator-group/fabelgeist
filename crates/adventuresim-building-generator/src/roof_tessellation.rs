@@ -1,9 +1,8 @@
 use bevy::math::{Vec2, Vec3};
 
-use crate::{RoofEnclosureFace, RoofFace};
+use crate::{ROOF_ENCLOSURE_THICKNESS_METRES, RoofEnclosureFace, RoofFace};
 
 const ROOF_VERTEX_TOLERANCE_SQUARED: f32 = 0.000_004;
-const ENCLOSURE_THICKNESS_METRES: f32 = 0.16;
 
 #[derive(Clone, Copy, Debug)]
 pub struct RoofSurfaceTriangle {
@@ -97,7 +96,7 @@ pub fn tessellate_roof_enclosure(face: &RoofEnclosureFace) -> Vec<RoofSurfaceTri
     let normal = (face.polygon[1] - face.polygon[0])
         .cross(face.polygon[2] - face.polygon[0])
         .normalize_or_zero();
-    let offset = -normal * ENCLOSURE_THICKNESS_METRES;
+    let offset = -normal * ROOF_ENCLOSURE_THICKNESS_METRES;
     let mut triangles = triangulate_fan(&face.polygon, normal, RoofSurface::Enclosure);
     triangles.extend(triangulate_fan(
         &face

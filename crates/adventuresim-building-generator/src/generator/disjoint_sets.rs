@@ -407,7 +407,9 @@ mod tests {
                     .flat_map(|face| &face.polygon)
                     .map(|point| point.y)
                     .fold(f32::NEG_INFINITY, f32::max);
-                assert!((roof_apex - enclosure_apex).abs() <= 0.01);
+                let face = &roof.faces[0];
+                let vertical_thickness = face.thickness_metres / face.plane.normal.normalize().y;
+                assert!((roof_apex - vertical_thickness - enclosure_apex).abs() <= 0.01);
             }
         }
         let final_enclosure_apex = plain
