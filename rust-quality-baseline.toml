@@ -652,7 +652,7 @@ ceiling = 2661
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
-ceiling = 1304
+ceiling = 1215
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
@@ -660,7 +660,7 @@ ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
-ceiling = 1020
+ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
@@ -2397,7 +2397,7 @@ ceiling = 323
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "update_pose_buffers"
-ceiling = 222
+ceiling = 205
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -2448,11 +2448,6 @@ ceiling = 106
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
 item = "finalize_leg_rotation_chains"
 ceiling = 148
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/secondary_physics.rs"
-item = "apply_secondary_bone_physics"
-ceiling = 122
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
@@ -2662,12 +2657,12 @@ ceiling = 185
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::default"
-ceiling = 354
+ceiling = 308
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::validate"
-ceiling = 483
+ceiling = 463
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"

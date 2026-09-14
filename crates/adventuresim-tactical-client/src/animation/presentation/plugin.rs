@@ -12,14 +12,21 @@ impl Plugin for TacticalAnimationPlugin {
             .init_resource::<TerrainIkEnabled>()
             .init_resource::<ProceduralAnimationClock>()
             .init_resource::<procedural::FixedTickPoseCache>()
-            .init_resource::<secondary_physics::SecondaryPhysicsTelemetry>()
-            .register_required_components::<procedural::HumanoidBone, secondary_physics::SecondaryBoneDynamics>()
+            .init_resource::<bouncy_bones::BouncyBonesTelemetry>()
+            .register_required_components::<procedural::HumanoidRig, bouncy_bones::BouncyBones>()
             .add_message::<LocomotionPresentationEvent>()
+            .add_message::<bouncy_bones::BoneKick>()
             .add_systems(Startup, request_animation_packs)
-            .add_systems(Update, (
-                super::super::skeletal_proportions::load_skeletal_bases,
-                super::super::skeletal_proportions::sync_skeletal_proportions,
-            ).chain().after(capture_authored_bind_transforms).before(pose_buffer::update_pose_buffers))
+            .add_systems(
+                Update,
+                (
+                    super::super::skeletal_proportions::load_skeletal_bases,
+                    super::super::skeletal_proportions::sync_skeletal_proportions,
+                )
+                    .chain()
+                    .after(capture_authored_bind_transforms)
+                    .before(pose_buffer::update_pose_buffers),
+            )
             .add_observer(on_successful_attack)
             .add_systems(
                 Update,
@@ -31,13 +38,12 @@ impl Plugin for TacticalAnimationPlugin {
                     establish_animation_targets,
                     procedural::bind_humanoid_bones,
                     procedural::cache_humanoid_rigs,
-                    full_ragdoll::sync_full_ragdolls,
-                    full_ragdoll::resolve_ragdoll_terrain_contacts,
+                    ragdoll::sync_ragdolls,
+                    ragdoll::resolve_ragdoll_terrain_contacts,
                     capture_authored_bind_transforms,
                     procedural::capture_humanoid_rig_axes,
                     semantic_route::evaluate_semantic_route_paths,
                     evaluate_skeletons,
-                    tick_impact_reactions,
                     pose_buffer::update_pose_buffers,
                     pose_buffer::calibrate_authored_locomotion_strides,
                     pose_buffer::calibrate_character_strides,
@@ -47,9 +53,16 @@ impl Plugin for TacticalAnimationPlugin {
                 )
                     .chain(),
             )
+            // Muscles and joint damping step once per physics tick, before
+            // the solver integrates in `FixedPostUpdate`.
+            .add_systems(
+                FixedUpdate,
+                (ragdoll::apply_muscles, ragdoll::damp_joints).chain(),
+            )
             .add_systems(
                 PostUpdate,
                 (
+                    ragdoll::drive_ragdoll_pose_buffers,
                     procedural::restore_procedural_look_base,
                     pose_buffer::apply_pose_buffers,
                     restore_authored_bind_pose,
@@ -61,11 +74,12 @@ impl Plugin for TacticalAnimationPlugin {
                     procedural::apply_locomotion_body_response,
                     procedural::apply_jump_anticipation,
                     procedural::apply_head_and_torso_look,
-                    secondary_physics::apply_secondary_bone_physics,
+                    bouncy_bones::kick_bones,
+                    bouncy_bones::apply_bouncy_bones,
                     procedural::apply_terrain_leg_ik,
                     procedural::enforce_anatomical_knee_yaw,
                     procedural::apply_arm_and_weapon_constraints,
-                    full_ragdoll::apply_full_ragdoll_pose,
+                    ragdoll::apply_ragdoll_poses,
                     procedural::stabilize_repeated_fixed_tick_pose,
                 )
                     .chain()
