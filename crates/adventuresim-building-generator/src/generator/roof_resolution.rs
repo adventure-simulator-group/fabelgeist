@@ -607,63 +607,7 @@ fn resolve_one_roof(
     let infill_material = roof_enclosure_material::for_walls(walls);
     let mut enclosure_faces = Vec::new();
     if roof.kind == RoofKind::Gable {
-        let apex_y = faces
-            .iter()
-            .flat_map(|face| &face.polygon)
-            .map(|point| point.y)
-            .fold(roof.base_height_metres, f32::max);
-        let (first, second) = match roof.ridge_axis {
-            RidgeAxis::Z => {
-                let triangle = |z: f32, reverse: bool| {
-                    let mut polygon = vec![
-                        Vec3::new(
-                            roof.centre.x - roof.size.x * 0.5,
-                            roof.base_height_metres,
-                            z,
-                        ),
-                        Vec3::new(roof.centre.x, apex_y, z),
-                        Vec3::new(
-                            roof.centre.x + roof.size.x * 0.5,
-                            roof.base_height_metres,
-                            z,
-                        ),
-                    ];
-                    if reverse {
-                        polygon.reverse();
-                    }
-                    polygon
-                };
-                (
-                    triangle(roof.centre.y - roof.size.y * 0.5, false),
-                    triangle(roof.centre.y + roof.size.y * 0.5, true),
-                )
-            }
-            RidgeAxis::X => {
-                let triangle = |x: f32, reverse: bool| {
-                    let mut polygon = vec![
-                        Vec3::new(
-                            x,
-                            roof.base_height_metres,
-                            roof.centre.y - roof.size.y * 0.5,
-                        ),
-                        Vec3::new(x, apex_y, roof.centre.y),
-                        Vec3::new(
-                            x,
-                            roof.base_height_metres,
-                            roof.centre.y + roof.size.y * 0.5,
-                        ),
-                    ];
-                    if reverse {
-                        polygon.reverse();
-                    }
-                    polygon
-                };
-                (
-                    triangle(roof.centre.x - roof.size.x * 0.5, true),
-                    triangle(roof.centre.x + roof.size.x * 0.5, false),
-                )
-            }
-        };
+        let [first, second] = gable_enclosure::polygons(roof, &faces, walls);
         for (index, polygon) in [first, second].into_iter().enumerate() {
             enclosure_faces.push(RoofEnclosureFace {
                 id: ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4000 | index as u64),

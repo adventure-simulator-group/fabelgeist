@@ -27,7 +27,8 @@ fn resolve_storey_wall_assemblies(
             } else {
                 0.0
             };
-            let origin = wall.centre() + outward * projection;
+            let span = wall_spans::WallSpan::for_source(wall, storey, projection);
+            let origin = span.centre();
             let (material, structural_role, thickness) =
                 wall_material_and_thickness(program.archetype, wall.exterior(), storey.level);
             let (resolved_wall_base, resolved_wall_height) = resolved_wall_vertical_span(
@@ -71,9 +72,9 @@ fn resolve_storey_wall_assemblies(
                             // Buttressed cathedral bays carry their opening at
                             // the bay divisions; wall thickness is depth, not a
                             // subtraction from the clear facade span.
-                            CELL_SIZE_METRES - 0.30
+                            span.length() - 0.30
                         } else {
-                            (CELL_SIZE_METRES - thickness).max(0.35)
+                            (span.length() - thickness).max(0.35)
                         };
                         profile = match profile {
                             crate::OpeningProfile::Rectangular {
@@ -167,7 +168,7 @@ fn resolve_storey_wall_assemblies(
                     let required_positive = thickness.max(positive_bearing) * 0.5 + 0.03;
                     if negative_bond && positive_bond {
                         let available =
-                            (CELL_SIZE_METRES - required_negative - required_positive).max(0.68);
+                            (span.length() - required_negative - required_positive).max(0.68);
                         if mouth_width > available {
                             mouth_width = available;
                             exterior_width = exterior_width.min(mouth_width);
@@ -233,7 +234,7 @@ fn resolve_storey_wall_assemblies(
                             };
                         }
                     }
-                    let nominal_pier = (CELL_SIZE_METRES - mouth_width) * 0.5;
+                    let nominal_pier = (span.length() - mouth_width) * 0.5;
                     let opening_offset = match (negative_bond, positive_bond) {
                         (true, false) => (required_negative - nominal_pier)
                             .max(0.0)
@@ -379,8 +380,8 @@ fn resolve_storey_wall_assemblies(
                     // depth.  A broad rectangular void plus cuboid jambs would leave
                     // the semantic throat disconnected from the rendered opening.
                     let side_widths = [
-                        CELL_SIZE_METRES * 0.5 + opening_offset - exterior_width * 0.5,
-                        CELL_SIZE_METRES * 0.5 - opening_offset - exterior_width * 0.5,
+                        span.length() * 0.5 + opening_offset - exterior_width * 0.5,
+                        span.length() * 0.5 - opening_offset - exterior_width * 0.5,
                     ];
                     let mut jamb_solids = [ResolvedItemId::default(); 2];
                     for (index, side) in [-1.0_f32, 1.0].into_iter().enumerate() {
@@ -520,7 +521,7 @@ fn resolve_storey_wall_assemblies(
                     };
                     let head_top = head_top.min(opening_wall_height - 0.05);
                     let head_height = (head_top - head_bottom).max(0.10);
-                    let bearing_width = 0.10_f32.min((CELL_SIZE_METRES - mouth_width) * 0.25);
+                    let bearing_width = 0.10_f32.min((span.length() - mouth_width) * 0.25);
                     let head_total_width = mouth_width + bearing_width * 2.0;
                     let head_size = if wall.is_horizontal() {
                         Vec3::new(head_total_width, head_height, thickness)
@@ -1148,6 +1149,7 @@ fn resolve_storey_wall_assemblies(
                         resolved_wall_base,
                         resolved_wall_height,
                         thickness,
+                        span.length(),
                         &mut host_solids,
                     );
                 }
@@ -1166,7 +1168,7 @@ fn resolve_storey_wall_assemblies(
                     outside_room: wall.outside_room,
                 },
                 radial_frame: None,
-                length_metres: CELL_SIZE_METRES,
+                length_metres: span.length(),
                 height_metres: resolved_wall_height,
                 base_elevation_metres: resolved_wall_base,
                 thickness_metres: thickness,
