@@ -344,6 +344,42 @@ impl PoseBufferRig {
             self.target_angular_velocities[joint] + self.offsets[joint].angular_velocity(),
         )
     }
+
+    /// Start an inertialized blend from the pose this rig is displaying onto
+    /// `target`, the first pose of a new plan. An inactive rig has nothing
+    /// displayed and snaps straight to the target.
+    fn capture_transition_offsets(
+        &mut self,
+        target: &[LocalPose],
+        target_velocities: &[(Vec3, Vec3)],
+    ) {
+        let capture_displayed = self.active;
+        for (joint, target_pose) in target.iter().copied().enumerate() {
+            let displayed = if capture_displayed {
+                // Animation evaluation may already have written the new
+                // plan into live transforms this frame. The pose buffer is
+                // the authoritative previous authored output; procedural
+                // lean, secondary motion, and IK retain their own state and
+                // are reapplied after this pass.
+                self.displayed_pose(joint)
+            } else {
+                target_pose
+            };
+            let displayed_velocity = if capture_displayed {
+                self.displayed_velocity(joint)
+            } else {
+                (Vec3::ZERO, Vec3::ZERO)
+            };
+            self.offsets[joint].capture(
+                displayed,
+                displayed_velocity,
+                target_pose,
+                target_velocities[joint],
+                pose_tuning().inertial_blend_seconds,
+            );
+        }
+        self.settled = false;
+    }
 }
 
 #[expect(
@@ -526,35 +562,7 @@ pub(super) fn update_pose_buffers(
             })
             .collect::<Vec<_>>();
         if transition {
-            let capture_displayed = rig.active;
-            for (joint, target_pose) in target.iter().copied().enumerate() {
-                let buffered_displayed = rig.displayed_pose(joint);
-                let displayed = if capture_displayed {
-                    // Animation evaluation may already have written the new
-                    // plan into live transforms this frame. The pose buffer is
-                    // the authoritative previous authored output; procedural
-                    // lean, secondary motion, and IK retain their own state and
-                    // are reapplied after this pass.
-                    buffered_displayed
-                } else {
-                    target_pose
-                };
-                let (linear_velocity, angular_velocity) = if capture_displayed {
-                    rig.displayed_velocity(joint)
-                } else {
-                    (Vec3::ZERO, Vec3::ZERO)
-                };
-                rig.offsets[joint].capture(
-                    displayed,
-                    linear_velocity,
-                    angular_velocity,
-                    target_pose,
-                    target_velocities[joint].0,
-                    target_velocities[joint].1,
-                    pose_tuning().inertial_blend_seconds,
-                );
-            }
-            rig.settled = false;
+            rig.capture_transition_offsets(&target, &target_velocities);
             for (joint, (linear, angular)) in target_velocities.iter().copied().enumerate() {
                 rig.target_linear_velocities[joint] = linear;
                 rig.target_angular_velocities[joint] = angular;

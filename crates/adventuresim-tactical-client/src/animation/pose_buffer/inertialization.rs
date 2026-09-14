@@ -114,6 +114,11 @@ impl QuinticChannel {
         } else {
             velocity.normalize_or_zero()
         };
+        if direction == Vec3::ZERO {
+            // Nothing to decay: an already-finished channel must not hold
+            // the other channel's `done` open for the full blend.
+            return Self::default();
+        }
         let x0 = magnitude;
         let mut v0 = velocity.dot(direction);
         let mut duration = blend_seconds;
@@ -176,25 +181,25 @@ impl JointInertialOffset {
     /// Call at the moment of a plan change with the pose and velocity that
     /// were displayed this frame (offset included, which is what makes an
     /// interruption seamless) and the new target with its velocity.
+    ///
+    /// Each velocity is a `(linear, angular)` pair in the joint's local frame.
     pub(super) fn capture(
         &mut self,
         displayed: LocalPose,
-        displayed_linear_velocity: Vec3,
-        displayed_angular_velocity: Vec3,
+        displayed_velocity: (Vec3, Vec3),
         target: LocalPose,
-        target_linear_velocity: Vec3,
-        target_angular_velocity: Vec3,
+        target_velocity: (Vec3, Vec3),
         blend_seconds: f32,
     ) {
         self.translation = QuinticChannel::new(
             displayed.translation - target.translation,
-            displayed_linear_velocity - target_linear_velocity,
+            displayed_velocity.0 - target_velocity.0,
             blend_seconds,
         );
         let rotation_offset = shortest_rotation(displayed.rotation * target.rotation.inverse());
         self.rotation = QuinticChannel::new(
             scaled_angle_axis(rotation_offset),
-            displayed_angular_velocity - target_angular_velocity,
+            displayed_velocity.1 - target_velocity.1,
             blend_seconds,
         );
         self.elapsed = 0.0;
@@ -256,11 +261,9 @@ mod tests {
         let mut offset = JointInertialOffset::default();
         offset.capture(
             displayed,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             target,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.2,
         );
 
@@ -284,11 +287,9 @@ mod tests {
         let mut offset = JointInertialOffset::default();
         offset.capture(
             displayed,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             target,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.3,
         );
         let step = 0.001;
@@ -311,11 +312,9 @@ mod tests {
         let mut closing = JointInertialOffset::default();
         closing.capture(
             displayed,
-            Vec3::new(-0.5, 0.0, 0.0),
-            Vec3::ZERO,
+            (Vec3::new(-0.5, 0.0, 0.0), Vec3::ZERO),
             target,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.25,
         );
         assert!(
@@ -328,11 +327,9 @@ mod tests {
         let mut diverging = JointInertialOffset::default();
         diverging.capture(
             displayed,
-            Vec3::new(0.5, 0.0, 0.0),
-            Vec3::ZERO,
+            (Vec3::new(0.5, 0.0, 0.0), Vec3::ZERO),
             target,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.25,
         );
         assert_eq!(diverging.translation_velocity(), Vec3::ZERO);
@@ -345,11 +342,9 @@ mod tests {
         let mut offset = JointInertialOffset::default();
         offset.capture(
             displayed,
-            Vec3::new(-5.0, 0.0, 0.0),
-            Vec3::ZERO,
+            (Vec3::new(-5.0, 0.0, 0.0), Vec3::ZERO),
             target,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             1.0,
         );
         let mut elapsed = 0.0;
@@ -369,21 +364,17 @@ mod tests {
         let mut offset = JointInertialOffset::default();
         offset.capture(
             first,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             second,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.2,
         );
         let displayed = offset.update(second, 0.025);
         offset.capture(
             displayed,
-            offset.translation_velocity(),
-            offset.angular_velocity(),
+            (offset.translation_velocity(), offset.angular_velocity()),
             third,
-            Vec3::ZERO,
-            Vec3::ZERO,
+            (Vec3::ZERO, Vec3::ZERO),
             0.2,
         );
         let after_interrupt = offset.peek(third);

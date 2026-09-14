@@ -181,6 +181,30 @@ pub(super) fn spawn_ragdoll(
     config: &RagdollConfig,
 ) -> SpawnedRagdoll {
     let mut parts = Vec::new();
+    let bodies = spawn_bodies(
+        commands, owner, definition, seeds, scale, config, &mut parts,
+    );
+    let muscles = spawn_joints(
+        commands, owner, definition, seeds, scale, &bodies, &mut parts,
+    );
+    SpawnedRagdoll {
+        parts,
+        bodies,
+        muscles,
+    }
+}
+
+/// Spawn one rigid body per seeded definition body, each with a capsule
+/// collider child. Returns the body entity for each definition index.
+fn spawn_bodies(
+    commands: &mut Commands,
+    owner: Entity,
+    definition: &RagdollDefinition,
+    seeds: &[Option<BodySeed>],
+    scale: f32,
+    config: &RagdollConfig,
+    parts: &mut Vec<Entity>,
+) -> Vec<Option<Entity>> {
     let mut bodies = vec![None; definition.bodies.len()];
     for (index, body) in definition.bodies.iter().enumerate() {
         let Some(seed) = seeds[index] else {
@@ -231,7 +255,20 @@ pub(super) fn spawn_ragdoll(
         parts.push(entity);
         bodies[index] = Some(entity);
     }
+    bodies
+}
 
+/// Spawn the joint between each pair of spawned bodies and record the
+/// muscle target that holds it at its entry orientation.
+fn spawn_joints(
+    commands: &mut Commands,
+    owner: Entity,
+    definition: &RagdollDefinition,
+    seeds: &[Option<BodySeed>],
+    scale: f32,
+    bodies: &[Option<Entity>],
+    parts: &mut Vec<Entity>,
+) -> Vec<MuscleTarget> {
     let mut muscles = Vec::with_capacity(definition.joints.len());
     for joint in &definition.joints {
         let (Some(parent), Some(child)) = (bodies[joint.parent], bodies[joint.child]) else {
@@ -279,11 +316,7 @@ pub(super) fn spawn_ragdoll(
             relative: parent_seed.rotation.inverse() * child_seed.rotation,
         });
     }
-    SpawnedRagdoll {
-        parts,
-        bodies,
-        muscles,
-    }
+    muscles
 }
 
 #[cfg(test)]

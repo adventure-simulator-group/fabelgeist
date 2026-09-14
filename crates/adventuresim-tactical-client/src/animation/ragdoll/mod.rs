@@ -307,7 +307,9 @@ mod tests {
                 Option<&ChildOf>,
             )>,
         >::new(&mut world);
-        let query = state.get(&world);
+        let query = state
+            .get(&world)
+            .expect("bind query has no resource parameters to validate");
         let global = proportioned_bind_global(bone, owner, &query).unwrap();
         assert!(
             global.translation.distance(Vec3::new(0.0, 0.0, -1.5)) < 1e-5,
