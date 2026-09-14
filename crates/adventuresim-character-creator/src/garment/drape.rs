@@ -72,11 +72,20 @@ fn simulate(
 ) -> Result<DrapedGarment> {
     let body = measured_body(input).context("measuring the character")?;
     cancelled()?;
-    let design = input.selection.preset.design()?;
-    let pattern = MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
     let fabric = input.selection.fabric.fabric();
     let settings = fit_settings(input, &body);
-    let build = build_garment(&pattern, &settings, &fabric)?;
+    let build = if input.selection.preset.is_fitted() {
+        fabelgeist_garment_fit::GarmentBuild {
+            mesh: super::fitted::coif(input, &input.selection.coif, &fabric)
+                .context("fitting the coif to the character")?,
+            skipped: Vec::new(),
+        }
+    } else {
+        let design = input.selection.design()?;
+        let pattern =
+            MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
+        build_garment(&pattern, &settings, &fabric)?
+    };
     if !build.skipped.is_empty() || build.mesh.triangles.is_empty() {
         bail!(
             "garment meshing failed; skipped panels: {:?}",

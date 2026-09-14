@@ -207,6 +207,40 @@ pub fn generate_coif_with_drape(
     frame: &PartFrame,
     drape: &CoifDrapeProfile,
 ) -> Result<PartMesh, GenerateError> {
+    let (radii, brow, half_height) = coif_dimensions(design, frame, drape)?;
+    Ok(super::coif::generate_fitted(radii, brow, half_height, design, drape)?.transformed(frame))
+}
+
+/// A worn coif as one open surface, for cloth rather than a rigid shell.
+#[derive(Clone, Debug, PartialEq)]
+pub struct CoifCarrier {
+    /// Head-frame positions: x across, y up, z forward. Vertex 0 is the crown.
+    pub positions: Vec<[f32; 3]>,
+    /// Outward-wound triangles.
+    pub indices: Vec<u32>,
+}
+
+/// The surface [`generate_coif_with_drape`] thickens into its shell, before
+/// any wall is added and before it is placed by `frame`.
+pub fn generate_coif_carrier_with_drape(
+    design: &CoifDesign,
+    frame: &PartFrame,
+    drape: &CoifDrapeProfile,
+) -> Result<CoifCarrier, GenerateError> {
+    let (radii, brow, half_height) = coif_dimensions(design, frame, drape)?;
+    let surface = super::coif::fitted_carrier(radii, brow, half_height, design, drape);
+    Ok(CoifCarrier {
+        positions: surface.positions,
+        indices: surface.indices,
+    })
+}
+
+/// Validated carrier radii, brow height and head half height.
+fn coif_dimensions(
+    design: &CoifDesign,
+    frame: &PartFrame,
+    drape: &CoifDrapeProfile,
+) -> Result<([f32; 3], f32, f32), GenerateError> {
     HelmetDesign::MailCoif(*design).validate()?;
     frame.validate()?;
     drape.validate()?;
@@ -217,12 +251,5 @@ pub fn generate_coif_with_drape(
         head[1] * design.fit.crown_height.unit() + gap,
         head[2] + gap,
     ];
-    Ok(super::coif::generate_fitted(
-        radii,
-        head[1] * super::shapes::BROW_HEIGHT,
-        head[1],
-        design,
-        drape,
-    )?
-    .transformed(frame))
+    Ok((radii, head[1] * super::shapes::BROW_HEIGHT, head[1]))
 }

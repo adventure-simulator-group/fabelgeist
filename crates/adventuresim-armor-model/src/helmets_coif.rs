@@ -35,6 +35,19 @@ pub(super) fn generate_fitted(
     d: &CoifDesign,
     drape: &CoifDrapeProfile,
 ) -> Result<PartMesh, GenerateError> {
+    fitted_carrier(radii, brow, half_height, d, drape)
+        .shell(d.fit.wall_thickness.metres(), crate::ShellExtrusion::Normal)
+}
+
+/// The hood, neck and flaps as one open surface, before the shell gives it a
+/// wall. Vertex 0 is the crown.
+pub(super) fn fitted_carrier(
+    radii: [f32; 3],
+    brow: f32,
+    half_height: f32,
+    d: &CoifDesign,
+    drape: &CoifDrapeProfile,
+) -> Surface {
     let mut surface = Surface::default();
     let rim = surface.full_dome(radii, brow, 0.72);
     let mut previous = rim[FACE_EDGE..=AROUND - FACE_EDGE].to_vec();
@@ -99,7 +112,7 @@ pub(super) fn generate_fitted(
         &drape.back,
         FlapFacing::Back,
     );
-    surface.shell(d.fit.wall_thickness.metres(), crate::ShellExtrusion::Normal)
+    surface
 }
 
 fn neck_tube(surface: &mut Surface, upper: &[u32], drape: &CoifDrapeProfile) -> Vec<u32> {

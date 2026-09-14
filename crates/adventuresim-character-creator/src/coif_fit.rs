@@ -1,8 +1,8 @@
 //! Coif cloth follows smooth chest/back sections while leaving shoulders open.
 
 use adventuresim_armor_model::{
-    CoifDesign, CoifDrapeProfile, CoifFlapDrape, CoifNeckDrape, PartFrame, PartMesh,
-    generate_coif_with_drape,
+    CoifCarrier, CoifDesign, CoifDrapeProfile, CoifFlapDrape, CoifNeckDrape, PartFrame, PartMesh,
+    generate_coif_carrier_with_drape, generate_coif_with_drape,
 };
 use anyhow::{Context, Result, ensure};
 
@@ -17,6 +17,22 @@ const BACK_NECK_BASE_RISE: f32 = 0.24;
 const NECK_WIDTH_SECTION_HALF_HEIGHT_M: f32 = 0.006;
 
 pub fn fit(design: &CoifDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
+    let (frame, profile) = drape_profile(design, wearer)?;
+    Ok(generate_coif_with_drape(design, &frame, &profile)?)
+}
+
+/// The worn coif as one open cloth surface in head-frame coordinates, with
+/// the frame that places it on the wearer.
+pub fn carrier(design: &CoifDesign, wearer: &Wearer<'_>) -> Result<(PartFrame, CoifCarrier)> {
+    let (frame, profile) = drape_profile(design, wearer)?;
+    let carrier = generate_coif_carrier_with_drape(design, &frame, &profile)?;
+    Ok((frame, carrier))
+}
+
+fn drape_profile(
+    design: &CoifDesign,
+    wearer: &Wearer<'_>,
+) -> Result<(PartFrame, CoifDrapeProfile)> {
     let frame = wearer.frame(FitRegion::Head)?;
     let mut support = wearer.support_indices(FitRegion::Torso)?;
     support.extend(wearer.support_indices(FitRegion::Neck)?);
@@ -46,7 +62,7 @@ pub fn fit(design: &CoifDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
         profile.neck.center_depth,
         Facing::Back,
     )?;
-    Ok(generate_coif_with_drape(design, &frame, &profile)?)
+    Ok((frame, profile))
 }
 
 fn neck_boundary(

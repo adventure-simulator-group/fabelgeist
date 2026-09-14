@@ -15,6 +15,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 mod armor;
 mod export;
 mod finish;
+mod fitted;
 mod placement;
 mod presets;
 mod shading;
@@ -523,7 +524,10 @@ mod tests {
     #[test]
     fn presets_build_sewn_patterns() {
         let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
-        for preset in GarmentPreset::ALL {
+        for preset in GarmentPreset::ALL
+            .into_iter()
+            .filter(|preset| !preset.is_fitted())
+        {
             let pattern = MetaGarment::new("test", &body, &preset.design().unwrap()).assembly();
             let build = build_garment(&pattern, &FitSettings::default(), &Fabric::COTTON).unwrap();
             assert!(
@@ -535,6 +539,32 @@ mod tests {
             assert!(!build.mesh.triangles.is_empty());
         }
     }
+    /// Lowest and highest pattern point, in metres.
+    fn vertical_extent(preset: GarmentPreset, length: f32) -> (f32, f32) {
+        let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
+        let selection = GarmentSelection {
+            preset,
+            length,
+            ..GarmentSelection::chainmail()
+        };
+        selection.validate().unwrap();
+        let pattern = MetaGarment::new("extent", &body, &selection.design().unwrap()).assembly();
+        let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
+        assert!(build.skipped.is_empty(), "{}: {:?}", preset.label(), build.skipped);
+        let heights = build.mesh.positions.iter().map(|p| p.y);
+        (
+            heights.clone().fold(f32::INFINITY, f32::min),
+            heights.fold(f32::NEG_INFINITY, f32::max),
+        )
+    }
+
+    #[test]
+    fn shirt_length_lowers_the_hem() {
+        let (waist, _) = vertical_extent(GarmentPreset::Shirt, 1.0);
+        let (thigh, _) = vertical_extent(GarmentPreset::Shirt, 2.0);
+        assert!(thigh < waist - 0.1, "hem moved from {waist} m to {thigh} m");
+    }
+
     #[test]
     fn flat_mail_panels_do_not_inflate_from_self_contact() {
         let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();

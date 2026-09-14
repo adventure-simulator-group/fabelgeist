@@ -13,8 +13,8 @@ pub use close_profile::{CloseHelmetProfile, generate_close_helmet};
 #[path = "helmets_drape.rs"]
 mod drape;
 pub use drape::{
-    COIF_DRAPE_SECTIONS, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape, CoifNeckDrape,
-    generate_coif_with_drape,
+    COIF_DRAPE_SECTIONS, CoifCarrier, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape,
+    CoifNeckDrape, generate_coif_carrier_with_drape, generate_coif_with_drape,
 };
 #[path = "helmets_barbute.rs"]
 mod barbute;

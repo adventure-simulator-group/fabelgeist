@@ -57,10 +57,17 @@ not sent to Bevy as the character's shading normal.
 
 ## Draped chainmail
 
-In the garment controls, **Add chainmail shirt** reuses the existing fitted-shirt
-pattern with the chainmail fabric preset. Keep the breastplate enabled to show
-the shirt beneath it. Other existing garment patterns can also use
-**Chainmail** in their fabric selector.
+In the garment controls, **Add chainmail shirt** adds a hauberk: the straight
+T-tunic shirt pattern with the chainmail fabric preset. Its **Length** slider is
+measured down from the shoulder in neck-to-waist lengths, so 1 reaches the
+waist and about 2.5 the knee; changing it re-drapes from sewing. **Add chainmail
+coif** adds the mail coif's hood, neck and breast and back flaps as cloth: the
+surface is fitted around the head and chest like the catalog mail coif, then
+settles as chainmail instead of being sewn from flat panels. It shares the
+catalog coif's neck coverage, flap length, flap width and clearance controls.
+Drape the shirt before the coif so the coif layers over it. Keep
+the breastplate enabled to show the shirt beneath it. Other existing garment
+patterns can also use **Chainmail** in their fabric selector.
 
 Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
 diameter, row spacing, ring tilt, steel color and roughness. The wire and row

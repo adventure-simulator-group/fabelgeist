@@ -9,6 +9,16 @@ mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
 
+/// The mail coif's shape controls, for the draped chainmail coif.
+pub(super) fn coif(ui: &mut egui::Ui, design: &mut adventuresim_armor_model::CoifDesign) -> bool {
+    let mut helmet = adventuresim_armor_model::HelmetDesign::MailCoif(*design);
+    let changed = helmet::show(ui, &mut helmet);
+    if let adventuresim_armor_model::HelmetDesign::MailCoif(edited) = helmet {
+        *design = edited;
+    }
+    changed
+}
+
 pub(super) fn number(
     ui: &mut egui::Ui,
     value: &mut u16,

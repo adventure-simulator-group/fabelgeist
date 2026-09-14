@@ -3,6 +3,15 @@ use super::*;
 use adventuresim_character_creator::garment::{ArmorFitSettings, DrapeSettings, StageSettings};
 
 pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
+    if let Some(range) = selection.preset.length_range() {
+        selection.length = selection.length.clamp(*range.start(), *range.end());
+        ui.add(egui::Slider::new(&mut selection.length, range).text("Length (× neck to waist)"))
+            .on_hover_text("Measured down from the shoulder: 1 reaches the waist, about 2.5 the knee.");
+    }
+    if selection.preset.is_fitted() {
+        // The coif shares its shape controls with the catalog mail coif.
+        super::armor_controls::coif(ui, &mut selection.coif);
+    }
     ui.add(
         egui::Slider::new(
             &mut selection.resolution_cm,

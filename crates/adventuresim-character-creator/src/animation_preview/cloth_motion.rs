@@ -136,7 +136,7 @@ pub(super) fn simulate(
     let follow = match skin.preset {
         GarmentPreset::Trousers => 0.22,
         GarmentPreset::Skirt | GarmentPreset::Dress => 0.075,
-        GarmentPreset::Shirt | GarmentPreset::FittedShirt => 0.14,
+        GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Coif => 0.14,
     };
     for _ in 0..substeps {
         for v in 0..skin.current.len() {

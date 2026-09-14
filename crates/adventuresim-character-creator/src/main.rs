@@ -338,6 +338,7 @@ fn studio_ui(
                                         remove = Some(index);
                                     }
                                 });
+                                let previous_preset = selection.preset;
                                 egui::ComboBox::from_id_salt(("garment_preset", index))
                                     .selected_text(selection.preset.label())
                                     .show_ui(ui, |ui| {
@@ -349,6 +350,9 @@ fn studio_ui(
                                             );
                                         }
                                     });
+                                if selection.preset != previous_preset {
+                                    selection.length = selection.preset.default_length();
+                                }
                                 fabric_controls::show(ui, index, selection);
                                 drape_controls::show(ui, selection);
                             });
@@ -362,10 +366,17 @@ fn studio_ui(
                         if ui.button("Add garment").clicked() {
                             studio.recipe.garments.push(GarmentSelection::default());
                         }
-                        let add_chainmail = ui.button("Add chainmail shirt").clicked();
-                        if add_chainmail {
-                            studio.recipe.garments.push(GarmentSelection::chainmail());
-                        }
+                        ui.horizontal(|ui| {
+                            if ui.button("Add chainmail shirt").clicked() {
+                                studio.recipe.garments.push(GarmentSelection::chainmail());
+                            }
+                            if ui.button("Add chainmail coif").clicked() {
+                                studio
+                                    .recipe
+                                    .garments
+                                    .push(GarmentSelection::chainmail_coif());
+                            }
+                        });
                         // Appearance edits refresh the shown garments without draping.
                         studio.dirty |= before.len() != studio.recipe.garments.len()
                             || before
@@ -591,7 +602,7 @@ fn drape_replaces(
                     recipe.garments.iter().any(|garment| {
                         !matches!(
                             garment.preset,
-                            GarmentPreset::Shirt | GarmentPreset::FittedShirt
+                            GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Coif
                         )
                     })
                 }
@@ -767,6 +778,7 @@ mod garment_integration_tests {
             }
             recipe.garments = vec![GarmentSelection {
                 preset,
+                length: preset.default_length(),
                 ..GarmentSelection::chainmail()
             }];
             println!("checking {}", preset.label());
@@ -778,7 +790,7 @@ mod garment_integration_tests {
                 &std::sync::atomic::AtomicBool::new(false),
                 |snapshot| {
                     let steps = recipe.garments[0].drape.settling.steps;
-                    if snapshot.stage == (DrapeStage::Settling { step: steps, of: steps }) {
+                    let write = |suffix: &str| {
                         let diagnostic = serde_json::json!({
                             "body": generated.positions,
                             "body_faces": model.mhr.character.mesh.faces,
@@ -788,10 +800,28 @@ mod garment_integration_tests {
                             "normals": snapshot.normals,
                         });
                         std::fs::write(
-                            std::env::temp_dir().join(format!("fabelgeist-drape-{preset:?}.json")),
+                            std::env::temp_dir()
+                                .join(format!("fabelgeist-drape-{preset:?}{suffix}.json")),
                             serde_json::to_vec(&diagnostic).unwrap(),
                         )
                         .unwrap();
+                    };
+                    if snapshot.stage == (DrapeStage::Settling { step: steps, of: steps }) {
+                        write("");
+                    }
+                    // Every milestone, to see where a drape goes wrong.
+                    if std::env::var_os("GARMENT_TEST_SNAPSHOTS").is_some() {
+                        match snapshot.stage {
+                            DrapeStage::Placed => write("-placed"),
+                            DrapeStage::Sewing { step, of } if step == of => write("-sewn"),
+                            DrapeStage::Sewing { step, .. } if [5, 10, 20, 30, 45].contains(&step) => {
+                                write(&format!("-sewing{step}"))
+                            }
+                            DrapeStage::Settling { step, .. } if step % 60 == 0 => {
+                                write(&format!("-settling{step}"))
+                            }
+                            _ => {}
+                        }
                     }
                     let milestone = match snapshot.stage {
                         DrapeStage::Placed => true,
@@ -837,7 +867,10 @@ mod garment_integration_tests {
                 )?,
             )?;
             let maximum_distance = match preset {
-                GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Trousers => 0.08,
+                GarmentPreset::Shirt
+                | GarmentPreset::FittedShirt
+                | GarmentPreset::Trousers
+                | GarmentPreset::Coif => 0.08,
                 GarmentPreset::Skirt | GarmentPreset::Dress => 0.25,
             };
             assert!(
