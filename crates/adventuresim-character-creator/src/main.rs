@@ -1,5 +1,5 @@
 mod studio_scene;
-use studio_scene::{orbit_camera, setup};
+use studio_scene::{CreatorPanelRight, orbit_camera, setup};
 mod cli;
 use cli::Args;
 mod catalog;
@@ -28,9 +28,9 @@ use equipment_export::generate_equipment_assets;
 mod animation_preview;
 mod armor_preview;
 mod drape_preview;
-use adventuresim_character_creator::garment::{
-    FabricPreset, GarmentPreset, GarmentSelection,
-};
+mod drape_controls;
+mod fabric_controls;
+use adventuresim_character_creator::garment::{FabricPreset, GarmentPreset, GarmentSelection};
 use animation_preview::WalkPreview;
 use drape_preview::DrapeJob;
 
@@ -209,6 +209,7 @@ fn main() -> Result<()> {
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
         .init_resource::<DrapeJob>()
+        .init_resource::<drape_preview::MailMaterials>()
         .init_resource::<WalkPreview>()
         .insert_resource(args.clone())
         .init_resource::<underlayer_preview::MailMaps>()
@@ -236,6 +237,7 @@ fn main() -> Result<()> {
                 }),
         )
         .add_plugins(EguiPlugin::default())
+        .init_resource::<CreatorPanelRight>()
         .add_systems(Startup, (setup, animation_preview::request))
         .add_systems(EguiPrimaryContextPass, studio_ui)
         .add_systems(
@@ -245,6 +247,7 @@ fn main() -> Result<()> {
                 animation_preview::prepare,
                 regenerate_mesh,
                 drape_preview::poll.after(regenerate_mesh),
+                drape_preview::refresh_mail.after(drape_preview::poll),
                 orbit_camera,
             ),
         )
@@ -261,16 +264,18 @@ fn main() -> Result<()> {
     reason = "egui's replacement requires a parent Ui, but this is the top-level panel"
 )]
 fn studio_ui(
-    drape_job: Res<DrapeJob>,
+    mut drape_job: ResMut<DrapeJob>,
     mut walk: ResMut<WalkPreview>,
     mut animation_players: Query<&mut AnimationPlayer>,
     mut contexts: EguiContexts,
     model: Res<BodyModel>,
     mut catalog: ResMut<EquipmentCatalog>,
     mut studio: ResMut<Studio>,
+    mut panel_right: ResMut<CreatorPanelRight>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
-    egui::SidePanel::left("creator")
+    // egui points equal logical window pixels at bevy_egui's default scale.
+    panel_right.0 = egui::SidePanel::left("creator")
         .exact_width(360.0)
         .show(ctx, |ui| {
             egui::ScrollArea::vertical()
@@ -344,25 +349,8 @@ fn studio_ui(
                                             );
                                         }
                                     });
-                                egui::ComboBox::from_id_salt(("fabric_preset", index))
-                                    .selected_text(selection.fabric.label())
-                                    .show_ui(ui, |ui| {
-                                        for fabric in FabricPreset::ALL {
-                                            ui.selectable_value(
-                                                &mut selection.fabric,
-                                                fabric,
-                                                fabric.label(),
-                                            );
-                                        }
-                                    });
-                                ui.add(
-                                    egui::Slider::new(&mut selection.resolution_cm, 2.5..=6.0)
-                                        .text("Mesh spacing (cm)"),
-                                );
-                                ui.add(
-                                    egui::Slider::new(&mut selection.steps, 30..=600)
-                                        .text("Drape steps"),
-                                );
+                                fabric_controls::show(ui, index, selection);
+                                drape_controls::show(ui, selection);
                             });
                             ui.separator();
                         }
@@ -374,8 +362,18 @@ fn studio_ui(
                         if ui.button("Add garment").clicked() {
                             studio.recipe.garments.push(GarmentSelection::default());
                         }
-                        studio.dirty |= before != studio.recipe.garments;
+                        let add_chainmail = ui.button("Add chainmail shirt").clicked();
+                        if add_chainmail {
+                            studio.recipe.garments.push(GarmentSelection::chainmail());
+                        }
+                        // Appearance edits refresh the shown garments without draping.
+                        studio.dirty |= before.len() != studio.recipe.garments.len()
+                            || before
+                                .iter()
+                                .zip(&studio.recipe.garments)
+                                .any(|(old, new)| !old.same_simulation(new));
                         if ui.button("Drape again").clicked() {
+                            drape_job.restart_from_placement();
                             studio.dirty = true;
                         }
                     });
@@ -541,7 +539,10 @@ fn studio_ui(
                     ui.small(&studio.status);
                     ui.small("Drag to orbit · wheel to zoom");
                 });
-        });
+        })
+        .response
+        .rect
+        .right();
 }
 
 fn save_recipe(studio: &Studio) -> Result<String> {
@@ -581,12 +582,19 @@ fn drape_replaces(
                 | EquipmentLocation::RightArm
                 | EquipmentLocation::LeftShoulder
                 | EquipmentLocation::RightShoulder => recipe.garments.iter().any(|garment| {
-                    matches!(garment.preset, GarmentPreset::Shirt | GarmentPreset::Dress)
+                    matches!(
+                        garment.preset,
+                        GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Dress
+                    )
                 }),
-                EquipmentLocation::LeftLeg | EquipmentLocation::RightLeg => recipe
-                    .garments
-                    .iter()
-                    .any(|garment| !matches!(garment.preset, GarmentPreset::Shirt)),
+                EquipmentLocation::LeftLeg | EquipmentLocation::RightLeg => {
+                    recipe.garments.iter().any(|garment| {
+                        !matches!(
+                            garment.preset,
+                            GarmentPreset::Shirt | GarmentPreset::FittedShirt
+                        )
+                    })
+                }
                 _ => false,
             }
     })
@@ -733,7 +741,7 @@ mod belt_mount_tests {
 #[cfg(test)]
 mod garment_integration_tests {
     use super::*;
-    use adventuresim_character_creator::garment::drape;
+    use adventuresim_character_creator::garment::{DrapeStage, drape};
     #[test]
     #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
     fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
@@ -741,6 +749,9 @@ mod garment_integration_tests {
         let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
         let mut recipe = CharacterRecipe::default();
         recipe.clothing.clear();
+        if std::env::var_os("GARMENT_TEST_ARMOR").is_some() {
+            recipe.armor = Some(fabelgeist_armor::Armor::default());
+        }
         let generated = generate_character(&model, &recipe)?;
         if let Ok(name) = std::env::var("GARMENT_TEST_PRESET") {
             assert!(
@@ -756,24 +767,48 @@ mod garment_integration_tests {
             }
             recipe.garments = vec![GarmentSelection {
                 preset,
-                ..Default::default()
+                ..GarmentSelection::chainmail()
             }];
             println!("checking {}", preset.label());
-            let input = drape_preview::input(&model, &generated, recipe.garments[0].clone());
+            let mut input = drape_preview::input(&model, &generated, recipe.garments[0].clone());
+            input.armor = recipe.armor.clone();
             let fitted = drape(
                 input,
+                None,
                 &std::sync::atomic::AtomicBool::new(false),
                 |snapshot| {
-                    if snapshot.frame % 60 == 0 {
+                    let steps = recipe.garments[0].drape.settling.steps;
+                    if snapshot.stage == (DrapeStage::Settling { step: steps, of: steps }) {
+                        let diagnostic = serde_json::json!({
+                            "body": generated.positions,
+                            "body_faces": model.mhr.character.mesh.faces,
+                            "garment": snapshot.positions,
+                            "garment_faces": snapshot.faces,
+                            "uv": snapshot.texcoords,
+                            "normals": snapshot.normals,
+                        });
+                        std::fs::write(
+                            std::env::temp_dir().join(format!("fabelgeist-drape-{preset:?}.json")),
+                            serde_json::to_vec(&diagnostic).unwrap(),
+                        )
+                        .unwrap();
+                    }
+                    let milestone = match snapshot.stage {
+                        DrapeStage::Placed => true,
+                        DrapeStage::Sewing { .. } => false,
+                        DrapeStage::Settling { step, .. } => step % 60 == 0,
+                    };
+                    if milestone {
                         println!(
-                            "drape step {}: {} vertices",
-                            snapshot.frame,
+                            "drape {}: {} vertices",
+                            snapshot.stage,
                             snapshot.positions.len()
                         );
                     }
                 },
-            )?;
-            assert_eq!(fitted.frame, 180);
+            )
+            .result?;
+            assert_eq!(fitted.stage, DrapeStage::Settling { step: 180, of: 180 });
             assert_eq!(fitted.indices.len(), fitted.positions.len());
             assert_ne!(fitted.positions.len(), generated.positions.len());
             let body = fabelgeist_bvh::TriangleBvh::new(
@@ -798,11 +833,11 @@ mod garment_integration_tests {
             std::fs::write(
                 std::env::temp_dir().join(format!("fabelgeist-drape-{preset:?}.json")),
                 serde_json::to_vec(
-                    &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces}),
+                    &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces,"uv":fitted.texcoords,"normals":fitted.normals}),
                 )?,
             )?;
             let maximum_distance = match preset {
-                GarmentPreset::Shirt | GarmentPreset::Trousers => 0.08,
+                GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Trousers => 0.08,
                 GarmentPreset::Skirt | GarmentPreset::Dress => 0.25,
             };
             assert!(
@@ -830,9 +865,19 @@ mod garment_integration_tests {
             )?;
             let bytes = std::fs::read(&path)?;
             let parsed = gltf::Gltf::from_slice(&bytes)?;
-            assert_eq!(parsed.meshes().count(), 2);
+            let armor_parts = recipe
+                .armor
+                .as_ref()
+                .map(fabelgeist_armor::build)
+                .transpose()
+                .map_err(anyhow::Error::msg)?
+                .unwrap_or_default();
+            assert_eq!(parsed.meshes().count(), 2 + armor_parts.len());
             println!("verified draped character: {}", path.display());
         }
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod chainmail_export_test;

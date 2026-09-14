@@ -225,6 +225,12 @@ pub fn spawn(
         ..default()
     });
     for p in parts {
+        let collider = animation_preview::ArmorSkin(animation_preview::BodySkin {
+            positions: p.part.mesh.positions.clone(),
+            faces: p.part.mesh.faces.clone(),
+            indices: p.indices.clone(),
+            weights: p.weights.clone(),
+        });
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::default(),
@@ -240,6 +246,7 @@ pub fn spawn(
         animation_preview::skin_mesh(&mut mesh, &p.indices, &p.weights);
         commands.spawn((
             CharacterMesh,
+            collider,
             Name::new(p.part.name),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(material.clone()),

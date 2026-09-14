@@ -155,7 +155,7 @@ impl Solver {
     }
 
     /// One substep, into the given batch.
-    fn record_substep(
+    pub fn record_substep(
         &self,
         batch: &mut KernelBatch,
         particles: &Particles,

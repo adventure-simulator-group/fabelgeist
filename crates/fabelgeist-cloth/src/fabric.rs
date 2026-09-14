@@ -44,6 +44,17 @@ impl Default for Fabric {
 }
 
 impl Fabric {
+    /// Flexible steel mail. Visual fitting parameters, not measured armor data.
+    pub const CHAINMAIL: Self = Self {
+        density: 7.0,
+        stretch_compliance: 1e-8,
+        bend_compliance: 3e-2,
+        seam_compliance: 1e-9,
+        thickness: 0.003,
+        friction: 0.4,
+        damping: 1.2,
+    };
+
     /// A plain medium-weight woven: the default for anything unspecified.
     pub const COTTON: Self = Self {
         density: 0.20,
@@ -100,6 +111,7 @@ impl Fabric {
     };
 
     pub const PRESETS: &'static [(&'static str, Self)] = &[
+        ("Chainmail", Self::CHAINMAIL),
         ("Cotton", Self::COTTON),
         ("Silk", Self::SILK),
         ("Denim", Self::DENIM),

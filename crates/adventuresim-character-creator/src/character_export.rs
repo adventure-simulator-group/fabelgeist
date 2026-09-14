@@ -2,6 +2,8 @@ use super::character_morphs::{
     CharacterMorphs, MorphDelta, armor_targets, rigged_armor, rigged_clothing,
 };
 use super::*;
+mod draped;
+mod plates;
 
 pub(super) fn export_character(
     path: &std::path::Path,
@@ -13,21 +15,8 @@ pub(super) fn export_character(
     fitted: Option<&[adventuresim_character_creator::garment::DrapedGarment]>,
 ) -> Result<()> {
     let generated = generate_character(model, recipe)?;
-    let owned_drape = if fitted.is_none() && !recipe.garments.is_empty() {
-        Some(adventuresim_character_creator::garment::drape_outfit(
-            recipe
-                .garments
-                .iter()
-                .cloned()
-                .map(|selection| drape_preview::input(model, &generated, selection))
-                .collect(),
-            &std::sync::atomic::AtomicBool::new(false),
-            |_| {},
-        )?)
-    } else {
-        None
-    };
-    let fitted = fitted.or(owned_drape.as_deref());
+    let fitted = draped::prepare(model, recipe, &generated, fitted)?;
+    draped::validate(model, recipe, &generated, &fitted)?;
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
     let body_targets = morphs
         .body
@@ -35,18 +24,7 @@ pub(super) fn export_character(
         .map(MorphDelta::rigged)
         .collect::<Vec<_>>();
     let character = &model.mhr.character;
-    let specifications = selected_garments(recipe, catalog).map_err(anyhow::Error::msg)?;
-    let clothed = generate_clothing_shells(
-        &specifications,
-        &generated.positions,
-        &generated.normals,
-        &character.mesh.faces,
-        &character.skin_weights.index,
-        &character.skin_weights.weight,
-        &character.skeleton.names,
-        &generated.global_joint_states,
-    )
-    .map_err(anyhow::Error::msg)?;
+    let clothed = catalog_clothing(model, recipe, &generated, catalog)?;
     let clothing_morphs = morphs.clothing(&clothed.shells)?;
     let clothing_targets = clothing_morphs
         .iter()
@@ -75,84 +53,49 @@ pub(super) fn export_character(
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
-    for (i, piece) in armor.iter().enumerate() {
-        let mut parts = rigged_armor(
-            &piece.name,
-            &piece.generated,
-            &armor_faces[i],
-            &armor_targets[i],
-        );
-        let (color, metallic, roughness) =
-            adventuresim_character_creator::equipment_pbr(catalog.material(&piece.item_id)?);
-        for shell in &mut parts {
-            shell.base_color = color;
-            shell.metallic = metallic;
-            shell.roughness = roughness;
-            shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                catalog.design(&piece.item_id).as_ref(),
-            );
-        }
-        shells.extend(parts);
+    shells.extend(catalog_shells(
+        &armor,
+        &armor_faces,
+        &armor_targets,
+        catalog,
+    )?);
+    let draped_morphs = morphs.draped(&generated, &character.mesh.faces, &fitted)?;
+    let draped_targets: Vec<_> = draped_morphs
+        .iter()
+        .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
+        .collect();
+    // Chainmail appearance comes from the current recipe, not the drape.
+    let mail_surfaces = fitted
+        .iter()
+        .enumerate()
+        .map(|(index, garment)| {
+            let selection = recipe
+                .garments
+                .get(index)
+                .context("draped garment has no recipe selection")?;
+            (garment.fabric == FabricPreset::Chainmail)
+                .then(|| {
+                    adventuresim_character_creator::garment_material::MailSurface::new(
+                        &selection.mail,
+                        &garment.texcoords,
+                    )
+                })
+                .transpose()
+        })
+        .collect::<Result<Vec<_>>>()?;
+    for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
+        shells.push(garment.rigged(targets, mail.as_ref()));
     }
-    if let Some(garments) = fitted {
-        for garment in garments {
-            shells.push(RiggedShell {
-                surface: None,
-                textures: None,
-                texcoords: None,
-                hinge: None,
-                name: &garment.name,
-                positions: &garment.positions,
-                normals: &garment.normals,
-                faces: &garment.faces,
-                joint_indices: Some(&garment.indices),
-                joint_weights: Some(&garment.weights),
-                morph_targets: &[],
-                base_color: [0.52, 0.42, 0.28, 1.0],
-                metallic: 0.0,
-                roughness: 0.85,
-            });
-        }
-    }
-    let armor_textures = recipe
+    let plates = recipe
         .armor
         .as_ref()
-        .map(|a| adventuresim_character_creator::export::ShellTextures::armor(&a.metal))
+        .map(|armor| {
+            plates::PlateExport::new(armor, model, &generated.global_joint_states, &body_targets)
+        })
         .transpose()?;
-    let armor_parts = recipe
-        .armor
-        .as_ref()
-        .map(|armor| armor_preview::rigged_parts(armor, model, &generated.global_joint_states))
-        .transpose()
-        .map_err(anyhow::Error::msg)?
-        .unwrap_or_default();
-    if let Some(armor) = &recipe.armor {
-        for part in &armor_parts {
-            shells.push(RiggedShell {
-                surface: Some((
-                    &part.part.mesh.uvs,
-                    armor_textures.as_ref().expect("armor textures"),
-                )),
-                textures: None,
-                texcoords: None,
-                hinge: None,
-                name: &part.part.name,
-                positions: &part.part.mesh.positions,
-                normals: &part.part.mesh.normals,
-                faces: &part.part.mesh.faces,
-                joint_indices: Some(&part.indices),
-                joint_weights: Some(&part.weights),
-                morph_targets: &[],
-                base_color: [
-                    armor.metal.color[0],
-                    armor.metal.color[1],
-                    armor.metal.color[2],
-                    1.0,
-                ],
-                metallic: 1.0,
-                roughness: armor.metal.roughness,
-            });
-        }
+    let plate_targets = plates.as_ref().map(|p| p.targets()).unwrap_or_default();
+    if let Some(plates) = &plates {
+        shells.extend(plates.shells(&plate_targets));
     }
     export_rigged_glb(
         GlbOutput::Standalone(path),
@@ -175,4 +118,49 @@ pub(super) fn export_character(
         &shells,
         &[],
     )
+}
+
+fn catalog_shells<'a>(
+    armor: &'a [parametric_equipment::SelectedArmor],
+    faces: &'a [Vec<[u32; 3]>],
+    targets: &'a [Vec<RiggedMorphTarget<'a>>],
+    catalog: &EquipmentCatalog,
+) -> Result<Vec<RiggedShell<'a>>> {
+    let mut shells = Vec::new();
+    for (i, piece) in armor.iter().enumerate() {
+        let mut parts = rigged_armor(&piece.name, &piece.generated, &faces[i], &targets[i]);
+        let (color, metallic, roughness) =
+            adventuresim_character_creator::equipment_pbr(catalog.material(&piece.item_id)?);
+        for shell in &mut parts {
+            shell.base_color = color;
+            shell.metallic = metallic;
+            shell.roughness = roughness;
+            shell.textures = adventuresim_character_creator::underlayer_material::textures(
+                catalog.design(&piece.item_id).as_ref(),
+            );
+        }
+        shells.extend(parts);
+    }
+    Ok(shells)
+}
+
+fn catalog_clothing(
+    model: &BodyModel,
+    recipe: &CharacterRecipe,
+    generated: &GeneratedCharacter,
+    catalog: &EquipmentCatalog,
+) -> Result<adventuresim_character_creator::clothing::ClothedMesh> {
+    let character = &model.mhr.character;
+    let specifications = selected_garments(recipe, catalog).map_err(anyhow::Error::msg)?;
+    generate_clothing_shells(
+        &specifications,
+        &generated.positions,
+        &generated.normals,
+        &character.mesh.faces,
+        &character.skin_weights.index,
+        &character.skin_weights.weight,
+        &character.skeleton.names,
+        &generated.global_joint_states,
+    )
+    .map_err(anyhow::Error::msg)
 }

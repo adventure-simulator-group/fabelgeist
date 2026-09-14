@@ -2,8 +2,14 @@
 use bevy::{
     input::mouse::{MouseMotion, MouseWheel},
     prelude::*,
+    window::PrimaryWindow,
 };
 use bevy_egui::EguiContexts;
+
+/// Right edge of the creator side panel in logical window pixels, so
+/// pointer input over the menu never reaches the orbit camera.
+#[derive(Resource, Default)]
+pub(crate) struct CreatorPanelRight(pub(crate) f32);
 
 #[derive(Component)]
 pub(crate) struct OrbitCamera {
@@ -69,6 +75,8 @@ pub(crate) fn setup(
 pub(crate) fn orbit_camera(
     buttons: Res<ButtonInput<MouseButton>>,
     mut contexts: EguiContexts,
+    panel: Res<CreatorPanelRight>,
+    windows: Query<&Window, With<PrimaryWindow>>,
     mut motion: MessageReader<MouseMotion>,
     mut wheel: MessageReader<MouseWheel>,
     mut camera: Query<(&mut Transform, &mut OrbitCamera)>,
@@ -76,9 +84,15 @@ pub(crate) fn orbit_camera(
     let Ok((mut transform, mut orbit)) = camera.single_mut() else {
         return;
     };
-    let pointer_owned_by_ui = contexts
-        .ctx_mut()
-        .is_ok_and(|context| context.egui_wants_pointer_input());
+    let pointer_over_panel = windows
+        .single()
+        .ok()
+        .and_then(Window::cursor_position)
+        .is_some_and(|cursor| cursor.x <= panel.0);
+    let pointer_owned_by_ui = pointer_over_panel
+        || contexts
+            .ctx_mut()
+            .is_ok_and(|context| context.egui_wants_pointer_input());
     if buttons.pressed(MouseButton::Left) && !pointer_owned_by_ui {
         for event in motion.read() {
             orbit.yaw -= event.delta.x * 0.007;

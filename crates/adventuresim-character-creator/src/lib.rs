@@ -22,6 +22,7 @@ pub mod surface_cut;
 pub mod underlayer;
 pub use adventuresim_core::item_catalog_schema;
 pub mod garment;
+pub mod garment_material;
 
 use serde::{Deserialize, Serialize};
 

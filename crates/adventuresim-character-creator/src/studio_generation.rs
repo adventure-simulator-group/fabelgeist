@@ -42,7 +42,11 @@ pub(super) fn regenerate_mesh(
             .garments
             .iter()
             .cloned()
-            .map(|selection| drape_preview::input(&model, &generated, selection))
+            .map(|selection| {
+                let mut input = drape_preview::input(&model, &generated, selection);
+                input.armor = studio.recipe.armor.clone();
+                input
+            })
             .collect(),
     );
     let faces = &model.mhr.character.mesh.faces;

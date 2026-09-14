@@ -258,15 +258,26 @@ impl Buffer {
         // 2. Poll if on native
         #[cfg(not(target_arch = "wasm32"))]
         {
+            // Waiting on the queue is what a readback actually costs. Asking
+            // whether it is done and then sleeping a millisecond between asks
+            // adds the sleep's granularity to every one -- and on Windows that
+            // is not a millisecond, it is whatever the system timer is set to,
+            // which turned a four-megabyte read into four milliseconds and
+            // sometimes eight. `Wait` returns when the work is done.
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
             loop {
                 match rx.try_recv() {
                     Ok(Some(res)) => {
                         res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
                         break;
                     }
+                    // `Wait` covers submitted work, so this is reached only for
+                    // a buffer that was already mappable and had nothing
+                    // submitted for it. Yielding keeps that case from spinning
+                    // a core without putting a sleep back in the common one.
                     Ok(None) => {
                         let _ = context.device.poll(wgpu::PollType::Poll);
-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+                        std::thread::yield_now();
                     }
                     Err(_) => return Err(anyhow!("Mapping channel closed")),
                 }

@@ -1,6 +1,6 @@
 use super::*;
 
-const MAPS: SurfaceTextures = SurfaceTextures {
+const MAPS: SurfaceTextures<'static> = SurfaceTextures {
     base_color_png: include_bytes!(
         "../../../../../assets_src/equipment/materials/mail-base-color.png"
     ),

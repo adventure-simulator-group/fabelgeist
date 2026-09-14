@@ -56,9 +56,11 @@ impl Default for Armor {
     fn default() -> Self {
         Self {
             construction: Construction::Solid,
-            width: 0.43,
+            // Leaves at least 5 mm along the plate normal over the default
+            // MHR chest and hips: room for an armored mail underlayer.
+            width: 0.47,
             height: 0.43,
-            depth: 0.15,
+            depth: 0.16,
             waist: 0.78,
             neck: 0.075,
             arm_cut: 0.065,

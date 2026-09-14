@@ -55,6 +55,62 @@ expression, skinning, and optional pose-corrective displacement. Triangle-only
 normal reconstruction is retained internally only to define those frames; it is
 not sent to Bevy as the character's shading normal.
 
+## Draped chainmail
+
+In the garment controls, **Add chainmail shirt** reuses the existing fitted-shirt
+pattern with the chainmail fabric preset. Keep the breastplate enabled to show
+the shirt beneath it. Other existing garment patterns can also use
+**Chainmail** in their fabric selector.
+
+Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
+diameter, row spacing, ring tilt, steel color and roughness. The wire and row
+spacing limits follow the ring so every link keeps an opening for its four
+neighbours. These are appearance only: edits update the shown garment and the
+export without re-draping. The mail's mass comes from its fabric preset.
+
+Mail uses the sewing panels' material coordinates in metres, with separate
+vertices at UV seams and joined vertices for animation physics. The preview
+material and the export scale them so one texture repeat covers one ring across
+and two rows up. The creator generates the repeating maps from the weave:
+cutout color, tangent-space normals from the tilted round wire, and ambient
+occlusion. Steel uses full metallic response.
+
+### Drape stages
+
+Draping places the pattern panels, sews them without gravity, settles the sewn
+garment under gravity, and finally fits it beneath enabled armor. **Drape
+stages** exposes each stage's steps, substeps, constraint iterations, gravity,
+damping and self-collision. Swept contacts read the cloth back from the GPU
+for continuous crossing checks; their interval, iterations, body inclusion and
+armor passes are the main cost of a step. The armor fit sets its pass budget
+and contact iterations. Previews default to every step and start from the
+placed panels.
+
+Each drape keeps its completed stages, including after a failure or
+cancellation. Changing a stage re-runs from that stage: an armor fit change
+repeats only the fast host fit, and a settling or armor change resumes from the
+sewn garment. Body, pattern, fabric, resolution or sewing changes start again,
+as does **Drape again**.
+
+Draping resolves swept vertex/triangle and edge/edge contacts after each GPU
+substep. This host projection is vendored from Prism's `shell` library and
+includes body triangle interiors and excludes joined seam copies. Fixed body
+bounds are cached between substeps. It prevents crossings missed by particle
+spheres; it does not infer layer order for already intersecting starting meshes.
+
+When the Fabelgeist breastplate is enabled, its inward surfaces constrain the
+mail after sewing, including the fauld. Fit completion and export check the
+emitted cloth against itself, the wearer, inner garments, and the plate;
+an unresolved clearance reports a fitting error. Armor dimensions still need
+enough room for the wearer and underlayer.
+
+Render an exported chainmail outfit through Bevy, with an asset/material check
+before capture:
+
+```powershell
+cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --example garment_preview -- outfit.glb outfit.png
+```
+
 ## Animation integration
 
 The exported base establishes MHR's stable bone names and hierarchy as the

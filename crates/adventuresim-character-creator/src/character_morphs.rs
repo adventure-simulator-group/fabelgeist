@@ -1,6 +1,7 @@
 //! Sample MHR identity and refit clothing with fixed vertex correspondence.
 
 use super::*;
+mod draped;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::character_proportions::BodyProportion;
@@ -13,6 +14,15 @@ pub(super) struct MorphDelta {
 }
 
 impl MorphDelta {
+    /// Authored rigid plate dimensions do not change with body identity.
+    pub(super) fn fixed_geometry(name: &str, vertex_count: usize) -> Self {
+        Self {
+            name: name.into(),
+            positions: vec![[0.0; 3]; vertex_count],
+            normals: vec![[0.0; 3]; vertex_count],
+        }
+    }
+
     fn between(
         name: String,
         base_positions: &[[f32; 3]],

@@ -38,5 +38,16 @@ gltf = { version = "1.4", default-features = false }
 
 [workspace]
 
+# Swept surface contacts execute on the CPU between GPU substeps. Keep their
+# geometry kernels optimized in the interactive development application.
+[profile.dev.package.fabelgeist-cloth]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-bvh]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-math]
+opt-level = 3
+
 [lints.clippy]
 all = { level = "warn", priority = -1 }

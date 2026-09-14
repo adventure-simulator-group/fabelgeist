@@ -1,5 +1,5 @@
 //! Cloth surface contacts with swept vertex/triangle and edge/edge detection.
-//! All garments share one particle array. Mesh neighbours are excluded.
+//! All garments share one particle array. Only shared vertices and sewn copies are excluded.
 //! Zero inverse mass means prescribed motion, not a stationary collider:
 //! previous and current positions must both be supplied for animated bodies.
 use crate::ccd::{self, Pair};
@@ -7,32 +7,140 @@ use fabelgeist_bvh::{Aabb, Bvh};
 use fabelgeist_math::Vec3;
 use std::collections::BTreeSet;
 
+mod broad_phase;
+mod solve;
+use broad_phase::FixedBounds;
+
 pub struct SurfaceContacts {
+    fixed_bounds: Option<FixedBounds>,
+    static_positions: Vec<Vec3>,
+    static_clearance: f32,
     faces: Vec<[u32; 3]>,
     edges: Vec<[u32; 2]>,
-    neighbours: Vec<BTreeSet<u32>>,
+    seam_copies: Vec<BTreeSet<u32>>,
 }
 
 impl SurfaceContacts {
     pub fn new(count: usize, faces: Vec<[u32; 3]>) -> Self {
-        let mut neighbours = vec![BTreeSet::new(); count];
+        let seam_copies = vec![BTreeSet::new(); count];
         let mut edges = BTreeSet::new();
         for face in &faces {
             for k in 0..3 {
                 let (a, b) = (face[k], face[(k + 1) % 3]);
                 assert!((a as usize) < count && (b as usize) < count);
-                neighbours[a as usize].insert(b);
-                neighbours[b as usize].insert(a);
                 edges.insert([a.min(b), a.max(b)]);
             }
         }
         Self {
+            fixed_bounds: None,
+            static_positions: Vec::new(),
+            static_clearance: 0.0,
             faces,
             edges: edges.into_iter().collect(),
-            neighbours,
+            seam_copies,
         }
     }
 
+    /// Exclude shared seam vertices, never their neighbouring faces.
+    /// Seam copies represent one physical vertex even before sewing settles.
+    pub fn with_seams(mut self, seams: &[[u32; 2]]) -> Self {
+        let count = self.seam_copies.len();
+        let mut groups: Vec<usize> = (0..count).collect();
+        for &[a, b] in seams {
+            let from = groups[b as usize];
+            let to = groups[a as usize];
+            for group in &mut groups {
+                if *group == from {
+                    *group = to;
+                }
+            }
+        }
+        for i in 0..count {
+            self.seam_copies[i] = (0..count)
+                .filter(|&j| groups[i] == groups[j])
+                .map(|j| j as u32)
+                .collect();
+        }
+        self
+    }
+
+    /// Include fixed obstacle triangles in the same swept surface solve.
+    /// Their interiors and edges constrain cloth even when no cloth vertex
+    /// touches the obstacle; zero inverse mass keeps the obstacle unchanged.
+    pub fn set_static_surface(&mut self, positions: &[Vec3], faces: &[[u32; 3]], clearance: f32) {
+        assert!(clearance.is_finite() && clearance >= 0.0);
+        let count = self.seam_copies.len() - self.static_positions.len();
+        let mut triangles: Vec<_> = self
+            .faces
+            .iter()
+            .copied()
+            .filter(|f| f.iter().all(|&i| (i as usize) < count))
+            .collect();
+        triangles.extend(faces.iter().map(|f| f.map(|i| i + count as u32)));
+        let mut next = Self::new(count + positions.len(), triangles);
+        next.seam_copies[..count].clone_from_slice(&self.seam_copies[..count]);
+        next.fixed_bounds = FixedBounds::new(&next.faces, &next.edges, count, positions);
+        next.static_positions = positions.to_vec();
+        next.static_clearance = clearance;
+        *self = next;
+    }
+
+    /// Project a completed GPU substep before the next integration begins.
+    /// Particle spheres alone cannot detect triangle-interior crossings.
+    /// Resolve relative normal velocity with mass-weighted impulses; uploading
+    /// through `write_positions` would incorrectly reset every velocity.
+    /// `interval_start` holds positions from before several GPU substeps;
+    /// without it only the last substep's motion is swept.
+    pub async fn project_particles(
+        &self,
+        context: &fabelgeist_gpu::globals::WgpuContext,
+        particles: &fabelgeist_xpbd::Particles,
+        thickness: f32,
+        iterations: u32,
+        interval_start: Option<&[Vec3]>,
+    ) -> anyhow::Result<usize> {
+        let mut previous = match interval_start {
+            Some(start) => {
+                anyhow::ensure!(
+                    start.len() == particles.count() as usize,
+                    "interval start does not match the particle count"
+                );
+                start.to_vec()
+            }
+            None => {
+                let raw: Vec<f32> = particles.previous.read(context).await?;
+                fabelgeist_xpbd::particles::unpack(&raw, particles.count() as usize)
+            }
+        };
+        let predicted = particles.read_positions(context).await?;
+        let mut corrected = predicted.clone();
+        let mut velocities = particles.read_velocities(context).await?;
+        let count = corrected.len();
+        let mut masses = particles.inverse_masses().to_vec();
+        previous.extend_from_slice(&self.static_positions);
+        corrected.extend_from_slice(&self.static_positions);
+        masses.resize(corrected.len(), 0.0);
+        velocities.resize(corrected.len(), Vec3::default());
+        let contacts = self.solve_inner(
+            &mut corrected,
+            &previous,
+            &masses,
+            thickness,
+            iterations,
+            Some(&mut velocities),
+        );
+        if contacts > 0 {
+            particles.positions.write(
+                context,
+                &fabelgeist_xpbd::particles::pack(&corrected[..count], particles.inverse_masses()),
+            )?;
+            particles.velocities.write(
+                context,
+                &fabelgeist_xpbd::particles::pack(&velocities[..count], &vec![0.0; count]),
+            )?;
+        }
+        Ok(contacts)
+    }
     /// Resolve swept surface contacts. Paths are linear between the supplied
     /// positions, so callers must invoke this for every simulation substep.
     /// Contact sweeps rebuild candidate bounds from the corrected endpoints.
@@ -46,166 +154,30 @@ impl SurfaceContacts {
         thickness: f32,
         iterations: u32,
     ) -> usize {
-        assert_eq!(positions.len(), self.neighbours.len());
-        assert_eq!(positions.len(), previous.len());
-        assert_eq!(positions.len(), inverse_masses.len());
-        assert!(inverse_masses.iter().all(|m| m.is_finite() && *m >= 0.0));
-        assert!(positions.iter().chain(previous).all(|p| p.is_finite()));
-        if !thickness.is_finite() || thickness <= 0.0 {
-            return 0;
+        if !self.static_positions.is_empty() {
+            let count = positions.len();
+            let mut full = positions.to_vec();
+            let mut start = previous.to_vec();
+            let mut masses = inverse_masses.to_vec();
+            full.extend_from_slice(&self.static_positions);
+            start.extend_from_slice(&self.static_positions);
+            masses.resize(full.len(), 0.0);
+            let contacts =
+                self.solve_inner(&mut full, &start, &masses, thickness, iterations, None);
+            positions.copy_from_slice(&full[..count]);
+            return contacts;
         }
-        let mut contacts = 0;
-        for _ in 0..iterations {
-            // Build only swept boxes. Testing endpoints alone misses an edge
-            // that crosses another edge and exits before the substep ends.
-            let bounds: Vec<_> = self
-                .faces
-                .iter()
-                .map(|face| {
-                    Aabb::from_points(
-                        face.iter()
-                            .flat_map(|&i| [positions[i as usize], previous[i as usize]]),
-                    )
-                    .expand(thickness)
-                })
-                .collect();
-            let tree = Bvh::build(&bounds);
-            // Fixed vertices only need to query dynamic faces, avoiding
-            // expensive body-against-body searches on a dense animated mesh.
-            let dynamic_faces: Vec<_> = self
-                .faces
-                .iter()
-                .enumerate()
-                .filter_map(|(i, f)| {
-                    f.iter()
-                        .any(|&v| inverse_masses[v as usize] > 0.0)
-                        .then_some(i)
-                })
-                .collect();
-            let dynamic_bounds: Vec<_> = dynamic_faces.iter().map(|&f| bounds[f]).collect();
-            let dynamic_tree = Bvh::build(&dynamic_bounds);
-            let mut candidates = Vec::new();
-            for v in 0..positions.len() {
-                candidates.clear();
-                let query = Aabb::from_points([positions[v], previous[v]]).expand(thickness);
-                if inverse_masses[v] > 0.0 {
-                    tree.query_aabb(&bounds, &query, |f| candidates.push(f as usize));
-                } else {
-                    dynamic_tree.query_aabb(&dynamic_bounds, &query, |f| {
-                        candidates.push(dynamic_faces[f as usize])
-                    });
-                }
-                for &f in &candidates {
-                    let face = self.faces[f];
-                    if face
-                        .iter()
-                        .any(|&i| i as usize == v || self.neighbours[v].contains(&i))
-                    {
-                        continue;
-                    }
-                    contacts += resolve(
-                        Pair::VertexTriangle,
-                        positions,
-                        previous,
-                        inverse_masses,
-                        [v, face[0] as usize, face[1] as usize, face[2] as usize],
-                        thickness,
-                    );
-                }
-            }
-            let bounds: Vec<_> = self
-                .edges
-                .iter()
-                .map(|edge| {
-                    Aabb::from_points(
-                        edge.iter()
-                            .flat_map(|&i| [positions[i as usize], previous[i as usize]]),
-                    )
-                    .expand(thickness)
-                })
-                .collect();
-            let tree = Bvh::build(&bounds);
-            for (i, edge) in self.edges.iter().enumerate() {
-                if edge.iter().all(|&v| inverse_masses[v as usize] == 0.0) {
-                    continue;
-                }
-                candidates.clear();
-                tree.query_aabb(&bounds, &bounds[i], |j| {
-                    let j = j as usize;
-                    if j > i
-                        || self.edges[j]
-                            .iter()
-                            .all(|&v| inverse_masses[v as usize] == 0.0)
-                    {
-                        candidates.push(j);
-                    }
-                });
-                for &j in &candidates {
-                    let other = self.edges[j];
-                    if edge.iter().any(|a| {
-                        other
-                            .iter()
-                            .any(|b| a == b || self.neighbours[*a as usize].contains(b))
-                    }) {
-                        continue;
-                    }
-                    contacts += resolve(
-                        Pair::EdgeEdge,
-                        positions,
-                        previous,
-                        inverse_masses,
-                        [
-                            edge[0] as usize,
-                            edge[1] as usize,
-                            other[0] as usize,
-                            other[1] as usize,
-                        ],
-                        thickness,
-                    );
-                }
-            }
-        }
-        contacts
+        self.solve_inner(
+            positions,
+            previous,
+            inverse_masses,
+            thickness,
+            iterations,
+            None,
+        )
     }
 }
 
-fn resolve(
-    pair: Pair,
-    positions: &mut [Vec3],
-    previous: &[Vec3],
-    masses: &[f32],
-    ids: [usize; 4],
-    thickness: f32,
-) -> usize {
-    let start = ids.map(|i| previous[i]);
-    let end = ids.map(|i| positions[i]);
-    // The CCD guard is inside the resting contact shell. This lets touching
-    // cloth slide tangentially without returning time zero on every step.
-    let contact = ccd::sweep(pair, start, end, thickness * 0.5)
-        .unwrap_or_else(|| ccd::proximity(pair, end, start));
-    debug_assert!((0.0..=1.0).contains(&contact.time));
-    let separation = ids
-        .iter()
-        .zip(contact.weights)
-        .fold(Vec3::default(), |sum, (&i, w)| sum + positions[i] * w)
-        .dot(contact.normal);
-    let depth = thickness - separation;
-    if depth <= 0.0 {
-        return 0;
-    }
-    let denominator: f32 = ids
-        .iter()
-        .zip(contact.weights)
-        .map(|(&i, w)| masses[i] * w * w)
-        .sum();
-    if denominator <= 1e-12 {
-        return 0;
-    }
-    for (i, w) in ids.into_iter().zip(contact.weights) {
-        positions[i] = positions[i] + contact.normal * (depth * w * masses[i] / denominator);
-    }
-    1
-}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -342,5 +314,253 @@ mod tests {
             )
             .is_none()
         );
+    }
+}
+
+#[cfg(test)]
+mod gpu_contact_regression {
+    use super::*;
+
+    #[tokio::test]
+    async fn triangle_interior_crossing_preserves_slide_and_pins() -> anyhow::Result<()> {
+        let context = fabelgeist_gpu::globals::WgpuContext::new().await?;
+        let start = vec![
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+            Vec3::new(0., 0.1, 0.),
+        ];
+        let masses = [0., 0., 0., 1.];
+        let particles = fabelgeist_xpbd::Particles::from_positions(&context, &start, &masses)?;
+        let mut end = start.clone();
+        end[3] = Vec3::new(0.02, -0.1, 0.);
+        particles
+            .positions
+            .write(&context, &fabelgeist_xpbd::particles::pack(&end, &masses))?;
+        let mut velocity = vec![Vec3::default(); 4];
+        velocity[3] = Vec3::new(1., -20., 0.);
+        particles.velocities.write(
+            &context,
+            &fabelgeist_xpbd::particles::pack(&velocity, &[0.; 4]),
+        )?;
+        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        assert!(
+            contacts
+                .project_particles(&context, &particles, 0.005, 4, None)
+                .await?
+                > 0
+        );
+        let result = particles.read_positions(&context).await?;
+        let velocity = particles.read_velocities(&context).await?;
+        assert!(result[3].y >= 0.0049);
+        assert!((result[3].x - end[3].x).abs() < 1e-5);
+        assert!((velocity[3].x - 1.).abs() < 1e-5);
+        assert!(velocity[3].y >= -1e-5);
+        assert_eq!(&result[..3], &start[..3]);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn interval_start_catches_a_crossing_before_the_last_substep() -> anyhow::Result<()> {
+        let context = fabelgeist_gpu::globals::WgpuContext::new().await?;
+        let mut before_last = vec![
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+            Vec3::new(0., -0.05, 0.),
+        ];
+        let masses = [0., 0., 0., 1.];
+        let particles =
+            fabelgeist_xpbd::Particles::from_positions(&context, &before_last, &masses)?;
+        let mut end = before_last.clone();
+        end[3].y = -0.1;
+        particles
+            .positions
+            .write(&context, &fabelgeist_xpbd::particles::pack(&end, &masses))?;
+        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        // The last substep alone stays below the triangle.
+        assert_eq!(
+            contacts
+                .project_particles(&context, &particles, 0.005, 4, None)
+                .await?,
+            0
+        );
+        before_last[3].y = 0.1;
+        assert!(
+            contacts
+                .project_particles(&context, &particles, 0.005, 4, Some(&before_last))
+                .await?
+                > 0
+        );
+        assert!(particles.read_positions(&context).await?[3].y >= 0.0049);
+        Ok(())
+    }
+
+    #[test]
+    fn sewn_panel_copies_do_not_repel_each_other() {
+        let mut positions = vec![
+            Vec3::new(0., 0., 0.),
+            Vec3::new(1., 0., 0.),
+            Vec3::new(0., 1., 0.),
+            Vec3::new(1., 0., 0.),
+            Vec3::new(1., 1., 0.),
+            Vec3::new(0., 1., 0.),
+        ];
+        let previous = positions.clone();
+        let contacts =
+            SurfaceContacts::new(6, vec![[0, 1, 2], [3, 4, 5]]).with_seams(&[[1, 3], [2, 5]]);
+        assert_eq!(
+            contacts.solve(&mut positions, &previous, &[1.; 6], 0.005, 4),
+            0
+        );
+        assert_eq!(positions, previous);
+    }
+}
+
+#[cfg(test)]
+mod relative_velocity_regression {
+    use super::*;
+    #[test]
+    fn dynamic_contact_preserves_momentum_and_common_velocity() {
+        let previous = vec![
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+            Vec3::new(0., 0.1, 0.),
+        ];
+        let mut end = previous.clone();
+        end[3].y = -0.1;
+        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2]]);
+        let solve = |boost: Vec3| {
+            let mut positions = end.clone();
+            let mut velocities = vec![boost; 4];
+            velocities[3].y -= 2.;
+            let momentum = velocities
+                .iter()
+                .copied()
+                .fold(Vec3::default(), |a, b| a + b);
+            assert!(
+                contacts.solve_inner(
+                    &mut positions,
+                    &previous,
+                    &[1.; 4],
+                    0.005,
+                    1,
+                    Some(&mut velocities)
+                ) > 0
+            );
+            let after = velocities
+                .iter()
+                .copied()
+                .fold(Vec3::default(), |a, b| a + b);
+            assert!((after - momentum).length() < 1e-5);
+            velocities
+        };
+        let boost = Vec3::new(3., 7., -2.);
+        for (base, shifted) in solve(Vec3::default()).iter().zip(solve(boost)) {
+            assert!((shifted - *base - boost).length() < 1e-5);
+        }
+    }
+}
+
+#[cfg(test)]
+mod fold_regression {
+    use super::*;
+    #[test]
+    fn opposite_vertex_cannot_fold_through_its_adjacent_triangle() {
+        let previous = vec![
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+            Vec3::new(0., 0.1, 0.),
+        ];
+        let mut positions = previous.clone();
+        positions[3].y = -0.1;
+        let contacts = SurfaceContacts::new(4, vec![[0, 1, 2], [1, 3, 2]]);
+        assert!(contacts.solve(&mut positions, &previous, &[0., 0., 0., 1.], 0.005, 4) > 0);
+        assert!(positions[3].y >= 0.0049);
+    }
+}
+
+#[cfg(test)]
+mod obstacle_regression {
+    use super::*;
+    #[test]
+    fn fixed_triangle_interior_blocks_a_cloth_face_without_vertex_overlap() {
+        let previous = vec![
+            Vec3::new(-1.0, -1.0, 0.1),
+            Vec3::new(1.0, -1.0, 0.1),
+            Vec3::new(0.0, 1.0, 0.1),
+        ];
+        let mut positions: Vec<_> = previous.iter().map(|p| Vec3::new(p.x, p.y, -0.1)).collect();
+        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        contacts.set_static_surface(
+            &[
+                Vec3::new(-0.1, -0.1, 0.0),
+                Vec3::new(0.1, -0.1, 0.0),
+                Vec3::new(0.0, 0.1, 0.0),
+            ],
+            &[[0, 1, 2]],
+            0.003,
+        );
+        assert!(contacts.solve(&mut positions, &previous, &[1.0; 3], 0.003, 8) > 0);
+        let normal = (positions[1] - positions[0]).cross(positions[2] - positions[0]);
+        for point in &contacts.static_positions {
+            assert!((*point - positions[0]).dot(normal) / normal.length() <= -0.0025);
+        }
+    }
+}
+#[cfg(test)]
+mod fixed_bounds_regression {
+    use super::*;
+    #[test]
+    fn replacing_and_removing_an_obstacle_rebuilds_cached_bounds() {
+        let start = vec![
+            Vec3::new(-0.1, 0.1, -0.1),
+            Vec3::new(0.1, 0.1, -0.1),
+            Vec3::new(0.0, 0.1, 0.1),
+        ];
+        let end: Vec<_> = start.iter().map(|p| Vec3::new(p.x, -0.1, p.z)).collect();
+        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        let body = [
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+        ];
+        contacts.set_static_surface(&body, &[[0, 1, 2]], 0.003);
+        let mut points = end.clone();
+        contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4);
+        assert!(points.iter().all(|p| p.y >= 0.0029));
+        contacts.set_static_surface(&body.map(|p| Vec3::new(p.x, -1., p.z)), &[[0, 1, 2]], 0.003);
+        points.clone_from(&end);
+        assert_eq!(contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4), 0);
+        assert_eq!(points, end);
+        contacts.set_static_surface(&[], &[], 0.0);
+        assert_eq!(contacts.solve(&mut points, &start, &[1.; 3], 0.003, 4), 0);
+    }
+}
+#[cfg(test)]
+mod obstacle_clearance_regression {
+    use super::*;
+    #[test]
+    fn resting_cloth_reaches_body_ease_without_inflating_self_contacts() {
+        let start = vec![
+            Vec3::new(-0.1, -0.1, 0.002),
+            Vec3::new(0.1, -0.1, 0.002),
+            Vec3::new(0., 0.1, 0.002),
+        ];
+        let mut points = start.clone();
+        let mut contacts = SurfaceContacts::new(3, vec![[0, 1, 2]]);
+        contacts.set_static_surface(
+            &[
+                Vec3::new(-1., -1., 0.),
+                Vec3::new(1., -1., 0.),
+                Vec3::new(0., 1., 0.),
+            ],
+            &[[0, 1, 2]],
+            0.005,
+        );
+        assert!(contacts.solve(&mut points, &start, &[1.; 3], 0.0006, 4) > 0);
+        assert!(points.iter().all(|p| p.z >= 0.00499));
     }
 }

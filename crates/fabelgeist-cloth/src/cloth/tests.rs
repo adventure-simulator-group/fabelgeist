@@ -584,7 +584,9 @@ async fn interleaved_submission_gives_the_same_result() -> Result<()> {
 
         for _ in 0..90 {
             if interleaved {
-                cloth.step_interleaved(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
+                cloth
+                    .step_interleaved(&harness.context, &solver, &mut collisions, 1.0 / 60.0)
+                    .await?;
             } else {
                 cloth.step(&harness.context, &solver, &mut collisions, 1.0 / 60.0)?;
             }
@@ -628,5 +630,42 @@ async fn coincident_non_neighbours_separate_and_pinned_particles_stay_fixed() ->
     let p = particles.read_positions(&harness.context).await?;
     assert!(p[0].length() < 1e-6);
     assert!((p[1] - p[0]).length() > 0.0099);
+    Ok(())
+}
+
+#[tokio::test]
+async fn interactive_step_blocks_a_triangle_interior_crossing() -> Result<()> {
+    let harness = Harness::new().await?;
+    let mesh = GarmentMesh {
+        positions: vec![
+            Vec3::new(-1., 0., -1.),
+            Vec3::new(0., 0., 1.),
+            Vec3::new(1., 0., -1.),
+            Vec3::new(0., 0.02, 0.),
+        ],
+        triangles: vec![[0, 1, 2]],
+        masses: vec![0., 0., 0., 1.],
+        ..Default::default()
+    };
+    let mut cloth = Cloth::new(&harness.context, &harness.cache, &mesh, Fabric::COTTON)?;
+    let solver = harness.solver(SolverSettings {
+        substeps: 1,
+        gravity: Vec3::default(),
+        damping: 0.,
+        ..cloth.settings()
+    })?;
+    let mut collisions = harness.collisions()?;
+    let mut velocities = vec![0.0f32; 16];
+    velocities[13] = -4.0;
+    cloth
+        .particles
+        .velocities
+        .write(&harness.context, &velocities)?;
+    cloth
+        .step_interleaved(&harness.context, &solver, &mut collisions, 0.01)
+        .await?;
+    let positions = cloth.read_positions(&harness.context).await?;
+    assert!(positions[3].y >= Fabric::COTTON.thickness * 0.99);
+    assert_eq!(&positions[..3], &mesh.positions[..3]);
     Ok(())
 }

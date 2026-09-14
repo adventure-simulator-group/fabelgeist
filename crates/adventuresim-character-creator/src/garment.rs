@@ -12,132 +12,20 @@ use fabelgeist_math::Vec3;
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum GarmentPreset {
-    Shirt,
-    Trousers,
-    Skirt,
-    Dress,
-}
-impl GarmentPreset {
-    pub const ALL: [Self; 4] = [Self::Shirt, Self::Trousers, Self::Skirt, Self::Dress];
-    pub fn label(self) -> &'static str {
-        match self {
-            Self::Shirt => "Shirt",
-            Self::Trousers => "Trousers",
-            Self::Skirt => "Skirt",
-            Self::Dress => "Dress",
-        }
-    }
-    pub fn design(self) -> Result<Design> {
-        let design = Design::from_yaml_str(assets::DESIGNS[0].yaml)?;
-        let upper = matches!(self, Self::Shirt | Self::Dress);
-        design.set_v(
-            "meta.upper",
-            if upper {
-                Value::Str("Shirt".into())
-            } else {
-                Value::Null
-            },
-        );
-        design.set_v(
-            "meta.bottom",
-            match self {
-                Self::Shirt => Value::Null,
-                Self::Trousers => Value::Str("Pants".into()),
-                _ => Value::Str("Skirt2".into()),
-            },
-        );
-        design.set_v(
-            "meta.wb",
-            if upper {
-                Value::Null
-            } else {
-                Value::Str("FittedWB".into())
-            },
-        );
-        // Author each selectable style explicitly: the T-shirt asset's dormant
-        // lower-body parameters otherwise describe shorts and a broad circle skirt.
-        design.set_f("pants.length", 0.9);
-        design.set_f("skirt.length", 0.45);
-        design.set_f("skirt.ruffle", 1.0);
-        design.set_f("skirt.flare", 1.0);
-        design.set_f("waistband.waist", 1.03);
-        if matches!(self, Self::Dress) {
-            design.set_f("shirt.length", 1.0);
-        }
-        Ok(design)
-    }
-}
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum FabricPreset {
-    Cotton,
-    Silk,
-    Denim,
-    Wool,
-    Jersey,
-}
-impl FabricPreset {
-    pub const ALL: [Self; 5] = [
-        Self::Cotton,
-        Self::Silk,
-        Self::Denim,
-        Self::Wool,
-        Self::Jersey,
-    ];
-    pub fn label(self) -> &'static str {
-        match self {
-            Self::Cotton => "Cotton",
-            Self::Silk => "Silk",
-            Self::Denim => "Denim",
-            Self::Wool => "Wool",
-            Self::Jersey => "Jersey",
-        }
-    }
-    pub fn fabric(self) -> Fabric {
-        let mut fabric = match self {
-            Self::Cotton => Fabric::COTTON,
-            Self::Silk => Fabric::SILK,
-            Self::Denim => Fabric::DENIM,
-            Self::Wool => Fabric::WOOL,
-            Self::Jersey => Fabric::JERSEY,
-        };
-        fabric.bend_compliance *= 100.0;
-        fabric
-    }
-}
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct GarmentSelection {
-    pub preset: GarmentPreset,
-    pub fabric: FabricPreset,
-    pub resolution_cm: f32,
-    pub steps: u32,
-}
-impl Default for GarmentSelection {
-    fn default() -> Self {
-        Self {
-            preset: GarmentPreset::Shirt,
-            fabric: FabricPreset::Cotton,
-            resolution_cm: 3.5,
-            steps: 180,
-        }
-    }
-}
-impl GarmentSelection {
-    pub fn validate(&self) -> Result<()> {
-        if !self.resolution_cm.is_finite() || !(2.5..=6.0).contains(&self.resolution_cm) {
-            bail!("cloth resolution must be between 2.5 and 6 cm");
-        }
-        if !(30..=600).contains(&self.steps) {
-            bail!("draping requires between 30 and 600 steps");
-        }
-        Ok(())
-    }
-}
+mod armor;
+mod export;
+mod finish;
+mod placement;
+mod presets;
+mod shading;
+mod stages;
+mod validation;
+pub use presets::{FabricPreset, GarmentPreset, GarmentSelection};
+pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
+
 #[derive(Clone)]
 pub struct DrapeInput {
+    pub armor: Option<fabelgeist_armor::Armor>,
     pub selection: GarmentSelection,
     pub obstacles: Vec<DrapedGarment>,
     pub positions: Vec<[f32; 3]>,
@@ -149,13 +37,37 @@ pub struct DrapeInput {
 }
 #[derive(Clone)]
 pub struct DrapedGarment {
+    pub preset: GarmentPreset,
     pub name: String,
+    pub fabric: FabricPreset,
+    pub texcoords: Vec<[f32; 2]>,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
     pub indices: Vec<[u32; 8]>,
     pub weights: Vec<[f32; 8]>,
-    pub frame: u32,
+    pub stage: DrapeStage,
+}
+
+/// How far a garment has progressed through draping.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DrapeStage {
+    /// Flat panels placed around the wearer, before any simulation.
+    Placed,
+    /// Seams closing without gravity; panels are still separate.
+    Sewing { step: u32, of: u32 },
+    /// Sewn garment settling under gravity.
+    Settling { step: u32, of: u32 },
+}
+
+impl std::fmt::Display for DrapeStage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Placed => f.write_str("panels placed"),
+            Self::Sewing { step, of } => write!(f, "sewing step {step}/{of}"),
+            Self::Settling { step, of } => write!(f, "settling step {step}/{of}"),
+        }
+    }
 }
 fn vector(p: [f32; 3]) -> Vec3 {
     Vec3::new(p[0], p[1], p[2])
@@ -196,164 +108,53 @@ pub fn measured_body(input: &DrapeInput) -> Result<Body> {
     )
 }
 
-pub fn drape(
-    input: DrapeInput,
-    cancel: &AtomicBool,
-    mut preview: impl FnMut(DrapedGarment),
-) -> Result<DrapedGarment> {
-    input.selection.validate()?;
-    let cancelled = || -> Result<()> {
-        if cancel.load(Ordering::Relaxed) {
-            bail!("Draping cancelled");
-        }
-        Ok(())
-    };
-    cancelled()?;
-    let body = measured_body(&input).context("measuring the character")?;
-    cancelled()?;
-    let design = input.selection.preset.design()?;
-    let pattern = MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
-    let fabric = input.selection.fabric.fabric();
-    let settings = FitSettings {
-        resolution_cm: input.selection.resolution_cm,
-        body_height_cm: body.get("height") as f32,
-        ..Default::default()
-    };
-    let build = build_garment(&pattern, &settings, &fabric)?;
-    if !build.skipped.is_empty() || build.mesh.triangles.is_empty() {
-        bail!(
-            "garment meshing failed; skipped panels: {:?}",
-            build.skipped
-        );
-    }
-    cancelled()?;
-    tokio::runtime::Builder::new_current_thread()
-        .enable_all()
-        .build()?
-        .block_on(async {
-            let context = fabelgeist_gpu::prelude::WgpuContext::new().await?;
-            let mut fit = Fit::new(context, &build, fabric, &settings)?;
-            // Pattern placement is measured from the floor and the pelvis centre.
-            // Keep the actual body size: translate the garment, never scale the body.
-            let floor = input
-                .positions
-                .iter()
-                .map(|p| p[1])
-                .fold(f32::INFINITY, f32::min);
-            let hip =
-                |name: &str| input.joints[input.names.iter().position(|n| n == name).unwrap()];
-            let (left, right) = (hip("l_upleg"), hip("r_upleg"));
-            let mut pose = fabelgeist_garment_fit::GarmentPose::for_mesh(&build.mesh);
-            pose.garment.offset = Vec3::new(
-                (left[0] + right[0]) * 0.5,
-                floor,
-                (left[2] + right[2]) * 0.5,
-            );
-            fit.set_pose(pose)?;
-            let vertices = input
-                .positions
-                .iter()
-                .copied()
-                .map(vector)
-                .collect::<Vec<_>>();
-            let mut collision_vertices = vertices.clone();
-            let mut collision_faces = input.faces.clone();
-            for garment in &input.obstacles {
-                let offset = collision_vertices.len() as u32;
-                collision_vertices.extend(garment.positions.iter().copied().map(vector));
-                collision_faces.extend(garment.faces.iter().map(|face| face.map(|i| i + offset)));
-            }
-            let collision = fabelgeist_bvh::TriangleBvh::new(
-                collision_vertices.clone(),
-                collision_faces.clone(),
-            );
-            let mut placed = fit.placed_positions();
-            clear_panels(
-                &mut placed,
-                &build.mesh,
-                &collision,
-                settings.body_offset_cm * 0.01 + fabric.particle_radius(),
-            );
-            fit.cloth.particles.write_positions(&fit.context, &placed)?;
-            fit.set_body(&vertices, &input.faces, &settings, &fabric)
-                .await?;
-            if !input.obstacles.is_empty() {
-                fit.set_collision_mesh(&collision_vertices, &collision_faces, &settings, &fabric)?;
-            }
-            let surface = SewnSurface::new(
-                build.mesh.positions.len(),
-                &build.mesh.seams,
-                &build.mesh.triangles,
-            );
-            // Close the seams before gravity can pull the still-separated panels
-            // below their supporting shoulders or waistband.
-            fit.solver.settings.gravity = Vec3::default();
-            fit.solver.settings.damping = 8.0;
-            for _ in 0..60 {
-                cancelled()?;
-                fit.step_and_wait(1.0 / 60.0).await?;
-            }
-            let sewn = fit.cloth.read_positions(&fit.context).await?;
-            fit.cloth.particles.write_positions(&fit.context, &sewn)?;
-            fit.solver.settings.gravity = Vec3::new(0.0, -9.81, 0.0);
-            fit.solver.settings.damping = fabric.damping;
-            let mut output = DrapedGarment {
-                name: format!(
-                    "{} · {}",
-                    input.selection.preset.label(),
-                    input.selection.fabric.label()
-                ),
-                positions: Vec::new(),
-                normals: Vec::new(),
-                faces: surface.faces.clone(),
-                indices: Vec::new(),
-                weights: Vec::new(),
-                frame: 0,
-            };
-            for frame in 0..=input.selection.steps {
-                cancelled()?;
-                if frame > 0 {
-                    fit.step_and_wait(1.0 / 60.0).await?;
-                }
-                if frame % 6 == 0 || frame == input.selection.steps {
-                    let sewn = surface.positions(&fit.positions().await?);
-                    output.positions = sewn;
-                    clear_surface(
-                        &mut output.positions,
-                        &collision,
-                        settings.body_offset_cm * 0.01 + fabric.particle_radius(),
-                    );
-                    if output.positions.iter().flatten().any(|x| !x.is_finite()) {
-                        bail!("cloth simulation produced non-finite positions");
-                    }
-                    orient_faces(&output.positions, &mut output.faces, &collision);
-                    output.normals = normals(&output.positions, &output.faces);
-                    output.frame = frame;
-                    preview(output.clone());
-                }
-            }
-            cancelled()?;
-            (output.indices, output.weights) = transfer_skin(&input, &output.positions)?;
-            Ok(output)
-        })
+mod drape;
+pub use drape::drape;
+
+/// One garment's drape result, and the stages it completed either way.
+pub struct DrapeOutcome {
+    pub result: Result<DrapedGarment>,
+    pub checkpoints: DrapeCheckpoints,
 }
 
+/// An outfit's drape result, with checkpoints for every garment attempted.
+pub struct OutfitOutcome {
+    pub garments: Result<Vec<DrapedGarment>>,
+    pub checkpoints: Vec<DrapeCheckpoints>,
+}
+
+/// Drape garments inside to outside. `previous` holds the last outfit drape's
+/// checkpoints, so each garment re-runs only from its first changed stage.
 pub fn drape_outfit(
     inputs: Vec<DrapeInput>,
+    previous: Vec<DrapeCheckpoints>,
     cancel: &AtomicBool,
     mut preview: impl FnMut(Vec<DrapedGarment>),
-) -> Result<Vec<DrapedGarment>> {
+) -> OutfitOutcome {
     let mut finished = Vec::new();
-    for mut input in inputs {
+    let mut checkpoints = Vec::new();
+    for (index, mut input) in inputs.into_iter().enumerate() {
         input.obstacles = finished.clone();
-        let garment = drape(input, cancel, |current| {
+        let outcome = drape(input, previous.get(index), cancel, |current| {
             let mut snapshot = finished.clone();
             snapshot.push(current);
             preview(snapshot);
-        })?;
-        finished.push(garment);
+        });
+        checkpoints.push(outcome.checkpoints);
+        match outcome.result {
+            Ok(garment) => finished.push(garment),
+            Err(error) => {
+                return OutfitOutcome {
+                    garments: Err(error),
+                    checkpoints,
+                };
+            }
+        }
     }
-    Ok(finished)
+    OutfitOutcome {
+        garments: Ok(finished),
+        checkpoints,
+    }
 }
 
 fn clear_panels(
@@ -413,30 +214,34 @@ fn clear_panels(
     }
 }
 
-fn clear_surface(positions: &mut [[f32; 3]], body: &fabelgeist_bvh::TriangleBvh, margin: f32) {
-    for position in positions {
-        let point = vector(*position);
-        let Some((triangle, closest, _)) = body.closest_point(point, f32::MAX) else {
-            continue;
-        };
-        let [a, b, c] = body.triangles[triangle as usize].map(|i| body.positions[i as usize]);
-        let raw_normal = (b - a).cross(c - a);
-        if raw_normal.length() <= 1e-10 {
-            continue;
-        }
-        let normal = raw_normal / raw_normal.length();
-        let signed = (point - closest).dot(normal);
-        if signed < margin {
-            *position = array(point + normal * (margin - signed));
-        }
-    }
-}
-
 struct SewnSurface {
     groups: Vec<Vec<usize>>,
     faces: Vec<[u32; 3]>,
+    render_faces: Vec<usize>,
 }
 impl SewnSurface {
+    fn from_positions(positions: &[[f32; 3]], faces: &[[u32; 3]]) -> Self {
+        let mut first = std::collections::BTreeMap::new();
+        let seams: Vec<_> = positions
+            .iter()
+            .enumerate()
+            .filter_map(|(i, p)| {
+                first
+                    .insert(p.map(f32::to_bits), i as u32)
+                    .map(|other| [other, i as u32])
+            })
+            .collect();
+        Self::new(positions.len(), &seams, faces)
+    }
+    fn expand(&self, sewn: &[[f32; 3]]) -> Vec<[f32; 3]> {
+        let mut positions = vec![[0.0; 3]; self.groups.iter().map(Vec::len).sum()];
+        for (group, position) in self.groups.iter().zip(sewn) {
+            for &vertex in group {
+                positions[vertex] = *position;
+            }
+        }
+        positions
+    }
     fn new(count: usize, seams: &[[u32; 2]], triangles: &[[u32; 3]]) -> Self {
         let mut parents: Vec<_> = (0..count).collect();
         fn root(parents: &[usize], mut vertex: usize) -> usize {
@@ -463,12 +268,23 @@ impl SewnSurface {
             groups[id].push(vertex);
             mapping[vertex] = id as u32;
         }
-        let faces = triangles
+        let render_faces: Vec<_> = triangles
             .iter()
-            .map(|face| face.map(|i| mapping[i as usize]))
-            .filter(|face| face[0] != face[1] && face[1] != face[2] && face[2] != face[0])
+            .enumerate()
+            .filter_map(|(index, face)| {
+                let f = face.map(|i| mapping[i as usize]);
+                (f[0] != f[1] && f[1] != f[2] && f[2] != f[0]).then_some(index)
+            })
             .collect();
-        Self { groups, faces }
+        let faces = render_faces
+            .iter()
+            .map(|&i| triangles[i].map(|v| mapping[v as usize]))
+            .collect();
+        Self {
+            groups,
+            faces,
+            render_faces,
+        }
     }
     fn positions(&self, source: &[[f32; 3]]) -> Vec<[f32; 3]> {
         self.groups
@@ -720,8 +536,35 @@ mod tests {
         }
     }
     #[test]
+    fn flat_mail_panels_do_not_inflate_from_self_contact() {
+        let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
+        let preset = GarmentPreset::FittedShirt;
+        let pattern = MetaGarment::new("rest contact", &body, &preset.design().unwrap()).assembly();
+        let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
+        let start = build.mesh.positions.clone();
+        let mut points = start.clone();
+        let masses = vec![1.0; start.len()];
+        let contacts = fabelgeist_cloth::surface_contact::SurfaceContacts::new(
+            start.len(),
+            build.mesh.triangles.clone(),
+        )
+        .with_seams(&build.mesh.seams);
+        let count = contacts.solve(&mut points, &start, &masses, Fabric::CHAINMAIL.thickness, 1);
+        let movement = points
+            .iter()
+            .zip(&start)
+            .map(|(a, b)| (*a - *b).length())
+            .fold(0.0, f32::max);
+        assert!(
+            movement < 1e-6,
+            "{count} contacts moved flat mail by {} mm",
+            movement * 1000.0
+        );
+    }
+    #[test]
     fn garment_skin_interpolates_and_normalizes_body_influences() {
         let input = DrapeInput {
+            armor: None,
             selection: GarmentSelection::default(),
             obstacles: vec![],
             positions: vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]],
@@ -760,6 +603,7 @@ mod seam_and_leg_regression {
     #[test]
     fn dress_center_is_continuous_and_sides_retain_opposing_leg_motion() {
         let input = DrapeInput {
+            armor: None,
             selection: GarmentSelection {
                 preset: GarmentPreset::Dress,
                 ..Default::default()

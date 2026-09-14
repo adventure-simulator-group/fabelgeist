@@ -23,11 +23,11 @@ impl<'a> GlbOutput<'a> {
 }
 
 #[derive(Clone, Copy)]
-pub struct SurfaceTextures {
-    pub base_color_png: &'static [u8],
-    pub normal_png: &'static [u8],
+pub struct SurfaceTextures<'a> {
+    pub base_color_png: &'a [u8],
+    pub normal_png: &'a [u8],
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
-    pub occlusion_png: Option<&'static [u8]>,
+    pub occlusion_png: Option<&'a [u8]>,
     pub cutout: bool,
 }
 
@@ -61,7 +61,7 @@ impl ShellTextures {
 pub(super) struct TextureImages {
     images: Vec<Value>,
     textures: Vec<Value>,
-    shared_files: Option<BTreeMap<String, &'static [u8]>>,
+    shared_files: Option<BTreeMap<String, Vec<u8>>>,
     shell_cache: std::collections::HashMap<*const ShellTextures, (usize, usize)>,
 }
 
@@ -73,11 +73,11 @@ impl TextureImages {
         }
     }
 
-    fn image(&mut self, bytes: &'static [u8], buffer: &mut BufferBuilder) -> usize {
+    fn image(&mut self, bytes: &[u8], buffer: &mut BufferBuilder) -> usize {
         let index = self.images.len();
         let source = if let Some(files) = &mut self.shared_files {
             let filename = format!("texture-{}.png", blake3::hash(bytes).to_hex());
-            files.insert(filename.clone(), bytes);
+            files.insert(filename.clone(), bytes.to_vec());
             json!({"uri":filename,"mimeType":"image/png"})
         } else {
             json!({"bufferView":buffer.push(bytes, None),"mimeType":"image/png"})
@@ -122,7 +122,7 @@ impl TextureImages {
 
     pub fn apply(
         &mut self,
-        maps: SurfaceTextures,
+        maps: SurfaceTextures<'_>,
         buffer: &mut BufferBuilder,
         material: &mut Value,
     ) {

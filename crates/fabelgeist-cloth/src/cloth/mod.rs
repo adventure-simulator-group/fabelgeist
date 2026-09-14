@@ -13,9 +13,37 @@ use crate::garment::GarmentMesh;
 use crate::selfcollision::SelfCollision;
 use crate::wgsl;
 
+/// When swept contacts and outer layers are resolved between GPU substeps.
+/// Swept contacts stay on the device; an outer layer still reads particles
+/// back and waits for the GPU, so with armor this schedule dominates the cost
+/// of an interleaved step.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct HostContactSchedule {
+    /// GPU substeps swept by one host projection. Zero leaves contact to the
+    /// GPU collider and self-collision kernels.
+    pub interval_substeps: u32,
+    /// Projection sweeps in one surface contact solve.
+    pub iterations: u32,
+    /// Alternations between an outer layer and surface contacts.
+    pub outer_layer_passes: u32,
+}
+
+impl Default for HostContactSchedule {
+    fn default() -> Self {
+        Self {
+            interval_substeps: 1,
+            iterations: 4,
+            outer_layer_passes: 4,
+        }
+    }
+}
+
 /// A simulable garment.
 pub struct Cloth {
+    pub outer_layer: Option<crate::outer_layer::OuterLayer>,
+    pub host_contacts: HostContactSchedule,
     pub particles: Particles,
+    surface_contacts: crate::gpu_contact::GpuSurfaceContacts,
     pub stretch: ConstraintSet,
     pub bending: ConstraintSet,
     pub seams: ConstraintSet,
@@ -101,6 +129,15 @@ impl Cloth {
         )?;
 
         Ok(Self {
+            outer_layer: None,
+            host_contacts: HostContactSchedule::default(),
+            surface_contacts: crate::gpu_contact::GpuSurfaceContacts::new(
+                context,
+                cache,
+                mesh.positions.len() as u32,
+                &mesh.triangles,
+                &mesh.seams,
+            )?,
             particles,
             stretch,
             bending,
@@ -111,6 +148,17 @@ impl Cloth {
             initial_positions: mesh.positions.clone(),
             inverse_masses,
         })
+    }
+
+    pub fn set_collision_surface(
+        &mut self,
+        context: &WgpuContext,
+        positions: &[Vec3],
+        faces: &[[u32; 3]],
+        clearance: f32,
+    ) -> Result<()> {
+        self.surface_contacts
+            .set_static_surface(context, positions, faces, clearance)
     }
 
     pub fn particle_count(&self) -> u32 {
@@ -189,29 +237,93 @@ impl Cloth {
     ///
     /// This is the one to call when the solver shares a device with whatever
     /// is drawing the result, which for an interactive fit it always does.
-    pub fn step_interleaved(
+    pub async fn step_interleaved(
         &mut self,
         context: &WgpuContext,
         solver: &Solver,
         collisions: &mut Collisions,
         delta: f32,
     ) -> Result<()> {
+        if !delta.is_finite() || delta <= 0.0 {
+            return Ok(());
+        }
+        let count = solver.settings.substeps.max(1);
+        let substep = delta / count as f32;
+        let schedule = self.host_contacts;
+        let interval = schedule.interval_substeps;
         collisions.particle_radius = self.fabric.particle_radius();
-
-        let mut hook = ClothHook {
-            collisions,
-            self_collision: &mut self.self_collision,
-        };
-
-        solver.step_interleaved(
-            context,
-            &self.particles,
-            &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
-            &mut hook,
-            delta,
-        )
+        let mut from_interval_start = false;
+        for index in 0..count {
+            let mut batch = KernelBatch::labelled(context, "surface contact substep");
+            if interval > 1 && index % interval == 0 {
+                // Sweep the whole interval, not only its last GPU substep.
+                self.surface_contacts
+                    .record_interval_start(&mut batch, &self.particles)?;
+                from_interval_start = true;
+            }
+            let mut hook = ClothHook {
+                collisions,
+                self_collision: &mut self.self_collision,
+            };
+            solver.record_substep(
+                &mut batch,
+                &self.particles,
+                &mut [&mut self.stretch, &mut self.seams, &mut self.bending],
+                &mut hook,
+                substep,
+            )?;
+            batch.submit();
+            if interval > 0 && ((index + 1) % interval == 0 || index + 1 == count) {
+                self.project_host_contacts(context, schedule, from_interval_start)
+                    .await?;
+                from_interval_start = false;
+            }
+        }
+        if interval == 0 {
+            // Bound the queue: a caller stepping on a timer must not outrun the GPU.
+            context.submitted_work_done().await;
+        }
+        Ok(())
     }
 
+    async fn project_host_contacts(
+        &mut self,
+        context: &WgpuContext,
+        schedule: HostContactSchedule,
+        from_interval_start: bool,
+    ) -> Result<()> {
+        // Alternate the outer layer and swept self contacts. Neither may
+        // silently win merely because it is the last positional correction.
+        for _ in 0..schedule.outer_layer_passes.max(1) {
+            if let Some(layer) = &self.outer_layer {
+                layer
+                    .project_particles(context, &self.particles, &self.triangles)
+                    .await?;
+            }
+            if self.self_collision.enabled {
+                self.surface_contacts.project(
+                    context,
+                    &self.particles,
+                    self.fabric.thickness,
+                    schedule.iterations,
+                    from_interval_start,
+                )?;
+            }
+            let Some(layer) = &self.outer_layer else {
+                // Bound the queue: a caller stepping on a timer must not
+                // outrun the contact passes it has submitted.
+                context.submitted_work_done().await;
+                break;
+            };
+            let positions = self.particles.read_positions(context).await?;
+            if layer.surface_residual(&positions, &self.triangles)
+                <= crate::outer_layer::CLEARANCE_TOLERANCE
+            {
+                break;
+            }
+        }
+        Ok(())
+    }
     pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
         self.particles.read_positions(context).await
     }

@@ -19,7 +19,15 @@ STEEL_BASE_COLOR_SRGB = .71
 
 def main():
     import bpy
-    output = Path(sys.argv[sys.argv.index("--") + 1]).resolve()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("output", type=Path)
+    parser.add_argument("--row-pitch-mm", type=float, default=PITCH_Y_M * 1000)
+    args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
+    if not 1.0 <= args.row_pitch_mm <= 2.5:
+        parser.error("row pitch must keep adjacent rings interlinked (1–2.5 mm)")
+    pitch_y = args.row_pitch_mm / 1000
+    output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     bpy.ops.object.select_all(action="SELECT")
     bpy.ops.object.delete(use_global=False)
@@ -31,7 +39,7 @@ def main():
     scene.cycles.use_denoising = False
     scene.render.dither_intensity = 0
     scene.render.resolution_x = 512
-    scene.render.resolution_y = round(512 * 2 * PITCH_Y_M / PITCH_X_M)
+    scene.render.resolution_y = round(512 * 2 * pitch_y / PITCH_X_M)
     scene.render.resolution_percentage = 100
     scene.render.film_transparent = True
     scene.view_settings.view_transform = "Raw"
@@ -48,7 +56,7 @@ def main():
         for column in range(-2, 4):
             bpy.ops.mesh.primitive_torus_add(major_segments=64, minor_segments=20,
                 major_radius=RING_RADIUS_M, minor_radius=WIRE_RADIUS_M,
-                location=((column + (row % 2) * .5) * PITCH_X_M, row * PITCH_Y_M, 0),
+                location=((column + (row % 2) * .5) * PITCH_X_M, row * pitch_y, 0),
                 rotation=(INCLINATION_RADIANS * (-1 if row % 2 else 1), 0, 0))
             obj = bpy.context.object
             obj.data.materials.append(material)
@@ -57,7 +65,7 @@ def main():
     camera = bpy.data.objects.new("Orthographic construction chart", bpy.data.cameras.new("Camera"))
     bpy.context.collection.objects.link(camera)
     scene.camera = camera
-    camera.location = (PITCH_X_M / 2, PITCH_Y_M, .03)
+    camera.location = (PITCH_X_M / 2, pitch_y, .03)
     camera.data.type = "ORTHO"
     camera.data.ortho_scale = PITCH_X_M
     camera.data.clip_start = .0001

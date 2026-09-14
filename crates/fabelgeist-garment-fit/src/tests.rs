@@ -398,7 +398,7 @@ async fn a_preset_garment_sews_itself_together() -> anyhow::Result<()> {
     let before = mean_seam_span(&build);
     let mut fit = Fit::new(context, &build, fabric, &settings)?;
     for _ in 0..240 {
-        fit.step(1.0 / 60.0)?;
+        fit.step(1.0 / 60.0).await?;
     }
 
     let positions = fit.positions().await?;
@@ -467,7 +467,7 @@ async fn a_garment_stays_outside_a_body() -> anyhow::Result<()> {
     )?;
 
     for _ in 0..240 {
-        fit.step(1.0 / 60.0)?;
+        fit.step(1.0 / 60.0).await?;
     }
 
     let positions = fit.positions().await?;

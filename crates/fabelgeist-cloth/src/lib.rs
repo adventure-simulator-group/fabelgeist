@@ -12,6 +12,8 @@
 //!   space and turns the seam list into constraints.
 //! * [`Fabric`] -- density, compliance, thickness and friction, with presets.
 //! * [`SelfCollision`] -- a uniform spatial hash, rebuilt every substep.
+//! * [`gpu_contact`] -- swept face and edge contacts between substeps, on the
+//!   device. [`surface_contact`] is the same solve on the host.
 //! * [`Cloth`] -- all of it together, plus the step.
 //!
 //! Nothing here knows about any particular pattern library. A caller converts
@@ -21,13 +23,15 @@ mod ccd;
 pub mod cloth;
 pub mod fabric;
 pub mod garment;
+pub mod gpu_contact;
+pub mod outer_layer;
 pub mod selfcollision;
 pub mod surface_contact;
 pub mod topology;
 pub mod triangulate;
 pub mod wgsl;
 
-pub use cloth::Cloth;
+pub use cloth::{Cloth, HostContactSchedule};
 pub use fabric::Fabric;
 pub use garment::{GarmentMesh, Panel, Placement, Seam, SeamSide, build};
 pub use selfcollision::SelfCollision;

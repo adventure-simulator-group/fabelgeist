@@ -1,3 +1,8 @@
+mod cloth_motion;
+mod cloth_render;
+#[cfg(test)]
+use cloth_motion::simulate;
+mod colliders;
 use super::*;
 use bevy::{
     animation::{AnimatedBy, AnimationTargetId},
@@ -7,6 +12,7 @@ use bevy::{
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
     },
 };
+pub use colliders::ArmorSkin;
 
 #[derive(Resource, Default)]
 pub struct WalkPreview {
@@ -281,7 +287,8 @@ pub struct BodySkin {
 
 #[derive(Component)]
 pub struct ClothSkin {
-    name: String,
+    render_vertices: Option<Vec<usize>>,
+    preset: GarmentPreset,
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     edges: Vec<[u32; 2]>,
@@ -294,7 +301,7 @@ pub struct ClothSkin {
 
 impl ClothSkin {
     pub fn new(
-        name: String,
+        preset: GarmentPreset,
         positions: Vec<[f32; 3]>,
         _normals: Vec<[f32; 3]>,
         faces: Vec<[u32; 3]>,
@@ -309,7 +316,8 @@ impl ClothSkin {
         }
         let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
         Self {
-            name,
+            render_vertices: None,
+            preset,
             positions,
             faces,
             edges: edges.into_iter().collect(),
@@ -334,6 +342,7 @@ pub fn deform_cloth(
     binds: Res<Assets<SkinnedMeshInverseBindposes>>,
     joints: Query<&GlobalTransform>,
     bodies: Query<&BodySkin>,
+    armor: Query<&ArmorSkin>,
     mut cloth: Query<(&Mesh3d, &mut ClothSkin)>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut body_motion: Local<BodyMotion>,
@@ -360,17 +369,13 @@ pub fn deform_cloth(
     };
     let rig = preview.joints.first().copied();
     let body = bodies.iter().next().map(|body| {
-        let end = skinned_positions(&body.positions, &body.indices, &body.weights, &matrices);
+        let (rest, end, faces) = colliders::posed_colliders(body, &armor, &matrices);
         let start = if body_motion.rig == rig && body_motion.positions.len() == end.len() {
             body_motion.positions.clone()
         } else {
-            body.positions
-                .iter()
-                .copied()
-                .map(Vec3::from_array)
-                .collect()
+            rest
         };
-        (start, end, body.faces.clone())
+        (start, end, faces)
     });
     let targets: Vec<_> = cloth
         .iter()
@@ -389,93 +394,13 @@ pub fn deform_cloth(
         .collect();
 
     if preview.physics {
-        let count = preview.simulation.substeps.max(1);
-        let step = time.delta_secs().min(1.0 / 30.0) / count as f32;
-        let mut settings = preview.simulation.clone();
-        settings.substeps = 1;
-        let mut faces = Vec::new();
-        let mut cloth_count = 0;
-        for (_, mut skin) in &mut cloth {
-            if !skin.simulating {
-                skin.previous = skin.current.clone();
-                skin.simulating = true;
-            }
-            faces.extend(skin.faces.iter().map(|f| f.map(|v| v + cloth_count as u32)));
-            cloth_count += skin.current.len();
-        }
-        let mut masses = vec![1.0; cloth_count];
-        if let Some((_, end, body_faces)) = &body {
-            faces.extend(body_faces.iter().map(|f| f.map(|v| v + cloth_count as u32)));
-            masses.resize(cloth_count + end.len(), 0.0);
-        }
-        let contacts = preview
-            .simulation
-            .self_collision
-            .then(|| fabelgeist_cloth::surface_contact::SurfaceContacts::new(masses.len(), faces));
-        for substep in 0..count {
-            let t0 = substep as f32 / count as f32;
-            let t1 = (substep + 1) as f32 / count as f32;
-            let body_surface = body.as_ref().map(|(start, end, faces)| {
-                let current: Vec<_> = start.iter().zip(end).map(|(a, b)| a.lerp(*b, t1)).collect();
-                let bvh = fabelgeist_bvh::TriangleBvh::new(
-                    current.iter().copied().map(collision_vector).collect(),
-                    faces.clone(),
-                );
-                (current, faces.clone(), bvh)
-            });
-            // All cloth and body motion describe the SAME interval. A frame-end
-            // correction misses crossings that occur between solver substeps.
-            let mut previous: Vec<_> = cloth
-                .iter()
-                .flat_map(|(_, skin)| skin.current.iter().copied().map(collision_vector))
-                .collect();
-            for (index, (_, mut skin)) in cloth.iter_mut().enumerate() {
-                simulate(
-                    &mut skin,
-                    targets[index].as_deref(),
-                    body_surface.as_ref(),
-                    step,
-                    &settings,
-                );
-            }
-            if let Some(contacts) = &contacts {
-                let mut positions: Vec<_> = cloth
-                    .iter()
-                    .flat_map(|(_, skin)| skin.current.iter().copied().map(collision_vector))
-                    .collect();
-                if let Some((start, end, _)) = &body {
-                    previous.extend(
-                        start
-                            .iter()
-                            .zip(end)
-                            .map(|(a, b)| collision_vector(a.lerp(*b, t0))),
-                    );
-                }
-                if let Some((current, _, _)) = &body_surface {
-                    positions.extend(current.iter().copied().map(collision_vector));
-                }
-                contacts.solve(
-                    &mut positions,
-                    &previous,
-                    &masses,
-                    settings.cloth_thickness,
-                    settings.contact_iterations,
-                );
-                let mut offset = 0;
-                for (_, mut skin) in &mut cloth {
-                    for v in 0..skin.current.len() {
-                        let p = positions[offset];
-                        let corrected = Vec3::new(p.x, p.y, p.z);
-                        let normal = (corrected - skin.current[v]).normalize_or_zero();
-                        let velocity = skin.current[v] - skin.previous[v];
-                        let velocity = velocity - normal * velocity.dot(normal).min(0.0);
-                        skin.current[v] = corrected;
-                        skin.previous[v] = corrected - velocity;
-                        offset += 1;
-                    }
-                }
-            }
-        }
+        cloth_motion::simulate_outfit(
+            &mut cloth,
+            &body,
+            &targets,
+            time.delta_secs(),
+            &preview.simulation,
+        );
     } else {
         for (index, (_, mut skin)) in cloth.iter_mut().enumerate() {
             let target = targets[index]
@@ -495,20 +420,7 @@ pub fn deform_cloth(
     }
     for (handle, skin) in &cloth {
         if let Some(mut mesh) = meshes.get_mut(handle) {
-            mesh.insert_attribute(
-                Mesh::ATTRIBUTE_POSITION,
-                skin.current
-                    .iter()
-                    .map(|p| p.to_array())
-                    .collect::<Vec<_>>(),
-            );
-            mesh.insert_attribute(
-                Mesh::ATTRIBUTE_NORMAL,
-                surface_normals(&skin.current, &skin.faces)
-                    .iter()
-                    .map(|n| n.to_array())
-                    .collect::<Vec<_>>(),
-            );
+            skin.update_render_mesh(&mut mesh);
         }
     }
 }
@@ -527,73 +439,6 @@ fn skinned_positions(
         .enumerate()
         .map(|(v, p)| blend_point(Vec3::from_array(*p), indices[v], weights[v], matrices))
         .collect()
-}
-
-fn simulate(
-    skin: &mut ClothSkin,
-    targets: Option<&[Vec3]>,
-    body: Option<&(Vec<Vec3>, Vec<[u32; 3]>, fabelgeist_bvh::TriangleBvh)>,
-    dt: f32,
-    settings: &SimulationSettings,
-) {
-    let substeps = settings.substeps.max(1);
-    let step = dt / substeps as f32;
-    let follow = if skin.name.starts_with("Trousers") {
-        0.22
-    } else if skin.name.starts_with("Skirt") || skin.name.starts_with("Dress") {
-        0.075
-    } else {
-        0.14
-    };
-    for _ in 0..substeps {
-        for v in 0..skin.current.len() {
-            let position = skin.current[v];
-            let velocity = (position - skin.previous[v]) * (1.0 - settings.damping);
-            skin.previous[v] = position;
-            skin.current[v] = position
-                + velocity
-                + Vec3::new(0.0, -settings.gravity, 0.0) * step * step
-                + targets.map_or(Vec3::ZERO, |targets| {
-                    (targets[v] - position) * (follow * settings.follow_strength).min(1.0)
-                });
-        }
-        for _ in 0..settings.iterations {
-            for &[a, b] in &skin.edges {
-                let (a, b) = (a as usize, b as usize);
-                let delta = skin.current[b] - skin.current[a];
-                let length = delta.length();
-                // Fabric rest lengths do not change when the skeleton moves.
-                let target_length = (Vec3::from_array(skin.positions[b])
-                    - Vec3::from_array(skin.positions[a]))
-                .length();
-                if length > 1e-7 {
-                    let correction =
-                        delta * (1.0 - target_length / length) * (0.5 * settings.stretch_stiffness);
-                    skin.current[a] += correction;
-                    skin.current[b] -= correction;
-                }
-            }
-            if let Some((body_positions, body_faces, tree)) = body {
-                for point in &mut skin.current {
-                    let Some((triangle, closest, distance)) = tree.closest_point(
-                        fabelgeist_math::Vec3::new(point.x, point.y, point.z),
-                        settings.collision_distance,
-                    ) else {
-                        continue;
-                    };
-                    let [a, b, c] =
-                        body_faces[triangle as usize].map(|v| body_positions[v as usize]);
-                    let normal = (b - a).cross(c - a).normalize_or_zero();
-                    let closest = Vec3::new(closest.x, closest.y, closest.z);
-                    let signed = (*point - closest).dot(normal);
-                    let margin = settings.collision_margin;
-                    if signed < margin && distance < settings.collision_distance {
-                        *point += normal * (margin - signed);
-                    }
-                }
-            }
-        }
-    }
 }
 
 fn surface_normals(positions: &[Vec3], faces: &[[u32; 3]]) -> Vec<Vec3> {
@@ -643,7 +488,7 @@ mod deformation_tests {
     fn simulated_edges_preserve_the_draped_rest_length() {
         let positions = vec![[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
         let mut skin = ClothSkin::new(
-            "Trousers".into(),
+            GarmentPreset::Trousers,
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
@@ -670,7 +515,7 @@ mod deformation_tests {
     fn unweighted_physics_preserves_rest_shape_and_ignores_invalid_skin_weights() {
         let positions = vec![[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
         let mut skin = ClothSkin::new(
-            "Trousers".into(),
+            GarmentPreset::Trousers,
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
@@ -732,7 +577,7 @@ mod deformation_tests {
             );
             let handle = world.resource_mut::<Assets<Mesh>>().add(mesh);
             let skin = ClothSkin::new(
-                "Dress".into(),
+                GarmentPreset::Dress,
                 positions,
                 vec![],
                 vec![[0, 1, 2]],
@@ -793,7 +638,7 @@ mod deformation_tests {
             .spawn((
                 Mesh3d(mesh),
                 ClothSkin::new(
-                    "Dress".into(),
+                    GarmentPreset::Dress,
                     vec![[-0.1, -0.1, 0.0], [0.1, -0.1, 0.0], [0.0, 0.1, 0.0]],
                     vec![],
                     vec![[0, 1, 2]],

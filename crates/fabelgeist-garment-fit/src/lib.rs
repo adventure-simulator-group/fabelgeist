@@ -459,7 +459,12 @@ impl Fit {
             surface,
         )?;
         self.collisions.set_mesh(Some(mesh));
-        Ok(())
+        self.cloth.set_collision_surface(
+            &self.context,
+            vertices,
+            triangles,
+            settings.body_offset_cm * CM_TO_M + fabric.particle_radius(),
+        )
     }
 
     /// The posed positions on the host, before any body clearance.
@@ -564,25 +569,11 @@ impl Fit {
     /// application's own device, alongside the compositor presenting the
     /// window it is drawn in, and a whole step submitted at once occupies the
     /// GPU long enough that the compositor cannot get a swapchain image.
-    pub fn step(&mut self, delta: f32) -> anyhow::Result<()> {
+    pub async fn step(&mut self, delta: f32) -> anyhow::Result<()> {
         self.cloth
-            .step_interleaved(&self.context, &self.solver, &mut self.collisions, delta)?;
+            .step_interleaved(&self.context, &self.solver, &mut self.collisions, delta)
+            .await?;
         self.frames += 1;
-        Ok(())
-    }
-
-    /// Step, then wait for the GPU to finish it.
-    ///
-    /// What an interactive loop must call. A step is tens of milliseconds of
-    /// GPU work and nothing throttles submission, so a loop that steps on a
-    /// timer submits faster than the device drains and the queue grows without
-    /// bound -- for a minute or so, until the driver loses the device and
-    /// takes the window with it. Waiting also hands the compositor sharing
-    /// this device a clear gap between steps.
-    #[cfg_attr(not(test), allow(dead_code))]
-    pub async fn step_and_wait(&mut self, delta: f32) -> anyhow::Result<()> {
-        self.step(delta)?;
-        self.context.submitted_work_done().await;
         Ok(())
     }
 

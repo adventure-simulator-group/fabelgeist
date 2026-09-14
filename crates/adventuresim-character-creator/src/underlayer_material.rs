@@ -1,7 +1,7 @@
 //! Canonical body-atlas material selection follows construction, never equipment visibility.
 use crate::{armor_recipes::ParametricDesign, export::SurfaceTextures};
 
-pub fn textures(design: Option<&ParametricDesign>) -> Option<SurfaceTextures> {
+pub fn textures(design: Option<&ParametricDesign>) -> Option<SurfaceTextures<'static>> {
     match design {
         Some(ParametricDesign::Underlayer(design)) if design.kind.is_mail() => {
             Some(SurfaceTextures {

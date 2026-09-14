@@ -72,26 +72,41 @@ impl WgpuContext {
     /// memory. It ends with the driver losing the device, tens of seconds
     /// later, somewhere with no connection to the code that caused it.
     ///
-    /// Polls rather than blocking, so it is safe on a device shared with a
-    /// renderer -- unlike `poll(wait_indefinitely)`, which parks the calling
-    /// thread until the *whole* queue drains and never returns while something
-    /// else keeps submitting. See [`WgpuContext::blocking_validation`].
+    /// Waits on a submission index rather than the whole queue, so it is safe
+    /// on a device shared with a renderer -- unlike `poll(wait_indefinitely)`,
+    /// which never returns while something else keeps submitting. See
+    /// [`WgpuContext::blocking_validation`].
     pub async fn submitted_work_done(&self) {
-        let (sender, mut receiver) = futures_channel::oneshot::channel();
-        self.queue.on_submitted_work_done(move || {
-            let _ = sender.send(());
-        });
-
-        loop {
-            let _ = self.device.poll(wgpu::PollType::Poll);
-            match receiver.try_recv() {
-                Ok(Some(())) => return,
-                Ok(None) => {
-                    fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+        #[cfg(not(target_arch = "wasm32"))]
+        {
+            // Wait for this point in the queue only. A submission index
+            // returns once earlier work finishes even while a renderer keeps
+            // submitting, and without a sleep's timer granularity, which on
+            // Windows is the system tick rather than a millisecond.
+            let index = self.queue.submit([]);
+            let _ = self.device.poll(wgpu::PollType::Wait {
+                submission_index: Some(index),
+                timeout: None,
+            });
+        }
+        // WebGPU ignores `Wait`; its callbacks run from the event loop.
+        #[cfg(target_arch = "wasm32")]
+        {
+            let (sender, mut receiver) = futures_channel::oneshot::channel();
+            self.queue.on_submitted_work_done(move || {
+                let _ = sender.send(());
+            });
+            loop {
+                let _ = self.device.poll(wgpu::PollType::Poll);
+                match receiver.try_recv() {
+                    Ok(Some(())) => return,
+                    Ok(None) => {
+                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+                    }
+                    // The callback was dropped, which can only happen if the
+                    // device is going away. Nothing left to wait for.
+                    Err(_) => return,
                 }
-                // The callback was dropped, which can only happen if the
-                // device is going away. Nothing left to wait for.
-                Err(_) => return,
             }
         }
     }
