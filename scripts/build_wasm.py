@@ -33,11 +33,13 @@ def sync_assets() -> None:
             shutil.copytree(source, ASSET_DIR, dirs_exist_ok=True)
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--bindgen", default="wasm-bindgen",
                         help="Path to the wasm-bindgen CLI matching Cargo.lock")
-    args = parser.parse_args()
+    parser.add_argument("--keep-name-section", action="store_true",
+                        help="Keep wasm function names for readable panic traces")
+    args = parser.parse_args(argv)
     lock = tomllib.loads((ROOT / "Cargo.lock").read_text(encoding="utf-8"))
     expected = next(p["version"] for p in lock["package"] if p["name"] == "wasm-bindgen")
     wasm_bindgen = shutil.which(args.bindgen)
@@ -53,17 +55,20 @@ def main() -> int:
                   file=sys.stderr)
             return 1
         print("Building WASM client...")
-        run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
+        if shutil.which("rustup"):
+            run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
         run(["cargo", "build", "--package", "adventuresim-tactical-client",
              "--bin", "adventuresim-tactical-client", "--bin", "art-demo",
              "--target", "wasm32-unknown-unknown", "--release"])
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
         for binary in ("adventuresim-tactical-client", "art-demo"):
-            run([
+            bindgen = [
                 wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
-                str(ROOT / "target" / "wasm32-unknown-unknown" / "release" / f"{binary}.wasm"),
-            ])
+            ]
+            if not args.keep_name_section:
+                bindgen.extend(["--remove-name-section", "--remove-producers-section"])
+            run([*bindgen, str(ROOT / "target" / "wasm32-unknown-unknown" / "release" / f"{binary}.wasm")])
         print("Syncing browser assets...")
         sync_assets()
     except (OSError, subprocess.CalledProcessError) as error:

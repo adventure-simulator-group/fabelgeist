@@ -13,34 +13,6 @@ use super::{
     GroundScatterLayer, TreeLeafRepresentation, WoodyUnderstoryPresentationCache, foliage_transform,
 };
 
-const SHRUB_WOOD_END: std::ops::Range<f32> = 10.0..12.0;
-const SHRUB_CAMBERED_LEAF_END: std::ops::Range<f32> = 6.0..8.0;
-const SHRUB_MINIMAL_LEAF_CARD_END: std::ops::Range<f32> = 20.0..24.0;
-
-fn shrub_wood_visibility() -> VisibilityRange {
-    VisibilityRange {
-        start_margin: 0.0..0.0,
-        end_margin: SHRUB_WOOD_END,
-        use_aabb: false,
-    }
-}
-
-fn shrub_cambered_leaf_visibility() -> VisibilityRange {
-    VisibilityRange {
-        start_margin: 0.0..0.0,
-        end_margin: SHRUB_CAMBERED_LEAF_END,
-        use_aabb: true,
-    }
-}
-
-fn shrub_minimal_leaf_card_visibility() -> VisibilityRange {
-    VisibilityRange {
-        start_margin: SHRUB_CAMBERED_LEAF_END,
-        end_margin: SHRUB_MINIMAL_LEAF_CARD_END,
-        use_aabb: true,
-    }
-}
-
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(super) enum UnderstorySpecies {
     CommonHazel,
@@ -173,66 +145,6 @@ pub(super) fn placements(
     sites
 }
 
-#[cfg_attr(
-    all(feature = "instanced-grass", not(target_family = "wasm")),
-    allow(dead_code, reason = "legacy shrub renderer remains the wasm path")
-)]
-pub(super) fn spawn(
-    commands: &mut Commands,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    cache: &WoodyUnderstoryPresentationCache,
-    base_seed: u64,
-    chance: f32,
-    habitat: UnderstoryHabitat,
-) {
-    for placement in placements(terrain, ground, base_seed, chance, habitat) {
-        {
-            let ShrubPlacement {
-                species,
-                world_x,
-                world_z,
-                hash,
-            } = placement;
-            let Some(transform) = foliage_transform(terrain, world_x, world_z, hash) else {
-                continue;
-            };
-            let presentation = cache.presentation(species);
-            let common_name = match species {
-                UnderstorySpecies::CommonHazel => "common hazel",
-                UnderstorySpecies::Blackthorn => "blackthorn",
-                UnderstorySpecies::CommonHawthorn => "common hawthorn",
-            };
-            commands.spawn((
-                Name::new(format!("Shared {common_name} shrub wood")),
-                GroundScatterLayer::Understory,
-                Mesh3d(presentation.branches.as_ref().unwrap().clone()),
-                MeshMaterial3d(presentation.bark.as_ref().unwrap().clone()),
-                shrub_wood_visibility(),
-                transform,
-            ));
-            commands.spawn((
-                Name::new(format!("Shared {common_name} cambered leaves")),
-                GroundScatterLayer::Understory,
-                TreeLeafRepresentation::TexturedMesh,
-                Mesh3d(presentation.cambered_leaves.as_ref().unwrap().clone()),
-                MeshMaterial3d(presentation.leaves.as_ref().unwrap().clone()),
-                shrub_cambered_leaf_visibility(),
-                transform,
-            ));
-            commands.spawn((
-                Name::new(format!("Shared {common_name} minimal alpha-card leaves")),
-                GroundScatterLayer::Understory,
-                TreeLeafRepresentation::AlphaCard,
-                Mesh3d(presentation.minimal_leaf_cards.as_ref().unwrap().clone()),
-                MeshMaterial3d(presentation.leaves.as_ref().unwrap().clone()),
-                shrub_minimal_leaf_card_visibility(),
-                transform,
-            ));
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -343,25 +255,6 @@ mod tests {
             },
             UnderstorySpecies::CommonHazel
         ));
-    }
-
-    #[test]
-    fn shrub_lod_ranges_pin_the_close_detail_and_minimal_card_budget() {
-        let wood = shrub_wood_visibility();
-        let cambered = shrub_cambered_leaf_visibility();
-        let cards = shrub_minimal_leaf_card_visibility();
-
-        assert_eq!(cambered.end_margin, 6.0..8.0);
-        assert_eq!(cards.start_margin, 6.0..8.0);
-        assert_eq!(cards.end_margin, 20.0..24.0);
-        assert_eq!(wood.end_margin, 10.0..12.0);
-
-        // The detailed and minimal representations share one fade band, so
-        // the crown has no uncovered interval during the handoff.
-        assert_eq!(cambered.end_margin, cards.start_margin);
-        // Wood ends beneath the minimal cards, and no physical shrub tier
-        // remains after the 24-metre terminal margin.
-        assert!(wood.end_margin.end < cards.end_margin.start);
     }
 
     #[test]

@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import socket
+import sys
 import tempfile
 import unittest
 from contextlib import redirect_stderr, redirect_stdout
@@ -994,6 +995,9 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(
             dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.COMBAT), 10_000
         )
+        self.assertEqual(
+            dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.BROWSER), 10_000
+        )
 
     def test_tactical_modes_choose_declarative_enemy_defaults(self):
         self.assertEqual(
@@ -1004,6 +1008,10 @@ class WorkflowTests(unittest.TestCase):
             dev_stack.default_enemy_fixture(dev_stack.TacticalPlayMode.COMBAT),
             dev_stack.STANDARD_ENEMY_FIXTURE,
         )
+        self.assertEqual(
+            dev_stack.default_enemy_fixture(dev_stack.TacticalPlayMode.BROWSER),
+            dev_stack.STANDARD_ENEMY_FIXTURE,
+        )
         for mode in (
             dev_stack.TacticalPlayMode.DIAGNOSTIC,
             dev_stack.TacticalPlayMode.NETWORKING,
@@ -1011,6 +1019,79 @@ class WorkflowTests(unittest.TestCase):
             self.assertEqual(
                 dev_stack.default_enemy_fixture(mode), dev_stack.PASSIVE_ENEMY_FIXTURE
             )
+
+    def test_browser_mode_replaces_the_native_client_with_the_served_page(self):
+        values = dev_stack.profile_values("tactical-play-browser", 24930)
+        config = dev_stack.tactical_session_config(
+            values, dev_stack.TacticalPlayMode.BROWSER, "mission:test", 1,
+            dev_stack.STANDARD_ENEMY_FIXTURE, "session",
+        )
+        self.assertFalse(config["native_client"])
+        self.assertTrue(config["browser_client"])
+        self.assertTrue(config["combat_enabled"])
+        self.assertEqual(
+            dev_stack.browser_client_url(config),
+            "http://127.0.0.1:24931/tactical/tactical.html"
+            "?server=127.0.0.1%3A24932&id=1&autostart=1",
+        )
+
+    def test_native_modes_never_advertise_a_browser_client(self):
+        values = dev_stack.profile_values("tactical-play-combat", 24920)
+        config = dev_stack.tactical_session_config(
+            values, dev_stack.TacticalPlayMode.COMBAT, "mission:test", 1,
+            dev_stack.STANDARD_ENEMY_FIXTURE, "session",
+        )
+        self.assertTrue(config["native_client"])
+        self.assertFalse(config["browser_client"])
+
+    def test_recorded_identity_survives_the_fork_exec_window(self):
+        # `/proc/<pid>/exe` reports the launching path until exec completes, so
+        # an immediate snapshot can record an executable the child never runs.
+        import subprocess
+
+        process = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"])
+        self.addCleanup(process.wait)
+        self.addCleanup(process.terminate)
+        recorded = dev_stack.settled_process_snapshot(process.pid)
+        self.assertIsNotNone(recorded)
+        self.assertEqual(recorded, dev_stack.process_snapshot(process.pid))
+        self.assertTrue(dev_stack.identity_matches(recorded))
+
+    def test_a_refused_stop_still_attempts_the_remaining_processes(self):
+        attempted = []
+
+        def stop(metadata_file, expected_config=None):
+            attempted.append(metadata_file.name)
+            if metadata_file.name == "first.json":
+                raise ValueError("refusing to stop process: identity mismatch")
+
+        with mock.patch.object(dev_stack, "stop_recorded", stop):
+            with self.assertRaises(ValueError):
+                with redirect_stderr(io.StringIO()):
+                    dev_stack.stop_every_recorded([
+                        (Path("first.json"), None),
+                        (Path("second.json"), None),
+                        (Path("third.json"), None),
+                    ])
+        self.assertEqual(attempted, ["first.json", "second.json", "third.json"])
+
+    @mock.patch.object(dev_stack, "profile_values")
+    @mock.patch.object(dev_stack, "build_tactical_play", return_value=0)
+    def test_incomplete_wasm_bundle_stops_before_any_build_or_database(
+        self, build, profile_values,
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            static_dir = Path(directory) / "static"
+            (static_dir / "wasm").mkdir(parents=True)
+            (static_dir / "tactical.html").write_text("page", encoding="utf-8")
+            with mock.patch.object(dev_stack, "TACTICAL_STATIC_DIR", static_dir):
+                with self.assertRaises(RuntimeError) as raised:
+                    dev_stack.tactical_play(
+                        dev_stack.TacticalPlayMode.BROWSER, 24930,
+                    )
+        self.assertIn("just build-wasm", str(raised.exception))
+        build.assert_not_called()
+        profile_values.assert_not_called()
 
     @mock.patch.object(dev_stack, "profile_values")
     @mock.patch.object(dev_stack, "build_tactical_play", return_value=9)

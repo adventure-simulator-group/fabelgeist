@@ -24,8 +24,9 @@ import sys
 import tempfile
 import time
 import urllib.request
+from urllib.parse import urlencode
 from urllib.parse import urlparse
-from urllib.parse import urlparse
+import webbrowser
 import zlib
 
 
@@ -33,6 +34,7 @@ PROFILE_RE = re.compile(r"^[a-z][a-z0-9-]{0,31}$")
 JWT_RE = re.compile(r"[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+")
 ROOT = Path(__file__).resolve().parents[1]
 MODULE_DIR = ROOT / "crates" / "adventuresim-stdb-module"
+TACTICAL_STATIC_DIR = MODULE_DIR / "static"
 CLIENT_DIR = ROOT / "crates" / "adventuresim-stdb-client" / "src"
 TACTICAL_ENV_FILE = ROOT / ".env.tactical"
 ENEMY_FIXTURE_MAX_BYTES = 16 * 1024
@@ -102,18 +104,21 @@ class ProfileMode(str, Enum):
 
 
 class TacticalPlayMode(str, Enum):
-    """Safe fixtures exposed by the supervised native tactical launcher."""
+    """Safe fixtures exposed by the supervised tactical launcher."""
 
     ANIMATION = "animation"
     DIAGNOSTIC = "diagnostic"
     COMBAT = "combat"
     NETWORKING = "networking"
+    # Same fixture as `combat`, but the wasm client in a browser tab
+    # replaces the native one (see `just tactical-wasm`).
+    BROWSER = "browser"
 
 
 def default_enemy_fixture(mode: TacticalPlayMode) -> str:
     if mode is TacticalPlayMode.ANIMATION:
         return ANIMATION_ENEMY_FIXTURE
-    if mode is TacticalPlayMode.COMBAT:
+    if mode in (TacticalPlayMode.COMBAT, TacticalPlayMode.BROWSER):
         return STANDARD_ENEMY_FIXTURE
     return PASSIVE_ENEMY_FIXTURE
 
@@ -1414,6 +1419,28 @@ def process_snapshot(pid: int) -> dict[str, object] | None:
         kernel32.CloseHandle(handle)
 
 
+def settled_process_snapshot(pid: int, settle_seconds: float = 2.0) -> dict[str, object] | None:
+    """Snapshot a child only once `/proc/<pid>/exe` stops moving.
+
+    `subprocess.Popen` returns between fork and exec, and in that window the
+    child still reports the executable it was launched through rather than
+    the one it ends up running - on a symlink farm like the Nix store those
+    are different paths. Recording the transient value makes the later
+    `identity_matches` check refuse to stop the process, which leaks it and
+    aborts the rest of teardown. Sampling until two reads agree closes the
+    window for a few milliseconds of startup.
+    """
+    previous = process_snapshot(pid)
+    deadline = time.monotonic() + settle_seconds
+    while time.monotonic() < deadline:
+        time.sleep(0.02)
+        current = process_snapshot(pid)
+        if current is None or current == previous:
+            return current
+        previous = current
+    return previous
+
+
 def executable_identity_matches(expected: object, actual: object) -> bool:
     expected_path = str(expected)
     actual_path = str(actual)
@@ -1555,7 +1582,7 @@ def spawn_recorded(
         )
     finally:
         log.close()
-    snapshot = process_snapshot(process.pid)
+    snapshot = settled_process_snapshot(process.pid)
     if snapshot is None:
         process.terminate()
         raise RuntimeError("could not record child process identity")
@@ -1576,6 +1603,25 @@ def stop_recorded(metadata_file: Path, expected_config: dict[str, object] | None
     if process_snapshot(int(process.get("pid", 0))) is not None:
         terminate_verified_or_accept_exit(process)
     metadata_file.unlink()
+
+
+def stop_every_recorded(
+    targets: list[tuple[Path, dict[str, object] | None]],
+) -> None:
+    """Attempt every stop, then re-raise the first failure.
+
+    A refusal on one recorded process used to skip the stops queued behind
+    it, so a single identity mismatch leaked the whole session.
+    """
+    failure: Exception | None = None
+    for metadata_file, expected_config in targets:
+        try:
+            stop_recorded(metadata_file, expected_config)
+        except (OSError, ValueError, RuntimeError) as error:
+            print(f"cleanup warning: {metadata_file.name}: {error}", file=sys.stderr)
+            failure = failure or error
+    if failure is not None:
+        raise failure
 
 
 def stop_spacetime(metadata_file: Path, expected_config: dict[str, object]) -> None:
@@ -2069,9 +2115,15 @@ def tactical_session_config(
         "character_id": character_id,
         "enemy_fixture": enemy_fixture,
         "play_mode": mode.value,
-        "combat_enabled": mode in (TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT),
-        "native_client": mode is not TacticalPlayMode.NETWORKING,
-        "browser_client": False,
+        "combat_enabled": mode in (
+            TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT,
+            TacticalPlayMode.BROWSER,
+        ),
+        "native_client": mode not in (
+            TacticalPlayMode.NETWORKING, TacticalPlayMode.BROWSER,
+        ),
+        "browser_client": mode is TacticalPlayMode.BROWSER,
+        "web_port": values["web_port"],
         "session_id": session_id,
         "scene_input": scene_input,
         "graphics_config": graphics_config,
@@ -2086,7 +2138,95 @@ def tactical_session_config(
 
 
 def tactical_combat_scale(mode: TacticalPlayMode) -> int:
-    return 10_000 if mode in (TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT) else 0
+    combat_modes = (
+        TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT, TacticalPlayMode.BROWSER,
+    )
+    return 10_000 if mode in combat_modes else 0
+
+
+def verify_wasm_bundle() -> None:
+    """Fail before the database starts when the browser bundle cannot run.
+
+    `build_wasm.py` writes both halves - the wasm-bindgen output and a fresh
+    copy of `assets/` - and a stale bundle is missing the runtime configs the
+    page fetches during startup rather than the wasm itself, so check both.
+    """
+    required = [
+        TACTICAL_STATIC_DIR / "tactical.html",
+        TACTICAL_STATIC_DIR / "wasm" / "adventuresim-tactical-client.js",
+        TACTICAL_STATIC_DIR / "wasm" / "adventuresim-tactical-client_bg.wasm",
+        TACTICAL_STATIC_DIR / "assets" / "config" / "tactical-graphics.yaml",
+        TACTICAL_STATIC_DIR / "assets" / "config" / "tactical-audio.yaml",
+    ]
+    missing = [path for path in required if not path.is_file()]
+    if missing:
+        listing = "\n".join(f"  {path}" for path in missing)
+        raise RuntimeError(
+            "browser tactical bundle is incomplete; run `just build-wasm`:\n" + listing
+        )
+
+
+def launch_recorded_static_server(
+    run_dir: Path,
+    config: dict[str, object],
+) -> subprocess.Popen[str]:
+    """Serve the wasm bundle over loopback for the browser client.
+
+    Mounted at `/tactical` like `strategic-web` does, because the wasm client
+    hardcodes `/tactical/assets` as its Bevy asset root; see
+    `scripts/tactical_static_server.py`.
+    """
+    port = int(config["web_port"])
+    static_config = {
+        "role": "static-server",
+        "repository": str(ROOT.resolve()),
+        "worktree_fingerprint": config["worktree_fingerprint"],
+        "session_id": config["session_id"],
+        "directory": str(TACTICAL_STATIC_DIR.resolve()),
+        "port": port,
+    }
+    command = [
+        sys.executable, str(ROOT / "scripts" / "tactical_static_server.py"),
+        "--port", str(port), "--bind", "127.0.0.1",
+        "--directory", str(TACTICAL_STATIC_DIR.resolve()),
+    ]
+    return spawn_recorded(
+        command,
+        run_dir / "static.identity.json",
+        run_dir / "static.log",
+        static_config,
+    )
+
+
+def wait_for_static_server(
+    process: subprocess.Popen[str],
+    log_file: Path,
+    port: int,
+    timeout_seconds: float = 20.0,
+) -> None:
+    deadline = time.monotonic() + timeout_seconds
+    while time.monotonic() < deadline:
+        if process.poll() is not None:
+            raise RuntimeError(
+                f"static server exited during startup; see {log_file}\n{log_tail(log_file)}"
+            )
+        if ports_in_use([port]):
+            return
+        time.sleep(0.1)
+    raise RuntimeError(
+        f"static server did not accept connections on 127.0.0.1:{port}; "
+        f"see {log_file}\n{log_tail(log_file)}"
+    )
+
+
+def browser_client_url(config: dict[str, object]) -> str:
+    """Autostart the page so a session needs no clicks in the overlay."""
+    query = urlencode({
+        "server": f"127.0.0.1:{config['tactical_port']}",
+        "id": str(config["character_id"]),
+        "autostart": "1",
+    })
+    return f"http://127.0.0.1:{config['web_port']}/tactical/tactical.html?{query}"
 
 
 def launch_recorded_tactical_client(
@@ -2697,7 +2837,12 @@ def tactical_play(
             raise ValueError("--frame-timing-seconds must be finite and greater than zero")
     if not math.isfinite(frame_timing_warmup_seconds) or frame_timing_warmup_seconds < 0:
         raise ValueError("--frame-timing-warmup-seconds must be finite and non-negative")
-    launch_client = mode is not TacticalPlayMode.NETWORKING
+    browser_client = mode is TacticalPlayMode.BROWSER
+    launch_client = mode not in (
+        TacticalPlayMode.NETWORKING, TacticalPlayMode.BROWSER,
+    )
+    if browser_client:
+        verify_wasm_bundle()
     phase_started_at = time.monotonic()
     code = build_tactical_play(launch_client, client_profile)
     benchmark.record("native tactical binary build", phase_started_at)
@@ -2733,9 +2878,12 @@ def tactical_play(
     session_file = run_dir / "tactical-session.json"
 
     with ProfileLock(profile_dir / "lifecycle.lock") as lifecycle:
-        occupied = ports_in_use([
+        session_ports = [
             int(values["spacetime_port"]), int(values["tactical_port"]),
-        ])
+        ]
+        if browser_client:
+            session_ports.append(int(values["web_port"]))
+        occupied = ports_in_use(session_ports)
         if occupied:
             raise ValueError(f"tactical-play profile ports already occupied: {occupied}")
         atomic_write_json(session_file, config)
@@ -2755,6 +2903,7 @@ def tactical_play(
         ], stdb_metadata, stdb_log, stdb_config)
         server_process = None
         client_process = None
+        static_process = None
         presentmon_process = None
         obs_capture = None
         wrote_env = False
@@ -2871,6 +3020,13 @@ def tactical_play(
                 mission_id, int(values["tactical_port"]),
             )
             benchmark.record("tactical server readiness", phase_started_at)
+            if browser_client:
+                phase_started_at = time.monotonic()
+                static_process = launch_recorded_static_server(run_dir, config)
+                wait_for_static_server(
+                    static_process, run_dir / "static.log", int(values["web_port"]),
+                )
+                benchmark.record("browser bundle server readiness", phase_started_at)
             if launch_client:
                 phase_started_at = time.monotonic()
                 client_process = launch_recorded_tactical_client(run_dir, config)
@@ -2905,10 +3061,24 @@ def tactical_play(
                     print(f"Presentation trace: {config['presentmon_csv']}")
                 if obs_capture is not None:
                     print("Window capture: active (final path reported after the script)")
+            elif browser_client:
+                print("Client: browser tab replaces the native client")
             else:
                 print("Client: not launched (networking profile)")
             print(f"Combat: {'enabled' if combat_scale else 'disabled'}")
-            print("Browser client: unavailable in tactical-only mode")
+            if browser_client:
+                url = browser_client_url(config)
+                print(f"Browser client: {url}")
+                # A headless or misconfigured desktop must not fail the
+                # session; the URL above is enough to open one by hand.
+                try:
+                    opened = webbrowser.open(url)
+                except webbrowser.Error:
+                    opened = False
+                if not opened:
+                    print("Browser: could not be opened automatically; open the URL above")
+            else:
+                print("Browser client: unavailable in tactical-only mode")
             print(f"Logs: {run_dir}")
             print(f"Startup timings: {benchmark.output_path}")
             if mode is TacticalPlayMode.DIAGNOSTIC:
@@ -2916,6 +3086,11 @@ def tactical_play(
             else:
                 print("Press Ctrl+C to stop this profile's recorded processes.")
             while server_process.poll() is None:
+                if static_process is not None and static_process.poll() is not None:
+                    raise RuntimeError(
+                        f"static server exited; see {run_dir / 'static.log'}\n"
+                        f"{log_tail(run_dir / 'static.log')}"
+                    )
                 bounded_client = mode is TacticalPlayMode.DIAGNOSTIC or (
                     mode is TacticalPlayMode.ANIMATION
                     and frame_timing_seconds is not None
@@ -2952,9 +3127,12 @@ def tactical_play(
                         stop_obs_capture(obs_capture, run_dir, config)
                     except (OSError, RuntimeError) as error:
                         print(f"Window capture cleanup warning: {error}", file=sys.stderr)
-                stop_recorded(run_dir / "client.identity.json")
-                stop_recorded(run_dir / "presentmon.identity.json")
-                stop_recorded(run_dir / "server.identity.json", None)
+                stop_every_recorded([
+                    (run_dir / "client.identity.json", None),
+                    (run_dir / "static.identity.json", None),
+                    (run_dir / "presentmon.identity.json", None),
+                    (run_dir / "server.identity.json", None),
+                ])
             finally:
                 if wrote_env:
                     remove_tactical_env_file(session_id)
@@ -3065,9 +3243,14 @@ def tactical_status() -> int:
     print(f"Tactical listener: {'owned by recorded server' if server_ready else 'missing or unowned'}")
     if config["native_client"]:
         print(f"Client: {'running' if client_ready else 'stopped; run just tactical-client'}")
+    elif config.get("browser_client"):
+        print("Client: browser tab replaces the native client")
     else:
         print("Client: not launched by networking profile")
-    print("Browser client: unavailable in tactical-only mode")
+    if config.get("browser_client"):
+        print(f"Browser client: {browser_client_url(config)}")
+    else:
+        print("Browser client: unavailable in tactical-only mode")
     print(f"Logs: {run_dir}")
     if not database_ready or not server_ready or not authority:
         if database_ready and not server_ready and claim_state == "consumed":
@@ -3079,6 +3262,11 @@ def tactical_status() -> int:
 
 def tactical_client_relaunch() -> int:
     environment, config, run_dir = supervised_tactical_state()
+    if config.get("browser_client"):
+        raise ValueError(
+            "this session is served to a browser; reload its tab instead "
+            "(`just tactical-status` prints the URL)"
+        )
     if tactical_status():
         raise RuntimeError("refusing native client launch because the supervised server is not ready")
     metadata_file = run_dir / "client.identity.json"

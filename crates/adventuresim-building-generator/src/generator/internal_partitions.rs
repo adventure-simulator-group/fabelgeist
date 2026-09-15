@@ -322,6 +322,7 @@ fn append_closed_wall_assembly(
     base: f32,
     height: f32,
     thickness: f32,
+    length: f32,
     host_solids: &mut Vec<ResolvedItemId>,
 ) {
     if material == crate::WallMaterialClass::InternalTimber {
@@ -332,7 +333,7 @@ fn append_closed_wall_assembly(
         return;
     }
     for (slot, side) in [(0_u64, -1.0_f32), (1, 1.0)] {
-        let centre = origin + tangent * side * CELL_SIZE_METRES * 0.25;
+        let centre = origin + tangent * side * length * 0.25;
         push_partition_solid(
             geometry,
             host_solids,
@@ -340,7 +341,7 @@ fn append_closed_wall_assembly(
             wall_node,
             slot,
             Vec3::new(centre.x, base + height * 0.5, centre.y),
-            partition_aligned_size(wall, CELL_SIZE_METRES * 0.5, height, thickness),
+            partition_aligned_size(wall, length * 0.5, height, thickness),
             SolidRole::WallHost,
         );
     }

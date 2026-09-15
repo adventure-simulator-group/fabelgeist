@@ -24,7 +24,7 @@ ceiling = 1488
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
-ceiling = 1784
+ceiling = 1782
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
@@ -68,15 +68,15 @@ ceiling = 964
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
-ceiling = 793
+ceiling = 737
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
-ceiling = 2863
+ceiling = 2758
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
-ceiling = 1210
+ceiling = 1173
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/clothing.rs"
@@ -84,7 +84,7 @@ ceiling = 502
 
 [[files]]
 path = "crates/adventuresim-character-creator/src/export.rs"
-ceiling = 891
+ceiling = 860
 
 [[files]]
 path = "crates/adventuresim-core/src/autoresolve.rs"
@@ -588,7 +588,7 @@ ceiling = 1021
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
-ceiling = 1495
+ceiling = 786
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs"
@@ -600,7 +600,7 @@ ceiling = 549
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
-ceiling = 726
+ceiling = 514
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs"
@@ -628,11 +628,11 @@ ceiling = 646
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/terrain.rs"
-ceiling = 681
+ceiling = 633
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-ceiling = 1114
+ceiling = 1077
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs"
@@ -652,7 +652,7 @@ ceiling = 2661
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
-ceiling = 1304
+ceiling = 1215
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/inventory.rs"
@@ -660,7 +660,7 @@ ceiling = 551
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
-ceiling = 1020
+ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
@@ -947,7 +947,7 @@ ceiling = 1488
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
 item = "audit_timber_frame"
-ceiling = 1784
+ceiling = 1782
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber_intersections.rs"
@@ -1092,7 +1092,7 @@ ceiling = 155
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_editing.rs"
 item = "set_roof_pitch"
-ceiling = 155
+ceiling = 154
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_geometry.rs"
@@ -1107,7 +1107,7 @@ ceiling = 964
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
 item = "resolve_one_roof"
-ceiling = 793
+ceiling = 737
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs"
@@ -1127,7 +1127,7 @@ ceiling = 126
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
 item = "resolve_timber_frame_assembly"
-ceiling = 2264
+ceiling = 2159
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/tower_derivation.rs"
@@ -1137,7 +1137,7 @@ ceiling = 135
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
 item = "resolve_storey_wall_assemblies"
-ceiling = 1210
+ceiling = 1173
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/wall_bonds.rs"
@@ -2392,7 +2392,7 @@ ceiling = 323
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
 item = "update_pose_buffers"
-ceiling = 222
+ceiling = 205
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation/procedural.rs"
@@ -2443,11 +2443,6 @@ ceiling = 106
 path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
 item = "finalize_leg_rotation_chains"
 ceiling = 148
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/animation/secondary_physics.rs"
-item = "apply_secondary_bone_physics"
-ceiling = 122
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
@@ -2512,7 +2507,7 @@ ceiling = 107
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/main.rs"
 item = "run"
-ceiling = 161
+ceiling = 155
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -2540,16 +2535,6 @@ item = "grass_ribbon_patch_mesh_with_rows"
 ceiling = 233
 
 [[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
-item = "spawn"
-ceiling = 123
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs"
-item = "spawn"
-ceiling = 104
-
-[[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs"
 item = "spawn"
 ceiling = 127
@@ -2572,7 +2557,7 @@ ceiling = 151
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
 item = "spawn_ground_foliage"
-ceiling = 245
+ceiling = 114
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs"
@@ -2636,11 +2621,6 @@ ceiling = 125
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_near_vista_scatter"
-ceiling = 111
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "spawn_vista_rocks"
 ceiling = 103
 
@@ -2672,12 +2652,12 @@ ceiling = 185
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::default"
-ceiling = 354
+ceiling = 308
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/combat_config.rs"
 item = "TacticalCombatConfig::validate"
-ceiling = 483
+ceiling = 463
 
 [[functions]]
 path = "crates/adventuresim-tactical-core/src/physics.rs"
@@ -2722,7 +2702,7 @@ ceiling = 146
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
 item = "main"
-ceiling = 159
+ceiling = 137
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -3013,11 +2993,6 @@ ceiling = 142
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
 item = "Blitter::new"
 ceiling = 188
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs"
-item = "WgpuContext::new"
-ceiling = 111
 
 [[functions]]
 path = "crates/fabelgeist-mhr/src/model.rs"

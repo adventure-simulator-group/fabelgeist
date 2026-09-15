@@ -186,8 +186,14 @@ fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
 }
 
 fn tactical_msaa(anti_aliasing: AntiAliasingConfig) -> Msaa {
+    // Browser WebGPU only exposes 1x and 4x hardware MSAA; sample count 2 is a
+    // wgpu-native-only capability and fails device validation in the browser
+    // (the whole renderer quits on the invalid multisampled textures). Fablegeist
+    // renders identically on native and web, so we never emit Sample2 -- any
+    // configured sample count resolves to 4x, which both backends support.
+    // Fixed-function resolve is particularly valuable for thin grass and branch
+    // silhouettes.
     match anti_aliasing {
-        AntiAliasingConfig::Msaa { samples: 2 } => Msaa::Sample2,
         AntiAliasingConfig::Msaa { .. } => Msaa::Sample4,
         _ => Msaa::Off,
     }
@@ -381,14 +387,16 @@ mod tests {
 
     #[test]
     fn gameplay_uses_four_sample_webgpu_hardware_msaa() {
-        // Capture tooling keeps the 4x reference; presets may lower it.
+        // Browser WebGPU only supports 1x and 4x; a configured 2 rounds up to
+        // 4x (Sample2 is native-only and crashes the web renderer). Rendering
+        // is identical on native and web, so any MSAA request resolves to 4x.
         assert_eq!(
             tactical_msaa(AntiAliasingConfig::Msaa { samples: 4 }),
             Msaa::Sample4
         );
         assert_eq!(
             tactical_msaa(AntiAliasingConfig::Msaa { samples: 2 }),
-            Msaa::Sample2
+            Msaa::Sample4
         );
         assert_eq!(tactical_msaa(AntiAliasingConfig::Off), Msaa::Off);
     }

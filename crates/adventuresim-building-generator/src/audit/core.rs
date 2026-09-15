@@ -152,6 +152,7 @@ fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
 }
 
 fn audit_structural_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+    enclosure::audit(plan, issues);
     audit_resolved_geometry(plan, issues);
     audit_wall_opening_assemblies(plan, issues);
     audit_crowns(plan, issues);

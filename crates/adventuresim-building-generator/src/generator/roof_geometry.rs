@@ -421,8 +421,7 @@ fn roof_underside_height_at(assembly: &RoofAssembly, point: Vec2) -> Option<f32>
             .map(|vertex| Vec2::new(vertex.x, vertex.z))
             .collect::<Vec<_>>();
         plan_point_in_convex_polygon(point, &projected).then(|| {
-            roof_plane_height(face.plane, point)
-                - face.plane.normal.normalize_or_zero().y * face.thickness_metres
+            face.underside_height_at(point)
         })
     })
 }

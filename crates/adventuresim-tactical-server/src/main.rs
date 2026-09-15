@@ -13,10 +13,11 @@ mod openings;
 mod player_projection;
 mod scene_obstacles;
 mod scene_setup;
+mod startup;
 mod stdb;
 mod terrain_collision;
 
-use std::{net::SocketAddr, num::NonZeroU32, path::PathBuf};
+use std::{net::SocketAddr, num::NonZeroU32, path::PathBuf, time::Duration};
 
 use adventuresim_stdb_client::*;
 use adventuresim_tactical_core::{physics::AdventureSimulatorPhysicsPlugin, prelude::*};
@@ -44,7 +45,7 @@ use crate::player_projection::{
 use crate::{
     combat::CombatSet,
     mission::{
-        MissionState, check_mission_timeout, check_terminal_combat_outcome,
+        MissionState, PARTY_RECONNECT_GRACE, check_mission_timeout, check_terminal_combat_outcome,
         fail_stalled_terminal_submission, finish_terminal_presentation,
         process_terminal_submission_results,
     },
@@ -55,12 +56,11 @@ use crate::{
         update_attack_facing_targets, update_character_motion_snapshots,
         update_skeleton_locomotion,
     },
+    startup::StartupInputs,
     stdb::{SpacetimeDb, SpacetimeDbReady},
 };
 
 const MISSION_TIMEOUT_SECS: f32 = 300.0;
-const DEFAULT_SCENE_INPUT: &str = "dense-woodland";
-const DEFAULT_COMBAT_CONFIG: &str = "content/tactical/combat.yaml";
 
 #[derive(Parser, Debug, Clone, Resource)]
 #[command(name = "adventuresim-tactical-server")]
@@ -98,6 +98,11 @@ struct Args {
     timeout: f32,
     #[arg(long, action = ArgAction::SetTrue, conflicts_with = "timeout")]
     no_timeout: bool,
+    /// Seconds the mission tolerates an empty party (every member
+    /// disconnected) before abandoning it as a failure and shutting down.
+    /// Raise it so a client can reload/reconnect without killing the mission.
+    #[arg(long, default_value_t = PARTY_RECONNECT_GRACE.as_secs_f32())]
+    party_reconnect_grace: f32,
     /// Port to expose the Bevy Remote Protocol (BRP) HTTP JSON-RPC endpoint
     /// on for CLI-driven inspection/testing. Disabled unless set.
     #[cfg(feature = "debug")]
@@ -110,84 +115,6 @@ struct Args {
     world_dump: Option<std::path::PathBuf>,
 }
 
-fn default_scene_input_path() -> PathBuf {
-    bot::resolve_scene_fixture(DEFAULT_SCENE_INPUT).expect("fixture path resolution is infallible")
-}
-
-fn default_combat_config_path() -> PathBuf {
-    let working_directory_path = PathBuf::from(DEFAULT_COMBAT_CONFIG);
-    if working_directory_path.is_file() {
-        return working_directory_path;
-    }
-    PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../..")
-        .join(DEFAULT_COMBAT_CONFIG)
-}
-
-fn load_combat_config(path: &std::path::Path) -> Result<TacticalCombatConfig, String> {
-    const MAX_COMBAT_CONFIG_BYTES: u64 = 64 * 1024;
-    let length = std::fs::metadata(path)
-        .map_err(|error| format!("could not inspect {}: {error}", path.display()))?
-        .len();
-    if length == 0 || length > MAX_COMBAT_CONFIG_BYTES {
-        return Err("combat config must contain between 1 byte and 64 KiB".into());
-    }
-    let text = std::fs::read_to_string(path)
-        .map_err(|error| format!("could not read {}: {error}", path.display()))?;
-    let config: TacticalCombatConfig = serde_saphyr::from_str(&text)
-        .map_err(|error| format!("{} is not valid YAML: {error}", path.display()))?;
-    config
-        .validate()
-        .map_err(|error| format!("{}: {error}", path.display()))?;
-    Ok(config)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn standalone_default_is_the_dense_woodland_fixture() {
-        let input = TacticalSceneInput::load(&default_scene_input_path())
-            .expect("default tactical scene input should remain valid");
-
-        assert_eq!(input.scene_key, "woodland");
-        assert_eq!(
-            input.source,
-            SceneSource::SyntheticFixture("dense-woodland".into())
-        );
-    }
-
-    #[test]
-    fn committed_combat_config_matches_canonical_defaults() {
-        let loaded = load_combat_config(&default_combat_config_path())
-            .expect("committed tactical combat config should remain valid");
-        assert_eq!(loaded, TacticalCombatConfig::default());
-    }
-
-    #[test]
-    fn combat_tuning_is_read_from_the_runtime_yaml_file() {
-        let canonical = std::fs::read_to_string(default_combat_config_path())
-            .expect("committed tactical combat config should be readable");
-        let modified = canonical.replacen(
-            "armed_attack_energy_transfer: 0.4",
-            "armed_attack_energy_transfer: 0.35",
-            1,
-        );
-        assert_ne!(modified, canonical, "test must modify combat resolution");
-        let path = std::env::temp_dir().join(format!(
-            "fabelgeist-combat-config-runtime-{}.yaml",
-            std::process::id()
-        ));
-        std::fs::write(&path, modified).expect("temporary combat config should be writable");
-        let loaded = load_combat_config(&path).expect("modified runtime YAML should load");
-        std::fs::remove_file(&path).expect("temporary combat config should be removable");
-
-        assert_eq!(loaded.resolution.armed_attack_energy_transfer, 0.35);
-        assert_ne!(loaded, TacticalCombatConfig::default());
-    }
-}
-
 fn main() {
     let args = bot::apply_enemy_fixture(Args::parse());
     #[cfg(feature = "debug")]
@@ -197,38 +124,15 @@ fn main() {
     #[cfg(not(feature = "debug"))]
     let standalone = false;
 
-    let scene_input_path = args
-        .scene_input
-        .clone()
-        .unwrap_or_else(default_scene_input_path);
-    let loaded_scene_input = match TacticalSceneInput::load(&scene_input_path) {
-        Ok(input) => input,
-        Err(error) => {
-            eprintln!("refusing invalid tactical scene input: {error}");
+    let inputs = StartupInputs::load(args.scene_input.as_deref(), args.combat_config.as_deref())
+        .unwrap_or_else(|error| {
+            eprintln!("refusing invalid {error}");
             std::process::exit(2);
-        }
-    };
-    let combat_config_path = args
-        .combat_config
-        .clone()
-        .unwrap_or_else(default_combat_config_path);
-    let combat_config = match load_combat_config(&combat_config_path) {
-        Ok(config) => config,
-        Err(error) => {
-            eprintln!("refusing invalid tactical combat config: {error}");
-            std::process::exit(2);
-        }
-    };
-    combat_config
-        .install_runtime_snapshot()
-        .expect("loaded tactical combat config was validated");
-    let combat_config_digest = combat_config
-        .digest()
-        .expect("loaded tactical combat config was validated");
-    eprintln!(
-        "[startup] tactical combat config path={} digest={combat_config_digest}",
-        combat_config_path.display()
-    );
+        });
+    let StartupInputs {
+        scene: loaded_scene_input,
+        combat: combat_config,
+    } = inputs;
     let scene_vista_bundle = scene_setup::vista_bundle(&loaded_scene_input);
     let mut app = App::new();
     app.insert_resource(combat_config);
@@ -267,6 +171,7 @@ fn main() {
         args.required_enemy_kills,
         NonZeroU32::new(args.expected_party_members)
             .expect("clap validates at least one expected party member"),
+        Duration::from_secs_f32(args.party_reconnect_grace),
     ))
     .insert_resource(SceneVistaBundleResource(scene_vista_bundle))
     .insert_resource(LoadedSceneInput(loaded_scene_input))
@@ -508,6 +413,7 @@ mod debug_dump_world_tests {
             spacetimedb_module: String::new(),
             timeout: 0.0,
             no_timeout: true,
+            party_reconnect_grace: PARTY_RECONNECT_GRACE.as_secs_f32(),
             brp_port: None,
             world_dump,
             combat_config: None,

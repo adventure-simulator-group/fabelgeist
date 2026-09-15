@@ -17,6 +17,7 @@ use bevy::asset::AssetPlugin;
 use bevy::asset::io::AssetSourceBuilder;
 use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
+use bevy::render::error_handler::{RenderErrorHandler, RenderErrorPolicy};
 use bevy::{
     ecs::schedule::common_conditions::any_with_component,
     input::common_conditions::input_just_pressed,
@@ -94,6 +95,10 @@ struct Args {
     /// Server URL or host:port
     #[arg(long)]
     server_addr: String,
+    /// Root directory containing native runtime assets.
+    #[cfg(not(target_family = "wasm"))]
+    #[arg(long)]
+    asset_root: Option<std::path::PathBuf>,
     /// JSON command sequence that replaces physical movement input.
     #[arg(long)]
     input_script: Option<String>,
@@ -132,7 +137,7 @@ struct Args {
 #[cfg(not(target_family = "wasm"))]
 fn main() {
     let args = Args::parse();
-    let asset_root = native_asset_root();
+    let asset_root = native_asset_root(args.asset_root.as_deref());
     let path = args
         .graphics_config
         .clone()
@@ -234,6 +239,18 @@ pub fn wasm_quote_weapon_design(design_json: String) -> Result<String, JsValue> 
     browser_runtime::quote_design_json(&design_json).map_err(|error| JsValue::from_str(&error))
 }
 
+/// Keeps rendering after a pipeline fails validation instead of quitting.
+///
+/// Browser WebGPU rejects some pipelines the native backend accepts (shader
+/// modules and limits it does not expose). Bevy's default handler hard-quits
+/// the app on the first such error, blanking the canvas. Ignoring it lets the
+/// rest of the scene draw -- the instanced grass has its own pipeline -- and
+/// surfaces every incompatible pipeline rather than only the first. Native
+/// compiles every pipeline, so this never fires there.
+fn resilient_render_errors() -> RenderErrorHandler {
+    RenderErrorHandler(|_error, _main_world, _render_world| RenderErrorPolicy::Ignore)
+}
+
 fn run(
     args: Args,
     initial_tactical: bool,
@@ -245,7 +262,7 @@ fn run(
     eprintln!("[startup] native client process entry");
     let mut app = App::new();
     #[cfg(not(target_family = "wasm"))]
-    let asset_root = native_asset_root();
+    let asset_root = native_asset_root(args.asset_root.as_deref());
     #[cfg(not(target_family = "wasm"))]
     validate_native_presentation_assets(&asset_root)
         .unwrap_or_else(|error| panic!("invalid tactical client asset root: {error}"));
@@ -259,14 +276,7 @@ fn run(
     #[cfg(not(feature = "debug"))]
     let headless = false;
     if headless {
-        graphics_config.rendering.shadows.enabled = false;
-        graphics_config.rendering.bloom.enabled = false;
-        graphics_config.rendering.atmosphere.enabled = false;
-        graphics_config.rendering.atmosphere.environment_light = false;
-        graphics_config.rendering.clouds.enabled = false;
-        graphics_config.rendering.vista.maximum_lods = 1;
-        graphics_config.rendering.anti_aliasing = presentation::AntiAliasingConfig::Off;
-        graphics_config.grass.enabled = false;
+        graphics_config.disable_headless_rendering();
     }
     #[cfg(not(target_family = "wasm"))]
     let default_plugins = {
@@ -334,6 +344,7 @@ fn run(
     .add_input_context::<Player>();
     add_gameplay_plugins(&mut app, graphics_config);
     app.insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.15)))
+        .insert_resource(resilient_render_errors())
         .insert_resource(audio_config)
         .insert_resource(presentation::ClientStartupTiming::new(startup_started_at))
         .add_systems(Startup, setup_initial_client)
@@ -440,14 +451,18 @@ fn configure_headless_render_target(
 }
 
 #[cfg(not(target_family = "wasm"))]
-fn native_asset_root() -> std::path::PathBuf {
-    std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-        .join("../../assets")
+fn native_asset_root(configured: Option<&std::path::Path>) -> std::path::PathBuf {
+    configured
+        .map(std::path::Path::to_path_buf)
+        .unwrap_or_else(|| std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets"))
         .canonicalize()
         .unwrap_or_else(|error| panic!("could not resolve native asset directory: {error}"))
 }
 
 #[cfg(not(target_family = "wasm"))]
+/// Only shaders the client loads from the asset root belong here. Tree bark and
+/// leaf cards ship embedded in `adventuresim-procedural-materials`, so they are
+/// not asset-root files at all.
 fn validate_native_presentation_assets(asset_root: &std::path::Path) -> Result<(), String> {
     // Only filesystem assets belong here; ProceduralMaterialsPlugin embeds its shaders.
     const REQUIRED_ASSETS: &[&str] = &[
@@ -535,7 +550,7 @@ mod graphics_config_tests {
     #[cfg(not(target_family = "wasm"))]
     #[test]
     fn native_asset_root_contains_required_presentation_assets() {
-        validate_native_presentation_assets(&native_asset_root()).unwrap();
+        validate_native_presentation_assets(&native_asset_root(None)).unwrap();
     }
 
     #[test]

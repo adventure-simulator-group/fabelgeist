@@ -20,7 +20,6 @@ pub(super) type GroundScatterSceneQuery<'w, 's> = Query<
     Without<GroundScatterPresented>,
 >;
 
-#[cfg(all(feature = "instanced-grass", not(target_family = "wasm")))]
 pub(super) type InstancedGrassSceneQuery<'w, 's> = Query<
     'w,
     's,

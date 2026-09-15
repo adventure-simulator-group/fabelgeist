@@ -142,10 +142,8 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                                             (interface.bounds.min + interface.bounds.max) * 0.5;
                                         let point = Vec2::new(centre.x, centre.z);
                                         roof_face_contains_plan_point_inclusive(face, point)
-                                            && roof_face_height(face, point).is_some_and(|height| {
-                                                let underside = height
-                                                    - face.plane.normal.normalize_or_zero().y
-                                                        * face.thickness_metres;
+                                            && roof_face_height(face, point).is_some_and(|_| {
+                                                let underside = face.underside_height_at(point);
                                                 underside >= interface.bounds.min.y - 0.002
                                                     && underside <= interface.bounds.max.y + 0.002
                                             })

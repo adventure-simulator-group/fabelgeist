@@ -177,6 +177,19 @@ pub struct RoofFace {
     pub drainage_catchment: ResolvedItemId,
 }
 
+impl RoofFace {
+    /// Height of the inward-offset plane at fixed world X/Z. Thickness is
+    /// measured normal to the slope, so its vertical effect is t / normal.y.
+    pub(crate) fn underside_height_at(&self, point: Vec2) -> f32 {
+        let normal = self.plane.normal;
+        -(normal.x * point.x
+            + normal.z * point.y
+            + self.plane.constant
+            + self.thickness_metres * normal.length())
+            / normal.y
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct RoofEnclosureFace {
     pub id: ResolvedItemId,

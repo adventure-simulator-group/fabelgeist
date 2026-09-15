@@ -9,6 +9,8 @@ mod audit;
 mod collision;
 mod detail;
 mod doors;
+#[cfg(test)]
+mod enclosure_tests;
 pub mod furniture;
 mod generator;
 pub mod interior;

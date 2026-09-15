@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+    // On hybrid-GPU machines (laptops with an integrated + discrete GPU, or a
+    // system with a software Vulkan fallback), WebGPU's requestAdapter picks the
+    // low-power / integrated / software adapter unless high-performance is
+    // explicitly requested. Force the discrete GPU so the client runs on real
+    // hardware instead of SwiftShader/iGPU.
+    (function () {
+        if (navigator.gpu && navigator.gpu.requestAdapter) {
+            const orig = navigator.gpu.requestAdapter.bind(navigator.gpu);
+            navigator.gpu.requestAdapter = (opts) =>
+                orig({ ...(opts || {}), powerPreference: "high-performance" });
+        }
+    })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fabelgeist Tactical</title>
@@ -23,7 +37,8 @@
         #overlay {
             position: fixed;
             top: 16px;
-            left: 16px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 10;
             display: flex;
             flex-direction: column;
@@ -34,6 +49,31 @@
             border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 12px;
             backdrop-filter: blur(8px);
+        }
+        #overlay-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        #overlay-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #overlay.collapsed {
+            gap: 0;
+            width: auto;
+            padding: 8px 10px;
+        }
+        #overlay.collapsed #overlay-body {
+            display: none;
+        }
+        #toggle {
+            flex: 0 0 auto;
+            padding: 2px 10px;
+            line-height: 1.4;
+            font-size: 1rem;
         }
         #controls {
             display: flex;
@@ -73,14 +113,19 @@
 <body>
     <canvas id="game-canvas"></canvas>
     <div id="overlay">
-        <strong>Browser Tactical Client</strong>
-        <div id="controls">
-            <input id="server" type="text" value="127.0.0.1:6001" spellcheck="false">
-            <input id="player-id" type="number" value="2" min="0" step="1">
-            <button id="connect" type="button">Connect</button>
+        <div id="overlay-header">
+            <strong>Browser Tactical Client</strong>
+            <button id="toggle" type="button" title="Collapse/expand panel" aria-expanded="true">▾</button>
         </div>
-        <div id="status">Ready.</div>
-        <div id="hint">Default is the browser-safe `just win-web` server: `127.0.0.1:6001`, player id `2`. Browsers block port `6000`.</div>
+        <div id="overlay-body">
+            <div id="controls">
+                <input id="server" type="text" value="127.0.0.1:6001" spellcheck="false">
+                <input id="player-id" type="number" value="2" min="0" step="1">
+                <button id="connect" type="button">Connect</button>
+            </div>
+            <div id="status">Ready.</div>
+            <div id="hint">Default is the browser-safe `just win-web` server: `127.0.0.1:6001`, player id `2`. Browsers block port `6000`.</div>
+        </div>
     </div>
 
     <script type="module">
@@ -89,8 +134,30 @@
         const playerIdInput = document.getElementById('player-id');
         const statusEl = document.getElementById('status');
         const connectBtn = document.getElementById('connect');
+        const overlayEl = document.getElementById('overlay');
+        const toggleBtn = document.getElementById('toggle');
 
         let started = false;
+
+        function setCollapsed(collapsed) {
+            overlayEl.classList.toggle('collapsed', collapsed);
+            toggleBtn.textContent = collapsed ? '▸' : '▾';
+            toggleBtn.setAttribute('aria-expanded', String(!collapsed));
+            try {
+                localStorage.setItem('tacticalOverlayCollapsed', collapsed ? '1' : '0');
+            } catch (_) { /* storage may be unavailable */ }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            setCollapsed(!overlayEl.classList.contains('collapsed'));
+        });
+
+        // Restore the last collapsed state (default expanded).
+        try {
+            if (localStorage.getItem('tacticalOverlayCollapsed') === '1') {
+                setCollapsed(true);
+            }
+        } catch (_) { /* storage may be unavailable */ }
 
         const defaultServer = '127.0.0.1:6001';
         serverInput.value = defaultServer;
@@ -115,6 +182,10 @@
             const server = serverInput.value.trim() || defaultServer;
             const playerId = playerIdInput.value.trim() || '2';
             setStatus(`Connecting to ${server} as player ${playerId}...`);
+
+            // Collapse the panel out of the way so it stops overlaying the
+            // in-game debug overlay once play begins.
+            setCollapsed(true);
 
             const url = new URL(window.location.href);
             url.searchParams.set('server', server);
@@ -148,6 +219,8 @@
                 started = false;
                 console.error(error);
                 setStatus(`Failed to start client.\n${error}`);
+                // Re-expand so the failure message is visible.
+                setCollapsed(false);
             }
         }
 

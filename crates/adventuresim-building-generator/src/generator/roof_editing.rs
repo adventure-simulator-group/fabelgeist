@@ -91,13 +91,12 @@ pub fn set_roof_pitch(
             }
         }
     }
-    for enclosure in &mut assembly.enclosure_faces {
-        for point in &mut enclosure.polygon {
-            if point.y > min_y + 0.01 {
-                point.y = scale_y(point.y);
-            }
-        }
-    }
+    gable_enclosure::update_pitch(
+        &mut assembly.enclosure_faces, &assembly.faces,
+        assembly.source_piece_index.filter(|_| assembly.kind == RoofKind::Gable)
+            .map(|index| plan.roofs[index]),
+        &plan.wall_assemblies, min_y, scale_y,
+    );
     for edge in &mut assembly.edges {
         edge.start.y = scale_y(edge.start.y);
         edge.end.y = scale_y(edge.end.y);
