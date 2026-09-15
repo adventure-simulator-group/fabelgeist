@@ -21,6 +21,10 @@ botanical recipes and previews the meshes used by tactical ground vegetation.
 The public [procedural art demo](crates/strategic-web/ART_DEMO.md) at `/art-demo`
 shows existing armor, weapons, architecture, and vegetation without login.
 
+The standalone [Heraldry Studio](crates/adventuresim-heraldry-studio/README.md)
+authors parametric coats of arms, painted surfaces, and GLB display supports
+through a shared native and browser editor.
+
 The
 [interior furnishing rules](crates/adventuresim-building-generator/src/interior/README.md)
 describe furniture budgets and entrance-to-furniture access validation. Capture

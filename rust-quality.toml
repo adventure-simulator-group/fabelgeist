@@ -613,3 +613,76 @@ reason = "Normalized authored cast-bell section and collision wall proportions."
 path = "crates/adventuresim-building-generator/src/signs/emblems.rs"
 kind = "authored_catalog"
 reason = "Authored normalized outlines of period trade-tool pictograms."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui.rs"
+reason = "Egui controls dispatch typed authoring actions through widget responses, without branching on display prose."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/composition.rs"
+reason = "Typed composition edits are driven by Egui button and checkbox responses."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/drawing.rs"
+reason = "Drawing treatment buttons dispatch authoring actions through widget responses."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/files.rs"
+reason = "Egui import and export actions adapt JSON documents and filesystem paths at the authoring boundary."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/presets.rs"
+reason = "Authored reference recipes, their stable catalog IDs, and physical construction defaults."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/paint/catalog.rs"
+reason = "Sourced paint ingredients, stable recipe IDs, and explicitly authored appearance estimates."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/paint.rs"
+reason = "Egui selections edit typed paint choices and expose source links and measured-mixer entry points."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/eagle.rs"
+reason = "Authored normalized anatomical attachment charts and Bezier handles for displayed eagles."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/lion.rs"
+reason = "Authored source paint classification and adaptation of the attributed German lion drawing."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/lion/rig.rs"
+reason = "Authored anatomical attachment and deformation chart over the attributed compound SVG contours."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/references.rs"
+reason = "Egui recipe selection dispatches typed documents from stable reference catalog IDs."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/mixer.rs"
+reason = "Egui paint-mixer responses dispatch typed recipe actions; displayed prose is not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/mixer/picker.rs"
+reason = "Egui stock availability and budget controls adapt pointer/widget responses to typed workshop values."
+
+[[exceptions]]
+rule = "semantic-family:microliters"
+path = "crates/adventuresim-heraldry/src/paint/mixing/search.rs"
+item = "<module>"
+fingerprint = "1000000"
+occurrences = 1
+reason = "This is the maximum accepted prepared-paint batch size, not the strategic material subsystem's liters-to-microliters conversion. The portable generator has no strategic-core dependency."
