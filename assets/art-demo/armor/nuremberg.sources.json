@@ -1,6 +1,5 @@
 {
-  "source_branch": "codex/museum-armor-sets",
-  "preset": "target/art-demo/lod4/nuremberg-allocated-quarter.json",
+  "source_branch": "codex/armor-museum-review",
   "pose": {
     "l_uparm": {
       "axis": [
@@ -51,150 +50,237 @@
       "degrees": 10.04974926149507
     }
   },
-  "items": [
-    {
-      "name": "arming_doublet--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/arming_doublet--worn.glb",
-      "sha256": "c426980f7569e365e3a3e4491b063dee5dbca0d055f58b397cf12c8d4badc492"
-    },
-    {
-      "name": "body",
-      "source": "target/art-demo/lod4/nuremberg-allocated/body.json",
-      "sha256": "4a8afe7a2236bbe3f04dfbbe3a0f11710f745609808cad04a7f6b5525aafc7db"
-    },
-    {
-      "name": "breastplate--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/breastplate--worn.glb",
-      "sha256": "8eca5d20bf66bb3ca5a67d0c80732d2d19bdc9cd1594ed579358ac4aeeac24e7"
-    },
-    {
-      "name": "close_helmet--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/close_helmet--worn.glb",
-      "sha256": "6e05571fc14bca84d3e405de681bba78350ca52f783dd8fd3cb9aa228ff6dad3"
-    },
-    {
-      "name": "couter--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/couter--left.glb",
-      "sha256": "a9a2fd0d9711dbf7e37fd86f3591df6abd0e06453db1282e14115d5f531a783d"
-    },
-    {
-      "name": "couter--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/couter--right.glb",
-      "sha256": "c564a69e70122220a0b84cec0de8fb6ac7160e1903b01bc248ff3143607cc06a"
-    },
-    {
-      "name": "cuisse--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/cuisse--left.glb",
-      "sha256": "4a287d7fb1ae680b2248fcdfe2a494a259dc2bb225c2d6d127523a6b655f0c4c"
-    },
-    {
-      "name": "cuisse--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/cuisse--right.glb",
-      "sha256": "a1c803f6b05894c11f7886a572b4403f921817f86ebfde90a919269860a9cfa2"
-    },
-    {
-      "name": "fauld--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/fauld--worn.glb",
-      "sha256": "a129e08e1247715394683c26f832d31b93a447d03cfcf9d0f2b14211e637b183"
-    },
-    {
-      "name": "gorget--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/gorget--worn.glb",
-      "sha256": "01235b346d68bf4c3eecbe268b2e6ff8a8206fb7fc8ec9fa469f977a3589a390"
-    },
-    {
-      "name": "greave--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/greave--left.glb",
-      "sha256": "2a8bddbaeabee2917b28d5794e71eeddabe3a0ee091ac73f5f654713e2eac194"
-    },
-    {
-      "name": "greave--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/greave--right.glb",
-      "sha256": "dfe7f2f4af1b818938146033aaf99e6ff0cf39ecfec18a672a36e195933bcace"
-    },
-    {
-      "name": "mitten_gauntlet--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/mitten_gauntlet--left.glb",
-      "sha256": "75d1c95b960f619ac1a321a556f4fd9d269260ec9069fa01be3d21c2afac3d7b"
-    },
-    {
-      "name": "mitten_gauntlet--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/mitten_gauntlet--right.glb",
-      "sha256": "bbbfa6c20c0a646ebef7274b793d1483c1dcae38c27fd679a1ad96765632ce33"
-    },
-    {
-      "name": "padded_chausses--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/padded_chausses--left.glb",
-      "sha256": "90982497824b65380d685caf9b3a58866d0bcd2214a184166e0aa20e28ef0040"
-    },
-    {
-      "name": "padded_chausses--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/padded_chausses--right.glb",
-      "sha256": "ec60806bb657e7d36ff121a6cf71250e945d094261a58e90fc968e93b91bd6b6"
-    },
-    {
-      "name": "poleyn--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/poleyn--left.glb",
-      "sha256": "d7c7b42ff3942a27bf765e171d7dbc9a7525de205ffe2742eb364b504ca7b4a0"
-    },
-    {
-      "name": "poleyn--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/poleyn--right.glb",
-      "sha256": "f70af4273cdae5adedefd2798029ffd3fbe120e8b9f2ebe4055c4f7b5a1adf25"
-    },
-    {
-      "name": "rerebrace--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/rerebrace--left.glb",
-      "sha256": "8bcc0da49ca24d1757f5dd7c3b5428b266cab042353abf73711762780f6215ab"
-    },
-    {
-      "name": "rerebrace--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/rerebrace--right.glb",
-      "sha256": "0f96ce18e0829f17c762bdcb5280635e6775fff5a9847d9e7b29c0b65d2b2d05"
-    },
-    {
-      "name": "sabaton--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/sabaton--left.glb",
-      "sha256": "a48a3eda7af164b63a85bde06402cbce4e463bfaf25a6c04cc91f15bc5da1d08"
-    },
-    {
-      "name": "sabaton--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/sabaton--right.glb",
-      "sha256": "9b74480ac4cad1202ed668d645b4bde1c03c71c606f3a6c6e5c8a14d9355f7b7"
-    },
-    {
-      "name": "spaulder--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/spaulder--left.glb",
-      "sha256": "72f67db011c76284d508cd49a85288e4dcf8644299ae6ea694e927f476d765fe"
-    },
-    {
-      "name": "spaulder--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/spaulder--right.glb",
-      "sha256": "f0be3c4413924c4b755db5023a17d32f745b65e86fd28753c0a027fceef6abc0"
-    },
-    {
-      "name": "vambrace--left",
-      "source": "target/art-demo/lod4/nuremberg-allocated/vambrace--left.glb",
-      "sha256": "a22ed536353f0b59269cadd8de35a03687648d03fe7da530f389c02237d04507"
-    },
-    {
-      "name": "vambrace--right",
-      "source": "target/art-demo/lod4/nuremberg-allocated/vambrace--right.glb",
-      "sha256": "8687c2fa1d1f2197f12c3548c4092250aba69159b458a256a85806e48830b8d4"
-    },
-    {
-      "name": "mail_brayette--worn",
-      "source": "target/art-demo/lod4/nuremberg-allocated/mail_brayette--worn.glb",
-      "sha256": "8feecb09a1844ef515760949cd83f0bc722e5d432f9b7a5fd8a15941ac687323"
-    }
-  ],
   "maximum_texture_dimension": 2048,
   "lod": 4,
   "triangles": {
     "body": 4918,
-    "metal": 4886,
-    "clothing": 6316,
+    "metal": 5758,
+    "clothing": 5444,
     "fasteners": 5628
   },
-  "scope": "Native LOD museum recipes with dense-source normal bakes; saved display pose."
+  "scope": "Static museum display pose. Original native LOD plate/clothing atlases retained; suspension and torso closures regenerated from the parametric recipes with scalar finishes. Disc placement transferred as a rigid translation from the refitted source. No runtime articulation acceptance implied.",
+  "base_assembly": {
+    "source_branch": "codex/museum-armor-sets",
+    "preset": "target/art-demo/lod4/nuremberg-allocated-quarter.json",
+    "items": [
+      {
+        "name": "arming_doublet--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/arming_doublet--worn.glb",
+        "sha256": "c426980f7569e365e3a3e4491b063dee5dbca0d055f58b397cf12c8d4badc492"
+      },
+      {
+        "name": "body",
+        "source": "target/art-demo/lod4/nuremberg-allocated/body.json",
+        "sha256": "4a8afe7a2236bbe3f04dfbbe3a0f11710f745609808cad04a7f6b5525aafc7db"
+      },
+      {
+        "name": "breastplate--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/breastplate--worn.glb",
+        "sha256": "8eca5d20bf66bb3ca5a67d0c80732d2d19bdc9cd1594ed579358ac4aeeac24e7"
+      },
+      {
+        "name": "close_helmet--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/close_helmet--worn.glb",
+        "sha256": "6e05571fc14bca84d3e405de681bba78350ca52f783dd8fd3cb9aa228ff6dad3"
+      },
+      {
+        "name": "couter--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/couter--left.glb",
+        "sha256": "a9a2fd0d9711dbf7e37fd86f3591df6abd0e06453db1282e14115d5f531a783d"
+      },
+      {
+        "name": "couter--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/couter--right.glb",
+        "sha256": "c564a69e70122220a0b84cec0de8fb6ac7160e1903b01bc248ff3143607cc06a"
+      },
+      {
+        "name": "cuisse--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/cuisse--left.glb",
+        "sha256": "4a287d7fb1ae680b2248fcdfe2a494a259dc2bb225c2d6d127523a6b655f0c4c"
+      },
+      {
+        "name": "cuisse--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/cuisse--right.glb",
+        "sha256": "a1c803f6b05894c11f7886a572b4403f921817f86ebfde90a919269860a9cfa2"
+      },
+      {
+        "name": "fauld--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/fauld--worn.glb",
+        "sha256": "a129e08e1247715394683c26f832d31b93a447d03cfcf9d0f2b14211e637b183"
+      },
+      {
+        "name": "gorget--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/gorget--worn.glb",
+        "sha256": "01235b346d68bf4c3eecbe268b2e6ff8a8206fb7fc8ec9fa469f977a3589a390"
+      },
+      {
+        "name": "greave--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/greave--left.glb",
+        "sha256": "2a8bddbaeabee2917b28d5794e71eeddabe3a0ee091ac73f5f654713e2eac194"
+      },
+      {
+        "name": "greave--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/greave--right.glb",
+        "sha256": "dfe7f2f4af1b818938146033aaf99e6ff0cf39ecfec18a672a36e195933bcace"
+      },
+      {
+        "name": "mitten_gauntlet--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/mitten_gauntlet--left.glb",
+        "sha256": "75d1c95b960f619ac1a321a556f4fd9d269260ec9069fa01be3d21c2afac3d7b"
+      },
+      {
+        "name": "mitten_gauntlet--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/mitten_gauntlet--right.glb",
+        "sha256": "bbbfa6c20c0a646ebef7274b793d1483c1dcae38c27fd679a1ad96765632ce33"
+      },
+      {
+        "name": "padded_chausses--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/padded_chausses--left.glb",
+        "sha256": "90982497824b65380d685caf9b3a58866d0bcd2214a184166e0aa20e28ef0040"
+      },
+      {
+        "name": "padded_chausses--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/padded_chausses--right.glb",
+        "sha256": "ec60806bb657e7d36ff121a6cf71250e945d094261a58e90fc968e93b91bd6b6"
+      },
+      {
+        "name": "poleyn--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/poleyn--left.glb",
+        "sha256": "d7c7b42ff3942a27bf765e171d7dbc9a7525de205ffe2742eb364b504ca7b4a0"
+      },
+      {
+        "name": "poleyn--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/poleyn--right.glb",
+        "sha256": "f70af4273cdae5adedefd2798029ffd3fbe120e8b9f2ebe4055c4f7b5a1adf25"
+      },
+      {
+        "name": "rerebrace--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/rerebrace--left.glb",
+        "sha256": "8bcc0da49ca24d1757f5dd7c3b5428b266cab042353abf73711762780f6215ab"
+      },
+      {
+        "name": "rerebrace--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/rerebrace--right.glb",
+        "sha256": "0f96ce18e0829f17c762bdcb5280635e6775fff5a9847d9e7b29c0b65d2b2d05"
+      },
+      {
+        "name": "sabaton--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/sabaton--left.glb",
+        "sha256": "a48a3eda7af164b63a85bde06402cbce4e463bfaf25a6c04cc91f15bc5da1d08"
+      },
+      {
+        "name": "sabaton--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/sabaton--right.glb",
+        "sha256": "9b74480ac4cad1202ed668d645b4bde1c03c71c606f3a6c6e5c8a14d9355f7b7"
+      },
+      {
+        "name": "spaulder--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/spaulder--left.glb",
+        "sha256": "72f67db011c76284d508cd49a85288e4dcf8644299ae6ea694e927f476d765fe"
+      },
+      {
+        "name": "spaulder--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/spaulder--right.glb",
+        "sha256": "f0be3c4413924c4b755db5023a17d32f745b65e86fd28753c0a027fceef6abc0"
+      },
+      {
+        "name": "vambrace--left",
+        "source": "target/art-demo/lod4/nuremberg-allocated/vambrace--left.glb",
+        "sha256": "a22ed536353f0b59269cadd8de35a03687648d03fe7da530f389c02237d04507"
+      },
+      {
+        "name": "vambrace--right",
+        "source": "target/art-demo/lod4/nuremberg-allocated/vambrace--right.glb",
+        "sha256": "8687c2fa1d1f2197f12c3548c4092250aba69159b458a256a85806e48830b8d4"
+      },
+      {
+        "name": "mail_brayette--worn",
+        "source": "target/art-demo/lod4/nuremberg-allocated/mail_brayette--worn.glb",
+        "sha256": "8feecb09a1844ef515760949cd83f0bc722e5d432f9b7a5fd8a15941ac687323"
+      }
+    ],
+    "scope": "Native LOD museum recipes with dense-source normal bakes; saved display pose.",
+    "revision": "d882ab5a",
+    "path": "assets/art-demo/armor/nuremberg.glb",
+    "sha256": "468bdf08fbe1f0d52388688425f215a6cf50cfa32888fd843f8cb8d3803ddbcd"
+  },
+  "component_refits": {
+    "changes": [
+      {
+        "component": "spaulder--left/besagew",
+        "translation_blender_m": [
+          -0.0027802661061286926,
+          0.027709923684597015,
+          -2.384185791015625e-07
+        ],
+        "size_error_m": 0.001990005373954773
+      },
+      {
+        "component": "spaulder--right/besagew",
+        "translation_blender_m": [
+          0.003404676914215088,
+          0.033933527767658234,
+          -2.384185791015625e-07
+        ],
+        "size_error_m": 0.001990005373954773
+      },
+      {
+        "component": "breastplate--worn/leather_straps",
+        "vertices": 72
+      },
+      {
+        "component": "breastplate--worn/buckles",
+        "vertices": 72
+      }
+    ],
+    "inputs": [
+      {
+        "path": "target/armor-review/candidate/nuremberg/breastplate--worn.json",
+        "sha256": "e6947089db961f2a07b241cd4d0e1557b11d214182c9c70b32a28a6420bbb534"
+      },
+      {
+        "path": "target/armor-review/candidate/nuremberg/spaulder--left.json",
+        "sha256": "8f67661b1668bb12cf5681c08e1b216feca77211dcd4cf34d7fa42526c83e0e7"
+      },
+      {
+        "path": "target/armor-review/candidate/nuremberg/spaulder--right.json",
+        "sha256": "df47baf97375c8b2ec156b670b24ebaaa80de44592ca6ef6989028ea7b5f2807"
+      }
+    ],
+    "recipes": [
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/armor.json",
+        "sha256": "e09e0cd9d516de396e048aca95c1fabd256ab36241e9e3071b3c40477f57f07b"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/body.json",
+        "sha256": "6fd9cc251250da506453f27bd9511d67dead23e43d630291e78a5a2ea61b3d66"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/breastplate.json",
+        "sha256": "95f43370aefde61fd36da71282833f74a178680d53e9d60911a8c9cb36c1b7b5"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/fasteners.json",
+        "sha256": "8500e6c1b3a1ba164c3b4747dc3befa9b34015b93298f2763e4e33ddd585abc9"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/metal.json",
+        "sha256": "20568e6278ef901f43408cb250ae55d4d471ae6cb78a83b91c25b2403408b2bf"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/quarter.json",
+        "sha256": "ede4485e3981c0de855dc54a9bbc0c23dd46e45de995961c255f675e63de70a2"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/trim.json",
+        "sha256": "3c48d637a8b1e192e008d64f3334b80fdf78820a04b61d60687cbdb8cf18f118"
+      },
+      {
+        "path": "crates/adventuresim-armor-model/review/museum/nuremberg/vambrace.json",
+        "sha256": "b35dadbdc2252ab2e8f8e90bba7aa6a5e1a67d86ff6ff7ee80d441fedae2d855"
+      }
+    ]
+  },
+  "sha256": "38855dd66d88ec54956db33558ca5dbd2a65661b9d324186c4c1f72d540df580"
 }
