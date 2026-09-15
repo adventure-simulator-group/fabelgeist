@@ -123,11 +123,7 @@ impl Solid {
             return Err("radial solid requires stations and a positive section".into());
         }
         let largest = profile.iter().map(|p| p[1]).fold(0.0, f64::max);
-        let segments = if exact_segments && requested <= 8 {
-            requested
-        } else {
-            detail.radial(largest, requested)
-        };
+        let segments = detail.lathe_radial(largest, requested, exact_segments);
         let minimum = profile
             .iter()
             .map(|p| p[1])
@@ -211,6 +207,15 @@ impl Solid {
         let largest = profile.iter().map(|p| p[1]).fold(0.0, f64::max);
         let segments =
             segments_override.map_or_else(|| detail.radial(largest, 16), |n| detail.samples(n, 6));
+        Self::hollow_profile(profile, inner_radii, segments)
+    }
+
+    /// Annular profile using an explicitly shared receiving polygon section.
+    pub(crate) fn hollow_profile(
+        profile: &[PlanarPoint],
+        inner_radii: &[f64],
+        segments: usize,
+    ) -> Self {
         let vertex = |row: usize, index: usize, inner: bool| {
             let radius = if inner {
                 inner_radii[row]

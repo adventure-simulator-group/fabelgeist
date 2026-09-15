@@ -98,6 +98,23 @@ pub(super) fn register(
             add(rotate([0.0, p.ricasso.get(), 0.0], rotation), offset),
         );
     }
+    if let Shape::Spear(p) = &component.shape
+        && p.socket.is_some()
+    {
+        for (name, y) in [
+            ("bladeBase", 0.0),
+            ("tip", p.length.get()),
+            (
+                "socketRim",
+                -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+            ),
+        ] {
+            frames.insert(
+                format!("{id}.{name}"),
+                add(rotate([0.0, y, 0.0], rotation), offset),
+            );
+        }
+    }
     frames.insert(format!("{id}.origin"), offset);
     rotations.insert(id.to_owned(), rotation);
 

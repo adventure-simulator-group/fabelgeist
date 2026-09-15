@@ -50,6 +50,13 @@ pub enum Detail {
 }
 
 impl Detail {
+    pub(crate) fn lathe_radial(self, radius: f64, requested: usize, exact: bool) -> usize {
+        if exact && requested <= 8 {
+            requested
+        } else {
+            self.radial(radius, requested)
+        }
+    }
     pub(crate) fn samples(self, requested: usize, minimum: usize) -> usize {
         let scale = match self {
             Self::Low => 0.5,

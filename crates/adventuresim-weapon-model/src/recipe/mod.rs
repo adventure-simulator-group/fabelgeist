@@ -27,6 +27,10 @@ mod assembly;
 mod bent_bar;
 pub use bent_bar::*;
 mod melee;
+mod spear;
+pub use spear::*;
+mod shaft;
+pub use shaft::*;
 mod polls;
 pub use polls::*;
 mod quantities;
@@ -72,6 +76,18 @@ pub struct Recipe {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct Shaft {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "deserialize_present"
+    )]
+    pub wrappings: Option<Vec<ShaftWrapping>>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "deserialize_present"
+    )]
+    pub tenon: Option<ShaftTenon>,
     pub length: Metres,
     pub radius: Metres,
     #[serde(

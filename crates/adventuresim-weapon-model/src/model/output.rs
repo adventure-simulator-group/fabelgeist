@@ -6,6 +6,7 @@ use std::collections::BTreeMap;
 pub(crate) struct PartSource {
     pub(crate) animation_channel: Option<AnimationChannel>,
     pub(crate) smoothing_cosine: f64,
+    pub(crate) surface_smoothing: BTreeMap<u32, SurfaceSmoothing>,
     pub(crate) solid: Solid,
     pub(crate) material: Material,
     pub(crate) label: String,
@@ -14,11 +15,20 @@ pub(crate) struct PartSource {
     pub(crate) bore: Option<BoreConnection>,
     pub(crate) shield_role: Option<ShieldRole>,
 }
+
+/// Adjacent surfaces can share normals while retaining different crease limits.
+/// Both limits must permit a join; blade ridges cannot borrow a socket's softer
+/// smoothing rule merely because their vertices share a position.
+pub(crate) struct SurfaceSmoothing {
+    pub(crate) group: u32,
+    pub(crate) cosine: f64,
+}
 impl PartSource {
     pub(crate) fn new(solid: Solid, material: Material, label: &str, component_id: &str) -> Self {
         Self {
             animation_channel: None,
             smoothing_cosine: 0.25,
+            surface_smoothing: BTreeMap::new(),
             solid,
             material,
             label: label.into(),
@@ -137,7 +147,7 @@ impl ModelPart {
         let mut lookup: BTreeMap<(Surface, [i64; 3]), Vec<usize>> = BTreeMap::new();
         let mut positions: Vec<Point> = Vec::new();
         let mut sums: Vec<Point> = Vec::new();
-        let mut neighbors: Vec<Vec<Point>> = Vec::new();
+        let mut neighbors: Vec<Vec<(Point, f64)>> = Vec::new();
         let mut indices = Vec::new();
         for (triangle, &[a, b, c]) in source.solid.faces.iter().enumerate() {
             let points = [
@@ -146,12 +156,15 @@ impl ModelPart {
                 source.solid.positions[c],
             ];
             let face = normalize(cross(sub(points[1], points[0]), sub(points[2], points[0])));
+            let group = source.solid.surfaces[triangle];
+            let policy = source.surface_smoothing.get(&group);
+            let cosine = policy.map_or(source.smoothing_cosine, |p| p.cosine);
             for corner in 0..3 {
                 let point = points[corner];
                 let surface = if source.solid.surfaces[triangle] == 0 {
                     Surface::Flat(face.map(|v| (v * 1e8).round() as i64))
                 } else {
-                    Surface::Smooth(source.solid.surfaces[triangle])
+                    Surface::Smooth(policy.map_or(group, |p| p.group))
                 };
                 let candidates = lookup
                     .entry((surface, point.map(|v| (v * 1e9).round() as i64)))
@@ -162,7 +175,7 @@ impl ModelPart {
                     .find(|&i| {
                         neighbors[i]
                             .iter()
-                            .all(|&neighbor| dot(neighbor, face) > source.smoothing_cosine)
+                            .all(|&(neighbor, limit)| dot(neighbor, face) > cosine.max(limit))
                     })
                     .unwrap_or_else(|| {
                         let index = positions.len();
@@ -172,7 +185,7 @@ impl ModelPart {
                         neighbors.push(Vec::new());
                         index
                     });
-                neighbors[index].push(face);
+                neighbors[index].push((face, cosine));
                 let a = normalize(sub(points[(corner + 1) % 3], point));
                 let b = normalize(sub(points[(corner + 2) % 3], point));
                 let angle = dot(a, b).clamp(-1.0, 1.0).acos();

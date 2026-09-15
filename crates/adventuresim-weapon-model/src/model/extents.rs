@@ -89,7 +89,10 @@ impl Shape {
             Self::Blade(p) => [0.0, p.length.get()],
             Self::SectionBlade(p) => [0.0, p.length.get()],
             Self::DiamondBlade(p) => [0.0, p.length.get()],
-            Self::Spear(p) => [0.0, p.length.get()],
+            Self::Spear(p) => [
+                -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+                p.length.get(),
+            ],
             Self::Fork(p) => [0.0, p.length.get()],
             Self::Partisan(p) => [0.0, p.length.get()],
             Self::Glaive(p) => [0.0, p.length.get()],

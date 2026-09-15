@@ -1,6 +1,83 @@
 //! Receiving-shaft constraints for the explicit shaft mount constructions.
 use super::*;
 
+pub(super) fn socket_fit(
+    component: &Component,
+    shaft: Option<&Shaft>,
+    parents: &[ResolvedComponent],
+    offset: Point,
+    rotation: Point,
+) -> Result<(), String> {
+    let Shape::Spear(p) = &component.shape else {
+        return Ok(());
+    };
+    let Some(socket) = &p.socket else {
+        return Ok(());
+    };
+    let receiver = if let Some(attachment) = &component.attach {
+        let owner = attachment.to.rsplit_once('.').map(|p| p.0).unwrap_or("");
+        if let Some(parent) = parents.iter().find(|p| p.id == owner) {
+            if let Shape::Shaft(shaft) = &parent.component.shape {
+                Some((shaft, parent.offset, parent.rotation))
+            } else {
+                None
+            }
+        } else if matches!(owner, "shaft" | "weapon") {
+            shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+        } else {
+            None
+        }
+    } else if component.mount.is_some() {
+        shaft.map(|p| (p, [0.0; 3], [0.0; 3]))
+    } else {
+        None
+    };
+    let Some((shaft, parent_offset, parent_rotation)) = receiver else {
+        return Ok(());
+    };
+    let offset = inverse_rotate(sub(offset, parent_offset), parent_rotation);
+    let axis = inverse_rotate(rotate([0.0, 1.0, 0.0], rotation), parent_rotation);
+    if offset[0].abs() > 1e-8
+        || offset[2].abs() > 1e-8
+        || magnitude(sub(axis, [0.0, 1.0, 0.0])) > 1e-8
+    {
+        return Err("receiving socket must align with its shaft".into());
+    }
+    let rim = offset[1] - socket.length.get();
+    if shaft
+        .wrappings
+        .iter()
+        .flatten()
+        .any(|w| w.start.get() + w.length.get() > rim)
+    {
+        return Err("receiving socket must seat over an unwrapped shaft tenon".into());
+    }
+    let penetration = shaft.length.get() - rim;
+    if (penetration - socket.insertion_depth.get()).abs() > 1e-8 || rim < 0.0 {
+        return Err("socket placement does not match its declared shaft insertion".into());
+    }
+    // Both profiles are piecewise linear: endpoints and every shaft breakpoint
+    // prove clearance throughout the full inserted length, not only at the tip.
+    let mut heights = vec![rim, shaft.length.get()];
+    heights.extend(
+        shaft
+            .profile()
+            .iter()
+            .map(|p| p[0])
+            .filter(|y| *y > rim && *y < shaft.length.get()),
+    );
+    // The coarsest permitted circular section supplies the conservative bore
+    // apothem. Finer display levels therefore retain the same accepted fit.
+    let radial = Detail::Low.radial(socket.base_radius.get(), 24).div_ceil(4) * 4;
+    let apothem = (std::f64::consts::PI / radial as f64).cos();
+    for height in heights {
+        if shaft.radius_at(height) > socket.bore_radius(height - rim) * apothem + 1e-9 {
+            return Err("socket bore cannot clear the complete receiving shaft".into());
+        }
+    }
+    Ok(())
+}
+
 pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), String> {
     let offset = component.offset.map_or([0.0; 3], |p| p.map(Metres::get));
     let concentric = is_axial(&component.shape);

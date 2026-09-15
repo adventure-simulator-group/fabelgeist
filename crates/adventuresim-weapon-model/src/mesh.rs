@@ -50,6 +50,7 @@ pub(crate) fn physical(design: &WeaponDesign, model: &GeneratedModel) -> Derived
     derived(
         design,
         &model.physical,
+        model.frames(),
         model.parts.iter().map(|part| {
             (
                 part.component_id.as_str(),
@@ -61,6 +62,7 @@ pub(crate) fn physical(design: &WeaponDesign, model: &GeneratedModel) -> Derived
 pub(crate) fn derived<'a>(
     design: &WeaponDesign,
     p: &PhysicalProperties,
+    frames: &std::collections::BTreeMap<String, [f64; 3]>,
     parts: impl Iterator<Item = (&'a str, impl Iterator<Item = [f64; 3]>)>,
 ) -> DerivedProperties {
     let head_ids: Vec<_> = design
@@ -73,10 +75,29 @@ pub(crate) fn derived<'a>(
     let (mut head_min, mut head_max) = (f64::INFINITY, f64::NEG_INFINITY);
     let (mut min, mut max) = (f64::INFINITY, f64::NEG_INFINITY);
     for (id, points) in parts {
+        let working_section = design
+            .recipe
+            .components
+            .iter()
+            .find(|c| c.id.as_deref() == Some(id))
+            .and_then(|c| match &c.shape {
+                recipe::Shape::Spear(parameters) if parameters.socket.is_some() => {
+                    let base = frames.get(&format!("{id}.bladeBase"))?;
+                    let tip = frames.get(&format!("{id}.tip"))?;
+                    Some((base, tip))
+                }
+                _ => None,
+            });
         for point in points {
             min = min.min(point[1]);
             max = max.max(point[1]);
-            if head_ids.contains(&id) {
+            let within_working_section = working_section.is_none_or(|(base, tip)| {
+                construction::dot(
+                    construction::sub(point, *base),
+                    construction::sub(*tip, *base),
+                ) >= -1e-12
+            });
+            if head_ids.contains(&id) && within_working_section {
                 head_min = head_min.min(point[1]);
                 head_max = head_max.max(point[1]);
             }

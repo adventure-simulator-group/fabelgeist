@@ -30,6 +30,14 @@ pub(super) fn mounted(
                     .get(SHAFT_TOP_FRAME)
                     .ok_or("shaft-top mount requires shaft")?;
                 offset = add(top, local);
+                if let Shape::Spear(p) = &component.shape
+                    && let Some(socket) = &p.socket
+                {
+                    if mount != Mount::ShaftTop {
+                        return Err("socketed spear uses shaft-top receiving mount".into());
+                    }
+                    offset[1] += socket.length.get() - socket.insertion_depth.get();
+                }
                 match mount {
                     Mount::ShaftTopCentered | Mount::ShaftTopSleeve => {
                         let contact = if mount == Mount::ShaftTopCentered {

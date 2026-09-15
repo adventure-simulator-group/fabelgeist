@@ -132,6 +132,7 @@ impl PlacementGraph {
         if let Shape::GuardAssembly(p) = &mut component.shape {
             guard_nodes::resolve(p, frames, offset, rotation)?;
         }
+        mounts::socket_fit(component, shaft.as_ref(), components, offset, rotation)?;
         let grip_seat_radius = seating(component, components, offset, rotation);
         component.offset = Some(metres(offset)?);
         let range = component.shape.range()?;

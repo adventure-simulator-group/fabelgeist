@@ -174,3 +174,14 @@ const COMPOSED_HEAD_PREFIX: &str = "head-primary";
 const FIRST_COMPOSED_HEAD_ID: &str = "head-primary-0";
 
 const SINGLE_HEAD_ID: &str = "head";
+
+/// Museum studies are separate from the general authoring preset catalog.
+pub fn museum_studies() -> &'static Value {
+    static STUDIES: OnceLock<Value> = OnceLock::new();
+    STUDIES.get_or_init(|| {
+        serde_json::json!([serde_json::from_str::<Value>(include_str!(
+            "../review/museum/met-14.25.394.json"
+        ))
+        .expect("museum study catalog must be valid JSON")])
+    })
+}

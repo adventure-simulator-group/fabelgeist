@@ -7,6 +7,7 @@ pub fn derive_properties(design: &WeaponDesign) -> Result<DerivedProperties, Vec
     Ok(crate::mesh::derived(
         design,
         &model.physical,
+        model.frames(),
         model.sources.iter().map(|part| {
             (
                 part.component_id.as_str(),

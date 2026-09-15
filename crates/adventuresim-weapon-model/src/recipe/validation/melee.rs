@@ -36,7 +36,9 @@ pub(super) fn check(shape: &Shape) -> Checked {
                 proportion(upper.get() > lower.get())?;
             }
         }
+        Shape::Shaft(p) => super::spear::shaft(p)?,
         Shape::Spear(p) => {
+            super::spear::check(p)?;
             if let Some(n) = p.belly_position {
                 proportion(n.get() > 0.0 && n.get() < 1.0)?;
             }

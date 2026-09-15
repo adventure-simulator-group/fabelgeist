@@ -22,8 +22,13 @@ mod pommels;
 mod profile_tests;
 #[cfg(test)]
 mod ranged_layout_tests;
+mod shaft_wrapping;
 mod shapes;
 mod shields;
+mod spear_socket;
+#[cfg(test)]
+mod spear_tests;
+mod spears;
 
 use crate::{construction::*, recipe::*};
 pub use output::{GeneratedModel, ModelPart, ModelStats, PhysicalProperties};
@@ -43,6 +48,9 @@ pub(crate) struct Construction {
     pub(crate) physical: PhysicalProperties,
 }
 impl Construction {
+    pub(crate) fn frames(&self) -> &std::collections::BTreeMap<String, Point> {
+        &self.resolved.output.frames
+    }
     pub(crate) fn new(recipe: &Recipe) -> Result<Self, String> {
         recipe.validate().map_err(|error| error.to_string())?;
         let mut resolved = placement::resolve(recipe)?;
@@ -92,16 +100,7 @@ impl Construction {
 fn construct(resolved: &placement::Resolved, detail: Detail) -> Result<Vec<PartSource>, String> {
     let mut parts = Vec::new();
     if let Some(shaft) = &resolved.output.recipe.shaft {
-        let profile = [
-            [
-                0.0,
-                shaft.radius.get() * shaft.bottom_scale.map_or(1.0, Ratio::get),
-            ],
-            [
-                shaft.length.get(),
-                shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get),
-            ],
-        ];
+        let profile = shaft.profile();
         parts.push(PartSource::new(
             Solid::lathe(
                 &profile,
@@ -114,6 +113,7 @@ fn construct(resolved: &placement::Resolved, detail: Detail) -> Result<Vec<PartS
             "shaft",
             "shaft",
         ));
+        parts.extend(shaft_wrapping::parts(shaft, "shaft", "shaft", detail)?);
     }
     for component in &resolved.components {
         let local = shapes::construct(component, detail)?;

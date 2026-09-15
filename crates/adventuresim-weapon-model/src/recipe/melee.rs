@@ -176,6 +176,18 @@ pub struct SpearParameters {
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub shoulder_roundness: Option<Ratio>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub socket: Option<SpearSocket>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::recipe::deserialize_present"
     )]
     pub section: Option<SpearSection>,
