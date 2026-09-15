@@ -8,6 +8,7 @@ const MAX_DETAILED_CITY_BUILDINGS: usize = 16;
 pub(super) struct StreamedCityBuilding {
     placement: DistantBuildingPlacement,
     detail: Option<Entity>,
+    detail_failed: bool,
 }
 
 impl StreamedCityBuilding {
@@ -15,6 +16,7 @@ impl StreamedCityBuilding {
         Self {
             placement,
             detail: None,
+            detail_failed: false,
         }
     }
 }
@@ -30,13 +32,13 @@ pub(super) struct CityDetailAssets<'w> {
 pub(super) fn update(
     mut commands: Commands,
     enabled: Option<Res<StreamCityTraffic>>,
-    pending: Option<Res<PendingCityBuildings>>,
+    mut pending: Option<ResMut<PendingCityBuildings>>,
     cameras: Query<&GlobalTransform, With<TacticalGameplayCamera>>,
     mut buildings: Query<(Entity, &Transform, &mut StreamedCityBuilding, &Children)>,
     mut facades: Query<(&PresentedBuildingMesh, &mut VisibilityRange)>,
     mut assets: CityDetailAssets,
 ) -> Result {
-    if enabled.is_none() || pending.is_some() {
+    if enabled.is_none() {
         return Ok(());
     }
     let Some(camera) = cameras.iter().next() else {
@@ -67,16 +69,23 @@ pub(super) fn update(
     if let Some((entity, _, program)) = wanted.into_iter().find(|(id, _, _)| {
         buildings
             .get(*id)
-            .is_ok_and(|(_, _, building, _)| building.detail.is_none())
+            .is_ok_and(|(_, _, building, _)| building.detail.is_none() && !building.detail_failed)
     }) {
-        let Some(compiled) = assets.residency.get(
+        let compiled = match assets.residency.get(
             &assets.server,
             &assets.prepared,
             &program,
             BuildingDetail::Static,
-        )?
-        else {
-            return Ok(());
+        ) {
+            Ok(Some(compiled)) => compiled,
+            Ok(None) => return Ok(()),
+            Err(error) => {
+                buildings.get_mut(entity)?.2.detail_failed = true;
+                if let Some(pending) = &mut pending {
+                    pending.report_failure(error);
+                }
+                return Ok(());
+            }
         };
         let (_, _, mut building, children) = buildings.get_mut(entity)?;
         let detail = commands
