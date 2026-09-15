@@ -102,6 +102,27 @@ pub(super) fn routes(
     for building in buildings {
         routes.extend(building.routes.iter().copied());
     }
+    for compound in &input.compounds {
+        routes.extend(compound.access.iter().map(|access| {
+            route(
+                access.start_metres,
+                access.end_metres,
+                access.half_width_metres,
+            )
+        }));
+        let gate = compound.boundary.gate.door(compound.id);
+        let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);
+        // Reserve the inward quarter of the hinge's enclosing square for the
+        // complete leaf sweep, independently of its current dynamic state.
+        routes.push(FurnitureFootprint {
+            centre_metres: hinge
+                + compound.boundary.gate.orientation.local_to_world(Vec2::ONE)
+                    * gate.size_metres.x
+                    * 0.5,
+            half_extents_metres: Vec2::splat(gate.size_metres.x * 0.5 + gate.size_metres.z),
+            orientation: compound.boundary.gate.orientation,
+        });
+    }
     routes
 }
 
@@ -119,6 +140,16 @@ pub(super) fn obstacles(
             orientation: building.placement.orientation,
         })
         .collect::<Vec<_>>();
+    for compound in &input.compounds {
+        footprints.extend(compound.boundary.fixed_members().iter().map(|member| {
+            FurnitureFootprint {
+                centre_metres: Vec2::new(member.centre_metres.x, member.centre_metres.z),
+                half_extents_metres: Vec2::new(member.size_metres.x, member.size_metres.z) * 0.5,
+                orientation: BuildingOrientation::from_radians(member.yaw_radians)
+                    .expect("validated boundary"),
+            }
+        }));
+    }
     for obstacle in obstacles {
         let (x, z, radius) = match *obstacle {
             GeneratedObstacle::Tree { x, z } => (x, z, super::super::TREE_TRUNK_RADIUS_METRES),

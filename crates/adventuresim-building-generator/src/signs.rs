@@ -1,4 +1,4 @@
-//! Text-only establishment signs. Names belong to placed lots, not shared building recipes.
+//! Establishment signs with period tool pictograms. Names belong to placed lots, not shared building recipes.
 use adventuresim_world_schema::{
     person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES},
     settlement_buildings::BuildingUse,
@@ -8,6 +8,8 @@ use clap::ValueEnum;
 use fabelgeist_determinism::mix64;
 use serde::{Deserialize, Serialize};
 
+mod emblems;
+pub use emblems::TradeEmblem;
 mod mounting;
 pub use mounting::{MOUNTING_PLATE_THICKNESS_METRES, SignMounting};
 mod site;
@@ -115,6 +117,7 @@ pub enum SignFinish {
 #[derive(Clone, Debug, bevy::prelude::Component, Serialize, Deserialize)]
 #[component(immutable)]
 pub struct ShopSign {
+    pub emblem: Option<TradeEmblem>,
     pub name: ShopName,
     pub mount: SignMount,
     pub font: SignFont,
@@ -125,6 +128,7 @@ impl ShopSign {
     pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
         let style = mix64(id.0 ^ STYLE_STREAM);
         Some(Self {
+            emblem: TradeEmblem::for_use(usage),
             name: ShopName::for_establishment(id, usage)?,
             mount: if style & 1 == 0 {
                 SignMount::Wall

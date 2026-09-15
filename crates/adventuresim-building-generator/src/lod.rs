@@ -35,7 +35,7 @@ const ROUND_LOD_SEGMENTS: usize = 24;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingLodLevel {
-    /// Joined wall runs, textured faÃƒÂ§ade details, and geometric straight crowns.
+    /// Joined wall runs, textured faÃƒÆ’Ã‚Â§ade details, and geometric straight crowns.
     Facade,
     /// Joined shell surfaces with alpha-masked crown strips.
     Shell,
@@ -49,12 +49,19 @@ pub enum BuildingLodLevel {
 pub enum BuildingLodMaterial {
     Wall(WallMaterialClass),
     Roof(RoofMaterial),
-    /// Timber grid and braces baked into a plaster texture for shell LODs.
-    FachwerkBaked,
     Timber,
     /// Unpainted hewn wood, including interior structure and working stock.
     InteriorTimber,
     Iron,
+    Bronze,
+    LeadAlloy,
+    CarvedSandstone,
+    CandleWax,
+    Earthenware,
+    GlazedTile,
+    Millstone,
+    TimberEndGrain,
+    FurnitureWood(crate::furniture::FurnitureWoodSurface),
     /// Dry cereal grain covering malt-drying beds or stored in open working vessels.
     Grain,
     DyedCloth,
@@ -270,10 +277,8 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
     }
     append_wall_envelopes(&mut lod);
     append_roofs(&mut lod, plan);
-    if level == BuildingLodLevel::Facade {
-        append_opening_details(&mut lod, plan);
-        append_timber_details(&mut lod, plan);
-    }
+    append_opening_details(&mut lod, plan);
+    append_timber_details(&mut lod, plan);
     append_crowns(&mut lod, plan);
     for batch in crate::detail::compile_workplace_lod(plan).meshes {
         let target = lod.mesh_mut(batch.material);
@@ -491,11 +496,10 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
     }
 }
 
-fn roof_lod_material(level: BuildingLodLevel, material: RoofMaterial) -> BuildingLodMaterial {
-    if level == BuildingLodLevel::Shell && material == RoofMaterial::TimberInfill {
-        BuildingLodMaterial::FachwerkBaked
-    } else {
-        BuildingLodMaterial::Roof(material)
+fn roof_lod_material(_level: BuildingLodLevel, material: RoofMaterial) -> BuildingLodMaterial {
+    match material {
+        RoofMaterial::TimberInfill => BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill),
+        _ => BuildingLodMaterial::Roof(material),
     }
 }
 
@@ -613,7 +617,7 @@ mod tests {
     }
 
     #[test]
-    fn fachwerk_shell_omits_facade_details_and_reduces_triangle_count() {
+    fn fachwerk_shell_retains_semantic_facades_with_bounded_triangle_count() {
         let plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
             42,
@@ -638,15 +642,12 @@ mod tests {
             shell
                 .meshes
                 .iter()
-                .all(|mesh| mesh.material != BuildingLodMaterial::FacadeDetails)
+                .any(|mesh| mesh.material == BuildingLodMaterial::FacadeDetails)
         );
-        assert!(
-            shell
-                .meshes
-                .iter()
-                .any(|mesh| mesh.material == BuildingLodMaterial::FachwerkBaked)
-        );
-        assert!(triangle_count(&shell) < triangle_count(&facade));
+        assert!(shell.meshes.iter().any(
+            |mesh| mesh.material == BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill)
+        ));
+        assert!(triangle_count(&shell) <= triangle_count(&facade));
         assert_triangle_winding_matches_normals(&shell);
     }
 

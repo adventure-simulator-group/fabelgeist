@@ -113,6 +113,7 @@ fn structural_face(plan: &BuildingPlan, solid: &ResolvedSolid, outward: Vec3) ->
                 | SolidRole::FrameJettyBeam
                 | SolidRole::FrameMember
                 | SolidRole::OpeningHead
+                | SolidRole::OpeningSpandrel
         ) || plan.workplace.as_ref().is_some_and(|work| {
             work.parts.iter().any(|part| {
                 part.solid == solid.id

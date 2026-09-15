@@ -6,10 +6,12 @@ fn setup(
     roof_proof: Option<RoofProofView>,
     scene_setup: SceneSetup,
 ) {
+    world.remove_resource::<sample_polygon::SampleBounds>();
     let palette = create_palette(world);
     let dimensions = plan.dimensions_metres();
     let origin = Vec2::new(-dimensions.x * 0.5, -dimensions.y * 0.5);
     let storey_height = plan.storey_height_metres;
+    if view == ViewerView::Cutaway { cutaway::spawn(world, &palette, plan, origin); }
     let crown_proof = matches!(
         view,
         ViewerView::CrownStraightExterior
@@ -153,6 +155,7 @@ fn setup(
             }
         }
         for (wall_index, wall) in storey.walls.iter().copied().enumerate() {
+            if view == ViewerView::Cutaway { continue; }
             if crown_proof && !proof_crown_matches_point(wall.centre()) {
                 continue;
             }
@@ -1266,7 +1269,7 @@ fn setup(
                 )
             }
             ViewerView::Defenses => Vec3::new(-radius * 1.05, max_height * 1.35, radius * 1.15),
-            ViewerView::Cutaway => Vec3::new(radius * 0.75, max_height * 1.8, -radius * 1.1),
+            ViewerView::Cutaway => Vec3::new(scene_span * 0.6, scene_span * 0.9, -scene_span * 0.8),
             ViewerView::GateDetailExterior => {
                 let focus = plan
                     .gate_defenses
@@ -1507,6 +1510,7 @@ fn setup(
     } else {
         match view {
             ViewerView::Exterior => Vec3::new(0.0, max_height * 0.42, 0.0),
+            ViewerView::Cutaway => Vec3::Y * cutaway::CUT_HEIGHT_METRES * 0.5,
             ViewerView::GateDetailExterior => plan
                 .gate_defenses
                 .first()

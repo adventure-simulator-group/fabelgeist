@@ -129,6 +129,7 @@ pub enum WorkplaceMaterial {
     HempRope,
     Masonry,
     DressedStone,
+    Millstone,
     Iron,
 }
 

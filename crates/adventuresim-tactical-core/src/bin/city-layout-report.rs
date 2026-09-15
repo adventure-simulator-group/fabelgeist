@@ -1,5 +1,5 @@
 //! Export the actual city layout as inspectable JSON without starting a game server.
-use adventuresim_tactical_core::prelude::generate_city;
+use adventuresim_tactical_core::prelude::CitySite;
 use adventuresim_world_schema::{
     FallbackIndustry, IndustryEvidence, InferredIndustryProfile, infer_settlement_economy,
 };
@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     )])
     .unwrap();
     let economy = infer_settlement_economy(level, population, 3, level >= 3, &industries)?;
-    let city = generate_city(seed, population, &economy);
+    let city = CitySite::central_german_market_town().generate(seed, population, &economy);
     let lots = city.lots.iter().map(|lot| {
         let dimensions = lot.dimensions_metres();
         json!({

@@ -1,20 +1,5 @@
 fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
-    let expected = match plan.archetype {
-        BuildingArchetype::TownHouse => Some(crate::TimberFrameProgramKind::NarrowUrbanTownHouse),
-        BuildingArchetype::HallHouse => {
-            Some(crate::TimberFrameProgramKind::NorthernTwoPostHallHouse)
-        }
-        BuildingArchetype::FachwerkCottage => {
-            Some(crate::TimberFrameProgramKind::DirectRoofCottage)
-        }
-        BuildingArchetype::FachwerkMerchantHouse => {
-            Some(crate::TimberFrameProgramKind::JettiedMerchantHouse)
-        }
-        BuildingArchetype::RenaissanceTownHall => {
-            Some(crate::TimberFrameProgramKind::CivicMasonryTimberHall)
-        }
-        _ => None,
-    };
+    let expected = plan.archetype.timber_frame_program();
     let Some(expected) = expected else {
         if plan.timber_frame.is_some() {
             issues.push(issue(
@@ -1521,7 +1506,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && ground_route_has_door
                 && jetty_count == 0
         }
-        crate::TimberFrameProgramKind::DirectRoofCottage => {
+        crate::TimberFrameProgramKind::DirectRoofCottage | crate::TimberFrameProgramKind::CourtyardStorageRange => {
             jetty_count == 0
                 && frame
                     .facades
@@ -1531,7 +1516,7 @@ fn audit_timber_frame(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                 && ground_route_has_door
         }
         crate::TimberFrameProgramKind::JettiedMerchantHouse => {
-            jetty_count >= 1 && ground_route_has_door
+            jetty_count >= 1 && ground_route_has_door && frame.masonry_bearing_interfaces.len() >= 4
         }
         crate::TimberFrameProgramKind::CivicMasonryTimberHall => {
             lines

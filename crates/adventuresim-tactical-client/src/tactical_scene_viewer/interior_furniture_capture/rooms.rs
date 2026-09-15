@@ -8,11 +8,12 @@ use sightlines::{Blocker, Owner, Subject};
 
 mod sightlines;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub(super) enum RoomSelection {
     Role(RoomKind),
     UpperKeep,
     Bedroom,
+    Operating(FurnitureKind),
 }
 
 pub(super) fn camera(
@@ -86,9 +87,12 @@ pub(super) fn camera(
         .collect();
     eyes.sort_by(|a, b| a.x.total_cmp(&b.x).then_with(|| a.z.total_cmp(&b.z)));
     eyes.dedup();
-    let (eye, target) = sightlines::choose(&eyes, &subjects, &blockers).expect(
-        "review room must have a reachable unobstructed view of its signature furniture or stair",
-    );
+    let (eye, target) = sightlines::choose(&eyes, &subjects, &blockers).unwrap_or_else(|| {
+        panic!(
+            "review building {} ({:?}, {selection:?}) has no reachable unobstructed signature view",
+            building.placement.id, building.placement.program.usage
+        )
+    });
     let transform = super::super::buildings::building_transform(building);
     let origin = building.collision.bounds.centre();
     BuildingReviewCamera {
@@ -110,6 +114,10 @@ fn select_room<'a>(
             RoomSelection::Role(kind) => room.kind == kind,
             RoomSelection::Bedroom => storey.level > 0 && room.kind == RoomKind::Bedchamber,
             RoomSelection::UpperKeep => false,
+            RoomSelection::Operating(kind) => layout
+                .placements
+                .iter()
+                .any(|p| p.storey == storey.level && p.room_id == room.id && p.key.kind() == kind),
         })
         .filter_map(|(storey, room)| {
             let population = layout
@@ -197,39 +205,54 @@ fn furniture_subject(
         furniture_floor_height(&building.plan, placement),
         placement.centre_metres.y,
     );
-    let points = [
-        Vec3::new(0.0, size.y * 0.65, 0.0),
-        Vec3::new(-size.x * 0.4, size.y * 0.65, -size.z * 0.4),
-        Vec3::new(size.x * 0.4, size.y * 0.65, -size.z * 0.4),
-        Vec3::new(-size.x * 0.4, size.y * 0.65, size.z * 0.4),
-        Vec3::new(size.x * 0.4, size.y * 0.65, size.z * 0.4),
-    ]
-    .map(|point| translation + rotation * point)
-    .to_vec();
-    let signature = signature_kind(selection, placement.key.kind);
+    let points = std::iter::once(Vec3::Y * size.y * 0.5)
+        .chain(super::envelope_corners(size))
+        .map(|point| translation + rotation * point)
+        .collect();
+    let signature = signature_kind(selection, placement.key.kind());
     Subject {
         owner: Owner::Furniture(index),
         points,
         importance: if signature { 4.0 } else { 1.0 },
         signature,
+        working_points: if matches!(
+            selection,
+            RoomSelection::Operating(FurnitureKind::SpinningStool)
+        ) && signature
+        {
+            [
+                Vec3::new(0.0, 0.46, 0.0),
+                Vec3::new(-size.x * 0.38, 0.32, 0.0),
+                Vec3::new(0.0, 0.1, -size.z * 0.5 - 0.35),
+            ]
+            .map(|point| translation + rotation * point)
+            .to_vec()
+        } else {
+            Vec::new()
+        },
+        front_view: matches!(selection, RoomSelection::Operating(_))
+            .then_some((translation, rotation * -Vec3::Z)),
     }
 }
 
 fn signature_kind(selection: RoomSelection, kind: FurnitureKind) -> bool {
     use FurnitureKind::*;
     match selection {
+        RoomSelection::Operating(expected) => kind == expected,
         RoomSelection::Role(RoomKind::Shop) => matches!(
             kind,
             Counter | CounterLeftEnd | CounterRightEnd | CounterCorner | DisplayCounter
         ),
         RoomSelection::Role(RoomKind::CommonRoom | RoomKind::GreatHall) => matches!(
             kind,
-            DiningTable | Counter | CounterLeftEnd | CounterRightEnd
+            DiningTable | Counter | CounterLeftEnd | CounterRightEnd | SpinningStool
         ),
         RoomSelection::Role(RoomKind::Ward) => kind == WardBed,
-        RoomSelection::Role(RoomKind::Guardroom) => matches!(kind, BunkBed | WeaponRack),
-        RoomSelection::Role(RoomKind::Workshop) => kind == Workbench,
-        RoomSelection::Role(RoomKind::Nave) => kind == ChurchBench,
+        RoomSelection::Role(RoomKind::Guardroom) => matches!(kind, DiningTable | WeaponRack),
+        RoomSelection::Role(RoomKind::Workshop) => {
+            matches!(kind, Workbench | TreadleLoom | PrintingPress | TypeCase)
+        }
+        RoomSelection::Role(RoomKind::Nave) => matches!(kind, Pulpit | BaptismalFont | Bima),
         RoomSelection::Role(RoomKind::Storage) => matches!(kind, StorageCrate | GrainBin),
         RoomSelection::Bedroom => kind == Bed,
         _ => false,
@@ -264,6 +287,8 @@ fn add_stair_subjects(building: &GeneratedBuilding, floor: f32, subjects: &mut V
             ],
             importance: 6.0,
             signature: true,
+            front_view: None,
+            working_points: Vec::new(),
         });
     }
 }
@@ -306,6 +331,8 @@ mod tests {
             points: vec![target],
             importance: 1.0,
             signature: true,
+            front_view: None,
+            working_points: Vec::new(),
         }];
         assert!(sightlines::choose(&[eye], &subjects, &blockers).is_some());
         let doors = closed_door_blockers(&plan);
@@ -348,10 +375,7 @@ mod tests {
         let mut layout = InteriorLayout::default();
         for storey in [0, 0, 0, 1] {
             layout.placements.push(InteriorPlacement {
-                key: FurnitureKey {
-                    kind: FurnitureKind::DiningTable,
-                    variant: FurnitureVariant::Compact,
-                },
+                key: FurnitureKey::natural(FurnitureKind::DiningTable, FurnitureVariant::Compact),
                 room_id: 0,
                 storey,
                 centre_metres: Vec2::ZERO,
@@ -388,7 +412,7 @@ mod tests {
         ));
         assert!(signature_kind(
             RoomSelection::Role(RoomKind::Guardroom),
-            FurnitureKind::BunkBed
+            FurnitureKind::DiningTable
         ));
     }
 }

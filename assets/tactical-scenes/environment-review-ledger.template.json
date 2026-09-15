@@ -1,16 +1,24 @@
 {
-  "schema_version": 1,
+  "schema_version": 19,
   "capture_manifest": "target/tactical-scene-captures/environment-review-.../manifest.json",
   "scope": {
     "environment_only": true,
-    "excluded": ["characters", "volumetric-clouds", "caves", "weather", "water"]
+    "excluded": [
+      "characters",
+      "volumetric-clouds",
+      "caves",
+      "weather",
+      "water"
+    ]
   },
   "items": [
     {
       "id": "example-replace-me",
       "area": "terrain",
       "critique": "Replace with one evidence-backed visual defect.",
-      "evidence": ["fixture/time/view.png"],
+      "evidence": [
+        "fixture/time/view.png"
+      ],
       "severity_before": "UNASSESSABLE",
       "severity_after": "UNASSESSABLE",
       "coverage_gap": "Replace with the missing view, or null once assessable.",
@@ -22,5 +30,7 @@
   "stop_decision": {
     "ready_to_stop": false,
     "reason": "Review and triage have not run."
-  }
+  },
+  "generation_version": 42,
+  "compounds": []
 }

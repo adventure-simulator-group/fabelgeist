@@ -5,6 +5,7 @@ enum WindowClosureVariant {
     Fixed,
     Casement,
     BarredCasement,
+    Shutter,
 }
 
 fn window_closure_variant(
@@ -14,6 +15,11 @@ fn window_closure_variant(
 ) -> WindowClosureVariant {
     if program.archetype == BuildingArchetype::Cathedral {
         return WindowClosureVariant::Fixed;
+    }
+    if program.archetype == BuildingArchetype::FachwerkCottage
+        && opening.0.is_multiple_of(3)
+        && program.usage.is_none_or(|usage| usage == adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling) {
+        return WindowClosureVariant::Shutter;
     }
     let sample = fabelgeist_determinism::splitmix64(
         program.seed
@@ -93,6 +99,7 @@ impl WindowClosureVariant {
     fn policy(self) -> crate::ClosurePolicy {
         use crate::{ClosureKind, ClosurePolicy, ClosureState};
         let (layers, state, swing_clearance_metres) = match self {
+            Self::Shutter => (vec![ClosureKind::TimberShutter], ClosureState::Operable, 0.55),
             Self::Fixed => (vec![ClosureKind::LeadedGlazing], ClosureState::Closed, 0.0),
             Self::Casement => (
                 vec![ClosureKind::LeadedGlazing],

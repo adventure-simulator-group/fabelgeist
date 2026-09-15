@@ -220,7 +220,7 @@ fn resolve_roof_child_front_openings(
         // The five accepted civilian programs instead receive their opening-
         // first members from `TimberFrameAssembly`, so duplicating this legacy
         // four-piece overlay would create two competing structural authorities.
-        for (slot, plan, centre_y, frame_size) in (timber_program_kind(program.archetype).is_none())
+        for (slot, plan, centre_y, frame_size) in (program.archetype.timber_frame_program().is_none())
             .then_some([
                 (
                     100_u64,

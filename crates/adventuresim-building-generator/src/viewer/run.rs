@@ -301,7 +301,8 @@ pub(crate) fn run(
         })
         .collect::<Vec<_>>();
     let mut expected_roof_render_items = expected_roof_render_items;
-    if timber_isolated_view(view) && view != ViewerView::TimberGableRoofBearing {
+    if (timber_isolated_view(view) && view != ViewerView::TimberGableRoofBearing)
+        || matches!(view, ViewerView::Cutaway | ViewerView::TowerPortalDetail) {
         expected_roof_render_items.clear();
     }
     let roof_render_multiset_hash =
@@ -1091,7 +1092,9 @@ pub(crate) fn run(
         wall_section_kind: wall_section_kind(view),
         focused_assembly_owner_id: architectural_owner,
         focused_resolved_geometry_hash: architectural_focus_hash,
-        section_cut_applied: section_proof(view)
+        horizontal_section_height_metres: (view == ViewerView::Cutaway).then_some(cutaway::CUT_HEIGHT_METRES),
+        surface_sample_polygon: None,
+        section_cut_applied: view == ViewerView::Cutaway || section_proof(view)
             || church_section_proof(view)
             || timber_section_proof(view)
             || artillery_section_proof(view)
@@ -1376,7 +1379,7 @@ pub(crate) fn run(
                 .expect("editor visibility system must run after initial scene setup");
         }
     })
-    .add_systems(Last, capture_when_ready);
+    .add_systems(Last, (sample_polygon::prepare_sample, capture_when_ready).chain());
     let exit = app.run();
     if exit != AppExit::Success {
         std::process::exit(1);

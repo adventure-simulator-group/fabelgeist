@@ -37,19 +37,7 @@ pub fn furniture_budgets(program: &BuildingProgram, room: &Room) -> Vec<Furnitur
     match room.kind {
         RoomKind::EntranceHall | RoomKind::Passage | RoomKind::StairHall | RoomKind::Gallery => {}
         RoomKind::Bedchamber => {
-            add(
-                if matches!(
-                    usage,
-                    BuildingUse::Prison | BuildingUse::Guardhouse | BuildingUse::Arsenal
-                ) {
-                    BunkBed
-                } else {
-                    Bed
-                },
-                10.0,
-                6,
-                Wall,
-            );
+            add(Bed, 10.0, 6, Wall);
             add(StorageChest, 18.0, 3, Wall);
         }
         RoomKind::Kitchen => {
@@ -88,7 +76,10 @@ pub fn furniture_budgets(program: &BuildingProgram, room: &Room) -> Vec<Furnitur
             add(DiningTable, 12.0, 10, Rows);
         }
         RoomKind::CountingRoom => {
-            add(WritingDesk, 18.0, 5, Wall);
+            add(ReckoningTable, 18.0, 5, Wall);
+            if usage == BuildingUse::WeighHouse {
+                add(BalanceTable, 40.0, 1, Centre);
+            }
             add(Cupboard, 22.0, 4, Wall);
         }
         RoomKind::Guardroom | RoomKind::Armoury | RoomKind::TowerChamber => {
@@ -97,13 +88,20 @@ pub fn furniture_budgets(program: &BuildingProgram, room: &Room) -> Vec<Furnitur
             add(StorageChest, 24.0, 3, Wall);
         }
         RoomKind::Nave | RoomKind::Chapel => {
+            if usage == BuildingUse::Synagogue {
+                add(Bima, 120.0, 1, Centre);
+            } else {
+                add(Pulpit, 120.0, 1, Wall);
+                if matches!(usage, BuildingUse::ParishChurch | BuildingUse::Cathedral) {
+                    add(BaptismalFont, 200.0, 1, Wall);
+                }
+            }
             add(ChurchBench, 7.0, 48, Rows);
-            add(Lectern, 120.0, 1, Wall);
         }
         RoomKind::Chancel => {
             add(
                 if usage == BuildingUse::Synagogue {
-                    Lectern
+                    TorahShrine
                 } else {
                     Altar
                 },
@@ -127,6 +125,13 @@ pub fn furniture_budgets(program: &BuildingProgram, room: &Room) -> Vec<Furnitur
                 }
                 add(DiningTable, 18.0, 8, Centre);
                 add(Cupboard, 45.0, 2, Wall);
+                if matches!(
+                    usage,
+                    BuildingUse::Dwelling | BuildingUse::Rectory | BuildingUse::Manor
+                ) {
+                    add(SpinningStool, 60.0, 1, Wall);
+                }
+                add(CandleStand, 60.0, 1, Wall);
             }
         }
     }
@@ -154,9 +159,9 @@ fn trade_kit(usage: BuildingUse) -> TradeKit {
         Smithy | Smelter | AssayHouse => (F::Workbench, F::ToolRack, F::StorageCrate),
         Weaponsmith => (F::Workbench, F::WeaponRack, F::StorageCrate),
         Armorer => (F::Workbench, F::ArmourStand, F::StorageCrate),
-        Tailor | Weaver | PrintingHouse | PaperMill => {
-            (F::CuttingTable, F::Shelving, F::StorageCrate)
-        }
+        Weaver => (F::TreadleLoom, F::SpinningStool, F::StorageCrate),
+        PrintingHouse => (F::PrintingPress, F::TypeCase, F::Shelving),
+        Tailor | PaperMill => (F::CuttingTable, F::Shelving, F::StorageCrate),
         Bakehouse => (F::KneadingTrough, F::Workbench, F::GrainBin),
         Brewery | Malthouse => (F::CaskRack, F::Workbench, F::GrainBin),
         Butcher => (F::ButchersBlock, F::Workbench, F::StorageCrate),
@@ -170,13 +175,14 @@ fn trade_kit(usage: BuildingUse) -> TradeKit {
             (F::Workbench, F::DryingRack, F::StorageCrate)
         }
         TimberYard | Warehouse | WoadStore => (F::Workbench, F::Shelving, F::StorageCrate),
-        TownHall | WeighHouse | Guildhall | Mint | CustomsHouse => {
-            (F::WritingDesk, F::Cupboard, F::StorageChest)
+        WeighHouse => (F::BalanceTable, F::ReckoningTable, F::StorageChest),
+        TownHall | Guildhall | Mint | CustomsHouse => {
+            (F::ReckoningTable, F::Cupboard, F::StorageChest)
         }
         Hospital => (F::WardBed, F::WashStand, F::Cupboard),
         Bathhouse => (F::BathTub, F::Bench, F::StorageChest),
         School | University => (F::WritingDesk, F::Bench, F::Shelving),
-        Guardhouse | Prison | Castle | Arsenal => (F::BunkBed, F::ArmourStand, F::WeaponRack),
+        Guardhouse | Prison | Castle | Arsenal => (F::DiningTable, F::ArmourStand, F::WeaponRack),
     };
     TradeKit {
         work,

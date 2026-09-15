@@ -11,10 +11,28 @@ use crate::{
 };
 
 const CASEMENT_OPEN_ANGLE_RADIANS: f32 = 80.0 * core::f32::consts::PI / 180.0;
+mod leaf;
+pub use leaf::compile_window_leaf;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+pub enum WindowLeafKind {
+    LeadedGlass,
+    TimberShutter,
+}
+
+impl WindowLeafKind {
+    pub const fn material(self) -> crate::BuildingLodMaterial {
+        match self {
+            Self::LeadedGlass => crate::BuildingLodMaterial::Glass,
+            Self::TimberShutter => crate::BuildingLodMaterial::InteriorTimber,
+        }
+    }
+}
 
 /// One inward-opening glazed casement in building-local coordinates.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WindowSpec {
+    pub leaf: WindowLeafKind,
     pub opening: OpeningAssemblyId,
     pub source: ResolvedItemId,
     pub closed_centre: Vec3,
@@ -79,10 +97,12 @@ pub fn compile_operable_windows(plan: &BuildingPlan) -> Vec<WindowSpec> {
         })
         .filter_map(|opening| {
             let solid = opening.closure_solids.iter().find_map(|id| {
-                solids
-                    .get(id)
-                    .copied()
-                    .filter(|solid| solid.role == SolidRole::LeadedGlazing)
+                solids.get(id).copied().filter(|solid| {
+                    matches!(
+                        solid.role,
+                        SolidRole::LeadedGlazing | SolidRole::OpeningClosure
+                    )
+                })
             })?;
             window_from_solid(
                 opening.id,
@@ -113,6 +133,11 @@ fn window_from_solid(
     let positive_swing = Quat::from_rotation_y(0.01) * Vec3::new(tangent.x, 0.0, tangent.y);
     let enters_room = Vec2::new(positive_swing.x, positive_swing.z).dot(-outward) > 0.0;
     Some(WindowSpec {
+        leaf: if solid.role == SolidRole::LeadedGlazing {
+            WindowLeafKind::LeadedGlass
+        } else {
+            WindowLeafKind::TimberShutter
+        },
         opening,
         source: solid.id,
         closed_centre: solid.centre,

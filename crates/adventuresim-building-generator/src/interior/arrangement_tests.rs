@@ -31,10 +31,12 @@ fn interior_ward_and_inn_arrangements_preserve_service_and_access() {
                                     .iter()
                                     .filter(|p| p.storey == storey.level && p.room_id == room.id)
                                     .collect::<Vec<_>>();
-                                pieces.iter().any(|p| p.key.kind == FurnitureKind::Counter)
+                                pieces
+                                    .iter()
+                                    .any(|p| p.key.kind() == FurnitureKind::Counter)
                                     && pieces
                                         .iter()
-                                        .any(|p| p.key.kind == FurnitureKind::DiningTable)
+                                        .any(|p| p.key.kind() == FurnitureKind::DiningTable)
                             })),
                         "{seed} {size:?}: no viable common room has dining and service counter"
                     );
@@ -50,7 +52,7 @@ fn interior_ward_and_inn_arrangements_preserve_service_and_access() {
                             .filter(|p| {
                                 p.storey == 0
                                     && p.room_id == room.id
-                                    && p.key.kind == FurnitureKind::WardBed
+                                    && p.key.kind() == FurnitureKind::WardBed
                             })
                             .collect::<Vec<_>>();
                         assert!(beds.len() >= 4, "{seed} {size:?}: too few ward beds");

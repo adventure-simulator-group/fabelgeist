@@ -21,7 +21,7 @@ use bevy::{
     pbr::wireframe::WireframePlugin,
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode},
+    window::{ExitCondition, PresentMode, WindowResolution},
     winit::WinitPlugin,
 };
 use serde::Serialize;
@@ -870,7 +870,7 @@ pub(crate) fn run(
         .set(WindowPlugin {
             primary_window: (!scene_performance_benchmarking).then(|| Window {
                 title: "Fabelgeist tactical scene capture".into(),
-                resolution: bevy::window::WindowResolution::new(VIEW_WIDTH, VIEW_HEIGHT)
+                resolution: WindowResolution::new(VIEW_WIDTH, VIEW_HEIGHT)
                     .with_scale_factor_override(1.0),
                 present_mode: PresentMode::AutoNoVsync,
                 resizable: false,
@@ -1139,6 +1139,7 @@ fn selected_capture_views(
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
+        building_review::COMPOUND_PROFILE => view_specs::COMPOUND_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
@@ -1757,6 +1758,7 @@ fn setup_scene(
         obstacles,
         buildings,
         mut furniture,
+        boundaries,
         repairs,
         terrain_patch,
     } = generated;
@@ -1803,17 +1805,23 @@ fn setup_scene(
         &output,
     )
     .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
-    let city_exterior_cameras =
-        building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
-            .unwrap_or_else(|| {
-                city_capture::capture_cameras(
-                    &buildings,
-                    &input.distant_buildings,
-                    &input.streets,
-                    &terrain,
-                    &profile,
-                )
-            });
+    let city_exterior_cameras = building_review::setup(
+        &mut commands,
+        &buildings,
+        boundaries.len(),
+        &input_path,
+        &output,
+        &profile,
+    )
+    .unwrap_or_else(|| {
+        city_capture::capture_cameras(
+            &buildings,
+            &input.distant_buildings,
+            &input.streets,
+            &terrain,
+            &profile,
+        )
+    });
     let city_exterior_cameras = furniture_capture::setup(
         &mut commands,
         &furniture,
@@ -1827,6 +1835,7 @@ fn setup_scene(
     let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
     furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
+    buildings::spawn_boundaries(&mut commands, boundaries);
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
         PlasterGrazingReviewLight,
@@ -2144,6 +2153,7 @@ fn setup_scene(
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        compounds: input.compounds.clone(),
         furniture_groups: furniture.groups,
         distant_furniture: furniture.distant_instances,
         lods: input.vista.lods.clone(),

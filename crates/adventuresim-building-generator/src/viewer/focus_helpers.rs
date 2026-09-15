@@ -30,6 +30,11 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                     | SolidRole::ChurchCrossingArch
                     | SolidRole::ChurchBellFloor
                     | SolidRole::ChurchBellFrame
+                    | SolidRole::ChurchBellFitting
+                    | SolidRole::ChurchBellAxle
+                    | SolidRole::ChurchBellHeadstock
+                    | SolidRole::ChurchBellBearing
+                    | SolidRole::ChurchBellCrown
                     | SolidRole::ChurchBell
                     | SolidRole::ChurchGuard
                     | SolidRole::ChurchStairNewel
@@ -156,13 +161,19 @@ fn church_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
                             ),
                             ViewerView::ChurchTowerBellUnderside => matches!(
                                 solid.role,
-                                SolidRole::ChurchBellFloor
-                                    | SolidRole::ChurchBell
-                                    | SolidRole::ChurchFloor
+                                SolidRole::ChurchBell
+                                    | SolidRole::ChurchBellHeadstock | SolidRole::ChurchBellAxle
+                                    | SolidRole::ChurchBellBearing | SolidRole::ChurchBellCrown
+                                    | SolidRole::ChurchBellFitting
                             ),
                             ViewerView::ChurchTowerFrame => matches!(
                                 solid.role,
                                 SolidRole::ChurchBellFrame
+                                    | SolidRole::ChurchBellFitting
+                                    | SolidRole::ChurchBellAxle
+                                    | SolidRole::ChurchBellHeadstock
+                                    | SolidRole::ChurchBellBearing
+                                    | SolidRole::ChurchBellCrown
                                     | SolidRole::ChurchBell
                                     | SolidRole::ChurchServiceLadder
                                     | SolidRole::ChurchBellFloor
@@ -457,6 +468,11 @@ fn architectural_section_removed_item_ids(plan: &BuildingPlan, view: ViewerView)
                             | SolidRole::Landing
                             | SolidRole::ChurchGuard
                             | SolidRole::ChurchBellFrame
+                            | SolidRole::ChurchBellFitting
+                            | SolidRole::ChurchBellAxle
+                            | SolidRole::ChurchBellHeadstock
+                            | SolidRole::ChurchBellBearing
+                            | SolidRole::ChurchBellCrown
                             | SolidRole::ChurchBell
                             | SolidRole::FrameMember
                     )

@@ -11,6 +11,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+mod intersection;
+
 #[cfg(test)]
 #[path = "collision/arch_tests.rs"]
 mod arch_tests;
@@ -53,7 +55,7 @@ impl CollisionCuboid {
         }
     }
 
-    fn bounds(self) -> CollisionBounds {
+    pub(crate) fn bounds(self) -> CollisionBounds {
         let half = self.size * 0.5;
         let orientation = bevy::math::Quat::from_rotation_y(self.yaw_radians)
             * bevy::math::Quat::from_rotation_x(self.crossfall_radians)
@@ -122,6 +124,13 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
                 matches!(
                     solid.role,
                     crate::SolidRole::InteriorFloor
+                        | crate::SolidRole::ChurchBell
+                        | crate::SolidRole::ChurchBellFrame
+                        | crate::SolidRole::ChurchBellFitting
+                        | crate::SolidRole::ChurchBellAxle
+                        | crate::SolidRole::ChurchBellHeadstock
+                        | crate::SolidRole::ChurchBellBearing
+                        | crate::SolidRole::ChurchBellCrown
                         | crate::SolidRole::ChurchFloor
                         | crate::SolidRole::GalleryFloor
                         | crate::SolidRole::StairTread
@@ -152,6 +161,12 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
 }
 
 pub(crate) fn collision_parts(plan: &BuildingPlan, solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
+    if matches!(solid.shape, crate::ResolvedSolidShape::CylinderAlongX) {
+        return crate::axle::collision(solid);
+    }
+    if matches!(solid.shape, crate::ResolvedSolidShape::BellShell) {
+        return crate::bell::collision(solid);
+    }
     let wall = plan
         .wall_assemblies
         .iter()

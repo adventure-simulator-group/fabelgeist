@@ -13,9 +13,7 @@ use bevy::math::Vec2;
 use fabelgeist_determinism::mix64;
 use sha2::{Digest, Sha256};
 
-use crate::settlement_buildings::{
-    SettlementBuildingLayout, SettlementSceneProfile, place_settlement_buildings,
-};
+use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
 mod geological_landforms;
 
@@ -152,9 +150,8 @@ pub fn build_imported_scene(
             })
             .collect::<Result<Vec<_>, String>>()?,
     };
-    let city_elevation_metres = f32::from(center.elevation_m);
-    let building_layout =
-        settlement_building_layout(settlement, city_elevation_metres, &mut vista)?;
+    // sample_grid has already subtracted the absolute centre elevation.
+    let building_layout = settlement_building_layout(settlement, &mut vista)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
         settlement
             .is_none()
@@ -178,6 +175,7 @@ pub fn build_imported_scene(
         landform,
         streets: building_layout.streets,
         yards: building_layout.yards,
+        compounds: building_layout.compounds,
         buildings: building_layout.playable,
         distant_buildings: building_layout.distant,
         vista,
@@ -195,19 +193,15 @@ pub fn build_imported_scene(
 
 fn settlement_building_layout(
     settlement: Option<&SettlementSceneProfile>,
-    elevation_metres: f32,
     vista: &mut VistaSample,
-) -> Result<SettlementBuildingLayout, String> {
+) -> Result<adventuresim_tactical_core::city_layout::CitySceneLayout, String> {
     let playable_half_extent_metres = f32::from(PLAYABLE_SIDE - 1) * PLAYABLE_SPACING_METRES * 0.5;
-    let mut layout = settlement
+    let layout = settlement
         .map(|profile| place_settlement_buildings(profile, playable_half_extent_metres))
         .transpose()
         .map_err(|error| error.to_string())?
         .unwrap_or_default();
-    for building in &mut layout.distant {
-        building.base_elevation_metres = elevation_metres;
-    }
-    level_distant_city_vista(vista, &layout.distant, elevation_metres);
+    level_distant_city_vista(vista, &layout.distant, 0.0);
     Ok(layout)
 }
 
@@ -579,6 +573,42 @@ mod tests {
     }
 
     #[test]
+    fn imported_settlement_keeps_distant_properties_on_the_relative_datum() {
+        let (pack, directory) = constant_final_pack();
+        let settlement = SettlementSceneProfile {
+            id: "relative-city".into(),
+            population_level: 1,
+            population_estimate: 900,
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+        };
+        let input = build_imported_scene(
+            &pack,
+            "mission:relative-city",
+            "city",
+            505_000_000,
+            105_000_000,
+            123_456,
+            123_456,
+            Some(&settlement),
+        )
+        .unwrap();
+        assert_eq!(input.absolute_elevation_metres, 321);
+        assert!(!input.distant_buildings.is_empty());
+        assert!(!input.compounds.is_empty());
+        assert!(
+            input
+                .distant_buildings
+                .iter()
+                .all(|building| building.base_elevation_metres == 0.0)
+        );
+        let lod = &input.vista.lods[0];
+        let middle = usize::from(lod.width) * usize::from(lod.depth) / 2;
+        assert!(lod.heights_metres[middle].abs() < 0.01);
+        drop(pack);
+        fs::remove_dir_all(directory).expect("remove isolated terrain fixture");
+    }
+
+    #[test]
     fn nearby_fault_keeps_its_canonical_offset_and_source_orientation() {
         let center = Wgs84CoordinateE7::new(520_000_000, 100_000_000).unwrap();
         let faults = vec![
@@ -593,7 +623,7 @@ mod tests {
                     TravelGeometryPoint::new(10.01, 52.0001).unwrap(),
                 ],
             }),
-            mapped_sandstone_window(),
+            mapped_sandstone_window(10.0, 52.0),
         ];
         let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
         assert!(recipe.tangent_permyriad[0] > 9_900);
@@ -624,7 +654,7 @@ mod tests {
                     TravelGeometryPoint::new(10.01, 52.0 + latitude_offset).unwrap(),
                 ],
             }),
-            mapped_sandstone_window(),
+            mapped_sandstone_window(10.0, 52.0),
         ];
 
         let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
@@ -635,12 +665,19 @@ mod tests {
         assert_eq!(recipe.lod, TerrainLandformLod::Fringe);
     }
 
-    fn mapped_sandstone_window() -> TerrainFeature {
+    fn mapped_sandstone_window(longitude: f64, latitude: f64) -> TerrainFeature {
+        use proj4rs::{proj::Proj, transform::transform};
+        let geographic =
+            Proj::from_proj_string("+proj=longlat +datum=WGS84 +ellps=WGS84 +no_defs").unwrap();
+        let projected = Proj::from_proj_string("+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m +no_defs").unwrap();
+        let mut position = (longitude.to_radians(), latitude.to_radians(), 0.0);
+        transform(&geographic, &projected, &mut position).unwrap();
+        let (x, y) = (position.0.round() as i32, position.1.round() as i32);
         TerrainFeature::MappedGeology(MappedGeologicWindow {
             id: "egdi-window:fault-test".into(),
             unit: GeologicUnitId::new("fault-test").unwrap(),
             lithology: SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-            bounds_metres: [3_999_000, 2_799_000, 4_001_000, 2_801_000],
+            bounds_metres: [x - 1_000, y - 1_000, x + 1_000, y + 1_000],
         })
     }
 
@@ -702,17 +739,20 @@ mod tests {
             cultivation_source_sha256: "3".repeat(64),
             cultivated_square_count: 1,
             cultivated_native_cells: 1,
-            terrain_features: vec![TerrainFeature::MappedFault(MappedFault {
-                id: "DE:pack-fixture".into(),
-                local_name: Some("pack fixture".into()),
-                classification: None,
-                mapped_active: false,
-                mapped_capable: false,
-                trace: vec![
-                    TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
-                    TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
-                ],
-            })],
+            terrain_features: vec![
+                TerrainFeature::MappedFault(MappedFault {
+                    id: "DE:pack-fixture".into(),
+                    local_name: Some("pack fixture".into()),
+                    classification: None,
+                    mapped_active: false,
+                    mapped_capable: false,
+                    trace: vec![
+                        TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
+                        TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
+                    ],
+                }),
+                mapped_sandstone_window(10.5, 50.5),
+            ],
             entries,
             package_sha256: "0".repeat(64),
         };

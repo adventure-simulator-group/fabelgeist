@@ -21,6 +21,8 @@ enum ReviewTarget {
     Interior,
     /// A measured building-local point for working bays and human-height street views.
     LocalPoint(Vec3),
+    /// Horizontal offset from the building placement, height above its level pad.
+    PlotPoint(Vec3),
 }
 
 impl ReviewView {
@@ -35,6 +37,14 @@ impl ReviewView {
             .expect("review camera building exists");
         let bounds = building.collision.bounds;
         let target = match self.target {
+            ReviewTarget::PlotPoint(point) => {
+                assert!(point.is_finite(), "invalid plot review target");
+                Vec3::new(
+                    bounds.centre().x + point.x,
+                    bounds.min.y + point.y,
+                    bounds.centre().z + point.z,
+                )
+            }
             ReviewTarget::LocalPoint(point) => {
                 assert!(point.is_finite(), "invalid local review target");
                 point

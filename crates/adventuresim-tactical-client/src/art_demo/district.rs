@@ -9,6 +9,7 @@ struct CityLayout {
     buildings: Vec<DistantBuildingPlacement>,
     streets: Vec<CityStreetPatch>,
     yards: Vec<CityYardPatch>,
+    compounds: Vec<CityCompound>,
 }
 
 pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
@@ -24,6 +25,7 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
     input.distant_buildings = layout.buildings;
     input.streets = layout.streets;
     input.yards = layout.yards;
+    input.compounds = layout.compounds;
     Ok(())
 }
 

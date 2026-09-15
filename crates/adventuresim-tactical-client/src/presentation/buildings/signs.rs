@@ -18,6 +18,8 @@ impl Plugin for BuildingPresentationPlugin {
             .init_asset_loader::<super::prepared::PreparedCityLoader>()
             .add_observer(super::on_scene_building_added)
             .add_observer(super::on_scene_vista_buildings)
+            .add_observer(super::boundaries::on_boundary)
+            .add_observer(super::boundaries::on_vista)
             .add_systems(
                 Update,
                 (

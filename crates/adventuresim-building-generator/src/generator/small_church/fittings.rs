@@ -128,28 +128,30 @@ fn belfry(builder: &mut Fittings<'_>, d: Dimensions, pitch: f32) {
             crate::WallMaterialClass::InternalTimber,
         );
     }
-    for x in [-0.85, 0.85] {
-        builder.part(
-            Vec3::new(centre.x + x, floor + 1.25, centre.y),
-            Vec3::new(0.2, 0.2, 1.88),
-            SolidRole::BeamJoist,
-        );
+    for part in (bell_hanging::BellHanging {
+        bell_top: Vec3::new(centre.x, floor + 1.15, centre.y),
+        axis_height: floor + 1.40,
+        bearing_half_span: 0.85,
+        rail_length: 1.88,
+        rail_depth: 0.20,
+        headstock_height: 0.18,
+    })
+    .parts()
+    {
+        builder.part(part.centre, part.size, part.role);
     }
-    builder.part(
-        Vec3::new(centre.x, floor + 1.25, centre.y),
-        Vec3::new(1.88, 0.2, 0.2),
-        SolidRole::BeamJoist,
-    );
-    builder.part(
-        Vec3::new(centre.x, floor + 0.92, centre.y),
-        Vec3::new(0.25, 0.48, 0.25),
+    let bell = builder.part(
+        Vec3::new(centre.x, floor + 0.84, centre.y),
+        Vec3::new(0.62, 0.62, 0.62),
         SolidRole::ChurchBell,
     );
-    builder.part(
-        Vec3::new(centre.x, floor + 0.62, centre.y),
-        Vec3::new(0.62, 0.18, 0.62),
-        SolidRole::ChurchBell,
-    );
+    builder
+        .geometry
+        .solids
+        .iter_mut()
+        .find(|solid| solid.id == bell)
+        .unwrap()
+        .shape = crate::ResolvedSolidShape::BellShell;
     // Open sound stage: the space between slats is geometry, not a painted black panel.
     for level in 0..4 {
         let y = floor + 0.2 + level as f32 * 0.3;
@@ -209,7 +211,7 @@ impl Fittings<'_> {
             centre,
             size,
             role,
-            crate::ResolvedSolidShape::Cuboid,
+            crate::bell::shape_for_role(role),
             id,
         );
         self.ids.push(solid);

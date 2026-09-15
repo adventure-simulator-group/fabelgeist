@@ -9,6 +9,46 @@ excluded_paths = [
 
 [[scopes]]
 kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/bell_hanging.rs"
+reason = "Authored proportions of timber headstock, crown loops and forged suspension fittings."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/domestic/bedding.rs"
+reason = "Authored stuffed bedding profiles fitted to the existing bed envelopes."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus.rs"
+reason = "Authored supporting joinery for household and trade apparatus."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/household.rs"
+reason = "Authored socket candles and stored distaff/spindle construction."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/commerce.rs"
+reason = "Authored beam balance and line-reckoning table apparatus."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/printing.rs"
+reason = "Authored wooden screw press and compositor case reconstruction."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/weaving.rs"
+reason = "Authored manually operated loom frame, warp and heddle dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/weaving/motion.rs"
+reason = "Authored loom roller, ratchet and reciprocal suspension geometry."
+
+[[scopes]]
+kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/generator/small_church.rs"
 reason = "Authored compact chapel and parish nave/chancel dimension families."
 
@@ -547,3 +587,19 @@ reason = "The recipe editor maps serialized JSON field names and enum values to 
 kind = "authored_catalog"
 path = "crates/adventuresim-plant-generator/src/fungus/presets.rs"
 reason = "Physical dimensions, fertile-surface topology and pigments for the native fungus catalog."
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/furniture/worship.rs"
+kind = "authored_catalog"
+reason = "Authored period furniture dimensions and component proportions."
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/bell.rs"
+kind = "authored_catalog"
+reason = "Normalized authored cast-bell section and collision wall proportions."
+
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/signs/emblems.rs"
+kind = "authored_catalog"
+reason = "Authored normalized outlines of period trade-tool pictograms."

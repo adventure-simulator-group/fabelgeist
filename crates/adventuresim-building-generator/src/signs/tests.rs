@@ -82,6 +82,7 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
 fn both_fonts_paint_long_german_names_without_clipping_or_missing_glyphs() {
     for font in [SignFont::GrenzeGotisch, SignFont::UnifrakturCook] {
         let sign = ShopSign {
+            emblem: None,
             name: ShopName {
                 proprietor: "Margarete Großmüller’s".to_owned(),
                 trade: "Apothecary".to_owned(),

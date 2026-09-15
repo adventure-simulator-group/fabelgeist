@@ -116,6 +116,7 @@ pub(super) struct CaptureViewSpec {
     pub minimum_foreground_bps: u16,
     pub lighting_mode: TreeLightingModeId,
     pub render_lod_override: Option<u8>,
+    pub building_lod_override: Option<super::building_review::ReviewLod>,
     pub validated_forced_lod: Option<u8>,
     pub leaf_lod_override: Option<TreeLeafRepresentation>,
     pub projected_scale: Option<f32>,
@@ -138,6 +139,11 @@ pub(super) struct CaptureViewSpec {
 }
 
 impl CaptureViewSpec {
+    pub const fn building_lod(mut self, level: super::building_review::ReviewLod) -> Self {
+        self.building_lod_override = Some(level);
+        self
+    }
+
     pub const fn new(
         slug: &'static str,
         label: &'static str,
@@ -153,6 +159,7 @@ impl CaptureViewSpec {
             minimum_foreground_bps,
             lighting_mode: TreeLightingModeId::Combined,
             render_lod_override: None,
+            building_lod_override: None,
             validated_forced_lod: None,
             leaf_lod_override: None,
             projected_scale: None,
@@ -679,6 +686,8 @@ pub(super) use landform::LANDFORM_REVIEW_VIEWS;
 mod building_review;
 mod parish;
 pub(super) use parish::PARISH_REVIEW_VIEWS;
+mod compound;
+pub(super) use compound::COMPOUND_REVIEW_VIEWS;
 mod city;
 mod furniture;
 pub(super) use building_review::{SHOP_REVIEW_VIEWS, WORKPLACE_REVIEW_VIEWS};

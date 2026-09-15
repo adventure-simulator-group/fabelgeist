@@ -67,10 +67,13 @@ Twelve curated programmes exercise the current vocabulary:
 
 - `town-house`: narrow, two-storey timber-frame house with a steep street gable;
 - `hall-house`: broad hall plan beneath a steep half-hip roof;
-- `fachwerk-cottage`: compact two-storey dwelling with close-studded timber
+- `fachwerk-cottage`: compact single-storey dwelling with close-studded timber
   framing and a different window rhythm from the merchant house;
-- `fachwerk-merchant-house`: three projecting storeys, dense early-modern
-  ornamental bracing, a street gable, cross-roof mass, and mixed dormers;
+- `fachwerk-merchant-house`: masonry lower walls supporting projecting timber
+  upper storeys, early-modern ornamental bracing, a street gable, cross-roof
+  mass, and mixed dormers. The upper frame and jetty supports bear on resolved
+  masonry interfaces; this is a physical construction choice, not a wall tint.
+  See [historical construction sources](SOURCES.md);
 - `renaissance-town-hall`: a broad civic building with an intersecting
   half-hip and cross-gable roofscape, a transverse wall dormer, smaller roof
   dormers, and stepped or curved gable details;
@@ -753,7 +756,7 @@ Ordinary domestic trades can continue to share houses. Work openings, shutters,
 covered frontage and useful yard space can identify their occupations without
 turning every business into a landmark.
 
-## Text-only shop signs
+## Shop signs
 
 The `signs` module derives sign attachment sites from public ground-floor
 entrances. Public-facing trades receive stable establishment brands from the
@@ -772,7 +775,9 @@ it over 35–45 metres and releases lettering entities beyond 60 metres. The
 texture cache retains at most 64 painted materials; boards remain visible.
 Grenze Gotisch Bold is the default, with UnifrakturCook available for
 comparison. Fonts and their licenses are bundled locally. Long names wrap onto
-two lines.
+two lines. Smiths, bakers, and weavers also receive a hammer, bread-peel, or
+shuttle pictogram. [Source notes](src/signs/SOURCES.md) distinguish period tool
+evidence from the reconstructed sign layout.
 
 ```powershell
 python scripts/capture_shop_signs.py --output target/shop-sign-review
@@ -829,3 +834,52 @@ instances and reserved spaces; `furniture-presentation.json` verifies actual
 mesh/material bindings and GPU residency for each view. Yellow outlines mark
 activity clearances; cyan outlines mark circulation in the diagnostic plate.
 Use `--scene-input` to review another deterministic seed or terrain variant.
+
+### Furniture wood treatments
+
+`FurnitureKey::natural` constructs any catalog form and size.
+`FurnitureKey::wood` accepts one of five `FinishableFurnitureKind` values and
+an authored `FurnitureWoodState`. All 130 valid keys have separate immutable
+recipes; unsupported serialized kind/state combinations are rejected.
+
+The four states preserve collision, supports and access envelopes. Handled
+surfaces replace selected faces with shallow contact depressions. Repairs
+replace one complete board; painted bases retain bare working surfaces. Room
+finishes are assigned after the furnishing layout passes navigation checks.
+
+The `interior-furniture-catalog` capture profile includes `finish-dining-table`,
+`finish-bench`, `finish-chair`, `finish-storage-chest` and `finish-workbench`.
+Each presents natural, handled, repaired and painted specimens from left to
+right under the same production lighting. `interior-catalog.json` records each
+complete key and stable instance ID.
+
+## Merchant courtyard properties
+
+The shared city compiler reserves a complete merchant property before placing
+its street house, side passage, rear store and enclosing walls. The rear store
+is a separate `StorageRange` building with its own floor, timber structure and
+usable doorway. Access routes connect the street gate to both buildings and
+reserve standing clearance through the courtyard. Compilation checks actual
+render bounds, collision geometry and the gate's complete opening sweep.
+
+Properties crossing the playable boundary keep both buildings in the playable
+scene. Entirely distant properties retain their walls and closed gate in the
+vista. Connected terrain pads share an elevation, including adjacent properties
+whose grading margins overlap. Nearby gates use the authoritative server door
+controller and collision; distant gates are presentation geometry.
+
+The authored city site expands north and south above 40,000 residents while
+retaining its surveyed east/west road anchors. Planning allocation is capped at
+the 100,000-resident extent; insufficient lots or service capacity produce an
+explicit error rather than silently dropping residents.
+
+The `compound-review` tactical scene and capture profile provide deterministic
+street, passage, court and rear-store views through production presentation:
+
+```powershell
+python scripts/capture_tactical_scenes.py --help
+cargo run -p adventuresim-tactical-client --bin tactical-scene-viewer --features debug -- --fixture compound-review --profile compound-review --output target/compound-review
+```
+
+This property family is an authored reconstruction informed by the references
+in [SOURCES.md](SOURCES.md), not a measured replica of a surviving property.

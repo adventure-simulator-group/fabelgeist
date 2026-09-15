@@ -11,12 +11,9 @@ const DESK_APPROACH_MARGIN_METRES: f32 = 0.05;
 pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
     let mut group = vec![primary.clone()];
     let size = primary.key.interior_spec().unwrap().size_metres;
-    match primary.key.kind {
+    match primary.key.kind() {
         FurnitureKind::DiningTable => {
-            let key = FurnitureKey {
-                kind: FurnitureKind::Bench,
-                ..primary.key
-            };
+            let key = FurnitureKey::natural(FurnitureKind::Bench, primary.key.variant());
             let bench = key.interior_spec().unwrap().size_metres;
             for sign in [-1.0, 1.0] {
                 let offset = Vec2::new(
@@ -37,10 +34,7 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
             }
         }
         FurnitureKind::WritingDesk => {
-            let key = FurnitureKey {
-                kind: FurnitureKind::Chair,
-                ..primary.key
-            };
+            let key = FurnitureKey::natural(FurnitureKind::Chair, primary.key.variant());
             let chair = key.interior_spec().unwrap().size_metres;
             let offset = Vec2::new(
                 0.0,
@@ -67,10 +61,7 @@ pub(super) fn compose(primary: InteriorPlacement) -> Vec<InteriorPlacement> {
             .enumerate()
             {
                 group.push(InteriorPlacement {
-                    key: FurnitureKey {
-                        kind,
-                        ..primary.key
-                    },
+                    key: FurnitureKey::natural(kind, primary.key.variant()),
                     centre_metres: primary.centre_metres
                         + local_rotate(
                             Vec2::new((index as f32 - 1.0) * size.x, 0.0),

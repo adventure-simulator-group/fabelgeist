@@ -68,7 +68,7 @@ fn resolve_church_assembly(
             crossfall_radians: 0.0,
             longfall_radians: 0.0,
             role,
-            shape: crate::ResolvedSolidShape::Cuboid,
+            shape: crate::bell::shape_for_role(role),
             supported_by: supports.clone(),
         });
         for support in supports {
@@ -1353,34 +1353,30 @@ fn resolve_church_assembly(
         false,
         geometry,
     );
-    // Two wall-bearing cross beams are the accepted coarse bell frame.  The
-    // earlier four-post cage consumed the only 0.90 m service ring; detailed
-    // timber bracing remains an explicit visual refinement rather than a
-    // false circulation obstacle.
-    let bell_frame_solids = vec![
+    let bell_frame_solids = bell_hanging::BellHanging {
+        bell_top: Vec3::new(
+            tower_centre.x,
+            datum.bell_floor_metres + 3.35,
+            tower_centre.y,
+        ),
+        axis_height: datum.bell_floor_metres + 3.70,
+        bearing_half_span: 0.90,
+        rail_length: 4.50,
+        rail_depth: 0.28,
+        headstock_height: 0.24,
+    }
+    .parts()
+    .into_iter()
+    .map(|part| {
         solid(
-            Vec3::new(
-                tower_centre.x,
-                datum.bell_floor_metres + 3.55,
-                tower_centre.y,
-            ),
-            Vec3::new(4.50, 0.28, 0.30),
-            SolidRole::ChurchBellFrame,
+            part.centre,
+            part.size,
+            part.role,
             vec![frame_node],
             geometry,
-        ),
-        solid(
-            Vec3::new(
-                tower_centre.x,
-                datum.bell_floor_metres + 3.55,
-                tower_centre.y,
-            ),
-            Vec3::new(0.30, 0.28, 4.50),
-            SolidRole::ChurchBellFrame,
-            vec![frame_node],
-            geometry,
-        ),
-    ];
+        )
+    })
+    .collect();
     let bell_solid = solid(
         Vec3::new(
             tower_centre.x,

@@ -27,10 +27,7 @@ fn lectern_support_post_does_not_pierce_the_writing_leaf() {
         let mut builder = Builder::default();
         assemble(
             &mut builder,
-            FurnitureKey {
-                kind: FurnitureKind::Lectern,
-                variant,
-            },
+            FurnitureKey::natural(FurnitureKind::Lectern, variant),
         );
         let recipe = builder.finish();
         let leaf = recipe
@@ -61,7 +58,7 @@ fn lectern_support_post_does_not_pierce_the_writing_leaf() {
 fn domestic_models_fit_independent_envelopes_with_ground_contacts() {
     for kind in DOMESTIC {
         for variant in FurnitureVariant::ALL {
-            let key = FurnitureKey { kind, variant };
+            let key = FurnitureKey::natural(kind, variant);
             let size = key.interior_spec().unwrap().size_metres;
             let mut builder = Builder::default();
             assemble(&mut builder, key);
@@ -110,7 +107,7 @@ fn domestic_models_fit_independent_envelopes_with_ground_contacts() {
 fn bath_and_shelving_leave_their_usable_interiors_empty() {
     for kind in [FurnitureKind::BathTub, FurnitureKind::Shelving] {
         for variant in FurnitureVariant::ALL {
-            let key = FurnitureKey { kind, variant };
+            let key = FurnitureKey::natural(kind, variant);
             let mut builder = Builder::default();
             assemble(&mut builder, key);
             let recipe = builder.finish();

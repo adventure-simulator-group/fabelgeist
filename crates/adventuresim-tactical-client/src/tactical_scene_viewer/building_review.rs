@@ -10,6 +10,8 @@ use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, path::Path};
 
 mod cameras;
+mod lod;
+pub(super) use lod::ReviewLod;
 mod openings;
 mod readiness;
 pub(super) use openings::spawn_openings;
@@ -17,9 +19,13 @@ pub(super) use readiness::{BuildingReviewPlugin, ready};
 pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
 pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
 pub(super) const PARISH_PROFILE: &str = "parish-review";
+pub(super) const COMPOUND_PROFILE: &str = "compound-review";
 
 pub(super) fn is_profile(profile: &str) -> bool {
-    matches!(profile, SHOP_PROFILE | WORKPLACE_PROFILE | PARISH_PROFILE)
+    matches!(
+        profile,
+        SHOP_PROFILE | WORKPLACE_PROFILE | PARISH_PROFILE | COMPOUND_PROFILE
+    )
 }
 
 #[derive(Resource, Deserialize, Serialize)]
@@ -32,6 +38,7 @@ struct ReviewFixture {
 #[derive(Resource)]
 pub(super) struct ReviewRequirements {
     buildings: usize,
+    boundaries: usize,
     doors: usize,
     windows: usize,
     signs: BTreeMap<u64, ExpectedSign>,
@@ -53,6 +60,7 @@ impl ReviewRequirements {
         }
         Self {
             buildings: buildings.len(),
+            boundaries: 0,
             doors: buildings
                 .iter()
                 .map(|b| compile_operable_doors(&b.plan).len())
@@ -79,6 +87,7 @@ pub(super) fn setup_geometry_requirements(
 pub(super) fn setup(
     commands: &mut Commands,
     buildings: &[GeneratedBuilding],
+    boundaries: usize,
     input: &Path,
     output: &Path,
     profile: &str,
@@ -101,6 +110,8 @@ pub(super) fn setup(
         assert_eq!(view.slug, spec.slug);
     }
     let mut requirements = ReviewRequirements::for_buildings(buildings, output);
+    requirements.boundaries = boundaries;
+    requirements.doors += boundaries;
     for (&id, sign) in &fixture.signs {
         let building = buildings
             .iter()

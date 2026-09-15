@@ -9,7 +9,11 @@ mod architecture;
 #[cfg(test)]
 mod arrangement_tests;
 mod budgets;
+mod church;
 mod composition;
+mod exterior_access;
+mod finishes;
+pub use exterior_access::standing_path_clear;
 mod geometry;
 mod navigation;
 mod obstruction;

@@ -21,11 +21,14 @@ fn interior_representative_buildings_have_usable_furniture() {
         (BuildingUse::GeneralShop, FurnitureKind::Counter),
         (BuildingUse::ParishChurch, FurnitureKind::ChurchBench),
         (BuildingUse::Smithy, FurnitureKind::Workbench),
+        (BuildingUse::Weaver, FurnitureKind::TreadleLoom),
+        (BuildingUse::PrintingHouse, FurnitureKind::PrintingPress),
+        (BuildingUse::WeighHouse, FurnitureKind::BalanceTable),
     ] {
         let (program, plan) = building(usage);
         let layout = furnish(&plan, &program).unwrap_or_else(|e| panic!("{usage:?}: {e:?}"));
         assert!(
-            layout.placements.iter().any(|p| p.key.kind == expected),
+            layout.placements.iter().any(|p| p.key.kind() == expected),
             "{usage:?} missing {expected:?}: {:?}",
             layout.unmet_budgets
         );
@@ -69,7 +72,7 @@ fn interior_cathedral_rooms_share_continuous_paving_and_clear_doors() {
         (FurnitureKind::Altar, RoomKind::Chancel),
     ] {
         assert!(
-            layout.placements.iter().any(|p| p.key.kind == kind
+            layout.placements.iter().any(|p| p.key.kind() == kind
                 && plan.storeys[0]
                     .rooms
                     .iter()
@@ -215,10 +218,10 @@ fn interior_rejects_obstructed_door_and_overlapping_furniture() {
         .find(|o| o.use_kind == crate::OpeningUse::Door && o.frame.outside_room.is_none())
         .unwrap();
     layout.placements.push(InteriorPlacement {
-        key: crate::furniture::FurnitureKey {
-            kind: FurnitureKind::StorageCrate,
-            variant: FurnitureVariant::Compact,
-        },
+        key: crate::furniture::FurnitureKey::natural(
+            FurnitureKind::StorageCrate,
+            FurnitureVariant::Compact,
+        ),
         room_id: entrance.frame.inside_room.unwrap(),
         storey: 0,
         centre_metres: entrance.frame.origin - entrance.frame.outward * 0.5,
@@ -296,17 +299,17 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
     let left = layout
         .placements
         .iter()
-        .find(|p| p.key.kind == FurnitureKind::CounterLeftEnd)
+        .find(|p| p.key.kind() == FurnitureKind::CounterLeftEnd)
         .unwrap();
     let centre = layout
         .placements
         .iter()
-        .find(|p| p.key.kind == FurnitureKind::Counter)
+        .find(|p| p.key.kind() == FurnitureKind::Counter)
         .unwrap();
     let right = layout
         .placements
         .iter()
-        .find(|p| p.key.kind == FurnitureKind::CounterRightEnd)
+        .find(|p| p.key.kind() == FurnitureKind::CounterRightEnd)
         .unwrap();
     let width = centre.key.interior_spec().unwrap().size_metres.x;
     assert!((left.centre_metres.distance(centre.centre_metres) - width).abs() < 0.001);

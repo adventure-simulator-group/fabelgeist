@@ -6,9 +6,11 @@ use bevy::{math::Vec2, prelude::Component};
 use serde::{Deserialize, Serialize};
 
 use super::{GeneratedObstacle, SceneInputError, invalid};
-use crate::city_layout::MAX_CITY_LOTS;
+use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
+mod pads;
+pub(super) use pads::level_building_pads;
 
-const MAX_TACTICAL_BUILDINGS: usize = 64;
+pub(crate) const MAX_TACTICAL_BUILDINGS: usize = 64;
 const LEVEL_MARGIN_METRES: f32 = 1.5;
 const TERRACE_APRON_METRES: f32 = 4.0;
 const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
@@ -127,6 +129,7 @@ pub struct SceneDoor {
 #[derive(Clone, Copy, Debug, PartialEq, Component, Serialize, Deserialize)]
 #[component(immutable)]
 pub struct SceneWindow {
+    pub leaf: adventuresim_building_generator::WindowLeafKind,
     pub building_id: u64,
     pub opening_id: u64,
     pub size_metres: bevy::math::Vec3,
@@ -202,7 +205,7 @@ pub(super) fn validate_building_placements(
 pub(super) fn validate_distant_building_placements(
     placements: &[DistantBuildingPlacement],
 ) -> Result<(), SceneInputError> {
-    if placements.len() > MAX_CITY_LOTS {
+    if placements.len() > MAX_CITY_BUILDING_INSTANCES {
         return invalid("scene has too many distant buildings");
     }
     let mut ids = std::collections::BTreeSet::new();
@@ -282,7 +285,7 @@ pub(super) fn validate_building_pads(
     Ok(())
 }
 
-fn oriented_rectangles_overlap(
+pub(crate) fn oriented_rectangles_overlap(
     first_centre: Vec2,
     first_half_extents: Vec2,
     first_orientation: BuildingOrientation,
@@ -306,73 +309,6 @@ fn oriented_rectangles_overlap(
             + second_half_extents.y * axis.dot(second_axes[1]).abs();
         centre_delta.dot(axis).abs() < first_radius + second_radius
     })
-}
-
-pub(super) fn level_building_pads(
-    grid_width: usize,
-    grid_depth: usize,
-    spacing: f32,
-    heights: &mut [f32],
-    buildings: &mut [GeneratedBuilding],
-) -> (Vec<BuildingPad>, u32) {
-    let half_extent = Vec2::new(
-        (grid_width - 1) as f32 * spacing,
-        (grid_depth - 1) as f32 * spacing,
-    ) * 0.5;
-    let mut pads = Vec::with_capacity(buildings.len());
-    let mut adjusted = 0u32;
-    for building in buildings {
-        let mut pad = BuildingPad {
-            centre: building.placement.centre_metres,
-            half_extents: building.collision.bounds.plan_half_extents(),
-            orientation: building.placement.orientation,
-            elevation_metres: 0.0,
-        };
-        let mut covered = sample_indices(grid_width, grid_depth, spacing, half_extent)
-            .filter(|(_, point)| {
-                let offset = pad.local_offset(*point).abs();
-                offset.cmple(pad.half_extents).all()
-            })
-            .map(|(index, _)| heights[index])
-            .collect::<Vec<_>>();
-        covered.sort_by(f32::total_cmp);
-        pad.elevation_metres = covered.get(covered.len() / 2).copied().unwrap_or_else(|| {
-            nearest_height(grid_width, grid_depth, spacing, heights, pad.centre)
-        });
-        for (index, point) in sample_indices(grid_width, grid_depth, spacing, half_extent) {
-            let weight = pad.blend_weight(point);
-            if weight <= 0.0 {
-                continue;
-            }
-            let previous = heights[index];
-            heights[index] = previous + (pad.elevation_metres - previous) * weight;
-            adjusted += u32::from((heights[index] - previous).abs() > f32::EPSILON);
-        }
-        building.pad_elevation_metres = pad.elevation_metres;
-        pads.push(pad);
-    }
-    (pads, adjusted)
-}
-
-fn sample_indices(
-    width: usize,
-    depth: usize,
-    spacing: f32,
-    half_extent: Vec2,
-) -> impl Iterator<Item = (usize, Vec2)> {
-    (0..width * depth).map(move |index| {
-        let point =
-            Vec2::new((index % width) as f32, (index / width) as f32) * spacing - half_extent;
-        (index, point)
-    })
-}
-
-fn nearest_height(width: usize, depth: usize, spacing: f32, heights: &[f32], point: Vec2) -> f32 {
-    let half_extent = Vec2::new((width - 1) as f32 * spacing, (depth - 1) as f32 * spacing) * 0.5;
-    let grid = ((point + half_extent) / spacing).round();
-    let x = (grid.x as isize).clamp(0, width as isize - 1) as usize;
-    let z = (grid.y as isize).clamp(0, depth as isize - 1) as usize;
-    heights[z * width + x]
 }
 
 pub(super) fn obstacle_intersects_building(
