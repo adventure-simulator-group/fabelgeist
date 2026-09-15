@@ -176,6 +176,43 @@ impl ClosureSection {
         ensure!(radius > 0.0, "strap axis lies outside its support section");
         Ok(radius)
     }
+
+    /// Enclose the support with the exported straight segments, not only their
+    /// endpoints. Sparse chords through a convex corner otherwise cut armor.
+    pub fn chord_radii(&self, angles: &[f32]) -> Result<Vec<f32>> {
+        let radii = angles
+            .iter()
+            .map(|a| self.radius(*a))
+            .collect::<Result<Vec<_>>>()?;
+        let points = angles
+            .iter()
+            .zip(&radii)
+            .map(|(a, r)| [a.sin() * r, a.cos() * r])
+            .collect::<Vec<_>>();
+        let mut scales = vec![1.0_f32; angles.len()];
+        for (i, pair) in points.windows(2).enumerate() {
+            if (angles[i + 1] - angles[i]).abs() <= f32::EPSILON {
+                continue;
+            }
+            let [a, b] = [pair[0], pair[1]];
+            let normal = [a[1] - b[1], b[0] - a[0]];
+            let projection = |p: [f32; 2]| p[0] * normal[0] + p[1] * normal[1];
+            let distance = projection(a);
+            ensure!(distance != 0.0, "degenerate strap chord");
+            let scale = self
+                .hull
+                .iter()
+                .map(|p| projection(*p) / distance)
+                .fold(1.0_f32, f32::max);
+            scales[i] = scales[i].max(scale);
+            scales[i + 1] = scales[i + 1].max(scale);
+        }
+        Ok(radii
+            .iter()
+            .zip(scales)
+            .map(|(radius, scale)| radius * scale)
+            .collect())
+    }
 }
 
 fn crossings(vertices: &[[f32; 3]], faces: &[[u32; 3]], y: f32, output: &mut Vec<[f32; 2]>) {

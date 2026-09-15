@@ -15,10 +15,13 @@ pub const FULL_TURN_MILLIRADIANS: u16 = 6283;
 pub const MIN_STRAP_ARC_MILLIRADIANS: u16 = 500;
 mod assembly;
 pub mod catalog;
+mod hanger_profile;
 mod mesh;
 mod section;
 mod support;
 pub mod suspension;
+#[cfg(test)]
+mod suspension_tests;
 #[cfg(test)]
 mod tests;
 

@@ -319,3 +319,52 @@ working recipes and review results in ignored output directories until they are
 promoted deliberately as reusable source assets. Crests, figurative engraving,
 custom curved ornament paths and physical plate articulation require additional
 systems; the controls above do not approximate them automatically.
+
+## Attachment geometry and review
+
+Fit suspended discs against triangles clipped to the disc's own projected
+outline, in its tilted local frame. Nearby geometry outside that outline must
+not push the disc away from its supporting plates. Plate clearance and body
+clearance remain separate construction inputs.
+
+Tasset hangers have two construction anchors: the fauld above and the tasset
+below. Their flexible span blends between those owners during posing; the
+whole buckle seat follows the lower plate. Fit metal hardware with a rigid
+frame, and retain direct fastener refits when producing body-shape morphs.
+Independent nearest-plate ownership at every leather vertex can introduce a
+visible step when the adjoining plates rotate differently.
+
+A belt's exported straight segments must enclose its support section. Testing
+only the sampled endpoints misses a segment that cuts across a convex plate
+corner. Check the fixed buckle loop and the free band at each supported LOD.
+
+Review both the museum photo and body-included front, side, quarter and rear
+renders. Whole-body views establish silhouette but often hide small attachment
+failures. Follow with an inventory of connections and close views that show
+both endpoints and the intervening space. For occluded surfaces, add an
+opposite-side or reverse-quarter view. Record uncertainty instead of passing a
+connection that cannot be seen. Keep broad reference critique separate from
+known-regression checks, and use a fresh reviewer at acceptance.
+
+### Deterministic isolation regression
+
+Run the Blender test suite against the two shipped museum display assemblies:
+
+```sh
+blender --background --python-exit-code 1 --python scripts/tests/test_armor_isolation.py
+```
+
+For any saved museum renderer preset, audit the actual posed triangles:
+
+```sh
+blender --background --python-exit-code 1 --python scripts/check_armor_isolation.py -- PRESET.json target/armor-isolation.json --max-gap-mm 25
+```
+
+The test splits disconnected triangle islands even within one mesh object,
+merges UV/normal seams on a one-micrometre grid, and checks world-space surface
+distance against every other island, including the wearer. Vertex-to-face,
+edge-to-edge and intersecting-triangle cases are covered. The default 25 mm
+limit is a gross isolation threshold, not a desired plate clearance. Reports
+include input hashes; passing distances are upper bounds because the search
+stops when it establishes proximity. A passing result does not prove a physical
+connection, proper layering, or collision-free articulation.

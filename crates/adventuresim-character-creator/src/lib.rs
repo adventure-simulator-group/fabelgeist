@@ -7,6 +7,7 @@ pub mod armor_frames;
 pub mod armor_layer;
 pub mod armor_recipes;
 mod besagew_fit;
+mod besagew_support;
 pub mod bracer;
 pub mod breastplate;
 mod close_helmet_fit;
