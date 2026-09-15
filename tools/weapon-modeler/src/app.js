@@ -1,5 +1,5 @@
-import { measureMassProperties, validateWeapon } from "./mesh.js";
-import { automaticGripPoint, buildSkinnedWeaponGlb } from "./glb-export.js";
+import { validateWeapon } from "./kernel.js";
+import { buildSkinnedWeaponGlb } from "./glb-export.js";
 import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, composeWeapon, compositionControls, copyPreset, controlVisible, getControlValue, setControlValue } from "./presets.js";
 import { WeaponRenderer } from "./renderer.js";
 
@@ -32,7 +32,7 @@ function rebuild(dirty = false) {
     const shield = validation.resolved.components.find((component) => ["roundShield", "shapedShield"].includes(component.kind));
     if (shield) exporter.joint.value = shield.mirrored ? "l_weapon" : "r_weapon";
     renderer.setMesh(mesh);
-    const physical = measureMassProperties(mesh, automaticGripPoint(validation.resolved));
+    const physical = mesh.physical;
     mesh.stats.physical = physical;
     const pommelMass = physical.components.filter((component) => component.id === "pommel").reduce((sum, component) => sum + component.massKg, 0);
     const balancePoint = physical.centerOfMassFromGripM * 1_000;
@@ -119,7 +119,7 @@ exporter.button.addEventListener("click", async () => {
     const glb = buildSkinnedWeaponGlb(await response.arrayBuffer(), currentValidation.mesh, {
       name: exporter.name.value,
       attachment: exporter.joint.value,
-      gripPoint: automaticGripPoint(currentValidation.resolved),
+      gripPoint: currentValidation.mesh.physical.controlPoint,
     });
     exporter.status.textContent = "Writing skinned GLB…";
     const saved = await fetch(`/api/export?name=${encodeURIComponent(fileName)}`, { method: "POST", headers: { "Content-Type": "model/gltf-binary" }, body: glb });
@@ -144,7 +144,7 @@ composer.build.addEventListener("click", () => {
   const definition = composeWeapon(composer.haft.value, composer.head.value), controls = compositionControls(definition), validation = validateWeapon(definition, controls, { lod: lod.value });
   if (!validation.valid) { composer.status.textContent = `Composition rejected: ${validation.errors.join(" · ")}`; return; }
   active = { id: "composed", name: `${composer.haft.selectedOptions[0].textContent} + ${composer.head.selectedOptions[0].textContent}`, family: "Composed preview", description: "A construction study built from independent haft and head modules. Technical validation does not establish period authenticity.", definition, controls };
-  elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description; renderControls(); rebuild(true); composer.status.textContent = "Composition valid: attachments, winding, manifold topology, and camera fit passed.";
+  elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description; renderControls(); rebuild(true); composer.status.textContent = "Composition generated with valid dimensions and attachments.";
 });
 
 select(PRESETS[0].id);

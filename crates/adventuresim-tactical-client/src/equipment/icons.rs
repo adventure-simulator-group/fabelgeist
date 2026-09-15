@@ -79,7 +79,7 @@ pub(super) fn cached_weapon_icon(
     cache: &mut WeaponIconCache,
     images: &mut Assets<Image>,
 ) -> Option<Handle<Image>> {
-    if appearance.recipe.len() > 16 * 1024
+    if appearance.recipe.len() > adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES
         || appearance.generator_version != adventuresim_weapon_model::GENERATOR_VERSION
     {
         return None;
@@ -128,7 +128,7 @@ pub(super) fn cached_holder_icon(
     cache: &mut WeaponIconCache,
     images: &mut Assets<Image>,
 ) -> Option<Handle<Image>> {
-    if appearance.recipe.len() > 16 * 1024
+    if appearance.recipe.len() > adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES
         || appearance.generator_version != adventuresim_weapon_model::HOLDER_GENERATOR_VERSION
     {
         return None;

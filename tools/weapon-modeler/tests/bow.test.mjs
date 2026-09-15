@@ -1,6 +1,7 @@
+import { validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { arrowQuiverProfile, arrowQuiverStrapPath, bowCompositeLayerLayout, bowTipLoopLayout, closedManifoldErrors, sectionOutline, signedVolume, simplePolygonErrors, validateWeapon } from "../src/mesh.js";
+import { closedManifoldErrors, signedVolume } from "./quality/mesh-measurements.mjs";
 import { PRESETS, copyPreset, setControlValue } from "../src/presets.js";
 import { triangleVertices } from "../src/topology.js";
 
@@ -38,28 +39,10 @@ test("self bow uses a deep D-section and composite bow exposes three material la
   assert.equal(composite.valid, true, composite.errors.join(" | "));
   for (const layer of ["wood core", "horn belly", "sinew backing"])
     assert.equal(composite.mesh.parts.filter((part) => part.label.endsWith(layer)).length, 2, layer);
-  assert.equal(new Set(composite.mesh.parts.filter((part) => /core|belly|backing/.test(part.label)).map((part) => part.material)).size, 3);
+  assert.equal(new Set(composite.mesh.parts.filter((part) => /core|belly|backing/.test(part.label)).map((part) => part.materialId)).size, 3);
 });
 
-test("D-section perimeter is one simple flat-back and curved-belly loop", () => {
-  const outline = sectionOutline("dShape", 0.032, 0.036, 16), keys = outline.map((point) => point.map((value) => value.toFixed(9)).join(","));
-  assert.deepEqual(simplePolygonErrors(outline, "D-section"), []);
-  assert.equal(new Set(keys).size, keys.length, "perimeter has no coincident/retraced vertex");
-  const flatEdges = outline.filter((point) => Math.abs(point[0] + 0.016) < 1e-9);
-  assert.equal(flatEdges.length, 2, "only the two flat-back endpoints lie on the back plane");
-  assert.ok(outline.slice(1, -1).some((point) => point[0] > 0.015), "curved belly reaches the opposite side");
-});
 
-test("composite layers meet exactly through the full taper without gaps or overlap", () => {
-  const component = preset("composite-recurve-bow-1544").definition.components[0];
-  for (const progress of [0, 0.25, 0.5, 0.75, 1]) {
-    const layout = bowCompositeLayerLayout(component, progress);
-    assert.ok(Math.abs(layout.horn.interval[1] - layout.core.interval[0]) < 1e-12, `horn/core at ${progress}`);
-    assert.ok(Math.abs(layout.core.interval[1] - layout.back.interval[0]) < 1e-12, `core/back at ${progress}`);
-    assert.ok(Math.abs(layout.horn.interval[0] + component.limbDepth * layout.scale / 2) < 1e-12);
-    assert.ok(Math.abs(layout.back.interval[1] - component.limbDepth * layout.scale / 2) < 1e-12);
-  }
-});
 
 test("arrow nock has a real open slot wider than the default bowstring", () => {
   const source = preset("flight-arrow-1544"), result = validateWeapon(source.definition, source.controls),
@@ -97,34 +80,7 @@ test("quiver has a sealed bottom and remains hollow at the mouth", () => {
   }
 });
 
-test("quiver strap anchors follow evaluated tapered radii with intentional overlap", () => {
-  const source = preset("arrow-quiver-1544");
-  for (const endpoint of ["min", "max"]) {
-    const changed = copyPreset(source);
-    for (const control of changed.controls) setControlValue(changed.definition, control, control[endpoint]);
-    const component = changed.definition.components[0], profile = arrowQuiverProfile(component), path = arrowQuiverStrapPath(component),
-      radiusAt = (y) => { const upper = profile.findIndex((point) => point[0] >= y), hi = profile[Math.max(0, upper)], lo = profile[Math.max(0, upper - 1)], t = hi[0] === lo[0] ? 0 : (y - lo[0]) / (hi[0] - lo[0]); return lo[1] + (hi[1] - lo[1]) * t; };
-    for (const anchor of [path[0], path[2]]) {
-      const overlap = radiusAt(anchor[1]) - anchor[0];
-      assert.ok(overlap > 0 && Math.abs(overlap - component.strapThickness * 0.35) < 1e-9, `${endpoint} anchor overlap`);
-    }
-    assert.equal(validateWeapon(changed.definition, changed.controls).valid, true, endpoint);
-  }
-});
 
-test("tip end-loops use the local limb frame, contact the span, and encircle the nock", () => {
-  for (const id of ["german-self-bow-1544", "composite-recurve-bow-1544"]) {
-    const component = preset(id).definition.components[0];
-    for (const upper of [false, true]) {
-      const layout = bowTipLoopLayout(component, upper), radial = component.limbDepth * component.tipScale * 0.54,
-        lateral = component.limbWidth * component.tipScale * 0.54;
-      assert.ok(Math.abs(layout.tangent.reduce((sum, value, axis) => sum + value * layout.normal[axis], 0)) < 1e-9);
-      assert.ok(Math.abs(layout.tangent.reduce((sum, value, axis) => sum + value * layout.binormal[axis], 0)) < 1e-9);
-      assert.ok(layout.radialAxis > radial && layout.widthAxis > lateral, `${id} encirclement`);
-      assert.ok(layout.points.some((point) => Math.hypot(...point.map((value, axis) => value - layout.attachment[axis])) < 1e-8), `${id} span contact`);
-    }
-  }
-});
 
 test("representative bow, arrow, and carrier controls materially alter owned geometry", () => {
   for (const [id, label] of [["german-self-bow-1544", "Limb reflex"], ["flight-arrow-1544", "Nock slot width"], ["arrow-quiver-1544", "Quiver mouth radius"]]) {

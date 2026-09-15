@@ -7,6 +7,7 @@ use crate::{
 };
 
 #[derive(Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 struct Envelope {
     schema_version: u16,
     generator_version: u16,
@@ -14,6 +15,7 @@ struct Envelope {
 }
 
 #[derive(Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 struct HolderEnvelope {
     schema_version: u16,
     generator_version: u16,
@@ -22,8 +24,10 @@ struct HolderEnvelope {
 
 #[derive(Debug, Error)]
 pub enum CodecError {
+    #[error("weapon recipe transport exceeds the size limit")]
+    TransportSize,
     #[error("weapon design transport is malformed: {0}")]
-    Postcard(#[from] postcard::Error),
+    Json(#[from] serde_json::Error),
     #[error("unsupported weapon schema version {found}; expected {expected}")]
     SchemaVersion { found: u16, expected: u16 },
     #[error("unsupported weapon generator version {found}; expected {expected}")]
@@ -34,7 +38,10 @@ pub enum CodecError {
 
 pub fn encode_holder(design: &WeaponHolderDesign) -> Result<Vec<u8>, CodecError> {
     validate_holder(design).map_err(CodecError::InvalidDesign)?;
-    Ok(postcard::to_allocvec(&HolderEnvelope {
+    serialize_holder(design)
+}
+pub(crate) fn serialize_holder(design: &WeaponHolderDesign) -> Result<Vec<u8>, CodecError> {
+    Ok(serde_json::to_vec(&HolderEnvelope {
         schema_version: HOLDER_SCHEMA_VERSION,
         generator_version: HOLDER_GENERATOR_VERSION,
         design: design.clone(),
@@ -42,7 +49,15 @@ pub fn encode_holder(design: &WeaponHolderDesign) -> Result<Vec<u8>, CodecError>
 }
 
 pub fn decode_holder(bytes: &[u8]) -> Result<WeaponHolderDesign, CodecError> {
-    let envelope: HolderEnvelope = postcard::from_bytes(bytes)?;
+    let design = parse_holder(bytes)?;
+    validate_holder(&design).map_err(CodecError::InvalidDesign)?;
+    Ok(design)
+}
+pub(crate) fn parse_holder(bytes: &[u8]) -> Result<WeaponHolderDesign, CodecError> {
+    if bytes.len() > crate::MAX_ENCODED_RECIPE_BYTES {
+        return Err(CodecError::TransportSize);
+    }
+    let envelope: HolderEnvelope = serde_json::from_slice(bytes)?;
     if envelope.schema_version != HOLDER_SCHEMA_VERSION {
         return Err(CodecError::SchemaVersion {
             found: envelope.schema_version,
@@ -55,13 +70,15 @@ pub fn decode_holder(bytes: &[u8]) -> Result<WeaponHolderDesign, CodecError> {
             expected: HOLDER_GENERATOR_VERSION,
         });
     }
-    validate_holder(&envelope.design).map_err(CodecError::InvalidDesign)?;
     Ok(envelope.design)
 }
 
 pub fn encode(design: &WeaponDesign) -> Result<Vec<u8>, CodecError> {
     validate(design).map_err(CodecError::InvalidDesign)?;
-    Ok(postcard::to_allocvec(&Envelope {
+    serialize_weapon(design)
+}
+pub(crate) fn serialize_weapon(design: &WeaponDesign) -> Result<Vec<u8>, CodecError> {
+    Ok(serde_json::to_vec(&Envelope {
         schema_version: SCHEMA_VERSION,
         generator_version: GENERATOR_VERSION,
         design: design.clone(),
@@ -69,7 +86,15 @@ pub fn encode(design: &WeaponDesign) -> Result<Vec<u8>, CodecError> {
 }
 
 pub fn decode(bytes: &[u8]) -> Result<WeaponDesign, CodecError> {
-    let envelope: Envelope = postcard::from_bytes(bytes)?;
+    let design = parse_weapon(bytes)?;
+    validate(&design).map_err(CodecError::InvalidDesign)?;
+    Ok(design)
+}
+pub(crate) fn parse_weapon(bytes: &[u8]) -> Result<WeaponDesign, CodecError> {
+    if bytes.len() > crate::MAX_ENCODED_RECIPE_BYTES {
+        return Err(CodecError::TransportSize);
+    }
+    let envelope: Envelope = serde_json::from_slice(bytes)?;
     if envelope.schema_version != SCHEMA_VERSION {
         return Err(CodecError::SchemaVersion {
             found: envelope.schema_version,
@@ -82,6 +107,5 @@ pub fn decode(bytes: &[u8]) -> Result<WeaponDesign, CodecError> {
             expected: GENERATOR_VERSION,
         });
     }
-    validate(&envelope.design).map_err(CodecError::InvalidDesign)?;
     Ok(envelope.design)
 }

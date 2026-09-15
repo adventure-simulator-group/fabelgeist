@@ -1,9 +1,10 @@
 # Parametric weapon modeler
 
-This standalone browser tool experiments with modular, parameterized weapon
-geometry, including melee weapons, shields, hand bows, and crossbows with
-independent ammunition and carriers. It is deliberately outside the Rust
-workspace and does not participate in strategic or tactical builds.
+This browser editor uses the canonical Rust weapon library through WebAssembly.
+Its 42 presets and 20 haft/head compositions cover melee weapons, shields, bows,
+crossbows, firearms, ammunition, and carriers. The editor, command-line exporter,
+strategic forge, and tactical equipment share recipe validation, construction,
+attachment frames, material identities, and physical properties.
 
 Curved outlines and swept bars use shared adaptive sampling with explicit
 maximum-chord and curve-deviation budgets. The sampler preserves authored
@@ -17,12 +18,20 @@ deliberate corners. Round swept bars select their cross-section tessellation
 from 6 mm chord and 0.3 mm sagitta budgets, with an LOD-dependent floor and any
 higher authored sampling request scaled by the selected detail level.
 
-From this directory, run:
+Install the repository Rust toolchain, the `wasm32-unknown-unknown` target, Node.js,
+and `wasm-bindgen-cli` matching the `wasm-bindgen` library version in
+`Cargo.lock`. From this directory,
+run:
 
 ```powershell
 npm test
 npm start
 ```
+
+The standard start, test, quality-test, and export commands build the Rust kernel
+first. Bindings are generated under `target/weapon-modeler-kernel`; no generated
+WASM belongs in source control. Run `npm run build:kernel` after editing Rust
+while an existing development server is running, then reload the page.
 
 Then open <http://127.0.0.1:4173>. The viewer has no package dependencies: the
 local server uses Node's standard library and the renderer uses WebGL 2
@@ -46,7 +55,8 @@ of the same outline, including at pointed ends. The figure-eight guard is one
 closed solid with two apertures. Separately assembled guard members remain
 separate closed parts rather than being welded at coincident vertices.
 
-`src/construction.js` contains deterministic construction helpers: shared-edge
+`crates/adventuresim-weapon-model/src/construction/` owns deterministic
+construction helpers: shared-edge
 refinement, improving planar diagonals, station interpolation, path subdivision
 and bend envelopes. Sweeps transport their frames and share exact periodic
 seams. Tight bars reserve turning room before meshing. Subdivision retains the
@@ -141,8 +151,9 @@ the corpus. For a disconnected default assembly, `tests/quality/gaps.mjs` takes
 the same case-file/case-ID/output arguments and measures the closest triangle
 surfaces between contact groups, including triangle IDs.
 
-Weapon presets are declarative graphs in `src/presets.js`. Shared generators in
-`src/mesh.js` currently cover tapered shafts, sockets, grips, pommels, guards,
+Weapon presets and composition templates are declarative graphs in
+`crates/adventuresim-weapon-model/catalog/authoring.json`. `src/presets.js` loads
+the canonical catalog through the kernel. Shared Rust constructors cover tapered shafts, sockets, grips, pommels, guards,
 curved, fullered, and diamond-section blades, sampled axe heads, shaped hammer
 polls, curved beaks, continuously forged fork/partisan/glaive heads, spear
 points, smooth swept knuckle bows, side and finger rings, fan pommels, flanged
@@ -167,11 +178,10 @@ flanged-mace head can be mounted on the polearm shaft without a special mesh.
 Slider changes, JSON edits, and composed previews are transactional. The tool
 first builds a copy and validates strict per-kind component fields and types,
 materials/mounts, integer tessellation minima, dimensions, nonempty part volume,
-control contracts, mandatory parentage, rotation-aware transformed
-parent-footprint contact, concentric axial heads, radial socket fit, simple
-outlines and tube paths,
-finite bounds, shared-renderer front/oblique projected-vertex camera fit,
-triangle winding/normal agreement, and closed oriented two-manifold topology.
+control contracts, mandatory parentage, rotation-aware material-envelope contact,
+concentric axial heads, radial socket fit, simple outlines and tube paths, and
+bounded construction requests. Independent regression audits check rendered
+camera fit, triangle winding, normals, and manifold topology.
 A valid candidate replaces the current model; an invalid
 candidate is rejected with an actionable message and leaves the last good
 model visible. The JSON editor therefore remains useful for direct experiments
@@ -399,12 +409,13 @@ presets carry constrained reference-scale breadths; for example, the default
 German halberd is 25.5 cm across, using the Metropolitan Museum's circa
 1525–1550 German halberd (24.1 cm recorded width) as its dimensional anchor.
 
-This is an asset-development experiment, not authoritative gameplay code. The
-viewer measures enclosed mesh volume, material-weighted mass, center of mass and
-moment about the grip. Curved cutting blades have a finite edge land and distal
-taper; section depth denotes the actual maximum forte thickness. The separate
-Rust gameplay generator integrates its own canonical component solids for those
-same properties, material masses, and controlling-grip reach. Fitted sockets and
+The Rust kernel integrates enclosed material volume for mass, center of mass,
+and moment about the controlling grip. Physical properties use fixed High
+construction accuracy, so display LOD changes tessellation without changing
+handling or stock requirements. Curved cutting blades have a finite edge land
+and distal taper; section depth denotes the actual maximum forte thickness.
+Gameplay chassis and authoring presets are separate catalogs over the same
+construction system. Fitted sockets and
 bosses are hollow shells; metal bucklers use thin plate, and wooden shields use
 leather edge binding. Mass remains a construction diagnostic: overlapping
 assembled parts, material simplifications and missing fasteners prevent
@@ -463,9 +474,11 @@ supports one matched outline/cutout loop, with rounded control polygons.
 
 See [the hilt construction schema](review/hilt-construction.md) for JSON
 authoring, ornament sockets, graph bindings and the bounded cutout contract.
-Axe plates thin from their reinforced root toward
-the cutting edge, expose independent shoulder cusps, and carry an opposing
-fluke/poll when mirrored. Spear points use a diamond section with distal taper.
+Axe plates thin from their reinforced root toward the cutting edge and expose
+independent shoulder cusps. A fluke or poll with an explicit `opposedTo` link to
+the axe follows the opposite local direction and X-offset sign when mirrored.
+Unlinked heads retain independent directions. Spear points select a flat or
+diamond section with distal taper.
 
 Center-gripped round shields have a hand aperture beneath their hollow boss;
 strapped shields retain a continuous body. The pavise has a readable central
@@ -489,7 +502,7 @@ construction checks and museum references.
 
 The
 [historical proportion references](review/1544-audit/historical-assessment.md)
-covers all named presets in the browser and Rust catalogs, with separate
+covers the authoring and gameplay catalogs, with separate
 classification for comparative studies. The assembly composer also retains
 freely interchangeable heads; its combinations are construction studies rather
 than twenty independently documented German weapon types.
@@ -505,6 +518,7 @@ Reproduce analytical and image evidence with:
 
 ```powershell
 cargo run -p adventuresim-weapon-model --example audit_catalog -- output/weapon-audit/rust.json
+node tools/weapon-modeler/build-kernel.mjs
 node tools/weapon-modeler/audit-catalog.mjs output/weapon-audit
 python tools/weapon-modeler/review/1544-audit/render-mesh-review.py output/weapon-audit/rust.json output/weapon-audit/rust-images
 python tools/weapon-modeler/review/1544-audit/render-mesh-review.py output/weapon-audit/browser.json output/weapon-audit/browser-images

@@ -4,16 +4,18 @@ use std::collections::HashMap;
 
 use thiserror::Error;
 mod render;
+mod screen;
+use screen::{occupied_bounds, raw_coordinates, relative_screen};
 mod studio;
 pub use studio::environment_hdr;
 
 use crate::{
-    ComponentRole, ComponentShape, GenerateError, GeneratedWeapon, GeneratedWeaponHolder, MeshPart,
-    WeaponDesign, WeaponHolderDesign, WeaponHolderKind, generate, generate_holder,
+    ComponentRole, GenerateError, GeneratedWeapon, GeneratedWeaponHolder, MeshPart, WeaponDesign,
+    WeaponHolderDesign, WeaponHolderKind, generate, generate_holder,
 };
 
 /// Bump whenever projection, framing, or rasterization changes.
-pub const ICON_RENDERER_VERSION: u16 = 4;
+pub const ICON_RENDERER_VERSION: u16 = 5;
 const MAX_HEAD_ZOOM: f32 = 2.0;
 const SYNTHETIC_HEAD_LENGTH_M: f32 = 0.12;
 
@@ -114,13 +116,15 @@ pub enum IconError {
 /// This keeps arbitrary modular polearm heads in the head-focused family.
 pub fn icon_layout(design: &WeaponDesign) -> WeaponIconLayout {
     let has_guard = design
+        .recipe
         .components
         .iter()
-        .any(|component| component.role == ComponentRole::Guard);
+        .any(|component| component.role == Some(ComponentRole::Guard));
     let has_sword_blade = design
+        .recipe
         .components
         .iter()
-        .any(|component| matches!(component.shape, ComponentShape::Blade(_)));
+        .any(|component| matches!(component.shape, crate::recipe::Shape::LoftedBlade(_)));
     if has_guard && has_sword_blade {
         WeaponIconLayout::HiltFocus
     } else {
@@ -189,9 +193,10 @@ impl Projection {
         layout: WeaponIconLayout,
     ) -> Result<Self, IconError> {
         let roles: HashMap<&str, ComponentRole> = design
+            .recipe
             .components
             .iter()
-            .map(|component| (component.id.as_str(), component.role))
+            .filter_map(|component| component.id.as_deref().zip(component.role))
             .collect();
         let mut focus = Vec::new();
         let mut principal_head = Vec::new();
@@ -214,20 +219,7 @@ impl Projection {
             }
         }
         if principal_head.is_empty() && layout == WeaponIconLayout::HeadFocus {
-            let span = generated.bounds.max[1] - generated.bounds.min[1];
-            let focus_cutoff = generated.bounds.max[1] - span * 0.2;
-            let head_cutoff = generated.bounds.max[1] - SYNTHETIC_HEAD_LENGTH_M.min(span * 0.2);
-            for point in generated
-                .parts
-                .iter()
-                .flat_map(|part| part.positions.iter().copied())
-                .filter(|point| point[1] >= focus_cutoff)
-            {
-                focus.push(point);
-                focus.push([point[0], focus_cutoff, point[2]]);
-                principal_head.push(point);
-                principal_head.push([point[0], head_cutoff, point[2]]);
-            }
+            synthetic_head_focus(generated, &mut focus, &mut principal_head);
         }
         if focus.is_empty() {
             return Err(IconError::MissingFocus);
@@ -445,16 +437,17 @@ fn framing_anchor(
         }
         WeaponIconLayout::HeadFocus => {
             let socket_roots = design
+                .recipe
                 .components
                 .iter()
                 .filter(|component| {
-                    component.role == ComponentRole::Socket
+                    component.role == Some(ComponentRole::Socket)
                         && matches!(
                             component.shape,
-                            ComponentShape::Socket(_) | ComponentShape::Sleeve(_)
+                            crate::recipe::Shape::Socket(_) | crate::recipe::Shape::Sleeve(_)
                         )
                 })
-                .filter_map(|component| named_anchor(&format!("{}.top", component.id)))
+                .filter_map(|component| named_anchor(&format!("{}.top", component.id.as_deref()?)))
                 .collect::<Vec<_>>();
             if let Some(root) = socket_roots
                 .into_iter()
@@ -463,22 +456,26 @@ fn framing_anchor(
                 return Ok(root);
             }
             let mut bases = design
+                .recipe
                 .components
                 .iter()
-                .filter(|component| component.role == ComponentRole::Head)
-                .filter_map(|component| named_anchor(&format!("{}.base", component.id)))
+                .filter(|component| component.role == Some(ComponentRole::Head))
+                .filter_map(|component| named_anchor(&format!("{}.base", component.id.as_deref()?)))
                 .collect::<Vec<_>>();
             if bases.is_empty() {
                 let top = design
+                    .recipe
                     .components
                     .iter()
                     .filter(|component| {
                         matches!(
                             component.role,
-                            ComponentRole::Grip | ComponentRole::Structure
+                            Some(ComponentRole::Grip | ComponentRole::Structure)
                         )
                     })
-                    .filter_map(|component| named_anchor(&format!("{}.top", component.id)))
+                    .filter_map(|component| {
+                        named_anchor(&format!("{}.top", component.id.as_deref()?))
+                    })
                     .max_by(|left, right| left[1].total_cmp(&right[1]));
                 if let Some(mut top) = top {
                     let span = generated.bounds.max[1] - generated.bounds.min[1];
@@ -500,65 +497,40 @@ fn framing_anchor(
     }
 }
 
-fn raw_coordinates(point: [f32; 3], layout: WeaponIconLayout) -> [f32; 2] {
-    // A slight deterministic quarter view keeps transverse furniture legible.
-    let yaw = render::CAMERA_YAW;
-    let lateral = point[0] * yaw.cos() + point[2] * yaw.sin();
-    let axial = match layout {
-        WeaponIconLayout::HiltFocus => point[1],
-        WeaponIconLayout::HeadFocus => -point[1],
-    };
-    [lateral, axial]
-}
-
-fn relative_screen(
-    point: [f32; 2],
-    center: [f32; 2],
-    layout: WeaponIconLayout,
-    mirror_x: bool,
-    flip_lateral: bool,
-) -> [f32; 2] {
-    let mut lateral = point[0] - center[0];
-    if flip_lateral {
-        lateral = -lateral;
-    }
-    let axial = point[1] - center[1];
-    let diagonal = std::f32::consts::FRAC_1_SQRT_2;
-    let mut screen = match layout {
-        WeaponIconLayout::HiltFocus => {
-            [(-axial + lateral) * diagonal, (axial + lateral) * diagonal]
+fn synthetic_head_focus(
+    generated: &GeneratedWeapon,
+    focus: &mut Vec<[f32; 3]>,
+    principal_head: &mut Vec<[f32; 3]>,
+) {
+    let span = generated.bounds.max[1] - generated.bounds.min[1];
+    let focus_cutoff = generated.bounds.max[1] - span * 0.2;
+    let head_cutoff = generated.bounds.max[1] - SYNTHETIC_HEAD_LENGTH_M.min(span * 0.2);
+    for point in generated
+        .parts
+        .iter()
+        .flat_map(|part| part.positions.iter().copied())
+        .filter(|point| point[1] >= focus_cutoff)
+    {
+        focus.push(point);
+        focus.push([point[0], focus_cutoff, point[2]]);
+        if point[1] >= head_cutoff {
+            principal_head.push(point);
+            principal_head.push([point[0], head_cutoff, point[2]]);
         }
-        WeaponIconLayout::HeadFocus => [(axial + lateral) * diagonal, (axial - lateral) * diagonal],
-    };
-    if mirror_x {
-        screen[0] = -screen[0];
     }
-    screen
-}
-
-fn occupied_bounds(alpha: &[u8], size: usize) -> Option<IconBounds> {
-    let mut bounds = IconBounds::empty();
-    for (index, value) in alpha.iter().enumerate() {
-        if *value == 0 {
-            continue;
-        }
-        let x = index % size;
-        let y = index / size;
-        bounds.include([x as f32 / size as f32, y as f32 / size as f32]);
-    }
-    bounds.is_finite().then_some(bounds)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{default_design, preset_design};
+    use crate::default_design;
 
     fn roles(design: &WeaponDesign) -> HashMap<&str, ComponentRole> {
         design
+            .recipe
             .components
             .iter()
-            .map(|component| (component.id.as_str(), component.role))
+            .filter_map(|component| component.id.as_deref().zip(component.role))
             .collect()
     }
 
@@ -586,7 +558,7 @@ mod tests {
             named(&generated, "guard.base")
         );
 
-        let polearm = preset_design("halberd-1540").unwrap();
+        let polearm = default_design("halberd").unwrap();
         let generated = generate(&polearm).unwrap();
         assert_eq!(
             framing_anchor(

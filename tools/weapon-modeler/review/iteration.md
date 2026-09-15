@@ -47,6 +47,9 @@ LOD camera framing comes from the high-detail version of the same specimen.
 Details select actual hilt/head parts rather than a percentage of weapon length,
 so an unusually long grip does not get cropped down to only its pommel.
 
-The modeler is an asset-authoring experiment. These changes and captures do not
-change the separate authoritative Rust weapon model or tactical equipment LOD
-selection. A selected LOD can be exported as its own skinned GLB.
+The modeler uses the authoritative Rust weapon kernel through WebAssembly.
+Construction changes therefore affect both authoring and gameplay. Capture
+manifests retain the exact loaded kernel bytes as well as the presentation
+sources. Keep gameplay chassis and physical-property tests alongside the visual
+review. A selected display LOD can be exported as its own skinned GLB; physical
+properties use the kernel's fixed construction detail.

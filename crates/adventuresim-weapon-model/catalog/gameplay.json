@@ -1,0 +1,2905 @@
+[
+  {
+    "catalog_id": "arming_sword",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.11,
+          "segments": 16,
+          "thickness": 0.024,
+          "topScale": 0.85,
+          "width": 0.033
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.036,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.014
+            ],
+            [
+              0.018,
+              0.019
+            ],
+            [
+              0.036,
+              0.014
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.18,
+            "sweep": 0
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.82,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.79,
+          "thickness": 0.007,
+          "width": 0.054,
+          "plan": "straight",
+          "section": "fullered"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "baselard",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.11,
+          "segments": 16,
+          "thickness": 0.022,
+          "topScale": 0.85,
+          "width": 0.03
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.036,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.015
+            ],
+            [
+              0.018,
+              0.02
+            ],
+            [
+              0.036,
+              0.015
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.09,
+            "sweep": 0
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.43,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.76,
+          "thickness": 0.007,
+          "width": 0.048,
+          "plan": "leaf",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "bauernwehr",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "slabGrip",
+          "length": 0.11,
+          "scaleThickness": 0.009,
+          "thickness": 0.01,
+          "width": 0.038,
+          "construction": "homogeneous"
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "brass",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.038,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.016
+            ],
+            [
+              0.018,
+              0.022
+            ],
+            [
+              0.038,
+              0.014
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.23,
+            "sweep": 0.01
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0.13,
+          "curvature": 0.035,
+          "length": 0.48,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0.76,
+          "taper": 0.76,
+          "thickness": 0.006,
+          "width": 0.055,
+          "plan": "straight",
+          "section": "diamond"
+        },
+        {
+          "id": "nagel-stem",
+          "label": "nagel-stem",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "spatialTube",
+          "points": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0.045
+            ]
+          ],
+          "radius": 0.005,
+          "radialSegments": 12
+        },
+        {
+          "id": "nagel-button",
+          "label": "nagel-button",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "nagel-stem.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0.045
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.012,
+          "radius": 0.008,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "club",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 0.62,
+          "radius": 0.022,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "swollen-head",
+          "label": "swollen-head",
+          "role": "Head",
+          "material": "wood",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.09
+          },
+          "kind": "shaft",
+          "bottomScale": 0.6,
+          "length": 0.23,
+          "radius": 0.035,
+          "segments": 18,
+          "topScale": 1
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "falchion",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.12,
+          "segments": 16,
+          "thickness": 0.023,
+          "topScale": 0.85,
+          "width": 0.032
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "brass",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.032,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.013
+            ],
+            [
+              0.015,
+              0.018
+            ],
+            [
+              0.032,
+              0.011
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.006,
+          "samples": 24,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "arch",
+            "width": 0.065,
+            "length": 0.12,
+            "bulge": 0,
+            "side": 1
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0.3,
+          "curvature": 0.11,
+          "length": 0.72,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0.9,
+          "taper": 0.7,
+          "thickness": 0.006,
+          "width": 0.074,
+          "plan": "cleaver",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "flanged_mace",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.12,
+          "radius": 0.016,
+          "segments": 16,
+          "topScale": 0.98
+        },
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.25,
+          "radius": 0.007,
+          "segments": 16,
+          "topScale": 0.94
+        },
+        {
+          "id": "lower-collar",
+          "label": "lower-collar",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.008,
+          "radius": 0.018,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16
+        },
+        {
+          "id": "upper-collar",
+          "label": "upper-collar",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.008,
+          "radius": 0.018,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16
+        },
+        {
+          "id": "head-sleeve",
+          "label": "head-sleeve",
+          "role": "Socket",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.012
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.01
+            ],
+            [
+              0.04,
+              0.008
+            ]
+          ],
+          "wall": 0.003,
+          "fitShaft": false,
+          "segments": 16
+        },
+        {
+          "id": "head",
+          "label": "head",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "head-sleeve.top",
+            "at": "base",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.012
+          },
+          "kind": "mace",
+          "concavity": 0.15,
+          "crownLength": 0.008,
+          "cuspHeight": 0.5,
+          "cuspRadius": 0.04,
+          "flangeThickness": 0.002,
+          "flanges": 6,
+          "length": 0.115,
+          "profileSamples": 14,
+          "segments": 18,
+          "rootRadius": 0.008,
+          "shoulderRadius": 0.007,
+          "coreProfile": [
+            [
+              -0.0575,
+              0.008
+            ],
+            [
+              0.0655,
+              0.008
+            ]
+          ],
+          "flangeRootScale": 1
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "halberd",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 1.82,
+          "radius": 0.018,
+          "segments": 8,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.15
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.019
+            ],
+            [
+              0.2,
+              0.019
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "axe",
+          "label": "axe",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0.015,
+              0
+            ],
+            "overlap": 0.03
+          },
+          "kind": "axe",
+          "beard": 0.42,
+          "beardDrop": 0.09,
+          "curvature": 0.02,
+          "flare": -0.22,
+          "heel": 0,
+          "height": 0.27,
+          "lowerShoulder": 0.26,
+          "width": 0.155,
+          "rootWidth": 0.028,
+          "side": 1,
+          "thickness": 0.007,
+          "toe": 0,
+          "upperShoulder": 0.38,
+          "shoulderConstruction": "straight"
+        },
+        {
+          "id": "beak",
+          "label": "beak",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              -0.015,
+              0.07,
+              0
+            ],
+            "overlap": 0.07
+          },
+          "kind": "beak",
+          "bendPosition": 0.55,
+          "curvature": -0.005,
+          "direction": -1,
+          "droop": -0.014,
+          "length": 0.1,
+          "rootSection": 0.033,
+          "thickness": 0.018,
+          "tipSection": 0.003,
+          "radius": 0.0165,
+          "bendProfile": "sineArch"
+        },
+        {
+          "id": "spike",
+          "label": "spike",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.01
+          },
+          "kind": "spear",
+          "acuteness": 1,
+          "bellyPosition": 0.14,
+          "length": 0.32,
+          "rootWidth": 0.016,
+          "thickness": 0.01,
+          "width": 0.04,
+          "section": "flat",
+          "samples": 18
+        },
+        {
+          "id": "langet-left",
+          "label": "langet-left",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "top",
+            "offset": [
+              0,
+              0,
+              -0.017
+            ]
+          },
+          "kind": "box",
+          "size": [
+            0.013,
+            0.38,
+            0.003
+          ]
+        },
+        {
+          "id": "langet-right",
+          "label": "langet-right",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "top",
+            "offset": [
+              0,
+              0,
+              0.017
+            ]
+          },
+          "kind": "box",
+          "size": [
+            0.013,
+            0.38,
+            0.003
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "hand_axe",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 0.57,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.07
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.019
+            ],
+            [
+              0.08,
+              0.019
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "axe",
+          "label": "axe",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.02
+          },
+          "kind": "axe",
+          "beard": 0.5,
+          "beardDrop": 0.225,
+          "curvature": 0.1,
+          "flare": 0,
+          "heel": 0,
+          "height": 0.16,
+          "lowerShoulder": 0.26,
+          "width": 0.135,
+          "rootWidth": 0.032,
+          "side": 1,
+          "thickness": 0.01,
+          "toe": 0,
+          "upperShoulder": 0.38,
+          "shoulderConstruction": "straight"
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.021,
+          "segments": 16,
+          "topScale": 0.92
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "hunting_spear",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 1.72,
+          "radius": 0.021,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.135
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.019
+            ],
+            [
+              0.18,
+              0.019
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "spike",
+          "label": "spike",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.01
+          },
+          "kind": "spear",
+          "acuteness": 1,
+          "bellyPosition": 0.32,
+          "length": 0.27,
+          "rootWidth": 0.022,
+          "thickness": 0.009,
+          "width": 0.068,
+          "section": "flat",
+          "samples": 18
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "katzbalger",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.1,
+          "segments": 16,
+          "thickness": 0.025,
+          "topScale": 0.85,
+          "width": 0.034
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.031,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "outline",
+          "outlineStyle": "fan",
+          "diameter": 0.055,
+          "height": 0.031,
+          "thickness": 0.014
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "figureEight",
+          "bar": 0.007,
+          "height": 0.038,
+          "radialSegments": 14,
+          "samples": 48,
+          "width": 0.154,
+          "construction": "roundTube"
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.682,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.15,
+          "thickness": 0.007,
+          "width": 0.05,
+          "plan": "straight",
+          "section": "fullered"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "knife",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.11,
+          "segments": 16,
+          "thickness": 0.022,
+          "topScale": 0.85,
+          "width": 0.03
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.036,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.009
+            ],
+            [
+              0.018,
+              0.014
+            ],
+            [
+              0.036,
+              0.009
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.048,
+            "sweep": 0
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.21,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 1,
+          "taper": 0.72,
+          "thickness": 0.005,
+          "width": 0.03,
+          "plan": "straight",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "kriegsmesser",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "slabGrip",
+          "length": 0.28,
+          "scaleThickness": 0.009,
+          "thickness": 0.01,
+          "width": 0.038,
+          "construction": "homogeneous"
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "brass",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.038,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.016
+            ],
+            [
+              0.018,
+              0.022
+            ],
+            [
+              0.038,
+              0.014
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.23,
+            "sweep": 0.01
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0.18,
+          "curvature": 0.105,
+          "length": 1.05,
+          "ricasso": 0.12,
+          "samples": 24,
+          "singleEdge": 0.76,
+          "taper": 0.73,
+          "thickness": 0.007,
+          "width": 0.072,
+          "plan": "straight",
+          "section": "diamond"
+        },
+        {
+          "id": "nagel-stem",
+          "label": "nagel-stem",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "spatialTube",
+          "points": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0.045
+            ]
+          ],
+          "radius": 0.005,
+          "radialSegments": 12
+        },
+        {
+          "id": "nagel-button",
+          "label": "nagel-button",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "nagel-stem.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0.045
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.012,
+          "radius": 0.008,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "longsword",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.22,
+          "segments": 16,
+          "thickness": 0.024,
+          "topScale": 0.85,
+          "width": 0.033
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.055,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.012
+            ],
+            [
+              0.01,
+              0.017
+            ],
+            [
+              0.038,
+              0.02
+            ],
+            [
+              0.055,
+              0.01
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.22,
+            "sweep": 0.018
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.95,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.82,
+          "thickness": 0.007,
+          "width": 0.05,
+          "plan": "straight",
+          "section": "fullered"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "messer",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "slabGrip",
+          "length": 0.12,
+          "scaleThickness": 0.009,
+          "thickness": 0.01,
+          "width": 0.038,
+          "construction": "homogeneous"
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "brass",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.038,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.016
+            ],
+            [
+              0.018,
+              0.022
+            ],
+            [
+              0.038,
+              0.014
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.23,
+            "sweep": 0.01
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0.14,
+          "curvature": 0.065,
+          "length": 0.72,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0.72,
+          "taper": 0.78,
+          "thickness": 0.006,
+          "width": 0.058,
+          "plan": "straight",
+          "section": "diamond"
+        },
+        {
+          "id": "nagel-stem",
+          "label": "nagel-stem",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "spatialTube",
+          "points": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0.045
+            ]
+          ],
+          "radius": 0.005,
+          "radialSegments": 12
+        },
+        {
+          "id": "nagel-button",
+          "label": "nagel-button",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "nagel-stem.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0.045
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.012,
+          "radius": 0.008,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "military_pike",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 4.7,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.135
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.019
+            ],
+            [
+              0.18,
+              0.019
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "spike",
+          "label": "spike",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.01
+          },
+          "kind": "spear",
+          "acuteness": 1,
+          "bellyPosition": 0.15,
+          "length": 0.25,
+          "rootWidth": 0.015,
+          "thickness": 0.01,
+          "width": 0.038,
+          "section": "flat",
+          "samples": 18
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "misericorde",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.11,
+          "segments": 16,
+          "thickness": 0.023,
+          "topScale": 0.85,
+          "width": 0.031
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.036,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.012
+            ],
+            [
+              0.018,
+              0.017
+            ],
+            [
+              0.036,
+              0.012
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.078,
+            "sweep": 0
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.36,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.92,
+          "thickness": 0.009,
+          "width": 0.024,
+          "plan": "leaf",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "rapier",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.115,
+          "segments": 16,
+          "thickness": 0.022,
+          "topScale": 0.85,
+          "width": 0.031
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.045,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.012
+            ],
+            [
+              0.01,
+              0.017
+            ],
+            [
+              0.032,
+              0.019
+            ],
+            [
+              0.045,
+              0.009
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.23,
+            "sweep": 0.01
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.88,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.82,
+          "thickness": 0.007,
+          "width": 0.042,
+          "plan": "straight",
+          "section": "fullered"
+        },
+        {
+          "id": "side-ring",
+          "label": "side-ring",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0.008
+            ]
+          },
+          "kind": "ringGuard",
+          "arcEnd": 3.142,
+          "arcStart": 0,
+          "bar": 0.005,
+          "radialSegments": 12,
+          "radius": 0.04,
+          "samples": 28
+        },
+        {
+          "id": "knuckle-bow",
+          "label": "knuckle-bow",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 24,
+          "radialSegments": 12,
+          "centerline": {
+            "curve": "arch",
+            "width": 0.055,
+            "length": 0.115,
+            "bulge": 0,
+            "side": 1
+          }
+        },
+        {
+          "id": "left-side-ring-boss",
+          "label": "left-side-ring-boss",
+          "role": "Guard",
+          "material": "darkSteel",
+          "attach": {
+            "to": "side-ring.origin",
+            "at": "origin",
+            "offset": [
+              -0.04,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.015,
+          "radius": 0.007,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "right-side-ring-boss",
+          "label": "right-side-ring-boss",
+          "role": "Guard",
+          "material": "darkSteel",
+          "attach": {
+            "to": "side-ring.origin",
+            "at": "origin",
+            "offset": [
+              0.04,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.015,
+          "radius": 0.007,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "upper-knuckle-boss",
+          "label": "upper-knuckle-boss",
+          "role": "Guard",
+          "material": "darkSteel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.015,
+          "radius": 0.007,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "lower-knuckle-boss",
+          "label": "lower-knuckle-boss",
+          "role": "Guard",
+          "material": "darkSteel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.015,
+          "radius": 0.007,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 16,
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "rondel_dagger",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.11,
+          "segments": 16,
+          "thickness": 0.022,
+          "topScale": 0.85,
+          "width": 0.03
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.01,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.016
+            ],
+            [
+              0.005,
+              0.023
+            ],
+            [
+              0.01,
+              0.016
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "length": 0.005,
+          "radius": 0.023,
+          "bottomScale": 1,
+          "topScale": 1,
+          "segments": 20
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 0.32,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.82,
+          "thickness": 0.007,
+          "width": 0.026,
+          "plan": "straight",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "spear",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 1.72,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.135
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.019
+            ],
+            [
+              0.18,
+              0.019
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.018,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "spike",
+          "label": "spike",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.01
+          },
+          "kind": "spear",
+          "acuteness": 1,
+          "bellyPosition": 0.32,
+          "length": 0.31,
+          "rootWidth": 0.022,
+          "thickness": 0.009,
+          "width": 0.055,
+          "section": "flat",
+          "samples": 18
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "utility_knife",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.1,
+          "segments": 16,
+          "thickness": 0.022,
+          "topScale": 0.85,
+          "width": 0.03
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.036,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.008
+            ],
+            [
+              0.018,
+              0.013
+            ],
+            [
+              0.036,
+              0.008
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.04,
+            "sweep": 0
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0.12,
+          "curvature": 0.008,
+          "length": 0.135,
+          "ricasso": 0,
+          "samples": 24,
+          "singleEdge": 1,
+          "taper": 0.62,
+          "thickness": 0.004,
+          "width": 0.026,
+          "plan": "cleaver",
+          "section": "diamond"
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "walking_staff",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 1.85,
+          "radius": 0.022,
+          "segments": 16,
+          "topScale": 0.92
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "war_hammer",
+    "recipe": {
+      "components": [
+        {
+          "id": "shaft",
+          "label": "shaft",
+          "role": "Grip",
+          "material": "wood",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 0.9,
+          "length": 0.43,
+          "radius": 0.011,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "socket",
+          "label": "socket",
+          "role": "Socket",
+          "material": "steel",
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.135
+          },
+          "kind": "socket",
+          "profile": [
+            [
+              0,
+              0.013
+            ],
+            [
+              0.18,
+              0.013
+            ]
+          ],
+          "wall": 0.002,
+          "fitShaft": false,
+          "segments": 18
+        },
+        {
+          "id": "butt-cap",
+          "label": "butt-cap",
+          "role": "Structure",
+          "material": "darkSteel",
+          "attach": {
+            "to": "shaft.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.006,
+              0
+            ]
+          },
+          "kind": "shaft",
+          "bottomScale": 1,
+          "length": 0.006,
+          "radius": 0.011,
+          "segments": 16,
+          "topScale": 0.92
+        },
+        {
+          "id": "poll",
+          "label": "poll",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0.015,
+              0
+            ],
+            "overlap": 0.015
+          },
+          "kind": "hammer",
+          "crown": 0.06,
+          "crownLength": 0.004,
+          "direction": 1,
+          "face": 0.032,
+          "faceFlare": 0,
+          "faceThickness": 0.032,
+          "length": 0.064,
+          "neck": 0.026,
+          "neckRatio": 0.72,
+          "thickness": 0.032
+        },
+        {
+          "id": "beak",
+          "label": "beak",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "socket.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0.015,
+              0
+            ],
+            "overlap": 0.015
+          },
+          "kind": "facetedBeak",
+          "bendPosition": 0.22,
+          "direction": -1,
+          "length": 0.075,
+          "root": 0.028,
+          "set": 0.005,
+          "thickness": 0.014,
+          "tip": 0.003,
+          "tipThickness": 0.014
+        }
+      ]
+    }
+  },
+  {
+    "catalog_id": "zweihander",
+    "recipe": {
+      "components": [
+        {
+          "id": "grip",
+          "label": "grip",
+          "role": "Grip",
+          "material": "leather",
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "ovalGrip",
+          "bottomScale": 1,
+          "length": 0.415,
+          "segments": 16,
+          "thickness": 0.028,
+          "topScale": 0.85,
+          "width": 0.038
+        },
+        {
+          "id": "pommel",
+          "label": "pommel",
+          "role": "Structure",
+          "material": "steel",
+          "attach": {
+            "to": "grip.base",
+            "at": "origin",
+            "offset": [
+              0,
+              -0.065,
+              0
+            ]
+          },
+          "kind": "pommel",
+          "construction": "lathed",
+          "profile": [
+            [
+              0,
+              0.014
+            ],
+            [
+              0.012,
+              0.021
+            ],
+            [
+              0.045,
+              0.024
+            ],
+            [
+              0.065,
+              0.012
+            ]
+          ],
+          "segments": 16
+        },
+        {
+          "id": "guard",
+          "label": "guard",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "grip.top",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.48,
+            "sweep": 0.035
+          }
+        },
+        {
+          "id": "blade",
+          "label": "blade",
+          "role": "Head",
+          "material": "steel",
+          "attach": {
+            "to": "guard.origin",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          },
+          "kind": "loftedBlade",
+          "belly": 0,
+          "curvature": 0,
+          "length": 1.28,
+          "ricasso": 0.26,
+          "samples": 24,
+          "singleEdge": 0,
+          "taper": 0.68,
+          "thickness": 0.008,
+          "width": 0.06,
+          "plan": "straight",
+          "section": "fullered"
+        },
+        {
+          "id": "parrying-lugs",
+          "label": "parrying-lugs",
+          "role": "Guard",
+          "material": "steel",
+          "attach": {
+            "to": "blade.ricasso",
+            "at": "origin",
+            "offset": [
+              0,
+              0,
+              0
+            ],
+            "overlap": 0.045
+          },
+          "kind": "bentBar",
+          "radius": 0.005,
+          "samples": 22,
+          "radialSegments": 14,
+          "centerline": {
+            "curve": "opposed",
+            "span": 0.18,
+            "sweep": 0
+          }
+        }
+      ]
+    }
+  }
+]

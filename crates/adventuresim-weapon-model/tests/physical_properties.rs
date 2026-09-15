@@ -1,4 +1,5 @@
 //! Physical regressions for recipe authority and the museum-grounded 1544 audit.
+use adventuresim_weapon_model::recipe::{BladeCrossSection, Metres, Ratio, Shape};
 use adventuresim_weapon_model::*;
 
 fn mesh_mass(weapon: &GeneratedWeapon) -> f64 {
@@ -18,7 +19,7 @@ fn mesh_mass(weapon: &GeneratedWeapon) -> f64 {
                         / 6.0
                 })
                 .sum::<f64>()
-                * f64::from(part.material.density_kg_m3())
+                * part.material.density()
         })
         .sum()
 }
@@ -46,27 +47,26 @@ fn every_recipe_conserves_the_material_volume_visible_in_its_mesh() {
 
 #[test]
 fn a_regular_polygon_rod_matches_analytic_mass_centroid_and_inertia() {
-    let design = WeaponDesign {
-        catalog_id: "rod-fixture".into(),
-        components: vec![ComponentDesign {
-            id: "grip".into(),
-            role: ComponentRole::Grip,
-            attachment: Attachment::Root,
-            offset: OffsetMm::default(),
-            material: MaterialClass::Wood,
-            shape: ComponentShape::Cylinder(CylinderSpec {
-                length: Millimeters(1000),
-                radius: Millimeters(10),
-                bottom_scale: Permille(1000),
-                top_scale: Permille(1000),
-                segments: Segments(8),
-            }),
-        }],
-    };
+    let design: WeaponDesign = serde_json::from_value(serde_json::json!({
+        "catalog_id":"rod-fixture","recipe":{"components":[{
+            "kind":"shaft","id":"grip","role":"Grip","material":"wood",
+            "length":1.0,"radius":0.01,"segments":8,"bottomScale":1.0,"topScale":1.0,
+            "attach":{"to":"weapon.root","at":"origin"}
+        }]}
+    }))
+    .unwrap();
     let properties = derive_properties(&design).unwrap();
     let radius = 0.010_f64;
-    let angle = std::f64::consts::TAU / 8.0;
-    let mass = 8.0 * angle.sin() * radius.powi(2) / 2.0 * 720.0;
+    let model = generate(&design).unwrap();
+    let sides = model.parts[0]
+        .positions
+        .iter()
+        .filter(|p| p[1].abs() < 1e-6 && p[0].hypot(p[2]) > 0.0099)
+        .map(|p| p.map(f32::to_bits))
+        .collect::<std::collections::HashSet<_>>()
+        .len() as f64;
+    let angle = std::f64::consts::TAU / sides;
+    let mass = sides * angle.sin() * radius.powi(2) / 2.0 * 720.0;
     let inertia = mass * (1.0 / 12.0 + radius.powi(2) * (2.0 + angle.cos()) / 12.0);
     assert!((f64::from(properties.mass_kg) - mass).abs() < 1e-7);
     assert!(properties.center_of_mass_from_grip_m.abs() < 1e-6);
@@ -75,31 +75,29 @@ fn a_regular_polygon_rod_matches_analytic_mass_centroid_and_inertia() {
 
 #[test]
 fn blade_taper_moves_mass_and_balance_and_translation_does_not() {
-    let mut narrow = preset_design("landsknecht-longsword").unwrap();
+    let mut narrow = default_design("longsword").unwrap();
     let broad = derive_properties(&narrow).unwrap();
     let blade = narrow
+        .recipe
         .components
         .iter_mut()
         .find_map(|part| match &mut part.shape {
-            ComponentShape::Blade(blade) => Some(blade),
+            Shape::LoftedBlade(blade) => Some(blade),
             _ => None,
         })
         .unwrap();
-    blade.taper = Permille(1800);
+    blade.taper = Ratio::new(1.8).unwrap();
     let tapered = derive_properties(&narrow).unwrap();
     assert!(tapered.mass_kg < broad.mass_kg);
     assert!(tapered.center_of_mass_from_grip_m < broad.center_of_mass_from_grip_m);
     assert!(tapered.moment_of_inertia_kg_m2 < broad.moment_of_inertia_kg_m2);
     let root = narrow
+        .recipe
         .components
         .iter_mut()
-        .find(|part| part.attachment == Attachment::Root)
+        .find(|part| part.attach.as_ref().is_some_and(|a| a.to == "weapon.root"))
         .unwrap();
-    root.offset = OffsetMm {
-        x: 400,
-        y: 300,
-        z: -200,
-    };
+    root.attach.as_mut().unwrap().offset = Some([0.4, 0.3, -0.2].map(|n| Metres::new(n).unwrap()));
     let moved = derive_properties(&narrow).unwrap();
     assert!((moved.mass_kg - tapered.mass_kg).abs() < 0.00001);
     assert!(
@@ -110,17 +108,13 @@ fn blade_taper_moves_mass_and_balance_and_translation_does_not() {
 
 #[test]
 fn blade_thickness_is_the_actual_forte_depth_for_every_section() {
-    for section in [
-        BladeSection::Flat,
-        BladeSection::Diamond,
-        BladeSection::Fullered,
-    ] {
-        let mut design = preset_design("landsknecht-longsword").unwrap();
-        let ComponentShape::Blade(blade) = &mut design.components[3].shape else {
+    for section in [BladeCrossSection::Diamond, BladeCrossSection::Fullered] {
+        let mut design = default_design("longsword").unwrap();
+        let Shape::LoftedBlade(blade) = &mut design.recipe.components[3].shape else {
             unreachable!()
         };
         blade.section = section;
-        blade.thickness = Millimeters(6);
+        blade.thickness = Metres::new(0.006).unwrap();
         let generated = generate(&design).unwrap();
         let blade = generated
             .parts

@@ -221,11 +221,6 @@ reason = "Maps the serialized shared leaf schema and preset catalog to egui auth
 
 [[scopes]]
 kind = "authored_catalog"
-path = "crates/adventuresim-weapon-model/src/catalog/**"
-reason = "Catalog-specific hilt dimensions and recipe family identifiers."
-
-[[scopes]]
-kind = "authored_catalog"
 path = "crates/adventuresim-world-schema/src/settlement_buildings/catalog.rs"
 reason = "Authored historical building uses, eligibility, catchments, and siting preferences."
 
@@ -517,3 +512,18 @@ reason = "Deterministic interior catalog and furnished settlement review fixture
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/armor_controls.rs"
 reason = "Egui controls dispatch design edits and save actions through widget responses, without comparing display labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-weapon-model/src/authoring/controls.rs"
+reason = "Validates external editor control descriptors and their serialized JSON paths."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-weapon-model/src/editor.rs"
+reason = "Maps precise canonical recipe JSON fields to browser editor descriptors and labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/spacetimedb/client/sats.rs"
+reason = "Decodes SpacetimeDB's external SATS type tags and SQL value representation into generated row types."

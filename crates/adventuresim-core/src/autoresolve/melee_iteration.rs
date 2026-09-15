@@ -540,6 +540,69 @@ mod tests {
         assert!(separated);
     }
 
+    fn assert_bounded_progress(outcome: &BattleOutcome) {
+        let terminal = outcome.timeline.last().expect("terminal timeline event");
+        assert_eq!(terminal.kind, MeleeTimelineKind::Terminal);
+        assert_eq!(terminal.terminal_resolution, Some(outcome.resolution));
+        assert!(outcome.rounds <= AUTORESOLVE_MAX_COMBAT_ROUNDS);
+        assert!(outcome.timeline.iter().all(|event| {
+            event.time_seconds.is_finite()
+                && event.time_seconds >= 0.0
+                && event.tick == MeleeTimelineEvent::tick_at(event.time_seconds)
+        }));
+        assert!(
+            terminal.time_seconds
+                <= outcome.rounds as f32
+                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.combat_round_seconds
+        );
+        assert!(outcome.timeline.windows(2).all(|events| {
+            events[0].sequence < events[1].sequence
+                && events[0].tick <= events[1].tick
+                && events[0].time_seconds <= events[1].time_seconds
+        }));
+        if outcome.resolution != BattleResolution::Timeout {
+            return;
+        }
+        assert_eq!(outcome.rounds, AUTORESOLVE_MAX_COMBAT_ROUNDS);
+        assert!(outcome.summary.melee_attacks > 0);
+        assert!(outcome.summary.hits > 0);
+        assert!(
+            outcome.summary.total_health_damage.is_finite()
+                && outcome.summary.total_health_damage > 0.0
+        );
+        for side in [&outcome.allies, &outcome.enemies] {
+            assert!(
+                side.iter()
+                    .any(|fighter| !fighter.incapacitated && !fighter.yielded)
+            );
+        }
+        let continuing = outcome
+            .allies
+            .iter()
+            .chain(&outcome.enemies)
+            .filter(|fighter| !fighter.incapacitated && !fighter.yielded)
+            .any(|fighter| {
+                let ongoing_bleeding = fighter.blood_loss_fraction.is_finite()
+                    && fighter.blood_loss_fraction > 0.0
+                    && fighter.wound_flow_fraction_per_second.is_finite()
+                    && fighter.wound_flow_fraction_per_second > 0.0;
+                // Read the most recent readiness projection, including cancellation
+                // and transformation updates, so an obsolete deadline cannot pass.
+                let scheduled = outcome
+                    .timeline
+                    .iter()
+                    .rev()
+                    .filter(|event| event.combatant_id == Some(fighter.id))
+                    .find_map(|event| event.readiness_after_seconds)
+                    .is_some_and(|ready| ready.is_finite() && ready > terminal.time_seconds);
+                ongoing_bleeding || scheduled
+            });
+        assert!(
+            continuing,
+            "bounded duel stopped making physiological or scheduled combat progress"
+        );
+    }
+
     #[test]
     fn iteration_duels_make_terminal_progress() {
         let (john, opponents) = melee_iteration_roster().unwrap();
@@ -547,32 +610,22 @@ mod tests {
             let outcomes = || {
                 (1..=32)
                     .map(|seed| {
-                        resolve_battle(
+                        let outcome = resolve_battle(
                             vec![john.combatant.clone()],
                             vec![opponent.combatant.clone()],
                             seed,
                             BattleOpening::Normal,
-                        )
-                        .resolution
+                        );
+                        assert_bounded_progress(&outcome);
+                        outcome.resolution
                     })
                     .collect::<Vec<_>>()
             };
-            let first = outcomes();
-            assert_eq!(first, outcomes(), "{} was not reproducible", opponent.name);
-            assert!(
-                first
-                    .iter()
-                    .all(|resolution| *resolution != BattleResolution::Timeout),
-                "{} did not reach a victor (timeout seeds {:?})",
-                opponent.name,
-                first
-                    .iter()
-                    .enumerate()
-                    .filter_map(
-                        |(index, resolution)| (*resolution == BattleResolution::Timeout)
-                            .then_some(index + 1)
-                    )
-                    .collect::<Vec<_>>()
+            assert_eq!(
+                outcomes(),
+                outcomes(),
+                "{} was not reproducible",
+                opponent.name
             );
         }
     }

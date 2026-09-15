@@ -1,9 +1,10 @@
+import { generateModel } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
 
 import { parseArguments } from "../cli.mjs";
-import { automaticGripPoint, buildSkinnedWeaponGlb, encodeGlb, parseGlb } from "../src/glb-export.js";
-import { buildWeapon } from "../src/mesh.js";
+import { buildSkinnedWeaponGlb, encodeGlb, parseGlb } from "../src/glb-export.js";
+
 import { PRESETS } from "../src/presets.js";
 
 function baseRig() {
@@ -24,12 +25,32 @@ function baseRig() {
 
 function triangle() {
   return {
+    physical: { controlPoint: [0, 0.5, 0] },
     indices: [0, 1, 2],
     positions: [0, 0.5, 0, 1, 0.5, 0, 0, 1.5, 0],
     normals: [0, 0, 1, 0, 0, 1, 0, 0, 1],
     colors: [0.5, 0.6, 0.7, 0.5, 0.6, 0.7, 0.5, 0.6, 0.7],
   };
 }
+
+test("chooses the modeled grip center and a bounded polearm handhold", () => {
+  const recipe={components:[{id:"grip",kind:"grip",length:.2,radius:.01,attach:{to:"weapon.root",at:"base"}}]};
+  assert.deepEqual(generateModel(recipe).physical.controlPoint,[0,.1,0]);
+  recipe.gripClearance=.05;
+  assert.ok(Math.abs(generateModel(recipe).physical.controlPoint[1]-.15)<1e-12);
+  for (const [length,hand] of [[.5,.18],[1,.2],[4,.45]]) {
+    assert.deepEqual(generateModel({shaft:{length,radius:.01},components:[]}).physical.controlPoint,[0,hand,0]);
+  }
+  const buckler=structuredClone(PRESETS.find(p=>p.id==="buckler").definition);
+  const mesh=generateModel(buckler),handle=mesh.parts.find(p=>p.label==="shield handle");
+  const point=mesh.physical.controlPoint;
+  assert.deepEqual(point,mesh.resolvedDefinition._frames["shield.grip"]);
+  for (let axis=0;axis<3;axis++) {
+    const values=handle.positions.filter((_,i)=>i%3===axis);
+    assert.ok(point[axis]>=Math.min(...values)-1e-9&&point[axis]<=Math.max(...values)+1e-9);
+  }
+  assert.ok(point[2]<0,"the actual shield handhold is behind the body");
+});
 
 function accessorValues(parsed, accessorIndex) {
   const accessor = parsed.document.accessors[accessorIndex];
@@ -65,7 +86,7 @@ test("rejects a rig that does not contain the requested attachment", () => {
 
 test("GLB preserves shared vertex indices and smooth normals at every LOD", () => {
   for (const lod of ["low", "medium", "high"]) {
-    const mesh = buildWeapon(PRESETS.find((preset) => preset.id === "buckler").definition, { lod });
+    const mesh = generateModel(PRESETS.find((preset) => preset.id === "buckler").definition, { lod });
     const parsed = parseGlb(buildSkinnedWeaponGlb(baseRig(), mesh, { attachment: "r_weapon" }));
     const primitive = parsed.document.meshes[0].primitives[0];
     assert.deepEqual(accessorValues(parsed, primitive.indices), mesh.indices);
@@ -78,7 +99,7 @@ test("GLB preserves shared vertex indices and smooth normals at every LOD", () =
 
 test("bow export preserves separately animatable string nodes without changing melee export", () => {
   const source = PRESETS.find((preset) => preset.id === "german-self-bow-1544"),
-    mesh = buildWeapon(source.definition),
+    mesh = generateModel(source.definition),
     parsed = parseGlb(buildSkinnedWeaponGlb(baseRig(), mesh, { attachment: "r_weapon", name: "test-bow" })),
     document = parsed.document,
     semantic = ["upper bowstring control span", "lower bowstring control span", "upper bowstring end loop", "lower bowstring end loop", "served nocking control span"];
@@ -96,14 +117,14 @@ test("bow export preserves separately animatable string nodes without changing m
   assert.equal(body.skin, 0);
   assert.ok(document.accessors[document.meshes[body.mesh].primitives[0].attributes.POSITION].count < mesh.positions.length / 3);
 
-  const melee = parseGlb(buildSkinnedWeaponGlb(baseRig(), buildWeapon(PRESETS.find((preset) => preset.id === "landsknecht-longsword").definition), { name: "test-sword" })).document;
+  const melee = parseGlb(buildSkinnedWeaponGlb(baseRig(), generateModel(PRESETS.find((preset) => preset.id === "landsknecht-longsword").definition), { name: "test-sword" })).document;
   assert.equal(melee.meshes.length, 1);
   assert.equal(melee.extras.adventuresim_weapon.animation_contract, undefined);
   assert.deepEqual(melee.extras.adventuresim_weapon.semantic_nodes, []);
 });
 
 test("crossbow export preserves separately animatable served spans and seated tip loops", () => {
-  const source = PRESETS.find((preset) => preset.id === "german-cranequin-crossbow-1544"), mesh = buildWeapon(source.definition),
+  const source = PRESETS.find((preset) => preset.id === "german-cranequin-crossbow-1544"), mesh = generateModel(source.definition),
     parsed = parseGlb(buildSkinnedWeaponGlb(baseRig(), mesh, { attachment: "r_weapon", name: "test-crossbow" })), document = parsed.document,
     semantic = ["left crossbow string control span", "right crossbow string control span", "served crossbow nocking span", "left crossbow string end loop", "right crossbow string end loop"];
   assert.equal(document.extras.adventuresim_weapon.animation_contract, "crossbow-string-nodes-v1");
@@ -123,7 +144,7 @@ test("crossbow export preserves separately animatable served spans and seated ti
 
 test("firearm export preserves separately animatable lock nodes without changing the skinned stock", () => {
   for (const id of ["peter-peck-double-wheellock-pistol-1545", "german-matchlock-arquebus-16c"]) {
-    const source = PRESETS.find((preset) => preset.id === id), mesh = buildWeapon(source.definition), semanticParts = mesh.parts.filter((part) => part.animationPivot), semantic = semanticParts.map((part) => part.label),
+    const source = PRESETS.find((preset) => preset.id === id), mesh = generateModel(source.definition), semanticParts = mesh.parts.filter((part) => part.animationPivot), semantic = semanticParts.map((part) => part.label),
       parsed = parseGlb(buildSkinnedWeaponGlb(baseRig(), mesh, { attachment: "r_weapon", name: id })), document = parsed.document;
     assert.equal(document.extras.adventuresim_weapon.animation_contract, "firearm-lock-nodes-v2", id);
     assert.deepEqual(document.extras.adventuresim_weapon.semantic_nodes, semantic, id);
@@ -148,7 +169,7 @@ test("firearm export preserves separately animatable lock nodes without changing
 });
 
 test("ball pouch flap exports at its hinge-local pivot", () => {
-  const source = PRESETS.find((preset) => preset.id === "small-arms-ball-pouch"), mesh = buildWeapon(source.definition), part = mesh.parts.find((candidate) => candidate.label === "ball pouch hinged flap"),
+  const source = PRESETS.find((preset) => preset.id === "small-arms-ball-pouch"), mesh = generateModel(source.definition), part = mesh.parts.find((candidate) => candidate.label === "ball pouch hinged flap"),
     parsed = parseGlb(buildSkinnedWeaponGlb(baseRig(), mesh, { attachment: "r_weapon", name: source.id })), document = parsed.document, node = document.nodes.find((candidate) => candidate.name === part.label);
   assert.equal(document.extras.adventuresim_weapon.animation_contract, "pouch-flap-node-v1"); assert.deepEqual(document.extras.adventuresim_weapon.semantic_nodes, [part.label]);
   assert.deepEqual(node.translation, part.animationPivot); assert.deepEqual(node.extras.adventuresim_local_pivot, [0, 0, 0]);
@@ -156,12 +177,11 @@ test("ball pouch flap exports at its hinge-local pivot", () => {
   local.forEach((value, axis) => assert.ok(Math.abs(value + node.translation[axis] - part.positions[axis]) < 1e-6));
 });
 
-test("chooses the modeled grip center and a bounded polearm handhold", () => {
-  assert.deepEqual(automaticGripPoint({ _frames: { "shield.grip": [0.12, -0.04, -0.08] } }), [0.12, -0.04, -0.08]);
-  const configured = automaticGripPoint({ gripClearance: 0.05, _frames: { "grip.base": [0, 0.1, 0], "grip.top": [0, 0.3, 0] } });
-  assert.ok(Math.abs(configured[1] - 0.25) < 1e-9);
-  assert.deepEqual(automaticGripPoint({ _frames: { "grip.center": [0, 0.22, 0] } }), [0, 0.22, 0]);
-  assert.deepEqual(automaticGripPoint({ _frames: { "shaft.bottom": [0, 0, 0], "shaft.top": [0, 4, 0] } }), [0, 0.45, 0]);
+test("exports the canonical control point for every weapon family", () => {
+  for (const id of ["buckler","landsknecht-longsword","short-spear"]) {
+    const mesh = generateModel(PRESETS.find(p=>p.id===id).definition);
+    assert.deepEqual(mesh.physical.controlPoint,mesh.resolvedDefinition._frames["weapon.grip"]);
+  }
 });
 
 test("CLI accepts a skinned output parameter and validates its attachment", () => {
