@@ -446,7 +446,8 @@ fn paired_carrier_is_two_closed_components_with_stable_morphs_and_runtime_skinni
 
 #[test]
 fn historical_profiles_and_flutes_keep_closed_morph_correspondence() {
-    let surface = torso();
+    use adventuresim_armor_model::{ArmorDetail, ArmorLod};
+    let mut surface = torso();
     let mut designs = vec![
         BreastplateDesign::globose(),
         BreastplateDesign::tapul(),
@@ -465,8 +466,18 @@ fn historical_profiles_and_flutes_keep_closed_morph_correspondence() {
         flutes.depth = Millimeters(depth);
         designs.push(design);
     }
-    for design in designs {
-        let mesh = generate_breastplate(&design, &surface).unwrap();
+    let details = [
+        ArmorDetail::BakeSource,
+        ArmorDetail::Runtime(ArmorLod::Lod4),
+        ArmorDetail::Runtime(ArmorLod::Lod5),
+        ArmorDetail::Runtime(ArmorLod::Lod6),
+    ];
+    for (design, detail) in designs
+        .iter()
+        .flat_map(|design| details.map(|detail| (design, detail)))
+    {
+        surface.detail = detail;
+        let mesh = generate_breastplate(design, &surface).unwrap();
         assert_closed(&mesh.positions, &mesh.indices);
         for weight in [-0.35, 0.35, 1.0] {
             let positions: Vec<_> = mesh

@@ -322,6 +322,22 @@ systems; the controls above do not approximate them automatically.
 
 ## Attachment geometry and review
 
+Spaulder plates follow the upper arm as rigid metal; the suspended besagew
+retains its separate torso ownership. Body-shape fitting can change the crown
+dimensions, but posing must preserve distances within each plate. This does
+not supply independent articulation between the descending lames.
+
+Preserve axial curvature in both partial and closed shoulder crowns at every
+runtime detail level. Reducing a crown to one axial interval replaces a dome
+with a cone; a clearance fitter then expands the wrong silhouette. Crown
+sampling has a curvature minimum separate from the sampling of flatter lames.
+Regenerate UVs and dense-source normal bakes after changing runtime topology.
+
+The breastplate likewise retains intermediate vertical profile samples before
+fitting. Check triangle interiors against the dense source: vertex-only error
+can miss a long facet cutting across a rounded breast. Increased sampling
+preserves a curved source; it cannot add hip curvature to a conical fauld.
+
 Fit suspended discs against triangles clipped to the disc's own projected
 outline, in its tilted local frame. Nearby geometry outside that outline must
 not push the disc away from its supporting plates. Plate clearance and body

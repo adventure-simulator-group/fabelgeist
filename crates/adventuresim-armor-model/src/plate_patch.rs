@@ -109,32 +109,52 @@ pub(crate) fn capped_fluted_patch(
     )
 }
 
-/// A shoulder crown ends in a shared apex rather than an open medial mouth.
+/// Crown curvature needs intermediate latitudes even at the coarsest LOD.
+/// A rim-to-apex fan is a cone, not a low-detail approximation of a dome.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Crown boundary, shell, relief and detail are independent construction inputs."
+)]
 pub(crate) fn fluted_crown_patch(
     rows: usize,
     origin: [f32; 3],
     thickness: f32,
     pattern: Option<&PlateFluting>,
+    coverage: crate::Permille,
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
-
     detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    chart(
-        rows,
-        ChartBoundary::Apex,
+    const MINIMUM_CROWN_INTERVALS: usize = 3;
+    let rows = detail.segments(rows, MINIMUM_CROWN_INTERVALS);
+    let samples = (0..=rows)
+        .map(|row| row as f32 / rows as f32)
+        .collect::<Vec<_>>();
+    let closed = coverage.0 == 1000;
+    sampled_chart(
+        &samples,
+        if closed {
+            ChartBoundary::Apex
+        } else {
+            ChartBoundary::Open
+        },
         PlateShell {
             thickness,
-            extrusion: ShellExtrusion::CappedAxis {
-                origin,
-                axis: [0.0, -1.0, 0.0],
+            extrusion: if closed {
+                ShellExtrusion::CappedAxis {
+                    origin,
+                    axis: [0.0, -1.0, 0.0],
+                }
+            } else {
+                ShellExtrusion::Normal
             },
         },
         pattern,
-        [0.5, 1.0],
+        [0.5, 0.5 + 0.5 * coverage.unit()],
         normal_offset,
-        point,
+        |u, v| point(u, v * coverage.unit()),
         detail,
+        &[],
     )
 }
 

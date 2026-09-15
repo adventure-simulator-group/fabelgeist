@@ -2,6 +2,9 @@
 
 use super::*;
 
+// Retain the breast's rounded profile before fitting its exported facets.
+const MINIMUM_BREAST_PROFILE_INTERVALS: usize = 8;
+
 impl MidMesh {
     /// Mirror the right cut's diagonal at the left cut. A rising armscye can
     /// make the boundary quad concave in its facing projection; the opposite
@@ -63,7 +66,10 @@ pub(super) fn main_grid(
         FRONT_HEIGHTS[0]
     };
     let columns = chart_columns(rear, design, wearer.detail);
-    let rows = wearer.detail.segments(V_SAMPLES - 1, 4) + 1;
+    let rows = wearer
+        .detail
+        .segments(V_SAMPLES - 1, MINIMUM_BREAST_PROFILE_INTERVALS)
+        + 1;
     let mut grid = Vec::with_capacity(rows);
     for row in 0..rows {
         let t = row as f32 / (rows - 1) as f32;

@@ -273,3 +273,7 @@ mod tests {
         assert!(required_scale(&inner, &[[0, 1, 2]], &body, 0.0).is_err());
     }
 }
+
+#[cfg(test)]
+#[path = "spaulder_sampling_tests.rs"]
+mod sampling_tests;
