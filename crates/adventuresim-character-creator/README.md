@@ -15,10 +15,11 @@ just character-creator
 
 The importer verifies Meta's MHR v1.0.1 release by size and SHA-256 and installs
 the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`. That
-default cache is about 50 MB after extraction. Run `just
-init-mhr-lod4-correctives` only when comparing the optional LOD 4
-pose-corrective network; installing all supported corrective bases is an explicit
-`scripts/init_mhr_assets.py --all-correctives` operation for LODs 4–6. Override the location with `--assets` or `MHR_ASSETS` when needed. The
+default cache is about 50 MB after extraction. Run
+`just init-mhr-lod4-correctives` only when comparing the optional LOD 4
+pose-corrective network; installing all supported corrective bases requires
+`scripts/init_mhr_assets.py --all-correctives` for LODs 4–6. Override the
+location with `--assets` or `MHR_ASSETS` when needed. The
 downloaded archive and extracted source assets are not committed; deliberately
 exported game and Cascadeur artifacts are tracked separately.
 
@@ -27,8 +28,8 @@ writes the current parameters to the selected recipe path (by default,
 `assets_src/characters/mhr_base.json`). **Export rigged GLB** writes to
 `assets_src/biped/unarmed/base.glb` by default. The export is a zero-animation
 T-pose containing MHR's 127 joints plus the three Fabelgeist animation
-attachments, four normalized skinning influences, and inverse bind matrices for the
-saved body. Use `just export-mhr-base <staging-path>` to export the canonical
+attachments, four normalized skinning influences, and inverse bind matrices
+for the saved body. Use `just export-mhr-base <staging-path>` to export the canonical
 body without opening the studio, then prepare its runtime copy as described
 below.
 
@@ -40,10 +41,11 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD 4 with pose correctives disabled. Only LODs 4–6
-are available in the UI, CLI, and GLB exporter. LOD 4 has 2,461 vertices and
-4,918 triangles before clothing hides body faces. The **Pose-corrective model** checkbox reloads the
-selected LOD with or without MHR's corrective network for direct comparison.
+viewport to orbit and use the mouse wheel to zoom. The default is MHR LOD 4
+with pose correctives disabled. Only LODs 4–6 are available in the UI, CLI, and
+GLB exporter. LOD 4 has 2,461 vertices and 4,918 triangles before clothing hides
+body faces. The **Pose-corrective model** checkbox reloads the selected LOD with
+or without MHR's corrective network for direct comparison.
 Recipes contain model coordinates, not authoritative character state, and must
 be regenerated and validated when connected to game creation.
 
@@ -325,8 +327,9 @@ the equipment manifest, then capture idle, walking and raised-guard scenarios.
 ## Equipment material UVs
 
 `just generate-procedural-equipment DIRECTORY` exports native LOD4 geometry.
-Runtime body and armor exports support LODs 4–6. Armor evaluates its construction
-recipe at each level; it does not simplify a triangulated high-resolution mesh.
+Runtime body and armor exports support LODs 4–6. Armor evaluates its
+construction recipe at each level; it does not simplify a triangulated
+high-resolution mesh.
 Structural openings and plate boundaries remain explicit. Fitting uses complete
 shells; runtime exports omit constructed inner and return faces and render the
 exterior from both sides. Clothing and fasteners have separate

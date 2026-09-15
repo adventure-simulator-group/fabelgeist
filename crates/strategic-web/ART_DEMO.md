@@ -115,5 +115,6 @@ Then run
 This writes the production facade, shell and detail meshes to
 `assets/art-demo/buildings`, keyed by the serialized recipe. Overview and
 inspection assets are separate; placement materials and shop names remain
-deterministic at runtime. Regenerate these assets after changing building recipes
-or the city layout. The browser does not compile building geometry or collision.
+deterministic at runtime. Regenerate these assets after changing building
+recipes or the city layout. The browser does not compile building geometry
+or collision.
