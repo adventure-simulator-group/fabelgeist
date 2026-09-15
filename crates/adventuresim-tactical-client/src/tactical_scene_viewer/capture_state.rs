@@ -91,6 +91,7 @@ pub(super) struct SceneCaptureState {
     pub(super) tree_focus: Option<Vec3>,
     pub(super) rock_focus: Option<Vec3>,
     pub(super) debris_focus: Option<Vec3>,
+    pub(super) plant_focus: Option<Vec3>,
     pub(super) debris_camera: Option<Vec3>,
     pub(super) debris_leaf_distance_metres: Option<f32>,
     pub(super) debris_twig_distance_metres: Option<f32>,

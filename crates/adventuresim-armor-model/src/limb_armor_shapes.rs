@@ -281,26 +281,14 @@ pub(super) fn spaulder_crown(
         ]
     };
     let offset = |_: f32, axial: f32| 0.004 * ((axial - 0.5) * 2.0).powi(3);
-    if d.crown_coverage.0 == 1000 {
-        crate::plate_patch::fluted_crown_patch(
-            12,
-            [0.0, -length * 0.16, 0.0],
-            gauge,
-            d.fluting.as_ref(),
-            offset,
-            crown_point,
-            fit.detail,
-        )
-    } else {
-        crate::plate_patch::fluted_patch(
-            12,
-            false,
-            gauge,
-            d.fluting.as_ref(),
-            [0.5, 0.5 + 0.5 * d.crown_coverage.unit()],
-            offset,
-            |u, v| crown_point(u, v * d.crown_coverage.unit()),
-            fit.detail,
-        )
-    }
+    crate::plate_patch::fluted_crown_patch(
+        12,
+        [0.0, -length * 0.16, 0.0],
+        gauge,
+        d.fluting.as_ref(),
+        d.crown_coverage,
+        offset,
+        crown_point,
+        fit.detail,
+    )
 }

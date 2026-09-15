@@ -29,6 +29,7 @@ pub(super) fn attach(
         &generated.global_joint_states,
     )?;
     let normals = mesh.normals().context("reference fastening normals")?;
+    let leather_sheets = mesh.shell_vertex_ranges().collect::<Vec<_>>();
     let nearest = mesh
         .positions
         .iter()
@@ -94,7 +95,7 @@ pub(super) fn attach(
         recipe,
         adventuresim_character_creator::fasteners::catalog::FastenerRecipe::TassetSuspension(_)
     ) {
-        crate::fastener_skin::attach_suspenders(&armor, &mut hardware)?;
+        crate::fastener_skin::attach_suspenders(&armor, &mut hardware, &leather_sheets)?;
     } else {
         crate::fastener_skin::attach(&armor, &mut hardware);
     }

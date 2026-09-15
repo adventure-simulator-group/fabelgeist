@@ -97,94 +97,92 @@ mod tests {
     }
 
     #[test]
-    fn hanger_binding_preserves_plate_translation_and_surface_standoff() {
-        let mut plate = triangle();
-        let mut hanger = triangle();
-        for p in &mut hanger.positions {
-            p[2] += 0.004;
-        }
-        let movement = [0.01, 0.02, 0.03];
-        plate.morphs.push(adventuresim_armor_model::ArmorMorph {
-            name: "translation".into(),
-            position_deltas: vec![movement; 3],
-            normal_deltas: vec![[0.0; 3]; 3],
-            direct_positions: plate
-                .positions
-                .iter()
-                .map(|p| std::array::from_fn(|i| p[i] + movement[i]))
-                .collect(),
-        });
-        hanger.morphs = plate.morphs.clone();
-        attach_suspenders(&plate, &mut hanger).unwrap();
-        for (base, target) in hanger
-            .positions
-            .iter()
-            .zip(&hanger.morphs[0].direct_positions)
-        {
-            for axis in 0..3 {
-                assert!((target[axis] - base[axis] - movement[axis]).abs() < 1e-6);
+    fn posed_hangers_blend_continuously_and_keep_mounted_metal_rigid() {
+        use adventuresim_armor_model::{ArmorComponent, ArmorComponentRole};
+        let component = |role, vertices, indices| ArmorComponent {
+            role,
+            vertices,
+            indices,
+            hinge: None,
+            material: None,
+        };
+        for span in [0.06, 0.12, 0.24] {
+            for width in [0.012, 0.024] {
+                let mut plate = triangle();
+                plate.positions = vec![
+                    [-0.1, span, 0.0],
+                    [0.1, span, 0.0],
+                    [0.0, span + 0.1, 0.0],
+                    [-0.1, 0.0, 0.0],
+                    [0.1, 0.0, 0.0],
+                    [0.0, -0.1, 0.0],
+                ];
+                plate.indices = vec![0, 1, 2, 3, 4, 5];
+                plate.joint_indices = vec![[0; 8]; 3];
+                plate.joint_indices.extend([[1; 8]; 3]);
+                plate.joint_weights = vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 6];
+                plate.components = vec![
+                    component(ArmorComponentRole::Fauld, 0..3, 0..3),
+                    component(ArmorComponentRole::Tassets, 3..6, 3..6),
+                ];
+                let mut hanger = triangle();
+                hanger.positions = (0..=64)
+                    .flat_map(|i| [0.003, 0.005].map(|z| [0.0, span * i as f32 / 64.0, z]))
+                    .collect();
+                let metal = hanger.positions.len();
+                hanger.positions.extend([
+                    [-width, 0.0, 0.007],
+                    [width, 0.0, 0.007],
+                    [0.0, width, 0.007],
+                ]);
+                hanger.indices = vec![metal as u32, metal as u32 + 1, metal as u32 + 2];
+                hanger.components = vec![component(
+                    ArmorComponentRole::Buckles,
+                    metal..metal + 3,
+                    0..3,
+                )];
+                hanger.joint_indices = vec![[0; 8]; hanger.positions.len()];
+                hanger.joint_weights = vec![[0.0; 8]; hanger.positions.len()];
+                attach_suspenders(&plate, &mut hanger, std::slice::from_ref(&(0..metal))).unwrap();
+                for angle in [-0.5_f32, 0.17, 0.5] {
+                    let rotation = bevy::math::Quat::from_rotation_z(angle);
+                    let posed = |i: usize| {
+                        let p = Vec3::from_array(hanger.positions[i]);
+                        hanger.joint_indices[i]
+                            .iter()
+                            .zip(hanger.joint_weights[i])
+                            .map(|(&joint, weight)| {
+                                if joint == 0 {
+                                    p * weight
+                                } else {
+                                    (rotation * p + Vec3::new(0.03, 0.0, 0.0)) * weight
+                                }
+                            })
+                            .sum::<Vec3>()
+                    };
+                    for row in 1..=64 {
+                        assert!(
+                            (posed(row * 2).x - posed((row - 1) * 2).x).abs() < 0.006,
+                            "pose creates a lateral step at a plate ownership boundary"
+                        );
+                        assert_eq!(
+                            hanger.joint_indices[row * 2],
+                            hanger.joint_indices[row * 2 + 1]
+                        );
+                        assert_eq!(
+                            hanger.joint_weights[row * 2],
+                            hanger.joint_weights[row * 2 + 1]
+                        );
+                    }
+                    for i in metal..metal + 3 {
+                        for j in metal..metal + 3 {
+                            let original = Vec3::from_array(hanger.positions[i])
+                                .distance(Vec3::from_array(hanger.positions[j]));
+                            assert!((posed(i).distance(posed(j)) - original).abs() < 1e-6);
+                        }
+                    }
+                }
             }
         }
-    }
-    #[test]
-    fn suspension_uses_its_physical_plate_instead_of_blending_a_nearby_layer() {
-        let mut plate = triangle();
-        plate.joint_indices.fill([0; 8]);
-        let back = plate
-            .positions
-            .iter()
-            .map(|p| [p[0], p[1], -0.008])
-            .collect::<Vec<_>>();
-        plate.positions.extend(back);
-        plate.indices.extend([3, 4, 5]);
-        plate.joint_indices.extend([[1; 8]; 3]);
-        plate
-            .joint_weights
-            .extend([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3]);
-        let motion = [0.0, 0.02, 0.01];
-        plate.morphs.push(adventuresim_armor_model::ArmorMorph {
-            name: "independent_plate_motion".into(),
-            position_deltas: Vec::new(),
-            normal_deltas: Vec::new(),
-            direct_positions: plate
-                .positions
-                .iter()
-                .enumerate()
-                .map(|(i, p)| {
-                    std::array::from_fn(|axis| {
-                        p[axis] + if i < 3 { motion[axis] } else { -motion[axis] }
-                    })
-                })
-                .collect(),
-        });
-        let mut hanger = triangle();
-        hanger.positions = vec![
-            [-0.003, 0.003, 0.003],
-            [-0.003, 0.003, 0.005],
-            [0.003, 0.004, 0.005],
-        ];
-        hanger.morphs.push(adventuresim_armor_model::ArmorMorph {
-            name: "independent_plate_motion".into(),
-            position_deltas: vec![[0.0; 3]; 3],
-            normal_deltas: vec![[0.0; 3]; 3],
-            direct_positions: hanger.positions.clone(),
-        });
-        let reference = hanger.positions.clone();
-        attach_suspenders(&plate, &mut hanger).unwrap();
-        assert_eq!(
-            hanger.positions, reference,
-            "binding must preserve the reference silhouette"
-        );
-        for vertex in 0..3 {
-            assert_eq!(hanger.joint_indices[vertex][0], 0);
-            assert!((hanger.joint_weights[vertex][0] - 1.0).abs() < 1e-6);
-            for (axis, expected) in motion.into_iter().enumerate() {
-                assert!((hanger.morphs[0].position_deltas[vertex][axis] - expected).abs() < 1e-6);
-            }
-        }
-        assert_eq!(
-            hanger.morphs[0].position_deltas[0], hanger.morphs[0].position_deltas[1],
-            "opposite leather walls must retain one attachment"
-        );
     }
 }

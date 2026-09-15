@@ -5,6 +5,7 @@ use crate::{
 };
 use adventuresim_armor_model::{PartFrame, PartMesh, SpaulderDesign, generate_besagew};
 use anyhow::{Context, Result};
+use bevy::math::{Vec2, Vec3};
 
 pub(crate) fn fit(
     design: &SpaulderDesign,
@@ -36,24 +37,44 @@ pub(crate) fn fit(
         anchor[2],
     ];
     let dot = |a: [f32; 3], b: [f32; 3]| (0..3).map(|i| a[i] * b[i]).sum::<f32>();
-    let reach = d.radius.metres() * 1.5;
+    let disc = generate_besagew(d, design.gauge, wearer.detail)?;
+    // The outer ring defines the exported polygon, including its runtime LOD.
+    let mut outline = disc
+        .positions
+        .iter()
+        .filter_map(|p| {
+            let xy = Vec2::new(p[0], p[1]);
+            ((xy.length() - d.radius.metres()).abs() < f32::EPSILON).then_some(xy)
+        })
+        .collect::<Vec<_>>();
+    outline.sort_by(|a, b| a.y.atan2(a.x).total_cmp(&b.y.atan2(b.x)));
+    outline.dedup();
     let mut depth = f32::NEG_INFINITY;
-    for (points, relief) in std::iter::once((wearer.positions, design.gauge.clearance.metres()))
-        .chain(std::iter::once((
-            mesh.positions.as_slice(),
-            d.plate_clearance.metres(),
-        )))
-        .chain(
-            layers
-                .iter()
-                .map(|l| (l.positions, l.relief.metres() + d.plate_clearance.metres())),
+    for (points, faces, relief) in std::iter::once((
+        wearer.positions,
+        wearer.faces,
+        design.gauge.clearance.metres(),
+    ))
+    .chain(std::iter::once((
+        mesh.positions.as_slice(),
+        mesh.indices.as_chunks::<3>().0,
+        d.plate_clearance.metres(),
+    )))
+    .chain(layers.iter().map(|l| {
+        (
+            l.positions,
+            l.faces,
+            l.relief.metres() + d.plate_clearance.metres(),
         )
-    {
-        for p in points {
-            let delta = std::array::from_fn(|i| p[i] - center[i]);
-            if dot(delta, transverse).abs() < reach && delta[1].abs() < reach {
-                depth = depth.max(dot(delta, normal) + relief);
-            }
+    })) {
+        let triangles = faces.iter().map(|face| {
+            face.map(|i| {
+                let delta = std::array::from_fn(|axis| points[i as usize][axis] - center[axis]);
+                Vec3::new(dot(delta, transverse), delta[1], dot(delta, normal))
+            })
+        });
+        if let Some(support) = crate::besagew_support::depth(triangles, &outline) {
+            depth = depth.max(support + relief);
         }
     }
     anyhow::ensure!(depth.is_finite(), "besagew has no anatomical support");
@@ -66,6 +87,6 @@ pub(crate) fn fit(
         axes: [transverse, [0.0, 1.0, 0.0], normal],
         half_extents: [d.radius.metres(); 3],
     };
-    mesh.append(generate_besagew(d, design.gauge, wearer.detail)?.transformed(&frame));
+    mesh.append(disc.transformed(&frame));
     Ok(mesh)
 }

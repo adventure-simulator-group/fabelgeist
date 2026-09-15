@@ -527,3 +527,33 @@ reason = "Maps precise canonical recipe JSON fields to browser editor descriptor
 kind = "boundary_adapter"
 path = "crates/strategic-web/src/spacetimedb/client/sats.rs"
 reason = "Decodes SpacetimeDB's external SATS type tags and SQL value representation into generated row types."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/flower/presets.rs"
+reason = "Physical dimensions, organ counts and solid pigments for the Central European flower catalog."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/habitat.rs"
+reason = "Conservative species occurrence weights and phenological intervals for scene habitat selection."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-plant-generator/src/viewer/**"
+reason = "Native plant authoring and deterministic specimen capture harness."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs"
+reason = "Fixed production plant contact, community and fade-distance capture cameras."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-plant-generator/src/viewer/controls.rs"
+reason = "The recipe editor maps serialized JSON field names and enum values to authoring widgets."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/fungus/presets.rs"
+reason = "Physical dimensions, fertile-surface topology and pigments for the native fungus catalog."

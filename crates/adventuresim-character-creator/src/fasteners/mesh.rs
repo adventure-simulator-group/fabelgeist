@@ -8,6 +8,10 @@ const BAND_SEGMENTS: usize = 192;
 const SEATING_GAP_M: f32 = 0.0025;
 const BAR_GAUGE_M: f32 = 0.0025;
 
+#[cfg(test)]
+#[path = "band_tests.rs"]
+mod band_tests;
+
 struct StripSample {
     point: [f32; 2],
     normal: [f32; 2],
@@ -152,12 +156,21 @@ fn fixed_loop(
     // Exact tangents retain wall separation where densely sampled straight
     // leather meets the coarser bend. A neighbor chord tilts that junction's
     // normal and can fold the outer wall back onto its preceding sample.
-    for StripSample { point: p, normal } in &path {
+    let wall_angles = [-0.5, 0.5].map(|wall| {
+        path.iter()
+            .map(|sample| end + (sample.point[0] + sample.normal[0] * thickness * wall) / radius)
+            .collect::<Vec<_>>()
+    });
+    let wall_radii = [
+        section.chord_radii(&wall_angles[0])?,
+        section.chord_radii(&wall_angles[1])?,
+    ];
+    for (row, StripSample { point: p, normal }) in path.iter().enumerate() {
         for (edge, wall) in [(-0.5, -0.5), (0.5, -0.5), (-0.5, 0.5), (0.5, 0.5)] {
             let angle = end + (p[0] + normal[0] * thickness * wall) / radius;
             mesh.positions.push(radial_point(
                 angle,
-                section.radius(angle)? + p[1] + normal[1] * thickness * wall,
+                wall_radii[usize::from(wall > 0.0)][row] + p[1] + normal[1] * thickness * wall,
                 height + edge * width,
             ));
         }
@@ -199,9 +212,12 @@ fn band(
         detail.segments(BAND_SEGMENTS / 4, 6)
     };
     let mut strap = PartMesh::new();
-    for i in 0..=band_segments {
-        let angle = start + (end - start) * i as f32 / band_segments as f32;
-        let radius = section.radius(angle)? + SEATING_GAP_M + lift(angle);
+    let angles = (0..=band_segments)
+        .map(|i| start + (end - start) * i as f32 / band_segments as f32)
+        .collect::<Vec<_>>();
+    let radii = section.chord_radii(&angles)?;
+    for (i, (&angle, radius)) in angles.iter().zip(radii).enumerate() {
+        let radius = radius + SEATING_GAP_M + lift(angle);
         for (edge, outside) in [(-0.5, 0.0), (0.5, 0.0), (-0.5, 1.0), (0.5, 1.0)] {
             strap.positions.push(radial_point(
                 angle,

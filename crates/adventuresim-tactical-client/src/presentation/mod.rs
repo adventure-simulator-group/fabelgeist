@@ -83,8 +83,8 @@ pub(crate) use environment::{
 };
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
-    GroundScatterLayer, LooseStonePebblePatch, UnderstoryReviewSpecimen,
-    WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
+    GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
+    UnderstoryReviewSpecimen, WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
 pub(crate) use obstacles::oak_review_terminal_specimen;
 pub(crate) use obstacles::rock::ProceduralRockVisual;

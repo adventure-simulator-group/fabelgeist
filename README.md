@@ -15,6 +15,9 @@
 The standalone [Texture Studio](crates/adventuresim-texture-studio/README.md)
 edits procedural materials in Bevy and builds as a static WebGPU website.
 
+[Plant Studio](crates/adventuresim-plant-generator/README.md) edits shared
+botanical recipes and previews the meshes used by tactical ground vegetation.
+
 The public [procedural art demo](crates/strategic-web/ART_DEMO.md) at `/art-demo`
 shows existing armor, weapons, architecture, and vegetation without login.
 

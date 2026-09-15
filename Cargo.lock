@@ -171,6 +171,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "adventuresim-plant-generator"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_egui",
+ "bevy_panorbit_camera",
+ "clap",
+ "fabelgeist-determinism",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.20",
+]
+
+[[package]]
 name = "adventuresim-procedural-materials"
 version = "0.1.0"
 dependencies = [
@@ -257,6 +271,7 @@ version = "0.1.0"
 dependencies = [
  "adventuresim-building-generator",
  "adventuresim-core",
+ "adventuresim-plant-generator",
  "adventuresim-procedural-materials",
  "adventuresim-procedural-textures",
  "adventuresim-tactical-core",

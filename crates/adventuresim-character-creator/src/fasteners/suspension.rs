@@ -1,5 +1,5 @@
 //! Paired tasset suspension: short leather hangers from the fauld to each panel.
-use super::{finish, mesh};
+use super::{finish, hanger_profile, mesh};
 use adventuresim_armor_model::{BoundaryNormals, Millimeters, PartMesh, ShellExtrusion};
 use anyhow::{Context, Result, ensure};
 use serde::{Deserialize, Serialize};
@@ -61,8 +61,9 @@ impl SuspensionDesign {
                 };
                 let x = extent * fraction * side;
                 let upper = vertical_extent(fauld, x)?.0 + self.fauld_inset.metres();
-                let lower = (vertical_extent(tassets, x)?.1 - self.tasset_inset.metres())
-                    .min(vertical_extent(fauld, x)?.0 - self.width.metres() * 2.0);
+                let lower = (vertical_extent(tassets, x)?.1
+                    - self.tasset_inset.metres().max(self.width.metres() * 2.0))
+                .min(vertical_extent(fauld, x)?.0 - self.width.metres() * 2.0);
                 ensure!(
                     upper - lower >= self.width.metres() * 2.0,
                     "suspension anchors are too close for the buckle"
@@ -91,6 +92,12 @@ fn hanger(
     let thickness = d.thickness.metres();
     let start = front_depth(fauld, x, upper).context("missing fauld suspension surface")?;
     let end = front_depth(tassets, x, lower).context("missing tasset buckle surface")?;
+    // Leave leather under the complete mounting tab, whose end lies 0.93
+    // widths below the buckle center, and seat its upper bar on the tasset.
+    let buckle_y = lower + width * 1.05;
+    let seat_top = buckle_y + width * 0.65;
+    let seat_depth = front_depth(tassets, x, seat_top).context("missing buckle seat")?;
+    let slope = (seat_depth - end) / (seat_top - lower);
     let mut profile = Vec::new();
     for row in 0..=HANGER_ROWS {
         let t = row as f32 / HANGER_ROWS as f32;
@@ -104,16 +111,34 @@ fn hanger(
                 ]
             })
             .flatten()
-            .fold(start + (end - start) * t, f32::max);
+            .fold(
+                if y <= seat_top {
+                    end + slope * (y - lower)
+                } else {
+                    start + (seat_depth - start) * ((upper - y) / (upper - seat_top))
+                },
+                f32::max,
+            );
         profile.push([y, z + SURFACE_GAP_M + thickness]);
     }
-    // A tensioned strip bridges plate steps rather than reproducing every flute.
-    for _ in 0..32 {
-        let previous = profile.clone();
-        for i in 1..HANGER_ROWS {
-            profile[i][1] = profile[i][1].max((previous[i - 1][1] + previous[i + 1][1]) * 0.5);
-        }
+    // Seat the buckle along its own plate, independently of the hanger's
+    // approach angle. Reserve the entire frame and mounting tab on that seat.
+    let seat_start = profile
+        .iter()
+        .position(|p| p[0] <= seat_top)
+        .context("missing buckle rows")?;
+    let intercept = profile[seat_start..]
+        .iter()
+        .map(|p| p[1] - slope * (p[0] - buckle_y))
+        .fold(f32::NEG_INFINITY, f32::max);
+    for p in &mut profile[seat_start..] {
+        p[1] = intercept + slope * (p[0] - buckle_y);
     }
+    hanger_profile::tension(&mut profile[..=seat_start]);
+    let seat = hanger_profile::BuckleSeat {
+        center: bevy::math::Vec3::new(x, buckle_y, intercept),
+        slope,
+    };
     let mut vertices = Vec::new();
     let mut indices = Vec::new();
     for (i, &[y, z]) in profile.iter().enumerate() {
@@ -134,7 +159,6 @@ fn hanger(
             direction: [0.0, 0.0, 1.0],
         },
     )?;
-    let buckle_y = lower + width * 0.8;
     let mut buckle = mesh::buckle_shape(width);
     let mut mounting_tab = mesh::cuboid([width * 0.28, width * 0.35, thickness * 0.25]);
     for p in &mut mounting_tab.positions {
@@ -143,11 +167,7 @@ fn hanger(
     }
     buckle.append(mounting_tab);
     for p in &mut buckle.positions {
-        let y = buckle_y - p[0];
-        let t = ((upper - y) / (upper - lower)).clamp(0.0, 1.0) * HANGER_ROWS as f32;
-        let i = (t.floor() as usize).min(HANGER_ROWS - 1);
-        let z = profile[i][1] + (profile[i + 1][1] - profile[i][1]) * (t - i as f32);
-        *p = [x + p[1], y, z + p[2]];
+        *p = seat.transform(*p);
     }
     for y in [upper - width * 0.35, buckle_y - width * 0.80] {
         let t = ((upper - y) / (upper - lower)).clamp(0.0, 1.0) * HANGER_ROWS as f32;

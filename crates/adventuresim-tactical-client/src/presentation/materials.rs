@@ -30,6 +30,7 @@ impl Plugin for TacticalMaterialsPlugin {
             DoorPresentationPlugin,
             WindowPresentationPlugin,
         ))
-        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin);
+        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
+        .add_plugins(ground_scatter::plants::PlantPresentationPlugin);
     }
 }
