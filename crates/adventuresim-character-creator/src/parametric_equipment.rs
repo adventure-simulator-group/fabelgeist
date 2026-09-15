@@ -167,14 +167,15 @@ fn attach_plates(
                 armor,
             )
         }
-        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Rerebrace(_)) => {
-            limb_plate_skin::attach(
-                limb_plate_skin::LimbPlate::UpperArm,
-                placement,
-                &model.mhr.character.skeleton.names,
-                armor,
-            )
-        }
+        ParametricDesign::Limb(
+            adventuresim_armor_model::LimbArmorDesign::Rerebrace(_)
+            | adventuresim_armor_model::LimbArmorDesign::Spaulder(_),
+        ) => limb_plate_skin::attach(
+            limb_plate_skin::LimbPlate::UpperArm,
+            placement,
+            &model.mhr.character.skeleton.names,
+            armor,
+        ),
         ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Cuisse(_)) => {
             limb_plate_skin::attach(
                 limb_plate_skin::LimbPlate::Thigh,
@@ -183,10 +184,9 @@ fn attach_plates(
                 armor,
             )
         }
-        ParametricDesign::Limb(
-            adventuresim_armor_model::LimbArmorDesign::Pauldron(_)
-            | adventuresim_armor_model::LimbArmorDesign::Spaulder(_),
-        ) => crate::shoulder_skin::attach(model, generated, placement, armor),
+        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_)) => {
+            crate::shoulder_skin::attach(model, generated, placement, armor)
+        }
         _ => Ok(()),
     }
 }
