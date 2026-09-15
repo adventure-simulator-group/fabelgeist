@@ -542,3 +542,8 @@ reason = "Fixed production plant contact, community and fade-distance capture ca
 kind = "boundary_adapter"
 path = "crates/adventuresim-plant-generator/src/viewer/controls.rs"
 reason = "The recipe editor maps serialized JSON field names and enum values to authoring widgets."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/fungus/presets.rs"
+reason = "Physical dimensions, fertile-surface topology and pigments for the native fungus catalog."

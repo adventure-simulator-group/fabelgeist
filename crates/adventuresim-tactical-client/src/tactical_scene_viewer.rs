@@ -98,6 +98,7 @@ const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
 const CAPTURE_PROFILE_VERSION: u16 = 33;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
+const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
@@ -1116,6 +1117,7 @@ fn selected_capture_views(
 ) -> Result<Vec<CaptureViewSpec>, String> {
     let profile_views = match profile {
         PLANT_REVIEW_PROFILE => view_specs::PLANT_REVIEW_VIEWS.as_slice(),
+        FUNGUS_REVIEW_PROFILE => view_specs::FUNGUS_REVIEW_VIEWS.as_slice(),
         "semantic" => CAPTURE_VIEWS.as_slice(),
         "environment-review" => ENVIRONMENT_REVIEW_VIEWS.as_slice(),
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
@@ -3393,6 +3395,8 @@ fn capture_views(
             .plant_anchors
             .iter()
             .flat_map(|anchors| anchors.0.iter().copied())
+            .filter(|anchor| view.pose.accepts_plant(anchor.species))
+            .map(|anchor| anchor.root)
             .min_by(|a, b| a.length_squared().total_cmp(&b.length_squared()));
         if view.debris_target {
             let pairs = lighting
@@ -3977,19 +3981,10 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
-        CapturePose::Plant { distance } => {
-            let root = state
-                .plant_focus
-                .expect("plant-review requires actual production plant roots");
-            let target = root + Vec3::Y * 0.18;
-            // The nearest root faces the scene's open approach. Stay below tree
-            // crowns while inspecting its ground layer from that approach.
-            let approach = Vec3::new(-root.x, 0.0, -root.z).normalize_or(Vec3::Z);
-            (
-                target + approach * distance + Vec3::Y * distance.clamp(0.35, 1.5),
-                target,
-                Vec3::Y,
-            )
+        CapturePose::Plant { .. } | CapturePose::Fungus { .. } => {
+            pose.plant_camera(state.plant_focus.expect(
+                "botanical review requires actual production roots of the requested species",
+            ))
         }
         CapturePose::Ground => (state.ground_eye_position, state.ground_eye_target, Vec3::Y),
         CapturePose::AnimationPlay { yaw_degrees } => {

@@ -9,10 +9,13 @@ Species names never select geometry algorithms.
 cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer
 ```
 
-Plant Studio edits all recipe fields, loads five species presets, and saves
+Plant Studio edits all recipe fields, loads flower and fungus presets, and saves
 JSON to `target/plant-recipe.json`. Drag to orbit and scroll to zoom. Pass
 `--document target/plant-recipe.json` to reopen a recipe. Invalid dimensions
 are rejected with a field-specific error before generation.
+
+Recipes contain a `family` tag (`Flower` or `Fungus`) and a `parameters`
+object. The family selector switches between the two shared generators.
 
 For deterministic PBR captures of a preset (indices 0 through 4):
 
@@ -30,6 +33,10 @@ in metres. `PlantMesh::into_bevy` uploads the same geometry used by the
 preview and tactical renderer. `Tessellation` bounds surface resolution.
 Pigments are solid sRGB regions converted to linear vertex colors; lighting
 and roughness belong to the renderer.
+
+Run `cargo run -p adventuresim-plant-generator --example catalog_metrics` for
+mesh counts and repeated CPU generation timings. These observations exclude
+GPU rendering and should be collected without concurrent builds or captures.
 
 ## Tactical placement
 
@@ -55,3 +62,34 @@ The initial five presets are a representative foundation for central Germany
 in 1544. They do not exhaust its flora. Botanical and procedural references,
 including the distinction between period evidence and modern distribution,
 are in [SOURCES.md](SOURCES.md).
+
+## Fungi
+
+```powershell
+cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family fungi --preset 2
+```
+
+Fungus preset indices are fly agaric, porcini, chanterelle, and common
+puffball. `FungusParameters` controls the shared cap and stem profiles,
+depression, thickness, rim waves, asymmetry, veil ring, ornaments, pigments,
+and spore-bearing surface. `cap_elevation_m` sets the rim's nominal height;
+the stem attaches to the underside of that cap, including a depressed funnel.
+Validation rejects profiles whose upper and lower surfaces intersect.
+
+The surface topology selects thin gills, recessed pores, blunt branching
+ridges, or an enclosed fruiting body. These distinctions remain geometry at
+both detail levels. Use `--view underside` to inspect them and `--view head`
+for the cap. The same capture and JSON editing workflow applies to fungi.
+
+The combined `PlantSpecies` catalog shares one tactical population budget.
+Moisture, seasonal fruiting intervals, woodland cover, and cultivation filter
+fungal placement into existing ground openings. The current catalog contains
+ground-fruiting fungi; wood-attached brackets require a separate attachment
+policy. Representative native range supports their inclusion in the setting;
+these recipes are not an exact reconstruction of a recorded 1544 locality.
+
+For production habitat captures, use `plant-review` with
+`flower-woodland-edge` in spring, or `fungus-review` with `fungi-woodland` in
+autumn. The fungal profile frames actual roots by species, then their habitat.
+The `flower-meadow` fixture represents dense tall grass and is an exclusion
+case.

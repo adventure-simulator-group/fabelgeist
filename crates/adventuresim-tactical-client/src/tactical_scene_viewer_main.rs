@@ -35,6 +35,8 @@ fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
 enum CaptureProfile {
     /// Actual procedural flower/fungi roots at contact and gameplay distances.
     PlantReview,
+    /// Actual placed fungi, one contact view per species and wider habitat views.
+    FungusReview,
     /// Existing exhaustive semantic presentation suite (23 recorded views).
     #[default]
     Semantic,
@@ -157,6 +159,7 @@ fn main() {
         args.tree_review_azimuth_degrees,
         match args.profile {
             CaptureProfile::PlantReview => "plant-review",
+            CaptureProfile::FungusReview => "fungus-review",
             CaptureProfile::Semantic => "semantic",
             CaptureProfile::EnvironmentReview => "environment-review",
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,

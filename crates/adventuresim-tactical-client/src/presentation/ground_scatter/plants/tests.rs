@@ -2,6 +2,80 @@ use super::*;
 use adventuresim_tactical_core::prelude::SceneEnvironmentFixture;
 
 #[test]
+fn autumn_woodland_fixture_contains_ground_fruiting_fungi() {
+    let input = adventuresim_tactical_core::scene_input::TacticalSceneInput::load(
+        std::path::Path::new(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/../../assets/tactical-scenes/fungi-woodland.json"
+        )),
+    )
+    .unwrap();
+    let scene = input.generate().unwrap();
+    let environment = input.environment_snapshot(scene.digest.clone());
+    let seed = stable_text_seed("fungi-woodland")
+        ^ stable_text_seed(&environment.scene_digest)
+        ^ PLANT_SEED;
+    let sites = placements(&scene.terrain, &scene.ground, &environment, seed);
+    assert!(!sites.is_empty());
+    for species in adventuresim_plant_generator::fungus::FungusSpecies::ALL {
+        assert!(
+            sites
+                .iter()
+                .any(|site| site.species == PlantSpecies::Fungus(species)),
+            "missing {species:?}"
+        );
+    }
+}
+
+#[test]
+fn seasonal_catalog_shares_population_budget_and_preserves_spring_flowers() {
+    let terrain = SceneTerrain::from_heightmap(65, 65, 2.0, vec![0.0; 65 * 65]).unwrap();
+    let ground = SceneGround::from_samples(
+        65,
+        65,
+        2.0,
+        vec![
+            GroundSurface {
+                substrate: GroundSubstrate::Soil,
+                cover: GroundCover::LeafLitter,
+                cover_density_bps: 9000,
+                cover_height_cm: 4
+            };
+            65 * 65
+        ],
+    )
+    .unwrap();
+    let mut environment =
+        SceneEnvironmentFixture::TemperateHills.snapshot("seasonal-botanical-budget");
+    environment.canopy_bps = 6500;
+    environment.cultivation_bps = 0;
+    environment.weather.ground_moisture_bps = 7000;
+    environment.absolute_minute = 110 * MINUTES_PER_DAY;
+    let spring = placements(&terrain, &ground, &environment, 42);
+    assert_eq!(spring.len(), MAX_SPECIMENS);
+    assert!(
+        spring
+            .iter()
+            .all(|s| matches!(s.species, PlantSpecies::Flower(_)))
+    );
+    environment.absolute_minute = 270 * MINUTES_PER_DAY;
+    let autumn = placements(&terrain, &ground, &environment, 42);
+    assert_eq!(autumn.len(), MAX_SPECIMENS);
+    assert!(
+        autumn
+            .iter()
+            .all(|s| matches!(s.species, PlantSpecies::Fungus(_)))
+    );
+    for species in adventuresim_plant_generator::fungus::FungusSpecies::ALL {
+        assert!(
+            autumn
+                .iter()
+                .any(|s| s.species == PlantSpecies::Fungus(species))
+        );
+    }
+}
+
+#[test]
 fn spring_woodland_fixture_has_suitable_flower_openings() {
     let input = adventuresim_tactical_core::scene_input::TacticalSceneInput::load(
         std::path::Path::new(concat!(

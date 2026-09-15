@@ -1,6 +1,7 @@
 //! Native authoring and deterministic PBR review of the production plant meshes.
 mod capture;
 mod controls;
+mod recipe;
 use adventuresim_plant_generator::{
     Tessellation,
     flower::{FlowerParameters, FlowerSpecies},
@@ -9,23 +10,28 @@ use bevy::{prelude::*, window::WindowResolution};
 use bevy_egui::{EguiPlugin, EguiPrimaryContextPass};
 use bevy_panorbit_camera::{PanOrbitCamera, PanOrbitCameraPlugin};
 use clap::{Parser, ValueEnum};
+use recipe::{Family, Recipe};
 use std::path::PathBuf;
 
 #[derive(Clone, Copy, Debug, ValueEnum, serde::Serialize)]
 enum View {
     Full,
     Head,
+    Underside,
 }
 impl View {
     fn slug(self) -> &'static str {
         match self {
             Self::Full => "full",
             Self::Head => "head",
+            Self::Underside => "underside",
         }
     }
 }
 #[derive(Parser, Resource)]
 struct Options {
+    #[arg(long, value_enum, default_value = "flowers")]
+    family: Family,
     #[arg(long, default_value_t = 0)]
     preset: usize,
     #[arg(long, default_value_t = 42)]
@@ -41,11 +47,17 @@ struct Options {
 }
 #[derive(Resource)]
 struct Editor {
-    parameters: FlowerParameters,
+    parameters: Recipe,
     preset: usize,
     dirty: bool,
     reframe: bool,
     error: String,
+    origin: RecipeOrigin,
+}
+#[derive(Clone, Copy)]
+enum RecipeOrigin {
+    Preset,
+    Custom,
 }
 #[derive(Component)]
 struct Specimen;
@@ -53,23 +65,35 @@ struct Specimen;
 fn main() {
     let options = Options::parse();
     assert!(
-        options.preset < FlowerSpecies::ALL.len(),
+        options.preset < options.family.count(),
         "preset index out of range"
     );
-    let parameters = options
+    let parameters: Recipe = options
         .document
         .as_ref()
         .map(|path| {
             serde_json::from_slice(&std::fs::read(path).expect("read plant document"))
                 .expect("valid plant document")
         })
-        .unwrap_or_else(|| FlowerSpecies::ALL[options.preset].parameters());
+        .unwrap_or_else(|| options.family.recipe(options.preset));
+    parameters
+        .validate()
+        .expect("valid plant recipe dimensions and profiles");
     let editor = Editor {
         parameters,
-        preset: options.preset,
+        preset: if options.document.is_some() {
+            0
+        } else {
+            options.preset
+        },
         dirty: true,
         reframe: false,
         error: String::new(),
+        origin: if options.document.is_some() {
+            RecipeOrigin::Custom
+        } else {
+            RecipeOrigin::Preset
+        },
     };
     App::new()
         .insert_resource(editor)
@@ -119,14 +143,15 @@ fn setup(mut commands: Commands, options: Res<Options>, editor: Res<Editor>) {
     ));
 }
 
-fn camera(options: &Options, p: &FlowerParameters) -> (Vec3, Vec3) {
-    if matches!(options.view, View::Head) {
-        let target = Vec3::new(p.height_m * p.stem_lean, p.height_m, 0.0);
-        let extent = (p.petal_length_m + p.center_radius_m) * 4.0;
+fn camera(options: &Options, p: &Recipe) -> (Vec3, Vec3) {
+    let (height, target, extent) = p.framing();
+    if matches!(options.view, View::Underside) {
+        (target + Vec3::new(0.7, -0.8, 1.5) * extent, target)
+    } else if matches!(options.view, View::Head) {
         (target + Vec3::new(0.7, 0.95, 1.5) * extent, target)
     } else {
-        let target = Vec3::Y * p.height_m * 0.52;
-        (target + Vec3::new(0.6, 0.35, 1.65) * p.height_m, target)
+        let target = Vec3::Y * height * 0.52;
+        (target + Vec3::new(0.6, 0.35, 1.65) * height, target)
     }
 }
 

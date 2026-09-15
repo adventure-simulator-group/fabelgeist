@@ -3,8 +3,7 @@ use super::{GroundScatterLayer, scatter_ground_without_patch};
 use crate::presentation::{bps, stable_text_seed, unit_hash};
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 use adventuresim_plant_generator::{
-    PlantMesh, Tessellation,
-    flower::FlowerSpecies,
+    PlantMesh, PlantSpecies, Tessellation,
     habitat::{PlantGround, PlantHabitat},
 };
 use adventuresim_tactical_core::prelude::{
@@ -34,14 +33,19 @@ impl Plugin for PlantPresentationPlugin {
 }
 #[derive(Resource, Default)]
 struct SpecimenCache {
-    flowers: Vec<PlantMesh>,
+    specimens: Vec<PlantMesh>,
     material: Option<Handle<StandardMaterial>>,
 }
 #[derive(Component)]
 struct PlantsPresented;
 /// Actual production roots retained for capture framing and placement diagnostics.
 #[derive(Component)]
-pub(crate) struct PlantCaptureAnchors(pub Vec<Vec3>);
+pub(crate) struct PlantCaptureAnchors(pub Vec<PlantCaptureAnchor>);
+#[derive(Clone, Copy)]
+pub(crate) struct PlantCaptureAnchor {
+    pub root: Vec3,
+    pub species: PlantSpecies,
+}
 type NewPlantScenes<'w, 's> = Query<
     'w,
     's,
@@ -64,13 +68,12 @@ fn present(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for (entity, id, terrain, ground, environment, landform) in &scenes {
-        if cache.flowers.is_empty() {
-            cache.flowers = FlowerSpecies::ALL
+        if cache.specimens.is_empty() {
+            cache.specimens = PlantSpecies::ALL
                 .iter()
                 .map(|s| {
-                    s.parameters()
-                        .generate(PLANT_SEED, Tessellation::Field)
-                        .expect("valid flower preset")
+                    s.generate(PLANT_SEED, Tessellation::Field)
+                        .expect("valid botanical preset")
                 })
                 .collect();
         }
@@ -103,16 +106,19 @@ fn present(
                 (cell.1 as f32 + 0.5) * CELL_METRES,
             );
             batches.entry(cell).or_default().append(
-                &cache.flowers[site.species],
+                &cache.specimens[site.species.index()],
                 site.root - origin,
                 Quat::from_rotation_y(unit_hash(site.hash) * std::f32::consts::TAU),
                 0.85 + unit_hash(splitmix64(site.hash)) * 0.3,
             );
-            anchors.push(site.root);
+            anchors.push(PlantCaptureAnchor {
+                root: site.root,
+                species: site.species,
+            });
         }
         for ((x, z), mesh) in batches {
             commands.spawn((
-                Name::new("Parametric flower community"),
+                Name::new("Parametric botanical community"),
                 GroundScatterLayer::BotanicalPlants,
                 Mesh3d(meshes.add(mesh.into_bevy())),
                 MeshMaterial3d(material.clone()),
@@ -137,7 +143,7 @@ fn present(
 #[derive(Debug, PartialEq)]
 struct PlantSite {
     root: Vec3,
-    species: usize,
+    species: PlantSpecies,
     hash: u64,
 }
 
@@ -180,7 +186,7 @@ fn placements(
             // A shared macro-cell roll gives patches botanical coherence; roots
             // retain independent jitter so the planting lattice is not visible.
             let community = splitmix64(seed ^ (((x / 3) as u64) << 32) ^ (z / 3) as u64);
-            let weights = FlowerSpecies::ALL.map(|species| habitat.flower_weight(species));
+            let weights = PlantSpecies::ALL.map(|species| species.habitat_weight(habitat));
             let total: f32 = weights.iter().sum();
             let mut roll = unit_hash(community) * total;
             let Some(species) = weights.iter().position(|weight| {
@@ -191,7 +197,7 @@ fn placements(
             };
             candidates.push(PlantSite {
                 root: Vec3::new(world.x, height - ROOT_EMBED_METRES, world.y),
-                species,
+                species: PlantSpecies::ALL[species],
                 hash,
             });
         }

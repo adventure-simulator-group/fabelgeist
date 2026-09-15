@@ -9,33 +9,55 @@ pub(super) fn draw(
     if options.output.is_some() {
         return Ok(());
     }
-    egui::Window::new("Shared flower generator").show(contexts.ctx_mut()?, |ui| {
+    egui::Window::new("Parametric plants and fungi").show(contexts.ctx_mut()?, |ui| {
         ui.label("Drag to orbit · scroll to zoom. Dimensions are metres.");
-        let mut selected = editor.preset;
-        egui::ComboBox::from_id_salt("preset")
-            .selected_text(FlowerSpecies::ALL[selected].name())
+        let mut family = editor.parameters.family();
+        egui::ComboBox::from_id_salt("family")
+            .selected_text(format!("{family:?}"))
             .show_ui(ui, |ui| {
-                for (index, species) in FlowerSpecies::ALL.iter().enumerate() {
-                    ui.selectable_value(&mut selected, index, species.name());
+                ui.selectable_value(&mut family, Family::Flowers, "Flowers");
+                ui.selectable_value(&mut family, Family::Fungi, "Fungi");
+            });
+        if family != editor.parameters.family() {
+            editor.parameters = family.recipe(0);
+            editor.origin = RecipeOrigin::Preset;
+            editor.preset = 0;
+            editor.dirty = true;
+            editor.reframe = true;
+        }
+        let mut selected = editor.preset;
+        let mut load_preset = false;
+        egui::ComboBox::from_id_salt("preset")
+            .selected_text(match editor.origin {
+                RecipeOrigin::Preset => family.name(selected),
+                RecipeOrigin::Custom => "Custom recipe",
+            })
+            .show_ui(ui, |ui| {
+                for index in 0..family.count() {
+                    load_preset |= ui
+                        .selectable_value(&mut selected, index, family.name(index))
+                        .clicked();
                 }
             });
-        if selected != editor.preset {
+        if selected != editor.preset || load_preset {
             editor.preset = selected;
             editor.reframe = true;
-            editor.parameters = FlowerSpecies::ALL[selected].parameters();
+            editor.parameters = family.recipe(selected);
+            editor.origin = RecipeOrigin::Preset;
             editor.dirty = true;
         }
         if ui.button("Frame specimen").clicked() {
             editor.reframe = true;
         }
-        let mut value = serde_json::to_value(&editor.parameters).expect("serialize controls");
+        let mut value = editor.parameters.controls();
         egui::ScrollArea::vertical()
             .max_height(760.0)
             .show(ui, |ui| {
                 if edit_value(ui, "", &mut value) {
-                    match serde_json::from_value::<FlowerParameters>(value) {
+                    match editor.parameters.edited(value) {
                         Ok(p) => {
                             editor.parameters = p;
+                            editor.origin = RecipeOrigin::Custom;
                             editor.dirty = true;
                         }
                         Err(error) => editor.error = error.to_string(),
@@ -102,6 +124,7 @@ fn edit_value(ui: &mut egui::Ui, label: &str, value: &mut serde_json::Value) -> 
             let choices: &[&str] = match label {
                 "corolla" => &["FreePetals", "RayAndDisk", "FusedBell"],
                 "leaf_arrangement" => &["BasalRosette", "Alternate", "Whorl"],
+                "fertile_surface" => &["Gills", "Pores", "Ridges", "Enclosed"],
                 _ => &[],
             };
             egui::ComboBox::from_id_salt(label)

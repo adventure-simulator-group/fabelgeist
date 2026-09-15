@@ -1,5 +1,6 @@
 //! Conservative habitat and phenology filters, separate from organ geometry.
 use crate::flower::FlowerSpecies;
+use crate::fungus::FungusSpecies;
 
 /// Local surface class supplied by the tactical scene's ground sampler.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -21,6 +22,40 @@ pub struct PlantHabitat {
     pub ground: PlantGround,
 }
 impl PlantHabitat {
+    /// Native fruiting bodies favor moist, low-competition ground in late summer
+    /// and autumn. This is a scene-level approximation, not a foraging forecast.
+    pub fn fungus_weight(self, species: FungusSpecies) -> f32 {
+        if self.ground == PlantGround::Unsuitable
+            || self.snow > 0.05
+            || self.moisture < 0.35
+            || !(170..=325).contains(&self.day_of_year)
+        {
+            return 0.0;
+        }
+        match species {
+            FungusSpecies::FlyAgaric
+                if self.canopy > 0.25 && self.ground == PlantGround::WoodlandLitter =>
+            {
+                0.4
+            }
+            FungusSpecies::Porcini
+                if self.canopy > 0.3
+                    && self.cultivation < 0.2
+                    && self.ground == PlantGround::WoodlandLitter =>
+            {
+                0.6
+            }
+            FungusSpecies::Chanterelle
+                if self.canopy > 0.35
+                    && self.cultivation < 0.15
+                    && self.ground == PlantGround::WoodlandLitter =>
+            {
+                0.65
+            }
+            FungusSpecies::CommonPuffball if self.canopy > 0.15 && self.cultivation < 0.35 => 0.45,
+            _ => 0.0,
+        }
+    }
     /// Relative occurrence weight; zero excludes an unsuitable site or season.
     pub fn flower_weight(self, species: FlowerSpecies) -> f32 {
         if self.ground == PlantGround::Unsuitable || self.snow > 0.05 {

@@ -692,12 +692,12 @@ bake-procedural-textures recipe="all":
     @cargo run -p adventuresim-procedural-textures --bin bake-procedural-textures -- {{ recipe }}
 
 # Edit shared botanical recipes and orbit their production meshes.
-plant-studio:
-    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer
+plant-studio family="flowers":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }}
 
-# Capture a flower preset (0..4), its full plant or head, and a settled pair.
-plant-capture preset="0" view="full" output="target/plant-captures/specimen":
-    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --preset {{ preset }} --view {{ view }} --output {{ quote(output) }}
+# Capture a flower (0..4) or fungus (0..3), with a settled image pair.
+plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --output {{ quote(output) }}
 
 fmt:
     @cargo fmt --all
