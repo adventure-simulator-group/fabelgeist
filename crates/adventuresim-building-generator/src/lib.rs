@@ -13,6 +13,7 @@ mod doors;
 mod enclosure_tests;
 pub mod furniture;
 mod generator;
+mod geometry_index;
 pub mod interior;
 mod lod;
 mod model;

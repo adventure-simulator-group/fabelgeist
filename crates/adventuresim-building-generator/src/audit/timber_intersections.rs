@@ -20,39 +20,17 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
         .map(|member| (member.solid, member))
         .collect::<std::collections::HashMap<_, _>>();
 
-    let overlap_inside_interface =
-        |a: &crate::ResolvedSolid,
-         b: &crate::ResolvedSolid,
-         interface: &crate::SupportInterface| {
-            let (a_min, a_max) = resolved_solid_bounds(a);
-            let (b_min, b_max) = resolved_solid_bounds(b);
-            let overlap_min = a_min.max(b_min);
-            let overlap_max = a_max.min(b_max);
-            overlap_min
-                .cmpge(interface.bounds.min - Vec3::splat(0.012))
-                .all()
-                && overlap_max
-                    .cmple(interface.bounds.max + Vec3::splat(0.012))
-                    .all()
-                && resolved_solid_overlaps_bounds(
-                    a,
-                    (interface.bounds.min, interface.bounds.max),
-                    0.001,
-                )
-                && resolved_solid_overlaps_bounds(
-                    b,
-                    (interface.bounds.min, interface.bounds.max),
-                    0.001,
-                )
-        };
-
+    let spatial = crate::geometry_index::BoundsIndex::new(
+        plan.resolved_geometry.solids.iter().map(ResolvedSolid::query_bounds),
+    );
     let mut failures = Vec::new();
     let mut checked = std::collections::HashSet::new();
     for member in &frame.members {
         let Some(a) = solids.get(&member.solid).copied() else {
             continue;
         };
-        for b in &plan.resolved_geometry.solids {
+        for candidate in spatial.overlapping(a.query_bounds()) {
+            let b = &plan.resolved_geometry.solids[candidate];
             // Member-to-member construction is already governed by the exact
             // TimberFrameJoint participant/contact audit, including action and
             // reaction. This pass owns cross-authority intersections: timber
@@ -486,4 +464,23 @@ fn coplanar_timber_opening_faces(plan: &BuildingPlan) -> Vec<crate::OpeningAssem
         }
     }
     conflicts
+}
+
+fn overlap_inside_interface(
+    a: &crate::ResolvedSolid,
+    b: &crate::ResolvedSolid,
+    interface: &crate::SupportInterface,
+) -> bool {
+    let (a_min, a_max) = resolved_solid_bounds(a);
+    let (b_min, b_max) = resolved_solid_bounds(b);
+    let overlap_min = a_min.max(b_min);
+    let overlap_max = a_max.min(b_max);
+    overlap_min
+        .cmpge(interface.bounds.min - Vec3::splat(0.012))
+        .all()
+        && overlap_max
+            .cmple(interface.bounds.max + Vec3::splat(0.012))
+            .all()
+        && resolved_solid_overlaps_bounds(a, (interface.bounds.min, interface.bounds.max), 0.001)
+        && resolved_solid_overlaps_bounds(b, (interface.bounds.min, interface.bounds.max), 0.001)
 }

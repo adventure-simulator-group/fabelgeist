@@ -66,326 +66,322 @@ fn audit_resolved_geometry(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         }
     }
-    for left in 0..plan.resolved_geometry.solids.len() {
-        for right in (left + 1)..plan.resolved_geometry.solids.len() {
-            let a = &plan.resolved_geometry.solids[left];
-            let b = &plan.resolved_geometry.solids[right];
-            let separated_by_chord =
-                (matches!(a.shape, crate::ResolvedSolidShape::RoundTowerShell { .. })
-                    && tower_chord_void_separates(plan, a, b))
-                    || (matches!(b.shape, crate::ResolvedSolidShape::RoundTowerShell { .. })
-                        && tower_chord_void_separates(plan, b, a));
-            let enclosed_by_round_shell =
-                round_shell_clears_inner_solid(a, b) || round_shell_clears_inner_solid(b, a);
-            if a.owner != b.owner
-                && !separated_by_chord
-                && !enclosed_by_round_shell
-                && resolved_shape_overlap(a, b, 0.025)
-            {
-                let (a_min, a_max) = resolved_solid_bounds(a);
-                let (b_min, b_max) = resolved_solid_bounds(b);
-                let overlap_min = a_min.max(b_min);
-                let overlap_max = a_max.min(b_max);
-                let overlap_size = overlap_max - overlap_min;
-                let penetration = overlap_size.x.min(overlap_size.z);
-                let valid_drain_contact =
-                    plan.resolved_geometry
-                        .roof_drainage_outlets
-                        .iter()
-                        .any(|station| {
-                            let pair = [(a, b), (b, a)];
-                            pair.into_iter().any(|(spout, host_solid)| {
-                                station.downspout == Some(spout.id)
-                                    && spout.role == SolidRole::RoofGutter
-                                    && station.host_wall.is_some_and(|host_id| {
-                                        plan.wall_assemblies.iter().any(|wall| {
-                                            wall.id == host_id
-                                                && wall.host_solids.contains(&host_solid.id)
-                                        })
+    for (a, b) in crate::geometry_index::overlapping_solids(&plan.resolved_geometry.solids) {
+        let separated_by_chord =
+            (matches!(a.shape, crate::ResolvedSolidShape::RoundTowerShell { .. })
+                && tower_chord_void_separates(plan, a, b))
+                || (matches!(b.shape, crate::ResolvedSolidShape::RoundTowerShell { .. })
+                    && tower_chord_void_separates(plan, b, a));
+        let enclosed_by_round_shell =
+            round_shell_clears_inner_solid(a, b) || round_shell_clears_inner_solid(b, a);
+        if a.owner != b.owner
+            && !separated_by_chord
+            && !enclosed_by_round_shell
+            && resolved_shape_overlap(a, b, 0.025)
+        {
+            let (a_min, a_max) = resolved_solid_bounds(a);
+            let (b_min, b_max) = resolved_solid_bounds(b);
+            let overlap_min = a_min.max(b_min);
+            let overlap_max = a_max.min(b_max);
+            let overlap_size = overlap_max - overlap_min;
+            let penetration = overlap_size.x.min(overlap_size.z);
+            let valid_drain_contact =
+                plan.resolved_geometry
+                    .roof_drainage_outlets
+                    .iter()
+                    .any(|station| {
+                        let pair = [(a, b), (b, a)];
+                        pair.into_iter().any(|(spout, host_solid)| {
+                            station.downspout == Some(spout.id)
+                                && spout.role == SolidRole::RoofGutter
+                                && station.host_wall.is_some_and(|host_id| {
+                                    plan.wall_assemblies.iter().any(|wall| {
+                                        wall.id == host_id
+                                            && wall.host_solids.contains(&host_solid.id)
                                     })
-                            })
-                        });
-                let is_timber_frame_role = |role: SolidRole| {
-                    matches!(
-                        role,
-                        SolidRole::FrameSill
-                            | SolidRole::FramePost
-                            | SolidRole::FramePlate
-                            | SolidRole::FrameRail
-                            | SolidRole::FrameJoist
-                            | SolidRole::FrameGirder
-                            | SolidRole::FrameTie
-                            | SolidRole::FrameBrace
-                            | SolidRole::FrameJettyBeam
-                            | SolidRole::FrameKnagge
-                            | SolidRole::FrameFloor
-                            | SolidRole::FrameGableMember
-                            | SolidRole::FrameDormerTrimmer
-                            | SolidRole::FrameOrnament
-                    )
-                };
-                let valid_frame_opening_contact = plan.timber_frame.as_ref().is_some_and(|frame| {
-                    [(a, b), (b, a)].into_iter().any(|(frame_solid, closure)| {
-                        closure.role == SolidRole::OpeningClosure
-                            && frame.members.iter().any(|member| {
-                                member.solid == frame_solid.id
-                                    && matches!(
-                                        member.role,
-                                        crate::TimberMemberRole::PrimaryPost
-                                            | crate::TimberMemberRole::CornerPost
-                                            | crate::TimberMemberRole::IntermediatePost
-                                            | crate::TimberMemberRole::Rail
-                                    )
-                                    && (frame.bays.iter().any(|bay| {
-                                        bay.member_ids.contains(&member.id)
-                                            && bay.opening.is_some_and(|opening_id| {
-                                                plan.opening_assemblies.iter().any(|opening| {
-                                                    opening.id == opening_id
-                                                        && opening
-                                                            .closure_solids
-                                                            .contains(&closure.id)
-                                                })
+                                })
+                        })
+                    });
+            let is_timber_frame_role = |role: SolidRole| {
+                matches!(
+                    role,
+                    SolidRole::FrameSill
+                        | SolidRole::FramePost
+                        | SolidRole::FramePlate
+                        | SolidRole::FrameRail
+                        | SolidRole::FrameJoist
+                        | SolidRole::FrameGirder
+                        | SolidRole::FrameTie
+                        | SolidRole::FrameBrace
+                        | SolidRole::FrameJettyBeam
+                        | SolidRole::FrameKnagge
+                        | SolidRole::FrameFloor
+                        | SolidRole::FrameGableMember
+                        | SolidRole::FrameDormerTrimmer
+                        | SolidRole::FrameOrnament
+                )
+            };
+            let valid_frame_opening_contact = plan.timber_frame.as_ref().is_some_and(|frame| {
+                [(a, b), (b, a)].into_iter().any(|(frame_solid, closure)| {
+                    closure.role == SolidRole::OpeningClosure
+                        && frame.members.iter().any(|member| {
+                            member.solid == frame_solid.id
+                                && matches!(
+                                    member.role,
+                                    crate::TimberMemberRole::PrimaryPost
+                                        | crate::TimberMemberRole::CornerPost
+                                        | crate::TimberMemberRole::IntermediatePost
+                                        | crate::TimberMemberRole::Rail
+                                )
+                                && (frame.bays.iter().any(|bay| {
+                                    bay.member_ids.contains(&member.id)
+                                        && bay.opening.is_some_and(|opening_id| {
+                                            plan.opening_assemblies.iter().any(|opening| {
+                                                opening.id == opening_id
+                                                    && opening
+                                                        .closure_solids
+                                                        .contains(&closure.id)
                                             })
-                                    }) || plan.opening_assemblies.iter().any(|opening| {
-                                        if !opening.closure_solids.contains(&closure.id) {
-                                            return false;
-                                        }
-                                        let Some(void) = plan
-                                            .resolved_geometry
-                                            .voids
-                                            .iter()
-                                            .find(|void| void.id == opening.void_id)
-                                        else {
-                                            return false;
-                                        };
-                                        let size = void.bounds.max - void.bounds.min;
-                                        let half = (size.x * opening.frame.tangent.x.abs()
-                                            + size.z * opening.frame.tangent.y.abs())
-                                            * 0.5;
-                                        let point = Vec2::new(member.start.x, member.start.z);
-                                        ((point - opening.frame.origin)
-                                            .dot(opening.frame.tangent)
-                                            .abs()
-                                            - half)
-                                            .abs()
-                                            <= member.section_metres.x * 0.6 + 0.02
-                                    }))
+                                        })
+                                }) || plan.opening_assemblies.iter().any(|opening| {
+                                    if !opening.closure_solids.contains(&closure.id) {
+                                        return false;
+                                    }
+                                    let Some(void) = plan
+                                        .resolved_geometry
+                                        .voids
+                                        .iter()
+                                        .find(|void| void.id == opening.void_id)
+                                    else {
+                                        return false;
+                                    };
+                                    let size = void.bounds.max - void.bounds.min;
+                                    let half = (size.x * opening.frame.tangent.x.abs()
+                                        + size.z * opening.frame.tangent.y.abs())
+                                        * 0.5;
+                                    let point = Vec2::new(member.start.x, member.start.z);
+                                    ((point - opening.frame.origin)
+                                        .dot(opening.frame.tangent)
+                                        .abs()
+                                        - half)
+                                        .abs()
+                                        <= member.section_metres.x * 0.6 + 0.02
+                                }))
+                        })
+                })
+            });
+            let valid_frame_contact = (is_timber_frame_role(a.role)
+                || is_timber_frame_role(b.role))
+                && (!oriented_cuboids_overlap(a, b, 0.012)
+                    || matches!(
+                        (a.role, b.role),
+                        (
+                            SolidRole::FrameSill
+                                | SolidRole::FramePost
+                                | SolidRole::FramePlate
+                                | SolidRole::FrameRail
+                                | SolidRole::FrameJoist
+                                | SolidRole::FrameGirder
+                                | SolidRole::FrameTie
+                                | SolidRole::FrameBrace
+                                | SolidRole::FrameJettyBeam
+                                | SolidRole::FrameKnagge
+                                | SolidRole::FrameFloor
+                                | SolidRole::FrameGableMember
+                                | SolidRole::FrameDormerTrimmer,
+                            SolidRole::WallHost | SolidRole::FrameInfill
+                                | SolidRole::OpeningJamb
+                                | SolidRole::OpeningSill
+                                | SolidRole::OpeningHead
+                                | SolidRole::OpeningSpandrel
+                        ) | (
+                            SolidRole::WallHost | SolidRole::FrameInfill
+                                | SolidRole::OpeningJamb
+                                | SolidRole::OpeningSill
+                                | SolidRole::OpeningHead
+                                | SolidRole::OpeningSpandrel,
+                            SolidRole::FrameSill
+                                | SolidRole::FramePost
+                                | SolidRole::FramePlate
+                                | SolidRole::FrameRail
+                                | SolidRole::FrameJoist
+                                | SolidRole::FrameGirder
+                                | SolidRole::FrameTie
+                                | SolidRole::FrameBrace
+                                | SolidRole::FrameJettyBeam
+                                | SolidRole::FrameKnagge
+                                | SolidRole::FrameFloor
+                                | SolidRole::FrameGableMember
+                                | SolidRole::FrameDormerTrimmer
+                        ) | (
+                            SolidRole::FrameDormerTrimmer,
+                            SolidRole::RoofFlashing | SolidRole::RoofFraming
+                        ) | (
+                            SolidRole::RoofFlashing | SolidRole::RoofFraming,
+                            SolidRole::FrameDormerTrimmer
+                        ) | (SolidRole::FramePost, SolidRole::RoofFlashing)
+                            | (SolidRole::RoofFlashing, SolidRole::FramePost)
+                    ));
+            let valid_frame_gutter_contact = matches!(
+                (a.role, b.role),
+                (SolidRole::FrameFloor, SolidRole::RoofGutter)
+                    | (SolidRole::RoofGutter, SolidRole::FrameFloor)
+            ) && penetration <= 0.10
+                || plan.timber_frame.as_ref().is_some_and(|frame| {
+                    [(a, b), (b, a)].into_iter().any(|(timber, gutter)| {
+                        timber.role == SolidRole::FrameGableMember
+                            && gutter.role == SolidRole::RoofGutter
+                            && penetration
+                                <= frame
+                                    .members
+                                    .iter()
+                                    .find(|member| member.solid == timber.id)
+                                    .map_or(0.0, |member| {
+                                        member.section_metres.max_element() + 0.05
+                                    })
+                            && frame.members.iter().any(|member| {
+                                member.solid == timber.id
+                                    && (member
+                                        .support_interfaces
+                                        .iter()
+                                        .chain(&frame.roof_bearing_interfaces)
+                                        .any(|id| {
+                                            plan.resolved_geometry
+                                                .support_interfaces
+                                                .iter()
+                                                .find(|interface| interface.id == *id)
+                                                .is_some_and(|interface| {
+                                                    resolved_solid_overlaps_bounds(
+                                                        timber,
+                                                        (
+                                                            interface.bounds.min,
+                                                            interface.bounds.max,
+                                                        ),
+                                                        0.001,
+                                                    ) && resolved_solid_overlaps_bounds(
+                                                        gutter,
+                                                        (
+                                                            interface.bounds.min,
+                                                            interface.bounds.max,
+                                                        ),
+                                                        0.001,
+                                                    )
+                                                })
+                                        })
+                                        || {
+                                            let (min, max) = resolved_solid_bounds(gutter);
+                                            let endpoint_radius =
+                                                member.section_metres.max_element() * 0.6
+                                                    + 0.02;
+                                            [member.start, member.end].into_iter().any(
+                                                |point| {
+                                                    point
+                                                        .cmpge(
+                                                            min - Vec3::splat(endpoint_radius),
+                                                        )
+                                                        .all()
+                                                        && point
+                                                            .cmple(
+                                                                max + Vec3::splat(
+                                                                    endpoint_radius,
+                                                                ),
+                                                            )
+                                                            .all()
+                                                },
+                                            )
+                                        })
                             })
                     })
                 });
-                let valid_frame_contact = (is_timber_frame_role(a.role)
-                    || is_timber_frame_role(b.role))
-                    && (!oriented_cuboids_overlap(a, b, 0.012)
-                        || matches!(
-                            (a.role, b.role),
-                            (
-                                SolidRole::FrameSill
-                                    | SolidRole::FramePost
-                                    | SolidRole::FramePlate
-                                    | SolidRole::FrameRail
-                                    | SolidRole::FrameJoist
-                                    | SolidRole::FrameGirder
-                                    | SolidRole::FrameTie
-                                    | SolidRole::FrameBrace
-                                    | SolidRole::FrameJettyBeam
-                                    | SolidRole::FrameKnagge
-                                    | SolidRole::FrameFloor
-                                    | SolidRole::FrameGableMember
-                                    | SolidRole::FrameDormerTrimmer,
-                                SolidRole::WallHost | SolidRole::FrameInfill
-                                    | SolidRole::OpeningJamb
-                                    | SolidRole::OpeningSill
-                                    | SolidRole::OpeningHead
-                                    | SolidRole::OpeningSpandrel
-                            ) | (
-                                SolidRole::WallHost | SolidRole::FrameInfill
-                                    | SolidRole::OpeningJamb
-                                    | SolidRole::OpeningSill
-                                    | SolidRole::OpeningHead
-                                    | SolidRole::OpeningSpandrel,
-                                SolidRole::FrameSill
-                                    | SolidRole::FramePost
-                                    | SolidRole::FramePlate
-                                    | SolidRole::FrameRail
-                                    | SolidRole::FrameJoist
-                                    | SolidRole::FrameGirder
-                                    | SolidRole::FrameTie
-                                    | SolidRole::FrameBrace
-                                    | SolidRole::FrameJettyBeam
-                                    | SolidRole::FrameKnagge
-                                    | SolidRole::FrameFloor
-                                    | SolidRole::FrameGableMember
-                                    | SolidRole::FrameDormerTrimmer
-                            ) | (
-                                SolidRole::FrameDormerTrimmer,
-                                SolidRole::RoofFlashing | SolidRole::RoofFraming
-                            ) | (
-                                SolidRole::RoofFlashing | SolidRole::RoofFraming,
-                                SolidRole::FrameDormerTrimmer
-                            ) | (SolidRole::FramePost, SolidRole::RoofFlashing)
-                                | (SolidRole::RoofFlashing, SolidRole::FramePost)
-                        ));
-                let valid_frame_gutter_contact = matches!(
-                    (a.role, b.role),
-                    (SolidRole::FrameFloor, SolidRole::RoofGutter)
-                        | (SolidRole::RoofGutter, SolidRole::FrameFloor)
-                ) && penetration <= 0.10
-                    || plan.timber_frame.as_ref().is_some_and(|frame| {
-                        [(a, b), (b, a)].into_iter().any(|(timber, gutter)| {
-                            timber.role == SolidRole::FrameGableMember
-                                && gutter.role == SolidRole::RoofGutter
-                                && penetration
-                                    <= frame
-                                        .members
+            let valid_frame_roof_contact = plan.timber_frame.as_ref().is_some_and(|frame| {
+                [(a, b), (b, a)].into_iter().any(|(timber, roof)| {
+                    is_timber_frame_role(timber.role)
+                        && matches!(roof.role, SolidRole::RoofFraming | SolidRole::RoofPlate)
+                        && frame.members.iter().any(|member| {
+                            member.solid == timber.id
+                                && member.support_interfaces.iter().any(|id| {
+                                    plan.resolved_geometry
+                                        .support_interfaces
                                         .iter()
-                                        .find(|member| member.solid == timber.id)
-                                        .map_or(0.0, |member| {
-                                            member.section_metres.max_element() + 0.05
+                                        .find(|interface| interface.id == *id)
+                                        .is_some_and(|interface| {
+                                            resolved_solid_overlaps_bounds(
+                                                roof,
+                                                (interface.bounds.min, interface.bounds.max),
+                                                0.015,
+                                            )
                                         })
-                                && frame.members.iter().any(|member| {
-                                    member.solid == timber.id
-                                        && (member
-                                            .support_interfaces
-                                            .iter()
-                                            .chain(&frame.roof_bearing_interfaces)
-                                            .any(|id| {
-                                                plan.resolved_geometry
-                                                    .support_interfaces
+                                })
+                        })
+                })
+            });
+            let valid_child_gable_verge_contact =
+                plan.timber_frame.as_ref().is_some_and(|frame| {
+                    [(a, b), (b, a)].into_iter().any(|(timber, verge)| {
+                        verge.role == SolidRole::RoofEdgeTreatment
+                            && frame.members.iter().any(|member| {
+                                member.solid == timber.id
+                                    && matches!(
+                                        member.role,
+                                        crate::TimberMemberRole::WallPlate
+                                            | crate::TimberMemberRole::GablePost
+                                            | crate::TimberMemberRole::Rafter
+                                    )
+                                    && penetration
+                                        <= member.section_metres.max_element() + 0.05
+                                    && frame.bays.iter().any(|bay| {
+                                        bay.member_ids.contains(&member.id)
+                                            && bay.wall.is_some_and(|wall_id| {
+                                                plan.wall_assemblies
                                                     .iter()
-                                                    .find(|interface| interface.id == *id)
-                                                    .is_some_and(|interface| {
-                                                        resolved_solid_overlaps_bounds(
-                                                            timber,
-                                                            (
-                                                                interface.bounds.min,
-                                                                interface.bounds.max,
-                                                            ),
-                                                            0.001,
-                                                        ) && resolved_solid_overlaps_bounds(
-                                                            gutter,
-                                                            (
-                                                                interface.bounds.min,
-                                                                interface.bounds.max,
-                                                            ),
-                                                            0.001,
+                                                    .find(|wall| wall.id == wall_id)
+                                                    .is_some_and(|wall| {
+                                                        matches!(
+                                                            wall.source,
+                                                            crate::WallSourceId::RoofChildFront { roof }
+                                                                if plan.roof_assemblies.iter().any(|child| {
+                                                                    child.id == roof
+                                                                        && child.owner == verge.owner
+                                                                })
                                                         )
                                                     })
                                             })
-                                            || {
-                                                let (min, max) = resolved_solid_bounds(gutter);
-                                                let endpoint_radius =
-                                                    member.section_metres.max_element() * 0.6
-                                                        + 0.02;
-                                                [member.start, member.end].into_iter().any(
-                                                    |point| {
-                                                        point
-                                                            .cmpge(
-                                                                min - Vec3::splat(endpoint_radius),
-                                                            )
-                                                            .all()
-                                                            && point
-                                                                .cmple(
-                                                                    max + Vec3::splat(
-                                                                        endpoint_radius,
-                                                                    ),
-                                                                )
-                                                                .all()
-                                                    },
-                                                )
-                                            })
-                                })
-                        })
-                    });
-                let valid_frame_roof_contact = plan.timber_frame.as_ref().is_some_and(|frame| {
-                    [(a, b), (b, a)].into_iter().any(|(timber, roof)| {
-                        is_timber_frame_role(timber.role)
-                            && matches!(roof.role, SolidRole::RoofFraming | SolidRole::RoofPlate)
-                            && frame.members.iter().any(|member| {
-                                member.solid == timber.id
-                                    && member.support_interfaces.iter().any(|id| {
-                                        plan.resolved_geometry
-                                            .support_interfaces
-                                            .iter()
-                                            .find(|interface| interface.id == *id)
-                                            .is_some_and(|interface| {
-                                                resolved_solid_overlaps_bounds(
-                                                    roof,
-                                                    (interface.bounds.min, interface.bounds.max),
-                                                    0.015,
-                                                )
-                                            })
                                     })
                             })
                     })
                 });
-                let valid_child_gable_verge_contact =
-                    plan.timber_frame.as_ref().is_some_and(|frame| {
-                        [(a, b), (b, a)].into_iter().any(|(timber, verge)| {
-                            verge.role == SolidRole::RoofEdgeTreatment
-                                && frame.members.iter().any(|member| {
-                                    member.solid == timber.id
-                                        && matches!(
-                                            member.role,
-                                            crate::TimberMemberRole::WallPlate
-                                                | crate::TimberMemberRole::GablePost
-                                                | crate::TimberMemberRole::Rafter
-                                        )
-                                        && penetration
-                                            <= member.section_metres.max_element() + 0.05
-                                        && frame.bays.iter().any(|bay| {
-                                            bay.member_ids.contains(&member.id)
-                                                && bay.wall.is_some_and(|wall_id| {
-                                                    plan.wall_assemblies
-                                                        .iter()
-                                                        .find(|wall| wall.id == wall_id)
-                                                        .is_some_and(|wall| {
-                                                            matches!(
-                                                                wall.source,
-                                                                crate::WallSourceId::RoofChildFront { roof }
-                                                                    if plan.roof_assemblies.iter().any(|child| {
-                                                                        child.id == roof
-                                                                            && child.owner == verge.owner
-                                                                    })
-                                                            )
-                                                        })
-                                                })
-                                        })
-                                })
-                        })
-                    });
-                let valid_bond = valid_drain_contact
-                    || valid_frame_opening_contact
-                    || valid_frame_contact
-                    || valid_frame_gutter_contact
-                    || valid_frame_roof_contact
-                    || valid_child_gable_verge_contact
-                    || plan.resolved_geometry.junction_bonds.iter().any(|bond| {
-                        bond.owners.contains(&a.owner)
-                            && bond.owners.contains(&b.owner)
-                            && overlap_min
-                                .cmpge(bond.bounds.min - Vec3::splat(0.025))
-                                .all()
-                            && overlap_max
-                                .cmple(bond.bounds.max + Vec3::splat(0.025))
-                                .all()
-                            && penetration <= bond.maximum_penetration_metres + 0.025
-                            && bond.minimum_interface_area_square_metres > 0.0
-                            && junction_bearing::permits(a, b, bond)
-                    });
-                if !valid_bond {
-                    issues.push(issue(
-                        "undeclared_solid_overlap",
-                        format!(
-                            "resolved {} owner {} {:?} at {:?} size {:?} and {} owner {} {:?} at {:?} size {:?} overlap beyond a local bonded junction timber={:?}",
-                            a.id.0, a.owner.0, a.role, a.centre, a.size,
-                            b.id.0, b.owner.0, b.role, b.centre, b.size,
-                            plan.timber_frame.as_ref().and_then(|frame| frame.members.iter().find(|member| member.solid == a.id || member.solid == b.id)).map(|member| (member.role, member.start, member.end, member.section_metres))
-                        ),
-                    ));
-                }
+            let valid_bond = valid_drain_contact
+                || valid_frame_opening_contact
+                || valid_frame_contact
+                || valid_frame_gutter_contact
+                || valid_frame_roof_contact
+                || valid_child_gable_verge_contact
+                || plan.resolved_geometry.junction_bonds.iter().any(|bond| {
+                    bond.owners.contains(&a.owner)
+                        && bond.owners.contains(&b.owner)
+                        && overlap_min
+                            .cmpge(bond.bounds.min - Vec3::splat(0.025))
+                            .all()
+                        && overlap_max
+                            .cmple(bond.bounds.max + Vec3::splat(0.025))
+                            .all()
+                        && penetration <= bond.maximum_penetration_metres + 0.025
+                        && bond.minimum_interface_area_square_metres > 0.0
+                        && junction_bearing::permits(a, b, bond)
+                });
+            if !valid_bond {
+                issues.push(issue(
+                    "undeclared_solid_overlap",
+                    format!(
+                        "resolved {} owner {} {:?} at {:?} size {:?} and {} owner {} {:?} at {:?} size {:?} overlap beyond a local bonded junction timber={:?}",
+                        a.id.0, a.owner.0, a.role, a.centre, a.size,
+                        b.id.0, b.owner.0, b.role, b.centre, b.size,
+                        plan.timber_frame.as_ref().and_then(|frame| frame.members.iter().find(|member| member.solid == a.id || member.solid == b.id)).map(|member| (member.role, member.start, member.end, member.section_metres))
+                    ),
+                ));
             }
         }
-    }
+}
     for bond in &plan.resolved_geometry.junction_bonds {
         let valid_interface = valid_tower_chord_bond(plan, bond)
             || plan.resolved_geometry.solids.iter().any(|a| {
