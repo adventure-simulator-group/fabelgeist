@@ -93,6 +93,7 @@ impl TassetSpan {
 /// It must cover the shaped boundary, which can extend past the nominal span.
 pub fn generate_wrapped_tasset(
     design: &GarmentArmorDesign,
+    detail: crate::ArmorDetail,
     side: TassetSide,
     span: TassetSpan,
     point: impl Fn(f32, f32) -> [f32; 2],
@@ -143,6 +144,7 @@ pub fn generate_wrapped_tasset(
                     [0.0; 3]
                 })
             },
+            detail,
         );
         if invalid_carrier.get() {
             return Err(GenerateError::InvalidSurface);

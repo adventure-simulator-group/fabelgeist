@@ -12,6 +12,8 @@ use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError, Surfa
 /// Local coordinates are metres. Reflected frames are supported explicitly.
 #[derive(Clone, Copy, Debug)]
 pub struct PartFrame {
+    /// Sampling policy for mesh construction; it does not alter the fit axes.
+    pub detail: crate::ArmorDetail,
     pub origin: [f32; 3],
     pub axes: [[f32; 3]; 3],
     pub half_extents: [f32; 3],
@@ -58,6 +60,7 @@ struct ShellLayout {
     complete_vertex_count: usize,
     first_index: usize,
     index_count: usize,
+    complete_index_count: usize,
     thickness: f32,
     boundary_normals: BoundaryNormals,
     extrusion: ShellExtrusion,
@@ -159,6 +162,14 @@ impl PartMesh {
             .iter()
             .map(|shell| shell.first_vertex..shell.first_vertex + shell.complete_vertex_count)
     }
+    /// Interior index ranges follow the surface builder, independent of position.
+    pub fn construction_face_ranges(&self) -> Vec<std::ops::Range<usize>> {
+        self.shells
+            .iter()
+            .map(|s| s.first_index + s.index_count..s.first_index + s.complete_index_count)
+            .collect()
+    }
+
     pub fn new() -> Self {
         Self::default()
     }
@@ -393,6 +404,7 @@ impl PartMesh {
             complete_vertex_count: 0,
             first_index: 0,
             index_count: indices.len(),
+            complete_index_count: 0,
             thickness,
             boundary_normals,
             extrusion,
@@ -461,6 +473,7 @@ impl PartMesh {
             mesh.append_return([a, b, a + count, b + count], boundary_normals);
         }
         mesh.shells[0].complete_vertex_count = mesh.positions.len();
+        mesh.shells[0].complete_index_count = mesh.indices.len();
         mesh.normals()?;
         Ok(mesh)
     }

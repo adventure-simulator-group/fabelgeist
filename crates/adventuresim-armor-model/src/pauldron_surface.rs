@@ -158,6 +158,7 @@ mod tests {
     fn opposite_fitting_directions_cannot_smooth_a_required_offset_inward() {
         let diagonal = std::f32::consts::FRAC_1_SQRT_2;
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.18, 1.42, -0.03],
             axes: [
                 [0.0, 0.0, -1.0],
@@ -182,6 +183,7 @@ mod tests {
     fn clearance_projection_preserves_the_formed_lame_separation() {
         let design = PauldronDesign::default();
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[0.0, 0.0, 1.0], [-1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
             half_extents: [0.07, 0.16, 0.065],

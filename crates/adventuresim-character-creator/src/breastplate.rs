@@ -191,6 +191,7 @@ pub fn build_front_torso_surface(input: TorsoSurfaceInput<'_>) -> Result<TorsoSu
         })
         .collect();
     Ok(TorsoSurface {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         domain: input.domain.to_owned(),
         front: frame.front_axis,
         morph_fronts: morph_frames.iter().map(|frame| frame.front_axis).collect(),

@@ -32,12 +32,17 @@ pub(super) fn fauld(d: &GarmentArmorDesign, fit: &PartFrame) -> Result<PartMesh,
     let [width, height, depth] = fit.half_extents;
     let gauge = d.wall_thickness.metres();
     let count = usize::from(d.lame_count);
+    let arch_columns: Vec<_> = [-1.0_f32, -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0]
+        .into_iter()
+        .map(|fraction| 0.5 + (fraction * front_arch_width.unit()).asin() / TAU)
+        .collect();
     let mut mesh = PartMesh::new();
     for lame in 0..count {
-        let chart = FauldLameChart::new(lame, count)?;
+        let chart = FauldLameChart::new(lame, count, fit.detail)?;
         let [bottom, top] = chart.span;
         mesh.append(crate::plate_patch::fluted_lapped_radial_patch(
             &chart.rows,
+            &arch_columns,
             gauge,
             d.fluting.as_ref(),
             [bottom, top],
@@ -65,6 +70,7 @@ pub(super) fn fauld(d: &GarmentArmorDesign, fit: &PartFrame) -> Result<PartMesh,
                     (depth * radius + padding) * angle.cos(),
                 ]
             },
+            fit.detail,
         )?);
     }
     Ok(mesh)
@@ -124,6 +130,7 @@ pub(super) fn gorget(d: &GarmentArmorDesign, fit: &PartFrame) -> Result<PartMesh
     const COLLAR_BASE: f32 = 0.60;
     crate::generate_gorget_plates(
         d,
+        fit.detail,
         |t, angle| point(angle, 1.0 - (1.0 - COLLAR_BASE) * t),
         |t, angle| point(angle, COLLAR_BASE * (1.0 - t)),
     )
@@ -144,6 +151,7 @@ pub(super) fn tassets(d: &GarmentArmorDesign, fit: &PartFrame) -> Result<PartMes
         ] {
             mesh.append(crate::generate_wrapped_tasset(
                 d,
+                fit.detail,
                 orientation,
                 span,
                 |angle, height| {
@@ -218,6 +226,7 @@ pub(super) fn tassets(d: &GarmentArmorDesign, fit: &PartFrame) -> Result<PartMes
                             + width * 0.18 * (1.0 - u * u),
                     ]
                 },
+                fit.detail,
             )?);
         }
     }

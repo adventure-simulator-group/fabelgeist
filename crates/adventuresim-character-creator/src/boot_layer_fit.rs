@@ -214,6 +214,7 @@ mod tests {
     #[test]
     fn redistributed_shaft_is_projected_back_to_support_without_reseating_the_foot() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.1, 0.05, 0.08],
@@ -241,6 +242,7 @@ mod tests {
     #[test]
     fn ankle_fairing_fills_a_valley_outward_without_moving_its_anchors() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [1.0; 3],

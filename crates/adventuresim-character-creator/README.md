@@ -15,11 +15,11 @@ just character-creator
 
 The importer verifies Meta's MHR v1.0.1 release by size and SHA-256 and installs
 the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`. That
-default cache is about 50 MB after extraction. Run `just
-init-mhr-lod1-correctives` only when comparing the optional LOD 1
-pose-corrective network; installing every corrective basis is an explicit
-`scripts/init_mhr_assets.py --all-correctives` operation and consumes about
-4 GB. Override the location with `--assets` or `MHR_ASSETS` when needed. The
+default cache is about 50 MB after extraction. Run
+`just init-mhr-lod4-correctives` only when comparing the optional LOD 4
+pose-corrective network; installing all supported corrective bases requires
+`scripts/init_mhr_assets.py --all-correctives` for LODs 4–6. Override the
+location with `--assets` or `MHR_ASSETS` when needed. The
 downloaded archive and extracted source assets are not committed; deliberately
 exported game and Cascadeur artifacts are tracked separately.
 
@@ -28,8 +28,8 @@ writes the current parameters to the selected recipe path (by default,
 `assets_src/characters/mhr_base.json`). **Export rigged GLB** writes to
 `assets_src/biped/unarmed/base.glb` by default. The export is a zero-animation
 T-pose containing MHR's 127 joints plus the three Fabelgeist animation
-attachments, both sets of skinning influences, and inverse bind matrices for the
-saved body. Use `just export-mhr-base <staging-path>` to export the canonical
+attachments, four normalized skinning influences, and inverse bind matrices
+for the saved body. Use `just export-mhr-base <staging-path>` to export the canonical
 body without opening the studio, then prepare its runtime copy as described
 below.
 
@@ -41,10 +41,11 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD
-1 with pose correctives disabled, preserving facial and finger topology while
-keeping edits interactive. The **Pose-corrective model** checkbox reloads the
-selected LOD with or without MHR's corrective network for direct comparison.
+viewport to orbit and use the mouse wheel to zoom. The default is MHR LOD 4
+with pose correctives disabled. Only LODs 4–6 are available in the UI, CLI, and
+GLB exporter. LOD 4 has 2,461 vertices and 4,918 triangles before clothing hides
+body faces. The **Pose-corrective model** checkbox reloads the selected LOD with
+or without MHR's corrective network for direct comparison.
 Recipes contain model coordinates, not authoritative character state, and must
 be regenerated and validated when connected to game creation.
 
@@ -325,12 +326,25 @@ the equipment manifest, then capture idle, walking and raised-guard scenarios.
 
 ## Equipment material UVs
 
-`just generate-procedural-equipment DIRECTORY` includes an offline Blender
-unwrap and normal/AO bake after geometry export. Set `BLENDER_BIN` to the
-Blender executable when it is not on PATH. `just unwrap-equipment DIRECTORY`
-applies the unwrap step to
-an existing export; run it again after changing geometry parameters. Direct
-creator CLI exports contain construction UVs until this finishing step runs.
+`just generate-procedural-equipment DIRECTORY` exports native LOD4 geometry.
+Runtime body and armor exports support LODs 4–6. Armor evaluates its
+construction recipe at each level; it does not simplify a triangulated
+high-resolution mesh.
+Structural openings and plate boundaries remain explicit. Fitting uses complete
+shells; runtime exports omit constructed inner and return faces and render the
+exterior from both sides. Clothing and fasteners have separate
+triangle counts from the metal armor.
+
+Generate matching dense bake inputs with the same body and equipment recipes,
+adding `--armor-review-dir SOURCE_DIRECTORY --armor-review-selection recipe
+--armor-bake-source` to the creator command. This mode writes review JSON;
+the selected body LOD remains unchanged. Runtime review exports also write
+base-pose GLBs for material finishing and static display assemblies.
+
+Set `BLENDER_BIN` to the Blender executable when it is not on PATH. Run
+`python scripts/finish_equipment.py DIRECTORY --source-directory SOURCE_DIRECTORY`
+after geometry export. Direct creator exports contain construction UVs until
+this finishing step runs. Regenerate after changing geometry parameters.
 
 The material atlas occupies `TEXCOORD_0`; existing anatomical coordinates move
 losslessly to `TEXCOORD_1`, with their domain and channel recorded explicitly.
@@ -351,27 +365,23 @@ Compare source and finished exports with
 `python scripts/check_armor_uvs.py ORIGINAL_DIRECTORY FINISHED_DIRECTORY` to
 check correspondence, nondegenerate charts, overlap, and tangent frames.
 
-`just bake-equipment DIRECTORY` bakes an already unwrapped export. Normal maps
-encode the detailed mesh normals, including fluting, relative to a smoothed
-shading carrier. The export carries those low-frequency vertex normals and the
-matching tangent frame. Each morph endpoint receives the same smoothing rule;
-positions and skin weights are unchanged. AO comes from Cycles rays against the
-actual plates within the item. Maps are separate linear glTF normal and
-occlusion channels, both using UV0; the unlit albedo is unchanged.
+`python scripts/finish_equipment.py DIRECTORY --stage bake --source-directory
+SOURCE_DIRECTORY` bakes an already unwrapped export. Normal maps project the
+matching dense recipe geometry, including fluting, onto the native LOD surface.
+Each component projects only from its matching source component. The export
+retains its native shading normals except where tangent-frame conditioning is
+required; positions and skin weights are unchanged. AO comes from Cycles rays
+against the actual plates within the item. Maps are separate linear glTF normal
+and occlusion channels, both using UV0; the unlit albedo is unchanged.
 
 The default bake uses 1024-square images, 32 AO samples, and two-pixel gutters.
 `scripts/bake_armor.py` exposes resolution and sample controls for offline work.
 Unused AO atlas space is white to avoid dark mip bleeding.
 Texture filenames are content-addressed. Regenerate geometry before changing
-an already baked atlas; repeatedly smoothing an existing bake is unsupported.
+an already baked atlas.
 Compare source and finished exports using `scripts/check_armor_bakes.py`.
 
-A simplified mesh must preserve the carrier normals and material coordinates,
-and regenerate a matching tangent frame; recomputing geometric normals would
-apply the flute relief twice. `scripts/render_armor_materials.py` demonstrates
-this with a static decimation and UV-based carrier-normal transfer.
-The reduction ratio is adjustable; validate thin plate walls after
-simplification. It does not implement runtime LOD selection. Cycles previews
+Each LOD needs its own unwrap and bake against the dense source. Cycles previews
 ray trace ambient occlusion rather than
 multiplying the exported AO map into albedo; runtime glTF uses the separate AO
 channel for ambient lighting.
@@ -380,7 +390,8 @@ channel for ambient lighting.
 
 `assets_src/equipment/armor-finishes.json` selects texture-only trim for metal
 plates. Generation applies this after UV unwrapping and normal/AO baking. Use
-`just trim-equipment DIRECTORY` on an unfinished bake, or pass `--finish-recipe`
+`python scripts/finish_equipment.py DIRECTORY --stage trim` on a bake, or pass
+`--finish-recipe`
 to `scripts/finish_equipment.py` for a different finish document. Python needs
 NumPy and Pillow. Regenerate before changing an already applied finish.
 

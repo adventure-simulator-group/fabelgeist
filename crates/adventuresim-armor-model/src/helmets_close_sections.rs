@@ -297,6 +297,7 @@ mod tests {
             ..Default::default()
         };
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.10, 0.10, 0.11],
@@ -346,6 +347,7 @@ mod tests {
             ..Default::default()
         };
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.10, 0.10, 0.11],

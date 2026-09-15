@@ -66,6 +66,7 @@ fn upright(
 ) -> Result<PartFrame> {
     let head = wearer.frame(FitRegion::Head)?;
     Ok(PartFrame {
+        detail: wearer.detail,
         origin: [center[0], (top + bottom) * 0.5, center[2]],
         axes: [head.axes[0], [0.0, 1.0, 0.0], head.axes[2]],
         half_extents: [width, (top - bottom) * 0.5, depth],
@@ -220,15 +221,7 @@ fn wrap_skirt(
         .fold(0.0, f32::max);
     let gap = design.clearance.metres() + design.wall_thickness.metres() + relief;
     let cage = drape::DrapeCage::for_skirt(&envelope, frame, &mesh, design, gap, chevron);
-    let charts = if design.kind == Kind::Fauld {
-        (0..usize::from(design.lame_count))
-            .map(|lame| {
-                adventuresim_armor_model::FauldLameChart::new(lame, usize::from(design.lame_count))
-            })
-            .collect::<Result<Vec<_>, _>>()?
-    } else {
-        Vec::new()
-    };
+    let charts = fauld_charts(design, wearer.detail)?;
     let mut course = 0;
     Ok(mesh.refit_surfaces(|positions, _| {
         // The authored chart's row retains the lap position even where the
@@ -367,6 +360,25 @@ fn local_point(frame: &PartFrame, point: [f32; 3]) -> [f32; 3] {
         .map(|axis| dot(axis, subtract(point, frame.origin)))
 }
 
+fn fauld_charts(
+    design: &GarmentArmorDesign,
+    detail: adventuresim_armor_model::ArmorDetail,
+) -> Result<Vec<adventuresim_armor_model::FauldLameChart>> {
+    Ok(if design.kind == Kind::Fauld {
+        (0..usize::from(design.lame_count))
+            .map(|lame| {
+                adventuresim_armor_model::FauldLameChart::new(
+                    lame,
+                    usize::from(design.lame_count),
+                    detail,
+                )
+            })
+            .collect::<Result<Vec<_>, _>>()?
+    } else {
+        Vec::new()
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -374,6 +386,7 @@ mod tests {
     #[test]
     fn fauld_flare_widens_from_attachment_over_a_narrower_midriff() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.18, 0.15, 0.18],
@@ -392,6 +405,7 @@ mod tests {
         let joints = vec![[0; 8]; points.len()];
         let weights = vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; points.len()];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             positions: &points,
             normals: &[],
             faces: &[],
@@ -452,6 +466,7 @@ mod tests {
     #[test]
     fn elliptical_fauld_courses_recover_the_same_authored_angle() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.22, 0.15, 0.10],
@@ -463,9 +478,12 @@ mod tests {
             let mesh = generate_garment_armor(&design, &frame).unwrap();
             let mut course = 0;
             mesh.refit_surfaces(|positions, _| {
-                let chart =
-                    adventuresim_armor_model::FauldLameChart::new(course, usize::from(count))
-                        .unwrap();
+                let chart = adventuresim_armor_model::FauldLameChart::new(
+                    course,
+                    usize::from(count),
+                    adventuresim_armor_model::ArmorDetail::BakeSource,
+                )
+                .unwrap();
                 course += 1;
                 let columns = positions.len() / chart.rows.len();
                 for (index, point) in positions.iter().enumerate() {
@@ -489,6 +507,7 @@ mod tests {
     #[test]
     fn fauld_attachment_does_not_accumulate_clearance_from_lower_courses() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.15, 0.15, 0.15],
@@ -509,6 +528,7 @@ mod tests {
         let indices = vec![[0; 8]; points.len()];
         let weights = vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; points.len()];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             positions: &points,
             normals: &[],
             faces: &[],
@@ -544,6 +564,7 @@ mod tests {
     #[test]
     fn anatomical_tasset_fit_preserves_lower_flare_and_upper_attachment() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.18, 0.12, 0.10],
@@ -551,6 +572,7 @@ mod tests {
         let points = vec![[0.0, 0.0, 0.08]];
         let normals = vec![[0.0, 0.0, 1.0]];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             faces: &[],
             positions: &points,
             normals: &normals,

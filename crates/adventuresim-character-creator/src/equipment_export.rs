@@ -182,6 +182,7 @@ impl EquipmentExporter<'_> {
             &placement.id,
             armor,
         )?;
+        let armor = armor.for_rendering(model.armor_detail);
         let faces = armor.indices.as_chunks::<3>().0.to_vec();
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);

@@ -45,6 +45,7 @@ pub enum FitRegion {
 }
 
 pub struct Wearer<'a> {
+    pub detail: adventuresim_armor_model::ArmorDetail,
     pub faces: &'a [[u32; 3]],
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],
@@ -159,6 +160,7 @@ impl Wearer<'_> {
             anterior = anterior.map(|v| -v);
         }
         let mut frame = PartFrame {
+            detail: self.detail,
             origin: midpoint(proximal, distal),
             axes: [across, axial, anterior],
             half_extents: [1.0; 3],
@@ -376,6 +378,7 @@ mod tests {
         weights[4] = [0.2, 0.2, 0.6, 0.0, 0.0, 0.0, 0.0, 0.0];
         weights[5] = [0.1, 0.1, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             faces: &[],
             positions: &positions,
             normals: &positions,
@@ -406,6 +409,7 @@ mod tests {
         let weights = [[0.125; 8]; 3];
         let joints = [[0.0; 8]; 4];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             faces: &[],
             positions: &positions,
             normals: &positions,

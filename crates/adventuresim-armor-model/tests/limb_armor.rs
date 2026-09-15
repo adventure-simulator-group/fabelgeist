@@ -8,6 +8,7 @@ use adventuresim_armor_model::{
 
 fn frame(extents: [f32; 3]) -> PartFrame {
     PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: extents,
@@ -153,6 +154,7 @@ fn full_pauldrons_keep_closed_walls_and_correspondence_across_shoulder_sizes() {
     for scale in [0.72, 1.0, 1.4] {
         for side in [-1.0, 1.0] {
             let fit = PartFrame {
+                detail: adventuresim_armor_model::ArmorDetail::BakeSource,
                 origin: [side * 0.18, 1.42, -0.03],
                 axes: [
                     [0.0, 0.0, -side],
@@ -338,6 +340,7 @@ fn low_crown_lames_reserve_the_arm_envelope_even_with_thick_walls() {
     use adventuresim_armor_model::{PauldronDesign, PlateGauge};
     let diagonal = std::f32::consts::FRAC_1_SQRT_2;
     let fit = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [
             [0.0, 0.0, -1.0],

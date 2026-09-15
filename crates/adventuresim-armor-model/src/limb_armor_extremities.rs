@@ -29,6 +29,7 @@ pub(super) fn gauntlet(d: &GauntletDesign, fit: &PartFrame) -> Result<PartMesh, 
                 (depth * lerp(1.0, 1.35, v) + clearance + d.cuff_clearance.metres()) * theta.cos(),
             ]
         },
+        fit.detail,
     )?;
     let count = usize::from(d.finger_lames);
     for lame in 0..count {
@@ -60,6 +61,7 @@ pub(super) fn gauntlet(d: &GauntletDesign, fit: &PartFrame) -> Result<PartMesh, 
                 point,
                 length * 0.29,
                 |_, axial| gauge * 2.0 * (axial - (1.0 - high)) / (high - low),
+                fit.detail,
             )?
         } else {
             crate::plate_patch::fluted_radial_patch(
@@ -70,6 +72,7 @@ pub(super) fn gauntlet(d: &GauntletDesign, fit: &PartFrame) -> Result<PartMesh, 
                 [1.0 - low, 1.0 - high],
                 |_, axial| gauge * 2.0 * (axial - (1.0 - high)) / (high - low),
                 point,
+                fit.detail,
             )?
         });
     }
@@ -101,6 +104,7 @@ pub(super) fn gauntlet_thumb(
         },
         length * 0.48 + clearance,
         |_, _| 0.0,
+        fit.detail,
     )
 }
 
@@ -149,6 +153,7 @@ pub(super) fn sabaton(d: &FootArmorDesign, fit: &PartFrame) -> Result<PartMesh, 
                     lerp(-length * 0.05 + d.ankle_cutaway.metres(), length * 0.65, t),
                 ]
             },
+            fit.detail,
         )?);
     }
     mesh.append(half_dome(
@@ -159,6 +164,7 @@ pub(super) fn sabaton(d: &FootArmorDesign, fit: &PartFrame) -> Result<PartMesh, 
         length + d.toe_extension.metres(),
         gauge,
         d.toe_roundness.unit(),
+        fit.detail,
     )?);
     Ok(mesh)
 }
@@ -175,24 +181,29 @@ pub(super) fn boot(d: &BootDesign, fit: &PartFrame) -> Result<PartMesh, Generate
     // One continuous carrier from rounded sole perimeter through the vamp to
     // the shaft opening. Broad toe/heel quadrants enclose a foot's corners;
     // an ellipse drawn only through its axial extremes clips those corners.
-    boot_shell(AROUND, 40, gauge, |u, v| {
-        let theta = TAU * u;
-        let toe_factor = lerp(0.72, d.toe_width.unit(), (theta.cos() + 1.0) * 0.5);
-        let rounded = |value: f32| value.signum() * value.abs().powf(0.55);
-        let outer_x = (width * toe_factor + clearance) * rounded(theta.sin());
-        let outer_z = (length + clearance) * rounded(theta.cos());
-        let inner_x = ankle_width * theta.sin();
-        let inner_z = ankle_z + ankle_depth * theta.cos();
-        let rise = total_height * v;
-        let transition = smooth((rise / upper_height).min(1.0));
-        let shaft = ((rise - upper_height) / d.shaft_height.metres()).max(0.0);
-        let flare = lerp(1.0, d.shaft_flare.unit(), smooth(shaft));
-        [
-            lerp(outer_x, inner_x * flare, transition),
-            -height - gauge + rise - d.gauge.clearance.metres() * (1.0 - transition),
-            lerp(outer_z, ankle_z + (inner_z - ankle_z) * flare, transition),
-        ]
-    })
+    boot_shell(
+        fit.detail.segments(AROUND, 24),
+        fit.detail.segments(40, 16),
+        gauge,
+        |u, v| {
+            let theta = TAU * u;
+            let toe_factor = lerp(0.72, d.toe_width.unit(), (theta.cos() + 1.0) * 0.5);
+            let rounded = |value: f32| value.signum() * value.abs().powf(0.55);
+            let outer_x = (width * toe_factor + clearance) * rounded(theta.sin());
+            let outer_z = (length + clearance) * rounded(theta.cos());
+            let inner_x = ankle_width * theta.sin();
+            let inner_z = ankle_z + ankle_depth * theta.cos();
+            let rise = total_height * v;
+            let transition = smooth((rise / upper_height).min(1.0));
+            let shaft = ((rise - upper_height) / d.shaft_height.metres()).max(0.0);
+            let flare = lerp(1.0, d.shaft_flare.unit(), smooth(shaft));
+            [
+                lerp(outer_x, inner_x * flare, transition),
+                -height - gauge + rise - d.gauge.clearance.metres() * (1.0 - transition),
+                lerp(outer_z, ankle_z + (inner_z - ankle_z) * flare, transition),
+            ]
+        },
+    )
 }
 
 #[cfg(test)]
@@ -203,6 +214,7 @@ mod tests {
     #[test]
     fn inner_boot_sole_keeps_requested_clearance_below_the_foot() {
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.05, 0.035, 0.12],

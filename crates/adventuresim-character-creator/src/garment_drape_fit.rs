@@ -27,6 +27,7 @@ mod tests {
     #[test]
     fn fitted_plates_follow_raised_sections_without_hanging_their_bulk_below() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.1; 3],
@@ -58,6 +59,7 @@ mod tests {
     #[test]
     fn plate_smoothing_encloses_a_local_bulge_without_inflating_its_attachment() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.3; 3],

@@ -13,6 +13,9 @@ mod atmosphere;
 mod buildings;
 mod clouds;
 mod config;
+mod demo_lifecycle;
+pub(crate) use demo_lifecycle::clear_demo_scene;
+pub(crate) use vista::streets::streaming::StreamCityTraffic;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
@@ -68,7 +71,9 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 
 // This facade is compiled independently by several binaries, so each binary
 // uses only the subset of the stable presentation interface that it needs.
-pub(crate) use buildings::{PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials};
+pub(crate) use buildings::{
+    PendingCityBuildings, PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials,
+};
 pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
@@ -90,8 +95,9 @@ pub(crate) use obstacles::tree::{
     PlayableTreeMidTrunk, PlayableTreeTrunk, PresentedTree, TacticalTreeAggregateBarkMaterial,
     TacticalTreeBarkMaterial, TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial,
     TreeAssetResidencyDiagnostics, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
-    TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod, oak_aggregate_bark_material,
-    oak_bark_material, oak_leaf_material,
+    TreeLodCluster, TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod,
+    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
+    tree_species_for_site,
 };
 pub(crate) use sky::AtmosphereIblAmbientHandoff;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
@@ -280,7 +286,8 @@ impl Plugin for TacticalPresentationPlugin {
             .add_plugins(BuildingPresentationPlugin)
             .add_plugins(furniture::FurniturePresentationPlugin)
             .add_plugins(terrain::UrbanGroundCoveragePlugin)
-            .add_observer(on_scene_vista_bundle);
+            .add_observer(on_scene_vista_bundle)
+            .add_systems(Update, vista::streets::streaming::update);
     }
 
     fn finish(&self, app: &mut App) {

@@ -1,3 +1,4 @@
+use adventuresim_character_creator::lod::{MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use bevy::prelude::Resource;
 use clap::Parser;
 use std::path::PathBuf;
@@ -11,9 +12,8 @@ pub(super) struct Args {
         default_value = "target/mhr-assets/v1.0.1/assets"
     )]
     pub(super) assets: PathBuf,
-    // LOD 1 retains enough facial, ear, and finger topology for close creator
-    // views while remaining inexpensive with pose correctives disabled.
-    #[arg(long, default_value_t = 1, value_parser = clap::value_parser!(u8).range(0..=6))]
+    #[arg(long, default_value_t = MIN_CHARACTER_LOD,
+        value_parser = clap::value_parser!(u8).range(i64::from(MIN_CHARACTER_LOD)..=i64::from(MAX_CHARACTER_LOD)))]
     pub(super) lod: u8,
     #[arg(long, default_value = "assets_src/characters/mhr_base.json")]
     pub(super) recipe: PathBuf,
@@ -29,6 +29,9 @@ pub(super) struct Args {
     /// BreastplateDesign JSON for studio, character, and equipment exports.
     #[arg(long)]
     pub(super) breastplate_design: Option<PathBuf>,
+    /// Generate dense armor only as input to the offline texture baker.
+    #[arg(long, requires = "armor_review_dir")]
+    pub(super) armor_bake_source: bool,
     /// Export the selected recipe without opening the studio window.
     #[arg(long)]
     pub(super) export_only: bool,

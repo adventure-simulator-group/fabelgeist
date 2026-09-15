@@ -14,7 +14,13 @@ pub(super) struct VisorDomain {
 }
 
 impl VisorDomain {
-    pub fn new(design: &CloseHelmetDesign) -> Result<Self, GenerateError> {
+    pub fn new(
+        design: &CloseHelmetDesign,
+        detail: crate::ArmorDetail,
+    ) -> Result<Self, GenerateError> {
+        let mut design = *design;
+        design.visor_fluting = detail.fluting(design.visor_fluting.as_ref()).cloned();
+        let design = &design;
         let mut outer = vec![
             [-160.0, 12.0],
             [-145.0, 4.0],
@@ -29,9 +35,9 @@ impl VisorDomain {
             let x = f64::from(column) * 10.0;
             outer.push([x, 100.0 - 70.0 * (x.abs() / 160.0).powf(1.5)]);
         }
-        let holes = openings(design);
+        let holes = openings(design, detail);
         let PiercedDomain { points, indices } =
-            PiercedDomain::new(&outer, &holes, interior_samples(design))?;
+            PiercedDomain::new(&outer, &holes, interior_samples(design, detail), detail)?;
         let relief = points
             .iter()
             .map(|p| {
@@ -57,13 +63,18 @@ impl VisorDomain {
     }
 }
 
-fn interior_samples(design: &CloseHelmetDesign) -> Vec<[f64; 2]> {
+fn interior_samples(design: &CloseHelmetDesign, detail: crate::ArmorDetail) -> Vec<[f64; 2]> {
     let mut points = Vec::new();
+    let step = 20 / detail.segments(20, 3);
     let mut rows = (1..20)
+        .step_by(step)
         .map(|y| f64::from(y) * SAMPLE_SPACING_MM)
         .collect::<Vec<_>>();
     // The ocular ledge and narrow central bridge need their own sampling.
-    rows.extend((20..=55).map(f64::from));
+    rows.extend([20.0, 30.0, 40.0, 55.0]);
+    if matches!(detail, crate::ArmorDetail::BakeSource) {
+        rows.extend((20..=55).map(f64::from));
+    }
     if let Some(bellows) = design.bellows {
         rows.extend(
             bellows
@@ -78,6 +89,7 @@ fn interior_samples(design: &CloseHelmetDesign) -> Vec<[f64; 2]> {
         let mut columns = design.visor_fluting.as_ref().map_or_else(
             || {
                 (-31..32)
+                    .step_by(step)
                     .map(|x| f64::from(x) * SAMPLE_SPACING_MM)
                     .collect::<Vec<_>>()
             },
@@ -89,7 +101,7 @@ fn interior_samples(design: &CloseHelmetDesign) -> Vec<[f64; 2]> {
                     .collect()
             },
         );
-        if (20.0..=55.0).contains(&y) {
+        if matches!(detail, crate::ArmorDetail::BakeSource) && (20.0..=55.0).contains(&y) {
             columns.extend((-15..=15).map(f64::from));
             columns.sort_by(f64::total_cmp);
             columns.dedup_by(|a, b| (*a - *b).abs() < 0.1);
@@ -102,7 +114,7 @@ fn interior_samples(design: &CloseHelmetDesign) -> Vec<[f64; 2]> {
     points
 }
 
-fn openings(d: &CloseHelmetDesign) -> Vec<Vec<[f64; 2]>> {
+fn openings(d: &CloseHelmetDesign, detail: crate::ArmorDetail) -> Vec<Vec<[f64; 2]>> {
     let mut holes = Vec::new();
     let span = f64::from(d.sight_span.0);
     let bridge = f64::from(d.sight_bridge.0);
@@ -113,6 +125,7 @@ fn openings(d: &CloseHelmetDesign) -> Vec<Vec<[f64; 2]>> {
             f64::from(d.sight_gap.0),
             0.0,
             0.25,
+            detail,
         ));
     } else {
         for side in [-1.0, 1.0] {
@@ -122,9 +135,10 @@ fn openings(d: &CloseHelmetDesign) -> Vec<Vec<[f64; 2]>> {
                 f64::from(d.sight_gap.0),
                 0.0,
                 0.25,
+                detail,
             ));
         }
     }
-    holes.extend(d.breaths.openings(f64::from(HEIGHT_MM)));
+    holes.extend(d.breaths.openings(f64::from(HEIGHT_MM), detail));
     holes
 }

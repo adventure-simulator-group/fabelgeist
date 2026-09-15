@@ -84,6 +84,7 @@ mod tests {
         let faces = [[0, 1, 2]];
         let normals = [[0.8, 0., 0.6]; 3];
         let body = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             positions: &positions,
             faces: &faces,
             normals: &normals,

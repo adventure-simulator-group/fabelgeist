@@ -659,7 +659,7 @@ pub fn export_rigged_glb(
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
-    validate(mesh, shells, sockets)?;
+    validate(lod, mesh, shells, sockets)?;
     let compact = shells
         .iter()
         .map(|shell| compact::CompactShell::new(mesh, shell))
@@ -1025,7 +1025,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &bases,
                 morph_targets: &[],
@@ -1156,7 +1156,7 @@ mod tests {
             GlbOutput::Standalone(Path::new("unused.glb")),
             "Test",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -1233,7 +1233,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "Test",
             2,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &body_targets,
@@ -1343,7 +1343,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "leather_belt",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],

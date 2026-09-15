@@ -32,8 +32,8 @@ pub(super) fn vertex_normals(
 /// along its local boundary normals would turn the rim back into the plate.
 pub(super) fn rim_extrusion(mesh: &mut MidMesh) -> Result<(), GenerateError> {
     let mut normals = vertex_normals(&mesh.positions, &mesh.faces)?;
-    let start = V_SAMPLES - 1 - UPPER_RIM_ROWS;
-    for row in start + 1..V_SAMPLES {
+    let start = mesh.main_rows - 1 - UPPER_RIM_ROWS;
+    for row in start + 1..mesh.main_rows {
         let blend = (row - start) as f32 / UPPER_RIM_ROWS as f32;
         for column in 0..mesh.main_columns {
             let index = row * mesh.main_columns + column;
@@ -59,8 +59,8 @@ impl MidMesh {
             .extrusion_normals
             .as_mut()
             .ok_or(GenerateError::InvalidSurface)?;
-        let start = V_SAMPLES - 1 - UPPER_RIM_ROWS;
-        for row in start + 1..V_SAMPLES {
+        let start = self.main_rows - 1 - UPPER_RIM_ROWS;
+        for row in start + 1..self.main_rows {
             let blend = (row - start) as f32 / UPPER_RIM_ROWS as f32;
             for column in 0..self.main_columns {
                 let normal = &mut normals[row * self.main_columns + column];
@@ -211,6 +211,10 @@ pub(super) fn solidify(mid: MidMesh, thickness: f32) -> Result<SolidMesh, Genera
         .collect::<Vec<_>>();
     validate_closed_shell(&faces, &welded_indices)?;
     let mut solid = SolidMesh {
+        construction_faces: (0..mid.faces.len())
+            .map(|face| face * 6 + 3..face * 6 + 6)
+            .chain(std::iter::once(mid.faces.len() * 6..indices.len()))
+            .collect(),
         plate_edges: rim
             .into_iter()
             .map(|[a, b]| [a + count, b + count])

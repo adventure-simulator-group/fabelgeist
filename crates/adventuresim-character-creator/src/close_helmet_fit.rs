@@ -124,6 +124,7 @@ mod tests {
     #[test]
     fn collar_enlarges_neck_enclosure_without_widening_skull_or_jaw() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.085, 0.115, 0.105],
@@ -195,6 +196,7 @@ mod tests {
     #[test]
     fn requested_hem_is_preserved_or_shortened_to_the_largest_valid_plate_clearance() {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.085, 0.115, 0.105],

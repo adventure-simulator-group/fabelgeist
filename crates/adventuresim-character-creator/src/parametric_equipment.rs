@@ -29,6 +29,7 @@ pub(super) fn fitted_design(
     }
     let character = &model.mhr.character;
     let wearer = |positions, normals, joints| Wearer {
+        detail: model.armor_detail,
         faces: &character.mesh.faces,
         positions,
         normals,
@@ -37,14 +38,7 @@ pub(super) fn fitted_design(
         joint_weights: &character.skin_weights.weight,
         joint_names: &character.skeleton.names,
     };
-    let needs_support = matches!(
-        design,
-        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_))
-            | ParametricDesign::WaistAssembly(_)
-            | ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
-    ) || matches!(design, ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Spaulder(d)) if d.besagew.is_some())
-        || matches!(design, ParametricDesign::Garment(d) if d.kind == adventuresim_armor_model::GarmentArmorKind::Fauld);
-    let support = needs_support
+    let support = needs_torso_support(design)
         .then(|| {
             crate::torso_support::TorsoSupport::new(model, generated, catalog, breastplate, morphs)
         })
@@ -91,6 +85,7 @@ pub(super) fn fitted_design(
     let sheets = mesh.shell_vertex_ranges().collect::<Vec<_>>();
     let bytes = serde_json::to_vec(design)?;
     let mut armor = GeneratedArmor {
+        construction_faces: mesh.construction_face_ranges(),
         plate_edges: mesh.plate_edges(),
         design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
@@ -318,8 +313,18 @@ pub(super) fn selected(
             item_id: id.clone(),
             placement_id: selection.placement_id.clone(),
             name: format!("{id}--{}", selection.placement_id),
-            generated: piece,
+            generated: piece.for_rendering(model.armor_detail),
         });
     }
     Ok(pieces)
+}
+
+fn needs_torso_support(design: &ParametricDesign) -> bool {
+    matches!(
+        design,
+        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_))
+            | ParametricDesign::WaistAssembly(_)
+            | ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
+    ) || matches!(design, ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Spaulder(d)) if d.besagew.is_some())
+        || matches!(design, ParametricDesign::Garment(d) if d.kind == adventuresim_armor_model::GarmentArmorKind::Fauld)
 }

@@ -240,6 +240,7 @@ pub fn build_forearm_surface(input: ForearmSurfaceInput<'_>) -> Result<Anatomica
         })
         .collect();
     Ok(AnatomicalSurface {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         domain: input.domain.to_owned(),
         vertices: surface_vertices,
         faces,

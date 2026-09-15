@@ -1,5 +1,13 @@
 # Third-party notices
 
+## Art demo museum photographs
+
+`assets/art-demo/references/` contains CC0 photographs from the Metropolitan
+Museum of Art. Each image's museum and object record are recorded in
+`assets/art-demo/catalog.json`.
+See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
+object list and source licensing policies.
+
 ## Bevy PBR shader
 
 `assets/shaders/tactical_interior_material.wgsl` adapts Bevy 0.19.1's

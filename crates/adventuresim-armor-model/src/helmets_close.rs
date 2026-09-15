@@ -37,11 +37,13 @@ pub(super) fn generate(
     _brow: f32,
     half_height: f32,
     d: &CloseHelmetDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     generate_fitted(
         radii[1],
         half_height,
         d,
+        detail,
         &CloseHelmetProfile::authored(radii, d),
     )
 }
@@ -50,9 +52,11 @@ pub(super) fn generate_fitted(
     crown: f32,
     half_height: f32,
     d: &CloseHelmetDesign,
+    detail: crate::ArmorDetail,
     profile: &CloseHelmetProfile,
 ) -> Result<PartMesh, GenerateError> {
     let carrier = Carrier {
+        detail,
         crown,
         half_height,
         brow: half_height * super::shapes::BROW_HEIGHT,
@@ -85,6 +89,7 @@ pub(super) fn generate_fitted(
 }
 
 struct Carrier<'a> {
+    detail: crate::ArmorDetail,
     crown: f32,
     half_height: f32,
     brow: f32,
@@ -105,10 +110,19 @@ impl Carrier<'_> {
 
     fn row_height(&self, top: f32, angle: f32, row: usize) -> f32 {
         let jaw = self.jaw_height(angle);
-        if row <= JAW_ROWS {
-            top + (jaw - top) * row as f32 / JAW_ROWS as f32
+        if row <= self.detail.segments(JAW_ROWS, 2) {
+            {
+                let t = row as f32 / self.detail.segments(JAW_ROWS, 2) as f32;
+                let t = if matches!(self.detail, crate::ArmorDetail::Runtime(_)) && row == 1 {
+                    EAR_LOBE_TAPER_START
+                } else {
+                    t
+                };
+                top + (jaw - top) * t
+            }
         } else {
-            jaw + (self.hem_height(angle) - jaw) * (row - JAW_ROWS) as f32 / NECK_ROWS as f32
+            jaw + (self.hem_height(angle) - jaw) * (row - self.detail.segments(JAW_ROWS, 2)) as f32
+                / self.detail.segments(NECK_ROWS, 2) as f32
         }
     }
 
@@ -171,9 +185,10 @@ impl Carrier<'_> {
     fn bevor_normal_fraction(&self) -> f32 {
         let reserve = self.d.fit.wall_thickness.metres() + PLATE_GAP_M;
         let mut fraction = 1.0_f32;
-        for column in 0..=BEVOR_COLUMNS {
-            let angle = (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
-            for row in 1..=JAW_ROWS + NECK_ROWS {
+        for column in 0..=self.detail.segments(BEVOR_COLUMNS, 6) {
+            let angle = (column as f32 / self.detail.segments(BEVOR_COLUMNS, 6) as f32 * 2.0 - 1.0)
+                * SIDE_WRAP_RADIANS;
+            for row in 1..=self.detail.segments(JAW_ROWS, 2) + self.detail.segments(NECK_ROWS, 2) {
                 let upper = self.bevor_row_height(angle, row - 1);
                 let lower = self.bevor_row_height(angle, row);
                 let offset_gap =
@@ -251,7 +266,10 @@ impl Carrier<'_> {
     }
 
     fn skull(&self) -> Result<PartMesh, GenerateError> {
-        let mut surface = Surface::default();
+        let mut surface = Surface::new(
+            self.detail,
+            self.detail.segments(AROUND, 8).next_multiple_of(4),
+        );
         let radii = [
             self.profile.temple_half_width,
             self.crown,
@@ -265,13 +283,14 @@ impl Carrier<'_> {
                     * crown_blend;
             p[2] += self.profile.skull_center();
         }
-        let first = AROUND / 4;
-        let last = AROUND - first;
+        let around = surface.around;
+        let first = around / 4;
+        let last = around - first;
         let mut previous = rim[first..=last].to_vec();
-        for row in 1..=JAW_ROWS + NECK_ROWS {
+        for row in 1..=self.detail.segments(JAW_ROWS, 2) + self.detail.segments(NECK_ROWS, 2) {
             let ring = (first..=last)
                 .map(|i| {
-                    let angle = i as f32 / AROUND as f32 * PI * 2.0;
+                    let angle = i as f32 / around as f32 * PI * 2.0;
                     surface.vertex(self.point(angle, self.row_height(self.brow, angle, row), 0.0))
                 })
                 .collect::<Vec<_>>();
@@ -301,13 +320,18 @@ impl Carrier<'_> {
                 lame as f32 / LAMES as f32 - OVERLAP
             };
             let end = (lame + 1) as f32 / LAMES as f32;
-            let mut surface = Surface::default();
+            let mut surface = Surface::new(
+                self.detail,
+                self.detail.segments(AROUND, 8).next_multiple_of(4),
+            );
             let mut previous = Vec::new();
-            for row in 0..=LAME_ROWS {
-                let t = start + (end - start) * row as f32 / LAME_ROWS as f32;
-                let ring = (0..=LAME_COLUMNS)
+            for row in 0..=self.detail.segments(LAME_ROWS, 2) {
+                let t =
+                    start + (end - start) * row as f32 / self.detail.segments(LAME_ROWS, 2) as f32;
+                let ring = (0..=self.detail.segments(LAME_COLUMNS, 4))
                     .map(|column| {
-                        let u = column as f32 / LAME_COLUMNS as f32 * 2.0 - 1.0;
+                        let u = column as f32 / self.detail.segments(LAME_COLUMNS, 4) as f32 * 2.0
+                            - 1.0;
                         surface.vertex(self.nape_point(u, t, (LAMES - lame) as f32))
                     })
                     .collect::<Vec<_>>();
@@ -358,14 +382,18 @@ impl Carrier<'_> {
     }
 
     fn bevor(&self) -> Result<PartMesh, GenerateError> {
-        let mut surface = Surface::default();
+        let mut surface = Surface::new(
+            self.detail,
+            self.detail.segments(AROUND, 8).next_multiple_of(4),
+        );
         let mut previous = Vec::new();
         let normal_fraction = self.bevor_normal_fraction();
-        for row in 0..=JAW_ROWS + NECK_ROWS {
-            let ring = (0..=BEVOR_COLUMNS)
+        for row in 0..=self.detail.segments(JAW_ROWS, 2) + self.detail.segments(NECK_ROWS, 2) {
+            let ring = (0..=self.detail.segments(BEVOR_COLUMNS, 6))
                 .map(|column| {
                     let angle =
-                        (column as f32 / BEVOR_COLUMNS as f32 * 2.0 - 1.0) * SIDE_WRAP_RADIANS;
+                        (column as f32 / self.detail.segments(BEVOR_COLUMNS, 6) as f32 * 2.0 - 1.0)
+                            * SIDE_WRAP_RADIANS;
                     Ok(surface.vertex(self.bevor_point(
                         angle,
                         self.bevor_row_height(angle, row),
@@ -408,7 +436,7 @@ impl Carrier<'_> {
     }
 
     fn visor(&self) -> Result<PartMesh, GenerateError> {
-        let domain = VisorDomain::new(self.d)?;
+        let domain = VisorDomain::new(self.d, self.detail)?;
         let positions = domain
             .points
             .iter()
@@ -474,6 +502,7 @@ mod tests {
         };
         let profile = CloseHelmetProfile::authored([0.07575, 0.09825, 0.09075], &design);
         let carrier = Carrier {
+            detail: crate::ArmorDetail::BakeSource,
             crown: 0.09825,
             half_height: 0.08625,
             brow: 0.08625 * super::super::shapes::BROW_HEIGHT,
@@ -512,6 +541,7 @@ mod tests {
         let design = CloseHelmetDesign::default();
         let profile = CloseHelmetProfile::authored([0.10, 0.13, 0.12], &design);
         let carrier = Carrier {
+            detail: crate::ArmorDetail::BakeSource,
             crown: 0.13,
             half_height: 0.115,
             brow: 0.115 * super::super::shapes::BROW_HEIGHT,
@@ -542,6 +572,7 @@ mod tests {
             design.brow_overlap = Millimeters(overlap);
             design.brow_peak = Millimeters(peak);
             let carrier = Carrier {
+                detail: crate::ArmorDetail::BakeSource,
                 crown: 0.13,
                 half_height: 0.115,
                 brow: 0.115 * super::super::shapes::BROW_HEIGHT,
@@ -550,7 +581,14 @@ mod tests {
             };
             sights.push(carrier.visor_y(0.0, domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM));
             tops.push(carrier.visor_y(0.0, 0.0));
-            let mesh = generate_fitted(0.13, 0.115, &design, &profile).unwrap();
+            let mesh = generate_fitted(
+                0.13,
+                0.115,
+                &design,
+                crate::ArmorDetail::BakeSource,
+                &profile,
+            )
+            .unwrap();
             assert!(mesh.positions.iter().flatten().all(|v| v.is_finite()));
             let point = carrier.point(30.0 / HALF_WIDTH_MM * SIDE_WRAP_RADIANS, sights[0], 2.0);
             assert!(!blocks_sight(&mesh, point, profile.skull_center()));
@@ -575,14 +613,21 @@ mod tests {
                 let radii = [0.085 * scale + gap, height + gap, 0.105 * scale + gap];
                 let profile = CloseHelmetProfile::authored(radii, &design);
                 let carrier = Carrier {
+                    detail: crate::ArmorDetail::BakeSource,
                     crown: radii[1],
                     half_height: height,
                     brow: height * super::super::shapes::BROW_HEIGHT,
                     d: &design,
                     profile: &profile,
                 };
-                let mesh = generate_fitted(radii[1], height, &design, &profile)
-                    .unwrap_or_else(|e| panic!("scale {scale}, gauge {gauge}: {e:?}"));
+                let mesh = generate_fitted(
+                    radii[1],
+                    height,
+                    &design,
+                    crate::ArmorDetail::BakeSource,
+                    &profile,
+                )
+                .unwrap_or_else(|e| panic!("scale {scale}, gauge {gauge}: {e:?}"));
                 let y = carrier.visor_y(0.0, domain::SIGHT_CENTER_MM as f32 / HEIGHT_MM);
                 for x in [-30.0, 30.0] {
                     let p = carrier.point(x / HALF_WIDTH_MM * SIDE_WRAP_RADIANS, y, 2.0);

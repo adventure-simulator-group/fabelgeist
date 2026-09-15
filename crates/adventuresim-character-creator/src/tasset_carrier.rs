@@ -228,6 +228,7 @@ mod tests {
         });
         let mesh = generate_wrapped_tasset(
             &design,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
             TassetSide::Left,
             TassetSpan::new(0.65, 0.85).unwrap(),
             |angle, height| {

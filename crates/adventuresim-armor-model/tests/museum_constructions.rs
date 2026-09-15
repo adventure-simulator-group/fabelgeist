@@ -4,6 +4,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 fn frame(half_extents: [f32; 3]) -> PartFrame {
     PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents,
@@ -115,14 +116,14 @@ fn radial_flutes_cover_the_complete_disc_and_preserve_its_boss() {
         fluting: Some(radial),
         ..plain.clone()
     };
-    let mesh = generate_besagew(&d, PlateGauge::default()).unwrap();
+    let mesh = generate_besagew(&d, PlateGauge::default(), ArmorDetail::BakeSource).unwrap();
     assert_eq!(
         closed(&mesh),
         2,
         "disc must have no wedge opening or handle"
     );
     assert_eq!(mesh.components[0].role, ArmorComponentRole::Besagew);
-    let smooth = generate_besagew(&plain, PlateGauge::default()).unwrap();
+    let smooth = generate_besagew(&plain, PlateGauge::default(), ArmorDetail::BakeSource).unwrap();
     assert_eq!(bounds(&mesh, 2).1, bounds(&smooth, 2).1, "boss changed");
     let mut bins = vec![Vec::new(); 12];
     for p in &mesh.positions {
@@ -361,6 +362,7 @@ fn wrapped_gap_trims_both_medial_edges_without_changing_the_rear_returns() {
                 inner_gap: Millimeters(gap),
                 ..Default::default()
             }),
+            ArmorDetail::BakeSource,
             side,
             TassetSpan::new(0.0, 0.5).unwrap(),
             |angle, _height| [sign * 0.02 + 0.10 * angle.sin(), 0.10 * angle.cos()],
@@ -410,6 +412,7 @@ fn impossible_wrapped_gap_rejects_the_carrier_instead_of_violating_the_cut() {
     });
     let mesh = generate_wrapped_tasset(
         &d,
+        ArmorDetail::BakeSource,
         TassetSide::Left,
         TassetSpan::new(0.0, 0.5).unwrap(),
         |angle, _height| [0.04 * angle.sin(), 0.04 * angle.cos()],
@@ -440,6 +443,7 @@ fn wrapped_tasset_shaped_edges_keep_clearance_on_the_final_conical_section() {
         design.flare = Permille(0);
         let mesh = generate_wrapped_tasset(
             &design,
+            ArmorDetail::BakeSource,
             TassetSide::Left,
             TassetSpan::new(0.6, 0.9).unwrap(),
             |angle, height| {
@@ -644,6 +648,7 @@ fn buffe_breaths_reject_colliding_patterns_and_open_edge_cuts() {
 fn pauldron_wing_depth_survives_short_rounded_returns() {
     for side in [-1.0, 1.0] {
         let fit = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             axes: [[0.0, 0.0, side], [side, 0.0, 0.0], [0.0, 1.0, 0.0]],
             ..frame([0.09, 0.12, 0.09])
         };
@@ -685,6 +690,7 @@ fn deep_pauldron_wings_do_not_fold_when_fitted_to_flat_chest_planes() {
     for side in [-1.0, 1.0] {
         let diagonal = std::f32::consts::FRAC_1_SQRT_2;
         let fit = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             axes: [
                 [0.0, 0.0, side],
                 [side * diagonal, diagonal, 0.0],
@@ -751,6 +757,7 @@ fn deep_pauldron_wings_do_not_fold_when_fitted_to_flat_chest_planes() {
 fn pauldron_returns_edit_one_wing_boundary_and_preserve_the_arm_courses() {
     for side in [-1.0, 1.0] {
         let fit = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             axes: [[0.0, 0.0, side], [side, 0.0, 0.0], [0.0, 1.0, 0.0]],
             ..frame([0.09, 0.12, 0.09])
         };
@@ -828,6 +835,7 @@ fn pauldron_returns_edit_one_wing_boundary_and_preserve_the_arm_courses() {
 #[test]
 fn pauldron_hanging_roundness_changes_breadth_without_moving_angular_returns() {
     let fit = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         axes: [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
         ..frame([0.09, 0.12, 0.09])
     };
@@ -876,6 +884,7 @@ fn pauldron_hanging_roundness_changes_breadth_without_moving_angular_returns() {
 #[test]
 fn pauldron_low_regions_move_independently_without_changing_coverage() {
     let fit = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         axes: [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
         ..frame([0.09, 0.12, 0.09])
     };
@@ -1406,7 +1415,7 @@ fn fauld_arch_and_plate_gauge_limits_reject_invalid_material_geometry() {
             thickness: Millimeters(thickness),
         };
         assert!(
-            generate_besagew(&BesagewDesign::default(), gauge).is_err(),
+            generate_besagew(&BesagewDesign::default(), gauge, ArmorDetail::BakeSource).is_err(),
             "public besagew generation bypassed the plate gauge domain"
         );
     }
@@ -1418,6 +1427,7 @@ fn wrapped_tassets_keep_closed_courses_and_mirrored_return_orientation() {
     let build = |side, sign: f32| {
         generate_wrapped_tasset(
             &design,
+            ArmorDetail::BakeSource,
             side,
             TassetSpan::new(0.0, 0.55).unwrap(),
             |angle, _height| [sign * 0.12 + 0.085 * angle.sin(), 0.09 * angle.cos()],
@@ -1513,7 +1523,7 @@ fn invalid_constructions_are_rejected_before_building_geometry() {
         }),
         ..Default::default()
     };
-    assert!(generate_besagew(&disc, PlateGauge::default()).is_err());
+    assert!(generate_besagew(&disc, PlateGauge::default(), ArmorDetail::BakeSource).is_err());
     let burgonet = BurgonetDesign {
         buffe: Some(BuffeDesign {
             sight_gap: Millimeters(0),
@@ -1774,6 +1784,7 @@ mod torso_fixture {
                 .collect(),
         ];
         TorsoSurface {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             domain: "test_body_v2".into(),
             front: [0.0, 0.0, 1.0],
             morph_fronts: vec![[0.0, 0.0, 1.0]],

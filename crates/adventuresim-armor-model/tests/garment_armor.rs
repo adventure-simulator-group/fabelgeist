@@ -50,6 +50,7 @@ fn frame(kind: GarmentArmorKind) -> PartFrame {
         _ => [0.210, 0.240, 0.125],
     };
     PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents,
@@ -318,6 +319,7 @@ fn gorget_lowest_neck_band_and_bib_are_one_physically_closed_sheet() {
         design.lame_count = count;
         let mesh = adventuresim_armor_model::generate_gorget_plates(
             &design,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
             |t, angle| {
                 [
                     0.08 * angle.sin(),
@@ -459,6 +461,7 @@ fn flared_short_gorget_collars_keep_compact_returns_at_physical_gauge() {
         design.wall_thickness = Millimeters(1);
         let mesh = adventuresim_armor_model::generate_gorget_plates(
             &design,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
             |t, angle| {
                 let radius = 0.075 + 0.02 * t;
                 [

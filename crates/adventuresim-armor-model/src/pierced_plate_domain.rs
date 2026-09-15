@@ -15,6 +15,7 @@ impl PiercedDomain {
         outer: &[[f64; 2]],
         holes: &[Vec<[f64; 2]>],
         interior: impl IntoIterator<Item = [f64; 2]>,
+        detail: crate::ArmorDetail,
     ) -> Result<Self, GenerateError> {
         for hole in holes {
             if hole
@@ -31,7 +32,7 @@ impl PiercedDomain {
         {
             return Err(DesignError::VisorOpeningSpacing.into());
         }
-        let (samples, constraints) = sample_domain(outer, holes, interior);
+        let (samples, constraints) = sample_domain(outer, holes, interior, detail);
         let cdt =
             ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(samples, constraints)
                 .map_err(|_| GenerateError::InvalidSurface)?;
@@ -65,13 +66,14 @@ fn sample_domain(
     outer: &[[f64; 2]],
     holes: &[Vec<[f64; 2]>],
     interior: impl IntoIterator<Item = [f64; 2]>,
+    detail: crate::ArmorDetail,
 ) -> (Vec<Point2<f64>>, Vec<[usize; 2]>) {
     let mut points = Vec::new();
     let mut constraints = Vec::new();
     for boundary in std::iter::once(outer).chain(holes.iter().map(Vec::as_slice)) {
         let start = points.len();
         for (a, b) in edges(boundary) {
-            let steps = (distance(*a, *b) / SAMPLE_SPACING_MM).ceil() as usize;
+            let steps = detail.segments((distance(*a, *b) / SAMPLE_SPACING_MM).ceil() as usize, 1);
             for i in 0..steps.max(1) {
                 let t = i as f64 / steps.max(1) as f64;
                 points.push(Point2::new(
@@ -102,17 +104,19 @@ pub(crate) fn rounded_slot(
     height: f64,
     angle: f64,
     rounding: f64,
+    detail: crate::ArmorDetail,
 ) -> Vec<[f64; 2]> {
+    let corner_steps = detail.segments(CORNER_STEPS, 1);
     let radius = width.min(height) * 0.5 * rounding;
     let mut points = Vec::new();
     for (corner, sign) in [[1.0, 1.0], [-1.0, 1.0], [-1.0, -1.0], [1.0, -1.0]]
         .iter()
         .enumerate()
     {
-        let steps = if radius == 0.0 { 0 } else { CORNER_STEPS };
+        let steps = if radius == 0.0 { 0 } else { corner_steps };
         for step in 0..=steps {
             let theta =
-                (corner as f64 + step as f64 / CORNER_STEPS as f64) * std::f64::consts::FRAC_PI_2;
+                (corner as f64 + step as f64 / corner_steps as f64) * std::f64::consts::FRAC_PI_2;
             let x = sign[0] * (width * 0.5 - radius) + radius * theta.cos();
             let y = sign[1] * (height * 0.5 - radius) + radius * theta.sin();
             let p = [

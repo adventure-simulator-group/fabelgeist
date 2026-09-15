@@ -56,6 +56,7 @@ mod tests {
 
     fn triangle() -> GeneratedArmor {
         GeneratedArmor {
+            construction_faces: Vec::new(),
             design_hash: [0; 32],
             surface_domain: String::new(),
             plate_edges: Vec::new(),

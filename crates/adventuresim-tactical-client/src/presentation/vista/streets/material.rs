@@ -102,10 +102,10 @@ pub(crate) struct CityGroundExtension {
     #[uniform(100)]
     texture_scale: Vec4,
     #[uniform(100)]
-    traffic_transform: Vec4,
+    pub(super) traffic_transform: Vec4,
     #[texture(107)]
     #[sampler(108)]
-    traffic_mask: Handle<Image>,
+    pub(super) traffic_mask: Handle<Image>,
     #[texture(101)]
     #[sampler(102)]
     soil_height_ao: Handle<Image>,

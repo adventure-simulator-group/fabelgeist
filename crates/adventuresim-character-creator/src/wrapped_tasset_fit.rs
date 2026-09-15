@@ -77,17 +77,18 @@ pub(crate) fn fit(
             Side::Left => TassetSide::Left,
             Side::Right => TassetSide::Right,
         };
-        let side_mesh = generate_wrapped_tasset(design, tasset_side, span, |angle, height| {
-            let axial = span.axial(height);
-            let flare = 1.0 + design.flare.unit() * (1.0 - axial);
-            let direction = [angle.sin(), angle.cos()];
-            let (center, radius) = carrier.sample(height, direction);
-            let radius = radius * flare.max(1.0) + gap;
-            let x = center[0] + radius * direction[0];
-            let point = [x, height, center[1] + radius * direction[1]];
-            let seated = seat.as_ref().map_or(point, |seat| seat.point(point));
-            [seated[0], seated[2]]
-        })?;
+        let side_mesh =
+            generate_wrapped_tasset(design, wearer.detail, tasset_side, span, |angle, height| {
+                let axial = span.axial(height);
+                let flare = 1.0 + design.flare.unit() * (1.0 - axial);
+                let direction = [angle.sin(), angle.cos()];
+                let (center, radius) = carrier.sample(height, direction);
+                let radius = radius * flare.max(1.0) + gap;
+                let x = center[0] + radius * direction[0];
+                let point = [x, height, center[1] + radius * direction[1]];
+                let seated = seat.as_ref().map_or(point, |seat| seat.point(point));
+                [seated[0], seated[2]]
+            })?;
         ensure!(
             side_mesh
                 .positions

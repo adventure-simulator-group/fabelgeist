@@ -128,6 +128,7 @@ mod tests {
             }
             let weights = vec![[0.125; 8]; positions.len()];
             let wearer = Wearer {
+                detail: adventuresim_armor_model::ArmorDetail::BakeSource,
                 positions: &positions,
                 faces: &faces,
                 normals: &[],

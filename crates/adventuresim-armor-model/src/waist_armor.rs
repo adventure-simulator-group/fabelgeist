@@ -39,6 +39,7 @@ pub fn suspend_horizontal_tassets(fauld: &PartMesh, mut tassets: PartMesh) -> Pa
     let shift = (hem - TASSET_SUSPENSION_GAP_M - top).min(0.0);
     if shift < 0.0 {
         tassets = tassets.transformed(&crate::PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0, shift, 0.0],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [1.0; 3],

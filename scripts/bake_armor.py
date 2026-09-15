@@ -1,8 +1,9 @@
 """Bake high-detail armor normals and independent linear ambient occlusion.
 
 blender --background --python-exit-code 1 --python scripts/bake_armor.py -- DIRECTORY
+--source-directory DENSE_REVIEW_DIRECTORY
 The material atlas is TEXCOORD_0; anatomical UVs, positions, skin and hinges
-remain unchanged. Normal detail is measured against a smooth shading carrier.
+remain unchanged. Detail is projected from matching dense recipe JSON onto native LOD geometry.
 """
 import argparse
 import copy
@@ -15,7 +16,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bpy
 import numpy as np
 from armor_glb import Asset, retains_body_uvs
-from armor_bake_math import carrier_normals, dilate, normal_atlas, unit
+from armor_bake_math import dilate, normal_atlas, unit
+from armor_bake_projection import project
 from armor_tangents import condition_carrier_normals, corner_frame
 
 
@@ -94,7 +96,7 @@ def carrier_tangents(mesh, normals):
     return np.array(sources), np.array(indices), np.array(result)
 
 
-def process(path, resolution, samples):
+def process(path, source_path, resolution, samples):
     if retains_body_uvs(path):
         return []
     asset = Asset(path)
@@ -124,7 +126,7 @@ def process(path, resolution, samples):
         fields = np.stack([original, *[
             unit(original + asset.array(target["NORMAL"])) for target in primitive.get("targets", [])
         ]], axis=1)
-        smooth = carrier_normals(positions, faces, fields)
+        smooth = fields.copy()
         smooth[:, 0] = condition_carrier_normals(obj.data, smooth[:, 0])
         source, indices, tangent = carrier_tangents(obj.data, smooth[:, 0])
         obj.data.normals_split_custom_set_from_vertices(original.tolist())
@@ -136,13 +138,29 @@ def process(path, resolution, samples):
         faces = indices.reshape(-1, 3)
         original, smooth, uv = original[source], smooth[source], uv[source]
         pixels, covered = normal_atlas(uv, faces, original, smooth[:, 0], tangent, resolution)
-        detail = float(np.max(np.linalg.norm(pixels[covered, :2] - .5, axis=1)))
-        pixels = dilate(pixels, covered.copy())
         normal_image = bpy.data.images.new(obj.name + " detail", resolution, resolution, alpha=False)
         normal_image.colorspace_settings.name = "Non-Color"
+        obj.data.normals_split_custom_set_from_vertices(smooth[:, 0][np.unique(source, return_index=True)[1]].tolist())
+        if obj.name in {"leather_straps", "buckles"}:
+            # Fasteners are fitted to this LOD's plates. They carry no modeled
+            # flute relief and must not project from a different fitted strap.
+            projection = {"normal_source": "native_fastener_normals"}
+        else:
+            pixels, projection = project(source_path, obj.name, obj, normal_image)
+        vectors = pixels[covered, :3] * 2 - 1
+        if np.any(~np.isfinite(vectors)) or np.mean(np.abs(np.linalg.norm(vectors, axis=1) - 1) > .15) > .01:
+            raise ValueError(f"{path.name}/{obj.name}: dense projection missed the runtime surface")
+        # Cycles filters subpixel samples at sharp normal boundaries. Restore
+        # unit directions before PNG quantization and give unused UV space a
+        # neutral tangent normal instead of baking background pixels.
+        pixels[covered, :3] = unit(vectors) * .5 + .5
+        pixels[~covered] = [.5, .5, 1, 1]
+        detail = float(np.max(np.linalg.norm(pixels[covered, :2] - .5, axis=1)))
+        pixels = dilate(pixels, covered.copy())
         # Blender image buffers start at the bottom; glTF atlas rows start at top.
         normal_image.pixels.foreach_set(pixels[::-1].flatten())
         normal_file = save_image(normal_image, path.parent, "normal")
+        obj.data.materials[0].node_tree.nodes.active.image = ao_image
         bpy.data.images.remove(normal_image)
         bpy.ops.object.select_all(action="DESELECT")
         obj.select_set(True)
@@ -167,7 +185,8 @@ def process(path, resolution, samples):
             target["NORMAL"] = asset.append(smooth[:, index + 1] - smooth[:, 0])
         primitive.setdefault("extras", {})["adventuresim_surface_bake"] = {
             "resolution": resolution, "ao_samples": samples, "material_uv": 0,
-            "normal_source": "detailed_geometry", "carrier": "smoothed_shading_normals",
+            "normal_source": "dense_recipe_geometry", "carrier": "native_lod_geometry",
+            **projection,
         }
         result.append({"mesh": obj.name, "normal": normal_file, "ao": ao_file,
                        "maximum_tangent_detail": detail, "covered_texels": int(covered.sum())})
@@ -186,6 +205,8 @@ def process(path, resolution, samples):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("directory", type=Path)
+    parser.add_argument("--source-directory", type=Path, required=True,
+                        help="Dense review JSON generated from the same body and armor recipes")
     parser.add_argument("--resolution", type=int, default=1024, choices=[256, 512, 1024, 2048])
     parser.add_argument("--samples", type=int, default=32)
     parser.add_argument("--only", action="append")
@@ -197,7 +218,7 @@ def main():
     for path in sorted(args.directory.glob("*.glb")):
         if args.only and path.stem not in args.only:
             continue
-        results[path.name] = process(path, args.resolution, args.samples)
+        results[path.name] = process(path, args.source_directory / (path.stem + ".json"), args.resolution, args.samples)
         print(path.name, results[path.name], flush=True)
     if not results:
         parser.error("no matching equipment assets")

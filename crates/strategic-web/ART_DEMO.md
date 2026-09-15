@@ -1,0 +1,120 @@
+# Procedural art demo
+
+The strategic server serves `/art-demo` without a session, character selection,
+or database query. It uses one standalone Bevy application and canvas for the
+document's lifetime. No tactical connection is opened.
+
+Build the browser bundles with `just build-wasm`, then start the strategic
+server through the usual development workflow. Both `adventuresim-tactical-client`
+and `art-demo` JavaScript/Wasm bundles are generated into the existing tactical
+static directory. The demo loads assets from `/tactical/assets` and its page
+scripts and styles from `/static/art-demo`.
+
+The `wasm-bindgen` CLI must match the version in `Cargo.lock`; the build checks
+this before compiling. To use a separate matching installation, run
+`python scripts/build_wasm.py --bindgen PATH_TO_WASM_BINDGEN`.
+
+Open `/art-demo` over HTTPS or localhost in a browser with WebGPU. Drag to orbit
+and scroll to zoom. WASD pans across all scenes. Touch supports one-finger orbit
+and pinch zoom. With the canvas focused, arrow keys orbit and plus/minus zoom.
+Tabs support arrow keys,
+Home, and End. Exhibit hashes, such as `/art-demo#oak`, are directly linkable.
+
+## Exhibits
+
+- Armor: the full Henry VIII and fluted Nuremberg museum assemblies from
+  `codex/museum-armor-sets` (PR #653), packaged as static GLBs with their saved
+  poses and finishes. Each is shown beside its Met reference photograph.
+- Weapons: six default recipes from `adventuresim-weapon-model`, generated in
+  the viewer using the browser forge's material palette.
+- Cityscape: a complete 30,000-resident settlement from the production city
+  generator, using the massive-city fixture's seed, economy and building recipe
+  selection. Exterior LODs include close-up framing, doors and windows. Zoom
+  reaches a one-metre orbit distance; WASD explores the ground plane. Full
+  gameplay collision and building furniture placement are omitted. Display
+  buildings are supplied after terrain generation, which avoids compiling their
+  recipes again for unused furniture sites.
+  Street materials load their detailed traffic masks within 110 metres of the
+  camera, one tile per frame, and release distant masks. The overview retains
+  all street and yard surfaces without allocating a city-wide wheel network.
+  Building meshes are compiled offline with the production generator. Browser
+  assembly yields between batches and reports completed building counts.
+  Full detail is loaded for at most sixteen nearby buildings, one per
+  frame, and its cache is released as the camera moves away. Facades remain
+  visible while full detail loads. Switching tabs cancels pending buildings
+  and releases their prepared asset handles and mesh cache.
+- Oak: an exposed generated oak in `sparse-woodland`, with its hilly terrain,
+  production bark, foliage, and ground scatter. The initial low close-up frames
+  the roots, trunk, and lower canopy.
+
+The oak generator's existing root-spread and root-exposure parameters extend
+and raise the buttress shoulders while leaving the tapered tips buried. This
+applies to exposed production oaks as well as the demo; the unexposed recipe is
+unchanged.
+
+[The exhibit catalog](../../assets/art-demo/catalog.json) owns labels, fixed
+initial framing, shipped asset paths, and museum metadata. The Rust boundary
+accepts only known exhibit IDs and finite orbit/zoom/pan inputs. Museum
+photographs are local assets with
+[source and license records](../../assets/art-demo/ATTRIBUTION.md).
+
+Tab changes clear scene presentation entities and tree caches, then allow four
+frames for asset retirement before generating the next exhibit. The GPU device,
+sky, and shared procedural textures remain resident. The standalone viewer uses
+the same production presentation plugin as tactical play. It does not run
+gameplay or persist state.
+The demo selects 4× MSAA because WebGPU does not support the desktop 2× preset.
+Terrain shares identical litter and cliff samplers to keep its production
+material within WebGPU's sixteen-sampler limit.
+Cached litter prototypes retain CPU geometry for later scene assembly; completed
+batches upload to the renderer without retaining their CPU copy.
+Bark evaluates soil texture derivatives in uniform control flow, as WebGPU
+requires, while keeping terrain-height lookups bounded to the root-contact band.
+
+## Museum assembly packaging
+
+`scripts/export_art_demo_armor.py` runs inside Blender and reuses the museum
+branch's `render_museum_armor.py` import, material and pose rules. Pass
+`--renderer`, a finished `--preset` comparison JSON, `--output`, and `--lod 4`.
+It bakes that saved pose into static meshes and embeds the existing images,
+capping oversized garment atlases at 2048 pixels for browser residency.
+The adjacent `.sources.json` files record input hashes, pose, LOD, and separate
+metal, clothing, fastener, and body triangle counts. Packaging rejects metal
+totals above the included body's triangle count or mixed equipment LODs.
+
+Runtime character and armor exports support LOD4 through LOD6. Armor samples
+the original recipe surfaces directly; no mesh decimation or vertex merging is
+used. Fitting uses complete shells, while display metal retains the outer
+sheets with two-sided materials. Dense geometry exists only as bake input.
+The checked-in source and prepared character bases both use LOD4.
+
+To rebuild a museum assembly, use its `body.json`, `armor.json`,
+`breastplate.json`, `vambrace.json`, and `fasteners.json` from
+`crates/adventuresim-armor-model/review/museum/{henry,nuremberg}` with the
+character creator's recipe and design flags. Export at `--lod 4` with
+`--armor-review-selection recipe --armor-review-dir RUNTIME_DIRECTORY`.
+Repeat to a separate source directory with `--armor-bake-source`. Run
+`scripts/finish_equipment.py RUNTIME_DIRECTORY --stage uv`, then use
+`--stage bake --source-directory SOURCE_DIRECTORY` to bake the runtime GLBs.
+Apply the museum's `metal.json` with `scripts/color_armor.py` and then its
+`trim.json` with `scripts/trim_armor.py`.
+
+Copy the museum's saved comparison preset and point its equipment items to the
+finished runtime GLBs, its body to the runtime review's `body.json`, and its
+skeleton to `assets_src/biped/unarmed/base.glb`. Review front, side, and quarter
+views before packaging. These are standalone display assets; serving the demo
+does not require a museum worktree or any dense bake inputs.
+
+Regenerate the city layout with
+`cargo run -p adventuresim-tactical-client --example generate-art-demo-city`.
+The browser reads `assets/art-demo/city-layout.json`; expensive settlement
+recipe validation runs during asset generation instead of tab navigation.
+
+Then run
+`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+This writes the production facade, shell and detail meshes to
+`assets/art-demo/buildings`, keyed by the serialized recipe. Overview and
+inspection assets are separate; placement materials and shop names remain
+deterministic at runtime. Regenerate these assets after changing building
+recipes or the city layout. The browser does not compile building geometry
+or collision.

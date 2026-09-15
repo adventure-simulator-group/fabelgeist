@@ -99,6 +99,7 @@ mod tests {
         );
         let count = mesh.positions.len();
         let mut armor = GeneratedArmor {
+            construction_faces: Vec::new(),
             design_hash: [0; 32],
             surface_domain: "test".into(),
             normals: mesh.normals().unwrap(),
@@ -131,6 +132,7 @@ mod tests {
         });
         let mesh = generate_wrapped_tasset(
             &design,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
             TassetSide::Left,
             TassetSpan::new(0.6, 0.9).unwrap(),
             |angle, _height| [0.01 + 0.08 * angle.sin(), 0.08 * angle.cos()],
@@ -144,6 +146,7 @@ mod tests {
             "fixture must exercise medial relief/return aliases"
         );
         let mut armor = GeneratedArmor {
+            construction_faces: Vec::new(),
             design_hash: [0; 32],
             surface_domain: "test".into(),
             normals: mesh.normals().unwrap(),
@@ -187,6 +190,7 @@ mod tests {
             material: None,
         };
         let mut armor = GeneratedArmor {
+            construction_faces: Vec::new(),
             design_hash: [0; 32],
             surface_domain: "test".into(),
             normals: vec![[0.0, 0.0, 1.0]; 9],

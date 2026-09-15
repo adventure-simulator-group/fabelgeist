@@ -50,15 +50,23 @@ impl BesagewDesign {
 }
 
 /// A closed disc in its own X/Y plane, with the outward face toward +Z.
-pub fn generate_besagew(d: &BesagewDesign, gauge: PlateGauge) -> Result<PartMesh, GenerateError> {
+pub fn generate_besagew(
+    d: &BesagewDesign,
+    gauge: PlateGauge,
+    detail: crate::ArmorDetail,
+) -> Result<PartMesh, GenerateError> {
     d.validate()?;
     gauge.validate()?;
-    const RADIAL_ROWS: usize = 24;
+    let radial_rows = detail.segments(24, 3);
+    let mut d = d.clone();
+    if matches!(detail, crate::ArmorDetail::Runtime(_)) {
+        d.fluting = None;
+    }
     const MINIMUM_COLUMNS: usize = 96;
     const BOSS_RADIUS_FRACTION: f32 = 0.28;
-    let count = d
-        .fluting
-        .map_or(MINIMUM_COLUMNS, |f| f.columns().max(MINIMUM_COLUMNS));
+    let count = d.fluting.map_or(detail.segments(MINIMUM_COLUMNS, 16), |f| {
+        f.columns().max(MINIMUM_COLUMNS)
+    });
     let columns = (0..count)
         .map(|i| i as f32 / count as f32)
         .collect::<Vec<_>>();
@@ -66,8 +74,8 @@ pub fn generate_besagew(d: &BesagewDesign, gauge: PlateGauge) -> Result<PartMesh
     let mut relief = vec![0.0];
     let mut indices = Vec::new();
     let mut previous = Vec::new();
-    for row in 1..=RADIAL_ROWS {
-        let radial = row as f32 / RADIAL_ROWS as f32;
+    for row in 1..=radial_rows {
+        let radial = row as f32 / radial_rows as f32;
         let boss = (radial / BOSS_RADIUS_FRACTION).min(1.0);
         let height = d.boss_height.metres() * (1.0 - boss * boss * (3.0 - 2.0 * boss));
         let mut ring = Vec::new();

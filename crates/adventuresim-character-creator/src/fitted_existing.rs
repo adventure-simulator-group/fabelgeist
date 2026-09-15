@@ -7,7 +7,7 @@ pub(super) fn fitted_bracer(
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
-    let surface = build_forearm_surface(ForearmSurfaceInput {
+    let mut surface = build_forearm_surface(ForearmSurfaceInput {
         domain: MHR_ANATOMICAL_UV_DOMAIN,
         side,
         positions: &generated.positions,
@@ -22,6 +22,7 @@ pub(super) fn fitted_bracer(
         morphs,
     })
     .map_err(anyhow::Error::msg)?;
+    surface.detail = model.armor_detail;
     let armor = generate_bracer(design, &surface).map_err(anyhow::Error::new)?;
     Ok(character_morphs::correct_armor_fit(
         armor, generated, morphs,
@@ -35,7 +36,7 @@ pub(super) fn fitted_breastplate(
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
-    let surface = build_front_torso_surface(TorsoSurfaceInput {
+    let mut surface = build_front_torso_surface(TorsoSurfaceInput {
         domain: MHR_ANATOMICAL_UV_DOMAIN,
         positions: &generated.positions,
         normals: &generated.normals,
@@ -49,9 +50,10 @@ pub(super) fn fitted_breastplate(
         morphs,
     })
     .map_err(anyhow::Error::msg)?;
+    surface.detail = model.armor_detail;
     let mut armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
     breastplate_skeletal_fit::refit(&mut armor, morphs, |sample| {
-        let surface = build_front_torso_surface(TorsoSurfaceInput {
+        let mut surface = build_front_torso_surface(TorsoSurfaceInput {
             domain: MHR_ANATOMICAL_UV_DOMAIN,
             positions: &sample.positions,
             normals: &sample.normals,
@@ -65,6 +67,7 @@ pub(super) fn fitted_breastplate(
             morphs: &[],
         })
         .map_err(anyhow::Error::msg)?;
+        surface.detail = model.armor_detail;
         Ok(generate_breastplate(design, &surface)?)
     })?;
     Ok(character_morphs::correct_armor_fit(

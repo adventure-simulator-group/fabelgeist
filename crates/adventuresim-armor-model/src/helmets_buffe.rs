@@ -72,8 +72,10 @@ pub(super) fn generate(
     half_height: f32,
     helmet: &super::BurgonetDesign,
     design: &BuffeDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     let carrier = Carrier {
+        detail,
         radii,
         brow,
         half_height,
@@ -94,6 +96,7 @@ pub(super) fn generate(
             [0.0, 1.0],
             |_, _| 0.0,
             |u, v| carrier.point(u, v),
+            detail,
         )?
     };
     Ok(mesh.with_component(ArmorComponentRole::Buffe, None))
@@ -105,6 +108,7 @@ const CHART_HALF_WIDTH_MM: f64 = 160.0;
 const CHART_HEIGHT_MM: f64 = 100.0;
 
 struct Carrier<'a> {
+    detail: crate::ArmorDetail,
     radii: [f32; 3],
     brow: f32,
     half_height: f32,
@@ -114,6 +118,7 @@ struct Carrier<'a> {
 impl Carrier<'_> {
     fn point(&self, u: f32, v: f32) -> [f32; 3] {
         let Self {
+            detail: _,
             radii,
             brow,
             half_height,
@@ -164,9 +169,13 @@ impl Carrier<'_> {
     }
 
     fn pierced(&self, breaths: &VisorBreaths, gauge: f32) -> Result<PartMesh, GenerateError> {
-        pierced_patch(breaths, [0.0, CHART_HEIGHT_MM], gauge, |u, v| {
-            self.point(u, v)
-        })
+        pierced_patch(
+            breaths,
+            [0.0, CHART_HEIGHT_MM],
+            gauge,
+            self.detail,
+            |u, v| self.point(u, v),
+        )
     }
 }
 
@@ -174,6 +183,7 @@ fn pierced_patch(
     breaths: &VisorBreaths,
     [top, bottom]: [f64; 2],
     gauge: f32,
+    detail: crate::ArmorDetail,
     point: impl Fn(f32, f32) -> [f32; 3],
 ) -> Result<PartMesh, GenerateError> {
     let outer = [
@@ -182,17 +192,18 @@ fn pierced_patch(
         [CHART_HALF_WIDTH_MM, bottom],
         [-CHART_HALF_WIDTH_MM, bottom],
     ];
-    const HALF_COLUMNS: i32 = 40;
-    let interior = (1..FACE_ROWS).flat_map(|row| {
-        (-HALF_COLUMNS + 1..HALF_COLUMNS).map(move |column| {
+    let half_columns = detail.segments(40, 4) as i32;
+    let rows = detail.segments(FACE_ROWS, 4);
+    let interior = (1..rows).flat_map(|row| {
+        (-half_columns + 1..half_columns).map(move |column| {
             [
-                f64::from(column) * CHART_HALF_WIDTH_MM / f64::from(HALF_COLUMNS),
-                top + row as f64 * (bottom - top) / FACE_ROWS as f64,
+                f64::from(column) * CHART_HALF_WIDTH_MM / f64::from(half_columns),
+                top + row as f64 * (bottom - top) / rows as f64,
             ]
         })
     });
-    let holes = breaths.openings(CHART_HEIGHT_MM);
-    let domain = crate::pierced_plate_domain::PiercedDomain::new(&outer, &holes, interior)?;
+    let holes = breaths.openings(CHART_HEIGHT_MM, detail);
+    let domain = crate::pierced_plate_domain::PiercedDomain::new(&outer, &holes, interior, detail)?;
     let positions = domain
         .points
         .iter()

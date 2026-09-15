@@ -57,6 +57,7 @@ mod tests {
 
     fn generated(design: &LimbArmorDesign) -> GeneratedArmor {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.065, 0.055, 0.050],
@@ -64,6 +65,7 @@ mod tests {
         let mesh = generate_limb_armor(design, &frame).unwrap();
         let count = mesh.positions.len();
         GeneratedArmor {
+            construction_faces: Vec::new(),
             plate_edges: mesh.plate_edges(),
             components: mesh.components.clone(),
             design_hash: [0; 32],

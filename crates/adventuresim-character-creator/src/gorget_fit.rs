@@ -46,6 +46,7 @@ pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh>
     ensure!(height.is_finite() && height > 0.0, "invalid neck landmarks");
     let heading = wearer.frame(FitRegion::Head)?;
     let frame = PartFrame {
+        detail: wearer.detail,
         origin: neck,
         axes: heading.axes,
         half_extents: [height; 3],
@@ -68,7 +69,7 @@ pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh>
         design.clearance.metres() + design.wall_thickness.metres(),
     );
     Ok(cage
-        .mesh(design, &samples, wearer.faces)?
+        .mesh(design, wearer.detail, &samples, wearer.faces)?
         .transformed(&frame))
 }
 
@@ -482,7 +483,12 @@ mod tests {
     #[test]
     fn collar_and_bib_form_one_closed_consistently_wound_material_shell() {
         let mesh = cage()
-            .mesh(&GarmentArmorDesign::new(GarmentArmorKind::Gorget), &[], &[])
+            .mesh(
+                &GarmentArmorDesign::new(GarmentArmorKind::Gorget),
+                adventuresim_armor_model::ArmorDetail::BakeSource,
+                &[],
+                &[],
+            )
             .unwrap();
         mesh.normals().unwrap();
         let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();

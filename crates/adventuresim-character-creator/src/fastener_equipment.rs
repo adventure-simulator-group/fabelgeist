@@ -77,6 +77,7 @@ pub(super) fn attach(
         });
     }
     let mut hardware = GeneratedArmor {
+        construction_faces: Vec::new(),
         design_hash: adventuresim_armor_model::parametric_design_hash(&serde_json::to_vec(recipe)?),
         surface_domain: armor.surface_domain.clone(),
         plate_edges: Vec::new(),
@@ -175,6 +176,7 @@ impl ClosureFitter<'_> {
         joints: &[[f32; 8]],
     ) -> Result<PartMesh> {
         let wearer = Wearer {
+            detail: self.model.armor_detail,
             positions: body,
             normals,
             faces: &self.model.mhr.character.mesh.faces,

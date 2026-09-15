@@ -15,18 +15,20 @@ pub(super) fn generate(
     brow: f32,
     half_height: f32,
     d: &super::BurgonetDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    let mut skull = Surface::default();
+    let around = detail.segments(AROUND, 24).next_multiple_of(24);
+    let mut skull = Surface::new(detail, around);
     let rim = skull.styled_dome(radii, brow, &d.crown, d.comb_height.metres());
-    const NAPE_START: usize = AROUND * 7 / 24;
-    let mut previous = rim[NAPE_START..=AROUND - NAPE_START].to_vec();
+    let nape_start = around * 7 / 24;
+    let mut previous = rim[nape_start..=around - nape_start].to_vec();
     let join = 1.0 - d.neck_guard_fraction.unit();
     let gauge = d.fit.wall_thickness.metres();
-    for row in 1..=SKIRT_ROWS {
-        let v = row as f32 / SKIRT_ROWS as f32;
-        let ring = (NAPE_START..=AROUND - NAPE_START)
+    for row in 1..=detail.segments(SKIRT_ROWS, 2) {
+        let v = row as f32 / detail.segments(SKIRT_ROWS, 2) as f32;
+        let ring = (nape_start..=around - nape_start)
             .map(|i| {
-                let angle = i as f32 / AROUND as f32 * TAU;
+                let angle = i as f32 / around as f32 * TAU;
                 let mut p = nape_point(radii, brow, half_height, d, join * v, angle);
                 p[0] += gauge * 2.0 * v * v * angle.sin();
                 p[2] += gauge * 2.0 * v * v * angle.cos();
@@ -36,35 +38,15 @@ pub(super) fn generate(
         skull.connect(&previous, &ring, false);
         previous = ring;
     }
-    const PEAK_HALF_COLUMNS: usize = AROUND / 6;
-    let mut previous = (0..=2 * PEAK_HALF_COLUMNS)
-        .map(|i| rim[(AROUND - PEAK_HALF_COLUMNS + i) % AROUND])
-        .collect::<Vec<_>>();
-    for row in 1..=4 {
-        let t = row as f32 / 4.0;
-        let next = (0..=2 * PEAK_HALF_COLUMNS)
-            .map(|i| {
-                let angle =
-                    -FRAC_PI_3 + 2.0 * FRAC_PI_3 * i as f32 / (2 * PEAK_HALF_COLUMNS) as f32;
-                let reach = d.peak_length.metres() * angle.cos() * t;
-                skull.vertex([
-                    (radii[0] + reach) * angle.sin(),
-                    brow - d.peak_drop.metres() * angle.cos() * t + peak_rise(d, angle) * t,
-                    (radii[2] + reach) * angle.cos(),
-                ])
-            })
-            .collect::<Vec<_>>();
-        skull.connect(&previous, &next, false);
-        previous = next;
-    }
+    append_peak(&mut skull, &rim, radii, brow, d, detail);
     let mut mesh = skull.shell(d.fit.wall_thickness.metres(), crate::ShellExtrusion::Normal)?;
-    let mut guard = Surface::default();
+    let mut guard = Surface::new(detail, around);
     let mut previous = Vec::new();
     const NECK_LAP_FRACTION: f32 = 0.05;
-    for row in 0..=SKIRT_ROWS {
+    for row in 0..=detail.segments(SKIRT_ROWS, 2) {
         let t = join - NECK_LAP_FRACTION
-            + (1.0 - join + NECK_LAP_FRACTION) * row as f32 / SKIRT_ROWS as f32;
-        let ring = (NAPE_START..=AROUND - NAPE_START)
+            + (1.0 - join + NECK_LAP_FRACTION) * row as f32 / detail.segments(SKIRT_ROWS, 2) as f32;
+        let ring = (nape_start..=around - nape_start)
             .map(|i| {
                 guard.vertex(nape_point(
                     radii,
@@ -72,7 +54,7 @@ pub(super) fn generate(
                     half_height,
                     d,
                     t,
-                    i as f32 / AROUND as f32 * TAU,
+                    i as f32 / around as f32 * TAU,
                 ))
             })
             .collect::<Vec<_>>();
@@ -93,18 +75,26 @@ pub(super) fn generate(
         None,
     )?);
     for side in [-1.0, 1.0] {
-        let cheek = super::cheek::generate(radii, brow, half_height, d)?;
+        let cheek = super::cheek::generate(radii, brow, half_height, d, detail)?;
         mesh.append(if side < 0.0 { mirror(cheek) } else { cheek });
     }
     if let Some(buffe) = &d.buffe {
         mesh = mesh.with_component(crate::ArmorComponentRole::Skull, None);
-        mesh.append(super::buffe::generate(radii, brow, half_height, d, buffe)?);
+        mesh.append(super::buffe::generate(
+            radii,
+            brow,
+            half_height,
+            d,
+            buffe,
+            detail,
+        )?);
     }
     Ok(mesh)
 }
 
 fn mirror(mesh: PartMesh) -> PartMesh {
     mesh.transformed(&crate::PartFrame {
+        detail: crate::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[-1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [1.0; 3],
@@ -132,4 +122,37 @@ fn nape_point(
         brow - depth * t,
         (radii[2] - recession + flare) * back,
     ]
+}
+
+fn append_peak(
+    skull: &mut Surface,
+    rim: &[u32],
+    radii: [f32; 3],
+    brow: f32,
+    d: &super::BurgonetDesign,
+    detail: crate::ArmorDetail,
+) {
+    let around = rim.len();
+    let peak_half_columns = around / 6;
+    let mut previous = (0..=2 * peak_half_columns)
+        .map(|i| rim[(around - peak_half_columns + i) % around])
+        .collect::<Vec<_>>();
+    let peak_rows = detail.segments(4, 1);
+    for row in 1..=peak_rows {
+        let t = row as f32 / peak_rows as f32;
+        let next = (0..=2 * peak_half_columns)
+            .map(|i| {
+                let angle =
+                    -FRAC_PI_3 + 2.0 * FRAC_PI_3 * i as f32 / (2 * peak_half_columns) as f32;
+                let reach = d.peak_length.metres() * angle.cos() * t;
+                skull.vertex([
+                    (radii[0] + reach) * angle.sin(),
+                    brow - d.peak_drop.metres() * angle.cos() * t + peak_rise(d, angle) * t,
+                    (radii[2] + reach) * angle.cos(),
+                ])
+            })
+            .collect::<Vec<_>>();
+        skull.connect(&previous, &next, false);
+        previous = next;
+    }
 }

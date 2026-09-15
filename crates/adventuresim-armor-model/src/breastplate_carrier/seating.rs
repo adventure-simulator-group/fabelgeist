@@ -78,6 +78,7 @@ mod tests {
             enclosure_vertices: vec![],
         };
         let wearer = Wearer {
+            detail: crate::ArmorDetail::BakeSource,
             frame,
             anchors: TorsoUpperRigAnchors {
                 neck_base: [0.0, REFERENCE_RIG_NECK_HEIGHT, 0.0],

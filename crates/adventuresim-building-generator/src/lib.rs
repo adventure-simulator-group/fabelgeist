@@ -16,6 +16,7 @@ mod generator;
 pub mod interior;
 mod lod;
 mod model;
+pub mod prepared;
 mod roof_tessellation;
 mod settlement;
 pub mod signs;

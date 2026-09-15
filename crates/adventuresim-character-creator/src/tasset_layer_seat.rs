@@ -34,6 +34,7 @@ impl TassetLayerSeat {
         let hips = wearer.frame(FitRegion::Hips)?;
         let center_depth = hips.origin[2];
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0, 0.0, center_depth],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: hips.half_extents,
@@ -107,6 +108,7 @@ mod tests {
             })
             .collect::<Vec<_>>();
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.2; 3],

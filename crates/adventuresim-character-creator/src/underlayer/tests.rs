@@ -20,6 +20,7 @@ fn cut_shell_closes_inner_and_outer_boundaries_and_transfers_attributes() {
     let normals = [[0., 0., 1.]; 4];
     let faces = [[0, 1, 2], [2, 1, 3]];
     let body = Wearer {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         positions: &positions,
         normals: &normals,
         faces: &faces,
@@ -102,6 +103,7 @@ fn offset_stays_outside_incident_faces_when_shading_normals_point_inward() {
     let normals = [[-0.6, 0., 0.8]; 4];
     let faces = [[0, 1, 2], [0, 2, 3]];
     let body = Wearer {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         positions: &positions,
         normals: &normals,
         faces: &faces,

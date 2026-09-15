@@ -16,6 +16,7 @@ mod coif_fit;
 pub mod garment_fit;
 mod gorget_fit;
 pub mod limb_fit;
+pub mod lod;
 pub mod nearest_vertex;
 mod spaulder_fit;
 pub use clothing_material::pbr as equipment_pbr;

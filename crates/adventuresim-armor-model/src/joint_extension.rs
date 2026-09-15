@@ -56,6 +56,7 @@ impl JointExtension {
 pub(crate) fn append(
     mut mesh: PartMesh,
     d: &JointCupDesign,
+    detail: crate::ArmorDetail,
     edge: impl Fn(f32) -> [f32; 3],
 ) -> Result<PartMesh, GenerateError> {
     let Some(extension) = &d.distal_extension else {
@@ -113,6 +114,7 @@ pub(crate) fn append(
                     point[2] * taper + lap * angle.cos(),
                 ]
             },
+            detail,
         )?);
         start = end;
     }

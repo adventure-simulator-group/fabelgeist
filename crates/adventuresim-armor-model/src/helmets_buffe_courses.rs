@@ -101,6 +101,7 @@ impl BuffeCourses {
                         CHART_HEIGHT_MM * f64::from(1.0 - span[0]) + f64::from(self.overlap.0),
                     ],
                     gauge,
+                    carrier.detail,
                     |u, v| course.point(u, v),
                 )?
             } else {
@@ -112,6 +113,7 @@ impl BuffeCourses {
                     span,
                     |_, _| 0.0,
                     |u, v| course.point(u, v),
+                    carrier.detail,
                 )?
             };
             mesh.append(plate);

@@ -36,7 +36,7 @@ fn export_equipment(path: &Path) -> Result<()> {
         GlbOutput::SharedTextures(path),
         "mail",
         1,
-        1,
+        4,
         &RiggedMesh {
             positions: &positions,
             normals: &normals,

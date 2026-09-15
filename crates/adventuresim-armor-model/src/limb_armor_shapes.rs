@@ -38,6 +38,7 @@ pub(super) fn greave(d: &GreaveDesign, fit: &PartFrame) -> Result<PartMesh, Gene
                 (depth * shape + clearance) * theta.cos(),
             ]
         },
+        fit.detail,
     )
 }
 
@@ -71,6 +72,7 @@ pub(super) fn cuisse(d: &CuisseDesign, fit: &PartFrame) -> Result<PartMesh, Gene
                 (depth * taper + clearance) * theta.cos(),
             ]
         },
+        fit.detail,
     )
 }
 
@@ -100,6 +102,7 @@ pub(super) fn rerebrace(d: &RerebraceDesign, fit: &PartFrame) -> Result<PartMesh
                 (depth * d.section_depth.unit() * taper + clearance) * theta.cos(),
             ]
         },
+        fit.detail,
     )
 }
 
@@ -119,9 +122,10 @@ pub(super) fn joint_cup(d: &JointCupDesign, fit: &PartFrame) -> Result<PartMesh,
             let [u, v] = d.flute_coordinates(u, v);
             joint_surface(d, fit, u, v)
         },
+        fit.detail,
     )?
     .with_component(crate::ArmorComponentRole::Plate, None);
-    crate::joint_extension::append(mesh, d, |angle| {
+    crate::joint_extension::append(mesh, d, fit.detail, |angle| {
         let u = (angle / PI + 0.52) / (1.04 + d.wing.unit() * 0.35);
         joint_surface(d, fit, u, 0.0)
     })
@@ -179,7 +183,8 @@ pub(super) fn spaulder(d: &SpaulderDesign, fit: &PartFrame) -> Result<PartMesh, 
         mesh = mesh.with_component(crate::ArmorComponentRole::Plate, None);
         let angle = f32::from(disc.outward_tilt.0) / 1000.0;
         mesh.append(
-            crate::generate_besagew(disc, d.gauge)?.transformed(&PartFrame {
+            crate::generate_besagew(disc, d.gauge, fit.detail)?.transformed(&PartFrame {
+                detail: fit.detail,
                 origin: [
                     -disc.medial_offset.metres(),
                     length - disc.shoulder_drop.metres(),
@@ -240,6 +245,7 @@ pub(super) fn spaulder_lames(
                     radius * theta.cos(),
                 ]
             },
+            fit.detail,
         )?);
     }
     Ok(mesh)
@@ -283,6 +289,7 @@ pub(super) fn spaulder_crown(
             d.fluting.as_ref(),
             offset,
             crown_point,
+            fit.detail,
         )
     } else {
         crate::plate_patch::fluted_patch(
@@ -293,6 +300,7 @@ pub(super) fn spaulder_crown(
             [0.5, 0.5 + 0.5 * d.crown_coverage.unit()],
             offset,
             |u, v| crown_point(u, v * d.crown_coverage.unit()),
+            fit.detail,
         )
     }
 }

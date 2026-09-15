@@ -317,6 +317,37 @@ class JustTaskTests(unittest.TestCase):
 
 
 class WasmAssetTests(unittest.TestCase):
+    def test_builds_both_apps_without_rustup_and_respects_debug_names(self):
+        for keep_names in (False, True):
+            with self.subTest(keep_names=keep_names), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / "Cargo.lock").write_text(
+                    '[[package]]\nname="wasm-bindgen"\nversion="0.2.108"\n',
+                    encoding="utf-8",
+                )
+                with mock.patch.object(build_wasm, "ROOT", root), \
+                     mock.patch.object(build_wasm, "WASM_DIR", root / "wasm"), \
+                     mock.patch.object(build_wasm.shutil, "which", side_effect=lambda name: None if name == "rustup" else name), \
+                     mock.patch.object(build_wasm.subprocess, "check_output", return_value="wasm-bindgen 0.2.108"), \
+                     mock.patch.object(build_wasm, "sync_assets"), \
+                     mock.patch.object(build_wasm, "run") as run:
+                    self.assertEqual(build_wasm.main(["--keep-name-section"] if keep_names else []), 0)
+                commands = [call.args[0] for call in run.call_args_list]
+                self.assertFalse(any(command[0] == "rustup" for command in commands))
+                bindings = [command for command in commands if command[0] == "wasm-bindgen"]
+                self.assertEqual({Path(command[-1]).name for command in bindings},
+                                 {"adventuresim-tactical-client.wasm", "art-demo.wasm"})
+                self.assertTrue(all(("--remove-name-section" in command) != keep_names
+                                    for command in bindings))
+
+    def test_bindgen_version_mismatch_fails_before_compilation(self):
+        with mock.patch.object(build_wasm.sys, "argv", ["build_wasm.py"]), \
+             mock.patch.object(build_wasm.shutil, "which", return_value="wasm-bindgen"), \
+             mock.patch.object(build_wasm.subprocess, "check_output", return_value="wasm-bindgen 0.0.0"), \
+             mock.patch.object(build_wasm, "run") as compile_command:
+            self.assertEqual(build_wasm.main(), 1)
+        compile_command.assert_not_called()
+
     def test_asset_sync_removes_stale_files_and_merges_crate_assets(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

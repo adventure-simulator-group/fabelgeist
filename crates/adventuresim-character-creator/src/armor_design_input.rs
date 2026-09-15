@@ -254,6 +254,7 @@ mod tests {
             serde_json::to_value(&default).unwrap()
         );
         let frame = adventuresim_armor_model::PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
             half_extents: [0.070, 0.085, 0.065],

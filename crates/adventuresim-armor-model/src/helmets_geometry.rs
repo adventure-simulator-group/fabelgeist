@@ -7,14 +7,30 @@ use crate::{GenerateError, parametric::PartMesh};
 pub(super) const AROUND: usize = 48;
 const DOME_RINGS: usize = 12;
 
-#[derive(Default)]
 pub(super) struct Surface {
+    pub detail: crate::ArmorDetail,
+    pub around: usize,
     pub positions: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
     pub relief: Vec<f32>,
 }
 
+impl Default for Surface {
+    fn default() -> Self {
+        Self::new(crate::ArmorDetail::BakeSource, AROUND)
+    }
+}
+
 impl Surface {
+    pub fn new(detail: crate::ArmorDetail, around: usize) -> Self {
+        Self {
+            detail,
+            around,
+            positions: Vec::new(),
+            indices: Vec::new(),
+            relief: Vec::new(),
+        }
+    }
     /// Redistribute a bowl's angular samples to register a sized face aperture.
     pub fn reshape_front_arc(&mut self, radii: [f32; 3], original: f32, opening: f32) {
         for point in &mut self.positions {
@@ -63,8 +79,8 @@ impl Surface {
 
     /// A lower exponent retains width higher up a broad skull's meridian.
     pub fn full_dome(&mut self, radii: [f32; 3], brow: f32, exponent: f32) -> Vec<u32> {
-        let angles = (0..AROUND)
-            .map(|i| i as f32 / AROUND as f32 * TAU)
+        let angles = (0..self.around)
+            .map(|i| i as f32 / self.around as f32 * TAU)
             .collect::<Vec<_>>();
         self.dome_angles(radii, brow, exponent, &angles)
     }
@@ -78,8 +94,9 @@ impl Surface {
     ) -> Vec<u32> {
         let pole = self.vertex([0.0, radii[1], 0.0]);
         let mut previous = Vec::new();
-        for row in 1..=DOME_RINGS {
-            let latitude = row as f32 / DOME_RINGS as f32 * FRAC_PI_2;
+        let rings = self.detail.segments(DOME_RINGS, 3);
+        for row in 1..=rings {
+            let latitude = row as f32 / rings as f32 * FRAC_PI_2;
             let ring = angles
                 .iter()
                 .map(|&angle| {

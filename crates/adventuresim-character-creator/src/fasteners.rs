@@ -182,7 +182,7 @@ pub fn rear_closures(
                 design.width.metres() * 1.4 + support_sweep,
             );
         }
-        let (strap, hardware) = mesh::closure(&section, height, design)?;
+        let (strap, hardware) = mesh::closure(&section, height, design, wearer.detail)?;
         leather.append(strap);
         buckles.append(hardware);
     }

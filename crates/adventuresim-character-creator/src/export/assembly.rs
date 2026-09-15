@@ -169,7 +169,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "close_helmet",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],

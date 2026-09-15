@@ -61,10 +61,11 @@ pub(crate) fn fit(
         center[i] += normal[i] * (depth + design.gauge.thickness.metres());
     }
     let frame = PartFrame {
+        detail: wearer.detail,
         origin: center,
         axes: [transverse, [0.0, 1.0, 0.0], normal],
         half_extents: [d.radius.metres(); 3],
     };
-    mesh.append(generate_besagew(d, design.gauge)?.transformed(&frame));
+    mesh.append(generate_besagew(d, design.gauge, wearer.detail)?.transformed(&frame));
     Ok(mesh)
 }

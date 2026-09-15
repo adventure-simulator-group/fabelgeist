@@ -27,6 +27,7 @@ pub(super) fn closure(
     section: &ClosureSection,
     height: f32,
     design: &StrapDesign,
+    detail: adventuresim_armor_model::ArmorDetail,
 ) -> Result<(PartMesh, PartMesh)> {
     let width = design.width.metres();
     let thickness = design.thickness.metres();
@@ -49,6 +50,7 @@ pub(super) fn closure(
         start,
         fixed_end,
         buckle_offset,
+        detail,
     )?;
     strap.append(band(
         section,
@@ -57,6 +59,7 @@ pub(super) fn closure(
         thickness,
         free_tip,
         end,
+        detail,
         |angle| {
             let distance = (angle - buckle_angle) * buckle_radius;
             let transition = ((distance - width * 0.3) / width).clamp(0.0, 1.0);
@@ -94,6 +97,10 @@ fn conform_hardware(mesh: &mut PartMesh, section: &ClosureSection, reference: f3
 }
 
 /// One continuous strip bends around the buckle's root bar and folds back.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Closure dimensions, section evaluation and explicit LOD sampling are independent construction inputs."
+)]
 fn fixed_loop(
     section: &ClosureSection,
     height: f32,
@@ -102,16 +109,23 @@ fn fixed_loop(
     start: f32,
     end: f32,
     buckle_offset: f32,
+    detail: adventuresim_armor_model::ArmorDetail,
 ) -> Result<PartMesh> {
-    const FOLD_SEGMENTS: usize = 16;
+    let band_segments = detail.segments(BAND_SEGMENTS / 4, 6);
+    let fold_segments = detail.segments(16, 3);
+    let band_segments = if matches!(detail, adventuresim_armor_model::ArmorDetail::BakeSource) {
+        BAND_SEGMENTS
+    } else {
+        band_segments
+    };
     let radius = section.radius(end)?;
     let bend_radius = BAR_GAUGE_M * 0.5 + thickness + SEATING_GAP_M;
     let center = buckle_offset + BAR_GAUGE_M * 0.5;
     let bottom = center - bend_radius;
     let base = SEATING_GAP_M + thickness * 0.5;
     let mut path = Vec::new();
-    for i in 0..=BAND_SEGMENTS {
-        let t = i as f32 / BAND_SEGMENTS as f32;
+    for i in 0..=band_segments {
+        let t = i as f32 / band_segments as f32;
         let x = (start - end) * radius * (1.0 - t);
         let rise = ((x + width) / width).clamp(0.0, 1.0);
         let slope = (bottom - base) * 6.0 * rise * (1.0 - rise) / width;
@@ -120,8 +134,8 @@ fn fixed_loop(
             [1.0, slope],
         ));
     }
-    for i in 1..=FOLD_SEGMENTS {
-        let angle = PI * i as f32 / FOLD_SEGMENTS as f32;
+    for i in 1..=fold_segments {
+        let angle = PI * i as f32 / fold_segments as f32;
         path.push(StripSample::new(
             [
                 bend_radius * angle.sin(),
@@ -165,6 +179,10 @@ fn close_strip(mesh: &mut PartMesh, rows: usize) {
     outward(mesh);
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Closure dimensions, section evaluation and explicit LOD sampling are independent construction inputs."
+)]
 fn band(
     section: &ClosureSection,
     height: f32,
@@ -172,11 +190,17 @@ fn band(
     thickness: f32,
     start: f32,
     end: f32,
+    detail: adventuresim_armor_model::ArmorDetail,
     lift: impl Fn(f32) -> f32,
 ) -> Result<PartMesh> {
+    let band_segments = if matches!(detail, adventuresim_armor_model::ArmorDetail::BakeSource) {
+        BAND_SEGMENTS
+    } else {
+        detail.segments(BAND_SEGMENTS / 4, 6)
+    };
     let mut strap = PartMesh::new();
-    for i in 0..=BAND_SEGMENTS {
-        let angle = start + (end - start) * i as f32 / BAND_SEGMENTS as f32;
+    for i in 0..=band_segments {
+        let angle = start + (end - start) * i as f32 / band_segments as f32;
         let radius = section.radius(angle)? + SEATING_GAP_M + lift(angle);
         for (edge, outside) in [(-0.5, 0.0), (0.5, 0.0), (-0.5, 1.0), (0.5, 1.0)] {
             strap.positions.push(radial_point(
@@ -193,7 +217,7 @@ fn band(
         }
     }
     quad(&mut strap, [0, 2, 3, 1]);
-    let end = BAND_SEGMENTS as u32 * 4;
+    let end = band_segments as u32 * 4;
     quad(&mut strap, [end, end + 1, end + 3, end + 2]);
     outward(&mut strap);
     Ok(strap)
@@ -358,7 +382,13 @@ mod tests {
                 0.006,
             )
             .unwrap();
-            let (leather, _) = closure(&section, 0.0, &design).unwrap();
+            let (leather, _) = closure(
+                &section,
+                0.0,
+                &design,
+                adventuresim_armor_model::ArmorDetail::BakeSource,
+            )
+            .unwrap();
             leather
                 .normals()
                 .expect("closed thickness must not collapse at the bend");

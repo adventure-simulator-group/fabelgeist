@@ -1,0 +1,66 @@
+//! Portable render outputs for clients that load recipes prepared offline.
+use crate::{signs::*, *};
+use bevy::math::Vec3;
+use serde::{Deserialize, Serialize};
+
+const RECIPE_HASH_OFFSET_BASIS: u64 = 0xcbf2_9ce4_8422_2325;
+const RECIPE_HASH_PRIME: u64 = 0x0000_0100_0000_01b3;
+
+#[derive(Serialize, Deserialize)]
+pub struct PreparedBuilding {
+    pub program: BuildingProgram,
+    pub local_origin: Vec3,
+    pub floor_offset_metres: f32,
+    pub sign_sites: Vec<(SignMount, SignSite)>,
+    pub lod0: Vec<LodMesh>,
+    pub lod1: Vec<LodMesh>,
+    pub lod2: Vec<LodMesh>,
+}
+
+impl PreparedBuilding {
+    /// Compile once natively; the browser only uploads these existing meshes.
+    pub fn from_plan(program: BuildingProgram, plan: &BuildingPlan) -> Self {
+        let collision = compile_building_collision(plan);
+        let local_origin = collision.bounds.centre();
+        let sign_sites = SignSite::for_plan(plan).map_or_else(Vec::new, |site| {
+            [SignMount::Wall, SignMount::Projecting]
+                .into_iter()
+                .filter(|mount| site.supports(plan, *mount))
+                .map(|mount| (mount, site))
+                .collect()
+        });
+        Self {
+            program,
+            local_origin,
+            floor_offset_metres: local_origin.y - collision.bounds.min.y,
+            sign_sites,
+            lod0: compile_building_detail(plan).meshes,
+            lod1: compile_building_lod(plan, BuildingLodLevel::Facade).meshes,
+            lod2: compile_building_lod(plan, BuildingLodLevel::Shell).meshes,
+        }
+    }
+
+    /// Keep the overview small; full detail is a separately requested asset.
+    pub fn take_detail(&mut self) -> Self {
+        Self {
+            program: self.program.clone(),
+            local_origin: self.local_origin,
+            floor_offset_metres: self.floor_offset_metres,
+            sign_sites: Vec::new(),
+            lod0: std::mem::take(&mut self.lod0),
+            lod1: Vec::new(),
+            lod2: Vec::new(),
+        }
+    }
+}
+
+/// Stable content identity for a serialized recipe, independent of placement.
+pub fn recipe_key(program: &BuildingProgram) -> String {
+    let bytes = serde_json::to_vec(program).expect("building programs serialize");
+    let hash = bytes
+        .into_iter()
+        .fold(RECIPE_HASH_OFFSET_BASIS, |hash, byte| {
+            (hash ^ u64::from(byte)).wrapping_mul(RECIPE_HASH_PRIME)
+        });
+    format!("{hash:016x}")
+}

@@ -31,6 +31,7 @@ mod tests {
 
     fn armor(design: HelmetDesign) -> GeneratedArmor {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.085, 0.115, 0.105],
@@ -38,6 +39,7 @@ mod tests {
         let mesh = generate_helmet(&design, &frame).unwrap();
         let count = mesh.positions.len();
         GeneratedArmor {
+            construction_faces: Vec::new(),
             plate_edges: mesh.plate_edges(),
             components: mesh.components.clone(),
             design_hash: [0; 32],

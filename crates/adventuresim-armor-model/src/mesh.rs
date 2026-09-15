@@ -53,12 +53,13 @@ fn structured_indices(
     positions: &[[f32; 3]],
     body_normals: &[[f32; 3]],
     axis: [f32; 3],
+    along: usize,
 ) -> Vec<u32> {
-    let around = body_normals.len() / (ALONG + 1);
-    let layer = ((ALONG + 1) * around) as u32;
+    let around = body_normals.len() / (along + 1);
+    let layer = ((along + 1) * around) as u32;
     let vertex = |ring: usize, segment: usize| (ring * around + segment % around) as u32;
     let mut indices = Vec::new();
-    for ring in 0..ALONG {
+    for ring in 0..along {
         for segment in 0..around {
             let a = vertex(ring, segment);
             let b = vertex(ring, segment + 1);
@@ -82,7 +83,7 @@ fn structured_indices(
             );
         }
     }
-    for (ring, reference) in [(0, scale(axis, -1.0)), (ALONG, axis)] {
+    for (ring, reference) in [(0, scale(axis, -1.0)), (along, axis)] {
         for segment in 0..around {
             let a = vertex(ring, segment);
             let b = vertex(ring, segment + 1);
@@ -98,9 +99,9 @@ fn structured_indices(
     indices
 }
 
-fn rim_edges(sample_count: usize) -> Vec<[u32; 2]> {
-    let around = sample_count / (ALONG + 1);
-    [0, ALONG]
+fn rim_edges(sample_count: usize, along: usize) -> Vec<[u32; 2]> {
+    let around = sample_count / (along + 1);
+    [0, along]
         .into_iter()
         .flat_map(|ring| {
             (0..around).map(move |segment| {
@@ -184,6 +185,13 @@ pub fn generate_bracer(
 ) -> Result<GeneratedArmor, GenerateError> {
     validate(design)?;
     validate_surface(surface)?;
+    let source_hash = design_hash(design)?;
+    let mut carrier_design = design.clone();
+    if matches!(surface.detail, crate::ArmorDetail::Runtime(_)) {
+        carrier_design.fluting = None;
+    }
+    let design = &carrier_design;
+    let along = surface.detail.segments(ALONG, 2);
     let (samples, axis) = structured_samples(design, surface)?;
     let base_positions = surface
         .vertices
@@ -195,14 +203,20 @@ pub fn generate_bracer(
         .iter()
         .map(|vertex| vertex.normal)
         .collect::<Vec<_>>();
-    let positions = displaced(&samples, &base_positions, &base_normals, design)?;
+    let positions = displaced(
+        &samples,
+        &base_positions,
+        &base_normals,
+        design,
+        surface.detail,
+    )?;
     let body_normals = samples
         .iter()
         .map(|sample| {
             normalized(sample_vec3(sample, &base_normals)).ok_or(GenerateError::Degenerate)
         })
         .collect::<Result<Vec<_>, _>>()?;
-    let indices = structured_indices(&positions, &body_normals, axis);
+    let indices = structured_indices(&positions, &body_normals, axis, along);
     let normals = generated_normals(&positions, &indices)?;
     let source_uvs = surface
         .vertices
@@ -232,32 +246,17 @@ pub fn generate_bracer(
         .map(|(_, weights)| *weights)
         .chain(skin.iter().map(|(_, weights)| *weights))
         .collect();
-    let morphs = surface
-        .morphs
-        .iter()
-        .map(|morph| {
-            let target_positions = displaced(&samples, &morph.positions, &morph.normals, design)?;
-            let target_normals = generated_normals(&target_positions, &indices)?;
-            Ok(ArmorMorph {
-                name: morph.name.clone(),
-                direct_positions: target_positions.clone(),
-                position_deltas: target_positions
-                    .iter()
-                    .zip(&positions)
-                    .map(|(target, base)| subtract(*target, *base))
-                    .collect(),
-                normal_deltas: target_normals
-                    .iter()
-                    .zip(&normals)
-                    .map(|(target, base)| subtract(*target, *base))
-                    .collect(),
-            })
-        })
-        .collect::<Result<Vec<_>, GenerateError>>()?;
+    let morphs = sample_morphs(design, surface, &samples, &positions, &normals, &indices)?;
     Ok(GeneratedArmor {
-        plate_edges: rim_edges(samples.len()),
+        construction_faces: (0..along * samples.len() / (along + 1))
+            .map(|quad| quad * 12 + 6..quad * 12 + 12)
+            .chain(std::iter::once(
+                along * samples.len() / (along + 1) * 12..indices.len(),
+            ))
+            .collect(),
+        plate_edges: rim_edges(samples.len(), along),
         components: Vec::new(),
-        design_hash: design_hash(design)?,
+        design_hash: source_hash,
         surface_domain: surface.domain.clone(),
         positions,
         normals,
@@ -267,4 +266,42 @@ pub fn generate_bracer(
         indices,
         morphs,
     })
+}
+
+fn sample_morphs(
+    design: &BracerDesign,
+    surface: &AnatomicalSurface,
+    samples: &[Sample],
+    positions: &[[f32; 3]],
+    normals: &[[f32; 3]],
+    indices: &[u32],
+) -> Result<Vec<ArmorMorph>, GenerateError> {
+    surface
+        .morphs
+        .iter()
+        .map(|morph| {
+            let target_positions = displaced(
+                samples,
+                &morph.positions,
+                &morph.normals,
+                design,
+                surface.detail,
+            )?;
+            let target_normals = generated_normals(&target_positions, indices)?;
+            Ok(ArmorMorph {
+                name: morph.name.clone(),
+                direct_positions: target_positions.clone(),
+                position_deltas: target_positions
+                    .iter()
+                    .zip(positions)
+                    .map(|(target, base)| subtract(*target, *base))
+                    .collect(),
+                normal_deltas: target_normals
+                    .iter()
+                    .zip(normals)
+                    .map(|(target, base)| subtract(*target, *base))
+                    .collect(),
+            })
+        })
+        .collect::<Result<Vec<_>, GenerateError>>()
 }

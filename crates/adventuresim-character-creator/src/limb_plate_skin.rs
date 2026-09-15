@@ -50,6 +50,7 @@ mod tests {
 
     fn armor(kind: LimbPlate, length: Permille) -> GeneratedArmor {
         let frame = PartFrame {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             origin: [0.0, 1.0, 0.0],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.055, 0.14, 0.05],
@@ -67,6 +68,7 @@ mod tests {
         let mesh = generate_limb_armor(&design, &frame).unwrap();
         let count = mesh.positions.len();
         GeneratedArmor {
+            construction_faces: Vec::new(),
             plate_edges: mesh.plate_edges(),
             components: mesh.components.clone(),
             design_hash: [0; 32],

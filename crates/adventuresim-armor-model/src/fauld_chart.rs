@@ -11,10 +11,15 @@ pub struct FauldLameChart {
 }
 
 impl FauldLameChart {
-    pub fn new(lame: usize, count: usize) -> Result<Self, GenerateError> {
+    pub fn new(
+        lame: usize,
+        count: usize,
+        detail: crate::ArmorDetail,
+    ) -> Result<Self, GenerateError> {
         if count == 0 || lame >= count {
             return Err(DesignError::ParametricParameters.into());
         }
+        let intervals = detail.segments(GARMENT_AXIAL_SEGMENTS, 1);
         let span = |course: usize| {
             [
                 (1.0 - (course + 1) as f32 / count as f32
@@ -31,8 +36,8 @@ impl FauldLameChart {
         let mut rows = Vec::new();
         for course in lame.saturating_sub(1)..=(lame + 1).min(count - 1) {
             let [lo, hi] = span(course);
-            for row in 0..=GARMENT_AXIAL_SEGMENTS {
-                let axial = lo + (hi - lo) * row as f32 / GARMENT_AXIAL_SEGMENTS as f32;
+            for row in 0..=intervals {
+                let axial = lo + (hi - lo) * row as f32 / intervals as f32;
                 if axial >= bottom && axial <= top {
                     rows.push((axial - bottom) / (top - bottom));
                 }
@@ -55,8 +60,9 @@ mod tests {
     fn overlapping_courses_share_every_axial_facet_boundary() {
         for count in 2..=8 {
             for upper in 0..count - 1 {
-                let a = FauldLameChart::new(upper, count).unwrap();
-                let b = FauldLameChart::new(upper + 1, count).unwrap();
+                let a = FauldLameChart::new(upper, count, crate::ArmorDetail::BakeSource).unwrap();
+                let b =
+                    FauldLameChart::new(upper + 1, count, crate::ArmorDetail::BakeSource).unwrap();
                 let overlap = |chart: &FauldLameChart| {
                     chart
                         .rows

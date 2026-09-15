@@ -22,9 +22,9 @@ pub(super) fn articulate(
         .map(Ok)
         .unwrap_or_else(|| vertex_normals(&source.positions, &source.faces))?;
     let columns = source.main_columns;
-    let row_order = (V_SAMPLES..V_SAMPLES + SKIRT_SAMPLES - 1)
+    let row_order = (source.main_rows..source.main_rows + source.skirt_rows - 1)
         .rev()
-        .chain(0..V_SAMPLES)
+        .chain(0..source.main_rows)
         .collect::<Vec<_>>();
     let slope = if rear {
         anime.rear_chevron_slope.unit()
@@ -39,7 +39,7 @@ pub(super) fn articulate(
         .map(|c| level(row_order[0] * columns + c))
         .fold(f32::NEG_INFINITY, f32::max);
     let ceiling = (0..columns)
-        .map(|c| level((V_SAMPLES - 1) * columns + c))
+        .map(|c| level((source.main_rows - 1) * columns + c))
         .fold(f32::INFINITY, f32::min);
     let course_top = floor + (ceiling - floor) * anime.articulated_height.unit();
     let count = usize::from(anime.lame_count);
@@ -56,9 +56,9 @@ pub(super) fn articulate(
         let lower = floor + height * course as f32 - anime.overlap.metres();
         let upper = floor + height * (course + 1) as f32;
         let rows = if course == count {
-            UPPER_PLATE_ROWS
+            wearer.detail.segments(UPPER_PLATE_ROWS, 2)
         } else {
-            COURSE_ROWS
+            wearer.detail.segments(COURSE_ROWS, 1)
         };
         let mut ids = Vec::new();
         for row in 0..=rows {
@@ -67,7 +67,7 @@ pub(super) fn articulate(
             for c in 0..columns {
                 let low = if course == 0 { floor } else { lower };
                 let high = if course == count {
-                    level((V_SAMPLES - 1) * columns + c)
+                    level((source.main_rows - 1) * columns + c)
                 } else {
                     upper
                 };

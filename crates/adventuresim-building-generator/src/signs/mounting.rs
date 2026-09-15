@@ -11,7 +11,7 @@ const MAX_BRACKET_RISE_METRES: f32 = 0.75;
 const CONTACT_TOLERANCE_METRES: f32 = 0.001;
 const MAX_ANCHOR_RECESS_METRES: f32 = 0.8;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct SignMounting {
     /// Centre of the plate's back face, in contact with its structural support.
     pub contact: Vec3,

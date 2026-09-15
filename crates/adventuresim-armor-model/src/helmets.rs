@@ -442,6 +442,6 @@ fn valid_visor(projection: Millimeters, gap: Millimeters) -> bool {
 pub fn generate_helmet(design: &HelmetDesign, fit: &PartFrame) -> Result<PartMesh, GenerateError> {
     design.validate()?;
     fit.validate()?;
-    let local = shapes::generate(design, fit.half_extents)?;
+    let local = shapes::generate(design, fit.half_extents, fit.detail)?;
     Ok(local.transformed(fit))
 }

@@ -37,6 +37,7 @@ fn rear_angle(angle: f32, scale: f32) -> f32 {
 /// including where a short collar flares almost horizontally over the shoulder.
 pub fn generate_gorget_plates(
     design: &GarmentArmorDesign,
+    detail: crate::ArmorDetail,
     collar: impl Fn(f32, f32) -> [f32; 3],
     bib: impl Fn(f32, f32) -> [f32; 3],
 ) -> Result<PartMesh, GenerateError> {
@@ -49,6 +50,7 @@ pub fn generate_gorget_plates(
     // a shared carrier ring, so there is no touching-shell/non-manifold joint.
     let mut mesh = plate(
         design,
+        detail,
         24,
         design.fluting.as_ref(),
         COLLAR_ROWS_FRACTION,
@@ -74,6 +76,7 @@ pub fn generate_gorget_plates(
         let end = (lame as f32 + 1.0 + LAP_FRACTION) / count as f32;
         mesh.append(plate(
             design,
+            detail,
             8,
             None,
             0.0,
@@ -87,8 +90,13 @@ pub fn generate_gorget_plates(
     Ok(mesh)
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 fn plate(
     design: &GarmentArmorDesign,
+    detail: crate::ArmorDetail,
     rows: usize,
     fluting: Option<&PlateFluting>,
     fluting_start: f32,
@@ -96,19 +104,27 @@ fn plate(
     offset: impl Fn(f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
 ) -> Result<PartMesh, GenerateError> {
-    const AROUND: usize = 64;
+    // Collar chords must clear the fitted neck between support meridians.
+    let around = detail.segments(64, 16);
+    // Retain the formed collar-to-bib boundary at one third of the domain.
+    let rows = if fluting_start > 0.0 {
+        detail.segments(rows, 3).next_multiple_of(3)
+    } else {
+        detail.segments(rows, 1)
+    };
+    let fluting = detail.fluting(fluting);
     // The formed front bib owns its flute chart. The posterior shoulder return
     // stays plain, and changing spread retains every requested flute on the front.
-    let mut columns = (0..AROUND)
-        .map(|i| i as f32 / AROUND as f32)
+    let mut columns = (0..around)
+        .map(|i| i as f32 / around as f32)
         .collect::<Vec<_>>();
     if let crate::GarmentPlateShape::Gorget { rear_sweep, .. } = design.plate_shape {
         // Sample the physical meridians once. Merging this grid with uniform
         // control coordinates creates tiny redundant cells at their crossings;
         // their normal returns can overlap despite a smooth outer carrier.
-        columns = (0..AROUND)
+        columns = (0..around)
             .map(|i| {
-                let angle = (i as f32 / AROUND as f32 - 0.5) * TAU;
+                let angle = (i as f32 / around as f32 - 0.5) * TAU;
                 (gorget_control_angle(angle, rear_sweep) / TAU + 0.5).rem_euclid(1.0)
             })
             .collect();
@@ -116,7 +132,7 @@ fn plate(
         columns.dedup_by(|a, b| (*a - *b).abs() < 1e-6);
     }
     if let Some(pattern) = fluting {
-        columns.extend(pattern.columns(AROUND).into_iter().map(|u| 0.25 + 0.5 * u));
+        columns.extend(pattern.columns(around).into_iter().map(|u| 0.25 + 0.5 * u));
         columns.sort_by(f32::total_cmp);
         columns.dedup_by(|a, b| (*a - *b).abs() < 1e-6);
     }
@@ -183,6 +199,7 @@ mod tests {
             let carrier = std::cell::RefCell::new(Vec::new());
             let mesh = plate(
                 &design,
+                crate::ArmorDetail::BakeSource,
                 16,
                 Some(&pattern),
                 0.0,
@@ -234,6 +251,7 @@ mod tests {
             *rear_sweep = sweep;
             let mesh = plate(
                 &design,
+                crate::ArmorDetail::BakeSource,
                 2,
                 None,
                 0.0,

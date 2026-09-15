@@ -3,7 +3,6 @@ use std::f32::consts::{FRAC_PI_2, PI};
 use super::PauldronDesign;
 use crate::{GenerateError, PartFrame, PartMesh, plate_patch::fluted_patch};
 
-const MAIN_ROWS: usize = 24;
 const LAME_ROWS: usize = 8;
 const DELTOID_JOIN_M: f32 = 0.040;
 const CROWN_BOW_M: f32 = 0.012;
@@ -218,14 +217,12 @@ pub(super) fn plates(carrier: &super::PauldronCarrier) -> Result<PartMesh, Gener
     let gauge = d.gauge.thickness.metres();
     let neck_start = 1.0 - d.outline.upper_span.unit();
     let main_end = neck_start + NECK_LAME_OVERLAP;
-    let mut result = fluted_patch(
-        MAIN_ROWS,
-        false,
+    let mut result = crate::plate_patch::fluted_saddle_patch(
         gauge,
         d.fluting.as_ref(),
         [0.0, main_end],
-        |_, _| 0.0,
         |u, v| carrier.point(u, v * main_end, 0.0),
+        carrier.frame.detail,
     )?;
     for index in 0..d.upper_lames {
         let step = d.outline.upper_span.unit() / f32::from(d.upper_lames);
@@ -245,6 +242,7 @@ pub(super) fn plates(carrier: &super::PauldronCarrier) -> Result<PartMesh, Gener
                     gauge * NECK_LAME_SPACING_GAUGES * f32::from(index + 1),
                 )
             },
+            carrier.frame.detail,
         )?);
     }
     for index in 0..d.lower_lames {
@@ -274,6 +272,7 @@ pub(super) fn plates(carrier: &super::PauldronCarrier) -> Result<PartMesh, Gener
                     theta.cos() * height,
                 ]
             },
+            carrier.frame.detail,
         )?);
     }
     Ok(result.transformed(&carrier.frame))

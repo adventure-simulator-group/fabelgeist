@@ -18,6 +18,7 @@ fn exported_body_has_valid_underlayers() -> Result<()> {
     let joints: Vec<_> = field!("joints");
     let uv_faces: Vec<[u32; 3]> = field!("texcoord_faces");
     let body = Wearer {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         positions: &positions,
         normals: &normals,
         faces: &faces,

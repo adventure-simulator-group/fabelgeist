@@ -225,24 +225,25 @@ replace-world-runtime:
 # Download and verify Meta MHR v1.0.1 into the ignored authoring cache.
 init-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py
-init-mhr-lod1-correctives:
-    @{{ python_bin }} scripts/init_mhr_assets.py --lod1-correctives
+init-mhr-lod4-correctives:
+    @{{ python_bin }} scripts/init_mhr_assets.py --lod4-correctives
 verify-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py --verify-only
 # Open the MHR creator on the canonical zero-coefficient base body.
 character-creator:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml
 generate-procedural-equipment output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 1 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
-    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --armor-bake-source --armor-review-dir target/equipment-bake-source --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --source-directory target/equipment-bake-source
 
 # Unwrap existing generated assets without rebuilding their shapes or rigs.
 unwrap-equipment output:
     @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage uv
 
 # Bake surface detail into the material atlas of an unwrapped equipment export.
-bake-equipment output:
-    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake
+bake-equipment output source:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake --source-directory {{ quote(source) }}
 # Apply the authored texture-only plate edge finishes.
 trim-equipment output:
     @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage trim
@@ -252,7 +253,7 @@ weapon-modeler:
     @npm --prefix tools/weapon-modeler start
 # Export the zero-coefficient MHR base to an explicit staging path.
 export-mhr-base output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 1 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 4 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
 # Publish every currently authored motion as a mesh-free runtime animation.
 prepare-animation-assets:
     @{{ python_bin }} scripts/prepare_animation_assets.py

@@ -83,6 +83,7 @@ struct Frame {
 }
 
 struct CarrierPose<'a> {
+    detail: crate::ArmorDetail,
     positions: &'a [[f32; 3]],
     semantic: &'a [[f32; 2]],
     front: [f32; 3],
@@ -93,6 +94,7 @@ struct CarrierPose<'a> {
 
 #[derive(Clone, Copy)]
 struct Wearer<'a> {
+    detail: crate::ArmorDetail,
     frame: Frame,
     anchors: TorsoUpperRigAnchors,
     clearance: &'a TorsoClearancePose,
@@ -106,8 +108,9 @@ struct Wearer<'a> {
     coronal_origin: f32,
 }
 
-#[derive(Default)]
 struct MidMesh {
+    main_rows: usize,
+    skirt_rows: usize,
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     skirt_face_start: Option<usize>,
@@ -117,6 +120,24 @@ struct MidMesh {
     morph_samples: Option<Vec<MorphSample>>,
     medial_crease: Vec<bool>,
     crease_right: Vec<bool>,
+}
+
+impl Default for MidMesh {
+    fn default() -> Self {
+        Self {
+            main_rows: V_SAMPLES,
+            skirt_rows: SKIRT_SAMPLES,
+            positions: Vec::new(),
+            faces: Vec::new(),
+            skirt_face_start: None,
+            main_columns: 0,
+            extrusion_normals: None,
+            morph_carrier: None,
+            morph_samples: None,
+            medial_crease: Vec::new(),
+            crease_right: Vec::new(),
+        }
+    }
 }
 
 struct MorphCarrier {
@@ -131,6 +152,7 @@ struct MorphSample {
 }
 
 struct SolidMesh {
+    construction_faces: Vec<std::ops::Range<usize>>,
     plate_edges: Vec<[u32; 2]>,
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
@@ -145,6 +167,12 @@ struct SourceSample {
 }
 
 fn combine(front: SolidMesh, back: SolidMesh) -> SolidMesh {
+    let mut construction_faces = front.construction_faces;
+    construction_faces.extend(
+        back.construction_faces
+            .into_iter()
+            .map(|range| range.start + front.indices.len()..range.end + front.indices.len()),
+    );
     let offset = front.positions.len() as u32;
     let front_mid_count = front
         .source_mid_indices
@@ -171,6 +199,7 @@ fn combine(front: SolidMesh, back: SolidMesh) -> SolidMesh {
             .map(|index| index + front_mid_count),
     );
     SolidMesh {
+        construction_faces,
         plate_edges,
         positions,
         normals,
@@ -184,6 +213,12 @@ pub fn generate_breastplate(
     surface: &TorsoSurface,
 ) -> Result<GeneratedArmor, GenerateError> {
     validate_breastplate(design)?;
+    let source_hash = breastplate_design_hash(design)?;
+    let mut carrier_design = design.clone();
+    if matches!(surface.detail, crate::ArmorDetail::Runtime(_)) {
+        carrier_design.fluting = None;
+    }
+    let design = &carrier_design;
     if !valid_surface(surface) {
         return Err(GenerateError::InvalidSurface);
     }
@@ -204,6 +239,7 @@ pub fn generate_breastplate(
         .collect::<Vec<_>>();
     let base_wearer = Wearer::new(
         CarrierPose {
+            detail: surface.detail,
             positions: &base_positions,
             semantic: &base_semantic,
             front: surface.front,
@@ -256,9 +292,10 @@ pub fn generate_breastplate(
         .collect::<Vec<_>>();
     let morphs = generate_morphs(surface, &base, &solid_morph_samples)?;
     Ok(GeneratedArmor {
+        construction_faces: base.construction_faces,
         plate_edges: base.plate_edges,
         components: Vec::new(),
-        design_hash: breastplate_design_hash(design)?,
+        design_hash: source_hash,
         surface_domain: surface.domain.clone(),
         positions: base.positions,
         normals: base.normals,

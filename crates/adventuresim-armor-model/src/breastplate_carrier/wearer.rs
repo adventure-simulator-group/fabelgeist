@@ -42,6 +42,7 @@ impl<'a> Wearer<'a> {
         torso_faces: &'a [[u32; 3]],
     ) -> Result<Self, GenerateError> {
         let CarrierPose {
+            detail,
             positions,
             semantic,
             front,
@@ -116,6 +117,7 @@ impl<'a> Wearer<'a> {
             );
         }
         Ok(Wearer {
+            detail,
             frame,
             anchors,
             clearance,

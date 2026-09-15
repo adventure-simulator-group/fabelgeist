@@ -10,6 +10,7 @@ impl CollarCage {
     pub(super) fn mesh(
         &self,
         design: &GarmentArmorDesign,
+        detail: adventuresim_armor_model::ArmorDetail,
         body: &[[f32; 3]],
         faces: &[[u32; 3]],
     ) -> Result<PartMesh> {
@@ -23,6 +24,7 @@ impl CollarCage {
         let curve_failure = RefCell::new(None);
         let mesh = generate_gorget_plates(
             design,
+            detail,
             |t, angle| {
                 chart
                     .borrow_mut()

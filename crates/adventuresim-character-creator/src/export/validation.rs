@@ -4,10 +4,12 @@ use super::{RiggedMesh, RiggedShell, RiggedSocket, morphs};
 use anyhow::{Result, bail};
 
 pub(super) fn validate(
+    lod: u8,
     mesh: &RiggedMesh<'_>,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
+    crate::lod::CharacterLod::try_from(lod)?;
     let vertices = mesh.positions.len();
     if vertices == 0 || mesh.normals.len() != vertices {
         bail!("positions and normals must contain the same non-zero vertex count");

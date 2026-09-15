@@ -15,6 +15,9 @@
 The standalone [Texture Studio](crates/adventuresim-texture-studio/README.md)
 edits procedural materials in Bevy and builds as a static WebGPU website.
 
+The public [procedural art demo](crates/strategic-web/ART_DEMO.md) at `/art-demo`
+shows existing armor, weapons, architecture, and vegetation without login.
+
 The
 [interior furnishing rules](crates/adventuresim-building-generator/src/interior/README.md)
 describe furniture budgets and entrance-to-furniture access validation. Capture

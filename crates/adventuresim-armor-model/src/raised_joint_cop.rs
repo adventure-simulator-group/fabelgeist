@@ -18,6 +18,7 @@ pub(crate) fn generate(d: &JointCupDesign, fit: &PartFrame) -> Result<PartMesh, 
             let [u, v] = d.flute_coordinates(u, v);
             point(d, fit, u, v)
         },
+        fit.detail,
     )
 }
 

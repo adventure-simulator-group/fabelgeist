@@ -78,6 +78,7 @@ mod tests {
         let indices = vec![[0; 8]; body.positions.len()];
         let weights = vec![[0.125; 8]; body.positions.len()];
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             faces: body.indices.as_chunks::<3>().0,
             positions: &body.positions,
             normals: &[],
@@ -131,6 +132,7 @@ mod tests {
     #[test]
     fn cyclic_support_is_rejected_before_generating_a_closure() {
         let wearer = Wearer {
+            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
             faces: &[],
             positions: &[],
             normals: &[],

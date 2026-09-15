@@ -307,7 +307,7 @@ pub fn generate_close_helmet(
     let gap = design.fit.clearance.metres() + design.fit.wall_thickness.metres();
     let crown = frame.half_extents[1] * design.fit.crown_height.unit() + gap;
     Ok(
-        super::close::generate_fitted(crown, frame.half_extents[1], design, profile)?
+        super::close::generate_fitted(crown, frame.half_extents[1], design, frame.detail, profile)?
             .transformed(frame),
     )
 }
@@ -318,6 +318,7 @@ mod tests {
 
     fn anatomy() -> (PartFrame, Vec<[f32; 3]>) {
         let frame = PartFrame {
+            detail: crate::ArmorDetail::BakeSource,
             origin: [0.0; 3],
             axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
             half_extents: [0.085, 0.115, 0.105],

@@ -50,23 +50,43 @@ pub(super) fn export(
             })
             .collect();
     }
-    let pieces = parametric_equipment::selected(
-        model,
-        &body,
-        &review_recipe,
-        catalog,
-        bracer_design,
-        breastplate_design,
-        &[],
-    )?;
-    for piece in pieces {
-        let mut document = piece_document(&piece, catalog, bracer_design, breastplate_design)?;
-        document["joint_names"] = serde_json::to_value(&character.skeleton.names)?;
-        document["joints"] = serde_json::to_value(&body.global_joint_states)?;
-        std::fs::write(
-            output.join(format!("{}.json", piece.name)),
-            serde_json::to_vec(&document)?,
+    for selection in std::mem::take(&mut review_recipe.clothing) {
+        eprintln!(
+            "Review mesh: {} ({})",
+            selection.item_id, selection.placement_id
+        );
+        review_recipe.clothing = vec![selection];
+        let pieces = parametric_equipment::selected(
+            model,
+            &body,
+            &review_recipe,
+            catalog,
+            bracer_design,
+            breastplate_design,
+            &[],
         )?;
+        for piece in pieces {
+            if matches!(
+                model.armor_detail,
+                adventuresim_armor_model::ArmorDetail::Runtime(_)
+            ) {
+                crate::review_glb::write(
+                    &output.join(format!("{}.glb", piece.name)),
+                    &piece,
+                    model,
+                    &body,
+                    recipe,
+                    catalog,
+                )?;
+            }
+            let mut document = piece_document(&piece, catalog, bracer_design, breastplate_design)?;
+            document["joint_names"] = serde_json::to_value(&character.skeleton.names)?;
+            document["joints"] = serde_json::to_value(&body.global_joint_states)?;
+            std::fs::write(
+                output.join(format!("{}.json", piece.name)),
+                serde_json::to_vec(&document)?,
+            )?;
+        }
     }
     Ok(())
 }
@@ -90,7 +110,7 @@ fn piece_document(
         "id": piece.item_id, "placement": piece.placement_id,
         "design": design, "fasteners": catalog.2.get(&piece.item_id),
         "positions": armor.positions, "normals": armor.normals, "indices": armor.indices,
-        "components": armor.components,
+        "components": armor.components, "construction_faces": armor.construction_faces,
         "joint_indices": armor.joint_indices, "joint_weights": armor.joint_weights,
         "generator_version": adventuresim_armor_model::GENERATOR_VERSION,
     }))
@@ -130,6 +150,7 @@ mod tests {
             placement_id: "left".into(),
             name: "pauldron--left".into(),
             generated: GeneratedArmor {
+                construction_faces: Vec::new(),
                 plate_edges: vec![],
                 components: vec![],
                 design_hash: [0; 32],

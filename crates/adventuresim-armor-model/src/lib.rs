@@ -2,7 +2,10 @@
 //! anatomical surface samples.
 
 mod helmet_crown;
+mod render_topology;
+mod sampling;
 pub use helmet_crown::HelmetCrown;
+pub use sampling::{ArmorDetail, ArmorLod};
 
 #[path = "breastplate_carrier.rs"]
 mod breastplate;

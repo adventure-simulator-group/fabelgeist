@@ -59,6 +59,7 @@ mod tests {
 
     fn armor() -> GeneratedArmor {
         GeneratedArmor {
+            construction_faces: Vec::new(),
             plate_edges: vec![[0, 1], [1, 2], [2, 0]],
             components: vec![ArmorComponent {
                 role: ArmorComponentRole::Plate,

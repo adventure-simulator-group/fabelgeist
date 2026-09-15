@@ -6,6 +6,7 @@ use adventuresim_armor_model::{
 
 fn fitted(design: &LimbArmorDesign) -> PartMesh {
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [0.06, 0.20, 0.045],

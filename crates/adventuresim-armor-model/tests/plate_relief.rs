@@ -89,6 +89,7 @@ fn chart_relief_survives_fitting_blending_and_reflection_with_normal_gauge() {
         }
     }
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.3, 0.4, 0.5],
         axes: [[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]],
         half_extents: [1.0; 3],
@@ -153,12 +154,14 @@ fn fitting_operates_on_the_carrier_and_preserves_relief_and_gauge() {
 #[test]
 fn relief_carriers_follow_reflected_frames_and_appended_shells() {
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [3.0, 4.0, 5.0],
         axes: [[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, 1.0, 0.0]],
         half_extents: [1.0; 3],
     };
     let mut mesh = plate().transformed(&frame);
     mesh.append(plate().transformed(&PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [8.0, 0.0, 0.0],
         ..frame
     }));
@@ -279,6 +282,7 @@ fn directed_shells_keep_extrusion_and_outward_winding_after_rigid_frames_and_ref
     {
         for handedness in [-1.0, 1.0] {
             let frame = PartFrame {
+                detail: adventuresim_armor_model::ArmorDetail::BakeSource,
                 origin: [0.3, 0.4, 0.5],
                 axes: [[1.0, 0.0, 0.0], [0.0, 0.0, 1.0], [0.0, handedness, 0.0]],
                 half_extents: [1.0; 3],

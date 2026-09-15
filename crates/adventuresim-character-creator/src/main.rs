@@ -31,8 +31,10 @@ mod equipment_export;
 mod fluting_controls;
 mod garment_controls;
 mod joint_extension_controls;
+mod model_controls;
 mod parametric_equipment;
 mod review_export;
+mod review_glb;
 mod shoulder_skin;
 mod torso_support;
 mod underlayer_equipment;
@@ -46,6 +48,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 use adventuresim_armor_model::{
     BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
 };
+use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use adventuresim_character_creator::{
     CharacterRecipe, ClothingSelection, IdentityGroup,
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
@@ -70,6 +73,7 @@ use rand::{Rng, SeedableRng, rngs::StdRng};
 
 #[derive(Resource)]
 struct BodyModel {
+    armor_detail: adventuresim_armor_model::ArmorDetail,
     mhr: Mhr,
     lod: u8,
     correctives: bool,
@@ -152,8 +156,11 @@ fn main() -> Result<()> {
     )?;
     let breastplate_design = load_breastplate_design(args.breastplate_design.as_deref())?;
     let device = Device::default();
-    let model = load_body_model(&args.assets, args.lod, false, &device)
+    let mut model = load_body_model(&args.assets, args.lod, false, &device)
         .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
+    if args.armor_bake_source {
+        model.armor_detail = adventuresim_armor_model::ArmorDetail::BakeSource;
+    }
     let catalog = EquipmentCatalog(
         load_item_catalog(&args.catalog)?,
         adventuresim_character_creator::armor_design_input::load(args.armor_designs.as_deref())?,
@@ -280,38 +287,7 @@ fn studio_ui(
             ui.add_space(8.0);
             ui.label("Name");
             ui.text_edit_singleline(&mut studio.recipe.name);
-            let lod_changed = ui
-                .add(
-                    egui::Slider::new(&mut studio.selected_lod, 0..=6)
-                        .text("Mesh LOD")
-                        .custom_formatter(|value, _| {
-                            let lod = value.round() as usize;
-                            let vertices = [73_639, 18_439, 10_661, 4_899, 2_461, 971, 595][lod];
-                            format!("{lod} · {vertices} vertices")
-                        }),
-                )
-                .changed();
-            if lod_changed {
-                studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
-            }
-            ui.small("LOD 0 is highest fidelity; LOD 6 is lowest.");
-            if ui
-                .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
-                .changed()
-            {
-                studio.status = format!(
-                    "Loading MHR LOD {} with correctives {}…",
-                    studio.selected_lod,
-                    if studio.selected_correctives {
-                        "enabled"
-                    } else {
-                        "disabled"
-                    }
-                );
-            }
-            ui.small(
-                "Correctives improve posed deformation but require substantially more memory.",
-            );
+            model_controls::show(ui, &mut studio);
             ui.separator();
 
             ui.collapsing("Catalog clothing and armor", |ui| {
@@ -480,6 +456,7 @@ fn load_body_model(
     correctives: bool,
     device: &Device,
 ) -> Result<BodyModel> {
+    CharacterLod::try_from(lod)?;
     let mhr = Mhr::from_files(
         assets,
         MhrConfig {
@@ -489,6 +466,9 @@ fn load_body_model(
         device,
     )?;
     Ok(BodyModel {
+        armor_detail: adventuresim_armor_model::ArmorDetail::Runtime(
+            adventuresim_armor_model::ArmorLod::try_from(lod).map_err(anyhow::Error::msg)?,
+        ),
         mhr,
         lod,
         correctives,

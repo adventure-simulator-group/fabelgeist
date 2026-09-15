@@ -44,7 +44,13 @@ fn eccentric_support_preserves_closure_correspondence_and_closed_walls() {
             0.006,
         )
         .unwrap();
-        let (leather, metal) = mesh::closure(&section, 0.0, &StrapDesign::default()).unwrap();
+        let (leather, metal) = mesh::closure(
+            &section,
+            0.0,
+            &StrapDesign::default(),
+            adventuresim_armor_model::ArmorDetail::BakeSource,
+        )
+        .unwrap();
         closed(&leather);
         closed(&metal);
         if let Some(indices) = &prior {
@@ -121,7 +127,15 @@ fn a_small_wearer_rejects_an_arc_without_room_for_the_buckle() {
         ..Default::default()
     };
     d.validate().unwrap();
-    assert!(mesh::closure(&section, 0.0, &d).is_err());
+    assert!(
+        mesh::closure(
+            &section,
+            0.0,
+            &d,
+            adventuresim_armor_model::ArmorDetail::BakeSource
+        )
+        .is_err()
+    );
 }
 
 fn tapered_support(half: bool) -> PartMesh {
@@ -193,6 +207,7 @@ fn descending_shoulder_band_narrows_below_the_deltoid_and_encloses_the_arm() {
 fn shoulder_straps_require_both_endpoints_to_land_on_their_own_plate() {
     let plate = tapered_support(true);
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [1.0; 3],
@@ -254,7 +269,13 @@ fn tension_path_endpoints_remain_supported_across_rotated_hulls() {
         for angle in [design.start_angle.radians(), design.end_angle.radians()] {
             assert!(section.radius(angle).unwrap() > 0.09);
         }
-        mesh::closure(&section, 0.1, &design).unwrap();
+        mesh::closure(
+            &section,
+            0.1,
+            &design,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
+        )
+        .unwrap();
     }
 }
 
@@ -301,6 +322,7 @@ fn seam_crossing_arcs_keep_endpoint_and_underarm_height_correspondence() {
 fn suspended_besagew_does_not_supply_band_support_or_main_plate_anchors() {
     let plate = tapered_support(true).with_component(ArmorComponentRole::Plate, None);
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0; 3],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [1.0; 3],
@@ -391,7 +413,13 @@ fn seam_crossing_shoulder_route_builds_closed_leather_and_hardware() {
             &design,
         )
         .unwrap();
-    let (leather, hardware) = mesh::closure(&section, 0.1, &design).unwrap();
+    let (leather, hardware) = mesh::closure(
+        &section,
+        0.1,
+        &design,
+        adventuresim_armor_model::ArmorDetail::BakeSource,
+    )
+    .unwrap();
     closed(&leather);
     closed(&hardware);
 }

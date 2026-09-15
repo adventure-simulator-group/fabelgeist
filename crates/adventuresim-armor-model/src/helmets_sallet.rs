@@ -11,16 +11,18 @@ pub(super) fn skull(
     brow: f32,
     half_height: f32,
     d: &SalletDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    const SKIRT_ROWS: usize = 12;
-    const OPENING_START: usize = AROUND / 6;
+    let skirt_rows = detail.segments(12, 3);
+    let around = detail.segments(AROUND, 12).next_multiple_of(12);
+    let opening_start = around / 6;
     radii[2] += d.brow_projection.metres();
-    let mut surface = Surface::default();
+    let mut surface = Surface::new(detail, detail.segments(AROUND, 12).next_multiple_of(12));
     let rim = surface.styled_dome(radii, brow, &d.crown, 0.0);
     surface.reshape_front_arc(radii, FRAC_PI_3, d.opening_width.radians());
-    let mut previous = rim[OPENING_START..=AROUND - OPENING_START].to_vec();
-    for row in 1..=SKIRT_ROWS {
-        let t = row as f32 / SKIRT_ROWS as f32;
+    let mut previous = rim[opening_start..=around - opening_start].to_vec();
+    for row in 1..=skirt_rows {
+        let t = row as f32 / skirt_rows as f32;
         let next = (0..previous.len())
             .map(|i| {
                 let opening = d.opening_width.radians()
@@ -53,12 +55,13 @@ pub(super) fn visored(
     brow: f32,
     half_height: f32,
     d: &VisoredSalletDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    const COLUMNS: usize = 64;
-    const ROWS: usize = 10;
+    let columns = detail.segments(64, 8);
+    let rows = detail.segments(10, 2);
     const ARM_WIDTH_M: f32 = 0.012;
-    let mut mesh =
-        skull(radii, brow, half_height, &d.skull)?.with_component(ArmorComponentRole::Skull, None);
+    let mut mesh = skull(radii, brow, half_height, &d.skull, detail)?
+        .with_component(ArmorComponentRole::Skull, None);
     let gauge = d.skull.fit.wall_thickness.metres();
     let skull_relief = d
         .skull
@@ -68,13 +71,13 @@ pub(super) fn visored(
     let visor_spacing = gauge * 2.0 + skull_relief;
     let top = brow - d.sight_gap.metres();
     let rise = d.pivot_rise.metres();
-    let mut surface = Surface::default();
+    let mut surface = Surface::new(detail, detail.segments(AROUND, 12).next_multiple_of(12));
     let mut previous = Vec::new();
-    for row in 0..=ROWS {
-        let v = row as f32 / ROWS as f32;
-        let ring = (0..=COLUMNS)
+    for row in 0..=rows {
+        let v = row as f32 / rows as f32;
+        let ring = (0..=columns)
             .map(|column| {
-                let angle = (2.0 * column as f32 / COLUMNS as f32 - 1.0) * FRAC_PI_2;
+                let angle = (2.0 * column as f32 / columns as f32 - 1.0) * FRAC_PI_2;
                 let arm = (angle.abs() / FRAC_PI_2).powi(5);
                 let upper = top + rise * arm;
                 let tip = ((angle.abs() / FRAC_PI_2 - 0.88) / 0.12).max(0.0);

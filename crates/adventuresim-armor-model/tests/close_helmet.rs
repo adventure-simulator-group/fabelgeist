@@ -6,6 +6,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 fn frame(scale: f32) -> PartFrame {
     PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0, 1.65, 0.0],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [0.085 * scale, 0.115 * scale, 0.105 * scale],

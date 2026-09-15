@@ -52,6 +52,7 @@ fn main() -> Result<()> {
         })
         .collect::<Vec<_>>();
     let wearer = Wearer {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         positions: &body.positions,
         normals: &body.normals,
         faces: &body.faces,

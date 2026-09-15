@@ -217,6 +217,7 @@ fn torso() -> TorsoSurface {
             .collect(),
     ];
     TorsoSurface {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         domain: "test_body_v2".into(),
         front: [0.0, 0.0, 1.0],
         morph_fronts: vec![[0.0, 0.0, 1.0]],

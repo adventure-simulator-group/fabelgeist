@@ -102,7 +102,11 @@ impl VisorBreaths {
         Ok(())
     }
 
-    pub(crate) fn openings(&self, chart_height: f64) -> Vec<Vec<[f64; 2]>> {
+    pub(crate) fn openings(
+        &self,
+        chart_height: f64,
+        detail: crate::ArmorDetail,
+    ) -> Vec<Vec<[f64; 2]>> {
         let b = self;
         let mut holes = Vec::new();
         let angle = f64::from(b.inclination.0).to_radians();
@@ -135,6 +139,7 @@ impl VisorBreaths {
                         length,
                         angle * side,
                         f64::from(b.rounding.0) / 1000.0,
+                        detail,
                     ));
                 }
             }
