@@ -53,7 +53,7 @@ impl Recipe {
     pub(super) fn generate(
         &self,
         seed: u64,
-        detail: Tessellation,
+        detail: PlantLod,
     ) -> Result<PlantMesh, GenerationError> {
         match self {
             Self::Flower(p) => p.generate(seed, detail),

@@ -696,8 +696,8 @@ plant-studio family="flowers":
     @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }}
 
 # Capture a flower (0..4) or fungus (0..3), with a settled image pair.
-plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers":
-    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --output {{ quote(output) }}
+plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
 
 fmt:
     @cargo fmt --all

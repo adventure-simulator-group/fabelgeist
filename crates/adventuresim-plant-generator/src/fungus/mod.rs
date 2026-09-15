@@ -3,7 +3,7 @@ mod geometry;
 mod presets;
 #[cfg(test)]
 mod tests;
-use crate::{GenerationError, Pigment, PlantMesh, Tessellation, parameters::bounded};
+use crate::{GenerationError, Pigment, PlantLod, PlantMesh, parameters::bounded};
 pub use presets::FungusSpecies;
 use serde::{Deserialize, Serialize};
 
@@ -113,7 +113,7 @@ impl FungusParameters {
     pub fn height_m(&self) -> f32 {
         self.cap_elevation_m + self.cap_radius_m * self.cap_rise_ratio
     }
-    pub fn generate(&self, seed: u64, detail: Tessellation) -> Result<PlantMesh, GenerationError> {
+    pub fn generate(&self, seed: u64, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
         self.validate()?;
         Ok(geometry::generate(self, seed, detail))
     }

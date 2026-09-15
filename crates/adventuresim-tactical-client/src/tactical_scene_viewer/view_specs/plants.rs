@@ -13,6 +13,11 @@ impl CapturePose {
     }
 
     pub(in crate::tactical_scene_viewer) fn plant_camera(self, root: Vec3) -> (Vec3, Vec3, Vec3) {
+        if let Self::PlantLod { distance } = self {
+            let approach = Vec3::new(-root.x, 0.0, -root.z).normalize_or(Vec3::Z);
+            let eye = root + (approach + Vec3::Y * 0.2).normalize() * distance;
+            return (eye, root + Vec3::Y * 0.08, Vec3::Y);
+        }
         let (distance, target_height, elevation) = match self {
             Self::Plant { distance } => (distance, 0.18, distance.clamp(0.35, 1.5)),
             Self::Fungus { distance, .. } => (distance, 0.06, (distance * 0.3).clamp(0.10, 1.5)),

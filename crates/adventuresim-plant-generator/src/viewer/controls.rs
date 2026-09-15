@@ -11,6 +11,14 @@ pub(super) fn draw(
     }
     egui::Window::new("Parametric plants and fungi").show(contexts.ctx_mut()?, |ui| {
         ui.label("Drag to orbit · scroll to zoom. Dimensions are metres.");
+        let old_lod = editor.lod;
+        ui.horizontal(|ui| {
+            ui.label("Mesh detail");
+            for lod in PlantLod::ALL {
+                ui.selectable_value(&mut editor.lod, lod, format!("{lod:?}"));
+            }
+        });
+        editor.dirty |= old_lod != editor.lod;
         let mut family = editor.parameters.family();
         egui::ComboBox::from_id_salt("family")
             .selected_text(format!("{family:?}"))

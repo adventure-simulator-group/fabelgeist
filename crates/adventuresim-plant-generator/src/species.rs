@@ -1,5 +1,5 @@
 use crate::{
-    GenerationError, PlantMesh, Tessellation, flower::FlowerSpecies, fungus::FungusSpecies,
+    GenerationError, PlantLod, PlantMesh, flower::FlowerSpecies, fungus::FungusSpecies,
     habitat::PlantHabitat,
 };
 use serde::{Deserialize, Serialize};
@@ -22,7 +22,7 @@ impl PlantSpecies {
         Self::Fungus(FungusSpecies::Chanterelle),
         Self::Fungus(FungusSpecies::CommonPuffball),
     ];
-    pub fn generate(self, seed: u64, detail: Tessellation) -> Result<PlantMesh, GenerationError> {
+    pub fn generate(self, seed: u64, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
         match self {
             Self::Flower(s) => s.parameters().generate(seed, detail),
             Self::Fungus(s) => s.parameters().generate(seed, detail),

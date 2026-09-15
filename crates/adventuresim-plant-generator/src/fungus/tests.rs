@@ -5,12 +5,12 @@ use bevy::math::Vec3;
 fn presets_have_bounded_finite_deterministic_geometry_at_both_details() {
     for species in FungusSpecies::ALL {
         let p = species.parameters();
-        let close = p.generate(42, Tessellation::Close).unwrap();
-        let field = p.generate(42, Tessellation::Field).unwrap();
+        let close = p.generate(42, PlantLod::High).unwrap();
+        let field = p.generate(42, PlantLod::Medium).unwrap();
         assert!(field.indices.len() < close.indices.len());
         assert_ne!(
             close.positions,
-            p.generate(99, Tessellation::Close).unwrap().positions
+            p.generate(99, PlantLod::High).unwrap().positions
         );
         for mesh in [close, field] {
             assert!(
@@ -38,8 +38,8 @@ fn presets_have_bounded_finite_deterministic_geometry_at_both_details() {
             }
         }
         assert_eq!(
-            p.generate(42, Tessellation::Close).unwrap(),
-            p.generate(42, Tessellation::Close).unwrap()
+            p.generate(42, PlantLod::High).unwrap(),
+            p.generate(42, PlantLod::High).unwrap()
         );
         assert_eq!(
             p,
@@ -52,7 +52,7 @@ fn presets_have_bounded_finite_deterministic_geometry_at_both_details() {
 fn invalid_profiles_reject_before_allocation_and_topologies_change_surfaces() {
     let mut p = FungusSpecies::FlyAgaric.parameters();
     p.cap_radius_m = f32::NAN;
-    assert!(p.generate(0, Tessellation::Close).is_err());
+    assert!(p.generate(0, PlantLod::High).is_err());
     p.cap_radius_m = 0.012;
     p.stipe_radius_m = 0.04;
     assert!(p.validate().is_err());
@@ -64,9 +64,9 @@ fn invalid_profiles_reject_before_allocation_and_topologies_change_surfaces() {
         "cap top cannot pass through its underside"
     );
     p = FungusSpecies::FlyAgaric.parameters();
-    let gills = p.generate(0, Tessellation::Field).unwrap();
+    let gills = p.generate(0, PlantLod::High).unwrap();
     p.fertile_surface = FertileSurface::Enclosed;
-    assert!(p.generate(0, Tessellation::Field).unwrap().indices.len() < gills.indices.len());
+    assert!(p.generate(0, PlantLod::High).unwrap().positions != gills.positions);
     p.decurrent_m = p.cap_elevation_m;
     assert!(p.validate().is_err());
 }

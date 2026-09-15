@@ -6,6 +6,8 @@ pub mod habitat;
 mod mesh;
 mod parameters;
 mod species;
-pub use mesh::{PlantMesh, Tessellation};
+pub use mesh::{PlantLod, PlantMesh};
 pub use parameters::{GenerationError, Pigment};
 pub use species::PlantSpecies;
+#[cfg(test)]
+mod lod_tests;

@@ -23,14 +23,17 @@ For deterministic PBR captures of a preset (indices 0 through 4):
 cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --preset 3 --view head --output target/poppy-head
 ```
 
-Use `--view full` for the complete plant and `--field` for tactical
-tessellation. Captures include two settled readbacks and a camera, seed,
+Use `--view full` for the complete plant and `--lod high|medium|low` for the
+mesh tier. Plant Studio also has an interactive detail selector.
+Captures include two settled readbacks and a camera, seed,
 parameter, and geometry-count manifest. New review runs should use fresh
 output directories.
 
 `FlowerParameters::generate` returns indexed `PlantMesh` data rooted at Y=0
 in metres. `PlantMesh::into_bevy` uploads the same geometry used by the
-preview and tactical renderer. `Tessellation` bounds surface resolution.
+preview and tactical renderer. `PlantLod` bounds geometry to 512, 128, and 32
+triangles for High, Medium, and Low. Complex recipes aggregate organs within
+those budgets, preserving the primary head and sampling the shoot arrangement.
 Pigments are solid sRGB regions converted to linear vertex colors; lighting
 and roughness belong to the renderer.
 
@@ -54,8 +57,25 @@ flowers do not clear or shorten surrounding grass. Ground-cover inputs must
 represent a suitable meadow margin, disturbed soil, or woodland understory.
 
 Each scene retains at most 512 specimens, selected by stable hash priority
-across the whole scene. Geometry is batched in 12-metre cells and fades out
-at close-detail distance. Plants are client presentation only; they add no
+across the whole scene. Each specimen has three co-located mesh tiers, with
+shared mesh/material handles for automatic instancing. Per-view distance from
+the plant root controls complementary dithered crossfades:
+
+| Tier | Triangle ceiling | Visibility |
+| --- | --- | --- |
+| High | 512 | Full below 2.25 m; fades to Medium over 2.25–2.75 m |
+| Medium | 128 | Full from 2.75–6.5 m; fades to Low over 6.5–7.5 m |
+| Low | 32 | Full from 7.5–22 m; fades out over 22–27 m |
+
+Adjacent tiers briefly overlap during transitions. Identical roots and union
+bounds prevent mismatched fade distances and frustum culling across tiers.
+The `plant-lod-review` tactical capture profile records actual selected tiers
+and triangle counts before, within, and after both transition bands.
+`plant-lod-isolated` repeats those production roots and camera positions with
+grass, understory, trees, and vista hidden for an unobstructed LOD diagnostic.
+Its visual results concern switching and mesh shape, not habitat integration.
+
+Plants are client presentation only; they add no
 strategic database rows, tactical combat state, harvesting, or collision.
 
 The initial five presets are a representative foundation for central Germany
@@ -76,10 +96,11 @@ and spore-bearing surface. `cap_elevation_m` sets the rim's nominal height;
 the stem attaches to the underside of that cap, including a depressed funnel.
 Validation rejects profiles whose upper and lower surfaces intersect.
 
-The surface topology selects thin gills, recessed pores, blunt branching
-ridges, or an enclosed fruiting body. These distinctions remain geometry at
-both detail levels. Use `--view underside` to inspect them and `--view head`
-for the cap. The same capture and JSON editing workflow applies to fungi.
+The high tier retains gill/ridge relief, veil rings, and
+ornaments. Submillimetre pores are aggregated into a continuous underside;
+lower tiers spend their geometry on the cap, stem, and broad silhouette.
+Use `--view underside` to inspect them and `--view head` for the cap. The same
+capture and JSON editing workflow applies to fungi.
 
 The combined `PlantSpecies` catalog shares one tactical population budget.
 Moisture, seasonal fruiting intervals, woodland cover, and cultivation filter

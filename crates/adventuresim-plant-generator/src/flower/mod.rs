@@ -3,7 +3,7 @@ mod geometry;
 mod presets;
 #[cfg(test)]
 mod tests;
-use crate::{GenerationError, Pigment, PlantMesh, Tessellation, parameters::bounded};
+use crate::{GenerationError, Pigment, PlantLod, PlantMesh, parameters::bounded};
 pub use presets::FlowerSpecies;
 use serde::{Deserialize, Serialize};
 
@@ -94,7 +94,7 @@ impl FlowerParameters {
         Ok(())
     }
 
-    pub fn generate(&self, seed: u64, detail: Tessellation) -> Result<PlantMesh, GenerationError> {
+    pub fn generate(&self, seed: u64, detail: PlantLod) -> Result<PlantMesh, GenerationError> {
         self.validate()?;
         Ok(geometry::generate(self, seed, detail))
     }

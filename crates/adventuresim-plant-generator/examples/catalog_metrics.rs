@@ -1,5 +1,5 @@
 //! Observational CPU generation timings and mesh counts; no GPU cost is measured.
-use adventuresim_plant_generator::{PlantSpecies, Tessellation};
+use adventuresim_plant_generator::{PlantLod, PlantSpecies};
 use std::{hint::black_box, time::Instant};
 
 const TIMING_SAMPLES: usize = 25;
@@ -8,7 +8,7 @@ const SPECIMEN_SEED: u64 = 42;
 fn main() {
     println!("species,detail,vertices,triangles,first_us,median_us,p95_us");
     for species in PlantSpecies::ALL {
-        for detail in [Tessellation::Close, Tessellation::Field] {
+        for detail in PlantLod::ALL {
             let first = Instant::now();
             let mesh = species.generate(SPECIMEN_SEED, detail).unwrap();
             let first_us = first.elapsed().as_micros();

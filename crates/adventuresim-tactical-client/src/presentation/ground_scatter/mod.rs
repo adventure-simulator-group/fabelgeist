@@ -42,7 +42,7 @@ mod instanced_understory;
 mod litter;
 mod loose_stone;
 pub(super) mod plants;
-pub(crate) use plants::PlantCaptureAnchors;
+pub(crate) use plants::{PlantCaptureAnchors, PlantLodInstance};
 mod review_specimens;
 
 pub(crate) use review_specimens::{UnderstoryReviewSpecimen, spawn_understory_review_specimens};

@@ -189,6 +189,37 @@ fn scene_plugin_spawns_batches_and_is_idempotent() {
         .iter(app.world())
         .count();
     assert!(count > 0);
+    assert_eq!(app.world().resource::<Assets<Mesh>>().len(), 27);
+    assert_eq!(app.world().resource::<Assets<StandardMaterial>>().len(), 1);
+    let mut groups = std::collections::BTreeMap::new();
+    let world = app.world_mut();
+    let mut query = world.query::<(
+        &lod::PlantLodInstance,
+        &Transform,
+        &bevy::camera::primitives::Aabb,
+        &bevy::camera::visibility::VisibilityRange,
+    )>();
+    for (instance, transform, bounds, range) in query.iter(world) {
+        assert!(*range == instance.range());
+        let key = transform.translation.to_array().map(f32::to_bits);
+        groups
+            .entry(key)
+            .or_insert_with(Vec::new)
+            .push((*instance, *transform, *bounds));
+    }
+    assert_eq!(groups.len() * 3, count);
+    for group in groups.values() {
+        assert_eq!(group.len(), 3);
+        for (instance, transform, bounds) in group {
+            assert_eq!(instance.species, group[0].0.species);
+            assert_eq!(*transform, group[0].1);
+            assert_eq!(bounds.center, group[0].2.center);
+            assert_eq!(bounds.half_extents, group[0].2.half_extents);
+        }
+        let mut levels = group.iter().map(|g| g.0.level.index()).collect::<Vec<_>>();
+        levels.sort_unstable();
+        assert_eq!(levels, [0, 1, 2]);
+    }
     assert!(
         !app.world()
             .get::<PlantCaptureAnchors>(entity)

@@ -8,15 +8,28 @@ use serde::{Deserialize, Serialize};
 
 /// Bounded surface resolution shared by authoring and tactical presentation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum Tessellation {
-    Close,
-    Field,
+#[cfg_attr(feature = "viewer", derive(clap::ValueEnum))]
+pub enum PlantLod {
+    High,
+    Medium,
+    Low,
 }
-impl Tessellation {
-    pub(crate) fn segments(self) -> usize {
+impl PlantLod {
+    pub const ALL: [Self; 3] = [Self::High, Self::Medium, Self::Low];
+
+    pub const fn triangle_budget(self) -> usize {
+        self.samples(512, 128, 32)
+    }
+
+    pub const fn index(self) -> usize {
+        self.samples(0, 1, 2)
+    }
+
+    pub(crate) const fn samples(self, high: usize, medium: usize, low: usize) -> usize {
         match self {
-            Self::Close => 16,
-            Self::Field => 8,
+            Self::High => high,
+            Self::Medium => medium,
+            Self::Low => low,
         }
     }
 }
@@ -30,6 +43,17 @@ pub struct PlantMesh {
     pub indices: Vec<u32>,
 }
 impl PlantMesh {
+    pub(crate) fn triangle(&mut self, points: [Vec3; 3], pigment: Pigment) {
+        let normal = (points[1] - points[0]).cross(points[2] - points[0]);
+        if normal.length_squared() <= 1e-18 {
+            return;
+        }
+        let base = self.positions.len() as u32;
+        self.positions.extend(points.map(|point| point.to_array()));
+        self.normals.extend([normal.normalize().to_array(); 3]);
+        self.colors.extend([pigment.linear(); 3]);
+        self.indices.extend([base, base + 1, base + 2]);
+    }
     pub fn into_bevy(self) -> Mesh {
         Mesh::new(
             PrimitiveTopology::TriangleList,

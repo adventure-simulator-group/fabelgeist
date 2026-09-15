@@ -39,6 +39,7 @@ mod gpu_readiness;
 mod interior_capture;
 mod interior_furniture_capture;
 mod manifest;
+mod plant_lods;
 mod terrain_setup;
 mod triangle_census;
 mod view_camera;
@@ -96,14 +97,16 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 33;
+const CAPTURE_PROFILE_VERSION: u16 = 34;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
+const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
+const PLANT_LOD_ISOLATED_PROFILE: &str = "plant-lod-isolated";
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 21;
+const CAMERA_VERSION: u16 = 22;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -163,6 +166,9 @@ struct LightingObservationParams<'w, 's> {
     terrain: Query<'w, 's, &'static SceneTerrain>,
     litter_anchors: Query<'w, 's, &'static GroundLitterCaptureAnchors>,
     plant_anchors: Query<'w, 's, &'static crate::presentation::PlantCaptureAnchors>,
+    plant_lods: plant_lods::Instances<'w, 's>,
+    plant_meshes: Res<'w, Assets<Mesh>>,
+    plant_visible: Query<'w, 's, &'static bevy::camera::visibility::VisibleEntities>,
     obstacle_transforms: Query<
         'w,
         's,
@@ -1118,6 +1124,8 @@ fn selected_capture_views(
     let profile_views = match profile {
         PLANT_REVIEW_PROFILE => view_specs::PLANT_REVIEW_VIEWS.as_slice(),
         FUNGUS_REVIEW_PROFILE => view_specs::FUNGUS_REVIEW_VIEWS.as_slice(),
+        PLANT_LOD_REVIEW_PROFILE => view_specs::PLANT_LOD_REVIEW_VIEWS.as_slice(),
+        PLANT_LOD_ISOLATED_PROFILE => view_specs::PLANT_LOD_ISOLATED_VIEWS.as_slice(),
         "semantic" => CAPTURE_VIEWS.as_slice(),
         "environment-review" => ENVIRONMENT_REVIEW_VIEWS.as_slice(),
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
@@ -2630,7 +2638,7 @@ fn benchmark_scene_performance(
             let name = match layer {
                 GroundScatterLayer::Grass => "grass_patches",
                 GroundScatterLayer::Understory => "understory_patches",
-                GroundScatterLayer::BotanicalPlants => "botanical_plant_cells",
+                GroundScatterLayer::BotanicalPlants => "botanical_lod_entities",
                 GroundScatterLayer::DryLeaves => "dry_leaf_patches",
                 GroundScatterLayer::Twigs => "twig_patches",
                 GroundScatterLayer::LooseStone => "loose_stone_patches",
@@ -3442,7 +3450,11 @@ fn capture_views(
                         && name.starts_with(&format!("Shared {common_name} "))
                         && position.distance_squared(focus) <= 0.0001
                 });
-            let hide_for_view = if view.understory_species.is_some() {
+            let hide_for_view = if matches!(view.pose, CapturePose::PlantLod { .. })
+                && layer == GroundScatterLayer::BotanicalPlants
+            {
+                false
+            } else if view.understory_species.is_some() {
                 !isolated_understory_visible
             } else {
                 (layer == GroundScatterLayer::Grass && suppress_grass)
@@ -3670,6 +3682,7 @@ fn capture_views(
                     })
                     .flatten();
             state.captures.push(CaptureRecord {
+                botanical_lods: Vec::new(),
                 view: view.slug.to_owned(),
                 label: view.label.to_owned(),
                 screenshot: format!("{}.png", view.slug),
@@ -3745,6 +3758,19 @@ fn capture_views(
         return;
     }
 
+    let botanical_lods = plant_lods::observe(
+        &lighting.plant_lods,
+        &lighting.plant_meshes,
+        lighting
+            .plant_visible
+            .get(camera.0)
+            .expect("capture camera has visibility list"),
+        state.plant_focus,
+        camera.1.translation,
+    );
+    if let Some(record) = state.captures.last_mut() {
+        record.botanical_lods = botanical_lods;
+    }
     if view.observe_recursive_lod {
         let camera_position = camera.1.translation;
         state.recursive_lods_observed.extend(
@@ -3981,7 +4007,7 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
-        CapturePose::Plant { .. } | CapturePose::Fungus { .. } => {
+        CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
             pose.plant_camera(state.plant_focus.expect(
                 "botanical review requires actual production roots of the requested species",
             ))
@@ -4338,7 +4364,7 @@ fn build_manifest(
     };
     let mut grass_clumps = 0;
     let mut understory_clumps = 0;
-    let mut botanical_plant_cells = 0;
+    let mut botanical_lod_entities = 0;
     let mut dry_leaf_patches = 0;
     let mut twig_patches = 0;
     let mut loose_stone_patches = 0;
@@ -4346,7 +4372,7 @@ fn build_manifest(
         match layer {
             GroundScatterLayer::Grass => grass_clumps += 1,
             GroundScatterLayer::Understory => understory_clumps += 1,
-            GroundScatterLayer::BotanicalPlants => botanical_plant_cells += 1,
+            GroundScatterLayer::BotanicalPlants => botanical_lod_entities += 1,
             GroundScatterLayer::DryLeaves => dry_leaf_patches += 1,
             GroundScatterLayer::Twigs => twig_patches += 1,
             GroundScatterLayer::LooseStone => loose_stone_patches += 1,
@@ -4355,7 +4381,9 @@ fn build_manifest(
     let foliage_summary = FoliageSummary {
         grass_clumps,
         understory_clumps,
-        botanical_plant_cells,
+        botanical_lod_entities,
+        botanical_specimens: botanical_lod_entities
+            / adventuresim_plant_generator::PlantLod::ALL.len(),
         dry_leaf_patches,
         twig_patches,
         loose_stone_patches,

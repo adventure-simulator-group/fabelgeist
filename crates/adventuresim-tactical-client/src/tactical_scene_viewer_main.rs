@@ -37,6 +37,10 @@ enum CaptureProfile {
     PlantReview,
     /// Actual placed fungi, one contact view per species and wider habitat views.
     FungusReview,
+    /// Actual botanical LODs before, inside and after both crossfade bands.
+    PlantLodReview,
+    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+    PlantLodIsolated,
     /// Existing exhaustive semantic presentation suite (23 recorded views).
     #[default]
     Semantic,
@@ -160,6 +164,8 @@ fn main() {
         match args.profile {
             CaptureProfile::PlantReview => "plant-review",
             CaptureProfile::FungusReview => "fungus-review",
+            CaptureProfile::PlantLodReview => "plant-lod-review",
+            CaptureProfile::PlantLodIsolated => "plant-lod-isolated",
             CaptureProfile::Semantic => "semantic",
             CaptureProfile::EnvironmentReview => "environment-review",
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,

@@ -28,18 +28,11 @@ pub(super) fn capture(
     let (eye, target) = camera(&options, &editor.parameters);
     let mesh = editor
         .parameters
-        .generate(
-            options.seed,
-            if options.field {
-                Tessellation::Field
-            } else {
-                Tessellation::Close
-            },
-        )
+        .generate(options.seed, editor.lod)
         .expect("validated specimen");
     let manifest = serde_json::json!({
         "preset":match editor.origin {RecipeOrigin::Preset=>Some(editor.parameters.family().name(editor.preset)),RecipeOrigin::Custom=>None},"parameters":editor.parameters,
-        "seed":options.seed,"view":options.view,"field":options.field,
+        "seed":options.seed,"view":options.view,"lod":editor.lod,
         "camera":{"eye":eye.to_array(),"target":target.to_array()},
         "dimensions":[1400,1100],"settled_frames":[60,90],
         "minimum_warmup_seconds":CAPTURE_WARMUP_SECONDS,

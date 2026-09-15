@@ -1,20 +1,21 @@
-//! Habitat-filtered, cell-batched botanical meshes shared with Plant Studio.
+//! Habitat-filtered, instanced botanical meshes shared with Plant Studio.
 use super::{GroundScatterLayer, scatter_ground_without_patch};
 use crate::presentation::{bps, stable_text_seed, unit_hash};
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 use adventuresim_plant_generator::{
-    PlantMesh, PlantSpecies, Tessellation,
+    PlantSpecies,
     habitat::{PlantGround, PlantHabitat},
 };
 use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneEnvironment, SceneGround, SceneId,
     SceneTerrain, TerrainLandformRecipe,
 };
-use bevy::{camera::visibility::VisibilityRange, prelude::*};
+use bevy::prelude::*;
+mod lod;
 use fabelgeist_determinism::splitmix64;
-use std::collections::BTreeMap;
+pub(crate) use lod::PlantLodInstance;
+use lod::SpecimenCache;
 
-const CELL_METRES: f32 = 12.0;
 const SITE_SPACING_METRES: f32 = 2.0;
 const MAX_SPECIMENS: usize = 512;
 const MIN_SLOPE_NORMAL_Y: f32 = 0.8;
@@ -30,11 +31,6 @@ impl Plugin for PlantPresentationPlugin {
         app.init_resource::<SpecimenCache>()
             .add_systems(Update, present);
     }
-}
-#[derive(Resource, Default)]
-struct SpecimenCache {
-    specimens: Vec<PlantMesh>,
-    material: Option<Handle<StandardMaterial>>,
 }
 #[derive(Component)]
 struct PlantsPresented;
@@ -68,71 +64,24 @@ fn present(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for (entity, id, terrain, ground, environment, landform) in &scenes {
-        if cache.specimens.is_empty() {
-            cache.specimens = PlantSpecies::ALL
-                .iter()
-                .map(|s| {
-                    s.generate(PLANT_SEED, Tessellation::Field)
-                        .expect("valid botanical preset")
-                })
-                .collect();
-        }
-        let material = cache
-            .material
-            .get_or_insert_with(|| {
-                materials.add(StandardMaterial {
-                    perceptual_roughness: 0.72,
-                    double_sided: true,
-                    cull_mode: None,
-                    ..default()
-                })
-            })
-            .clone();
+        cache.prepare(&mut meshes, &mut materials);
         let masked = landform.map(|l| scatter_ground_without_patch(ground, l.transition_collar()));
         let ground = masked.as_ref().unwrap_or(ground);
         let seed =
             stable_text_seed(&id.0) ^ stable_text_seed(&environment.scene_digest) ^ PLANT_SEED;
         let sites = placements(terrain, ground, environment, seed);
-        let mut batches: BTreeMap<(i32, i32), PlantMesh> = BTreeMap::new();
         let mut anchors = Vec::new();
         for site in sites {
-            let cell = (
-                (site.root.x / CELL_METRES).floor() as i32,
-                (site.root.z / CELL_METRES).floor() as i32,
-            );
-            let origin = Vec3::new(
-                (cell.0 as f32 + 0.5) * CELL_METRES,
-                0.0,
-                (cell.1 as f32 + 0.5) * CELL_METRES,
-            );
-            batches.entry(cell).or_default().append(
-                &cache.specimens[site.species.index()],
-                site.root - origin,
-                Quat::from_rotation_y(unit_hash(site.hash) * std::f32::consts::TAU),
-                0.85 + unit_hash(splitmix64(site.hash)) * 0.3,
-            );
+            let transform = Transform::from_translation(site.root)
+                .with_rotation(Quat::from_rotation_y(
+                    unit_hash(site.hash) * std::f32::consts::TAU,
+                ))
+                .with_scale(Vec3::splat(0.85 + unit_hash(splitmix64(site.hash)) * 0.3));
+            cache.spawn(&mut commands, site.species, transform);
             anchors.push(PlantCaptureAnchor {
                 root: site.root,
                 species: site.species,
             });
-        }
-        for ((x, z), mesh) in batches {
-            commands.spawn((
-                Name::new("Parametric botanical community"),
-                GroundScatterLayer::BotanicalPlants,
-                Mesh3d(meshes.add(mesh.into_bevy())),
-                MeshMaterial3d(material.clone()),
-                Transform::from_xyz(
-                    (x as f32 + 0.5) * CELL_METRES,
-                    0.0,
-                    (z as f32 + 0.5) * CELL_METRES,
-                ),
-                VisibilityRange {
-                    start_margin: 0.0..0.0,
-                    end_margin: 22.0..27.0,
-                    use_aabb: true,
-                },
-            ));
         }
         commands
             .entity(entity)

@@ -3,7 +3,7 @@ mod capture;
 mod controls;
 mod recipe;
 use adventuresim_plant_generator::{
-    Tessellation,
+    PlantLod,
     flower::{FlowerParameters, FlowerSpecies},
 };
 use bevy::{prelude::*, window::WindowResolution};
@@ -42,11 +42,12 @@ struct Options {
     output: Option<PathBuf>,
     #[arg(long, value_enum, default_value = "full")]
     view: View,
-    #[arg(long)]
-    field: bool,
+    #[arg(long, value_enum, default_value = "high")]
+    lod: PlantLod,
 }
 #[derive(Resource)]
 struct Editor {
+    lod: PlantLod,
     parameters: Recipe,
     preset: usize,
     dirty: bool,
@@ -80,6 +81,7 @@ fn main() {
         .validate()
         .expect("valid plant recipe dimensions and profiles");
     let editor = Editor {
+        lod: options.lod,
         parameters,
         preset: if options.document.is_some() {
             0
@@ -189,12 +191,7 @@ fn rebuild(
         return;
     }
     editor.dirty = false;
-    let detail = if options.field {
-        Tessellation::Field
-    } else {
-        Tessellation::Close
-    };
-    match editor.parameters.generate(options.seed, detail) {
+    match editor.parameters.generate(options.seed, editor.lod) {
         Ok(mesh) => {
             for entity in &old {
                 commands.entity(entity).despawn();

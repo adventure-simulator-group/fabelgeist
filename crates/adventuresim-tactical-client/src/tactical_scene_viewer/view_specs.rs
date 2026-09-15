@@ -13,6 +13,9 @@ pub(super) enum TreeLightingModeId {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
+    PlantLod {
+        distance: f32,
+    },
     Fungus {
         distance: f32,
         species: adventuresim_plant_generator::fungus::FungusSpecies,
@@ -666,6 +669,8 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
 mod environment;
 mod plants;
 pub(super) use plants::PLANT_REVIEW_VIEWS;
+mod plant_lods;
+pub(super) use plant_lods::{PLANT_LOD_ISOLATED_VIEWS, PLANT_LOD_REVIEW_VIEWS};
 mod fungi;
 pub(super) use fungi::FUNGUS_REVIEW_VIEWS;
 mod landform;
