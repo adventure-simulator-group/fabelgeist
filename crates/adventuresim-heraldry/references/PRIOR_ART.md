@@ -17,6 +17,22 @@ provide a useful model for preparing a small, verified charge collection.
 Our adaptation must also retain interior drawing, painted tones and grouping
 needed for coherent deformation. The lion is the current worked example.
 
+Those fields do not by themselves establish historical provenance. A bounded
+check of the template, great helm, salmon and rampant lion found no dated
+historical object, manuscript or folio in their SVG metadata. The great helm's
+[Commons source](https://commons.wikimedia.org/wiki/File:Wappen_at_gilgenberg_am_weilhart.svg)
+credits Paladium's 2020 SVG after an image of municipal arms, with the original
+artist unknown; it does not identify a dated period model. This is a sample,
+not an audit of every Armoria charge. An individual asset may still lead to
+usable historical evidence through its source chain.
+
+Prefer Commons when looking for documented period designs, then verify the
+underlying institutional record and image. Armoria remains an additional
+discovery source under the same criteria. Digital authorship, a reuse license,
+or the antiquity of the represented arms cannot alone date the drawing style.
+The [source record requirements](ATTRIBUTION.md#adding-other-source-artwork)
+keep the historical model and modern vector adaptation distinct.
+
 Its [generator](https://github.com/Azgaar/Armoria/blob/9351aa69ebc9ae52852311dea3f74cec28e67f6e/src/scripts/generator.js#L15-L181)
 coordinates divisions, ordinaries, charge counts, placement and tincture
 contrast. [Shield-specific anchors](https://github.com/Azgaar/Armoria/blob/9351aa69ebc9ae52852311dea3f74cec28e67f6e/src/data/shields.ts#L13-L53)

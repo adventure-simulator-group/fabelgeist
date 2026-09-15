@@ -90,6 +90,22 @@ SVGs and text generation remain deferred. Inspect the actual vector structure,
 including compound contours, interior strokes, accents and painted tones,
 before choosing a source. A silhouette preview is insufficient.
 
+Commons is the preferred discovery source for period designs. Follow its
+historical references to the museum, library or archive record and inspect
+the underlying image. Armoria and other collections may supply candidates
+when the same evidence can be recovered for the individual design.
+
+Keep digital attribution separate from historical provenance. For a design
+presented as a period reference, record the historical model's date and place,
+institution, accession number or manuscript shelfmark, and page or folio where
+available. Link the catalogue record and image, and note attribution or dating
+uncertainty. Record the modern SVG's creator and upload date separately. The
+age of a coat of arms or blazon does not establish the age of a particular
+drawing style. A modern redraw can preserve a documented period model while
+adding colors, shading or details; identify those adaptations explicitly.
+When the model cannot be traced, keep the asset as a discovery lead rather
+than labeling its drawing period-verified.
+
 For each adopted asset, retain the original file and record its title, creator
 and adaptation chain, source page, selected license and version, file hash,
 historical basis, and our modifications. Preserve meaningful paint regions
