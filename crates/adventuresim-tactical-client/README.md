@@ -6,6 +6,12 @@ Bevy. Skeletal animation is presentation-only: the server replicates compact
 the client selects and blends authored poses, then applies procedural look and
 terrain leg IK.
 
+The equipment HUD shows procedural weapons, holders, and armor as color
+portraits on black squares. Weapon recipes render into a transient image cache;
+armor loads the baked portrait for its manifest placement. See the
+[portrait workflow](../adventuresim-weapon-model/README.md#equipment-portraits)
+for lighting and regeneration commands.
+
 EGUI renders the centered incapacitation wheel without taking pointer input.
 The segmented arc surrounds the retained Bevy UI crosshair, starts at 12
 o'clock, and uses the strategic condition colors for live pain and blood loss

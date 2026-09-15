@@ -1,4 +1,4 @@
-//! Export a deterministic weapon silhouette as a grayscale PNG.
+//! Export a deterministic studio-lit weapon portrait as a color PNG.
 
 use std::{env, fs, path::PathBuf};
 

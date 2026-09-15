@@ -6668,3 +6668,15 @@ body.chat-resizing {
   .conversation-panel,
   .dialogue-category-panel { display: none; }
 }
+
+.game-icon.equipment-portrait {
+  background: #000 var(--equipment-portrait) center / contain no-repeat;
+  -webkit-mask: none;
+  mask: none;
+  aspect-ratio: 1;
+  border-radius: 0;
+}
+.inventory-item-type .game-icon.equipment-portrait {
+  width: 1.6rem;
+  height: 1.6rem;
+}

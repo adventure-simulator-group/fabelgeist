@@ -1060,23 +1060,25 @@
     decorateContainers(browser);
   }
 
-  function hydrateProceduralWeaponIcons(root = document) {
+  function hydrateProceduralEquipmentIcons(root = document) {
     const rows = root.matches?.("tr.trade-inventory-row")
       ? [root]
       : [...(root.querySelectorAll?.("tr.trade-inventory-row") || [])];
     rows.forEach((row) => {
-      if (!row.querySelector('.inventory-item-label[data-item-melee="true"], .inventory-item-label[data-item-weapon-holder="true"]')) return;
+      if (!row.querySelector('.inventory-item-label[data-item-melee="true"], .inventory-item-label[data-item-weapon-holder="true"], .inventory-item-label[data-equipment-portrait]')) return;
       const scope = row.dataset.personalInventoryId ? "personal" : row.dataset.partyInventoryId ? "party" : "";
       const rowId = row.dataset.personalInventoryId || row.dataset.partyInventoryId || "";
       const icon = row.querySelector(".inventory-item-type .game-icon");
-      if (!scope || !/^\d+$/.test(rowId) || !icon) return;
-      const url = `/api/weapon-icons/${scope}/${rowId}.png`;
-      if (icon.dataset.proceduralWeaponIcon === url) return;
-      icon.dataset.proceduralWeaponIcon = url;
+      const portrait = row.querySelector("[data-equipment-portrait]")?.dataset.equipmentPortrait;
+      if (!icon || (!portrait && (!scope || !/^\d+$/.test(rowId)))) return;
+      const url = portrait || `/api/weapon-icons/${scope}/${rowId}.png`;
+      if (icon.dataset.proceduralEquipmentIcon === url) return;
+      icon.dataset.proceduralEquipmentIcon = url;
       const probe = new Image();
       probe.addEventListener("load", () => {
-        if (icon.isConnected && icon.dataset.proceduralWeaponIcon === url) {
-          icon.style.setProperty("--game-icon", `url("${url}")`);
+        if (icon.isConnected && icon.dataset.proceduralEquipmentIcon === url) {
+          icon.style.setProperty("--equipment-portrait", `url("${url}")`);
+          icon.classList.add("equipment-portrait");
         }
       }, { once: true });
       probe.addEventListener("error", () => {
@@ -1088,7 +1090,7 @@
 
   function mountAll(root = document) {
     root.querySelectorAll?.("[data-inventory-browser]").forEach(mount);
-    hydrateProceduralWeaponIcons(root);
+    hydrateProceduralEquipmentIcons(root);
   }
   function refresh(scope = document) {
     const browsers = scope.matches?.("[data-inventory-browser]") ? [scope] : [...(scope.querySelectorAll?.("[data-inventory-browser]") || [])];
@@ -1098,9 +1100,9 @@
       else apply(browser, browser._inventoryState || parsePanelState(global.location.search, browser.dataset.inventoryBrowser, (browser.dataset.optionalColumns || "").split(",").filter(Boolean)));
     });
     hydrateContainerState(scope);
-    hydrateProceduralWeaponIcons(scope);
+    hydrateProceduralEquipmentIcons(scope);
   }
-  const api = { parsePanelState, serializePanelState, compareValues, normalizeSortValue, rowValue, groupCurrencyRows, groupFoodRows, decorateContainers, hydrateContainerState, hydrateProceduralWeaponIcons, openContainer, closeContainer, mountAll, refresh, syncPanelWidth };
+  const api = { parsePanelState, serializePanelState, compareValues, normalizeSortValue, rowValue, groupCurrencyRows, groupFoodRows, decorateContainers, hydrateContainerState, hydrateProceduralEquipmentIcons, openContainer, closeContainer, mountAll, refresh, syncPanelWidth };
   global.strategicInventoryBrowser = api;
   if (typeof module !== "undefined") module.exports = api;
   if (global.document) {
