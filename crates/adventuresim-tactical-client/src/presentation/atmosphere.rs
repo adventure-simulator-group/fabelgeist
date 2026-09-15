@@ -1,7 +1,9 @@
-//! Freeze Bevy's physically based atmosphere into one generated cubemap.
+//! Cache atmosphere IBL while retaining live sky and direct-light transport.
 
 use super::*;
-use bevy::light::{GeneratedEnvironmentMapLight, LightProbe, Skybox};
+#[cfg(test)]
+use bevy::light::Skybox;
+use bevy::light::{GeneratedEnvironmentMapLight, LightProbe};
 use bevy::{
     pbr::{ExtractedAtmosphere, GpuAtmosphereSettings, extract_atmosphere},
     render::{
@@ -18,37 +20,84 @@ use gpu_bake::AtmosphereBakeGpu;
 todo_or_die::crates_io!("bevy", ">=0.20.0");
 
 /// 64 * 64 * 6 RGBA16F texels = 192 KiB.
-const FROZEN_SKY_CUBEMAP_SIZE: u32 = 64;
+const ATMOSPHERE_IBL_CUBEMAP_SIZE: u32 = 64;
 
 #[derive(Resource, Debug, Default)]
-pub(crate) struct FrozenAtmosphereStatus {
-    phase: FrozenAtmospherePhase,
+pub(crate) struct AtmosphereIblCache {
+    phase: AtmosphereIblPhase,
+    key: Option<AtmosphereIblKey>,
+    medium_revision: u64,
     pub(crate) completed_bakes: u32,
 }
 
-impl FrozenAtmosphereStatus {
-    pub(crate) fn is_frozen(&self) -> bool {
-        matches!(self.phase, FrozenAtmospherePhase::Frozen { .. })
+#[derive(Clone, Debug, Eq, PartialEq)]
+struct AtmosphereIblKey {
+    scene: Entity,
+    environment: SceneEnvironment,
+    size: u32,
+    environment_light: bool,
+    atmosphere: Entity,
+    atmosphere_transform: [u32; 6],
+    atmosphere_tick: u32,
+    medium_revision: u64,
+}
+
+impl AtmosphereIblKey {
+    fn new(
+        scene: Entity,
+        environment: &SceneEnvironment,
+        settings: Option<&TacticalGraphicsSettings>,
+        atmospheres: &Query<(Entity, Ref<Atmosphere>, &GlobalTransform)>,
+        observer: Vec3,
+        medium_revision: u64,
+    ) -> Option<Self> {
+        // Match Bevy's nearest-atmosphere selection and its spherical transform.
+        let (entity, atmosphere, transform) = atmospheres.iter().min_by(|a, b| {
+            observer
+                .distance(a.2.translation())
+                .total_cmp(&observer.distance(b.2.translation()))
+                .then_with(|| a.0.cmp(&b.0))
+        })?;
+        let (scale, _, translation) = transform.to_scale_rotation_translation();
+        Some(Self {
+            scene,
+            environment: environment.clone(),
+            size: settings.map_or(ATMOSPHERE_IBL_CUBEMAP_SIZE, |s| {
+                s.config.rendering.atmosphere.environment_map_size
+            }),
+            environment_light: settings
+                .is_none_or(|s| s.config.rendering.atmosphere.environment_light),
+            atmosphere: entity,
+            atmosphere_transform: [
+                scale.x,
+                scale.y,
+                scale.z,
+                translation.x,
+                translation.y,
+                translation.z,
+            ]
+            .map(f32::to_bits),
+            atmosphere_tick: atmosphere.last_changed().get(),
+            medium_revision,
+        })
     }
 }
 
 #[derive(Debug, Default)]
-enum FrozenAtmospherePhase {
+enum AtmosphereIblPhase {
     #[default]
     WaitingForScene,
     Baking {
         scene: Entity,
     },
-    Frozen {
-        scene: Entity,
-    },
+    Cached,
 }
 
 #[derive(Component)]
 pub(in crate::presentation) struct AtmosphereBakeProbe;
 
 #[derive(Component)]
-struct FrozenAtmosphereProbeAssets {
+struct CachedAtmosphereProbeAssets {
     _environment_map: Handle<Image>,
     _diffuse_map: Handle<Image>,
     _specular_map: Handle<Image>,
@@ -59,7 +108,7 @@ struct FrozenAtmosphereProbeAssets {
 /// Bevy's 0.19 extractor stops visiting a camera as soon as its
 /// `AtmosphereSettings` is removed. That leaves `ExtractedAtmosphere` in the
 /// render world, which keeps the atmospheric PBR pipeline specialization and
-/// its per-fragment transmittance work alive after the sky has been frozen.
+/// its per-fragment transmittance work alive after a camera disables atmosphere.
 pub(in crate::presentation) fn install_atmosphere_cleanup_backport(app: &mut App) {
     AtmosphereBakeGpu::install(app);
     let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
@@ -99,20 +148,27 @@ fn cleanup_removed_atmosphere_settings(
     }
 }
 
-/// Convert the one generated atmosphere cube into a visible skybox and
-/// static IBL, then retire every public producer component. The
-/// global `Atmosphere` remains as the inert owner of its scattering asset.
+/// Cache the completed environment lighting and retire its bake probe.
+/// Keep the atmosphere on the camera: it owns direct-light transmittance,
+/// planetary horizon occlusion, the physical solar disc and aerial perspective.
 #[expect(
     clippy::type_complexity,
+    clippy::too_many_arguments,
     reason = "the Bevy query observes both generated and installed environment-map consumers on the bake probe"
 )]
-pub(in crate::presentation) fn freeze_initialized_atmosphere(
+pub(in crate::presentation) fn cache_initialized_atmosphere(
     mut commands: Commands,
     celestial: Res<PresentedCelestialLighting>,
-    mut status: ResMut<FrozenAtmosphereStatus>,
+    environments: Query<&SceneEnvironment>,
+    atmospheres: Query<(Entity, Ref<Atmosphere>, &GlobalTransform)>,
+    media: Res<Assets<ScatteringMedium>>,
+    mut status: ResMut<AtmosphereIblCache>,
     gpu_bake: Res<AtmosphereBakeGpu>,
     settings: Option<Res<TacticalGraphicsSettings>>,
-    camera: Single<(Entity, &GlobalTransform), With<TacticalGameplayCamera>>,
+    camera: Single<
+        (Entity, &GlobalTransform, Has<AtmosphereSettings>),
+        With<TacticalGameplayCamera>,
+    >,
     probe: Query<
         (
             Entity,
@@ -122,61 +178,60 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
         With<AtmosphereBakeProbe>,
     >,
 ) {
-    if settings
+    let (camera_entity, camera_transform, has_atmosphere) = camera.into_inner();
+    let enabled = settings
         .as_ref()
-        .is_some_and(|settings| !settings.config.rendering.atmosphere.enabled)
-    {
-        return;
-    }
-    let environment_map_size = settings
+        .is_none_or(|s| s.config.rendering.atmosphere.enabled);
+    let current = celestial
+        .snapshot
         .as_ref()
-        .map_or(FROZEN_SKY_CUBEMAP_SIZE, |settings| {
-            settings.config.rendering.atmosphere.environment_map_size
-        });
-    let environment_light_enabled = settings
-        .as_ref()
-        .is_none_or(|settings| settings.config.rendering.atmosphere.environment_light);
-    let Some(snapshot) = celestial.snapshot.as_ref() else {
+        .and_then(|snapshot| {
+            environments
+                .get(snapshot.scene)
+                .ok()
+                .map(|environment| (snapshot, environment))
+        })
+        .filter(|_| enabled);
+    let Some((snapshot, environment)) = current else {
+        status.clear(&mut commands, camera_entity, probe.iter().map(|p| p.0));
+        if !enabled {
+            commands
+                .entity(camera_entity)
+                .remove::<AtmosphereSettings>();
+        }
         return;
     };
-    let (camera_entity, camera_transform) = camera.into_inner();
-
-    if let FrozenAtmospherePhase::Frozen { scene } = status.phase {
-        if scene == snapshot.scene {
-            return;
-        }
+    if !has_atmosphere {
         commands
             .entity(camera_entity)
-            .remove::<(Skybox, EnvironmentMapLight)>()
             .insert(AtmosphereSettings::default());
-        spawn_bake_probe(
-            &mut commands,
-            camera_transform.translation(),
-            environment_map_size,
-        );
-        status.phase = FrozenAtmospherePhase::Baking {
-            scene: snapshot.scene,
-        };
-        return;
     }
-
-    let FrozenAtmospherePhase::Baking { scene } = status.phase else {
-        spawn_bake_probe(
-            &mut commands,
-            camera_transform.translation(),
-            environment_map_size,
-        );
-        status.phase = FrozenAtmospherePhase::Baking {
-            scene: snapshot.scene,
-        };
+    if media.is_changed() {
+        status.medium_revision += 1;
+    }
+    let Some(key) = AtmosphereIblKey::new(
+        snapshot.scene,
+        environment,
+        settings.as_deref(),
+        &atmospheres,
+        camera_transform.translation(),
+        status.medium_revision,
+    ) else {
+        status.clear(&mut commands, camera_entity, probe.iter().map(|p| p.0));
         return;
     };
-    if scene != snapshot.scene {
-        status.phase = FrozenAtmospherePhase::Baking {
-            scene: snapshot.scene,
-        };
+    if status.begin_if_changed(
+        &mut commands,
+        key,
+        camera_entity,
+        camera_transform.translation(),
+        probe.iter().map(|p| p.0),
+    ) {
         return;
     }
+    let AtmosphereIblPhase::Baking { scene } = status.phase else {
+        return;
+    };
     let Ok((probe_entity, Some(generated), Some(filtered))) = probe.single() else {
         return;
     };
@@ -184,29 +239,75 @@ pub(in crate::presentation) fn freeze_initialized_atmosphere(
         return;
     }
 
-    let mut camera_commands = commands.entity(camera_entity);
-    camera_commands
-        .remove::<AtmosphereSettings>()
-        .insert(Skybox {
-            image: Some(generated.environment_map.clone()),
-            // Skybox extraction multiplies this by view exposure; the
-            // environment compute stores unexposed physical radiance.
-            brightness: 1.0,
-            ..default()
+    status.complete(
+        &mut commands,
+        camera_entity,
+        probe_entity,
+        generated,
+        filtered,
+    );
+}
+
+impl AtmosphereIblCache {
+    fn complete(
+        &mut self,
+        commands: &mut Commands,
+        camera: Entity,
+        probe: Entity,
+        generated: &GeneratedEnvironmentMapLight,
+        filtered: &EnvironmentMapLight,
+    ) {
+        let mut camera_commands = commands.entity(camera);
+        if self.key.as_ref().is_some_and(|key| key.environment_light) {
+            camera_commands.insert(filtered.clone());
+        }
+        camera_commands.insert(CachedAtmosphereProbeAssets {
+            _environment_map: generated.environment_map.clone(),
+            _diffuse_map: filtered.diffuse_map.clone(),
+            _specular_map: filtered.specular_map.clone(),
         });
-    if environment_light_enabled {
-        camera_commands.insert(filtered.clone());
+        // The camera retains all three completed textures. Despawning also retires
+        // Bevy's private extracted atmosphere-map producer component on the probe.
+        commands.entity(probe).despawn();
+        self.phase = AtmosphereIblPhase::Cached;
+        self.completed_bakes += 1;
     }
-    camera_commands.insert(FrozenAtmosphereProbeAssets {
-        _environment_map: generated.environment_map.clone(),
-        _diffuse_map: filtered.diffuse_map.clone(),
-        _specular_map: filtered.specular_map.clone(),
-    });
-    // The camera retains all three completed textures. Despawning also retires
-    // Bevy's private extracted atmosphere-map producer component on the probe.
-    commands.entity(probe_entity).despawn();
-    status.phase = FrozenAtmospherePhase::Frozen { scene };
-    status.completed_bakes += 1;
+
+    fn clear(
+        &mut self,
+        commands: &mut Commands,
+        camera: Entity,
+        probes: impl Iterator<Item = Entity>,
+    ) {
+        for probe in probes {
+            commands.entity(probe).despawn();
+        }
+        commands
+            .entity(camera)
+            .remove::<(EnvironmentMapLight, CachedAtmosphereProbeAssets)>();
+        self.key = None;
+        self.phase = AtmosphereIblPhase::WaitingForScene;
+    }
+
+    fn begin_if_changed(
+        &mut self,
+        commands: &mut Commands,
+        key: AtmosphereIblKey,
+        camera: Entity,
+        observer: Vec3,
+        probes: impl Iterator<Item = Entity>,
+    ) -> bool {
+        if self.key.as_ref() == Some(&key) {
+            return false;
+        }
+        // New probe and image identities reject an old GPU completion even
+        // when a scene changes while its previous bake is still in flight.
+        self.clear(commands, camera, probes);
+        spawn_bake_probe(commands, observer, key.size);
+        self.phase = AtmosphereIblPhase::Baking { scene: key.scene };
+        self.key = Some(key);
+        true
+    }
 }
 
 fn spawn_bake_probe(commands: &mut Commands, observer_translation: Vec3, size: u32) {
@@ -227,14 +328,86 @@ mod tests {
     use super::*;
 
     #[test]
-    fn frozen_cube_budget_is_bounded() {
-        assert_eq!(FROZEN_SKY_CUBEMAP_SIZE.pow(2) * 6 * 8, 192 * 1024);
+    fn cache_key_tracks_the_selected_atmosphere_and_its_physical_transform() {
+        let mut world = World::new();
+        let first = world
+            .spawn((
+                Atmosphere::earth(Handle::default()),
+                GlobalTransform::from_translation(Vec3::X),
+            ))
+            .id();
+        let second = world
+            .spawn((
+                Atmosphere::earth(Handle::default()),
+                GlobalTransform::from_translation(Vec3::X * 100.0),
+            ))
+            .id();
+        let environment = SceneEnvironmentFixture::TemperateHills.snapshot("selection-test");
+        let mut state = bevy::ecs::system::SystemState::<
+            Query<(Entity, Ref<Atmosphere>, &GlobalTransform)>,
+        >::new(&mut world);
+        let initial = AtmosphereIblKey::new(
+            first,
+            &environment,
+            None,
+            &state.get(&world).unwrap(),
+            Vec3::ZERO,
+            0,
+        )
+        .unwrap();
+        assert_eq!(initial.atmosphere, first);
+        world
+            .entity_mut(first)
+            .insert(GlobalTransform::from_scale(Vec3::splat(2.0)));
+        let scaled = AtmosphereIblKey::new(
+            first,
+            &environment,
+            None,
+            &state.get(&world).unwrap(),
+            Vec3::ZERO,
+            0,
+        )
+        .unwrap();
+        assert_ne!(scaled, initial);
+        world
+            .entity_mut(first)
+            .insert(GlobalTransform::from_translation(Vec3::X * 200.0));
+        let selected = AtmosphereIblKey::new(
+            first,
+            &environment,
+            None,
+            &state.get(&world).unwrap(),
+            Vec3::ZERO,
+            0,
+        )
+        .unwrap();
+        assert_eq!(selected.atmosphere, second);
+        assert_ne!(selected, scaled);
+        world.despawn(second);
+        world.despawn(first);
+        assert!(
+            AtmosphereIblKey::new(
+                first,
+                &environment,
+                None,
+                &state.get(&world).unwrap(),
+                Vec3::ZERO,
+                0
+            )
+            .is_none()
+        );
     }
 
     #[test]
-    fn completed_bake_installs_both_consumers_and_retires_producers() {
+    fn cached_cube_budget_is_bounded() {
+        assert_eq!(ATMOSPHERE_IBL_CUBEMAP_SIZE.pow(2) * 6 * 8, 192 * 1024);
+    }
+
+    #[test]
+    fn completed_ibl_keeps_atmospheric_direct_light_and_retires_probe() {
         let mut app = App::new();
-        app.init_resource::<FrozenAtmosphereStatus>()
+        app.init_resource::<Assets<ScatteringMedium>>()
+            .init_resource::<AtmosphereIblCache>()
             .init_resource::<AtmosphereBakeGpu>()
             .init_resource::<PresentedCelestialLighting>()
             .init_resource::<ActiveTacticalScene>()
@@ -242,7 +415,7 @@ mod tests {
                 Update,
                 (
                     update_presented_celestial_lighting,
-                    freeze_initialized_atmosphere,
+                    cache_initialized_atmosphere,
                 )
                     .chain(),
             );
@@ -259,7 +432,10 @@ mod tests {
                 AtmosphereSettings::default(),
             ))
             .id();
-        app.world_mut().spawn(Atmosphere::earth(Handle::default()));
+        app.world_mut().spawn((
+            Atmosphere::earth(Handle::default()),
+            GlobalTransform::default(),
+        ));
 
         app.update();
         let probe = app
@@ -285,20 +461,18 @@ mod tests {
         app.update();
 
         let camera_ref = app.world().entity(camera);
-        assert_eq!(camera_ref.get::<Skybox>().unwrap().brightness, 1.0);
+        assert!(!camera_ref.contains::<Skybox>());
         assert!(camera_ref.contains::<EnvironmentMapLight>());
-        assert!(!camera_ref.contains::<AtmosphereSettings>());
+        assert!(camera_ref.contains::<AtmosphereSettings>());
         assert!(
             app.world()
                 .entity(camera)
-                .contains::<FrozenAtmosphereProbeAssets>()
+                .contains::<CachedAtmosphereProbeAssets>()
         );
 
         assert!(app.world().get_entity(probe).is_err());
         assert_eq!(
-            app.world()
-                .resource::<FrozenAtmosphereStatus>()
-                .completed_bakes,
+            app.world().resource::<AtmosphereIblCache>().completed_bakes,
             1
         );
         assert_eq!(
@@ -308,5 +482,102 @@ mod tests {
                 .count(),
             1
         );
+        // Camera exposure changes the display, not the unexposed sky radiance.
+        app.world_mut()
+            .entity_mut(camera)
+            .insert(Exposure { ev100: 12.0 });
+        app.update();
+        assert_eq!(
+            app.world().resource::<AtmosphereIblCache>().completed_bakes,
+            1
+        );
+        assert_eq!(
+            app.world_mut()
+                .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+                .iter(app.world())
+                .count(),
+            0
+        );
+
+        let mut environment = app
+            .world()
+            .entity(scene)
+            .get::<SceneEnvironment>()
+            .unwrap()
+            .clone();
+        environment.absolute_minute += 60;
+        app.world_mut()
+            .entity_mut(scene)
+            .insert(environment.clone());
+        app.update();
+        assert!(!app.world().entity(camera).contains::<EnvironmentMapLight>());
+        let next_probe = app
+            .world_mut()
+            .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+            .single(app.world())
+            .unwrap();
+        app.world_mut().entity_mut(next_probe).insert((
+            GeneratedEnvironmentMapLight::default(),
+            EnvironmentMapLight::default(),
+        ));
+        app.update();
+        app.world()
+            .resource::<AtmosphereBakeGpu>()
+            .complete_for_test();
+        // A completed old request must not win over a new weather snapshot.
+        environment.weather.precipitation = Precipitation::Rain;
+        environment.weather.intensity_bps = 7_000;
+        app.world_mut().entity_mut(scene).insert(environment);
+        app.update();
+        assert!(app.world().get_entity(next_probe).is_err());
+        assert!(!app.world().entity(camera).contains::<EnvironmentMapLight>());
+        assert!(app.world().entity(camera).contains::<AtmosphereSettings>());
+        assert_eq!(
+            app.world().resource::<AtmosphereIblCache>().completed_bakes,
+            1
+        );
+        let weather_probe = app
+            .world_mut()
+            .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+            .single(app.world())
+            .unwrap();
+        app.world_mut().entity_mut(weather_probe).insert((
+            GeneratedEnvironmentMapLight::default(),
+            EnvironmentMapLight::default(),
+        ));
+        app.update();
+        assert!(!app.world().entity(camera).contains::<EnvironmentMapLight>());
+        app.world()
+            .resource::<AtmosphereBakeGpu>()
+            .complete_for_test();
+        app.update();
+        assert!(app.world().entity(camera).contains::<EnvironmentMapLight>());
+        assert_eq!(
+            app.world().resource::<AtmosphereIblCache>().completed_bakes,
+            2
+        );
+        app.world_mut().resource_mut::<ActiveTacticalScene>().entity = None;
+        app.update();
+        assert!(!app.world().entity(camera).contains::<EnvironmentMapLight>());
+        assert!(
+            !app.world()
+                .entity(camera)
+                .contains::<CachedAtmosphereProbeAssets>()
+        );
+        assert!(app.world().resource::<AtmosphereIblCache>().key.is_none());
+        app.world_mut().resource_mut::<ActiveTacticalScene>().entity = Some(scene);
+        app.update();
+        let pending_probe = app
+            .world_mut()
+            .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+            .single(app.world())
+            .unwrap();
+        let mut settings = TacticalGraphicsSettings::default();
+        settings.config.rendering.atmosphere.enabled = false;
+        app.insert_resource(settings);
+        app.update();
+        assert!(app.world().get_entity(pending_probe).is_err());
+        assert!(!app.world().entity(camera).contains::<AtmosphereSettings>());
+        assert!(app.world().resource::<AtmosphereIblCache>().key.is_none());
     }
 }

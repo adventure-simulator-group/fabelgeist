@@ -38,6 +38,13 @@ fn main() -> Result<(), String> {
     let mut input: TacticalSceneInput =
         serde_json::from_str(&source).map_err(|error| error.to_string())?;
     curate(&mut input)?;
+    let generated = input.generate().map_err(|error| error.to_string())?;
+    let furniture = generated.furniture;
+    let instances = furniture
+        .instances
+        .into_iter()
+        .chain(furniture.distant_instances)
+        .collect::<Vec<_>>();
     let layout = serde_json::json!({
         "resident_population": RESIDENT_POPULATION,
         "buildings": input.distant_buildings,
@@ -48,6 +55,15 @@ fn main() -> Result<(), String> {
     std::fs::write(
         root.join("assets/art-demo/city-layout.json"),
         serde_json::to_string_pretty(&layout).map_err(|error| error.to_string())? + "\n",
+    )
+    .map_err(|error| error.to_string())?;
+    std::fs::write(
+        root.join("assets/art-demo/city-furniture.json"),
+        serde_json::to_string(&serde_json::json!({
+            "instances": instances, "groups": furniture.groups,
+        }))
+        .map_err(|error| error.to_string())?
+            + "\n",
     )
     .map_err(|error| error.to_string())?;
     println!(

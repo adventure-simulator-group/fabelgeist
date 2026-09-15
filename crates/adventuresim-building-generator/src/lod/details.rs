@@ -101,6 +101,39 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
     }
 }
 
+pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
+    let Some(frame) = &plan.timber_frame else {
+        return;
+    };
+    for roof in plan
+        .roof_assemblies
+        .iter()
+        .filter(|roof| roof.parent.is_none())
+    {
+        for face in &roof.enclosure_faces {
+            for member in crate::gable_frame::members(face, frame) {
+                let outward = crate::gable_frame::normal(face);
+                let axis = (member.end - member.start).normalize();
+                let overlap = crate::TIMBER_SEAM_COVER_METRES;
+                let side = outward.cross(axis) * (member.section_metres.x * 0.5 + overlap);
+                let surface = outward * (member.section_metres.y * 0.5 + overlap);
+                let start = member.start + surface - axis * overlap;
+                let end = member.end + surface + axis * overlap;
+                lod.mesh_mut(BuildingLodMaterial::FacadeDetails).push_quad(
+                    [start - side, end - side, end + side, start + side],
+                    outward,
+                    [
+                        Vec2::new(0.0, 0.0),
+                        Vec2::new(0.25, 0.0),
+                        Vec2::new(0.25, 1.0),
+                        Vec2::new(0.0, 1.0),
+                    ],
+                );
+            }
+        }
+    }
+}
+
 fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
     match kind {
         OpeningUse::Window => (0.25, 0.375),
@@ -109,5 +142,75 @@ fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
         OpeningUse::ArrowLoop => (0.625, 0.75),
         OpeningUse::GunLoop => (0.75, 0.875),
         OpeningUse::BellOpening => (0.875, 1.0),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{
+        BuildingArchetype, BuildingLodLevel, BuildingProgram, compile_solid_detail, generate,
+    };
+
+    #[test]
+    fn gable_lod_corners_are_actual_exterior_timber_corners() {
+        for seed in [42, 47, 101] {
+            let plan = generate(&BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                seed,
+            ))
+            .unwrap();
+            let frame = plan.timber_frame.as_ref().unwrap();
+            let solids = frame
+                .members
+                .iter()
+                .map(|member| {
+                    let solid = plan
+                        .resolved_geometry
+                        .solids
+                        .iter()
+                        .find(|solid| solid.id == member.solid)
+                        .unwrap();
+                    compile_solid_detail(&plan, solid)
+                })
+                .collect::<Vec<_>>();
+            for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
+                let mut lod = BuildingLod {
+                    level,
+                    facade_runs: vec![],
+                    meshes: vec![],
+                };
+                append_gable_details(&mut lod, &plan);
+                let mesh = &lod.meshes[0];
+                assert!(mesh.vertices.len() >= 40);
+                for quad in mesh.vertices.as_chunks::<4>().0 {
+                    assert!(
+                        solids.iter().any(|solid| quad.iter().all(|vertex| {
+                            solid
+                                .meshes
+                                .iter()
+                                .flat_map(|mesh| &mesh.vertices)
+                                .any(|exact| {
+                                    exact.normal.dot(vertex.normal) > 0.999
+                                        && exact.position.distance(vertex.position) < 0.0001
+                                })
+                        })),
+                        "gable LOD must use a face of a single physical timber"
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn half_hip_does_not_project_its_inset_truss_onto_the_gable() {
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)).unwrap();
+        let mut lod = BuildingLod {
+            level: BuildingLodLevel::Shell,
+            facade_runs: vec![],
+            meshes: vec![],
+        };
+        append_gable_details(&mut lod, &plan);
+        assert!(lod.meshes.is_empty());
     }
 }

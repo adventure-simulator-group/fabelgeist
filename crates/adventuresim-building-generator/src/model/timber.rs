@@ -1,5 +1,9 @@
 use super::*;
 
+/// Shared mesh overlap at timber joints, preserved through render LOD changes.
+pub(crate) const TIMBER_SEAM_COVER_METRES: f32 = 0.008;
+pub(crate) const MINIMUM_TIMBER_MEMBER_LENGTH_METRES: f32 = 0.05;
+
 /// Visible plaster finish offset from the exposed timber face.
 pub(crate) const TIMBER_INFILL_FINISH_SETBACK_METRES: f32 = 0.008;
 /// Facade-space overlap of plaster beneath timber and opening trim.

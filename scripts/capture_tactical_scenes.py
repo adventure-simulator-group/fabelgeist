@@ -35,9 +35,9 @@ SKY_MINUTES = {"sun": 172 * 1440 + 12 * 60, "sun-detail": 172 * 1440 + 19 * 60,
                "twilight": 80 * 1440 + 18 * 60,
                "moon": NAMED_TIMES["moonlit"], "stars": 637_860}
 EXPECTED_PIPELINE = "tactical_scene_native_capture_v6"
-EXPECTED_PROFILE_VERSION = 15
-EXPECTED_CAMERA_VERSION = 9
-EXPECTED_GENERATION_VERSION = 39
+EXPECTED_PROFILE_VERSION = 35
+EXPECTED_CAMERA_VERSION = 22
+EXPECTED_GENERATION_VERSION = 42
 EXPECTED_RESOLUTION = [1280, 720]
 EXPECTED_PRESENTATION_REQUEST = {
     "shadows": True,
@@ -254,8 +254,7 @@ def validated_child_manifest(
         raise ValueError("child did not observe requested production presentation features")
     if observed.get("settings") != EXPECTED_PRESENTATION_REQUEST:
         raise ValueError("child observed graphics settings differ from production")
-    celestial = manifest.get("celestial", {})
-    expected_ambient = expected_ibl_ambient_brightness(celestial)
+    expected_ambient = 0.0
     ambient_color = observed.get("ambient_color")
     if not (observed.get("camera_environment_map")
             and observed.get("camera_environment_map_size") == [64, 64]
@@ -267,7 +266,7 @@ def validated_child_manifest(
             and isinstance(observed.get("ambient_brightness"), (int, float))
             and math.isfinite(observed["ambient_brightness"])
             and abs(observed["ambient_brightness"] - expected_ambient) <= .01
-            and observed.get("ambient_policy") == "atmosphere_ibl_plus_bounded_multibounce"
+            and observed.get("ambient_policy") == "atmosphere_ibl"
             and isinstance(observed.get("expected_ambient_brightness"), (int, float))
             and abs(observed["expected_ambient_brightness"] - expected_ambient) <= .01
             and isinstance(ambient_color, list) and len(ambient_color) == 4
@@ -327,17 +326,6 @@ def smoothstep(edge0: float, edge1: float, value: float) -> float:
     amount = max(0.0, min(1.0, (value - edge0) / (edge1 - edge0)))
     return amount * amount * (3.0 - 2.0 * amount)
 
-
-def expected_ibl_ambient_brightness(celestial: dict) -> float:
-    fields = ("sun_altitude_degrees", "moon_altitude_degrees", "lunar_illumination")
-    if not all(isinstance(celestial.get(field), (int, float))
-               and math.isfinite(celestial[field]) for field in fields):
-        raise ValueError("child celestial provenance is incomplete")
-    daylight = smoothstep(-8.0, 4.0, celestial["sun_altitude_degrees"])
-    moon = celestial["lunar_illumination"] * smoothstep(
-        -2.0, 8.0, celestial["moon_altitude_degrees"]
-    )
-    return (0.6 + moon * .25) * (1.0 - daylight) + 10_500.0 * daylight
 
 
 def validated_sky_manifest(path: Path, expected_view: str, expected_identity: str, expected_head: str) -> dict:

@@ -17,7 +17,6 @@ impl Plugin for TacticalMaterialsPlugin {
             MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
             MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
             MaterialPlugin::<TacticalMoonMaterial>::default(),
-            MaterialPlugin::<TacticalSunMaterial>::default(),
             MaterialPlugin::<TacticalStarMaterial>::default(),
             MaterialPlugin::<TacticalCloudMaterial>::default(),
             MaterialPlugin::<TacticalCloudCompositeMaterial>::default(),

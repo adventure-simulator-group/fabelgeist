@@ -174,7 +174,7 @@ impl<'a> TimberFrameBuilder<'a> {
         }
         let delta = end - start;
         let length = delta.length();
-        debug_assert!(length > 0.05);
+        debug_assert!(length > crate::MINIMUM_TIMBER_MEMBER_LENGTH_METRES);
         let horizontal = Vec2::new(delta.x, delta.z).length();
         let yaw = if horizontal > 0.001 {
             (-delta.z).atan2(delta.x)

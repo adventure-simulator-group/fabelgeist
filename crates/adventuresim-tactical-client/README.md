@@ -1,5 +1,21 @@
 # Fabelgeist tactical client
 
+Outdoor PBR lighting uses Bevy's live atmosphere for sunlight transmission,
+horizon occlusion, the solar disc and aerial perspective. Generated sky
+radiance supplies diffuse and specular environment lighting at intensity one;
+there is no added global ambient visibility floor. The environment map is
+cached only after GPU completion and invalidated by scene, weather, time,
+selected atmosphere, its position/scale, or scattering-medium changes. Camera
+exposure does not invalidate unexposed sky radiance. Probe retirement runs
+after Bevy's deferred preparation commands. The live atmosphere remains enabled
+after the environment bake.
+
+This environment map samples the atmospheric medium; the separate animated
+cloud renderer is not included in it. Cloud radiance, cloud beam transmission,
+and scene bounce lighting require further transport integration. The existing
+weather source attenuation is an approximation, not a full cloud-scattering
+solution.
+
 The tactical client renders transient server-authoritative combat state with
 Bevy. Skeletal animation is presentation-only: the server replicates compact
 `SkeletonState` posture, locomotion, stance, action, and timing coordinates;

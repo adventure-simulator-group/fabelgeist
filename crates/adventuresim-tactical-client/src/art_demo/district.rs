@@ -12,7 +12,13 @@ struct CityLayout {
     compounds: Vec<CityCompound>,
 }
 
-pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
+#[derive(Deserialize)]
+pub(super) struct PreparedOutdoorFurniture {
+    pub instances: Vec<GeneratedFurniture>,
+    pub groups: Vec<FurnitureGroup>,
+}
+
+pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFurniture, String> {
     let layout: CityLayout =
         serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))
             .map_err(|error| error.to_string())?;
@@ -26,7 +32,10 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
     input.streets = layout.streets;
     input.yards = layout.yards;
     input.compounds = layout.compounds;
-    Ok(())
+    serde_json::from_str(include_str!(
+        "../../../../assets/art-demo/city-furniture.json"
+    ))
+    .map_err(|error| error.to_string())
 }
 
 #[cfg(test)]
@@ -42,7 +51,26 @@ mod tests {
             "../../../../assets/tactical-scenes/massive-city.json"
         ))
         .unwrap();
-        curate(&mut input).unwrap();
+        let furniture = curate(&mut input).unwrap();
+        assert!(!furniture.instances.is_empty());
+        assert!(
+            furniture
+                .groups
+                .iter()
+                .any(|group| matches!(group.anchor, FurnitureAnchor::Market { .. }))
+        );
+        assert!(
+            furniture
+                .groups
+                .iter()
+                .any(|group| matches!(group.anchor, FurnitureAnchor::Building { .. }))
+        );
+        for instance in &furniture.instances {
+            let FurnitureLocation::Outdoor { group_id } = instance.scene.location else {
+                panic!("prepared city scenery must contain only outdoor furniture");
+            };
+            assert!(furniture.groups.iter().any(|group| group.id == group_id));
+        }
         assert!(input.buildings.is_empty());
         assert!(input.distant_buildings.len() > 3_000);
         assert!(
