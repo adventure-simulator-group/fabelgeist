@@ -49,8 +49,8 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     #[texture(105)]
     #[sampler(106)]
     pub(super) litter_surface: Handle<Image>,
+    // Both litter maps share filtering and addressing; reuse binding 106.
     #[texture(107)]
-    #[sampler(108)]
     pub(super) litter_normal: Handle<Image>,
     #[texture(109)]
     #[sampler(110)]
@@ -58,8 +58,8 @@ pub(in crate::presentation) struct TacticalTerrainExtension {
     #[texture(111)]
     #[sampler(112)]
     pub(super) cliff_height: Handle<Image>,
+    // Rock height and ARM share filtering and addressing; reuse binding 112.
     #[texture(113)]
-    #[sampler(114)]
     pub(super) cliff_arm: Handle<Image>,
 }
 
@@ -146,6 +146,20 @@ mod tests {
             &adventuresim_procedural_textures::TextureParameters::default(),
             &mut images,
         );
+        // Sharing these samplers keeps the full terrain pipeline within WebGPU's
+        // sixteen-sampler limit without changing filtering or wrap behavior.
+        for (sampled, shared) in [
+            (
+                &procedural_assets.forest_soil.litter_normal,
+                &procedural_assets.forest_soil.litter_surface,
+            ),
+            (&procedural_assets.rock.arm, &procedural_assets.rock.height),
+        ] {
+            assert_eq!(
+                images.get(sampled).unwrap().sampler,
+                images.get(shared).unwrap().sampler
+            );
+        }
         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0);
         let environment = SceneEnvironmentFixture::TemperateHills.snapshot("cliff-material");
         let graphics = TacticalGraphicsSettings::default();

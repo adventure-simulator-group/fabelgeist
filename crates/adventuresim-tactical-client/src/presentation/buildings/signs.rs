@@ -13,9 +13,19 @@ pub(in crate::presentation) struct BuildingPresentationPlugin;
 impl Plugin for BuildingPresentationPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<ShopSignRenderCache>()
+            .init_resource::<super::PreparedCityAssets>()
+            .init_asset::<super::prepared::PreparedCityAsset>()
+            .init_asset_loader::<super::prepared::PreparedCityLoader>()
             .add_observer(super::on_scene_building_added)
             .add_observer(super::on_scene_vista_buildings)
-            .add_systems(Update, update_lettering);
+            .add_systems(
+                Update,
+                (
+                    super::streaming::present,
+                    super::city_detail::update,
+                    update_lettering,
+                ),
+            );
     }
 }
 

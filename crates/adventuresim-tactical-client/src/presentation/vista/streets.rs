@@ -5,6 +5,7 @@ use super::*;
 mod activity;
 mod material;
 mod mesh;
+pub(crate) mod streaming;
 mod support;
 mod traffic;
 pub(in crate::presentation::vista) use support::GroundSupport;
@@ -17,6 +18,7 @@ use mesh::CitySurfaceMeshBuilder;
 pub(in crate::presentation) struct CityGroundAssets<'w> {
     pub(super) materials: ResMut<'w, Assets<CityGroundMaterial>>,
     pub(super) textures: Res<'w, ProceduralTextureAssets>,
+    pub(super) streaming: Option<Res<'w, streaming::StreamCityTraffic>>,
 }
 
 #[derive(Clone, Copy)]
@@ -65,14 +67,22 @@ impl CityGroundAssets<'_> {
             let kind = CityGroundKind::from(street.surface());
             builders[kind.index()].append_street(street, support, groups);
         }
-        let network = traffic::TrafficNetwork::new(streets);
+        let network = self
+            .streaming
+            .is_none()
+            .then(|| traffic::TrafficNetwork::new(streets));
+        let neutral = self
+            .streaming
+            .is_some()
+            .then(|| traffic::TrafficMask::neutral(images));
         let mut masks = std::collections::BTreeMap::new();
         let mut triangle_count = 0;
         for (builder, kind) in builders.into_iter().zip(CityGroundKind::ALL) {
             for (tile, mesh) in builder.build() {
-                let mask = masks
-                    .entry(tile)
-                    .or_insert_with(|| traffic::TrafficMask::bake(&network, tile, images));
+                let mask = masks.entry(tile).or_insert_with(|| match &network {
+                    Some(network) => traffic::TrafficMask::bake(network, tile, images),
+                    None => neutral.as_ref().expect("streaming neutral mask").clone(),
+                });
                 triangle_count += mesh_triangle_count(&mesh);
                 let mut entity = commands.spawn((
                     Name::new(format!("City ground {kind:?}")),
@@ -86,6 +96,9 @@ impl CityGroundAssets<'_> {
                     ))),
                     Transform::default(),
                 ));
+                if self.streaming.is_some() {
+                    entity.insert(streaming::StreamedTrafficTile(tile));
+                }
                 if kind.is_yard() {
                     entity.insert(CityYardPresentation);
                 } else {
@@ -93,6 +106,12 @@ impl CityGroundAssets<'_> {
                 }
             }
         }
-        info!(traffic_tiles = masks.len(), wheel_segments = network.stroke_count(), triangles = triangle_count, scene = %environment.scene_digest, "Clipped city ground to canonical terrain triangles");
+        if let Some(neutral) = neutral {
+            commands.insert_resource(streaming::CityTrafficResidency::new(
+                streets.clone(),
+                neutral,
+            ));
+        }
+        info!(traffic_tiles = masks.len(), wheel_segments = network.as_ref().map_or(0, traffic::TrafficNetwork::stroke_count), triangles = triangle_count, scene = %environment.scene_digest, "Clipped city ground to canonical terrain triangles");
     }
 }

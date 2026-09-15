@@ -1,7 +1,7 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
 use adventuresim_armor_model::*;
-use anyhow::Result;
+use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 
@@ -12,6 +12,7 @@ pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
     Garment(GarmentArmorDesign),
+    WaistAssembly(WaistArmorDesign),
     Underlayer(crate::underlayer::UnderlayerDesign),
 }
 
@@ -21,6 +22,12 @@ impl ParametricDesign {
             Self::Helmet(d) => generate_helmet(d, frame)?,
             Self::Limb(d) => generate_limb_armor(d, frame)?,
             Self::Garment(d) => generate_garment_armor(d, frame)?,
+            Self::WaistAssembly(d) => {
+                let fauld = generate_garment_armor(&d.fauld, frame)?;
+                let tassets =
+                    suspend_horizontal_tassets(&fauld, generate_garment_armor(&d.tassets, frame)?);
+                compose_waist(fauld, tassets)
+            }
             Self::Underlayer(_) => {
                 anyhow::bail!("body-conforming garments require source body triangles")
             }
@@ -58,13 +65,14 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             _ => F::Torso,
         },
         ParametricDesign::Helmet(_) => F::Head,
+        ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
             LimbArmorDesign::Cuisse(_) => F::Thigh(side()?),
             LimbArmorDesign::Rerebrace(_) => F::UpperArm(side()?),
             LimbArmorDesign::Poleyn(_) => F::Knee(side()?),
             LimbArmorDesign::Couter(_) => F::Elbow(side()?),
-            LimbArmorDesign::Spaulder(_) => F::Shoulder(side()?),
+            LimbArmorDesign::Spaulder(_) | LimbArmorDesign::Pauldron(_) => F::Shoulder(side()?),
             LimbArmorDesign::MittenGauntlet(_) => F::Hand(side()?),
             LimbArmorDesign::Sabaton(_) | LimbArmorDesign::LeatherBoot(_) => F::Foot(side()?),
         },
@@ -82,23 +90,61 @@ pub fn fitted_mesh(
     design: &ParametricDesign,
     placement: &str,
     wearer: &Wearer<'_>,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
     if let ParametricDesign::Underlayer(d) = design {
         let pattern =
             crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
         return Ok(pattern.evaluate(d, wearer));
     }
+    if let ParametricDesign::WaistAssembly(d) = design {
+        let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, layers)
+            .context("fitting waist assembly fauld")?;
+        let top = fauld
+            .positions
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min)
+            - TASSET_SUSPENSION_GAP_M;
+        let tassets = crate::garment_fit::suspended_tassets(&d.tassets, wearer, top, layers)
+            .context("fitting suspended tassets")?;
+        let tassets = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
+            tassets
+        } else {
+            suspend_horizontal_tassets(&fauld, tassets)
+        };
+        let fauld = if matches!(d.tassets.plate_shape, GarmentPlateShape::WrappedTassets(_)) {
+            let mut supports = layers
+                .iter()
+                .map(|layer| crate::armor_layer::ArmorLayerSurface {
+                    relief: layer.relief,
+                    positions: layer.positions,
+                    faces: layer.faces,
+                })
+                .collect::<Vec<_>>();
+            supports.push(crate::armor_layer::ArmorLayerSurface {
+                relief: Millimeters(0),
+                positions: &tassets.positions,
+                faces: tassets.indices.as_chunks::<3>().0,
+            });
+            crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, &supports)
+                .context("seating fauld over suspended tassets")?
+        } else {
+            fauld
+        };
+        return Ok(compose_waist(fauld, tassets));
+    }
     if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
-        return crate::close_helmet_fit::fit(helmet, wearer);
+        return crate::close_helmet_fit::fit(helmet, wearer, layers);
     }
     if let ParametricDesign::Helmet(HelmetDesign::MailCoif(coif)) = design {
         return crate::coif_fit::fit(coif, wearer);
     }
     if let ParametricDesign::Garment(garment) = design {
-        return crate::garment_fit::fitted_garment(garment, placement, wearer);
+        return crate::garment_fit::fitted_garment(garment, placement, wearer, layers);
     }
     if let ParametricDesign::Limb(limb) = design {
-        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?);
+        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?, layers);
     }
     let frame = wearer.frame(fit_region(design, placement)?)?;
     let mesh = design.generate(&frame)?;
@@ -140,13 +186,14 @@ mod tests {
             ("morion", "Helmet", "Morion"),
             ("padded_chausses", "Underlayer", "PaddedHose"),
             ("padded_skirt", "Garment", "PaddedSkirt"),
+            ("pauldron", "Limb", "Pauldron"),
             ("poleyn", "Limb", "Poleyn"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
             ("rerebrace", "Limb", "Rerebrace"),
             ("sabaton", "Limb", "Sabaton"),
             ("sallet", "Helmet", "Sallet"),
             ("spaulder", "Limb", "Spaulder"),
-            ("tassets", "Garment", "Tassets"),
+            ("tassets", "WaistAssembly", "Tassets"),
             ("visored_sallet", "Helmet", "VisoredSallet"),
         ];
         let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
@@ -154,7 +201,10 @@ mod tests {
         for (id, category, family) in expected {
             let encoded = serde_json::to_value(catalog.get(id).unwrap()).unwrap();
             let shape = &encoded[category];
-            if matches!(category, "Garment" | "Underlayer") {
+            if category == "WaistAssembly" {
+                assert_eq!(shape["fauld"]["kind"], "Fauld");
+                assert_eq!(shape["tassets"]["kind"], family);
+            } else if matches!(category, "Garment" | "Underlayer") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

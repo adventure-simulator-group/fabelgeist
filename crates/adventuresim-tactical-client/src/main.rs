@@ -81,6 +81,8 @@ mod player;
 mod presentation;
 mod targeting;
 mod ui;
+#[cfg(target_family = "wasm")]
+mod weapon_preview_material;
 mod weather_audio;
 
 #[derive(Parser, Debug, Clone, Resource)]

@@ -10,7 +10,11 @@ use crate::{GenerateError, parametric::PartMesh};
 pub(super) const BROW_HEIGHT: f32 = 0.09;
 const KETTLE_FOREHEAD_SEATING_RISE: f32 = 0.12;
 
-pub(super) fn generate(design: &HelmetDesign, head: [f32; 3]) -> Result<PartMesh, GenerateError> {
+pub(super) fn generate(
+    design: &HelmetDesign,
+    head: [f32; 3],
+    detail: crate::ArmorDetail,
+) -> Result<PartMesh, GenerateError> {
     let fit = design.fit();
     let gap = fit.clearance.metres() + fit.wall_thickness.metres();
     let radii = [
@@ -27,6 +31,7 @@ pub(super) fn generate(design: &HelmetDesign, head: [f32; 3]) -> Result<PartMesh
             d.brim_sweep.metres(),
             0.0,
             fit,
+            detail,
             BrimShape {
                 crown: d.crown,
                 crest: d.comb_height.metres(),
@@ -42,6 +47,7 @@ pub(super) fn generate(design: &HelmetDesign, head: [f32; 3]) -> Result<PartMesh
             0.0,
             d.brim_drop.metres(),
             fit,
+            detail,
             BrimShape {
                 crown: d.crown,
                 crest: 0.0,
@@ -50,17 +56,17 @@ pub(super) fn generate(design: &HelmetDesign, head: [f32; 3]) -> Result<PartMesh
                 back_sweep: 1.0,
             },
         ),
-        HelmetDesign::Barbute(d) => super::barbute::generate(radii, brow, head[1], d),
-        HelmetDesign::Burgonet(d) => super::burgonet::generate(radii, brow, head[1], d),
-        HelmetDesign::Sallet(d) => super::sallet::skull(radii, brow, head[1], d),
-        HelmetDesign::VisoredSallet(d) => super::sallet::visored(radii, brow, head[1], d),
-        HelmetDesign::CloseHelmet(d) => super::close::generate(radii, brow, head[1], d),
+        HelmetDesign::Barbute(d) => super::barbute::generate(radii, brow, head[1], d, detail),
+        HelmetDesign::Burgonet(d) => super::burgonet::generate(radii, brow, head[1], d, detail),
+        HelmetDesign::Sallet(d) => super::sallet::skull(radii, brow, head[1], d, detail),
+        HelmetDesign::VisoredSallet(d) => super::sallet::visored(radii, brow, head[1], d, detail),
+        HelmetDesign::CloseHelmet(d) => super::close::generate(radii, brow, head[1], d, detail),
         HelmetDesign::ArmingCap(_) => {
-            let mut surface = Surface::default();
+            let mut surface = Surface::new(detail, detail.segments(AROUND, 12).next_multiple_of(4));
             surface.full_dome(radii, brow, 0.72);
             surface.shell(fit.wall_thickness.metres(), crate::ShellExtrusion::Normal)
         }
-        HelmetDesign::MailCoif(d) => super::coif::generate(radii, brow, head[1], d),
+        HelmetDesign::MailCoif(d) => super::coif::generate(radii, brow, head[1], d, detail),
     }
 }
 
@@ -72,6 +78,10 @@ struct BrimShape {
     back_sweep: f32,
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 fn brimmed(
     radii: [f32; 3],
     brow: f32,
@@ -79,16 +89,17 @@ fn brimmed(
     sweep: f32,
     drop: f32,
     fit: HelmetFit,
+    detail: crate::ArmorDetail,
     shape: BrimShape,
 ) -> Result<PartMesh, GenerateError> {
-    const BRIM_RINGS: usize = 5;
-    let mut surface = Surface::default();
+    let brim_rings = detail.segments(5, 2);
+    let mut surface = Surface::new(detail, detail.segments(AROUND, 12).next_multiple_of(4));
     let mut ring = surface.styled_dome(radii, brow, &shape.crown, shape.crest);
-    for row in 1..=BRIM_RINGS {
-        let t = row as f32 / BRIM_RINGS as f32;
-        let next = (0..AROUND)
+    for row in 1..=brim_rings {
+        let t = row as f32 / brim_rings as f32;
+        let next = (0..surface.around)
             .map(|i| {
-                let angle = i as f32 / AROUND as f32 * TAU;
+                let angle = i as f32 / surface.around as f32 * TAU;
                 let end_sweep = angle.cos().abs().powi(4);
                 let reach = if angle.cos() >= 0.0 {
                     shape.front_reach

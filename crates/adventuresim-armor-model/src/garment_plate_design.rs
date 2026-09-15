@@ -5,9 +5,14 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum GarmentPlateShape {
     None,
+    WrappedTassets(crate::WrappedTassetDesign),
     Fauld {
         waist_rise: Millimeters,
         front_arch: Permille,
+        /// Half-width of the groin opening relative to the skirt half-width.
+        front_arch_width: Permille,
+        /// Rise per metre away from the front medial hem.
+        chevron_slope: Permille,
     },
     Tassets {
         inner_cutaway: Permille,
@@ -36,6 +41,8 @@ impl GarmentPlateShape {
             GarmentArmorKind::Fauld => Self::Fauld {
                 waist_rise: Millimeters(50),
                 front_arch: Permille(0),
+                front_arch_width: Permille(500),
+                chevron_slope: Permille(0),
             },
             GarmentArmorKind::Tassets => Self::Tassets {
                 inner_cutaway: Permille(0),
@@ -62,10 +69,22 @@ impl GarmentPlateShape {
 
     pub(crate) fn validate(self, kind: GarmentArmorKind) -> Result<(), DesignError> {
         let valid = match self {
+            Self::WrappedTassets(shape) => {
+                shape.validate()?;
+                kind == GarmentArmorKind::Tassets
+            }
             Self::Fauld {
                 waist_rise,
                 front_arch,
-            } => kind == GarmentArmorKind::Fauld && waist_rise.0 <= 80 && front_arch.0 <= 350,
+                front_arch_width,
+                chevron_slope,
+            } => {
+                kind == GarmentArmorKind::Fauld
+                    && waist_rise.0 <= 120
+                    && front_arch.0 <= 1200
+                    && (250..=800).contains(&front_arch_width.0)
+                    && chevron_slope.0 <= 500
+            }
             Self::Tassets {
                 inner_cutaway,
                 hem_point,

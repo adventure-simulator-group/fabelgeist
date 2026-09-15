@@ -21,8 +21,7 @@ use super::{
 };
 use crate::presentation::TacticalGameplayCamera;
 use crate::presentation::{
-    ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment,
-    obstacle_seed, unit_hash,
+    ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment, unit_hash,
 };
 use adventuresim_tactical_core::prelude::SceneTerrain;
 use bevy::{
@@ -158,7 +157,7 @@ struct CachedTreeCardPresentation {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(in crate::presentation) enum TreePresentationSpecies {
+pub(crate) enum TreePresentationSpecies {
     EnglishOak,
     CommonBeech,
 }
@@ -186,7 +185,7 @@ impl TreePresentationSpecies {
     }
 }
 
-pub(in crate::presentation) fn tree_species_for_site(
+pub(crate) fn tree_species_for_site(
     position: Vec3,
     environment: &SceneEnvironment,
 ) -> TreePresentationSpecies {
@@ -876,10 +875,9 @@ pub(in crate::presentation) fn present_pending_trees(
     for (entity, transform) in &pending {
         let started = web_time::Instant::now();
         info!("Generating playable tactical tree presentation");
-        let seed = obstacle_seed(transform.translation);
         let species = tree_species_for_site(transform.translation, environment);
-        let variant_index = (seed & 3) as usize;
-        let variant_seed = splitmix64(0x6f61_6b00 ^ variant_index as u64);
+        let (variant_index, variant_seed) =
+            super::specimen::oak_variant_for_site(transform.translation);
         let competition_key = (competition * 4095.0).round() as u64;
         let cache_key = variant_seed
             ^ competition_key.rotate_left(32)
@@ -1024,7 +1022,7 @@ fn oak_site_key(environment: &SceneEnvironment) -> u64 {
     )
 }
 
-fn oak_gnarling_for_site(
+pub(super) fn oak_gnarling_for_site(
     mut recipe: OakGnarlingParameters,
     environment: &SceneEnvironment,
     tree_seed: u64,

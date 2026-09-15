@@ -18,6 +18,9 @@ mod shell;
 
 pub const GARMENT_RING_SEGMENTS: usize = 48;
 pub const GARMENT_AXIAL_SEGMENTS: usize = 16;
+/// Local radial clearance at the lower edge of an overlapping plate course.
+pub const GARMENT_LAME_SPACING_GAUGES: f32 = 2.5;
+pub(crate) const GARMENT_LAME_OVERLAP: f32 = 0.12;
 pub const GARMENT_PANEL_ACROSS: usize = 32;
 pub const GARMENT_PANEL_ALONG: usize = 12;
 pub const GARMENT_ARMPIT_ROW: usize = 9;
@@ -104,10 +107,30 @@ impl GarmentArmorDesign {
         }
         if !(1..=40).contains(&self.clearance.0)
             || !(1..=16).contains(&self.wall_thickness.0)
-            || !(500..=1_300).contains(&self.length.0)
+            || !(if self.kind == GarmentArmorKind::Fauld {
+                100
+            } else {
+                500
+            }..=1_300)
+                .contains(&self.length.0)
             || self.flare.0 > 500
             || !(800..=1_100).contains(&self.waist.0)
-            || !(1..=8).contains(&self.lame_count)
+            || !(1..=if self.kind == GarmentArmorKind::Tassets {
+                12
+            } else {
+                8
+            })
+                .contains(&self.lame_count)
+        {
+            return Err(DesignError::ParametricParameters.into());
+        }
+        if let GarmentPlateShape::WrappedTassets(shape) = self.plate_shape
+            && shape.section_break >= self.lame_count
+        {
+            return Err(DesignError::ParametricParameters.into());
+        }
+        if let GarmentPlateShape::Fauld { front_arch, .. } = self.plate_shape
+            && front_arch.0 >= self.length.0
         {
             return Err(DesignError::ParametricParameters.into());
         }
@@ -129,7 +152,8 @@ pub fn generate_garment_armor(
         | GarmentArmorKind::Brigandine
         | GarmentArmorKind::JackOfPlates
         | GarmentArmorKind::MailShirt => shapes::torso(design, fit),
-        GarmentArmorKind::Fauld => plates::fauld(design, fit),
+        GarmentArmorKind::Fauld => plates::fauld(design, fit)
+            .map(|mesh| mesh.with_component(crate::ArmorComponentRole::Fauld, None)),
         GarmentArmorKind::Tassets => plates::tassets(design, fit),
         GarmentArmorKind::Gorget => plates::gorget(design, fit),
         _ => shapes::tube(design, fit),

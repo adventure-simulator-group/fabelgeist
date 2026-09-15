@@ -3,7 +3,7 @@ use adventuresim_tactical_core::vista_surface::*;
 use fabelgeist_determinism::splitmix64;
 
 mod grass_mask;
-mod streets;
+pub(super) mod streets;
 mod surface;
 
 pub(crate) use streets::CityGroundMaterial;

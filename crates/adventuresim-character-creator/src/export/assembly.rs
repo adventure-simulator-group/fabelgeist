@@ -12,14 +12,24 @@ pub(super) fn append(
 ) -> Vec<Value> {
     let parts = mesh
         .export_body
-        .then_some((character_name, None))
+        .then_some((character_name, None, None))
         .into_iter()
-        .chain(shells.iter().map(|shell| (shell.name, shell.hinge)));
+        .chain(
+            shells
+                .iter()
+                .map(|shell| (shell.name, shell.hinge, Some(shell))),
+        );
     let primitives = geometry["primitives"].take().as_array().unwrap().clone();
     parts
         .zip(primitives)
         .enumerate()
-        .map(|(index, ((name, hinge), primitive))| {
+        .map(|(index, ((name, hinge, shell), mut primitive))| {
+            if let Some(shell) = shell.filter(|shell| !shell.plate_edges.is_empty()) {
+                primitive["extras"] = json!({"adventuresim_plate_edges": {
+                    "space": "reference_body", "units": "metres",
+                    "segments": shell.plate_edges.iter().map(|edge| edge.map(|i| shell.positions[i as usize])).collect::<Vec<_>>()
+                }});
+            }
             let mut exported = json!({"name": name, "primitives": [primitive]});
             for key in ["weights", "extras"] {
                 if let Some(value) = geometry.get(key) {
@@ -115,7 +125,9 @@ mod tests {
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let names = ["c_head".to_owned()];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
-        let target_names = (0..47)
+        let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
+            + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
+        let target_names = (0..target_count)
             .map(|index| format!("fit_{index}"))
             .collect::<Vec<_>>();
         let deltas = [
@@ -138,6 +150,7 @@ mod tests {
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            plate_edges: &[[1, 2], [0, 1]],
             textures: Some(maps),
             texcoords: Some(&texcoords),
             name,
@@ -156,7 +169,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "close_helmet",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -197,8 +210,14 @@ mod tests {
         assert_eq!(parsed.meshes().count(), 3);
         for (mesh, expected) in parsed.meshes().zip(["skull", "bevor", "visor"]) {
             assert_eq!(mesh.name(), Some(expected));
-            assert_eq!(mesh.weights().unwrap(), &[0.0; 47]);
+            assert_eq!(mesh.weights().unwrap(), &vec![0.0; target_count]);
             let primitive = mesh.primitives().next().unwrap();
+            let extras: Value =
+                serde_json::from_str(primitive.extras().as_ref().unwrap().get()).unwrap();
+            assert_eq!(
+                extras["adventuresim_plate_edges"]["segments"],
+                json!([[positions[1], positions[2]]])
+            );
             let reader = primitive.reader(|_| parsed.blob.as_deref());
             assert_eq!(
                 reader
@@ -250,7 +269,7 @@ mod tests {
                 vec![[0; 4]; 3]
             );
             let morphs = reader.read_morph_targets().collect::<Vec<_>>();
-            assert_eq!(morphs.len(), 47);
+            assert_eq!(morphs.len(), target_count);
             for (positions, _, _) in morphs {
                 assert_eq!(positions.unwrap().collect::<Vec<_>>(), deltas[1..]);
             }

@@ -20,7 +20,7 @@ def paired(*names):
 
 assemblies = {
     "plate_harness": ["morion--worn", "gorget--worn", "cuirass--worn", "fauld--worn"]
-    + paired("spaulder", "rerebrace", "couter", "vambrace", "mitten_gauntlet", "cuisse", "poleyn", "greave", "sabaton"),
+    + paired("pauldron", "rerebrace", "couter", "vambrace", "mitten_gauntlet", "cuisse", "poleyn", "greave", "sabaton"),
     "mail_harness": ["mail_coif--worn", "mail_shirt--worn", "mail_skirt--worn"]
     + paired("mail_sleeve", "mail_chausses", "leather_boot"),
     "padded_harness": ["arming_cap--worn", "arming_doublet--worn"]

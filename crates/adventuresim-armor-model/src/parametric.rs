@@ -3,13 +3,17 @@
 use std::collections::BTreeMap;
 #[path = "parametric_normals.rs"]
 mod normals;
+#[path = "plate_edges.rs"]
+mod plate_edges;
 
-use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError};
+use crate::{ArmorComponent, ArmorComponentRole, ArmorHinge, GenerateError, SurfaceRelief};
 
 /// Anatomical placement, separate from a recipe's artistic controls.
 /// Local coordinates are metres. Reflected frames are supported explicitly.
 #[derive(Clone, Copy, Debug)]
 pub struct PartFrame {
+    /// Sampling policy for mesh construction; it does not alter the fit axes.
+    pub detail: crate::ArmorDetail,
     pub origin: [f32; 3],
     pub axes: [[f32; 3]; 3],
     pub half_extents: [f32; 3],
@@ -53,18 +57,20 @@ pub struct PartMesh {
 struct ShellLayout {
     first_vertex: usize,
     vertex_count: usize,
+    complete_vertex_count: usize,
     first_index: usize,
     index_count: usize,
+    complete_index_count: usize,
     thickness: f32,
     boundary_normals: BoundaryNormals,
     extrusion: ShellExtrusion,
-    relief: Option<SurfaceRelief>,
+    relief: Option<ReliefCarrier>,
 }
 
 #[derive(Clone, Debug)]
-struct SurfaceRelief {
+struct ReliefCarrier {
     carrier: Vec<[f32; 3]>,
-    heights: Vec<f32>,
+    field: SurfaceRelief,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -91,7 +97,11 @@ pub enum ShellExtrusion {
 }
 
 impl ShellExtrusion {
-    fn offset(self, point: [f32; 3], normal_vector: [f32; 3]) -> Result<[f32; 3], GenerateError> {
+    pub(crate) fn offset(
+        self,
+        point: [f32; 3],
+        normal_vector: [f32; 3],
+    ) -> Result<[f32; 3], GenerateError> {
         let offset = match self {
             ShellExtrusion::Normal | ShellExtrusion::AngleWeightedNormal => normal_vector,
             ShellExtrusion::CappedAxis { origin, axis } => {
@@ -145,6 +155,21 @@ pub enum BoundaryNormals {
 }
 
 impl PartMesh {
+    /// Physical sheet ranges include outer, inner and hard-normal return aliases.
+    /// Distinct sheets remain distinct even where their surfaces touch exactly.
+    pub fn shell_vertex_ranges(&self) -> impl Iterator<Item = std::ops::Range<usize>> + '_ {
+        self.shells
+            .iter()
+            .map(|shell| shell.first_vertex..shell.first_vertex + shell.complete_vertex_count)
+    }
+    /// Interior index ranges follow the surface builder, independent of position.
+    pub fn construction_face_ranges(&self) -> Vec<std::ops::Range<usize>> {
+        self.shells
+            .iter()
+            .map(|s| s.first_index + s.index_count..s.first_index + s.complete_index_count)
+            .collect()
+    }
+
     pub fn new() -> Self {
         Self::default()
     }
@@ -155,6 +180,7 @@ impl PartMesh {
             vertices: 0..self.positions.len(),
             indices: 0..self.indices.len(),
             hinge,
+            material: None,
         }];
         self
     }
@@ -184,7 +210,7 @@ impl PartMesh {
     /// Carrier vertex correspondence and connectivity remain unchanged.
     pub fn refit_surfaces(
         &self,
-        mut fit: impl FnMut(&mut [[f32; 3]]),
+        mut fit: impl FnMut(&mut [[f32; 3]], &[u32]),
     ) -> Result<Self, GenerateError> {
         let mut result = Self::new();
         for shell in &self.shells {
@@ -195,18 +221,19 @@ impl PartMesh {
                 },
                 |relief| relief.carrier.clone(),
             );
-            let indices = self.indices[shell.first_index..shell.first_index + shell.index_count]
+            let indices: Vec<_> = self.indices
+                [shell.first_index..shell.first_index + shell.index_count]
                 .iter()
                 .map(|i| i - shell.first_vertex as u32)
                 .collect();
-            fit(&mut positions);
+            fit(&mut positions, &indices);
             result.append(Self::from_relief_surface(
                 positions,
                 indices,
                 shell.thickness,
                 shell.boundary_normals,
                 shell.extrusion,
-                shell.relief.as_ref().map(|relief| relief.heights.clone()),
+                shell.relief.as_ref().map(|relief| relief.field.clone()),
             )?);
         }
         result.components = self.components.clone();
@@ -218,6 +245,7 @@ impl PartMesh {
         for shell in &mut self.shells {
             if let Some(relief) = &mut shell.relief {
                 relief.carrier.iter_mut().for_each(|p| *p = frame.point(*p));
+                relief.field.transform(frame);
             }
             if let ShellExtrusion::Along { direction } = &mut shell.extrusion {
                 *direction = std::array::from_fn(|coordinate| {
@@ -353,7 +381,7 @@ impl PartMesh {
         )
     }
 
-    /// Add relief along the smooth carrier normals on both walls. Fitting uses
+    /// Add authored relief on both walls independently of physical gauge. Fitting uses
     /// the retained carrier and reapplies relief, so neither fit nor gauge is
     /// derived from the tight curvature of the flute troughs.
     pub fn from_relief_surface(
@@ -362,30 +390,27 @@ impl PartMesh {
         thickness: f32,
         boundary_normals: BoundaryNormals,
         extrusion: ShellExtrusion,
-        relief: Option<Vec<f32>>,
+        relief: Option<SurfaceRelief>,
     ) -> Result<Self, GenerateError> {
         if !thickness.is_finite() || thickness <= 0.0 {
             return Err(GenerateError::InvalidSurface);
         }
-        if relief.as_ref().is_some_and(|heights| {
-            heights.len() != positions.len()
-                || heights
-                    .iter()
-                    .any(|height| !height.is_finite() || *height < 0.0)
-        }) {
-            return Err(GenerateError::InvalidSurface);
+        if let Some(field) = &relief {
+            field.validate(positions.len())?;
         }
         let layout = ShellLayout {
             first_vertex: 0,
             vertex_count: positions.len(),
+            complete_vertex_count: 0,
             first_index: 0,
             index_count: indices.len(),
+            complete_index_count: 0,
             thickness,
             boundary_normals,
             extrusion,
-            relief: relief.map(|heights| SurfaceRelief {
+            relief: relief.map(|field| ReliefCarrier {
                 carrier: positions.clone(),
-                heights,
+                field,
             }),
         };
         let mut mesh = Self {
@@ -416,11 +441,11 @@ impl PartMesh {
             return Err(GenerateError::InvalidSurface);
         }
         if let Some(relief) = &mesh.shells[0].relief {
-            for ((point, normal), height) in
-                mesh.positions.iter_mut().zip(&normals).zip(&relief.heights)
-            {
-                let direction = extrusion.offset(*point, *normal)?;
-                *point = add(*point, direction.map(|component| component * height));
+            for (index, (point, normal)) in mesh.positions.iter_mut().zip(&normals).enumerate() {
+                *point = add(
+                    *point,
+                    relief.field.offset(index, extrusion, *point, *normal)?,
+                );
             }
         }
         let inner = mesh
@@ -447,6 +472,8 @@ impl PartMesh {
             let (a, b) = edge[0];
             mesh.append_return([a, b, a + count, b + count], boundary_normals);
         }
+        mesh.shells[0].complete_vertex_count = mesh.positions.len();
+        mesh.shells[0].complete_index_count = mesh.indices.len();
         mesh.normals()?;
         Ok(mesh)
     }

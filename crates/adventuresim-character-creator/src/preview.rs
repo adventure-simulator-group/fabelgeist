@@ -47,7 +47,7 @@ pub(super) fn spawn_armor(
     material: StandardMaterial,
 ) -> Result<()> {
     let parts = if armor.components.is_empty() {
-        vec![(name, armor.indices.as_slice())]
+        vec![(name, armor.indices.as_slice(), None)]
     } else {
         armor
             .components
@@ -56,11 +56,22 @@ pub(super) fn spawn_armor(
                 (
                     format!("{name}.{}", part.role.name()),
                     &armor.indices[part.indices.clone()],
+                    part.material,
                 )
             })
             .collect()
     };
-    for (part_name, indices) in parts {
+    for (part_name, indices, surface) in parts {
+        let mut material = material.clone();
+        if let Some(surface) = surface {
+            let [r, g, b, a] = surface.base_color;
+            material = StandardMaterial {
+                base_color: Color::srgba(r, g, b, a),
+                metallic: surface.metallic,
+                perceptual_roughness: surface.roughness,
+                ..default()
+            };
+        }
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::default(),

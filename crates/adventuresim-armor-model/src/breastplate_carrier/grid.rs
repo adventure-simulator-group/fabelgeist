@@ -2,6 +2,24 @@
 
 use super::*;
 
+impl MidMesh {
+    /// Mirror the right cut's diagonal at the left cut. A rising armscye can
+    /// make the boundary quad concave in its facing projection; the opposite
+    /// diagonal then leaves the cut and overlaps its wall during deformation.
+    /// This material-column rule is identical for every body and morph.
+    pub(super) fn triangulate_left_cut(&mut self) {
+        let end = self.skirt_face_start.unwrap_or(self.faces.len());
+        for pair in self.faces[..end].as_chunks_mut::<2>().0 {
+            let [a, b, c] = pair[0];
+            if (a as usize).is_multiple_of(self.main_columns) {
+                let d = pair[1][2];
+                pair[0] = [a, b, d];
+                pair[1] = [b, c, d];
+            }
+        }
+    }
+}
+
 pub(super) fn append_grid(mesh: &mut MidMesh, grid: &[Vec<[f32; 3]>], rear: bool) -> Vec<Vec<u32>> {
     let mut ids = Vec::with_capacity(grid.len());
     for row in grid {
@@ -44,10 +62,11 @@ pub(super) fn main_grid(
     } else {
         FRONT_HEIGHTS[0]
     };
-    let columns = chart_columns(rear, design);
-    let mut grid = Vec::with_capacity(V_SAMPLES);
-    for row in 0..V_SAMPLES {
-        let t = row as f32 / (V_SAMPLES - 1) as f32;
+    let columns = chart_columns(rear, design, wearer.detail);
+    let rows = wearer.detail.segments(V_SAMPLES - 1, 4) + 1;
+    let mut grid = Vec::with_capacity(rows);
+    for row in 0..rows {
+        let t = row as f32 / (rows - 1) as f32;
         let mut coarse = Vec::with_capacity(U_SAMPLES);
         for column in 0..U_SAMPLES {
             let u = -1.0 + 2.0 * column as f32 / (U_SAMPLES - 1) as f32;
@@ -102,10 +121,11 @@ pub(super) fn skirt_grid(
     let sagittal_flare = radial_flare * if rear { 1.0 } else { 0.75 };
     let flare_ratio = radial_flare / 0.030;
     let length_scale = design.skirt_length.unit();
-    let columns = chart_columns(rear, design);
-    let mut grid = Vec::with_capacity(SKIRT_SAMPLES);
-    for row in 0..SKIRT_SAMPLES {
-        let t = row as f32 / (SKIRT_SAMPLES - 1) as f32;
+    let columns = chart_columns(rear, design, wearer.detail);
+    let rows = wearer.detail.segments(SKIRT_SAMPLES - 1, 2) + 1;
+    let mut grid = Vec::with_capacity(rows);
+    for row in 0..rows {
+        let t = row as f32 / (rows - 1) as f32;
         let mut points = Vec::with_capacity(columns.len());
         for &material_u in &columns {
             let u = fan_coordinate(material_u, 0.0, rear, design);
@@ -175,8 +195,10 @@ pub(super) fn build_mid(
 ) -> Result<MidMesh, GenerateError> {
     let main = main_grid(rear, wearer, design)?;
     let skirt = skirt_grid(rear, wearer, design)?;
-    let columns = chart_columns(rear, design);
+    let columns = chart_columns(rear, design, wearer.detail);
     let mut mesh = MidMesh {
+        main_rows: main.len(),
+        skirt_rows: skirt.len(),
         main_columns: columns.len(),
         ..MidMesh::default()
     };
@@ -196,14 +218,42 @@ pub(super) fn build_mid(
     append_grid_faces(&mut mesh, &skirt_ids, !rear);
     if !rear && design.profile.medial_ridge.0 > 0 {
         let mut coordinates = Vec::with_capacity(mesh.positions.len());
-        for _ in 0..V_SAMPLES {
+        for _ in 0..main.len() {
             coordinates.extend(columns.iter().copied());
         }
-        for _ in 0..SKIRT_SAMPLES - 1 {
+        for _ in 0..skirt.len() - 1 {
             coordinates.extend(columns.iter().copied());
         }
         mesh.medial_crease = coordinates.iter().map(|u| u.abs() < 1e-6).collect();
         mesh.crease_right = coordinates.iter().map(|u| *u > 1e-6).collect();
     }
     Ok(mesh)
+}
+
+#[cfg(test)]
+mod cut_tests {
+    use super::*;
+
+    #[test]
+    fn left_cut_diagonal_stays_inside_a_concave_armscye_projection() {
+        let mut mesh = MidMesh {
+            main_columns: 2,
+            positions: vec![
+                [-0.184_955, 1.381_396, 0.083_615],
+                [-0.186_401, 1.390_387, 0.077_849],
+                [-0.186_764, 1.389_292, 0.075_262],
+                [-0.188_523, 1.396_664, 0.068_833],
+            ],
+            faces: vec![[0, 1, 3], [0, 3, 2]],
+            ..MidMesh::default()
+        };
+        let carrier = mesh.positions.clone();
+        assert!(face_normal(mesh.faces[1], &mesh.positions)[2] < 0.0);
+        mesh.triangulate_left_cut();
+        assert_eq!(mesh.positions, carrier);
+        for face in &mesh.faces {
+            assert!(face_normal(*face, &mesh.positions)[2] > 0.0);
+        }
+        solidify(mesh, 0.002).unwrap();
+    }
 }

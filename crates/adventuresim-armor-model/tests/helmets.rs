@@ -21,6 +21,7 @@ const KINDS: [HelmetKind; 9] = [
 
 fn frame(scale: f32) -> PartFrame {
     PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: [0.0, 1.65, 0.0],
         axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
         half_extents: [0.085 * scale, 0.115 * scale, 0.105 * scale],
@@ -276,8 +277,12 @@ fn extreme_style_controls_preserve_solid_topology() {
         }),
     ];
     for design in designs {
-        assert_closed_solid(&generate_helmet(&design, &frame(0.75)).unwrap());
-        assert_closed_solid(&generate_helmet(&design, &frame(1.3)).unwrap());
+        for scale in [0.75, 1.3] {
+            assert_closed_solid(
+                &generate_helmet(&design, &frame(scale))
+                    .unwrap_or_else(|error| panic!("{design:?} at scale {scale}: {error:?}")),
+            );
+        }
     }
 }
 

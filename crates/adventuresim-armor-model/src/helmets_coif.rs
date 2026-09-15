@@ -2,7 +2,6 @@
 
 use super::{
     CoifDesign, CoifDrapeProfile, CoifFlapDrape,
-    drape::FLAP_EDGE,
     geometry::{AROUND, Surface},
 };
 use crate::{GenerateError, parametric::PartMesh};
@@ -11,7 +10,6 @@ use std::f32::consts::TAU;
 const HOOD_ROWS: usize = 8;
 const NECK_ROWS: usize = 8;
 const FLAP_ROWS: usize = 10;
-const FACE_EDGE: usize = AROUND / 8;
 const DRAPE_CONTACT_ROUNDING_M: f32 = 0.002;
 // Fitted morph deltas interpolate a nonlinear torso envelope. Preserve a small
 // rear-panel reserve between its fixed attachment, side edges and lower hem.
@@ -23,9 +21,10 @@ pub(super) fn generate(
     brow: f32,
     half_height: f32,
     d: &CoifDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     let drape = CoifDrapeProfile::authored(d, half_height, radii);
-    generate_fitted(radii, brow, half_height, d, &drape)
+    generate_fitted(radii, brow, half_height, d, detail, &drape)
 }
 
 pub(super) fn generate_fitted(
@@ -33,23 +32,28 @@ pub(super) fn generate_fitted(
     brow: f32,
     half_height: f32,
     d: &CoifDesign,
+    detail: crate::ArmorDetail,
     drape: &CoifDrapeProfile,
 ) -> Result<PartMesh, GenerateError> {
-    let mut surface = Surface::default();
+    let around = detail.segments(AROUND, 24).next_multiple_of(24);
+    let face_edge = around / 8;
+    let flap_edge = around / 12;
+    let hood_rows = detail.segments(HOOD_ROWS, 2);
+    let mut surface = Surface::new(detail, around);
     let rim = surface.full_dome(radii, brow, 0.72);
-    let mut previous = rim[FACE_EDGE..=AROUND - FACE_EDGE].to_vec();
+    let mut previous = rim[face_edge..=around - face_edge].to_vec();
     let mut neck = Vec::new();
-    for row in 1..=HOOD_ROWS {
-        let t = row as f32 / HOOD_ROWS as f32;
-        let full = row == HOOD_ROWS;
+    for row in 1..=hood_rows {
+        let t = row as f32 / hood_rows as f32;
+        let full = row == hood_rows;
         let range = if full {
-            0..AROUND
+            0..around
         } else {
-            FACE_EDGE..AROUND - FACE_EDGE + 1
+            face_edge..around - face_edge + 1
         };
         let ring = range
             .map(|i| {
-                let angle = i as f32 / AROUND as f32 * TAU;
+                let angle = i as f32 / around as f32 * TAU;
                 let end_y = half_height * (-1.12 + 0.16 * (1.0 - angle.cos()));
                 let front = angle.cos().max(0.0);
                 let back = (-angle.cos()).max(0.0);
@@ -64,7 +68,7 @@ pub(super) fn generate_fitted(
             })
             .collect::<Vec<_>>();
         let strip = if full {
-            &ring[FACE_EDGE..=AROUND - FACE_EDGE]
+            &ring[face_edge..=around - face_edge]
         } else {
             &ring
         };
@@ -78,11 +82,11 @@ pub(super) fn generate_fitted(
     // The face opening ends below the chin; the continuous neck enclosure
     // continues to the anatomical neck/shoulder junction before flaps split.
     neck = neck_tube(&mut surface, &neck, drape);
-    let front_ids = (AROUND - FLAP_EDGE..AROUND)
-        .chain(0..=FLAP_EDGE)
+    let front_ids = (around - flap_edge..around)
+        .chain(0..=flap_edge)
         .map(|i| neck[i])
         .collect::<Vec<_>>();
-    let back_ids = neck[AROUND / 2 - FLAP_EDGE..=AROUND / 2 + FLAP_EDGE].to_vec();
+    let back_ids = neck[around / 2 - flap_edge..=around / 2 + flap_edge].to_vec();
     flap(
         &mut surface,
         &front_ids,
@@ -108,13 +112,13 @@ fn neck_tube(surface: &mut Surface, upper: &[u32], drape: &CoifDrapeProfile) -> 
         .map(|i| surface.positions[*i as usize])
         .collect::<Vec<_>>();
     let mut previous = upper.to_vec();
-    for row in 1..=NECK_ROWS {
-        let t = row as f32 / NECK_ROWS as f32;
+    for row in 1..=surface.detail.segments(NECK_ROWS, 2) {
+        let t = row as f32 / surface.detail.segments(NECK_ROWS, 2) as f32;
         let ring = tops
             .iter()
             .enumerate()
             .map(|(i, top)| {
-                let bottom = drape.neck.point(i as f32 / AROUND as f32 * TAU);
+                let bottom = drape.neck.point(i as f32 / surface.around as f32 * TAU);
                 surface.vertex(std::array::from_fn(|axis| {
                     top[axis] + (bottom[axis] - top[axis]) * t
                 }))
@@ -155,8 +159,8 @@ fn flap(
         .collect::<Vec<_>>();
     let edge_x = tops.first().unwrap()[0].abs();
     let mut previous = attachment.to_vec();
-    for row in 1..=FLAP_ROWS {
-        let t = row as f32 / FLAP_ROWS as f32;
+    for row in 1..=surface.detail.segments(FLAP_ROWS, 2) {
+        let t = row as f32 / surface.detail.segments(FLAP_ROWS, 2) as f32;
         let ring = tops
             .iter()
             .map(|p| {

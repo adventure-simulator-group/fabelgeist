@@ -1,0 +1,399 @@
+{
+  "defaults": {
+    "arming_doublet": {
+      "Underlayer": {
+        "kind": "ArmingDoublet",
+        "clearance": 4,
+        "thickness": 1,
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    },
+    "close_helmet": {
+      "Helmet": {
+        "CloseHelmet": {
+          "back_edge_lift": 45,
+          "back_flare": 20,
+          "bellows": {
+            "cheek_rise": 30,
+            "count": 3,
+            "depth": 6,
+            "end": 900,
+            "sharpness": 750,
+            "start": 420
+          },
+          "breaths": {
+            "center_offset": 22,
+            "count_per_row": 1,
+            "height": 650,
+            "inclination": 90,
+            "length": 20,
+            "rounding": 500,
+            "row_spacing": 16,
+            "rows": 3,
+            "sides": "Both",
+            "span": 26,
+            "width": 3
+          },
+          "chin_projection": 0,
+          "comb_height": 0,
+          "crown": {
+            "fluting": {
+              "count": 10,
+              "depth": 2,
+              "end": 900,
+              "fade": 150,
+              "lower_spread": 750,
+              "spread": 750,
+              "start": 100,
+              "width": 750
+            },
+            "fullness": 850,
+            "ridge_height": 6
+          },
+          "face_clearance": 12,
+          "fit": {
+            "clearance": 12,
+            "crown_height": 1000,
+            "wall_thickness": 2
+          },
+          "jaw_width": 750,
+          "nape_flare": 0,
+          "nape_length": 0,
+          "neck_length": 25,
+          "neck_width": 800,
+          "ridge_height": 400,
+          "ridge_sharpness": 950,
+          "sight_bridge": 5,
+          "sight_gap": 6,
+          "sight_ledge": 0,
+          "sight_span": 170,
+          "temple_clearance": 10,
+          "throat_flare": 4,
+          "visor_fluting": null,
+          "visor_projection": 26,
+          "brow_overlap": 10,
+          "brow_peak": 5
+        }
+      }
+    },
+    "couter": {
+      "Limb": {
+        "Couter": {
+          "center_ridge": 0,
+          "distal_wing_scale": 1150,
+          "dome": 350,
+          "fluting": {
+            "count": 8,
+            "depth": 2,
+            "end": 950,
+            "fade": 100,
+            "lower_spread": 500,
+            "spread": 850,
+            "start": 350,
+            "width": 750
+          },
+          "gauge": {
+            "clearance": 11,
+            "thickness": 1
+          },
+          "length": 1050,
+          "wing": 1300,
+          "wing_height": 1200,
+          "wing_notch": 0,
+          "wing_roundness": 850,
+          "proximal_flare": 12,
+          "construction": "RaisedCop",
+          "flute_orientation": "Transverse",
+          "medial_wrap": 520,
+          "lateral_wrap": 850
+        }
+      }
+    },
+    "cuisse": {
+      "Limb": {
+        "Cuisse": {
+          "center_ridge": 0,
+          "fluting": {
+            "count": 16,
+            "depth": 2,
+            "end": 950,
+            "fade": 100,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 50,
+            "width": 650
+          },
+          "gauge": {
+            "clearance": 6,
+            "thickness": 1
+          },
+          "knee_taper": 740,
+          "length": 920,
+          "upper_edge_slope": 0,
+          "wrap": 720
+        }
+      }
+    },
+    "fauld": {
+      "Garment": {
+        "clearance": 6,
+        "flare": 500,
+        "fluting": {
+          "count": 64,
+          "depth": 2,
+          "end": 950,
+          "fade": 100,
+          "lower_spread": 1000,
+          "spread": 850,
+          "start": 50,
+          "width": 750
+        },
+        "kind": "Fauld",
+        "lame_count": 6,
+        "length": 750,
+        "plate_shape": {
+          "Fauld": {
+            "front_arch": 550,
+            "waist_rise": 105,
+            "chevron_slope": 0,
+            "front_arch_width": 500
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 1
+      }
+    },
+    "gorget": {
+      "Garment": {
+        "clearance": 12,
+        "flare": 180,
+        "fluting": {
+          "count": 10,
+          "depth": 2,
+          "end": 900,
+          "fade": 150,
+          "lower_spread": 750,
+          "spread": 750,
+          "start": 100,
+          "width": 750
+        },
+        "kind": "Gorget",
+        "lame_count": 3,
+        "length": 1000,
+        "plate_shape": {
+          "Gorget": {
+            "back_depth": 1400,
+            "collar_height": 500,
+            "collar_slope": 750,
+            "front_depth": 1250,
+            "hem_flatness": 250,
+            "neck_clearance": 10,
+            "rear_hem_flatness": 1000,
+            "rear_sweep": 850,
+            "front_width": 1000,
+            "back_width": 550
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 1
+      }
+    },
+    "greave": {
+      "Limb": {
+        "Greave": {
+          "ankle_extension": 25,
+          "ankle_taper": 630,
+          "calf_height": 660,
+          "fluting": null,
+          "gauge": {
+            "clearance": 10,
+            "thickness": 1
+          },
+          "knee_taper": 880,
+          "length": 970,
+          "shin_ridge": 5
+        }
+      }
+    },
+    "mitten_gauntlet": {
+      "Limb": {
+        "MittenGauntlet": {
+          "cuff_flare": 1050,
+          "cuff_length": 400,
+          "finger_lames": 4,
+          "fluting": {
+            "count": 5,
+            "depth": 2,
+            "end": 900,
+            "fade": 150,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 100,
+            "width": 750
+          },
+          "gauge": {
+            "clearance": 4,
+            "thickness": 1
+          },
+          "knuckle_ridge": 0,
+          "knuckle_width": 1000,
+          "cuff_clearance": 15
+        }
+      }
+    },
+    "padded_chausses": {
+      "Underlayer": {
+        "kind": "PaddedHose",
+        "clearance": 1,
+        "thickness": 2,
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    },
+    "poleyn": {
+      "Limb": {
+        "Poleyn": {
+          "center_ridge": 0,
+          "distal_wing_scale": 1000,
+          "dome": 300,
+          "fluting": {
+            "count": 8,
+            "depth": 2,
+            "end": 900,
+            "fade": 150,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 100,
+            "width": 750
+          },
+          "gauge": {
+            "clearance": 12,
+            "thickness": 2
+          },
+          "length": 1150,
+          "wing": 200,
+          "wing_height": 700,
+          "wing_notch": 350,
+          "wing_roundness": 400,
+          "proximal_flare": 0,
+          "construction": "RaisedCop",
+          "flute_orientation": "Longitudinal",
+          "medial_wrap": 520,
+          "lateral_wrap": 550
+        }
+      }
+    },
+    "rerebrace": {
+      "Limb": {
+        "Rerebrace": {
+          "center_ridge": 0,
+          "distal_taper": 830,
+          "fluting": {
+            "count": 16,
+            "depth": 2,
+            "end": 950,
+            "fade": 100,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 50,
+            "width": 650
+          },
+          "gauge": {
+            "clearance": 6,
+            "thickness": 2
+          },
+          "length": 650,
+          "section_depth": 1000,
+          "wrap": 720
+        }
+      }
+    },
+    "sabaton": {
+      "Limb": {
+        "Sabaton": {
+          "ankle_cutaway": 20,
+          "fluting": {
+            "count": 5,
+            "depth": 2,
+            "end": 900,
+            "fade": 150,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 100,
+            "width": 750
+          },
+          "gauge": {
+            "clearance": 10,
+            "thickness": 2
+          },
+          "instep_height": 1000,
+          "lame_count": 5,
+          "toe_extension": 25,
+          "toe_roundness": 900,
+          "toe_width": 1150
+        }
+      }
+    },
+    "spaulder": {
+      "Limb": {
+        "Spaulder": {
+          "crown": 850,
+          "fluting": {
+            "count": 8,
+            "depth": 2,
+            "end": 900,
+            "fade": 150,
+            "lower_spread": 750,
+            "spread": 750,
+            "start": 100,
+            "width": 750
+          },
+          "gauge": {
+            "clearance": 20,
+            "thickness": 2
+          },
+          "lame_count": 4,
+          "length": 1000,
+          "rear_extension": 1000,
+          "wrap": 350,
+          "lower_flare": 12,
+          "crown_reach": 900,
+          "besagew": {
+            "radius": 58,
+            "boss_height": 14,
+            "shoulder_drop": 65,
+            "medial_offset": 30,
+            "plate_clearance": 5,
+            "outward_tilt": 100,
+            "fluting": {
+              "count": 24,
+              "width": 700,
+              "depth": 2,
+              "start": 250,
+              "end": 950,
+              "fade": 100
+            }
+          },
+          "crown_coverage": 650
+        }
+      }
+    },
+    "mail_brayette": {
+      "Underlayer": {
+        "kind": "MailBrayette",
+        "clearance": 6,
+        "thickness": 1,
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    }
+  },
+  "placements": {}
+}

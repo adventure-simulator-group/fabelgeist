@@ -3,6 +3,9 @@ mod impostor;
 mod lod;
 mod materials;
 mod presentation;
+mod specimen;
+
+pub(crate) use specimen::oak_root_exposure_for_site;
 
 pub(in crate::presentation) use geometry::{
     BLACKTHORN_PARAMETERS, COMMON_BEECH_PARAMETERS, COMMON_HAWTHORN_PARAMETERS,
@@ -37,9 +40,10 @@ pub(in crate::presentation) use materials::{
 pub(in crate::presentation) use presentation::canopy_competition;
 pub(in crate::presentation) use presentation::{
     PendingTreePresentation, StreamedTreePresentation, TreePresentationCache,
-    TreePresentationSpecies, VistaTreePresentationCache, ensure_vista_tree_variant,
-    present_pending_trees, stream_tree_lod_children, tree_species_for_site,
+    VistaTreePresentationCache, ensure_vista_tree_variant, present_pending_trees,
+    stream_tree_lod_children,
 };
 pub(crate) use presentation::{
-    PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
+    PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount, TreePresentationSpecies,
+    tree_species_for_site,
 };

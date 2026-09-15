@@ -3,10 +3,12 @@
 
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tomllib
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,20 +34,36 @@ def sync_assets() -> None:
 
 
 def main() -> int:
-    wasm_bindgen = shutil.which("wasm-bindgen")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--bindgen", default="wasm-bindgen",
+                        help="Path to the wasm-bindgen CLI matching Cargo.lock")
+    args = parser.parse_args()
+    lock = tomllib.loads((ROOT / "Cargo.lock").read_text(encoding="utf-8"))
+    expected = next(p["version"] for p in lock["package"] if p["name"] == "wasm-bindgen")
+    wasm_bindgen = shutil.which(args.bindgen)
     if wasm_bindgen is None:
-        print("Missing wasm-bindgen. Install with: cargo install wasm-bindgen-cli", file=sys.stderr)
+        print(f"Missing wasm-bindgen. Install wasm-bindgen-cli --version {expected}",
+              file=sys.stderr)
         return 1
     try:
+        actual = subprocess.check_output([wasm_bindgen, "--version"], text=True).strip().split()[-1]
+        if actual != expected:
+            print(f"wasm-bindgen CLI {actual} does not match Rust {expected}. "
+                  f"Install wasm-bindgen-cli --version {expected}, or pass --bindgen PATH.",
+                  file=sys.stderr)
+            return 1
         print("Building WASM client...")
         run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
-        run(["cargo", "build", "--package", "adventuresim-tactical-client", "--target", "wasm32-unknown-unknown", "--release"])
+        run(["cargo", "build", "--package", "adventuresim-tactical-client",
+             "--bin", "adventuresim-tactical-client", "--bin", "art-demo",
+             "--target", "wasm32-unknown-unknown", "--release"])
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
-        run([
-            wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
-            str(ROOT / "target" / "wasm32-unknown-unknown" / "release" / "adventuresim-tactical-client.wasm"),
-        ])
+        for binary in ("adventuresim-tactical-client", "art-demo"):
+            run([
+                wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
+                str(ROOT / "target" / "wasm32-unknown-unknown" / "release" / f"{binary}.wasm"),
+            ])
         print("Syncing browser assets...")
         sync_assets()
     except (OSError, subprocess.CalledProcessError) as error:

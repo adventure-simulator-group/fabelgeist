@@ -286,6 +286,14 @@ class JustTaskTests(unittest.TestCase):
 
 
 class WasmAssetTests(unittest.TestCase):
+    def test_bindgen_version_mismatch_fails_before_compilation(self):
+        with mock.patch.object(build_wasm.sys, "argv", ["build_wasm.py"]), \
+             mock.patch.object(build_wasm.shutil, "which", return_value="wasm-bindgen"), \
+             mock.patch.object(build_wasm.subprocess, "check_output", return_value="wasm-bindgen 0.0.0"), \
+             mock.patch.object(build_wasm, "run") as compile_command:
+            self.assertEqual(build_wasm.main(), 1)
+        compile_command.assert_not_called()
+
     def test_asset_sync_removes_stale_files_and_merges_crate_assets(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

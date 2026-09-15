@@ -1,0 +1,454 @@
+{
+  "defaults": {
+    "arming_doublet": {
+      "Underlayer": {
+        "kind": "ArmingDoublet",
+        "clearance": 4,
+        "thickness": 1,
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    },
+    "burgonet": {
+      "Helmet": {
+        "Burgonet": {
+          "cheek_depth": 800,
+          "cheek_fluting": null,
+          "cheek_taper": 800,
+          "cheek_width": 750,
+          "chin_tab": 0,
+          "comb_height": 35,
+          "crown": {
+            "fluting": null,
+            "fullness": 900,
+            "ridge_height": 0
+          },
+          "fit": {
+            "clearance": 12,
+            "crown_height": 1050,
+            "wall_thickness": 2
+          },
+          "nape_depth": 1050,
+          "nape_recession": 0,
+          "nape_taper": 650,
+          "neck_flare": 22,
+          "neck_guard_fraction": 400,
+          "peak_drop": 6,
+          "peak_length": 25,
+          "buffe": {
+            "sight_gap": 8,
+            "face_projection": 18,
+            "chin_width": 650,
+            "throat_depth": 800,
+            "neck_drop": 25,
+            "side_wrap": 1950,
+            "medial_ridge": 20,
+            "chin_point": 25,
+            "ridge_sharpness": 1000,
+            "breaths": {
+              "count_per_row": 7,
+              "rows": 1,
+              "width": 4,
+              "length": 12,
+              "span": 60,
+              "row_spacing": 22,
+              "center_offset": 48,
+              "height": 110,
+              "rounding": 1000,
+              "inclination": 0,
+              "sides": "Both"
+            },
+            "courses": {
+              "plate_count": 3,
+              "lower_boundary": 450,
+              "upper_boundary": 800,
+              "overlap": 5,
+              "lap_clearance": 1,
+              "boundary_drop": 12
+            }
+          },
+          "peak_rise": 20
+        }
+      }
+    },
+    "couter": {
+      "Limb": {
+        "Couter": {
+          "center_ridge": 12,
+          "distal_wing_scale": 1000,
+          "dome": 350,
+          "fluting": null,
+          "gauge": {
+            "clearance": 11,
+            "thickness": 1
+          },
+          "length": 1100,
+          "wing": 1300,
+          "wing_height": 1150,
+          "wing_notch": 0,
+          "wing_roundness": 500,
+          "proximal_flare": 6,
+          "construction": "RaisedCop",
+          "flute_orientation": "Longitudinal",
+          "medial_wrap": 520,
+          "lateral_wrap": 850
+        }
+      }
+    },
+    "gorget": {
+      "Garment": {
+        "clearance": 12,
+        "flare": 180,
+        "fluting": null,
+        "kind": "Gorget",
+        "lame_count": 3,
+        "length": 1000,
+        "plate_shape": {
+          "Gorget": {
+            "back_depth": 1400,
+            "collar_height": 500,
+            "collar_slope": 750,
+            "front_depth": 1250,
+            "hem_flatness": 250,
+            "neck_clearance": 10,
+            "rear_hem_flatness": 1000,
+            "rear_sweep": 850,
+            "front_width": 1000,
+            "back_width": 650
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 1
+      }
+    },
+    "leather_boot": {
+      "Limb": {
+        "LeatherBoot": {
+          "gauge": {
+            "clearance": 8,
+            "thickness": 3
+          },
+          "shaft_flare": 1000,
+          "shaft_height": 350,
+          "toe_width": 1000
+        }
+      }
+    },
+    "mitten_gauntlet": {
+      "Limb": {
+        "MittenGauntlet": {
+          "cuff_flare": 1050,
+          "cuff_length": 400,
+          "finger_lames": 4,
+          "fluting": null,
+          "gauge": {
+            "clearance": 4,
+            "thickness": 1
+          },
+          "knuckle_ridge": 0,
+          "knuckle_width": 1000,
+          "cuff_clearance": 15
+        }
+      }
+    },
+    "padded_chausses": {
+      "Underlayer": {
+        "kind": "PaddedHose",
+        "clearance": 1,
+        "thickness": 2,
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    },
+    "pauldron": {
+      "Limb": {
+        "Pauldron": {
+          "gauge": {
+            "clearance": 12,
+            "thickness": 2
+          },
+          "fluting": null,
+          "plate_clearance": 4,
+          "arm_allowance": 10,
+          "front_reach": 105,
+          "rear_reach": 95,
+          "front_drop": 50,
+          "rear_drop": 50,
+          "neck_reach": 38,
+          "crown_height": 1200,
+          "arm_length": 96,
+          "upper_lames": 2,
+          "lower_lames": 4,
+          "outline": {
+            "front_extension": 80,
+            "rear_extension": 65,
+            "wing_start": 1000,
+            "corner_rounding": 320,
+            "upper_span": 260,
+            "arm_wrap": 1540,
+            "front_return": 2600,
+            "rear_return": 2680,
+            "front_wing_position": 500,
+            "rear_wing_position": 500,
+            "front_wing_rounding": 800,
+            "rear_wing_rounding": 800
+          }
+        }
+      }
+    },
+    "poleyn": {
+      "Limb": {
+        "Poleyn": {
+          "center_ridge": 0,
+          "distal_wing_scale": 1000,
+          "dome": 500,
+          "fluting": null,
+          "gauge": {
+            "clearance": 10,
+            "thickness": 2
+          },
+          "length": 650,
+          "wing": 350,
+          "wing_height": 1000,
+          "wing_notch": 350,
+          "wing_roundness": 1000,
+          "proximal_flare": 8,
+          "distal_extension": {
+            "length": 160,
+            "lame_count": 3,
+            "terminal_share": 800,
+            "wrap": 1350,
+            "hem_rounding": 25,
+            "distal_taper": 750
+          },
+          "construction": "Wrapped",
+          "flute_orientation": "Longitudinal",
+          "medial_wrap": 520,
+          "lateral_wrap": 850
+        }
+      }
+    },
+    "rerebrace": {
+      "Limb": {
+        "Rerebrace": {
+          "center_ridge": 0,
+          "distal_taper": 830,
+          "fluting": null,
+          "gauge": {
+            "clearance": 6,
+            "thickness": 2
+          },
+          "length": 650,
+          "section_depth": 1000,
+          "wrap": 720
+        }
+      }
+    },
+    "tassets": {
+      "WaistAssembly": {
+        "fauld": {
+          "clearance": 8,
+          "flare": 0,
+          "fluting": null,
+          "kind": "Fauld",
+          "lame_count": 1,
+          "length": 180,
+          "plate_shape": {
+            "Fauld": {
+              "front_arch": 0,
+              "waist_rise": 12,
+              "chevron_slope": 300,
+              "front_arch_width": 500
+            }
+          },
+          "waist": 900,
+          "wall_thickness": 2
+        },
+        "tassets": {
+          "clearance": 14,
+          "flare": 0,
+          "fluting": null,
+          "kind": "Tassets",
+          "lame_count": 11,
+          "length": 1000,
+          "plate_shape": {
+            "WrappedTassets": {
+              "knee_reach": 900,
+              "inner_cutaway": 35,
+              "section_break": 6,
+              "section_gap": 3,
+              "inner_wrap": 450,
+              "outer_wrap": 620,
+              "upper_edge_slope": 300,
+              "hem_rounding": 25,
+              "inner_gap": 40
+            }
+          },
+          "waist": 900,
+          "wall_thickness": 2
+        }
+      }
+    }
+  },
+  "placements": {
+    "pauldron": {
+      "left": {
+        "Limb": {
+          "Pauldron": {
+            "arm_allowance": 10,
+            "arm_length": 125,
+            "crown_height": 1200,
+            "fluting": null,
+            "front_drop": 50,
+            "front_reach": 180,
+            "gauge": {
+              "clearance": 12,
+              "thickness": 2
+            },
+            "lower_lames": 5,
+            "neck_reach": 38,
+            "outline": {
+              "arm_wrap": 1540,
+              "corner_rounding": 400,
+              "front_extension": 80,
+              "front_return": 2200,
+              "rear_extension": 65,
+              "rear_return": 2200,
+              "upper_span": 260,
+              "wing_start": 1000,
+              "front_wing_position": 700,
+              "rear_wing_position": 500,
+              "front_wing_rounding": 850,
+              "rear_wing_rounding": 800
+            },
+            "plate_clearance": 4,
+            "rear_drop": 50,
+            "rear_reach": 130,
+            "upper_lames": 2
+          }
+        }
+      },
+      "right": {
+        "Limb": {
+          "Pauldron": {
+            "arm_allowance": 10,
+            "arm_length": 125,
+            "crown_height": 1200,
+            "fluting": null,
+            "front_drop": 10,
+            "front_reach": 105,
+            "gauge": {
+              "clearance": 12,
+              "thickness": 2
+            },
+            "lower_lames": 5,
+            "neck_reach": 38,
+            "outline": {
+              "arm_wrap": 1540,
+              "corner_rounding": 320,
+              "front_extension": 25,
+              "front_return": 1900,
+              "rear_extension": 65,
+              "rear_return": 2200,
+              "upper_span": 260,
+              "wing_start": 1000,
+              "front_wing_position": 550,
+              "rear_wing_position": 500,
+              "front_wing_rounding": 850,
+              "rear_wing_rounding": 800
+            },
+            "plate_clearance": 10,
+            "rear_drop": 50,
+            "rear_reach": 130,
+            "upper_lames": 2
+          }
+        }
+      }
+    },
+    "poleyn": {
+      "left": {
+        "Limb": {
+          "Poleyn": {
+            "center_ridge": 0,
+            "distal_wing_scale": 1000,
+            "dome": 500,
+            "fluting": null,
+            "gauge": {
+              "clearance": 10,
+              "thickness": 2
+            },
+            "length": 650,
+            "wing": 350,
+            "wing_height": 1000,
+            "wing_notch": 350,
+            "wing_roundness": 1000,
+            "proximal_flare": 8,
+            "distal_extension": {
+              "length": 160,
+              "lame_count": 3,
+              "terminal_share": 800,
+              "wrap": 1350,
+              "hem_rounding": 25,
+              "distal_taper": 850
+            },
+            "construction": "Wrapped",
+            "flute_orientation": "Longitudinal",
+            "medial_wrap": 520,
+            "lateral_wrap": 850
+          }
+        }
+      },
+      "right": {
+        "Limb": {
+          "Poleyn": {
+            "center_ridge": 0,
+            "distal_wing_scale": 1000,
+            "dome": 500,
+            "fluting": null,
+            "gauge": {
+              "clearance": 10,
+              "thickness": 2
+            },
+            "length": 650,
+            "wing": 350,
+            "wing_height": 1000,
+            "wing_notch": 350,
+            "wing_roundness": 1000,
+            "proximal_flare": 8,
+            "distal_extension": {
+              "length": 120,
+              "lame_count": 3,
+              "terminal_share": 750,
+              "wrap": 1350,
+              "hem_rounding": 18,
+              "distal_taper": 850
+            },
+            "construction": "Wrapped",
+            "flute_orientation": "Longitudinal",
+            "medial_wrap": 520,
+            "lateral_wrap": 850
+          }
+        }
+      }
+    },
+    "leather_boot": {
+      "right": {
+        "Limb": {
+          "LeatherBoot": {
+            "gauge": {
+              "clearance": 7,
+              "thickness": 3
+            },
+            "shaft_flare": 1000,
+            "shaft_height": 350,
+            "toe_width": 1000
+          }
+        }
+      }
+    }
+  }
+}

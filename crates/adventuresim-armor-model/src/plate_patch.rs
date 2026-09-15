@@ -5,11 +5,45 @@ struct PlateShell {
     extrusion: ShellExtrusion,
 }
 const AROUND: usize = 40;
+const SADDLE_AROUND: usize = 24;
 fn lerp(a: f32, b: f32, t: f32) -> f32 {
     a + (b - a) * t
 }
 
+/// Returned shoulder wings need finer angular sampling to retain chest overlap.
+pub(crate) fn fluted_saddle_patch(
+    thickness: f32,
+    pattern: Option<&PlateFluting>,
+    span: [f32; 2],
+    point: impl Fn(f32, f32) -> [f32; 3],
+    detail: crate::ArmorDetail,
+) -> Result<PartMesh, GenerateError> {
+    let rows = detail.segments(24, 8);
+    let samples: Vec<_> = (0..=rows).map(|i| i as f32 / rows as f32).collect();
+    let columns: Vec<_> = (0..=SADDLE_AROUND)
+        .map(|i| i as f32 / SADDLE_AROUND as f32)
+        .collect();
+    sampled_chart(
+        &samples,
+        ChartBoundary::Open,
+        PlateShell {
+            thickness,
+            extrusion: ShellExtrusion::Normal,
+        },
+        pattern,
+        span,
+        |_, _| 0.0,
+        point,
+        detail,
+        &columns,
+    )
+}
+
 /// Longitudinal relief stays registered in the full assembly chart across lames.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 pub(crate) fn fluted_patch(
     rows: usize,
     cyclic: bool,
@@ -18,6 +52,8 @@ pub(crate) fn fluted_patch(
     span: [f32; 2],
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     chart(
         rows,
@@ -34,10 +70,15 @@ pub(crate) fn fluted_patch(
         span,
         normal_offset,
         point,
+        detail,
     )
 }
 
 /// A mitten or thumb tip shares its carrier with the adjoining dorsal plate.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 pub(crate) fn capped_fluted_patch(
     rows: usize,
     thickness: f32,
@@ -46,6 +87,8 @@ pub(crate) fn capped_fluted_patch(
     point: impl Fn(f32, f32) -> [f32; 3],
     tip_length: f32,
     normal_offset: impl Fn(f32, f32) -> f32,
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     let origin = [0.0, point(0.0, 0.0)[1], 0.0];
     chart(
@@ -62,6 +105,7 @@ pub(crate) fn capped_fluted_patch(
         span,
         normal_offset,
         point,
+        detail,
     )
 }
 
@@ -73,6 +117,8 @@ pub(crate) fn fluted_crown_patch(
     pattern: Option<&PlateFluting>,
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     chart(
         rows,
@@ -88,6 +134,7 @@ pub(crate) fn fluted_crown_patch(
         [0.5, 1.0],
         normal_offset,
         point,
+        detail,
     )
 }
 
@@ -99,6 +146,8 @@ pub(crate) fn fluted_front_plate(
     span: [f32; 2],
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     chart(
         rows,
@@ -113,6 +162,7 @@ pub(crate) fn fluted_front_plate(
         span,
         normal_offset,
         point,
+        detail,
     )
 }
 
@@ -124,6 +174,10 @@ enum ChartBoundary {
 }
 
 /// Foot lames retain their longitudinal lap boundaries above the sole datum.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 pub(crate) fn fluted_foot_patch(
     rows: usize,
     sole: f32,
@@ -132,6 +186,8 @@ pub(crate) fn fluted_foot_patch(
     span: [f32; 2],
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     chart(
         rows,
@@ -147,10 +203,15 @@ pub(crate) fn fluted_foot_patch(
         span,
         normal_offset,
         point,
+        detail,
     )
 }
 
 /// Cylindrical plates preserve angular and axial correspondence when thickened.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 pub(crate) fn fluted_radial_patch(
     rows: usize,
     cyclic: bool,
@@ -159,6 +220,8 @@ pub(crate) fn fluted_radial_patch(
     span: [f32; 2],
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
     chart(
         rows,
@@ -178,9 +241,14 @@ pub(crate) fn fluted_radial_patch(
         span,
         normal_offset,
         point,
+        detail,
     )
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 fn chart(
     rows: usize,
     boundary: ChartBoundary,
@@ -189,22 +257,81 @@ fn chart(
     span: [f32; 2],
     normal_offset: impl Fn(f32, f32) -> f32,
     point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
+    let rows = detail.segments(rows, if rows <= 12 { 1 } else { 8 });
+    let samples = (0..=rows)
+        .map(|row| row as f32 / rows as f32)
+        .collect::<Vec<_>>();
+    sampled_chart(
+        &samples,
+        boundary,
+        shell,
+        pattern,
+        span,
+        normal_offset,
+        point,
+        detail,
+        &[],
+    )
+}
+
+pub(crate) fn fluted_lapped_radial_patch(
+    rows: &[f32],
+    feature_columns: &[f32],
+    thickness: f32,
+    pattern: Option<&PlateFluting>,
+    span: [f32; 2],
+    point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
+) -> Result<PartMesh, GenerateError> {
+    sampled_chart(
+        rows,
+        ChartBoundary::Cyclic,
+        PlateShell {
+            thickness,
+            extrusion: ShellExtrusion::Radial {
+                origin: [0.0; 3],
+                axis: [0.0, 1.0, 0.0],
+            },
+        },
+        pattern,
+        span,
+        |_, _| 0.0,
+        point,
+        detail,
+        feature_columns,
+    )
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
+fn sampled_chart(
+    samples: &[f32],
+    boundary: ChartBoundary,
+    shell: PlateShell,
+    pattern: Option<&PlateFluting>,
+    span: [f32; 2],
+    normal_offset: impl Fn(f32, f32) -> f32,
+    point: impl Fn(f32, f32) -> [f32; 3],
+
+    detail: crate::ArmorDetail,
+    feature_columns: &[f32],
+) -> Result<PartMesh, GenerateError> {
+    let pattern = detail.fluting(pattern);
+    let rows = samples.len() - 1;
     let cyclic = matches!(boundary, ChartBoundary::Cyclic);
-    let mut columns = pattern.map_or_else(
-        || (0..=AROUND).map(|i| i as f32 / AROUND as f32).collect(),
-        |pattern| pattern.columns(AROUND),
-    );
-    if cyclic {
-        columns.pop();
-    }
+    let columns = sampled_columns(detail, pattern, cyclic, feature_columns);
     let stride = columns.len();
     let mut positions = Vec::new();
     let mut heights = Vec::new();
     let apex = matches!(boundary, ChartBoundary::Apex);
     let last_row = if apex { rows - 1 } else { rows };
-    for row in 0..=last_row {
-        let v = row as f32 / rows as f32;
+    for &v in &samples[..=last_row] {
         let axial = lerp(span[0], span[1], v);
         for u in &columns {
             positions.push(point(
@@ -228,11 +355,11 @@ fn chart(
         );
     }
     if let ChartBoundary::Capped(length) = boundary {
-        const TIP_RINGS: usize = 8;
+        let tip_rings = detail.segments(8, 2);
         let root_y = positions[0][1];
         let mut previous: Vec<u32> = (0..stride as u32).collect();
-        for ring in 1..TIP_RINGS {
-            let latitude = ring as f32 / TIP_RINGS as f32 * std::f32::consts::FRAC_PI_2;
+        for ring in 1..tip_rings {
+            let latitude = ring as f32 / tip_rings as f32 * std::f32::consts::FRAC_PI_2;
             let next: Vec<u32> = (0..stride)
                 .map(|column| {
                     let base = positions[column];
@@ -269,11 +396,33 @@ fn chart(
             crate::BoundaryNormals::Smooth
         },
         shell.extrusion,
-        Some(heights),
+        Some(crate::SurfaceRelief::ShellHeights(heights)),
     )
 }
 
-/// Weld the final crown ring to one vertex, avoiding degenerate pole quads.
+fn sampled_columns(
+    detail: crate::ArmorDetail,
+    pattern: Option<&PlateFluting>,
+    cyclic: bool,
+    feature_columns: &[f32],
+) -> Vec<f32> {
+    let around = detail.segments(AROUND, 12);
+    let mut columns = pattern.map_or_else(
+        || (0..=around).map(|i| i as f32 / around as f32).collect(),
+        |pattern| pattern.columns(around),
+    );
+    if cyclic {
+        columns.pop();
+    }
+    if matches!(detail, crate::ArmorDetail::Runtime(_)) {
+        columns.extend_from_slice(feature_columns);
+        columns.sort_by(f32::total_cmp);
+        columns.dedup_by(|a, b| (*a - *b).abs() < 1e-6);
+    }
+    columns
+}
+
+/// Close the final crown ring with a single apex, avoiding degenerate pole quads.
 fn append_apex(
     positions: &mut Vec<[f32; 3]>,
     heights: &mut Vec<f32>,

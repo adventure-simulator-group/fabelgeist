@@ -70,8 +70,10 @@ def main():
                 start, end = part["vertices"]["start"], part["vertices"]["end"]
                 first, last = part["indices"]["start"] // 3, part["indices"]["end"] // 3
                 component_faces = [[index - start for index in face] for face in faces[first:last]]
+                surface = part.get("material")
+                color = surface["base_color"] if surface else (0.56, 0.62, 0.68, 1)
                 obj = mesh_object(f"{row['id']}.{part['role']}", positions[start:end], component_faces,
-                                  (0.56, 0.62, 0.68, 1), row["normals"][start:end])
+                                  color, row["normals"][start:end])
                 if part.get("hinge"):
                     obj["reference_body_hinge"] = json.dumps(part["hinge"])
                 armor.append(obj)

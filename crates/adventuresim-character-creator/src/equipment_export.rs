@@ -56,7 +56,9 @@ pub(super) fn generate_equipment_assets(
                 continue;
             }
             let asset = if adventuresim_character_creator::armor_recipes::is_parametric(&item.id) {
-                exporter.armor(output, item, placement)?
+                exporter
+                    .armor(output, item, placement)
+                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
             } else {
                 anyhow::ensure!(
                     !matches!(
@@ -161,14 +163,26 @@ impl EquipmentExporter<'_> {
                     generated,
                     &self
                         .catalog
-                        .design(&item.id)
+                        .design(&item.id, &placement.id)
                         .context("missing parametric recipe")?,
                     &placement.id,
+                    self.catalog,
+                    breastplate_design,
                     &morphs.samples,
                 )?,
                 placement_coverage(placement),
             )
         };
+        let armor = crate::fastener_equipment::attach(
+            model,
+            generated,
+            &morphs.samples,
+            self.catalog,
+            &item.id,
+            &placement.id,
+            armor,
+        )?;
+        let armor = armor.for_rendering(model.armor_detail);
         let faces = armor.indices.as_chunks::<3>().0.to_vec();
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
@@ -182,9 +196,10 @@ impl EquipmentExporter<'_> {
             shell.metallic = metallic;
             shell.roughness = roughness;
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                self.catalog.design(&item.id).as_ref(),
+                self.catalog.design(&item.id, &placement.id).as_ref(),
             );
         }
+        crate::character_morphs::component_materials(&armor, &mut rigged_shells);
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),
             &item.id,

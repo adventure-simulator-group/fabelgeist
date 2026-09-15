@@ -73,6 +73,10 @@ pub(super) fn smooth(t: f32) -> f32 {
 }
 
 /// A half-ellipsoid shell with an explicit fan tip, rather than a collapsed grid row.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Independent chart controls and evaluation callbacks require an explicit runtime/bake sampling policy."
+)]
 pub(super) fn half_dome(
     width: f32,
     height: f32,
@@ -81,15 +85,17 @@ pub(super) fn half_dome(
     end: f32,
     gauge: f32,
     roundness: f32,
+    detail: crate::ArmorDetail,
 ) -> Result<PartMesh, GenerateError> {
-    const RINGS: usize = 8;
-    let stride = AROUND + 1;
+    let rings = detail.segments(8, 2);
+    let around = detail.segments(AROUND, 6);
+    let stride = around + 1;
     let mut positions = Vec::new();
     let mut indices = Vec::new();
-    for row in 0..RINGS {
-        let latitude = row as f32 / RINGS as f32 * PI * 0.5;
-        for column in 0..=AROUND {
-            let theta = (0.5 - column as f32 / AROUND as f32) * PI;
+    for row in 0..rings {
+        let latitude = row as f32 / rings as f32 * PI * 0.5;
+        for column in 0..=around {
+            let theta = (0.5 - column as f32 / around as f32) * PI;
             positions.push([
                 width * theta.sin() * latitude.cos().powf(roundness),
                 sole + height * theta.cos() * latitude.cos(),
@@ -97,8 +103,8 @@ pub(super) fn half_dome(
             ]);
         }
     }
-    for row in 0..RINGS - 1 {
-        for column in 0..AROUND {
+    for row in 0..rings - 1 {
+        for column in 0..around {
             let a = (row * stride + column) as u32;
             let b = a + 1;
             let c = a + stride as u32;
@@ -108,8 +114,8 @@ pub(super) fn half_dome(
     }
     let tip = positions.len() as u32;
     positions.push([0.0, sole, end]);
-    for column in 0..AROUND {
-        let a = ((RINGS - 1) * stride + column) as u32;
+    for column in 0..around {
+        let a = ((rings - 1) * stride + column) as u32;
         indices.extend_from_slice(&[a, a + 1, tip]);
     }
     PartMesh::from_surface(

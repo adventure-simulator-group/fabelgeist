@@ -13,7 +13,7 @@ from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from check_parametric_armor_assets import EXPECTED_TARGETS, Glb, audit
+from check_parametric_armor_assets import EXPECTED_TARGETS, SKELETAL_FIT_TARGETS, Glb, audit
 
 IDENTITY_COUNT = 45
 RUNTIME_BOUND = .35  # character_morph.rs: MAX_IDENTITY_VARIATION
@@ -86,16 +86,16 @@ def configurations():
     corners = [np.full(45, RUNTIME_BOUND), np.full(45, -RUNTIME_BOUND),
                np.array([RUNTIME_BOUND if i % 2 else -RUNTIME_BOUND for i in range(45)])]
     for name, values in zip(['positive', 'negative', 'mixed'], corners):
-        yield name, np.r_[values, 0, 0], 'runtime'
-        for spine in [45, 46]:
-            w = np.r_[values, 0, 0]
-            w[spine] = 1
-            yield f'{name}-spine-{spine}', w, 'runtime'
+        yield name, np.r_[values, np.zeros(len(SKELETAL_FIT_TARGETS))], 'runtime'
+        for index, (target, _, _) in enumerate(SKELETAL_FIT_TARGETS, IDENTITY_COUNT):
+            w = np.r_[values, np.zeros(len(SKELETAL_FIT_TARGETS))]
+            w[index] = 1
+            yield f'{name}-{target}', w, 'runtime'
     rng = np.random.default_rng(RANDOM_SEED)
     for i in range(32):
-        yield f'random-{i:02}', np.r_[rng.uniform(-RUNTIME_BOUND, RUNTIME_BOUND, 45), 0, 0], 'runtime'
+        yield f'random-{i:02}', np.r_[rng.uniform(-RUNTIME_BOUND, RUNTIME_BOUND, 45), np.zeros(len(SKELETAL_FIT_TARGETS))], 'runtime'
     for i in range(16):
-        yield f'corner-{i:02}', np.r_[rng.choice([-RUNTIME_BOUND, RUNTIME_BOUND], 45), 0, 0], 'runtime'
+        yield f'corner-{i:02}', np.r_[rng.choice([-RUNTIME_BOUND, RUNTIME_BOUND], 45), np.zeros(len(SKELETAL_FIT_TARGETS))], 'runtime'
 
 
 def body_clearance(mesh, points, tree):

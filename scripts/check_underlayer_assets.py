@@ -17,7 +17,7 @@ from mathutils import Matrix, Quaternion, Vector
 from mathutils.bvhtree import BVHTree
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from check_parametric_armor_assets import EXPECTED_TARGETS, Glb, audit
+from check_parametric_armor_assets import EXPECTED_TARGETS, SKELETAL_FIT_TARGETS, Glb, audit
 
 IDENTITY_BOUND = 0.35
 # CharacterProportions' generated range is narrower than its editor limits.
@@ -29,17 +29,29 @@ ITEMS = ["arming_doublet--worn", "padded_chausses--left",
 
 
 class Surface:
-    def __init__(self, path):
+    def __init__(self, path, mesh_names=None):
         self.glb = glb = Glb(path)
-        mesh, = glb.doc["meshes"]
-        primitive, = mesh["primitives"]
-        assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS
-        attributes = primitive["attributes"]
-        self.positions = glb.array(attributes["POSITION"])
-        self.faces = glb.array(primitive["indices"]).reshape(-1, 3)
-        self.targets = np.stack([glb.array(t["POSITION"]) for t in primitive["targets"]])
-        self.joints = glb.array(attributes["JOINTS_0"])
-        self.weights = glb.array(attributes["WEIGHTS_0"])
+        positions, faces, targets, joints, weights = [], [], [], [], []
+        offset = 0
+        for mesh in glb.doc["meshes"]:
+            if mesh_names is not None and mesh.get("name") not in mesh_names:
+                continue
+            assert mesh["extras"]["targetNames"] == EXPECTED_TARGETS
+            for primitive in mesh["primitives"]:
+                attributes = primitive["attributes"]
+                points = glb.array(attributes["POSITION"])
+                positions.append(points)
+                faces.append(glb.array(primitive["indices"]).reshape(-1, 3) + offset)
+                targets.append(np.stack([glb.array(t["POSITION"]) for t in primitive["targets"]]))
+                joints.append(glb.array(attributes["JOINTS_0"]))
+                weights.append(glb.array(attributes["WEIGHTS_0"]))
+                offset += len(points)
+        assert positions, "No matching skinned surface components"
+        self.positions = np.concatenate(positions)
+        self.faces = np.concatenate(faces)
+        self.targets = np.concatenate(targets, axis=1)
+        self.joints = np.concatenate(joints)
+        self.weights = np.concatenate(weights)
         self.edges = np.unique(np.sort(np.concatenate([self.faces[:, [0, 1]],
             self.faces[:, [1, 2]], self.faces[:, [2, 0]]]), axis=1), axis=0)
         _, welded = np.unique(np.round(self.positions, 6), axis=0, return_inverse=True)
@@ -90,8 +102,18 @@ class Surface:
         return np.concatenate([points, points[self.faces].mean(axis=1), points[self.edges].mean(axis=1)])
 
 
+def skeletal_fit_weights(proportions, reference):
+    weights = np.zeros(len(EXPECTED_TARGETS))
+    for target, (_, proportion, endpoint) in enumerate(SKELETAL_FIT_TARGETS, 45):
+        interval = endpoint - reference[proportion]
+        if abs(interval) > np.finfo(np.float32).eps:
+            weights[target] = np.clip(
+                (proportions[proportion] - reference[proportion]) / interval, 0, 1)
+    return weights
+
+
 def configurations():
-    zero = np.zeros(47)
+    zero = np.zeros(len(EXPECTED_TARGETS))
     proportions = np.zeros(9)
     yield "neutral", zero.copy(), proportions.copy(), {}
     for i in range(45):
@@ -99,30 +121,29 @@ def configurations():
             weights = zero.copy()
             weights[i] = sign * IDENTITY_BOUND
             yield f"identity-{i:02}-{sign:+}", weights, proportions.copy(), {}
-    for i in range(47):
+    for i in range(len(EXPECTED_TARGETS)):
         weights, shape = zero.copy(), proportions.copy()
         weights[i] = 1
         if i >= 45:
-            shape[6] = -1.1 if i == 45 else 1.1
+            _, index, endpoint = SKELETAL_FIT_TARGETS[i - 45]
+            shape[index] = endpoint
         yield f"basis-{i:02}", weights, shape, {}
     for name, values in [("positive", np.full(45, IDENTITY_BOUND)),
                          ("negative", np.full(45, -IDENTITY_BOUND)),
                          ("mixed", np.array([IDENTITY_BOUND if i % 2 else -IDENTITY_BOUND for i in range(45)]))]:
-        yield name, np.r_[values, 0, 0], proportions.copy(), {}
+        yield name, np.r_[values, np.zeros(len(SKELETAL_FIT_TARGETS))], proportions.copy(), {}
     rng = np.random.default_rng(71390)
     for i in range(12):
-        yield f"blend-{i:02}", np.r_[rng.uniform(-IDENTITY_BOUND, IDENTITY_BOUND, 45), 0, 0], proportions.copy(), {}
+        yield f"blend-{i:02}", np.r_[rng.uniform(-IDENTITY_BOUND, IDENTITY_BOUND, 45), np.zeros(len(SKELETAL_FIT_TARGETS))], proportions.copy(), {}
     for index, limit in enumerate([.5, .2, 1, 1, .5, 1, 1.1, .4, .1]):
         for sign in [-1, 1]:
             weights, shape = zero.copy(), proportions.copy()
             shape[index] = sign * limit * GENERATED_PROPORTION_FRACTION
-            if index == 6:
-                weights[45 if sign < 0 else 46] = GENERATED_PROPORTION_FRACTION
+            weights = skeletal_fit_weights(shape, proportions)
             yield f"generated-proportion-{index}-{sign:+}", weights, shape, {}
             weights, shape = zero.copy(), proportions.copy()
             shape[index] = sign * limit
-            if index == 6:
-                weights[45 if sign < 0 else 46] = 1
+            weights = skeletal_fit_weights(shape, proportions)
             yield f"proportion-{index}-{sign:+}", weights, shape, {}
 
 

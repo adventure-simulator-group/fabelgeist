@@ -217,6 +217,7 @@ fn torso() -> TorsoSurface {
             .collect(),
     ];
     TorsoSurface {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         domain: "test_body_v2".into(),
         front: [0.0, 0.0, 1.0],
         morph_fronts: vec![[0.0, 0.0, 1.0]],
@@ -451,8 +452,12 @@ fn historical_profiles_and_flutes_keep_closed_morph_correspondence() {
         BreastplateDesign::tapul(),
         BreastplateDesign::peascod(),
         BreastplateDesign::fluted(),
+        BreastplateDesign {
+            waist_width: Permille(650),
+            ..BreastplateDesign::fluted()
+        },
     ];
-    for (count, width, depth) in [(2, 850, 4), (24, 350, 1), (24, 850, 4)] {
+    for (count, width, depth) in [(2, 850, 4), (24, 350, 1), (24, 850, 4), (64, 750, 2)] {
         let mut design = BreastplateDesign::fluted();
         let flutes = design.fluting.as_mut().unwrap();
         flutes.count = adventuresim_armor_model::FluteCount(count);

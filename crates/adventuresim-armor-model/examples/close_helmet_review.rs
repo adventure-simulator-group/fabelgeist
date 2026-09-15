@@ -14,6 +14,7 @@ fn main() {
         CloseHelmetDesign::default()
     };
     let frame = PartFrame {
+        detail: adventuresim_armor_model::ArmorDetail::BakeSource,
         origin: serde_json::from_value(input["frame"]["origin"].clone()).unwrap(),
         axes: serde_json::from_value(input["frame"]["axes"].clone()).unwrap(),
         half_extents: serde_json::from_value(input["frame"]["half_extents"].clone()).unwrap(),

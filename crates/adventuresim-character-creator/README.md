@@ -16,10 +16,9 @@ just character-creator
 The importer verifies Meta's MHR v1.0.1 release by size and SHA-256 and installs
 the FBX rigs and model definition under `target/mhr-assets/v1.0.1/assets`. That
 default cache is about 50 MB after extraction. Run `just
-init-mhr-lod1-correctives` only when comparing the optional LOD 1
-pose-corrective network; installing every corrective basis is an explicit
-`scripts/init_mhr_assets.py --all-correctives` operation and consumes about
-4 GB. Override the location with `--assets` or `MHR_ASSETS` when needed. The
+init-mhr-lod4-correctives` only when comparing the optional LOD 4
+pose-corrective network; installing all supported corrective bases is an explicit
+`scripts/init_mhr_assets.py --all-correctives` operation for LODs 4–6. Override the location with `--assets` or `MHR_ASSETS` when needed. The
 downloaded archive and extracted source assets are not committed; deliberately
 exported game and Cascadeur artifacts are tracked separately.
 
@@ -28,7 +27,7 @@ writes the current parameters to the selected recipe path (by default,
 `assets_src/characters/mhr_base.json`). **Export rigged GLB** writes to
 `assets_src/biped/unarmed/base.glb` by default. The export is a zero-animation
 T-pose containing MHR's 127 joints plus the three Fabelgeist animation
-attachments, both sets of skinning influences, and inverse bind matrices for the
+attachments, four normalized skinning influences, and inverse bind matrices for the
 saved body. Use `just export-mhr-base <staging-path>` to export the canonical
 body without opening the studio, then prepare its runtime copy as described
 below.
@@ -41,9 +40,9 @@ joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
 Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD
-1 with pose correctives disabled, preserving facial and finger topology while
-keeping edits interactive. The **Pose-corrective model** checkbox reloads the
+viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD 4 with pose correctives disabled. Only LODs 4–6
+are available in the UI, CLI, and GLB exporter. LOD 4 has 2,461 vertices and
+4,918 triangles before clothing hides body faces. The **Pose-corrective model** checkbox reloads the
 selected LOD with or without MHR's corrective network for direct comparison.
 Recipes contain model coordinates, not authoritative character state, and must
 be regenerated and validated when connected to game creation.
@@ -122,11 +121,17 @@ the wearer's joint entities, so skeletal deformation applies once through
 skinning, in addition to its surface morphs; transfers follow the new skeleton
 and dropped equipment returns to its exported shape.
 
-Two additional equipment targets, `mhr_skeletal_spine_short` and
-`mhr_skeletal_spine_long`, refit the shell at the spine-length limits. Their
+Twelve additional equipment targets refit the shell at the spine, neck,
+upper-arm, upper-leg, and lower-leg length limits and the hip-width limits.
+The channels use the `mhr_skeletal_` prefix, with `spine`, `neck`, `upper_arm`,
+`upper_leg`, and `lower_leg` `short`/`long` pairs and a
+`hip_narrow`/`hip_wide` pair. Their
 position deltas subtract the movement already supplied by skinning, preventing
 double deformation. Body primitives carry zero deltas for these channels. The
-client interpolates from the exported reference to either endpoint. Cadence and
+breastplate fits these endpoints directly to their bodies and validates
+that vertex and component connectivity match the reference; its 45 identity
+targets retain their reference correspondence. The client interpolates from the
+exported reference to either endpoint. Cadence and
 distance-to-phase curves are remeasured from each character's retargeted foot
 trajectories when its proportions change.
 
@@ -160,8 +165,23 @@ shapes. Invalid entries fail explicitly; there is no generated default fallback.
 
 Use `--write-armor-designs target/armor-designs.json` to write the editable
 helmet, limb and garment defaults. Pass `--armor-designs` with that file to
-preview or export overrides. Keys are catalog IDs; a recipe must retain its
-construction family and pass its parameter validation. Use `--bracer-design` for
+preview or export overrides. The saved document has two required maps:
+`defaults` maps catalog item IDs to shared recipes; `placements` maps item IDs
+to recipes keyed by `left`, `right`, or `worn`. An explicit placement recipe
+takes precedence over the shared item default. Without a saved item default,
+the authored catalog recipe applies. Item IDs, placements, construction
+families and parameters are validated when loading or saving. The authored
+catalog is a separate input format; generate an editable document with
+`--write-armor-designs` rather than passing the raw catalog to `--armor-designs`.
+
+For example, edit `defaults.pauldron` for both shoulders, then copy that recipe
+to `placements.pauldron.left` and change its wing dimensions for an asymmetric
+pair. The editor exposes the shared default and a **Customize** toggle for each
+equipped placement. Disabling that toggle restores the shared default for that
+placement. Preview, character export, equipment export and review output all
+select the same placement recipe, including neighboring fastener support.
+
+Use `--bracer-design` for
 the vambrace and `--breastplate-design` for the paired torso plates; these are
 separate recipe files, outside the catalog override map. The editor's **Save all
 armor designs** button writes the catalog, vambrace and breastplate recipes to
@@ -175,6 +195,11 @@ milliradians. The serialized design contributes to the asset's design hash and
 generator version. Generate current defaults before editing; recipe files must
 include the required fields of the current schema.
 
+The [museum armor authoring guide](../adventuresim-armor-model/review/museum/README.md)
+describes anime torso courses, wrapping tassets, independent pauldron wings,
+joint extensions, besagews, buffes and bellows visors, with primary historical
+references and construction limits.
+
 Metal recipes expose construction-specific shape controls. Helmet crowns have
 fullness, ridge height and optional fluting; sallets add face-opening width and
 sweep, tail shape, and separate visor side-panel depth. Limb plates expose
@@ -186,10 +211,36 @@ neck clearance. Gorget fluting follows the front bib and leaves the shoulder
 return plain. These controls shape fitted carrier surfaces, with physical
 padding clearance and metal gauge kept separate.
 
+A close helmet's `neck_length` is its requested maximum extension. Exact body
+and plate sections shorten the fitted hem when a compressed neck leaves less
+room above the breastplate. Intermediate neck rows enclose the local support
+while retaining the authored flare; they add reserve only where that existing
+section does not provide the required clearance. Fitting preserves connectivity
+and keeps the visor separate.
+
+Solid helmet plates, including separate visors and buffes, use rigid head
+skinning so jaw and neck deformation cannot bend them. Their separate component
+meshes and hinge metadata remain intact. Arming caps and mail coifs retain
+body-derived flexible skinning.
+
+Joint cops and their separate distal metal courses attach to the anatomical
+lower arm or lower leg. Shortening a limb therefore preserves the courses'
+overlaps instead of shearing them through nearest-skin twist and foot weights.
+The component meshes remain separate for future articulation.
+
+Rerebraces blend along the upper-arm axis between its root and distal helper.
+Both anchors belong to the upper arm, so elbow flexion cannot bend the enclosing
+plate. Arm-length changes scale its formed sections coherently.
+
+Leather boot shafts preserve their fitted elliptical sections with consistent
+angular meridians across body morphs. Their feet retain anatomical fitting, and
+the sole includes the requested clearance beneath the foot as well as at its
+sides. Shaft fitting includes the supported default leg garments.
+
 The shared `PlateFluting` recipe applies to metal limb and garment plates,
 vambraces, helmet crowns and close-helmet visors. Set the appropriate `fluting`
 field to `null` for a plain surface (`crown.fluting` or `visor_fluting` on
-helmets). Its fields are `count` (2–24), `width` (350–850 permille of pitch),
+helmets). Its fields are `count` (2–64), `width` (350–850 permille of pitch),
 `depth` (1–4 mm), `spread` (400–850), `lower_spread` (500–1000), `start`, `end`,
 and `fade` (100–250). The pattern runs from lower to upper plate coordinates;
 start/end must remain within 50–950 and leave room for both fades. Lower spread
@@ -243,7 +294,9 @@ installed equipment under runtime animation.
 Filtered equipment exports accept comma-separated IDs with `--equipment-item`
 and require an empty staging directory. Run `python
 scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit actual GLB
-winding, skin weights, all 47 morph endpoints and representative blends. Use
+winding, skin weights, all 57 morph targets and representative blends. These
+attribute and topology checks do not establish body clearance; skeletal fit
+targets require their corresponding bone translations for a fit assessment. Use
 `--allow-partial` only for a deliberately filtered export.
 
 Individual equipment GLBs reference shared `texture-<BLAKE3>.png` files beside
@@ -268,6 +321,122 @@ those defenses share a rigid-armor catalog slot. It uses the shared gameplay
 equipment visual plugin and waits for every installed GLB, material, skin and
 morph component; unresolved assets fail the capture. Rebuild it after updating
 the equipment manifest, then capture idle, walking and raised-guard scenarios.
+
+## Equipment material UVs
+
+`just generate-procedural-equipment DIRECTORY` exports native LOD4 geometry.
+Runtime body and armor exports support LODs 4–6. Armor evaluates its construction
+recipe at each level; it does not simplify a triangulated high-resolution mesh.
+Structural openings and plate boundaries remain explicit. Fitting uses complete
+shells; runtime exports omit constructed inner and return faces and render the
+exterior from both sides. Clothing and fasteners have separate
+triangle counts from the metal armor.
+
+Generate matching dense bake inputs with the same body and equipment recipes,
+adding `--armor-review-dir SOURCE_DIRECTORY --armor-review-selection recipe
+--armor-bake-source` to the creator command. This mode writes review JSON;
+the selected body LOD remains unchanged. Runtime review exports also write
+base-pose GLBs for material finishing and static display assemblies.
+
+Set `BLENDER_BIN` to the Blender executable when it is not on PATH. Run
+`python scripts/finish_equipment.py DIRECTORY --source-directory SOURCE_DIRECTORY`
+after geometry export. Direct creator exports contain construction UVs until
+this finishing step runs. Regenerate after changing geometry parameters.
+
+The material atlas occupies `TEXCOORD_0`; existing anatomical coordinates move
+losslessly to `TEXCOORD_1`, with their domain and channel recorded explicitly.
+Socket coordinates are independent and unchanged. UV0 also gives runtime blood
+decals a nonoverlapping surface on each plate. Sharp rims and transitions
+between front, side, and rim-facing
+zones separate plate faces from edge walls. Concealed rear
+meridians and arm undersides provide cuts through curved panels. Blender's
+angle-based solver unwraps those charts and packs them with a 0.004 UV margin.
+Each independently articulated component has its own atlas. Layouts need not
+remain identical between parameter configurations. Body-conforming textured
+mail and padding keep their existing material coordinates.
+
+Seam splits copy all original vertex and morph attributes without changing
+triangle order, the rig, or component hinges. Tangents use the material UV
+channel. Material textures select glTF `texCoord: 0` for these atlases.
+Compare source and finished exports with
+`python scripts/check_armor_uvs.py ORIGINAL_DIRECTORY FINISHED_DIRECTORY` to
+check correspondence, nondegenerate charts, overlap, and tangent frames.
+
+`python scripts/finish_equipment.py DIRECTORY --stage bake --source-directory
+SOURCE_DIRECTORY` bakes an already unwrapped export. Normal maps project the
+matching dense recipe geometry, including fluting, onto the native LOD surface.
+Each component projects only from its matching source component. The export
+retains its native shading normals except where tangent-frame conditioning is
+required; positions and skin weights are unchanged. AO comes from Cycles rays
+against the actual plates within the item. Maps are separate linear glTF normal
+and occlusion channels, both using UV0; the unlit albedo is unchanged.
+
+The default bake uses 1024-square images, 32 AO samples, and two-pixel gutters.
+`scripts/bake_armor.py` exposes resolution and sample controls for offline work.
+Unused AO atlas space is white to avoid dark mip bleeding.
+Texture filenames are content-addressed. Regenerate geometry before changing
+an already baked atlas.
+Compare source and finished exports using `scripts/check_armor_bakes.py`.
+
+Each LOD needs its own unwrap and bake against the dense source. Cycles previews
+ray trace ambient occlusion rather than
+multiplying the exported AO map into albedo; runtime glTF uses the separate AO
+channel for ambient lighting.
+
+## Plate edge finishes
+
+`assets_src/equipment/armor-finishes.json` selects texture-only trim for metal
+plates. Generation applies this after UV unwrapping and normal/AO baking. Use
+`python scripts/finish_equipment.py DIRECTORY --stage trim` on a bake, or pass
+`--finish-recipe`
+to `scripts/finish_equipment.py` for a different finish document. Python needs
+NumPy and Pillow. Regenerate before changing an already applied finish.
+
+The document has `defaults` and per-item `items` overrides. Patterns are `none`,
+`plain`, `double`, `chevron`, `scallop`, and `vine`. `width_mm` accepts 1–30 mm;
+`repeats` accepts 1–128 repetitions around each closed rim. `color` is an sRGB
+`#RRGGBB` value; `metallic` and `roughness` accept 0–1. The vine is a stylized
+ornament, not an exact historical engraving reproduction.
+
+Optional `bands` add straight stripes across a piece, using the same patterns
+and material controls. Each band requires `axis` (`x`, `y`, or `z`) and
+`position` (0–1 across the complete metal piece's bounds). The axis is the
+stripe's width direction: an `x` band at `0.5` centers a vertical stripe across
+the piece's width.
+Band widths accept 1–100 mm. `phase_axis` controls the perpendicular direction
+of pattern repetition; it defaults to `y` for `x`/`z` bands and `x` for `y`
+bands. Style fields inherit from the rim recipe unless overridden. Bands paint
+over rim trim in list order and remain continuous across atlas seams and plate
+courses. A band covers the whole selected coordinate slab, including front and
+back surfaces; it is not a component-specific engraving path.
+
+For example, add this array to a symmetric torso plate's finish recipe for a
+plain 36 mm gold stripe centered on its medial plane:
+
+```json
+"bands": [
+  {
+    "axis": "x",
+    "position": 0.5,
+    "width_mm": 36,
+    "pattern": "plain",
+    "color": "#B79D5A"
+  }
+]
+```
+
+Generators record the outer-sheet boundaries before closing plate returns.
+Compaction preserves the applicable boundaries for each helmet component, and
+glTF records them in reference-body metres. Finishing measures distance to those
+segments within the same connected plate and carries pattern phase around each
+rim. UV seams never become decorative boundaries. Widths are measured on the
+reference body; the texture follows the existing UVs when the wearer morphs.
+
+Finishes write independent base-color and metallic/roughness maps in UV0. They
+leave geometry, skinning, morphs, normal maps, and AO unchanged. The base-color
+map contains only the unlit steel and selected trim colors. Mail keeps its own
+material system. `scripts/check_armor_trim.py SOURCE FINISHED` checks these
+contracts on exported assets.
 
 ## Body-conforming underlayers
 
@@ -378,3 +547,116 @@ A 6147, illustrated in
 [Christopher Retsch's catalogue, pp. 190-211](https://d-nb.info/139208119X/34).
 That surviving hose contains sewn-in plates; it is evidence for the mail strip
 arrangement, not a claim that the game's padded hose replicates that garment.
+
+## Full pauldrons
+
+`pauldron` is a separate catalog choice from the smaller `spaulder`. A formed
+shoulder plate has independent front and rear wing reach and drop, proximal
+neck lames, and a narrowing stack of upper-arm lames. These are closed plate
+shells with authored physical rims, automatic material UVs, baked normal/AO
+maps, and optional fluting and texture trim.
+
+The construction follows the broad wings and articulated upper-arm coverage
+of the Met's [Italian pauldrons, ca. 1560, 14.25.827a-d](https://www.metmuseum.org/art/collection/search/22301).
+The rear view of [Henry VIII's armor, ca. 1544, 32.130.7a-l](https://www.metmuseum.org/art/collection/search/23936)
+supplies the relationship of full rear wings to the backplate and wearer.
+These references support the construction family; the default is not an
+exact reconstruction of either object.
+
+The selected breastplate and gorget geometry constrain the wings in preview,
+review export, and equipment export. `plate_clearance` sets separation from
+those surfaces; `arm_allowance` reserves room for the rerebrace. Padding
+clearance and plate gauge remain separate controls. Changing a supporting
+recipe refits the wings; the resulting assembly still requires checking. The
+support envelope omits torso fluting and reserves its relief height, so that
+a smooth shoulder plate does not inherit its neighbor's decorative ridges.
+Lame spacing reserves the selected wall thickness and flute relief. The shared
+fitted carrier preserves overlaps before extrusion. The chest-facing wings
+blend into the upper-arm attachment across the crown to accommodate shoulder
+width. This deformation does not simulate sliding rivets or individual lames.
+
+The plate animation-viewer fixture uses full pauldrons. For automated unposed
+body, self, and neighboring-piece intersection checks:
+
+```sh
+blender --background --python-exit-code 1 --python scripts/check_armor_clearance.py -- \
+  assets/equipment/procedural assets/animations/biped/unarmed/base.glb \
+  target/pauldron-clearance.json --item pauldron--left --item pauldron--right \
+  --neighbor cuirass--worn --neighbor gorget--worn
+```
+
+The default audit covers 189 sampled identity and skeletal configurations.
+Use repeated `--only` arguments for focused checks, such as `--only neutral`.
+Reports distinguish intersections from sampled signed distances and make no
+continuous or posed collision guarantee.
+
+A saved review body also supports a construction sweep without loading MHR:
+
+```sh
+cargo build --manifest-path crates/adventuresim-character-creator/Cargo.toml \
+  --example armor_fit_review
+python scripts/export_pauldron_variants.py target/review/body.json \
+  target/pauldron-variants \
+  --fitter crates/adventuresim-character-creator/target/debug/examples/armor_fit_review
+blender --background --python-exit-code 1 \
+  --python scripts/check_armor_construction.py -- \
+  target/pauldron-variants target/pauldron-variants/check.json
+```
+
+The sweep covers both sides at 23 representative parameter settings, including
+thin and thick walls with seven lames, minimal crown height, wing limits, and
+sparse/dense fluting. This shoulder construction supports 1-3 mm sheet stock;
+heavier stock requires a wider bend treatment at the wing returns. It checks
+each piece against the body independently;
+the exported-asset audit above checks the selected neighboring torso pieces.
+These samples do not establish every combination of controls.
+
+## Plate fastenings
+
+`assets_src/equipment/armor-fasteners.json` authors leather retention straps,
+metal buckle frames, tongues, and rivet heads independently of plate shape.
+The studio's fastening controls and `--fastener-designs PATH` feed the same
+geometry in preview, character export, and equipment export. Controls include
+strap width, gauge, count, height, spacing, arc, buckle position, leather color,
+lining allowance, and underarm drop. Dimensions use millimetres; fit does not
+scale the leather gauge with the wearer.
+An arc without room for the selected buckle and return fold is rejected for
+that wearer instead of generating a reversed strip.
+
+Closures follow a taut cross-section around the supporting body and plates.
+Knee and foot closures additionally account for the selected greave recipe.
+Shoulder and elbow closures account for the upper-arm plate. A small assembly
+allowance keeps closures clear of separately attached neighboring plates.
+Descending shoulder bands follow cross-sections at each height along the arm.
+Both endpoints must land on their supporting plate.
+Leather and metal retain separate material components through UV unwrapping,
+normal/AO baking, skinning, and all 57 morph targets. Texture trim applies to
+the plate's authored rims, not to leather or buckle edges.
+
+The tasset item includes its fauld: the two occupy one waist equipment slot.
+Its independent fauld and tasset controls preserve both component identities.
+One to three short buckled hangers support each panel. This attachment layout
+is based on the three upper buckles described for Henry VIII's 1544 armor,
+Met 32.130.7a-l, in
+[Blair and Pyhrr's construction study](https://resources.metmuseum.org/resources/metpublications/pdf/Wilton_Montmorency_Armor_Italian_Armor_for_Henry_VIII_The_Metropolitan_Museum_Journal_v_38_2003.pdf).
+Straps model attachment and retention; they are not a leather tension simulation
+or an articulated hinge/slide solver.
+The tasset tops fit below the fauld hem. Their attachments blend from the
+pelvis to the primary leg joints, preserving the medial gap as hip width
+changes. Each leather wall shares its mate's attachment field.
+
+Audit exported closures against the unposed body, their own plates, and
+declared neighboring plates with:
+
+```sh
+blender --background --python-exit-code 1 \
+  --python scripts/check_fastener_assets.py -- \
+  target/fastener-assets target/body.glb target/fastener-clearance.json
+```
+
+The default sweep uses 191 sampled identity and skeletal configurations.
+`--only neutral` narrows the bodies; `--item couter--left` narrows the reported
+closures while retaining neighboring assets for contact checks. Leather must
+have closed, consistently wound walls and no self-intersections. Contact
+between the metal tongue and frame is intentional. These checks do not claim
+collision-free movement in posed animations or every continuous parameter blend.
