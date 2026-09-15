@@ -79,9 +79,7 @@ pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,
 };
-pub(crate) use environment::{
-    TacticalCameraSetup, TacticalGameplayCamera, scene_ambient_light, scene_ibl_visibility_floor,
-};
+pub(crate) use environment::{TacticalCameraSetup, TacticalGameplayCamera};
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
     GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, PlantLodInstance,
@@ -100,7 +98,7 @@ pub(crate) use obstacles::tree::{
     oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
     tree_species_for_site,
 };
-pub(crate) use sky::AtmosphereIblAmbientHandoff;
+pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
 pub(crate) use terrain::{
     DETAIL_PATCH_SPACING_METRES, TerrainDetailPatch, TerrainMaterialPresentation,
@@ -186,8 +184,7 @@ impl Default for TacticalPresentationPlugin {
 
 fn tactical_global_ambient_light() -> GlobalAmbientLight {
     GlobalAmbientLight {
-        color: Color::srgb(0.36, 0.48, 0.72),
-        brightness: 0.6,
+        brightness: 0.0,
         ..default()
     }
 }
@@ -210,8 +207,7 @@ impl Plugin for TacticalPresentationPlugin {
                 config: self.config.clone(),
             })
             .init_resource::<TacticalCameraSetup>()
-            // The sky observer preserves this low, cool floor at night and restores
-            // physically scaled diffuse sky irradiance during daylight.
+            // Generated sky radiance owns ambient illumination.
             .insert_resource(tactical_global_ambient_light())
             .add_systems(
                 Startup,
@@ -234,8 +230,8 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<TacticalTreeBenchmarkIsolation>()
             .init_resource::<ActiveTacticalScene>()
             .init_resource::<PresentedCelestialLighting>()
-            .init_resource::<FrozenAtmosphereStatus>()
-            .init_resource::<AtmosphereIblAmbientHandoff>()
+            .init_resource::<AtmosphereIblCache>()
+            .init_resource::<AtmosphereIblStatus>()
             .init_resource::<TacticalCloudCaptureOverride>()
             .init_resource::<TacticalCloudBenchmarkIsolation>()
             .init_resource::<WeatherOcclusionState>()
@@ -267,9 +263,6 @@ impl Plugin for TacticalPresentationPlugin {
                     update_tactical_clouds.after(update_presented_celestial_lighting),
                     update_tactical_cloud_offscreen_target,
                     update_global_ambient_policy.after(apply_presented_celestial_lighting),
-                    freeze_initialized_atmosphere
-                        .after(update_global_ambient_policy)
-                        .after(update_presented_celestial_lighting),
                     apply_active_environment_fog.after(refresh_active_tactical_scene),
                     apply_active_scene_weather
                         .after(refresh_active_tactical_scene)
@@ -288,7 +281,13 @@ impl Plugin for TacticalPresentationPlugin {
             .add_plugins(furniture::FurniturePresentationPlugin)
             .add_plugins(terrain::UrbanGroundCoveragePlugin)
             .add_observer(on_scene_vista_bundle)
-            .add_systems(Update, vista::streets::streaming::update);
+            .add_systems(Update, vista::streets::streaming::update)
+            // Bevy prepares probe components with deferred commands in Update.
+            // Retire probes only after those inserts have been applied.
+            .add_systems(
+                PostUpdate,
+                cache_initialized_atmosphere.after(bevy::transform::TransformSystems::Propagate),
+            );
     }
 
     fn finish(&self, app: &mut App) {

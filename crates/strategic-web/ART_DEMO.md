@@ -32,9 +32,10 @@ Browser Back and Forward select exhibits within the same document and canvas.
   generator, using the massive-city fixture's seed, economy and building recipe
   selection. Exterior LODs include close-up framing, doors and windows. Zoom
   reaches a one-metre orbit distance; WASD explores the ground plane. Full
-  gameplay collision and building furniture placement are omitted. Display
-  buildings are supplied after terrain generation, which avoids compiling their
-  recipes again for unused furniture sites.
+  gameplay collision is omitted. Outdoor furniture is prepared offline with
+  the full city's buildings, gates and access reservations, then displayed
+  through the shared furniture renderer. Display buildings are supplied after
+  terrain generation, avoiding recipe compilation during tab navigation.
   Street materials load their detailed traffic masks within 110 metres of the
   camera, one tile per frame, and release distant masks. The overview retains
   all street and yard surfaces without allocating a city-wide wheel network.
@@ -127,8 +128,9 @@ does not require a museum worktree or any dense bake inputs.
 
 Regenerate the city layout with
 `cargo run -p adventuresim-tactical-client --example generate-art-demo-city`.
-The browser reads `assets/art-demo/city-layout.json`; expensive settlement
-recipe validation runs during asset generation instead of tab navigation.
+The browser reads `assets/art-demo/city-layout.json` and the companion
+`city-furniture.json`; expensive settlement recipe validation and furniture
+placement run during asset generation instead of tab navigation.
 
 Then run
 `cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.

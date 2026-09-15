@@ -20,6 +20,13 @@ Arches retain their full curve subdivision and external end caps while omitting
 internal faces between adjacent sections. These render reductions do not change
 the accepted plan, collision geometry, operable closures, or LOD distances.
 
+Roof covering UVs measure distance along the actual slope, with tile courses
+across the ridge direction and texture V downslope. Detailed and distant roofs
+share this mapping. Timber gables place their real end trusses in the upper
+wall envelope, including jetties. Secondary posts and rails subdivide the end
+infill and join the same structural frame; interior trusses remain open.
+Facade and shell representations retain the exterior faces of these members.
+
 Previously prepared assets keep their stored meshes. Refresh the shipped city
 assets after geometry changes with
 `cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.

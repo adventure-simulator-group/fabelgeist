@@ -23,7 +23,7 @@ mod vertex_remap;
 mod walls;
 
 use crowns::append_crowns;
-use details::{append_opening_details, append_timber_details};
+use details::{append_gable_details, append_opening_details, append_timber_details};
 use walls::append_wall_envelopes;
 
 const JOIN_TOLERANCE_METRES: f32 = 0.02;
@@ -279,6 +279,7 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
     append_roofs(&mut lod, plan);
     append_opening_details(&mut lod, plan);
     append_timber_details(&mut lod, plan);
+    append_gable_details(&mut lod, plan);
     append_crowns(&mut lod, plan);
     for batch in crate::detail::compile_workplace_lod(plan).meshes {
         let target = lod.mesh_mut(batch.material);
@@ -474,9 +475,7 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,
-                    triangle
-                        .positions
-                        .map(|point| Vec2::new(point.x, point.z) / TEXTURE_REPEAT_METRES),
+                    triangle.covering_uvs(TEXTURE_REPEAT_METRES),
                 );
             }
         }

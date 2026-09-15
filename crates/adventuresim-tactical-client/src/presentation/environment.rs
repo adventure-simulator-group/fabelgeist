@@ -145,41 +145,6 @@ pub(super) fn scene_ambient_response(
     (0.05 + daylight * 0.23 + moon * 0.04).clamp(0.05, 0.28)
 }
 
-pub(crate) fn scene_ambient_light(
-    sun_altitude_degrees: f32,
-    moon_altitude_degrees: f32,
-    lunar_illumination: f32,
-) -> (Vec3, f32) {
-    let daylight = smoothstep(-8.0, 4.0, sun_altitude_degrees);
-    let moon = lunar_illumination * smoothstep(-2.0, 8.0, moon_altitude_degrees);
-    let night_color = Vec3::new(0.36, 0.48, 0.72);
-    let color = night_color.lerp(Vec3::ONE, daylight);
-    // GlobalAmbientLight is our inexpensive approximation of hemispherical
-    // sky irradiance and unresolved multi-bounce light. Outdoor daylight has
-    // tens of thousands of lux of diffuse illumination even where direct sun
-    // is occluded; the former value of 80 was effectively black at EV100 15.
-    // Preserve the deliberately dim moonless-night floor independently.
-    let brightness = 0.6 + daylight * 29_999.4 + moon * 0.25;
-    (color, brightness)
-}
-
-/// Bounded unresolved multi-bounce term retained alongside generated atmosphere
-/// IBL. The directional map owns first-bounce sky diffuse/specular response;
-/// this isotropic term preserves outdoor material readability without restoring
-/// the former full-strength duplicate sky approximation.
-pub(crate) fn scene_ibl_visibility_floor(
-    sun_altitude_degrees: f32,
-    moon_altitude_degrees: f32,
-    lunar_illumination: f32,
-) -> (Vec3, f32) {
-    let daylight = smoothstep(-8.0, 4.0, sun_altitude_degrees);
-    let moon = lunar_illumination * smoothstep(-2.0, 8.0, moon_altitude_degrees);
-    let color = Vec3::new(0.36, 0.48, 0.72).lerp(Vec3::ONE, daylight);
-    let night_floor = 0.6 + moon * 0.25;
-    let daylight_multibounce = 10_500.0 * daylight;
-    (color, night_floor * (1.0 - daylight) + daylight_multibounce)
-}
-
 fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     let t = ((value - edge0) / (edge1 - edge0)).clamp(0.0, 1.0);
     t * t * (3.0 - 2.0 * t)
@@ -287,14 +252,9 @@ pub(in crate::presentation) fn setup_tactical_presentation(
         ShadowFiltering::Gaussian => bevy::light::ShadowFilteringMethod::Gaussian,
     });
     if settings.config.rendering.atmosphere.enabled {
-        // Only declare the atmosphere here. The generated environment map is
-        // baked once and frozen into a static Skybox + EnvironmentMapLight by
-        // the atmosphere bake system (`presentation::atmosphere`), which owns
-        // the `AtmosphereEnvironmentMapLight` on its own one-shot bake probe.
-        // Inserting it on the camera as well left the view carrying both an
-        // atmosphere and an environment-map bind group, which no longer matched
-        // the specialized opaque-mesh pipelines and aborted rendering with a
-        // DrawIndirect bind-group validation error.
+        // The live atmosphere owns sky and direct-light transport. Its separate
+        // bake probe produces the cached EnvironmentMapLight; the camera must
+        // not also carry an AtmosphereEnvironmentMapLight producer.
         camera.insert(AtmosphereSettings::default());
     }
     if settings.config.rendering.bloom.enabled {
@@ -494,26 +454,8 @@ mod tests {
         assert_eq!(moonless, 0.0);
         assert!(moonless < moonlit && moonlit < 0.2);
         assert_eq!(daylight, 1.0);
-        let (night_color, moonless_ambient) = scene_ambient_light(-25.0, 30.0, 0.0);
-        let (_, moonlit_ambient) = scene_ambient_light(-25.0, 30.0, 1.0);
-        let (day_color, daylight_ambient) = scene_ambient_light(30.0, -20.0, 0.0);
-        assert_eq!(night_color, Vec3::new(0.36, 0.48, 0.72));
-        assert!((moonless_ambient - 0.6).abs() < f32::EPSILON);
-        assert!(moonlit_ambient > moonless_ambient && moonlit_ambient <= 0.85);
-        assert_eq!(day_color, Vec3::ONE);
-        assert!((daylight_ambient - 30_000.0).abs() < f32::EPSILON);
         assert!((scene_ambient_response(-25.0, -20.0, 0.0) - 0.05).abs() < f32::EPSILON);
         assert!((scene_ambient_response(30.0, -20.0, 0.0) - 0.28).abs() < f32::EPSILON);
-    }
-
-    #[test]
-    fn atmosphere_ibl_floor_preserves_night_and_bounds_daylight_multibounce() {
-        let (_, day) = scene_ibl_visibility_floor(30.0, -20.0, 0.0);
-        let (_, moonless) = scene_ibl_visibility_floor(-25.0, 30.0, 0.0);
-        let (_, moonlit) = scene_ibl_visibility_floor(-25.0, 30.0, 1.0);
-        assert_eq!(day, 10_500.0);
-        assert_eq!(moonless, 0.6);
-        assert!((0.84..=0.85).contains(&moonlit));
     }
 
     #[test]

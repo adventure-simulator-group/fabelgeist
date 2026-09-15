@@ -13,12 +13,16 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     };
     let mut input: TacticalSceneInput =
         serde_json::from_str(json).map_err(|error| error.to_string())?;
-    if id == ExhibitId::City {
-        super::district::curate(&mut input)?;
+    let prepared_furniture = if id == ExhibitId::City {
+        let furniture = super::district::curate(&mut input)?;
         world.insert_resource(crate::presentation::StreamCityTraffic);
-    }
-    // The display buildings are loaded separately. Passing them into tactical
-    // generation would compile every recipe again to place unused furniture.
+        Some(furniture)
+    } else {
+        None
+    };
+    // Building-anchored furniture is prepared alongside the city offline.
+    // Keep its accepted instances and reservations instead of regenerating
+    // from a scene stripped of the buildings that own those activity groups.
     let compounds = std::mem::take(&mut input.compounds);
     let distant_buildings = std::mem::take(&mut input.distant_buildings);
     let generated = input.generate().map_err(|error| error.to_string())?;
@@ -39,6 +43,16 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         Transform::IDENTITY,
     ));
     world.flush();
+    let furniture =
+        prepared_furniture.unwrap_or_else(|| super::district::PreparedOutdoorFurniture {
+            instances: generated
+                .furniture
+                .instances
+                .into_iter()
+                .chain(generated.furniture.distant_instances)
+                .collect(),
+            groups: generated.furniture.groups,
+        });
     world.trigger(SceneVistaBundle {
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
@@ -46,8 +60,8 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         streets: input.streets,
         yards: input.yards,
         compounds,
-        furniture_groups: generated.furniture.groups,
-        distant_furniture: Vec::new(),
+        furniture_groups: furniture.groups,
+        distant_furniture: furniture.instances,
         lods: input.vista.lods,
     });
     if id == ExhibitId::City {

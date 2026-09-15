@@ -34,7 +34,7 @@ mod workplace;
 use materials::{material_for_solid, wall_for_solid};
 pub(crate) use workplace::compile_workplace_lod;
 
-const TIMBER_SEAM_COVER_METRES: f32 = 0.008;
+use crate::TIMBER_SEAM_COVER_METRES;
 
 /// Material-batched exact geometry for a playable building.
 #[derive(Clone, Debug)]
@@ -257,9 +257,7 @@ fn append_roofs(detail: &mut BuildingDetail, plan: &BuildingPlan) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,
-                    triangle.positions.map(|point| {
-                        Vec2::new(point.x, point.z) / BUILDING_DETAIL_UV_METRES_PER_UNIT
-                    }),
+                    triangle.covering_uvs(BUILDING_DETAIL_UV_METRES_PER_UNIT),
                 );
             }
         }

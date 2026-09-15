@@ -12,6 +12,21 @@ pub struct RoofSurfaceTriangle {
 }
 
 impl RoofSurfaceTriangle {
+    /// Tile courses follow the ridge; texture V follows water down the slope.
+    /// Use distances on the roof, not its shortened horizontal projection.
+    pub(crate) fn covering_uvs(self, metres_per_unit: f32) -> [Vec2; 3] {
+        let normal = self.normal.normalize();
+        let downhill = (-Vec3::Y + normal * normal.y).normalize_or_zero();
+        let bitangent = if downhill == Vec3::ZERO {
+            Vec3::Z
+        } else {
+            downhill
+        };
+        let tangent = bitangent.cross(normal);
+        self.positions
+            .map(|point| Vec2::new(point.dot(tangent), point.dot(bitangent)) / metres_per_unit)
+    }
+
     /// Metric texture coordinates on the actual surface, including vertical gables.
     pub(crate) fn planar_uvs(self, metres_per_unit: f32) -> [Vec2; 3] {
         let tangent = if self.normal.y.abs() < 0.99 {
@@ -300,6 +315,31 @@ fn same_point(left: Vec3, right: Vec3) -> bool {
 mod tests {
     use super::*;
     use crate::{ResolvedItemId, RoofMaterial, RoofPlaneEquation, audit_triangle_mesh};
+
+    #[test]
+    fn roof_courses_keep_surface_scale_and_descend_for_every_orientation() {
+        for pitch in [15.0_f32, 35.0, 57.0, 75.0] {
+            for azimuth in [0.0_f32, 45.0, 90.0, 180.0, 270.0] {
+                let outward =
+                    Vec3::new(azimuth.to_radians().cos(), 0.0, azimuth.to_radians().sin());
+                let normal =
+                    Vec3::Y * pitch.to_radians().cos() + outward * pitch.to_radians().sin();
+                let along = Vec3::Y.cross(outward);
+                let down = outward * pitch.to_radians().cos() - Vec3::Y * pitch.to_radians().sin();
+                let start = Vec3::new(3.0, 12.0, -7.0);
+                let triangle = RoofSurfaceTriangle {
+                    positions: [start, start + along * 2.4, start + down * 2.4],
+                    normal,
+                    surface: RoofSurface::Weather,
+                };
+                let uv = triangle.covering_uvs(2.4);
+                assert!((uv[1].distance(uv[0]) - 1.0).abs() < 0.00001);
+                assert!((uv[2].distance(uv[0]) - 1.0).abs() < 0.00001);
+                assert!((uv[1].y - uv[0].y).abs() < 0.00001);
+                assert!((uv[2].y - uv[0].y - 1.0).abs() < 0.00001);
+            }
+        }
+    }
 
     #[test]
     fn roof_prism_honours_cutout_area_and_is_closed_and_consistently_wound() {

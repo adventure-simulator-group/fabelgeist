@@ -14,6 +14,7 @@ mod doors;
 #[cfg(test)]
 mod enclosure_tests;
 pub mod furniture;
+mod gable_frame;
 mod generator;
 mod geometry_index;
 pub mod interior;

@@ -17,8 +17,8 @@ use bevy::{
     camera::{Exposure, visibility::VisibilityRange},
     core_pipeline::tonemapping::Tonemapping,
     ecs::system::SystemParam,
-    light::{EnvironmentMapLight, NotShadowCaster, Skybox},
-    pbr::wireframe::WireframePlugin,
+    light::{EnvironmentMapLight, NotShadowCaster},
+    pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
     window::{ExitCondition, PresentMode, WindowResolution},
@@ -74,7 +74,7 @@ use view_specs::{
 
 use crate::camera::CameraRigConfig;
 use crate::presentation::{
-    AtmosphereIblAmbientHandoff, GroundLitterCaptureAnchors, GroundLitterCapturePair,
+    AtmosphereIblStatus, GroundLitterCaptureAnchors, GroundLitterCapturePair,
     GroundLitterDiagnostics, GroundScatterLayer, LooseStonePebblePatch, PlayableTreeAggregateWood,
     PlayableTreeBuds, PlayableTreeCanopyCard, PlayableTreeDetailedLeaves,
     PlayableTreeDetailedTrunk, PlayableTreeDetailedWood, PlayableTreeMidTrunk, PlayableTreeTrunk,
@@ -97,7 +97,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 34;
+const CAPTURE_PROFILE_VERSION: u16 = 35;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -145,7 +145,7 @@ struct LightingObservationParams<'w, 's> {
     spatial: SpatialQuery<'w, 's>,
     settings: Res<'w, TacticalGraphicsSettings>,
     ambient: Res<'w, GlobalAmbientLight>,
-    ambient_handoff: Res<'w, AtmosphereIblAmbientHandoff>,
+    ambient_handoff: Res<'w, AtmosphereIblStatus>,
     images: Res<'w, Assets<Image>>,
     understory_review_specimens: Query<
         'w,
@@ -1029,13 +1029,13 @@ fn requested_feature_state() -> PresentationFeatureState {
 fn observed_presentation_features(
     settings: &TacticalGraphicsSettings,
     environment_map: Option<&EnvironmentMapLight>,
-    skybox: Option<&Skybox>,
+    atmosphere: Option<&AtmosphereSettings>,
     images: &Assets<Image>,
     exposure: &Exposure,
     tonemapping: &Tonemapping,
     ambient: &GlobalAmbientLight,
-    ambient_handoff: &AtmosphereIblAmbientHandoff,
-    celestial: &CelestialProvenance,
+    ambient_handoff: &AtmosphereIblStatus,
+    _celestial: &CelestialProvenance,
 ) -> PresentationFeatures {
     let requested = requested_feature_state();
     let observed_settings = feature_state(settings);
@@ -1069,25 +1069,11 @@ fn observed_presentation_features(
         ambient_color: ambient.color.to_linear().to_f32_array(),
         ambient_brightness: ambient.brightness,
         ambient_policy: if ambient_handoff.active {
-            "atmosphere_ibl_plus_bounded_multibounce"
+            "atmosphere_ibl"
         } else {
-            "global_ambient_fallback"
+            "awaiting_atmosphere_ibl"
         },
-        expected_ambient_brightness: if ambient_handoff.active {
-            crate::presentation::scene_ibl_visibility_floor(
-                celestial.sun_altitude_degrees,
-                celestial.moon_altitude_degrees,
-                celestial.lunar_illumination,
-            )
-            .1
-        } else {
-            crate::presentation::scene_ambient_light(
-                celestial.sun_altitude_degrees,
-                celestial.moon_altitude_degrees,
-                celestial.lunar_illumination,
-            )
-            .1
-        },
+        expected_ambient_brightness: 0.0,
     };
     let requested_matches_observed = observed_settings == requested
         && observed.camera_environment_map == requested.environment_light
@@ -1097,7 +1083,7 @@ fn observed_presentation_features(
                 .then_some([requested.environment_map_size; 2])
         && observed.camera_environment_map_intensity
             == requested.environment_light.then_some(1.0)
-        && skybox.is_some() == requested.environment_light
+        && atmosphere.is_some() == requested.atmosphere
         // Production exposure is driven by the scene's solar/lunar state and
         // may be between authored targets while the ECS observer settles.
         && observed.camera_exposure_ev100.is_finite()
@@ -3273,7 +3259,7 @@ fn capture_views(
             &mut GlobalTransform,
             &mut Projection,
             Option<&EnvironmentMapLight>,
-            Option<&Skybox>,
+            Option<&AtmosphereSettings>,
             &Exposure,
             &Tonemapping,
         ),
