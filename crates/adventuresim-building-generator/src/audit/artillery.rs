@@ -50,6 +50,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             "artillery enceinte is not one four-corner cardinal rectangle".to_owned(),
         ));
     }
+    let visibility = artillery_clearance::ArtilleryClearance::new(&plan.resolved_geometry.solids);
     let solids = plan
         .resolved_geometry
         .solids
@@ -435,25 +436,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
                     && (ray.origin.y - opening.sill_elevation_metres) >= 0.05
                     && (ray.origin.y - opening.sill_elevation_metres)
                         <= opening.profile.clear_height_metres() - 0.05;
-                let segment = ray.target - ray.origin;
-                let exit_t = (1.30 / segment.length()).clamp(0.04, 0.45);
-                let blocked = (0..24).any(|sample| {
-                    // Stop before the declared target envelope itself (gate
-                    // closure, bridge deck, or ditch scarp); those are what
-                    // the station is meant to cover, not intervening blockers.
-                    let t = exit_t + (0.88 - exit_t) * sample as f32 / 23.0;
-                    let point = ray.origin.lerp(ray.target, t);
-                    plan.resolved_geometry.solids.iter().any(|solid| {
-                        !matches!(
-                            solid.role,
-                            SolidRole::DitchFloor
-                                | SolidRole::DitchScarp
-                                | SolidRole::DitchCounterscarp
-                                | SolidRole::DrainageFloor
-                        ) && solid.owner != opening.owner
-                            && resolved_solid_contains_point(solid, point, -0.02)
-                    })
-                });
+                let blocked = visibility.blocked(ray.origin, ray.target, opening.owner);
                 target_binding && aim_valid && origin_valid && !blocked
             });
             stance_centre.is_some_and(recoil_contains)
@@ -581,10 +564,7 @@ fn audit_artillery_castle(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             (0..=steps).all(|step|{
                 let foot=pair[0].lerp(pair[1],step as f32/steps as f32);
                 let samples=[-0.45_f32,0.0,0.45].into_iter().flat_map(|side|[0.25_f32,1.0,1.85].into_iter().map(move|height|foot+Vec3::new(across.x*side,height,across.y*side)));
-                samples.into_iter().all(|point|!plan.resolved_geometry.solids.iter().any(|solid|{
-                    let supporting=edge.connector_solids.contains(&solid.id)||matches!(solid.role,SolidRole::ArtilleryTerreplein|SolidRole::ArtilleryCasemateFloor|SolidRole::ArtilleryRamp|SolidRole::ArtilleryStairTread|SolidRole::ArtilleryBridgeDeck|SolidRole::ArtilleryBridgeAbutment|SolidRole::OpeningClosure|SolidRole::DrainageFloor);
-                    !supporting&&artillery_route_solid_contains(solid,point,-0.015)
-                }))
+                samples.into_iter().all(|point| !visibility.route_blocked(point, &edge.connector_solids))
             })
         });
         shape_valid && connectors_valid && portal_valid && path_valid && portal_crossed && swept_clear

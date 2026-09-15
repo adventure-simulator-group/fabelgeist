@@ -18,6 +18,7 @@ mod crowns;
 mod details;
 #[path = "lod/small_church.rs"]
 mod small_church;
+mod vertex_remap;
 #[path = "lod/walls.rs"]
 mod walls;
 
@@ -284,6 +285,9 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
     }
     lod.meshes
         .retain(|mesh| !mesh.vertices.is_empty() && !mesh.indices.is_empty());
+    for mesh in &mut lod.meshes {
+        mesh.remap_vertices();
+    }
     lod
 }
 

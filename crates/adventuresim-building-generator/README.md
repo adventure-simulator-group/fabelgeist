@@ -4,6 +4,26 @@ This crate converts high-level building programmes into deterministic semantic
 data and audited geometry. The tactical city adapter consumes its recipes and
 collision meshes; the standalone viewer provides architectural inspection.
 
+## Geometry compilation
+
+Generation retains the complete structural audit. Spatial indexes only prune
+impossible contact candidates; the existing overlap and clearance predicates
+remain authoritative. Candidate results preserve source order so first-match
+selection, issue ordering, and generated structural identities stay stable.
+Wall-corner and roof-weathering passes cache solid membership and bounds for
+their fixed input geometry.
+
+Render meshes use indexed vertices with shared position, normal, and texture
+coordinates where the tangent basis also agrees. Consumers must follow the
+index buffer rather than assuming consecutive vertices form separate quads.
+Arches retain their full curve subdivision and external end caps while omitting
+internal faces between adjacent sections. These render reductions do not change
+the accepted plan, collision geometry, operable closures, or LOD distances.
+
+Previously prepared assets keep their stored meshes. Refresh the shipped city
+assets after geometry changes with
+`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+
 ## Current boundary
 
 `BuildingProgram` describes an archetype, footprint, storeys, requested room

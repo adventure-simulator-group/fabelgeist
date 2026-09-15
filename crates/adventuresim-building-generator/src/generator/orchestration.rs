@@ -108,7 +108,7 @@ fn generate_unchecked(
     );
     // Corner bonds must be resolved against the final timber-infill depth,
     // after the semantic frame has replaced the exterior structural layer.
-    resolve_storey_wall_corner_bonds(&wall_assemblies, &mut resolved_geometry);
+    wall_corner_bonds::resolve(&wall_assemblies, &mut resolved_geometry);
     if let Some(church) = &mut church {
         church.roof_assemblies = roof_assemblies.iter().map(|roof| roof.id).collect();
     }

@@ -30,6 +30,9 @@ pub(super) fn compile(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingL
     append_exterior_roofs(&mut lod, plan);
     append_belfry(&mut lod, plan, church);
     lod.meshes.retain(|mesh| !mesh.indices.is_empty());
+    for mesh in &mut lod.meshes {
+        mesh.remap_vertices();
+    }
     lod
 }
 

@@ -159,6 +159,9 @@ fn compile_detail(
     detail
         .meshes
         .retain(|mesh| !mesh.vertices.is_empty() && !mesh.indices.is_empty());
+    for mesh in &mut detail.meshes {
+        mesh.remap_vertices();
+    }
     detail
 }
 

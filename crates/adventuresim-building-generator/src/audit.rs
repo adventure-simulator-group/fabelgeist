@@ -16,6 +16,9 @@ use crate::{
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
 include!("audit/artillery.rs");
+mod artillery_clearance;
+#[cfg(test)]
+mod spatial_tests;
 include!("audit/timber_geometry.rs");
 include!("audit/timber.rs");
 include!("audit/church.rs");
