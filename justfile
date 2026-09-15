@@ -236,6 +236,12 @@ generate-procedural-equipment output:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --armor-bake-source --armor-review-dir target/equipment-bake-source --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json
     @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --source-directory target/equipment-bake-source
+    @just equipment-icons {{ quote(output) }}
+
+# Bake color armor portraits after geometry, textures, and edge finishes are final.
+equipment-icons output:
+    @cargo run -p adventuresim-weapon-model --example export_icon_environment -- assets/equipment/icon-studio.hdr
+    @{{ python_bin }} scripts/bake_equipment_icons.py {{ quote(output) }}
 
 # Unwrap existing generated assets without rebuilding their shapes or rigs.
 unwrap-equipment output:

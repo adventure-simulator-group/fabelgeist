@@ -139,6 +139,7 @@ pub(super) fn item_name_with_display_quality(
     html! {
         span class=(quality.map_or_else(|| "inventory-item-label".to_string(), |quality| format!("inventory-item-label item-quality-{quality}"))) title=[label]
             data-item-name=(item_id)
+            data-equipment-portrait=[crate::templates::equipment_icons::portrait(item_id)]
             data-item-kind=[definition.map(|item| item_kind_tag(item.kind))]
             data-item-melee=[definition.map(|item| item.melee)]
             data-item-weapon-holder=[matches!(item_id, "scabbard" | "weapon_loop").then_some("true")]

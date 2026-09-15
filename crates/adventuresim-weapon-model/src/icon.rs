@@ -1,9 +1,11 @@
-//! Deterministic orthographic silhouettes derived from generated weapon meshes.
+//! Deterministic studio-lit orthographic portraits of generated weapon meshes.
 
 use std::collections::HashMap;
 
 use thiserror::Error;
-use tiny_skia::{FillRule, IntSize, Mask, PathBuilder, Pixmap, Transform};
+mod render;
+mod studio;
+pub use studio::environment_hdr;
 
 use crate::{
     ComponentRole, ComponentShape, GenerateError, GeneratedWeapon, GeneratedWeaponHolder, MeshPart,
@@ -11,7 +13,7 @@ use crate::{
 };
 
 /// Bump whenever projection, framing, or rasterization changes.
-pub const ICON_RENDERER_VERSION: u16 = 3;
+pub const ICON_RENDERER_VERSION: u16 = 4;
 const MAX_HEAD_ZOOM: f32 = 2.0;
 const SYNTHETIC_HEAD_LENGTH_M: f32 = 0.12;
 
@@ -74,7 +76,7 @@ impl Default for WeaponIconSpec {
 #[derive(Clone, Debug, PartialEq)]
 pub struct WeaponIcon {
     pub size: u16,
-    pub alpha: Vec<u8>,
+    pub rgba: Vec<u8>,
     pub layout: WeaponIconLayout,
     /// True when the base layout is horizontally mirrored, as for scabbards.
     pub mirrored: bool,
@@ -90,18 +92,7 @@ pub struct WeaponIcon {
 
 impl WeaponIcon {
     pub fn encode_png(&self) -> Result<Vec<u8>, IconError> {
-        let size = IntSize::from_wh(u32::from(self.size), u32::from(self.size))
-            .ok_or(IconError::InvalidSpec)?;
-        let mut rgba = Vec::with_capacity(self.alpha.len() * 4);
-        for alpha in &self.alpha {
-            // tiny-skia pixmaps are premultiplied; CSS consumes this alpha
-            // channel while white remains useful in ordinary PNG viewers.
-            rgba.extend_from_slice(&[*alpha, *alpha, *alpha, *alpha]);
-        }
-        Pixmap::from_vec(rgba, size)
-            .ok_or(IconError::Rasterization)?
-            .encode_png()
-            .map_err(|error| IconError::Png(error.to_string()))
+        studio::encode_png(self.size, self.rgba.clone())
     }
 }
 
@@ -113,7 +104,7 @@ pub enum IconError {
     Generate(#[from] GenerateError),
     #[error("weapon has no usable icon focus geometry")]
     MissingFocus,
-    #[error("weapon silhouette rasterization failed")]
+    #[error("weapon icon rasterization failed")]
     Rasterization,
     #[error("weapon icon PNG encoding failed: {0}")]
     Png(String),
@@ -163,53 +154,12 @@ fn rasterize_icon(
     spec: WeaponIconSpec,
     projection: Projection,
 ) -> Result<WeaponIcon, IconError> {
-    if spec.size < 16 || spec.size > 512 || !(1..=8).contains(&spec.supersampling) {
-        return Err(IconError::InvalidSpec);
-    }
-    let render_size = u32::from(spec.size)
-        .checked_mul(u32::from(spec.supersampling))
-        .ok_or(IconError::InvalidSpec)?;
-    let mut mask = Mask::new(render_size, render_size).ok_or(IconError::Rasterization)?;
-    let factor = render_size as f32;
-    for part in parts {
-        for triangle in part.indices.as_chunks::<3>().0 {
-            let points = triangle.map(|index| {
-                let projected = projection.point(part.positions[index as usize]);
-                [projected[0] * factor, projected[1] * factor]
-            });
-            let mut path = PathBuilder::new();
-            path.move_to(points[0][0], points[0][1]);
-            path.line_to(points[1][0], points[1][1]);
-            path.line_to(points[2][0], points[2][1]);
-            path.close();
-            if let Some(path) = path.finish() {
-                mask.fill_path(&path, FillRule::Winding, false, Transform::identity());
-            }
-        }
-    }
-
-    let sample = usize::from(spec.supersampling);
+    let (rgba, alpha) = render::render(parts, spec, &projection)?;
     let output_size = usize::from(spec.size);
-    let render_width = render_size as usize;
-    let mut alpha = vec![0_u8; output_size * output_size];
-    for y in 0..output_size {
-        for x in 0..output_size {
-            let mut coverage = 0_u32;
-            for sy in 0..sample {
-                let row = (y * sample + sy) * render_width + x * sample;
-                coverage += mask.data()[row..row + sample]
-                    .iter()
-                    .map(|value| u32::from(*value))
-                    .sum::<u32>();
-            }
-            alpha[y * output_size + x] =
-                (coverage / u32::try_from(sample * sample).unwrap_or(1)) as u8;
-        }
-    }
     let occupied_bounds = occupied_bounds(&alpha, output_size).ok_or(IconError::Rasterization)?;
     Ok(WeaponIcon {
         size: spec.size,
-        alpha,
+        rgba,
         layout: projection.layout,
         mirrored: projection.mirror_x,
         framing_anchor: projection.framing_anchor,
@@ -552,7 +502,7 @@ fn framing_anchor(
 
 fn raw_coordinates(point: [f32; 3], layout: WeaponIconLayout) -> [f32; 2] {
     // A slight deterministic quarter view keeps transverse furniture legible.
-    let yaw = 12.0_f32.to_radians();
+    let yaw = render::CAMERA_YAW;
     let lateral = point[0] * yaw.cos() + point[2] * yaw.sin();
     let axial = match layout {
         WeaponIconLayout::HiltFocus => point[1],

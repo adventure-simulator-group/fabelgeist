@@ -681,8 +681,33 @@ fn procedural_icons_obey_focus_orientation_and_clipping_contracts() {
             "{id} invalid head zoom {}",
             icon.head_zoom
         );
-        assert_eq!(icon.alpha.len(), 96 * 96, "{id}");
-        let occupied = icon.alpha.iter().filter(|value| **value > 0).count();
+        assert_eq!(icon.rgba.len(), 96 * 96 * 4, "{id}");
+        assert!(
+            icon.rgba
+                .as_chunks::<4>()
+                .0
+                .iter()
+                .all(|pixel| pixel[3] == 255),
+            "{id} must have an opaque background"
+        );
+        let colors = icon
+            .rgba
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|pixel| &pixel[..3])
+            .collect::<std::collections::HashSet<_>>();
+        assert!(
+            colors.len() > 16,
+            "{id} must preserve lighting and material variation"
+        );
+        let occupied = icon
+            .rgba
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .filter(|pixel| pixel[..3].iter().any(|value| *value > 0))
+            .count();
         assert!(occupied > 96, "{id} icon is effectively empty");
         assert!(
             occupied < 96 * 96 / 2,
@@ -742,10 +767,10 @@ fn procedural_icons_obey_focus_orientation_and_clipping_contracts() {
             },
         )
         .unwrap();
-        assert_eq!(icon.alpha, repeated.alpha, "{id} icon is not deterministic");
+        assert_eq!(icon.rgba, repeated.rgba, "{id} icon is not deterministic");
         let png = icon.encode_png().unwrap();
         assert_eq!(&png[..8], b"\x89PNG\r\n\x1a\n", "{id}");
-        assert_eq!(png[25], 6, "{id}: CSS mask PNG must carry RGBA alpha");
+        assert_eq!(png[25], 6, "{id}: color portrait PNG must carry RGBA");
     }
 }
 
@@ -771,8 +796,8 @@ fn procedural_holder_icons_are_fitted_mirrored_and_deterministic() {
         icon.occupied_bounds
     );
     assert_eq!(
-        icon.alpha,
-        generate_holder_icon(&sheath, spec).unwrap().alpha,
+        icon.rgba,
+        generate_holder_icon(&sheath, spec).unwrap().rgba,
         "holder icon is not deterministic"
     );
 
@@ -786,7 +811,7 @@ fn procedural_holder_icons_are_fitted_mirrored_and_deterministic() {
     assert!(loop_icon.occupied_bounds.min[1] >= 0.01);
     assert!(loop_icon.occupied_bounds.max[0] <= 0.99);
     assert!(loop_icon.occupied_bounds.max[1] <= 0.99);
-    assert_ne!(icon.alpha, loop_icon.alpha);
+    assert_ne!(icon.rgba, loop_icon.rgba);
 
     for id in MELEE_CATALOG_IDS {
         let weapon = default_design(id).unwrap();

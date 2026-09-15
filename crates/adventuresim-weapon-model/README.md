@@ -27,6 +27,29 @@ Run `cargo test -p adventuresim-weapon-model` for geometry, physical-invariant,
 editor, icon, and historical-envelope regressions. The `audit_catalog` example
 exports every preset and every gameplay catalog recipe as exact definitions,
 triangle meshes, and physical measurements for independent review.
+
+## Equipment portraits
+
+Weapon and holder icons use an orthographic color renderer with a depth buffer,
+interpolated surface normals, material colors, and a studio environment light
+map. The existing guard and head framing remains unchanged. Outputs are opaque
+RGBA images on black squares; consumers display their colors directly.
+`ICON_RENDERER_VERSION` invalidates the transient recipe caches when rendering
+changes. Export a portrait with:
+
+```sh
+cargo run -p adventuresim-weapon-model --example export_icon -- longsword target/longsword.png
+```
+
+Armor portraits use the finished, fitted GLBs, including their material and
+normal textures. `just equipment-icons assets/equipment/procedural` exports the
+shared studio HDR and invokes Blender 5.2 through `BLENDER_BIN`. It writes each
+placement's portrait beside the tactical meshes in `icons/` and into the
+strategic web static assets. The equipment generation workflow runs this after
+finishing the meshes. Rebake portraits after changing geometry or finishes.
+Tactical equipment uses its placement variant; strategic rows use the first
+placement in manifest order sorted by placement ID.
+
 ## Combat contact
 
 The shared core consumes these physical recipes to derive continuous contact
