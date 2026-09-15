@@ -42,7 +42,9 @@ pub(crate) fn clear_demo_scene(world: &mut World) {
     }
     world.insert_resource(ActiveVistaSurface::default());
     world.insert_resource(buildings::TacticalBuildingMeshCache::default());
-    world.insert_resource(buildings::PreparedCityAssets::default());
+    if let Some(mut assets) = world.get_resource_mut::<buildings::PreparedCityAssets>() {
+        assets.release_details();
+    }
     world.insert_resource(obstacles::tree::TreePresentationCache::default());
     world.insert_resource(obstacles::tree::VistaTreePresentationCache::default());
     world.flush();

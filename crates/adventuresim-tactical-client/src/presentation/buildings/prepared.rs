@@ -3,6 +3,8 @@ use super::*;
 use adventuresim_building_generator::prepared::{PreparedBuilding, recipe_key};
 use bevy::asset::{AssetLoader, LoadContext, LoadState, io::Reader};
 
+const MAX_CONCURRENT_FACADE_LOADS: usize = 4;
+
 #[derive(Asset, TypePath)]
 pub(super) struct PreparedCityAsset(CompiledBuildingLevels);
 
@@ -81,6 +83,22 @@ impl PreparedCityAssets {
         {
             handle
         } else {
+            if detail == BuildingDetail::Facade
+                && self
+                    .handles
+                    .iter()
+                    .filter(|(_, level, handle)| {
+                        *level == BuildingDetail::Facade
+                            && matches!(
+                                server.load_state(handle.id()),
+                                LoadState::Loading | LoadState::NotLoaded
+                            )
+                    })
+                    .count()
+                    >= MAX_CONCURRENT_FACADE_LOADS
+            {
+                return Ok(None);
+            }
             let suffix = match detail {
                 BuildingDetail::Facade => "facade",
                 BuildingDetail::Static => "detail",
@@ -106,5 +124,10 @@ impl PreparedCityAssets {
             *detail != BuildingDetail::Static
                 || wanted.iter().any(|(_, _, recipe)| recipe == program)
         });
+    }
+
+    pub(in crate::presentation) fn release_details(&mut self) {
+        self.handles
+            .retain(|(_, detail, _)| *detail == BuildingDetail::Facade);
     }
 }

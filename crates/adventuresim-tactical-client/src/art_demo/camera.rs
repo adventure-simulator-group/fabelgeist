@@ -19,7 +19,7 @@ pub(super) enum CameraSpace {
     Landscape,
 }
 
-#[derive(Resource)]
+#[derive(Clone, Resource)]
 pub(super) struct OrbitView {
     pub focus: Vec3,
     pub distance: f32,

@@ -1,7 +1,15 @@
 //! Compile the shipped city recipes offline, with separate inspection assets.
 use adventuresim_building_generator::{generate, prepared::*};
 use adventuresim_tactical_core::prelude::DistantBuildingPlacement;
+use clap::Parser;
 use serde::Deserialize;
+
+#[derive(Parser)]
+struct Args {
+    /// Write prepared meshes to an isolated directory instead of shipped assets.
+    #[arg(long)]
+    output: Option<std::path::PathBuf>,
+}
 
 #[derive(Deserialize)]
 struct CityLayout {
@@ -13,7 +21,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let layout: CityLayout = serde_json::from_slice(&std::fs::read(
         root.join("assets/art-demo/city-layout.json"),
     )?)?;
-    let output = root.join("assets/art-demo/buildings");
+    let output = Args::parse()
+        .output
+        .unwrap_or_else(|| root.join("assets/art-demo/buildings"));
     std::fs::create_dir_all(&output)?;
     let mut recipes = std::collections::BTreeMap::new();
     for placement in layout.buildings {

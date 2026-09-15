@@ -3,11 +3,14 @@ use super::*;
 use std::collections::VecDeque;
 
 const BUILDING_BATCH_BUDGET: std::time::Duration = std::time::Duration::from_millis(8);
+const REPRIORITIZE_DISTANCE_METRES: f32 = 10.0;
 
 #[derive(Resource)]
 pub(crate) struct PendingCityBuildings {
     placements: VecDeque<DistantBuildingPlacement>,
     pub(crate) total: usize,
+    focus: Option<Vec2>,
+    failure: Option<String>,
 }
 
 impl PendingCityBuildings {
@@ -15,10 +18,118 @@ impl PendingCityBuildings {
         Self {
             placements: placements.iter().copied().collect(),
             total: placements.len(),
+            focus: None,
+            failure: None,
         }
     }
     pub(crate) fn completed(&self) -> usize {
         self.total - self.placements.len()
+    }
+
+    pub(crate) fn finished(&self) -> bool {
+        self.placements.is_empty()
+    }
+
+    pub(crate) fn failure(&self) -> Option<&str> {
+        self.failure.as_deref()
+    }
+
+    pub(super) fn report_failure(&mut self, error: impl std::fmt::Display) {
+        self.failure
+            .get_or_insert_with(|| format!("Some city buildings are unavailable: {error}"));
+    }
+
+    fn prioritize(&mut self, focus: Vec2) {
+        if self
+            .focus
+            .is_some_and(|previous| previous.distance(focus) < REPRIORITIZE_DISTANCE_METRES)
+        {
+            return;
+        }
+        self.focus = Some(focus);
+        self.placements.make_contiguous().sort_by(|a, b| {
+            a.centre_metres
+                .distance_squared(focus)
+                .total_cmp(&b.centre_metres.distance_squared(focus))
+        });
+    }
+
+    fn advance(&mut self, mut spawn: impl FnMut(&DistantBuildingPlacement) -> Result<bool>) {
+        let started = web_time::Instant::now();
+        // Visit each outstanding placement at most once. A pending asset must
+        // not block ready geometry later in the queue or spin within a frame.
+        for _ in 0..self.placements.len() {
+            let placement = self.placements.pop_front().expect("bounded queue pass");
+            match spawn(&placement) {
+                Ok(true) => {}
+                Ok(false) => self.placements.push_back(placement),
+                Err(error) => {
+                    self.report_failure(error);
+                }
+            }
+            if started.elapsed() >= BUILDING_BATCH_BUDGET {
+                break;
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn placements() -> Vec<DistantBuildingPlacement> {
+        let input: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../../../assets/art-demo/city-layout.json"
+        ))
+        .unwrap();
+        input["buildings"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .take(3)
+            .map(|value| serde_json::from_value(value.clone()).unwrap())
+            .collect()
+    }
+
+    #[test]
+    fn delayed_and_failed_assets_do_not_block_ready_buildings() {
+        let placements = placements();
+        let mut pending = PendingCityBuildings::new(&placements);
+        let mut visited = Vec::new();
+        // Repeat frames to tolerate a test runner pause exceeding the time budget.
+        for _ in 0..placements.len() {
+            pending.advance(|placement| {
+                visited.push(placement.id);
+                if placement.id == placements[0].id {
+                    Ok(false)
+                } else if placement.id == placements[1].id {
+                    Err("missing fixture".into())
+                } else {
+                    Ok(true)
+                }
+            });
+        }
+        assert!(visited.contains(&placements[2].id));
+        assert_eq!(pending.completed(), 2);
+        assert!(!pending.finished());
+        assert!(pending.failure().unwrap().contains("missing fixture"));
+        pending.advance(|_| Ok(true));
+        assert!(pending.finished());
+        assert_eq!(pending.completed(), 3);
+    }
+
+    #[test]
+    fn camera_movement_prioritizes_nearby_unfinished_buildings() {
+        let mut placements = placements();
+        for (index, placement) in placements.iter_mut().enumerate() {
+            placement.centre_metres = Vec2::new(index as f32 * 100.0, 0.0);
+        }
+        let mut pending = PendingCityBuildings::new(&placements);
+        pending.prioritize(Vec2::new(200.0, 0.0));
+        assert_eq!(pending.placements.front().unwrap().id, placements[2].id);
+        pending.prioritize(Vec2::ZERO);
+        assert_eq!(pending.placements.front().unwrap().id, placements[0].id);
     }
 }
 
@@ -89,22 +200,13 @@ pub(super) fn present(
     mut commands: Commands,
     pending: Option<ResMut<PendingCityBuildings>>,
     mut assets: CityBuildingAssets,
-) -> Result {
+    cameras: Query<&GlobalTransform, With<TacticalGameplayCamera>>,
+) {
     let Some(mut pending) = pending else {
-        return Ok(());
+        return;
     };
-    let started = web_time::Instant::now();
-    while let Some(placement) = pending.placements.front() {
-        if !assets.spawn(&mut commands, placement, BuildingDetail::Facade)? {
-            break;
-        }
-        pending.placements.pop_front();
-        if started.elapsed() >= BUILDING_BATCH_BUDGET {
-            break;
-        }
+    if let Some(camera) = cameras.iter().next() {
+        pending.prioritize(camera.translation().xz());
     }
-    if pending.placements.is_empty() {
-        commands.remove_resource::<PendingCityBuildings>();
-    }
-    Ok(())
+    pending.advance(|placement| assets.spawn(&mut commands, placement, BuildingDetail::Facade));
 }

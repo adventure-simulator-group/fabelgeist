@@ -9,12 +9,12 @@ use bevy::{
 use serde::{Deserialize, Serialize};
 
 use super::{
-    DemoEntity,
+    DemoEntity, StudioEntity,
     camera::{CameraSpace, OrbitView},
     scenery,
 };
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Deserialize, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub(super) enum ExhibitId {
     Henry,
@@ -47,11 +47,21 @@ pub(super) struct Exhibit {
 }
 
 impl Exhibit {
+    pub fn is_studio(&self) -> bool {
+        !matches!(self.kind, ExhibitKind::Scenery)
+    }
+
+    pub fn catalog() -> Vec<Self> {
+        serde_json::from_str(include_str!("../../../../assets/art-demo/catalog.json"))
+            .expect("shipped exhibit catalog must be valid")
+    }
+
+    pub fn id(&self) -> ExhibitId {
+        self.id
+    }
+
     pub fn get(id: ExhibitId) -> Self {
-        let catalog: Vec<Self> =
-            serde_json::from_str(include_str!("../../../../assets/art-demo/catalog.json"))
-                .expect("shipped exhibit catalog must be valid");
-        catalog
+        Self::catalog()
             .into_iter()
             .find(|exhibit| exhibit.id == id)
             .expect("exhibit in catalog")
@@ -72,7 +82,6 @@ impl Exhibit {
     pub fn spawn(&self, world: &mut World) -> Result<Option<Handle<WorldAsset>>, String> {
         match self.kind {
             ExhibitKind::Armor => {
-                studio(world);
                 let asset = self
                     .asset
                     .as_ref()
@@ -81,19 +90,19 @@ impl Exhibit {
                     .resource::<AssetServer>()
                     .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/armor/{asset}")));
                 world.spawn((
-                    DemoEntity,
+                    DemoEntity(self.id),
                     WorldAssetRoot(handle.clone()),
                     Transform::IDENTITY,
+                    Visibility::default(),
                 ));
                 Ok(Some(handle))
             }
             ExhibitKind::Weapon => {
-                studio(world);
                 let catalog_id = self
                     .asset
                     .as_deref()
                     .ok_or("weapon exhibit requires a chassis")?;
-                weapon(world, catalog_id)?;
+                weapon(world, self.id, catalog_id)?;
                 Ok(None)
             }
             ExhibitKind::Scenery => {
@@ -104,7 +113,7 @@ impl Exhibit {
     }
 }
 
-fn studio(world: &mut World) {
+pub(super) fn studio(world: &mut World) {
     // The studio dome occludes the outdoor sky without replacing its lighting cache.
     const STUDIO_DOME_RADIUS_METRES: f32 = 50.0;
     let mesh = world
@@ -119,7 +128,7 @@ fn studio(world: &mut World) {
             ..default()
         });
     world.spawn((
-        DemoEntity,
+        StudioEntity,
         Mesh3d(mesh),
         MeshMaterial3d(material),
         Transform::IDENTITY,
@@ -129,7 +138,7 @@ fn studio(world: &mut World) {
         (Vec3::new(4.0, 1.0, -2.0), 25_000.0),
     ] {
         world.spawn((
-            DemoEntity,
+            StudioEntity,
             DirectionalLight {
                 illuminance,
                 shadow_maps_enabled: false,
@@ -140,7 +149,7 @@ fn studio(world: &mut World) {
     }
 }
 
-fn weapon(world: &mut World, catalog_id: &str) -> Result<(), String> {
+fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> Result<(), String> {
     let design = default_design(catalog_id).ok_or("unknown weapon chassis")?;
     let generated = generate(&design).map_err(|error| format!("weapon generation: {error:?}"))?;
     let center =
@@ -150,7 +159,7 @@ fn weapon(world: &mut World, catalog_id: &str) -> Result<(), String> {
     let scale = DISPLAY_LENGTH_METRES / extent.max_element();
     let root = world
         .spawn((
-            DemoEntity,
+            DemoEntity(id),
             Transform::from_rotation(Quat::from_rotation_z(-0.35)).with_scale(Vec3::splat(scale)),
             Visibility::default(),
         ))

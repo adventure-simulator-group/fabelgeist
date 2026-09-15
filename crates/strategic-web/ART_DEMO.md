@@ -19,6 +19,7 @@ and scroll to zoom. WASD pans across all scenes. Touch supports one-finger orbit
 and pinch zoom. With the canvas focused, arrow keys orbit and plus/minus zoom.
 Tabs support arrow keys,
 Home, and End. Exhibit hashes, such as `/art-demo#oak`, are directly linkable.
+Browser Back and Forward select exhibits within the same document and canvas.
 
 ## Exhibits
 
@@ -38,11 +39,14 @@ Home, and End. Exhibit hashes, such as `/art-demo#oak`, are directly linkable.
   camera, one tile per frame, and release distant masks. The overview retains
   all street and yard surfaces without allocating a city-wide wheel network.
   Building meshes are compiled offline with the production generator. Browser
-  assembly yields between batches and reports completed building counts.
+  assembly yields between batches and reports processed building counts. It
+  prioritizes buildings near the camera, requests at most four facade assets
+  concurrently, and skips pending assets to display other ready buildings.
   Full detail is loaded for at most sixteen nearby buildings, one per
   frame, and its cache is released as the camera moves away. Facades remain
   visible while full detail loads. Switching tabs cancels pending buildings
-  and releases their prepared asset handles and mesh cache.
+  and releases inspection detail. Prepared facade handles remain cached for
+  subsequent visits.
 - Oak: an exposed generated oak in `sparse-woodland`, with its hilly terrain,
   production bark, foliage, and ground scatter. The initial low close-up frames
   the roots, trunk, and lower canopy.
@@ -58,11 +62,27 @@ accepts only known exhibit IDs and finite orbit/zoom/pan inputs. Museum
 photographs are local assets with
 [source and license records](../../assets/art-demo/ATTRIBUTION.md).
 
-Tab changes clear scene presentation entities and tree caches, then allow four
-frames for asset retirement before generating the next exhibit. The GPU device,
-sky, and shared procedural textures remain resident. The standalone viewer uses
-the same production presentation plugin as tactical play. It does not run
-gameplay or persist state.
+Armor and weapon entities remain resident after their first load. Background
+prefetch prepares one studio exhibit at a time after outstanding studio loads
+and city assembly finish. Only the selected exhibit is visible; studio lights
+exist only while a studio exhibit is selected. Each exhibit remembers its
+camera position. The fixed catalog bounds the studio cache to two armor scenes
+and six weapons. City facade residency is bounded by the fixed city's recipes.
+
+Scenery changes release terrain, scatter, tree caches, city inspection detail,
+and traffic masks. New scenery allocations wait four frames for render-world
+removals; cached studio exhibits can switch immediately. Returning to scenery
+rebuilds its presentation and reuses prepared city facades. The GPU device,
+sky, and shared procedural textures remain resident. The viewer uses the
+production presentation plugin without running gameplay or persisting state.
+
+The loading plate covers only renderer startup. Once the application responds,
+progress appears in a small overlay and camera controls remain available while
+assets arrive. Ready status describes exhibit assembly and tracked scene
+dependencies. Shared textures, shader preparation, and uploads may continue.
+Failed armor or building assets produce an exhibit-local message without
+preventing navigation. A renderer failure still requires reloading the document.
+
 The demo selects 4× MSAA because WebGPU does not support the desktop 2× preset.
 Terrain shares identical litter and cliff samplers to keep its production
 material within WebGPU's sixteen-sampler limit.
@@ -112,6 +132,8 @@ recipe validation runs during asset generation instead of tab navigation.
 
 Then run
 `cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+Pass `-- --output target/art-demo-buildings` to prepare an isolated copy for
+validation without replacing the shipped assets.
 This writes the production facade, shell and detail meshes to
 `assets/art-demo/buildings`, keyed by the serialized recipe. Overview and
 inspection assets are separate; placement materials and shop names remain

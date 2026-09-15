@@ -3,6 +3,7 @@
 mod camera;
 mod district;
 mod exhibits;
+mod residency;
 mod scenery;
 
 use std::sync::Mutex;
@@ -50,25 +51,25 @@ enum DemoStatus {
     Ready {
         exhibit: ExhibitId,
     },
+    Unavailable {
+        exhibit: ExhibitId,
+        message: String,
+    },
     Failed {
         message: String,
     },
 }
 
 #[derive(Component)]
-struct DemoEntity;
+struct DemoEntity(ExhibitId);
+
+#[derive(Component)]
+struct StudioEntity;
 
 #[derive(Resource)]
 struct CurrentExhibit {
     id: ExhibitId,
-    scene: Option<Handle<WorldAsset>>,
-    frames: u32,
-}
-
-#[derive(Resource)]
-struct PendingExhibit {
-    id: ExhibitId,
-    retire_frames: u8,
+    scene: Result<Option<Handle<WorldAsset>>, String>,
 }
 
 pub(super) fn queue(json: &str) -> Result<(), String> {
@@ -117,6 +118,18 @@ fn report_exit(mut exits: MessageReader<AppExit>) {
     }
 }
 
+fn render_error(
+    _error: &bevy::render::error_handler::RenderError,
+    world: &mut World,
+    _render_world: &mut World,
+) -> bevy::render::error_handler::RenderErrorPolicy {
+    // Render errors arrive after Last. Publish the terminal status here, before
+    // Bevy's runner exits and can no longer run report_exit or readiness systems.
+    renderer_failed();
+    world.write_message(AppExit::error());
+    bevy::render::error_handler::RenderErrorPolicy::StopRendering
+}
+
 pub(super) fn run() {
     let mut app = App::new();
     let mut presentation = TacticalPresentationPlugin::default();
@@ -155,20 +168,27 @@ pub(super) fn run() {
         enable_presentation_simulation: false,
     })
     .add_plugins(presentation)
+    .insert_resource(bevy::render::error_handler::RenderErrorHandler(
+        render_error,
+    ))
     .insert_resource(TacticalCameraSetup {
         vertical_fov_degrees: camera::VERTICAL_FOV_DEGREES,
         ..default()
     })
     .init_resource::<OrbitView>()
+    .init_resource::<residency::ExhibitCache>()
     .insert_resource(ClearColor(Color::srgb_u8(23, 27, 29)))
-    .add_systems(PreUpdate, (drain, spawn_pending).chain())
+    .add_systems(PreUpdate, (drain, residency::spawn_pending).chain())
     .add_systems(
         PostUpdate,
         (camera::apply, report_readiness)
             .chain()
             .before(bevy::transform::TransformSystems::Propagate),
     )
-    .add_systems(Last, (camera::studio_exposure, report_exit));
+    .add_systems(
+        Last,
+        (camera::studio_exposure, report_exit, residency::prefetch),
+    );
     #[cfg(feature = "debug")]
     app.insert_gizmo_config(
         adventuresim_tactical_core::prelude::PhysicsGizmos::default(),
@@ -198,7 +218,7 @@ fn drain(world: &mut World) {
                     completed: 0,
                     total: 0,
                 };
-                retire(world, exhibit);
+                residency::show(world, exhibit);
             }
             DemoCommand::Orbit { delta_x, delta_y } => {
                 world.resource_mut::<OrbitView>().orbit(delta_x, delta_y);
@@ -217,103 +237,88 @@ fn drain(world: &mut World) {
     }
 }
 
-fn retire(world: &mut World, id: ExhibitId) {
-    world.remove_resource::<CurrentExhibit>();
-    crate::presentation::clear_demo_scene(world);
-    let entities = world
-        .query_filtered::<Entity, With<DemoEntity>>()
-        .iter(world)
-        .collect::<Vec<_>>();
-    for entity in entities {
-        if let Ok(entity) = world.get_entity_mut(entity) {
-            entity.despawn();
-        }
-    }
-    // Asset handle drops and render-world removals are processed across frames.
-    // Finish those before allocating another scenery exhibit's meshes and masks.
-    const ASSET_RETIRE_FRAMES: u8 = 4;
-    world.insert_resource(PendingExhibit {
-        id,
-        retire_frames: ASSET_RETIRE_FRAMES,
-    });
-}
-
-fn spawn_pending(world: &mut World) {
-    let Some(mut pending) = world.get_resource_mut::<PendingExhibit>() else {
-        return;
-    };
-    if pending.retire_frames > 0 {
-        pending.retire_frames -= 1;
-        return;
-    }
-    let id = pending.id;
-    world.remove_resource::<PendingExhibit>();
-    if let Err(message) = show(world, id) {
-        *STATUS.lock().expect("demo status lock") = DemoStatus::Failed { message };
-    }
-}
-
-fn show(world: &mut World, id: ExhibitId) -> Result<(), String> {
-    let exhibit = Exhibit::get(id);
-    *world.resource_mut::<OrbitView>() = exhibit.view();
-    let scene = exhibit.spawn(world)?;
-    world.flush();
-    world.insert_resource(CurrentExhibit {
-        id,
-        scene,
-        frames: 0,
-    });
-    Ok(())
-}
-
 fn report_readiness(
-    current: Option<ResMut<CurrentExhibit>>,
+    current: Option<Res<CurrentExhibit>>,
     assets: Res<AssetServer>,
     pending: Option<Res<crate::presentation::PendingCityBuildings>>,
+    scenery: Option<Res<residency::PendingScenery>>,
 ) {
-    let Some(mut current) = current else {
+    let Some(current) = current else {
         return;
     };
+    let mut status = DemoStatus::Ready {
+        exhibit: current.id,
+    };
+    if scenery.is_some() {
+        status = DemoStatus::Loading {
+            exhibit: current.id,
+            completed: 0,
+            total: 0,
+        };
+    }
     if let Some(pending) = pending {
-        *STATUS.lock().expect("demo status lock") = DemoStatus::Loading {
-            exhibit: current.id,
-            completed: pending.completed(),
-            total: pending.total,
-        };
-        return;
-    }
-    if let Some(scene) = &current.scene {
-        if let Some(bevy::asset::RecursiveDependencyLoadState::Failed(error)) =
-            assets.get_recursive_dependency_load_state(scene.id())
-        {
-            *STATUS.lock().expect("demo status lock") = DemoStatus::Failed {
-                message: error.to_string(),
+        if !pending.finished() {
+            status = DemoStatus::Loading {
+                exhibit: current.id,
+                completed: pending.completed(),
+                total: pending.total,
             };
-            return;
-        }
-        if let Some(bevy::asset::LoadState::Failed(error)) = assets.get_load_state(scene.id()) {
-            *STATUS.lock().expect("demo status lock") = DemoStatus::Failed {
-                message: error.to_string(),
+        } else if let Some(message) = pending.failure() {
+            status = DemoStatus::Unavailable {
+                exhibit: current.id,
+                message: message.into(),
             };
-            return;
-        }
-        if !assets.is_loaded_with_dependencies(scene.id()) {
-            return;
         }
     }
-    current.frames += 1;
-    // Allow scene instantiation and extraction before dismissing the loading plate.
-    const PRESENTATION_SETTLE_FRAMES: u32 = 12;
-    if current.frames == PRESENTATION_SETTLE_FRAMES {
-        *STATUS.lock().expect("demo status lock") = DemoStatus::Ready {
-            exhibit: current.id,
-        };
+    match &current.scene {
+        Err(message) => {
+            status = DemoStatus::Unavailable {
+                exhibit: current.id,
+                message: message.clone(),
+            }
+        }
+        Ok(Some(scene)) => {
+            let error = match assets.get_load_state(scene.id()) {
+                Some(bevy::asset::LoadState::Failed(error)) => Some(error),
+                _ => match assets.get_recursive_dependency_load_state(scene.id()) {
+                    Some(bevy::asset::RecursiveDependencyLoadState::Failed(error)) => Some(error),
+                    _ => None,
+                },
+            };
+            if let Some(error) = error {
+                status = DemoStatus::Unavailable {
+                    exhibit: current.id,
+                    message: error.to_string(),
+                };
+            } else if !assets.is_loaded_with_dependencies(scene.id()) {
+                status = DemoStatus::Loading {
+                    exhibit: current.id,
+                    completed: 0,
+                    total: 0,
+                };
+            }
+        }
+        Ok(None) => {}
     }
+    *STATUS.lock().expect("demo status lock") = status;
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn gpu_failure_reports_terminal_status_before_the_runner_exits() {
+        let mut app = App::new();
+        let error = bevy::render::error_handler::RenderError {
+            ty: bevy::render::error_handler::ErrorType::Validation,
+            description: "test validation failure".into(),
+            source: None,
+        };
+        render_error(&error, app.world_mut(), &mut World::new());
+        assert!(matches!(*STATUS.lock().unwrap(), DemoStatus::Failed { .. }));
+        assert!(app.should_exit().is_some());
+    }
 
     #[test]
     fn boundary_rejects_unknown_assets_and_keeps_latest_navigation() {
