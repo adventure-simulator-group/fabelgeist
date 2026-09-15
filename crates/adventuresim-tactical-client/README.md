@@ -10,6 +10,17 @@ exposure does not invalidate unexposed sky radiance. Probe retirement runs
 after Bevy's deferred preparation commands. The live atmosphere remains enabled
 after the environment bake.
 
+The pinned Bevy 0.19.1 atmosphere shaders use local, source-attributed
+corrections: generation samples texel centres, and the forward/inverse lookup
+coordinate maps agree. Canonical shader handles and imports stay intact, so
+visible sky and environment baking use the same mapping. A shader reload
+invalidates the bake; capture readiness waits for the corrected GPU pipelines.
+The analytic planet ground samples sunlight transmission at its surface
+radius, retaining the dependence on solar angle.
+With multisample anti-aliasing, atmospheric scattering and transmission use
+each sample's depth and viewport position, so mixed terrain/sky pixels receive
+the corresponding transport before color resolution.
+
 This environment map samples the atmospheric medium; the separate animated
 cloud renderer is not included in it. Cloud radiance, cloud beam transmission,
 and scene bounce lighting require further transport integration. The existing

@@ -252,14 +252,9 @@ pub(in crate::presentation) fn setup_tactical_presentation(
         ShadowFiltering::Gaussian => bevy::light::ShadowFilteringMethod::Gaussian,
     });
     if settings.config.rendering.atmosphere.enabled {
-        // Only declare the atmosphere here. The generated environment map is
-        // baked once and frozen into a static Skybox + EnvironmentMapLight by
-        // the atmosphere bake system (`presentation::atmosphere`), which owns
-        // the `AtmosphereEnvironmentMapLight` on its own one-shot bake probe.
-        // Inserting it on the camera as well left the view carrying both an
-        // atmosphere and an environment-map bind group, which no longer matched
-        // the specialized opaque-mesh pipelines and aborted rendering with a
-        // DrawIndirect bind-group validation error.
+        // The live atmosphere owns sky and direct-light transport. Its separate
+        // bake probe produces the cached EnvironmentMapLight; the camera must
+        // not also carry an AtmosphereEnvironmentMapLight producer.
         camera.insert(AtmosphereSettings::default());
     }
     if settings.config.rendering.bloom.enabled {

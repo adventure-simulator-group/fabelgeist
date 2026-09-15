@@ -13,7 +13,9 @@ use bevy::{
 };
 
 mod gpu_bake;
+mod shader_corrections;
 use gpu_bake::AtmosphereBakeGpu;
+use shader_corrections::AtmosphereShaderCorrections;
 
 // Bevy #24884 contains the native fix. Delete this backport when 0.20 is released
 // and the project upgrades: https://github.com/bevyengine/bevy/pull/24884
@@ -40,6 +42,7 @@ struct AtmosphereIblKey {
     atmosphere_transform: [u32; 6],
     atmosphere_tick: u32,
     medium_revision: u64,
+    shader_revision: u64,
 }
 
 impl AtmosphereIblKey {
@@ -50,6 +53,7 @@ impl AtmosphereIblKey {
         atmospheres: &Query<(Entity, Ref<Atmosphere>, &GlobalTransform)>,
         observer: Vec3,
         medium_revision: u64,
+        shader_revision: u64,
     ) -> Option<Self> {
         // Match Bevy's nearest-atmosphere selection and its spherical transform.
         let (entity, atmosphere, transform) = atmospheres.iter().min_by(|a, b| {
@@ -79,6 +83,7 @@ impl AtmosphereIblKey {
             .map(f32::to_bits),
             atmosphere_tick: atmosphere.last_changed().get(),
             medium_revision,
+            shader_revision,
         })
     }
 }
@@ -110,6 +115,7 @@ struct CachedAtmosphereProbeAssets {
 /// render world, which keeps the atmospheric PBR pipeline specialization and
 /// its per-fragment transmittance work alive after a camera disables atmosphere.
 pub(in crate::presentation) fn install_atmosphere_cleanup_backport(app: &mut App) {
+    AtmosphereShaderCorrections::install(app);
     AtmosphereBakeGpu::install(app);
     let Some(render_app) = app.get_sub_app_mut(RenderApp) else {
         return;
@@ -164,6 +170,7 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
     media: Res<Assets<ScatteringMedium>>,
     mut status: ResMut<AtmosphereIblCache>,
     gpu_bake: Res<AtmosphereBakeGpu>,
+    corrections: Option<Res<AtmosphereShaderCorrections>>,
     settings: Option<Res<TacticalGraphicsSettings>>,
     camera: Single<
         (Entity, &GlobalTransform, Has<AtmosphereSettings>),
@@ -191,7 +198,7 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
                 .ok()
                 .map(|environment| (snapshot, environment))
         })
-        .filter(|_| enabled);
+        .filter(|_| enabled && corrections.as_ref().is_none_or(|c| c.installed));
     let Some((snapshot, environment)) = current else {
         status.clear(&mut commands, camera_entity, probe.iter().map(|p| p.0));
         if !enabled {
@@ -216,6 +223,9 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
         &atmospheres,
         camera_transform.translation(),
         status.medium_revision,
+        corrections
+            .as_ref()
+            .map_or(0, |corrections| corrections.revision),
     ) else {
         status.clear(&mut commands, camera_entity, probe.iter().map(|p| p.0));
         return;
@@ -229,26 +239,32 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
     ) {
         return;
     }
-    let AtmosphereIblPhase::Baking { scene } = status.phase else {
-        return;
-    };
-    let Ok((probe_entity, Some(generated), Some(filtered))) = probe.single() else {
-        return;
-    };
-    if !gpu_bake.is_complete(scene, camera_entity, probe_entity, generated, filtered) {
-        return;
-    }
-
-    status.complete(
-        &mut commands,
-        camera_entity,
-        probe_entity,
-        generated,
-        filtered,
-    );
+    status.complete_if_ready(&mut commands, camera_entity, probe.single().ok(), &gpu_bake);
 }
 
 impl AtmosphereIblCache {
+    fn complete_if_ready(
+        &mut self,
+        commands: &mut Commands,
+        camera: Entity,
+        probe: Option<(
+            Entity,
+            Option<&GeneratedEnvironmentMapLight>,
+            Option<&EnvironmentMapLight>,
+        )>,
+        gpu_bake: &AtmosphereBakeGpu,
+    ) {
+        let AtmosphereIblPhase::Baking { scene } = self.phase else {
+            return;
+        };
+        let Some((probe, Some(generated), Some(filtered))) = probe else {
+            return;
+        };
+        if gpu_bake.is_complete(scene, camera, probe, generated, filtered) {
+            self.complete(commands, camera, probe, generated, filtered);
+        }
+    }
+
     fn complete(
         &mut self,
         commands: &mut Commands,
@@ -353,6 +369,7 @@ mod tests {
             &state.get(&world).unwrap(),
             Vec3::ZERO,
             0,
+            0,
         )
         .unwrap();
         assert_eq!(initial.atmosphere, first);
@@ -365,6 +382,7 @@ mod tests {
             None,
             &state.get(&world).unwrap(),
             Vec3::ZERO,
+            0,
             0,
         )
         .unwrap();
@@ -379,6 +397,7 @@ mod tests {
             &state.get(&world).unwrap(),
             Vec3::ZERO,
             0,
+            0,
         )
         .unwrap();
         assert_eq!(selected.atmosphere, second);
@@ -392,6 +411,7 @@ mod tests {
                 None,
                 &state.get(&world).unwrap(),
                 Vec3::ZERO,
+                0,
                 0
             )
             .is_none()
@@ -554,6 +574,54 @@ mod tests {
         assert!(app.world().entity(camera).contains::<EnvironmentMapLight>());
         assert_eq!(
             app.world().resource::<AtmosphereIblCache>().completed_bakes,
+            2
+        );
+        // A missing/reloading canonical shader must retire both an installed
+        // cube and an in-flight probe even when scene and weather stay fixed.
+        app.insert_resource(AtmosphereShaderCorrections::default());
+        app.update();
+        assert!(!app.world().entity(camera).contains::<EnvironmentMapLight>());
+        assert!(app.world().resource::<AtmosphereIblCache>().key.is_none());
+        {
+            let mut corrections = app
+                .world_mut()
+                .resource_mut::<AtmosphereShaderCorrections>();
+            corrections.installed = true;
+            corrections.revision = 1;
+        }
+        app.update();
+        let interrupted_probe = app
+            .world_mut()
+            .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+            .single(app.world())
+            .unwrap();
+        app.world_mut()
+            .resource_mut::<AtmosphereShaderCorrections>()
+            .installed = false;
+        app.update();
+        assert!(app.world().get_entity(interrupted_probe).is_err());
+        assert!(app.world().resource::<AtmosphereIblCache>().key.is_none());
+        {
+            let mut corrections = app
+                .world_mut()
+                .resource_mut::<AtmosphereShaderCorrections>();
+            corrections.installed = true;
+            corrections.revision = 2;
+        }
+        app.update();
+        let restored_probe = app
+            .world_mut()
+            .query_filtered::<Entity, With<AtmosphereBakeProbe>>()
+            .single(app.world())
+            .unwrap();
+        assert_ne!(restored_probe, interrupted_probe);
+        assert_eq!(
+            app.world()
+                .resource::<AtmosphereIblCache>()
+                .key
+                .as_ref()
+                .unwrap()
+                .shader_revision,
             2
         );
         app.world_mut().resource_mut::<ActiveTacticalScene>().entity = None;

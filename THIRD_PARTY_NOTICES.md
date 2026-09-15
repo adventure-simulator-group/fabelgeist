@@ -16,6 +16,17 @@ retained in `assets/shaders/BEVY_LICENSE_MIT.txt`.
 
 - Source: <https://github.com/bevyengine/bevy/blob/v0.19.1/crates/bevy_pbr/src/render/pbr.wgsl>
 
+`assets/shaders/tactical_atmosphere_functions.wgsl`,
+`tactical_atmosphere_sky_view_lut.wgsl` and
+`tactical_atmosphere_render_sky.wgsl` adapt Bevy 0.19.1's atmosphere
+shaders under the same MIT license. They correct the forward lookup-coordinate
+mapping, sky lookup texel-centre generation and planet-ground sampling radius.
+They also match atmospheric transport to each anti-aliasing depth sample.
+The Bruneton-derived segment sampling function retains its additional notice in
+`assets/shaders/BRUNETON_LICENSE.txt`.
+
+- Sources: <https://github.com/bevyengine/bevy/tree/v0.19.1/crates/bevy_pbr/src/atmosphere>
+
 ## Meta Momentum Human Rig
 
 The character authoring pipeline uses Meta's Momentum Human Rig (MHR) v1.0.1.
