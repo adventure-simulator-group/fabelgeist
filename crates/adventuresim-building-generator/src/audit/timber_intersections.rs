@@ -210,9 +210,7 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
                                 .any(|storey| storey.member_ids.contains(&member.id))
                         })
                 });
-            let exact_civic_plinth_join = frame.program
-                == crate::TimberFrameProgramKind::CivicMasonryTimberHall
-                && plan.wall_assemblies.iter().any(|wall| {
+            let exact_masonry_plinth_join = plan.wall_assemblies.iter().any(|wall| {
                     let owns_other = wall.host_solids.contains(&b.id)
                         || plan.opening_assemblies.iter().any(|opening| {
                             opening.host_wall == wall.id
@@ -368,7 +366,7 @@ fn undeclared_timber_intersections(plan: &BuildingPlan) -> Vec<(ResolvedItemId, 
             let declared = exact_opening_composite
                 || exact_partition_join
                 || exact_hall_transverse_infill
-                || exact_civic_plinth_join
+                || exact_masonry_plinth_join
                 || exact_frame_floor_join
                 || exact_landing_girder_join
                 || exact_child_roof_join

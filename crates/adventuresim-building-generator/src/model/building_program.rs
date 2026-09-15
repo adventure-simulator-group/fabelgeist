@@ -2,6 +2,7 @@ use super::*;
 mod fortified;
 mod institutional;
 mod residential;
+mod storage_range;
 
 /// High-level input recipe for procedural building generation.
 ///
@@ -36,6 +37,7 @@ pub struct BuildingProgram {
 impl BuildingProgram {
     pub fn fixture(archetype: BuildingArchetype, seed: u64) -> Self {
         match archetype {
+            BuildingArchetype::StorageRange => Self::storage_range(seed),
             BuildingArchetype::Workplace => {
                 let mut program = Self::town_house(seed);
                 program.usage =
@@ -57,4 +59,4 @@ impl BuildingProgram {
     }
 }
 
-pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 6;
+pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 7;

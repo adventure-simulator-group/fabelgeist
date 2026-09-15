@@ -23,7 +23,15 @@ pub(super) fn append_opening_details(lod: &mut BuildingLod, plan: &BuildingPlan)
         let right = centre + tangent * width * 0.5;
         let bottom = opening.sill_elevation_metres;
         let top = bottom + height;
-        let (u0, u1) = opening_atlas_interval(opening.use_kind);
+        let (u0, u1) = if opening
+            .closure
+            .layers
+            .contains(&crate::ClosureKind::TimberShutter)
+        {
+            opening_atlas_interval(OpeningUse::Door)
+        } else {
+            opening_atlas_interval(opening.use_kind)
+        };
         lod.mesh_mut(BuildingLodMaterial::FacadeDetails).push_quad(
             [
                 plan_vertex(left, bottom),

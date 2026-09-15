@@ -39,6 +39,7 @@ pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;
 #[cfg(test)]
 use adventuresim_procedural_textures::generate_procedural_textures;
 use atmosphere::*;
+pub(crate) use buildings::BuildingRenderLevel;
 use buildings::*;
 use clouds::*;
 pub(crate) use doors::{DoorPresentationPlugin, GrabTargetOutline};

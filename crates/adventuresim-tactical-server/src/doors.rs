@@ -8,6 +8,9 @@ use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::{ecs::system::SystemParam, math::primitives::Cuboid, prelude::*};
 
 const DOOR_DENSITY_KILOGRAMS_PER_CUBIC_METRE: f32 = 150.0;
+#[cfg(test)]
+#[path = "doors/gate_tests.rs"]
+mod gate_tests;
 const DOOR_MOTOR_FREQUENCY_HZ: f32 = 3.0;
 const DOOR_OPENING_MAX_TORQUE_NEWTON_METRES: f32 = 40.0;
 const DOOR_CLOSING_MAX_TORQUE_NEWTON_METRES: f32 = 7.0;
@@ -121,7 +124,7 @@ pub(crate) fn spawn_building_doors(
         spawn_door(
             commands,
             building_entity,
-            building,
+            building.id,
             building_transform,
             collision_origin,
             door,
@@ -129,10 +132,10 @@ pub(crate) fn spawn_building_doors(
     }
 }
 
-fn spawn_door(
+pub(super) fn spawn_door(
     commands: &mut Commands,
     building_entity: Entity,
-    building: &SceneBuilding,
+    building_id: u64,
     building_transform: &Transform,
     collision_origin: Vec3,
     door: DoorSpec,
@@ -148,11 +151,11 @@ fn spawn_door(
         .spawn((
             Name::new(format!(
                 "Building {} door {} leaf",
-                building.id, door.opening.0
+                building_id, door.opening.0
             )),
             Replicated,
             SceneDoor {
-                building_id: building.id,
+                building_id,
                 opening_id: door.opening.0,
                 size_metres: door.size_metres,
                 doorway_centre_metres: doorway_centre,
@@ -188,7 +191,7 @@ fn spawn_door(
         .spawn((
             Name::new(format!(
                 "Building {} door {} hinge",
-                building.id, door.opening.0
+                building_id, door.opening.0
             )),
             door_joint(
                 building_entity,

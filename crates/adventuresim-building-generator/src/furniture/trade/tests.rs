@@ -4,7 +4,7 @@ use bevy::math::Quat;
 
 fn recipe(kind: FurnitureKind, variant: FurnitureVariant) -> FurnitureRecipe {
     let mut builder = Builder::default();
-    assemble(&mut builder, FurnitureKey { kind, variant });
+    assemble(&mut builder, FurnitureKey::natural(kind, variant));
     builder.finish()
 }
 
@@ -121,7 +121,7 @@ fn trade_geometry_and_colliders_fit_the_placement_envelope() {
     ];
     for kind in kinds {
         for variant in FurnitureVariant::ALL {
-            let key = FurnitureKey { kind, variant };
+            let key = FurnitureKey::natural(kind, variant);
             let size = key.interior_spec().unwrap().size_metres;
             let recipe = recipe(kind, variant);
             let min = Vec3::new(-size.x * 0.5, 0.0, -size.z * 0.5);

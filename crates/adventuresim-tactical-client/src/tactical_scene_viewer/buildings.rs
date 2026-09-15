@@ -2,6 +2,31 @@ use adventuresim_building_generator::BuildingCollision;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
+pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<GeneratedBoundary>) {
+    for boundary in boundaries {
+        let door = boundary
+            .scene
+            .boundary
+            .gate
+            .door(boundary.scene.property_id);
+        let elevation = Vec3::Y * boundary.elevation_metres;
+        let centre = door.closed_centre + elevation;
+        commands.spawn((
+            SceneDoor {
+                building_id: boundary.scene.front_building_id,
+                opening_id: door.opening.0,
+                size_metres: door.size_metres,
+                doorway_centre_metres: centre,
+                tangent: Vec3::new(door.tangent.x, 0.0, door.tangent.y),
+                outward: Vec3::new(door.outward.x, 0.0, door.outward.y),
+            },
+            Transform::from_translation(centre)
+                .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
+        ));
+        commands.spawn((boundary.scene, Transform::from_translation(elevation)));
+    }
+}
+
 pub(super) fn spawn_tactical_buildings(commands: &mut Commands, buildings: Vec<GeneratedBuilding>) {
     for building in buildings {
         super::building_review::spawn_openings(commands, &building);

@@ -111,74 +111,7 @@ fn derive_openings(
     }
 
     if level == 0 {
-        let entrance_room = requirements
-            .iter()
-            .position(|room| matches!(room.kind, RoomKind::EntranceHall | RoomKind::Passage))
-            .unwrap_or(0) as u16;
-        let mut entrance_candidates = walls
-            .iter()
-            .enumerate()
-            .filter(|(_, wall)| {
-                wall.exterior()
-                    && wall.inside_room == entrance_room
-                    && wall.direction == Direction::South
-            })
-            .collect::<Vec<_>>();
-        entrance_candidates.sort_by_key(|(_, wall)| wall.cell.x);
-        let gate = matches!(
-            archetype,
-            BuildingArchetype::HallHouse
-                | BuildingArchetype::CastleGatehouse
-                | BuildingArchetype::CourtyardCastle
-                | BuildingArchetype::WalledKeep
-                | BuildingArchetype::ArtilleryRondelCastle
-        );
-        let selected_entrances = if gate {
-            let middle = entrance_candidates.len() / 2;
-            let start = middle.saturating_sub(1);
-            &entrance_candidates[start..entrance_candidates.len().min(start + 2)]
-        } else {
-            let middle = entrance_candidates.len() / 2;
-            &entrance_candidates[middle..entrance_candidates.len().min(middle + 1)]
-        };
-        for (wall_index, _) in selected_entrances {
-            openings.push(Opening {
-                wall: *wall_index,
-                kind: if gate {
-                    OpeningKind::Gate
-                } else {
-                    OpeningKind::Door
-                },
-                width_metres: if gate { 1.35 } else { 1.0 },
-                sill_metres: 0.0,
-                height_metres: if gate { 2.8 } else { 2.15 },
-            });
-            occupied_walls.insert(*wall_index);
-        }
-        if requirements[usize::from(entrance_room)].kind == RoomKind::Passage {
-            let mut exit_candidates = walls
-                .iter()
-                .enumerate()
-                .filter(|(_, wall)| {
-                    wall.exterior()
-                        && wall.inside_room == entrance_room
-                        && wall.direction == Direction::North
-                })
-                .collect::<Vec<_>>();
-            exit_candidates.sort_by_key(|(_, wall)| wall.cell.x);
-            let middle = exit_candidates.len() / 2;
-            let start = middle.saturating_sub(1);
-            for (wall_index, _) in &exit_candidates[start..exit_candidates.len().min(start + 2)] {
-                openings.push(Opening {
-                    wall: *wall_index,
-                    kind: OpeningKind::Gate,
-                    width_metres: 1.35,
-                    sill_metres: 0.0,
-                    height_metres: 2.8,
-                });
-                occupied_walls.insert(*wall_index);
-            }
-        }
+        entrances::append(walls, requirements, archetype, &mut openings, &mut occupied_walls);
     }
 
     let mut shared = BTreeMap::<(u16, u16), Vec<usize>>::new();

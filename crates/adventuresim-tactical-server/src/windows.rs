@@ -104,6 +104,7 @@ fn spawn_window(
         )),
         Replicated,
         SceneWindow {
+            leaf: window.leaf,
             building_id: building.id,
             opening_id: window.opening.0,
             size_metres: window.size_metres,
@@ -161,6 +162,7 @@ mod tests {
         let window = world
             .spawn((
                 SceneWindow {
+                    leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
                     building_id: 1,
                     opening_id: 2,
                     size_metres: Vec3::new(1.0, 1.0, 0.025),

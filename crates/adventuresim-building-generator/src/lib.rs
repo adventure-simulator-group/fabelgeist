@@ -6,6 +6,8 @@
 
 mod arch_geometry;
 mod audit;
+mod axle;
+mod bell;
 mod collision;
 mod detail;
 mod doors;
@@ -16,6 +18,7 @@ mod generator;
 mod geometry_index;
 pub mod interior;
 mod lod;
+mod member_uv;
 mod model;
 pub mod prepared;
 mod roof_tessellation;
@@ -36,7 +39,7 @@ pub use collision::{
 };
 pub use detail::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, compile_building_detail,
-    compile_static_building_detail,
+    compile_solid_detail, compile_static_building_detail,
 };
 pub use doors::{DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
@@ -49,4 +52,13 @@ pub use model::*;
 pub use roof_tessellation::{
     RoofSurface, RoofSurfaceTriangle, tessellate_roof_enclosure, tessellate_roof_face,
 };
-pub use windows::{WindowBarSpec, WindowSpec, compile_operable_windows, compile_window_bars};
+pub use windows::{
+    WindowBarSpec, WindowLeafKind, WindowSpec, compile_operable_windows, compile_window_bars,
+    compile_window_leaf,
+};
+
+#[cfg(test)]
+mod mixed_construction_tests;
+
+#[cfg(test)]
+mod storage_range_tests;

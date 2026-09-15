@@ -16,12 +16,14 @@ impl TacticalSceneInput {
         );
         let mut buildings = buildings::prepare_buildings(&self.buildings)?;
         buildings::validate_building_pads(&buildings)?;
+        compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
         let (building_pads, levelled_building_samples) = buildings::level_building_pads(
             grid_width,
             grid_depth,
             grid_spacing,
             &mut heights,
             &mut buildings,
+            &self.compounds,
         );
         repairs.levelled_building_samples = levelled_building_samples;
         let coarse_terrain =
@@ -68,6 +70,7 @@ impl TacticalSceneInput {
             ground,
             obstacles,
             terrain_patch,
+            boundaries: compounds::generate(&self.compounds, &buildings),
             buildings,
             furniture,
             repairs,

@@ -48,6 +48,21 @@ pub enum TimberFrameProgramKind {
     DirectRoofCottage,
     JettiedMerchantHouse,
     CivicMasonryTimberHall,
+    CourtyardStorageRange,
+}
+
+impl BuildingArchetype {
+    pub(crate) fn timber_frame_program(self) -> Option<TimberFrameProgramKind> {
+        Some(match self {
+            Self::TownHouse => TimberFrameProgramKind::NarrowUrbanTownHouse,
+            Self::HallHouse => TimberFrameProgramKind::NorthernTwoPostHallHouse,
+            Self::FachwerkCottage => TimberFrameProgramKind::DirectRoofCottage,
+            Self::FachwerkMerchantHouse => TimberFrameProgramKind::JettiedMerchantHouse,
+            Self::RenaissanceTownHall => TimberFrameProgramKind::CivicMasonryTimberHall,
+            Self::StorageRange => TimberFrameProgramKind::CourtyardStorageRange,
+            _ => return None,
+        })
+    }
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]

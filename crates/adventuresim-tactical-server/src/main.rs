@@ -711,6 +711,7 @@ fn on_server_started(
             input.playable.spacing_metres,
         );
         openings::spawn_generated_buildings(&mut commands, generated.buildings);
+        openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
         furniture::spawn(&mut commands, generated.furniture);
         terrain_collision::spawn_scene(
             &mut commands,

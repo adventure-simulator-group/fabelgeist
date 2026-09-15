@@ -106,7 +106,7 @@ pub fn tessellate_roof_enclosure(face: &RoofEnclosureFace) -> Vec<RoofSurfaceTri
             .map(|point| *point + offset)
             .collect::<Vec<_>>(),
         -normal,
-        RoofSurface::Enclosure,
+        RoofSurface::Interior,
     ));
     for index in 0..face.polygon.len() {
         let next = (index + 1) % face.polygon.len();

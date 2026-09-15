@@ -67,6 +67,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
                 serialize_scene_building,
                 deserialize_scene_building,
             ))
+            .replicate_once::<SceneBoundary>()
             .replicate::<SceneDoor>()
             .replicate::<SceneWindow>()
             .add_client_event::<JoinRequest>(Channel::Ordered)
@@ -211,6 +212,7 @@ mod tests {
     #[test]
     fn scene_window_round_trips_through_replication_codec() {
         let window = SceneWindow {
+            leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
             building_id: 7,
             opening_id: 12,
             size_metres: Vec3::new(0.9, 1.0, 0.025),

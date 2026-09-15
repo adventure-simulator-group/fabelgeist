@@ -21,6 +21,14 @@ use crate::{
 /// timber, and floorboards share a mesh compiler without stretching.
 pub const BUILDING_DETAIL_UV_METRES_PER_UNIT: f32 = 2.0;
 mod arches;
+mod cuboids;
+mod enclosures;
+mod masonry_surfaces;
+use cuboids::{
+    append_cuboid_faces, append_oriented_cuboid, interior_face_material, wall_surface_uv,
+};
+#[cfg(test)]
+use cuboids::{is_fachwerk_member_role, render_cuboid_placement};
 mod materials;
 mod workplace;
 use materials::{material_for_solid, wall_for_solid};
@@ -68,10 +76,11 @@ pub fn compile_static_building_detail(plan: &BuildingPlan) -> BuildingDetail {
 }
 
 /// One canonical architectural solid, shared by exact detail and facade LODs.
-pub(crate) fn compile_solid_detail(plan: &BuildingPlan, solid: &ResolvedSolid) -> BuildingDetail {
+pub fn compile_solid_detail(plan: &BuildingPlan, solid: &ResolvedSolid) -> BuildingDetail {
     let mut detail = BuildingDetail { meshes: Vec::new() };
     append_shaped_solid(
         &mut detail,
+        plan,
         material_for_solid(plan, solid),
         solid,
         wall_for_solid(plan, solid),
@@ -81,12 +90,86 @@ pub(crate) fn compile_solid_detail(plan: &BuildingPlan, solid: &ResolvedSolid) -
 
 fn append_shaped_solid(
     detail: &mut BuildingDetail,
+    plan: &BuildingPlan,
     material: BuildingLodMaterial,
     solid: &ResolvedSolid,
     wall: Option<&crate::WallAssembly>,
 ) {
+    if matches!(solid.shape, ResolvedSolidShape::CylinderAlongX) {
+        detail.meshes.push(crate::axle::mesh(solid));
+        return;
+    }
+    if matches!(solid.shape, ResolvedSolidShape::BellShell) {
+        detail.meshes.extend(crate::bell::meshes(solid));
+        return;
+    }
+    if solid.role == SolidRole::LeadedGlazing && matches!(solid.shape, ResolvedSolidShape::Cuboid) {
+        append_window_leaf(
+            detail,
+            plan,
+            solid,
+            wall,
+            crate::WindowLeafKind::LeadedGlass,
+        );
+        return;
+    }
+    if solid.role == SolidRole::OpeningClosure
+        && plan.opening_assemblies.iter().any(|opening| {
+            opening.use_kind == crate::OpeningUse::Window
+                && opening.closure_solids.contains(&solid.id)
+        })
+    {
+        append_window_leaf(
+            detail,
+            plan,
+            solid,
+            wall,
+            crate::WindowLeafKind::TimberShutter,
+        );
+        return;
+    }
     if !arches::append(detail, material, solid, wall) {
         append_oriented_cuboid(detail, material, solid, wall);
+    }
+}
+
+fn append_window_leaf(
+    detail: &mut BuildingDetail,
+    plan: &BuildingPlan,
+    solid: &ResolvedSolid,
+    wall: Option<&crate::WallAssembly>,
+    kind: crate::WindowLeafKind,
+) {
+    let (size, rotation) = wall.map_or(
+        (solid.size, Quat::from_rotation_y(solid.yaw_radians)),
+        |wall| {
+            let tangent = wall.frame.tangent.abs();
+            let outward = wall.frame.outward.abs();
+            (
+                Vec3::new(
+                    tangent.x * solid.size.x + tangent.y * solid.size.z,
+                    solid.size.y,
+                    outward.x * solid.size.x + outward.y * solid.size.z,
+                ),
+                Quat::from_rotation_y(-wall.frame.tangent.y.atan2(wall.frame.tangent.x)),
+            )
+        },
+    );
+    let state = plan
+        .opening_assemblies
+        .iter()
+        .find(|opening| opening.closure_solids.contains(&solid.id))
+        .map_or(crate::ClosureState::Closed, |opening| opening.closure.state);
+    for mesh in crate::compile_window_leaf(size, kind, state) {
+        let target = detail.mesh_mut(mesh.material);
+        for indices in mesh.indices.as_chunks::<3>().0 {
+            let vertices = indices.map(|index| mesh.vertices[index as usize]);
+            target.push_triangle(
+                vertices.map(|v| solid.centre + rotation * v.position),
+                rotation * vertices[0].normal,
+                vertices.map(|v| v.uv),
+            );
+        }
     }
 }
 
@@ -142,7 +225,7 @@ fn compile_detail(
                     })
                 }),
             ),
-            _ => append_shaped_solid(&mut detail, material, solid, wall),
+            _ => append_shaped_solid(&mut detail, plan, material, solid, wall),
         }
     }
     for bar in compile_window_bars(plan) {
@@ -155,6 +238,7 @@ fn compile_detail(
             None,
         );
     }
+    masonry_surfaces::resolve(&mut detail);
     append_roofs(&mut detail, plan);
     detail
         .meshes
@@ -180,17 +264,7 @@ fn append_roofs(detail: &mut BuildingDetail, plan: &BuildingPlan) {
             }
         }
         for enclosure in &roof.enclosure_faces {
-            for triangle in tessellate_roof_enclosure(enclosure) {
-                let mesh = detail.mesh_mut(plan.workplace.as_ref().map_or_else(
-                    || roof_surface_material(enclosure.material, triangle.surface),
-                    |workplace| workplace.gable_material().render_material(),
-                ));
-                mesh.push_triangle(
-                    triangle.positions,
-                    triangle.normal,
-                    triangle.planar_uvs(BUILDING_DETAIL_UV_METRES_PER_UNIT),
-                );
-            }
+            enclosures::append(detail, plan, enclosure);
         }
     }
 }
@@ -201,180 +275,6 @@ fn roof_surface_material(exterior: RoofMaterial, surface: RoofSurface) -> Buildi
         RoofSurface::Weather | RoofSurface::Boundary | RoofSurface::Enclosure => {
             BuildingLodMaterial::Roof(exterior)
         }
-    }
-}
-
-fn append_oriented_cuboid(
-    detail: &mut BuildingDetail,
-    material: BuildingLodMaterial,
-    solid: &ResolvedSolid,
-    wall: Option<&crate::WallAssembly>,
-) {
-    let fachwerk_member = is_fachwerk_member_role(solid.role);
-    let resolved_yaw = if matches!(
-        solid.role,
-        SolidRole::RoofFraming
-            | SolidRole::RoofFlashing
-            | SolidRole::RoofGutter
-            | SolidRole::RoofEdgeTreatment
-    ) {
-        -solid.yaw_radians
-    } else {
-        solid.yaw_radians
-    };
-    let rotation = Quat::from_rotation_y(resolved_yaw)
-        * Quat::from_rotation_x(solid.crossfall_radians)
-        * Quat::from_rotation_z(solid.longfall_radians);
-    let (render_centre, render_size) =
-        render_cuboid_placement(solid, wall, fachwerk_member, rotation);
-    append_cuboid_faces(detail, material, render_centre, render_size, rotation, wall);
-}
-
-fn is_fachwerk_member_role(role: SolidRole) -> bool {
-    matches!(
-        role,
-        SolidRole::FrameMember
-            | SolidRole::FrameSill
-            | SolidRole::FramePost
-            | SolidRole::FramePlate
-            | SolidRole::FrameRail
-            | SolidRole::FrameTie
-            | SolidRole::FrameBrace
-            | SolidRole::FrameJettyBeam
-            | SolidRole::FrameKnagge
-            | SolidRole::FrameGableMember
-            | SolidRole::FrameDormerTrimmer
-            | SolidRole::FrameOrnament
-    )
-}
-
-fn render_cuboid_placement(
-    solid: &ResolvedSolid,
-    wall: Option<&crate::WallAssembly>,
-    fachwerk_member: bool,
-    rotation: Quat,
-) -> (Vec3, Vec3) {
-    let mut render_size = if fachwerk_member {
-        solid.size + Vec3::splat(TIMBER_SEAM_COVER_METRES * 2.0)
-    } else {
-        solid.size
-    };
-    let mut render_centre = solid.centre;
-    if let Some(wall) =
-        wall.filter(|wall| fachwerk_member && wall.material == WallMaterialClass::TimberInfill)
-    {
-        let outward = Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y);
-        let local_axes = [rotation * Vec3::X, rotation * Vec3::Y, rotation * Vec3::Z];
-        let projected_half_extent = local_axes
-            .into_iter()
-            .zip(render_size.to_array())
-            .map(|(axis, extent)| axis.dot(outward).abs() * extent)
-            .sum::<f32>()
-            * 0.5;
-        let inner_plane = wall.frame.origin.dot(wall.frame.outward) - wall.thickness_metres * 0.5;
-        let current_inner_extent = render_centre.dot(outward) - projected_half_extent;
-        let missing_depth =
-            (current_inner_extent - (inner_plane - TIMBER_SEAM_COVER_METRES)).max(0.0);
-
-        if missing_depth > 0.0 {
-            let x_alignment = local_axes[0].dot(outward).abs();
-            let z_alignment = local_axes[2].dot(outward).abs();
-            let (depth_axis, alignment) = if x_alignment >= z_alignment {
-                (0, x_alignment)
-            } else {
-                (2, z_alignment)
-            };
-            if alignment > f32::EPSILON {
-                render_size[depth_axis] += missing_depth / alignment;
-                render_centre -= outward * missing_depth * 0.5;
-            }
-        }
-    }
-    (render_centre, render_size)
-}
-
-fn append_cuboid_faces(
-    detail: &mut BuildingDetail,
-    material: BuildingLodMaterial,
-    centre: Vec3,
-    size: Vec3,
-    rotation: Quat,
-    wall: Option<&crate::WallAssembly>,
-) {
-    let half = size * 0.5;
-    let local = [
-        Vec3::new(-half.x, -half.y, -half.z),
-        Vec3::new(half.x, -half.y, -half.z),
-        Vec3::new(half.x, half.y, -half.z),
-        Vec3::new(-half.x, half.y, -half.z),
-        Vec3::new(-half.x, -half.y, half.z),
-        Vec3::new(half.x, -half.y, half.z),
-        Vec3::new(half.x, half.y, half.z),
-        Vec3::new(-half.x, half.y, half.z),
-    ];
-    let point = |index: usize| centre + rotation * local[index];
-    for (indices, normal, u_axis, v_axis) in [
-        ([0, 3, 2, 1], -Vec3::Z, Vec3::X, Vec3::Y),
-        ([4, 5, 6, 7], Vec3::Z, Vec3::X, Vec3::Y),
-        ([0, 4, 7, 3], -Vec3::X, Vec3::Z, Vec3::Y),
-        ([1, 2, 6, 5], Vec3::X, Vec3::Z, Vec3::Y),
-        ([0, 1, 5, 4], -Vec3::Y, Vec3::X, Vec3::Z),
-        ([3, 7, 6, 2], Vec3::Y, Vec3::X, Vec3::Z),
-    ] {
-        let positions = indices.map(point);
-        let world_normal = rotation * normal;
-        let wall_uvs = wall.filter(|wall| {
-            let outward = Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y);
-            world_normal.dot(outward).abs() > 0.99
-        });
-        detail
-            .mesh_mut(interior_face_material(material, wall, world_normal))
-            .push_quad(
-                positions,
-                world_normal,
-                if let Some(wall) = wall_uvs {
-                    positions.map(|position| wall_surface_uv(wall, position))
-                } else {
-                    indices.map(|index| {
-                        Vec2::new(local[index].dot(u_axis), local[index].dot(v_axis))
-                            / BUILDING_DETAIL_UV_METRES_PER_UNIT
-                    })
-                },
-            );
-    }
-}
-
-fn interior_face_material(
-    material: BuildingLodMaterial,
-    wall: Option<&crate::WallAssembly>,
-    face_normal: Vec3,
-) -> BuildingLodMaterial {
-    let Some(wall) = wall else {
-        return material;
-    };
-    let outward = Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y);
-    if matches!(material, BuildingLodMaterial::Wall(_))
-        && wall.frame.inside_room.is_some()
-        && wall.frame.outside_room.is_none()
-        && face_normal.dot(outward) < -0.99
-    {
-        BuildingLodMaterial::InteriorPlaster
-    } else {
-        material
-    }
-}
-
-fn wall_surface_uv(wall: &crate::WallAssembly, point: Vec3) -> Vec2 {
-    let tangent = canonical_wall_texture_tangent(wall.frame.tangent);
-    Vec2::new(Vec2::new(point.x, point.z).dot(tangent), point.y)
-        / BUILDING_DETAIL_UV_METRES_PER_UNIT
-}
-
-fn canonical_wall_texture_tangent(tangent: Vec2) -> Vec2 {
-    if tangent.x < -f32::EPSILON || (tangent.x.abs() <= f32::EPSILON && tangent.y < 0.0) {
-        -tangent
-    } else {
-        tangent
     }
 }
 
@@ -822,7 +722,18 @@ mod tests {
 
         assert_eq!(
             triangle_count(&self_contained) - triangle_count(&static_detail),
-            (operable_doors.len() + operable_windows.len()) * 12
+            operable_doors.len() * 12
+                + operable_windows
+                    .iter()
+                    .map(|window| crate::compile_window_leaf(
+                        window.size_metres,
+                        window.leaf,
+                        crate::ClosureState::Operable
+                    )
+                    .iter()
+                    .map(|mesh| mesh.indices.len() / 3)
+                    .sum::<usize>())
+                    .sum::<usize>()
         );
     }
 
@@ -934,11 +845,13 @@ mod tests {
 
     #[test]
     fn exterior_wall_back_faces_keep_positions_and_wall_local_uvs_paired() {
-        let plan = generate(&BuildingProgram::fixture(
+        let mut plan = generate(&BuildingProgram::fixture(
             BuildingArchetype::FachwerkMerchantHouse,
             42,
         ))
         .unwrap();
+        // Isolate wall surfaces: roof linings have their own planar UV basis.
+        plan.roof_assemblies.clear();
         let detail = compile_building_detail(&plan);
         let plaster = detail
             .meshes

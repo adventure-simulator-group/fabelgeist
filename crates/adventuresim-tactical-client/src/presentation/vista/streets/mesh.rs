@@ -164,6 +164,39 @@ mod tests {
     use super::*;
 
     #[test]
+    fn short_surveyed_street_segment_has_finite_nonempty_ground_triangles() {
+        let terrain = SceneTerrain::new(12, 12, 1.0, |_| 0.0);
+        let mut support = GroundSupport::default();
+        support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        let mut builder = CitySurfaceMeshBuilder::default();
+        builder.append_street(
+            CityStreetPatch::Corridor {
+                start_metres: Vec2::ZERO,
+                end_metres: Vec2::new(0.5, 0.01),
+                half_width_metres: 3.5,
+                surface: CityStreetSurface::Fieldstone,
+            },
+            &support,
+            &[],
+        );
+        assert!(!builder.chunks.is_empty());
+        for vertices in builder.chunks.values() {
+            assert!(vertices.positions.iter().flatten().all(|v| v.is_finite()));
+            assert!(
+                vertices
+                    .positions
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
+                    .all(|triangle| {
+                        let [a, b, c] = triangle.map(Vec3::from_array);
+                        (b - a).cross(c - a).length_squared() > f32::EPSILON
+                    })
+            );
+        }
+    }
+
+    #[test]
     fn clipped_road_clears_spikes_and_true_terrain_diagonals_at_triangle_interiors() {
         let terrain = SceneTerrain::new(12, 12, 1.0, |point| {
             if point.x == 6.0 && point.y == 6.0 {

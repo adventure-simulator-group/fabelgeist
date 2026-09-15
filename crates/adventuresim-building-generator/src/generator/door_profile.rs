@@ -25,6 +25,7 @@ pub(super) fn resolve(
     let head = if matches!(
         archetype,
         BuildingArchetype::TownHouse
+            | BuildingArchetype::StorageRange
             | BuildingArchetype::HallHouse
             | BuildingArchetype::FachwerkCottage
             | BuildingArchetype::FachwerkMerchantHouse

@@ -31,6 +31,7 @@ pub(crate) fn clear_demo_scene(world: &mut World) {
             .query_filtered::<Entity, Or<(
                 With<vista::streets::CityStreetPresentation>,
                 With<vista::streets::CityYardPresentation>,
+                With<SceneBoundary>,
             )>>()
             .iter(world),
     );

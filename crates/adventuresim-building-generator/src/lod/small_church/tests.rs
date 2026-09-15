@@ -180,7 +180,10 @@ fn boarded_belfry_skirts_keep_their_exact_material_at_both_lod_levels() {
             "{usage:?} has no canonical boarded belfry skirt"
         );
         for face in skirts {
-            for triangle in tessellate_roof_enclosure(face) {
+            for triangle in tessellate_roof_enclosure(face)
+                .into_iter()
+                .filter(|triangle| triangle.surface != RoofSurface::Interior)
+            {
                 for meshes in [&detail.meshes, &facade.meshes, &shell.meshes] {
                     assert!(meshes.iter().filter(|mesh| mesh.material == BuildingLodMaterial::Roof(face.material))
                         .any(|mesh| mesh.indices.as_chunks::<3>().0.iter().any(|indices| {

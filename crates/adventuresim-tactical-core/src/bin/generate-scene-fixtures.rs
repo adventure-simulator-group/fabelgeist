@@ -4,8 +4,9 @@ use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
 use adventuresim_tactical_core::prelude::*;
 use bevy::math::Vec2;
-use fabelgeist_determinism::splitmix64;
 
+#[path = "generate_scene_fixtures/compound.rs"]
+mod compound;
 #[path = "generate_scene_fixtures/fault.rs"]
 mod fault;
 #[path = "generate_scene_fixtures/furniture.rs"]
@@ -53,6 +54,7 @@ enum BuildingFixture {
     FurnitureReview,
     InteriorFurnitureCatalog,
     InteriorFurnitureRooms,
+    CompoundReview,
 }
 
 fn main() {
@@ -80,9 +82,10 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 24] {
+fn fixtures() -> [Fixture; 25] {
     [
         parish::fixture(),
+        compound::fixture(),
         furniture::fixture(),
         interior::catalog_fixture(),
         interior::rooms_fixture(),
@@ -235,13 +238,13 @@ const fn fixture(
 }
 
 fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
-    let (streets, yards, buildings, distant_buildings) = fixture_buildings(fixture.buildings);
+    let city = fixture_buildings(fixture.buildings);
     let mut vista = vista(
         fixture.vista,
         fixture.environment,
         (fixture.terrain)(0.0, 0.0),
     );
-    level_city_vista(&mut vista, !distant_buildings.is_empty());
+    level_city_vista(&mut vista, !city.distant.is_empty());
     TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -261,10 +264,11 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
             fixture.environment,
         ),
         landform: fixture.landform,
-        streets,
-        yards,
-        buildings,
-        distant_buildings,
+        streets: city.streets,
+        yards: city.yards,
+        compounds: city.compounds,
+        buildings: city.playable,
+        distant_buildings: city.distant,
         vista,
         weather: fixture.weather,
     }
@@ -272,101 +276,52 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
 
 fn fixture_buildings(
     buildings: BuildingFixture,
-) -> (
-    Vec<CityStreetPatch>,
-    Vec<CityYardPatch>,
-    Vec<TacticalBuildingPlacement>,
-    Vec<DistantBuildingPlacement>,
-) {
+) -> adventuresim_tactical_core::city_layout::CitySceneLayout {
+    use adventuresim_tactical_core::city_layout::CitySceneLayout;
     match buildings {
-        BuildingFixture::Empty => (Vec::new(), Vec::new(), Vec::new(), Vec::new()),
-        BuildingFixture::InteriorFurnitureCatalog => {
-            (Vec::new(), interior::yards(), Vec::new(), Vec::new())
-        }
-        BuildingFixture::InteriorFurnitureRooms => (
-            Vec::new(),
-            interior::yards(),
-            interior::buildings(),
-            Vec::new(),
-        ),
-        BuildingFixture::Cottage => (
-            Vec::new(),
-            Vec::new(),
-            vec![building(
+        BuildingFixture::CompoundReview => compound::layout(),
+        BuildingFixture::Empty => CitySceneLayout::default(),
+        BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {
+            yards: interior::yards(),
+            ..Default::default()
+        },
+        BuildingFixture::InteriorFurnitureRooms => CitySceneLayout {
+            yards: interior::yards(),
+            playable: interior::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::Cottage => CitySceneLayout {
+            playable: vec![building(
                 1,
                 BuildingArchetype::FachwerkCottage,
                 42,
                 Vec2::new(12.0, 4.0),
                 BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),
             )],
-            Vec::new(),
-        ),
-        BuildingFixture::MassiveCity => massive_city_buildings(),
-        BuildingFixture::ParishReview => {
-            (Vec::new(), parish::yards(), parish::buildings(), Vec::new())
-        }
-        BuildingFixture::FurnitureReview => (
-            furniture::streets(),
-            furniture::yards(),
-            furniture::buildings(),
-            Vec::new(),
-        ),
+            ..Default::default()
+        },
+        BuildingFixture::MassiveCity => CitySite::central_german_market_town()
+            .generate(
+                47_114,
+                MASSIVE_CITY_RESIDENT_POPULATION,
+                &massive_city_economy(),
+            )
+            .compile(47_114)
+            .expect("city properties must compile")
+            .partition(Some(MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES))
+            .expect("city must fit tactical budget"),
+        BuildingFixture::ParishReview => CitySceneLayout {
+            yards: parish::yards(),
+            playable: parish::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::FurnitureReview => CitySceneLayout {
+            streets: furniture::streets(),
+            yards: furniture::yards(),
+            playable: furniture::buildings(),
+            ..Default::default()
+        },
     }
-}
-
-fn massive_city_buildings() -> (
-    Vec<CityStreetPatch>,
-    Vec<CityYardPatch>,
-    Vec<TacticalBuildingPlacement>,
-    Vec<DistantBuildingPlacement>,
-) {
-    let recipe_seeds = [42, 47, 101];
-    let mut playable = Vec::new();
-    let mut distant = Vec::new();
-    let mut recipes = std::collections::BTreeMap::new();
-    let city = generate_city(
-        47_114,
-        MASSIVE_CITY_RESIDENT_POPULATION,
-        &massive_city_economy(),
-    );
-    for lot in city.lots {
-        let selection = splitmix64(47_114 ^ 0x6469_7374_616e_7401 ^ lot.id);
-        let archetype = lot.archetype();
-        let usage = lot
-            .building_use()
-            .unwrap_or(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling);
-        let initial_seed = recipe_seeds[selection as usize % recipe_seeds.len()];
-        let size = lot.service_size();
-        let key = (archetype.slug(), usage, initial_seed, size);
-        let program = recipes
-            .entry(key)
-            .or_insert_with(|| {
-                BuildingProgram::validated_settlement(archetype, usage, initial_seed, size)
-                    .expect("city fixture needs a valid occupied building recipe")
-            })
-            .clone();
-        let seed = program.seed;
-        if lot.centre_metres.abs().max_element() <= MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES {
-            playable.push(TacticalBuildingPlacement {
-                id: lot.id,
-                program,
-                centre_metres: lot.centre_metres,
-                orientation: lot.orientation,
-            });
-        } else {
-            distant.push(DistantBuildingPlacement {
-                usage: Some(usage),
-                service_size: program.service_size,
-                id: lot.id,
-                archetype,
-                seed,
-                centre_metres: lot.centre_metres,
-                base_elevation_metres: 0.0,
-                orientation: lot.orientation,
-            });
-        }
-    }
-    (city.streets, city.yards, playable, distant)
 }
 
 fn level_city_vista(vista: &mut VistaSample, has_city: bool) {

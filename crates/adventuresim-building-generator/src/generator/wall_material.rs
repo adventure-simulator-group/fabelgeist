@@ -9,6 +9,7 @@ pub(super) fn wall_material_and_thickness(
         return if matches!(
             archetype,
             BuildingArchetype::TownHouse
+                | BuildingArchetype::StorageRange
                 | BuildingArchetype::HallHouse
                 | BuildingArchetype::FachwerkCottage
                 | BuildingArchetype::FachwerkMerchantHouse
@@ -28,7 +29,13 @@ pub(super) fn wall_material_and_thickness(
         };
     }
     match archetype {
+        BuildingArchetype::FachwerkMerchantHouse if level == 0 => (
+            crate::WallMaterialClass::CivilianMasonry,
+            crate::WallStructuralRole::LoadBearing,
+            0.50,
+        ),
         BuildingArchetype::TownHouse
+        | BuildingArchetype::StorageRange
         | BuildingArchetype::HallHouse
         | BuildingArchetype::FachwerkCottage
         | BuildingArchetype::FachwerkMerchantHouse => (

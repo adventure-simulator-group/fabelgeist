@@ -59,6 +59,13 @@ pub(super) fn material_for_solid_body(
         WallStyle::TimberFrame | WallStyle::Plaster => WallMaterialClass::TimberInfill,
     });
     match solid.role {
+        SolidRole::ChurchBellFitting | SolidRole::ChurchBellAxle | SolidRole::ChurchBellBearing => {
+            BuildingLodMaterial::Iron
+        }
+        SolidRole::ChurchBellCrown => BuildingLodMaterial::Bronze,
+        SolidRole::ChurchBellFrame | SolidRole::ChurchBellHeadstock => {
+            BuildingLodMaterial::InteriorTimber
+        }
         SolidRole::EdgeGuard
         | SolidRole::FrameMember
         | SolidRole::FrameSill

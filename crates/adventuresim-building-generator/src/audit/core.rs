@@ -159,6 +159,7 @@ fn audit_structural_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>
     audit_projected_defenses(plan, issues);
     audit_roof_assemblies(plan, issues);
     audit_church_assembly(plan, issues);
+    bell_hanging::audit(plan, issues);
     crate::generator::small_church::audit_small_church(plan, issues);
     audit_timber_frame(plan, issues);
     audit_vertical_circulation(plan, issues);

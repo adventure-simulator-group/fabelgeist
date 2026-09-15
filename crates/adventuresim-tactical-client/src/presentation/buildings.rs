@@ -7,6 +7,7 @@ use bevy::ecs::hierarchy::ChildSpawnerCommands;
 use super::recipe_mesh::recipe_mesh;
 use super::*;
 
+mod boundaries;
 mod city_detail;
 mod materials;
 mod prepared;

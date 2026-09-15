@@ -1,4 +1,5 @@
 use super::*;
+mod glazing;
 
 #[cfg(test)]
 mod tests;
@@ -50,6 +51,9 @@ pub(super) fn append(
                 }),
             );
         }
+    }
+    if solid.role == SolidRole::LeadedGlazing {
+        glazing::append(detail, &strips);
     }
     true
 }

@@ -92,6 +92,7 @@ fn circulation_reservations(
     obstacles: &mut Vec<Rect>,
 ) -> Vec<Rect> {
     let mut reserved = door_reservations(plan, height);
+    reserved.extend(super::church::nave_routes(plan, height));
     if let Some(workplace) = &plan.workplace {
         for passage in &workplace.passages {
             if passage.min.y < height + PERSON_HEIGHT && passage.max.y > height + FLOOR_CLEARANCE {

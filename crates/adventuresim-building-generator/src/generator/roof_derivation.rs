@@ -7,7 +7,7 @@ fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
     );
     let top = program.storeys.len() as f32 * program.storey_height_metres;
     match (program.archetype, program.footprint) {
-        (BuildingArchetype::TownHouse | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace
+        (BuildingArchetype::TownHouse | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace | BuildingArchetype::StorageRange
             | BuildingArchetype::HallHouse | BuildingArchetype::FachwerkCottage
             | BuildingArchetype::FachwerkMerchantHouse | BuildingArchetype::RenaissanceTownHall, _) => vec![RoofPiece::civilian(program)],
         (BuildingArchetype::Cathedral, _) => vec![
@@ -256,6 +256,6 @@ fn derive_roof_dormers(program: &BuildingProgram) -> Vec<RoofDormer> {
                 GableProfile::Curved,
             ),
         ],
-        BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace => Vec::new(),
+        BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace | BuildingArchetype::StorageRange => Vec::new(),
     }
 }

@@ -24,7 +24,7 @@ ceiling = 1488
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
-ceiling = 1782
+ceiling = 1767
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/audit/wall_openings.rs"
@@ -72,7 +72,7 @@ ceiling = 737
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
-ceiling = 2758
+ceiling = 2706
 
 [[files]]
 path = "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs"
@@ -664,7 +664,7 @@ ceiling = 959
 
 [[files]]
 path = "crates/adventuresim-tactical-core/src/scene_input.rs"
-ceiling = 1088
+ceiling = 1039
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
@@ -947,7 +947,7 @@ ceiling = 1488
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber.rs"
 item = "audit_timber_frame"
-ceiling = 1782
+ceiling = 1767
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/audit/timber_intersections.rs"
@@ -1127,7 +1127,7 @@ ceiling = 126
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/timber.rs"
 item = "resolve_timber_frame_assembly"
-ceiling = 2159
+ceiling = 2121
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/tower_derivation.rs"
@@ -1142,7 +1142,7 @@ ceiling = 1173
 [[functions]]
 path = "crates/adventuresim-building-generator/src/generator/wall_derivation.rs"
 item = "derive_openings"
-ceiling = 237
+ceiling = 170
 
 [[functions]]
 path = "crates/adventuresim-building-generator/src/model/player_build.rs"
@@ -14622,7 +14622,7 @@ occurrences = 1
 
 [[findings]]
 rule = "semantic-family:e7-coordinates"
-path = "crates/adventuresim-tactical-core/src/scene_input.rs"
+path = "crates/adventuresim-tactical-core/src/scene_input/environment.rs"
 item = "SceneEnvironmentFixture::snapshot"
 fingerprint = "10000000"
 occurrences = 1

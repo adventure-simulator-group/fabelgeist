@@ -68,7 +68,7 @@ fn on_furniture_added(
         FurnitureLocation::Interior { .. } => None,
         FurnitureLocation::Outdoor { .. } => Some(VisibilityRange {
             start_margin: 0.0..0.0,
-            end_margin: match instance.key.kind {
+            end_margin: match instance.key.kind() {
                 FurnitureKind::CanvasStall => STALL_FADE_METRES,
                 _ => SMALL_FURNITURE_FADE_METRES,
             },
@@ -81,7 +81,7 @@ fn on_furniture_added(
         .with_children(|parent| {
             for batch in batches.iter() {
                 let mut mesh = parent.spawn((
-                    Name::new(format!("{:?} furniture", instance.key.kind)),
+                    Name::new(format!("{:?} furniture", instance.key.kind())),
                     PresentedFurnitureMesh {
                         material: batch.material,
                     },

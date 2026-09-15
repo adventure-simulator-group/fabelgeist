@@ -19,6 +19,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     }
     // The display buildings are loaded separately. Passing them into tactical
     // generation would compile every recipe again to place unused furniture.
+    let compounds = std::mem::take(&mut input.compounds);
     let distant_buildings = std::mem::take(&mut input.distant_buildings);
     let generated = input.generate().map_err(|error| error.to_string())?;
     let environment = input.environment_snapshot(generated.digest.clone());
@@ -44,6 +45,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         distant_buildings,
         streets: input.streets,
         yards: input.yards,
+        compounds,
         furniture_groups: generated.furniture.groups,
         distant_furniture: Vec::new(),
         lods: input.vista.lods,

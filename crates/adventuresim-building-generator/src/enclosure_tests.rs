@@ -171,12 +171,14 @@ fn enclosure_actual_fachwerk_scene_passes() {
         "../../../assets/tactical-scenes/massive-city.json"
     ))
     .unwrap();
-    let building = scene["buildings"]
+    let program = scene["buildings"]
         .as_array()
         .unwrap()
         .iter()
-        .find(|building| building["id"] == 3)
-        .unwrap();
-    let program: BuildingProgram = serde_json::from_value(building["program"].clone()).unwrap();
+        .map(|building| {
+            serde_json::from_value::<BuildingProgram>(building["program"].clone()).unwrap()
+        })
+        .find(|program| program.archetype == BuildingArchetype::FachwerkMerchantHouse)
+        .expect("city fixture retains a playable Fachwerk merchant house");
     assert!(generate(&program).is_ok());
 }

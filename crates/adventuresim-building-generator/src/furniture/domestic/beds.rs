@@ -1,7 +1,4 @@
 use super::*;
-use crate::BuildingLodMaterial;
-use crate::furniture::builder::CollisionPolicy;
-use bevy::math::Quat;
 
 pub(super) fn assemble(builder: &mut Builder, kind: FurnitureKind, size: Vec3) {
     let post = 0.075;
@@ -27,7 +24,7 @@ pub(super) fn assemble(builder: &mut Builder, kind: FurnitureKind, size: Vec3) {
                 Vec3::new(size.x - post, rail_top - 0.48, 0.045),
             );
         } else {
-            // Ward furniture has an open, easily cleaned spindle frame.
+            // Open rails distinguish communal frames without a modern hospital-bed silhouette.
             for fraction in [-0.3, 0.0, 0.3] {
                 builder.timber(
                     Vec3::new(size.x * fraction, (rail_top + 0.4) * 0.5, z),
@@ -65,11 +62,5 @@ fn deck(builder: &mut Builder, size: Vec3, height: f32) {
         Vec3::Y * height,
         Vec3::new(size.x - 0.075, 0.06, size.z - 0.15),
     );
-    builder.cuboid(
-        BuildingLodMaterial::UndyedCloth,
-        Vec3::Y * (height + 0.115),
-        Vec3::new(size.x - 0.16, 0.17, size.z - 0.19),
-        Quat::IDENTITY,
-        CollisionPolicy::Solid,
-    );
+    super::bedding::dress(builder, size, height);
 }

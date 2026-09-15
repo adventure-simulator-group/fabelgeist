@@ -278,12 +278,20 @@ fn lod_material(
         | BuildingLodMaterial::CrownMasonry
         | BuildingLodMaterial::DressedStone => &textures.stone,
         BuildingLodMaterial::Roof(_) => &textures.roof,
-        BuildingLodMaterial::FachwerkBaked => &textures.plaster,
         BuildingLodMaterial::Timber | BuildingLodMaterial::Floor => &textures.roof,
         BuildingLodMaterial::InteriorTimber => &textures.roof,
         BuildingLodMaterial::InteriorPlaster => &textures.plaster,
         BuildingLodMaterial::Iron | BuildingLodMaterial::Glass => &textures.details,
-        BuildingLodMaterial::Grain
+        BuildingLodMaterial::CarvedSandstone
+        | BuildingLodMaterial::LeadAlloy
+        | BuildingLodMaterial::Bronze
+        | BuildingLodMaterial::CandleWax
+        | BuildingLodMaterial::Earthenware
+        | BuildingLodMaterial::GlazedTile
+        | BuildingLodMaterial::Millstone
+        | BuildingLodMaterial::TimberEndGrain
+        | BuildingLodMaterial::FurnitureWood(_)
+        | BuildingLodMaterial::Grain
         | BuildingLodMaterial::DyedCloth
         | BuildingLodMaterial::UndyedCloth
         | BuildingLodMaterial::Hide
@@ -297,6 +305,7 @@ fn lod_material(
                 .add(StandardMaterial {
                     base_color: Color::srgb(surface.srgb[0], surface.srgb[1], surface.srgb[2]),
                     perceptual_roughness: surface.perceptual_roughness,
+                    metallic: surface.metallic,
                     ..default()
                 });
         }

@@ -50,7 +50,7 @@ impl Candidate {
         let mut minimum = Vec2::splat(f32::INFINITY);
         let mut maximum = Vec2::splat(f32::NEG_INFINITY);
         for kind in composition::kinds(kind, id) {
-            let key = FurnitureKey { kind, variant };
+            let key = FurnitureKey::natural(kind, variant);
             let (min, max) = reservation_bounds(key);
             let offset = if items.is_empty() {
                 Vec2::ZERO

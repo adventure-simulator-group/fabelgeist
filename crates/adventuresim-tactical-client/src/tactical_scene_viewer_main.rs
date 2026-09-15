@@ -64,6 +64,7 @@ enum CaptureProfile {
     WorkplaceReview,
     /// Capacity-scaled chapel and parish church architectural review.
     ParishReview,
+    CompoundReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -177,6 +178,7 @@ fn main() {
             CaptureProfile::ShopSignReview => "shop-sign-review",
             CaptureProfile::WorkplaceReview => "workplace-review",
             CaptureProfile::ParishReview => "parish-review",
+            CaptureProfile::CompoundReview => "compound-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",

@@ -33,6 +33,7 @@ pub(in crate::tactical_scene_viewer) fn spawn_openings(
         commands.spawn((
             Name::new("Closed fixture window"),
             SceneWindow {
+                leaf: window.leaf,
                 building_id: building.placement.id,
                 opening_id: window.opening.0,
                 size_metres: window.size_metres,
