@@ -32,11 +32,17 @@ use super::{
 
 // Ground-scatter orchestration and shared presentation contracts.
 
+mod cover_mask;
 mod grass;
+mod layers;
+use layers::GroundScatterPresented;
+pub(crate) use layers::{GrassInteractor, GroundScatterLayer};
 pub(crate) mod instanced_grass;
 mod instanced_understory;
 mod litter;
 mod loose_stone;
+pub(super) mod plants;
+pub(crate) use plants::{PlantCaptureAnchors, PlantLodInstance};
 mod review_specimens;
 
 pub(crate) use review_specimens::{UnderstoryReviewSpecimen, spawn_understory_review_specimens};
@@ -588,22 +594,6 @@ impl Material for TacticalFoliageMaterial {
         Ok(())
     }
 }
-
-#[derive(Component, Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) enum GroundScatterLayer {
-    Grass,
-    Understory,
-    DryLeaves,
-    Twigs,
-    LooseStone,
-}
-
-#[derive(Component)]
-pub(in crate::presentation) struct GroundScatterPresented;
-
-/// Marks the locally controlled character whose movement bends nearby grass.
-#[derive(Component)]
-pub(crate) struct GrassInteractor;
 
 const FOLIAGE_SHADER: &str = "shaders/tactical_foliage.wgsl";
 
