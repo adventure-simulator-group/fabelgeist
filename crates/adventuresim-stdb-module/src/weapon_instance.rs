@@ -2,9 +2,8 @@
 
 use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
 use adventuresim_weapon_model::{
-    GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, WeaponDesign, WeaponHolderDesign, decode,
-    decode_holder, default_design, default_holder_design, derive_holder_properties,
-    derive_properties, design_hash, encode, encode_holder, holder_design_hash,
+    GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, WeaponDesign, WeaponHolderDesign, default_design,
+    default_holder_design, design_hash, holder_design_hash,
 };
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
@@ -14,7 +13,12 @@ use crate::strategic::PartyInventoryItem;
 use crate::strategic::strategic_gateway_authority__view;
 use crate::{InventoryItem, PersistedItemKind, inventory_object};
 
-pub const MAX_WEAPON_RECIPE_BYTES: usize = 16 * 1024;
+mod appearance;
+mod evaluation;
+pub(crate) use appearance::{connected_appearance, connected_holder_appearance};
+use evaluation::{evaluate_holder_instance, evaluate_instance};
+
+pub const MAX_WEAPON_RECIPE_BYTES: usize = adventuresim_weapon_model::MAX_ENCODED_RECIPE_BYTES;
 
 fn checked_scaled_u32(value: f32, scale: f32, label: &str) -> Result<u32, String> {
     let scaled = value * scale;
@@ -129,54 +133,6 @@ pub struct ConnectedWeaponAppearance {
     pub grip_to_tip_m: f32,
 }
 
-fn instance_for_design(
-    physical_object_id: u64,
-    design: &WeaponDesign,
-) -> Result<WeaponInstance, String> {
-    let derived = derive_properties(design).map_err(|errors| format!("{errors:?}"))?;
-    let recipe = encode(design).map_err(|error| error.to_string())?;
-    if recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-        return Err("Weapon recipe exceeds the tactical transport limit".into());
-    }
-    let mass_grams = checked_scaled_u32(derived.mass_kg, 1_000.0, "mass")?.max(1);
-    let length_mm = checked_scaled_u32(derived.length_m, 1_000.0, "length")?.max(1);
-    let grip_to_tip_mm =
-        checked_scaled_u32(derived.grip_to_tip_m, 1_000.0, "grip-to-tip distance")?;
-    Ok(WeaponInstance {
-        physical_object_id,
-        generator_version: GENERATOR_VERSION,
-        design_hash: design_hash(design).0.to_vec(),
-        recipe,
-        mass_grams,
-        length_mm,
-        grip_to_tip_mm,
-    })
-}
-
-fn holder_instance_for_design(
-    physical_object_id: u64,
-    design: &WeaponHolderDesign,
-) -> Result<WeaponHolderInstance, String> {
-    let recipe = encode_holder(design).map_err(|error| error.to_string())?;
-    if recipe.len() > MAX_WEAPON_RECIPE_BYTES {
-        return Err("Weapon holder recipe exceeds the tactical transport limit".into());
-    }
-    let derived = derive_holder_properties(design).map_err(|errors| format!("{errors:?}"))?;
-    Ok(WeaponHolderInstance {
-        physical_object_id,
-        generator_version: HOLDER_GENERATOR_VERSION,
-        design_hash: holder_design_hash(design).0.to_vec(),
-        recipe,
-        mass_grams: checked_scaled_u32(derived.mass_kg, 1_000.0, "holder mass")?.max(1),
-        length_mm: checked_scaled_u32(derived.length_m, 1_000.0, "holder length")?.max(1),
-        grip_to_tip_mm: checked_scaled_u32(
-            derived.grip_to_tip_m,
-            1_000.0,
-            "holder anchor-to-tip distance",
-        )?,
-    })
-}
-
 pub(crate) fn initialize_personal_weapon(
     ctx: &ReducerContext,
     inventory: &InventoryItem,
@@ -264,9 +220,8 @@ pub(crate) fn fit_personal_holder(
         .physical_object_id()
         .find(weapon_object.id)
         .ok_or("Fitted weapon has no parametric recipe")?;
-    if !valid_instance(&weapon, &weapon_object.item_id) {
-        return Err("Fitted weapon recipe is invalid".into());
-    }
+    let evaluated = evaluate_instance(&weapon, &weapon_object.item_id)
+        .ok_or("Fitted weapon recipe is invalid")?;
     let expected_holder =
         match adventuresim_weapon_model::recommended_holder(&weapon_object.item_id) {
             Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => "scabbard",
@@ -279,9 +234,9 @@ pub(crate) fn fit_personal_holder(
             weapon_object.item_id
         ));
     }
-    let weapon_design = decode(&weapon.recipe).map_err(|error| error.to_string())?;
+    let weapon_design = evaluated.design();
     let holder_design =
-        default_holder_design(&weapon_design).ok_or("Weapon has no procedural holder template")?;
+        default_holder_design(weapon_design).ok_or("Weapon has no procedural holder template")?;
     replace_holder_design(ctx, holder_object.id, &holder_design)?;
     Ok(())
 }
@@ -303,7 +258,7 @@ pub(crate) fn replace_holder_design(
     if object.item_id != design.catalog_id {
         return Err("Holder design chassis does not match its inventory object".into());
     }
-    let fit = holder_instance_for_design(physical_object_id, design)?;
+    let fit = WeaponHolderInstance::from_design(physical_object_id, design)?;
     if ctx
         .db
         .weapon_holder_instance()
@@ -347,7 +302,7 @@ pub(crate) fn replace_design(
     if design.catalog_id != object.item_id {
         return Err("Weapon design chassis does not match its inventory object".into());
     }
-    let instance = instance_for_design(physical_object_id, design)?;
+    let instance = WeaponInstance::from_design(physical_object_id, design)?;
     if ctx
         .db
         .weapon_instance()
@@ -363,23 +318,6 @@ pub(crate) fn replace_design(
         ctx.db.weapon_instance().insert(instance.clone());
     }
     Ok(())
-}
-
-fn valid_instance(instance: &WeaponInstance, expected_catalog_id: &str) -> bool {
-    if instance.generator_version != GENERATOR_VERSION
-        || instance.design_hash.len() != 32
-        || instance.recipe.len() > MAX_WEAPON_RECIPE_BYTES
-    {
-        return false;
-    }
-    let Ok(design) = decode(&instance.recipe) else {
-        return false;
-    };
-    if design.catalog_id != expected_catalog_id {
-        return false;
-    }
-    instance_for_design(instance.physical_object_id, &design)
-        .is_ok_and(|expected| expected == *instance)
 }
 
 pub(crate) fn combat_geometry(
@@ -399,11 +337,9 @@ pub(crate) fn combat_geometry(
         .weapon_instance()
         .physical_object_id()
         .find(object.id)?;
-    if !valid_instance(&instance, item_id) {
-        return None;
-    }
-    let design = decode(&instance.recipe).ok()?;
-    let derived = derive_properties(&design).ok()?;
+    let evaluated = evaluate_instance(&instance, item_id)?;
+    let design = evaluated.design();
+    let derived = evaluated.derived();
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
         derived.length_m,
@@ -413,118 +349,40 @@ pub(crate) fn combat_geometry(
         derived.balance,
         adventuresim_core::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS
             .contact
-            .precision_for_design(&design)
+            .precision_for_design(design)
             .value(),
     )
 }
 
-pub(crate) fn connected_appearance(
-    ctx: &ViewContext,
+/// Unfitted holders use their catalog construction; fitted instances use their
+/// authenticated material shells and must never silently fall back on corruption.
+pub(crate) fn fitted_holder_mass(
+    ctx: &ReducerContext,
     inventory_row_id: u64,
     item_id: &str,
-) -> Option<ConnectedWeaponAppearance> {
-    let mut objects = ctx
-        .db
-        .inventory_object()
-        .item_id()
-        .filter(""..)
-        .filter(|object| {
-            matches!(
-                &object.location,
-                InventoryLocation::Personal(location) if location.row_id == inventory_row_id
-            )
-        })
-        .filter(|object| object.item_id == item_id);
-    let object = objects.next()?;
-    if objects.next().is_some() {
-        return None;
-    }
-    let instance = ctx
-        .db
-        .weapon_instance()
-        .physical_object_id()
-        .find(object.id)?;
-    if !valid_instance(&instance, item_id) {
-        return None;
-    }
-    Some(ConnectedWeaponAppearance {
-        generator_version: instance.generator_version,
-        design_hash: instance.design_hash,
-        recipe: instance.recipe,
-        mass_kg: instance.mass_grams as f32 / 1_000.0,
-        length_m: instance.length_mm as f32 / 1_000.0,
-        grip_to_tip_m: instance.grip_to_tip_mm as f32 / 1_000.0,
-    })
-}
-
-pub(crate) fn connected_holder_appearance(
-    ctx: &ViewContext,
-    inventory_row_id: u64,
-    item_id: &str,
-) -> Option<ConnectedWeaponAppearance> {
-    if !matches!(item_id, "scabbard" | "weapon_loop") {
-        return None;
-    }
-    let mut objects = ctx
-        .db
-        .inventory_object()
-        .item_id()
-        .filter(""..)
-        .filter(|object| {
-            matches!(
-                &object.location,
-                InventoryLocation::Personal(location) if location.row_id == inventory_row_id
-            )
-        })
-        .filter(|object| object.item_id == item_id);
-    let object = objects.next()?;
-    if objects.next().is_some() {
-        return None;
-    }
-    let holder = ctx
+) -> Result<Option<f32>, String> {
+    let Some(object) = crate::inventory_container::object_for_row(
+        ctx,
+        CarriedInventoryScope::Personal,
+        inventory_row_id,
+    )?
+    else {
+        return Ok(None);
+    };
+    let Some(instance) = ctx
         .db
         .weapon_holder_instance()
         .physical_object_id()
-        .find(object.id)?;
-    if holder.generator_version != HOLDER_GENERATOR_VERSION
-        || holder.design_hash.len() != 32
-        || holder.recipe.len() > MAX_WEAPON_RECIPE_BYTES
-    {
-        return None;
+        .find(object.id)
+    else {
+        return Ok(None);
+    };
+    if object.item_id != item_id {
+        return Err("Holder object has the wrong catalog identity".into());
     }
-    let design = decode_holder(&holder.recipe).ok()?;
-    if design.catalog_id != item_id
-        || holder_design_hash(&design).0.as_slice() != holder.design_hash
-    {
-        return None;
-    }
-    let derived = derive_holder_properties(&design).ok()?;
-    if checked_scaled_u32(derived.mass_kg, 1_000.0, "holder mass")
-        .ok()?
-        .max(1)
-        != holder.mass_grams
-        || checked_scaled_u32(derived.length_m, 1_000.0, "holder length")
-            .ok()?
-            .max(1)
-            != holder.length_mm
-        || checked_scaled_u32(
-            derived.grip_to_tip_m,
-            1_000.0,
-            "holder anchor-to-tip distance",
-        )
-        .ok()?
-            != holder.grip_to_tip_mm
-    {
-        return None;
-    }
-    Some(ConnectedWeaponAppearance {
-        generator_version: holder.generator_version,
-        design_hash: holder.design_hash,
-        recipe: holder.recipe,
-        mass_kg: holder.mass_grams as f32 / 1_000.0,
-        length_m: holder.length_mm as f32 / 1_000.0,
-        grip_to_tip_m: holder.grip_to_tip_mm as f32 / 1_000.0,
-    })
+    let evaluated = evaluate_holder_instance(&instance, item_id)
+        .ok_or("Holder instance does not match its authenticated construction")?;
+    Ok(Some(evaluated.derived().mass_kg))
 }
 
 #[cfg(test)]
@@ -534,10 +392,10 @@ mod tests {
     #[test]
     fn persisted_projection_round_trips_and_rejects_tampering() {
         let design = default_design("longsword").expect("longsword recipe");
-        let mut instance = instance_for_design(42, &design).expect("instance");
-        assert!(valid_instance(&instance, "longsword"));
+        let mut instance = WeaponInstance::from_design(42, &design).expect("instance");
+        assert!(evaluate_instance(&instance, "longsword").is_some());
         instance.recipe[0] ^= 0x55;
-        assert!(!valid_instance(&instance, "longsword"));
+        assert!(evaluate_instance(&instance, "longsword").is_none());
     }
 
     #[test]
@@ -545,16 +403,18 @@ mod tests {
         let first = default_design("longsword").expect("longsword recipe");
         let mut second = first.clone();
         let blade = second
+            .recipe
             .components
             .iter_mut()
             .find_map(|component| match &mut component.shape {
-                adventuresim_weapon_model::ComponentShape::Blade(blade) => Some(blade),
+                adventuresim_weapon_model::recipe::Shape::LoftedBlade(blade) => Some(blade),
                 _ => None,
             })
             .expect("longsword should have a section blade");
-        blade.length.0 += 25;
-        let first = instance_for_design(10, &first).unwrap();
-        let second = instance_for_design(11, &second).unwrap();
+        blade.length =
+            adventuresim_weapon_model::recipe::Metres::new(blade.length.get() + 0.025).unwrap();
+        let first = WeaponInstance::from_design(10, &first).unwrap();
+        let second = WeaponInstance::from_design(11, &second).unwrap();
         assert_ne!(first.physical_object_id, second.physical_object_id);
         assert_ne!(first.design_hash, second.design_hash);
         assert_ne!(first.recipe, second.recipe);
@@ -570,11 +430,11 @@ mod tests {
         let mut second = first.clone();
         second.clearance.0 += 2;
         second.chape_length.0 += 6;
-        let first = holder_instance_for_design(20, &first).unwrap();
-        let second = holder_instance_for_design(21, &second).unwrap();
+        let first = WeaponHolderInstance::from_design(20, &first).unwrap();
+        let second = WeaponHolderInstance::from_design(21, &second).unwrap();
         assert_ne!(first.physical_object_id, second.physical_object_id);
         assert_ne!(first.design_hash, second.design_hash);
         assert_ne!(first.recipe, second.recipe);
-        assert_ne!(first.length_mm, second.length_mm);
+        assert_ne!(first.mass_grams, second.mass_grams);
     }
 }

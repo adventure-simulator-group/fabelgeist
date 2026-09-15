@@ -416,12 +416,23 @@ name = "adventuresim-weapon-model"
 version = "0.1.0"
 dependencies = [
  "glam 0.32.1",
- "postcard",
  "serde",
  "serde_json",
  "sha2",
  "thiserror 2.0.20",
  "tiny-skia",
+]
+
+[[package]]
+name = "adventuresim-weapon-model-browser"
+version = "0.1.0"
+dependencies = [
+ "adventuresim-weapon-model",
+ "serde",
+ "serde_json",
+ "serde_path_to_error",
+ "thiserror 2.0.20",
+ "wasm-bindgen",
 ]
 
 [[package]]

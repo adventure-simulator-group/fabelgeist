@@ -1,7 +1,7 @@
 //! Supersampled orthographic color rasterizer with interpolated normals and depth.
 
 use super::{IconError, Projection, WeaponIconSpec, studio};
-use crate::{MaterialClass, MeshPart};
+use crate::{Material as RecipeMaterial, MeshPart};
 use glam::{Vec2, Vec3};
 
 const CAMERA_YAW_DEGREES: f32 = 12.0;
@@ -51,15 +51,20 @@ struct Material {
     roughness: f32,
 }
 
-impl From<MaterialClass> for Material {
-    fn from(value: MaterialClass) -> Self {
+impl From<RecipeMaterial> for Material {
+    fn from(value: RecipeMaterial) -> Self {
         let (color, metallic, roughness) = match value {
-            MaterialClass::Steel => ([0.62, 0.66, 0.7], 1.0, 0.24),
-            MaterialClass::DarkSteel => ([0.16, 0.19, 0.22], 1.0, 0.36),
-            MaterialClass::Brass => ([0.72, 0.43, 0.13], 1.0, 0.28),
-            MaterialClass::Wood => ([0.26, 0.11, 0.035], 0.0, 0.7),
-            MaterialClass::Leather => ([0.18, 0.065, 0.025], 0.0, 0.65),
-            MaterialClass::DarkLeather => ([0.045, 0.022, 0.014], 0.0, 0.7),
+            RecipeMaterial::Steel => ([0.62, 0.66, 0.7], 1.0, 0.24),
+            RecipeMaterial::DarkSteel => ([0.16, 0.19, 0.22], 1.0, 0.36),
+            RecipeMaterial::Brass => ([0.72, 0.43, 0.13], 1.0, 0.28),
+            RecipeMaterial::Wood => ([0.26, 0.11, 0.035], 0.0, 0.7),
+            RecipeMaterial::Leather => ([0.18, 0.065, 0.025], 0.0, 0.65),
+            RecipeMaterial::DarkLeather => ([0.045, 0.022, 0.014], 0.0, 0.7),
+            material => (
+                material.color().map(|n| n as f32),
+                if material.is_metal() { 1.0 } else { 0.0 },
+                0.5,
+            ),
         };
         Self {
             albedo: Vec3::from_array(color),
@@ -164,9 +169,9 @@ mod tests {
                 depth: vec![f32::NEG_INFINITY; 16],
             };
             let surfaces = if reverse {
-                [(1.0, MaterialClass::Brass), (0.0, MaterialClass::Leather)]
+                [(1.0, RecipeMaterial::Brass), (0.0, RecipeMaterial::Leather)]
             } else {
-                [(0.0, MaterialClass::Leather), (1.0, MaterialClass::Brass)]
+                [(0.0, RecipeMaterial::Leather), (1.0, RecipeMaterial::Brass)]
             };
             for (depth, material) in surfaces {
                 let vertices =

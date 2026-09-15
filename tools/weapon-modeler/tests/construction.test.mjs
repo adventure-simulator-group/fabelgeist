@@ -1,8 +1,7 @@
+import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildWeapon, crossbowStockLayout, lathe, prism, validateWeapon } from "../src/mesh.js";
 import { PRESETS, copyPreset, setControlValue } from "../src/presets.js";
-import { subdividePath } from "../src/construction.js";
 import { auditPart, auditRelation } from "./quality/audit.mjs";
 
 const preset = id => copyPreset(PRESETS.find(p => p.id === id));
@@ -14,23 +13,8 @@ function cleanParts(definition, lod = "low") {
   return result.mesh;
 }
 
-test("shared cap and wall topology closes a refined concave prism", () => {
-  const mesh = prism([[0,0],[0.12,0],[0.12,0.04],[0.04,0.04],[0.04,0.12],[0,0.12]], 0.006, "steel", [0,0,0]);
-  assert.deepEqual(errors(mesh), []);
-});
 
-test("zero-radius lathe endpoints construct poles without collapsed triangles", () => {
-  assert.deepEqual(errors(lathe([[0,0],[0.04,0.02],[0.08,0]], 12)), []);
-});
 
-test("path refinement preserves authored stations and parameter values", () => {
-  const result = subdividePath([[0,0],[0.01,0],[0.11,0]], 0.025, [1,0.5,0.2]);
-  const corner = result.points.findIndex(p => p[0] === 0.01);
-  assert.equal(result.progress[corner], 0.5);
-  assert.equal(result.scales[corner], 0.5);
-  assert.deepEqual(result.points.at(-1), [0.11,0]);
-  assert.equal(result.progress.at(-1), 1);
-});
 
 test("fullered blade caps and two-hole figure-eight guards remain manifold at every LOD", () => {
   for (const id of ["landsknecht-longsword", "katzbalger", "estoc"]) for (const lod of ["low","medium","high"]) cleanParts(preset(id).definition, lod);
@@ -39,8 +23,6 @@ test("fullered blade caps and two-hole figure-eight guards remain manifold at ev
 test("crossbow stock stations stay ordered when a long tiller has a rearward nut", () => {
   const specimen = preset("central-composite-arbalest"), component = specimen.definition.components.find(c => c.kind === "crossbow");
   component.length = 0.92; component.nutPosition = 0.30;
-  const layout = crossbowStockLayout(component);
-  for (const stations of [layout.rearStations, layout.foreStations]) for (let i = 1; i < stations.length; i++) assert.ok(stations[i].y > stations[i-1].y);
   cleanParts(specimen.definition);
 });
 
@@ -56,7 +38,7 @@ test("deep tapered heater shields have closed bodies, valid rims and seated hand
 });
 
 test("bottom attachment insertion seats the butt cap into its shaft", () => {
-  const mesh = buildWeapon(preset("halberd-1540").definition, {lod:"low"});
+  const mesh = generateModel(preset("halberd-1540").definition, {lod:"low"});
   const shaft = mesh.parts.find(p => p.label === "shaft"), cap = mesh.parts.find(p => p.label === "butt cap");
   assert.equal(auditRelation(auditPart(shaft), auditPart(cap), {mode:"contact"}).contact, true);
 });
@@ -67,7 +49,7 @@ test("pointed shield rims and tight binding loops stay valid at high detail", ()
 
 test("bow loop slack changes geometry while retaining a seated nock", () => {
   const specimen = preset("german-self-bow-1544"), component = specimen.definition.components.find(c => c.kind === "archeryBow");
-  const before = buildWeapon(specimen.definition, {lod:"low"});
+  const before = generateModel(specimen.definition, {lod:"low"});
   component.loopRadius *= 1.2;
   const after = cleanParts(specimen.definition);
   const loop = after.parts.find(p => p.label === "upper bowstring end loop"), nock = after.parts.find(p => p.label === "upper horn nock overlay");

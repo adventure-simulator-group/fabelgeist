@@ -1,11 +1,11 @@
-import { automaticGripPoint, buildSkinnedWeaponGlb, encodeGlb, parseGlb } from "../../src/glb-export.js";
+import { buildSkinnedWeaponGlb, encodeGlb, parseGlb } from "../../src/glb-export.js";
 import { triangle, distance, dot } from "./geometry.mjs";
 
 // An actual GLB encode/decode through a translated attachment catches precision
 // loss in the export path as well as the preview's float32 buffers.
 export function auditExport(mesh){
   const rig=encodeGlb({asset:{version:"2.0"},scene:0,scenes:[{nodes:[0]}],nodes:[{name:"r_weapon",translation:[1,2,3]}],skins:[{joints:[0]}],meshes:[],materials:[],accessors:[],bufferViews:[],buffers:[{byteLength:0}]},new Uint8Array());
-  const output=buildSkinnedWeaponGlb(rig,mesh,{gripPoint:automaticGripPoint(mesh.resolvedDefinition)}),parsed=parseGlb(output),findings=[];
+  const output=buildSkinnedWeaponGlb(rig,mesh,{gripPoint:mesh.physical.controlPoint}),parsed=parseGlb(output),findings=[];
   const read=index=>{
     const a=parsed.document.accessors[index],v=parsed.document.bufferViews[a.bufferView],width={SCALAR:1,VEC3:3}[a.type],start=parsed.binary.byteOffset+(v.byteOffset??0)+(a.byteOffset??0);
     const Type={5126:Float32Array,5125:Uint32Array,5123:Uint16Array}[a.componentType];

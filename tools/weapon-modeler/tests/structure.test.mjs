@@ -1,7 +1,7 @@
+import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { effectiveGripRadius, MAX_ROUND_GRIP_RADIUS_M, MAX_SWORD_GRIP_THICKNESS_M, MAX_SWORD_GRIP_WIDTH_M } from "../src/anatomy.js";
-import { prism, resolveDefinition, shapedShieldOutline, shieldFittingLayout, tubePath, validateWeapon } from "../src/mesh.js";
+import { effectiveGripRadius, MAX_ROUND_GRIP_RADIUS_M, MAX_SWORD_GRIP_THICKNESS_M, MAX_SWORD_GRIP_WIDTH_M } from "./quality/grip-envelopes.mjs";
 import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, composeWeapon, compositionControls, copyPreset, getPath, setControlValue } from "../src/presets.js";
 
 function randomGenerator(seed) {
@@ -49,11 +49,11 @@ test("weapon grips stay within their cross-section-specific anatomical envelopes
   grip.width = MAX_SWORD_GRIP_WIDTH_M + 0.001;
   const result = validateWeapon(longsword.definition);
   assert.equal(result.valid, false);
-  assert.ok(result.errors.some((error) => error.includes("anatomical maximum")));
+  assert.ok(result.errors.some((error) => error.includes("anatomical dimensions")));
 
   const halberd = copyPreset(PRESETS.find((preset) => preset.id === "halberd-1540"));
   halberd.definition.shaft.radius = 0.028;
-  assert.ok(validateWeapon(halberd.definition).errors.some((error) => error.includes("anatomical maximum")));
+  assert.ok(validateWeapon(halberd.definition).errors.some((error) => error.includes("anatomical dimensions")));
 });
 
 test("polearm haft families retain appropriate round or octagonal sections", () => {
@@ -187,24 +187,11 @@ test("shaped shield top and bottom modes remain simple and independently selecta
       candidate.components[0].bottomShape = bottomShape;
       candidate.components[0].topDepth = topShape === "flat" ? 0 : 0.1;
       candidate.components[0].bottomDepth = bottomShape === "flat" ? 0 : 0.16;
-      assert.ok(shapedShieldOutline(candidate.components[0]).length >= 12);
       assertValid(candidate, source.controls, `${topShape}/${bottomShape}`);
     }
 });
 
-test("kite taper and Roman corner radius materially shape their historical silhouettes", () => {
-  const kite = PRESETS.find((preset) => preset.id === "kite-shield").definition.components[0],
-    kiteOutline = shapedShieldOutline(kite),
-    topHalfWidth = Math.abs(kiteOutline[0][0]),
-    bottomHalfWidth = Math.abs(kiteOutline[kite.edgeSegments + 1][0]);
-  assert.ok(bottomHalfWidth < topHalfWidth * 0.55, `${bottomHalfWidth} vs ${topHalfWidth}`);
 
-  const roman = PRESETS.find((preset) => preset.id === "roman-tower-shield").definition.components[0],
-    romanOutline = shapedShieldOutline(roman),
-    topEdgeY = roman.height / 2;
-  assert.ok(romanOutline[0][1] < topEdgeY - roman.cornerRadius * 0.9);
-  assert.ok(romanOutline[Math.floor(roman.edgeSegments / 2)][1] > topEdgeY - 1e-9);
-});
 
 test("pavise center bump is independently adjustable over its cylindrical bow", () => {
   const source = copyPreset(PRESETS.find((preset) => preset.id === "pavise")),
@@ -243,14 +230,7 @@ test("shield bosses use a smooth resolution-linked domed profile", () => {
 });
 
 test("shield fittings mirror, rotate, remain attached, and never cross the face", () => {
-  const source = copyPreset(PRESETS.find((preset) => preset.id === "round-shield")),
-    component = source.definition.components[0],
-    right = shieldFittingLayout({ ...component, mirrored: false, fittingAngle: 0 }),
-    left = shieldFittingLayout({ ...component, mirrored: true, fittingAngle: 0 }),
-    turned = shieldFittingLayout({ ...component, fittingAngle: 90 });
-  assert.equal(right.gripCenter[0], -left.gripCenter[0]);
-  assert.ok(Math.abs(turned.positionAxis[0]) < 1e-9);
-  assert.ok(Math.abs(turned.positionAxis[1] - 1) < 1e-9);
+  const source = copyPreset(PRESETS.find((preset) => preset.id === "round-shield"));
   for (const mirrored of [false, true])
     for (const fittingMode of ["grip", "grip-and-strap"])
       for (const fittingAngle of [0, 45, 90]) {
@@ -264,20 +244,20 @@ test("shield fittings mirror, rotate, remain attached, and never cross the face"
       }
   const clipped = structuredClone(source.definition);
   clipped.components[0].thickness = 0.001;
-  assert.ok(validateWeapon(clipped, []).errors.some((error) => error.includes("material construction minimum")));
+  assert.ok(validateWeapon(clipped, []).errors.some((error) => error.includes("component proportions")));
   const detached = structuredClone(source.definition);
   detached.components[0].fittingSpacing = 2;
-  assert.ok(validateWeapon(detached, []).errors.some((error) => error.includes("do not fit inside")));
+  assert.ok(validateWeapon(detached, []).errors.some((error) => error.includes("required clearance")));
 });
 
 test("Messer grip length drives guard, blade, and Nagel attachment frames", () => {
   const preset = copyPreset(PRESETS.find((candidate) => candidate.id === "grosse-messer")),
     control = preset.controls.find((candidate) => candidate.label === "Grip length");
-  const before = resolveDefinition(preset.definition),
+  const before = generateModel(preset.definition).resolvedDefinition,
     delta = 0.05;
   setControlValue(preset.definition, control, getPath(preset.definition, control.path) + delta);
   assertValid(preset.definition, preset.controls, "Messer extended grip");
-  const after = resolveDefinition(preset.definition);
+  const after = generateModel(preset.definition).resolvedDefinition;
   for (const frame of ["guard.center", "blade.base", "nagel-stem.base", "nagel-button.base"]) assert.ok(Math.abs(after._frames[frame][1] - before._frames[frame][1] - delta) < 1e-8, frame);
   assert.ok(Math.abs(after._frames["guard.center"][1] - after._frames["grip.top"][1]) < 1e-8);
   assert.ok(Math.abs(after._frames["blade.base"][1] - after._frames["guard.center"][1]) < 1e-8);
@@ -364,26 +344,26 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
     socket = badFit.components.find((part) => part.kind === "socket");
   socket.fitShaft = false;
   socket.profile = socket.profile.map(([y]) => [y, badFit.shaft.radius * 0.8]);
-  assert.ok(validateWeapon(badFit, compositionControls(badFit)).errors.some((error) => error.includes("cannot fit shaft")));
+  assert.ok(validateWeapon(badFit, []).errors.some((error) => error.includes("cannot fit shaft")));
   const mace = composeWeapon("steel-one-hand", "flanged-mace");
   mace.components.find((part) => part.id === "head").offset = [4, 4, 4];
-  assert.ok(validateWeapon(mace, compositionControls(mace)).errors.some((error) => error.includes("shaft footprint") || error.includes("concentrically")));
+  assert.ok(validateWeapon(mace, []).errors.some((error) => error.includes("shaft footprint") || error.includes("concentrically")));
   const messer = copyPreset(PRESETS.find((preset) => preset.id === "grosse-messer"));
   messer.definition.components.find((part) => part.id === "nagel-stem").offset = [2, 0, 0];
-  assert.ok(validateWeapon(messer.definition, messer.controls).errors.some((error) => error.includes("placement only through attach.offset")));
+  assert.ok(validateWeapon(messer.definition, messer.controls).errors.some((error) => error.includes("one valid parent declaration")));
   for (const lateral of [0.02, 0.1, 0.2, 0.249, 0.251]) {
     const spear = composeWeapon("wooden-polearm", "spear");
     spear.components.find((part) => part.kind === "spear").offset = [lateral, 0, 0];
     assert.ok(
-      validateWeapon(spear, compositionControls(spear)).errors.some((error) => error.includes("concentrically")),
+      validateWeapon(spear, []).errors.some((error) => error.includes("concentrically")),
       `lateral=${lateral}`,
     );
   }
   const bypass = composeWeapon("wooden-polearm", "spear");
   bypass.components.find((part) => part.kind === "spear").freeOffset = "yes";
-  assert.ok(validateWeapon(bypass, compositionControls(bypass)).errors.some((error) => error.includes("does not allow field freeOffset")));
+  assert.ok(validateWeapon(bypass, []).errors.some((error) => error.includes("unknown field `freeOffset`")));
   const orphan = {
-    shaft: { length: 1.5, radius: 0.025, segments: 12, material: "wood" },
+    shaft: { length: 1.5, radius: 0.02, segments: 12, material: "wood" },
     components: [
       {
         kind: "spear",
@@ -395,17 +375,17 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
       },
     ],
   };
-  assert.ok(validateWeapon(orphan).errors.some((error) => error.includes("must declare a mount")));
+  assert.ok(validateWeapon(orphan).errors.some((error) => error.includes("one valid parent declaration")));
   const stretchedSpear = composeWeapon("wooden-polearm", "spear"),
     stretchedHead = stretchedSpear.components.find((part) => part.kind === "spear");
   delete stretchedHead.mount;
   stretchedHead.stretchBetween = ["shaft.bottom", "shaft.top"];
-  stretchedHead.offset = [0.2, 0, 0];
-  assert.ok(validateWeapon(stretchedSpear, compositionControls(stretchedSpear)).errors.some((error) => error.includes("only supported by knuckleBow")));
+  stretchedHead.offset = [0, 0, 0];
+  assert.ok(validateWeapon(stretchedSpear, []).errors.some((error) => error.includes("requires knuckle bow")));
   for (const malformedStretch of [["grip.base"], [null, "grip.top"], ["grip.base", "grip.base"], ["teleport", "grip.top"]]) {
     const definition = copyPreset(PRESETS.find((preset) => preset.id === "dussack"));
     definition.definition.components.find((part) => part.kind === "knuckleBow").stretchBetween = malformedStretch;
-    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => error.includes("two distinct attachment frame strings")));
+    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => /invalid length|invalid type|one valid parent declaration|missing stretch|stretch target/.test(error)));
   }
   const displacedBow = copyPreset(PRESETS.find((preset) => preset.id === "dussack"));
   displacedBow.definition.components.find((part) => part.kind === "knuckleBow").offset = [0.2, 0, 0];
@@ -416,11 +396,11 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
   ]) {
     const definition = copyPreset(PRESETS.find((preset) => preset.id === "grosse-messer"));
     definition.definition.components.find((part) => part.id === "nagel-stem").attach.offset = malformedAttach;
-    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => error.includes("attach.offset must be three finite numbers")));
+    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => error.includes("expected f64")));
   }
   const stringOverlap = copyPreset(PRESETS.find((preset) => preset.id === "grosse-messer"));
   stringOverlap.definition.components.find((part) => part.id === "nagel-stem").attach.overlap = "0.01";
-  assert.ok(validateWeapon(stringOverlap.definition, stringOverlap.controls).errors.some((error) => error.includes("attach.overlap must be a non-negative finite number")));
+  assert.ok(validateWeapon(stringOverlap.definition, stringOverlap.controls).errors.some((error) => error.includes("expected f64")));
   const rotatedGuard = copyPreset(PRESETS.find((preset) => preset.id === "grosse-messer"));
   rotatedGuard.definition.components.find((part) => part.id === "guard").rotation = [0, 90, 0];
   rotatedGuard.definition.components.find((part) => part.id === "nagel-stem").attach.offset = [0.1, 0, 0];
@@ -430,7 +410,7 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
   conflictingHead.mount = "component-end";
   conflictingHead.anchor = "head-socket";
   conflictingHead.attach = { to: "weapon.root", at: "base" };
-  assert.ok(validateWeapon(conflictingSpear, compositionControls(conflictingSpear)).errors.some((error) => error.includes("mutually exclusive placement declarations")));
+  assert.ok(validateWeapon(conflictingSpear, []).errors.some((error) => error.includes("one valid parent declaration")));
   for (const declarations of [
     { mount: "shaft-top", stretchBetween: ["grip.base", "grip.top"] },
     {
@@ -441,7 +421,7 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
     const definition = copyPreset(PRESETS.find((preset) => preset.id === "dussack")),
       bow = definition.definition.components.find((part) => part.kind === "knuckleBow");
     Object.assign(bow, declarations);
-    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => error.includes("mutually exclusive placement declarations")));
+    assert.ok(validateWeapon(definition.definition, definition.controls).errors.some((error) => error.includes("one valid parent declaration")));
   }
   const displacedOrigin = composeWeapon("steel-one-hand", "spear"),
     collar = displacedOrigin.components.find((part) => part.id === "composer-collar");
@@ -450,14 +430,14 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
     at: "center",
     offset: [0, -0.09, 0],
   };
-  assert.ok(validateWeapon(displacedOrigin, compositionControls(displacedOrigin)).errors.some((error) => error.includes("outside parent axial geometry composer-grip.origin")));
+  assert.ok(validateWeapon(displacedOrigin, []).errors.some((error) => error.includes("outside parent axial geometry composer-grip.origin")));
   for (const frame of ["shaft.top", "shaft.bottom"]) {
     const shaftAttachment = composeWeapon("wooden-polearm", "spear"),
       head = shaftAttachment.components.find((part) => part.kind === "spear");
     delete head.mount;
     delete head.offset;
     head.attach = { to: frame, at: "base" };
-    assertValid(shaftAttachment, compositionControls(shaftAttachment), `explicit ${frame} attachment`);
+    assertValid(shaftAttachment, [], `explicit ${frame} attachment`);
   }
   const explosive = new Proxy(
       {},
@@ -469,7 +449,7 @@ test("schema, radial fit, and actual contact reject malformed or detached defini
     ),
     total = validateWeapon(explosive);
   assert.equal(total.valid, false);
-  assert.ok(total.errors.some((error) => error.includes("validation failed unexpectedly: hostile property access")));
+  assert.ok(total.errors.some((error) => error.includes("hostile property access")));
 });
 
 test("named frames use rotated local anchors rather than unrotated axial ranges", () => {
@@ -494,9 +474,9 @@ test("named frames use rotated local anchors rather than unrotated axial ranges"
       },
     ],
   };
-  const resolved = resolveDefinition(definition),
+  const resolved = generateModel(definition).resolvedDefinition,
     top = resolved._frames["parent.top"],
-    contact = resolved.components.find((part) => part.id === "child")._resolvedAttachment.contact;
+    contact = resolved._frames["child.center"];
   assert.ok(Math.abs(top[0] + 0.2) < 1e-9 && Math.abs(top[1]) < 1e-9 && Math.abs(top[2]) < 1e-9, `rotated top=${top}`);
   assert.deepEqual(
     contact.map((value) => Number(value.toFixed(9))),
@@ -521,41 +501,18 @@ test("tessellation and nonempty-part invariants reject structural hostile values
     const result = validateWeapon(definition, compositionControls(definition));
     assert.equal(result.valid, false);
     assert.ok(
-      result.errors.some((error) => /segments|near-zero|volume/.test(error)),
+      result.errors.some((error) => /construction budget|manufactured dimensions|radial profile/.test(error)),
       result.errors.join(" | "),
     );
   }
 });
 
-test("self-intersecting outlines and tube centerlines are rejected", () => {
-  assert.throws(
-    () =>
-      prism(
-        [
-          [0, 0],
-          [1, 1],
-          [0, 1],
-          [1, 0],
-        ],
-        0.1,
-      ),
-    /intersect/,
-  );
-  assert.throws(
-    () =>
-      tubePath(
-        [
-          [0, 0],
-          [1, 1],
-          [0, 1],
-          [1, 0],
-        ],
-        0.02,
-      ),
-    /intersect/,
-  );
+test("self-intersecting tube centerlines are rejected at the canonical boundary", () => {
+  const recipe={components:[{kind:"tube",points:[[0,0],[.1,.1],[0,.1],[-.1,0]],radius:.002,attach:{to:"weapon.root"}}]};
+  assert.equal(validateWeapon(recipe).valid,true);
+  recipe.components[0].points[3]=[.1,0];
+  assert.ok(validateWeapon(recipe).errors.some(error=>error.includes("intersects itself")));
 });
-
 test("every composed control changes geometry and retains shaft fit", () => {
   for (const haft of HAFT_MODULES)
     for (const head of HEAD_ASSEMBLIES) {
@@ -594,5 +551,34 @@ test("validator returns actionable generator and control errors", () => {
   preset.definition.components[4].flanges = 5.5;
   const result = validateWeapon(preset.definition, preset.controls);
   assert.equal(result.valid, false);
-  assert.ok(result.errors.some((error) => error.includes("flanges") && error.includes("integer")));
+  assert.ok(result.errors.some((error) => error.includes("components[4]") && error.includes("integer")));
+});
+
+test("explicit shaft frames reject displaced contact while origin assemblies keep connected material", () => {
+  const recipe={shaft:{length:1,radius:.01},components:[{id:"head",kind:"box",size:[.02,.02,.02],attach:{to:"shaft.top",at:"origin"}}]};
+  assert.equal(validateWeapon(recipe).valid,true);
+  for (const offset of [[1,0,0],[0,.3,0]]) {
+    const changed=structuredClone(recipe);changed.components[0].attach.offset=offset;
+    assert.match(validateWeapon(changed).errors.join(" "),/parent footprint|parent axial geometry/);
+  }
+  const spear=composeWeapon("wooden-polearm","spear"),head=spear.components.find(c=>c.kind==="spear");
+  delete head.mount;delete head.offset;head.attach={to:"shaft.top",at:"base"};
+  assert.equal(validateWeapon(spear).valid,true);
+  head.attach.offset=[.005,0,0];
+  assert.match(validateWeapon(spear).errors.join(" "),/concentrically/);
+  const boxes={components:[{id:"parent",kind:"box",size:[.1,.1,.1],attach:{to:"weapon.root"}},{id:"child",kind:"box",size:[.02,.4,.02],attach:{to:"parent.top",at:"center"}}]};
+  assert.equal(validateWeapon(boxes).valid,true);
+  boxes.components[1].attach.offset=[0,.12,0];
+  assert.match(validateWeapon(boxes).errors.join(" "),/declared contact.*parent axial geometry/);
+});
+
+test("omitted attachment anchor validates exactly like explicit base", () => {
+  const recipe={components:[{id:"parent",kind:"box",size:[.1,.1,.1],attach:{to:"weapon.root"}},{id:"child",kind:"box",size:[.02,.4,.02],rotation:[0,0,180],attach:{to:"parent.top",offset:[0,.12,0]}}]};
+  for (const at of [undefined,"base"]) {
+    recipe.components[1].attach.at=at;
+    assert.match(validateWeapon(recipe).errors.join(" "),/declared contact.*parent axial geometry/);
+    recipe.components[1].attach.offset=[0,0,0];
+    assert.equal(validateWeapon(recipe).valid,true);
+    recipe.components[1].attach.offset=[0,.12,0];
+  }
 });

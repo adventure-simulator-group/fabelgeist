@@ -12,10 +12,7 @@ use std::{
 };
 
 use adventuresim_tactical_netcode::prelude::AdventureSimulatorClient;
-use adventuresim_weapon_model::{
-    MaterialClass, WeaponDesign, default_design, derive_material_masses, derive_properties, encode,
-    generate,
-};
+use adventuresim_weapon_model::{WeaponDesign, default_design, encode, generate};
 use bevy::{
     asset::RenderAssetUsages,
     camera::Exposure,
@@ -264,9 +261,16 @@ fn spawn_forge_scene(
     design_json: Option<&str>,
     view: &ForgePreviewView,
 ) {
-    let design = design_json
-        .and_then(|json| serde_json::from_str::<WeaponDesign>(json).ok())
-        .or_else(|| default_design(catalog_id));
+    let design = match design_json {
+        Some(json) => match serde_json::from_str::<WeaponDesign>(json) {
+            Ok(design) => Some(design),
+            Err(error) => {
+                warn!(catalog_id, %error, "browser forge preview rejected invalid recipe");
+                return;
+            }
+        },
+        None => default_design(catalog_id),
+    };
     let Some(design) = design else {
         warn!(
             catalog_id,
@@ -289,6 +293,7 @@ fn spawn_forge_scene(
     let root = commands
         .spawn((
             Name::new("Strategic forge weapon preview"),
+            Visibility::default(),
             StrategicSceneEntity,
             StrategicSceneRoot,
             preview_transform(view, scale),
@@ -364,27 +369,14 @@ pub(crate) fn encode_design_json(json: &str) -> Result<Vec<u8>, String> {
 
 pub(crate) fn editor_fields_json(json: &str) -> Result<String, String> {
     let design: WeaponDesign = serde_json::from_str(json).map_err(|error| error.to_string())?;
-    serde_json::to_string(&adventuresim_weapon_model::numeric_editor_fields(&design))
+    serde_json::to_string(&adventuresim_weapon_model::editor_fields(&design))
         .map_err(|error| error.to_string())
 }
 
 pub(crate) fn quote_design_json(json: &str) -> Result<String, String> {
     let design: WeaponDesign = serde_json::from_str(json).map_err(|error| error.to_string())?;
-    let physical = derive_properties(&design).map_err(|errors| format!("{errors:?}"))?;
-    let minutes =
-        60 + (physical.mass_kg * 120.0).ceil() as u64 + design.components.len() as u64 * 12;
-    let mut materials = std::collections::BTreeMap::<&str, f32>::new();
-    for mass in derive_material_masses(&design).map_err(|errors| format!("{errors:?}"))? {
-        let stock = match mass.material {
-            MaterialClass::Steel | MaterialClass::DarkSteel => "steel_stock",
-            MaterialClass::Leather | MaterialClass::DarkLeather => "leather_stock",
-            MaterialClass::Brass => "brass_stock",
-            MaterialClass::Wood => "wood_stock",
-        };
-        *materials.entry(stock).or_default() += mass.mass_kg;
-    }
-    serde_json::to_string(&serde_json::json!({ "minutes": minutes, "materials": materials }))
-        .map_err(|error| error.to_string())
+    let quote = adventuresim_core::smithing::quote_weapon(&design)?;
+    serde_json::to_string(&quote).map_err(|error| error.to_string())
 }
 
 fn sync_tactical_ui_visibility(

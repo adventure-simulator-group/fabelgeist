@@ -1,6 +1,5 @@
 import { reviewCases } from "./review-cases.js";
-import { buildWeapon, validateWeapon, measureMassProperties } from "./mesh.js";
-import { automaticGripPoint } from "./glb-export.js";
+import { generateModel, validateWeapon } from "./kernel.js";
 import { WeaponRenderer } from "./renderer.js";
 
 const query = new URLSearchParams(location.search);
@@ -16,8 +15,8 @@ for (const specimen of specimens) {
   article.append(title, canvas, metrics, changes); document.querySelector("main").append(article);
   const result = validateWeapon(specimen.definition, [], { lod });
   if (!result.valid) { metrics.textContent = result.errors.join(" · "); metrics.className = "error"; results.push({ ...specimen, errors: result.errors }); continue; }
-  const renderer = new WeaponRenderer(canvas); renderer.framingMesh = buildWeapon(specimen.definition, { lod: "high" }); renderer.setMesh(result.mesh); renderer.setView(pose, focus);
-  const physical = measureMassProperties(result.mesh, automaticGripPoint(result.resolved));
+  const renderer = new WeaponRenderer(canvas); renderer.framingMesh = generateModel(specimen.definition, { lod: "high" }); renderer.setMesh(result.mesh); renderer.setView(pose, focus);
+  const physical = result.mesh.physical;
   metrics.textContent = `${result.mesh.stats.dimensions.map((value) => (value * 100).toFixed(1)).join(" × ")} cm · ${physical.massKg.toFixed(2)} kg · ${result.mesh.stats.triangles} triangles`;
   changes.textContent = specimen.changes.length ? specimen.changes.map((change) => `${change.label}: ${change.to}`).join(" · ") : specimen.variant === "Default" ? "Authored preset" : "Explicit review fixture";
   results.push({ ...specimen, stats: result.mesh.stats, physical, errors: [] });

@@ -71,6 +71,26 @@ pub(super) fn projected_holder_appearance(
         })
 }
 
+pub(super) fn projected_holder_mass(item: &ConnectedPlayerItem) -> Option<f32> {
+    use adventuresim_weapon_model::{
+        HOLDER_GENERATOR_VERSION, decode_holder, derive_holder_properties, holder_design_hash,
+    };
+    let appearance = item.weapon_holder_appearance.as_ref()?;
+    assert_eq!(appearance.generator_version, HOLDER_GENERATOR_VERSION);
+    let design = decode_holder(&appearance.recipe)
+        .expect("strategic authority sent a decodable holder recipe");
+    assert_eq!(design.catalog_id, item.item.id);
+    assert_eq!(
+        holder_design_hash(&design).0.as_slice(),
+        appearance.design_hash
+    );
+    Some(
+        derive_holder_properties(&design)
+            .expect("strategic authority sent a valid holder recipe")
+            .mass_kg,
+    )
+}
+
 pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
     let part = item.protected_body_parts.first()?;
     let definition = adventuresim_core::item_catalog::definition(&item.item.id)

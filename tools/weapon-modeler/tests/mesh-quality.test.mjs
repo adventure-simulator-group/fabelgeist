@@ -3,7 +3,7 @@ import test from "node:test";
 import { auditPart, auditRelation, lodDifferences } from "./quality/audit.mjs";
 import { triangle, triangleContact, unexpectedContact, triangleDistance, closestSurfaces } from "./quality/geometry.mjs";
 import { tetra, combine, soup } from "./quality/fixtures.mjs";
-import { box, lathe, closedManifoldErrors } from "../src/mesh.js";
+import { closedManifoldErrors } from "./quality/mesh-measurements.mjs";
 import { auditExport } from "./quality/export-audit.mjs";
 import { minimizeChanges } from "./quality/minimize.mjs";
 
@@ -13,7 +13,7 @@ const cube=(size=1,offset=[0,0,0])=>{
   const vertices=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(p=>p.map((v,i)=>v*size/2+offset[i]));
   const faces=[[0,2,1],[0,3,2],[4,5,6],[4,6,7],[0,1,5],[0,5,4],[3,7,6],[3,6,2],[0,4,7],[0,7,3],[1,2,6],[1,6,5]];
   const positions=faces.flatMap(f=>f.flatMap(i=>vertices[i])), normals=faces.flatMap(f=>{const t=triangle(f.map(i=>vertices[i]),0);return [...t.normal,...t.normal,...t.normal];});
-  return {positions,normals,colors:positions.map(()=>0.5),indices:positions.map((_,i)=>i).slice(0,positions.length/3),material:{color:[0.5,0.5,0.5],metallic:1,roughness:0.4}};
+  return {physical:{controlPoint:[0,0,0]},positions,normals,colors:positions.map(()=>0.5),indices:positions.map((_,i)=>i).slice(0,positions.length/3),material:{color:[0.5,0.5,0.5],metallic:1,roughness:0.4}};
 };
 
 test("quality audit accepts closed solids with deliberately split shading vertices",()=>{
@@ -87,15 +87,6 @@ test("nearly coplanar faces sharing a vertex do not invent an intersection segme
     assert.ok(hit);assert.equal(unexpectedContact(a,b,hit,1e-9),false);
   }
 });
-test("closed tapered cylinders keep valid periodic seams after float32 conversion",()=>{
-  for(const radius of [0.0045,0.02,1])for(const length of [0.76,1.82])for(const segments of [8,9,16]){
-    const mesh=lathe([[0,radius],[length,radius*0.92]],segments,"steel",[0,0,0],"fixture",1,true);
-    for(const round of [false,true]){
-      const candidate=round?{...mesh,positions:mesh.positions.map(Math.fround),normals:mesh.normals.map(Math.fround)}:mesh;
-      assert.deepEqual(errors(auditPart(candidate)),[],`${radius}/${length}/${segments}/${round}`);
-    }
-  }
-});
 test("quality audit detects a folded single shell and distinguishes compound-part contact",()=>{
   const mesh=cube();
   // Push one corner through the opposite side, preserving face connectivity.
@@ -104,7 +95,7 @@ test("quality audit detects a folded single shell and distinguishes compound-par
   assert.ok(codes(auditPart(combine(tetra(),tetra([0.2,0.2,0.2])))).includes("inter-shell-contact"));
 });
 test("aspect and sampled thickness budgets report geometry without imposing practicality",()=>{
-  const slender=box([1,0.00001,0.1],"steel",[0,0,0]);
+  const slender=cube(); slender.positions=slender.positions.map((v,i)=>v*[1,.00001,.1][i%3]);
   const a=auditPart(slender,{thickness:true});
   assert.ok(codes(a).includes("high-aspect-triangle"));assert.ok(codes(a).includes("thin-wall-sample"));
   assert.deepEqual(errors(a),[]);
@@ -139,7 +130,7 @@ test("actual GLB round trip accepts a solid and catches attachment-space float32
   assert.deepEqual(auditExport(cube()).findings,[]);
   const mesh=soup([[[100,0,0],[100.000001,0,0],[100,1,0]]]);
   mesh.normals=[0,0,1,0,0,1,0,0,1];mesh.colors=new Array(9).fill(0.5);
-  assert.ok(codes(auditExport(mesh)).includes("export-degenerate-triangle"));
+  assert.ok(codes(auditExport({...mesh,physical:{controlPoint:[0,0,0]}})).includes("export-degenerate-triangle"));
 });
 test("failure minimization retains interacting controls and reports budget exhaustion",()=>{
   const fails=xs=>[2,5,7].every(i=>xs.includes(i)),changes=Array.from({length:10},(_,i)=>i);

@@ -2,8 +2,8 @@ import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
-import { automaticGripPoint, buildSkinnedWeaponGlb, parseGlb } from "./src/glb-export.js";
-import { validateWeapon } from "./src/mesh.js";
+import { buildSkinnedWeaponGlb, parseGlb } from "./src/glb-export.js";
+import { validateWeapon } from "./src/kernel.js";
 import { PRESETS, copyPreset } from "./src/presets.js";
 
 const repository = fileURLToPath(new URL("../../", import.meta.url));
@@ -54,7 +54,7 @@ export async function exportSkinnedPreset(options) {
   const glb = buildSkinnedWeaponGlb(await readFile(rigPath), validation.mesh, {
     name: meshName,
     attachment,
-    gripPoint: automaticGripPoint(validation.resolved),
+    gripPoint: validation.mesh.physical.controlPoint,
   });
   const parsed = parseGlb(glb);
   const meshNode = parsed.document.nodes.find((node) => node.name === meshName && node.mesh !== undefined);

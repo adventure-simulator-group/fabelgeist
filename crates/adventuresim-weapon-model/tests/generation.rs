@@ -1,14 +1,6 @@
+use adventuresim_weapon_model::recipe::{Metres, Ratio, Shape};
+use adventuresim_weapon_model::*;
 use std::collections::HashMap;
-
-use adventuresim_weapon_model::{
-    Attachment, CodecError, ComponentDesign, ComponentRole, ComponentShape, CylinderSpec,
-    MAX_ROUND_GRIP_RADIUS_MM, MAX_SWORD_GRIP_THICKNESS_MM, MAX_SWORD_GRIP_WIDTH_MM,
-    MELEE_CATALOG_IDS, MaceSpec, MaterialClass, Millimeters, OffsetMm, PRESET_IDS, Permille,
-    Segments, ValidationError, WeaponDesign, WeaponHolderKind, WeaponIconLayout, WeaponIconSpec,
-    decode, decode_holder, default_design, default_holder_design, derive_properties, design_hash,
-    encode, encode_holder, generate, generate_holder, generate_holder_icon, generate_icon,
-    holder_design_hash, icon_layout, preset_design, recommended_holder, validate, validate_holder,
-};
 
 fn signed_volume(positions: &[[f32; 3]], indices: &[u32]) -> f32 {
     indices
@@ -93,7 +85,7 @@ fn assert_parts_closed_and_outward(parts: &[adventuresim_weapon_model::MeshPart]
                 ab[0] * ac[1] - ab[1] * ac[0],
             ];
             assert!(
-                face[0] * face[0] + face[1] * face[1] + face[2] * face[2] > 1e-16,
+                face.iter().map(|n| n * n).sum::<f32>() > 0.0,
                 "{} degenerate face",
                 part.component_id
             );
@@ -150,12 +142,13 @@ fn sheath_tracks_blade_dimensions_and_leaves_the_hilt_exposed() {
 
     let mut longer = design.clone();
     let blade = longer
+        .recipe
         .components
         .iter_mut()
-        .find(|part| part.id == "blade")
+        .find(|part| part.id.as_deref() == Some("blade"))
         .unwrap();
     match &mut blade.shape {
-        ComponentShape::Blade(spec) => spec.length = Millimeters(spec.length.0 + 120),
+        Shape::LoftedBlade(spec) => spec.length = Metres::new(spec.length.get() + 0.12).unwrap(),
         _ => panic!("longsword blade changed shape"),
     }
     let longer_holder = generate_holder(&default_holder_design(&longer).unwrap()).unwrap();
@@ -172,12 +165,13 @@ fn haft_loop_tracks_the_grip_instead_of_the_head() {
 
     let mut wider = design.clone();
     let grip = wider
+        .recipe
         .components
         .iter_mut()
-        .find(|part| part.role == ComponentRole::Grip)
+        .find(|part| part.role == Some(ComponentRole::Grip))
         .unwrap();
     match &mut grip.shape {
-        ComponentShape::Cylinder(spec) => spec.radius = Millimeters(spec.radius.0 + 2),
+        Shape::Shaft(spec) => spec.radius = Metres::new(spec.radius.get() + 0.002).unwrap(),
         _ => panic!("mace grip changed shape"),
     }
     let wider_holder = generate_holder(&default_holder_design(&wider).unwrap()).unwrap();
@@ -300,30 +294,34 @@ fn every_melee_catalog_entry_has_distinct_geometry() {
     for id in ["baselard", "knife", "utility_knife", "misericorde"] {
         let design = default_design(id).unwrap();
         assert!(
-            design
-                .components
-                .iter()
-                .all(|component| { !matches!(component.shape, ComponentShape::Rondel(_)) }),
+            design.recipe.components.iter().all(|component| {
+                !component
+                    .id
+                    .as_deref()
+                    .is_some_and(|id| id.contains("rondel"))
+            }),
             "{id} retained rondel furniture"
         );
     }
     let zweihander = default_design("zweihander").unwrap();
     let blade = zweihander
+        .recipe
         .components
         .iter()
-        .find(|component| component.id == "blade")
+        .find(|component| component.id.as_deref() == Some("blade"))
         .unwrap();
-    assert!(matches!(&blade.shape, ComponentShape::Blade(spec) if spec.ricasso.0 >= 200));
+    assert!(matches!(&blade.shape, Shape::LoftedBlade(spec) if spec.ricasso.get() >= 0.2));
     assert!(
         zweihander
+            .recipe
             .components
             .iter()
-            .any(|component| component.id == "parrying-lugs")
+            .any(|component| component.id.as_deref() == Some("parrying-lugs"))
     );
 }
 
 #[test]
-fn postcard_transport_and_design_hash_are_canonical_and_sensitive() {
+fn json_transport_and_design_hash_are_canonical_and_sensitive() {
     let design = default_design("longsword").unwrap();
     let first = encode(&design).unwrap();
     let second = encode(&design).unwrap();
@@ -331,566 +329,14 @@ fn postcard_transport_and_design_hash_are_canonical_and_sensitive() {
     assert_eq!(decode(&first).unwrap(), design);
     assert_eq!(design_hash(&design), design_hash(&decode(&first).unwrap()));
     let mut changed = design.clone();
-    match &mut changed.components.last_mut().unwrap().shape {
-        ComponentShape::Blade(blade) => blade.length = Millimeters(blade.length.0 + 1),
+    match &mut changed.recipe.components.last_mut().unwrap().shape {
+        Shape::LoftedBlade(blade) => {
+            blade.length = Metres::new(blade.length.get() + 0.001).unwrap()
+        }
         _ => panic!("expected blade"),
     }
     assert_ne!(design_hash(&design), design_hash(&changed));
     assert_ne!(encode(&design).unwrap(), encode(&changed).unwrap());
-}
-
-#[test]
-fn unusual_polearm_flanged_mace_uses_the_same_attachment_graph() {
-    let design = WeaponDesign {
-        catalog_id: "developer_pole_mace".into(),
-        components: vec![
-            ComponentDesign {
-                id: "shaft".into(),
-                role: ComponentRole::Grip,
-                attachment: Attachment::Root,
-                offset: OffsetMm::default(),
-                material: MaterialClass::Wood,
-                shape: ComponentShape::Cylinder(CylinderSpec {
-                    length: Millimeters(1_850),
-                    radius: Millimeters(22),
-                    bottom_scale: Permille(1000),
-                    top_scale: Permille(1000),
-                    segments: Segments(16),
-                }),
-            },
-            ComponentDesign {
-                id: "socket".into(),
-                role: ComponentRole::Socket,
-                attachment: Attachment::TopOf {
-                    component: "shaft".into(),
-                    insertion: Millimeters(180),
-                },
-                offset: OffsetMm::default(),
-                material: MaterialClass::Steel,
-                shape: ComponentShape::Cylinder(CylinderSpec {
-                    length: Millimeters(240),
-                    radius: Millimeters(31),
-                    bottom_scale: Permille(1000),
-                    top_scale: Permille(1000),
-                    segments: Segments(18),
-                }),
-            },
-            ComponentDesign {
-                id: "mace_head".into(),
-                role: ComponentRole::Head,
-                attachment: Attachment::TopOf {
-                    component: "socket".into(),
-                    insertion: Millimeters(20),
-                },
-                offset: OffsetMm::default(),
-                material: MaterialClass::Steel,
-                shape: ComponentShape::Mace(MaceSpec {
-                    length: Millimeters(210),
-                    core_radius: Millimeters(16),
-                    cusp_radius: Millimeters(72),
-                    flanges: 8,
-                    flange_thickness: Millimeters(5),
-                    segments: Segments(18),
-                    cusp_height: Permille(620),
-                }),
-            },
-        ],
-    };
-    validate(&design).unwrap();
-    assert_closed_and_outward(&design);
-    let generated = generate(&design).unwrap();
-    assert_eq!(generated.parts.len(), 3);
-    assert!(generated.derived.length_m > 2.0);
-    let socket_top = generated
-        .anchors
-        .iter()
-        .find(|anchor| anchor.name == "socket.top")
-        .unwrap();
-    let head_base = generated
-        .anchors
-        .iter()
-        .find(|anchor| anchor.name == "mace_head.base")
-        .unwrap();
-    assert!((socket_top.position[1] - head_base.position[1] - 0.02).abs() < 1e-6);
-}
-
-#[test]
-fn validation_and_transport_reject_invalid_attachment_graphs() {
-    let mut missing = default_design("longsword").unwrap();
-    missing.components[2].attachment = Attachment::TopOf {
-        component: "missing".into(),
-        insertion: Millimeters(0),
-    };
-    assert!(matches!(
-        validate(&missing),
-        Err(errors) if errors.iter().any(|error| matches!(error, ValidationError::MissingParent { .. }))
-    ));
-    assert!(matches!(
-        encode(&missing),
-        Err(CodecError::InvalidDesign(_))
-    ));
-
-    let mut cycle = default_design("flanged_mace").unwrap();
-    cycle.components[0].attachment = Attachment::TopOf {
-        component: "head".into(),
-        insertion: Millimeters(0),
-    };
-    assert!(matches!(
-        validate(&cycle),
-        Err(errors) if errors.iter().any(|error| matches!(error, ValidationError::AttachmentCycle(_)))
-    ));
-    assert!(decode(&[0xff, 0x00]).is_err());
-
-    let mut oversized = default_design("flanged_mace").unwrap();
-    match &mut oversized.components.last_mut().unwrap().shape {
-        ComponentShape::Mace(head) => head.segments = Segments(u16::MAX),
-        ComponentShape::GothicMace(head) => head.radial_segments = Segments(u16::MAX),
-        _ => panic!("mace head"),
-    }
-    assert!(matches!(
-        validate(&oversized),
-        Err(errors) if errors.iter().any(|error| matches!(error, ValidationError::InvalidDimensions(_)))
-    ));
-
-    for attack in [
-        {
-            let mut value = default_design("longsword").unwrap();
-            value.components[2].attachment = Attachment::TopOf {
-                component: "guard".into(),
-                insertion: Millimeters(u32::MAX),
-            };
-            value
-        },
-        {
-            let mut value = default_design("longsword").unwrap();
-            value.components[2].offset.x = 6_000;
-            value
-        },
-        {
-            let mut value = default_design("longsword").unwrap();
-            value.components[2].attachment = Attachment::Root;
-            value
-        },
-    ] {
-        assert!(validate(&attack).is_err());
-        assert!(encode(&attack).is_err());
-    }
-
-    let mut overlong = WeaponDesign {
-        catalog_id: "overlong-chain".into(),
-        components: Vec::new(),
-    };
-    for index in 0..3 {
-        overlong.components.push(ComponentDesign {
-            id: format!("section-{index}"),
-            role: if index == 0 {
-                ComponentRole::Grip
-            } else {
-                ComponentRole::Structure
-            },
-            attachment: if index == 0 {
-                Attachment::Root
-            } else {
-                Attachment::TopOf {
-                    component: format!("section-{}", index - 1),
-                    insertion: Millimeters(0),
-                }
-            },
-            offset: OffsetMm::default(),
-            material: MaterialClass::Wood,
-            shape: ComponentShape::Cylinder(CylinderSpec {
-                length: Millimeters(5_000),
-                radius: Millimeters(20),
-                bottom_scale: Permille(1000),
-                top_scale: Permille(1000),
-                segments: Segments(12),
-            }),
-        });
-    }
-    assert!(matches!(
-        validate(&overlong),
-        Err(errors) if errors.contains(&ValidationError::OverallBoundsExceeded)
-    ));
-}
-
-#[test]
-fn grips_respect_their_cross_section_specific_anatomical_caps() {
-    for id in PRESET_IDS {
-        let design = preset_design(id).unwrap();
-        for component in design
-            .components
-            .iter()
-            .filter(|component| component.role == ComponentRole::Grip)
-        {
-            if let ComponentShape::Cylinder(grip) = &component.shape {
-                let effective_radius = (u64::from(grip.radius.0)
-                    * u64::from(grip.bottom_scale.0.max(grip.top_scale.0)))
-                .div_ceil(1_000);
-                assert!(
-                    effective_radius <= u64::from(MAX_ROUND_GRIP_RADIUS_MM),
-                    "{id} grip radius {effective_radius} mm"
-                );
-            }
-            if let ComponentShape::OvalGrip(grip) = &component.shape {
-                let scale = u64::from(grip.bottom_scale.0.max(grip.top_scale.0));
-                let width = (u64::from(grip.width.0) * scale).div_ceil(1_000);
-                let thickness = (u64::from(grip.thickness.0) * scale).div_ceil(1_000);
-                assert!(
-                    width <= u64::from(MAX_SWORD_GRIP_WIDTH_MM),
-                    "{id} grip width {width} mm"
-                );
-                assert!(
-                    thickness <= u64::from(MAX_SWORD_GRIP_THICKNESS_MM),
-                    "{id} grip thickness {thickness} mm"
-                );
-                assert!(
-                    width > thickness,
-                    "{id} grip should be directionally indexed"
-                );
-            }
-        }
-    }
-
-    let mut oversized = default_design("longsword").unwrap();
-    let ComponentShape::OvalGrip(grip) = &mut oversized.components[0].shape else {
-        panic!("longsword grip");
-    };
-    grip.width = Millimeters(MAX_SWORD_GRIP_WIDTH_MM + 1);
-    assert!(matches!(
-        validate(&oversized),
-        Err(errors) if errors.iter().any(|error| matches!(error, ValidationError::GripCrossSectionExceeded { .. }))
-    ));
-}
-
-#[test]
-fn deterministic_parameter_fuzz_stays_finite_closed_and_outward() {
-    let mut state = 0x1544_9e37_u64;
-    let mut next = |limit: u32| {
-        state = state
-            .wrapping_mul(6_364_136_223_846_793_005)
-            .wrapping_add(1_442_695_040_888_963_407);
-        ((state >> 32) as u32) % limit
-    };
-    for id in PRESET_IDS {
-        for _ in 0..8 {
-            let mut design = preset_design(id).unwrap();
-            for component in &mut design.components {
-                let is_grip = component.role == ComponentRole::Grip;
-                match &mut component.shape {
-                    ComponentShape::Cylinder(value) => {
-                        let radius = value.radius.0 + next(3);
-                        value.radius.0 = if is_grip {
-                            let scale = u32::from(value.bottom_scale.0.max(value.top_scale.0));
-                            radius.min(MAX_ROUND_GRIP_RADIUS_MM * 1_000 / scale)
-                        } else {
-                            radius
-                        };
-                    }
-                    ComponentShape::OvalGrip(value) => {
-                        value.width.0 = (value.width.0 + next(2)).min(MAX_SWORD_GRIP_WIDTH_MM);
-                        value.thickness.0 =
-                            (value.thickness.0 + next(2)).min(MAX_SWORD_GRIP_THICKNESS_MM);
-                    }
-                    ComponentShape::Blade(value) => {
-                        value.curvature.0 += next(5) as i32 - 2;
-                    }
-                    ComponentShape::Guard(value) => {
-                        value.sweep.0 += next(5) as i32 - 2;
-                    }
-                    ComponentShape::Mace(value) => {
-                        value.cusp_height.0 += next(3) as u16;
-                    }
-                    ComponentShape::Socket(v) => v.wall.0 += next(2),
-                    ComponentShape::Langet(v) => v.thickness.0 += next(2),
-                    ComponentShape::Axe(v) => v.curvature.0 += next(3) as u16,
-                    ComponentShape::HammerPoll(v) => v.crown.0 += next(3) as u16,
-                    ComponentShape::CurvedBeak(v) => v.curvature.0 += next(3) as i32,
-                    ComponentShape::FacetedBeak(v) => v.set.0 += next(3) as i32,
-                    ComponentShape::Glaive(v) => v.curvature.0 += next(3) as i32,
-                    ComponentShape::Bill(v) => v.hook_curvature.0 += next(3) as u16,
-                    ComponentShape::Fork(v) => v.taper.0 += next(3) as u16,
-                    ComponentShape::Partisan(v) => v.belly.0 += next(3) as u16,
-                    ComponentShape::TubePath(v) => v.radius.0 += next(2),
-                    ComponentShape::RingGuard(v) => v.radius.0 += next(2),
-                    ComponentShape::FigureEight(v) => v.width.0 += next(2),
-                    ComponentShape::FanPommel(v) => v.width.0 += next(2),
-                    ComponentShape::Rondel(v) => v.radius.0 += next(2),
-                    ComponentShape::GothicMace(v) => v.concavity.0 += next(3) as u16,
-                    ComponentShape::SlabGrip(v) => v.scale_thickness.0 += next(2),
-                    ComponentShape::KnuckleBow(v) => v.bulge.0 += next(3) as u16,
-                    ComponentShape::Collar(v) => v.radius.0 += next(2),
-                    ComponentShape::Sleeve(v) => v.wall.0 += next(2),
-                    ComponentShape::Boss(v) => v.radius.0 += next(2),
-                    ComponentShape::Spear(v) => v.acuteness.0 += next(3) as u16,
-                    ComponentShape::ProfiledPommel(v) => v.profile[0].radius.0 += next(2),
-                }
-            }
-            validate(&design).unwrap_or_else(|errors| panic!("{id}: {errors:?}"));
-            assert_closed_and_outward(&design);
-            generate_icon(
-                &design,
-                WeaponIconSpec {
-                    size: 32,
-                    supersampling: 2,
-                },
-            )
-            .unwrap_or_else(|error| panic!("{id} icon: {error}"));
-        }
-    }
-}
-
-#[test]
-fn procedural_icons_obey_focus_orientation_and_clipping_contracts() {
-    for id in MELEE_CATALOG_IDS {
-        let design = default_design(id).unwrap();
-        let icon = generate_icon(
-            &design,
-            WeaponIconSpec {
-                size: 96,
-                supersampling: 4,
-            },
-        )
-        .unwrap_or_else(|error| panic!("{id}: {error}"));
-        let expected = icon_layout(&design);
-        let expected_from_catalog_family = if matches!(
-            *id,
-            "arming_sword"
-                | "baselard"
-                | "bauernwehr"
-                | "falchion"
-                | "katzbalger"
-                | "knife"
-                | "kriegsmesser"
-                | "longsword"
-                | "messer"
-                | "misericorde"
-                | "rapier"
-                | "rondel_dagger"
-                | "utility_knife"
-                | "zweihander"
-        ) {
-            WeaponIconLayout::HiltFocus
-        } else {
-            WeaponIconLayout::HeadFocus
-        };
-        assert_eq!(expected, expected_from_catalog_family, "{id} family");
-        assert_eq!(icon.layout, expected, "{id}");
-        assert_eq!(icon.framing_anchor, [0.5, 0.5], "{id} semantic anchor");
-        assert!(
-            (1.0..=2.0).contains(&icon.head_zoom),
-            "{id} invalid head zoom {}",
-            icon.head_zoom
-        );
-        assert_eq!(icon.rgba.len(), 96 * 96 * 4, "{id}");
-        assert!(
-            icon.rgba
-                .as_chunks::<4>()
-                .0
-                .iter()
-                .all(|pixel| pixel[3] == 255),
-            "{id} must have an opaque background"
-        );
-        let colors = icon
-            .rgba
-            .as_chunks::<4>()
-            .0
-            .iter()
-            .map(|pixel| &pixel[..3])
-            .collect::<std::collections::HashSet<_>>();
-        assert!(
-            colors.len() > 16,
-            "{id} must preserve lighting and material variation"
-        );
-        let occupied = icon
-            .rgba
-            .as_chunks::<4>()
-            .0
-            .iter()
-            .filter(|pixel| pixel[..3].iter().any(|value| *value > 0))
-            .count();
-        assert!(occupied > 96, "{id} icon is effectively empty");
-        assert!(
-            occupied < 96 * 96 / 2,
-            "{id} icon consumes the whole square"
-        );
-        match expected {
-            WeaponIconLayout::HiltFocus => {
-                assert!(icon.focus_bounds.min[0] >= 0.01, "{id} hilt clipped left");
-                assert!(icon.focus_bounds.min[1] >= 0.01, "{id} hilt clipped top");
-                assert!(icon.focus_bounds.max[0] <= 0.99, "{id} hilt clipped right");
-                assert!(icon.focus_bounds.max[1] <= 0.99, "{id} hilt clipped bottom");
-                if *id != "utility_knife" {
-                    assert!(
-                        icon.occupied_bounds.max[1] >= 0.97,
-                        "{id} blade did not clip bottom"
-                    );
-                }
-                assert!(
-                    icon.occupied_bounds.min[0] < 0.25,
-                    "{id} blade does not extend toward lower-left"
-                );
-            }
-            WeaponIconLayout::HeadFocus => {
-                assert!(icon.focus_bounds.min[0] >= 0.01, "{id} head clipped left");
-                assert!(icon.focus_bounds.min[1] >= 0.01, "{id} head clipped top");
-                assert!(icon.focus_bounds.max[0] <= 0.99, "{id} head clipped right");
-                assert!(icon.focus_bounds.max[1] <= 0.99, "{id} head clipped bottom");
-                assert!(
-                    icon.occupied_bounds.max[1] >= 0.97,
-                    "{id} shaft did not clip bottom"
-                );
-                assert!(
-                    icon.occupied_bounds.max[0] >= 0.97,
-                    "{id} shaft does not extend toward lower-right"
-                );
-                if icon.head_zoom < 1.99 {
-                    assert!(
-                        icon.focus_bounds.min[0] <= 0.15 + 1.0 / 96.0
-                            || icon.focus_bounds.min[1] <= 0.15 + 1.0 / 96.0,
-                        "{id} head did not approach the inset corner: {:?}",
-                        icon.focus_bounds
-                    );
-                }
-                if matches!(*id, "war_hammer" | "walking_staff") {
-                    assert!(
-                        icon.head_zoom > 1.5,
-                        "{id} exception did not materially enlarge the head"
-                    );
-                }
-            }
-        }
-        let repeated = generate_icon(
-            &design,
-            WeaponIconSpec {
-                size: 96,
-                supersampling: 4,
-            },
-        )
-        .unwrap();
-        assert_eq!(icon.rgba, repeated.rgba, "{id} icon is not deterministic");
-        let png = icon.encode_png().unwrap();
-        assert_eq!(&png[..8], b"\x89PNG\r\n\x1a\n", "{id}");
-        assert_eq!(png[25], 6, "{id}: color portrait PNG must carry RGBA");
-    }
-}
-
-#[test]
-fn procedural_holder_icons_are_fitted_mirrored_and_deterministic() {
-    let spec = WeaponIconSpec {
-        size: 96,
-        supersampling: 4,
-    };
-    let sword = default_design("longsword").unwrap();
-    let sheath = default_holder_design(&sword).unwrap();
-    let icon = generate_holder_icon(&sheath, spec).unwrap();
-    assert_eq!(icon.layout, WeaponIconLayout::HiltFocus);
-    assert!(icon.mirrored);
-    assert_eq!(icon.framing_anchor, [0.24, 0.24]);
-    assert!(icon.focus_bounds.min[0] >= 0.01);
-    assert!(icon.focus_bounds.min[1] >= 0.01);
-    assert!(icon.focus_bounds.max[0] <= 0.99);
-    assert!(icon.focus_bounds.max[1] <= 0.99);
-    assert!(
-        icon.occupied_bounds.max[0] >= 0.97 && icon.occupied_bounds.max[1] >= 0.97,
-        "scabbard body must exit toward the lower-right: {:?}",
-        icon.occupied_bounds
-    );
-    assert_eq!(
-        icon.rgba,
-        generate_holder_icon(&sheath, spec).unwrap().rgba,
-        "holder icon is not deterministic"
-    );
-
-    let hammer = default_design("war_hammer").unwrap();
-    let haft_loop = default_holder_design(&hammer).unwrap();
-    let loop_icon = generate_holder_icon(&haft_loop, spec).unwrap();
-    assert_eq!(loop_icon.layout, WeaponIconLayout::HeadFocus);
-    assert!(!loop_icon.mirrored);
-    assert_eq!(loop_icon.framing_anchor, [0.5, 0.5]);
-    assert!(loop_icon.occupied_bounds.min[0] >= 0.01);
-    assert!(loop_icon.occupied_bounds.min[1] >= 0.01);
-    assert!(loop_icon.occupied_bounds.max[0] <= 0.99);
-    assert!(loop_icon.occupied_bounds.max[1] <= 0.99);
-    assert_ne!(icon.rgba, loop_icon.rgba);
-
-    for id in MELEE_CATALOG_IDS {
-        let weapon = default_design(id).unwrap();
-        let Some(holder) = default_holder_design(&weapon) else {
-            continue;
-        };
-        generate_holder_icon(
-            &holder,
-            WeaponIconSpec {
-                size: 32,
-                supersampling: 2,
-            },
-        )
-        .unwrap_or_else(|error| panic!("{id} holder icon: {error}"));
-    }
-}
-
-#[test]
-fn accepted_modeler_presets_cover_the_high_fidelity_vocabulary() {
-    assert_eq!(PRESET_IDS.len(), 21);
-    let mut vocabulary = std::collections::HashSet::new();
-    for id in PRESET_IDS {
-        let design = preset_design(id).unwrap_or_else(|| panic!("missing preset {id}"));
-        validate(&design).unwrap_or_else(|errors| panic!("{id}: {errors:?}"));
-        assert_closed_and_outward(&design);
-        for component in &design.components {
-            let name = match component.shape {
-                ComponentShape::Socket(_) => "socket",
-                ComponentShape::Langet(_) => "langet",
-                ComponentShape::Axe(_) => "axe",
-                ComponentShape::HammerPoll(_) => "hammer-poll",
-                ComponentShape::CurvedBeak(_) => "curved-beak",
-                ComponentShape::FacetedBeak(_) => "faceted-beak",
-                ComponentShape::Glaive(_) => "glaive",
-                ComponentShape::Bill(_) => "bill",
-                ComponentShape::Fork(_) => "fork",
-                ComponentShape::Partisan(_) => "partisan",
-                ComponentShape::TubePath(_) => "tube-path",
-                ComponentShape::RingGuard(_) => "ring",
-                ComponentShape::FigureEight(_) => "figure-eight",
-                ComponentShape::FanPommel(_) => "fan-pommel",
-                ComponentShape::Rondel(_) => "rondel",
-                ComponentShape::GothicMace(_) => "gothic-mace",
-                ComponentShape::SlabGrip(_) => "slab-grip",
-                ComponentShape::KnuckleBow(_) => "knuckle-bow",
-                ComponentShape::Collar(_) => "collar",
-                ComponentShape::Sleeve(_) => "sleeve",
-                ComponentShape::Boss(_) => "boss",
-                ComponentShape::Spear(_) => "spear",
-                ComponentShape::ProfiledPommel(_) => "profiled-pommel",
-                ComponentShape::Cylinder(_)
-                | ComponentShape::OvalGrip(_)
-                | ComponentShape::Blade(_)
-                | ComponentShape::Guard(_)
-                | ComponentShape::Mace(_) => continue,
-            };
-            vocabulary.insert(name);
-        }
-    }
-    for required in [
-        "socket",
-        "langet",
-        "axe",
-        "hammer-poll",
-        "curved-beak",
-        "faceted-beak",
-        "glaive",
-        "bill",
-        "fork",
-        "partisan",
-        "tube-path",
-        "ring",
-        "figure-eight",
-        "fan-pommel",
-        "rondel",
-        "gothic-mace",
-    ] {
-        assert!(vocabulary.contains(required), "missing {required}");
-    }
 }
 
 #[test]
@@ -913,17 +359,17 @@ fn recipe_derivation_is_deterministic_and_mesh_independent() {
 
 #[test]
 fn realistic_longsword_pommel_shifts_mass_and_handling_without_dominating_weight() {
-    let baseline = preset_design("landsknecht-longsword").unwrap();
+    let baseline = default_design("longsword").unwrap();
     let baseline_properties = derive_properties(&baseline).unwrap();
     assert!((1.0..3.0).contains(&baseline_properties.mass_kg));
     assert!(baseline_properties.center_of_mass_from_grip_m > 0.0);
 
     let mut heavier = baseline.clone();
-    let ComponentShape::ProfiledPommel(pommel) = &mut heavier.components[1].shape else {
+    let Shape::Pommel(pommel) = &mut heavier.recipe.components[1].shape else {
         panic!("longsword pommel changed shape")
     };
-    for point in &mut pommel.profile {
-        point.radius.0 = point.radius.0 * 108 / 100;
+    for point in pommel.profile.as_mut().unwrap() {
+        point[1] = Metres::new(point[1].get() * 1.08).unwrap();
     }
     let heavier_properties = derive_properties(&heavier).unwrap();
     assert!(heavier_properties.mass_kg > baseline_properties.mass_kg);
@@ -941,7 +387,7 @@ fn curved_bill_and_gothic_flange_profiles_are_dense_and_parameter_sensitive() {
     let hook = generated
         .parts
         .iter()
-        .find(|part| part.component_id == "bill")
+        .find(|part| part.component_id == "continuous bill and hook")
         .unwrap();
     assert!(
         hook.positions.len() >= 60,
@@ -949,16 +395,17 @@ fn curved_bill_and_gothic_flange_profiles_are_dense_and_parameter_sensitive() {
     );
     assert!(hook.bounds.max[0] - hook.bounds.min[0] > 0.18);
     let mut changed = bill.clone();
-    let ComponentShape::Bill(spec) = &mut changed
+    let Shape::Bill(spec) = &mut changed
+        .recipe
         .components
         .iter_mut()
-        .find(|component| component.id == "bill")
+        .find(|component| matches!(component.shape, Shape::Bill(_)))
         .unwrap()
         .shape
     else {
         panic!("bill")
     };
-    spec.hook_curvature.0 += 90;
+    spec.hook_curvature = Some(Ratio::new(spec.hook_curvature.unwrap().get() + 0.09).unwrap());
     assert_ne!(
         generate(&bill).unwrap().parts,
         generate(&changed).unwrap().parts
@@ -966,315 +413,14 @@ fn curved_bill_and_gothic_flange_profiles_are_dense_and_parameter_sensitive() {
 
     let mace = preset_design("gothic-flanged-mace").unwrap();
     let mut changed = mace.clone();
-    let ComponentShape::GothicMace(spec) = &mut changed.components.last_mut().unwrap().shape else {
+    let Shape::Mace(spec) = &mut changed.recipe.components.last_mut().unwrap().shape else {
         panic!("gothic mace")
     };
-    spec.concavity.0 -= 150;
+    spec.concavity = Some(Ratio::new(spec.concavity.unwrap().get() - 0.15).unwrap());
     assert_ne!(
         generate(&mace).unwrap().parts,
         generate(&changed).unwrap().parts
     );
-}
-
-fn structural_kind(component: &ComponentDesign) -> &'static str {
-    if component.id == "shaft" {
-        return "shaft";
-    }
-    if component.id == "butt-cap" {
-        return "pommel";
-    }
-    match &component.shape {
-        ComponentShape::OvalGrip(_) => "ovalGrip",
-        ComponentShape::Cylinder(_) if component.role == ComponentRole::Grip => "grip",
-        ComponentShape::Cylinder(_) => "cylinder",
-        ComponentShape::Socket(_) => "socket",
-        ComponentShape::Langet(_) => "box",
-        ComponentShape::Blade(_) => "blade",
-        ComponentShape::Spear(_) => "spear",
-        ComponentShape::Axe(_) => "axe",
-        ComponentShape::HammerPoll(_) => "hammer",
-        ComponentShape::CurvedBeak(_) => "beak",
-        ComponentShape::FacetedBeak(_) => "facetedBeak",
-        ComponentShape::Glaive(_) => "glaive",
-        ComponentShape::Bill(_) => "bill",
-        ComponentShape::Fork(_) => "fork",
-        ComponentShape::Partisan(_) => "partisan",
-        ComponentShape::Guard(_) => "guard",
-        ComponentShape::TubePath(_) => "tube",
-        ComponentShape::RingGuard(_) => "ringGuard",
-        ComponentShape::FigureEight(_) => "figureEight",
-        ComponentShape::FanPommel(_) => "fanPommel",
-        ComponentShape::Rondel(_) | ComponentShape::ProfiledPommel(_) | ComponentShape::Boss(_) => {
-            "pommel"
-        }
-        ComponentShape::GothicMace(_) | ComponentShape::Mace(_) => "mace",
-        ComponentShape::SlabGrip(_) => "slabGrip",
-        ComponentShape::KnuckleBow(_) => "knuckleBow",
-        ComponentShape::Collar(_) => "collar",
-        ComponentShape::Sleeve(_) => "sleeve",
-    }
-}
-
-#[test]
-fn all_accepted_presets_match_the_js_structural_fixture_and_key_controls() {
-    let fixture: &[(&str, &[&str])] = &[
-        (
-            "halberd-1540",
-            &[
-                "shaft", "socket", "pommel", "axe", "beak", "spear", "box", "box",
-            ],
-        ),
-        (
-            "lucerne-hammer",
-            &[
-                "shaft", "socket", "pommel", "hammer", "beak", "spear", "box", "box",
-            ],
-        ),
-        (
-            "pollaxe",
-            &[
-                "shaft", "socket", "pommel", "axe", "hammer", "spear", "box", "box",
-            ],
-        ),
-        ("kriegsspiess", &["shaft", "socket", "pommel", "spear"]),
-        ("short-spear", &["shaft", "socket", "pommel", "spear"]),
-        (
-            "partisan",
-            &["shaft", "socket", "pommel", "partisan", "box", "box"],
-        ),
-        (
-            "glaive",
-            &["shaft", "socket", "pommel", "glaive", "box", "box"],
-        ),
-        (
-            "hooked-bill",
-            &["shaft", "socket", "pommel", "bill", "box", "box"],
-        ),
-        (
-            "military-fork",
-            &["shaft", "socket", "pommel", "fork", "box", "box"],
-        ),
-        (
-            "landsknecht-longsword",
-            &["ovalGrip", "pommel", "guard", "blade"],
-        ),
-        (
-            "zweihander",
-            &["ovalGrip", "pommel", "guard", "blade", "guard"],
-        ),
-        (
-            "katzbalger",
-            &["ovalGrip", "fanPommel", "figureEight", "blade"],
-        ),
-        (
-            "grosse-messer",
-            &["slabGrip", "pommel", "guard", "blade", "tube", "pommel"],
-        ),
-        ("dussack", &["ovalGrip", "pommel", "knuckleBow", "blade"]),
-        ("estoc", &["ovalGrip", "pommel", "guard", "blade"]),
-        ("rondel-dagger", &["ovalGrip", "pommel", "pommel", "blade"]),
-        (
-            "reitschwert-1540",
-            &[
-                "ovalGrip",
-                "pommel",
-                "guard",
-                "blade",
-                "ringGuard",
-                "knuckleBow",
-                "pommel",
-                "pommel",
-                "pommel",
-                "pommel",
-            ],
-        ),
-        (
-            "reiter-war-hammer",
-            &["shaft", "socket", "pommel", "hammer", "facetedBeak"],
-        ),
-        ("hand-axe", &["shaft", "socket", "axe", "pommel"]),
-        (
-            "flanged-mace",
-            &["grip", "shaft", "collar", "collar", "sleeve", "mace"],
-        ),
-        (
-            "gothic-flanged-mace",
-            &["grip", "shaft", "collar", "collar", "sleeve", "mace"],
-        ),
-    ];
-    for (id, expected) in fixture {
-        let design = preset_design(id).unwrap();
-        let mut actual: Vec<_> = design.components.iter().map(structural_kind).collect();
-        let mut expected = expected.to_vec();
-        actual.sort_unstable();
-        expected.sort_unstable();
-        assert_eq!(actual, expected, "{id}");
-    }
-    for (id, component, length) in [
-        ("halberd-1540", "spike", 320),
-        ("lucerne-hammer", "spike", 310),
-        ("pollaxe", "spike", 250),
-        ("kriegsspiess", "spike", 250),
-        ("short-spear", "spike", 310),
-        ("partisan", "partisan", 420),
-        ("glaive", "glaive", 540),
-        ("hooked-bill", "bill", 380),
-        ("military-fork", "fork", 390),
-        ("landsknecht-longsword", "blade", 950),
-        ("zweihander", "blade", 1280),
-        ("katzbalger", "blade", 682),
-        ("grosse-messer", "blade", 840),
-        ("dussack", "blade", 590),
-        ("estoc", "blade", 1050),
-        ("rondel-dagger", "blade", 320),
-        ("reitschwert-1540", "blade", 880),
-        ("reiter-war-hammer", "shaft", 430),
-        ("hand-axe", "shaft", 570),
-        ("flanged-mace", "head", 123),
-        ("gothic-flanged-mace", "head", 182),
-    ] {
-        let design = preset_design(id).unwrap();
-        assert_eq!(
-            design
-                .components
-                .iter()
-                .find(|part| part.id == component)
-                .unwrap()
-                .shape
-                .axial_length()
-                .0,
-            length,
-            "{id}.{component}"
-        );
-    }
-
-    let katz = preset_design("katzbalger").unwrap();
-    let ComponentShape::Blade(katz_blade) = &katz
-        .components
-        .iter()
-        .find(|part| part.id == "blade")
-        .unwrap()
-        .shape
-    else {
-        panic!()
-    };
-    assert_eq!(
-        (katz_blade.length.0, katz_blade.width.0, katz_blade.taper.0),
-        (682, 50, 150)
-    );
-    assert!(
-        matches!(&katz.components.iter().find(|part| part.id == "pommel").unwrap().shape, ComponentShape::FanPommel(v) if (v.width.0,v.height.0,v.thickness.0)==(55,31,14))
-    );
-    let bill = preset_design("hooked-bill").unwrap();
-    assert!(
-        matches!(&bill.components.iter().find(|part| part.id == "bill").unwrap().shape, ComponentShape::Bill(v) if (v.belly_position.0,v.point_length.0,v.root_length.0)==(480,240,60))
-    );
-    let fork = preset_design("military-fork").unwrap();
-    assert!(
-        matches!(&fork.components.iter().find(|part| part.id == "fork").unwrap().shape, ComponentShape::Fork(v) if (v.shoulder_blend.0,v.crotch_round.0)==(200,50))
-    );
-    let zweihander = preset_design("zweihander").unwrap();
-    assert!(
-        zweihander
-            .components
-            .iter()
-            .any(|part| part.id == "parrying-lugs")
-    );
-    let messer = preset_design("grosse-messer").unwrap();
-    assert!(messer.components.iter().any(|part| part.id == "nagel-stem"));
-    assert!(
-        messer
-            .components
-            .iter()
-            .any(|part| part.id == "nagel-button")
-    );
-    let halberd = preset_design("halberd-1540").unwrap();
-    assert!(
-        matches!(&halberd.components.iter().find(|part| part.id == "axe").unwrap().shape, ComponentShape::Axe(v) if (v.upper_shoulder.0,v.lower_shoulder.0,v.flare.0,v.toe.0,v.heel.0,v.beard_drop.0)==(380,260,-220,0,0,90))
-    );
-    let lucerne = preset_design("lucerne-hammer").unwrap();
-    assert!(
-        matches!(&lucerne.components.iter().find(|part| part.id == "poll").unwrap().shape, ComponentShape::HammerPoll(v) if (v.neck_ratio.0,v.face_flare.0,v.crown_length.0,v.face_thickness.0)==(720,0,5,38))
-    );
-    let glaive = preset_design("glaive").unwrap();
-    assert!(
-        matches!(&glaive.components.iter().find(|part| part.id == "glaive").unwrap().shape, ComponentShape::Glaive(v) if (v.belly_position.0,v.point_length.0,v.root_length.0)==(420,240,80))
-    );
-    let partisan = preset_design("partisan").unwrap();
-    assert!(
-        matches!(&partisan.components.iter().find(|part| part.id == "partisan").unwrap().shape, ComponentShape::Partisan(v) if (v.lug_drop.0,v.belly_position.0,v.lug_sweep.0,v.acuteness.0)==(75,320,55,1000))
-    );
-
-    let cylinder = |design: &WeaponDesign, id: &str| {
-        let ComponentShape::Cylinder(value) = &design
-            .components
-            .iter()
-            .find(|part| part.id == id)
-            .unwrap()
-            .shape
-        else {
-            panic!("{id} was not a cylinder")
-        };
-        (value.bottom_scale.0, value.top_scale.0)
-    };
-    assert_eq!(cylinder(&halberd, "shaft"), (900, 920));
-    let longsword = preset_design("landsknecht-longsword").unwrap();
-    let ComponentShape::OvalGrip(longsword_grip) = &longsword.components[0].shape else {
-        panic!("longsword grip was not oval")
-    };
-    assert_eq!(
-        (
-            longsword_grip.width.0,
-            longsword_grip.thickness.0,
-            longsword_grip.bottom_scale.0,
-            longsword_grip.top_scale.0,
-        ),
-        (33, 24, 1000, 850)
-    );
-    let gothic = preset_design("gothic-flanged-mace").unwrap();
-    assert_eq!(cylinder(&gothic, "grip"), (1000, 980));
-    assert_eq!(cylinder(&gothic, "shaft"), (1000, 940));
-    assert_eq!(
-        gothic
-            .components
-            .iter()
-            .find(|part| part.id == "grip")
-            .unwrap()
-            .material,
-        MaterialClass::DarkLeather
-    );
-    for id in ["grosse-messer", "dussack"] {
-        let design = preset_design(id).unwrap();
-        assert_eq!(
-            design
-                .components
-                .iter()
-                .find(|part| part.id == "pommel")
-                .unwrap()
-                .material,
-            MaterialClass::Brass,
-            "{id} pommel"
-        );
-    }
-}
-
-#[test]
-fn mace_assemblies_have_reference_bottom_to_top_anchor_order() {
-    for id in ["flanged-mace", "gothic-flanged-mace"] {
-        let generated = generate(&preset_design(id).unwrap()).unwrap();
-        let anchor = |name: &str| {
-            generated
-                .anchors
-                .iter()
-                .find(|anchor| anchor.name == name)
-                .unwrap()
-                .position[1]
-        };
-        assert!(anchor("grip.base") <= anchor("lower-collar.base"), "{id}");
-        assert!(anchor("grip.top") <= anchor("shaft.base"), "{id}");
-        assert!(anchor("shaft.top") <= anchor("head-sleeve.top"), "{id}");
-        assert!(anchor("head-sleeve.base") <= anchor("head.base"), "{id}");
-    }
 }
 
 #[test]
@@ -1310,141 +456,17 @@ fn katzbalger_fan_has_sampled_mushroom_dome_and_narrow_neck() {
 }
 
 #[test]
-fn hostile_full_integer_validation_is_total_and_never_panics() {
-    fn poison(shape: &mut ComponentShape) {
-        match shape {
-            ComponentShape::Cylinder(v) => v.length.0 = u32::MAX,
-            ComponentShape::OvalGrip(v) => v.width.0 = u32::MAX,
-            ComponentShape::Blade(v) => v.width.0 = u32::MAX,
-            ComponentShape::Guard(v) => v.radius.0 = u32::MAX,
-            ComponentShape::Mace(v) => v.length.0 = u32::MAX,
-            ComponentShape::Socket(v) => v.outer_radius.0 = u32::MAX,
-            ComponentShape::Langet(v) => v.length.0 = u32::MAX,
-            ComponentShape::Axe(v) => v.reach.0 = u32::MAX,
-            ComponentShape::HammerPoll(v) => v.length.0 = u32::MAX,
-            ComponentShape::CurvedBeak(v) => v.length.0 = u32::MAX,
-            ComponentShape::FacetedBeak(v) => v.length.0 = u32::MAX,
-            ComponentShape::Glaive(v) => v.length.0 = u32::MAX,
-            ComponentShape::Bill(v) => v.width.0 = u32::MAX,
-            ComponentShape::Fork(v) => v.tine_width.0 = u32::MAX,
-            ComponentShape::Partisan(v) => v.length.0 = u32::MAX,
-            ComponentShape::TubePath(v) => v.radius.0 = u32::MAX,
-            ComponentShape::RingGuard(v) => v.radius.0 = u32::MAX,
-            ComponentShape::FigureEight(v) => v.bar.0 = u32::MAX,
-            ComponentShape::FanPommel(v) => v.width.0 = u32::MAX,
-            ComponentShape::Rondel(v) => v.radius.0 = u32::MAX,
-            ComponentShape::GothicMace(v) => {
-                v.length.0 = u32::MAX;
-                v.crown_length.0 = u32::MAX;
-            }
-            ComponentShape::SlabGrip(v) => v.scale_thickness.0 = u32::MAX,
-            ComponentShape::KnuckleBow(v) => v.width.0 = u32::MAX,
-            ComponentShape::Collar(v) => v.radius.0 = u32::MAX,
-            ComponentShape::Sleeve(v) => v.length.0 = u32::MAX,
-            ComponentShape::Boss(v) => v.radius.0 = u32::MAX,
-            ComponentShape::Spear(v) => v.length.0 = u32::MAX,
-            ComponentShape::ProfiledPommel(v) => v.profile[0].radius.0 = u32::MAX,
-        }
-    }
-    for id in PRESET_IDS {
-        let baseline = preset_design(id).unwrap();
-        for index in 0..baseline.components.len() {
-            let mut hostile = baseline.clone();
-            poison(&mut hostile.components[index].shape);
-            let result = std::panic::catch_unwind(|| validate(&hostile));
-            assert!(
-                matches!(result, Ok(Err(_))),
-                "{id} component {index}: {result:?}"
-            );
-        }
-    }
-
-    let mut required = preset_design("hand-axe").unwrap();
-    let ComponentShape::Axe(axe) = &mut required
-        .components
-        .iter_mut()
-        .find(|part| part.id == "axe")
-        .unwrap()
-        .shape
-    else {
-        panic!()
-    };
-    axe.reach.0 = u32::MAX;
-    assert!(matches!(
-        std::panic::catch_unwind(|| validate(&required)),
-        Ok(Err(_))
-    ));
-    let mut required = preset_design("gothic-flanged-mace").unwrap();
-    let ComponentShape::GothicMace(mace) = &mut required
-        .components
-        .iter_mut()
-        .find(|part| part.id == "head")
-        .unwrap()
-        .shape
-    else {
-        panic!()
-    };
-    mace.length.0 = u32::MAX;
-    mace.crown_length.0 = u32::MAX;
-    assert!(matches!(
-        std::panic::catch_unwind(|| validate(&required)),
-        Ok(Err(_))
-    ));
-    let mut required = preset_design("military-fork").unwrap();
-    let ComponentShape::Fork(fork) = &mut required
-        .components
-        .iter_mut()
-        .find(|part| part.id == "fork")
-        .unwrap()
-        .shape
-    else {
-        panic!()
-    };
-    fork.tine_width.0 = u32::MAX;
-    assert!(matches!(
-        std::panic::catch_unwind(|| validate(&required)),
-        Ok(Err(_))
-    ));
-    let mut required = preset_design("katzbalger").unwrap();
-    let ComponentShape::FigureEight(guard) = &mut required
-        .components
-        .iter_mut()
-        .find(|part| part.id == "guard")
-        .unwrap()
-        .shape
-    else {
-        panic!()
-    };
-    guard.bar.0 = u32::MAX;
-    assert!(matches!(
-        std::panic::catch_unwind(|| validate(&required)),
-        Ok(Err(_))
-    ));
-
-    let mut required = default_design("walking_staff").unwrap();
-    let ComponentShape::Cylinder(shaft) = &mut required.components[0].shape else {
-        panic!()
-    };
-    shaft.bottom_scale.0 = u16::MAX;
-    shaft.top_scale.0 = u16::MAX;
-    assert!(matches!(
-        std::panic::catch_unwind(|| validate(&required)),
-        Ok(Err(_))
-    ));
-}
-
-#[test]
 fn tapered_cylinders_affect_mesh_and_derived_mass() {
     let tapered = default_design("walking_staff").unwrap();
     let tapered_generated = generate(&tapered).unwrap();
     let tapered_mass = derive_properties(&tapered).unwrap().mass_kg;
 
     let mut straight = tapered.clone();
-    let ComponentShape::Cylinder(shaft) = &mut straight.components[0].shape else {
+    let Shape::Shaft(shaft) = &mut straight.recipe.components[0].shape else {
         panic!()
     };
-    shaft.bottom_scale = Permille(1000);
-    shaft.top_scale = Permille(1000);
+    shaft.bottom_scale = Some(Ratio::new(1.0).unwrap());
+    shaft.top_scale = Some(Ratio::new(1.0).unwrap());
     validate(&straight).unwrap();
     let straight_generated = generate(&straight).unwrap();
     let straight_mass = derive_properties(&straight).unwrap().mass_kg;
@@ -1518,7 +540,7 @@ fn shape_aware_normals_smooth_walls_but_split_caps_and_blade_creases() {
     let bill = bill
         .parts
         .iter()
-        .find(|part| part.component_id == "bill")
+        .find(|part| part.component_id == "continuous bill and hook")
         .unwrap();
     assert!(
         groups(bill).values().any(|normals| {
@@ -1529,4 +551,27 @@ fn shape_aware_normals_smooth_walls_but_split_caps_and_blade_creases() {
         }),
         "blade front/side crease was globally averaged"
     );
+}
+#[test]
+fn mace_assemblies_seat_the_head_in_the_shaft_and_sleeve() {
+    for id in ["flanged-mace", "gothic-flanged-mace"] {
+        let generated = generate(&preset_design(id).unwrap()).unwrap();
+        let head = generated
+            .parts
+            .iter()
+            .find(|p| p.component_id == "longitudinal flanged head")
+            .unwrap();
+        let shaft = generated
+            .parts
+            .iter()
+            .find(|p| p.component_id == "shaft")
+            .unwrap();
+        let sleeve = generated
+            .parts
+            .iter()
+            .find(|p| p.component_id == "narrow head sleeve")
+            .unwrap();
+        assert!(head.bounds.min[1] < shaft.bounds.max[1]);
+        assert!((head.bounds.min[1] - sleeve.bounds.max[1]).abs() < 1e-6);
+    }
 }

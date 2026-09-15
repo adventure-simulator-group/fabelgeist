@@ -3,7 +3,7 @@
 use std::{env, fmt::Write as _, fs, path::PathBuf};
 
 use adventuresim_weapon_model::{
-    MaterialClass, default_design, default_holder_design, generate, generate_holder, preset_design,
+    Material, default_design, default_holder_design, generate, generate_holder, preset_design,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -59,27 +59,32 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         vertex_base += u32::try_from(part.positions.len())?;
     }
     fs::write(&output, obj)?;
-    fs::write(material_path, material_library())?;
+    fs::write(material_path, material_library(&parts))?;
     println!("exported {} parts to {}", parts.len(), output.display());
     Ok(())
 }
 
-fn material_label(material: MaterialClass) -> &'static str {
-    match material {
-        MaterialClass::Wood => "wood",
-        MaterialClass::Leather => "leather",
-        MaterialClass::DarkLeather => "dark_leather",
-        MaterialClass::Brass => "brass",
-        MaterialClass::Steel => "steel",
-        MaterialClass::DarkSteel => "dark_steel",
-    }
+fn material_label(material: Material) -> String {
+    serde_json::to_value(material)
+        .expect("material identifier")
+        .as_str()
+        .unwrap()
+        .to_owned()
 }
-
-fn material_library() -> &'static str {
-    "newmtl wood\nKd 0.30 0.18 0.09\n\
-newmtl leather\nKd 0.16 0.09 0.05\n\
-newmtl dark_leather\nKd 0.055 0.045 0.038\n\
-newmtl brass\nKd 0.58 0.42 0.13\n\
-newmtl steel\nKd 0.58 0.61 0.64\n\
-newmtl dark_steel\nKd 0.22 0.24 0.26\n"
+fn material_library(parts: &[adventuresim_weapon_model::MeshPart]) -> String {
+    let materials: std::collections::BTreeMap<_, _> = parts
+        .iter()
+        .map(|part| (material_label(part.material), part.material))
+        .collect();
+    let mut output = String::new();
+    for (_, material) in materials {
+        let [r, g, b] = material.color();
+        writeln!(
+            output,
+            "newmtl {}\nKd {r} {g} {b}",
+            material_label(material)
+        )
+        .unwrap();
+    }
+    output
 }

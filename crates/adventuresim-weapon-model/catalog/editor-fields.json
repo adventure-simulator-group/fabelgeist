@@ -1,0 +1,512 @@
+{
+  "shaft": [
+    {
+      "path": "length",
+      "min": 0.002,
+      "max": 5.5,
+      "step": 0.001
+    },
+    {
+      "path": "radius",
+      "min": 0.005,
+      "max": 0.08,
+      "step": 0.001
+    },
+    {
+      "path": "bottomScale",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.025
+    },
+    {
+      "path": "topScale",
+      "min": 0.5,
+      "max": 1.5,
+      "step": 0.025
+    }
+  ],
+  "ovalGrip": [
+    {
+      "path": "length",
+      "min": 0.08,
+      "max": 0.5,
+      "step": 0.005
+    },
+    {
+      "path": "width",
+      "min": 0.026,
+      "max": 0.038,
+      "step": 0.001
+    },
+    {
+      "path": "thickness",
+      "min": 0.018,
+      "max": 0.028,
+      "step": 0.001
+    },
+    {
+      "path": "bottomScale",
+      "min": 0.75,
+      "max": 1,
+      "step": 0.025
+    },
+    {
+      "path": "topScale",
+      "min": 0.75,
+      "max": 1,
+      "step": 0.025
+    }
+  ],
+  "loftedBlade": [
+    {
+      "path": "length",
+      "min": 0.1,
+      "max": 1.8,
+      "step": 0.005
+    },
+    {
+      "path": "width",
+      "min": 0.015,
+      "max": 0.16,
+      "step": 0.001
+    },
+    {
+      "path": "thickness",
+      "min": 0.003,
+      "max": 0.024,
+      "step": 0.001
+    },
+    {
+      "path": "curvature",
+      "min": -0.3,
+      "max": 0.3,
+      "step": 0.005
+    },
+    {
+      "path": "taper",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.025
+    },
+    {
+      "path": "singleEdge",
+      "min": 0,
+      "max": 1,
+      "step": 0.05
+    },
+    {
+      "path": "belly",
+      "min": -0.3,
+      "max": 0.5,
+      "step": 0.025
+    },
+    {
+      "path": "ricasso",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.01
+    }
+  ],
+  "mace": [
+    {
+      "path": "length",
+      "min": 0.06,
+      "max": 0.4,
+      "step": 0.005
+    },
+    {
+      "path": "rootRadius",
+      "min": 0.005,
+      "max": 0.06,
+      "step": 0.001
+    },
+    {
+      "path": "cuspRadius",
+      "min": 0.015,
+      "max": 0.12,
+      "step": 0.001
+    },
+    {
+      "path": "flanges",
+      "min": 4,
+      "max": 12,
+      "step": 1
+    },
+    {
+      "path": "cuspHeight",
+      "min": 0.1,
+      "max": 0.9,
+      "step": 0.025
+    },
+    {
+      "path": "length",
+      "min": 0.08,
+      "max": 0.4,
+      "step": 0.005
+    },
+    {
+      "path": "cuspRadius",
+      "min": 0.025,
+      "max": 0.1,
+      "step": 0.001
+    },
+    {
+      "path": "concavity",
+      "min": 0,
+      "max": 1,
+      "step": 0.025
+    },
+    {
+      "path": "flanges",
+      "min": 4,
+      "max": 12,
+      "step": 1
+    }
+  ],
+  "axe": [
+    {
+      "path": "width",
+      "min": 0.05,
+      "max": 0.35,
+      "step": 0.005
+    },
+    {
+      "path": "height",
+      "min": 0.06,
+      "max": 0.5,
+      "step": 0.005
+    },
+    {
+      "path": "thickness",
+      "min": 0.005,
+      "max": 0.05,
+      "step": 0.001
+    },
+    {
+      "path": "beard",
+      "min": 0,
+      "max": 1,
+      "step": 0.025
+    },
+    {
+      "path": "curvature",
+      "min": 0,
+      "max": 1,
+      "step": 0.025
+    }
+  ],
+  "hammer": [
+    {
+      "path": "length",
+      "min": 0.04,
+      "max": 0.25,
+      "step": 0.005
+    },
+    {
+      "path": "face",
+      "min": 0.02,
+      "max": 0.18,
+      "step": 0.005
+    },
+    {
+      "path": "neck",
+      "min": 0.01,
+      "max": 0.12,
+      "step": 0.005
+    },
+    {
+      "path": "crown",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.025
+    }
+  ],
+  "beak": [
+    {
+      "path": "length",
+      "min": 0.05,
+      "max": 0.3,
+      "step": 0.005
+    },
+    {
+      "path": "curvature",
+      "min": -0.2,
+      "max": 0.2,
+      "step": 0.005
+    },
+    {
+      "path": "droop",
+      "min": -0.1,
+      "max": 0.1,
+      "step": 0.005
+    }
+  ],
+  "facetedBeak": [
+    {
+      "path": "length",
+      "min": 0.04,
+      "max": 0.25,
+      "step": 0.005
+    },
+    {
+      "path": "set",
+      "min": -0.1,
+      "max": 0.1,
+      "step": 0.005
+    }
+  ],
+  "glaive": [
+    {
+      "path": "length",
+      "min": 0.2,
+      "max": 0.8,
+      "step": 0.01
+    },
+    {
+      "path": "width",
+      "min": 0.04,
+      "max": 0.18,
+      "step": 0.005
+    },
+    {
+      "path": "curvature",
+      "min": -0.25,
+      "max": 0.25,
+      "step": 0.005
+    }
+  ],
+  "bill": [
+    {
+      "path": "length",
+      "min": 0.18,
+      "max": 0.65,
+      "step": 0.01
+    },
+    {
+      "path": "width",
+      "min": 0.04,
+      "max": 0.18,
+      "step": 0.005
+    },
+    {
+      "path": "hook",
+      "min": 0.02,
+      "max": 0.18,
+      "step": 0.005
+    }
+  ],
+  "fork": [
+    {
+      "path": "length",
+      "min": 0.18,
+      "max": 0.65,
+      "step": 0.01
+    },
+    {
+      "path": "width",
+      "min": 0.06,
+      "max": 0.24,
+      "step": 0.005
+    },
+    {
+      "path": "crotch",
+      "min": 0.1,
+      "max": 0.8,
+      "step": 0.025
+    }
+  ],
+  "partisan": [
+    {
+      "path": "length",
+      "min": 0.18,
+      "max": 0.65,
+      "step": 0.01
+    },
+    {
+      "path": "width",
+      "min": 0.05,
+      "max": 0.22,
+      "step": 0.005
+    },
+    {
+      "path": "lugWidth",
+      "min": 0.06,
+      "max": 0.26,
+      "step": 0.005
+    }
+  ],
+  "spatialTube": [
+    {
+      "path": "radius",
+      "min": 0.002,
+      "max": 0.016,
+      "step": 0.001
+    }
+  ],
+  "figureEight": [
+    {
+      "path": "width",
+      "min": 0.06,
+      "max": 0.24,
+      "step": 0.005
+    },
+    {
+      "path": "height",
+      "min": 0.02,
+      "max": 0.1,
+      "step": 0.002
+    },
+    {
+      "path": "bar",
+      "min": 0.003,
+      "max": 0.016,
+      "step": 0.001
+    }
+  ],
+  "slabGrip": [
+    {
+      "path": "length",
+      "min": 0.08,
+      "max": 0.4,
+      "step": 0.005
+    },
+    {
+      "path": "width",
+      "min": 0.02,
+      "max": 0.07,
+      "step": 0.001
+    },
+    {
+      "path": "scaleThickness",
+      "min": 0.003,
+      "max": 0.02,
+      "step": 0.001
+    }
+  ],
+  "spear": [
+    {
+      "path": "length",
+      "min": 0.12,
+      "max": 0.65,
+      "step": 0.005
+    },
+    {
+      "path": "width",
+      "min": 0.025,
+      "max": 0.16,
+      "step": 0.005
+    },
+    {
+      "path": "bellyPosition",
+      "min": 0.1,
+      "max": 0.7,
+      "step": 0.025
+    },
+    {
+      "path": "acuteness",
+      "min": 0.3,
+      "max": 1.5,
+      "step": 0.025
+    }
+  ],
+  "bentBar": [
+    {
+      "path": "radius",
+      "min": 0.002,
+      "max": 0.02,
+      "step": 0.001
+    },
+    {
+      "path": "centerline.span",
+      "min": 0.04,
+      "max": 0.6,
+      "step": 0.005
+    },
+    {
+      "path": "centerline.sweep",
+      "min": -0.1,
+      "max": 0.1,
+      "step": 0.005
+    },
+    {
+      "path": "centerline.width",
+      "min": 0.04,
+      "max": 0.18,
+      "step": 0.005
+    },
+    {
+      "path": "centerline.length",
+      "min": 0.08,
+      "max": 0.3,
+      "step": 0.005
+    },
+    {
+      "path": "centerline.bulge",
+      "min": 0,
+      "max": 0.045,
+      "step": 0.001
+    }
+  ],
+  "pommel": [
+    {
+      "path": "diameter",
+      "min": 0.025,
+      "max": 0.1,
+      "step": 0.001
+    },
+    {
+      "path": "height",
+      "min": 0.02,
+      "max": 0.1,
+      "step": 0.001
+    },
+    {
+      "path": "thickness",
+      "min": 0.005,
+      "max": 0.03,
+      "step": 0.001
+    }
+  ],
+  "socket": [
+    {
+      "path": "wall",
+      "min": 0.001,
+      "max": 0.02,
+      "step": 0.0005
+    }
+  ],
+  "ringGuard": [
+    {
+      "path": "radius",
+      "min": 0.015,
+      "max": 0.12,
+      "step": 0.001
+    },
+    {
+      "path": "bar",
+      "min": 0.002,
+      "max": 0.016,
+      "step": 0.001
+    }
+  ],
+  "box": [
+    {
+      "path": "size.0",
+      "min": 0.001,
+      "max": 0.2,
+      "step": 0.001
+    },
+    {
+      "path": "size.1",
+      "min": 0.001,
+      "max": 0.5,
+      "step": 0.001
+    },
+    {
+      "path": "size.2",
+      "min": 0.001,
+      "max": 0.2,
+      "step": 0.001
+    }
+  ]
+}
