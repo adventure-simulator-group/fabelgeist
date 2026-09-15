@@ -13,6 +13,9 @@ pub(super) enum TreeLightingModeId {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
+    Plant {
+        distance: f32,
+    },
     Ground,
     AnimationPlay {
         yaw_degrees: f32,
@@ -657,6 +660,8 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
 ];
 
 mod environment;
+mod plants;
+pub(super) use plants::PLANT_REVIEW_VIEWS;
 mod landform;
 pub(super) use environment::ENVIRONMENT_REVIEW_VIEWS;
 pub(super) use landform::LANDFORM_REVIEW_VIEWS;

@@ -691,6 +691,14 @@ test: test-chat test-schedule test-dev-stack build-strategic
 bake-procedural-textures recipe="all":
     @cargo run -p adventuresim-procedural-textures --bin bake-procedural-textures -- {{ recipe }}
 
+# Edit shared botanical recipes and orbit their production meshes.
+plant-studio:
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer
+
+# Capture a flower preset (0..4), its full plant or head, and a settled pair.
+plant-capture preset="0" view="full" output="target/plant-captures/specimen":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --preset {{ preset }} --view {{ view }} --output {{ quote(output) }}
+
 fmt:
     @cargo fmt --all
     @cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml

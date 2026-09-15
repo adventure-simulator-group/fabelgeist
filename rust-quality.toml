@@ -517,3 +517,28 @@ reason = "Deterministic interior catalog and furnished settlement review fixture
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/armor_controls.rs"
 reason = "Egui controls dispatch design edits and save actions through widget responses, without comparing display labels."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/flower/presets.rs"
+reason = "Physical dimensions, organ counts and solid pigments for the Central European flower catalog."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/habitat.rs"
+reason = "Conservative species occurrence weights and phenological intervals for scene habitat selection."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-plant-generator/src/viewer/**"
+reason = "Native plant authoring and deterministic specimen capture harness."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs"
+reason = "Fixed production plant contact, community and fade-distance capture cameras."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-plant-generator/src/viewer/controls.rs"
+reason = "The recipe editor maps serialized JSON field names and enum values to authoring widgets."

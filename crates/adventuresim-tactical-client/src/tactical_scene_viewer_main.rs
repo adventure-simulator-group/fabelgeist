@@ -33,6 +33,8 @@ fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
 #[cfg(not(target_family = "wasm"))]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
 enum CaptureProfile {
+    /// Actual procedural flower/fungi roots at contact and gameplay distances.
+    PlantReview,
     /// Existing exhaustive semantic presentation suite (23 recorded views).
     #[default]
     Semantic,
@@ -154,6 +156,7 @@ fn main() {
         args.triangle_census,
         args.tree_review_azimuth_degrees,
         match args.profile {
+            CaptureProfile::PlantReview => "plant-review",
             CaptureProfile::Semantic => "semantic",
             CaptureProfile::EnvironmentReview => "environment-review",
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,

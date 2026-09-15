@@ -83,7 +83,7 @@ pub(crate) use environment::{
 };
 pub(crate) use ground_scatter::{
     GrassInteractor, GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundLitterDiagnostics,
-    GroundScatterLayer, LooseStonePebblePatch, UnderstoryReviewSpecimen,
+    GroundScatterLayer, LooseStonePebblePatch, PlantCaptureAnchors, UnderstoryReviewSpecimen,
     WoodyUnderstoryPresentationCache, spawn_understory_review_specimens,
 };
 pub(crate) use obstacles::oak_review_terminal_specimen;

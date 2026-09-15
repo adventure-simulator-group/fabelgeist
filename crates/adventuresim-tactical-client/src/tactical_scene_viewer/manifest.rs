@@ -113,6 +113,7 @@ pub(super) struct ObstacleSummary {
 pub(super) struct FoliageSummary {
     pub(super) grass_clumps: usize,
     pub(super) understory_clumps: usize,
+    pub(super) botanical_plant_cells: usize,
     pub(super) dry_leaf_patches: usize,
     pub(super) twig_patches: usize,
     pub(super) loose_stone_patches: usize,
