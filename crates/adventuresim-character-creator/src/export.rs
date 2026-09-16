@@ -666,7 +666,6 @@ fn append_attachment(
     globals.push(transform);
 }
 
-
 fn position_bounds(positions: &[[f32; 3]]) -> ([f32; 3], [f32; 3]) {
     positions.iter().fold(
         ([f32::INFINITY; 3], [f32::NEG_INFINITY; 3]),

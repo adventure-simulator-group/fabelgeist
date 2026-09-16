@@ -116,13 +116,31 @@ pub use drape::drape;
 /// One garment's drape result, and the stages it completed either way.
 pub struct DrapeOutcome {
     pub result: Result<DrapedGarment>,
+    /// Fit problems in a draped garment. The garment is still usable.
+    pub warnings: Vec<String>,
     pub checkpoints: DrapeCheckpoints,
 }
 
 /// An outfit's drape result, with checkpoints for every garment attempted.
 pub struct OutfitOutcome {
-    pub garments: Result<Vec<DrapedGarment>>,
+    /// Draped garments in input order, up to the first that could not be draped.
+    pub garments: Vec<DrapedGarment>,
+    /// Fit problems in the draped garments, each naming its garment.
+    pub warnings: Vec<String>,
+    /// Why draping stopped before the last garment, if it did.
+    pub error: Option<anyhow::Error>,
     pub checkpoints: Vec<DrapeCheckpoints>,
+}
+
+impl OutfitOutcome {
+    /// Every problem on one line, or `None` when all garments draped cleanly.
+    pub fn problems(&self) -> Option<String> {
+        let mut problems = self.warnings.clone();
+        if let Some(error) = &self.error {
+            problems.insert(0, format!("draping stopped: {error:#}"));
+        }
+        (!problems.is_empty()).then(|| problems.join("; "))
+    }
 }
 
 /// Drape garments inside to outside. `previous` holds the last outfit drape's
@@ -134,6 +152,7 @@ pub fn drape_outfit(
     mut preview: impl FnMut(Vec<DrapedGarment>),
 ) -> OutfitOutcome {
     let mut finished = Vec::new();
+    let mut warnings = Vec::new();
     let mut checkpoints = Vec::new();
     for (index, mut input) in inputs.into_iter().enumerate() {
         input.obstacles = finished.clone();
@@ -144,17 +163,29 @@ pub fn drape_outfit(
         });
         checkpoints.push(outcome.checkpoints);
         match outcome.result {
-            Ok(garment) => finished.push(garment),
+            Ok(garment) => {
+                warnings.extend(
+                    outcome
+                        .warnings
+                        .into_iter()
+                        .map(|warning| format!("{}: {warning}", garment.name)),
+                );
+                finished.push(garment);
+            }
             Err(error) => {
                 return OutfitOutcome {
-                    garments: Err(error),
+                    garments: finished,
+                    warnings,
+                    error: Some(error),
                     checkpoints,
                 };
             }
         }
     }
     OutfitOutcome {
-        garments: Ok(finished),
+        garments: finished,
+        warnings,
+        error: None,
         checkpoints,
     }
 }

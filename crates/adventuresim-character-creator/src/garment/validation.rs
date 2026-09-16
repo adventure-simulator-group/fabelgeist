@@ -1,7 +1,9 @@
 use super::*;
 
 impl DrapedGarment {
-    pub fn validate_contacts(&self, body: &fabelgeist_bvh::TriangleBvh) -> Result<()> {
+    /// Problems in how the garment touches the wearer, inner garments and itself.
+    /// They are reported, never fatal: the garment stays usable.
+    pub fn contact_issues(&self, body: &fabelgeist_bvh::TriangleBvh) -> Vec<String> {
         let sewn = SewnSurface::from_positions(&self.positions, &self.faces);
         let points = sewn
             .positions(&self.positions)
@@ -9,7 +11,14 @@ impl DrapedGarment {
             .map(vector)
             .collect();
         let cloth = fabelgeist_bvh::TriangleBvh::new(points, sewn.faces);
-        validate_surface(&cloth, body)
+        let mut issues = Vec::new();
+        if let Err(error) = validate_surface(&cloth, body) {
+            issues.push(error.to_string());
+        }
+        if self_intersects(&cloth) {
+            issues.push("garment surface intersects itself".into());
+        }
+        issues
     }
 
     /// Check the outward side and requested ease against the closed wearer.
@@ -30,6 +39,7 @@ impl DrapedGarment {
     }
 }
 
+/// Cloth must not cross the wearer or an inner garment.
 pub(super) fn validate_surface(
     cloth: &fabelgeist_bvh::TriangleBvh,
     body: &fabelgeist_bvh::TriangleBvh,
@@ -38,19 +48,24 @@ pub(super) fn validate_surface(
         !super::armor::edges_cross(&cloth, body) && !super::armor::edges_cross(body, &cloth),
         "garment triangles intersect the wearer or an inner garment"
     );
-    for (index, face) in cloth.triangles.iter().enumerate() {
-        for edge in 0..3 {
+    Ok(())
+}
+
+/// Whether any cloth edge passes through another cloth triangle.
+fn self_intersects(cloth: &fabelgeist_bvh::TriangleBvh) -> bool {
+    const ENDPOINT_TOLERANCE: f32 = 1e-6;
+    cloth.triangles.iter().enumerate().any(|(index, face)| {
+        (0..3).any(|edge| {
             let a = cloth.positions[face[edge] as usize];
             let b = cloth.positions[face[(edge + 1) % 3] as usize];
             let delta = b - a;
             let length = delta.length();
-            const ENDPOINT_TOLERANCE: f32 = 1e-6;
             if length <= ENDPOINT_TOLERANCE * 2.0 {
-                continue;
+                return false;
             }
             let direction = delta / length;
             let ray = fabelgeist_bvh::Ray::new(a + direction * ENDPOINT_TOLERANCE, direction);
-            let hit = cloth
+            cloth
                 .bvh
                 .raycast(&ray, length - ENDPOINT_TOLERANCE * 2.0, |other, limit| {
                     let other_face = cloth.triangles[other as usize];
@@ -63,11 +78,10 @@ pub(super) fn validate_surface(
                     }
                     let (x, y, z) = cloth.triangle(other);
                     fabelgeist_bvh::aabb::ray_triangle(&ray, x, y, z, limit)
-                });
-            anyhow::ensure!(hit.is_none(), "garment surface intersects itself");
-        }
-    }
-    Ok(())
+                })
+                .is_some()
+        })
+    })
 }
 
 #[cfg(test)]
@@ -75,7 +89,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn shared_vertex_does_not_hide_a_crossing_at_the_opposite_edge() {
+    fn a_fold_through_the_same_garment_is_reported_without_failing() {
         let cloth = fabelgeist_bvh::TriangleBvh::new(
             vec![
                 [0., 0., 0.],
@@ -96,7 +110,9 @@ mod tests {
                 .collect(),
             vec![[0, 1, 2]],
         );
-        assert!(validate_surface(&cloth, &body).is_err());
+        assert!(validate_surface(&cloth, &body).is_ok());
+        // A shared vertex must not hide the crossing at the opposite edge.
+        assert!(self_intersects(&cloth));
     }
 
     #[test]
@@ -120,7 +136,7 @@ mod tests {
             weights: vec![],
             stage: DrapeStage::Placed,
         };
-        assert!(cloth.validate_contacts(&body).is_ok());
+        assert!(cloth.contact_issues(&body).is_empty());
         assert!(cloth.validate_body_clearance(&body, None).is_err());
         for p in &mut cloth.positions {
             p[2] = 0.05;

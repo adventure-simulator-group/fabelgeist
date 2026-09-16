@@ -2,20 +2,20 @@ use super::character_morphs::{
     CharacterMorphs, MorphDelta, armor_targets, rigged_armor, rigged_clothing,
 };
 use super::*;
-use adventuresim_character_creator::item_catalog_schema::EquipmentPlacement;
+use adventuresim_character_creator::{
+    item_catalog_schema::EquipmentPlacement, item_design::ItemDesign,
+};
 
 pub(super) fn generate_equipment_assets(
     output: &std::path::Path,
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    bracer_design: &BracerDesign,
-    breastplate_design: &BreastplateDesign,
     item_filter: &[String],
 ) -> Result<()> {
     if !item_filter.is_empty() {
         for filter in item_filter {
-            if !procedural_items(catalog).any(|item| item.id == *filter) {
+            if !catalog.wearable().any(|item| item.id == *filter) {
                 anyhow::bail!("unknown procedural equipment item {filter}");
             }
         }
@@ -40,13 +40,10 @@ pub(super) fn generate_equipment_assets(
         recipe,
         generated: &generated,
         morphs: &morphs,
-        bracer_design,
-        breastplate_design,
-        catalog,
     };
     let mut assets = Vec::new();
     let mut generated_files = std::collections::BTreeSet::new();
-    for item in procedural_items(catalog) {
+    for item in catalog.wearable() {
         if !item_filter.is_empty() && !item_filter.contains(&item.id) {
             continue;
         }
@@ -55,8 +52,8 @@ pub(super) fn generate_equipment_assets(
             if placement.surface.is_empty() {
                 continue;
             }
-            let asset = if adventuresim_character_creator::armor_recipes::is_parametric(&item.id) {
-                exporter.armor(output, item, placement)?
+            let asset = if let Some(design) = catalog.design(&item.id) {
+                exporter.armor(output, item, placement, &design)?
             } else {
                 anyhow::ensure!(
                     !matches!(
@@ -98,13 +95,10 @@ pub(super) fn generate_equipment_assets(
 }
 
 struct EquipmentExporter<'a> {
-    catalog: &'a EquipmentCatalog,
     model: &'a BodyModel,
     recipe: &'a CharacterRecipe,
     generated: &'a GeneratedCharacter,
     morphs: &'a CharacterMorphs,
-    bracer_design: &'a BracerDesign,
-    breastplate_design: &'a BreastplateDesign,
 }
 
 impl EquipmentExporter<'_> {
@@ -129,45 +123,21 @@ impl EquipmentExporter<'_> {
         output: &std::path::Path,
         item: &ItemDefinition,
         placement: &EquipmentPlacement,
+        design: &ItemDesign,
     ) -> Result<serde_json::Value> {
         let model = self.model;
         let recipe = self.recipe;
-        let generated = self.generated;
-        let morphs = self.morphs;
         let equipment = item.equipment.as_ref().expect("filtered equipment");
-        let breastplate_design = self.breastplate_design;
-        let (armor, parametric_coverage) = if item.id == "vambrace" {
-            let side = match placement.id.as_str() {
-                "left" => ForearmSide::Left,
-                "right" => ForearmSide::Right,
-                _ => {
-                    anyhow::bail!("vambrace placement {} has no forearm side", placement.id)
-                }
-            };
-            let design = self.bracer_design;
-            (
-                fitted_bracer(model, generated, design, side, &morphs.samples)?,
-                design.coverage.unit(),
-            )
-        } else if matches!(item.id.as_str(), "breastplate" | "cuirass") {
-            (
-                fitted_breastplate(model, generated, breastplate_design, &morphs.samples)?,
-                placement_coverage(placement),
-            )
-        } else {
-            (
-                parametric_equipment::fitted_design(
-                    model,
-                    generated,
-                    &self
-                        .catalog
-                        .design(&item.id)
-                        .context("missing parametric recipe")?,
-                    &placement.id,
-                    &morphs.samples,
-                )?,
-                placement_coverage(placement),
-            )
+        let armor = parametric_equipment::fitted_item(
+            model,
+            self.generated,
+            design,
+            &placement.id,
+            &self.morphs.samples,
+        )?;
+        let parametric_coverage = match design {
+            ItemDesign::Vambrace(design) => design.coverage.unit(),
+            ItemDesign::Recipe(_) | ItemDesign::Breastplate(_) => placement_coverage(placement),
         };
         let faces = armor.indices.as_chunks::<3>().0.to_vec();
         let morph_targets = armor_targets(&armor);
@@ -181,9 +151,8 @@ impl EquipmentExporter<'_> {
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
-            shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                self.catalog.design(&item.id).as_ref(),
-            );
+            shell.textures =
+                adventuresim_character_creator::underlayer_material::textures(design.recipe());
         }
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),

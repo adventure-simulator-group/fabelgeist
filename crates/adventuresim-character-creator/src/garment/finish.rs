@@ -2,13 +2,14 @@ use super::*;
 
 impl DrapedGarment {
     /// Reconcile the emitted sewn surface after body clearance and seam averaging.
+    /// Returns what could not be resolved; the best fit found is kept either way.
     pub fn finish_armor(
         &mut self,
         armor: &fabelgeist_armor::Armor,
         body: &fabelgeist_bvh::TriangleBvh,
         margin: f32,
         settings: &ArmorFitSettings,
-    ) -> Result<()> {
+    ) -> Result<Vec<String>> {
         let surface = SewnSurface::from_positions(&self.positions, &self.faces);
         let previous: Vec<_> = surface
             .positions(&self.positions)
@@ -52,16 +53,20 @@ impl DrapedGarment {
                 break;
             }
         }
-        anyhow::ensure!(
-            body_residual(&points, body, margin)
-                <= fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE,
-            "insufficient space between wearer and armor for this garment: {:.2} mm body residual",
-            body_residual(&points, body, margin) * 1000.0
-        );
+        let mut issues = Vec::new();
+        let residual = body_residual(&points, body, margin);
+        if residual > fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE {
+            issues.push(format!(
+                "insufficient space between wearer and armor for this garment: {:.2} mm body residual",
+                residual * 1000.0
+            ));
+        }
         self.positions = surface.expand(&points.into_iter().map(array).collect::<Vec<_>>());
         self.normals = self.normals_for(&self.positions);
-        self.validate_armor(armor)?;
-        self.validate_contacts(body)
+        if let Err(error) = self.validate_armor(armor) {
+            issues.push(format!("{error:#}"));
+        }
+        Ok(issues)
     }
 }
 

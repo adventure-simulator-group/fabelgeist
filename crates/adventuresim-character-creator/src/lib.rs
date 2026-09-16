@@ -16,7 +16,10 @@ mod gorget_fit;
 pub mod limb_fit;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
+pub mod equipment_catalog;
 pub mod export;
+pub mod inventory;
+pub mod item_design;
 pub mod proportions;
 pub mod surface_cut;
 pub mod underlayer;
@@ -29,59 +32,47 @@ use serde::{Deserialize, Serialize};
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
+/// Character recipes use this schema version; older recipes are not read.
+pub const RECIPE_VERSION: u8 = 7;
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
 pub struct CharacterRecipe {
-    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub version: u8,
     pub name: String,
+    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
-    pub clothing: Vec<ClothingSelection>,
-    pub garments: Vec<garment::GarmentSelection>,
-    pub armor: Option<fabelgeist_armor::Armor>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct ClothingSelection {
-    pub item_id: String,
-    pub placement_id: String,
+    pub inventory: inventory::Inventory,
 }
 
 impl Default for CharacterRecipe {
     fn default() -> Self {
+        use inventory::{Article, CatalogArticle};
+        let mut inventory = inventory::Inventory::default();
+        for (item, placement) in [
+            ("linen_tunic", "worn"),
+            ("linen_breeches", "worn"),
+            ("leather_boot", "left"),
+            ("leather_boot", "right"),
+        ] {
+            let id = inventory.add(Article::Catalog(CatalogArticle::new(item, placement)));
+            inventory.get_mut(id).expect("just added").worn = true;
+        }
         Self {
-            version: 6,
+            version: RECIPE_VERSION,
             proportions: Default::default(),
-            armor: None,
-            garments: Vec::new(),
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
-            clothing: vec![
-                ClothingSelection {
-                    item_id: "linen_tunic".into(),
-                    placement_id: "worn".into(),
-                },
-                ClothingSelection {
-                    item_id: "linen_breeches".into(),
-                    placement_id: "worn".into(),
-                },
-                ClothingSelection {
-                    item_id: "leather_boot".into(),
-                    placement_id: "left".into(),
-                },
-                ClothingSelection {
-                    item_id: "leather_boot".into(),
-                    placement_id: "right".into(),
-                },
-            ],
+            inventory,
         }
     }
 }
 
 impl CharacterRecipe {
     pub fn validate(&self) -> Result<(), String> {
-        if self.version != 6 {
+        if self.version != RECIPE_VERSION {
             return Err(format!(
                 "unsupported character recipe version {}",
                 self.version
@@ -102,24 +93,7 @@ impl CharacterRecipe {
         {
             return Err("recipe contains a non-finite coefficient".into());
         }
-        if let Some(armor) = &self.armor {
-            armor.validate()?;
-        }
-        for garment in &self.garments {
-            garment.validate().map_err(|error| error.to_string())?;
-        }
-        for (index, selection) in self.clothing.iter().enumerate() {
-            if selection.item_id.is_empty() || selection.placement_id.is_empty() {
-                return Err("clothing selections require item and placement IDs".into());
-            }
-            if self.clothing[..index].contains(selection) {
-                return Err(format!(
-                    "recipe contains duplicate {}/{} clothing",
-                    selection.item_id, selection.placement_id
-                ));
-            }
-        }
-        Ok(())
+        self.inventory.validate()
     }
 
     pub fn reset_body(&mut self) {
@@ -181,14 +155,14 @@ mod tests {
     }
 
     #[test]
-    fn canonical_mhr_base_has_zero_coefficients_and_no_fitted_clothing() {
+    fn canonical_mhr_base_has_zero_coefficients_and_carries_nothing() {
         let recipe: CharacterRecipe =
             serde_json::from_str(include_str!("../../../assets_src/characters/mhr_base.json"))
                 .unwrap();
         assert!(recipe.validate().is_ok());
         assert!(recipe.identity.iter().all(|value| *value == 0.0));
         assert!(recipe.expression.iter().all(|value| *value == 0.0));
-        assert!(recipe.clothing.is_empty());
+        assert!(recipe.inventory.items().is_empty());
     }
 
     #[test]
@@ -198,7 +172,7 @@ mod tests {
         armor.construction = fabelgeist_armor::Construction::Scale;
         armor.plate.roundness = 0.9;
         armor.metal.seed = 42;
-        recipe.armor = Some(armor);
+        recipe.inventory.add(inventory::Article::Plate(armor));
         let parsed: CharacterRecipe =
             serde_json::from_slice(&serde_json::to_vec(&recipe).unwrap()).unwrap();
         assert_eq!(recipe, parsed);

@@ -32,7 +32,7 @@ impl UnderlayerKind {
     }
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct UnderlayerDesign {
     pub kind: UnderlayerKind,
@@ -45,14 +45,14 @@ pub struct UnderlayerDesign {
     pub cuts: Vec<SurfaceBox>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SurfaceBox {
     pub minimum: ReferencePoint,
     pub maximum: ReferencePoint,
 }
 
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReferencePoint(pub [f32; 3]);
 
 pub const CLEARANCE_MM: std::ops::RangeInclusive<u16> = 1..=10;

@@ -1,156 +1,119 @@
 use super::*;
-#[expect(
-    clippy::too_many_arguments,
-    reason = "Bevy injects the independent scene, asset and generation resources into this system"
-)]
+use bevy::ecs::system::SystemParam;
+
+/// The scene and asset stores the character preview spawns into.
+#[derive(SystemParam)]
+pub(super) struct PreviewScene<'w, 's> {
+    commands: Commands<'w, 's>,
+    meshes: ResMut<'w, Assets<Mesh>>,
+    materials: ResMut<'w, Assets<StandardMaterial>>,
+    images: ResMut<'w, Assets<Image>>,
+    mail_maps: ResMut<'w, underlayer_preview::MailMaps>,
+    inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
+}
+
 pub(super) fn regenerate_mesh(
-    mut commands: Commands,
+    mut scene: PreviewScene,
     model: Res<BodyModel>,
     catalog: Res<EquipmentCatalog>,
     mut studio: ResMut<Studio>,
     old: Query<Entity, With<CharacterMesh>>,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-    mut images: ResMut<Assets<Image>>,
-    mut mail_maps: ResMut<underlayer_preview::MailMaps>,
     mut drape_job: ResMut<drape_preview::DrapeJob>,
     mut walk: ResMut<WalkPreview>,
-    mut inverse_bindposes: ResMut<Assets<SkinnedMeshInverseBindposes>>,
 ) {
     if !studio.dirty {
         return;
     }
     studio.dirty = false;
     drape_job.request(Vec::new());
-    let generated = match generate_character(&model, &studio.recipe) {
-        Ok(generated) => generated,
+    let recipe = studio.recipe.clone();
+    let prepared = outfit::loadout(&recipe, &catalog).and_then(|loadout| {
+        let generated = generate_character(&model, &recipe).context("Generation failed")?;
+        let clothed =
+            outfit::clothing(&model, &loadout, &generated).context("Clothing generation failed")?;
+        let armor = parametric_equipment::selected(&model, &generated, &loadout, &[])
+            .context("Parametric armor generation failed")?;
+        Ok((loadout, generated, clothed, armor))
+    });
+    let (loadout, generated, clothed, armor) = match prepared {
+        Ok(prepared) => prepared,
         Err(error) => {
-            studio.status = format!("Generation failed: {error:#}");
+            studio.status = format!("{error:#}");
             return;
         }
     };
     animation_preview::rebuild(
         &mut walk,
-        &mut commands,
-        &mut inverse_bindposes,
+        &mut scene.commands,
+        &mut scene.inverse_bindposes,
         &model,
         &generated,
     );
-    drape_job.request(
-        studio
-            .recipe
-            .garments
-            .iter()
-            .cloned()
-            .map(|selection| {
-                let mut input = drape_preview::input(&model, &generated, selection);
-                input.armor = studio.recipe.armor.clone();
-                input
-            })
-            .collect(),
-    );
-    let faces = &model.mhr.character.mesh.faces;
-    let specifications = match selected_garments(&studio.recipe, &catalog) {
-        Ok(specifications) => specifications,
-        Err(error) => {
-            studio.status = format!("Clothing selection failed: {error}");
-            return;
-        }
-    };
-    let clothed = match generate_clothing_shells(
-        &specifications,
-        &generated.positions,
-        &generated.normals,
-        faces,
-        &model.mhr.character.skin_weights.index,
-        &model.mhr.character.skin_weights.weight,
-        &model.mhr.character.skeleton.names,
-        &generated.global_joint_states,
-    ) {
-        Ok(clothed) => clothed,
-        Err(error) => {
-            studio.status = format!("Clothing generation failed: {error}");
-            return;
-        }
-    };
-    let armor = match parametric_equipment::selected(
-        &model,
-        &generated,
-        &studio.recipe,
-        &catalog,
-        &studio.bracer_design,
-        &studio.breastplate_design,
-        &[],
-    ) {
-        Ok(armor) => armor,
-        Err(error) => {
-            studio.status = format!("Parametric armor generation failed: {error:#}");
-            return;
-        }
-    };
+    drape_job.request(outfit::drape_inputs(&model, &generated, &loadout));
     let clothing_shell_count = clothed.shells.len();
-    let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
     for entity in &old {
-        commands.entity(entity).despawn();
+        scene.commands.entity(entity).despawn();
     }
-    preview::spawn_body(
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-        &walk,
-        &model,
-        &generated,
-        mesh,
-    );
-    preview::spawn_clothing(
-        &mut commands,
-        &mut meshes,
-        &mut materials,
-        &walk,
-        &model,
-        clothed.shells,
-    );
-    for piece in &armor {
-        let material = catalog
-            .material(&piece.item_id)
-            .expect("selected catalog equipment has a material");
-        if let Err(error) = preview::spawn_armor(
-            &mut commands,
-            &mut meshes,
-            &mut materials,
-            &piece.generated,
-            piece.name.clone(),
-            mail_maps.material(
-                &mut images,
-                material,
-                catalog.design(&piece.item_id).as_ref(),
-            ),
-        ) {
-            studio.status = format!("Armor preview failed: {error:#}");
-            return;
+    let PreviewScene {
+        commands,
+        meshes,
+        materials,
+        ..
+    } = &mut scene;
+    let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
+    preview::spawn_body(commands, meshes, materials, &walk, &model, &generated, mesh);
+    preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells);
+    let spawned = scene.spawn_equipment(&catalog, &model, &generated, &walk, &armor, loadout.plate);
+    studio.status = match spawned {
+        Ok(()) => format!(
+            "Generated {} body vertices · {} clothing shells · {} armor pieces",
+            model.mhr.num_vertices(),
+            clothing_shell_count,
+            armor.len(),
+        ),
+        Err(error) => format!("{error:#}"),
+    };
+}
+
+impl PreviewScene<'_, '_> {
+    fn spawn_equipment(
+        &mut self,
+        catalog: &EquipmentCatalog,
+        model: &BodyModel,
+        generated: &GeneratedCharacter,
+        walk: &WalkPreview,
+        armor: &[parametric_equipment::SelectedArmor<'_>],
+        plate: Option<&fabelgeist_armor::Armor>,
+    ) -> Result<()> {
+        for piece in armor {
+            let material = catalog.material(&piece.piece.piece.item.id)?;
+            preview::spawn_armor(
+                &mut self.commands,
+                &mut self.meshes,
+                &mut self.materials,
+                &piece.generated,
+                piece.name.clone(),
+                self.mail_maps
+                    .material(&mut self.images, material, piece.piece.design.recipe()),
+            )
+            .context("Armor preview failed")?;
         }
-    }
-    if let Some(armor) = &studio.recipe.armor {
-        if let Err(error) = armor_preview::spawn(
-            armor,
-            &model,
+        let Some(plate) = plate else {
+            return Ok(());
+        };
+        armor_preview::spawn(
+            plate,
+            model,
             &generated.global_joint_states,
-            &walk,
-            &mut commands,
-            &mut meshes,
-            &mut materials,
-            &mut images,
-        ) {
-            studio.status = format!("Armor generation failed: {error}");
-            return;
-        }
+            walk,
+            &mut self.commands,
+            &mut self.meshes,
+            &mut self.materials,
+            &mut self.images,
+        )
+        .map_err(anyhow::Error::msg)
+        .context("Plate armor generation failed")
     }
-    studio.status = format!(
-        "Generated {} body vertices · {} clothing shells · {} armor pieces",
-        model.mhr.num_vertices(),
-        clothing_shell_count,
-        armor.len(),
-    );
 }
 
 fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {

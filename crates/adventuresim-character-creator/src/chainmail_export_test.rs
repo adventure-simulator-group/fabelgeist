@@ -1,16 +1,29 @@
 use super::*;
-use adventuresim_character_creator::garment::{DrapeStage, DrapedGarment, transfer_skin};
+use adventuresim_character_creator::{
+    garment::{DrapeStage, DrapedGarment, transfer_skin},
+    inventory::Article,
+};
 
 #[test]
 #[ignore = "requires MHR_ASSETS and the measured drape acceptance output"]
 fn draped_chainmail_exports_under_plate() -> Result<()> {
     let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
     let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+    let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
     let mut recipe = CharacterRecipe::default();
-    recipe.clothing.clear();
-    recipe.armor = Some(fabelgeist_armor::Armor::default());
+    recipe.inventory = Default::default();
+    let plate = fabelgeist_armor::Armor::default();
     let selection = GarmentSelection::chainmail();
-    recipe.garments = vec![selection.clone()];
+    for article in [
+        Article::Plate(plate.clone()),
+        Article::Draped(selection.clone()),
+    ] {
+        let id = recipe.inventory.add(article);
+        recipe
+            .inventory
+            .wear(id, &catalog)
+            .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
+    }
     let generated = generate_character(&model, &recipe)?;
     let source: serde_json::Value = serde_json::from_slice(&std::fs::read(
         std::env::temp_dir().join(format!("fabelgeist-drape-{:?}.json", selection.preset)),
@@ -48,17 +61,12 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
     );
     println!(
         "before final reconciliation: {:?}",
-        garment.validate_armor(recipe.armor.as_ref().unwrap())
+        garment.validate_armor(&plate)
     );
-    let reconciled = garment.finish_armor(
-        recipe.armor.as_ref().unwrap(),
-        &body,
-        0.0035,
-        &input.selection.drape.armor_fit,
-    );
+    let reconciled = garment.finish_armor(&plate, &body, 0.0035, &input.selection.drape.armor_fit);
     println!(
         "final body/self contacts: {:?}",
-        garment.validate_contacts(&body)
+        garment.contact_issues(&body)
     );
     std::fs::write(
         path.with_extension("diagnostic.json"),
@@ -66,21 +74,13 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
             "body": generated.positions, "body_faces": model.mhr.character.mesh.faces,
             "garment": garment.positions, "garment_faces": garment.faces,
             "normals": garment.normals, "uv": garment.texcoords,
-            "plates": fabelgeist_armor::build(recipe.armor.as_ref().unwrap()).map_err(anyhow::Error::msg)?
+            "plates": fabelgeist_armor::build(&plate).map_err(anyhow::Error::msg)?
                 .into_iter().map(|p| serde_json::json!({"name":p.name,"positions":p.mesh.positions,"faces":p.mesh.faces})).collect::<Vec<_>>(),
         }))?,
     )?;
-    reconciled?;
+    println!("armor fit problems: {:?}", reconciled?);
     (garment.indices, garment.weights) = transfer_skin(&input, &garment.positions)?;
-    export_character(
-        &path,
-        &model,
-        &recipe,
-        &EquipmentCatalog(vec![], Default::default()),
-        &BracerDesign::default(),
-        &BreastplateDesign::default(),
-        Some(&[garment]),
-    )?;
+    export_character(&path, &model, &recipe, &catalog, Some(&[garment]))?;
     let bytes = std::fs::read(&path)?;
     let glb = gltf::Gltf::from_slice(&bytes)?;
     let mail = glb

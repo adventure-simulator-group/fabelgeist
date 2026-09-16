@@ -10,13 +10,12 @@ pub(super) fn export_character(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    bracer_design: &BracerDesign,
-    breastplate_design: &BreastplateDesign,
     fitted: Option<&[adventuresim_character_creator::garment::DrapedGarment]>,
-) -> Result<()> {
+) -> Result<Vec<String>> {
+    let loadout = outfit::loadout(recipe, catalog)?;
     let generated = generate_character(model, recipe)?;
-    let fitted = draped::prepare(model, recipe, &generated, fitted)?;
-    draped::validate(model, recipe, &generated, &fitted)?;
+    let (fitted, mut warnings) = draped::prepare(model, &loadout, &generated, fitted);
+    warnings.extend(draped::validate(model, &loadout, &generated, &fitted));
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
     let body_targets = morphs
         .body
@@ -24,21 +23,13 @@ pub(super) fn export_character(
         .map(MorphDelta::rigged)
         .collect::<Vec<_>>();
     let character = &model.mhr.character;
-    let clothed = catalog_clothing(model, recipe, &generated, catalog)?;
+    let clothed = outfit::clothing(model, &loadout, &generated)?;
     let clothing_morphs = morphs.clothing(&clothed.shells)?;
     let clothing_targets = clothing_morphs
         .iter()
         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
         .collect::<Vec<_>>();
-    let armor = parametric_equipment::selected(
-        model,
-        &generated,
-        recipe,
-        catalog,
-        bracer_design,
-        breastplate_design,
-        &morphs.samples,
-    )?;
+    let armor = parametric_equipment::selected(model, &generated, &loadout, &morphs.samples)?;
     let armor_faces = armor
         .iter()
         .map(|piece| piece.generated.indices.as_chunks::<3>().0.to_vec())
@@ -64,31 +55,12 @@ pub(super) fn export_character(
         .iter()
         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
         .collect();
-    // Chainmail appearance comes from the current recipe, not the drape.
-    let mail_surfaces = fitted
-        .iter()
-        .enumerate()
-        .map(|(index, garment)| {
-            let selection = recipe
-                .garments
-                .get(index)
-                .context("draped garment has no recipe selection")?;
-            (garment.fabric == FabricPreset::Chainmail)
-                .then(|| {
-                    adventuresim_character_creator::garment_material::MailSurface::new(
-                        &selection.mail,
-                        &garment.texcoords,
-                    )
-                })
-                .transpose()
-        })
-        .collect::<Result<Vec<_>>>()?;
+    let mail_surfaces = mail_surfaces(&loadout, &fitted)?;
     for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
         shells.push(garment.rigged(targets, mail.as_ref()));
     }
-    let plates = recipe
-        .armor
-        .as_ref()
+    let plates = loadout
+        .plate
         .map(|armor| {
             plates::PlateExport::new(armor, model, &generated.global_joint_states, &body_targets)
         })
@@ -117,11 +89,12 @@ pub(super) fn export_character(
         },
         &shells,
         &[],
-    )
+    )?;
+    Ok(warnings)
 }
 
 fn catalog_shells<'a>(
-    armor: &'a [parametric_equipment::SelectedArmor],
+    armor: &'a [parametric_equipment::SelectedArmor<'_>],
     faces: &'a [Vec<[u32; 3]>],
     targets: &'a [Vec<RiggedMorphTarget<'a>>],
     catalog: &EquipmentCatalog,
@@ -129,14 +102,15 @@ fn catalog_shells<'a>(
     let mut shells = Vec::new();
     for (i, piece) in armor.iter().enumerate() {
         let mut parts = rigged_armor(&piece.name, &piece.generated, &faces[i], &targets[i]);
-        let (color, metallic, roughness) =
-            adventuresim_character_creator::equipment_pbr(catalog.material(&piece.item_id)?);
+        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
+            catalog.material(&piece.piece.piece.item.id)?,
+        );
         for shell in &mut parts {
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
-                catalog.design(&piece.item_id).as_ref(),
+                piece.piece.design.recipe(),
             );
         }
         shells.extend(parts);
@@ -144,23 +118,28 @@ fn catalog_shells<'a>(
     Ok(shells)
 }
 
-fn catalog_clothing(
-    model: &BodyModel,
-    recipe: &CharacterRecipe,
-    generated: &GeneratedCharacter,
-    catalog: &EquipmentCatalog,
-) -> Result<adventuresim_character_creator::clothing::ClothedMesh> {
-    let character = &model.mhr.character;
-    let specifications = selected_garments(recipe, catalog).map_err(anyhow::Error::msg)?;
-    generate_clothing_shells(
-        &specifications,
-        &generated.positions,
-        &generated.normals,
-        &character.mesh.faces,
-        &character.skin_weights.index,
-        &character.skin_weights.weight,
-        &character.skeleton.names,
-        &generated.global_joint_states,
-    )
-    .map_err(anyhow::Error::msg)
+/// Chainmail appearance comes from the current recipe, not the drape.
+fn mail_surfaces(
+    loadout: &adventuresim_character_creator::inventory::Loadout<'_>,
+    fitted: &[adventuresim_character_creator::garment::DrapedGarment],
+) -> Result<Vec<Option<adventuresim_character_creator::garment_material::MailSurface>>> {
+    fitted
+        .iter()
+        .enumerate()
+        .map(|(index, garment)| {
+            let selection = loadout
+                .draped
+                .get(index)
+                .context("draped garment has no worn inventory article")?
+                .selection;
+            (garment.fabric == FabricPreset::Chainmail)
+                .then(|| {
+                    adventuresim_character_creator::garment_material::MailSurface::new(
+                        &selection.mail,
+                        &garment.texcoords,
+                    )
+                })
+                .transpose()
+        })
+        .collect()
 }

@@ -1,7 +1,6 @@
-//! Editable construction controls for selected catalog armor.
-use super::{EquipmentCatalog, Studio};
+//! Editable construction controls for catalog armor designs.
 use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
-use adventuresim_character_creator::armor_recipes::ParametricDesign;
+use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
 use std::ops::RangeInclusive;
 #[path = "helmet_controls.rs"]
@@ -29,61 +28,16 @@ pub(super) fn number(
         .changed()
 }
 
-pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &mut Studio) {
-    let selected = catalog
-        .0
-        .iter()
-        .filter(|item| studio.recipe.clothing.iter().any(|c| c.item_id == item.id))
-        .filter_map(|item| {
-            catalog
-                .design(&item.id)
-                .map(|design| (item.id.clone(), item.display_name.clone(), design))
-        })
-        .collect::<Vec<_>>();
-    for (id, label, mut design) in selected {
-        let changed = ui
-            .collapsing(format!("{label} shape"), |ui| match &mut design {
-                ParametricDesign::Limb(d) => limb::show(ui, d),
-                ParametricDesign::Helmet(d) => helmet::show(ui, d),
-                ParametricDesign::Garment(d) => garment(ui, d),
-                ParametricDesign::Underlayer(d) => underlayer(ui, d),
-            })
-            .body_returned
-            .unwrap_or(false);
-        if changed {
-            catalog.1.insert(id, design);
-            studio.dirty = true;
-        }
+/// Shape controls for one catalog item's design. Returns whether it changed.
+pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
+    match design {
+        ItemDesign::Recipe(ParametricDesign::Limb(d)) => limb::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Garment(d)) => garment(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Underlayer(d)) => underlayer(ui, d),
+        ItemDesign::Vambrace(d) => super::equipment_controls::bracer(ui, d),
+        ItemDesign::Breastplate(d) => super::equipment_controls::breastplate(ui, d),
     }
-    for (label, path) in [
-        ("Catalog armor", &mut studio.armor_designs_path),
-        ("Vambrace", &mut studio.bracer_design_path),
-        ("Breastplate", &mut studio.breastplate_design_path),
-    ] {
-        ui.horizontal(|ui| {
-            ui.label(label);
-            ui.text_edit_singleline(path);
-        });
-    }
-    if ui.button("Save all armor designs").clicked() {
-        studio.status = match save(catalog, studio) {
-            Ok(()) => "Saved catalog, vambrace and breastplate designs".into(),
-            Err(error) => format!("Could not save armor designs: {error}"),
-        };
-    }
-}
-
-fn save(catalog: &EquipmentCatalog, studio: &Studio) -> anyhow::Result<()> {
-    adventuresim_character_creator::armor_design_output::DesignPaths {
-        catalog: std::path::Path::new(&studio.armor_designs_path),
-        bracer: std::path::Path::new(&studio.bracer_design_path),
-        breastplate: std::path::Path::new(&studio.breastplate_design_path),
-    }
-    .save(
-        &catalog.1,
-        &studio.bracer_design,
-        &studio.breastplate_design,
-    )
 }
 
 fn underlayer(

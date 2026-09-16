@@ -58,9 +58,7 @@ impl MailWeave {
     /// [`Self::max_wire_diameter_m`].
     pub fn wire_diameter_range_m(&self) -> RangeInclusive<f32> {
         *Self::WIRE_DIAMETER_M.start()
-            ..=self
-                .max_wire_diameter_m()
-                .min(*Self::WIRE_DIAMETER_M.end())
+            ..=self.max_wire_diameter_m().min(*Self::WIRE_DIAMETER_M.end())
     }
 
     /// Rows closer than one wire collide; rows further than half a ring apart
@@ -308,13 +306,22 @@ mod tests {
                 ring_outer_diameter_m: ring,
                 ..MailWeave::STANDARD
             };
-            for wire in [*ring.wire_diameter_range_m().start(), *ring.wire_diameter_range_m().end()] {
+            for wire in [
+                *ring.wire_diameter_range_m().start(),
+                *ring.wire_diameter_range_m().end(),
+            ] {
                 let wire = MailWeave {
                     wire_diameter_m: wire,
                     ..ring
                 };
-                for row_pitch in [*wire.row_pitch_range_m().start(), *wire.row_pitch_range_m().end()] {
-                    let weave = MailWeave { row_pitch_m: row_pitch, ..wire };
+                for row_pitch in [
+                    *wire.row_pitch_range_m().start(),
+                    *wire.row_pitch_range_m().end(),
+                ] {
+                    let weave = MailWeave {
+                        row_pitch_m: row_pitch,
+                        ..wire
+                    };
                     assert!(weave.validate().is_ok(), "{weave:?}");
                 }
             }

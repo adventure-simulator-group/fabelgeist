@@ -70,7 +70,8 @@ impl Writer<'_> {
                 self.textures.apply(textures, self.buffer, &mut material);
             }
             if let Some((_, textures)) = shell.surface {
-                self.textures.apply_shell_textures(textures, self.buffer, &mut material);
+                self.textures
+                    .apply_shell_textures(textures, self.buffer, &mut material);
             }
             self.materials.push(material);
         }

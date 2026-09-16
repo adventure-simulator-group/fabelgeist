@@ -415,8 +415,8 @@ reason = "Adapts serialized character clothing selections into typed parametric 
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/review_export.rs"
-item = "existing"
-reason = "Dispatches stable authored item IDs to the established bracer and paired torso generators for review exports."
+item = "dedicated"
+reason = "Writes review records for items built by the established bracer and paired torso generators."
 
 [[scopes]]
 kind = "authored_catalog"
@@ -517,3 +517,23 @@ reason = "Deterministic interior catalog and furnished settlement review fixture
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/armor_controls.rs"
 reason = "Egui controls dispatch design edits and save actions through widget responses, without comparing display labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/studio_ui.rs"
+reason = "Egui studio buttons dispatch save, load, export and animation actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_ui.rs"
+reason = "Egui inventory rows dispatch wear, discard and reorder actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_acquire.rs"
+reason = "Egui acquisition buttons dispatch typed articles through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_article_editor.rs"
+reason = "Egui article editor buttons dispatch design and drape actions through widget responses; labels are never compared as state."

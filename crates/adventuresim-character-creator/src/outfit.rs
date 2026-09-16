@@ -1,0 +1,74 @@
+//! Generator inputs for the worn outfit.
+use super::*;
+use adventuresim_character_creator::{
+    garment::DrapeInput,
+    inventory::{InventoryItemId, Loadout},
+};
+
+/// The worn outfit, or why it cannot be worn together.
+pub(super) fn loadout<'a>(
+    recipe: &'a CharacterRecipe,
+    catalog: &'a EquipmentCatalog,
+) -> Result<Loadout<'a>> {
+    recipe
+        .inventory
+        .loadout(catalog)
+        .map_err(|error| anyhow::anyhow!(recipe.inventory.explain(catalog, &error)))
+}
+
+/// Worn catalog clothing as shells offset from the body, and the body faces left visible.
+pub(super) fn clothing(
+    model: &BodyModel,
+    loadout: &Loadout<'_>,
+    generated: &GeneratedCharacter,
+) -> Result<adventuresim_character_creator::clothing::ClothedMesh> {
+    let character = &model.mhr.character;
+    generate_clothing_shells(
+        &clothing_specifications(loadout)?,
+        &generated.positions,
+        &generated.normals,
+        &character.mesh.faces,
+        &character.skin_weights.index,
+        &character.skin_weights.weight,
+        &character.skeleton.names,
+        &generated.global_joint_states,
+    )
+    .map_err(anyhow::Error::msg)
+}
+
+fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecification>> {
+    loadout
+        .clothing
+        .iter()
+        .map(|piece| {
+            let material = piece
+                .item
+                .equipment
+                .as_ref()
+                .and_then(|equipment| equipment.material)
+                .with_context(|| format!("item {} has no procedural material", piece.item.id))?;
+            Ok(GarmentSpecification::from_catalog(
+                format!("{} · {}", piece.item.display_name, piece.placement.id),
+                piece.placement,
+                material,
+            ))
+        })
+        .collect()
+}
+
+/// Drape inputs for worn cloth, innermost first, each draped over worn plate.
+pub(super) fn drape_inputs(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    loadout: &Loadout<'_>,
+) -> Vec<(InventoryItemId, DrapeInput)> {
+    loadout
+        .draped
+        .iter()
+        .map(|piece| {
+            let mut input = drape_preview::input(model, generated, piece.selection.clone());
+            input.armor = loadout.plate.cloned();
+            (piece.id, input)
+        })
+        .collect()
+}

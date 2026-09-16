@@ -6,9 +6,13 @@ use std::ops::RangeInclusive;
 const MM_PER_M: f32 = 1000.0;
 const SRGB_BYTE_MAX: f32 = 255.0;
 
-pub(super) fn show(ui: &mut egui::Ui, garment_index: usize, selection: &mut GarmentSelection) {
+pub(super) fn show(
+    ui: &mut egui::Ui,
+    id: adventuresim_character_creator::inventory::InventoryItemId,
+    selection: &mut GarmentSelection,
+) {
     let before = selection.fabric;
-    egui::ComboBox::from_id_salt(("fabric_preset", garment_index))
+    egui::ComboBox::from_id_salt(("fabric_preset", id))
         .selected_text(selection.fabric.label())
         .show_ui(ui, |ui| {
             for fabric in FabricPreset::ALL {

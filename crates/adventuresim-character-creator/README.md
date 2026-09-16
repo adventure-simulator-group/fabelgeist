@@ -40,13 +40,55 @@ corresponding `*_middle1` knuckle, placing it in the generated palm. The camera
 joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
-Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The tool defaults to MHR LOD
-1 with pose correctives disabled, preserving facial and finger topology while
-keeping edits interactive. The **Pose-corrective model** checkbox reloads the
-selected LOD with or without MHR's corrective network for direct comparison.
-Recipes contain model coordinates, not authoritative character state, and must
-be regenerated and validated when connected to game creation.
+The left panel has three tabs. **Character** edits skeletal proportions,
+identity and expression, and randomizes or resets the body. **Inventory** holds
+everything the character owns (see below). **Output** loads the body model,
+saves and loads recipes, plays the animation preview, exports the rigged GLB
+and saves catalog designs. Drag the viewport to orbit and use the mouse wheel
+to zoom. The tool defaults to MHR LOD 1 with pose correctives disabled,
+preserving facial and finger topology while keeping edits interactive. The
+**Pose-corrective model** checkbox reloads the selected LOD with or without
+MHR's corrective network for direct comparison. Recipes contain model
+coordinates, not authoritative character state, and must be regenerated and
+validated when connected to game creation.
+
+## Inventory
+
+A recipe's `inventory` lists every article the character owns. Each has a
+stable ID, whether it is worn, and one of three kinds of article:
+
+- a catalog item in one of its placements, such as the left vambrace, with an
+  optional design of its own; without one it is built from the catalog default;
+- a draped garment: a sewn or fitted cloth pattern with its fabric and drape
+  settings;
+- Fabelgeist plate armor: the breastplate and fauld builder.
+
+Only worn articles appear on the body and in exports; the rest are carried.
+Worn articles must fit together under the catalog's equipment rules, checked
+through the same equipment graph the game uses. Each fills body cells, a
+location in a layer: clothing, padding, mail, plate and so on. Two articles
+cannot fill the same cell, except that articulated plates on one limb may share
+it when their fit zones differ. Draped cloth is a clothing layer, or mail when
+its fabric is chainmail. It covers the torso and arms, the legs, both, or the
+head and neck, by pattern. Plate armor fills the chest, and the stomach when it
+has a fauld. Attached articles, such as mail voiders, hang from an attachment
+point on a worn support such as the arming doublet, within that point's
+capacity and on the matching side.
+
+In the **Inventory** tab, worn articles are grouped by layer and carried
+articles are listed below them. The checkbox wears or takes off an article.
+Wearing one takes off whatever fills its place, and taking one off also takes
+off whatever hangs from it. **Acquire** adds and wears draped garments, plate
+armor or searchable catalog items, and catalog items with left and right
+placements can add both. Selecting an article shows its editor: shape controls
+for parametric catalog items, pattern, fabric and drape settings for cloth, and
+plate controls. Editing a catalog item's shape gives it its own design. **Use
+catalog shape** discards that design, and **Make catalog default** copies it to
+the catalog defaults, which **Save all catalog designs** in the **Output** tab
+writes. Draped garments drape from the innermost layer out; within one layer,
+the inventory order sets draping order.
+
+Recipes use schema version 7. Recipes from older versions are not read.
 
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
@@ -57,17 +99,17 @@ not sent to Bevy as the character's shading normal.
 
 ## Draped chainmail
 
-In the garment controls, **Add chainmail shirt** adds a hauberk: the straight
-T-tunic shirt pattern with the chainmail fabric preset. Its **Length** slider is
+Under **Acquire**, **Chainmail shirt** adds a hauberk: the straight T-tunic
+shirt pattern with the chainmail fabric preset. Its **Length** slider is
 measured down from the shoulder in neck-to-waist lengths, so 1 reaches the
-waist and about 2.5 the knee; changing it re-drapes from sewing. **Add chainmail
+waist and about 2.5 the knee; changing it re-drapes from sewing. **Chainmail
 coif** adds the mail coif's hood, neck and breast and back flaps as cloth: the
 surface is fitted around the head and chest like the catalog mail coif, then
 settles as chainmail instead of being sewn from flat panels. It shares the
 catalog coif's neck coverage, flap length, flap width and clearance controls.
-Drape the shirt before the coif so the coif layers over it. Keep
-the breastplate enabled to show the shirt beneath it. Other existing garment
-patterns can also use **Chainmail** in their fabric selector.
+Both are in the mail layer, so keep the shirt before the coif in the inventory
+to layer the coif over it. Wear **Plate breastplate** to show the shirt beneath
+it. Other garment patterns can also use **Chainmail** in their fabric selector.
 
 Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
 diameter, row spacing, ring tilt, steel color and roughness. The wire and row
@@ -85,7 +127,7 @@ occlusion. Steel uses full metallic response.
 ### Drape stages
 
 Draping places the pattern panels, sews them without gravity, settles the sewn
-garment under gravity, and finally fits it beneath enabled armor. **Drape
+garment under gravity, and finally fits it beneath worn plate armor. **Drape
 stages** exposes each stage's steps, substeps, constraint iterations, gravity,
 damping and self-collision. Swept contacts read the cloth back from the GPU
 for continuous crossing checks; their interval, iterations, body inclusion and
@@ -105,10 +147,16 @@ includes body triangle interiors and excludes joined seam copies. Fixed body
 bounds are cached between substeps. It prevents crossings missed by particle
 spheres; it does not infer layer order for already intersecting starting meshes.
 
-When the Fabelgeist breastplate is enabled, its inward surfaces constrain the
+When Fabelgeist plate armor is worn, its inward surfaces constrain the
 mail after sewing, including the fauld. Fit completion and export check the
-emitted cloth against itself, the wearer, inner garments, and the plate;
-an unresolved clearance reports a fitting error. Armor dimensions still need
+emitted cloth against itself, the wearer, inner garments, and the plate.
+
+Drape problems never block the studio. Fit problems, such as a garment
+intersecting itself or unresolved armor clearance, are reported in the status
+line while the garment is still shown, animated and exported. A garment that
+cannot be draped at all stops the drape there; the garments already draped
+remain usable, and export leaves the rest out and says so. Animation and export
+wait only while a drape is running. Press **Drape again** to retry. Armor dimensions still need
 enough room for the wearer and underlayer.
 
 Render an exported chainmail outfit through Bevy, with an asset/material check
@@ -163,7 +211,7 @@ when dropped. Mesh assets remain shared; weights belong to each instance.
 
 ## Skeletal proportions
 
-Recipe version 4 also stores nine absolute MHR skeletal coefficients in
+Recipes also store nine absolute MHR skeletal coefficients in
 `proportions`, ordered as hip width, shoulder width, upper arm length, lower arm
 length, upper leg length, lower leg length, spine length, neck length, and foot
 length. The creator's **Skeletal proportions** controls use the pinned model's
@@ -226,9 +274,10 @@ helmet, limb and garment defaults. Pass `--armor-designs` with that file to
 preview or export overrides. Keys are catalog IDs; a recipe must retain its
 construction family and pass its parameter validation. Use `--bracer-design` for
 the vambrace and `--breastplate-design` for the paired torso plates; these are
-separate recipe files, outside the catalog override map. The editor's **Save all
-armor designs** button writes the catalog, vambrace and breastplate recipes to
-the three displayed paths. Each path must be distinct and its parent directory
+separate recipe files, outside the catalog override map. Together these are
+the catalog defaults that newly acquired inventory items start from. The
+**Output** tab's **Save all catalog designs** button writes the catalog,
+vambrace and breastplate recipes to the three displayed paths. Each path must be distinct and its parent directory
 must exist. Pass all three files back through their corresponding options to
 reproduce the saved set in preview or export.
 

@@ -25,19 +25,8 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
     for (id, design) in &designs {
         let default = armor_recipes::recipe(id)
             .with_context(|| format!("unknown parametric armor recipe {id}"))?;
-        let same_family = match (&default, design) {
-            (ParametricDesign::Helmet(a), ParametricDesign::Helmet(b)) => {
-                std::mem::discriminant(a) == std::mem::discriminant(b)
-            }
-            (ParametricDesign::Limb(a), ParametricDesign::Limb(b)) => {
-                std::mem::discriminant(a) == std::mem::discriminant(b)
-            }
-            (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
-            (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
-            _ => false,
-        };
         ensure!(
-            same_family,
+            default.same_family(design),
             "recipe {id} must retain its historical construction family"
         );
     }
@@ -52,13 +41,9 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<ArmorDesigns> {
         &serde_json::to_value(&designs)?,
     )?;
     for (id, design) in &designs {
-        match design {
-            ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new),
-            ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
-            ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
-            ParametricDesign::Underlayer(d) => d.validate(),
-        }
-        .with_context(|| format!("invalid armor design for item {id}"))?;
+        design
+            .validate()
+            .with_context(|| format!("invalid armor design for item {id}"))?;
     }
     Ok(designs)
 }

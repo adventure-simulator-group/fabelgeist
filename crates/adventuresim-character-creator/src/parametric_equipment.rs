@@ -3,8 +3,10 @@
 use super::*;
 use adventuresim_armor_model::ArmorMorph;
 use adventuresim_character_creator::{
-    armor_frames::Wearer,
+    armor_frames::{Side, Wearer},
     armor_recipes::{self, ParametricDesign},
+    inventory::{FittedPiece, Loadout},
+    item_design::ItemDesign,
 };
 
 pub(super) fn fitted_design(
@@ -164,48 +166,52 @@ fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
         .collect()
 }
 
-pub(super) struct SelectedArmor {
-    pub item_id: String,
+/// Fit any parametric item's design to the wearer.
+pub(super) fn fitted_item(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &ItemDesign,
+    placement: &str,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    match design {
+        ItemDesign::Recipe(design) => fitted_design(model, generated, design, placement, morphs),
+        ItemDesign::Vambrace(design) => {
+            let side = match Side::from_placement(placement)? {
+                Side::Left => ForearmSide::Left,
+                Side::Right => ForearmSide::Right,
+            };
+            fitted_bracer(model, generated, design, side, morphs)
+        }
+        ItemDesign::Breastplate(design) => fitted_breastplate(model, generated, design, morphs),
+    }
+}
+
+pub(super) struct SelectedArmor<'a> {
+    pub piece: FittedPiece<'a>,
     pub name: String,
     pub generated: GeneratedArmor,
 }
 
-pub(super) fn selected(
+/// Fit every worn parametric catalog item.
+pub(super) fn selected<'a>(
     model: &BodyModel,
     generated: &GeneratedCharacter,
-    recipe: &CharacterRecipe,
-    catalog: &EquipmentCatalog,
-    bracer_design: &BracerDesign,
-    breastplate_design: &BreastplateDesign,
+    loadout: &Loadout<'a>,
     morphs: &[ForearmMorphSample],
-) -> Result<Vec<SelectedArmor>> {
-    let mut pieces = Vec::new();
-    for selection in &recipe.clothing {
-        let id = &selection.item_id;
-        let piece = match id.as_str() {
-            "vambrace" => {
-                let side = match selection.placement_id.as_str() {
-                    "left" => ForearmSide::Left,
-                    "right" => ForearmSide::Right,
-                    _ => anyhow::bail!("invalid vambrace placement"),
-                };
-                fitted_bracer(model, generated, bracer_design, side, morphs)?
-            }
-            "breastplate" | "cuirass" => {
-                fitted_breastplate(model, generated, breastplate_design, morphs)?
-            }
-            _ => {
-                let Some(design) = catalog.design(id) else {
-                    continue;
-                };
-                fitted_design(model, generated, &design, &selection.placement_id, morphs)?
-            }
-        };
-        pieces.push(SelectedArmor {
-            item_id: id.clone(),
-            name: format!("{id}--{}", selection.placement_id),
-            generated: piece,
-        });
-    }
-    Ok(pieces)
+) -> Result<Vec<SelectedArmor<'a>>> {
+    loadout
+        .fitted
+        .iter()
+        .map(|piece| {
+            let placement = &piece.piece.placement.id;
+            let item_id = &piece.piece.item.id;
+            Ok(SelectedArmor {
+                name: format!("{item_id}--{placement}"),
+                generated: fitted_item(model, generated, &piece.design, placement, morphs)
+                    .with_context(|| format!("fitting {item_id} ({placement})"))?,
+                piece: piece.clone(),
+            })
+        })
+        .collect()
 }

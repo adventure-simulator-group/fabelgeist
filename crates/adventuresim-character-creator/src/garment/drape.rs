@@ -13,9 +13,18 @@ pub fn drape(
 ) -> DrapeOutcome {
     let start = DrapeCheckpoints::start_for(previous, &input);
     let mut checkpoints = DrapeCheckpoints::new(&input);
-    let result = run(&input, start, &mut checkpoints, cancel, &mut preview);
+    let mut warnings = Vec::new();
+    let result = run(
+        &input,
+        start,
+        &mut checkpoints,
+        &mut warnings,
+        cancel,
+        &mut preview,
+    );
     DrapeOutcome {
         result,
+        warnings,
         checkpoints,
     }
 }
@@ -24,6 +33,7 @@ fn run(
     input: &DrapeInput,
     start: DrapeStart,
     checkpoints: &mut DrapeCheckpoints,
+    warnings: &mut Vec<String>,
     cancel: &AtomicBool,
     preview: &mut impl FnMut(DrapedGarment),
 ) -> Result<DrapedGarment> {
@@ -49,23 +59,24 @@ fn run(
     checkpoints.record_settled(output.clone());
     cancelled()?;
     let collision = super::placement::collision_surface(input);
-    if let Some(armor) = &input.armor {
-        output.finish_armor(
-            armor,
-            &collision,
-            body_clearance(input),
-            &input.selection.drape.armor_fit,
-        )?;
-    }
+    // Fair the settled cloth first, so the armor fit has the last word on clearance.
     super::symmetrize::symmetrize_and_relax(
         &mut output.positions,
         &output.faces,
         &collision,
         body_clearance(input),
     );
+    if let Some(armor) = &input.armor {
+        warnings.extend(output.finish_armor(
+            armor,
+            &collision,
+            body_clearance(input),
+            &input.selection.drape.armor_fit,
+        )?);
+    }
     output.normals = output.normals_for(&output.positions);
     (output.indices, output.weights) = transfer_skin(input, &output.positions)?;
-    output.validate_contacts(&collision)?;
+    warnings.extend(output.contact_issues(&collision));
     Ok(output)
 }
 

@@ -6,7 +6,9 @@ pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
     if let Some(range) = selection.preset.length_range() {
         selection.length = selection.length.clamp(*range.start(), *range.end());
         ui.add(egui::Slider::new(&mut selection.length, range).text("Length (× neck to waist)"))
-            .on_hover_text("Measured down from the shoulder: 1 reaches the waist, about 2.5 the knee.");
+            .on_hover_text(
+                "Measured down from the shoulder: 1 reaches the waist, about 2.5 the knee.",
+            );
     }
     if selection.preset.is_fitted() {
         // The coif shares its shape controls with the catalog mail coif.

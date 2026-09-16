@@ -1170,11 +1170,6 @@ item = "export_rigged_glb"
 ceiling = 273
 
 [[functions]]
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-ceiling = 122
-
-[[functions]]
 path = "crates/adventuresim-core/build.rs"
 item = "compile_organizations"
 ceiling = 118
@@ -3733,34 +3728,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-building-generator/src/viewer/timber_suite.rs"
 item = "validate_compact_evidence_suite"
 fingerprint = "string:artillery-rondel-cutaway"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Export rigged GLB"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Load recipe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Pose-corrective model"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Save recipe"
 occurrences = 1
 
 [[findings]]

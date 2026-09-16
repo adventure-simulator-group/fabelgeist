@@ -7,7 +7,7 @@ use std::{collections::BTreeMap, sync::LazyLock};
 
 use crate::armor_frames::{FitRegion, Side, Wearer};
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
@@ -16,6 +16,27 @@ pub enum ParametricDesign {
 }
 
 impl ParametricDesign {
+    pub fn validate(&self) -> Result<()> {
+        match self {
+            Self::Helmet(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Limb(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Garment(d) => d.validate().map_err(anyhow::Error::new),
+            Self::Underlayer(d) => d.validate(),
+        }
+    }
+
+    /// Whether both designs build the same construction, so one may replace the other.
+    pub fn same_family(&self, other: &Self) -> bool {
+        use std::mem::discriminant;
+        match (self, other) {
+            (Self::Helmet(a), Self::Helmet(b)) => discriminant(a) == discriminant(b),
+            (Self::Limb(a), Self::Limb(b)) => discriminant(a) == discriminant(b),
+            (Self::Garment(a), Self::Garment(b)) => a.kind == b.kind,
+            (Self::Underlayer(a), Self::Underlayer(b)) => a.kind == b.kind,
+            _ => false,
+        }
+    }
+
     pub fn generate(&self, frame: &PartFrame) -> Result<PartMesh> {
         Ok(match self {
             Self::Helmet(d) => generate_helmet(d, frame)?,
@@ -41,8 +62,25 @@ pub fn recipe(id: &str) -> Option<ParametricDesign> {
     CATALOG.get(id).cloned()
 }
 
+/// Items built by their own generator instead of an embedded catalog recipe.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DedicatedGenerator {
+    Vambrace,
+    Breastplate,
+}
+
+impl DedicatedGenerator {
+    pub fn for_item(id: &str) -> Option<Self> {
+        match id {
+            "vambrace" => Some(Self::Vambrace),
+            "breastplate" | "cuirass" => Some(Self::Breastplate),
+            _ => None,
+        }
+    }
+}
+
 pub fn is_parametric(id: &str) -> bool {
-    matches!(id, "vambrace" | "breastplate" | "cuirass") || recipe(id).is_some()
+    DedicatedGenerator::for_item(id).is_some() || recipe(id).is_some()
 }
 
 pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegion> {
