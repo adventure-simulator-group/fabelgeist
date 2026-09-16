@@ -699,6 +699,30 @@ plant-studio family="flowers":
 plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
     @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
 
+# Build and serve the art demo, Texture Studio and Heraldry Studio on one local site. No database or game server.
+showcase port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }}
+
+# Serve the previous showcase build without rebuilding.
+showcase-serve port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }} --skip-build
+
+# Build the showcase site into target/showcase/site and exit.
+showcase-build:
+    @{{ python_bin }} scripts/showcase.py --build-only --no-open
+
+# Deploy to a VPS at this domain: `showcase` (default) publishes the art demo and studios as static files, `game` the playable stack. See DEPLOY.md.
+deploy domain target="showcase" *args="":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} {{ args }}
+
+# Swap the live showcase back to the previous upload.
+rollback domain:
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --rollback
+
+# Provision and configure the VPS (Caddy, firewall) without deploying anything.
+vps-setup domain target="showcase":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} --setup-only
+
 fmt:
     @cargo fmt --all
     @cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml
