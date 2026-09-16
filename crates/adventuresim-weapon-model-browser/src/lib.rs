@@ -20,6 +20,7 @@ enum Request {
     },
     Catalog {},
     AuthoringCatalog {},
+    MuseumStudies {},
     ValidateModel {
         recipe: adventuresim_weapon_model::recipe::Recipe,
         controls: Vec<serde_json::Value>,
@@ -93,6 +94,9 @@ impl Request {
                     adventuresim_weapon_model::generate_model(&recipe, detail)
                         .map_err(RequestError::Construction)?,
                 )?
+            }
+            Self::MuseumStudies {} => {
+                adventuresim_weapon_model::authoring::museum_studies().clone()
             }
             Self::AuthoringCatalog {} => {
                 adventuresim_weapon_model::authoring::authoring_catalog().clone()

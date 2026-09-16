@@ -2,28 +2,41 @@
 mod ammunition;
 mod archery;
 mod bent_bar;
+mod blade_reduction;
+mod blade_sections;
 mod blades;
 mod bolts;
 mod crossbows;
 mod extents;
 mod firearms;
 mod firelocks;
+mod generic_blade;
+#[cfg(test)]
+mod generic_blade_tests;
 mod grip;
 mod guard_nodes;
 mod guards;
 mod lofted_blade;
+#[cfg(test)]
+mod longsword_tests;
 mod maces;
 mod mounts;
 pub(crate) mod output;
 mod placement;
 mod polls;
 mod pommels;
+mod profile_grip;
 #[cfg(test)]
 mod profile_tests;
 #[cfg(test)]
 mod ranged_layout_tests;
+mod shaft_wrapping;
 mod shapes;
 mod shields;
+mod spear_socket;
+#[cfg(test)]
+mod spear_tests;
+mod spears;
 
 use crate::{construction::*, recipe::*};
 pub use output::{GeneratedModel, ModelPart, ModelStats, PhysicalProperties};
@@ -43,6 +56,9 @@ pub(crate) struct Construction {
     pub(crate) physical: PhysicalProperties,
 }
 impl Construction {
+    pub(crate) fn frames(&self) -> &std::collections::BTreeMap<String, Point> {
+        &self.resolved.output.frames
+    }
     pub(crate) fn new(recipe: &Recipe) -> Result<Self, String> {
         recipe.validate().map_err(|error| error.to_string())?;
         let mut resolved = placement::resolve(recipe)?;
@@ -51,7 +67,7 @@ impl Construction {
             .frames
             .values()
             .flatten()
-            .any(|value| value.abs() > 20.0)
+            .any(|value| value.abs() > MODEL_FRAME_EXTENT)
         {
             return Err("resolved assembly exceeds the supported world extent".into());
         }
@@ -92,16 +108,7 @@ impl Construction {
 fn construct(resolved: &placement::Resolved, detail: Detail) -> Result<Vec<PartSource>, String> {
     let mut parts = Vec::new();
     if let Some(shaft) = &resolved.output.recipe.shaft {
-        let profile = [
-            [
-                0.0,
-                shaft.radius.get() * shaft.bottom_scale.map_or(1.0, Ratio::get),
-            ],
-            [
-                shaft.length.get(),
-                shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get),
-            ],
-        ];
+        let profile = shaft.profile();
         parts.push(PartSource::new(
             Solid::lathe(
                 &profile,
@@ -114,6 +121,7 @@ fn construct(resolved: &placement::Resolved, detail: Detail) -> Result<Vec<PartS
             "shaft",
             "shaft",
         ));
+        parts.extend(shaft_wrapping::parts(shaft, "shaft", "shaft", detail)?);
     }
     for component in &resolved.components {
         let local = shapes::construct(component, detail)?;

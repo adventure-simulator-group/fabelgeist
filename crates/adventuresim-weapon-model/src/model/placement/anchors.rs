@@ -98,7 +98,39 @@ pub(super) fn register(
             add(rotate([0.0, p.ricasso.get(), 0.0], rotation), offset),
         );
     }
+    if let Shape::Blade(p) = &component.shape {
+        frames.insert(
+            format!("{id}.heelCenter"),
+            add(rotate(p.heel_center(), rotation), offset),
+        );
+    }
+    if let Shape::Spear(p) = &component.shape
+        && p.socket.is_some()
+    {
+        for (name, y) in [
+            ("bladeBase", 0.0),
+            ("tip", p.length.get()),
+            (
+                "socketRim",
+                -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+            ),
+        ] {
+            frames.insert(
+                format!("{id}.{name}"),
+                add(rotate([0.0, y, 0.0], rotation), offset),
+            );
+        }
+    }
     frames.insert(format!("{id}.origin"), offset);
+    if component.role == Some(crate::ComponentRole::Grip) {
+        for (name, y) in [
+            (GRIP_BASE_FRAME, range[0]),
+            (GRIP_TOP_FRAME, range[1]),
+            (GRIP_CENTER_FRAME, (range[0] + range[1]) / 2.0),
+        ] {
+            frames.insert(name.into(), add(rotate([0.0, y, 0.0], rotation), offset));
+        }
+    }
     rotations.insert(id.to_owned(), rotation);
 
     Ok(())

@@ -50,6 +50,7 @@ pub(super) fn check(shape: &Shape) -> Checked {
         Shape::Mace(p) => furniture::mace(p),
         Shape::Grip(p) => furniture::grip(p),
         Shape::OvalGrip(p) => furniture::oval_grip(p),
+        Shape::ProfileGrip(p) => super::profile_grip::check(p),
         Shape::SlabGrip(p) => furniture::slab_grip(p),
         Shape::RoundShield(p) => shields::round_shield(p),
         Shape::ShapedShield(p) => shields::shaped_shield(p),

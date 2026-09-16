@@ -15,6 +15,12 @@ pub enum BeakBendProfile {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BladeParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
+    pub point: Option<BladePoint>,
     pub length: Metres,
     pub width: Metres,
     pub thickness: Metres,
@@ -53,6 +59,18 @@ pub struct BladeParameters {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SectionBladeParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub fuller: Option<FullerParameters>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub point: Option<BladePoint>,
     pub length: Metres,
     pub width: Metres,
     pub thickness: Metres,
@@ -67,7 +85,7 @@ pub struct SectionBladeParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::recipe::deserialize_present"
     )]
-    pub section: Option<SectionBladeSection>,
+    pub section: Option<BladeCrossSection>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -173,6 +191,18 @@ pub struct AxeParameters {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SpearParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub shoulder_roundness: Option<Ratio>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub socket: Option<SpearSocket>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",

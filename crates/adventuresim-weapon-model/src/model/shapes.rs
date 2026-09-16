@@ -36,7 +36,28 @@ impl ComponentConstructor<'_> {
                 Ok(parts)
             }
             Shape::Shaft(p) => self.shaft(p),
-            Shape::Spear(p) => self.one(spear(p, detail)?),
+            Shape::Spear(p) => {
+                let mut parts = self.one(spears::spear(p, detail)?)?;
+                if p.socket.is_some() {
+                    for part in &mut parts {
+                        part.surface_smoothing.insert(
+                            1,
+                            output::SurfaceSmoothing {
+                                group: 1,
+                                cosine: 0.25,
+                            },
+                        );
+                        part.surface_smoothing.insert(
+                            2,
+                            output::SurfaceSmoothing {
+                                group: 1,
+                                cosine: spear_socket::BLADE_CREASE_COSINE,
+                            },
+                        );
+                    }
+                }
+                Ok(parts)
+            }
             Shape::ArcheryBow(p) => archery::bow(resolved, p, detail),
             Shape::Arrow(p) => archery::arrow(resolved, p, detail),
             Shape::ArrowQuiver(p) => archery::quiver(resolved, p, detail),
@@ -70,6 +91,7 @@ impl ComponentConstructor<'_> {
             Shape::Box(p) => self.one(Solid::cuboid(p.size.map(Metres::get), detail)?),
             Shape::Grip(p) => self.grip(p),
             Shape::OvalGrip(p) => self.oval_grip(p),
+            Shape::ProfileGrip(p) => profile_grip::construct(resolved, p, detail),
             Shape::SlabGrip(p) => self.slab_grip(p),
             Shape::Collar(p) => self.collar(p),
             Shape::Sleeve(p) => self.sleeve(p),
@@ -284,19 +306,20 @@ impl ComponentConstructor<'_> {
     }
     fn shaft(&self, p: &Shaft) -> Result<Vec<PartSource>, String> {
         let detail = self.detail;
-        self.one(Solid::lathe(
-            &[
-                [0.0, p.radius.get() * p.bottom_scale.map_or(1.0, Ratio::get)],
-                [
-                    p.length.get(),
-                    p.radius.get() * p.top_scale.map_or(0.92, Ratio::get),
-                ],
-            ],
+        let mut parts = self.one(Solid::lathe(
+            &p.profile(),
             p.segments.map_or(16, |n| n.0 as usize),
             1.0,
             true,
             detail,
-        )?)
+        )?)?;
+        parts.extend(shaft_wrapping::parts(
+            p,
+            &self.resolved.id,
+            &self.resolved.label,
+            detail,
+        )?);
+        Ok(parts)
     }
     fn pick(&self, p: &PickParameters) -> Result<Vec<PartSource>, String> {
         let detail = self.detail;
@@ -326,76 +349,4 @@ impl ComponentConstructor<'_> {
             detail,
         )?)
     }
-}
-
-fn spear(p: &SpearParameters, detail: Detail) -> Result<Solid, String> {
-    let length = p.length.get();
-    let width = p.width.get();
-    let thickness = p.thickness.get();
-    let root = p.root_width.map_or(width * 0.4, Metres::get);
-    let belly = p.belly_position.or(p.shoulder).map_or(0.18, Ratio::get);
-    let acuteness = p.acuteness.map_or(1.0, Ratio::get);
-    let samples = detail.samples(p.samples.map_or(12, |n| n.0 as usize), 4);
-    let mut stops: Vec<_> = (0..samples)
-        .map(|i| i as f64 / samples as f64)
-        .chain([0.0, belly])
-        .collect();
-    stops.sort_by(f64::total_cmp);
-    stops.dedup();
-    if p.section == Some(SpearSection::Flat) {
-        let mut outline: Vec<_> = stops
-            .iter()
-            .map(|&t| {
-                let half = if t <= belly {
-                    root + (width - root) * (t / belly).powf(0.8)
-                } else {
-                    width * ((1.0 - t) / (1.0 - belly)).powf(acuteness)
-                } / 2.0;
-                [-half, t * length]
-            })
-            .collect();
-        outline.push([0.0, length]);
-        outline.extend(stops.iter().rev().map(|&t| {
-            let half = if t <= belly {
-                root + (width - root) * (t / belly).powf(0.8)
-            } else {
-                width * ((1.0 - t) / (1.0 - belly)).powf(acuteness)
-            } / 2.0;
-            [half, t * length]
-        }));
-        return Solid::prism(&outline, thickness, detail);
-    }
-    let ring = |t: f64| {
-        let half = if t <= belly {
-            root + (width - root) * (t / belly).powf(0.8)
-        } else {
-            width * ((1.0 - t) / (1.0 - belly)).powf(acuteness)
-        } / 2.0;
-        let depth = thickness / 2.0 * (1.0 - t * 0.9);
-        [
-            [-half, t * length, 0.0],
-            [0.0, t * length, depth],
-            [half, t * length, 0.0],
-            [0.0, t * length, -depth],
-        ]
-    };
-    let mut solid = Solid::default();
-    for row in 0..stops.len() {
-        let a = ring(stops[row]);
-        for side in 0..4 {
-            let next = (side + 1) % 4;
-            if row + 1 == stops.len() {
-                solid.triangle(a[side], [0.0, length, 0.0], a[next], side as u32 + 1);
-            } else {
-                let b = ring(stops[row + 1]);
-                solid.triangle(a[side], b[next], a[next], side as u32 + 1);
-                solid.triangle(a[side], b[side], b[next], side as u32 + 1);
-            }
-        }
-    }
-    let base = ring(0.0);
-    for side in 0..4 {
-        solid.triangle([0.0; 3], base[side], base[(side + 1) % 4], 0);
-    }
-    Ok(solid.positive())
 }

@@ -2,6 +2,7 @@
 import { kernelRequest } from './kernel.js';
 const catalog=kernelRequest({operation:'authoring-catalog'});
 export const PRESETS=catalog.presets;
+export const MUSEUM_STUDIES=kernelRequest({operation:"museum-studies"});
 export const HAFT_MODULES=catalog.hafts;
 export const HEAD_ASSEMBLIES=catalog.heads;
 const deepCopy=value=>structuredClone(value);

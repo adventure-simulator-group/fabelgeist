@@ -12,6 +12,9 @@ pub enum BladePlan {
 pub enum BladeCrossSection {
     Diamond,
     Fullered,
+    Hexagonal,
+    Lenticular,
+    Recessed,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -28,6 +31,18 @@ pub enum FigureEightConstruction {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LoftedBladeParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub fuller: Option<FullerParameters>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub point: Option<BladePoint>,
     pub length: Metres,
     pub width: Metres,
     pub thickness: Metres,

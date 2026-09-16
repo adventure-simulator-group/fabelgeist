@@ -23,6 +23,12 @@ impl Shape {
         at: AttachmentAnchor,
         range: [f64; 2],
     ) -> Result<Point, String> {
+        if at == AttachmentAnchor::HeelCenter {
+            return match self {
+                Self::Blade(p) => Ok(p.heel_center()),
+                _ => Err("heel-center requires a generic blade".into()),
+            };
+        }
         if let Self::GuardAssembly(p) = self {
             return p
                 .nodes
@@ -39,6 +45,7 @@ impl Shape {
             AttachmentAnchor::Center => (range[0] + range[1]) / 2.0,
             AttachmentAnchor::Top => range[1],
             AttachmentAnchor::Origin => 0.0,
+            AttachmentAnchor::HeelCenter => unreachable!(),
         };
         Ok([0.0, y, 0.0])
     }
@@ -85,11 +92,15 @@ impl Shape {
             ],
             Self::Grip(p) => [0.0, p.length.get()],
             Self::OvalGrip(p) => [0.0, p.length.get()],
+            Self::ProfileGrip(p) => [0.0, p.length.get()],
             Self::SlabGrip(p) => [0.0, p.length.get()],
             Self::Blade(p) => [0.0, p.length.get()],
             Self::SectionBlade(p) => [0.0, p.length.get()],
             Self::DiamondBlade(p) => [0.0, p.length.get()],
-            Self::Spear(p) => [0.0, p.length.get()],
+            Self::Spear(p) => [
+                -p.socket.as_ref().map_or(0.0, |s| s.length.get()),
+                p.length.get(),
+            ],
             Self::Fork(p) => [0.0, p.length.get()],
             Self::Partisan(p) => [0.0, p.length.get()],
             Self::Glaive(p) => [0.0, p.length.get()],

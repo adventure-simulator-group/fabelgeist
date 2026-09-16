@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { buildSkinnedWeaponGlb, parseGlb } from "./src/glb-export.js";
 import { validateWeapon } from "./src/kernel.js";
-import { PRESETS, copyPreset } from "./src/presets.js";
+import { PRESETS, MUSEUM_STUDIES, copyPreset } from "./src/presets.js";
 
 const repository = fileURLToPath(new URL("../../", import.meta.url));
 const defaultRigs = [
@@ -40,7 +40,7 @@ async function firstExisting(paths) {
 }
 
 export async function exportSkinnedPreset(options) {
-  const preset = PRESETS.find((candidate) => candidate.id === options.preset);
+  const preset = [...PRESETS, ...MUSEUM_STUDIES].find((candidate) => candidate.id === options.preset);
   if (!preset) throw new Error(`unknown weapon preset ${options.preset}`);
   const active = copyPreset(preset);
   const validation = validateWeapon(active.definition, active.controls, { lod: options.lod ?? "medium" });

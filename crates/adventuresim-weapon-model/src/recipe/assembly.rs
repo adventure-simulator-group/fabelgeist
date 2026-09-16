@@ -18,6 +18,9 @@ pub enum AttachmentAnchor {
     Center,
     Top,
     Origin,
+    /// Center of a blade's receiving heel section, independent of asymmetry.
+    #[serde(rename = "heel-center")]
+    HeelCenter,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]

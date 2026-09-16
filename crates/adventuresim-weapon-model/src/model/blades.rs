@@ -3,54 +3,7 @@ use super::*;
 use std::f64::consts::PI;
 
 pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, String> {
-    let length = p.length.get();
-    let width = p.width.get();
-    let thickness = p.thickness.get();
-    let curvature = p.curvature.map_or(0.0, Metres::get);
-    let taper = p.taper.map_or(1.25, Ratio::get);
-    let single = p.single_edge.map_or(0.0, Ratio::get);
-    let tip = p.tip_width.map_or(0.025, Ratio::get);
-    let belly = p.belly.map_or(0.0, Ratio::get);
-    let half_width = |t: f64| {
-        width * 0.5 * (tip + (1.0 - tip) * (1.0 - t).powf(taper)) * (1.0 + belly * (PI * t).sin())
-    };
-    let quality = CurveQuality {
-        minimum_segments: 16,
-        max_chord: length / 28.0,
-        max_deviation: width.max(curvature.abs()) / 220.0,
-    };
-    let edge = |side: f64| {
-        adaptive_curve(
-            |t| {
-                [
-                    curvature * t * t + side * half_width(t) * (1.0 + single * side),
-                    t * length,
-                ]
-            },
-            quality,
-            detail,
-        )
-    };
-    let mut outline = edge(-1.0);
-    outline.extend(edge(1.0).into_iter().rev());
-    Solid::shaped_plate(
-        &outline,
-        |x, y| {
-            let t = (y / length).clamp(0.0, 1.0);
-            let center = curvature * t * t;
-            let half = half_width(t);
-            let left = center - half * (1.0 - single);
-            let right = center + half * (1.0 + single);
-            let ridge = left + (right - left) * (1.0 - single) / 2.0;
-            let bevel = if x < ridge {
-                (x - left) / (ridge - left).max(1e-9)
-            } else {
-                (right - x) / (right - ridge).max(1e-9)
-            };
-            0.0006 + (thickness * (1.0 - 0.65 * t) - 0.0006) * bevel.clamp(0.0, 1.0)
-        },
-        detail,
-    )
+    generic_blade::blade(p, detail)
 }
 
 pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {
@@ -125,82 +78,11 @@ pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {
 }
 
 pub(super) fn section_blade(p: &SectionBladeParameters, detail: Detail) -> Result<Solid, String> {
-    let length = p.length.get();
-    let width = p.width.get();
-    let thickness = p.thickness.get();
-    let taper = p.taper.map_or(0.8, Ratio::get);
-    let fullered = p.section == Some(SectionBladeSection::Fullered);
-    let ring = |t: f64| {
-        let w = width * 0.5 * (0.025 + 0.975 * (1.0 - t).powf(taper));
-        let d = thickness * 0.5 * (1.0 - t * 0.72);
-        if fullered {
-            vec![
-                [-w, 0.0],
-                [-w * 0.72, d],
-                [-w * 0.28, d * 0.32],
-                [0.0, d * 0.22],
-                [w * 0.28, d * 0.32],
-                [w * 0.72, d],
-                [w, 0.0],
-                [0.0, -d],
-            ]
-        } else {
-            vec![[-w, 0.0], [0.0, d], [w, 0.0], [0.0, -d]]
-        }
-    };
-    let mut stations = vec![1.0];
-    loop {
-        let t = *stations.last().unwrap();
-        if t <= 0.0 {
-            break;
-        }
-        let profile = ring(t);
-        let smallest = (0..profile.len())
-            .map(|i| {
-                let a = profile[i];
-                let b = profile[(i + 1) % profile.len()];
-                (a[0] - b[0]).hypot(a[1] - b[1])
-            })
-            .fold(f64::INFINITY, f64::min);
-        let step = detail.error(0.03).min(smallest * 40.0) / length;
-        if step <= 0.0 {
-            return Err("blade section has no area".into());
-        }
-        stations.push(if t <= step * (1.0 + 1e-8) {
-            0.0
-        } else {
-            t - step
-        });
-    }
-    stations.reverse();
-    let mut solid = Solid::default();
-    for pair in stations.windows(2) {
-        let [t0, t1] = [pair[0], pair[1]];
-        let r0 = ring(t0);
-        let r1 = ring(t1);
-        for side in 0..r0.len() {
-            let next = (side + 1) % r0.len();
-            solid.quad(
-                [r0[side][0], t0 * length, r0[side][1]],
-                [r0[next][0], t0 * length, r0[next][1]],
-                [r1[next][0], t1 * length, r1[next][1]],
-                [r1[side][0], t1 * length, r1[side][1]],
-                0,
-            );
-        }
-    }
-    for (t, reverse) in [(0.0, true), (1.0, false)] {
-        let cap = Region::triangulate(&ring(t), true)?;
-        for [a, b, c] in cap.triangles {
-            let [a, b, c] = [a, b, c].map(|i| [cap.points[i][0], t * length, cap.points[i][1]]);
-            if reverse {
-                solid.triangle(a, b, c, 0);
-            } else {
-                solid.triangle(a, c, b, 0);
-            }
-        }
-    }
-    Ok(solid.positive())
+    blade_sections::blade(
+        BladeProfile::from(p),
+        blade_sections::BladeSampling::Section,
+        detail,
+    )
 }
 
 pub(super) fn diamond_blade(p: &DiamondBladeParameters, detail: Detail) -> Solid {

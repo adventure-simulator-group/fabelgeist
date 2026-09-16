@@ -2,6 +2,14 @@
 use super::*;
 pub(super) fn check(shape: &Shape) -> Checked {
     match shape {
+        Shape::LoftedBlade(p) => {
+            fuller_dimensions(p.fuller.as_ref())?;
+            BladeProfile::from(p).validate()?;
+        }
+        Shape::SectionBlade(p) => {
+            fuller_dimensions(p.fuller.as_ref())?;
+            BladeProfile::from(p).validate()?;
+        }
         Shape::DiamondBlade(p) => {
             if let Some(taper) = p.taper {
                 proportion((0.0..1.0).contains(&taper.get()))?;
@@ -20,14 +28,7 @@ pub(super) fn check(shape: &Shape) -> Checked {
         Shape::OvalGrip(p) => oval_grip(p)?,
         Shape::Pommel(p) => pommel(p)?,
         Shape::Socket(p) => profile(&p.profile, ProfileEnds::Open)?,
-        Shape::Guard(p) => {
-            if let Some(n) = p.tip_scale {
-                proportion((0.45..=1.5).contains(&n.get()))?;
-            }
-            if let Some(n) = p.terminal_swell {
-                proportion((0.0..=1.0).contains(&n.get()))?;
-            }
-        }
+        Shape::Guard(p) => guard(p)?,
         Shape::Axe(p) => {
             if let Some(root) = p.root_width {
                 proportion(root.get() < p.width.get() * 0.55)?;
@@ -36,7 +37,9 @@ pub(super) fn check(shape: &Shape) -> Checked {
                 proportion(upper.get() > lower.get())?;
             }
         }
+        Shape::Shaft(p) => super::spear::shaft(p)?,
         Shape::Spear(p) => {
+            super::spear::check(p)?;
             if let Some(n) = p.belly_position {
                 proportion(n.get() > 0.0 && n.get() < 1.0)?;
             }
@@ -86,6 +89,30 @@ pub(super) fn check(shape: &Shape) -> Checked {
         }
         Shape::Mace(p) => mace(p)?,
         _ => {}
+    }
+    Ok(())
+}
+
+fn guard(p: &GuardParameters) -> Checked {
+    super::terminal_profile::check(p)?;
+    if let Some(bevel) = p.block_bevel {
+        proportion((0.0..=0.45).contains(&bevel.get()))?;
+    }
+    if let Some(n) = p.tip_scale {
+        proportion((0.45..=1.5).contains(&n.get()))?;
+    }
+    if let Some(n) = p.terminal_swell {
+        proportion((0.0..=1.0).contains(&n.get()))?;
+    }
+    Ok(())
+}
+
+fn fuller_dimensions(fuller: Option<&FullerParameters>) -> Checked {
+    if let Some(f) = fuller {
+        for value in [f.mouth_width, f.depth, f.end, f.entry_length, f.exit_length] {
+            positive(value.get())?;
+        }
+        nonnegative(f.start.get())?;
     }
     Ok(())
 }

@@ -33,9 +33,11 @@ fn metres(point: Point) -> Result<[Metres; 3], String> {
 
 pub(super) fn resolve(recipe: &Recipe) -> Result<Resolved, String> {
     let grip_width = recipe.components.iter().find_map(|c| {
-        if c.id.as_deref() == Some(GRIP_COMPONENT_ID) {
+        if c.id.as_deref() == Some(GRIP_COMPONENT_ID) || c.role == Some(crate::ComponentRole::Grip)
+        {
             match &c.shape {
                 Shape::OvalGrip(p) => Some(p.width.get()),
+                Shape::ProfileGrip(p) => Some(p.maximum_width()),
                 Shape::SlabGrip(p) => Some(p.width.get()),
                 _ => None,
             }
@@ -132,6 +134,7 @@ impl PlacementGraph {
         if let Shape::GuardAssembly(p) = &mut component.shape {
             guard_nodes::resolve(p, frames, offset, rotation)?;
         }
+        mounts::socket_fit(component, shaft.as_ref(), components, offset, rotation)?;
         let grip_seat_radius = seating(component, components, offset, rotation);
         component.offset = Some(metres(offset)?);
         let range = component.shape.range()?;

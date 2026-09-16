@@ -6,6 +6,11 @@ crossbows, firearms, ammunition, and carriers. The editor, command-line exporter
 strategic forge, and tactical equipment share recipe validation, construction,
 attachment frames, material identities, and physical properties.
 
+The same preset selector also exposes separately cataloged
+[museum studies](../../crates/adventuresim-weapon-model/review/museum/README.md).
+Their source photographs, measured dimensions, and manufacturing assumptions
+remain with each study. The exporter accepts a study ID through `--preset`.
+
 Curved outlines and swept bars use shared adaptive sampling with explicit
 maximum-chord and curve-deviation budgets. The sampler preserves authored
 endpoints while discarding numerically redundant neighbors, and prism

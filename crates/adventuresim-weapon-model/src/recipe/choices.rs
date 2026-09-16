@@ -192,19 +192,6 @@ pub enum ArrowQuiverCarrierStyle {
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub enum SectionBladeSection {
-    #[serde(rename = "diamond")]
-    Diamond,
-    #[serde(rename = "fullered")]
-    Fullered,
-    #[serde(rename = "hexagonal")]
-    Hexagonal,
-    #[serde(rename = "lenticular")]
-    Lenticular,
-}
-
-#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub enum GuardMirrorMode {
     #[serde(rename = "symmetric")]
     Symmetric,
@@ -232,6 +219,7 @@ pub enum GuardSection {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GuardTerminal {
+    Profile,
     #[serde(rename = "none")]
     None,
     #[serde(rename = "ball")]
@@ -251,6 +239,7 @@ pub enum GuardTerminal {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GuardLeftTerminal {
+    Profile,
     #[serde(rename = "shared")]
     Shared,
     #[serde(rename = "none")]
@@ -272,6 +261,7 @@ pub enum GuardLeftTerminal {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GuardRightTerminal {
+    Profile,
     #[serde(rename = "shared")]
     Shared,
     #[serde(rename = "none")]

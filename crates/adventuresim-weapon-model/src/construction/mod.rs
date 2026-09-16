@@ -6,7 +6,9 @@
 
 mod clearance_envelope;
 mod curves;
+mod profile;
 pub(crate) use clearance_envelope::ClearanceEnvelope;
+pub(crate) use profile::SmoothProfile;
 mod section_shell;
 pub(crate) use section_shell::LoftEnd;
 mod polygon;
@@ -27,6 +29,11 @@ pub(crate) use sweep::*;
 
 pub(crate) type Point = [f64; 3];
 pub(crate) type PlanarPoint = [f64; 2];
+
+/// Supported assembly-frame magnitude, including the float32 renderer boundary.
+pub(crate) const MODEL_FRAME_EXTENT: f64 = 20.0;
+/// Four rounding intervals at the frame scale define the local strip floor.
+pub(crate) const FLOAT32_STRIP_SEPARATION: f64 = 4.0 * MODEL_FRAME_EXTENT * f32::EPSILON as f64;
 
 /// Reject pathological detail requests before allocating their sampled grids.
 /// This ceiling permits large authored surfaces while bounding hostile recipes.
@@ -50,6 +57,13 @@ pub enum Detail {
 }
 
 impl Detail {
+    pub(crate) fn lathe_radial(self, radius: f64, requested: usize, exact: bool) -> usize {
+        if exact && requested <= 8 {
+            requested
+        } else {
+            self.radial(radius, requested)
+        }
+    }
     pub(crate) fn samples(self, requested: usize, minimum: usize) -> usize {
         let scale = match self {
             Self::Low => 0.5,
