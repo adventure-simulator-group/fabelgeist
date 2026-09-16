@@ -18,13 +18,17 @@ mod parishes;
 pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResidenceAllocation};
 mod compound;
 mod graph;
-pub(crate) use compiled::validate_scene_compound;
 pub use compiled::{
     ChurchSitingIssue, CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue,
 };
+pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
     CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
     CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,
+};
+pub mod gardens;
+pub use gardens::{
+    CityGarden, GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
 };
 mod houses;
 mod subdivision;
@@ -174,7 +178,7 @@ impl CitySite {
             .iter()
             .map(|candidate| candidate.block_key)
             .collect::<BTreeSet<_>>();
-        let yards = city_yard_patches(seed, &selected);
+        let yards = city_yard_patches(&selected);
         let streets = city_street_patches(&graph, &developed_blocks);
         GeneratedCityLayout {
             lots: selected

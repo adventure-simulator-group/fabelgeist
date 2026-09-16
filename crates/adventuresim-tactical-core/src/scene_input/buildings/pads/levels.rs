@@ -5,12 +5,13 @@ use super::*;
 /// introduce a second elevation beneath a neighbour's wall or access route.
 pub(super) fn shared_elevations(
     pads: &[BuildingPad],
+    anchors: &[Option<f32>],
     width: usize,
     depth: usize,
     spacing: f32,
     half_extent: Vec2,
     heights: &[f32],
-) -> Vec<f32> {
+) -> Result<Vec<f32>, SceneInputError> {
     let mut groups = (0..pads.len()).collect::<Vec<_>>();
     for (i, a) in pads.iter().enumerate() {
         for (j, b) in pads.iter().enumerate().skip(i + 1) {
@@ -55,7 +56,19 @@ pub(super) fn shared_elevations(
             })
         });
     }
-    groups.iter().map(|group| levels[group]).collect()
+    let mut fixed = std::collections::BTreeMap::new();
+    for (group, anchor) in groups.iter().zip(anchors) {
+        if let Some(anchor) = anchor {
+            if fixed
+                .insert(*group, *anchor)
+                .is_some_and(|previous| (previous - anchor).abs() > f32::EPSILON)
+            {
+                return invalid("connected property terraces require conflicting vista elevations");
+            }
+            levels.insert(*group, *anchor);
+        }
+    }
+    Ok(groups.iter().map(|group| levels[group]).collect())
 }
 
 #[cfg(test)]
@@ -77,8 +90,10 @@ mod tests {
         let heights = sample_indices(161, 161, 0.5, extent)
             .map(|(_, p)| p.x * 0.1)
             .collect::<Vec<_>>();
-        let forward = shared_elevations(&[a, b], 161, 161, 0.5, extent, &heights);
-        let reverse = shared_elevations(&[b, a], 161, 161, 0.5, extent, &heights);
+        let forward =
+            shared_elevations(&[a, b], &[None, None], 161, 161, 0.5, extent, &heights).unwrap();
+        let reverse =
+            shared_elevations(&[b, a], &[None, None], 161, 161, 0.5, extent, &heights).unwrap();
         assert_eq!(forward[0], forward[1]);
         assert_eq!(forward, reverse);
         assert!(a.contains_level_ground(Vec2::new(10.38, 12.0)));

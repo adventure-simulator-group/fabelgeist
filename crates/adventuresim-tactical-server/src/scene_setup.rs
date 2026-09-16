@@ -27,6 +27,7 @@ pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundl
         yards: input.yards.clone(),
         parishes: input.parishes.clone(),
         compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
         furniture_groups: Vec::new(),
         distant_furniture: Vec::new(),
         lods: input.vista.lods.clone(),

@@ -15,6 +15,8 @@ mod fault;
 mod furniture;
 #[path = "generate_scene_fixtures/gable.rs"]
 mod gable;
+#[path = "generate_scene_fixtures/garden.rs"]
+mod garden;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
 #[path = "generate_scene_fixtures/heating.rs"]
@@ -27,8 +29,6 @@ mod parish;
 const DEFAULT_TEST_MINUTE: u64 = 339_840 + 10 * 60;
 const MASSIVE_CITY_RESIDENT_POPULATION: u32 = 40_000;
 const MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES: f32 = 50.0;
-const MASSIVE_CITY_LEVEL_HALF_EXTENT_METRES: f32 = 650.0;
-const MASSIVE_CITY_LEVEL_BLEND_METRES: f32 = 100.0;
 
 #[derive(Clone, Copy)]
 struct Fixture {
@@ -61,6 +61,7 @@ enum BuildingFixture {
     InteriorFurnitureCatalog,
     InteriorFurnitureRooms,
     CompoundReview,
+    GardenReview,
     GableReview,
     HeatingReview,
     FacadeReview,
@@ -73,7 +74,18 @@ fn main() {
     if !check {
         fs::create_dir_all(&output).expect("create fixture directory");
     }
-    for fixture in fixtures() {
+    let requested = std::env::args().skip_while(|arg| arg != "--fixture").nth(1);
+    let fixtures = fixtures();
+    assert!(
+        requested
+            .as_ref()
+            .is_none_or(|name| fixtures.iter().any(|fixture| fixture.name == name)),
+        "unknown fixture selector"
+    );
+    for fixture in fixtures
+        .into_iter()
+        .filter(|fixture| requested.as_ref().is_none_or(|name| fixture.name == name))
+    {
         let input = build_fixture(fixture);
         input.validate().expect(fixture.name);
         let json = serde_json::to_string_pretty(&input).expect("serialize fixture") + "\n";
@@ -86,18 +98,23 @@ fn main() {
                 fixture.name
             );
         } else {
-            fs::write(path, json).expect("write fixture");
+            if fs::read(&path).ok().as_deref() != Some(json.as_bytes()) {
+                let temporary = path.with_extension("json.tmp");
+                fs::write(&temporary, json).expect("write fixture");
+                fs::rename(temporary, path).expect("replace fixture atomically");
+            }
         }
     }
 }
 
-fn fixtures() -> [Fixture; 28] {
+fn fixtures() -> [Fixture; 29] {
     [
         gable::fixture(),
         heating::fixture(),
         facade::fixture(),
         parish::fixture(),
         compound::fixture(),
+        garden::fixture(),
         furniture::fixture(),
         interior::catalog_fixture(),
         interior::rooms_fixture(),
@@ -256,7 +273,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         fixture.environment,
         (fixture.terrain)(0.0, 0.0),
     );
-    level_city_vista(&mut vista, !city.distant.is_empty());
+    city.level_vista(&mut vista, 0.0);
     TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -280,6 +297,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         yards: city.yards,
         parishes: city.parishes,
         compounds: city.compounds,
+        gardens: city.gardens,
         buildings: city.playable,
         distant_buildings: city.distant,
         vista,
@@ -305,6 +323,7 @@ fn fixture_buildings(
             ..Default::default()
         },
         BuildingFixture::CompoundReview => compound::layout(),
+        BuildingFixture::GardenReview => garden::layout(),
         BuildingFixture::Empty => CitySceneLayout::default(),
         BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {
             yards: interior::yards(),
@@ -346,31 +365,6 @@ fn fixture_buildings(
             playable: furniture::buildings(),
             ..Default::default()
         },
-    }
-}
-
-fn level_city_vista(vista: &mut VistaSample, has_city: bool) {
-    if !has_city {
-        return;
-    }
-    for lod in &mut vista.lods {
-        let centre = Vec2::new(
-            (f32::from(lod.width) - 1.0) * 0.5,
-            (f32::from(lod.depth) - 1.0) * 0.5,
-        );
-        for (index, height) in lod.heights_metres.iter_mut().enumerate() {
-            let grid = Vec2::new(
-                (index % usize::from(lod.width)) as f32,
-                (index / usize::from(lod.width)) as f32,
-            );
-            let point = (grid - centre) * lod.spacing_metres;
-            let outside = (point.abs() - Vec2::splat(MASSIVE_CITY_LEVEL_HALF_EXTENT_METRES))
-                .max(Vec2::ZERO)
-                .length();
-            let weight = (1.0 - outside / MASSIVE_CITY_LEVEL_BLEND_METRES).clamp(0.0, 1.0);
-            let smooth_weight = weight * weight * (3.0 - 2.0 * weight);
-            *height *= 1.0 - smooth_weight;
-        }
     }
 }
 

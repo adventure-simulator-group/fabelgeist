@@ -53,11 +53,13 @@ pub(super) fn scatter_ground_without_patch(
             }
         }
     }
-    SceneGround::from_samples(
+    let mut masked = SceneGround::from_samples(
         ground.grid_width(),
         ground.grid_depth(),
         ground.grid_scale(),
         samples,
     )
-    .expect("masking scatter preserves the validated ground grid")
+    .expect("masking scatter preserves the validated ground grid");
+    masked.urban = ground.urban.clone();
+    masked
 }

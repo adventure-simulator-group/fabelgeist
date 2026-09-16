@@ -3,15 +3,13 @@
 use std::collections::BTreeSet;
 
 use bevy::{math::Vec2, prelude::Reflect};
-use fabelgeist_determinism::mix64;
 use serde::{Deserialize, Serialize};
 
 use super::*;
 
 const SURFACE_EDGE_TOLERANCE_METRES: f32 = 0.001;
-const YARD_SURFACE_DOMAIN: u64 = 0x7961_7264_5f73_7572;
 pub const MAX_CITY_STREET_PATCHES: usize = 12_000;
-pub const MAX_CITY_YARD_PATCHES: usize = MAX_CITY_LOTS * 2;
+pub const MAX_CITY_YARD_PATCHES: usize = MAX_CITY_LOTS * 3;
 
 /// Historically plausible surface treatment for one part of the urban street network.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Reflect, Serialize, Deserialize)]
@@ -121,7 +119,7 @@ impl CityYardPatch {
     }
 }
 
-pub(super) fn city_yard_patches(seed: u64, lots: &[CandidateLot]) -> Vec<CityYardPatch> {
+pub(super) fn city_yard_patches(lots: &[CandidateLot]) -> Vec<CityYardPatch> {
     let mut patches = Vec::new();
     for candidate in lots {
         let lot = candidate.lot;
@@ -129,23 +127,6 @@ pub(super) fn city_yard_patches(seed: u64, lots: &[CandidateLot]) -> Vec<CityYar
             corners_metres: plots::corners(plots::reservation(lot)),
             surface: CityYardSurface::PackedEarth,
         });
-        if lot.service.is_none()
-            && !lot.has_rear_range()
-            && mix64(seed ^ YARD_SURFACE_DOMAIN ^ lot.id).is_multiple_of(3)
-        {
-            let garden = CityBuildingLot {
-                centre_metres: lot.centre_metres
-                    + lot.orientation.local_to_world(
-                        Vec2::Y * (lot.footprint_metres.y + plots::REAR_COURT_METRES) * 0.5,
-                    ),
-                footprint_metres: Vec2::new(lot.footprint_metres.x, plots::REAR_COURT_METRES),
-                ..lot
-            };
-            patches.push(CityYardPatch {
-                corners_metres: plots::corners(garden),
-                surface: CityYardSurface::KitchenGarden,
-            });
-        }
     }
     patches
 }

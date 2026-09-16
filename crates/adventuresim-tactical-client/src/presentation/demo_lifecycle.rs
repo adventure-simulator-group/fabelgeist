@@ -32,6 +32,8 @@ pub(crate) fn clear_demo_scene(world: &mut World) {
                 With<vista::streets::CityStreetPresentation>,
                 With<vista::streets::CityYardPresentation>,
                 With<SceneBoundary>,
+                With<SceneGarden>,
+                With<ground_scatter::gardens::DistantGardenPresentation>,
             )>>()
             .iter(world),
     );

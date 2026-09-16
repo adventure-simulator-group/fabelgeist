@@ -69,6 +69,8 @@ enum CaptureProfile {
     GableReview,
     HeatingReview,
     FacadeReview,
+    /// Inspect owned garden plots and accepted planting specimens.
+    GardenReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -185,6 +187,7 @@ fn main() {
             CaptureProfile::CompoundReview => "compound-review",
             CaptureProfile::HeatingReview => "heating-review",
             CaptureProfile::FacadeReview => "facade-review",
+            CaptureProfile::GardenReview => "garden-review",
             CaptureProfile::GableReview => "gable-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",

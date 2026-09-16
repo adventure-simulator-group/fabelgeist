@@ -22,6 +22,7 @@ pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
 mod building_closures;
 mod environment;
 pub(crate) mod ground_scatter;
+pub(crate) use ground_scatter::gardens::ManagedGardenPlant;
 pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
@@ -196,7 +197,9 @@ impl Plugin for TacticalPresentationPlugin {
         // GPU-instanced grass renders through bevy_eidolon on native and wasm
         // (the fork's WebGPU draw path substitutes draw_indexed_indirect for
         // multi-draw-indirect on the browser backend).
-        app.add_plugins(ground_scatter::InstancedGrassPlugin);
+        app.add_plugins(ground_scatter::InstancedGrassPlugin)
+            .add_observer(ground_scatter::gardens::on_garden)
+            .add_observer(ground_scatter::gardens::on_vista);
         app.add_plugins(materials::TacticalMaterialsPlugin)
             .add_plugins(interior_lighting::InteriorLightingPlugin)
             // Tactical play uses one compact close-range cascade for whichever

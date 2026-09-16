@@ -318,3 +318,27 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
     assert_eq!(right.facing, centre.facing);
     validate_layout(&plan, &layout).unwrap();
 }
+
+#[test]
+fn heated_household_recipes_preserve_access_to_every_room() {
+    use crate::BuildingArchetype::*;
+    let obstructed = BuildingProgram::settlement(
+        FachwerkCottage,
+        Some(BuildingUse::Dwelling),
+        5_695_472_266_747_893_962,
+    );
+    assert!(matches!(
+        validate_circulation(&generate(&obstructed).unwrap()),
+        Err(InteriorLayoutError::DisconnectedRoom { room_id: 2, .. })
+    ));
+    for archetype in [FachwerkCottage, TownHouse, HallHouse, FachwerkMerchantHouse] {
+        for seed in [42, 47, 101] {
+            let program =
+                BuildingProgram::validated_settlement(archetype, BuildingUse::Dwelling, seed, None)
+                    .unwrap();
+            let plan = generate(&program).unwrap();
+            furnish(&plan, &program)
+                .unwrap_or_else(|error| panic!("{archetype:?} seed {seed}: {error}"));
+        }
+    }
+}

@@ -712,6 +712,12 @@ fn on_server_started(
         );
         openings::spawn_generated_buildings(&mut commands, generated.buildings);
         openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
+        for garden in generated.gardens {
+            commands.spawn((
+                garden.scene,
+                Transform::from_xyz(0.0, garden.elevation_metres, 0.0),
+            ));
+        }
         furniture::spawn(&mut commands, generated.furniture);
         terrain_collision::spawn_scene(
             &mut commands,

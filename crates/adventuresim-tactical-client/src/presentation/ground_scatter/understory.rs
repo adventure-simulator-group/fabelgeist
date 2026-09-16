@@ -77,7 +77,10 @@ fn community_density_multiplier(hash: u64) -> f32 {
 }
 
 fn ground_allows_species(surface: GroundSurface, species: UnderstorySpecies) -> bool {
-    if surface.substrate == GroundSubstrate::Water || surface.cover == GroundCover::Reeds {
+    if surface.substrate == GroundSubstrate::Water
+        || surface.cover == GroundCover::Reeds
+        || (surface.cover == GroundCover::Bare && surface.cover_density_bps == 0)
+    {
         return false;
     }
     match surface.cover {
@@ -226,6 +229,25 @@ mod tests {
             UnderstorySpecies::CommonHawthorn,
         ] {
             assert!(count(open_edge, species) > 0);
+        }
+    }
+
+    #[test]
+    fn managed_bare_ground_excludes_every_wild_shrub_species() {
+        for species in [
+            UnderstorySpecies::CommonHazel,
+            UnderstorySpecies::Blackthorn,
+            UnderstorySpecies::CommonHawthorn,
+        ] {
+            assert!(!ground_allows_species(
+                GroundSurface {
+                    substrate: GroundSubstrate::Soil,
+                    cover: GroundCover::Bare,
+                    cover_density_bps: 0,
+                    cover_height_cm: 0,
+                },
+                species
+            ));
         }
     }
 

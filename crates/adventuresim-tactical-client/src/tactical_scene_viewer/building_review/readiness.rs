@@ -50,6 +50,7 @@ pub(in crate::tactical_scene_viewer) fn ready(
 
 #[derive(SystemParam)]
 struct Observation<'w, 's> {
+    gardens: super::gardens::GardenObservation<'w, 's>,
     boundaries: Query<'w, 's, &'static adventuresim_tactical_core::prelude::SceneBoundary>,
     buildings: Query<'w, 's, &'static SceneBuilding>,
     batches: Query<
@@ -130,7 +131,8 @@ impl Observation<'_, '_> {
     }
 
     fn check(&self, requirements: &ReviewRequirements) -> bool {
-        if self.buildings.iter().count() != requirements.buildings
+        if self.gardens.check(&self.gpu).is_err()
+            || self.buildings.iter().count() != requirements.buildings
             || self.boundaries.iter().count() != requirements.boundaries
             || self.doors.iter().count() != requirements.doors
             || self.windows.iter().count() != requirements.windows
@@ -267,7 +269,16 @@ fn observe(
             .get_or_insert(time.elapsed_secs_f64());
         assert!(
             time.elapsed_secs_f64() - since < MAX_ASSET_WAIT_SECONDS,
-            "building review timed out waiting for production geometry, textures or lettering"
+            "building review timed out: gardens={:?}; buildings={}/{}; boundaries={}/{}; doors={}/{}; windows={}/{}",
+            observation.gardens.check(&observation.gpu),
+            observation.buildings.iter().count(),
+            requirements.buildings,
+            observation.boundaries.iter().count(),
+            requirements.boundaries,
+            observation.doors.iter().count(),
+            requirements.doors,
+            observation.windows.iter().count(),
+            requirements.windows
         );
         return;
     }

@@ -17,14 +17,17 @@ impl TacticalSceneInput {
         let mut buildings = buildings::prepare_buildings(&self.buildings)?;
         buildings::validate_building_pads(&buildings)?;
         compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
+        gardens::validate_generated(self, &buildings)?;
+        let garden_anchors = gardens::terrain_anchors(self)?;
         let (building_pads, levelled_building_samples) = buildings::level_building_pads(
             grid_width,
             grid_depth,
             grid_spacing,
             &mut heights,
             &mut buildings,
-            &self.compounds,
-        );
+            self,
+            &garden_anchors,
+        )?;
         repairs.levelled_building_samples = levelled_building_samples;
         let coarse_terrain =
             SceneTerrain::from_heightmap(grid_width, grid_depth, grid_spacing, heights)
@@ -48,7 +51,7 @@ impl TacticalSceneInput {
             &coarse_terrain,
             &obstacles,
             self.playable.spacing_metres,
-            &building_pads,
+            &buildings,
             &self.streets,
             &self.yards,
         )?;
@@ -61,6 +64,7 @@ impl TacticalSceneInput {
             self.weather.ground_moisture_bps,
             &building_pads,
         )?;
+        gardens::validate_surface(self, &terrain, &buildings)?;
         let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
         let mut furniture = furniture::generate(self, &buildings, &terrain, &ground, &obstacles)?;
         furniture.furnish_interiors(&buildings)?;
@@ -71,6 +75,7 @@ impl TacticalSceneInput {
             obstacles,
             terrain_patch,
             boundaries: compounds::generate(&self.compounds, &buildings),
+            gardens: gardens::generate(&self.gardens, &buildings),
             buildings,
             furniture,
             repairs,

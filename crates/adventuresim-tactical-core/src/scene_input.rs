@@ -19,7 +19,7 @@ use sha2::{Digest, Sha256};
 use thiserror::Error;
 
 use crate::{
-    city_layout::{CityStreetPatch, CityYardPatch, MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES},
+    city_layout::{CityStreetPatch, CityYardPatch},
     scene::{GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain},
     volumetric_terrain::TerrainLandformRecipe,
 };
@@ -30,6 +30,9 @@ use crate::scene_ground::tree_leaf_litter_probability;
 
 pub(crate) mod buildings;
 mod compounds;
+mod gardens;
+mod urban;
+pub use gardens::{GeneratedGarden, SceneGarden};
 mod environment;
 mod parishes;
 pub use compounds::{GeneratedBoundary, SceneBoundary};
@@ -247,20 +250,7 @@ impl TacticalSceneInput {
         }
         validate_grid(&self.playable, MAX_PLAYABLE_SIDE, "playable")?;
         crate::scene_fault::validate(self.landform, &self.playable)?;
-        if self.streets.len() > MAX_CITY_STREET_PATCHES
-            || self.streets.iter().any(|street| !street.is_valid())
-        {
-            return invalid("scene street surfaces are invalid or exceed their bound");
-        }
-        if self.yards.len() > MAX_CITY_YARD_PATCHES
-            || self.yards.iter().any(|yard| !yard.is_valid())
-        {
-            return invalid("scene yard surfaces are invalid or exceed their bound");
-        }
-        buildings::validate_building_placements(&self.buildings)?;
-        buildings::validate_distant_building_placements(&self.distant_buildings)?;
-        compounds::validate(self)?;
-        parishes::validate(self)?;
+        urban::validate(self)?;
         if self.vista.lods.len() > MAX_VISTA_LEVELS {
             return invalid("vista has too many LOD levels");
         }
@@ -1154,6 +1144,7 @@ mod tests {
             yards: Vec::new(),
             parishes: Vec::new(),
             compounds: Vec::new(),
+            gardens: Vec::new(),
             buildings: Vec::new(),
             distant_buildings: Vec::new(),
             vista: VistaSample::default(),

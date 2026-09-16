@@ -131,6 +131,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         yards: layout.yards,
         parishes: layout.parishes,
         compounds: layout.compounds,
+        gardens: layout.gardens,
         buildings: layout.playable,
         distant_buildings: Vec::new(),
         vista: VistaSample::default(),

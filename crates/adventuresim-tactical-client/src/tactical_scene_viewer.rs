@@ -97,7 +97,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 40;
+const CAPTURE_PROFILE_VERSION: u16 = 41;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -106,7 +106,7 @@ const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 27;
+const CAMERA_VERSION: u16 = 28;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -1127,6 +1127,7 @@ fn selected_capture_views(
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
         building_review::HEATING_PROFILE => view_specs::HEATING_REVIEW_VIEWS.as_slice(),
+        building_review::GARDEN_PROFILE => view_specs::GARDEN_REVIEW_VIEWS.as_slice(),
         building_review::FACADE_PROFILE => view_specs::FACADE_REVIEW_VIEWS.as_slice(),
         building_review::GABLE_PROFILE => view_specs::GABLE_REVIEW_VIEWS.as_slice(),
         building_review::COMPOUND_PROFILE => view_specs::COMPOUND_REVIEW_VIEWS.as_slice(),
@@ -1749,6 +1750,7 @@ fn setup_scene(
         buildings,
         mut furniture,
         boundaries,
+        gardens,
         repairs,
         terrain_patch,
     } = generated;
@@ -1826,6 +1828,12 @@ fn setup_scene(
     furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
     buildings::spawn_boundaries(&mut commands, boundaries);
+    for garden in gardens {
+        commands.spawn((
+            garden.scene,
+            Transform::from_xyz(0.0, garden.elevation_metres, 0.0),
+        ));
+    }
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
         PlasterGrazingReviewLight,
@@ -2145,6 +2153,7 @@ fn setup_scene(
         yards: input.yards.clone(),
         parishes: input.parishes.clone(),
         compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
         furniture_groups: furniture.groups,
         distant_furniture: furniture.distant_instances,
         lods: input.vista.lods.clone(),

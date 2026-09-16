@@ -56,7 +56,7 @@ impl RecipePalette {
         )
     }
 
-    fn get(
+    pub(super) fn get(
         &mut self,
         archetype: BuildingArchetype,
         usage: Option<BuildingUse>,

@@ -112,3 +112,97 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
         }
     }
 }
+
+#[test]
+fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
+    use crate::city_layout::gardens::GardenIssue;
+    let city =
+        CitySite::central_german_market_town().generate(42, 900, &super::super::tests::economy());
+    let compiled = city.compile(42).unwrap();
+    assert!(
+        !compiled.gardens.is_empty(),
+        "fixture needs an accepted owned garden"
+    );
+    assert!(
+        compiled
+            .yards
+            .iter()
+            .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
+            .all(|yard| compiled.gardens.iter().any(|garden| garden
+                .beds
+                .iter()
+                .any(|bed| bed.corners() == yard.corners_metres)))
+    );
+    let mut owners = BTreeSet::new();
+    for garden in &compiled.gardens {
+        assert!(owners.insert(garden.owner));
+        assert!(
+            compiled
+                .buildings
+                .iter()
+                .any(|building| building.id == garden.front_building_id)
+        );
+        assert_eq!(garden.validate_geometry(&compiled.streets), Ok(()));
+        assert!(!garden.plants.is_empty());
+        let mut escaped = garden.clone();
+        escaped.plants[0].centre_metres += Vec2::splat(100.0);
+        assert_eq!(
+            escaped.validate_geometry(&compiled.streets),
+            Err(GardenIssue::PlantOutsidePlot)
+        );
+        let mut blocked = garden.clone();
+        blocked.beds[0].centre_metres =
+            (blocked.access[1].start_metres + blocked.access[1].end_metres) * 0.5;
+        assert!(blocked.validate_geometry(&compiled.streets).is_err());
+        let mut disconnected = garden.clone();
+        disconnected.access[2].start_metres += Vec2::splat(100.0);
+        disconnected.access[2].end_metres += Vec2::splat(100.0);
+        assert_eq!(
+            disconnected.validate_geometry(&compiled.streets),
+            Err(GardenIssue::DisconnectedTendingLane)
+        );
+    }
+    for extent in [None, Some(96.0)] {
+        assert_eq!(
+            compiled.clone().partition(extent).unwrap().gardens,
+            compiled.gardens
+        );
+    }
+}
+
+#[test]
+fn garden_crossing_playable_edge_promotes_its_owner_without_changing_plants() {
+    let mut compiled = CitySite::central_german_market_town()
+        .generate(42, 900, &super::super::tests::economy())
+        .compile(42)
+        .unwrap();
+    let (garden, extent) = compiled
+        .gardens
+        .iter()
+        .find_map(|g| {
+            let centre = compiled
+                .buildings
+                .iter()
+                .find(|b| b.id == g.front_building_id)?
+                .centre_metres
+                .abs()
+                .max_element();
+            let inner = g
+                .plot
+                .corners()
+                .into_iter()
+                .map(|p| p.abs().max_element())
+                .min_by(f32::total_cmp)?;
+            (inner < centre).then_some((g, (inner + centre) * 0.5))
+        })
+        .expect("generated garden crossing precedes its owner centre");
+    let owner = garden.front_building_id;
+    // Isolate this complete accepted property from the unrelated city capacity.
+    compiled.buildings.retain(|b| b.id == owner);
+    compiled.gardens.retain(|g| g.front_building_id == owner);
+    compiled.compounds.clear();
+    compiled.parishes.clear();
+    let result = compiled.clone().partition(Some(extent)).unwrap();
+    assert!(result.playable.iter().any(|b| b.id == owner));
+    assert_eq!(result.gardens, compiled.gardens);
+}

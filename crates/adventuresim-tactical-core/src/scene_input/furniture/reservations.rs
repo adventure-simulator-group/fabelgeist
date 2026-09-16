@@ -123,6 +123,19 @@ pub(super) fn routes(
             orientation: compound.boundary.gate.orientation,
         });
     }
+    for garden in &input.gardens {
+        routes.extend(
+            garden
+                .access
+                .iter()
+                .map(|a| route(a.start_metres, a.end_metres, a.half_width_metres)),
+        );
+        routes.push(FurnitureFootprint {
+            centre_metres: garden.cultivated_bounds.centre_metres,
+            half_extents_metres: garden.cultivated_bounds.dimensions_metres * 0.5,
+            orientation: garden.cultivated_bounds.orientation,
+        });
+    }
     routes
 }
 

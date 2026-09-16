@@ -694,6 +694,8 @@ mod facade;
 pub(super) use facade::FACADE_REVIEW_VIEWS;
 mod compound;
 pub(super) use compound::COMPOUND_REVIEW_VIEWS;
+mod garden;
+pub(super) use garden::GARDEN_REVIEW_VIEWS;
 mod city;
 mod furniture;
 pub(super) use building_review::{SHOP_REVIEW_VIEWS, WORKPLACE_REVIEW_VIEWS};

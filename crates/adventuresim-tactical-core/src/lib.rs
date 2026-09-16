@@ -53,7 +53,7 @@ pub mod prelude {
     };
     pub use crate::city_layout::{
         CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBuildingLot, CityCompound,
-        CityHouseClass, CityPlotBounds, CityPropertyId, CitySite, CityStreetPatch,
+        CityGarden, CityHouseClass, CityPlotBounds, CityPropertyId, CitySite, CityStreetPatch,
         CityStreetSurface, CityYardPatch, CityYardSurface, GeneratedCityLayout, MAX_CITY_LOTS,
         MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES,
     };
@@ -107,13 +107,14 @@ pub mod prelude {
     };
     pub use crate::scene_input::{
         BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBoundary,
-        GeneratedBuilding, GeneratedObstacle, GeneratedTacticalScene, ROCK_RADIUS_METRES,
-        RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding, SceneDoor,
-        SceneEnvironment, SceneEnvironmentFixture, SceneInputError, SceneObstacle,
-        SceneRepairReport, SceneSource, SceneWindow, TACTICAL_SCENE_GENERATION_VERSION,
-        TACTICAL_SCENE_SCHEMA_VERSION, TREE_CANOPY_GROUND_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES,
-        TREE_TRUNK_RADIUS_METRES, TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface,
-        TerrainSampleGrid, VistaLod, VistaSample,
+        GeneratedBuilding, GeneratedGarden, GeneratedObstacle, GeneratedTacticalScene,
+        ROCK_RADIUS_METRES, RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding,
+        SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneGarden, SceneInputError,
+        SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,
+        TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+        TREE_CANOPY_GROUND_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES, TREE_TRUNK_RADIUS_METRES,
+        TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
+        VistaLod, VistaSample,
     };
     pub use crate::terrain_transition::TerrainTransitionCollar;
     pub use crate::volumetric_terrain::{

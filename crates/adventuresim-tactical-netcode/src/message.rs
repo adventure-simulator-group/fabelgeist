@@ -47,6 +47,7 @@ pub struct SceneVistaBundle {
     pub yards: Vec<CityYardPatch>,
     pub parishes: Vec<adventuresim_tactical_core::city_layout::CityParish>,
     pub compounds: Vec<CityCompound>,
+    pub gardens: Vec<CityGarden>,
     /// Accepted activity areas drive local ground wear around outdoor furniture.
     pub furniture_groups: Vec<FurnitureGroup>,
     /// Accepted visual furniture outside the tactical world bounds.

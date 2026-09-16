@@ -25,6 +25,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     // from a scene stripped of the buildings that own those activity groups.
     let parishes = std::mem::take(&mut input.parishes);
     let compounds = std::mem::take(&mut input.compounds);
+    let gardens = std::mem::take(&mut input.gardens);
     let distant_buildings = std::mem::take(&mut input.distant_buildings);
     let generated = input.generate().map_err(|error| error.to_string())?;
     let environment = input.environment_snapshot(generated.digest.clone());
@@ -62,6 +63,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         yards: input.yards,
         parishes,
         compounds,
+        gardens,
         furniture_groups: furniture.groups,
         distant_furniture: furniture.instances,
         lods: input.vista.lods,

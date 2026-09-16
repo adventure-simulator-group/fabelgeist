@@ -68,6 +68,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
                 deserialize_scene_building,
             ))
             .replicate_once::<SceneBoundary>()
+            .replicate_once::<SceneGarden>()
             .replicate::<SceneDoor>()
             .replicate::<SceneWindow>()
             .add_client_event::<JoinRequest>(Channel::Ordered)

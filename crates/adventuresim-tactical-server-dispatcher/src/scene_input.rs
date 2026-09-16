@@ -30,8 +30,6 @@ const METRES_PER_LATITUDE_DEGREE: f64 = 111_320.0;
 const MIN_LONGITUDE_SCALE: f64 = 0.01;
 const PEAK_SAMPLE_RADIUS_FACTOR: f64 = 0.4;
 const HILLY_DETAIL_AMPLITUDE_METRES: f32 = 0.45;
-const DISTANT_CITY_PAD_MARGIN_METRES: f32 = 50.0;
-const DISTANT_CITY_LEVEL_BLEND_METRES: f32 = 100.0;
 const RANDOM_DETAIL_SCALE: u64 = 10_000;
 const RANDOM_DETAIL_BUCKETS: u64 = RANDOM_DETAIL_SCALE * 2 + 1;
 const SCARP_DEFAULT_THROW_CM: u16 = 800;
@@ -119,37 +117,7 @@ pub fn build_imported_scene(
             seed,
         },
     )?;
-    let mut vista = VistaSample {
-        // The near regional ring needs enough spatial frequency to preserve
-        // forest boundaries, rolling ground, and the transition from geometric
-        // grass. Coarser rings then expand rapidly to the 50-km horizon.
-        lods: VISTA_LOD_SPECS
-            .into_iter()
-            .map(|spec| {
-                let grid = sample_grid(
-                    pack,
-                    GridSampleRequest {
-                        center: coordinates,
-                        dimensions: GridDimensions::square(spec.side),
-                        spacing_metres: spec.spacing_metres,
-                        center_elevation_metres: f32::from(center.elevation_m),
-                        elevation_sampling: ElevationSampling::PreservePeaks,
-                        seed: seed ^ u64::from(spec.level),
-                    },
-                )?;
-                Ok(VistaLod {
-                    level: spec.level,
-                    spacing_metres: spec.spacing_metres,
-                    width: spec.side,
-                    depth: spec.side,
-                    origin_east_metres: 0.0,
-                    origin_north_metres: 0.0,
-                    heights_metres: grid.heights_metres,
-                    environment: grid.environment,
-                })
-            })
-            .collect::<Result<Vec<_>, String>>()?,
-    };
+    let mut vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
     // sample_grid has already subtracted the absolute centre elevation.
     let building_layout = settlement_building_layout(settlement, &mut vista)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
@@ -177,6 +145,7 @@ pub fn build_imported_scene(
         yards: building_layout.yards,
         parishes: building_layout.parishes,
         compounds: building_layout.compounds,
+        gardens: building_layout.gardens,
         buildings: building_layout.playable,
         distant_buildings: building_layout.distant,
         vista,
@@ -202,7 +171,7 @@ fn settlement_building_layout(
         .transpose()
         .map_err(|error| error.to_string())?
         .unwrap_or_default();
-    level_distant_city_vista(vista, &layout.distant, 0.0);
+    layout.level_vista(vista, 0.0);
     Ok(layout)
 }
 
@@ -309,38 +278,6 @@ fn scarp_lod(
             coordinate.abs() <= playable_half_extent + footprint_extent
         })
         .then_some(TerrainLandformLod::Fringe)
-}
-
-fn level_distant_city_vista(
-    vista: &mut VistaSample,
-    buildings: &[DistantBuildingPlacement],
-    elevation_metres: f32,
-) {
-    let Some(city_half_extent) = buildings
-        .iter()
-        .map(|building| building.centre_metres.abs())
-        .reduce(Vec2::max)
-        .map(|extent| extent + Vec2::splat(DISTANT_CITY_PAD_MARGIN_METRES))
-    else {
-        return;
-    };
-    for lod in &mut vista.lods {
-        let grid_centre = Vec2::new(
-            (f32::from(lod.width) - 1.0) * 0.5,
-            (f32::from(lod.depth) - 1.0) * 0.5,
-        );
-        for (index, height) in lod.heights_metres.iter_mut().enumerate() {
-            let grid = Vec2::new(
-                (index % usize::from(lod.width)) as f32,
-                (index / usize::from(lod.width)) as f32,
-            );
-            let point = (grid - grid_centre) * lod.spacing_metres;
-            let outside = (point.abs() - city_half_extent).max(Vec2::ZERO).length();
-            let weight = (1.0 - outside / DISTANT_CITY_LEVEL_BLEND_METRES).clamp(0.0, 1.0);
-            let smooth_weight = weight * weight * (3.0 - 2.0 * weight);
-            *height += (elevation_metres - *height) * smooth_weight;
-        }
-    }
 }
 
 pub fn materialize_scene_input(
@@ -482,6 +419,45 @@ fn deterministic_seed(mission_id: &str) -> u64 {
 fn deterministic_detail(seed: u64, x: u16, z: u16) -> f32 {
     let value = mix64(seed ^ (u64::from(x) << 32) ^ u64::from(z));
     (value % RANDOM_DETAIL_BUCKETS) as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
+}
+
+fn sample_city_vista(
+    pack: &TerrainPack,
+    coordinates: Wgs84CoordinateE7,
+    elevation_metres: f32,
+    seed: u64,
+) -> Result<VistaSample, String> {
+    Ok(VistaSample {
+        // The near regional ring needs enough spatial frequency to preserve
+        // forest boundaries, rolling ground, and the transition from geometric
+        // grass. Coarser rings then expand rapidly to the 50-km horizon.
+        lods: VISTA_LOD_SPECS
+            .into_iter()
+            .map(|spec| {
+                let grid = sample_grid(
+                    pack,
+                    GridSampleRequest {
+                        center: coordinates,
+                        dimensions: GridDimensions::square(spec.side),
+                        spacing_metres: spec.spacing_metres,
+                        center_elevation_metres: elevation_metres,
+                        elevation_sampling: ElevationSampling::PreservePeaks,
+                        seed: seed ^ u64::from(spec.level),
+                    },
+                )?;
+                Ok(VistaLod {
+                    level: spec.level,
+                    spacing_metres: spec.spacing_metres,
+                    width: spec.side,
+                    depth: spec.side,
+                    origin_east_metres: 0.0,
+                    origin_north_metres: 0.0,
+                    heights_metres: grid.heights_metres,
+                    environment: grid.environment,
+                })
+            })
+            .collect::<Result<Vec<_>, String>>()?,
+    })
 }
 
 #[cfg(test)]

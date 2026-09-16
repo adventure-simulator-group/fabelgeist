@@ -4,6 +4,9 @@ use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
 
 mod church;
+mod gardens;
+mod terrain;
+pub(crate) use gardens::validate_scene_gardens;
 mod property;
 pub use church::ChurchSitingIssue;
 mod recipes;
@@ -57,6 +60,7 @@ pub struct CompiledCityLayout {
     pub compounds: Vec<CityCompound>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
+    pub gardens: Vec<CityGarden>,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -67,6 +71,7 @@ pub struct CitySceneLayout {
     pub compounds: Vec<CityCompound>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
+    pub gardens: Vec<CityGarden>,
 }
 
 impl GeneratedCityLayout {
@@ -87,11 +92,17 @@ impl GeneratedCityLayout {
         let mut clearance_cache = property::ClearanceCache::default();
         let mut buildings = Vec::new();
         let mut compounds = Vec::new();
+        let mut gardens = Vec::new();
+        let mut envelopes = Vec::new();
         for lot in self.lots {
             let recipe = palette.front(seed, lot)?;
             let front = recipe.place(lot.id, lot.centre_metres, lot.orientation);
             if recipe.program.church_program.is_some() {
                 church::validate(lot, &front, &recipe, &self.streets)?;
+            }
+            envelopes.push((front.id, gardens::envelope(&front, &recipe)));
+            if let Some(garden) = gardens::compile(seed, lot, &front, &recipe, &self.streets) {
+                gardens.push(garden);
             }
             if lot.has_rear_range() {
                 let range = palette.range()?;
@@ -103,17 +114,31 @@ impl GeneratedCityLayout {
                     &self.streets,
                     &mut clearance_cache,
                 )?;
+                envelopes.push((rear.id, gardens::envelope(&rear, &range)));
                 buildings.push(rear);
                 compounds.push(compound);
             }
             buildings.push(front);
         }
+        gardens.retain(|garden| {
+            envelopes
+                .iter()
+                .all(|(_, envelope)| garden.clears_building(*envelope))
+        });
+        let mut yards = self.yards;
+        yards.extend(gardens.iter().flat_map(|garden| {
+            garden.beds.iter().map(|bed| CityYardPatch {
+                corners_metres: bed.corners(),
+                surface: CityYardSurface::KitchenGarden,
+            })
+        }));
         Ok(CompiledCityLayout {
+            gardens,
             parishes,
             buildings,
             compounds,
             streets: self.streets,
-            yards: self.yards,
+            yards,
         })
     }
 }
@@ -175,9 +200,22 @@ impl CompiledCityLayout {
                 playable_members.extend([compound.front_building_id, compound.rear_building_id]);
             }
         }
+        for garden in &self.gardens {
+            compound_members.insert(garden.front_building_id);
+            if playable_half_extent_metres.is_some_and(|extent| {
+                garden.plot.intersects(CityPlotBounds {
+                    centre_metres: Vec2::ZERO,
+                    dimensions_metres: Vec2::splat(extent * 2.0),
+                    orientation: BuildingOrientation::IDENTITY,
+                })
+            }) {
+                playable_members.insert(garden.front_building_id);
+            }
+        }
         let mut result = CitySceneLayout {
             parishes: self.parishes,
             compounds: self.compounds,
+            gardens: self.gardens,
             streets: self.streets,
             yards: self.yards,
             ..Default::default()

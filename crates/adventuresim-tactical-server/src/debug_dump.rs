@@ -44,6 +44,7 @@ pub(super) fn on_debug_dump_world_request(
         .allow_component::<SceneTerrain>()
         .allow_component::<SceneBuilding>()
         .allow_component::<SceneBoundary>()
+        .allow_component::<SceneGarden>()
         .allow_component::<SceneFurniture>()
         .allow_component::<SceneFurnitureGroup>()
         .allow_component::<SceneVistaFurniture>()

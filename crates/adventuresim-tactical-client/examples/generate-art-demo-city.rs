@@ -29,6 +29,7 @@ fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
     input.yards = layout.yards;
     input.parishes = layout.parishes;
     input.compounds = layout.compounds;
+    input.gardens = layout.gardens;
     Ok(())
 }
 
@@ -53,14 +54,15 @@ fn main() -> Result<(), String> {
         "yards": input.yards,
         "parishes": input.parishes,
         "compounds": input.compounds,
+        "gardens": input.gardens,
     });
-    std::fs::write(
-        root.join("assets/art-demo/city-layout.json"),
+    write_changed(
+        &root.join("assets/art-demo/city-layout.json"),
         serde_json::to_string_pretty(&layout).map_err(|error| error.to_string())? + "\n",
     )
     .map_err(|error| error.to_string())?;
-    std::fs::write(
-        root.join("assets/art-demo/city-furniture.json"),
+    write_changed(
+        &root.join("assets/art-demo/city-furniture.json"),
         serde_json::to_string(&serde_json::json!({
             "instances": instances, "groups": furniture.groups,
         }))
@@ -74,4 +76,13 @@ fn main() -> Result<(), String> {
         input.distant_buildings.len()
     );
     Ok(())
+}
+
+fn write_changed(path: &std::path::Path, contents: String) -> std::io::Result<()> {
+    if std::fs::read(path).ok().as_deref() == Some(contents.as_bytes()) {
+        return Ok(());
+    }
+    let temporary = path.with_extension("json.tmp");
+    std::fs::write(&temporary, contents)?;
+    std::fs::rename(temporary, path)
 }

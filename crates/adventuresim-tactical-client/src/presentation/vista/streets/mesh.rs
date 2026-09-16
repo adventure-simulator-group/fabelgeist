@@ -71,27 +71,43 @@ impl CitySurfaceMeshBuilder {
                 kind: PatchKind::Market,
             },
         };
-        self.append(patch, support, groups);
+        self.append(patch, &[], support, groups);
     }
 
     pub(super) fn append_yard(
         &mut self,
         yard: CityYardPatch,
+        beds: &[[Vec2; 4]],
         support: &GroundSupport,
         groups: &[FurnitureGroup],
     ) {
+        let exclusions = beds
+            .iter()
+            .copied()
+            .filter(|bed| {
+                yard.surface == CityYardSurface::PackedEarth
+                    && partition::overlaps(yard.corners_metres, *bed)
+            })
+            .collect::<Vec<_>>();
         self.append(
             SurfacePatch {
                 corners: yard.corners_metres,
                 lift_metres: YARD_SURFACE_LIFT_METRES,
                 kind: PatchKind::Yard,
             },
+            &exclusions,
             support,
             groups,
         );
     }
 
-    fn append(&mut self, patch: SurfacePatch, support: &GroundSupport, groups: &[FurnitureGroup]) {
+    fn append(
+        &mut self,
+        patch: SurfacePatch,
+        exclusions: &[[Vec2; 4]],
+        support: &GroundSupport,
+        groups: &[FurnitureGroup],
+    ) {
         let [a, b, c, d] = patch.corners;
         let width = a.distance(b).max(d.distance(c));
         let depth = a.distance(d).max(b.distance(c));
@@ -108,28 +124,33 @@ impl CitySurfaceMeshBuilder {
                 .map(|p| p.xz())
                 .into_iter()
                 .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-            for tile in traffic::TrafficTile::covering(minimum, maximum) {
-                let polygon = support::clip_polygon(triangle.to_vec(), tile.corners());
-                for index in 1..polygon.len().saturating_sub(1) {
-                    let clipped = [polygon[0], polygon[index], polygon[index + 1]];
-                    if (clipped[1] - clipped[0])
-                        .cross(clipped[2] - clipped[0])
-                        .length_squared()
-                        <= f32::EPSILON
-                    {
-                        continue;
-                    }
-                    let vertices = self.chunks.entry(tile).or_default();
-                    for mut point in clipped {
-                        let uv = support::footprint_uv(patch.corners, point.xz());
-                        vertices.uvs.push(uv.to_array());
-                        vertices.activities.push(activity.at(point.xz()).to_array());
-                        vertices
-                            .footprints
-                            .push([width, depth, f32::from(patch.kind as u8), 1.0]);
-                        point.y += patch.lift_metres;
-                        vertices.positions.push(point.to_array());
-                        vertices.normals.push(normal.to_array());
+            for polygon in partition::subtract(triangle.to_vec(), exclusions) {
+                for tile in traffic::TrafficTile::covering(minimum, maximum) {
+                    let polygon = support::clip_polygon(polygon.clone(), tile.corners());
+                    for index in 1..polygon.len().saturating_sub(1) {
+                        let clipped = [polygon[0], polygon[index], polygon[index + 1]];
+                        if (clipped[1] - clipped[0])
+                            .cross(clipped[2] - clipped[0])
+                            .length_squared()
+                            <= f32::EPSILON
+                        {
+                            continue;
+                        }
+                        let vertices = self.chunks.entry(tile).or_default();
+                        for mut point in clipped {
+                            let uv = support::footprint_uv(patch.corners, point.xz());
+                            vertices.uvs.push(uv.to_array());
+                            vertices.activities.push(activity.at(point.xz()).to_array());
+                            vertices.footprints.push([
+                                width,
+                                depth,
+                                f32::from(patch.kind as u8),
+                                1.0,
+                            ]);
+                            point.y += patch.lift_metres;
+                            vertices.positions.push(point.to_array());
+                            vertices.normals.push(normal.to_array());
+                        }
                     }
                 }
             }

@@ -120,7 +120,8 @@ fn every_selected_lot_belongs_to_a_deterministic_developed_yard() {
     assert!(
         city.yards
             .iter()
-            .any(|yard| yard.surface == CityYardSurface::KitchenGarden)
+            .all(|yard| yard.surface == CityYardSurface::PackedEarth),
+        "cultivated beds are compiled only after an owned garden is accepted"
     );
     assert!(city.lots.iter().all(|lot| {
         city.yards

@@ -46,8 +46,11 @@ pub(crate) use plants::{PlantCaptureAnchors, PlantLodInstance};
 mod review_specimens;
 
 pub(crate) use review_specimens::{UnderstoryReviewSpecimen, spawn_understory_review_specimens};
+pub(in crate::presentation) mod gardens;
 mod scene_mask;
+mod specimens;
 mod understory;
+use specimens::ensure_understory_presentations;
 
 use scene_mask::{GroundScatterSceneQuery, scatter_ground_without_patch};
 
@@ -478,63 +481,6 @@ pub(super) fn present_ground_scatter(
             "Generated tactical ground scatter"
         );
         commands.entity(entity).insert(GroundScatterPresented);
-    }
-}
-
-fn ensure_understory_presentations(
-    meshes: &mut Assets<Mesh>,
-    materials: &mut Assets<StandardMaterial>,
-    leaf_materials: &mut Assets<TacticalTreeLeafCardMaterial>,
-    cache: &mut WoodyUnderstoryPresentationCache,
-    procedural_assets: &ProceduralTextureAssets,
-) {
-    if cache.hazel.branches.is_some() {
-        return;
-    }
-    // One deterministic specimen is shared by every scattered shrub. Instance
-    // transforms still vary placement, rotation, and scale without generating
-    // unique botanical geometry per occurrence.
-    let species = [
-        (
-            &mut cache.hazel,
-            0x00c0_a15a_2e11_u64,
-            COMMON_HAZEL_PARAMETERS,
-            Color::srgb_u8(118, 104, 78),
-            hazel_leaf_material(procedural_assets),
-        ),
-        (
-            &mut cache.blackthorn,
-            0x00b1_ac7a_0e31_u64,
-            BLACKTHORN_PARAMETERS,
-            Color::srgb_u8(61, 52, 44),
-            blackthorn_leaf_material(procedural_assets),
-        ),
-        (
-            &mut cache.hawthorn,
-            0x00a7_a74a_0e51_u64,
-            COMMON_HAWTHORN_PARAMETERS,
-            Color::srgb_u8(91, 76, 60),
-            hawthorn_leaf_material(procedural_assets),
-        ),
-    ];
-    for (cache, seed, parameters, bark_color, leaf_material) in species {
-        let branches = procedural_woody_plant_skeleton(seed, 0.0, parameters);
-        let leaves = procedural_woody_plant_leaves(seed, &branches, 0.0, parameters);
-        cache.branches = Some(meshes.add(procedural_woody_branch_mesh(&branches, 3)));
-        cache.cambered_leaves = Some(meshes.add(procedural_woody_cambered_leaf_mesh(&leaves)));
-        // A single minimal card tier replaces the former full-card and far
-        // sparse-card tiers. It carries the close shrub silhouette only until
-        // the terrain and distant canopy can take over.
-        cache.minimal_leaf_cards =
-            Some(meshes.add(procedural_woody_sparse_leaf_card_mesh(&leaves)));
-        // Full-coverage cards for the instanced shrub renderer's leaf-card tier.
-        cache.leaf_cards = Some(meshes.add(procedural_woody_leaf_card_mesh(&leaves)));
-        cache.bark = Some(materials.add(StandardMaterial {
-            base_color: bark_color,
-            perceptual_roughness: 0.96,
-            ..default()
-        }));
-        cache.leaves = Some(leaf_materials.add(leaf_material));
     }
 }
 

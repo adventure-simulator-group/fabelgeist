@@ -5,6 +5,7 @@ use super::*;
 mod activity;
 mod material;
 mod mesh;
+mod partition;
 pub(crate) mod streaming;
 mod support;
 mod traffic;
@@ -59,9 +60,14 @@ impl CityGroundAssets<'_> {
         let groups = &bundle.furniture_groups;
         // Local footprint coordinates bound shader work independently of city size.
         let mut builders: [CitySurfaceMeshBuilder; 5] = Default::default();
+        let beds = yards
+            .iter()
+            .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
+            .map(|yard| yard.corners_metres)
+            .collect::<Vec<_>>();
         for yard in yards.iter().copied() {
             let kind = CityGroundKind::from(yard.surface);
-            builders[kind.index()].append_yard(yard, support, groups);
+            builders[kind.index()].append_yard(yard, &beds, support, groups);
         }
         for street in streets.iter().copied() {
             let kind = CityGroundKind::from(street.surface());

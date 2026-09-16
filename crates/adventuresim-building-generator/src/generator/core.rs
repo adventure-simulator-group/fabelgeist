@@ -26,6 +26,8 @@ fn grid_point(position: Vec2) -> GridPoint {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum GenerationError {
+    #[error("domestic heating obstructs occupied-room circulation: {0}")]
+    BlockedDomesticCirculation(crate::interior::InteriorLayoutError),
     #[error("shed dormer cannot meet its parent roof within the available slope")]
     InvalidRoofDormer,
     #[error("domestic heating requires a clear grounded kitchen/Stube and roof route")]

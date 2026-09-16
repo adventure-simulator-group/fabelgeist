@@ -71,6 +71,11 @@ them. These authored sections retain the same rear-fed stove, grounded support
 and reserved working space. If none fits, generation reports
 `InvalidDomesticHeating`.
 
+Occupied heated recipes also prove metre-space access from the front door to
+every room after heating geometry is resolved. A blocked room rejects that
+candidate with `BlockedDomesticCirculation`; the bounded deterministic recipe
+search continues. A room-adjacency graph alone does not establish usable access.
+
 The flue cuts both skins of its actual covering, including a shed dormer when
 the underlying parent opening leaves the full shaft clear. Every other roof
 and enclosure is checked against the final shaft and weathering geometry.

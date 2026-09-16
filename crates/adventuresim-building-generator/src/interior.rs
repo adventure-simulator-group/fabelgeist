@@ -27,6 +27,11 @@ pub use budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
 pub use geometry::furniture_floor_height;
 pub use placement::{furnish, validate_layout};
 
+/// Verify the completed architectural circulation before accepting a heated recipe.
+pub(crate) fn validate_circulation(plan: &crate::BuildingPlan) -> Result<(), InteriorLayoutError> {
+    navigation::Navigation::new(plan).map(|_| ())
+}
+
 /// Furniture front is local -Z. South therefore has zero renderer yaw.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorPlacement {
@@ -71,7 +76,7 @@ pub struct InteriorLayout {
     pub paths: Vec<FurnitureAccessPath>,
     pub unmet_budgets: Vec<UnmetFurnitureBudget>,
 }
-#[derive(Clone, Debug, thiserror::Error, PartialEq)]
+#[derive(Clone, Debug, thiserror::Error, Eq, PartialEq)]
 pub enum InteriorLayoutError {
     #[error("building has no accessible ground-floor front door")]
     MissingFrontDoor,
