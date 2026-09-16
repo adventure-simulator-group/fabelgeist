@@ -52,6 +52,9 @@ impl Shape {
 
     pub(super) fn range(&self) -> Result<[f64; 2], String> {
         Ok(match self {
+            Self::ContouredPlate(p) => [0.0, p.length.get()],
+            Self::WheelPommel(p) => [-p.diameter.get() / 2.0, p.seat_height.get()],
+            Self::MortisedGuard(p) => [0.0, p.height.get()],
             Self::BentBar(p) => match p.centerline {
                 BarCenterline::Opposed { sweep, .. } => [-sweep.get().abs(), sweep.get().abs()],
                 BarCenterline::Arch { length, .. } => [0.0, length.get()],
@@ -92,7 +95,7 @@ impl Shape {
             ],
             Self::Grip(p) => [0.0, p.length.get()],
             Self::OvalGrip(p) => [0.0, p.length.get()],
-            Self::ProfileGrip(p) => [0.0, p.length.get()],
+            Self::ProfileGrip(p) | Self::ProfileBody(p) => [0.0, p.length.get()],
             Self::SlabGrip(p) => [0.0, p.length.get()],
             Self::Blade(p) => [0.0, p.length.get()],
             Self::SectionBlade(p) => [0.0, p.length.get()],

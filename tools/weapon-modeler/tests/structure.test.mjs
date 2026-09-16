@@ -1,6 +1,7 @@
 import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
+import { impossibleMaceSeats } from "./quality/mace-seat-witness.mjs";
 import { effectiveGripRadius, MAX_ROUND_GRIP_RADIUS_M, MAX_SWORD_GRIP_THICKNESS_M, MAX_SWORD_GRIP_WIDTH_M } from "./quality/grip-envelopes.mjs";
 import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, composeWeapon, compositionControls, copyPreset, getPath, setControlValue } from "../src/presets.js";
 
@@ -19,6 +20,15 @@ function sampleControl(control, random) {
 
 function assertValid(definition, controls, context) {
   const result = validateWeapon(definition, controls);
+  if (!result.valid) {
+    const witnesses = impossibleMaceSeats(definition);
+    if (witnesses.length) {
+      assert.equal(result.errors.length, 1, context);
+      assert.ok(witnesses.some(w => result.errors[0] === `invalid construction: ${w.diagnostic}`), `${context}: ${JSON.stringify({ errors: result.errors, witnesses })}`);
+      assert.equal(result.mesh, null, "impossible input must not produce a repaired mesh");
+      return;
+    }
+  }
   assert.equal(result.valid, true, `${context}: ${result.errors.join(" | ")}`);
 }
 
@@ -91,10 +101,11 @@ test("shared head families survive combined minimum, midpoint, and maximum shape
     }
 });
 
-test("seeded slider fuzz keeps every preset structurally valid", () => {
+test("seeded slider fuzz generates valid presets or diagnoses impossible mace seats", () => {
   const random = randomGenerator(0x1544cafe);
   for (const source of PRESETS) {
-    assertValid(source.definition, source.controls, `${source.id} default`);
+    const baseline = validateWeapon(source.definition, source.controls);
+    assert.equal(baseline.valid, true, `${source.id} default: ${baseline.errors.join(" | ")}`);
     for (const control of source.controls)
       for (const value of [control.min, control.max, sampleControl(control, random)]) {
         const preset = copyPreset(source);
@@ -115,7 +126,7 @@ test("seeded slider fuzz keeps every preset structurally valid", () => {
   }
 });
 
-test("every preset control pair survives all four endpoint combinations", () => {
+test("every preset control pair generates or diagnoses impossible mace seats at all endpoints", () => {
   let cases = 0;
   for (const source of PRESETS) {
     for (let first = 0; first < source.controls.length; first += 1)

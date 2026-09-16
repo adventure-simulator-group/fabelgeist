@@ -124,6 +124,34 @@ impl Solid {
         }
         let largest = profile.iter().map(|p| p[1]).fold(0.0, f64::max);
         let segments = detail.lathe_radial(largest, requested, exact_segments);
+        Self::radial_profile(
+            profile,
+            segments,
+            radial_scale,
+            exact_segments && segments <= 8,
+            detail,
+        )
+    }
+
+    /// An authored polygon section whose receiving flats survive every LOD.
+    pub(crate) fn faceted_lathe(
+        profile: &[PlanarPoint],
+        sides: usize,
+        detail: Detail,
+    ) -> Result<Self, String> {
+        if profile.len() < 2 || sides < 3 {
+            return Err("faceted solid requires stations and at least three sides".into());
+        }
+        Self::radial_profile(profile, sides, 1.0, true, detail)
+    }
+
+    fn radial_profile(
+        profile: &[PlanarPoint],
+        segments: usize,
+        radial_scale: f64,
+        faceted: bool,
+        detail: Detail,
+    ) -> Result<Self, String> {
         let minimum = profile
             .iter()
             .map(|p| p[1])
@@ -167,11 +195,7 @@ impl Solid {
                     vertex(ring + 1, next),
                     vertex(ring + 1, segment),
                 ];
-                let surface = if exact_segments && segments <= 8 {
-                    0
-                } else {
-                    band
-                };
+                let surface = if faceted { 0 } else { band };
                 if profile[ring][1] > 0.0 {
                     solid.triangle(a, c, b, surface);
                 }

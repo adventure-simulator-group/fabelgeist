@@ -119,19 +119,19 @@
       "step": 0.01
     },
     {
-      "path": "fuller.mouthWidth",
+      "path": "fuller.grooves.*.mouthWidth",
       "min": 0.001,
       "max": 0.04,
       "step": 0.001
     },
     {
-      "path": "fuller.depth",
+      "path": "fuller.grooves.*.depth",
       "min": 0.0001,
       "max": 0.005,
       "step": 0.0001
     },
     {
-      "path": "fuller.floorWidthRatio",
+      "path": "fuller.grooves.*.floorWidthRatio",
       "min": 0.01,
       "max": 0.99,
       "step": 0.01
@@ -143,28 +143,34 @@
       "step": 0.01
     },
     {
-      "path": "fuller.start",
+      "path": "fuller.grooves.*.start",
       "min": 0,
       "max": 1,
       "step": 0.001
     },
     {
-      "path": "fuller.end",
+      "path": "fuller.grooves.*.end",
       "min": 0.001,
       "max": 2,
       "step": 0.001
     },
     {
-      "path": "fuller.entryLength",
+      "path": "fuller.grooves.*.entryLength",
       "min": 0.001,
       "max": 0.5,
       "step": 0.001
     },
     {
-      "path": "fuller.exitLength",
+      "path": "fuller.grooves.*.exitLength",
       "min": 0.001,
       "max": 0.5,
       "step": 0.001
+    },
+    {
+      "path": "fuller.grooves.*.lateralPosition",
+      "min": -0.95,
+      "max": 0.95,
+      "step": 0.01
     }
   ],
   "mace": [
@@ -574,12 +580,36 @@
       "path": "length",
       "min": 0.04,
       "max": 0.5,
-      "step": 0.001
+      "step": 0.0001
     },
     {
       "path": "cover.thickness",
       "min": 0.0001,
       "max": 0.01,
+      "step": 0.0001
+    },
+    {
+      "path": "cover.endCap",
+      "min": 0.0001,
+      "max": 0.01,
+      "step": 0.0001
+    },
+    {
+      "path": "radialSegments",
+      "min": 12,
+      "max": 128,
+      "step": 4
+    },
+    {
+      "path": "ribs.count",
+      "min": 1,
+      "max": 64,
+      "step": 1
+    },
+    {
+      "path": "ribs.depth",
+      "min": 0.0001,
+      "max": 0.005,
       "step": 0.0001
     }
   ],
@@ -597,19 +627,19 @@
       "step": 0.01
     },
     {
-      "path": "fuller.mouthWidth",
+      "path": "fuller.grooves.*.mouthWidth",
       "min": 0.001,
       "max": 0.04,
       "step": 0.001
     },
     {
-      "path": "fuller.depth",
+      "path": "fuller.grooves.*.depth",
       "min": 0.0001,
       "max": 0.005,
       "step": 0.0001
     },
     {
-      "path": "fuller.floorWidthRatio",
+      "path": "fuller.grooves.*.floorWidthRatio",
       "min": 0.01,
       "max": 0.99,
       "step": 0.01
@@ -621,28 +651,34 @@
       "step": 0.01
     },
     {
-      "path": "fuller.start",
+      "path": "fuller.grooves.*.start",
       "min": 0,
       "max": 1,
       "step": 0.001
     },
     {
-      "path": "fuller.end",
+      "path": "fuller.grooves.*.end",
       "min": 0.001,
       "max": 2,
       "step": 0.001
     },
     {
-      "path": "fuller.entryLength",
+      "path": "fuller.grooves.*.entryLength",
       "min": 0.001,
       "max": 0.5,
       "step": 0.001
     },
     {
-      "path": "fuller.exitLength",
+      "path": "fuller.grooves.*.exitLength",
       "min": 0.001,
       "max": 0.5,
       "step": 0.001
+    },
+    {
+      "path": "fuller.grooves.*.lateralPosition",
+      "min": -0.95,
+      "max": 0.95,
+      "step": 0.01
     }
   ],
   "guard": [
@@ -707,6 +743,138 @@
       "min": 0,
       "max": 1,
       "step": 0.05
+    }
+  ],
+  "profileBody": [
+    {
+      "path": "length",
+      "min": 0.005,
+      "max": 0.5,
+      "step": 0.0005
+    },
+    {
+      "path": "cover.thickness",
+      "min": 0.0001,
+      "max": 0.01,
+      "step": 0.0001
+    },
+    {
+      "path": "cover.endCap",
+      "min": 0.0001,
+      "max": 0.01,
+      "step": 0.0001
+    },
+    {
+      "path": "radialSegments",
+      "min": 12,
+      "max": 128,
+      "step": 4
+    },
+    {
+      "path": "ribs.count",
+      "min": 1,
+      "max": 64,
+      "step": 1
+    },
+    {
+      "path": "ribs.depth",
+      "min": 0.0001,
+      "max": 0.005,
+      "step": 0.0001
+    }
+  ],
+  "wheelPommel": [
+    {
+      "path": "diameter",
+      "min": 0.02,
+      "max": 0.15,
+      "step": 0.001
+    },
+    {
+      "path": "faceDiameter",
+      "min": 0.01,
+      "max": 0.14,
+      "step": 0.001
+    },
+    {
+      "path": "thickness",
+      "min": 0.005,
+      "max": 0.05,
+      "step": 0.001
+    },
+    {
+      "path": "rimThickness",
+      "min": 0.003,
+      "max": 0.04,
+      "step": 0.001
+    },
+    {
+      "path": "seatHeight",
+      "min": 0.001,
+      "max": 0.07,
+      "step": 0.0001
+    }
+  ],
+  "mortisedGuard": [
+    {
+      "path": "width",
+      "min": 0.05,
+      "max": 0.4,
+      "step": 0.001
+    },
+    {
+      "path": "height",
+      "min": 0.005,
+      "max": 0.04,
+      "step": 0.001
+    },
+    {
+      "path": "thickness",
+      "min": 0.005,
+      "max": 0.05,
+      "step": 0.001
+    },
+    {
+      "path": "sweep",
+      "min": 0,
+      "max": 0.08,
+      "step": 0.001
+    },
+    {
+      "path": "shoulderHeight",
+      "min": 0.001,
+      "max": 0.03,
+      "step": 0.001
+    },
+    {
+      "path": "edgeBevel",
+      "min": 0.0001,
+      "max": 0.005,
+      "step": 0.0001
+    },
+    {
+      "path": "terminalScale",
+      "min": 1,
+      "max": 2,
+      "step": 0.01
+    },
+    {
+      "path": "mortise.width",
+      "min": 0.015,
+      "max": 0.1,
+      "step": 0.001
+    },
+    {
+      "path": "mortise.thickness",
+      "min": 0.002,
+      "max": 0.015,
+      "step": 0.0001
+    },
+    {
+      "path": "mortise.bevelWidthRatio",
+      "min": 0.05,
+      "max": 0.45,
+      "step": 0.01
     }
   ]
 }

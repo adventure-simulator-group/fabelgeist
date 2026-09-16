@@ -2,6 +2,56 @@
 use super::*;
 
 #[test]
+fn short_twisted_members_preserve_material_and_resolve_every_turn_at_all_lods() {
+    for detail in [Detail::Low, Detail::Medium, Detail::High] {
+        for twist in [-1080.0_f64, 540.0, 720.0] {
+            let width = 0.018;
+            let depth = 0.012;
+            let length = 0.208;
+            let solid = Solid::sweep(
+                &[[0.0; 3], [0.0, length, 0.0]],
+                &Sweep {
+                    section: Section::Diamond,
+                    width,
+                    depth,
+                    twist,
+                    ..Sweep::default()
+                },
+                detail,
+            )
+            .unwrap();
+            let exact_volume = width * depth * length / 2.0;
+            assert!(
+                (solid.volume() / exact_volume - 1.0).abs() < 0.01,
+                "{detail:?} {twist}: {} versus {exact_volume}",
+                solid.volume()
+            );
+            let mut heights: Vec<_> = solid.positions.iter().map(|p| p[1]).collect();
+            heights.sort_by(f64::total_cmp);
+            heights.dedup();
+            for pair in heights.windows(2) {
+                let rotation = twist.to_radians().abs() * (pair[1] - pair[0]) / length;
+                assert!(rotation < 0.14, "adjacent rings must resolve the twist");
+            }
+            let mirrored = Solid::sweep(
+                &[[0.0; 3], [0.0, length, 0.0]],
+                &Sweep {
+                    section: Section::Diamond,
+                    width,
+                    depth,
+                    twist: -twist,
+                    ..Sweep::default()
+                },
+                detail,
+            )
+            .unwrap();
+            assert!((solid.volume() - mirrored.volume()).abs() < exact_volume * 1e-12);
+            crate::construction::surface_tests::closed(solid);
+        }
+    }
+}
+
+#[test]
 fn path_refinement_preserves_authored_stations_scales_and_twist_progress() {
     let solid = Solid::sweep(
         &[[0.0; 3], [0.0, 0.01, 0.0], [0.0, 0.11, 0.0]],
@@ -158,6 +208,32 @@ fn parallel_transport_sections_remain_finite_through_global_z() {
                 }
             }
             assert!(corner);
+        }
+    }
+}
+
+#[test]
+fn beveled_twisted_bar_retains_its_eight_faces_and_analytic_section_area() {
+    for detail in [Detail::Low, Detail::Medium, Detail::High] {
+        let outline = Section::Beveled.outline(0.016, 0.012, 16, detail);
+        assert_eq!(outline.len(), 8);
+        let area = 0.016 * 0.012 * 0.875;
+        assert!((signed_area(&outline).abs() - area).abs() < 1e-15);
+        for twist in [-650.0, 650.0] {
+            let solid = Solid::sweep(
+                &[[0.0; 3], [0.0, 0.208, 0.0]],
+                &Sweep {
+                    section: Section::Beveled,
+                    width: 0.016,
+                    depth: 0.012,
+                    twist,
+                    ..Sweep::default()
+                },
+                detail,
+            )
+            .unwrap();
+            assert!((solid.volume() / (area * 0.208) - 1.0).abs() < 0.01);
+            crate::construction::surface_tests::closed(solid);
         }
     }
 }

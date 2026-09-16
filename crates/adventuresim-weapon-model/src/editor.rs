@@ -55,68 +55,78 @@ pub fn editor_fields(design: &WeaponDesign) -> Vec<EditorField> {
             .map(|value| serde_json::to_value(value).expect("material choice"))
             .collect(),
         );
-        match &component.shape {
-            Shape::LoftedBlade(p) => {
-                choice("section", section_options(p.section));
-                choice(
-                    "plan",
-                    [BladePlan::Straight, BladePlan::Leaf, BladePlan::Cleaver]
-                        .into_iter()
-                        .map(|value| serde_json::to_value(value).expect("blade plan choice"))
-                        .collect(),
-                );
-            }
-            Shape::SectionBlade(p) => choice(
-                "section",
-                section_options(p.section.unwrap_or(BladeCrossSection::Diamond)),
-            ),
-            Shape::Spear(_) => choice(
-                "section",
-                [SpearSection::Flat, SpearSection::Diamond]
-                    .into_iter()
-                    .map(|value| serde_json::to_value(value).expect("spear section choice"))
-                    .collect(),
-            ),
-            _ => {}
-        }
-        let fuller = match &component.shape {
-            Shape::LoftedBlade(p) => p.fuller.as_ref(),
-            Shape::SectionBlade(p) => p.fuller.as_ref(),
-            _ => None,
-        };
-        if fuller.is_some() {
+        component_choices(&component.shape, &mut choice);
+    }
+    fields
+}
+fn component_choices(shape: &Shape, mut choice: impl FnMut(&str, Vec<serde_json::Value>)) {
+    match shape {
+        Shape::LoftedBlade(p) => {
+            choice("section", section_options(p.section));
             choice(
-                "fuller.faces",
+                "plan",
+                [BladePlan::Straight, BladePlan::Leaf, BladePlan::Cleaver]
+                    .into_iter()
+                    .map(|value| serde_json::to_value(value).expect("blade plan choice"))
+                    .collect(),
+            );
+        }
+        Shape::SectionBlade(p) => choice(
+            "section",
+            section_options(p.section.unwrap_or(BladeCrossSection::Diamond)),
+        ),
+        Shape::Spear(_) => choice(
+            "section",
+            [SpearSection::Flat, SpearSection::Diamond]
+                .into_iter()
+                .map(|value| serde_json::to_value(value).expect("spear section choice"))
+                .collect(),
+        ),
+        _ => {}
+    }
+    let fuller = match shape {
+        Shape::LoftedBlade(p) => p.fuller.as_ref(),
+        Shape::SectionBlade(p) => p.fuller.as_ref(),
+        _ => None,
+    };
+    if let Some(fuller) = fuller {
+        for groove in 0..fuller.grooves.len() {
+            choice(
+                &format!("fuller.grooves.{groove}.faces"),
                 [FullerFaces::Front, FullerFaces::Back, FullerFaces::Both]
                     .into_iter()
                     .map(|v| serde_json::to_value(v).unwrap())
                     .collect(),
             );
         }
-        if let Shape::ProfileGrip(p) = &component.shape
-            && p.cover.is_some()
-        {
-            choice(
-                "cover.material",
-                [Material::Leather, Material::DarkLeather, Material::Cord]
-                    .into_iter()
-                    .map(|v| serde_json::to_value(v).unwrap())
-                    .collect(),
-            );
-        }
-        if let Shape::Guard(p) = &component.shape
-            && p.terminal_profile.is_some()
-        {
-            choice(
-                "terminalProfile.interpolation",
-                [ProfileInterpolation::Linear, ProfileInterpolation::Smooth]
-                    .into_iter()
-                    .map(|v| serde_json::to_value(v).unwrap())
-                    .collect(),
-            );
-        }
     }
-    fields
+    if let Shape::ProfileGrip(p) | Shape::ProfileBody(p) = shape
+        && p.cover.is_some()
+    {
+        choice(
+            "cover.material",
+            [
+                Material::Leather,
+                Material::DarkLeather,
+                Material::Cord,
+                Material::Brass,
+            ]
+            .into_iter()
+            .map(|v| serde_json::to_value(v).unwrap())
+            .collect(),
+        );
+    }
+    if let Shape::Guard(p) = shape
+        && p.terminal_profile.is_some()
+    {
+        choice(
+            "terminalProfile.interpolation",
+            [ProfileInterpolation::Linear, ProfileInterpolation::Smooth]
+                .into_iter()
+                .map(|v| serde_json::to_value(v).unwrap())
+                .collect(),
+        );
+    }
 }
 fn section_options(current: BladeCrossSection) -> Vec<serde_json::Value> {
     let sections = if current == BladeCrossSection::Recessed {
@@ -147,23 +157,7 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
             continue;
         };
         if let Some(definitions) = catalog.get(kind) {
-            for field in definitions {
-                let pointer = format!("/{}", field.path.replace('.', "/"));
-                if value
-                    .pointer(&pointer)
-                    .is_some_and(serde_json::Value::is_number)
-                {
-                    let mut field = field.clone();
-                    field.label = field_label(&field.path);
-                    field.path = format!("recipe.components.{index}.{}", field.path);
-                    if !fields
-                        .iter()
-                        .any(|f: &NumericEditorField| f.path == field.path)
-                    {
-                        fields.push(field);
-                    }
-                }
-            }
+            append_numeric_fields(&mut fields, definitions, &value, index);
         }
         if let Shape::Socket(socket) = &component.shape {
             for station in 0..socket.profile.len() {
@@ -182,26 +176,7 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
                 }
             }
         }
-        if let Shape::ProfileGrip(grip) = &component.shape {
-            for station in 0..grip.profile.len() {
-                for (name, min, max) in [
-                    ("at", 0.0, 1.0),
-                    ("width", 0.001, 0.038),
-                    ("depth", 0.001, 0.028),
-                ] {
-                    if name == "at" && (station == 0 || station + 1 == grip.profile.len()) {
-                        continue;
-                    }
-                    fields.push(NumericEditorField {
-                        path: format!("recipe.components.{index}.profile.{station}.{name}"),
-                        label: format!("Grip station {} {name}", station + 1),
-                        min,
-                        max,
-                        step: 0.001,
-                    });
-                }
-            }
-        }
+        append_profile_fields(&mut fields, &component.shape, index);
         if let Shape::Guard(guard) = &component.shape
             && let Some(profile) = &guard.terminal_profile
         {
@@ -225,6 +200,76 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
         }
     }
     fields
+}
+
+fn append_profile_fields(fields: &mut Vec<NumericEditorField>, shape: &Shape, index: usize) {
+    if let Shape::ProfileGrip(grip) | Shape::ProfileBody(grip) = shape {
+        for station in 0..grip.profile.len() {
+            for (name, min, max) in [
+                ("at", 0.0, 1.0),
+                (
+                    "width",
+                    0.001,
+                    if matches!(shape, Shape::ProfileBody(_)) {
+                        0.2
+                    } else {
+                        0.038
+                    },
+                ),
+                (
+                    "depth",
+                    0.001,
+                    if matches!(shape, Shape::ProfileBody(_)) {
+                        0.2
+                    } else {
+                        0.028
+                    },
+                ),
+            ] {
+                if name == "at" && (station == 0 || station + 1 == grip.profile.len()) {
+                    continue;
+                }
+                fields.push(NumericEditorField {
+                    path: format!("recipe.components.{index}.profile.{station}.{name}"),
+                    label: format!("Profile station {} {name}", station + 1),
+                    min,
+                    max,
+                    step: 0.001,
+                });
+            }
+        }
+    }
+}
+
+fn append_numeric_fields(
+    fields: &mut Vec<NumericEditorField>,
+    definitions: &[NumericEditorField],
+    value: &serde_json::Value,
+    index: usize,
+) {
+    for definition in definitions {
+        let paths = if definition.path.contains('*') {
+            (0..value["fuller"]["grooves"].as_array().map_or(0, Vec::len))
+                .map(|i| definition.path.replace('*', &i.to_string()))
+                .collect()
+        } else {
+            vec![definition.path.clone()]
+        };
+        for path in paths {
+            let pointer = format!("/{}", path.replace('.', "/"));
+            if value
+                .pointer(&pointer)
+                .is_some_and(serde_json::Value::is_number)
+            {
+                let mut field = definition.clone();
+                field.label = field_label(&path);
+                field.path = format!("recipe.components.{index}.{path}");
+                if !fields.iter().any(|f| f.path == field.path) {
+                    fields.push(field);
+                }
+            }
+        }
+    }
 }
 
 fn field_label(path: &str) -> String {

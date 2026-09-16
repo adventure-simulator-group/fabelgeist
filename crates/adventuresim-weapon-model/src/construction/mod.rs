@@ -5,12 +5,24 @@
 //! sampling budget.
 
 mod clearance_envelope;
+mod crenellated_socket;
 mod curves;
 mod profile;
 pub(crate) use clearance_envelope::ClearanceEnvelope;
 pub(crate) use profile::SmoothProfile;
 mod section_shell;
 pub(crate) use section_shell::LoftEnd;
+mod partition;
+mod partitioned_curve;
+pub(crate) use partitioned_curve::partitioned_cubic;
+mod planar_cells;
+mod surface_quality;
+#[cfg(test)]
+mod surface_quality_tests;
+mod surface_refinement;
+#[cfg(test)]
+mod surface_refinement_tests;
+pub(crate) use partition::PlanarCut;
 mod polygon;
 mod solids;
 mod stocks;
@@ -19,6 +31,7 @@ mod surface_tests;
 mod sweep;
 #[cfg(test)]
 mod tests;
+mod truncate;
 
 use serde::{Deserialize, Serialize};
 
