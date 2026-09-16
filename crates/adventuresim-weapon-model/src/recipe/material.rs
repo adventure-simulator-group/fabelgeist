@@ -21,6 +21,7 @@ pub enum Material {
     Walnut,
     RedBeech,
     Gold,
+    Silver,
     Latten,
     Bone,
     Staghorn,
@@ -33,7 +34,13 @@ impl Material {
     pub fn is_metal(self) -> bool {
         matches!(
             self,
-            Self::Steel | Self::DarkSteel | Self::Brass | Self::Latten | Self::Lead | Self::Gold
+            Self::Steel
+                | Self::DarkSteel
+                | Self::Brass
+                | Self::Latten
+                | Self::Lead
+                | Self::Gold
+                | Self::Silver
         )
     }
     pub fn density(self) -> f64 {
@@ -48,6 +55,8 @@ impl Material {
             Self::Lead => 11340.0,
             Self::Cherry => 620.0,
             Self::Gold => 19300.0,
+            // RSC room-temperature elemental density: 10.5 g/cm^3.
+            Self::Silver => 10500.0,
             Self::Bone => 1850.0,
             Self::MotherOfPearl => 2700.0,
             Self::Pyrite => 5000.0,
@@ -73,6 +82,7 @@ impl Material {
             Self::Walnut => [0.24, 0.13, 0.06],
             Self::RedBeech => [0.45, 0.25, 0.13],
             Self::Gold => [0.82, 0.61, 0.16],
+            Self::Silver => [0.78, 0.80, 0.82],
             Self::Latten => [0.64, 0.49, 0.18],
             Self::Bone => [0.79, 0.75, 0.61],
             Self::Staghorn => [0.61, 0.53, 0.39],

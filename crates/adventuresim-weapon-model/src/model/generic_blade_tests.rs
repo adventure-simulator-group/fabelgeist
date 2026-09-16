@@ -228,3 +228,55 @@ fn generic_loft_volume_matches_continuous_wedge_sections() {
         assert!((measured - integral).abs() / integral < 0.0002);
     }
 }
+
+#[test]
+fn diamond_section_preserves_its_proportions_and_closes_a_single_point() {
+    for ratio in [0.4, 1.0, 1.6] {
+        let mut p = parameters();
+        p.section = Some(ForgedBladeSection::Diamond);
+        p.single_edge = Some(Ratio::new(0.0).unwrap());
+        p.thickness = Metres::new(p.width.get() * ratio).unwrap();
+        p.curvature = Some(Metres::new(-0.025).unwrap());
+        for detail in [Detail::Low, Detail::Medium, Detail::High] {
+            let solid = generic_blade::blade(&p, detail).unwrap();
+            closed(&solid);
+            let mut sections = BTreeMap::<_, Vec<Point>>::new();
+            for &point in &solid.positions {
+                sections.entry(point[1].to_bits()).or_default().push(point);
+            }
+            for section in sections.values() {
+                let span = |axis| {
+                    section
+                        .iter()
+                        .map(|p| p[axis])
+                        .fold(f64::NEG_INFINITY, f64::max)
+                        - section
+                            .iter()
+                            .map(|p| p[axis])
+                            .fold(f64::INFINITY, f64::min)
+                };
+                assert!((span(2) - ratio * span(0)).abs() < 1e-12);
+            }
+        }
+    }
+}
+
+#[test]
+fn diamond_frustum_conserves_analytic_volume_and_rejects_an_asymmetric_edge() {
+    let mut p = parameters();
+    p.section = Some(ForgedBladeSection::Diamond);
+    p.single_edge = Some(Ratio::new(0.0).unwrap());
+    p.point = None;
+    p.taper = Some(Ratio::new(1.0).unwrap());
+    p.belly = Some(Ratio::new(0.0).unwrap());
+    p.tip_width = Some(Ratio::new(0.5).unwrap());
+    let volume =
+        0.5 * p.width.get() * p.thickness.get() * p.length.get() * (1.0 + 0.5 + 0.25) / 3.0;
+    for detail in [Detail::Low, Detail::Medium, Detail::High] {
+        let solid = generic_blade::blade(&p, detail).unwrap();
+        assert!((solid.volume() / volume - 1.0).abs() < 1e-12);
+        closed(&solid);
+    }
+    p.single_edge = Some(Ratio::new(0.1).unwrap());
+    assert!(generic_blade::blade(&p, Detail::High).is_err());
+}

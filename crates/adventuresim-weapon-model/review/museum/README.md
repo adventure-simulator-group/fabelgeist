@@ -11,8 +11,8 @@ Select `cma-1916-1589` or export it with the standard command below. The
 [recipe](cma-1916.1589.json) studies the complete structural silhouette of
 [Cleveland's seven-flanged mace](https://www.clevelandart.org/art/1916.1589),
 dated about 1540–50. It covers the compact `flanged-mace` browser family and
-`flanged_mace` gameplay family. The elongated `gothic-flanged-mace` remains a
-separate pending reference endpoint. Acceptance does not resize either ordinary
+`flanged_mace` gameplay family. The elongated `gothic-flanged-mace` has a
+separate KHM A 297 study below. Acceptance does not resize either ordinary
 preset to this specimen.
 
 The museum publishes an overall length of 645 mm, mass of 1.6 kg, and
@@ -254,6 +254,7 @@ record. Calculated mass is a model result, not a fitted historical target.
 ### Generic blade points and heel placement
 
 The generic `blade` uses a single section loft for capped and pointed ends.
+The following thickness law describes the default `edged` section.
 Without `point`, `tipWidth` specifies the finite terminal width ratio and
 the body retains its distal thickness. With `point`, `tipWidth` still
 describes the underlying body law; `point.start` selects where the shared
@@ -364,3 +365,63 @@ later layer, extend outside the receiving interval, or have no finite crest
 contact. Each layer contributes only its own material volume. Flattened
 crest proportions, cord thickness and hidden core materials are construction
 assumptions when the museum has not measured them.
+
+## Met 29.158.674 Saxon war hammer
+
+Select `met-29-158-674`. The [recipe](met-29.158.674.json) covers browser
+`reiter-war-hammer` and gameplay `war_hammer`. Long-pole Lucerne hammers and
+pollaxes remain separate coverage entries. Ordinary presets retain their
+authored dimensions.
+
+The [Met record](https://www.metmuseum.org/art/collection/search/34089)
+identifies a Saxon war hammer of the mid-16th century, made of steel and
+silver. Published measurements are 572 mm overall, 156 mm width and
+1.134 kg. Its separate "L. of head 5 in. (12.7 cm)" has no specified axis;
+the recipe does not reinterpret it as the complete horizontal span.
+The opposing [front](https://images.metmuseum.org/CRDImages/aa/original/DP160169.jpg)
+and [back](https://images.metmuseum.org/CRDImages/aa/original/DP160170.jpg)
+photographs are public domain according to the
+[collection API](https://collectionapi.metmuseum.org/public/collection/v1/objects/34089).
+Credit: The Metropolitan Museum of Art, Bashford Dean Memorial Collection,
+Funds from various donors, 1929.
+
+The structural scope includes the square-section curved beak, baluster poll,
+head button, slender steel shaft, one-sided belt hook, disk guard, collars,
+dense silver-wire grip courses, domed silver pommel and bottom button.
+The hook's blunt cap approximates the source's small rounded tongue.
+Floral etching, border dots, microscopic wire ply, patina and wear are outside
+scope. Surface color indicates material, not the photographed lighting or age.
+
+Photo estimates allocate 10 mm to the bottom button, 26 mm to the pommel,
+98 mm to the grip, 5 mm to guard and collar, 23 mm to the shaft ferrule,
+380 mm to the exposed shaft, 20 mm to the head block and 10 mm to its button.
+The poll projects 34 mm beyond the block and the beak 102 mm, giving the
+156 mm span. The 13 mm beak drop and 52 mm pommel diameter are photo estimates.
+Head-block half-width locates both working ends on actual receiving faces;
+half-depth plus half hook thickness locates the hook's inner mounting face.
+The hook stays straight through that contact interval before bending outward.
+
+The unmeasured core, internal voids, joints, fasteners and alloy composition
+remain unknown. Bodies are modeled as solid, including a steel grip core.
+The silver pommel includes its lower button; other fittings use steel.
+Calculated mass is approximately 1.533 kg versus the published 1.134 kg.
+Density and hidden thicknesses are not adjusted to make those values agree.
+
+### Diamond sections and silver
+
+Generic `blade` accepts `section: "diamond"`. Each transverse section is a
+four-vertex rhombus, with depth proportional to its current width throughout
+the body and point. Equal authored width and thickness give a square section;
+unequal diagonals give a rhombus. Curvature translates its centerline without
+changing that ratio. Diamond sections require `singleEdge` to be zero.
+The existing point curve controls both diagonals and terminates at one vertex.
+Diamond sections do not use the cutting section's finite edge thickness floor.
+Omitting `section`, or choosing `edged`, retains the cutting section described
+above. These modes do not expand generic-blade scabbard eligibility.
+
+The shared `silver` material uses 10,500 kg/m³, the room-temperature elemental
+density listed by the [Royal Society of Chemistry](https://periodic-table.rsc.org/element/47/).
+This is an explicit approximation for unidentified historical silver alloys.
+It affects material mass and appearance while preserving the authored geometry.
+Weapon schema/generator identities are 12/15; holder identities are 6/6 because
+holders contain material fields and embedded weapon recipes.

@@ -35,23 +35,23 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 10, 13, &design));
+    assert_ne!(current, versioned_hash(domain, 11, 14, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 10.into();
+    previous["schema_version"] = 11.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 10,
+            found: 11,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 13.into();
+    previous["generator_version"] = 14.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 13,
+            found: 14,
             expected: GENERATOR_VERSION
         })
     ));
@@ -80,6 +80,17 @@ fn gothic_mace_round_trip_preserves_profiles_crown_and_supported_cord() {
 }
 
 #[test]
+fn war_hammer_round_trip_preserves_square_beak_and_silver_parts() {
+    let mut design = default_design("war_hammer").unwrap();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/met-29.158.674.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    assert!(generate(&restored).unwrap() == generate(&design).unwrap());
+}
+
+#[test]
 fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     let weapon = default_design("rondel_dagger").unwrap();
     let design = default_holder_design(&weapon).unwrap();
@@ -97,24 +108,55 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 4, 4, &design));
+    assert_ne!(current, versioned_hash(domain, 5, 5, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 4.into();
+    previous["schema_version"] = 5.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 4,
+            found: 5,
             expected: HOLDER_SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 4.into();
+    previous["generator_version"] = 5.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 4,
+            found: 5,
             expected: HOLDER_GENERATOR_VERSION
         })
+    ));
+}
+
+#[test]
+fn silver_holder_fittings_round_trip_through_an_existing_holder() {
+    let mut weapon = default_design("rondel_dagger").unwrap();
+    weapon.recipe.components[0].material = Some(Material::Silver);
+    let mut design = default_holder_design(&weapon).unwrap();
+    design.fitting_material = Material::Silver;
+    let restored = decode_holder(&encode_holder(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    let holder = generate_holder(&restored).unwrap();
+    assert!(holder.parts.iter().any(|p| p.material == Material::Silver));
+    assert_eq!(holder, generate_holder(&design).unwrap());
+}
+
+#[test]
+fn diamond_sections_do_not_enable_generic_blade_scabbards() {
+    let mut weapon = pointed_design();
+    for component in &mut weapon.recipe.components {
+        if let recipe::Shape::Blade(blade) = &mut component.shape {
+            blade.section = Some(recipe::ForgedBladeSection::Diamond);
+            blade.single_edge = Some(recipe::Ratio::new(0.0).unwrap());
+        }
+    }
+    validate(&weapon).unwrap();
+    let holder = default_holder_design(&weapon).unwrap();
+    assert!(matches!(
+        generate_holder(&holder),
+        Err(GenerateError::Invalid(errors))
+            if errors == vec![ValidationError::Holder("source geometry")]
     ));
 }

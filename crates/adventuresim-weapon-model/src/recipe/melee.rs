@@ -12,9 +12,24 @@ pub enum BeakBendProfile {
     PowerOffset,
     SineArch,
 }
+
+/// Cutting sections retain finite edges; diamond sections scale in both axes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum ForgedBladeSection {
+    Edged,
+    Diamond,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BladeParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
+    pub section: Option<ForgedBladeSection>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",

@@ -149,3 +149,25 @@ fn curated_defaults_stay_in_reviewed_physical_envelopes() {
         );
     }
 }
+
+#[test]
+fn silver_material_round_trips_and_contributes_its_own_mass() {
+    let design: WeaponDesign = serde_json::from_value(serde_json::json!({
+        "catalog_id":"silver-block-fixture","recipe":{"components":[{
+            "kind":"box","id":"grip","role":"Grip","material":"silver",
+            "size":[0.01,0.02,0.03],"attach":{"to":"weapon.root","at":"base"}
+        }]}
+    }))
+    .unwrap();
+    assert_eq!(decode(&encode(&design).unwrap()).unwrap(), design);
+    let silver = generate(&design).unwrap();
+    assert!((silver.derived.mass_kg - 0.063).abs() < 1e-7);
+    assert_eq!(silver.parts[0].material, Material::Silver);
+    assert!(silver.parts[0].material.is_metal());
+    let mut steel_design = design;
+    steel_design.recipe.components[0].material = Some(Material::Steel);
+    let steel = generate(&steel_design).unwrap();
+    assert_eq!(silver.parts[0].positions, steel.parts[0].positions);
+    assert_eq!(silver.parts[0].indices, steel.parts[0].indices);
+    assert!((steel.derived.mass_kg - 0.0471).abs() < 1e-7);
+}

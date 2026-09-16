@@ -38,10 +38,10 @@ pub use model::{GeneratedModel, ModelPart, ModelStats, PhysicalProperties, gener
 pub use recipe::Material;
 pub use validation::{ValidationError, validate, validate_holder};
 
-pub const SCHEMA_VERSION: u16 = 11;
-pub const GENERATOR_VERSION: u16 = 14;
-pub const HOLDER_SCHEMA_VERSION: u16 = 5;
-pub const HOLDER_GENERATOR_VERSION: u16 = 5;
+pub const SCHEMA_VERSION: u16 = 12;
+pub const GENERATOR_VERSION: u16 = 15;
+pub const HOLDER_SCHEMA_VERSION: u16 = 6;
+pub const HOLDER_GENERATOR_VERSION: u16 = 6;
 pub const MAX_ENCODED_RECIPE_BYTES: usize = 128 * 1024;
 
 /// Maximum cylindrical grip radius compatible with a full-hand power grip.

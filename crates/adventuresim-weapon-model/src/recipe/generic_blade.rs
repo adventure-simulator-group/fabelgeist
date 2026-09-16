@@ -65,6 +65,13 @@ impl BladeParameters {
             let q = width / self.body_half_width(start);
             envelope = q * (2.0 - q);
         }
+        if self.section == Some(ForgedBladeSection::Diamond) {
+            return [
+                width,
+                2.0 * width * self.thickness.get() / self.width.get(),
+                0.0,
+            ];
+        }
         [
             width,
             self.thickness.get() * (1.0 - DISTAL_THICKNESS_REDUCTION * t) * envelope,
@@ -74,8 +81,13 @@ impl BladeParameters {
 
     pub(crate) fn validate_form(&self) -> Result<(), RecipeError> {
         let tip = self.tip_width.map_or(0.025, Ratio::get);
+        let section_valid = if self.section == Some(ForgedBladeSection::Diamond) {
+            self.single_edge.map_or(0.0, Ratio::get) == 0.0
+        } else {
+            self.thickness.get() * (1.0 - DISTAL_THICKNESS_REDUCTION) >= BLADE_EDGE_THICKNESS
+        };
         let valid = self.taper.map_or(1.25, Ratio::get) > 0.0
-            && self.thickness.get() * (1.0 - DISTAL_THICKNESS_REDUCTION) >= BLADE_EDGE_THICKNESS
+            && section_valid
             && (-1.0..=1.0).contains(&self.single_edge.map_or(0.0, Ratio::get))
             && (0.0..=1.0).contains(&tip)
             && (tip > 0.0 || self.point.is_some())
