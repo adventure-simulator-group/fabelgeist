@@ -80,13 +80,25 @@ pub(super) enum OpeningPose {
 }
 
 #[derive(Component)]
-pub(super) struct ReviewLeafPose {
+pub(in crate::tactical_scene_viewer) struct ReviewLeafPose {
     closed: Transform,
     hinge: Vec3,
     angle: f32,
 }
 
 impl ReviewLeafPose {
+    pub(in crate::tactical_scene_viewer) fn boundary_gate(
+        door: adventuresim_building_generator::DoorSpec,
+        elevation: Vec3,
+    ) -> Self {
+        Self {
+            closed: Transform::from_translation(door.closed_centre + elevation)
+                .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
+            hinge: door.hinge_centre + elevation,
+            angle: door.open_angle_radians,
+        }
+    }
+
     fn transform(&self, pose: OpeningPose) -> Transform {
         let rotation = Quat::from_rotation_y(match pose {
             OpeningPose::Closed => 0.0,

@@ -22,6 +22,7 @@ pub(super) fn spawn_boundaries(commands: &mut Commands, boundaries: Vec<Generate
             },
             Transform::from_translation(centre)
                 .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
+            super::building_review::ReviewLeafPose::boundary_gate(door, elevation),
         ));
         commands.spawn((boundary.scene, Transform::from_translation(elevation)));
     }

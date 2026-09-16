@@ -1,6 +1,8 @@
-//! A complete generated merchant property, isolated for street and court review.
+//! Two complete properties demonstrating both independent access orientations.
 use super::*;
-use adventuresim_tactical_core::city_layout::CitySceneLayout;
+use adventuresim_tactical_core::city_layout::{
+    CityPropertyId, CitySceneLayout, CompiledCityLayout, MAX_CITY_LOTS, PropertySide,
+};
 
 pub(super) fn fixture() -> Fixture {
     Fixture {
@@ -18,7 +20,7 @@ pub(super) fn fixture() -> Fixture {
 }
 
 pub(super) fn layout() -> CitySceneLayout {
-    let mut city = CitySite::central_german_market_town()
+    let city = CitySite::central_german_market_town()
         .generate(
             42,
             900,
@@ -26,7 +28,37 @@ pub(super) fn layout() -> CitySceneLayout {
         )
         .compile(42)
         .expect("review city compiles");
-    let mut compound = city.compounds.remove(0);
+    let mut layout = CitySceneLayout::default();
+    for (id, side, offset) in [
+        (1, PropertySide::Left, Vec2::new(-18.0, 0.0)),
+        (2, PropertySide::Right, Vec2::new(18.0, 0.0)),
+    ] {
+        let property = isolate(&city, id, side, offset);
+        layout.playable.extend(property.playable);
+        layout.compounds.extend(property.compounds);
+        layout.yards.extend(property.yards);
+    }
+    layout.streets.push(CityStreetPatch::Corridor {
+        start_metres: Vec2::new(-60.0, -11.0),
+        end_metres: Vec2::new(60.0, -11.0),
+        half_width_metres: 3.5,
+        surface: CityStreetSurface::CompactedEarth,
+    });
+    layout
+}
+
+fn isolate(
+    city: &CompiledCityLayout,
+    id: u64,
+    passage: PropertySide,
+    offset: Vec2,
+) -> CitySceneLayout {
+    let mut compound = city
+        .compounds
+        .iter()
+        .find(|property| property.boundary.gate.hinge == passage.opposite())
+        .expect("review city includes both passage orientations")
+        .clone();
     let front = city
         .buildings
         .iter()
@@ -34,13 +66,19 @@ pub(super) fn layout() -> CitySceneLayout {
         .unwrap();
     let origin = front.centre_metres;
     let orientation = front.orientation;
-    let local = |point| orientation.world_to_local(point - origin);
+    let local = |point| orientation.world_to_local(point - origin) + offset;
     let mut playable = city
         .buildings
-        .into_iter()
+        .iter()
         .filter(|b| [compound.front_building_id, compound.rear_building_id].contains(&b.id))
+        .cloned()
         .collect::<Vec<_>>();
     for building in &mut playable {
+        building.id = if building.id == compound.front_building_id {
+            id
+        } else {
+            MAX_CITY_LOTS as u64 + id
+        };
         building.centre_metres = local(building.centre_metres);
         building.orientation = BuildingOrientation::IDENTITY;
     }
@@ -58,6 +96,9 @@ pub(super) fn layout() -> CitySceneLayout {
     }
     compound.boundary.gate.centre_metres = local(compound.boundary.gate.centre_metres);
     compound.boundary.gate.orientation = BuildingOrientation::IDENTITY;
+    compound.id = CityPropertyId(id);
+    compound.front_building_id = id;
+    compound.rear_building_id = MAX_CITY_LOTS as u64 + id;
     let yards = vec![CityYardPatch {
         corners_metres: compound.plot.corners(),
         surface: CityYardSurface::PackedEarth,
@@ -67,12 +108,6 @@ pub(super) fn layout() -> CitySceneLayout {
         yards,
         parishes: Vec::new(),
         compounds: vec![compound],
-        streets: vec![CityStreetPatch::Corridor {
-            start_metres: Vec2::new(-45.0, -11.0),
-            end_metres: Vec2::new(45.0, -11.0),
-            half_width_metres: 3.5,
-            surface: CityStreetSurface::CompactedEarth,
-        }],
         ..Default::default()
     }
 }

@@ -97,7 +97,10 @@ impl CityGate {
             source: ResolvedItemId(opening.0),
             closed_centre,
             hinge_centre: closed_centre
-                - Vec3::new(tangent.x, 0.0, tangent.y) * self.width_metres * 0.5,
+                + Vec3::new(tangent.x, 0.0, tangent.y)
+                    * self.width_metres
+                    * 0.5
+                    * self.hinge.sign(),
             size_metres: Vec3::new(
                 self.width_metres,
                 self.height_metres,
@@ -106,7 +109,7 @@ impl CityGate {
             closed_yaw_radians: self.orientation.yaw_radians(),
             tangent,
             outward,
-            open_angle_radians: -GATE_OPEN_ANGLE_RADIANS,
+            open_angle_radians: self.hinge.sign() * GATE_OPEN_ANGLE_RADIANS,
         }
     }
 }

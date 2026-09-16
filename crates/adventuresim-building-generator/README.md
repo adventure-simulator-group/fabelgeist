@@ -1013,6 +1013,13 @@ usable doorway. Access routes connect the street gate to both buildings and
 reserve standing clearance through the courtyard. Compilation checks actual
 render bounds, collision geometry and the gate's complete opening sweep.
 
+Street packing selects left- and right-side passages before reserving the plot.
+The court, rear-store offset, boundary and inward-opening gate use that same
+handedness. Gate hinge position and swing direction are explicit scene data;
+rendering and collision consume the same door specification. These remain
+separate properties with complete exterior walls. Attached frontages require
+a shared construction assembly and are not implied by passage handedness.
+
 Properties crossing the playable boundary keep both buildings in the playable
 scene. Entirely distant properties retain their walls and closed gate in the
 vista. Connected terrain pads share an elevation, including adjacent properties
@@ -1025,7 +1032,8 @@ the 100,000-resident extent; insufficient lots or service capacity produce an
 explicit error rather than silently dropping residents.
 
 The `compound-review` tactical scene and capture profile provide deterministic
-street, passage, court and rear-store views through production presentation:
+views of both access orientations, courts and rear stores through production
+presentation:
 
 ```powershell
 python scripts/capture_tactical_scenes.py --help

@@ -1,4 +1,5 @@
 use super::*;
+use crate::prelude::FurnitureLocation;
 use bevy::math::Vec2;
 
 fn fixture() -> TacticalSceneInput {
@@ -42,34 +43,51 @@ fn compound_levels_court_routes_and_both_members_together_on_sloped_ground() {
         *height = (i / usize::from(input.playable.width)) as f32 * 0.25;
     }
     let generated = input.generate().unwrap();
-    assert_eq!(generated.buildings.len(), 2);
-    assert_eq!(generated.boundaries.len(), 1);
-    let elevation = generated.boundaries[0].elevation_metres;
-    assert!(
-        generated
-            .buildings
+    assert_eq!(generated.buildings.len(), 4);
+    assert_eq!(generated.boundaries.len(), 2);
+    for compound in &input.compounds {
+        let elevation = generated
+            .boundaries
             .iter()
-            .all(|b| b.pad_elevation_metres == elevation)
-    );
-    let compound = &input.compounds[0];
-    for route in &compound.access {
-        for fraction in [0.25, 0.5, 0.75, 1.0] {
-            let p = route.start_metres.lerp(route.end_metres, fraction);
-            assert!(
-                (generated.terrain.height_at(p).unwrap() - elevation).abs() < 0.03,
-                "courtyard route is not level at {p:?}"
-            );
+            .find(|boundary| boundary.scene.property_id == compound.id)
+            .unwrap()
+            .elevation_metres;
+        assert!(
+            generated
+                .buildings
+                .iter()
+                .filter(|b| [compound.front_building_id, compound.rear_building_id]
+                    .contains(&b.placement.id))
+                .all(|b| b.pad_elevation_metres == elevation)
+        );
+        for route in &compound.access {
+            for fraction in [0.25, 0.5, 0.75, 1.0] {
+                let p = route.start_metres.lerp(route.end_metres, fraction);
+                assert!(
+                    (generated.terrain.height_at(p).unwrap() - elevation).abs() < 0.03,
+                    "courtyard route is not level at {p:?}"
+                );
+            }
+        }
+        for item in &generated.furniture.instances {
+            // Upper-room furniture cannot obstruct this ground-level route.
+            if matches!(item.scene.location, FurnitureLocation::Interior { storey, .. } if storey > 0)
+            {
+                continue;
+            }
+            let point = Vec2::new(item.position_metres.x, item.position_metres.z);
+            for route in &compound.access {
+                let delta = route.end_metres - route.start_metres;
+                let t = ((point - route.start_metres).dot(delta) / delta.length_squared())
+                    .clamp(0.0, 1.0);
+                assert!(
+                    point.distance(route.start_metres + delta * t) >= route.half_width_metres,
+                    "furniture {item:?} blocks property {:?} route {route:?}",
+                    compound.id
+                );
+            }
         }
     }
-    assert!(generated.furniture.instances.iter().all(|item| {
-        let point = Vec2::new(item.position_metres.x, item.position_metres.z);
-        compound.access.iter().all(|route| {
-            let delta = route.end_metres - route.start_metres;
-            let t =
-                ((point - route.start_metres).dot(delta) / delta.length_squared()).clamp(0.0, 1.0);
-            point.distance(route.start_metres + delta * t) >= route.half_width_metres
-        })
-    }));
 }
 
 #[test]
@@ -85,6 +103,13 @@ fn compound_rejects_a_loaded_route_ending_short_of_the_actual_store_door() {
 #[test]
 fn adjacent_compound_walls_remain_grounded_after_terrain_refinement() {
     let mut input = fixture();
+    // This proof intentionally builds a touching pair from one source property.
+    input.compounds.truncate(1);
+    let property = &input.compounds[0];
+    input
+        .buildings
+        .retain(|b| [property.front_building_id, property.rear_building_id].contains(&b.id));
+    input.yards.truncate(1);
     let offset = Vec2::new(16.5, 0.0);
     let mut neighbour = input.compounds[0].clone();
     neighbour.id.0 += 1;

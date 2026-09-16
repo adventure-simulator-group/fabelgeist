@@ -57,10 +57,14 @@ mod tests {
     use super::*;
     #[test]
     fn inward_gate_clears_posts_but_mid_swing_obstacle_is_rejected() {
-        for yaw in [0.0, 0.71, core::f32::consts::FRAC_PI_2] {
+        for (yaw, hinge) in [0.0, 0.71, core::f32::consts::FRAC_PI_2]
+            .into_iter()
+            .flat_map(|yaw| [PropertySide::Left, PropertySide::Right].map(|hinge| (yaw, hinge)))
+        {
             let boundary = CityBoundary {
                 walls: vec![],
                 gate: CityGate {
+                    hinge,
                     centre_metres: Vec2::new(10.0, -4.0),
                     orientation: BuildingOrientation::from_radians(yaw).unwrap(),
                     width_metres: 1.6,

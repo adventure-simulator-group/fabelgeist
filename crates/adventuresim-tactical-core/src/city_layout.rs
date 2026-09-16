@@ -25,6 +25,7 @@ pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{
     CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
     CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,
+    PropertySide,
 };
 pub mod gardens;
 pub use gardens::{
@@ -62,6 +63,7 @@ const REAR_COURT_PRIORITY_PENALTY: u32 = 7;
 const SPATIAL_BUCKET_METRES: f32 = 32.0;
 const STREET_GEOMETRY_DOMAIN: u64 = 0x7374_7265_6574_6765;
 const HOUSE_CLASS_DOMAIN: u64 = 0x686f_7573_655f_636c;
+const PASSAGE_SIDE_DOMAIN: u64 = 0x7061_7373_6167_6573;
 const DEVELOPMENT_DOMAIN: u64 = 0x6465_7665_6c6f_706d;
 pub const MAX_CITY_LOTS: usize = 16_384;
 
@@ -79,6 +81,7 @@ pub struct GeneratedCityLayout {
 /// One rectangular building lot aligned to one locally straight street frontage.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct CityBuildingLot {
+    pub passage_side: PropertySide,
     pub id: u64,
     pub centre_metres: Vec2,
     pub orientation: BuildingOrientation,
@@ -244,7 +247,12 @@ fn append_frontage(
         if cursor + frontage > length - FRONTAGE_CORNER_CLEARANCE_METRES {
             break;
         }
-        let street_point = start + tangent * (cursor + frontage * 0.5);
+        // Keep the reserved parcel fixed when its side passage is mirrored.
+        let passage_offset = match passage_side(seed, lot_key, house_class) {
+            PropertySide::Left => plots::SIDE_PASSAGE_METRES,
+            PropertySide::Right => 0.0,
+        };
+        let street_point = start + tangent * (cursor + frontage * 0.5 + passage_offset);
         lots.push(candidate(
             seed,
             lot_key,
@@ -260,6 +268,16 @@ fn append_frontage(
     }
 }
 
+fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> PropertySide {
+    if house_class == CityHouseClass::MerchantHouse
+        && mix64(seed ^ PASSAGE_SIDE_DOMAIN ^ lot_key).is_multiple_of(2)
+    {
+        PropertySide::Left
+    } else {
+        PropertySide::Right
+    }
+}
+
 fn candidate(
     seed: u64,
     lot_key: u64,
@@ -271,6 +289,7 @@ fn candidate(
 ) -> CandidateLot {
     CandidateLot {
         lot: CityBuildingLot {
+            passage_side: passage_side(seed, lot_key, house_class),
             id: lot_key,
             centre_metres,
             orientation: BuildingOrientation::from_frontage_tangent(frontage_tangent)

@@ -16,7 +16,7 @@ pub(super) use lod::ReviewLod;
 mod gardens;
 mod openings;
 mod readiness;
-pub(super) use openings::spawn_openings;
+pub(super) use openings::{ReviewLeafPose, spawn_openings};
 pub(super) use readiness::{BuildingReviewPlugin, ready};
 pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
 pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";

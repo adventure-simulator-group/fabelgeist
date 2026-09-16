@@ -23,6 +23,7 @@ pub(super) struct ClearanceCache {
         adventuresim_building_generator::BuildingProgram,
         adventuresim_building_generator::BuildingProgram,
         Vec2,
+        PropertySide,
     )>,
 }
 
@@ -41,7 +42,7 @@ pub(super) fn compile(
     let rear = range_recipe.place(
         AUXILIARY_BUILDING_ID_BASE + lot.id,
         world(Vec2::new(
-            REAR_RANGE_SIDE_OFFSET_METRES,
+            lot.passage_side.sign() * REAR_RANGE_SIDE_OFFSET_METRES,
             front_half.y + court_depth + compound::REAR_RANGE_DEPTH_METRES * 0.5,
         )),
         lot.orientation,
@@ -68,7 +69,7 @@ pub(super) fn compile(
     let boundary = boundary(lot);
     let court = CityPlotBounds {
         centre_metres: world(Vec2::new(
-            plots::SIDE_PASSAGE_METRES * 0.5,
+            lot.passage_side.sign() * plots::SIDE_PASSAGE_METRES * 0.5,
             front_half.y + court_depth * 0.5,
         )),
         dimensions_metres: Vec2::new(
@@ -113,6 +114,7 @@ pub(super) fn compile(
         front_recipe.program.clone(),
         range_recipe.program.clone(),
         lot.footprint_metres,
+        lot.passage_side,
     );
     if !clearance_cache.programmes.contains(&key) {
         clearance::validate(&compound, front, front_recipe, &rear, range_recipe)?;
@@ -159,7 +161,12 @@ fn boundary(lot: CityBuildingLot) -> CityBoundary {
         + compound::REAR_RANGE_DEPTH_METRES
         + BOUNDARY_OUTSIDE_OFFSET_METRES;
     let left = -half.x - 0.12;
-    let world = |p| lot.centre_metres + lot.orientation.local_to_world(p);
+    let world = |p: Vec2| {
+        lot.centre_metres
+            + lot
+                .orientation
+                .local_to_world(Vec2::new(p.x * lot.passage_side.sign(), p.y))
+    };
     let walls = [
         (Vec2::new(left, half.y), Vec2::new(left, rear)),
         (Vec2::new(left, rear), Vec2::new(right, rear)),
@@ -175,6 +182,7 @@ fn boundary(lot: CityBuildingLot) -> CityBoundary {
     CityBoundary {
         walls,
         gate: CityGate {
+            hinge: lot.passage_side.opposite(),
             centre_metres: world(Vec2::new(half.x + 1.35, -half.y)),
             orientation: lot.orientation,
             width_metres: GATE_WIDTH_METRES,
@@ -182,3 +190,6 @@ fn boundary(lot: CityBuildingLot) -> CityBoundary {
         },
     }
 }
+
+#[cfg(test)]
+mod handedness_tests;

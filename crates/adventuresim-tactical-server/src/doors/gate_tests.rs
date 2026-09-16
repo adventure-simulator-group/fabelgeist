@@ -6,7 +6,13 @@ fn property_gate_has_authoritative_collision_hinge_and_passage_control() {
         "../../../../assets/tactical-scenes/compound-review.json"
     ))
     .unwrap();
-    let compound = &input.compounds[0];
+    assert_eq!(input.compounds.len(), 2);
+    for compound in &input.compounds {
+        assert_property_gate(compound);
+    }
+}
+
+fn assert_property_gate(compound: &adventuresim_tactical_core::city_layout::CityCompound) {
     let spec = compound.boundary.gate.door(compound.id);
     let elevation = Vec3::Y * 3.0;
     let mut app = App::new();

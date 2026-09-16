@@ -110,18 +110,7 @@ pub(super) fn routes(
                 access.half_width_metres,
             )
         }));
-        let gate = compound.boundary.gate.door(compound.id);
-        let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);
-        // Reserve the inward quarter of the hinge's enclosing square for the
-        // complete leaf sweep, independently of its current dynamic state.
-        routes.push(FurnitureFootprint {
-            centre_metres: hinge
-                + compound.boundary.gate.orientation.local_to_world(Vec2::ONE)
-                    * gate.size_metres.x
-                    * 0.5,
-            half_extents_metres: Vec2::splat(gate.size_metres.x * 0.5 + gate.size_metres.z),
-            orientation: compound.boundary.gate.orientation,
-        });
+        routes.push(FurnitureFootprint::gate_sweep(compound));
     }
     for garden in &input.gardens {
         routes.extend(
@@ -176,4 +165,73 @@ pub(super) fn obstacles(
         });
     }
     footprints
+}
+
+impl FurnitureFootprint {
+    fn gate_sweep(compound: &crate::city_layout::CityCompound) -> Self {
+        let gate = compound.boundary.gate.door(compound.id);
+        let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);
+        // Reserve the inward quarter of the hinge's enclosing square for the
+        // complete leaf sweep, independently of its current dynamic state.
+        Self {
+            centre_metres: hinge
+                + compound
+                    .boundary
+                    .gate
+                    .orientation
+                    .local_to_world(Vec2::new(-compound.boundary.gate.hinge.sign(), 1.0))
+                    * gate.size_metres.x
+                    * 0.5,
+            half_extents_metres: Vec2::splat(gate.size_metres.x * 0.5 + gate.size_metres.z),
+            orientation: compound.boundary.gate.orientation,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::city_layout::PropertySide;
+    use bevy::math::{Quat, Vec3};
+
+    #[test]
+    fn furniture_reservation_contains_both_complete_gate_sweeps() {
+        let input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../../assets/tactical-scenes/compound-review.json"
+        ))
+        .unwrap();
+        let mut property = input.compounds[0].clone();
+        for yaw in [0.0, 0.71, core::f32::consts::FRAC_PI_2] {
+            for hinge in [PropertySide::Left, PropertySide::Right] {
+                property.boundary.gate.orientation =
+                    BuildingOrientation::from_radians(yaw).unwrap();
+                property.boundary.gate.hinge = hinge;
+                let reservation = FurnitureFootprint::gate_sweep(&property);
+                let door = property.boundary.gate.door(property.id);
+                for step in 0..=90 {
+                    let rotation =
+                        Quat::from_rotation_y(door.open_angle_radians * step as f32 / 90.0);
+                    for corner in [
+                        Vec2::new(-1.0, -1.0),
+                        Vec2::new(-1.0, 1.0),
+                        Vec2::new(1.0, -1.0),
+                        Vec2::ONE,
+                    ] {
+                        let closed = door.closed_centre
+                            + Quat::from_rotation_y(door.closed_yaw_radians)
+                                * Vec3::new(
+                                    corner.x * door.size_metres.x * 0.5,
+                                    0.0,
+                                    corner.y * door.size_metres.z * 0.5,
+                                );
+                        let point = door.hinge_centre + rotation * (closed - door.hinge_centre);
+                        assert!(
+                            reservation.contains(Vec2::new(point.x, point.z)),
+                            "yaw={yaw}, hinge={hinge:?}, step={step}"
+                        );
+                    }
+                }
+            }
+        }
+    }
 }

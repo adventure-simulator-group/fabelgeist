@@ -54,6 +54,15 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
     let compiled = city.compile(42).unwrap();
     assert!(merchant_count > 0);
     assert_eq!(compiled.compounds.len(), merchant_count);
+    for hinge in [PropertySide::Left, PropertySide::Right] {
+        assert!(
+            compiled
+                .compounds
+                .iter()
+                .any(|property| property.boundary.gate.hinge == hinge),
+            "production packing must retain both passage orientations"
+        );
+    }
     assert_eq!(compiled.buildings.len(), front_count + merchant_count);
     let ids = compiled
         .buildings

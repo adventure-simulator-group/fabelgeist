@@ -93,10 +93,33 @@ pub struct CityBoundarySegment {
     pub thickness_metres: f32,
 }
 
+/// Side in the property's local frontage coordinates.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize, Reflect)]
+#[serde(rename_all = "snake_case")]
+pub enum PropertySide {
+    Left,
+    Right,
+}
+impl PropertySide {
+    pub const fn sign(self) -> f32 {
+        match self {
+            Self::Left => -1.0,
+            Self::Right => 1.0,
+        }
+    }
+    pub const fn opposite(self) -> Self {
+        match self {
+            Self::Left => Self::Right,
+            Self::Right => Self::Left,
+        }
+    }
+}
+
 /// An inward-opening timber gate, in the same horizontal coordinates as its plot.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
 #[serde(deny_unknown_fields)]
 pub struct CityGate {
+    pub hinge: PropertySide,
     pub centre_metres: Vec2,
     pub orientation: BuildingOrientation,
     pub width_metres: f32,

@@ -26,9 +26,10 @@ pub(super) fn reservation(lot: CityBuildingLot) -> CityBuildingLot {
     );
     CityBuildingLot {
         centre_metres: lot.centre_metres
-            + lot
-                .orientation
-                .local_to_world(Vec2::new(SIDE_PASSAGE_METRES * 0.5, (rear - apron) * 0.5)),
+            + lot.orientation.local_to_world(Vec2::new(
+                lot.passage_side.sign() * SIDE_PASSAGE_METRES * 0.5,
+                (rear - apron) * 0.5,
+            )),
         footprint_metres: lot.footprint_metres + extra,
         ..lot
     }
@@ -111,6 +112,35 @@ pub(super) fn lots_overlap(first: CityBuildingLot, second: CityBuildingLot) -> b
 mod tests {
     use super::*;
     #[test]
+    fn mirrored_frontages_fit_their_original_slots_before_candidate_culling() {
+        let mut saw_left = false;
+        for seed in [42, 47, 101] {
+            for tangent in [Vec2::X, Vec2::new(0.8, 0.6)] {
+                let mut candidates = Vec::new();
+                append_frontage(
+                    &mut candidates,
+                    seed,
+                    0,
+                    BlockId(0),
+                    Vec2::ZERO,
+                    tangent * 500.0,
+                    ORDINARY_STREET_HALF_WIDTH_METRES,
+                );
+                saw_left |= candidates
+                    .iter()
+                    .any(|c| c.lot.passage_side == PropertySide::Left);
+                for pair in candidates.windows(2) {
+                    assert!(
+                        !lots_overlap(reservation(pair[0].lot), reservation(pair[1].lot)),
+                        "mirroring must not consume the neighbouring frontage slot"
+                    );
+                }
+            }
+        }
+        assert!(saw_left);
+    }
+
+    #[test]
     fn reserved_courts_and_passages_do_not_overlap_neighbouring_plots() {
         let city = CitySite::central_german_market_town().generate(
             42,
@@ -126,7 +156,9 @@ mod tests {
             }
             let passage = first.centre_metres
                 + first.orientation.local_to_world(Vec2::new(
-                    (first.footprint_metres.x + SIDE_PASSAGE_METRES) * 0.5,
+                    first.passage_side.sign()
+                        * (first.footprint_metres.x + SIDE_PASSAGE_METRES)
+                        * 0.5,
                     -first.footprint_metres.y * 0.5
                         - if first.has_rear_range() {
                             compound::COMPOUND_EDGE_MARGIN_METRES
