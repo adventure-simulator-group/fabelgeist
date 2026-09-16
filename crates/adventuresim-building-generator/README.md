@@ -550,10 +550,29 @@ or missing proof IDs.
 catalogue,
 eligibility rules and approximate service catchments. `SettlementBuildingDemand`
 reads the canonical economy profile: it never independently rolls for a
-weaponsmith, armorer, temple, inn or other existing strategic service. Repeated
-buildings cover their catchment with independently seeded capacities. Civic
-singletons stay single; evidence-dependent institutions and power sites are
-catalogued without being invented from population alone.
+weaponsmith, armorer, temple, inn or other existing strategic service. Only
+service-catchment policies repeat independently seeded capacities. Civic
+institutions are singletons. Parish churches, rectories and the town school
+belong to a separate institutional programme; evidence-dependent institutions
+and power sites are not invented from population alone.
+
+`CitySite::parish_policy` owns the fictional town's target parish population.
+The Central German market-town default is 3,000 people per parish, an authored
+design assumption rather than a measured historical average or seating count.
+It can represent church-rich towns with a different explicit target. Each
+parish requests one church and one rectory; the principal parish also requests
+one town school when eligible. These support provisions are authored choices,
+not a claim about every historical parish. Small villages keep the modest
+village church programme even though their sole parish is designated principal.
+
+Precincts reserve all their buildings together, retrying alternative church
+sites if linked support buildings cannot fit within 90 metres. Actual housing
+lots are assigned in nearby groups with balanced population targets. Each
+parish records its real resident allocation, church, rectory and school IDs.
+These records survive scene compilation, near/distant partition and prepared
+city assets. Scene validation checks unique owners, uses, programme sizes,
+precinct distances and physical housing capacities. Incomplete demand remains
+explicit and cannot compile as a complete city.
 
 `BuildingProgram::settlement` assigns working rooms to structural families:
 stalls, milling floors, kiln rooms, vats, wards, classrooms and counting rooms.
@@ -585,9 +604,10 @@ cargo run -p adventuresim-tactical-core --bin city-layout-report -- 6500 42 > ta
 python scripts/render_city_layout_report.py target/city.json target/city.svg
 ```
 
-The report contains each lot's identity, use, service capacity, housing
-capacity, footprint and orientation, plus the actual streets and any capacity
-shortfalls. The SVG gives a building inventory and plot tooltips. Runtime
+The report contains each lot's identity, use, typed demand programme, housing
+capacity, footprint and orientation, plus parish ownership, actual streets and
+capacity shortfalls. It preserves failure diagnostics when a parish cannot be
+completed. The SVG gives a building inventory and plot tooltips. Runtime
 palettes contain up to twelve recipes per residential family and two per service
 use and size, limiting repeated structural compilation while varying ordinary
 street frontage.
@@ -595,16 +615,20 @@ street frontage.
 
 ## Chapels and parish churches
 
-`ServiceBuildingSize` selects small, medium or large programmes from the
-building use's service-capacity range. It applies to working buildings and
-small churches before city lots are reserved. The serialized `service_size`
+`ServiceBuildingSize` names small, medium or large physical programmes.
+Working buildings select a band from their service catchment; parish churches
+select it explicitly from their authored institutional role. Chapels require
+an explicit recipe and historical context. Selection precedes lot reservation.
+The serialized `service_size`
 travels with playable programmes and distant recipe keys, so both reconstruct
 the same footprint and architecture.
 
 Chapels are single-volume rubble-masonry buildings with narrow Gothic windows,
 steep tiled roofs and modest bell turrets. Parish churches have longer naves,
-lower and narrower chancels, and a repeated window rhythm. Capacity adds nave
-bays rather than enlarging the bell structure. Their authored wall topology
+lower and narrower chancels, and a repeated window rhythm. Larger bands add nave
+bays rather than enlarging the bell structure. A principal parish currently
+uses this existing large band; a distinct principal urban church requires a
+separate physical programme. Their authored wall topology
 uses the canonical wall, opening and roof resolvers; the cathedral retains its
 separate structural programme.
 
@@ -635,7 +659,7 @@ bell stage. Interior floors and the hidden lengths of support posts are omitted.
 The six programme/size combinations must reduce triangle counts by at least
 half at each distance step while preserving canonical roof silhouette vertices.
 
-Generate and capture the six capacity-selected review recipes through
+Generate and capture the six explicitly sized review recipes through
 production:
 
 ```powershell

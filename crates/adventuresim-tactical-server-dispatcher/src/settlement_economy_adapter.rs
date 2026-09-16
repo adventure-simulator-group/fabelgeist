@@ -100,18 +100,18 @@ mod tests {
         assert!(
             plan.buildings
                 .iter()
-                .any(|b| b.usage == world::settlement_buildings::BuildingUse::Weaponsmith)
+                .any(|b| b.usage() == world::settlement_buildings::BuildingUse::Weaponsmith)
         );
         assert!(
             plan.buildings
                 .iter()
-                .any(|b| b.usage == world::settlement_buildings::BuildingUse::TimberYard)
+                .any(|b| b.usage() == world::settlement_buildings::BuildingUse::TimberYard)
         );
         assert!(
             !plan
                 .buildings
                 .iter()
-                .any(|b| b.usage == world::settlement_buildings::BuildingUse::Armorer)
+                .any(|b| b.usage() == world::settlement_buildings::BuildingUse::Armorer)
         );
     }
 }

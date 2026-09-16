@@ -11,6 +11,10 @@ mod tests;
 
 #[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum CityCompileError {
+    #[error("parish {parish:?} lacks its precinct or resident catchment")]
+    Parish {
+        parish: adventuresim_world_schema::settlement_buildings::ParishId,
+    },
     #[error("playable city needs {required} building instances, exceeding {maximum}")]
     PlayableCapacity { required: usize, maximum: usize },
     #[error("city lacks room for {residents} residents and {services} service buildings")]
@@ -41,6 +45,7 @@ pub enum CompoundIssue {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct CompiledCityLayout {
+    pub parishes: Vec<CityParish>,
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub compounds: Vec<CityCompound>,
     pub streets: Vec<CityStreetPatch>,
@@ -49,6 +54,7 @@ pub struct CompiledCityLayout {
 
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct CitySceneLayout {
+    pub parishes: Vec<CityParish>,
     pub playable: Vec<TacticalBuildingPlacement>,
     pub distant: Vec<DistantBuildingPlacement>,
     pub compounds: Vec<CityCompound>,
@@ -60,13 +66,17 @@ impl GeneratedCityLayout {
     /// Packing reserves complete properties cheaply. This stage validates actual
     /// generated envelopes and access before exposing any placement to a consumer.
     pub fn compile(self, seed: u64) -> Result<CompiledCityLayout, CityCompileError> {
-        if self.unhoused_population > 0 || !self.unplaced_services.is_empty() {
+        if self.unhoused_population > 0
+            || !self.unplaced_services.is_empty()
+            || !self.demand_shortfalls.is_empty()
+        {
             return Err(CityCompileError::Capacity {
                 residents: self.unhoused_population,
-                services: self.unplaced_services.len(),
+                services: self.unplaced_services.len() + self.demand_shortfalls.len(),
             });
         }
         let mut palette = RecipePalette::default();
+        let parishes = self.parish_layout()?;
         let mut clearance_cache = property::ClearanceCache::default();
         let mut buildings = Vec::new();
         let mut compounds = Vec::new();
@@ -89,6 +99,7 @@ impl GeneratedCityLayout {
             buildings.push(front);
         }
         Ok(CompiledCityLayout {
+            parishes,
             buildings,
             compounds,
             streets: self.streets,
@@ -155,6 +166,7 @@ impl CompiledCityLayout {
             }
         }
         let mut result = CitySceneLayout {
+            parishes: self.parishes,
             compounds: self.compounds,
             streets: self.streets,
             yards: self.yards,
