@@ -1,7 +1,7 @@
 import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { impossibleMaceSeat } from "./quality/mace-seat-witness.mjs";
+import { impossibleMaceSeats } from "./quality/mace-seat-witness.mjs";
 import { effectiveGripRadius, MAX_ROUND_GRIP_RADIUS_M, MAX_SWORD_GRIP_THICKNESS_M, MAX_SWORD_GRIP_WIDTH_M } from "./quality/grip-envelopes.mjs";
 import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, composeWeapon, compositionControls, copyPreset, getPath, setControlValue } from "../src/presets.js";
 
@@ -21,9 +21,10 @@ function sampleControl(control, random) {
 function assertValid(definition, controls, context) {
   const result = validateWeapon(definition, controls);
   if (!result.valid) {
-    const witness = impossibleMaceSeat(definition);
-    if (witness) {
-      assert.deepEqual(result.errors, [`invalid construction: ${witness.diagnostic}`], `${context}: ${JSON.stringify(witness)}`);
+    const witnesses = impossibleMaceSeats(definition);
+    if (witnesses.length) {
+      assert.equal(result.errors.length, 1, context);
+      assert.ok(witnesses.some(w => result.errors[0] === `invalid construction: ${w.diagnostic}`), `${context}: ${JSON.stringify({ errors: result.errors, witnesses })}`);
       assert.equal(result.mesh, null, "impossible input must not produce a repaired mesh");
       return;
     }

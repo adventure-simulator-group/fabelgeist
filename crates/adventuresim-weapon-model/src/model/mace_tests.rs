@@ -24,26 +24,32 @@ fn radial_flange_roots_share_full_faces_without_material_overlap() {
             assert_eq!(mesh.parts.len(), count + 1);
             for index in 0..count {
                 let angle = index as f64 * 2.0 * PI / count as f64;
-                let project = |point: &[f64]| point[0] * angle.cos() + point[2] * angle.sin();
+                let project = |point: &[f64; 3]| point[0] * angle.cos() + point[2] * angle.sin();
                 let core_edge = core
                     .positions
-                    .chunks_exact(3)
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
                     .map(project)
                     .fold(f64::NEG_INFINITY, f64::max);
                 let flange = &mesh.parts[index + 1];
                 let flange_edge = flange
                     .positions
-                    .chunks_exact(3)
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
                     .map(project)
                     .fold(f64::INFINITY, f64::min);
                 assert!((core_edge - apothem).abs() < 1e-12);
                 assert!((flange_edge - apothem).abs() < 1e-12);
                 let seated: Vec<_> = flange
                     .positions
-                    .chunks_exact(3)
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
                     .filter(|p| (project(p) - apothem).abs() < 1e-12)
                     .collect();
-                let sideways = |p: &&[f64]| -p[0] * angle.sin() + p[2] * angle.cos();
+                let sideways = |p: &&[f64; 3]| -p[0] * angle.sin() + p[2] * angle.cos();
                 assert!(seated.iter().map(sideways).fold(f64::INFINITY, f64::min) < -0.00099);
                 assert!(
                     seated

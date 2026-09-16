@@ -1,7 +1,8 @@
 // Independent geometric witnesses for intentionally rejected slider proposals.
 // A point outside a receiving half-plane proves impossibility. Finite sampling
 // is not used to certify validity or to waive unrelated construction errors.
-export function impossibleMaceSeat(definition) {
+export function impossibleMaceSeats(definition) {
+  const witnesses = [];
   for (const p of definition.components.filter(p => p.kind === "mace")) {
     const sides = p.segments ?? p.flanges;
     const half = p.length / 2;
@@ -16,7 +17,10 @@ export function impossibleMaceSeat(definition) {
     const stations = [0, 1, ...core.map(s => (s[0] + half) / p.length).filter(t => t >= 0 && t <= 1)];
     for (const t of stations) {
       const faceWidth = 2 * radiusAt(-half + t * p.length) * Math.sin(angle);
-      if (p.flangeThickness > faceWidth + 1e-9) return { diagnostic: "mace flange thickness exceeds its receiving core face", t, faceWidth, thickness: p.flangeThickness };
+      if (p.flangeThickness > faceWidth + 1e-9) {
+        witnesses.push({ diagnostic: "mace flange thickness exceeds its receiving core face", t, faceWidth, thickness: p.flangeThickness });
+        break;
+      }
     }
     const cusp = p.cuspHeight ?? 0.58;
     const exponent = 1.03 + Math.min(0.98, Math.max(0, p.concavity ?? 0)) * 2.97;
@@ -25,8 +29,11 @@ export function impossibleMaceSeat(definition) {
         ? p.rootRadius + (p.cuspRadius - p.rootRadius) * (t / cusp) ** exponent
         : p.shoulderRadius + (p.cuspRadius - p.shoulderRadius) * ((1 - t) / (1 - cusp)) ** exponent;
       const seat = radiusAt(-half + t * p.length) * Math.cos(angle);
-      if (seat > outer + 1e-9) return { diagnostic: "mace core face reaches outside the flange outline", t, seat, outer };
+      if (seat > outer + 1e-9) {
+        witnesses.push({ diagnostic: "mace core face reaches outside the flange outline", t, seat, outer });
+        break;
+      }
     }
   }
-  return null;
+  return witnesses;
 }
