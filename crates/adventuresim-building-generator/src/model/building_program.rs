@@ -32,8 +32,8 @@ pub struct BuildingProgram {
     /// the generic room allocator, is authoritative.
     #[serde(default)]
     pub church_program: Option<ChurchProgram>,
-    /// Explicit ground-floor hearth/Stube programme; upper kitchens need a
-    /// separate structural floor-opening programme.
+    /// Explicit hearth/Stube programme with a ground-founded masonry support
+    /// and finished penetrations through every crossed occupied floor.
     pub domestic_heating: Option<crate::DomesticHeatingProgramme>,
 }
 

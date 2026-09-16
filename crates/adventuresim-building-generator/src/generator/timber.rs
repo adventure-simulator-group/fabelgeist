@@ -1438,7 +1438,14 @@ fn resolve_timber_frame_assembly(
         }
     }
 
-    gable_openings::resolve(program, &mut builder, roof_assemblies, walls, openings, &mut bays);
+    gable_openings::resolve(
+        program,
+        &mut builder,
+        roof_assemblies,
+        walls,
+        openings,
+        &mut bays,
+    );
 
     timber_infill::resolve(&mut builder, walls, openings, &mut bays);
 
@@ -1644,16 +1651,8 @@ fn resolve_timber_frame_assembly(
         let mut bearing_interfaces = Vec::new();
         let mut floor_joist_interfaces = Vec::new();
         let mut joist_girder_interfaces = Vec::new();
-        let joist_count = (dimensions.x / 1.35).ceil().max(2.0) as usize;
-        let mut x_stations = (0..=joist_count)
-            .map(|index| 0.20 + (dimensions.x - 0.40) * index as f32 / joist_count as f32)
-            .collect::<Vec<_>>();
         let cut_bounds = (level > 0).then(|| stair_floor_cut(level));
-        if let Some((cut_min, cut_max)) = cut_bounds {
-            x_stations.extend([cut_min.x, cut_max.x]);
-            x_stations.sort_by(f32::total_cmp);
-            x_stations.dedup_by(|left, right| (*left - *right).abs() < 0.08);
-        }
+        let x_stations = floor_stations::with_stair(program, dimensions.x, cut_bounds);
         let mut upper_girder_z = dimensions.y * 0.67;
         if (upper_girder_z - stair_end.y).abs() < 0.40 {
             upper_girder_z = (stair_end.y + 0.40).min(dimensions.y - 0.40);

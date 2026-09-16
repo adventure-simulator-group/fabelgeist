@@ -22,17 +22,18 @@ impl<'a> Assembly<'a> {
                 programme,
                 owner,
                 kitchen: HeatingRoom {
-                    storey_level: 0,
+                    storey_level: placement.storey_level,
                     room_id: placement.kitchen,
                 },
                 heated_room: HeatingRoom {
-                    storey_level: 0,
+                    storey_level: placement.storey_level,
                     room_id: placement.stube,
                 },
                 fire_wall: placement.wall,
                 centre_metres: placement.centre,
                 kitchen_axis: placement.kitchen_axis,
-                floor_height_metres: 0.0,
+                floor_height_metres: placement.floor_height,
+                floors: vec![],
                 ground_support: StructuralNodeId(0),
                 parts: vec![],
                 passages: vec![],
@@ -100,7 +101,10 @@ impl<'a> Assembly<'a> {
             .geometry
             .solids
             .iter()
-            .filter(|s| self.plan.parts.iter().any(|p| p.solid == s.id))
+            .filter(|s| {
+                self.plan.parts.iter().any(|p| p.solid == s.id)
+                    || (kind == HeatingPartKind::FloorClosure && s.role == SolidRole::FrameFloor)
+            })
             .filter_map(|s| super::contact::measured(&solid, s).map(|b| (s.supported_by[0], b)))
             .collect::<Vec<_>>();
         self.geometry.structural_nodes.push(StructuralNode {

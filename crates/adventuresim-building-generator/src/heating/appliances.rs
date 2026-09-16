@@ -8,19 +8,27 @@ use bevy::math::Vec3;
 const MASONRY: Material = Material::Wall(WallMaterialClass::CivilianMasonry);
 
 pub(super) fn build(a: &mut Assembly<'_>, top: f32) {
+    let top = top - a.placement.floor_height;
     let front = a.placement.section.front();
     let shaft_back = a.placement.section.shaft_offset() - 0.3;
     let shaft_front = a.placement.section.shaft_offset() + 0.3;
     let bore_back = a.placement.section.shaft_offset() - 0.18;
     let bore_front = a.placement.section.shaft_offset() + 0.18;
-    // The entire hearth, fire wall and stove bear on the same grounded plinth.
+    // Upper appliances transfer their weight directly through continuous masonry.
+    if a.placement.storey_level > 0 {
+        a.absolute_part(Part::SupportPier, MASONRY, a.placement.support());
+        a.plan.ground_support = a.geometry.solids.last().unwrap().supported_by[0];
+    }
+    // The hearth, fire wall and stove bear on one plinth.
     a.part(
         Part::Footing,
         MASONRY,
         Vec3::new(-0.48, 0.0, -0.9),
         Vec3::new(0.48, 0.2, front),
     );
-    a.plan.ground_support = a.geometry.solids.last().unwrap().supported_by[0];
+    if a.placement.storey_level == 0 {
+        a.plan.ground_support = a.geometry.solids.last().unwrap().supported_by[0];
+    }
     fire_wall(a);
     a.part(
         Part::Hood,
@@ -86,6 +94,12 @@ pub(super) fn build(a: &mut Assembly<'_>, top: f32) {
         ),
     ] {
         a.part(Part::Flue, MASONRY, min, max);
+    }
+    if let Some(shoulder) = a.placement.shaft_shoulder() {
+        let shaft = a.placement.shaft(shoulder.max.y);
+        for bounds in super::floors::pieces(shoulder, shaft) {
+            a.absolute_part(Part::FlueShoulder, MASONRY, bounds);
+        }
     }
     smoke_passages(a, top, bore_back, bore_front);
 }

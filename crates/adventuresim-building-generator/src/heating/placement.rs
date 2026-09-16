@@ -1,4 +1,4 @@
-//! Select a ground-floor kitchen/Stube bay against the complete structure.
+//! Select a kitchen/Stube bay against the complete structure.
 use crate::{BuildingPlan, ResolvedBounds, RoofFace, RoomKind, SolidRole, WallAssemblyId};
 use bevy::math::{Vec2, Vec3};
 
@@ -36,6 +36,9 @@ const PARTITION_END_RESERVE_METRES: f32 = 0.16;
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Placement {
     pub wall: WallAssemblyId,
+    pub storey_level: u16,
+    pub floor_height: f32,
+    pub next_floor: Option<f32>,
     pub section: HearthSection,
     pub kitchen: u16,
     pub stube: u16,
@@ -49,7 +52,7 @@ impl Placement {
         let tangent = Vec2::new(-self.kitchen_axis.y, self.kitchen_axis.x);
         let point = |v: Vec3| {
             let p = self.centre + tangent * v.x + self.kitchen_axis * v.z;
-            Vec3::new(p.x, v.y, p.y)
+            Vec3::new(p.x, v.y + self.floor_height, p.y)
         };
         let a = point(min);
         let b = point(max);
@@ -57,6 +60,32 @@ impl Placement {
             min: a.min(b),
             max: a.max(b),
         }
+    }
+    pub fn support(self) -> ResolvedBounds {
+        let mut bounds = self.body();
+        let ledge = Vec3::new(
+            super::floors::MASONRY_BEARING_METRES,
+            0.0,
+            super::floors::MASONRY_BEARING_METRES,
+        );
+        bounds.min -= ledge;
+        bounds.max += ledge;
+        bounds.min.y = 0.0;
+        bounds.max.y = self.floor_height;
+        bounds
+    }
+    pub fn shaft_shoulder(self) -> Option<ResolvedBounds> {
+        let top = self.next_floor?;
+        let mut bounds = self.shaft(top);
+        let ledge = Vec3::new(
+            super::floors::MASONRY_BEARING_METRES,
+            0.0,
+            super::floors::MASONRY_BEARING_METRES,
+        );
+        bounds.min -= ledge;
+        bounds.max += ledge;
+        bounds.min.y = self.floor_height + 2.2;
+        Some(bounds)
     }
     pub fn body(self) -> ResolvedBounds {
         self.bounds(
@@ -79,7 +108,7 @@ impl Placement {
         ResolvedBounds {
             min: Vec3::new(
                 centre.x - SHAFT_HALF_WIDTH_METRES,
-                2.1,
+                self.floor_height + 2.1,
                 centre.y - SHAFT_HALF_WIDTH_METRES,
             ),
             max: Vec3::new(
@@ -141,17 +170,20 @@ impl Placement {
 }
 
 pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
-    if plan.storeys.len() != 1 || !plan.stairs.is_empty() {
-        return None;
-    }
-    let storey = plan.storeys.first()?;
     for wall in &plan.wall_assemblies {
+        let Some(storey) = plan.storeys.iter().find(|s| s.level == wall.storey_level) else {
+            continue;
+        };
         let (Some(inside), Some(outside)) = (wall.frame.inside_room, wall.frame.outside_room)
         else {
             continue;
         };
-        let a = storey.rooms.iter().find(|r| r.id == inside)?;
-        let b = storey.rooms.iter().find(|r| r.id == outside)?;
+        let Some(a) = storey.rooms.iter().find(|r| r.id == inside) else {
+            continue;
+        };
+        let Some(b) = storey.rooms.iter().find(|r| r.id == outside) else {
+            continue;
+        };
         let (kitchen, stube, axis) = match (a.kind, b.kind) {
             (RoomKind::Kitchen, RoomKind::CommonRoom | RoomKind::GreatHall) => {
                 (a.id, b.id, -wall.frame.outward)
@@ -161,27 +193,37 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
             }
             _ => continue,
         };
-        if !wall.opening_ids.is_empty() || wall.base_elevation_metres.abs() > 0.01 {
+        if !wall.opening_ids.is_empty() {
             continue;
         }
         let limit = (wall.length_metres - CORE_WIDTH_METRES) * 0.5 - PARTITION_END_RESERVE_METRES;
         if limit < 0.0 {
             continue;
         }
-        for (section, step) in [
+        let stations = station_offsets(plan, wall, limit);
+        for (section, station) in [
             HearthSection::Compact,
             HearthSection::Deep,
             HearthSection::Extended,
         ]
         .into_iter()
         .flat_map(|section| {
-            (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
-                .map(move |step| (section, step))
+            stations
+                .iter()
+                .copied()
+                .map(move |station| (section, station))
         }) {
-            let centre = wall.frame.origin
-                + wall.frame.tangent * (-limit + step as f32 * STATION_STEP_METRES);
+            let centre = wall.frame.origin + wall.frame.tangent * station;
             let mut candidate = Placement {
                 wall: wall.id,
+                storey_level: storey.level,
+                floor_height: f32::from(storey.level) * plan.storey_height_metres,
+                next_floor: plan
+                    .storeys
+                    .iter()
+                    .filter(|s| s.level > storey.level)
+                    .map(|s| f32::from(s.level) * plan.storey_height_metres)
+                    .min_by(f32::total_cmp),
                 section,
                 kitchen,
                 stube,
@@ -200,6 +242,12 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
                 && candidate.clear(plan, candidate.shaft(top), false)
                 && candidate.clear(plan, candidate.operating_space(), false)
                 && candidate.clear_doors(plan)
+                && (candidate.storey_level == 0
+                    || candidate.clear(plan, candidate.support(), false))
+                && candidate
+                    .shaft_shoulder()
+                    .is_none_or(|b| candidate.clear(plan, b, false))
+                && super::floors::supported(plan, candidate)
                 && super::roof_route::weather_clear(plan, candidate, face)
             {
                 return Some(candidate);
@@ -212,4 +260,32 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
 pub(super) fn roof_height(face: &RoofFace, point: Vec2) -> f32 {
     -(face.plane.normal.x * point.x + face.plane.normal.z * point.y + face.plane.constant)
         / face.plane.normal.y
+}
+
+/// Include actual joist-bay centres; a fixed sampling step can miss a narrow valid bay.
+fn station_offsets(plan: &BuildingPlan, wall: &crate::WallAssembly, limit: f32) -> Vec<f32> {
+    let mut stations = (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
+        .map(|step| -limit + step as f32 * STATION_STEP_METRES)
+        .collect::<Vec<_>>();
+    if wall.storey_level > 0 && wall.frame.tangent.x.abs() > 0.5 {
+        let mut joists = plan
+            .resolved_geometry
+            .solids
+            .iter()
+            .filter(|s| s.role == SolidRole::FrameJoist)
+            .map(|s| s.cuboid_bounds())
+            .collect::<Vec<_>>();
+        joists.sort_by(|a, b| a.min.x.total_cmp(&b.min.x));
+        joists.dedup_by(|a, b| (a.min.x - b.min.x).abs() < 0.001);
+        stations.extend(
+            joists
+                .windows(2)
+                .map(|pair| {
+                    ((pair[0].max.x + pair[1].min.x) * 0.5 - wall.frame.origin.x)
+                        / wall.frame.tangent.x
+                })
+                .filter(|station| station.abs() <= limit),
+        );
+    }
+    stations
 }

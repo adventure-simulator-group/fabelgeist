@@ -1,7 +1,7 @@
 use super::super::building_review::ReviewLod;
 use super::*;
 
-pub(in crate::tactical_scene_viewer) const HEATING_REVIEW_VIEWS: [CaptureViewSpec; 21] = [
+pub(in crate::tactical_scene_viewer) const HEATING_REVIEW_VIEWS: [CaptureViewSpec; 30] = [
     CaptureViewSpec::new(
         "warmup",
         "Heating material warmup",
@@ -210,5 +210,95 @@ pub(in crate::tactical_scene_viewer) const HEATING_REVIEW_VIEWS: [CaptureViewSpe
     )
     .vista()
     .building_lod(ReviewLod::Shell)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "town-support",
+        "town support",
+        CapturePose::CityExterior { camera: 20 },
+        96.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "town-upper-hearth",
+        "town upper hearth",
+        CapturePose::CityExterior { camera: 21 },
+        78.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "town-floor",
+        "town floor",
+        CapturePose::CityExterior { camera: 22 },
+        75.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "town-roof",
+        "town roof",
+        CapturePose::CityExterior { camera: 23 },
+        58.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "merchant-support",
+        "merchant support",
+        CapturePose::CityExterior { camera: 24 },
+        96.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "merchant-upper-hearth",
+        "merchant upper hearth",
+        CapturePose::CityExterior { camera: 25 },
+        78.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "merchant-kitchen-floor",
+        "merchant kitchen floor",
+        CapturePose::CityExterior { camera: 26 },
+        75.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "merchant-upper-flue-floor",
+        "merchant upper flue floor",
+        CapturePose::CityExterior { camera: 27 },
+        75.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "merchant-roof",
+        "merchant roof",
+        CapturePose::CityExterior { camera: 28 },
+        58.0,
+        100,
+    )
+    .vista()
+    .building_lod(ReviewLod::Detail)
     .settled_readback_pair(),
 ];

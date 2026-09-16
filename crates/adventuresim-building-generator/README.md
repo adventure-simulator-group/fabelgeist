@@ -87,11 +87,19 @@ the heating solids, and furnishing reserves the hearth's operating space.
 Changed pitch returns `TopologyEvent` before mutation. Unheated programmes
 produce no domestic stack; working-building ovens keep their own programmes.
 
-This construction requires a ground-floor kitchen and adjacent common room or
-great hall. Upper-storey kitchens still need masonry supports and structural
-floor openings; selecting this programme for one returns
-`InvalidDomesticHeating`. `SOURCES.md` distinguishes historical evidence from
-authored dimensions and construction choices.
+An upper kitchen uses a continuous masonry pier beneath the appliance plinth.
+The appliance and chimney loads follow masonry to the ground. Actual deck cuts
+clear the pier and flue; mineral cover slabs close each floor perimeter, with
+inner masonry ledges and outer bearing on the retained deck. A flue crossing
+another occupied floor has a widened masonry shoulder below that junction.
+
+Heated upper floors use full joist bays within the existing maximum pitch,
+with deterministic set-out variants. Placement checks the complete timber
+sections and retains finished joists, girders and roof members. Deck pieces
+receive measured contacts to their actual joists after cutting. Unbuildable
+room, floor or roof arrangements return `InvalidDomesticHeating`; they do not
+silently lose structural members. `SOURCES.md` distinguishes historical evidence
+from authored dimensions and construction choices.
 
 ```powershell
 python scripts/capture_heating_review.py --skip-build --settle-frames 24 --output target/heating-review/captures

@@ -221,7 +221,7 @@ fn folded_weathering_requires_every_return_and_downstream_lap() {
     );
 }
 #[test]
-fn roof_pitch_change_is_atomic_and_upper_kitchens_are_explicitly_unsupported() {
+fn roof_pitch_change_is_atomic() {
     let mut plan = fixture(BuildingArchetype::FachwerkCottage, 42);
     let id = plan.domestic_heating.as_ref().unwrap().roof.roof;
     let pitch = plan
@@ -238,12 +238,6 @@ fn roof_pitch_change_is_atomic_and_upper_kitchens_are_explicitly_unsupported() {
         Err(RoofEditError::TopologyEvent)
     ));
     assert_eq!(before, serde_json::to_value(&plan).unwrap());
-    let mut upper = BuildingProgram::fixture(BuildingArchetype::TownHouse, 42);
-    upper.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
-    assert!(matches!(
-        generate(&upper),
-        Err(GenerationError::InvalidDomesticHeating)
-    ));
 }
 
 #[test]

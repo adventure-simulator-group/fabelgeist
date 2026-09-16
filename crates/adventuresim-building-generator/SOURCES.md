@@ -99,6 +99,16 @@ authored construction choice. Masonry support, clearances to timber, dimensions
 and outlet height are geometry contracts, not measured historical norms. The
 folded lead backpan, apron, upstands and embedded counterflashing are also an
 authored weathering detail, not a dated reconstruction or universal period type.
+Upper-storey heating uses an authored continuous masonry pier beneath the
+appliance plinth. Timber decks have actual openings around the masonry. Fired
+clay cover slabs close the perimeter: a 20-millimetre thickness, a 40-millimetre
+inner masonry bearing and a 50-millimetre outer lap onto retained decking.
+The deck stands 80 millimetres clear of the supporting masonry. This is a
+closed separation, not an uninterrupted air gap. These junctions and dimensions
+are geometric design choices, not measured historical details or demonstrated
+fire-resistance and load-capacity ratings. The closure slabs have their own
+bearings; the appliance and chimney remain supported through masonry.
+
 Baking remains a separate household, communal or commercial programme; an
 existing bakehouse does not imply a bread oven in every dwelling.
 

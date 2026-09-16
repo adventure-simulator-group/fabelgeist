@@ -4,6 +4,7 @@ use bevy::math::{Vec2, Vec3};
 use geo::{Area, BooleanOps};
 use std::collections::BTreeSet;
 mod enclosures;
+mod floors;
 mod roof;
 pub(super) mod roof_route;
 mod weathering;
@@ -29,6 +30,7 @@ pub(crate) fn audit(plan: &BuildingPlan) -> Vec<AuditIssue> {
     ownership(plan, h, &mut issues);
     clearance(plan, h, &mut issues);
     bearings(plan, h, &mut issues);
+    floors::audit(plan, h, &mut issues);
     passages(plan, h, &mut issues);
     enclosures::audit(plan, h, &mut issues);
     roof::audit(plan, h, &mut issues);
@@ -48,14 +50,16 @@ fn ownership(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
             .and_then(|s| s.rooms.iter().find(|room| room.id == r.room_id))
     };
     let wall = plan.wall_assemblies.iter().find(|w| w.id == h.fire_wall);
-    let valid = plan.storeys.len() == 1
-        && h.kitchen.storey_level == 0
-        && h.heated_room.storey_level == 0
+    let valid = h.kitchen.storey_level == h.heated_room.storey_level
+        && (h.floor_height_metres - f32::from(h.kitchen.storey_level) * plan.storey_height_metres)
+            .abs()
+            < GEOMETRY_TOLERANCE_METRES
         && room(h.kitchen).is_some_and(|r| r.kind == RoomKind::Kitchen)
         && room(h.heated_room)
             .is_some_and(|r| matches!(r.kind, RoomKind::CommonRoom | RoomKind::GreatHall))
         && wall.is_some_and(|w| {
-            w.owner == h.owner
+            w.storey_level == h.kitchen.storey_level
+                && w.owner == h.owner
                 && w.opening_ids.is_empty()
                 && [w.frame.inside_room, w.frame.outside_room].contains(&Some(h.kitchen.room_id))
                 && [w.frame.inside_room, w.frame.outside_room]
@@ -128,7 +132,12 @@ fn clearance(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut Vec<Audi
             );
         }
     }
-    for part in h.parts.iter().filter(|p| p.kind == HeatingPartKind::Flue) {
+    for part in h.parts.iter().filter(|p| {
+        matches!(
+            p.kind,
+            HeatingPartKind::Flue | HeatingPartKind::FlueShoulder
+        )
+    }) {
         let Some(flue) = plan
             .resolved_geometry
             .solids

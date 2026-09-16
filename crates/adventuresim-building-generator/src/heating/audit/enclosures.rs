@@ -62,10 +62,14 @@ pub(super) fn audit(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut V
     let tangent = Vec2::new(-h.kitchen_axis.y, h.kitchen_axis.x);
     let half = tangent.abs() * 0.48 + h.kitchen_axis.abs() * 0.15;
     let bounds = ResolvedBounds {
-        min: Vec3::new(h.centre_metres.x - half.x, 0.0, h.centre_metres.y - half.y),
+        min: Vec3::new(
+            h.centre_metres.x - half.x,
+            h.floor_height_metres,
+            h.centre_metres.y - half.y,
+        ),
         max: Vec3::new(
             h.centre_metres.x + half.x,
-            super::super::placement::FIRE_WALL_PATCH_HEIGHT_METRES,
+            h.floor_height_metres + super::super::placement::FIRE_WALL_PATCH_HEIGHT_METRES,
             h.centre_metres.y + half.y,
         ),
     };

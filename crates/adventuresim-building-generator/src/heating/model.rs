@@ -25,6 +25,9 @@ pub struct HeatingRoom {
 #[serde(rename_all = "snake_case")]
 pub enum HeatingPartKind {
     Footing,
+    SupportPier,
+    FloorClosure,
+    FlueShoulder,
     Hearth,
     FireWall,
     TiledStove,
@@ -68,6 +71,15 @@ pub struct HeatingRoofPenetration {
     pub flashing: Vec<ResolvedItemId>,
 }
 
+/// A physical deck opening and its noncombustible, supported cover.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct HeatingFloorPenetration {
+    pub storey_level: u16,
+    pub core: ResolvedBounds,
+    pub cut: ResolvedBounds,
+    pub closures: Vec<ResolvedItemId>,
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct DomesticHeatingPlan {
     pub programme: DomesticHeatingProgramme,
@@ -83,4 +95,5 @@ pub struct DomesticHeatingPlan {
     pub passages: Vec<HeatingPassage>,
     pub operating_space: ResolvedBounds,
     pub roof: HeatingRoofPenetration,
+    pub floors: Vec<HeatingFloorPenetration>,
 }

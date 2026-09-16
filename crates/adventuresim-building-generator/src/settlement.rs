@@ -79,6 +79,14 @@ impl BuildingProgram {
         if let Some(usage) = usage {
             program.assign_use(usage);
         }
+        if usage == Some(BuildingUse::Dwelling)
+            && matches!(
+                archetype,
+                BuildingArchetype::TownHouse | BuildingArchetype::FachwerkMerchantHouse
+            )
+        {
+            program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
+        }
         if matches!(
             archetype,
             BuildingArchetype::TownHouse

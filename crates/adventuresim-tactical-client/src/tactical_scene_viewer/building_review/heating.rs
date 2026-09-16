@@ -8,6 +8,8 @@ pub(super) enum HeatingTarget {
     Hearth,
     Stove,
     Roof,
+    Support,
+    Floor(u16),
 }
 impl HeatingTarget {
     pub(super) fn anchor(self, plan: &BuildingPlan) -> Vec3 {
@@ -33,7 +35,30 @@ impl HeatingTarget {
                     .bounds;
                 return (bounds.min + bounds.max) * 0.5;
             }
-            Self::Stove => (-0.5, 0.9),
+            Self::Support => {
+                let id = h
+                    .parts
+                    .iter()
+                    .find(|p| p.kind == HeatingPartKind::SupportPier)
+                    .unwrap()
+                    .solid;
+                return plan
+                    .resolved_geometry
+                    .solids
+                    .iter()
+                    .find(|s| s.id == id)
+                    .unwrap()
+                    .centre;
+            }
+            Self::Floor(level) => {
+                let floor = h.floors.iter().find(|f| f.storey_level == level).unwrap();
+                return Vec3::new(
+                    (floor.core.min.x + floor.core.max.x) * 0.5,
+                    floor.core.max.y,
+                    (floor.core.min.z + floor.core.max.z) * 0.5,
+                );
+            }
+            Self::Stove => (-0.5, h.floor_height_metres + 0.9),
             Self::Roof => {
                 let bounds = h
                     .parts
@@ -73,7 +98,7 @@ impl HeatingTarget {
                     .unwrap();
                 bevy::math::Vec2::new(face.plane.normal.x, face.plane.normal.z).normalize()
             }
-            Self::Hearth | Self::Stove => heating.kitchen_axis,
+            Self::Hearth | Self::Stove | Self::Support | Self::Floor(_) => heating.kitchen_axis,
         };
         let tangent = bevy::math::Vec2::new(-axis.y, axis.x);
         let p = tangent * offset.x + axis * offset.z;

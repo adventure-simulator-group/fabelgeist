@@ -2,7 +2,7 @@
 use super::*;
 
 pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 22;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 49;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 50;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

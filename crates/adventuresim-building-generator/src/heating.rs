@@ -4,6 +4,8 @@ mod audit;
 pub(crate) use audit::audit;
 mod assembly;
 mod contact;
+mod floor_bearings;
+mod floors;
 mod model;
 mod partition;
 mod placement;
@@ -35,9 +37,11 @@ pub(crate) fn resolve(
         .unwrap();
     let top = placement.flue_top(face);
     partition::cut(plan, placement);
+    let floors = floors::cut(plan, placement);
     let mut assembly =
         assembly::Assembly::new(&mut plan.resolved_geometry, placement, owner, programme);
     appliances::build(&mut assembly, top);
+    floors::close(&mut assembly, floors);
     roof::penetrate(&mut assembly, &mut plan.roof_assemblies);
     let wall = plan
         .wall_assemblies
@@ -59,3 +63,6 @@ pub(crate) fn resolve(
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod upper_tests;
