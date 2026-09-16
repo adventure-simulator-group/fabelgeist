@@ -27,7 +27,7 @@ impl ResolvedSolid {
     }
 
     /// Exact world bounds of a cuboid under all three authored rotations.
-    pub(crate) fn cuboid_bounds(&self) -> ResolvedBounds {
+    pub fn cuboid_bounds(&self) -> ResolvedBounds {
         let rotation = Quat::from_rotation_y(self.yaw_radians)
             * Quat::from_rotation_x(self.crossfall_radians)
             * Quat::from_rotation_z(self.longfall_radians);

@@ -26,6 +26,8 @@ fn grid_point(position: Vec2) -> GridPoint {
 
 #[derive(Clone, Debug, Error, Eq, PartialEq)]
 pub enum GenerationError {
+    #[error("domestic heating requires a clear grounded kitchen/Stube and roof route")]
+    InvalidDomesticHeating,
     #[error("church use and physical programme are inconsistent or unsupported")]
     InvalidChurchProgram,
     #[error("working building requires a supported use and physical size")]

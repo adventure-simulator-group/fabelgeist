@@ -45,6 +45,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 54.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: None,
         }
     }
 
@@ -87,6 +88,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 58.0,
             roof_demonstrator: None,
             church_program: Some(ChurchProgram::URBAN_BRICK_BASILICA),
+            domestic_heating: None,
         }
     }
 }

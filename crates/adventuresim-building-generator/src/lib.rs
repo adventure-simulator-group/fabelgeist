@@ -18,6 +18,7 @@ pub mod furniture;
 mod gable_frame;
 mod generator;
 mod geometry_index;
+mod heating;
 pub mod interior;
 mod lod;
 mod member_uv;
@@ -48,6 +49,10 @@ pub use detail::{
 pub use doors::{DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
 pub use generator::{GenerationError, edit_document, generate, generate_document, set_roof_pitch};
+pub use heating::{
+    DomesticHeatingPlan, DomesticHeatingProgramme, HeatingPart, HeatingPartKind, HeatingPassage,
+    HeatingPassageKind, HeatingRoofPenetration, HeatingRoom,
+};
 pub use lod::{
     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
     LodVertex, compile_building_lod,

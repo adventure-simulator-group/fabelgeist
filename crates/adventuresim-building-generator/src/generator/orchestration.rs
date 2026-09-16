@@ -94,9 +94,10 @@ fn generate_unchecked(
         church.roof_assemblies = roof_assemblies.iter().map(|roof| roof.id).collect();
     }
 
-    Ok(church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
+    let mut plan = church_ground::resolve(crate::spiral_stairs::resolve(BuildingPlan {
         archetype: program.archetype,
         workplace,
+        domestic_heating: None,
         seed: program.seed,
         footprint: program.footprint,
         storey_height_metres: program.storey_height_metres,
@@ -128,19 +129,11 @@ fn generate_unchecked(
         church,
         small_church,
         timber_frame,
-        castle_phase: if program.archetype == BuildingArchetype::ArtilleryRondelCastle {
-            Some(crate::CastleConstructionPhase::ArtilleryRetrofit1544)
-        } else {
-            matches!(
-                program.archetype,
-                BuildingArchetype::CastleGatehouse
-                    | BuildingArchetype::CourtyardCastle
-                    | BuildingArchetype::WalledKeep
-            )
-            .then_some(crate::CastleConstructionPhase::InheritedMedieval)
-        },
+        castle_phase: crate::CastleConstructionPhase::for_archetype(program.archetype),
         artillery_castle,
-    })))
+    }));
+    crate::heating::resolve(program, &mut plan)?;
+    Ok(plan)
 }
 
 fn apply_opening_edits(

@@ -33,7 +33,11 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
     append_timber_details(&mut lod, plan);
     append_gable_details(&mut lod, plan);
     append_crowns(&mut lod, plan);
-    for batch in crate::detail::compile_workplace_lod(plan).meshes {
+    for batch in crate::detail::compile_workplace_lod(plan)
+        .meshes
+        .into_iter()
+        .chain(crate::detail::compile_heating_lod(plan).meshes)
+    {
         let target = lod.mesh_mut(batch.material);
         let offset = target.vertices.len() as u32;
         target.vertices.extend(batch.vertices);

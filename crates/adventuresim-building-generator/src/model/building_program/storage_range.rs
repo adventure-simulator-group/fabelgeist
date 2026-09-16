@@ -20,6 +20,7 @@ impl BuildingProgram {
             roof_pitch_degrees: 48.0,
             roof_demonstrator: None,
             church_program: None,
+            domestic_heating: None,
         }
     }
 }

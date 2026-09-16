@@ -5,7 +5,7 @@ pub struct AuditIssue {
 }
 
 pub fn audit_plan(plan: &BuildingPlan) -> Vec<AuditIssue> {
-    let mut issues = Vec::new();
+    let mut issues = crate::heating::audit(plan);
     audit_battlement_runs(plan, &mut issues);
 
     for (index, walk) in plan.wall_walks.iter().enumerate() {

@@ -29,6 +29,8 @@ use cuboids::{
 };
 #[cfg(test)]
 use cuboids::{is_fachwerk_member_role, render_cuboid_placement};
+mod heating;
+pub(crate) use heating::compile_heating_lod;
 mod materials;
 mod workplace;
 use materials::{material_for_solid, wall_for_solid};

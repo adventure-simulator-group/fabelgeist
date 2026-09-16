@@ -370,7 +370,7 @@ fn roof_plane_height(plane: RoofPlaneEquation, point: Vec2) -> f32 {
     -(plane.normal.x * point.x + plane.normal.z * point.y + plane.constant) / plane.normal.y
 }
 
-fn plan_point_in_convex_polygon(point: Vec2, polygon: &[Vec2]) -> bool {
+pub(crate) fn plan_point_in_convex_polygon(point: Vec2, polygon: &[Vec2]) -> bool {
     if polygon.len() < 3 {
         return false;
     }

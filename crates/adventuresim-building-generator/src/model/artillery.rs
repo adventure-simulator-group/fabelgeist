@@ -7,6 +7,18 @@ pub enum CastleConstructionPhase {
     ArtilleryRetrofit1544,
 }
 
+impl CastleConstructionPhase {
+    pub(crate) fn for_archetype(archetype: BuildingArchetype) -> Option<Self> {
+        match archetype {
+            BuildingArchetype::ArtilleryRondelCastle => Some(Self::ArtilleryRetrofit1544),
+            BuildingArchetype::CastleGatehouse
+            | BuildingArchetype::CourtyardCastle
+            | BuildingArchetype::WalledKeep => Some(Self::InheritedMedieval),
+            _ => None,
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ArtilleryMaterial {

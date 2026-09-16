@@ -64,6 +64,40 @@ The generated end truss remains intact: an existing rail serves as the lintel,
 and additional jambs bear on its actual tie. Fixed glazing makes no claim
 of an accessible or inhabited loft.
 
+## Domestic hearths and tiled stoves
+
+Albrecht Bedal describes adjoining kitchens and heated living rooms in
+southwestern German timber houses. A stove could be fired through their shared
+fire wall, with smoke returning to the kitchen hood. Both outdoor chimneys and
+discharge into the roof space appear in this evidence. It supports connected
+heating arrangements, not a universal chimney type for Germany in 1544.
+
+[Bedal, Flurküchen, Herde, Rauchfänge im Fachwerkhaus Südwestdeutschlands, DGAMN 19 (2007), pp. 171–182](https://journals.ub.uni-heidelberg.de/index.php/mitt-dgamn/article/download/17700/11513)
+
+The Fränkisches Freilandmuseum's house from Wolframs-Eschenbach dates to 1410
+and includes an upper-storey kitchen. Its smoke escaped through the roof. This
+is evidence against automatically placing every kitchen on the ground floor
+or treating a complete masonry chimney as a universal medieval feature.
+
+[Fränkisches Freilandmuseum: house from Wolframs-Eschenbach](https://freilandmuseum.de/besuchen/orientieren-im-museum/gebaeude?tx_decimuseum_houses%5Baction%5D=show&tx_decimuseum_houses%5Bcontroller%5D=House&tx_decimuseum_houses%5Bhouse%5D=161)
+
+The Germanisches Nationalmuseum dates stove tiles from Lüneburg to around
+1515 and from Nürnberg to around 1540. These support ceramic room heating
+before the game's date; representative surviving pieces do not establish
+universal household wealth or justify copying later elaborate stoves.
+
+[Germanisches Nationalmuseum: Alltagskultur bis 1700](https://www.gnm.de/ausstellungen/dauerausstellung/alltagskultur-bis-1700)
+
+A selected hearth-and-stove programme with continuous outdoor discharge is an
+authored construction choice. Masonry support, clearances to timber, dimensions
+and outlet height are geometry contracts, not measured historical norms. The
+folded lead backpan, apron, upstands and embedded counterflashing are also an
+authored weathering detail, not a dated reconstruction or universal period type.
+Baking remains a separate household, communal or commercial programme; an
+existing bakehouse does not imply a bread oven in every dwelling.
+
+[DGAMN: Entwicklungsstufen in der Backofentechnologie](https://journals.ub.uni-heidelberg.de/index.php/mitt-dgamn/article/view/18674/12484)
+
 ## Bells and timber suspension
 
 Heiden's parish account documents surviving thirteenth-century and 1466 bells,

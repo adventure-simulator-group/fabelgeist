@@ -15,6 +15,8 @@ mod furniture;
 mod gable;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
+#[path = "generate_scene_fixtures/heating.rs"]
+mod heating;
 #[path = "generate_scene_fixtures/interior.rs"]
 mod interior;
 #[path = "generate_scene_fixtures/parish.rs"]
@@ -58,6 +60,7 @@ enum BuildingFixture {
     InteriorFurnitureRooms,
     CompoundReview,
     GableReview,
+    HeatingReview,
 }
 
 fn main() {
@@ -85,9 +88,10 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 26] {
+fn fixtures() -> [Fixture; 27] {
     [
         gable::fixture(),
+        heating::fixture(),
         parish::fixture(),
         compound::fixture(),
         furniture::fixture(),
@@ -286,6 +290,10 @@ fn fixture_buildings(
     match buildings {
         BuildingFixture::GableReview => CitySceneLayout {
             playable: gable::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::HeatingReview => CitySceneLayout {
+            playable: heating::buildings(),
             ..Default::default()
         },
         BuildingFixture::CompoundReview => compound::layout(),

@@ -93,6 +93,15 @@ fn circulation_reservations(
 ) -> Vec<Rect> {
     let mut reserved = door_reservations(plan, height);
     reserved.extend(super::church::nave_routes(plan, height));
+    if let Some(heating) = &plan.domestic_heating {
+        let space = heating.operating_space;
+        if height < space.max.y && height + PERSON_HEIGHT > space.min.y {
+            reserved.push(Rect::new(
+                Vec2::new(space.min.x + space.max.x, space.min.z + space.max.z) * 0.5,
+                Vec2::new(space.max.x - space.min.x, space.max.z - space.min.z) * 0.5,
+            ));
+        }
+    }
     if let Some(workplace) = &plan.workplace {
         for passage in &workplace.passages {
             if passage.min.y < height + PERSON_HEIGHT && passage.max.y > height + FLOOR_CLEARANCE {

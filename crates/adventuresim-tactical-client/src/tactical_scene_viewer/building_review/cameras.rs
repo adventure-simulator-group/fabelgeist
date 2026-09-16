@@ -15,6 +15,7 @@ pub(super) struct ReviewView {
 #[serde(rename_all = "snake_case")]
 enum ReviewTarget {
     MainGable(u8),
+    Heating(super::heating::HeatingTarget),
     Sign,
     Mounting,
     Window,
@@ -37,7 +38,34 @@ impl ReviewView {
             .find(|b| b.placement.id == self.building)
             .expect("review camera building exists");
         let bounds = building.collision.bounds;
-        let gable = if let ReviewTarget::MainGable(index) = self.target {
+        let gable = self.gable(building);
+        let target = self.target(building, signs, gable);
+        assert!(
+            self.offset.is_finite() && self.offset.length() > 0.1,
+            "invalid camera displacement"
+        );
+        let transform = super::super::buildings::building_transform(building);
+        let world_target = transform.transform_point(target - bounds.centre());
+        let offset = if let ReviewTarget::Heating(target) = self.target {
+            target.offset(&building.plan, self.offset)
+        } else {
+            gable.map_or(self.offset, |wall| {
+                let horizontal =
+                    wall.frame.tangent * self.offset.x + wall.frame.outward * self.offset.z;
+                Vec3::new(horizontal.x, self.offset.y, horizontal.y)
+            })
+        };
+        BuildingReviewCamera {
+            position: world_target + transform.rotation * offset,
+            target: world_target,
+            plaster_raking_light: None,
+        }
+    }
+    fn gable<'a>(
+        &self,
+        building: &'a GeneratedBuilding,
+    ) -> Option<&'a adventuresim_building_generator::WallAssembly> {
+        if let ReviewTarget::MainGable(index) = self.target {
             Some(
                 building
                     .plan
@@ -54,8 +82,17 @@ impl ReviewView {
             )
         } else {
             None
-        };
-        let target = match self.target {
+        }
+    }
+    fn target(
+        &self,
+        building: &GeneratedBuilding,
+        signs: &BTreeMap<u64, ShopSign>,
+        gable: Option<&adventuresim_building_generator::WallAssembly>,
+    ) -> Vec3 {
+        let bounds = building.collision.bounds;
+        match self.target {
+            ReviewTarget::Heating(target) => target.anchor(&building.plan),
             ReviewTarget::MainGable(_) => {
                 let wall = gable.unwrap();
                 let opening = building
@@ -118,22 +155,6 @@ impl ReviewView {
                     passage.min.z + 3.0,
                 )
             }
-        };
-        assert!(
-            self.offset.is_finite() && self.offset.length() > 0.1,
-            "invalid camera displacement"
-        );
-        let transform = super::super::buildings::building_transform(building);
-        let world_target = transform.transform_point(target - bounds.centre());
-        let offset = gable.map_or(self.offset, |wall| {
-            let horizontal =
-                wall.frame.tangent * self.offset.x + wall.frame.outward * self.offset.z;
-            Vec3::new(horizontal.x, self.offset.y, horizontal.y)
-        });
-        BuildingReviewCamera {
-            position: world_target + transform.rotation * offset,
-            target: world_target,
-            plaster_raking_light: None,
         }
     }
 }

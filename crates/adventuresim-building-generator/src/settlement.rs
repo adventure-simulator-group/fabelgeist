@@ -113,6 +113,9 @@ impl BuildingProgram {
 
     fn assign_use(&mut self, usage: BuildingUse) {
         use BuildingUse::*;
+        if usage != Dwelling {
+            self.domestic_heating = None;
+        }
         let (main, secondary) = match usage {
             MarketHall => (RoomKind::GreatHall, RoomKind::Storage),
             Stable => (RoomKind::Stalls, RoomKind::Storage),

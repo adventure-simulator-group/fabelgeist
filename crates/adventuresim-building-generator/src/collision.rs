@@ -94,6 +94,9 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
         .flat_map(|wall| wall.host_solids.iter().copied())
         .collect::<BTreeSet<_>>();
     selected.extend(gable::solids(plan));
+    if let Some(heating) = &plan.domestic_heating {
+        selected.extend(heating.parts.iter().map(|p| p.solid));
+    }
     if let Some(frame) = &plan.timber_frame {
         selected.extend(
             frame

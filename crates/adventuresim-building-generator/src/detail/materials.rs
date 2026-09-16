@@ -11,6 +11,13 @@ pub(super) fn material_for_solid(
     {
         return part.material.render_material();
     }
+    if let Some(part) = plan
+        .domestic_heating
+        .as_ref()
+        .and_then(|h| h.parts.iter().find(|p| p.solid == solid.id))
+    {
+        return part.material;
+    }
     let wall_material = wall_for_solid(plan, solid).map(|wall| wall.material);
     material_for_solid_body(plan, solid, wall_material)
 }

@@ -57,6 +57,43 @@ Review camera offsets for `main_gable` targets use the aperture's tangent,
 vertical and outward axes, so a negative third component inspects its interior.
 Native capture windows remain hidden and update continuously in the background.
 
+Cottage and hall-house fixtures select a grounded domestic heating programme.
+A cooking hearth and rear-fed tiled stove stand on one masonry plinth, on
+opposite sides of a real kitchen/Stube partition. Only the fire-wall patch is
+replaced; existing structural frame members and partition end posts remain.
+Separate firebox and smoke-return ports connect the stove to the hearth hood
+and a hollow masonry flue. Ownership, operating space, enclosure material,
+bearings, timber clearance and smoke continuity are audited.
+
+Placement tries a compact hearth before a deeper kitchen-side hearth, allowing
+the shaft to clear longitudinal roof girders without moving or cutting them.
+Both variants retain the same rear-fed stove, grounded support and reserved
+working space. If neither fits, generation reports `InvalidDomesticHeating`.
+
+The flue cuts both roof skins. A lead backpan laps under the uphill tiles, while
+the downhill apron laps over them. Upright sheets meet the stack; counterflashing
+is tucked into the masonry and overlaps their tops and corners.
+Detail, Facade and Shell retain the same stack and weathering. Collision includes
+the heating solids, and furnishing reserves the hearth's operating space.
+Changed pitch returns `TopologyEvent` before mutation. Unheated programmes
+produce no domestic stack; working-building ovens keep their own programmes.
+
+This construction requires a ground-floor kitchen and adjacent common room or
+great hall. Upper-storey kitchens still need masonry supports and structural
+floor openings; selecting this programme for one returns
+`InvalidDomesticHeating`. `SOURCES.md` distinguishes historical evidence from
+authored dimensions and construction choices.
+
+```powershell
+python scripts/capture_heating_review.py --skip-build --settle-frames 24 --output target/heating-review/captures
+```
+
+The `heating-review` fixture covers both building families at seeds 42, 47 and
+101, plus the deep-hearth hall at seed `u64::MAX`.
+Cameras follow the resolved hearth, stove and roof junction. Matched distance
+views check representation continuity; interiors retain production lighting
+and the complete building geometry.
+
 Previously prepared assets keep their stored meshes. Refresh the shipped city
 assets after geometry changes with
 `cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.

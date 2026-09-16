@@ -229,6 +229,12 @@ fn bounds_overlap_3d(a: (Vec3, Vec3), b: (Vec3, Vec3), tolerance: f32) -> bool {
 }
 
 fn resolved_shape_overlap(a: &ResolvedSolid, b: &ResolvedSolid, tolerance: f32) -> bool {
+    if (a.role == SolidRole::DomesticHeating || b.role == SolidRole::DomesticHeating)
+        && matches!(a.shape, crate::ResolvedSolidShape::Cuboid)
+        && matches!(b.shape, crate::ResolvedSolidShape::Cuboid)
+    {
+        return oriented_cuboids_overlap(a, b, tolerance);
+    }
     if !bounds_overlap_3d(
         resolved_solid_bounds(a),
         resolved_solid_bounds(b),

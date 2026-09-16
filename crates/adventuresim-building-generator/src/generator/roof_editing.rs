@@ -21,7 +21,7 @@ pub fn set_roof_pitch(
     if (old_pitch - pitch_degrees).abs() < 0.0001 {
         return Ok(());
     }
-    if !assembly.children.is_empty() || assembly.parent.is_some() || assembly.enclosure_faces.iter().any(|face| !face.inset_walls.is_empty()) {
+    if !assembly.children.is_empty() || assembly.parent.is_some() || assembly.enclosure_faces.iter().any(|face| !face.inset_walls.is_empty()) || plan.domestic_heating.as_ref().is_some_and(|h| h.roof.roof == id) {
         return Err(RoofEditError::TopologyEvent);
     }
     let old_tan = old_pitch.to_radians().tan();
