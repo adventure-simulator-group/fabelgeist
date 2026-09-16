@@ -135,21 +135,24 @@ impl BladeProfile<'_> {
         let point = self.point_curve().map_err(|_| RecipeError::Proportion)?;
         let Some(f) = self.fuller else { return Ok(()) };
         require(
-            f.mouth_width.get() > 0.0
-                && f.depth.get() > 0.0
-                && (0.0..1.0).contains(&f.floor_width_ratio.get())
-                && f.floor_width_ratio.get() > 0.0
-                && (0.0..1.0).contains(&f.bevel_width_ratio.get())
-                && f.bevel_width_ratio.get() > 0.0,
+            (0.0..1.0).contains(&f.bevel_width_ratio.get()) && f.bevel_width_ratio.get() > 0.0,
         )?;
-        require(
-            f.start.get() >= self.ricasso
-                && f.end.get() <= self.length
-                && f.start.get() < f.end.get()
-                && f.entry_length.get() > 0.0
-                && f.exit_length.get() > 0.0
-                && f.entry_length.get() + f.exit_length.get() <= f.end.get() - f.start.get(),
-        )?;
+        for groove in &f.grooves {
+            require(
+                groove.mouth_width.get() > 0.0
+                    && groove.depth.get() > 0.0
+                    && groove.floor_width_ratio.get() > 0.0
+                    && groove.floor_width_ratio.get() < 1.0
+                    && groove.lateral_position.get().abs() < 1.0
+                    && groove.start.get() >= self.ricasso
+                    && groove.end.get() <= self.length
+                    && groove.start.get() < groove.end.get()
+                    && groove.entry_length.get() > 0.0
+                    && groove.exit_length.get() > 0.0
+                    && groove.entry_length.get() + groove.exit_length.get()
+                        <= groove.end.get() - groove.start.get(),
+            )?;
+        }
         super::blade_clearance::check(self, f, point.as_ref())
     }
 }

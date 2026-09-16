@@ -3,7 +3,7 @@ use super::*;
 mod dimensions;
 mod graphs;
 mod melee;
-mod profile_grip;
+mod profile_body;
 mod ranged;
 mod shields;
 mod spear;

@@ -84,7 +84,9 @@ pub enum Shape {
     #[serde(rename = "ovalGrip")]
     OvalGrip(OvalGripParameters),
     #[serde(rename = "profileGrip")]
-    ProfileGrip(ProfileGripParameters),
+    ProfileGrip(ProfileBodyParameters),
+    #[serde(rename = "profileBody")]
+    ProfileBody(ProfileBodyParameters),
     #[serde(rename = "slabGrip")]
     SlabGrip(SlabGripParameters),
     #[serde(rename = "roundShield")]

@@ -4,7 +4,7 @@ use std::f64::consts::TAU;
 
 pub(super) fn construct(
     r: &ResolvedComponent,
-    p: &ProfileGripParameters,
+    p: &ProfileBodyParameters,
     detail: Detail,
 ) -> Result<Vec<PartSource>, String> {
     let outer = rings(p, detail)?;
@@ -13,21 +13,31 @@ pub(super) fn construct(
     let Some(cover) = &p.cover else {
         return Ok(vec![make(filled(&outer)?, core_material, &r.label)]);
     };
+    let core_end = p.length.get() - cover.end_cap.map_or(0.0, Metres::get);
     let inner: Vec<_> = outer
         .iter()
+        .take_while(|ring| ring[0][1] <= core_end)
         .map(|ring| inset(ring, cover.thickness.get()))
         .collect::<Result<_, _>>()?;
     Ok(vec![
         make(filled(&inner)?, core_material, &format!("{} core", r.label)),
         make(
-            Solid::section_shell(&inner, &outer, LoftEnd::Open)?,
+            Solid::section_shell(
+                &inner,
+                &outer,
+                if cover.end_cap.is_some() {
+                    LoftEnd::Closed
+                } else {
+                    LoftEnd::Open
+                },
+            )?,
             cover.material,
             &format!("{} cover", r.label),
         ),
     ])
 }
 
-fn rings(p: &ProfileGripParameters, detail: Detail) -> Result<Vec<Vec<Point>>, String> {
+fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, String> {
     let length = p.length.get();
     let width = SmoothProfile::new(
         p.profile
@@ -63,9 +73,24 @@ fn rings(p: &ProfileGripParameters, detail: Detail) -> Result<Vec<Vec<Point>>, S
             );
         }
     }
+    let core_end = p
+        .cover
+        .as_ref()
+        .and_then(|c| c.end_cap)
+        .map(|cap| length - cap.get());
+    if let Some(end) = core_end {
+        stations.push(end / length);
+    }
     stations.sort_by(f64::total_cmp);
     stations.dedup_by(|a, b| (*a - *b).abs() < 1e-10);
-    let radial = detail.radial(p.maximum_width() / 2.0, 24).div_ceil(4) * 4;
+    let radial = p
+        .radial_segments
+        .map_or_else(
+            || detail.radial(p.maximum_width() / 2.0, 24),
+            |count| detail.samples(count.0 as usize, MIN_PROFILE_RADIAL_SEGMENTS as usize),
+        )
+        .div_ceil(4)
+        * 4;
     construction_budget((stations.len() * radial * 4) as f64)?;
     Ok(stations
         .into_iter()
@@ -75,7 +100,11 @@ fn rings(p: &ProfileGripParameters, detail: Detail) -> Result<Vec<Vec<Point>>, S
                     let angle = TAU * i as f64 / radial as f64;
                     [
                         width.value(t) * angle.cos(),
-                        t * length,
+                        if core_end.is_some_and(|end| t == end / length) {
+                            core_end.unwrap()
+                        } else {
+                            t * length
+                        },
                         depth.value(t) * angle.sin(),
                     ]
                 })

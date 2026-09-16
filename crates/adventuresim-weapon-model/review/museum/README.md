@@ -173,7 +173,8 @@ section with a ridged reverse. `recessed` requires an explicit `fuller` and
 uses beveled flat broad faces. Diamond, hexagonal and lenticular sections
 have distinct geometry; a fuller specification is rejected for those modes.
 
-Fuller `start`, `end`, `entryLength` and `exitLength` are metres from the
+Each `fuller.grooves` entry has `start`, `end`, `entryLength` and `exitLength`,
+which are metres from the
 complete blade base, including any ricasso. The interval lies beyond the
 ricasso and ends no later than the blade tip. The museum recipe retains a distal
 ungrooved face.
@@ -423,5 +424,70 @@ The shared `silver` material uses 10,500 kg/m³, the room-temperature elemental
 density listed by the [Royal Society of Chemistry](https://periodic-table.rsc.org/element/47/).
 This is an explicit approximation for unidentified historical silver alloys.
 It affects material mass and appearance while preserving the authored geometry.
-Weapon schema/generator identities are 12/15; holder identities are 6/6 because
+Weapon schema/generator identities are 13/16; holder identities are 7/7 because
 holders contain material fields and embedded weapon recipes.
+
+
+## KHM A287 Katzbalger
+
+Select `khm-a287`. The [recipe](khm-a287.json) covers browser and gameplay
+`katzbalger`. The scabbard and accessory knives are outside this study.
+The [museum record](https://www.khm.at/kunstwerke/landsknechtsschwert-mit-scheide-372681)
+identifies Ulrich von Schellenberg's sword, around 1515. Published dimensions
+are 884 mm length, 110 mm breadth, 165 mm depth and 1.4 kg mass. The record
+identifies forged iron, cast fire-gilded brass, and a wooden grip covered with
+fire-gilded brass sheet. Measurement axes are unspecified; assigning breadth
+and depth to the transverse guard remains an interpretation.
+
+Opposing whole-object photographs and hilt details appear in the record.
+The [front detail](https://www.khm.at/pics/372681/HJRK_A_287_201504_5.jpg)
+and [reverse detail](https://www.khm.at/pics/372681/HJRK_A_287_201504_6.jpg)
+show the four short blade grooves, calyx grip and S-shaped guard. Photographs
+are credited to Kunsthistorisches Museum, Hofjagd- und Ruestkammer. They are
+private local reference evidence and are not redistributed in the repository.
+
+Photo estimates allocate 747 mm to the blade and 137 mm to the hilt, including
+an 85 mm upper covered grip, 10 mm exposed wood band, 32 mm lower sleeve and
+10 mm guard root. Blade width is estimated at 44 mm, maximum calyx breadth at
+70 mm, guard bar diameter at 10 mm and terminal bulbs at 18 mm. The inner
+pair of fullers ends at 44 mm; the outer pair at 37 mm. These are estimates,
+not additional published measurements. The crown rises above the broad wings
+and terminates in a small central peen.
+
+Blade thickness, groove depth, grip depth, sheet and end-cap thickness, hidden
+tang, joints, fasteners and internal voids remain assumptions. Steel represents
+the forged iron blade. Brass represents the cast guard and sheet over the wood
+core; gilding is not assigned solid gold's mass. Engraving, rope ticks, patina,
+wear and microscopic gilding are outside the structural scope. Material
+volumes come from disjoint solids, without calibration to the museum mass.
+Calculated mass is approximately 1.329 kg versus the published 1.4 kg.
+
+### Multiple grooves and covered profile bodies
+
+`fuller` contains a shared `bevelWidthRatio` and one to eight `grooves`.
+Each groove has its own dimensions, face selection and axial interval.
+`lateralPosition` is a signed fraction of the current broad-face half-width;
+zero is the blade axis and plus/minus one are the bevel boundaries. The center
+follows blade taper. Active grooves on the same face must be disjoint.
+Grooves on opposite faces may overlap if their local trapezoidal cuts retain
+positive metal. A maximum-depth sum alone does not establish a wall breach.
+Continuous interval bounds include groove transitions and terminal points.
+Grooves sharing a lateral line may occupy separate axial intervals. Inactive
+landmarks lie on the actual neighboring surface, avoiding false ridges.
+The existing float32 strip, position and normal budgets still apply.
+
+`profileBody` describes a profiled oval core and optional material cover.
+`profileGrip` shares this construction while retaining its 38 by 28 mm
+anatomical limits. A wide pommel body does not acquire grip semantics.
+`cover.endCap`, when present, is a positive axial thickness smaller than body
+length. The core ends at that exact plane and the cover closes over it; the
+core and cover share their complete boundary. Without an end cap, both core
+faces remain exposed through the cover's annular ends.
+
+Optional `radialSegments` specifies shared circumferential sampling for joined
+profile components. Each LOD scales that count and rounds to quarter symmetry,
+independently of the body's maximum width. Matching endpoint dimensions,
+phase and cover thickness then give matching core and cover footprints.
+Without an explicit count, sampling follows the existing radial error rule.
+Use shared counts on matching ends; axial contact alone does not establish
+matching polygonal footprints.

@@ -1,17 +1,17 @@
 use super::*;
 use std::collections::BTreeMap;
 
-fn blade_definition() -> serde_json::Value {
+pub(super) fn blade_definition() -> serde_json::Value {
     serde_json::json!({"components":[{
         "attach":{"to":"weapon.root","at":"origin"},"id":"blade","kind":"loftedBlade","length":0.902,"width":0.047,"thickness":0.007,
         "curvature":0,"plan":"straight","section":"recessed","samples":48,"taper":0.2,"singleEdge":0,"belly":0,"ricasso":0,
         "point":{"start":0.90,"roundness":0.6},
-        "fuller":{"faces":"both","mouthWidth":0.012,"depth":0.001,"floorWidthRatio":0.45,"bevelWidthRatio":0.2,
-            "start":0.0,"end":0.46,"entryLength":0.012,"exitLength":0.055}
+        "fuller":{"bevelWidthRatio":0.2,"grooves":[{"lateralPosition":0,"faces":"both","mouthWidth":0.012,"depth":0.001,"floorWidthRatio":0.45,
+            "start":0.0,"end":0.46,"entryLength":0.012,"exitLength":0.055}]}
     }]})
 }
 
-fn closed(solid: &Solid) {
+pub(super) fn closed(solid: &Solid) {
     for f32_output in [false, true] {
         let key = |p: Point| {
             p.map(|v| {
@@ -55,7 +55,7 @@ fn recessed_fuller_and_rounded_point_are_closed_at_all_lods() {
     for faces in ["front", "back", "both"] {
         for roundness in [0.0, 0.5, 1.0] {
             let mut value = blade_definition();
-            value["components"][0]["fuller"]["faces"] = faces.into();
+            value["components"][0]["fuller"]["grooves"][0]["faces"] = faces.into();
             value["components"][0]["point"]["roundness"] = roundness.into();
             let recipe: Recipe = serde_json::from_value(value).unwrap();
             recipe.validate().unwrap();
@@ -78,7 +78,7 @@ fn invalid_fuller_clearance_and_transition_reject_before_generation() {
         ("floorWidthRatio", 1.0),
     ] {
         let mut recipe = blade_definition();
-        recipe["components"][0]["fuller"][field] = value.into();
+        recipe["components"][0]["fuller"]["grooves"][0][field] = value.into();
         assert_eq!(
             serde_json::from_value::<Recipe>(recipe).unwrap().validate(),
             Err(if field == "exitLength" {
@@ -98,7 +98,7 @@ fn invalid_fuller_clearance_and_transition_reject_before_generation() {
 #[test]
 fn unresolvable_fuller_floor_rejects_instead_of_emitting_collapsed_strips() {
     let mut value = blade_definition();
-    value["components"][0]["fuller"]["floorWidthRatio"] = 0.000001.into();
+    value["components"][0]["fuller"]["grooves"][0]["floorWidthRatio"] = 0.000001.into();
     let recipe: Recipe = serde_json::from_value(value).unwrap();
     recipe.validate().unwrap();
     assert!(
@@ -116,12 +116,12 @@ fn unresolvable_fuller_floor_rejects_instead_of_emitting_collapsed_strips() {
 #[test]
 fn long_fuller_closure_stays_resolved_through_a_rounded_point() {
     let mut value = blade_definition();
-    value["components"][0]["fuller"]["end"] = 0.865.into();
-    value["components"][0]["fuller"]["mouthWidth"] = 0.008.into();
-    value["components"][0]["fuller"]["depth"] = 0.00045.into();
-    value["components"][0]["fuller"]["start"] = 0.015.into();
-    value["components"][0]["fuller"]["entryLength"] = 0.025.into();
-    value["components"][0]["fuller"]["exitLength"] = 0.18.into();
+    value["components"][0]["fuller"]["grooves"][0]["end"] = 0.865.into();
+    value["components"][0]["fuller"]["grooves"][0]["mouthWidth"] = 0.008.into();
+    value["components"][0]["fuller"]["grooves"][0]["depth"] = 0.00045.into();
+    value["components"][0]["fuller"]["grooves"][0]["start"] = 0.015.into();
+    value["components"][0]["fuller"]["grooves"][0]["entryLength"] = 0.025.into();
+    value["components"][0]["fuller"]["grooves"][0]["exitLength"] = 0.18.into();
     let recipe: Recipe = serde_json::from_value(value).unwrap();
     let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
         unreachable!()
@@ -138,8 +138,8 @@ fn fuller_can_end_at_the_true_tip_without_losing_interior_metal() {
     for point in [None, Some(0.0), Some(1.0)] {
         let mut value = blade_definition();
         let blade = &mut value["components"][0];
-        blade["fuller"]["end"] = 0.902.into();
-        blade["fuller"]["exitLength"] = 0.22.into();
+        blade["fuller"]["grooves"][0]["end"] = 0.902.into();
+        blade["fuller"]["grooves"][0]["exitLength"] = 0.22.into();
         if let Some(roundness) = point {
             blade["point"]["roundness"] = roundness.into();
         } else {
@@ -187,8 +187,8 @@ fn section_blade_shares_recessed_point_geometry_with_straight_loft() {
 fn shallow_fuller_without_a_point_has_bounded_sampling_and_plane_normals() {
     let mut value = blade_definition();
     let blade = &mut value["components"][0];
-    blade["fuller"] = serde_json::json!({"faces":"both","mouthWidth":0.014,"depth":0.0005,"floorWidthRatio":0.45,
-        "bevelWidthRatio":0.2,"start":0.015,"end":0.285,"entryLength":0.025,"exitLength":0.08});
+    blade["fuller"] = serde_json::json!({"bevelWidthRatio":0.2,"grooves":[{"lateralPosition":0,"faces":"both","mouthWidth":0.014,"depth":0.0005,"floorWidthRatio":0.45,
+        "start":0.015,"end":0.285,"entryLength":0.025,"exitLength":0.08}]});
     let mut section = blade.clone();
     section["kind"] = "sectionBlade".into();
     for field in [
@@ -234,7 +234,7 @@ fn shallow_fuller_without_a_point_has_bounded_sampling_and_plane_normals() {
 }
 
 #[test]
-fn flat_guard_block_covers_the_complete_profile_grip_end_without_overlap() {
+fn flat_guard_block_covers_the_complete_profile_body_end_without_overlap() {
     let study: serde_json::Value =
         serde_json::from_str(include_str!("../../review/museum/cma-1921.1253.json")).unwrap();
     let recipe: Recipe = serde_json::from_value(study["definition"].clone()).unwrap();

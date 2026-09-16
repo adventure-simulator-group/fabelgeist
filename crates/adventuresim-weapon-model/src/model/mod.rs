@@ -14,6 +14,9 @@ mod generic_blade;
 #[cfg(test)]
 mod generic_blade_tests;
 mod grip;
+#[cfg(test)]
+mod groove_body_tests;
+mod groove_sections;
 mod guard_nodes;
 mod guards;
 mod lofted_blade;
@@ -27,7 +30,7 @@ pub(crate) mod output;
 mod placement;
 mod polls;
 mod pommels;
-mod profile_grip;
+mod profile_body;
 #[cfg(test)]
 mod profile_tests;
 #[cfg(test)]

@@ -191,6 +191,8 @@ pub fn museum_studies() -> &'static Value {
             serde_json::from_str::<Value>(include_str!("../review/museum/khm-a297.json"))
                 .expect("museum study catalog must be valid JSON"),
             serde_json::from_str::<Value>(include_str!("../review/museum/met-29.158.674.json"))
+                .expect("museum study catalog must be valid JSON"),
+            serde_json::from_str::<Value>(include_str!("../review/museum/khm-a287.json"))
                 .expect("museum study catalog must be valid JSON")
         ])
     })

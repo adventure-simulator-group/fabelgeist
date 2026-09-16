@@ -109,10 +109,22 @@ fn guard(p: &GuardParameters) -> Checked {
 
 fn fuller_dimensions(fuller: Option<&FullerParameters>) -> Checked {
     if let Some(f) = fuller {
-        for value in [f.mouth_width, f.depth, f.end, f.entry_length, f.exit_length] {
-            positive(value.get())?;
+        require(
+            (1..=MAX_FULLER_GROOVES).contains(&f.grooves.len()),
+            RecipeError::Budget,
+        )?;
+        for groove in &f.grooves {
+            for value in [
+                groove.mouth_width,
+                groove.depth,
+                groove.end,
+                groove.entry_length,
+                groove.exit_length,
+            ] {
+                positive(value.get())?;
+            }
+            nonnegative(groove.start.get())?;
         }
-        nonnegative(f.start.get())?;
     }
     Ok(())
 }

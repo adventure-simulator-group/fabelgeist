@@ -35,23 +35,23 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 11, 14, &design));
+    assert_ne!(current, versioned_hash(domain, 12, 15, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 11.into();
+    previous["schema_version"] = 12.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 11,
+            found: 12,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 14.into();
+    previous["generator_version"] = 15.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 14,
+            found: 15,
             expected: GENERATOR_VERSION
         })
     ));
@@ -108,23 +108,23 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 5, 5, &design));
+    assert_ne!(current, versioned_hash(domain, 6, 6, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 5.into();
+    previous["schema_version"] = 6.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 5,
+            found: 6,
             expected: HOLDER_SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 5.into();
+    previous["generator_version"] = 6.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 5,
+            found: 6,
             expected: HOLDER_GENERATOR_VERSION
         })
     ));
@@ -159,4 +159,15 @@ fn diamond_sections_do_not_enable_generic_blade_scabbards() {
         Err(GenerateError::Invalid(errors))
             if errors == vec![ValidationError::Holder("source geometry")]
     ));
+}
+
+#[test]
+fn katzbalger_round_trip_preserves_grooves_partitioned_cover_and_shared_seats() {
+    let mut design = default_design("katzbalger").unwrap();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/khm-a287.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    assert!(generate(&restored).unwrap() == generate(&design).unwrap());
 }
