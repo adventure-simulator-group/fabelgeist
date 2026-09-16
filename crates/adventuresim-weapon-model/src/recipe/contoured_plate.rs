@@ -38,6 +38,33 @@ pub struct PlateThicknessStation {
     pub hollow_depth: Option<Metres>,
 }
 
+/// A measured full thickness at a transverse fraction of the blank width.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PlateSectionLandmark {
+    pub across: Ratio,
+    pub thickness: Metres,
+}
+
+/// Landmark identities follow the same ordered tracks at every axial station.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct PlateSectionStation {
+    pub at: Ratio,
+    pub profile: Vec<PlateSectionLandmark>,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
+pub enum PlateSurface {
+    Ridge {
+        stations: Vec<PlateThicknessStation>,
+    },
+    Profile {
+        stations: Vec<PlateSectionStation>,
+    },
+}
+
 impl PlateThicknessStation {
     pub(crate) fn hollow_depth(&self) -> f64 {
         self.hollow_depth.map_or(0.0, Metres::get)
@@ -53,5 +80,5 @@ pub struct ContouredPlateParameters {
     pub length: Metres,
     pub start: [Ratio; 2],
     pub boundary: Vec<PlateBoundarySpan>,
-    pub thickness: Vec<PlateThicknessStation>,
+    pub surface: PlateSurface,
 }

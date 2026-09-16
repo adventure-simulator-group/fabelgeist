@@ -672,7 +672,7 @@ method. Pitting, corrosion, wear and small stamped marks are excluded.
 ### Contoured forged plates
 
 `contouredPlate` describes a closed planar boundary lifted into a solid
-with a variable central ridge. `width` and `length` scale the boundary's
+with an authored surface. `width` and `length` scale the boundary's
 dimensionless coordinates. `start` gives its first point; `boundary`
 contains `line` spans with a `to` endpoint or `cubic` spans with two
 `controls` and a `to` endpoint. The final span must return to `start`.
@@ -680,7 +680,8 @@ Transverse coordinates lie between minus one and one; axial coordinates
 lie between zero and one and must reach both ends. Self-intersecting or
 degenerate outlines are rejected. Holes are not part of this construction.
 
-Each increasing `thickness` station gives an axial `at` fraction, full
+For `surface.kind: ridge`, each increasing `surface.stations` entry gives
+an axial `at` fraction, full
 `edge` and `ridge` depths, `flatHalfWidth` and `ridgeHalfWidth`. The crest
 is flat inside the first width, slopes to the edge depth at the second,
 then remains at edge depth. Station values interpolate axially. A zero
@@ -689,11 +690,31 @@ the shared manufacturing minimum between the flat and outer ridge widths.
 Only a unique terminal outline point may have zero depths and widths;
 that point closes the entire section. Interior zero sections are rejected.
 
+For `surface.kind: profile`, each axial station contains a `profile` of
+ordered transverse landmarks. Each gives an `across` fraction of the blank
+width and a full `thickness` in metres. The two outer landmarks stay at
+minus one and one, covering the complete allowed boundary and cubic-control
+domain. Between two and 32 landmarks follow the same ordered tracks at
+every station. Adjacent tracks retain at least the shared manufacturing
+minimum; their positions and thicknesses interpolate axially, and thickness
+interpolates linearly between neighboring tracks. This allows several
+ridges and relieved faces to continue through one connected blank.
+
+Both surface forms use two to 16 increasing stations spanning zero to one.
+Profile thicknesses are nonnegative. Within occupied material, zero is
+permitted only at an isolated, explicitly authored boundary apex; its two
+boundary neighbors must have positive thickness. Interior pinches, whole
+zero-thickness faces and zero-depth boundary runs are rejected. An apex may
+occur at an interior axial station while another branch continues farther.
+
 The shared curve sampler preserves cusps and bounds curved-edge deviation.
 Cubic spans are split at their station and ridge intersections before
 sampling. The scalar cubic's derivative extrema isolate crossings and
 tangencies, including coincident structural intersections. This avoids
 creating tiny incidental edges beside a sampled curve's ridge crossing.
+Coincident cut roots use the existing arithmetic rounding allowance in
+both parameter and coordinate space. Shared junctions retain their exact
+cut endpoints, and authored curve endpoints remain unchanged.
 The planar region is then partitioned at every station and moving ridge
 edge. Adjacent cells share each cut vertex. Each cell is retriangulated
 before refinement, retaining every boundary turn and shared junction;
@@ -788,3 +809,140 @@ of the cutoff bracket preserves representable relief. Every resulting strip
 is checked against the same analytic section and unchanged error budget;
 unresolved intervals remain errors. Already passing intervals retain their
 original stations. This correction also applies to existing blade recipes.
+
+## Met 14.25.116: military fork
+
+The Italian military fork, dated about 1550, is accession 14.25.116,
+[Met object 26088](https://www.metmuseum.org/art/collection/search/26088).
+The [collection API](https://collectionapi.metmuseum.org/public/collection/v1/objects/26088)
+identifies steel and ash, credits the Gift of William H. Riggs, 1913, and
+marks the images public domain. The opposing
+[first photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.116_002dec2014.jpg)
+and [second photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.116_003dec2014.jpg)
+are available under the Met's
+[Open Access policy](https://www.metmuseum.org/hubs/open-access).
+
+Published metric dimensions are 2331 mm overall, 731 mm for the head and
+231 mm wide; published mass is 1417.5 g. The width is also printed as
+9 1/4 inches, equivalent to 234.95 mm. The study uses the metric value and
+retains that source inconsistency. Coverage is browser `military-fork`,
+specifically this three-tine variant. It does not establish pike, spear or
+partisan coverage, and there is no separate gameplay fork entry.
+
+Both photographs show the complete metal head and its transition to wood.
+The central spike, outward-curving side tines, connecting yoke, small knob,
+collars and widening faceted socket define the visible structural scope.
+The central root borders converge into a V; short relief bands follow the
+outer bends, leaving broad plain panels between the tines. Their presence
+is visible, but their exact transverse profiles and depths are unmeasured.
+Individual corrosion marks, patina and wear are excluded. Slight observed
+asymmetry does not establish an intended asymmetric design.
+
+The 636 mm forged blank, 20 mm knob/collar profile, 2 mm receiving roof and
+73 mm socket partition the published 731 mm head. These subdivisions are
+photo estimates. The side points lie 217 mm above the yoke base, 419 mm
+below the central apex. The central spike tapers from approximately 15 mm
+wide above its root flare to 6.8 mm before its short point. Side-tine root
+breadth is approximately 13 mm; their curved outline closes at separate
+apices. One `profile` surface carries the three ridge tracks through the
+continuous blank. It has no separate tine-root ledges or overlapping parts.
+
+The 13 mm lower haft radius, octagonal section and tenon, 12.5-to-8.8 mm
+socket circumradii, 2.5 mm radial wall difference, receiving roof and
+unseen fastening are assumptions. The exposed 1600 mm lower haft and butt
+are outside the photographs. The record names ash but does not establish
+whether the current wood is original; the recipe uses the shared wood
+material without changing its density. Root sections range from a 2 mm
+base to 8 mm ridges and taper toward closed points. These unmeasured
+depths and the modeled root relief are not mass calibration. Calculated
+mass is approximately 0.811 kg against the museum's 1.4175 kg.
+
+The study exposes haft length and base scale, overall forged-head length
+and span, linked socket/tenon length, central and side root ridge depths,
+and root-groove thickness. Socket and wooden receiving dimensions remain
+coupled; the head's full base footprint seats on the knob. Separate material
+parts represent disjoint construction regions, without asserting a
+particular historical welding or fastening method.
+
+## Met 14.25.259: Italian glaive
+
+[Met object 26689](https://www.metmuseum.org/art/collection/search/26689),
+accession 14.25.259, is an Italian (Venice) glaive dated to the middle or
+late fifteenth century. It is an earlier comparative specimen for browser
+`glaive`, whose ordinary preset describes an early sixteenth-century German
+Kuse. There is no corresponding gameplay glaive entry. Its return hook does
+not establish bill, falchion or Messer coverage.
+
+The museum publishes 2807 mm overall, 1060 mm for the head, 165 mm width and
+3614.6 g mass. It lists steel, wood, textile and gold, and credits the Gift
+of William H. Riggs, 1913. The
+[collection API](https://collectionapi.metmuseum.org/public/collection/v1/objects/26689)
+marks its images public domain. The opposing
+[first photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.259_001feb2015.jpg)
+and [second photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.259_002feb2015.jpg)
+are available under the Met's
+[Open Access policy](https://www.metmuseum.org/hubs/open-access).
+
+Both photographs show the asymmetric blade, nearly straight spine, broad
+gentle belly, acute point, upward return hook, rounded U-shaped notch and
+two swept lower stops. The hook terminal curls into an open eye with a
+small slit. The recipe retains that opening as part of one continuous
+boundary, without a separate ring or overlapping connector. The photographs
+do not establish a fuller or the exact blade cross section. Surface marks,
+patina and maker's marks are outside the structural study.
+
+Both photographs crop the metal below the stops. Neither the socket endpoint
+nor the wood, textile, gold or lower pole termination is visible. Scaling
+the photographed stop span against the published width gives an estimated
+995 mm continuous blank and 65 mm lower continuation. The latter comprises
+a 63 mm socket and 2 mm receiving roof in the recipe; that division is an
+assumed construction, not a documented seam. Together they retain the
+published 1060 mm head and 2807 mm overall length. Rounded stop curves reach
+approximately 166.6 mm against the published 165 mm width. These photographic
+estimates are not metrology.
+
+The main blade is about 104 mm at its belly. The open scroll is approximately
+7 mm outside and 4 mm inside, with a small open slit. Its planar contour,
+the hook and both stops share one `profile` surface. Main blade sections
+range from 8 mm near the lower neck through 6 and 5 mm body regions to a
+2 mm upper section and one closed apex. A 0.2 mm finite cutting edge and
+3 mm hook section are unmeasured assumptions. Section tracks derive from
+the authored blade curves at their stations, rather than independently
+approximating those curves from the photograph.
+
+The unpictured wooden haft has a 19 mm upper radius and 17.1 mm lower
+radius. Its 63 mm tenon matches the octagonal socket bore, tapering from
+19 to 16 mm circumradius. The socket has a 3 mm radial wall difference,
+and its 19 mm upper circumradius matches the roof and complete octagonal
+head heel. These disjoint receiving regions assert no historical fastening
+method. Calculated mass is approximately 4.084 kg against the museum's
+3.6146 kg. Hidden thickness and shared material densities are not calibrated
+to that mass.
+
+The editor exposes haft length and base scale, forged-head length, linked
+socket/tenon length, lower and upper blade thickness, hook thickness and tip
+thickness. The catalog recipe and exported model retain the open scroll and
+the same receiving construction at every detail level.
+
+### Refining surfaces with small attached details
+
+Contoured blanks first form axial regions and remove redundant collinear
+triangulation points before imposing transverse section tracks. A genuine
+sub-resolution boundary or section feature still rejects. During refinement,
+interior diagonals may improve only within one section region. Their edge
+and surface-error limits cannot worsen an outstanding violation or undo a
+satisfied constraint. Every changed face is checked again before acceptance.
+Authored boundaries, section partitions and all existing refinement, surface
+error and allocation limits remain fixed.
+
+Edges at a refinement limit are split conservatively within a floating-point
+rounding margin that includes the coordinate scale. Native and browser math
+libraries therefore make the same decision at an exact limit without
+increasing the allowed edge length.
+
+An incidental interior fan that cannot safely collapse onto a neighbor may
+instead be retriangulated around its complete boundary. This removes only
+an interior sampling point, preserves the section region and requires every
+replacement face to improve the former worst shape while satisfying the
+same edge and surface-error bounds. It prevents thin sampling triangles
+from reversing when attachment coordinates are stored in float32.

@@ -363,57 +363,6 @@
             ]
           }
         ],
-        "thickness": [
-          {
-            "at": 0,
-            "edge": 0.0006,
-            "ridge": 0.034,
-            "ridgeHalfWidth": 0.025,
-            "flatHalfWidth": 0.014
-          },
-          {
-            "at": 0.1141732283464567,
-            "edge": 0.0006,
-            "ridge": 0.034,
-            "ridgeHalfWidth": 0.025,
-            "flatHalfWidth": 0.014
-          },
-          {
-            "at": 0.1968503937007874,
-            "edge": 0.0006,
-            "ridge": 0.026,
-            "ridgeHalfWidth": 0.022,
-            "flatHalfWidth": 0.007
-          },
-          {
-            "at": 0.3543307086614173,
-            "edge": 0.0006,
-            "ridge": 0.02,
-            "ridgeHalfWidth": 0.017,
-            "flatHalfWidth": 0
-          },
-          {
-            "at": 0.4468503937007874,
-            "edge": 0.0006,
-            "ridge": 0.016,
-            "ridgeHalfWidth": 0.009,
-            "flatHalfWidth": 0
-          },
-          {
-            "at": 0.9212598425196851,
-            "edge": 0.0006,
-            "ridge": 0.011,
-            "ridgeHalfWidth": 0.006,
-            "flatHalfWidth": 0
-          },
-          {
-            "at": 1,
-            "edge": 0,
-            "ridge": 0,
-            "ridgeHalfWidth": 0,
-            "flatHalfWidth": 0
-          }
-        ],
         "attach": {
           "to": "shaft.top",
           "at": "origin",
@@ -423,7 +372,61 @@
             0
           ]
         },
-        "label": "head"
+        "label": "head",
+        "surface": {
+          "kind": "ridge",
+          "stations": [
+            {
+              "at": 0,
+              "edge": 0.0006,
+              "ridge": 0.034,
+              "ridgeHalfWidth": 0.025,
+              "flatHalfWidth": 0.014
+            },
+            {
+              "at": 0.1141732283464567,
+              "edge": 0.0006,
+              "ridge": 0.034,
+              "ridgeHalfWidth": 0.025,
+              "flatHalfWidth": 0.014
+            },
+            {
+              "at": 0.1968503937007874,
+              "edge": 0.0006,
+              "ridge": 0.026,
+              "ridgeHalfWidth": 0.022,
+              "flatHalfWidth": 0.007
+            },
+            {
+              "at": 0.3543307086614173,
+              "edge": 0.0006,
+              "ridge": 0.02,
+              "ridgeHalfWidth": 0.017,
+              "flatHalfWidth": 0
+            },
+            {
+              "at": 0.4468503937007874,
+              "edge": 0.0006,
+              "ridge": 0.016,
+              "ridgeHalfWidth": 0.009,
+              "flatHalfWidth": 0
+            },
+            {
+              "at": 0.9212598425196851,
+              "edge": 0.0006,
+              "ridge": 0.011,
+              "ridgeHalfWidth": 0.006,
+              "flatHalfWidth": 0
+            },
+            {
+              "at": 1,
+              "edge": 0,
+              "ridge": 0,
+              "ridgeHalfWidth": 0,
+              "flatHalfWidth": 0
+            }
+          ]
+        }
       },
       {
         "id": "back-langet",
@@ -513,22 +516,6 @@
             ]
           }
         ],
-        "thickness": [
-          {
-            "at": 0,
-            "edge": 0.003,
-            "ridge": 0.003,
-            "ridgeHalfWidth": 0.014,
-            "flatHalfWidth": 0
-          },
-          {
-            "at": 1,
-            "edge": 0.003,
-            "ridge": 0.003,
-            "ridgeHalfWidth": 0.014,
-            "flatHalfWidth": 0
-          }
-        ],
         "attach": {
           "to": "shaft.top",
           "at": "top",
@@ -538,7 +525,26 @@
             -0.0155
           ]
         },
-        "label": "back langet"
+        "label": "back langet",
+        "surface": {
+          "kind": "ridge",
+          "stations": [
+            {
+              "at": 0,
+              "edge": 0.003,
+              "ridge": 0.003,
+              "ridgeHalfWidth": 0.014,
+              "flatHalfWidth": 0
+            },
+            {
+              "at": 1,
+              "edge": 0.003,
+              "ridge": 0.003,
+              "ridgeHalfWidth": 0.014,
+              "flatHalfWidth": 0
+            }
+          ]
+        }
       },
       {
         "id": "back-langet-rivet-0",
@@ -708,22 +714,6 @@
             ]
           }
         ],
-        "thickness": [
-          {
-            "at": 0,
-            "edge": 0.003,
-            "ridge": 0.003,
-            "ridgeHalfWidth": 0.014,
-            "flatHalfWidth": 0
-          },
-          {
-            "at": 1,
-            "edge": 0.003,
-            "ridge": 0.003,
-            "ridgeHalfWidth": 0.014,
-            "flatHalfWidth": 0
-          }
-        ],
         "attach": {
           "to": "shaft.top",
           "at": "top",
@@ -733,7 +723,26 @@
             0.0155
           ]
         },
-        "label": "front langet"
+        "label": "front langet",
+        "surface": {
+          "kind": "ridge",
+          "stations": [
+            {
+              "at": 0,
+              "edge": 0.003,
+              "ridge": 0.003,
+              "ridgeHalfWidth": 0.014,
+              "flatHalfWidth": 0
+            },
+            {
+              "at": 1,
+              "edge": 0.003,
+              "ridge": 0.003,
+              "ridgeHalfWidth": 0.014,
+              "flatHalfWidth": 0
+            }
+          ]
+        }
       },
       {
         "id": "front-langet-rivet-0",
@@ -836,7 +845,7 @@
     },
     {
       "label": "Lower ridge depth",
-      "path": "components.1.thickness.2.ridge",
+      "path": "components.1.surface.stations.2.ridge",
       "min": 0.024,
       "max": 0.03,
       "step": 0.001,
@@ -844,7 +853,7 @@
     },
     {
       "label": "Middle ridge depth",
-      "path": "components.1.thickness.3.ridge",
+      "path": "components.1.surface.stations.3.ridge",
       "min": 0.016,
       "max": 0.024,
       "step": 0.001,
@@ -852,7 +861,7 @@
     },
     {
       "label": "Spike root depth",
-      "path": "components.1.thickness.4.ridge",
+      "path": "components.1.surface.stations.4.ridge",
       "min": 0.012,
       "max": 0.02,
       "step": 0.001,
@@ -860,7 +869,7 @@
     },
     {
       "label": "Distal spike depth",
-      "path": "components.1.thickness.5.ridge",
+      "path": "components.1.surface.stations.5.ridge",
       "min": 0.007,
       "max": 0.014,
       "step": 0.001,
@@ -868,7 +877,7 @@
     },
     {
       "label": "Spike ridge half-width",
-      "path": "components.1.thickness.4.ridgeHalfWidth",
+      "path": "components.1.surface.stations.4.ridgeHalfWidth",
       "min": 0.007,
       "max": 0.011,
       "step": 0.001,
@@ -877,12 +886,12 @@
     {
       "label": "Plate edge thickness",
       "paths": [
-        "components.1.thickness.0.edge",
-        "components.1.thickness.1.edge",
-        "components.1.thickness.2.edge",
-        "components.1.thickness.3.edge",
-        "components.1.thickness.4.edge",
-        "components.1.thickness.5.edge"
+        "components.1.surface.stations.0.edge",
+        "components.1.surface.stations.1.edge",
+        "components.1.surface.stations.2.edge",
+        "components.1.surface.stations.3.edge",
+        "components.1.surface.stations.4.edge",
+        "components.1.surface.stations.5.edge"
       ],
       "min": 0.0004,
       "max": 0.001,
@@ -891,7 +900,7 @@
     },
     {
       "label": "Lower ridge flat half-width",
-      "path": "components.1.thickness.2.flatHalfWidth",
+      "path": "components.1.surface.stations.2.flatHalfWidth",
       "min": 0.003,
       "max": 0.01,
       "step": 0.001,
@@ -966,7 +975,7 @@
       "headLengthMetres": 0.508,
       "widthMetres": 0.241,
       "massKilograms": 2.251,
-      "date": "1525–50",
+      "date": "1525\u00e2\u20ac\u201c50",
       "culture": "Probably German",
       "materials": "Steel and wood"
     },
