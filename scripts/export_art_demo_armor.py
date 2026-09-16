@@ -26,6 +26,7 @@ def main():
     import bpy
     from armor_budget import count
     from armor_glb import Asset
+    from optimize_art_demo_armor import optimize
 
     preset = renderer.Preset.load(args.preset.resolve(), None)
     bpy.ops.object.select_all(action="SELECT")
@@ -91,10 +92,19 @@ def main():
     bpy.ops.export_scene.gltf(filepath=str(args.output.resolve()), export_format="GLB",
                               use_selection=True, export_animations=False,
                               export_skins=False, export_morph=False, export_yup=True)
+    unpacked = args.output.with_suffix(".unoptimized.glb")
+    args.output.replace(unpacked)
+    unoptimized_sha256 = hashlib.sha256(unpacked.read_bytes()).hexdigest()
+    report_path = args.output.with_suffix(".textures.json")
+    texture_report = optimize(unpacked, args.output, report_path)
+    unpacked.unlink()
     args.output.with_suffix(".sources.json").write_text(json.dumps({
         "source_branch": "codex/museum-armor-sets",
         "preset": args.preset.resolve().relative_to(args.renderer.resolve().parent.parent).as_posix(),
         "pose": preset.pose, "items": sources, "maximum_texture_dimension": texture_limit,
+        "texture_report": report_path.name,
+        "unoptimized_sha256": unoptimized_sha256,
+        "output_sha256": texture_report["output_sha256"],
         "lod": args.lod, "triangles": {"body": body_triangles, **totals},
         "scope": "Native LOD museum recipes with dense-source normal bakes; saved display pose."
     }, indent=2) + "\n", encoding="utf-8")

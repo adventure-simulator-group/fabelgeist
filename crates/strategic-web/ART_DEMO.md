@@ -97,11 +97,20 @@ requires, while keeping terrain-height lookups bounded to the root-contact band.
 `scripts/export_art_demo_armor.py` runs inside Blender and reuses the museum
 branch's `render_museum_armor.py` import, material and pose rules. Pass
 `--renderer`, a finished `--preset` comparison JSON, `--output`, and `--lod 4`.
-It bakes that saved pose into static meshes and embeds the existing images,
-capping oversized garment atlases at 2048 pixels for browser residency.
-The adjacent `.sources.json` files record input hashes, pose, LOD, and separate
-metal, clothing, fastener, and body triangle counts. Packaging rejects metal
-totals above the included body's triangle count or mixed equipment LODs.
+It bakes that saved pose into static meshes and embeds the existing images.
+Packaging then runs `scripts/optimize_art_demo_armor.py`: finish and normal maps
+remain at up to 1024 pixels, while broad occlusion-only maps become 512-pixel,
+single-channel PNGs. Exact encoded duplicates share one buffer view. KTX2 is not
+used because this Bevy 0.19 WebGPU glTF build does not support
+`KHR_texture_basisu`.
+
+The adjacent `.sources.json` files record input hashes, output hash, pose, LOD,
+and separate metal, clothing, fastener, and body triangle counts. The generated
+`.textures.json` inventory records every image's role, source and shipped
+dimensions, channels, bytes, hash, duplicate status, geometry bytes, and
+estimated decoded GPU residency. Repacking requires Pillow 11.3.0 and is
+deterministic for that recorded encoder version. Packaging rejects metal totals
+above the included body's triangle count or mixed equipment LODs.
 
 Runtime character and armor exports support LOD4 through LOD6. Armor samples
 the original recipe surfaces directly; no mesh decimation or vertex merging is
