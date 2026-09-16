@@ -33,6 +33,10 @@ mod mortised_guard;
 mod mounts;
 pub(crate) mod output;
 mod placement;
+mod plate_profile;
+#[cfg(test)]
+mod plate_profile_tests;
+mod plate_ridge;
 mod polls;
 mod pommels;
 mod profile_body;

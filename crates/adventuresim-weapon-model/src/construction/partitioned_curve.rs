@@ -11,6 +11,16 @@ pub(crate) fn partitioned_cubic(
     cuts: &[PlanarCut],
 ) -> Vec<PlanarPoint> {
     let evaluate = |t| std::array::from_fn(|axis| evaluate_scalar(controls.map(|p| p[axis]), t));
+    let coordinate_roundoff = ROOT_ROUNDOFF_ULPS
+        * f64::EPSILON
+        * controls
+            .iter()
+            .flatten()
+            .map(|v| v.abs())
+            .fold(0.0, f64::max);
+    let coincident = |a: PlanarPoint, b: PlanarPoint| {
+        (0..2).all(|axis| (a[axis] - b[axis]).abs() <= coordinate_roundoff)
+    };
     let mut breaks = vec![(0.0, controls[0]), (1.0, controls[3])];
     for &cut in cuts {
         for t in roots(controls.map(|p| cut.distance(p))) {
@@ -20,13 +30,33 @@ pub(crate) fn partitioned_cubic(
             let mut point = evaluate(t);
             let (axis, ordinate) = cut.ordinate(point);
             point[axis] = ordinate;
+            if let PlanarCut::Transverse { start, end } = cut {
+                if coincident(point, start) {
+                    point = start;
+                } else if coincident(point, end) {
+                    point = end;
+                }
+            }
             if cut.active(&[point]) {
                 breaks.push((t, point));
             }
         }
     }
+    // Distinct cut equations can recover one junction with different parameter
+    // rounding. Keep one physical intersection and retain authored endpoints.
+    breaks.retain(|(t, point)| {
+        *t == 0.0
+            || *t == 1.0
+            || (!coincident(*point, controls[0]) && !coincident(*point, controls[3]))
+    });
     breaks.sort_by(|a, b| a.0.total_cmp(&b.0));
-    breaks.dedup_by(|a, b| (a.0 - b.0).abs() <= ROOT_ROUNDOFF_ULPS * f64::EPSILON);
+    breaks.dedup_by(|a, b| {
+        let same = (a.0 - b.0).abs() <= ROOT_ROUNDOFF_ULPS * f64::EPSILON || coincident(a.1, b.1);
+        if same && a.0 == 1.0 {
+            *b = *a;
+        }
+        same
+    });
     let mut result = Vec::new();
     for pair in breaks.windows(2) {
         let [(start, a), (end, b)] = [pair[0], pair[1]];
