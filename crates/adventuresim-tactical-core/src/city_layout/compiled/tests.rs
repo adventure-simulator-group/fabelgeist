@@ -29,6 +29,8 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
         assert!(gate.opening.0 > u64::from(u32::MAX));
     }
     let partition = compiled.clone().partition(None).unwrap();
+    assert_eq!(partition.parishes, compiled.parishes);
+    assert!(!partition.parishes.is_empty());
     assert!(partition.playable.is_empty());
     for distant in partition.distant {
         let original = compiled

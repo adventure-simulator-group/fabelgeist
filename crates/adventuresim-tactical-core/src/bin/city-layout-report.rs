@@ -32,6 +32,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     .unwrap();
     let economy = infer_settlement_economy(level, population, 3, level >= 3, &industries)?;
     let city = CitySite::central_german_market_town().generate(seed, population, &economy);
+    let (parishes, parish_error) = match city.parish_layout() {
+        Ok(parishes) => (parishes, None),
+        Err(error) => (Vec::new(), Some(error.to_string())),
+    };
     let lots = city.lots.iter().map(|lot| {
         let dimensions = lot.dimensions_metres();
         json!({
@@ -39,7 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             "use": lot.building_use(),
             "label": lot.building_use().map(|usage| usage.definition().label).unwrap_or("Dwelling"),
             "archetype": lot.archetype(),
-            "capacity": lot.service.map(|service| service.capacity.0),
+            "programme": lot.service,
             "residents": if lot.service.is_none() { lot.house_class.resident_capacity() } else { 0 },
             "centre": lot.centre_metres.to_array(),
             "dimensions": dimensions.to_array(),
@@ -51,7 +55,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         serde_json::to_string_pretty(&json!({
             "seed": seed, "population": population, "economy": economy,
             "unhoused_population": city.unhoused_population,
-            "unplaced_services": city.unplaced_services.iter().map(|demand| json!({"use": demand.usage, "capacity": demand.capacity.0})).collect::<Vec<_>>(),
+            "unplaced_services": city.unplaced_services,
+            "demand_shortfalls": city.demand_shortfalls,
+            "parishes": parishes, "parish_error": parish_error,
             "streets": city.streets, "yards": city.yards, "lots": lots,
         }))?
     );

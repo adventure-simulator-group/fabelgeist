@@ -2139,6 +2139,7 @@ fn setup_scene(
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
         compounds: input.compounds.clone(),
         furniture_groups: furniture.groups,
         distant_furniture: furniture.distant_instances,

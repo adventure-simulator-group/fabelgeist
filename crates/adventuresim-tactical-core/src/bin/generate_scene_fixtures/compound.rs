@@ -65,6 +65,7 @@ pub(super) fn layout() -> CitySceneLayout {
     CitySceneLayout {
         playable,
         yards,
+        parishes: Vec::new(),
         compounds: vec![compound],
         streets: vec![CityStreetPatch::Corridor {
             start_metres: Vec2::new(-45.0, -11.0),

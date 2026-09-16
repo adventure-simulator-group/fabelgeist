@@ -27,6 +27,7 @@ fn curate(input: &mut TacticalSceneInput) -> Result<(), String> {
     input.distant_buildings = layout.distant;
     input.streets = layout.streets;
     input.yards = layout.yards;
+    input.parishes = layout.parishes;
     input.compounds = layout.compounds;
     Ok(())
 }
@@ -50,6 +51,7 @@ fn main() -> Result<(), String> {
         "buildings": input.distant_buildings,
         "streets": input.streets,
         "yards": input.yards,
+        "parishes": input.parishes,
         "compounds": input.compounds,
     });
     std::fs::write(

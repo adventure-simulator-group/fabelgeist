@@ -31,8 +31,14 @@ use crate::scene_ground::tree_leaf_litter_probability;
 pub(crate) mod buildings;
 mod compounds;
 mod environment;
+mod parishes;
 pub use compounds::{GeneratedBoundary, SceneBoundary};
 pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
+mod descriptor;
+pub use descriptor::{
+    MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+    TacticalSceneInput,
+};
 mod generated;
 mod generation;
 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
@@ -43,9 +49,6 @@ pub use buildings::{
     SceneWindow, TacticalBuildingPlacement,
 };
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 19;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 42;
-pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
 pub const TREE_TRUNK_HEIGHT_METRES: f32 = 5.0;
 /// Conservative ground footprint of the generated English-oak crown.
@@ -135,30 +138,6 @@ pub struct VistaLod {
 #[serde(deny_unknown_fields)]
 pub struct VistaSample {
     pub lods: Vec<VistaLod>,
-}
-
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct TacticalSceneInput {
-    pub schema_version: u16,
-    pub generation_version: u16,
-    pub seed: u64,
-    pub scene_key: String,
-    pub source: SceneSource,
-    pub latitude_microdegrees: i32,
-    pub longitude_microdegrees: i32,
-    pub absolute_minute: u64,
-    pub lunar_phase_minute: u64,
-    pub absolute_elevation_metres: i16,
-    pub playable: TerrainSampleGrid,
-    pub landform: Option<TerrainLandformRecipe>,
-    pub streets: Vec<CityStreetPatch>,
-    pub yards: Vec<CityYardPatch>,
-    pub compounds: Vec<crate::city_layout::CityCompound>,
-    pub buildings: Vec<TacticalBuildingPlacement>,
-    pub distant_buildings: Vec<DistantBuildingPlacement>,
-    pub vista: VistaSample,
-    pub weather: WeatherSnapshot,
 }
 
 /// Broad procedural silhouette family for a collider-bearing rock.
@@ -281,6 +260,7 @@ impl TacticalSceneInput {
         buildings::validate_building_placements(&self.buildings)?;
         buildings::validate_distant_building_placements(&self.distant_buildings)?;
         compounds::validate(self)?;
+        parishes::validate(self)?;
         if self.vista.lods.len() > MAX_VISTA_LEVELS {
             return invalid("vista has too many LOD levels");
         }
@@ -1172,6 +1152,7 @@ mod tests {
             landform: None,
             streets: Vec::new(),
             yards: Vec::new(),
+            parishes: Vec::new(),
             compounds: Vec::new(),
             buildings: Vec::new(),
             distant_buildings: Vec::new(),

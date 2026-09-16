@@ -32,11 +32,13 @@ impl DevelopmentExtent {
 #[derive(Clone, Debug, PartialEq)]
 pub struct CitySite {
     pub(super) alignment: [Vec2; 5],
+    pub parish_policy: adventuresim_world_schema::settlement_buildings::AuthoredParishPolicy,
 }
 
 impl CitySite {
     pub fn central_german_market_town() -> Self {
         Self {
+            parish_policy: adventuresim_world_schema::settlement_buildings::AuthoredParishPolicy::CENTRAL_GERMAN_MARKET_TOWN,
             alignment: [
                 Vec2::new(-1_800.0, -180.0),
                 Vec2::new(-450.0, -90.0),
@@ -53,7 +55,7 @@ impl CitySite {
             && alignment.windows(2).all(|pair| pair[1].x > pair[0].x)
             && alignment[0].x < -CITY_RADIUS_X_METRES
             && alignment[4].x > CITY_RADIUS_X_METRES)
-            .then_some(Self { alignment })
+            .then_some(Self { alignment, parish_policy: adventuresim_world_schema::settlement_buildings::AuthoredParishPolicy::CENTRAL_GERMAN_MARKET_TOWN })
     }
 
     pub(super) fn route_height(&self, x: f32) -> f32 {

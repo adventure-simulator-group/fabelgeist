@@ -129,6 +129,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         landform: None,
         streets: layout.streets,
         yards: layout.yards,
+        parishes: layout.parishes,
         compounds: layout.compounds,
         buildings: layout.playable,
         distant_buildings: Vec::new(),
