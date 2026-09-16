@@ -63,11 +63,17 @@ pub(super) fn show(world: &mut World, id: ExhibitId) {
     }
 
     let exhibit = Exhibit::get(id);
+    if !exhibit.texture_recipes().is_empty() && world.contains_resource::<AssetServer>() {
+        let server = world.resource::<AssetServer>().clone();
+        world
+            .resource_mut::<adventuresim_procedural_textures::ProceduralTextureResidency>()
+            .request(&server, exhibit.texture_recipes().iter().copied());
+    }
     *world.resource_mut::<OrbitView>() = exhibit.view();
     let result = if exhibit.is_studio() {
         exhibits::studio(world);
         load_studio(world, &exhibit)
-    } else if world.contains_resource::<SceneryRetirement>() {
+    } else if world.contains_resource::<SceneryRetirement>() || !textures_ready(world, &exhibit) {
         world.insert_resource(PendingScenery(id));
         Ok(None)
     } else {
@@ -98,6 +104,15 @@ pub(super) fn spawn_pending(world: &mut World) {
         }
         world.remove_resource::<SceneryRetirement>();
     }
+    if world
+        .get_resource::<PendingScenery>()
+        .is_some_and(|pending| {
+            let exhibit = Exhibit::get(pending.0);
+            !textures_ready(world, &exhibit)
+        })
+    {
+        return;
+    }
     if let Some(pending) = world.remove_resource::<PendingScenery>() {
         let result = Exhibit::get(pending.0).spawn(world);
         if let Some(view) = world
@@ -110,6 +125,12 @@ pub(super) fn spawn_pending(world: &mut World) {
         }
         world.resource_mut::<CurrentExhibit>().scene = result;
     }
+}
+
+fn textures_ready(world: &World, exhibit: &Exhibit) -> bool {
+    world
+        .get_resource::<adventuresim_procedural_textures::ProceduralTextureResidency>()
+        .is_none_or(|residency| residency.is_ready(exhibit.texture_recipes().iter().copied()))
 }
 
 fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<WorldAsset>>, String> {

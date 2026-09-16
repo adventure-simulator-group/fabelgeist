@@ -27,7 +27,7 @@ pub(crate) mod interior_lighting;
 mod materials;
 mod obstacles;
 mod procedural;
-mod procedural_texture_setup;
+pub(crate) mod procedural_texture_setup;
 mod recipe_mesh;
 mod sky;
 mod terrain;

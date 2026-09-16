@@ -7,7 +7,7 @@
 
 mod bake;
 mod runtime;
-pub use runtime::BakedTexturesPlugin;
+pub use runtime::{BakedTexturesPlugin, ProceduralTextureResidency};
 mod board_grain;
 pub mod building;
 mod catalogue;
