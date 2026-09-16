@@ -1,6 +1,6 @@
 //! Remove unresolved interior sampling edges while retaining physical boundaries.
 use super::polygon::{TRIANGLE_QUALITY_RELATIVE_IMPROVEMENT, edge, shape};
-use super::surface_refinement::surface_deviation;
+use super::surface_refinement::{surface_deviation, within_surface_edge};
 use super::{PlanarPoint, Region};
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -51,6 +51,116 @@ fn center(region: &Region, face: usize) -> PlanarPoint {
 }
 
 impl Region {
+    /// Remove an incidental fan whose center cannot safely collapse onto any
+    /// neighbor. Retriangulating its complete boundary preserves the same cell.
+    pub(crate) fn remove_interior_fans<K: Eq>(
+        &mut self,
+        classify: &impl Fn(PlanarPoint) -> K,
+        height: &impl Fn(PlanarPoint) -> f64,
+        maximum_deviation: f64,
+        maximum_edge: f64,
+    ) {
+        for _ in 0..MAX_INTERIOR_COLLAPSE_ROUNDS {
+            let adjacency = Adjacency::new(self, classify);
+            let candidates: BTreeSet<_> = self
+                .triangles
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| self.subresolution(*i))
+                .flat_map(|(_, face)| *face)
+                .filter(|v| !adjacency.protected.contains(v))
+                .collect();
+            let mut removed = BTreeSet::new();
+            let mut replacements = Vec::new();
+            for vertex in candidates {
+                let star = &adjacency.stars[vertex];
+                if star.iter().any(|i| removed.contains(i)) {
+                    continue;
+                }
+                let Some(faces) = self.retriangulated_star(star, vertex) else {
+                    continue;
+                };
+                let key = classify(center(self, star[0]));
+                let before = star
+                    .iter()
+                    .map(|&i| shape(&self.points, self.triangles[i]))
+                    .fold(f64::INFINITY, f64::min);
+                if !star.iter().all(|&i| classify(center(self, i)) == key)
+                    || !faces.iter().all(|&face| {
+                        let points = face.map(|i| self.points[i]);
+                        let centroid = std::array::from_fn(|axis| {
+                            points.iter().map(|p| p[axis]).sum::<f64>() / 3.0
+                        });
+                        classify(centroid) == key
+                            && valid_triangle(points, height, maximum_deviation, maximum_edge)
+                            && shape(&self.points, face)
+                                > before * (1.0 + TRIANGLE_QUALITY_RELATIVE_IMPROVEMENT)
+                    })
+                {
+                    continue;
+                }
+                removed.extend(star.iter().copied());
+                replacements.extend(faces);
+            }
+            if removed.is_empty() {
+                break;
+            }
+            self.triangles = self
+                .triangles
+                .iter()
+                .enumerate()
+                .filter(|(i, _)| !removed.contains(i))
+                .map(|(_, &face)| face)
+                .chain(replacements)
+                .collect();
+        }
+    }
+
+    fn retriangulated_star(&self, star: &[usize], vertex: usize) -> Option<Vec<[usize; 3]>> {
+        let mut boundary = BTreeMap::new();
+        for &index in star {
+            let face = self.triangles[index];
+            let corner = face.iter().position(|&v| v == vertex)?;
+            if boundary
+                .insert(face[(corner + 1) % 3], face[(corner + 2) % 3])
+                .is_some()
+            {
+                return None;
+            }
+        }
+        let start = *boundary.first_key_value()?.0;
+        let mut current = start;
+        let mut indices = Vec::new();
+        loop {
+            indices.push(current);
+            current = boundary.remove(&current)?;
+            if current == start {
+                break;
+            }
+        }
+        if !boundary.is_empty() {
+            return None;
+        }
+        let outline: Vec<_> = indices.iter().map(|&i| self.points[i]).collect();
+        let region = Region::triangulate(&outline, true).ok()?;
+        let mapping: Option<Vec<_>> = region
+            .points
+            .iter()
+            .map(|point| indices.iter().copied().find(|&i| self.points[i] == *point))
+            .collect();
+        let mapping = mapping?;
+        if !region.boundary.iter().map(|&i| mapping[i]).eq(indices) {
+            return None;
+        }
+        Some(
+            region
+                .triangles
+                .into_iter()
+                .map(|face| face.map(|i| mapping[i]))
+                .collect(),
+        )
+    }
+
     pub(crate) fn collapse_interior_sampling<K: Eq>(
         &mut self,
         classify: &impl Fn(PlanarPoint) -> K,
@@ -169,6 +279,6 @@ fn valid_triangle(
     (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) > 0.0
         && [(a, b), (b, c), (c, a)]
             .into_iter()
-            .all(|(p, q)| distance(p, q) <= maximum_edge)
+            .all(|(p, q)| within_surface_edge(p, q, maximum_edge))
         && surface_deviation([a, b, c], height) <= maximum_deviation / 2.0
 }

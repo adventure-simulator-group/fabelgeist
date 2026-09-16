@@ -46,7 +46,25 @@ fn construct_surface(
     let cuts = field.cuts();
     let outline = outline(p, detail, &cuts)?;
     let mut region = Region::triangulate(&outline, false)?;
-    for cut in cuts {
+    for cut in cuts
+        .iter()
+        .copied()
+        .filter(|cut| matches!(cut, PlanarCut::Axial(_)))
+    {
+        region.partition(cut)?;
+    }
+    // Station cuts create incidental vertices on old triangulation diagonals.
+    // Remove those straight-edge samples before adding transverse landmarks.
+    region.remesh_cells(|point| {
+        cuts.iter()
+            .filter(|cut| matches!(cut, PlanarCut::Axial(y) if point[1] > *y))
+            .count()
+    })?;
+    for cut in cuts
+        .iter()
+        .copied()
+        .filter(|cut| matches!(cut, PlanarCut::Transverse { .. }))
+    {
         region.partition(cut)?;
     }
     region.remesh_cells(|point| field.cell(point))?;

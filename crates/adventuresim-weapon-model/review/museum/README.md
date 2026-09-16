@@ -863,3 +863,86 @@ and root-groove thickness. Socket and wooden receiving dimensions remain
 coupled; the head's full base footprint seats on the knob. Separate material
 parts represent disjoint construction regions, without asserting a
 particular historical welding or fastening method.
+
+## Met 14.25.259: Italian glaive
+
+[Met object 26689](https://www.metmuseum.org/art/collection/search/26689),
+accession 14.25.259, is an Italian (Venice) glaive dated to the middle or
+late fifteenth century. It is an earlier comparative specimen for browser
+`glaive`, whose ordinary preset describes an early sixteenth-century German
+Kuse. There is no corresponding gameplay glaive entry. Its return hook does
+not establish bill, falchion or Messer coverage.
+
+The museum publishes 2807 mm overall, 1060 mm for the head, 165 mm width and
+3614.6 g mass. It lists steel, wood, textile and gold, and credits the Gift
+of William H. Riggs, 1913. The
+[collection API](https://collectionapi.metmuseum.org/public/collection/v1/objects/26689)
+marks its images public domain. The opposing
+[first photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.259_001feb2015.jpg)
+and [second photograph](https://images.metmuseum.org/CRDImages/aa/original/14.25.259_002feb2015.jpg)
+are available under the Met's
+[Open Access policy](https://www.metmuseum.org/hubs/open-access).
+
+Both photographs show the asymmetric blade, nearly straight spine, broad
+gentle belly, acute point, upward return hook, rounded U-shaped notch and
+two swept lower stops. The hook terminal curls into an open eye with a
+small slit. The recipe retains that opening as part of one continuous
+boundary, without a separate ring or overlapping connector. The photographs
+do not establish a fuller or the exact blade cross section. Surface marks,
+patina and maker's marks are outside the structural study.
+
+Both photographs crop the metal below the stops. Neither the socket endpoint
+nor the wood, textile, gold or lower pole termination is visible. Scaling
+the photographed stop span against the published width gives an estimated
+995 mm continuous blank and 65 mm lower continuation. The latter comprises
+a 63 mm socket and 2 mm receiving roof in the recipe; that division is an
+assumed construction, not a documented seam. Together they retain the
+published 1060 mm head and 2807 mm overall length. Rounded stop curves reach
+approximately 166.6 mm against the published 165 mm width. These photographic
+estimates are not metrology.
+
+The main blade is about 104 mm at its belly. The open scroll is approximately
+7 mm outside and 4 mm inside, with a small open slit. Its planar contour,
+the hook and both stops share one `profile` surface. Main blade sections
+range from 8 mm near the lower neck through 6 and 5 mm body regions to a
+2 mm upper section and one closed apex. A 0.2 mm finite cutting edge and
+3 mm hook section are unmeasured assumptions. Section tracks derive from
+the authored blade curves at their stations, rather than independently
+approximating those curves from the photograph.
+
+The unpictured wooden haft has a 19 mm upper radius and 17.1 mm lower
+radius. Its 63 mm tenon matches the octagonal socket bore, tapering from
+19 to 16 mm circumradius. The socket has a 3 mm radial wall difference,
+and its 19 mm upper circumradius matches the roof and complete octagonal
+head heel. These disjoint receiving regions assert no historical fastening
+method. Calculated mass is approximately 4.084 kg against the museum's
+3.6146 kg. Hidden thickness and shared material densities are not calibrated
+to that mass.
+
+The editor exposes haft length and base scale, forged-head length, linked
+socket/tenon length, lower and upper blade thickness, hook thickness and tip
+thickness. The catalog recipe and exported model retain the open scroll and
+the same receiving construction at every detail level.
+
+### Refining surfaces with small attached details
+
+Contoured blanks first form axial regions and remove redundant collinear
+triangulation points before imposing transverse section tracks. A genuine
+sub-resolution boundary or section feature still rejects. During refinement,
+interior diagonals may improve only within one section region. Their edge
+and surface-error limits cannot worsen an outstanding violation or undo a
+satisfied constraint. Every changed face is checked again before acceptance.
+Authored boundaries, section partitions and all existing refinement, surface
+error and allocation limits remain fixed.
+
+Edges at a refinement limit are split conservatively within a floating-point
+rounding margin that includes the coordinate scale. Native and browser math
+libraries therefore make the same decision at an exact limit without
+increasing the allowed edge length.
+
+An incidental interior fan that cannot safely collapse onto a neighbor may
+instead be retriangulated around its complete boundary. This removes only
+an interior sampling point, preserves the section region and requires every
+replacement face to improve the former worst shape while satisfying the
+same edge and surface-error bounds. It prevents thin sampling triangles
+from reversing when attachment coordinates are stored in float32.

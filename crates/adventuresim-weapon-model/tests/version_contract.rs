@@ -57,7 +57,7 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 17, 20, &design));
+    assert_ne!(current, versioned_hash(domain, 18, 21, &design));
 
     let mut previous = envelope.clone();
     previous["schema_version"] = 17.into();
@@ -69,11 +69,11 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 20.into();
+    previous["generator_version"] = 21.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 20,
+            found: 21,
             expected: GENERATOR_VERSION
         })
     ));
@@ -130,7 +130,7 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 11, 11, &design));
+    assert_ne!(current, versioned_hash(domain, 12, 12, &design));
 
     let mut previous = envelope.clone();
     previous["schema_version"] = 11.into();
@@ -142,11 +142,11 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 11.into();
+    previous["generator_version"] = 12.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 11,
+            found: 12,
             expected: HOLDER_GENERATOR_VERSION
         })
     ));
@@ -230,6 +230,20 @@ fn fork_round_trip_preserves_multiple_ridge_tracks_and_isolated_points() {
     let restored = decode(&encode(&design).unwrap()).unwrap();
     assert_eq!(restored, design);
     assert_eq!(generate(&restored).unwrap(), generate(&design).unwrap());
+}
+
+#[test]
+fn glaive_round_trip_retains_open_scroll_and_constructs_at_every_detail() {
+    let mut design = default_design("halberd").unwrap();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/met-14.25.259.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    for detail in [Detail::Low, Detail::Medium, Detail::High] {
+        let model = generate_model(&restored.recipe, detail).unwrap();
+        assert_eq!(model.parts.len(), 4);
+    }
 }
 
 #[test]

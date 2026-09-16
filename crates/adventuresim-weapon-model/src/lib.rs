@@ -39,9 +39,9 @@ pub use recipe::Material;
 pub use validation::{ValidationError, validate, validate_holder};
 
 pub const SCHEMA_VERSION: u16 = 18;
-pub const GENERATOR_VERSION: u16 = 21;
+pub const GENERATOR_VERSION: u16 = 22;
 pub const HOLDER_SCHEMA_VERSION: u16 = 12;
-pub const HOLDER_GENERATOR_VERSION: u16 = 12;
+pub const HOLDER_GENERATOR_VERSION: u16 = 13;
 pub const MAX_ENCODED_RECIPE_BYTES: usize = 128 * 1024;
 
 /// Maximum cylindrical grip radius compatible with a full-hand power grip.
