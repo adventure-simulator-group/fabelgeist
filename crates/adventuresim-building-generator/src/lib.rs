@@ -8,6 +8,7 @@ mod arch_geometry;
 mod audit;
 mod axle;
 mod bell;
+mod church_programme;
 mod collision;
 mod detail;
 mod doors;

@@ -192,7 +192,7 @@ fn resolve_gatehouse_towers(
 }
 
 fn derive_square_towers(program: &BuildingProgram) -> Vec<SquareTower> {
-    if program.archetype != BuildingArchetype::Cathedral {
+    if program.church_program.is_none() {
         return Vec::new();
     }
     let size = Vec2::splat(5.4);

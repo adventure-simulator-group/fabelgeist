@@ -416,7 +416,7 @@ fn focused_wall(
         .find(|wall| match kind {
             "timber_frame" => wall.material == WallMaterialClass::TimberInfill,
             "civilian_masonry" => wall.material == WallMaterialClass::CivilianMasonry,
-            "cathedral_buttress" => wall.material == WallMaterialClass::CathedralMasonry,
+            "cathedral_buttress" => wall.material == WallMaterialClass::ButtressedChurchMasonry,
             _ => false,
         })
 }

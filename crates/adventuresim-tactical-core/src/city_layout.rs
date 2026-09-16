@@ -19,7 +19,9 @@ pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResiden
 mod compound;
 mod graph;
 pub(crate) use compiled::validate_scene_compound;
-pub use compiled::{CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue};
+pub use compiled::{
+    ChurchSitingIssue, CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue,
+};
 pub use compound::{
     CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
     CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,

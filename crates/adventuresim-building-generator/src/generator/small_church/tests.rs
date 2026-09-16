@@ -8,6 +8,9 @@ fn modest_church_matrix_has_shared_openings_routes_and_capacity_geometry() {
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
         ] {
+            if usage == BuildingUse::ParishChurch && size == ServiceBuildingSize::Large {
+                continue;
+            }
             for seed in [0, 42, 101] {
                 let program =
                     BuildingProgram::settlement(BuildingArchetype::ParishChurch, Some(usage), seed)

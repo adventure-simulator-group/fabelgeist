@@ -210,7 +210,7 @@ pub enum BuildingArchetype {
     StorageRange,
 }
 
-/// Frozen project type for the first cathedral kernel.  The orientation and
+/// Frozen urban basilica type shared by cathedral and principal parish uses.  The orientation and
 /// bay counts are design inputs, not claims that every northern-German church
 /// shared this arrangement.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -238,7 +238,7 @@ impl ChurchProgram {
         bay_length_cells: 3,
         nave_width_cells: 4,
         aisle_width_cells: 2,
-        material: WallMaterialClass::CathedralMasonry,
+        material: WallMaterialClass::ButtressedChurchMasonry,
     };
 }
 

@@ -1,4 +1,5 @@
 fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
+    if program.church_program.is_some() { return urban_basilica_roofs(program); }
     if let Some(roofs) = program.workplace_roofs().or_else(|| small_church::roofs(program)) { return roofs; }
     let (width, depth) = program.footprint.dimensions();
     let size = Vec2::new(
@@ -10,61 +11,7 @@ fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
         (BuildingArchetype::TownHouse | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace | BuildingArchetype::StorageRange
             | BuildingArchetype::HallHouse | BuildingArchetype::FachwerkCottage
             | BuildingArchetype::FachwerkMerchantHouse | BuildingArchetype::RenaissanceTownHall, _) => vec![RoofPiece::civilian(program)],
-        (BuildingArchetype::Cathedral, _) => vec![
-            RoofPiece {
-                kind: RoofKind::Gable,
-                centre: Vec2::new(21.15, 10.5),
-                size: Vec2::new(31.50, 6.0),
-                base_height_metres: 11.5,
-                pitch_degrees: program.roof_pitch_degrees,
-                ridge_axis: RidgeAxis::X,
-                eave_metres: 0.55,
-                gable_profile: GableProfile::Plain,
-            },
-            RoofPiece {
-                kind: RoofKind::Shed,
-                // The high edge seats on the south clerestory exterior face
-                // at z=7.125 rather than passing through to its interior side.
-                centre: Vec2::new(14.05, 5.5875),
-                size: Vec2::new(16.40, 2.175),
-                base_height_metres: 7.0,
-                pitch_degrees: 28.0,
-                ridge_axis: RidgeAxis::X,
-                eave_metres: 0.45,
-                gable_profile: GableProfile::Plain,
-            },
-            RoofPiece {
-                kind: RoofKind::Shed,
-                // Mirrored north aisle: high edge seats at z=13.875.
-                centre: Vec2::new(14.05, 15.4125),
-                size: Vec2::new(16.40, 2.175),
-                base_height_metres: 7.0,
-                pitch_degrees: 28.0,
-                ridge_axis: RidgeAxis::X,
-                eave_metres: 0.45,
-                gable_profile: GableProfile::Plain,
-            },
-            RoofPiece {
-                kind: RoofKind::Gable,
-                centre: Vec2::new(25.65, 10.5),
-                size: Vec2::new(4.5, 18.0),
-                base_height_metres: 11.5,
-                pitch_degrees: program.roof_pitch_degrees,
-                ridge_axis: RidgeAxis::Z,
-                eave_metres: 0.48,
-                gable_profile: GableProfile::Plain,
-            },
-            RoofPiece {
-                kind: RoofKind::Pavilion,
-                centre: Vec2::new(39.15, 10.5),
-                size: Vec2::new(8.8, 8.8),
-                base_height_metres: 11.5,
-                pitch_degrees: 52.0,
-                ridge_axis: RidgeAxis::X,
-                eave_metres: 0.40,
-                gable_profile: GableProfile::Plain,
-            },
-        ],
+        (BuildingArchetype::Cathedral, _) => unreachable!("church programme validated before generation"),
         (BuildingArchetype::CastleGatehouse, _) => vec![RoofPiece {
             kind: RoofKind::Gable,
             centre: size * 0.5 + Vec2::Y * 0.5,
@@ -150,6 +97,7 @@ fn derive_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
 }
 
 fn derive_roof_dormers(program: &BuildingProgram) -> Vec<RoofDormer> {
+    if program.church_program.is_some() { return Vec::new(); }
     if program.roof_demonstrator == Some(RoofKind::Gable) {
         return Vec::new();
     }
@@ -240,8 +188,6 @@ fn derive_roof_dormers(program: &BuildingProgram) -> Vec<RoofDormer> {
                 GableProfile::Curved,
             ),
         ],
-        BuildingArchetype::Cathedral => Vec::new(),
-        BuildingArchetype::CastleGatehouse => Vec::new(),
         BuildingArchetype::CourtyardCastle => vec![
             dormer(
                 Vec2::new(width * 0.3, front_roof_inset),
@@ -256,6 +202,64 @@ fn derive_roof_dormers(program: &BuildingProgram) -> Vec<RoofDormer> {
                 GableProfile::Curved,
             ),
         ],
-        BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace | BuildingArchetype::StorageRange => Vec::new(),
+        BuildingArchetype::Cathedral | BuildingArchetype::CastleGatehouse | BuildingArchetype::WalledKeep | BuildingArchetype::ArtilleryRondelCastle | BuildingArchetype::ParishChurch | BuildingArchetype::Workplace | BuildingArchetype::StorageRange => Vec::new(),
     }
+}
+
+fn urban_basilica_roofs(program: &BuildingProgram) -> Vec<RoofPiece> {
+    vec![
+            RoofPiece {
+                kind: RoofKind::Gable,
+                centre: Vec2::new(21.15, 10.5),
+                size: Vec2::new(31.50, 6.0),
+                base_height_metres: 11.5,
+                pitch_degrees: program.roof_pitch_degrees,
+                ridge_axis: RidgeAxis::X,
+                eave_metres: 0.55,
+                gable_profile: GableProfile::Plain,
+            },
+            RoofPiece {
+                kind: RoofKind::Shed,
+                // The high edge seats on the south clerestory exterior face
+                // at z=7.125 rather than passing through to its interior side.
+                centre: Vec2::new(14.05, 5.5875),
+                size: Vec2::new(16.40, 2.175),
+                base_height_metres: 7.0,
+                pitch_degrees: 28.0,
+                ridge_axis: RidgeAxis::X,
+                eave_metres: 0.45,
+                gable_profile: GableProfile::Plain,
+            },
+            RoofPiece {
+                kind: RoofKind::Shed,
+                // Mirrored north aisle: high edge seats at z=13.875.
+                centre: Vec2::new(14.05, 15.4125),
+                size: Vec2::new(16.40, 2.175),
+                base_height_metres: 7.0,
+                pitch_degrees: 28.0,
+                ridge_axis: RidgeAxis::X,
+                eave_metres: 0.45,
+                gable_profile: GableProfile::Plain,
+            },
+            RoofPiece {
+                kind: RoofKind::Gable,
+                centre: Vec2::new(25.65, 10.5),
+                size: Vec2::new(4.5, 18.0),
+                base_height_metres: 11.5,
+                pitch_degrees: program.roof_pitch_degrees,
+                ridge_axis: RidgeAxis::Z,
+                eave_metres: 0.48,
+                gable_profile: GableProfile::Plain,
+            },
+            RoofPiece {
+                kind: RoofKind::Pavilion,
+                centre: Vec2::new(39.15, 10.5),
+                size: Vec2::new(8.8, 8.8),
+                base_height_metres: 11.5,
+                pitch_degrees: 52.0,
+                ridge_axis: RidgeAxis::X,
+                eave_metres: 0.40,
+                gable_profile: GableProfile::Plain,
+            },
+        ]
 }

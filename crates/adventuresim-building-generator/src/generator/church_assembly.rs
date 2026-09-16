@@ -7,7 +7,7 @@ fn resolve_church_assembly(
 ) -> crate::ChurchAssembly {
     let church_program = program
         .church_program
-        .expect("cathedral fixture has a church program");
+        .expect("urban basilica requires its physical programme");
     let owner = GeometryOwnerId(70_000);
     let datum = crate::ChurchDatum {
         floor_metres: 0.0,
@@ -283,7 +283,7 @@ fn resolve_church_assembly(
                 side,
                 bay: bay_index,
             },
-            material: crate::WallMaterialClass::CathedralMasonry,
+            material: crate::WallMaterialClass::ButtressedChurchMasonry,
             storey_level: 0,
             frame: crate::WallLocalFrame {
                 origin,
@@ -359,7 +359,7 @@ fn resolve_church_assembly(
                 stage: crate::ChurchTowerStage::Stair,
                 bay: 0,
             },
-            material: crate::WallMaterialClass::CathedralMasonry,
+            material: crate::WallMaterialClass::ButtressedChurchMasonry,
             storey_level: 0,
             frame: crate::WallLocalFrame {
                 origin,
@@ -544,7 +544,7 @@ fn resolve_church_assembly(
                     },
                     bay: index as u8,
                 },
-                material: crate::WallMaterialClass::CathedralMasonry,
+                material: crate::WallMaterialClass::ButtressedChurchMasonry,
                 storey_level: 1,
                 frame: crate::WallLocalFrame {
                     origin: clerestory_origin,
@@ -1147,7 +1147,7 @@ fn resolve_church_assembly(
             id,
             owner: wall_owner,
             source: crate::WallSourceId::ChurchApse { facet },
-            material: crate::WallMaterialClass::CathedralMasonry,
+            material: crate::WallMaterialClass::ButtressedChurchMasonry,
             storey_level: 0,
             frame: crate::WallLocalFrame {
                 origin,

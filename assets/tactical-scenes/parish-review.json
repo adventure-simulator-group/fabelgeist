@@ -1,6 +1,6 @@
 {
   "schema_version": 20,
-  "generation_version": 43,
+  "generation_version": 44,
   "seed": 47121,
   "scene_key": "grassland",
   "source": {
@@ -1080,22 +1080,46 @@
         "seed": 42,
         "footprint": {
           "rectangle": {
-            "width": 7,
-            "depth": 16
+            "width": 28,
+            "depth": 14
           }
         },
-        "storey_height_metres": 5.1,
+        "storey_height_metres": 5.8,
         "storeys": [
           {
             "rooms": [
               {
                 "kind": "nave",
-                "preferred_cells": 84,
+                "preferred_cells": 190,
+                "needs_exterior": true,
+                "preferred_neighbours": [
+                  "chancel"
+                ]
+              },
+              {
+                "kind": "chancel",
+                "preferred_cells": 70,
+                "needs_exterior": true,
+                "preferred_neighbours": [
+                  "nave"
+                ]
+              },
+              {
+                "kind": "chapel",
+                "preferred_cells": 32,
                 "needs_exterior": true,
                 "preferred_neighbours": []
               },
               {
-                "kind": "chancel",
+                "kind": "sacristy",
+                "preferred_cells": 24,
+                "needs_exterior": true,
+                "preferred_neighbours": [
+                  "chancel"
+                ]
+              },
+              {
+                "kind": "entrance_hall",
                 "preferred_cells": 20,
                 "needs_exterior": true,
                 "preferred_neighbours": []
@@ -1107,9 +1131,20 @@
         "wall_style": "stone",
         "timber_frame_style": null,
         "upper_storey_projection_metres": 0.0,
-        "roof_pitch_degrees": 52.0,
+        "roof_pitch_degrees": 58.0,
         "roof_demonstrator": null,
-        "church_program": null
+        "church_program": {
+          "liturgical_east": "east",
+          "nave_bays": 4,
+          "transept_bays": 1,
+          "choir_bays": 2,
+          "apse_sides": 5,
+          "aisles": 3,
+          "bay_length_cells": 3,
+          "nave_width_cells": 4,
+          "aisle_width_cells": 2,
+          "material": "buttressed_church_masonry"
+        }
       },
       "centre_metres": [
         60.0,
