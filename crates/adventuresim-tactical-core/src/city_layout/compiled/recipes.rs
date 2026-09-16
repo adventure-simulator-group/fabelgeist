@@ -137,6 +137,15 @@ impl Recipe {
         centre_metres: Vec2,
         orientation: BuildingOrientation,
     ) -> TacticalBuildingPlacement {
+        // Lots use a street-facing -Y frame. The basilica's west portal is -X;
+        // compose its physical frame once for every scene representation.
+        let orientation = match self.program.frontage_direction() {
+            adventuresim_building_generator::Direction::West => BuildingOrientation::from_radians(
+                orientation.yaw_radians() - core::f32::consts::FRAC_PI_2,
+            )
+            .expect("finite lot orientation"),
+            _ => orientation,
+        };
         TacticalBuildingPlacement {
             id,
             program: self.program.clone(),

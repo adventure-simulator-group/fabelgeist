@@ -139,7 +139,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             | WallSourceId::WorkplaceWall { .. }
             | WallSourceId::ArtilleryCurtain { .. }
             | WallSourceId::SquareTowerFace { .. }
-            | WallSourceId::CathedralClerestory { .. }
+            | WallSourceId::ChurchClerestory { .. }
             | WallSourceId::RoofChildFront { .. }
             | WallSourceId::ChurchExterior { .. }
             | WallSourceId::ChurchArcade { .. }
@@ -830,7 +830,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                 opening.closure.layers != [ClosureKind::OpenMilitary]
                     || !opening.closure_solids.is_empty()
             }
-            OpeningUse::Window => !window_closure_is_legal(opening, plan.archetype),
+            OpeningUse::Window => !window_closure_is_legal(opening, plan.church.as_ref()),
             OpeningUse::Door | OpeningUse::Gate => {
                 !opening.closure.layers.contains(&ClosureKind::DoorLeaf)
             }

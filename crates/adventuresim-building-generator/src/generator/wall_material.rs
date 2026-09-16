@@ -64,7 +64,7 @@ pub(super) fn wall_material_and_thickness(
             0.50,
         ),
         BuildingArchetype::Cathedral => (
-            crate::WallMaterialClass::CathedralMasonry,
+            crate::WallMaterialClass::ButtressedChurchMasonry,
             crate::WallStructuralRole::Buttressed,
             0.90,
         ),

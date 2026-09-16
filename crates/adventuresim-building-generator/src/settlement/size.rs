@@ -64,7 +64,11 @@ impl BuildingProgram {
         if self.workplace_kind().is_some() {
             self.configure_workplace_size(size);
         } else if self.archetype == BuildingArchetype::ParishChurch {
-            self.configure_small_church_size(size);
+            if self.usage == Some(BuildingUse::ParishChurch) && size == ServiceBuildingSize::Large {
+                self = Self::urban_basilica(self.archetype, self.usage, Some(size), self.seed);
+            } else {
+                self.configure_small_church_size(size);
+            }
         }
         self
     }

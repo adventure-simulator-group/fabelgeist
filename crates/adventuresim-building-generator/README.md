@@ -624,13 +624,22 @@ travels with playable programmes and distant recipe keys, so both reconstruct
 the same footprint and architecture.
 
 Chapels are single-volume rubble-masonry buildings with narrow Gothic windows,
-steep tiled roofs and modest bell turrets. Parish churches have longer naves,
-lower and narrower chancels, and a repeated window rhythm. Larger bands add nave
-bays rather than enlarging the bell structure. A principal parish currently
-uses this existing large band; a distinct principal urban church requires a
-separate physical programme. Their authored wall topology
-uses the canonical wall, opening and roof resolvers; the cathedral retains its
-separate structural programme.
+steep tiled roofs and modest bell turrets. Small and medium parish churches have
+longer naves, lower and narrower chancels, and a repeated window rhythm.
+
+The large parish programme is an authored urban basilica with aisles, transept,
+choir, apse and a west bell tower. It shares the frozen physical kernel with the
+cathedral fixture while retaining parish use and archetype. Its four nave bays,
+one transept bay, two choir bays and footprint are fixed construction inputs;
+they are not a general parametric church or a named historical reconstruction.
+Chapels remain modest at every size, and the village parish remains small.
+
+City packing reserves the complete basilica envelope in a street-facing frame.
+Compilation composes the west-portal orientation once for rendering, collision
+and distant descriptors, checks detailed geometry against the reserved plot,
+and checks a continuous standing route from the portal to the street. Fixed
+church glazing, mirrored aisle roof seats and the tower service route follow
+the physical programme independently of ecclesiastical status.
 
 Rubble infill continues through the gables at the wall texture's physical scale.
 The lower chancel roof abuts the nave without an indoor tiled verge. The bell

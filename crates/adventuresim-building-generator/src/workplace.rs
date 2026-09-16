@@ -203,6 +203,9 @@ impl BuildingProgram {
         self.usage.and_then(WorkplaceKind::from_use)
     }
     pub fn plot_dimensions_metres(&self) -> Vec2 {
+        if self.church_program.is_some() {
+            return crate::church_programme::URBAN_BASILICA_PLOT_METRES;
+        }
         let (width, depth) = self.footprint.dimensions();
         let main = Vec2::new(f32::from(width), f32::from(depth)) * crate::CELL_SIZE_METRES;
         main + self

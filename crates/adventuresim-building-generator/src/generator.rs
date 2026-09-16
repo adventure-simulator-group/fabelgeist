@@ -55,6 +55,7 @@ pub(crate) mod small_church;
 mod timber_hall;
 mod timber_jetty;
 mod timber_masonry;
+mod urban_church;
 mod wall_corner_bonds;
 mod wall_material;
 mod wall_spans;

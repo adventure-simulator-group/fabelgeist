@@ -28,7 +28,7 @@ pub enum WallSourceId {
         face: Direction,
         bay: u8,
     },
-    CathedralClerestory {
+    ChurchClerestory {
         side: Direction,
     },
     RoofChildFront {
@@ -80,7 +80,7 @@ pub enum WallMaterialClass {
     RubbleMasonry,
     TimberInfill,
     CivilianMasonry,
-    CathedralMasonry,
+    ButtressedChurchMasonry,
     FortifiedMasonry,
     InternalTimber,
     InternalMasonry,
@@ -102,7 +102,9 @@ impl WallAssembly {
             WallMaterialClass::RubbleMasonry => (0.45..=1.20).contains(&self.thickness_metres),
             WallMaterialClass::TimberInfill => (0.18..=0.24).contains(&self.thickness_metres),
             WallMaterialClass::CivilianMasonry => (0.40..=0.70).contains(&self.thickness_metres),
-            WallMaterialClass::CathedralMasonry => (0.75..=1.10).contains(&self.thickness_metres),
+            WallMaterialClass::ButtressedChurchMasonry => {
+                (0.75..=1.10).contains(&self.thickness_metres)
+            }
             WallMaterialClass::FortifiedMasonry => self.thickness_metres >= 1.20,
             WallMaterialClass::InternalTimber => (0.12..=0.18).contains(&self.thickness_metres),
             WallMaterialClass::InternalMasonry => (0.20..=0.35).contains(&self.thickness_metres),

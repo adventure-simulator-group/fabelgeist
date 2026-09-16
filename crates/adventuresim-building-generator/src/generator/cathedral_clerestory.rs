@@ -99,8 +99,8 @@ fn resolve_cathedral_clerestory_walls(
         walls.push(crate::WallAssembly {
             id: wall_id,
             owner,
-            source: crate::WallSourceId::CathedralClerestory { side: high_side },
-            material: crate::WallMaterialClass::CathedralMasonry,
+            source: crate::WallSourceId::ChurchClerestory { side: high_side },
+            material: crate::WallMaterialClass::ButtressedChurchMasonry,
             storey_level: 1,
             frame: crate::WallLocalFrame {
                 origin,
