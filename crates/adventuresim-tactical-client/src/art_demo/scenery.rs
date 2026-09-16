@@ -23,6 +23,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     // Building-anchored furniture is prepared alongside the city offline.
     // Keep its accepted instances and reservations instead of regenerating
     // from a scene stripped of the buildings that own those activity groups.
+    let parishes = std::mem::take(&mut input.parishes);
     let compounds = std::mem::take(&mut input.compounds);
     let distant_buildings = std::mem::take(&mut input.distant_buildings);
     let generated = input.generate().map_err(|error| error.to_string())?;
@@ -59,6 +60,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         distant_buildings,
         streets: input.streets,
         yards: input.yards,
+        parishes,
         compounds,
         furniture_groups: furniture.groups,
         distant_furniture: furniture.instances,

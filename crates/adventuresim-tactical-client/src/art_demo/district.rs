@@ -9,6 +9,7 @@ struct CityLayout {
     buildings: Vec<DistantBuildingPlacement>,
     streets: Vec<CityStreetPatch>,
     yards: Vec<CityYardPatch>,
+    parishes: Vec<adventuresim_tactical_core::city_layout::CityParish>,
     compounds: Vec<CityCompound>,
 }
 
@@ -31,7 +32,9 @@ pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFu
     input.distant_buildings = layout.buildings;
     input.streets = layout.streets;
     input.yards = layout.yards;
+    input.parishes = layout.parishes;
     input.compounds = layout.compounds;
+    input.validate().map_err(|error| error.to_string())?;
     serde_json::from_str(include_str!(
         "../../../../assets/art-demo/city-furniture.json"
     ))

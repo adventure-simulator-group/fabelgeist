@@ -266,6 +266,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         landform: fixture.landform,
         streets: city.streets,
         yards: city.yards,
+        parishes: city.parishes,
         compounds: city.compounds,
         buildings: city.playable,
         distant_buildings: city.distant,
