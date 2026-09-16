@@ -11,12 +11,18 @@ where
 {
     T::deserialize(deserializer).map(Some)
 }
+mod contoured_plate;
+pub use contoured_plate::*;
 mod archery;
 mod choices;
 mod crossbow;
 pub(crate) mod facing;
 mod firearm;
 mod hilt;
+mod wheel;
+pub use wheel::*;
+mod mortised_guard;
+pub use mortised_guard::*;
 mod material;
 mod stock;
 mod working_sections;
@@ -48,6 +54,7 @@ mod shape;
 mod shield;
 mod structure;
 mod validation;
+pub(crate) use validation::MIN_MANUFACTURED_METRES;
 pub use validation::RecipeError;
 
 pub use archery::*;

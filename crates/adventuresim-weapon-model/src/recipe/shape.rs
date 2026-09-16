@@ -3,6 +3,12 @@ use super::*;
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(tag = "kind")]
 pub enum Shape {
+    #[serde(rename = "contouredPlate")]
+    ContouredPlate(ContouredPlateParameters),
+    #[serde(rename = "wheelPommel")]
+    WheelPommel(WheelPommelParameters),
+    #[serde(rename = "mortisedGuard")]
+    MortisedGuard(MortisedGuardParameters),
     #[serde(rename = "bentBar")]
     BentBar(BentBarParameters),
     #[serde(rename = "spatialTube")]

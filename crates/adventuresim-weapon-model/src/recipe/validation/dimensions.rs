@@ -10,6 +10,9 @@ mod shields;
 mod union;
 pub(super) fn check(shape: &Shape) -> Checked {
     match shape {
+        Shape::ContouredPlate(p) => contoured_plate::validate(p),
+        Shape::WheelPommel(p) => furniture::wheel(p),
+        Shape::MortisedGuard(p) => guards::mortised(p),
         Shape::BentBar(p) => union::bent_bar(p),
         Shape::SpatialTube(p) => union::spatial_tube(p),
         Shape::LoftedBlade(p) => union::lofted_blade(p),
