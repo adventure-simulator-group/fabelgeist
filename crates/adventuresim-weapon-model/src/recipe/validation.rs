@@ -3,9 +3,11 @@ use super::*;
 mod dimensions;
 mod graphs;
 mod melee;
+mod profile_grip;
 mod ranged;
 mod shields;
 mod spear;
+mod terminal_profile;
 
 const MAX_COMPONENTS: usize = 96;
 const MAX_AUTHORED_STATIONS: usize = 512;

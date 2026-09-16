@@ -18,6 +18,7 @@ fn part(solid: Solid, r: &ResolvedComponent, suffix: &str, material: Material) -
 mod bars;
 mod ends;
 mod plates;
+mod profile;
 pub(super) use bars::{figure_eight, knuckle, ring, tube};
 use ends::*;
 use plates::guard_plate;
@@ -106,12 +107,25 @@ pub(super) fn guard(
         let points = arm(p, side, detail);
         let end = *points.last().unwrap();
         let tangent = sub(end, points[points.len() - 2]);
-        if let Some(solid) = terminal(
-            selected,
-            p.terminal_size.map_or(height * 0.3, Metres::get),
-            tangent,
-            detail,
-        )? {
+        let solid = if selected == GuardTerminal::Profile {
+            Some(profile::terminal_profile(
+                p.terminal_profile
+                    .as_ref()
+                    .ok_or("profile terminal needs stations")?,
+                tangent,
+                end,
+                &parts[0].solid,
+                detail,
+            )?)
+        } else {
+            terminal(
+                selected,
+                p.terminal_size.map_or(height * 0.3, Metres::get),
+                tangent,
+                detail,
+            )?
+        };
+        if let Some(solid) = solid {
             parts.push(part(
                 solid.transform([0.0; 3], end),
                 r,
@@ -130,11 +144,11 @@ pub(super) fn guard(
                 [-block_width * 0.58, height * 0.28],
             ],
             thickness,
-            0.14,
+            p.block_bevel.map_or(0.14, Ratio::get),
         )?,
         r,
         "block",
-        Material::Steel,
+        material,
     ));
     Ok(parts)
 }

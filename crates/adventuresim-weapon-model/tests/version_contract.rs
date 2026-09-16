@@ -27,23 +27,23 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 6, 9, &design));
+    assert_ne!(current, versioned_hash(domain, 7, 10, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 6.into();
+    previous["schema_version"] = 7.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 6,
+            found: 7,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 9.into();
+    previous["generator_version"] = 10.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 9,
+            found: 10,
             expected: GENERATOR_VERSION
         })
     ));
@@ -67,23 +67,23 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 2, 2, &design));
+    assert_ne!(current, versioned_hash(domain, 3, 3, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 2.into();
+    previous["schema_version"] = 3.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 2,
+            found: 3,
             expected: HOLDER_SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 2.into();
+    previous["generator_version"] = 3.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 2,
+            found: 3,
             expected: HOLDER_GENERATOR_VERSION
         })
     ));

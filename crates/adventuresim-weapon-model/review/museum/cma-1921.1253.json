@@ -1,0 +1,692 @@
+{
+  "choiceControls": [
+    {
+      "label": "Fuller faces",
+      "path": "components.3.fuller.faces",
+      "options": [
+        {
+          "label": "Front",
+          "value": "front"
+        },
+        {
+          "label": "Back",
+          "value": "back"
+        },
+        {
+          "label": "Both",
+          "value": "both"
+        }
+      ]
+    },
+    {
+      "label": "Terminal interpolation",
+      "path": "components.2.terminalProfile.interpolation",
+      "options": [
+        {
+          "label": "Linear",
+          "value": "linear"
+        },
+        {
+          "label": "Smooth",
+          "value": "smooth"
+        }
+      ]
+    }
+  ],
+  "controls": [
+    {
+      "label": "Blade length",
+      "path": "components.3.length",
+      "min": 0.75,
+      "max": 1.05,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade width",
+      "path": "components.3.width",
+      "min": 0.035,
+      "max": 0.055,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade thickness",
+      "path": "components.3.thickness",
+      "min": 0.004,
+      "max": 0.009,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Body taper",
+      "path": "components.3.taper",
+      "min": 0.1,
+      "max": 0.7,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Point start",
+      "path": "components.3.point.start",
+      "min": 0.75,
+      "max": 0.96,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Point roundness",
+      "path": "components.3.point.roundness",
+      "min": 0,
+      "max": 1,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Fuller mouth width",
+      "path": "components.3.fuller.mouthWidth",
+      "min": 0.006,
+      "max": 0.02,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller depth",
+      "path": "components.3.fuller.depth",
+      "min": 0.0004,
+      "max": 0.0015,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller end",
+      "path": "components.3.fuller.end",
+      "min": 0.3,
+      "max": 0.82,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller exit length",
+      "path": "components.3.fuller.exitLength",
+      "min": 0.025,
+      "max": 0.1,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller entry length",
+      "path": "components.3.fuller.entryLength",
+      "min": 0.006,
+      "max": 0.03,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller floor ratio",
+      "path": "components.3.fuller.floorWidthRatio",
+      "min": 0.1,
+      "max": 0.8,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Blade bevel ratio",
+      "path": "components.3.fuller.bevelWidthRatio",
+      "min": 0.1,
+      "max": 0.4,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Grip length",
+      "path": "components.1.length",
+      "min": 0.17,
+      "max": 0.25,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Cover thickness",
+      "path": "components.1.cover.thickness",
+      "min": 0.0005,
+      "max": 0.002,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard centerline span",
+      "path": "components.2.width",
+      "min": 0.21,
+      "max": 0.29,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Quillon width",
+      "path": "components.2.sectionWidth",
+      "min": 0.006,
+      "max": 0.011,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Quillon depth",
+      "path": "components.2.sectionDepth",
+      "min": 0.004,
+      "max": 0.008,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel diameter",
+      "path": "components.0.diameter",
+      "min": 0.032,
+      "max": 0.047,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel height",
+      "path": "components.0.height",
+      "min": 0.04,
+      "max": 0.06,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Flute depth",
+      "path": "components.0.fluteDepth",
+      "min": 0,
+      "max": 0.2,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Flute twist",
+      "path": "components.0.twist",
+      "min": 45,
+      "max": 150,
+      "step": 5,
+      "unit": "deg"
+    },
+    {
+      "label": "Flute count",
+      "path": "components.0.fluteCount",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Grip station 1 width",
+      "path": "components.1.profile.0.width",
+      "min": 0.015,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 1 depth",
+      "path": "components.1.profile.0.depth",
+      "min": 0.012,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 2 width",
+      "path": "components.1.profile.1.width",
+      "min": 0.015,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 2 depth",
+      "path": "components.1.profile.1.depth",
+      "min": 0.012,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 2 position",
+      "path": "components.1.profile.1.at",
+      "min": 0.05,
+      "max": 0.95,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Grip station 3 width",
+      "path": "components.1.profile.2.width",
+      "min": 0.015,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 3 depth",
+      "path": "components.1.profile.2.depth",
+      "min": 0.012,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 3 position",
+      "path": "components.1.profile.2.at",
+      "min": 0.05,
+      "max": 0.95,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Grip station 4 width",
+      "path": "components.1.profile.3.width",
+      "min": 0.015,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 4 depth",
+      "path": "components.1.profile.3.depth",
+      "min": 0.012,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 4 position",
+      "path": "components.1.profile.3.at",
+      "min": 0.05,
+      "max": 0.95,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Grip station 5 width",
+      "path": "components.1.profile.4.width",
+      "min": 0.015,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 5 depth",
+      "path": "components.1.profile.4.depth",
+      "min": 0.008,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard block bevel",
+      "path": "components.2.blockBevel",
+      "min": 0,
+      "max": 0.45,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Terminal station 1 radius",
+      "path": "components.2.terminalProfile.stations.0.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 2 radius",
+      "path": "components.2.terminalProfile.stations.1.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 3 radius",
+      "path": "components.2.terminalProfile.stations.2.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 4 radius",
+      "path": "components.2.terminalProfile.stations.3.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 5 radius",
+      "path": "components.2.terminalProfile.stations.4.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 6 radius",
+      "path": "components.2.terminalProfile.stations.5.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 7 radius",
+      "path": "components.2.terminalProfile.stations.6.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 8 radius",
+      "path": "components.2.terminalProfile.stations.7.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 9 radius",
+      "path": "components.2.terminalProfile.stations.8.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 10 radius",
+      "path": "components.2.terminalProfile.stations.9.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 11 radius",
+      "path": "components.2.terminalProfile.stations.10.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 12 radius",
+      "path": "components.2.terminalProfile.stations.11.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 13 radius",
+      "path": "components.2.terminalProfile.stations.12.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Terminal station 14 radius",
+      "path": "components.2.terminalProfile.stations.13.1",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    }
+  ],
+  "definition": {
+    "components": [
+      {
+        "attach": {
+          "at": "base",
+          "to": "weapon.root"
+        },
+        "baseConstruction": "faceted",
+        "construction": "writhen",
+        "diameter": 0.044,
+        "faceConvexity": 0.15,
+        "facets": 8,
+        "fluteCount": 8,
+        "fluteDepth": 0.12,
+        "height": 0.05,
+        "id": "pommel",
+        "kind": "pommel",
+        "label": "pommel",
+        "lengthScale": 1,
+        "lobeSpread": 0.9,
+        "material": "darkSteel",
+        "notchDepth": 0.2,
+        "ornaments": [],
+        "outlineStyle": "fishtail",
+        "rimBevel": 0.15,
+        "segments": 12,
+        "shoulderWidth": 0.34,
+        "sockets": {
+          "distal": [
+            0,
+            0.004,
+            0
+          ],
+          "front": [
+            0,
+            0.027,
+            0.00972
+          ]
+        },
+        "thickness": 0.018,
+        "twist": 90,
+        "widthScale": 1
+      },
+      {
+        "kind": "profileGrip",
+        "id": "grip",
+        "label": "covered wooden grip",
+        "material": "wood",
+        "length": 0.21,
+        "attach": {
+          "at": "base",
+          "overlap": 0,
+          "to": "pommel.top"
+        },
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.02,
+            "depth": 0.016
+          },
+          {
+            "at": 0.25,
+            "width": 0.029,
+            "depth": 0.024
+          },
+          {
+            "at": 0.52,
+            "width": 0.024,
+            "depth": 0.02
+          },
+          {
+            "at": 0.82,
+            "width": 0.033,
+            "depth": 0.024
+          },
+          {
+            "at": 1,
+            "width": 0.029,
+            "depth": 0.01
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        }
+      },
+      {
+        "attach": {
+          "to": "grip.top",
+          "at": "origin",
+          "offset": [
+            0,
+            0.0065,
+            0
+          ]
+        },
+        "height": 0.02321428571428571,
+        "id": "guard",
+        "kind": "guard",
+        "label": "crossguard",
+        "leftLength": 0.11,
+        "leftSet": 0,
+        "leftSweep": 0.02,
+        "leftTerminal": "shared",
+        "mirrorMode": "symmetric",
+        "rightLength": 0.11,
+        "rightSet": 0,
+        "rightSweep": 0.02,
+        "rightTerminal": "shared",
+        "section": "flat",
+        "sectionDepth": 0.006,
+        "sectionTwist": 0,
+        "sectionWidth": 0.009,
+        "sweep": 0,
+        "terminal": "profile",
+        "terminalSwell": 0,
+        "thickness": 0.01,
+        "tipScale": 0.65,
+        "width": 0.24,
+        "material": "darkSteel",
+        "terminalProfile": {
+          "interpolation": "smooth",
+          "stations": [
+            [
+              0,
+              0.0045
+            ],
+            [
+              0.001,
+              0.0045
+            ],
+            [
+              0.001,
+              0.0062
+            ],
+            [
+              0.003,
+              0.0062
+            ],
+            [
+              0.004,
+              0.0053
+            ],
+            [
+              0.004,
+              0.0057
+            ],
+            [
+              0.006,
+              0.0057
+            ],
+            [
+              0.007,
+              0.0046
+            ],
+            [
+              0.007,
+              0.0049
+            ],
+            [
+              0.009,
+              0.0049
+            ],
+            [
+              0.01,
+              0.0038
+            ],
+            [
+              0.01,
+              0.0041
+            ],
+            [
+              0.0115,
+              0.0041
+            ],
+            [
+              0.012,
+              0.0025
+            ]
+          ]
+        },
+        "blockBevel": 0
+      },
+      {
+        "id": "blade",
+        "label": "fullered blade",
+        "kind": "loftedBlade",
+        "material": "steel",
+        "attach": {
+          "to": "guard.center",
+          "at": "base",
+          "offset": [
+            0,
+            0.0065,
+            0
+          ]
+        },
+        "length": 0.902,
+        "width": 0.047,
+        "thickness": 0.007,
+        "curvature": 0,
+        "plan": "straight",
+        "section": "recessed",
+        "samples": 48,
+        "taper": 0.2,
+        "singleEdge": 0,
+        "belly": 0,
+        "ricasso": 0,
+        "point": {
+          "start": 0.94,
+          "roundness": 1
+        },
+        "fuller": {
+          "faces": "both",
+          "mouthWidth": 0.012,
+          "depth": 0.001,
+          "floorWidthRatio": 0.45,
+          "bevelWidthRatio": 0.2,
+          "start": 0,
+          "end": 0.46,
+          "entryLength": 0.012,
+          "exitLength": 0.055
+        }
+      }
+    ],
+    "gripClearance": 0.05
+  },
+  "description": "Dimensioned study of the Cleveland hand-and-a-half sword, with a recessed fuller, profiled covered grip and turned quillon terminals.",
+  "family": "Sword - c. 1500",
+  "id": "cma-1921-1253",
+  "name": "Cleveland 1921.1253 sword study",
+  "source": {
+    "museum": "Cleveland Museum of Art",
+    "accession": "1921.1253",
+    "url": "https://www.clevelandart.org/art/1921.1253",
+    "overallLengthM": 1.175,
+    "bladeLengthM": 0.902,
+    "quillonSpanM": 0.264,
+    "gripLengthM": 0.21,
+    "wholeObjectMassKg": 1.34,
+    "images": [
+      "https://openaccess-cdn.clevelandart.org/1921.1253/1921.1253_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1921.1253/1921.1253_alt0_print.jpg"
+    ],
+    "imageRights": "CC0, Cleveland Museum of Art; Gift of Mr. and Mrs. John L. Severance"
+  }
+}

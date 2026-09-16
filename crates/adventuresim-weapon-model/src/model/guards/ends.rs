@@ -2,6 +2,7 @@
 use super::*;
 pub(super) fn left_terminal(v: &GuardLeftTerminal) -> Option<GuardTerminal> {
     Some(match v {
+        GuardLeftTerminal::Profile => GuardTerminal::Profile,
         GuardLeftTerminal::Shared => return None,
         GuardLeftTerminal::None => GuardTerminal::None,
         GuardLeftTerminal::Ball => GuardTerminal::Ball,
@@ -14,6 +15,7 @@ pub(super) fn left_terminal(v: &GuardLeftTerminal) -> Option<GuardTerminal> {
 }
 pub(super) fn right_terminal(v: &GuardRightTerminal) -> Option<GuardTerminal> {
     Some(match v {
+        GuardRightTerminal::Profile => GuardTerminal::Profile,
         GuardRightTerminal::Shared => return None,
         GuardRightTerminal::None => GuardTerminal::None,
         GuardRightTerminal::Ball => GuardTerminal::Ball,
@@ -38,6 +40,9 @@ pub(super) fn terminal(
     ];
     let solid = match style {
         GuardTerminal::None => return Ok(None),
+        GuardTerminal::Profile => {
+            return Err("profile terminal requires its authored stations".into());
+        }
         GuardTerminal::Ball => {
             return Ok(Some(Solid::lathe(
                 &[

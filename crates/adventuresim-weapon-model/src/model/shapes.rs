@@ -91,6 +91,7 @@ impl ComponentConstructor<'_> {
             Shape::Box(p) => self.one(Solid::cuboid(p.size.map(Metres::get), detail)?),
             Shape::Grip(p) => self.grip(p),
             Shape::OvalGrip(p) => self.oval_grip(p),
+            Shape::ProfileGrip(p) => profile_grip::construct(resolved, p, detail),
             Shape::SlabGrip(p) => self.slab_grip(p),
             Shape::Collar(p) => self.collar(p),
             Shape::Sleeve(p) => self.sleeve(p),

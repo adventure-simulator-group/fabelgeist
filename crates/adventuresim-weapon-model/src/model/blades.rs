@@ -125,82 +125,11 @@ pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {
 }
 
 pub(super) fn section_blade(p: &SectionBladeParameters, detail: Detail) -> Result<Solid, String> {
-    let length = p.length.get();
-    let width = p.width.get();
-    let thickness = p.thickness.get();
-    let taper = p.taper.map_or(0.8, Ratio::get);
-    let fullered = p.section == Some(SectionBladeSection::Fullered);
-    let ring = |t: f64| {
-        let w = width * 0.5 * (0.025 + 0.975 * (1.0 - t).powf(taper));
-        let d = thickness * 0.5 * (1.0 - t * 0.72);
-        if fullered {
-            vec![
-                [-w, 0.0],
-                [-w * 0.72, d],
-                [-w * 0.28, d * 0.32],
-                [0.0, d * 0.22],
-                [w * 0.28, d * 0.32],
-                [w * 0.72, d],
-                [w, 0.0],
-                [0.0, -d],
-            ]
-        } else {
-            vec![[-w, 0.0], [0.0, d], [w, 0.0], [0.0, -d]]
-        }
-    };
-    let mut stations = vec![1.0];
-    loop {
-        let t = *stations.last().unwrap();
-        if t <= 0.0 {
-            break;
-        }
-        let profile = ring(t);
-        let smallest = (0..profile.len())
-            .map(|i| {
-                let a = profile[i];
-                let b = profile[(i + 1) % profile.len()];
-                (a[0] - b[0]).hypot(a[1] - b[1])
-            })
-            .fold(f64::INFINITY, f64::min);
-        let step = detail.error(0.03).min(smallest * 40.0) / length;
-        if step <= 0.0 {
-            return Err("blade section has no area".into());
-        }
-        stations.push(if t <= step * (1.0 + 1e-8) {
-            0.0
-        } else {
-            t - step
-        });
-    }
-    stations.reverse();
-    let mut solid = Solid::default();
-    for pair in stations.windows(2) {
-        let [t0, t1] = [pair[0], pair[1]];
-        let r0 = ring(t0);
-        let r1 = ring(t1);
-        for side in 0..r0.len() {
-            let next = (side + 1) % r0.len();
-            solid.quad(
-                [r0[side][0], t0 * length, r0[side][1]],
-                [r0[next][0], t0 * length, r0[next][1]],
-                [r1[next][0], t1 * length, r1[next][1]],
-                [r1[side][0], t1 * length, r1[side][1]],
-                0,
-            );
-        }
-    }
-    for (t, reverse) in [(0.0, true), (1.0, false)] {
-        let cap = Region::triangulate(&ring(t), true)?;
-        for [a, b, c] in cap.triangles {
-            let [a, b, c] = [a, b, c].map(|i| [cap.points[i][0], t * length, cap.points[i][1]]);
-            if reverse {
-                solid.triangle(a, b, c, 0);
-            } else {
-                solid.triangle(a, c, b, 0);
-            }
-        }
-    }
-    Ok(solid.positive())
+    blade_sections::blade(
+        BladeProfile::from(p),
+        blade_sections::BladeSampling::Section,
+        detail,
+    )
 }
 
 pub(super) fn diamond_blade(p: &DiamondBladeParameters, detail: Detail) -> Solid {

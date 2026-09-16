@@ -179,9 +179,11 @@ const SINGLE_HEAD_ID: &str = "head";
 pub fn museum_studies() -> &'static Value {
     static STUDIES: OnceLock<Value> = OnceLock::new();
     STUDIES.get_or_init(|| {
-        serde_json::json!([serde_json::from_str::<Value>(include_str!(
-            "../review/museum/met-14.25.394.json"
-        ))
-        .expect("museum study catalog must be valid JSON")])
+        serde_json::json!([
+            serde_json::from_str::<Value>(include_str!("../review/museum/met-14.25.394.json"))
+                .expect("museum study catalog must be valid JSON"),
+            serde_json::from_str::<Value>(include_str!("../review/museum/cma-1921.1253.json"))
+                .expect("museum study catalog must be valid JSON")
+        ])
     })
 }

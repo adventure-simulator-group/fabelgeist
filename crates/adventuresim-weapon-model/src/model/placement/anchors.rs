@@ -116,6 +116,15 @@ pub(super) fn register(
         }
     }
     frames.insert(format!("{id}.origin"), offset);
+    if component.role == Some(crate::ComponentRole::Grip) {
+        for (name, y) in [
+            (GRIP_BASE_FRAME, range[0]),
+            (GRIP_TOP_FRAME, range[1]),
+            (GRIP_CENTER_FRAME, (range[0] + range[1]) / 2.0),
+        ] {
+            frames.insert(name.into(), add(rotate([0.0, y, 0.0], rotation), offset));
+        }
+    }
     rotations.insert(id.to_owned(), rotation);
 
     Ok(())

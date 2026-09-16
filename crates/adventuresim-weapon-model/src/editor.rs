@@ -1,7 +1,9 @@
 //! Numeric controls described at the serialized recipe boundary in metres.
 use crate::{
     Material, WeaponDesign,
-    recipe::{BladeCrossSection, BladePlan, Shape, SpearSection},
+    recipe::{
+        BladeCrossSection, BladePlan, FullerFaces, ProfileInterpolation, Shape, SpearSection,
+    },
 };
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::OnceLock};
@@ -54,14 +56,8 @@ pub fn editor_fields(design: &WeaponDesign) -> Vec<EditorField> {
             .collect(),
         );
         match &component.shape {
-            Shape::LoftedBlade(_) => {
-                choice(
-                    "section",
-                    [BladeCrossSection::Diamond, BladeCrossSection::Fullered]
-                        .into_iter()
-                        .map(|value| serde_json::to_value(value).expect("blade section choice"))
-                        .collect(),
-                );
+            Shape::LoftedBlade(p) => {
+                choice("section", section_options(p.section));
                 choice(
                     "plan",
                     [BladePlan::Straight, BladePlan::Leaf, BladePlan::Cleaver]
@@ -70,6 +66,10 @@ pub fn editor_fields(design: &WeaponDesign) -> Vec<EditorField> {
                         .collect(),
                 );
             }
+            Shape::SectionBlade(p) => choice(
+                "section",
+                section_options(p.section.unwrap_or(BladeCrossSection::Diamond)),
+            ),
             Shape::Spear(_) => choice(
                 "section",
                 [SpearSection::Flat, SpearSection::Diamond]
@@ -79,8 +79,60 @@ pub fn editor_fields(design: &WeaponDesign) -> Vec<EditorField> {
             ),
             _ => {}
         }
+        let fuller = match &component.shape {
+            Shape::LoftedBlade(p) => p.fuller.as_ref(),
+            Shape::SectionBlade(p) => p.fuller.as_ref(),
+            _ => None,
+        };
+        if fuller.is_some() {
+            choice(
+                "fuller.faces",
+                [FullerFaces::Front, FullerFaces::Back, FullerFaces::Both]
+                    .into_iter()
+                    .map(|v| serde_json::to_value(v).unwrap())
+                    .collect(),
+            );
+        }
+        if let Shape::ProfileGrip(p) = &component.shape
+            && p.cover.is_some()
+        {
+            choice(
+                "cover.material",
+                [Material::Leather, Material::DarkLeather, Material::Cord]
+                    .into_iter()
+                    .map(|v| serde_json::to_value(v).unwrap())
+                    .collect(),
+            );
+        }
+        if let Shape::Guard(p) = &component.shape
+            && p.terminal_profile.is_some()
+        {
+            choice(
+                "terminalProfile.interpolation",
+                [ProfileInterpolation::Linear, ProfileInterpolation::Smooth]
+                    .into_iter()
+                    .map(|v| serde_json::to_value(v).unwrap())
+                    .collect(),
+            );
+        }
     }
     fields
+}
+fn section_options(current: BladeCrossSection) -> Vec<serde_json::Value> {
+    let sections = if current == BladeCrossSection::Recessed {
+        vec![BladeCrossSection::Recessed]
+    } else {
+        vec![
+            BladeCrossSection::Diamond,
+            BladeCrossSection::Fullered,
+            BladeCrossSection::Hexagonal,
+            BladeCrossSection::Lenticular,
+        ]
+    };
+    sections
+        .into_iter()
+        .map(|value| serde_json::to_value(value).expect("blade section choice"))
+        .collect()
 }
 pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
     static FIELDS: OnceLock<BTreeMap<String, Vec<NumericEditorField>>> = OnceLock::new();
@@ -125,6 +177,47 @@ pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
                         ),
                         min,
                         max,
+                        step: 0.001,
+                    });
+                }
+            }
+        }
+        if let Shape::ProfileGrip(grip) = &component.shape {
+            for station in 0..grip.profile.len() {
+                for (name, min, max) in [
+                    ("at", 0.0, 1.0),
+                    ("width", 0.001, 0.038),
+                    ("depth", 0.001, 0.028),
+                ] {
+                    if name == "at" && (station == 0 || station + 1 == grip.profile.len()) {
+                        continue;
+                    }
+                    fields.push(NumericEditorField {
+                        path: format!("recipe.components.{index}.profile.{station}.{name}"),
+                        label: format!("Grip station {} {name}", station + 1),
+                        min,
+                        max,
+                        step: 0.001,
+                    });
+                }
+            }
+        }
+        if let Shape::Guard(guard) = &component.shape
+            && let Some(profile) = &guard.terminal_profile
+        {
+            for station in 0..profile.stations.len() {
+                for axis in 0..2 {
+                    fields.push(NumericEditorField {
+                        path: format!(
+                            "recipe.components.{index}.terminalProfile.stations.{station}.{axis}"
+                        ),
+                        label: format!(
+                            "Terminal station {} {}",
+                            station + 1,
+                            if axis == 0 { "length" } else { "radius" }
+                        ),
+                        min: 0.0,
+                        max: 0.1,
                         step: 0.001,
                     });
                 }

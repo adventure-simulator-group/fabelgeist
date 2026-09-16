@@ -75,3 +75,94 @@ The optional `underlay` is a separate hollow covering whose thickness and
 material determine the strips' receiving surface. In this study it extends to
 the metal rim. The upper strip ends meet that rim; the lower ends lie against
 the covering. Stitching or other small fastening details are not represented.
+
+## Cleveland 1921.1253 hand-and-a-half sword
+
+[The Cleveland Museum of Art's object record](https://www.clevelandart.org/art/1921.1253)
+identifies a South German sword of about 1500. It reports an overall length of
+117.5 cm, blade length of 90.2 cm, quillon span of 26.4 cm, grip length of 21 cm,
+and mass of 1.34 kg. The recipe is [cma-1921.1253.json](cma-1921.1253.json).
+
+Reference photographs: [complete sword](https://openaccess-cdn.clevelandart.org/1921.1253/1921.1253_print.jpg)
+and [hilt detail](https://openaccess-cdn.clevelandart.org/1921.1253/1921.1253_alt0_print.jpg).
+The images are CC0 under the museum's [Open Access policy](https://www.clevelandart.org/open-access).
+Credit: Gift of Mr. and Mrs. John L. Severance.
+
+The photographs support a broad, slowly tapering blade with a short rounded
+point, a fuller ending near the blade's middle, a waisted grip with two
+swellings, flat quillons, stepped terminals and a spirally fluted pommel.
+Blade width, fuller width and termination, grip widths and pommel proportions
+are estimates from the photographs. Fuller depth, distal thickness, grip
+depth, wooden core and cover thickness are manufacturing assumptions. A
+matching reverse fuller is an explicit assumption because the sources do not
+establish both broad faces independently.
+
+The complete blade starts at the guard's forward face. The recipe uses a
+50 mm pommel interval, 210 mm grip, 13 mm central guard interval and 902 mm
+blade, totaling 1,175 mm. The guard's 264 mm measurement includes both
+terminal extensions; its centerline span is smaller. These assembly planes
+are authored explicitly. Calculated material mass is reported separately
+from the museum's mass; dimensions and density are not adjusted to force a
+mass match.
+
+Export this study through the same command, selecting `cma-1921-1253`.
+
+## Recessed blade, point and grip controls
+
+Both `sectionBlade` and `loftedBlade` use one transverse section and closed
+loft implementation. `fullered` describes the asymmetric swept V-floor
+section with a ridged reverse. `recessed` requires an explicit `fuller` and
+uses beveled flat broad faces. Diamond, hexagonal and lenticular sections
+have distinct geometry; a fuller specification is rejected for those modes.
+
+Fuller `start`, `end`, `entryLength` and `exitLength` are metres from the
+complete blade base, including any ricasso. The interval lies beyond the
+ricasso and ends no later than the blade tip. The museum recipe retains a distal
+ungrooved face.
+Both transition lengths are positive and fit inside the interval. Mouth
+width and recess depth are independent dimensions. The floor-width and
+edge-bevel ratios lie strictly between zero and one. Front means local +Z;
+`faces` selects front, back or both. Near each closure, depth vanishes faster
+than mouth width so the groove meets the broad face with a vanishing slope.
+The complete interval must retain positive metal and local face clearance.
+
+Tessellation samples the complete analytic section, retaining all feature
+planes. Its surface tolerance is 0.1 mm at Low, 0.04 mm at Medium and
+0.016 mm at High, divided between chord approximation and groove-tail
+simplification. A tail whose transverse strips fall below the float32
+transport separation becomes a flat broad face through explicit closure
+fans. This can shorten the rendered groove slightly; its authored endpoint
+and continuous clearance semantics remain unchanged. Reduction must fit the
+remaining position budget and an additional normal-angle budget of
+0.05/0.02/0.008 radians at Low/Medium/High. The normal check includes axial
+and transverse slopes and compares interior samples against the analytic
+surface, accounting separately for the existing broad-face chord error.
+Unresolvable features that exceed these budgets are rejected. The transport
+floor uses the supported 20 m assembly-frame scale; it does not guarantee
+arbitrary additional world transforms.
+
+The optional point `start` is normalized within the working blade after its
+ricasso. `roundness=0` produces a pointed limiting curve; positive values
+produce a rounded terminal tangent. Body taper controls the earlier blade.
+The point joins a nonincreasing body width with the same slope, and its
+thickness envelope preserves the incoming thickness slope. Blade length and
+tip frame remain fixed. Local curvature sampling applies at every LOD.
+
+`profileGrip` stations specify normalized axial position and complete visible
+width/depth. Shape-preserving cubics pass through ordered stations without
+overshooting their dimensions. Component material is the core material;
+`cover.material` is independently authored. Cover thickness is a transverse
+polygon-normal inset, not a constant three-dimensional offset on a sloping
+grip. Core and cover share identical sampled interfaces and partition the
+visible volume. The cover's end annuli leave the core faces exposed.
+Authored grip ends are never resized by the oval-grip pommel-seat heuristic.
+The sword study assumes a 10 mm depth at the guard-side grip end and uses
+`guard.blockBevel=0` to provide a matching full-depth flat seating face.
+The default beveled block has a smaller footprint at its lowest plane; its
+nominal thickness alone does not describe that contact face.
+
+A profile quillon terminal uses axial offset/radius stations from the actual
+arm-end plane, with positive offsets along the outgoing tangent. Repeated
+axial stations create annular steps; strictly increasing runs may use smooth
+or linear interpolation. Its base covers the receiving arm section and
+stays outside that plane. All guard parts inherit the component material.

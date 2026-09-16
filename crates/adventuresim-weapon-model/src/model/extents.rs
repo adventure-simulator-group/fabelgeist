@@ -85,6 +85,7 @@ impl Shape {
             ],
             Self::Grip(p) => [0.0, p.length.get()],
             Self::OvalGrip(p) => [0.0, p.length.get()],
+            Self::ProfileGrip(p) => [0.0, p.length.get()],
             Self::SlabGrip(p) => [0.0, p.length.get()],
             Self::Blade(p) => [0.0, p.length.get()],
             Self::SectionBlade(p) => [0.0, p.length.get()],

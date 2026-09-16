@@ -2,6 +2,8 @@
 mod ammunition;
 mod archery;
 mod bent_bar;
+mod blade_reduction;
+mod blade_sections;
 mod blades;
 mod bolts;
 mod crossbows;
@@ -12,12 +14,15 @@ mod grip;
 mod guard_nodes;
 mod guards;
 mod lofted_blade;
+#[cfg(test)]
+mod longsword_tests;
 mod maces;
 mod mounts;
 pub(crate) mod output;
 mod placement;
 mod polls;
 mod pommels;
+mod profile_grip;
 #[cfg(test)]
 mod profile_tests;
 #[cfg(test)]
@@ -59,7 +64,7 @@ impl Construction {
             .frames
             .values()
             .flatten()
-            .any(|value| value.abs() > 20.0)
+            .any(|value| value.abs() > MODEL_FRAME_EXTENT)
         {
             return Err("resolved assembly exceeds the supported world extent".into());
         }

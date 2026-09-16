@@ -33,9 +33,11 @@ fn metres(point: Point) -> Result<[Metres; 3], String> {
 
 pub(super) fn resolve(recipe: &Recipe) -> Result<Resolved, String> {
     let grip_width = recipe.components.iter().find_map(|c| {
-        if c.id.as_deref() == Some(GRIP_COMPONENT_ID) {
+        if c.id.as_deref() == Some(GRIP_COMPONENT_ID) || c.role == Some(crate::ComponentRole::Grip)
+        {
             match &c.shape {
                 Shape::OvalGrip(p) => Some(p.width.get()),
+                Shape::ProfileGrip(p) => Some(p.maximum_width()),
                 Shape::SlabGrip(p) => Some(p.width.get()),
                 _ => None,
             }

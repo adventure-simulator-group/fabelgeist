@@ -3,6 +3,18 @@ use super::*;
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct GuardParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub block_bevel: Option<Ratio>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub terminal_profile: Option<TerminalProfile>,
     pub width: Metres,
     pub height: Metres,
     pub thickness: Metres,
