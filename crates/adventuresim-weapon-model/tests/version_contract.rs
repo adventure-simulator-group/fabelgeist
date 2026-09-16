@@ -9,6 +9,17 @@ fn pointed_design() -> WeaponDesign {
     design
 }
 
+#[test]
+fn arming_sword_round_trip_preserves_mortise_wheel_and_ribbed_cover() {
+    let mut design = default_design("arming_sword").unwrap();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/met-14.25.1096.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    assert_eq!(generate(&restored).unwrap(), generate(&design).unwrap());
+}
+
 fn versioned_hash(
     domain: &[u8],
     schema: u16,
@@ -35,23 +46,23 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 12, 15, &design));
+    assert_ne!(current, versioned_hash(domain, 13, 16, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 12.into();
+    previous["schema_version"] = 13.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 12,
+            found: 13,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 15.into();
+    previous["generator_version"] = 16.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 15,
+            found: 16,
             expected: GENERATOR_VERSION
         })
     ));
@@ -108,23 +119,23 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 6, 6, &design));
+    assert_ne!(current, versioned_hash(domain, 7, 7, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 6.into();
+    previous["schema_version"] = 7.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 6,
+            found: 7,
             expected: HOLDER_SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 6.into();
+    previous["generator_version"] = 7.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 6,
+            found: 7,
             expected: HOLDER_GENERATOR_VERSION
         })
     ));

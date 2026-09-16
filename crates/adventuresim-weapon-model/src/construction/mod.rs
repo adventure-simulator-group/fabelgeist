@@ -20,6 +20,7 @@ mod surface_tests;
 mod sweep;
 #[cfg(test)]
 mod tests;
+mod truncate;
 
 use serde::{Deserialize, Serialize};
 

@@ -1,0 +1,312 @@
+{
+  "id": "met-14-25-1096",
+  "name": "Met 14.25.1096 arming sword",
+  "definition": {
+    "components": [
+      {
+        "id": "pommel",
+        "kind": "wheelPommel",
+        "material": "steel",
+        "diameter": 0.059,
+        "faceDiameter": 0.045,
+        "thickness": 0.024,
+        "rimThickness": 0.018,
+        "seatHeight": 0.0254,
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip",
+        "kind": "profileGrip",
+        "material": "wood",
+        "role": "Grip",
+        "length": 0.0871,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.029,
+            "depth": 0.017
+          },
+          {
+            "at": 1,
+            "width": 0.038,
+            "depth": 0.022
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "pommel.top",
+          "at": "base"
+        },
+        "ribs": {
+          "count": 19,
+          "depth": 0.001
+        }
+      },
+      {
+        "id": "guard",
+        "kind": "mortisedGuard",
+        "material": "steel",
+        "width": 0.14,
+        "height": 0.01,
+        "thickness": 0.024,
+        "sweep": 0.019,
+        "shoulderHeight": 0.007,
+        "edgeBevel": 0.001,
+        "terminalScale": 1.13,
+        "mortise": {
+          "width": 0.044,
+          "thickness": 0.0055,
+          "bevelWidthRatio": 0.18
+        },
+        "attach": {
+          "to": "grip.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "blade",
+        "label": "short central fuller and rounded point",
+        "kind": "loftedBlade",
+        "material": "steel",
+        "role": "Head",
+        "length": 0.791,
+        "width": 0.044,
+        "thickness": 0.0055,
+        "curvature": 0,
+        "plan": "straight",
+        "section": "recessed",
+        "samples": 40,
+        "taper": 0.3,
+        "singleEdge": 0,
+        "belly": 0,
+        "ricasso": 0.007,
+        "point": {
+          "start": 0.89,
+          "roundness": 1
+        },
+        "fuller": {
+          "bevelWidthRatio": 0.18,
+          "grooves": [
+            {
+              "faces": "both",
+              "lateralPosition": 0,
+              "mouthWidth": 0.012,
+              "depth": 0.0008,
+              "floorWidthRatio": 0.3,
+              "start": 0.007,
+              "end": 0.22,
+              "entryLength": 0.006,
+              "exitLength": 0.12
+            }
+          ]
+        },
+        "attach": {
+          "to": "guard.top",
+          "at": "base"
+        }
+      }
+    ]
+  },
+  "description": "One-handed sword with a beveled wheel, restored ribbed grip, mortised bowed guard, short central fuller and rounded point.",
+  "controls": [
+    {
+      "label": "Blade length",
+      "path": "components.3.length",
+      "min": 0.7,
+      "max": 0.9,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade and mortise width",
+      "path": "components.3.width",
+      "min": 0.04,
+      "max": 0.048,
+      "step": 0.001,
+      "unit": "m",
+      "paths": [
+        "components.3.width",
+        "components.2.mortise.width"
+      ]
+    },
+    {
+      "label": "Blade and mortise thickness",
+      "path": "components.3.thickness",
+      "min": 0.0045,
+      "max": 0.007,
+      "step": 0.0001,
+      "unit": "m",
+      "paths": [
+        "components.3.thickness",
+        "components.2.mortise.thickness"
+      ]
+    },
+    {
+      "label": "Blade taper",
+      "path": "components.3.taper",
+      "min": 0.2,
+      "max": 0.4,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Point start",
+      "path": "components.3.point.start",
+      "min": 0.85,
+      "max": 0.93,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Fuller mouth",
+      "path": "components.3.fuller.grooves.0.mouthWidth",
+      "min": 0.01,
+      "max": 0.016,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller depth",
+      "path": "components.3.fuller.grooves.0.depth",
+      "min": 0.0005,
+      "max": 0.0011,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Fuller end",
+      "path": "components.3.fuller.grooves.0.end",
+      "min": 0.18,
+      "max": 0.28,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip length",
+      "path": "components.1.length",
+      "min": 0.08,
+      "max": 0.1,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Rib count",
+      "path": "components.1.ribs.count",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Rib depth",
+      "path": "components.1.ribs.depth",
+      "min": 0.0006,
+      "max": 0.0011,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Wheel diameter",
+      "path": "components.0.diameter",
+      "min": 0.059,
+      "max": 0.069,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Wheel thickness",
+      "path": "components.0.thickness",
+      "min": 0.022,
+      "max": 0.028,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard span",
+      "path": "components.2.width",
+      "min": 0.12,
+      "max": 0.17,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard sweep",
+      "path": "components.2.sweep",
+      "min": 0.01,
+      "max": 0.025,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard shoulder and engagement",
+      "path": "components.2.shoulderHeight",
+      "min": 0.004,
+      "max": 0.009,
+      "step": 0.001,
+      "unit": "m",
+      "paths": [
+        "components.2.shoulderHeight",
+        "components.3.ricasso",
+        "components.3.fuller.grooves.0.start"
+      ]
+    }
+  ],
+  "choiceControls": [],
+  "reference": {
+    "accession": "14.25.1096",
+    "institution": "The Metropolitan Museum of Art",
+    "url": "https://www.metmuseum.org/art/collection/search/27458",
+    "photographs": [
+      "https://images.metmuseum.org/CRDImages/aa/original/LC-14_25_1096-002.jpg",
+      "https://images.metmuseum.org/CRDImages/aa/original/LC-14_25_1096-003.jpg",
+      "https://images.metmuseum.org/CRDImages/aa/original/SC-LC-23755.jpg"
+    ],
+    "rights": "Public domain / CC0 under the Met Open Access policy. Gift of William H. Riggs, 1913.",
+    "published": {
+      "overallLengthMetres": 0.943,
+      "bladeLengthMetres": 0.791,
+      "widthMetres": 0.14,
+      "massKilograms": 1.134,
+      "date": "ca. 1450",
+      "culture": "Western European, possibly Italian",
+      "materials": "Steel, copper, wood, leather"
+    },
+    "photoEstimates": {
+      "bladeRootWidthMetres": 0.044,
+      "wheelDiameterMetres": 0.059,
+      "wheelFaceDiameterMetres": 0.045,
+      "gripVisibleLengthMetres": 0.0871,
+      "gripCrestWidthMetres": [
+        0.029,
+        0.038
+      ],
+      "ribCourses": 19,
+      "fullerMouthMetres": 0.012,
+      "fullerEndMetres": 0.22,
+      "guardSweepMetres": 0.019,
+      "guardShoulderMetres": 0.007
+    },
+    "assumptions": [
+      "The museum explicitly identifies the grip as a modern restoration. This recipe studies the displayed object, not an intact medieval organic grip.",
+      "The museum width is interpreted as the photographed guard span. Opposing photographs and a hilt detail are available, but no exact edge-on or axial photograph.",
+      "Blade thickness 5.5 mm, fuller depth 0.8 mm, wheel depth 24 mm and rim 18 mm, guard depth 24 mm, grip depth 17–22 mm and leather thickness 1 mm are unmeasured construction assumptions, not mass calibration.",
+      "Rounded transverse relief in the covered oval envelope represents the observed grip ribs. A ribbed wooden support under leather is hypothetical; cord turns, handedness and an internal helical seam are not established by the photographs.",
+      "A constant 7 mm beveled blade heel engages a matching open mortise. The groove begins beyond that hidden engagement. Tang, peen, internal fasteners and voids remain unknown.",
+      "Wheel seat is a finite flat chord through one beveled solid. Grip, cover, wheel and guard occupy disjoint material volumes with actual receiving surfaces."
+    ],
+    "scope": "Complete visible structural sword, including wheel face and bevel, tapered restored ribbed grip, bowed chamfered guard with central shoulder and mildly expanded terminals, short opposing fullers and rounded blade point. Copper inlays, corrosion, tool marks, leather wear and patina are excluded.",
+    "coverage": {
+      "browser": [],
+      "gameplay": [
+        "arming_sword"
+      ]
+    },
+    "calculatedMassKilograms": 1.511700936048249
+  }
+}

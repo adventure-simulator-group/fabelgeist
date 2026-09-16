@@ -25,6 +25,18 @@ pub(super) fn check(p: &ProfileBodyParameters) -> Checked {
         positive(s.width.get())?;
         positive(s.depth.get())?;
     }
+    let rib_depth = p.ribs.as_ref().map_or(0.0, |r| r.depth.get());
+    if let Some(ribs) = &p.ribs {
+        require(
+            (1..=MAX_PROFILE_RIBS).contains(&ribs.count.0),
+            RecipeError::Budget,
+        )?;
+        positive(rib_depth)?;
+        clearance(rib_depth <= p.length.get() / ribs.count.0 as f64 / 4.0)?;
+        for station in &p.profile {
+            clearance(2.0 * rib_depth < station.width.get().min(station.depth.get()))?;
+        }
+    }
     if let Some(cover) = &p.cover {
         positive(cover.thickness.get())?;
         if let Some(cap) = cover.end_cap {
@@ -39,7 +51,8 @@ pub(super) fn check(p: &ProfileBodyParameters) -> Checked {
                 .iter()
                 .flat_map(|s| [s.width.get(), s.depth.get()])
                 .fold(f64::INFINITY, f64::min)
-                / 2.0;
+                / 2.0
+                - rib_depth;
             let large = pair
                 .iter()
                 .flat_map(|s| [s.width.get(), s.depth.get()])

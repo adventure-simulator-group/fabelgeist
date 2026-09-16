@@ -25,6 +25,7 @@ mod longsword_tests;
 #[cfg(test)]
 mod mace_tests;
 mod maces;
+mod mortised_guard;
 mod mounts;
 pub(crate) mod output;
 mod placement;
@@ -35,6 +36,8 @@ mod profile_body;
 mod profile_tests;
 #[cfg(test)]
 mod ranged_layout_tests;
+#[cfg(test)]
+mod seated_hilt_tests;
 mod shaft_wrapping;
 mod shapes;
 mod shields;
@@ -42,6 +45,7 @@ mod spear_socket;
 #[cfg(test)]
 mod spear_tests;
 mod spears;
+mod wheel;
 
 use crate::{construction::*, recipe::*};
 pub use output::{GeneratedModel, ModelPart, ModelStats, PhysicalProperties};

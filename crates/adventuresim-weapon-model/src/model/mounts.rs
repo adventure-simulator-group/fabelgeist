@@ -157,6 +157,7 @@ pub(super) fn attachment_contact(
     let Some(parent) = parents.iter().find(|p| p.id == owner).or(implicit.as_ref()) else {
         return Ok(());
     };
+    mortised_guard::check_mating(child, parent)?;
     if implicit.is_some() && is_axial(&child.component.shape) {
         let mut receiving = child.component.clone();
         receiving.offset = Some([

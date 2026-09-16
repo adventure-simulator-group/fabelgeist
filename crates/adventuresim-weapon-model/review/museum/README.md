@@ -424,7 +424,7 @@ The shared `silver` material uses 10,500 kg/m³, the room-temperature elemental
 density listed by the [Royal Society of Chemistry](https://periodic-table.rsc.org/element/47/).
 This is an explicit approximation for unidentified historical silver alloys.
 It affects material mass and appearance while preserving the authored geometry.
-Weapon schema/generator identities are 13/16; holder identities are 7/7 because
+Weapon schema/generator identities are 14/17; holder identities are 8/8 because
 holders contain material fields and embedded weapon recipes.
 
 
@@ -491,3 +491,76 @@ phase and cover thickness then give matching core and cover footprints.
 Without an explicit count, sampling follows the existing radial error rule.
 Use shared counts on matching ends; axial contact alone does not establish
 matching polygonal footprints.
+
+## Metropolitan Museum 14.25.1096 arming sword
+
+Select `met-14-25-1096`. The [recipe](met-14.25.1096.json) covers gameplay
+`arming_sword`; it does not establish Reitschwert or longsword coverage.
+The [museum record](https://www.metmuseum.org/art/collection/search/27458)
+identifies a Western European, possibly Italian sword, around 1450. Published
+dimensions are 943 mm overall, 791 mm blade and 140 mm width, with a mass of
+1.134 kg. Materials are steel, copper, wood and leather. The museum explicitly
+identifies the grip as a modern restoration. This study reproduces the
+displayed object rather than claiming an intact medieval organic grip.
+
+The [first whole photograph](https://images.metmuseum.org/CRDImages/aa/original/LC-14_25_1096-002.jpg),
+[opposing photograph](https://images.metmuseum.org/CRDImages/aa/original/LC-14_25_1096-003.jpg)
+and [hilt detail](https://images.metmuseum.org/CRDImages/aa/original/SC-LC-23755.jpg)
+show the beveled wheel, tapered ribbed grip, bowed guard with a central point,
+short opposing fullers and rounded blade point. These public-domain images
+are CC0 under the museum's [Open Access policy](https://www.metmuseum.org/hubs/open-access).
+Credit: Gift of William H. Riggs, 1913. No exact axial or edge-on photograph
+is available. The published width is interpreted as the guard span.
+
+Photo estimates place blade root width at 44 mm, wheel diameter at 59 mm,
+wheel face at 45 mm, grip length at about 87 mm and grip crest widths at
+29 to 38 mm. Nineteen rounded courses represent the observed transverse
+relief. Fuller mouth width is 12 mm, ending 220 mm from the blade heel.
+The guard sweeps 19 mm toward the blade and has a 7 mm central shoulder.
+These are estimates, not additional museum measurements.
+
+Blade thickness of 5.5 mm, fuller depth of 0.8 mm, wheel depth of 24 mm with
+an 18 mm rim, guard depth of 24 mm, grip depths of 17 to 22 mm and a 1 mm
+leather cover are unmeasured assumptions. The rounded ribs are modeled in a
+covered wooden envelope; the restored grip's actual internal support is
+unknown. Neither cord turns nor a helical seam are asserted. The blade's
+constant 7 mm receiving heel occupies a matching open guard mortise, with
+the fuller beginning beyond that engagement. Hidden tang, peen, fasteners,
+internal voids, copper inlays, corrosion and wear remain outside the scope.
+Calculated mass is approximately 1.512 kg versus the published 1.134 kg.
+Neither material density nor hidden thickness is fitted to the museum mass.
+
+### Finite wheel seats, guard mortises and covered ribs
+
+`wheelPommel` is one transverse beveled wheel with a flat receiving chord.
+`diameter`, `faceDiameter`, `thickness` and `rimThickness` define its turned
+profile; `seatHeight` locates the cut plane relative to the wheel center.
+The `base` frame is the opposite rim and `top` is the receiving chord. A
+grip must fit the actual chord footprint, including its beveled depth.
+Plane classification resolves floating-point rotation and interpolation
+roundoff before cutting; it does not enlarge geometric audit tolerances.
+The cut depth and its separation from existing sampled vertices must meet
+the shared manufacturing minimum, except for classified roundoff. A real cut
+that leaves unresolved triangles or loses closed float32 topology is rejected.
+
+`mortisedGuard` describes a single bowed, chamfered solid. `width` is its
+overall span, `height` is the central bar height, and `sweep` raises the arms
+toward the blade. `terminalScale` expands arm height toward the ends.
+`shoulderHeight` adds the central blade-facing point. `edgeBevel` defines
+the chamfer and `thickness` the outer depth. Its `base` frame receives the
+grip, and `top` locates the mortise floor rather than the raised arm ends.
+The open mortise removes a constant beveled blade section, specified by
+`mortise.width`, `mortise.thickness` and `mortise.bevelWidthRatio`.
+The mounted blade must have the matching section and pose, a constant
+ricasso through the shoulder, and grooves starting beyond that engagement.
+Distal curvature and belly remain available beyond the constant ricasso.
+Study controls keep those dimensions linked. Manual mismatches are rejected.
+
+Optional `ribs` on `profileGrip` and `profileBody` cut rounded transverse
+troughs inward from the authored crest envelope. `count` specifies complete
+courses and `depth` is the radial crest-to-trough difference. Both ends
+remain at crest height. The core and cover share the same sampled boundary;
+ribs are not overlapping rings. Counts are bounded at 64, depth cannot exceed
+one quarter of pitch, and trough sections must preserve core and cover
+clearance. Grip limits apply to crest dimensions. Existing construction
+budgets can reject a costly combination of rib and radial sampling counts.

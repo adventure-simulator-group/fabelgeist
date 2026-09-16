@@ -57,13 +57,20 @@ fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, S
         max_deviation: 0.00005,
     };
     let mut stations = Vec::new();
-    for pair in p.profile.windows(2) {
+    let mut features: Vec<_> = p.profile.iter().map(|s| s.at.get()).collect();
+    if let Some(ribs) = &p.ribs {
+        let quarters = ribs.count.0 as usize * 4;
+        features.extend((0..=quarters).map(|i| i as f64 / quarters as f64));
+    }
+    features.sort_by(f64::total_cmp);
+    features.dedup();
+    for pair in features.windows(2) {
         for axis in [&width, &depth] {
             stations.extend(
                 adaptive_curve(
                     |u| {
-                        let t = pair[0].at.get() + u * (pair[1].at.get() - pair[0].at.get());
-                        [length * t, axis.value(t)]
+                        let t = pair[0] + u * (pair[1] - pair[0]);
+                        [length * t, axis.value(t) - p.rib_inset(t)]
                     },
                     quality,
                     detail,
@@ -99,13 +106,13 @@ fn rings(p: &ProfileBodyParameters, detail: Detail) -> Result<Vec<Vec<Point>>, S
                 .map(|i| {
                     let angle = TAU * i as f64 / radial as f64;
                     [
-                        width.value(t) * angle.cos(),
+                        (width.value(t) - p.rib_inset(t)) * angle.cos(),
                         if core_end.is_some_and(|end| t == end / length) {
                             core_end.unwrap()
                         } else {
                             t * length
                         },
-                        depth.value(t) * angle.sin(),
+                        (depth.value(t) - p.rib_inset(t)) * angle.sin(),
                     ]
                 })
                 .collect()

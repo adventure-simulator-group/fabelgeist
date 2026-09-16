@@ -26,6 +26,8 @@ impl ComponentConstructor<'_> {
         let detail = self.detail;
         let c = &resolved.component;
         match &c.shape {
+            Shape::WheelPommel(p) => self.one(wheel::construct(p, detail)?),
+            Shape::MortisedGuard(p) => self.one(mortised_guard::construct(p, detail)?),
             Shape::BentBar(p) => self.one(bent_bar::bar(p, detail)?),
             Shape::SpatialTube(p) => self.spatial_tube(p),
             Shape::LoftedBlade(p) => {
