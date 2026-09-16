@@ -1,5 +1,6 @@
 //! Exhibit identities and catalog-backed framing for existing assets.
 
+use adventuresim_procedural_textures::TextureRecipeId;
 use adventuresim_weapon_model::{default_design, generate};
 use bevy::{
     asset::RenderAssetUsages,
@@ -47,6 +48,53 @@ pub(super) struct Exhibit {
 }
 
 impl Exhibit {
+    pub fn texture_recipes(&self) -> &'static [TextureRecipeId] {
+        use TextureRecipeId::*;
+        const OAK: &[TextureRecipeId] = &[
+            WhiteOakLeaf,
+            DryWhiteOakLeaf,
+            HazelLeaf,
+            BlackthornLeaf,
+            HawthornLeaf,
+            BeechLeaf,
+            OakBark,
+            ForestSoil,
+            ForestLitter,
+            Rock,
+        ];
+        const CITY: &[TextureRecipeId] = &[
+            WhiteOakLeaf,
+            DryWhiteOakLeaf,
+            HazelLeaf,
+            BlackthornLeaf,
+            HawthornLeaf,
+            BeechLeaf,
+            OakBark,
+            ForestSoil,
+            ForestLitter,
+            Rock,
+            LimePlaster,
+            HewnOak,
+            WattleAndDaub,
+            HandmadeBrick,
+            RubbleMasonry,
+            DressedStone,
+            ClayRoofTile,
+            SlateRoof,
+            TimberShingle,
+            PlankFloor,
+            LeadSheet,
+            Ironwork,
+            WindowGlass,
+            CrenellationMask,
+        ];
+        match self.id {
+            ExhibitId::Oak => OAK,
+            ExhibitId::City => CITY,
+            _ => &[],
+        }
+    }
+
     pub fn is_studio(&self) -> bool {
         !matches!(self.kind, ExhibitKind::Scenery)
     }
@@ -207,5 +255,16 @@ mod tests {
                 ExhibitKind::Scenery => {}
             }
         }
+    }
+
+    #[test]
+    fn studio_exhibits_request_no_environment_textures() {
+        for exhibit in Exhibit::catalog() {
+            if exhibit.is_studio() {
+                assert!(exhibit.texture_recipes().is_empty());
+            }
+        }
+        assert!(!Exhibit::get(ExhibitId::Oak).texture_recipes().is_empty());
+        assert!(!Exhibit::get(ExhibitId::City).texture_recipes().is_empty());
     }
 }

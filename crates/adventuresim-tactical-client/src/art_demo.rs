@@ -163,6 +163,7 @@ pub(super) fn run() {
         primary_window: Some(window),
         ..default()
     }))
+    .insert_resource(crate::presentation::procedural_texture_setup::LazyProceduralTextures)
     .add_plugins(AdventureSimulatorPhysicsPlugin {
         enable_simulation: false,
         enable_presentation_simulation: false,
