@@ -65,7 +65,10 @@ impl BladeParameters {
             let q = width / self.body_half_width(start);
             envelope = q * (2.0 - q);
         }
-        if self.section == Some(ForgedBladeSection::Diamond) {
+        if matches!(
+            self.section,
+            Some(ForgedBladeSection::Diamond | ForgedBladeSection::Triangular)
+        ) {
             return [
                 width,
                 2.0 * width * self.thickness.get() / self.width.get(),
@@ -81,7 +84,10 @@ impl BladeParameters {
 
     pub(crate) fn validate_form(&self) -> Result<(), RecipeError> {
         let tip = self.tip_width.map_or(0.025, Ratio::get);
-        let section_valid = if self.section == Some(ForgedBladeSection::Diamond) {
+        let section_valid = if matches!(
+            self.section,
+            Some(ForgedBladeSection::Diamond | ForgedBladeSection::Triangular)
+        ) {
             self.single_edge.map_or(0.0, Ratio::get) == 0.0
         } else {
             self.thickness.get() * (1.0 - DISTAL_THICKNESS_REDUCTION) >= BLADE_EDGE_THICKNESS

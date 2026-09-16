@@ -424,7 +424,7 @@ The shared `silver` material uses 10,500 kg/m³, the room-temperature elemental
 density listed by the [Royal Society of Chemistry](https://periodic-table.rsc.org/element/47/).
 This is an explicit approximation for unidentified historical silver alloys.
 It affects material mass and appearance while preserving the authored geometry.
-Weapon schema/generator identities are 14/17; holder identities are 8/8 because
+Weapon schema/generator identities are 15/18; holder identities are 9/9 because
 holders contain material fields and embedded weapon recipes.
 
 
@@ -564,3 +564,63 @@ ribs are not overlapping rings. Counts are bounded at 64, depth cannot exceed
 one quarter of pitch, and trough sections must preserve core and cover
 clearance. Grip limits apply to crest dimensions. Existing construction
 budgets can reject a costly combination of rib and radial sampling counts.
+
+## Cleveland Museum of Art 1916.686 estoc
+
+Select `cma-1916-686`. The [recipe](cma-1916.686.json) covers browser `estoc`.
+There is no gameplay estoc entry; other sword categories remain separate.
+The [museum record](https://www.clevelandart.org/art/1916.686) identifies an
+early sixteenth-century German sword of steel, wood and leather. Published
+dimensions are 1566 mm overall, 1253 mm blade, 262 mm quillons and 300 mm
+under the label "grip". The reported mass is 1.6 kg. The museum explicitly
+describes the blade as three-sided.
+
+The [whole photograph](https://openaccess-cdn.clevelandart.org/1916.686/1916.686_print.jpg),
+[alternate whole photograph](https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt0_print.jpg)
+and three hilt details
+([first](https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt1_print.jpg),
+[second](https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt2_print.jpg),
+[third](https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt3_print.jpg))
+show the trumpet pommel, three separated rib bands and thin curled quillons.
+The first two hilt details have closely related projections. These photographs
+are CC0 under the museum's [Open Access policy](https://www.clevelandart.org/open-access).
+Credit: Gift of Mr. and Mrs. John L. Severance.
+
+The published grip label has ambiguous endpoints: overall minus blade leaves
+only 313 mm for the complete hilt. The displayed fit uses 250 mm of exposed
+leather, a 51 mm pommel and a 12 mm guard. It retains the original 300 mm
+museum field without treating it as an additional exposed leather length.
+Photo estimates include a 51 mm pommel cap, 19 mm neck, 28 mm maximum grip
+breadth, 27 mm blade heel, 32 mm guard block and 10 mm round quillons.
+Seven, six and nine rounded courses represent the three visible rib groups.
+
+Blade section height of 16 mm, guard depth of 24 mm, grip depths of 16 to
+20 mm and a 1 mm cover are unmeasured assumptions. The pommel's rotational
+symmetry and the blade's exact section orientation are also assumptions.
+Different photographs suggest that opposing quillon curls lie in a plane
+transverse to the blade axis; their precise spatial path is not uniquely
+recoverable. The fit uses a nominal 16 mm bend radius and short cut ends.
+Calculated mass is about 1.400 kg versus the reported 1.6 kg. Neither density
+nor hidden thickness is calibrated to that reported mass.
+
+Six contiguous covered profile intervals represent one grip with localized
+ribbed regions. Matching end footprints partition the material without
+overlapping rings or bands. They do not assert six historical grip pieces
+or a known cord arrangement. The existing guard assembly describes a beveled
+central member and two curled members meeting complete side seats. Grip and
+blade meet opposite horizontal faces. Tang, peen, internal mortise, adhesive
+and fasteners are not reconstructed. Corrosion, pitting, torn leather and
+small surface irregularities remain outside structural replication.
+
+### Three-sided generic blades
+
+`blade.section: "triangular"` defines a three-sided section about its area
+centroid. `width` is the base breadth and `thickness` is the full transverse
+height. The base lies at minus one third of that height and the ridge at
+plus two thirds; receiving surfaces must cover this asymmetric footprint.
+Both dimensions scale with the authored blade-width envelope. Curvature
+moves the centroid along the authored axis. A point closes every section
+vertex at one tip, while omission of a point retains the finite end cap.
+An asymmetric cutting-edge offset is rejected for this thrusting section.
+Existing edged and diamond sections retain their geometry, and this option
+does not expand generic-blade scabbard eligibility.

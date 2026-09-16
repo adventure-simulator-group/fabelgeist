@@ -20,6 +20,17 @@ fn arming_sword_round_trip_preserves_mortise_wheel_and_ribbed_cover() {
     assert_eq!(generate(&restored).unwrap(), generate(&design).unwrap());
 }
 
+#[test]
+fn triangular_museum_recipe_round_trip_preserves_the_complete_assembly() {
+    let mut design = pointed_design();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/cma-1916.686.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    assert_eq!(generate(&restored).unwrap(), generate(&design).unwrap());
+}
+
 fn versioned_hash(
     domain: &[u8],
     schema: u16,
@@ -46,23 +57,23 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 13, 16, &design));
+    assert_ne!(current, versioned_hash(domain, 14, 17, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 13.into();
+    previous["schema_version"] = 14.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 13,
+            found: 14,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 16.into();
+    previous["generator_version"] = 17.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 16,
+            found: 17,
             expected: GENERATOR_VERSION
         })
     ));
@@ -119,23 +130,23 @@ fn holder_transport_versions_its_embedded_design_and_generated_identity() {
     );
     assert_eq!(holder_design_hash(&design), current);
     assert_eq!(generate_holder(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 7, 7, &design));
+    assert_ne!(current, versioned_hash(domain, 8, 8, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 7.into();
+    previous["schema_version"] = 8.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 7,
+            found: 8,
             expected: HOLDER_SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 7.into();
+    previous["generator_version"] = 8.into();
     assert!(matches!(
         decode_holder(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 7,
+            found: 8,
             expected: HOLDER_GENERATOR_VERSION
         })
     ));
@@ -155,21 +166,26 @@ fn silver_holder_fittings_round_trip_through_an_existing_holder() {
 }
 
 #[test]
-fn diamond_sections_do_not_enable_generic_blade_scabbards() {
-    let mut weapon = pointed_design();
-    for component in &mut weapon.recipe.components {
-        if let recipe::Shape::Blade(blade) = &mut component.shape {
-            blade.section = Some(recipe::ForgedBladeSection::Diamond);
-            blade.single_edge = Some(recipe::Ratio::new(0.0).unwrap());
+fn thrusting_sections_do_not_enable_generic_blade_scabbards() {
+    for section in [
+        recipe::ForgedBladeSection::Diamond,
+        recipe::ForgedBladeSection::Triangular,
+    ] {
+        let mut weapon = pointed_design();
+        for component in &mut weapon.recipe.components {
+            if let recipe::Shape::Blade(blade) = &mut component.shape {
+                blade.section = Some(section);
+                blade.single_edge = Some(recipe::Ratio::new(0.0).unwrap());
+            }
         }
+        validate(&weapon).unwrap();
+        let holder = default_holder_design(&weapon).unwrap();
+        assert!(matches!(
+            generate_holder(&holder),
+            Err(GenerateError::Invalid(errors))
+                if errors == vec![ValidationError::Holder("source geometry")]
+        ));
     }
-    validate(&weapon).unwrap();
-    let holder = default_holder_design(&weapon).unwrap();
-    assert!(matches!(
-        generate_holder(&holder),
-        Err(GenerateError::Invalid(errors))
-            if errors == vec![ValidationError::Holder("source geometry")]
-    ));
 }
 
 #[test]
