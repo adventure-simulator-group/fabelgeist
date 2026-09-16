@@ -1,4 +1,4 @@
-//! Keep studio exhibits and their assets resident independently of navigation.
+//! Keep recently used studio exhibits resident in a bounded navigation cache.
 //! Scenery shares prepared facades, but releases terrain and inspection detail.
 
 use std::collections::{HashMap, VecDeque};
@@ -8,6 +8,7 @@ use super::*;
 // Render-world removals and asset handle drops settle across frames. Keep the
 // release window for large scenery allocations without delaying cached models.
 const SCENERY_RELEASE_FRAMES: u8 = 4;
+const STUDIO_CACHE_CAPACITY: usize = 6;
 
 #[derive(Resource)]
 struct SceneryRetirement(u8);
@@ -19,7 +20,7 @@ pub(super) struct PendingScenery(ExhibitId);
 pub(super) struct ExhibitCache {
     studio: HashMap<ExhibitId, Result<Option<Handle<WorldAsset>>, String>>,
     views: HashMap<ExhibitId, OrbitView>,
-    pending: VecDeque<Exhibit>,
+    recency: VecDeque<ExhibitId>,
 }
 
 impl Default for ExhibitCache {
@@ -27,10 +28,7 @@ impl Default for ExhibitCache {
         Self {
             studio: HashMap::new(),
             views: HashMap::new(),
-            pending: Exhibit::catalog()
-                .into_iter()
-                .filter(Exhibit::is_studio)
-                .collect(),
+            recency: VecDeque::new(),
         }
     }
 }
@@ -113,76 +111,83 @@ pub(super) fn spawn_pending(world: &mut World) {
 }
 
 fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<WorldAsset>>, String> {
-    if let Some(result) = world.resource::<ExhibitCache>().studio.get(&exhibit.id()) {
-        return result.clone();
-    }
-    let result = exhibit.spawn(world);
-    world
-        .resource_mut::<ExhibitCache>()
+    if let Some(result) = world
+        .resource::<ExhibitCache>()
         .studio
-        .insert(exhibit.id(), result.clone());
+        .get(&exhibit.id())
+        .cloned()
+    {
+        touch(world, exhibit.id());
+        return result;
+    }
+    evict_for(world, exhibit.id());
+    let result = exhibit.spawn(world);
+    let mut cache = world.resource_mut::<ExhibitCache>();
+    cache.studio.insert(exhibit.id(), result.clone());
+    cache.recency.push_back(exhibit.id());
     result
 }
 
-/// Prepare at most one small exhibit at a time, after the selected exhibit's
-/// file dependencies and city assembly finish. No hidden studio lights run.
-pub(super) fn prefetch(world: &mut World) {
-    let Some(current) = world.get_resource::<CurrentExhibit>() else {
-        return;
-    };
-    let active = current.id;
-    if world.contains_resource::<PendingScenery>() {
-        return;
-    }
-    if world
-        .get_resource::<crate::presentation::PendingCityBuildings>()
-        .is_some_and(|pending| !pending.finished())
-    {
+fn touch(world: &mut World, id: ExhibitId) {
+    let mut cache = world.resource_mut::<ExhibitCache>();
+    cache.recency.retain(|cached| *cached != id);
+    cache.recency.push_back(id);
+}
+
+fn evict_for(world: &mut World, incoming: ExhibitId) {
+    if world.resource::<ExhibitCache>().studio.len() < STUDIO_CACHE_CAPACITY {
         return;
     }
-    let server = world.resource::<AssetServer>();
-    if world
-        .resource::<ExhibitCache>()
-        .studio
-        .values()
-        .any(|result| {
-            let Ok(Some(handle)) = result else {
-                return false;
-            };
-            !server.is_loaded_with_dependencies(handle.id())
-                && !matches!(
-                    server.load_state(handle.id()),
-                    bevy::asset::LoadState::Failed(_)
-                )
-                && !matches!(
-                    server.recursive_dependency_load_state(handle.id()),
-                    bevy::asset::RecursiveDependencyLoadState::Failed(_)
-                )
-        })
-    {
-        return;
-    }
-    let next = {
+    let active = world
+        .get_resource::<CurrentExhibit>()
+        .map(|current| current.id);
+    let evicted = {
         let mut cache = world.resource_mut::<ExhibitCache>();
-        loop {
-            let Some(exhibit) = cache.pending.pop_front() else {
-                break None;
-            };
-            if !cache.studio.contains_key(&exhibit.id()) {
-                break Some(exhibit);
-            }
-        }
+        let position = cache
+            .recency
+            .iter()
+            .position(|id| Some(*id) != active && *id != incoming);
+        position.and_then(|position| cache.recency.remove(position))
     };
-    if let Some(exhibit) = next {
-        let _ = load_studio(world, &exhibit);
-        world.flush();
-        for (entity, mut visibility) in world
-            .query::<(&DemoEntity, &mut Visibility)>()
-            .iter_mut(world)
-        {
-            if entity.0 != active {
-                *visibility = Visibility::Hidden;
-            }
+    let Some(evicted) = evicted else {
+        return;
+    };
+    {
+        let mut cache = world.resource_mut::<ExhibitCache>();
+        cache.studio.remove(&evicted);
+        cache.views.remove(&evicted);
+    }
+    let entities = world
+        .query::<(Entity, &DemoEntity)>()
+        .iter(world)
+        .filter_map(|(entity, exhibit)| (exhibit.0 == evicted).then_some(entity))
+        .collect::<Vec<_>>();
+    for entity in entities {
+        world.entity_mut(entity).despawn();
+    }
+}
+
+/// Prepare one explicitly requested studio exhibit without changing selection.
+pub(super) fn prefetch(world: &mut World, id: ExhibitId) {
+    let exhibit = Exhibit::get(id);
+    if !exhibit.is_studio()
+        || world
+            .get_resource::<CurrentExhibit>()
+            .is_some_and(|current| current.id == id)
+    {
+        return;
+    }
+    let active = world
+        .get_resource::<CurrentExhibit>()
+        .map(|current| current.id);
+    let _ = load_studio(world, &exhibit);
+    world.flush();
+    for (entity, mut visibility) in world
+        .query::<(&DemoEntity, &mut Visibility)>()
+        .iter_mut(world)
+    {
+        if Some(entity.0) != active {
+            *visibility = Visibility::Hidden;
         }
     }
 }
@@ -243,5 +248,29 @@ mod tests {
         assert_eq!(world.query::<&DirectionalLight>().iter(&world).count(), 2);
         show(&mut world, ExhibitId::Longsword);
         assert_eq!(world.resource::<Assets<Mesh>>().len(), meshes + 1);
+    }
+
+    #[test]
+    fn studio_cache_evicts_the_least_recent_inactive_exhibit() {
+        let mut world = World::new();
+        world.init_resource::<ExhibitCache>();
+        world.init_resource::<OrbitView>();
+        world.init_resource::<Assets<Mesh>>();
+        world.init_resource::<Assets<StandardMaterial>>();
+        for id in [
+            ExhibitId::Longsword,
+            ExhibitId::ArmingSword,
+            ExhibitId::Rapier,
+            ExhibitId::Spear,
+            ExhibitId::Halberd,
+            ExhibitId::Dagger,
+            ExhibitId::Henry,
+        ] {
+            show(&mut world, id);
+        }
+        let cache = world.resource::<ExhibitCache>();
+        assert_eq!(cache.studio.len(), STUDIO_CACHE_CAPACITY);
+        assert!(!cache.studio.contains_key(&ExhibitId::Longsword));
+        assert!(cache.studio.contains_key(&ExhibitId::Henry));
     }
 }

@@ -4,16 +4,18 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { parseHTML } = require("linkedom");
 
-async function fixture() {
+async function fixture({ hash = "#city", saveData = false } = {}) {
   const { window, document } = parseHTML(fs.readFileSync(path.join(__dirname, "../static/art-demo/index.html"), "utf8"));
   const catalog = JSON.parse(fs.readFileSync(path.join(__dirname, "../../../assets/art-demo/catalog.json"), "utf8"));
-  const location = { hash: "#city" };
+  const location = { hash };
   const navigation = [];
   const commands = [];
   let status = { state: "starting" };
   let poll;
   let frame;
   let boots = 0;
+  let nextTimer = 1;
+  const timeouts = new Map();
   const history = Object.fromEntries(["pushState", "replaceState"].map((method) => [method, (_, __, hash) => {
     navigation.push([method, hash]);
     location.hash = hash;
@@ -30,8 +32,13 @@ async function fixture() {
     requestAnimationFrame: (callback) => { frame = callback; },
     setInterval: (callback) => { poll = callback; return 1; },
     clearInterval: () => { poll = undefined; },
+    setTimeout: (callback) => { const id = nextTimer++; timeouts.set(id, callback); return id; },
+    clearTimeout: (id) => timeouts.delete(id),
   });
-  Object.defineProperty(globalThis, "navigator", { configurable: true, value: { gpu: {} } });
+  Object.defineProperty(globalThis, "navigator", {
+    configurable: true,
+    value: { gpu: {}, connection: { saveData } },
+  });
   const { mount } = await import("../static/art-demo/viewer.mjs");
   await mount({ loadRuntime: async () => runtime });
   const emit = (target, type, properties = {}) => {
@@ -48,8 +55,66 @@ async function fixture() {
     status: (value) => { status = value; poll(); },
     frame: (time) => frame(time),
     hasPoll: () => Boolean(poll),
+    runTimeout: () => {
+      const entry = timeouts.entries().next().value;
+      if (!entry) return;
+      timeouts.delete(entry[0]);
+      entry[1]();
+    },
+    timeoutCount: () => timeouts.size,
   };
 }
+
+test("cold start loads only the selected exhibit before sustained idle", async () => {
+  const f = await fixture({ hash: "#henry" });
+  assert.deepEqual(f.commands, [{ type: "show", exhibit: "henry" }]);
+  assert.equal(f.timeoutCount(), 0);
+  f.status({ state: "ready", exhibit: "henry" });
+  assert.equal(f.timeoutCount(), 1);
+});
+
+test("immediate cross-category selection preempts scheduled speculation", async () => {
+  const f = await fixture({ hash: "#henry" });
+  f.emit(f.document.querySelector("#tab-weapon"), "click");
+  assert.deepEqual(f.commands.at(-1), { type: "show", exhibit: "longsword" });
+  assert.equal(f.timeoutCount(), 0);
+});
+
+test("pointer and keyboard intent prefetch without changing selection", async () => {
+  const f = await fixture({ hash: "#henry", saveData: true });
+  const weapon = f.document.querySelector("#tab-weapon");
+  f.emit(weapon, "pointerenter");
+  assert.equal(f.commands.filter((command) => command.type === "prefetch").length, 0);
+  f.status({ state: "ready", exhibit: "henry" });
+  assert.deepEqual(f.commands.at(-1), { type: "prefetch", exhibit: "longsword" });
+  assert.equal(weapon.getAttribute("aria-selected"), "false");
+  assert.equal(f.location.hash, "#henry");
+  f.emit(weapon, "focus");
+  assert.equal(f.commands.filter((command) => command.type === "prefetch").length, 1);
+});
+
+test("sustained idle has a deterministic fallback and respects constrained data", async () => {
+  const f = await fixture({ hash: "#henry" });
+  f.status({ state: "ready", exhibit: "henry" });
+  f.runTimeout();
+  assert.deepEqual(f.commands.at(-1), { type: "prefetch", exhibit: "nuremberg" });
+  const constrained = await fixture({ hash: "#henry", saveData: true });
+  constrained.status({ state: "ready", exhibit: "henry" });
+  assert.equal(constrained.timeoutCount(), 0);
+});
+
+test("cached return keeps the runtime and canvas and reports timing evidence", async () => {
+  const f = await fixture({ hash: "#henry" });
+  const canvas = f.canvas;
+  f.emit(f.document.querySelector("#tab-weapon"), "click");
+  f.status({ state: "ready", exhibit: "longsword" });
+  f.emit(f.document.querySelector("#tab-armor"), "click");
+  f.status({ state: "ready", exhibit: "henry" });
+  assert.equal(f.document.querySelector("canvas"), canvas);
+  assert.equal(f.boots(), 1);
+  assert.match(f.document.documentElement.dataset.firstSelectedExhibitMilliseconds, /^\d+(\.\d+)?$/);
+  assert.match(f.document.documentElement.dataset.bytesBeforeInteraction, /^\d+$/);
+});
 
 test("partially loaded city accepts pan input and preserves its canvas across navigation", async () => {
   const f = await fixture();

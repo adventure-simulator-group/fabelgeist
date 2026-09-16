@@ -25,6 +25,9 @@ enum DemoCommand {
     Show {
         exhibit: ExhibitId,
     },
+    Prefetch {
+        exhibit: ExhibitId,
+    },
     Orbit {
         delta_x: f32,
         delta_y: f32,
@@ -185,10 +188,7 @@ pub(super) fn run() {
             .chain()
             .before(bevy::transform::TransformSystems::Propagate),
     )
-    .add_systems(
-        Last,
-        (camera::studio_exposure, report_exit, residency::prefetch),
-    );
+    .add_systems(Last, (camera::studio_exposure, report_exit));
     #[cfg(feature = "debug")]
     app.insert_gizmo_config(
         adventuresim_tactical_core::prelude::PhysicsGizmos::default(),
@@ -220,6 +220,7 @@ fn drain(world: &mut World) {
                 };
                 residency::show(world, exhibit);
             }
+            DemoCommand::Prefetch { exhibit } => residency::prefetch(world, exhibit),
             DemoCommand::Orbit { delta_x, delta_y } => {
                 world.resource_mut::<OrbitView>().orbit(delta_x, delta_y);
             }
@@ -326,6 +327,7 @@ mod tests {
         assert!(queue(r#"{"type":"zoom","delta":1e300}"#).is_err());
         queue(r#"{"type":"show","exhibit":"city"}"#).unwrap();
         queue(r#"{"type":"orbit","delta_x":20,"delta_y":0}"#).unwrap();
+        queue(r#"{"type":"prefetch","exhibit":"nuremberg"}"#).unwrap();
         queue(r#"{"type":"show","exhibit":"oak"}"#).unwrap();
         let pending = std::mem::take(&mut *PENDING.lock().unwrap());
         assert!(matches!(
