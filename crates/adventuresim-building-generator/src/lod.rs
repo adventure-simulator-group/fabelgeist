@@ -12,19 +12,23 @@ use crate::{
     tessellate_roof_face,
 };
 
+mod closures;
 mod compilation;
 #[path = "lod/crowns.rs"]
 mod crowns;
 #[path = "lod/details.rs"]
 mod details;
 mod exterior;
+#[cfg(test)]
+mod exterior_tests;
 mod gable_openings;
 #[path = "lod/small_church.rs"]
 mod small_church;
 mod urban_church;
 mod vertex_remap;
-pub use compilation::compile_building_lod;
+#[cfg(test)]
 use compilation::extract_facade_runs;
+pub use compilation::{compile_building_lod, compile_static_building_lod};
 #[path = "lod/walls.rs"]
 mod walls;
 
@@ -41,7 +45,7 @@ const ROUND_LOD_SEGMENTS: usize = 24;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum BuildingLodLevel {
-    /// Joined wall runs, textured faÃƒÆ’Ã‚Â§ade details, and geometric straight crowns.
+    /// Exact civilian/church exterior assemblies and geometric straight crowns.
     Facade,
     /// Joined shell surfaces with alpha-masked crown strips.
     Shell,
@@ -477,7 +481,7 @@ mod tests {
         assert!(
             lod.meshes
                 .iter()
-                .any(|mesh| mesh.material == BuildingLodMaterial::FacadeDetails)
+                .any(|mesh| mesh.material == BuildingLodMaterial::Timber)
         );
         assert!(lod.meshes.iter().all(|mesh| {
             mesh.vertices.iter().all(|vertex| {
@@ -535,7 +539,7 @@ mod tests {
             facade
                 .meshes
                 .iter()
-                .any(|mesh| mesh.material == BuildingLodMaterial::FacadeDetails)
+                .any(|mesh| mesh.material == BuildingLodMaterial::Timber)
         );
         assert!(
             shell

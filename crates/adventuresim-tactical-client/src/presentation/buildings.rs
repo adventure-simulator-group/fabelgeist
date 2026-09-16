@@ -1,6 +1,7 @@
 use adventuresim_building_generator::{
     BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_collision,
-    compile_building_detail, compile_building_lod, compile_static_building_detail, generate,
+    compile_building_detail, compile_building_lod, compile_static_building_detail,
+    compile_static_building_lod, generate,
 };
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
 
@@ -65,6 +66,7 @@ enum BuildingDetail {
 
 #[derive(Clone)]
 struct CompiledBuildingLevels {
+    facade_openings: std::collections::BTreeSet<adventuresim_building_generator::OpeningAssemblyId>,
     interior: Option<super::interior_lighting::InteriorField>,
     program: BuildingProgram,
     detail: BuildingDetail,
@@ -105,6 +107,7 @@ fn on_scene_building_added(
         .entity(event.entity)
         .insert((
             Visibility::default(),
+            super::building_closures::FacadeOpenings(compiled.facade_openings.clone()),
             compiled
                 .interior
                 .clone()
@@ -166,7 +169,11 @@ fn cached_building_levels(
         BuildingDetail::Static => Some(compile_building_detail(&plan)),
         BuildingDetail::Facade => None,
     };
-    let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+    let facade = if detail == BuildingDetail::Dynamic {
+        compile_static_building_lod(&plan, BuildingLodLevel::Facade)
+    } else {
+        compile_building_lod(&plan, BuildingLodLevel::Facade)
+    };
     let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
@@ -179,6 +186,7 @@ fn cached_building_levels(
             .collect()
     };
     let compiled = CompiledBuildingLevels {
+        facade_openings: plan.facade_dynamic_openings(),
         interior: Some(super::interior_lighting::InteriorField::from_plan(
             &plan,
             local_origin,

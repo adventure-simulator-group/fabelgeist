@@ -46,6 +46,7 @@ impl AssetLoader for PreparedCityLoader {
             BuildingDetail::Static
         };
         Ok(PreparedCityAsset(CompiledBuildingLevels {
+            facade_openings: Default::default(),
             interior: None,
             program: data.program,
             detail,

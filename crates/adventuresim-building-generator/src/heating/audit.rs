@@ -5,6 +5,7 @@ use geo::{Area, BooleanOps};
 use std::collections::BTreeSet;
 mod enclosures;
 mod roof;
+pub(super) mod roof_route;
 mod weathering;
 const GEOMETRY_TOLERANCE_METRES: f32 = 0.002;
 

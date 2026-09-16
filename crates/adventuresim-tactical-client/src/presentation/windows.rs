@@ -4,10 +4,7 @@ use adventuresim_building_generator::compile_window_leaf;
 use bevy::prelude::*;
 use bevy_mod_outline::{OutlineMode, OutlineVolume};
 
-use super::{
-    BuildingRenderLevel, GrabTargetOutline, SceneWindow, TacticalBuildingMaterials,
-    building_lod_visibility,
-};
+use super::{GrabTargetOutline, SceneWindow, TacticalBuildingMaterials, building_closures};
 
 #[derive(Component)]
 pub(crate) struct PresentedWindowCasement;
@@ -42,7 +39,8 @@ fn on_scene_window_added(
         Mesh3d(meshes.add(super::recipe_mesh::recipe_mesh(body, Vec3::ZERO))),
         MeshMaterial3d(materials.get_for_building(window.building_id, window.leaf.material())),
         Visibility::default(),
-        building_lod_visibility(BuildingRenderLevel::Lod0),
+        super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
+        building_closures::PresentedBuildingClosureMesh::new(window.building_id, window.opening_id),
         GrabTargetOutline(event.entity),
         OutlineVolume {
             visible: false,
@@ -60,7 +58,11 @@ fn on_scene_window_added(
                 Mesh3d(meshes.add(super::recipe_mesh::recipe_mesh(batch, Vec3::ZERO))),
                 MeshMaterial3d(materials.get_for_building(window.building_id, batch.material)),
                 Transform::IDENTITY,
-                building_lod_visibility(BuildingRenderLevel::Lod0),
+                super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
+                building_closures::PresentedBuildingClosureMesh::new(
+                    window.building_id,
+                    window.opening_id,
+                ),
             ));
         }
     });

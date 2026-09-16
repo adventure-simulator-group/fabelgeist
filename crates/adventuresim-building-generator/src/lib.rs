@@ -55,7 +55,7 @@ pub use heating::{
 };
 pub use lod::{
     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
-    LodVertex, compile_building_lod,
+    LodVertex, compile_building_lod, compile_static_building_lod,
 };
 pub use model::*;
 pub use roof_tessellation::{

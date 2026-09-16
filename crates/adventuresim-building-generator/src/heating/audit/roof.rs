@@ -38,6 +38,7 @@ pub(super) fn audit(plan: &BuildingPlan, h: &DomesticHeatingPlan, issues: &mut V
         }
     });
     let shaft = rect(bounds);
+    super::roof_route::audit(plan, h, bounds, issues);
     let actual_cut = face.cutouts.get(h.roof.cutout_index);
     let cut_valid = actual_cut.is_some_and(|cut| {
         let p = polygon(cut);
@@ -178,11 +179,14 @@ fn sheet_section(
         solid.crossfall_radians,
         solid.longfall_radians,
     );
-    if (rotation * Vec3::Y)
-        .dot(face.plane.normal.normalize())
-        .abs()
-        < 0.9995
-    {
+    let roof_normal = face.plane.normal.normalize();
+    let downhill = Vec3::new(roof_normal.x, 0.0, roof_normal.z).normalize();
+    // The continuous pan deliberately falls slightly less than the covering.
+    // Check that authored section, including on a shallow shed slope.
+    let pan_normal = (roof_normal
+        - downhill * roof_normal.y * super::super::roof::PAN_FALL_ADJUSTMENT)
+        .normalize();
+    if (rotation * Vec3::Y).dot(pan_normal).abs() < 0.9995 {
         return false;
     }
     for vertex in compile_solid_detail(plan, solid)
@@ -208,7 +212,9 @@ fn sheet_section(
     let signed_distance =
         (face.plane.normal.dot(solid.centre) + face.plane.constant) / face.plane.normal.length();
     // Water leaves the tiles onto the backpan, then runs over the apron.
-    if (side < -0.001 && signed_distance >= -0.001) || (side > 0.001 && signed_distance <= 0.001) {
+    // Side strips may sit less than a millimetre above the covering on a
+    // shallow roof. Their sign, full-section lap and continuous fall matter.
+    if side.abs() > 0.001 && signed_distance * side <= 0.0 {
         return false;
     }
     true

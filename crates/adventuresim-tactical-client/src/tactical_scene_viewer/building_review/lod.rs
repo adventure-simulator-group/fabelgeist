@@ -1,6 +1,8 @@
 //! Matched-camera diagnostics select existing production meshes and materials.
 use super::*;
-use crate::presentation::{BuildingRenderLevel, PresentedBuildingMesh};
+use crate::presentation::{
+    BuildingRenderLevel, PresentedBuildingClosureMesh, PresentedBuildingMesh,
+};
 use crate::tactical_scene_viewer::capture_state::{CapturePhase, SceneCaptureState};
 use bevy::camera::visibility::VisibilityRange;
 
@@ -29,8 +31,7 @@ type ReviewGeometry = (
     Entity,
     &'static mut VisibilityRange,
     Option<&'static PresentedBuildingMesh>,
-    Option<&'static adventuresim_tactical_core::prelude::SceneDoor>,
-    Option<&'static adventuresim_tactical_core::prelude::SceneWindow>,
+    Option<&'static PresentedBuildingClosureMesh>,
     Option<&'static OriginalRange>,
 );
 
@@ -46,17 +47,22 @@ pub(super) fn select(
     };
     let view = state.views[state.view];
     let mut selected_batches = 0;
-    for (entity, mut range, mesh, door, window, original) in &mut geometry {
-        if mesh.is_none() && door.is_none() && window.is_none() {
+    let mut selected_closures = 0;
+    for (entity, mut range, mesh, closure, original) in &mut geometry {
+        if mesh.is_none() && closure.is_none() {
             continue;
         }
         if let Some(lod) = view.building_lod_override {
             if original.is_none() {
                 commands.entity(entity).insert(OriginalRange(range.clone()));
             }
-            let level = mesh.map_or(ReviewLod::Detail, |mesh| mesh.level.into());
-            let visible = level == lod;
+            let visible = mesh.map_or(
+                lod == ReviewLod::Detail
+                    || (lod == ReviewLod::Facade && closure.is_some_and(|c| c.facade)),
+                |mesh| ReviewLod::from(mesh.level) == lod,
+            );
             selected_batches += usize::from(visible && mesh.is_some());
+            selected_closures += usize::from(visible && closure.is_some());
             *range = VisibilityRange {
                 start_margin: 0.0..0.0,
                 end_margin: if visible {
@@ -83,6 +89,7 @@ pub(super) fn select(
             serde_json::to_vec_pretty(&serde_json::json!({
                 "selected_production_lod": view.building_lod_override,
                 "selected_production_batches": selected_batches,
+                "selected_dynamic_closure_batches": selected_closures,
                 "meshes_and_materials_unchanged": true,
             }))
             .unwrap(),

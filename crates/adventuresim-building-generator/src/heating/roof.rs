@@ -7,7 +7,7 @@ pub(super) const CUT_CLEARANCE_METRES: f32 = 0.015;
 const LEAD_THICKNESS_METRES: f32 = 0.006;
 // A shallow change of fall lets a continuous pan emerge from below the uphill
 // tiles to above the downhill tiles without an upward step in its water route.
-const PAN_FALL_ADJUSTMENT: f32 = 0.04;
+pub(in crate::heating) const PAN_FALL_ADJUSTMENT: f32 = 0.04;
 
 pub(super) struct PenetrationFootprint {
     pub cut_min: Vec2,

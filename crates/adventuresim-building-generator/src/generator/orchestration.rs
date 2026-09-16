@@ -42,13 +42,26 @@ fn generate_unchecked(
         &projected_defenses,
         &mut resolved_geometry,
     );
-    let workplace = crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
+    let workplace =
+        crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
     let small_church = small_church::resolve(program, &mut wall_assemblies, &mut resolved_geometry);
     let mut church = urban_church::resolve(
-        program, &square_towers, &mut wall_assemblies, &mut opening_assemblies,
-        &mut stairs, &mut resolved_geometry,
+        program,
+        &square_towers,
+        &mut wall_assemblies,
+        &mut opening_assemblies,
+        &mut stairs,
+        &mut resolved_geometry,
     );
-    fortified_envelope::resolve(program, &towers, &crowns, &projected_defenses, &mut wall_assemblies, &mut opening_assemblies, &mut resolved_geometry);
+    fortified_envelope::resolve(
+        program,
+        &towers,
+        &crowns,
+        &projected_defenses,
+        &mut wall_assemblies,
+        &mut opening_assemblies,
+        &mut resolved_geometry,
+    );
     let artillery_castle = resolve_artillery_castle(
         program,
         &towers,
@@ -57,36 +70,18 @@ fn generate_unchecked(
         &mut resolved_geometry,
     );
 
-    let mut roof_assemblies = resolve_roof_assemblies(
+    let (roof_assemblies, timber_frame) = framed_roofs::resolve(
         program,
+        edits,
         &roofs,
         &roof_dormers,
         &towers,
         &square_towers,
-        &stairs,
-        &wall_assemblies,
-        &opening_assemblies,
-        &mut resolved_geometry,
-    );
-    resolve_roof_child_front_openings(
-        program,
-        &roof_dormers,
-        &mut roof_assemblies,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &mut resolved_geometry,
-    );
-    let timber_frame = resolve_timber_frame_assembly(
-        program,
-        edits,
-        &mut wall_assemblies,
-        &mut opening_assemblies,
-        &roofs,
-        &roof_dormers,
         &mut stairs,
-        &mut roof_assemblies,
+        &mut wall_assemblies,
+        &mut opening_assemblies,
         &mut resolved_geometry,
-    );
+    )?;
     // Corner bonds must be resolved against the final timber-infill depth,
     // after the semantic frame has replaced the exterior structural layer.
     wall_corner_bonds::resolve(&wall_assemblies, &mut resolved_geometry);

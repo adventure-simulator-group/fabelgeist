@@ -68,6 +68,7 @@ enum CaptureProfile {
     /// Supported fixed attic glazing across production building LODs.
     GableReview,
     HeatingReview,
+    FacadeReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -183,6 +184,7 @@ fn main() {
             CaptureProfile::ParishReview => "parish-review",
             CaptureProfile::CompoundReview => "compound-review",
             CaptureProfile::HeatingReview => "heating-review",
+            CaptureProfile::FacadeReview => "facade-review",
             CaptureProfile::GableReview => "gable-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",

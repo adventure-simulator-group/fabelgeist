@@ -7,6 +7,8 @@ use bevy::math::Vec2;
 
 #[path = "generate_scene_fixtures/compound.rs"]
 mod compound;
+#[path = "generate_scene_fixtures/facade.rs"]
+mod facade;
 #[path = "generate_scene_fixtures/fault.rs"]
 mod fault;
 #[path = "generate_scene_fixtures/furniture.rs"]
@@ -61,6 +63,7 @@ enum BuildingFixture {
     CompoundReview,
     GableReview,
     HeatingReview,
+    FacadeReview,
 }
 
 fn main() {
@@ -88,10 +91,11 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 27] {
+fn fixtures() -> [Fixture; 28] {
     [
         gable::fixture(),
         heating::fixture(),
+        facade::fixture(),
         parish::fixture(),
         compound::fixture(),
         furniture::fixture(),
@@ -288,6 +292,10 @@ fn fixture_buildings(
 ) -> adventuresim_tactical_core::city_layout::CitySceneLayout {
     use adventuresim_tactical_core::city_layout::CitySceneLayout;
     match buildings {
+        BuildingFixture::FacadeReview => CitySceneLayout {
+            playable: facade::buildings(),
+            ..Default::default()
+        },
         BuildingFixture::GableReview => CitySceneLayout {
             playable: gable::buildings(),
             ..Default::default()

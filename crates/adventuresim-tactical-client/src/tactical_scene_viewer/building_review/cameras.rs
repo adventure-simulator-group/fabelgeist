@@ -9,6 +9,8 @@ pub(super) struct ReviewView {
     target: ReviewTarget,
     /// Camera displacement from the target, in building-local metres.
     offset: Vec3,
+    #[serde(default)]
+    pub(super) openings: super::openings::OpeningPose,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -16,6 +18,7 @@ pub(super) struct ReviewView {
 enum ReviewTarget {
     MainGable(u8),
     Heating(super::heating::HeatingTarget),
+    Opening(super::openings::OpeningTarget),
     Sign,
     Mounting,
     Window,
@@ -46,7 +49,11 @@ impl ReviewView {
         );
         let transform = super::super::buildings::building_transform(building);
         let world_target = transform.transform_point(target - bounds.centre());
-        let offset = if let ReviewTarget::Heating(target) = self.target {
+        let offset = if let ReviewTarget::Opening(target) = self.target {
+            let (_, tangent, outward) = target.frame(&building.plan);
+            let horizontal = tangent * self.offset.x + outward * self.offset.z;
+            Vec3::new(horizontal.x, self.offset.y, horizontal.y)
+        } else if let ReviewTarget::Heating(target) = self.target {
             target.offset(&building.plan, self.offset)
         } else {
             gable.map_or(self.offset, |wall| {
@@ -92,6 +99,7 @@ impl ReviewView {
     ) -> Vec3 {
         let bounds = building.collision.bounds;
         match self.target {
+            ReviewTarget::Opening(target) => target.frame(&building.plan).0,
             ReviewTarget::Heating(target) => target.anchor(&building.plan),
             ReviewTarget::MainGable(_) => {
                 let wall = gable.unwrap();

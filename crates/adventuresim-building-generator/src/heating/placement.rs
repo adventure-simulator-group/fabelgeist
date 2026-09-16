@@ -1,7 +1,6 @@
 //! Select a ground-floor kitchen/Stube bay against the complete structure.
 use crate::{BuildingPlan, ResolvedBounds, RoofFace, RoomKind, SolidRole, WallAssemblyId};
 use bevy::math::{Vec2, Vec3};
-use geo::{Area, BooleanOps, Intersects};
 
 pub(super) const FIRE_WALL_PATCH_HEIGHT_METRES: f32 = 2.0;
 pub(super) const CORE_WIDTH_METRES: f32 = 0.96;
@@ -13,18 +12,21 @@ pub(super) const SHAFT_HALF_WIDTH_METRES: f32 = 0.3;
 pub(super) enum HearthSection {
     Compact,
     Deep,
+    Extended,
 }
 impl HearthSection {
     pub fn shaft_offset(self) -> f32 {
         match self {
             Self::Compact => 0.55,
             Self::Deep => 1.2,
+            Self::Extended => 1.5,
         }
     }
     pub fn front(self) -> f32 {
         match self {
             Self::Compact => CORE_HALF_DEPTH_METRES,
             Self::Deep => 1.55,
+            Self::Extended => 1.85,
         }
     }
 }
@@ -166,13 +168,16 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
         if limit < 0.0 {
             continue;
         }
-        for (section, step) in [HearthSection::Compact, HearthSection::Deep]
-            .into_iter()
-            .flat_map(|section| {
-                (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
-                    .map(move |step| (section, step))
-            })
-        {
+        for (section, step) in [
+            HearthSection::Compact,
+            HearthSection::Deep,
+            HearthSection::Extended,
+        ]
+        .into_iter()
+        .flat_map(|section| {
+            (0..=((2.0 * limit / STATION_STEP_METRES).floor() as usize))
+                .map(move |step| (section, step))
+        }) {
             let centre = wall.frame.origin
                 + wall.frame.tangent * (-limit + step as f32 * STATION_STEP_METRES);
             let mut candidate = Placement {
@@ -185,18 +190,7 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
                 roof: crate::RoofAssemblyId(0),
                 face: crate::ResolvedItemId(0),
             };
-            let probe = centre + axis * section.shaft_offset();
-            let Some((roof, face)) = plan
-                .roof_assemblies
-                .iter()
-                .filter(|r| r.parent.is_none())
-                .find_map(|r| {
-                    r.faces
-                        .iter()
-                        .find(|face| roof_fits(face, probe))
-                        .map(|f| (r.id, f))
-                })
-            else {
+            let Some((roof, face)) = super::roof_route::find(plan, candidate) else {
                 continue;
             };
             candidate.roof = roof;
@@ -206,6 +200,7 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
                 && candidate.clear(plan, candidate.shaft(top), false)
                 && candidate.clear(plan, candidate.operating_space(), false)
                 && candidate.clear_doors(plan)
+                && super::roof_route::weather_clear(plan, candidate, face)
             {
                 return Some(candidate);
             }
@@ -213,31 +208,8 @@ pub(super) fn find(plan: &BuildingPlan) -> Option<Placement> {
     }
     None
 }
+
 pub(super) fn roof_height(face: &RoofFace, point: Vec2) -> f32 {
     -(face.plane.normal.x * point.x + face.plane.normal.z * point.y + face.plane.constant)
         / face.plane.normal.y
-}
-fn roof_fits(face: &RoofFace, point: Vec2) -> bool {
-    let polygon = |points: &[Vec3]| {
-        geo::Polygon::new(
-            geo::LineString::new(
-                points
-                    .iter()
-                    .map(|v| geo::Coord { x: v.x, y: v.z })
-                    .collect(),
-            ),
-            vec![],
-        )
-    };
-    let footprint = super::roof::PenetrationFootprint::new(face, point);
-    let rect = geo::Rect::new(
-        geo::coord! {x:footprint.weather_min.x,y:footprint.weather_min.y},
-        geo::coord! {x:footprint.weather_max.x,y:footprint.weather_max.y},
-    )
-    .to_polygon();
-    rect.difference(&polygon(&face.polygon)).unsigned_area() < 0.00001
-        && !face
-            .cutouts
-            .iter()
-            .any(|cut| rect.intersects(&polygon(cut)))
 }

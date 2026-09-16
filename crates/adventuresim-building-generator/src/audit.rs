@@ -34,6 +34,7 @@ mod enclosure_sections;
 mod gable_enclosure;
 mod gable_openings;
 mod junction_bearing;
+mod shed_dormers;
 #[path = "audit/support.rs"]
 mod support;
 mod timber_bracing;

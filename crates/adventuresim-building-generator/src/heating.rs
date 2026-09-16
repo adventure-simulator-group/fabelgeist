@@ -8,6 +8,7 @@ mod model;
 mod partition;
 mod placement;
 mod roof;
+mod roof_route;
 mod weathering;
 use crate::*;
 pub use model::*;
@@ -34,37 +35,8 @@ pub(crate) fn resolve(
         .unwrap();
     let top = placement.flue_top(face);
     partition::cut(plan, placement);
-    let mut assembly = assembly::Assembly {
-        placement,
-        geometry: &mut plan.resolved_geometry,
-        plan: DomesticHeatingPlan {
-            programme,
-            owner,
-            kitchen: HeatingRoom {
-                storey_level: 0,
-                room_id: placement.kitchen,
-            },
-            heated_room: HeatingRoom {
-                storey_level: 0,
-                room_id: placement.stube,
-            },
-            fire_wall: placement.wall,
-            centre_metres: placement.centre,
-            kitchen_axis: placement.kitchen_axis,
-            floor_height_metres: 0.0,
-            ground_support: StructuralNodeId(0),
-            parts: vec![],
-            passages: vec![],
-            operating_space: placement.operating_space(),
-            roof: HeatingRoofPenetration {
-                roof: placement.roof,
-                face: placement.face,
-                cutout_index: 0,
-                edges: vec![],
-                flashing: vec![],
-            },
-        },
-    };
+    let mut assembly =
+        assembly::Assembly::new(&mut plan.resolved_geometry, placement, owner, programme);
     appliances::build(&mut assembly, top);
     roof::penetrate(&mut assembly, &mut plan.roof_assemblies);
     let wall = plan

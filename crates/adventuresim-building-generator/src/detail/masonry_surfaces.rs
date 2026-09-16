@@ -14,7 +14,7 @@ struct Plane {
 
 /// Union coplanar finishes without changing the canonical load-bearing solids.
 /// Earlier faces retain their material and UVs, including lintel end bearings.
-pub(super) fn resolve(detail: &mut BuildingDetail) {
+pub(crate) fn resolve(detail: &mut BuildingDetail) {
     let mut planes: Vec<Plane> = Vec::new();
     for mesh in detail.meshes.iter_mut().filter(|mesh| {
         matches!(

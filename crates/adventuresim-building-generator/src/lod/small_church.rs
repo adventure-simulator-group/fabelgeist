@@ -8,23 +8,22 @@ mod tests;
 
 use super::exterior::{append_facades, append_outward_solid};
 
-pub(super) fn compile(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
+pub(super) fn compile(
+    plan: &BuildingPlan,
+    level: BuildingLodLevel,
+    excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
+) -> BuildingLod {
     let church = plan
         .small_church
         .as_ref()
         .expect("small church LOD requires its programme");
     let mut lod = BuildingLod {
         level,
-        facade_runs: extract_facade_runs(plan),
+        facade_runs: compilation::retained_facade_runs(plan),
         meshes: Vec::new(),
     };
-    lod.facade_runs.retain(|run| {
-        !run.source_walls
-            .iter()
-            .any(|id| church.bearing_walls.contains(id))
-    });
     match level {
-        BuildingLodLevel::Facade => append_facades(&mut lod, plan),
+        BuildingLodLevel::Facade => append_facades(&mut lod, plan, excluded),
         BuildingLodLevel::Shell => append_wall_envelopes(&mut lod),
     }
     append_exterior_roofs(&mut lod, plan);

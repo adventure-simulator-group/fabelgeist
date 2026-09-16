@@ -65,12 +65,16 @@ Separate firebox and smoke-return ports connect the stove to the hearth hood
 and a hollow masonry flue. Ownership, operating space, enclosure material,
 bearings, timber clearance and smoke continuity are audited.
 
-Placement tries a compact hearth before a deeper kitchen-side hearth, allowing
-the shaft to clear longitudinal roof girders without moving or cutting them.
-Both variants retain the same rear-fed stove, grounded support and reserved
-working space. If neither fits, generation reports `InvalidDomesticHeating`.
+Placement tries compact, deep and extended kitchen-side hearths, allowing
+the shaft to clear roof girders and dormer junctions without moving or cutting
+them. These authored sections retain the same rear-fed stove, grounded support
+and reserved working space. If none fits, generation reports
+`InvalidDomesticHeating`.
 
-The flue cuts both roof skins. A lead backpan laps under the uphill tiles, while
+The flue cuts both skins of its actual covering, including a shed dormer when
+the underlying parent opening leaves the full shaft clear. Every other roof
+and enclosure is checked against the final shaft and weathering geometry.
+A lead backpan laps under the uphill tiles, while
 the downhill apron laps over them. Upright sheets meet the stack; counterflashing
 is tucked into the masonry and overlaps their tops and corners.
 Detail, Facade and Shell retain the same stack and weathering. Collision includes
@@ -94,7 +98,42 @@ Cameras follow the resolved hearth, stove and roof junction. Matched distance
 views check representation continuity; interiors retain production lighting
 and the complete building geometry.
 
-Previously prepared assets keep their stored meshes. Refresh the shipped city
+Facade meshes for cottages, hall houses, town houses and timber merchant houses
+select real exterior wall pieces, timber bay members,
+aperture returns and closure layers from the same compiler as Detail. Both
+wall skins remain, enclosing views through open windows. They
+preserve metric UVs and materials, including pale timber and glass. They omit
+interior rooms and furnishing. Shell keeps its cheaper wall envelope and atlas
+details; it is not an aperture-accurate construction view.
+
+Shed dormer coverings fall toward their fronts. Their side walls follow the
+actual roof underside, and their rear edges seat on the parent slope. A shed
+that cannot reach that slope returns `InvalidRoofDormer`. The 22-degree child
+pitch is an authored fixture dimension.
+
+In playable buildings, an operable leaf has one replicated entity through both
+Detail and Facade when its exact exterior host supports that representation.
+Every window material batch follows the same policy. Unsupported host types
+keep their existing Detail-only dynamic leaves. Prepared city buildings retain
+authored closure states; they do not contain tactical opening state.
+
+Stove surfaces have continuous metric ceramic courses with narrow recessed
+joints and closed ceramic backing. This render detail remains within the
+existing shell, preserving its chamber, rear feed ports, supports and collision.
+Tile size, plain green glaze and joint dimensions are authored choices.
+
+```powershell
+python scripts/capture_facade_review.py --skip-build --settle-frames 24 --output target/facade-review/captures
+```
+
+The `facade-review` fixture includes matched house exteriors, open and closed
+shutters and glazed casements, barred windows, doors and stove courses. Opening
+camera offsets follow the selected opening's tangent, vertical and outward axes.
+The diagnostic poses use production leaf meshes and hinge transforms.
+
+Prepared recipe identities include the render compilation version as well as
+the programme. Increment that version when compiled meshes change without a
+programme schema change. Refresh the shipped city
 assets after geometry changes with
 `cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
 

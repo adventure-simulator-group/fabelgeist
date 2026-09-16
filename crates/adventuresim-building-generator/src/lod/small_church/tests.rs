@@ -29,8 +29,8 @@ fn church_lods_reduce_triangles_without_losing_canonical_roof_silhouettes() {
             }
             let plan = plan(usage, size);
             let detail = compile_building_detail(&plan);
-            let facade = compile(&plan, BuildingLodLevel::Facade);
-            let shell = compile(&plan, BuildingLodLevel::Shell);
+            let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+            let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
             let (detail_count, facade_count, shell_count) = (
                 triangles(&detail.meshes),
                 triangles(&facade.meshes),
@@ -102,7 +102,7 @@ fn mesh_is_door_vertex(plan: &BuildingPlan, point: Vec3) -> bool {
 #[test]
 fn facade_windows_remain_actual_openings_in_the_wall_surface() {
     let plan = plan(BuildingUse::ParishChurch, ServiceBuildingSize::Medium);
-    let facade = compile(&plan, BuildingLodLevel::Facade);
+    let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
     let windows = plan
         .opening_assemblies
         .iter()
@@ -170,8 +170,8 @@ fn boarded_belfry_skirts_keep_their_exact_material_at_both_lod_levels() {
     for usage in [BuildingUse::Chapel, BuildingUse::ParishChurch] {
         let plan = plan(usage, ServiceBuildingSize::Small);
         let detail = compile_building_detail(&plan);
-        let facade = compile(&plan, BuildingLodLevel::Facade);
-        let shell = compile(&plan, BuildingLodLevel::Shell);
+        let facade = compile_building_lod(&plan, BuildingLodLevel::Facade);
+        let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
         let skirts = plan
             .roof_assemblies
             .iter()

@@ -47,6 +47,7 @@ pub struct WindowSpec {
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WindowBarSpec {
+    pub opening: OpeningAssemblyId,
     pub source: ResolvedItemId,
     pub centre: Vec3,
     pub size_metres: Vec3,
@@ -66,6 +67,7 @@ pub fn compile_window_bars(plan: &BuildingPlan) -> Vec<WindowBarSpec> {
                 let offset = (fraction - 0.5) * width;
                 let plan_position = opening.frame.origin + opening.frame.tangent * offset;
                 WindowBarSpec {
+                    opening: opening.id,
                     source: ResolvedItemId((7_u64 << 60) | (opening.id.0 << 8) | index as u64),
                     centre: Vec3::new(
                         plan_position.x,

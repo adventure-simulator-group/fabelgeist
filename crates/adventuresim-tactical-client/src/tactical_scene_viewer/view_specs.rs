@@ -690,6 +690,8 @@ mod gable;
 mod heating;
 pub(super) use gable::GABLE_REVIEW_VIEWS;
 pub(super) use heating::HEATING_REVIEW_VIEWS;
+mod facade;
+pub(super) use facade::FACADE_REVIEW_VIEWS;
 mod compound;
 pub(super) use compound::COMPOUND_REVIEW_VIEWS;
 mod city;

@@ -8,7 +8,45 @@ pub(super) struct Assembly<'a> {
     pub geometry: &'a mut ResolvedGeometry,
     pub placement: Placement,
 }
-impl Assembly<'_> {
+impl<'a> Assembly<'a> {
+    pub fn new(
+        geometry: &'a mut ResolvedGeometry,
+        placement: Placement,
+        owner: GeometryOwnerId,
+        programme: DomesticHeatingProgramme,
+    ) -> Self {
+        Self {
+            geometry,
+            placement,
+            plan: DomesticHeatingPlan {
+                programme,
+                owner,
+                kitchen: HeatingRoom {
+                    storey_level: 0,
+                    room_id: placement.kitchen,
+                },
+                heated_room: HeatingRoom {
+                    storey_level: 0,
+                    room_id: placement.stube,
+                },
+                fire_wall: placement.wall,
+                centre_metres: placement.centre,
+                kitchen_axis: placement.kitchen_axis,
+                floor_height_metres: 0.0,
+                ground_support: StructuralNodeId(0),
+                parts: vec![],
+                passages: vec![],
+                operating_space: placement.operating_space(),
+                roof: HeatingRoofPenetration {
+                    roof: placement.roof,
+                    face: placement.face,
+                    cutout_index: 0,
+                    edges: vec![],
+                    flashing: vec![],
+                },
+            },
+        }
+    }
     pub fn part(
         &mut self,
         kind: HeatingPartKind,

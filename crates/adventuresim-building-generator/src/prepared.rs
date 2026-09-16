@@ -4,6 +4,8 @@ use bevy::math::Vec3;
 use serde::{Deserialize, Serialize};
 
 const RECIPE_HASH_OFFSET_BASIS: u64 = 0xcbf2_9ce4_8422_2325;
+/// Increment when compiled render geometry changes without a programme schema change.
+const PREPARED_RENDER_VERSION: u16 = 2;
 const RECIPE_HASH_PRIME: u64 = 0x0000_0100_0000_01b3;
 
 #[derive(Serialize, Deserialize)]
@@ -57,8 +59,10 @@ impl PreparedBuilding {
 /// Stable content identity for a serialized recipe, independent of placement.
 pub fn recipe_key(program: &BuildingProgram) -> String {
     let bytes = serde_json::to_vec(program).expect("building programs serialize");
-    let hash = bytes
+    let hash = PREPARED_RENDER_VERSION
+        .to_le_bytes()
         .into_iter()
+        .chain(bytes)
         .fold(RECIPE_HASH_OFFSET_BASIS, |hash, byte| {
             (hash ^ u64::from(byte)).wrapping_mul(RECIPE_HASH_PRIME)
         });

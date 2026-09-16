@@ -86,6 +86,16 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
             let Some(member) = frame.members.iter().find(|member| member.id == *member_id) else {
                 continue;
             };
+            // A bay also owns rear roof headers. Only members intersecting
+            // this wall's depth may become an overlay on its exterior face.
+            let wall_plane = wall.frame.origin.dot(outward_2d);
+            let half_depth = (wall.thickness_metres + member.section_metres.max_element()) * 0.5;
+            if [member.start, member.end]
+                .into_iter()
+                .any(|point| (point.dot(outward) - wall_plane).abs() > half_depth)
+            {
+                continue;
+            }
             let axis = (member.end - member.start).normalize_or_zero();
             let side = outward.cross(axis).normalize_or_zero() * member.section_metres.x * 0.5;
             if side.length_squared() <= f32::EPSILON || axis.dot(outward).abs() > 0.001 {
@@ -224,6 +234,68 @@ mod tests {
                     }
                 }
             }
+        }
+    }
+
+    #[test]
+    fn rear_dormer_headers_do_not_become_front_wall_overlays() {
+        for archetype in [
+            BuildingArchetype::FachwerkCottage,
+            BuildingArchetype::HallHouse,
+        ] {
+            let mut plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let frame = plan.timber_frame.as_mut().unwrap();
+            frame.bays.retain(|bay| {
+                plan.wall_assemblies.iter().any(|wall| {
+                    Some(wall.id) == bay.wall
+                        && matches!(wall.source, crate::WallSourceId::RoofChildFront { .. })
+                })
+            });
+            let mut lod = BuildingLod {
+                level: BuildingLodLevel::Shell,
+                facade_runs: vec![],
+                meshes: vec![],
+            };
+            append_timber_details(&mut lod, &plan);
+            assert!(
+                !lod.meshes.is_empty(),
+                "front wall framing must remain visible"
+            );
+            let frame = plan.timber_frame.as_mut().unwrap();
+            let mut rear_headers = 0;
+            for bay in &mut frame.bays {
+                let wall = plan
+                    .wall_assemblies
+                    .iter()
+                    .find(|wall| Some(wall.id) == bay.wall)
+                    .unwrap();
+                let outward =
+                    Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y).normalize();
+                bay.member_ids.retain(|id| {
+                    let member = frame
+                        .members
+                        .iter()
+                        .find(|member| member.id == *id)
+                        .unwrap();
+                    let horizontal =
+                        (member.end - member.start).normalize().dot(outward).abs() < 0.001;
+                    let behind = member.start.dot(outward)
+                        - wall.frame.origin.dot(wall.frame.outward)
+                        < -1.0;
+                    horizontal && behind && member.role == crate::TimberMemberRole::DormerTrimmer
+                });
+                rear_headers += bay.member_ids.len();
+            }
+            assert!(
+                rear_headers > 0,
+                "fixture must exercise a rear header in a front bay"
+            );
+            lod.meshes.clear();
+            append_timber_details(&mut lod, &plan);
+            assert!(
+                lod.meshes.is_empty(),
+                "rear roof framing cannot float above the front facade"
+            );
         }
     }
 

@@ -86,6 +86,12 @@ The Germanisches Nationalmuseum dates stove tiles from Lüneburg to around
 before the game's date; representative surviving pieces do not establish
 universal household wealth or justify copying later elaborate stoves.
 
+The plain green glaze, roughly twenty-centimetre courses and narrow recessed
+joints in the generated stove are authored simplifications. The surviving
+decorated tiles do not establish a standard tile size, a universal plain finish
+or household prevalence. The surface detail changes neither the selected
+heating programme nor its firebox and smoke-return arrangement.
+
 [Germanisches Nationalmuseum: Alltagskultur bis 1700](https://www.gnm.de/ausstellungen/dauerausstellung/alltagskultur-bis-1700)
 
 A selected hearth-and-stove programme with continuous outdoor discharge is an

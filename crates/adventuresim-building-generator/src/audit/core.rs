@@ -148,7 +148,6 @@ fn audit_battlement_runs(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
             ));
         }
     }
-
 }
 
 fn audit_structural_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
@@ -158,6 +157,7 @@ fn audit_structural_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>
     audit_crowns(plan, issues);
     audit_projected_defenses(plan, issues);
     audit_roof_assemblies(plan, issues);
+    shed_dormers::audit(plan, issues);
     audit_church_assembly(plan, issues);
     bell_hanging::audit(plan, issues);
     crate::generator::small_church::audit_small_church(plan, issues);

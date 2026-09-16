@@ -3,34 +3,42 @@ use super::*;
 
 /// Compiles a render-only LOD from the accepted semantic plan.
 pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
+    compile(plan, level, &std::collections::BTreeSet::new())
+}
+
+/// Reserve operable leaves for the same dynamic entities through Facade distance.
+/// Shell retains its coarse authored enclosure representation.
+pub fn compile_static_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
+    compile(plan, level, &crate::detail::dynamic_closure_solids(plan))
+}
+
+fn compile(
+    plan: &BuildingPlan,
+    level: BuildingLodLevel,
+    excluded: &std::collections::BTreeSet<crate::ResolvedItemId>,
+) -> BuildingLod {
     if plan.small_church.is_some() {
-        return small_church::compile(plan, level);
+        return small_church::compile(plan, level, excluded);
     }
-    let facade_runs = extract_facade_runs(plan);
+    let facade_runs = retained_facade_runs(plan);
     let mut lod = BuildingLod {
         level,
         facade_runs,
         meshes: Vec::new(),
     };
-    if let Some(workplace) = &plan.workplace {
-        lod.facade_runs.retain(|run| {
-            !run.source_walls
-                .iter()
-                .any(|id| workplace.walls.contains(id))
-        });
-    }
-    if plan.church.is_some() && level == BuildingLodLevel::Facade {
-        exterior::append_facades(&mut lod, plan);
+    let exact_facade = level == BuildingLodLevel::Facade && closures::exact_facade(plan);
+    if exact_facade {
+        exterior::append_facades(&mut lod, plan, excluded);
     } else {
         append_wall_envelopes(&mut lod);
     }
     urban_church::append_buttresses(&mut lod, plan);
     append_roofs(&mut lod, plan);
     gable_openings::append(&mut lod, plan);
-    if plan.church.is_none() || level == BuildingLodLevel::Shell {
+    if !exact_facade {
         append_opening_details(&mut lod, plan);
+        append_timber_details(&mut lod, plan);
     }
-    append_timber_details(&mut lod, plan);
     append_gable_details(&mut lod, plan);
     append_crowns(&mut lod, plan);
     for batch in crate::detail::compile_workplace_lod(plan)
@@ -51,6 +59,24 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
         mesh.remap_vertices();
     }
     lod
+}
+
+/// Retain complete joined runs in the render compiler and capability query.
+pub(super) fn retained_facade_runs(plan: &BuildingPlan) -> Vec<FacadeRun> {
+    extract_facade_runs(plan)
+        .into_iter()
+        .filter(|run| {
+            !run.source_walls.iter().any(|id| {
+                plan.workplace
+                    .as_ref()
+                    .is_some_and(|work| work.walls.contains(id))
+                    || plan
+                        .small_church
+                        .as_ref()
+                        .is_some_and(|church| church.bearing_walls.contains(id))
+            })
+        })
+        .collect()
 }
 
 pub(super) fn extract_facade_runs(plan: &BuildingPlan) -> Vec<FacadeRun> {

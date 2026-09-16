@@ -15,7 +15,13 @@ pub(in crate::tactical_scene_viewer) struct BuildingReviewPlugin;
 impl Plugin for BuildingReviewPlugin {
     fn build(&self, app: &mut App) {
         crate::tactical_scene_viewer::gpu_readiness::GpuReadiness::install(app);
-        app.add_systems(Update, super::lod::select);
+        app.add_systems(
+            Update,
+            (
+                super::lod::select.after(crate::presentation::BuildingClosureVisibility),
+                super::openings::select_pose,
+            ),
+        );
         app.init_resource::<Readiness>().add_systems(
             Last,
             observe.before(crate::tactical_scene_viewer::capture_views),

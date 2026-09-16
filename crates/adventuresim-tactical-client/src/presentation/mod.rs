@@ -19,6 +19,7 @@ pub(crate) use vista::streets::streaming::StreamCityTraffic;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
+mod building_closures;
 mod environment;
 pub(crate) mod ground_scatter;
 pub(crate) mod interior_lighting;
@@ -33,6 +34,7 @@ mod vista;
 mod volumetric;
 mod weather;
 mod windows;
+pub(crate) use building_closures::{BuildingClosureVisibility, PresentedBuildingClosureMesh};
 
 use adventuresim_procedural_textures::LeafTextureSet;
 pub(crate) use adventuresim_procedural_textures::ProceduralTextureAssets;

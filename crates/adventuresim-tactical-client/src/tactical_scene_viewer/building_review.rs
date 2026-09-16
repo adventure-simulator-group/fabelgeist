@@ -21,6 +21,7 @@ pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
 pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
 pub(super) const PARISH_PROFILE: &str = "parish-review";
 pub(super) const HEATING_PROFILE: &str = "heating-review";
+pub(super) const FACADE_PROFILE: &str = "facade-review";
 pub(super) const GABLE_PROFILE: &str = "gable-review";
 pub(super) const COMPOUND_PROFILE: &str = "compound-review";
 
@@ -33,6 +34,7 @@ pub(super) fn is_profile(profile: &str) -> bool {
             | COMPOUND_PROFILE
             | GABLE_PROFILE
             | HEATING_PROFILE
+            | FACADE_PROFILE
     )
 }
 
