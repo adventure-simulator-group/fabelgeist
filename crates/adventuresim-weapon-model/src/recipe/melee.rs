@@ -15,6 +15,12 @@ pub enum BeakBendProfile {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct BladeParameters {
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
+    pub point: Option<BladePoint>,
     pub length: Metres,
     pub width: Metres,
     pub thickness: Metres,

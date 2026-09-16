@@ -98,6 +98,12 @@ pub(super) fn register(
             add(rotate([0.0, p.ricasso.get(), 0.0], rotation), offset),
         );
     }
+    if let Shape::Blade(p) = &component.shape {
+        frames.insert(
+            format!("{id}.heelCenter"),
+            add(rotate(p.heel_center(), rotation), offset),
+        );
+    }
     if let Shape::Spear(p) = &component.shape
         && p.socket.is_some()
     {

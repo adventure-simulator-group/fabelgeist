@@ -20,7 +20,7 @@ pub(super) fn blade(p: &BladeParameters) -> Checked {
         require(n.get().abs() <= 128.0, RecipeError::Dimension)?;
     }
 
-    Ok(())
+    p.validate_form()
 }
 pub(super) fn section_blade(p: &SectionBladeParameters) -> Checked {
     positive(p.length.get())?;

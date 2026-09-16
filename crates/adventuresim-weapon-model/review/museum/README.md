@@ -166,3 +166,60 @@ arm-end plane, with positive offsets along the outgoing tangent. Repeated
 axial stations create annular steps; strictly increasing runs may use smooth
 or linear interpolation. Its base covers the receiving arm section and
 stays outside that plane. All guard parts inherit the component material.
+
+## London Museum 80.157 rondel dagger
+
+Select `london-80-157` in the modeler's museum studies or the export command.
+The recipe is `london-80.157.json`.
+
+- [Museum record](https://www.londonmuseum.org.uk/collections/v/object-29506/dagger-rondel-dagger/):
+  fifteenth-century iron and wood dagger, 354 mm overall, 254 mm blade.
+- [First face photograph](https://collections.londonmuseum.net/download/985/768/download_2024_10_04_15_36_0020.jpg)
+  and [opposing face photograph](https://collections.londonmuseum.net/download/985/771/download_2024_10_04_15_36_0021.jpg):
+  copyright London Museum, licensed CC BY-NC 4.0. Photographs are reference
+  evidence, not included textures or redistributed repository assets.
+
+The record labels its 30 mm width as overall. That conflicts with the photo
+proportions: the rondels appear wider than the blade's roughly 30 mm heel.
+The recipe therefore retains this ambiguity and treats its 44 mm guard,
+46 mm pommel and 30 mm heel as photo estimates, not relabeled measurements.
+
+The 100 mm hilt comprises a 14 mm pommel rondel, 76 mm exposed wood grip
+and 10 mm guard rondel. Their contact planes meet without axial overlap.
+Each rondel has a recessed circumferential band with explicit 1 mm bevel
+shoulders. Solid steel approximates the recorded iron; hidden layering is
+unknown. The plain oval wood grip has an assumed 22 mm end depth. The
+asymmetric blade assumes a wedge section, 5 mm heel thickness and a 0.6 mm
+body edge thickness. Neither thickness nor mass is published in the museum
+record. Calculated mass is a model result, not a fitted historical target.
+
+### Generic blade points and heel placement
+
+The generic `blade` uses a single section loft for capped and pointed ends.
+Without `point`, `tipWidth` specifies the finite terminal width ratio and
+the body retains its distal thickness. With `point`, `tipWidth` still
+describes the underlying body law; `point.start` selects where the shared
+point curve replaces that law. The start is normalized over the complete
+generic blade, which has no ricasso. `point.roundness` ranges from a sharp
+limiting curve at zero to a rounded terminal tangent at one.
+
+The point joins a positive, nonincreasing body half-width with matching
+slope. If `q` is the point half-width divided by its width at the join,
+the envelope `q * (2 - q)` scales both ridge and edge thickness. This
+preserves their incoming axial derivatives and closes the entire section
+at one exact tip vertex. The terminal fan has no cap face or overlapping
+pieces. The body thickness must remain at least its fixed edge thickness;
+invalid thin or increasing-width joins are rejected, not clamped.
+
+`singleEdge` ranges from -1 to 1. The endpoints place the full-thickness
+spine at one outline edge; zero places the ridge centrally. A straight
+spine remains straight through the point when curvature is zero and the
+asymmetry is extreme. These are geometric modes, not historical claims
+about the unmeasured reverse section.
+
+The blade's local base and origin retain their original coordinate datum.
+Use `attach.at: "heel-center"` to seat the actual heel center on a parent
+frame. This anchor follows width and asymmetry, including rotated blades;
+it is also exposed as the component's `heelCenter` frame. The study needs
+no fixed lateral attachment offset, so ordinary editor changes preserve
+heel centering. This anchor is rejected on shapes without that definition.

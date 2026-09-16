@@ -128,7 +128,7 @@ fn feature_stations(
     }
     Ok(stations)
 }
-fn refine_sections(
+pub(super) fn refine_sections(
     a: f64,
     b: f64,
     ring: &impl Fn(f64) -> Vec<Point>,
@@ -206,7 +206,7 @@ fn baseline_stations(
     })
 }
 
-fn face(solid: &mut Solid, quad: [Point; 4], surface: u32) -> Result<(), String> {
+pub(super) fn face(solid: &mut Solid, quad: [Point; 4], surface: u32) -> Result<(), String> {
     let mut vertices = quad.to_vec();
     vertices.dedup();
     if vertices.first() == vertices.last() {

@@ -24,6 +24,7 @@ pub use stock::ForgeStock;
 mod sectioned_blade;
 pub use sectioned_blade::*;
 mod blade_form;
+mod generic_blade;
 pub use blade_form::*;
 mod blade_clearance;
 mod blade_profile;

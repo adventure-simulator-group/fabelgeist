@@ -3,54 +3,7 @@ use super::*;
 use std::f64::consts::PI;
 
 pub(super) fn blade(p: &BladeParameters, detail: Detail) -> Result<Solid, String> {
-    let length = p.length.get();
-    let width = p.width.get();
-    let thickness = p.thickness.get();
-    let curvature = p.curvature.map_or(0.0, Metres::get);
-    let taper = p.taper.map_or(1.25, Ratio::get);
-    let single = p.single_edge.map_or(0.0, Ratio::get);
-    let tip = p.tip_width.map_or(0.025, Ratio::get);
-    let belly = p.belly.map_or(0.0, Ratio::get);
-    let half_width = |t: f64| {
-        width * 0.5 * (tip + (1.0 - tip) * (1.0 - t).powf(taper)) * (1.0 + belly * (PI * t).sin())
-    };
-    let quality = CurveQuality {
-        minimum_segments: 16,
-        max_chord: length / 28.0,
-        max_deviation: width.max(curvature.abs()) / 220.0,
-    };
-    let edge = |side: f64| {
-        adaptive_curve(
-            |t| {
-                [
-                    curvature * t * t + side * half_width(t) * (1.0 + single * side),
-                    t * length,
-                ]
-            },
-            quality,
-            detail,
-        )
-    };
-    let mut outline = edge(-1.0);
-    outline.extend(edge(1.0).into_iter().rev());
-    Solid::shaped_plate(
-        &outline,
-        |x, y| {
-            let t = (y / length).clamp(0.0, 1.0);
-            let center = curvature * t * t;
-            let half = half_width(t);
-            let left = center - half * (1.0 - single);
-            let right = center + half * (1.0 + single);
-            let ridge = left + (right - left) * (1.0 - single) / 2.0;
-            let bevel = if x < ridge {
-                (x - left) / (ridge - left).max(1e-9)
-            } else {
-                (right - x) / (right - ridge).max(1e-9)
-            };
-            0.0006 + (thickness * (1.0 - 0.65 * t) - 0.0006) * bevel.clamp(0.0, 1.0)
-        },
-        detail,
-    )
+    generic_blade::blade(p, detail)
 }
 
 pub(super) fn axe(p: &AxeParameters, detail: Detail) -> Result<Solid, String> {

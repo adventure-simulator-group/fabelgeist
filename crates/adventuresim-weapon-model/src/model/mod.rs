@@ -10,6 +10,9 @@ mod crossbows;
 mod extents;
 mod firearms;
 mod firelocks;
+mod generic_blade;
+#[cfg(test)]
+mod generic_blade_tests;
 mod grip;
 mod guard_nodes;
 mod guards;

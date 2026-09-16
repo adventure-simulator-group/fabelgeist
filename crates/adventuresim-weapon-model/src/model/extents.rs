@@ -23,6 +23,12 @@ impl Shape {
         at: AttachmentAnchor,
         range: [f64; 2],
     ) -> Result<Point, String> {
+        if at == AttachmentAnchor::HeelCenter {
+            return match self {
+                Self::Blade(p) => Ok(p.heel_center()),
+                _ => Err("heel-center requires a generic blade".into()),
+            };
+        }
         if let Self::GuardAssembly(p) = self {
             return p
                 .nodes
@@ -39,6 +45,7 @@ impl Shape {
             AttachmentAnchor::Center => (range[0] + range[1]) / 2.0,
             AttachmentAnchor::Top => range[1],
             AttachmentAnchor::Origin => 0.0,
+            AttachmentAnchor::HeelCenter => unreachable!(),
         };
         Ok([0.0, y, 0.0])
     }
