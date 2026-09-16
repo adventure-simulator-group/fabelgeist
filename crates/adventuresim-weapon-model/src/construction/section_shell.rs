@@ -12,31 +12,35 @@ impl Solid {
     ) -> Result<Self, String> {
         let count = inner.first().map_or(0, Vec::len);
         if inner.len() < 2
-            || outer.len() != inner.len()
+            || outer.len() < 2
             || count < 3
             || inner.iter().chain(outer).any(|ring| ring.len() != count)
         {
             return Err("shell requires matching closed section rings".into());
         }
-        construction_budget((inner.len() * count * 4) as f64)?;
+        construction_budget(((inner.len() + outer.len()) * count * 2) as f64)?;
         let mut solid = Self::default();
-        for row in 0..inner.len() - 1 {
+        for row in 0..inner.len().max(outer.len()) - 1 {
             for side in 0..count {
                 let next = (side + 1) % count;
-                solid.quad(
-                    outer[row][side],
-                    outer[row + 1][side],
-                    outer[row + 1][next],
-                    outer[row][next],
-                    1,
-                );
-                solid.quad(
-                    inner[row][side],
-                    inner[row][next],
-                    inner[row + 1][next],
-                    inner[row + 1][side],
-                    2,
-                );
+                if row + 1 < outer.len() {
+                    solid.quad(
+                        outer[row][side],
+                        outer[row + 1][side],
+                        outer[row + 1][next],
+                        outer[row][next],
+                        1,
+                    );
+                }
+                if row + 1 < inner.len() {
+                    solid.quad(
+                        inner[row][side],
+                        inner[row][next],
+                        inner[row + 1][next],
+                        inner[row + 1][side],
+                        2,
+                    );
+                }
             }
         }
         for side in 0..count {
@@ -50,21 +54,22 @@ impl Solid {
             );
         }
         let last = inner.len() - 1;
+        let outer_last = outer.len() - 1;
         match end {
             LoftEnd::Open => {
                 for side in 0..count {
                     let next = (side + 1) % count;
                     solid.quad(
-                        outer[last][side],
+                        outer[outer_last][side],
                         inner[last][side],
                         inner[last][next],
-                        outer[last][next],
+                        outer[outer_last][next],
                         0,
                     );
                 }
             }
             LoftEnd::Closed => {
-                for (ring, outward) in [(&outer[last], true), (&inner[last], false)] {
+                for (ring, outward) in [(&outer[outer_last], true), (&inner[last], false)] {
                     let points: Vec<_> = ring.iter().map(|p| [p[0], p[2]]).collect();
                     let region = Region::triangulate(&points, false)?;
                     for [a, b, c] in region.triangles {

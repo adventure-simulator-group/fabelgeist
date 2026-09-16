@@ -8,15 +8,33 @@ pub(super) fn envelope_floor(p: &BladeProfile<'_>, detail: Detail) -> Result<f64
     let Some(f) = p.fuller else {
         return Ok(0.0);
     };
-    let strip_width = f.mouth_width.get()
-        * f.floor_width_ratio
-            .get()
-            .min((1.0 - f.floor_width_ratio.get()) / 2.0);
-    let minimum = FLOAT32_STRIP_SEPARATION / strip_width;
-    if minimum >= 1.0 || f.depth.get() * minimum.powi(2) > detail.error(BLADE_SURFACE_ERROR) / 2.0 {
+    let minimum = f
+        .grooves
+        .iter()
+        .map(|g| {
+            let strip_width = g.mouth_width.get()
+                * g.floor_width_ratio
+                    .get()
+                    .min((1.0 - g.floor_width_ratio.get()) / 2.0);
+            FLOAT32_STRIP_SEPARATION / strip_width
+        })
+        .fold(0.0, f64::max);
+    if minimum >= 1.0
+        || f.grooves
+            .iter()
+            .any(|g| g.depth.get() * minimum.powi(2) > detail.error(BLADE_SURFACE_ERROR) / 2.0)
+    {
         return Err("fuller strips cannot be resolved within the surface-error budget".into());
     }
     Ok(minimum)
+}
+pub(super) fn flat_indices(f: &FullerParameters, side: usize) -> Option<[usize; 2]> {
+    let front_end = 2 + 4 * f.grooves.iter().filter(|g| g.on_face(true)).count();
+    let back_start = front_end + 2;
+    let back_end = back_start + 1 + 4 * f.grooves.iter().filter(|g| g.on_face(false)).count();
+    [[1, front_end], [back_start, back_end]]
+        .into_iter()
+        .find(|[a, b]| side >= *a && side < *b)
 }
 
 // The broad face has the same body curvature and point-thickness approximation.
@@ -25,15 +43,11 @@ pub(super) fn envelope_floor(p: &BladeProfile<'_>, detail: Detail) -> Result<f64
 pub(super) fn check(
     interval: [f64; 2],
     side: usize,
+    flat: [usize; 2],
     quad: &[Point; 4],
     ring: impl Fn(f64) -> Vec<Point>,
     detail: Detail,
 ) -> Result<(), String> {
-    let flat = match side {
-        1..=5 => [1, 6],
-        8..=12 => [8, 13],
-        _ => return Ok(()),
-    };
     let [a, b] = interval;
     let left = ring(a);
     let right = ring(b);
@@ -120,10 +134,17 @@ impl<F: Fn(f64) -> Vec<Point>> NormalCheck<F> {
             sampled_normal([*side, next])?
         };
         let base_error = angle(*broad, reference);
-        if angle(normal, analytic) > base_error + tolerance
-            || angle(analytic, reference) > *tolerance
-        {
-            return Err("fuller tail cannot be simplified within the normal-error budget".into());
+        // A retained transition fan follows the nonflat analytic surface.
+        // Completely omitted strips call this with normal=broad, which also
+        // bounds their full normal departure without flattening retained fans.
+        if angle(normal, analytic) > base_error + tolerance {
+            return Err(format!(
+                "fuller tail cannot be simplified within the normal-error budget: interval {interval:?}, side {side}, at {param:?}, analytic-to-flat {}, mesh-to-analytic {}, base {}, tolerance {}",
+                angle(analytic, reference),
+                angle(normal, analytic),
+                base_error,
+                tolerance
+            ));
         }
         Ok(())
     }

@@ -67,7 +67,28 @@ pub(super) fn shaft(p: &Shaft) -> Checked {
             !wrappings.is_empty() && wrappings.len() <= 16,
             RecipeError::Budget,
         )?;
-        for wrapping in wrappings {
+        for (index, wrapping) in wrappings.iter().enumerate() {
+            if let Some(WrappingSection::Rounded { crest_fraction }) = &wrapping.section {
+                proportion(crest_fraction.get() > 0.0 && crest_fraction.get() < 1.0)?;
+            }
+            if let Some(support) = wrapping.on_wrapping {
+                require((support.0 as usize) < index, RecipeError::Attachment)?;
+                let parent = &wrappings[support.0 as usize];
+                proportion(
+                    parent.pattern != WrappingPattern::Crossed
+                        && wrapping.pattern != WrappingPattern::Crossed,
+                )?;
+                proportion(wrapping.underlay.is_none())?;
+                proportion(
+                    wrapping.start.get() >= parent.start.get()
+                        && wrapping.start.get() + wrapping.length.get()
+                            <= parent.start.get() + parent.length.get(),
+                )?;
+                let Some(WrappingSection::Rounded { crest_fraction }) = parent.section else {
+                    return Err(RecipeError::Attachment);
+                };
+                proportion(wrapping_contact(parent, wrapping, crest_fraction.get()))?;
+            }
             if let Some(underlay) = &wrapping.underlay {
                 positive(underlay.thickness.get())?;
                 proportion(underlay.thickness.get() < p.radius.get() / 2.0)?;
@@ -82,7 +103,12 @@ pub(super) fn shaft(p: &Shaft) -> Checked {
                 positive(dimension.get())?;
             }
             proportion(wrapping.width.get() < wrapping.length.get())?;
-            proportion(wrapping.width.get() * 4.0 < wrapping.pitch.get())?;
+            let spacing = if wrapping.pattern == WrappingPattern::Crossed {
+                4.0
+            } else {
+                1.0
+            };
+            proportion(wrapping.width.get() * spacing < wrapping.pitch.get())?;
             proportion(wrapping.phase.get().abs() <= 360.0)?;
             proportion(wrapping.thickness.get() < p.radius.get() / 2.0)?;
             proportion(
@@ -96,8 +122,18 @@ pub(super) fn shaft(p: &Shaft) -> Checked {
         }
         for (index, a) in wrappings.iter().enumerate() {
             for b in &wrappings[index + 1..] {
+                let mut support = b.on_wrapping;
+                let mut rests_on_a = false;
+                while let Some(parent) = support {
+                    if parent.0 as usize == index {
+                        rests_on_a = true;
+                        break;
+                    }
+                    support = wrappings[parent.0 as usize].on_wrapping;
+                }
                 proportion(
-                    a.start.get() + a.length.get() <= b.start.get()
+                    rests_on_a
+                        || a.start.get() + a.length.get() <= b.start.get()
                         || b.start.get() + b.length.get() <= a.start.get(),
                 )?;
             }
@@ -112,4 +148,27 @@ pub(super) fn shaft(p: &Shaft) -> Checked {
         )?;
     }
     Ok(())
+}
+
+/// The two helical footprints must overlap a finite portion of the lower crest.
+fn wrapping_contact(parent: &ShaftWrapping, child: &ShaftWrapping, crest: f64) -> bool {
+    let direction = |p: WrappingPattern| {
+        if p == WrappingPattern::LeftHanded {
+            -1.0
+        } else {
+            1.0
+        }
+    };
+    let start = child.start.get() + child.width.get() / 2.0;
+    let end = child.start.get() + child.length.get() - child.width.get() / 2.0;
+    let parent_start = parent.start.get() + parent.width.get() / 2.0;
+    let phase = |y: f64| {
+        child.phase.get() / 360.0 + direction(child.pattern) * (y - start) / child.pitch.get()
+            - parent.phase.get() / 360.0
+            - direction(parent.pattern) * (y - parent_start) / parent.pitch.get()
+    };
+    let a = phase(start);
+    let b = phase(end);
+    let contact = (parent.width.get() * crest + child.width.get()) / (2.0 * parent.pitch.get());
+    (a.min(b) - contact).floor() + 1.0 < a.max(b) + contact
 }

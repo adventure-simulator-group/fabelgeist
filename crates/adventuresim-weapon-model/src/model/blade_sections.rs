@@ -23,7 +23,7 @@ pub(super) fn blade(
             .map(|[x, z]| [center + x, y, z])
             .collect::<Vec<_>>()
     };
-    let stations = if p.fuller.is_some() || p.point.is_some() {
+    let mut stations = if p.fuller.is_some() || p.point.is_some() {
         feature_stations(&p, |y| ring(y, 0.0), detail)?
     } else {
         let mut stations = baseline_stations(p.length, |y| ring(y, 0.0), sampling, detail)?;
@@ -34,6 +34,9 @@ pub(super) fn blade(
         stations.dedup();
         stations
     };
+    if let Some(fuller) = p.fuller {
+        groove_transitions::refine(&mut stations, fuller, minimum_envelope, &ring, detail)?;
+    }
     let rings: Vec<_> = stations
         .iter()
         .copied()
@@ -46,19 +49,10 @@ pub(super) fn blade(
         1
     };
     let mut solid = Solid::default();
-    for (index, rows) in rings.windows(2).enumerate() {
+    for rows in rings.windows(2) {
         for side in 0..rows[0].len() {
             let next = (side + 1) % rows[0].len();
             let quad = [rows[0][side], rows[0][next], rows[1][next], rows[1][side]];
-            if let Some(f) = p.fuller {
-                let [a, b] = [stations[index], stations[index + 1]];
-                if [a, b].into_iter().any(|y| {
-                    let q = f.envelope(y);
-                    q > 0.0 && q < minimum_envelope
-                }) {
-                    blade_reduction::check([a, b], side, &quad, |y| ring(y, 0.0), detail)?;
-                }
-            }
             face(
                 &mut solid,
                 quad,
@@ -70,6 +64,18 @@ pub(super) fn blade(
             )?;
         }
     }
+    cap_rings(
+        &mut solid,
+        &rings,
+        p.section == BladeCrossSection::Recessed || matches!(sampling, BladeSampling::Section),
+    )?;
+    Ok(solid.positive())
+}
+fn cap_rings(
+    solid: &mut Solid,
+    rings: &[Vec<Point>],
+    retain_collinear: bool,
+) -> Result<(), String> {
     for (ring, reverse) in [
         (rings.first().unwrap(), true),
         (rings.last().unwrap(), false),
@@ -82,10 +88,7 @@ pub(super) fn blade(
         if outline.len() == 1 {
             continue;
         }
-        let cap = Region::triangulate(
-            &outline,
-            p.section == BladeCrossSection::Recessed || matches!(sampling, BladeSampling::Section),
-        )?;
+        let cap = Region::triangulate(&outline, retain_collinear)?;
         for [a, b, c] in cap.triangles {
             let point = |i: usize| [cap.points[i][0], ring[0][1], cap.points[i][1]];
             if reverse {
@@ -95,7 +98,7 @@ pub(super) fn blade(
             }
         }
     }
-    Ok(solid.positive())
+    Ok(())
 }
 
 // Refine the complete section together. Unrelated uniform rows inside the
@@ -113,12 +116,14 @@ fn feature_stations(
         features.push(start);
     }
     if let Some(f) = p.fuller {
-        features.extend([
-            f.start.get(),
-            f.start.get() + f.entry_length.get(),
-            f.end.get() - f.exit_length.get(),
-            f.end.get(),
-        ]);
+        for g in &f.grooves {
+            features.extend([
+                g.start.get(),
+                g.start.get() + g.entry_length.get(),
+                g.end.get() - g.exit_length.get(),
+                g.end.get(),
+            ]);
+        }
     }
     features.sort_by(f64::total_cmp);
     features.dedup();
@@ -263,40 +268,7 @@ fn section(
                 .collect()
         }
         BladeCrossSection::Recessed => {
-            let f = p.fuller.unwrap();
-            let q = f.envelope(y);
-            let q = if q < minimum_envelope { 0.0 } else { q };
-            let mouth = f.mouth_width.get() * q / 2.0;
-            let floor = mouth * f.floor_width_ratio.get();
-            let recess = f.depth.get() * q * q;
-            let flat = w * (1.0 - f.bevel_width_ratio.get());
-            let mut result = vec![[-w, 0.0]];
-            for front in [true, false] {
-                let sign = if front { 1.0 } else { -1.0 };
-                let cut = if f.faces == FullerFaces::Both
-                    || (front && f.faces == FullerFaces::Front)
-                    || (!front && f.faces == FullerFaces::Back)
-                {
-                    recess
-                } else {
-                    0.0
-                };
-                let mut face = vec![
-                    [-flat, sign * d],
-                    [-mouth, sign * d],
-                    [-floor, sign * (d - cut)],
-                    [floor, sign * (d - cut)],
-                    [mouth, sign * d],
-                    [flat, sign * d],
-                ];
-                if !front {
-                    face.reverse();
-                }
-                result.extend(face);
-                result.push([if front { w } else { -w }, 0.0]);
-            }
-            result.pop();
-            result
+            super::groove_sections::section(p.fuller.unwrap(), y, w, d, minimum_envelope)
         }
     }
 }

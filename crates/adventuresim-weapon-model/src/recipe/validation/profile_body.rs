@@ -1,10 +1,16 @@
 //! Bounds for interpolated visible grip dimensions and their material inset.
 use super::*;
 
-pub(super) fn check(p: &ProfileGripParameters) -> Checked {
+pub(super) fn check(p: &ProfileBodyParameters) -> Checked {
     positive(p.length.get())?;
+    if let Some(count) = p.radial_segments {
+        require(
+            (MIN_PROFILE_RADIAL_SEGMENTS..=MAX_SAMPLING_REQUEST).contains(&count.0),
+            RecipeError::Budget,
+        )?;
+    }
     require(
-        (2..=MAX_GRIP_PROFILE_STATIONS).contains(&p.profile.len()),
+        (2..=MAX_BODY_PROFILE_STATIONS).contains(&p.profile.len()),
         RecipeError::Budget,
     )?;
     require(
@@ -18,13 +24,25 @@ pub(super) fn check(p: &ProfileGripParameters) -> Checked {
     for s in &p.profile {
         positive(s.width.get())?;
         positive(s.depth.get())?;
+    }
+    let rib_depth = p.ribs.as_ref().map_or(0.0, |r| r.depth.get());
+    if let Some(ribs) = &p.ribs {
         require(
-            s.width.get() <= MAX_SWORD_GRIP_WIDTH && s.depth.get() <= MAX_SWORD_GRIP_THICKNESS,
-            RecipeError::Grip,
+            (1..=MAX_PROFILE_RIBS).contains(&ribs.count.0),
+            RecipeError::Budget,
         )?;
+        positive(rib_depth)?;
+        clearance(rib_depth <= p.length.get() / ribs.count.0 as f64 / 4.0)?;
+        for station in &p.profile {
+            clearance(2.0 * rib_depth < station.width.get().min(station.depth.get()))?;
+        }
     }
     if let Some(cover) = &p.cover {
         positive(cover.thickness.get())?;
+        if let Some(cap) = cover.end_cap {
+            positive(cap.get())?;
+            clearance(cap.get() < p.length.get())?;
+        }
         // Monotone interpolation has no interior extrema beyond its endpoints.
         // This conservative interval bound also keeps the ellipse inset below
         // its smallest radius of curvature throughout every profile interval.
@@ -33,7 +51,8 @@ pub(super) fn check(p: &ProfileGripParameters) -> Checked {
                 .iter()
                 .flat_map(|s| [s.width.get(), s.depth.get()])
                 .fold(f64::INFINITY, f64::min)
-                / 2.0;
+                / 2.0
+                - rib_depth;
             let large = pair
                 .iter()
                 .flat_map(|s| [s.width.get(), s.depth.get()])
@@ -43,4 +62,14 @@ pub(super) fn check(p: &ProfileGripParameters) -> Checked {
         }
     }
     Ok(())
+}
+
+pub(super) fn grip(p: &ProfileBodyParameters) -> Checked {
+    check(p)?;
+    require(
+        p.profile.iter().all(|s| {
+            s.width.get() <= MAX_SWORD_GRIP_WIDTH && s.depth.get() <= MAX_SWORD_GRIP_THICKNESS
+        }),
+        RecipeError::Grip,
+    )
 }

@@ -1,5 +1,7 @@
 //! Hand clearance and working-section proportions of melee components.
 use super::*;
+
+const MAX_SOCKET_FACETS: u16 = 32;
 pub(super) fn check(shape: &Shape) -> Checked {
     match shape {
         Shape::LoftedBlade(p) => {
@@ -27,7 +29,7 @@ pub(super) fn check(shape: &Shape) -> Checked {
         }
         Shape::OvalGrip(p) => oval_grip(p)?,
         Shape::Pommel(p) => pommel(p)?,
-        Shape::Socket(p) => profile(&p.profile, ProfileEnds::Open)?,
+        Shape::Socket(p) => socket(p)?,
         Shape::Guard(p) => guard(p)?,
         Shape::Axe(p) => {
             if let Some(root) = p.root_width {
@@ -109,10 +111,22 @@ fn guard(p: &GuardParameters) -> Checked {
 
 fn fuller_dimensions(fuller: Option<&FullerParameters>) -> Checked {
     if let Some(f) = fuller {
-        for value in [f.mouth_width, f.depth, f.end, f.entry_length, f.exit_length] {
-            positive(value.get())?;
+        require(
+            (1..=MAX_FULLER_GROOVES).contains(&f.grooves.len()),
+            RecipeError::Budget,
+        )?;
+        for groove in &f.grooves {
+            for value in [
+                groove.mouth_width,
+                groove.depth,
+                groove.end,
+                groove.entry_length,
+                groove.exit_length,
+            ] {
+                positive(value.get())?;
+            }
+            nonnegative(groove.start.get())?;
         }
-        nonnegative(f.start.get())?;
     }
     Ok(())
 }
@@ -149,6 +163,23 @@ fn pommel(p: &PommelParameters) -> Checked {
 }
 
 fn mace(p: &MaceParameters) -> Checked {
+    if let Some(points) = &p.flange_profile {
+        require(
+            (2..=MAX_AUTHORED_STATIONS).contains(&points.len()),
+            RecipeError::Budget,
+        )?;
+        proportion(points[0].at.get() == 0.0 && points.last().unwrap().at.get() == 1.0)?;
+        for point in points {
+            positive(point.radius.get())?;
+            bounded(point.radius.get())?;
+            proportion((0.0..=1.0).contains(&point.at.get()))?;
+        }
+        proportion(
+            points
+                .windows(2)
+                .all(|p| p[1].at.get() >= p[0].at.get() && p[0] != p[1]),
+        )?;
+    }
     if let Some(points) = &p.core_profile {
         profile(points, ProfileEnds::Poles)?;
         proportion(
@@ -180,5 +211,30 @@ fn oval_grip(p: &OvalGripParameters) -> Checked {
         RecipeError::Grip,
     )?;
 
+    Ok(())
+}
+
+fn socket(p: &SocketParameters) -> Checked {
+    profile(&p.profile, ProfileEnds::Open)?;
+    if let Some(facets) = p.facets {
+        require(
+            (3..=MAX_SOCKET_FACETS).contains(&facets.0),
+            RecipeError::Budget,
+        )?;
+        require(
+            p.segments.is_none() && p.crenellations.is_none() && p.fit_shaft != Some(true),
+            RecipeError::Profile,
+        )?;
+    }
+    if let Some(c) = &p.crenellations {
+        require((2..=32).contains(&c.count.0), RecipeError::Budget)?;
+        positive(c.depth.get())?;
+        proportion(c.depth.get() < p.profile.last().unwrap()[0].get() - p.profile[0][0].get())?;
+        proportion(c.tooth_fraction.get() > 0.0 && c.tooth_fraction.get() < 1.0)?;
+        require(
+            p.wall.is_some() || p.fit_shaft == Some(true),
+            RecipeError::Profile,
+        )?;
+    }
     Ok(())
 }

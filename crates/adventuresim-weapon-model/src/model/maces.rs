@@ -71,11 +71,19 @@ fn receiving_profile(
     let bottom = outer[0][1];
     let top = outer.last().unwrap()[1];
     let interpolate = |profile: &[PlanarPoint], height: f64| {
-        let span = profile.windows(2).find(|p| height <= p[1][0]).unwrap();
+        let span = profile
+            .windows(2)
+            .find(|p| p[1][0] > p[0][0] && height <= p[1][0])
+            .unwrap();
         let t = (height - span[0][0]) / (span[1][0] - span[0][0]);
         span[0][1] + (span[1][1] - span[0][1]) * t
     };
     let silhouette: Vec<_> = outer.iter().map(|p| [p[1], p[0]]).collect();
+    for &[radius, height] in outer {
+        if interpolate(core, height) * angle.cos() >= radius {
+            return Err("mace core face reaches outside the flange outline".into());
+        }
+    }
     let mut heights: Vec<_> = outer
         .iter()
         .map(|p| p[1])
@@ -101,6 +109,21 @@ fn receiving_profile(
 pub(super) fn flange_outer(p: &MaceParameters, detail: Detail) -> Vec<PlanarPoint> {
     let length = p.length.get();
     let half = length / 2.0;
+    if let Some(profile) = &p.flange_profile {
+        return profile
+            .iter()
+            .map(|s| {
+                [
+                    s.radius.get(),
+                    if s.at.get() == 1.0 {
+                        half
+                    } else {
+                        -half + length * s.at.get()
+                    },
+                ]
+            })
+            .collect();
+    }
     let root = p.root_radius.get();
     let shoulder = p.shoulder_radius.get();
     let cusp = p.cusp_radius.get();

@@ -17,6 +17,7 @@ pub(crate) enum Section {
     Flat,
     Triangular,
     DShape,
+    Beveled,
 }
 
 #[derive(Clone, Debug)]
@@ -78,6 +79,23 @@ impl Section {
             depth = width;
         }
         match self {
+            Self::Beveled => {
+                const CORNER_CUT_FRACTION: f64 = 0.25;
+                let x = width / 2.0;
+                let y = depth / 2.0;
+                let cut_x = width * CORNER_CUT_FRACTION;
+                let cut_y = depth * CORNER_CUT_FRACTION;
+                vec![
+                    [-x + cut_x, -y],
+                    [x - cut_x, -y],
+                    [x, -y + cut_y],
+                    [x, y - cut_y],
+                    [x - cut_x, y],
+                    [-x + cut_x, y],
+                    [-x, y - cut_y],
+                    [-x, -y + cut_y],
+                ]
+            }
             Self::Round | Self::Oval => {
                 let count = tube_segments(width.max(depth) / 2.0, requested, detail);
                 (0..count)
@@ -304,13 +322,23 @@ impl Solid {
                     }
                     _ => side as u32 + 1,
                 };
-                solid.quad(
+                let corners = [
                     vertex(row, side),
                     vertex(row, next),
                     vertex(row + 1, next),
                     vertex(row + 1, side),
-                    group,
-                );
+                ];
+                if sweep.twist == 0.0 {
+                    solid.quad(corners[0], corners[1], corners[2], corners[3], group);
+                } else {
+                    // A fixed diagonal of a twisted face adds a handedness-
+                    // dependent material wedge. Its bilinear center treats
+                    // both diagonals equally and preserves mirrored volumes.
+                    let center = mul(corners.into_iter().fold([0.0; 3], add), 0.25);
+                    for side in 0..4 {
+                        solid.triangle(corners[side], corners[(side + 1) % 4], center, group);
+                    }
+                }
             }
         }
         if !closed {

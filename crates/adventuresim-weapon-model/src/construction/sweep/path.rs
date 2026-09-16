@@ -1,5 +1,8 @@
 //! Authored path stations and transported section frames.
 use super::*;
+
+const TWIST_CORNER_TRAVEL_METRES: f64 = 0.0006;
+const MAXIMUM_RING_TWIST_RADIANS: f64 = PI / 12.0;
 pub(super) struct SampledPath {
     pub(super) points: Vec<Point>,
     pub(super) scales: Vec<f64>,
@@ -30,19 +33,29 @@ impl SampledPath {
                 * (PI / section_vertices as f64).sin()
                 * 32.0,
         );
+        // Axial distance alone cannot resolve a rotating section: a short
+        // straight member may contain several complete turns. Bound the
+        // movement of its furthest corner as well as the rotation per ring.
+        let radius = sweep.width.hypot(sweep.depth) / 2.0
+            * sweep.tip_scale.max(1.0)
+            * (1.0 + sweep.terminal_swell.max(0.0))
+            * room.iter().copied().fold(1.0, f64::max);
+        let ring_twist =
+            (detail.error(TWIST_CORNER_TRAVEL_METRES) / radius).min(MAXIMUM_RING_TWIST_RADIANS);
+        let twist_stations = sweep.twist.to_radians().abs() / (input.len() - 1) as f64 / ring_twist;
+        let segment_count = |length: f64| (length / chord).max(twist_stations).ceil().max(1.0);
         let stations = input
             .windows(2)
-            .map(|p| (magnitude(sub(p[1], p[0])) / chord).ceil().max(1.0))
+            .map(|p| segment_count(magnitude(sub(p[1], p[0]))))
             .sum::<f64>()
             + 1.0;
-        construction_budget(stations * section_vertices as f64 * 2.0)?;
+        let faces_per_cell = if sweep.twist == 0.0 { 2.0 } else { 4.0 };
+        construction_budget(stations * section_vertices as f64 * faces_per_cell)?;
         let mut points = Vec::new();
         let mut scales = Vec::new();
         let mut progress = Vec::new();
         for i in 0..input.len() - 1 {
-            let count = (magnitude(sub(input[i + 1], input[i])) / chord)
-                .ceil()
-                .max(1.0) as usize;
+            let count = segment_count(magnitude(sub(input[i + 1], input[i]))) as usize;
             for step in 0..count {
                 let t = step as f64 / count as f64;
                 points.push(lerp(input[i], input[i + 1], t));

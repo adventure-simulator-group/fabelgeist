@@ -86,6 +86,9 @@ pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), String> 
     }
     let radius = shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get);
     match &component.shape {
+        Shape::Socket(p) if p.facets.is_some() => {
+            return Err("faceted socket requires explicit shared-section attachment".into());
+        }
         Shape::Socket(p) if p.fit_shaft == Some(false) => {
             let wall = p.wall.map_or(0.003, Metres::get);
             if p.profile
@@ -157,6 +160,7 @@ pub(super) fn attachment_contact(
     let Some(parent) = parents.iter().find(|p| p.id == owner).or(implicit.as_ref()) else {
         return Ok(());
     };
+    mortised_guard::check_mating(child, parent)?;
     if implicit.is_some() && is_axial(&child.component.shape) {
         let mut receiving = child.component.clone();
         receiving.offset = Some([

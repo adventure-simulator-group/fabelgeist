@@ -55,6 +55,16 @@ fn strip(
     let start = wrap.start.get() + wrap.width.get() / 2.0;
     let end = wrap.start.get() + wrap.length.get() - wrap.width.get() / 2.0;
     let turns = (end - start) / wrap.pitch.get();
+    let section = wrapping_section(wrap, detail);
+    let mut support_height = 0.0;
+    let mut support_cover = 0.0;
+    let mut parent = wrap.on_wrapping;
+    while let Some(index) = parent {
+        let support = &shaft.wrappings.as_ref().unwrap()[index.0 as usize];
+        support_height += support.thickness.get();
+        support_cover += support.underlay.as_ref().map_or(0.0, |p| p.thickness.get());
+        parent = support.on_wrapping;
+    }
     let segments = (turns * detail.radial(shaft.radius.get(), 24) as f64)
         .ceil()
         .max(4.0) as usize;
@@ -72,48 +82,86 @@ fn strip(
     }
     stations.sort_by(f64::total_cmp);
     stations.dedup_by(|a, b| (*a - *b).abs() < 1e-8);
-    construction_budget(stations.len() as f64 * 8.0 + 4.0)?;
+    construction_budget(
+        stations.len() as f64 * section.len() as f64 * 2.0 + section.len() as f64 * 2.0,
+    )?;
     let maximum_step = stations
         .windows(2)
         .map(|s| (s[1] - s[0]) * (end - start))
         .fold(0.0, f64::max);
     let cell_phase_span = TAU / wrap.pitch.get() * (2.0 * maximum_step + wrap.width.get());
     let receiver_apothem = (sector / 2.0).cos();
-    let ring = |progress: f64| -> [Point; 4] {
+    let ring = |progress: f64| -> Vec<Point> {
         let center = start + (end - start) * progress;
         let angle =
             wrap.phase.get().to_radians() + direction * TAU * (center - start) / wrap.pitch.get();
-        [[-0.5, 0.0], [0.5, 0.0], [0.5, 1.0], [-0.5, 1.0]].map(|[axial, radial]| {
-            let y = center + axial * wrap.width.get();
-            let lift = if wrap.pattern == WrappingPattern::Crossed && direction < 0.0 {
-                crossing_lift(wrap, start, y, angle, cell_phase_span) / receiver_apothem
-            } else {
-                0.0
-            };
-            // Same polygonal section as the emitted shaft. Sampling every face
-            // boundary makes each unlifted inner quad lie on its receiving face.
-            let local_angle = angle.rem_euclid(sector) - sector / 2.0;
-            let base_radius =
-                shaft.radius_at(y) + wrap.underlay.as_ref().map_or(0.0, |u| u.thickness.get());
-            let surface = base_radius * receiver_apothem / local_angle.cos();
-            let radius = surface + lift + radial * wrap.thickness.get();
-            [radius * angle.cos(), y, radius * angle.sin()]
-        })
+        section
+            .iter()
+            .map(|&[axial, radial]| {
+                let y = center + axial * wrap.width.get();
+                let lift = if wrap.pattern == WrappingPattern::Crossed && direction < 0.0 {
+                    crossing_lift(wrap, start, y, angle, cell_phase_span) / receiver_apothem
+                } else {
+                    0.0
+                };
+                // Same polygonal section as the emitted shaft. Sampling every face
+                // boundary makes each unlifted inner quad lie on its receiving face.
+                let local_angle = angle.rem_euclid(sector) - sector / 2.0;
+                let base_radius = shaft.radius_at(y)
+                    + support_cover
+                    + wrap.underlay.as_ref().map_or(0.0, |u| u.thickness.get());
+                let surface = base_radius * receiver_apothem / local_angle.cos();
+                let radius = if wrap.section.is_some() || wrap.on_wrapping.is_some() {
+                    // Rounded compressed cord has planar crest/underside footprints
+                    // on the actual receiving polygon, including supported layers.
+                    surface
+                        + lift
+                        + (support_height + radial * wrap.thickness.get()) / local_angle.cos()
+                } else {
+                    surface + lift + radial * wrap.thickness.get()
+                };
+                [radius * angle.cos(), y, radius * angle.sin()]
+            })
+            .collect()
     };
     let mut solid = Solid::default();
     for pair in stations.windows(2) {
         let a = ring(pair[0]);
         let b = ring(pair[1]);
-        for side in 0..4 {
-            let next = (side + 1) % 4;
-            solid.quad(a[side], b[side], b[next], a[next], side as u32 + 1);
+        for side in 0..section.len() {
+            let next = (side + 1) % section.len();
+            let group = if wrap.section.is_some() {
+                u32::from(side != 0) + 1
+            } else {
+                side as u32 + 1
+            };
+            solid.quad(a[side], b[side], b[next], a[next], group);
         }
     }
     let first = ring(0.0);
     let last = ring(1.0);
-    solid.quad(first[0], first[1], first[2], first[3], 5);
-    solid.quad(last[3], last[2], last[1], last[0], 6);
+    solid.cap_wrapping(&first, &last, wrap.section.as_ref());
     Ok(solid.positive())
+}
+
+fn wrapping_section(wrap: &ShaftWrapping, detail: Detail) -> Vec<PlanarPoint> {
+    let Some(WrappingSection::Rounded { crest_fraction }) = &wrap.section else {
+        return vec![[-0.5, 0.0], [0.5, 0.0], [0.5, 1.0], [-0.5, 1.0]];
+    };
+    let crest = crest_fraction.get() / 2.0;
+    let shoulder = 0.5 - crest;
+    let samples = detail.samples(6, 4);
+    let mut section = vec![[-0.5, 0.0], [0.5, 0.0]];
+    for step in 1..=samples {
+        let angle = PI / 2.0 * step as f64 / samples as f64;
+        section.push([crest + shoulder * angle.cos(), angle.sin()]);
+    }
+    section.push([-crest, 1.0]);
+    for step in 1..samples {
+        let angle = PI / 2.0 + PI / 2.0 * step as f64 / samples as f64;
+        section.push([-crest + shoulder * angle.cos(), angle.sin()]);
+    }
+    section
 }
 
 fn crossing_lift(
@@ -130,4 +178,29 @@ fn crossing_lift(
     // Phase is linear across a cell, so this span bounds every interior point.
     let progress = ((separation - contact - cell_phase_span) / contact).clamp(0.0, 1.0);
     wrap.thickness.get() * (1.0 - progress * progress * (3.0 - 2.0 * progress))
+}
+
+impl Solid {
+    fn cap_wrapping(&mut self, first: &[Point], last: &[Point], section: Option<&WrappingSection>) {
+        if section.is_some() {
+            for (ring, reverse, group) in [(first, false, 5), (last, true, 6)] {
+                let center = mul(
+                    ring.iter().copied().fold([0.0; 3], add),
+                    1.0 / ring.len() as f64,
+                );
+                for side in 0..ring.len() {
+                    let a = ring[side];
+                    let b = ring[(side + 1) % ring.len()];
+                    if reverse {
+                        self.triangle(center, b, a, group);
+                    } else {
+                        self.triangle(center, a, b, group);
+                    }
+                }
+            }
+        } else {
+            self.quad(first[0], first[1], first[2], first[3], 5);
+            self.quad(last[3], last[2], last[1], last[0], 6);
+        }
+    }
 }

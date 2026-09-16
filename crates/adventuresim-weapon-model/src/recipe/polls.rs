@@ -204,6 +204,12 @@ pub struct MaceParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::recipe::deserialize_present"
     )]
+    pub flange_profile: Option<Vec<MaceFlangeStation>>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
     pub core_profile: Option<Vec<[Metres; 2]>>,
     pub length: Metres,
     pub root_radius: Metres,
@@ -253,4 +259,12 @@ pub struct MaceParameters {
         deserialize_with = "crate::recipe::deserialize_present"
     )]
     pub flange_depth: Option<Metres>,
+}
+
+/// Normalized axial stations; repeated heights form an explicit radial step.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct MaceFlangeStation {
+    pub at: Ratio,
+    pub radius: Metres,
 }

@@ -204,6 +204,7 @@ pub enum GuardMirrorMode {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum GuardSection {
+    Beveled,
     #[serde(rename = "round")]
     Round,
     #[serde(rename = "oval")]

@@ -1,0 +1,759 @@
+{
+  "id": "khm-a297",
+  "name": "KHM A297 elongated Gothic mace",
+  "family": "Elongated Gothic mace — c.1520",
+  "definition": {
+    "components": [
+      {
+        "id": "loop",
+        "label": "butt loop",
+        "kind": "tube",
+        "role": "Structure",
+        "material": "steel",
+        "radius": 0.0015,
+        "points": [
+          [
+            -0.006,
+            0.0135
+          ],
+          [
+            -0.006,
+            0.002
+          ],
+          [
+            -0.004,
+            0
+          ],
+          [
+            0.004,
+            0
+          ],
+          [
+            0.006,
+            0.002
+          ],
+          [
+            0.006,
+            0.0135
+          ]
+        ],
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        }
+      },
+      {
+        "id": "butt",
+        "label": "butt",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.015
+          ],
+          [
+            0.003,
+            0.015
+          ]
+        ],
+        "segments": 32,
+        "attach": {
+          "to": "loop.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip",
+        "label": "cord covered wood grip",
+        "kind": "shaft",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.105,
+        "radius": 0.014,
+        "topScale": 1,
+        "bottomScale": 1,
+        "segments": 32,
+        "wrappings": [
+          {
+            "start": 0.007,
+            "length": 0.09799999999999999,
+            "pitch": 0.0028,
+            "width": 0.00265,
+            "thickness": 0.0011,
+            "phase": 0,
+            "pattern": "rightHanded",
+            "material": "cord",
+            "section": {
+              "kind": "rounded",
+              "crestFraction": 0.2
+            }
+          },
+          {
+            "start": 0.014,
+            "length": 0.084,
+            "pitch": 0.03,
+            "width": 0.003,
+            "thickness": 0.0014,
+            "phase": 35,
+            "pattern": "rightHanded",
+            "material": "cord",
+            "onWrapping": 0,
+            "section": {
+              "kind": "rounded",
+              "crestFraction": 0.15
+            }
+          }
+        ],
+        "attach": {
+          "to": "butt.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip-band",
+        "label": "grip-band",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.024
+          ],
+          [
+            0.001,
+            0.025
+          ],
+          [
+            0.005,
+            0.025
+          ],
+          [
+            0.006,
+            0.024
+          ]
+        ],
+        "segments": 32,
+        "attach": {
+          "to": "grip.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "haft",
+        "label": "twisted iron haft",
+        "kind": "guardAssembly",
+        "role": "Structure",
+        "material": "steel",
+        "nodes": {
+          "bottom": [
+            0,
+            0,
+            0
+          ],
+          "top": [
+            0,
+            0.208,
+            0
+          ]
+        },
+        "anchorNode": "bottom",
+        "members": [
+          {
+            "path": [
+              "bottom",
+              "top"
+            ],
+            "section": "beveled",
+            "sectionWidth": 0.016,
+            "sectionDepth": 0.016,
+            "sectionTwist": -650
+          }
+        ],
+        "attach": {
+          "to": "grip-band.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "head-band",
+        "label": "head-band",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.009
+          ],
+          [
+            0.002,
+            0.01
+          ],
+          [
+            0.005,
+            0.01
+          ],
+          [
+            0.007,
+            0.009
+          ],
+          [
+            0.015,
+            0.0105
+          ]
+        ],
+        "segments": 64,
+        "attach": {
+          "to": "haft.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "head-tail",
+        "label": "stepped lower flange tails",
+        "kind": "mace",
+        "role": "Head",
+        "material": "darkSteel",
+        "length": 0.068,
+        "rootRadius": 0.0105,
+        "shoulderRadius": 0.0155,
+        "cuspRadius": 0.0375,
+        "cuspHeight": 0.76,
+        "concavity": 0.92,
+        "crownLength": 0,
+        "flanges": 6,
+        "flangeThickness": 0.002,
+        "coreProfile": [
+          [
+            -0.034,
+            0.007
+          ],
+          [
+            0.034,
+            0.0074
+          ]
+        ],
+        "attach": {
+          "to": "head-band.top",
+          "at": "base"
+        },
+        "flangeProfile": [
+          {
+            "at": 0,
+            "radius": 0.0105
+          },
+          {
+            "at": 0.08823529411764705,
+            "radius": 0.011
+          },
+          {
+            "at": 0.08823529411764705,
+            "radius": 0.0126
+          },
+          {
+            "at": 0.13235294117647056,
+            "radius": 0.0126
+          },
+          {
+            "at": 0.13235294117647056,
+            "radius": 0.0112
+          },
+          {
+            "at": 0.29411764705882354,
+            "radius": 0.0118
+          },
+          {
+            "at": 0.3088235294117647,
+            "radius": 0.0134
+          },
+          {
+            "at": 0.338235294117647,
+            "radius": 0.0134
+          },
+          {
+            "at": 0.338235294117647,
+            "radius": 0.0119
+          },
+          {
+            "at": 0.6617647058823529,
+            "radius": 0.0138
+          },
+          {
+            "at": 0.676470588235294,
+            "radius": 0.0146
+          },
+          {
+            "at": 0.7499999999999999,
+            "radius": 0.0146
+          },
+          {
+            "at": 0.7647058823529411,
+            "radius": 0.013
+          },
+          {
+            "at": 1,
+            "radius": 0.0136
+          }
+        ]
+      },
+      {
+        "id": "head-ring",
+        "label": "transverse head band",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.016
+          ],
+          [
+            0.004,
+            0.016
+          ]
+        ],
+        "segments": 48,
+        "attach": {
+          "to": "head-tail.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "head",
+        "label": "elongated flanges",
+        "kind": "mace",
+        "role": "Head",
+        "material": "darkSteel",
+        "length": 0.094,
+        "rootRadius": 0.0136,
+        "shoulderRadius": 0.0155,
+        "cuspRadius": 0.0375,
+        "cuspHeight": 0.76,
+        "concavity": 0.92,
+        "crownLength": 0,
+        "flanges": 6,
+        "flangeThickness": 0.002,
+        "coreProfile": [
+          [
+            -0.047,
+            0.0074
+          ],
+          [
+            0.047,
+            0.008
+          ]
+        ],
+        "attach": {
+          "to": "head-ring.top",
+          "at": "base"
+        },
+        "flangeProfile": [
+          {
+            "at": 0,
+            "radius": 0.0136
+          },
+          {
+            "at": 0.13829787234042554,
+            "radius": 0.0144
+          },
+          {
+            "at": 0.1702127659574468,
+            "radius": 0.017
+          },
+          {
+            "at": 0.19148936170212766,
+            "radius": 0.017
+          },
+          {
+            "at": 0.19148936170212766,
+            "radius": 0.0155
+          },
+          {
+            "at": 0.2075177304964539,
+            "radius": 0.015512558167252713
+          },
+          {
+            "at": 0.22354609929078012,
+            "radius": 0.015564024582126391
+          },
+          {
+            "at": 0.23957446808510635,
+            "radius": 0.015666020306533957
+          },
+          {
+            "at": 0.2556028368794326,
+            "radius": 0.015826412846235465
+          },
+          {
+            "at": 0.27163120567375887,
+            "radius": 0.01605144953264123
+          },
+          {
+            "at": 0.2876595744680851,
+            "radius": 0.01634641178417463
+          },
+          {
+            "at": 0.30368794326241133,
+            "radius": 0.0167159246331681
+          },
+          {
+            "at": 0.31971631205673756,
+            "radius": 0.017164131848251767
+          },
+          {
+            "at": 0.3357446808510638,
+            "radius": 0.01769480610721086
+          },
+          {
+            "at": 0.35177304964539,
+            "radius": 0.01831142344903247
+          },
+          {
+            "at": 0.3678014184397163,
+            "radius": 0.019017216265659994
+          },
+          {
+            "at": 0.38382978723404254,
+            "radius": 0.019815212538432127
+          },
+          {
+            "at": 0.39985815602836877,
+            "radius": 0.020708265808359078
+          },
+          {
+            "at": 0.41588652482269495,
+            "radius": 0.02169907865289471
+          },
+          {
+            "at": 0.43191489361702123,
+            "radius": 0.02279022146343273
+          },
+          {
+            "at": 0.4479432624113475,
+            "radius": 0.02398414772979894
+          },
+          {
+            "at": 0.46397163120567375,
+            "radius": 0.02528320666901139
+          },
+          {
+            "at": 0.4799999999999999,
+            "radius": 0.02668965379540327
+          },
+          {
+            "at": 0.4960283687943262,
+            "radius": 0.02820565986794952
+          },
+          {
+            "at": 0.5120567375886524,
+            "radius": 0.029833318539435633
+          },
+          {
+            "at": 0.5280851063829788,
+            "radius": 0.03157465295361088
+          },
+          {
+            "at": 0.5441134751773049,
+            "radius": 0.033431621479908455
+          },
+          {
+            "at": 0.5601418439716311,
+            "radius": 0.03540612273381272
+          },
+          {
+            "at": 0.5761702127659575,
+            "radius": 0.0375
+          },
+          {
+            "at": 0.5938297872340426,
+            "radius": 0.03502851163825252
+          },
+          {
+            "at": 0.6114893617021276,
+            "radius": 0.03274307472734696
+          },
+          {
+            "at": 0.6291489361702127,
+            "radius": 0.03063718885385986
+          },
+          {
+            "at": 0.6468085106382979,
+            "radius": 0.028704294192943437
+          },
+          {
+            "at": 0.664468085106383,
+            "radius": 0.02693776809183373
+          },
+          {
+            "at": 0.6821276595744681,
+            "radius": 0.02533092127473429
+          },
+          {
+            "at": 0.6997872340425533,
+            "radius": 0.02387699360474766
+          },
+          {
+            "at": 0.7174468085106382,
+            "radius": 0.022569149323362778
+          },
+          {
+            "at": 0.7351063829787233,
+            "radius": 0.021400471668148093
+          },
+          {
+            "at": 0.7527659574468085,
+            "radius": 0.020363956742903543
+          },
+          {
+            "at": 0.7704255319148936,
+            "radius": 0.01945250647884403
+          },
+          {
+            "at": 0.7880851063829788,
+            "radius": 0.018658920476241847
+          },
+          {
+            "at": 0.8057446808510639,
+            "radius": 0.017975886446799302
+          },
+          {
+            "at": 0.8234042553191488,
+            "radius": 0.017395968877291376
+          },
+          {
+            "at": 0.8410638297872339,
+            "radius": 0.01691159538704908
+          },
+          {
+            "at": 0.8587234042553191,
+            "radius": 0.016515040024871905
+          },
+          {
+            "at": 0.8763829787234043,
+            "radius": 0.016198402388668754
+          },
+          {
+            "at": 0.8940425531914894,
+            "radius": 0.015953580844328182
+          },
+          {
+            "at": 0.9117021276595745,
+            "radius": 0.015772237041308774
+          },
+          {
+            "at": 0.9293617021276595,
+            "radius": 0.015645746850853313
+          },
+          {
+            "at": 0.9470212765957448,
+            "radius": 0.015565128446217243
+          },
+          {
+            "at": 0.9646808510638297,
+            "radius": 0.01552092739597765
+          },
+          {
+            "at": 0.9823404255319149,
+            "radius": 0.015503004908166737
+          },
+          {
+            "at": 1,
+            "radius": 0.0155
+          }
+        ]
+      },
+      {
+        "id": "crown",
+        "label": "open crenellated crown",
+        "kind": "socket",
+        "role": "Structure",
+        "material": "steel",
+        "profile": [
+          [
+            0,
+            0.0155
+          ],
+          [
+            0.002,
+            0.0155
+          ],
+          [
+            0.003,
+            0.0136
+          ],
+          [
+            0.016,
+            0.0136
+          ],
+          [
+            0.017,
+            0.0145
+          ]
+        ],
+        "wall": 0.0025,
+        "fitShaft": false,
+        "attach": {
+          "to": "head.top",
+          "at": "base"
+        },
+        "crenellations": {
+          "count": 4,
+          "depth": 0.006,
+          "toothFraction": 0.52
+        }
+      }
+    ]
+  },
+  "controls": [
+    {
+      "label": "Haft twist",
+      "path": "components.4.members.0.sectionTwist",
+      "min": -1080,
+      "max": 1080,
+      "step": 10,
+      "unit": "deg"
+    },
+    {
+      "label": "Haft width and depth",
+      "path": "components.4.members.0.sectionWidth",
+      "min": 0.014,
+      "max": 0.016,
+      "step": 0.0005,
+      "unit": "m",
+      "paths": [
+        "components.4.members.0.sectionWidth",
+        "components.4.members.0.sectionDepth"
+      ]
+    },
+    {
+      "label": "Wood grip length",
+      "path": "components.2.length",
+      "min": 0.105,
+      "max": 0.135,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Wood grip radius",
+      "path": "components.2.radius",
+      "min": 0.012,
+      "max": 0.014,
+      "step": 0.0005,
+      "unit": "m"
+    },
+    {
+      "label": "Dense cord thickness",
+      "path": "components.2.wrappings.0.thickness",
+      "min": 0.0007,
+      "max": 0.0016,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Dense cord compressed crest",
+      "path": "components.2.wrappings.0.section.crestFraction",
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Coarse binding pitch",
+      "path": "components.2.wrappings.1.pitch",
+      "min": 0.018,
+      "max": 0.045,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Flange count",
+      "path": "components.6.flanges",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "",
+      "paths": [
+        "components.6.flanges",
+        "components.8.flanges"
+      ]
+    },
+    {
+      "label": "Flange thickness",
+      "path": "components.6.flangeThickness",
+      "min": 0.0015,
+      "max": 0.0035,
+      "step": 0.0001,
+      "unit": "m",
+      "paths": [
+        "components.6.flangeThickness",
+        "components.8.flangeThickness"
+      ]
+    },
+    {
+      "label": "Crown tooth count",
+      "path": "components.9.crenellations.count",
+      "min": 3,
+      "max": 8,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Crown notch depth",
+      "path": "components.9.crenellations.depth",
+      "min": 0.004,
+      "max": 0.009,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Crown tooth fraction",
+      "path": "components.9.crenellations.toothFraction",
+      "min": 0.3,
+      "max": 0.7,
+      "step": 0.02,
+      "unit": ""
+    }
+  ],
+  "choiceControls": [],
+  "description": "Structural study of KHM A297: elongated stepped flanges partitioned by a transverse band, an open crenellated crown, a twisted beveled iron haft and two supported cord windings over a wood grip.",
+  "notes": {
+    "source": "https://www.khm.at/kunstwerke/streitkolben-372692",
+    "images": [
+      "https://www.khm.at/pics/372692/HJRK_A_297_202303_1.jpg"
+    ],
+    "rights": "Kunsthistorisches Museum, Hofjagd- und Ruestkammer. Museum photograph used as private local reference; not redistributed in the repository.",
+    "published": {
+      "overallMetres": 0.535,
+      "widthMetres": 0.075,
+      "massKg": 0.85
+    },
+    "photoEstimates": {
+      "flangeBodyLengthMetres": 0.166,
+      "cuspHeightRatio": 0.76,
+      "gripLengthMetres": 0.105,
+      "haftLengthMetres": 0.208,
+      "haftMaximumBreadthMetres": 0.018,
+      "bandOuterDiameterMetres": 0.032
+    },
+    "assumptions": [
+      "Six equivalent flanges and four crown teeth are reconstruction hypotheses from one photographed pose, not published counts. Unseen reverse faces are not independently established.",
+      "Solid steel substitutes for iron of unknown internal construction. Core radii, 2 mm flange thickness and 2.5 mm crown wall are unmeasured. Density and thickness were not adjusted to fit the reported mass.",
+      "The beveled 16 by 16 mm haft section and its 650 degree left twist reproduce the visible helical envelope; hidden section geometry is unknown.",
+      "Cord is modeled as compressed material with flat undersides and finite crests. Thickness, crest fractions, hidden wood and contacts are construction assumptions; no hidden sleeve supports the coarse binding.",
+      "The transverse band occupies its own axial interval; same-material central continuity is assumed and no flange material is counted inside it."
+    ],
+    "scope": "Complete visible structural silhouette, stepped flange bodies, transverse band, open crown, twisted haft, guard and butt discs, dense cord and coarse binding, wood grip and butt loop. Fine chasing, engraved rope ticks, fibres, wear and patina are excluded.",
+    "coverage": {
+      "browser": "gothic-flanged-mace",
+      "gameplay": [],
+      "relatedStudy": "cma-1916-1589"
+    }
+  }
+}

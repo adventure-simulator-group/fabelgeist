@@ -1,5 +1,29 @@
 //! Dimension and sampling bounds for guards constructions.
 use super::*;
+pub(super) fn mortised(p: &MortisedGuardParameters) -> Checked {
+    for value in [
+        p.width,
+        p.height,
+        p.thickness,
+        p.shoulder_height,
+        p.edge_bevel,
+        p.mortise.width,
+        p.mortise.thickness,
+    ] {
+        positive(value.get())?;
+    }
+    bounded(p.sweep.get())?;
+    require(
+        p.mortise.width.get() < p.width.get()
+            && p.mortise.thickness.get() + 2.0 * p.edge_bevel.get() < p.thickness.get()
+            && p.edge_bevel.get() * 2.0 < p.height.get()
+            && p.sweep.get() >= 0.0
+            && (1.0..=2.0).contains(&p.terminal_scale.get())
+            && (0.0..1.0).contains(&p.mortise.bevel_width_ratio.get())
+            && p.mortise.bevel_width_ratio.get() > 0.0,
+        RecipeError::Proportion,
+    )
+}
 pub(super) fn guard(p: &GuardParameters) -> Checked {
     positive(p.width.get())?;
     positive(p.height.get())?;
