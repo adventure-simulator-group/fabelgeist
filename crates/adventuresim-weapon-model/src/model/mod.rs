@@ -6,6 +6,9 @@ mod blade_reduction;
 mod blade_sections;
 mod blades;
 mod bolts;
+mod contoured_plate;
+#[cfg(test)]
+mod contoured_plate_tests;
 mod crossbows;
 mod extents;
 mod firearms;

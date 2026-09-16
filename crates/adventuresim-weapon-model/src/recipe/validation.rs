@@ -1,5 +1,6 @@
 //! Shared manufacturing constraints, evaluated before geometry allocation.
 use super::*;
+mod contoured_plate;
 mod dimensions;
 mod graphs;
 mod melee;

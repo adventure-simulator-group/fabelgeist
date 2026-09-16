@@ -624,3 +624,89 @@ vertex at one tip, while omission of a point retains the finite end cap.
 An asymmetric cutting-edge offset is rejected for this thrusting section.
 Existing edged and diamond sections retain their geometry, and this option
 does not expand generic-blade scabbard eligibility.
+
+## Metropolitan Museum 96.5.23 halberd
+
+Select `met-96-5-23`. The [recipe](met-96.5.23.json) covers browser
+`halberd-1540` and gameplay `halberd`. It does not establish pollaxe,
+Lucerne hammer, hand axe or pike coverage. The
+[museum record](https://www.metmuseum.org/art/collection/search/25021)
+identifies a probably German halberd of 1525–50, made of steel and wood.
+Published dimensions are 1613 mm overall, 508 mm head and 241 mm width;
+the reported mass is 2.251 kg. The head length is interpreted as apex to
+the lower axe corner. The museum does not specify those endpoints.
+
+The [first face](https://images.metmuseum.org/CRDImages/aa/original/96.5.23_003oct2014.jpg)
+and [opposing face](https://images.metmuseum.org/CRDImages/aa/original/96.5.23_004oct2014.jpg)
+show the complete head and part of the upper haft. Both preserve the paired
+upper axe scallops, deep lower notch, notched beak, central ridge, narrowing
+langets and round fastener heads. These public-domain photographs are CC0
+under the [Met Open Access policy](https://www.metmuseum.org/hubs/open-access).
+Credit: John Stoneacre Ellis Collection, Gift of Mrs. Ellis and Augustus
+Van Horne Ellis, 1896.
+
+Photo estimates place the upper axe reach at 130 mm, opposing beak reach
+at 111 mm, cutting-edge height at 212 mm and upper axe corner 296 mm below
+the apex. The visible haft and broad langets are about 28 mm across,
+narrowing to 14 mm langet tails; rivet heads are modeled at 9 mm diameter.
+The wood end is reconstructed 450 mm below the apex. Its receiving plane
+therefore lies 58 mm above the lower axe corner, which defines the plate's
+local origin. This dimensional datum accounts for the mounting offset.
+
+Neither photograph shows the lower haft, butt or langet ends. The square
+28 mm wooden section, 340 mm complete langets, 3 mm langet thickness,
+0.6 mm plate edges, 34-to-11 mm ridge depths and 1.5 mm rivet crowns are
+unmeasured assumptions. No claim is made about an original or replaced
+haft. The ridge's exact transverse shape and thickness are not established
+by the opposing oblique photographs. Density and hidden thickness are not
+calibrated to the published mass. Calculated mass is approximately 1.938 kg
+versus the museum's 2.251 kg.
+
+The head is one closed forged blank. Its broad central seat meets the wood
+end and both langets. The langets have complete flat receiving surfaces
+against the wood, and the rivet crowns have flat undersides against the
+langets. These disjoint regions do not assert historical weld seams,
+internal rivet shanks, drilled holes or a particular hidden fastening
+method. Pitting, corrosion, wear and small stamped marks are excluded.
+
+### Contoured forged plates
+
+`contouredPlate` describes a closed planar boundary lifted into a solid
+with a variable central ridge. `width` and `length` scale the boundary's
+dimensionless coordinates. `start` gives its first point; `boundary`
+contains `line` spans with a `to` endpoint or `cubic` spans with two
+`controls` and a `to` endpoint. The final span must return to `start`.
+Transverse coordinates lie between minus one and one; axial coordinates
+lie between zero and one and must reach both ends. Self-intersecting or
+degenerate outlines are rejected. Holes are not part of this construction.
+
+Each increasing `thickness` station gives an axial `at` fraction, full
+`edge` and `ridge` depths, `flatHalfWidth` and `ridgeHalfWidth`. The crest
+is flat inside the first width, slopes to the edge depth at the second,
+then remains at edge depth. Station values interpolate axially. A zero
+flat width produces a sharp central ridge. Positive stations must retain
+the shared manufacturing minimum between the flat and outer ridge widths.
+Only a unique terminal outline point may have zero depths and widths;
+that point closes the entire section. Interior zero sections are rejected.
+
+The shared curve sampler preserves cusps and bounds curved-edge deviation.
+Cubic spans are split at their station and ridge intersections before
+sampling. The scalar cubic's derivative extrema isolate crossings and
+tangencies, including coincident structural intersections. This avoids
+creating tiny incidental edges beside a sampled curve's ridge crossing.
+The planar region is then partitioned at every station and moving ridge
+edge. Adjacent cells share each cut vertex. Each cell is retriangulated
+before refinement, retaining every boundary turn and shared junction;
+arithmetic collinear points left by incidental diagonals are removed.
+Flat sections omit inactive ridge partitions. Real cut features below the
+manufacturing minimum are rejected; only arithmetic roundoff is classified
+at an existing cut plane. No geometric audit tolerance changes.
+
+Surface refinement preserves those partition edges. Within each sloping
+cell, half-thickness is a quadratic numerator over a positive affine
+denominator. Twice the largest edge-midpoint interpolation error bounds
+the entire triangle, including the continuous limit at a unique point.
+The resulting maximum surface-deviation budgets are 125, 50 and 20 microns
+at Low, Medium and High. Sampling and allocation have explicit budgets;
+an unresolved or excessive construction is rejected. Constant flat plates,
+variable crests, asymmetric outlines and true points use the same primitive.

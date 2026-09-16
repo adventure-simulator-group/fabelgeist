@@ -11,6 +11,8 @@ where
 {
     T::deserialize(deserializer).map(Some)
 }
+mod contoured_plate;
+pub use contoured_plate::*;
 mod archery;
 mod choices;
 mod crossbow;

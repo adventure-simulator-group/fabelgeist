@@ -3,7 +3,7 @@ use super::PlanarPoint;
 use std::collections::{BTreeMap, BTreeSet};
 
 // Keep equivalent diagonals in stable input order across libm implementations.
-const TRIANGLE_QUALITY_TIE_TOLERANCE: f64 = 1e-12;
+pub(super) const TRIANGLE_QUALITY_TIE_TOLERANCE: f64 = 1e-12;
 
 #[derive(Clone, Debug)]
 pub(crate) struct Region {
@@ -18,7 +18,7 @@ fn area2(a: PlanarPoint, b: PlanarPoint, c: PlanarPoint) -> f64 {
 fn distance2(a: PlanarPoint, b: PlanarPoint) -> f64 {
     (a[0] - b[0]).powi(2) + (a[1] - b[1]).powi(2)
 }
-fn edge(a: usize, b: usize) -> (usize, usize) {
+pub(super) fn edge(a: usize, b: usize) -> (usize, usize) {
     (a.min(b), a.max(b))
 }
 pub(crate) fn signed_area(points: &[PlanarPoint]) -> f64 {
@@ -31,7 +31,7 @@ pub(crate) fn signed_area(points: &[PlanarPoint]) -> f64 {
         .sum::<f64>()
         / 2.0
 }
-fn shape(points: &[PlanarPoint], [a, b, c]: [usize; 3]) -> f64 {
+pub(super) fn shape(points: &[PlanarPoint], [a, b, c]: [usize; 3]) -> f64 {
     let [a, b, c] = [points[a], points[b], points[c]];
     area2(a, b, c).abs() / distance2(a, b).max(distance2(b, c)).max(distance2(c, a))
 }
@@ -202,58 +202,7 @@ impl Region {
             if mids.is_empty() {
                 break;
             }
-            let mut next = Vec::new();
-            for &f in &self.triangles {
-                let m: Vec<_> = (0..3)
-                    .map(|i| mids.get(&edge(f[i], f[(i + 1) % 3])).copied())
-                    .collect();
-                match m.iter().flatten().count() {
-                    0 => next.push(f),
-                    3 => {
-                        let [a, b, c] = [m[0].unwrap(), m[1].unwrap(), m[2].unwrap()];
-                        next.extend([[f[0], a, c], [a, f[1], b], [c, b, f[2]], [a, b, c]]);
-                    }
-                    1 => {
-                        let i = m.iter().position(Option::is_some).unwrap();
-                        let [a, b, c] = [f[i], f[(i + 1) % 3], f[(i + 2) % 3]];
-                        let mid = m[i].unwrap();
-                        next.extend([[a, mid, c], [mid, b, c]]);
-                    }
-                    _ => {
-                        let i = m.iter().position(Option::is_none).unwrap();
-                        let [a, b, c] = [f[i], f[(i + 1) % 3], f[(i + 2) % 3]];
-                        let bc = m[(i + 1) % 3].unwrap();
-                        let ca = m[(i + 2) % 3].unwrap();
-                        next.push([c, ca, bc]);
-                        let options = [[[a, b, bc], [a, bc, ca]], [[a, b, ca], [b, bc, ca]]];
-                        let quality = |option: [[usize; 3]; 2]| {
-                            shape(&self.points, option[0]).min(shape(&self.points, option[1]))
-                        };
-                        next.extend(
-                            if quality(options[1])
-                                > quality(options[0]) + TRIANGLE_QUALITY_TIE_TOLERANCE
-                            {
-                                options[1]
-                            } else {
-                                options[0]
-                            },
-                        );
-                    }
-                }
-            }
-            self.boundary = (0..self.boundary.len())
-                .flat_map(|i| {
-                    let a = self.boundary[i];
-                    let mut points = vec![a];
-                    if let Some(&mid) =
-                        mids.get(&edge(a, self.boundary[(i + 1) % self.boundary.len()]))
-                    {
-                        points.push(mid);
-                    }
-                    points
-                })
-                .collect();
-            self.triangles = next;
+            self.split_edges(&mids);
             self.improve();
         }
         self.improve();
