@@ -19,7 +19,7 @@ pub(super) fn controls(ui: &mut egui::Ui, s: &mut DrawingStyle) {
         }
         ui.weak("German drawing, c. 1530. The mane and interior lines follow the anatomy.");
     });
-    ui.collapsing("Lion paint", |ui| {
+    ui.collapsing("Charge paint", |ui| {
         ui.horizontal(|ui| {
             if ui.button("Flat").clicked() {
                 s.painted_modeling = PaintedModeling::FLAT;

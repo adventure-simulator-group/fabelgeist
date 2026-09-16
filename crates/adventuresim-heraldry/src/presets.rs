@@ -6,6 +6,8 @@ enum Recipe {
     GermanLion,
     DurerLion,
     WoensamLions,
+    WernigerodeEagle,
+    WernigerodeDoubleEagle,
     Quartered,
     Counterchanged,
 }
@@ -14,6 +16,8 @@ pub const PRESETS: &[&str] = &[
     "german-lion",
     "durer-lion",
     "woensam-lions",
+    "wernigerode-eagle",
+    "wernigerode-double-eagle",
     "quartered",
     "counterchanged",
 ];
@@ -120,6 +124,24 @@ pub fn preset(name: &str) -> Result<Document, crate::Error> {
     let recipe: Recipe = serde_json::from_value(serde_json::Value::String(name.into()))?;
     match recipe {
         Recipe::GermanLion => (),
+        Recipe::WernigerodeEagle | Recipe::WernigerodeDoubleEagle => {
+            d.arms = ArmsDesign::plain(Tincture::Or);
+            let heads = if matches!(recipe, Recipe::WernigerodeEagle) {
+                EagleHeads::One
+            } else {
+                EagleHeads::Two
+            };
+            let mut eagle = Charge::new(
+                ChargeKind::Eagle {
+                    heads,
+                    facing: Facing::Dexter,
+                },
+                Tincture::Sable,
+            );
+            eagle.center = [0.5, 0.46];
+            eagle.size = [Ratio(0.88), Ratio(0.86)];
+            d.arms.charges.push(eagle);
+        }
         Recipe::DurerLion => {
             d.surface.gold = MetalFinish::RAISED_MORDANT;
             d.drawing.lion.spine_arch = Ratio(1.3);

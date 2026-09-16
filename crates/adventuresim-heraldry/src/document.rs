@@ -126,6 +126,11 @@ pub enum LionTails {
     One,
     Two,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum EagleHeads {
+    One,
+    Two,
+}
 /// Charge identity. Fine artistic proportions live in DrawingStyle.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "kind", deny_unknown_fields)]
@@ -134,6 +139,7 @@ pub enum ChargeKind {
     Lozenge,
     Star { points: u8 },
     Lion { tails: LionTails, facing: Facing },
+    Eagle { heads: EagleHeads, facing: Facing },
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -176,7 +182,7 @@ pub struct DrawingStyle {
     pub lion: LionDrawing,
 }
 
-/// Coverage of the lion's shadow and highlight paint, independent of anatomy.
+/// Coverage of sourced shadow and highlight paint, independent of anatomy.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PaintedModeling {

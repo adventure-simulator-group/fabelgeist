@@ -12,8 +12,8 @@ batches deposited and dried in ordered layers. The
 [physical paint contract](PHYSICAL_PAINT.md) defines the required material
 model, calibration and acceptance tests.
 
-Development currently focuses on the stylized lion as a complete worked
-example, followed by geometric fields and ordinaries. Existing non-geometric
+The stylized lion and Wernigerode eagles provide worked examples alongside
+geometric fields and ordinaries. Existing non-geometric
 SVG artwork with suitable licenses is welcome; search Wikimedia Commons first
 and inspect its construction before adapting it. Newly invented non-geometric
 SVGs and text generation remain deferred while Adler Halbe develops related
@@ -57,12 +57,17 @@ strokes and painted tones together. Source claws, teeth and tongue remain
 separately colored. Proportion controls alter that construction; reference
 names are confined to recipes.
 
-Lion paint has separate shadow and highlight coverage controls. Flat paint
-retains the source's mane drawing. Asymmetry is an independent drawing control.
+Sourced charge paint has separate shadow and highlight coverage controls.
+Flat paint retains fixed interior lines. Asymmetry is an independent drawing
+control.
 These are authored interpretations; the charge identity stays fixed. Available
-charges are the sourced rampant lion, roundels, lozenges and stars. The lion
-supports facing and tail-count variants, but does not cover every historical
-pose.
+charges are the sourced rampant lion, single- and double-headed eagles,
+roundels, lozenges and stars. The lion supports facing and tail-count variants,
+but does not cover every historical pose. Eagles select Tom-L and Heralder's
+two Commons drawings, with editable facing, proportions, placement, tinctures
+and line widths. The double retains the source's red halos. The
+[eagle source record](references/EAGLES.md) distinguishes the Wernigerode
+tracing from the modern single-headed variation in that style.
 
 Composition produces clipped Bézier paths. SVG and CPU rasterization consume
 the same paths. Counterchanging clips the primary charge into the underlying
@@ -104,12 +109,12 @@ metallic/roughness model approximates the documented layer structure. It does
 not simulate spectral pigments, coating chemistry, or angle-dependent light
 paths through a colored glaze. See the [source limits](REFERENCES.md).
 
-Lion modeling uses separately classified shadow and highlight shapes with
+Sourced modeling uses separately classified shadow and highlight shapes with
 partial paint coverage. It changes pigment color independently of illumination.
 Over leaf, those marks add a thin pigment layer and reduce the exposed metallic
 response while preserving the underlying relief. Their positions follow the
-modern SVG; the manuscript attests tonal modeling, not these exact marks or
-mixture strengths. `drawing.painted_modeling.shadows` and
+modern SVGs; source images do not establish these exact pigment mixtures or
+coverage strengths on a physical shield. `drawing.painted_modeling.shadows` and
 `drawing.painted_modeling.highlights` independently control paint coverage from
 zero to one. The modeled preset uses 0.30 and 0.20 respectively; setting both
 to zero gives flat paint. These controls do not change anatomy or line work.
@@ -146,8 +151,9 @@ calibration. These requirements are not yet implemented by the generator.
 - `arms.json` is the complete editable source; `arms.svg` is the vector artwork.
 - `paint-recipes.json` records palette ingredients, binders, sources and
   appearance estimates. The GLB also carries this information in its extras.
-- Lion artwork uses CC BY-SA 3.0. Its source credit and modification notice
-  accompany the bundle in `ATTRIBUTION.txt`, SVG metadata and GLB copyright.
+- Lion and eagle artwork use CC BY-SA 3.0. Each used source's credit and
+  modification notice accompany the bundle in `ATTRIBUTION.txt`, SVG metadata
+  and GLB copyright, including mixed and nested charges.
 - `flat.png` contains unlit tinctures and painted modeling. `base-color.png`
   contains pigment color or metal reflectance, including glaze absorption,
   without lighting. Both use sRGB and straight alpha.

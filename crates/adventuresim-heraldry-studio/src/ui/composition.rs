@@ -9,6 +9,7 @@ enum FieldForm {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Symbol {
     Lion,
+    Eagle,
     Roundel,
     Lozenge,
     Star,
@@ -204,6 +205,7 @@ fn boundary(ui: &mut egui::Ui, b: &mut Boundary) {
 fn charge(ui: &mut egui::Ui, c: &mut Charge) {
     let mut symbol = match c.shape {
         ChargeKind::Lion { .. } => Symbol::Lion,
+        ChargeKind::Eagle { .. } => Symbol::Eagle,
         ChargeKind::Roundel => Symbol::Roundel,
         ChargeKind::Lozenge => Symbol::Lozenge,
         ChargeKind::Star { .. } => Symbol::Star,
@@ -213,12 +215,22 @@ fn charge(ui: &mut egui::Ui, c: &mut Charge) {
         ui,
         "Charge",
         &mut symbol,
-        &[Symbol::Lion, Symbol::Roundel, Symbol::Lozenge, Symbol::Star],
+        &[
+            Symbol::Lion,
+            Symbol::Eagle,
+            Symbol::Roundel,
+            Symbol::Lozenge,
+            Symbol::Star,
+        ],
     );
     if symbol != before {
         c.shape = match symbol {
             Symbol::Lion => ChargeKind::Lion {
                 tails: LionTails::One,
+                facing: Facing::Dexter,
+            },
+            Symbol::Eagle => ChargeKind::Eagle {
+                heads: EagleHeads::One,
                 facing: Facing::Dexter,
             },
             Symbol::Roundel => ChargeKind::Roundel,
@@ -236,6 +248,15 @@ fn charge(ui: &mut egui::Ui, c: &mut Charge) {
         }
         ChargeKind::Star { points } => {
             ui.add(egui::Slider::new(points, 3..=16).text("Points"));
+        }
+        ChargeKind::Eagle { heads, facing } => {
+            combo(ui, "Heads", heads, &[EagleHeads::One, EagleHeads::Two]);
+            combo(ui, "Facing", facing, &[Facing::Dexter, Facing::Sinister]);
+            tincture(ui, "Beak / legs / claws", &mut c.armed);
+            tincture(ui, "Tongue", &mut c.langued);
+            if *heads == EagleHeads::Two {
+                ui.weak("The source's halos follow the beak tincture.");
+            }
         }
         _ => (),
     }

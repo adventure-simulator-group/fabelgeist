@@ -7,6 +7,8 @@ pub enum PaintRole {
     Accent,
     Shadow,
     Highlight,
+    AccentShadow,
+    AccentHighlight,
 }
 impl PaintRole {
     pub fn is_charge(self) -> bool {
@@ -14,8 +16,8 @@ impl PaintRole {
     }
     pub fn tone(self) -> PaintTone {
         match self {
-            Self::Shadow => PaintTone::Shadow,
-            Self::Highlight => PaintTone::Highlight,
+            Self::Shadow | Self::AccentShadow => PaintTone::Shadow,
+            Self::Highlight | Self::AccentHighlight => PaintTone::Highlight,
             _ => PaintTone::Base,
         }
     }

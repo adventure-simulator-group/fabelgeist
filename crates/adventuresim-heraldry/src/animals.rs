@@ -1,5 +1,7 @@
 //! Sourced lion artwork and geometric charges share composition and paint roles.
+mod eagle;
 mod lion;
+mod source;
 use crate::{artwork::*, document::*};
 pub(crate) struct Painter<'a> {
     pub art: Artwork,
@@ -48,6 +50,9 @@ pub(crate) fn draw(c: &Charge, s: &DrawingStyle) -> Artwork {
     };
     match c.shape {
         ChargeKind::Lion { tails, facing } => lion::draw(&mut p, tails, c.armed, c.langued, facing),
+        ChargeKind::Eagle { heads, facing } => {
+            eagle::draw(&mut p, heads, c.armed, c.langued, facing)
+        }
         ChargeKind::Roundel => p.plate(Path::ellipse(0.5, 0.5, 0.46, 0.46)),
         ChargeKind::Lozenge => p.plate(
             Path::new(0.5, 0.02)

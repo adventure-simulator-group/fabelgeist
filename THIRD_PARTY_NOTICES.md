@@ -27,6 +27,27 @@ lion artwork remains under CC BY-SA 3.0; this does not relicense the software.
 - SHA-256:
   `206a2186210fd5957c6dd9749dd6d0ffedcb82ebff7eb5eee126d26b5a2ca672`
 
+## Heraldic eagle artwork
+
+`crates/adventuresim-heraldry/references/eagles/` includes *Arms of the King of
+the Romans (c.1433-1486)* and *Arms of the Holy Roman Emperor
+(c.1433-c.1450)* by Tom Lemmens (Tom-L) and Heralder, under
+[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The originals
+are retained unchanged. Adapted artwork remains under that license.
+
+- [Single eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_King_of_the_Romans_(c.1433-1486).svg)
+- [Double eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_Holy_Roman_Emperor_(c.1433-c.1450).svg)
+- [Historical provenance, hashes and construction](crates/adventuresim-heraldry/references/EAGLES.md)
+- [Single eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/single.credit.txt)
+- [Double eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/double.credit.txt)
+
+Fabelgeist contributors remove the source shields, identify tongue paths,
+recolor, separate painted tones, alter line widths and asymmetry, reflect,
+compose and render the artwork on physical materials. The double eagle is
+based on the Wernigerode armorial, c. 1475–1500; its modern halos differ from
+the manuscript's head crowns. The single is a modern adaptation in that style.
+Credits and license notices accompany derived exports.
+
 ## Bevy PBR shader
 
 `assets/shaders/tactical_interior_material.wgsl` adapts Bevy 0.19.1's

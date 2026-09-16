@@ -157,7 +157,7 @@ pub struct Shape {
 #[derive(Clone, Debug, Default)]
 pub struct Artwork {
     pub shapes: Vec<Shape>,
-    pub attribution: Option<&'static str>,
+    pub attribution: Option<String>,
 }
 impl Artwork {
     pub fn compose(document: &Document) -> Result<Self, Error> {
@@ -180,7 +180,7 @@ impl Artwork {
             }
         }
         s.push_str("</defs>");
-        if let Some(credit) = self.attribution {
+        if let Some(credit) = &self.attribution {
             let escaped = credit.replace('&', "&amp;").replace('<', "&lt;");
             write!(s, "<metadata>{escaped}</metadata>").unwrap();
         }

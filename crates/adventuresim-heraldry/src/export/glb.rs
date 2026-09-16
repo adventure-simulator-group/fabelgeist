@@ -85,7 +85,7 @@ pub fn glb(d: &Document, b: &Baked) -> Result<Vec<u8>, Error> {
         images.push(json!({"bufferView":buffer.view(&bytes),"mimeType":"image/png"}));
     }
     let document = json!({
-        "asset":{"version":"2.0","generator":"Fabelgeist Heraldry","copyright":crate::provenance::attribution(d).unwrap_or("")},"scene":0,"scenes":[{"nodes":[0]}],"nodes":[{"name":d.name,"mesh":0}],
+        "asset":{"version":"2.0","generator":"Fabelgeist Heraldry","copyright":crate::provenance::attribution(d).unwrap_or_default()},"scene":0,"scenes":[{"nodes":[0]}],"nodes":[{"name":d.name,"mesh":0}],
         "extensionsUsed":["KHR_materials_clearcoat"],
         "extras":{"paintRecipes":super::paint::manifest(&d.surface.palette)},
         "meshes":[{"primitives":[{"attributes":attributes,"indices":front,"material":0},{"attributes":attributes,"indices":support,"material":1}]}],

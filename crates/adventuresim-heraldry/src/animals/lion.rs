@@ -1,7 +1,10 @@
 //! German c.1530 drawing with independently classified pigment modeling.
 //! Original SVG and attribution: references/ATTRIBUTION.md.
 mod rig;
-mod source;
+use super::source::SvgDrawing;
+use std::sync::OnceLock;
+const SOURCE: &str = include_str!("../../references/German_Lion_1530.svg");
+const SOURCE_SIZE: [f32; 2] = [326.7587, 367.24664];
 use super::*;
 
 const REFERENCE_STROKE: f32 = 0.004;
@@ -35,9 +38,11 @@ fn draw_source(
 ) {
     let map = |q| variant(rig::deform(q, p.style));
     let clips: Vec<_> = clip.into_iter().map(|c| c.mapped(map)).collect();
-    for path in source::paths() {
+    static SOURCE_DRAWING: OnceLock<SvgDrawing> = OnceLock::new();
+    let source = SOURCE_DRAWING.get_or_init(|| SvgDrawing::from_svg(SOURCE));
+    for path in &source.paths {
         let geometry = |data: &usvg::tiny_skia_path::Path| {
-            source::convert(data, path.abs_transform()).mapped(map)
+            source.geometry(data, path.abs_transform()).mapped(map)
         };
         let mut fills = Vec::new();
         if let Some(fill) = path.fill() {

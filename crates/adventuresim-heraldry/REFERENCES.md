@@ -12,14 +12,18 @@ does not establish color.
 | `german-lion` | [*Sammelband mehrerer Wappenbücher*, c. 1530, BSB Cod.icon. 391](https://www.digitale-sammlungen.de/en/view/bsb00007681) | German rampant lion, internal line work and painted tonal modeling; modern Tom-L/Rinaldum vector adaptation. |
 | `durer-lion` | [Albrecht Dürer, *Coat of Arms with a Lion and a Cock*, c. 1502, The Met](https://www.metmuseum.org/art/collection/search/391113) | Rampant pose, flexed spine, curled mane, articulated paws and looped tail. |
 | `woensam-lions` | [Anton Woensam, coat of arms, 1530, British Museum, 1900,1019.79](https://www.britishmuseum.org/collection/object/P_1900-1019-79) | Opposed rampant lions with contrasting tinctures, narrower bodies and reaching forelegs. |
+| `wernigerode-eagle` | [Tom-L/Heralder single eagle](https://commons.wikimedia.org/wiki/File:Arms_of_the_King_of_the_Romans_(c.1433-1486).svg) | Modern single-headed variation in the Wernigerode double eagle's style. |
+| `wernigerode-double-eagle` | [Wernigerode armorial, c. 1475–1500, BSB Cod.icon. 308 n](https://www.digitale-sammlungen.de/en/view/bsb00043104) | Traced and symmetrized modern vector adaptation; red halos replace the manuscript's head crowns. |
 
 Only the shield charges are in scope. Helmets, crests, supporters, mantling,
 lettering, and frames surrounding the source shields are not generated. The
 lion family is a profile interpretation; it does not reproduce the turned head
 and every engraved fur line in Dürer's print. Spine, limb, mane and tail
-controls deform the same sourced lion across recipes; there are no
-source-specific silhouette branches in the animal generator. The quartered
+controls deform the same sourced lion across its recipes. The quartered
 example combines lions and lozenges; the counterchanged example uses a lion.
+
+The [eagle source record](references/EAGLES.md) documents the two Commons
+files, inspected construction, exact hashes, license and adaptations.
 
 ## Wikimedia Commons drawing and period paint
 

@@ -57,7 +57,7 @@ pub(super) fn tail_clip() -> Path {
         .line(226.0, 180.0)
         .line(230.0, 140.0)
         .close()
-        .mapped(|q| std::array::from_fn(|i| q[i] / super::source::SOURCE_SIZE[i]))
+        .mapped(|q| std::array::from_fn(|i| q[i] / super::SOURCE_SIZE[i]))
 }
 pub(super) fn second_tail(q: [f32; 2]) -> [f32; 2] {
     let q = std::array::from_fn(|i| TAIL_ROOT[i] + (q[i] - TAIL_ROOT[i]) * 0.82);
@@ -87,8 +87,9 @@ mod tests {
     fn neutral_anatomy_preserves_the_original_contours() {
         let mut style = DrawingStyle::default();
         style.asymmetry.0 = 0.0;
-        for path in super::super::source::paths() {
-            let p = super::super::source::convert(path.data(), path.abs_transform());
+        let source = super::super::SvgDrawing::from_svg(super::super::SOURCE);
+        for path in &source.paths {
+            let p = source.geometry(path.data(), path.abs_transform());
             assert_eq!(p.svg(), p.mapped(|q| deform(q, &style)).svg());
         }
     }

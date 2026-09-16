@@ -16,11 +16,19 @@ The right panel controls anatomy, painted modeling, construction,
 palette, and viewing. Drag the preview to turn it; scroll to zoom.
 
 `German lion · c. 1530` uses the attributed Tom-L/Rinaldum drawing on a broad
-450 × 450 mm shield. Under `Lion paint`, `Flat` retains its interior lines
+450 × 450 mm shield. Under `Charge paint`, `Flat` retains its interior lines
 with flat tinctures; `Modeled` applies restrained painted tones. `Shadows`
 and `Highlights` independently control paint coverage. These choices preserve
 the drawing and asymmetry. Painted marks stay fixed as physical lighting moves.
 The source panel links the evidence and credits carried by exported artwork.
+
+`Wernigerode style · single eagle` and `Wernigerode · double eagle` add the
+credited Tom-L/Heralder drawings on the same broad shield. Select `Eagle` in a
+charge to change head count, facing, beak/leg/claw and tongue tinctures.
+`Charge paint` also controls their source modeling. The double source's halos
+follow its beak tincture.
+[Source details](../adventuresim-heraldry/references/EAGLES.md)
+record the adaptations and historical limits.
 
 Under `Paint recipes`, each tincture selects a pigment and binder preparation.
 `Recipe details` links its source and distinguishes German conservation

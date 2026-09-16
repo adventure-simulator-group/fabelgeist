@@ -82,6 +82,9 @@ reconstruction of the manuscript's materials or colors.
 Credit and the modification notice accompany lion exports in `ATTRIBUTION.txt`,
 SVG metadata and GLB copyright, including nested or quartered lion charges.
 
+The [eagle source record](EAGLES.md) covers the adopted single- and
+double-headed Wernigerode drawings and their export notices.
+
 ## Adding other source artwork
 
 Search Wikimedia Commons before authoring new designs. Existing non-geometric
