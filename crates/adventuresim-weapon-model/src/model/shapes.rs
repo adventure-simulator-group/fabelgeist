@@ -26,6 +26,9 @@ impl ComponentConstructor<'_> {
         let detail = self.detail;
         let c = &resolved.component;
         match &c.shape {
+            Shape::ContouredPlate(p) => self.one(contoured_plate::construct(p, detail)?),
+            Shape::WheelPommel(p) => self.one(wheel::construct(p, detail)?),
+            Shape::MortisedGuard(p) => self.one(mortised_guard::construct(p, detail)?),
             Shape::BentBar(p) => self.one(bent_bar::bar(p, detail)?),
             Shape::SpatialTube(p) => self.spatial_tube(p),
             Shape::LoftedBlade(p) => {
@@ -91,7 +94,9 @@ impl ComponentConstructor<'_> {
             Shape::Box(p) => self.one(Solid::cuboid(p.size.map(Metres::get), detail)?),
             Shape::Grip(p) => self.grip(p),
             Shape::OvalGrip(p) => self.oval_grip(p),
-            Shape::ProfileGrip(p) => profile_grip::construct(resolved, p, detail),
+            Shape::ProfileGrip(p) | Shape::ProfileBody(p) => {
+                profile_body::construct(resolved, p, detail)
+            }
             Shape::SlabGrip(p) => self.slab_grip(p),
             Shape::Collar(p) => self.collar(p),
             Shape::Sleeve(p) => self.sleeve(p),
@@ -108,6 +113,21 @@ impl ComponentConstructor<'_> {
             .iter()
             .map(|point| point.map(Metres::get))
             .collect();
+        if let Some(facets) = p.facets {
+            let sides = facets.0 as usize;
+            return if let Some(wall) = p.wall {
+                let inner: Vec<_> = profile.iter().map(|p| p[1] - wall.get()).collect();
+                if inner.iter().any(|&r| r <= 0.0) {
+                    return Err("socket wall leaves no bore".into());
+                }
+                let mut solid = Solid::hollow_profile(&profile, &inner, sides);
+                // Each authored flat has its own normal, including the bore.
+                solid.surfaces.fill(0);
+                self.one(solid)
+            } else {
+                self.one(Solid::faceted_lathe(&profile, sides, detail)?)
+            };
+        }
         if let Some(crenels) = &p.crenellations {
             let inner: Vec<_> = if let Some(radius) = resolved.shaft_contact {
                 vec![radius; profile.len()]

@@ -6,6 +6,9 @@ mod blade_reduction;
 mod blade_sections;
 mod blades;
 mod bolts;
+mod contoured_plate;
+#[cfg(test)]
+mod contoured_plate_tests;
 mod crossbows;
 mod extents;
 mod firearms;
@@ -14,6 +17,10 @@ mod generic_blade;
 #[cfg(test)]
 mod generic_blade_tests;
 mod grip;
+#[cfg(test)]
+mod groove_body_tests;
+mod groove_sections;
+mod groove_transitions;
 mod guard_nodes;
 mod guards;
 mod lofted_blade;
@@ -22,23 +29,33 @@ mod longsword_tests;
 #[cfg(test)]
 mod mace_tests;
 mod maces;
+mod mortised_guard;
 mod mounts;
 pub(crate) mod output;
 mod placement;
+mod plate_profile;
+#[cfg(test)]
+mod plate_profile_tests;
+mod plate_ridge;
 mod polls;
 mod pommels;
-mod profile_grip;
+mod profile_body;
 #[cfg(test)]
 mod profile_tests;
 #[cfg(test)]
 mod ranged_layout_tests;
+#[cfg(test)]
+mod seated_hilt_tests;
 mod shaft_wrapping;
 mod shapes;
 mod shields;
+#[cfg(test)]
+mod socket_tests;
 mod spear_socket;
 #[cfg(test)]
 mod spear_tests;
 mod spears;
+mod wheel;
 
 use crate::{construction::*, recipe::*};
 pub use output::{GeneratedModel, ModelPart, ModelStats, PhysicalProperties};

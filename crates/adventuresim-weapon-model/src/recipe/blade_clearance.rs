@@ -1,4 +1,4 @@
-//! Continuous section bounds, including simultaneous groove/point closure.
+//! Continuous bounds for disjoint groove lanes and local opposing walls.
 use super::*;
 use std::f64::consts::PI;
 const MAX_CLEARANCE_INTERVALS: usize = 4096;
@@ -16,15 +16,18 @@ pub(super) fn check(
         remaining: MAX_CLEARANCE_INTERVALS,
     };
     let mut features = vec![
-        f.start.get(),
-        f.start.get() + f.entry_length.get(),
-        f.end.get() - f.exit_length.get(),
-        f.end.get(),
+        0.0,
+        p.length,
+        p.ricasso,
+        p.point_start().unwrap_or(p.length),
     ];
-    for station in [p.ricasso, p.point_start().unwrap_or(p.length)] {
-        if station > f.start.get() && station < f.end.get() {
-            features.push(station);
-        }
+    for g in &f.grooves {
+        features.extend([
+            g.start.get(),
+            g.start.get() + g.entry_length.get(),
+            g.end.get() - g.exit_length.get(),
+            g.end.get(),
+        ]);
     }
     features.sort_by(f64::total_cmp);
     features.dedup();
@@ -39,18 +42,89 @@ struct Clearance<'a, 'b> {
     point: Option<&'a PointCurve>,
     remaining: usize,
 }
-impl Clearance<'_, '_> {
-    fn inside(&self, mouth: f64, depth: f64, width: f64, half_depth: f64) -> bool {
-        let faces = if self.f.faces == FullerFaces::Both {
-            2.0
+/// A pointwise upper bound on a groove's trapezoidal material removal.
+struct Cut {
+    center: f64,
+    mouth: f64,
+    floor: f64,
+    depth: f64,
+}
+impl Cut {
+    fn at(&self, x: f64) -> f64 {
+        let distance = (x - self.center).abs();
+        if distance >= self.mouth {
+            0.0
+        } else if distance <= self.floor {
+            self.depth
         } else {
-            1.0
-        };
-        // Reserve relative rounding slack for the finite products, powers and
-        // trigonometric bounds; undecided near-contact intervals are rejected.
+            self.depth * (self.mouth - distance) / (self.mouth - self.floor)
+        }
+    }
+    fn corners(&self) -> [f64; 4] {
+        [
+            self.center - self.mouth,
+            self.center - self.floor,
+            self.center + self.floor,
+            self.center + self.mouth,
+        ]
+    }
+}
+impl Clearance<'_, '_> {
+    fn inside(&self, envelopes: &[f64], width: f64, half_depth: f64) -> bool {
+        if envelopes.iter().all(|q| *q == 0.0) {
+            return true;
+        }
+        let flat = width * (1.0 - self.f.bevel_width_ratio.get());
         let slack = 64.0 * f64::EPSILON;
-        mouth * (1.0 + slack) < 2.0 * width * (1.0 - self.f.bevel_width_ratio.get()) * (1.0 - slack)
-            && faces * depth * (1.0 + slack) < 2.0 * half_depth * (1.0 - slack)
+        let cuts: Vec<_> = self
+            .f
+            .grooves
+            .iter()
+            .zip(envelopes)
+            .map(|(g, q)| Cut {
+                center: g.lateral_position.get(),
+                mouth: g.mouth_width.get() * q / (2.0 * flat),
+                floor: g.mouth_width.get() * q * g.floor_width_ratio.get() / (2.0 * flat),
+                depth: g.depth.get() * q * q,
+            })
+            .collect();
+        for (i, (g, c)) in self.f.grooves.iter().zip(&cuts).enumerate() {
+            if c.mouth * (1.0 + slack) >= (1.0 - c.center.abs()) * (1.0 - slack) {
+                return false;
+            }
+            let faces = if g.faces == FullerFaces::Both {
+                2.0
+            } else {
+                1.0
+            };
+            if faces * c.depth * (1.0 + slack) >= 2.0 * half_depth * (1.0 - slack) {
+                return false;
+            }
+            for (h, d) in self.f.grooves.iter().zip(&cuts).skip(i + 1) {
+                let same = [true, false]
+                    .into_iter()
+                    .any(|front| g.on_face(front) && h.on_face(front));
+                if same
+                    && c.mouth > 0.0
+                    && d.mouth > 0.0
+                    && (c.mouth + d.mouth) * (1.0 + slack)
+                        >= (c.center - d.center).abs() * (1.0 - slack)
+                {
+                    return false;
+                }
+                let opposite = [true, false]
+                    .into_iter()
+                    .any(|front| g.on_face(front) && h.on_face(!front));
+                if opposite
+                    && c.corners().into_iter().chain(d.corners()).any(|x| {
+                        (c.at(x) + d.at(x)) * (1.0 + slack) >= 2.0 * half_depth * (1.0 - slack)
+                    })
+                {
+                    return false;
+                }
+            }
+        }
+        true
     }
     fn lower_dimensions(&self, a: f64, b: f64) -> [f64; 2] {
         if self.p.point_start().is_some_and(|start| a >= start) {
@@ -90,60 +164,54 @@ impl Clearance<'_, '_> {
         let Some(start) = self.p.point_start() else {
             return false;
         };
-        if b != self.p.length || self.f.end.get() != b || a < start {
+        if b != self.p.length || a < start {
             return false;
         }
         let delta = b - a;
-        let exit = delta / self.f.exit_length.get();
-        // S(u)<=10u^3. The point's Bernstein coefficients give a positive
-        // linear width bound; e(q)=2q-q²>=q gives the same depth lower bound.
+        let mut envelopes = Vec::new();
+        for g in &self.f.grooves {
+            if g.end.get() <= a {
+                envelopes.push(0.0);
+            } else if g.end.get() == b && a >= b - g.exit_length.get() {
+                // S(u)<=10u^3; division by the point's linear width bound
+                // leaves positive powers of delta for both mouth and depth.
+                envelopes.push(10.0 * (delta / g.exit_length.get()).powi(3));
+            } else {
+                return false;
+            }
+        }
         let width = point.minimum_width_slope() * delta;
         let depth = self.p.body(b)[1] * width / self.p.body(start)[0];
-        self.inside(
-            self.f.mouth_width.get() * 10.0 * exit.powi(3),
-            self.f.depth.get() * 100.0 * exit.powi(6),
-            width,
-            depth,
-        )
+        self.inside(&envelopes, width, depth)
     }
     fn interval(&mut self, a: f64, b: f64, level: usize) -> Result<(), RecipeError> {
         if self.remaining == 0 {
             return Err(RecipeError::Budget);
         }
         self.remaining -= 1;
-        if let Some(start) = self.p.point_start()
-            && a < start
-            && start < b
-        {
-            self.interval(a, start, level + 1)?;
-            return self.interval(start, b, level + 1);
-        }
         if self.tip_interval(a, b) {
             return Ok(());
         }
-        let peak = ((self.f.start.get() + self.f.entry_length.get() + self.f.end.get()
-            - self.f.exit_length.get())
-            / 2.0)
-            .clamp(a, b);
-        let q = self.f.envelope(peak);
+        let envelopes: Vec<_> = self
+            .f
+            .grooves
+            .iter()
+            .map(|g| {
+                let peak = ((g.start.get() + g.entry_length.get() + g.end.get()
+                    - g.exit_length.get())
+                    / 2.0)
+                    .clamp(a, b);
+                g.envelope(peak)
+            })
+            .collect();
         let [w, d] = self.lower_dimensions(a, b);
-        if self.inside(
-            self.f.mouth_width.get() * q,
-            self.f.depth.get() * q * q,
-            w,
-            d,
-        ) {
+        if self.inside(&envelopes, w, d) {
             return Ok(());
         }
         let mid = (a + b) / 2.0;
-        let q = self.f.envelope(mid);
+        let envelopes: Vec<_> = self.f.grooves.iter().map(|g| g.envelope(mid)).collect();
         let [w, d] = self.p.dimensions(mid, self.point);
-        if !self.inside(
-            self.f.mouth_width.get() * q,
-            self.f.depth.get() * q * q,
-            w,
-            d,
-        ) {
+        if !self.inside(&envelopes, w, d) {
             return Err(RecipeError::Proportion);
         }
         if level >= MAX_CLEARANCE_DEPTH {

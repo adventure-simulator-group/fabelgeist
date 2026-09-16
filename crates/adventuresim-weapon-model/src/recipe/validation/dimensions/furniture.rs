@@ -1,5 +1,23 @@
 //! Dimension and sampling bounds for furniture constructions.
 use super::*;
+pub(super) fn wheel(p: &WheelPommelParameters) -> Checked {
+    positive(p.diameter.get() / 2.0 - p.seat_height.get())?;
+    for value in [
+        p.diameter,
+        p.thickness,
+        p.face_diameter,
+        p.rim_thickness,
+        p.seat_height,
+    ] {
+        positive(value.get())?;
+    }
+    require(
+        p.face_diameter.get() < p.diameter.get()
+            && p.rim_thickness.get() < p.thickness.get()
+            && p.seat_height.get() < p.diameter.get() / 2.0,
+        RecipeError::Proportion,
+    )
+}
 pub(super) fn cuboid(p: &BoxParameters) -> Checked {
     let n = &p.size;
     for v in n {

@@ -280,3 +280,62 @@ fn diamond_frustum_conserves_analytic_volume_and_rejects_an_asymmetric_edge() {
     p.single_edge = Some(Ratio::new(0.1).unwrap());
     assert!(generic_blade::blade(&p, Detail::High).is_err());
 }
+
+#[test]
+fn triangular_blades_keep_three_sides_and_close_on_the_curved_centroid_axis() {
+    for (ratio, start, roundness) in [(0.2, 0.8, 0.0), (0.8, 0.9, 0.6), (1.5, 0.95, 1.0)] {
+        let mut p = parameters();
+        p.section = Some(ForgedBladeSection::Triangular);
+        p.single_edge = Some(Ratio::new(0.0).unwrap());
+        p.thickness = Metres::new(p.width.get() * ratio).unwrap();
+        p.curvature = Some(Metres::new(-0.025).unwrap());
+        let point = p.point.as_mut().unwrap();
+        point.start = Ratio::new(start).unwrap();
+        point.roundness = Ratio::new(roundness).unwrap();
+        for detail in [Detail::Low, Detail::Medium, Detail::High] {
+            let solid = generic_blade::blade(&p, detail).unwrap();
+            closed(&solid);
+            let mut heel: Vec<_> = solid
+                .positions
+                .iter()
+                .copied()
+                .filter(|p| p[1] == 0.0)
+                .collect();
+            heel.sort_by(|a, b| a[0].total_cmp(&b[0]).then(a[2].total_cmp(&b[2])));
+            heel.dedup();
+            assert_eq!(heel.len(), 3);
+            assert!((heel.iter().map(|p| p[2]).sum::<f64>()).abs() < 1e-12);
+            assert_eq!(heel[2][0] - heel[0][0], p.width.get());
+            assert!((heel[1][2] - heel[0][2] - p.thickness.get()).abs() < 1e-12);
+            let tip: Vec<_> = solid
+                .positions
+                .iter()
+                .filter(|v| v[1] == p.length.get())
+                .collect();
+            assert!(!tip.is_empty());
+            assert!(tip.iter().all(|v| **v == [-0.025, p.length.get(), 0.0]));
+        }
+    }
+}
+
+#[test]
+fn triangular_frusta_match_analytic_volume_and_reject_asymmetric_edges() {
+    let mut p = parameters();
+    p.section = Some(ForgedBladeSection::Triangular);
+    p.single_edge = Some(Ratio::new(0.0).unwrap());
+    p.point = None;
+    p.taper = Some(Ratio::new(1.0).unwrap());
+    p.belly = Some(Ratio::new(0.0).unwrap());
+    p.tip_width = Some(Ratio::new(0.25).unwrap());
+    let volume =
+        0.5 * p.width.get() * p.thickness.get() * p.length.get() * (1.0 + 0.25 + 0.25 * 0.25) / 3.0;
+    for detail in [Detail::Low, Detail::Medium, Detail::High] {
+        let solid = generic_blade::blade(&p, detail).unwrap();
+        closed(&solid);
+        assert!((solid.volume() / volume - 1.0).abs() < 1e-12);
+    }
+    for single in [-1.0, -0.1, 0.1, 1.0] {
+        p.single_edge = Some(Ratio::new(single).unwrap());
+        assert!(generic_blade::blade(&p, Detail::High).is_err());
+    }
+}

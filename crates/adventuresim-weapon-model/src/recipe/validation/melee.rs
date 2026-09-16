@@ -1,5 +1,7 @@
 //! Hand clearance and working-section proportions of melee components.
 use super::*;
+
+const MAX_SOCKET_FACETS: u16 = 32;
 pub(super) fn check(shape: &Shape) -> Checked {
     match shape {
         Shape::LoftedBlade(p) => {
@@ -109,10 +111,22 @@ fn guard(p: &GuardParameters) -> Checked {
 
 fn fuller_dimensions(fuller: Option<&FullerParameters>) -> Checked {
     if let Some(f) = fuller {
-        for value in [f.mouth_width, f.depth, f.end, f.entry_length, f.exit_length] {
-            positive(value.get())?;
+        require(
+            (1..=MAX_FULLER_GROOVES).contains(&f.grooves.len()),
+            RecipeError::Budget,
+        )?;
+        for groove in &f.grooves {
+            for value in [
+                groove.mouth_width,
+                groove.depth,
+                groove.end,
+                groove.entry_length,
+                groove.exit_length,
+            ] {
+                positive(value.get())?;
+            }
+            nonnegative(groove.start.get())?;
         }
-        nonnegative(f.start.get())?;
     }
     Ok(())
 }
@@ -202,6 +216,16 @@ fn oval_grip(p: &OvalGripParameters) -> Checked {
 
 fn socket(p: &SocketParameters) -> Checked {
     profile(&p.profile, ProfileEnds::Open)?;
+    if let Some(facets) = p.facets {
+        require(
+            (3..=MAX_SOCKET_FACETS).contains(&facets.0),
+            RecipeError::Budget,
+        )?;
+        require(
+            p.segments.is_none() && p.crenellations.is_none() && p.fit_shaft != Some(true),
+            RecipeError::Profile,
+        )?;
+    }
     if let Some(c) = &p.crenellations {
         require((2..=32).contains(&c.count.0), RecipeError::Budget)?;
         positive(c.depth.get())?;
