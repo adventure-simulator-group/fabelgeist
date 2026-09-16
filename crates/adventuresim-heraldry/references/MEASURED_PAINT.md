@@ -3,9 +3,15 @@
 The studio offers ingredient controls and a constrained color picker over the
 same `StockMix` recipes. The picker shows only supported paint families; it
 does not fill the space between them with invented colors. A requested RGB
-color is a search target, never the saved physical paint. Base, shadow and
+color is a search target, never the saved ingredient recipe. Base, shadow and
 highlight each save an independent mixture. The existing sourced catalog
 presets retain their estimated appearances, including the default German lion.
+
+This is an empirical specimen-color model. It does not track an actual mixed
+batch, consume paint during application, or calculate light transport through
+ordered coats. Paint thickness currently affects surface relief without
+determining hiding power. The [physical paint contract](../PHYSICAL_PAINT.md)
+sets out the replacement model and its calibration requirements.
 
 ## Measurement basis
 

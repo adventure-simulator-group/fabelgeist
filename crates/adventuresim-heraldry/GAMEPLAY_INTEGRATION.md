@@ -5,6 +5,11 @@ currently models an intact decorated surface. Its measured-paint mixer quotes
 a chosen batch using user-supplied stock prices; it does not calculate a
 whole-object price, production time, damage, or repair.
 
+The [physical paint contract](PHYSICAL_PAINT.md) requires batch inventories and
+deposited layers to supply those material quantities. Color, thickness,
+coverage and material cost must come from the same construction. Repainting a
+damaged region must consume paint and rebuild the affected layers.
+
 Material and labor constraints should make historically common, practical
 finishes attractive through ordinary player choices. Players should be able
 to commission elaborate work when its cost and purpose justify it. The game

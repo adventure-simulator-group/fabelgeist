@@ -6,6 +6,12 @@ does not write game state. The
 [studio](../adventuresim-heraldry-studio/README.md) provides native and browser
 controls, JSON editing, and a command-line interface.
 
+The current paint model estimates appearance from catalog swatches or measured
+specimens and adds approximate surface relief. It does not yet simulate paint
+batches deposited and dried in ordered layers. The
+[physical paint contract](PHYSICAL_PAINT.md) defines the required material
+model, calibration and acceptance tests.
+
 Development currently focuses on the stylized lion as a complete worked
 example, followed by geometric fields and ordinaries. Existing non-geometric
 SVG artwork with suitable licenses is welcome; search Wikimedia Commons first
