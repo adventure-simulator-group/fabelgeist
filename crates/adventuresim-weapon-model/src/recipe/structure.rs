@@ -21,6 +21,12 @@ pub struct SocketParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::recipe::deserialize_present"
     )]
+    pub crenellations: Option<SocketCrenellations>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
     pub segments: Option<Count>,
     #[serde(
         default,
@@ -34,6 +40,15 @@ pub struct SocketParameters {
         deserialize_with = "crate::recipe::deserialize_present"
     )]
     pub wall: Option<Metres>,
+}
+
+/// Repeated open notches measured down from the socket's terminal plane.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct SocketCrenellations {
+    pub count: Count,
+    pub depth: Metres,
+    pub tooth_fraction: Ratio,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]

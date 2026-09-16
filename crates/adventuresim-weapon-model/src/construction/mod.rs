@@ -5,6 +5,7 @@
 //! sampling budget.
 
 mod clearance_envelope;
+mod crenellated_socket;
 mod curves;
 mod profile;
 pub(crate) use clearance_envelope::ClearanceEnvelope;

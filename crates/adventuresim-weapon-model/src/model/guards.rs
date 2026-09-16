@@ -4,6 +4,7 @@ use std::f64::consts::{PI, TAU};
 
 pub(super) fn section(value: Option<GuardSection>) -> Section {
     match value {
+        Some(GuardSection::Beveled) => Section::Beveled,
         None | Some(GuardSection::Round) => Section::Round,
         Some(GuardSection::Oval) => Section::Oval,
         Some(GuardSection::Diamond) => Section::Diamond,

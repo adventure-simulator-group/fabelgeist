@@ -108,6 +108,27 @@ impl ComponentConstructor<'_> {
             .iter()
             .map(|point| point.map(Metres::get))
             .collect();
+        if let Some(crenels) = &p.crenellations {
+            let inner: Vec<_> = if let Some(radius) = resolved.shaft_contact {
+                vec![radius; profile.len()]
+            } else {
+                let wall = p
+                    .wall
+                    .ok_or("crenellated socket needs a wall or receiver")?
+                    .get();
+                profile.iter().map(|p| p[1] - wall).collect()
+            };
+            if inner
+                .iter()
+                .zip(&profile)
+                .any(|(&r, p)| r <= 0.0 || r >= p[1])
+            {
+                return Err("socket wall leaves no bore".into());
+            }
+            return self.one(Solid::crenellated_socket(
+                &profile, &inner, crenels, detail,
+            )?);
+        }
         if let Some(radius) = resolved.shaft_contact {
             self.one(Solid::hollow_socket(
                 &profile,

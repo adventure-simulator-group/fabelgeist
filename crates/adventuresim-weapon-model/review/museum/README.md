@@ -281,3 +281,86 @@ frame. This anchor follows width and asymmetry, including rotated blades;
 it is also exposed as the component's `heelCenter` frame. The study needs
 no fixed lateral attachment offset, so ordinary editor changes preserve
 heel centering. This anchor is rejected on shapes without that definition.
+
+## KHM A 297 elongated Gothic mace
+
+Select `khm-a297` or export it through the standard command. The separate
+[recipe](khm-a297.json) covers the browser `gothic-flanged-mace` endpoint.
+It does not add another gameplay family: `flanged_mace` already has the
+compact Cleveland study.
+
+The [museum record](https://www.khm.at/kunstwerke/streitkolben-372692)
+identifies a German mace of about 1520, inventory A 297. It gives 535 mm
+length, 75 mm width and 0.85 kg mass, with an iron head and shaft, wood grip
+and possibly linen cord. Its [photograph](https://www.khm.at/pics/372692/HJRK_A_297_202303_1.jpg)
+is credited to Kunsthistorisches Museum, Hofjagd- und Ruestkammer. The image
+is private local reference evidence and is not redistributed in this project.
+Only one photographed pose is available; reverse details and cross-sections
+remain assumptions.
+
+The visible structural study includes the stepped elongated flanges and
+edge lugs, transverse band, open crenellated crown, twisted beveled haft,
+broad grip guard, tightly wound cord with a coarser binding, exposed wood,
+butt disc and loop. Fine chasing, engraved rope ticks, individual cord
+fibres, patina and wear are outside the structural scope.
+
+Photo estimates allocate 15 mm to the loop below its butt disc, 3 mm to
+that disc, 105 mm to the grip, 6 mm to the guard, 208 mm to the exposed haft,
+15 mm to the head collar, 166 mm to the flange interval and 17 mm to the
+crown. The head band occupies 4 mm within the flange interval; the flange
+solids end at its actual faces. The photographed cusp is about 0.76 of the
+way up the complete flange interval. These subdivisions are estimates,
+not additional museum measurements.
+
+Six flanges and four crown teeth are hypotheses, not published counts.
+A solid steel approximation, hidden wood core, flange and crown thickness,
+haft section, compressed cord crests and internal band continuity are
+explicit construction assumptions. The 16 mm beveled haft section has a
+maximum breadth of about 17.9 mm. Its twist and the coarse binding's
+handedness follow the visible photograph. Calculated High-detail mass is about
+0.962 kg versus the museum's 0.85 kg; it is not calibrated to that value.
+
+## Stepped flanges, notched rims and supported cord
+
+A mace can specify `flangeProfile` stations with normalized axial `at` and
+absolute `radius` in metres. Stations proceed from zero to one. Equal axial
+positions form a radial step; every incident radius must remain outside the
+receiving core face. The continuous cusped construction remains available
+when the profile is omitted. An explicit profile controls the flange outline;
+its length, core, flange count and thickness retain their usual meanings.
+
+Separate flange bodies can terminate against the faces of an intervening
+solid band. Each body and band occupies its own axial interval. A surrounding
+ring must not be placed through an uninterrupted flange or counted twice in
+material volume.
+
+Hollow sockets accept `crenellations` with `count`, `depth` in metres and
+`toothFraction`. Notches descend from the terminal plane while retaining a
+positive closed lower ring. The mesh includes the bore, notch floors, side
+walls and annular upper faces. Repeated notches do not cap the opening.
+
+Swept members accept a `beveled` section: a rectangular section with each
+corner cut back by one quarter of its width and depth. It retains eight
+faces and has area 7/8 of the bounding rectangle. Twisted sweeps limit both
+axial chord and corner travel between rings. Symmetric face subdivision
+avoids the handedness-dependent material wedge of a fixed diagonal.
+At Medium, the corner-travel budget is 0.6 mm, scaled with display detail;
+rotation between rings never exceeds 15 degrees. These are sampling budgets,
+not a claim that every point of the analytic surface is within that distance.
+
+Shaft wrappings may use `section: {"kind": "rounded", "crestFraction": ...}`.
+This models compressed cord with a finite flat underside, rounded shoulders
+and a finite flat crest. The crest fraction lies strictly between zero and
+one. Thickness follows the receiving face normal in each transverse section.
+The original flat strip measures thickness radially. Both constructions use the
+actual shaft facets and retain every angular face boundary.
+
+A single-handed winding requires width smaller than pitch. Crossed strips
+retain the stricter four-width spacing required by their crossing lifts.
+An `onWrapping` index selects an earlier rounded, single-handed wrapping as
+the receiving layer. Its crest supports the upper strip across the gaps;
+there is no hidden continuous sleeve. Support cannot reference itself or a
+later layer, extend outside the receiving interval, or have no finite crest
+contact. Each layer contributes only its own material volume. Flattened
+crest proportions, cord thickness and hidden core materials are construction
+assumptions when the museum has not measured them.

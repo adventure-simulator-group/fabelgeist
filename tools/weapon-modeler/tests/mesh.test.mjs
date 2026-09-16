@@ -138,6 +138,20 @@ test("shared renderer projection contains front and oblique vertices inside marg
   }
 });
 
+test("camera framing handles a dense mesh beyond the JavaScript argument limit", () => {
+  const positions = new Float64Array(600_000);
+  for (let i = 0; i < positions.length; i += 3) {
+    positions[i] = i % 2 ? -0.04 : 0.04;
+    positions[i + 1] = i / positions.length;
+    positions[i + 2] = i % 2 ? 0.04 : -0.04;
+  }
+  for (const aspect of [0.6, 1.8]) {
+    const fit = projectedFit(positions, { min: [-0.04, 0, -0.04], max: [0.04, 1, 0.04] }, aspect, 0.68, 0.18);
+    assert.equal(fit.contained, true);
+    assert.ok(fit.distance > 0 && Number.isFinite(fit.distance));
+  }
+});
+
 test("component-local rotation reorients an interchangeable mounted head", () => {
   const base = { shaft: { length: 1, radius: 0.02 }, components: [{ kind: "hammer", label: "poll", mount: "shaft-top", offset: [0, 0, 0], length: 0.2, face: 0.08, neck: 0.044, thickness: 0.05, direction: 1 }] };
   const horizontal = generateModel(base).stats.dimensions;

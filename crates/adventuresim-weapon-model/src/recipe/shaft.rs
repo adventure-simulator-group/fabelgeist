@@ -22,6 +22,19 @@ pub enum WrappingPattern {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct ShaftWrapping {
+    /// Earlier wrapping whose outer crest supports this layer across its gaps.
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub on_wrapping: Option<Count>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "super::deserialize_present"
+    )]
+    pub section: Option<WrappingSection>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
@@ -36,6 +49,16 @@ pub struct ShaftWrapping {
     pub phase: Degrees,
     pub pattern: WrappingPattern,
     pub material: Material,
+}
+
+/// Compressed cord has a flat receiving underside and an authored crest width.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(tag = "kind", rename_all = "camelCase", deny_unknown_fields)]
+pub enum WrappingSection {
+    Rounded {
+        #[serde(rename = "crestFraction")]
+        crest_fraction: Ratio,
+    },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
