@@ -52,6 +52,7 @@ impl Shape {
 
     pub(super) fn range(&self) -> Result<[f64; 2], String> {
         Ok(match self {
+            Self::ContouredPlate(p) => [0.0, p.length.get()],
             Self::WheelPommel(p) => [-p.diameter.get() / 2.0, p.seat_height.get()],
             Self::MortisedGuard(p) => [0.0, p.height.get()],
             Self::BentBar(p) => match p.centerline {
