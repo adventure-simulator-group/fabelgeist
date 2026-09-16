@@ -345,7 +345,7 @@ fn append_closed_wall_assembly(
             SolidRole::WallHost,
         );
     }
-    if material != crate::WallMaterialClass::CathedralMasonry || !wall.exterior() {
+    if material != crate::WallMaterialClass::ButtressedChurchMasonry || !wall.exterior() {
         return;
     }
     let buttress_depth = 0.78;

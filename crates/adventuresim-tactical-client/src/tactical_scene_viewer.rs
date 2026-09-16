@@ -97,7 +97,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 35;
+const CAPTURE_PROFILE_VERSION: u16 = 36;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -106,7 +106,7 @@ const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 22;
+const CAMERA_VERSION: u16 = 23;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -2139,6 +2139,7 @@ fn setup_scene(
         distant_buildings: input.distant_buildings.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
         compounds: input.compounds.clone(),
         furniture_groups: furniture.groups,
         distant_furniture: furniture.distant_instances,

@@ -175,6 +175,7 @@ pub fn build_imported_scene(
         landform,
         streets: building_layout.streets,
         yards: building_layout.yards,
+        parishes: building_layout.parishes,
         compounds: building_layout.compounds,
         buildings: building_layout.playable,
         distant_buildings: building_layout.distant,

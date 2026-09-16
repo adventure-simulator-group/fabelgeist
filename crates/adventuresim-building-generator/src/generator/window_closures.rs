@@ -13,7 +13,7 @@ fn window_closure_variant(
     storey_level: u16,
     opening: crate::OpeningAssemblyId,
 ) -> WindowClosureVariant {
-    if program.archetype == BuildingArchetype::Cathedral {
+    if program.church_program.is_some() {
         return WindowClosureVariant::Fixed;
     }
     if program.archetype == BuildingArchetype::FachwerkCottage

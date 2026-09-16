@@ -2,6 +2,7 @@ fn generate_unchecked(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
 ) -> Result<BuildingPlan, GenerationError> {
+    program.validate_church_program()?;
     program.validate_workplace_edits(edits)?;
     let (storeys, straight_stair_core) = occupied_storeys::generate_storeys(program, edits)?;
 
@@ -43,30 +44,10 @@ fn generate_unchecked(
     );
     let workplace = crate::workplace::resolve_workplace(program, &mut wall_assemblies, &mut resolved_geometry);
     let small_church = small_church::resolve(program, &mut wall_assemblies, &mut resolved_geometry);
-    if program.archetype == BuildingArchetype::Cathedral {
-        suppress_cathedral_legacy_storey_walls(
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut resolved_geometry,
-        );
-        resolve_cathedral_bell_stage(
-            &square_towers,
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut resolved_geometry,
-        );
-    }
-    let mut church = if program.archetype == BuildingArchetype::Cathedral {
-        Some(resolve_church_assembly(
-            program,
-            &mut wall_assemblies,
-            &mut opening_assemblies,
-            &mut stairs,
-            &mut resolved_geometry,
-        ))
-    } else {
-        None
-    };
+    let mut church = urban_church::resolve(
+        program, &square_towers, &mut wall_assemblies, &mut opening_assemblies,
+        &mut stairs, &mut resolved_geometry,
+    );
     fortified_envelope::resolve(program, &towers, &crowns, &projected_defenses, &mut wall_assemblies, &mut opening_assemblies, &mut resolved_geometry);
     let artillery_castle = resolve_artillery_castle(
         program,

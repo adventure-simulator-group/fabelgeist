@@ -59,4 +59,4 @@ impl BuildingProgram {
     }
 }
 
-pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 7;
+pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 8;

@@ -1,6 +1,51 @@
 use super::*;
 
 #[test]
+fn principal_parish_retains_street_access_and_exact_recipe_across_city_partitions() {
+    use adventuresim_building_generator::ServiceBuildingSize;
+    for (seed, population) in [(42, 900), (47_114, 30_000)] {
+        let city = CitySite::central_german_market_town().generate(
+            seed,
+            population,
+            &super::super::tests::economy(),
+        );
+        let lots = city.lots.clone();
+        let compiled = city.compile(seed).unwrap();
+        let principals = compiled
+            .buildings
+            .iter()
+            .filter(|b| b.program.church_program.is_some())
+            .collect::<Vec<_>>();
+        assert_eq!(principals.len(), usize::from(population > 1500));
+        for principal in principals {
+            assert_eq!(principal.program.usage, Some(BuildingUse::ParishChurch));
+            assert_eq!(
+                principal.program.service_size,
+                Some(ServiceBuildingSize::Large)
+            );
+            let lot = lots.iter().find(|lot| lot.id == principal.id).unwrap();
+            assert!(
+                principal
+                    .orientation
+                    .local_to_world(-Vec2::X)
+                    .distance(lot.orientation.local_to_world(-Vec2::Y))
+                    < 0.001
+            );
+            let distant = compiled
+                .clone()
+                .partition(None)
+                .unwrap()
+                .distant
+                .into_iter()
+                .find(|building| building.id == principal.id)
+                .unwrap();
+            assert_eq!(distant.program(), principal.program);
+            assert_eq!(distant.orientation, principal.orientation);
+        }
+    }
+}
+
+#[test]
 fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
     let city =
         CitySite::central_german_market_town().generate(42, 900, &super::super::tests::economy());
@@ -29,6 +74,8 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
         assert!(gate.opening.0 > u64::from(u32::MAX));
     }
     let partition = compiled.clone().partition(None).unwrap();
+    assert_eq!(partition.parishes, compiled.parishes);
+    assert!(!partition.parishes.is_empty());
     assert!(partition.playable.is_empty());
     for distant in partition.distant {
         let original = compiled

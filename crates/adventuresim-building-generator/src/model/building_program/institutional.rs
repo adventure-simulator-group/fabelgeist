@@ -49,11 +49,20 @@ impl BuildingProgram {
     }
 
     pub(super) fn cathedral(seed: u64) -> Self {
-        let archetype = BuildingArchetype::Cathedral;
+        Self::urban_basilica(BuildingArchetype::Cathedral, None, None, seed)
+    }
+
+    /// One frozen physical programme shared by distinct ecclesiastical uses.
+    pub(crate) fn urban_basilica(
+        archetype: BuildingArchetype,
+        usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
+        service_size: Option<crate::ServiceBuildingSize>,
+        seed: u64,
+    ) -> Self {
         Self {
             archetype,
-            usage: None,
-            service_size: None,
+            usage,
+            service_size,
             seed,
             footprint: Footprint::Rectangle {
                 width: 28,

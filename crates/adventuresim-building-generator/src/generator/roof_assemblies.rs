@@ -12,9 +12,9 @@ fn resolve_roof_assemblies(
     let mut assemblies = Vec::new();
     for (index, roof) in roofs.iter().copied().enumerate() {
         let id = RoofAssemblyId(index as u64 + 1);
-        let shed_high_side = match (program.archetype, index, roof.kind) {
-            (BuildingArchetype::Cathedral, 1, RoofKind::Shed) => Some(Direction::North),
-            (BuildingArchetype::Cathedral, 2, RoofKind::Shed) => Some(Direction::South),
+        let shed_high_side = match (program.church_program.is_some(), index, roof.kind) {
+            (true, 1, RoofKind::Shed) => Some(Direction::North),
+            (true, 2, RoofKind::Shed) => Some(Direction::South),
             (_, _, RoofKind::Shed) => Some(match roof.ridge_axis {
                 RidgeAxis::Z => Direction::East,
                 RidgeAxis::X => Direction::North,

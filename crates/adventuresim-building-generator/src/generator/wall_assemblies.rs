@@ -67,7 +67,7 @@ fn resolve_storey_wall_assemblies(
                     let (use_kind, mut profile, head_kind) =
                         opening_profile_for(program.archetype, opening);
                     if use_kind == crate::OpeningUse::Window {
-                        let maximum_bay_width = if program.archetype == BuildingArchetype::Cathedral
+                        let maximum_bay_width = if program.church_program.is_some()
                         {
                             // Buttressed cathedral bays carry their opening at
                             // the bay divisions; wall thickness is depth, not a
@@ -152,7 +152,7 @@ fn resolve_storey_wall_assemblies(
                     let positive_bearing = endpoint_bearing_depth(1.0);
                     let negative_bond = negative_bearing > 0.0;
                     let positive_bond = positive_bearing > 0.0;
-                    if program.archetype == BuildingArchetype::Cathedral
+                    if program.church_program.is_some()
                         && use_kind == crate::OpeningUse::Window
                         && (negative_bond || positive_bond)
                     {

@@ -1,12 +1,12 @@
 //! Exterior-only church representations, retaining accepted roofs and opening geometry.
 use super::*;
-use crate::{ResolvedSolid, RoofSurface, SmallChurchPlan, SolidRole, WallAssembly};
+use crate::{RoofSurface, SmallChurchPlan, SolidRole};
 
 #[cfg(test)]
 #[path = "small_church/tests.rs"]
 mod tests;
 
-const OUTWARD_FACE_DOT_MINIMUM: f32 = 0.5;
+use super::exterior::{append_facades, append_outward_solid};
 
 pub(super) fn compile(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingLod {
     let church = plan
@@ -34,55 +34,6 @@ pub(super) fn compile(plan: &BuildingPlan, level: BuildingLodLevel) -> BuildingL
         mesh.remap_vertices();
     }
     lod
-}
-
-fn append_facades(lod: &mut BuildingLod, plan: &BuildingPlan) {
-    let ids = lod
-        .facade_runs
-        .iter()
-        .flat_map(|run| run.source_walls.iter())
-        .copied()
-        .collect::<Vec<_>>();
-    for wall in plan
-        .wall_assemblies
-        .iter()
-        .filter(|wall| ids.contains(&wall.id))
-    {
-        for solid in plan.resolved_geometry.solids.iter().filter(|solid| {
-            wall.host_solids.contains(&solid.id)
-                || plan
-                    .opening_assemblies
-                    .iter()
-                    .any(|opening| opening.host_wall == wall.id && opening.owner == solid.owner)
-        }) {
-            append_outward_solid(lod, plan, solid, Some(wall));
-        }
-    }
-}
-
-fn append_outward_solid(
-    lod: &mut BuildingLod,
-    plan: &BuildingPlan,
-    solid: &ResolvedSolid,
-    wall: Option<&WallAssembly>,
-) {
-    let outward = wall.map(|wall| Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y));
-    for mesh in crate::detail::compile_solid_detail(plan, solid).meshes {
-        let target = lod.mesh_mut(mesh.material);
-        for triangle in mesh.indices.as_chunks::<3>().0 {
-            let vertices = triangle.map(|index| mesh.vertices[index as usize]);
-            if outward
-                .is_some_and(|normal| vertices[0].normal.dot(normal) < OUTWARD_FACE_DOT_MINIMUM)
-            {
-                continue;
-            }
-            target.push_triangle(
-                vertices.map(|v| v.position),
-                vertices[0].normal,
-                vertices.map(|v| v.uv),
-            );
-        }
-    }
 }
 
 fn append_exterior_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {

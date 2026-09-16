@@ -8,14 +8,20 @@ use fabelgeist_determinism::mix64;
 use crate::scene_input::BuildingOrientation;
 use adventuresim_world_schema::{
     SettlementEconomyProfile,
-    settlement_buildings::{BuildingDemand, BuildingUse, SettlementBuildingDemand},
+    settlement_buildings::{
+        BuildingDemand, BuildingUse, DemandShortfall, ParishProgramme, SettlementBuildingDemand,
+    },
 };
 
 mod compiled;
+mod parishes;
+pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResidenceAllocation};
 mod compound;
 mod graph;
 pub(crate) use compiled::validate_scene_compound;
-pub use compiled::{CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue};
+pub use compiled::{
+    ChurchSitingIssue, CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue,
+};
 pub use compound::{
     CityAccessSegment, CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBoundarySegment,
     CityCompound, CityGate, CityPlotBounds, CityPropertyId, MAX_CITY_BUILDING_INSTANCES,
@@ -61,6 +67,8 @@ pub struct GeneratedCityLayout {
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
     pub unplaced_services: Vec<BuildingDemand>,
+    pub demand_shortfalls: Vec<DemandShortfall>,
+    pub parishes: Vec<ParishProgramme>,
     pub unhoused_population: u32,
 }
 
@@ -107,21 +115,20 @@ impl CitySite {
                 candidate.block_key,
             )
         });
-        let demand = SettlementBuildingDemand::new(seed, resident_population, economy);
+        let demand = SettlementBuildingDemand::with_parish_policy(
+            seed,
+            resident_population,
+            economy,
+            self.parish_policy,
+        );
         if !demand.shortfalls.is_empty() {
-            let mut unplaced_services = demand.buildings;
-            unplaced_services.extend(demand.shortfalls.into_iter().map(|(usage, capacity)| {
-                BuildingDemand {
-                    usage,
-                    ordinal: u32::MAX,
-                    capacity,
-                }
-            }));
             return GeneratedCityLayout {
                 lots: Vec::new(),
                 streets: Vec::new(),
                 yards: Vec::new(),
-                unplaced_services,
+                unplaced_services: demand.buildings,
+                demand_shortfalls: demand.shortfalls,
+                parishes: demand.parishes,
                 unhoused_population: resident_population,
             };
         }
@@ -177,6 +184,8 @@ impl CitySite {
             streets,
             yards,
             unplaced_services,
+            demand_shortfalls: demand.shortfalls,
+            parishes: demand.parishes,
             unhoused_population: target_population.saturating_sub(represented_population),
         }
     }
