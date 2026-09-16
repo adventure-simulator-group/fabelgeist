@@ -18,10 +18,17 @@ pub(super) fn construct(p: &ContouredPlateParameters, detail: Detail) -> Result<
     }
     region.remesh_cells(|point| cell(p, point))?;
     region.refine_rational_surface(
+        |point| cell(p, point),
         |[x, y]| thickness(p, x, y) / 2.0,
         detail.error(PLATE_SURFACE_DEVIATION),
         surface_edge,
     )?;
+    region.improve_surface_cells(
+        |point| cell(p, point),
+        |[x, y]| thickness(p, x, y) / 2.0,
+        detail.error(PLATE_SURFACE_DEVIATION),
+        surface_edge,
+    );
     lift(p, region)
 }
 
@@ -35,13 +42,19 @@ fn cuts(p: &ContouredPlateParameters) -> Vec<PlanarCut> {
             continue;
         }
         for side in [-1.0, 1.0] {
-            for flat in [false, true] {
+            let mut fractions = vec![1.0, 0.0];
+            if pair.iter().any(|s| s.hollow_depth() > 0.0) {
+                fractions.push(0.5);
+            }
+            for fraction in fractions {
                 let point = |s: &PlateThicknessStation| {
                     [
-                        side * if flat {
+                        side * if fraction == 1.0 {
+                            s.ridge_half_width.get()
+                        } else if fraction == 0.0 {
                             s.flat_half_width.get()
                         } else {
-                            s.ridge_half_width.get()
+                            (s.flat_half_width.get() + s.ridge_half_width.get()) / 2.0
                         },
                         s.at.get() * p.length.get(),
                     ]
@@ -94,6 +107,8 @@ enum PlateBand {
     Flat,
     LeftSlope,
     RightSlope,
+    LeftOuterSlope,
+    RightOuterSlope,
     LeftEdge,
     RightEdge,
 }
@@ -116,7 +131,13 @@ fn cell(p: &ContouredPlateParameters, [x, y]: PlanarPoint) -> (usize, PlateBand)
     let band = if x.abs() <= flat {
         PlateBand::Flat
     } else if x.abs() <= half {
-        if x < 0.0 {
+        let outer =
+            (a.hollow_depth() > 0.0 || b.hollow_depth() > 0.0) && x.abs() > (flat + half) / 2.0;
+        if outer && x < 0.0 {
+            PlateBand::LeftOuterSlope
+        } else if outer {
+            PlateBand::RightOuterSlope
+        } else if x < 0.0 {
             PlateBand::LeftSlope
         } else {
             PlateBand::RightSlope
@@ -182,5 +203,8 @@ fn thickness(p: &ContouredPlateParameters, x: f64, y: f64) -> f64 {
         + (stations[1].ridge_half_width.get() - stations[0].ridge_half_width.get()) * u;
     let flat = stations[0].flat_half_width.get()
         + (stations[1].flat_half_width.get() - stations[0].flat_half_width.get()) * u;
-    edge + (ridge - edge) * ((half - x.abs()) / (half - flat)).clamp(0.0, 1.0)
+    let q = ((half - x.abs()) / (half - flat)).clamp(0.0, 1.0);
+    let hollow =
+        stations[0].hollow_depth() + (stations[1].hollow_depth() - stations[0].hollow_depth()) * u;
+    edge + (ridge - edge) * q - 4.0 * hollow * q.min(1.0 - q)
 }

@@ -6,6 +6,43 @@ use std::collections::BTreeMap;
 const MAX_SURFACE_REFINEMENT_ROUNDS: usize = 12;
 
 impl Region {
+    /// Repair incidental sub-resolution diagonals without moving authored
+    /// boundaries or crossing a structural surface partition.
+    pub(crate) fn improve_surface_cells<K: Eq>(
+        &mut self,
+        classify: impl Fn(PlanarPoint) -> K,
+        height: impl Fn(PlanarPoint) -> f64,
+        maximum_deviation: f64,
+        maximum_edge: f64,
+    ) {
+        self.collapse_interior_sampling(&classify, &height, maximum_deviation, maximum_edge);
+        self.improve_where(|points, before, after| {
+            let centroid = |face: [usize; 3]| {
+                std::array::from_fn(|axis| face.iter().map(|&i| points[i][axis]).sum::<f64>() / 3.0)
+            };
+            if classify(centroid(before[0])) != classify(centroid(before[1])) {
+                return false;
+            }
+            let subresolution = before.iter().any(|&face| {
+                let [a, b, c] = face.map(|i| points[i]);
+                let longest = [(a, b), (b, c), (c, a)]
+                    .into_iter()
+                    .map(|(p, q)| (p[0] - q[0]).hypot(p[1] - q[1]))
+                    .fold(0.0, f64::max);
+                shape(points, face) * longest < crate::recipe::MIN_MANUFACTURED_METRES
+            });
+            subresolution
+                && after.into_iter().all(|face| {
+                    let p = face.map(|i| points[i]);
+                    (0..3).all(|i| {
+                        let next = (i + 1) % 3;
+                        (p[i][0] - p[next][0]).hypot(p[i][1] - p[next][1]) <= maximum_edge
+                    }) && surface_deviation(p, &height) <= maximum_deviation / 2.0
+                })
+        });
+        self.collapse_interior_sampling(&classify, &height, maximum_deviation, maximum_edge);
+    }
+
     pub(crate) fn split_edges(&mut self, mids: &BTreeMap<(usize, usize), usize>) {
         let mut next = Vec::new();
         for &f in &self.triangles {
@@ -65,13 +102,15 @@ impl Region {
     /// its continuous terminal limit). The rational Bernstein error coefficients
     /// are zero at vertices and twice the edge-midpoint errors, so half-budget
     /// midpoint checks bound the entire triangle, not merely its sampled points.
-    pub(crate) fn refine_rational_surface(
+    pub(crate) fn refine_rational_surface<K: Eq>(
         &mut self,
+        classify: impl Fn(PlanarPoint) -> K,
         height: impl Fn(PlanarPoint) -> f64,
         maximum_deviation: f64,
         maximum_edge: f64,
     ) -> Result<(), String> {
         for _ in 0..MAX_SURFACE_REFINEMENT_ROUNDS {
+            let original_points = self.points.len();
             let mut mids = BTreeMap::new();
             for &face in &self.triangles {
                 let points = face.map(|i| self.points[i]);
@@ -112,14 +151,27 @@ impl Region {
                         ))
                     })
                     .count();
-            construction_budget((faces * 2 + boundary * 2) as f64)?;
+            if let Err(error) = construction_budget((faces * 2 + boundary * 2) as f64) {
+                self.points.truncate(original_points);
+                let original_faces = self.triangles.len();
+                self.improve_surface_cells(&classify, &height, maximum_deviation, maximum_edge);
+                if self.triangles.len() == original_faces {
+                    return Err(error);
+                }
+                // Compaction invalidates the marked edges; rebuild them in the
+                // next bounded pass before allocating another refined surface.
+                continue;
+            }
             self.split_edges(&mids);
         }
         Err("plate surface exceeds its bounded refinement budget".into())
     }
 }
 
-fn surface_deviation(points: [PlanarPoint; 3], height: &impl Fn(PlanarPoint) -> f64) -> f64 {
+pub(super) fn surface_deviation(
+    points: [PlanarPoint; 3],
+    height: &impl Fn(PlanarPoint) -> f64,
+) -> f64 {
     let heights = points.map(height);
     let center = std::array::from_fn(|axis| points.iter().map(|p| p[axis]).sum::<f64>() / 3.0);
     let mut deviation = (height(center) - heights.iter().sum::<f64>() / 3.0).abs();

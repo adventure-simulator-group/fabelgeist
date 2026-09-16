@@ -1,5 +1,7 @@
 //! Hand clearance and working-section proportions of melee components.
 use super::*;
+
+const MAX_SOCKET_FACETS: u16 = 32;
 pub(super) fn check(shape: &Shape) -> Checked {
     match shape {
         Shape::LoftedBlade(p) => {
@@ -214,6 +216,16 @@ fn oval_grip(p: &OvalGripParameters) -> Checked {
 
 fn socket(p: &SocketParameters) -> Checked {
     profile(&p.profile, ProfileEnds::Open)?;
+    if let Some(facets) = p.facets {
+        require(
+            (3..=MAX_SOCKET_FACETS).contains(&facets.0),
+            RecipeError::Budget,
+        )?;
+        require(
+            p.segments.is_none() && p.crenellations.is_none() && p.fit_shaft != Some(true),
+            RecipeError::Profile,
+        )?;
+    }
     if let Some(c) = &p.crenellations {
         require((2..=32).contains(&c.count.0), RecipeError::Budget)?;
         positive(c.depth.get())?;

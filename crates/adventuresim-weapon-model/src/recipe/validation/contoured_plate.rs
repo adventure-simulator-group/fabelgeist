@@ -55,6 +55,11 @@ pub(super) fn validate(p: &ContouredPlateParameters) -> Checked {
             RecipeError::Profile,
         )?;
         nonnegative(station.flat_half_width.get())?;
+        nonnegative(station.hollow_depth())?;
+        require(
+            station.hollow_depth() <= (station.ridge.get() - station.edge.get()) / 4.0,
+            RecipeError::Profile,
+        )?;
         let terminal = station.at.get() == 0.0 || station.at.get() == 1.0;
         if terminal && station.edge.get() == 0.0 && station.ridge.get() == 0.0 {
             require(

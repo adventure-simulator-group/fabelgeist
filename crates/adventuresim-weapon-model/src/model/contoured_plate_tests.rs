@@ -65,6 +65,51 @@ fn plate_ridge_preserves_exact_section_volume_and_closed_export() {
 }
 
 #[test]
+fn relieved_plate_slopes_preserve_analytic_material_volume() {
+    for depths in [[0.001, 0.001], [0.0, 0.002], [0.002, 0.0005]] {
+        let mut value = blank();
+        for (i, depth) in depths.into_iter().enumerate() {
+            value["thickness"][i]["hollowDepth"] = depth.into();
+        }
+        let p = parameters(value);
+        for detail in [Detail::Low, Detail::Medium, Detail::High] {
+            let solid = contoured_plate::construct(&p, detail).unwrap();
+            closed(&solid);
+            let expected = 0.12 * (0.08 * 0.002 + 0.020 * 0.008 - 0.020 * (depths[0] + depths[1]));
+            assert!((solid.volume() - expected).abs() < expected * 1e-10);
+        }
+    }
+}
+
+#[test]
+fn relieved_plate_rejects_negative_or_inverted_slopes() {
+    for depth in [-0.001, 0.00201] {
+        let mut value = blank();
+        value["thickness"][0]["hollowDepth"] = depth.into();
+        value["id"] = "blank".into();
+        value["attach"] = serde_json::json!({"to":"weapon.root","at":"base"});
+        let recipe: Recipe = serde_json::from_value(serde_json::json!({
+            "components":[value]
+        }))
+        .unwrap();
+        assert!(recipe.validate().is_err());
+    }
+}
+
+#[test]
+fn relieved_head_variations_fit_the_unchanged_allocation_budget() {
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../../review/museum/met-08.261.2.json")).unwrap();
+    for (length, ridge) in [(0.72, 0.0077), (0.646, 0.006)] {
+        let mut value = study["definition"].clone();
+        value["components"][3]["length"] = length.into();
+        value["components"][3]["thickness"][5]["ridge"] = ridge.into();
+        let recipe: Recipe = serde_json::from_value(value).unwrap();
+        generate_model(&recipe, Detail::High).unwrap();
+    }
+}
+
+#[test]
 fn plate_point_closes_the_complete_thickness_section() {
     let mut value = blank();
     value["boundary"] = serde_json::json!([

@@ -1,0 +1,1041 @@
+{
+  "id": "met-08-261-2",
+  "name": "Met 08.261.2 Italian partisan",
+  "definition": {
+    "components": [
+      {
+        "id": "shaft",
+        "label": "assumed tapered wooden haft and receiving tenon",
+        "kind": "shaft",
+        "material": "wood",
+        "role": "Grip",
+        "length": 1.837,
+        "radius": 0.014,
+        "bottomScale": 1,
+        "topScale": 0.75,
+        "tenon": {
+          "length": 0.11,
+          "tipRadius": 0.0095
+        },
+        "segments": 8,
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        },
+        "rotation": [
+          0,
+          22.5,
+          0
+        ]
+      },
+      {
+        "id": "socket",
+        "label": "assumed hollow octagonal socket",
+        "kind": "socket",
+        "material": "steel",
+        "profile": [
+          [
+            0,
+            0.0135
+          ],
+          [
+            0.11,
+            0.0125
+          ]
+        ],
+        "wall": 0.003,
+        "attach": {
+          "to": "shaft.top",
+          "at": "top"
+        },
+        "facets": 8,
+        "rotation": [
+          0,
+          22.5,
+          0
+        ]
+      },
+      {
+        "id": "socket-roof",
+        "label": "contiguous socket roof and stem seat",
+        "kind": "socket",
+        "material": "steel",
+        "profile": [
+          [
+            0,
+            0.0125
+          ],
+          [
+            0.006,
+            0.0125
+          ]
+        ],
+        "attach": {
+          "to": "shaft.top",
+          "at": "base"
+        },
+        "facets": 8,
+        "rotation": [
+          0,
+          22.5,
+          0
+        ]
+      },
+      {
+        "id": "head",
+        "label": "continuous ridged and relieved partisan head",
+        "kind": "contouredPlate",
+        "material": "steel",
+        "width": 0.178,
+        "length": 0.646,
+        "start": [
+          -0.0648791806538825,
+          0
+        ],
+        "boundary": [
+          {
+            "kind": "line",
+            "to": [
+              0.0648791806538825,
+              0
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.05617977528089888,
+              0.018575851393188854
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.1966292134831461,
+                0.026315789473684213
+              ],
+              [
+                0.4943820224719101,
+                0.043343653250774
+              ]
+            ],
+            "to": [
+              0.5,
+              0.10371517027863777
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.3258426966292135,
+                0.06191950464396285
+              ],
+              [
+                0.17415730337078653,
+                0.047987616099071206
+              ]
+            ],
+            "to": [
+              0.11235955056179776,
+              0.086687306501548
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.09442724458204334
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.09597523219814241
+              ],
+              [
+                0.07303370786516854,
+                0.10371517027863777
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.10887512899896801
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.11042311661506707
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.11197110423116614
+              ],
+              [
+                0.07303370786516854,
+                0.1197110423116615
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.12487100103199174
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.1264189886480908
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.12796697626418987
+              ],
+              [
+                0.07303370786516854,
+                0.13570691434468524
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.14086687306501547
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.14241486068111456
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.14396284829721362
+              ],
+              [
+                0.07303370786516854,
+                0.15170278637770898
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.1568627450980392
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.15841073271413827
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.15995872033023736
+              ],
+              [
+                0.07303370786516854,
+                0.16769865841073273
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.17285861713106293
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.174406604747162
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.1759545923632611
+              ],
+              [
+                0.07303370786516854,
+                0.18369453044375647
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.18885448916408668
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.19040247678018574
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.19195046439628483
+              ],
+              [
+                0.07303370786516854,
+                0.1996904024767802
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.20485036119711042
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.20639834881320948
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.20794633642930857
+              ],
+              [
+                0.07303370786516854,
+                0.21568627450980393
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.22084623323013414
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.22239422084623323
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.0702247191011236,
+                0.2239422084623323
+              ],
+              [
+                0.07303370786516854,
+                0.23168214654282765
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.23684210526315788
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              0.0955056179775281,
+              0.23839009287925694
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.17977528089887643,
+                0.23993808049535603
+              ],
+              [
+                0.2752808988764045,
+                0.25386996904024767
+              ]
+            ],
+            "to": [
+              0.30898876404494385,
+              0.28173374613003094
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.16853932584269662,
+                0.25696594427244585
+              ],
+              [
+                0.10674157303370786,
+                0.26160990712074306
+              ]
+            ],
+            "to": [
+              0.0955056179775281,
+              0.3219814241486068
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.08853932584269664,
+                0.43498452012383904
+              ],
+              [
+                0.08101123595505619,
+                0.5479876160990712
+              ]
+            ],
+            "to": [
+              0.07050561797752809,
+              0.6609907120743034
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.06179775280898876,
+                0.763157894736842
+              ],
+              [
+                0.04943820224719102,
+                0.873065015479876
+              ]
+            ],
+            "to": [
+              0.03387640449438202,
+              0.9389783281733746
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                0.02865168539325843,
+                0.9705882352941176
+              ],
+              [
+                0.01348314606741573,
+                0.9953560371517027
+              ]
+            ],
+            "to": [
+              0,
+              1
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.01348314606741573,
+                0.9953560371517027
+              ],
+              [
+                -0.02865168539325843,
+                0.9705882352941176
+              ]
+            ],
+            "to": [
+              -0.03387640449438202,
+              0.9389783281733746
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.04943820224719102,
+                0.873065015479876
+              ],
+              [
+                -0.06179775280898876,
+                0.763157894736842
+              ]
+            ],
+            "to": [
+              -0.07050561797752809,
+              0.6609907120743034
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.08101123595505619,
+                0.5479876160990712
+              ],
+              [
+                -0.08853932584269664,
+                0.43498452012383904
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.3219814241486068
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.10674157303370786,
+                0.26160990712074306
+              ],
+              [
+                -0.16853932584269662,
+                0.25696594427244585
+              ]
+            ],
+            "to": [
+              -0.30898876404494385,
+              0.28173374613003094
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.2752808988764045,
+                0.25386996904024767
+              ],
+              [
+                -0.17977528089887643,
+                0.23993808049535603
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.23839009287925694
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.23684210526315788
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.23168214654282765
+              ],
+              [
+                -0.0702247191011236,
+                0.2239422084623323
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.22239422084623323
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.22084623323013414
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.21568627450980393
+              ],
+              [
+                -0.0702247191011236,
+                0.20794633642930857
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.20639834881320948
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.20485036119711042
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.1996904024767802
+              ],
+              [
+                -0.0702247191011236,
+                0.19195046439628483
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.19040247678018574
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.18885448916408668
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.18369453044375647
+              ],
+              [
+                -0.0702247191011236,
+                0.1759545923632611
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.174406604747162
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.17285861713106293
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.16769865841073273
+              ],
+              [
+                -0.0702247191011236,
+                0.15995872033023736
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.15841073271413827
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.1568627450980392
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.15170278637770898
+              ],
+              [
+                -0.0702247191011236,
+                0.14396284829721362
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.14241486068111456
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.14086687306501547
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.13570691434468524
+              ],
+              [
+                -0.0702247191011236,
+                0.12796697626418987
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.1264189886480908
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.12487100103199174
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.1197110423116615
+              ],
+              [
+                -0.0702247191011236,
+                0.11197110423116614
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.11042311661506707
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0955056179775281,
+              0.10887512899896801
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.07303370786516854,
+                0.10371517027863777
+              ],
+              [
+                -0.0702247191011236,
+                0.09597523219814241
+              ]
+            ],
+            "to": [
+              -0.0955056179775281,
+              0.09442724458204334
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.11235955056179776,
+              0.086687306501548
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.17415730337078653,
+                0.047987616099071206
+              ],
+              [
+                -0.3258426966292135,
+                0.06191950464396285
+              ]
+            ],
+            "to": [
+              -0.5,
+              0.10371517027863777
+            ]
+          },
+          {
+            "kind": "cubic",
+            "controls": [
+              [
+                -0.4943820224719101,
+                0.043343653250774
+              ],
+              [
+                -0.1966292134831461,
+                0.026315789473684213
+              ]
+            ],
+            "to": [
+              -0.05617977528089888,
+              0.018575851393188854
+            ]
+          },
+          {
+            "kind": "line",
+            "to": [
+              -0.0648791806538825,
+              0
+            ]
+          }
+        ],
+        "thickness": [
+          {
+            "at": 0,
+            "edge": 0.009567085809127246,
+            "ridge": 0.02309698831278217,
+            "ridgeHalfWidth": 0.011548494156391085,
+            "flatHalfWidth": 0.004783542904563623,
+            "hollowDepth": 0
+          },
+          {
+            "at": 0.018575851393188854,
+            "edge": 0.0006,
+            "ridge": 0.014,
+            "ridgeHalfWidth": 0.018,
+            "flatHalfWidth": 0.001,
+            "hollowDepth": 0.0015
+          },
+          {
+            "at": 0.08668730650154799,
+            "edge": 0.0006,
+            "ridge": 0.014,
+            "ridgeHalfWidth": 0.018,
+            "flatHalfWidth": 0.001,
+            "hollowDepth": 0.0015
+          },
+          {
+            "at": 0.2414860681114551,
+            "edge": 0.0006,
+            "ridge": 0.014,
+            "ridgeHalfWidth": 0.02,
+            "flatHalfWidth": 0.001,
+            "hollowDepth": 0.0015
+          },
+          {
+            "at": 0.3219814241486068,
+            "edge": 0.0006,
+            "ridge": 0.012,
+            "ridgeHalfWidth": 0.017,
+            "flatHalfWidth": 0.001,
+            "hollowDepth": 0.0014
+          },
+          {
+            "at": 0.6609907120743034,
+            "edge": 0.0006,
+            "ridge": 0.0077,
+            "ridgeHalfWidth": 0.01255,
+            "flatHalfWidth": 0.0007,
+            "hollowDepth": 0.0008
+          },
+          {
+            "at": 0.9389783281733746,
+            "edge": 0.0003,
+            "ridge": 0.0041,
+            "ridgeHalfWidth": 0.00603,
+            "flatHalfWidth": 0.0004,
+            "hollowDepth": 0.0004
+          },
+          {
+            "at": 0.9798761609907121,
+            "edge": 0.0001,
+            "ridge": 0.002,
+            "ridgeHalfWidth": 0.0025,
+            "flatHalfWidth": 0.0002,
+            "hollowDepth": 0.0002
+          },
+          {
+            "at": 1,
+            "edge": 0,
+            "ridge": 0,
+            "ridgeHalfWidth": 0,
+            "flatHalfWidth": 0,
+            "hollowDepth": 0
+          }
+        ],
+        "attach": {
+          "to": "socket-roof.top",
+          "at": "origin"
+        },
+        "role": "Head"
+      }
+    ]
+  },
+  "controls": [
+    {
+      "label": "Haft length",
+      "path": "components.0.length",
+      "min": 1.6,
+      "max": 2.1,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Haft base scale",
+      "path": "components.0.bottomScale",
+      "min": 0.85,
+      "max": 1.15,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Socket and tenon length",
+      "paths": [
+        "components.0.tenon.length",
+        "components.1.profile.1.0"
+      ],
+      "min": 0.09,
+      "max": 0.13,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Head span",
+      "path": "components.3.width",
+      "min": 0.16,
+      "max": 0.178,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Wing and blade length",
+      "path": "components.3.length",
+      "min": 0.6,
+      "max": 0.72,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Lower ridge depth",
+      "path": "components.3.thickness.1.ridge",
+      "min": 0.012,
+      "max": 0.016,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Neck ridge depth",
+      "path": "components.3.thickness.3.ridge",
+      "min": 0.012,
+      "max": 0.016,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade root ridge depth",
+      "path": "components.3.thickness.4.ridge",
+      "min": 0.01,
+      "max": 0.014,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade middle ridge depth",
+      "path": "components.3.thickness.5.ridge",
+      "min": 0.006,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade crest half-width",
+      "path": "components.3.thickness.4.flatHalfWidth",
+      "min": 0.0005,
+      "max": 0.0015,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Wing face relief",
+      "paths": [
+        "components.3.thickness.1.hollowDepth",
+        "components.3.thickness.2.hollowDepth",
+        "components.3.thickness.3.hollowDepth"
+      ],
+      "min": 0.001,
+      "max": 0.002,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade root face relief",
+      "path": "components.3.thickness.4.hollowDepth",
+      "min": 0.0008,
+      "max": 0.002,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade middle face relief",
+      "path": "components.3.thickness.5.hollowDepth",
+      "min": 0.0004,
+      "max": 0.0012,
+      "step": 0.0001,
+      "unit": "m"
+    }
+  ],
+  "choiceControls": [],
+  "description": "Two swept wing pairs and a scalloped neck beneath a continuous narrow ridge and broad relieved blade faces.",
+  "reference": {
+    "accession": "08.261.2",
+    "institution": "The Metropolitan Museum of Art",
+    "url": "https://www.metmuseum.org/art/collection/search/25624",
+    "photographs": [
+      "https://images.metmuseum.org/CRDImages/aa/original/08.261.2_002nov2014.jpg",
+      "https://images.metmuseum.org/CRDImages/aa/original/08.261.2_003nov2014.jpg"
+    ],
+    "rights": "Public domain; CC0 under the Met Open Access policy. Rogers Fund, 1908.",
+    "published": {
+      "overallLengthMetres": 2.489,
+      "headLengthMetres": 0.762,
+      "widthMetres": 0.178,
+      "massKilograms": 2.4692,
+      "date": "1500–1550",
+      "culture": "Italian",
+      "materials": "Steel and wood"
+    },
+    "photoEstimates": {
+      "smallWingSpanMetres": 0.11,
+      "apexToSmallWingTipsMetres": 0.464,
+      "apexToLargeWingTipsMetres": 0.579,
+      "bladeRootBreadthMetres": 0.034,
+      "medialCrestBreadthMetres": 0.002
+    },
+    "assumptions": [
+      "Both opposing photographs crop continuing metal below the large wings. Neither shows the socket mouth, the wood or the terminal head endpoint; the 762 mm published head length is not equated with the photograph crop.",
+      "The head length is partitioned into 646 mm blade/wing blank, 6 mm socket roof and 110 mm hollow faceted stem. The complete haft, socket mouth, internal fastening and original/replacement status are unobserved.",
+      "The wooden haft has a 14 mm lower radius and an octagonal tenon tapering from 10.5 to 9.5 mm circumradius. The matching faceted socket flares from 12.5 mm above to 13.5 mm below with a 3 mm radial wall difference. The roof and head base share the complete octagonal perimeter; all section depths, the exact octagon and hidden internals remain assumptions.",
+      "Opposing photographs support a narrow continuous medial ridge with broad relieved faces, but do not measure transverse thickness or hollow-ground curvature. A faceted concave section approximates this appearance: 0.6 mm main edges, 14-to-12 mm lower ridge depth, a 2 mm blade-root crest, and 1.5-to-1.4 mm per-face relief, tapering toward the point.",
+      "The four solids are disjoint material partitions with complete receiving seats. Their boundaries do not assert a particular historical welding or fastening process.",
+      "Published mass is reported separately from integrated model mass. Neither density nor hidden thickness is calibrated to force agreement."
+    ],
+    "scope": "Photographed blade, both wing pairs, scalloped neck, continuous ridge and relieved faces, and visible faceted lower stem. The unseen socket endpoint, full wood haft and internals are qualified reconstructions. Etched figures, patina, corrosion and individual wear marks are excluded.",
+    "coverage": {
+      "browser": [
+        "partisan"
+      ],
+      "gameplay": []
+    },
+    "calculatedMassKilograms": 1.441717118654517
+  }
+}

@@ -29,6 +29,19 @@ pub struct PlateThicknessStation {
     pub ridge: Metres,
     pub ridge_half_width: Metres,
     pub flat_half_width: Metres,
+    /// Per-face recession at the midpoint of each ridge slope.
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
+    pub hollow_depth: Option<Metres>,
+}
+
+impl PlateThicknessStation {
+    pub(crate) fn hollow_depth(&self) -> f64 {
+        self.hollow_depth.map_or(0.0, Metres::get)
+    }
 }
 
 /// Coordinates are fractions of width and length. The final boundary span must

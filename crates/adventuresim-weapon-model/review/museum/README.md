@@ -710,3 +710,81 @@ The resulting maximum surface-deviation budgets are 125, 50 and 20 microns
 at Low, Medium and High. Sampling and allocation have explicit budgets;
 an unresolved or excessive construction is rejected. Constant flat plates,
 variable crests, asymmetric outlines and true points use the same primitive.
+
+Optional `hollowDepth` is the per-face recession at the midpoint between
+`flatHalfWidth` and `ridgeHalfWidth`. Each slope becomes two straight facets,
+with full midpoint thickness `(ridge + edge) / 2 - 2 * hollowDepth`.
+Depth must lie between zero and `(ridge - edge) / 4`; this keeps both slopes
+monotone toward the edge and preserves positive material. The depth also
+interpolates axially. Midpoint partitions are present where either adjacent
+station has positive depth. Each resulting cell retains the same rational
+surface bound. Omitted or zero depth retains the straight slope.
+
+Surface sampling can leave an incidental narrow triangle beside a curved
+boundary. Constrained diagonal flips and interior-sample removal repair such
+triangles without moving outline or ridge vertices. Removal requires a
+manifold link, an affected vertex star wholly within one surface cell,
+positive resulting faces and strictly improved minimum triangle quality.
+New faces retain the original edge-length and rational surface-error budgets.
+Physical boundary and partition vertices cannot be removed by this repair.
+If a refinement step would exceed the allocation cap, this same constrained
+cleanup runs before allocation. Pending midpoint marks are discarded and
+recomputed against the compacted surface. The cap and refinement-round bound
+remain unchanged; requests with no safe capacity reduction still reject.
+
+## Italian partisan: Met 08.261.2
+
+The separate `met-08-261-2` study covers browser `partisan` only. There is no
+gameplay recipe with that ID. It does not complete spear, hunting spear or
+pike coverage. The museum's [object record](https://www.metmuseum.org/art/collection/search/25624)
+dates this Italian steel-and-wood partisan to 1500–1550 and publishes overall
+length 2489 mm, head length 762 mm, width 178 mm and mass 2469.2 g.
+
+The [first face](https://images.metmuseum.org/CRDImages/aa/original/08.261.2_002nov2014.jpg)
+and [opposing face](https://images.metmuseum.org/CRDImages/aa/original/08.261.2_003nov2014.jpg)
+show the long blade, narrow medial ridge, broad relieved faces, two swept
+wing pairs, scalloped neck and faceted lower stem. These public-domain
+photographs are CC0 under the [Met Open Access policy](https://www.metmuseum.org/hubs/open-access).
+Credit: Rogers Fund, 1908. Etched figures, patina and individual wear marks
+are outside the geometric scope.
+
+Both photographs crop continuing metal at the bottom. Neither shows wood,
+the socket mouth or the head's terminal endpoint. The published 762 mm is
+therefore not treated as apex-to-crop length. The reconstruction allocates
+646 mm to the blade and wing blank, 6 mm to its receiving roof and 110 mm
+to a hollow faceted stem. The complete wooden haft and hidden assembly are
+assumptions; their original or replacement status is unknown.
+
+Photo estimates place the smaller wing span at 110 mm, its tips 464 mm below
+the apex, and the larger wing tips 579 mm below the apex. The medial crest
+appears roughly 3–8% of local blade breadth; a 2 mm blade-root crest is an
+estimate. The photographs do not establish a circular hollow-ground profile,
+section thickness or depth. The model uses concave facets with 0.6 mm main
+edges, 14-to-12 mm lower ridge depths and 1.5-to-1.4 mm face relief, tapering
+toward one closed apex. Its continuous head surface has no blade/wing seam.
+
+The 14 mm lower haft radius, octagonal tenon tapering from 10.5 to 9.5 mm
+circumradius, socket tapering from 13.5 to 12.5 mm circumradius and 3 mm
+radial wall difference are unmeasured. The head base and receiving roof
+share a complete octagonal perimeter without a proud ledge. Wood,
+socket wall, receiving roof and head are disjoint material regions with
+complete mating footprints, without a claim about historical welds or
+fasteners. Calculated mass is approximately 1.442 kg versus the published
+2.4692 kg. Density and hidden thickness are not fitted to that mass.
+
+### Physical socket facets and groove tails
+
+Socket `facets` specifies an authored polygon, including its bore, whose
+count, angular phase and radii remain fixed at every display detail. Solid
+socket profiles use the same polygon for closing seats. Counts are bounded
+to 3–32; `segments`, crenellations and automatic shaft fitting cannot be
+combined with facets. Explicit attachments must provide matching receiving
+sections. A wall must leave a positive bore at every profile station.
+Ordinary `segments` remains a display-sampling request for round sockets.
+
+Grooved blades insert their actual float32 envelope cutoff into a reduced
+tail interval when its original normal-error check fails. The retained side
+of the cutoff bracket preserves representable relief. Every resulting strip
+is checked against the same analytic section and unchanged error budget;
+unresolved intervals remain errors. Already passing intervals retain their
+original stations. This correction also applies to existing blade recipes.
