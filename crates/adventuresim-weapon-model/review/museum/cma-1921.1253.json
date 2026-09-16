@@ -2,7 +2,7 @@
   "choiceControls": [
     {
       "label": "Fuller faces",
-      "path": "components.3.fuller.faces",
+      "path": "components.3.fuller.grooves.0.faces",
       "options": [
         {
           "label": "Front",
@@ -84,7 +84,7 @@
     },
     {
       "label": "Fuller mouth width",
-      "path": "components.3.fuller.mouthWidth",
+      "path": "components.3.fuller.grooves.0.mouthWidth",
       "min": 0.006,
       "max": 0.02,
       "step": 0.001,
@@ -92,7 +92,7 @@
     },
     {
       "label": "Fuller depth",
-      "path": "components.3.fuller.depth",
+      "path": "components.3.fuller.grooves.0.depth",
       "min": 0.0004,
       "max": 0.0015,
       "step": 0.0001,
@@ -100,7 +100,7 @@
     },
     {
       "label": "Fuller end",
-      "path": "components.3.fuller.end",
+      "path": "components.3.fuller.grooves.0.end",
       "min": 0.3,
       "max": 0.82,
       "step": 0.001,
@@ -108,7 +108,7 @@
     },
     {
       "label": "Fuller exit length",
-      "path": "components.3.fuller.exitLength",
+      "path": "components.3.fuller.grooves.0.exitLength",
       "min": 0.025,
       "max": 0.1,
       "step": 0.001,
@@ -116,7 +116,7 @@
     },
     {
       "label": "Fuller entry length",
-      "path": "components.3.fuller.entryLength",
+      "path": "components.3.fuller.grooves.0.entryLength",
       "min": 0.006,
       "max": 0.03,
       "step": 0.001,
@@ -124,7 +124,7 @@
     },
     {
       "label": "Fuller floor ratio",
-      "path": "components.3.fuller.floorWidthRatio",
+      "path": "components.3.fuller.grooves.0.floorWidthRatio",
       "min": 0.1,
       "max": 0.8,
       "step": 0.01,
@@ -656,15 +656,20 @@
           "roundness": 1
         },
         "fuller": {
-          "faces": "both",
-          "mouthWidth": 0.012,
-          "depth": 0.001,
-          "floorWidthRatio": 0.45,
           "bevelWidthRatio": 0.2,
-          "start": 0,
-          "end": 0.46,
-          "entryLength": 0.012,
-          "exitLength": 0.055
+          "grooves": [
+            {
+              "faces": "both",
+              "mouthWidth": 0.012,
+              "depth": 0.001,
+              "floorWidthRatio": 0.45,
+              "start": 0,
+              "end": 0.46,
+              "entryLength": 0.012,
+              "exitLength": 0.055,
+              "lateralPosition": 0
+            }
+          ]
         }
       }
     ],

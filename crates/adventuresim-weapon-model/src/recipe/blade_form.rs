@@ -1,6 +1,8 @@
 //! Dimensioned recessed sections and independent terminal point geometry.
 use super::*;
 
+pub(crate) const MAX_FULLER_GROOVES: usize = 8;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum FullerFaces {
@@ -12,17 +14,31 @@ pub enum FullerFaces {
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct FullerParameters {
+    pub bevel_width_ratio: Ratio,
+    pub grooves: Vec<FullerGroove>,
+}
+
+/// A groove's center follows the blade's broad-face half-width.
+#[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct FullerGroove {
     pub faces: FullerFaces,
+    pub lateral_position: Ratio,
     pub mouth_width: Metres,
     pub depth: Metres,
     pub floor_width_ratio: Ratio,
-    pub bevel_width_ratio: Ratio,
     pub start: Metres,
     pub end: Metres,
     pub entry_length: Metres,
     pub exit_length: Metres,
 }
-impl FullerParameters {
+impl FullerGroove {
+    pub(crate) fn on_face(&self, front: bool) -> bool {
+        self.faces == FullerFaces::Both
+            || (front && self.faces == FullerFaces::Front)
+            || (!front && self.faces == FullerFaces::Back)
+    }
+
     pub(crate) fn envelope(&self, y: f64) -> f64 {
         if y <= self.start.get() || y >= self.end.get() {
             return 0.0;

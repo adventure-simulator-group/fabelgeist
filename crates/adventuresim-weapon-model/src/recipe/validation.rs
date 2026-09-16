@@ -1,9 +1,10 @@
 //! Shared manufacturing constraints, evaluated before geometry allocation.
 use super::*;
+mod contoured_plate;
 mod dimensions;
 mod graphs;
 mod melee;
-mod profile_grip;
+mod profile_body;
 mod ranged;
 mod shields;
 mod spear;
@@ -14,7 +15,7 @@ const MAX_AUTHORED_STATIONS: usize = 512;
 const MAX_OUTLINE_STATIONS: usize = 2048;
 const MAX_RECIPE_BYTES: usize = 65536;
 const MAX_WORLD_METRES: f64 = 20.0;
-const MIN_MANUFACTURED_METRES: f64 = 0.000001;
+pub(crate) const MIN_MANUFACTURED_METRES: f64 = 0.000001;
 const MAX_SAMPLING_REQUEST: u16 = 256;
 const MAX_ROUND_GRIP_RADIUS: f64 = 0.022;
 const MAX_SWORD_GRIP_WIDTH: f64 = 0.038;

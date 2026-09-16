@@ -16,6 +16,13 @@ pub struct BoxParameters {
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SocketParameters {
     pub profile: Vec<[Metres; 2]>,
+    /// Physical polygon section, independent of display sampling.
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "crate::recipe::deserialize_present"
+    )]
+    pub facets: Option<Count>,
     #[serde(
         default,
         skip_serializing_if = "Option::is_none",
