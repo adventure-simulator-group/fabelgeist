@@ -4,6 +4,19 @@ use super::{PlanarPoint, Region, construction_budget};
 use std::collections::BTreeMap;
 
 const MAX_SURFACE_REFINEMENT_ROUNDS: usize = 12;
+const SURFACE_EDGE_ROUNDING_ULPS: f64 = 64.0;
+
+/// Keep rounding at an exact edge limit on the refining side on every target.
+/// The margin tightens the bound and includes subtraction at the point scale.
+pub(super) fn within_surface_edge(a: PlanarPoint, b: PlanarPoint, maximum_edge: f64) -> bool {
+    let scale = a
+        .into_iter()
+        .chain(b)
+        .map(f64::abs)
+        .fold(maximum_edge, f64::max);
+    let rounding = SURFACE_EDGE_ROUNDING_ULPS * f64::EPSILON * scale;
+    (a[0] - b[0]).hypot(a[1] - b[1]) + rounding <= maximum_edge
+}
 
 impl Region {
     /// Repair incidental sub-resolution diagonals without moving authored
@@ -36,11 +49,12 @@ impl Region {
                     let p = face.map(|i| points[i]);
                     (0..3).all(|i| {
                         let next = (i + 1) % 3;
-                        (p[i][0] - p[next][0]).hypot(p[i][1] - p[next][1]) <= maximum_edge
+                        within_surface_edge(p[i], p[next], maximum_edge)
                     }) && surface_deviation(p, &height) <= maximum_deviation / 2.0
                 })
         });
         self.collapse_interior_sampling(&classify, &height, maximum_deviation, maximum_edge);
+        self.remove_interior_fans(&classify, &height, maximum_deviation, maximum_edge);
     }
 
     pub(crate) fn split_edges(&mut self, mids: &BTreeMap<(usize, usize), usize>) {
@@ -117,7 +131,7 @@ impl Region {
                 let curved = surface_deviation(points, &height) > maximum_deviation / 2.0;
                 for i in 0..3 {
                     let [a, b] = [points[i], points[(i + 1) % 3]];
-                    if !curved && (a[0] - b[0]).hypot(a[1] - b[1]) <= maximum_edge {
+                    if !curved && within_surface_edge(a, b, maximum_edge) {
                         continue;
                     }
                     let key = edge(face[i], face[(i + 1) % 3]);
@@ -163,8 +177,46 @@ impl Region {
                 continue;
             }
             self.split_edges(&mids);
+            self.improve_refinement_cells(&classify, &height, maximum_deviation, maximum_edge);
         }
         Err("plate surface exceeds its bounded refinement budget".into())
+    }
+
+    /// Improve interior fans without undoing a completed error or edge split.
+    fn improve_refinement_cells<K: Eq>(
+        &mut self,
+        classify: &impl Fn(PlanarPoint) -> K,
+        height: &impl Fn(PlanarPoint) -> f64,
+        maximum_deviation: f64,
+        maximum_edge: f64,
+    ) {
+        self.improve_where(|points, before, after| {
+            let center = |face: [usize; 3]| {
+                std::array::from_fn(|axis| face.iter().map(|&i| points[i][axis]).sum::<f64>() / 3.0)
+            };
+            if classify(center(before[0])) != classify(center(before[1])) {
+                return false;
+            }
+            let limits = |faces: [[usize; 3]; 2]| {
+                let (mut longest, mut deviation) = (0.0_f64, 0.0_f64);
+                let mut within_edge = true;
+                for face in faces {
+                    let p = face.map(|i| points[i]);
+                    deviation = deviation.max(surface_deviation(p, height));
+                    for i in 0..3 {
+                        let [a, b] = [p[i], p[(i + 1) % 3]];
+                        longest = longest.max((a[0] - b[0]).hypot(a[1] - b[1]));
+                        within_edge &= within_surface_edge(a, b, maximum_edge);
+                    }
+                }
+                (longest, deviation, within_edge)
+            };
+            let (old_edge, old_deviation, old_within_edge) = limits(before);
+            let (new_edge, new_deviation, new_within_edge) = limits(after);
+            new_edge <= old_edge.max(maximum_edge)
+                && (!old_within_edge || new_within_edge)
+                && new_deviation <= old_deviation.max(maximum_deviation / 2.0)
+        });
     }
 }
 
