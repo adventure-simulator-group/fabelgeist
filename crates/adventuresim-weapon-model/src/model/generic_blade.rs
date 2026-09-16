@@ -37,6 +37,14 @@ fn section(p: &BladeParameters, y: f64, point: Option<&PointCurve>) -> Vec<Point
     let [w, thickness, edge] = p.section_dimensions(y, point);
     let single = p.single_edge.map_or(0.0, Ratio::get);
     let center = p.curvature.map_or(0.0, Metres::get) * (y / p.length.get()).powi(2);
+    if p.section == Some(ForgedBladeSection::Triangular) {
+        // Full transverse height is authored; the centroid stays on the axis.
+        return vec![
+            [center - w, y, -thickness / 3.0],
+            [center, y, 2.0 * thickness / 3.0],
+            [center + w, y, -thickness / 3.0],
+        ];
+    }
     if p.section == Some(ForgedBladeSection::Diamond) {
         return vec![
             [center - w, y, 0.0],

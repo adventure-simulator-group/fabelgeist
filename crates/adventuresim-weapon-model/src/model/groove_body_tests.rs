@@ -152,3 +152,32 @@ fn shared_profile_sampling_matches_every_material_seat_at_each_lod() {
         }
     }
 }
+
+#[test]
+fn paired_relief_retains_closed_faces_at_the_float32_tail_cutoff() {
+    for (length, entry) in [(0.438, 0.04), (0.52, 0.07)] {
+        let value = serde_json::json!({"components":[{
+            "id":"blade","kind":"loftedBlade","length":length,"width":0.034,"thickness":0.012,
+            "attach":{"to":"weapon.root","at":"base"},
+            "curvature":0,"plan":"straight","section":"recessed","samples":40,
+            "taper":0.45,"singleEdge":0,"belly":0,"ricasso":0,
+            "point":{"start":0.91,"roundness":0.8},
+            "fuller":{"bevelWidthRatio":0.25,"grooves":[
+                {"faces":"both","lateralPosition":-0.5,"mouthWidth":0.0035,"depth":0.001,
+                "floorWidthRatio":0.3,"start":0,"end":0.4,"entryLength":entry,"exitLength":0.06},
+                {"faces":"both","lateralPosition":0.5,"mouthWidth":0.0035,"depth":0.001,
+                "floorWidthRatio":0.3,"start":0,"end":0.4,"entryLength":entry,"exitLength":0.06}
+            ]}
+        }]});
+        let recipe: Recipe = serde_json::from_value(value).unwrap();
+        recipe.validate().unwrap();
+        let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+            unreachable!()
+        };
+        for detail in [Detail::Low, Detail::Medium, Detail::High] {
+            let solid = lofted_blade::blade(p, detail).unwrap();
+            closed(&solid);
+            closed(&solid.transform([23.0, 47.0, 61.0], [19.0, -18.0, 17.0]));
+        }
+    }
+}

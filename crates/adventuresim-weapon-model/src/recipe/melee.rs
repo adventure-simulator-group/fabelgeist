@@ -13,12 +13,14 @@ pub enum BeakBendProfile {
     SineArch,
 }
 
-/// Cutting sections retain finite edges; diamond sections scale in both axes.
+/// Cutting sections retain finite edges; thrusting sections scale in both axes.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum ForgedBladeSection {
     Edged,
     Diamond,
+    /// Three-sided section centered on its area centroid.
+    Triangular,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]

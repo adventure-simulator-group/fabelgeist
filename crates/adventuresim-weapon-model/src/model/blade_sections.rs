@@ -23,7 +23,7 @@ pub(super) fn blade(
             .map(|[x, z]| [center + x, y, z])
             .collect::<Vec<_>>()
     };
-    let stations = if p.fuller.is_some() || p.point.is_some() {
+    let mut stations = if p.fuller.is_some() || p.point.is_some() {
         feature_stations(&p, |y| ring(y, 0.0), detail)?
     } else {
         let mut stations = baseline_stations(p.length, |y| ring(y, 0.0), sampling, detail)?;
@@ -34,6 +34,9 @@ pub(super) fn blade(
         stations.dedup();
         stations
     };
+    if let Some(fuller) = p.fuller {
+        groove_transitions::refine(&mut stations, fuller, minimum_envelope, &ring, detail)?;
+    }
     let rings: Vec<_> = stations
         .iter()
         .copied()
@@ -46,20 +49,10 @@ pub(super) fn blade(
         1
     };
     let mut solid = Solid::default();
-    for (index, rows) in rings.windows(2).enumerate() {
+    for rows in rings.windows(2) {
         for side in 0..rows[0].len() {
             let next = (side + 1) % rows[0].len();
             let quad = [rows[0][side], rows[0][next], rows[1][next], rows[1][side]];
-            if let Some(f) = p.fuller {
-                let [a, b] = [stations[index], stations[index + 1]];
-                let raw_a = ring(a, 0.0);
-                let raw_b = ring(b, 0.0);
-                if quad != [raw_a[side], raw_a[next], raw_b[next], raw_b[side]]
-                    && let Some(flat) = blade_reduction::flat_indices(f, side)
-                {
-                    blade_reduction::check([a, b], side, flat, &quad, |y| ring(y, 0.0), detail)?;
-                }
-            }
             face(
                 &mut solid,
                 quad,
