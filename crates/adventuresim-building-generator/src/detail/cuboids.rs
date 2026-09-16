@@ -50,7 +50,9 @@ pub(super) fn render_cuboid_placement(
     fachwerk_member: bool,
     rotation: Quat,
 ) -> (Vec3, Vec3) {
-    let mut render_size = if fachwerk_member {
+    let aperture_member =
+        wall.is_some_and(|wall| matches!(wall.source, crate::WallSourceId::RoofGable { .. }));
+    let mut render_size = if fachwerk_member && !aperture_member {
         solid.size + Vec3::splat(TIMBER_SEAM_COVER_METRES * 2.0)
     } else {
         solid.size

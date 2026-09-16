@@ -23,6 +23,11 @@ impl ResolvedSolid {
 
     /// Covers both the yaw-only shape predicates and fully oriented cuboids.
     pub(crate) fn query_bounds(&self) -> ResolvedBounds {
+        self.yaw_bounds().union(self.cuboid_bounds())
+    }
+
+    /// Exact world bounds of a cuboid under all three authored rotations.
+    pub(crate) fn cuboid_bounds(&self) -> ResolvedBounds {
         let rotation = Quat::from_rotation_y(self.yaw_radians)
             * Quat::from_rotation_x(self.crossfall_radians)
             * Quat::from_rotation_z(self.longfall_radians);
@@ -30,10 +35,10 @@ impl ResolvedSolid {
             + (rotation * Vec3::Y).abs() * self.size.y
             + (rotation * Vec3::Z).abs() * self.size.z)
             * 0.5;
-        self.yaw_bounds().union(ResolvedBounds {
+        ResolvedBounds {
             min: self.centre - half,
             max: self.centre + half,
-        })
+        }
     }
 }
 

@@ -183,7 +183,7 @@ fn boarded_belfry_skirts_keep_their_exact_material_at_both_lod_levels() {
             "{usage:?} has no canonical boarded belfry skirt"
         );
         for face in skirts {
-            for triangle in tessellate_roof_enclosure(face)
+            for triangle in tessellate_roof_enclosure(face, &plan.wall_assemblies)
                 .into_iter()
                 .filter(|triangle| triangle.surface != RoofSurface::Interior)
             {

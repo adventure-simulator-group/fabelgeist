@@ -104,37 +104,59 @@ pub fn tessellate_roof_face(face: &RoofFace) -> Vec<RoofSurfaceTriangle> {
     triangles
 }
 
-pub fn tessellate_roof_enclosure(face: &RoofEnclosureFace) -> Vec<RoofSurfaceTriangle> {
+pub fn tessellate_roof_enclosure(
+    face: &RoofEnclosureFace,
+    walls: &[crate::WallAssembly],
+) -> Vec<RoofSurfaceTriangle> {
     if face.polygon.len() < 3 {
         return Vec::new();
     }
-    let normal = (face.polygon[1] - face.polygon[0])
-        .cross(face.polygon[2] - face.polygon[0])
-        .normalize_or_zero();
+    let normal = face.normal();
+    let tangent = face.tangent();
     let offset = -normal * ROOF_ENCLOSURE_THICKNESS_METRES;
-    let mut triangles = triangulate_fan(&face.polygon, normal, RoofSurface::Enclosure);
-    triangles.extend(triangulate_fan(
-        &face
-            .polygon
-            .iter()
-            .rev()
-            .map(|point| *point + offset)
-            .collect::<Vec<_>>(),
-        -normal,
-        RoofSurface::Interior,
-    ));
-    for index in 0..face.polygon.len() {
-        let next = (index + 1) % face.polygon.len();
-        append_quad(
-            &mut triangles,
-            [
-                face.polygon[index],
-                face.polygon[index] + offset,
-                face.polygon[next] + offset,
-                face.polygon[next],
-            ],
-            RoofSurface::Enclosure,
+    let plane = normal * face.polygon[0].dot(normal);
+    let mut triangles = Vec::new();
+    for polygon in face.residual(walls).0 {
+        let mut vertices = Vec::new();
+        let mut holes = Vec::new();
+        for (index, ring) in std::iter::once(polygon.exterior())
+            .chain(polygon.interiors())
+            .enumerate()
+        {
+            if index > 0 {
+                holes.push(vertices.len() as u32);
+            }
+            vertices.extend(
+                ring.0[..ring.0.len() - 1]
+                    .iter()
+                    .map(|p| plane + tangent * p.x + Vec3::Y * p.y),
+            );
+        }
+        let mut indices = Vec::new();
+        earcut::Earcut::<f32>::new().earcut(
+            vertices.iter().map(|p| [p.dot(tangent), p.y]),
+            &holes,
+            &mut indices,
         );
+        let mut edges = Vec::new();
+        for indices in indices.as_chunks::<3>().0 {
+            let mut top = indices.map(|i| vertices[i as usize]);
+            orient_triangle(&mut top, normal);
+            for i in 0..3 {
+                edges.push((top[i], top[(i + 1) % 3]));
+            }
+            triangles.push(RoofSurfaceTriangle {
+                positions: top,
+                normal,
+                surface: RoofSurface::Enclosure,
+            });
+            triangles.push(RoofSurfaceTriangle {
+                positions: [top[2] + offset, top[1] + offset, top[0] + offset],
+                normal: -normal,
+                surface: RoofSurface::Interior,
+            });
+        }
+        append_boundary_sides(&mut triangles, &edges, offset);
     }
     triangles
 }
@@ -184,24 +206,6 @@ fn append_quad(
             surface,
         },
     ]);
-}
-
-fn triangulate_fan(
-    polygon: &[Vec3],
-    normal: Vec3,
-    surface: RoofSurface,
-) -> Vec<RoofSurfaceTriangle> {
-    (1..polygon.len().saturating_sub(1))
-        .map(|index| {
-            let mut positions = [polygon[0], polygon[index], polygon[index + 1]];
-            orient_triangle(&mut positions, normal);
-            RoofSurfaceTriangle {
-                positions,
-                normal,
-                surface,
-            }
-        })
-        .collect()
 }
 
 fn orient_triangle(positions: &mut [Vec3; 3], normal: Vec3) {

@@ -18,6 +18,7 @@ mod crowns;
 #[path = "lod/details.rs"]
 mod details;
 mod exterior;
+mod gable_openings;
 #[path = "lod/small_church.rs"]
 mod small_church;
 mod urban_church;
@@ -383,7 +384,7 @@ fn append_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
                 || roof_lod_material(lod.level, face.material),
                 |workplace| workplace.gable_material().render_material(),
             ));
-            for triangle in tessellate_roof_enclosure(face) {
+            for triangle in tessellate_roof_enclosure(face, &plan.wall_assemblies) {
                 mesh.push_triangle(
                     triangle.positions,
                     triangle.normal,

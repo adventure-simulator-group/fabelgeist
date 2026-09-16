@@ -60,25 +60,23 @@ pub(super) fn is_clear(plan: &BuildingPlan, bell: &ResolvedSolid, limit: f32) ->
             )
         })
         .collect::<Vec<_>>();
-    let roofs = plan
-        .roof_assemblies
-        .iter()
-        .flat_map(|roof| {
-            roof.faces
-                .iter()
-                .flat_map(crate::tessellate_roof_face)
-                .chain(
-                    roof.enclosure_faces
-                        .iter()
-                        .flat_map(crate::tessellate_roof_enclosure),
-                )
-        })
-        .map(|triangle| triangle.positions)
-        .filter(|triangle| {
-            let (min, max) = bounds(*triangle);
-            pivot.clamp(min, max).distance_squared(pivot) <= radius_squared
-        })
-        .collect::<Vec<_>>();
+    let roofs =
+        plan.roof_assemblies
+            .iter()
+            .flat_map(|roof| {
+                roof.faces
+                    .iter()
+                    .flat_map(crate::tessellate_roof_face)
+                    .chain(roof.enclosure_faces.iter().flat_map(|face| {
+                        crate::tessellate_roof_enclosure(face, &plan.wall_assemblies)
+                    }))
+            })
+            .map(|triangle| triangle.positions)
+            .filter(|triangle| {
+                let (min, max) = bounds(*triangle);
+                pivot.clamp(min, max).distance_squared(pivot) <= radius_squared
+            })
+            .collect::<Vec<_>>();
     for step in -SWING_HALF_STEPS..=SWING_HALF_STEPS {
         let rotation = Quat::from_rotation_x(limit * step as f32 / SWING_HALF_STEPS as f32);
         for triangle in &moving_triangles {

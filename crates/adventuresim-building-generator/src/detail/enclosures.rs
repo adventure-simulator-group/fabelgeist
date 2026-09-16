@@ -10,7 +10,7 @@ pub(super) fn append(
     plan: &BuildingPlan,
     enclosure: &crate::RoofEnclosureFace,
 ) {
-    for triangle in tessellate_roof_enclosure(enclosure) {
+    for triangle in tessellate_roof_enclosure(enclosure, &plan.wall_assemblies) {
         let material = material(plan, enclosure.material, triangle.surface);
         let mut polygons = vec![triangle.positions.to_vec()];
         // Wall faces own their exposed end returns. A cheek reaching that return

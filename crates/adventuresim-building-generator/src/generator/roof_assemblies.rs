@@ -327,19 +327,14 @@ fn resolve_roof_assemblies(
         .into_iter()
         .enumerate()
         {
-            child.enclosure_faces.push(RoofEnclosureFace {
-                id: ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4100 | slot as u64),
-                polygon,
-                material: if walls
+            child.enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4100 | slot as u64), polygon, if walls
                     .iter()
                     .any(|wall| wall.material == crate::WallMaterialClass::TimberInfill)
                 {
                     RoofMaterial::TimberInfill
                 } else {
                     RoofMaterial::MasonryInfill
-                },
-                support_nodes: child.support_nodes.clone(),
-            });
+                }, child.support_nodes.clone()));
         }
         if parent.is_some() {
             let cut_id = ResolvedItemId((0xF_u64 << 60) | id.0);

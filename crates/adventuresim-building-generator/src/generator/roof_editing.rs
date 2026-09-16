@@ -14,15 +14,15 @@ pub fn set_roof_pitch(
         .iter_mut()
         .find(|roof| roof.id == id)
         .ok_or(RoofEditError::MissingAssembly)?;
-    if !assembly.children.is_empty() || assembly.parent.is_some() {
-        return Err(RoofEditError::TopologyEvent);
-    }
     let old_pitch = assembly
         .faces
         .first()
         .map_or(pitch_degrees, |face| face.pitch_degrees);
     if (old_pitch - pitch_degrees).abs() < 0.0001 {
         return Ok(());
+    }
+    if !assembly.children.is_empty() || assembly.parent.is_some() || assembly.enclosure_faces.iter().any(|face| !face.inset_walls.is_empty()) {
+        return Err(RoofEditError::TopologyEvent);
     }
     let old_tan = old_pitch.to_radians().tan();
     if old_tan.abs() <= 0.0001 {

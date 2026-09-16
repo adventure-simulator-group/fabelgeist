@@ -609,12 +609,7 @@ fn resolve_one_roof(
     if roof.kind == RoofKind::Gable {
         let [first, second] = gable_enclosure::polygons(roof, &faces, walls);
         for (index, polygon) in [first, second].into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace {
-                id: ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4000 | index as u64),
-                polygon,
-                material: infill_material,
-                support_nodes: support_nodes.clone(),
-            });
+            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4000 | index as u64), polygon, infill_material, support_nodes.clone()));
         }
     }
     if roof.kind == RoofKind::HalfHip {
@@ -666,12 +661,7 @@ fn resolve_one_roof(
             }
         };
         for (index, polygon) in polygons.into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace {
-                id: ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4200 | index as u64),
-                polygon,
-                material: infill_material,
-                support_nodes: support_nodes.clone(),
-            });
+            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4200 | index as u64), polygon, infill_material, support_nodes.clone()));
         }
     }
     // A raised primary roof needs an actual clerestory/attic wall under each
@@ -722,12 +712,7 @@ fn resolve_one_roof(
             }
         };
         for (slot, polygon) in [first, second].into_iter().enumerate() {
-            enclosure_faces.push(RoofEnclosureFace {
-                id: ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4300 | slot as u64),
-                polygon,
-                material: infill_material,
-                support_nodes: support_nodes.clone(),
-            });
+            enclosure_faces.push(RoofEnclosureFace::new(ResolvedItemId((0xA_u64 << 60) | (id.0 << 16) | 0x4300 | slot as u64), polygon, infill_material, support_nodes.clone()));
         }
     }
     RoofAssembly {

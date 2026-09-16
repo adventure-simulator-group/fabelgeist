@@ -25,7 +25,37 @@ across the ridge direction and texture V downslope. Detailed and distant roofs
 share this mapping. Timber gables place their real end trusses in the upper
 wall envelope, including jetties. Secondary posts and rails subdivide the end
 infill and join the same structural frame; interior trusses remain open.
-Facade and shell representations retain the exterior faces of these members.
+Facade and shell representations retain the exterior faces of these members,
+including their authored finish and metric grain coordinates.
+
+Eligible town houses and merchant houses can place one fixed glazed attic
+window in each exposed main timber gable. The 0.70 by 1.00 metre clear opening
+uses an existing truss rail as its lintel and new jambs bearing on the tie.
+All original truss members retain their dimensions, positions and IDs. A bay
+that cannot fit the complete supported opening remains closed.
+
+The opening and its inset wall reciprocally identify the exact roof enclosure.
+Wall dimensions determine the enclosure cut; the opening owns its clear section
+and void. The shared tessellator closes both skins and all cut boundaries, and
+Detail, Facade and Shell retain the same bay and fixed glass. Static collision
+includes this bay and glazing; general roof-enclosure collision remains outside
+this change. There is no attic room or operable-window access contract.
+Changing pitch on an aperture-bearing roof returns `TopologyEvent` before any
+mutation; unchanged-pitch requests are no-ops.
+
+The `gable-review` fixture covers both house programmes at seeds 42, 47 and
+101. Its production capture profile includes matched Detail, Facade and Shell
+front views, rear gables, attic-side inspections and the isolated fixture group.
+Use the `city-review` profile for normal urban context.
+
+```powershell
+cargo build -p adventuresim-tactical-client --bin tactical-scene-viewer --features debug
+python scripts/capture_gable_review.py --skip-build --settle-frames 24 --output target/gable-review/captures
+```
+
+Review camera offsets for `main_gable` targets use the aperture's tangent,
+vertical and outward axes, so a negative third component inspects its interior.
+Native capture windows remain hidden and update continuously in the background.
 
 Previously prepared assets keep their stored meshes. Refresh the shipped city
 assets after geometry changes with

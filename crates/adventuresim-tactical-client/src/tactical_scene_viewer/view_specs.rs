@@ -686,6 +686,8 @@ pub(super) use landform::LANDFORM_REVIEW_VIEWS;
 mod building_review;
 mod parish;
 pub(super) use parish::PARISH_REVIEW_VIEWS;
+mod gable;
+pub(super) use gable::GABLE_REVIEW_VIEWS;
 mod compound;
 pub(super) use compound::COMPOUND_REVIEW_VIEWS;
 mod city;

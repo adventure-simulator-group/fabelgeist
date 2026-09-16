@@ -140,6 +140,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             | WallSourceId::ArtilleryCurtain { .. }
             | WallSourceId::SquareTowerFace { .. }
             | WallSourceId::ChurchClerestory { .. }
+            | WallSourceId::RoofGable { .. }
             | WallSourceId::RoofChildFront { .. }
             | WallSourceId::ChurchExterior { .. }
             | WallSourceId::ChurchArcade { .. }
@@ -455,7 +456,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
         };
         if !exact_piece(opening.jamb_solids[0], SolidRole::OpeningJamb)
             || !exact_piece(opening.jamb_solids[1], SolidRole::OpeningJamb)
-            || !exact_piece(opening.head_solid, SolidRole::OpeningHead)
+            || !(exact_piece(opening.head_solid, SolidRole::OpeningHead) || gable_openings::shared_head(plan, opening))
             || !exact_piece(opening.spandrel_solid, SolidRole::OpeningSpandrel)
             || opening.reveal_surfaces.len() < 6
             || opening.reveal_surfaces.iter().any(|id| {
@@ -731,7 +732,8 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                         let Some(jamb) = solids.get(&jamb_id) else {
                             return false;
                         };
-                        let (head_min, head_max) = resolved_solid_bounds(head_solid);
+                        let bounds = head_solid.cuboid_bounds();
+                        let (head_min, head_max) = (bounds.min, bounds.max);
                         let (jamb_min, jamb_max) = resolved_solid_bounds(jamb);
                         let contact_min = head_min.max(jamb_min).max(interface.bounds.min);
                         let contact_max = head_max.min(jamb_max).min(interface.bounds.max);
@@ -745,7 +747,8 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
                 ) && spandrel_solid.is_some_and(|spandrel| {
                     spandrel.supported_by == [opening.spandrel_node]
                         && wall_above.is_some_and(|interface| {
-                            let (head_min, head_max) = resolved_solid_bounds(head_solid);
+                            let bounds = head_solid.cuboid_bounds();
+                        let (head_min, head_max) = (bounds.min, bounds.max);
                             let (spandrel_min, spandrel_max) = resolved_solid_bounds(spandrel);
                             let contact_min = head_min.max(spandrel_min).max(interface.bounds.min);
                             let contact_max = head_max.min(spandrel_max).min(interface.bounds.max);
@@ -911,7 +914,7 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             }
             OpeningProfile::Rectangular { .. } => matches!(
                 opening.head_kind,
-                OpeningHeadKind::TimberLintel | OpeningHeadKind::StoneLintel
+                OpeningHeadKind::TimberLintel | OpeningHeadKind::TimberFrameMember { .. } | OpeningHeadKind::StoneLintel
             ),
             OpeningProfile::ArrowLoop {
                 exterior_height_metres,
@@ -942,69 +945,5 @@ fn audit_wall_opening_assemblies(plan: &BuildingPlan, issues: &mut Vec<AuditIssu
             ));
         }
     }
-    let source_openings = plan
-        .storeys
-        .iter()
-        .map(|storey| storey.openings.len())
-        .sum::<usize>();
-    let replaced_openings = plan
-        .wall_assemblies
-        .iter()
-        .filter(|wall| wall.replaced_by_owner.is_some())
-        .filter(|wall| match wall.source {
-            WallSourceId::StoreyWall {
-                storey_level,
-                wall_index,
-            } => plan
-                .storeys
-                .get(storey_level as usize)
-                .is_some_and(|storey| {
-                    storey
-                        .openings
-                        .iter()
-                        .any(|opening| opening.wall == wall_index)
-                }),
-            _ => false,
-        })
-        .count();
-    let bell_openings = plan
-        .square_towers
-        .iter()
-        .filter(|tower| tower.bell_openings)
-        .count()
-        * 8;
-    let roof_child_openings = plan.roof_dormers.len();
-    let church_portals = usize::from(plan.church.is_some()) * 2;
-    let church_windows = plan.church.as_ref().map_or(0, |church| {
-        usize::from(church.program.nave_bays) * 4
-            + usize::from(church.program.choir_bays) * 2
-            + 2
-            + usize::from(church.program.apse_sides.saturating_sub(1))
-    });
-    let artillery_openings = plan
-        .artillery_castle
-        .as_ref()
-        .map_or(0, |castle| castle.stations.len());
-    if plan.opening_assemblies.len() + replaced_openings
-        != source_openings
-            + bell_openings
-            + roof_child_openings
-            + church_portals
-            + church_windows
-            + artillery_openings
-    {
-        issues.push(issue(
-            "legacy_opening_not_migrated",
-            format!(
-                "resolved {} of {} openings",
-                plan.opening_assemblies.len(),
-                source_openings
-                    + bell_openings
-                    + roof_child_openings
-                    + church_portals
-                    + church_windows
-                    + artillery_openings
-            ),
-        ));
-    }
+    wall_counts::audit_opening_count(plan, issues);
 }

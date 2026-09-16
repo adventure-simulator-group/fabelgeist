@@ -19,12 +19,13 @@ pub(super) use readiness::{BuildingReviewPlugin, ready};
 pub(super) const SHOP_PROFILE: &str = "shop-sign-review";
 pub(super) const WORKPLACE_PROFILE: &str = "workplace-review";
 pub(super) const PARISH_PROFILE: &str = "parish-review";
+pub(super) const GABLE_PROFILE: &str = "gable-review";
 pub(super) const COMPOUND_PROFILE: &str = "compound-review";
 
 pub(super) fn is_profile(profile: &str) -> bool {
     matches!(
         profile,
-        SHOP_PROFILE | WORKPLACE_PROFILE | PARISH_PROFILE | COMPOUND_PROFILE
+        SHOP_PROFILE | WORKPLACE_PROFILE | PARISH_PROFILE | COMPOUND_PROFILE | GABLE_PROFILE
     )
 }
 

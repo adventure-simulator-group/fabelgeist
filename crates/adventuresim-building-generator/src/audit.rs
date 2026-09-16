@@ -1,3 +1,4 @@
+use crate::solid_overlap::overlaps_bounds as resolved_solid_overlaps_bounds;
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
 use bevy::math::{Quat, Vec2, Vec3};
@@ -31,6 +32,7 @@ pub(crate) mod enclosure;
 mod enclosure_geometry;
 mod enclosure_sections;
 mod gable_enclosure;
+mod gable_openings;
 mod junction_bearing;
 #[path = "audit/support.rs"]
 mod support;
