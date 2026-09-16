@@ -335,7 +335,8 @@ pub fn build(a: &Armor) -> Result<Vec<ArmorPart>, String> {
             let polys = tile(a);
             let mut mesh = ArmorMesh::default();
             for row in 0..rows {
-                let y = bottom + a.fauld.layer_height - p.height * 0.5
+                let y = bottom + a.fauld.layer_height
+                    - p.height * 0.5
                     - row as f32 * p.height * (1.0 - p.overlap);
                 if y - p.height * 0.5 < bottom - 0.001 {
                     continue;
@@ -343,16 +344,14 @@ pub fn build(a: &Armor) -> Result<Vec<ArmorPart>, String> {
                 let stagger = if row % 2 == 1 { p.stagger } else { 0.0 };
                 for col in 0..cols {
                     let x = (col as f32 - (cols - 1) as f32 * 0.5 + stagger) * (p.width + p.gap);
-                    let tile_mesh = mapped(
-                        &polys,
-                        |v| surface(a, v.x + x, v.y + y, v.z + z, flare),
-                        0,
-                    );
+                    let tile_mesh =
+                        mapped(&polys, |v| surface(a, v.x + x, v.y + y, v.z + z, flare), 0);
                     let offset = mesh.positions.len() as u32;
                     mesh.positions.extend(tile_mesh.positions);
                     mesh.normals.extend(tile_mesh.normals);
                     mesh.uvs.extend(tile_mesh.uvs);
-                    mesh.faces.extend(tile_mesh.faces.into_iter().map(|f| f.map(|n| n + offset)));
+                    mesh.faces
+                        .extend(tile_mesh.faces.into_iter().map(|f| f.map(|n| n + offset)));
                 }
             }
             mesh

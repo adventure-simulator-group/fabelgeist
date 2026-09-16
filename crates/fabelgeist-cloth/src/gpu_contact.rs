@@ -116,7 +116,11 @@ impl GpuSurfaceContacts {
     ) -> Result<Self> {
         ensure!(particle_count > 0, "GpuSurfaceContacts: no particles");
         ensure!(
-            faces.iter().flatten().chain(seams.iter().flatten()).all(|&i| i < particle_count),
+            faces
+                .iter()
+                .flatten()
+                .chain(seams.iter().flatten())
+                .all(|&i| i < particle_count),
             "GpuSurfaceContacts: an index is past the {particle_count} particles"
         );
         let edges = unique_edges(faces);
@@ -171,7 +175,10 @@ impl GpuSurfaceContacts {
             "obstacle clearance must be finite and non-negative"
         );
         ensure!(
-            faces.iter().flatten().all(|&i| (i as usize) < positions.len()),
+            faces
+                .iter()
+                .flatten()
+                .all(|&i| (i as usize) < positions.len()),
             "an obstacle face indexes past its {} vertices",
             positions.len()
         );
@@ -182,9 +189,18 @@ impl GpuSurfaceContacts {
             return Ok(());
         }
         let edges = unique_edges(faces);
-        (self.topology, self.layout) =
-            upload_topology(context, &self.faces, &self.edges, &self.groups, faces, &edges)?;
-        let packed: Vec<f32> = positions.iter().flat_map(|p| [p.x, p.y, p.z, 0.0]).collect();
+        (self.topology, self.layout) = upload_topology(
+            context,
+            &self.faces,
+            &self.edges,
+            &self.groups,
+            faces,
+            &edges,
+        )?;
+        let packed: Vec<f32> = positions
+            .iter()
+            .flat_map(|p| [p.x, p.y, p.z, 0.0])
+            .collect();
         let mut obstacle = Obstacle {
             positions: Buffer::from_slice(
                 context,
@@ -202,8 +218,18 @@ impl GpuSurfaceContacts {
 
         let mut batch = KernelBatch::labelled(context, "contact obstacle hierarchy");
         for (bounds, offset, arity, count) in [
-            (&face_bounds, self.layout.static_faces, 3u32, faces.len() as u32),
-            (&edge_bounds, self.layout.static_edges, 2, edges.len() as u32),
+            (
+                &face_bounds,
+                self.layout.static_faces,
+                3u32,
+                faces.len() as u32,
+            ),
+            (
+                &edge_bounds,
+                self.layout.static_edges,
+                2,
+                edges.len() as u32,
+            ),
         ] {
             let mut parameters = PassParameters::new();
             parameters.insert("static_positions", obstacle.positions.clone());
@@ -222,7 +248,11 @@ impl GpuSurfaceContacts {
         parameters.insert("margin", 0.0f32);
         parameters.insert("pad0", 0u32);
         parameters.insert("pad1", 0u32);
-        batch.dispatch_items(&self.kernels.vertex_bounds, &parameters, positions.len() as u32)?;
+        batch.dispatch_items(
+            &self.kernels.vertex_bounds,
+            &parameters,
+            positions.len() as u32,
+        )?;
         obstacle
             .faces
             .record_build(&mut batch, &face_bounds, faces.len() as u32)?;
@@ -239,7 +269,11 @@ impl GpuSurfaceContacts {
 
     /// Remember where the particles are now, so the next projection sweeps
     /// from here rather than from the start of its last substep.
-    pub fn record_interval_start(&self, batch: &mut KernelBatch, particles: &Particles) -> Result<()> {
+    pub fn record_interval_start(
+        &self,
+        batch: &mut KernelBatch,
+        particles: &Particles,
+    ) -> Result<()> {
         batch.copy_buffer(
             &particles.positions,
             &self.interval_start,
@@ -305,14 +339,40 @@ impl GpuSurfaceContacts {
             // Vertices against faces, from the positions the last pass left.
             let mut batch = KernelBatch::labelled(context, "contact face hierarchy");
             self.record_velocities(&mut batch, particles);
-            self.record_swept_bounds(&mut batch, particles, &self.face_bounds, 0, 3, face_count, search_radius)?;
+            self.record_swept_bounds(
+                &mut batch,
+                particles,
+                &self.face_bounds,
+                0,
+                3,
+                face_count,
+                search_radius,
+            )?;
             self.face_bvh
                 .record_build(&mut batch, &self.face_bounds, face_count)?;
             batch.submit();
-            dispatch_chunked(context, &self.kernels.vertex_face, &contact, &self.face_bvh, count)?;
+            dispatch_chunked(
+                context,
+                &self.kernels.vertex_face,
+                &contact,
+                &self.face_bvh,
+                count,
+            )?;
             if let Some(obstacle) = &self.obstacle {
-                dispatch_chunked(context, &self.kernels.vertex_static_face, &contact, &obstacle.faces, count)?;
-                dispatch_chunked(context, &self.kernels.static_vertex_face, &contact, &obstacle.vertices, face_count)?;
+                dispatch_chunked(
+                    context,
+                    &self.kernels.vertex_static_face,
+                    &contact,
+                    &obstacle.faces,
+                    count,
+                )?;
+                dispatch_chunked(
+                    context,
+                    &self.kernels.static_vertex_face,
+                    &contact,
+                    &obstacle.vertices,
+                    face_count,
+                )?;
             }
             self.apply(context, particles)?;
 
@@ -331,9 +391,21 @@ impl GpuSurfaceContacts {
             self.edge_bvh
                 .record_build(&mut batch, &self.edge_bounds, edge_count)?;
             batch.submit();
-            dispatch_chunked(context, &self.kernels.edge_edge, &contact, &self.edge_bvh, edge_count)?;
+            dispatch_chunked(
+                context,
+                &self.kernels.edge_edge,
+                &contact,
+                &self.edge_bvh,
+                edge_count,
+            )?;
             if let Some(obstacle) = &self.obstacle {
-                dispatch_chunked(context, &self.kernels.edge_static_edge, &contact, &obstacle.edges, edge_count)?;
+                dispatch_chunked(
+                    context,
+                    &self.kernels.edge_static_edge,
+                    &contact,
+                    &obstacle.edges,
+                    edge_count,
+                )?;
             }
             self.apply(context, particles)?;
         }

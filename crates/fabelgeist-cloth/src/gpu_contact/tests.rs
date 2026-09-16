@@ -41,7 +41,9 @@ async fn project(case: Case<'_>) -> Result<Outcome> {
     let context = WgpuContext::new().await?;
     let cache = KernelCache::new();
     let particles = Particles::from_positions(&context, case.start, case.masses)?;
-    particles.positions.write(&context, &pack(case.end, case.masses))?;
+    particles
+        .positions
+        .write(&context, &pack(case.end, case.masses))?;
     if let Some(velocities) = case.velocities {
         particles
             .velocities
@@ -71,7 +73,12 @@ fn p(x: f32, y: f32, z: f32) -> Vec3 {
 
 #[tokio::test]
 async fn vertex_crossing_triangle_interior_is_returned_to_approach_side() -> Result<()> {
-    let end = [p(-1., 0., -1.), p(0., 0., 1.), p(1., 0., -1.), p(0., -0.1, 0.)];
+    let end = [
+        p(-1., 0., -1.),
+        p(0., 0., 1.),
+        p(1., 0., -1.),
+        p(0., -0.1, 0.),
+    ];
     let mut start = end;
     start[3].y = 0.1;
     let outcome = project(Case {
@@ -83,14 +90,23 @@ async fn vertex_crossing_triangle_interior_is_returned_to_approach_side() -> Res
         ..Default::default()
     })
     .await?;
-    assert!(outcome.positions[3].y >= 0.0049, "{:?}", outcome.positions[3]);
+    assert!(
+        outcome.positions[3].y >= 0.0049,
+        "{:?}",
+        outcome.positions[3]
+    );
     assert_eq!(&outcome.positions[..3], &end[..3]);
     Ok(())
 }
 
 #[tokio::test]
 async fn triangle_interior_crossing_preserves_slide_and_pins() -> Result<()> {
-    let start = [p(-1., 0., -1.), p(0., 0., 1.), p(1., 0., -1.), p(0., 0.1, 0.)];
+    let start = [
+        p(-1., 0., -1.),
+        p(0., 0., 1.),
+        p(1., 0., -1.),
+        p(0., 0.1, 0.),
+    ];
     let mut end = start;
     end[3] = p(0.02, -0.1, 0.);
     let mut velocity = [Vec3::default(); 4];
@@ -108,7 +124,11 @@ async fn triangle_interior_crossing_preserves_slide_and_pins() -> Result<()> {
     assert!(outcome.positions[3].y >= 0.0049);
     assert!((outcome.positions[3].x - end[3].x).abs() < 1e-5);
     assert!((outcome.velocities[3].x - 1.).abs() < 1e-4);
-    assert!(outcome.velocities[3].y >= -1e-4, "{:?}", outcome.velocities[3]);
+    assert!(
+        outcome.velocities[3].y >= -1e-4,
+        "{:?}",
+        outcome.velocities[3]
+    );
     assert_eq!(&outcome.positions[..3], &start[..3]);
     Ok(())
 }
@@ -195,13 +215,21 @@ async fn swept_edge_bounds_find_fast_crossings_and_preserve_pinned_edges() -> Re
         [q[0], q[1], q[3], q[4]],
         0.001,
     );
-    assert!(remaining.is_none(), "edge still crosses: {remaining:?}; positions {q:?}");
+    assert!(
+        remaining.is_none(),
+        "edge still crosses: {remaining:?}; positions {q:?}"
+    );
     Ok(())
 }
 
 #[tokio::test]
 async fn translating_body_pushes_a_stationary_vertex_to_the_approach_side() -> Result<()> {
-    let start = [p(-1.0, -1.0, -1.0), p(1.0, -1.0, -1.0), p(0.0, 1.0, -1.0), p(0.0, 0.0, 0.0)];
+    let start = [
+        p(-1.0, -1.0, -1.0),
+        p(1.0, -1.0, -1.0),
+        p(0.0, 1.0, -1.0),
+        p(0.0, 0.0, 0.0),
+    ];
     let mut end = start;
     for q in &mut end[..3] {
         q.z = 1.0;
@@ -269,7 +297,10 @@ async fn fixed_triangle_interior_blocks_a_cloth_face_without_vertex_overlap() ->
     let normal = (q[1] - q[0]).cross(q[2] - q[0]);
     for point in obstacle {
         let signed = (point - q[0]).dot(normal) / normal.length();
-        assert!(signed <= -0.0025, "obstacle vertex {point:?} is {signed} from the cloth");
+        assert!(
+            signed <= -0.0025,
+            "obstacle vertex {point:?} is {signed} from the cloth"
+        );
     }
     Ok(())
 }

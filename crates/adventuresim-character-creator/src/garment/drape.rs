@@ -57,6 +57,13 @@ fn run(
             &input.selection.drape.armor_fit,
         )?;
     }
+    super::symmetrize::symmetrize_and_relax(
+        &mut output.positions,
+        &output.faces,
+        &collision,
+        body_clearance(input),
+    );
+    output.normals = output.normals_for(&output.positions);
     (output.indices, output.weights) = transfer_skin(input, &output.positions)?;
     output.validate_contacts(&collision)?;
     Ok(output)
@@ -82,8 +89,7 @@ fn simulate(
         }
     } else {
         let design = input.selection.design()?;
-        let pattern =
-            MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
+        let pattern = MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
         build_garment(&pattern, &settings, &fabric)?
     };
     if !build.skipped.is_empty() || build.mesh.triangles.is_empty() {

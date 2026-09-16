@@ -18,7 +18,11 @@ const RIGID_ITERATIONS: usize = 400;
 const SOLVER_TOLERANCE: f64 = 1e-14;
 
 /// The coif's cloth mesh, fitted around the wearer described by `input`.
-pub(super) fn coif(input: &DrapeInput, design: &CoifDesign, fabric: &Fabric) -> Result<GarmentMesh> {
+pub(super) fn coif(
+    input: &DrapeInput,
+    design: &CoifDesign,
+    fabric: &Fabric,
+) -> Result<GarmentMesh> {
     let normals = normals(&input.positions, &input.faces);
     let wearer = crate::armor_frames::Wearer {
         faces: &input.faces,
@@ -57,7 +61,10 @@ pub(super) fn surface_mesh(
         .map(|face| [face[0], face[1], face[2]])
         .collect();
     let cut = FrontCut::new(&carrier.positions, &whole);
-    anyhow::ensure!(!cut.seams.is_empty(), "the fitted surface has no front centre line");
+    anyhow::ensure!(
+        !cut.seams.is_empty(),
+        "the fitted surface has no front centre line"
+    );
     let local: Vec<[f32; 3]> = cut
         .origins
         .iter()
@@ -101,8 +108,9 @@ pub(super) fn surface_mesh(
             .fold(Vec3::default(), |sum, (p, &k)| sum + *p * k)
             .length();
         mesh.bends.push(bend);
-        mesh.bend_weights
-            .push([weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0]);
+        mesh.bend_weights.push([
+            weights[0], weights[1], weights[2], weights[3], rest, 0.0, 0.0, 0.0,
+        ]);
     }
     mesh.masses = topology::vertex_masses(&mesh.positions, &mesh.triangles, density);
     Ok(mesh)
@@ -119,7 +127,8 @@ struct FrontCut {
 
 impl FrontCut {
     fn new(positions: &[[f32; 3]], faces: &[[u32; 3]]) -> Self {
-        let left = |face: &[u32; 3]| face.iter().map(|&i| positions[i as usize][0]).sum::<f32>() < 0.0;
+        let left =
+            |face: &[u32; 3]| face.iter().map(|&i| positions[i as usize][0]).sum::<f32>() < 0.0;
         let front_centre = |i: u32| {
             let p = positions[i as usize];
             p[0].abs() <= CENTRE_TOLERANCE_M && p[2] > 0.0
@@ -212,7 +221,11 @@ fn rest_triangles(positions: &[Vec3], faces: &[[u32; 3]]) -> Vec<Rest> {
             let x_axis = scale(e1, 1.0 / length1);
             let y_axis = cross(normal, x_axis);
             let y_axis = scale(y_axis, 1.0 / norm(y_axis));
-            let q = [[0.0, 0.0], [length1, 0.0], [dot(e2, x_axis), dot(e2, y_axis)]];
+            let q = [
+                [0.0, 0.0],
+                [length1, 0.0],
+                [dot(e2, x_axis), dot(e2, y_axis)],
+            ];
             // grad(hat_i) = rot90(q[i + 2] - q[i + 1]) / 2A, with rot90(x, y) = (-y, x).
             let gradients = std::array::from_fn(|corner| {
                 let next = q[(corner + 1) % 3];
@@ -278,7 +291,9 @@ fn conformal(positions: &[Vec3], rests: &[Rest], pins: [u32; 2]) -> Result<Vec<[
     }
     let x = least_squares(&rows, vec![0.0; unknowns], CONFORMAL_ITERATIONS);
     let value = |variable: usize| pinned(variable).unwrap_or_else(|| x[free[variable]]);
-    let mut flat: Vec<[f64; 2]> = (0..count).map(|i| [value(i * 2), value(i * 2 + 1)]).collect();
+    let mut flat: Vec<[f64; 2]> = (0..count)
+        .map(|i| [value(i * 2), value(i * 2 + 1)])
+        .collect();
 
     // The rigid rounds fit rotations, so the start must not be mirrored.
     let signed: f64 = rests.iter().map(|rest| signed_area(&flat, rest.face)).sum();
@@ -466,12 +481,18 @@ mod tests {
             assert_eq!(mesh.positions[a as usize], mesh.positions[b as usize]);
             assert!(mesh.positions[a as usize].z > head().origin[2]);
         }
-        assert!(mesh.masses.iter().all(|m| *m > 0.0), "a vertex is in no triangle");
+        assert!(
+            mesh.masses.iter().all(|m| *m > 0.0),
+            "a vertex is in no triangle"
+        );
         assert!(mesh.rest_lengths.iter().all(|l| *l > 0.0));
         assert!(!mesh.bends.is_empty());
         let frame = head();
         let top = mesh.positions.iter().map(|p| p.y).fold(f32::MIN, f32::max);
-        assert!(top > frame.origin[1] + frame.half_extents[1], "the crown is at {top}");
+        assert!(
+            top > frame.origin[1] + frame.half_extents[1],
+            "the crown is at {top}"
+        );
     }
 
     #[test]

@@ -20,6 +20,7 @@ mod placement;
 mod presets;
 mod shading;
 mod stages;
+mod symmetrize;
 mod validation;
 pub use presets::{FabricPreset, GarmentPreset, GarmentSelection};
 pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
@@ -550,7 +551,12 @@ mod tests {
         selection.validate().unwrap();
         let pattern = MetaGarment::new("extent", &body, &selection.design().unwrap()).assembly();
         let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
-        assert!(build.skipped.is_empty(), "{}: {:?}", preset.label(), build.skipped);
+        assert!(
+            build.skipped.is_empty(),
+            "{}: {:?}",
+            preset.label(),
+            build.skipped
+        );
         let heights = build.mesh.positions.iter().map(|p| p.y);
         (
             heights.clone().fold(f32::INFINITY, f32::min),

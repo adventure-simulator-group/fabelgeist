@@ -56,7 +56,10 @@ impl GarmentPreset {
     }
     pub fn design_with_length(self, length: f32) -> Result<Design> {
         if self.is_fitted() {
-            bail!("{} is fitted to the wearer, not cut from a pattern", self.label());
+            bail!(
+                "{} is fitted to the wearer, not cut from a pattern",
+                self.label()
+            );
         }
         let design = Design::from_yaml_str(assets::DESIGNS[0].yaml)?;
         let upper = matches!(self, Self::Shirt | Self::FittedShirt | Self::Dress);
@@ -140,16 +143,14 @@ impl FabricPreset {
         }
     }
     pub fn fabric(self) -> Fabric {
-        let mut fabric = match self {
-            Self::Chainmail => return Fabric::CHAINMAIL,
+        match self {
+            Self::Chainmail => Fabric::CHAINMAIL,
             Self::Cotton => Fabric::COTTON,
             Self::Silk => Fabric::SILK,
             Self::Denim => Fabric::DENIM,
             Self::Wool => Fabric::WOOL,
             Self::Jersey => Fabric::JERSEY,
-        };
-        fabric.bend_compliance *= 100.0;
-        fabric
+        }
     }
 }
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
