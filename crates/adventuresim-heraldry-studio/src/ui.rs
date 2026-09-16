@@ -216,9 +216,9 @@ mod tests {
         let mut s = Studio::new(Document::default());
         let start = s.document.clone();
         let mut d = start.clone();
-        d.drawing.eagle.wing_span = Ratio(1.1);
+        d.drawing.lion.body_width = Ratio(1.1);
         accept(&mut s, d.clone(), 1.0, true);
-        d.drawing.eagle.wing_span = Ratio(1.2);
+        d.drawing.lion.body_width = Ratio(1.2);
         accept(&mut s, d.clone(), 2.0, true);
         assert!(s.undo.is_empty());
         accept(&mut s, d.clone(), 3.0, false);

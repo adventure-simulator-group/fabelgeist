@@ -32,7 +32,7 @@ use adventuresim_heraldry::{
 };
 
 let mut document = Document::default();
-document.drawing.eagle.wing_lift = Ratio(1.2);
+document.drawing.lion.foreleg_reach = Ratio(1.2);
 document.validate()?;
 let artwork = Artwork::compose(&document)?;
 let material = Baked::generate(&document, Resolution::Final)?;
@@ -50,20 +50,19 @@ right, which faces the observer's left. Positions start at the observer's upper
 left. The chapter names and JSON enum tags are the public interface; there is no
 blazon parser or text-to-image step.
 
-`Document.drawing` owns anatomy and interpretation. Eagles grow from a torso,
-neck profiles, wings with feather attachment roots, feet, and a tail fan. Lions
-adapt Tom-L's Wikimedia Commons SVG after Rinaldum, based on a south German
-armorial of c. 1530. A shared spatial deformation moves its compound contours,
-internal strokes and painted tones together. Source claws, teeth and tongue
-remain separately colored.
-Proportion controls alter that construction; reference names are confined to
-recipes. Eagle detail adds feather shafts, breast and shoulder hatching,
-neck lines and outlines; contour character controls feather curvature.
+`Document.drawing` owns anatomy and interpretation. Lions adapt Tom-L's
+Wikimedia Commons SVG after Rinaldum, based on a south German armorial of
+c. 1530. A shared spatial deformation moves its compound contours, internal
+strokes and painted tones together. Source claws, teeth and tongue remain
+separately colored. Proportion controls alter that construction; reference
+names are confined to recipes.
+
 Lion paint has separate shadow and highlight coverage controls. Flat paint
 retains the source's mane drawing. Asymmetry is an independent drawing control.
-These are authored interpretations; the charge identity stays fixed. Crowns,
-beaks, claws, and tongues are explicit parts. These families do not cover every
-historical pose.
+These are authored interpretations; the charge identity stays fixed. Available
+charges are the sourced rampant lion, roundels, lozenges and stars. The lion
+supports facing and tail-count variants, but does not cover every historical
+pose.
 
 Composition produces clipped Bézier paths. SVG and CPU rasterization consume
 the same paths. Counterchanging clips the primary charge into the underlying
@@ -93,11 +92,10 @@ tag:
 
 For example, `"gold": {"technique": "WaterGilding", "burnish": 0.85}`.
 Burnishing and glaze depth are dimensionless values from zero to one. Mordant
-relief is bounded to 0–0.1 mm. The default eagle uses water gilding; the German
-lion study uses pigment on a broad 450 × 450 mm shield, and the Dürer study
-uses raised mordant work. These are
-authored material interpretations,
-not evidence about the original prints' colors or fabrication.
+relief is bounded to 0–0.1 mm. The default German lion uses pigment on a broad
+450 × 450 mm shield; the Dürer study uses raised mordant work. These are
+authored material interpretations, not evidence about the original prints'
+colors or fabrication.
 
 Yellow-glazed silver combines RGB absorption with a neutral dielectric coating
 masked to Or. `glaze_roughness` controls that coating; `glaze` adds an optional
@@ -115,7 +113,6 @@ mixture strengths. `drawing.painted_modeling.shadows` and
 `drawing.painted_modeling.highlights` independently control paint coverage from
 zero to one. The modeled preset uses 0.30 and 0.20 respectively; setting both
 to zero gives flat paint. These controls do not change anatomy or line work.
-`drawing.detail` controls supplemental eagle line work.
 
 `Document.view` owns orientation, light angle, exposure, and zoom. It is
 excluded from the bake stamp. A change to identity, drawing, surface, or

@@ -15,7 +15,7 @@ Or (16th century German)* by Tom Lemmens (Tom-L, 2013), after Rinaldum (2009),
 licensed under Creative Commons Attribution-ShareAlike 3.0 Unported. It is a
 modern redraw based on BSB Cod.icon. 391, southern Germany, c. 1530. The
 vendored SVG is unmodified. Fabelgeist contributors adapt anatomy, tinctures,
-painted tones, line widths, tails, crowns and heraldic composition. Adapted
+painted tones, line widths, tails and heraldic composition. Adapted
 lion artwork remains under CC BY-SA 3.0; this does not relicense the software.
 
 - Source and contributor history:

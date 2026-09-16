@@ -3,8 +3,6 @@ use crate::document::*;
 #[derive(serde::Deserialize)]
 #[serde(rename_all = "kebab-case")]
 enum Recipe {
-    ImperialEagle,
-    BurgkmairEagle,
     GermanLion,
     DurerLion,
     WoensamLions,
@@ -13,8 +11,6 @@ enum Recipe {
 }
 
 pub const PRESETS: &[&str] = &[
-    "imperial-eagle",
-    "burgkmair-eagle",
     "german-lion",
     "durer-lion",
     "woensam-lions",
@@ -24,8 +20,8 @@ pub const PRESETS: &[&str] = &[
 impl Default for Document {
     fn default() -> Self {
         Self {
-            name: "Imperial eagle".into(),
-            arms: ArmsDesign::eagle(),
+            name: "german-lion".into(),
+            arms: ArmsDesign::lion(),
             drawing: DrawingStyle::default(),
             surface: PaintedSurface::default(),
             view: Viewing {
@@ -41,22 +37,9 @@ impl Default for Document {
 impl Default for DrawingStyle {
     fn default() -> Self {
         Self {
-            detail: Ratio(1.0),
             painted_modeling: PaintedModeling::MODELED,
             stroke_width: Ratio(0.004),
-            contour_character: Ratio(0.8),
-            asymmetry: Ratio(0.12),
-            eagle: EagleDrawing {
-                body_width: Ratio(0.85),
-                wing_span: Ratio(1.0),
-                wing_lift: Ratio(1.0),
-                feather_length: Ratio(1.1),
-                feather_count: 11,
-                neck_length: Ratio(1.0),
-                head_size: Ratio(1.0),
-                leg_spread: Ratio(1.0),
-                tail_spread: Ratio(1.0),
-            },
+            asymmetry: Ratio(0.0),
             lion: LionDrawing {
                 body_width: Ratio(1.0),
                 spine_arch: Ratio(1.0),
@@ -75,7 +58,7 @@ impl Default for PaintedSurface {
         Self {
             shape: DisplayShape::Shield,
             width: Millimeters(450.0),
-            height: Millimeters(580.0),
+            height: Millimeters(450.0),
             thickness: Millimeters(12.0),
             curvature: Millimeters(35.0),
             shoulder: Ratio(0.035),
@@ -87,7 +70,7 @@ impl Default for PaintedSurface {
             brush_relief: Millimeters(0.012),
             brush_width: Millimeters(5.0),
             brush_angle: Degrees(12.0),
-            gold: MetalFinish::BURNISHED,
+            gold: MetalFinish::Pigment,
             silver: MetalFinish::Pigment,
             glaze: Ratio(0.0),
             glaze_roughness: Ratio(0.32),
@@ -105,25 +88,12 @@ impl ArmsDesign {
             inescutcheon: None,
         }
     }
-    pub fn eagle() -> Self {
-        let mut a = Self::plain(Tincture::Or);
-        a.charges.push(Charge::new(
-            ChargeKind::Eagle {
-                heads: EagleHeads::Two,
-                facing: Facing::Dexter,
-                crowned: false,
-            },
-            Tincture::Sable,
-        ));
-        a
-    }
     pub fn lion() -> Self {
         let mut a = Self::plain(Tincture::Azure);
         a.charges.push(Charge::new(
             ChargeKind::Lion {
                 tails: LionTails::One,
                 facing: Facing::Dexter,
-                crowned: false,
             },
             Tincture::Or,
         ));
@@ -149,27 +119,8 @@ pub fn preset(name: &str) -> Result<Document, crate::Error> {
     let mut d = Document::default();
     let recipe: Recipe = serde_json::from_value(serde_json::Value::String(name.into()))?;
     match recipe {
-        Recipe::ImperialEagle => (),
-        Recipe::BurgkmairEagle => {
-            d.arms.charges[0].shape = ChargeKind::Eagle {
-                heads: EagleHeads::One,
-                facing: Facing::Dexter,
-                crowned: false,
-            };
-            d.drawing.eagle.body_width = Ratio(1.25);
-            d.drawing.eagle.wing_lift = Ratio(1.3);
-            d.drawing.eagle.feather_count = 14;
-            d.drawing.eagle.neck_length = Ratio(1.3);
-            d.drawing.eagle.tail_spread = Ratio(1.25);
-        }
-        Recipe::GermanLion => {
-            d.arms = ArmsDesign::lion();
-            d.surface.height = d.surface.width;
-            d.surface.gold = MetalFinish::Pigment;
-            d.drawing.asymmetry = Ratio(0.0);
-        }
+        Recipe::GermanLion => (),
         Recipe::DurerLion => {
-            d.arms = ArmsDesign::lion();
             d.surface.gold = MetalFinish::RAISED_MORDANT;
             d.drawing.lion.spine_arch = Ratio(1.3);
             d.drawing.lion.mane_fullness = Ratio(1.2);
@@ -182,7 +133,6 @@ pub fn preset(name: &str) -> Result<Document, crate::Error> {
                     ChargeKind::Lion {
                         tails: LionTails::One,
                         facing,
-                        crowned: false,
                     },
                     if i == 0 {
                         Tincture::Argent
@@ -199,12 +149,16 @@ pub fn preset(name: &str) -> Result<Document, crate::Error> {
             d.drawing.lion.mane_fullness = Ratio(0.75);
         }
         Recipe::Quartered => {
+            let mut lozenge = ArmsDesign::plain(Tincture::Or);
+            lozenge
+                .charges
+                .push(Charge::new(ChargeKind::Lozenge, Tincture::Sable));
             d.arms.field = Field::Quarterly {
                 quarters: Box::new([
-                    ArmsDesign::eagle(),
+                    lozenge.clone(),
                     ArmsDesign::lion(),
                     ArmsDesign::lion(),
-                    ArmsDesign::eagle(),
+                    lozenge,
                 ]),
             };
             if let Field::Quarterly { quarters } = &mut d.arms.field {

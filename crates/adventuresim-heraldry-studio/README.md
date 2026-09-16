@@ -70,19 +70,19 @@ produces a clean lit capture without editor controls. Add `--paint-mixer` to
 # List recipes, then write one for editing.
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- preset
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
-  preset imperial-eagle --output target/heraldry/eagle.json
+  preset german-lion --output target/heraldry/lion.json
 
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
-  validate target/heraldry/eagle.json
+  validate target/heraldry/lion.json
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
-  export target/heraldry/eagle.json --quality final --output target/heraldry/eagle
+  export target/heraldry/lion.json --quality final --output target/heraldry/lion
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
-  capture target/heraldry/eagle.json --output target/heraldry/eagle-lit.png
+  capture target/heraldry/lion.json --output target/heraldry/lion-lit.png
 
 # Load the exported asset through Bevy's glTF importer for comparison.
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
-  capture target/heraldry/eagle.json --reload-glb target/heraldry/eagle/display.glb \
-  --output target/heraldry/eagle-reloaded.png
+  capture target/heraldry/lion.json --reload-glb target/heraldry/lion/display.glb \
+  --output target/heraldry/lion-reloaded.png
 
 cargo run -p adventuresim-heraldry-studio --bin heraldry-lab -- \
   compare target/heraldry/before.json target/heraldry/after.json \
@@ -119,8 +119,8 @@ worker's maps and height values against the native output without a GPU:
 
 ```sh
 node crates/adventuresim-heraldry-studio/tests/wasm-parity.mjs \
-  target/heraldry-studio/site target/heraldry/eagle.json \
-  target/heraldry/eagle/material.bake
+  target/heraldry-studio/site target/heraldry/lion.json \
+  target/heraldry/lion/material.bake
 ```
 
 The check requires identical dimensions and bake identity. It allows one byte

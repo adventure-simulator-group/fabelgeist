@@ -118,26 +118,15 @@ impl ArmsDesign {
 impl DrawingStyle {
     fn check(&self) -> Result<(), Error> {
         for (label, value) in [
-            ("detail", self.detail),
             ("painted shadows", self.painted_modeling.shadows),
             ("painted highlights", self.painted_modeling.highlights),
-            ("contour character", self.contour_character),
             ("asymmetry", self.asymmetry),
         ] {
             range(label, value.0, 0.0, 1.0)?;
         }
         range("stroke width", self.stroke_width.0, 0.001, 0.012)?;
-        let e = &self.eagle;
         let l = &self.lion;
         for v in [
-            e.body_width,
-            e.wing_span,
-            e.wing_lift,
-            e.feather_length,
-            e.neck_length,
-            e.head_size,
-            e.leg_spread,
-            e.tail_spread,
             l.body_width,
             l.spine_arch,
             l.head_size,
@@ -148,9 +137,6 @@ impl DrawingStyle {
             l.paw_size,
         ] {
             range("animal proportion", v.0, 0.5, 1.5)?;
-        }
-        if !(6..=16).contains(&e.feather_count) {
-            return Err(Error::Invalid("feather count must be 6..=16".into()));
         }
         Ok(())
     }

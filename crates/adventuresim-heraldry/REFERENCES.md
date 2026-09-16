@@ -9,8 +9,6 @@ does not establish color.
 
 | Recipe | Source | Construction studied |
 | --- | --- | --- |
-| `imperial-eagle` | [Albrecht Dürer, *The Coat of Arms of the Empire and of Nuremberg*, 1521, The Met](https://www.metmuseum.org/art/collection/search/387586) | Two necks, displayed wings, descending flight feathers, body and tail fan. |
-| `burgkmair-eagle` | [Hans Burgkmair, *Coat of Arms with a Single Eagle*, c. 1505, National Gallery of Art](https://www.nga.gov/artworks/128425-coat-arms-single-eagle) | Single head, broader torso, lifted wing shoulders, denser feather fan. |
 | `german-lion` | [*Sammelband mehrerer Wappenbücher*, c. 1530, BSB Cod.icon. 391](https://www.digitale-sammlungen.de/en/view/bsb00007681) | German rampant lion, internal line work and painted tonal modeling; modern Tom-L/Rinaldum vector adaptation. |
 | `durer-lion` | [Albrecht Dürer, *Coat of Arms with a Lion and a Cock*, c. 1502, The Met](https://www.metmuseum.org/art/collection/search/391113) | Rampant pose, flexed spine, curled mane, articulated paws and looped tail. |
 | `woensam-lions` | [Anton Woensam, coat of arms, 1530, British Museum, 1900,1019.79](https://www.britishmuseum.org/collection/object/P_1900-1019-79) | Opposed rampant lions with contrasting tinctures, narrower bodies and reaching forelegs. |
@@ -18,9 +16,10 @@ does not establish color.
 Only the shield charges are in scope. Helmets, crests, supporters, mantling,
 lettering, and frames surrounding the source shields are not generated. The
 lion family is a profile interpretation; it does not reproduce the turned head
-and every engraved fur line in Dürer's print. Wing, neck, spine, limb, and tail
-controls are shared by every recipe; there are no source-specific silhouette
-branches in the animal generator.
+and every engraved fur line in Dürer's print. Spine, limb, mane and tail
+controls deform the same sourced lion across recipes; there are no
+source-specific silhouette branches in the animal generator. The quartered
+example combines lions and lozenges; the counterchanged example uses a lion.
 
 ## Wikimedia Commons drawing and period paint
 
@@ -52,11 +51,6 @@ historical finish.
 These tones belong to the painted material, independent of the renderer's
 lighting. Over leaf, partial pigment coverage preserves the underlying relief.
 
-The eagle comparisons checked on Commons were
-[*Aigle bicéphale éployée*](https://commons.wikimedia.org/wiki/File:Aigle_bicéphale_éployée.svg),
-credited to Brieg after Yorick, and
-[*Displayed double head eagle*, Milenioscuro](https://commons.wikimedia.org/wiki/File:Displayed_double_head_eagle.svg).
-The latter's Russian/Serbian traditions are less suited to these dated studies.
 Existing non-geometric SVGs with suitable licenses may extend the charge
 collection. Search Commons first, inspect construction and provenance, and
 retain the source's attribution chain. Newly invented non-geometric SVGs and

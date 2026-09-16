@@ -8,7 +8,6 @@ enum FieldForm {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Symbol {
-    Eagle,
     Lion,
     Roundel,
     Lozenge,
@@ -204,7 +203,6 @@ fn boundary(ui: &mut egui::Ui, b: &mut Boundary) {
 }
 fn charge(ui: &mut egui::Ui, c: &mut Charge) {
     let mut symbol = match c.shape {
-        ChargeKind::Eagle { .. } => Symbol::Eagle,
         ChargeKind::Lion { .. } => Symbol::Lion,
         ChargeKind::Roundel => Symbol::Roundel,
         ChargeKind::Lozenge => Symbol::Lozenge,
@@ -215,25 +213,13 @@ fn charge(ui: &mut egui::Ui, c: &mut Charge) {
         ui,
         "Charge",
         &mut symbol,
-        &[
-            Symbol::Eagle,
-            Symbol::Lion,
-            Symbol::Roundel,
-            Symbol::Lozenge,
-            Symbol::Star,
-        ],
+        &[Symbol::Lion, Symbol::Roundel, Symbol::Lozenge, Symbol::Star],
     );
     if symbol != before {
         c.shape = match symbol {
-            Symbol::Eagle => ChargeKind::Eagle {
-                heads: EagleHeads::One,
-                facing: Facing::Dexter,
-                crowned: false,
-            },
             Symbol::Lion => ChargeKind::Lion {
                 tails: LionTails::One,
                 facing: Facing::Dexter,
-                crowned: false,
             },
             Symbol::Roundel => ChargeKind::Roundel,
             Symbol::Lozenge => ChargeKind::Lozenge,
@@ -241,21 +227,12 @@ fn charge(ui: &mut egui::Ui, c: &mut Charge) {
         };
     }
     match &mut c.shape {
-        ChargeKind::Eagle {
-            heads,
-            facing,
-            crowned,
-        } => {
-            combo(ui, "Heads", heads, &[EagleHeads::One, EagleHeads::Two]);
-            pose(ui, facing, crowned);
-        }
-        ChargeKind::Lion {
-            tails,
-            facing,
-            crowned,
-        } => {
+        ChargeKind::Lion { tails, facing } => {
             combo(ui, "Tails", tails, &[LionTails::One, LionTails::Two]);
-            pose(ui, facing, crowned);
+            combo(ui, "Facing", facing, &[Facing::Dexter, Facing::Sinister]);
+            ui.weak("Dexter faces the observer's left.");
+            tincture(ui, "Claws / teeth", &mut c.armed);
+            tincture(ui, "Tongue", &mut c.langued);
         }
         ChargeKind::Star { points } => {
             ui.add(egui::Slider::new(points, 3..=16).text("Points"));
@@ -278,16 +255,9 @@ fn charge(ui: &mut egui::Ui, c: &mut Charge) {
         Coloring::Solid { tincture: t } => tincture(ui, "Charge tincture", t),
         Coloring::Counterchanged { tinctures } => pair(ui, tinctures),
     }
-    tincture(ui, "Beak / claws", &mut c.armed);
-    tincture(ui, "Tongue", &mut c.langued);
     slider(ui, "Horizontal position", &mut c.center[0], 0.0..=1.0);
     slider(ui, "Vertical position", &mut c.center[1], 0.0..=1.0);
     slider(ui, "Width", &mut c.size[0].0, 0.03..=1.5);
     slider(ui, "Height", &mut c.size[1].0, 0.03..=1.5);
     slider(ui, "Rotation", &mut c.rotation.0, -180.0..=180.0);
-}
-fn pose(ui: &mut egui::Ui, facing: &mut Facing, crowned: &mut bool) {
-    combo(ui, "Facing", facing, &[Facing::Dexter, Facing::Sinister]);
-    ui.checkbox(crowned, "Crowned");
-    ui.weak("Dexter faces the observer's left.");
 }

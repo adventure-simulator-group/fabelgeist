@@ -297,15 +297,3 @@ impl Artwork {
             .collect())
     }
 }
-
-/// A tapered curved leaf, feather, claw or fur lock with independent bend.
-pub(crate) fn leaf(root: [f32; 2], tip: [f32; 2], width: f32, bend: f32) -> Path {
-    let d = [tip[0] - root[0], tip[1] - root[1]];
-    let length = d[0].hypot(d[1]).max(0.001);
-    let n = [-d[1] / length, d[0] / length];
-    let at = |t: f32, w: f32| [root[0] + d[0] * t + n[0] * w, root[1] + d[1] * t + n[1] * w];
-    Path::new(root[0], root[1])
-        .curve(at(0.15, width), at(0.7, width + bend), tip)
-        .curve(at(0.7, -width + bend), at(0.15, -width), root)
-        .close()
-}

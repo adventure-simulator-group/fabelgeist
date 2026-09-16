@@ -122,11 +122,6 @@ pub enum Facing {
     Sinister,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum EagleHeads {
-    One,
-    Two,
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum LionTails {
     One,
     Two,
@@ -137,19 +132,8 @@ pub enum LionTails {
 pub enum ChargeKind {
     Roundel,
     Lozenge,
-    Star {
-        points: u8,
-    },
-    Eagle {
-        heads: EagleHeads,
-        facing: Facing,
-        crowned: bool,
-    },
-    Lion {
-        tails: LionTails,
-        facing: Facing,
-        crowned: bool,
-    },
+    Star { points: u8 },
+    Lion { tails: LionTails, facing: Facing },
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -173,19 +157,6 @@ pub struct ArmsDesign {
 }
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct EagleDrawing {
-    pub body_width: Ratio,
-    pub wing_span: Ratio,
-    pub wing_lift: Ratio,
-    pub feather_length: Ratio,
-    pub feather_count: u8,
-    pub neck_length: Ratio,
-    pub head_size: Ratio,
-    pub leg_spread: Ratio,
-    pub tail_spread: Ratio,
-}
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
 pub struct LionDrawing {
     pub body_width: Ratio,
     pub spine_arch: Ratio,
@@ -199,13 +170,9 @@ pub struct LionDrawing {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DrawingStyle {
-    /// Strength of supplemental eagle line work, from absent to fully drawn.
-    pub detail: Ratio,
     pub painted_modeling: PaintedModeling,
     pub stroke_width: Ratio,
-    pub contour_character: Ratio,
     pub asymmetry: Ratio,
-    pub eagle: EagleDrawing,
     pub lion: LionDrawing,
 }
 

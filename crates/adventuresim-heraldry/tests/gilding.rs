@@ -9,6 +9,7 @@ fn panel() -> Document {
         ..Default::default()
     };
     d.surface.shape = DisplayShape::Panel;
+    d.surface.gold = MetalFinish::BURNISHED;
     d
 }
 fn bake(d: &Document) -> Baked {

@@ -54,7 +54,7 @@ fn viewing_is_independent_and_stale_exports_are_rejected() {
 fn rejects_unknown_fields_nonfinite_values_and_unbounded_compositions() {
     let d = Document::default();
     let mut json = serde_json::to_value(&d).unwrap();
-    json["drawing"]["feather_rng"] = serde_json::json!(1);
+    json["drawing"]["unrecognized_control"] = serde_json::json!(1);
     assert!(Document::from_json(&json.to_string()).is_err());
     let mut d = d;
     d.surface.width.0 = f32::NAN;
@@ -94,7 +94,7 @@ fn counterchanging_follows_fields_and_preserves_accent_tinctures() {
 fn heraldic_advice_does_not_reject_legal_exceptions() {
     let mut d = Document::default();
     d.arms.field = Field::Solid {
-        tincture: Tincture::Azure,
+        tincture: Tincture::Argent,
     };
     assert!(!d.advice().is_empty());
     d.validate().unwrap();
@@ -102,6 +102,7 @@ fn heraldic_advice_does_not_reject_legal_exceptions() {
 #[test]
 fn pigment_and_leaf_have_distinct_physical_response_without_changing_identity() {
     let mut d = Document::default();
+    d.surface.gold = MetalFinish::BURNISHED;
     let a = Baked::generate(&d, Resolution::Draft).unwrap();
     d.surface.gold = MetalFinish::Pigment;
     let b = Baked::generate(&d, Resolution::Draft).unwrap();
@@ -215,12 +216,10 @@ fn exported_glb_loads_with_matching_vertices_textures_and_clearcoat() {
 }
 #[test]
 fn construction_controls_change_reusable_anatomy_at_valid_extremes() {
-    for name in ["imperial-eagle", "durer-lion"] {
+    for name in ["german-lion", "durer-lion"] {
         for value in [0.5, 1.5] {
             let mut d = presets::preset(name).unwrap();
             let before = Artwork::compose(&d).unwrap().svg(&d.surface.palette);
-            d.drawing.eagle.wing_span = Ratio(value);
-            d.drawing.eagle.neck_length = Ratio(value);
             d.drawing.lion.foreleg_reach = Ratio(value);
             d.drawing.lion.spine_arch = Ratio(value);
             d.drawing.lion.tail_curl = Ratio(value);

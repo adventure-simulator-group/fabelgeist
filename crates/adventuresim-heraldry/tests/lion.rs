@@ -93,9 +93,6 @@ fn shadow_and_highlight_paint_can_be_used_independently() {
             .iter()
             .all(|s| s.role != PaintRole::Shadow)
     );
-    // Eagle line detail is no longer a second control for the lion's paint.
-    d.drawing.detail = Ratio(0.0);
-    assert_eq!(highlight.flat, bake(&d).flat);
 }
 
 #[test]
@@ -148,7 +145,6 @@ fn two_tails_and_their_clips_follow_facing_and_composition() {
     d.arms.charges[0].shape = ChargeKind::Lion {
         tails: LionTails::Two,
         facing: Facing::Dexter,
-        crowned: false,
     };
     let dexter = bake(&d);
     let dexter_art = Artwork::compose(&d).unwrap();
@@ -156,7 +152,6 @@ fn two_tails_and_their_clips_follow_facing_and_composition() {
     d.arms.charges[0].shape = ChargeKind::Lion {
         tails: LionTails::Two,
         facing: Facing::Sinister,
-        crowned: false,
     };
     let sinister = bake(&d);
     let sinister_art = Artwork::compose(&d).unwrap();

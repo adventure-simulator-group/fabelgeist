@@ -51,7 +51,7 @@ restrained values for both. Source strokes remain in both treatments; no extra
 mane hatching is invented.
 
 Fabelgeist contributors modify proportions, tinctures, painted tonal strength,
-line widths, tail count, crowns and composition. These changes are applied at
+line widths, tail count and composition. These changes are applied at
 runtime; the vendored source remains intact. Shadow and highlight pigments
 follow counterchanged tinctures. Their coverage is baked into color and
 material response independently of camera or light direction. Over leaf,

@@ -9,7 +9,6 @@ const REFERENCE_STROKE: f32 = 0.004;
 pub(super) fn draw(
     p: &mut Painter<'_>,
     tails: LionTails,
-    crowned: bool,
     armed: Tincture,
     langued: Tincture,
     facing: Facing,
@@ -18,10 +17,6 @@ pub(super) fn draw(
         draw_source(p, armed, langued, Some(rig::tail_clip()), rig::second_tail);
     }
     draw_source(p, armed, langued, None, |q| q);
-    if crowned {
-        let center = rig::deform([0.575, 0.045], p.style);
-        p.crown(center, 0.13 * p.style.lion.head_size.0);
-    }
     if facing == Facing::Sinister {
         for shape in &mut p.art.shapes {
             shape.path = shape.path.mapped(|[x, y]| [1.0 - x, y]);

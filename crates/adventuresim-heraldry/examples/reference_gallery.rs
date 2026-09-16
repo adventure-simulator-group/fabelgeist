@@ -16,14 +16,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for name in presets::PRESETS {
         let mut d = presets::preset(name)?;
         html.push_str(&format!("<figure><h2>{name}</h2><section>"));
-        for (label, detail, paint) in [
-            ("clean", 0.0, PaintedModeling::FLAT),
-            ("painterly", 1.0, PaintedModeling::MODELED),
+        for (label, paint) in [
+            ("clean", PaintedModeling::FLAT),
+            ("painterly", PaintedModeling::MODELED),
         ] {
-            d.drawing.detail.0 = detail;
             d.drawing.painted_modeling = paint;
-            d.drawing.contour_character.0 = detail * 0.8;
-            d.drawing.asymmetry.0 = detail * 0.12;
             let stem = format!("{name}-{label}");
             let prefix = format!("{directory}/{stem}");
             let b = Baked::generate(&d, Resolution::Preview)?;
