@@ -6,7 +6,11 @@ use super::{BuildingLod, BuildingLodMaterial, FACADE_DETAIL_OFFSET_METRES, plan_
 use crate::{BuildingPlan, OpeningUse};
 
 pub(super) fn append_opening_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
-    for opening in &plan.opening_assemblies {
+    for opening in plan
+        .opening_assemblies
+        .iter()
+        .filter(|opening| !matches!(opening.host_source, crate::WallSourceId::RoofGable { .. }))
+    {
         let width = opening.profile.exterior_width_metres();
         let height = opening.profile.clear_height_metres();
         let tangent = opening.frame.tangent.normalize_or_zero();
@@ -62,6 +66,9 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
         let Some(wall) = plan.wall_assemblies.iter().find(|wall| wall.id == wall_id) else {
             continue;
         };
+        if matches!(wall.source, crate::WallSourceId::RoofGable { .. }) {
+            continue;
+        }
         let outward_2d = wall.frame.outward.normalize_or_zero();
         let outward = Vec3::new(outward_2d.x, 0.0, outward_2d.y);
         let surface_plane = wall.frame.origin.dot(outward_2d)
@@ -112,23 +119,31 @@ pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
     {
         for face in &roof.enclosure_faces {
             for member in crate::gable_frame::members(face, frame) {
+                if super::gable_openings::owns_member(plan, member.id) {
+                    continue;
+                }
                 let outward = crate::gable_frame::normal(face);
-                let axis = (member.end - member.start).normalize();
-                let overlap = crate::TIMBER_SEAM_COVER_METRES;
-                let side = outward.cross(axis) * (member.section_metres.x * 0.5 + overlap);
-                let surface = outward * (member.section_metres.y * 0.5 + overlap);
-                let start = member.start + surface - axis * overlap;
-                let end = member.end + surface + axis * overlap;
-                lod.mesh_mut(BuildingLodMaterial::FacadeDetails).push_quad(
-                    [start - side, end - side, end + side, start + side],
-                    outward,
-                    [
-                        Vec2::new(0.0, 0.0),
-                        Vec2::new(0.25, 0.0),
-                        Vec2::new(0.25, 1.0),
-                        Vec2::new(0.0, 1.0),
-                    ],
-                );
+                let Some(solid) = plan
+                    .resolved_geometry
+                    .solids
+                    .iter()
+                    .find(|solid| solid.id == member.solid)
+                else {
+                    continue;
+                };
+                // Keep the exterior face's authored finish and metric grain at
+                // distance, including beside an aperture's retained full solids.
+                for mesh in crate::compile_solid_detail(plan, solid).meshes {
+                    for quad in mesh.vertices.as_chunks::<4>().0 {
+                        if quad[0].normal.dot(outward) > 0.999 {
+                            lod.mesh_mut(mesh.material).push_quad(
+                                quad.map(|vertex| vertex.position),
+                                outward,
+                                quad.map(|vertex| vertex.uv),
+                            );
+                        }
+                    }
+                }
             }
         }
     }
@@ -153,7 +168,7 @@ mod tests {
     };
 
     #[test]
-    fn gable_lod_corners_are_actual_exterior_timber_corners() {
+    fn gable_lod_faces_preserve_actual_timber_corners_finish_and_grain() {
         for seed in [42, 47, 101] {
             let plan = generate(&BuildingProgram::fixture(
                 BuildingArchetype::FachwerkMerchantHouse,
@@ -181,22 +196,32 @@ mod tests {
                     meshes: vec![],
                 };
                 append_gable_details(&mut lod, &plan);
-                let mesh = &lod.meshes[0];
-                assert!(mesh.vertices.len() >= 40);
-                for quad in mesh.vertices.as_chunks::<4>().0 {
-                    assert!(
-                        solids.iter().any(|solid| quad.iter().all(|vertex| {
-                            solid
-                                .meshes
+                assert!(
+                    lod.meshes
+                        .iter()
+                        .map(|mesh| mesh.vertices.len())
+                        .sum::<usize>()
+                        >= 40
+                );
+                for mesh in &lod.meshes {
+                    for quad in mesh.vertices.as_chunks::<4>().0 {
+                        assert!(
+                            solids
                                 .iter()
-                                .flat_map(|mesh| &mesh.vertices)
-                                .any(|exact| {
-                                    exact.normal.dot(vertex.normal) > 0.999
-                                        && exact.position.distance(vertex.position) < 0.0001
-                                })
-                        })),
-                        "gable LOD must use a face of a single physical timber"
-                    );
+                                .any(|solid| solid.meshes.iter().any(|exact_mesh| {
+                                    exact_mesh.material == mesh.material
+                                        && quad.iter().all(|vertex| {
+                                            exact_mesh.vertices.iter().any(|exact| {
+                                                exact.uv == vertex.uv
+                                                    && exact.normal.dot(vertex.normal) > 0.999
+                                                    && exact.position.distance(vertex.position)
+                                                        < 0.0001
+                                            })
+                                        })
+                                })),
+                            "gable LOD must preserve one physical timber's face and finish"
+                        );
+                    }
                 }
             }
         }

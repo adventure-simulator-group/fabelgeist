@@ -447,6 +447,7 @@ fn coplanar_timber_opening_faces(plan: &BuildingPlan) -> Vec<crate::OpeningAssem
                 .chain(opening.sill_solid)
                 .chain([opening.head_solid, opening.spandrel_solid])
                 .filter_map(|id| solids.get(&id).copied())
+                .filter(|solid| !(solid.id == opening.head_solid && gable_openings::shared_head(plan, opening)))
                 .any(|solid| {
                     let half_depth = if wall.frame.outward.x.abs() > 0.5 {
                         solid.size.x * 0.5

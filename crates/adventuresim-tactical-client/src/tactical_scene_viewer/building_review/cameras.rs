@@ -14,6 +14,7 @@ pub(super) struct ReviewView {
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 enum ReviewTarget {
+    MainGable(u8),
     Sign,
     Mounting,
     Window,
@@ -36,7 +37,39 @@ impl ReviewView {
             .find(|b| b.placement.id == self.building)
             .expect("review camera building exists");
         let bounds = building.collision.bounds;
+        let gable = if let ReviewTarget::MainGable(index) = self.target {
+            Some(
+                building
+                    .plan
+                    .wall_assemblies
+                    .iter()
+                    .filter(|wall| {
+                        matches!(
+                            wall.source,
+                            adventuresim_building_generator::WallSourceId::RoofGable { .. }
+                        )
+                    })
+                    .nth(usize::from(index))
+                    .expect("review requires a main gable aperture"),
+            )
+        } else {
+            None
+        };
         let target = match self.target {
+            ReviewTarget::MainGable(_) => {
+                let wall = gable.unwrap();
+                let opening = building
+                    .plan
+                    .opening_assemblies
+                    .iter()
+                    .find(|opening| opening.host_wall == wall.id)
+                    .expect("gable opening");
+                Vec3::new(
+                    wall.frame.origin.x,
+                    opening.sill_elevation_metres + opening.profile.clear_height_metres() * 0.5,
+                    wall.frame.origin.y,
+                )
+            }
             ReviewTarget::PlotPoint(point) => {
                 assert!(point.is_finite(), "invalid plot review target");
                 Vec3::new(
@@ -92,8 +125,13 @@ impl ReviewView {
         );
         let transform = super::super::buildings::building_transform(building);
         let world_target = transform.transform_point(target - bounds.centre());
+        let offset = gable.map_or(self.offset, |wall| {
+            let horizontal =
+                wall.frame.tangent * self.offset.x + wall.frame.outward * self.offset.z;
+            Vec3::new(horizontal.x, self.offset.y, horizontal.y)
+        });
         BuildingReviewCamera {
-            position: world_target + transform.rotation * self.offset,
+            position: world_target + transform.rotation * offset,
             target: world_target,
             plaster_raking_light: None,
         }

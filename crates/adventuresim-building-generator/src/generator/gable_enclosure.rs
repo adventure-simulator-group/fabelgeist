@@ -185,12 +185,15 @@ mod tests {
                                 "detached gable vertex {point:?}"
                             );
                         }
-                        let triangles = crate::tessellate_roof_enclosure(&RoofEnclosureFace {
-                            id: ResolvedItemId(3),
-                            polygon,
-                            material: RoofMaterial::TimberInfill,
-                            support_nodes: Vec::new(),
-                        });
+                        let triangles = crate::tessellate_roof_enclosure(
+                            &RoofEnclosureFace::new(
+                                ResolvedItemId(3),
+                                polygon,
+                                RoofMaterial::TimberInfill,
+                                Vec::new(),
+                            ),
+                            &[],
+                        );
                         let positions = triangles
                             .iter()
                             .flat_map(|t| t.positions.map(|p| p.to_array()))

@@ -97,7 +97,7 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 36;
+const CAPTURE_PROFILE_VERSION: u16 = 37;
 const PLANT_REVIEW_PROFILE: &str = "plant-review";
 const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
 const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
@@ -106,7 +106,7 @@ const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 23;
+const CAMERA_VERSION: u16 = 24;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -869,7 +869,7 @@ pub(crate) fn run(
         })
         .set(WindowPlugin {
             primary_window: (!scene_performance_benchmarking).then(|| Window {
-                title: "Fabelgeist tactical scene capture".into(),
+                visible: false,
                 resolution: WindowResolution::new(VIEW_WIDTH, VIEW_HEIGHT)
                     .with_scale_factor_override(1.0),
                 present_mode: PresentMode::AutoNoVsync,
@@ -891,7 +891,8 @@ pub(crate) fn run(
         app.add_plugins(default_plugins.disable::<WinitPlugin>())
             .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
     } else {
-        app.add_plugins(default_plugins);
+        app.add_plugins(default_plugins)
+            .insert_resource(bevy::winit::WinitSettings::continuous());
     }
     app.add_plugins(AdventureSimulatorPhysicsPlugin {
         enable_simulation: false,
@@ -1125,6 +1126,7 @@ fn selected_capture_views(
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
+        building_review::GABLE_PROFILE => view_specs::GABLE_REVIEW_VIEWS.as_slice(),
         building_review::COMPOUND_PROFILE => view_specs::COMPOUND_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),

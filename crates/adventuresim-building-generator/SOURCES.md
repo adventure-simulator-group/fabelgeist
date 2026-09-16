@@ -49,6 +49,21 @@ plain gable, boundary dimensions and inward-opening timber gate are authored
 choices, not a measured reconstruction. The rear store adds no independent
 household or settlement service capacity.
 
+## Fixed gable lights
+
+The Germanisches Nationalmuseum discusses domestic leaded glazing in
+connection with a 1476 Regensburg scene. This southern German evidence supports
+the availability of small-pane glazing before 1544; it does not establish its
+frequency in Central German attics.
+
+[Germanisches Nationalmuseum: Wohnen im Mittelalter (2020)](https://www.gnm.de/museum-aktuell/wohnen-im-mittelalter)
+
+The 0.70 by 1.00 metre clear aperture, lateral truss bay, fixed closure and
+eligible house programmes are authored choices, not a measured reconstruction.
+The generated end truss remains intact: an existing rail serves as the lintel,
+and additional jambs bear on its actual tie. Fixed glazing makes no claim
+of an accessible or inhabited loft.
+
 ## Bells and timber suspension
 
 Heiden's parish account documents surviving thirteenth-century and 1466 bells,

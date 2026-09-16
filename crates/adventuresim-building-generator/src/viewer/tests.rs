@@ -860,7 +860,7 @@ mod tests {
                 .iter()
                 .flat_map(|roof| &roof.enclosure_faces)
             {
-                let mesh = roof_enclosure_prism_mesh(enclosure);
+                let mesh = roof_enclosure_prism_mesh(enclosure, &plan.wall_assemblies);
                 let positions = match mesh.attribute(Mesh::ATTRIBUTE_POSITION).unwrap() {
                     VertexAttributeValues::Float32x3(values) => values.clone(),
                     _ => panic!("unexpected roof enclosure vertex format"),

@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+mod gable;
 mod intersection;
 
 #[cfg(test)]
@@ -77,8 +78,8 @@ pub struct BuildingCollision {
 }
 
 /// Compiles static collision from authoritative wall hosts and walkable timber
-/// surfaces. Opening closures are intentionally excluded: an operable door is
-/// a separate gameplay entity, not permanent masonry and not an LOD concern.
+/// surfaces and fixed main-gable glazing. Operable doors remain separate
+/// gameplay entities. This does not add collision for every roof enclosure.
 pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
     let solids = plan
         .resolved_geometry
@@ -92,6 +93,7 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
         .filter(|wall| wall.replaced_by_owner.is_none())
         .flat_map(|wall| wall.host_solids.iter().copied())
         .collect::<BTreeSet<_>>();
+    selected.extend(gable::solids(plan));
     if let Some(frame) = &plan.timber_frame {
         selected.extend(
             frame

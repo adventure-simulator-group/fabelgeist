@@ -11,6 +11,8 @@ mod compound;
 mod fault;
 #[path = "generate_scene_fixtures/furniture.rs"]
 mod furniture;
+#[path = "generate_scene_fixtures/gable.rs"]
+mod gable;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
 #[path = "generate_scene_fixtures/interior.rs"]
@@ -55,6 +57,7 @@ enum BuildingFixture {
     InteriorFurnitureCatalog,
     InteriorFurnitureRooms,
     CompoundReview,
+    GableReview,
 }
 
 fn main() {
@@ -82,8 +85,9 @@ fn main() {
     }
 }
 
-fn fixtures() -> [Fixture; 25] {
+fn fixtures() -> [Fixture; 26] {
     [
+        gable::fixture(),
         parish::fixture(),
         compound::fixture(),
         furniture::fixture(),
@@ -280,6 +284,10 @@ fn fixture_buildings(
 ) -> adventuresim_tactical_core::city_layout::CitySceneLayout {
     use adventuresim_tactical_core::city_layout::CitySceneLayout;
     match buildings {
+        BuildingFixture::GableReview => CitySceneLayout {
+            playable: gable::buildings(),
+            ..Default::default()
+        },
         BuildingFixture::CompoundReview => compound::layout(),
         BuildingFixture::Empty => CitySceneLayout::default(),
         BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {

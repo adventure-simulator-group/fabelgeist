@@ -34,6 +34,10 @@ pub enum WallSourceId {
     RoofChildFront {
         roof: RoofAssemblyId,
     },
+    RoofGable {
+        roof: RoofAssemblyId,
+        enclosure: ResolvedItemId,
+    },
     ChurchExterior {
         range: ChurchRange,
         side: Direction,
@@ -244,6 +248,7 @@ impl OpeningProfile {
 #[serde(rename_all = "snake_case")]
 pub enum OpeningHeadKind {
     TimberLintel,
+    TimberFrameMember { member: TimberMemberId },
     StoneLintel,
     SegmentalArch,
     PointedVoussoir,
@@ -343,3 +348,6 @@ pub struct OpeningVoidSlice {
     pub width_metres: f32,
     pub height_metres: f32,
 }
+
+/// Fixed attic glazing sheet depth within its structural bay.
+pub const FIXED_GABLE_GLAZING_DEPTH_METRES: f32 = 0.025;

@@ -80,7 +80,7 @@ fn generate_unchecked(
         program,
         edits,
         &mut wall_assemblies,
-        &opening_assemblies,
+        &mut opening_assemblies,
         &roofs,
         &roof_dormers,
         &mut stairs,

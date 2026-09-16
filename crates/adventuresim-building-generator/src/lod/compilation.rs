@@ -26,6 +26,7 @@ pub fn compile_building_lod(plan: &BuildingPlan, level: BuildingLodLevel) -> Bui
     }
     urban_church::append_buttresses(&mut lod, plan);
     append_roofs(&mut lod, plan);
+    gable_openings::append(&mut lod, plan);
     if plan.church.is_none() || level == BuildingLodLevel::Shell {
         append_opening_details(&mut lod, plan);
     }
@@ -54,6 +55,7 @@ pub(super) fn extract_facade_runs(plan: &BuildingPlan) -> Vec<FacadeRun> {
         .iter()
         .filter(|wall| {
             wall.replaced_by_owner.is_none()
+                && !matches!(wall.source, crate::WallSourceId::RoofGable { .. })
                 && (wall.frame.outside_room.is_none()
                     // Tower walls straddle the nave roof: a ground-level room
                     // neighbour does not hide their exposed upper weather face.

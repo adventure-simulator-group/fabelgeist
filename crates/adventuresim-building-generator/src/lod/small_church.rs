@@ -54,7 +54,7 @@ fn append_exterior_roofs(lod: &mut BuildingLod, plan: &BuildingPlan) {
             }
         }
         for face in &roof.enclosure_faces {
-            for triangle in tessellate_roof_enclosure(face) {
+            for triangle in tessellate_roof_enclosure(face, &plan.wall_assemblies) {
                 // Church enclosures include a boarded belfry skirt. Keep its authored
                 // finish: the generic shell's baked Fachwerk substitution adds infill.
                 lod.mesh_mut(BuildingLodMaterial::Roof(face.material))

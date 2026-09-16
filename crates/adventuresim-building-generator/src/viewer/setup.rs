@@ -268,6 +268,7 @@ fn setup(
                 &palette,
                 roof,
                 &plan.resolved_geometry,
+                &plan.wall_assemblies,
                 origin,
                 &removed_roof_items,
                 calibrated_roof_ids.contains(&roof.id),

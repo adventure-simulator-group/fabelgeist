@@ -131,7 +131,7 @@ impl GableSection {
         polygon(&points)
     }
 
-    fn coverage(&self, roof: &RoofAssembly) -> MultiPolygon<f32> {
+    fn coverage(&self, plan: &BuildingPlan, roof: &RoofAssembly) -> MultiPolygon<f32> {
         let mut union = MultiPolygon(Vec::new());
         for face in &roof.enclosure_faces {
             if face.polygon.len() < 3 {
@@ -151,18 +151,85 @@ impl GableSection {
             {
                 continue;
             }
-            let points = face
-                .polygon
-                .iter()
-                .map(|p| Vec2::new((Vec2::new(p.x, p.z) - self.origin).dot(self.across), p.y))
-                .collect::<Vec<_>>();
-            union = union.union(&MultiPolygon(vec![polygon(&points)]));
+            let project =
+                |p: Vec3| Vec2::new((Vec2::new(p.x, p.z) - self.origin).dot(self.across), p.y);
+            for triangle in crate::tessellate_roof_enclosure(face, &plan.wall_assemblies) {
+                if triangle.normal.dot(n) > PARALLEL_ALIGNMENT {
+                    union = union.union(&MultiPolygon(vec![polygon(
+                        &triangle.positions.map(project),
+                    )]));
+                }
+            }
+            for wall in plan.wall_assemblies.iter().filter(|wall| {
+                wall.source
+                    == WallSourceId::RoofGable {
+                        roof: roof.id,
+                        enclosure: face.id,
+                    }
+                    && face.inset_walls.contains(&wall.id)
+            }) {
+                for solid in super::gable_openings::material(plan, wall)
+                    .into_iter()
+                    .filter(|solid| super::gable_openings::material_depth_matches(wall, solid))
+                {
+                    for mesh in crate::compile_solid_detail(plan, solid).meshes {
+                        for indices in mesh.indices.as_chunks::<3>().0 {
+                            let vertices = indices.map(|i| mesh.vertices[i as usize]);
+                            if vertices[0].normal.dot(n) > PARALLEL_ALIGNMENT {
+                                union = union.union(&MultiPolygon(vec![polygon(
+                                    &vertices.map(|v| project(v.position)),
+                                )]));
+                            }
+                        }
+                    }
+                }
+                for opening in plan
+                    .opening_assemblies
+                    .iter()
+                    .filter(|opening| opening.host_wall == wall.id)
+                {
+                    if !super::gable_openings::valid(plan, wall, opening) {
+                        continue;
+                    }
+                    let half =
+                        opening.frame.tangent * opening.profile.exterior_width_metres() * 0.5;
+                    let left = opening.frame.origin - half;
+                    let right = opening.frame.origin + half;
+                    let low = opening.sill_elevation_metres;
+                    let high = low + opening.profile.clear_height_metres();
+                    union = union.union(&MultiPolygon(vec![polygon(&[
+                        project(Vec3::new(left.x, low, left.y)),
+                        project(Vec3::new(right.x, low, right.y)),
+                        project(Vec3::new(right.x, high, right.y)),
+                        project(Vec3::new(left.x, high, left.y)),
+                    ])]));
+                }
+            }
         }
         union
     }
 }
 
 pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
+    for wall in plan
+        .wall_assemblies
+        .iter()
+        .filter(|w| matches!(w.source, WallSourceId::RoofGable { .. }))
+    {
+        if !plan
+            .opening_assemblies
+            .iter()
+            .any(|o| o.host_wall == wall.id && super::gable_openings::valid(plan, wall, o))
+        {
+            issues.push(issue(
+                GABLE_GAP,
+                format!(
+                    "gable wall {} lacks an intact, clear, reciprocal aperture",
+                    wall.id.0
+                ),
+            ));
+        }
+    }
     for roof in plan
         .roof_assemblies
         .iter()
@@ -177,7 +244,7 @@ pub(super) fn audit(plan: &BuildingPlan, issues: &mut Vec<AuditIssue>) {
         for sign in [-1.0, 1.0] {
             let section = GableSection::new(plan, recipe, sign);
             let expected = section.expected(roof, recipe.base_height_metres);
-            let missing = MultiPolygon(vec![expected]).difference(&section.coverage(roof));
+            let missing = MultiPolygon(vec![expected]).difference(&section.coverage(plan, roof));
             let area = missing.unsigned_area();
             if area > AREA_TOLERANCE_SQUARE_METRES {
                 let witness = missing.0[0].exterior().0[0];

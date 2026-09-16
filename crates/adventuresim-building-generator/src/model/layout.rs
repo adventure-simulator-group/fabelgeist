@@ -194,6 +194,8 @@ impl RoofFace {
 pub struct RoofEnclosureFace {
     pub id: ResolvedItemId,
     pub polygon: Vec<Vec3>,
+    /// Reciprocal inset-wall owners. Their dimensions define the enclosure cuts.
+    pub inset_walls: Vec<WallAssemblyId>,
     pub material: RoofMaterial,
     pub support_nodes: Vec<StructuralNodeId>,
 }

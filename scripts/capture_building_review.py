@@ -24,7 +24,7 @@ def capture(profile, title, *, evidence_name="building-presentation.json", revie
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
     if not args.skip_build:
-        subprocess.run(["cargo", "build", "-p", "adventuresim-tactical-client", "--bin", "tactical-scene-viewer", "--offline"], cwd=root, check=True)
+        subprocess.run(["cargo", "build", "-p", "adventuresim-tactical-client", "--bin", "tactical-scene-viewer", "--features", "debug", "--offline"], cwd=root, check=True)
     executable = root / "target/debug" / ("tactical-scene-viewer.exe" if os.name == "nt" else "tactical-scene-viewer")
     output = args.output.resolve()
     if output.exists():
