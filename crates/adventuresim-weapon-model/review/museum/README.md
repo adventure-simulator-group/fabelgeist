@@ -5,6 +5,64 @@ Select a study in the weapon modeler's preset selector. Its controls edit the
 same canonical recipe used by native generation and GLB export. Studies are
 separate from the general authoring presets and gameplay chassis registry.
 
+## Cleveland 1916.1589 seven-flanged mace
+
+Select `cma-1916-1589` or export it with the standard command below. The
+[recipe](cma-1916.1589.json) studies the complete structural silhouette of
+[Cleveland's seven-flanged mace](https://www.clevelandart.org/art/1916.1589),
+dated about 1540–50. It covers the compact `flanged-mace` browser family and
+`flanged_mace` gameplay family. The elongated `gothic-flanged-mace` remains a
+separate pending reference endpoint. Acceptance does not resize either ordinary
+preset to this specimen.
+
+The museum publishes an overall length of 645 mm, mass of 1.6 kg, and
+"Head: 11.4 cm" without specifying the measurement axis. The
+[full photograph](https://openaccess-cdn.clevelandart.org/1916.1589/1916.1589_print.jpg)
+and [alternate photograph](https://openaccess-cdn.clevelandart.org/1916.1589/1916.1589_alt0_print.jpg)
+are CC0, courtesy of the Cleveland Museum of Art; Gift of Mr. and Mrs. John L.
+Severance. They show essentially the same pose, not independent reverse views.
+
+Photographic proportions support a roughly 137 mm flange body, 44 mm breadth
+at its ends, and 114 mm maximum cusp diameter. That diameter's agreement with
+the ambiguous museum head measurement does not establish its axis. The axial
+intervals are 18 mm butt, 180 mm grip, 14 mm grip band, 267 mm exposed haft,
+9 mm head band, 137 mm flange body and 20 mm crown, totaling 645 mm. Seven
+equivalent concave flanges have cusps above their midpoints. A tapered faceted
+haft connects the long grip to the narrow head core.
+
+Flange thickness of 2.5 mm, a 9 mm core circumradius, the regular seven-sided
+core and solid steel internal construction are assumptions. The resulting
+calculated mass is approximately 2.143 kg, separately from the museum's 1.6 kg.
+Density and unmeasured thicknesses are not adjusted to force agreement. Hidden
+voids, internal fasteners and unpictured reverse details remain unknown.
+Structural scope includes flange contours and count, shaft/grip proportions,
+transition bands and terminal finials. Chasing, decorative butt fluting,
+gilding, patina and other surface decoration are not reproduced.
+
+### Flange receiving faces
+
+The shared mace core is an explicitly faceted lathe. Its polygon side count
+defaults to the flange count; an authored `segments` value must be a multiple
+of that count. Those receiving flats retain their phase and shape at every
+LOD. `coreProfile` supplies axial height and circumradius stations, with
+strictly increasing heights. Its endpoints cover the complete head and crown
+interval. Without that profile, the core retains the standard tapered law.
+
+Each flange's inner contour follows the actual core-face apothem at all
+profile stations. The entire finite plate thickness must fit on that face.
+The inner and outer contour station union proves separation between their
+piecewise-linear boundaries; an oversized plate or a protruding core is
+rejected. Core and flange solids share receiving surfaces without overlapping
+material volumes. `rootRadius` and `shoulderRadius` remain the outside flange
+landmarks. The arbitrary `flangeRootScale` parameter is removed.
+
+Ordinary mace mass and inertia consequently change: their previous core/plate
+overlap was counted as material twice. The gameplay mace uses six core faces
+so its authored upper flange contour retains a positive plate width. The
+museum controls expose flange count, thickness, outer radii, cusp height,
+concavity, core radius, grip length and exposed haft length. Editing axial head
+length in the recipe also requires updating its absolute core-profile heights.
+
 From the repository root, export the study with the standard modeler workflow:
 
 ```sh

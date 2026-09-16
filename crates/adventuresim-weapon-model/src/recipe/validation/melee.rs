@@ -149,9 +149,6 @@ fn pommel(p: &PommelParameters) -> Checked {
 }
 
 fn mace(p: &MaceParameters) -> Checked {
-    if let Some(scale) = p.flange_root_scale {
-        proportion(scale.get() > 0.0 && scale.get() <= 1.0)?;
-    }
     if let Some(points) = &p.core_profile {
         profile(points, ProfileEnds::Poles)?;
         proportion(

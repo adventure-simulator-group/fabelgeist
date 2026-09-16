@@ -1,0 +1,377 @@
+{
+  "id": "cma-1916-1589",
+  "name": "Cleveland 1916.1589 seven-flanged mace",
+  "family": "Flanged mace - c.1540-1550",
+  "definition": {
+    "components": [
+      {
+        "id": "butt",
+        "label": "butt",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "darkSteel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0
+          ],
+          [
+            0.004,
+            0.006
+          ],
+          [
+            0.014,
+            0.0155
+          ],
+          [
+            0.016,
+            0.016
+          ],
+          [
+            0.018,
+            0.012
+          ]
+        ],
+        "segments": 28,
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip",
+        "label": "steel grip",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "darkSteel",
+        "length": 0.18,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.024,
+            "depth": 0.024
+          },
+          {
+            "at": 0.15,
+            "width": 0.027,
+            "depth": 0.027
+          },
+          {
+            "at": 0.8,
+            "width": 0.026,
+            "depth": 0.026
+          },
+          {
+            "at": 1,
+            "width": 0.024,
+            "depth": 0.024
+          }
+        ],
+        "attach": {
+          "to": "butt.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip-band",
+        "label": "grip-band",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "darkSteel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.012
+          ],
+          [
+            0.002,
+            0.013
+          ],
+          [
+            0.005,
+            0.013
+          ],
+          [
+            0.006,
+            0.0118
+          ],
+          [
+            0.01,
+            0.0118
+          ],
+          [
+            0.011,
+            0.013
+          ],
+          [
+            0.014,
+            0.013
+          ]
+        ],
+        "segments": 28,
+        "attach": {
+          "to": "grip.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "haft",
+        "label": "faceted steel haft",
+        "kind": "shaft",
+        "role": "Structure",
+        "material": "darkSteel",
+        "length": 0.267,
+        "radius": 0.012,
+        "topScale": 0.6666666666666666,
+        "bottomScale": 1,
+        "segments": 8,
+        "attach": {
+          "to": "grip-band.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "head-band",
+        "label": "head-band",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "darkSteel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.008
+          ],
+          [
+            0.001,
+            0.01
+          ],
+          [
+            0.003,
+            0.01
+          ],
+          [
+            0.004,
+            0.0088
+          ],
+          [
+            0.006,
+            0.0088
+          ],
+          [
+            0.007,
+            0.01
+          ],
+          [
+            0.009,
+            0.009
+          ]
+        ],
+        "segments": 28,
+        "attach": {
+          "to": "haft.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "head",
+        "label": "seven-flanged head",
+        "kind": "mace",
+        "role": "Head",
+        "material": "steel",
+        "length": 0.137,
+        "rootRadius": 0.022,
+        "shoulderRadius": 0.022,
+        "cuspRadius": 0.057,
+        "cuspHeight": 0.62,
+        "concavity": 0.88,
+        "crownLength": 0,
+        "flanges": 7,
+        "flangeThickness": 0.0025,
+        "coreProfile": [
+          [
+            -0.0685,
+            0.009
+          ],
+          [
+            0.0685,
+            0.009
+          ]
+        ],
+        "attach": {
+          "to": "head-band.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "crown",
+        "label": "crown",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "darkSteel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.009
+          ],
+          [
+            0.002,
+            0.009
+          ],
+          [
+            0.004,
+            0.004
+          ],
+          [
+            0.008,
+            0.0035
+          ],
+          [
+            0.01,
+            0.006
+          ],
+          [
+            0.012,
+            0.005
+          ],
+          [
+            0.017,
+            0.002
+          ],
+          [
+            0.02,
+            0
+          ]
+        ],
+        "segments": 28,
+        "attach": {
+          "to": "head.top",
+          "at": "base"
+        }
+      }
+    ]
+  },
+  "controls": [
+    {
+      "label": "Steel grip length",
+      "path": "components.1.length",
+      "min": 0.14,
+      "max": 0.23,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Exposed haft length",
+      "path": "components.3.length",
+      "min": 0.2,
+      "max": 0.35,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Flange count",
+      "path": "components.5.flanges",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Flange thickness",
+      "path": "components.5.flangeThickness",
+      "min": 0.0015,
+      "max": 0.004,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Flange lower radius",
+      "path": "components.5.rootRadius",
+      "min": 0.016,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Flange upper radius",
+      "path": "components.5.shoulderRadius",
+      "min": 0.016,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Maximum cusp radius",
+      "path": "components.5.cuspRadius",
+      "min": 0.045,
+      "max": 0.065,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Cusp height",
+      "path": "components.5.cuspHeight",
+      "min": 0.4,
+      "max": 0.78,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Side concavity",
+      "path": "components.5.concavity",
+      "min": 0.2,
+      "max": 0.98,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Core radius",
+      "path": "components.5.coreProfile.0.1",
+      "min": 0.0075,
+      "max": 0.011,
+      "step": 0.0001,
+      "unit": "m",
+      "paths": [
+        "components.5.coreProfile.0.1",
+        "components.5.coreProfile.1.1"
+      ]
+    }
+  ],
+  "choiceControls": [],
+  "description": "Structural study of Cleveland 1916.1589: seven cusped steel flanges seated on a faceted core, a tapering haft and long grip. Chased decoration and gilding are outside this study.",
+  "notes": {
+    "source": "https://www.clevelandart.org/art/1916.1589",
+    "images": [
+      "https://openaccess-cdn.clevelandart.org/1916.1589/1916.1589_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1916.1589/1916.1589_alt0_print.jpg"
+    ],
+    "rights": "CC0; Cleveland Museum of Art. Gift of Mr. and Mrs. John L. Severance.",
+    "published": {
+      "overallMetres": 0.645,
+      "headMetres": 0.114,
+      "headMeasurementAxis": "unspecified",
+      "massKg": 1.6
+    },
+    "photoEstimates": {
+      "flangeBodyLengthMetres": 0.137,
+      "cuspRadiusMetres": 0.057,
+      "flangeEndRadiiMetres": 0.022,
+      "gripLengthMetres": 0.18
+    },
+    "assumptions": [
+      "Solid steel substitutes for unknown hollow or composite internal construction.",
+      "Flange thickness 2.5 mm and core circumradius 9 mm are unmeasured construction assumptions; mass is not calibrated to the museum weight.",
+      "Seven equivalent flanges and a regular seven-sided core; the two published photographs show essentially the same pose and do not establish hidden reverse details.",
+      "The museum Head: 11.4 cm dimension has no stated axis; its numerical agreement with the modeled cusp diameter is not proof of that interpretation."
+    ],
+    "scope": "Complete structural silhouette, flange count and contours, shaft/grip proportions, bands and terminal finials. Chasing, decorative butt fluting, gilding, patina and hidden construction are excluded.",
+    "coverage": {
+      "browser": "flanged-mace",
+      "gameplay": "flanged_mace",
+      "pendingRelated": "gothic-flanged-mace"
+    }
+  }
+}

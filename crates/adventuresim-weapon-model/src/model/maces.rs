@@ -1,5 +1,6 @@
 //! Radial flanges and their turned structural core.
 use super::*;
+use std::f64::consts::PI;
 
 pub(super) fn mace(
     r: &ResolvedComponent,
@@ -19,22 +20,22 @@ pub(super) fn mace(
     if let Some(profile) = &p.core_profile {
         core = profile.iter().map(|p| p.map(Metres::get)).collect();
     }
+    let sides = p.segments.map_or(p.flanges.0 as usize, |n| n.0 as usize);
+    if !sides.is_multiple_of(p.flanges.0 as usize) {
+        return Err("mace core sides must be a multiple of its flange count".into());
+    }
+    let angle = PI / sides as f64;
+    let outer = flange_outer(p, detail);
+    let inner = receiving_profile(&core, &outer, p.flange_thickness.get(), angle)?;
     let mut parts = vec![PartSource::new(
-        Solid::lathe(
-            &core,
-            p.segments.map_or(12, |n| n.0 as usize),
-            1.0,
-            false,
-            detail,
-        )?,
+        Solid::faceted_lathe(&core, sides, detail)?
+            .transform([0.0, -180.0 / sides as f64, 0.0], [0.0; 3]),
         material,
         &r.label,
         &r.id,
     )];
-    let outer = flange_outer(p, detail);
-    let scale = p.flange_root_scale.map_or(0.55, Ratio::get);
     let mut outline = outer;
-    outline.extend([[shoulder * scale, half], [root * scale, -half]]);
+    outline.extend(inner.into_iter().rev());
     let coincident = |a: &PlanarPoint, b: &PlanarPoint| (a[0] - b[0]).hypot(a[1] - b[1]) < 1e-10;
     outline.dedup_by(|a, b| coincident(a, b));
     if coincident(outline.first().unwrap(), outline.last().unwrap()) {
@@ -53,6 +54,48 @@ pub(super) fn mace(
         ));
     }
     Ok(parts)
+}
+
+/// The inner flange edge shares the actual polygon face, including each change
+/// in core slope. Checking the union of both polylines' stations proves that
+/// their piecewise-linear boundaries never cross between stations.
+fn receiving_profile(
+    core: &[PlanarPoint],
+    outer: &[PlanarPoint],
+    thickness: f64,
+    angle: f64,
+) -> Result<Vec<PlanarPoint>, String> {
+    if core.windows(2).any(|p| p[1][0] <= p[0][0]) {
+        return Err("mace core stations must have strictly increasing heights".into());
+    }
+    let bottom = outer[0][1];
+    let top = outer.last().unwrap()[1];
+    let interpolate = |profile: &[PlanarPoint], height: f64| {
+        let span = profile.windows(2).find(|p| height <= p[1][0]).unwrap();
+        let t = (height - span[0][0]) / (span[1][0] - span[0][0]);
+        span[0][1] + (span[1][1] - span[0][1]) * t
+    };
+    let silhouette: Vec<_> = outer.iter().map(|p| [p[1], p[0]]).collect();
+    let mut heights: Vec<_> = outer
+        .iter()
+        .map(|p| p[1])
+        .chain(core.iter().map(|p| p[0]).filter(|&y| y > bottom && y < top))
+        .collect();
+    heights.sort_by(f64::total_cmp);
+    heights.dedup();
+    let mut inner = Vec::new();
+    for height in heights {
+        let radius = interpolate(core, height);
+        if thickness >= 2.0 * radius * angle.sin() {
+            return Err("mace flange thickness exceeds its receiving core face".into());
+        }
+        let seat = radius * angle.cos();
+        if seat >= interpolate(&silhouette, height) {
+            return Err("mace core face reaches outside the flange outline".into());
+        }
+        inner.push([seat, height]);
+    }
+    Ok(inner)
 }
 
 pub(super) fn flange_outer(p: &MaceParameters, detail: Detail) -> Vec<PlanarPoint> {
@@ -81,6 +124,9 @@ pub(super) fn flange_outer(p: &MaceParameters, detail: Detail) -> Vec<PlanarPoin
     outer.extend(
         adaptive_curve(
             |t| {
+                if t == 1.0 {
+                    return [shoulder, half];
+                }
                 [
                     shoulder + (cusp - shoulder) * (1.0 - t).powf(exponent),
                     cusp_y + (half - cusp_y) * t,

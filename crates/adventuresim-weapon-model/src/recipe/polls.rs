@@ -204,12 +204,6 @@ pub struct MaceParameters {
         skip_serializing_if = "Option::is_none",
         deserialize_with = "crate::recipe::deserialize_present"
     )]
-    pub flange_root_scale: Option<Ratio>,
-    #[serde(
-        default,
-        skip_serializing_if = "Option::is_none",
-        deserialize_with = "crate::recipe::deserialize_present"
-    )]
     pub core_profile: Option<Vec<[Metres; 2]>>,
     pub length: Metres,
     pub root_radius: Metres,

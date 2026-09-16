@@ -19,6 +19,8 @@ mod guards;
 mod lofted_blade;
 #[cfg(test)]
 mod longsword_tests;
+#[cfg(test)]
+mod mace_tests;
 mod maces;
 mod mounts;
 pub(crate) mod output;

@@ -35,26 +35,37 @@ fn weapon_transport_rejects_previous_versions_and_emits_current_identity() {
     let current = versioned_hash(domain, SCHEMA_VERSION, GENERATOR_VERSION, &design);
     assert_eq!(design_hash(&design), current);
     assert_eq!(generate(&design).unwrap().design_hash, current);
-    assert_ne!(current, versioned_hash(domain, 8, 11, &design));
+    assert_ne!(current, versioned_hash(domain, 9, 12, &design));
 
     let mut previous = envelope.clone();
-    previous["schema_version"] = 8.into();
+    previous["schema_version"] = 9.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::SchemaVersion {
-            found: 8,
+            found: 9,
             expected: SCHEMA_VERSION
         })
     ));
     previous = envelope;
-    previous["generator_version"] = 11.into();
+    previous["generator_version"] = 12.into();
     assert!(matches!(
         decode(&serde_json::to_vec(&previous).unwrap()),
         Err(CodecError::GeneratorVersion {
-            found: 11,
+            found: 12,
             expected: GENERATOR_VERSION
         })
     ));
+}
+
+#[test]
+fn museum_mace_round_trip_preserves_receiving_faces_and_material_properties() {
+    let mut design = default_design("flanged_mace").unwrap();
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../review/museum/cma-1916.1589.json")).unwrap();
+    design.recipe = serde_json::from_value(study["definition"].clone()).unwrap();
+    let restored = decode(&encode(&design).unwrap()).unwrap();
+    assert_eq!(restored, design);
+    assert!(generate(&restored).unwrap() == generate(&design).unwrap());
 }
 
 #[test]
