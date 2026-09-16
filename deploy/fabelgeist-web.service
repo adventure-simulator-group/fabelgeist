@@ -1,0 +1,30 @@
+[Unit]
+Description=Fabelgeist strategic web
+After=fabelgeist-stdb.service
+Wants=fabelgeist-stdb.service
+
+[Service]
+Type=simple
+User={{SERVICE_USER}}
+WorkingDirectory={{DEPLOY_ROOT}}
+ExecStart={{DEPLOY_ROOT}}/bin/strategic-web
+Restart=always
+RestartSec=2
+Environment=RUST_LOG=strategic_web=info,tower_http=info
+Environment=SPACETIMEDB_HOST=http://127.0.0.1:3000
+Environment=SPACETIMEDB_DATABASE={{DATABASE}}
+# Loopback: Caddy terminates TLS in front. Character selection is not
+# authentication, so this must never bind publicly.
+Environment=BIND_ADDRESS=127.0.0.1:8080
+Environment=STATIC_DIR={{DEPLOY_ROOT}}/public
+Environment=TACTICAL_STATIC_DIR={{DEPLOY_ROOT}}/tactical
+Environment=STRATEGIC_MAP_BUNDLE_DIR={{DEPLOY_ROOT}}/strategic-map
+# SPACETIMEDB_TOKEN, uploaded by scripts/deploy.py.
+EnvironmentFile={{DEPLOY_ROOT}}/env
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

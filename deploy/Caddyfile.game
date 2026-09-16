@@ -1,0 +1,21 @@
+# Managed by scripts/deploy.py (game target). Restored from the easy-deploy branch.
+
+www.{{DOMAIN}} {
+    redir https://{{DOMAIN}}{uri} permanent
+}
+
+{{DOMAIN}} {
+    encode zstd gzip
+
+    # Tactical mission sockets. The dispatcher binds each spawned server on
+    # loopback 6000+ and registers wss://{{DOMAIN}}/t<port> as its public
+    # address, so the browser client reaches it over the same TLS cert.
+    # The port range is pinned deliberately: an open {re.*} port capture here
+    # would proxy /t3000 straight into SpacetimeDB.
+    @tactical path_regexp tactical ^/t(6[0-9]{3})$
+    reverse_proxy @tactical 127.0.0.1:{re.tactical.1}
+
+    # strategic-web serves its own static and tactical asset trees, so
+    # everything else is one hop. It binds loopback only.
+    reverse_proxy 127.0.0.1:8080
+}
