@@ -16,7 +16,12 @@ mod partition;
 mod partitioned_curve;
 pub(crate) use partitioned_curve::partitioned_cubic;
 mod planar_cells;
+mod surface_quality;
+#[cfg(test)]
+mod surface_quality_tests;
 mod surface_refinement;
+#[cfg(test)]
+mod surface_refinement_tests;
 pub(crate) use partition::PlanarCut;
 mod polygon;
 mod solids;

@@ -8,59 +8,92 @@ const PLATE_SURFACE_DEVIATION: f64 = 0.00005;
 const MAX_PLATE_OUTLINE_POINTS: usize = 4096;
 
 pub(super) fn construct(p: &ContouredPlateParameters, detail: Detail) -> Result<Solid, String> {
+    match &p.surface {
+        PlateSurface::Ridge { stations } => construct_surface(
+            p,
+            detail,
+            plate_ridge::RidgeField {
+                length: p.length.get(),
+                stations,
+            },
+        ),
+        PlateSurface::Profile { stations } => construct_surface(
+            p,
+            detail,
+            plate_profile::ProfileField {
+                length: p.length.get(),
+                width: p.width.get(),
+                stations,
+            },
+        ),
+    }
+}
+
+pub(super) trait PlateField {
+    type Cell: Ord;
+    fn cuts(&self) -> Vec<PlanarCut>;
+    fn cell(&self, point: PlanarPoint) -> Self::Cell;
+    fn thickness(&self, x: f64, y: f64) -> f64;
+}
+
+fn construct_surface(
+    p: &ContouredPlateParameters,
+    detail: Detail,
+    field: impl PlateField,
+) -> Result<Solid, String> {
     let surface_edge = detail.error(PLATE_SURFACE_EDGE);
     construction_budget(8.0 * p.width.get() * p.length.get() / surface_edge.powi(2))?;
-    let cuts = cuts(p);
+    let cuts = field.cuts();
     let outline = outline(p, detail, &cuts)?;
     let mut region = Region::triangulate(&outline, false)?;
-    for cut in cuts {
+    for cut in cuts
+        .iter()
+        .copied()
+        .filter(|cut| matches!(cut, PlanarCut::Axial(_)))
+    {
         region.partition(cut)?;
     }
-    region.remesh_cells(|point| cell(p, point))?;
+    // Station cuts create incidental vertices on old triangulation diagonals.
+    // Remove those straight-edge samples before adding transverse landmarks.
+    region.remesh_cells(|point| {
+        cuts.iter()
+            .filter(|cut| matches!(cut, PlanarCut::Axial(y) if point[1] > *y))
+            .count()
+    })?;
+    for cut in cuts
+        .iter()
+        .copied()
+        .filter(|cut| matches!(cut, PlanarCut::Transverse { .. }))
+    {
+        region.partition(cut)?;
+    }
+    region.remesh_cells(|point| field.cell(point))?;
+    validate_apices(p, &field, &region)?;
     region.refine_rational_surface(
-        |[x, y]| thickness(p, x, y) / 2.0,
+        |point| field.cell(point),
+        |[x, y]| field.thickness(x, y) / 2.0,
         detail.error(PLATE_SURFACE_DEVIATION),
         surface_edge,
     )?;
-    lift(p, region)
+    region.improve_surface_cells(
+        |point| field.cell(point),
+        |[x, y]| field.thickness(x, y) / 2.0,
+        detail.error(PLATE_SURFACE_DEVIATION),
+        surface_edge,
+    );
+    lift(p, &field, region)
 }
 
-fn cuts(p: &ContouredPlateParameters) -> Vec<PlanarCut> {
-    let mut cuts = Vec::new();
-    for station in &p.thickness {
-        cuts.push(PlanarCut::Axial(station.at.get() * p.length.get()));
-    }
-    for pair in p.thickness.windows(2) {
-        if pair.iter().all(|s| s.edge == s.ridge) {
-            continue;
-        }
-        for side in [-1.0, 1.0] {
-            for flat in [false, true] {
-                let point = |s: &PlateThicknessStation| {
-                    [
-                        side * if flat {
-                            s.flat_half_width.get()
-                        } else {
-                            s.ridge_half_width.get()
-                        },
-                        s.at.get() * p.length.get(),
-                    ]
-                };
-                cuts.push(PlanarCut::Transverse {
-                    start: point(&pair[0]),
-                    end: point(&pair[1]),
-                });
-            }
-        }
-    }
-    cuts
-}
-
-fn lift(p: &ContouredPlateParameters, region: Region) -> Result<Solid, String> {
+fn lift(
+    p: &ContouredPlateParameters,
+    field: &impl PlateField,
+    region: Region,
+) -> Result<Solid, String> {
     construction_budget((region.triangles.len() * 2 + region.boundary.len() * 2) as f64)?;
+    validate_apices(p, field, &region)?;
     let vertex = |i: usize, side: f64| {
         let [x, y] = region.points[i];
-        [x, y, side * thickness(p, x, y) / 2.0]
+        [x, y, side * field.thickness(x, y) / 2.0]
     };
     let mut solid = Solid::default();
     for &[a, b, c] in &region.triangles {
@@ -89,44 +122,53 @@ fn lift(p: &ContouredPlateParameters, region: Region) -> Result<Solid, String> {
     Ok(solid.positive())
 }
 
-#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
-enum PlateBand {
-    Flat,
-    LeftSlope,
-    RightSlope,
-    LeftEdge,
-    RightEdge,
-}
-
-fn cell(p: &ContouredPlateParameters, [x, y]: PlanarPoint) -> (usize, PlateBand) {
-    let t = (y / p.length.get()).clamp(0.0, 1.0);
-    let index = p
-        .thickness
-        .windows(2)
-        .position(|pair| t <= pair[1].at.get())
-        .unwrap();
-    let a = &p.thickness[index];
-    let b = &p.thickness[index + 1];
-    if a.edge == a.ridge && b.edge == b.ridge {
-        return (index, PlateBand::Flat);
+fn validate_apices(
+    p: &ContouredPlateParameters,
+    field: &impl PlateField,
+    region: &Region,
+) -> Result<(), String> {
+    if !matches!(&p.surface, PlateSurface::Profile { .. }) {
+        return Ok(());
     }
-    let u = (t - a.at.get()) / (b.at.get() - a.at.get());
-    let half = a.ridge_half_width.get() + (b.ridge_half_width.get() - a.ridge_half_width.get()) * u;
-    let flat = a.flat_half_width.get() + (b.flat_half_width.get() - a.flat_half_width.get()) * u;
-    let band = if x.abs() <= flat {
-        PlateBand::Flat
-    } else if x.abs() <= half {
-        if x < 0.0 {
-            PlateBand::LeftSlope
-        } else {
-            PlateBand::RightSlope
+    let height: Vec<_> = region
+        .points
+        .iter()
+        .map(|&[x, y]| field.thickness(x, y))
+        .collect();
+    let endpoints: Vec<_> = std::iter::once(p.start)
+        .chain(p.boundary.iter().map(PlateBoundarySpan::end))
+        .map(|point| {
+            [
+                point[0].get() * p.width.get(),
+                point[1].get() * p.length.get(),
+            ]
+        })
+        .collect();
+    for (index, &value) in height.iter().enumerate() {
+        if value > 0.0 {
+            continue;
         }
-    } else if x < 0.0 {
-        PlateBand::LeftEdge
-    } else {
-        PlateBand::RightEdge
-    };
-    (index, band)
+        let boundary = region.boundary.iter().position(|&i| i == index);
+        let isolated = boundary.is_some_and(|i| {
+            let count = region.boundary.len();
+            height[region.boundary[(i + count - 1) % count]] > 0.0
+                && height[region.boundary[(i + 1) % count]] > 0.0
+        });
+        if value != 0.0 || !isolated || !endpoints.contains(&region.points[index]) {
+            return Err(
+                "plate profile permits zero thickness only at isolated authored boundary apices"
+                    .into(),
+            );
+        }
+    }
+    if region
+        .triangles
+        .iter()
+        .any(|face| face.iter().all(|&i| height[i] == 0.0))
+    {
+        return Err("plate profile leaves a zero-thickness surface".into());
+    }
+    Ok(())
 }
 
 fn outline(
@@ -167,20 +209,4 @@ fn outline(
     }
     result.pop();
     Ok(result)
-}
-
-fn thickness(p: &ContouredPlateParameters, x: f64, y: f64) -> f64 {
-    let t = (y / p.length.get()).clamp(0.0, 1.0);
-    let stations = p.thickness.windows(2).find(|s| t <= s[1].at.get()).unwrap();
-    let u = (t - stations[0].at.get()) / (stations[1].at.get() - stations[0].at.get());
-    let edge = stations[0].edge.get() + (stations[1].edge.get() - stations[0].edge.get()) * u;
-    let ridge = stations[0].ridge.get() + (stations[1].ridge.get() - stations[0].ridge.get()) * u;
-    if edge == 0.0 && ridge == 0.0 {
-        return 0.0;
-    }
-    let half = stations[0].ridge_half_width.get()
-        + (stations[1].ridge_half_width.get() - stations[0].ridge_half_width.get()) * u;
-    let flat = stations[0].flat_half_width.get()
-        + (stations[1].flat_half_width.get() - stations[0].flat_half_width.get()) * u;
-    edge + (ridge - edge) * ((half - x.abs()) / (half - flat)).clamp(0.0, 1.0)
 }

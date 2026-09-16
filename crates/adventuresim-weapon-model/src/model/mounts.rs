@@ -86,6 +86,9 @@ pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), String> 
     }
     let radius = shaft.radius.get() * shaft.top_scale.map_or(0.92, Ratio::get);
     match &component.shape {
+        Shape::Socket(p) if p.facets.is_some() => {
+            return Err("faceted socket requires explicit shared-section attachment".into());
+        }
         Shape::Socket(p) if p.fit_shaft == Some(false) => {
             let wall = p.wall.map_or(0.003, Metres::get);
             if p.profile

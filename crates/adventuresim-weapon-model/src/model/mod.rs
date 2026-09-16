@@ -20,6 +20,7 @@ mod grip;
 #[cfg(test)]
 mod groove_body_tests;
 mod groove_sections;
+mod groove_transitions;
 mod guard_nodes;
 mod guards;
 mod lofted_blade;
@@ -32,6 +33,10 @@ mod mortised_guard;
 mod mounts;
 pub(crate) mod output;
 mod placement;
+mod plate_profile;
+#[cfg(test)]
+mod plate_profile_tests;
+mod plate_ridge;
 mod polls;
 mod pommels;
 mod profile_body;
@@ -44,6 +49,8 @@ mod seated_hilt_tests;
 mod shaft_wrapping;
 mod shapes;
 mod shields;
+#[cfg(test)]
+mod socket_tests;
 mod spear_socket;
 #[cfg(test)]
 mod spear_tests;

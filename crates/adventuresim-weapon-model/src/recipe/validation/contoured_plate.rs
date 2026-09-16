@@ -11,10 +11,6 @@ pub(super) fn validate(p: &ContouredPlateParameters) -> Checked {
         (3..=MAX_PLATE_SPANS).contains(&p.boundary.len()),
         RecipeError::Budget,
     )?;
-    require(
-        (2..=MAX_PLATE_THICKNESS_STATIONS).contains(&p.thickness.len()),
-        RecipeError::Budget,
-    )?;
     let check_point = |point: [Ratio; 2]| {
         require(
             (-1.0..=1.0).contains(&point[0].get()) && (0.0..=1.0).contains(&point[1].get()),
@@ -34,10 +30,6 @@ pub(super) fn validate(p: &ContouredPlateParameters) -> Checked {
         p.boundary.last().unwrap().end() == p.start,
         RecipeError::Profile,
     )?;
-    require(
-        p.thickness.first().unwrap().at.get() == 0.0 && p.thickness.last().unwrap().at.get() == 1.0,
-        RecipeError::Profile,
-    )?;
     for endpoint in [0.0, 1.0] {
         require(
             std::iter::once(p.start)
@@ -46,15 +38,38 @@ pub(super) fn validate(p: &ContouredPlateParameters) -> Checked {
             RecipeError::Profile,
         )?;
     }
-    for pair in p.thickness.windows(2) {
-        require(pair[0].at.get() < pair[1].at.get(), RecipeError::Profile)?;
+    match &p.surface {
+        PlateSurface::Ridge { stations } => ridge(p, stations),
+        PlateSurface::Profile { stations } => profile(p, stations),
     }
-    for station in &p.thickness {
+}
+
+fn positions(values: impl Iterator<Item = f64>) -> Checked {
+    let values: Vec<_> = values.collect();
+    require(
+        (2..=MAX_PLATE_THICKNESS_STATIONS).contains(&values.len()),
+        RecipeError::Budget,
+    )?;
+    require(
+        values.first() == Some(&0.0) && values.last() == Some(&1.0),
+        RecipeError::Profile,
+    )?;
+    require(values.windows(2).all(|p| p[0] < p[1]), RecipeError::Profile)
+}
+
+fn ridge(p: &ContouredPlateParameters, stations: &[PlateThicknessStation]) -> Checked {
+    positions(stations.iter().map(|s| s.at.get()))?;
+    for station in stations {
         require(
             (0.0..=1.0).contains(&station.at.get()),
             RecipeError::Profile,
         )?;
         nonnegative(station.flat_half_width.get())?;
+        nonnegative(station.hollow_depth())?;
+        require(
+            station.hollow_depth() <= (station.ridge.get() - station.edge.get()) / 4.0,
+            RecipeError::Profile,
+        )?;
         let terminal = station.at.get() == 0.0 || station.at.get() == 1.0;
         if terminal && station.edge.get() == 0.0 && station.ridge.get() == 0.0 {
             require(
@@ -84,6 +99,36 @@ pub(super) fn validate(p: &ContouredPlateParameters) -> Checked {
                 station.ridge.get() >= station.edge.get(),
                 RecipeError::Profile,
             )?;
+        }
+    }
+    Ok(())
+}
+
+const MAX_SECTION_LANDMARKS: usize = 32;
+
+fn profile(p: &ContouredPlateParameters, stations: &[PlateSectionStation]) -> Checked {
+    positions(stations.iter().map(|s| s.at.get()))?;
+    let count = stations[0].profile.len();
+    require(
+        (2..=MAX_SECTION_LANDMARKS).contains(&count),
+        RecipeError::Budget,
+    )?;
+    for station in stations {
+        require(station.profile.len() == count, RecipeError::Profile)?;
+        require(
+            station.profile[0].across.get() == -1.0
+                && station.profile[count - 1].across.get() == 1.0,
+            RecipeError::Profile,
+        )?;
+        for pair in station.profile.windows(2) {
+            require(
+                (pair[1].across.get() - pair[0].across.get()) * p.width.get()
+                    >= MIN_MANUFACTURED_METRES,
+                RecipeError::Profile,
+            )?;
+        }
+        for point in &station.profile {
+            nonnegative(point.thickness.get())?;
         }
     }
     Ok(())

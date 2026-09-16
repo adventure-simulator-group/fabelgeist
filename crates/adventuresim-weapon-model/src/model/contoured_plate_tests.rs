@@ -7,9 +7,9 @@ fn blank() -> serde_json::Value {
         "boundary":[{"kind":"line","to":[0.5,0]},
             {"kind":"line","to":[0.5,1]}, {"kind":"line","to":[-0.5,1]},
             {"kind":"line","to":[-0.5,0]}],
-        "thickness":[
+        "surface":{"kind":"ridge","stations":[
             {"at":0,"edge":0.002,"ridge":0.010,"ridgeHalfWidth":0.020,"flatHalfWidth":0},
-            {"at":1,"edge":0.002,"ridge":0.010,"ridgeHalfWidth":0.020,"flatHalfWidth":0}]
+            {"at":1,"edge":0.002,"ridge":0.010,"ridgeHalfWidth":0.020,"flatHalfWidth":0}]}
     })
 }
 
@@ -20,7 +20,7 @@ fn parameters(value: serde_json::Value) -> ContouredPlateParameters {
     p
 }
 
-fn closed(solid: &Solid) {
+pub(super) fn closed(solid: &Solid) {
     for export in [false, true] {
         let point = |p| {
             if export {
@@ -65,6 +65,51 @@ fn plate_ridge_preserves_exact_section_volume_and_closed_export() {
 }
 
 #[test]
+fn relieved_plate_slopes_preserve_analytic_material_volume() {
+    for depths in [[0.001, 0.001], [0.0, 0.002], [0.002, 0.0005]] {
+        let mut value = blank();
+        for (i, depth) in depths.into_iter().enumerate() {
+            value["surface"]["stations"][i]["hollowDepth"] = depth.into();
+        }
+        let p = parameters(value);
+        for detail in [Detail::Low, Detail::Medium, Detail::High] {
+            let solid = contoured_plate::construct(&p, detail).unwrap();
+            closed(&solid);
+            let expected = 0.12 * (0.08 * 0.002 + 0.020 * 0.008 - 0.020 * (depths[0] + depths[1]));
+            assert!((solid.volume() - expected).abs() < expected * 1e-10);
+        }
+    }
+}
+
+#[test]
+fn relieved_plate_rejects_negative_or_inverted_slopes() {
+    for depth in [-0.001, 0.00201] {
+        let mut value = blank();
+        value["surface"]["stations"][0]["hollowDepth"] = depth.into();
+        value["id"] = "blank".into();
+        value["attach"] = serde_json::json!({"to":"weapon.root","at":"base"});
+        let recipe: Recipe = serde_json::from_value(serde_json::json!({
+            "components":[value]
+        }))
+        .unwrap();
+        assert!(recipe.validate().is_err());
+    }
+}
+
+#[test]
+fn relieved_head_variations_fit_the_unchanged_allocation_budget() {
+    let study: serde_json::Value =
+        serde_json::from_str(include_str!("../../review/museum/met-08.261.2.json")).unwrap();
+    for (length, ridge) in [(0.72, 0.0077), (0.646, 0.006)] {
+        let mut value = study["definition"].clone();
+        value["components"][3]["length"] = length.into();
+        value["components"][3]["surface"]["stations"][5]["ridge"] = ridge.into();
+        let recipe: Recipe = serde_json::from_value(value).unwrap();
+        generate_model(&recipe, Detail::High).unwrap();
+    }
+}
+
+#[test]
 fn plate_point_closes_the_complete_thickness_section() {
     let mut value = blank();
     value["boundary"] = serde_json::json!([
@@ -72,7 +117,7 @@ fn plate_point_closes_the_complete_thickness_section() {
         {"kind":"line","to":[0,1]},
         {"kind":"line","to":[-0.5,0]}
     ]);
-    value["thickness"][1] =
+    value["surface"]["stations"][1] =
         serde_json::json!({"at":1,"edge":0,"ridge":0,"ridgeHalfWidth":0,"flatHalfWidth":0});
     let p = parameters(value);
     for detail in [Detail::Low, Detail::Medium, Detail::High] {
@@ -96,14 +141,14 @@ fn plate_rejects_collapsed_sections_and_nonunique_zero_ends() {
         serde_json::from_value(serde_json::json!({"components":[shape]})).unwrap()
     };
     let mut value = blank();
-    value["thickness"][1] =
+    value["surface"]["stations"][1] =
         serde_json::json!({"at":1,"edge":0,"ridge":0,"ridgeHalfWidth":0,"flatHalfWidth":0});
     assert!(recipe(value).validate().is_err());
     let mut value = blank();
-    value["thickness"][0]["flatHalfWidth"] = 0.02.into();
+    value["surface"]["stations"][0]["flatHalfWidth"] = 0.02.into();
     assert!(recipe(value).validate().is_err());
     let mut value = blank();
-    value["thickness"][0]["edge"] = 0.into();
+    value["surface"]["stations"][0]["edge"] = 0.into();
     assert!(recipe(value).validate().is_err());
 }
 
@@ -111,7 +156,7 @@ fn plate_rejects_collapsed_sections_and_nonunique_zero_ends() {
 fn plate_cut_preserves_closed_geometry_or_rejects_sub_resolution_separations() {
     for separation in [-1e-10, 1e-10] {
         let mut value = blank();
-        for station in value["thickness"].as_array_mut().unwrap() {
+        for station in value["surface"]["stations"].as_array_mut().unwrap() {
             station["ridgeHalfWidth"] = (0.02 + separation).into();
         }
         let p = parameters(value);
@@ -127,8 +172,8 @@ fn plate_cut_preserves_closed_geometry_or_rejects_sub_resolution_separations() {
 #[test]
 fn moving_ridge_respects_surface_deviation_between_vertices() {
     let mut value = blank();
-    value["thickness"][0]["ridgeHalfWidth"] = 0.012.into();
-    value["thickness"][1]["ridgeHalfWidth"] = 0.042.into();
+    value["surface"]["stations"][0]["ridgeHalfWidth"] = 0.012.into();
+    value["surface"]["stations"][1]["ridgeHalfWidth"] = 0.042.into();
     let p = parameters(value);
     for detail in [Detail::Low, Detail::Medium, Detail::High] {
         let solid = contoured_plate::construct(&p, detail).unwrap();
@@ -167,7 +212,7 @@ fn curved_cells_preserve_closed_export_with_and_without_a_ridge() {
             {"kind":"cubic","controls":[[-0.1,0.55],[-0.3,0.55]],"to":[-0.5,1]},
             {"kind":"line","to":[-0.5,0]}
         ]);
-        for station in value["thickness"].as_array_mut().unwrap() {
+        for station in value["surface"]["stations"].as_array_mut().unwrap() {
             station["ridgeHalfWidth"] = 0.012.into();
             station["ridge"] = ridge.into();
         }

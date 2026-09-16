@@ -4,6 +4,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 // Keep equivalent diagonals in stable input order across libm implementations.
 pub(super) const TRIANGLE_QUALITY_TIE_TOLERANCE: f64 = 1e-12;
+pub(super) const TRIANGLE_QUALITY_RELATIVE_IMPROVEMENT: f64 = 1e-8;
 
 #[derive(Clone, Debug)]
 pub(crate) struct Region {
@@ -127,6 +128,13 @@ impl Region {
     }
 
     fn improve(&mut self) {
+        self.improve_where(|_, _, _| true);
+    }
+
+    pub(super) fn improve_where(
+        &mut self,
+        allowed: impl Fn(&[PlanarPoint], [[usize; 3]; 2], [[usize; 3]; 2]) -> bool,
+    ) {
         for _ in 0..16 {
             let mut edges: BTreeMap<_, Vec<_>> = BTreeMap::new();
             for (index, face) in self.triangles.iter().enumerate() {
@@ -158,7 +166,14 @@ impl Region {
                     .min(shape(&self.points, self.triangles[y.0]));
                 let after =
                     shape(&self.points, candidates[0]).min(shape(&self.points, candidates[1]));
-                if after <= before * (1.0 + 1e-8) {
+                if after <= before * (1.0 + TRIANGLE_QUALITY_RELATIVE_IMPROVEMENT) {
+                    continue;
+                }
+                if !allowed(
+                    &self.points,
+                    [self.triangles[x.0], self.triangles[y.0]],
+                    candidates,
+                ) {
                     continue;
                 }
                 self.triangles[x.0] = candidates[0];

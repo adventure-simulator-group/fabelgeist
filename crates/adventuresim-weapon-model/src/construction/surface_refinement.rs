@@ -4,8 +4,59 @@ use super::{PlanarPoint, Region, construction_budget};
 use std::collections::BTreeMap;
 
 const MAX_SURFACE_REFINEMENT_ROUNDS: usize = 12;
+const SURFACE_EDGE_ROUNDING_ULPS: f64 = 64.0;
+
+/// Keep rounding at an exact edge limit on the refining side on every target.
+/// The margin tightens the bound and includes subtraction at the point scale.
+pub(super) fn within_surface_edge(a: PlanarPoint, b: PlanarPoint, maximum_edge: f64) -> bool {
+    let scale = a
+        .into_iter()
+        .chain(b)
+        .map(f64::abs)
+        .fold(maximum_edge, f64::max);
+    let rounding = SURFACE_EDGE_ROUNDING_ULPS * f64::EPSILON * scale;
+    (a[0] - b[0]).hypot(a[1] - b[1]) + rounding <= maximum_edge
+}
 
 impl Region {
+    /// Repair incidental sub-resolution diagonals without moving authored
+    /// boundaries or crossing a structural surface partition.
+    pub(crate) fn improve_surface_cells<K: Eq>(
+        &mut self,
+        classify: impl Fn(PlanarPoint) -> K,
+        height: impl Fn(PlanarPoint) -> f64,
+        maximum_deviation: f64,
+        maximum_edge: f64,
+    ) {
+        self.collapse_interior_sampling(&classify, &height, maximum_deviation, maximum_edge);
+        self.improve_where(|points, before, after| {
+            let centroid = |face: [usize; 3]| {
+                std::array::from_fn(|axis| face.iter().map(|&i| points[i][axis]).sum::<f64>() / 3.0)
+            };
+            if classify(centroid(before[0])) != classify(centroid(before[1])) {
+                return false;
+            }
+            let subresolution = before.iter().any(|&face| {
+                let [a, b, c] = face.map(|i| points[i]);
+                let longest = [(a, b), (b, c), (c, a)]
+                    .into_iter()
+                    .map(|(p, q)| (p[0] - q[0]).hypot(p[1] - q[1]))
+                    .fold(0.0, f64::max);
+                shape(points, face) * longest < crate::recipe::MIN_MANUFACTURED_METRES
+            });
+            subresolution
+                && after.into_iter().all(|face| {
+                    let p = face.map(|i| points[i]);
+                    (0..3).all(|i| {
+                        let next = (i + 1) % 3;
+                        within_surface_edge(p[i], p[next], maximum_edge)
+                    }) && surface_deviation(p, &height) <= maximum_deviation / 2.0
+                })
+        });
+        self.collapse_interior_sampling(&classify, &height, maximum_deviation, maximum_edge);
+        self.remove_interior_fans(&classify, &height, maximum_deviation, maximum_edge);
+    }
+
     pub(crate) fn split_edges(&mut self, mids: &BTreeMap<(usize, usize), usize>) {
         let mut next = Vec::new();
         for &f in &self.triangles {
@@ -65,20 +116,22 @@ impl Region {
     /// its continuous terminal limit). The rational Bernstein error coefficients
     /// are zero at vertices and twice the edge-midpoint errors, so half-budget
     /// midpoint checks bound the entire triangle, not merely its sampled points.
-    pub(crate) fn refine_rational_surface(
+    pub(crate) fn refine_rational_surface<K: Eq>(
         &mut self,
+        classify: impl Fn(PlanarPoint) -> K,
         height: impl Fn(PlanarPoint) -> f64,
         maximum_deviation: f64,
         maximum_edge: f64,
     ) -> Result<(), String> {
         for _ in 0..MAX_SURFACE_REFINEMENT_ROUNDS {
+            let original_points = self.points.len();
             let mut mids = BTreeMap::new();
             for &face in &self.triangles {
                 let points = face.map(|i| self.points[i]);
                 let curved = surface_deviation(points, &height) > maximum_deviation / 2.0;
                 for i in 0..3 {
                     let [a, b] = [points[i], points[(i + 1) % 3]];
-                    if !curved && (a[0] - b[0]).hypot(a[1] - b[1]) <= maximum_edge {
+                    if !curved && within_surface_edge(a, b, maximum_edge) {
                         continue;
                     }
                     let key = edge(face[i], face[(i + 1) % 3]);
@@ -112,14 +165,65 @@ impl Region {
                         ))
                     })
                     .count();
-            construction_budget((faces * 2 + boundary * 2) as f64)?;
+            if let Err(error) = construction_budget((faces * 2 + boundary * 2) as f64) {
+                self.points.truncate(original_points);
+                let original_faces = self.triangles.len();
+                self.improve_surface_cells(&classify, &height, maximum_deviation, maximum_edge);
+                if self.triangles.len() == original_faces {
+                    return Err(error);
+                }
+                // Compaction invalidates the marked edges; rebuild them in the
+                // next bounded pass before allocating another refined surface.
+                continue;
+            }
             self.split_edges(&mids);
+            self.improve_refinement_cells(&classify, &height, maximum_deviation, maximum_edge);
         }
         Err("plate surface exceeds its bounded refinement budget".into())
     }
+
+    /// Improve interior fans without undoing a completed error or edge split.
+    fn improve_refinement_cells<K: Eq>(
+        &mut self,
+        classify: &impl Fn(PlanarPoint) -> K,
+        height: &impl Fn(PlanarPoint) -> f64,
+        maximum_deviation: f64,
+        maximum_edge: f64,
+    ) {
+        self.improve_where(|points, before, after| {
+            let center = |face: [usize; 3]| {
+                std::array::from_fn(|axis| face.iter().map(|&i| points[i][axis]).sum::<f64>() / 3.0)
+            };
+            if classify(center(before[0])) != classify(center(before[1])) {
+                return false;
+            }
+            let limits = |faces: [[usize; 3]; 2]| {
+                let (mut longest, mut deviation) = (0.0_f64, 0.0_f64);
+                let mut within_edge = true;
+                for face in faces {
+                    let p = face.map(|i| points[i]);
+                    deviation = deviation.max(surface_deviation(p, height));
+                    for i in 0..3 {
+                        let [a, b] = [p[i], p[(i + 1) % 3]];
+                        longest = longest.max((a[0] - b[0]).hypot(a[1] - b[1]));
+                        within_edge &= within_surface_edge(a, b, maximum_edge);
+                    }
+                }
+                (longest, deviation, within_edge)
+            };
+            let (old_edge, old_deviation, old_within_edge) = limits(before);
+            let (new_edge, new_deviation, new_within_edge) = limits(after);
+            new_edge <= old_edge.max(maximum_edge)
+                && (!old_within_edge || new_within_edge)
+                && new_deviation <= old_deviation.max(maximum_deviation / 2.0)
+        });
+    }
 }
 
-fn surface_deviation(points: [PlanarPoint; 3], height: &impl Fn(PlanarPoint) -> f64) -> f64 {
+pub(super) fn surface_deviation(
+    points: [PlanarPoint; 3],
+    height: &impl Fn(PlanarPoint) -> f64,
+) -> f64 {
     let heights = points.map(height);
     let center = std::array::from_fn(|axis| points.iter().map(|p| p[axis]).sum::<f64>() / 3.0);
     let mut deviation = (height(center) - heights.iter().sum::<f64>() / 3.0).abs();
