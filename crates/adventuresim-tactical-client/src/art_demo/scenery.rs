@@ -29,6 +29,24 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
     let distant_buildings = std::mem::take(&mut input.distant_buildings);
     let generated = input.generate().map_err(|error| error.to_string())?;
     let environment = input.environment_snapshot(generated.digest.clone());
+    let (asset_scene_digest, rgba8): (&str, &'static [u8]) = if id == ExhibitId::Oak {
+        (
+            include_str!("../../../../assets/clouds/art-demo/oak.scene-digest").trim(),
+            include_bytes!("../../../../assets/clouds/art-demo/oak.rgba8"),
+        )
+    } else {
+        (
+            include_str!("../../../../assets/clouds/art-demo/city.scene-digest").trim(),
+            include_bytes!("../../../../assets/clouds/art-demo/city.rgba8"),
+        )
+    };
+    if asset_scene_digest != generated.digest {
+        return Err(format!(
+            "prebaked cloud asset belongs to scene {asset_scene_digest}, not {}",
+            generated.digest
+        ));
+    }
+    world.insert_resource(crate::presentation::PrebakedCloudEnvironment { rgba8 });
     let half_extent = Vec2::new(generated.terrain.width(), generated.terrain.depth()) * 0.5;
     if id == ExhibitId::Oak {
         spawn_oak(world, &input, &generated, &environment)?;
@@ -154,6 +172,61 @@ fn root_slope(terrain: &SceneTerrain, position: Vec2) -> Vec2 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn fixture_environment(path: &str) -> SceneEnvironment {
+        let input: TacticalSceneInput = serde_json::from_str(path).unwrap();
+        let generated = input.generate().unwrap();
+        input.environment_snapshot(generated.digest)
+    }
+
+    #[test]
+    fn fixed_exhibits_embed_complete_nonempty_cloud_bakes() {
+        for (fixture, identity, bake) in [
+            (
+                include_str!("../../../../assets/tactical-scenes/sparse-woodland.json"),
+                include_str!("../../../../assets/clouds/art-demo/oak.scene-digest"),
+                include_bytes!("../../../../assets/clouds/art-demo/oak.rgba8").as_slice(),
+            ),
+            (
+                include_str!("../../../../assets/tactical-scenes/massive-city.json"),
+                include_str!("../../../../assets/clouds/art-demo/city.scene-digest"),
+                include_bytes!("../../../../assets/clouds/art-demo/city.rgba8").as_slice(),
+            ),
+        ] {
+            assert_eq!(fixture_environment(fixture).scene_digest, identity.trim());
+            assert_eq!(bake.len(), 1025 * 257 * 4);
+            assert!(bake.iter().any(|channel| *channel != 0));
+        }
+    }
+
+    #[test]
+    #[ignore = "offline asset generator performs the full deterministic cloud bakes"]
+    fn regenerate_art_demo_cloud_assets() {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        for (fixture, output, identity) in [
+            (
+                include_str!("../../../../assets/tactical-scenes/sparse-woodland.json"),
+                "assets/clouds/art-demo/oak.rgba8",
+                "assets/clouds/art-demo/oak.scene-digest",
+            ),
+            (
+                include_str!("../../../../assets/tactical-scenes/massive-city.json"),
+                "assets/clouds/art-demo/city.rgba8",
+                "assets/clouds/art-demo/city.scene-digest",
+            ),
+        ] {
+            let environment = fixture_environment(fixture);
+            let bake = crate::presentation::bake_environment_rgba8(&environment);
+            std::fs::write(root.join(output), &bake).unwrap();
+            std::fs::write(
+                root.join(identity),
+                format!("{}\n", environment.scene_digest),
+            )
+            .unwrap();
+            assert_eq!(std::fs::read(root.join(output)).unwrap(), bake);
+            println!("wrote {output} for {}", environment.scene_digest);
+        }
+    }
 
     #[test]
     fn woodland_exhibit_selects_one_oak_on_nonflat_terrain() {
