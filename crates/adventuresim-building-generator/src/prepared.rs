@@ -5,11 +5,12 @@ use serde::{Deserialize, Serialize};
 
 const RECIPE_HASH_OFFSET_BASIS: u64 = 0xcbf2_9ce4_8422_2325;
 /// Increment when compiled render geometry changes without a programme schema change.
-const PREPARED_RENDER_VERSION: u16 = 2;
+const PREPARED_RENDER_VERSION: u16 = 3;
 const RECIPE_HASH_PRIME: u64 = 0x0000_0100_0000_01b3;
 
 #[derive(Serialize, Deserialize)]
 pub struct PreparedBuilding {
+    #[serde(with = "program_json")]
     pub program: BuildingProgram,
     pub local_origin: Vec3,
     pub floor_offset_metres: f32,
@@ -17,6 +18,30 @@ pub struct PreparedBuilding {
     pub lod0: Vec<LodMesh>,
     pub lod1: Vec<LodMesh>,
     pub lod2: Vec<LodMesh>,
+}
+
+mod program_json {
+    use super::BuildingProgram;
+    use serde::{
+        Deserialize, Deserializer, Serialize, Serializer, de::Error as _, ser::Error as _,
+    };
+
+    pub(super) fn serialize<S>(program: &BuildingProgram, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serde_json::to_vec(program)
+            .map_err(S::Error::custom)?
+            .serialize(serializer)
+    }
+
+    pub(super) fn deserialize<'de, D>(deserializer: D) -> Result<BuildingProgram, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let bytes = Vec::<u8>::deserialize(deserializer)?;
+        serde_json::from_slice(&bytes).map_err(D::Error::custom)
+    }
 }
 
 impl PreparedBuilding {
@@ -42,7 +67,7 @@ impl PreparedBuilding {
         }
     }
 
-    /// Keep the overview small; full detail is a separately requested asset.
+    /// Extract full detail into a separately requested asset.
     pub fn take_detail(&mut self) -> Self {
         Self {
             program: self.program.clone(),
@@ -51,6 +76,19 @@ impl PreparedBuilding {
             sign_sites: Vec::new(),
             lod0: std::mem::take(&mut self.lod0),
             lod1: Vec::new(),
+            lod2: Vec::new(),
+        }
+    }
+
+    /// Extract the facade while leaving the cheapest shell in the overview.
+    pub fn take_facade(&mut self) -> Self {
+        Self {
+            program: self.program.clone(),
+            local_origin: self.local_origin,
+            floor_offset_metres: self.floor_offset_metres,
+            sign_sites: std::mem::take(&mut self.sign_sites),
+            lod0: Vec::new(),
+            lod1: std::mem::take(&mut self.lod1),
             lod2: Vec::new(),
         }
     }

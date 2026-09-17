@@ -151,7 +151,7 @@ impl CityBuildingAssets<'_> {
         placement: &DistantBuildingPlacement,
         detail: BuildingDetail,
     ) -> Result<bool> {
-        let compiled = if detail == BuildingDetail::Facade {
+        let compiled = if matches!(detail, BuildingDetail::Facade | BuildingDetail::Shell) {
             let Some(compiled) =
                 self.residency
                     .get(&self.server, &self.prepared, &placement.program(), detail)?
@@ -178,7 +178,7 @@ impl CityBuildingAssets<'_> {
             )
             .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians())),
         ));
-        if detail == BuildingDetail::Facade {
+        if detail == BuildingDetail::Shell {
             entity.insert(super::city_detail::StreamedCityBuilding::new(*placement));
         }
         entity.with_children(|parent| {
@@ -208,5 +208,5 @@ pub(super) fn present(
     if let Some(camera) = cameras.iter().next() {
         pending.prioritize(camera.translation().xz());
     }
-    pending.advance(|placement| assets.spawn(&mut commands, placement, BuildingDetail::Facade));
+    pending.advance(|placement| assets.spawn(&mut commands, placement, BuildingDetail::Shell));
 }

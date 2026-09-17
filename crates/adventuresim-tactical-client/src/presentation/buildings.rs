@@ -62,6 +62,7 @@ enum BuildingDetail {
     Dynamic,
     Static,
     Facade,
+    Shell,
 }
 
 #[derive(Clone)]
@@ -167,12 +168,11 @@ fn cached_building_levels(
     let detail_meshes = match detail {
         BuildingDetail::Dynamic => Some(compile_static_building_detail(&plan)),
         BuildingDetail::Static => Some(compile_building_detail(&plan)),
-        BuildingDetail::Facade => None,
+        BuildingDetail::Facade | BuildingDetail::Shell => None,
     };
-    let facade = if detail == BuildingDetail::Dynamic {
-        compile_static_building_lod(&plan, BuildingLodLevel::Facade)
-    } else {
-        compile_building_lod(&plan, BuildingLodLevel::Facade)
+    let facade = match detail {
+        BuildingDetail::Dynamic => compile_static_building_lod(&plan, BuildingLodLevel::Facade),
+        _ => compile_building_lod(&plan, BuildingLodLevel::Facade),
     };
     let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
@@ -235,9 +235,11 @@ fn spawn_building_levels(
                 },
                 Mesh3d(batch.mesh.clone()),
                 MeshMaterial3d(materials.get_for_building(building_id, batch.material)),
-                if compiled.detail == BuildingDetail::Facade
-                    && matches!(level, BuildingRenderLevel::Lod1)
-                {
+                if matches!(
+                    (compiled.detail, level),
+                    (BuildingDetail::Facade, BuildingRenderLevel::Lod1)
+                        | (BuildingDetail::Shell, BuildingRenderLevel::Lod2)
+                ) {
                     VisibilityRange {
                         start_margin: 0.0..0.0,
                         ..building_lod_visibility(level)

@@ -24,7 +24,8 @@ impl AssetLoader for PreparedCityLoader {
     ) -> std::io::Result<Self::Asset> {
         let mut bytes = Vec::new();
         reader.read_to_end(&mut bytes).await?;
-        let data: PreparedBuilding = serde_json::from_slice(&bytes)?;
+        let data: PreparedBuilding = postcard::from_bytes(&bytes)
+            .map_err(|error| std::io::Error::new(std::io::ErrorKind::InvalidData, error))?;
         let mut batches = |level, source: Vec<LodMesh>| {
             source
                 .into_iter()
@@ -40,10 +41,12 @@ impl AssetLoader for PreparedCityLoader {
                 })
                 .collect()
         };
-        let detail = if data.lod0.is_empty() {
+        let detail = if !data.lod0.is_empty() {
+            BuildingDetail::Static
+        } else if !data.lod1.is_empty() {
             BuildingDetail::Facade
         } else {
-            BuildingDetail::Static
+            BuildingDetail::Shell
         };
         Ok(PreparedCityAsset(CompiledBuildingLevels {
             facade_openings: Default::default(),
@@ -84,12 +87,12 @@ impl PreparedCityAssets {
         {
             handle
         } else {
-            if detail == BuildingDetail::Facade
+            if matches!(detail, BuildingDetail::Facade | BuildingDetail::Shell)
                 && self
                     .handles
                     .iter()
                     .filter(|(_, level, handle)| {
-                        *level == BuildingDetail::Facade
+                        *level == detail
                             && matches!(
                                 server.load_state(handle.id()),
                                 LoadState::Loading | LoadState::NotLoaded
@@ -101,6 +104,7 @@ impl PreparedCityAssets {
                 return Ok(None);
             }
             let suffix = match detail {
+                BuildingDetail::Shell => "overview",
                 BuildingDetail::Facade => "facade",
                 BuildingDetail::Static => "detail",
                 BuildingDetail::Dynamic => {
@@ -120,15 +124,22 @@ impl PreparedCityAssets {
         Ok(assets.get(handle).map(|asset| asset.0.clone()))
     }
 
-    pub(super) fn retain_details(&mut self, wanted: &[(Entity, f32, BuildingProgram)]) {
+    pub(super) fn retain_streamed(
+        &mut self,
+        facades: &[(Entity, f32, BuildingProgram)],
+        details: &[(Entity, f32, BuildingProgram)],
+    ) {
         self.handles.retain(|(program, detail, _)| {
-            *detail != BuildingDetail::Static
-                || wanted.iter().any(|(_, _, recipe)| recipe == program)
+            matches!(detail, BuildingDetail::Shell)
+                || (*detail == BuildingDetail::Facade
+                    && facades.iter().any(|(_, _, recipe)| recipe == program))
+                || (*detail == BuildingDetail::Static
+                    && details.iter().any(|(_, _, recipe)| recipe == program))
         });
     }
 
     pub(in crate::presentation) fn release_details(&mut self) {
         self.handles
-            .retain(|(_, detail, _)| *detail == BuildingDetail::Facade);
+            .retain(|(_, detail, _)| *detail == BuildingDetail::Shell);
     }
 }

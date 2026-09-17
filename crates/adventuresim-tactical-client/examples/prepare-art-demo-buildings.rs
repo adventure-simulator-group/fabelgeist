@@ -4,6 +4,8 @@ use adventuresim_tactical_core::prelude::DistantBuildingPlacement;
 use clap::Parser;
 use serde::Deserialize;
 
+const PREPARED_ASSET_EXTENSION: &str = "building";
+
 #[derive(Parser)]
 struct Args {
     /// Write prepared meshes to an isolated directory instead of shipped assets.
@@ -25,6 +27,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .output
         .unwrap_or_else(|| root.join("assets/art-demo/buildings"));
     std::fs::create_dir_all(&output)?;
+    for entry in std::fs::read_dir(&output)? {
+        let path = entry?.path();
+        if path
+            .extension()
+            .is_some_and(|extension| extension == PREPARED_ASSET_EXTENSION)
+        {
+            std::fs::remove_file(path)?;
+        }
+    }
     let mut recipes = std::collections::BTreeMap::new();
     for placement in layout.buildings {
         let program = placement.program();
@@ -34,11 +45,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for (index, (key, program)) in recipes.iter().enumerate() {
         let recipe_started = std::time::Instant::now();
         let plan = generate(program)?;
-        let mut facade = PreparedBuilding::from_plan(program.clone(), &plan);
-        let detail = facade.take_detail();
-        for (suffix, data) in [("facade", facade), ("detail", detail)] {
-            let file = std::fs::File::create(output.join(format!("{key}.{suffix}.building")))?;
-            serde_json::to_writer(std::io::BufWriter::new(file), &data)?;
+        let mut overview = PreparedBuilding::from_plan(program.clone(), &plan);
+        let detail = overview.take_detail();
+        let facade = overview.take_facade();
+        for (suffix, data) in [
+            ("overview", overview),
+            ("facade", facade),
+            ("detail", detail),
+        ] {
+            let bytes = postcard::to_allocvec(&data)?;
+            let _: PreparedBuilding = postcard::from_bytes(&bytes)?;
+            std::fs::write(output.join(format!("{key}.{suffix}.building")), bytes)?;
         }
         println!(
             "{}/{} {key}: {:.2}s",
