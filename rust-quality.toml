@@ -535,5 +535,10 @@ reason = "Egui acquisition buttons dispatch typed articles through widget respon
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/garment_controls.rs"
+reason = "Egui garment pattern controls dispatch typed pattern edits through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/inventory_article_editor.rs"
 reason = "Egui article editor buttons dispatch design and drape actions through widget responses; labels are never compared as state."

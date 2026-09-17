@@ -33,7 +33,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
-pub const RECIPE_VERSION: u8 = 7;
+pub const RECIPE_VERSION: u8 = 8;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]

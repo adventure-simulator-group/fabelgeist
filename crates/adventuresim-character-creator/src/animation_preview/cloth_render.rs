@@ -25,7 +25,7 @@ impl ClothSkin {
             .filter(|f| f[0] != f[1] && f[1] != f[2] && f[2] != f[0])
             .collect();
         let mut welded = Self::new(
-            self.preset,
+            self.form,
             source.iter().map(|&i| self.positions[i]).collect(),
             Vec::new(),
             faces,

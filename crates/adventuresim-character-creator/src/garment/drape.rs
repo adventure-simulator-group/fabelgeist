@@ -92,16 +92,17 @@ fn simulate(
     cancelled()?;
     let fabric = input.selection.fabric.fabric();
     let settings = fit_settings(input, &body);
-    let build = if input.selection.preset.is_fitted() {
-        fabelgeist_garment_fit::GarmentBuild {
-            mesh: super::fitted::coif(input, &input.selection.coif, &fabric)
+    let build = match &input.selection.construction {
+        Construction::Coif(coif) => fabelgeist_garment_fit::GarmentBuild {
+            mesh: super::fitted::coif(input, coif, &fabric)
                 .context("fitting the coif to the character")?,
             skipped: Vec::new(),
+        },
+        Construction::Sewn(pattern) => {
+            let design = pattern.design()?;
+            let pattern = MetaGarment::new(&input.selection.name, &body, &design).assembly();
+            build_garment(&pattern, &settings, &fabric)?
         }
-    } else {
-        let design = input.selection.design()?;
-        let pattern = MetaGarment::new(input.selection.preset.label(), &body, &design).assembly();
-        build_garment(&pattern, &settings, &fabric)?
     };
     if !build.skipped.is_empty() || build.mesh.triangles.is_empty() {
         bail!(

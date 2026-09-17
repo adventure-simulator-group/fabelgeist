@@ -288,7 +288,7 @@ pub struct BodySkin {
 #[derive(Component)]
 pub struct ClothSkin {
     render_vertices: Option<Vec<usize>>,
-    preset: GarmentPreset,
+    form: GarmentForm,
     positions: Vec<[f32; 3]>,
     faces: Vec<[u32; 3]>,
     edges: Vec<[u32; 2]>,
@@ -301,7 +301,7 @@ pub struct ClothSkin {
 
 impl ClothSkin {
     pub fn new(
-        preset: GarmentPreset,
+        form: GarmentForm,
         positions: Vec<[f32; 3]>,
         _normals: Vec<[f32; 3]>,
         faces: Vec<[u32; 3]>,
@@ -317,7 +317,7 @@ impl ClothSkin {
         let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
         Self {
             render_vertices: None,
-            preset,
+            form,
             positions,
             faces,
             edges: edges.into_iter().collect(),
@@ -488,7 +488,7 @@ mod deformation_tests {
     fn simulated_edges_preserve_the_draped_rest_length() {
         let positions = vec![[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
         let mut skin = ClothSkin::new(
-            GarmentPreset::Trousers,
+            GarmentForm::Legged,
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
@@ -515,7 +515,7 @@ mod deformation_tests {
     fn unweighted_physics_preserves_rest_shape_and_ignores_invalid_skin_weights() {
         let positions = vec![[0.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]];
         let mut skin = ClothSkin::new(
-            GarmentPreset::Trousers,
+            GarmentForm::Legged,
             positions.clone(),
             vec![[0.0, 0.0, 1.0]; 3],
             vec![[0, 1, 2]],
@@ -577,7 +577,7 @@ mod deformation_tests {
             );
             let handle = world.resource_mut::<Assets<Mesh>>().add(mesh);
             let skin = ClothSkin::new(
-                GarmentPreset::Dress,
+                GarmentForm::Skirted,
                 positions,
                 vec![],
                 vec![[0, 1, 2]],
@@ -638,7 +638,7 @@ mod deformation_tests {
             .spawn((
                 Mesh3d(mesh),
                 ClothSkin::new(
-                    GarmentPreset::Dress,
+                    GarmentForm::Skirted,
                     vec![[-0.1, -0.1, 0.0], [0.1, -0.1, 0.0], [0.0, 0.1, 0.0]],
                     vec![],
                     vec![[0, 1, 2]],

@@ -124,10 +124,7 @@ impl Article {
                 Ok((item, _)) => item.display_name.clone(),
                 Err(_) => format!("Unknown {}", article.item_id),
             },
-            Self::Draped(selection) => {
-                let preset = selection.preset.label().to_lowercase();
-                format!("{} {preset}", selection.fabric.label())
-            }
+            Self::Draped(selection) => selection.name.clone(),
             Self::Plate(armor) => {
                 use fabelgeist_armor::Construction;
                 let construction = match armor.construction {

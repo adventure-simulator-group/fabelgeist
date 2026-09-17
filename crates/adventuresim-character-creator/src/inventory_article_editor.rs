@@ -107,21 +107,16 @@ fn draped(
     drape_job: &mut DrapeJob,
 ) -> bool {
     let before = selection.clone();
-    egui::ComboBox::from_id_salt(("garment_preset", id))
-        .selected_text(selection.preset.label())
-        .show_ui(ui, |ui| {
-            for preset in GarmentPreset::ALL {
-                ui.selectable_value(&mut selection.preset, preset, preset.label());
-            }
-        });
-    if selection.preset != before.preset {
-        selection.length = selection.preset.default_length();
-    }
+    garment_controls::show(ui, id, selection);
+    ui.separator();
     fabric_controls::show(ui, id, selection);
+    garment_controls::layer(ui, id, selection);
+    ui.separator();
     drape_controls::show(ui, selection);
     if ui.button("Drape again").clicked() {
         drape_job.restart_from_placement();
         return true;
     }
-    !before.same_simulation(selection)
+    // The layer sets which garments drape over which.
+    !before.same_simulation(selection) || before.layer != selection.layer
 }

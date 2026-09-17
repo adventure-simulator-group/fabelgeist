@@ -1,5 +1,8 @@
 use super::*;
-use crate::{equipment_catalog::authored, garment::FabricPreset};
+use crate::{
+    equipment_catalog::authored,
+    garment::{ClothLayer, FabricPreset, pattern::shapes},
+};
 
 fn catalog_item(inventory: &mut Inventory, item: &str, placement: &str) -> InventoryItemId {
     inventory.add(Article::Catalog(CatalogArticle::new(item, placement)))
@@ -120,10 +123,7 @@ fn draped_garments_drape_from_the_innermost_layer() {
     let catalog = authored();
     let mut inventory = Inventory::default();
     let mail = inventory.add(Article::Draped(GarmentSelection::chainmail()));
-    let trousers = inventory.add(Article::Draped(GarmentSelection {
-        preset: crate::garment::GarmentPreset::Trousers,
-        ..Default::default()
-    }));
+    let trousers = inventory.add(draped(shapes::TROUSERS));
     let coif = inventory.add(Article::Draped(GarmentSelection::chainmail_coif()));
     for id in [mail, trousers, coif] {
         inventory.wear(id, &catalog).unwrap();
@@ -182,19 +182,19 @@ fn inventory_round_trips_and_rejects_repeated_ids() {
     assert!(repeated.validate().is_err());
 }
 
-fn draped(preset: crate::garment::GarmentPreset) -> Article {
-    Article::Draped(GarmentSelection::for_preset(preset))
+fn draped(shape: shapes::Shape) -> Article {
+    Article::Draped(GarmentSelection::from_shape(&shape))
 }
 
 #[test]
 fn cloth_stacks_from_base_through_padding_and_mail_to_outerwear() {
-    use crate::garment::GarmentPreset::{Gambeson, Shirt, Surcoat};
+    use shapes::{GAMBESON, SHIRT, SURCOAT};
     let catalog = authored();
     let mut inventory = Inventory::default();
-    let shirt = inventory.add(draped(Shirt));
-    let gambeson = inventory.add(draped(Gambeson));
+    let shirt = inventory.add(draped(SHIRT));
+    let gambeson = inventory.add(draped(GAMBESON));
     let mail = inventory.add(Article::Draped(GarmentSelection::chainmail()));
-    let surcoat = inventory.add(draped(Surcoat));
+    let surcoat = inventory.add(draped(SURCOAT));
     // Worn outermost first: the layer, not the order of dressing, decides.
     for id in [surcoat, mail, gambeson, shirt] {
         assert!(inventory.wear(id, &catalog).unwrap().is_empty());
@@ -211,15 +211,46 @@ fn cloth_stacks_from_base_through_padding_and_mail_to_outerwear() {
 
 #[test]
 fn outer_garments_displace_each_other_but_not_the_layers_beneath() {
-    use crate::garment::GarmentPreset::{Houppelande, Surcoat};
+    use shapes::{HOUPPELANDE, SURCOAT};
     let catalog = authored();
     let mut inventory = Inventory::default();
     let coif = inventory.add(Article::Draped(GarmentSelection::chainmail_coif()));
-    let surcoat = inventory.add(draped(Surcoat));
-    let houppelande = inventory.add(draped(Houppelande));
+    let surcoat = inventory.add(draped(SURCOAT));
+    let houppelande = inventory.add(draped(HOUPPELANDE));
     for id in [coif, surcoat] {
         assert!(inventory.wear(id, &catalog).unwrap().is_empty());
     }
     assert_eq!(inventory.wear(houppelande, &catalog).unwrap(), [surcoat]);
     assert_eq!(worn(&inventory), [coif, houppelande]);
+}
+
+#[test]
+fn a_garment_fills_what_its_pattern_covers_in_its_chosen_layer() {
+    use crate::garment::{
+        Construction,
+        pattern::{Lower, Pattern},
+    };
+    let catalog = authored();
+    let mut inventory = Inventory::default();
+    let tunic = inventory.add(draped(shapes::TUNIC));
+    let trousers = inventory.add(draped(shapes::TROUSERS));
+    // A long tunic has no lower garment, so trousers go under it.
+    for id in [tunic, trousers] {
+        assert!(inventory.wear(id, &catalog).unwrap().is_empty());
+    }
+    // Giving the tunic legs makes it compete with the trousers.
+    let Article::Draped(garment) = &mut inventory.get_mut(tunic).unwrap().article else {
+        unreachable!()
+    };
+    garment.construction = Construction::Sewn(Pattern {
+        lower: Some(Lower::TROUSERS),
+        ..shapes::TUNIC.pattern
+    });
+    assert!(inventory.loadout(&catalog).is_err());
+    // Moving it to the outer layer resolves the conflict.
+    let Article::Draped(garment) = &mut inventory.get_mut(tunic).unwrap().article else {
+        unreachable!()
+    };
+    garment.layer = ClothLayer::Outerwear;
+    assert!(inventory.loadout(&catalog).is_ok());
 }

@@ -1,6 +1,6 @@
 use super::*;
 use adventuresim_character_creator::{
-    garment::{DrapeStage, DrapedGarment, transfer_skin},
+    garment::{DrapeStage, DrapedGarment, pattern::shapes, transfer_skin},
     inventory::Article,
 };
 
@@ -26,7 +26,7 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
     }
     let generated = generate_character(&model, &recipe)?;
     let source: serde_json::Value = serde_json::from_slice(&std::fs::read(
-        std::env::temp_dir().join(format!("fabelgeist-drape-{:?}.json", selection.preset)),
+        std::env::temp_dir().join(format!("fabelgeist-drape-{}.json", shapes::SHIRT.name)),
     )?)?;
     let source_body: Vec<[f32; 3]> = serde_json::from_value(source["body"].clone())?;
     anyhow::ensure!(
@@ -37,7 +37,7 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
     let input = drape_preview::input(&model, &generated, selection);
     let (indices, weights) = transfer_skin(&input, &positions)?;
     let mut garment = DrapedGarment {
-        preset: input.selection.preset,
+        form: input.selection.form(),
         name: "Chainmail shirt".into(),
         fabric: FabricPreset::Chainmail,
         positions,

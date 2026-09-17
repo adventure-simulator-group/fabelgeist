@@ -16,7 +16,7 @@ mod tests {
     #[test]
     fn deformed_normals_remain_smooth_across_material_seams() {
         let garment = DrapedGarment {
-            preset: GarmentPreset::Shirt,
+            form: GarmentForm::Upper,
             name: "Two sewn panels".into(),
             fabric: FabricPreset::Chainmail,
             positions: vec![
@@ -54,15 +54,11 @@ impl DrapedGarment {
         mesh: &fabelgeist_cloth::GarmentMesh,
     ) -> Self {
         DrapedGarment {
-            preset: selection.preset,
+            form: selection.form(),
             fabric: selection.fabric,
             // Pattern metres; surfaces scale them to their own texture repeat.
             texcoords: mesh.material.iter().map(|p| [p.x, p.y]).collect(),
-            name: format!(
-                "{} · {}",
-                selection.preset.label(),
-                selection.fabric.label()
-            ),
+            name: format!("{} · {}", selection.name, selection.fabric.label()),
             positions: Vec::new(),
             normals: Vec::new(),
             faces: mesh.triangles.clone(),

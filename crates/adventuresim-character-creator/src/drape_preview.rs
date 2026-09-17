@@ -278,7 +278,7 @@ fn spawn_garment(
     if has_skin {
         commands.entity(entity).insert(
             animation_preview::ClothSkin::new(
-                garment.preset,
+                garment.form,
                 garment.positions,
                 garment.normals,
                 cloth_faces,

@@ -59,8 +59,8 @@ stable ID, whether it is worn, and one of three kinds of article:
 
 - a catalog item in one of its placements, such as the left vambrace, with an
   optional design of its own; without one it is built from the catalog default;
-- a draped garment: a sewn or fitted cloth pattern with its fabric and drape
-  settings;
+- a draped garment: a name, a sewn pattern or fitted coif, its fabric, layer
+  and drape settings;
 - Fabelgeist plate armor: the breastplate and fauld builder.
 
 Only worn articles appear on the body and in exports; the rest are carried.
@@ -78,17 +78,17 @@ capacity and on the matching side.
 In the **Inventory** tab, worn articles are grouped by layer and carried
 articles are listed below them. The checkbox wears or takes off an article.
 Wearing one takes off whatever fills its place, and taking one off also takes
-off whatever hangs from it. **Acquire** adds and wears draped garments, plate
-armor or searchable catalog items, and catalog items with left and right
-placements can add both. Selecting an article shows its editor: shape controls
-for parametric catalog items, pattern, fabric and drape settings for cloth, and
-plate controls. Editing a catalog item's shape gives it its own design. **Use
+off whatever hangs from it. **Acquire** adds and wears **New cloth**, **New
+plate armor** or searchable catalog items, and catalog items with left and
+right placements can add both. Selecting an article shows its editor: shape
+controls for parametric catalog items, the garment editor for cloth (see
+[Garments](#garments)), and plate controls. Editing a catalog item's shape gives it its own design. **Use
 catalog shape** discards that design, and **Make catalog default** copies it to
 the catalog defaults, which **Save all catalog designs** in the **Output** tab
 writes. Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
-Recipes use schema version 7. Recipes from older versions are not read.
+Recipes use schema version 8. Recipes from older versions are not read.
 
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
@@ -99,52 +99,45 @@ not sent to Bevy as the character's shading normal.
 
 ## Garments
 
-Draped garments are sewn from GarmentCode patterns, the design space of the
-GarmentCodeData dataset: a straight or fitted upper block, sleeves with a cuff
-width, a neckline with an optional standing collar, and trousers or a two-panel
-skirt, each made to the wearer's measurements. The presets under
-**Acquire** cut a medieval wardrobe from that vocabulary, each in its usual
-fabric; the pattern, fabric and drape settings stay editable afterwards.
+**New cloth** adds a cotton shirt to reshape. Every setting is in its editor,
+and a garment is sewn to the wearer's measurements from a GarmentCode pattern,
+the design space of the GarmentCodeData dataset:
 
-| Preset | Cut | Layer |
-| --- | --- | --- |
-| Shirt | Straight block, short sleeves, adjustable length | Clothing |
-| Fitted shirt | Darted bodice to the waist, short sleeves | Clothing |
-| Tunic | Straight flared block to the thigh, long sleeves | Clothing |
-| Doublet | Darted bodice, long close sleeves, standing collar | Clothing |
-| Gambeson | Straight block to the hip, long sleeves, standing collar | Padding |
-| Trousers | Straight legs to the ankle | Clothing |
-| Hose | Legs tapering slightly to the ankle, in jersey | Clothing |
-| Braies | Loose breeches to above the knee | Clothing |
-| Skirt | Two-panel skirt to the knee | Clothing |
-| Dress | Straight block, short sleeves, knee-length skirt | Clothing |
-| Kirtle | Darted bodice, long sleeves, flared ankle-length skirt | Clothing |
-| Surcoat | Sleeveless flared block to the knee, in wool | Outerwear |
-| Houppelande | Wide block to the floor, wide sleeves, standing collar, in wool | Outerwear |
-| Coif | Fitted mail hood with neck, breast and back flaps | Mail |
+- **Name** labels it in the inventory and the export.
+- **Sewn pattern** or **Fitted coif** chooses how it is made. The coif is a
+  mail hood with neck, breast and back flaps, fitted around the head and
+  sharing the catalog mail coif's controls.
+- **Body** is none, a **Straight tunic** or a **Fitted bodice**. The straight
+  tunic has a **Length** measured down from the shoulder in neck-to-waist
+  lengths, where 1 reaches the waist and about 2.5 the knee, plus ease and hem
+  flare. The fitted bodice is cut at the waist. Either can have **Sleeves**,
+  with a length and cuff width, and a **Standing collar** with a height.
+- **Legs** is none, **Trousers** or a **Skirt**, each with a length and hem
+  flare. Trousers also have ease. Their hem flare stops just below straight,
+  because narrower legs slide down the wearer while settling.
+- **Fabric** sets the cloth's weight and drape. **Layer** is clothing, padding
+  or outerwear. Padding sits between clothing and mail, and outerwear goes
+  over mail and plate. Chainmail is always worn as mail.
 
-Straight-block presets have a **Length** slider measured down from the
-shoulder in neck-to-waist lengths: 1 reaches the waist and about 2.5 the knee.
-Chainmail makes any cut mail armor. Cloth takes the layer of its cut: padding
-sits between clothing and mail, and outerwear over plate, so a surcoat drapes
-over a hauberk and breastplate while a gambeson drapes under them. A garment
-fills the body cells its cut covers, so two outer garments on the torso
-displace each other while either is worn over a coif. Hose taper only
-slightly: a narrower leg slides down the wearer during settling.
+A garment must keep a body or legs. It fills the body cells it covers: the
+chest and stomach for a body, the arms for sleeves and the legs for a lower
+garment. A long tunic over trousers therefore fits in one layer, while two
+garments on the torso in the same layer displace each other.
+
+**Start from a shape** fills in the pattern and layer from a medieval wardrobe:
+shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
+dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
 
 ## Draped chainmail
 
-Under **Acquire**, **Chainmail shirt** adds a hauberk: the straight T-tunic
-shirt pattern with the chainmail fabric preset. Its **Length** slider is
-measured down from the shoulder in neck-to-waist lengths, so 1 reaches the
-waist and about 2.5 the knee; changing it re-drapes from sewing. **Chainmail
-coif** adds the mail coif's hood, neck and breast and back flaps as cloth: the
-surface is fitted around the head and chest like the catalog mail coif, then
-settles as chainmail instead of being sewn from flat panels. It shares the
-catalog coif's neck coverage, flap length, flap width and clearance controls.
-Both are in the mail layer, so keep the shirt before the coif in the inventory
-to layer the coif over it. Wear **Plate breastplate** to show the shirt beneath
-it. Other garment patterns can also use **Chainmail** in their fabric selector.
+Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt
+is the straight tunic with sleeves, as hauberks were cut; its **Length**
+reaches anywhere from the waist to the knee, and changing it re-drapes from
+sewing. A **Fitted coif** in chainmail is fitted around the head and chest like
+the catalog mail coif, then settles as chainmail instead of being sewn from
+flat panels. Shirt and coif are both in the mail layer, so keep the shirt
+before the coif in the inventory to layer the coif over it. Wear **New plate
+armor** to show the shirt beneath it.
 
 Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
 diameter, row spacing, ring tilt, steel color and roughness. The wire and row

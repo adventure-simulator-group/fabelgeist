@@ -30,12 +30,11 @@ mod armor_preview;
 mod drape_controls;
 mod drape_preview;
 mod fabric_controls;
+mod garment_controls;
 mod inventory_ui;
 mod outfit;
 mod studio_ui;
-use adventuresim_character_creator::garment::{
-    FabricPreset, GarmentForm, GarmentPreset, GarmentSelection,
-};
+use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
 use animation_preview::WalkPreview;
 use drape_preview::DrapeJob;
 
@@ -367,23 +366,30 @@ mod garment_integration_tests {
             .is_some()
             .then(fabelgeist_armor::Armor::default);
         let generated = generate_character(&model, &recipe)?;
-        if let Ok(name) = std::env::var("GARMENT_TEST_PRESET") {
+        // Every named shape in mail, and the fitted coif.
+        let garments: Vec<_> = adventuresim_character_creator::garment::pattern::shapes::SHAPES
+            .iter()
+            .map(|shape| GarmentSelection {
+                fabric: FabricPreset::Chainmail,
+                drape: GarmentSelection::chainmail().drape,
+                ..GarmentSelection::from_shape(shape)
+            })
+            .chain([GarmentSelection {
+                name: "Coif".into(),
+                ..GarmentSelection::chainmail_coif()
+            }])
+            .collect();
+        if let Ok(name) = std::env::var("GARMENT_TEST_SHAPE") {
             assert!(
-                GarmentPreset::ALL
-                    .iter()
-                    .any(|preset| preset.label() == name),
-                "unknown GARMENT_TEST_PRESET"
+                garments.iter().any(|garment| garment.name == name),
+                "unknown GARMENT_TEST_SHAPE"
             );
         }
-        for preset in GarmentPreset::ALL {
-            if std::env::var("GARMENT_TEST_PRESET").is_ok_and(|name| name != preset.label()) {
+        for selection in garments {
+            if std::env::var("GARMENT_TEST_SHAPE").is_ok_and(|name| name != selection.name) {
                 continue;
             }
-            let selection = GarmentSelection {
-                preset,
-                length: preset.default_length(),
-                ..GarmentSelection::chainmail()
-            };
+            let label = selection.name.clone();
             recipe.inventory = Default::default();
             for article in plate
                 .clone()
@@ -397,7 +403,7 @@ mod garment_integration_tests {
                     .wear(id, &catalog)
                     .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
             }
-            println!("checking {}", preset.label());
+            println!("checking {label}");
             let mut input = drape_preview::input(&model, &generated, selection.clone());
             input.armor = plate.clone();
             let fitted = drape(
@@ -417,7 +423,7 @@ mod garment_integration_tests {
                         });
                         std::fs::write(
                             std::env::temp_dir()
-                                .join(format!("fabelgeist-drape-{preset:?}{suffix}.json")),
+                                .join(format!("fabelgeist-drape-{label}{suffix}.json")),
                             serde_json::to_vec(&diagnostic).unwrap(),
                         )
                         .unwrap();
@@ -484,19 +490,18 @@ mod garment_integration_tests {
             let mean = distances.iter().sum::<f32>() / distances.len() as f32;
             println!("mean garment distance from body: {mean:.4} m");
             std::fs::write(
-                std::env::temp_dir().join(format!("fabelgeist-drape-{preset:?}.json")),
+                std::env::temp_dir().join(format!("fabelgeist-drape-{label}.json")),
                 serde_json::to_vec(
                     &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces,"uv":fitted.texcoords,"normals":fitted.normals}),
                 )?,
             )?;
-            let maximum_distance = match preset.form() {
+            let maximum_distance = match selection.form() {
                 GarmentForm::Upper | GarmentForm::Legged | GarmentForm::Fitted => 0.08,
                 GarmentForm::Skirted => 0.25,
             };
             assert!(
                 mean < maximum_distance,
-                "{} did not remain fitted to the body: {mean}",
-                preset.label()
+                "{label} did not remain fitted to the body: {mean}",
             );
             let top = fitted
                 .positions
@@ -506,7 +511,7 @@ mod garment_integration_tests {
             assert!(top > 0.8, "garment fell below the waist");
             let directory =
                 std::env::temp_dir().join(format!("fabelgeist-drape-{}", std::process::id()));
-            let path = directory.join(format!("{preset:?}.glb"));
+            let path = directory.join(format!("{label}.glb"));
             for warning in export_character(
                 &path,
                 &model,

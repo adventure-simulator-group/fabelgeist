@@ -3,7 +3,7 @@
 use super::{Article, EquipConflict, InventoryItemId};
 use crate::{
     equipment_catalog::ItemCatalog,
-    garment::{FabricPreset, GarmentPreset, GarmentSelection},
+    garment::{Construction, FabricPreset, GarmentSelection},
     item_catalog_schema::{
         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
         ParentRequirement,
@@ -69,7 +69,7 @@ impl Article {
             }
             Self::Draped(selection) => Ok(Occupancy::on_body(
                 garment_channel(selection),
-                garment_locations(selection.preset),
+                &garment_locations(selection),
             )),
             Self::Plate(armor) => {
                 use EquipmentLocation::{Chest, Stomach};
@@ -84,7 +84,7 @@ impl Article {
     }
 }
 
-/// Mail is armor however it is cut; cloth takes the layer of its cut.
+/// Mail is armor however it is cut; cloth is worn in its chosen layer.
 fn garment_channel(selection: &GarmentSelection) -> EquipmentChannel {
     match selection.fabric {
         FabricPreset::Chainmail => EquipmentChannel::FlexibleArmor,
@@ -92,28 +92,29 @@ fn garment_channel(selection: &GarmentSelection) -> EquipmentChannel {
         | FabricPreset::Silk
         | FabricPreset::Denim
         | FabricPreset::Wool
-        | FabricPreset::Jersey => selection.preset.layer(),
+        | FabricPreset::Jersey => selection.layer.channel(),
     }
 }
 
-fn garment_locations(preset: GarmentPreset) -> &'static [EquipmentLocation] {
+/// The body cells a garment covers: the torso for an upper, the arms for its
+/// sleeves and the legs for a lower garment.
+fn garment_locations(selection: &GarmentSelection) -> Vec<EquipmentLocation> {
     use EquipmentLocation::*;
-    match preset {
-        GarmentPreset::Shirt
-        | GarmentPreset::FittedShirt
-        | GarmentPreset::Tunic
-        | GarmentPreset::Doublet
-        | GarmentPreset::Gambeson => &[Chest, Stomach, LeftArm, RightArm],
-        GarmentPreset::Surcoat => &[Chest, Stomach, LeftLeg, RightLeg],
-        GarmentPreset::Trousers
-        | GarmentPreset::Hose
-        | GarmentPreset::Braies
-        | GarmentPreset::Skirt => &[LeftLeg, RightLeg],
-        GarmentPreset::Dress | GarmentPreset::Kirtle | GarmentPreset::Houppelande => {
-            &[Chest, Stomach, LeftArm, RightArm, LeftLeg, RightLeg]
-        }
-        GarmentPreset::Coif => &[Head, Neck],
+    let pattern = match &selection.construction {
+        Construction::Coif(_) => return vec![Head, Neck],
+        Construction::Sewn(pattern) => pattern,
+    };
+    let mut locations = Vec::new();
+    if pattern.upper.is_some() {
+        locations.extend([Chest, Stomach]);
     }
+    if pattern.sleeves.is_some() {
+        locations.extend([LeftArm, RightArm]);
+    }
+    if pattern.lower.is_some() {
+        locations.extend([LeftLeg, RightLeg]);
+    }
+    locations
 }
 
 /// One worn article, ready to be fitted into the equipment graph.

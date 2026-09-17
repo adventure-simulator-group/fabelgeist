@@ -279,9 +279,7 @@ impl DrapeInput {
             && self.joints == other.joints
             && self.indices == other.indices
             && self.weights == other.weights
-            && self.selection.preset == other.selection.preset
-            && self.selection.length == other.selection.length
-            && self.selection.coif == other.selection.coif
+            && self.selection.construction == other.selection.construction
             && self.selection.fabric == other.selection.fabric
             && self.selection.resolution_cm == other.selection.resolution_cm
             && self.armor.is_some() == other.armor.is_some()
@@ -316,7 +314,7 @@ mod tests {
         let mut checkpoints = DrapeCheckpoints::new(input);
         checkpoints.record_sewn(vec![[0.0; 3]]);
         checkpoints.record_settled(DrapedGarment {
-            preset: input.selection.preset,
+            form: input.selection.form(),
             name: "settled".into(),
             fabric: input.selection.fabric,
             texcoords: vec![],

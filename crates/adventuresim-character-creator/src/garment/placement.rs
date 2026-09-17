@@ -9,7 +9,7 @@ pub(super) async fn prepare(
     let context = fabelgeist_gpu::prelude::WgpuContext::new().await?;
     let mut fit = Fit::new(context, build, fabric, settings)?;
     // A fitted surface is built where it is worn; only a pattern is placed.
-    let fitted = input.selection.preset.is_fitted();
+    let fitted = input.selection.is_fitted();
     let mut pose = fabelgeist_garment_fit::GarmentPose::for_mesh(&build.mesh);
     if !fitted {
         // Pattern placement is measured from the floor and the pelvis centre.

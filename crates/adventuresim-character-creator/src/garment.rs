@@ -13,17 +13,17 @@ use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
 mod armor;
-mod cut;
 mod export;
 mod finish;
 mod fitted;
+pub mod pattern;
 mod placement;
-mod presets;
+mod selection;
 mod shading;
 mod stages;
 mod symmetrize;
 mod validation;
-pub use presets::{FabricPreset, GarmentForm, GarmentPreset, GarmentSelection};
+pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
 pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
 
 #[derive(Clone)]
@@ -40,7 +40,7 @@ pub struct DrapeInput {
 }
 #[derive(Clone)]
 pub struct DrapedGarment {
-    pub preset: GarmentPreset,
+    pub form: GarmentForm,
     pub name: String,
     pub fabric: FabricPreset,
     pub texcoords: Vec<[f32; 2]>,
@@ -441,7 +441,7 @@ fn transfer_skirt_skin(
     let half_width = ((left[0] - right[0]).abs() * 0.5).max(0.025);
     let hip_y = (left[1] + right[1]) * 0.5;
     let mut direct = input.clone();
-    direct.selection.preset = GarmentPreset::Shirt;
+    direct.selection.construction = Construction::Sewn(pattern::Pattern::default());
     let (mut ids, mut weights) = transfer_skin(&direct, positions)?;
     let low: Vec<_> = positions
         .iter()
@@ -494,7 +494,7 @@ pub fn transfer_skin(
     {
         bail!("body skin arrays do not match its vertices");
     }
-    if input.selection.preset.form() == GarmentForm::Skirted {
+    if input.selection.form() == GarmentForm::Skirted {
         return transfer_skirt_skin(input, positions);
     }
     let tree = fabelgeist_bvh::TriangleBvh::new(
@@ -550,42 +550,42 @@ pub fn transfer_skin(
 
 #[cfg(test)]
 mod tests {
+    use super::pattern::{Pattern, Upper, shapes};
     use super::*;
     #[test]
-    fn presets_build_sewn_patterns() {
+    fn shapes_build_sewn_patterns() {
         let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
-        for preset in GarmentPreset::ALL
-            .into_iter()
-            .filter(|preset| !preset.is_fitted())
-        {
-            let pattern = MetaGarment::new("test", &body, &preset.design().unwrap()).assembly();
+        for shape in shapes::SHAPES {
+            let design = shape.pattern.design().unwrap();
+            let pattern = MetaGarment::new("test", &body, &design).assembly();
             let build = build_garment(&pattern, &FitSettings::default(), &Fabric::COTTON).unwrap();
             assert!(
                 build.skipped.is_empty(),
                 "{}: {:?}",
-                preset.label(),
+                shape.name,
                 build.skipped
             );
             assert!(!build.mesh.triangles.is_empty());
         }
     }
     /// Lowest and highest pattern point, in metres.
-    fn vertical_extent(preset: GarmentPreset, length: f32) -> (f32, f32) {
+    fn vertical_extent(length: f64) -> (f32, f32) {
         let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
         let selection = GarmentSelection {
-            preset,
-            length,
+            construction: Construction::Sewn(Pattern {
+                upper: Some(Upper::Straight {
+                    length,
+                    width: 1.05,
+                    flare: 1.0,
+                }),
+                ..Pattern::default()
+            }),
             ..GarmentSelection::chainmail()
         };
         selection.validate().unwrap();
         let pattern = MetaGarment::new("extent", &body, &selection.design().unwrap()).assembly();
         let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
-        assert!(
-            build.skipped.is_empty(),
-            "{}: {:?}",
-            preset.label(),
-            build.skipped
-        );
+        assert!(build.skipped.is_empty(), "{:?}", build.skipped);
         let heights = build.mesh.positions.iter().map(|p| p.y);
         (
             heights.clone().fold(f32::INFINITY, f32::min),
@@ -595,16 +595,16 @@ mod tests {
 
     #[test]
     fn shirt_length_lowers_the_hem() {
-        let (waist, _) = vertical_extent(GarmentPreset::Shirt, 1.0);
-        let (thigh, _) = vertical_extent(GarmentPreset::Shirt, 2.0);
+        let (waist, _) = vertical_extent(1.0);
+        let (thigh, _) = vertical_extent(2.0);
         assert!(thigh < waist - 0.1, "hem moved from {waist} m to {thigh} m");
     }
 
     #[test]
     fn flat_mail_panels_do_not_inflate_from_self_contact() {
         let body = Body::from_yaml_str(assets::BODIES[0].yaml).unwrap();
-        let preset = GarmentPreset::FittedShirt;
-        let pattern = MetaGarment::new("rest contact", &body, &preset.design().unwrap()).assembly();
+        let design = shapes::FITTED_SHIRT.pattern.design().unwrap();
+        let pattern = MetaGarment::new("rest contact", &body, &design).assembly();
         let build = build_garment(&pattern, &FitSettings::default(), &Fabric::CHAINMAIL).unwrap();
         let start = build.mesh.positions.clone();
         let mut points = start.clone();
@@ -669,10 +669,7 @@ mod seam_and_leg_regression {
     fn dress_center_is_continuous_and_sides_retain_opposing_leg_motion() {
         let input = DrapeInput {
             armor: None,
-            selection: GarmentSelection {
-                preset: GarmentPreset::Dress,
-                ..Default::default()
-            },
+            selection: GarmentSelection::from_shape(&pattern::shapes::DRESS),
             obstacles: vec![],
             positions: vec![
                 [-0.1, 0., 0.],

@@ -1,20 +1,6 @@
-//! Add catalog items, generated cloth and plate armor to the inventory.
+//! Add catalog items, new cloth and plate armor to the inventory.
 use super::*;
 use adventuresim_character_creator::inventory::CatalogArticle;
-
-/// Generated articles that are not catalog items: every sewn garment in its
-/// usual fabric, the mail hauberk and coif, and plate.
-fn generated() -> impl Iterator<Item = Article> {
-    GarmentPreset::ALL
-        .into_iter()
-        .filter(|preset| !preset.is_fitted())
-        .map(|preset| Article::Draped(GarmentSelection::for_preset(preset)))
-        .chain([
-            Article::Draped(GarmentSelection::chainmail()),
-            Article::Draped(GarmentSelection::chainmail_coif()),
-            Article::Plate(fabelgeist_armor::Armor::default()),
-        ])
-}
 
 pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog) {
     ui.small("New items are worn at once, replacing whatever fills their place.");
@@ -25,13 +11,24 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCa
     let search = studio.inventory.search.trim().to_lowercase();
     let matches = |name: &str| search.is_empty() || name.to_lowercase().contains(&search);
 
-    ui.label("Draped cloth and plate");
-    ui.horizontal_wrapped(|ui| {
-        for article in generated() {
-            let label = article.name(catalog);
-            if matches(&label) && ui.button(&label).clicked() {
-                acquire(studio, catalog, vec![article]);
-            }
+    ui.horizontal(|ui| {
+        if ui
+            .button("New cloth")
+            .on_hover_text("A cotton shirt to reshape: pattern, fabric and layer are all editable.")
+            .clicked()
+        {
+            acquire(
+                studio,
+                catalog,
+                vec![Article::Draped(GarmentSelection::default())],
+            );
+        }
+        if ui.button("New plate armor").clicked() {
+            acquire(
+                studio,
+                catalog,
+                vec![Article::Plate(fabelgeist_armor::Armor::default())],
+            );
         }
     });
 

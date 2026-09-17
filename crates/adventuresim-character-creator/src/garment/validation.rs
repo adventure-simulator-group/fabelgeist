@@ -125,7 +125,7 @@ mod tests {
             vec![[0, 1, 2]],
         );
         let mut cloth = DrapedGarment {
-            preset: GarmentPreset::Shirt,
+            form: GarmentForm::Upper,
             name: "clearance fixture".into(),
             fabric: FabricPreset::Chainmail,
             positions: vec![[-0.1, 0., -0.01], [0.1, 0., -0.01], [0., 0.1, -0.01]],
