@@ -5,21 +5,21 @@ use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
 use bevy::prelude::*;
 
+struct PreparedSceneryInput {
+    input: TacticalSceneInput,
+    furniture: Option<super::district::PreparedOutdoorFurniture>,
+    cloud_asset_digest: String,
+}
+
 pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
-    let json = if id == ExhibitId::Oak {
-        include_str!("../../../../assets/tactical-scenes/sparse-woodland.json")
-    } else {
-        include_str!("../../../../assets/tactical-scenes/massive-city.json")
-    };
-    let mut input: TacticalSceneInput =
-        serde_json::from_str(json).map_err(|error| error.to_string())?;
-    let prepared_furniture = if id == ExhibitId::City {
-        let furniture = super::district::curate(&mut input)?;
+    let PreparedSceneryInput {
+        mut input,
+        furniture: prepared_furniture,
+        cloud_asset_digest,
+    } = prepare_input(id)?;
+    if id == ExhibitId::City {
         world.insert_resource(crate::presentation::StreamCityTraffic);
-        Some(furniture)
-    } else {
-        None
-    };
+    }
     // Building-anchored furniture is prepared alongside the city offline.
     // Keep its accepted instances and reservations instead of regenerating
     // from a scene stripped of the buildings that own those activity groups.
@@ -40,10 +40,9 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
             include_bytes!("../../../../assets/clouds/art-demo/city.rgba8"),
         )
     };
-    if asset_scene_digest != generated.digest {
+    if asset_scene_digest != cloud_asset_digest {
         return Err(format!(
-            "prebaked cloud asset belongs to scene {asset_scene_digest}, not {}",
-            generated.digest
+            "prebaked cloud asset belongs to scene {asset_scene_digest}, not {cloud_asset_digest}"
         ));
     }
     world.insert_resource(crate::presentation::PrebakedCloudEnvironment { rgba8 });
@@ -94,6 +93,31 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         view.limits = STREET_INSPECTION_DISTANCE_METRES..=CITY_OVERVIEW_DISTANCE_METRES;
     }
     Ok(())
+}
+
+fn prepare_input(id: ExhibitId) -> Result<PreparedSceneryInput, String> {
+    let json = if id == ExhibitId::Oak {
+        include_str!("../../../../assets/tactical-scenes/sparse-woodland.json")
+    } else {
+        include_str!("../../../../assets/tactical-scenes/massive-city.json")
+    };
+    let mut input: TacticalSceneInput =
+        serde_json::from_str(json).map_err(|error| error.to_string())?;
+    // City curation replaces its layout and later moves vista-only collections
+    // out before tactical generation. Clouds depend on the authored fixture's
+    // environment, so key their offline bake before those city transformations.
+    let cloud_asset_digest = input.digest().map_err(|error| error.to_string())?;
+    let prepared_furniture = if id == ExhibitId::City {
+        let furniture = super::district::curate(&mut input)?;
+        Some(furniture)
+    } else {
+        None
+    };
+    Ok(PreparedSceneryInput {
+        input,
+        furniture: prepared_furniture,
+        cloud_asset_digest,
+    })
 }
 
 fn spawn_oak(
@@ -173,27 +197,28 @@ fn root_slope(terrain: &SceneTerrain, position: Vec2) -> Vec2 {
 mod tests {
     use super::*;
 
-    fn fixture_environment(path: &str) -> SceneEnvironment {
-        let input: TacticalSceneInput = serde_json::from_str(path).unwrap();
-        let generated = input.generate().unwrap();
-        input.environment_snapshot(generated.digest)
+    fn fixture_environment(id: ExhibitId) -> SceneEnvironment {
+        let prepared = prepare_input(id).unwrap();
+        prepared
+            .input
+            .environment_snapshot(prepared.cloud_asset_digest)
     }
 
     #[test]
     fn fixed_exhibits_embed_complete_nonempty_cloud_bakes() {
-        for (fixture, identity, bake) in [
+        for (id, identity, bake) in [
             (
-                include_str!("../../../../assets/tactical-scenes/sparse-woodland.json"),
+                ExhibitId::Oak,
                 include_str!("../../../../assets/clouds/art-demo/oak.scene-digest"),
                 include_bytes!("../../../../assets/clouds/art-demo/oak.rgba8").as_slice(),
             ),
             (
-                include_str!("../../../../assets/tactical-scenes/massive-city.json"),
+                ExhibitId::City,
                 include_str!("../../../../assets/clouds/art-demo/city.scene-digest"),
                 include_bytes!("../../../../assets/clouds/art-demo/city.rgba8").as_slice(),
             ),
         ] {
-            assert_eq!(fixture_environment(fixture).scene_digest, identity.trim());
+            assert_eq!(fixture_environment(id).scene_digest, identity.trim());
             assert_eq!(bake.len(), 1025 * 257 * 4);
             assert!(bake.iter().any(|channel| *channel != 0));
         }
@@ -203,19 +228,19 @@ mod tests {
     #[ignore = "offline asset generator performs the full deterministic cloud bakes"]
     fn regenerate_art_demo_cloud_assets() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-        for (fixture, output, identity) in [
+        for (id, output, identity) in [
             (
-                include_str!("../../../../assets/tactical-scenes/sparse-woodland.json"),
+                ExhibitId::Oak,
                 "assets/clouds/art-demo/oak.rgba8",
                 "assets/clouds/art-demo/oak.scene-digest",
             ),
             (
-                include_str!("../../../../assets/tactical-scenes/massive-city.json"),
+                ExhibitId::City,
                 "assets/clouds/art-demo/city.rgba8",
                 "assets/clouds/art-demo/city.scene-digest",
             ),
         ] {
-            let environment = fixture_environment(fixture);
+            let environment = fixture_environment(id);
             let bake = crate::presentation::bake_environment_rgba8(&environment);
             std::fs::write(root.join(output), &bake).unwrap();
             std::fs::write(
