@@ -1,18 +1,23 @@
 use super::impostor::{
     BEECH_TREE_BAKE_STYLE, OAK_TREE_BAKE_STYLE, TREE_LEAF_HANDOFF_END, TREE_LEAF_HANDOFF_START,
-    TreeBakeStyle, TreeImpostorProvenance, TreeLodBake, bake_tree_lod, bake_tree_lod_with_style,
+    TreeImpostorProvenance, TreeLodBake, bake_tree_lod, bake_tree_lod_with_style,
     tree_impostor_material, tree_leaf_visibility, tree_lod_name, tree_lod_visibility,
     tree_mid_trunk_visibility, tree_trunk_visibility, validate_tree_bake_provenance,
+};
+use super::source::{
+    TreePresentationSpecies, canopy_competition, oak_gnarling_for_site, oak_site_key,
+    playable_tree_source, tree_species_for_site, vista_tree_source,
 };
 use super::{
     COMMON_BEECH_PARAMETERS, OAK_GNARLING_SHOWCASE, OakGnarlingParameters,
     PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
-    PlayableTreeMidTrunk, PlayableTreeTrunk, TacticalTreeAggregateBarkMaterial,
-    TacticalTreeBarkMaterial, TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial,
-    TreeLeafRepresentation, TreeLod, TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod,
-    WoodyBranchMeshQuality, beech_aggregate_bark_material, beech_bark_material,
-    beech_leaf_material, oak_aggregate_bark_material, oak_bark_material, oak_leaf_material,
+    PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorUsage,
+    PreparedTreeImpostors, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
+    TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial, TreeLeafRepresentation, TreeLod,
+    TreeLodCluster, TreeLodRenderOverride, TreeTrunkLod, WoodyBranchMeshQuality,
+    beech_aggregate_bark_material, beech_bark_material, beech_leaf_material,
+    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material,
     procedural_oak_bud_group_mesh, procedural_oak_leaf_card_group_mesh, procedural_oak_leaves,
     procedural_oak_skeleton_with_gnarling, procedural_oak_textured_leaf_group_mesh,
     procedural_tree_branch_group_mesh, procedural_tree_branch_mesh, procedural_tree_skeleton,
@@ -154,62 +159,6 @@ struct CachedTreeCardPresentation {
     mesh: Handle<Mesh>,
     material: Handle<TacticalTreeImpostorMaterial>,
     provenance: TreeImpostorProvenance,
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(crate) enum TreePresentationSpecies {
-    EnglishOak,
-    CommonBeech,
-}
-
-impl TreePresentationSpecies {
-    pub(in crate::presentation) fn name(self) -> &'static str {
-        match self {
-            Self::EnglishOak => "English oak",
-            Self::CommonBeech => "common beech",
-        }
-    }
-
-    fn cache_salt(self) -> u64 {
-        match self {
-            Self::EnglishOak => 0,
-            Self::CommonBeech => 0xbeec_5eed_0000_0001,
-        }
-    }
-
-    fn bake_style(self) -> TreeBakeStyle {
-        match self {
-            Self::EnglishOak => OAK_TREE_BAKE_STYLE,
-            Self::CommonBeech => BEECH_TREE_BAKE_STYLE,
-        }
-    }
-}
-
-pub(crate) fn tree_species_for_site(
-    position: Vec3,
-    environment: &SceneEnvironment,
-) -> TreePresentationSpecies {
-    let canopy = crate::presentation::procedural::bps(environment.canopy_bps);
-    let moisture = crate::presentation::procedural::bps(environment.weather.ground_moisture_bps);
-    let wetland = crate::presentation::procedural::bps(environment.wetland_bps);
-    let cultivation = crate::presentation::procedural::bps(environment.cultivation_bps);
-    // Beech is concentrated in mesic, closed-canopy communities. Using a
-    // 30-metre community key produces stands instead of tree-by-tree confetti
-    // and places it where the existing canopy mask already strongly suppresses
-    // grass. Species remains deterministic presentation data until the compact
-    // server tree recipe grows an explicit species field.
-    let probability =
-        (canopy * 0.62 + moisture * 0.26 - wetland * 0.38 - cultivation * 0.18 - 0.12)
-            .clamp(0.0, 0.68);
-    let community_x = (position.x / 30.0).floor() as i32;
-    let community_z = (position.z / 30.0).floor() as i32;
-    let community = ((community_x as u32 as u64) << 32) | community_z as u32 as u64;
-    let hash = splitmix64(oak_site_key(environment) ^ community ^ 0xbeec_7a1d);
-    if unit_hash(hash) < probability {
-        TreePresentationSpecies::CommonBeech
-    } else {
-        TreePresentationSpecies::EnglishOak
-    }
 }
 
 /// Root marker for a fully presented playable tree.
@@ -479,7 +428,23 @@ fn aggregate_tree_wood_casts_shadows(lod: u8) -> bool {
     lod != 2
 }
 
-fn bake_tree_card_for_cached(cached: &CachedTreePresentation, lod: u8) -> TreeLodBake {
+fn bake_tree_card_for_cached(
+    cached: &CachedTreePresentation,
+    lod: u8,
+    prepared: Option<&PreparedTreeImpostorAsset>,
+) -> TreeLodBake {
+    if let Some(prepared) = prepared {
+        return prepared
+            .resolve(
+                PreparedTreeImpostorUsage::Playable,
+                cached.species,
+                cached.variant_seed,
+                lod,
+            )
+            .unwrap_or_else(|| {
+                panic!("prepared tree impostors do not match the requested playable tree")
+            });
+    }
     if cached.species == TreePresentationSpecies::EnglishOak {
         bake_tree_lod(cached.variant_seed, &cached.branches, &cached.leaves, lod)
     } else {
@@ -496,6 +461,7 @@ fn bake_tree_card_for_cached(cached: &CachedTreePresentation, lod: u8) -> TreeLo
 fn ensure_tree_card_resident(
     cached: &mut CachedTreePresentation,
     lod: u8,
+    prepared: Option<&PreparedTreeImpostorAsset>,
     meshes: &mut Assets<Mesh>,
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
@@ -505,7 +471,7 @@ fn ensure_tree_card_resident(
     if cached.lod_cards[index].is_some() {
         return;
     }
-    let bake = bake_tree_card_for_cached(cached, lod);
+    let bake = bake_tree_card_for_cached(cached, lod, prepared);
     validate_tree_bake_provenance(&bake.provenance);
     if lod == 1 {
         cached.cluster_layout = Some(
@@ -605,10 +571,15 @@ fn ensure_detailed_tree_assets_resident(
     diagnostics.generated_lod_mask |= 1 << 1;
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "tree residency updates independently borrowed mesh, material, image, and diagnostics stores"
+)]
 fn ensure_tree_assets_resident(
     cached: &mut CachedTreePresentation,
     mask: u8,
     selected_leaf: Option<TreeLeafRepresentation>,
+    prepared: Option<&PreparedTreeImpostorAsset>,
     meshes: &mut Assets<Mesh>,
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
@@ -629,14 +600,30 @@ fn ensure_tree_assets_resident(
         diagnostics.generated_lod_mask |= 1;
     }
     if mask & (1 << 1) != 0 {
-        ensure_tree_card_resident(cached, 1, meshes, tree_materials, images, diagnostics);
+        ensure_tree_card_resident(
+            cached,
+            1,
+            prepared,
+            meshes,
+            tree_materials,
+            images,
+            diagnostics,
+        );
         ensure_detailed_tree_assets_resident(cached, selected_leaf, meshes, diagnostics);
     }
     for lod in 1..=4 {
         if mask & (1 << (lod + 1)) == 0 {
             continue;
         }
-        ensure_tree_card_resident(cached, lod, meshes, tree_materials, images, diagnostics);
+        ensure_tree_card_resident(
+            cached,
+            lod,
+            prepared,
+            meshes,
+            tree_materials,
+            images,
+            diagnostics,
+        );
         if lod <= 2 && cached.aggregate_branch_meshes[lod as usize - 1].is_none() {
             let (depth, quality) = if lod == 1 {
                 (2, WoodyBranchMeshQuality::AggregateLod1)
@@ -684,6 +671,7 @@ pub(in crate::presentation) fn stream_tree_lod_children(
     mut images: ResMut<Assets<Image>>,
     mut tree_cache: ResMut<TreePresentationCache>,
     mut residency: ResMut<TreeAssetResidencyDiagnostics>,
+    prepared: PreparedTreeImpostors,
 ) {
     let focal_scale = match camera.1 {
         Projection::Perspective(projection) => {
@@ -716,10 +704,12 @@ pub(in crate::presentation) fn stream_tree_lod_children(
             .variants
             .get_mut(&presentation.cache_key)
             .expect("streamed tree cache entry remains resident");
+        let prepared = prepared.get();
         ensure_tree_assets_resident(
             cached,
             mask,
             selected_leaf,
+            prepared,
             &mut meshes,
             &mut tree_materials,
             &mut images,
@@ -778,6 +768,10 @@ fn tree_cluster_aabb(center: Vec3, radius: f32) -> Aabb {
     Aabb::from_min_max(center - extent, center + extent)
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "vista tree preparation receives independent asset stores and the optional fixed-scene prebake"
+)]
 pub(in crate::presentation) fn ensure_vista_tree_variant(
     variant_seed: u64,
     competition: f32,
@@ -786,31 +780,21 @@ pub(in crate::presentation) fn ensure_vista_tree_variant(
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
+    prepared: Option<&PreparedTreeImpostorAsset>,
 ) -> CachedVistaTreePresentation {
     let competition_key = (competition * 4095.0).round() as u64;
     let cache_key = variant_seed ^ competition_key.rotate_left(32) ^ species.cache_salt();
     if let Some(cached) = cache.variants.get(&cache_key) {
         return cached.clone();
     }
-    let (branches, leaves) = match species {
-        TreePresentationSpecies::EnglishOak => {
-            let branches = procedural_tree_skeleton(variant_seed, competition);
-            let leaves = procedural_oak_leaves(variant_seed, &branches, competition);
-            (branches, leaves)
-        }
-        TreePresentationSpecies::CommonBeech => {
-            let branches =
-                procedural_woody_plant_skeleton(variant_seed, competition, COMMON_BEECH_PARAMETERS);
-            let leaves = procedural_woody_plant_leaves(
-                variant_seed,
-                &branches,
-                competition,
-                COMMON_BEECH_PARAMETERS,
-            );
-            (branches, leaves)
-        }
-    };
-    let bake = if species == TreePresentationSpecies::EnglishOak {
+    let (branches, leaves) = vista_tree_source(variant_seed, competition, species);
+    let bake = if let Some(prepared) = prepared {
+        prepared
+            .resolve(PreparedTreeImpostorUsage::Vista, species, variant_seed, 4)
+            .unwrap_or_else(|| {
+                panic!("prepared tree impostors do not match the requested vista tree")
+            })
+    } else if species == TreePresentationSpecies::EnglishOak {
         bake_tree_lod(variant_seed, &branches, &leaves, 4)
     } else {
         bake_tree_lod_with_style(variant_seed, &branches, &leaves, 4, species.bake_style())
@@ -884,33 +868,13 @@ pub(in crate::presentation) fn present_pending_trees(
             ^ site_key.rotate_left(17)
             ^ species.cache_salt();
         if !tree_cache.variants.contains_key(&cache_key) {
-            let (branches, leaves) = match species {
-                TreePresentationSpecies::EnglishOak => {
-                    let gnarling = oak_gnarling_for_site(
-                        OAK_GNARLING_SHOWCASE[variant_index],
-                        environment,
-                        variant_seed,
-                    );
-                    let branches =
-                        procedural_oak_skeleton_with_gnarling(variant_seed, competition, gnarling);
-                    let leaves = procedural_oak_leaves(variant_seed, &branches, competition);
-                    (branches, leaves)
-                }
-                TreePresentationSpecies::CommonBeech => {
-                    let branches = procedural_woody_plant_skeleton(
-                        variant_seed,
-                        competition,
-                        COMMON_BEECH_PARAMETERS,
-                    );
-                    let leaves = procedural_woody_plant_leaves(
-                        variant_seed,
-                        &branches,
-                        competition,
-                        COMMON_BEECH_PARAMETERS,
-                    );
-                    (branches, leaves)
-                }
-            };
+            let (branches, leaves) = playable_tree_source(
+                species,
+                variant_seed,
+                variant_index,
+                competition,
+                environment,
+            );
             info!(
                 elapsed_ms = started.elapsed().as_millis(),
                 branches = branches.len(),
@@ -1003,84 +967,6 @@ pub(in crate::presentation) fn present_pending_trees(
         );
         commands.entity(entity).remove::<PendingTreePresentation>();
     }
-}
-
-pub(in crate::presentation) fn canopy_competition(canopy_bps: u16) -> f32 {
-    let normalized = crate::presentation::procedural::bps(canopy_bps);
-    normalized * normalized * (3.0 - 2.0 * normalized)
-}
-
-fn oak_site_key(environment: &SceneEnvironment) -> u64 {
-    let location = u64::from(environment.latitude_microdegrees as u32) << 32
-        | u64::from(environment.longitude_microdegrees as u32);
-    let terrain = u64::from(environment.hilly_bps)
-        | u64::from(environment.wetland_bps) << 14
-        | u64::from(environment.cultivation_bps) << 28
-        | u64::from(environment.canopy_bps) << 42;
-    splitmix64(
-        location ^ terrain ^ (environment.absolute_elevation_metres as i64 as u64).rotate_left(9),
-    )
-}
-
-pub(super) fn oak_gnarling_for_site(
-    mut recipe: OakGnarlingParameters,
-    environment: &SceneEnvironment,
-    tree_seed: u64,
-) -> OakGnarlingParameters {
-    let canopy = crate::presentation::procedural::bps(environment.canopy_bps);
-    let open_exposure = 1.0 - canopy;
-    let slope = crate::presentation::procedural::bps(environment.hilly_bps);
-    let wetland = crate::presentation::procedural::bps(environment.wetland_bps);
-    let cultivation = crate::presentation::procedural::bps(environment.cultivation_bps);
-    let elevation =
-        ((f32::from(environment.absolute_elevation_metres) - 40.0) / 900.0).clamp(0.0, 1.0);
-    let susceptibility = 0.72 + unit_hash(splitmix64(tree_seed ^ 0x5355_5343)) * 0.28;
-    let wind_exposure =
-        (open_exposure * 0.46 + slope * 0.34 + elevation * 0.2).clamp(0.0, 1.0) * susceptibility;
-    let age_and_wounds = unit_hash(splitmix64(tree_seed ^ 0x4147_4557));
-    let location = u64::from(environment.latitude_microdegrees as u32) << 32
-        | u64::from(environment.longitude_microdegrees as u32);
-    recipe.stress_azimuth_radians =
-        unit_hash(splitmix64(location ^ 0x5749_4e44)) * core::f32::consts::TAU;
-    let add = |value: f32, stress: f32| (value + stress).clamp(0.0, 1.0);
-    recipe.root_spread = add(
-        recipe.root_spread,
-        slope * 0.34 + wetland * 0.24 + wind_exposure * 0.2,
-    );
-    recipe.root_meander = add(recipe.root_meander, slope * 0.28 + wetland * 0.18);
-    recipe.root_exposure = add(recipe.root_exposure, slope * 0.5 + open_exposure * 0.12);
-    recipe.root_forking = add(recipe.root_forking, slope * 0.2 + age_and_wounds * 0.12);
-    recipe.trunk_lean = add(recipe.trunk_lean, wind_exposure * 0.62 + wetland * 0.18);
-    recipe.trunk_sweep = add(recipe.trunk_sweep, wind_exposure * 0.7);
-    recipe.trunk_twist = add(
-        recipe.trunk_twist,
-        wind_exposure * 0.24 + age_and_wounds * 0.16,
-    );
-    recipe.trunk_crooks = add(
-        recipe.trunk_crooks,
-        cultivation * 0.3 + age_and_wounds * 0.16,
-    );
-    recipe.taper_irregularity = add(
-        recipe.taper_irregularity,
-        wetland * 0.18 + cultivation * 0.22 + age_and_wounds * 0.14,
-    );
-    recipe.knot_frequency = add(
-        recipe.knot_frequency,
-        cultivation * 0.38 + age_and_wounds * 0.24,
-    );
-    recipe.knot_scale = add(recipe.knot_scale, cultivation * 0.24 + age_and_wounds * 0.2);
-    recipe.burl_scale = add(recipe.burl_scale, wetland * 0.3 + age_and_wounds * 0.16);
-    recipe.scaffold_droop = add(
-        recipe.scaffold_droop,
-        age_and_wounds * 0.18 + wetland * 0.12,
-    );
-    recipe.scaffold_sweep = add(recipe.scaffold_sweep, wind_exposure * 0.76);
-    recipe.scaffold_contortion = add(
-        recipe.scaffold_contortion,
-        wind_exposure * 0.32 + age_and_wounds * 0.18,
-    );
-    recipe.crown_asymmetry = add(recipe.crown_asymmetry, wind_exposure * 0.82);
-    recipe
 }
 
 #[cfg(test)]
@@ -1249,6 +1135,7 @@ mod tests {
             &mut cached,
             1 << 5,
             None,
+            None,
             &mut meshes,
             &mut materials,
             &mut images,
@@ -1301,6 +1188,7 @@ mod tests {
         ensure_tree_assets_resident(
             &mut cached,
             (1 << 2) | (1 << 3),
+            None,
             None,
             &mut meshes,
             &mut materials,
@@ -1427,6 +1315,7 @@ mod tests {
             &mut materials,
             &mut images,
             &mut cache,
+            None,
         );
         let oak = ensure_vista_tree_variant(
             variant_seed,
@@ -1436,6 +1325,7 @@ mod tests {
             &mut materials,
             &mut images,
             &mut cache,
+            None,
         );
         let branches =
             procedural_woody_plant_skeleton(variant_seed, competition, COMMON_BEECH_PARAMETERS);

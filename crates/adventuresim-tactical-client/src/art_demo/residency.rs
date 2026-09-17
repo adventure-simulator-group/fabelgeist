@@ -57,15 +57,34 @@ pub(super) fn show(world: &mut World, id: ExhibitId) {
             .resource_mut::<adventuresim_procedural_textures::ProceduralTextureResidency>()
             .request(&server, exhibit.texture_recipes().iter().copied());
     }
+    if world.contains_resource::<AssetServer>() {
+        if id == ExhibitId::Oak {
+            let server = world.resource::<AssetServer>().clone();
+            world
+                .resource_mut::<crate::presentation::PreparedTreeImpostorAssets>()
+                .request(&server);
+        } else {
+            world
+                .resource_mut::<crate::presentation::PreparedTreeImpostorAssets>()
+                .release();
+        }
+    }
     *world.resource_mut::<OrbitView>() = exhibit.view();
     let result = if exhibit.is_studio() {
         exhibits::studio(world);
         load_studio(world, &exhibit)
-    } else if world.contains_resource::<SceneryRetirement>() || !textures_ready(world, &exhibit) {
+    } else if world.contains_resource::<SceneryRetirement>() {
         world.insert_resource(PendingScenery(id));
         Ok(None)
     } else {
-        exhibit.spawn(world)
+        match scenery_ready(world, &exhibit) {
+            Ok(true) => exhibit.spawn(world),
+            Ok(false) => {
+                world.insert_resource(PendingScenery(id));
+                Ok(None)
+            }
+            Err(error) => Err(error),
+        }
     };
     world.flush();
     for (entity, mut visibility) in world
@@ -92,14 +111,19 @@ pub(super) fn spawn_pending(world: &mut World) {
         }
         world.remove_resource::<SceneryRetirement>();
     }
-    if world
+    if let Some(id) = world
         .get_resource::<PendingScenery>()
-        .is_some_and(|pending| {
-            let exhibit = Exhibit::get(pending.0);
-            !textures_ready(world, &exhibit)
-        })
+        .map(|pending| pending.0)
     {
-        return;
+        match scenery_ready(world, &Exhibit::get(id)) {
+            Ok(true) => {}
+            Ok(false) => return,
+            Err(error) => {
+                world.remove_resource::<PendingScenery>();
+                world.resource_mut::<CurrentExhibit>().scene = Err(error);
+                return;
+            }
+        }
     }
     if let Some(pending) = world.remove_resource::<PendingScenery>() {
         let result = Exhibit::get(pending.0).spawn(world);
@@ -119,6 +143,24 @@ fn textures_ready(world: &World, exhibit: &Exhibit) -> bool {
     world
         .get_resource::<adventuresim_procedural_textures::ProceduralTextureResidency>()
         .is_none_or(|residency| residency.is_ready(exhibit.texture_recipes().iter().copied()))
+}
+
+fn scenery_ready(world: &World, exhibit: &Exhibit) -> Result<bool, String> {
+    if !textures_ready(world, exhibit) {
+        return Ok(false);
+    }
+    if exhibit.id() != ExhibitId::Oak {
+        return Ok(true);
+    }
+    let residency = world.resource::<crate::presentation::PreparedTreeImpostorAssets>();
+    let handle = residency
+        .handle()
+        .ok_or("oak impostor asset was not requested")?;
+    let server = world.resource::<AssetServer>();
+    if let Some(bevy::asset::LoadState::Failed(error)) = server.get_load_state(handle.id()) {
+        return Err(format!("prepared oak impostors failed: {error}"));
+    }
+    Ok(server.is_loaded_with_dependencies(handle.id()))
 }
 
 fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<WorldAsset>>, String> {

@@ -3,7 +3,7 @@
 use bevy::prelude::Vec3;
 use fabelgeist_determinism::splitmix64;
 
-use super::{OAK_GNARLING_SHOWCASE, presentation::oak_gnarling_for_site};
+use super::{OAK_GNARLING_SHOWCASE, source::oak_gnarling_for_site};
 use crate::presentation::{SceneEnvironment, obstacle_seed};
 
 pub(super) fn oak_variant_for_site(position: Vec3) -> (usize, u64) {
