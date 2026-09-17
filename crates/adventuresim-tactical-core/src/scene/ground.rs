@@ -1,6 +1,6 @@
 use super::*;
 mod urban;
-pub use urban::UrbanGroundSurfaces;
+pub use urban::{UrbanGroundLookup, UrbanGroundSurfaces};
 
 /// Physical material below a tactical ground-cover layer.
 ///
