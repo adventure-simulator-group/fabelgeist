@@ -16,21 +16,11 @@ struct SceneryRetirement(u8);
 #[derive(Resource)]
 pub(super) struct PendingScenery(ExhibitId);
 
-#[derive(Resource)]
+#[derive(Default, Resource)]
 pub(super) struct ExhibitCache {
     studio: HashMap<ExhibitId, Result<Option<Handle<WorldAsset>>, String>>,
     views: HashMap<ExhibitId, OrbitView>,
     recency: VecDeque<ExhibitId>,
-}
-
-impl Default for ExhibitCache {
-    fn default() -> Self {
-        Self {
-            studio: HashMap::new(),
-            views: HashMap::new(),
-            recency: VecDeque::new(),
-        }
-    }
 }
 
 pub(super) fn show(world: &mut World, id: ExhibitId) {
