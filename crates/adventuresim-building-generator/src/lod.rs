@@ -55,7 +55,6 @@ pub enum BuildingLodLevel {
 /// A renderer may bind each variant to a texture-array layer or atlas region
 /// while retaining one mesh per material class.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case", tag = "kind", content = "value")]
 pub enum BuildingLodMaterial {
     Wall(WallMaterialClass),
     Roof(RoofMaterial),
