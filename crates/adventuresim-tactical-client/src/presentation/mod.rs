@@ -95,15 +95,17 @@ pub(crate) use ground_scatter::{
 pub(crate) use obstacles::oak_review_terminal_specimen;
 pub(crate) use obstacles::rock::ProceduralRockVisual;
 pub(crate) use obstacles::tree::TreeImpostorProvenance;
+#[cfg(test)]
+pub(crate) use obstacles::tree::prepare_art_demo_tree_impostor_asset;
 pub(crate) use obstacles::tree::{
     PlayableTreeAggregateWood, PlayableTreeBuds, PlayableTreeCanopyCard,
     PlayableTreeDetailedLeaves, PlayableTreeDetailedTrunk, PlayableTreeDetailedWood,
-    PlayableTreeMidTrunk, PlayableTreeTrunk, PresentedTree, TacticalTreeAggregateBarkMaterial,
-    TacticalTreeBarkMaterial, TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial,
-    TreeAssetResidencyDiagnostics, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod,
-    TreeLodCluster, TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod,
-    oak_aggregate_bark_material, oak_bark_material, oak_leaf_material, oak_root_exposure_for_site,
-    tree_species_for_site,
+    PlayableTreeMidTrunk, PlayableTreeTrunk, PreparedTreeImpostorAsset, PreparedTreeImpostorAssets,
+    PresentedTree, TacticalTreeAggregateBarkMaterial, TacticalTreeBarkMaterial,
+    TacticalTreeBenchmarkIsolation, TacticalTreeLeafCardMaterial, TreeAssetResidencyDiagnostics,
+    TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster, TreeLodRenderOverride,
+    TreePresentationSpecies, TreeTrunkLod, oak_aggregate_bark_material, oak_bark_material,
+    oak_leaf_material, oak_root_exposure_for_site, tree_species_for_site,
 };
 pub(crate) use sky::AtmosphereIblStatus;
 pub(crate) use sky::{TacticalMoon, TacticalMoonlight, TacticalStars, TacticalSunlight};
@@ -234,6 +236,9 @@ impl Plugin for TacticalPresentationPlugin {
             .init_resource::<TreePresentationCache>()
             .init_resource::<TreeAssetResidencyDiagnostics>()
             .init_resource::<VistaTreePresentationCache>()
+            .init_resource::<PreparedTreeImpostorAssets>()
+            .init_asset::<PreparedTreeImpostorAsset>()
+            .init_asset_loader::<PreparedTreeImpostorLoader>()
             .init_resource::<ActiveVistaSurface>()
             .init_resource::<TreeLodRenderOverride>()
             .init_resource::<TacticalTreeBenchmarkIsolation>()

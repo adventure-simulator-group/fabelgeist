@@ -47,6 +47,7 @@ pub(super) fn on_scene_vista_bundle(
     mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
+    prepared_tree_impostors: PreparedTreeImpostors,
     mut city_ground: streets::CityGroundAssets,
 ) {
     let started = web_time::Instant::now();
@@ -77,10 +78,7 @@ pub(super) fn on_scene_vista_bundle(
         .unwrap_or(Color::srgb_u8(37, 61, 4));
     let material = materials.add(vista_material(weather, vista_grass_color));
     if playable_scene.is_none() {
-        warn!(
-            scene_digest = %bundle.scene_digest,
-            "Tactical vista arrived before its authoritative playable terrain; edge stitching is unavailable"
-        );
+        warn!(scene_digest = %bundle.scene_digest, "Vista arrived before playable terrain");
     }
     let mut inner_half_extent = bundle.playable_half_extent_metres;
     for (index, lod) in visible_lods.iter().copied().enumerate() {
@@ -120,6 +118,7 @@ pub(super) fn on_scene_vista_bundle(
                 &mut tree_materials,
                 &mut images,
                 &mut vista_tree_cache,
+                prepared_tree_impostors.get(),
             );
         }
         inner_half_extent = Vec2::new(
@@ -703,6 +702,7 @@ fn spawn_vista_trees(
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
+    prepared: Option<&PreparedTreeImpostorAsset>,
 ) {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
@@ -748,14 +748,9 @@ fn spawn_vista_trees(
                 let Some(height) = presented_height_at(lod, world, coarser_lod) else {
                     continue;
                 };
-                // Vista stands share one calibrated whole-tree atlas. Scale,
-                // rotation-independent view selection, and placement still
-                // break repetition without baking during every source cell.
+                // One calibrated whole-tree atlas avoids baking for every source cell.
                 let variant_seed = splitmix64(0x6f61_6b00);
-                let species =
-                    environment.map_or(TreePresentationSpecies::EnglishOak, |environment| {
-                        tree_species_for_site(Vec3::new(local.x, 0.0, local.y), environment)
-                    });
+                let species = vista_tree_species(environment, local);
                 let cached = ensure_vista_tree_variant(
                     variant_seed,
                     0.5,
@@ -764,6 +759,7 @@ fn spawn_vista_trees(
                     tree_materials,
                     images,
                     cache,
+                    prepared,
                 );
                 // Each atlas represents the visible crown mass of a small
                 // stand at regional distance, not a survey-accurate stem.

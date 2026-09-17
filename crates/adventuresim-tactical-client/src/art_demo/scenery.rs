@@ -127,7 +127,27 @@ fn spawn_oak(
     environment: &SceneEnvironment,
 ) -> Result<(), String> {
     let terrain = &generated.terrain;
-    let position = generated
+    let (position, root) = oak_exhibit_site(input, generated, environment)
+        .ok_or("woodland fixture contains no oak specimen")?;
+    {
+        let ground = terrain.height_at(position).unwrap_or_default();
+        world.spawn((SceneObstacle::Tree, Transform::from_translation(root)));
+        let mut view = world.resource_mut::<OrbitView>();
+        view.focus = Vec3::new(position.x, ground + view.focus.y, position.y);
+        view.pitch = 0.06;
+        let downhill = root_slope(terrain, position);
+        view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
+    }
+    Ok(())
+}
+
+fn oak_exhibit_site(
+    input: &TacticalSceneInput,
+    generated: &GeneratedTacticalScene,
+    environment: &SceneEnvironment,
+) -> Option<(Vec2, Vec3)> {
+    let terrain = &generated.terrain;
+    generated
         .obstacles
         .iter()
         .filter_map(|obstacle| {
@@ -155,25 +175,14 @@ fn spawn_oak(
                     .total_cmp(&root_slope(terrain, b.0).length_squared())
             })
         })
-        .map(|(position, _)| position);
-    let position = position.ok_or("woodland fixture contains no oak specimen")?;
-    {
-        let ground = terrain.height_at(position).unwrap_or_default();
-        world.spawn((
-            SceneObstacle::Tree,
-            Transform::from_xyz(
+        .map(|(position, _)| {
+            let root = Vec3::new(
                 position.x,
-                ground + TREE_TRUNK_HEIGHT_METRES * 0.5,
+                terrain.height_at(position).unwrap_or_default() + TREE_TRUNK_HEIGHT_METRES * 0.5,
                 position.y,
-            ),
-        ));
-        let mut view = world.resource_mut::<OrbitView>();
-        view.focus = Vec3::new(position.x, ground + view.focus.y, position.y);
-        view.pitch = 0.06;
-        let downhill = root_slope(terrain, position);
-        view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
-    }
-    Ok(())
+            );
+            (position, root)
+        })
 }
 
 // The local slope ranks exposed sites and orients a lit view across the hill.
@@ -225,6 +234,21 @@ mod tests {
     }
 
     #[test]
+    fn fixed_oak_exhibit_has_every_matching_prebaked_impostor() {
+        let prepared = prepare_input(ExhibitId::Oak).unwrap();
+        let generated = prepared.input.generate().unwrap();
+        let environment = prepared
+            .input
+            .environment_snapshot(generated.digest.clone());
+        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let asset = crate::presentation::PreparedTreeImpostorAsset::decode(include_bytes!(
+            "../../../../assets/art-demo/oak.tree-impostors"
+        ));
+        assert_eq!(asset.bake_count(), 6);
+        assert!(asset.matches_art_demo(root, &environment));
+    }
+
+    #[test]
     #[ignore = "offline asset generator performs the full deterministic cloud bakes"]
     fn regenerate_art_demo_cloud_assets() {
         let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -251,6 +275,27 @@ mod tests {
             assert_eq!(std::fs::read(root.join(output)).unwrap(), bake);
             println!("wrote {output} for {}", environment.scene_digest);
         }
+    }
+
+    #[test]
+    #[ignore = "offline asset generator performs all deterministic tree impostor bakes"]
+    fn regenerate_art_demo_tree_impostors() {
+        let prepared = prepare_input(ExhibitId::Oak).unwrap();
+        let generated = prepared.input.generate().unwrap();
+        let environment = prepared
+            .input
+            .environment_snapshot(generated.digest.clone());
+        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
+        let asset = crate::presentation::prepare_art_demo_tree_impostor_asset(root, &environment);
+        let bytes = asset.compressed_bytes();
+        let output = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/art-demo/oak.tree-impostors");
+        std::fs::write(&output, &bytes).unwrap();
+        assert_eq!(
+            crate::presentation::PreparedTreeImpostorAsset::decode(&bytes).bake_count(),
+            6
+        );
+        println!("wrote {} ({} bytes)", output.display(), bytes.len());
     }
 
     #[test]

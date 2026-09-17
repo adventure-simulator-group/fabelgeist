@@ -50,7 +50,10 @@ Browser Back and Forward select exhibits within the same document and canvas.
   subsequent visits.
 - Oak: an exposed generated oak in `sparse-woodland`, with its hilly terrain,
   production bark, foliage, and ground scatter. The initial low close-up frames
-  the roots, trunk, and lower canopy.
+  the roots, trunk, and lower canopy. Its fixed playable tree and vista tree
+  impostors are prepared offline in `assets/art-demo/oak.tree-impostors` rather
+  than software-baked during browser startup. Other tactical scenes continue to
+  bake tree impostors on demand for their generated specimens.
 
 The oak generator's existing root-spread and root-exposure parameters extend
 and raise the buttress shoulders while leaving the tapered tips buried. This
@@ -151,3 +154,14 @@ inspection assets are separate; placement materials and shop names remain
 deterministic at runtime. Regenerate these assets after changing building
 recipes or the city layout. The browser does not compile building geometry
 or collision.
+
+After changing the fixed oak specimen, tree geometry, or impostor renderer,
+regenerate its canonical impostors with:
+
+```console
+cargo test -p adventuresim-tactical-client --bin art-demo \
+  regenerate_art_demo_tree_impostors -- --ignored --nocapture
+```
+
+The non-ignored art-demo tests verify that every expected playable and vista
+impostor exists and was baked from the current native source geometry.
