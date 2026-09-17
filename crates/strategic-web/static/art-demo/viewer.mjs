@@ -8,8 +8,15 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
   let runtime;
   let bootError;
   let readinessTimer;
+  let idleTimer;
   let rendererRunning = false;
   const remembered = new Map();
+  const prefetched = new Set();
+  const intendedCategories = new Set();
+  const prefetchedCategories = new Set();
+  let interacted = false;
+  let selectedReady = false;
+  let firstSelectionAfterInitial;
 
   function fail(error) {
     clearInterval(readinessTimer);
@@ -28,9 +35,73 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
 
   const categoryOf = (exhibit) => exhibit.kind === "scenery" ? exhibit.id : exhibit.kind;
 
+  function prefetchCategory(category) {
+    if (intendedCategories.has(category) || prefetchedCategories.has(category)) return;
+    intendedCategories.add(category);
+    if (selectedReady) flushIntentPrefetch();
+  }
+
+  function flushIntentPrefetch() {
+    for (const category of intendedCategories) {
+      intendedCategories.delete(category);
+      const exhibit = catalog.find((entry) => categoryOf(entry) === category
+        && entry.kind !== "scenery" && entry !== selected && !prefetched.has(entry.id));
+      if (exhibit) {
+        prefetchedCategories.add(category);
+        prefetched.add(exhibit.id);
+        send({ type: "prefetch", exhibit: exhibit.id });
+      }
+      return;
+    }
+  }
+
+  function scheduleIdlePrefetch() {
+    if (!runtime || !selectedReady || navigator.connection?.saveData) return;
+    const run = () => {
+      idleTimer = undefined;
+      const exhibit = catalog.find((entry) => entry.kind !== "scenery"
+        && entry !== selected && !prefetched.has(entry.id));
+      if (exhibit) {
+        prefetched.add(exhibit.id);
+        send({ type: "prefetch", exhibit: exhibit.id });
+        idleTimer = { id: setTimeout(scheduleIdlePrefetch, 10000), idle: false };
+      }
+    };
+    if (window.requestIdleCallback) {
+      idleTimer = { id: window.requestIdleCallback(run, { timeout: 10000 }), idle: true };
+    } else {
+      idleTimer = { id: setTimeout(run, 5000), idle: false };
+    }
+  }
+
+  function cancelSpeculation() {
+    if (idleTimer === undefined) return;
+    if (idleTimer.idle) window.cancelIdleCallback(idleTimer.id);
+    else clearTimeout(idleTimer.id);
+    idleTimer = undefined;
+  }
+
+  function noteInteraction() {
+    if (interacted) return;
+    interacted = true;
+    const bytes = performance.getEntriesByType?.("resource")
+      .reduce((total, entry) => total + (entry.transferSize || 0), 0) ?? 0;
+    document.documentElement.dataset.bytesBeforeInteraction = String(bytes);
+  }
+
   function select(exhibit, navigation = "push") {
+    if (selected && selected !== exhibit && navigation === "push") {
+      noteInteraction();
+      firstSelectionAfterInitial ??= {
+        exhibit: exhibit.id,
+        startedAt: performance.now?.() ?? Date.now(),
+      };
+    }
+    cancelSpeculation();
     heldKeys.clear();
     selected = exhibit;
+    selectedReady = false;
+    prefetched.add(exhibit.id);
     const category = categoryOf(exhibit);
     remembered.set(category, exhibit.id);
     tabs.forEach((tab) => {
@@ -83,6 +154,8 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
         ?? catalog.find((entry) => categoryOf(entry) === category);
       if (exhibit) select(exhibit);
     });
+    tab.addEventListener("pointerenter", () => prefetchCategory(tab.dataset.category));
+    tab.addEventListener("focus", () => prefetchCategory(tab.dataset.category));
   }
 
   function navigateTabs(event) {
@@ -179,7 +252,11 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
     const entry = catalog.find((entry) => entry.id === location.hash.slice(1)) ?? catalog[0];
     if (entry && entry !== selected) select(entry, "none");
   });
-  window.addEventListener("pagehide", () => { clearInterval(readinessTimer); heldKeys.clear(); });
+  window.addEventListener("pagehide", () => {
+    clearInterval(readinessTimer);
+    cancelSpeculation();
+    heldKeys.clear();
+  });
   window.addEventListener("pageshow", (event) => {
     if (event.persisted && runtime && !bootError) readinessTimer = setInterval(pollStatus, 200);
   });
@@ -215,6 +292,16 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
       canvas.dataset.state = status.state;
       canvas.dataset.exhibit = status.exhibit;
       loading.hidden = status.state === "ready";
+      if (status.state === "ready") {
+        selectedReady = true;
+        if (firstSelectionAfterInitial?.exhibit === status.exhibit) {
+          const elapsed = (performance.now?.() ?? Date.now()) - firstSelectionAfterInitial.startedAt;
+          document.documentElement.dataset.firstSelectedExhibitMilliseconds = String(elapsed);
+          firstSelectionAfterInitial = undefined;
+        }
+        flushIntentPrefetch();
+        if (idleTimer === undefined) scheduleIdlePrefetch();
+      }
       delete loading.dataset.error;
       if (status.state === "unavailable") {
         loading.dataset.error = "";
