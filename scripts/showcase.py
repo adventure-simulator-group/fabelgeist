@@ -110,19 +110,25 @@ def wasm_bindgen(cli: str) -> str:
 
 def build_art_demo(site: Path, bindgen: str, dev: bool) -> None:
     log("Building the art demo...")
+    out = site / "tactical" / "wasm"
+    out.mkdir(parents=True, exist_ok=True)
+    if not dev:
+        run([sys.executable, str(ROOT / "scripts" / "build_wasm.py"),
+             "--bindgen", bindgen])
+        generated = ROOT / "crates" / "adventuresim-stdb-module" / "static" / "wasm"
+        for name in ("art-demo.js", "art-demo_bg.wasm", "bundle-sizes.json"):
+            shutil.copy2(generated / name, out / name)
+        shutil.copytree(ART_DEMO_STATIC, site / "static" / "art-demo", dirs_exist_ok=True)
+        return
     if shutil.which("rustup"):
         subprocess.run(["rustup", "target", "add", "wasm32-unknown-unknown"], cwd=ROOT, check=False)
     command = [
         "cargo", "build", "--package", "adventuresim-tactical-client", "--bin", "art-demo",
         "--target", "wasm32-unknown-unknown",
     ]
-    if not dev:
-        command.append("--release")
     run(command)
     target = Path(os.environ.get("CARGO_TARGET_DIR", ROOT / "target"))
     wasm = target / "wasm32-unknown-unknown" / ("debug" if dev else "release") / "art-demo.wasm"
-    out = site / "tactical" / "wasm"
-    out.mkdir(parents=True, exist_ok=True)
     run([
         bindgen, str(wasm), "--out-dir", str(out), "--target", "web", "--no-typescript",
         "--remove-name-section", "--remove-producers-section",

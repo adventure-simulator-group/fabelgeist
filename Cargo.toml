@@ -190,3 +190,12 @@ opt-level = 3
 [profile.dev]
 opt-level = 1
 strip = "debuginfo"
+
+# Keep the ordinary release profile unchanged. The art demo pays the longer
+# link once in exchange for substantially less code to download and compile.
+[profile.wasm-release]
+inherits = "release"
+codegen-units = 1
+lto = "fat"
+opt-level = "z"
+strip = "symbols"
