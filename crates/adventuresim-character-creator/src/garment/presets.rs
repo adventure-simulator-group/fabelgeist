@@ -1,107 +1,144 @@
 use super::*;
 use crate::garment_material::MailWeave;
+use crate::item_catalog_schema::EquipmentChannel;
 use adventuresim_armor_model::{CoifDesign, HelmetDesign};
 use std::ops::RangeInclusive;
 
-/// Upper garment length, in multiples of the neck-to-waist length.
-const SHIRT_LENGTH: f32 = 1.2;
-
+/// Garments the creator can drape, named for the medieval wardrobe they stand
+/// in for. Each sewn preset is a cut from the GarmentCodeData design space (see
+/// [`cut`](super::cut)); the coif is fitted around the wearer instead.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum GarmentPreset {
+    /// The straight T-tunic block with short sleeves; a hauberk in mail.
     Shirt,
+    /// The darted bodice, cut at the waist.
     FittedShirt,
+    /// The cotte: a straight, flared, long-sleeved tunic to the thigh.
+    Tunic,
+    /// The fitted bodice with long, close sleeves and a standing collar.
+    Doublet,
+    /// A hip-length, straight, long-sleeved padded coat worn under mail.
+    Gambeson,
     Trousers,
+    /// Chausses: full-length legs tapering to the ankle.
+    Hose,
+    /// Loose breeches to above the knee, worn beneath hose.
+    Braies,
     Skirt,
     Dress,
+    /// The fitted bodice with long sleeves over a flared ankle-length skirt.
+    Kirtle,
+    /// A sleeveless, flared, knee-length overgarment worn over armor.
+    Surcoat,
+    /// A voluminous floor-length gown with wide sleeves and a standing collar.
+    Houppelande,
     Coif,
 }
+
+/// How a garment hangs on the body, which decides how it follows the limbs.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GarmentForm {
+    /// Hangs from the shoulders and moves with the torso and arms.
+    Upper,
+    /// Each leg moves with its own limb.
+    Legged,
+    /// Hangs between the legs and blends their motion.
+    Skirted,
+    /// Fitted to the wearer as a surface instead of sewn from a pattern.
+    Fitted,
+}
+
 impl GarmentPreset {
-    pub const ALL: [Self; 6] = [
+    pub const ALL: [Self; 14] = [
         Self::Shirt,
         Self::FittedShirt,
+        Self::Tunic,
+        Self::Doublet,
+        Self::Gambeson,
         Self::Trousers,
+        Self::Hose,
+        Self::Braies,
         Self::Skirt,
         Self::Dress,
+        Self::Kirtle,
+        Self::Surcoat,
+        Self::Houppelande,
         Self::Coif,
     ];
     pub fn label(self) -> &'static str {
         match self {
             Self::Shirt => "Shirt",
             Self::FittedShirt => "Fitted shirt",
+            Self::Tunic => "Tunic",
+            Self::Doublet => "Doublet",
+            Self::Gambeson => "Gambeson",
             Self::Trousers => "Trousers",
+            Self::Hose => "Hose",
+            Self::Braies => "Braies",
             Self::Skirt => "Skirt",
             Self::Dress => "Dress",
+            Self::Kirtle => "Kirtle",
+            Self::Surcoat => "Surcoat",
+            Self::Houppelande => "Houppelande",
             Self::Coif => "Coif",
+        }
+    }
+    pub fn form(self) -> GarmentForm {
+        match self {
+            Self::Shirt | Self::FittedShirt | Self::Tunic | Self::Doublet | Self::Gambeson => {
+                GarmentForm::Upper
+            }
+            Self::Trousers | Self::Hose | Self::Braies => GarmentForm::Legged,
+            Self::Skirt | Self::Dress | Self::Kirtle | Self::Surcoat | Self::Houppelande => {
+                GarmentForm::Skirted
+            }
+            Self::Coif => GarmentForm::Fitted,
         }
     }
     /// Fitted around the wearer as a surface instead of sewn from a pattern.
     pub fn is_fitted(self) -> bool {
-        matches!(self, Self::Coif)
+        self.form() == GarmentForm::Fitted
+    }
+    /// The layer the preset is worn in when its fabric is cloth: padding goes
+    /// under mail and outerwear over plate; everything else is base clothing.
+    pub fn layer(self) -> EquipmentChannel {
+        match self {
+            Self::Gambeson => EquipmentChannel::Padding,
+            Self::Surcoat | Self::Houppelande => EquipmentChannel::Outerwear,
+            _ => EquipmentChannel::BaseClothing,
+        }
+    }
+    /// The fabric the preset is usually made in.
+    pub fn default_fabric(self) -> FabricPreset {
+        match self {
+            // Heavy and stiff, as quilted layers are.
+            Self::Gambeson => FabricPreset::Denim,
+            Self::Surcoat | Self::Houppelande => FabricPreset::Wool,
+            Self::Hose => FabricPreset::Jersey,
+            _ => FabricPreset::Cotton,
+        }
     }
     /// Adjustable length below the shoulders, in multiples of the
     /// neck-to-waist length. The fitted bodice is always cut at the waist.
     pub fn length_range(self) -> Option<RangeInclusive<f32>> {
-        match self {
-            Self::Shirt => Some(0.5..=3.5),
-            _ => None,
-        }
+        self.cut().and_then(|cut| cut.length_range())
     }
     pub fn default_length(self) -> f32 {
-        SHIRT_LENGTH
+        self.cut().map_or(1.0, |cut| cut.default_length())
     }
     /// The pattern at this preset's default length.
     pub fn design(self) -> Result<Design> {
         self.design_with_length(self.default_length())
     }
     pub fn design_with_length(self, length: f32) -> Result<Design> {
-        if self.is_fitted() {
+        let Some(cut) = self.cut() else {
             bail!(
                 "{} is fitted to the wearer, not cut from a pattern",
                 self.label()
             );
-        }
-        let design = Design::from_yaml_str(assets::DESIGNS[0].yaml)?;
-        let upper = matches!(self, Self::Shirt | Self::FittedShirt | Self::Dress);
-        design.set_v(
-            "meta.upper",
-            match self {
-                Self::FittedShirt => Value::Str("FittedShirt".into()),
-                _ if upper => Value::Str("Shirt".into()),
-                _ => Value::Null,
-            },
-        );
-        design.set_v(
-            "meta.bottom",
-            match self {
-                Self::Shirt | Self::FittedShirt => Value::Null,
-                Self::Trousers => Value::Str("Pants".into()),
-                _ => Value::Str("Skirt2".into()),
-            },
-        );
-        design.set_v(
-            "meta.wb",
-            if upper {
-                Value::Null
-            } else {
-                Value::Str("FittedWB".into())
-            },
-        );
-        // Author each selectable style explicitly: the T-shirt asset's dormant
-        // lower-body parameters otherwise describe shorts and a broad circle skirt.
-        design.set_f("pants.length", 0.9);
-        design.set_f("skirt.length", 0.45);
-        design.set_f("skirt.ruffle", 1.0);
-        design.set_f("skirt.flare", 1.0);
-        design.set_f("waistband.waist", 1.03);
-        design.set_f(
-            "shirt.length",
-            match self {
-                Self::Dress => 1.0,
-                _ => length as f64,
-            },
-        );
-        Ok(design)
+        };
+        cut.design(length)
     }
 }
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
@@ -171,25 +208,30 @@ pub struct GarmentSelection {
     pub mail: MailWeave,
 }
 fn shirt_length() -> f32 {
-    SHIRT_LENGTH
+    GarmentPreset::Shirt.default_length()
 }
 impl Default for GarmentSelection {
     fn default() -> Self {
-        Self {
-            preset: GarmentPreset::Shirt,
-            fabric: FabricPreset::Cotton,
-            resolution_cm: 3.5,
-            length: SHIRT_LENGTH,
-            coif: CoifDesign::default(),
-            drape: DrapeSettings::for_fabric(FabricPreset::Cotton.fabric()),
-            mail: MailWeave::STANDARD,
-        }
+        Self::for_preset(GarmentPreset::Shirt)
     }
 }
 impl GarmentSelection {
     /// Target mesh edge range; finer is available at roughly squared cost.
     pub const RESOLUTION_CM: RangeInclusive<f32> = 2.5..=6.0;
 
+    /// A preset in its usual fabric, at its default length.
+    pub fn for_preset(preset: GarmentPreset) -> Self {
+        let fabric = preset.default_fabric();
+        Self {
+            preset,
+            fabric,
+            resolution_cm: 3.5,
+            length: preset.default_length(),
+            coif: CoifDesign::default(),
+            drape: DrapeSettings::for_fabric(fabric.fabric()),
+            mail: MailWeave::STANDARD,
+        }
+    }
     /// A mail shirt on the straight T-tunic block, as hauberks were cut, so
     /// its length can reach anywhere from the waist to the knee.
     pub fn chainmail() -> Self {
@@ -241,5 +283,49 @@ impl GarmentSelection {
         }
         self.drape.validate()?;
         self.mail.validate()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn presets_wear_their_usual_fabric_at_their_default_length() {
+        let surcoat = GarmentSelection::for_preset(GarmentPreset::Surcoat);
+        assert_eq!(surcoat.fabric, FabricPreset::Wool);
+        assert_eq!(surcoat.length, GarmentPreset::Surcoat.default_length());
+        assert_eq!(
+            surcoat.drape.settling.damping,
+            FabricPreset::Wool.fabric().damping
+        );
+        surcoat.validate().unwrap();
+        assert_eq!(GarmentSelection::default().preset, GarmentPreset::Shirt);
+        assert_eq!(GarmentSelection::default().fabric, FabricPreset::Cotton);
+    }
+
+    #[test]
+    fn lengths_outside_a_presets_range_are_rejected() {
+        let mut gown = GarmentSelection::for_preset(GarmentPreset::Houppelande);
+        gown.length = GarmentPreset::Shirt.default_length();
+        assert!(gown.validate().is_err());
+        gown.length = GarmentPreset::Houppelande.default_length();
+        gown.validate().unwrap();
+    }
+
+    #[test]
+    fn layers_follow_the_wardrobe() {
+        assert_eq!(GarmentPreset::Gambeson.layer(), EquipmentChannel::Padding);
+        for outer in [GarmentPreset::Surcoat, GarmentPreset::Houppelande] {
+            assert_eq!(outer.layer(), EquipmentChannel::Outerwear);
+        }
+        for base in [
+            GarmentPreset::Tunic,
+            GarmentPreset::Doublet,
+            GarmentPreset::Hose,
+            GarmentPreset::Kirtle,
+        ] {
+            assert_eq!(base.layer(), EquipmentChannel::BaseClothing);
+        }
     }
 }

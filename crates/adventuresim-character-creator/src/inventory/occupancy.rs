@@ -84,7 +84,7 @@ impl Article {
     }
 }
 
-/// Mail is armor however it is cut; other fabrics are the base clothing layer.
+/// Mail is armor however it is cut; cloth takes the layer of its cut.
 fn garment_channel(selection: &GarmentSelection) -> EquipmentChannel {
     match selection.fabric {
         FabricPreset::Chainmail => EquipmentChannel::FlexibleArmor,
@@ -92,16 +92,26 @@ fn garment_channel(selection: &GarmentSelection) -> EquipmentChannel {
         | FabricPreset::Silk
         | FabricPreset::Denim
         | FabricPreset::Wool
-        | FabricPreset::Jersey => EquipmentChannel::BaseClothing,
+        | FabricPreset::Jersey => selection.preset.layer(),
     }
 }
 
 fn garment_locations(preset: GarmentPreset) -> &'static [EquipmentLocation] {
     use EquipmentLocation::*;
     match preset {
-        GarmentPreset::Shirt | GarmentPreset::FittedShirt => &[Chest, Stomach, LeftArm, RightArm],
-        GarmentPreset::Trousers | GarmentPreset::Skirt => &[LeftLeg, RightLeg],
-        GarmentPreset::Dress => &[Chest, Stomach, LeftArm, RightArm, LeftLeg, RightLeg],
+        GarmentPreset::Shirt
+        | GarmentPreset::FittedShirt
+        | GarmentPreset::Tunic
+        | GarmentPreset::Doublet
+        | GarmentPreset::Gambeson => &[Chest, Stomach, LeftArm, RightArm],
+        GarmentPreset::Surcoat => &[Chest, Stomach, LeftLeg, RightLeg],
+        GarmentPreset::Trousers
+        | GarmentPreset::Hose
+        | GarmentPreset::Braies
+        | GarmentPreset::Skirt => &[LeftLeg, RightLeg],
+        GarmentPreset::Dress | GarmentPreset::Kirtle | GarmentPreset::Houppelande => {
+            &[Chest, Stomach, LeftArm, RightArm, LeftLeg, RightLeg]
+        }
         GarmentPreset::Coif => &[Head, Neck],
     }
 }

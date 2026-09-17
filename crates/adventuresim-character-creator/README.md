@@ -68,9 +68,9 @@ Worn articles must fit together under the catalog's equipment rules, checked
 through the same equipment graph the game uses. Each fills body cells, a
 location in a layer: clothing, padding, mail, plate and so on. Two articles
 cannot fill the same cell, except that articulated plates on one limb may share
-it when their fit zones differ. Draped cloth is a clothing layer, or mail when
-its fabric is chainmail. It covers the torso and arms, the legs, both, or the
-head and neck, by pattern. Plate armor fills the chest, and the stomach when it
+it when their fit zones differ. Draped cloth takes the layer of its cut, or
+mail when its fabric is chainmail, and fills the cells its cut covers (see
+[Garments](#garments)). Plate armor fills the chest, and the stomach when it
 has a fauld. Attached articles, such as mail voiders, hang from an attachment
 point on a worn support such as the arming doublet, within that point's
 capacity and on the matching side.
@@ -96,6 +96,41 @@ frames from the final generated vertices, so authored shading follows identity,
 expression, skinning, and optional pose-corrective displacement. Triangle-only
 normal reconstruction is retained internally only to define those frames; it is
 not sent to Bevy as the character's shading normal.
+
+## Garments
+
+Draped garments are sewn from GarmentCode patterns, the design space of the
+GarmentCodeData dataset: a straight or fitted upper block, sleeves with a cuff
+width, a neckline with an optional standing collar, and trousers or a two-panel
+skirt, each made to the wearer's measurements. The presets under
+**Acquire** cut a medieval wardrobe from that vocabulary, each in its usual
+fabric; the pattern, fabric and drape settings stay editable afterwards.
+
+| Preset | Cut | Layer |
+| --- | --- | --- |
+| Shirt | Straight block, short sleeves, adjustable length | Clothing |
+| Fitted shirt | Darted bodice to the waist, short sleeves | Clothing |
+| Tunic | Straight flared block to the thigh, long sleeves | Clothing |
+| Doublet | Darted bodice, long close sleeves, standing collar | Clothing |
+| Gambeson | Straight block to the hip, long sleeves, standing collar | Padding |
+| Trousers | Straight legs to the ankle | Clothing |
+| Hose | Legs tapering slightly to the ankle, in jersey | Clothing |
+| Braies | Loose breeches to above the knee | Clothing |
+| Skirt | Two-panel skirt to the knee | Clothing |
+| Dress | Straight block, short sleeves, knee-length skirt | Clothing |
+| Kirtle | Darted bodice, long sleeves, flared ankle-length skirt | Clothing |
+| Surcoat | Sleeveless flared block to the knee, in wool | Outerwear |
+| Houppelande | Wide block to the floor, wide sleeves, standing collar, in wool | Outerwear |
+| Coif | Fitted mail hood with neck, breast and back flaps | Mail |
+
+Straight-block presets have a **Length** slider measured down from the
+shoulder in neck-to-waist lengths: 1 reaches the waist and about 2.5 the knee.
+Chainmail makes any cut mail armor. Cloth takes the layer of its cut: padding
+sits between clothing and mail, and outerwear over plate, so a surcoat drapes
+over a hauberk and breastplate while a gambeson drapes under them. A garment
+fills the body cells its cut covers, so two outer garments on the torso
+displace each other while either is worn over a coif. Hose taper only
+slightly: a narrower leg slides down the wearer during settling.
 
 ## Draped chainmail
 

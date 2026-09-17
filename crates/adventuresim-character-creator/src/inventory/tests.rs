@@ -181,3 +181,45 @@ fn inventory_round_trips_and_rejects_repeated_ids() {
     repeated.items.push(repeated.items[0].clone());
     assert!(repeated.validate().is_err());
 }
+
+fn draped(preset: crate::garment::GarmentPreset) -> Article {
+    Article::Draped(GarmentSelection::for_preset(preset))
+}
+
+#[test]
+fn cloth_stacks_from_base_through_padding_and_mail_to_outerwear() {
+    use crate::garment::GarmentPreset::{Gambeson, Shirt, Surcoat};
+    let catalog = authored();
+    let mut inventory = Inventory::default();
+    let shirt = inventory.add(draped(Shirt));
+    let gambeson = inventory.add(draped(Gambeson));
+    let mail = inventory.add(Article::Draped(GarmentSelection::chainmail()));
+    let surcoat = inventory.add(draped(Surcoat));
+    // Worn outermost first: the layer, not the order of dressing, decides.
+    for id in [surcoat, mail, gambeson, shirt] {
+        assert!(inventory.wear(id, &catalog).unwrap().is_empty());
+    }
+    let order: Vec<_> = inventory
+        .loadout(&catalog)
+        .unwrap()
+        .draped
+        .iter()
+        .map(|piece| piece.id)
+        .collect();
+    assert_eq!(order, [shirt, gambeson, mail, surcoat]);
+}
+
+#[test]
+fn outer_garments_displace_each_other_but_not_the_layers_beneath() {
+    use crate::garment::GarmentPreset::{Houppelande, Surcoat};
+    let catalog = authored();
+    let mut inventory = Inventory::default();
+    let coif = inventory.add(Article::Draped(GarmentSelection::chainmail_coif()));
+    let surcoat = inventory.add(draped(Surcoat));
+    let houppelande = inventory.add(draped(Houppelande));
+    for id in [coif, surcoat] {
+        assert!(inventory.wear(id, &catalog).unwrap().is_empty());
+    }
+    assert_eq!(inventory.wear(houppelande, &catalog).unwrap(), [surcoat]);
+    assert_eq!(worn(&inventory), [coif, houppelande]);
+}

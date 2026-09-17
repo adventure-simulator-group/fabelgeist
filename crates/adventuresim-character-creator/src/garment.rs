@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
 mod armor;
+mod cut;
 mod export;
 mod finish;
 mod fitted;
@@ -22,7 +23,7 @@ mod shading;
 mod stages;
 mod symmetrize;
 mod validation;
-pub use presets::{FabricPreset, GarmentPreset, GarmentSelection};
+pub use presets::{FabricPreset, GarmentForm, GarmentPreset, GarmentSelection};
 pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
 
 #[derive(Clone)]
@@ -493,10 +494,7 @@ pub fn transfer_skin(
     {
         bail!("body skin arrays do not match its vertices");
     }
-    if matches!(
-        input.selection.preset,
-        GarmentPreset::Dress | GarmentPreset::Skirt
-    ) {
+    if input.selection.preset.form() == GarmentForm::Skirted {
         return transfer_skirt_skin(input, positions);
     }
     let tree = fabelgeist_bvh::TriangleBvh::new(

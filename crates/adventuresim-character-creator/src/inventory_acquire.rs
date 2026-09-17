@@ -2,33 +2,18 @@
 use super::*;
 use adventuresim_character_creator::inventory::CatalogArticle;
 
-/// Generated articles that are not catalog items.
-fn generated() -> [(&'static str, Article); 8] {
-    let draped = |preset| {
-        Article::Draped(GarmentSelection {
-            preset,
-            ..GarmentSelection::default()
-        })
-    };
-    [
-        ("Cloth shirt", draped(GarmentPreset::Shirt)),
-        ("Fitted shirt", draped(GarmentPreset::FittedShirt)),
-        ("Trousers", draped(GarmentPreset::Trousers)),
-        ("Skirt", draped(GarmentPreset::Skirt)),
-        ("Dress", draped(GarmentPreset::Dress)),
-        (
-            "Chainmail shirt",
+/// Generated articles that are not catalog items: every sewn garment in its
+/// usual fabric, the mail hauberk and coif, and plate.
+fn generated() -> impl Iterator<Item = Article> {
+    GarmentPreset::ALL
+        .into_iter()
+        .filter(|preset| !preset.is_fitted())
+        .map(|preset| Article::Draped(GarmentSelection::for_preset(preset)))
+        .chain([
             Article::Draped(GarmentSelection::chainmail()),
-        ),
-        (
-            "Chainmail coif",
             Article::Draped(GarmentSelection::chainmail_coif()),
-        ),
-        (
-            "Plate breastplate",
             Article::Plate(fabelgeist_armor::Armor::default()),
-        ),
-    ]
+        ])
 }
 
 pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog) {
@@ -42,8 +27,9 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCa
 
     ui.label("Draped cloth and plate");
     ui.horizontal_wrapped(|ui| {
-        for (label, article) in generated() {
-            if matches(label) && ui.button(label).clicked() {
+        for article in generated() {
+            let label = article.name(catalog);
+            if matches(&label) && ui.button(&label).clicked() {
                 acquire(studio, catalog, vec![article]);
             }
         }

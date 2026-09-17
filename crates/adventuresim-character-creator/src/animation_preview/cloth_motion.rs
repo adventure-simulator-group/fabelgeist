@@ -133,10 +133,10 @@ pub(super) fn simulate(
 ) {
     let substeps = settings.substeps.max(1);
     let step = dt / substeps as f32;
-    let follow = match skin.preset {
-        GarmentPreset::Trousers => 0.22,
-        GarmentPreset::Skirt | GarmentPreset::Dress => 0.075,
-        GarmentPreset::Shirt | GarmentPreset::FittedShirt | GarmentPreset::Coif => 0.14,
+    let follow = match skin.preset.form() {
+        GarmentForm::Legged => 0.22,
+        GarmentForm::Skirted => 0.075,
+        GarmentForm::Upper | GarmentForm::Fitted => 0.14,
     };
     for _ in 0..substeps {
         for v in 0..skin.current.len() {

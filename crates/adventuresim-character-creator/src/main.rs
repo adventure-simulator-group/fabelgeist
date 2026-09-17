@@ -33,7 +33,9 @@ mod fabric_controls;
 mod inventory_ui;
 mod outfit;
 mod studio_ui;
-use adventuresim_character_creator::garment::{FabricPreset, GarmentPreset, GarmentSelection};
+use adventuresim_character_creator::garment::{
+    FabricPreset, GarmentForm, GarmentPreset, GarmentSelection,
+};
 use animation_preview::WalkPreview;
 use drape_preview::DrapeJob;
 
@@ -487,12 +489,9 @@ mod garment_integration_tests {
                     &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces,"uv":fitted.texcoords,"normals":fitted.normals}),
                 )?,
             )?;
-            let maximum_distance = match preset {
-                GarmentPreset::Shirt
-                | GarmentPreset::FittedShirt
-                | GarmentPreset::Trousers
-                | GarmentPreset::Coif => 0.08,
-                GarmentPreset::Skirt | GarmentPreset::Dress => 0.25,
+            let maximum_distance = match preset.form() {
+                GarmentForm::Upper | GarmentForm::Legged | GarmentForm::Fitted => 0.08,
+                GarmentForm::Skirted => 0.25,
             };
             assert!(
                 mean < maximum_distance,
