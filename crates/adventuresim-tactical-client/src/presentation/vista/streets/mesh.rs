@@ -40,7 +40,7 @@ impl CitySurfaceMeshBuilder {
         &mut self,
         street: CityStreetPatch,
         support: &GroundSupport,
-        groups: &[FurnitureGroup],
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
         let lift_metres = SURFACE_LIFT_METRES
             + f32::from(street.surface().priority()) * SURFACE_PRIORITY_LIFT_METRES;
@@ -77,12 +77,13 @@ impl CitySurfaceMeshBuilder {
     pub(super) fn append_yard(
         &mut self,
         yard: CityYardPatch,
-        beds: &[[Vec2; 4]],
+        beds: &partition::SpatialIndex<'_, [Vec2; 4]>,
         support: &GroundSupport,
-        groups: &[FurnitureGroup],
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
         let exclusions = beds
-            .iter()
+            .candidates(yard.corners_metres)
+            .into_iter()
             .copied()
             .filter(|bed| {
                 yard.surface == CityYardSurface::PackedEarth
@@ -106,7 +107,7 @@ impl CitySurfaceMeshBuilder {
         patch: SurfacePatch,
         exclusions: &[[Vec2; 4]],
         support: &GroundSupport,
-        groups: &[FurnitureGroup],
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
         let [a, b, c, d] = patch.corners;
         let width = a.distance(b).max(d.distance(c));
@@ -184,12 +185,17 @@ impl SurfaceVertices {
 mod tests {
     use super::*;
 
+    fn empty_groups() -> partition::SpatialIndex<'static, FurnitureGroup> {
+        partition::SpatialIndex::new(&[], |group| partition::bounds(group.footprint.corners()))
+    }
+
     #[test]
     fn short_surveyed_street_segment_has_finite_nonempty_ground_triangles() {
         let terrain = SceneTerrain::new(12, 12, 1.0, |_| 0.0);
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let mut builder = CitySurfaceMeshBuilder::default();
+        let groups = empty_groups();
         builder.append_street(
             CityStreetPatch::Corridor {
                 start_metres: Vec2::ZERO,
@@ -198,7 +204,7 @@ mod tests {
                 surface: CityStreetSurface::Fieldstone,
             },
             &support,
-            &[],
+            &groups,
         );
         assert!(!builder.chunks.is_empty());
         for vertices in builder.chunks.values() {
@@ -228,6 +234,7 @@ mod tests {
         });
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        let groups = empty_groups();
         for reverse in [false, true] {
             let mut corners = [
                 Vec2::new(-4.1, -3.2),
@@ -245,7 +252,7 @@ mod tests {
                     surface: CityStreetSurface::Fieldstone,
                 },
                 &support,
-                &[],
+                &groups,
             );
             assert!(!builder.chunks.is_empty());
             for vertices in builder.chunks.values() {
@@ -277,6 +284,7 @@ mod tests {
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let mut builder = CitySurfaceMeshBuilder::default();
+        let groups = empty_groups();
         builder.append_street(
             CityStreetPatch::Corridor {
                 start_metres: Vec2::new(-12.0, 0.0),
@@ -285,7 +293,7 @@ mod tests {
                 surface: CityStreetSurface::Fieldstone,
             },
             &support,
-            &[],
+            &groups,
         );
         assert!(!builder.chunks.is_empty());
         assert!(

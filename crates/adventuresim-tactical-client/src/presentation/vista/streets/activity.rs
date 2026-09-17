@@ -9,12 +9,16 @@ pub(super) struct ActivityWear<'a> {
 }
 
 impl<'a> ActivityWear<'a> {
-    pub(super) fn for_patch(corners: [Vec2; 4], groups: &'a [FurnitureGroup]) -> Self {
-        let (minimum, maximum) = bounds(corners);
+    pub(super) fn for_patch(
+        corners: [Vec2; 4],
+        groups: &'a partition::SpatialIndex<'a, FurnitureGroup>,
+    ) -> Self {
+        let (minimum, maximum) = partition::bounds(corners);
         let groups = groups
-            .iter()
+            .candidates(corners)
+            .into_iter()
             .filter(|group| {
-                let (group_minimum, group_maximum) = bounds(group.footprint.corners());
+                let (group_minimum, group_maximum) = partition::bounds(group.footprint.corners());
                 group_maximum.cmpge(minimum).all() && group_minimum.cmple(maximum).all()
             })
             .collect();
@@ -48,13 +52,6 @@ impl<'a> ActivityWear<'a> {
     }
 }
 
-fn bounds(corners: [Vec2; 4]) -> (Vec2, Vec2) {
-    corners.into_iter().fold(
-        (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
-        |(minimum, maximum), point| (minimum.min(point), maximum.max(point)),
-    )
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -72,13 +69,16 @@ mod tests {
             anchor: FurnitureAnchor::Market { patch_index: 0 },
             footprint,
         }];
-        let wear = ActivityWear::for_patch(footprint.corners(), &groups);
+        let index = partition::SpatialIndex::new(&groups, |group| {
+            partition::bounds(group.footprint.corners())
+        });
+        let wear = ActivityWear::for_patch(footprint.corners(), &index);
         assert!(wear.at(footprint.centre_metres).x > 0.8);
         for corner in footprint.corners() {
             assert!(wear.at(corner).length() < 0.001);
         }
         assert_eq!(wear.at(Vec2::new(-20.0, 13.0)), Vec2::ZERO);
         let distant = footprint.corners().map(|point| point + Vec2::splat(100.0));
-        assert!(ActivityWear::for_patch(distant, &groups).is_empty());
+        assert!(ActivityWear::for_patch(distant, &index).is_empty());
     }
 }

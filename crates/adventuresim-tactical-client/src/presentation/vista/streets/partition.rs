@@ -1,13 +1,52 @@
 //! Give cultivated beds exclusive ground triangles inside their packed plot.
 use bevy::math::{Vec2, Vec3};
+use std::collections::{BTreeMap, BTreeSet};
+
+pub(super) const SPATIAL_CELL_METRES: f32 = 32.0;
+
+pub(super) struct SpatialIndex<'a, T> {
+    items: &'a [T],
+    cells: BTreeMap<(i32, i32), Vec<usize>>,
+}
+
+impl<'a, T> SpatialIndex<'a, T> {
+    pub(super) fn new(items: &'a [T], item_bounds: impl Fn(&T) -> (Vec2, Vec2)) -> Self {
+        let mut cells = BTreeMap::<_, Vec<_>>::new();
+        for (index, item) in items.iter().enumerate() {
+            let (minimum, maximum) = item_bounds(item);
+            for key in cell_keys(minimum, maximum) {
+                cells.entry(key).or_default().push(index);
+            }
+        }
+        Self { items, cells }
+    }
+
+    pub(super) fn candidates(&self, corners: [Vec2; 4]) -> Vec<&'a T> {
+        let (minimum, maximum) = bounds(corners);
+        let indices = cell_keys(minimum, maximum)
+            .flat_map(|key| self.cells.get(&key).into_iter().flatten().copied())
+            .collect::<BTreeSet<_>>();
+        indices
+            .into_iter()
+            .map(|index| &self.items[index])
+            .collect()
+    }
+}
+
+pub(super) fn bounds(points: [Vec2; 4]) -> (Vec2, Vec2) {
+    points.into_iter().fold(
+        (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
+        |(minimum, maximum), point| (minimum.min(point), maximum.max(point)),
+    )
+}
+
+fn cell_keys(minimum: Vec2, maximum: Vec2) -> impl Iterator<Item = (i32, i32)> {
+    let minimum = (minimum / SPATIAL_CELL_METRES).floor().as_ivec2();
+    let maximum = (maximum / SPATIAL_CELL_METRES).floor().as_ivec2();
+    (minimum.y..=maximum.y).flat_map(move |y| (minimum.x..=maximum.x).map(move |x| (x, y)))
+}
 
 pub(super) fn overlaps(a: [Vec2; 4], b: [Vec2; 4]) -> bool {
-    let bounds = |points: [Vec2; 4]| {
-        points.into_iter().fold(
-            (Vec2::splat(f32::INFINITY), Vec2::splat(f32::NEG_INFINITY)),
-            |(min, max), p| (min.min(p), max.max(p)),
-        )
-    };
     let (amin, amax) = bounds(a);
     let (bmin, bmax) = bounds(b);
     amin.x < bmax.x && amax.x > bmin.x && amin.y < bmax.y && amax.y > bmin.y
@@ -64,6 +103,39 @@ fn outside(mut remaining: Vec<Vec3>, bed: [Vec2; 4]) -> Vec<Vec<Vec3>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn spatial_candidates_preserve_source_order_across_cell_boundaries() {
+        let items = [
+            [
+                Vec2::new(31.0, -2.0),
+                Vec2::new(33.0, -2.0),
+                Vec2::new(33.0, 2.0),
+                Vec2::new(31.0, 2.0),
+            ],
+            [
+                Vec2::new(-40.0, -2.0),
+                Vec2::new(-38.0, -2.0),
+                Vec2::new(-38.0, 2.0),
+                Vec2::new(-40.0, 2.0),
+            ],
+            [
+                Vec2::new(34.0, -2.0),
+                Vec2::new(36.0, -2.0),
+                Vec2::new(36.0, 2.0),
+                Vec2::new(34.0, 2.0),
+            ],
+        ];
+        let index = SpatialIndex::new(&items, |item| bounds(*item));
+        let query = [
+            Vec2::new(30.0, -3.0),
+            Vec2::new(35.0, -3.0),
+            Vec2::new(35.0, 3.0),
+            Vec2::new(30.0, 3.0),
+        ];
+
+        assert_eq!(index.candidates(query), vec![&items[0], &items[2]]);
+    }
 
     #[test]
     fn bed_removal_preserves_sloped_ground_and_exact_working_area() {

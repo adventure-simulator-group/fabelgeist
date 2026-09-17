@@ -60,13 +60,17 @@ impl CityGroundAssets<'_> {
             .filter(|yard| yard.surface == CityYardSurface::KitchenGarden)
             .map(|yard| yard.corners_metres)
             .collect::<Vec<_>>();
+        let bed_index = partition::SpatialIndex::new(&beds, |bed| partition::bounds(*bed));
+        let group_index = partition::SpatialIndex::new(groups, |group| {
+            partition::bounds(group.footprint.corners())
+        });
         for yard in yards.iter().copied() {
             let kind = CityGroundKind::from(yard.surface);
-            builders[kind.index()].append_yard(yard, &beds, support, groups);
+            builders[kind.index()].append_yard(yard, &bed_index, support, &group_index);
         }
         for street in streets.iter().copied() {
             let kind = CityGroundKind::from(street.surface());
-            builders[kind.index()].append_street(street, support, groups);
+            builders[kind.index()].append_street(street, support, &group_index);
         }
         let network = self
             .streaming
