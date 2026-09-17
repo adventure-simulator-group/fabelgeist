@@ -1,8 +1,5 @@
 //! Establishment signs with period tool pictograms. Names belong to placed lots, not shared building recipes.
-use adventuresim_world_schema::{
-    person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES},
-    settlement_buildings::BuildingUse,
-};
+use adventuresim_world_schema::{person_names::NamePool, settlement_buildings::BuildingUse};
 use bevy::math::{Quat, Vec2, Vec3};
 use clap::ValueEnum;
 use fabelgeist_determinism::mix64;
@@ -43,13 +40,12 @@ impl ShopName {
         let trade = shop_trade(usage)?;
         let entropy = mix64(id.0 ^ NAME_STREAM);
         let names = if entropy & 1 == 0 {
-            &FEMALE_NAMES
+            NamePool::Female
         } else {
-            &MALE_NAMES
+            NamePool::Male
         };
-        // Reduce before narrowing so native and wasm32 choose the same brand.
-        let given = names[((entropy >> 1) % names.len() as u64) as usize];
-        let surname = SURNAMES[(mix64(entropy) % SURNAMES.len() as u64) as usize];
+        let given = names.choose(entropy >> 1);
+        let surname = NamePool::Surname.choose(mix64(entropy));
         Some(Self {
             proprietor: format!("{given} {surname}’s"),
             trade: trade.to_owned(),

@@ -305,7 +305,7 @@ const SERVICES: [(&str, &str, &str, &str); 8] = [
     ("religion", "church", "cleric", "parish priest"),
     ("books", "bookstore", "merchant", "bookseller"),
 ];
-use adventuresim_world_schema::person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES};
+use adventuresim_world_schema::person_names::NamePool;
 
 #[derive(Clone, Copy)]
 enum PopulationLocation<'a> {
@@ -422,14 +422,14 @@ fn organization_representative_seed(settlement_id: &str, organization_id: &str) 
 fn resident_name(seed: &str, female: bool) -> String {
     let hash = resident_entropy(seed, ResidentEntropyStream::Identity);
     let given = if female {
-        FEMALE_NAMES[hash as usize % FEMALE_NAMES.len()]
+        NamePool::Female.choose(hash)
     } else {
-        MALE_NAMES[hash as usize % MALE_NAMES.len()]
+        NamePool::Male.choose(hash)
     };
     format!(
         "{} {}",
         given,
-        SURNAMES[hash.rotate_left(17) as usize % SURNAMES.len()]
+        NamePool::Surname.choose(hash.rotate_left(17))
     )
 }
 
@@ -549,12 +549,11 @@ fn insert_resident_with_seed(
     };
     let female = resident_entropy(&seed, ResidentEntropyStream::Sex).is_multiple_of(2);
     let age_band = age(profile.age);
-    let household = format!(
-        "the {} {}",
-        SURNAMES[resident_entropy(&seed, ResidentEntropyStream::HouseholdName) as usize
-            % SURNAMES.len()],
-        profile.household_kind
-    );
+    let household_name = NamePool::Surname.choose(resident_entropy(
+        &seed,
+        ResidentEntropyStream::HouseholdName,
+    ));
+    let household = format!("the {household_name} {}", profile.household_kind);
     insert_persistent_npc_character(
         ctx,
         resident_name(&seed, female),

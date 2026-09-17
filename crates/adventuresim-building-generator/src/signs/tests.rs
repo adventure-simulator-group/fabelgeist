@@ -4,7 +4,7 @@ use crate::{BuildingProgram, generate, settlement_archetype};
 #[test]
 fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
     let first = ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
-    assert_eq!(first.text(), "Ursula Klein’s Tavern");
+    assert_eq!(first.text(), "Elisabeth Lesemann’s Tavern");
     assert_eq!(
         first,
         ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap()
