@@ -199,7 +199,7 @@ fn spawn_near_vista_details(
         meshes,
         grass_materials,
         grass,
-        urban_ground,
+        &urban_ground,
     );
     spawn_vista_rocks(
         commands,
@@ -223,7 +223,7 @@ struct VistaTuftPlacement<'a> {
     playable_half_extent: Vec2,
     playable_terrain: &'a SceneTerrain,
     playable_ground: &'a SceneGround,
-    urban_ground: UrbanGround<'a>,
+    urban_ground: &'a UrbanGround,
     profile: GrassCommunityProfile,
     community_seed: u64,
     /// How far past the playable rectangle this sward reaches, in metres.
@@ -324,7 +324,7 @@ fn spawn_near_vista_scatter(
     meshes: &mut Assets<Mesh>,
     grass_materials: &mut Assets<TacticalGrassInstancedMaterial>,
     grass: &crate::presentation::config::GrassConfig,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) {
     if !grass.enabled {
         return;
@@ -442,7 +442,7 @@ fn stitched_vista_topology_coverage(
     playable_half_extent: Vec2,
     playable_ground: &SceneGround,
     point: Vec2,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) -> f32 {
     if urban_ground.suppresses_grass(point) {
         return 0.0;
@@ -1638,7 +1638,7 @@ mod tests {
                 Vec2::splat(10.0),
                 &ground,
                 Vec2::new(x, 0.0),
-                UrbanGround::new(&[], &[]),
+                &UrbanGround::new(&[], &[]),
             )
         };
         let boundary = coverage(10.0);
@@ -1662,7 +1662,7 @@ mod tests {
                 Vec2::splat(10.0),
                 &ground,
                 Vec2::new(22.0, 0.0),
-                UrbanGround::new(&street, &[]),
+                &UrbanGround::new(&street, &[]),
             ),
             0.0
         );

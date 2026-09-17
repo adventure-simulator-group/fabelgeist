@@ -22,20 +22,15 @@ pub(in crate::presentation) struct CityGroundAssets<'w> {
     pub(super) streaming: Option<Res<'w, streaming::StreamCityTraffic>>,
 }
 
-#[derive(Clone, Copy)]
-pub(super) struct UrbanGround<'a> {
-    streets: &'a [CityStreetPatch],
-    yards: &'a [CityYardPatch],
-}
+pub(super) struct UrbanGround(UrbanGroundLookup);
 
-impl<'a> UrbanGround<'a> {
-    pub(super) const fn new(streets: &'a [CityStreetPatch], yards: &'a [CityYardPatch]) -> Self {
-        Self { streets, yards }
+impl UrbanGround {
+    pub(super) fn new(streets: &[CityStreetPatch], yards: &[CityYardPatch]) -> Self {
+        Self(UrbanGroundLookup::new(streets, yards, &[]))
     }
 
-    pub(super) fn suppresses_grass(self, point: Vec2) -> bool {
-        self.streets.iter().any(|street| street.contains(point))
-            || self.yards.iter().any(|yard| yard.contains(point))
+    pub(super) fn suppresses_grass(&self, point: Vec2) -> bool {
+        self.0.suppresses_grass(point)
     }
 }
 

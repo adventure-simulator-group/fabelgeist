@@ -98,7 +98,7 @@ pub mod prelude {
     };
     pub use crate::scene::{
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
-        TerrainGenerator,
+        TerrainGenerator, UrbanGroundLookup,
     };
     pub use crate::scene_input::furniture::{
         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
