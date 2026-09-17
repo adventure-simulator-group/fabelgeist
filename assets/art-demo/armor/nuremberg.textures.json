@@ -2,24 +2,24 @@
   "tool": "scripts/optimize_art_demo_armor.py",
   "pillow": "11.3.0",
   "policy": {
-    "occlusion_only": "512px, R8 PNG",
-    "all_other": "1024px PNG",
+    "occlusion_only": "256px, R8 PNG",
+    "all_other": "512px PNG",
     "ktx2": "not used; KHR_texture_basisu unavailable in Bevy 0.19 glTF"
   },
   "geometry_bytes": 852632,
-  "source_glb_bytes": 41911196,
-  "glb_bytes": 15883888,
-  "source_image_bytes": 40952393,
-  "image_bytes": 14925746,
+  "source_glb_bytes": 6312216,
+  "glb_bytes": 6312216,
+  "source_image_bytes": 14925746,
+  "image_bytes": 5354125,
   "source_images": 95,
   "unique_images": 95,
   "duplicate_images": 0,
-  "gpu_bytes_estimate_before": 581610154,
-  "gpu_bytes_estimate_after": 149946368,
+  "gpu_bytes_estimate_before": 258648746,
+  "gpu_bytes_estimate_after": 37486592,
   "dimensions": {
-    "1024x1024x3": 29,
-    "512x512x1": 65,
-    "1024x1024x4": 1
+    "512x512x3": 29,
+    "256x256x1": 65,
+    "512x512x4": 1
   },
   "images": [
     {
@@ -33,14 +33,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 15960,
-      "bytes": 4544,
-      "sha256": "3d873d67af1870e686e3e1b2aa7589f594d94b0c2775f71f2aaa88fe88fc4bab",
+      "source_bytes": 4544,
+      "bytes": 1489,
+      "sha256": "71d432413a10aab25e5dee0aa377a1ca29dddef8eb2e30584135268d218c9d96",
       "duplicate_of": null
     },
     {
@@ -50,18 +50,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 480480,
-      "bytes": 86540,
-      "sha256": "f8256a753a4bfa5cc25d3aecd7058a6be5c9d565b9764299a80813b1fe4f3648",
+      "source_bytes": 86540,
+      "bytes": 21233,
+      "sha256": "52911f475a64656a7e91ce464ede19dfafa7d40ecec1f3b93e68b8d1fd18378e",
       "duplicate_of": null
     },
     {
@@ -71,18 +71,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 262733,
-      "bytes": 53533,
-      "sha256": "5324b809886051c8188510f78d548d85d0bdd5a561f9139f065fe29aea0c4228",
+      "source_bytes": 53533,
+      "bytes": 15522,
+      "sha256": "b6f2021be48ee728ae6bf25f18c1e5ffb377dc2674fb0d64a7eaf8df000cb0e7",
       "duplicate_of": null
     },
     {
@@ -96,14 +96,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 611125,
-      "bytes": 438199,
-      "sha256": "bd9205bfb72b8a8551c474dad24f2e3e81a88b8e82f6fec2747756aa1eca38d1",
+      "source_bytes": 438199,
+      "bytes": 185680,
+      "sha256": "b91e35212f66c259f08e7c93b3b33e6cccd5f8ff128b03d0972aedda8e14adef",
       "duplicate_of": null
     },
     {
@@ -113,18 +113,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 374580,
-      "bytes": 81540,
-      "sha256": "0db9633a51ed2557dc563308a8d06470b250cd931f8972009bb46bca018c9db3",
+      "source_bytes": 81540,
+      "bytes": 21457,
+      "sha256": "b0bf8bc7246aba6a56eda3252147c94f695d4c93f90937f24c2615fe9cb2d42f",
       "duplicate_of": null
     },
     {
@@ -138,14 +138,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 377749,
-      "bytes": 228381,
-      "sha256": "7d2abd6719c6bf1aae48c308399eb39b13b8a3c653c4aedac55e32a94ca29761",
+      "source_bytes": 228381,
+      "bytes": 123152,
+      "sha256": "ec90f631adfa18c03991e9d33908100cd9f048ddd31c078dc39546cb0318f3c5",
       "duplicate_of": null
     },
     {
@@ -155,18 +155,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 524693,
-      "bytes": 115180,
-      "sha256": "e78db7da247457edb9275d3678e0008e1eb861a7636e4badd5812ea2aef8b8e8",
+      "source_bytes": 115180,
+      "bytes": 28178,
+      "sha256": "1ad312220b9e3e8fd1ee0a6ae7e774667aca8bac8548586bb5526544ea55b7da",
       "duplicate_of": null
     },
     {
@@ -180,14 +180,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 506416,
-      "bytes": 337973,
-      "sha256": "33b40dc7861d86d1a06bee9ae478365209f32acea660d073d397cc509e05f1c7",
+      "source_bytes": 337973,
+      "bytes": 151923,
+      "sha256": "f2975bfd227188c8e398ff4635d0a93bb8f6fb9ab8db9ea92a77c718e47d3421",
       "duplicate_of": null
     },
     {
@@ -197,18 +197,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 359593,
-      "bytes": 80976,
-      "sha256": "b42eacb7b16d6076bf39a3572f0488dddae89e9ca2fb35b2777462067f836cd0",
+      "source_bytes": 80976,
+      "bytes": 20667,
+      "sha256": "c93f8f50ccb0a44c6788c5d64c214a5a2384caae195ccf7ed4db0bdce7605115",
       "duplicate_of": null
     },
     {
@@ -222,14 +222,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 401709,
-      "bytes": 254840,
-      "sha256": "463408b95b40808d2be6b7037951ef24a3b1dedcd58e9266f0ac277089ffb7da",
+      "source_bytes": 254840,
+      "bytes": 123221,
+      "sha256": "7e1b6debd982a5feb2823a4569a2dfb0a66e8134b4779dfc090f4fb9d7628300",
       "duplicate_of": null
     },
     {
@@ -239,18 +239,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 195364,
-      "bytes": 59121,
-      "sha256": "f591e4fba6e6253dec55c3c7a68da7c355e6daa22f5aa4a6e18a0c0f81a3e836",
+      "source_bytes": 59121,
+      "bytes": 16639,
+      "sha256": "4a66b7fe125d49c6b06dddad18dda94aa78be8d58e365d9d40039a03ccb4107a",
       "duplicate_of": null
     },
     {
@@ -260,18 +260,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 442229,
-      "bytes": 106262,
-      "sha256": "65c1dee83b079cb3eb32ee1bacf7d41af35ee6f1871a4cc348311c501acc5dff",
+      "source_bytes": 106262,
+      "bytes": 27532,
+      "sha256": "ad0336f5fe716d3cdb8b1d8c4c9d0c9cd49eb37f868f1713438018301d4026d7",
       "duplicate_of": null
     },
     {
@@ -281,18 +281,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 412647,
-      "bytes": 92702,
-      "sha256": "6e811ceae77a86b2af9583de7c05114d144e5098f3ce18761c8f52d81940d970",
+      "source_bytes": 92702,
+      "bytes": 25090,
+      "sha256": "86787101d7736502750ca241cb7dbc4d642e27bb2c04ee83edd7a014961c10c1",
       "duplicate_of": null
     },
     {
@@ -306,14 +306,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 400838,
-      "bytes": 265011,
-      "sha256": "a2706181e0499bc0fc0118dfd2286e5d071e4549cd2500ddd7ae489103e41452",
+      "source_bytes": 265011,
+      "bytes": 117537,
+      "sha256": "f0ef00e3ada904b53c7a0d1d8cb23d8725ab0f7dc0a03e88b6da32139144f5ed",
       "duplicate_of": null
     },
     {
@@ -323,18 +323,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 232326,
-      "bytes": 68048,
-      "sha256": "998d47d010cd0c0a1083c93ea78f6dd2342f411b405a247499ce83f3e985339a",
+      "source_bytes": 68048,
+      "bytes": 18321,
+      "sha256": "96d112c9c9d80edba467240bec6bb1d3c09b49572fa6dd87818e0425880ec768",
       "duplicate_of": null
     },
     {
@@ -344,18 +344,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 449205,
-      "bytes": 106106,
-      "sha256": "02c17471ca4f6a82b5c777cd55f173ccbc3ee0d7379dff69eba60a35686831ae",
+      "source_bytes": 106106,
+      "bytes": 27315,
+      "sha256": "c421dfc6a359204fd05f360ceebdac62245002a8a5b8a922073eb3fa671ae641",
       "duplicate_of": null
     },
     {
@@ -365,18 +365,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 412466,
-      "bytes": 90722,
-      "sha256": "78737e2a600b8664408db6d17b19a32d1aab81991c23b6a65964f972cbd83a88",
+      "source_bytes": 90722,
+      "bytes": 24629,
+      "sha256": "f8d06b4093677228d009d17b4cea7972260641e731562916282c4b9c325d6020",
       "duplicate_of": null
     },
     {
@@ -390,14 +390,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 407612,
-      "bytes": 271422,
-      "sha256": "5f38767178a11826c5b9a640e12941514215de61e58a1d26d515413ea9f7c6ac",
+      "source_bytes": 271422,
+      "bytes": 117845,
+      "sha256": "f5d73f17d11d7bf8cc6fb6c05c3046a51c5b1e5b5c22951b50ee7d5afc8589c9",
       "duplicate_of": null
     },
     {
@@ -407,18 +407,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 243107,
-      "bytes": 67433,
-      "sha256": "8e8d2307083829c2d5ddc385bc701f626fa0ab9c1acc6c9594cc4d51df53ac2f",
+      "source_bytes": 67433,
+      "bytes": 17897,
+      "sha256": "df7445581d66cf3d84f8028b8cbff73b0fc38552061df9f59c3b9b0a1d837687",
       "duplicate_of": null
     },
     {
@@ -428,18 +428,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 474464,
-      "bytes": 102870,
-      "sha256": "8e7ebbceb4e797fe62f4ace5a448ef8beef59e0b34070ff3cfc113069886e379",
+      "source_bytes": 102870,
+      "bytes": 24992,
+      "sha256": "4ad4c978990dfb14a8e5de2321d760583cc498714a010661411fa2e2ca0c42e7",
       "duplicate_of": null
     },
     {
@@ -449,18 +449,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 458715,
-      "bytes": 102853,
-      "sha256": "b36a7a710f60aa032dd511a4968431034c8584ce42b83da0376574775670a954",
+      "source_bytes": 102853,
+      "bytes": 26749,
+      "sha256": "18b0cf64629ea65bd213f6d93b1e468934c6587385e901222cd690cd7fd6ec8f",
       "duplicate_of": null
     },
     {
@@ -474,14 +474,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 438691,
-      "bytes": 297383,
-      "sha256": "8ee3fb3cf7ababb3959b06fe3a23589782b1a508e8ddbcb963f884c190756154",
+      "source_bytes": 297383,
+      "bytes": 124992,
+      "sha256": "6c3231a77872dbc8f97b8a17a3ed1fbb15160ab8edf0275ca3c0bebe056409ba",
       "duplicate_of": null
     },
     {
@@ -491,18 +491,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 83183,
-      "bytes": 31890,
-      "sha256": "eee23395efe06389b88c5e30e665f3a20697ab7cbd335ca6db6a904db7ec0be9",
+      "source_bytes": 31890,
+      "bytes": 10523,
+      "sha256": "c8a5b58b8269b55c49db4ef174e4a0cc2fa5162a3f8d106444095046fbee8717",
       "duplicate_of": null
     },
     {
@@ -516,14 +516,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 17832,
-      "bytes": 4776,
-      "sha256": "67387bbbd9ea0983d31ecc5de219897a762d6a45e09fd9698823153650c03f9c",
+      "source_bytes": 4776,
+      "bytes": 1611,
+      "sha256": "d88b136377a8cc23b11379667d1561bfb29d1ecaabd1a1324da968bfaed35ab0",
       "duplicate_of": null
     },
     {
@@ -533,18 +533,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 496113,
-      "bytes": 107247,
-      "sha256": "91340af0d2ca031ac83e5c34d2eef17d977a812b9782b841623d558290c4645f",
+      "source_bytes": 107247,
+      "bytes": 25840,
+      "sha256": "07576a72078d00b82db08ad338894bf05ac96f4b6f13c4b0100c7c722d4556b5",
       "duplicate_of": null
     },
     {
@@ -554,18 +554,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 406589,
-      "bytes": 88819,
-      "sha256": "c7d3190ee91797456860283f7d3bacb2a05d507c6ba6c53fd0fa9daa9f109cb4",
+      "source_bytes": 88819,
+      "bytes": 22759,
+      "sha256": "0a8993805be4c824fa94fb3d910c71ae069812a65d2790278867b85701ed6be3",
       "duplicate_of": null
     },
     {
@@ -579,14 +579,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 527051,
-      "bytes": 391136,
-      "sha256": "f94da555bb577d259080e48b35c607ae2ac94d6247e4b1edbe73ead8ca71a3ac",
+      "source_bytes": 391136,
+      "bytes": 158025,
+      "sha256": "1cc22468629ff4f0f206052ab742015147911c9aacba029a9a529dbcdad821fe",
       "duplicate_of": null
     },
     {
@@ -596,18 +596,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 81807,
-      "bytes": 30130,
-      "sha256": "87e6a686dbea3c05db46184755b66435e9d0237c094140d5f7feb720fba03950",
+      "source_bytes": 30130,
+      "bytes": 9582,
+      "sha256": "8ff7e5b235dd3705cb1bb7fa79a7d1a3c77e3ed019f36192ea50b4abdb216b0a",
       "duplicate_of": null
     },
     {
@@ -621,14 +621,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 738750,
-      "bytes": 552047,
-      "sha256": "2caa1c2d1339bb4c9a3d88e81c0d665bcce49e23308585b2d67c8cf2fd53cf34",
+      "source_bytes": 552047,
+      "bytes": 216253,
+      "sha256": "c76efb528b5b5ade51ebc024654f6c7bd7b76beb80df656f02cd5149ff5222c7",
       "duplicate_of": null
     },
     {
@@ -638,18 +638,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 293044,
-      "bytes": 76548,
-      "sha256": "3fc69456cb429d94a242d0047ce59c4cb66c43dcf7fd44762c4b9e93244cdcb0",
+      "source_bytes": 76548,
+      "bytes": 23692,
+      "sha256": "e928d17889262dcea0951d179371ee81bef6e28f648f23b10dd51995cfd5798d",
       "duplicate_of": null
     },
     {
@@ -663,14 +663,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 507569,
-      "bytes": 337833,
-      "sha256": "07be852c7c6b5039ddafe3dc5382d22d955e693ebd1a004e661f425fdbabca35",
+      "source_bytes": 337833,
+      "bytes": 166024,
+      "sha256": "133ebeca95521a44c0b44485739882e6d449f33fafdc8f5e7aec64870b0f808a",
       "duplicate_of": null
     },
     {
@@ -680,18 +680,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 303673,
-      "bytes": 86720,
-      "sha256": "9168e6ded8cece40bf5e03c27e309b371f6cbd851030f6314e60b97fdfb6a25a",
+      "source_bytes": 86720,
+      "bytes": 23024,
+      "sha256": "184bfb1a1eb7695054884d00905483445de717517d4cfb7958f4fa5cab93095e",
       "duplicate_of": null
     },
     {
@@ -701,18 +701,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 538564,
-      "bytes": 124460,
-      "sha256": "a62aa52e5d8ea76afde9eb6ea56e273a58596451f352de066c54f3f8de1a641c",
+      "source_bytes": 124460,
+      "bytes": 31141,
+      "sha256": "45973857a4f84300e3a9d9ede9461a6f9edfbb1348f9eb3c78e0293eeeb690d1",
       "duplicate_of": null
     },
     {
@@ -722,18 +722,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 441362,
-      "bytes": 111366,
-      "sha256": "3af7e83dab4096e18509e851100a06116a756d4a81f51c95d82ae5f2529a944a",
+      "source_bytes": 111366,
+      "bytes": 30357,
+      "sha256": "8b3dc7f914d12ce6bd435b7e62131d5ff88bb149636526f36b3bea7bb5a3a688",
       "duplicate_of": null
     },
     {
@@ -747,14 +747,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 330282,
-      "bytes": 190262,
-      "sha256": "c54dfc640f07e92e0fcba6d3ede5b91d6a85081b448b5ce0cfcb1d35febe9366",
+      "source_bytes": 190262,
+      "bytes": 93347,
+      "sha256": "72650f3eb026ff27ca90bc450a5e153ec580f39638fddd5d34b25ab3312194bb",
       "duplicate_of": null
     },
     {
@@ -764,18 +764,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 201363,
-      "bytes": 65629,
-      "sha256": "0e81741a6988970c420d4454dd802774edb8a72fa7cfae2e6ea113f7939106db",
+      "source_bytes": 65629,
+      "bytes": 17783,
+      "sha256": "5bada95a0de6a2adbdc627479640ef40e02ae264aa10ae326f3f217d4db15ac0",
       "duplicate_of": null
     },
     {
@@ -785,18 +785,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 540844,
-      "bytes": 123320,
-      "sha256": "79b52c306928e04b24ed7a050cea73b5f311f4197fa5cea7f8ddfd8cf9eb2dd5",
+      "source_bytes": 123320,
+      "bytes": 30715,
+      "sha256": "82619a462f8cee39a461d8e3bdf314900e0a336f45b49b6626374614fd932184",
       "duplicate_of": null
     },
     {
@@ -806,18 +806,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 454437,
-      "bytes": 110872,
-      "sha256": "7bc211ff514091f524277ba450acf9b7fad955158c4affab3b06c8cfa9adbe93",
+      "source_bytes": 110872,
+      "bytes": 30186,
+      "sha256": "e195518ec3cc1db43b3c01a35adad14bdd90489eafd49284b60b29f7a032383d",
       "duplicate_of": null
     },
     {
@@ -831,14 +831,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 301871,
-      "bytes": 175783,
-      "sha256": "4806eaf3c1564aed05be0c22eaa6bca223843bd960f017be9a78c7fd719b4fe1",
+      "source_bytes": 175783,
+      "bytes": 85347,
+      "sha256": "662167acc38486660b6ecb7d551b01375b30b6e33fdcf35ab88bed75edce9bcd",
       "duplicate_of": null
     },
     {
@@ -848,18 +848,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 179982,
-      "bytes": 59506,
-      "sha256": "9c18dbbd406d496018688d58632863e91379f930d5024da15100edff0ababd55",
+      "source_bytes": 59506,
+      "bytes": 16175,
+      "sha256": "624c44fe441541b4dc0c920bac9609c35383cfe28b3abb9ddf79279258f6562b",
       "duplicate_of": null
     },
     {
@@ -869,18 +869,18 @@
         "normal"
       ],
       "source_dimensions": [
-        2048,
-        2048
-      ],
-      "dimensions": [
         1024,
         1024
       ],
+      "dimensions": [
+        512,
+        512
+      ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 2801863,
-      "bytes": 617254,
-      "sha256": "5c9d82f31a2ea5c0d2fe7f7f0eb13ed1cc0ddfdb3dd3be2d33de01e2d2ffcc96",
+      "source_bytes": 617254,
+      "bytes": 126703,
+      "sha256": "51f75434975223eaaa17c2706e791c1ce6740598ba769e365da4f688b31a962a",
       "duplicate_of": null
     },
     {
@@ -890,18 +890,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        2048,
-        2048
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 1018559,
-      "bytes": 46404,
-      "sha256": "5df6bc26e06a1d1a075f30854c86da6b364357b8d9ddb257a4d7862358bf8f61",
+      "source_bytes": 46404,
+      "bytes": 10571,
+      "sha256": "f3038b37b89392d19d63bac0ac0c9a6239624a5ac8116f3780798fc60f06cacb",
       "duplicate_of": null
     },
     {
@@ -911,18 +911,18 @@
         "base_color"
       ],
       "source_dimensions": [
-        2048,
-        2048
-      ],
-      "dimensions": [
         1024,
         1024
       ],
+      "dimensions": [
+        512,
+        512
+      ],
       "channels": 4,
       "format": "image/png",
-      "source_bytes": 1145327,
-      "bytes": 548271,
-      "sha256": "864cfc949eeefbbdd88e4d64574861c516877f624bdea062cd499a888f23b1f7",
+      "source_bytes": 548271,
+      "bytes": 118536,
+      "sha256": "8e91d945770702187f3a4ab86ebb7cb9424bc83654fb316bb2ca3b0a076446d9",
       "duplicate_of": null
     },
     {
@@ -932,18 +932,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 479819,
-      "bytes": 104666,
-      "sha256": "42e8dd0da835cc1dd7e68561ba79e60d68bb3147687afa35710843c7b84ba2b2",
+      "source_bytes": 104666,
+      "bytes": 25641,
+      "sha256": "4396d72e347a6d0383e325abbc047b3d207377ea414abbfdc6837fccbfe8038f",
       "duplicate_of": null
     },
     {
@@ -953,18 +953,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 342158,
-      "bytes": 73814,
-      "sha256": "e6bc944e93c20a6624a73822b0b514d34a253721546aa8b9fb06d8d51eec1c67",
+      "source_bytes": 73814,
+      "bytes": 19794,
+      "sha256": "6878b58177c82eb215fab1cb80bbe703781dcb9a0213fc1d26df0ae0efb1d461",
       "duplicate_of": null
     },
     {
@@ -978,14 +978,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 389905,
-      "bytes": 235036,
-      "sha256": "a9f1608963e205061abc3cd3fa20115e9630a791b403b55ce8478e8b1d344542",
+      "source_bytes": 235036,
+      "bytes": 112693,
+      "sha256": "b088e46c3833a316dae6cea4ae05d44c94d8a93286451e08549f139437b8e6e9",
       "duplicate_of": null
     },
     {
@@ -995,18 +995,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 256316,
-      "bytes": 71169,
-      "sha256": "52c027ca974687bd07252f6077af39154484c0a2519b3a2328b8858212fa5226",
+      "source_bytes": 71169,
+      "bytes": 19243,
+      "sha256": "0dcbb1c7e35c8eb01c6df1134846bc3456b0bcea8be1ff3d68798c51d9e48b12",
       "duplicate_of": null
     },
     {
@@ -1016,18 +1016,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 475099,
-      "bytes": 104232,
-      "sha256": "839009a5d0448552780476652290e0e8ce6123d4c133ad189c0536fca0d30848",
+      "source_bytes": 104232,
+      "bytes": 25491,
+      "sha256": "570e638fc85145ada46f708a8ee470fa2b4bde040d3190095ac965675c911671",
       "duplicate_of": null
     },
     {
@@ -1037,18 +1037,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 345143,
-      "bytes": 74073,
-      "sha256": "57bfd0e7c58ac257f72dfcd263963096653c484117310fe2e75758f35ec991be",
+      "source_bytes": 74073,
+      "bytes": 19933,
+      "sha256": "b6320a96c1e89bbb9559a980570bc3ed7e1a982e3bcf6840fa398dd71285113a",
       "duplicate_of": null
     },
     {
@@ -1062,14 +1062,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 384205,
-      "bytes": 233296,
-      "sha256": "cf865419cc2820a3c603ac083fa5d53474f6cae48610d1935d475d90409c16ea",
+      "source_bytes": 233296,
+      "bytes": 110485,
+      "sha256": "574c7f1f63194939f4c79322491ca2605fe025999e39ba7840960e099ebe1bd1",
       "duplicate_of": null
     },
     {
@@ -1079,18 +1079,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 252868,
-      "bytes": 68559,
-      "sha256": "cd202b1bb4ffef3e0bcb20ba6919e4f60d09a71cfbd15ff477cff15020ce1f48",
+      "source_bytes": 68559,
+      "bytes": 18217,
+      "sha256": "05c28564f55cc15de40207ec9b3c59c3ae755e05e58696849111c10e2195d56f",
       "duplicate_of": null
     },
     {
@@ -1100,18 +1100,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 505620,
-      "bytes": 111762,
-      "sha256": "a8d3a252d19081d07c5153f3c0e516a31bc5991856eaf7694147e6cef2003cc0",
+      "source_bytes": 111762,
+      "bytes": 27724,
+      "sha256": "7c7677a3861c5ef8a59bad37142ec824be9e5bdb70dd41131c5fb48ab4fc6e39",
       "duplicate_of": null
     },
     {
@@ -1121,18 +1121,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 366390,
-      "bytes": 76863,
-      "sha256": "880b597a341e952976fafb4137b9a632705b4a6adef9112e867bc3a1ac872868",
+      "source_bytes": 76863,
+      "bytes": 21632,
+      "sha256": "5dd9ac799384dfd2571863219e4b146e00b6ebb94b6841867b1454030f266663",
       "duplicate_of": null
     },
     {
@@ -1146,14 +1146,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 281193,
-      "bytes": 161855,
-      "sha256": "cd58cc86efadec6aa69912c16a2b80b4bc645391ef3f7aba4202ea586f138e26",
+      "source_bytes": 161855,
+      "bytes": 77505,
+      "sha256": "b990beb2db92d6df9bcf49abaf7e4088137248403ed63f716cbfb32a3c174b06",
       "duplicate_of": null
     },
     {
@@ -1163,18 +1163,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 101532,
-      "bytes": 28308,
-      "sha256": "d5f9ab51b7203e072c6fcbbb35fa05817c2ddbce0e47e1d62ba43f78e25bdc75",
+      "source_bytes": 28308,
+      "bytes": 8776,
+      "sha256": "05064cb2b235d144e1545f5121aa48c7bc07d0f9c99a335d3c251392ad9318a5",
       "duplicate_of": null
     },
     {
@@ -1184,18 +1184,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 476604,
-      "bytes": 104368,
-      "sha256": "f1f6df78d4acdfd6b42a91e71bf0744891e8d4f0edaa9a1e599cde3421f7a9ab",
+      "source_bytes": 104368,
+      "bytes": 26186,
+      "sha256": "a9ba29dca56a4d7341d7440cf3cc5e3aef7c38837d459fd1de9feb354bed3128",
       "duplicate_of": null
     },
     {
@@ -1205,18 +1205,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 375495,
-      "bytes": 77690,
-      "sha256": "3c99ed0b5cc44c0720a4295bb91a292969d8f2e7592f09c873f7c283f73f8d1a",
+      "source_bytes": 77690,
+      "bytes": 21414,
+      "sha256": "707fe0e5c1c576e20b1dbcc291d8c8b097dfa648bfa2bbcaa61ed9e0d3c11b47",
       "duplicate_of": null
     },
     {
@@ -1230,14 +1230,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 283350,
-      "bytes": 161424,
-      "sha256": "258f067caf42769f58b4e86ea2a5255c1c31f9a5400bc658d9f4142c06c7430d",
+      "source_bytes": 161424,
+      "bytes": 78355,
+      "sha256": "911814702a8366c1f6585a676a693548169f416c33ebc801af015d2f926ab22f",
       "duplicate_of": null
     },
     {
@@ -1247,18 +1247,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 104735,
-      "bytes": 28906,
-      "sha256": "375f9900bbaad1b427d7a9ffe95cdf00e18ea5d75fb9e8e2b268b072c94eb7c5",
+      "source_bytes": 28906,
+      "bytes": 8957,
+      "sha256": "445fd522e592c0ec5b1cb97b4d5321d746c72c4d09db413529a7cb40c5b70fd1",
       "duplicate_of": null
     },
     {
@@ -1268,18 +1268,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 512366,
-      "bytes": 110713,
-      "sha256": "33c7f21484b63d02d0bf8b98d5597c5f319b7b264ee8a3a06306ede9a64cb289",
+      "source_bytes": 110713,
+      "bytes": 26984,
+      "sha256": "b9c3787262f1acae1034f216d68ce7da47121f1ba65a92265b326647918712b7",
       "duplicate_of": null
     },
     {
@@ -1289,18 +1289,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 486034,
-      "bytes": 102284,
-      "sha256": "302dd93ae53c5051878c0603621aae9f6f3dae8a3b0601b7daeed6f41302d5bb",
+      "source_bytes": 102284,
+      "bytes": 26845,
+      "sha256": "9ecd17a708a61df1aa657c82e774afe2615d6651ded54285ad71cf0504e3afcd",
       "duplicate_of": null
     },
     {
@@ -1314,14 +1314,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 533216,
-      "bytes": 373164,
-      "sha256": "5993b27d4a5d82782cbad8da4c7cff1c4260973aed3b3b74760941f64bb47eba",
+      "source_bytes": 373164,
+      "bytes": 156787,
+      "sha256": "d8f06acec99de6d3add69fd152426aa888c1fca3f5a7dda0e6707443d50f54e9",
       "duplicate_of": null
     },
     {
@@ -1331,18 +1331,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 196581,
-      "bytes": 68084,
-      "sha256": "d7521488d8aab64062248fe47d806adfacd3fb16af4b700b68c5e0c22bf89bb6",
+      "source_bytes": 68084,
+      "bytes": 17730,
+      "sha256": "6da67c937e3aa953ad1f403041f7d435d14361cca8ba321d4656ec0386fa23a0",
       "duplicate_of": null
     },
     {
@@ -1352,18 +1352,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 498687,
-      "bytes": 108610,
-      "sha256": "0a28a472a5ee566ec24e18ba8375a11686da2a2b92a3f54da73f94c72522a4cf",
+      "source_bytes": 108610,
+      "bytes": 26570,
+      "sha256": "fc548f7f4de9e9f3084b5b0ab2a74b49b8c760a3fabaa407c08034cca998837c",
       "duplicate_of": null
     },
     {
@@ -1373,18 +1373,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 505913,
-      "bytes": 104260,
-      "sha256": "689f6b05a4ebb2a5be6967e57c3542a8c92bb45b0c6f26f5126a37ff7eab5e81",
+      "source_bytes": 104260,
+      "bytes": 27323,
+      "sha256": "d80187cabdc1c093493257fbb5fcde696baa5bf36208aea52fb17f9cf707506a",
       "duplicate_of": null
     },
     {
@@ -1398,14 +1398,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 612758,
-      "bytes": 429779,
-      "sha256": "a2f901486793adac3115a09a1a544f1018e47e83e1aa7777f6f4dcdcf8fb7bda",
+      "source_bytes": 429779,
+      "bytes": 181295,
+      "sha256": "4d690bc0f3f9c28824dd6ed2bb3ea4c837472714312648a70cc9cfeeb2fd78c5",
       "duplicate_of": null
     },
     {
@@ -1415,18 +1415,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 214342,
-      "bytes": 74985,
-      "sha256": "8f6888ac11b45e877df11f236a160291672dcf23532dd97a9c09d522a1247568",
+      "source_bytes": 74985,
+      "bytes": 19179,
+      "sha256": "6036f3f15ff0bb6ad291b0f66d8aa97c940be04f2d4b3fd3c9d2e1b15f48e81c",
       "duplicate_of": null
     },
     {
@@ -1436,18 +1436,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 463264,
-      "bytes": 103037,
-      "sha256": "185f6e9ef33bb716144b4041e9a96a34d558d77d6ce3c3e531438747b200591e",
+      "source_bytes": 103037,
+      "bytes": 25652,
+      "sha256": "db5ac3f78c80161e75f2bc370ae2531c2bbf437ac1be1b8ee02f20d7d51411d1",
       "duplicate_of": null
     },
     {
@@ -1457,18 +1457,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 320265,
-      "bytes": 70924,
-      "sha256": "ade2f6ab5981c0c81dfc57687f768f779009bbd1ba1b6ef90a53576b57e53045",
+      "source_bytes": 70924,
+      "bytes": 19820,
+      "sha256": "41c0d67ee0db0638133f823f6ad59b65bfb15d3236b526fcc006800e4e71fd24",
       "duplicate_of": null
     },
     {
@@ -1482,14 +1482,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 557781,
-      "bytes": 365059,
-      "sha256": "e4e91a2e21d2be93d38bbe14ef8474d96738eec3bf40515da424ed1f983bcb1c",
+      "source_bytes": 365059,
+      "bytes": 171536,
+      "sha256": "094127c89cbc09579c0a62fc42b4886c3e475faa7f4815e861a595b21f98e1ba",
       "duplicate_of": null
     },
     {
@@ -1499,18 +1499,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 496963,
-      "bytes": 116400,
-      "sha256": "6b4fbbed66f74b890f59f9483bc2bf891c36d04d0874542828966c10b9136b05",
+      "source_bytes": 116400,
+      "bytes": 29979,
+      "sha256": "7b81379a264059c263625e7a48d0e00efb23cd473a96aa11ccd311053ef8835e",
       "duplicate_of": null
     },
     {
@@ -1520,18 +1520,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 463297,
-      "bytes": 102515,
-      "sha256": "157fe147df48c8f45ff56f98af7cbcefe7986ef1362a29b0f6e380eca770428c",
+      "source_bytes": 102515,
+      "bytes": 25634,
+      "sha256": "bae41b51ea7314f276fca1668fc78beaec5d993c0e1aac4741ef0e4a0b39a59e",
       "duplicate_of": null
     },
     {
@@ -1541,18 +1541,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 276745,
-      "bytes": 60657,
-      "sha256": "173b57484330584922525219b2a1300d970b57b8dce9bc97e516465efbccd065",
+      "source_bytes": 60657,
+      "bytes": 17118,
+      "sha256": "c36cf4eda0a3349cbd102484003f2787d9ed90b15ba30eb714884bc044e972a5",
       "duplicate_of": null
     },
     {
@@ -1566,14 +1566,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 463098,
-      "bytes": 299301,
-      "sha256": "95f899618d2ec5d9a1ad61b45e156c1543fb95dfe9ba0397ca4f0649a159dfb5",
+      "source_bytes": 299301,
+      "bytes": 139997,
+      "sha256": "174f001d276f0f2d8a488907534b838e710c9f9ad77f4b623d67adce8ed9be1f",
       "duplicate_of": null
     },
     {
@@ -1583,18 +1583,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 443891,
-      "bytes": 101696,
-      "sha256": "5a1a18e014219c6f84303ead476e6007061e122e326cd138c16f43141f44d041",
+      "source_bytes": 101696,
+      "bytes": 25213,
+      "sha256": "e7bb6add7d3e5d14f0066f11efde8affc6fc9f6791eb576d1ab8adc509318506",
       "duplicate_of": null
     },
     {
@@ -1608,14 +1608,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 800121,
-      "bytes": 576682,
-      "sha256": "21854ab4a91dfa735588396dffd1a12d4b15b508c07de67dbba1c1979069f9ec",
+      "source_bytes": 576682,
+      "bytes": 231872,
+      "sha256": "334d3ef977bbff29c3c99d7a23075be995226291f12906542cc2ed5371122196",
       "duplicate_of": null
     },
     {
@@ -1625,18 +1625,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 285731,
-      "bytes": 75706,
-      "sha256": "27a3a26cc1b55a304c9d6e2ea55da00acc0cf0e8c73f6b4d868c5e5fac877072",
+      "source_bytes": 75706,
+      "bytes": 15460,
+      "sha256": "2acd7512637987322c48488d80fc5c6209171a7d23f35742a5382279bce5c602",
       "duplicate_of": null
     },
     {
@@ -1646,18 +1646,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 429526,
-      "bytes": 85380,
-      "sha256": "60a91a02cabfbc1fcd4601ac1adad2edb1af072f04eba64250f7dfd654b3cfaf",
+      "source_bytes": 85380,
+      "bytes": 24235,
+      "sha256": "679a075c1bf91de84fe09f990ad2cb459fbea629605e0a04f1dd61431a9fe1f0",
       "duplicate_of": null
     },
     {
@@ -1667,18 +1667,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 501549,
-      "bytes": 96964,
-      "sha256": "07504ee9dd36a7c5062290304424c4bd2b23143cf4c590deecf1cfcb32ba3204",
+      "source_bytes": 96964,
+      "bytes": 26580,
+      "sha256": "e96d82632adf8ff7bd5e848ac9b42df03ec427c2e143d29114eeb5bd8c49bfae",
       "duplicate_of": null
     },
     {
@@ -1692,14 +1692,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 459357,
-      "bytes": 289483,
-      "sha256": "6e516a048d6fd69d61bf3e8a29a63953e5039b32c66e2c46a59a2b3371333783",
+      "source_bytes": 289483,
+      "bytes": 131959,
+      "sha256": "fd2304c482ca11f62e3aafa5c6cc45d2f257e7b817754d642feecf6343708d48",
       "duplicate_of": null
     },
     {
@@ -1709,18 +1709,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 366853,
-      "bytes": 78592,
-      "sha256": "90c8847077ffb86a90944435a7ff638819e2a2c5be896d0d3cb2217bfe06e593",
+      "source_bytes": 78592,
+      "bytes": 19646,
+      "sha256": "4082bbf8d8cfeb47195e2598af16bef1fb09afdc9593c36849c9eefa75c070d9",
       "duplicate_of": null
     },
     {
@@ -1734,14 +1734,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 804440,
-      "bytes": 580434,
-      "sha256": "f036d0f72495401533e9014f19619d7321cf4442626adf9fe890cdc605cb44af",
+      "source_bytes": 580434,
+      "bytes": 235371,
+      "sha256": "a2b9cdd7d134bd7371cc4ebc0cc25310ff7e9a25aa4435ed82c20fc3d3753a40",
       "duplicate_of": null
     },
     {
@@ -1751,18 +1751,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 286477,
-      "bytes": 75449,
-      "sha256": "9dba92c8bd1b66909d387d324a00ae2e2f02b0b937c5362e7ab922aa629a6bfe",
+      "source_bytes": 75449,
+      "bytes": 15338,
+      "sha256": "11c6767e8fc3cde3a55f0f4b6c45f432ddb4ff5e8c20fcd4954c44fcf7e903e9",
       "duplicate_of": null
     },
     {
@@ -1772,18 +1772,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 424922,
-      "bytes": 83078,
-      "sha256": "44070fb9e8d8ca59e0bf881499eb6854f11e7a10cf07a37b6b300866e5a65525",
+      "source_bytes": 83078,
+      "bytes": 24029,
+      "sha256": "6d9210988f2f92cf4c3e5ac8aeeb47cd029f684a494d5bc25a09402ec354ec7d",
       "duplicate_of": null
     },
     {
@@ -1793,18 +1793,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 487379,
-      "bytes": 94789,
-      "sha256": "557cfbf608929c058c45f8ec7fc26b3d293a16084b2635773963526318648222",
+      "source_bytes": 94789,
+      "bytes": 25620,
+      "sha256": "1d7bed7149effba14e4b8f60870d5c71642e1eee8ed2f989cb4cda4511097ca1",
       "duplicate_of": null
     },
     {
@@ -1818,14 +1818,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 452742,
-      "bytes": 285732,
-      "sha256": "7a20a2cbc09e0086ab7b04306ccfa037bb17c20de15bb7a4f5d1b8d9437529ad",
+      "source_bytes": 285732,
+      "bytes": 130162,
+      "sha256": "4cc6309df973ff45c4334ea7f4366b9d6add28cdf559d64abc4d6c5385a16b62",
       "duplicate_of": null
     },
     {
@@ -1835,18 +1835,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 379083,
-      "bytes": 80116,
-      "sha256": "eae8ee502fa8162cec92edb88b75de1fde6863dc7da2994db312f2b9a5efd28f",
+      "source_bytes": 80116,
+      "bytes": 19661,
+      "sha256": "45269ac086375cad56528d7fb1949e6e8f4f0b749214e7bbd34c370a71ff79af",
       "duplicate_of": null
     },
     {
@@ -1856,18 +1856,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 467827,
-      "bytes": 110929,
-      "sha256": "604d3f4674d7a113f049d39ac6659bb183b6fe54db32eeb90ee8d8311972b374",
+      "source_bytes": 110929,
+      "bytes": 30045,
+      "sha256": "66edc64d3c584c9fa88f4b882c26f92804a0dbfbfd22d9235fd55a8df68a67c6",
       "duplicate_of": null
     },
     {
@@ -1877,18 +1877,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 415603,
-      "bytes": 95591,
-      "sha256": "c6cb5b298a4c2bccb662346b15ea965a207544d97d368189e005362d29a24c7c",
+      "source_bytes": 95591,
+      "bytes": 24912,
+      "sha256": "ac5ec0ec91b313ff76fc929df8e02d7d7a5a42af935a770fcb199afa94b30d98",
       "duplicate_of": null
     },
     {
@@ -1902,14 +1902,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 432755,
-      "bytes": 264549,
-      "sha256": "a2cbe70e7dc6ad067d11da4266d0a4a23cd28ac98b6132ac0a1a82e946d0fecc",
+      "source_bytes": 264549,
+      "bytes": 125611,
+      "sha256": "383d66c72043f2ec1a7f3bfc00c7bc5990bd5e1c032e4e3ba430b210ea6702e6",
       "duplicate_of": null
     },
     {
@@ -1919,18 +1919,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 158439,
-      "bytes": 50155,
-      "sha256": "dbe4ed9802965a5775b7e28092db3d927643cb7a6c32d9b568aea4a76cb7e4e1",
+      "source_bytes": 50155,
+      "bytes": 14704,
+      "sha256": "75ededbb04569a1f3d831be2604780de78b4a49498e9c692135e24760b66f31d",
       "duplicate_of": null
     },
     {
@@ -1940,18 +1940,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 464970,
-      "bytes": 108022,
-      "sha256": "f4c3cc775f2f088dfe1a93fbb4b9f350096cc653344e2f955b7e872764d84881",
+      "source_bytes": 108022,
+      "bytes": 28596,
+      "sha256": "a1052dcdae86f5256683075b6fef03951af196411d68080c751b60c399129a2c",
       "duplicate_of": null
     },
     {
@@ -1961,18 +1961,18 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 402173,
-      "bytes": 92183,
-      "sha256": "97840c3297015df5f5beab4b1aa61a10780bdd3cfab61883248402b76e6fa425",
+      "source_bytes": 92183,
+      "bytes": 23532,
+      "sha256": "d62e356c87f3c480643a4c2beca93f9d765389c1b139a1995f63810c5afe5120",
       "duplicate_of": null
     },
     {
@@ -1986,14 +1986,14 @@
         1024
       ],
       "dimensions": [
-        1024,
-        1024
+        512,
+        512
       ],
       "channels": 3,
       "format": "image/png",
-      "source_bytes": 415260,
-      "bytes": 250365,
-      "sha256": "fd41911eedfa258433121a3d6c39c75e3db814deaace78c194cf5fea3ace9397",
+      "source_bytes": 250365,
+      "bytes": 120866,
+      "sha256": "d7ca877518e886efe785d5c2c4d17d058821e77377133147bcd859eb3e7f6af6",
       "duplicate_of": null
     },
     {
@@ -2003,20 +2003,20 @@
         "occlusion"
       ],
       "source_dimensions": [
-        1024,
-        1024
-      ],
-      "dimensions": [
         512,
         512
       ],
+      "dimensions": [
+        256,
+        256
+      ],
       "channels": 1,
       "format": "image/png",
-      "source_bytes": 158786,
-      "bytes": 52146,
-      "sha256": "7a29844a4889eb0fba6cce150fb553513baa717150ddb18a48fef0a8fdfb87be",
+      "source_bytes": 52146,
+      "bytes": 15964,
+      "sha256": "ae6cf6ec41b8f012853a8840ee1c3065e385201aadb06ffaeeec2a93d8172cb5",
       "duplicate_of": null
     }
   ],
-  "output_sha256": "da6c2d1e96f71ebf05970afccbf5081dca45920bca3c1ab1e6255cd4020ee339"
+  "output_sha256": "ebfc770f4a44b497e6e2a20e0775efee13f353a7a8e28a748668497a8262b24f"
 }

@@ -11,7 +11,7 @@ use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
-pub const SLATE_ROOF_TEXTURE_SIZE: u32 = 2048;
+pub const SLATE_ROOF_TEXTURE_SIZE: u32 = 1024;
 pub const SLATE_ROOF_TILE_METRES: f32 = 4.8;
 pub const SLATE_ROOF_HEIGHT_RANGE_METRES: f32 = 0.012;
 

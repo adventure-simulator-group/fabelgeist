@@ -1298,9 +1298,9 @@ mod litter_tests {
     use super::*;
 
     fn base_mip(image: &Image, bytes_per_pixel: usize, level: u32) -> &[u8] {
-        let size = FOREST_SOIL_TEXTURE_SIZE >> level;
+        let size = FOREST_LITTER_TEXTURE_SIZE >> level;
         let offset = (0..level)
-            .map(|prior| (FOREST_SOIL_TEXTURE_SIZE >> prior).pow(2) as usize * bytes_per_pixel)
+            .map(|prior| (FOREST_LITTER_TEXTURE_SIZE >> prior).pow(2) as usize * bytes_per_pixel)
             .sum::<usize>();
         &image.data.as_deref().unwrap()[offset..offset + size.pow(2) as usize * bytes_per_pixel]
     }
@@ -1512,7 +1512,10 @@ mod litter_tests {
         ao.sort_unstable();
         assert!(ao[ao.len() / 2] <= 246, "median AO: {}", ao[ao.len() / 2]);
         assert!(ao[ao.len() / 20] <= 224, "AO p5: {}", ao[ao.len() / 20]);
-        for level in [3, 4] {
+        for level in [
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL,
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL + 1,
+        ] {
             let mip = base_mip(&surface, 4, level);
             for channel_index in 0..4 {
                 let values = mip
@@ -1529,8 +1532,8 @@ mod litter_tests {
                 );
             }
         }
-        let middle_distance = base_mip(&surface, 4, 3);
-        let distant = base_mip(&surface, 4, 4);
+        let middle_distance = base_mip(&surface, 4, FOREST_LITTER_SEMANTIC_MIP_LEVEL);
+        let distant = base_mip(&surface, 4, FOREST_LITTER_SEMANTIC_MIP_LEVEL + 1);
         assert!(
             mean_adjacent_delta(distant, 64, 2)
                 < mean_adjacent_delta(middle_distance, 128, 2) * 0.72
@@ -1574,27 +1577,27 @@ mod litter_tests {
             save_png(
                 &output.join(format!("forest-litter-{name}.png")),
                 &channel(surface_base, index),
-                FOREST_SOIL_TEXTURE_SIZE,
+                FOREST_LITTER_TEXTURE_SIZE,
                 ColorType::L8,
             );
         }
         save_png(
             &output.join("forest-litter-normal-rgb.png"),
             &normal_rgb(normal_base),
-            FOREST_SOIL_TEXTURE_SIZE,
+            FOREST_LITTER_TEXTURE_SIZE,
             ColorType::Rgb8,
         );
         let interpreted = appearance(surface_base);
         save_png(
             &output.join("forest-litter-interpreted.png"),
             &interpreted,
-            FOREST_SOIL_TEXTURE_SIZE,
+            FOREST_LITTER_TEXTURE_SIZE,
             ColorType::Rgb8,
         );
         let mut tiled = vec![0_u8; interpreted.len() * 4];
-        let row_bytes = FOREST_SOIL_TEXTURE_SIZE as usize * 3;
-        for y in 0..FOREST_SOIL_TEXTURE_SIZE as usize * 2 {
-            let source = (y % FOREST_SOIL_TEXTURE_SIZE as usize) * row_bytes;
+        let row_bytes = FOREST_LITTER_TEXTURE_SIZE as usize * 3;
+        for y in 0..FOREST_LITTER_TEXTURE_SIZE as usize * 2 {
+            let source = (y % FOREST_LITTER_TEXTURE_SIZE as usize) * row_bytes;
             let target = y * row_bytes * 2;
             tiled[target..target + row_bytes]
                 .copy_from_slice(&interpreted[source..source + row_bytes]);
@@ -1604,8 +1607,8 @@ mod litter_tests {
         save_buffer_with_format(
             output.join("forest-litter-interpreted-2x2.png"),
             &tiled,
-            FOREST_SOIL_TEXTURE_SIZE * 2,
-            FOREST_SOIL_TEXTURE_SIZE * 2,
+            FOREST_LITTER_TEXTURE_SIZE * 2,
+            FOREST_LITTER_TEXTURE_SIZE * 2,
             ColorType::Rgb8,
             ImageFormat::Png,
         )
@@ -1716,9 +1719,9 @@ fn replace_litter_semantic_mips(
 ) {
     let surface_data = surface.data.as_mut().unwrap();
     let normal_data = normal.data.as_mut().unwrap();
-    for level in 3..=size.ilog2() {
+    for level in FOREST_LITTER_SEMANTIC_MIP_LEVEL..=size.ilog2() {
         let mip_size = size >> level;
-        let detail = if level == 3 {
+        let detail = if level == FOREST_LITTER_SEMANTIC_MIP_LEVEL {
             LitterDetail::Mid
         } else {
             LitterDetail::Far
@@ -1735,7 +1738,7 @@ fn replace_litter_semantic_mips(
 }
 
 pub(crate) fn generate_forest_litter_textures(params: &crate::TextureParameters) -> (Image, Image) {
-    let size = params.size(FOREST_SOIL_TEXTURE_SIZE);
+    let size = params.size(FOREST_LITTER_TEXTURE_SIZE);
     let samples = (0..size)
         .flat_map(|y| {
             (0..size).map(move |x| {

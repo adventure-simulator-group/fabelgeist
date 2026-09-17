@@ -60,7 +60,7 @@ def encode_image(payload, roles):
     image = Image.open(BytesIO(payload))
     source_size = image.size
     # AO is broad self-shadowing rather than finish-defining surface detail.
-    limit = 512 if roles == {"occlusion"} else 1024
+    limit = 256 if roles == {"occlusion"} else 512
     if max(image.size) > limit:
         scale = limit / max(image.size)
         image = image.resize((round(image.width * scale), round(image.height * scale)),
@@ -129,7 +129,7 @@ def optimize(source, output, report_path):
                     for r in records if r["duplicate_of"] is None) * 4 // 3
     report = {
         "tool": "scripts/optimize_art_demo_armor.py", "pillow": Image.__version__,
-        "policy": {"occlusion_only": "512px, R8 PNG", "all_other": "1024px PNG",
+        "policy": {"occlusion_only": "256px, R8 PNG", "all_other": "512px PNG",
                    "ktx2": "not used; KHR_texture_basisu unavailable in Bevy 0.19 glTF"},
         "geometry_bytes": geometry_bytes, "source_glb_bytes": Path(source).stat().st_size,
         "glb_bytes": Path(output).stat().st_size,
@@ -153,6 +153,11 @@ def main():
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
     optimize(args.source, args.output, args.report)
+    sources = args.output.with_suffix(".sources.json")
+    if sources.exists():
+        metadata = json.loads(sources.read_text(encoding="utf-8"))
+        metadata["output_sha256"] = hashlib.sha256(args.output.read_bytes()).hexdigest()
+        sources.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
