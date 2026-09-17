@@ -6,6 +6,7 @@
 #![doc = include_str!("person_names.md")]
 
 mod catalog;
+mod surnames;
 
 /// Name repertoire shared by residents, household labels and proprietor signs.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -25,7 +26,7 @@ impl NamePool {
         let families = match self {
             Self::Female => catalog::FEMALE,
             Self::Male => catalog::MALE,
-            Self::Surname => catalog::SURNAMES,
+            Self::Surname => surnames::SURNAMES,
         };
         NameFamily::choose(families, entropy)
     }
@@ -106,7 +107,7 @@ mod tests {
 
     #[test]
     fn catalogs_have_positive_weights_and_unique_nonempty_display_forms() {
-        for families in [catalog::FEMALE, catalog::MALE, catalog::SURNAMES] {
+        for families in [catalog::FEMALE, catalog::MALE, surnames::SURNAMES] {
             let mut names = BTreeSet::new();
             for family in families {
                 assert!(family.weight.0 > 0);
