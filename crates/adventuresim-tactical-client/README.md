@@ -1,5 +1,22 @@
 # Fabelgeist tactical client
 
+## Browser release builds
+
+`just build-wasm` keeps the gameplay client on the workspace `release` profile
+and builds the art demo separately with the size-oriented `wasm-release`
+profile and no default features. The demo therefore excludes client audio and
+debug tooling without removing either from ordinary client builds. The build
+requires the exact `wasm-bindgen` version in `Cargo.lock` and the Binaryen
+version pinned in the root `package-lock.json`; run `npm ci` to install the
+latter.
+
+The build applies `wasm-opt -Oz` only to the art demo after `wasm-bindgen` and
+writes raw, gzip level 6, and Brotli level 11 sizes to
+`crates/adventuresim-stdb-module/static/wasm/bundle-sizes.json`. In the browser,
+the developer console's `[art-demo startup]` record separates module download
+from Wasm compilation and initialization, making a cold-cache startup directly
+repeatable in browser developer tools.
+
 Outdoor PBR lighting uses Bevy's live atmosphere for sunlight transmission,
 horizon occlusion, the solar disc and aerial perspective. Generated sky
 radiance supplies diffuse and specular environment lighting at intensity one;

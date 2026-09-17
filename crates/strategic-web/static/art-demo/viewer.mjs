@@ -1,4 +1,5 @@
 export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js") } = {}) {
+  const startupStarted = performance.now();
   const $ = (selector) => document.querySelector(selector);
   const canvas = $("#game-canvas");
   const loading = $("#loading");
@@ -275,8 +276,15 @@ export function mount({ loadRuntime = () => import("/tactical/wasm/art-demo.js")
     select(catalog.find((entry) => entry.id === location.hash.slice(1)) ?? catalog[0], "replace");
     if (!navigator.gpu) throw new Error("This showcase requires WebGPU. Open it in a WebGPU-enabled browser over HTTPS or localhost.");
     const module = await loadRuntime();
+    const moduleLoaded = performance.now();
     await module.default();
+    const wasmInitialized = performance.now();
     module.boot();
+    console.info("[art-demo startup]", {
+      module_load_ms: Math.round(moduleLoaded - startupStarted),
+      wasm_compile_and_init_ms: Math.round(wasmInitialized - moduleLoaded),
+      boot_dispatch_ms: Math.round(performance.now() - wasmInitialized),
+    });
     runtime = module;
     send({ type: "show", exhibit: selected.id });
     readinessTimer = setInterval(pollStatus, 200);

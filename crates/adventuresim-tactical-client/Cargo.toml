@@ -7,8 +7,9 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["debug"]
+default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
+client-audio = ["bevy/audio"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
@@ -59,7 +60,6 @@ bevy = { workspace = true, default-features = false, features = [
     "ui_bevy_render",
     "scene",
     "picking",
-    "audio",
     "jpeg",
     "png",
     "smaa_luts",
