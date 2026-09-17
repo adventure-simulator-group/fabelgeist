@@ -41,15 +41,18 @@ pub(super) fn load_skeletal_bases(
     }
 }
 
-struct BoneReference {
+/// Borrows the bone name from the query rather than owning it: this table is
+/// rebuilt every frame, and copying each `Name` cost one heap allocation per
+/// bone per rig.
+struct BoneReference<'a> {
     entity: Entity,
     parent: Option<Entity>,
-    name: Option<String>,
+    name: Option<&'a str>,
     bind: Transform,
     offset: Vec3,
 }
 
-impl BoneReference {
+impl BoneReference<'_> {
     fn global(&self, nodes: &BTreeMap<Entity, Self>, deformed: bool) -> Transform {
         let mut local = self.bind;
         if deformed {
@@ -82,7 +85,7 @@ pub(super) fn sync_skeletal_proportions(
         Option<&SkeletalJointOffset>,
     )>,
 ) {
-    let mut rigs = BTreeMap::<Entity, BTreeMap<Entity, BoneReference>>::new();
+    let mut rigs = BTreeMap::<Entity, BTreeMap<Entity, BoneReference<'_>>>::new();
     for (entity, bind, basis, parent, name, _) in &bones {
         let Ok((id, explicit, reference)) = owners.get(bind.owner) else {
             continue;
@@ -101,7 +104,7 @@ pub(super) fn sync_skeletal_proportions(
             BoneReference {
                 entity,
                 parent: parent.map(ChildOf::parent),
-                name: name.map(|name| name.as_str().to_owned()),
+                name: name.map(Name::as_str),
                 bind: bind.local,
                 offset: basis
                     .map(|basis| Vec3::from_array(basis.0.translation(proportions)))
@@ -125,8 +128,8 @@ pub(super) fn sync_skeletal_proportions(
 
 /// Longer legs raise the pelvis instead of lowering both feet through the floor.
 /// Animation still supplies its authored root motion and contact timing.
-fn preserve_neutral_ground_height(rig: &mut BTreeMap<Entity, BoneReference>) {
-    let named = |name: &str| rig.values().find(|bone| bone.name.as_deref() == Some(name));
+fn preserve_neutral_ground_height(rig: &mut BTreeMap<Entity, BoneReference<'_>>) {
+    let named = |name: &str| rig.values().find(|bone| bone.name == Some(name));
     let (Some(left), Some(right), Some(root)) = (named("l_foot"), named("r_foot"), named("root"))
     else {
         return;

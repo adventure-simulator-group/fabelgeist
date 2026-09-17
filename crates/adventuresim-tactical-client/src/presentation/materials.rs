@@ -11,8 +11,6 @@ impl Plugin for TacticalMaterialsPlugin {
             MaterialPlugin::<TacticalVistaMaterial>::default(),
             MaterialPlugin::<TacticalRockMaterial>::default(),
             MaterialPlugin::<TacticalFoliageMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleMaterial>::default(),
-            MaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
             adventuresim_procedural_materials::ProceduralMaterialsPlugin,
             MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
             MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
@@ -25,6 +23,18 @@ impl Plugin for TacticalMaterialsPlugin {
         // Split from the tuple above so the material-plugin group stays within
         // Bevy's 15-element `Plugins` tuple arity limit.
         .add_plugins((
+            // Loose stone renders through bevy_eidolon: one batch per patch
+            // mesh and LOD instead of two or three entities per square metre.
+            bevy_eidolon::prelude::InstancedMaterialPlugin::<TacticalPebbleMaterial>::default(),
+            bevy_eidolon::prelude::GpuCullComputePlugin::<TacticalPebbleMaterial>::default(),
+            bevy_eidolon::prelude::InstancedMaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
+            bevy_eidolon::prelude::GpuCullComputePlugin::<TacticalPebbleBillboardMaterial>::default(),
+            bevy_eidolon::prelude::InstancedMaterialPlugin::<
+                crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
+            >::default(),
+            bevy_eidolon::prelude::GpuCullComputePlugin::<
+                crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
+            >::default(),
             MaterialPlugin::<CityGroundMaterial>::default(),
             MaterialPlugin::<TacticalWeatherMaterial>::default(),
             DoorPresentationPlugin,

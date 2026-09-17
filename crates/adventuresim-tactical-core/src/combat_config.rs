@@ -19,7 +19,8 @@ pub use incapacitation_forecast::IncapacitationForecastConfig;
 mod runtime;
 pub use ai_offense::AiOffenseConfig;
 pub use runtime::{
-    runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
+    runtime_animation_config, runtime_combat_presentation_config,
+    runtime_inverse_kinematics_config, runtime_melee_authority_config,
 };
 
 pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 8;

@@ -214,7 +214,6 @@ fn spawn_full_ragdoll(
                 AngularVelocity(initial_angular_velocity(role, skeleton.world_velocity)),
                 LinearDamping(0.35),
                 AngularDamping(1.2),
-                SleepingDisabled,
                 RagdollPart { owner },
                 RagdollBodyPart {
                     radius,
@@ -346,6 +345,13 @@ pub(super) fn apply_full_ragdoll_pose(
     globals: Query<&GlobalTransform>,
     mut transforms: ParamSet<(Query<(Entity, &Transform)>, Query<&mut Transform>)>,
 ) {
+    // `transforms.p0()` is every `Transform` in the world - each bone, tree LOD
+    // child, grass batch and scene item. Snapshotting it before looking for
+    // ragdolls costs an allocation and a hash insert per scene entity on every
+    // frame of ordinary play, where there are none to pose.
+    if ragdolls.is_empty() {
+        return;
+    }
     let locals = transforms
         .p0()
         .iter()

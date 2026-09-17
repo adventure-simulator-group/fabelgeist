@@ -15,6 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 STATIC_DIR = ROOT / "crates" / "adventuresim-stdb-module" / "static"
 WASM_DIR = STATIC_DIR / "wasm"
 ASSET_DIR = STATIC_DIR / "assets"
+BUNDLE = WASM_DIR / "adventuresim-tactical-client_bg.wasm"
+# Cross-crate LTO and a single codegen unit; see `[profile.wasm-release]`.
+CARGO_PROFILE = "wasm-release"
 
 
 def run(command: list[str], *, check: bool = True) -> int:
@@ -41,6 +44,34 @@ def target_dir() -> Path:
     return Path(json.loads(out.stdout)["target_directory"])
 
 
+def optimize(*, keep_names: bool) -> None:
+    """Run binaryen over the wasm-bindgen output.
+
+    rustc emits per-codegen-unit code that LTO alone does not clean up, and the
+    browser pays for every surplus byte twice: once compiling the module and
+    again running baseline-tier code while background tier-up works through it.
+    Binaryen is a whole-module pass, so it belongs after wasm-bindgen has
+    finished rewriting the module, not before.
+    """
+    wasm_opt = shutil.which("wasm-opt")
+    if wasm_opt is None:
+        raise OSError(
+            "Missing wasm-opt. It ships with binaryen, which the Nix dev shell "
+            "provides; pass --skip-wasm-opt to build without it."
+        )
+    before = BUNDLE.stat().st_size
+    optimized = BUNDLE.with_suffix(".opt.wasm")
+    print(f"Optimizing wasm ({before} bytes)...")
+    command = [wasm_opt, "-O2", str(BUNDLE), "-o", str(optimized)]
+    if keep_names:
+        # Binaryen drops the name section unless debug info is requested.
+        command.append("-g")
+    run(command)
+    optimized.replace(BUNDLE)
+    after = BUNDLE.stat().st_size
+    print(f"  {before} -> {after} bytes ({100 * (before - after) / before:.1f}% smaller)")
+
+
 def sync_assets() -> None:
     if ASSET_DIR.exists():
         shutil.rmtree(ASSET_DIR)
@@ -60,6 +91,11 @@ def main(argv: list[str] | None = None) -> int:
             "of roughly doubling the module"
         ),
     )
+    parser.add_argument(
+        "--skip-wasm-opt",
+        action="store_true",
+        help="skip the binaryen pass, for faster iteration on an unshipped build",
+    )
     args = parser.parse_args(argv)
     wasm_bindgen = shutil.which("wasm-bindgen")
     if wasm_bindgen is None:
@@ -73,8 +109,23 @@ def main(argv: list[str] | None = None) -> int:
         # on a target that's already present.
         if shutil.which("rustup"):
             run(["rustup", "target", "add", "wasm32-unknown-unknown"], check=False)
-        run(["cargo", "build", "--package", "adventuresim-tactical-client", "--target", "wasm32-unknown-unknown", "--release"])
-        wasm = target_dir() / "wasm32-unknown-unknown" / "release" / "adventuresim-tactical-client.wasm"
+        # `--no-default-features` drops the `debug` feature. It pulls
+        # `bevy/bevy_remote`, the ECS/render debug-name machinery, and Avian's
+        # `PhysicsDebugPlugin`, which rebuilds collider gizmo geometry every
+        # frame. None of it is reachable from the browser client.
+        run([
+            "cargo", "build",
+            "--package", "adventuresim-tactical-client",
+            "--target", "wasm32-unknown-unknown",
+            "--profile", CARGO_PROFILE,
+            "--no-default-features",
+        ])
+        wasm = (
+            target_dir()
+            / "wasm32-unknown-unknown"
+            / CARGO_PROFILE
+            / "adventuresim-tactical-client.wasm"
+        )
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
         bindgen = [
@@ -88,6 +139,10 @@ def main(argv: list[str] | None = None) -> int:
             # readable frames.
             bindgen.extend(["--remove-name-section", "--remove-producers-section"])
         run([*bindgen, str(wasm)])
+        if args.skip_wasm_opt:
+            print("Skipping wasm-opt.")
+        else:
+            optimize(keep_names=args.keep_name_section)
         print("Syncing browser assets...")
         sync_assets()
     except (OSError, subprocess.CalledProcessError) as error:

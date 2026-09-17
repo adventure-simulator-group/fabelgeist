@@ -60,7 +60,7 @@ pub(super) use terrain_contacts::smoothstep;
 use terrain_contacts::*;
 
 fn ik_tuning() -> InverseKinematicsConfig {
-    runtime_animation_config().inverse_kinematics
+    adventuresim_tactical_core::combat_config::runtime_inverse_kinematics_config()
 }
 
 pub(super) fn minimum_inter_foot_separation_metres() -> f32 {
@@ -96,7 +96,7 @@ pub(in crate::animation) fn apply_terrain_leg_ik(
     clock: Res<ProceduralAnimationClock>,
     terrain: Query<&SceneTerrain>,
     owners: Query<&PresentedSkeleton>,
-    rigs: Query<(Entity, &HumanoidRig)>,
+    rigs: Query<(Entity, &HumanoidRig), Without<crate::animation::pose_buffer::PoseCulled>>,
     parents: Query<&ChildOf>,
     mut ik_states: Query<&mut LegIkState>,
     mut raised_states: Query<&mut RaisedFootworkState>,

@@ -8,6 +8,7 @@ use fabelgeist_determinism::splitmix64;
 
 mod streets;
 mod surface;
+pub(super) mod tree_cards;
 
 pub(crate) use streets::CityGroundMaterial;
 use streets::UrbanGround;
@@ -44,7 +45,7 @@ pub(super) fn on_scene_vista_bundle(
     mut materials: ResMut<Assets<TacticalVistaMaterial>>,
     mut grass_materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
     mut standard_materials: ResMut<Assets<StandardMaterial>>,
-    mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
+    mut tree_materials: tree_cards::VistaTreeMaterials,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
     mut city_ground: streets::CityGroundAssets,
@@ -700,7 +701,7 @@ fn spawn_vista_trees(
     scene_digest: &str,
     environment: Option<&SceneEnvironment>,
     meshes: &mut Assets<Mesh>,
-    tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
+    materials: &mut tree_cards::VistaTreeMaterials<'_>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
 ) {
@@ -708,6 +709,7 @@ fn spawn_vista_trees(
     let depth = usize::from(lod.depth);
     let center = Vec2::new((width - 1) as f32, (depth - 1) as f32) * 0.5;
     let scene_seed = stable_text_seed(scene_digest);
+    let mut batches = tree_cards::VistaCardBatches::default();
     for z in 0..depth - 1 {
         for x in 0..width - 1 {
             let sample = lod.environment[z * width + x];
@@ -761,7 +763,7 @@ fn spawn_vista_trees(
                     0.5,
                     species,
                     meshes,
-                    tree_materials,
+                    &mut materials.impostor,
                     images,
                     cache,
                 );
@@ -776,33 +778,20 @@ fn spawn_vista_trees(
                     .records
                     .first()
                     .map_or(12.0, |record| record.projected_bounds.w);
-                commands.spawn((
-                    Name::new(format!("Distant vista {} billboard", species.name())),
-                    VistaTerrain(lod.level),
-                    VistaTreePresentation,
-                    // The impostor shader yaws the card toward the camera, so
-                    // the mesh's static bounds would mis-cull near screen
-                    // edges. This rotation-safe box restores frustum culling:
-                    // off-screen stands previously always rendered through
-                    // `NoFrustumCulling`, roughly half the vista vertex cost.
-                    bevy::camera::primitives::Aabb {
-                        center: bevy::math::Vec3A::new(0.0, card_height * 0.5, 0.0),
-                        half_extents: bevy::math::Vec3A::new(
-                            card_height * 0.8,
-                            card_height * 0.6,
-                            card_height * 0.8,
-                        ),
+                batches.push(
+                    &cached.mesh,
+                    &cached.material,
+                    card_height,
+                    bevy_eidolon::prelude::InstanceData {
+                        position: Vec3::new(local.x, height, local.y),
+                        scale,
+                        ..Default::default()
                     },
-                    NotShadowCaster,
-                    Mesh3d(cached.mesh.clone()),
-                    MeshMaterial3d(cached.material.clone()),
-                    cached.provenance.clone(),
-                    vista_tree_visibility(lod.spacing_metres, card_height, scale),
-                    Transform::from_xyz(local.x, height, local.y).with_scale(Vec3::splat(scale)),
-                ));
+                );
             }
         }
     }
+    batches.spawn(commands, lod, materials);
 }
 
 const VISTA_TREE_MAX_ANGULAR_HEIGHT_RADIANS: f32 = 16.0_f32.to_radians();

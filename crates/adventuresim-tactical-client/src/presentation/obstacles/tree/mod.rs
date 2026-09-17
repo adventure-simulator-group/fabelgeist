@@ -3,6 +3,7 @@ mod impostor;
 mod lod;
 mod materials;
 mod presentation;
+mod root_cull;
 
 pub(in crate::presentation) use geometry::{
     BLACKTHORN_PARAMETERS, COMMON_BEECH_PARAMETERS, COMMON_HAWTHORN_PARAMETERS,
@@ -43,3 +44,4 @@ pub(in crate::presentation) use presentation::{
 pub(crate) use presentation::{
     PresentedTree, TreeAssetResidencyDiagnostics, TreeLeafTriangleCount,
 };
+pub(in crate::presentation) use root_cull::cull_tree_roots;

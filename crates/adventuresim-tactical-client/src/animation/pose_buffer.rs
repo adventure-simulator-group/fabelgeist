@@ -21,6 +21,8 @@ use bevy::{
 use super::*;
 use crate::presentation::TacticalGameplayCamera;
 
+mod pose_cull;
+pub(in crate::animation) use pose_cull::PoseCulled;
 mod proportions;
 mod rig;
 mod stride_calibration;
@@ -469,30 +471,16 @@ pub(super) fn update_pose_buffers(
         };
         rig.decay_delta_seconds = delta_seconds;
 
-        let position = owner_transform.translation();
-        let frozen = camera.is_some_and(|(camera_transform, frustum)| {
-            position.distance_squared(camera_transform.translation())
-                > pose_tuning().cull_distance_metres * pose_tuning().cull_distance_metres
-                || !frustum.intersects_sphere(
-                    &Sphere {
-                        center: position.into(),
-                        radius: pose_tuning().cull_radius_metres,
-                    },
-                    false,
-                )
-        });
-        if frozen {
-            rig.frozen = true;
-            metrics.culled_character_count += 1;
+        if pose_cull::cull_pose_rig(
+            &mut rig,
+            owner,
+            owner_transform.translation(),
+            camera,
+            &mut commands,
+            &mut metrics,
+        ) {
             continue;
         }
-        if rig.frozen {
-            rig.sample_accumulator = 0.0;
-            rig.interpolation_alpha = 0.0;
-            rig.target_linear_velocities.fill(Vec3::ZERO);
-            rig.target_angular_velocities.fill(Vec3::ZERO);
-        }
-        rig.frozen = false;
 
         let key = PosePlanKey::from_playback(playback);
         let transition = !rig.active || rig.plan.as_ref() != Some(&key);

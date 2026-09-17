@@ -16,9 +16,11 @@ mod config;
 mod doors;
 mod furniture;
 pub(crate) use furniture::{InteriorFurnitureExhibition, PresentedFurnitureMesh};
+mod celestial_materials;
 mod environment;
 pub(crate) mod ground_scatter;
 pub(crate) mod interior_lighting;
+use celestial_materials::update_celestial_material_lighting;
 mod materials;
 mod obstacles;
 mod procedural;
@@ -254,6 +256,7 @@ impl Plugin for TacticalPresentationPlugin {
                         present_pending_trees,
                         stream_tree_lod_children,
                         update_tree_projected_lod_ranges,
+                        cull_tree_roots,
                     )
                         .chain(),
                     keep_celestial_visuals_centered.after(update_presented_celestial_lighting),

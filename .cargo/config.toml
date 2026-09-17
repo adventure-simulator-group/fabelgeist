@@ -31,6 +31,15 @@ rustflags = [
   "-Z", "threads=0",        # (Nightly) Use improved multithreading with the recommended amount of threads.
 ]
 
+# The browser client is a graphics workload: glam, frustum culling, animation
+# sampling, and mesh generation all have vectorized paths that only compile in
+# when `simd128` is on. It is baseline in every browser that ships WebGPU, so
+# there is no fallback build to maintain.
+[target.wasm32-unknown-unknown]
+rustflags = [
+  "-C", "target-feature=+simd128",
+]
+
 # Keep routine development and test artifacts small enough to coexist across
 # multiple worktrees. Use `--profile full-debug` when debugger-quality symbols
 # and incremental compilation are specifically needed.

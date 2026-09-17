@@ -177,6 +177,18 @@ bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = 
 [profile.win-dev]
 inherits = "dev"
 
+# The browser bundle, built by `scripts/build_wasm.py`. Plain `release` leaves
+# `lto = false` and 16 codegen units, which for this workspace emitted a ~98 MB
+# code section: the browser then pays for it twice, once compiling the module
+# and again running baseline-tier code until background tier-up catches up.
+# Cross-crate LTO and a single codegen unit are kept off `release` itself so
+# native release builds and the scene-viewer benchmarks keep their current
+# codegen and compile times.
+[profile.wasm-release]
+inherits = "release"
+lto = "thin"
+codegen-units = 1
+
 [profile.dev.package."*"]
 opt-level = 3
 
