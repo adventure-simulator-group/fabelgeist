@@ -122,7 +122,7 @@ fn surface_albedo_and_roughness_are_palette_constrained_but_normals_are_detailed
 }
 
 #[test]
-fn oak_bark_is_one_specialized_1024_texture_with_a_complete_mip_chain() {
+fn oak_bark_is_one_specialized_512_texture_with_a_complete_mip_chain() {
     let params = &crate::TextureParameters::default();
     let mut images = Assets::<Image>::default();
     let textures = generate_oak_bark_texture(params, &mut images);
@@ -184,26 +184,26 @@ fn forest_ground_uses_packed_surface_and_normal_textures_with_complete_mip_chain
     assert_eq!(FOREST_SOIL_AO_SIZE, FOREST_SOIL_TEXTURE_SIZE / 2);
 
     let litter = images.get(&textures.litter_surface).unwrap();
-    assert_eq!((litter.width(), litter.height()), (1024, 1024));
+    assert_eq!((litter.width(), litter.height()), (512, 512));
     assert_eq!(litter.texture_descriptor.format, TextureFormat::Rgba8Unorm);
-    assert_eq!(litter.texture_descriptor.mip_level_count, 11);
+    assert_eq!(litter.texture_descriptor.mip_level_count, 10);
+    let litter_mip_texels = (0..10)
+        .map(|level| (FOREST_LITTER_TEXTURE_SIZE >> level).pow(2))
+        .sum::<u32>();
     assert_eq!(
         litter.data.as_ref().unwrap().len(),
-        (mip_texels * 4) as usize
+        (litter_mip_texels * 4) as usize
     );
     let litter_normal = images.get(&textures.litter_normal).unwrap();
-    assert_eq!(
-        (litter_normal.width(), litter_normal.height()),
-        (1024, 1024)
-    );
+    assert_eq!((litter_normal.width(), litter_normal.height()), (512, 512));
     assert_eq!(
         litter_normal.texture_descriptor.format,
         TextureFormat::Rg8Unorm
     );
-    assert_eq!(litter_normal.texture_descriptor.mip_level_count, 11);
+    assert_eq!(litter_normal.texture_descriptor.mip_level_count, 10);
     assert_eq!(
         litter_normal.data.as_ref().unwrap().len(),
-        (mip_texels * 2) as usize
+        (litter_mip_texels * 2) as usize
     );
 }
 

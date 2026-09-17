@@ -99,7 +99,7 @@ branch's `render_museum_armor.py` import, material and pose rules. Pass
 `--renderer`, a finished `--preset` comparison JSON, `--output`, and `--lod 4`.
 It bakes that saved pose into static meshes and embeds the existing images.
 Packaging then runs `scripts/optimize_art_demo_armor.py`: finish and normal maps
-remain at up to 1024 pixels, while broad occlusion-only maps become 512-pixel,
+remain at up to 512 pixels, while broad occlusion-only maps become 256-pixel,
 single-channel PNGs. Exact encoded duplicates share one buffer view. KTX2 is not
 used because this Bevy 0.19 WebGPU glTF build does not support
 `KHR_texture_basisu`.
