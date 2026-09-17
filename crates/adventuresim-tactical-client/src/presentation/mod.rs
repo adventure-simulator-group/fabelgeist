@@ -11,6 +11,7 @@
 
 mod atmosphere;
 mod buildings;
+mod cloud_bake_assets;
 mod clouds;
 mod config;
 mod demo_lifecycle;
@@ -78,6 +79,9 @@ fn mesh_triangle_count(mesh: &Mesh) -> usize {
 pub(crate) use buildings::{
     PendingCityBuildings, PresentedBuildingMesh, PresentedSign, TacticalBuildingMaterials,
 };
+pub(crate) use cloud_bake_assets::PrebakedCloudEnvironment;
+#[cfg(test)]
+pub(crate) use clouds::bake_environment_rgba8;
 pub(crate) use clouds::{
     TacticalCloudAnimationStatus, TacticalCloudBenchmarkIsolation, TacticalCloudCaptureOverride,
     TacticalCloudCaptureProfile, TacticalCloudLayer, TacticalCloudOffscreenCamera,

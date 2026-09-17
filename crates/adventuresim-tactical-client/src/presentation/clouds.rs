@@ -1,5 +1,9 @@
 //! A single, baked optical cloud shell for the grounded tactical camera.
 
+use super::cloud_bake_assets::{
+    CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
+    CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, initial_image,
+};
 use super::*;
 use bevy::{
     camera::{ClearColorConfig, RenderTarget, visibility::RenderLayers},
@@ -22,11 +26,6 @@ const CLOUD_CURVATURE_RADIUS_METRES: f32 = 180_000.0;
 /// Its native dome parameterization gives low elevations their own rows rather
 /// than compressing them into an orthographic texture's outer ring. The
 /// duplicated azimuth seam is 1025 x 257 RGBA8, or about 1 MiB.
-const CLOUD_BAKE_AZIMUTH_SEGMENTS: u32 = 1_024;
-const CLOUD_BAKE_ELEVATION_SEGMENTS: u32 = 256;
-const CLOUD_BAKE_TEXTURE_WIDTH: u32 = CLOUD_BAKE_AZIMUTH_SEGMENTS + 1;
-const CLOUD_BAKE_TEXTURE_HEIGHT: u32 = CLOUD_BAKE_ELEVATION_SEGMENTS + 1;
-const CLOUD_BAKE_CHANNELS: usize = 4;
 const CLOUD_BAKE_VERTICAL_SAMPLES: u32 = 48;
 const CLOUD_BAKE_REFERENCE_EYE_METRES: f32 = 1.7;
 /// Long endpoint spacing keeps the expensive CPU bake comfortably ahead of
@@ -870,7 +869,7 @@ fn cloud_hemisphere_mesh() -> Mesh {
     reason = "Bevy injects cloud scene state, lighting, capture controls, and material storage independently"
 )]
 pub(in crate::presentation) fn update_tactical_clouds(
-    time: Res<Time>,
+    _time: Res<Time>,
     active: Res<ActiveTacticalScene>,
     environments: Query<&SceneEnvironment>,
     celestial: Res<PresentedCelestialLighting>,
@@ -892,8 +891,8 @@ pub(in crate::presentation) fn update_tactical_clouds(
     mut images: ResMut<Assets<Image>>,
     mut bake_state: ResMut<CloudBakeState>,
     mut animation_status: ResMut<TacticalCloudAnimationStatus>,
+    prebaked: Option<Res<PrebakedCloudEnvironment>>,
 ) {
-    let _ = &time;
     for mut transform in &mut composites {
         transform.translation = camera.translation();
     }
@@ -951,7 +950,7 @@ pub(in crate::presentation) fn update_tactical_clouds(
                 endpoint: 0,
                 wind_velocity,
             };
-            let initial = cloud_bake_image(&initial_request);
+            let initial = initial_image(prebaked.as_deref(), || cloud_bake_image(&initial_request));
             if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
                 *image = initial.clone();
             }
@@ -959,9 +958,8 @@ pub(in crate::presentation) fn update_tactical_clouds(
                 *image = initial;
             }
             bake_state.key = Some(bake_key.clone());
-
             #[cfg(not(target_family = "wasm"))]
-            {
+            if prebaked.is_none() {
                 bake_state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
                     key: bake_key.clone(),
                     endpoint: 1,
@@ -978,7 +976,7 @@ pub(in crate::presentation) fn update_tactical_clouds(
             if isolation.freeze_animation {
                 0.0
             } else {
-                time.delta_secs()
+                _time.delta_secs()
             },
         );
         let representative_altitude = cloud_representative_altitude(layers);
@@ -1153,6 +1151,20 @@ fn cloud_seed(environment: &SceneEnvironment) -> u64 {
     hash ^= (environment.latitude_microdegrees as u32 as u64) << 32;
     hash ^= environment.longitude_microdegrees as u32 as u64;
     hash
+}
+
+#[cfg(test)]
+pub(crate) fn bake_environment_rgba8(environment: &SceneEnvironment) -> Vec<u8> {
+    cloud_bake_image(&CloudBakeRequest {
+        key: CloudBakeKey {
+            layers: CloudLayerParameters::layers_from_environment(environment, None),
+            seed: cloud_seed(environment),
+        },
+        endpoint: 0,
+        wind_velocity: cloud_wind_velocity(environment),
+    })
+    .data
+    .expect("generated cloud bake has pixels")
 }
 
 fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {

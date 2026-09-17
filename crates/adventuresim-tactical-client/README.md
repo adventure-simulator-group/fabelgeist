@@ -450,3 +450,20 @@ The core owns the clipped vista cells and vertex-height policy used by both
 placement and terrain rendering, including seams and LOD morphs.
 `python scripts/capture_furniture_review.py --output target/furniture-review`
 captures the production implementation with GPU residency and material checks.
+
+## Art-demo cloud assets
+
+The fixed city and oak exhibits embed deterministic initial cloud-shell bakes,
+so selecting either exhibit performs no procedural cloud bake on the browser
+main thread. Each bake has a generated `.scene-digest` identity; the exhibit
+refuses stale output rather than silently baking during navigation. Regenerate
+and verify both assets after changing cloud bake logic or either tactical-scene
+fixture:
+
+```sh
+cargo test -p adventuresim-tactical-client --bin art-demo \
+  regenerate_art_demo_cloud_assets -- --ignored --nocapture
+```
+
+Production tactical scenes do not use these assets and retain runtime cloud
+animation.
