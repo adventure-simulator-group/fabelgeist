@@ -133,7 +133,7 @@ fn organization_interval_samples_eligibility_before_advancing_and_settles_after_
     );
     assert!(immediate.contains("require_character_no_unresolved_encounter"));
     assert!(immediate.contains("IncidentStatus::Pending"));
-    assert!(source.contains("site.distance_m > 0"));
+    assert!(source.contains("ActivityLocation::case_site(site.distance_m, is_incident_site)"));
     assert!(source.contains(".strategic_incident()"));
     assert!(source.contains(".id_key()"));
     assert!(source.contains(".find(site.case_id.clone())"));

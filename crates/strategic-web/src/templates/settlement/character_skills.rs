@@ -785,6 +785,31 @@ impl ActivityPreviewRates {
         self
     }
 
+    fn effective_schedule(
+        &self,
+        schedule: &ScheduleAllocation,
+        location: Option<adventuresim_core::activity::ActivityLocation>,
+        seed: u64,
+    ) -> ScheduleAllocation {
+        let mut eligible = schedule.clone();
+        if !schedule
+            .apprenticeship_organization_id
+            .as_ref()
+            .is_some_and(|id| self.profession.contains_key(id))
+        {
+            eligible.apprenticeship_minutes = 0;
+        }
+        if !schedule
+            .practice_organization_id
+            .as_ref()
+            .and_then(|id| self.profession.get(id))
+            .is_some_and(|role| role.practice_allowed)
+        {
+            eligible.profession_practice_minutes = 0;
+        }
+        effective_preview_schedule(&eligible, location, seed)
+    }
+
     pub fn with_professions(
         mut self,
         attributes: Option<&CharacterAttributes>,
@@ -1006,7 +1031,6 @@ pub(super) fn party_skills_rail(
                 h3 class="sr-only" { (title) }
                 @if let (Some(schedule), Some(action)) = (schedule, schedule_action) {
                     form class="skill-schedule" data-skill-schedule
-                        data-activity-redistribution-seed=(skills.character_id)
                         action=(action) method="post" {
                         (skills_table(
                             title, attributes, skills, head_health, upper_health, lower_health, Some(schedule),
@@ -1015,6 +1039,7 @@ pub(super) fn party_skills_rail(
                             combat_profile, activity_location,
                             actions,
                         ))
+                        div class="schedule-save-status" data-schedule-preview-status role="status" aria-live="polite" hidden {}
                         div class="schedule-save-status" data-schedule-save-status role="status" aria-live="polite" hidden {
                             span { "Schedule could not be saved." }
                             button type="button" class="btn btn-secondary btn-small" data-schedule-retry { "Retry" }
@@ -1180,7 +1205,7 @@ fn skills_table(
                     @if skills.smithing_hours > 0.0 { (party_skill_row(skills, "Smithing", "smithing", Skill::Smithing, arm_agility, upper_health, schedule.is_some(), None)) }
                     @if let Some(schedule) = schedule {
                         @let preview = activity_preview.unwrap_or_default();
-                        @let effective = effective_preview_schedule(
+                        @let effective = preview.effective_schedule(
                             &schedule.downtime,
                             activity_location,
                             skills.character_id,
@@ -2176,50 +2201,16 @@ fn effective_preview_schedule(
     location: Option<adventuresim_core::activity::ActivityLocation>,
     redistribution_seed: u64,
 ) -> ScheduleAllocation {
-    use adventuresim_core::activity::LocationActivity;
-
-    let mut effective = schedule.clone();
-    if let Some(location) = location {
-        let redistributed = adventuresim_core::activity::redistribute_unavailable_segments(
-            [
-                schedule.combat_training_minutes,
-                schedule.carousing_minutes,
-                schedule.socializing_minutes,
-                schedule.apprenticeship_minutes,
-                schedule.profession_practice_minutes,
-                schedule.labor_minutes,
-                schedule.prayer_minutes,
-                schedule.thievery_minutes,
-                schedule.raiding_minutes,
-            ],
-            [
-                true,
-                location.allows(LocationActivity::Carousing),
-                true,
-                true,
-                true,
-                true,
-                true,
-                location.allows(LocationActivity::Thievery),
-                location.allows(LocationActivity::Raiding),
-            ],
-            redistribution_seed,
-        );
-        effective.combat_training_minutes = redistributed[0];
-        effective.carousing_minutes = redistributed[1];
-        effective.socializing_minutes = redistributed[2];
-        effective.apprenticeship_minutes = redistributed[3];
-        effective.profession_practice_minutes = redistributed[4];
-        effective.labor_minutes = redistributed[5];
-        effective.prayer_minutes = redistributed[6];
-        effective.thievery_minutes = redistributed[7];
-        effective.raiding_minutes = redistributed[8];
+    match location {
+        Some(location) => crate::schedule::effective(schedule, location, redistribution_seed)
+            .expect("saved schedule allocation was validated on write"),
+        None => schedule.clone(),
     }
-    effective
 }
 
 fn preview_allocated_minutes(schedule: &ScheduleAllocation) -> u64 {
     adventuresim_core::strategic_time::allocated_schedule_minutes([
+        schedule.reading_minutes,
         schedule.combat_training_minutes,
         schedule.carousing_minutes,
         schedule.socializing_minutes,

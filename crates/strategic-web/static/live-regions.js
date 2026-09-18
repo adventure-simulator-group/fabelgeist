@@ -91,7 +91,7 @@
 
   const selectedInventoryTab = () => document.querySelector("[data-inventory-tab].active")?.dataset.inventoryTab;
   const scheduleEditorIsPending = () => Boolean(
-    document.querySelector('[data-skill-schedule][data-schedule-pending]'),
+    document.querySelector('[data-skill-schedule][data-schedule-pending], [data-skill-schedule][data-schedule-preview-pending]'),
   );
 
   const restoreInventoryTab = (name) => {

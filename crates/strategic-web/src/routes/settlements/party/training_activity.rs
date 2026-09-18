@@ -15,6 +15,26 @@ pub(super) struct TrainingScheduleForm {
     raiding_minutes: u16,
 }
 
+impl TrainingScheduleForm {
+    fn into_schedule(self) -> Result<ScheduleAllocation, adventuresim_core::strategic_schedule::ScheduleParseError> {
+        let schedule = ScheduleAllocation {
+        reading_minutes: self.reading_minutes,
+        combat_training_minutes: self.combat_training_minutes,
+        carousing_minutes: self.carousing_minutes,
+        socializing_minutes: self.socializing_minutes,
+        apprenticeship_minutes: self.apprenticeship_minutes,
+        apprenticeship_organization_id: self.apprenticeship_organization_id,
+        profession_practice_minutes: self.profession_practice_minutes,
+        practice_organization_id: self.practice_organization_id,
+        labor_minutes: self.labor_minutes,
+        prayer_minutes: self.prayer_minutes,
+        thievery_minutes: self.thievery_minutes,
+        raiding_minutes: self.raiding_minutes,
+    };
+        crate::schedule::validate(schedule)
+    }
+}
+
 #[cfg(test)]
 mod training_schedule_form_tests {
     use super::TrainingScheduleForm;
@@ -61,19 +81,9 @@ pub(super) async fn update_training_schedule(
         )
             .into_response();
     }
-    let downtime = ScheduleAllocation {
-        reading_minutes: form.reading_minutes,
-        combat_training_minutes: form.combat_training_minutes,
-        carousing_minutes: form.carousing_minutes,
-        socializing_minutes: form.socializing_minutes,
-        apprenticeship_minutes: form.apprenticeship_minutes,
-        apprenticeship_organization_id: form.apprenticeship_organization_id,
-        profession_practice_minutes: form.profession_practice_minutes,
-        practice_organization_id: form.practice_organization_id,
-        labor_minutes: form.labor_minutes,
-        prayer_minutes: form.prayer_minutes,
-        thievery_minutes: form.thievery_minutes,
-        raiding_minutes: form.raiding_minutes,
+    let downtime = match form.into_schedule() {
+        Ok(schedule) => schedule,
+        Err(error) => return (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     };
     match state
         .db

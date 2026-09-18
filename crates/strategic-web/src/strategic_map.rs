@@ -886,6 +886,7 @@ mod tests {
         let coordinate =
             Wgs84CoordinateE7::from_longitude_latitude_degrees(longitude, latitude).unwrap();
         BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "quest-1".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId { value: id.into() },

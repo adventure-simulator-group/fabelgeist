@@ -463,14 +463,7 @@ pub fn routes() -> Router<AppState> {
             "/locations/{kind}/{id}/players/{character_id}",
             get(party_stats),
         )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/schedule",
-            post(update_training_schedule),
-        )
-        .route(
-            "/locations/{kind}/{id}/party/{character_id}/activity",
-            post(perform_immediate_activity),
-        )
+        .merge(schedule_routes())
         .route(
             "/locations/{kind}/{id}/party/{character_id}/religion/renounce",
             post(renounce_religion),
@@ -511,4 +504,20 @@ pub fn routes() -> Router<AppState> {
         .route("/settlements/{id}/religion", get(religion))
         .route("/settlements/{id}/rest/{kind}", post(rest))
         .route("/settlements/{id}/travel", post(travel))
+}
+
+fn schedule_routes() -> Router<AppState> {
+    Router::new()
+        .route(
+            "/locations/{kind}/{id}/party/{character_id}/schedule",
+            post(update_training_schedule),
+        )
+        .route(
+            "/locations/{kind}/{id}/party/{character_id}/schedule/preview",
+            post(preview_training_schedule),
+        )
+        .route(
+            "/locations/{kind}/{id}/party/{character_id}/activity",
+            post(perform_immediate_activity),
+        )
 }
