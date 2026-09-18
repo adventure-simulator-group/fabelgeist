@@ -17,6 +17,7 @@ struct DatabaseSpy {
     owner: String,
     granted: bool,
     selected: bool,
+    pin_granted: bool,
     raiding_allowed: bool,
     requests: Vec<String>,
 }
@@ -24,9 +25,31 @@ struct DatabaseSpy {
 type Spy = Arc<Mutex<DatabaseSpy>>;
 
 fn rows(row: Value) -> Value {
-    let fields = row.as_object().unwrap();
-    json!([{"schema": {"elements": fields.keys().map(|name| json!({"name": {"some": name}, "algebraic_type": {}})).collect::<Vec<_>>()},
-        "rows": [fields.values().cloned().collect::<Vec<_>>()]}])
+    rows_many([row])
+}
+
+fn rows_many(rows: impl IntoIterator<Item = Value>) -> Value {
+    let rows = rows.into_iter().collect::<Vec<_>>();
+    let fields = rows.first().unwrap().as_object().unwrap();
+    let names = fields.keys().cloned().collect::<Vec<_>>();
+    json!([{"schema": {"elements": names.iter().map(|name| json!({"name": {"some": name}, "algebraic_type": {}})).collect::<Vec<_>>()},
+        "rows": rows.into_iter().map(|row| {
+            let fields = row.as_object().unwrap();
+            names.iter().map(|name| fields[name].clone()).collect::<Vec<_>>()
+        }).collect::<Vec<_>>() }])
+}
+
+fn case_site_pin(owner_character_id: u64, raiding_allowed: bool) -> Value {
+    json!({"owner_character_id":owner_character_id, "case_id":"observer:alias", "case_site_id":{"value":"site:clearing"},
+        "origin_settlement_id":"town", "name":"Clearing", "description":"", "scene_key":"outdoors",
+        "longitude_e_7":0, "latitude_e_7":0, "coordinates_are_geographic":false, "distance_m":1000,
+        "raiding_allowed":raiding_allowed, "knowledge_stage":{"ExactBelieved":[]}, "tracked":false,
+        "display_title":"Clearing", "generated_case":false, "case_resolved":false,
+        "combat_available":false, "opposition_count":{"none":[]}, "opposition_combat_power":{"none":[]}})
+}
+
+fn empty_rows() -> Value {
+    json!([])
 }
 
 async fn query(State(spy): State<Spy>, body: String) -> Json<Value> {
@@ -45,12 +68,16 @@ async fn query(State(spy): State<Spy>, body: String) -> Json<Value> {
     } else if body.contains("backend_character_case_site_locations") {
         json!({"character_id":7, "case_site_id":{"value":"site:clearing"}})
     } else if body.contains("backend_case_site_pins") {
-        json!({"owner_character_id":7, "case_id":"observer:alias", "case_site_id":{"value":"site:clearing"},
-            "origin_settlement_id":"town", "name":"Clearing", "description":"", "scene_key":"outdoors",
-            "longitude_e_7":0, "latitude_e_7":0, "coordinates_are_geographic":false, "distance_m":1000,
-            "raiding_allowed":spy.raiding_allowed, "knowledge_stage":{"ExactBelieved":[]}, "tracked":false,
-            "display_title":"Clearing", "generated_case":false, "case_resolved":false,
-            "combat_available":false, "opposition_count":{"none":[]}, "opposition_combat_power":{"none":[]}})
+        if !body.contains("owner_character_id = 7") {
+            return Json(rows_many([
+                case_site_pin(7, spy.raiding_allowed),
+                case_site_pin(8, false),
+            ]));
+        }
+        if !spy.pin_granted {
+            return Json(empty_rows());
+        }
+        case_site_pin(7, spy.raiding_allowed)
     } else {
         panic!("unexpected read or mutation: {body}");
     };
@@ -91,6 +118,7 @@ impl Harness {
             owner: issued.owner_key,
             granted: true,
             selected: true,
+            pin_granted: true,
             raiding_allowed: true,
             ..Default::default()
         }));
@@ -302,5 +330,32 @@ async fn proposed_allocation_is_read_only_and_uses_current_server_eligibility() 
             .requests
             .iter()
             .any(|query| query.contains("training_schedule"))
+    );
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn shared_case_site_lookup_is_owner_scoped_and_requires_the_owners_pin() {
+    let h = Harness::new().await;
+    assert_eq!(
+        h.request(7, "site:clearing", Some(&h.token), ALLOCATION)
+            .await
+            .0,
+        StatusCode::OK
+    );
+    assert!(
+        h.spy
+            .lock()
+            .unwrap()
+            .requests
+            .iter()
+            .filter(|query| query.contains("backend_case_site_pins"))
+            .all(|query| query.contains("owner_character_id = 7"))
+    );
+    h.spy.lock().unwrap().pin_granted = false;
+    assert_eq!(
+        h.request(7, "site:clearing", Some(&h.token), ALLOCATION)
+            .await
+            .0,
+        StatusCode::NOT_FOUND
     );
 }

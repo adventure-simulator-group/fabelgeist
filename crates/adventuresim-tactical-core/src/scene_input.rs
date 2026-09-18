@@ -7,7 +7,8 @@
 
 mod rock_recipe;
 use rock_recipe::rock_recipe;
-mod streams;
+mod rock_streams;
+use crate::terrain_streams as streams;
 use std::{fs, path::Path};
 
 use adventuresim_core::{

@@ -92,17 +92,46 @@ async fn current_location(
     if !at_requested_location {
         return Err(PreviewError::LocationChanged);
     }
-    let location = match resolve_location(state, kind, id).await {
-        LocationLookup::Found(location) => location,
-        LocationLookup::NotFound => return Err(PreviewError::LocationNotFound),
-        LocationLookup::Unavailable => return Err(unavailable()),
-    };
+    let location = resolve_preview_location(state, kind_value, kind, id, character_id).await?;
     if !character_is_at_location(&character, &location)
         || (location.kind == LocationKind::CaseSite && character.current_settlement_id.is_some())
     {
         return Err(PreviewError::LocationChanged);
     }
     Ok((character, location))
+}
+
+async fn resolve_preview_location(
+    state: &AppState,
+    kind: LocationKind,
+    kind_source: &str,
+    id: &str,
+    character_id: u64,
+) -> Result<LocationView, PreviewError> {
+    if kind == LocationKind::Settlement {
+        return match resolve_location(state, kind_source, id).await {
+            LocationLookup::Found(location) => Ok(location),
+            LocationLookup::NotFound => Err(PreviewError::LocationNotFound),
+            LocationLookup::Unavailable => Err(unavailable()),
+        };
+    }
+    let site = state
+        .db
+        .query_one_sats::<BackendCaseSitePin>(
+            &crate::spacetimedb::case_site_pin_by_case_site_id_and_owner(id, character_id),
+        )
+        .await
+        .map_err(|_| unavailable())?
+        .ok_or(PreviewError::LocationNotFound)?;
+    Ok(LocationView {
+        kind,
+        id: id.to_owned(),
+        name: site.display_title,
+        religion_id: None,
+        category: None,
+        economy: None,
+        active_building: None,
+    })
 }
 
 async fn location_policy(

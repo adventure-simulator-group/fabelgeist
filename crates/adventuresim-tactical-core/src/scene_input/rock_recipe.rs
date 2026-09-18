@@ -2,12 +2,12 @@
 use super::*;
 
 pub(super) fn rock_recipe(seed: u64) -> RockRecipe {
-    let archetype = match streams::ROCK_ARCHETYPE.rng(seed, &[]).index(3) {
+    let archetype = match rock_streams::ROCK_ARCHETYPE.rng(seed, &[]).index(3) {
         0 => RockArchetype::Rounded,
         1 => RockArchetype::Angular,
         _ => RockArchetype::Slab,
     };
-    let lithology = match streams::ROCK_LITHOLOGY.rng(seed, &[]).index(3) {
+    let lithology = match rock_streams::ROCK_LITHOLOGY.rng(seed, &[]).index(3) {
         0 => RockLithology::Granite,
         1 => RockLithology::Limestone,
         _ => RockLithology::Sandstone,
@@ -18,7 +18,10 @@ pub(super) fn rock_recipe(seed: u64) -> RockRecipe {
         RockArchetype::Slab => [142, 72, 132],
     };
     let dimensions_cm = core::array::from_fn(|axis| {
-        let offset = streams::ROCK_DIMENSION.rng(seed, &[axis as u64]).index(17) as i16 - 8;
+        let offset = rock_streams::ROCK_DIMENSION
+            .rng(seed, &[axis as u64])
+            .index(17) as i16
+            - 8;
         base_dimensions[axis].saturating_add_signed(offset)
     });
     RockRecipe {

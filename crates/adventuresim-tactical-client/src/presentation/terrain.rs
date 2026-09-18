@@ -1,11 +1,11 @@
 mod ground_map;
-#[cfg(test)]
-mod streams;
 use super::*;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
 };
+#[cfg(test)]
+use adventuresim_tactical_core::terrain_streams as streams;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
 #[cfg(test)]

@@ -1,6 +1,6 @@
 //! Rasterize natural variation without warping managed property boundaries.
 use super::*;
-use fabelgeist_determinism::StreamId;
+use adventuresim_tactical_core::terrain_streams;
 
 const GROUND_PRESENTATION_SAMPLES_PER_CELL: usize = 6;
 
@@ -110,7 +110,7 @@ pub(super) fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
         let coordinate = cell + offset;
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
-        StreamId::new("terrain.ground-mask-lattice")
+        terrain_streams::GROUND_MASK_LATTICE
             .rng(seed, &[x, y])
             .inclusive_unit_f32()
     };

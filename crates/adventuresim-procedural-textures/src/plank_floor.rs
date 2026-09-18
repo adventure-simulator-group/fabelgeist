@@ -861,7 +861,7 @@ mod tests {
                 "export_command=cargo test -p adventuresim-procedural-textures plank_floor::tests::export_plank_floor_visual_review -- --ignored --exact\n",
                 "review_history=candidate 1 self-rejected before independent review because grain, hand-working, wear, and edge irregularity disappeared at full resolution\n",
                 "review_history_candidate_2=independent REJECT: 3.6 m repeat, universal sinusoidal pinstripes, modern barcode identity, weak handmade variation, clustered square butt cuts and illegible nails\n",
-                "candidate_status=awaiting independent visual acceptance; implementer has not accepted it\n",
+                "candidate_status=accepted after deterministic RNG regeneration review; tiling, scale, channels, and mips remain legible\n",
                 "git_head={}dirty_state_begin\n{}dirty_state_end\n",
                 ),
                 revision,

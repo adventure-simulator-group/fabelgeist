@@ -640,10 +640,12 @@ test-schedule:
 
 # Execute the portable RNG contract on native and wasm32.
 test-determinism:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
     @{{ python_bin }} scripts/check_deterministic_rng.py
     @{{ python_bin }} scripts/test_determinism.py
 
 check-deterministic-rng:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
     @{{ python_bin }} scripts/check_deterministic_rng.py
 
 # Test local workflow policy without leaving Python bytecode in the worktree.
@@ -744,6 +746,7 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
     @{{ python_bin }} scripts/check_deterministic_rng.py
     @cargo run --package fabelgeist-rust-quality -- check .
     @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings

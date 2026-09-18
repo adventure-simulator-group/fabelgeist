@@ -1416,9 +1416,10 @@ mod litter_tests {
     use super::*;
 
     fn base_mip(image: &Image, bytes_per_pixel: usize, level: u32) -> &[u8] {
-        let size = FOREST_LITTER_TEXTURE_SIZE >> level;
+        let base_size = image.texture_descriptor.size.width;
+        let size = base_size >> level;
         let offset = (0..level)
-            .map(|prior| (FOREST_LITTER_TEXTURE_SIZE >> prior).pow(2) as usize * bytes_per_pixel)
+            .map(|prior| (base_size >> prior).pow(2) as usize * bytes_per_pixel)
             .sum::<usize>();
         &image.data.as_deref().unwrap()[offset..offset + size.pow(2) as usize * bytes_per_pixel]
     }
@@ -1731,10 +1732,11 @@ mod litter_tests {
             ImageFormat::Png,
         )
         .unwrap();
-        for (level, size) in [
-            (FOREST_LITTER_SEMANTIC_MIP_LEVEL, 128),
-            (FOREST_LITTER_SEMANTIC_MIP_LEVEL + 1, 64),
+        for level in [
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL,
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL + 1,
         ] {
+            let size = surface.texture_descriptor.size.width >> level;
             save_png(
                 &output.join(format!("forest-litter-interpreted-mip-{size}.png")),
                 &appearance(base_mip(&surface, 4, level)),
