@@ -18,6 +18,21 @@ fn seeded_family_contract_has_unique_roles_and_canonical_edges() {
     assert!(seed.contains(".character_personality()"));
     assert!(seed.contains(".character_id()"));
     assert!(seed.contains(".update(personality)"));
+    assert!(seed.contains("assign_seeded_family_names(ctx, family)?"));
+    let sex_assignment = seed.find("personality.sex = sex").unwrap();
+    let naming = seed.rfind("assign_seeded_family_names(ctx, family)?").unwrap();
+    assert!(sex_assignment < naming);
+
+    let naming_helper = source
+        .split("fn assign_seeded_family_names")
+        .nth(1)
+        .unwrap()
+        .split("fn father_of_at")
+        .next()
+        .unwrap();
+    assert!(naming_helper.contains("let mut surname = None"));
+    assert!(naming_helper.contains("surname = Some"));
+    assert!(naming_helper.contains("assign_generated_historical_name"));
 }
 
 #[test]

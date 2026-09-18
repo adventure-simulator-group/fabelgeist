@@ -69,6 +69,29 @@ pub fn record_character_birth(ctx: &ReducerContext, character_id: u64, birth_min
     }
 }
 
+pub fn set_seeded_character_birth_from_age(
+    ctx: &ReducerContext,
+    character_id: u64,
+    age_years: u16,
+) {
+    let row = CharacterBirth {
+        character_id,
+        birth_minute: -(i64::from(age_years)
+            * i64::try_from(MINUTES_PER_YEAR).unwrap_or(i64::MAX)),
+    };
+    if ctx
+        .db
+        .character_birth()
+        .character_id()
+        .find(character_id)
+        .is_some()
+    {
+        ctx.db.character_birth().character_id().update(row);
+    } else {
+        ctx.db.character_birth().insert(row);
+    }
+}
+
 pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: u64) -> Option<u16> {
     let character = ctx.db.character().id().find(character_id)?;
     let Some(birth) = ctx.db.character_birth().character_id().find(character_id) else {
@@ -142,6 +165,7 @@ pub fn ensure_seeded_family_households(
             )?;
         }
         if family.len() < 4 {
+            assign_seeded_family_names(ctx, family)?;
             continue;
         }
         let assigned = [
@@ -171,23 +195,9 @@ pub fn ensure_seeded_family_households(
                 .character_personality()
                 .character_id()
                 .update(personality);
-            let birth = CharacterBirth {
-                character_id,
-                birth_minute: -(i64::from(age)
-                    * i64::try_from(MINUTES_PER_YEAR).unwrap_or(i64::MAX)),
-            };
-            if ctx
-                .db
-                .character_birth()
-                .character_id()
-                .find(character_id)
-                .is_some()
-            {
-                ctx.db.character_birth().character_id().update(birth);
-            } else {
-                ctx.db.character_birth().insert(birth);
-            }
+            set_seeded_character_birth_from_age(ctx, character_id, age);
         }
+        assign_seeded_family_names(ctx, family)?;
         for child in [family[2], family[3]] {
             for parent in [family[0], family[1]] {
                 ensure_kinship(ctx, child, parent, KinshipKind::Parent, 0);
@@ -196,6 +206,33 @@ pub fn ensure_seeded_family_households(
         }
         ensure_kinship(ctx, family[2], family[3], KinshipKind::Sibling, 0);
         ensure_kinship(ctx, family[3], family[2], KinshipKind::Sibling, 0);
+    }
+    Ok(())
+}
+
+fn assign_seeded_family_names(ctx: &ReducerContext, family: &[u64]) -> Result<(), String> {
+    let mut surname = None;
+    for character_id in family.iter().copied() {
+        let age_years = ctx
+            .db
+            .character()
+            .id()
+            .find(character_id)
+            .ok_or("Seeded family member is missing its Character")?
+            .age_years;
+        let seed = fabelgeist_determinism::Seed::derive(
+            &character_id.to_le_bytes(),
+            fabelgeist_determinism::StreamId::new("resident.personal-name"),
+            &[&2u16.to_le_bytes()],
+        )
+        .to_u64();
+        surname = Some(crate::character::assign_generated_historical_name(
+            ctx,
+            character_id,
+            seed,
+            adventuresim_core::strategic_time::birth_year_from_age(0, age_years),
+            surname,
+        )?);
     }
     Ok(())
 }

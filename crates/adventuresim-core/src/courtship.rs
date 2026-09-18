@@ -692,7 +692,7 @@ pub fn deterministic_child_seeds(
     let base = [left, right, &pregnancy, &birth];
     ChildSeeds {
         identity: stable_lifecycle_hash("child-identity", &base),
-        name: stable_lifecycle_hash("child-name", &base),
+        name: stable_lifecycle_hash("child-name-v2", &base),
         female: fabelgeist_determinism::StreamId::new("lifecycle.child-sex")
             .rng(stable_lifecycle_hash("child-sex", &base), &[])
             .boolean(),

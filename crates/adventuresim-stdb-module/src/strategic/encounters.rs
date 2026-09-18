@@ -748,7 +748,6 @@ fn commit_encounter_scan(
         crate::world_actor::CharacterContextKind::StrategicEncounter,
         &encounter.encounter_id,
         &encounter.encounter_id,
-        &encounter.archetype,
         u32::from(encounter.enemy_count),
     )?;
     if roster.len() != usize::from(encounter.enemy_count) {

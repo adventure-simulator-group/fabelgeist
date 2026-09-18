@@ -1,5 +1,6 @@
 mod occupancy;
 mod origin;
+include!("character/name_identity.rs");
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
@@ -919,6 +920,7 @@ pub(crate) fn delete_temporary_character(
     if !character.temporary {
         return Err("Refusing to cascade-delete a persistent character".into());
     }
+    delete_character_name_data(ctx, character.id);
     delete_character_data(ctx, character, true)
 }
 
@@ -926,6 +928,7 @@ pub(crate) fn delete_character_for_world_import(
     ctx: &ReducerContext,
     character: Character,
 ) -> Result<(), String> {
+    delete_character_name_data(ctx, character.id);
     delete_character_data(ctx, character, false)
 }
 
@@ -1240,17 +1243,9 @@ fn delete_character_data(
 /// Create a new character with generated name and add initial items to it
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
-    let names = petname::Petnames::default();
-    let adjective =
-        names.adjectives[fabelgeist_determinism::StreamId::new("character.name-adjective")
-            .rng(id, &[])
-            .index(names.adjectives.len())];
-    let noun = names.nouns[fabelgeist_determinism::StreamId::new("character.name-noun")
-        .rng(id, &[])
-        .index(names.nouns.len())];
-    let name = format!("{adjective} {noun}");
-
-    insert_new_character(ctx, name, id, false)
+    insert_new_character(ctx, "Pending generated name".into(), id, false)?;
+    assign_generated_historical_name_for_age(ctx, id, id, 0, None)?;
+    Ok(())
 }
 
 /// Create a new character with name and add initial items to it
@@ -1349,8 +1344,8 @@ pub fn create_starting_character(
 }
 
 /// Idempotently grant the canonical fallback character to a new browser
-/// owner. The owner key namespaces identity only; John has the same authored
-/// build in every session and in tactical fixtures.
+/// owner. The owner key namespaces identity only; the versioned generated
+/// build remains stable in every session and in tactical fixtures.
 #[reducer]
 pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
@@ -1703,7 +1698,6 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
         .id()
         .find(HERBALISM_DEMO_CHARACTER_ID)
         .ok_or_else(|| "Herbalism and foraging demo character is missing".to_string())?;
-    character.name = "Herbalism and Foraging Demo".into();
     let party_id = character
         .party_id
         .clone()
@@ -2159,6 +2153,10 @@ pub(crate) fn insert_character_with_origin(
 ) -> Result<(), String> {
     log::info!("New character created: {name} (ID: {id})");
     let temporary = options.mode.temporary();
+    let initial_name_identity = starting.map_or_else(
+        || authored_name_identity(name.clone()),
+        |spec| spec.name_identity.clone(),
+    );
     let npc = options.mode.is_npc();
     let newborn = options.mode.newborn();
     let reserved = ctx.db.child_identity_reservation().character_id().find(id);
@@ -2531,6 +2529,10 @@ pub(crate) fn insert_character_with_origin(
         }
     }
 
+    if !temporary {
+        assign_character_name_identity(ctx, character.id, initial_name_identity)?;
+    }
+
     // Newborns receive the full durable character component surface, but no
     // adult economic or equipment package.
     if !newborn {
@@ -2644,7 +2646,7 @@ pub(crate) fn validate_full_character_components(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let mut missing = Vec::new();
+    let mut missing = missing_name_identity(ctx, character_id);
     if ctx.db.character().id().find(character_id).is_none() {
         missing.push("character");
     }
@@ -3601,6 +3603,60 @@ mod starting_character_boundary_tests {
         assert!(persistent.contains("CharacterCreationMode::PersistentNpc"));
         assert!(persistent.contains("create_solo_party: false"));
         assert!(persistent.contains("initial_time_minute"));
+    }
+
+    #[test]
+    fn durable_names_have_private_semantic_authority_and_authored_renames() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let names = crate::production_source(include_str!("character/name_identity.rs"));
+        assert!(names.contains("#[table(accessor = character_name_identity)]"));
+        assert!(!names.contains("#[table(accessor = character_name_identity, public)]"));
+
+        let insertion = source
+            .split("pub(crate) fn insert_character_with_origin")
+            .nth(1)
+            .unwrap()
+            .split("pub(crate) fn validate_full_character_components")
+            .next()
+            .unwrap();
+        assert!(insertion.contains("if !temporary"));
+        assert!(insertion.contains("assign_character_name_identity"));
+        assert!(insertion.contains("spec.name_identity.clone()"));
+
+        let generic = source
+            .split("pub fn create_character")
+            .nth(1)
+            .unwrap()
+            .split("fn named_character_id")
+            .next()
+            .unwrap();
+        assert!(generic.contains("assign_generated_historical_name"));
+
+        let governance = crate::production_source(include_str!("strategic/governance.rs"));
+        let rename = governance
+            .split("pub fn update_character")
+            .nth(1)
+            .unwrap()
+            .split("pub(crate) fn create_solo_party_for_character")
+            .next()
+            .unwrap();
+        assert!(rename.contains("assign_authored_character_name"));
+    }
+
+    #[test]
+    fn tactical_bot_labels_remain_synthetic_and_nonpersistent() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let tactical = source
+            .split("pub fn create_temporary_character")
+            .nth(1)
+            .unwrap()
+            .split("fn scale_temporary_enemy")
+            .next()
+            .unwrap();
+        assert!(tactical.contains("petname::Petnames::default()"));
+        assert!(tactical.contains("format!(\"bot-{name}\")"));
+        assert!(!tactical.contains("assign_generated_historical_name"));
+        assert!(source.contains("if !temporary {\n        assign_character_name_identity"));
     }
 
     #[test]

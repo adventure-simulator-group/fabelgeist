@@ -619,7 +619,7 @@ fn format_residence_date(minute: u64) -> String {
     let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
     format!(
         "year {}, day {}",
-        1544 + day / DAYS_PER_YEAR,
+        adventuresim_core::strategic_time::world_year_at(minute),
         day % DAYS_PER_YEAR + 1
     )
 }

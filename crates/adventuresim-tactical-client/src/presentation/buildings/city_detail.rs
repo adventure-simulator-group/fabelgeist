@@ -148,6 +148,7 @@ fn load_next_facade(
                 parent,
                 building.placement.id,
                 None,
+                None,
                 &compiled,
                 &mut assets.meshes,
             );

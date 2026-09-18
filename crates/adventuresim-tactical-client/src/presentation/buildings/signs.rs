@@ -4,6 +4,7 @@ use adventuresim_building_generator::signs::{
     EstablishmentId, ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets,
     SignRenderPart, SignSite,
 };
+use adventuresim_world_schema::person_names::RenderedPersonalName;
 use bevy::ecs::system::SystemParam;
 
 const LETTERING_LOAD_DISTANCE_METRES: f32 = 48.0;
@@ -51,19 +52,18 @@ impl SignAssets<'_> {
         &mut self,
         parent: &mut ChildSpawnerCommands,
         id: u64,
+        operator_name: Option<&RenderedPersonalName>,
         authored: Option<&ShopSign>,
         compiled: &CompiledBuildingLevels,
         meshes: &mut Assets<Mesh>,
     ) {
-        let Some(usage) = compiled.program.usage else {
+        let Some(mut sign) = authored.cloned().or_else(|| {
+            operator_name.and_then(|operator_name| {
+                ShopSign::for_operator(EstablishmentId(id), operator_name, compiled.program.usage?)
+            })
+        }) else {
             return;
         };
-        let Some(mut sign) = ShopSign::for_establishment(EstablishmentId(id), usage) else {
-            return;
-        };
-        if let Some(authored) = authored {
-            sign = authored.clone();
-        }
         let Some(&(mount, site)) = compiled
             .sign_sites
             .iter()

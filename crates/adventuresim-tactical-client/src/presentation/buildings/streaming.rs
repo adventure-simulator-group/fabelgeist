@@ -189,8 +189,14 @@ impl CityBuildingAssets<'_> {
                 BuildingPresentationScope::DistantCity,
                 &self.materials,
             );
-            self.signs
-                .spawn(parent, placement.id, None, &compiled, &mut self.meshes);
+            self.signs.spawn(
+                parent,
+                placement.id,
+                None,
+                None,
+                &compiled,
+                &mut self.meshes,
+            );
         });
         Ok(true)
     }

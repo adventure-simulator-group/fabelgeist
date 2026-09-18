@@ -517,7 +517,7 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
         };
         crate::character::insert_character_with_origin(
             ctx,
-            format!("Child-{:08x}", pregnancy.child_name_seed as u32),
+            "Pending newborn name".into(),
             child_id,
             crate::character::CharacterCreationOptions {
                 origin_settlement_id: Some(&settlement_id),
@@ -537,18 +537,15 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
             child_id,
             i64::try_from(pregnancy.due_minute).unwrap_or(i64::MAX),
         );
-        if let Some(mut personality) = ctx.db.character_personality().character_id().find(child_id)
-        {
-            personality.sex = if pregnancy.child_female {
-                Sex::Female
-            } else {
-                Sex::Male
-            };
-            ctx.db
-                .character_personality()
-                .character_id()
-                .update(personality);
-        }
+        crate::character::assign_newborn_historical_name(
+            ctx,
+            child_id,
+            father.id,
+            mother.id,
+            pregnancy.due_minute,
+            pregnancy.child_name_seed,
+            pregnancy.child_female,
+        )?;
         initialize_npc_policy(
             ctx,
             child_id,

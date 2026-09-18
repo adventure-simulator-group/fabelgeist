@@ -490,13 +490,7 @@ pub(crate) fn normalize_and_elect_party_leader(
 #[reducer]
 pub fn update_character(ctx: &ReducerContext, id: u64, name: String) -> Result<(), String> {
     crate::character::require_living_character(ctx, id)?;
-    let Some(mut character) = ctx.db.character().id().find(id) else {
-        return Err("Character not found".into());
-    };
-
-    character.name = name;
-    ctx.db.character().id().update(character);
-    Ok(())
+    crate::character::assign_authored_character_name(ctx, id, name)
 }
 
 pub(crate) fn create_solo_party_for_character(

@@ -195,6 +195,7 @@ fn face_mesh(size: Vec2) -> Mesh {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_world_schema::person_names::RenderedPersonalName;
     use adventuresim_world_schema::settlement_buildings::BuildingUse;
 
     #[test]
@@ -214,7 +215,9 @@ mod tests {
                 support: crate::ResolvedItemId(1),
             },
         };
-        let mut sign = ShopSign::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
+        let first_operator = RenderedPersonalName::new("Ilse Hartman").unwrap();
+        let mut sign =
+            ShopSign::for_operator(EstablishmentId(15), &first_operator, BuildingUse::Inn).unwrap();
         sign.mount = SignMount::Projecting;
         let board = cache.compile(
             &sign,
@@ -258,7 +261,8 @@ mod tests {
             },
         );
         assert_eq!(images.len(), 1);
-        sign.name = ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap();
+        let second_operator = RenderedPersonalName::new("Anna Becker").unwrap();
+        sign.name = ShopName::for_operator(&second_operator, BuildingUse::Inn).unwrap();
         cache.compile(
             &sign,
             site,

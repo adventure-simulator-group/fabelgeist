@@ -2,16 +2,44 @@ use super::*;
 use crate::{BuildingProgram, generate, settlement_archetype};
 
 #[test]
-fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
-    let first = ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
-    assert_eq!(first.text(), "Marta Hartmann’s Tavern");
+fn brands_use_the_exact_operator_projection_and_only_public_shops_receive_them() {
+    use adventuresim_world_schema::person_names::{
+        NameCulture, NameGenerationContext, NameRegister, NameSex, PersonalNameIdentity,
+        generate_personal_name, render_personal_name,
+    };
+
+    let generated_identity = generate_personal_name(
+        NameGenerationContext::german_lutheran(NameSex::Female, 1514),
+        15,
+        None,
+    )
+    .unwrap();
+    let ilse = render_personal_name(
+        &generated_identity,
+        NameCulture::German,
+        NameRegister::Everyday,
+        NameSex::Female,
+    )
+    .unwrap();
+    let first = ShopName::for_operator(&ilse, BuildingUse::Inn).unwrap();
+    assert_eq!(first.proprietor, format!("{ilse}’s"));
     assert_eq!(
         first,
-        ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap()
+        ShopName::for_operator(&ilse, BuildingUse::Inn).unwrap()
     );
-    assert_ne!(
-        first,
-        ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap()
+    let renamed_identity = PersonalNameIdentity::authored("Anna Becker", NameCulture::German);
+    let renamed = render_personal_name(
+        &renamed_identity,
+        NameCulture::German,
+        NameRegister::Everyday,
+        NameSex::Female,
+    )
+    .unwrap();
+    assert_eq!(
+        ShopName::for_operator(&renamed, BuildingUse::Inn)
+            .unwrap()
+            .text(),
+        "Anna Becker’s Tavern"
     );
     for usage in [
         BuildingUse::Dwelling,
@@ -19,7 +47,7 @@ fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
         BuildingUse::Cathedral,
         BuildingUse::MarketHall,
     ] {
-        assert!(ShopSign::for_establishment(EstablishmentId(15), usage).is_none());
+        assert!(ShopSign::for_operator(EstablishmentId(15), &ilse, usage).is_none());
     }
 }
 

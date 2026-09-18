@@ -71,7 +71,7 @@ pub struct SettlementResidentProfile {
     pub visible_features: String,
     pub clothing: String,
     pub profession: String,
-    pub household: String,
+    pub household_kind: String,
     pub local_role: String,
     pub service_id: String,
     /// Explicit institution authority. Empty for NPCs not representing an organization.
@@ -177,7 +177,7 @@ pub struct BackendSettlementResident {
     pub visible_features: String,
     pub clothing: String,
     pub profession: String,
-    pub household: String,
+    pub household_kind: String,
     pub local_role: String,
     pub service_id: String,
     pub organization_id: String,
@@ -219,7 +219,7 @@ fn project_backend_settlement_resident(
         visible_features: profile.visible_features,
         clothing: profile.clothing,
         profession: profile.profession,
-        household: profile.household,
+        household_kind: profile.household_kind,
         local_role: profile.local_role,
         service_id: profile.service_id,
         organization_id: profile.organization_id,
@@ -305,8 +305,6 @@ const SERVICES: [(&str, &str, &str, &str); 8] = [
     ("religion", "church", "cleric", "parish priest"),
     ("books", "bookstore", "merchant", "bookseller"),
 ];
-use adventuresim_world_schema::person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES};
-
 #[derive(Clone, Copy)]
 enum PopulationLocation<'a> {
     Overview,
@@ -387,10 +385,7 @@ fn profession(value: Profession) -> &'static str {
 enum ResidentEntropyStream {
     Identity,
     Sex,
-    GivenName,
-    Surname,
     FacialHair,
-    HouseholdName,
     Complexion,
     VisibleFeature,
 }
@@ -400,9 +395,6 @@ impl ResidentEntropyStream {
         fabelgeist_determinism::StreamId::new(match self {
             Self::Identity => "resident.identity",
             Self::Sex => "resident.sex",
-            Self::GivenName => "resident.given-name",
-            Self::Surname => "resident.surname",
-            Self::HouseholdName => "resident.household-name",
             Self::Complexion => "resident.complexion",
             Self::VisibleFeature => "resident.visible-feature",
             Self::FacialHair => "resident.facial-hair",
@@ -423,14 +415,6 @@ fn resident_seed(settlement_id: &str, location: &str, ordinal: usize) -> String 
 
 fn organization_representative_seed(settlement_id: &str, organization_id: &str) -> String {
     format!("resident:organization-representative:{settlement_id}:{organization_id}")
-}
-
-fn resident_name(seed: &str, female: bool) -> String {
-    let names = if female { &FEMALE_NAMES } else { &MALE_NAMES };
-    let given = names[resident_random(seed, ResidentEntropyStream::GivenName).index(names.len())];
-    let surname =
-        SURNAMES[resident_random(seed, ResidentEntropyStream::Surname).index(SURNAMES.len())];
-    format!("{given} {surname}")
 }
 
 fn resident_character_id(seed: &str) -> u64 {
@@ -549,15 +533,9 @@ fn insert_resident_with_seed(
     };
     let female = resident_random(&seed, ResidentEntropyStream::Sex).boolean();
     let age_band = age(profile.age);
-    let household = format!(
-        "the {} {}",
-        SURNAMES
-            [resident_random(&seed, ResidentEntropyStream::HouseholdName).index(SURNAMES.len())],
-        profile.household_kind
-    );
     insert_persistent_npc_character(
         ctx,
-        resident_name(&seed, female),
+        "Pending resident name".into(),
         character_id,
         settlement_id,
         resident_random(&seed, ResidentEntropyStream::Identity).next_u64(),
@@ -569,13 +547,15 @@ fn insert_resident_with_seed(
         .id()
         .find(character_id)
         .ok_or("Resident character was not created")?;
-    character.age_years = match age_band {
+    let age_years = match age_band {
         NpcAgeBand::Child => 8,
         NpcAgeBand::Adolescent => 15,
         NpcAgeBand::Adult => 30,
         NpcAgeBand::Elder => 68,
     };
+    character.age_years = age_years;
     ctx.db.character().id().update(character);
+    crate::character::assign_generated_name_demographics(ctx, character_id, female, age_years)?;
     ctx.db.npc_policy().insert(NpcPolicy {
         character_id,
         home_settlement_id: settlement_id.into(),
@@ -615,7 +595,7 @@ fn insert_resident_with_seed(
                 "clean working clothes appropriate to the trade".into()
             },
             profession: selected_profession.into(),
-            household,
+            household_kind: profile.household_kind.clone(),
             local_role: local_role.into(),
             service_id: service.into(),
             organization_id: String::new(),
@@ -1038,7 +1018,7 @@ mod tests {
             "visible_features",
             "clothing",
             "profession",
-            "household",
+            "household_kind",
             "local_role",
             "service_id",
             "organization_id",

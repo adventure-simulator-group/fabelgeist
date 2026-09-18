@@ -29,7 +29,7 @@ fn residence_notice(code: Option<&str>) -> Option<&'static str> {
 
 fn relationship_date_label(minute: u64) -> String {
     let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    let year = 1544 + day / adventuresim_core::strategic_time::DAYS_PER_YEAR;
+    let year = adventuresim_core::strategic_time::world_year_at(minute);
     let day_of_year = day % adventuresim_core::strategic_time::DAYS_PER_YEAR + 1;
     format!("year {year}, day {day_of_year}")
 }

@@ -122,7 +122,14 @@ fn on_scene_building_added(
                 BuildingPresentationScope::Playable,
                 &materials,
             );
-            signs.spawn(parent, building.id, authored_sign, &compiled, &mut meshes);
+            signs.spawn(
+                parent,
+                building.id,
+                None,
+                authored_sign,
+                &compiled,
+                &mut meshes,
+            );
         });
     Ok(())
 }

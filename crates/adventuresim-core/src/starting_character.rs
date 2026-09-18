@@ -1,16 +1,17 @@
 //! Pure, versioned generation for the first-character candidate roster.
 
+mod names;
 mod professional;
-use adventuresim_world_schema::{BestiaryHours, ReligionHours};
+use adventuresim_world_schema::{BestiaryHours, ReligionHours, person_names::PersonalNameIdentity};
+pub use names::default_character_name;
 use serde::{Deserialize, Serialize};
 
 use crate::organization::{Requirement, StartingProfession, catalog};
 use crate::skill::Skill;
 
-pub const GENERATOR_VERSION: u16 = 7;
+pub const GENERATOR_VERSION: u16 = 8;
 pub const YOUNG_ROSTER_SIZE: u8 = 5;
-pub const DEFAULT_CHARACTER_VERSION: u16 = 2;
-pub const DEFAULT_CHARACTER_NAME: &str = "John Fabelgeist";
+pub const DEFAULT_CHARACTER_VERSION: u16 = 3;
 pub const DEFAULT_CHARACTER_AGE_YEARS: u16 = 20;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -329,6 +330,7 @@ fn capitalize(value: &str) -> String {
 pub struct StartingCharacterSpec {
     pub id: u64,
     pub name: String,
+    pub name_identity: PersonalNameIdentity,
     pub age_years: u16,
     pub background: String,
     pub personality: StartingPersonality,
@@ -388,10 +390,6 @@ fn random(domain: &str, seed: &str, slot: u8) -> fabelgeist_determinism::Determi
     .rng()
 }
 
-fn choose<'a>(domain: &str, seed: &str, slot: u8, choices: &'a [&'a str]) -> &'a str {
-    choices[random(domain, seed, slot).index(choices.len())]
-}
-
 fn item(id: &str, quantity: u32, equipped: Option<StartingSlot>) -> StartingItem {
     StartingItem {
         item_id: id.into(),
@@ -415,12 +413,67 @@ fn basic_clothing() -> Vec<StartingItem> {
 /// `identity_seed` only namespaces the durable character ID. Every gameplay
 /// value is intentionally identical across callers.
 pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
+    let skills = default_character_skills();
+    let (name_identity, name) = names::default_identity_and_name();
+    StartingCharacterSpec {
+        id: (random("default-character-id", identity_seed, 0).next_u64() & 0x0fff_ffff_ffff_ffff)
+            | 0xd000_0000_0000_0000,
+        name,
+        name_identity,
+        age_years: DEFAULT_CHARACTER_AGE_YEARS,
+        background: "Combat-trained adventurer".into(),
+        personality: StartingPersonality {
+            traits: Vec::new(),
+            sex: StartingSex::Male,
+            presentation: StartingPresentation::Man,
+            inclination: StartingInclination::Women,
+        },
+        attributes: StartingAttributes {
+            endurance: 4.0,
+            immunity: 3.0,
+            gut: 3.0,
+            intelligence: 3.0,
+            instinct: 3.0,
+            eyesight: 3.0,
+            hearing: 3.0,
+            strength: 4.0,
+            agility: 4.0,
+        },
+        skills,
+        currency: 100,
+        settlement_selector: random("default-character-settlement", identity_seed, 0).next_u64(),
+        inventory: {
+            let mut inventory = basic_clothing();
+            inventory.extend([
+                item("longsword", 1, None),
+                item("rondel_dagger", 1, None),
+                item("morion", 1, Some(StartingSlot::Head)),
+                item("breastplate", 1, Some(StartingSlot::Chest)),
+                item("vambrace", 1, Some(StartingSlot::LeftArm)),
+                item("vambrace", 1, Some(StartingSlot::RightArm)),
+                item("torch", 1, None),
+                item("bandage", 3, None),
+                item("steel_stock", 1, None),
+                item("leather_stock", 1, None),
+                item("brass_stock", 1, None),
+                item("wood_stock", 1, None),
+            ]);
+            inventory
+        },
+        age_tier: StartingAgeTier::Adult,
+        profession: None,
+        organization: None,
+        religion_id: None,
+    }
+}
+
+fn default_character_skills() -> StartingSkills {
     let rank_hours = |skill: Skill, rank: f32| skill.hours_for_rank(rank);
     let age_training_scale = f32::from(DEFAULT_CHARACTER_AGE_YEARS.saturating_sub(6)) / 14.0;
     let general = |skill: Skill| rank_hours(skill, 1.25) * age_training_scale;
     let combat = |skill: Skill| rank_hours(skill, 3.5) * age_training_scale;
 
-    let skills = StartingSkills {
+    StartingSkills {
         written: adventuresim_world_schema::WrittenLanguageHours {
             german: 400.0 * age_training_scale,
             low: 160.0 * age_training_scale,
@@ -484,56 +537,6 @@ pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
         terrain_snow: general(Skill::TerrainSnow),
         tailoring: general(Skill::Tailoring),
         smithing: general(Skill::Smithing),
-    };
-
-    StartingCharacterSpec {
-        id: (random("default-character-id", identity_seed, 0).next_u64() & 0x0fff_ffff_ffff_ffff)
-            | 0xd000_0000_0000_0000,
-        name: DEFAULT_CHARACTER_NAME.into(),
-        age_years: DEFAULT_CHARACTER_AGE_YEARS,
-        background: "Combat-trained adventurer".into(),
-        personality: StartingPersonality {
-            traits: Vec::new(),
-            sex: StartingSex::Male,
-            presentation: StartingPresentation::Man,
-            inclination: StartingInclination::Women,
-        },
-        attributes: StartingAttributes {
-            endurance: 4.0,
-            immunity: 3.0,
-            gut: 3.0,
-            intelligence: 3.0,
-            instinct: 3.0,
-            eyesight: 3.0,
-            hearing: 3.0,
-            strength: 4.0,
-            agility: 4.0,
-        },
-        skills,
-        currency: 100,
-        settlement_selector: random("default-character-settlement", identity_seed, 0).next_u64(),
-        inventory: {
-            let mut inventory = basic_clothing();
-            inventory.extend([
-                item("longsword", 1, None),
-                item("rondel_dagger", 1, None),
-                item("morion", 1, Some(StartingSlot::Head)),
-                item("breastplate", 1, Some(StartingSlot::Chest)),
-                item("vambrace", 1, Some(StartingSlot::LeftArm)),
-                item("vambrace", 1, Some(StartingSlot::RightArm)),
-                item("torch", 1, None),
-                item("bandage", 3, None),
-                item("steel_stock", 1, None),
-                item("leather_stock", 1, None),
-                item("brass_stock", 1, None),
-                item("wood_stock", 1, None),
-            ]);
-            inventory
-        },
-        age_tier: StartingAgeTier::Adult,
-        profession: None,
-        organization: None,
-        religion_id: None,
     }
 }
 
@@ -553,35 +556,6 @@ pub fn generate(
     slot: u8,
 ) -> Result<StartingCharacterSpec, &'static str> {
     validate_request(version, seed, age_tier, slot)?;
-    let sex = generated_sex(seed, age_tier, slot);
-    let first = choose(
-        "first-name",
-        seed,
-        slot,
-        match sex {
-            StartingSex::Female => &["Adela", "Beatrix", "Elsbeth", "Greta", "Lina", "Oda"],
-            StartingSex::Male => &[
-                "Anselm", "Conrad", "Florian", "Hugo", "Matthias", "Ruprecht",
-            ],
-        },
-    );
-    let byname = choose(
-        "byname",
-        seed,
-        slot,
-        &[
-            "Ashbrook",
-            "Blackwood",
-            "Dawnward",
-            "Falken",
-            "Greyfield",
-            "Hartmann",
-            "Ironmere",
-            "Rosen",
-            "Stoneford",
-            "Winter",
-        ],
-    );
     let (background, weapon, weapon_slot, armor, _primary, defense, currency_base) = match slot {
         0 => (
             "Militia runner",
@@ -663,7 +637,8 @@ pub fn generate(
     }
     let mut spec = StartingCharacterSpec {
         id: tier_random("character-id", seed, age_tier, slot).next_u64() | 0x8000_0000_0000_0000,
-        name: format!("{first} {byname}"),
+        name: String::new(),
+        name_identity: names::pending_identity(),
         age_years: age_tier.age_years(),
         background: background.into(),
         personality: generated_personality(seed, age_tier, slot),
@@ -691,6 +666,10 @@ pub fn generate(
         apply_professional_start(&mut spec, seed, slot)?;
     }
     simulate_starting_life(&mut spec, seed, slot)?;
+    names::assign(
+        &mut spec,
+        tier_random("personal-name", seed, age_tier, slot).next_u64(),
+    );
     Ok(spec)
 }
 
@@ -1554,7 +1533,7 @@ mod tests {
     #[test]
     fn canonical_default_character_matches_the_shared_test_build() {
         let john = default_character("owner-a");
-        assert_eq!(john.name, "John Fabelgeist");
+        assert_eq!(john.name, default_character_name());
         assert_eq!(john.age_years, 20);
         assert_eq!(john.personality.sex, StartingSex::Male);
         assert!(john.personality.traits.is_empty());

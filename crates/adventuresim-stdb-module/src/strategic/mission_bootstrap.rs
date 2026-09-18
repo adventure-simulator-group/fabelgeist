@@ -644,7 +644,6 @@ pub fn seed_standalone_tactical_mission(
         crate::world_actor::CharacterContextKind::HostileGroup,
         &group.id,
         group.case_site_id.as_str(),
-        &group.enemy_type,
         group.enemy_count,
     )?;
     configure_tactical_enemy_fixture(ctx, &hostile_group_id, &enemy_fixture)?;
@@ -2859,7 +2858,7 @@ mod developer_quest_source_tests {
                     visible_features: "a scar".into(),
                     clothing: "a wool coat".into(),
                     profession: "laborer".into(),
-                    household: "market household".into(),
+                    household_kind: "market household".into(),
                     local_role: "resident".into(),
                     service_id: String::new(),
                     organization_id: String::new(),
