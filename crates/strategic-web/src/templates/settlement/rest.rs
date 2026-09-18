@@ -232,10 +232,9 @@ pub(crate) fn rest_service_menu(
         }
         form action=(crate::location_urls::patterns::REST.url([&settlement_id, &(kind.place())])) method="post" {
                 @let minutes = default_minutes.unwrap_or(0);
-                @let unit = if minutes >= MINUTES_PER_DAY { "days" } else { "hours" };
                 @let initial_minutes = if minutes == 0 { MINUTES_PER_DAY } else { minutes.max(MINUTES_PER_DAY) };
-                (settlement_rest_duration_control(initial_minutes, unit))
-                button type="submit" class="btn btn-primary btn-small btn-block" data-rest-submit disabled[unit == "hours"] title="Rest for the selected duration" {
+                (settlement_rest_duration_control(initial_minutes))
+                button type="submit" class="btn btn-primary btn-small btn-block" data-rest-submit title="Rest for the selected duration" {
                     (decorative_game_icon("night-sleep"))
                     span class="sr-only" { "Rest" }
                 }
@@ -278,7 +277,7 @@ pub(crate) fn rest_service_menu(
     }
 }
 
-fn settlement_rest_duration_control(initial_minutes: u64, _unit: &str) -> Markup {
+fn settlement_rest_duration_control(initial_minutes: u64) -> Markup {
     let days = initial_minutes
         .div_ceil(MINUTES_PER_DAY)
         .clamp(1, DAYS_PER_YEAR);
@@ -505,13 +504,35 @@ mod tests {
 
     #[test]
     fn settlement_rest_control_uses_accessible_whole_days() {
-        let markup = settlement_rest_duration_control(MINUTES_PER_DAY, "hours").into_string();
+        let markup = settlement_rest_duration_control(MINUTES_PER_DAY).into_string();
         assert!(markup.contains("data-rest-duration"));
         assert!(markup.contains("type=\"hidden\" name=\"unit\" value=\"days\""));
         assert!(markup.contains("type=\"number\" name=\"duration\" value=\"1\""));
         assert!(markup.contains(&format!("min=\"1\" max=\"{DAYS_PER_YEAR}\" step=\"1\"")));
         assert!(markup.contains("aria-label=\"Rest duration in whole days\""));
         assert!(!markup.contains("data-wake-time"));
+    }
+
+    #[test]
+    fn whole_day_services_allow_rest_without_a_wake_time_suggestion() {
+        for kind in [
+            RestServiceKind::Inn,
+            RestServiceKind::Temple,
+            RestServiceKind::Residence,
+        ] {
+            let markup = rest_service_menu(
+                "Rest",
+                "viabundus-2337",
+                kind,
+                None,
+                None,
+                SoapRestPreview::default(),
+            )
+            .into_string();
+            assert!(markup.contains("name=\"duration\" value=\"1\""));
+            assert!(markup.contains("data-rest-submit"));
+            assert!(!markup.contains("disabled"));
+        }
     }
 
     #[test]
@@ -555,7 +576,7 @@ mod tests {
 
     #[test]
     fn days_recommendation_uses_the_recommended_whole_day_count() {
-        let markup = settlement_rest_duration_control(3 * MINUTES_PER_DAY, "days").into_string();
+        let markup = settlement_rest_duration_control(3 * MINUTES_PER_DAY).into_string();
         assert!(markup.contains("type=\"hidden\" name=\"unit\" value=\"days\""));
         assert!(markup.contains("type=\"number\" name=\"duration\" value=\"3\""));
         assert!(markup.contains(&format!("min=\"1\" max=\"{DAYS_PER_YEAR}\" step=\"1\"")));

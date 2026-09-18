@@ -820,7 +820,7 @@ ceiling = 728
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
-ceiling = 732
+ceiling = 696
 
 [[files]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -3146,7 +3146,7 @@ ceiling = 133
 [[functions]]
 path = "crates/strategic-web/src/templates/layout.rs"
 item = "settlement_top_bar"
-ceiling = 161
+ceiling = 131
 
 [[functions]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -13009,97 +13009,6 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:armor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:books"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:clothing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:keep"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:map"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:merchants"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:public-square"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:religion"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:residences"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:stone"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:weapons"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
 item = "quest_location_top_bar"
 fingerprint = "string:camp"
 occurrences = 1
@@ -13888,14 +13797,12 @@ item = "main"
 fingerprint = "string:holder:"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/examples/export_obj.rs"
 item = "main"
 fingerprint = "string:--holder"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13904,14 +13811,12 @@ item = "recommended_holder"
 fingerprint = "string:arming_sword"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:baselard"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13920,14 +13825,12 @@ item = "recommended_holder"
 fingerprint = "string:bauernwehr"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:club"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13936,14 +13839,12 @@ item = "recommended_holder"
 fingerprint = "string:falchion"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:flanged_mace"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13952,14 +13853,12 @@ item = "recommended_holder"
 fingerprint = "string:halberd"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:hand_axe"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13968,14 +13867,12 @@ item = "recommended_holder"
 fingerprint = "string:hunting_spear"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:katzbalger"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -13984,14 +13881,12 @@ item = "recommended_holder"
 fingerprint = "string:knife"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:kriegsmesser"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14000,14 +13895,12 @@ item = "recommended_holder"
 fingerprint = "string:longsword"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:messer"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14016,14 +13909,12 @@ item = "recommended_holder"
 fingerprint = "string:military_pike"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:misericorde"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14032,14 +13923,12 @@ item = "recommended_holder"
 fingerprint = "string:rapier"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:rondel_dagger"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14048,14 +13937,12 @@ item = "recommended_holder"
 fingerprint = "string:spear"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:utility_knife"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14064,14 +13951,12 @@ item = "recommended_holder"
 fingerprint = "string:walking_staff"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:war_hammer"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"

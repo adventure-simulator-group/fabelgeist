@@ -4,6 +4,8 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 
 ## Architecture
 
+[Strategic interface construction](ARCHITECTURE.md)
+
 ```
 ┌─────────────────┐     HTTP     ┌──────────────────┐
 │  Browser        │◄────────────►│  strategic-web   │

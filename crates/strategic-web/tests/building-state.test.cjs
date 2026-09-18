@@ -11,10 +11,14 @@ function fixture(href, active = "organization-merchants-lubeck") {
   const { window, document } = parseHTML(`<html><body>
     <main id="strategic-page">
       <nav data-settlement-id="lubeck">
-        <a class="nav-tab" data-service-id="map" data-building-id="map"></a>
-        <a class="nav-tab" data-service-id="inn" data-building-id="inn"></a>
+        <a class="nav-tab" data-service-id="map" data-building-id="map"
+          data-architectural-family="harz" data-place-skin="map-board" data-building-material="timber"></a>
+        <a class="nav-tab" data-service-id="inn" data-building-id="inn"
+          data-architectural-family="harz" data-place-skin="hearth-room" data-building-material="timber"
+          style="--building-tint:#856044"></a>
         <a class="nav-tab active" data-service-id="organization"
-          data-building-id="organization-merchants-lubeck"></a>
+          data-building-id="organization-merchants-lubeck" data-architectural-family="harz"
+          data-place-skin="merchant-hall" data-building-material="timber"></a>
       </nav>
       <a id="party-link" href="/locations/settlement/lubeck/party/7">Party</a>
       <form id="party-form" action="/locations/settlement/lubeck/party/7/social"></form>
@@ -120,4 +124,20 @@ test("building context preserves other queries and fragments and stays in its se
   await new Promise((resolve) => setImmediate(resolve));
   assert.equal(link.getAttribute("href"), "/locations/settlement/lubeck/party/9?medical=surgery&building=inn#limb");
   assert.equal(foreign.getAttribute("href"), "/locations/settlement/lubeck-2/party/9");
+});
+
+test("party context restores construction, and leaving a settlement clears it", () => {
+  const view = fixture("http://game.test/locations/settlement/lubeck/party/7?building=inn");
+  const page = view.document.querySelector("#strategic-page");
+  assert.equal(page.dataset.placeSkin, "hearth-room");
+  assert.equal(page.dataset.architecturalFamily, "harz");
+  assert.equal(page.style.getPropertyValue("--active-building-tint"), "#856044");
+  assert.equal(view.document.documentElement.style.getPropertyValue("--active-building-tint"), undefined);
+  view.document.dispatchEvent(new view.window.Event("strategic-page-mounted"));
+  assert.equal(page.dataset.placeSkin, "hearth-room");
+  page.querySelector("nav").remove();
+  view.document.dispatchEvent(new view.window.Event("strategic-page-mounted"));
+  assert.equal(page.dataset.placeSkin, undefined);
+  assert.equal(page.dataset.architecturalFamily, undefined);
+  assert.equal(page.style.getPropertyValue("--active-building-tint"), undefined);
 });

@@ -3,8 +3,14 @@
   const mount = () => {
     observer?.disconnect();
     const page = document.querySelector("#strategic-page");
+    if (!page) return;
     const nav = page?.querySelector("[data-settlement-id]");
-    if (!nav) return;
+    const presentation = ["architecturalFamily", "placeSkin", "buildingMaterial"];
+    if (!nav) {
+      presentation.forEach((name) => delete page.dataset[name]);
+      page.style.removeProperty("--active-building-tint");
+      return;
+    }
     const current = new URL(location.href);
     const requested = current.searchParams.get("building");
     const tabs = [...nav.querySelectorAll("[data-building-id]")];
@@ -24,7 +30,13 @@
       const selected = tab.dataset.buildingId === building;
       tab.classList.toggle("active", selected);
       tab.setAttribute("aria-current", selected ? "page" : "false");
-      if (selected) document.documentElement.style.setProperty("--active-building-tint", tab.style.getPropertyValue("--building-tint"));
+      if (selected) {
+        presentation.forEach((name) => {
+          if (tab.dataset[name]) page.dataset[name] = tab.dataset[name];
+          else delete page.dataset[name];
+        });
+        page.style.setProperty("--active-building-tint", tab.style.getPropertyValue("--building-tint"));
+      }
     });
     const syncPartyLinks = (root = page) => root.querySelectorAll?.("a[href], form[action]").forEach((node) => {
       const attribute = node.matches("form") ? "action" : "href";

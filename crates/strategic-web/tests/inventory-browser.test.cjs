@@ -225,3 +225,37 @@ test("container decoration requires an owned or authoritative object row", () =>
   const source = fs.readFileSync(path.join(__dirname, "../static/inventory-browser.js"), "utf8");
   assert.match(source, /!row\.dataset\.containerObjectId && !rowInventoryKey\(row\)/);
 });
+
+test("rail measurement includes nested joinery and stabilizes after resizing", () => {
+  const previous = global.getComputedStyle;
+  let stacked = false;
+  global.getComputedStyle = () => ({ display: stacked ? "flex" : "grid", gridTemplateColumns: "365px 600px 400px", minWidth: "256px" });
+  let railWidth = 365;
+  let measured;
+  let tableWidth = 338;
+  const grid = { style: { setProperty(name, value) { measured = [name, value]; }, removeProperty(name) { measured = [name, null]; } } };
+  const aside = {
+    closest: () => grid,
+    classList: { contains: () => true },
+    getBoundingClientRect: () => ({ width: railWidth }),
+  };
+  const browser = {
+    closest: selector => selector === "[hidden]" ? null : aside,
+    getBoundingClientRect: () => ({ width: railWidth - 48 }),
+    querySelector: () => ({ getBoundingClientRect: () => ({ width: tableWidth }) }),
+  };
+  try {
+    syncPanelWidth(browser);
+    assert.deepEqual(measured, ["--inventory-left-width", "386px"]);
+    railWidth = 386;
+    syncPanelWidth(browser);
+    assert.deepEqual(measured, ["--inventory-left-width", "386px"]);
+    tableWidth = 280;
+    syncPanelWidth(browser);
+    assert.deepEqual(measured, ["--inventory-left-width", "328px"]);
+    stacked = true;
+    railWidth = 1000;
+    syncPanelWidth(browser);
+    assert.deepEqual(measured, ["--inventory-left-width", null]);
+  } finally { global.getComputedStyle = previous; }
+});

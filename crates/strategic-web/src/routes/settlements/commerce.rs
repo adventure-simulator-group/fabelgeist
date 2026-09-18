@@ -15,7 +15,7 @@ pub(super) async fn merchant_provider_id(
     settlement_id: &str,
     service_id: &str,
     location_id: &str,
-) -> Option<String> {
+) -> Option<u64> {
     let settlement_literal = sql_string_literal(settlement_id);
     let providers_sql = format!(
         "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {settlement_literal}"
@@ -49,7 +49,7 @@ pub(super) async fn merchant_provider_id(
             })
     });
     let provider = matches.next()?;
-    matches.next().is_none().then(|| provider.to_string())
+    matches.next().is_none().then_some(provider)
 }
 
 pub(super) async fn provisioning_storefront_path(
