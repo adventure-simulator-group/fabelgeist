@@ -32,6 +32,7 @@
 
 .logo {
   font-family: var(--font-display), serif;
+  text-transform: none;
   font-size: var(--font-size-xl);
   letter-spacing: 0.05em;
   color: var(--accent);
@@ -372,7 +373,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 
 .entry-message {
   color: var(--text-muted);
-  font-family: var(--font-display), serif;
+  font-family: var(--font-body), serif;
   font-size: var(--font-size-sm);
   letter-spacing: 0.05em;
   text-transform: none;
@@ -1132,7 +1133,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
   border: 1px solid var(--border-accent);
   border-radius: 50%;
   color: var(--accent-light);
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading), serif;
 }
 
 .character-switcher-option-copy {
@@ -1245,7 +1246,7 @@ body:has(.settlement-top-bar[data-environment="settlement"])
 }
 
 .sidebar-header {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading), serif;
   font-size: var(--font-size-xs);
   font-weight: 700;
   text-transform: none;
@@ -1263,7 +1264,7 @@ body:has(.settlement-top-bar[data-environment="settlement"])
 }
 
 .page-title {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading), serif;
   font-size: var(--font-size-2xl);
   color: var(--text-primary);
   margin-bottom: 1rem;

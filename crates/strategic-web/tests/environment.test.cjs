@@ -251,10 +251,12 @@ test("patterned rails keep text and controls on opaque reading surfaces", () => 
   );
 });
 
-test("ceremonial blackletter is never transformed to all caps", () => {
-  assert.match(layoutCss, /\.entry-message \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
-  assert.match(layoutCss, /\.sidebar-header \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
-  assert.match(componentsCss, /\.panel-header \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
+test("reading text and functional headings do not use ceremonial blackletter", () => {
+  assert.match(layoutCss, /\.entry-message \{[^}]*font-family: var\(--font-body\)/);
+  assert.match(layoutCss, /\.sidebar-header \{[^}]*font-family: var\(--font-heading\)/);
+  assert.match(componentsCss, /\.panel-header \{[^}]*font-family: var\(--font-heading\)/);
+  assert.match(layoutCss, /\.logo \{[^}]*font-family: var\(--font-display\)[^}]*text-transform: none/);
+  assert.match(strategicCss, /\.language-blackletter \{[^}]*font-family: var\(--font-display\)[^}]*text-transform: none/);
 });
 
 test("strategic left rails keep their scrollbars on the outer edge", () => {

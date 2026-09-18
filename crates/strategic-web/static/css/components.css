@@ -20,7 +20,7 @@
 }
 
 .panel-header {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading), serif;
   font-size: var(--font-size-sm);
   font-weight: 700;
   text-transform: none;
@@ -291,6 +291,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .list-item-title {
+  font-family: var(--font-heading), serif;
   font-weight: 600;
   font-size: var(--font-size-sm);
   color: var(--text-primary);
@@ -346,6 +347,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .stat-label {
+  font-family: var(--font-heading), serif;
   display: block;
   font-size: var(--font-size-xs);
   font-weight: 600;
@@ -357,7 +359,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 
 .stat-value {
   display: block;
-  font-family: var(--font-display), serif;
+  font-family: var(--font-body), serif;
   font-size: var(--font-size-xl);
   font-weight: 700;
   color: var(--accent);
@@ -471,6 +473,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .member-name {
+  font-family: var(--font-heading), serif;
   font-weight: 600;
   font-size: var(--font-size-sm);
 }
@@ -599,6 +602,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .detail-label {
+  font-family: var(--font-heading), serif;
   color: var(--text-muted);
   font-weight: 600;
   font-size: var(--font-size-xs);
@@ -631,7 +635,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .center-welcome h2 {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-heading), serif;
   font-size: var(--font-size-3xl);
   color: var(--accent-dark);
   margin-bottom: 0.5rem;
