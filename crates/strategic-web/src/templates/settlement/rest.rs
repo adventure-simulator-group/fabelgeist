@@ -18,10 +18,11 @@ pub(crate) enum RestServiceKind {
 
 impl RestServiceKind {
     pub(crate) fn parse(value: &str) -> Option<Self> {
-        match value {
-            "inn" => Some(Self::Inn),
-            "temple" => Some(Self::Temple),
-            "residence" => Some(Self::Residence),
+        use adventuresim_core::strategic_place::SettlementVenueKind;
+        match SettlementVenueKind::from_id(value)? {
+            SettlementVenueKind::Inn => Some(Self::Inn),
+            SettlementVenueKind::Church => Some(Self::Temple),
+            SettlementVenueKind::Residences => Some(Self::Residence),
             _ => None,
         }
     }
@@ -34,11 +35,11 @@ impl RestServiceKind {
         }
     }
 
-    pub(crate) const fn page_path(self) -> &'static str {
+    pub(crate) const fn place(self) -> &'static str {
         match self {
             Self::Inn => "inn",
-            Self::Temple => "religion",
-            Self::Residence => "places/residences",
+            Self::Temple => "church",
+            Self::Residence => "residences",
         }
     }
 
@@ -219,10 +220,7 @@ pub(crate) fn rest_service_menu(
 ) -> Markup {
     html! {
     section class="rest-service-menu" aria-label=(format!("{} rest service", location))
-        data-live-refresh-url=(format!(
-            "/settlements/{settlement_id}/{}",
-            kind.page_path()
-        ))
+        data-live-refresh-url=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &(kind.place())]))
         title=(match kind { RestServiceKind::Inn => "A bed costs 1 coin per day. Injuries are tended before downtime.", RestServiceKind::Residence => "An active local residence provides full board through its recurring upkeep.", RestServiceKind::Temple => "Sanctuary is free. Injuries are tended before downtime." }) {
         div class="rest-service-heading" { strong { "Rest" } }
         @if kind == RestServiceKind::Inn {
@@ -232,12 +230,11 @@ pub(crate) fn rest_service_menu(
         } @else {
             p class="rest-service-copy" { "Free · treatment included" }
         }
-        form action=(format!("/settlements/{settlement_id}/rest/{}", kind.tag())) method="post" {
+        form action=(crate::location_urls::patterns::REST.url([&settlement_id, &(kind.place())])) method="post" {
                 @let minutes = default_minutes.unwrap_or(0);
-                @let unit = if minutes >= MINUTES_PER_DAY { "days" } else { "hours" };
                 @let initial_minutes = if minutes == 0 { MINUTES_PER_DAY } else { minutes.max(MINUTES_PER_DAY) };
-                (settlement_rest_duration_control(initial_minutes, unit))
-                button type="submit" class="btn btn-primary btn-small btn-block" data-rest-submit disabled[unit == "hours"] title="Rest for the selected duration" {
+                (settlement_rest_duration_control(initial_minutes))
+                button type="submit" class="btn btn-primary btn-small btn-block" data-rest-submit title="Rest for the selected duration" {
                     (decorative_game_icon("night-sleep"))
                     span class="sr-only" { "Rest" }
                 }
@@ -249,7 +246,7 @@ pub(crate) fn rest_service_menu(
                 section class="rest-summary" {
                     div class="rest-summary-heading" {
                         strong id="rest-summary-title" { "Rest summary" }
-                        a href=(format!("/settlements/{settlement_id}/{}", if kind == RestServiceKind::Inn { "inn" } else { "religion" })) class="rest-summary-close" aria-label="Close rest summary" { "×" }
+                        a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &(kind.place())])) class="rest-summary-close" aria-label="Close rest summary" { "×" }
                     }
                     p { (format_rest_duration(summary.minutes)) " passed." }
                     @if summary.full_board_gold_spent > 0 {
@@ -280,7 +277,7 @@ pub(crate) fn rest_service_menu(
     }
 }
 
-fn settlement_rest_duration_control(initial_minutes: u64, _unit: &str) -> Markup {
+fn settlement_rest_duration_control(initial_minutes: u64) -> Markup {
     let days = initial_minutes
         .div_ceil(MINUTES_PER_DAY)
         .clamp(1, DAYS_PER_YEAR);
@@ -437,11 +434,15 @@ mod tests {
             trained: Vec::new(),
         };
         for (location, kind, expected) in [
-            ("Inn", RestServiceKind::Inn, "/settlements/riverdale/inn"),
+            (
+                "Inn",
+                RestServiceKind::Inn,
+                "/locations/settlement/riverdale/places/inn",
+            ),
             (
                 "Church",
                 RestServiceKind::Temple,
-                "/settlements/riverdale/religion",
+                "/locations/settlement/riverdale/places/church",
             ),
         ] {
             for rest_summary in [Some(&summary), None] {
@@ -455,7 +456,10 @@ mod tests {
                 )
                 .into_string();
                 assert!(markup.contains(&format!("data-live-refresh-url=\"{expected}\"")));
-                assert!(!markup.contains("data-live-refresh-url=\"/settlements/riverdale/rest/"));
+                assert!(
+                    !markup
+                        .contains("data-live-refresh-url=\"/locations/settlement/riverdale/rest/")
+                );
             }
         }
     }
@@ -468,15 +472,15 @@ mod tests {
                 RestServiceKind::Temple,
                 RestServiceKind::Residence,
             ]
-            .map(|kind| (kind.tag(), kind.page_path())),
+            .map(|kind| (kind.tag(), kind.place())),
             [
                 ("inn", "inn"),
-                ("temple", "religion"),
-                ("residence", "places/residences"),
+                ("temple", "church"),
+                ("residence", "residences"),
             ]
         );
         assert_eq!(
-            RestServiceKind::parse("temple"),
+            RestServiceKind::parse("church"),
             Some(RestServiceKind::Temple)
         );
         assert_eq!(RestServiceKind::parse("religion"), None);
@@ -500,7 +504,7 @@ mod tests {
 
     #[test]
     fn settlement_rest_control_uses_accessible_whole_days() {
-        let markup = settlement_rest_duration_control(MINUTES_PER_DAY, "hours").into_string();
+        let markup = settlement_rest_duration_control(MINUTES_PER_DAY).into_string();
         assert!(markup.contains("data-rest-duration"));
         assert!(markup.contains("type=\"hidden\" name=\"unit\" value=\"days\""));
         assert!(markup.contains("type=\"number\" name=\"duration\" value=\"1\""));
@@ -510,9 +514,31 @@ mod tests {
     }
 
     #[test]
+    fn whole_day_services_allow_rest_without_a_wake_time_suggestion() {
+        for kind in [
+            RestServiceKind::Inn,
+            RestServiceKind::Temple,
+            RestServiceKind::Residence,
+        ] {
+            let markup = rest_service_menu(
+                "Rest",
+                "viabundus-2337",
+                kind,
+                None,
+                None,
+                SoapRestPreview::default(),
+            )
+            .into_string();
+            assert!(markup.contains("name=\"duration\" value=\"1\""));
+            assert!(markup.contains("data-rest-submit"));
+            assert!(!markup.contains("disabled"));
+        }
+    }
+
+    #[test]
     fn field_rest_requires_an_explicit_shelter_choice() {
         let markup = party_rest_menu(
-            "/camp/rest",
+            "/locations/camp/rest",
             "camp",
             "Rest",
             "Rest",
@@ -550,7 +576,7 @@ mod tests {
 
     #[test]
     fn days_recommendation_uses_the_recommended_whole_day_count() {
-        let markup = settlement_rest_duration_control(3 * MINUTES_PER_DAY, "days").into_string();
+        let markup = settlement_rest_duration_control(3 * MINUTES_PER_DAY).into_string();
         assert!(markup.contains("type=\"hidden\" name=\"unit\" value=\"days\""));
         assert!(markup.contains("type=\"number\" name=\"duration\" value=\"3\""));
         assert!(markup.contains(&format!("min=\"1\" max=\"{DAYS_PER_YEAR}\" step=\"1\"")));

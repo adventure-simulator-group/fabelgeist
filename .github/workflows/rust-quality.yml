@@ -96,9 +96,15 @@ jobs:
           cargo run --package fabelgeist-rust-quality -- check .
       - name: Lint tactical client WASM target
         run: cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
+      - name: Test native and WASM deterministic draws
+        run: |
+          python3 -B -m unittest scripts.test_check_deterministic_rng
+          python3 scripts/check_deterministic_rng.py
+          cargo install wasm-bindgen-cli --version 0.2.108 --locked
+          python3 scripts/test_determinism.py
       - name: Run Clippy with warnings denied
         run: |
           cargo clippy --workspace --all-targets --all-features -- -D warnings
-          cargo clippy --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
-          cargo clippy --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
-          cargo clippy --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings

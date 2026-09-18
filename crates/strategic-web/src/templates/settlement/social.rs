@@ -6,6 +6,7 @@ use super::{
     context::LocationView,
     trade::{item_name_with_food_lot, trade_inventory_table_header},
 };
+use crate::location_urls as urls;
 use crate::spacetimedb::{CharacterView, FoodLot, InventoryItem};
 use crate::templates::{
     SceneInteractableKind, SceneInteractableLink, decorative_game_icon, item_display_name,
@@ -541,10 +542,7 @@ pub(super) fn player_chat_area(
 }
 
 pub(super) fn npc_location_id(service_id: &str) -> &str {
-    match adventuresim_core::organization::service_npc_location_id(service_id) {
-        Some(location_id) => location_id,
-        None => service_id,
-    }
+    adventuresim_core::organization::service_npc_location_id(service_id).unwrap_or(service_id)
 }
 
 /// Presentation projection of the non-character interactables available at a
@@ -574,7 +572,7 @@ fn location_fixtures(
             aria_label: "Cook at fireplace",
             icon: "campfire",
             action_label: "Cook",
-            href: format!("/locations/settlement/{settlement_id}/fireplace?building={location_id}"),
+            href: urls::patterns::SETTLEMENT_FIREPLACE.url([&settlement_id, &location_id]),
         });
     }
     if organization_service == Some("weapons") {
@@ -587,7 +585,7 @@ fn location_fixtures(
             aria_label: "Forge a weapon",
             icon: "anvil",
             action_label: "Forge",
-            href: format!("/settlements/{settlement_id}/weapons"),
+            href: urls::patterns::WEAPONS.url([&settlement_id]),
         });
     }
     fixtures
@@ -599,7 +597,7 @@ pub(super) fn npc_portrait_strip(settlement_id: &str, location_id: &str) -> Mark
             .and_then(|(organization, _)| organization.service_id.as_deref());
     html! {
         nav class="scene-interactable-strip" aria-label="People and things here" data-npc-strip
-            data-npc-settlement=(settlement_id) data-npc-location=(location_id) {
+            data-npc-settlement=(settlement_id) data-npc-location=(location_id) data-npc-place=(crate::location_urls::npc_place(location_id)) {
             @for fixture in location_fixtures(settlement_id, location_id, organization_service) {
                 span data-location-fixture {
                     (scene_interactable_link(SceneInteractableLink {
@@ -879,7 +877,7 @@ mod tests {
         let actor = character(1, "Ada");
         let target = character(2, "Greta");
         let location = LocationView {
-            kind: super::super::LocationKind::Settlement,
+            kind: crate::location_urls::LocationKind::Settlement,
             id: "lubeck".into(),
             name: "Lubeck".into(),
             religion_id: None,
@@ -1053,7 +1051,7 @@ mod tests {
             automatic_social_chat_enabled: false,
         };
         let location = LocationView {
-            kind: super::super::LocationKind::Settlement,
+            kind: crate::location_urls::LocationKind::Settlement,
             id: "lubeck".into(),
             name: "Lubeck".into(),
             religion_id: None,
@@ -1237,7 +1235,7 @@ mod tests {
         assert!(strip.contains("data-npc-settlement=\"lubeck\""));
         assert!(strip.contains("data-npc-location=\"market\""));
         assert!(strip.contains("aria-label=\"Cook at fireplace\""));
-        assert!(strip.contains("/locations/settlement/lubeck/fireplace?building=market"));
+        assert!(strip.contains("/locations/settlement/lubeck/places/market/fireplace"));
         let chat =
             settlement_resident_chat_area("Market", None, "lubeck", "market", Some("merchants"))
                 .into_string();
@@ -1260,7 +1258,7 @@ mod tests {
         let strip =
             npc_portrait_strip("viabundus-0", "organization-weaponsmith-guild").into_string();
         assert!(strip.contains("aria-label=\"Forge a weapon\""));
-        assert!(strip.contains("href=\"/settlements/viabundus-0/weapons\""));
+        assert!(strip.contains("href=\"/locations/settlement/viabundus-0/places/forge\""));
         assert_eq!(strip.matches("data-location-fixture").count(), 2);
 
         let client = include_str!("../../../static/dialogue-client.js");

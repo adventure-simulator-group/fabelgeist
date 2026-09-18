@@ -147,7 +147,7 @@ test("settlement tabs layer tiered tintable buildings and proportional horizons 
   for (const icon of ["travel", "market", "weapons", "armor", "clothing", "herbalist", "inn"]) {
     assert.match(layoutCss, new RegExp(`settlement-services/${icon}\\.png`));
   }
-  assert.match(layoutTemplate, /"clothing" \| "herbalist" \| "books" \| "inn"/);
+  assert.match(layoutTemplate, /SettlementVenueKind::from_id\(building_id\)/);
 });
 
 test("settlement smithies and wilderness tabs use independent non-interactive effect layers", () => {
@@ -210,7 +210,7 @@ test("wilderness headers select a tintable physical horizon", () => {
 
 test("service silhouettes expose names through the shared tooltip and keep active state non-color", () => {
   assert.match(layoutTemplate, /data-service-label=\(label\)[\s\S]*data-strategic-tooltip=\(label\)/);
-  assert.match(layoutTemplate, /href="\/camp" class="nav-tab active quest-context-tab"[\s\S]*data-service-label="Camp"/);
+  assert.match(layoutTemplate, /href=\(crate::location_urls::patterns::CAMP\.pattern\(\)\) class="nav-tab active quest-context-tab"[\s\S]*data-service-label="Camp"/);
   assert.match(layoutTemplate, /data-location-view="map"[\s\S]*data-service-label="Map"/);
   assert.match(layoutTemplate, /data-location-view="enemy"[\s\S]*data-service-label="Enemy"/);
   assert.match(layoutCss, /\.settlement-services \.nav-tab:focus-visible/);
@@ -225,25 +225,6 @@ test("party check exact values have keyboard and shared-tooltip paths", () => {
   assert.match(strategicCss, /\.party-check-track:focus-visible \{ outline:/);
 });
 
-test("settlement side panels use tint-derived frames around neutral recesses", () => {
-  assert.match(layoutCss, /data-environment="settlement"[\s\S]*:is\(\.left-sidebar, \.right-sidebar\)/);
-  assert.match(layoutCss, /--building-frame: color-mix\(in srgb, var\(--building-frame-tint\)/);
-  assert.match(layoutCss, /--building-frame-corner: color-mix/);
-  assert.match(layoutCss, /--building-frame-corner-size: 1\.35rem/);
-  assert.match(layoutCss, /--building-panel-recess: var\(--content-surface-recess\)/);
-  assert.match(layoutCss, /padding-block: var\(--building-frame-corner-size\)/);
-  assert.match(layoutCss, /padding-inline: var\(--building-frame-corner-size\)/);
-  assert.match(layoutCss, /border: 0/);
-  assert.match(layoutCss, /left top \/ var\(--building-frame-corner-size\) var\(--building-frame-corner-size\) no-repeat/);
-  assert.match(layoutCss, /calc\(100% \+ var\(--left-rail-scrollbar-reserve, 0px\)\) bottom \/ var\(--building-frame-corner-size\) var\(--building-frame-corner-size\) no-repeat local/);
-  assert.match(layoutCss, /center top \/ 100% 0\.55rem no-repeat local/);
-  assert.ok(layoutCss.indexOf("var(--left-rail-scrollbar-reserve, 0px)) bottom") < layoutCss.indexOf("center top / 100% 0.55rem"));
-  assert.doesNotMatch(layoutCss, /:is\(\.left-sidebar, \.right-sidebar\)::after/);
-  for (const opacity of ["4%", "3%", "6%"]) {
-    assert.match(layoutCss, new RegExp(`architectural-edge:[^;]*\\/ ${opacity.replace("%", "\\%")}\\)`));
-  }
-});
-
 test("patterned rails keep text and controls on opaque reading surfaces", () => {
   assert.match(
     layoutCss,
@@ -251,10 +232,12 @@ test("patterned rails keep text and controls on opaque reading surfaces", () => 
   );
 });
 
-test("ceremonial blackletter is never transformed to all caps", () => {
-  assert.match(layoutCss, /\.entry-message \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
-  assert.match(layoutCss, /\.sidebar-header \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
-  assert.match(componentsCss, /\.panel-header \{[\s\S]*font-family: var\(--font-display\)[\s\S]*text-transform: none/);
+test("reading text and functional headings do not use ceremonial blackletter", () => {
+  assert.match(layoutCss, /\.entry-message \{[^}]*font-family: var\(--font-body\)/);
+  assert.match(layoutCss, /\.sidebar-header \{[^}]*font-family: var\(--font-heading\)/);
+  assert.match(componentsCss, /\.panel-header \{[^}]*font-family: var\(--font-heading\)/);
+  assert.match(layoutCss, /\.logo \{[^}]*font-family: var\(--font-display\)[^}]*text-transform: none/);
+  assert.match(strategicCss, /\.language-blackletter \{[^}]*font-family: var\(--font-display\)[^}]*text-transform: none/);
 });
 
 test("strategic left rails keep their scrollbars on the outer edge", () => {
@@ -263,16 +246,6 @@ test("strategic left rails keep their scrollbars on the outer edge", () => {
   assert.match(layoutCss, /\.left-sidebar > \* \{ direction: ltr; \}/);
   assert.match(strategicCss, /\.left-sidebar \.encumbrance-inventory-scroll \{[\s\S]*direction: rtl;/);
   assert.match(strategicCss, /\.left-sidebar \.encumbrance-inventory-scroll > \* \{ direction: ltr; \}/);
-});
-
-test("settlement frames compensate for the left scrollbar gutter", () => {
-  assert.match(layoutCss, /calc\(100% \+ var\(--left-rail-scrollbar-reserve, 0px\)\) top/);
-  assert.match(layoutCss, /right center \/ 0\.55rem 100% no-repeat local/);
-  assert.doesNotMatch(layoutCss, /inset calc\(-1 \* var\(--left-rail-scrollbar-reserve, 0px\)\) 0 0 var\(--building-frame\)/);
-  assert.ok(
-    layoutCss.indexOf("right top / var(--building-frame-corner-size)")
-      < layoutCss.indexOf("right center / 0.55rem 100% no-repeat local"),
-  );
 });
 
 test("skill schedule columns fit inside a framed left rail", () => {

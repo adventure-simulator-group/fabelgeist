@@ -1,5 +1,3 @@
-const QUEST_DECISION_LEADER_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const QUEST_DECISION_CYCLE_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 
 pub(super) fn leader_is_actionable(
     party_id: &str,
@@ -262,9 +260,8 @@ fn run_core_loop_inner(
     let profiles = (0..config.population)
         .map(|id| generate_profile(config.seed, id))
         .collect::<Vec<_>>();
-    let base_id = 0x5349_4d00_0000_0000_u64 ^ config.seed.rotate_left(17);
     let character_ids = (0..config.population)
-        .map(|id| base_id ^ u64::from(id + 1))
+        .map(|id| fabelgeist_determinism::StreamId::new("simulation.character-identity").seed(config.seed, &[u64::from(id)]).to_u64())
         .collect::<Vec<_>>();
     let mut runner = LiveRunner {
         connection,
@@ -788,10 +785,8 @@ fn run_core_loop_inner(
             active = true;
             let profile = runner.profiles[leader_agent as usize].clone();
             let fixture_lane = fixture_quest_lane(quest_lane_plan.as_ref(), leader, party_id);
-            let mixed = config.seed
-                ^ u64::from(leader_agent).wrapping_mul(QUEST_DECISION_LEADER_STRIDE)
-                ^ u64::from(cycle).wrapping_mul(QUEST_DECISION_CYCLE_STRIDE);
-            let selector = (mixed >> 11) as f64 / ((1_u64 << 53) as f64);
+            let selector = fabelgeist_determinism::StreamId::new("simulation.quest-decision")
+                .rng(config.seed, &[u64::from(leader_agent), u64::from(cycle)]).unit_f64();
             let quest_propensity = profile.activity_vs_quest_propensity;
             let wants_quest = fixture_lane.is_some()
                 || (!profile.build.activity_only && selector < f64::from(quest_propensity));

@@ -223,6 +223,19 @@ HYDE source contract in `scripts/world_source_init.py`,
 `MAP_DATA_LICENSE.md`, and the generated source release metadata for provenance
 and applicable terms.
 
+## Strategic web fonts
+
+The strategic website loads Cinzel by Natanael Gama, EB Garamond by the
+EB Garamond project authors, and UnifrakturCook through Google Fonts. These
+fonts are distributed under the SIL Open Font License 1.1. Font files are
+served by Google Fonts rather than bundled with the strategic website.
+
+Source, copyright, and license notices:
+
+- [Cinzel](https://github.com/google/fonts/tree/main/ofl/cinzel)
+- [EB Garamond](https://github.com/google/fonts/tree/main/ofl/ebgaramond)
+- [UnifrakturCook](https://github.com/google/fonts/tree/main/ofl/unifrakturcook)
+
 ## Shop sign fonts
 
 Text-only shop signs bundle unmodified Grenze Gotisch Bold by Omnibus-Type and

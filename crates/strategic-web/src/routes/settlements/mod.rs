@@ -32,6 +32,8 @@ pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
 
 include!("router.rs");
 
+mod entry;
+
 mod medical {
     use super::*;
     include!("medical.rs");
@@ -105,8 +107,8 @@ use encumbrance::{
 };
 use medical::{
     alchemy, change_residence, perform_surgery, retrieve_repair, retrieve_repairs,
-    schedule_allocation_reducer_arg, settlement_resident_place, show_settlement,
-    show_settlement_location, submit_all_repairs, submit_repair, surgery,
+    schedule_allocation_reducer_arg, settlement_resident_place, show_settlement_location,
+    submit_all_repairs, submit_repair, surgery,
 };
 use overview::settlement_map;
 use party::{
@@ -118,13 +120,14 @@ use party::{
     inventory_containers, liquidate_party_assets, merchants, move_inventory_container_item,
     party_member, party_personal, party_pool_inventory, party_social, party_stats,
     perform_immediate_activity, perform_social_action, pour_inventory_container_tincture_spirit,
-    prepare_ingredient_lot, refresh_inventory_container_tincture, remove_inventory_container_item,
-    remove_party_member, render_party_personal, render_party_stats, resolve_location,
-    set_automatic_social_chat, set_equipment, set_inventory_target, settlement_fireplace,
-    settlement_fireplace_container_place, settlement_fireplace_container_remove,
-    settlement_fireplace_container_start, settlement_fireplace_ingredients,
-    settlement_fireplace_retrieve, start_inventory_container_tincture, stop_preparation,
-    transfer_party_item, update_training_schedule, withdraw_party_inventory,
+    prepare_ingredient_lot, preview_training_schedule, refresh_inventory_container_tincture,
+    remove_inventory_container_item, remove_party_member, render_party_personal,
+    render_party_stats, resolve_location, set_automatic_social_chat, set_equipment,
+    set_inventory_target, settlement_fireplace, settlement_fireplace_container_place,
+    settlement_fireplace_container_remove, settlement_fireplace_container_start,
+    settlement_fireplace_ingredients, settlement_fireplace_retrieve,
+    start_inventory_container_tincture, stop_preparation, transfer_party_item,
+    update_training_schedule, withdraw_party_inventory,
 };
 use religion::{religion_dialogue, renounce_religion, resolve_religious_demand, set_religion};
 use rendering::{

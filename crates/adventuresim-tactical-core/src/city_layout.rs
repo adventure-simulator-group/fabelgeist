@@ -1,9 +1,11 @@
 //! Deterministic urban plots around a surveyed street graph and staggered old-quarter lanes.
 
+const RNG_CITY_PASSAGE_SIDE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("city.passage-side");
 use std::collections::BTreeSet;
 
 use bevy::math::Vec2;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 use crate::scene_input::BuildingOrientation;
 use adventuresim_world_schema::{
@@ -61,10 +63,6 @@ const FRONTAGE_CORNER_CLEARANCE_METRES: f32 = 7.0;
 const PARTY_WALL_CLEARANCE_METRES: f32 = 0.12;
 const REAR_COURT_PRIORITY_PENALTY: u32 = 7;
 pub(crate) const SPATIAL_BUCKET_METRES: f32 = 32.0;
-const STREET_GEOMETRY_DOMAIN: u64 = 0x7374_7265_6574_6765;
-const HOUSE_CLASS_DOMAIN: u64 = 0x686f_7573_655f_636c;
-const PASSAGE_SIDE_DOMAIN: u64 = 0x7061_7373_6167_6573;
-const DEVELOPMENT_DOMAIN: u64 = 0x6465_7665_6c6f_706d;
 pub const MAX_CITY_LOTS: usize = 16_384;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -209,7 +207,9 @@ fn block_lots(seed: u64, block: CityBlock) -> Vec<CandidateLot> {
         append_frontage(
             &mut lots,
             seed,
-            block.key().0 ^ (edge_index as u64).rotate_left(48),
+            StreamId::new("city.frontage-identity")
+                .seed(block.key().0, &[edge_index as u64])
+                .to_u64(),
             block.key(),
             block.corners[edge_index],
             block.corners[(edge_index + 1) % 4],
@@ -236,7 +236,9 @@ fn append_frontage(
     let mut cursor = FRONTAGE_CORNER_CLEARANCE_METRES;
     let mut index = 0_u64;
     loop {
-        let lot_key = run_key ^ index.rotate_left(19);
+        let lot_key = StreamId::new("city.lot-identity")
+            .seed(run_key, &[index])
+            .to_u64();
         let house_class = house_class(seed, lot_key, false);
         let compound_margin = if house_class == CityHouseClass::MerchantHouse {
             compound::COMPOUND_EDGE_MARGIN_METRES
@@ -270,7 +272,7 @@ fn append_frontage(
 
 fn passage_side(seed: u64, lot_key: u64, house_class: CityHouseClass) -> PropertySide {
     if house_class == CityHouseClass::MerchantHouse
-        && mix64(seed ^ PASSAGE_SIDE_DOMAIN ^ lot_key).is_multiple_of(2)
+        && RNG_CITY_PASSAGE_SIDE.rng(seed, &[lot_key]).boolean()
     {
         PropertySide::Left
     } else {
@@ -303,29 +305,27 @@ fn candidate(
         },
         block_key,
         rear_court,
-        selection_key: mix64(seed ^ DEVELOPMENT_DOMAIN ^ lot_key),
+        selection_key: StreamId::new("city.development-priority")
+            .rng(seed, &[lot_key])
+            .next_u64(),
     }
 }
 
 fn house_class(seed: u64, lot_key: u64, rear_court: bool) -> CityHouseClass {
-    let sample = mix64(seed ^ HOUSE_CLASS_DOMAIN ^ lot_key);
+    let mut random = StreamId::new("city.house-class").rng(seed, &[lot_key]);
     if rear_court {
-        return if sample.is_multiple_of(5) {
+        return if random.index(5) == 0 {
             CityHouseClass::CraftTownHouse
         } else {
             CityHouseClass::Cottage
         };
     }
-    match sample % 16 {
+    match random.index(16) {
         0..=4 => CityHouseClass::Cottage,
         5..=11 => CityHouseClass::CraftTownHouse,
         12..=13 => CityHouseClass::HallHouse,
         _ => CityHouseClass::MerchantHouse,
     }
-}
-
-fn signed_sample(sample: u64) -> f32 {
-    (sample as u32 as f32 / u32::MAX as f32) * 2.0 - 1.0
 }
 
 #[cfg(test)]

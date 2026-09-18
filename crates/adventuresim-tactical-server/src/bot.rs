@@ -15,7 +15,7 @@ use adventuresim_tactical_netcode::{
     message::{DefendRequest, MeleeActionRequest},
 };
 use bevy::prelude::*;
-use fabelgeist_determinism::SplitMix64;
+use fabelgeist_determinism::DeterministicRng;
 use std::{cmp::Ordering, path::PathBuf};
 
 use crate::{
@@ -54,7 +54,7 @@ use defense::{
 pub use offense::OffensiveCombatAi;
 
 #[derive(Resource)]
-pub(crate) struct CombatRandom(SplitMix64);
+pub(crate) struct CombatRandom(DeterministicRng);
 
 impl Default for CombatRandom {
     fn default() -> Self {
@@ -64,7 +64,7 @@ impl Default for CombatRandom {
 
 impl CombatRandom {
     pub(crate) fn seeded(seed: u64) -> Self {
-        Self(SplitMix64::new(seed))
+        Self(fabelgeist_determinism::StreamId::new("combat.tactical").rng(seed, &[]))
     }
 
     pub(crate) fn unit_f32(&mut self) -> f32 {
@@ -72,7 +72,7 @@ impl CombatRandom {
     }
 
     pub(crate) fn unit_f64(&mut self) -> f64 {
-        f64::from(self.0.unit_f32())
+        self.0.unit_f64()
     }
 
     pub(crate) fn range_f32(&mut self, minimum: f32, maximum: f32) -> f32 {
@@ -80,7 +80,7 @@ impl CombatRandom {
     }
 
     pub(crate) fn coin_flip(&mut self) -> bool {
-        self.0.next_u64().is_multiple_of(2)
+        self.0.boolean()
     }
 }
 use offense::on_attack_committed_to_defense;

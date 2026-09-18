@@ -258,8 +258,7 @@ fn derive_stairs(
                         - 0.15)
                         .max(0.75),
                     turns: tower.wall_height_metres / program.storey_height_metres * 0.9,
-                    clockwise: stable_noise(layout_seed(program), 11, Cell::new(0, 0))
-                        .is_multiple_of(2),
+                    clockwise: fabelgeist_determinism::StreamId::new("building.tower-stair-handedness").rng(layout_seed(program), &[]).boolean(),
                     tread_count: crate::spiral_stairs::required_treads(base_height_metres, tower.wall_height_metres - base_height_metres, program.storey_height_metres),
                 }
             })

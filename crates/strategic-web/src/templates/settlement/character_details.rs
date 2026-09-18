@@ -666,10 +666,7 @@ fn organization_identity_picker(
             .copied()
             .find(|(_, definition, _)| definition.id == presentation.organization_id)
     });
-    let base = format!(
-        "/locations/settlement/{settlement_id}/party/{}",
-        character.id
-    );
+    let base = crate::location_urls::party_path(settlement_id, character.id);
     let summary_class = if selected.is_none() {
         "identity-control organization-identity-control is-empty"
     } else {

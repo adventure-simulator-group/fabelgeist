@@ -158,7 +158,7 @@ impl SignedUnitBasisPoints {
 /// Source rasters may be retained in the whole-degree envelope below, but
 /// canonical world records and generated artifacts must not expose geography
 /// outside these exact bounds.
-pub const PLAYABLE_BOUNDS: [f64; 4] = [8.965, 50.877, 11.110, 52.211];
+pub const PLAYABLE_BOUNDS: [f64; 4] = [8.965, 50.877, 11.200, 52.250];
 
 /// Smallest whole-degree source-tile envelope covering [`PLAYABLE_BOUNDS`].
 pub const PLAYABLE_SOURCE_TILE_BOUNDS: [i16; 4] = [8, 50, 12, 53];
@@ -193,9 +193,12 @@ mod playable_bounds_tests {
     }
 
     #[test]
-    fn playable_bounds_include_edges_and_reject_nonfinite_or_external_points() {
+    fn playable_bounds_include_requested_landmarks_and_reject_external_points() {
         assert!(coordinates_in_bounds(8.965, 50.877, PLAYABLE_BOUNDS));
-        assert!(coordinates_in_bounds(11.110, 52.211, PLAYABLE_BOUNDS));
+        assert!(coordinates_in_bounds(11.200, 52.250, PLAYABLE_BOUNDS));
+        assert!(coordinates_in_bounds(11.150, 51.7939, PLAYABLE_BOUNDS));
+        assert!(coordinates_in_bounds(9.350, 52.200, PLAYABLE_BOUNDS));
+        assert!(!coordinates_in_bounds(10.521, 52.269, PLAYABLE_BOUNDS));
         assert!(!coordinates_in_bounds(8.964, 51.0, PLAYABLE_BOUNDS));
         assert!(!coordinates_in_bounds(f64::NAN, 51.0, PLAYABLE_BOUNDS));
     }

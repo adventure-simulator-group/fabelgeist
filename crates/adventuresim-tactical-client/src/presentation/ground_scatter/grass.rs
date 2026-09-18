@@ -1,3 +1,5 @@
+mod community;
+mod streams;
 use adventuresim_tactical_core::prelude::{
     EnvironmentalSample, GroundCover, SceneEnvironment, SceneGround, SceneTerrain, TacticalSurface,
 };
@@ -12,143 +14,16 @@ use bevy::{
         Transform, Vec2, Vec3, Vec4,
     },
 };
-use fabelgeist_determinism::splitmix64;
+pub(in crate::presentation) use community::{
+    GrassCommunity, GrassCommunityProfile, grass_community_at,
+};
 
 use crate::presentation::{
     bps,
     config::{GrassConfig, GrassTierConfig},
-    unit_hash,
 };
 
 use super::{GroundScatterLayer, TacticalFoliageMaterial, foliage_material};
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(in crate::presentation) enum GrassCommunity {
-    /// Fertile lowland hay meadow: tall false oat-grass with coarse cocksfoot clumps.
-    MesicMeadow,
-    /// Leaner or more exposed turf: fine red fescue with airy common bent.
-    LeanSward,
-    /// Damp meadow and wet woodland gap: tufted hair-grass with Yorkshire fog.
-    WetTussock,
-}
-
-impl GrassCommunity {
-    pub(in crate::presentation) const ALL: [Self; 3] =
-        [Self::MesicMeadow, Self::LeanSward, Self::WetTussock];
-    pub(in crate::presentation) const COUNT: usize = Self::ALL.len();
-
-    const fn index(self) -> usize {
-        self as usize
-    }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub(in crate::presentation) struct GrassCommunityProfile {
-    weights: [f32; GrassCommunity::COUNT],
-}
-
-impl GrassCommunityProfile {
-    pub(in crate::presentation) fn from_environment(environment: &SceneEnvironment) -> Self {
-        let wet = (bps(environment.wetland_bps)
-            + bps(environment.water_bps) * 0.55
-            + bps(environment.weather.ground_moisture_bps) * 0.35)
-            .clamp(0.0, 1.0);
-        let exposed = (bps(environment.hilly_bps) * 0.72
-            + (1.0 - bps(environment.cultivation_bps)) * 0.18)
-            .clamp(0.0, 1.0);
-        Self::from_site_drivers(wet, exposed)
-    }
-
-    fn from_site_drivers(wet: f32, exposed: f32) -> Self {
-        let wet = wet.clamp(0.0, 1.0);
-        let exposed = exposed.clamp(0.0, 1.0);
-        let mesic = (1.0 - wet) * (1.0 - exposed * 0.55);
-        let lean = exposed * (1.0 - wet * 0.65);
-        // A dry scene has no token wet-tussock cells. Deschampsia and
-        // Yorkshire fog appear only once the available moisture signal is
-        // material, while mesic and lean communities trade off continuously.
-        let wet_tussock = (wet - 0.18).max(0.0) * 1.25;
-        Self {
-            weights: [mesic.max(0.001), lean, wet_tussock],
-        }
-    }
-
-    pub(in crate::presentation) fn localized(self, sample: EnvironmentalSample) -> Self {
-        let surface_wet = match sample.surface {
-            TacticalSurface::Water | TacticalSurface::Wetland => 1.0,
-            _ => 0.0,
-        };
-        let wet = (bps(sample.wetland_bps) + bps(sample.water_bps) * 0.7 + surface_wet * 0.7)
-            .clamp(0.0, 1.0);
-        let exposed = (bps(sample.hilly_bps) * 0.8 + (1.0 - bps(sample.cultivation_bps)) * 0.12)
-            .clamp(0.0, 1.0);
-        let local = Self::from_site_drivers(wet, exposed);
-        Self {
-            weights: core::array::from_fn(|index| {
-                self.weights[index] * 0.35 + local.weights[index] * 0.65
-            }),
-        }
-    }
-
-    fn select(self, roll: f32, site_hash: u64) -> GrassCommunity {
-        // Stable low-frequency pseudo-fields stand in for finer soil data we
-        // do not yet have. They modulate, but never invent, a habitat that the
-        // scene/local environmental sample assigned zero weight.
-        let moisture_field = 0.68 + unit_hash(splitmix64(site_hash ^ 0x6d6f_6973_7475)) * 0.64;
-        let exposure_field = 0.68 + unit_hash(splitmix64(site_hash ^ 0x6578_706f_7375)) * 0.64;
-        let fertility_field = 0.76 + unit_hash(splitmix64(site_hash ^ 0x6665_7274_696c)) * 0.48;
-        let weights = [
-            self.weights[0] * fertility_field,
-            self.weights[1] * exposure_field,
-            self.weights[2] * moisture_field,
-        ];
-        let total = weights.iter().sum::<f32>().max(f32::EPSILON);
-        let target = roll * total;
-        if target < weights[0] {
-            GrassCommunity::MesicMeadow
-        } else if target < weights[0] + weights[1] {
-            GrassCommunity::LeanSward
-        } else {
-            GrassCommunity::WetTussock
-        }
-    }
-}
-
-pub(in crate::presentation) fn grass_community_at(
-    point: Vec2,
-    seed: u64,
-    profile: GrassCommunityProfile,
-) -> GrassCommunity {
-    // Jittered Voronoi cells create coherent 12-40 m sward communities. A
-    // patch selects one community; species vary within that community rather
-    // than becoming independent blade-by-blade confetti.
-    const CELL_SIZE: f32 = 24.0;
-    let cell = (point / CELL_SIZE).floor().as_ivec2();
-    let mut nearest_distance = f32::INFINITY;
-    let mut nearest_hash = 0;
-    for offset_z in -1..=1 {
-        for offset_x in -1..=1 {
-            let candidate = cell + bevy::math::IVec2::new(offset_x, offset_z);
-            let key = ((candidate.x as u32 as u64) << 32) | candidate.y as u32 as u64;
-            let hash = splitmix64(seed ^ key ^ 0x6772_6173_735f_636f);
-            let site = (candidate.as_vec2()
-                + Vec2::new(
-                    0.18 + unit_hash(hash) * 0.64,
-                    0.18 + unit_hash(splitmix64(hash)) * 0.64,
-                ))
-                * CELL_SIZE;
-            let distance = point.distance_squared(site);
-            if distance < nearest_distance {
-                nearest_distance = distance;
-                nearest_hash = hash;
-            }
-        }
-    }
-    profile.select(
-        unit_hash(splitmix64(nearest_hash ^ 0x7377_6172_645f_7479)),
-        nearest_hash,
-    )
-}
 
 // A 32 x 32 grid preserves the established macro-patch footprint and overlap
 // while reducing the close interactive sward to the density that still reads
@@ -234,8 +109,8 @@ pub(super) fn cell_allows_grass(
     cell_spacing: f32,
     jitter_fraction: f32,
 ) -> bool {
-    let jitter_x = unit_hash(splitmix64(cell_hash ^ 0x39bd_7f21)) - 0.5;
-    let jitter_z = unit_hash(splitmix64(cell_hash ^ 0xe651_34aa)) - 0.5;
+    let jitter_x = streams::JITTER_X.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
+    let jitter_z = streams::JITTER_Z.rng(cell_hash, &[]).inclusive_unit_f32() - 0.5;
     let render_centre = Vec2::new(
         (x as f32 + jitter_x * jitter_fraction) * cell_spacing,
         (z as f32 + jitter_z * jitter_fraction) * cell_spacing,
@@ -301,36 +176,39 @@ impl GrassMeshLod {
             let selected_for_lod = self.selects_grid_root(row, column);
             selected_for_lod
                 && (grass_density >= 1.0
-                    || unit_hash(splitmix64(*index as u64 ^ 0x24e8_51c6_9a37_b40d)) < grass_density)
+                    || streams::DENSITY
+                        .rng(0, &[*index as u64])
+                        .inclusive_unit_f32()
+                        < grass_density)
         })
     }
 
     fn selects_grid_root(self, row: usize, column: usize) -> bool {
-        let (stratum_side, salt) = match self {
+        let (stratum_side, purpose) = match self {
             // Both near tiers keep every grid root; `NearEdge` is instanced-only
             // and never reaches the legacy stratified selection.
             Self::Near | Self::NearEdge => return true,
-            Self::Far => (GRASS_FAR_STRATUM_SIDE, 0x6661_725f_726f_6f74),
-            Self::Vista => (GRASS_VISTA_STRATUM_SIDE, 0x7669_7374_726f_6f74),
+            Self::Far => (GRASS_FAR_STRATUM_SIDE, streams::FAR_ROOT),
+            Self::Vista => (GRASS_VISTA_STRATUM_SIDE, streams::VISTA_ROOT),
         };
         let strata_per_side = GRASS_PATCH_GRID_SIDE / stratum_side;
         let stratum_row = row / stratum_side;
         let stratum_column = column / stratum_side;
         let stratum = stratum_row * strata_per_side + stratum_column;
-        let hash = splitmix64(stratum as u64 ^ salt);
+        let mut random = purpose.rng(0, &[stratum as u64]);
         let selected_row = if stratum_row == 0 {
             0
         } else if stratum_row + 1 == strata_per_side {
             GRASS_PATCH_GRID_SIDE - 1
         } else {
-            stratum_row * stratum_side + (hash as usize % stratum_side)
+            stratum_row * stratum_side + random.index(stratum_side)
         };
         let selected_column = if stratum_column == 0 {
             0
         } else if stratum_column + 1 == strata_per_side {
             GRASS_PATCH_GRID_SIDE - 1
         } else {
-            stratum_column * stratum_side + (splitmix64(hash) as usize % stratum_side)
+            stratum_column * stratum_side + random.index(stratum_side)
         };
         row == selected_row && column == selected_column
     }
@@ -437,26 +315,35 @@ pub(in crate::presentation) fn grass_tuft_mesh(
     let blades = (0..grid_side * grid_side)
         .filter(|index| {
             grass_density >= 1.0
-                || unit_hash(splitmix64((*index as u64) ^ seed ^ 0x24e8_51c6_9a37_b40d))
+                || streams::DENSITY
+                    .rng(seed, &[*index as u64])
+                    .inclusive_unit_f32()
                     < grass_density
         })
         .map(|index| {
             let row = index / grid_side;
             let column = index % grid_side;
-            let hash = splitmix64(index as u64 ^ seed ^ 0x8d12_6f4a_0bc3_7791);
-            let jitter_x = (unit_hash(hash) - 0.5) * blade_spacing * 0.46;
-            let jitter_z = (unit_hash(splitmix64(hash)) - 0.5) * blade_spacing * 0.46;
+            let hash = streams::BLADE_PLACEMENT
+                .seed(seed, &[index as u64])
+                .to_u64();
+            let jitter_x = (streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5)
+                * blade_spacing
+                * 0.46;
+            let jitter_z = (streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5)
+                * blade_spacing
+                * 0.46;
             let clump_vigor = 0.5 + 0.5 * (row as f32 * 0.31 + column as f32 * 0.17 + 0.8).sin();
-            let height_scale =
-                (0.50 + unit_hash(splitmix64(hash ^ 0x52a9_f131)) * 0.62 + clump_vigor * 0.20)
-                    .clamp(0.50, 1.30);
-            let width_scale = 0.62 + unit_hash(splitmix64(hash ^ 0x91e2_57a4)) * 0.76;
+            let height_scale = (0.50
+                + streams::HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.62
+                + clump_vigor * 0.20)
+                .clamp(0.50, 1.30);
+            let width_scale = 0.62 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.76;
             GrassBlade {
                 offset_x: (column as f32 - centre) * blade_spacing + jitter_x,
                 offset_z: (row as f32 - centre) * blade_spacing + jitter_z,
                 height_scale,
                 width_scale,
-                seed: splitmix64(index as u64 ^ seed),
+                seed: streams::BLADE.seed(seed, &[index as u64]).to_u64(),
                 species,
             }
         })
@@ -516,15 +403,25 @@ pub(in crate::presentation) enum GrassSpecies {
 }
 
 pub(in crate::presentation) fn grass_species(community: GrassCommunity, hash: u64) -> GrassSpecies {
-    let roll = unit_hash(splitmix64(hash ^ 0x7370_6563_6965_735f));
-    match community {
-        GrassCommunity::MesicMeadow if roll < 0.68 => GrassSpecies::FalseOatGrass,
-        GrassCommunity::MesicMeadow => GrassSpecies::Cocksfoot,
-        GrassCommunity::LeanSward if roll < 0.64 => GrassSpecies::RedFescue,
-        GrassCommunity::LeanSward => GrassSpecies::CommonBent,
-        GrassCommunity::WetTussock if roll < 0.66 => GrassSpecies::TuftedHairGrass,
-        GrassCommunity::WetTussock => GrassSpecies::YorkshireFog,
-    }
+    let (species, weights) = match community {
+        GrassCommunity::MesicMeadow => (
+            [GrassSpecies::FalseOatGrass, GrassSpecies::Cocksfoot],
+            [68, 32],
+        ),
+        GrassCommunity::LeanSward => (
+            [GrassSpecies::RedFescue, GrassSpecies::CommonBent],
+            [64, 36],
+        ),
+        GrassCommunity::WetTussock => (
+            [GrassSpecies::TuftedHairGrass, GrassSpecies::YorkshireFog],
+            [66, 34],
+        ),
+    };
+    let index = streams::SPECIES
+        .rng(hash, &[])
+        .weighted_index(&weights)
+        .expect("authored species weights are positive");
+    species[index]
 }
 
 impl GrassSpecies {
@@ -623,21 +520,21 @@ fn grass_ribbon_patch_mesh_with_rows(
     } in blades
     {
         let root = Vec3::new(offset_x, 0.0, offset_z);
-        let hash = splitmix64(blade_seed ^ 0x6c8e_9cf5_701a_d30b);
-        let angle = unit_hash(hash) * core::f32::consts::TAU;
+        let hash = streams::BLADE_STYLE.seed(blade_seed, &[]).to_u64();
+        let angle = streams::blade_angle(hash);
         let half_width = Vec3::new(angle.cos(), 0.0, angle.sin())
             * width
             * width_scale
             * species.width_scale()
             * 0.5;
         let normal = Vec3::Y.cross(half_width).normalize_or_zero().to_array();
-        let blade_threshold = unit_hash(splitmix64(hash ^ 0x3d91_02ea_61b8_7c45));
-        let age = unit_hash(splitmix64(hash ^ 0x1b47_c95a_622d_41e3));
+        let blade_threshold = streams::BLADE_THRESHOLD.rng(hash, &[]).inclusive_unit_f32();
+        let age = streams::AGE.rng(hash, &[]).inclusive_unit_f32();
         let lean_direction = Vec3::new(-angle.sin(), 0.0, angle.cos());
         let lean_metres = height
             * height_scale
             * species.height_scale()
-            * (0.008 + unit_hash(splitmix64(hash ^ 0x626c_6164_655f_6c65)) * 0.027);
+            * (0.008 + streams::LEAN.rng(hash, &[]).inclusive_unit_f32() * 0.027);
         // Healthy blades share their species pigment. Senescent tips retain a
         // hard straw region, while blade separation comes from the material's
         // specular response rather than randomized albedo.
@@ -712,7 +609,7 @@ fn grass_ribbon_patch_mesh_with_rows(
         let branch_count = species.inflorescence_branch_count();
         if lod == GrassMeshLod::Near
             && branch_count > 0
-            && unit_hash(splitmix64(hash ^ 0x0070_616e_6963_6c65)) < 0.125
+            && streams::PANICLE.rng(hash, &[]).inclusive_unit_f32() < 0.125
         {
             let total_height = height * height_scale * species.height_scale();
             inflorescences.push(GrassInflorescence {

@@ -138,12 +138,13 @@
     incomingHost.replaceChildren(...players.map((player) => {
       const link = document.createElement("a");
       link.className = "local-chat-incoming-portrait";
-      const match = location.pathname.match(/^\/locations\/(settlement|case-site)\/[^/]+/);
-      link.href = `${match?.[0] || ""}/players/${player.id}`;
+      const context = window.strategicLocationUrls.parse(location.pathname);
+      if (!context || context.kind === "camp") return null;
+      link.href = `${window.strategicLocationUrls.root(context)}/players/${window.strategicLocationUrls.encode(player.id)}`;
       link.title = `Talk to ${player.name}`;
       link.textContent = player.name.charAt(0) || "?";
       return link;
-    }));
+    }).filter(Boolean));
   };
   window.queueStrategicInitialLoad(refreshIncoming);
   document.addEventListener("strategic-live-update", refreshIncoming, { signal });

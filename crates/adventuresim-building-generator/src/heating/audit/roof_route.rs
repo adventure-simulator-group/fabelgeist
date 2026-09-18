@@ -96,7 +96,7 @@ mod tests {
             .unwrap();
         for cut in roof.faces.iter_mut().flat_map(|face| &mut face.cutouts) {
             for point in cut {
-                point.z += 0.7;
+                point.z += 10.0;
             }
         }
         assert_eq!(

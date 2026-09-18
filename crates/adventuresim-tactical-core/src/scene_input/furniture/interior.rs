@@ -2,12 +2,12 @@
 use adventuresim_building_generator::interior::{
     InteriorLayout, InteriorPlacement, furnish, furniture_floor_height,
 };
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use serde::Serialize;
 
 use super::*;
 
-const INTERIOR_INSTANCE_DOMAIN: u64 = 0x696e_7465_7269_6f72;
+const INTERIOR_INSTANCE_DOMAIN: StreamId = StreamId::new("furniture.interior-identity");
 
 #[cfg(test)]
 mod tests;
@@ -29,10 +29,8 @@ pub(super) fn append(
                 building.placement.id,
             ))
         })?;
-        for (index, placement) in layout.placements.iter().enumerate() {
-            furniture
-                .instances
-                .push(instance(building, placement, index));
+        for placement in &layout.placements {
+            furniture.instances.push(instance(building, placement));
         }
         furniture.interiors.push(InteriorBuildingLayout {
             building_id: building.placement.id,
@@ -42,11 +40,7 @@ pub(super) fn append(
     Ok(())
 }
 
-fn instance(
-    building: &GeneratedBuilding,
-    placement: &InteriorPlacement,
-    index: usize,
-) -> GeneratedFurniture {
+fn instance(building: &GeneratedBuilding, placement: &InteriorPlacement) -> GeneratedFurniture {
     let origin = building.collision.bounds.centre();
     let position = building.placement.centre_metres
         + building
@@ -57,9 +51,21 @@ fn instance(
         - building.collision.bounds.min.y;
     GeneratedFurniture {
         scene: SceneFurniture {
-            id: FurnitureInstanceId(mix64(
-                mix64(building.placement.id ^ INTERIOR_INSTANCE_DOMAIN) ^ index as u64,
-            )),
+            id: FurnitureInstanceId(
+                INTERIOR_INSTANCE_DOMAIN
+                    .seed(
+                        building.placement.id,
+                        &[
+                            u64::from(placement.room_id),
+                            u64::from(placement.storey),
+                            u64::from(placement.centre_metres.x.to_bits()),
+                            u64::from(placement.centre_metres.y.to_bits()),
+                            placement.facing as u64,
+                            placement.key.kind() as u64,
+                        ],
+                    )
+                    .to_u64(),
+            ),
             key: placement.key,
             location: FurnitureLocation::Interior {
                 building_id: building.placement.id,

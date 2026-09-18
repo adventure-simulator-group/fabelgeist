@@ -38,7 +38,7 @@ pub use chrome::{
     ChildPresentation, RelationshipPresentation, WeddingPresentation, settlement_overview_page,
     settlement_residence_page, settlement_resident_location_page,
 };
-pub use context::{LocationKind, LocationView};
+pub use context::LocationView;
 pub use cooking::fireplace_page;
 pub use religion::religion_page;
 pub(crate) use rest::{RestServiceKind, party_rest_menu, rest_default_minutes, rest_service_menu};
@@ -102,7 +102,7 @@ pub(super) mod test_support {
             description: "A camp beside the road.".to_string(),
             summary: Some("Reported exact location".to_string()),
             travel_action: "/quests/quest-location/travel".to_string(),
-            track_action: Some("/case-sites/quest-location/track".to_string()),
+            track_action: Some("/locations/case-site/quest-location/track".to_string()),
             tracked: false,
             distance_m: 1_000,
             journey_minutes: 48,

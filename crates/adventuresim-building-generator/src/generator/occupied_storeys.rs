@@ -1,6 +1,11 @@
 //! Occupied rooms and shared circulation precede any architectural envelope.
 use super::*;
 
+const ROOM_ALLOCATION: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.storey.room-allocation");
+const OPENING_LAYOUT: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.storey.opening-layout");
+
 pub(super) fn generate_storeys(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
@@ -97,7 +102,7 @@ fn allocate_storey(
         width,
         depth,
         &storey_program.rooms,
-        layout_seed.wrapping_add(level as u64 * 0x9e37_79b9),
+        ROOM_ALLOCATION.seed(layout_seed, &[level as u64]).to_u64(),
         program.archetype,
         &reservations,
     );
@@ -115,7 +120,7 @@ fn allocate_storey(
         &walls,
         &storey_program.rooms,
         program.archetype,
-        layout_seed.wrapping_add(level as u64),
+        OPENING_LAYOUT.seed(layout_seed, &[level as u64]).to_u64(),
         level,
         straight_stair_core,
     )?;

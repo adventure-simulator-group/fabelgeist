@@ -1,6 +1,8 @@
+const RNG_FURNITURE_GROUP_SIZE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("furniture.group-size");
 use super::*;
 use adventuresim_building_generator::furniture::FurnitureVariant;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 mod composition;
 mod frontage;
@@ -8,7 +10,7 @@ mod market;
 pub(super) use frontage::{building, group_limit};
 pub(super) use market::market;
 
-const GROUP_DOMAIN: u64 = 0x6675_726e_6772_6f75;
+const GROUP_DOMAIN: StreamId = StreamId::new("furniture.group-identity");
 const KIT_GAP_METRES: f32 = 0.25;
 
 pub(super) struct LocalItem {
@@ -33,15 +35,13 @@ impl Candidate {
         anchor: FurnitureAnchor,
     ) -> Self {
         let (anchor_kind, anchor_id) = match anchor {
-            FurnitureAnchor::Market { patch_index } => (0, u64::from(patch_index)),
+            FurnitureAnchor::Market { .. } => (0, 0),
             FurnitureAnchor::Building { id } => (1, id),
         };
-        let id = [anchor_kind, anchor_id, kind as u64, slot]
-            .into_iter()
-            .fold(mix64(seed ^ GROUP_DOMAIN), |state, field| {
-                mix64(state ^ field)
-            });
-        let variant = if id & 1 == 0 {
+        let id = GROUP_DOMAIN
+            .seed(seed, &[anchor_kind, anchor_id, kind as u64, slot])
+            .to_u64();
+        let variant = if RNG_FURNITURE_GROUP_SIZE.rng(id, &[]).boolean() {
             FurnitureVariant::Compact
         } else {
             FurnitureVariant::Broad

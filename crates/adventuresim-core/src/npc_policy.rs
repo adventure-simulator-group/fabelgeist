@@ -4,13 +4,9 @@
 //! authoritative scheduler supplies a bounded snapshot, records the selected
 //! outcome, and only then advances personal time.
 
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 use crate::strategic_schedule::DailySchedule;
-
-const NPC_POLICY_ACTOR_ID_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const NPC_POLICY_DAY_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
-const NPC_POLICY_CANDIDATE_STRIDE: u64 = 0x94d0_49bb_1331_11eb;
 
 pub const NPC_ROMANCE_CANDIDATE_CAP: usize = 16;
 pub const NPC_SCHEDULE_QUANTUM_MINUTES: u16 = 15;
@@ -72,46 +68,60 @@ pub const fn npc_courtship_route(inputs: NpcCourtshipEligibility) -> NpcCourtshi
     }
 }
 
-/// Stable mixer used only for policy ordering. It has no platform or
-/// collection iteration dependency.
-pub const fn npc_policy_hash(seed: u64, actor_id: u64, day: u64, value: u64) -> u64 {
-    mix64(
-        seed ^ actor_id.wrapping_mul(NPC_POLICY_ACTOR_ID_STRIDE)
-            ^ day.wrapping_mul(NPC_POLICY_DAY_STRIDE)
-            ^ value.wrapping_mul(NPC_POLICY_CANDIDATE_STRIDE),
-    )
-}
+/// Conflicting snapshots of one character cannot define a candidate pool.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ConflictingCandidate(pub u64);
 
-/// Returns a bounded permutation-independent candidate order.
+impl core::fmt::Display for ConflictingCandidate {
+    fn fmt(&self, formatter: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        write!(
+            formatter,
+            "Conflicting NPC policy snapshots for character {}",
+            self.0
+        )
+    }
+}
+impl std::error::Error for ConflictingCandidate {}
+
+/// Returns a bounded permutation-independent candidate order. Repeated identical
+/// snapshots count once; conflicting policy seeds for one identity are rejected.
 pub fn stable_candidate_order(
     actor_id: u64,
     actor_seed: u64,
     day: u64,
     candidates: impl IntoIterator<Item = NpcCandidate>,
-) -> Vec<NpcCandidate> {
+) -> Result<Vec<NpcCandidate>, ConflictingCandidate> {
     let mut candidates: Vec<_> = candidates.into_iter().collect();
+    candidates.sort_by_key(|candidate| (candidate.character_id, candidate.policy_seed));
+    for pair in candidates.windows(2) {
+        if pair[0].character_id == pair[1].character_id && pair[0] != pair[1] {
+            return Err(ConflictingCandidate(pair[0].character_id));
+        }
+    }
+    candidates.dedup_by_key(|candidate| candidate.character_id);
     candidates.sort_by_key(|candidate| {
         (
-            npc_policy_hash(
-                actor_seed ^ candidate.policy_seed,
-                actor_id,
-                day,
-                candidate.character_id,
-            ),
+            StreamId::new("npc.policy-rank")
+                .rng(
+                    actor_seed,
+                    &[candidate.policy_seed, actor_id, day, candidate.character_id],
+                )
+                .next_u64(),
             candidate.character_id,
         )
     });
-    candidates.dedup_by_key(|candidate| candidate.character_id);
     candidates.truncate(NPC_ROMANCE_CANDIDATE_CAP);
-    candidates
+    Ok(candidates)
 }
 
 /// Conservative saved plan used exactly once for a new NPC policy. Work
 /// produces income, conversation exercises ordinary Socializing target
 /// priority, and all remaining time is Leisure.
 pub fn initial_npc_schedule(character_id: u64, policy_seed: u64) -> DailySchedule {
-    let socializing_minutes =
-        60 + 15 * (npc_policy_hash(policy_seed, character_id, 0, 1) % 5) as u16;
+    let socializing_minutes = 60
+        + 15 * StreamId::new("npc.initial-socializing")
+            .rng(policy_seed, &[character_id])
+            .index(5) as u16;
     DailySchedule {
         socializing_minutes,
         labor: 6 * 60,
@@ -152,10 +162,30 @@ mod tests {
         let mut reverse = forward.clone();
         reverse.reverse();
         reverse.push(forward[0]);
-        let first = stable_candidate_order(99, 123, 45, forward);
-        let second = stable_candidate_order(99, 123, 45, reverse);
+        let first = stable_candidate_order(99, 123, 45, forward).unwrap();
+        let second = stable_candidate_order(99, 123, 45, reverse).unwrap();
         assert_eq!(first, second);
         assert_eq!(first.len(), NPC_ROMANCE_CANDIDATE_CAP);
+    }
+
+    #[test]
+    fn conflicting_snapshots_are_rejected_in_either_order() {
+        let candidates = [
+            NpcCandidate {
+                character_id: 7,
+                policy_seed: 11,
+            },
+            NpcCandidate {
+                character_id: 7,
+                policy_seed: 12,
+            },
+        ];
+        for candidates in [candidates, [candidates[1], candidates[0]]] {
+            assert_eq!(
+                stable_candidate_order(1, 2, 3, candidates),
+                Err(ConflictingCandidate(7))
+            );
+        }
     }
 
     #[test]

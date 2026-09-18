@@ -85,11 +85,8 @@ mod tests {
 
     #[test]
     fn matches_linear_scan_for_randomized_queries_and_source_orders() {
-        let mut state = 19_u64;
-        let mut random = || {
-            state = state.wrapping_mul(6364136223846793005).wrapping_add(1);
-            ((state >> 32) as u32 as f32 / u32::MAX as f32 - 0.5) * 20.0
-        };
+        let mut rng = fabelgeist_determinism::StreamId::new("test.nearest-vertex").rng(19, &[]);
+        let mut random = || rng.range_f32(-10.0, 10.0);
         for count in [1, 2, 3, 17, 128, 1023] {
             let mut points = (0..count)
                 .map(|_| std::array::from_fn(|_| random()))

@@ -5,7 +5,7 @@ mod lod;
 mod materials;
 mod presentation;
 mod source;
-mod specimen;
+pub(in crate::presentation) mod specimen;
 
 pub(crate) use specimen::oak_root_exposure_for_site;
 
@@ -20,7 +20,7 @@ pub(in crate::presentation) use geometry::{
     procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh, procedural_woody_crown_mesh,
     procedural_woody_leaf_card_mesh, procedural_woody_mid_trunk_mesh,
     procedural_woody_plant_leaves, procedural_woody_plant_skeleton,
-    procedural_woody_sparse_leaf_card_mesh,
+    procedural_woody_sparse_leaf_card_mesh, shoot_identity,
 };
 pub(crate) use impostor::TreeImpostorProvenance;
 pub(in crate::presentation) use impostor_assets::PreparedTreeImpostorLoader;

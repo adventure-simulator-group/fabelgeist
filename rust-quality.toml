@@ -74,6 +74,11 @@ reason = "Six deterministic capacity review placements built through the canonic
 
 [[scopes]]
 kind = "fixture"
+path = "crates/strategic-web/src/routes/settlements/party/schedule_preview/http_tests.rs"
+reason = "Deterministic mock SQL protocol responses for schedule-preview route tests."
+
+[[scopes]]
+kind = "fixture"
 path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/furniture.rs"
 reason = "A deterministic market, roads and service frontages exercise canonical furniture placement."
 
@@ -686,3 +691,9 @@ reason = "This is the maximum accepted prepared-paint batch size, not the strate
 kind = "authored_catalog"
 path = "crates/adventuresim-heraldry/src/animals/eagle/paint.rs"
 reason = "Reviewed solid paint values and tongue IDs in two pinned Wikimedia eagle drawings."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/templates/architecture.rs"
+item = "SettlementPresentation::from_active_service"
+reason = "Converts the existing serialized layout service IDs into canonical typed physical places at the template boundary."

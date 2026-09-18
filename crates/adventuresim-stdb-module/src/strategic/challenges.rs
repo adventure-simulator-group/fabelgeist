@@ -970,11 +970,9 @@ pub(crate) fn materialize_chance_narrative_encounter(
 }
 
 fn narrative_combat_roll(seed: u64, occurrence_id: &str) -> u64 {
-    occurrence_id
-        .bytes()
-        .fold(seed ^ 0x6e61_7272_636f_6d62, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x1000_0000_01b3)
-        })
+    fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("encounter.narrative-combat"),
+        &[occurrence_id.as_bytes()]).rng().next_u64()
 }
 
 fn materialize_narrative_combat(
@@ -2034,14 +2032,11 @@ fn materialize_development_road_encounter(
     {
         return Err("Road encounter demo requires a reached journey camp".into());
     }
-    let catalog_hash = catalog_id
-        .bytes()
-        .fold(0xcbf2_9ce4_8422_2325_u64, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x1000_0000_01b3)
-        });
+    let catalog_hash = fabelgeist_determinism::Seed::derive(catalog_id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("encounter.demo-roll-index"), &[]).to_u64();
     let selection = adventuresim_core::encounter::NarrativeSelection {
         boundary_minute: journey.completed_elapsed_minutes,
-        roll_index: 0xd000_0000_0000_0000 ^ catalog_hash,
+        roll_index: catalog_hash,
         catalog_id: catalog_id.into(),
     };
     let seed = ctx
@@ -2239,7 +2234,7 @@ fn materialize_order_errantry(
         })
         .count() as u64;
     let suffix = errantry_suffix(character_id, ordinal, launch);
-    let seed = 0x4b4e_4947_4854_4c59 ^ character_id ^ ordinal.rotate_left(23);
+    let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id, &[ordinal]).to_u64();
     let road_definition =
         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
             .ok_or("No quest-eligible road encounter is available")?;
@@ -2641,7 +2636,7 @@ mod challenge_source_boundary_tests {
         let fresh_ordinal = loader.find("let ordinal =").unwrap();
         assert!(reuse < fresh_ordinal);
         assert!(loader.contains("return Ok(MaterializedErrantry"));
-        assert!(loader.contains("ordinal.rotate_left(23)"));
+        assert!(loader.contains("errantry.road-encounter"));
         let reuse_lookup = source
             .split("fn active_puzzle_demo")
             .nth(1)

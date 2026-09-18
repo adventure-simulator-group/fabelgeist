@@ -78,9 +78,9 @@ pub(super) fn show_identity(ui: &mut egui::Ui, studio: &mut Studio) {
                 adventuresim_core::character_proportions::CharacterProportions::from_character_id(
                     studio.seed,
                 );
-            let mut rng = StdRng::seed_from_u64(studio.seed);
+            let mut rng = StreamId::new("authoring.character.proportions").rng(studio.seed, &[]);
             for value in &mut studio.recipe.identity {
-                *value = rng.random_range(-1.35..=1.35);
+                *value = -1.35 + rng.inclusive_unit_f32() * 2.7;
             }
             studio.dirty = true;
         }

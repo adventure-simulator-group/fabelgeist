@@ -26,7 +26,7 @@ use super::{
 };
 use crate::presentation::TacticalGameplayCamera;
 use crate::presentation::{
-    ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment, unit_hash,
+    ActiveTacticalScene, ActiveVistaSurface, ProceduralTextureAssets, SceneEnvironment,
 };
 use adventuresim_tactical_core::prelude::SceneTerrain;
 use bevy::{
@@ -34,7 +34,7 @@ use bevy::{
     light::NotShadowCaster,
     prelude::*,
 };
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 #[cfg(test)]
 use super::TREE_PRIMARY_GROUP_COUNT;
@@ -783,7 +783,9 @@ pub(in crate::presentation) fn ensure_vista_tree_variant(
     prepared: Option<&PreparedTreeImpostorAsset>,
 ) -> CachedVistaTreePresentation {
     let competition_key = (competition * 4095.0).round() as u64;
-    let cache_key = variant_seed ^ competition_key.rotate_left(32) ^ species.cache_salt();
+    let cache_key = StreamId::new("visual.tree.vista-cache-key")
+        .seed(variant_seed, &[competition_key, species.cache_salt()])
+        .to_u64();
     if let Some(cached) = cache.variants.get(&cache_key) {
         return cached.clone();
     }
@@ -863,10 +865,12 @@ pub(in crate::presentation) fn present_pending_trees(
         let (variant_index, variant_seed) =
             super::specimen::oak_variant_for_site(transform.translation);
         let competition_key = (competition * 4095.0).round() as u64;
-        let cache_key = variant_seed
-            ^ competition_key.rotate_left(32)
-            ^ site_key.rotate_left(17)
-            ^ species.cache_salt();
+        let cache_key = StreamId::new("visual.tree.playable-cache-key")
+            .seed(
+                variant_seed,
+                &[competition_key, site_key, species.cache_salt()],
+            )
+            .to_u64();
         if !tree_cache.variants.contains_key(&cache_key) {
             let (branches, leaves) = playable_tree_source(
                 species,
@@ -1301,7 +1305,7 @@ mod tests {
 
     #[test]
     fn forced_beech_vista_handoff_uses_beech_source_geometry_and_cache_identity() {
-        let variant_seed = splitmix64(0x6f61_6b00);
+        let variant_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
         let competition = 0.5;
         let mut meshes = Assets::<Mesh>::default();
         let mut materials = Assets::<TacticalTreeImpostorMaterial>::default();

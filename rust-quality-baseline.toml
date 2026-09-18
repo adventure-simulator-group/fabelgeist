@@ -103,10 +103,6 @@ path = "crates/adventuresim-core/src/disease.rs"
 ceiling = 2273
 
 [[files]]
-path = "crates/adventuresim-core/src/encounter.rs"
-ceiling = 517
-
-[[files]]
 path = "crates/adventuresim-core/src/equipment.rs"
 ceiling = 660
 
@@ -161,10 +157,6 @@ ceiling = 1439
 [[files]]
 path = "crates/adventuresim-core/src/quest_generation/model.rs"
 ceiling = 1083
-
-[[files]]
-path = "crates/adventuresim-core/src/quest_generation/projection.rs"
-ceiling = 570
 
 [[files]]
 path = "crates/adventuresim-core/src/quest_generation/solver.rs"
@@ -756,7 +748,7 @@ ceiling = 632
 
 [[files]]
 path = "crates/strategic-web/src/routes/dialogue.rs"
-ceiling = 1523
+ceiling = 1503
 
 [[files]]
 path = "crates/strategic-web/src/routes/foraging.rs"
@@ -772,35 +764,35 @@ ceiling = 824
 
 [[files]]
 path = "crates/strategic-web/src/routes/quests.rs"
-ceiling = 1549
+ceiling = 1538
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/camp.rs"
-ceiling = 1067
+ceiling = 1062
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
-ceiling = 832
-
-[[files]]
-path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
-ceiling = 833
-
-[[files]]
-path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
 ceiling = 819
 
 [[files]]
+path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
+ceiling = 790
+
+[[files]]
+path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
+ceiling = 818
+
+[[files]]
 path = "crates/strategic-web/src/routes/settlements/party/social.rs"
-ceiling = 546
+ceiling = 544
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/rest.rs"
-ceiling = 710
+ceiling = 696
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
-ceiling = 629
+ceiling = 622
 
 [[files]]
 path = "crates/strategic-web/src/routes/travel.rs"
@@ -820,7 +812,7 @@ ceiling = 728
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
-ceiling = 747
+ceiling = 665
 
 [[files]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -832,7 +824,7 @@ ceiling = 578
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/character_details.rs"
-ceiling = 883
+ceiling = 880
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/character_health.rs"
@@ -848,7 +840,7 @@ ceiling = 910
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/social.rs"
-ceiling = 781
+ceiling = 779
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
@@ -1252,11 +1244,6 @@ ceiling = 195
 path = "crates/adventuresim-core/src/settlement_population.rs"
 item = "generate"
 ceiling = 244
-
-[[functions]]
-path = "crates/adventuresim-core/src/starting_character.rs"
-item = "apply_professional_start"
-ceiling = 113
 
 [[functions]]
 path = "crates/adventuresim-core/src/starting_character.rs"
@@ -2005,11 +1992,6 @@ ceiling = 263
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-item = "materialize_preferred_generated_fixture"
-ceiling = 101
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "seed_simulation_quest_fixture_inner"
 ceiling = 171
 
@@ -2565,16 +2547,6 @@ ceiling = 125
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_vista_rocks"
-ceiling = 103
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_vista_trees"
-ceiling = 103
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "vista_lod_meshes_with_morph"
 ceiling = 133
 
@@ -3006,12 +2978,12 @@ ceiling = 509
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/camp.rs"
 item = "camp"
-ceiling = 336
+ceiling = 334
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/camp.rs"
 item = "travel_provision_forecast_for_minutes"
-ceiling = 285
+ceiling = 281
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/encumbrance.rs"
@@ -3021,12 +2993,12 @@ ceiling = 123
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
 item = "settlement_resident_place"
-ceiling = 195
+ceiling = 189
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
 item = "show_settlement_location"
-ceiling = 110
+ceiling = 106
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
@@ -3036,7 +3008,7 @@ ceiling = 203
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/overview.rs"
 item = "settlement_map"
-ceiling = 268
+ceiling = 266
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/containers.rs"
@@ -3046,12 +3018,7 @@ ceiling = 169
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
 item = "fireplace_rows"
-ceiling = 115
-
-[[functions]]
-path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
-item = "settlement_fireplace"
-ceiling = 102
+ceiling = 112
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/cooking.rs"
@@ -3061,32 +3028,32 @@ ceiling = 102
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
 item = "render_party_stats"
-ceiling = 162
+ceiling = 160
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
 item = "set_equipment"
-ceiling = 167
+ceiling = 165
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/location_personal.rs"
 item = "render_party_personal"
-ceiling = 291
+ceiling = 283
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/social.rs"
 item = "party_social"
-ceiling = 290
+ceiling = 284
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/training_activity.rs"
 item = "party_member"
-ceiling = 138
+ceiling = 135
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/rendering.rs"
 item = "merchant_shop"
-ceiling = 199
+ceiling = 197
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/rendering.rs"
@@ -3096,22 +3063,17 @@ ceiling = 114
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/rest.rs"
 item = "rest"
-ceiling = 226
-
-[[functions]]
-path = "crates/strategic-web/src/routes/settlements/router.rs"
-item = "routes"
-ceiling = 205
+ceiling = 212
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
 item = "begin_service_apprenticeship"
-ceiling = 114
+ceiling = 112
 
 [[functions]]
 path = "crates/strategic-web/src/routes/settlements/service_quests.rs"
 item = "service_quest_offers"
-ceiling = 246
+ceiling = 244
 
 [[functions]]
 path = "crates/strategic-web/src/routes/weapon_icons.rs"
@@ -3156,7 +3118,7 @@ ceiling = 133
 [[functions]]
 path = "crates/strategic-web/src/templates/layout.rs"
 item = "settlement_top_bar"
-ceiling = 164
+ceiling = 131
 
 [[functions]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -11585,13 +11547,6 @@ occurrences = 1
 rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/settlements/medical.rs"
 item = "show_settlement_location"
-fingerprint = "string:ensure_settlement_activity"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/medical.rs"
-item = "show_settlement_location"
 fingerprint = "string:surgery"
 occurrences = 1
 
@@ -13026,97 +12981,6 @@ occurrences = 1
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:armor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:books"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:clothing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:keep"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:map"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:merchants"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:public-square"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:religion"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:residences"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:stone"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "building_tint"
-fingerprint = "string:weapons"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
 item = "quest_location_top_bar"
 fingerprint = "string:camp"
 occurrences = 1
@@ -13126,153 +12990,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/templates/layout.rs"
 item = "quest_location_top_bar"
 fingerprint = "string:enemy"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:armor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:books"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:clothing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:map"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:merchants"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:religion"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "service_tab_available"
-fingerprint = "string:weapons"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:armor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:books"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:clothing"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:keep"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:map"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:merchants"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:public-square"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:religion"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:residences"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/layout.rs"
-item = "settlement_building_available"
-fingerprint = "string:weapons"
 occurrences = 1
 
 [[findings]]
@@ -13886,41 +13603,6 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/settlement/context.rs"
-item = "LocationKind::from_str"
-fingerprint = "string:case-site"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/settlement/context.rs"
-item = "LocationKind::from_str"
-fingerprint = "string:settlement"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/settlement/rest.rs"
-item = "RestServiceKind::parse"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/settlement/rest.rs"
-item = "RestServiceKind::parse"
-fingerprint = "string:residence"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/templates/settlement/rest.rs"
-item = "RestServiceKind::parse"
-fingerprint = "string:temple"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
 path = "crates/strategic-web/src/templates/settlement/service.rs"
 item = "service_page"
 fingerprint = "string:armor"
@@ -14087,14 +13769,12 @@ item = "main"
 fingerprint = "string:holder:"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/examples/export_obj.rs"
 item = "main"
 fingerprint = "string:--holder"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14103,14 +13783,12 @@ item = "recommended_holder"
 fingerprint = "string:arming_sword"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:baselard"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14119,14 +13797,12 @@ item = "recommended_holder"
 fingerprint = "string:bauernwehr"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:club"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14135,14 +13811,12 @@ item = "recommended_holder"
 fingerprint = "string:falchion"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:flanged_mace"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14151,14 +13825,12 @@ item = "recommended_holder"
 fingerprint = "string:halberd"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:hand_axe"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14167,14 +13839,12 @@ item = "recommended_holder"
 fingerprint = "string:hunting_spear"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:katzbalger"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14183,14 +13853,12 @@ item = "recommended_holder"
 fingerprint = "string:knife"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:kriegsmesser"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14199,14 +13867,12 @@ item = "recommended_holder"
 fingerprint = "string:longsword"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:messer"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14215,14 +13881,12 @@ item = "recommended_holder"
 fingerprint = "string:military_pike"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:misericorde"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14231,14 +13895,12 @@ item = "recommended_holder"
 fingerprint = "string:rapier"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:rondel_dagger"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14247,14 +13909,12 @@ item = "recommended_holder"
 fingerprint = "string:spear"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:utility_knife"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"
@@ -14263,14 +13923,12 @@ item = "recommended_holder"
 fingerprint = "string:walking_staff"
 occurrences = 1
 
-
 [[findings]]
 rule = "raw-string-branch"
 path = "crates/adventuresim-weapon-model/src/catalog.rs"
 item = "recommended_holder"
 fingerprint = "string:war_hammer"
 occurrences = 1
-
 
 [[findings]]
 rule = "raw-string-branch"

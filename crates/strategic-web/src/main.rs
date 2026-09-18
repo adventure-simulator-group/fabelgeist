@@ -3,11 +3,15 @@
 //! An SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 //! Uses Axum + Maud + Datastar with SpacetimeDB as the backend.
 
+mod request_logging;
+use request_logging::log_http_request;
 mod art_demo;
 mod config;
 mod live;
+mod location_urls;
 mod medical;
 mod routes;
+mod schedule;
 mod session;
 mod spacetimedb;
 mod strategic_map;
@@ -16,8 +20,6 @@ mod templates;
 use std::collections::BTreeMap;
 use std::net::SocketAddr;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
-use std::time::Instant;
 
 use axum::{
     body::{Body, to_bytes},
@@ -33,6 +35,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use config::Config;
 use live::LiveState;
+use location_urls::local_redirect_path;
 use routes::{AppState, build_router};
 use session::SessionCodec;
 use spacetimedb::{SpacetimeClient, sats_option};
@@ -223,11 +226,6 @@ fn strategic_hard_boundary(path: &str) -> bool {
         || path.starts_with("/missions")
         || path.starts_with("/tactical")
         || path == "/map/data-license"
-}
-
-fn local_redirect_path(value: &str) -> Option<String> {
-    (value.starts_with('/') && !value.starts_with("//") && !value.contains('\\'))
-        .then(|| value.to_owned())
 }
 
 fn valid_hard_navigation_target(target: &str) -> bool {
@@ -495,44 +493,6 @@ async fn strategic_root_fragment(response: Response) -> Response {
     Response::from_parts(parts, Body::from(fragment.to_owned()))
 }
 
-static NEXT_REQUEST_ID: AtomicU64 = AtomicU64::new(1);
-
-async fn log_http_request(request: Request, next: Next) -> Response {
-    let request_id = NEXT_REQUEST_ID.fetch_add(1, Ordering::Relaxed);
-    let mut log = HttpRequestLog {
-        request_id,
-        method: request.method().to_string(),
-        uri: request.uri().to_string(),
-        started: Instant::now(),
-        finished: false,
-    };
-    tracing::info!(request_id, method = %log.method, uri = %log.uri, "http request started");
-
-    let mut response = next.run(request).await;
-    tracing::info!(
-        request_id,
-        method = %log.method,
-        uri = %log.uri,
-        status = response.status().as_u16(),
-        elapsed_ms = log.started.elapsed().as_millis() as u64,
-        "http request finished"
-    );
-    log.finished = true;
-    response.headers_mut().insert(
-        HeaderName::from_static("x-request-id"),
-        HeaderValue::from_str(&request_id.to_string()).expect("numeric request id is a header"),
-    );
-    response
-}
-
-struct HttpRequestLog {
-    request_id: u64,
-    method: String,
-    uri: String,
-    started: Instant,
-    finished: bool,
-}
-
 #[cfg(test)]
 mod strategic_navigation_contract_tests {
     use axum::{
@@ -553,16 +513,20 @@ mod strategic_navigation_contract_tests {
     fn negotiated_posts_are_terminal_instead_of_redirecting_to_a_get() {
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp?from=travel#party")
+            .header(header::LOCATION, "/locations/camp?from=travel#party")
             .body(Body::empty())
             .unwrap();
-        let response =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let response = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         assert_eq!(response.status(), StatusCode::NO_CONTENT);
         assert!(!response.headers().contains_key(header::LOCATION));
         assert_eq!(
             response.headers()["x-strategic-canonical-url"],
-            "/camp?from=travel#party"
+            "/locations/camp?from=travel#party"
         );
         assert_eq!(response.headers()["x-strategic-response"], "mutation");
         assert_eq!(response.headers()["x-strategic-redirected"], "true");
@@ -639,8 +603,8 @@ mod strategic_navigation_contract_tests {
         }
         assert!(!strategic_hard_boundary("/locations/settlement/lubeck"));
         assert_eq!(
-            local_redirect_path("/camp?from=travel"),
-            Some("/camp?from=travel".into())
+            local_redirect_path("/locations/camp?from=travel"),
+            Some("/locations/camp?from=travel".into())
         );
         assert_eq!(local_redirect_path("//example.test/steal"), None);
         assert_eq!(local_redirect_path("https://example.test/steal"), None);
@@ -649,7 +613,7 @@ mod strategic_navigation_contract_tests {
     #[tokio::test]
     async fn negotiated_post_renders_redirect_destination_in_the_same_response() {
         let renderer = Router::new().route(
-            "/camp",
+            "/locations/camp",
             get(|| async {
                 Html(concat!(
                     "<!doctype html><body><!-- strategic-page-start -->",
@@ -661,15 +625,19 @@ mod strategic_navigation_contract_tests {
         );
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp")
+            .header(header::LOCATION, "/locations/camp")
             .body(Body::empty())
             .unwrap();
-        let negotiated =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let negotiated = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         let response = negotiated_post_root(
             StrategicNavigationMiddleware { renderer },
             negotiated,
-            Some("/camp"),
+            Some("/locations/camp"),
             None,
         )
         .await;
@@ -679,7 +647,10 @@ mod strategic_navigation_contract_tests {
             response.headers()["x-strategic-script-profile"],
             "strategic"
         );
-        assert_eq!(response.headers()["x-strategic-canonical-url"], "/camp");
+        assert_eq!(
+            response.headers()["x-strategic-canonical-url"],
+            "/locations/camp"
+        );
         let body = axum::body::to_bytes(response.into_body(), 4096)
             .await
             .unwrap();
@@ -714,7 +685,7 @@ mod strategic_navigation_contract_tests {
     #[tokio::test]
     async fn stale_selected_character_clear_reaches_internal_render_and_browser() {
         let renderer = Router::new().route(
-            "/camp",
+            "/locations/camp",
             get(|headers: HeaderMap| async move {
                 let cookie = headers
                     .get(header::COOKIE)
@@ -735,19 +706,23 @@ mod strategic_navigation_contract_tests {
         );
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp")
+            .header(header::LOCATION, "/locations/camp")
             .header(
                 header::SET_COOKIE,
                 "character_id=; Max-Age=0; Path=/; HttpOnly",
             )
             .body(Body::empty())
             .unwrap();
-        let negotiated =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let negotiated = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         let response = negotiated_post_root(
             StrategicNavigationMiddleware { renderer },
             negotiated,
-            Some("/camp"),
+            Some("/locations/camp"),
             Some(HeaderValue::from_static("character_id=stale; session=old")),
         )
         .await;
@@ -795,20 +770,6 @@ mod strategic_navigation_contract_tests {
             "//example.test/scheme-relative",
         ] {
             assert!(!valid_hard_navigation_target(target), "{target}");
-        }
-    }
-}
-
-impl Drop for HttpRequestLog {
-    fn drop(&mut self) {
-        if !self.finished {
-            tracing::warn!(
-                request_id = self.request_id,
-                method = %self.method,
-                uri = %self.uri,
-                elapsed_ms = self.started.elapsed().as_millis() as u64,
-                "http request canceled before a response was produced"
-            );
         }
     }
 }

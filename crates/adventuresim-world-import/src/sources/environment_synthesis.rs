@@ -341,7 +341,7 @@ fn choose_from_scores(
             .iter()
             .take_while(|x| scores[0].1 - x.1 <= CLOSE_MARGIN)
             .count();
-        scores[(stable_hash(latitude, longitude) as usize) % close_count].0
+        scores[coordinate_random(latitude, longitude).index(close_count)].0
     } else {
         scores[0].0
     };
@@ -484,26 +484,23 @@ const fn natural_rank(value: NaturalCover) -> u8 {
     }
 }
 
-fn stable_hash(latitude: f64, longitude: f64) -> u64 {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in latitude
-        .to_bits()
-        .to_le_bytes()
-        .into_iter()
-        .chain(longitude.to_bits().to_le_bytes())
-        .chain(WORLD_SCHEMA_VERSION.to_le_bytes())
-    {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    hash
+fn coordinate_random(latitude: f64, longitude: f64) -> fabelgeist_determinism::DeterministicRng {
+    fabelgeist_determinism::Seed::derive(
+        &WORLD_SCHEMA_VERSION.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("world.natural-cover-tie"),
+        &[
+            &latitude.to_bits().to_le_bytes(),
+            &longitude.to_bits().to_le_bytes(),
+        ],
+    )
+    .rng()
 }
 
 #[cfg(test)]
 mod tests {
     use super::{
-        CLOSE_MARGIN, NaturalCover, choose_from_scores, direct_hyde35_cover, finalize,
-        safe_fallback_natural, stable_hash,
+        CLOSE_MARGIN, NaturalCover, choose_from_scores, coordinate_random, direct_hyde35_cover,
+        finalize, safe_fallback_natural,
     };
     use crate::draft::{FinalizedSoilWorldDraft, LandUseEvidence};
     use adventuresim_world_schema::{
@@ -569,8 +566,14 @@ mod tests {
         );
         let close = scores(NaturalCover::Woodland, CLOSE_MARGIN);
         assert!(choose_from_scores(close, 10.0, 10.0).1);
-        assert_eq!(stable_hash(10.0, 20.0), stable_hash(10.0, 20.0));
-        assert_ne!(stable_hash(10.0, 20.0), stable_hash(10.0, 20.001));
+        assert_eq!(
+            coordinate_random(10.0, 20.0).next_u64(),
+            coordinate_random(10.0, 20.0).next_u64()
+        );
+        assert_ne!(
+            coordinate_random(10.0, 20.0).next_u64(),
+            coordinate_random(10.0, 20.001).next_u64()
+        );
     }
 
     fn land_use(crop: u16, grazing: u16, built: u16) -> LandUseProfile {

@@ -636,7 +636,17 @@ test-environment:
     @node --test crates/strategic-web/tests/environment.test.cjs
 
 test-schedule:
-    @node --test crates/strategic-web/tests/training-schedule.test.cjs
+    @node --test crates/strategic-web/tests/training-schedule.test.cjs crates/strategic-web/tests/schedule-preview.test.cjs
+
+# Execute the portable RNG contract on native and wasm32.
+test-determinism:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
+    @{{ python_bin }} scripts/test_determinism.py
+
+check-deterministic-rng:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
 
 # Test local workflow policy without leaving Python bytecode in the worktree.
 test-dev-stack:
@@ -736,12 +746,14 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
     @cargo run --package fabelgeist-rust-quality -- check .
     @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
     @cargo clippy --workspace --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
 
 clean:
     @cargo clean

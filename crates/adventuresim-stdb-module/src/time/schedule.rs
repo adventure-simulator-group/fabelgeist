@@ -47,11 +47,7 @@ fn activity_execution_location(
             .find(site.case_id.clone())
             .is_some();
         return Ok(ActivityExecutionLocation {
-            policy: if site.distance_m > 0 && !is_incident_site {
-                ActivityLocation::NamedOutdoorLocation
-            } else {
-                ActivityLocation::IneligibleNamedLocation
-            },
+            policy: ActivityLocation::case_site(site.distance_m, is_incident_site),
             origin_settlement_id: Some(site.origin_settlement_id),
         });
     }
@@ -76,40 +72,18 @@ pub(crate) fn effective_location_schedule(
     redistribution_seed: u64,
 ) -> ScheduleAllocation {
     let mut effective = schedule.clone();
-    let redistributed = adventuresim_core::activity::redistribute_unavailable_segments(
-        [
-            schedule.combat_training_minutes,
-            schedule.carousing_minutes,
-            schedule.socializing_minutes,
-            schedule.apprenticeship_minutes,
-            schedule.profession_practice_minutes,
-            schedule.labor_minutes,
-            schedule.prayer_minutes,
-            schedule.thievery_minutes,
-            schedule.raiding_minutes,
-        ],
-        [
-            true,
-            location.allows(LocationActivity::Carousing),
-            true,
-            true,
-            true,
-            true,
-            true,
-            location.allows(LocationActivity::Thievery),
-            location.allows(LocationActivity::Raiding),
-        ],
-        redistribution_seed,
-    );
-    effective.combat_training_minutes = redistributed[0];
-    effective.carousing_minutes = redistributed[1];
-    effective.socializing_minutes = redistributed[2];
-    effective.apprenticeship_minutes = redistributed[3];
-    effective.profession_practice_minutes = redistributed[4];
-    effective.labor_minutes = redistributed[5];
-    effective.prayer_minutes = redistributed[6];
-    effective.thievery_minutes = redistributed[7];
-    effective.raiding_minutes = redistributed[8];
+    let redistributed = adventuresim_core::strategic_schedule::ValidatedSchedule::try_from(core_schedule(schedule))
+        .expect("saved schedules are validated on write")
+        .effective_at(location, redistribution_seed);
+    effective.combat_training_minutes = redistributed.combat_training_minutes;
+    effective.carousing_minutes = redistributed.carousing_minutes;
+    effective.socializing_minutes = redistributed.socializing_minutes;
+    effective.apprenticeship_minutes = redistributed.apprenticeship_minutes;
+    effective.profession_practice_minutes = redistributed.profession_practice_minutes;
+    effective.labor_minutes = redistributed.labor;
+    effective.prayer_minutes = redistributed.prayer;
+    effective.thievery_minutes = redistributed.thievery;
+    effective.raiding_minutes = redistributed.raiding;
     effective
 }
 

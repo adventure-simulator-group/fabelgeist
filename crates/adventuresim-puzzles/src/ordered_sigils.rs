@@ -1,4 +1,3 @@
-use fabelgeist_determinism::SplitMix64;
 use serde::{Deserialize, Serialize};
 
 use super::{MAX_MINIMIZATION_SUBSETS, ORDERED_SIGIL_COUNT, ORDERED_SIGIL_RULES_VERSION};
@@ -148,8 +147,9 @@ impl OrderedSigilPuzzle {
 
     pub fn generate_with_spec(seed: u64, spec: OrderedSigilSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        const ORDERED_SIGIL_GENERATION_DOMAIN: u64 = 0x6572_7261_6e74_7279;
-        let mut rng = SplitMix64::new(seed ^ ORDERED_SIGIL_GENERATION_DOMAIN);
+        const ORDERED_SIGIL_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+            fabelgeist_determinism::StreamId::new("puzzle.ordered_sigil");
+        let mut rng = ORDERED_SIGIL_GENERATION_DOMAIN.rng(seed, &[]);
         let mut solution = Sigil::ALL;
         for end in (1..solution.len()).rev() {
             let selected = rng.index(end + 1);

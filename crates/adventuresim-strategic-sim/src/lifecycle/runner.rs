@@ -1,3 +1,4 @@
+mod sampling;
 use super::{
     CausalMetrics, CourtshipMetrics, FamilyMetrics, HousingMetrics, LIFECYCLE_REPORT_VERSION,
     LifecycleBundle, LifecycleCadence, LifecycleComparison, LifecycleMetrics, LifecycleReport,
@@ -22,6 +23,7 @@ use adventuresim_core::{
     },
     strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY},
 };
+use sampling::lifecycle_entropy;
 use serde::Serialize;
 use std::{
     fs::{self, OpenOptions},
@@ -219,13 +221,6 @@ impl ScenarioState {
             self.npc_batches += 1;
         }
     }
-}
-
-fn lifecycle_entropy(seed: u64, domain: &str, ordinal: u64) -> u16 {
-    let seed = seed.to_string();
-    let ordinal = ordinal.to_string();
-    (adventuresim_core::courtship::stable_lifecycle_hash(domain, &[&seed, &ordinal])
-        % u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)) as u16
 }
 
 fn select_socializing_role<'a>(tiers: &[(&'a str, &[&'a str])]) -> Option<(&'a str, &'a str)> {

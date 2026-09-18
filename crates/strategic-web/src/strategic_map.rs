@@ -886,6 +886,7 @@ mod tests {
         let coordinate =
             Wgs84CoordinateE7::from_longitude_latitude_degrees(longitude, latitude).unwrap();
         BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "quest-1".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId { value: id.into() },
@@ -977,7 +978,7 @@ mod tests {
             "origin",
             &connected,
             Some("near"),
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             None,
         )
         .into_string();
@@ -1060,7 +1061,7 @@ mod tests {
             "origin",
             &BTreeSet::new(),
             Some("site:opaque-hash"),
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             Some(&route),
         )
         .into_string();
@@ -1136,7 +1137,7 @@ mod tests {
             "origin",
             &BTreeSet::new(),
             None,
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             None,
         )
         .into_string();

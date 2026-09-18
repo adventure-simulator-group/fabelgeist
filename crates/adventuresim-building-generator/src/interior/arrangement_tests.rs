@@ -78,7 +78,7 @@ fn interior_narrow_inn_ground_room_cannot_combine_full_counter_and_dining_group(
     let program = BuildingProgram::validated_settlement(
         settlement_archetype(BuildingUse::Inn),
         BuildingUse::Inn,
-        42,
+        21,
         None,
     )
     .unwrap();

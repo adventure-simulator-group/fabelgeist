@@ -3,6 +3,7 @@
 //! Bodies store bounded physical outcomes, never tactical replay, attacker
 //! identity, or a canonical cause-of-death answer.
 
+mod draws;
 use adventuresim_core::{
     autopsy::{
         CorpseLocation, DecompositionBand, PostCombatBody, corpse_location, decomposition_band,
@@ -1341,10 +1342,7 @@ pub fn open_corpse(
         CorpsePermissionScope::Examination,
     )?;
     let completed_minute = now(ctx, actor_id)?;
-    let entropy = (adventuresim_core::settlement_population::stable_hash(&format!(
-        "{}:{actor_id}:{}:opening:{}",
-        corpse.id, corpse.revision, receipt_id
-    )) % 10_001) as u16;
+    let entropy = draws::opening_quality(&corpse, actor_id, &receipt_id);
     let (quality, obscuration) = opening_quality_bps(surgery, entropy);
     corpse.opened = true;
     corpse.opening_quality_bps = quality;
@@ -1743,12 +1741,7 @@ pub(crate) fn grant_permission_from_dialogue(
         })
         .unwrap_or(0.0);
     let difficulty = permission_difficulty(kind, scope);
-    let entropy = adventuresim_core::settlement_population::stable_hash(&format!(
-        "corpse-permission:{attempt_id}"
-    ));
-    let roll = (entropy % (u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE) + 1))
-        as f32
-        / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE);
+    let roll = draws::permission(&attempt_id);
     let professional_fit = matches!(
         npc.profession.as_str(),
         "cleric" | "physician" | "surgeon" | "local healer"

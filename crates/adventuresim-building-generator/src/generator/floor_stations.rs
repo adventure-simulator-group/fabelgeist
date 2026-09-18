@@ -15,8 +15,11 @@ fn joists(program: &BuildingProgram, width: f32) -> Vec<f32> {
     }
     // Full bays retain room for the masonry; the final bay takes the remainder.
     let pitch = MAXIMUM_JOIST_PITCH_METRES;
-    let set_out =
-        HEATED_BAY_SET_OUT_METRES[(program.seed % HEATED_BAY_SET_OUT_METRES.len() as u64) as usize];
+    let set_out = HEATED_BAY_SET_OUT_METRES[fabelgeist_determinism::StreamId::new(
+        "building.heated-bay-set-out",
+    )
+    .rng(program.seed, &[])
+    .index(HEATED_BAY_SET_OUT_METRES.len())];
     let mut stations = vec![0.0];
     stations.extend(
         (1..=count)

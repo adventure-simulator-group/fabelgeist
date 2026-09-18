@@ -3,11 +3,11 @@ pub use adventuresim_core::personality::{
     Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
     Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance, Transparency,
 };
-use fabelgeist_determinism::SplitMix64;
+use fabelgeist_determinism::DeterministicRng;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
-const PERSONALITY_GENERATION_DOMAIN: u64 = 0x7065_7273_6f6e_616c;
-const PERSONALITY_CHARACTER_ID_ROTATION: u32 = 29;
+const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("character.personality");
 
 /// Gateway-safe, derived visibility of strategic temperament. Behavioral
 /// fields are a cache projected from the private continuous score row; raw
@@ -602,102 +602,100 @@ pub fn conviction_strength_for_character(ctx: &ReducerContext, character_id: u64
 /// Generate a sparse profile with exactly two through four distinct axes.
 pub fn random_personality(
     character_id: u64,
-    mut random: impl FnMut() -> u64,
+    random: &mut DeterministicRng,
 ) -> CharacterPersonality {
     let mut result = CharacterPersonality::neutral(character_id);
     let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    for index in (1..axes.len()).rev() {
-        axes.swap(index, random() as usize % (index + 1));
-    }
-    let count = 2 + random() as usize % 3;
+    random.shuffle(&mut axes);
+    let count = 2 + random.index(3);
     for axis in axes.into_iter().take(count) {
         match axis {
             0 => {
-                result.nerve = if random().is_multiple_of(2) {
+                result.nerve = if random.boolean() {
                     Nerve::Brave
                 } else {
                     Nerve::Fearful
                 }
             }
             1 => {
-                result.drive = if random().is_multiple_of(2) {
+                result.drive = if random.boolean() {
                     Drive::Ambitious
                 } else {
                     Drive::Content
                 }
             }
             2 => {
-                result.outlook = if random().is_multiple_of(2) {
+                result.outlook = if random.boolean() {
                     Outlook::Sanguine
                 } else {
                     Outlook::Brooding
                 }
             }
             3 => {
-                result.sociability = if random().is_multiple_of(2) {
+                result.sociability = if random.boolean() {
                     Sociability::Gregarious
                 } else {
                     Sociability::Solitary
                 }
             }
             4 => {
-                result.conscience = match random() % 3 {
+                result.conscience = match random.index(3) {
                     0 => Conscience::Compassionate,
                     1 => Conscience::Callous,
                     _ => Conscience::Cruel,
                 }
             }
             5 => {
-                result.self_regard = if random().is_multiple_of(2) {
+                result.self_regard = if random.boolean() {
                     SelfRegard::Proud
                 } else {
                     SelfRegard::Humble
                 }
             }
             6 => {
-                result.conviction = if random().is_multiple_of(2) {
+                result.conviction = if random.boolean() {
                     Conviction::Zealous
                 } else {
                     Conviction::Irreverent
                 }
             }
             7 => {
-                result.hygiene = if random().is_multiple_of(2) {
+                result.hygiene = if random.boolean() {
                     Hygiene::Slovenly
                 } else {
                     Hygiene::Cleanly
                 }
             }
             8 => {
-                result.temperance = if random().is_multiple_of(2) {
+                result.temperance = if random.boolean() {
                     Temperance::Temperate
                 } else {
                     Temperance::Drunkard
                 }
             }
             9 => {
-                result.mirth = if random().is_multiple_of(2) {
+                result.mirth = if random.boolean() {
                     Mirth::Merry
                 } else {
                     Mirth::Grave
                 }
             }
             10 => {
-                result.courtship = if random().is_multiple_of(2) {
+                result.courtship = if random.boolean() {
                     Courtship::Amorous
                 } else {
                     Courtship::Proper
                 }
             }
             11 => {
-                result.transparency = if random().is_multiple_of(2) {
+                result.transparency = if random.boolean() {
                     Transparency::Open
                 } else {
                     Transparency::Guarded
                 }
             }
             _ => {
-                result.self_knowledge = if random().is_multiple_of(2) {
+                result.self_knowledge = if random.boolean() {
                     SelfKnowledge::Introspective
                 } else {
                     SelfKnowledge::SelfDeceiving
@@ -705,12 +703,12 @@ pub fn random_personality(
             }
         }
     }
-    result.sex = if random().is_multiple_of(2) {
+    result.sex = if random.boolean() {
         Sex::Female
     } else {
         Sex::Male
     };
-    let presentation_roll = random() % 100;
+    let presentation_roll = random.index(100);
     result.presentation = match (result.sex, presentation_roll) {
         (_, 0..=3) => Presentation::Ambiguous,
         (Sex::Female, 4) => Presentation::Man,
@@ -720,7 +718,7 @@ pub fn random_personality(
     };
     // Direction is generated from demographic sex rather than the public
     // presentation signal. The signal is the only field attraction consumes.
-    result.inclination = match random() % 100 {
+    result.inclination = match random.index(100) {
         0 => Inclination::Neither,
         1..=4 => Inclination::Either,
         5..=9 => match result.sex {
@@ -741,12 +739,8 @@ pub fn random_personality(
 /// the same demographic axes and sparse traits regardless of bootstrap order,
 /// retries, or unrelated random draws in the surrounding transaction.
 pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> CharacterPersonality {
-    let mut random = SplitMix64::new(
-        stable_seed
-            ^ character_id.rotate_left(PERSONALITY_CHARACTER_ID_ROTATION)
-            ^ PERSONALITY_GENERATION_DOMAIN,
-    );
-    random_personality(character_id, || random.next_u64())
+    let mut random = PERSONALITY_GENERATION_DOMAIN.rng(stable_seed, &[character_id]);
+    random_personality(character_id, &mut random)
 }
 
 pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> CharacterPersonality {
@@ -785,7 +779,10 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
         } else {
             // Non-candidate characters remain behaviorally neutral, but the
             // always-assigned demographic axes must still have real values.
-            let generated = random_personality(character_id, || ctx.random());
+            let generated = random_personality(
+                character_id,
+                &mut PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+            );
             let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
             neutral.presentation = generated.presentation;
@@ -797,7 +794,10 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
 }
 
 pub fn assign_random_personality(ctx: &ReducerContext, character_id: u64) {
-    let row = random_personality(character_id, || ctx.random());
+    let row = random_personality(
+        character_id,
+        &mut PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+    );
     reset_personality_from_visible(ctx, row);
 }
 
@@ -1010,11 +1010,7 @@ mod tests {
     #[test]
     fn generated_profiles_are_sparse_and_axes_are_mutually_exclusive() {
         for seed in 0..100_u64 {
-            let mut value = seed;
-            let personality = random_personality(seed, || {
-                value = value.wrapping_mul(6364136223846793005).wrapping_add(1);
-                value
-            });
+            let personality = personality_from_stable_seed(seed, seed);
             assert!((2..=4).contains(&personality.non_neutral_count()));
             let scores = CharacterPersonalityScores::from_visible(&personality);
             let projected = project_scores(&scores, &personality);

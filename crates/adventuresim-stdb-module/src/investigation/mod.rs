@@ -13,9 +13,11 @@ pub(crate) const INVESTIGATION_SOURCE: &str = concat!(
     include_str!("model.rs"),
     include_str!("geometry.rs"),
     include_str!("projections.rs"),
+    include_str!("projections/site_context.rs"),
     include_str!("capabilities.rs"),
     include_str!("actions.rs"),
     include_str!("sites.rs"),
+    include_str!("sites/provenance.rs"),
     include_str!("claims.rs"),
 );
 

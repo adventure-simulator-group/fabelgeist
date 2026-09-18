@@ -15,6 +15,26 @@ pub(super) struct TrainingScheduleForm {
     raiding_minutes: u16,
 }
 
+impl TrainingScheduleForm {
+    fn into_schedule(self) -> Result<ScheduleAllocation, adventuresim_core::strategic_schedule::ScheduleParseError> {
+        let schedule = ScheduleAllocation {
+        reading_minutes: self.reading_minutes,
+        combat_training_minutes: self.combat_training_minutes,
+        carousing_minutes: self.carousing_minutes,
+        socializing_minutes: self.socializing_minutes,
+        apprenticeship_minutes: self.apprenticeship_minutes,
+        apprenticeship_organization_id: self.apprenticeship_organization_id,
+        profession_practice_minutes: self.profession_practice_minutes,
+        practice_organization_id: self.practice_organization_id,
+        labor_minutes: self.labor_minutes,
+        prayer_minutes: self.prayer_minutes,
+        thievery_minutes: self.thievery_minutes,
+        raiding_minutes: self.raiding_minutes,
+    };
+        crate::schedule::validate(schedule)
+    }
+}
+
 #[cfg(test)]
 mod training_schedule_form_tests {
     use super::TrainingScheduleForm;
@@ -61,19 +81,9 @@ pub(super) async fn update_training_schedule(
         )
             .into_response();
     }
-    let downtime = ScheduleAllocation {
-        reading_minutes: form.reading_minutes,
-        combat_training_minutes: form.combat_training_minutes,
-        carousing_minutes: form.carousing_minutes,
-        socializing_minutes: form.socializing_minutes,
-        apprenticeship_minutes: form.apprenticeship_minutes,
-        apprenticeship_organization_id: form.apprenticeship_organization_id,
-        profession_practice_minutes: form.profession_practice_minutes,
-        practice_organization_id: form.practice_organization_id,
-        labor_minutes: form.labor_minutes,
-        prayer_minutes: form.prayer_minutes,
-        thievery_minutes: form.thievery_minutes,
-        raiding_minutes: form.raiding_minutes,
+    let downtime = match form.into_schedule() {
+        Ok(schedule) => schedule,
+        Err(error) => return (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     };
     match state
         .db
@@ -87,7 +97,14 @@ pub(super) async fn update_training_schedule(
         .await
     {
         Ok(()) => Redirect::to(
-            &building.append_to(&state, &kind, &id, format!("/locations/{kind}/{id}/party/{character_id}")).await,
+            &building
+                .append_to(
+                    &state,
+                    &kind,
+                    &id,
+                    paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
+                )
+                .await,
         )
         .into_response(),
         Err(error) => {
@@ -185,11 +202,17 @@ pub(super) async fn perform_immediate_activity(
             if let Some((character, _)) = get_active_character(&state, Some(character_id)).await
                 && let Some(case_site_id) = character.current_case_site_id
             {
-                return Redirect::to(&format!("/locations/case-site/{case_site_id}"))
-                    .into_response();
+                return Redirect::to(&paths::CASE_SITE.url([&case_site_id])).into_response();
             }
             Redirect::to(
-                &building.append_to(&state, &kind, &id, format!("/locations/{kind}/{id}/party/{character_id}")).await,
+                &building
+                    .append_to(
+                        &state,
+                        &kind,
+                        &id,
+                        paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
+                    )
+                    .await,
             )
             .into_response()
         }
@@ -225,14 +248,11 @@ pub(super) async fn party_member(
     let selected = if character_id == active_character.id {
         active_character.clone()
     } else {
-        let character = crate::routes::data::character_as_observed(
-            &state,
-            character_id,
-            active_character.id,
-        )
-            .await
-            .ok()
-            .flatten();
+        let character =
+            crate::routes::data::character_as_observed(&state, character_id, active_character.id)
+                .await
+                .ok()
+                .flatten();
         match character {
             Some(character) => character,
             None => return Html("<h1>Party member not found</h1>".to_string()),
@@ -268,7 +288,7 @@ pub(super) async fn party_member(
     };
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let food_lots: Vec<FoodLot> = state
@@ -397,7 +417,7 @@ pub(super) async fn party_pool_inventory(
         .unwrap_or_default();
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let equip = character_equipment_graph(&state, character.id).await;

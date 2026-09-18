@@ -12,8 +12,6 @@ fn default_personal_scope() -> String {
 
 #[derive(Deserialize)]
 pub(super) struct FireplaceQuery {
-    #[serde(default)]
-    building: String,
     #[serde(default = "default_personal_scope")]
     inventory_scope: String,
 }
@@ -50,9 +48,9 @@ fn settlement_fireplace_context(
         "residences" => Some(true),
         "keep" => Some(matches!(
             settlement.category,
-            crate::spacetimedb::SettlementCategory::Town
-                | crate::spacetimedb::SettlementCategory::City
-                | crate::spacetimedb::SettlementCategory::Capital
+            db::SettlementCategory::Town
+                | db::SettlementCategory::City
+                | db::SettlementCategory::Capital
         )),
         "market" => Some(
             adventuresim_core::organization::service_npc_location_available(
@@ -157,13 +155,15 @@ async fn camp_fireplace_context(
         .ok_or("Character has no active camp")?;
     let party = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+        .query_one_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+            party_id,
+        ))
         .await
         .map_err(|_| "Party state unavailable")?
         .ok_or("Party state unavailable")?;
     let journey = state
         .db
-        .query_one_sats::<PartyJourney>(&crate::spacetimedb::party_journey_by_party_id(party_id))
+        .query_one_sats::<PartyJourney>(&db::party_journey_by_party_id(party_id))
         .await
         .map_err(|_| "Journey state unavailable")?
         .ok_or("Journey state unavailable")?;
@@ -235,19 +235,19 @@ async fn fireplace_rows(
         .unwrap_or_default();
     let definitions = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let key = format!("{}|{}", actor.id, fireplace_fixture_id);
     let station = state
         .db
-        .query_one_sats::<BackendFireplaceStation>(&crate::spacetimedb::fireplace_station_by_key(&key))
+        .query_one_sats::<BackendFireplaceStation>(&db::fireplace_station_by_key(&key))
         .await
         .ok()
         .flatten();
     let dish = state
         .db
-        .query_one_sats::<BackendFireplaceDish>(&crate::spacetimedb::fireplace_dish_by_station_key(&key))
+        .query_one_sats::<BackendFireplaceDish>(&db::fireplace_dish_by_station_key(&key))
         .await
         .ok()
         .flatten();
@@ -276,12 +276,9 @@ async fn fireplace_rows(
         .into_iter()
         .filter(|row| vessel_keys.contains(row.station_key.as_str()))
         .collect::<Vec<_>>();
-    let minute = query_single::<CharacterTime>(
-        state,
-        crate::spacetimedb::character_time_by_character_id(actor.id),
-    )
-    .await
-    .map_or(0, |row| row.minutes);
+    let minute = query_single::<CharacterTime>(state, db::character_time_by_character_id(actor.id))
+        .await
+        .map_or(0, |row| row.minutes);
     (
         personal,
         party,
@@ -299,7 +296,7 @@ async fn fireplace_rows(
 
 pub(super) async fn settlement_fireplace(
     State(state): State<AppState>,
-    Path(id): Path<String>,
+    Path((id, place)): Path<(String, String)>,
     Query(query): Query<FireplaceQuery>,
     session: Session,
 ) -> Response {
@@ -315,31 +312,27 @@ pub(super) async fn settlement_fireplace(
     }
     let Some(settlement) = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(&id))
+        .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
         .await
         .ok()
         .flatten()
     else {
         return StatusCode::NOT_FOUND.into_response();
     };
-    let context = match settlement_fireplace_context(&settlement, &query.building) {
+    let context = match settlement_fireplace_context(&settlement, &place) {
         Ok(v) => v,
         Err(e) => return (StatusCode::NOT_FOUND, e).into_response(),
     };
     let rows = fireplace_rows(&state, &actor, &context).await;
-    let action_base = format!(
-        "/locations/settlement/{id}/fireplace?building={}",
-        query.building
-    );
-    let post_base = format!("/locations/settlement/{id}/fireplace");
-    let back = format!("/locations/settlement/{id}");
-    let active = query.building.clone();
+    let action_base = paths::SETTLEMENT_FIREPLACE.url([&id, &place]);
+    let back = paths::SETTLEMENT_PLACE.url([&id, &place]);
+    let active = place.clone();
     Html(
         crate::templates::settlement::fireplace_page(
             "Fireplace",
             &back,
             &action_base,
-            &format!("/locations/settlement/{id}/map/rest"),
+            &paths::REST_AT_SETTLEMENT_MAP.url([&id]),
             &actor,
             if query.inventory_scope == "party" {
                 "party"
@@ -371,31 +364,7 @@ pub(super) async fn settlement_fireplace(
                 )
             },
         )
-        .into_string()
-        .replace(
-            &format!("{action_base}/ingredients"),
-            &format!("{post_base}/ingredients?building={}", query.building),
-        )
-        .replace(
-            &format!("{action_base}/instrument"),
-            &format!("{post_base}/instrument?building={}", query.building),
-        )
-        .replace(
-            &format!("{action_base}/retrieve"),
-            &format!("{post_base}/retrieve?building={}", query.building),
-        )
-        .replace(
-            &format!("{action_base}/container/place"),
-            &format!("{post_base}/container/place?building={}", query.building),
-        )
-        .replace(
-            &format!("{action_base}/container/start"),
-            &format!("{post_base}/container/start?building={}", query.building),
-        )
-        .replace(
-            &format!("{action_base}/container/remove"),
-            &format!("{post_base}/container/remove?building={}", query.building),
-        ),
+        .into_string(),
     )
     .into_response()
 }
@@ -416,9 +385,9 @@ pub(super) async fn camp_fireplace_page(
     Html(
         crate::templates::settlement::fireplace_page(
             "Campfire",
-            "/camp",
-            "/camp/fireplace",
-            "/camp/rest",
+            paths::CAMP.pattern(),
+            paths::CAMP_FIREPLACE_PAGE.pattern(),
+            paths::REST_AT_CAMP.pattern(),
             &actor,
             if query.inventory_scope == "party" {
                 "party"
@@ -464,7 +433,7 @@ async fn fireplace_post_context(
             }
             let settlement = state
                 .db
-                .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(id))
+                .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(id))
                 .await
                 .map_err(|_| "Settlement state unavailable")?
                 .ok_or("Settlement not found")?;
@@ -517,15 +486,14 @@ async fn post_fireplace_ingredients(
 
 pub(super) async fn settlement_fireplace_ingredients(
     State(state): State<AppState>,
-    Path(id): Path<String>,
-    Query(query): Query<FireplaceQuery>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
     Form(form): Form<CookFoodForm>,
 ) -> Response {
     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
         return Redirect::to("/characters").into_response();
     };
-    let context = match fireplace_post_context(&state, &actor, Some((&id, &query.building))).await {
+    let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
@@ -534,10 +502,7 @@ pub(super) async fn settlement_fireplace_ingredients(
         actor,
         context,
         form,
-        format!(
-            "/locations/settlement/{id}/fireplace?building={}",
-            query.building
-        ),
+        paths::SETTLEMENT_FIREPLACE.url([&id, &place]),
     )
     .await
 }
@@ -554,7 +519,14 @@ pub(super) async fn camp_fireplace_ingredients(
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
-    post_fireplace_ingredients(state, actor, context, form, "/camp/fireplace".into()).await
+    post_fireplace_ingredients(
+        state,
+        actor,
+        context,
+        form,
+        paths::CAMP_FIREPLACE_PAGE.pattern().into(),
+    )
+    .await
 }
 
 async fn post_fireplace_retrieve(
@@ -571,7 +543,7 @@ async fn post_fireplace_retrieve(
             &[
                 json!(actor.id),
                 json!(context),
-                crate::spacetimedb::sats_option(form.container_object_id),
+                db::sats_option(form.container_object_id),
             ],
         )
         .await
@@ -582,15 +554,14 @@ async fn post_fireplace_retrieve(
 }
 pub(super) async fn settlement_fireplace_retrieve(
     State(state): State<AppState>,
-    Path(id): Path<String>,
-    Query(query): Query<FireplaceQuery>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
     Form(form): Form<FireplaceRetrieveForm>,
 ) -> Response {
     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
         return Redirect::to("/characters").into_response();
     };
-    let context = match fireplace_post_context(&state, &actor, Some((&id, &query.building))).await {
+    let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
@@ -599,10 +570,7 @@ pub(super) async fn settlement_fireplace_retrieve(
         actor,
         context,
         form,
-        format!(
-            "/locations/settlement/{id}/fireplace?building={}",
-            query.building
-        ),
+        paths::SETTLEMENT_FIREPLACE.url([&id, &place]),
     )
     .await
 }
@@ -618,7 +586,14 @@ pub(super) async fn camp_fireplace_retrieve(
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
-    post_fireplace_retrieve(state, actor, context, form, "/camp/fireplace".into()).await
+    post_fireplace_retrieve(
+        state,
+        actor,
+        context,
+        form,
+        paths::CAMP_FIREPLACE_PAGE.pattern().into(),
+    )
+    .await
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -656,15 +631,14 @@ async fn post_fireplace_container(
 
 pub(super) async fn settlement_fireplace_container_place(
     State(state): State<AppState>,
-    Path(id): Path<String>,
-    Query(query): Query<FireplaceQuery>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
     Form(form): Form<FireplaceContainerPlaceForm>,
 ) -> Response {
     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
         return Redirect::to("/characters").into_response();
     };
-    let context = match fireplace_post_context(&state, &actor, Some((&id, &query.building))).await {
+    let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
@@ -674,10 +648,7 @@ pub(super) async fn settlement_fireplace_container_place(
         context,
         FireplaceContainerOperation::Place,
         vec![json!(form.inventory_scope), json!(form.inventory_item_id)],
-        format!(
-            "/locations/settlement/{id}/fireplace?building={}",
-            query.building
-        ),
+        paths::SETTLEMENT_FIREPLACE.url([&id, &place]),
     )
     .await
 }
@@ -699,21 +670,20 @@ pub(super) async fn camp_fireplace_container_place(
         context,
         FireplaceContainerOperation::Place,
         vec![json!(form.inventory_scope), json!(form.inventory_item_id)],
-        "/camp/fireplace".into(),
+        paths::CAMP_FIREPLACE_PAGE.pattern().into(),
     )
     .await
 }
 pub(super) async fn settlement_fireplace_container_start(
     State(state): State<AppState>,
-    Path(id): Path<String>,
-    Query(query): Query<FireplaceQuery>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
     Form(form): Form<FireplaceContainerForm>,
 ) -> Response {
     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
         return Redirect::to("/characters").into_response();
     };
-    let context = match fireplace_post_context(&state, &actor, Some((&id, &query.building))).await {
+    let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
@@ -723,10 +693,7 @@ pub(super) async fn settlement_fireplace_container_start(
         context,
         FireplaceContainerOperation::StartCooking,
         vec![json!(form.container_object_id)],
-        format!(
-            "/locations/settlement/{id}/fireplace?building={}",
-            query.building
-        ),
+        paths::SETTLEMENT_FIREPLACE.url([&id, &place]),
     )
     .await
 }
@@ -748,21 +715,20 @@ pub(super) async fn camp_fireplace_container_start(
         context,
         FireplaceContainerOperation::StartCooking,
         vec![json!(form.container_object_id)],
-        "/camp/fireplace".into(),
+        paths::CAMP_FIREPLACE_PAGE.pattern().into(),
     )
     .await
 }
 pub(super) async fn settlement_fireplace_container_remove(
     State(state): State<AppState>,
-    Path(id): Path<String>,
-    Query(query): Query<FireplaceQuery>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
     Form(form): Form<FireplaceContainerForm>,
 ) -> Response {
     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
         return Redirect::to("/characters").into_response();
     };
-    let context = match fireplace_post_context(&state, &actor, Some((&id, &query.building))).await {
+    let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
         Ok(v) => v,
         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
     };
@@ -772,10 +738,7 @@ pub(super) async fn settlement_fireplace_container_remove(
         context,
         FireplaceContainerOperation::Retrieve,
         vec![json!(form.container_object_id)],
-        format!(
-            "/locations/settlement/{id}/fireplace?building={}",
-            query.building
-        ),
+        paths::SETTLEMENT_FIREPLACE.url([&id, &place]),
     )
     .await
 }
@@ -797,7 +760,7 @@ pub(super) async fn camp_fireplace_container_remove(
         context,
         FireplaceContainerOperation::Retrieve,
         vec![json!(form.container_object_id)],
-        "/camp/fireplace".into(),
+        paths::CAMP_FIREPLACE_PAGE.pattern().into(),
     )
     .await
 }
@@ -812,26 +775,20 @@ pub(super) async fn party_religion_knowledge_check(
     };
     let mut checks = Vec::with_capacity(party_members.len());
     for member in living_party_member_refs(party_members) {
-        let skills = query_single::<CharacterSkills>(
-            state,
-            crate::spacetimedb::character_skills_by_character_id(member.id),
-        )
-        .await;
+        let skills =
+            query_single::<CharacterSkills>(state, db::character_skills_by_character_id(member.id))
+                .await;
         let attributes = query_single::<CharacterAttributes>(
             state,
-            crate::spacetimedb::character_attributes_by_character_id(member.id),
+            db::character_attributes_by_character_id(member.id),
         )
         .await;
-        let limbs = query_single::<CharacterLimbs>(
-            state,
-            crate::spacetimedb::character_limbs_by_character_id(member.id),
-        )
-        .await;
-        let stats = query_single::<CharacterStats>(
-            state,
-            crate::spacetimedb::character_stats_by_character_id(member.id),
-        )
-        .await;
+        let limbs =
+            query_single::<CharacterLimbs>(state, db::character_limbs_by_character_id(member.id))
+                .await;
+        let stats =
+            query_single::<CharacterStats>(state, db::character_stats_by_character_id(member.id))
+                .await;
         if let (Some(skills), Some(attributes), Some(limbs), Some(stats)) =
             (skills, attributes, limbs, stats)
         {

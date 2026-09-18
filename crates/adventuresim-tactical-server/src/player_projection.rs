@@ -700,7 +700,12 @@ fn spawn_connected_player(
     };
 
     let player_collider = player_collider();
-    let spawn_position = Vec2::new(rand::random_range(-5.0..5.0), rand::random_range(-5.0..5.0));
+    let mut spawn_random = fabelgeist_determinism::StreamId::new("tactical.player-spawn")
+        .rng(player.character.id, &[]);
+    let spawn_position = Vec2::new(
+        spawn_random.range_f32(-5.0, 5.0),
+        spawn_random.range_f32(-5.0, 5.0),
+    );
     let spawn_height = q_scene
         .iter()
         .next()

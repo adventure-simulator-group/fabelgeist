@@ -142,7 +142,6 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-pub(crate) use fabelgeist_determinism::splitmix64;
 use web_time::Instant;
 
 #[derive(Resource)]

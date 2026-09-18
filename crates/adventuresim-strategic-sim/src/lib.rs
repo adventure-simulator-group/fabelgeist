@@ -6,7 +6,6 @@ pub mod investigation_eval;
 pub mod lifecycle;
 mod live_core;
 mod profile;
-mod rng;
 mod runner;
 
 pub use analysis::*;
@@ -18,7 +17,7 @@ pub use profile::*;
 pub use runner::*;
 
 /// Native simulator config, manifest, report, trace, and replay format.
-pub const FORMAT_VERSION: u32 = 9;
+pub const FORMAT_VERSION: u32 = 10;
 /// Maximum accepted config or report JSON input.
 pub const MAX_INPUT_BYTES: u64 = 64 * 1024 * 1024;
 

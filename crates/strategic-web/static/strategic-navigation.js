@@ -5,6 +5,10 @@
   let announced;
 
   const page = () => document.querySelector("#strategic-page");
+  const placesScroll = (root) => {
+    const places = root?.querySelector(".settlement-services[data-settlement-id]");
+    return places ? { settlement: places.dataset.settlementId, left: places.scrollLeft } : null;
+  };
   const boundaryUrl = (url) => url.origin !== location.origin ||
     url.pathname.startsWith("/characters") || url.pathname === "/map/data-license" ||
     url.pathname.startsWith("/tactical/");
@@ -76,6 +80,7 @@
       ...(history.state || {}),
       strategicScroll: [scrollX, scrollY],
       strategicFocus: focusKey(document.activeElement),
+      strategicPlacesScroll: placesScroll(page()),
     }, "", location.href,
   );
   const hardBoundary = (link, url) =>
@@ -86,12 +91,17 @@
   const commitPage = ({ replacement, title, finalUrl, historyMode = "push", restore = null, alreadyUnmounted = false }) => {
     const current = page();
     if (!current) return false;
+    const previousPlaces = restore?.strategicPlacesScroll || placesScroll(current);
     if (!alreadyUnmounted) document.dispatchEvent(new CustomEvent("strategic-page-unmounting"));
     current.replaceWith(replacement);
     document.title = title || `${replacement.dataset.pageTitle} - Fabelgeist`;
     if (historyMode === "push") history.pushState({ strategicScroll: [0, 0] }, "", finalUrl);
     else if (historyMode === "replace") history.replaceState({ strategicScroll: [0, 0] }, "", finalUrl);
     document.dispatchEvent(new CustomEvent("strategic-page-mounted"));
+    const places = replacement.querySelector(".settlement-services[data-settlement-id]");
+    if (places && previousPlaces?.settlement === places.dataset.settlementId) {
+      places.scrollLeft = previousPlaces.left;
+    }
     if (restore) {
       scrollTo(...(restore.strategicScroll || [0, 0]));
       restoreFocus(replacement, restore.strategicFocus);
@@ -110,7 +120,7 @@
     const mine = ++generation;
     pending?.abort();
     pending = new AbortController();
-    saveScroll();
+    if (historyMode !== "none") saveScroll();
     current.setAttribute("aria-busy", "true");
     document.dispatchEvent(new CustomEvent("strategic-soft-navigation-start"));
     document.dispatchEvent(new CustomEvent("strategic-page-unmounting"));
@@ -186,6 +196,10 @@
   addEventListener("popstate", (event) => navigate(location.href, {
     historyMode: "none", restore: event.state || { strategicScroll: [0, 0] },
   }));
+  document.addEventListener("scroll", (event) => {
+    if (event.target.matches?.(".settlement-services[data-settlement-id]") &&
+        !page()?.hasAttribute("aria-busy")) saveScroll();
+  }, true);
   addEventListener("pagehide", () => pending?.abort(), { once: true });
   if (!history.state?.strategicScroll) history.replaceState({ strategicScroll: [scrollX, scrollY] }, "");
   window.strategicNavigate = navigate;

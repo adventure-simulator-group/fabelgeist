@@ -1,3 +1,5 @@
+const RNG_VISUAL_BUILDING_APPEARANCE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("visual.building.appearance");
 use adventuresim_building_generator::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingLodMaterial, RoofMaterial, WallMaterialClass,
 };
@@ -13,15 +15,13 @@ use adventuresim_procedural_textures::{
 };
 use bevy::math::{Affine2, Vec2};
 use bevy::render::render_resource::Face;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 use super::super::*;
 
 mod furniture;
 mod workplace;
 use workplace::WorkplaceMaterials;
-
-const APPEARANCE_DOMAIN: u64 = 0x6275_696c_645f_636f;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 enum BuildingAppearance {
@@ -48,7 +48,10 @@ impl BuildingAppearance {
     ];
 
     fn for_building(building_id: u64) -> Self {
-        match splitmix64(building_id ^ APPEARANCE_DOMAIN) % 100 {
+        match RNG_VISUAL_BUILDING_APPEARANCE
+            .rng(building_id, &[])
+            .index(100)
+        {
             0..=22 => Self::NaturalOak,
             23..=34 => Self::WeatheredOak,
             35..=49 => Self::OxideRed,

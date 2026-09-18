@@ -1,7 +1,7 @@
 use adventuresim_core::prelude::*;
 use bevy::{ecs::system::SystemParam, prelude::*};
 use bevy_enhanced_input::prelude::Actions;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use crate::combat_config::AttackCurveConfig;
@@ -95,11 +95,10 @@ pub struct CharacterId(pub u64);
 impl CharacterId {
     /// Get associated color of this player.
     pub fn color(&self) -> Color {
-        let x = splitmix64(self.0);
-
-        let hue = (x % 360) as f32;
-        let saturation = 0.28 + ((x >> 8) & 0xFF) as f32 / 255.0 * 0.18;
-        let value = 0.90 + ((x >> 16) & 0xFF) as f32 / 255.0 * 0.08;
+        let mut random = StreamId::new("character.display-color").rng(self.0, &[]);
+        let hue = random.index(360) as f32;
+        let saturation = 0.28 + random.inclusive_unit_f32() * 0.18;
+        let value = 0.90 + random.inclusive_unit_f32() * 0.08;
 
         Color::hsv(hue, saturation, value)
     }

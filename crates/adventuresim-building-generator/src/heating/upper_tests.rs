@@ -2,7 +2,7 @@ use super::*;
 use bevy::math::Vec3;
 
 fn merchant() -> (BuildingProgram, BuildingPlan) {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 0);
+    let mut program = BuildingProgram::fixture(BuildingArchetype::FachwerkMerchantHouse, 3);
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     (program, plan)
@@ -261,7 +261,7 @@ fn occupied_upper_flue_bore_and_lower_entrance_remain_clear() {
 
 #[test]
 fn town_kitchen_and_support_share_an_accessible_vertical_bay() {
-    let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 11);
+    let mut program = BuildingProgram::fixture(BuildingArchetype::TownHouse, 8);
     program.domestic_heating = Some(DomesticHeatingProgramme::HearthAndRearFedStove);
     let plan = generate(&program).unwrap();
     assert_eq!(plan.domestic_heating.as_ref().unwrap().floors.len(), 1);

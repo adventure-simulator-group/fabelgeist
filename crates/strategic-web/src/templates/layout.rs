@@ -1,10 +1,17 @@
 //! Base layout template - Three-column strategic design.
 
+#[cfg(test)]
+use appearance::WildernessVariant;
+mod appearance;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
+use appearance::{building_tier, wilderness_variant};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 
-use super::{organization_charge, organization_colors, religion_icon_path};
+use super::{
+    architecture::SettlementPresentation, organization_charge, organization_colors,
+    religion_icon_path,
+};
 
 const fn chapter_building_kind_tag(
     kind: adventuresim_core::organization::ChapterBuildingKind,
@@ -31,7 +38,7 @@ enum ScriptProfile {
 /// Minimal shell for selecting or creating a character. It intentionally omits
 /// strategic navigation: an adventurer must be selected before play begins.
 pub fn entry_layout(title: &str, content: Markup) -> Markup {
-    page_shell(title, entry_top_bar(), content, ScriptProfile::Entry)
+    page_shell(title, entry_top_bar(), content, ScriptProfile::Entry, None)
 }
 
 /// Transitional shell shown while a tactical server is being allocated.
@@ -47,7 +54,7 @@ pub fn mission_layout(title: &str, content: Markup, logged_in_as: Option<&str>) 
             }
         }
     };
-    page_shell(title, header, content, ScriptProfile::Strategic)
+    page_shell(title, header, content, ScriptProfile::Strategic, None)
 }
 
 pub fn journal_layout(content: Markup, logged_in_as: Option<&str>) -> Markup {
@@ -56,6 +63,7 @@ pub fn journal_layout(content: Markup, logged_in_as: Option<&str>) -> Markup {
         entry_top_bar_with_session(logged_in_as),
         content,
         ScriptProfile::Strategic,
+        None,
     )
 }
 
@@ -86,6 +94,7 @@ pub fn strategic_notice_page(
         entry_top_bar_with_session(logged_in_as),
         content,
         ScriptProfile::Live,
+        None,
     )
 }
 
@@ -131,6 +140,10 @@ pub fn settlement_layout_with_session(
         ),
         content,
         ScriptProfile::Strategic,
+        Some(SettlementPresentation::from_active_service(
+            settlement_id,
+            active_service,
+        )),
     )
 }
 
@@ -149,6 +162,7 @@ pub fn quest_location_layout_with_session(
         quest_location_top_bar(location_name, location_id, active_tab, false, logged_in_as),
         content,
         ScriptProfile::Strategic,
+        None,
     )
 }
 
@@ -173,10 +187,17 @@ pub fn camp_location_layout_with_session(
         ),
         content,
         ScriptProfile::Strategic,
+        None,
     )
 }
 
-fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfile) -> Markup {
+fn page_shell(
+    title: &str,
+    header: Markup,
+    content: Markup,
+    scripts: ScriptProfile,
+    presentation: Option<SettlementPresentation>,
+) -> Markup {
     html! {
         (DOCTYPE)
         html lang="en" {
@@ -185,13 +206,14 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                 meta name="viewport" content="width=device-width, initial-scale=1";
                 title { (title) " - Fabelgeist" }
 
-                link rel="stylesheet" href="/static/css/base.css?v=environment-14";
+                link rel="stylesheet" href="/static/css/base.css?v=roman-garamond-1";
                 // Shared CSS
-                link rel="stylesheet" href="/static/css/reset.css";
-                link rel="stylesheet" href="/static/css/layout.css?v=organization-facades-1";
-                link rel="stylesheet" href="/static/css/components.css?v=lowercase-display-type-1";
-                link rel="stylesheet" href="/static/css/strategic.css?v=equipment-portraits-1";
-                link rel="stylesheet" href="/static/css/utilities.css?v=strategic-ui-overhaul-1";
+                link rel="stylesheet" href="/static/css/reset.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/layout.css?v=goslar-1";
+                link rel="stylesheet" href="/static/css/components.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/strategic.css?v=goslar-2";
+                link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
+                link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
 
                 // Datastar
                 script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
@@ -201,21 +223,22 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     )))
                 }
                 script src="/static/background-fetch.js?v=background-fetch-2" {}
+                script src="/static/location-urls.js?v=location-urls-1" {}
                 script src="/static/developer-mode.js?v=development-clock-2" defer {}
                 script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
                 script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
                 @if scripts != ScriptProfile::Entry {
-                    script src="/static/live-state.js?v=sse-4" defer {}
-                    script src="/static/live-regions.js?v=preserved-client-regions-1" defer {}
+                    script src="/static/live-state.js?v=location-urls-1" defer {}
+                    script src="/static/live-regions.js?v=location-urls-1" defer {}
                 }
                 @if scripts == ScriptProfile::Strategic {
-                    script src="/static/strategic-navigation.js?v=soft-navigation-1" defer {}
+                    script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
                     script type="module" src="/static/strategic-renderer.js?v=model-owned-forge-controls-1" {}
                     script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                     script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                     script src="/static/journal-tab.js?v=journal-tab-1" defer {}
-                    script src="/static/numeric-editor.js?v=shared-numeric-editor-2" defer {}
-                    script src="/static/inventory-browser.js?v=equipment-portraits-1" defer {}
+                    script src="/static/numeric-editor.js?v=draft-callbacks-3" defer {}
+                    script src="/static/inventory-browser.js?v=framed-equipment-portraits-1" defer {}
                     script src="/static/party-trade.js?v=provision-party-food-1-slot-controls-1" defer {}
                     script src="/static/cooking.js?v=fireplace-station-1" defer {}
                     script src="/static/herbalism.js?v=bounded-craft-1" defer {}
@@ -223,18 +246,19 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     script src="/static/party-notifications.js?v=standing-leadership-votes-5" defer {}
                 script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}
                 script src="/static/physiology-dialog.js?v=visual-notebook-2" defer {}
-                    script src="/static/service-quests.js?v=apprentice-system-1" defer {}
-                    script src="/static/dialogue-client.js?v=location-fixtures-2" defer {}
-                    script src="/static/physical-evidence.js?v=deterministic-inspection-1" defer {}
+                    script src="/static/service-quests.js?v=location-urls-1" defer {}
+                    script src="/static/dialogue-client.js?v=location-urls-1" defer {}
+                    script src="/static/physical-evidence.js?v=location-urls-1" defer {}
                     script src="/static/developer-quest-editor.js?v=scenario-gallery-1" defer {}
                     script src="/static/chat-resize.js?v=counterparty-portraits-1" defer {}
-                    script src="/static/local-chat.js?v=local-chat-location-authority-1" defer {}
+                    script src="/static/local-chat.js?v=location-urls-1" defer {}
                     script src="/static/strategic-condition.js?v=strategic-condition-4" defer {}
-                    script src="/static/building-state.js?v=fireplace-context-2" defer {}
+                    script src="/static/building-state.js?v=goslar-1" defer {}
                     script src="/static/travel-planner.js?v=travel-rails-2" defer {}
                     script src="/static/strategic-map.js?v=population-culling-3" defer {}
                     script src="/static/rest-duration.js?v=wake-time-5" defer {}
-                    script src="/static/training-schedule.js?v=apprentice-system-2" defer {}
+                    script src="/static/schedule-preview.js?v=server-preview-1" defer {}
+                    script src="/static/training-schedule.js?v=server-preview-1" defer {}
                     script src="/static/immediate-activity.js?v=manual-activities-2" defer {}
                 }
             }
@@ -251,6 +275,10 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                 }
                 (maud::PreEscaped("<!-- strategic-page-start -->"))
                 div class="app" id="strategic-page" data-page-title=(title)
+                    data-architectural-family=[presentation.and_then(|value| value.family.map(|family| family.tag()))]
+                    data-place-skin=[presentation.map(|value| value.skin.tag())]
+                    data-building-material=[presentation.map(|value| value.material.tag())]
+                    style=[presentation.map(|value| format!("--active-building-tint:{}", value.material.tint()))]
                     data-script-profile=(match scripts { ScriptProfile::Entry => "entry", ScriptProfile::Live => "live", ScriptProfile::Strategic => "strategic" }) {
                     (header)
 
@@ -301,23 +329,19 @@ fn settlement_top_bar(
     ];
 
     html! {
-        @let material = if matches!(category, SettlementCategory::City | SettlementCategory::Capital) { "stone" } else { "wood" };
-        @let active_id = if active_service.is_empty() { "public-square" } else { active_service };
-        @let active_material = if active_id == "religion" || (active_id == "keep" && !matches!(category, SettlementCategory::Village)) { "stone" } else { material };
-        @let active_tint = building_tint(settlement_id, active_id, active_material);
-        style { (format!(":root{{--active-building-tint:{active_tint};}}")) }
-        header class=(format!("top-bar settlement-top-bar material-{material}"))
+        @let active_id = if active_service.is_empty() { "public-square" } else { adventuresim_core::organization::service_npc_location_id(active_service).unwrap_or(active_service) };
+        header class="top-bar settlement-top-bar"
             data-environment="settlement"
             data-building-tier=(building_tier(category))
-            data-horizon-variant=(horizon_variant(settlement_id).as_str()) {
+            data-horizon-variant="inland" {
             div class="top-bar-left settlement-location" {
                 div class="settlement-identity" {
-                a href=(format!("/locations/settlement/{}", settlement_id)) class="settlement-name" {
+                a href=(crate::location_urls::patterns::SETTLEMENT.url([&settlement_id])) class="settlement-name" {
                     (settlement_name)
                 }
                 span class="settlement-time" data-player-time title="Loading official time…"
-                    aria-label="1st of First Seed · 08:00" {
-                    "1st of First Seed · 08:00"
+                    aria-label="Loading official time" {
+                    "—"
                 }
                 }
                 (journal_button())
@@ -326,26 +350,25 @@ fn settlement_top_bar(
             nav class="top-bar-center settlement-services" aria-label="Settlement services"
                 data-settlement-id=(settlement_id) {
                 @for (path, service_id, label, icon) in services {
-                    @let available = settlement_building_available(settlement_id, category, economy, service_id);
+                    @let place = adventuresim_core::organization::service_npc_location_id(service_id).unwrap_or(service_id);
+                    @let available = settlement_building_available(settlement_id, category, economy, place);
                     @if available {
                     @let href = if path == "map" {
-                        format!("/locations/settlement/{}/map", settlement_id)
-                    } else if path.is_empty() {
-                        format!("/locations/settlement/{}", settlement_id)
-                    } else if matches!(path, "residences" | "keep") {
-                        format!("/settlements/{}/places/{}", settlement_id, path)
+                        crate::location_urls::LocationKind::Settlement.path(settlement_id)
                     } else {
-                        format!("/settlements/{}/{}", settlement_id, path)
+                        crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &place])
                     };
-                    @let service_material = if service_id == "religion" || (service_id == "keep" && !matches!(category, SettlementCategory::Village)) { "stone" } else { material };
-                    @let tint = building_tint(settlement_id, service_id, service_material);
-                    @let selected = active_service == path || (path.is_empty() && active_service == service_id);
+                    @let presentation = SettlementPresentation::from_active_service(settlement_id, path);
+                    @let tint = presentation.material.tint();
+                    @let selected = active_id == place;
                     a href=(href)
                         class=(if selected { "nav-tab active" } else { "nav-tab" })
                         style=(format!("--building-tint:{tint}"))
                         data-service-id=(service_id)
-                        data-building-id=(service_id)
-                        data-building-material=(service_material)
+                        data-building-id=(place)
+                        data-building-material=(presentation.material.tag())
+                        data-place-skin=(presentation.skin.tag())
+                        data-architectural-family=[presentation.family.map(|family| family.tag())]
                         data-service-label=(label)
                         aria-label=(label)
                         data-strategic-tooltip=(label)
@@ -372,14 +395,17 @@ fn settlement_top_bar(
                     @let kind = chapter_building_kind_tag(chapter.building_kind);
                     @let charge = organization_charge(organization);
                     @let (field, accent) = organization_colors(&organization.id);
-                    @let tint = building_tint(settlement_id, &chapter.location_id, material);
-                    a href=(format!("/settlements/{}/places/{}", settlement_id, chapter.location_id))
+                    @let presentation = SettlementPresentation::for_place(settlement_id, Some(crate::location_urls::SettlementPlace::Chapter(&chapter.location_id)));
+                    @let tint = presentation.material.tint();
+                    a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &chapter.location_id]))
                         class=(if active_service == chapter.location_id { "nav-tab active" } else { "nav-tab" })
                         style=(format!("--building-tint:{tint}"))
                         data-service-id="organization"
                         data-building-id=(&chapter.location_id)
                         data-organization-building-kind=(kind)
-                        data-building-material=(material)
+                        data-building-material=(presentation.material.tag())
+                        data-place-skin=(presentation.skin.tag())
+                        data-architectural-family=[presentation.family.map(|family| family.tag())]
                         data-service-label=(&chapter.building_name)
                         aria-label=(&chapter.building_name)
                         data-strategic-tooltip=(&chapter.building_name)
@@ -407,6 +433,14 @@ fn settlement_top_bar(
                     (character_switcher(name))
                 }
             }
+            (developer_quest_dialog())
+        }
+        script src="/static/strategic-time.js?v=accessible-clock-2" {}
+    }
+}
+
+fn developer_quest_dialog() -> Markup {
+    html! {
             dialog class="developer-quest-dialog" data-developer-quest-dialog
                 aria-labelledby="developer-quest-title" {
                 form method="dialog" class="developer-quest-shell" data-developer-quest-form {
@@ -439,8 +473,6 @@ fn settlement_top_bar(
                     }
                 }
             }
-        }
-        script src="/static/strategic-time.js?v=accessible-clock-2" {}
     }
 }
 
@@ -457,46 +489,32 @@ pub(crate) fn settlement_building_available(
     economy: Option<&adventuresim_world_schema::SettlementEconomyProfile>,
     building_id: &str,
 ) -> bool {
-    match building_id {
-        "public-square" | "residences" | "map" => true,
-        "keep" => settlement_has_keep(category),
-        "merchants" | "weapons" | "armor" | "clothing" | "herbalist" | "books" | "inn"
-        | "religion" => economy.is_none_or(|profile| service_tab_available(profile, building_id)),
-        _ => adventuresim_core::organization::organization_chapter_at(settlement_id, building_id)
-            .is_some_and(|(organization, chapter)| {
-                economy.is_none_or(|profile| {
-                    adventuresim_core::organization::chapter_has_standalone_building(
-                        organization,
-                        chapter,
-                        profile,
-                    )
+    use adventuresim_core::strategic_place::SettlementVenueKind;
+    match SettlementVenueKind::from_id(building_id) {
+        Some(SettlementVenueKind::PublicSquare | SettlementVenueKind::Residences) => true,
+        Some(SettlementVenueKind::Keep) => settlement_has_keep(category),
+        Some(_) => economy.is_none_or(|profile| {
+            adventuresim_core::settlement_economy::npc_location_is_navigable(
+                profile,
+                settlement_has_keep(category),
+                settlement_id,
+                crate::location_urls::npc_location(building_id),
+            )
+        }),
+        None if building_id == "map" => true,
+        None => {
+            adventuresim_core::organization::organization_chapter_at(settlement_id, building_id)
+                .is_some_and(|(organization, chapter)| {
+                    economy.is_none_or(|profile| {
+                        adventuresim_core::organization::chapter_has_standalone_building(
+                            organization,
+                            chapter,
+                            profile,
+                        )
+                    })
                 })
-            }),
+        }
     }
-}
-
-fn service_tab_available(
-    profile: &adventuresim_world_schema::SettlementEconomyProfile,
-    path: &str,
-) -> bool {
-    use adventuresim_core::settlement_economy::{player_visible_npc_tabs, visible_npc_tab};
-    let location_id = match path {
-        "map" => return true,
-        "merchants" => "market",
-        "weapons" => "forge",
-        "armor" => "armoury",
-        "clothing" => "tailor",
-        "herbalist" => "herbalist",
-        "books" => "bookstore",
-        "inn" => "inn",
-        "religion" => "church",
-        _ => return false,
-    };
-    visible_npc_tab(
-        &player_visible_npc_tabs(profile, false, "fixture-no-orgs"),
-        location_id,
-    )
-    .is_some()
 }
 
 fn quest_location_top_bar(
@@ -521,18 +539,18 @@ fn quest_location_top_bar(
             div class="top-bar-left settlement-location" {
                 div class="settlement-identity" {
                     @if active_tab == "camp" {
-                        a href="/camp" class="settlement-name" aria-current="page" { (location_name) }
+                        a href=(crate::location_urls::patterns::CAMP.pattern()) class="settlement-name" aria-current="page" { (location_name) }
                     } @else {
-                        a href=(format!("/locations/case-site/{}", location_id)) class="settlement-name" { (location_name) }
+                        a href=(crate::location_urls::patterns::CASE_SITE.url([&location_id])) class="settlement-name" { (location_name) }
                     }
                     span class="settlement-time" data-player-time
-                        aria-label="1st of First Seed · 08:00" { "1st of First Seed · 08:00" }
+                        aria-label="Loading official time" { "—" }
                 }
                 (journal_button())
             }
             nav class="top-bar-center settlement-services" aria-label="Location views" {
                 @if active_tab == "camp" {
-                    a href="/camp" class="nav-tab active quest-context-tab"
+                    a href=(crate::location_urls::patterns::CAMP.pattern()) class="nav-tab active quest-context-tab"
                         style=(format!("--building-tint:{enemy_tint}"))
                         data-location-view="camp"
                         data-service-label="Camp"
@@ -547,7 +565,7 @@ fn quest_location_top_bar(
                         span class="service-tab-label" aria-hidden="true" { "Camp" }
                     }
                 } @else {
-                a href=(format!("/locations/case-site/{}", location_id))
+                a href=(crate::location_urls::patterns::CASE_SITE.url([&location_id]))
                     class=(if active_tab == "map" { "nav-tab active" } else { "nav-tab" })
                     style=(format!("--building-tint:{map_tint}"))
                     data-location-view="map"
@@ -557,7 +575,7 @@ fn quest_location_top_bar(
                     span class="service-tab-building wilderness-tab-prop" aria-hidden="true" {}
                     span class="service-tab-label" aria-hidden="true" { "Map" }
                 }
-                a href=(format!("/locations/case-site/{}/enemy", location_id))
+                a href=(crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&location_id]))
                     class=(if active_tab == "enemy" { "nav-tab active" } else { "nav-tab" })
                     style=(format!("--building-tint:{enemy_tint}"))
                     data-location-view="enemy"
@@ -645,118 +663,6 @@ fn camp_flame_effect() -> Markup {
     }
 }
 
-fn building_tint(settlement: &str, service: &str, material: &str) -> String {
-    let hash = settlement
-        .bytes()
-        .chain(*b":")
-        .chain(service.bytes())
-        .fold(0xcbf29ce484222325_u64, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x100000001b3)
-        });
-    let service_slot = match service {
-        "public-square" => 0,
-        "residences" => 1,
-        "keep" => 2,
-        "map" => 3,
-        "merchants" => 4,
-        "weapons" => 5,
-        "armor" => 6,
-        "clothing" => 7,
-        "herbalist" => 8,
-        "books" => 9,
-        "inn" => 10,
-        "religion" => 11,
-        _ => (hash % 12) as usize,
-    };
-    let settlement_shift = (hash >> 24) % 9;
-    let hue = if material == "stone" {
-        [46, 198, 218, 205, 224, 252, 282, 164, 128, 68, 36, 214][service_slot] + settlement_shift
-    } else {
-        [35, 58, 16, 8, 20, 31, 43, 56, 104, 48, 72, 350][service_slot] + settlement_shift
-    };
-    let saturation = if material == "stone" {
-        12 + (hash >> 8) % 13
-    } else {
-        30 + (hash >> 8) % 25
-    };
-    let lightness = 19 + (hash >> 16) % 8;
-    format!("hsl({hue} {saturation}% {lightness}%)")
-}
-
-fn building_tier(category: &SettlementCategory) -> &'static str {
-    match category {
-        SettlementCategory::Unknown | SettlementCategory::Hamlet | SettlementCategory::Village => {
-            "village"
-        }
-        SettlementCategory::Town => "town",
-        SettlementCategory::City | SettlementCategory::Capital => "city",
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-enum HorizonVariant {
-    Inland,
-    Coastal,
-    River,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-enum WildernessVariant {
-    Forest,
-    Grassland,
-    Hills,
-}
-
-impl WildernessVariant {
-    fn as_str(self) -> &'static str {
-        match self {
-            Self::Forest => "forest",
-            Self::Grassland => "grassland",
-            Self::Hills => "hills",
-        }
-    }
-}
-
-impl HorizonVariant {
-    fn as_str(self) -> &'static str {
-        match self {
-            Self::Inland => "inland",
-            Self::Coastal => "coastal",
-            Self::River => "river",
-        }
-    }
-}
-
-/// Temporary stable scenery selection. Imported hydrology will replace only
-/// this selector; settlement markup and CSS remain variant-driven.
-fn horizon_variant(settlement_id: &str) -> HorizonVariant {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in settlement_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    match hash % 3 {
-        0 => HorizonVariant::Inland,
-        1 => HorizonVariant::Coastal,
-        _ => HorizonVariant::River,
-    }
-}
-
-/// Temporary stable terrain selection. World terrain data can replace this
-/// selector without changing the shared camp and quest-location header.
-fn wilderness_variant(location_id: &str) -> WildernessVariant {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in location_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    match hash % 3 {
-        0 => WildernessVariant::Forest,
-        1 => WildernessVariant::Grassland,
-        _ => WildernessVariant::Hills,
-    }
-}
-
 fn character_switcher(name: &str) -> Markup {
     let initial = name.chars().next().unwrap_or('?');
     html! {
@@ -808,8 +714,8 @@ pub fn sidebar_section(title: &str, content: Markup) -> Markup {
 #[cfg(test)]
 mod tests {
     use super::{
-        HorizonVariant, ScriptProfile, WildernessVariant, building_tier, building_tint,
-        chapter_building_kind_tag, entry_layout, horizon_variant, journal_layout, page_shell,
+        ScriptProfile, SettlementPresentation, WildernessVariant, building_tier,
+        chapter_building_kind_tag, entry_layout, journal_layout, page_shell,
         quest_location_top_bar, religion_icon_path, settlement_layout_with_session,
         settlement_top_bar, wilderness_variant,
     };
@@ -843,7 +749,8 @@ mod tests {
 
     #[test]
     fn shell_and_entry_header_use_the_official_fabelgeist_name() {
-        let shell = page_shell("Chat", html! {}, html! {}, ScriptProfile::Strategic).into_string();
+        let shell =
+            page_shell("Chat", html! {}, html! {}, ScriptProfile::Strategic, None).into_string();
         assert!(shell.contains("<title>Chat - Fabelgeist</title>"));
 
         let entry = entry_layout("Create", html! {}).into_string();
@@ -853,16 +760,17 @@ mod tests {
 
     #[test]
     fn strategic_shell_cache_busts_exact_location_chat_authority() {
-        let markup = page_shell("Chat", html! {}, html! {}, ScriptProfile::Strategic).into_string();
-        assert!(markup.contains("/static/local-chat.js?v=local-chat-location-authority-1"));
+        let markup =
+            page_shell("Chat", html! {}, html! {}, ScriptProfile::Strategic, None).into_string();
+        assert!(markup.contains("/static/local-chat.js?v=location-urls-1"));
         assert!(!markup.contains("local-chat.js?v=herbalist-private-1"));
-        assert!(markup.contains("/static/live-regions.js?v=preserved-client-regions-1"));
+        assert!(markup.contains("/static/live-regions.js?v=location-urls-1"));
         assert!(markup.contains("id=\"strategic-page\""));
         assert!(markup.contains("/static/strategic-navigation.js"));
         assert!(markup.contains("/static/strategic-mutations.js?v=formaction-override-1\" defer"));
         assert_eq!(markup.matches("/static/training-schedule.js").count(), 1);
         assert_eq!(markup.matches("/static/immediate-activity.js").count(), 1);
-        assert!(markup.contains("/static/training-schedule.js?v=apprentice-system-2\" defer"));
+        assert!(markup.contains("/static/training-schedule.js?v=server-preview-1\" defer"));
         assert!(markup.contains("/static/immediate-activity.js?v=manual-activities-2\" defer"));
         assert_eq!(markup.matches("id=\"strategic-live-stream\"").count(), 1);
         assert!(markup.find("id=\"strategic-live-stream\"") < markup.find("id=\"strategic-page\""));
@@ -875,43 +783,6 @@ mod tests {
         assert!(markup.contains("data-script-profile=\"strategic\""));
         assert!(markup.contains("/static/strategic-navigation.js"));
         assert_eq!(markup.matches("id=\"strategic-live-stream\"").count(), 1);
-    }
-
-    #[test]
-    fn building_tints_are_stable_distinct_and_material_bounded() {
-        assert_eq!(
-            building_tint("lubeck", "inn", "wood"),
-            building_tint("lubeck", "inn", "wood")
-        );
-        assert_ne!(
-            building_tint("lubeck", "inn", "wood"),
-            building_tint("lubeck", "weapons", "wood")
-        );
-        let wood_tints = [
-            "public-square",
-            "residences",
-            "keep",
-            "map",
-            "merchants",
-            "weapons",
-            "armor",
-            "clothing",
-            "herbalist",
-            "books",
-            "inn",
-            "religion",
-        ]
-        .map(|service| building_tint("lubeck", service, "wood"));
-        assert_eq!(
-            wood_tints
-                .iter()
-                .collect::<std::collections::HashSet<_>>()
-                .len(),
-            wood_tints.len()
-        );
-        let hue = |tint: String| tint[4..].split(' ').next().unwrap().parse::<u64>().unwrap();
-        assert!((8..=80).contains(&hue(building_tint("lubeck", "inn", "wood"))));
-        assert!((36..=290).contains(&hue(building_tint("lubeck", "inn", "stone"))));
     }
 
     #[test]
@@ -947,7 +818,7 @@ mod tests {
             None,
         )
         .into_string();
-        assert!(markup.contains("href=\"/settlements/p/books\""));
+        assert!(markup.contains("href=\"/locations/settlement/p/places/bookstore\""));
         assert!(markup.contains("data-service-label=\"Bookstore\""));
         assert!(markup.contains("nav-tab active"));
     }
@@ -979,34 +850,25 @@ mod tests {
     }
 
     #[test]
-    fn horizon_variants_are_stable_reachable_and_emitted() {
-        assert_eq!(horizon_variant("lubeck"), horizon_variant("lubeck"));
-        let variants = (0..128)
-            .map(|id| horizon_variant(&format!("settlement-{id}")))
-            .collect::<std::collections::HashSet<_>>();
-        assert_eq!(
-            variants,
-            [
-                HorizonVariant::Inland,
-                HorizonVariant::Coastal,
-                HorizonVariant::River
-            ]
-            .into_iter()
-            .collect()
-        );
-        let expected = horizon_variant("stable-place").as_str();
+    fn local_settlements_use_inland_scenery_and_physical_materials() {
         let markup = settlement_top_bar(
-            "Stable Place",
-            "stable-place",
-            &SettlementCategory::Town,
-            "map",
+            "Goslar",
+            "viabundus-2337",
+            &SettlementCategory::City,
+            "inn",
             None,
             None,
             None,
         )
         .into_string();
-        assert!(markup.contains("data-building-tier=\"town\""));
-        assert!(markup.contains(&format!("data-horizon-variant=\"{expected}\"")));
+        assert!(markup.contains("data-horizon-variant=\"inland\""));
+        assert!(markup.contains("data-place-skin=\"hearth-room\""));
+        assert_eq!(
+            SettlementPresentation::from_active_service("viabundus-2337", "inn")
+                .material
+                .tag(),
+            "timber"
+        );
     }
 
     #[test]
@@ -1050,7 +912,7 @@ mod tests {
         assert!(markup.contains("data-service-id=\"public-square\""));
         assert!(markup.contains("service-tab-icon-market"));
         assert!(markup.contains("aria-label=\"Residences\""));
-        assert!(markup.contains("href=\"/settlements/s/places/residences\""));
+        assert!(markup.contains("href=\"/locations/settlement/s/places/residences\""));
         assert!(markup.contains("data-service-id=\"residences\""));
         assert!(markup.contains("service-tab-icon-house"));
         assert!(!markup.contains("aria-label=\"Keep\""));
@@ -1086,9 +948,6 @@ mod tests {
         }
         assert!(css.contains("--service-building-image"));
         assert!(css.contains("data-building-tier"));
-        assert!(css.contains("data-service-id=\"public-square\"].active"));
-        assert!(css.contains("data-service-id=\"residences\"].active"));
-        assert!(css.contains("data-service-id=\"keep\"].active"));
         assert!(css.contains(".nav-tab[data-service-id=\"books\"]"));
         for kind in [
             "guildhall",
@@ -1114,10 +973,12 @@ mod tests {
         .into_string();
         assert_eq!(town.matches("class=\"service-tab-building\"").count(), 12);
         assert!(town.contains("aria-label=\"Keep\""));
-        assert!(town.contains("href=\"/settlements/t/places/keep\" class=\"nav-tab active\""));
+        assert!(
+            town.contains("href=\"/locations/settlement/t/places/keep\" class=\"nav-tab active\"")
+        );
         assert!(town.contains("service-tab-icon-castle"));
         assert!(town.contains(
-            "data-service-id=\"keep\" data-building-id=\"keep\" data-building-material=\"stone\""
+            "data-service-id=\"keep\" data-building-id=\"keep\" data-building-material=\"ironbound-timber\""
         ));
     }
 
@@ -1134,7 +995,7 @@ mod tests {
         )
         .into_string();
         let map = markup
-            .find("href=\"/locations/settlement/p/map\"")
+            .find("href=\"/locations/settlement/p\"")
             .expect("settlement travel map tab");
         let public_square = markup
             .find("data-service-id=\"public-square\"")
@@ -1143,11 +1004,11 @@ mod tests {
     }
 
     #[test]
-    fn active_building_is_semantic_but_only_underlined_by_css() {
+    fn active_building_construction_is_scoped_to_the_replaceable_page() {
         let markup = settlement_layout_with_session(
             "Inn",
-            "Lubeck",
-            "lubeck",
+            "Goslar",
+            "viabundus-2337",
             &SettlementCategory::City,
             "inn",
             None,
@@ -1157,9 +1018,11 @@ mod tests {
         )
         .into_string();
         assert!(markup.contains("aria-current=\"page\""));
-        assert!(markup.contains("material-stone"));
-        let css = include_str!("../../static/css/layout.css");
-        assert!(css.contains("border-bottom: 3px solid var(--accent-light)"));
+        assert!(markup.contains("data-architectural-family=\"harz\""));
+        assert!(markup.contains("data-place-skin=\"hearth-room\""));
+        assert!(markup.contains("data-building-material=\"timber\""));
+        assert!(!markup.contains(":root{--active-building-tint"));
+        assert!(markup.find("id=\"game-canvas\"") < markup.find("id=\"strategic-page\""));
     }
 
     #[test]
@@ -1170,10 +1033,10 @@ mod tests {
         assert!(time.contains("applyLighting(characterMinutes)"));
         assert!(building.contains("searchParams.get(\"building\")"));
         assert!(building.contains("searchParams.set(\"building\", building)"));
-        assert!(building.contains("pathname.includes(\"/party\")"));
-        assert!(building.contains("buildingContextPath && buildings.has(requested)"));
-        assert!(building.contains("/locations\\/settlement\\/[^/]+\\/fireplace"));
-        assert!(building.contains("!buildings.has(requested) || !buildingContextPath"));
+        assert!(building.contains("strategicLocationUrls.parse"));
+        assert!(building.contains("buildingContextPath && requestedPlace"));
+        assert!(building.contains("target.id !== nav.dataset.settlementId"));
+        assert!(building.contains("!requestedPlace || !buildingContextPath"));
         assert!(building.contains("tab.dataset.buildingId === building"));
     }
 
@@ -1191,10 +1054,8 @@ mod tests {
             None,
         )
         .into_string();
-        assert!(church.contains(&format!(
-            ":root{{--active-building-tint:{};}}",
-            building_tint("s", "religion", "stone")
-        )));
+        assert!(church.contains("data-place-skin=\"sanctuary\""));
+        assert!(church.contains("data-building-material=\"sandstone\""));
     }
 
     #[test]
@@ -1276,6 +1137,7 @@ mod tests {
             ),
             html! {},
             ScriptProfile::Strategic,
+            None,
         )
         .into_string();
         assert!(markup.contains("/static/journal-tab.js"));
@@ -1307,7 +1169,9 @@ mod tests {
             None,
         )
         .into_string();
-        assert!(overview.contains("href=\"/locations/settlement/s\" class=\"nav-tab active\""));
+        assert!(overview.contains(
+            "href=\"/locations/settlement/s/places/public-square\" class=\"nav-tab active\""
+        ));
         assert!(overview.contains("aria-label=\"Public square\""));
 
         let map = quest_location_top_bar("Ruins", "q", "map", false, None).into_string();
@@ -1320,7 +1184,7 @@ mod tests {
 
         let camp = quest_location_top_bar("Camp", "party-7", "camp", true, None).into_string();
         assert!(camp.contains("aria-label=\"Camp\""));
-        assert!(camp.contains("href=\"/camp\""));
+        assert!(camp.contains("href=\"/locations/camp\""));
         assert!(camp.contains("data-camp-fire=\"lit\""));
         assert_eq!(
             camp.matches("class=\"nav-tab active quest-context-tab\"")
@@ -1332,7 +1196,7 @@ mod tests {
         assert_eq!(camp.matches("class=\"fire-particle\"").count(), 16);
         assert_eq!(camp.matches("class=\"smoke-puff\"").count(), 18);
         assert!(!camp.contains("/locations/case-site/party-7"));
-        assert!(!camp.contains("/locations/case-site/party-7/map"));
+        assert!(!camp.contains("/locations/case-site/party-7"));
         assert!(!camp.contains("/locations/case-site/party-7/enemy"));
 
         let rested_camp =
@@ -1340,7 +1204,7 @@ mod tests {
         assert!(rested_camp.contains("data-camp-fire=\"embers\""));
         assert!(!rested_camp.contains("campfire-flame"));
         assert_eq!(rested_camp.matches("campfire-smoke").count(), 1);
-        assert!(rested_camp.contains("href=\"/camp\""));
+        assert!(rested_camp.contains("href=\"/locations/camp\""));
         assert!(rested_camp.contains("data-service-label=\"Camp\""));
         assert!(rested_camp.contains("class=\"service-tab-label\""));
     }
