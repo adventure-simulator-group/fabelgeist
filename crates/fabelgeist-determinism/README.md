@@ -55,10 +55,10 @@ Before migrating a caller, classify its calculation as sampling, seed
 derivation, spatial noise, or a domain transformation. Preserve spatial and
 domain semantics rather than replacing similarly shaped arithmetic blindly.
 
-## Outstanding identity work
+## Identity boundary
 
-[Issue #710](https://github.com/adventure-simulator-group/fabelgeist/issues/710)
-still owns the link between shop proprietors and resident operators, and the
-ordering of household sex/age assignment before names and appearance. RNG
-isolation does not correct these relationships. Tests of this crate's draws
-must not establish independent invented identities as desired game behavior.
+Settlement businesses use stable local `(usage, ordinal)` coordinates from the
+canonical demand plan. Population planning finalizes household demographics
+before dependent character facts, then tactical scenes carry the globally
+scoped business and resident operator identities. Stream isolation supports
+that ordering but does not replace those explicit relationships.

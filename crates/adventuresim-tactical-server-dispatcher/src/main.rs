@@ -19,7 +19,9 @@ use adventuresim_stdb_client::{
     tactical_server_requestQueryTableAccess,
 };
 use adventuresim_tactical_server_dispatcher::scene_input;
-use adventuresim_tactical_server_dispatcher::settlement_buildings::SettlementSceneProfile;
+use adventuresim_tactical_server_dispatcher::settlement_buildings::{
+    SettlementBusinessOperatorProfile, SettlementSceneProfile,
+};
 use adventuresim_terrain::{TerrainPack, TerrainPurpose};
 use clap::Parser;
 use sha2::{Digest, Sha256};
@@ -259,6 +261,23 @@ fn materialize_requested_scene(
             population_level: settlement.population_level,
             population_estimate: settlement.population_estimate,
             economy: settlement_economy_adapter::economy_profile(&settlement.economy),
+            operators: settlement
+                .operators
+                .iter()
+                .map(|operator| SettlementBusinessOperatorProfile {
+                    business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                        &operator.business_id.settlement_id,
+                        adventuresim_world_schema::settlement_buildings::BusinessKey {
+                            usage: settlement_economy_adapter::building_use(
+                                &operator.business_id.key.usage,
+                            ),
+                            ordinal: operator.business_id.key.ordinal,
+                        },
+                    ),
+                    operator_character_id: operator.operator_character_id,
+                    operator_name: operator.operator_name.clone(),
+                })
+                .collect(),
         });
     let input = scene_input::build_imported_scene(
         terrain,

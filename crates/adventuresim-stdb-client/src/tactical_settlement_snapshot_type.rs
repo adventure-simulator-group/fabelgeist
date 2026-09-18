@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::settlement_economy_profile_type::SettlementEconomyProfile;
+use super::tactical_business_operator_type::TacticalBusinessOperator;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,6 +14,7 @@ pub struct TacticalSettlementSnapshot {
     pub population_level: i32,
     pub population_estimate: u32,
     pub economy: SettlementEconomyProfile,
+    pub operators: Vec<TacticalBusinessOperator>,
 }
 
 impl __sdk::InModule for TacticalSettlementSnapshot {

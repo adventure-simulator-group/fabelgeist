@@ -1,7 +1,7 @@
 //! Persistent strategic settlement residents and authoritative observable presences.
 use crate::{
-    character::{character, character__view, insert_persistent_npc_character},
-    personality::{Presentation, character_personality, character_personality__view},
+    character::{NpcLifeFacts, character, character__view, insert_persistent_npc_character},
+    personality::{Presentation, Sex, character_personality, character_personality__view},
     relationship::{NpcPolicy, npc_policy},
     strategic::{settlement, strategic_gateway_authority__view},
 };
@@ -14,6 +14,7 @@ use adventuresim_core::strategic_presence::{
     DailyPresenceWindow, PresenceFrontier, ScheduledStrategicPresence, StrategicPresence,
 };
 use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::settlement_buildings::BusinessId;
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 use std::collections::BTreeSet;
@@ -289,22 +290,38 @@ pub struct SettlementResidentSeedExplanation {
     pub relations_json: String,
 }
 
+/// Authoritative one-to-one assignment of a generated business to its resident operator.
+#[derive(Clone, Debug)]
+#[table(accessor = settlement_business_operator)]
+pub struct SettlementBusinessOperator {
+    #[primary_key]
+    pub id: String,
+    #[index(btree)]
+    pub settlement_id: String,
+    pub business_id: BusinessId,
+    #[unique]
+    pub operator_character_id: u64,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 struct PersistedGenerationExplanation {
     input: GenerationInput,
     profile: population::GeneratedPopulationProfile,
 }
 
-const SERVICES: [(&str, &str, &str, &str); 8] = [
-    ("merchants", "market", "merchant", "market steward"),
-    ("weapons", "forge", "weaponsmith", "master weaponsmith"),
-    ("armor", "armoury", "armourer", "master armourer"),
-    ("clothing", "tailor", "tailor", "master tailor"),
-    ("herbalist", "herbalist", "herbalist", "local healer"),
-    ("inn", "inn", "innkeeper", "innkeeper"),
-    ("religion", "church", "cleric", "parish priest"),
-    ("books", "bookstore", "merchant", "bookseller"),
+mod resident_drafts;
+const RESIDENT_BRIDGES: [PresenceBridge; 3] = [
+    PresenceBridge::NearbyHome,
+    PresenceBridge::HouseholdErrand,
+    PresenceBridge::RetainerErrand,
 ];
+use resident_drafts::{ResidentDraft, settlement_resident_drafts};
+
+fn business_row_id(business_id: &BusinessId) -> Result<String, String> {
+    serde_json::to_string(business_id)
+        .map(|key| format!("business-operator:{key}"))
+        .map_err(|error| format!("Could not serialize business identity: {error}"))
+}
 use adventuresim_world_schema::person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES};
 
 #[derive(Clone, Copy)]
@@ -439,374 +456,59 @@ fn resident_character_id(seed: &str) -> u64 {
     resident_random(seed, ResidentEntropyStream::Identity).next_u64() | (1u64 << 63)
 }
 
-#[expect(
-    clippy::too_many_arguments,
-    reason = "resident creation keeps its authored identity inputs explicit"
-)]
-fn insert_resident(
+fn ensure_business_operator_row(
     ctx: &ReducerContext,
-    settlement_id: &str,
-    location: &str,
-    service: &str,
-    provider_profession: &str,
-    supplied_role: &str,
-    ordinal: usize,
-    is_default: bool,
+    business_id: Option<&BusinessId>,
+    operator_character_id: u64,
 ) -> Result<(), String> {
-    let seed = resident_seed(settlement_id, location, ordinal);
-    insert_resident_with_seed(
-        ctx,
-        seed,
-        settlement_id,
-        location,
-        service,
-        provider_profession,
-        supplied_role,
-        is_default,
-    )
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "seeded resident creation keeps its authored identity inputs explicit"
-)]
-fn insert_resident_with_seed(
-    ctx: &ReducerContext,
-    seed: String,
-    settlement_id: &str,
-    location: &str,
-    service: &str,
-    provider_profession: &str,
-    supplied_role: &str,
-    is_default: bool,
-) -> Result<(), String> {
-    let character_id = resident_character_id(&seed);
-    if let Some(existing) = ctx
-        .db
-        .settlement_resident_profile()
-        .character_id()
-        .find(character_id)
-    {
-        let settlement = ctx
-            .db
-            .settlement()
-            .id()
-            .find(settlement_id.to_owned())
-            .ok_or("Settlement population references an unknown settlement")?;
-        let urban = matches!(
-            settlement.category,
-            crate::strategic::SettlementCategory::Town
-                | crate::strategic::SettlementCategory::City
-                | crate::strategic::SettlementCategory::Capital
-        );
-        crate::social_roles::ensure_character_social_roles(
-            ctx,
-            character_id,
-            settlement_id,
-            urban,
-        )?;
-        if existing.profession == "cleric"
-            && let Some(organization_id) =
-                crate::social_roles::religious_organization_for(&settlement.religion_id)
-        {
-            crate::social_roles::ensure_character_professional_role(
-                ctx,
-                character_id,
-                organization_id,
-                adventuresim_core::organization::organization(organization_id)
-                    .and_then(|definition| definition.entry_role_ids.first())
-                    .ok_or("Religious organization has no entry role")?,
-            )?;
-        }
+    let Some(business_id) = business_id else {
         return Ok(());
+    };
+    let id = business_row_id(business_id)?;
+    if let Some(existing) = ctx.db.settlement_business_operator().id().find(&id) {
+        return (existing.business_id == *business_id
+            && existing.operator_character_id == operator_character_id)
+            .then_some(())
+            .ok_or_else(|| "Business operator identity conflicts with existing authority".into());
     }
-    let input = GenerationInput {
-        seed: seed.clone(),
-        location: location_context(location)?,
-        is_service_provider: !service.is_empty(),
-        service_id: (!service.is_empty()).then(|| service.to_owned()),
-        profession_override: (!service.is_empty()).then(|| provider_profession.to_owned()),
-        local_role: supplied_role.to_owned(),
-        available_bridges: BTreeSet::from([
-            PresenceBridge::NearbyHome,
-            PresenceBridge::HouseholdErrand,
-            PresenceBridge::RetainerErrand,
-        ]),
-    };
-    let profile = population::generate(&input)?;
-    let selected_profession = if service.is_empty() {
-        profession(profile.profession)
-    } else {
-        provider_profession
-    };
-    let local_role = if service.is_empty()
-        && profile.profession == Profession::Retainer
-        && supplied_role != "reeve"
+    if ctx
+        .db
+        .settlement_business_operator()
+        .operator_character_id()
+        .find(operator_character_id)
+        .is_some()
     {
-        "lord's household retainer"
-    } else {
-        supplied_role
-    };
-    let female = resident_random(&seed, ResidentEntropyStream::Sex).boolean();
-    let age_band = age(profile.age);
-    let household = format!(
-        "the {} {}",
-        SURNAMES
-            [resident_random(&seed, ResidentEntropyStream::HouseholdName).index(SURNAMES.len())],
-        profile.household_kind
-    );
-    insert_persistent_npc_character(
-        ctx,
-        resident_name(&seed, female),
-        character_id,
-        settlement_id,
-        resident_random(&seed, ResidentEntropyStream::Identity).next_u64(),
-        None,
-    )?;
-    let mut character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Resident character was not created")?;
-    character.age_years = match age_band {
-        NpcAgeBand::Child => 8,
-        NpcAgeBand::Adolescent => 15,
-        NpcAgeBand::Adult => 30,
-        NpcAgeBand::Elder => 68,
-    };
-    ctx.db.character().id().update(character);
-    ctx.db.npc_policy().insert(NpcPolicy {
-        character_id,
-        home_settlement_id: settlement_id.into(),
-        policy_seed: resident_random(&seed, ResidentEntropyStream::Identity).next_u64(),
-    });
-    let resident = ctx
-        .db
-        .settlement_resident_profile()
-        .insert(SettlementResidentProfile {
-            character_id,
-            projection_id: character_id,
-            home_settlement_id: settlement_id.into(),
-            height: profile.height.clone(),
-            build: profile.build.clone(),
-            hair: profile.hair.clone(),
-            facial_hair: if !female
-                && resident_random(&seed, ResidentEntropyStream::FacialHair).index(3) == 0
-                && !matches!(age_band, NpcAgeBand::Child)
-            {
-                "a neatly kept beard".into()
-            } else {
-                "none visible".into()
-            },
-            complexion: ["fair", "ruddy", "weathered", "olive"]
-                [resident_random(&seed, ResidentEntropyStream::Complexion).index(4)]
-            .into(),
-            visible_features: [
-                "a small scar at one brow",
-                "freckles",
-                "work-worn hands",
-                "no especially notable marks",
-            ][resident_random(&seed, ResidentEntropyStream::VisibleFeature).index(4)]
-            .into(),
-            clothing: if service.is_empty() {
-                "practical local woolens".into()
-            } else {
-                "clean working clothes appropriate to the trade".into()
-            },
-            profession: selected_profession.into(),
-            household,
-            local_role: local_role.into(),
-            service_id: service.into(),
-            organization_id: String::new(),
-            conversation_id: if service.is_empty() {
-                "local-resident".into()
-            } else if service == "herbalist" {
-                "herbalist-examination".into()
-            } else if service == "religion" {
-                "religion-service".into()
-            } else {
-                "service-professions".into()
-            },
-        });
-    let settlement = ctx
-        .db
-        .settlement()
-        .id()
-        .find(settlement_id.to_owned())
-        .ok_or("Settlement population references an unknown settlement")?;
-    let urban = matches!(
-        settlement.category,
-        crate::strategic::SettlementCategory::Town
-            | crate::strategic::SettlementCategory::City
-            | crate::strategic::SettlementCategory::Capital
-    );
-    crate::social_roles::ensure_character_social_roles(
-        ctx,
-        resident.character_id,
-        settlement_id,
-        urban,
-    )?;
-    if resident.profession == "cleric"
-        && let Some(organization_id) =
-            crate::social_roles::religious_organization_for(&settlement.religion_id)
-    {
-        crate::social_roles::ensure_character_professional_role(
-            ctx,
-            resident.character_id,
-            organization_id,
-            adventuresim_core::organization::organization(organization_id)
-                .and_then(|definition| definition.entry_role_ids.first())
-                .ok_or("Religious organization has no entry role")?,
-        )?;
+        return Err("Settlement resident is already assigned to another business".into());
     }
-    let (start_minute, end_minute) = match profile.schedule {
-        Schedule::Day => (360, 1200),
-        Schedule::Evening => (720, 1380),
-        Schedule::Early => (240, 960),
-        Schedule::Provider => (0, MINUTES_PER_DAY as u16),
-    };
     ctx.db
-        .settlement_resident_presence()
-        .insert(SettlementResidentPresence {
-            character_id,
-            settlement_id: settlement_id.into(),
-            location_id: location.into(),
-            start_minute,
-            end_minute,
-            is_default,
-            context_suppressed: false,
-            health_suppressed: false,
-        });
-    let explanation = PersistedGenerationExplanation { input, profile };
-    let relations_json = serde_json::to_string(&explanation)
-        .map_err(|error| format!("Could not serialize population explanation: {error}"))?;
-    ctx.db
-        .settlement_resident_seed_explanation()
-        .insert(SettlementResidentSeedExplanation {
-            character_id,
-            seed,
-            relations_json,
+        .settlement_business_operator()
+        .insert(SettlementBusinessOperator {
+            id,
+            settlement_id: business_id.settlement_id.clone(),
+            business_id: business_id.clone(),
+            operator_character_id,
         });
     Ok(())
 }
+
+mod resident_persistence;
+use resident_persistence::insert_resident_draft;
 
 pub fn ensure_settlement_population(
     ctx: &ReducerContext,
     settlement_id: &str,
 ) -> Result<(), String> {
     crate::social_roles::ensure_settlement_social_organizations(ctx, settlement_id)?;
-    for (service, location, profession, role) in SERVICES {
-        insert_resident(
-            ctx,
-            settlement_id,
-            location,
-            service,
-            profession,
-            role,
-            0,
-            true,
-        )?;
-        insert_resident(
-            ctx,
-            settlement_id,
-            location,
-            "",
-            "local resident",
-            "customer or visitor",
-            1,
-            false,
-        )?;
-    }
-    for ordinal in 0..3 {
-        insert_resident(
-            ctx,
-            settlement_id,
-            "overview",
-            "",
-            ["laborer", "householder", "artisan"][ordinal],
-            ["neighbor", "household representative", "local resident"][ordinal],
-            ordinal,
-            ordinal == 0,
-        )?;
-    }
-    insert_resident(
-        ctx,
-        settlement_id,
-        "residences",
-        "",
-        "householder",
-        "resident",
-        0,
-        true,
-    )?;
-    insert_resident(
-        ctx,
-        settlement_id,
-        "residences",
-        "",
-        "domestic worker",
-        "neighbor",
-        1,
-        false,
-    )?;
-    if ctx
-        .db
-        .settlement()
-        .id()
-        .find(settlement_id.to_string())
-        .is_some_and(|settlement| {
-            matches!(
-                settlement.category,
-                crate::strategic::SettlementCategory::Town
-                    | crate::strategic::SettlementCategory::City
-                    | crate::strategic::SettlementCategory::Capital
-            )
-        })
-    {
-        insert_resident(ctx, settlement_id, "keep", "", "retainer", "reeve", 0, true)?;
-        insert_resident(
-            ctx,
-            settlement_id,
-            "keep",
-            "",
-            "servant",
-            "keep servant",
-            1,
-            false,
-        )?;
+    let (drafts, household_groups) = settlement_resident_drafts(ctx, settlement_id)?;
+    for draft in drafts {
+        insert_resident_draft(ctx, settlement_id, draft)?;
     }
     for organization in adventuresim_core::organization::organizations_for_chapter(settlement_id) {
-        let chapter = organization
-            .chapter(settlement_id)
-            .expect("chapter iterator guarantees a local chapter");
-        let settlement = ctx
-            .db
-            .settlement()
-            .id()
-            .find(settlement_id.to_owned())
-            .ok_or("Organization chapter references an unknown settlement")?;
-        let physical_location = adventuresim_core::organization::chapter_effective_location_id(
-            organization,
-            chapter,
-            &settlement.economy,
-        );
         let representative_character_id =
             adventuresim_core::organization::organization_representative_id(
                 settlement_id,
                 &organization.id,
             );
-        let representative_seed = organization_representative_seed(settlement_id, &organization.id);
-        insert_resident_with_seed(
-            ctx,
-            representative_seed,
-            settlement_id,
-            physical_location,
-            "organization",
-            &chapter.representative_profession,
-            &chapter.representative_title,
-            physical_location == chapter.location_id.as_str(),
-        )?;
         let mut representative = ctx
             .db
             .settlement_resident_profile()
@@ -823,7 +525,7 @@ pub fn ensure_settlement_population(
             .character_id()
             .update(representative);
     }
-    crate::relationship::ensure_seeded_family_households(ctx, settlement_id)?;
+    crate::relationship::ensure_seeded_family_households(ctx, settlement_id, &household_groups)?;
     Ok(())
 }
 pub fn npc_is_present(
@@ -1002,6 +704,7 @@ mod tests {
             service_id: None,
             profession_override: None,
             local_role: "resident".into(),
+            age: None,
             available_bridges: BTreeSet::from([
                 PresenceBridge::NearbyHome,
                 PresenceBridge::HouseholdErrand,
@@ -1070,22 +773,24 @@ mod tests {
     #[test]
     fn every_authored_chapter_seeds_one_bound_persistent_representative() {
         let source = crate::production_source(include_str!("settlement_population.rs"));
+        let drafts =
+            crate::production_source(include_str!("settlement_population/resident_drafts.rs"));
+        assert!(drafts.contains("organizations_for_chapter(settlement_id)"));
+        assert!(drafts.contains("chapter_effective_location_id"));
+        assert!(drafts.contains("organization_representative_seed"));
+        assert!(drafts.contains("organization_representative_id"));
+        assert!(source.contains("fn resident_seed("));
+        assert!(source.contains("fn organization_representative_seed("));
+        assert!(drafts.contains("location == chapter.location_id"));
+
         let ensure = source
             .split("pub fn ensure_settlement_population")
             .nth(1)
             .and_then(|tail| tail.split("pub fn npc_is_present").next())
             .expect("population seeding body");
-        assert!(ensure.contains("organizations_for_chapter(settlement_id)"));
-        assert!(ensure.contains("chapter_effective_location_id"));
+        assert!(ensure.contains("insert_resident_draft"));
         assert!(ensure.contains("representative.organization_id = organization.id.clone()"));
         assert!(ensure.contains("\"organization-representative\""));
-        assert!(ensure.contains("organization_representative_id"));
-        assert!(source.contains("fn resident_seed("));
-        assert!(source.contains("resident_seed(settlement_id, location, ordinal)"));
-        assert!(ensure.contains("insert_resident_with_seed("));
-        assert!(source.contains("fn organization_representative_seed("));
-        assert!(ensure.contains("organization_representative_seed("));
-        assert!(ensure.contains("physical_location == chapter.location_id.as_str()"));
     }
 
     #[test]

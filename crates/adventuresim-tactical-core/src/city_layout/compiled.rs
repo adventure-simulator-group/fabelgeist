@@ -2,6 +2,7 @@
 use super::*;
 use crate::scene_input::{DistantBuildingPlacement, TacticalBuildingPlacement};
 use adventuresim_building_generator::BuildingArchetype;
+use adventuresim_world_schema::settlement_buildings::BusinessKey;
 
 mod church;
 mod gardens;
@@ -61,6 +62,14 @@ pub struct CompiledCityLayout {
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
     pub gardens: Vec<CityGarden>,
+    pub businesses: Vec<CityBusinessSite>,
+}
+
+/// The physical building selected for one settlement-local business key.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct CityBusinessSite {
+    pub building_id: u64,
+    pub key: BusinessKey,
 }
 
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -72,6 +81,7 @@ pub struct CitySceneLayout {
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
     pub gardens: Vec<CityGarden>,
+    pub businesses: Vec<CityBusinessSite>,
 }
 
 impl GeneratedCityLayout {
@@ -94,9 +104,16 @@ impl GeneratedCityLayout {
         let mut compounds = Vec::new();
         let mut gardens = Vec::new();
         let mut envelopes = Vec::new();
+        let mut businesses = Vec::new();
         for lot in self.lots {
             let recipe = palette.front(seed, lot)?;
             let front = recipe.place(lot.id, lot.centre_metres, lot.orientation);
+            if let Some(key) = lot.service.and_then(BuildingDemand::business_key) {
+                businesses.push(CityBusinessSite {
+                    building_id: front.id,
+                    key,
+                });
+            }
             if recipe.program.church_program.is_some() {
                 church::validate(lot, &front, &recipe, &self.streets)?;
             }
@@ -139,6 +156,7 @@ impl GeneratedCityLayout {
             compounds,
             streets: self.streets,
             yards,
+            businesses,
         })
     }
 }
@@ -218,6 +236,7 @@ impl CompiledCityLayout {
             gardens: self.gardens,
             streets: self.streets,
             yards: self.yards,
+            businesses: self.businesses,
             ..Default::default()
         };
         for building in self.buildings {

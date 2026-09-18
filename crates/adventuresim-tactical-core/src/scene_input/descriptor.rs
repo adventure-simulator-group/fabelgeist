@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 22;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 50;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 23;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 51;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -27,6 +27,7 @@ pub struct TacticalSceneInput {
     pub gardens: Vec<crate::city_layout::CityGarden>,
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub distant_buildings: Vec<DistantBuildingPlacement>,
+    pub establishments: Vec<SceneEstablishment>,
     pub vista: VistaSample,
     pub weather: WeatherSnapshot,
 }
@@ -55,5 +56,23 @@ mod tests {
             count += 1;
         }
         assert!(count > 0, "the shipped catalog must contain scene inputs");
+    }
+
+    #[test]
+    fn establishment_shop_name_must_name_its_operator() {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../assets/tactical-scenes/massive-city.json");
+        let mut input = TacticalSceneInput::load(&path).unwrap();
+        let establishment = input
+            .establishments
+            .first_mut()
+            .expect("shop-sign fixture establishment");
+        establishment
+            .shop_name
+            .as_mut()
+            .expect("signed fixture establishment")
+            .proprietor = "Fabricated Proprietor’s".into();
+
+        assert!(input.validate().is_err());
     }
 }
