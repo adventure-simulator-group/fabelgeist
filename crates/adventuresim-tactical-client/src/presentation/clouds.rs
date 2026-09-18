@@ -1,5 +1,8 @@
 //! A single, baked optical cloud shell for the grounded tactical camera.
 
+mod noise;
+use noise::{cloud_seed, non_periodic_value_noise_3d};
+mod streams;
 use super::cloud_bake_assets::{
     CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
     CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, initial_image,
@@ -9,7 +12,6 @@ use bevy::{
     camera::{ClearColorConfig, RenderTarget, visibility::RenderLayers},
     render::render_resource::{TextureDescriptor, TextureUsages},
 };
-use fabelgeist_determinism::splitmix64;
 
 #[cfg(not(target_family = "wasm"))]
 use bevy::tasks::{AsyncComputeTaskPool, Task, block_on};
@@ -675,25 +677,36 @@ fn baked_cloud_density(
     // translation, so integrating a ray cannot turn a single 2-D field into
     // radial wedges.
     let warp = Vec3::new(
-        non_periodic_value_noise_3d(coordinate * 0.36, seed ^ slot.rotate_left(7)),
+        non_periodic_value_noise_3d(
+            coordinate * 0.36,
+            streams::WARP_X.seed(seed, &[slot]).to_u64(),
+        ),
         non_periodic_value_noise_3d(
             coordinate * 0.36 + Vec3::splat(13.7),
-            seed ^ slot.rotate_left(13),
+            streams::WARP_Y.seed(seed, &[slot]).to_u64(),
         ),
         non_periodic_value_noise_3d(
             coordinate * 0.36 + Vec3::new(4.1, 9.7, 17.3),
-            seed ^ slot.rotate_left(19),
+            streams::WARP_Z.seed(seed, &[slot]).to_u64(),
         ),
     ) - Vec3::splat(0.5);
     let warped = coordinate + warp * Vec3::new(0.85, 0.42, 0.85);
     // Three incommensurate, non-periodic frequencies form clustered lobes;
     // no individual octave can reveal a repeated cell over the dome.
-    let broad = non_periodic_value_noise_3d(warped * 0.58, seed ^ slot.rotate_left(11)) * 0.29
-        + non_periodic_value_noise_3d(warped * 1.23, seed ^ slot.rotate_left(17)) * 0.44
-        + non_periodic_value_noise_3d(warped * 2.61, seed ^ slot.rotate_left(23)) * 0.27;
+    let broad =
+        non_periodic_value_noise_3d(warped * 0.58, streams::BROAD.seed(seed, &[slot]).to_u64())
+            * 0.29
+            + non_periodic_value_noise_3d(
+                warped * 1.23,
+                streams::MEDIUM.seed(seed, &[slot]).to_u64(),
+            ) * 0.44
+            + non_periodic_value_noise_3d(
+                warped * 2.61,
+                streams::FINE.seed(seed, &[slot]).to_u64(),
+            ) * 0.27;
     let detail = non_periodic_value_noise_3d(
         warped * 5.9 + Vec3::new(9.7, 1.3, 4.1),
-        seed ^ slot.rotate_left(29),
+        streams::DETAIL.seed(seed, &[slot]).to_u64(),
     );
     let profile = cloud_vertical_profile(height, kind, broad);
     let mut threshold = 0.78 - layer.coverage * 0.34;
@@ -759,7 +772,7 @@ fn cloud_bake_lighting_variation(
     non_periodic_value_noise_3d(
         cloud_density_coordinate(world, height, layer, seed, evolution) * 3.17
             + Vec3::new(2.1, 7.3, 11.9),
-        seed ^ slot.rotate_left(21),
+        streams::VERTICAL.seed(seed, &[slot]).to_u64(),
     )
 }
 
@@ -782,34 +795,6 @@ fn cloud_vertical_profile(height: f32, kind: u32, noise: f32) -> f32 {
     }
 }
 
-fn non_periodic_value_noise_3d(position: Vec3, seed: u64) -> f32 {
-    let cell = position.floor();
-    let fraction = position - cell;
-    // Quintic interpolation makes both first and second derivatives vanish at
-    // lattice boundaries. The cloud field is magnified over kilometres, so
-    // the cubic value-noise shoulder was still legible as broad square cells.
-    let smooth = fraction
-        * fraction
-        * fraction
-        * (fraction * (fraction * 6.0 - Vec3::splat(15.0)) + Vec3::splat(10.0));
-    let value = |offset: Vec3| {
-        let lattice = cell + offset;
-        splitmix64(
-            seed ^ (lattice.x as i64 as u64).wrapping_mul(0x9e37_79b9)
-                ^ (lattice.y as i64 as u64).rotate_left(23)
-                ^ (lattice.z as i64 as u64).wrapping_mul(0xd1b5_4a32_d192_ed03),
-        ) as f32
-            / u64::MAX as f32
-    };
-    let x0 = value(Vec3::ZERO).lerp(value(Vec3::X), smooth.x);
-    // The z=0 upper-X corner is (1, 1, 0). Sampling (1, 1, 1) here coupled
-    // adjacent Z cells and exposed axis-aligned macro blocks in the dome bake.
-    let x1 = value(Vec3::Y).lerp(value(Vec3::X + Vec3::Y), smooth.x);
-    let y0 = x0.lerp(x1, smooth.y);
-    let x2 = value(Vec3::Z).lerp(value(Vec3::Z + Vec3::X), smooth.x);
-    let x3 = value(Vec3::Z + Vec3::Y).lerp(value(Vec3::ONE), smooth.x);
-    y0.lerp(x2.lerp(x3, smooth.y), smooth.z)
-}
 fn cloud_hemisphere_mesh() -> Mesh {
     // The mesh supplies only view directions. This moderate tessellation keeps
     // a smooth horizon while eliminating the old ray-march proxy density.
@@ -1139,18 +1124,6 @@ fn cloud_shell_altitude_at_distance(surface_metres: f32, horizontal_metres: f32)
         .max(0.0)
         .sqrt()
         - CLOUD_CURVATURE_RADIUS_METRES
-}
-
-fn cloud_seed(environment: &SceneEnvironment) -> u64 {
-    let mut hash = 0xcbf2_9ce4_8422_2325_u64;
-    for byte in environment.scene_digest.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x0000_0100_0000_01b3);
-    }
-    hash ^= environment.absolute_minute / 360;
-    hash ^= (environment.latitude_microdegrees as u32 as u64) << 32;
-    hash ^= environment.longitude_microdegrees as u32 as u64;
-    hash
 }
 
 #[cfg(test)]

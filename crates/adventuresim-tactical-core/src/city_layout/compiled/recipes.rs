@@ -6,7 +6,7 @@ use adventuresim_building_generator::{
 use bevy::math::Vec3;
 use std::{collections::BTreeMap, sync::Arc};
 
-const RECIPE_SELECTION_DOMAIN: u64 = 0x636f_6d70_7265_6369;
+const RECIPE_SELECTION_DOMAIN: StreamId = StreamId::new("city.building-recipe");
 const CURATED_RECIPE_SEEDS: [u64; 3] = [42, 47, 101];
 
 #[derive(Default)]
@@ -37,8 +37,9 @@ impl RecipePalette {
         seed: u64,
         lot: CityBuildingLot,
     ) -> Result<Arc<Recipe>, CityCompileError> {
-        let choice =
-            mix64(seed ^ RECIPE_SELECTION_DOMAIN ^ lot.id) as usize % CURATED_RECIPE_SEEDS.len();
+        let choice = RECIPE_SELECTION_DOMAIN
+            .rng(seed, &[lot.id])
+            .index(CURATED_RECIPE_SEEDS.len());
         self.get(
             lot.archetype(),
             Some(lot.building_use().unwrap_or(BuildingUse::Dwelling)),

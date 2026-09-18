@@ -1,3 +1,4 @@
+const RNG_BUILDING_WINDOW_PLACEMENT: fabelgeist_determinism::StreamId = fabelgeist_determinism::StreamId::new("building.window-placement");
 fn derive_walls(
     footprint: &[Cell],
     assignments: &BTreeMap<Cell, usize>,
@@ -186,7 +187,7 @@ fn derive_openings(
         if matches!(
             room_kind,
             RoomKind::Storage | RoomKind::Pantry | RoomKind::Passage
-        ) || stable_noise(seed, wall_index as u64, wall.cell).is_multiple_of(3)
+        ) || cell_random(seed, wall.direction as u64, wall.cell, RNG_BUILDING_WINDOW_PLACEMENT).index(3) == 0
         {
             continue;
         }

@@ -5,6 +5,9 @@
 //! synthetic fixture. Short-lived servers consume the identical format and
 //! never need access to the continental source pack.
 
+mod rock_recipe;
+use rock_recipe::rock_recipe;
+mod streams;
 use std::{fs, path::Path};
 
 use adventuresim_core::{
@@ -13,7 +16,6 @@ use adventuresim_core::{
 };
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
 use bevy::prelude::Component;
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use thiserror::Error;
@@ -66,11 +68,6 @@ const MAX_VISTA_SAMPLES: usize = 2_000_000;
 const MAX_TEMPLATE_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
 const MAX_PLAYABLE_GRADE: f32 = 0.65;
-const ROCK_PLACEMENT_DOMAIN: u64 = 0x52cc_5f1b_d391_a739;
-const ROCK_LITHOLOGY_DOMAIN: u64 = 0x6c69_7468_6f6c_6f67;
-const ROCK_DIMENSION_AXIS_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const MICRORELIEF_FINE_DOMAIN: u64 = 0x8f3f_73b5_cf1c_9ade;
-pub(crate) const TREE_LEAF_LITTER_DOMAIN: u64 = 0x001e_af11_77e2;
 const AUTHORITATIVE_DETAIL_SPACING_METRES: f32 = 0.5;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
@@ -374,7 +371,7 @@ fn refine_authoritative_terrain(
             }),
         }
     }
-    let detail_seed = seed ^ 0x7465_7272_6169_6e64;
+    let detail_seed = streams::DETAIL.seed(seed, &[]).to_u64();
     let mut terrain = terrain
         .refined(AUTHORITATIVE_DETAIL_SPACING_METRES, |point, base_height| {
             if let Some(pad) = building_pads
@@ -427,8 +424,8 @@ fn authoritative_surface_relief(
         return road_surface_relief(seed, point, ground);
     }
 
-    let broad = signed_ground_noise(seed ^ 0x6272_6f61_645f_0001, point / 3.2) * 0.024;
-    let fine = signed_ground_noise(seed ^ 0x6669_6e65_5f00_0002, point / 0.92) * 0.009;
+    let broad = signed_ground_noise(streams::BROAD.seed(seed, &[]).to_u64(), point / 3.2) * 0.024;
+    let fine = signed_ground_noise(streams::FINE.seed(seed, &[]).to_u64(), point / 0.92) * 0.009;
     let clod_strength = match surface.map(|surface| surface.substrate) {
         Some(GroundSubstrate::Stone) => 0.0,
         Some(GroundSubstrate::Gravel) => 0.25,
@@ -500,7 +497,7 @@ fn signed_ground_noise(seed: u64, point: bevy::math::Vec2) -> f32 {
 }
 
 fn terrain_clod_relief(seed: u64, point: bevy::math::Vec2) -> f32 {
-    let field = ground_mask_noise(seed ^ 0x636c_6f64_5f66_6c64, point / 0.58);
+    let field = ground_mask_noise(streams::CLOD.seed(seed, &[]).to_u64(), point / 0.58);
     detail_smoothstep(0.69, 0.91, field) * 0.022 - 0.003
 }
 
@@ -516,8 +513,9 @@ fn drainage_relief(
         return 0.0;
     }
     let normal = Vec2::new(-shape.downhill.y, shape.downhill.x);
-    let warp = signed_ground_noise(seed ^ 0x7269_6c6c_5f77_6172, point / 5.5) * 0.85;
-    let spacing = 2.6 + ground_mask_noise(seed ^ 0x7269_6c6c_5f73_7063, point / 11.0) * 1.4;
+    let warp = signed_ground_noise(streams::RILL_WARP.seed(seed, &[]).to_u64(), point / 5.5) * 0.85;
+    let spacing =
+        2.6 + ground_mask_noise(streams::RILL_SPACING.seed(seed, &[]).to_u64(), point / 11.0) * 1.4;
     let distance = periodic_distance(point.dot(normal) + warp, spacing);
     let channel = 1.0 - detail_smoothstep(0.08, 0.34, distance);
     let shoulder =
@@ -528,7 +526,8 @@ fn drainage_relief(
 
 fn soil_creep_relief(seed: u64, point: bevy::math::Vec2, shape: TerrainShapeSample) -> f32 {
     let slope_weight = detail_smoothstep(0.035, 0.22, shape.slope);
-    let warp = signed_ground_noise(seed ^ 0x6372_6565_705f_7772, point / 7.0) * 0.55;
+    let warp =
+        signed_ground_noise(streams::CREEP_WARP.seed(seed, &[]).to_u64(), point / 7.0) * 0.55;
     let distance = periodic_distance(point.dot(shape.downhill) + warp, 3.1);
     (1.0 - detail_smoothstep(0.12, 0.52, distance)) * 0.019 * slope_weight
 }
@@ -540,7 +539,10 @@ fn rocky_substrate_relief(
     strength: f32,
 ) -> f32 {
     use bevy::math::Vec2;
-    let fallback_angle = inclusive_unit_f32(seed ^ 0x7374_7261_7461_6469) * core::f32::consts::TAU;
+    let fallback_angle = streams::STRATA_DIRECTION
+        .rng(seed, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let downhill = shape
         .map(|shape| shape.downhill)
         .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -548,17 +550,19 @@ fn rocky_substrate_relief(
     let slope_weight = shape
         .map(|shape| detail_smoothstep(0.018, 0.18, shape.slope))
         .unwrap_or(0.35);
-    let contour =
-        point.dot(downhill) + signed_ground_noise(seed ^ 0x7374_7261_7461_7772, point / 6.5) * 0.72;
+    let contour = point.dot(downhill)
+        + signed_ground_noise(streams::STRATA_WARP.seed(seed, &[]).to_u64(), point / 6.5) * 0.72;
     let shelf = (1.0 - detail_smoothstep(0.08, 0.48, periodic_distance(contour, 2.15)))
         * (0.019 + slope_weight * 0.029);
     let fracture_a = periodic_distance(
-        point.dot(across) + signed_ground_noise(seed ^ 0x6672_6163_7475_7261, point / 4.8) * 0.4,
+        point.dot(across)
+            + signed_ground_noise(streams::FRACTURE_A.seed(seed, &[]).to_u64(), point / 4.8) * 0.4,
         3.7,
     );
     let diagonal = (across * 0.72 + downhill * 0.69).normalize_or_zero();
     let fracture_b = periodic_distance(
-        point.dot(diagonal) + signed_ground_noise(seed ^ 0x6672_6163_7475_7262, point / 5.6) * 0.34,
+        point.dot(diagonal)
+            + signed_ground_noise(streams::FRACTURE_B.seed(seed, &[]).to_u64(), point / 5.6) * 0.34,
         5.3,
     );
     let crack = (1.0 - detail_smoothstep(0.035, 0.17, fracture_a))
@@ -581,11 +585,19 @@ fn boulder_ground_relief(
         if distance > radius * 5.0 {
             continue;
         }
-        let rock_seed = splitmix64(
-            seed ^ u64::from(rock.centre.x.to_bits()).rotate_left(29)
-                ^ u64::from(rock.centre.y.to_bits()),
-        );
-        let fallback_angle = inclusive_unit_f32(rock_seed) * core::f32::consts::TAU;
+        let rock_seed = streams::ROCK_INFLUENCE
+            .seed(
+                seed,
+                &[
+                    u64::from(rock.centre.x.to_bits()),
+                    u64::from(rock.centre.y.to_bits()),
+                ],
+            )
+            .to_u64();
+        let fallback_angle = streams::ROCK_DOWNHILL
+            .rng(rock_seed, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         let downhill = shape
             .map(|shape| shape.downhill)
             .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -596,14 +608,15 @@ fn boulder_ground_relief(
             * 0.033;
         let downstream = offset.dot(downhill);
         let across = offset.dot(across_axis).abs();
-        let tail_length = radius * (3.2 + inclusive_unit_f32(splitmix64(rock_seed)) * 1.1);
+        let tail_length =
+            radius * (3.2 + streams::ROCK_TAIL.rng(rock_seed, &[]).inclusive_unit_f32() * 1.1);
         let longitudinal = detail_smoothstep(radius * 0.45, radius * 0.95, downstream)
             * (1.0 - detail_smoothstep(tail_length * 0.62, tail_length, downstream));
         let tail_width = radius * 0.42 + downstream.max(0.0) * 0.24;
         let lateral = 1.0 - detail_smoothstep(tail_width * 0.42, tail_width, across);
         let granular = 0.72
             + ground_mask_noise(
-                rock_seed ^ 0x6465_6272_6973_746c,
+                streams::ROCK_DEBRIS.seed(rock_seed, &[]).to_u64(),
                 Vec2::new(downstream / 1.7, across / 0.8),
             ) * 0.28;
         relief += socket + apron + longitudinal * lateral * granular * 0.034;
@@ -623,9 +636,12 @@ fn tree_root_relief(
         if radius > 8.0 {
             continue;
         }
-        let tree_seed = splitmix64(
-            seed ^ u64::from(tree.x.to_bits()).rotate_left(23) ^ u64::from(tree.y.to_bits()),
-        );
+        let tree_seed = streams::TREE_ROOTS
+            .seed(
+                seed,
+                &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
+            )
+            .to_u64();
         let mound = (-(radius / 1.35).powi(2)).exp() * 0.045;
         let basin = detail_smoothstep(0.9, 1.8, radius)
             * (1.0 - detail_smoothstep(5.2, 7.7, radius))
@@ -633,10 +649,10 @@ fn tree_root_relief(
         let angle = offset.y.atan2(offset.x);
         let mut ridges = 0.0_f32;
         for root in 0..7_u64 {
-            let root_seed = splitmix64(tree_seed ^ root.wrapping_mul(0x9e37_79b9_7f4a_7c15));
-            let origin = inclusive_unit_f32(root_seed) * core::f32::consts::TAU;
-            let phase = inclusive_unit_f32(splitmix64(root_seed)) * core::f32::consts::TAU;
-            let length = 4.8 + inclusive_unit_f32(splitmix64(root_seed ^ 0x6c65_6e67)) * 2.9;
+            let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
+            let origin = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let phase = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let length = 4.8 + random.inclusive_unit_f32() * 2.9;
             if radius > length || radius < 0.28 {
                 continue;
             }
@@ -694,7 +710,7 @@ fn road_surface_relief(seed: u64, point: bevy::math::Vec2, ground: &SceneGround)
     let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
     let travelled = point.dot(tangent);
     let irregularity = signed_ground_noise(
-        seed ^ 0x726f_6164_5f72_7574,
+        streams::ROAD_RUT.seed(seed, &[]).to_u64(),
         Vec2::new(travelled / 2.4, across / 1.1),
     ) * 0.004;
     (crown - ruts * 0.038 + irregularity).clamp(-0.048, 0.032)
@@ -709,9 +725,9 @@ fn ground_mask_noise(seed: u64, point: bevy::math::Vec2) -> f32 {
         let coordinate = cell + offset;
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
-        inclusive_unit_f32(splitmix64(
-            seed ^ x.wrapping_mul(0x9e37_79b9_7f4a_7c15) ^ y.wrapping_mul(0xbf58_476d_1ce4_e5b9),
-        ))
+        streams::GROUND_MASK_LATTICE
+            .rng(seed, &[x, y])
+            .inclusive_unit_f32()
     };
     let bottom = lerp(hash(Vec2::ZERO), hash(Vec2::X), curve.x);
     let top = lerp(hash(Vec2::Y), hash(Vec2::ONE), curve.x);
@@ -839,36 +855,6 @@ fn lerp(left: f32, right: f32, amount: f32) -> f32 {
     left + (right - left) * amount
 }
 
-fn rock_recipe(seed: u64) -> RockRecipe {
-    let archetype = match seed % 3 {
-        0 => RockArchetype::Rounded,
-        1 => RockArchetype::Angular,
-        _ => RockArchetype::Slab,
-    };
-    let lithology = match splitmix64(seed ^ ROCK_LITHOLOGY_DOMAIN) % 3 {
-        0 => RockLithology::Granite,
-        1 => RockLithology::Limestone,
-        _ => RockLithology::Sandstone,
-    };
-    let base_dimensions = match archetype {
-        RockArchetype::Rounded => [128_u16, 104, 120],
-        RockArchetype::Angular => [136, 112, 124],
-        RockArchetype::Slab => [142, 72, 132],
-    };
-    let dimensions_cm = core::array::from_fn(|axis| {
-        let hash = splitmix64(seed ^ (axis as u64).wrapping_mul(ROCK_DIMENSION_AXIS_STRIDE));
-        let offset = (hash % 17) as i16 - 8;
-        base_dimensions[axis].saturating_add_signed(offset)
-    });
-    RockRecipe {
-        seed,
-        archetype,
-        lithology,
-        dimensions_cm,
-        collision_radius_cm: (ROCK_RADIUS_METRES * 100.0) as u16,
-    }
-}
-
 /// Adds sub-source-resolution detail before constructing the shared terrain.
 /// The result therefore feeds the rendered mesh, height queries, IK, and the
 /// authoritative server collider instead of becoming client-only displacement.
@@ -901,7 +887,12 @@ fn add_authoritative_microrelief(
             let world_x = x as f32 * spacing;
             let world_z = z as f32 * spacing;
             let broad = value_noise(seed, world_x, world_z, 6.0);
-            let fine = value_noise(seed ^ MICRORELIEF_FINE_DOMAIN, world_x, world_z, 2.25);
+            let fine = value_noise(
+                streams::MICRORELIEF_FINE.seed(seed, &[]).to_u64(),
+                world_x,
+                world_z,
+                2.25,
+            );
             let offset = (broad * 0.72 + fine * 0.28) * amplitude;
             if offset.abs() > f32::EPSILON {
                 heights[index] += offset;
@@ -920,9 +911,11 @@ fn value_noise(seed: u64, x: f32, z: f32, cell_size: f32) -> f32 {
     let tx = smoothstep(gx - x0 as f32);
     let tz = smoothstep(gz - z0 as f32);
     let sample = |ix: i32, iz: i32| {
-        let coordinate = (ix as u32 as u64) << 32 | iz as u32 as u64;
-        let bits = splitmix64(seed ^ coordinate);
-        inclusive_unit_f32(bits) * 2.0 - 1.0
+        streams::VALUE_LATTICE
+            .rng(seed, &[ix as u32 as u64, iz as u32 as u64])
+            .inclusive_unit_f32()
+            * 2.0
+            - 1.0
     };
     let north = sample(x0, z0) + (sample(x0 + 1, z0) - sample(x0, z0)) * tx;
     let south = sample(x0, z0 + 1) + (sample(x0 + 1, z0 + 1) - sample(x0, z0 + 1)) * tx;

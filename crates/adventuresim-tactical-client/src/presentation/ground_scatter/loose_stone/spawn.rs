@@ -2,6 +2,7 @@
 use super::*;
 use adventuresim_tactical_core::prelude::GroundSurface;
 use bevy::prelude::Handle;
+use fabelgeist_determinism::StreamId;
 
 pub(in crate::presentation::ground_scatter) fn spawn(
     commands: &mut Commands,
@@ -116,7 +117,9 @@ impl PatchAssets {
         let mut pebble_counts = Vec::new();
         for density in PebbleDensity::ALL {
             for variant in 0..MESH_VARIANTS {
-                let seed = splitmix64(0x7065_6262_6c65_0000 ^ variant);
+                let seed = StreamId::new("visual.ground-scatter.loose-stone.variant")
+                    .seed(0, &[variant])
+                    .to_u64();
                 let hero = pebble_patch_mesh(seed, PebbleMeshLod::Hero, half_extent, density);
                 pebble_counts.push(hero.count_vertices() / HERO_PEBBLE_VERTICES);
                 hero_meshes.push(meshes.add(hero));
@@ -199,7 +202,9 @@ impl PatchPlacement {
         if normal.y < 0.72 {
             return None;
         }
-        let hash = splitmix64(base_seed ^ index as u64 ^ 0x7374_6f6e_655f_7363);
+        let hash = StreamId::new("visual.ground-scatter.loose-stone.scatter")
+            .seed(base_seed, &[index as u64])
+            .to_u64();
         let woodland = sample.cover == GroundCover::LeafLitter;
         let density = if woodland {
             // Every woodland cell gets a sparse candidate patch. Individual
@@ -217,9 +222,15 @@ impl PatchPlacement {
                 return None;
             }
         };
-        let variant = density.asset_offset() + (hash % MESH_VARIANTS) as usize;
+        let variant = density.asset_offset()
+            + StreamId::new("visual.ground-scatter.loose-stone.spawn.mesh-variant")
+                .rng(hash, &[])
+                .index(MESH_VARIANTS as usize);
         let yaw = Quat::from_rotation_y(
-            unit_hash(splitmix64(hash ^ 0x55d8_093b)) * core::f32::consts::TAU,
+            StreamId::new("visual.ground-scatter.loose-stone.spawn.yaw")
+                .rng(hash, &[])
+                .inclusive_unit_f32()
+                * core::f32::consts::TAU,
         );
         let transform = Transform::from_xyz(
             position.x,

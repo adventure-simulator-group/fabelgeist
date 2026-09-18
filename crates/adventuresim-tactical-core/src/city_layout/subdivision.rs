@@ -160,13 +160,17 @@ fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> 
         if strip == market_strip && left == 0.0 && right == MARKET_LENGTH_METRES {
             continue;
         }
-        let sample =
-            mix64(seed ^ STREET_GEOMETRY_DOMAIN ^ strip as u64 ^ u64::from(left.to_bits()));
+        let sample = StreamId::new("city.street-span")
+            .seed(seed, &[strip as u64, u64::from(left.to_bits())])
+            .to_u64();
         let length = if left >= EXTENSION_START_METRES {
             EXTENSION_BLOCK_METRES
         } else {
             OLD_BLOCK_MIN_METRES
-                + (sample as u16 as f32 / u16::MAX as f32) * OLD_BLOCK_VARIATION_METRES
+                + StreamId::new("city.block-length")
+                    .rng(sample, &[])
+                    .inclusive_unit_f32()
+                    * OLD_BLOCK_VARIATION_METRES
         };
         let count = ((right - left) / length).round().max(1.0) as usize;
         for index in 1..count {
@@ -174,7 +178,11 @@ fn strip_cuts(site: &CitySite, seed: u64, strip: usize, market_strip: usize) -> 
             let irregular = if left >= EXTENSION_START_METRES {
                 0.0
             } else {
-                signed_sample(mix64(sample ^ index as u64)) * 0.18 / count as f32
+                StreamId::new("city.street-jitter")
+                    .rng(sample, &[index as u64])
+                    .range_f32(-1.0, 1.0)
+                    * 0.18
+                    / count as f32
             };
             let distance = (right - left) * (fraction + irregular);
             let distance = if left >= EXTENSION_START_METRES {

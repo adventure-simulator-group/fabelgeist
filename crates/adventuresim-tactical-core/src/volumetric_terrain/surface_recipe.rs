@@ -2,7 +2,7 @@ use adventuresim_world_schema::{
     IgneousRock, MetamorphicRock, MixedLithology, SedimentaryRock, SurfaceLithology,
     UnconsolidatedDeposit,
 };
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 /// Provenance for the compact surface truth carried into a tactical scene.
@@ -272,16 +272,16 @@ fn inferred_structure(
     // strike. This stable seed/tangent construction is explicitly artistic
     // inference: it gives one scene-wide frame to bedding/foliation without
     // presenting it as observed field structure.
-    let random = |salt| inclusive_unit_f32(splitmix64(seed ^ salt));
+    let random = |purpose| StreamId::new(purpose).rng(seed, &[]).inclusive_unit_f32();
     let tangent = [
         f32::from(tangent_permyriad[0]) / 10_000.0,
         f32::from(tangent_permyriad[1]) / 10_000.0,
     ];
     let dip = match preset {
         TerrainSurfacePreset::MetamorphicFoliated | TerrainSurfacePreset::MixedRock => {
-            0.28 + random(0x666f_6c69_6174_696f) * 0.58
+            0.28 + random("geology.foliation-dip") * 0.58
         }
-        _ => 0.06 + random(0x6265_6464_696e_6721) * 0.30,
+        _ => 0.06 + random("geology.bedding-dip") * 0.30,
     };
     let horizontal = (1.0 - dip * dip).sqrt();
     let normal = [
@@ -299,12 +299,12 @@ fn inferred_structure(
         | TerrainSurfacePreset::Organic
         | TerrainSurfacePreset::CohesiveSediment => TerrainGeologicStructure::Bedded {
             normal_permyriad: normal,
-            bed_thickness_cm: (24.0 + random(0x7468_6963_6b6e_6573) * 210.0).round() as u16,
-            thickness_variation_bps: (900.0 + random(0x7661_7269_6174_696f) * 2_800.0).round()
-                as u16,
-            warp_cm: (8.0 + random(0x7761_7270_5f63_6d21) * 54.0).round() as u16,
+            bed_thickness_cm: (24.0 + random("geology.bed-thickness") * 210.0).round() as u16,
+            thickness_variation_bps: (900.0 + random("geology.thickness-variation") * 2_800.0)
+                .round() as u16,
+            warp_cm: (8.0 + random("geology.bed-warp") * 54.0).round() as u16,
             cross_bedding_bps: if preset == TerrainSurfacePreset::Sandstone {
-                (900.0 + random(0x6372_6f73_7362_6564) * 2_700.0).round() as u16
+                (900.0 + random("geology.cross-bedding") * 2_700.0).round() as u16
             } else {
                 0
             },
@@ -312,8 +312,8 @@ fn inferred_structure(
         TerrainSurfacePreset::MetamorphicFoliated | TerrainSurfacePreset::MixedRock => {
             TerrainGeologicStructure::Foliated {
                 normal_permyriad: normal,
-                band_spacing_cm: (16.0 + random(0x6261_6e64_5f63_6d21) * 150.0).round() as u16,
-                warp_cm: (5.0 + random(0x666f_6c64_5f63_6d21) * 42.0).round() as u16,
+                band_spacing_cm: (16.0 + random("geology.band-spacing") * 150.0).round() as u16,
+                warp_cm: (5.0 + random("geology.fold-warp") * 42.0).round() as u16,
             }
         }
         TerrainSurfacePreset::Granite

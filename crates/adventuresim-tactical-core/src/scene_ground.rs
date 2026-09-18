@@ -1,5 +1,4 @@
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 use crate::{
     city_layout::{CityStreetPatch, CityYardPatch},
@@ -7,7 +6,7 @@ use crate::{
     scene_input::{
         EnvironmentalSample, GeneratedBuilding, GeneratedObstacle, SceneInputError,
         TREE_CANOPY_GROUND_RADIUS_METRES, TREE_DENSE_LEAF_LITTER_RADIUS_METRES,
-        TREE_LEAF_LITTER_DOMAIN, base_ground_surface,
+        base_ground_surface,
     },
 };
 
@@ -56,13 +55,12 @@ pub(crate) fn build_scene_ground(
                 ) {
                     continue;
                 }
-                let coordinate = ((u64::from(x)) << 48)
-                    ^ ((u64::from(z)) << 32)
-                    ^ ((sample_x as u64) << 16)
-                    ^ sample_z as u64;
-                let litter_roll = (splitmix64(coordinate ^ TREE_LEAF_LITTER_DOMAIN)
-                    % u64::from(BASIS_POINTS_PER_WHOLE)) as f32
-                    / f32::from(BASIS_POINTS_PER_WHOLE);
+                let litter_roll = StreamId::new("terrain.tree-leaf-litter")
+                    .rng(
+                        0,
+                        &[u64::from(x), u64::from(z), sample_x as u64, sample_z as u64],
+                    )
+                    .unit_f32();
                 if distance <= TREE_DENSE_LEAF_LITTER_RADIUS_METRES
                     || litter_roll < tree_leaf_litter_probability(distance)
                 {

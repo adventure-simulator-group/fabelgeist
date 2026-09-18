@@ -1,11 +1,11 @@
 mod ground_map;
+#[cfg(test)]
+mod streams;
 use super::*;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
 };
-#[cfg(test)]
-use fabelgeist_determinism::splitmix64;
 pub(super) use ground_map::grass_cover_mask_pixels;
 use ground_map::ground_map_image;
 #[cfg(test)]
@@ -31,9 +31,6 @@ const DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES: f32 = 10.0;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
-const TREE_ROOT_SEED_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const TERRAIN_NOISE_X_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const TERRAIN_NOISE_Y_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 pub(in crate::presentation) const TACTICAL_DIRT_SRGB: [u8; 3] = [101, 82, 49];
 
 pub(super) fn scene_ground_color(environment: &SceneEnvironment) -> Color {
@@ -410,8 +407,8 @@ fn terrain_surface_relief(
         return road_surface_relief(seed, point, ground.expect("road came from SceneGround"));
     }
 
-    let broad = signed_ground_noise(seed ^ 0x6272_6f61_645f_0001, point / 3.2) * 0.024;
-    let fine = signed_ground_noise(seed ^ 0x6669_6e65_5f00_0002, point / 0.92) * 0.009;
+    let broad = signed_ground_noise(streams::BROAD.seed(seed, &[]).to_u64(), point / 3.2) * 0.024;
+    let fine = signed_ground_noise(streams::FINE.seed(seed, &[]).to_u64(), point / 0.92) * 0.009;
     let clod_strength = match surface.map(|surface| surface.substrate) {
         Some(GroundSubstrate::Stone) => 0.0,
         Some(GroundSubstrate::Gravel) => 0.25,
@@ -466,7 +463,7 @@ fn signed_ground_noise(seed: u64, point: Vec2) -> f32 {
 
 #[cfg(test)]
 fn terrain_clod_relief(seed: u64, point: Vec2) -> f32 {
-    let field = ground_mask_noise(seed ^ 0x636c_6f64_5f66_6c64, point / 0.58);
+    let field = ground_mask_noise(streams::CLOD.seed(seed, &[]).to_u64(), point / 0.58);
     terrain_smoothstep(0.69, 0.91, field) * 0.022 - 0.003
 }
 
@@ -513,8 +510,9 @@ fn drainage_relief(
         return 0.0;
     }
     let normal = Vec2::new(-shape.downhill.y, shape.downhill.x);
-    let warp = signed_ground_noise(seed ^ 0x7269_6c6c_5f77_6172, point / 5.5) * 0.85;
-    let spacing = 2.6 + ground_mask_noise(seed ^ 0x7269_6c6c_5f73_7063, point / 11.0) * 1.4;
+    let warp = signed_ground_noise(streams::RILL_WARP.seed(seed, &[]).to_u64(), point / 5.5) * 0.85;
+    let spacing =
+        2.6 + ground_mask_noise(streams::RILL_SPACING.seed(seed, &[]).to_u64(), point / 11.0) * 1.4;
     let across = point.dot(normal) + warp;
     let distance = periodic_distance(across, spacing);
     let channel = 1.0 - terrain_smoothstep(0.08, 0.34, distance);
@@ -527,7 +525,8 @@ fn drainage_relief(
 #[cfg(test)]
 fn soil_creep_relief(seed: u64, point: Vec2, shape: TerrainShapeSample) -> f32 {
     let slope_weight = terrain_smoothstep(0.035, 0.22, shape.slope);
-    let warp = signed_ground_noise(seed ^ 0x6372_6565_705f_7772, point / 7.0) * 0.55;
+    let warp =
+        signed_ground_noise(streams::CREEP_WARP.seed(seed, &[]).to_u64(), point / 7.0) * 0.55;
     let downhill_coordinate = point.dot(shape.downhill) + warp;
     let distance = periodic_distance(downhill_coordinate, 3.1);
     let ridge = 1.0 - terrain_smoothstep(0.12, 0.52, distance);
@@ -544,7 +543,10 @@ fn rocky_substrate_relief(
     shape: Option<TerrainShapeSample>,
     strength: f32,
 ) -> f32 {
-    let fallback_angle = unit_hash(seed ^ 0x7374_7261_7461_6469) * core::f32::consts::TAU;
+    let fallback_angle = streams::STRATA_DIRECTION
+        .rng(seed, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let downhill = shape
         .map(|shape| shape.downhill)
         .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -552,19 +554,22 @@ fn rocky_substrate_relief(
     let slope_weight = shape
         .map(|shape| terrain_smoothstep(0.018, 0.18, shape.slope))
         .unwrap_or(0.35);
-    let warp = signed_ground_noise(seed ^ 0x7374_7261_7461_7772, point / 6.5) * 0.72;
+    let warp =
+        signed_ground_noise(streams::STRATA_WARP.seed(seed, &[]).to_u64(), point / 6.5) * 0.72;
     let contour = point.dot(downhill) + warp;
     let ledge_distance = periodic_distance(contour, 2.15);
     let shelf =
         (1.0 - terrain_smoothstep(0.08, 0.48, ledge_distance)) * (0.019 + slope_weight * 0.029);
 
     let fracture_a = periodic_distance(
-        point.dot(across) + signed_ground_noise(seed ^ 0x6672_6163_7475_7261, point / 4.8) * 0.4,
+        point.dot(across)
+            + signed_ground_noise(streams::FRACTURE_A.seed(seed, &[]).to_u64(), point / 4.8) * 0.4,
         3.7,
     );
     let diagonal = (across * 0.72 + downhill * 0.69).normalize_or_zero();
     let fracture_b = periodic_distance(
-        point.dot(diagonal) + signed_ground_noise(seed ^ 0x6672_6163_7475_7262, point / 5.6) * 0.34,
+        point.dot(diagonal)
+            + signed_ground_noise(streams::FRACTURE_B.seed(seed, &[]).to_u64(), point / 5.6) * 0.34,
         5.3,
     );
     let crack = (1.0 - terrain_smoothstep(0.035, 0.17, fracture_a))
@@ -590,11 +595,19 @@ fn boulder_ground_relief(
         if distance > radius * 5.0 {
             continue;
         }
-        let rock_seed = splitmix64(
-            seed ^ u64::from(rock.centre.x.to_bits()).rotate_left(29)
-                ^ u64::from(rock.centre.y.to_bits()),
-        );
-        let fallback_angle = unit_hash(rock_seed) * core::f32::consts::TAU;
+        let rock_seed = streams::ROCK_INFLUENCE
+            .seed(
+                seed,
+                &[
+                    u64::from(rock.centre.x.to_bits()),
+                    u64::from(rock.centre.y.to_bits()),
+                ],
+            )
+            .to_u64();
+        let fallback_angle = streams::ROCK_DOWNHILL
+            .rng(rock_seed, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         let downhill = shape
             .map(|shape| shape.downhill)
             .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -607,14 +620,15 @@ fn boulder_ground_relief(
 
         let downstream = offset.dot(downhill);
         let across = offset.dot(across_axis).abs();
-        let tail_length = radius * (3.2 + unit_hash(splitmix64(rock_seed)) * 1.1);
+        let tail_length =
+            radius * (3.2 + streams::ROCK_TAIL.rng(rock_seed, &[]).inclusive_unit_f32() * 1.1);
         let longitudinal = terrain_smoothstep(radius * 0.45, radius * 0.95, downstream)
             * (1.0 - terrain_smoothstep(tail_length * 0.62, tail_length, downstream));
         let tail_width = radius * 0.42 + downstream.max(0.0) * 0.24;
         let lateral = 1.0 - terrain_smoothstep(tail_width * 0.42, tail_width, across);
         let granular = 0.72
             + ground_mask_noise(
-                rock_seed ^ 0x6465_6272_6973_746c,
+                streams::ROCK_DEBRIS.seed(rock_seed, &[]).to_u64(),
                 Vec2::new(downstream / 1.7, across / 0.8),
             ) * 0.28;
         let debris_tail = longitudinal * lateral * granular * 0.034;
@@ -639,9 +653,12 @@ fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
         if radius > 8.0 {
             continue;
         }
-        let tree_seed = splitmix64(
-            seed ^ u64::from(tree.x.to_bits()).rotate_left(23) ^ u64::from(tree.y.to_bits()),
-        );
+        let tree_seed = streams::TREE_ROOTS
+            .seed(
+                seed,
+                &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
+            )
+            .to_u64();
         let mound = (-(radius / 1.35).powi(2)).exp() * 0.045;
         let basin = terrain_smoothstep(0.9, 1.8, radius)
             * (1.0 - terrain_smoothstep(5.2, 7.7, radius))
@@ -649,10 +666,10 @@ fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
         let angle = offset.y.atan2(offset.x);
         let mut ridges = 0.0_f32;
         for root in 0..7_u64 {
-            let root_seed = splitmix64(tree_seed ^ root.wrapping_mul(TREE_ROOT_SEED_STRIDE));
-            let origin = unit_hash(root_seed) * core::f32::consts::TAU;
-            let phase = unit_hash(splitmix64(root_seed)) * core::f32::consts::TAU;
-            let length = 4.8 + unit_hash(splitmix64(root_seed ^ 0x6c65_6e67)) * 2.9;
+            let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
+            let origin = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let phase = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let length = 4.8 + random.inclusive_unit_f32() * 2.9;
             if radius > length || radius < 0.28 {
                 continue;
             }
@@ -716,7 +733,7 @@ fn road_surface_relief(seed: u64, point: Vec2, ground: &SceneGround) -> f32 {
     let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
     let travelled = point.dot(tangent);
     let irregularity = signed_ground_noise(
-        seed ^ 0x726f_6164_5f72_7574,
+        streams::ROAD_RUT.seed(seed, &[]).to_u64(),
         Vec2::new(travelled / 2.4, across / 1.1),
     ) * 0.004;
     (crown - ruts * 0.038 + irregularity).clamp(-0.048, 0.032)

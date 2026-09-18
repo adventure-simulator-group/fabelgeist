@@ -4,9 +4,17 @@ use crate::{BuildingPlan, BuildingProgram, Cell, Room, RoomKind, generate, settl
 use adventuresim_world_schema::settlement_buildings::BuildingUse;
 
 fn building(usage: BuildingUse) -> (BuildingProgram, BuildingPlan) {
-    let program =
-        BuildingProgram::validated_settlement(settlement_archetype(usage), usage, 42, None)
-            .unwrap();
+    let program = BuildingProgram::validated_settlement(
+        settlement_archetype(usage),
+        usage,
+        if usage == BuildingUse::GeneralShop {
+            0
+        } else {
+            42
+        },
+        None,
+    )
+    .unwrap();
     let plan = generate(&program).unwrap_or_else(|error| panic!("{usage:?}: {error}"));
     (program, plan)
 }
@@ -322,11 +330,7 @@ fn interior_counter_modules_are_contiguous_with_two_sided_access() {
 #[test]
 fn heated_household_recipes_preserve_access_to_every_room() {
     use crate::BuildingArchetype::*;
-    let obstructed = BuildingProgram::settlement(
-        FachwerkCottage,
-        Some(BuildingUse::Dwelling),
-        5_695_472_266_747_893_962,
-    );
+    let obstructed = BuildingProgram::settlement(FachwerkCottage, Some(BuildingUse::Dwelling), 133);
     assert!(matches!(
         validate_circulation(&generate(&obstructed).unwrap()),
         Err(InteriorLayoutError::DisconnectedRoom { room_id: 2, .. })

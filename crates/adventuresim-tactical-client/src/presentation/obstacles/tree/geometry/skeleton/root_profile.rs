@@ -1,6 +1,7 @@
 //! Root shoulder exposure and the tapered return into soil.
 
 use bevy::math::{FloatExt, Vec3};
+use fabelgeist_determinism::StreamId;
 
 use super::{OakGnarlingParameters, OakRootFork, OakRootSpec, polyline_tangent, sample_polyline};
 
@@ -53,7 +54,6 @@ pub(super) fn oak_root_fork_points(
 mod tests {
     use super::super::{
         NATURAL_OAK_GNARLING, procedural_oak_root_specs, procedural_oak_root_specs_with_gnarling,
-        unit_hash,
     };
     use super::*;
     use adventuresim_tactical_core::prelude::TREE_TRUNK_RADIUS_METRES;
@@ -62,7 +62,11 @@ mod tests {
     #[test]
     fn natural_oak_roots_have_no_above_grade_continuations() {
         for seed in 0..256 {
-            let crown_phase = unit_hash(seed ^ 0x9182_64ac) * core::f32::consts::TAU;
+            let crown_phase =
+                StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
+                    .rng(seed, &[])
+                    .inclusive_unit_f32()
+                    * core::f32::consts::TAU;
             for root in procedural_oak_root_specs(seed, crown_phase) {
                 let points = oak_root_points(-Vec3::Y * 0.07, root, NATURAL_OAK_GNARLING);
                 // The contact capsule may break grade as a short trunk flare;
@@ -90,7 +94,10 @@ mod tests {
             ..NATURAL_OAK_GNARLING
         };
         for seed in 0..32 {
-            let phase = unit_hash(seed ^ 0x9182_64ac) * core::f32::consts::TAU;
+            let phase = StreamId::new("visual.obstacles.tree.geometry.skeleton.oak-crown-phase")
+                .rng(seed, &[])
+                .inclusive_unit_f32()
+                * core::f32::consts::TAU;
             for root in procedural_oak_root_specs_with_gnarling(seed, phase, exposed) {
                 let points = oak_root_points(-Vec3::Y * 0.07, root, exposed);
                 assert!(points[1].y > 0.2);

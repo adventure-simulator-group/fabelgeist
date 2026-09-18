@@ -158,7 +158,7 @@ fn fixtures() -> [Fixture; 29] {
         fixture(
             "sparse-woodland",
             "woodland",
-            47_104,
+            47_105,
             rolling,
             sparse_woods,
             clear(),
