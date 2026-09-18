@@ -61,11 +61,7 @@ impl ResidentDraft {
         presence: DefaultPresence,
         business_id: Option<BusinessId>,
     ) -> Self {
-        let sex = if resident_random(&seed, ResidentEntropyStream::Sex).boolean() {
-            Sex::Female
-        } else {
-            Sex::Male
-        };
+        let female = resident_random(&seed, ResidentEntropyStream::Sex).boolean();
         Self {
             character_id: resident_character_id(&seed),
             seed,
@@ -75,10 +71,11 @@ impl ResidentDraft {
             role: role.into(),
             is_default: presence.is_default(),
             business_id,
-            sex,
-            presentation: match sex {
-                Sex::Female => Presentation::Woman,
-                Sex::Male => Presentation::Man,
+            sex: if female { Sex::Female } else { Sex::Male },
+            presentation: if female {
+                Presentation::Woman
+            } else {
+                Presentation::Man
             },
             exact_age: None,
         }

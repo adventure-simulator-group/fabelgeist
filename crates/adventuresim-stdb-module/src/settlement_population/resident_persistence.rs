@@ -9,9 +9,9 @@ const RELIGION_SERVICE: &str = "religion";
 struct PreparedResident {
     input: GenerationInput,
     profile: population::GeneratedPopulationProfile,
+    provider: bool,
     age_band: NpcAgeBand,
     stable_seed: u64,
-    household: String,
 }
 
 impl PreparedResident {
@@ -34,13 +34,12 @@ impl PreparedResident {
         };
         let profile = population::generate(&input)?;
         let age_band = age(profile.age);
-        let household = profile.household_kind.to_owned();
         Ok(Self {
             input,
             profile,
+            provider,
             age_band,
             stable_seed: resident_random(&draft.seed, ResidentEntropyStream::Identity).next_u64(),
-            household,
         })
     }
 
@@ -51,10 +50,6 @@ impl PreparedResident {
             NpcAgeBand::Adult => 30,
             NpcAgeBand::Elder => 68,
         })
-    }
-
-    fn is_provider(&self) -> bool {
-        self.input.is_service_provider
     }
 }
 
@@ -126,6 +121,27 @@ fn insert_identity(
     draft: &ResidentDraft,
     prepared: &PreparedResident,
 ) -> Result<(), String> {
+    let birth_year = adventuresim_world_schema::person_names::NameBirthYear::new(
+        adventuresim_core::strategic_time::birth_year_from_age(0, prepared.exact_age(draft)),
+    );
+    let name_sex = match draft.sex {
+        Sex::Female => adventuresim_world_schema::person_names::NameSex::Female,
+        Sex::Male => adventuresim_world_schema::person_names::NameSex::Male,
+    };
+    let identity = crate::character::generated_historical_identity(
+        name_sex,
+        prepared.stable_seed.into(),
+        birth_year,
+        None,
+    )?;
+    let name = adventuresim_world_schema::person_names::render_personal_name(
+        &identity,
+        identity.native_culture,
+        adventuresim_world_schema::person_names::NameRegister::Everyday,
+        name_sex,
+    )
+    .map_err(|error| error.to_string())?
+    .into_string();
     let personality = crate::personality::personality_from_stable_seed_with_demographics(
         draft.character_id(),
         prepared.stable_seed,
@@ -139,7 +155,7 @@ fn insert_identity(
     };
     insert_persistent_npc_character(
         ctx,
-        "Pending resident name".into(),
+        name,
         draft.character_id(),
         settlement_id,
         prepared.stable_seed,
@@ -147,21 +163,7 @@ fn insert_identity(
         &life,
         &personality,
     )?;
-    crate::character::assign_generated_name_demographics(
-        ctx,
-        crate::character::CharacterId::new(draft.character_id()),
-        draft.sex,
-        life.age_years,
-    )?;
-    crate::character::assign_generated_historical_name(
-        ctx,
-        crate::character::CharacterId::new(draft.character_id()),
-        crate::character::NameSeed::new(prepared.stable_seed),
-        adventuresim_world_schema::person_names::NameBirthYear::new(
-            adventuresim_core::strategic_time::birth_year_from_age(0, life.age_years),
-        ),
-        None,
-    )?;
+    crate::character::assign_character_name_identity(ctx, draft.character_id().into(), identity)?;
     ctx.db.npc_policy().insert(NpcPolicy {
         character_id: draft.character_id(),
         home_settlement_id: settlement_id.into(),
@@ -188,12 +190,12 @@ fn insert_profile(
     draft: &ResidentDraft,
     prepared: &PreparedResident,
 ) -> SettlementResidentProfile {
-    let profession = if prepared.is_provider() {
+    let profession = if prepared.provider {
         draft.profession.as_str()
     } else {
         super::profession(prepared.profile.profession)
     };
-    let local_role = if !prepared.is_provider()
+    let local_role = if !prepared.provider
         && prepared.profile.profession == Profession::Retainer
         && draft.role != REEVE
     {
@@ -228,17 +230,17 @@ fn insert_profile(
                 "no especially notable marks",
             ][resident_random(&draft.seed, ResidentEntropyStream::VisibleFeature).index(4)]
             .into(),
-            clothing: if prepared.is_provider() {
+            clothing: if prepared.provider {
                 "clean working clothes appropriate to the trade".into()
             } else {
                 "practical local woolens".into()
             },
             profession: profession.into(),
-            household_kind: prepared.household.clone(),
+            household_kind: prepared.profile.household_kind.clone(),
             local_role: local_role.into(),
             service_id: draft.service.clone().unwrap_or_default(),
             organization_id: String::new(),
-            conversation_id: conversation_id(draft, prepared.is_provider()).into(),
+            conversation_id: conversation_id(draft, prepared.provider).into(),
         })
 }
 
