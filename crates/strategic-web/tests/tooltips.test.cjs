@@ -53,7 +53,7 @@ test('title tooltips enhance immediately while preserving an accessible descript
 
 test('a rendered Inn Place Facade opens the shared tooltip by mouse fallback and keyboard focus', () => {
   const { window, document, system } = fixture(
-    '<a class="nav-tab" href="/settlements/lubeck/inn" data-service-id="inn" data-building-id="inn" aria-label="Inn" data-strategic-tooltip="Inn"></a>',
+    '<a class="nav-tab" href="/locations/settlement/lubeck/places/inn" data-service-id="inn" data-building-id="inn" aria-label="Inn" data-strategic-tooltip="Inn"></a>',
   );
   const inn = document.querySelector('[data-building-id="inn"]');
 

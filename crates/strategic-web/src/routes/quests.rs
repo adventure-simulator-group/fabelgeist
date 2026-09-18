@@ -1,5 +1,6 @@
 //! Quest route handlers
 
+use crate::location_urls::patterns as paths;
 use axum::{
     Form, Json, Router,
     extract::{Path, Query, State},
@@ -49,38 +50,43 @@ pub fn routes() -> Router<AppState> {
         .route("/api/quests/{id}/accept", post(accept_quest_api))
         .route("/api/quests/{id}/turn-in", post(turn_in_quest_api))
         .route("/quests/{id}/abandon", post(abandon_quest))
-        .route("/case-sites/{id}/travel", post(travel_to_case_site))
-        .route("/case-sites/{id}/track", post(track_case_site))
-        .route("/locations/case-site/{id}", get(quest_location_base))
-        .route("/locations/case-site/{id}/map", get(quest_location_map))
-        .route("/locations/case-site/{id}/enemy", get(quest_location_enemy))
         .route(
-            "/locations/case-site/{id}/counterparty/contact",
+            paths::TRAVEL_TO_CASE_SITE.pattern(),
+            post(travel_to_case_site),
+        )
+        .route(paths::TRACK_CASE_SITE.pattern(), post(track_case_site))
+        .route(paths::CASE_SITE.pattern(), get(quest_location_map))
+        .route(
+            paths::QUEST_LOCATION_ENEMY.pattern(),
+            get(quest_location_enemy),
+        )
+        .route(
+            paths::CONTACT_QUEST_COUNTERPARTY.pattern(),
             post(contact_quest_counterparty),
         )
         .route(
-            "/locations/case-site/{id}/counterparty/bandage",
+            paths::BANDAGE_QUEST_COUNTERPARTY.pattern(),
             post(bandage_quest_counterparty),
         )
         .route(
-            "/locations/case-site/{id}/hostile/withdrawal",
+            paths::NEGOTIATE_HOSTILE_WITHDRAWAL.pattern(),
             post(negotiate_hostile_withdrawal),
         )
         .route(
-            "/locations/case-site/{id}/hostile/surrender/demand",
+            paths::DEMAND_HOSTILE_SURRENDER.pattern(),
             post(demand_hostile_surrender),
         )
         .route(
-            "/locations/case-site/{id}/hostile/surrender/offer",
+            paths::ANSWER_HOSTILE_SURRENDER_OFFER.pattern(),
             post(answer_hostile_surrender_offer),
         )
         .route("/corpses/{corpse_id}/action", post(perform_corpse_action))
         .route(
-            "/locations/case-site/{id}/rest",
+            paths::REST_AT_QUEST_LOCATION.pattern(),
             post(rest_at_quest_location),
         )
         .route(
-            "/locations/case-site/{id}/map/rest",
+            paths::REST_AT_QUEST_LOCATION_MAP.pattern(),
             post(rest_at_quest_location_map),
         )
         .route("/quests/{id}/autoresolve", post(autoresolve_quest))
@@ -130,9 +136,7 @@ async fn call_hostile_surrender(
     }
     args.push(json!(form.action_id));
     match state.db.call(operation.reducer(), &args).await {
-        Ok(()) => {
-            Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy")).into_response()
-        }
+        Ok(()) => Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])).into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -214,9 +218,7 @@ async fn negotiate_hostile_withdrawal(
         )
         .await
     {
-        Ok(()) => {
-            Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy")).into_response()
-        }
+        Ok(()) => Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])).into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -351,7 +353,7 @@ async fn abandon_quest(
 
     settlement_id.map_or_else(
         || Redirect::to("/"),
-        |settlement_id| Redirect::to(&format!("/locations/settlement/{settlement_id}")),
+        |settlement_id| Redirect::to(&paths::SETTLEMENT.url([&settlement_id])),
     )
 }
 
@@ -373,7 +375,7 @@ async fn travel_to_case_site(
     )
     .await;
     match outcome {
-        Ok(PartyActionOutcome::Executed) => Redirect::to("/camp").into_response(),
+        Ok(PartyActionOutcome::Executed) => Redirect::to("/locations/camp").into_response(),
         Ok(PartyActionOutcome::Requested) => (
             StatusCode::ACCEPTED,
             Html(
@@ -482,7 +484,7 @@ async fn store_battle_loot(
         .and_then(|character| character.current_case_site_id);
     case_site_id.map_or_else(
         || Redirect::to("/"),
-        |case_site_id| Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy")),
+        |case_site_id| Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])),
     )
 }
 
@@ -535,9 +537,7 @@ async fn bandage_quest_counterparty(
         )
         .await
     {
-        Ok(()) => {
-            Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy")).into_response()
-        }
+        Ok(()) => Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])).into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -677,18 +677,14 @@ fn case_site_recovery_notice(
     }
     let resource_blocked = causes.contains(&"hunger") || causes.contains(&"thirst");
     let (withdrawal_destination, withdrawal_href) = nearest_settlement.map_or_else(
-        || {
-            (
-                "a settlement".to_owned(),
-                format!("/locations/case-site/{site_id}/map"),
-            )
-        },
+        || ("a settlement".to_owned(), paths::CASE_SITE.url([&site_id])),
         |destination| {
             (
                 destination.name.clone(),
                 format!(
-                    "/locations/case-site/{site_id}/map?destination={}",
-                    destination.id
+                    "{}?destination={}",
+                    paths::CASE_SITE.url([&site_id]),
+                    crate::location_urls::encode_component(&destination.id.to_string())
                 ),
             )
         },
@@ -700,14 +696,6 @@ fn case_site_recovery_notice(
         withdrawal_destination,
         withdrawal_href,
     })
-}
-
-async fn quest_location_base(
-    State(state): State<AppState>,
-    Path(id): Path<String>,
-    session: Session,
-) -> Response {
-    render_quest_location(state, id, session, QuestLocationTab::Map(None)).await
 }
 
 async fn quest_location_map(
@@ -844,7 +832,7 @@ async fn rest_at_quest_location(
         id.clone(),
         session,
         form,
-        &format!("/locations/case-site/{id}/enemy"),
+        &paths::QUEST_LOCATION_ENEMY.url([&id]),
     )
     .await
 }
@@ -860,7 +848,7 @@ async fn rest_at_quest_location_map(
         id.clone(),
         session,
         form,
-        &format!("/locations/case-site/{id}/map"),
+        &paths::CASE_SITE.url([&id]),
     )
     .await
 }
@@ -1001,7 +989,7 @@ async fn render_quest_location(
         let return_href = character
             .as_ref()
             .and_then(|character| character.current_settlement_id.as_deref())
-            .map(|settlement_id| format!("/locations/settlement/{settlement_id}"))
+            .map(|settlement_id| paths::SETTLEMENT.url([&settlement_id]))
             .unwrap_or_else(|| "/characters".to_string());
         return (
             StatusCode::FORBIDDEN,
@@ -1493,7 +1481,7 @@ async fn autoresolve_quest(
     if selected_case_site_id.as_deref() != Some(id.as_str()) {
         return selected_case_site_id.map_or_else(
             || Redirect::to("/characters"),
-            |case_site_id| Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy")),
+            |case_site_id| Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])),
         );
     }
     let outcome = execute_or_request_party_action(
@@ -1532,7 +1520,7 @@ async fn contact_quest_counterparty(
     let Some(character_id) = session.character_id_u64() else {
         return Redirect::to("/characters").into_response();
     };
-    let return_to = format!("/locations/case-site/{case_site_id}/enemy");
+    let return_to = paths::QUEST_LOCATION_ENEMY.url([&case_site_id]);
     match state
         .db
         .call(
@@ -1559,7 +1547,7 @@ fn autoresolve_redirect<E>(
     match outcome {
         Ok(PartyActionOutcome::Executed) | Err(_) => case_site_id.map_or_else(
             || Redirect::to("/"),
-            |id| Redirect::to(&format!("/locations/case-site/{id}/enemy")),
+            |id| Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&id])),
         ),
         Ok(PartyActionOutcome::Requested) => Redirect::to("/?party-requested=autoresolve"),
     }
@@ -1800,7 +1788,7 @@ mod quest_route_tests {
             name: "Ironforge".into(),
             description: String::new(),
             summary: None,
-            travel_action: "/settlements/ironforge/travel".into(),
+            travel_action: "/locations/settlement/ironforge/travel".into(),
             track_action: None,
             tracked: false,
             distance_m: 1_000,
@@ -1986,7 +1974,7 @@ mod quest_route_tests {
         assert_eq!(resource_blocked.withdrawal_destination, "Ironforge");
         assert_eq!(
             resource_blocked.withdrawal_href,
-            "/locations/case-site/site:known/map?destination=ironforge"
+            "/locations/case-site/site%3Aknown?destination=ironforge"
         );
 
         let rest_recoverable = case_site_recovery_notice(
@@ -2008,7 +1996,7 @@ mod quest_route_tests {
         assert!(!rest_recoverable.resource_blocked);
         assert_eq!(
             rest_recoverable.withdrawal_href,
-            "/locations/case-site/site:known/map"
+            "/locations/case-site/site%3Aknown"
         );
 
         assert!(

@@ -6,7 +6,7 @@
     const settlementId = services.dataset.settlementId;
     const chat = document.querySelector("#strategic-page [data-service-quest-id]");
     return window.strategicBackgroundFetch(
-    "service-quests", `/api/settlements/${encodeURIComponent(settlementId)}/service-quests`,
+    "service-quests", `/api/locations/settlement/${window.strategicLocationUrls.encode(settlementId)}/service-quests`,
     { headers: { Accept: "application/json" } },
   ).then((response) => (response.ok ? response.json() : { quests: [], recruitment: [] }))
     .then((activity) => {
@@ -21,7 +21,7 @@
         heading.className = "sidebar-header";
         heading.textContent = "Recruitment";
         const leader = document.createElement("a");
-        leader.href = `/locations/settlement/${encodeURIComponent(settlementId)}/players/${encodeURIComponent(recruiting.leader_id)}`;
+        leader.href = `/locations/settlement/${window.strategicLocationUrls.encode(settlementId)}/players/${window.strategicLocationUrls.encode(recruiting.leader_id)}`;
         leader.className = "chat-quest-link";
         leader.textContent = recruiting.leader_name;
         leader.title = `Leader of ${recruiting.party_name}`;

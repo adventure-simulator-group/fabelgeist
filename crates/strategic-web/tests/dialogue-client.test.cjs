@@ -128,7 +128,7 @@ test("dialogue does not expose the removed diagnosis and medication examination 
 });
 
 test("settlement NPC selection is accessible and actor-backed", () => {
-  assert.match(source, /api\/settlements\/\$\{encodeURIComponent\(npcStrip\.dataset\.npcSettlement\)\}/);
+  assert.match(source, /api\/locations\/settlement\/\$\{window\.strategicLocationUrls\.encode\(npcStrip\.dataset\.npcSettlement\)\}/);
   assert.match(source, /setAttribute\("aria-label", `Talk to/);
   assert.match(source, /aria-pressed/);
   assert.match(source, /ArrowLeft/);

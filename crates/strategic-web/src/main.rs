@@ -6,6 +6,7 @@
 mod art_demo;
 mod config;
 mod live;
+mod location_urls;
 mod medical;
 mod routes;
 mod session;
@@ -33,6 +34,7 @@ use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use config::Config;
 use live::LiveState;
+use location_urls::local_redirect_path;
 use routes::{AppState, build_router};
 use session::SessionCodec;
 use spacetimedb::{SpacetimeClient, sats_option};
@@ -223,11 +225,6 @@ fn strategic_hard_boundary(path: &str) -> bool {
         || path.starts_with("/missions")
         || path.starts_with("/tactical")
         || path == "/map/data-license"
-}
-
-fn local_redirect_path(value: &str) -> Option<String> {
-    (value.starts_with('/') && !value.starts_with("//") && !value.contains('\\'))
-        .then(|| value.to_owned())
 }
 
 fn valid_hard_navigation_target(target: &str) -> bool {
@@ -553,16 +550,20 @@ mod strategic_navigation_contract_tests {
     fn negotiated_posts_are_terminal_instead_of_redirecting_to_a_get() {
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp?from=travel#party")
+            .header(header::LOCATION, "/locations/camp?from=travel#party")
             .body(Body::empty())
             .unwrap();
-        let response =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let response = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         assert_eq!(response.status(), StatusCode::NO_CONTENT);
         assert!(!response.headers().contains_key(header::LOCATION));
         assert_eq!(
             response.headers()["x-strategic-canonical-url"],
-            "/camp?from=travel#party"
+            "/locations/camp?from=travel#party"
         );
         assert_eq!(response.headers()["x-strategic-response"], "mutation");
         assert_eq!(response.headers()["x-strategic-redirected"], "true");
@@ -639,8 +640,8 @@ mod strategic_navigation_contract_tests {
         }
         assert!(!strategic_hard_boundary("/locations/settlement/lubeck"));
         assert_eq!(
-            local_redirect_path("/camp?from=travel"),
-            Some("/camp?from=travel".into())
+            local_redirect_path("/locations/camp?from=travel"),
+            Some("/locations/camp?from=travel".into())
         );
         assert_eq!(local_redirect_path("//example.test/steal"), None);
         assert_eq!(local_redirect_path("https://example.test/steal"), None);
@@ -649,7 +650,7 @@ mod strategic_navigation_contract_tests {
     #[tokio::test]
     async fn negotiated_post_renders_redirect_destination_in_the_same_response() {
         let renderer = Router::new().route(
-            "/camp",
+            "/locations/camp",
             get(|| async {
                 Html(concat!(
                     "<!doctype html><body><!-- strategic-page-start -->",
@@ -661,15 +662,19 @@ mod strategic_navigation_contract_tests {
         );
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp")
+            .header(header::LOCATION, "/locations/camp")
             .body(Body::empty())
             .unwrap();
-        let negotiated =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let negotiated = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         let response = negotiated_post_root(
             StrategicNavigationMiddleware { renderer },
             negotiated,
-            Some("/camp"),
+            Some("/locations/camp"),
             None,
         )
         .await;
@@ -679,7 +684,10 @@ mod strategic_navigation_contract_tests {
             response.headers()["x-strategic-script-profile"],
             "strategic"
         );
-        assert_eq!(response.headers()["x-strategic-canonical-url"], "/camp");
+        assert_eq!(
+            response.headers()["x-strategic-canonical-url"],
+            "/locations/camp"
+        );
         let body = axum::body::to_bytes(response.into_body(), 4096)
             .await
             .unwrap();
@@ -714,7 +722,7 @@ mod strategic_navigation_contract_tests {
     #[tokio::test]
     async fn stale_selected_character_clear_reaches_internal_render_and_browser() {
         let renderer = Router::new().route(
-            "/camp",
+            "/locations/camp",
             get(|headers: HeaderMap| async move {
                 let cookie = headers
                     .get(header::COOKIE)
@@ -735,19 +743,23 @@ mod strategic_navigation_contract_tests {
         );
         let redirect = Response::builder()
             .status(StatusCode::SEE_OTHER)
-            .header(header::LOCATION, "/camp")
+            .header(header::LOCATION, "/locations/camp")
             .header(
                 header::SET_COOKIE,
                 "character_id=; Max-Age=0; Path=/; HttpOnly",
             )
             .body(Body::empty())
             .unwrap();
-        let negotiated =
-            apply_strategic_navigation_metadata(&Method::POST, "/camp/continue", true, redirect);
+        let negotiated = apply_strategic_navigation_metadata(
+            &Method::POST,
+            "/locations/camp/continue",
+            true,
+            redirect,
+        );
         let response = negotiated_post_root(
             StrategicNavigationMiddleware { renderer },
             negotiated,
-            Some("/camp"),
+            Some("/locations/camp"),
             Some(HeaderValue::from_static("character_id=stale; session=old")),
         )
         .await;

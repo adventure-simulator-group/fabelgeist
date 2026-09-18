@@ -14,9 +14,9 @@ mod rest_form_tests {
         settlement_rest_minutes, travel_rest_minutes,
     };
     use crate::spacetimedb::{
-        CharacterView, CharacterFilth, Personality, Conscience, Conviction, Drive,
-        FilthOrigin, FilthSubstance, Hygiene, InventoryItem, InventoryItemAmount, CatalogItemView,
-        Nerve, Outlook, PartyInventoryItem, PartyItemAmount, SelfRegard, Sociability,
+        CatalogItemView, CharacterFilth, CharacterView, Conscience, Conviction, Drive, FilthOrigin,
+        FilthSubstance, Hygiene, InventoryItem, InventoryItemAmount, Nerve, Outlook,
+        PartyInventoryItem, PartyItemAmount, Personality, SelfRegard, Sociability,
         StrategicEncounterStatus, Temperance,
     };
     use crate::templates::settlement::SoapRestPreview;
@@ -83,18 +83,21 @@ mod rest_form_tests {
     }
 
     fn personality(character_id: u64, temperance: Temperance) -> (u64, Personality) {
-        (character_id, Personality {
-            nerve: Nerve::Neutral,
-            drive: Drive::Neutral,
-            outlook: Outlook::Neutral,
-            sociability: Sociability::Neutral,
-            conscience: Conscience::Neutral,
-            self_regard: SelfRegard::Neutral,
-            conviction: Conviction::Neutral,
-            hygiene: Hygiene::Neutral,
-            temperance,
-            ..Personality::neutral()
-        })
+        (
+            character_id,
+            Personality {
+                nerve: Nerve::Neutral,
+                drive: Drive::Neutral,
+                outlook: Outlook::Neutral,
+                sociability: Sociability::Neutral,
+                conscience: Conscience::Neutral,
+                self_regard: SelfRegard::Neutral,
+                conviction: Conviction::Neutral,
+                hygiene: Hygiene::Neutral,
+                temperance,
+                ..Personality::neutral()
+            },
+        )
     }
 
     #[test]
@@ -204,30 +207,36 @@ mod rest_form_tests {
             },
         ];
         let mut preview = SoapRestPreview::default();
-        calculate_rest_supply_availability(&mut preview, RestSupplySources {
-            members: &[member(1)],
-            personal: &supplies,
-            shared: &[],
-            personal_amounts: &amounts,
-            party_amounts: &[],
-            definitions: std::slice::from_ref(&alcohol),
-            personalities: &[personality(1, Temperance::Temperate)],
-            party_id: Some("party"),
-        });
+        calculate_rest_supply_availability(
+            &mut preview,
+            RestSupplySources {
+                members: &[member(1)],
+                personal: &supplies,
+                shared: &[],
+                personal_amounts: &amounts,
+                party_amounts: &[],
+                definitions: std::slice::from_ref(&alcohol),
+                personalities: &[personality(1, Temperance::Temperate)],
+                party_id: Some("party"),
+            },
+        );
         assert_eq!(preview.available_units, 25);
         assert!(preview.alcohol_available);
         assert!(!preview.alcohol_will_be_consumed);
 
-        calculate_rest_supply_availability(&mut preview, RestSupplySources {
-            members: &[member(1)],
-            personal: &supplies,
-            shared: &[],
-            personal_amounts: &amounts,
-            party_amounts: &[],
-            definitions: &[alcohol],
-            personalities: &[personality(1, Temperance::Neutral)],
-            party_id: Some("party"),
-        });
+        calculate_rest_supply_availability(
+            &mut preview,
+            RestSupplySources {
+                members: &[member(1)],
+                personal: &supplies,
+                shared: &[],
+                personal_amounts: &amounts,
+                party_amounts: &[],
+                definitions: &[alcohol],
+                personalities: &[personality(1, Temperance::Neutral)],
+                party_id: Some("party"),
+            },
+        );
         assert!(preview.alcohol_will_be_consumed);
     }
 

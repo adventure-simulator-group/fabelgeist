@@ -447,7 +447,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 None,
                 ErrantryLaunch::DirectDemoCamp(kind),
             )?;
-            register_development_scenario(ctx, &slug, "Puzzles", &format!("{} puzzle", kind.slug().replace('-', " ")), "Solve this puzzle from its ordinary journey-camp entry state.", character_id, "/camp")?;
+            register_development_scenario(ctx, &slug, "Puzzles", &format!("{} puzzle", kind.slug().replace('-', " ")), "Solve this puzzle from its ordinary journey-camp entry state.", character_id, "/locations/camp")?;
             register_development_subject(ctx, &slug, "case", &materialized.case_id)?;
         }
         i => {
@@ -464,7 +464,7 @@ pub(crate) fn materialize_gallery_item(ctx: &ReducerContext, index: usize) -> Re
                 .cast
                 .first()
                 .map_or_else(|| definition.id.replace(['-', '_'], " "), |speaker| format!("Encounter with {}", speaker.name));
-            register_development_scenario(ctx, &scenario_slug, "Road encounters", &label, "Play this compiled encounter through its ordinary journey-camp presentation.", character_id, "/camp")?;
+            register_development_scenario(ctx, &scenario_slug, "Road encounters", &label, "Play this compiled encounter through its ordinary journey-camp presentation.", character_id, "/locations/camp")?;
             register_development_subject(ctx, &scenario_slug, "road_encounter", &occurrence_id)?;
     }
     }

@@ -201,12 +201,13 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     )))
                 }
                 script src="/static/background-fetch.js?v=background-fetch-2" {}
+                script src="/static/location-urls.js?v=location-urls-1" {}
                 script src="/static/developer-mode.js?v=development-clock-2" defer {}
                 script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
                 script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
                 @if scripts != ScriptProfile::Entry {
-                    script src="/static/live-state.js?v=sse-4" defer {}
-                    script src="/static/live-regions.js?v=preserved-client-regions-1" defer {}
+                    script src="/static/live-state.js?v=location-urls-1" defer {}
+                    script src="/static/live-regions.js?v=location-urls-1" defer {}
                 }
                 @if scripts == ScriptProfile::Strategic {
                     script src="/static/strategic-navigation.js?v=soft-navigation-1" defer {}
@@ -223,14 +224,14 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     script src="/static/party-notifications.js?v=standing-leadership-votes-5" defer {}
                 script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}
                 script src="/static/physiology-dialog.js?v=visual-notebook-2" defer {}
-                    script src="/static/service-quests.js?v=apprentice-system-1" defer {}
-                    script src="/static/dialogue-client.js?v=location-fixtures-2" defer {}
-                    script src="/static/physical-evidence.js?v=deterministic-inspection-1" defer {}
+                    script src="/static/service-quests.js?v=location-urls-1" defer {}
+                    script src="/static/dialogue-client.js?v=location-urls-1" defer {}
+                    script src="/static/physical-evidence.js?v=location-urls-1" defer {}
                     script src="/static/developer-quest-editor.js?v=scenario-gallery-1" defer {}
                     script src="/static/chat-resize.js?v=counterparty-portraits-1" defer {}
-                    script src="/static/local-chat.js?v=local-chat-location-authority-1" defer {}
+                    script src="/static/local-chat.js?v=location-urls-1" defer {}
                     script src="/static/strategic-condition.js?v=strategic-condition-4" defer {}
-                    script src="/static/building-state.js?v=fireplace-context-2" defer {}
+                    script src="/static/building-state.js?v=location-urls-1" defer {}
                     script src="/static/travel-planner.js?v=travel-rails-2" defer {}
                     script src="/static/strategic-map.js?v=population-culling-3" defer {}
                     script src="/static/rest-duration.js?v=wake-time-5" defer {}
@@ -302,9 +303,9 @@ fn settlement_top_bar(
 
     html! {
         @let material = if matches!(category, SettlementCategory::City | SettlementCategory::Capital) { "stone" } else { "wood" };
-        @let active_id = if active_service.is_empty() { "public-square" } else { active_service };
-        @let active_material = if active_id == "religion" || (active_id == "keep" && !matches!(category, SettlementCategory::Village)) { "stone" } else { material };
-        @let active_tint = building_tint(settlement_id, active_id, active_material);
+        @let active_id = if active_service.is_empty() { "public-square" } else { adventuresim_core::organization::service_npc_location_id(active_service).unwrap_or(active_service) };
+        @let active_material = if active_id == "church" || (active_id == "keep" && !matches!(category, SettlementCategory::Village)) { "stone" } else { material };
+        @let active_tint = building_tint(settlement_id, crate::location_urls::place_service(active_id).unwrap_or(active_id), active_material);
         style { (format!(":root{{--active-building-tint:{active_tint};}}")) }
         header class=(format!("top-bar settlement-top-bar material-{material}"))
             data-environment="settlement"
@@ -312,7 +313,7 @@ fn settlement_top_bar(
             data-horizon-variant=(horizon_variant(settlement_id).as_str()) {
             div class="top-bar-left settlement-location" {
                 div class="settlement-identity" {
-                a href=(format!("/locations/settlement/{}", settlement_id)) class="settlement-name" {
+                a href=(crate::location_urls::patterns::SETTLEMENT.url([&settlement_id])) class="settlement-name" {
                     (settlement_name)
                 }
                 span class="settlement-time" data-player-time title="Loading official time…"
@@ -326,25 +327,22 @@ fn settlement_top_bar(
             nav class="top-bar-center settlement-services" aria-label="Settlement services"
                 data-settlement-id=(settlement_id) {
                 @for (path, service_id, label, icon) in services {
-                    @let available = settlement_building_available(settlement_id, category, economy, service_id);
+                    @let place = adventuresim_core::organization::service_npc_location_id(service_id).unwrap_or(service_id);
+                    @let available = settlement_building_available(settlement_id, category, economy, place);
                     @if available {
                     @let href = if path == "map" {
-                        format!("/locations/settlement/{}/map", settlement_id)
-                    } else if path.is_empty() {
-                        format!("/locations/settlement/{}", settlement_id)
-                    } else if matches!(path, "residences" | "keep") {
-                        format!("/settlements/{}/places/{}", settlement_id, path)
+                        crate::location_urls::LocationKind::Settlement.path(settlement_id)
                     } else {
-                        format!("/settlements/{}/{}", settlement_id, path)
+                        crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &place])
                     };
                     @let service_material = if service_id == "religion" || (service_id == "keep" && !matches!(category, SettlementCategory::Village)) { "stone" } else { material };
                     @let tint = building_tint(settlement_id, service_id, service_material);
-                    @let selected = active_service == path || (path.is_empty() && active_service == service_id);
+                    @let selected = active_id == place;
                     a href=(href)
                         class=(if selected { "nav-tab active" } else { "nav-tab" })
                         style=(format!("--building-tint:{tint}"))
                         data-service-id=(service_id)
-                        data-building-id=(service_id)
+                        data-building-id=(place)
                         data-building-material=(service_material)
                         data-service-label=(label)
                         aria-label=(label)
@@ -373,7 +371,7 @@ fn settlement_top_bar(
                     @let charge = organization_charge(organization);
                     @let (field, accent) = organization_colors(&organization.id);
                     @let tint = building_tint(settlement_id, &chapter.location_id, material);
-                    a href=(format!("/settlements/{}/places/{}", settlement_id, chapter.location_id))
+                    a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &chapter.location_id]))
                         class=(if active_service == chapter.location_id { "nav-tab active" } else { "nav-tab" })
                         style=(format!("--building-tint:{tint}"))
                         data-service-id="organization"
@@ -457,46 +455,32 @@ pub(crate) fn settlement_building_available(
     economy: Option<&adventuresim_world_schema::SettlementEconomyProfile>,
     building_id: &str,
 ) -> bool {
-    match building_id {
-        "public-square" | "residences" | "map" => true,
-        "keep" => settlement_has_keep(category),
-        "merchants" | "weapons" | "armor" | "clothing" | "herbalist" | "books" | "inn"
-        | "religion" => economy.is_none_or(|profile| service_tab_available(profile, building_id)),
-        _ => adventuresim_core::organization::organization_chapter_at(settlement_id, building_id)
-            .is_some_and(|(organization, chapter)| {
-                economy.is_none_or(|profile| {
-                    adventuresim_core::organization::chapter_has_standalone_building(
-                        organization,
-                        chapter,
-                        profile,
-                    )
+    use adventuresim_core::strategic_place::SettlementVenueKind;
+    match SettlementVenueKind::from_id(building_id) {
+        Some(SettlementVenueKind::PublicSquare | SettlementVenueKind::Residences) => true,
+        Some(SettlementVenueKind::Keep) => settlement_has_keep(category),
+        Some(_) => economy.is_none_or(|profile| {
+            adventuresim_core::settlement_economy::npc_location_is_navigable(
+                profile,
+                settlement_has_keep(category),
+                settlement_id,
+                crate::location_urls::npc_location(building_id),
+            )
+        }),
+        None if building_id == "map" => true,
+        None => {
+            adventuresim_core::organization::organization_chapter_at(settlement_id, building_id)
+                .is_some_and(|(organization, chapter)| {
+                    economy.is_none_or(|profile| {
+                        adventuresim_core::organization::chapter_has_standalone_building(
+                            organization,
+                            chapter,
+                            profile,
+                        )
+                    })
                 })
-            }),
+        }
     }
-}
-
-fn service_tab_available(
-    profile: &adventuresim_world_schema::SettlementEconomyProfile,
-    path: &str,
-) -> bool {
-    use adventuresim_core::settlement_economy::{player_visible_npc_tabs, visible_npc_tab};
-    let location_id = match path {
-        "map" => return true,
-        "merchants" => "market",
-        "weapons" => "forge",
-        "armor" => "armoury",
-        "clothing" => "tailor",
-        "herbalist" => "herbalist",
-        "books" => "bookstore",
-        "inn" => "inn",
-        "religion" => "church",
-        _ => return false,
-    };
-    visible_npc_tab(
-        &player_visible_npc_tabs(profile, false, "fixture-no-orgs"),
-        location_id,
-    )
-    .is_some()
 }
 
 fn quest_location_top_bar(
@@ -521,9 +505,9 @@ fn quest_location_top_bar(
             div class="top-bar-left settlement-location" {
                 div class="settlement-identity" {
                     @if active_tab == "camp" {
-                        a href="/camp" class="settlement-name" aria-current="page" { (location_name) }
+                        a href=(crate::location_urls::patterns::CAMP.pattern()) class="settlement-name" aria-current="page" { (location_name) }
                     } @else {
-                        a href=(format!("/locations/case-site/{}", location_id)) class="settlement-name" { (location_name) }
+                        a href=(crate::location_urls::patterns::CASE_SITE.url([&location_id])) class="settlement-name" { (location_name) }
                     }
                     span class="settlement-time" data-player-time
                         aria-label="1st of First Seed · 08:00" { "1st of First Seed · 08:00" }
@@ -532,7 +516,7 @@ fn quest_location_top_bar(
             }
             nav class="top-bar-center settlement-services" aria-label="Location views" {
                 @if active_tab == "camp" {
-                    a href="/camp" class="nav-tab active quest-context-tab"
+                    a href=(crate::location_urls::patterns::CAMP.pattern()) class="nav-tab active quest-context-tab"
                         style=(format!("--building-tint:{enemy_tint}"))
                         data-location-view="camp"
                         data-service-label="Camp"
@@ -547,7 +531,7 @@ fn quest_location_top_bar(
                         span class="service-tab-label" aria-hidden="true" { "Camp" }
                     }
                 } @else {
-                a href=(format!("/locations/case-site/{}", location_id))
+                a href=(crate::location_urls::patterns::CASE_SITE.url([&location_id]))
                     class=(if active_tab == "map" { "nav-tab active" } else { "nav-tab" })
                     style=(format!("--building-tint:{map_tint}"))
                     data-location-view="map"
@@ -557,7 +541,7 @@ fn quest_location_top_bar(
                     span class="service-tab-building wilderness-tab-prop" aria-hidden="true" {}
                     span class="service-tab-label" aria-hidden="true" { "Map" }
                 }
-                a href=(format!("/locations/case-site/{}/enemy", location_id))
+                a href=(crate::location_urls::patterns::QUEST_LOCATION_ENEMY.url([&location_id]))
                     class=(if active_tab == "enemy" { "nav-tab active" } else { "nav-tab" })
                     style=(format!("--building-tint:{enemy_tint}"))
                     data-location-view="enemy"
@@ -854,9 +838,9 @@ mod tests {
     #[test]
     fn strategic_shell_cache_busts_exact_location_chat_authority() {
         let markup = page_shell("Chat", html! {}, html! {}, ScriptProfile::Strategic).into_string();
-        assert!(markup.contains("/static/local-chat.js?v=local-chat-location-authority-1"));
+        assert!(markup.contains("/static/local-chat.js?v=location-urls-1"));
         assert!(!markup.contains("local-chat.js?v=herbalist-private-1"));
-        assert!(markup.contains("/static/live-regions.js?v=preserved-client-regions-1"));
+        assert!(markup.contains("/static/live-regions.js?v=location-urls-1"));
         assert!(markup.contains("id=\"strategic-page\""));
         assert!(markup.contains("/static/strategic-navigation.js"));
         assert!(markup.contains("/static/strategic-mutations.js?v=formaction-override-1\" defer"));
@@ -947,7 +931,7 @@ mod tests {
             None,
         )
         .into_string();
-        assert!(markup.contains("href=\"/settlements/p/books\""));
+        assert!(markup.contains("href=\"/locations/settlement/p/places/bookstore\""));
         assert!(markup.contains("data-service-label=\"Bookstore\""));
         assert!(markup.contains("nav-tab active"));
     }
@@ -1050,7 +1034,7 @@ mod tests {
         assert!(markup.contains("data-service-id=\"public-square\""));
         assert!(markup.contains("service-tab-icon-market"));
         assert!(markup.contains("aria-label=\"Residences\""));
-        assert!(markup.contains("href=\"/settlements/s/places/residences\""));
+        assert!(markup.contains("href=\"/locations/settlement/s/places/residences\""));
         assert!(markup.contains("data-service-id=\"residences\""));
         assert!(markup.contains("service-tab-icon-house"));
         assert!(!markup.contains("aria-label=\"Keep\""));
@@ -1114,7 +1098,9 @@ mod tests {
         .into_string();
         assert_eq!(town.matches("class=\"service-tab-building\"").count(), 12);
         assert!(town.contains("aria-label=\"Keep\""));
-        assert!(town.contains("href=\"/settlements/t/places/keep\" class=\"nav-tab active\""));
+        assert!(
+            town.contains("href=\"/locations/settlement/t/places/keep\" class=\"nav-tab active\"")
+        );
         assert!(town.contains("service-tab-icon-castle"));
         assert!(town.contains(
             "data-service-id=\"keep\" data-building-id=\"keep\" data-building-material=\"stone\""
@@ -1134,7 +1120,7 @@ mod tests {
         )
         .into_string();
         let map = markup
-            .find("href=\"/locations/settlement/p/map\"")
+            .find("href=\"/locations/settlement/p\"")
             .expect("settlement travel map tab");
         let public_square = markup
             .find("data-service-id=\"public-square\"")
@@ -1170,10 +1156,10 @@ mod tests {
         assert!(time.contains("applyLighting(characterMinutes)"));
         assert!(building.contains("searchParams.get(\"building\")"));
         assert!(building.contains("searchParams.set(\"building\", building)"));
-        assert!(building.contains("pathname.includes(\"/party\")"));
-        assert!(building.contains("buildingContextPath && buildings.has(requested)"));
-        assert!(building.contains("/locations\\/settlement\\/[^/]+\\/fireplace"));
-        assert!(building.contains("!buildings.has(requested) || !buildingContextPath"));
+        assert!(building.contains("strategicLocationUrls.parse"));
+        assert!(building.contains("buildingContextPath && requestedPlace"));
+        assert!(building.contains("target.id !== nav.dataset.settlementId"));
+        assert!(building.contains("!requestedPlace || !buildingContextPath"));
         assert!(building.contains("tab.dataset.buildingId === building"));
     }
 
@@ -1307,7 +1293,9 @@ mod tests {
             None,
         )
         .into_string();
-        assert!(overview.contains("href=\"/locations/settlement/s\" class=\"nav-tab active\""));
+        assert!(overview.contains(
+            "href=\"/locations/settlement/s/places/public-square\" class=\"nav-tab active\""
+        ));
         assert!(overview.contains("aria-label=\"Public square\""));
 
         let map = quest_location_top_bar("Ruins", "q", "map", false, None).into_string();
@@ -1320,7 +1308,7 @@ mod tests {
 
         let camp = quest_location_top_bar("Camp", "party-7", "camp", true, None).into_string();
         assert!(camp.contains("aria-label=\"Camp\""));
-        assert!(camp.contains("href=\"/camp\""));
+        assert!(camp.contains("href=\"/locations/camp\""));
         assert!(camp.contains("data-camp-fire=\"lit\""));
         assert_eq!(
             camp.matches("class=\"nav-tab active quest-context-tab\"")
@@ -1332,7 +1320,7 @@ mod tests {
         assert_eq!(camp.matches("class=\"fire-particle\"").count(), 16);
         assert_eq!(camp.matches("class=\"smoke-puff\"").count(), 18);
         assert!(!camp.contains("/locations/case-site/party-7"));
-        assert!(!camp.contains("/locations/case-site/party-7/map"));
+        assert!(!camp.contains("/locations/case-site/party-7"));
         assert!(!camp.contains("/locations/case-site/party-7/enemy"));
 
         let rested_camp =
@@ -1340,7 +1328,7 @@ mod tests {
         assert!(rested_camp.contains("data-camp-fire=\"embers\""));
         assert!(!rested_camp.contains("campfire-flame"));
         assert_eq!(rested_camp.matches("campfire-smoke").count(), 1);
-        assert!(rested_camp.contains("href=\"/camp\""));
+        assert!(rested_camp.contains("href=\"/locations/camp\""));
         assert!(rested_camp.contains("data-service-label=\"Camp\""));
         assert!(rested_camp.contains("class=\"service-tab-label\""));
     }

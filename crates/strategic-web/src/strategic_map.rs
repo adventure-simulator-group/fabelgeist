@@ -977,7 +977,7 @@ mod tests {
             "origin",
             &connected,
             Some("near"),
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             None,
         )
         .into_string();
@@ -1060,7 +1060,7 @@ mod tests {
             "origin",
             &BTreeSet::new(),
             Some("site:opaque-hash"),
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             Some(&route),
         )
         .into_string();
@@ -1136,7 +1136,7 @@ mod tests {
             "origin",
             &BTreeSet::new(),
             None,
-            "/locations/settlement/origin/map",
+            "/locations/settlement/origin",
             None,
         )
         .into_string();

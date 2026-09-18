@@ -38,8 +38,8 @@ pub(super) struct ApprenticeshipResult {
 }
 
 fn exact_apprenticeship_representative_present(
-    representative: Option<&crate::spacetimedb::BackendSettlementResident>,
-    presences: &[crate::spacetimedb::SettlementResidentPresence],
+    representative: Option<&db::BackendSettlementResident>,
+    presences: &[db::SettlementResidentPresence],
     expected_id: u64,
     settlement_id: &str,
     organization_id: &str,
@@ -64,16 +64,17 @@ fn exact_apprenticeship_representative_present(
 
 pub(super) async fn begin_service_apprenticeship(
     State(state): State<AppState>,
-    Path((id, service_id)): Path<(String, String)>,
+    Path((id, place)): Path<(String, String)>,
     session: Session,
 ) -> Json<ApprenticeshipResult> {
+    let service_id = crate::location_urls::place_service(&place);
     // This is deliberately narrower than organization business dialogue:
     // a local trainer's service resolves one catalog-linked apprenticeship.
     // The route cannot select arbitrary organizations or pay dues, promote,
     // or change presentation.
-    let Some(organization) = adventuresim_core::organization::organizations_for_chapter(&id)
-        .find(|organization| organization.service_id.as_deref() == Some(service_id.as_str()))
-    else {
+    let Some((organization, chapter)) = service_id.and_then(|service| {
+        adventuresim_core::organization::organization_service_chapter(&id, service)
+    }) else {
         return Json(ApprenticeshipResult {
             enrolled: false,
             message: "No local organization offers that professional activity.",
@@ -81,7 +82,7 @@ pub(super) async fn begin_service_apprenticeship(
     };
     let settlement = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(&id))
+        .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
         .await
         .ok()
         .flatten();
@@ -91,9 +92,6 @@ pub(super) async fn begin_service_apprenticeship(
             message: "The local training authority is unavailable.",
         });
     };
-    let chapter = organization
-        .chapter(&id)
-        .expect("chapter iterator guarantees a local chapter");
     let effective_location_id = adventuresim_core::organization::chapter_effective_location_id(
         organization,
         chapter,
@@ -103,9 +101,9 @@ pub(super) async fn begin_service_apprenticeship(
         adventuresim_core::organization::organization_representative_id(&id, &organization.id);
     let representative = match state
         .db
-        .query_one_sats::<crate::spacetimedb::BackendSettlementResident>(
-            &crate::spacetimedb::settlement_resident_by_character_id(representative_id),
-        )
+        .query_one_sats::<db::BackendSettlementResident>(&db::settlement_resident_by_character_id(
+            representative_id,
+        ))
         .await
     {
         Ok(representative) => representative,
@@ -119,8 +117,8 @@ pub(super) async fn begin_service_apprenticeship(
     };
     let presences = match state
         .db
-        .query_sats::<crate::spacetimedb::SettlementResidentPresence>(
-            &crate::spacetimedb::settlement_resident_presence_by_character_id(representative_id),
+        .query_sats::<db::SettlementResidentPresence>(
+            &db::settlement_resident_presence_by_character_id(representative_id),
         )
         .await
     {
@@ -172,7 +170,7 @@ pub(super) async fn begin_service_apprenticeship(
             message: "The membership beginneth this day.",
         }),
         Err(error) => {
-            tracing::warn!(%error, character_id = character.id, %service_id, "failed to begin apprenticeship");
+            tracing::warn!(%error, character_id = character.id, ?service_id, "failed to begin apprenticeship");
             Json(ApprenticeshipResult {
                 enrolled: false,
                 message: "I cannot take on another apprentice just now.",
@@ -189,13 +187,13 @@ mod apprenticeship_representative_tests {
         id: u64,
         settlement_id: &str,
         organization_id: &str,
-    ) -> crate::spacetimedb::BackendSettlementResident {
-        crate::spacetimedb::BackendSettlementResident {
+    ) -> db::BackendSettlementResident {
+        db::BackendSettlementResident {
             character_id: id,
             home_settlement_id: settlement_id.into(),
             name: "Guild representative".into(),
-            age_band: crate::spacetimedb::NpcAgeBand::Adult,
-            presentation: crate::spacetimedb::NpcPresentation::Ambiguous,
+            age_band: db::NpcAgeBand::Adult,
+            presentation: db::NpcPresentation::Ambiguous,
             height: String::new(),
             build: String::new(),
             hair: String::new(),
@@ -212,12 +210,8 @@ mod apprenticeship_representative_tests {
         }
     }
 
-    fn presence(
-        id: u64,
-        settlement_id: &str,
-        location_id: &str,
-    ) -> crate::spacetimedb::SettlementResidentPresence {
-        crate::spacetimedb::SettlementResidentPresence {
+    fn presence(id: u64, settlement_id: &str, location_id: &str) -> db::SettlementResidentPresence {
+        db::SettlementResidentPresence {
             character_id: id,
             settlement_id: settlement_id.into(),
             location_id: location_id.into(),
@@ -293,7 +287,7 @@ pub(super) async fn update_organization_presentation(
         )
         .await
     {
-        Ok(()) => Redirect::to(&format!("/locations/settlement/{id}/party/{character_id}"))
+        Ok(()) => Redirect::to(&paths::PARTY_PERSONAL.url([&("settlement"), &id, &character_id]))
             .into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
@@ -312,7 +306,7 @@ pub(super) async fn clear_presented_organization(
         .call("clear_organization_presentation", &[json!(character_id)])
         .await
     {
-        Ok(()) => Redirect::to(&format!("/locations/settlement/{id}/party/{character_id}"))
+        Ok(()) => Redirect::to(&paths::PARTY_PERSONAL.url([&("settlement"), &id, &character_id]))
             .into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
@@ -349,9 +343,7 @@ pub(super) async fn service_quest_offers(
 ) -> Json<ServiceActivityResponse> {
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            "SELECT * FROM settlement",
-        )
+        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement")
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
@@ -386,7 +378,9 @@ pub(super) async fn service_quest_offers(
     {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+                party_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -430,9 +424,7 @@ pub(super) async fn service_quest_offers(
         .unwrap_or_default();
     let characters: Vec<CharacterView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
-            "SELECT * FROM backend_characters",
-        )
+        .query_sats_into::<DbCharacter, CharacterView>("SELECT * FROM backend_characters")
         .await
         .unwrap_or_default();
     let viewer_party_id = active_party.as_ref().map(|party| party.id.as_str());
@@ -453,9 +445,9 @@ pub(super) async fn service_quest_offers(
             .await;
         if let Some(capability) = state
             .db
-            .query_sats::<CharacterCapability>(
-                &crate::spacetimedb::character_capability_by_character_id(character_id),
-            )
+            .query_sats::<CharacterCapability>(&db::character_capability_by_character_id(
+                character_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -617,10 +609,7 @@ pub(super) fn service_quest_greeting(service_id: &str) -> (&'static str, &'stati
             "Innkeeper",
             "Welcome. Travelers have been avoiding this road because",
         ),
-        "religion" => (
-            "Priest",
-            "God give peace. I must beg aid concerning",
-        ),
+        "religion" => ("Priest", "God give peace. I must beg aid concerning"),
         _ => (
             "Merchant",
             "Welcome, traveler. Pray excuse the sorry state of mine inventory;",
