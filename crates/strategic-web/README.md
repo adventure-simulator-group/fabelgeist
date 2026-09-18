@@ -27,19 +27,6 @@ SSR, HATEOAS-style web UI for the Fabelgeist strategic layer.
 - **Environmental shell**: dark neutral entry screens and location-aware
   strategic lighting
 
-## Typography
-
-All strategic web screens, including character creation and selection, use
-Cinzel for headings, navigation, action labels, and functional names. EB
-Garamond supplies prose, dialogue, tooltips, form values, and ordinary data.
-Keep authored casing: Cinzel provides the inscription-like letterforms without
-requiring uppercase text. The Fabelgeist wordmark and Germanic language
-monograms alone use UnifrakturCook; diagnostic text uses system monospace.
-
-The shared CSS font tokens own these roles. Google Fonts delivers the faces
-with `display=swap`; serif fallbacks keep text readable during loading or when
-fonts are unavailable. Preserve symbol fonts for controls that need them.
-
 ## Running Locally
 
 ### Prerequisites

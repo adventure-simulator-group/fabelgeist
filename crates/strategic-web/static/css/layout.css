@@ -31,7 +31,7 @@
 }
 
 .logo {
-  font-family: var(--font-display), serif;
+  font-family: var(--font-display);
   text-transform: none;
   font-size: var(--font-size-xl);
   letter-spacing: 0.05em;
@@ -52,7 +52,7 @@
   display: inline-flex;
   align-items: center;
   padding: 0.4rem 1rem;
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
   font-size: var(--font-size-sm);
   font-weight: 600;
   color: var(--text-secondary);
@@ -373,7 +373,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 
 .entry-message {
   color: var(--text-muted);
-  font-family: var(--font-body), serif;
+  font-family: var(--font-body);
   font-size: var(--font-size-sm);
   letter-spacing: 0.05em;
   text-transform: none;
@@ -432,7 +432,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
 }
 
 .settlement-name {
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--text-primary);
@@ -913,7 +913,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
   border-radius: 999px;
   background: #b4232c;
   color: #fff;
-  font: 700 0.68rem/1 var(--font-heading), serif;
+  font: 700 0.68rem/1 var(--font-heading);
 }
 
 .service-notification-badge[hidden] {
@@ -1133,7 +1133,7 @@ html[data-developer-mode] .location-stat-list > div[data-developer-only] { displ
   border: 1px solid var(--border-accent);
   border-radius: 50%;
   color: var(--accent-light);
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
 }
 
 .character-switcher-option-copy {
@@ -1246,7 +1246,7 @@ body:has(.settlement-top-bar[data-environment="settlement"])
 }
 
 .sidebar-header {
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
   font-size: var(--font-size-xs);
   font-weight: 700;
   text-transform: none;
@@ -1264,7 +1264,7 @@ body:has(.settlement-top-bar[data-environment="settlement"])
 }
 
 .page-title {
-  font-family: var(--font-heading), serif;
+  font-family: var(--font-heading);
   font-size: var(--font-size-2xl);
   color: var(--text-primary);
   margin-bottom: 1rem;
