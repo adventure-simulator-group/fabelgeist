@@ -2,7 +2,7 @@
 
 use crate::prelude::*;
 use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
-use fabelgeist_determinism::SplitMix64;
+use fabelgeist_determinism::DeterministicRng;
 use serde::Serialize;
 
 #[cfg(test)]
@@ -934,7 +934,7 @@ pub fn resolve_battle(
     opening: BattleOpening,
 ) -> BattleOutcome {
     let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
-    let mut random = SplitMix64::new(seed);
+    let mut random = fabelgeist_determinism::StreamId::new("combat.autoresolve").rng(seed, &[]);
     let mut recorder = BattleRecorder::default();
     let mut resolution = None;
     let mut rounds = 0;
@@ -1044,7 +1044,7 @@ fn classify_battle_resolution(
 fn initialize_melee_phases(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
 ) {
     let mut order = allies
@@ -1079,7 +1079,7 @@ fn resolve_battle_round(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -1140,7 +1140,7 @@ fn apply_pending_attacks(
 fn resolve_opening_volleys(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -1288,7 +1288,7 @@ fn take_opening_volley_step(
     defenders: &mut [Combatant],
     detour_targets: &[usize],
     step: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -1356,7 +1356,7 @@ fn resolve_ranged_round(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -1370,7 +1370,7 @@ fn plan_ranged_round(
     attackers: &mut [Combatant],
     defenders: &[Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Vec<PendingAttack> {
     let mut attacks = Vec::new();
@@ -1513,7 +1513,7 @@ fn autoresolve_optimal_ranged_exchange(
 }
 
 fn autoresolve_hit_precision(
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
 ) -> f32 {
     parameters.minimum_hit_precision
@@ -1957,7 +1957,7 @@ mod tests {
             &mut allies,
             &mut enemies,
             1,
-            &mut SplitMix64::new(7),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut recorder,
             autoresolve_parameters(),
         );
@@ -2532,7 +2532,7 @@ mod tests {
         resolve_opening_volleys(
             &mut allies,
             &mut enemies,
-            &mut SplitMix64::new(7),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
         );
@@ -2562,7 +2562,7 @@ mod tests {
             &mut defenders,
             &[1],
             direct_attacks,
-            &mut SplitMix64::new(17),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(17)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
         );
@@ -2597,7 +2597,7 @@ mod tests {
             &mut [fast],
             &defenders,
             1,
-            &mut SplitMix64::new(3),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(3)),
             autoresolve_parameters(),
         );
         assert_eq!(attacks.len(), 2);
@@ -3052,7 +3052,7 @@ mod tests {
             &mut defenders,
             0.0,
             2.0,
-            &mut SplitMix64::new(11),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(11)),
             &mut recorder,
             autoresolve_parameters(),
         );
@@ -3079,7 +3079,7 @@ mod tests {
             &mut attackers,
             &mut defenders,
             1,
-            &mut SplitMix64::new(7),
+            &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(7)),
             &mut BattleRecorder::default(),
             autoresolve_parameters(),
         );

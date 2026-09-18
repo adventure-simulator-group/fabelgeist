@@ -53,10 +53,11 @@ fn filtered_wave(x: f32, pitch: f32, footprint: f32) -> f32 {
     (x / pitch * TAU).cos() * visibility(pitch, footprint)
 }
 fn hash(x: i32, y: i32, seed: u32) -> f32 {
-    let mut h = (x as u32).wrapping_mul(0x8da6_b343) ^ (y as u32).wrapping_mul(0xd816_3841) ^ seed;
-    h = (h ^ (h >> 13)).wrapping_mul(0x85eb_ca6b);
-    h ^= h >> 16;
-    (h & 0x00ff_ffff) as f32 / 0x00ff_ffff as f32 * 2.0 - 1.0
+    fabelgeist_determinism::StreamId::new("heraldry.workmanship.lattice")
+        .rng(u64::from(seed), &[x as u32 as u64, y as u32 as u64])
+        .inclusive_unit_f32()
+        * 2.0
+        - 1.0
 }
 fn noise(x: f32, y: f32, seed: u32) -> f32 {
     let ix = x.floor() as i32;

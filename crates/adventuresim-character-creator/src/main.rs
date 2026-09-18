@@ -68,8 +68,8 @@ use bevy::{
 use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
 use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
+use fabelgeist_determinism::StreamId;
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
-use rand::{Rng, SeedableRng, rngs::StdRng};
 
 #[derive(Resource)]
 struct BodyModel {

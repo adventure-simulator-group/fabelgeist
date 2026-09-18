@@ -1,4 +1,5 @@
 mod occupancy;
+mod origin;
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
@@ -10,8 +11,7 @@ use adventuresim_core::{
         StartingPresentation, StartingSex, StartingSlot,
     },
 };
-use fabelgeist_determinism::splitmix64;
-use sha2::{Digest, Sha256};
+use fabelgeist_determinism::StreamId;
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
 };
@@ -51,8 +51,8 @@ use crate::{
     },
 };
 
-const NPC_LIFE_AGE_DOMAIN: u64 = 0x6c69_6665_2d61_6765;
-const NPC_SETTLEMENT_SELECTION_DOMAIN: u64 = 0x7365_7474_6c65_6d65;
+const NPC_LIFE_AGE_DOMAIN: StreamId = StreamId::new("npc.life-age");
+const NPC_SETTLEMENT_SELECTION_DOMAIN: StreamId = StreamId::new("character.start-settlement");
 
 /// General character info
 #[derive(Clone, Debug)]
@@ -791,17 +791,17 @@ fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Resu
 /// Create a new random temporary character for the server.
 #[reducer]
 pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Result<(), String> {
-    use petname::Generator;
-
     let tactical_server = ctx.db.tactical_server_authority().identity().find(server);
     if ctx.sender() != server || tactical_server.is_none() {
         return Err("Only a registered tactical server can create its temporary characters".into());
     }
     let tactical_server = tactical_server.expect("checked tactical server");
 
-    let name = petname::Petnames::default()
-        .generate(&mut ctx.rng(), 1, " ")
-        .ok_or_else(|| "Can't generate a name for a temporary character".to_string())?;
+    let names = petname::Petnames::default();
+    let name_seed: u64 = ctx.random();
+    let name = names.nouns[fabelgeist_determinism::StreamId::new("character.temporary-name")
+        .rng(name_seed, &[])
+        .index(names.nouns.len())];
     let name = format!("bot-{name}");
 
     let mut id = ctx.random();
@@ -1240,29 +1240,28 @@ fn delete_character_data(
 /// Create a new character with generated name and add initial items to it
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
-    use petname::Generator;
-
-    let name = petname::Petnames::default()
-        .generate(&mut ctx.rng(), 2, " ")
-        .ok_or_else(|| format!("Can't generate a name for a character with id {id}"))?;
+    let names = petname::Petnames::default();
+    let adjective =
+        names.adjectives[fabelgeist_determinism::StreamId::new("character.name-adjective")
+            .rng(id, &[])
+            .index(names.adjectives.len())];
+    let noun = names.nouns[fabelgeist_determinism::StreamId::new("character.name-noun")
+        .rng(id, &[])
+        .index(names.nouns.len())];
+    let name = format!("{adjective} {noun}");
 
     insert_new_character(ctx, name, id, false)
 }
 
 /// Create a new character with name and add initial items to it
 fn named_character_id(name: &str, created_micros: i64) -> u64 {
-    let mut hasher = Sha256::new();
-    for value in [
-        b"adventuresim.named-character-id.v1".as_slice(),
+    fabelgeist_determinism::Seed::derive(
         name.as_bytes(),
-        created_micros.to_le_bytes().as_slice(),
-    ] {
-        hasher.update((value.len() as u64).to_le_bytes());
-        hasher.update(value);
-    }
-    let digest = hasher.finalize();
-    let value = u64::from_le_bytes(digest[..8].try_into().expect("SHA-256 prefix"));
-    value.max(1)
+        fabelgeist_determinism::StreamId::new("character.named-identity"),
+        &[&created_micros.to_le_bytes()],
+    )
+    .to_u64()
+    .max(1)
 }
 
 /// Create a new character with name and add initial items to it
@@ -1962,9 +1961,9 @@ impl NpcLifeFacts {
     /// reducer RNG. Authored organization and literacy can be overlaid by the
     /// population importer before creation.
     pub(crate) fn from_stable_seed(stable_seed: u64) -> Self {
-        let draw = splitmix64(stable_seed ^ NPC_LIFE_AGE_DOMAIN);
+        let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed, &[]).index(43);
         Self {
-            age_years: 18 + (draw % 43) as u16,
+            age_years: 18 + draw as u16,
             organization_id: None,
             literacy: None,
         }
@@ -2170,56 +2169,7 @@ pub(crate) fn insert_character_with_origin(
         return Err("Newborn creation requires a reserved child identity".into());
     }
 
-    let settlements: Vec<Settlement> = ctx.db.settlement().iter().collect();
-    if settlements.is_empty() {
-        return Err("Cannot create a character before at least one settlement is loaded".into());
-    }
-    let mut settlements = settlements;
-    settlements.sort_by(|left, right| left.id.cmp(&right.id));
-    let selector = starting.map_or_else(
-        || {
-            if npc {
-                splitmix64(options.stable_seed ^ NPC_SETTLEMENT_SELECTION_DOMAIN)
-            } else {
-                ctx.random::<u64>()
-            }
-        },
-        |spec| spec.settlement_selector,
-    );
-    let start_settlement = if let Some(origin_settlement_id) = options.origin_settlement_id {
-        settlements
-            .iter()
-            .find(|settlement| settlement.id == origin_settlement_id)
-            .ok_or_else(|| format!("Unknown origin settlement {origin_settlement_id}"))?
-    } else if let Some(starting_organization) = starting.and_then(|spec| spec.organization.as_ref())
-    {
-        let organization =
-            adventuresim_core::organization::organization(&starting_organization.organization_id)
-                .ok_or("Starting organization is not in the catalog")?;
-        let eligible = settlements
-            .iter()
-            .filter(|settlement| {
-                organization.has_chapter(&settlement.id)
-                    && organization.recognition.includes(&settlement.id)
-            })
-            .collect::<Vec<_>>();
-        if eligible.is_empty() {
-            // Small development worlds do not load the researched Viabundus
-            // settlements referenced by the organization catalog. Keep the
-            // professional package intact and place the character
-            // deterministically in the loaded world; a complete world still
-            // prefers a recognized chapter settlement below.
-            log::warn!(
-                "No loaded settlement hosts starting organization {}; using a loaded settlement",
-                organization.id
-            );
-            &settlements[selector as usize % settlements.len()]
-        } else {
-            eligible[selector as usize % eligible.len()]
-        }
-    } else {
-        &settlements[selector as usize % settlements.len()]
-    };
+    let start_settlement = origin::choose_start_settlement(ctx, &options, starting)?;
 
     let character = ctx.db.character().insert(Character {
         id,
@@ -3558,7 +3508,7 @@ mod starting_character_boundary_tests {
 
     #[test]
     fn named_character_id_has_a_fixed_versioned_vector() {
-        assert_eq!(named_character_id("Ada", 123), 7_143_673_045_777_378_113);
+        assert_eq!(named_character_id("Ada", 123), 13_606_231_571_106_619_916);
         assert_ne!(
             named_character_id("Ada", 123),
             named_character_id("Ada", 124)

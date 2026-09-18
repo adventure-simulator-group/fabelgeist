@@ -298,7 +298,7 @@ fn maybe_trigger_religious_incident(
     let Some((instigator_id, instigator_fervor)) = instigator else {
         return Ok(None);
     };
-    let roll = (ctx.random::<u64>() >> 40) as f32 / ((1_u32 << 24) as f32);
+    let roll = fabelgeist_determinism::StreamId::new("incident.fervor").rng(ctx.random(), &[instigator_id]).unit_f32();
     if !fervor_event_occurs(instigator_fervor, roll) {
         return Ok(None);
     }

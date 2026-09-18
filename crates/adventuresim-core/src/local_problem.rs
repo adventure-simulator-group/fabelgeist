@@ -282,9 +282,12 @@ const CANDIDATES: &[Candidate] = &[
 ];
 
 fn hash(value: &str) -> u64 {
-    value.bytes().fold(1_469_598_103_934_665_603, |h, b| {
-        (h ^ u64::from(b)).wrapping_mul(1_099_511_628_211)
-    })
+    fabelgeist_determinism::Seed::derive(
+        value.as_bytes(),
+        fabelgeist_determinism::StreamId::new("local-problem.identity"),
+        &[],
+    )
+    .to_u64()
 }
 
 pub fn generate(
@@ -306,26 +309,20 @@ pub fn generate(
                     || effects_for(c.cause).encounter_frequency_bps > 0)
         })
         .collect();
-    let total: u64 = valid
+    let weights: Vec<_> = valid
         .iter()
-        .map(|c| u64::from(c.plausibility) * u64::from(c.curation))
-        .sum();
-    if total == 0 {
-        return Err("no valid local-problem relation".into());
-    }
-    let mut draw = hash(&format!("{}:{ordinal}:relation", context.seed)) % total;
-    let chosen = valid
-        .into_iter()
-        .find(|c| {
-            let w = u64::from(c.plausibility) * u64::from(c.curation);
-            if draw < w {
-                true
-            } else {
-                draw -= w;
-                false
-            }
-        })
-        .ok_or("weighted selection exhausted")?;
+        .map(|candidate| u64::from(candidate.plausibility) * u64::from(candidate.curation))
+        .collect();
+    // CANDIDATES is an authored catalog with a stable order.
+    let mut random = fabelgeist_determinism::Seed::derive(
+        context.seed.as_bytes(),
+        fabelgeist_determinism::StreamId::new("local-problem.relation"),
+        &[&(ordinal as u64).to_le_bytes()],
+    )
+    .rng();
+    let chosen = valid[random
+        .weighted_index(&weights)
+        .map_err(|error| error.to_string())?];
     let mut bridges = BTreeSet::new();
     if let Some(key) = chosen.required_bridge {
         bridges.insert(key.to_owned());

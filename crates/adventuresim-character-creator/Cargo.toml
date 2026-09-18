@@ -19,7 +19,7 @@ fabelgeist-mhr = { path = "../fabelgeist-mhr" }
 adventuresim-armor-model = { path = "../adventuresim-armor-model" }
 adventuresim-world-schema = { path = "../adventuresim-world-schema" }
 clap = { version = "4.5", features = ["derive", "env"] }
-rand = "0.9"
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 

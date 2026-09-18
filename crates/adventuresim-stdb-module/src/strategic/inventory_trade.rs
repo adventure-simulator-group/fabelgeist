@@ -720,22 +720,20 @@ fn mission_candidate_is_current(
 fn mission_outcome_draw(mission: &MissionAuthority, candidates: &[MissionOutcomeCandidate]) -> u64 {
     let mut candidates = candidates.to_vec();
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
-    let mut hasher = Sha256::new();
-    hasher.update(b"adventuresim:strategic-mission-outcome:v1\0");
-    hasher.update(mission.party_id.as_bytes());
-    hasher.update(mission.outcome_entropy.to_le_bytes());
+    let mut fields = vec![mission.outcome_entropy.to_le_bytes().to_vec()];
     for candidate in &candidates {
-        hasher.update([0]);
-        hasher.update(candidate.id.as_bytes());
-        hasher.update([0]);
-        hasher.update(candidate.capability_id.as_bytes());
-        hasher.update(candidate.weight.to_le_bytes());
-        hasher.update([candidate.resolution as u8]);
+        fields.push(candidate.id.as_bytes().to_vec());
+        fields.push(candidate.capability_id.as_bytes().to_vec());
+        fields.push(candidate.weight.to_le_bytes().to_vec());
+        fields.push(vec![candidate.resolution as u8]);
     }
-    let digest = hasher.finalize();
-    let mut bytes = [0u8; 8];
-    bytes.copy_from_slice(&digest[..8]);
-    u64::from_le_bytes(bytes)
+    let fields = fields.iter().map(Vec::as_slice).collect::<Vec<_>>();
+    fabelgeist_determinism::Seed::derive(
+        mission.party_id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("mission.outcome-candidates"),
+        &fields,
+    )
+    .to_u64()
 }
 
 #[expect(
@@ -766,21 +764,15 @@ fn sample_mission_candidate(
     mut candidates: Vec<MissionOutcomeCandidate>,
 ) -> Option<MissionOutcomeCandidate> {
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
-    let total_weight = candidates.iter().fold(0u64, |total, candidate| {
-        total.saturating_add(u64::from(candidate.weight))
-    });
-    if total_weight == 0 {
-        return None;
-    }
-    let mut draw = mission_outcome_draw(mission, &candidates) % total_weight;
-    for candidate in candidates {
-        let weight = u64::from(candidate.weight);
-        if draw < weight {
-            return Some(candidate);
-        }
-        draw -= weight;
-    }
-    None
+    let weights = candidates
+        .iter()
+        .map(|candidate| u64::from(candidate.weight))
+        .collect::<Vec<_>>();
+    let index = fabelgeist_determinism::StreamId::new("mission.outcome-selection")
+        .rng(mission_outcome_draw(mission, &candidates), &[])
+        .weighted_index(&weights)
+        .ok()?;
+    Some(candidates.remove(index))
 }
 
 /// Commit the strategic meaning of an authenticated successful combat
@@ -1377,10 +1369,10 @@ fn commit_hostile_battle_resolution(
                 .saturating_add(quantity);
         }
     }
-    if include_random_gold && ctx.random::<u64>().is_multiple_of(2) {
+    let loot_seed = include_random_gold.then(|| ctx.random::<u64>());
+    if let Some(loot_seed) = loot_seed {
         let maximum_gold = difficulty.max(1) as u32 * 10;
-        let gold = 1 + (ctx.random::<u64>() % u64::from(maximum_gold)) as u32;
-        if gold > 0
+        if let Some(gold) = inventory_trade_streams::gold(loot_seed, maximum_gold)
             && let Some(group) = &group
             && let Some(site) = ctx
                 .db
