@@ -11,14 +11,13 @@ pub(super) async fn settlement_map(
 ) -> Html<String> {
     let settlements: Vec<SettlementView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
-            "SELECT * FROM settlement",
-        )
+        .query_sats_into::<DbSettlement, SettlementView>("SELECT * FROM settlement")
         .await
         .unwrap_or_default();
     let Some(settlement) = settlements.iter().find(|settlement| settlement.id == id) else {
         return Html("<h1>Settlement not found</h1>".to_string());
     };
+    super::entry::activate_settlement(&state, &id).await;
     let edges: Vec<TravelEdgeView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::TravelEdge, TravelEdgeView>(
@@ -44,7 +43,9 @@ pub(super) async fn settlement_map(
     {
         state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+                party_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -84,8 +85,8 @@ pub(super) async fn settlement_map(
                 description: site.description.clone(),
                 summary: CaseSiteKnowledgePresentation::from_stage(site.knowledge_stage)
                     .map(|knowledge| knowledge.label().to_string()),
-                travel_action: format!("/case-sites/{}/travel", site.case_site_id.value),
-                track_action: Some(format!("/case-sites/{}/track", site.case_site_id.value)),
+                travel_action: paths::TRAVEL_TO_CASE_SITE.url([&site.case_site_id.value]),
+                track_action: Some(paths::TRACK_CASE_SITE.url([&site.case_site_id.value])),
                 tracked: site.tracked,
                 distance_m,
                 journey_minutes: crate::routes::quests::offroad_journey_minutes(distance_m),
@@ -121,11 +122,8 @@ pub(super) async fn settlement_map(
             .iter()
             .find(|site| site.case_site_id.value == destination.id)
         {
-            super::super::wgs84_latitude_longitude_degrees(
-                site.latitude_e_7,
-                site.longitude_e_7,
-            )
-            .ok()
+            super::super::wgs84_latitude_longitude_degrees(site.latitude_e_7, site.longitude_e_7)
+                .ok()
         } else {
             settlements
                 .iter()

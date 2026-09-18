@@ -14,39 +14,15 @@ use adventuresim_core::{
     reducer_error::ReducerErrorCode,
 };
 use axum::{
-    Json, Router,
+    Json,
     extract::{Path, State},
     http::StatusCode,
-    routing::{get, post},
 };
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
 
-pub fn routes() -> Router<AppState> {
-    Router::new()
-        .route("/api/dialogue/start", post(start))
-        .route("/api/dialogue/{session_id}", get(view))
-        .route("/api/dialogue/topic", post(topic))
-        .route("/api/dialogue/answer", post(answer))
-        .route(
-            "/api/dialogue/accept-order-errantry",
-            post(accept_order_errantry),
-        )
-        .route("/api/dialogue/join", post(join))
-        .route("/api/dialogue/claim-response", post(witness_approach))
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs",
-            get(location_npcs),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/social",
-            get(npc_social).post(chat_with_npc),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/romance/{action}",
-            post(npc_romance_action),
-        )
-}
+mod router;
+pub use router::routes;
 
 #[derive(Clone, Serialize)]
 struct DialogueParticipantView {
@@ -771,6 +747,7 @@ async fn location_npcs(
     Path((settlement_id, location_id)): Path<(String, String)>,
     session: Session,
 ) -> Result<Json<Vec<NpcView>>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let character = state
         .db
@@ -1187,6 +1164,7 @@ async fn npc_romance_action(
     )>,
     session: Session,
 ) -> Result<Json<NpcRomanceActionResult>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1268,6 +1246,7 @@ async fn npc_social(
     Path((settlement_id, location_id, resident_character_id)): Path<(String, String, String)>,
     session: Session,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1291,6 +1270,7 @@ async fn chat_with_npc(
     session: Session,
     Json(request): Json<NpcChatRequest>,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()

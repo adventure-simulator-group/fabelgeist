@@ -97,8 +97,8 @@ test("travel provisioning keeps target math without forecast prose", () => {
   assert.match(template, /data-travel-progress/);
   assert.match(template, /data-journey-turnaround-minutes/);
   assert.match(template, /right-sidebar travel-configuration-sidebar/);
-  assert.match(template, /form action="\/camp\/continue" method="post" \{/);
-  assert.doesNotMatch(template, /form action="\/camp\/continue" method="post" data-travel-submit/);
+  assert.match(template, /form action="\/locations\/camp\/continue" method="post" \{/);
+  assert.doesNotMatch(template, /form action="\/locations\/camp\/continue" method="post" data-travel-submit/);
   assert.match(template, /"travel-planner-vertical no-destination"/);
   assert.doesNotMatch(template, /Break camp to travel the next planned leg|The whole party rests/);
   assert.match(css, /\.camp-journey-section[^}]+flex: 1 1 auto/);

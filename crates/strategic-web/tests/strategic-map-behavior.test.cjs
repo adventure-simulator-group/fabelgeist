@@ -238,9 +238,9 @@ test("collision helper treats padded touching labels as overlapping", () => {
 
 test("pin links remain ordinary destination URLs", () => {
   const { document, helpers } = load();
-  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="0 0 400 200"><a data-map-pin href="/locations/settlement/a/map?destination=b"><circle/></a></svg></section>`;
+  document.body.innerHTML = `<section data-strategic-map><svg data-map-svg viewBox="0 0 400 200"><a data-map-pin href="/locations/settlement/a?destination=b"><circle/></a></svg></section>`;
   helpers.initializeMap(document.querySelector("section"), null);
-  assert.equal(document.querySelector("[data-map-pin]").getAttribute("href"), "/locations/settlement/a/map?destination=b");
+  assert.equal(document.querySelector("[data-map-pin]").getAttribute("href"), "/locations/settlement/a?destination=b");
 });
 
 test("tile zoom follows display density and respects the generated ceiling", () => {

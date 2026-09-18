@@ -32,6 +32,8 @@ pub(crate) const SETTLEMENTS_SOURCE: &str = concat!(
 
 include!("router.rs");
 
+mod entry;
+
 mod medical {
     use super::*;
     include!("medical.rs");
@@ -105,8 +107,8 @@ use encumbrance::{
 };
 use medical::{
     alchemy, change_residence, perform_surgery, retrieve_repair, retrieve_repairs,
-    schedule_allocation_reducer_arg, settlement_resident_place, show_settlement,
-    show_settlement_location, submit_all_repairs, submit_repair, surgery,
+    schedule_allocation_reducer_arg, settlement_resident_place, show_settlement_location,
+    submit_all_repairs, submit_repair, surgery,
 };
 use overview::settlement_map;
 use party::{

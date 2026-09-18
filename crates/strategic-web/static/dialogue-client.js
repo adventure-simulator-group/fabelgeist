@@ -277,9 +277,9 @@
   const socialPath = () => {
     const npcId = chat.dataset.localChatSubject || "";
     const settlement = npcStrip?.dataset.npcSettlement || "";
-    const location = npcStrip?.dataset.npcLocation || "";
+    const location = npcStrip?.dataset.npcPlace || "";
     if (!npcId || !settlement || !location) return null;
-    return `/api/settlements/${encodeURIComponent(settlement)}/locations/${encodeURIComponent(location)}/npcs/${encodeURIComponent(npcId)}/social`;
+    return `/api/locations/settlement/${window.strategicLocationUrls.encode(settlement)}/places/${window.strategicLocationUrls.encode(location)}/npcs/${window.strategicLocationUrls.encode(npcId)}/social`;
   };
   const contextualRow = (speaker, body, player = false) => {
     const row = document.createElement("div");
@@ -765,7 +765,7 @@
   }, { signal });
   const loadPeople = async () => {
     if (!npcStrip) { begin(); return; }
-    const path = `/api/settlements/${encodeURIComponent(npcStrip.dataset.npcSettlement)}/locations/${encodeURIComponent(npcStrip.dataset.npcLocation)}/npcs`;
+    const path = `/api/locations/settlement/${window.strategicLocationUrls.encode(npcStrip.dataset.npcSettlement)}/places/${window.strategicLocationUrls.encode(npcStrip.dataset.npcPlace)}/npcs`;
     const response = await window.strategicFetch(path, { headers: { Accept: "application/json" } });
     if (!response.ok) throw new Error(`Could not load people here (${response.status})`);
     const people = await response.json();

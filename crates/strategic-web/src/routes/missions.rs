@@ -1,5 +1,6 @@
 //! Mission route handlers.
 
+use crate::location_urls::patterns as paths;
 use axum::{
     Router,
     extract::{Path, Query, State},
@@ -172,8 +173,7 @@ async fn mission_status(
             return viewer.current_case_site_id.as_deref().map_or_else(
                 || Redirect::to("/").into_response(),
                 |case_site_id| {
-                    Redirect::to(&format!("/locations/case-site/{case_site_id}/enemy"))
-                        .into_response()
+                    Redirect::to(&paths::QUEST_LOCATION_ENEMY.url([&case_site_id])).into_response()
                 },
             );
         }

@@ -173,7 +173,7 @@
   };
 
   const load = async () => {
-    evidence = await request(`/api/evidence/case-sites/${encodeURIComponent(caseSiteId)}`);
+    evidence = await request(`/api/locations/case-site/${window.strategicLocationUrls.encode(caseSiteId)}/evidence`);
     renderStrip();
   };
 
@@ -182,14 +182,13 @@
     if (!topic) return;
     event.preventDefault();
     try {
-      const updated = await request("/api/evidence/inspect", {
+      const updated = await request(`/api/locations/case-site/${window.strategicLocationUrls.encode(caseSiteId)}/evidence`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           evidence_id: topic.dataset.evidenceId,
           topic_id: topic.dataset.evidenceTopic,
           action_id: actionId(),
-          case_site_id: caseSiteId,
         }),
       });
       evidence = evidence.map((item) => item.id === updated.id ? updated : item);

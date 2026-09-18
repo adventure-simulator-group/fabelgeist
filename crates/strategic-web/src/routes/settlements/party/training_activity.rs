@@ -97,7 +97,14 @@ pub(super) async fn update_training_schedule(
         .await
     {
         Ok(()) => Redirect::to(
-            &building.append_to(&state, &kind, &id, format!("/locations/{kind}/{id}/party/{character_id}")).await,
+            &building
+                .append_to(
+                    &state,
+                    &kind,
+                    &id,
+                    paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
+                )
+                .await,
         )
         .into_response(),
         Err(error) => {
@@ -195,11 +202,17 @@ pub(super) async fn perform_immediate_activity(
             if let Some((character, _)) = get_active_character(&state, Some(character_id)).await
                 && let Some(case_site_id) = character.current_case_site_id
             {
-                return Redirect::to(&format!("/locations/case-site/{case_site_id}"))
-                    .into_response();
+                return Redirect::to(&paths::CASE_SITE.url([&case_site_id])).into_response();
             }
             Redirect::to(
-                &building.append_to(&state, &kind, &id, format!("/locations/{kind}/{id}/party/{character_id}")).await,
+                &building
+                    .append_to(
+                        &state,
+                        &kind,
+                        &id,
+                        paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
+                    )
+                    .await,
             )
             .into_response()
         }
@@ -235,14 +248,11 @@ pub(super) async fn party_member(
     let selected = if character_id == active_character.id {
         active_character.clone()
     } else {
-        let character = crate::routes::data::character_as_observed(
-            &state,
-            character_id,
-            active_character.id,
-        )
-            .await
-            .ok()
-            .flatten();
+        let character =
+            crate::routes::data::character_as_observed(&state, character_id, active_character.id)
+                .await
+                .ok()
+                .flatten();
         match character {
             Some(character) => character,
             None => return Html("<h1>Party member not found</h1>".to_string()),
@@ -278,7 +288,7 @@ pub(super) async fn party_member(
     };
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let food_lots: Vec<FoodLot> = state
@@ -407,7 +417,7 @@ pub(super) async fn party_pool_inventory(
         .unwrap_or_default();
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let equip = character_equipment_graph(&state, character.id).await;

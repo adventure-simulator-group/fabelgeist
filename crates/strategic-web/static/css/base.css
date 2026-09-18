@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;500;600;700&family=Texturina:opsz,wght@12..72,400..700&family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=UnifrakturCook:wght@700&display=swap');
 
 :root {
   color-scheme: dark;
-  /* Three grades of period type: ceremonial labels can be richly blackletter,
-     while dense gameplay copy uses the more open Grenze Gotisch face. */
-  --font-display:'UnifrakturCook', 'Grenze Gotisch', 'Texturina', serif;
-  --font-heading:'Grenze Gotisch', 'Texturina', serif;
-  --font-body:'Grenze Gotisch', 'Texturina', serif;
-  --font-mono:'Grenze Gotisch', 'Texturina', serif;
+  /* Roman lettering for controls, book type for reading, blackletter accents. */
+  --font-display:'UnifrakturCook', 'Old English Text MT', serif;
+  --font-heading:'Cinzel', Georgia, serif;
+  --font-body:'EB Garamond', Garamond, Georgia, serif;
+  --font-mono:ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', monospace;
   --font-size-xs:.75rem; --font-size-sm:.875rem; --font-size-base:1rem; --font-size-lg:1.125rem;
   --font-size-xl:1.25rem; --font-size-2xl:1.5rem; --font-size-3xl:2rem;
   --bg-primary:#171512; --bg-secondary:#211d18; --bg-tertiary:#302a23;

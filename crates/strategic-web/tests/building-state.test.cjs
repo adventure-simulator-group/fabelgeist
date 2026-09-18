@@ -7,7 +7,7 @@ const { parseHTML } = require("linkedom");
 
 const source = fs.readFileSync(path.join(__dirname, "..", "static", "building-state.js"), "utf8");
 
-function fixture(href) {
+function fixture(href, active = "organization-merchants-lubeck") {
   const { window, document } = parseHTML(`<html><body>
     <main id="strategic-page">
       <nav data-settlement-id="lubeck">
@@ -20,6 +20,8 @@ function fixture(href) {
       <form id="party-form" action="/locations/settlement/lubeck/party/7/social"></form>
     </main>
   </body></html>`);
+  document.querySelectorAll(".nav-tab").forEach((tab) =>
+    tab.classList.toggle("active", tab.dataset.buildingId === active));
   const location = { href, origin: "http://game.test" };
   const replacements = [];
   const history = {
@@ -28,7 +30,9 @@ function fixture(href) {
       replacements.push(url.toString());
     },
   };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", "static", "location-urls.js"), "utf8"), { window });
   vm.runInNewContext(source, {
+    window,
     document,
     location,
     history,
@@ -72,9 +76,16 @@ test("an invalid requested identity is removed and cannot become active", () => 
   assert.equal(view.document.querySelectorAll(".nav-tab.active").length, 1);
 });
 
+test("the map opens party panels without inventing a physical building", () => {
+  const view = fixture("http://game.test/locations/settlement/lubeck/party/7?building=map&medical=surgery#limb", "map");
+  assert.deepEqual(view.replacements, ["http://game.test/locations/settlement/lubeck/party/7?medical=surgery#limb"]);
+  assert.equal(view.document.querySelector("#party-link").getAttribute("href"),
+    "/locations/settlement/lubeck/party/7");
+});
+
 test("fireplace building state survives mount and remount without rewriting history", () => {
   const view = fixture(
-    "http://game.test/locations/settlement/lubeck/fireplace?building=inn",
+    "http://game.test/locations/settlement/lubeck/places/inn/fireplace", "inn",
   );
   const inn = view.document.querySelector('[data-building-id="inn"]');
   assert.equal(inn.classList.contains("active"), true);
@@ -86,14 +97,27 @@ test("fireplace building state survives mount and remount without rewriting hist
   assert.deepEqual(view.replacements, []);
 });
 
-test("an invalid fireplace building is removed", () => {
+test("fireplace identity comes from the place, and stale building queries are removed", () => {
   const view = fixture(
-    "http://game.test/locations/settlement/lubeck/fireplace?building=forge",
+    "http://game.test/locations/settlement/lubeck/places/inn/fireplace?building=forge", "inn",
   );
   assert.equal(view.replacements.length, 1);
   assert.equal(
     view.replacements[0],
-    "http://game.test/locations/settlement/lubeck/fireplace",
+    "http://game.test/locations/settlement/lubeck/places/inn/fireplace",
   );
   assert.equal(view.document.querySelectorAll(".nav-tab.active").length, 1);
+});
+
+test("building context preserves other queries and fragments and stays in its settlement", async () => {
+  const view = fixture("http://game.test/locations/settlement/lubeck/party/7?building=inn", "inn");
+  const page = view.document.querySelector("#strategic-page");
+  const link = view.document.createElement("a");
+  link.href = "/locations/settlement/lubeck/party/9?medical=surgery#limb";
+  const foreign = view.document.createElement("a");
+  foreign.href = "/locations/settlement/lubeck-2/party/9";
+  page.append(link, foreign);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(link.getAttribute("href"), "/locations/settlement/lubeck/party/9?medical=surgery&building=inn#limb");
+  assert.equal(foreign.getAttribute("href"), "/locations/settlement/lubeck-2/party/9");
 });

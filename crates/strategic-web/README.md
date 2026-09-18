@@ -77,7 +77,7 @@ Environment variables:
 ## Routes
 
 ### Home
-- `GET /` - Dashboard with character/party overview
+- `GET /` - Current settlement or case-site map, or the current camp
 
 ### Characters
 - `GET /characters` - List characters
@@ -89,13 +89,35 @@ Environment variables:
 - `GET /characters/:id` - Character sheet
 - `POST /characters/:id` - Update character
 
-### Settlements
-- `GET /settlements` - World map / settlement list
-- `GET /settlements/:id` - Settlement overview
-- `GET /api/settlements/:id/service-quests` - Available NPC quest offers
-- `GET /settlements/:id/merchants` - Shop (placeholder)
-- `GET /settlements/:id/inn` - Rest (placeholder)
-- `POST /settlements/:id/travel` - Travel to settlement
+### Locations
+
+Settlement and case-site roots display their maps. Every physical settlement
+place has one URL, using the slugs owned by `SettlementVenueKind`; organization
+chapters use their existing place IDs. Location route patterns and encoded URL
+construction live in `src/location_urls.rs` and its `patterns` module.
+
+- `GET /locations/settlement/{id}` - Settlement map
+- `GET /locations/settlement/{id}/places/public-square` - Public square
+- `GET /locations/settlement/{id}/places/{place}` - Settlement place
+- `POST /locations/settlement/{id}/places/inn/rest` - Rest at the inn
+- `GET /locations/settlement/{id}/places/{place}/fireplace` - Place fireplace
+- `POST /locations/settlement/{id}/travel` - Travel to a settlement
+- `GET /locations/case-site/{id}` - Case-site map
+- `GET /locations/case-site/{id}/enemy` - Case-site encounter
+- `GET /locations/camp` - The active party's current camp
+
+Place-bound actions are children of their place; map actions are children of
+its location root. Party views retain their location context. Their `building`
+query uses a validated physical place slug and preserves the selected place
+while opening party panels. Fireplaces take their place from the URL path.
+
+Location JSON endpoints use the same hierarchy beneath `/api/locations`:
+settlement-wide `/service-quests`, place `/npcs`, `/apprenticeship`, church
+`/religion`, and case-site `/evidence`. Internal service and NPC presence IDs
+are translated at the HTTP boundary. They are not alternative URL slugs.
+
+Retired URL families and location `/map` aliases are not registered. Deploy the
+server and static clients together; compatibility redirects are not provided.
 
 ### Parties
 - `GET /parties` - List parties
@@ -185,3 +207,12 @@ in separate files while preserving their cascade order.
 Database transport or row-decoding failures must remain distinct from a
 successful empty query and should produce an explicit unavailable response or
 logged error state.
+
+## URL validation
+
+Run Rust route and template checks with `cargo test -p strategic-web`, and the
+JavaScript suite with `npm test --prefix crates/strategic-web`. Run the Chromium
+navigation checks with `npm run test:browser --prefix crates/strategic-web`
+(after installing Playwright's Chromium). These exercise building context,
+back/forward history, live camp updates, and persistent canvas identity using
+local response fixtures without a database.

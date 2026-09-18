@@ -34,7 +34,7 @@ fn public_square_place_link(settlement: &SettlementView, current: bool) -> Marku
     let tab = visible_npc_tab(&tabs, "overview")
         .expect("every settlement exposes its overview as a navigable NPC tab");
     html! {
-        a href=(format!("/locations/settlement/{}", settlement.id))
+        a href=(crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]))
             class=(if current { "active" } else { "" })
             aria-current=(if current { "page" } else { "false" }) {
             (tab.label)
@@ -111,14 +111,14 @@ pub fn settlement_overview_page(
             }))
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, active_character, &format!("/locations/settlement/{}", settlement.id), None))
+            (party_portrait_overlay(party_members, active_character, &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, "overview"))
             @if !corpses.is_empty() {
                 nav class="scene-interactable-strip corpse-strip" aria-label="Bodies held in the settlement" {
                     @for corpse in corpses {
                         @let corpse_label = if corpse.location == "interred" { "Buried body" } else { &corpse.display_name };
                         a class="scene-interactable scene-interactable--remains corpse-portrait"
-                            href=(format!("/locations/settlement/{}?corpse={}&medical=physiology", settlement.id, corpse.corpse_id))
+                            href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string())))
                             aria-label=(format!("Examine {corpse_label} with Physiology")) {
                             span class="scene-interactable-visual" aria-hidden="true" { "☠" }
                             span class="scene-interactable-label" { (corpse_label) }
@@ -127,8 +127,8 @@ pub fn settlement_overview_page(
                 }
                 @if let Some((corpse, _)) = selected_corpse {
                     div class="quest-combat-actions corpse-medical-actions" aria-label="Corpse medical windows" {
-                        a class="btn btn-secondary" href=(format!("/locations/settlement/{}?corpse={}&medical=physiology", settlement.id, corpse.corpse_id)) { "Physiology" }
-                        a class="btn btn-secondary" href=(format!("/locations/settlement/{}?corpse={}&medical=surgery", settlement.id, corpse.corpse_id)) { "Surgery" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Physiology" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=surgery", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Surgery" }
                     }
                 }
             }
@@ -149,7 +149,7 @@ pub fn settlement_overview_page(
         @if let Some((corpse, window)) = selected_corpse {
             (corpse_medical_dialog(
                 corpse,
-                &format!("/locations/settlement/{}", settlement.id),
+                &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]),
                 window,
             ))
         }
@@ -257,13 +257,13 @@ fn settlement_resident_location_page_with_panel(
             (sidebar_section("Places", html! {
                 nav class="settlement-places-nav" aria-label="Settlement places" {
                     (public_square_place_link(settlement, false))
-                    a href=(format!("/settlements/{}/places/residences", settlement.id))
+                    a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &("residences")]))
                         class=(if location_id == "residences" { "active" } else { "" })
                         aria-current=(if location_id == "residences" { "page" } else { "false" }) {
                         "Residences"
                     }
                     @if settlement_has_keep(&settlement.category) {
-                        a href=(format!("/settlements/{}/places/keep", settlement.id))
+                        a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &("keep")]))
                             class=(if location_id == "keep" { "active" } else { "" })
                             aria-current=(if location_id == "keep" { "page" } else { "false" }) {
                             "Keep"
@@ -272,7 +272,7 @@ fn settlement_resident_location_page_with_panel(
                     @for organization in adventuresim_core::organization::organizations_for_chapter(&settlement.id) {
                         @let chapter = organization.chapter(&settlement.id).expect("local chapter");
                         @if adventuresim_core::organization::chapter_has_standalone_building(organization, chapter, &settlement.economy) {
-                        a href=(format!("/settlements/{}/places/{}", settlement.id, chapter.location_id))
+                        a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &chapter.location_id]))
                             class=(if location_id == chapter.location_id { "active" } else { "" })
                             aria-current=(if location_id == chapter.location_id { "page" } else { "false" }) {
                             (&chapter.building_name)
@@ -283,7 +283,7 @@ fn settlement_resident_location_page_with_panel(
             }))
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, Some(active_character), &format!("/locations/settlement/{}", settlement.id), None))
+            (party_portrait_overlay(party_members, Some(active_character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, location_id))
             (npc_description_stage(title, description))
             (settlement_resident_chat_area(title, Some(active_character), &settlement.id, location_id, None))
@@ -490,7 +490,7 @@ fn residence_offer_panel(
                             }
                             div class="residence-holding-actions" {
                             @if owns_holding && holding.tenure == ResidenceTenure::Owner && !holding.active {
-                                form action=(format!("/settlements/{}/residences/recover/current", settlement.id)) method="post" {
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("recover"), &("current")])) method="post" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action" title="Recover owned home" aria-label="Recover owned home" {
                                         (decorative_game_icon("hammer-nails")) span class="sr-only" { "Recover owned home" }
@@ -498,7 +498,7 @@ fn residence_offer_panel(
                                 }
                             }
                             @if owns_holding && holding.active && !holding.primary && holding.settlement_id == settlement.id {
-                                form action=(format!("/settlements/{}/residences/designate/current", settlement.id)) method="post" {
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("designate"), &("current")])) method="post" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action" title="Designate as home" aria-label="Designate as home" {
                                         (decorative_game_icon("crown")) span class="sr-only" { "Designate as home" }
@@ -506,7 +506,7 @@ fn residence_offer_panel(
                                 }
                             }
                             @if owns_holding {
-                                form action=(format!("/settlements/{}/residences/relinquish/current", settlement.id)) method="post"
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("relinquish"), &("current")])) method="post"
                                     onsubmit="return confirm('Relinquish this property? This cannot be undone.')" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action residence-icon-action-danger" title="Relinquish property" aria-label="Relinquish property" {
@@ -587,12 +587,12 @@ fn residence_offer_panel(
                         (residence_meter("sun", "leisure", &leisure_label, u32::from(offer.leisure_morale_basis_points), max_leisure))
                     }
                     div class="residence-meter-actions" {
-                    form action=(format!("/settlements/{}/residences/rent/{}", settlement.id, residence_tier_id(offer.tier))) method="post" onsubmit=(&rent_confirmation) {
+                    form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("rent"), &(residence_tier_id(offer.tier))])) method="post" onsubmit=(&rent_confirmation) {
                         button type="submit" class="residence-icon-action" title=(&rent_label) aria-label=(format!("Rent {tier}. {rent_label}")) {
                             (decorative_game_icon("bed")) span class="sr-only" { "Rent " (tier) }
                         }
                     }
-                    form action=(format!("/settlements/{}/residences/buy/{}", settlement.id, residence_tier_id(offer.tier))) method="post" onsubmit=(&buy_confirmation) {
+                    form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("buy"), &(residence_tier_id(offer.tier))])) method="post" onsubmit=(&buy_confirmation) {
                         button type="submit" class="residence-icon-action" title=(&purchase_label) aria-label=(format!("Buy {tier}. {purchase_label}. {upkeep_label}")) {
                             (decorative_game_icon("coins")) span class="sr-only" { "Buy " (tier) }
                         }
@@ -1161,7 +1161,7 @@ mod tests {
         assert!(markup.contains("Bodies held in the settlement"));
         assert!(markup.contains("corpse-portrait"));
         assert!(markup.contains(
-            "/locations/settlement/viabundus-1?corpse=corpse:quest:1&amp;medical=surgery"
+            "/locations/settlement/viabundus-1/places/public-square?corpse=corpse%3Aquest%3A1&amp;medical=surgery"
         ));
         assert!(markup.contains("physiology-dialog"));
         assert!(markup.contains("action=\"/corpses/corpse:quest:1/action\""));
@@ -1255,7 +1255,10 @@ mod tests {
             .and_then(|tail| tail.split("</nav>").next())
             .expect("residence Places navigation");
         assert!(residences.contains("class=\"settlement-places-nav\""));
-        assert!(residence_places.contains("href=\"/locations/settlement/viabundus-1\""));
+        assert!(
+            residence_places
+                .contains("href=\"/locations/settlement/viabundus-1/places/public-square\"")
+        );
         assert!(residence_places.contains(&format!(">{}</a>", public_square.label)));
         assert!(residence_places.contains("aria-current=\"false\""));
         assert!(residence_places.contains("class=\"active\" aria-current=\"page\">Residences</a>"));

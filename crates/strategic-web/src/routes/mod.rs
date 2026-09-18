@@ -172,9 +172,9 @@ mod return_url_tests {
     fn return_urls_are_local_paths_with_optional_query_and_fragment() {
         assert_eq!(
             local_return_url(
-                "/locations/settlement/riverdale/map?destination=quest-1&target_surplus=1.5#plan"
+                "/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan"
             ),
-            Some("/locations/settlement/riverdale/map?destination=quest-1&target_surplus=1.5#plan")
+            Some("/locations/settlement/riverdale?destination=quest-1&target_surplus=1.5#plan")
         );
         assert_eq!(local_return_url("https://example.com/steal"), None);
         assert_eq!(local_return_url("//example.com/steal"), None);
@@ -1192,7 +1192,7 @@ mod onboarding_route_tests {
     ) -> Request {
         let mut builder = Request::builder()
             .method(Method::POST)
-            .uri("/settlements/lubeck/residences/rent/cheap");
+            .uri("/locations/settlement/lubeck/places/residences/rent/cheap");
         if let Some(origin) = origin {
             builder = builder.header(header::ORIGIN, origin);
         }

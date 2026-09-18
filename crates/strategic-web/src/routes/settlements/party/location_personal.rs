@@ -11,7 +11,7 @@ pub(super) async fn resolve_location(state: &AppState, kind: &str, id: &str) -> 
     let location = match kind {
         LocationKind::Settlement => state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(id))
+            .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(id))
             .await
             .map(|row| {
                 row.map(|settlement| {
@@ -25,9 +25,7 @@ pub(super) async fn resolve_location(state: &AppState, kind: &str, id: &str) -> 
             }),
         LocationKind::CaseSite => state
             .db
-            .query_one_sats::<BackendCaseSitePin>(
-                &crate::spacetimedb::case_site_pin_by_case_site_id(id),
-            )
+            .query_one_sats::<BackendCaseSitePin>(&db::case_site_pin_by_case_site_id(id))
             .await
             .map(|row| row.map(|site| (site.display_title, None, None, None))),
     };
@@ -118,31 +116,27 @@ pub(super) async fn render_party_personal(
     let party_members = get_active_party_members(state, Some(&active_character)).await;
     let attributes: Vec<CharacterAttributes> = state
         .db
-        .query_sats(&crate::spacetimedb::character_attributes_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_attributes_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let skills: Vec<CharacterSkills> = state
         .db
-        .query_sats(&crate::spacetimedb::character_skills_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_skills_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let limbs: Vec<CharacterLimbs> = state
         .db
-        .query_sats(&crate::spacetimedb::character_limbs_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_limbs_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let schedule: Vec<CharacterTrainingSchedule> = state
         .db
-        .query_sats(&crate::spacetimedb::character_training_schedule_by_character_id(character_id))
+        .query_sats(&db::character_training_schedule_by_character_id(
+            character_id,
+        ))
         .await
         .unwrap_or_default();
-    let apprenticeships: Vec<crate::spacetimedb::BackendOrganizationMembership> = state
+    let apprenticeships: Vec<db::BackendOrganizationMembership> = state
         .db
         .query_sats(&format!(
             "SELECT * FROM backend_organization_memberships WHERE character_id = {character_id}"
@@ -151,32 +145,26 @@ pub(super) async fn render_party_personal(
         .unwrap_or_default();
     let organization_presentation = state
         .db
-        .query_one_sats::<crate::spacetimedb::OrganizationPresentation>(
-            &crate::spacetimedb::organization_presentation_by_character_id(character_id),
+        .query_one_sats::<db::OrganizationPresentation>(
+            &db::organization_presentation_by_character_id(character_id),
         )
         .await
         .ok()
         .flatten();
-    let character_minute = query_single::<CharacterTime>(
-        state,
-        crate::spacetimedb::character_time_by_character_id(character_id),
-    )
-    .await
-    .map_or(0, |time| time.minutes);
+    let character_minute =
+        query_single::<CharacterTime>(state, db::character_time_by_character_id(character_id))
+            .await
+            .map_or(0, |time| time.minutes);
     let capability = get_character_capability(state, character_id).await;
     let combat_profile = get_combat_training_profile(state, character_id).await;
     let can_examine = false;
-    let stats = query_single::<CharacterStats>(
-        state,
-        crate::spacetimedb::character_stats_by_character_id(character_id),
-    )
-    .await;
+    let stats =
+        query_single::<CharacterStats>(state, db::character_stats_by_character_id(character_id))
+            .await;
     let case_site = if location.kind == LocationKind::CaseSite {
         state
             .db
-            .query_one_sats::<BackendCaseSitePin>(
-                &crate::spacetimedb::case_site_pin_by_case_site_id(&location.id),
-            )
+            .query_one_sats::<BackendCaseSitePin>(&db::case_site_pin_by_case_site_id(&location.id))
             .await
             .ok()
             .flatten()
@@ -186,14 +174,16 @@ pub(super) async fn render_party_personal(
     let settlement = if location.kind == LocationKind::Settlement {
         state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(&location.id))
+            .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(
+                &location.id,
+            ))
             .await
             .ok()
             .flatten()
     } else if let Some(site) = case_site.as_ref() {
         state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(
+            .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(
                 &site.origin_settlement_id,
             ))
             .await
@@ -249,7 +239,7 @@ pub(super) async fn render_party_personal(
     let morale_sources = get_morale_sources(state, character_id).await;
     let religion = query_single::<CharacterCondition>(
         state,
-        crate::spacetimedb::character_condition_by_character_id(character_id),
+        db::character_condition_by_character_id(character_id),
     )
     .await
     .and_then(|condition| condition.religion_id);
@@ -315,7 +305,7 @@ pub(super) async fn render_party_personal(
         .unwrap_or_default();
     let item_definitions = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let foraging_dialog = if building.forage.unwrap_or(false) {

@@ -28,5 +28,8 @@ gltf = { version = "1.4", default-features = false }
 
 [workspace]
 
+[patch.crates-io]
+pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+
 [lints.clippy]
 all = { level = "warn", priority = -1 }

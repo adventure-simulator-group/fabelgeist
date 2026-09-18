@@ -111,45 +111,45 @@ test("POST result pages provide a safe GET URL for live-region refreshes", () =>
   const window = {};
   vm.runInNewContext(source, {
     window,
-    location: { pathname: "/settlements/riverdale/rest/inn", search: "" },
+    location: { pathname: "/locations/settlement/riverdale/places/inn/rest", search: "" },
     document: { querySelector: () => null },
   });
   const marker = {
     querySelector: () => ({
-      dataset: { liveRefreshUrl: "/settlements/riverdale/inn" },
+      dataset: { liveRefreshUrl: "/locations/settlement/riverdale/places/inn" },
     }),
   };
   assert.equal(
     window.strategicLiveRefreshUrl(
       marker,
-      { pathname: "/settlements/riverdale/rest/inn", search: "" },
+      { pathname: "/locations/settlement/riverdale/places/inn/rest", search: "" },
     ),
-    "/settlements/riverdale/inn",
+    "/locations/settlement/riverdale/places/inn",
   );
   assert.equal(
     window.strategicLiveRefreshUrl(
       marker,
-      { pathname: "/settlements/riverdale/rest/inn", search: "" },
+      { pathname: "/locations/settlement/riverdale/places/inn/rest", search: "" },
     ),
-    "/settlements/riverdale/inn",
+    "/locations/settlement/riverdale/places/inn",
     "repeated refreshes retain the canonical marked GET URL",
   );
   assert.equal(
     window.strategicLiveRefreshUrl(
       {
         querySelector: () => ({
-          dataset: { liveRefreshUrl: "/settlements/riverdale/religion" },
+          dataset: { liveRefreshUrl: "/locations/settlement/riverdale/places/church" },
         }),
       },
-      { pathname: "/settlements/riverdale/rest/temple", search: "" },
+      { pathname: "/locations/settlement/riverdale/places/church/rest", search: "" },
     ),
-    "/settlements/riverdale/religion",
+    "/locations/settlement/riverdale/places/church",
   );
-  for (const kind of ["inn", "temple"]) {
+  for (const kind of ["inn", "church", "residences"]) {
     assert.equal(
       window.strategicLiveRefreshUrl(
         { querySelector: () => null },
-        { pathname: `/settlements/riverdale/rest/${kind}`, search: "" },
+        { pathname: `/locations/settlement/riverdale/places/${kind}/rest`, search: "" },
       ),
       null,
       "a missing marker must never turn a POST action into a GET refresh",
@@ -158,8 +158,8 @@ test("POST result pages provide a safe GET URL for live-region refreshes", () =>
   assert.equal(
     window.strategicLiveRefreshUrl(
       { querySelector: () => null },
-      { pathname: "/locations/settlement/riverdale/inn", search: "?building=inn" },
+      { pathname: "/locations/settlement/riverdale/places/inn", search: "?building=inn" },
     ),
-    "/locations/settlement/riverdale/inn?building=inn",
+    "/locations/settlement/riverdale/places/inn?building=inn",
   );
 });
