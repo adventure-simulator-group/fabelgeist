@@ -28,6 +28,7 @@ mod character_export;
 mod character_morphs;
 mod equipment_controls;
 mod equipment_export;
+mod equipment_layering;
 mod fluting_controls;
 mod garment_controls;
 mod joint_extension_controls;
@@ -36,7 +37,6 @@ mod parametric_equipment;
 mod review_export;
 mod review_glb;
 mod shoulder_skin;
-mod torso_support;
 mod underlayer_equipment;
 mod underlayer_preview;
 mod visor_breath_controls;
@@ -49,6 +49,7 @@ use adventuresim_armor_model::{
     BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
 };
 use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
+use adventuresim_character_creator::profiling;
 use adventuresim_character_creator::{
     CharacterRecipe, ClothingSelection, IdentityGroup,
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
@@ -151,6 +152,7 @@ struct GeneratedCharacter {
 
 fn main() -> Result<()> {
     let args = Args::parse();
+    profiling::enable(args.profile);
     let bracer_design = adventuresim_character_creator::design_input::load_bracer_design(
         args.bracer_design.as_deref(),
     )?;

@@ -10,12 +10,12 @@ pub(super) fn articulate(
     rear: bool,
     wearer: Wearer<'_>,
     design: &BreastplateDesign,
-    eligible: &[usize],
+    sampler: &SourceSampler,
 ) -> Result<MidMesh, GenerateError> {
     let BreastplateConstruction::Anime(anime) = &design.construction else {
         return Ok(source);
     };
-    let samples = carrier_samples(&source, wearer, eligible);
+    let samples = carrier_samples(&source, sampler, wearer.frame);
     let normals = source
         .extrusion_normals
         .clone()

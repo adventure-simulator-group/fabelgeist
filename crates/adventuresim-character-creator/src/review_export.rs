@@ -18,7 +18,7 @@ pub(super) fn export(
     selection: ReviewSelection,
 ) -> Result<()> {
     std::fs::create_dir_all(output)?;
-    let body = generate_character(model, recipe)?;
+    let body = crate::profiling::measure("body_generation", || generate_character(model, recipe))?;
     let character = &model.mhr.character;
     std::fs::write(
         output.join("body.json"),
@@ -50,43 +50,88 @@ pub(super) fn export(
             })
             .collect();
     }
+    if matches!(selection, ReviewSelection::Recipe) {
+        return export_pieces(
+            output,
+            model,
+            recipe,
+            catalog,
+            bracer_design,
+            breastplate_design,
+            &body,
+            &review_recipe,
+        );
+    }
     for selection in std::mem::take(&mut review_recipe.clothing) {
         eprintln!(
             "Review mesh: {} ({})",
             selection.item_id, selection.placement_id
         );
         review_recipe.clothing = vec![selection];
-        let pieces = parametric_equipment::selected(
+        export_pieces(
+            output,
             model,
-            &body,
-            &review_recipe,
+            recipe,
             catalog,
             bracer_design,
             breastplate_design,
-            &[],
+            &body,
+            &review_recipe,
         )?;
-        for piece in pieces {
-            if matches!(
-                model.armor_detail,
-                adventuresim_armor_model::ArmorDetail::Runtime(_)
-            ) {
+    }
+    Ok(())
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "review export keeps one explicit set of generation inputs"
+)]
+fn export_pieces(
+    output: &std::path::Path,
+    model: &BodyModel,
+    recipe: &CharacterRecipe,
+    catalog: &EquipmentCatalog,
+    bracer_design: &BracerDesign,
+    breastplate_design: &BreastplateDesign,
+    body: &GeneratedCharacter,
+    review_recipe: &CharacterRecipe,
+) -> Result<()> {
+    let pieces = crate::profiling::measure("equipment_total", || {
+        parametric_equipment::selected(
+            model,
+            body,
+            review_recipe,
+            catalog,
+            bracer_design,
+            breastplate_design,
+            parametric_equipment::EquipmentFit::CharacterInstance,
+        )
+    })?;
+    let character = &model.mhr.character;
+    for piece in pieces {
+        if matches!(
+            model.armor_detail,
+            adventuresim_armor_model::ArmorDetail::Runtime(_)
+        ) {
+            crate::profiling::measure("glb_total", || {
                 crate::review_glb::write(
                     &output.join(format!("{}.glb", piece.name)),
                     &piece,
                     model,
-                    &body,
+                    body,
                     recipe,
                     catalog,
-                )?;
-            }
-            let mut document = piece_document(&piece, catalog, bracer_design, breastplate_design)?;
-            document["joint_names"] = serde_json::to_value(&character.skeleton.names)?;
-            document["joints"] = serde_json::to_value(&body.global_joint_states)?;
-            std::fs::write(
-                output.join(format!("{}.json", piece.name)),
-                serde_json::to_vec(&document)?,
-            )?;
+                )
+            })?;
         }
+        let mut document = piece_document(&piece, catalog, bracer_design, breastplate_design)?;
+        document["joint_names"] = serde_json::to_value(&character.skeleton.names)?;
+        document["joints"] = serde_json::to_value(&body.global_joint_states)?;
+        let json =
+            crate::profiling::measure("review_json_serialize", || serde_json::to_vec(&document))?;
+        crate::profiling::measure("review_json_write", || {
+            std::fs::write(output.join(format!("{}.json", piece.name)), json)
+        })?;
     }
     Ok(())
 }

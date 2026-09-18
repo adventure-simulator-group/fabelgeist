@@ -9,7 +9,7 @@ use crate::{
     armor_frames::Wearer,
     surface_cut::{SurfaceCut, interpolate},
 };
-use adventuresim_armor_model::{Millimeters, PartMesh, Permille};
+use adventuresim_armor_model::{Millimeters, PartMesh, Permille, TextileColor};
 use anyhow::{Result, ensure};
 use serde::{Deserialize, Serialize};
 
@@ -38,6 +38,7 @@ pub struct UnderlayerDesign {
     pub kind: UnderlayerKind,
     pub clearance: Millimeters,
     pub thickness: Millimeters,
+    pub color: TextileColor,
     pub length: Permille,
     pub sleeve_length: Permille,
     pub patch_width: Millimeters,
@@ -113,37 +114,28 @@ pub struct UnderlayerPattern {
     direction_constraints: Vec<direction::Constraint>,
 }
 
-impl UnderlayerPattern {
-    pub fn new(
-        design: &UnderlayerDesign,
-        placement: &str,
-        body: &Wearer<'_>,
-        uv_faces: &[[u32; 3]],
-    ) -> Result<Self> {
-        design.validate()?;
-        let (include, subtract) = regions(design, placement, body)?;
-        let cut = SurfaceCut::new(body.positions, body.faces, uv_faces, &include, &subtract);
-        ensure!(
-            !cut.faces.is_empty(),
-            "underlayer cuts removed the whole garment"
-        );
-        let positions = cut
-            .points
-            .iter()
-            .map(|s| {
-                interpolate(
-                    body.faces[s.triangle].map(|v| body.positions[v as usize]),
-                    s.weights,
-                )
-            })
-            .collect::<Vec<_>>();
-        let borders = cut.borders(&positions);
-        Ok(Self {
-            cut,
-            borders,
+#[derive(Clone)]
+pub struct UnderlayerEnvelope {
+    compression: Vec<f32>,
+    direction_constraints: Vec<direction::Constraint>,
+}
+
+impl UnderlayerEnvelope {
+    pub fn new(body: &Wearer<'_>) -> Self {
+        Self {
             compression: standoff::compression(body),
             direction_constraints: Vec::new(),
-        })
+        }
+    }
+
+    /// Fast single-body fitting keeps the requested stack depth everywhere.
+    /// Unlike the reusable envelope, it does not reserve tight folds for other
+    /// identities or compress locally converging offsets.
+    pub fn for_instance(body: &Wearer<'_>) -> Self {
+        Self {
+            compression: vec![1.0; body.positions.len()],
+            direction_constraints: Vec::new(),
+        }
     }
 
     /// Freeze the tightest sampled layer envelope before creating any targets.
@@ -179,6 +171,41 @@ impl UnderlayerPattern {
             *limit = limit.min(sample);
         }
     }
+}
+
+impl UnderlayerPattern {
+    pub fn new(
+        design: &UnderlayerDesign,
+        placement: &str,
+        body: &Wearer<'_>,
+        uv_faces: &[[u32; 3]],
+        envelope: &UnderlayerEnvelope,
+    ) -> Result<Self> {
+        design.validate()?;
+        let (include, subtract) = regions(design, placement, body)?;
+        let cut = SurfaceCut::new(body.positions, body.faces, uv_faces, &include, &subtract);
+        ensure!(
+            !cut.faces.is_empty(),
+            "underlayer cuts removed the whole garment"
+        );
+        let positions = cut
+            .points
+            .iter()
+            .map(|s| {
+                interpolate(
+                    body.faces[s.triangle].map(|v| body.positions[v as usize]),
+                    s.weights,
+                )
+            })
+            .collect::<Vec<_>>();
+        let borders = cut.borders(&positions);
+        Ok(Self {
+            cut,
+            borders,
+            compression: envelope.compression.clone(),
+            direction_constraints: envelope.direction_constraints.clone(),
+        })
+    }
 
     pub fn evaluate(&self, design: &UnderlayerDesign, body: &Wearer<'_>) -> PartMesh {
         let count = self.cut.points.len() as u32;
@@ -207,7 +234,10 @@ impl UnderlayerPattern {
         }
         let mut indices = Vec::new();
         for &[a, b, c] in &self.cut.faces {
-            indices.extend([a, b, c, c + count, b + count, a + count]);
+            indices.extend([a, b, c]);
+        }
+        for &[a, b, c] in &self.cut.faces {
+            indices.extend([c + count, b + count, a + count]);
         }
         for &[a, b] in &self.borders {
             // A textile cut edge has its own shading normal. Sharing these

@@ -17,6 +17,8 @@ pub enum ArmorComponentRole {
     Buffe,
     Besagew,
     JointExtension,
+    OuterFabric,
+    Undercloth,
 }
 
 impl ArmorComponentRole {
@@ -33,6 +35,8 @@ impl ArmorComponentRole {
             Self::Buffe => "buffe",
             Self::Besagew => "besagew",
             Self::JointExtension => "joint_extension",
+            Self::OuterFabric => "outer_fabric",
+            Self::Undercloth => "undercloth",
         }
     }
 }

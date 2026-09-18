@@ -7,7 +7,7 @@ use adventuresim_armor_model::{
 };
 use std::f32::consts::TAU;
 
-pub(super) struct AttachmentRing {
+pub(crate) struct AttachmentRing {
     points: Vec<(f32, [f32; 3])>,
 }
 
@@ -16,21 +16,45 @@ impl AttachmentRing {
         let center = std::array::from_fn(|axis| {
             points.iter().map(|p| p[axis]).sum::<f32>() / points.len() as f32
         });
-        let mut points = points
-            .into_iter()
-            .map(|point| {
-                let offset = subtract(point, center);
-                let angle = dot(offset, frame.axes[0])
-                    .atan2(dot(offset, frame.axes[2]))
-                    .rem_euclid(TAU);
-                (angle, point)
+        let angle = |point: [f32; 3]| {
+            let offset = subtract(point, center);
+            dot(offset, frame.axes[0]).atan2(dot(offset, frame.axes[2]))
+        };
+        let mut points = points;
+        let winding = (0..points.len())
+            .map(|index| {
+                let a = angle(points[index]);
+                let b = angle(points[(index + 1) % points.len()]);
+                (b - a + std::f32::consts::PI).rem_euclid(TAU) - std::f32::consts::PI
             })
+            .sum::<f32>();
+        if winding < 0.0 {
+            points.reverse();
+        }
+        let start = points
+            .iter()
+            .enumerate()
+            .min_by(|(_, a), (_, b)| angle(**a).abs().total_cmp(&angle(**b).abs()))
+            .map_or(0, |(index, _)| index);
+        points.rotate_left(start);
+        let lengths = (0..points.len())
+            .map(|index| distance(points[index], points[(index + 1) % points.len()]))
             .collect::<Vec<_>>();
-        points.sort_by(|a, b| a.0.total_cmp(&b.0));
+        let perimeter = lengths.iter().sum::<f32>();
+        let mut along = 0.0;
+        let points = points
+            .into_iter()
+            .zip(lengths)
+            .map(|(point, length)| {
+                let fraction = along / perimeter;
+                along += length;
+                (fraction, point)
+            })
+            .collect();
         Self { points }
     }
 
-    pub(super) fn armhole(torso: &PartMesh, side: Side, frame: &PartFrame) -> Self {
+    pub(crate) fn armhole(torso: &PartMesh, side: Side, frame: &PartFrame) -> Self {
         let stride = ACROSS + 1;
         let panel = (ALONG + 1) * stride;
         let left = matches!(side, Side::Left);
@@ -76,18 +100,63 @@ impl AttachmentRing {
         Self::new(points, frame)
     }
 
-    pub(super) fn at(&self, angle: f32) -> [f32; 3] {
-        let angle = angle.rem_euclid(TAU);
-        let next = self.points.partition_point(|(a, _)| *a < angle) % self.points.len();
+    pub(crate) fn at(&self, angle: f32) -> [f32; 3] {
+        let fraction = angle.rem_euclid(TAU) / TAU;
+        let next = self.points.partition_point(|(a, _)| *a < fraction) % self.points.len();
         let previous = (next + self.points.len() - 1) % self.points.len();
         let (a, p) = self.points[previous];
         let (b, q) = self.points[next];
-        let span = (b - a).rem_euclid(TAU);
+        let span = (b - a).rem_euclid(1.0);
         let t = if span > f32::EPSILON {
-            (angle - a).rem_euclid(TAU) / span
+            (fraction - a).rem_euclid(1.0) / span
         } else {
             0.0
         };
         lerp(p, q, t)
+    }
+}
+
+fn distance(a: [f32; 3], b: [f32; 3]) -> f32 {
+    subtract(a, b)
+        .into_iter()
+        .map(|value| value * value)
+        .sum::<f32>()
+        .sqrt()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_armor_model::ArmorDetail;
+
+    #[test]
+    fn concave_armhole_keeps_its_authored_contour_order() {
+        let frame = PartFrame {
+            detail: ArmorDetail::BakeSource,
+            origin: [0.0; 3],
+            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            half_extents: [1.0; 3],
+        };
+        let contour = vec![
+            [0.0, 0.0, 1.0],
+            [1.0, 0.0, 0.4],
+            [0.2, 0.0, 0.1],
+            [1.0, 0.0, -0.4],
+            [0.0, 0.0, -1.0],
+            [-1.0, 0.0, -0.4],
+            [-0.2, 0.0, 0.1],
+            [-1.0, 0.0, 0.4],
+        ];
+        let ring = AttachmentRing::new(contour.clone(), &frame);
+        let ordered = ring
+            .points
+            .iter()
+            .map(|(_, point)| *point)
+            .collect::<Vec<_>>();
+        for pair in ordered.windows(2) {
+            let a = contour.iter().position(|point| point == &pair[0]).unwrap();
+            let b = contour.iter().position(|point| point == &pair[1]).unwrap();
+            assert!(a.abs_diff(b) == 1 || a.abs_diff(b) == contour.len() - 1);
+        }
     }
 }

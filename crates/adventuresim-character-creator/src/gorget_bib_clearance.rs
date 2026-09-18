@@ -5,6 +5,7 @@
 use adventuresim_armor_model::{BoundaryNormals, PartMesh, ShellExtrusion};
 use anyhow::{Result, ensure};
 use bevy::math::{Vec2, Vec3};
+use rayon::prelude::*;
 
 const CLEARANCE_TOLERANCE_M: f32 = 0.000001;
 const MAXIMUM_SEATING_PASSES: usize = 24;
@@ -45,8 +46,7 @@ pub(super) fn seat(
     positions: &mut [[f32; 3]],
     indices: &[u32],
     chart: &[GorgetVertex],
-    body: &[[f32; 3]],
-    faces: &[[u32; 3]],
+    support: &super::triangle_index::TriangleSupport<'_>,
     padding: f32,
     wall: f32,
 ) -> Result<()> {
@@ -58,39 +58,49 @@ pub(super) fn seat(
         return Ok(());
     }
     for _ in 0..MAXIMUM_SEATING_PASSES {
-        // Gauge follows the actual carrier normals. A scalar wall allowance
-        // along the support ray does not enclose this inner surface on slopes.
-        let shell = PartMesh::from_surface(
-            positions.to_vec(),
-            indices.to_vec(),
-            wall,
-            BoundaryNormals::Smooth,
-            ShellExtrusion::AngleWeightedNormal,
-        )?;
-        let inset = &shell.positions[positions.len()..2 * positions.len()];
-        let mut lifts = vec![0.0_f32; positions.len()];
-        for face in indices.as_chunks::<3>().0 {
-            let vertices = face.map(|i| chart[i as usize]);
-            let Some(section) = FacetSection::new(
-                face.map(|i| {
-                    chart[i as usize].inset(
-                        Vec3::from_array(positions[i as usize]),
-                        Vec3::from_array(inset[i as usize]),
-                        padding,
-                    )
-                }),
-                vertices,
-            )?
-            else {
-                continue;
-            };
-            let lift = section.required_lift(body, faces)?;
-            for index in face {
-                if chart[*index as usize].bib().is_some() {
-                    lifts[*index as usize] = lifts[*index as usize].max(lift);
+        let lifts = crate::profiling::measure("gorget_seating_iteration", || {
+            // Gauge follows the actual carrier normals. A scalar wall allowance
+            // along the support ray does not enclose this inner surface on slopes.
+            let shell = PartMesh::from_surface(
+                positions.to_vec(),
+                indices.to_vec(),
+                wall,
+                BoundaryNormals::Smooth,
+                ShellExtrusion::AngleWeightedNormal,
+            )?;
+            let inset = &shell.positions[positions.len()..2 * positions.len()];
+            let mut lifts = vec![0.0_f32; positions.len()];
+            let face_lifts = indices
+                .par_chunks_exact(3)
+                .map(|face| {
+                    let face = [face[0], face[1], face[2]];
+                    let vertices = face.map(|i| chart[i as usize]);
+                    let Some(section) = FacetSection::new(
+                        face.map(|i| {
+                            chart[i as usize].inset(
+                                Vec3::from_array(positions[i as usize]),
+                                Vec3::from_array(inset[i as usize]),
+                                padding,
+                            )
+                        }),
+                        vertices,
+                    )?
+                    else {
+                        return Ok(None);
+                    };
+                    let lift = section.required_lift(support)?;
+                    Ok::<_, anyhow::Error>(Some((face, lift)))
+                })
+                .collect::<Result<Vec<_>>>()?;
+            for (face, lift) in face_lifts.into_iter().flatten() {
+                for index in face {
+                    if chart[index as usize].bib().is_some() {
+                        lifts[index as usize] = lifts[index as usize].max(lift);
+                    }
                 }
             }
-        }
+            Ok::<_, anyhow::Error>(lifts)
+        })?;
         if lifts.iter().all(|lift| *lift <= CLEARANCE_TOLERANCE_M) {
             return Ok(());
         }
@@ -157,11 +167,24 @@ impl FacetSection {
         }))
     }
 
-    fn required_lift(&self, body: &[[f32; 3]], faces: &[[u32; 3]]) -> Result<f32> {
+    fn required_lift(&self, support: &super::triangle_index::TriangleSupport<'_>) -> Result<f32> {
         let mut lift = 0.0_f32;
-        for face in faces {
-            let triangle =
-                face.map(|i| project(Vec3::from_array(body[i as usize]), self.direction));
+        let mut result = Ok(());
+        support.for_each_candidate(
+            self.direction.to_array(),
+            self.lower.to_array(),
+            self.upper.to_array(),
+            |face_index| {
+            if result.is_err() {
+                return;
+            }
+            let face = &support.triangles[face_index];
+            let triangle = face.map(|i| {
+                project(
+                    Vec3::from_array(support.positions[i as usize]),
+                    self.direction,
+                )
+            });
             let lower = triangle
                 .iter()
                 .fold(Vec2::splat(f32::INFINITY), |a, p| a.min(p.truncate()));
@@ -173,7 +196,7 @@ impl FacetSection {
                 || upper.x < self.lower.x
                 || upper.y < self.lower.y
             {
-                continue;
+                return;
             }
             let polygon = self.support_fragment(triangle);
             for point in polygon {
@@ -184,15 +207,18 @@ impl FacetSection {
                     continue;
                 }
                 let response: f32 = (0..3).map(|i| weights[i] * self.response[i]).sum();
-                ensure!(
-                    response > 1e-6,
-                    "body support intersects the fixed gorget collar seam: body face {face:?}, projected fragment {point:?}, projected carrier {:?}, direction {:?}, barycentric {weights:?}, deficit {deficit}m",
-                    self.triangle,
-                    self.direction
-                );
+                if response <= 1e-6 {
+                    result = Err(anyhow::anyhow!(
+                        "body support intersects the fixed gorget collar seam: body face {face:?}, projected fragment {point:?}, projected carrier {:?}, direction {:?}, barycentric {weights:?}, deficit {deficit}m",
+                        self.triangle,
+                        self.direction
+                    ));
+                    return;
+                }
                 lift = lift.max(deficit / response);
             }
-        }
+        });
+        result?;
         Ok(lift)
     }
 
@@ -328,11 +354,12 @@ mod tests {
             (0.026, 0.061, true),
         ] {
             let (body, faces) = tent(x, y);
+            let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
             let (mesh, chart) = carrier(angular, 0.003, 4);
             let mut result = Ok(());
             let fitted = mesh
                 .refit_surfaces(|points, indices| {
-                    result = seat(points, indices, &chart, &body, &faces, 0.002, 0.001);
+                    result = seat(points, indices, &chart, &support, 0.002, 0.001);
                 })
                 .unwrap();
             result.unwrap();
@@ -371,10 +398,11 @@ mod tests {
     #[test]
     fn infeasible_support_at_the_fixed_collar_is_rejected() {
         let (body, faces) = tent(0.0, 0.1);
+        let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
         let (mesh, chart) = carrier(false, 0.003, 4);
         let mut result = Ok(());
         let _ = mesh.refit_surfaces(|points, indices| {
-            result = seat(points, indices, &chart, &body, &faces, 0.002, 0.001);
+            result = seat(points, indices, &chart, &support, 0.002, 0.001);
         });
         assert!(result.is_err());
     }
@@ -388,11 +416,12 @@ mod tests {
             [-0.2, 0.2, 0.039],
         ];
         let faces = [[0, 1, 2], [0, 2, 3]];
+        let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
         let (mesh, chart) = carrier(false, 0.010, 4);
         let mut result = Ok(());
         let fitted = mesh
             .refit_surfaces(|points, indices| {
-                result = seat(points, indices, &chart, &body, &faces, 0.012, 0.001);
+                result = seat(points, indices, &chart, &support, 0.012, 0.001);
             })
             .unwrap();
         result.unwrap();
@@ -435,7 +464,9 @@ mod tests {
         let section = FacetSection::new(actual_inset, chart).unwrap().unwrap();
         for (height, should_fit) in [(-0.001, true), (0.007, false)] {
             let body = inset.map(|p| (p + Vec3::Z * height).to_array());
-            let result = section.required_lift(&body, &[[0, 1, 2]]);
+            let faces = [[0, 1, 2]];
+            let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
+            let result = section.required_lift(&support);
             assert_eq!(result.is_ok(), should_fit, "inset plane depth {height}");
         }
     }
@@ -450,16 +481,10 @@ mod tests {
             [-0.2, 0.2, 0.041],
         ];
         let mut result = Ok(());
+        let faces = [[0, 1, 2], [0, 2, 3]];
+        let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
         let _ = mesh.refit_surfaces(|points, indices| {
-            result = seat(
-                points,
-                indices,
-                &chart,
-                &body,
-                &[[0, 1, 2], [0, 2, 3]],
-                0.012,
-                0.001,
-            );
+            result = seat(points, indices, &chart, &support, 0.012, 0.001);
         });
         assert!(
             result.is_err(),
@@ -476,6 +501,7 @@ mod tests {
             [-0.2, 0.2, 0.039],
         ];
         let faces = [[0, 1, 2], [0, 2, 3]];
+        let support = super::super::triangle_index::TriangleSupport::new(&body, &faces);
         let mut maximum_movements = Vec::new();
         for rows in [4, 16] {
             let (mesh, chart) = carrier(false, 0.010, rows);
@@ -485,8 +511,7 @@ mod tests {
                 &mut carrier_points,
                 surface_indices,
                 &chart,
-                &body,
-                &faces,
+                &support,
                 0.012,
                 0.001,
             )

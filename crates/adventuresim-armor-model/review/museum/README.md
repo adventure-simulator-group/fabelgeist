@@ -185,12 +185,13 @@ remain independent of the attachment binding.
 
 ## Reproducible comparison views
 
-The `henry/` and `nuremberg/` directories contain the selected outfit, body,
-plate, fastening, metal and trim recipes. Henry has front, quarter and rear
-camera presets; Nuremberg has the museum's quarter view. These are authored
-interpretations of the displays described under Primary references below.
-Henry's camera presets also set the unlit ochre colors of the boots and cloth.
-They do not reproduce the reference's engraving or soft-material wrinkles.
+The `henry/`, `landsknecht/`, and `nuremberg/` directories contain selected
+outfit, body, plate, and fastening recipes. Henry and Landsknecht have front,
+quarter, and rear camera presets; Nuremberg has the museum's quarter view.
+These are authored interpretations of the displays or photographic set
+described under Primary references below. Henry's camera presets also set the
+unlit ochre colors of the boots and cloth. The presets do not reproduce
+engraving or soft-material wrinkles.
 
 Generate equipment with the selected directory's `body.json` as `--recipe`,
 `armor.json` as `--armor-designs`, `breastplate.json` as
@@ -307,6 +308,12 @@ every combination of parameters is historical.
   arm is a nineteenth-century restoration, and its rondels date to 1923.
   Matching this display does not establish that those replacement elements
   reproduce an original sixteenth-century assembly.
+- [Yoremade Landsknecht cuirass photographic set](https://epicarmoury.com/products/3124-landsknecht-cuirass)
+  is the single integrated visual target for the Landsknecht recipe's cuirass,
+  armhole, sleeve, and waist layering. It is modern commercial reenactment and
+  LARP equipment marketed as historically plausible, not documentation of a
+  surviving 1544 ensemble. The recipe links the photographs for review and
+  does not redistribute them.
 - [Italian pauldrons and arm defenses, ca. 1560, Met 14.25.827a–d](https://www.metmuseum.org/art/collection/search/22301)
   provide an additional source for the relationship between broad shoulder
   plates and narrower descending arm courses.

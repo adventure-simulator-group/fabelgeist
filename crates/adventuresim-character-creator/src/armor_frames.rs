@@ -82,6 +82,19 @@ const HAND_SKIN_JOINTS: &[&str] = &[
 
 impl Wearer<'_> {
     pub fn support_indices(&self, region: FitRegion) -> Result<Vec<usize>> {
+        self.support_indices_for(region, self.joint_indices, self.joint_weights)
+    }
+
+    pub(crate) fn support_indices_for(
+        &self,
+        region: FitRegion,
+        joint_indices: &[[u32; 8]],
+        joint_weights: &[[f32; 8]],
+    ) -> Result<Vec<usize>> {
+        ensure!(
+            joint_indices.len() == joint_weights.len(),
+            "support skin indices and weights have different lengths"
+        );
         let (_, _, mut owners) = self.landmarks(region)?;
         // The shoulder cap spans the deltoid and the clavicular transition.
         // Its frame remains anchored by the upper arm, while its support also
@@ -99,9 +112,19 @@ impl Wearer<'_> {
             })
             .collect::<Vec<_>>();
         Ok(self
-            .joint_indices
+            .support_vertices(joint_indices, joint_weights, &owned)
+            .collect())
+    }
+
+    fn support_vertices<'a>(
+        &'a self,
+        joint_indices: &'a [[u32; 8]],
+        joint_weights: &'a [[f32; 8]],
+        owned: &'a [bool],
+    ) -> impl Iterator<Item = usize> + 'a {
+        joint_indices
             .iter()
-            .zip(self.joint_weights)
+            .zip(joint_weights)
             .enumerate()
             .filter_map(|(i, (indices, weights))| {
                 let weight: f32 = indices
@@ -112,7 +135,6 @@ impl Wearer<'_> {
                     .sum();
                 (weight >= SKIN_SUPPORT_THRESHOLD).then_some(i)
             })
-            .collect())
     }
     fn joint(&self, name: &str) -> Result<[f32; 3]> {
         let i = self

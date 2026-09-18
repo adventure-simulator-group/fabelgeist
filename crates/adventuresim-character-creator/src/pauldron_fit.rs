@@ -31,8 +31,10 @@ pub(super) fn fit(
     let body_clearance = (d.gauge.clearance.metres() + d.gauge.thickness.metres())
         .max(d.gauge.thickness.metres() * OBLIQUE_WALL_RESERVE_GAUGES);
     let plate_clearance = d.plate_clearance.metres() + d.gauge.thickness.metres();
-    let edge_reserve = d.gauge.thickness.metres() * OBLIQUE_WALL_RESERVE_GAUGES;
     let mut carrier = PauldronCarrier::new(d, &frame)?;
+    let edge_reserve = carrier
+        .sampling_radius(|point| [point[0], point[1]])
+        .max(d.gauge.thickness.metres() * OBLIQUE_WALL_RESERVE_GAUGES);
     carrier.fit(|mut point| {
         let bounds = depth_bounds(&triangles, point, 0.0, 0.0);
         let midpoint = bounds.map_or(frame.origin[2], |[low, high]| (low + high) * 0.5);

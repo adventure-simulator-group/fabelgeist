@@ -11,6 +11,21 @@ pub(super) struct EquipmentCatalog(
 );
 
 impl EquipmentCatalog {
+    pub(super) fn placement(
+        &self,
+        id: &str,
+        placement: &str,
+    ) -> Option<&adventuresim_character_creator::item_catalog_schema::EquipmentPlacement> {
+        self.0
+            .iter()
+            .find(|item| item.id == id)?
+            .equipment
+            .as_ref()?
+            .placements
+            .iter()
+            .find(|candidate| candidate.id == placement)
+    }
+
     pub(super) fn material(&self, id: &str) -> Result<EquipmentMaterial> {
         self.0
             .iter()

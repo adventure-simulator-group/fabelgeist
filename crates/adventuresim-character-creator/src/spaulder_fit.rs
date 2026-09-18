@@ -14,8 +14,14 @@ use crate::armor_frames::{FitRegion, Side, Wearer};
 const SUPPORT_TOLERANCE_M: f32 = 0.000001;
 const PROJECTED_AREA_EPSILON_M2: f32 = 1e-12;
 const MAXIMUM_SEATING_PASSES: usize = 16;
+const LAYER_SUPPORT_ENVELOPE_SCALE: f32 = 2.0;
 
-pub(crate) fn fit(design: &SpaulderDesign, wearer: &Wearer<'_>, side: Side) -> Result<PartMesh> {
+pub(crate) fn fit(
+    design: &SpaulderDesign,
+    wearer: &Wearer<'_>,
+    side: Side,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
+) -> Result<PartMesh> {
     let region = FitRegion::Shoulder(side);
     let frame = wearer.frame(region)?;
     let selected = wearer.support_indices(region)?;
@@ -23,19 +29,139 @@ pub(crate) fn fit(design: &SpaulderDesign, wearer: &Wearer<'_>, side: Side) -> R
     for i in selected {
         owned[i] = true;
     }
-    let support = wearer
+    let mut parts = SpaulderPlates::new(design, &frame)?;
+    let crown_span = axial_span(&parts.crown, &frame);
+    let mut support = wearer
         .faces
         .iter()
         .filter(|face| face.iter().all(|i| owned[*i as usize]))
         .map(|face| face.map(|i| project(&frame, wearer.positions[i as usize])))
         .collect::<Vec<_>>();
+    for layer in layers {
+        support.extend(layer_support(layer, &frame, crown_span));
+    }
     ensure!(
         !support.is_empty(),
         "spaulder crown has no complete shoulder support triangles"
     );
-    let mut parts = SpaulderPlates::new(design, &frame)?;
+    let mut lame_owned = owned;
+    for index in wearer.support_indices(FitRegion::UpperArm(side))? {
+        lame_owned[index] = true;
+    }
+    let mut lame_support = wearer
+        .faces
+        .iter()
+        .filter(|face| face.iter().all(|i| lame_owned[*i as usize]))
+        .map(|face| face.map(|i| project(&frame, wearer.positions[i as usize])))
+        .collect::<Vec<_>>();
+    let lame_span = axial_span(&parts.lames, &frame);
+    for layer in layers {
+        lame_support.extend(layer_support(layer, &frame, lame_span));
+    }
+    parts.lames = seat_lames(
+        &parts.lames,
+        &frame,
+        &lame_support,
+        design.gauge.clearance.metres() + design.gauge.thickness.metres(),
+    )?;
     parts.crown = seat(&parts.crown, &frame, &support)?;
     Ok(parts.mesh())
+}
+
+fn layer_support(
+    layer: &crate::armor_layer::ArmorLayerSurface<'_>,
+    frame: &PartFrame,
+    axial_span: (f32, f32),
+) -> Vec<[Vec3; 3]> {
+    layer
+        .faces
+        .iter()
+        .flat_map(|face| {
+            let mut polygon = face
+                .map(|i| project(frame, layer.positions[i as usize]))
+                .to_vec();
+            let x = frame.half_extents[0] * LAYER_SUPPORT_ENVELOPE_SCALE;
+            let y = frame.half_extents[2] * LAYER_SUPPORT_ENVELOPE_SCALE;
+            polygon = clip(polygon, |point| point.x + x);
+            polygon = clip(polygon, |point| x - point.x);
+            polygon = clip(polygon, |point| point.y + y);
+            polygon = clip(polygon, |point| y - point.y);
+            polygon = clip(polygon, |point| point.z - axial_span.0);
+            polygon = clip(polygon, |point| axial_span.1 - point.z);
+            (1..polygon.len().saturating_sub(1))
+                .map(|i| [polygon[0], polygon[i], polygon[i + 1]])
+                .collect::<Vec<_>>()
+        })
+        .collect()
+}
+
+fn axial_span(mesh: &PartMesh, frame: &PartFrame) -> (f32, f32) {
+    mesh.positions
+        .iter()
+        .map(|point| project(frame, *point).z)
+        .fold((f32::INFINITY, f32::NEG_INFINITY), |(low, high), axial| {
+            (low.min(axial), high.max(axial))
+        })
+}
+
+fn seat_lames(
+    template: &PartMesh,
+    frame: &PartFrame,
+    support: &[[Vec3; 3]],
+    gap: f32,
+) -> Result<PartMesh> {
+    let axial = template
+        .positions
+        .iter()
+        .map(|point| project(frame, *point).z);
+    let low = axial.clone().fold(f32::INFINITY, f32::min);
+    let high = axial.fold(f32::NEG_INFINITY, f32::max);
+    Ok(template.refit_surfaces(|points, _| {
+        for point in points {
+            let p = project(frame, *point);
+            let distance = p.x.hypot(p.y);
+            if distance <= f32::EPSILON {
+                continue;
+            }
+            let direction = Vec3::new(p.x / distance, p.y / distance, 0.0);
+            let origin = Vec3::new(0.0, 0.0, p.z);
+            let required = support
+                .iter()
+                .filter_map(|triangle| {
+                    ray_triangle(origin, direction, *triangle).map(|hit| hit + gap)
+                })
+                .fold(distance, f32::max);
+            if required > distance {
+                let attachment_blend = ((high - p.z) / (high - low) * 4.0).clamp(0.0, 1.0);
+                let fitted =
+                    origin + direction * (distance + (required - distance) * attachment_blend);
+                *point = frame.point([fitted.x, fitted.z, fitted.y]);
+            }
+        }
+    })?)
+}
+
+fn ray_triangle(origin: Vec3, direction: Vec3, [a, b, c]: [Vec3; 3]) -> Option<f32> {
+    let edge_ab = b - a;
+    let edge_ac = c - a;
+    let perpendicular = direction.cross(edge_ac);
+    let determinant = edge_ab.dot(perpendicular);
+    if determinant.abs() <= PROJECTED_AREA_EPSILON_M2 {
+        return None;
+    }
+    let inverse = determinant.recip();
+    let from_a = origin - a;
+    let u = from_a.dot(perpendicular) * inverse;
+    if !(0.0..=1.0).contains(&u) {
+        return None;
+    }
+    let cross = from_a.cross(edge_ab);
+    let v = direction.dot(cross) * inverse;
+    if v < 0.0 || u + v > 1.0 {
+        return None;
+    }
+    let distance = edge_ac.dot(cross) * inverse;
+    (distance >= 0.0).then_some(distance)
 }
 
 fn seat(template: &PartMesh, frame: &PartFrame, support: &[[Vec3; 3]]) -> Result<PartMesh> {
@@ -179,7 +305,9 @@ fn clip(polygon: Vec<Vec3>, distance: impl Fn(Vec3) -> f32) -> Vec<Vec3> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_armor_model::{BoundaryNormals, ShellExtrusion, SurfaceRelief};
+    use adventuresim_armor_model::{BoundaryNormals, Millimeters, ShellExtrusion, SurfaceRelief};
+
+    use crate::armor_layer::ArmorLayerSurface;
 
     fn crown() -> (PartMesh, PartFrame, Vec<[u32; 3]>) {
         let positions = vec![
@@ -271,6 +399,55 @@ mod tests {
         ];
         let body = [inner.map(|p| p + Vec3::Z * 0.001)];
         assert!(required_scale(&inner, &[[0, 1, 2]], &body, 0.0).is_err());
+    }
+
+    #[test]
+    fn layer_support_keeps_local_geometry_without_importing_remote_plate_extent() {
+        let (mesh, frame, faces) = crown();
+        let positions = [
+            [-0.08, 0.03, -0.08],
+            [0.08, 0.03, -0.08],
+            [0.0, 0.03, 0.08],
+            [-0.08, 0.5, -0.08],
+            [0.08, 0.5, -0.08],
+            [0.0, 0.5, 0.08],
+        ];
+        let layer_faces = [[0, 1, 2], [3, 4, 5]];
+        let layer = ArmorLayerSurface {
+            relief: Millimeters(0),
+            positions: &positions,
+            faces: &layer_faces,
+            joint_indices: &[],
+            joint_weights: &[],
+        };
+        let span = axial_span(&mesh, &frame);
+        let support = layer_support(&layer, &frame, span);
+        assert_eq!(support.len(), 1);
+        assert!(
+            required_scale(
+                &mesh.positions[5..10]
+                    .iter()
+                    .map(|point| project(&frame, *point))
+                    .collect::<Vec<_>>(),
+                &faces,
+                &support,
+                0.0,
+            )
+            .unwrap()
+                > 1.0
+        );
+    }
+
+    #[test]
+    fn radial_ray_uses_the_actual_triangle_surface_at_the_lame_height() {
+        let triangle = [
+            Vec3::new(0.08, -0.03, -0.02),
+            Vec3::new(0.08, 0.03, -0.02),
+            Vec3::new(0.08, 0.0, 0.02),
+        ];
+        let hit = ray_triangle(Vec3::ZERO, Vec3::X, triangle).unwrap();
+        assert!((hit - 0.08).abs() < 1e-6);
+        assert!(ray_triangle(Vec3::new(0.0, 0.0, 0.03), Vec3::X, triangle).is_none());
     }
 }
 

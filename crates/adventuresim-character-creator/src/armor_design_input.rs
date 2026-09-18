@@ -110,6 +110,10 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
             (ParametricDesign::Limb(a), ParametricDesign::Limb(b)) => {
                 std::mem::discriminant(a) == std::mem::discriminant(b)
             }
+            (ParametricDesign::PuffAndSlash(a), ParametricDesign::PuffAndSlash(b)) => {
+                a.kind == b.kind
+            }
+            (ParametricDesign::TrunkHose(_), ParametricDesign::TrunkHose(_)) => true,
             (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
             (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
             (ParametricDesign::WaistAssembly(_), ParametricDesign::WaistAssembly(_)) => true,
@@ -140,6 +144,8 @@ fn validate_design(id: &str, design: &ParametricDesign) -> Result<()> {
     match design {
         ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new),
         ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
+        ParametricDesign::PuffAndSlash(d) => d.validate().map_err(anyhow::Error::new),
+        ParametricDesign::TrunkHose(d) => d.validate().map_err(anyhow::Error::new),
         ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
         ParametricDesign::Underlayer(d) => d.validate(),
         ParametricDesign::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),

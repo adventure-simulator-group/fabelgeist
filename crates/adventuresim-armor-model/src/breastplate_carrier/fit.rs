@@ -48,6 +48,24 @@ pub(super) struct FitProfile {
     side: [f32; 3],
 }
 
+struct ClearanceConstraint {
+    residual: f32,
+    weights: [f32; 3],
+    side_blend: f32,
+    point: [f32; 3],
+    body_radius: f32,
+}
+
+struct ClearanceSearch<'a> {
+    original: &'a [[f32; 3]],
+    section_centers: &'a [Option<[f32; 2]>],
+    rear: bool,
+    wearer: Wearer<'a>,
+    design: &'a BreastplateDesign,
+    clearance: f32,
+    bottom: f32,
+}
+
 pub(super) fn height_weights(reference_y: f32, bottom: f32) -> [f32; 3] {
     let t = ((reference_y - bottom) / (REFERENCE_CARRIER_TOP_HEIGHT - bottom)).clamp(0.0, 1.0);
     [(1.0 - t).powi(2), 2.0 * t * (1.0 - t), t.powi(2)]
@@ -102,12 +120,10 @@ pub(super) fn torso_section_center(local_y: f32, wearer: Wearer<'_>) -> Option<[
     })
 }
 
-pub(super) fn radial_direction(
-    point: [f32; 3],
-    wearer: Wearer<'_>,
+fn radial_direction_from_center(
+    local_point: [f32; 3],
+    center: [f32; 2],
 ) -> Option<([f32; 3], f32, f32)> {
-    let local_point = local(point, wearer.frame);
-    let center = torso_section_center(local_point[1], wearer)?;
     let delta = [local_point[0] - center[0], 0.0, local_point[2] - center[1]];
     let radius = length(delta);
     (radius > 1e-6).then(|| {
@@ -117,14 +133,13 @@ pub(super) fn radial_direction(
     })
 }
 
-pub(super) fn body_radial_extent(
-    point: [f32; 3],
+fn body_radial_extent_from_center(
+    local_y: f32,
+    center: [f32; 2],
     direction: [f32; 3],
     wearer: Wearer<'_>,
 ) -> Option<f32> {
-    let local_point = local(point, wearer.frame);
-    let center = torso_section_center(local_point[1], wearer)?;
-    let origin = [center[0], local_point[1], center[1]];
+    let origin = [center[0], local_y, center[1]];
     let mut minimum = f32::INFINITY;
     for face in wearer.torso_faces {
         let [a, b, c] = face.map(|index| {
@@ -181,6 +196,7 @@ pub(super) fn update_radial_profile(
 pub(super) fn apply_fit(
     position: [f32; 3],
     original: [f32; 3],
+    section_center: [f32; 2],
     rear: bool,
     wearer: Wearer<'_>,
     design: &BreastplateDesign,
@@ -193,7 +209,9 @@ pub(super) fn apply_fit(
         FRONT_HEIGHTS[0]
     };
     let weights = height_weights(reference_y, bottom);
-    let Some((direction, _, side_blend)) = radial_direction(original, wearer) else {
+    let Some((direction, _, side_blend)) =
+        radial_direction_from_center(local(original, wearer.frame), section_center)
+    else {
         return position;
     };
     let offset = weighted_value(weights, fit.center) * (1.0 - side_blend)
@@ -204,6 +222,51 @@ pub(super) fn apply_fit(
     )
 }
 
+impl ClearanceSearch<'_> {
+    fn largest_constraint(&self, mesh: &MidMesh) -> Option<ClearanceConstraint> {
+        let mut constraint = None::<ClearanceConstraint>;
+        for ((position, original), center) in mesh
+            .positions
+            .iter()
+            .zip(self.original)
+            .zip(self.section_centers)
+        {
+            let Some(center) = center else { continue };
+            let reference_y = reference_height(*original, self.wearer, self.design);
+            let weights = height_weights(reference_y, self.bottom);
+            let local_position = local(*position, self.wearer.frame);
+            let Some((direction, radius, side_blend)) =
+                radial_direction_from_center(local_position, *center)
+            else {
+                continue;
+            };
+            if (self.rear && direction[2] >= 0.0) || (!self.rear && direction[2] <= 0.0) {
+                continue;
+            }
+            let Some(body_radius) =
+                body_radial_extent_from_center(local_position[1], *center, direction, self.wearer)
+            else {
+                continue;
+            };
+            let residual = body_radius + self.clearance - radius;
+            if residual > 1e-5
+                && constraint
+                    .as_ref()
+                    .is_none_or(|current| residual > current.residual)
+            {
+                constraint = Some(ClearanceConstraint {
+                    residual,
+                    weights,
+                    side_blend,
+                    point: local(*position, self.wearer.frame),
+                    body_radius,
+                });
+            }
+        }
+        constraint
+    }
+}
+
 pub(super) fn section_clearance_fit(
     mesh: &mut MidMesh,
     rear: bool,
@@ -211,6 +274,10 @@ pub(super) fn section_clearance_fit(
     design: &BreastplateDesign,
 ) -> Result<FitProfile, GenerateError> {
     let original = mesh.positions.clone();
+    let section_centers = original
+        .iter()
+        .map(|point| torso_section_center(local(*point, wearer.frame)[1], wearer))
+        .collect::<Vec<_>>();
     // Seating and section correction must preserve the requested inner room,
     // including where a lateral return approaches a mail-covered armpit.
     let clearance = if rear {
@@ -224,50 +291,49 @@ pub(super) fn section_clearance_fit(
     } else {
         FRONT_HEIGHTS[0]
     };
+    let clearance_search = ClearanceSearch {
+        original: &original,
+        section_centers: &section_centers,
+        rear,
+        wearer,
+        design,
+        clearance,
+        bottom,
+    };
     let mut fit = FitProfile::default();
     for iteration in 0..=24 {
-        for (position, original) in mesh.positions.iter_mut().zip(&original) {
-            *position = apply_fit(*original, *original, rear, wearer, design, fit);
-        }
-        let mut constraint = None::<(f32, [f32; 3], f32, [f32; 3], f32)>;
-        for (position, original) in mesh.positions.iter().zip(&original) {
-            let reference_y = reference_height(*original, wearer, design);
-            let weights = height_weights(reference_y, bottom);
-            let Some((direction, radius, side_blend)) = radial_direction(*position, wearer) else {
-                continue;
-            };
-            if (rear && direction[2] >= 0.0) || (!rear && direction[2] <= 0.0) {
-                continue;
-            }
-            let Some(body_radius) = body_radial_extent(*position, direction, wearer) else {
-                continue;
-            };
-            let residual = body_radius + clearance - radius;
-            if residual > 1e-5 && constraint.is_none_or(|current| residual > current.0) {
-                constraint = Some((
-                    residual,
-                    weights,
-                    side_blend,
-                    local(*position, wearer.frame),
-                    body_radius,
-                ));
+        for ((position, original), center) in mesh
+            .positions
+            .iter_mut()
+            .zip(&original)
+            .zip(&section_centers)
+        {
+            if let Some(center) = center {
+                *position = apply_fit(*original, *original, *center, rear, wearer, design, fit);
             }
         }
-        let Some((residual, weights, side_blend, point, body_radius)) = constraint else {
+        let Some(constraint) = clearance_search.largest_constraint(mesh) else {
             break;
         };
         if iteration == 24 {
             if report_fit() {
                 eprintln!(
-                    "breastplate nonconverged section_fit rear={rear} residual={residual} witness={point:?} body_radius={body_radius}"
+                    "breastplate nonconverged section_fit rear={rear} residual={} witness={:?} body_radius={}",
+                    constraint.residual, constraint.point, constraint.body_radius,
                 );
             }
             return Err(GenerateError::InvalidSurface);
         }
-        update_radial_profile(&mut fit, weights, side_blend, residual);
+        update_radial_profile(
+            &mut fit,
+            constraint.weights,
+            constraint.side_blend,
+            constraint.residual,
+        );
         if report_fit() {
             eprintln!(
-                "breastplate fit_iteration rear={rear} fit={fit:?} witness={point:?} body_radius={body_radius}"
+                "breastplate fit_iteration rear={rear} fit={fit:?} witness={:?} body_radius={}",
+                constraint.point, constraint.body_radius,
             );
         }
     }
@@ -284,8 +350,15 @@ pub(super) fn section_clearance_fit(
         }
         return Err(GenerateError::InvalidSurface);
     }
-    for (position, original) in mesh.positions.iter_mut().zip(&original) {
-        *position = apply_fit(*original, *original, rear, wearer, design, fit);
+    for ((position, original), center) in mesh
+        .positions
+        .iter_mut()
+        .zip(&original)
+        .zip(section_centers)
+    {
+        if let Some(center) = center {
+            *position = apply_fit(*original, *original, center, rear, wearer, design, fit);
+        }
     }
     Ok(fit)
 }

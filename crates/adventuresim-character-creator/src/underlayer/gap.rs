@@ -1,6 +1,6 @@
 //! Limit the complete layer stack against nearby opposing body surfaces.
 use crate::surface_cut::dot;
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::BTreeMap;
 
 const RAY_ROUNDOFF_M: f32 = 1e-6;
 const GAP_ALLOCATION: f32 = 0.25;
@@ -27,26 +27,28 @@ pub(super) fn constrain(
             grid.entry(key).or_default().push(i);
         }
     }
+    let mut visited = vec![0_u32; faces.len()];
     for (i, (&origin, &direction)) in positions.iter().zip(directions).enumerate() {
+        let visit = u32::try_from(i + 1).expect("body vertex count exceeds clearance marker range");
         let end: [f32; 3] = std::array::from_fn(|k| origin[k] + direction[k] * reach);
         let low = cell(std::array::from_fn(|k| origin[k].min(end[k])));
         let high = cell(std::array::from_fn(|k| origin[k].max(end[k])));
-        let candidates = cells(low, high)
-            .into_iter()
-            .filter_map(|key| grid.get(&key))
-            .flatten()
-            .copied()
-            .collect::<BTreeSet<_>>();
-        for index in candidates {
-            if faces[index].contains(&(i as u32)) {
+        for key in cells(low, high) {
+            let Some(candidates) = grid.get(&key) else {
                 continue;
-            }
-            let triangle = faces[index].map(|v| positions[v as usize]);
-            if let Some(distance) = facing_hit(origin, direction, triangle)
-                && distance > RAY_ROUNDOFF_M
-                && distance < reach
-            {
-                room[i] = room[i].min(distance * GAP_ALLOCATION);
+            };
+            for &index in candidates {
+                if visited[index] == visit || faces[index].contains(&(i as u32)) {
+                    continue;
+                }
+                visited[index] = visit;
+                let triangle = faces[index].map(|v| positions[v as usize]);
+                if let Some(distance) = facing_hit(origin, direction, triangle)
+                    && distance > RAY_ROUNDOFF_M
+                    && distance < reach
+                {
+                    room[i] = room[i].min(distance * GAP_ALLOCATION);
+                }
             }
         }
     }

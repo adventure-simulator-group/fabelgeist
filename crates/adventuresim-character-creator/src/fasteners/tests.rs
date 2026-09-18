@@ -74,12 +74,25 @@ fn suspension_is_bilateral_and_requires_both_attachment_plates() {
     for p in &mut tassets.positions {
         p[1] += 0.67;
     }
-    let result = d.generate(&tassets, &fauld).unwrap();
+    let result = d
+        .generate(
+            &tassets,
+            &fauld,
+            adventuresim_armor_model::ArmorDetail::BakeSource,
+        )
+        .unwrap();
     result.normals().unwrap();
     assert_eq!(result.components.len(), 2);
     assert!(result.positions.iter().any(|p| p[0] < -0.15));
     assert!(result.positions.iter().any(|p| p[0] > 0.15));
-    assert!(d.generate(&tassets, &PartMesh::new()).is_err());
+    assert!(
+        d.generate(
+            &tassets,
+            &PartMesh::new(),
+            adventuresim_armor_model::ArmorDetail::BakeSource,
+        )
+        .is_err()
+    );
 }
 
 #[test]

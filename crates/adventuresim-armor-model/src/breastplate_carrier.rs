@@ -166,6 +166,13 @@ struct SourceSample {
     weights: [f32; 3],
 }
 
+struct SurfaceAttributes {
+    texcoords: Vec<[f32; 2]>,
+    joint_indices: Vec<[u32; 8]>,
+    joint_weights: Vec<[f32; 8]>,
+    morphs: Vec<ArmorMorph>,
+}
+
 fn combine(front: SolidMesh, back: SolidMesh) -> SolidMesh {
     let mut construction_faces = front.construction_faces;
     construction_faces.extend(
@@ -252,9 +259,10 @@ pub fn generate_breastplate(
         &surface.clearance_mesh.enclosure_torso_faces,
     )?;
     let eligible_faces = eligible_torso_faces(surface)?;
+    let source_sampler = SourceSampler::new(base_wearer, &eligible_faces);
     let (front_mid, back_mid) = build_pair(base_wearer, design)?;
-    let mut front_mid = anime::articulate(front_mid, false, base_wearer, design, &eligible_faces)?;
-    let back_mid = anime::articulate(back_mid, true, base_wearer, design, &eligible_faces)?;
+    let mut front_mid = anime::articulate(front_mid, false, base_wearer, design, &source_sampler)?;
+    let back_mid = anime::articulate(back_mid, true, base_wearer, design, &source_sampler)?;
     front_mid.triangulate_left_cut();
     let mid_positions = front_mid
         .positions
@@ -262,15 +270,58 @@ pub fn generate_breastplate(
         .chain(&back_mid.positions)
         .copied()
         .collect::<Vec<_>>();
-    let mut morph_samples = carrier_samples(&front_mid, base_wearer, &eligible_faces);
-    morph_samples.extend(carrier_samples(&back_mid, base_wearer, &eligible_faces));
+    let mut morph_samples = carrier_samples(&front_mid, &source_sampler, base_wearer.frame);
+    morph_samples.extend(carrier_samples(
+        &back_mid,
+        &source_sampler,
+        base_wearer.frame,
+    ));
     let base = combine(
         solidify(front_mid, design.wall_thickness.metres())?,
         solidify(back_mid, design.wall_thickness.metres())?,
     );
+    let attributes = transfer_surface_attributes(
+        surface,
+        &base,
+        &source_sampler,
+        base_wearer.frame,
+        &mid_positions,
+        &morph_samples,
+    )?;
+    Ok(GeneratedArmor {
+        construction_faces: base.construction_faces,
+        plate_edges: base.plate_edges,
+        components: Vec::new(),
+        design_hash: source_hash,
+        surface_domain: surface.domain.clone(),
+        positions: base.positions,
+        normals: base.normals,
+        texcoords: attributes.texcoords,
+        joint_indices: attributes.joint_indices,
+        joint_weights: attributes.joint_weights,
+        indices: base.indices,
+        morphs: attributes.morphs,
+    })
+}
+
+fn transfer_surface_attributes(
+    surface: &TorsoSurface,
+    base: &SolidMesh,
+    source_sampler: &SourceSampler,
+    frame: Frame,
+    mid_positions: &[[f32; 3]],
+    morph_samples: &[MorphSample],
+) -> Result<SurfaceAttributes, GenerateError> {
     let samples = mid_positions
         .iter()
-        .map(|point| source_sample(*point, base_wearer, &eligible_faces))
+        .zip(morph_samples)
+        .map(|(point, morph)| {
+            if morph.weights == [1.0, 0.0, 0.0, 0.0] {
+                morph.endpoints[0]
+            } else {
+                source_sampler.sample(*point, frame)
+            }
+        })
         .collect::<Vec<_>>();
     let solid_samples = base
         .source_mid_indices
@@ -290,19 +341,11 @@ pub fn generate_breastplate(
         .iter()
         .map(|index| morph_samples[*index])
         .collect::<Vec<_>>();
-    let morphs = generate_morphs(surface, &base, &solid_morph_samples)?;
-    Ok(GeneratedArmor {
-        construction_faces: base.construction_faces,
-        plate_edges: base.plate_edges,
-        components: Vec::new(),
-        design_hash: source_hash,
-        surface_domain: surface.domain.clone(),
-        positions: base.positions,
-        normals: base.normals,
+    let morphs = generate_morphs(surface, base, &solid_morph_samples)?;
+    Ok(SurfaceAttributes {
         texcoords,
         joint_indices: skin.iter().map(|v| v.0).collect(),
         joint_weights: skin.iter().map(|v| v.1).collect(),
-        indices: base.indices,
         morphs,
     })
 }

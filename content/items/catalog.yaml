@@ -845,6 +845,10 @@
             {"location": "head", "channel": "rigid_armor"},
             {"location": "face", "channel": "rigid_armor"}
           ],
+          "layers_over": [
+            {"location": "neck", "channel": "rigid_armor"},
+            {"location": "chest", "channel": "rigid_armor"}
+          ],
           "protection": ["head"],
           "surface": [{"regions": ["neck", "head"], "anchor": "distal", "coverage": 0.9}]
         }]
@@ -1105,6 +1109,7 @@
         "placements": [{
           "id": "worn",
           "occupancy": [{"location": "stomach", "channel": "rigid_armor"}],
+          "layers_over": [{"location": "chest", "channel": "rigid_armor"}],
           "protection": ["stomach"],
           "surface": [{"regions": ["stomach"], "anchor": "distal", "coverage": 0.7}]
         }]
@@ -2860,6 +2865,104 @@
       }
     },
     {
+      "id": "puffed_sleeve",
+      "display_name": "Puffed and slashed sleeve",
+      "weight_kg": 0.45,
+      "exterior_volume_ml": 1100,
+      "base_value": 12,
+      "tags": ["armor", "clothing"],
+      "presentation": {"icon": "arm-bandage"},
+      "kind": "armor",
+      "slot": "any_arm",
+      "equipment": {
+        "material": "wool",
+        "physical": {"dimensions_m": [0.28, 0.60, 0.28], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, -0.25, 0.0]},
+        "placements": [
+          {"id": "left", "occupancy": [{"location": "left_arm", "channel": "base_clothing"}], "layers_over": [{"location": "left_arm", "channel": "padding"}], "protection": ["left_arm"], "surface": [{"regions": ["left_upper_arm", "left_forearm"], "anchor": "center", "coverage": 0.95}]},
+          {"id": "right", "occupancy": [{"location": "right_arm", "channel": "base_clothing"}], "layers_over": [{"location": "right_arm", "channel": "padding"}], "protection": ["right_arm"], "surface": [{"regions": ["right_upper_arm", "right_forearm"], "anchor": "center", "coverage": 0.95}]}
+        ]
+      },
+      "resistance": 5,
+      "padding": 8,
+      "flexibility": 0.9,
+      "range_of_motion": 0.9,
+      "capabilities": {"durability": {"quality": 2, "yield_j": 15, "fracture_j": 45, "wear": 0.28, "failure_share": 0.8, "edge_sensitivity": 0.6, "handling_sensitivity": 0.5}}
+    },
+    {
+      "id": "puffed_hose",
+      "display_name": "Puffed and slashed hose",
+      "weight_kg": 0.75,
+      "exterior_volume_ml": 1800,
+      "base_value": 16,
+      "tags": ["armor", "clothing"],
+      "presentation": {"icon": "trousers"},
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "wool",
+        "physical": {"dimensions_m": [0.32, 0.85, 0.32], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, -0.35, 0.0]},
+        "placements": [
+          {"id": "left", "occupancy": [{"location": "left_leg", "channel": "base_clothing"}], "layers_over": [{"location": "left_leg", "channel": "base_clothing"}], "protection": ["left_leg"], "surface": [{"regions": ["left_thigh", "left_lower_leg"], "anchor": "center", "coverage": 0.95}]},
+          {"id": "right", "occupancy": [{"location": "right_leg", "channel": "base_clothing"}], "layers_over": [{"location": "right_leg", "channel": "base_clothing"}], "protection": ["right_leg"], "surface": [{"regions": ["right_thigh", "right_lower_leg"], "anchor": "center", "coverage": 0.95}]}
+        ]
+      },
+      "resistance": 5,
+      "padding": 8,
+      "flexibility": 0.9,
+      "range_of_motion": 0.9,
+      "capabilities": {"durability": {"quality": 2, "yield_j": 15, "fracture_j": 45, "wear": 0.28, "failure_share": 0.8, "edge_sensitivity": 0.6, "handling_sensitivity": 0.5}}
+    },
+    {
+      "id": "trunk_hose",
+      "display_name": "Trunk hose",
+      "weight_kg": 0.4,
+      "exterior_volume_ml": 900,
+      "base_value": 10,
+      "tags": ["armor", "clothing"],
+      "presentation": {"icon": "trousers"},
+      "kind": "armor",
+      "slot": "stomach",
+      "equipment": {
+        "material": "wool",
+        "physical": {"dimensions_m": [0.42, 0.28, 0.28], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, -0.10, 0.0]},
+        "placements": [{
+          "id": "worn",
+          "occupancy": [{"location": "stomach", "channel": "base_clothing"}],
+          "protection": ["stomach"],
+          "surface": [{"regions": ["stomach"], "anchor": "distal", "coverage": 0.5}]
+        }]
+      },
+      "resistance": 3,
+      "padding": 4,
+      "flexibility": 0.98,
+      "range_of_motion": 0.98,
+      "capabilities": {"durability": {"quality": 2, "yield_j": 12, "fracture_j": 35, "wear": 0.25, "failure_share": 0.8, "edge_sensitivity": 0.6, "handling_sensitivity": 0.5}}
+    },
+    {
+      "id": "split_hose",
+      "display_name": "Split-color hose",
+      "weight_kg": 0.4,
+      "exterior_volume_ml": 650,
+      "base_value": 10,
+      "tags": ["armor", "clothing"],
+      "presentation": {"icon": "trousers"},
+      "kind": "armor",
+      "slot": "any_leg",
+      "equipment": {
+        "material": "wool",
+        "physical": {"dimensions_m": [0.22, 0.90, 0.22], "grip_to_tip_m": 0.0, "anchor_offset_m": [0.0, -0.40, 0.0]},
+        "placements": [
+          {"id": "left", "occupancy": [{"location": "left_leg", "channel": "base_clothing"}], "protection": ["left_leg"], "surface": [{"regions": ["left_thigh", "left_lower_leg"], "anchor": "center", "coverage": 1.0}]},
+          {"id": "right", "occupancy": [{"location": "right_leg", "channel": "base_clothing"}], "protection": ["right_leg"], "surface": [{"regions": ["right_thigh", "right_lower_leg"], "anchor": "center", "coverage": 1.0}]}
+        ]
+      },
+      "resistance": 3,
+      "padding": 4,
+      "flexibility": 0.98,
+      "range_of_motion": 0.98,
+      "capabilities": {"durability": {"quality": 2, "yield_j": 12, "fracture_j": 35, "wear": 0.25, "failure_share": 0.8, "edge_sensitivity": 0.6, "handling_sensitivity": 0.5}}
+    },
+    {
       "id": "rapier",
       "preferred_attack": "stab",
 
@@ -3597,6 +3700,7 @@
         "placements": [{
           "id": "worn",
           "occupancy": [{"location": "stomach", "channel": "rigid_armor"}],
+          "layers_over": [{"location": "chest", "channel": "rigid_armor"}],
           "protection": ["stomach"],
           "surface": [{"regions": ["stomach"], "anchor": "distal", "coverage": 0.75}]
         }]
@@ -4525,12 +4629,20 @@
           {
             "id": "left",
             "occupancy": [{"location": "left_foot", "channel": "base_clothing"}],
+            "layers_over": [
+              {"location": "left_leg", "channel": "padding"},
+              {"location": "left_leg", "channel": "flexible_armor"}
+            ],
             "protection": ["left_leg"],
             "surface": [{"regions": ["left_lower_leg"], "anchor": "distal", "coverage": 0.72}]
           },
           {
             "id": "right",
             "occupancy": [{"location": "right_foot", "channel": "base_clothing"}],
+            "layers_over": [
+              {"location": "right_leg", "channel": "padding"},
+              {"location": "right_leg", "channel": "flexible_armor"}
+            ],
             "protection": ["right_leg"],
             "surface": [{"regions": ["right_lower_leg"], "anchor": "distal", "coverage": 0.72}]
           }
@@ -4922,6 +5034,10 @@
                 "channel": "rigid_armor"
               }
             ],
+            "layers_over": [
+              {"location": "chest", "channel": "rigid_armor"},
+              {"location": "neck", "channel": "rigid_armor"}
+            ],
             "protection": [
               "left_arm"
             ],
@@ -4942,6 +5058,10 @@
                 "location": "right_shoulder",
                 "channel": "rigid_armor"
               }
+            ],
+            "layers_over": [
+              {"location": "chest", "channel": "rigid_armor"},
+              {"location": "neck", "channel": "rigid_armor"}
             ],
             "protection": [
               "right_arm"
@@ -4991,12 +5111,18 @@
           {
             "id": "left",
             "occupancy": [{"location": "left_shoulder", "channel": "rigid_armor"}],
+            "layers_over": [
+              {"location": "chest", "channel": "rigid_armor"}
+            ],
             "protection": ["left_arm"],
             "surface": [{"regions": ["left_upper_arm"], "anchor": "proximal", "coverage": 0.36}]
           },
           {
             "id": "right",
             "occupancy": [{"location": "right_shoulder", "channel": "rigid_armor"}],
+            "layers_over": [
+              {"location": "chest", "channel": "rigid_armor"}
+            ],
             "protection": ["right_arm"],
             "surface": [{"regions": ["right_upper_arm"], "anchor": "proximal", "coverage": 0.36}]
           }
@@ -5093,6 +5219,10 @@
           {
             "id": "worn",
             "occupancy": [{"location": "neck", "channel": "rigid_armor"}],
+            "layers_over": [
+              {"location": "left_shoulder", "channel": "rigid_armor"},
+              {"location": "right_shoulder", "channel": "rigid_armor"}
+            ],
             "protection": ["head"],
             "surface": [{"regions": ["neck"], "anchor": "center", "coverage": 1.0}]
           }

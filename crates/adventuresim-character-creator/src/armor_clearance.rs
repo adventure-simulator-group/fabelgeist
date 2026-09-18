@@ -60,6 +60,7 @@ pub fn fit(
     region: FitRegion,
     clearance: Millimeters,
     thickness: Millimeters,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
     style: PlateFit<'_>,
 ) -> Result<PartMesh> {
     let frame = wearer.frame(region)?;
@@ -93,18 +94,26 @@ pub fn fit(
     for index in support {
         owned[index] = true;
     }
-    let triangles: Vec<_> = wearer
+    let mut triangles: Vec<_> = wearer
         .faces
         .iter()
         .filter(|face| face.iter().any(|index| owned[*index as usize]))
         .map(|face| face.map(|index| local(&frame, wearer.positions[index as usize])))
         .collect();
+    for layer in layers {
+        triangles.extend(
+            layer
+                .faces
+                .iter()
+                .map(|face| face.map(|index| local(&frame, layer.positions[index as usize]))),
+        );
+    }
     let sections: Vec<_> = (0..STATIONS)
         .map(|i| {
             let y = frame.half_extents[1] * (low + (high - low) * i as f32 / (STATIONS - 1) as f32);
-            if matches!(style, PlateFit::Rerebrace(_)) {
+            if matches!(style, PlateFit::Rerebrace(_)) || !layers.is_empty() {
                 Section::measured_surface(&triangles, y, half_width)
-                    .ok_or_else(|| anyhow::anyhow!("upper-arm section has no surface support"))
+                    .ok_or_else(|| anyhow::anyhow!("limb section has no surface support"))
             } else {
                 Ok(Section::measured(&points, y, half_width))
             }
@@ -141,15 +150,16 @@ fn fit_carrier(
         let blend = t * t * (3.0 - 2.0 * t);
         let a = &sections[first];
         let b = &sections[first + 1];
-        let center: [f32; 2] =
+        let measured_center: [f32; 2] =
             std::array::from_fn(|i| a.center[i] + (b.center[i] - a.center[i]) * blend);
         // Keep the authored angular correspondence when the ankle section moves
         // toward the heel. Re-centering input rays can reverse adjacent columns.
         let radial = if matches!(style, PlateFit::Greave(_)) {
             [p[0], p[2]]
         } else {
-            [p[0] - center[0], p[2] - center[1]]
+            [p[0] - measured_center[0], p[2] - measured_center[1]]
         };
+        let center = measured_center;
         let distance = radial[0].hypot(radial[1]);
         let direction = if distance > f32::EPSILON {
             radial.map(|v| v / distance)

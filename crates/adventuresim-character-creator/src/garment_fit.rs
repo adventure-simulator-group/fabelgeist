@@ -16,7 +16,7 @@ mod sampling;
 use sampling::{SectionCage, SurfaceSampler, enclosing_section, section};
 #[path = "garment_attachment.rs"]
 mod attachment;
-use attachment::AttachmentRing;
+pub(crate) use attachment::AttachmentRing;
 #[path = "garment_drape_fit.rs"]
 pub(crate) mod drape;
 #[path = "garment_limb_fit.rs"]
@@ -28,6 +28,7 @@ const SHOULDER_LIFT_M: f32 = 0.045;
 const GARMENT_FIT_MARGIN_M: f32 = 0.006;
 const ARMPIT_SEAM_DROP_M: f32 = 0.023;
 const SHOULDER_SEAM_EASE_M: f32 = 0.005;
+const WAIST_SUPPORT_ENVELOPE_SCALE: f32 = 1.5;
 
 pub fn fitted_garment(
     design: &GarmentArmorDesign,
@@ -42,7 +43,7 @@ pub fn fitted_garment(
         Kind::MailSleeve | Kind::QuiltedSleeve | Kind::MailChausses | Kind::PaddedChausses => {
             limb::fit(design, placement, wearer)
         }
-        Kind::Gorget => crate::gorget_fit::fit(design, wearer),
+        Kind::Gorget => crate::gorget_fit::fit(design, wearer, layers),
         _ => skirt(design, wearer, None, layers),
     }
 }
@@ -202,7 +203,13 @@ fn wrap_skirt(
         .collect::<Vec<_>>();
     let flexible = matches!(design.kind, Kind::MailSkirt | Kind::PaddedSkirt);
     for layer in layers {
-        envelope.extend_from_slice(layer.positions);
+        envelope.extend(
+            layer
+                .positions
+                .iter()
+                .copied()
+                .filter(|point| within_waist_support_envelope(frame, *point)),
+        );
     }
     let attachment = if flexible {
         Some(skirt_underlayers(design, wearer, frame, &mut envelope)?)
@@ -279,6 +286,12 @@ fn wrap_skirt(
             *point = fitted;
         }
     })?)
+}
+
+fn within_waist_support_envelope(frame: &PartFrame, point: [f32; 3]) -> bool {
+    let point = local_point(frame, point);
+    point[0].abs() <= frame.half_extents[0] * WAIST_SUPPORT_ENVELOPE_SCALE
+        && point[2].abs() <= frame.half_extents[2] * WAIST_SUPPORT_ENVELOPE_SCALE
 }
 
 /// An ellipse's physical polar angle changes with lap padding. Recover the

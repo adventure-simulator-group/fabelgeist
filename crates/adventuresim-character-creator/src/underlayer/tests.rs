@@ -7,6 +7,7 @@ fn design() -> UnderlayerDesign {
         kind: UnderlayerKind::ArmingDoublet,
         clearance: Millimeters(4),
         thickness: Millimeters(1),
+        color: adventuresim_armor_model::TextileColor([117, 106, 80]),
         length: Permille(1000),
         sleeve_length: Permille(1000),
         patch_width: Millimeters(80),

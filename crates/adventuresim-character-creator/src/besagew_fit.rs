@@ -17,7 +17,7 @@ pub(crate) fn fit(
         .besagew
         .as_ref()
         .context("besagew construction required")?;
-    let mut mesh = crate::spaulder_fit::fit(design, wearer, side)?;
+    let mut mesh = crate::spaulder_fit::fit(design, wearer, side, layers)?;
     let (name, sign) = match side {
         Side::Left => ("l_uparm", 1.0),
         Side::Right => ("r_uparm", -1.0),

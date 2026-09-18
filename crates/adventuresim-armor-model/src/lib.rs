@@ -38,7 +38,9 @@ mod besagew;
 mod helmets;
 mod limb_armor;
 mod pauldron;
+mod puff_and_slash;
 mod radial_fluting;
+mod trunk_hose;
 mod waist_armor;
 mod wrapped_tassets;
 pub use radial_fluting::RadialFluting;
@@ -52,6 +54,10 @@ pub use garment_armor::{
 pub use helmets::*;
 pub use limb_armor::*;
 pub use pauldron::{PauldronCarrier, PauldronDesign, PauldronOutline};
+pub use puff_and_slash::{
+    PuffAndSlashDesign, PuffAndSlashKind, TextileColor, generate_puff_and_slash,
+};
+pub use trunk_hose::TrunkHoseDesign;
 pub use visor_bellows::VisorBellows;
 pub use wrapped_tassets::{TassetSide, TassetSpan, WrappedTassetDesign, generate_wrapped_tasset};
 mod joint_cup_design;

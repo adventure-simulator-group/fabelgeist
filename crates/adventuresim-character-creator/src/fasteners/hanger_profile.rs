@@ -72,7 +72,10 @@ mod tests {
                     center: Vec3::new(0.2, 0.8, 0.18),
                     slope,
                 };
-                let hardware = super::super::mesh::buckle_shape(width);
+                let hardware = super::super::mesh::buckle_shape(
+                    width,
+                    adventuresim_armor_model::ArmorDetail::BakeSource,
+                );
                 for pair in hardware.positions.windows(2) {
                     let before = Vec3::from_array(pair[0]).distance(Vec3::from_array(pair[1]));
                     let after = Vec3::from_array(seat.transform(pair[0]))

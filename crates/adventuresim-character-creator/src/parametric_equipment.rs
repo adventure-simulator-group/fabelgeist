@@ -7,6 +7,7 @@ use adventuresim_character_creator::{
     armor_recipes::{self, ParametricDesign},
     nearest_vertex::NearestVertices,
 };
+use rayon::prelude::*;
 
 #[path = "cop_skin.rs"]
 mod cop_skin;
@@ -15,18 +16,58 @@ mod helmet_skin;
 #[path = "limb_plate_skin.rs"]
 mod limb_plate_skin;
 
+#[derive(Clone, Copy)]
+pub(super) struct LayerSupport<'a> {
+    current: &'a crate::equipment_layering::PlannedSelection,
+    fitted: &'a [crate::equipment_layering::FittedLayer],
+}
+
+#[derive(Clone, Copy)]
+pub(super) enum EquipmentFit<'a> {
+    CharacterInstance,
+    ReusableAsset(&'a [ForearmMorphSample]),
+}
+
 pub(super) fn fitted_design(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &ParametricDesign,
     placement: &str,
-    catalog: &EquipmentCatalog,
-    breastplate: &BreastplateDesign,
     morphs: &[ForearmMorphSample],
+    underlayer_envelope: Option<&adventuresim_character_creator::underlayer::UnderlayerEnvelope>,
+    layer_support: Option<LayerSupport<'_>>,
 ) -> Result<GeneratedArmor> {
     if let ParametricDesign::Underlayer(d) = design {
-        return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
+        return crate::underlayer_equipment::fitted(
+            model,
+            generated,
+            d,
+            placement,
+            morphs,
+            underlayer_envelope.context("underlayer fit envelope was not prepared")?,
+        );
     }
+    if let ParametricDesign::TrunkHose(d) = design {
+        return crate::underlayer_equipment::fitted_trunk_hose(
+            model,
+            generated,
+            d,
+            placement,
+            morphs,
+            underlayer_envelope.context("trunk-hose fit envelope was not prepared")?,
+        );
+    }
+    fitted_armor_design(model, generated, design, placement, morphs, layer_support)
+}
+
+fn fitted_armor_design(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &ParametricDesign,
+    placement: &str,
+    morphs: &[ForearmMorphSample],
+    layer_support: Option<LayerSupport<'_>>,
+) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
     let wearer = |positions, normals, joints| Wearer {
         detail: model.armor_detail,
@@ -38,17 +79,18 @@ pub(super) fn fitted_design(
         joint_weights: &character.skin_weights.weight,
         joint_names: &character.skeleton.names,
     };
-    let support = needs_torso_support(design)
-        .then(|| {
-            crate::torso_support::TorsoSupport::new(model, generated, catalog, breastplate, morphs)
-        })
-        .transpose()?;
     let fitted = |body: &Wearer<'_>, target: Option<&str>| {
-        if let Some(support) = &support {
-            support.mesh(design, placement, body, target)
-        } else {
-            armor_recipes::fitted_mesh(design, placement, body, &[])
-        }
+        let layers = layer_support
+            .map(|support| {
+                support
+                    .fitted
+                    .iter()
+                    .filter_map(|layer| layer.supports(support.current, target).transpose())
+                    .collect::<Result<Vec<_>>>()
+            })
+            .transpose()?
+            .unwrap_or_default();
+        armor_recipes::fitted_mesh(design, placement, body, &layers)
     };
     let mesh = fitted(
         &wearer(
@@ -264,67 +306,162 @@ pub(super) fn selected(
     catalog: &EquipmentCatalog,
     bracer_design: &BracerDesign,
     breastplate_design: &BreastplateDesign,
-    morphs: &[ForearmMorphSample],
+    fit: EquipmentFit<'_>,
 ) -> Result<Vec<SelectedArmor>> {
-    let mut pieces = Vec::new();
-    for selection in &recipe.clothing {
-        let id = &selection.item_id;
-        let piece = match id.as_str() {
-            "vambrace" => {
-                let side = match selection.placement_id.as_str() {
-                    "left" => ForearmSide::Left,
-                    "right" => ForearmSide::Right,
-                    _ => anyhow::bail!("invalid vambrace placement"),
-                };
-                fitted_bracer(model, generated, bracer_design, side, morphs)
-                    .with_context(|| format!("fitting {id} {}", selection.placement_id))?
+    let morphs = match fit {
+        EquipmentFit::CharacterInstance => &[],
+        EquipmentFit::ReusableAsset(morphs) => morphs,
+    };
+    let selections = recipe
+        .clothing
+        .iter()
+        .filter(|selection| {
+            matches!(
+                selection.item_id.as_str(),
+                "vambrace" | "breastplate" | "cuirass"
+            ) || catalog
+                .design(&selection.item_id, &selection.placement_id)
+                .is_some()
+        })
+        .collect::<Vec<_>>();
+    let batches = crate::profiling::measure("equipment_layer_plan", || {
+        crate::equipment_layering::plan_batches(&selections, catalog)
+    })?;
+    let needs_underlayer_envelope = batches.iter().flatten().any(|plan| {
+        matches!(
+            catalog.design(&plan.item_id, &plan.placement_id),
+            Some(ParametricDesign::Underlayer(_) | ParametricDesign::TrunkHose(_))
+        )
+    });
+    let underlayer_envelope = needs_underlayer_envelope.then(|| {
+        crate::profiling::measure("underlayer_envelope", || match fit {
+            EquipmentFit::CharacterInstance => {
+                crate::underlayer_equipment::fit_instance_envelope(model, generated)
             }
-            "breastplate" | "cuirass" => {
-                fitted_breastplate(model, generated, breastplate_design, morphs)
-                    .with_context(|| format!("fitting {id} {}", selection.placement_id))?
+            EquipmentFit::ReusableAsset(_) => {
+                crate::underlayer_equipment::fit_envelope(model, generated, morphs)
             }
-            _ => {
-                let Some(design) = catalog.design(id, &selection.placement_id) else {
-                    continue;
-                };
-                fitted_design(
-                    model,
-                    generated,
-                    &design,
-                    &selection.placement_id,
-                    catalog,
-                    breastplate_design,
-                    morphs,
-                )
-                .with_context(|| format!("fitting {id} {}", selection.placement_id))?
-            }
-        };
-        let piece = crate::fastener_equipment::attach(
+        })
+    });
+    let fitter = OutfitFitter {
+        model,
+        generated,
+        catalog,
+        bracer_design,
+        breastplate_design,
+        morphs,
+        underlayer_envelope: underlayer_envelope.as_ref(),
+    };
+    let mut fitted_layers = Vec::new();
+    for batch in batches {
+        let fitted = batch
+            .into_par_iter()
+            .map(|plan| {
+                let generated = fitter.fit(&plan, &fitted_layers)?;
+                Ok(crate::equipment_layering::FittedLayer { plan, generated })
+            })
+            .collect::<Result<Vec<_>>>()?;
+        fitted_layers.extend(fitted);
+    }
+    fitted_layers
+        .into_par_iter()
+        .map(|layer| finish_selected(model, generated, catalog, morphs, layer))
+        .collect()
+}
+
+struct OutfitFitter<'a> {
+    model: &'a BodyModel,
+    generated: &'a GeneratedCharacter,
+    catalog: &'a EquipmentCatalog,
+    bracer_design: &'a BracerDesign,
+    breastplate_design: &'a BreastplateDesign,
+    morphs: &'a [ForearmMorphSample],
+    underlayer_envelope: Option<&'a adventuresim_character_creator::underlayer::UnderlayerEnvelope>,
+}
+
+impl OutfitFitter<'_> {
+    fn fit(
+        &self,
+        plan: &crate::equipment_layering::PlannedSelection,
+        fitted: &[crate::equipment_layering::FittedLayer],
+    ) -> Result<GeneratedArmor> {
+        let id = &plan.item_id;
+        let fit_label = format!("item_fit:{id}--{}", plan.placement_id);
+        crate::profiling::measure(&fit_label, || {
+            Ok(match id.as_str() {
+                "vambrace" => {
+                    let side = match plan.placement_id.as_str() {
+                        "left" => ForearmSide::Left,
+                        "right" => ForearmSide::Right,
+                        _ => anyhow::bail!("invalid vambrace placement"),
+                    };
+                    fitted_bracer(
+                        self.model,
+                        self.generated,
+                        self.bracer_design,
+                        side,
+                        self.morphs,
+                    )?
+                }
+                "breastplate" | "cuirass" => fitted_breastplate(
+                    self.model,
+                    self.generated,
+                    self.breastplate_design,
+                    self.morphs,
+                )?,
+                _ => {
+                    let design = self
+                        .catalog
+                        .design(id, &plan.placement_id)
+                        .context("planned equipment lost its parametric design")?;
+                    fitted_design(
+                        self.model,
+                        self.generated,
+                        &design,
+                        &plan.placement_id,
+                        self.morphs,
+                        self.underlayer_envelope,
+                        Some(LayerSupport {
+                            current: plan,
+                            fitted,
+                        }),
+                    )?
+                }
+            })
+        })
+        .with_context(|| format!("fitting {id} {}", plan.placement_id))
+    }
+}
+
+fn finish_selected(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    catalog: &EquipmentCatalog,
+    morphs: &[ForearmMorphSample],
+    layer: crate::equipment_layering::FittedLayer,
+) -> Result<SelectedArmor> {
+    let id = layer.plan.item_id;
+    let placement_id = layer.plan.placement_id;
+    let fastener_label = format!("fasteners:{id}--{placement_id}");
+    let piece = crate::profiling::measure(&fastener_label, || {
+        crate::fastener_equipment::attach(
             model,
             generated,
             morphs,
             catalog,
-            id,
-            &selection.placement_id,
-            piece,
+            &id,
+            &placement_id,
+            layer.generated,
         )
-        .with_context(|| format!("attaching {id} {} fasteners", selection.placement_id))?;
-        pieces.push(SelectedArmor {
-            item_id: id.clone(),
-            placement_id: selection.placement_id.clone(),
-            name: format!("{id}--{}", selection.placement_id),
-            generated: piece.for_rendering(model.armor_detail),
-        });
-    }
-    Ok(pieces)
-}
-
-fn needs_torso_support(design: &ParametricDesign) -> bool {
-    matches!(
-        design,
-        ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Pauldron(_))
-            | ParametricDesign::WaistAssembly(_)
-            | ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
-    ) || matches!(design, ParametricDesign::Limb(adventuresim_armor_model::LimbArmorDesign::Spaulder(d)) if d.besagew.is_some())
-        || matches!(design, ParametricDesign::Garment(d) if d.kind == adventuresim_armor_model::GarmentArmorKind::Fauld)
+        .with_context(|| format!("attaching {id} {placement_id} fasteners"))
+    })?;
+    let topology_label = format!("render_topology:{id}--{placement_id}");
+    let generated =
+        crate::profiling::measure(&topology_label, || piece.for_rendering(model.armor_detail));
+    Ok(SelectedArmor {
+        name: format!("{id}--{placement_id}"),
+        item_id: id,
+        placement_id,
+        generated,
+    })
 }
