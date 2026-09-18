@@ -185,13 +185,13 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                 meta name="viewport" content="width=device-width, initial-scale=1";
                 title { (title) " - Fabelgeist" }
 
-                link rel="stylesheet" href="/static/css/base.css?v=environment-14";
+                link rel="stylesheet" href="/static/css/base.css?v=roman-garamond-1";
                 // Shared CSS
-                link rel="stylesheet" href="/static/css/reset.css";
-                link rel="stylesheet" href="/static/css/layout.css?v=organization-facades-1";
-                link rel="stylesheet" href="/static/css/components.css?v=lowercase-display-type-1";
-                link rel="stylesheet" href="/static/css/strategic.css?v=equipment-portraits-1";
-                link rel="stylesheet" href="/static/css/utilities.css?v=strategic-ui-overhaul-1";
+                link rel="stylesheet" href="/static/css/reset.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/layout.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/components.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/strategic.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
 
                 // Datastar
                 script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
