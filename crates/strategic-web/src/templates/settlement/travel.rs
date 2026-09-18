@@ -51,8 +51,7 @@ pub fn settlement_map_page(
     logged_in_as: Option<&str>,
 ) -> Markup {
     let selected = selected_id.and_then(|id| destinations.iter().find(|entry| entry.id == id));
-    let selected_settlement =
-        selected_id.and_then(|id| settlements.iter().find(|entry| entry.id == id));
+    let selected_town = selected_id.and_then(|id| settlements.iter().find(|entry| entry.id == id));
     let base_path = crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]);
     let connected_ids = destinations
         .iter()
@@ -107,8 +106,8 @@ pub fn settlement_map_page(
         }
         (map_destination_detail(
             selected,
-            selected_settlement,
-            selected_settlement.is_some_and(|destination| destination.id == settlement.id),
+            selected_town,
+            selected_town.is_some_and(|destination| destination.id == settlement.id),
             can_travel,
             provisioning_path,
             provision_forecast,
@@ -818,10 +817,8 @@ fn camp_fire_is_lit(journey: Option<&PartyJourney>) -> bool {
     )
 }
 
-/// The transient strategic location between planned travel legs.
 fn camp_forage_href(has_active_character: bool) -> Option<String> {
-    has_active_character
-        .then(|| crate::location_urls::with_query(paths::CAMP.pattern(), "forage", "true"))
+    has_active_character.then(|| format!("{}?forage=true", paths::CAMP.pattern()))
 }
 
 #[expect(
@@ -852,7 +849,6 @@ pub fn camp_page(
 ) -> Markup {
     let camp_fire_lit = camp_fire_is_lit(journey);
     let forage_href = camp_forage_href(active_character.is_some());
-    let camp_path = paths::CAMP.pattern();
     let content = html! {
         aside class="left-sidebar map-rest-sidebar" {
             div class="map-rest-sidebar-content" {
@@ -898,7 +894,7 @@ pub fn camp_page(
             }
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, active_character, camp_path, None))
+            (party_portrait_overlay(party_members, active_character, paths::CAMP.pattern(), None))
             @if active_character.is_some() {
                 nav class="scene-interactable-strip camp-interactable-strip" aria-label="Camp interactions" {
                     a class="scene-interactable scene-interactable--fixture fireplace-portrait" href=(paths::CAMP_FIREPLACE_PAGE.pattern())
