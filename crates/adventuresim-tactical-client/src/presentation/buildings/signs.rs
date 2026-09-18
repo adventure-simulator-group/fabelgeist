@@ -1,8 +1,8 @@
 //! Per-establishment signs reuse building anchor geometry; lettering is allocated only nearby.
 use super::*;
 use adventuresim_building_generator::signs::{
-    EstablishmentId, ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets,
-    SignRenderPart, SignSite,
+    ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets, SignRenderPart,
+    SignSite,
 };
 use bevy::ecs::system::SystemParam;
 
@@ -50,20 +50,13 @@ impl SignAssets<'_> {
     pub(super) fn spawn(
         &mut self,
         parent: &mut ChildSpawnerCommands,
-        id: u64,
         authored: Option<&ShopSign>,
         compiled: &CompiledBuildingLevels,
         meshes: &mut Assets<Mesh>,
     ) {
-        let Some(usage) = compiled.program.usage else {
+        let Some(mut sign) = authored.cloned() else {
             return;
         };
-        let Some(mut sign) = ShopSign::for_establishment(EstablishmentId(id), usage) else {
-            return;
-        };
-        if let Some(authored) = authored {
-            sign = authored.clone();
-        }
         let Some(&(mount, site)) = compiled
             .sign_sites
             .iter()

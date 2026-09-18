@@ -514,8 +514,7 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
             age_years: 0,
             organization_id: None,
             literacy: None,
-        };
-        crate::character::insert_character_with_origin(
+        }; crate::character::insert_character_with_origin(
             ctx,
             format!("Child-{:08x}", pregnancy.child_name_seed as u32),
             child_id,
@@ -527,6 +526,7 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
                 stable_seed: pregnancy.child_name_seed,
                 initial_time_minute: Some(pregnancy.due_minute),
                 field_actor: false,
+                npc_personality: None,
             },
             None,
             Some(&newborn_life),

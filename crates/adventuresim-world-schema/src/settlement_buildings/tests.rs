@@ -68,6 +68,56 @@ fn capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building
 }
 
 #[test]
+fn business_ordinals_are_stable_coordinates_not_iteration_positions() {
+    let economy = economy(40_000, 4);
+    let plan = SettlementBuildingDemand::new(42, 40_000, &economy);
+    let assigned = plan
+        .buildings
+        .iter()
+        .filter_map(|demand| demand.business_key())
+        .collect::<Vec<_>>();
+    let repeated = SettlementBuildingDemand::new(42, 40_000, &economy)
+        .buildings
+        .iter()
+        .filter_map(|demand| demand.business_key())
+        .collect::<Vec<_>>();
+    assert_eq!(assigned, repeated);
+
+    let mut reverse_consumption = plan.buildings.iter().rev().collect::<Vec<_>>();
+    reverse_consumption.sort_by_key(|demand| demand.business_key());
+    let mut sorted_assigned = assigned.clone();
+    sorted_assigned.sort();
+    assert_eq!(
+        reverse_consumption
+            .into_iter()
+            .filter_map(|demand| demand.business_key())
+            .collect::<Vec<_>>(),
+        sorted_assigned
+    );
+
+    for usage in BuildingUse::ALL {
+        let ordinals = assigned
+            .iter()
+            .filter(|key| key.usage == usage)
+            .map(|key| key.ordinal)
+            .collect::<Vec<_>>();
+        assert_eq!(ordinals, (0..ordinals.len() as u32).collect::<Vec<_>>());
+    }
+}
+
+#[test]
+fn global_business_identity_includes_its_settlement_scope() {
+    let key = BusinessKey {
+        usage: BuildingUse::Inn,
+        ordinal: 0,
+    };
+    assert_ne!(
+        BusinessId::new("lübeck", key),
+        BusinessId::new("hamburg", key)
+    );
+}
+
+#[test]
 fn specialist_presence_is_owned_by_the_economy() {
     let village = economy(120, 1);
     let village_plan = SettlementBuildingDemand::new(42, 120, &village);

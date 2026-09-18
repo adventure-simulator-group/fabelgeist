@@ -1,5 +1,6 @@
 use std::{fs, path::PathBuf};
 
+use adventuresim_building_generator::signs::ShopName;
 use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
 use adventuresim_tactical_core::prelude::*;
@@ -268,6 +269,24 @@ const fn fixture(
 
 fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
     let city = fixture_buildings(fixture.buildings);
+    let establishments = city
+        .businesses
+        .iter()
+        .enumerate()
+        .map(|(index, site)| {
+            let operator_name = format!("Fixture Operator {}", index + 1);
+            SceneEstablishment {
+                building_id: site.building_id,
+                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                    format!("fixture:{}", fixture.scene_key),
+                    site.key,
+                ),
+                operator_character_id: site.building_id | (1_u64 << 63),
+                operator_name: operator_name.clone(),
+                shop_name: ShopName::for_operator(&operator_name, site.key.usage),
+            }
+        })
+        .collect();
     let mut vista = vista(
         fixture.vista,
         fixture.environment,
@@ -300,6 +319,7 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
         gardens: city.gardens,
         buildings: city.playable,
         distant_buildings: city.distant,
+        establishments,
         vista,
         weather: fixture.weather,
     }

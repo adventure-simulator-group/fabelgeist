@@ -21,6 +21,12 @@ FORBIDDEN = (
     (re.compile(r"\brandom_range\s*\("), "inferred-width random range"),
     (re.compile(r"\brand::seq::"), "Rand slice selection helper"),
     (re.compile(r"\b(?:SliceRandom|IndexedRandom|IteratorRandom)\b"), "Rand selection trait"),
+    (
+        re.compile(
+            r"\bfn\s+\w*seed\w*\s*\([^{}]*\)[^{]*\{[^{}]*\bSha256\s*::\s*digest\b"
+        ),
+        "direct hash seed derivation",
+    ),
 )
 
 

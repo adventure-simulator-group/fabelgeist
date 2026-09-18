@@ -3,6 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use adventuresim_building_generator::signs::ShopName;
 use adventuresim_core::weather::{WORLD_WEATHER_SEED, weather_at};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_terrain::{Cell, Surface, TerrainPack};
@@ -12,6 +13,7 @@ use adventuresim_world_schema::{
 use bevy::math::Vec2;
 use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
@@ -120,6 +122,7 @@ pub fn build_imported_scene(
     let mut vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
     // sample_grid has already subtracted the absolute centre elevation.
     let building_layout = settlement_building_layout(settlement, &mut vista)?;
+    let establishments = bind_establishments(settlement, &building_layout)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
         settlement
             .is_none()
@@ -148,6 +151,7 @@ pub fn build_imported_scene(
         gardens: building_layout.gardens,
         buildings: building_layout.playable,
         distant_buildings: building_layout.distant,
+        establishments,
         vista,
         weather: weather_at(
             WORLD_WEATHER_SEED,
@@ -159,6 +163,45 @@ pub fn build_imported_scene(
     };
     input.validate().map_err(|error| error.to_string())?;
     Ok(input)
+}
+
+fn bind_establishments(
+    settlement: Option<&SettlementSceneProfile>,
+    layout: &adventuresim_tactical_core::city_layout::CitySceneLayout,
+) -> Result<Vec<SceneEstablishment>, String> {
+    let Some(settlement) = settlement else {
+        return Ok(Vec::new());
+    };
+    let mut operators = BTreeMap::new();
+    for operator in &settlement.operators {
+        if operator.business_id.settlement_id != settlement.id {
+            return Err("business operator crosses the requested settlement boundary".into());
+        }
+        if operators
+            .insert(operator.business_id.key, operator)
+            .is_some()
+        {
+            return Err("business operator identity is duplicated".into());
+        }
+    }
+    let mut establishments = Vec::with_capacity(layout.businesses.len());
+    for site in &layout.businesses {
+        let operator = operators
+            .remove(&site.key)
+            .ok_or("placed business is missing its resident operator")?;
+        establishments.push(SceneEstablishment {
+            building_id: site.building_id,
+            business_id: operator.business_id.clone(),
+            operator_character_id: operator.operator_character_id,
+            operator_name: operator.operator_name.clone(),
+            shop_name: ShopName::for_operator(&operator.operator_name, site.key.usage),
+        });
+    }
+    if !operators.is_empty() {
+        return Err("business operator has no placed establishment".into());
+    }
+    establishments.sort_by_key(|establishment| establishment.building_id);
+    Ok(establishments)
 }
 
 fn settlement_building_layout(
@@ -464,6 +507,7 @@ fn sample_city_vista(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::settlement_buildings::SettlementBusinessOperatorProfile;
     use adventuresim_world_schema::{
         GeologicUnitId, MappedFault, MappedGeologicWindow, SedimentaryRock, SurfaceLithology,
         TravelGeometryPoint,
@@ -472,6 +516,33 @@ mod tests {
 
     use adventuresim_terrain::{CHUNK_SIDE, Entry, Manifest, TerrainPurpose};
     use flate2::{Compression, write::DeflateEncoder};
+
+    fn add_fixture_operators(settlement: &mut SettlementSceneProfile) {
+        let seed =
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
+        settlement.operators =
+            adventuresim_world_schema::settlement_buildings::SettlementBuildingDemand::new(
+                seed,
+                adventuresim_core::reputation::effective_population(
+                    settlement.population_level,
+                    settlement.population_estimate,
+                ),
+                &settlement.economy,
+            )
+            .buildings
+            .into_iter()
+            .filter_map(|demand| demand.business_key())
+            .enumerate()
+            .map(|(index, key)| SettlementBusinessOperatorProfile {
+                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                    &settlement.id,
+                    key,
+                ),
+                operator_character_id: index as u64 + 1,
+                operator_name: format!("Operator {index}"),
+            })
+            .collect();
+    }
 
     #[test]
     fn geographic_offsets_are_stable_and_axis_aligned() {
@@ -498,6 +569,41 @@ mod tests {
             (sample.canopy_bps, sample.hilly_bps, sample.wetland_bps),
             (3_700, 2_800, 1_900)
         );
+    }
+
+    #[test]
+    fn establishment_binding_is_complete_scoped_and_operator_named() {
+        let mut settlement = SettlementSceneProfile {
+            id: "binding-city".into(),
+            population_level: 1,
+            population_estimate: 900,
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
+        };
+        add_fixture_operators(&mut settlement);
+        let layout = place_settlement_buildings(&settlement, 50.0).unwrap();
+        let establishments = bind_establishments(Some(&settlement), &layout).unwrap();
+        assert_eq!(establishments.len(), layout.businesses.len());
+        assert!(establishments.iter().all(|establishment| {
+            establishment.business_id.settlement_id == settlement.id
+                && establishment.operator_name.starts_with("Operator ")
+                && establishment
+                    .shop_name
+                    .as_ref()
+                    .is_none_or(|name| name.text().starts_with(&establishment.operator_name))
+        }));
+
+        let mut missing = settlement.clone();
+        missing.operators.pop();
+        assert!(bind_establishments(Some(&missing), &layout).is_err());
+
+        let mut duplicate = settlement.clone();
+        duplicate.operators.push(duplicate.operators[0].clone());
+        assert!(bind_establishments(Some(&duplicate), &layout).is_err());
+
+        let mut cross_settlement = settlement;
+        cross_settlement.operators[0].business_id.settlement_id = "elsewhere".into();
+        assert!(bind_establishments(Some(&cross_settlement), &layout).is_err());
     }
 
     #[test]
@@ -553,12 +659,14 @@ mod tests {
     #[test]
     fn imported_settlement_keeps_distant_properties_on_the_relative_datum() {
         let (pack, directory) = constant_final_pack();
-        let settlement = SettlementSceneProfile {
+        let mut settlement = SettlementSceneProfile {
             id: "relative-city".into(),
             population_level: 1,
             population_estimate: 900,
             economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
         };
+        add_fixture_operators(&mut settlement);
         let input = build_imported_scene(
             &pack,
             "mission:relative-city",

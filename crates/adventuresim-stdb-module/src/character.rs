@@ -1904,6 +1904,7 @@ pub(crate) fn insert_new_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         None,
@@ -1947,6 +1948,7 @@ pub(crate) struct CharacterCreationOptions<'a> {
     pub stable_seed: u64,
     pub initial_time_minute: Option<u64>,
     pub field_actor: bool,
+    pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -1994,6 +1996,7 @@ pub(crate) fn insert_new_npc_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2002,6 +2005,10 @@ pub(crate) fn insert_new_npc_character(
 
 /// Create a persistent, full-component NPC at an explicit settlement. Unlike a
 /// player character or tactical temporary, the NPC begins outside any party.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "persistent NPC insertion keeps finalized life and personality facts explicit"
+)]
 pub(crate) fn insert_persistent_npc_character(
     ctx: &ReducerContext,
     name: String,
@@ -2009,8 +2016,9 @@ pub(crate) fn insert_persistent_npc_character(
     origin_settlement_id: &str,
     stable_seed: u64,
     initial_time_minute: Option<u64>,
+    life: &NpcLifeFacts,
+    personality: &crate::personality::CharacterPersonality,
 ) -> Result<(), String> {
-    let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
         ctx,
         name,
@@ -2023,9 +2031,10 @@ pub(crate) fn insert_persistent_npc_character(
             stable_seed,
             initial_time_minute,
             field_actor: false,
+            npc_personality: Some(personality),
         },
         None,
-        Some(&life),
+        Some(life),
     )
 }
 
@@ -2051,6 +2060,7 @@ pub(crate) fn insert_persistent_field_character(
             stable_seed,
             initial_time_minute,
             field_actor: true,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2073,6 +2083,7 @@ pub(crate) fn insert_starting_character(
             stable_seed: spec.id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         Some(spec),
         None,
@@ -2524,7 +2535,9 @@ pub(crate) fn insert_character_with_origin(
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
     } else {
-        if npc {
+        if let Some(personality) = options.npc_personality {
+            crate::personality::initialize_personality_from_visible(ctx, personality.clone());
+        } else if npc {
             crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
         } else {
             crate::personality::initialize_personality(ctx, id, false);

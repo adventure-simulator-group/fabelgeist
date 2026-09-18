@@ -41,6 +41,8 @@ pub struct SceneVistaBundle {
     pub playable_half_extent_metres: Vec2,
     /// Presentation-only shell instances surrounding the tactical area.
     pub distant_buildings: Vec<DistantBuildingPlacement>,
+    /// Operator-backed identity for playable and distant businesses.
+    pub establishments: Vec<SceneEstablishment>,
     /// The same connected surface network used to classify playable ground.
     pub streets: Vec<CityStreetPatch>,
     /// Developed block interiors that replace blanket meadow ground cover.
