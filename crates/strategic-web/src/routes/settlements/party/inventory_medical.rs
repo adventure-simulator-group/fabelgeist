@@ -81,7 +81,9 @@ pub(super) async fn character_equipment_graph(
             ),
         state.db.query_sats::<EquipmentOccupancy>(&occupancy_sql),
         state.db.query_sats::<InventoryItem>(&inventory_sql),
-        state.db.query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item"),
+        state
+            .db
+            .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item"),
     );
     let mut worn = worn.unwrap_or_default();
     let worn_ids = worn
@@ -176,12 +178,9 @@ impl StandardMedicationAdministration {
             json!(self.patient_id),
             json!(self.inventory_item_id),
             json!(self.profile_version),
-            crate::spacetimedb::sats_unit_variant(self.route),
+            db::sats_unit_variant(self.route),
             json!(self.dose.get()),
-            crate::spacetimedb::sats_option(
-                self.region
-                    .map(crate::spacetimedb::sats_unit_variant),
-            ),
+            db::sats_option(self.region.map(db::sats_unit_variant)),
         ]
     }
 }
@@ -235,9 +234,7 @@ pub(super) async fn set_equipment(
     };
     let definition: Option<CatalogItemView> = match state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>(
-            &crate::spacetimedb::item_by_id(&inventory.item_id),
-        )
+        .query_one_sats_into::<DbItem, CatalogItemView>(&db::item_by_id(&inventory.item_id))
         .await
     {
         Ok(definition) => definition,
@@ -253,7 +250,7 @@ pub(super) async fn set_equipment(
     let Some(definition) = definition else {
         return (StatusCode::NOT_FOUND, "Item definition is missing").into_response();
     };
-    if definition.kind == crate::spacetimedb::CatalogItemKind::Medication {
+    if definition.kind == db::CatalogItemKind::Medication {
         let administration = match standard_medication_administration(
             character_id,
             form.inventory_item_id,
@@ -400,7 +397,7 @@ pub(super) async fn deposit_party_inventory(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party-inventory"),
+                paths::PARTY_POOL_INVENTORY.url([&kind, &id]),
             )
             .await,
     )
@@ -430,7 +427,7 @@ pub(super) async fn withdraw_party_inventory(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party-inventory"),
+                paths::PARTY_POOL_INVENTORY.url([&kind, &id]),
             )
             .await,
     )
@@ -479,7 +476,7 @@ pub(super) async fn liquidate_party_assets(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party-inventory"),
+                paths::PARTY_POOL_INVENTORY.url([&kind, &id]),
             )
             .await,
     )
@@ -515,7 +512,13 @@ pub(super) async fn remove_party_member(
     }
     Redirect::to(
         &building
-            .append_to(&state, &kind, &id, format!("/locations/{kind}/{id}"))
+            .append_to(
+                &state,
+                &kind,
+                &id,
+                kind.parse::<LocationKind>()
+                    .map_or_else(|()| "/characters".into(), |kind| kind.path(&id)),
+            )
             .await,
     )
 }
@@ -592,7 +595,9 @@ pub(super) async fn render_party_stats(
     let active_party = match active_character.party_id.as_deref() {
         Some(party_id) => state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+                party_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -602,7 +607,9 @@ pub(super) async fn render_party_stats(
     let selected_party = match selected.party_id.as_deref() {
         Some(party_id) => state
             .db
-            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&crate::spacetimedb::party_by_id(party_id))
+            .query_sats_into::<adventuresim_stdb_client::Party, PartyView>(&db::party_by_id(
+                party_id,
+            ))
             .await
             .unwrap_or_default()
             .into_iter()
@@ -611,23 +618,17 @@ pub(super) async fn render_party_stats(
     };
     let selected_attributes: Vec<CharacterAttributes> = state
         .db
-        .query_sats(&crate::spacetimedb::character_attributes_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_attributes_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let selected_skills: Vec<CharacterSkills> = state
         .db
-        .query_sats(&crate::spacetimedb::character_skills_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_skills_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let selected_limbs: Vec<CharacterLimbs> = state
         .db
-        .query_sats(&crate::spacetimedb::character_limbs_by_character_id(
-            character_id,
-        ))
+        .query_sats(&db::character_limbs_by_character_id(character_id))
         .await
         .unwrap_or_default();
     let capability = get_character_capability(state, character_id).await;
@@ -637,7 +638,7 @@ pub(super) async fn render_party_stats(
     let morale_sources = get_morale_sources(state, character_id).await;
     let religion = query_single::<CharacterCondition>(
         state,
-        crate::spacetimedb::character_condition_by_character_id(character_id),
+        db::character_condition_by_character_id(character_id),
     )
     .await
     .and_then(|condition| condition.religion_id);
@@ -738,9 +739,7 @@ pub(crate) async fn medical_presentation(
     };
     let current_minute = match state
         .db
-        .query_one_sats::<CharacterTime>(
-            &crate::spacetimedb::character_time_by_character_id(target_id),
-        )
+        .query_one_sats::<CharacterTime>(&db::character_time_by_character_id(target_id))
         .await
     {
         Ok(Some(time)) => time.minutes,
@@ -815,15 +814,9 @@ mod physiology_privacy_tests {
             ]
         );
         action.region = Some(adventuresim_core::physiology::BodyRegion::Abdomen);
-        assert_eq!(
-            action.reducer_args()[6],
-            json!({"some": {"abdomen": {}}})
-        );
+        assert_eq!(action.reducer_args()[6], json!({"some": {"abdomen": {}}}));
         action.region = Some(adventuresim_core::physiology::BodyRegion::LeftArm);
-        assert_eq!(
-            action.reducer_args()[6],
-            json!({"some": {"leftArm": {}}})
-        );
+        assert_eq!(action.reducer_args()[6], json!({"some": {"leftArm": {}}}));
     }
 
     #[test]
@@ -864,7 +857,7 @@ pub(super) async fn stop_preparation(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party/{patient_id}"),
+                paths::PARTY_PERSONAL.url([&kind, &id, &patient_id]),
             )
             .await,
     )
@@ -884,7 +877,7 @@ pub(super) async fn get_strategic_condition(
     }
     query_single(
         state,
-        crate::spacetimedb::character_strategic_condition_by_character_id(character_id),
+        db::character_strategic_condition_by_character_id(character_id),
     )
     .await
 }

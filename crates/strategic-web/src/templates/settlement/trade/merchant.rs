@@ -238,7 +238,7 @@ pub fn live_merchant_shop_page(
         @if matches!(shop, MerchantShop::Weapons) {
             section class="sidebar-section forge-customization" data-forge-customization data-live-preserve="forge-customization" {
                 h2 { "Forge a weapon" }
-                form method="post" action=(format!("/settlements/{}/weapons/forge", settlement.id)) {
+                form method="post" action=(crate::location_urls::patterns::FORGE_WEAPON.url([&settlement.id])) {
                     label { "Chassis" select data-forge-catalog aria-label="Weapon chassis" {} }
                     div class="forge-recipe-editor" data-forge-editor aria-live="polite" { "Loading complete weapon recipe…" }
                     input type="hidden" name="recipe" data-forge-recipe;
@@ -289,7 +289,7 @@ pub fn live_merchant_shop_page(
             (repair_custody_panel(settlement, shop, repair_orders, conditions, items, now_minutes, smith_skill))
         }
         }
-        main class="center-content settlement-main" { (party_portrait_overlay(party_members, Some(character), &format!("/locations/settlement/{}", settlement.id), None)) (npc_portrait_strip(&settlement.id, npc_location_id(service_id))) @if matches!(shop, MerchantShop::Weapons) { (forge_description_stage(title, "Forge preview loading")) } @else { (npc_description_stage(title, "Merchant counter and attending craftsperson")) } (settlement_resident_chat_area(title, Some(character), &settlement.id, npc_location_id(service_id), Some(service_id))) form # "merchant-offer" class="party-offer" action=(if matches!(shop, MerchantShop::Herbalist) { format!("/settlements/{}/herbalist/purchase", settlement.id) } else { format!("/settlements/{}/storefront/{service_id}/offer", settlement.id) }) method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm merchant offer" tabindex="-1" { span class="party-offer-summary" { "Review and submit the staged trade." } input type="hidden" name="return_to" value=(format!("/settlements/{}/{}", settlement.id, service_id)); input type="hidden" name="inventory_scope" value="player"; button type="button" class="party-offer-cancel" data-cancel-trade="merchant" { "Cancel" } button type="submit" disabled { "Offer" } } }
+        main class="center-content settlement-main" { (party_portrait_overlay(party_members, Some(character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None)) (npc_portrait_strip(&settlement.id, npc_location_id(service_id))) @if matches!(shop, MerchantShop::Weapons) { (forge_description_stage(title, "Forge preview loading")) } @else { (npc_description_stage(title, "Merchant counter and attending craftsperson")) } (settlement_resident_chat_area(title, Some(character), &settlement.id, npc_location_id(service_id), Some(service_id))) form # "merchant-offer" class="party-offer" action=(if matches!(shop, MerchantShop::Herbalist) { crate::location_urls::patterns::PURCHASE_FROM_HERBALIST.url([&settlement.id]) } else { crate::location_urls::patterns::FINALIZE_MERCHANT_OFFER.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())]) }) method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm merchant offer" tabindex="-1" { span class="party-offer-summary" { "Review and submit the staged trade." } input type="hidden" name="return_to" value=(crate::location_urls::service_path(&settlement.id, service_id)); input type="hidden" name="inventory_scope" value="player"; button type="button" class="party-offer-cancel" data-cancel-trade="merchant" { "Cancel" } button type="submit" disabled { "Offer" } } }
         aside class="right-sidebar inventory-owner-panel" data-inventory-tabs {
             nav class="inventory-owner-tabs" aria-label="Trading inventory" {
                 button type="button" class="inventory-owner-tab active" data-inventory-tab="player" { "Player" }
@@ -669,7 +669,9 @@ mod tests {
         let merchant = render(MerchantShop::Weapons);
         assert!(merchant.contains("data-bevy-scene=\"forge\""));
         assert!(merchant.contains("data-forge-customization"));
-        assert!(merchant.contains("action=\"/settlements/viabundus-1/weapons/forge\""));
+        assert!(
+            merchant.contains("action=\"/locations/settlement/viabundus-1/places/forge/forge\"")
+        );
         assert!(merchant.contains("name=\"recipe\""));
         assert!(merchant.contains("data-forge-editor"));
         assert!(merchant.contains("data-forge-eta"));
@@ -704,7 +706,7 @@ mod tests {
         let inn = render(MerchantShop::Inn);
         assert!(inn.contains("Cooking supplies"));
         assert!(inn.contains("aria-label=\"Inn rest service\""));
-        assert!(inn.contains("action=\"/settlements/viabundus-1/storefront/inn/offer\""));
+        assert!(inn.contains("action=\"/locations/settlement/viabundus-1/places/inn/offer\""));
         assert!(inn.contains("class=\"inn-rest-panel\""));
         assert!(inn.contains("aria-label=\"Inn lodging and rest\""));
     }

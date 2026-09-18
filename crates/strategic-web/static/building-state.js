@@ -9,14 +9,14 @@
     const requested = current.searchParams.get("building");
     const tabs = [...nav.querySelectorAll("[data-building-id]")];
     const buildings = new Set(tabs.map((tab) => tab.dataset.buildingId).filter(Boolean));
+    const requestedPlace = requested !== "map" && buildings.has(requested);
     const serverActive = nav.querySelector(".nav-tab.active")?.dataset.buildingId;
-    const buildingContextPath = current.pathname.startsWith("/locations/") && (
-      current.pathname.includes("/party")
-      || /^\/locations\/settlement\/[^/]+\/fireplace\/?$/.test(current.pathname)
-    );
-    const building = buildingContextPath && buildings.has(requested)
+    const context = window.strategicLocationUrls.parse(current.pathname);
+    const buildingContextPath = context?.kind === "settlement"
+      && /^\/(?:party(?:\/|$)|party-inventory(?:\/|$))/.test(context.suffix);
+    const building = buildingContextPath && requestedPlace
       ? requested : (buildings.has(serverActive) ? serverActive : (buildings.has("map") ? "map" : tabs[0]?.dataset.buildingId));
-    if (requested && (!buildings.has(requested) || !buildingContextPath)) {
+    if (requested && (!requestedPlace || !buildingContextPath)) {
       current.searchParams.delete("building");
       history.replaceState(history.state, "", current);
     }
@@ -31,8 +31,10 @@
       const raw = node.getAttribute(attribute);
       if (!raw || !raw.startsWith("/locations/")) return;
       const url = new URL(raw, location.origin);
-      if (!url.pathname.includes("/party")) return;
-      if (building) url.searchParams.set("building", building);
+      const target = window.strategicLocationUrls.parse(url.pathname);
+      if (target?.kind !== "settlement" || target.id !== nav.dataset.settlementId
+        || !/^\/(?:party(?:\/|$)|party-inventory(?:\/|$))/.test(target.suffix)) return;
+      if (building && building !== "map") url.searchParams.set("building", building);
       else url.searchParams.delete("building");
       node.setAttribute(attribute, `${url.pathname}${url.search}${url.hash}`);
     });

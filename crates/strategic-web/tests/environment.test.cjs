@@ -147,7 +147,7 @@ test("settlement tabs layer tiered tintable buildings and proportional horizons 
   for (const icon of ["travel", "market", "weapons", "armor", "clothing", "herbalist", "inn"]) {
     assert.match(layoutCss, new RegExp(`settlement-services/${icon}\\.png`));
   }
-  assert.match(layoutTemplate, /"clothing" \| "herbalist" \| "books" \| "inn"/);
+  assert.match(layoutTemplate, /SettlementVenueKind::from_id\(building_id\)/);
 });
 
 test("settlement smithies and wilderness tabs use independent non-interactive effect layers", () => {
@@ -210,7 +210,7 @@ test("wilderness headers select a tintable physical horizon", () => {
 
 test("service silhouettes expose names through the shared tooltip and keep active state non-color", () => {
   assert.match(layoutTemplate, /data-service-label=\(label\)[\s\S]*data-strategic-tooltip=\(label\)/);
-  assert.match(layoutTemplate, /href="\/camp" class="nav-tab active quest-context-tab"[\s\S]*data-service-label="Camp"/);
+  assert.match(layoutTemplate, /href=\(crate::location_urls::patterns::CAMP\.pattern\(\)\) class="nav-tab active quest-context-tab"[\s\S]*data-service-label="Camp"/);
   assert.match(layoutTemplate, /data-location-view="map"[\s\S]*data-service-label="Map"/);
   assert.match(layoutTemplate, /data-location-view="enemy"[\s\S]*data-service-label="Enemy"/);
   assert.match(layoutCss, /\.settlement-services \.nav-tab:focus-visible/);

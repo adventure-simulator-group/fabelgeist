@@ -102,7 +102,7 @@ test("screenshot log renders chronological images without hidden quest truth", a
       {
         sequence: 1,
         caption: "click e1: Enter the tavern",
-        url: "http://127.0.0.1:24301/settlements/riverdale/inn",
+        url: "http://127.0.0.1:24301/locations/settlement/riverdale/places/inn",
         screenshot: "step-001.png",
       },
     ],

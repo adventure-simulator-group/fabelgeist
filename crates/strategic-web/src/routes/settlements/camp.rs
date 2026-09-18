@@ -178,7 +178,7 @@ pub(super) async fn camp(
     for attempt in 0..4 {
         journey = state
             .db
-            .query_one_sats::<PartyJourney>(&crate::spacetimedb::party_journey_by_party_id(&party.id))
+            .query_one_sats::<PartyJourney>(&db::party_journey_by_party_id(&party.id))
             .await
             .ok()
             .flatten();
@@ -259,17 +259,15 @@ pub(super) async fn camp(
     }
     let terrain_route = state
         .db
-        .query_one_sats_into::<adventuresim_stdb_client::PartyJourneyRoute, PartyJourneyRouteView>(&crate::spacetimedb::party_journey_route_by_party_id(
-            &party.id,
-        ))
+        .query_one_sats_into::<DbPartyJourneyRoute, PartyJourneyRouteView>(
+            &db::party_journey_route_by_party_id(&party.id),
+        )
         .await
         .ok()
         .flatten();
     let encounter = match state
         .db
-        .query_one_sats::<StrategicEncounter>(&crate::spacetimedb::strategic_encounter_by_party_id(
-            &party.id,
-        ))
+        .query_one_sats::<StrategicEncounter>(&db::strategic_encounter_by_party_id(&party.id))
         .await
     {
         Ok(encounter) => encounter,
@@ -303,7 +301,7 @@ pub(super) async fn camp(
         for membership in memberships.into_iter().filter(|row| row.alive) {
             if let Ok(Some(character)) = state
                 .db
-                .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(&crate::spacetimedb::character_by_id(
+                .query_one_sats_into::<DbCharacter, CharacterView>(&db::character_by_id(
                     membership.character_id,
                 ))
                 .await
@@ -426,7 +424,7 @@ pub(super) async fn camp(
             crate::routes::foraging::activity_dialog(
                 &state,
                 &character,
-                "/camp",
+                "/locations/camp",
                 query.forage_receipt.as_deref(),
                 query.forage_error.as_deref(),
             )
@@ -499,9 +497,12 @@ pub(super) async fn resolve_errantry_road_challenge(
         )
         .await
     {
-        Ok(()) => {
-            Redirect::to(&format!("/camp?road_occurrence={}", form.challenge_id)).into_response()
-        }
+        Ok(()) => Redirect::to(&format!(
+            "{}?road_occurrence={}",
+            paths::CAMP.url([]),
+            crate::location_urls::encode_component(&form.challenge_id.to_string())
+        ))
+        .into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -682,7 +683,7 @@ mod road_challenge_route_tests {
         assert!(route.contains("challenge.active && challenge.open"));
         assert!(route.contains("challenge.id == requested"));
         assert!(route.contains("\"resolve_errantry_road_challenge\""));
-        assert!(router.contains("/camp/errantry-road-challenge"));
+        assert!(router.contains("paths::RESOLVE_ERRANTRY_ROAD_CHALLENGE.pattern()"));
         assert!(template.contains("aria-label=\"Roadside conversation\""));
         assert!(template.contains("generic_road_encounter(road_trial)"));
         assert!(template.contains("presentation.choices"));
@@ -730,7 +731,7 @@ pub(super) async fn resolve_camp_encounter(
         )
         .await
     {
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -765,7 +766,7 @@ pub(super) async fn contact_camp_counterparty(
         )
         .await
     {
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -795,19 +796,17 @@ pub(super) async fn bandage_camp_counterparty(
                 json!(actor_id),
                 json!(form.patient_id),
                 json!(form.limb_slug),
-                crate::spacetimedb::sats_unit_variant(
-                    adventuresim_core::surgery::SurgeryProcedure::Bandage,
-                ),
-                crate::spacetimedb::sats_option(None::<u64>),
+                db::sats_unit_variant(adventuresim_core::surgery::SurgeryProcedure::Bandage),
+                db::sats_option(None::<u64>),
                 json!(false),
                 json!(form.action_id),
-                crate::spacetimedb::sats_option(Some(form.context_ref)),
-                crate::spacetimedb::sats_option(Some(form.expected_membership_revision)),
+                db::sats_option(Some(form.context_ref)),
+                db::sats_option(Some(form.expected_membership_revision)),
             ],
         )
         .await
     {
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -846,7 +845,7 @@ pub(super) async fn camp_settlement_destinations(
         let query = settlement_by_id(id);
         let settlement = state
             .db
-            .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(query.as_str())
+            .query_one_sats_into::<DbSettlement, SettlementView>(query.as_str())
             .await
             .ok()
             .flatten();
@@ -890,7 +889,7 @@ pub(super) async fn rest_at_camp(
         )
         .await
     {
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -910,7 +909,7 @@ pub(super) async fn continue_camp_travel(
         // A normal form redirect re-renders the authoritative camp or arrival
         // state. This remains reliable even when the live revision races the
         // reducer response.
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -931,7 +930,7 @@ pub(super) async fn change_camp_destination(
         )
         .await
     {
-        Ok(()) => Redirect::to("/camp").into_response(),
+        Ok(()) => Redirect::to("/locations/camp").into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }
@@ -981,7 +980,7 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     travelers.sort_by_key(|traveler| traveler.id);
     let items: Vec<CatalogItemView> = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .map_err(|error| error.to_string())?;
     let Some(ration) = items
@@ -1022,9 +1021,7 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     for traveler in &travelers {
         let Some(needs) = state
             .db
-            .query_one_sats::<CharacterNeeds>(&crate::spacetimedb::character_needs_by_character_id(
-                traveler.id,
-            ))
+            .query_one_sats::<CharacterNeeds>(&db::character_needs_by_character_id(traveler.id))
             .await
             .map_err(|error| error.to_string())?
         else {
@@ -1056,17 +1053,15 @@ pub(super) async fn travel_provision_forecast_for_minutes(
                 });
             }
         }
-        let time = query_single::<CharacterTime>(
-            state,
-            crate::spacetimedb::character_time_by_character_id(traveler.id),
-        )
-        .await;
+        let time =
+            query_single::<CharacterTime>(state, db::character_time_by_character_id(traveler.id))
+                .await;
         let personality = query_single::<adventuresim_stdb_client::CharacterPersonality>(
             state,
-            crate::spacetimedb::character_personality_by_character_id(traveler.id),
+            db::character_personality_by_character_id(traveler.id),
         )
         .await
-        .map(|row| crate::spacetimedb::core_personality(&row));
+        .map(|row| db::core_personality(&row));
         if time.is_some() {
             let history = state
                 .db
@@ -1096,8 +1091,8 @@ pub(super) async fn travel_provision_forecast_for_minutes(
             evenings.sort_unstable();
             evenings.dedup();
             match personality.map(|p| p.temperance) {
-                Some(crate::spacetimedb::Temperance::Temperate) => {}
-                Some(crate::spacetimedb::Temperance::Drunkard) => {
+                Some(db::Temperance::Temperate) => {}
+                Some(db::Temperance::Drunkard) => {
                     expected_morale_demands.extend(evenings.into_iter().map(|evening| {
                         (
                             evening,
