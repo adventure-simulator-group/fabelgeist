@@ -13,6 +13,7 @@
       "kind": "ArmingDoublet",
       "clearance": 4,
       "thickness": 1,
+      "color": [117, 106, 80],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -430,6 +431,7 @@
       "kind": "MailVoiders",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -489,6 +491,7 @@
       "kind": "PaddedHose",
       "clearance": 1,
       "thickness": 2,
+      "color": [117, 106, 80],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -506,6 +509,76 @@
       "plate_shape": "None",
       "waist": 900,
       "wall_thickness": 5
+    }
+  },
+  "puffed_hose": {
+    "PuffAndSlash": {
+      "kind": "Hose",
+      "puff_count": 4,
+      "puff_fullness": 55,
+      "distal_fullness": 600,
+      "puff_roundness": 750,
+      "slash_count": 10,
+      "slash_width": 320,
+      "slash_length": 700,
+      "constriction_width": 110,
+      "length": 960,
+      "proximal_position": 750,
+      "rotation": 50,
+      "clearance": 4,
+      "thickness": 2,
+      "outer_color": [145, 30, 24],
+      "undercloth_color": [224, 178, 48]
+    }
+  },
+  "trunk_hose": {
+    "TrunkHose": {
+      "clearance": 8,
+      "thickness": 2,
+      "length": 1000,
+      "panel_count": 8,
+      "primary_color": [150, 33, 29],
+      "secondary_color": [48, 78, 35]
+    }
+  },
+  "split_hose": {
+    "PuffAndSlash": {
+      "kind": "Hose",
+      "puff_count": 1,
+      "puff_fullness": 5,
+      "distal_fullness": 1000,
+      "puff_roundness": 1000,
+      "slash_count": 0,
+      "slash_width": 300,
+      "slash_length": 700,
+      "constriction_width": 40,
+      "length": 1000,
+      "proximal_position": 0,
+      "rotation": 0,
+      "clearance": 2,
+      "thickness": 1,
+      "outer_color": [150, 33, 29],
+      "undercloth_color": [150, 33, 29]
+    }
+  },
+  "puffed_sleeve": {
+    "PuffAndSlash": {
+      "kind": "Sleeve",
+      "puff_count": 3,
+      "puff_fullness": 48,
+      "distal_fullness": 550,
+      "puff_roundness": 700,
+      "slash_count": 8,
+      "slash_width": 300,
+      "slash_length": 700,
+      "constriction_width": 120,
+      "length": 940,
+      "proximal_position": 800,
+      "rotation": 0,
+      "clearance": 4,
+      "thickness": 2,
+      "outer_color": [145, 30, 24],
+      "undercloth_color": [224, 178, 48]
     }
   },
   "pauldron": {
@@ -789,6 +862,7 @@
       "kind": "MailBrayette",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -800,6 +874,7 @@
       "kind": "MailKneeVoider",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -811,6 +886,7 @@
       "kind": "MailStandard",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,

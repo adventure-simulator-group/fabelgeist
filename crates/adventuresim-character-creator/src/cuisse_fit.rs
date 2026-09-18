@@ -17,6 +17,7 @@ pub(super) fn fit(
     wearer: &Wearer<'_>,
     region: FitRegion,
     frame: &PartFrame,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
     let FitRegion::Thigh(side) = region else {
         anyhow::bail!("cuisse requires thigh landmarks");
@@ -41,6 +42,7 @@ pub(super) fn fit(
             region,
             design.gauge.clearance,
             design.gauge.thickness,
+            layers,
             PlateFit::Cuisse(design),
         )
     };
@@ -149,7 +151,7 @@ mod tests {
                 let frame = wearer.frame(region).unwrap();
                 let mesh =
                     generate_limb_armor(&LimbArmorDesign::Cuisse(design.clone()), &frame).unwrap();
-                let result = fit(&mesh, &design, &wearer, region, &frame);
+                let result = fit(&mesh, &design, &wearer, region, &frame, &[]);
                 if hip < 0.062 {
                     // With this lining/gauge the parallel thighs leave no
                     // bilateral room within the retained proximal span.
@@ -174,6 +176,7 @@ mod tests {
                     region,
                     design.gauge.clearance,
                     design.gauge.thickness,
+                    &[],
                     PlateFit::Cuisse(&design),
                 )
                 .unwrap();

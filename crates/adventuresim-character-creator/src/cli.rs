@@ -61,4 +61,7 @@ pub(super) struct Args {
     /// Write editable item defaults and any loaded placement-specific recipes.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,
+    /// Print JSON wall-clock timings for generation and export stages.
+    #[arg(long)]
+    pub(super) profile: bool,
 }

@@ -36,22 +36,27 @@ pub(super) fn fitted_breastplate(
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
-    let mut surface = build_front_torso_surface(TorsoSurfaceInput {
-        domain: MHR_ANATOMICAL_UV_DOMAIN,
-        positions: &generated.positions,
-        normals: &generated.normals,
-        faces: &character.mesh.faces,
-        texcoords: &character.mesh.texcoords,
-        texcoord_faces: &character.mesh.texcoord_faces,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-        global_joint_states: &generated.global_joint_states,
-        morphs,
+    let mut surface = crate::profiling::measure("breastplate_surface", || {
+        build_front_torso_surface(TorsoSurfaceInput {
+            domain: MHR_ANATOMICAL_UV_DOMAIN,
+            positions: &generated.positions,
+            normals: &generated.normals,
+            faces: &character.mesh.faces,
+            texcoords: &character.mesh.texcoords,
+            texcoord_faces: &character.mesh.texcoord_faces,
+            joint_indices: &character.skin_weights.index,
+            joint_weights: &character.skin_weights.weight,
+            joint_names: &character.skeleton.names,
+            global_joint_states: &generated.global_joint_states,
+            morphs,
+        })
     })
     .map_err(anyhow::Error::msg)?;
     surface.detail = model.armor_detail;
-    let mut armor = generate_breastplate(design, &surface).map_err(anyhow::Error::new)?;
+    let mut armor = crate::profiling::measure("breastplate_mesh", || {
+        generate_breastplate(design, &surface)
+    })
+    .map_err(anyhow::Error::new)?;
     breastplate_skeletal_fit::refit(&mut armor, morphs, |sample| {
         let mut surface = build_front_torso_surface(TorsoSurfaceInput {
             domain: MHR_ANATOMICAL_UV_DOMAIN,

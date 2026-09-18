@@ -50,7 +50,7 @@ pub fn fitted_limb(
         return if d.besagew.is_some() {
             crate::besagew_fit::fit(d, wearer, side, layers)
         } else {
-            crate::spaulder_fit::fit(d, wearer, side)
+            crate::spaulder_fit::fit(d, wearer, side, layers)
         };
     }
     let frame = wearer.frame(region)?;
@@ -66,6 +66,7 @@ pub fn fitted_limb(
                 region,
                 d.gauge.clearance,
                 d.gauge.thickness,
+                layers,
                 PlateFit::Mitten {
                     cuff_length: d.cuff_length.unit(),
                     cuff_clearance: d.cuff_clearance,
@@ -79,13 +80,13 @@ pub fn fitted_limb(
                 anyhow::bail!("boot requires foot landmarks")
             };
             let mesh = fit_foot_envelope(mesh, d.gauge, None, wearer, side, &frame)?;
-            boot_layer_fit::fit(mesh, d.gauge, wearer, side, &frame)
+            boot_layer_fit::fit(mesh, d.gauge, &frame, layers)
         }
         LimbArmorDesign::Sabaton(d) => {
             let FitRegion::Foot(side) = region else {
                 anyhow::bail!("sabaton requires foot landmarks")
             };
-            sabaton_fit::fit(mesh, d, wearer, side, &frame)
+            sabaton_fit::fit(mesh, d, wearer, side, &frame, layers)
         }
         LimbArmorDesign::Greave(d) => crate::armor_clearance::fit(
             &mesh,
@@ -93,9 +94,10 @@ pub fn fitted_limb(
             region,
             d.gauge.clearance,
             d.gauge.thickness,
+            layers,
             PlateFit::Greave(d),
         ),
-        LimbArmorDesign::Cuisse(d) => cuisse_fit::fit(&mesh, d, wearer, region, &frame),
+        LimbArmorDesign::Cuisse(d) => cuisse_fit::fit(&mesh, d, wearer, region, &frame, layers),
         LimbArmorDesign::Rerebrace(d) => {
             let mesh = trim_proximal(&mesh, &frame, region, 0.0)?;
             crate::armor_clearance::fit(
@@ -104,6 +106,7 @@ pub fn fitted_limb(
                 region,
                 d.gauge.clearance,
                 d.gauge.thickness,
+                layers,
                 PlateFit::Rerebrace(d),
             )
         }

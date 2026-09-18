@@ -78,13 +78,13 @@ pub(super) fn closure(
         },
     )?);
     let radius = buckle_radius + buckle_offset;
-    let mut hardware = buckle(width, radius, height, buckle_angle);
+    let mut hardware = buckle(width, radius, height, buckle_angle, detail);
     // Keep mounted metal parallel to the actual support rather than a circular
     // approximation that can put one edge through an eccentric limb section.
     conform_hardware(&mut hardware, section, buckle_radius)?;
     for angle in [start + 0.04, end - 0.04] {
         let radius = section.radius(angle)? + SEATING_GAP_M + thickness;
-        let mut head = rivet(angle, radius, height, width * 0.18);
+        let mut head = rivet(angle, radius, height, width * 0.18, detail);
         conform_hardware(&mut head, section, section.radius(angle)?)?;
         hardware.append(head);
     }
@@ -239,19 +239,30 @@ fn band(
     Ok(strap)
 }
 
-fn buckle(width: f32, radius: f32, height: f32, angle: f32) -> PartMesh {
-    let mut mesh = buckle_shape(width);
+fn buckle(
+    width: f32,
+    radius: f32,
+    height: f32,
+    angle: f32,
+    detail: adventuresim_armor_model::ArmorDetail,
+) -> PartMesh {
+    let mut mesh = buckle_shape(width, detail);
     for p in &mut mesh.positions {
         *p = buckle_point(*p, radius, height, angle);
     }
     mesh
 }
 
-pub(super) fn buckle_shape(width: f32) -> PartMesh {
+pub(super) fn buckle_shape(width: f32, detail: adventuresim_armor_model::ArmorDetail) -> PartMesh {
     let mut mesh = PartMesh::new();
     let half_width = width * 0.65;
     let half_length = width * 0.52;
-    for depth in [0.0, BAR_GAUGE_M] {
+    let depths: &[_] = if matches!(detail, adventuresim_armor_model::ArmorDetail::BakeSource) {
+        &[0.0, BAR_GAUGE_M]
+    } else {
+        &[BAR_GAUGE_M]
+    };
+    for &depth in depths {
         for inset in [0.0, BAR_GAUGE_M] {
             for [x, y] in [[-1.0, -1.0], [1.0, -1.0], [1.0, 1.0], [-1.0, 1.0]] {
                 mesh.positions
@@ -259,12 +270,14 @@ pub(super) fn buckle_shape(width: f32) -> PartMesh {
             }
         }
     }
-    for i in 0..4 {
+    for i in 0..4_u32 {
         let j = (i + 1) % 4;
         quad(&mut mesh, [i, j, j + 4, i + 4]);
-        quad(&mut mesh, [i + 8, i + 12, j + 12, j + 8]);
-        quad(&mut mesh, [i, i + 8, j + 8, j]);
-        quad(&mut mesh, [i + 4, j + 4, j + 12, i + 12]);
+        if depths.len() == 2 {
+            quad(&mut mesh, [i + 8, i + 12, j + 12, j + 8]);
+            quad(&mut mesh, [i, i + 8, j + 8, j]);
+            quad(&mut mesh, [i + 4, j + 4, j + 12, i + 12]);
+        }
     }
     outward(&mut mesh);
     // Tongue sits within the frame; its root and tip contact the frame.
@@ -281,37 +294,45 @@ fn buckle_point(p: [f32; 3], radius: f32, height: f32, angle: f32) -> [f32; 3] {
     radial_point(angle, radius + p[2], height + p[1])
 }
 
-fn rivet(angle: f32, radius: f32, height: f32, size: f32) -> PartMesh {
-    let mut mesh = rivet_shape(size);
+fn rivet(
+    angle: f32,
+    radius: f32,
+    height: f32,
+    size: f32,
+    detail: adventuresim_armor_model::ArmorDetail,
+) -> PartMesh {
+    let mut mesh = rivet_shape(size, detail);
     for p in &mut mesh.positions {
         *p = buckle_point(*p, radius, height, angle);
     }
     mesh
 }
 
-pub(super) fn rivet_shape(size: f32) -> PartMesh {
-    const SIDES: usize = 12;
+pub(super) fn rivet_shape(size: f32, detail: adventuresim_armor_model::ArmorDetail) -> PartMesh {
+    const SOURCE_SIDES: usize = 12;
+    const MINIMUM_SIDES: usize = 6;
     const HEAD_HEIGHT_M: f32 = 0.0015;
+    let sides = detail.segments(SOURCE_SIDES, MINIMUM_SIDES);
     let mut mesh = PartMesh::new();
     for (depth, scale) in [(0.0, 1.0), (HEAD_HEIGHT_M, 0.75)] {
-        for i in 0..SIDES {
-            let phi = 2.0 * PI * i as f32 / SIDES as f32;
+        for i in 0..sides {
+            let phi = 2.0 * PI * i as f32 / sides as f32;
             mesh.positions
                 .push([phi.cos() * size * scale, phi.sin() * size * scale, depth]);
         }
     }
-    for i in 0..SIDES as u32 {
-        let j = (i + 1) % SIDES as u32;
-        quad(&mut mesh, [i, j, j + SIDES as u32, i + SIDES as u32]);
+    for i in 0..sides as u32 {
+        let j = (i + 1) % sides as u32;
+        quad(&mut mesh, [i, j, j + sides as u32, i + sides as u32]);
     }
-    for i in 1..SIDES as u32 - 1 {
+    for i in 1..sides as u32 - 1 {
         mesh.indices.extend([
             0,
             i + 1,
             i,
-            SIDES as u32,
-            SIDES as u32 + i,
-            SIDES as u32 + i + 1,
+            sides as u32,
+            sides as u32 + i,
+            sides as u32 + i + 1,
         ]);
     }
     outward(&mut mesh);

@@ -20,7 +20,10 @@ mod plate_mesh;
 use bib_fit::BibFit;
 #[path = "gorget_sections.rs"]
 mod sections;
+#[path = "gorget_triangle_index.rs"]
+mod triangle_index;
 use sections::{MINIMUM_SECTION_SAMPLES, Section};
+use triangle_index::TriangleSupport;
 const COLLAR_HEIGHT_NECK_RATIO: f32 = 0.20;
 const COLLAR_BASE_NECK_RATIO: f32 = 0.58;
 const SAGITTAL_SECTION_HALF_WIDTH_NECK_RATIO: f32 = 0.18;
@@ -34,7 +37,11 @@ const POSTERIOR_SHOULDER_CROWN_NECK_RATIO: f32 = 0.20;
 const SIDE_COLLAR_RISE_NECK_RATIO: f32 = 0.15;
 const SIDE_COLLAR_RISE_HEIGHT_LIMIT: f32 = 0.60;
 
-pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh> {
+pub fn fit(
+    design: &GarmentArmorDesign,
+    wearer: &Wearer<'_>,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
+) -> Result<PartMesh> {
     design.validate()?;
     ensure!(
         design.kind == GarmentArmorKind::Gorget,
@@ -51,26 +58,53 @@ pub fn fit(design: &GarmentArmorDesign, wearer: &Wearer<'_>) -> Result<PartMesh>
         axes: heading.axes,
         half_extents: [height; 3],
     };
-    let samples = wearer
-        .positions
+    let mut support_positions = wearer.positions.to_vec();
+    let mut support_faces = wearer.faces.to_vec();
+    for layer in layers {
+        append_layer(&mut support_positions, &mut support_faces, layer)?;
+    }
+    let samples = support_positions
         .iter()
         .map(|p| local(&frame, *p))
         .collect::<Vec<_>>();
-    let mut cage = CollarCage::new(design, height, &samples, wearer.faces)?;
-    cage.bib_fit = BibFit::measure(
-        |t, angle| {
-            cage.bib_point(
-                t,
-                adventuresim_armor_model::gorget_control_angle(angle, cage.rear_sweep),
-            )
-        },
-        &samples,
-        wearer.faces,
-        design.clearance.metres() + design.wall_thickness.metres(),
+    let support = crate::profiling::measure("gorget_support_index", || {
+        TriangleSupport::new(&samples, &support_faces)
+    });
+    let mut cage = crate::profiling::measure("gorget_cage", || {
+        CollarCage::new(design, height, &samples, &support_faces)
+    })?;
+    cage.bib_fit = crate::profiling::measure("gorget_bib_fit", || {
+        BibFit::measure_for_detail(
+            |t, angle| {
+                cage.bib_point(
+                    t,
+                    adventuresim_armor_model::gorget_control_angle(angle, cage.rear_sweep),
+                )
+            },
+            &support,
+            design.clearance.metres() + design.wall_thickness.metres(),
+            wearer.detail,
+        )
+    });
+    let mesh =
+        crate::profiling::measure("gorget_mesh", || cage.mesh(design, wearer.detail, &support))?;
+    Ok(mesh.transformed(&frame))
+}
+
+fn append_layer(
+    positions: &mut Vec<[f32; 3]>,
+    faces: &mut Vec<[u32; 3]>,
+    layer: &crate::armor_layer::ArmorLayerSurface<'_>,
+) -> Result<()> {
+    let offset = u32::try_from(positions.len()).context("gorget support is too large")?;
+    positions.extend_from_slice(layer.positions);
+    faces.extend(
+        layer
+            .faces
+            .iter()
+            .map(|face| face.map(|index| index + offset)),
     );
-    Ok(cage
-        .mesh(design, wearer.detail, &samples, wearer.faces)?
-        .transformed(&frame))
+    Ok(())
 }
 
 fn joint(wearer: &Wearer<'_>, name: &str) -> Result<[f32; 3]> {
@@ -482,12 +516,12 @@ mod tests {
 
     #[test]
     fn collar_and_bib_form_one_closed_consistently_wound_material_shell() {
+        let support = TriangleSupport::new(&[], &[]);
         let mesh = cage()
             .mesh(
                 &GarmentArmorDesign::new(GarmentArmorKind::Gorget),
                 adventuresim_armor_model::ArmorDetail::BakeSource,
-                &[],
-                &[],
+                &support,
             )
             .unwrap();
         mesh.normals().unwrap();

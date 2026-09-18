@@ -97,6 +97,31 @@ impl PauldronCarrier {
         super::mesh::plates(self)
     }
 
+    /// Largest projected distance between neighboring carrier controls. A
+    /// fitter can use this as a conservative support-query reserve so a lower
+    /// surface cannot pass through the interior of a carrier cell merely
+    /// because it misses all four controls.
+    pub fn sampling_radius(&self, project: impl Fn([f32; 3]) -> [f32; 2]) -> f32 {
+        let mut radius = 0.0_f32;
+        for row in 0..=ROWS {
+            for column in 0..=COLUMNS {
+                let index = row * (COLUMNS + 1) + column;
+                let point = project(self.frame.point(self.points[index]));
+                for neighbor in [
+                    (column < COLUMNS).then_some(index + 1),
+                    (row < ROWS).then_some(index + COLUMNS + 1),
+                ]
+                .into_iter()
+                .flatten()
+                {
+                    let other = project(self.frame.point(self.points[neighbor]));
+                    radius = radius.max((point[0] - other[0]).hypot(point[1] - other[1]));
+                }
+            }
+        }
+        radius
+    }
+
     pub(super) fn point(&self, u: f32, v: f32, offset: f32) -> [f32; 3] {
         let p = self.sample(u, v);
         if offset == 0.0 {

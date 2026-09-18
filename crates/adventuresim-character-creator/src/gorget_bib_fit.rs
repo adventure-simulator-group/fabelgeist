@@ -3,64 +3,106 @@
 use adventuresim_armor_model::gorget_bib_direction;
 use std::f32::consts::TAU;
 
-const ROWS: usize = 17;
-const COLUMNS: usize = 129;
+const BAKE_ROWS: usize = 17;
+const BAKE_COLUMNS: usize = 129;
+const RUNTIME_ROWS: usize = 9;
+const RUNTIME_COLUMNS: usize = 65;
 
-pub(super) struct BibFit([[f32; COLUMNS]; ROWS]);
+pub(super) struct BibFit {
+    values: Vec<Vec<f32>>,
+    rows: usize,
+    columns: usize,
+}
 
 impl Default for BibFit {
     fn default() -> Self {
-        Self([[0.0; COLUMNS]; ROWS])
+        Self {
+            values: vec![vec![0.0; 2]; 2],
+            rows: 2,
+            columns: 2,
+        }
     }
 }
 
 impl BibFit {
+    #[cfg(test)]
     pub fn measure(
         point: impl Fn(f32, f32) -> [f32; 3],
-        body: &[[f32; 3]],
-        faces: &[[u32; 3]],
+        support: &super::triangle_index::TriangleSupport<'_>,
         padding: f32,
     ) -> Self {
-        let measured: [[f32; COLUMNS]; ROWS] = std::array::from_fn(|row| {
-            std::array::from_fn(|column| {
-                if row == 0 {
-                    return 0.0;
-                }
-                let t = row as f32 / (ROWS - 1) as f32;
-                let angle = TAU * column as f32 / (COLUMNS - 1) as f32;
-                let p = point(t, angle);
-                let direction = gorget_bib_direction(angle);
-                let query = [p[0], p[1] * direction[2] - p[2] * direction[1]];
-                let upper_height = point(0.0, angle)[1];
-                let origin = p[1] * direction[1] + p[2] * direction[2];
-                faces
-                    .iter()
-                    .filter_map(|face| {
-                        let triangle = face.map(|i| {
-                            let b = body[i as usize];
-                            [
-                                b[0],
-                                b[1] * direction[2] - b[2] * direction[1],
-                                b[1] * direction[1] + b[2] * direction[2],
-                            ]
+        Self::measure_grid(point, support, padding, BAKE_ROWS, BAKE_COLUMNS)
+    }
+
+    pub fn measure_for_detail(
+        point: impl Fn(f32, f32) -> [f32; 3],
+        support: &super::triangle_index::TriangleSupport<'_>,
+        padding: f32,
+        detail: adventuresim_armor_model::ArmorDetail,
+    ) -> Self {
+        let (rows, columns) = match detail {
+            adventuresim_armor_model::ArmorDetail::BakeSource => (BAKE_ROWS, BAKE_COLUMNS),
+            adventuresim_armor_model::ArmorDetail::Runtime(_) => (RUNTIME_ROWS, RUNTIME_COLUMNS),
+        };
+        Self::measure_grid(point, support, padding, rows, columns)
+    }
+
+    fn measure_grid(
+        point: impl Fn(f32, f32) -> [f32; 3],
+        support: &super::triangle_index::TriangleSupport<'_>,
+        padding: f32,
+        rows: usize,
+        columns: usize,
+    ) -> Self {
+        let measured = (0..rows)
+            .map(|row| {
+                (0..columns)
+                    .map(|column| {
+                        if row == 0 {
+                            return 0.0;
+                        }
+                        let t = row as f32 / (rows - 1) as f32;
+                        let angle = TAU * column as f32 / (columns - 1) as f32;
+                        let p = point(t, angle);
+                        let direction = gorget_bib_direction(angle);
+                        let query = [p[0], p[1] * direction[2] - p[2] * direction[1]];
+                        let upper_height = point(0.0, angle)[1];
+                        let origin = p[1] * direction[1] + p[2] * direction[2];
+                        let mut depth = None::<f32>;
+                        support.for_each_candidate(direction, query, query, |face_index| {
+                            let face = support.triangles[face_index];
+                            let triangle = face.map(|i| {
+                                let b = support.positions[i as usize];
+                                [
+                                    b[0],
+                                    b[1] * direction[2] - b[2] * direction[1],
+                                    b[1] * direction[1] + b[2] * direction[2],
+                                ]
+                            });
+                            if let Some(hit) = depth_at(query, triangle).filter(|depth| {
+                                let hit_height = query[1] * direction[2] + depth * direction[1];
+                                hit_height <= upper_height
+                            }) {
+                                depth = Some(depth.map_or(hit, |current| current.max(hit)));
+                            }
                         });
-                        depth_at(query, triangle).filter(|depth| {
-                            let hit_height = query[1] * direction[2] + depth * direction[1];
-                            hit_height <= upper_height
+                        depth.map_or(0.0, |depth| {
+                            let adjustment = depth + padding - origin;
+                            if adjustment < 0.0 {
+                                adjustment * t
+                            } else {
+                                adjustment
+                            }
                         })
                     })
-                    .reduce(f32::max)
-                    .map_or(0.0, |depth| {
-                        let adjustment = depth + padding - origin;
-                        if adjustment < 0.0 {
-                            adjustment * t
-                        } else {
-                            adjustment
-                        }
-                    })
+                    .collect::<Vec<_>>()
             })
-        });
-        Self(smooth_sections(measured))
+            .collect::<Vec<_>>();
+        Self {
+            values: smooth_sections(measured),
+            rows,
+            columns,
+        }
     }
 
     pub fn offset(&self, t: f32, angle: f32) -> [f32; 3] {
@@ -68,15 +110,16 @@ impl BibFit {
         if !(0.0..=1.0).contains(&u) {
             return [0.0; 3];
         }
-        let row = t.clamp(0.0, 1.0) * (ROWS - 1) as f32;
-        let column = u * (COLUMNS - 1) as f32;
+        let row = t.clamp(0.0, 1.0) * (self.rows - 1) as f32;
+        let column = u * (self.columns - 1) as f32;
         let values = std::array::from_fn(|i| {
-            let r = (row.floor() as isize + i as isize - 1).clamp(0, (ROWS - 1) as isize) as usize;
+            let r =
+                (row.floor() as isize + i as isize - 1).clamp(0, (self.rows - 1) as isize) as usize;
             cubic(
                 std::array::from_fn(|j| {
                     let c = (column.floor() as isize + j as isize - 1)
-                        .clamp(0, (COLUMNS - 1) as isize) as usize;
-                    self.0[r][c]
+                        .clamp(0, (self.columns - 1) as isize) as usize;
+                    self.values[r][c]
                 }),
                 column.fract(),
             )
@@ -87,23 +130,30 @@ impl BibFit {
 }
 
 /// Smooth anatomical samples while preserving the collar seam and angular periodicity.
-fn smooth_sections(measured: [[f32; COLUMNS]; ROWS]) -> [[f32; COLUMNS]; ROWS] {
-    std::array::from_fn(|row| {
-        std::array::from_fn(|column| {
-            if row == 0 {
-                return 0.0;
-            }
-            let mut value = 0.0;
-            for (dr, wr) in [(-1, 0.25), (0, 0.5), (1, 0.25)] {
-                let r = (row as isize + dr).clamp(0, (ROWS - 1) as isize) as usize;
-                for (dc, wc) in [(-1, 0.25), (0, 0.5), (1, 0.25)] {
-                    let c = (column as isize + dc).rem_euclid((COLUMNS - 1) as isize) as usize;
-                    value += measured[r][c] * wr * wc;
-                }
-            }
-            value
+fn smooth_sections(measured: Vec<Vec<f32>>) -> Vec<Vec<f32>> {
+    let rows = measured.len();
+    let columns = measured[0].len();
+    (0..rows)
+        .map(|row| {
+            (0..columns)
+                .map(|column| {
+                    if row == 0 {
+                        return 0.0;
+                    }
+                    let mut value = 0.0;
+                    for (dr, wr) in [(-1, 0.25), (0, 0.5), (1, 0.25)] {
+                        let r = (row as isize + dr).clamp(0, (rows - 1) as isize) as usize;
+                        for (dc, wc) in [(-1, 0.25), (0, 0.5), (1, 0.25)] {
+                            let c =
+                                (column as isize + dc).rem_euclid((columns - 1) as isize) as usize;
+                            value += measured[r][c] * wr * wc;
+                        }
+                    }
+                    value
+                })
+                .collect()
         })
-    })
+        .collect()
 }
 
 fn cubic(p: [f32; 4], t: f32) -> f32 {
@@ -170,8 +220,11 @@ mod tests {
         }
         let shoulder_faces = [[0, 1, 2], [0, 2, 3]];
         let all_faces = [[0, 1, 2], [0, 2, 3], [4, 5, 6], [4, 6, 7]];
-        let shoulder = BibFit::measure(carrier, &points, &shoulder_faces, 0.008);
-        let with_head = BibFit::measure(carrier, &points, &all_faces, 0.008);
+        let shoulder_support =
+            super::super::triangle_index::TriangleSupport::new(&points, &shoulder_faces);
+        let all_support = super::super::triangle_index::TriangleSupport::new(&points, &all_faces);
+        let shoulder = BibFit::measure(carrier, &shoulder_support, 0.008);
+        let with_head = BibFit::measure(carrier, &all_support, 0.008);
         for t in [0.25, 0.5, 0.75] {
             let expected = shoulder.offset(t, FRAC_PI_2);
             assert_eq!(expected, with_head.offset(t, FRAC_PI_2));

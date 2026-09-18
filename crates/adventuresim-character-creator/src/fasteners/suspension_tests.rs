@@ -1,5 +1,5 @@
 use super::{mesh, suspension::SuspensionDesign};
-use adventuresim_armor_model::{ArmorComponentRole, Millimeters};
+use adventuresim_armor_model::{ArmorComponentRole, ArmorDetail, Millimeters};
 use bevy::math::Vec3;
 
 #[test]
@@ -25,7 +25,9 @@ fn buckles_remain_rigid_and_seated_below_projecting_faulds() {
                         p[1] += 0.65;
                         p[2] += slope * (p[1] - 0.65);
                     }
-                    let result = design.generate(&tassets, &fauld).unwrap();
+                    let result = design
+                        .generate(&tassets, &fauld, ArmorDetail::BakeSource)
+                        .unwrap();
                     result.normals().unwrap();
                     let hardware = result
                         .components
@@ -34,7 +36,8 @@ fn buckles_remain_rigid_and_seated_below_projecting_faulds() {
                         .unwrap();
                     let frame =
                         &result.positions[hardware.vertices.start..hardware.vertices.start + 16];
-                    let original = mesh::buckle_shape(design.width.metres());
+                    let original =
+                        mesh::buckle_shape(design.width.metres(), ArmorDetail::BakeSource);
                     for i in 0..16 {
                         for j in i + 1..16 {
                             let old = Vec3::from_array(original.positions[i])

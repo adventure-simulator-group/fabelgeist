@@ -32,7 +32,12 @@ impl SuspensionDesign {
         Ok(())
     }
 
-    pub fn generate(&self, tassets: &PartMesh, fauld: &PartMesh) -> Result<PartMesh> {
+    pub fn generate(
+        &self,
+        tassets: &PartMesh,
+        fauld: &PartMesh,
+        detail: adventuresim_armor_model::ArmorDetail,
+    ) -> Result<PartMesh> {
         self.validate()?;
         let extent = tassets
             .positions
@@ -68,7 +73,7 @@ impl SuspensionDesign {
                     upper - lower >= self.width.metres() * 2.0,
                     "suspension anchors are too close for the buckle"
                 );
-                let (strap, buckle) = hanger(self, tassets, fauld, x, upper, lower)?;
+                let (strap, buckle) = hanger(self, tassets, fauld, x, upper, lower, detail)?;
                 leather.append(strap);
                 metal.append(buckle);
             }
@@ -78,6 +83,7 @@ impl SuspensionDesign {
 }
 
 const HANGER_ROWS: usize = 64;
+const MINIMUM_HANGER_ROWS: usize = 4;
 const SURFACE_GAP_M: f32 = 0.0055;
 
 fn hanger(
@@ -87,6 +93,7 @@ fn hanger(
     x: f32,
     upper: f32,
     lower: f32,
+    detail: adventuresim_armor_model::ArmorDetail,
 ) -> Result<(PartMesh, PartMesh)> {
     let width = d.width.metres();
     let thickness = d.thickness.metres();
@@ -98,9 +105,10 @@ fn hanger(
     let seat_top = buckle_y + width * 0.65;
     let seat_depth = front_depth(tassets, x, seat_top).context("missing buckle seat")?;
     let slope = (seat_depth - end) / (seat_top - lower);
+    let rows = detail.segments(HANGER_ROWS, MINIMUM_HANGER_ROWS);
     let mut profile = Vec::new();
-    for row in 0..=HANGER_ROWS {
-        let t = row as f32 / HANGER_ROWS as f32;
+    for row in 0..=rows {
+        let t = row as f32 / rows as f32;
         let y = upper + (lower - upper) * t;
         let z = [-0.5, 0.0, 0.5]
             .into_iter()
@@ -159,7 +167,7 @@ fn hanger(
             direction: [0.0, 0.0, 1.0],
         },
     )?;
-    let mut buckle = mesh::buckle_shape(width);
+    let mut buckle = mesh::buckle_shape(width, detail);
     let mut mounting_tab = mesh::cuboid([width * 0.28, width * 0.35, thickness * 0.25]);
     for p in &mut mounting_tab.positions {
         p[0] += width * 0.65;
@@ -170,10 +178,10 @@ fn hanger(
         *p = seat.transform(*p);
     }
     for y in [upper - width * 0.35, buckle_y - width * 0.80] {
-        let t = ((upper - y) / (upper - lower)).clamp(0.0, 1.0) * HANGER_ROWS as f32;
-        let i = (t.floor() as usize).min(HANGER_ROWS - 1);
+        let t = ((upper - y) / (upper - lower)).clamp(0.0, 1.0) * rows as f32;
+        let i = (t.floor() as usize).min(rows - 1);
         let z = profile[i][1] + (profile[i + 1][1] - profile[i][1]) * (t - i as f32);
-        let mut head = mesh::rivet_shape(width * 0.16);
+        let mut head = mesh::rivet_shape(width * 0.16, detail);
         for p in &mut head.positions {
             *p = [x + p[0], y + p[1], z + p[2]];
         }

@@ -171,6 +171,8 @@ mod tests {
             positions: &collar,
             faces: &faces,
             relief: Millimeters(0),
+            joint_indices: &[],
+            joint_weights: &[],
         };
         let design = CloseHelmetDesign::default();
         // Head measurement has no neck-band vertices; the actual triangle
@@ -239,6 +241,8 @@ mod tests {
             positions: &plate,
             faces: &faces,
             relief: Millimeters(0),
+            joint_indices: &[],
+            joint_weights: &[],
         };
         let design = CloseHelmetDesign {
             neck_length: Millimeters(35),
@@ -256,6 +260,8 @@ mod tests {
             positions: &plate,
             faces: &faces,
             relief: Millimeters(0),
+            joint_indices: &[],
+            joint_weights: &[],
         };
         assert!(fitted_profile(&lower, &frame, &head, &body, &faces, &[layer]).is_err());
         let reference = generate_close_helmet(&roomy, &frame, &roomy_profile).unwrap();
@@ -273,6 +279,8 @@ mod tests {
             positions: &impossible,
             faces: &faces,
             relief: Millimeters(0),
+            joint_indices: &[],
+            joint_weights: &[],
         };
         assert!(fit_hem(&design, &frame, &head, &body, &faces, &[layer]).is_err());
     }

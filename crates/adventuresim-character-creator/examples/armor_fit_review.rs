@@ -25,6 +25,8 @@ struct Body {
 struct Support {
     positions: Vec<[f32; 3]>,
     indices: Vec<u32>,
+    joint_indices: Vec<[u32; 8]>,
+    joint_weights: Vec<[f32; 8]>,
 }
 
 fn read<T: serde::de::DeserializeOwned>(path: impl AsRef<Path>) -> Result<T> {
@@ -49,6 +51,8 @@ fn main() -> Result<()> {
             positions: &s.positions,
             faces: s.indices.as_chunks::<3>().0,
             relief: adventuresim_armor_model::Millimeters(0),
+            joint_indices: &s.joint_indices,
+            joint_weights: &s.joint_weights,
         })
         .collect::<Vec<_>>();
     let wearer = Wearer {

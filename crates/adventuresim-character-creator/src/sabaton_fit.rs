@@ -12,12 +12,19 @@ pub(super) fn fit(
     wearer: &Wearer<'_>,
     side: Side,
     frame: &PartFrame,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
-    let points = wearer
+    let mut points = wearer
         .support_indices(FitRegion::Foot(side))?
         .into_iter()
         .map(|i| local(frame, wearer.positions[i]))
         .collect::<Vec<_>>();
+    points.extend(
+        layers
+            .iter()
+            .flat_map(|layer| layer.positions.iter())
+            .map(|point| local(frame, *point)),
+    );
     let [width, height, length] = frame.half_extents;
     let available_span_m = length * 0.70;
     // Match generation at the exact trim boundary despite f32 roundoff.

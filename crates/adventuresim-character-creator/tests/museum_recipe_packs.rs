@@ -9,7 +9,7 @@ use adventuresim_character_creator::{
 fn museum_recipe_packs_use_the_current_export_schema() {
     let root =
         Path::new(env!("CARGO_MANIFEST_DIR")).join("../adventuresim-armor-model/review/museum");
-    for museum in ["henry", "nuremberg"] {
+    for museum in ["henry", "landsknecht", "nuremberg"] {
         let directory = root.join(museum);
         let body_path = directory.join("body.json");
         let body: CharacterRecipe = serde_json::from_slice(

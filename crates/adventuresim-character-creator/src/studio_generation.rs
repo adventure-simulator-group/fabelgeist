@@ -56,7 +56,7 @@ pub(super) fn regenerate_mesh(
         &catalog,
         &studio.bracer_design,
         &studio.breastplate_design,
-        &[],
+        parametric_equipment::EquipmentFit::CharacterInstance,
     ) {
         Ok(armor) => armor,
         Err(error) => {

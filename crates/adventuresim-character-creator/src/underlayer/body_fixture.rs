@@ -52,6 +52,7 @@ fn exported_body_has_valid_underlayers() -> Result<()> {
             } else {
                 2
             }),
+            color: adventuresim_armor_model::TextileColor([117, 106, 80]),
             length: Permille(if kind == UnderlayerKind::PaddedHose {
                 1000
             } else {
@@ -69,7 +70,8 @@ fn exported_body_has_valid_underlayers() -> Result<()> {
             ),
             cuts: vec![],
         };
-        let pattern = UnderlayerPattern::new(&design, placement, &body, &uv_faces)?;
+        let envelope = UnderlayerEnvelope::new(&body);
+        let pattern = UnderlayerPattern::new(&design, placement, &body, &uv_faces, &envelope)?;
         let mesh = pattern.evaluate(&design, &body);
         let normals = mesh.normals()?;
         let texcoords: Vec<[f32; 2]> = field!("texcoords");

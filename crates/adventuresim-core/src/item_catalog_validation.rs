@@ -775,7 +775,7 @@ fn validate_equipment(
                 let placement_path = format!("{path}.placements.{index}");
                 reject_unknown(
                     placement,
-                    &["id", "occupancy", "parents", "protection", "surface"],
+                    occupancy::PLACEMENT_FIELDS,
                     &placement_path,
                     errors,
                 );
@@ -806,7 +806,7 @@ fn validate_equipment(
                     &valid_channels,
                     errors,
                 );
-                occupancy::validate_parents(&parents, &placement_path, errors);
+                occupancy::validate_dependencies(&parents, placement, &placement_path, errors);
                 let mut protected = BTreeSet::new();
                 for body_part in placement
                     .get("protection")
@@ -1750,6 +1750,35 @@ mod tests {
             "at least one physical occupancy or parent requirement"
         ));
         assert!(validation_contains(&error, "invalid location"));
+    }
+
+    #[test]
+    fn equipment_layer_precedence_requires_typed_location_and_channel() {
+        let valid = json!([{
+            "location": "left_leg",
+            "channel": "padding",
+            "order": 1
+        }]);
+        let errors = collect_diagnostics(|errors| {
+            occupancy::validate_layer_precedence(Some(&valid), "item.boot.placement.left", errors);
+        });
+        assert!(errors.is_empty(), "{errors:?}");
+
+        let invalid = json!([{
+            "location": "left_leg",
+            "channel": "hidden_under_boot"
+        }]);
+        let errors = collect_diagnostics(|errors| {
+            occupancy::validate_layer_precedence(
+                Some(&invalid),
+                "item.boot.placement.left",
+                errors,
+            );
+        });
+        assert!(errors.iter().any(|error| {
+            diagnostic_contains(error, "layers_over.0")
+                && diagnostic_contains(error, "hidden_under_boot")
+        }));
     }
 
     #[test]

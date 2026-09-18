@@ -11,6 +11,8 @@ use crate::armor_frames::{FitRegion, Side, Wearer};
 pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
+    PuffAndSlash(PuffAndSlashDesign),
+    TrunkHose(TrunkHoseDesign),
     Garment(GarmentArmorDesign),
     WaistAssembly(WaistArmorDesign),
     Underlayer(crate::underlayer::UnderlayerDesign),
@@ -21,6 +23,10 @@ impl ParametricDesign {
         Ok(match self {
             Self::Helmet(d) => generate_helmet(d, frame)?,
             Self::Limb(d) => generate_limb_armor(d, frame)?,
+            Self::PuffAndSlash(d) => generate_puff_and_slash(d, frame)?,
+            Self::TrunkHose(_) => {
+                anyhow::bail!("trunk hose requires source body triangles")
+            }
             Self::Garment(d) => generate_garment_armor(d, frame)?,
             Self::WaistAssembly(d) => {
                 let fauld = generate_garment_armor(&d.fauld, frame)?;
@@ -65,6 +71,11 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             _ => F::Torso,
         },
         ParametricDesign::Helmet(_) => F::Head,
+        ParametricDesign::PuffAndSlash(d) => match d.kind {
+            PuffAndSlashKind::Sleeve => F::WholeArm(side()?),
+            PuffAndSlashKind::Hose => F::WholeLeg(side()?),
+        },
+        ParametricDesign::TrunkHose(_) => F::Hips,
         ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
@@ -93,9 +104,18 @@ pub fn fitted_mesh(
     layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
     if let ParametricDesign::Underlayer(d) = design {
-        let pattern =
-            crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
+        let envelope = crate::underlayer::UnderlayerEnvelope::new(wearer);
+        let pattern = crate::underlayer::UnderlayerPattern::new(
+            d,
+            placement,
+            wearer,
+            wearer.faces,
+            &envelope,
+        )?;
         return Ok(pattern.evaluate(d, wearer));
+    }
+    if let ParametricDesign::TrunkHose(_) = design {
+        anyhow::bail!("trunk hose fitting requires source body UV triangles")
     }
     if let ParametricDesign::WaistAssembly(d) = design {
         let fauld = crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, layers)
@@ -120,12 +140,16 @@ pub fn fitted_mesh(
                     relief: layer.relief,
                     positions: layer.positions,
                     faces: layer.faces,
+                    joint_indices: layer.joint_indices,
+                    joint_weights: layer.joint_weights,
                 })
                 .collect::<Vec<_>>();
             supports.push(crate::armor_layer::ArmorLayerSurface {
                 relief: Millimeters(0),
                 positions: &tassets.positions,
                 faces: tassets.indices.as_chunks::<3>().0,
+                joint_indices: &[],
+                joint_weights: &[],
             });
             crate::garment_fit::fitted_garment(&d.fauld, placement, wearer, &supports)
                 .context("seating fauld over suspended tassets")?
@@ -142,6 +166,14 @@ pub fn fitted_mesh(
     }
     if let ParametricDesign::Garment(garment) = design {
         return crate::garment_fit::fitted_garment(garment, placement, wearer, layers);
+    }
+    if let ParametricDesign::PuffAndSlash(garment) = design {
+        return crate::puff_and_slash_fit::fit(
+            garment,
+            wearer,
+            fit_region(design, placement)?,
+            layers,
+        );
     }
     if let ParametricDesign::Limb(limb) = design {
         return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?, layers);
@@ -188,12 +220,16 @@ mod tests {
             ("padded_skirt", "Garment", "PaddedSkirt"),
             ("pauldron", "Limb", "Pauldron"),
             ("poleyn", "Limb", "Poleyn"),
+            ("puffed_hose", "PuffAndSlash", "Hose"),
+            ("puffed_sleeve", "PuffAndSlash", "Sleeve"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
             ("rerebrace", "Limb", "Rerebrace"),
             ("sabaton", "Limb", "Sabaton"),
             ("sallet", "Helmet", "Sallet"),
             ("spaulder", "Limb", "Spaulder"),
+            ("split_hose", "PuffAndSlash", "Hose"),
             ("tassets", "WaistAssembly", "Tassets"),
+            ("trunk_hose", "TrunkHose", "TrunkHose"),
             ("visored_sallet", "Helmet", "VisoredSallet"),
         ];
         let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
@@ -204,7 +240,9 @@ mod tests {
             if category == "WaistAssembly" {
                 assert_eq!(shape["fauld"]["kind"], "Fauld");
                 assert_eq!(shape["tassets"]["kind"], family);
-            } else if matches!(category, "Garment" | "Underlayer") {
+            } else if category == "TrunkHose" {
+                assert!(shape.is_object(), "{id} lost its {family} family");
+            } else if matches!(category, "Garment" | "Underlayer" | "PuffAndSlash") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

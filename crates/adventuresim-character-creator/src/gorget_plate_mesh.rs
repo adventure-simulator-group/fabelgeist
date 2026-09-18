@@ -11,8 +11,7 @@ impl CollarCage {
         &self,
         design: &GarmentArmorDesign,
         detail: adventuresim_armor_model::ArmorDetail,
-        body: &[[f32; 3]],
-        faces: &[[u32; 3]],
+        support: &super::triangle_index::TriangleSupport<'_>,
     ) -> Result<PartMesh> {
         let adventuresim_armor_model::GarmentPlateShape::Gorget { neck_clearance, .. } =
             design.plate_shape
@@ -22,37 +21,41 @@ impl CollarCage {
         let collar_padding = neck_clearance.metres() + design.wall_thickness.metres();
         let chart = RefCell::new(Vec::new());
         let curve_failure = RefCell::new(None);
-        let mesh = generate_gorget_plates(
-            design,
-            detail,
-            |t, angle| {
-                chart
-                    .borrow_mut()
-                    .push(GorgetVertex::Collar(self.collar_clearance(
-                        t,
-                        angle,
-                        collar_padding,
-                    )));
-                self.collar_point(t, angle)
-            },
-            |t, angle| {
-                chart.borrow_mut().push(GorgetVertex::Bib(BibVertex {
-                    direction: Vec3::from_array(adventuresim_armor_model::gorget_bib_direction(
-                        self.surface_angle(angle),
-                    )),
-                    ceiling: self.bib_point(0.0, angle)[1],
-                    collar_inset: self.collar_clearance(1.0, angle, collar_padding),
-                    transition: super::meridian::clearance_blend(t),
-                }));
-                match self.formed_bib_point(t, angle) {
-                    Ok(point) => point,
-                    Err(error) => {
-                        curve_failure.borrow_mut().get_or_insert(error);
-                        [f32::NAN; 3]
+        let mesh = crate::profiling::measure("gorget_plate_generate", || {
+            generate_gorget_plates(
+                design,
+                detail,
+                |t, angle| {
+                    chart
+                        .borrow_mut()
+                        .push(GorgetVertex::Collar(self.collar_clearance(
+                            t,
+                            angle,
+                            collar_padding,
+                        )));
+                    self.collar_point(t, angle)
+                },
+                |t, angle| {
+                    chart.borrow_mut().push(GorgetVertex::Bib(BibVertex {
+                        direction: Vec3::from_array(
+                            adventuresim_armor_model::gorget_bib_direction(
+                                self.surface_angle(angle),
+                            ),
+                        ),
+                        ceiling: self.bib_point(0.0, angle)[1],
+                        collar_inset: self.collar_clearance(1.0, angle, collar_padding),
+                        transition: super::meridian::clearance_blend(t),
+                    }));
+                    match self.formed_bib_point(t, angle) {
+                        Ok(point) => point,
+                        Err(error) => {
+                            curve_failure.borrow_mut().get_or_insert(error);
+                            [f32::NAN; 3]
+                        }
                     }
-                }
-            },
-        );
+                },
+            )
+        });
         if let Some(error) = curve_failure.into_inner() {
             return Err(error);
         }
@@ -62,15 +65,17 @@ impl CollarCage {
         let mut failure = None;
         let fitted = mesh.refit_surfaces(|positions, indices| {
             let end = cursor + positions.len();
-            if let Err(error) = bib_clearance::seat(
-                positions,
-                indices,
-                &chart[cursor..end],
-                body,
-                faces,
-                design.clearance.metres(),
-                design.wall_thickness.metres(),
-            ) {
+            let seating = crate::profiling::measure("gorget_clearance_seat", || {
+                bib_clearance::seat(
+                    positions,
+                    indices,
+                    &chart[cursor..end],
+                    support,
+                    design.clearance.metres(),
+                    design.wall_thickness.metres(),
+                )
+            });
+            if let Err(error) = seating {
                 failure = Some(error);
             }
             cursor = end;

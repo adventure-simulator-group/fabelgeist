@@ -1,7 +1,6 @@
 //! Boot shaft clearance over the supported leg garments.
 use super::boot_shaft_profile::{self, RING_PLANE_TOLERANCE_M};
 use super::{PROFILE_SAMPLES, PROFILE_WINDOW_M, foot_exponent, foot_sections, local};
-use crate::armor_frames::{Side, Wearer};
 use adventuresim_armor_model::{PartFrame, PartMesh, PlateGauge};
 use anyhow::Result;
 
@@ -15,10 +14,12 @@ const ANKLE_FAIRING_PASSES: usize = 64;
 pub(super) fn fit(
     mesh: PartMesh,
     gauge: PlateGauge,
-    wearer: &Wearer<'_>,
-    side: Side,
     frame: &PartFrame,
+    layers: &[crate::armor_layer::ArmorLayerSurface<'_>],
 ) -> Result<PartMesh> {
+    if layers.is_empty() {
+        return Ok(mesh);
+    }
     let low = mesh
         .positions
         .iter()
@@ -29,38 +30,18 @@ pub(super) fn fit(
         .iter()
         .map(|p| local(frame, *p)[1])
         .fold(f32::NEG_INFINITY, f32::max);
-    use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind};
-    let placement = if matches!(side, Side::Left) {
-        "left"
-    } else {
-        "right"
-    };
     let mut support = Vec::new();
     let mut hem = f32::INFINITY;
-    for kind in [
-        GarmentArmorKind::MailChausses,
-        GarmentArmorKind::PaddedChausses,
-    ] {
-        let garment = crate::garment_fit::fitted_garment(
-            &GarmentArmorDesign::new(kind),
-            placement,
-            wearer,
-            &[],
-        )?;
-        let points = garment
+    for layer in layers {
+        let points = layer
             .positions
             .iter()
             .map(|p| local(frame, *p))
             .collect::<Vec<_>>();
-        let garment_hem = points.iter().map(|p| p[1]).fold(f32::INFINITY, f32::min);
-        hem = hem.min(garment_hem);
-        support.extend(boot_layer_sections(
-            &points,
-            &garment.indices,
-            low,
-            high,
-            garment_hem,
-        ));
+        let layer_hem = points.iter().map(|p| p[1]).fold(f32::INFINITY, f32::min);
+        hem = hem.min(layer_hem);
+        let indices = layer.faces.iter().flatten().copied().collect::<Vec<_>>();
+        support.extend(boot_layer_sections(&points, &indices, low, high, layer_hem));
     }
     let dressed = foot_sections(&support, low, high, gauge, frame.half_extents[1]);
     refit_supported_shaft(mesh, frame, low..high, hem, &dressed)

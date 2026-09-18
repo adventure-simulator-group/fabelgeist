@@ -65,6 +65,8 @@ pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &m
 fn controls(ui: &mut egui::Ui, design: &mut ParametricDesign) -> bool {
     match design {
         ParametricDesign::Limb(d) => limb::show(ui, d),
+        ParametricDesign::PuffAndSlash(d) => puff_and_slash(ui, d),
+        ParametricDesign::TrunkHose(d) => trunk_hose(ui, d),
         ParametricDesign::Helmet(d) => helmet::show(ui, d),
         ParametricDesign::Garment(d) => super::garment_controls::show(ui, d),
         ParametricDesign::Underlayer(d) => underlayer(ui, d),
@@ -84,6 +86,90 @@ fn controls(ui: &mut egui::Ui, design: &mut ParametricDesign) -> bool {
             fauld || tassets
         }
     }
+}
+
+fn trunk_hose(ui: &mut egui::Ui, design: &mut adventuresim_armor_model::TrunkHoseDesign) -> bool {
+    let mut changed = number(ui, &mut design.clearance.0, 1..=10, "Body clearance (mm)");
+    changed |= number(ui, &mut design.thickness.0, 1..=8, "Cloth thickness (mm)");
+    changed |= number(ui, &mut design.length.0, 900..=1200, "Upper-leg reach");
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.panel_count, 4..=16)
+                .step_by(2.0)
+                .text("Vertical panes"),
+        )
+        .changed();
+    ui.horizontal(|ui| {
+        ui.label("Primary fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.primary_color.0)
+            .changed();
+    });
+    ui.horizontal(|ui| {
+        ui.label("Secondary fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.secondary_color.0)
+            .changed();
+    });
+    changed
+}
+
+fn puff_and_slash(
+    ui: &mut egui::Ui,
+    design: &mut adventuresim_armor_model::PuffAndSlashDesign,
+) -> bool {
+    let mut changed = ui
+        .add(egui::Slider::new(&mut design.puff_count, 1..=8).text("Puff courses"))
+        .changed();
+    changed |= number(
+        ui,
+        &mut design.puff_fullness.0,
+        5..=90,
+        "Puff fullness (mm)",
+    );
+    changed |= number(
+        ui,
+        &mut design.puff_roundness.0,
+        400..=2500,
+        "Puff roundness",
+    );
+    changed |= ui
+        .add(egui::Slider::new(&mut design.slash_count, 3..=16).text("Slashes per course"))
+        .changed();
+    for (value, range, label) in [
+        (&mut design.distal_fullness.0, 250..=1500, "Distal fullness"),
+        (&mut design.slash_width.0, 50..=650, "Slash width"),
+        (&mut design.slash_length.0, 300..=900, "Slash length"),
+        (
+            &mut design.constriction_width.0,
+            40..=350,
+            "Constricted band width",
+        ),
+        (&mut design.length.0, 350..=1000, "Limb coverage"),
+        (
+            &mut design.proximal_position.0,
+            0..=1000,
+            "Proximal placement",
+        ),
+        (&mut design.rotation.0, 0..=1000, "Pattern rotation"),
+        (&mut design.clearance.0, 1..=15, "Body clearance (mm)"),
+        (&mut design.thickness.0, 1..=6, "Cloth thickness (mm)"),
+    ] {
+        changed |= number(ui, value, range, label);
+    }
+    ui.horizontal(|ui| {
+        ui.label("Outer fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.outer_color.0)
+            .changed();
+    });
+    ui.horizontal(|ui| {
+        ui.label("Undercloth");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.undercloth_color.0)
+            .changed();
+    });
+    changed
 }
 
 fn placement_controls(
@@ -182,6 +268,12 @@ fn underlayer(
         underlayer::THICKNESS_MM,
         "Material thickness (mm)",
     );
+    if !d.kind.is_mail() {
+        ui.horizontal(|ui| {
+            ui.label("Fabric");
+            changed |= ui.color_edit_button_srgb(&mut d.color.0).changed();
+        });
+    }
     if d.kind != UnderlayerKind::MailVoiders {
         let range = d.length_range();
         changed |= number(ui, &mut d.length.0, range, "Garment length");

@@ -2,13 +2,165 @@
 
 use super::*;
 
+const SOURCE_INDEX_LEAF_FACES: usize = 8;
+
+pub(super) struct SourceSampler {
+    triangles: Vec<[[f32; 3]; 3]>,
+    source_faces: Vec<usize>,
+    order: Vec<usize>,
+    nodes: Vec<SourceNode>,
+}
+
+#[derive(Clone, Copy)]
+struct SourceNode {
+    lower: [f32; 3],
+    upper: [f32; 3],
+    children: Option<[usize; 2]>,
+    range: [usize; 2],
+}
+
+impl SourceSampler {
+    pub(super) fn new(wearer: Wearer<'_>, eligible_faces: &[usize]) -> Self {
+        let triangles = eligible_faces
+            .iter()
+            .map(|&face_index| {
+                wearer.source_faces[face_index].map(|index| {
+                    local(
+                        wearer.clearance.enclosure_vertices[index as usize].position,
+                        wearer.frame,
+                    )
+                })
+            })
+            .collect::<Vec<_>>();
+        let mut sampler = Self {
+            source_faces: eligible_faces.to_vec(),
+            order: (0..triangles.len()).collect(),
+            triangles,
+            nodes: Vec::new(),
+        };
+        if !sampler.triangles.is_empty() {
+            sampler.build(0, sampler.triangles.len());
+        }
+        sampler
+    }
+
+    pub(super) fn sample(&self, point: [f32; 3], frame: Frame) -> SourceSample {
+        let target = local(point, frame);
+        let mut best = None;
+        self.nearest(0, target, &mut best);
+        let (_, rank, weights) = best.expect("validated torso has faces");
+        SourceSample {
+            face: self.source_faces[rank],
+            weights,
+        }
+    }
+
+    fn build(&mut self, start: usize, end: usize) -> usize {
+        let (lower, upper) = source_bounds(&self.triangles, &self.order[start..end]);
+        let node = self.nodes.len();
+        self.nodes.push(SourceNode {
+            lower,
+            upper,
+            children: None,
+            range: [start, end],
+        });
+        if end - start > SOURCE_INDEX_LEAF_FACES {
+            let axis = (0..3)
+                .max_by(|&a, &b| (upper[a] - lower[a]).total_cmp(&(upper[b] - lower[b])))
+                .expect("three spatial axes");
+            let middle = start + (end - start) / 2;
+            self.order[start..end].select_nth_unstable_by(middle - start, |&a, &b| {
+                source_centroid(self.triangles[a], axis)
+                    .total_cmp(&source_centroid(self.triangles[b], axis))
+                    .then_with(|| a.cmp(&b))
+            });
+            let left = self.build(start, middle);
+            let right = self.build(middle, end);
+            self.nodes[node].children = Some([left, right]);
+        }
+        node
+    }
+
+    fn nearest(
+        &self,
+        node_index: usize,
+        target: [f32; 3],
+        best: &mut Option<(f32, usize, [f32; 3])>,
+    ) {
+        let node = self.nodes[node_index];
+        if best.is_some_and(|current| source_bounds_distance(target, node) > current.0) {
+            return;
+        }
+        if let Some(mut children) = node.children {
+            if source_bounds_distance(target, self.nodes[children[1]])
+                < source_bounds_distance(target, self.nodes[children[0]])
+            {
+                children.reverse();
+            }
+            self.nearest(children[0], target, best);
+            self.nearest(children[1], target, best);
+            return;
+        }
+        for &rank in &self.order[node.range[0]..node.range[1]] {
+            let triangle = self.triangles[rank];
+            let weights = closest_triangle_weights(target, triangle);
+            let closest = triangle
+                .into_iter()
+                .zip(weights)
+                .fold([0.0; 3], |sum, (vertex, weight)| {
+                    add(sum, scale(vertex, weight))
+                });
+            let delta = sub(closest, target);
+            let distance = dot(delta, delta);
+            if best.is_none_or(|current| {
+                distance < current.0 || (distance == current.0 && rank < current.1)
+            }) {
+                *best = Some((distance, rank, weights));
+            }
+        }
+    }
+}
+
+fn source_bounds(triangles: &[[[f32; 3]; 3]], order: &[usize]) -> ([f32; 3], [f32; 3]) {
+    let mut lower = [f32::INFINITY; 3];
+    let mut upper = [f32::NEG_INFINITY; 3];
+    for &triangle in order {
+        for point in triangles[triangle] {
+            for axis in 0..3 {
+                lower[axis] = lower[axis].min(point[axis]);
+                upper[axis] = upper[axis].max(point[axis]);
+            }
+        }
+    }
+    (lower, upper)
+}
+
+fn source_centroid(triangle: [[f32; 3]; 3], axis: usize) -> f32 {
+    triangle.iter().map(|point| point[axis]).sum::<f32>() / 3.0
+}
+
+fn source_bounds_distance(point: [f32; 3], node: SourceNode) -> f32 {
+    (0..3)
+        .map(|axis| {
+            if point[axis] < node.lower[axis] {
+                node.lower[axis] - point[axis]
+            } else if point[axis] > node.upper[axis] {
+                point[axis] - node.upper[axis]
+            } else {
+                0.0
+            }
+        })
+        .map(|distance| distance * distance)
+        .sum()
+}
+
 /// Detail vertices share displacement from the coarse carrier that defines
 /// their surface. Sampling the body independently at each flute ridge can
 /// introduce high-frequency displacement and fold narrow relief channels.
 pub(super) fn carrier_samples(
     mesh: &MidMesh,
-    wearer: Wearer<'_>,
-    eligible_faces: &[usize],
+    sampler: &SourceSampler,
+    frame: Frame,
 ) -> Vec<MorphSample> {
     if let Some(samples) = &mesh.morph_samples {
         return samples.clone();
@@ -17,7 +169,7 @@ pub(super) fn carrier_samples(
         let coarse = carrier
             .positions
             .iter()
-            .map(|point| source_sample(*point, wearer, eligible_faces))
+            .map(|point| sampler.sample(*point, frame))
             .collect::<Vec<_>>();
         carrier
             .samples
@@ -36,48 +188,11 @@ pub(super) fn carrier_samples(
         mesh.positions
             .iter()
             .map(|point| MorphSample {
-                endpoints: [source_sample(*point, wearer, eligible_faces); 4],
+                endpoints: [sampler.sample(*point, frame); 4],
                 weights: [1.0, 0.0, 0.0, 0.0],
             })
             .collect()
     }
-}
-
-pub(super) fn source_sample(
-    point: [f32; 3],
-    wearer: Wearer<'_>,
-    eligible_faces: &[usize],
-) -> SourceSample {
-    let target = local(point, wearer.frame);
-    let mut best = None::<(f32, SourceSample)>;
-    for face_index in eligible_faces.iter().copied() {
-        let face = wearer.source_faces[face_index];
-        let indices = face.map(|index| index as usize);
-        let triangle = indices.map(|index| {
-            local(
-                wearer.clearance.enclosure_vertices[index].position,
-                wearer.frame,
-            )
-        });
-        let weights = closest_triangle_weights(target, triangle);
-        let closest = triangle
-            .into_iter()
-            .zip(weights)
-            .fold([0.0; 3], |sum, (vertex, weight)| {
-                add(sum, scale(vertex, weight))
-            });
-        let distance = dot(sub(closest, target), sub(closest, target));
-        if best.is_none_or(|current| distance < current.0) {
-            best = Some((
-                distance,
-                SourceSample {
-                    face: face_index,
-                    weights,
-                },
-            ));
-        }
-    }
-    best.expect("validated torso has faces").1
 }
 
 pub(super) fn closest_triangle_weights(point: [f32; 3], triangle: [[f32; 3]; 3]) -> [f32; 3] {
@@ -185,4 +300,64 @@ pub(super) fn eligible_torso_faces(surface: &TorsoSurface) -> Result<Vec<usize>,
                 .ok_or(GenerateError::InvalidSurface)
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn indexed_source_sampling_matches_linear_closest_triangle_search() {
+        let triangles = (0..24)
+            .map(|index| {
+                let x = (index % 6) as f32 * 0.3 - 0.8;
+                let y = (index / 6) as f32 * 0.25 - 0.4;
+                let z = (index as f32 * 0.37).sin() * 0.2;
+                [
+                    [x, y, z],
+                    [x + 0.21, y + 0.03, z + 0.04],
+                    [x + 0.02, y + 0.18, z - 0.03],
+                ]
+            })
+            .collect::<Vec<_>>();
+        let mut sampler = SourceSampler {
+            source_faces: (100..100 + triangles.len()).collect(),
+            order: (0..triangles.len()).collect(),
+            triangles,
+            nodes: Vec::new(),
+        };
+        sampler.build(0, sampler.triangles.len());
+
+        for target in [
+            [-0.73, -0.21, 0.31],
+            [0.04, 0.17, -0.14],
+            [0.91, 0.53, 0.27],
+            [-1.4, 0.8, -0.5],
+        ] {
+            let mut indexed = None;
+            sampler.nearest(0, target, &mut indexed);
+            let indexed = indexed.unwrap();
+            let linear = sampler
+                .triangles
+                .iter()
+                .enumerate()
+                .map(|(rank, &triangle)| {
+                    let weights = closest_triangle_weights(target, triangle);
+                    let closest = triangle
+                        .into_iter()
+                        .zip(weights)
+                        .fold([0.0; 3], |sum, (point, weight)| {
+                            add(sum, scale(point, weight))
+                        });
+                    let delta = sub(closest, target);
+                    (dot(delta, delta), rank, weights)
+                })
+                .min_by(|a, b| a.0.total_cmp(&b.0).then_with(|| a.1.cmp(&b.1)))
+                .unwrap();
+            assert_eq!(indexed.1, linear.1);
+            for axis in 0..3 {
+                assert!((indexed.2[axis] - linear.2[axis]).abs() < 1e-6);
+            }
+        }
+    }
 }

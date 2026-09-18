@@ -293,6 +293,17 @@ not a proof of continuous clearance. Assembled views combine unchanged parts to
 expose interface problems. Static review does not replace inspection of
 installed equipment under runtime animation.
 
+Add `--profile` to a CLI export to print JSON timing events to standard error.
+Events separate body generation, equipment planning and fitting by item,
+fastener attachment, runtime topology conversion, GLB serialization and writes,
+and review JSON serialization and writes.
+
+Studio and review generation fit equipment as a character instance. This path
+builds only the current body, parallelizes independent equipment layers, and
+does not reserve underlayer folds for hypothetical identities. Character GLB
+export instead builds reusable equipment with all requested identity morphs.
+Regenerate instance equipment whenever its wearer's body shape changes.
+
 Filtered equipment exports accept comma-separated IDs with `--equipment-item`
 and require an empty staging directory. Run `python
 scripts/check_parametric_armor_assets.py STAGING_DIRECTORY` to audit actual GLB

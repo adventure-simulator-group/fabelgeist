@@ -35,6 +35,8 @@ pub(super) fn generate_equipment_assets(
         .with_context(|| format!("creating equipment output {}", output.display()))?;
     let generated = generate_character(model, recipe)?;
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
+    let underlayer_envelope = exports_underlayers(catalog, item_filter)
+        .then(|| crate::underlayer_equipment::fit_envelope(model, &generated, &morphs.samples));
     let exporter = EquipmentExporter {
         model,
         recipe,
@@ -43,6 +45,7 @@ pub(super) fn generate_equipment_assets(
         bracer_design,
         breastplate_design,
         catalog,
+        underlayer_envelope: underlayer_envelope.as_ref(),
     };
     let mut assets = Vec::new();
     let mut generated_files = std::collections::BTreeSet::new();
@@ -99,6 +102,27 @@ pub(super) fn generate_equipment_assets(
     Ok(())
 }
 
+fn exports_underlayers(catalog: &EquipmentCatalog, item_filter: &[String]) -> bool {
+    procedural_items(catalog)
+        .filter(|item| item_filter.is_empty() || item_filter.contains(&item.id))
+        .filter_map(|item| item.equipment.as_ref().map(|equipment| (item, equipment)))
+        .flat_map(|(item, equipment)| {
+            equipment
+                .placements
+                .iter()
+                .map(move |placement| (&item.id, &placement.id))
+        })
+        .any(|(item, placement)| {
+            matches!(
+                catalog.design(item, placement),
+                Some(
+                    adventuresim_character_creator::armor_recipes::ParametricDesign::Underlayer(_)
+                        | adventuresim_character_creator::armor_recipes::ParametricDesign::TrunkHose(_)
+                )
+            )
+        })
+}
+
 struct EquipmentExporter<'a> {
     catalog: &'a EquipmentCatalog,
     model: &'a BodyModel,
@@ -107,6 +131,7 @@ struct EquipmentExporter<'a> {
     morphs: &'a CharacterMorphs,
     bracer_design: &'a BracerDesign,
     breastplate_design: &'a BreastplateDesign,
+    underlayer_envelope: Option<&'a adventuresim_character_creator::underlayer::UnderlayerEnvelope>,
 }
 
 impl EquipmentExporter<'_> {
@@ -166,9 +191,9 @@ impl EquipmentExporter<'_> {
                         .design(&item.id, &placement.id)
                         .context("missing parametric recipe")?,
                     &placement.id,
-                    self.catalog,
-                    breastplate_design,
                     &morphs.samples,
+                    self.underlayer_envelope,
+                    None,
                 )?,
                 placement_coverage(placement),
             )

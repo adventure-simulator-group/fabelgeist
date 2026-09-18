@@ -123,6 +123,7 @@ impl FastenerRecipe {
             Self::TassetSuspension(d) => d.generate(
                 &component(plate, adventuresim_armor_model::ArmorComponentRole::Tassets)?,
                 &component(plate, adventuresim_armor_model::ArmorComponentRole::Fauld)?,
+                wearer.detail,
             ),
         }
     }

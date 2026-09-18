@@ -2,8 +2,18 @@ use super::{CatalogDiagnostics, reject_unknown};
 use serde_json::Value;
 use std::collections::BTreeSet;
 
-pub(super) fn validate_parents(
+pub(super) const PLACEMENT_FIELDS: &[&str] = &[
+    "id",
+    "occupancy",
+    "parents",
+    "layers_over",
+    "protection",
+    "surface",
+];
+
+pub(super) fn validate_dependencies(
     parents: &[Value],
+    placement: &serde_json::Map<String, Value>,
     placement_path: &str,
     errors: &mut CatalogDiagnostics<'_>,
 ) {
@@ -13,6 +23,32 @@ pub(super) fn validate_parents(
         {
             errors.push(
                 format!("{placement_path}.parents.{index}"),
+                error.to_string(),
+            );
+        }
+    }
+    validate_layer_precedence(placement.get("layers_over"), placement_path, errors);
+}
+
+pub(super) fn validate_layer_precedence(
+    layers_over: Option<&Value>,
+    placement_path: &str,
+    errors: &mut CatalogDiagnostics<'_>,
+) {
+    let Some(layers_over) = layers_over else {
+        return;
+    };
+    let Some(layers_over) = layers_over.as_array() else {
+        errors.push(format!("{placement_path}.layers_over"), "must be an array");
+        return;
+    };
+    for (index, precedence) in layers_over.iter().enumerate() {
+        if let Err(error) = serde_json::from_value::<
+            crate::item_catalog_schema::EquipmentLayerPrecedence,
+        >(precedence.clone())
+        {
+            errors.push(
+                format!("{placement_path}.layers_over.{index}"),
                 error.to_string(),
             );
         }

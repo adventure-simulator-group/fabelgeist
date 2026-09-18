@@ -43,7 +43,7 @@ pub(super) fn export_character(
         catalog,
         bracer_design,
         breastplate_design,
-        &morphs.samples,
+        parametric_equipment::EquipmentFit::ReusableAsset(&morphs.samples),
     )?;
     let armor_faces = armor
         .iter()
