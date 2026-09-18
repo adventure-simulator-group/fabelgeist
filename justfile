@@ -638,6 +638,10 @@ test-environment:
 test-schedule:
     @node --test crates/strategic-web/tests/training-schedule.test.cjs
 
+# Execute the portable RNG contract on native and wasm32.
+test-determinism:
+    @{{ python_bin }} scripts/test_determinism.py
+
 # Test local workflow policy without leaving Python bytecode in the worktree.
 test-dev-stack:
     @{{ python_bin }} -B -m unittest scripts.tests.test_dev_stack scripts.tests.test_just_tasks scripts.tests.test_tactical_static_server -v

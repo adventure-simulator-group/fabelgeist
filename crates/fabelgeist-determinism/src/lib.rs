@@ -3,6 +3,11 @@
 //! These functions participate in persisted and replayed behavior. Changing
 //! their output requires explicit versioning at every affected boundary.
 
+mod seed;
+mod stream;
+pub use seed::{Seed, StreamId};
+pub use stream::{DeterministicRng, SamplingError};
+
 const SPLITMIX64_INCREMENT: u64 = 0x9e37_79b9_7f4a_7c15;
 const SPLITMIX64_FIRST_MULTIPLIER: u64 = 0xbf58_476d_1ce4_e5b9;
 const SPLITMIX64_SECOND_MULTIPLIER: u64 = 0x94d0_49bb_1331_11eb;
