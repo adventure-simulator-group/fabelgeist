@@ -1,0 +1,508 @@
+/* South Lower Saxon / Harz construction. Relief stays outside reading planes. */
+#strategic-page[data-architectural-family="harz"] {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+  --joinery: #684631;
+  --joinery-light: #aa8151;
+  --joinery-dark: #281c16;
+  /* Pigment names describe material references, not measured historical RGB. */
+  --pigment-earth-red: #934536;
+  --pigment-ochre: #bd8838;
+  --pigment-azurite: #285d91;
+  --pigment-verdigris: #287563;
+  --pigment-lead-tin-yellow: #e1bf50;
+  --pigment-lime-white: #e3ddcc;
+  --pigment-carbon-black: #282721;
+  --paint: color-mix(in srgb, var(--pigment-earth-red) 70%, var(--pigment-carbon-black));
+  --paint-light: var(--pigment-earth-red);
+  --edge-paint: var(--pigment-ochre);
+  --frieze-ground: var(--pigment-earth-red);
+  --infill: #3b3025;
+  --frieze: url('/static/styles/harz/frieze-vine.svg');
+  --frieze-height: 2.25rem;
+  --post-width: 1.1rem;
+  --rail-post-width: 1.1rem;
+  --rail-content-gap: .4rem;
+  --building-frame-corner-size: 1.1rem;
+  --content-surface: #231f19;
+  --content-surface-recess: #191a16;
+  --building-surface: var(--content-surface-recess);
+  --text-primary: #f5eee0;
+  --text-secondary: #dcd2c1;
+  --text-muted: #bcb4a6;
+  --panel-bg: var(--content-surface);
+  --panel-border: #70624d;
+  --tactile-edge: var(--joinery-dark);
+  --tactile-highlight: var(--edge-paint);
+  --building-frame-tint: var(--joinery);
+  --building-interactive: color-mix(in srgb, var(--paint) 25%, var(--content-surface));
+  --building-interactive-hover: color-mix(in srgb, var(--paint) 55%, var(--content-surface));
+  --tactile-background: linear-gradient(var(--building-interactive-hover), var(--building-interactive));
+  --tactile-background-hover: linear-gradient(var(--paint-light), var(--building-interactive));
+  --tactile-shadow: inset 0 1px 0 var(--edge-paint), 0 3px 0 var(--joinery-dark), 0 5px 9px #0006;
+  --tactile-shadow-pressed: inset 0 2px 4px #0006, 0 1px 0 var(--joinery-dark);
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="map-board"] {
+  --paint: color-mix(in srgb, var(--pigment-azurite) 60%, var(--pigment-carbon-black));
+  --paint-light: var(--pigment-azurite);
+  --frieze-ground: var(--pigment-earth-red);
+  --frieze: url('/static/styles/harz/frieze-weave.svg');
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="civic-court"] {
+  --joinery: #8c795d;
+  --joinery-light: #c6b18b;
+  --joinery-dark: #403629;
+  --infill: #494335;
+  --paint: color-mix(in srgb, var(--pigment-earth-red) 65%, var(--pigment-carbon-black));
+  --frieze-ground: var(--pigment-carbon-black);
+  --post-width: 1.35rem;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="merchant-hall"] {
+  --paint: var(--pigment-azurite);
+  --paint-light: color-mix(in srgb, var(--pigment-azurite) 85%, var(--pigment-lime-white));
+  --frieze-ground: var(--pigment-azurite);
+  --edge-paint: var(--pigment-lead-tin-yellow);
+  --joinery: #744d32;
+  --joinery-light: #c4965e;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="hearth-room"] {
+  --paint: color-mix(in srgb, var(--pigment-verdigris) 70%, var(--pigment-carbon-black));
+  --paint-light: var(--pigment-verdigris);
+  --frieze-ground: var(--pigment-verdigris);
+  --joinery: #71492d;
+  --joinery-light: #b88a51;
+  --infill: #4b3425;
+  --frieze: url('/static/styles/harz/frieze-weave.svg');
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="sanctuary"] {
+  --paint: color-mix(in srgb, var(--pigment-azurite) 70%, var(--pigment-carbon-black));
+  --paint-light: var(--pigment-azurite);
+  --frieze-ground: var(--pigment-earth-red);
+  --edge-paint: var(--pigment-lead-tin-yellow);
+  --joinery: #8e7c60;
+  --joinery-light: #cfbc94;
+  --joinery-dark: #423a2c;
+  --infill: #393a35;
+  --post-width: 1.45rem;
+  --frieze: url('/static/styles/harz/tracery.svg');
+}
+
+#strategic-page[data-architectural-family="harz"]:is([data-place-skin="ironbound-store"], [data-place-skin="workshop"]) {
+  --paint: var(--pigment-carbon-black);
+  --paint-light: var(--pigment-earth-red);
+  --frieze-ground: var(--pigment-earth-red);
+  --edge-paint: var(--pigment-ochre);
+  --joinery: #4e524a;
+  --joinery-light: #a0a18b;
+  --joinery-dark: #191f1d;
+  --infill: #373a31;
+  --frieze: url('/static/styles/harz/ironwork.svg');
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="domestic-cabinet"] {
+  --paint: color-mix(in srgb, var(--pigment-earth-red) 70%, var(--pigment-carbon-black));
+  --paint-light: var(--pigment-earth-red);
+  --frieze-ground: color-mix(in srgb, var(--pigment-ochre) 65%, var(--pigment-carbon-black));
+  --joinery: #76573d;
+  --joinery-light: #c09c67;
+  --post-width: .85rem;
+}
+
+/* The header is a street of entrances; its labels are physical signboards. */
+#strategic-page[data-architectural-family="harz"] .settlement-top-bar {
+  flex: none;
+  border-bottom: .45rem ridge var(--joinery-light);
+  min-height: 10.5rem;
+  height: auto;
+  padding-top: 2.4rem;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-services {
+  justify-content: flex-start;
+  gap: .35rem;
+  padding: .5rem 1rem .4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-services .nav-tab {
+  height: 7rem;
+  width: 5.4rem;
+  flex-basis: 5.4rem;
+  border-bottom: 0;
+}
+
+#strategic-page[data-architectural-family="harz"] .service-tab-building {
+  filter: brightness(var(--building-light, 78%)) brightness(.9);
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-top-bar { --settlement-horizon-image: url('/static/styles/harz/skyline.svg'); }
+#strategic-page[data-architectural-family="harz"] .settlement-top-bar::before { background-size: auto 85%; background-repeat: repeat-x; opacity: .48; }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-building-id="map"] { --service-building-image: url('/static/styles/harz/map.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-place-skin="workshop"] { --service-building-image: url('/static/styles/harz/armoury.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-place-skin="domestic-cabinet"] { --service-building-image: url('/static/styles/timber-framed/building/city/residences.png'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-organization-building-kind="guildhall"] { --service-building-image: url('/static/styles/harz/market.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-organization-building-kind="confraternity"] { --service-building-image: url('/static/styles/harz/church.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-building-id="market"] { --service-building-image: url('/static/styles/harz/market.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-building-id="inn"] { --service-building-image: url('/static/styles/harz/inn.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-building-id="church"] { --service-building-image: url('/static/styles/harz/church.svg'); }
+#strategic-page[data-architectural-family="harz"] .nav-tab[data-building-id="armoury"] { --service-building-image: url('/static/styles/harz/armoury.svg'); }
+
+#strategic-page[data-architectural-family="harz"] .service-tab-label {
+  display: block;
+  position: absolute;
+  z-index: 5;
+  bottom: .15rem;
+  inset-inline: -.12rem;
+  padding: .2rem .25rem;
+  min-height: 1.35rem;
+  border: 1px solid #ad8e59;
+  box-shadow: 0 2px 0 #171913, inset 0 0 0 2px #3d3526;
+  background: #20251f;
+  color: #f5eee0;
+  font-family: var(--font-body);
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.05;
+  text-transform: none;
+  text-align: center;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  pointer-events: none;
+}
+
+#strategic-page[data-architectural-family="harz"] .nav-tab.active .service-tab-label {
+  background: #6b392b;
+  border: 2px solid #e9c983;
+  box-shadow: 0 2px 0 #171913, inset 0 0 0 2px #3e211c;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-identity {
+  border: 2px ridge #ae8d57;
+  background: #262820;
+  box-shadow: 0 3px 6px #0008;
+}
+
+/* Posts carry a decorated lintel and sill. Insets remain opaque and plain. */
+#strategic-page[data-architectural-family="harz"] .main-grid {
+  height: auto;
+  min-height: 0;
+  flex: 1;
+  gap: .35rem;
+  padding: .4rem;
+  background: #161914;
+  grid-template-columns: minmax(14rem, 23%) minmax(0, 1fr) minmax(14rem, 23%);
+}
+
+#strategic-page[data-architectural-family="harz"] :is(.left-sidebar, .right-sidebar) {
+  --building-frame-corner-size: var(--rail-post-width);
+  position: relative;
+  padding: calc(var(--frieze-height) + .65rem) calc(var(--rail-post-width) + var(--rail-content-gap)) 1.3rem;
+  border: 2px solid var(--joinery-dark);
+  border-radius: 0;
+  background:
+    var(--frieze) center top / auto var(--frieze-height) repeat-x local,
+    linear-gradient(var(--frieze-ground), var(--frieze-ground)) center top / 100% var(--frieze-height) no-repeat local,
+    linear-gradient(90deg, var(--joinery-dark), var(--joinery-light) 20%, var(--joinery) 38%, var(--joinery-dark)) left / var(--rail-post-width) 100% repeat-y local,
+    linear-gradient(90deg, var(--joinery-dark), var(--joinery) 50%, var(--joinery-light) 80%, var(--joinery-dark)) right / var(--rail-post-width) 100% repeat-y local,
+    linear-gradient(var(--joinery-light), var(--joinery) 30%, var(--joinery-dark)) bottom / 100% .85rem repeat-x local,
+    var(--infill);
+  box-shadow: inset 0 0 0 1px #c9a86f66, inset 0 0 14px #0009, 0 4px 9px #0008;
+}
+
+#strategic-page[data-architectural-family="harz"] .sidebar-section {
+  padding: .65rem;
+  border: 1px solid var(--joinery-dark);
+  background: var(--content-surface-recess);
+  box-shadow: inset 0 2px 6px #0009, 0 1px 0 #b5996255;
+}
+
+/* Facts wrap within their board before the whole layout needs to stack. */
+#strategic-page[data-architectural-family="harz"] .location-stat-list > div {
+  flex-wrap: wrap;
+  gap: .2rem .75rem;
+}
+#strategic-page[data-architectural-family="harz"] .location-stat-list :is(dt, dd) {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+#strategic-page[data-architectural-family="harz"] .location-stat-list dd {
+  flex: 1 1 9rem;
+  text-align: start;
+}
+
+#strategic-page[data-architectural-family="harz"] .sidebar-header {
+  margin: -.65rem -.65rem .65rem;
+  padding: .55rem .7rem;
+  border-bottom: 3px ridge var(--joinery-light);
+  background: var(--paint);
+  color: #f5eee0;
+  font-size: .9rem;
+  letter-spacing: .025em;
+}
+
+#strategic-page[data-architectural-family="harz"] .center-content {
+  position: relative;
+  border: 2px solid var(--joinery-dark);
+  background: var(--content-surface);
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-main {
+  border-inline: var(--post-width) ridge var(--joinery);
+  background:
+    linear-gradient(90deg, #0008, transparent 8%, transparent 92%, #0008),
+    linear-gradient(0deg, var(--joinery-dark) 0 1.2rem, transparent 1.2rem),
+    var(--infill);
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-main::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 auto;
+  height: var(--frieze-height);
+  border-bottom: .35rem ridge var(--joinery-light);
+  background: var(--frieze) center / auto 100% repeat-x, var(--frieze-ground);
+  box-shadow: 0 .45rem .8rem #0007;
+  pointer-events: none;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-main::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--frieze-height) + .35rem) 0 auto;
+  height: 3.5rem;
+  background: linear-gradient(135deg, var(--joinery-light), var(--joinery) 36%, var(--joinery-dark));
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 97% 64%, 94% 45%, 93% 26%, 90% 18%, 88% 0, 12% 0, 10% 18%, 7% 26%, 6% 45%, 3% 64%, 0 100%);
+  pointer-events: none;
+}
+
+#strategic-page[data-architectural-family="harz"] .npc-description-stage:not(.forge-description-stage) {
+  padding: 1rem;
+  border: .35rem ridge var(--joinery-light);
+  background: var(--content-surface-recess);
+  box-shadow: 0 0 0 .5rem var(--paint), 0 .8rem 1.2rem #0005, inset 0 0 1rem #0006;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="merchant-hall"] .npc-description-stage:not(.forge-description-stage) {
+  border-bottom-width: .8rem;
+  box-shadow: 0 0 0 .5rem var(--paint), 0 1rem 0 var(--joinery-dark), 0 1.25rem .8rem #0008;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="sanctuary"] .npc-description-stage:not(.forge-description-stage) {
+  border-radius: 35% 35% 0 0 / 25% 25% 0 0;
+  border-width: .65rem;
+  padding-top: 2rem;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="domestic-cabinet"] .npc-description-stage:not(.forge-description-stage) {
+  border-inline-width: 1rem;
+  box-shadow: -1rem 0 0 var(--paint), 1rem 0 0 var(--paint), 0 .7rem 1rem #0008;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="civic-court"] .settlement-main {
+  border-inline: 0;
+  background: radial-gradient(ellipse at 50% 0, #71766655, transparent 75%), #292f28;
+}
+#strategic-page[data-architectural-family="harz"][data-place-skin="civic-court"] .settlement-main::after { display: none; }
+#strategic-page[data-architectural-family="harz"][data-place-skin="civic-court"] .npc-description-stage:not(.forge-description-stage) {
+  border-top: .7rem ridge var(--joinery-light);
+  box-shadow: 0 .5rem .8rem #0007;
+}
+
+/* People, their description and conversation occupy fitted bays in DOM order. */
+#strategic-page[data-architectural-family="harz"] .settlement-main:has(.npc-description-stage:not(.forge-description-stage)) {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  padding: calc(var(--frieze-height) + 1rem) 1.2rem 1rem;
+  overflow-y: auto;
+}
+#strategic-page[data-architectural-family="harz"] .settlement-main:has(.npc-description-stage:not(.forge-description-stage)) > :is(.party-portrait-overlay, .scene-interactable-strip, .settlement-chat) {
+  position: relative;
+  inset: auto;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0;
+}
+#strategic-page[data-architectural-family="harz"] .settlement-main:has(.npc-description-stage:not(.forge-description-stage)) > .party-portrait-overlay {
+  justify-content: safe center;
+  min-height: 3.5rem;
+}
+#strategic-page[data-architectural-family="harz"] .settlement-main:has(.npc-description-stage:not(.forge-description-stage)) > .scene-interactable-strip {
+  justify-content: safe center;
+  padding-bottom: .5rem;
+  border-bottom: .25rem ridge var(--joinery-light);
+}
+#strategic-page[data-architectural-family="harz"] .npc-description-stage:not(.forge-description-stage) {
+  position: relative;
+  inset: auto;
+  flex: 1 0 auto;
+  min-height: 10rem;
+  margin: .5rem;
+  overflow: visible;
+  pointer-events: auto;
+}
+#strategic-page[data-architectural-family="harz"] .settlement-main:has(.npc-description-stage:not(.forge-description-stage)) > .settlement-chat {
+  max-height: none;
+  min-height: 11rem;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-chat {
+  border: .3rem ridge var(--joinery-light);
+  border-top-width: .65rem;
+  border-radius: 0;
+  background: var(--content-surface-recess);
+  backdrop-filter: none;
+}
+
+#strategic-page[data-architectural-family="harz"] .settlement-chat-filters {
+  background: var(--paint);
+  border-bottom: 1px solid var(--joinery-light);
+}
+
+#strategic-page[data-architectural-family="harz"] .panel {
+  border: 2px ridge var(--joinery-light);
+  border-radius: 0;
+  background: var(--content-surface);
+}
+
+#strategic-page[data-architectural-family="harz"] .panel-header {
+  background: var(--paint);
+  color: var(--text-primary);
+}
+
+#strategic-page[data-architectural-family="harz"] .main-grid .btn {
+  border-radius: 2px;
+  border: 1px solid var(--edge-paint);
+}
+
+/* Keep the live spatial opening clear; only its surrounding joinery is HTML. */
+#strategic-page[data-architectural-family="harz"] :is(.main-grid, .settlement-main):has(.forge-description-stage) {
+  background: transparent;
+}
+
+#strategic-page[data-architectural-family="harz"][data-place-skin="map-board"] .strategic-map {
+  border: .65rem ridge var(--joinery-light);
+  box-shadow: 0 0 0 .4rem var(--paint), inset 0 0 1.5rem #0007;
+}
+#strategic-page[data-architectural-family="harz"][data-place-skin="map-board"] .center-content:has(.strategic-map) {
+  padding: .6rem;
+  background: var(--joinery-dark);
+}
+
+#strategic-page[data-architectural-family="harz"] .inventory-browser {
+  width: 100%;
+  min-width: 16rem;
+}
+
+/* Preserve row-action overhangs and the inventory's measured column widths. */
+#strategic-page[data-architectural-family="harz"] .main-grid:has(.inventory-browser) {
+  grid-template-columns: var(--inventory-left-width, 23%) minmax(0, 1fr) var(--inventory-right-width, 23%);
+}
+#strategic-page[data-architectural-family="harz"] :is(.left-sidebar, .right-sidebar):has(.trade-inventory-table) {
+  overflow: visible;
+}
+
+#strategic-page[data-architectural-family="harz"] :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #fff1b8;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1100px) {
+  #strategic-page[data-architectural-family="harz"] .main-grid {
+    grid-template-columns: minmax(12rem, 24%) minmax(0, 1fr) minmax(12rem, 24%);
+  }
+  #strategic-page[data-architectural-family="harz"] { --post-width: .75rem; }
+}
+
+@media (max-width: 1100px) {
+  #strategic-page[data-architectural-family="harz"] {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+    --post-width: .65rem;
+    --frieze-height: 1.7rem;
+  }
+  #strategic-page[data-architectural-family="harz"] .settlement-top-bar {
+    min-height: 0;
+    padding-top: .4rem;
+  }
+  #strategic-page[data-architectural-family="harz"] .settlement-services {
+    padding-inline: .6rem;
+    mask-image: none;
+  }
+  #strategic-page[data-architectural-family="harz"] .settlement-services .nav-tab {
+    flex-basis: 5.25rem;
+    width: 5.25rem;
+    height: 6.4rem;
+  }
+  #strategic-page[data-architectural-family="harz"] .main-grid {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    gap: .75rem;
+    padding: .4rem;
+    overflow: visible;
+  }
+  #strategic-page[data-architectural-family="harz"] :is(.left-sidebar, .right-sidebar, .center-content) {
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    flex: none;
+  }
+  #strategic-page[data-architectural-family="harz"] .center-content { min-height: 0; }
+  #strategic-page[data-architectural-family="harz"] .settlement-main {
+    min-height: 35rem;
+  }
+  #strategic-page[data-architectural-family="harz"] .npc-description-stage:not(.forge-description-stage) {
+    inset: auto;
+    padding: .7rem;
+  }
+  #strategic-page[data-architectural-family="harz"] :is(.btn, .settlement-chat-filter, .strategic-map-control) {
+    min-height: 2.75rem;
+  }
+  #strategic-page[data-architectural-family="harz"] :is(.inventory-browser, .inventory-browser-table-frame) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  #strategic-page[data-architectural-family="harz"] .inventory-browser-table-frame { overflow-x: auto; }
+  #strategic-page[data-architectural-family="harz"] :is(.smith-wares-scroll, .encumbrance-inventory-scroll, .repair-custody-scroll) {
+    width: 100%;
+    margin-inline: 0;
+    padding-inline: 0;
+    direction: ltr;
+    scrollbar-gutter: auto;
+  }
+  #strategic-page[data-architectural-family="harz"] .repair-custody-scroll {
+    overflow-x: auto;
+  }
+  #strategic-page[data-architectural-family="harz"] .smith-wares-scroll {
+    max-height: 24rem;
+    overflow-y: auto;
+  }
+  #strategic-page[data-architectural-family="harz"] .settlement-chat-composer { flex-wrap: wrap; }
+  #strategic-page[data-architectural-family="harz"] .settlement-chat-input-shell { min-width: 0; }
+}
+
+@media (forced-colors: active) {
+  #strategic-page[data-architectural-family="harz"] :is(.left-sidebar, .right-sidebar, .center-content, .sidebar-section, .service-tab-label) {
+    border: 1px solid CanvasText;
+    box-shadow: none;
+  }
+  #strategic-page[data-architectural-family="harz"] .nav-tab.active .service-tab-label { border: 3px double Highlight; }
+}

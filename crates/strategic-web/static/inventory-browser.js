@@ -170,13 +170,21 @@
     const aside = browser.closest(".left-sidebar, .right-sidebar");
     const grid = aside?.closest(".main-grid");
     if (!aside || !grid) return;
-    const styles = global.getComputedStyle(aside);
-    const frameWidth = (Number.parseFloat(styles.paddingLeft) || 0) + (Number.parseFloat(styles.paddingRight) || 0);
+    const gridStyles = global.getComputedStyle(grid);
+    const side = aside.classList.contains("left-sidebar") ? "left" : "right";
+    if (gridStyles.display !== "grid" || gridStyles.gridTemplateColumns.trim().split(/\s+/).length === 1) {
+      grid.style.removeProperty(`--inventory-${side}-width`);
+      return;
+    }
+    // Account for the nested frame, borders and scroll gutters, rather than
+    // only the rail padding. The browser fills the rail's available content.
+    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
+    const asideWidth = aside.getBoundingClientRect?.().width || aside.clientWidth || 0;
+    const frameWidth = Math.max(0, asideWidth - browserWidth);
     const table = browser.querySelector(".trade-inventory-table");
     const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
-    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
-    const contentWidth = Math.ceil(Math.max(browserWidth, tableWidth));
-    const side = aside.classList.contains("left-sidebar") ? "left" : "right";
+    const minimumWidth = Number.parseFloat(global.getComputedStyle(browser).minWidth) || 0;
+    const contentWidth = Math.ceil(Math.max(minimumWidth, tableWidth));
     grid.style.setProperty(`--inventory-${side}-width`, `${contentWidth + frameWidth}px`);
   }
 
@@ -1108,6 +1116,9 @@
   if (global.document) {
     global.addEventListener("DOMContentLoaded", () => { mountAll(); hydrateContainerState(); });
     global.addEventListener("popstate", () => mountAll());
+    global.addEventListener("resize", () => {
+      global.document.querySelectorAll("[data-inventory-browser]").forEach(syncPanelWidth);
+    });
     global.document.addEventListener("strategic-page-mounted", () => { mountAll(); hydrateContainerState(); });
     global.document.addEventListener("inventory-container-move", (event) => {
       postContainer("/api/inventory/containers/move", {

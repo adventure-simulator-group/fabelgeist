@@ -691,3 +691,9 @@ reason = "This is the maximum accepted prepared-paint batch size, not the strate
 kind = "authored_catalog"
 path = "crates/adventuresim-heraldry/src/animals/eagle/paint.rs"
 reason = "Reviewed solid paint values and tongue IDs in two pinned Wikimedia eagle drawings."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/templates/architecture.rs"
+item = "SettlementPresentation::from_active_service"
+reason = "Converts the existing serialized layout service IDs into canonical typed physical places at the template boundary."

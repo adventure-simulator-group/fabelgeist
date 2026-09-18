@@ -24,7 +24,7 @@ test("strategic clock refresh keeps visible and accessible character time synchr
     { character_minutes: 2946, official_minutes: 4386 },
   ];
   const clock = {
-    textContent: "1st of First Seed · 08:00",
+    textContent: "—",
     title: "Loading official time…",
     setAttribute(name, value) { attributes.set(name, value); },
   };

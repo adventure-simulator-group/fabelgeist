@@ -1,4 +1,5 @@
 //! Maud HTML templates
+mod architecture;
 mod equipment_icons;
 
 use std::sync::atomic::{AtomicU64, Ordering};
