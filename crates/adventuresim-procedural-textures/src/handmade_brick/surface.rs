@@ -1,5 +1,6 @@
 //! Clay faces and lime joints after the running-bond layout has selected a unit.
 use super::*;
+use fabelgeist_determinism::StreamId;
 
 pub(super) fn finish(
     params: &crate::TextureParameters,
@@ -13,16 +14,35 @@ pub(super) fn finish(
         / minimum_half_extent;
     let brick_coverage = ((antialias - edge_distance) / (antialias * 2.0)).clamp(0.0, 1.0);
     let face_noise = face_noise(params, local_x, local_y, id);
-    let cup_strength = (hash_unit(params, id ^ 0xa59d) - 0.5) * params.handmade_brick.cupping;
-    let twist_strength = (hash_unit(params, id ^ 0x66c3) - 0.5) * params.handmade_brick.twist;
+    let cup_strength = (params
+        .rng(StreamId::new("texture.handmade-brick.surface.cup"), &[id])
+        .inclusive_unit_f32()
+        - 0.5)
+        * params.handmade_brick.cupping;
+    let twist_strength = (params
+        .rng(StreamId::new("texture.handmade-brick.surface.twist"), &[id])
+        .inclusive_unit_f32()
+        - 0.5)
+        * params.handmade_brick.twist;
     let broad_cup = ((local_x * local_x - params.handmade_brick.sample_brickwork_broad_cup_1)
         + (local_y * local_y - params.handmade_brick.sample_brickwork_broad_cup_2)
             * params.handmade_brick.cup_aspect)
         * cup_strength;
     let twist = local_x * local_y * twist_strength;
     let uv = bevy::math::Vec2::new(u, v);
-    let pores = params.handmade_brick.pores.sample(params, uv, 0x5491);
-    let grit = params.handmade_brick.mortar_grit.sample(params, uv, 0x8117);
+    let pores = params.handmade_brick.pores.sample(
+        params,
+        uv,
+        params.field_seed(StreamId::new("texture.handmade-brick.surface.pores"), &[]),
+    );
+    let grit = params.handmade_brick.mortar_grit.sample(
+        params,
+        uv,
+        params.field_seed(
+            StreamId::new("texture.handmade-brick.surface.mortar-grit"),
+            &[],
+        ),
+    );
     let face_height = params.handmade_brick.face_height - pores.bowl
         + broad_cup
         + twist
@@ -40,7 +60,13 @@ pub(super) fn finish(
                     -edge_distance * minimum_half_extent * params.handmade_brick.tile_metres
                         / (params.handmade_brick.edge_width_metres
                             * (1.0
-                                + (hash_unit(params, id ^ 0x7691) - 0.5)
+                                + (params
+                                    .rng(
+                                        StreamId::new("texture.handmade-brick.surface.recession"),
+                                        &[id],
+                                    )
+                                    .inclusive_unit_f32()
+                                    - 0.5)
                                     * params.handmade_brick.edge_width_variation)),
                 ),
         brick: brick_coverage >= 0.5,

@@ -4,8 +4,8 @@
 //! Boards run along texture V; butt joints and the few visible forged nails are
 //! constrained to an implicit 0.6 m joist spacing.
 
+mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
-use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -28,10 +28,6 @@ struct PlankSample {
     nail: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
-}
-
 fn smooth(value: f32) -> f32 {
     value * value * (3.0 - 2.0 * value)
 }
@@ -41,10 +37,13 @@ fn periodic_delta(value: f32) -> f32 {
 }
 
 fn board_weight(params: &crate::TextureParameters, board: i32) -> f32 {
-    0.82 + hash_unit(
-        params,
-        0x8a31_f64d ^ board.rem_euclid(params.plank_floor.board_count) as u64,
-    ) * 0.36
+    0.82 + params
+        .rng(
+            streams::BOARD_WIDTH,
+            &[board.rem_euclid(params.plank_floor.board_count) as u64],
+        )
+        .inclusive_unit_f32()
+        * 0.36
 }
 
 fn board_boundary(params: &crate::TextureParameters, boundary: i32) -> f32 {
@@ -60,10 +59,17 @@ fn board_boundary(params: &crate::TextureParameters, boundary: i32) -> f32 {
 
 fn edge_warp(params: &crate::TextureParameters, boundary: i32, v: f32) -> f32 {
     let id = boundary.rem_euclid(params.plank_floor.board_count) as u64;
-    let first_phase = hash_unit(params, 0x2b7d_91a3 ^ id) * std::f32::consts::TAU;
-    let second_phase = hash_unit(params, 0x913c_44e7 ^ id) * std::f32::consts::TAU;
+    let first_phase =
+        params.rng(streams::EDGE_PHASE, &[id]).inclusive_unit_f32() * std::f32::consts::TAU;
+    let second_phase = params
+        .rng(streams::EDGE_SECONDARY_PHASE, &[id])
+        .inclusive_unit_f32()
+        * std::f32::consts::TAU;
     let amplitude_metres = params.plank_floor.edge_warp_amplitude_metres_1
-        + hash_unit(params, 0xaf67_205b ^ id) * params.plank_floor.edge_warp_amplitude_metres_2;
+        + params
+            .rng(streams::EDGE_AMPLITUDE, &[id])
+            .inclusive_unit_f32()
+            * params.plank_floor.edge_warp_amplitude_metres_2;
     let amplitude = amplitude_metres / params.plank_floor.tile_metres;
     amplitude
         * ((std::f32::consts::TAU * v + first_phase).sin()
@@ -71,7 +77,7 @@ fn edge_warp(params: &crate::TextureParameters, boundary: i32, v: f32) -> f32 {
 }
 
 fn butt_joint_station(params: &crate::TextureParameters, board: i32) -> i32 {
-    let jitter = (crate::parameters::seeded_hash(params, 0xe473_b51f ^ board as u64) % 3) as i32;
+    let jitter = params.rng(streams::BUTT_JOINT, &[board as u64]).index(3) as i32;
     (board * 5 + jitter).rem_euclid(params.plank_floor.joist_stations)
 }
 
@@ -103,23 +109,24 @@ fn finite_surface_features(
     right: f32,
 ) -> (f32, f32, f32) {
     let id = board as u64;
+    let unit_draw =
+        |purpose: fabelgeist_determinism::StreamId| params.rng(purpose, &[id]).inclusive_unit_f32();
     let board_width = right - left;
     let local_u = ((u - left) / board_width).clamp(0.0, 1.0);
     let mut check = 0.0_f32;
-    if hash_unit(params, 0xa813_5f4d ^ id) > 0.70 {
+    if unit_draw(streams::CHECK_PRESENCE) > 0.70 {
         let center_u = params.plank_floor.finite_surface_features_center_u_1
-            + hash_unit(params, 0x749b_c2e1 ^ id)
+            + unit_draw(streams::CHECK_CROSS_CENTER)
                 * params.plank_floor.finite_surface_features_center_u_2;
-        let center_v = hash_unit(params, 0x19e4_8b73 ^ id);
+        let center_v = unit_draw(streams::CHECK_LONG_CENTER);
         let dx = (local_u - center_u
             + periodic_delta(v - center_v) * params.plank_floor.finite_surface_features_dx)
             .abs();
         let dy = periodic_delta(v - center_v).abs();
         let width = params.plank_floor.finite_surface_features_width_1
-            + hash_unit(params, 0xd457_2ca1 ^ id)
-                * params.plank_floor.finite_surface_features_width_2;
+            + unit_draw(streams::CHECK_WIDTH) * params.plank_floor.finite_surface_features_width_2;
         let half_length = (params.plank_floor.finite_surface_features_half_length_1
-            + hash_unit(params, 0x61af_839d ^ id)
+            + unit_draw(streams::CHECK_LENGTH)
                 * params.plank_floor.finite_surface_features_half_length_2)
             / params.plank_floor.tile_metres;
         check = (1.0 - smooth((dx / width).clamp(0.0, 1.0)))
@@ -127,19 +134,27 @@ fn finite_surface_features(
     }
 
     let mut hand_mark = 0.0_f32;
-    if hash_unit(params, 0x93c1_6e5b ^ id) > 0.62 {
+    if unit_draw(streams::HAND_MARK_PRESENCE) > 0.62 {
         for mark in 0..2_u64 {
             let center_u = params.plank_floor.finite_surface_features_center_u_1_layer
-                + hash_unit(params, 0x2f75_8c19 ^ id ^ mark)
+                + params
+                    .rng(streams::HAND_MARK_CROSS_CENTER, &[id, mark])
+                    .inclusive_unit_f32()
                     * params.plank_floor.finite_surface_features_center_u_2_layer;
-            let center_v = hash_unit(params, 0xc486_31ad ^ id ^ mark);
+            let center_v = params
+                .rng(streams::HAND_MARK_LONG_CENTER, &[id, mark])
+                .inclusive_unit_f32();
             let dx = (local_u - center_u)
                 / (params.plank_floor.finite_surface_features_dx_1
-                    + hash_unit(params, 0xa59d_17e3 ^ id ^ mark)
+                    + params
+                        .rng(streams::HAND_MARK_WIDTH, &[id, mark])
+                        .inclusive_unit_f32()
                         * params.plank_floor.finite_surface_features_dx_2);
             let dy = periodic_delta(v - center_v)
                 / ((params.plank_floor.finite_surface_features_dy_1
-                    + hash_unit(params, 0x7db2_e451 ^ id ^ mark)
+                    + params
+                        .rng(streams::HAND_MARK_LENGTH, &[id, mark])
+                        .inclusive_unit_f32()
                         * params.plank_floor.finite_surface_features_dy_2)
                     / params.plank_floor.tile_metres);
             let radius = dx * dx + dy * dy;
@@ -156,23 +171,26 @@ fn finite_surface_features(
     // Tiny open pores occur on a minority of boards and remain subordinate to
     // the broad growth field.
     let pore_phase = std::f32::consts::TAU
-        * (local_u * (params.plank_floor.finite_surface_features_pore_phase_1 + (id % 5) as f32)
-            + v * (params.plank_floor.finite_surface_features_pore_phase_2 + (id % 3) as f32));
-    let pore = if hash_unit(params, 0xb4d7_52a9 ^ id)
-        > params.plank_floor.finite_surface_features_pore_1
-    {
-        ((pore_phase.sin() - params.plank_floor.finite_surface_features_pore_2)
-            / params.plank_floor.finite_surface_features_pore_3)
-            .clamp(0.0, 1.0)
-            * ((std::f32::consts::TAU
-                * (v * params.plank_floor.finite_surface_features_pore_4 + hash_unit(params, id)))
-            .sin()
-                - params.plank_floor.finite_surface_features_pore_5)
-                .clamp(0.0, params.plank_floor.finite_surface_features_pore_6)
-            / params.plank_floor.finite_surface_features_pore_7
-    } else {
-        0.0
-    };
+        * (local_u
+            * (params.plank_floor.finite_surface_features_pore_phase_1
+                + params.rng(streams::PORE_FREQUENCY_X, &[id]).index(5) as f32)
+            + v * (params.plank_floor.finite_surface_features_pore_phase_2
+                + params.rng(streams::PORE_FREQUENCY_Y, &[id]).index(3) as f32));
+    let pore =
+        if unit_draw(streams::PORE_PRESENCE) > params.plank_floor.finite_surface_features_pore_1 {
+            ((pore_phase.sin() - params.plank_floor.finite_surface_features_pore_2)
+                / params.plank_floor.finite_surface_features_pore_3)
+                .clamp(0.0, 1.0)
+                * ((std::f32::consts::TAU
+                    * (v * params.plank_floor.finite_surface_features_pore_4
+                        + unit_draw(streams::PORE_PHASE)))
+                .sin()
+                    - params.plank_floor.finite_surface_features_pore_5)
+                    .clamp(0.0, params.plank_floor.finite_surface_features_pore_6)
+                / params.plank_floor.finite_surface_features_pore_7
+        } else {
+            0.0
+        };
     (check, hand_mark, pore)
 }
 
@@ -192,11 +210,23 @@ fn board_at(params: &crate::TextureParameters, u: f32) -> (i32, f32, f32) {
     )
 }
 
-fn value_noise_1d(params: &crate::TextureParameters, value: f32, cells: i32, salt: u64) -> f32 {
+fn value_noise_1d(
+    params: &crate::TextureParameters,
+    value: f32,
+    cells: i32,
+    field_seed: u64,
+) -> f32 {
     let scaled = value.rem_euclid(1.0) * cells as f32;
     let first = scaled.floor() as i32;
     let blend = smooth(scaled.fract());
-    let sample = |index: i32| hash_unit(params, salt ^ index.rem_euclid(cells) as u64);
+    let sample = |index: i32| {
+        params
+            .rng(
+                streams::LATTICE,
+                &[field_seed, index.rem_euclid(cells) as u64],
+            )
+            .inclusive_unit_f32()
+    };
     sample(first) + (sample(first + 1) - sample(first)) * blend
 }
 
@@ -223,7 +253,7 @@ fn nail_profile(
     let joint_v = station as f32 / params.plank_floor.joist_stations as f32;
     let mut nail = 0.0_f32;
     let id = board.rem_euclid(params.plank_floor.board_count) as u64;
-    if hash_unit(params, 0x9a72_4cd1 ^ id) > 0.38 {
+    if params.rng(streams::JOINT_NAILS, &[id]).inclusive_unit_f32() > 0.38 {
         for side in [0.12_f32, 0.88] {
             let center_u = left + board_width * side;
             let dx = periodic_delta(u - center_u) * params.plank_floor.tile_metres;
@@ -235,9 +265,13 @@ fn nail_profile(
 
     // Occasional surviving face nails at another supporting joist. These are
     // construction-related, not a decorative grid across every board.
-    if hash_unit(params, 0xc173_4d2f ^ id) > 0.84 {
+    if params.rng(streams::FACE_NAIL, &[id]).inclusive_unit_f32() > 0.84 {
         let support = (station + 3) % params.plank_floor.joist_stations;
-        let side = if hash_unit(params, 0x48d2_71a5 ^ id) > 0.5 {
+        let side = if params
+            .rng(streams::FACE_NAIL_SIDE, &[id])
+            .inclusive_unit_f32()
+            > 0.5
+        {
             params.plank_floor.nail_profile_side_1
         } else {
             params.plank_floor.nail_profile_side_2
@@ -257,6 +291,9 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
     let v = v.rem_euclid(1.0);
     let (board, left, right) = board_at(params, u);
     let board_id = board as u64;
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.rng(purpose, &[board_id]).inclusive_unit_f32()
+    };
     let board_width = right - left;
     let local_u = ((u - left) / board_width).clamp(0.0, 1.0);
 
@@ -273,7 +310,7 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
     );
 
     let station = butt_joint_station(params, board);
-    let cut_skew_metres = (hash_unit(params, 0x273b_91f5 ^ board_id) - 0.5)
+    let cut_skew_metres = (unit_draw(streams::CUT_SKEW) - 0.5)
         * params.plank_floor.sample_plank_floor_cut_skew_metres;
     let cut_offset = (local_u - 0.5) * cut_skew_metres / params.plank_floor.tile_metres;
     let segment_position =
@@ -302,22 +339,17 @@ fn sample_plank_floor(params: &crate::TextureParameters, u: f32, v: f32) -> Plan
         params,
         local_u,
         segment_position.rem_euclid(1.0),
-        board_id ^ (segment as u64 + 1).wrapping_mul(0x517c),
+        params.field_seed(streams::GROWTH_SEGMENT, &[board_id, segment as u64]),
     );
     let (check, hand_mark, pore) = finite_surface_features(params, u, v, board, left, right);
-    let broad_length = value_noise_1d(params, v, 4, 0x159a_e271 ^ board_id) - 0.5;
+    let broad_length = value_noise_1d(
+        params,
+        v,
+        4,
+        params.field_seed(streams::BROAD_LENGTH, &[board_id]),
+    ) - 0.5;
 
-    let cup_direction = if hash_unit(params, 0x7531_ac49 ^ board_id) > 0.5 {
-        1.0
-    } else {
-        -1.0
-    };
-    let cup = ((local_u - 0.5).powi(2) * params.plank_floor.sample_plank_floor_cup_1
-        - params.plank_floor.sample_plank_floor_cup_2)
-        * cup_direction
-        * (params.plank_floor.sample_plank_floor_cup_3
-            + hash_unit(params, 0x43e9_65b1 ^ board_id)
-                * params.plank_floor.sample_plank_floor_cup_4);
+    let cup = board_cup(params, board_id, local_u);
     let wear = traffic_wear(params, u, v);
 
     let height = (params.plank_floor.sample_plank_floor_height_1
@@ -435,6 +467,22 @@ pub fn generate_plank_floor_textures(
         height: images.add(image_rgba_mipped(height, size, true)),
         arm: images.add(image_rgba_mipped(arm, size, true)),
     }
+}
+
+fn board_cup(params: &crate::TextureParameters, board_id: u64, local_u: f32) -> f32 {
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.rng(purpose, &[board_id]).inclusive_unit_f32()
+    };
+    let cup_direction = if unit_draw(streams::CUP_DIRECTION) > 0.5 {
+        1.0
+    } else {
+        -1.0
+    };
+    ((local_u - 0.5).powi(2) * params.plank_floor.sample_plank_floor_cup_1
+        - params.plank_floor.sample_plank_floor_cup_2)
+        * cup_direction
+        * (params.plank_floor.sample_plank_floor_cup_3
+            + unit_draw(streams::CUP_DEPTH) * params.plank_floor.sample_plank_floor_cup_4)
 }
 
 #[cfg(test)]
@@ -808,7 +856,7 @@ mod tests {
                 "height_range_metres=0.010\n",
                 "arm_packing=R ambient visibility, G perceptual roughness, B metallic\n",
                 "metallicity=0\n",
-                "seed_contract=splitmix64/inclusive_unit_f32 with fixed hexadecimal salts in plank_floor.rs; no runtime entropy\n",
+                "seed_contract=fabelgeist-determinism named texture streams; no runtime entropy\n",
                 "review_fixture=frozen orthographic sheet with upper-left grazing light plus raw separated channels\n",
                 "export_command=cargo test -p adventuresim-procedural-textures plank_floor::tests::export_plank_floor_visual_review -- --ignored --exact\n",
                 "review_history=candidate 1 self-rejected before independent review because grain, hand-working, wear, and edge irregularity disappeared at full resolution\n",
@@ -839,6 +887,6 @@ fn traffic_wear(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     let traffic_distance = periodic_delta(u - traffic_center).abs();
     smooth((1.0 - traffic_distance / params.plank_floor.sample_plank_floor_wear_1).clamp(0.0, 1.0))
         * (params.plank_floor.sample_plank_floor_wear_2
-            + value_noise_1d(params, v, 5, 0xb582_08cd)
+            + value_noise_1d(params, v, 5, params.field_seed(streams::TRAFFIC_WEAR, &[]))
                 * params.plank_floor.sample_plank_floor_wear_3)
 }

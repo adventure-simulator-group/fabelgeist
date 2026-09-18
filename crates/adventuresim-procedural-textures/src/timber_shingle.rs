@@ -5,8 +5,8 @@
 //! edges and sparse tail checks avoid both modern sawn uniformity and a field
 //! of inflated individual tiles.
 
+mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
-use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -27,47 +27,50 @@ struct ShingleSample {
     checking: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
-}
-
 fn shingle_id(params: &crate::TextureParameters, row: i32, column: i32) -> u64 {
-    crate::parameters::seeded_hash(
-        params,
-        0xb361_5e9d
-            ^ ((row.rem_euclid(params.timber_shingle.courses) as u64) << 32)
-            ^ column.rem_euclid(params.timber_shingle.shingles_per_course) as u64,
+    params.field_seed(
+        streams::SHINGLE,
+        &[
+            row.rem_euclid(params.timber_shingle.courses) as u64,
+            column.rem_euclid(params.timber_shingle.shingles_per_course) as u64,
+        ],
     )
 }
 
 fn boundary_jitter(params: &crate::TextureParameters, row: i32, boundary: i32) -> f32 {
-    let id = crate::parameters::seeded_hash(
-        params,
-        0x713d_c5a9
-            ^ ((row.rem_euclid(params.timber_shingle.courses) as u64) << 32)
-            ^ boundary.rem_euclid(params.timber_shingle.shingles_per_course) as u64,
+    let id = params.field_seed(
+        streams::BOUNDARY,
+        &[
+            row.rem_euclid(params.timber_shingle.courses) as u64,
+            boundary.rem_euclid(params.timber_shingle.shingles_per_course) as u64,
+        ],
     );
-    (hash_unit(params, id) - 0.5) * 0.16
+    (params
+        .rng(streams::BOUNDARY_JITTER, &[id])
+        .inclusive_unit_f32()
+        - 0.5)
+        * 0.16
 }
 
 fn course_offset(params: &crate::TextureParameters, row: i32) -> f32 {
     let row = row.rem_euclid(params.timber_shingle.courses) as u64;
-    0.10 + hash_unit(
-        params,
-        crate::parameters::seeded_hash(params, 0x3d71_b52f ^ row),
-    ) * 0.80
+    0.10 + params
+        .rng(streams::COURSE_OFFSET, &[row])
+        .inclusive_unit_f32()
+        * 0.80
 }
 
 fn edge_position(params: &crate::TextureParameters, row: i32, boundary: i32, phase: f32) -> f32 {
     let base =
         boundary as f32 + course_offset(params, row) + boundary_jitter(params, row, boundary);
     let id = shingle_id(params, row, boundary);
-    let lean = (hash_unit(params, id ^ 0x3b91) - 0.5)
+    let lean = (params.rng(streams::EDGE_LEAN, &[id]).inclusive_unit_f32() - 0.5)
         * params.timber_shingle.edge_position_lean_1
         * (phase - params.timber_shingle.edge_position_lean_2);
     let split_wander =
         (phase * std::f32::consts::TAU * params.timber_shingle.edge_position_split_wander_1
-            + hash_unit(params, id ^ 0x89d7) * params.timber_shingle.edge_position_split_wander_2)
+            + params.rng(streams::SPLIT_PHASE, &[id]).inclusive_unit_f32()
+                * params.timber_shingle.edge_position_split_wander_2)
             .sin()
             * params.timber_shingle.edge_position_split_wander_3
             * phase.powi(2);
@@ -98,7 +101,7 @@ fn locate_shingle(
 }
 
 fn split_fibres(params: &crate::TextureParameters, local_x: f32, phase: f32, id: u64) -> f32 {
-    let selection = hash_unit(params, id ^ 0xca53);
+    let selection = params.rng(streams::FIBRE_CLASS, &[id]).inclusive_unit_f32();
     if selection < 0.62 {
         return 0.0;
     }
@@ -107,28 +110,45 @@ fn split_fibres(params: &crate::TextureParameters, local_x: f32, phase: f32, id:
         + usize::from(selection > params.timber_shingle.split_fibres_count_2);
     let mut relief = 0.0_f32;
     for fibre_index in 0..count {
-        let salt = 0x714d_u64.wrapping_mul(fibre_index as u64 + 1);
+        let field_seed = fibre_index as u64;
         let center = params.timber_shingle.split_fibres_center_1
-            + hash_unit(params, id ^ salt) * params.timber_shingle.split_fibres_center_2;
+            + params
+                .rng(streams::FIBRE_CENTER, &[id, field_seed])
+                .inclusive_unit_f32()
+                * params.timber_shingle.split_fibres_center_2;
         let start = params.timber_shingle.split_fibres_start_1
-            + hash_unit(params, id ^ salt.rotate_left(11))
+            + params
+                .rng(streams::FIBRE_START, &[id, field_seed])
+                .inclusive_unit_f32()
                 * params.timber_shingle.split_fibres_start_2;
         let length = params.timber_shingle.split_fibres_length
-            + hash_unit(params, id ^ salt.rotate_left(23)) * 0.50;
+            + params
+                .rng(streams::FIBRE_END, &[id, field_seed])
+                .inclusive_unit_f32()
+                * 0.50;
         let end = (start + length).min(params.timber_shingle.split_fibres_end);
         let along = ((phase - start) / params.timber_shingle.split_fibres_along_1).clamp(0.0, 1.0)
             * ((end - phase) / params.timber_shingle.split_fibres_along_2).clamp(0.0, 1.0);
         let curvature = (phase * std::f32::consts::TAU
-            + hash_unit(params, id ^ salt.rotate_left(37)) * std::f32::consts::TAU)
+            + params
+                .rng(streams::FIBRE_PHASE, &[id, field_seed])
+                .inclusive_unit_f32()
+                * std::f32::consts::TAU)
             .sin()
             * (params.timber_shingle.split_fibres_curvature_1
-                + hash_unit(params, id ^ salt.rotate_left(43))
+                + params
+                    .rng(streams::FIBRE_WANDER, &[id, field_seed])
+                    .inclusive_unit_f32()
                     * params.timber_shingle.split_fibres_curvature_2);
         let width = params.timber_shingle.split_fibres_width_1
-            + hash_unit(params, id ^ salt.rotate_left(17))
+            + params
+                .rng(streams::FIBRE_WIDTH, &[id, field_seed])
+                .inclusive_unit_f32()
                 * params.timber_shingle.split_fibres_width_2;
         let profile = ((width - (local_x - center - curvature).abs()) / width).clamp(0.0, 1.0);
-        let polarity = if hash_unit(params, id ^ salt.rotate_left(29))
+        let polarity = if params
+            .rng(streams::FIBRE_POLARITY, &[id, field_seed])
+            .inclusive_unit_f32()
             > params.timber_shingle.split_fibres_polarity_1
         {
             1.0
@@ -144,38 +164,54 @@ fn tail_shape(params: &crate::TextureParameters, local_x: f32, phase: f32, id: u
     let progress = ((phase - params.timber_shingle.tail_shape_progress_1)
         / params.timber_shingle.tail_shape_progress_2)
         .clamp(0.0, 1.0);
-    let class = hash_unit(params, id ^ 0x2f91);
+    let class = params.rng(streams::TAIL_CLASS, &[id]).inclusive_unit_f32();
     if class < 0.74 {
         return (1.0, 0.0);
     }
     if class < 0.91 {
         let inset = progress
             * (params.timber_shingle.tail_shape_inset_1
-                + hash_unit(params, id ^ 0xb357) * params.timber_shingle.tail_shape_inset_2);
+                + params.rng(streams::TAIL_INSET, &[id]).inclusive_unit_f32()
+                    * params.timber_shingle.tail_shape_inset_2);
         let edge = (local_x - inset).min(1.0 - inset - local_x);
         let coverage = (edge / params.timber_shingle.tail_shape_coverage).clamp(0.0, 1.0);
         return (coverage, 1.0 - coverage);
     }
     let center = params.timber_shingle.tail_shape_center_1
-        + hash_unit(params, id ^ 0x83d1) * params.timber_shingle.tail_shape_center_2;
+        + params.rng(streams::TAIL_CENTER, &[id]).inclusive_unit_f32()
+            * params.timber_shingle.tail_shape_center_2;
     let width = params.timber_shingle.tail_shape_width_1
-        + hash_unit(params, id ^ 0x5c47) * params.timber_shingle.tail_shape_width_2;
+        + params.rng(streams::TAIL_WIDTH, &[id]).inclusive_unit_f32()
+            * params.timber_shingle.tail_shape_width_2;
     let notch = ((width - (local_x - center).abs()) / width).clamp(0.0, 1.0) * progress;
     (1.0 - notch, notch)
 }
 
 fn check_field(params: &crate::TextureParameters, local_x: f32, phase: f32, id: u64) -> f32 {
-    if hash_unit(params, id ^ 0xe147) < 0.54 {
+    if params
+        .rng(streams::CHECK_PRESENCE, &[id])
+        .inclusive_unit_f32()
+        < 0.54
+    {
         return 0.0;
     }
     let anchor = params.timber_shingle.check_field_anchor_1
-        + hash_unit(params, id ^ 0x471b) * params.timber_shingle.check_field_anchor_2;
+        + params
+            .rng(streams::CHECK_ANCHOR, &[id])
+            .inclusive_unit_f32()
+            * params.timber_shingle.check_field_anchor_2;
     let length = params.timber_shingle.check_field_length_1
-        + hash_unit(params, id ^ 0x921d) * params.timber_shingle.check_field_length_2;
+        + params
+            .rng(streams::CHECK_LENGTH, &[id])
+            .inclusive_unit_f32()
+            * params.timber_shingle.check_field_length_2;
     let tail_distance = 1.0 - phase;
     let along = (1.0 - tail_distance / length).clamp(0.0, 1.0);
     let wander = (tail_distance * params.timber_shingle.check_field_wander_1
-        + hash_unit(params, id ^ 0x51c7) * params.timber_shingle.check_field_wander_2)
+        + params
+            .rng(streams::CHECK_WANDER, &[id])
+            .inclusive_unit_f32()
+            * params.timber_shingle.check_field_wander_2)
         .sin()
         * params.timber_shingle.check_field_wander_3;
     let across = (local_x - anchor - wander).abs();
@@ -190,15 +226,21 @@ fn sample_shingles(params: &crate::TextureParameters, u: f32, v: f32) -> Shingle
     let scaled_v = v * params.timber_shingle.courses as f32;
     let row = scaled_v.floor() as i32;
     let raw_phase = scaled_v - row as f32;
-    let row_id = crate::parameters::seeded_hash(
-        params,
-        row.rem_euclid(params.timber_shingle.courses) as u64 ^ 0xa11c,
+    let row_id = params.field_seed(
+        streams::ROW,
+        &[row.rem_euclid(params.timber_shingle.courses) as u64],
     );
-    let course_shift =
-        (hash_unit(params, row_id) - 0.5) * params.timber_shingle.sample_shingles_course_shift;
+    let course_shift = (params
+        .rng(streams::COURSE_SHIFT, &[row_id])
+        .inclusive_unit_f32()
+        - 0.5)
+        * params.timber_shingle.sample_shingles_course_shift;
     let (provisional_column, _, _) = locate_shingle(params, u, row, raw_phase);
     let provisional_id = shingle_id(params, row, provisional_column);
-    let tail_variation = (hash_unit(params, provisional_id ^ 0x62e5) - 0.5)
+    let tail_variation = (params
+        .rng(streams::TAIL_OFFSET, &[provisional_id])
+        .inclusive_unit_f32()
+        - 0.5)
         * params.timber_shingle.sample_shingles_tail_variation;
     let phase = (raw_phase - course_shift - tail_variation).rem_euclid(1.0);
     let (column, local_x, width) = locate_shingle(params, u, row, phase);
@@ -219,13 +261,14 @@ fn sample_shingles(params: &crate::TextureParameters, u: f32, v: f32) -> Shingle
     let fibre = split_fibres(params, local_x, phase, id);
     let checking = check_field(params, local_x, phase, id);
     let cup = ((local_x - 0.5).powi(2) - params.timber_shingle.sample_shingles_cup_1)
-        * ((hash_unit(params, id ^ 0x27bf) - 0.5) * params.timber_shingle.sample_shingles_cup_2);
+        * ((params.rng(streams::CUP, &[id]).inclusive_unit_f32() - 0.5)
+            * params.timber_shingle.sample_shingles_cup_2);
     let twist = (local_x - 0.5)
         * (phase - 0.5)
-        * (hash_unit(params, id ^ 0x74a1) - 0.5)
+        * (params.rng(streams::TILT, &[id]).inclusive_unit_f32() - 0.5)
         * params.timber_shingle.sample_shingles_twist;
-    let thickness =
-        (hash_unit(params, id ^ 0x9dc3) - 0.5) * params.timber_shingle.sample_shingles_thickness;
+    let thickness = (params.rng(streams::THICKNESS, &[id]).inclusive_unit_f32() - 0.5)
+        * params.timber_shingle.sample_shingles_thickness;
     let face = params.timber_shingle.sample_shingles_face_1
         + phase * params.timber_shingle.sample_shingles_face_2
         + tail_lip * params.timber_shingle.sample_shingles_face_3
@@ -257,7 +300,7 @@ fn sample_shingles(params: &crate::TextureParameters, u: f32, v: f32) -> Shingle
             * params.timber_shingle.sample_shingles_exposure_3)
         .clamp(0.0, 1.0);
     let weathering = (exposure
-        + (hash_unit(params, id ^ 0xf24d) - 0.5)
+        + (params.rng(streams::GRAIN_PHASE, &[id]).inclusive_unit_f32() - 0.5)
             * params.timber_shingle.sample_shingles_weathering_1
         + fibre.max(0.0) * params.timber_shingle.sample_shingles_weathering_2)
         .clamp(0.0, 1.0);
@@ -732,7 +775,7 @@ mod tests {
                 "arm_packing=R ambient visibility, G perceptual roughness, B metallic\n",
                 "metallicity=0\n",
                 "fixture=frozen orthographic material sheet with upper-left grazing light\n",
-                "seed=recipe constants and fabelgeist splitmix64\n",
+                "seed=named fabelgeist-determinism texture streams\n",
                 "review_history=candidate 2 received one ACCEPT and one contradictory material-defect REJECT; candidate 2 is not accepted\n",
                 "candidate_3_status=awaiting one manager-assigned independent reviewer; implementer has not accepted it\n",
             ),

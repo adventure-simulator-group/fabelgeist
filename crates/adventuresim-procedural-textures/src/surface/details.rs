@@ -1,4 +1,5 @@
 //! Chips, terminating cracks, fractured lips, and grain on raised bark plates.
+mod streams;
 use super::*;
 
 pub(super) fn transverse_closure(
@@ -11,16 +12,40 @@ pub(super) fn transverse_closure(
 ) -> f32 {
     let tau = core::f32::consts::TAU;
     let distance = within_row.min(1.0 - within_row) / params.surface.rows as f32;
-    let width = 0.012 + 0.008 * bark_random(params, column, row, 0xc713);
+    let width = 0.012
+        + 0.008
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::PLATE_CRACK_WIDTH, &[]),
+            );
     let core = (-0.5 * (distance / width).powi(2)).exp();
     let gate = 0.42
         + 0.58
             * smoothstep(
                 -0.58,
                 0.20,
-                (tau * (sample_x * 7.0 + bark_random(params, column, row, 0x5a71))).sin(),
+                (tau * (sample_x * 7.0
+                    + bark_random(
+                        params,
+                        column,
+                        row,
+                        params.field_seed(streams::PLATE_CRACK_PHASE, &[]),
+                    )))
+                .sin(),
             );
-    -(0.12 + 0.10 * bark_random(params, column, row, 0x731c)) * core * gate * crown
+    -(0.12
+        + 0.10
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::PLATE_CRACK_DEPTH, &[]),
+            ))
+        * core
+        * gate
+        * crown
 }
 
 pub(super) fn chipped_face(
@@ -31,14 +56,23 @@ pub(super) fn chipped_face(
     within_row: f32,
     crown: f32,
 ) -> f32 {
-    let chip_x = 0.16 + 0.68 * bark_random(params, column, row, 0xe417);
-    let chip_y = 0.10 + 0.80 * bark_random(params, column, row, 0xb529);
+    let chip_x =
+        0.16 + 0.68 * bark_random(params, column, row, params.field_seed(streams::CHIP_X, &[]));
+    let chip_y =
+        0.10 + 0.80 * bark_random(params, column, row, params.field_seed(streams::CHIP_Y, &[]));
     let chip_distance = Vec2::new(
         (within_column - chip_x) / 0.13,
         (within_row - chip_y) / 0.10,
     )
     .length_squared();
-    -(0.050 + 0.080 * bark_random(params, column, row, 0xf81d))
+    -(0.050
+        + 0.080
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::CHIP_DEPTH, &[]),
+            ))
         * (-0.5 * chip_distance).exp()
         * crown
 }
@@ -51,16 +85,52 @@ pub(super) fn terminating_branch(
     within_row: f32,
     crown: f32,
 ) -> f32 {
-    let branch_roll = bark_random(params, column, row, 0x64ab);
-    let branch_side = bark_random(params, column, row, 0x917d) >= 0.5;
-    let branch_start_y = 0.18 + 0.64 * bark_random(params, column, row, 0x2f43);
-    let branch_end_y =
-        (branch_start_y + bark_random(params, column, row, 0xd815) * 0.54 - 0.27).clamp(0.08, 0.92);
+    let branch_roll = bark_random(
+        params,
+        column,
+        row,
+        params.field_seed(streams::BRANCH_PRESENCE, &[]),
+    );
+    let branch_side = bark_random(
+        params,
+        column,
+        row,
+        params.field_seed(streams::BRANCH_SIDE, &[]),
+    ) >= 0.5;
+    let branch_start_y = 0.18
+        + 0.64
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::BRANCH_START, &[]),
+            );
+    let branch_end_y = (branch_start_y
+        + bark_random(
+            params,
+            column,
+            row,
+            params.field_seed(streams::BRANCH_END, &[]),
+        ) * 0.54
+        - 0.27)
+        .clamp(0.08, 0.92);
     let branch_start_x = if branch_side { 0.98 } else { 0.02 };
     let branch_end_x = if branch_side {
-        0.42 + 0.20 * bark_random(params, column, row, 0x3e29)
+        0.42 + 0.20
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::BRANCH_REACH, &[]),
+            )
     } else {
-        0.38 - 0.20 * bark_random(params, column, row, 0x3e29)
+        0.38 - 0.20
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::BRANCH_REACH, &[]),
+            )
     };
     let plate_point = Vec2::new(
         within_column / params.surface.columns as f32,
@@ -75,9 +145,23 @@ pub(super) fn terminating_branch(
         branch_end_y / params.surface.rows as f32,
     );
     let branch_distance = distance_to_segment(plate_point, branch_start, branch_end);
-    let branch_width = 0.005 + 0.003 * bark_random(params, column, row, 0xa53f);
+    let branch_width = 0.005
+        + 0.003
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::BRANCH_WIDTH, &[]),
+            );
     let branch_enabled = smoothstep(0.54, 0.68, branch_roll);
-    -(0.070 + 0.090 * bark_random(params, column, row, 0x781b))
+    -(0.070
+        + 0.090
+            * bark_random(
+                params,
+                column,
+                row,
+                params.field_seed(streams::BRANCH_DEPTH, &[]),
+            ))
         * (-0.5 * (branch_distance / branch_width).powi(2)).exp()
         * branch_enabled
         * crown
@@ -91,13 +175,25 @@ pub(super) fn fractured_notch(
     valley_width: f32,
     within_row: f32,
 ) -> f32 {
-    let notch_y = bark_random(params, nearest_crack, row, 0x48c1);
+    let notch_y = bark_random(
+        params,
+        nearest_crack,
+        row,
+        params.field_seed(streams::NOTCH_Y, &[]),
+    );
     let notch_distance = Vec2::new(
         (edge_distance - valley_width * 1.08) / (valley_width * 0.34),
         (within_row - notch_y) / 0.11,
     )
     .length_squared();
-    -(0.035 + 0.055 * bark_random(params, nearest_crack, row, 0xbb27))
+    -(0.035
+        + 0.055
+            * bark_random(
+                params,
+                nearest_crack,
+                row,
+                params.field_seed(streams::NOTCH_DEPTH, &[]),
+            ))
         * (-0.5 * notch_distance).exp()
 }
 

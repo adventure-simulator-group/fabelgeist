@@ -60,7 +60,8 @@ impl ControlBounds {
             "patches" if component == Some(5) => (0.0, 0.1),
             _ if color && integer => (0.0, 255.0),
             _ if color && !integer && value <= 1.0 => (0.0, 1.0),
-            "seed" | "salt" => (0.0, u64::MAX as f64),
+            "cluster_child_variants" => (1.0, 4.0),
+            "seed" => (0.0, u64::MAX as f64),
             "index_of_refraction" => (1.0, 3.0),
             "courses" | "rows"
                 if path.starts_with("/dressed_stone/") || path.starts_with("/rubble_masonry/") =>
@@ -224,7 +225,7 @@ fn validate_node(path: &str, value: &Value, default: &Value) -> Result<(), Param
             }
         }
         (Value::Number(value), Value::Number(default)) => {
-            if path == "/seed" || path.ends_with("/salt") {
+            if path == "/seed" {
                 return Ok(());
             }
             let bounds = ControlBounds::for_default(path, default);
