@@ -1,38 +1,37 @@
+use crate::relationship::seeded_household_plan;
+use crate::{HouseholdRole, KinshipKind};
+
 #[test]
 fn seeded_family_contract_has_unique_roles_and_canonical_edges() {
-    let source = crate::production_source(crate::relationship::RELATIONSHIP_SOURCE);
-    let seed = source
-        .split("pub fn ensure_seeded_family_households")
-        .nth(1)
+    let plan = seeded_household_plan("test-settlement", &[10, 11, 12, 13])
         .unwrap()
-        .split("fn father_of")
-        .next()
         .unwrap();
-    assert!(seed.contains("residents.chunks(4)"));
-    assert!(seed.contains("HouseholdRole::Head"));
-    assert!(seed.contains("HouseholdRole::Spouse"));
-    assert!(seed.contains("KinshipKind::Parent"));
-    assert!(seed.contains("KinshipKind::Sibling"));
-    assert!(seed.contains("ensure_character_family_role"));
-    assert!(seed.contains("seeded:{settlement_id}:{cohort}"));
-    assert!(seed.contains(".character_personality()"));
-    assert!(seed.contains(".character_id()"));
-    assert!(seed.contains(".update(personality)"));
-    assert!(seed.contains("assign_seeded_family_names(ctx, family)?"));
-    let sex_assignment = seed.find("personality.sex = sex").unwrap();
-    let naming = seed.rfind("assign_seeded_family_names(ctx, family)?").unwrap();
-    assert!(sex_assignment < naming);
+    assert_eq!(plan.household_id, "household:seeded:test-settlement:10");
+    assert_eq!(plan.family_key, "seeded:test-settlement:10");
+    assert_eq!(
+        plan.members,
+        vec![
+            (10, HouseholdRole::Head),
+            (11, HouseholdRole::Spouse),
+            (12, HouseholdRole::AdultChild),
+            (13, HouseholdRole::AdultChild),
+        ]
+    );
+    assert_eq!(plan.kinships.len(), 10);
+    for child in [12, 13] {
+        for parent in [10, 11] {
+            assert!(plan.kinships.contains(&(child, parent, KinshipKind::Parent)));
+            assert!(plan.kinships.contains(&(parent, child, KinshipKind::Child)));
+        }
+    }
+    assert!(plan.kinships.contains(&(12, 13, KinshipKind::Sibling)));
+    assert!(plan.kinships.contains(&(13, 12, KinshipKind::Sibling)));
 
-    let naming_helper = source
-        .split("fn assign_seeded_family_names")
-        .nth(1)
+    let incomplete = seeded_household_plan("test-settlement", &[20, 21])
         .unwrap()
-        .split("fn father_of_at")
-        .next()
         .unwrap();
-    assert!(naming_helper.contains("let mut surname = None"));
-    assert!(naming_helper.contains("surname = Some"));
-    assert!(naming_helper.contains("assign_generated_historical_name"));
+    assert!(incomplete.kinships.is_empty());
+    assert!(seeded_household_plan("test-settlement", &[1, 2, 3, 4, 5]).is_err());
 }
 
 #[test]

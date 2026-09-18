@@ -144,14 +144,6 @@ fn load_next_facade(
                 BuildingPresentationScope::DistantCity,
                 &assets.materials,
             );
-            assets.signs.spawn(
-                parent,
-                building.placement.id,
-                None,
-                None,
-                &compiled,
-                &mut assets.meshes,
-            );
         })
         .id();
     building.facade = Some(facade);

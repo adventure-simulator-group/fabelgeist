@@ -37,9 +37,11 @@ mod gardens;
 mod urban;
 pub use gardens::{GeneratedGarden, SceneGarden};
 mod environment;
+mod establishments;
 mod parishes;
 pub use compounds::{GeneratedBoundary, SceneBoundary};
 pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
+pub use establishments::SceneEstablishment;
 mod descriptor;
 pub use descriptor::{
     MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
@@ -249,6 +251,7 @@ impl TacticalSceneInput {
         validate_grid(&self.playable, MAX_PLAYABLE_SIDE, "playable")?;
         crate::scene_fault::validate(self.landform, &self.playable)?;
         urban::validate(self)?;
+        establishments::validate(self)?;
         if self.vista.lods.len() > MAX_VISTA_LEVELS {
             return invalid("vista has too many LOD levels");
         }
@@ -1141,6 +1144,7 @@ mod tests {
             gardens: Vec::new(),
             buildings: Vec::new(),
             distant_buildings: Vec::new(),
+            establishments: Vec::new(),
             vista: VistaSample::default(),
             weather: weather_at(42, 123_456, 53_500_000, 10_000_000, 80),
         }

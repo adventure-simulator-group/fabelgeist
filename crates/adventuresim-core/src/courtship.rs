@@ -9,6 +9,9 @@ use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
+mod child_identity;
+pub use child_identity::{ChildSeeds, deterministic_child_seeds};
+
 pub const ADULT_AGE_YEARS: u16 = 16;
 pub const FORMAL_COURTSHIP_AFFINITY: f32 = 45.0;
 pub const FORMAL_FATHER_APPROVAL_AFFINITY: f32 = 35.0;
@@ -662,44 +665,6 @@ pub fn conception_quantum_plan(
                 % CONCEPTION_QUANTUM_MINUTES) as u8,
             next_trial_ordinal: state.next_trial_ordinal.saturating_add(crossing_count),
         },
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ChildSeeds {
-    pub identity: u64,
-    pub name: u64,
-    pub female: bool,
-    pub home: u64,
-}
-
-/// Domain-separated child seeds make identity, naming, sex, and home placement
-/// stable without coupling any result to table insertion order.
-pub fn deterministic_child_seeds(
-    first_parent_id: &str,
-    second_parent_id: &str,
-    pregnancy_ordinal: u64,
-    birth_minute: u64,
-    home_location_id: &str,
-) -> ChildSeeds {
-    let (left, right) = if first_parent_id <= second_parent_id {
-        (first_parent_id, second_parent_id)
-    } else {
-        (second_parent_id, first_parent_id)
-    };
-    let pregnancy = pregnancy_ordinal.to_string();
-    let birth = birth_minute.to_string();
-    let base = [left, right, &pregnancy, &birth];
-    ChildSeeds {
-        identity: stable_lifecycle_hash("child-identity", &base),
-        name: stable_lifecycle_hash("child-name-v2", &base),
-        female: fabelgeist_determinism::StreamId::new("lifecycle.child-sex")
-            .rng(stable_lifecycle_hash("child-sex", &base), &[])
-            .boolean(),
-        home: stable_lifecycle_hash(
-            "child-home",
-            &[left, right, &pregnancy, &birth, home_location_id],
-        ),
     }
 }
 

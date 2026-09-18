@@ -1,10 +1,9 @@
 //! Per-establishment signs reuse building anchor geometry; lettering is allocated only nearby.
 use super::*;
 use adventuresim_building_generator::signs::{
-    EstablishmentId, ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets,
-    SignRenderPart, SignSite,
+    ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets, SignRenderPart,
+    SignSite,
 };
-use adventuresim_world_schema::person_names::RenderedPersonalName;
 use bevy::ecs::system::SystemParam;
 
 const LETTERING_LOAD_DISTANCE_METRES: f32 = 48.0;
@@ -51,17 +50,11 @@ impl SignAssets<'_> {
     pub(super) fn spawn(
         &mut self,
         parent: &mut ChildSpawnerCommands,
-        id: u64,
-        operator_name: Option<&RenderedPersonalName>,
         authored: Option<&ShopSign>,
         compiled: &CompiledBuildingLevels,
         meshes: &mut Assets<Mesh>,
     ) {
-        let Some(mut sign) = authored.cloned().or_else(|| {
-            operator_name.and_then(|operator_name| {
-                ShopSign::for_operator(EstablishmentId(id), operator_name, compiled.program.usage?)
-            })
-        }) else {
+        let Some(mut sign) = authored.cloned() else {
             return;
         };
         let Some(&(mount, site)) = compiled

@@ -67,6 +67,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
                 serialize_scene_building,
                 deserialize_scene_building,
             ))
+            .replicate_once::<SceneEstablishment>()
             .replicate_once::<SceneBoundary>()
             .replicate_once::<SceneGarden>()
             .replicate::<SceneDoor>()

@@ -75,7 +75,7 @@ pub fn establish_pregnancy(
         due_minute,
         reserved_child_id,
         child_name_seed: seeds.name,
-        child_female: seeds.female,
+        child_sex: seeds.sex,
         child_home_seed: seeds.home,
         birth_settlement_id: birth_settlement_id.to_owned(),
         birth_residence_holding_id,
@@ -514,8 +514,7 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
             age_years: 0,
             organization_id: None,
             literacy: None,
-        };
-        crate::character::insert_character_with_origin(
+        }; crate::character::insert_character_with_origin(
             ctx,
             "Pending newborn name".into(),
             child_id,
@@ -527,6 +526,7 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
                 stable_seed: pregnancy.child_name_seed,
                 initial_time_minute: Some(pregnancy.due_minute),
                 field_actor: false,
+                npc_personality: None,
             },
             None,
             Some(&newborn_life),
@@ -539,12 +539,12 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
         );
         crate::character::assign_newborn_historical_name(
             ctx,
-            child_id,
-            father.id,
-            mother.id,
-            pregnancy.due_minute,
-            pregnancy.child_name_seed,
-            pregnancy.child_female,
+            crate::character::CharacterId::new(child_id),
+            crate::character::CharacterId::new(father.id),
+            crate::character::CharacterId::new(mother.id),
+            crate::character::WorldMinute::new(pregnancy.due_minute),
+            crate::character::NameSeed::new(pregnancy.child_name_seed),
+            pregnancy.child_sex,
         )?;
         initialize_npc_policy(
             ctx,

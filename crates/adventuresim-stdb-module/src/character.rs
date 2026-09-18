@@ -1,5 +1,6 @@
 mod occupancy;
 mod origin;
+include!("character/name_types.rs");
 include!("character/name_identity.rs");
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
@@ -920,7 +921,7 @@ pub(crate) fn delete_temporary_character(
     if !character.temporary {
         return Err("Refusing to cascade-delete a persistent character".into());
     }
-    delete_character_name_data(ctx, character.id);
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, true)
 }
 
@@ -928,7 +929,7 @@ pub(crate) fn delete_character_for_world_import(
     ctx: &ReducerContext,
     character: Character,
 ) -> Result<(), String> {
-    delete_character_name_data(ctx, character.id);
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, false)
 }
 
@@ -1244,7 +1245,13 @@ fn delete_character_data(
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
     insert_new_character(ctx, "Pending generated name".into(), id, false)?;
-    assign_generated_historical_name_for_age(ctx, id, id, 0, None)?;
+    assign_generated_historical_name_for_age(
+        ctx,
+        CharacterId::new(id),
+        NameSeed::new(id),
+        WorldMinute::new(0),
+        None,
+    )?;
     Ok(())
 }
 
@@ -1898,6 +1905,7 @@ pub(crate) fn insert_new_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         None,
@@ -1941,6 +1949,7 @@ pub(crate) struct CharacterCreationOptions<'a> {
     pub stable_seed: u64,
     pub initial_time_minute: Option<u64>,
     pub field_actor: bool,
+    pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -1988,6 +1997,7 @@ pub(crate) fn insert_new_npc_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -1996,6 +2006,10 @@ pub(crate) fn insert_new_npc_character(
 
 /// Create a persistent, full-component NPC at an explicit settlement. Unlike a
 /// player character or tactical temporary, the NPC begins outside any party.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "persistent NPC insertion keeps finalized life and personality facts explicit"
+)]
 pub(crate) fn insert_persistent_npc_character(
     ctx: &ReducerContext,
     name: String,
@@ -2003,8 +2017,9 @@ pub(crate) fn insert_persistent_npc_character(
     origin_settlement_id: &str,
     stable_seed: u64,
     initial_time_minute: Option<u64>,
+    life: &NpcLifeFacts,
+    personality: &crate::personality::CharacterPersonality,
 ) -> Result<(), String> {
-    let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
         ctx,
         name,
@@ -2017,9 +2032,10 @@ pub(crate) fn insert_persistent_npc_character(
             stable_seed,
             initial_time_minute,
             field_actor: false,
+            npc_personality: Some(personality),
         },
         None,
-        Some(&life),
+        Some(life),
     )
 }
 
@@ -2045,6 +2061,7 @@ pub(crate) fn insert_persistent_field_character(
             stable_seed,
             initial_time_minute,
             field_actor: true,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2067,6 +2084,7 @@ pub(crate) fn insert_starting_character(
             stable_seed: spec.id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         Some(spec),
         None,
@@ -2522,7 +2540,9 @@ pub(crate) fn insert_character_with_origin(
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
     } else {
-        if npc {
+        if let Some(personality) = options.npc_personality {
+            crate::personality::initialize_personality_from_visible(ctx, personality.clone());
+        } else if npc {
             crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
         } else {
             crate::personality::initialize_personality(ctx, id, false);
@@ -2530,7 +2550,7 @@ pub(crate) fn insert_character_with_origin(
     }
 
     if !temporary {
-        assign_character_name_identity(ctx, character.id, initial_name_identity)?;
+        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)?;
     }
 
     // Newborns receive the full durable character component surface, but no
@@ -2646,7 +2666,7 @@ pub(crate) fn validate_full_character_components(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let mut missing = missing_name_identity(ctx, character_id);
+    let mut missing = missing_name_identity(ctx, CharacterId::new(character_id));
     if ctx.db.character().id().find(character_id).is_none() {
         missing.push("character");
     }

@@ -2,11 +2,13 @@
 
 use super::name_catalog_schema::{
     GivenNameFamilyDefinition, GivenNameFormDefinition, NameCatalogDocument, NameCulture,
-    NameDerivationDefinition, NameObservationDefinition, NameRegister, NameReligiousTradition,
-    NameRepertoireDefinition, NameSex, NameSourceDefinition, SurnameClass, SurnameDefinition,
-    SurnameFormDefinition,
+    NameObservationDefinition, NameRegister, NameReligiousTradition, NameRepertoireDefinition,
+    NameSex, NameSourceDefinition, SurnameClass, SurnameDefinition, SurnameFormDefinition,
 };
 use std::collections::{BTreeMap, BTreeSet};
+
+#[path = "name_catalog_validation/derivations.rs"]
+mod derivations;
 
 const SECURE_WEB_SCHEME: &str = "https://";
 
@@ -40,7 +42,7 @@ pub fn validate(catalog: &NameCatalogDocument) -> Result<(), String> {
         &surnames,
         &surname_forms,
     )?;
-    validate_derivations(
+    derivations::validate(
         &catalog.derivations,
         &catalog.repertoires,
         &observation_ids,
@@ -391,175 +393,6 @@ fn validate_observations<'a>(
     Ok(observation_ids)
 }
 
-fn validate_derivations(
-    derivations: &[NameDerivationDefinition],
-    repertoires: &[NameRepertoireDefinition],
-    observation_ids: &BTreeSet<&str>,
-    families: &FamilyIndex<'_>,
-    forms: &FormIndex<'_>,
-    surnames: &SurnameIndex<'_>,
-) -> Result<(), String> {
-    type TargetKey = (String, Option<String>, Option<String>, Option<String>);
-
-    let repertoire_ids = repertoires
-        .iter()
-        .map(|repertoire| repertoire.id.as_str())
-        .collect::<BTreeSet<_>>();
-    let mut targets = BTreeMap::<TargetKey, u64>::new();
-    for repertoire in repertoires {
-        for entry in repertoire
-            .female_families
-            .iter()
-            .chain(repertoire.male_families.iter())
-        {
-            targets.insert(
-                (
-                    repertoire.id.clone(),
-                    Some(entry.family_id.clone()),
-                    None,
-                    None,
-                ),
-                entry.frequency,
-            );
-        }
-        for entry in &repertoire.everyday_forms {
-            targets.insert(
-                (
-                    repertoire.id.clone(),
-                    Some(entry.family_id.clone()),
-                    Some(entry.form_id.clone()),
-                    None,
-                ),
-                entry.frequency,
-            );
-        }
-        for entry in &repertoire.surnames {
-            targets.insert(
-                (
-                    repertoire.id.clone(),
-                    None,
-                    None,
-                    Some(entry.surname_id.clone()),
-                ),
-                entry.frequency,
-            );
-        }
-    }
-
-    let mut derivation_ids = BTreeSet::new();
-    let mut covered_targets = BTreeSet::new();
-    for derivation in derivations {
-        validate_id("derivation", &derivation.id)?;
-        if !derivation_ids.insert(derivation.id.as_str()) {
-            return Err(format!("duplicate derivation ID {}", derivation.id));
-        }
-        if derivation.operation.trim().is_empty()
-            || derivation.rationale.trim().is_empty()
-            || derivation.observation_ids.is_empty()
-            || derivation.frequency == 0
-        {
-            return Err(format!("derivation {} is incomplete", derivation.id));
-        }
-        if !repertoire_ids.contains(derivation.repertoire_id.as_str()) {
-            return Err(format!(
-                "derivation {} references unknown repertoire {}",
-                derivation.id, derivation.repertoire_id
-            ));
-        }
-        let target_count = derivation.family_id.is_some() as u8
-            + derivation.form_id.is_some() as u8
-            + derivation.surname_id.is_some() as u8;
-        let valid_shape = (derivation.family_id.is_some()
-            && derivation.form_id.is_none()
-            && derivation.surname_id.is_none())
-            || (derivation.family_id.is_some()
-                && derivation.form_id.is_some()
-                && derivation.surname_id.is_none())
-            || (derivation.family_id.is_none()
-                && derivation.form_id.is_none()
-                && derivation.surname_id.is_some());
-        if target_count == 0 || !valid_shape {
-            return Err(format!(
-                "derivation {} has an invalid target",
-                derivation.id
-            ));
-        }
-        if let Some(family_id) = &derivation.family_id
-            && !families.contains_key(family_id.as_str())
-        {
-            return Err(format!(
-                "derivation {} references unknown family {}",
-                derivation.id, family_id
-            ));
-        }
-        if let Some(form_id) = &derivation.form_id {
-            let form = forms.get(form_id.as_str()).ok_or_else(|| {
-                format!(
-                    "derivation {} references unknown form {}",
-                    derivation.id, form_id
-                )
-            })?;
-            if !form
-                .family_ids
-                .iter()
-                .any(|family_id| Some(family_id) == derivation.family_id.as_ref())
-            {
-                return Err(format!(
-                    "derivation {} targets a form outside its family",
-                    derivation.id
-                ));
-            }
-        }
-        if let Some(surname_id) = &derivation.surname_id
-            && !surnames.contains_key(surname_id.as_str())
-        {
-            return Err(format!(
-                "derivation {} references unknown surname {}",
-                derivation.id, surname_id
-            ));
-        }
-        let target = (
-            derivation.repertoire_id.clone(),
-            derivation.family_id.clone(),
-            derivation.form_id.clone(),
-            derivation.surname_id.clone(),
-        );
-        let expected_frequency = targets.get(&target).ok_or_else(|| {
-            format!(
-                "derivation {} does not target an eligible entry in repertoire {}",
-                derivation.id, derivation.repertoire_id
-            )
-        })?;
-        if *expected_frequency != derivation.frequency {
-            return Err(format!(
-                "derivation {} frequency {} disagrees with repertoire frequency {}",
-                derivation.id, derivation.frequency, expected_frequency
-            ));
-        }
-        if !covered_targets.insert(target) {
-            return Err(format!("duplicate derivation target in {}", derivation.id));
-        }
-        let mut references = BTreeSet::new();
-        for observation_id in &derivation.observation_ids {
-            if !references.insert(observation_id.as_str())
-                || !observation_ids.contains(observation_id.as_str())
-            {
-                return Err(format!(
-                    "derivation {} has a duplicate or dangling observation ID {}",
-                    derivation.id, observation_id
-                ));
-            }
-        }
-    }
-    if covered_targets.len() != targets.len() {
-        return Err(format!(
-            "{} eligible repertoire entries lack provenance derivations",
-            targets.len() - covered_targets.len()
-        ));
-    }
-    Ok(())
-}
-
 fn validate_id(kind: &str, id: &str) -> Result<(), String> {
     if id.is_empty()
         || !id
@@ -573,6 +406,7 @@ fn validate_id(kind: &str, id: &str) -> Result<(), String> {
 
 #[cfg(test)]
 mod tests {
+    use super::super::name_catalog_schema::NameDerivationDefinition;
     use super::*;
 
     #[test]
@@ -662,7 +496,7 @@ mod tests {
         let observations = BTreeSet::from(["fixture_observation"]);
         let forms = BTreeMap::new();
         let surnames = BTreeMap::new();
-        let error = validate_derivations(
+        let error = derivations::validate(
             &[derivation],
             &[repertoire],
             &observations,

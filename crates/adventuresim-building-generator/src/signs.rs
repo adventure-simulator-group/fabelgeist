@@ -37,7 +37,7 @@ pub struct ShopName {
 }
 
 impl ShopName {
-    /// Brand a business with its authoritative operator's current display name.
+    /// Brand a business from the caller-supplied validated operator projection.
     pub fn for_operator(operator: &RenderedPersonalName, usage: BuildingUse) -> Option<Self> {
         let trade = shop_trade(usage)?;
         Some(Self {
@@ -120,9 +120,21 @@ impl ShopSign {
         operator: &RenderedPersonalName,
         usage: BuildingUse,
     ) -> Option<Self> {
+        Self::for_establishment(id, usage, ShopName::for_operator(operator, usage)?)
+    }
+
+    /// Build a sign from the already-authoritative business brand.
+    pub fn for_establishment(
+        id: EstablishmentId,
+        usage: BuildingUse,
+        name: ShopName,
+    ) -> Option<Self> {
+        if name.trade != shop_trade(usage)? {
+            return None;
+        }
         Some(Self {
             emblem: TradeEmblem::for_use(usage),
-            name: ShopName::for_operator(operator, usage)?,
+            name,
             mount: if SIGN_MOUNT.rng(id.0, &[]).boolean() {
                 SignMount::Wall
             } else {

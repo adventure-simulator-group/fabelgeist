@@ -2149,6 +2149,7 @@ fn setup_scene(
             terrain_summary.depth_metres * 0.5,
         ),
         distant_buildings: input.distant_buildings.clone(),
+        establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
         parishes: input.parishes.clone(),

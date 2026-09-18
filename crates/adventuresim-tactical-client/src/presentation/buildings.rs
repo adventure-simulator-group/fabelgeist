@@ -90,6 +90,7 @@ fn on_scene_building_added(
     mut commands: Commands,
     buildings: Query<(
         &SceneBuilding,
+        Option<&SceneEstablishment>,
         Option<&adventuresim_building_generator::signs::ShopSign>,
     )>,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -97,7 +98,18 @@ fn on_scene_building_added(
     mut cache: ResMut<TacticalBuildingMeshCache>,
     mut signs: signs::SignAssets,
 ) -> Result {
-    let (building, authored_sign) = buildings.get(event.entity)?;
+    let (building, establishment, authored_sign) = buildings.get(event.entity)?;
+    let resolved_sign = authored_sign.cloned().or_else(|| {
+        establishment.and_then(|establishment| {
+            establishment.shop_name.clone().and_then(|name| {
+                adventuresim_building_generator::signs::ShopSign::for_establishment(
+                    adventuresim_building_generator::signs::EstablishmentId(building.id),
+                    establishment.business_id.key.usage,
+                    name,
+                )
+            })
+        })
+    });
     let compiled = cached_building_levels(
         &mut cache,
         &building.program,
@@ -122,14 +134,7 @@ fn on_scene_building_added(
                 BuildingPresentationScope::Playable,
                 &materials,
             );
-            signs.spawn(
-                parent,
-                building.id,
-                None,
-                authored_sign,
-                &compiled,
-                &mut meshes,
-            );
+            signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
         });
     Ok(())
 }
@@ -145,10 +150,22 @@ fn on_scene_vista_buildings(
         commands.entity(entity).despawn();
     }
     if streaming.is_some() {
-        commands.insert_resource(PendingCityBuildings::new(&bundle.distant_buildings));
+        commands.insert_resource(PendingCityBuildings::new(
+            &bundle.distant_buildings,
+            &bundle.establishments,
+        ));
     } else {
         for placement in &bundle.distant_buildings {
-            assets.spawn(&mut commands, placement, BuildingDetail::Static)?;
+            let establishment = bundle
+                .establishments
+                .iter()
+                .find(|establishment| establishment.building_id == placement.id);
+            assets.spawn(
+                &mut commands,
+                placement,
+                establishment,
+                BuildingDetail::Static,
+            )?;
         }
     }
     Ok(())

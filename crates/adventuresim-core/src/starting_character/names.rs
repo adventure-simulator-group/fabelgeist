@@ -3,7 +3,7 @@
 use super::{DEFAULT_CHARACTER_AGE_YEARS, StartingCharacterSpec, StartingProfession, StartingSex};
 use adventuresim_world_schema::person_names::{
     NameCulture, NameEducation, NameGenerationContext, NameRegister, NameSex, NameSocialClass,
-    PersonalNameIdentity, generate_personal_name, render_personal_name,
+    NameStableSeed, PersonalNameIdentity, generate_personal_name, render_personal_name,
 };
 
 const DEFAULT_PERSONAL_NAME_SEED: u64 = 0xd3fa_1544_0000_0001;
@@ -31,7 +31,7 @@ fn historical_name(
     ) {
         context.education = NameEducation::Literate;
     }
-    let identity = generate_personal_name(context, stable_seed, None)
+    let identity = generate_personal_name(context, NameStableSeed::new(stable_seed), None)
         .expect("the build-validated German repertoire covers the MVP period");
     let display = render_personal_name(
         &identity,

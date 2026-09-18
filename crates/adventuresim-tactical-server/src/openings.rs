@@ -94,11 +94,12 @@ fn tactical_building_collider(collision: &BuildingCollision) -> Collider {
 pub(crate) fn spawn_generated_buildings(
     commands: &mut Commands,
     buildings: Vec<GeneratedBuilding>,
+    establishments: &[SceneEstablishment],
 ) {
     for building in buildings {
         let collision_centre = building.collision.bounds.centre();
         let local_floor_offset = collision_centre.y - building.collision.bounds.min.y;
-        commands.spawn((
+        let mut entity = commands.spawn((
             Name::new(format!("Tactical building {}", building.placement.id)),
             SceneBuilding {
                 id: building.placement.id,
@@ -114,5 +115,11 @@ pub(crate) fn spawn_generated_buildings(
                 building.placement.orientation.yaw_radians(),
             )),
         ));
+        if let Some(establishment) = establishments
+            .iter()
+            .find(|establishment| establishment.building_id == building.placement.id)
+        {
+            entity.insert(establishment.clone());
+        }
     }
 }

@@ -440,7 +440,13 @@ pub(crate) fn materialize_context_roster(
             id,
             None,
         )?;
-        crate::character::assign_generated_historical_name_for_age(ctx, id, id, entered_at, None)?;
+        crate::character::assign_generated_historical_name_for_age(
+            ctx,
+            crate::character::CharacterId::new(id),
+            crate::character::NameSeed::new(id),
+            crate::character::WorldMinute::new(entered_at),
+            None,
+        )?;
         ctx.db
             .character_context_membership()
             .insert(CharacterContextMembership {

@@ -4,11 +4,13 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::name_identity_json_type::NameIdentityJson;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CharacterNameIdentity {
     pub character_id: u64,
-    pub identity_json: String,
+    pub identity_json: NameIdentityJson,
 }
 
 impl __sdk::InModule for CharacterNameIdentity {
@@ -20,7 +22,7 @@ impl __sdk::InModule for CharacterNameIdentity {
 /// Provides typed access to columns for query building.
 pub struct CharacterNameIdentityCols {
     pub character_id: __sdk::__query_builder::Col<CharacterNameIdentity, u64>,
-    pub identity_json: __sdk::__query_builder::Col<CharacterNameIdentity, String>,
+    pub identity_json: __sdk::__query_builder::Col<CharacterNameIdentity, NameIdentityJson>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterNameIdentity {

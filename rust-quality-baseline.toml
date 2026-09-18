@@ -1681,16 +1681,6 @@ item = "submit"
 ceiling = 124
 
 [[functions]]
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "ensure_settlement_population"
-ceiling = 135
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-ceiling = 224
-
-[[functions]]
 path = "crates/adventuresim-stdb-module/src/simulation.rs"
 item = "configure_simulation_character"
 ceiling = 147
@@ -8010,34 +8000,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
 item = "PopulationLocation<'a>::parse"
 fingerprint = "string:tailor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:cleric"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:reeve"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:religion"
 occurrences = 1
 
 [[findings]]

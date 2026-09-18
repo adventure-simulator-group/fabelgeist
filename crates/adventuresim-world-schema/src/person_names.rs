@@ -45,6 +45,50 @@ name_id!(NameFamilyId);
 name_id!(NameFormId);
 name_id!(SurnameId);
 
+/// Calendar year used by the historical name repertoire.
+///
+/// Keeping the year distinct from arbitrary integers prevents callers from
+/// accidentally passing a world minute, age, or repertoire weight into the
+/// name-generation API.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub struct NameBirthYear(i32);
+
+impl NameBirthYear {
+    pub const fn new(value: i32) -> Self {
+        Self(value)
+    }
+
+    pub const fn get(self) -> i32 {
+        self.0
+    }
+}
+
+impl From<i32> for NameBirthYear {
+    fn from(value: i32) -> Self {
+        Self::new(value)
+    }
+}
+
+/// Stable deterministic input to name-family and form selection.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub struct NameStableSeed(u64);
+
+impl NameStableSeed {
+    pub const fn new(value: u64) -> Self {
+        Self(value)
+    }
+
+    pub const fn get(self) -> u64 {
+        self.0
+    }
+}
+
+impl From<u64> for NameStableSeed {
+    fn from(value: u64) -> Self {
+        Self::new(value)
+    }
+}
+
 /// A validated personal-name projection suitable for direct display.
 ///
 /// This type proves only that the rendered value is bounded, nonempty, and
@@ -187,19 +231,19 @@ pub struct NameGenerationContext {
     pub culture: NameCulture,
     pub religion: OfficialReligion,
     pub geographic_region: NameGeographicRegion,
-    pub birth_year: i32,
+    pub birth_year: NameBirthYear,
     pub social_class: NameSocialClass,
     pub education: NameEducation,
 }
 
 impl NameGenerationContext {
-    pub const fn german_lutheran(sex: NameSex, birth_year: i32) -> Self {
+    pub fn german_lutheran(sex: NameSex, birth_year: impl Into<NameBirthYear>) -> Self {
         Self {
             sex,
             culture: NameCulture::German,
             religion: OfficialReligion::Lutheran,
             geographic_region: NameGeographicRegion::Mvp,
-            birth_year,
+            birth_year: birth_year.into(),
             social_class: NameSocialClass::Commoner,
             education: NameEducation::Unlettered,
         }
@@ -255,7 +299,7 @@ pub fn catalog_digest() -> &'static str {
 
 pub fn generate_personal_name(
     context: NameGenerationContext,
-    stable_seed: u64,
+    stable_seed: NameStableSeed,
     inherited_surname: Option<SurnameId>,
 ) -> Result<PersonalNameIdentity, NameCatalogError> {
     generate_personal_name_from_catalog(catalog(), context, stable_seed, inherited_surname)
@@ -264,7 +308,7 @@ pub fn generate_personal_name(
 fn generate_personal_name_from_catalog(
     catalog: &NameCatalogDocument,
     context: NameGenerationContext,
-    stable_seed: u64,
+    stable_seed: NameStableSeed,
     inherited_surname: Option<SurnameId>,
 ) -> Result<PersonalNameIdentity, NameCatalogError> {
     let repertoire = matching_repertoire(catalog, context)?;
@@ -273,7 +317,7 @@ fn generate_personal_name_from_catalog(
         NameSex::Male => &repertoire.male_families,
     };
     let family_index = FAMILY_STREAM
-        .rng(stable_seed, &[])
+        .rng(stable_seed.get(), &[])
         .weighted_index(
             &family_weights
                 .iter()
@@ -290,7 +334,7 @@ fn generate_personal_name_from_catalog(
     if eligible_forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    let form_selector = FORM_SELECTOR_STREAM.rng(stable_seed, &[]).next_u64();
+    let form_selector = FORM_SELECTOR_STREAM.rng(stable_seed.get(), &[]).next_u64();
     let form_index = FORM_STREAM
         .rng(form_selector, &[])
         .weighted_index(
@@ -304,7 +348,7 @@ fn generate_personal_name_from_catalog(
         Some(id) => Some(id),
         None => {
             let index = SURNAME_STREAM
-                .rng(stable_seed, &[])
+                .rng(stable_seed.get(), &[])
                 .weighted_index(
                     &repertoire
                         .surnames
@@ -389,7 +433,7 @@ fn matching_repertoire(
             repertoire.culture == context.culture
                 && repertoire.religious_tradition
                     == NameReligiousTradition::for_religion(context.religion)
-                && (repertoire.start_year..=repertoire.end_year).contains(&context.birth_year)
+                && (repertoire.start_year..=repertoire.end_year).contains(&context.birth_year.get())
         })
         .ok_or(NameCatalogError::NoMatchingRepertoire)
 }
@@ -485,7 +529,7 @@ mod tests {
     #[test]
     fn generated_name_has_resolved_family_and_stable_rendering() {
         let context = NameGenerationContext::german_lutheran(NameSex::Male, 1522);
-        let identity = generate_personal_name(context, 42, None).unwrap();
+        let identity = generate_personal_name(context, NameStableSeed::new(42), None).unwrap();
         let first = render_personal_name(
             &identity,
             NameCulture::German,
@@ -621,21 +665,21 @@ mod tests {
         catholic_elsewhere.geographic_region = NameGeographicRegion::Unspecified;
 
         assert_eq!(
-            generate_personal_name(lutheran, 91, None).unwrap(),
-            generate_personal_name(catholic_elsewhere, 91, None).unwrap()
+            generate_personal_name(lutheran, NameStableSeed::new(91), None).unwrap(),
+            generate_personal_name(catholic_elsewhere, NameStableSeed::new(91), None).unwrap()
         );
 
         let mut english = lutheran;
         english.culture = NameCulture::English;
         assert_eq!(
-            generate_personal_name(english, 91, None),
+            generate_personal_name(english, NameStableSeed::new(91), None),
             Err(NameCatalogError::NoMatchingRepertoire)
         );
 
         let mut jewish = lutheran;
         jewish.religion = OfficialReligion::Judaism;
         assert_eq!(
-            generate_personal_name(jewish, 91, None),
+            generate_personal_name(jewish, NameStableSeed::new(91), None),
             Err(NameCatalogError::NoMatchingRepertoire)
         );
     }
@@ -710,10 +754,20 @@ mod tests {
 
         let context = NameGenerationContext::german_lutheran(NameSex::Male, 1520);
         for seed in 0..256 {
-            let original =
-                generate_personal_name_from_catalog(catalog(), context, seed, None).unwrap();
-            let variant =
-                generate_personal_name_from_catalog(&expanded, context, seed, None).unwrap();
+            let original = generate_personal_name_from_catalog(
+                catalog(),
+                context,
+                NameStableSeed::new(seed),
+                None,
+            )
+            .unwrap();
+            let variant = generate_personal_name_from_catalog(
+                &expanded,
+                context,
+                NameStableSeed::new(seed),
+                None,
+            )
+            .unwrap();
             let family = |identity: PersonalNameIdentity| match identity.given {
                 GivenNameResolution::Resolved { family_id, .. } => family_id,
                 _ => panic!("generated identities must resolve one family"),

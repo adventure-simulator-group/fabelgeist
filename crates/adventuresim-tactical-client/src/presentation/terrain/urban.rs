@@ -194,6 +194,7 @@ mod tests {
             scene_digest: "late-city".into(),
             playable_half_extent_metres: Vec2::splat(4.0),
             distant_buildings: vec![],
+            establishments: vec![],
             furniture_groups: vec![],
             distant_furniture: vec![],
             lods: vec![],
