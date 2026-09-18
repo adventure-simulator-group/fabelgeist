@@ -1,4 +1,8 @@
-//! Read-only previews of proposed allocations using current server eligibility.
+//! Read-only previews calculated from current server eligibility.
+//!
+//! A result reflects server state at calculation time. It matches execution
+//! only for the same allocation, character seed, and eligibility context;
+//! execution authorizes and validates against its own current state.
 use super::*;
 use crate::schedule::SchedulePreview;
 use adventuresim_core::activity::ActivityLocation;

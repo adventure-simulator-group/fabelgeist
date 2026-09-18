@@ -1,7 +1,8 @@
 //! Stable deterministic primitives shared across dependency layers.
 //!
-//! These functions participate in persisted and replayed behavior. Changing
-//! their output requires explicit versioning at every affected boundary.
+//! Identical canonical inputs and draw sequences are reproducible across
+//! supported targets. Intentional output changes require updating affected
+//! replay markers and generated fixtures.
 
 mod seed;
 mod stream;
