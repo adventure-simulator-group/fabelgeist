@@ -120,7 +120,7 @@ impl PreparedTreeImpostorAsset {
         }) {
             return false;
         }
-        let vista_seed = fabelgeist_determinism::splitmix64(0x6f61_6b00);
+        let vista_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
         [
             TreePresentationSpecies::EnglishOak,
             TreePresentationSpecies::CommonBeech,
@@ -171,7 +171,7 @@ pub(crate) fn prepare_art_demo_tree_impostor_asset(
             PreparedTreeLodBake::from_runtime(&bake, PreparedTreeImpostorUsage::Playable, species)
         })
         .collect::<Vec<_>>();
-    let vista_seed = fabelgeist_determinism::splitmix64(0x6f61_6b00);
+    let vista_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
     for vista_species in [
         TreePresentationSpecies::EnglishOak,
         TreePresentationSpecies::CommonBeech,

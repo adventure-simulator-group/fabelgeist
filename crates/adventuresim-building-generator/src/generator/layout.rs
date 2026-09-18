@@ -193,7 +193,7 @@ fn resolve_straight_stair_core(
                 };
                 candidates.push((
                     centre_distance,
-                    stable_noise(layout_seed(program), 0x51a1 + direction_salt, anchor),
+                    cell_random(layout_seed(program), direction_salt, anchor, fabelgeist_determinism::StreamId::new("building.stair-placement")).next_u64(),
                     origin,
                     direction,
                     cells,
@@ -312,7 +312,7 @@ fn allocate_rooms(
                 let candidate = (
                     fill_ratio,
                     geometry_score,
-                    stable_noise(seed, room_index as u64, cell) % 97,
+                    cell_random(seed, room_index as u64, cell, fabelgeist_determinism::StreamId::new("building.room-growth")).index(97) as u64,
                     cell,
                     room_index,
                 );
@@ -372,19 +372,12 @@ fn seed_score(
         } else {
             0
         }
-        + stable_noise(seed, room_index as u64, cell) % 499
+        + cell_random(seed, room_index as u64, cell, fabelgeist_determinism::StreamId::new("building.room-origin")).index(499) as u64
 }
 
-fn stable_noise(seed: u64, salt: u64, cell: Cell) -> u64 {
-    let mut value = seed
-        ^ salt.wrapping_mul(0x9e37_79b9_7f4a_7c15)
-        ^ (cell.x as u16 as u64) << 16
-        ^ cell.z as u16 as u64;
-    value ^= value >> 30;
-    value = value.wrapping_mul(0xbf58_476d_1ce4_e5b9);
-    value ^= value >> 27;
-    value = value.wrapping_mul(0x94d0_49bb_1331_11eb);
-    value ^ (value >> 31)
+// Room indices identify authored programme slots; cells identify spatial samples.
+fn cell_random(seed: u64, room_slot: u64, cell: Cell, stream: fabelgeist_determinism::StreamId) -> fabelgeist_determinism::DeterministicRng {
+    stream.rng(seed, &[room_slot, cell.x as u16 as u64, cell.z as u16 as u64])
 }
 
 fn room_counts(room_count: usize, assignments: &BTreeMap<Cell, usize>) -> Vec<usize> {

@@ -13,6 +13,7 @@
 //! renderer: the fork's WebGPU draw path loops `draw_indexed_indirect` where
 //! the native backend issues `multi_draw_indexed_indirect`.
 
+mod streams;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
@@ -24,7 +25,7 @@ use bevy::{
 };
 use bevy_eidolon::{prelude::*, prepass::CullComputeCamera};
 
-use crate::presentation::{bps, splitmix64, stable_text_seed, unit_hash};
+use crate::presentation::{bps, stable_text_seed};
 
 use super::{
     GrassInteractor, GroundScatterLayer,
@@ -453,9 +454,12 @@ pub(in crate::presentation) fn spawn_tuft_batches(
                     lod,
                     pigment.density,
                     species,
-                    splitmix64(
-                        base_seed ^ ((species.index() as u64) << 8 | lod.tier_index() as u64),
-                    ),
+                    streams::TUFT_MESH
+                        .seed(
+                            base_seed,
+                            &[species.index() as u64, lod.tier_index() as u64],
+                        )
+                        .to_u64(),
                     grass,
                 ),
             );
@@ -514,8 +518,9 @@ pub(in crate::presentation) fn scatter_cell_tufts(
     let mut emitted = 0_u32;
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let cell_hash = splitmix64(base_seed ^ cell);
+            let cell_hash = streams::CELL
+                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
+                .to_u64();
             if !placement.cell_allows(
                 cell_hash,
                 IVec2::new(x, z),
@@ -528,11 +533,12 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                 - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
             for tuft_z in 0..side {
                 for tuft_x in 0..side {
-                    let tuft_hash =
-                        splitmix64(cell_hash ^ (((tuft_x as u64) << 17) | ((tuft_z as u64) << 3)));
+                    let tuft_hash = streams::TUFT
+                        .seed(cell_hash, &[tuft_x as u64, tuft_z as u64])
+                        .to_u64();
                     let jitter = Vec2::new(
-                        unit_hash(tuft_hash) - 0.5,
-                        unit_hash(splitmix64(tuft_hash)) - 0.5,
+                        streams::JITTER_X.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
+                        streams::JITTER_Z.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
                     ) * footprint
                         * 0.35;
                     let centre =
@@ -546,17 +552,17 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                     };
                     let community = placement.community(centre);
                     let species =
-                        grass_species(community, splitmix64(tuft_hash ^ 0x7475_6674_5f63_656c));
+                        grass_species(community, streams::SPECIES.seed(tuft_hash, &[]).to_u64());
                     let batch = &mut species_batches[species.index()];
                     batch.push(InstanceData {
                         position: Vec3::new(centre.x, height, centre.y),
                         scale: 1.0,
-                        rotation: unit_hash(splitmix64(tuft_hash ^ 0x796177))
+                        rotation: streams::YAW.rng(tuft_hash, &[]).inclusive_unit_f32()
                             * core::f32::consts::TAU,
                         index: batch.len() as u32,
                         batch_id: 0,
                         seed: u32::from(coverage)
-                            | ((splitmix64(tuft_hash ^ 0x7365_6564) as u32) << 8),
+                            | ((streams::SHADER_SEED.seed(tuft_hash, &[]).to_u64() as u32) << 8),
                     });
                     emitted += 1;
                 }

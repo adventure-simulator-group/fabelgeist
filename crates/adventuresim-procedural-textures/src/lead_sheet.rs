@@ -7,7 +7,7 @@
 //! for forged iron.
 
 use bevy::{asset::Assets, image::Image, math::Vec3};
-use fabelgeist_determinism::inclusive_unit_f32;
+use fabelgeist_determinism::StreamId;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -21,11 +21,16 @@ fn hash(
     y: i32,
     period_x: i32,
     period_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = x.rem_euclid(period_x) as u64;
     let y = y.rem_euclid(period_y) as u64;
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, salt ^ (x << 32) ^ y))
+    params
+        .rng(
+            StreamId::new("texture.lead-sheet.lattice"),
+            &[field_seed, x, y],
+        )
+        .inclusive_unit_f32()
 }
 
 fn smooth(value: f32) -> f32 {
@@ -38,7 +43,7 @@ fn periodic_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
@@ -46,19 +51,40 @@ fn periodic_noise(
     let iy = y.floor() as i32;
     let tx = smooth(x.fract());
     let ty = smooth(y.fract());
-    let a = hash(params, ix, iy, cells_x, cells_y, salt);
-    let b = hash(params, ix + 1, iy, cells_x, cells_y, salt);
-    let c = hash(params, ix, iy + 1, cells_x, cells_y, salt);
-    let d = hash(params, ix + 1, iy + 1, cells_x, cells_y, salt);
+    let a = hash(params, ix, iy, cells_x, cells_y, field_seed);
+    let b = hash(params, ix + 1, iy, cells_x, cells_y, field_seed);
+    let c = hash(params, ix, iy + 1, cells_x, cells_y, field_seed);
+    let d = hash(params, ix + 1, iy + 1, cells_x, cells_y, field_seed);
     let upper = a + (b - a) * tx;
     let lower = c + (d - c) * tx;
     upper + (lower - upper) * ty
 }
 
 fn field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
-    let broad = periodic_noise(params, u, v, 3, 5, 0x17ec_5b92);
-    let medium = periodic_noise(params, u, v, 13, 17, 0x4d2a_9c31);
-    let fine = periodic_noise(params, u, v, 43, 47, 0x8b17_63de);
+    let broad = periodic_noise(
+        params,
+        u,
+        v,
+        3,
+        5,
+        params.field_seed(StreamId::new("texture.lead-sheet.broad"), &[]),
+    );
+    let medium = periodic_noise(
+        params,
+        u,
+        v,
+        13,
+        17,
+        params.field_seed(StreamId::new("texture.lead-sheet.medium"), &[]),
+    );
+    let fine = periodic_noise(
+        params,
+        u,
+        v,
+        43,
+        47,
+        params.field_seed(StreamId::new("texture.lead-sheet.fine"), &[]),
+    );
     let long_warp = (u * 2.0 * std::f32::consts::TAU).sin() * params.lead_sheet.field_long_warp_1
         + (u * params.lead_sheet.field_long_warp_2 * std::f32::consts::TAU).sin()
             * params.lead_sheet.field_long_warp_3;
@@ -68,10 +94,11 @@ fn field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
         + u)
         * std::f32::consts::TAU)
         .sin();
-    let dents = params
-        .lead_sheet
-        .dents
-        .sample(params, bevy::math::Vec2::new(u, v), 0x9145);
+    let dents = params.lead_sheet.dents.sample(
+        params,
+        bevy::math::Vec2::new(u, v),
+        params.field_seed(StreamId::new("texture.lead-sheet.dents"), &[]),
+    );
     (0.50 - dents.bowl
         + (broad - 0.5) * params.lead_sheet.field_height_1
         + (medium - 0.5) * params.lead_sheet.field_height_2

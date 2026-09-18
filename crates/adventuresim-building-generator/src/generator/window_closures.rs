@@ -21,14 +21,11 @@ fn window_closure_variant(
         && program.usage.is_none_or(|usage| usage == adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling) {
         return WindowClosureVariant::Shutter;
     }
-    let sample = fabelgeist_determinism::splitmix64(
-        program.seed
-            ^ opening.0.rotate_left(17)
-            ^ u64::from(storey_level).rotate_left(41),
-    );
-    if storey_level == 0 && sample.is_multiple_of(5) {
+    let mut random = fabelgeist_determinism::StreamId::new("building.window-closure")
+        .rng(program.seed, &[opening.0, u64::from(storey_level)]);
+    if storey_level == 0 && random.index(5) == 0 {
         WindowClosureVariant::BarredCasement
-    } else if sample.is_multiple_of(4) {
+    } else if random.index(4) == 0 {
         WindowClosureVariant::Fixed
     } else {
         WindowClosureVariant::Casement

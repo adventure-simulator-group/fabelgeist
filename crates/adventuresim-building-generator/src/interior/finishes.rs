@@ -2,32 +2,32 @@
 use super::InteriorPlacement;
 use crate::furniture::{FinishableFurnitureKind, FurnitureKey, FurnitureWoodState};
 use crate::{BuildingPlan, BuildingProgram, RoomKind};
-use std::collections::BTreeMap;
 
-const FINISH_DOMAIN: u64 = 0x6675_726e_6973_6801;
+const FINISH_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.furniture-finish");
 
 pub(super) fn assign(
     plan: &BuildingPlan,
     program: &BuildingProgram,
     placements: &mut [InteriorPlacement],
 ) {
-    let mut occurrences = BTreeMap::<_, u64>::new();
     for placement in placements {
         let Some(kind) = FinishableFurnitureKind::from_kind(placement.key.kind()) else {
             continue;
         };
-        let occurrence = occurrences
-            .entry((placement.storey, placement.room_id, placement.key.kind()))
-            .or_default();
-        let seed = fabelgeist_determinism::mix64(
-            program.seed
-                ^ FINISH_DOMAIN
-                ^ (u64::from(placement.storey) << 48)
-                ^ (u64::from(placement.room_id) << 32)
-                ^ ((placement.key.kind() as u64) << 16)
-                ^ *occurrence,
+        // Spatial placement identifies furniture independently of traversal order.
+        let mut random = FINISH_DOMAIN.rng(
+            program.seed,
+            &[
+                u64::from(placement.storey),
+                u64::from(placement.room_id),
+                placement.key.kind() as u64,
+                placement.key.variant() as u64,
+                u64::from(placement.centre_metres.x.to_bits()),
+                u64::from(placement.centre_metres.y.to_bits()),
+                placement.facing as u64,
+            ],
         );
-        *occurrence += 1;
         let room = plan
             .storeys
             .iter()
@@ -59,7 +59,7 @@ pub(super) fn assign(
         placement.key = FurnitureKey::wood(
             kind,
             placement.key.variant(),
-            states[seed as usize % states.len()],
+            states[random.index(states.len())],
         );
     }
 }

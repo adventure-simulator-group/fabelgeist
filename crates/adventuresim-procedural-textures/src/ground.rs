@@ -1,32 +1,45 @@
+mod streams;
 use super::*;
+
+fn soil_rng(
+    params: &crate::TextureParameters,
+    cell_x: i32,
+    cell_y: i32,
+    period: i32,
+    field_seed: u64,
+) -> fabelgeist_determinism::DeterministicRng {
+    params.rng(
+        streams::LATTICE,
+        &[
+            field_seed,
+            cell_x.rem_euclid(period) as u64,
+            cell_y.rem_euclid(period) as u64,
+        ],
+    )
+}
 
 fn soil_random(
     params: &crate::TextureParameters,
     cell_x: i32,
     cell_y: i32,
     period: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
-    let wrapped_x = cell_x.rem_euclid(period) as u64;
-    let wrapped_y = cell_y.rem_euclid(period) as u64;
-    let hash = crate::parameters::seeded_hash(
-        params,
-        wrapped_x | (wrapped_y << 16) | salt.rotate_left(33),
-    );
-    unit_hash(hash)
+    soil_rng(params, cell_x, cell_y, period, field_seed).inclusive_unit_f32()
 }
 
 fn soil_value_noise(
     params: &crate::TextureParameters,
     point: Vec2,
     frequency: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let scaled = point * frequency as f32;
     let cell = scaled.floor().as_ivec2();
     let local = scaled - cell.as_vec2();
     let blend = local * local * (Vec2::splat(3.0) - local * 2.0);
-    let sample = |x: i32, y: i32| soil_random(params, cell.x + x, cell.y + y, frequency, salt);
+    let sample =
+        |x: i32, y: i32| soil_random(params, cell.x + x, cell.y + y, frequency, field_seed);
     let lower = sample(0, 0).lerp(sample(1, 0), blend.x);
     let upper = sample(0, 1).lerp(sample(1, 1), blend.x);
     lower.lerp(upper, blend.y) * 2.0 - 1.0
@@ -35,7 +48,7 @@ fn soil_value_noise(
 #[derive(Clone, Copy, Debug)]
 struct SoilClusterRecipe {
     grid: i32,
-    salt: u64,
+    field_seed: u64,
     density: f32,
     base_radius: f32,
     radius_span: f32,
@@ -51,7 +64,13 @@ impl SoilClusterRecipe {
         for offset_y in -1..=1 {
             for offset_x in -1..=1 {
                 let cell = base_cell + IVec2::new(offset_x, offset_y);
-                let enabled = soil_random(params, cell.x, cell.y, self.grid, self.salt ^ 0x5de3);
+                let enabled = soil_random(
+                    params,
+                    cell.x,
+                    cell.y,
+                    self.grid,
+                    params.field_seed(streams::PRESENCE, &[self.field_seed]),
+                );
                 if enabled > self.density + 0.14 {
                     continue;
                 }
@@ -63,26 +82,51 @@ impl SoilClusterRecipe {
                 let centre = cell.as_vec2()
                     + Vec2::new(
                         params.ground.sample_centre_1
-                            + soil_random(params, cell.x, cell.y, self.grid, self.salt ^ 0x13a7)
-                                * params.ground.sample_centre_2,
+                            + soil_random(
+                                params,
+                                cell.x,
+                                cell.y,
+                                self.grid,
+                                params.field_seed(streams::CENTER_X, &[self.field_seed]),
+                            ) * params.ground.sample_centre_2,
                         params.ground.sample_centre_3
-                            + soil_random(params, cell.x, cell.y, self.grid, self.salt ^ 0x91cb)
-                                * params.ground.sample_centre_4,
+                            + soil_random(
+                                params,
+                                cell.x,
+                                cell.y,
+                                self.grid,
+                                params.field_seed(streams::CENTER_Y, &[self.field_seed]),
+                            ) * params.ground.sample_centre_4,
                     );
-                let parent_angle =
-                    soil_random(params, cell.x, cell.y, self.grid, self.salt ^ 0xc72d)
-                        * core::f32::consts::TAU;
-                let child_count = 2
-                    + (soil_random(params, cell.x, cell.y, self.grid, self.salt ^ 0x314f)
-                        * params.ground.sample_child_count)
-                        .floor()
-                        .min(3.0) as u32;
+                let parent_angle = soil_random(
+                    params,
+                    cell.x,
+                    cell.y,
+                    self.grid,
+                    params.field_seed(streams::ANGLE, &[self.field_seed]),
+                ) * core::f32::consts::TAU;
+                let child_count = 2 + soil_rng(
+                    params,
+                    cell.x,
+                    cell.y,
+                    self.grid,
+                    params.field_seed(streams::CHILD_COUNT, &[self.field_seed]),
+                )
+                .index(params.ground.cluster_child_variants)
+                    as u32;
                 let mut cluster = 0.0_f32;
                 for child in 0..child_count {
-                    let child_salt = self.salt ^ (u64::from(child) + 1).wrapping_mul(0x9e37);
+                    let child_salt = params
+                        .field_seed(streams::CLUSTER_CHILD, &[self.field_seed, u64::from(child)]);
                     let child_angle = parent_angle
                         + core::f32::consts::TAU
-                            * soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0x7b21);
+                            * soil_random(
+                                params,
+                                cell.x,
+                                cell.y,
+                                self.grid,
+                                params.field_seed(streams::CHILD_ANGLE, &[child_salt]),
+                            );
                     let radial = if child == 0 {
                         0.0
                     } else {
@@ -93,33 +137,59 @@ impl SoilClusterRecipe {
                                     cell.x,
                                     cell.y,
                                     self.grid,
-                                    child_salt ^ 0x2ad9,
+                                    params.field_seed(streams::CHILD_RADIUS, &[child_salt]),
                                 ) * params.ground.sample_radial_2)
                     };
                     let child_centre =
                         centre + Vec2::new(child_angle.cos(), child_angle.sin()) * radial;
                     let axis_angle = parent_angle
-                        + (soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0x8f61)
-                            - 0.5)
+                        + (soil_random(
+                            params,
+                            cell.x,
+                            cell.y,
+                            self.grid,
+                            params.field_seed(streams::AXIS_ANGLE, &[child_salt]),
+                        ) - 0.5)
                             * params.ground.sample_axis_angle;
                     let axis = Vec2::new(axis_angle.cos(), axis_angle.sin());
                     let delta = scaled - child_centre;
                     let local = Vec2::new(delta.dot(axis), delta.perp_dot(axis));
                     let radius = self.base_radius
                         + self.radius_span
-                            * soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0x27f1);
+                            * soil_random(
+                                params,
+                                cell.x,
+                                cell.y,
+                                self.grid,
+                                params.field_seed(streams::RADIUS, &[child_salt]),
+                            );
                     let aspect = params.ground.sample_aspect_1
-                        + soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0xe419)
-                            * params.ground.sample_aspect_2;
+                        + soil_random(
+                            params,
+                            cell.x,
+                            cell.y,
+                            self.grid,
+                            params.field_seed(streams::ASPECT, &[child_salt]),
+                        ) * params.ground.sample_aspect_2;
                     let normalized = Vec2::new(local.x / radius, local.y / (radius * aspect));
                     let angle = normalized.y.atan2(normalized.x);
                     let first_lobes = 3.0
-                        + (soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0x6bd3)
-                            * 3.0)
-                            .floor();
+                        + soil_rng(
+                            params,
+                            cell.x,
+                            cell.y,
+                            self.grid,
+                            params.field_seed(streams::LOBES, &[child_salt]),
+                        )
+                        .index(3) as f32;
                     let second_lobes = first_lobes + 2.0;
-                    let phase = soil_random(params, cell.x, cell.y, self.grid, child_salt ^ 0x41af)
-                        * core::f32::consts::TAU;
+                    let phase = soil_random(
+                        params,
+                        cell.x,
+                        cell.y,
+                        self.grid,
+                        params.field_seed(streams::PHASE, &[child_salt]),
+                    ) * core::f32::consts::TAU;
                     let edge_warp = 1.0
                         + params.ground.sample_edge_warp_1 * (angle * first_lobes + phase).sin()
                         + params.ground.sample_edge_warp_2
@@ -174,7 +244,7 @@ fn forest_soil_detached_relief(
         ));
     let crumb_clusters = SoilClusterRecipe {
         grid: 68,
-        salt: 0x6f2b,
+        field_seed: params.field_seed(streams::CRUMB_CLUSTERS, &[]),
         density: params.ground.forest_soil_detached_relief_crumb_clusters_1
             + loose_dry * params.ground.forest_soil_detached_relief_crumb_clusters_2,
         base_radius: params.ground.forest_soil_detached_relief_crumb_clusters_3,
@@ -184,8 +254,12 @@ fn forest_soil_detached_relief(
     }
     .sample(params, sample);
     let crumbs = crumb_clusters * contact_band * loose_dry;
-    let granular = soil_value_noise(params, sample, 97, 0xf28b)
-        * params.ground.forest_soil_detached_relief_granular
+    let granular = soil_value_noise(
+        params,
+        sample,
+        97,
+        params.field_seed(streams::GRANULAR, &[]),
+    ) * params.ground.forest_soil_detached_relief_granular
         * loose_dry;
     (crumbs, granular)
 }
@@ -197,7 +271,7 @@ fn forest_soil_context(
 ) -> (Vec2, f32, ForestSoilConditions) {
     let point = Vec2::new(u, v);
     let warp = Vec2::new(
-        soil_value_noise(params, point, 5, 0x8ae1),
+        soil_value_noise(params, point, 5, params.field_seed(streams::WARP_X, &[])),
         soil_value_noise(
             params,
             point
@@ -206,17 +280,31 @@ fn forest_soil_context(
                     params.ground.forest_soil_context_warp_2,
                 ),
             5,
-            0x42d7,
+            params.field_seed(streams::WARP_Y, &[]),
         ),
     ) * params.ground.forest_soil_context_warp_3;
     let sample = point + warp;
-    let broad = soil_value_noise(params, sample, 3, 0x7c31)
-        * params.ground.forest_soil_context_broad_1
-        + soil_value_noise(params, sample, 7, 0xb527) * params.ground.forest_soil_context_broad_2;
+    let broad = soil_value_noise(
+        params,
+        sample,
+        3,
+        params.field_seed(streams::BROAD_PRIMARY, &[]),
+    ) * params.ground.forest_soil_context_broad_1
+        + soil_value_noise(
+            params,
+            sample,
+            7,
+            params.field_seed(streams::BROAD_SECONDARY, &[]),
+        ) * params.ground.forest_soil_context_broad_2;
     let compaction = smoothstep(
         -params.ground.forest_soil_context_compaction_1,
         params.ground.forest_soil_context_compaction_2,
-        soil_value_noise(params, sample, 3, 0x1d93),
+        soil_value_noise(
+            params,
+            sample,
+            3,
+            params.field_seed(streams::COMPACTION, &[]),
+        ),
     );
     let moisture = smoothstep(
         -params.ground.forest_soil_context_moisture_1,
@@ -229,7 +317,7 @@ fn forest_soil_context(
                     params.ground.forest_soil_context_moisture_4,
                 ),
             4,
-            0x4bd1,
+            params.field_seed(streams::MOISTURE, &[]),
         ) - broad * params.ground.forest_soil_context_moisture_5,
     );
     (
@@ -254,7 +342,7 @@ fn forest_soil_sample(params: &crate::TextureParameters, u: f32, v: f32) -> f32 
     // count instead of leaving the same detached stamps at lower amplitude.
     let hollows = SoilClusterRecipe {
         grid: 10,
-        salt: 0xd1a9,
+        field_seed: params.field_seed(streams::MACRO_AGGREGATES, &[]),
         density: params.ground.forest_soil_sample_hollows_1
             + loose_soil * params.ground.forest_soil_sample_hollows_2
             + conditions.moisture * params.ground.forest_soil_sample_hollows_3,
@@ -269,7 +357,7 @@ fn forest_soil_sample(params: &crate::TextureParameters, u: f32, v: f32) -> f32 
     .sample(params, sample);
     let cohesive_clods = SoilClusterRecipe {
         grid: 15,
-        salt: 0x39e7,
+        field_seed: params.field_seed(streams::MEDIUM_AGGREGATES, &[]),
         density: params.ground.forest_soil_sample_cohesive_clods_1
             + loose_soil * params.ground.forest_soil_sample_cohesive_clods_2
             + conditions.moisture * params.ground.forest_soil_sample_cohesive_clods_3,
@@ -284,7 +372,7 @@ fn forest_soil_sample(params: &crate::TextureParameters, u: f32, v: f32) -> f32 
     .sample(params, sample);
     let aggregate = SoilClusterRecipe {
         grid: 34,
-        salt: 0xa613,
+        field_seed: params.field_seed(streams::FINE_AGGREGATES, &[]),
         density: params.ground.forest_soil_sample_aggregate_1
             + loose_soil * params.ground.forest_soil_sample_aggregate_2
             + conditions.moisture * params.ground.forest_soil_sample_aggregate_3,
@@ -325,7 +413,7 @@ fn forest_soil_sample(params: &crate::TextureParameters, u: f32, v: f32) -> f32 
                     params.ground.forest_soil_sample_pore_breakup_4,
                 ),
             53,
-            0x2cf5,
+            params.field_seed(streams::PORES, &[]),
         ),
     );
     let pores = saddle
@@ -462,7 +550,6 @@ pub enum LitterDetail {
 pub struct LitterStratumRecipe {
     stratum: LitterStratum,
     grid: i32,
-    salt: u64,
     density: f32,
     minimum_radius: f32,
     radius_span: f32,
@@ -475,7 +562,6 @@ const LITTER_STRATA: [LitterStratumRecipe; 3] = [
     LitterStratumRecipe {
         stratum: LitterStratum::Lower,
         grid: 40,
-        salt: 0x1eaf_0001,
         density: 0.86,
         minimum_radius: 0.34,
         radius_span: 0.30,
@@ -486,7 +572,6 @@ const LITTER_STRATA: [LitterStratumRecipe; 3] = [
     LitterStratumRecipe {
         stratum: LitterStratum::Middle,
         grid: 28,
-        salt: 0x1eaf_0002,
         density: 0.68,
         minimum_radius: 0.46,
         radius_span: 0.28,
@@ -497,7 +582,6 @@ const LITTER_STRATA: [LitterStratumRecipe; 3] = [
     LitterStratumRecipe {
         stratum: LitterStratum::Upper,
         grid: 21,
-        salt: 0x1eaf_0003,
         density: 0.48,
         minimum_radius: 0.43,
         radius_span: 0.18,
@@ -521,21 +605,30 @@ fn litter_shape_class(
     cell: IVec2,
     recipe: LitterStratumRecipe,
 ) -> LitterShapeClass {
-    let selector = soil_random(params, cell.x, cell.y, recipe.grid, recipe.salt ^ 0x23e1);
-    match recipe.stratum {
-        LitterStratum::Lower if selector < 0.55 => LitterShapeClass::Humified,
-        LitterStratum::Lower if selector < 0.85 => LitterShapeClass::TornFragment,
-        LitterStratum::Lower => LitterShapeClass::Skeleton,
-        LitterStratum::Middle if selector < 0.40 => LitterShapeClass::TornFragment,
-        LitterStratum::Middle if selector < 0.58 => LitterShapeClass::HalfLeaf,
-        LitterStratum::Middle if selector < 0.70 => LitterShapeClass::CurledOak,
-        LitterStratum::Middle if selector < 0.88 => LitterShapeClass::Skeleton,
-        LitterStratum::Middle => LitterShapeClass::IntactOak,
-        LitterStratum::Upper if selector < 0.65 => LitterShapeClass::IntactOak,
-        LitterStratum::Upper if selector < 0.80 => LitterShapeClass::CurledOak,
-        LitterStratum::Upper if selector < 0.95 => LitterShapeClass::HalfLeaf,
-        LitterStratum::Upper => LitterShapeClass::TornFragment,
-    }
+    use LitterShapeClass::*;
+    // Authored shape mixture, ordered by biological decomposition class.
+    let weights = match recipe.stratum {
+        LitterStratum::Lower => [55, 30, 15, 0, 0, 0],
+        LitterStratum::Middle => [0, 40, 18, 18, 12, 12],
+        LitterStratum::Upper => [0, 5, 0, 15, 15, 65],
+    };
+    let index = soil_rng(
+        params,
+        cell.x,
+        cell.y,
+        recipe.grid,
+        params.field_seed(streams::LEAF_SHAPE, &[recipe.stratum as u64]),
+    )
+    .weighted_index(&weights)
+    .expect("authored litter weights total one hundred");
+    [
+        Humified,
+        TornFragment,
+        Skeleton,
+        HalfLeaf,
+        CurledOak,
+        IntactOak,
+    ][index]
 }
 
 fn broad_oak_width(params: &crate::TextureParameters, t: f32, phase: f32, side: f32) -> f32 {
@@ -1057,12 +1150,17 @@ fn humified_debris_patch(params: &crate::TextureParameters, point: Vec2) -> Litt
     let pocket = smoothstep(
         -params.ground.humified_debris_patch_pocket_1,
         params.ground.humified_debris_patch_pocket_2,
-        soil_value_noise(params, point, 5, 0x8c31),
+        soil_value_noise(params, point, 5, params.field_seed(streams::HUMUS, &[])),
     );
     let breakup = smoothstep(
         -params.ground.humified_debris_patch_breakup_1,
         params.ground.humified_debris_patch_breakup_2,
-        soil_value_noise(params, point, 47, 0xe729),
+        soil_value_noise(
+            params,
+            point,
+            47,
+            params.field_seed(streams::HUMUS_BREAKUP, &[]),
+        ),
     );
     let coverage = pocket
         * (params.ground.humified_debris_patch_coverage_1
@@ -1070,7 +1168,14 @@ fn humified_debris_patch(params: &crate::TextureParameters, point: Vec2) -> Litt
     LitterLeafImprint {
         coverage,
         dome: coverage * (0.025 + breakup * 0.040),
-        tone: (0.17 + soil_value_noise(params, point, 19, 0x4a61) * 0.055).clamp(0.08, 0.25),
+        tone: (0.17
+            + soil_value_noise(
+                params,
+                point,
+                19,
+                params.field_seed(streams::HUMUS_TONE, &[]),
+            ) * 0.055)
+            .clamp(0.08, 0.25),
         contact: pocket * (0.38 + (1.0 - breakup) * 0.36),
         ..LitterLeafImprint::default()
     }
@@ -1080,7 +1185,7 @@ fn forest_litter_far_sample(params: &crate::TextureParameters, point: Vec2) -> F
     let broad_humus = smoothstep(
         -params.ground.forest_litter_far_sample_broad_humus_1,
         params.ground.forest_litter_far_sample_broad_humus_2,
-        soil_value_noise(params, point, 4, 0x8c31),
+        soil_value_noise(params, point, 4, params.field_seed(streams::HUMUS, &[])),
     );
     let merged_litter = smoothstep(
         -params.ground.forest_litter_far_sample_merged_litter_1,
@@ -1093,9 +1198,13 @@ fn forest_litter_far_sample(params: &crate::TextureParameters, point: Vec2) -> F
                     params.ground.forest_litter_far_sample_merged_litter_4,
                 ),
             7,
-            0x3d91,
-        ) + soil_value_noise(params, point, 13, 0xa741)
-            * params.ground.forest_litter_far_sample_merged_litter_5,
+            params.field_seed(streams::MERGED_LITTER, &[]),
+        ) + soil_value_noise(
+            params,
+            point,
+            13,
+            params.field_seed(streams::MERGED_LITTER_DETAIL, &[]),
+        ) * params.ground.forest_litter_far_sample_merged_litter_5,
     );
     let coverage = (broad_humus * params.ground.forest_litter_far_sample_coverage_1
         + merged_litter * params.ground.forest_litter_far_sample_coverage_2)
@@ -1118,7 +1227,7 @@ fn forest_litter_far_sample(params: &crate::TextureParameters, point: Vec2) -> F
                 params.ground.forest_litter_far_sample_broad_relief_2,
             ),
         5,
-        0x91b3,
+        params.field_seed(streams::BROAD_RELIEF, &[]),
     ) * params.ground.forest_litter_far_sample_broad_relief_3;
     ForestLitterSample {
         height: (0.49 + broad_humus * 0.045 + merged_litter * 0.13 + broad_relief)
@@ -1145,7 +1254,12 @@ fn forest_litter_sample_with_detail(
 ) -> ForestLitterSample {
     let point = Vec2::new(u, v);
     let warp = Vec2::new(
-        soil_value_noise(params, point, 7, 0x51a7),
+        soil_value_noise(
+            params,
+            point,
+            7,
+            params.field_seed(streams::LITTER_WARP_X, &[]),
+        ),
         soil_value_noise(
             params,
             point
@@ -1154,7 +1268,7 @@ fn forest_litter_sample_with_detail(
                     params.ground.forest_litter_sample_with_detail_warp_2,
                 ),
             7,
-            0x8d31,
+            params.field_seed(streams::LITTER_WARP_Y, &[]),
         ),
     ) * params.ground.forest_litter_sample_with_detail_warp_3;
     let sample = point + warp;
@@ -1264,10 +1378,14 @@ fn forest_litter_sample_with_detail(
         + lower.tone * lower.coverage * (1.0 - middle.coverage) * (1.0 - upper.coverage)
         + middle.tone * middle.coverage * (1.0 - upper.coverage)
         + upper.tone * upper.coverage;
-    let exposed_soil_tone = (soil_value_noise(params, sample, 11, 0xb875)
-        * params
-            .ground
-            .forest_litter_sample_with_detail_exposed_soil_tone_1
+    let exposed_soil_tone = (soil_value_noise(
+        params,
+        sample,
+        11,
+        params.field_seed(streams::EXPOSED_SOIL_TONE, &[]),
+    ) * params
+        .ground
+        .forest_litter_sample_with_detail_exposed_soil_tone_1
         + params
             .ground
             .forest_litter_sample_with_detail_exposed_soil_tone_2)
@@ -1298,9 +1416,10 @@ mod litter_tests {
     use super::*;
 
     fn base_mip(image: &Image, bytes_per_pixel: usize, level: u32) -> &[u8] {
-        let size = FOREST_LITTER_TEXTURE_SIZE >> level;
+        let base_size = image.texture_descriptor.size.width;
+        let size = base_size >> level;
         let offset = (0..level)
-            .map(|prior| (FOREST_LITTER_TEXTURE_SIZE >> prior).pow(2) as usize * bytes_per_pixel)
+            .map(|prior| (base_size >> prior).pow(2) as usize * bytes_per_pixel)
             .sum::<usize>();
         &image.data.as_deref().unwrap()[offset..offset + size.pow(2) as usize * bytes_per_pixel]
     }
@@ -1613,7 +1732,11 @@ mod litter_tests {
             ImageFormat::Png,
         )
         .unwrap();
-        for (level, size) in [(3, 128), (4, 64)] {
+        for level in [
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL,
+            FOREST_LITTER_SEMANTIC_MIP_LEVEL + 1,
+        ] {
+            let size = surface.texture_descriptor.size.width >> level;
             save_png(
                 &output.join(format!("forest-litter-interpreted-mip-{size}.png")),
                 &appearance(base_mip(&surface, 4, level)),

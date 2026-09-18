@@ -7,12 +7,11 @@ use crate::{
     physiology::{self, BodyRegion, CurvePoint, Humour, Meter, MeterCurve, MeterVector},
     strategic_time::MINUTES_PER_DAY,
 };
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 use serde::{Deserialize, Serialize};
 
 pub const DISEASE_RULESET_VERSION: u16 = 1;
 pub const PHYSIOLOGY_VITALS_THRESHOLD: f32 = 2.0;
-const SEED_DOMAIN: &[u8] = b"adventuresim/disease/severity/v1\0";
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -1376,45 +1375,35 @@ pub struct DiseaseState {
     pub terminal_failure: Option<TerminalFailure>,
 }
 
-fn fnv(bytes: impl IntoIterator<Item = u8>) -> u64 {
-    let mut h = 0xcbf29ce484222325u64;
-    for b in bytes {
-        h ^= u64::from(b);
-        h = h.wrapping_mul(0x100000001b3);
-    }
-    h
-}
 pub fn severity_seed(e: InfectionEpisode) -> u64 {
-    fnv(SEED_DOMAIN
-        .iter()
-        .copied()
-        .chain(e.id.to_le_bytes())
-        .chain(e.character_id.to_le_bytes())
-        .chain([e.disease_id as u8])
-        .chain(e.contracted_at.to_le_bytes()))
-}
-pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
-    fnv(b"adventuresim/disease/exposure/v1\0"
-        .iter()
-        .copied()
-        .chain(character_id.to_le_bytes())
-        .chain(outbreak_id.bytes()))
+    StreamId::new("disease.severity")
+        .rng(
+            e.id,
+            &[e.character_id, e.disease_id as u64, e.contracted_at],
+        )
+        .next_u64()
 }
 
-/// Contact candidates vary at minute granularity. FNV supplies stable domain
-/// identity and this finalizer avalanches adjacent minute suffixes so the high
-/// 53 bits consumed by acquisition rolls are not correlated.
+pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> u64 {
+    Seed::derive(
+        &character_id.to_le_bytes(),
+        StreamId::new("disease.outbreak-exposure"),
+        &[outbreak_id.as_bytes()],
+    )
+    .rng()
+    .next_u64()
+}
+
+/// Minute-specific contact draws are independent of neighboring exposures.
 pub fn contact_exposure_seed(
     target_id: u64,
     source_id: u64,
     source_episode_id: u64,
     minute: u64,
 ) -> u64 {
-    let value = outbreak_exposure_seed(
-        target_id,
-        &format!("party:{source_id}:{source_episode_id}:{minute}"),
-    );
-    mix64(value)
+    StreamId::new("disease.contact-exposure")
+        .rng(target_id, &[source_id, source_episode_id, minute])
+        .next_u64()
 }
 
 /// True while an episode of the same disease remains unresolved at the
@@ -1583,7 +1572,7 @@ pub fn protected_presence_exposure_source(
 }
 
 pub fn severity(e: InfectionEpisode, immunity: f32) -> f32 {
-    let unit = (severity_seed(e) >> 11) as f64 / (1u64 << 53) as f64;
+    let unit = fabelgeist_determinism::unit_f64(severity_seed(e));
     let innate = (immunity / 5.0).clamp(0.0, 1.0);
     ((0.72 + unit as f32 * 0.56) * (1.0 - innate * 0.62)).max(if immunity <= 0.0 {
         1.85
@@ -1601,7 +1590,7 @@ pub fn acquisition_succeeds(
     let resistance = (immunity / 5.0).clamp(0.0, 1.0) * 0.72 + prior_immunity.clamp(0.0, 0.95);
     let chance =
         (definition.base_acquisition * exposure.max(0.0) * (1.0 - resistance)).clamp(0.0, 1.0);
-    (seed >> 11) as f64 / ((1u64 << 53) as f64) < chance as f64
+    fabelgeist_determinism::unit_f64(seed) < chance as f64
 }
 
 /// Absolute exposure minute at which an outbreak infects this character. Using
@@ -1621,8 +1610,7 @@ pub fn exposure_threshold_minute(
     if hazard <= 0.0 {
         return None;
     }
-    let unit =
-        (((seed >> 11) as f64 + 0.5) / (1u64 << 53) as f64).clamp(f64::EPSILON, 1.0 - f64::EPSILON);
+    let unit = fabelgeist_determinism::unit_f64(seed).clamp(f64::EPSILON, 1.0 - f64::EPSILON);
     let minutes = (-unit.ln() / (hazard as f64)).ceil() as u64;
     Some(outbreak_start.saturating_add(minutes))
 }
@@ -2298,7 +2286,9 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         ],
         DiseaseId::Erysipelas => {
             let limb =
-                [LeftArm, RightArm, LeftLeg, RightLeg][(severity_seed(episode) as usize) % 4];
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id, &[])
+                    .index(4)];
             vec![(limb, 1.0), (Chest, 0.35)]
         }
         DiseaseId::Smallpox => vec![
@@ -2312,7 +2302,9 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         ],
         DiseaseId::Plague => {
             let limb =
-                [LeftArm, RightArm, LeftLeg, RightLeg][(severity_seed(episode) as usize) % 4];
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id, &[])
+                    .index(4)];
             vec![(Chest, 1.0), (Abdomen, 0.75), (Head, 0.55), (limb, 0.8)]
         }
         DiseaseId::Consumption => vec![(Chest, 1.0), (Abdomen, 0.3)],
@@ -2328,7 +2320,9 @@ fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
         ],
         DiseaseId::Bilwisschuss => {
             let limb =
-                [LeftArm, RightArm, LeftLeg, RightLeg][(severity_seed(episode) as usize) % 4];
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id, &[])
+                    .index(4)];
             vec![(limb, 1.0), (Head, 0.3)]
         }
         DiseaseId::Kobeldunst => vec![(Head, 1.0), (Chest, 0.9), (Abdomen, 0.35)],
@@ -2356,9 +2350,9 @@ pub fn observed_symptoms(episodes: &[InfectionEpisode], now: u64, immunity: f32)
         Symptom::Rash,
         Symptom::Trembling,
     ];
-    let seed = severity_seed(*seed_episode);
-    for shift in [0, 11] {
-        let finding = INCIDENTAL[((seed >> shift) as usize) % INCIDENTAL.len()];
+    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id, &[]);
+    for _ in 0..2 {
+        let finding = INCIDENTAL[random.index(INCIDENTAL.len())];
         if !symptoms.contains(&finding) {
             symptoms.push(finding);
         }
@@ -2447,7 +2441,7 @@ mod tests {
     fn seed_is_domain_stable_and_uses_identity() {
         assert_eq!(
             severity_seed(e(1, DiseaseId::Influenza)),
-            17281431899313043311
+            3728249043455261031
         );
         assert_ne!(
             severity_seed(e(1, DiseaseId::Influenza)),
@@ -2962,9 +2956,7 @@ mod tests {
     #[test]
     fn chronological_contact_chain_is_order_independent_and_chunk_invariant() {
         let targets = [1, 2, 3].into_iter().collect();
-        let initial = [(1, vec![timeline_episode(11, 1, 0)])]
-            .into_iter()
-            .collect();
+        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
         let immunity = [(1, 0.0), (2, 0.0), (3, 0.0)].into_iter().collect();
         let windows = [
             ContactWindow {
@@ -3087,9 +3079,7 @@ mod tests {
     #[test]
     fn synchronized_prevention_and_clipped_timeline_are_executable() {
         let targets = [1, 2].into_iter().collect();
-        let initial = [(1, vec![timeline_episode(31, 1, 0)])]
-            .into_iter()
-            .collect();
+        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
         let immunity = [(1, 0.0), (2, 0.0)].into_iter().collect();
         let window = [ContactWindow {
             low_id: 1,

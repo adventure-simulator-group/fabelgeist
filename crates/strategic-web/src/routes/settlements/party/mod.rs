@@ -12,3 +12,6 @@ include!("training_activity.rs");
 include!("inventory_medical.rs");
 include!("social.rs");
 include!("transfers.rs");
+
+mod schedule_preview;
+pub(super) use schedule_preview::preview_training_schedule;

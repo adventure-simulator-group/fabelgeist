@@ -1,8 +1,10 @@
+mod orientation;
+use fabelgeist_determinism::StreamId;
+use orientation::{crown_group_right, lod1_macro_cluster_axis, subcluster_phase};
 mod card_mesh;
 mod raster;
 
 use card_mesh::*;
-use fabelgeist_determinism::splitmix64;
 use raster::*;
 
 use super::super::super::*;
@@ -494,8 +496,7 @@ fn tree_bake_cards_with_style(
                     let subcluster_key = u16::from(primary_group)
                         * LOD1_MACRO_SUBCLUSTERS_PER_PRIMARY as u16
                         + subcluster as u16;
-                    let phase = unit_hash(splitmix64(seed ^ u64::from(subcluster_key)))
-                        * core::f32::consts::FRAC_PI_2;
+                    let phase = subcluster_phase(seed, subcluster_key);
                     for facing in 0..LOD1_CARD_FACINGS_PER_SUBCLUSTER {
                         let source_group = u16::from(primary_group)
                             * LOD1_MACRO_CARDS_PER_PRIMARY as u16
@@ -623,52 +624,6 @@ fn lod1_macro_cluster_ranges(branches: &[TreeBranchSegment], primary_group: u8) 
         .collect()
 }
 
-fn lod1_macro_cluster_axis(
-    branches: &[TreeBranchSegment],
-    primary_group: u8,
-    secondary_group_range: (u16, u16),
-) -> Vec3 {
-    let (first, last) = secondary_group_range;
-    let axis = branches
-        .iter()
-        .filter(|branch| {
-            branch.depth == 2
-                && branch.primary_group == primary_group
-                && (first..=last).contains(&branch.secondary_group)
-        })
-        .map(|branch| {
-            let direction = branch.end - branch.start;
-            direction.normalize_or_zero() * direction.length()
-        })
-        .sum::<Vec3>();
-    if axis.length_squared() > 0.01 {
-        axis.normalize()
-    } else {
-        crown_group_right(branches, primary_group)
-    }
-}
-
-fn crown_group_right(branches: &[TreeBranchSegment], group: u8) -> Vec3 {
-    branches
-        .iter()
-        .filter(|branch| branch.depth == 1 && branch.primary_group == group)
-        .max_by(|left, right| {
-            left.end
-                .xz()
-                .length_squared()
-                .total_cmp(&right.end.xz().length_squared())
-        })
-        .map(|branch| {
-            let horizontal = branch.end.xz().normalize_or_zero();
-            if horizontal.length_squared() > 0.25 {
-                Vec3::new(horizontal.x, 0.0, horizontal.y)
-            } else {
-                Vec3::X
-            }
-        })
-        .unwrap_or(Vec3::X)
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "this domain boundary names each independent input explicitly"
@@ -778,7 +733,7 @@ pub(in crate::presentation) fn tree_source_geometry_hash(
             leaf.center.z,
             leaf.length,
             leaf.width,
-            f32::from(leaf.shoot_id),
+            leaf.shoot_id as f32,
         ] {
             hash ^= u64::from(value.to_bits());
             hash = hash.wrapping_mul(0x100_0000_01b3);
@@ -794,7 +749,14 @@ pub(in crate::presentation) fn tree_impostor_material(
 ) -> TacticalTreeImpostorMaterial {
     TacticalTreeImpostorMaterial {
         baked_color,
-        parameters: Vec4::new(lod as f32, unit_hash(seed), 0.08 + lod as f32 * 0.018, 1.0),
+        parameters: Vec4::new(
+            lod as f32,
+            StreamId::new("visual.obstacles.tree.impostor.material-variation")
+                .rng(seed, &[])
+                .inclusive_unit_f32(),
+            0.08 + lod as f32 * 0.018,
+            1.0,
+        ),
         lighting: Vec3::new(0.35, 0.86, 0.25).normalize().extend(1.0),
         ambient: Vec4::new(1.0, 1.0, 1.0, 0.28),
     }

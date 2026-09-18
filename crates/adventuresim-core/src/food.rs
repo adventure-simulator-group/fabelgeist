@@ -316,15 +316,10 @@ pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
     FOOD_CATALOG.iter().find(|food| food.id == id)
 }
 
-const INITIAL_CONTAMINATION_SEED_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const INITIAL_CONTAMINATION_DOMAIN: u64 = 0xd1b5_4a32_d192_ed03;
-
 pub fn deterministic_initial_contamination(seed: u64) -> f32 {
-    let mixed = seed
-        .wrapping_mul(INITIAL_CONTAMINATION_SEED_STRIDE)
-        .rotate_left(27)
-        ^ INITIAL_CONTAMINATION_DOMAIN;
-    let unit = (mixed >> 11) as f64 / ((1_u64 << 53) as f64);
+    let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
+        .rng(seed, &[])
+        .unit_f64();
     let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
     let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();
     (log_min + unit * (log_max - log_min)).exp() as f32

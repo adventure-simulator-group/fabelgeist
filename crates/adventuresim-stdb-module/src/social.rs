@@ -1,5 +1,7 @@
 //! Durable strategic relationships and authoritative social actions.
 
+mod discovery;
+mod draws;
 use adventuresim_core::skill::Skill;
 use adventuresim_core::social::{
     AFFINITY_MAX, AFFINITY_MIN, AutomaticSocialCandidate, CasualChatDisposition, CasualChatInput,
@@ -531,6 +533,7 @@ fn resolve_casual_chat_segments(
     let mut morale_delta = 0.0;
     let mut affinity_delta = 0.0;
     let mut positive_segments = 0u64;
+    let mut random = draws::casual_chat(ctx.random());
     let segments = requested_minutes / MIN_CASUAL_CHAT_MINUTES;
     for _ in 0..segments {
         let outcome = resolve_casual_chat(CasualChatInput {
@@ -540,7 +543,7 @@ fn resolve_casual_chat_segments(
             familiarity_hours,
             actor,
             target,
-            roll: (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32,
+            roll: random.inclusive_unit_f32(),
         });
         positive_segments += u64::from(outcome.positive);
         morale_delta += outcome.morale_delta;
@@ -889,6 +892,7 @@ fn persist_claim_assessments(
     claims: Vec<crate::strategic::ReferredTestimonyClaim>,
 ) -> Result<(), String> {
     let insight = crate::condition::mental_check(ctx, observer_character_id, Skill::Insight)?;
+    let assessment_seed: u64 = ctx.random();
     for (claim_order, claim) in claims.into_iter().enumerate() {
         if ctx
             .db
@@ -906,7 +910,7 @@ fn persist_claim_assessments(
         let assessment = assess_testimony_claim(
             claim.demeanor_truth_signal,
             insight,
-            (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32,
+            draws::testimony_assessment(assessment_seed, &claim.proposition_id),
         );
         let challenge_token = format!("{:016x}{:016x}", ctx.random::<u64>(), ctx.random::<u64>());
         ctx.db
@@ -1180,7 +1184,8 @@ pub fn approach_dialogue_witness(
         &approach_kind,
         &challenge_token,
     )?;
-    let affinity = current_affinity(ctx, capability.resident_character_id, observer_character_id);
+    let resident_id = capability.resident_character_id;
+    let affinity = current_affinity(ctx, resident_id, observer_character_id);
     let skill_check = crate::condition::mental_check(
         ctx,
         observer_character_id,
@@ -1190,12 +1195,11 @@ pub fn approach_dialogue_witness(
         .db
         .settlement_resident_profile()
         .character_id()
-        .find(capability.resident_character_id)
+        .find(resident_id)
         .ok_or("Witness NPC not found")?;
-    let familiarity_minutes =
-        canonical_pair(observer_character_id, capability.resident_character_id)
-            .and_then(|(low, high)| ctx.db.character_familiarity().id().find(pair_id(low, high)))
-            .map_or(0, |value| value.shared_minutes);
+    let familiarity_minutes = canonical_pair(observer_character_id, resident_id)
+        .and_then(|(low, high)| ctx.db.character_familiarity().id().find(pair_id(low, high)))
+        .map_or(0, |value| value.shared_minutes);
     let familiarity_bps = ((familiarity_minutes
         .saturating_mul(u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
         / (100 * 60))
@@ -1205,13 +1209,12 @@ pub fn approach_dialogue_witness(
         crate::reputation::local_reputation(ctx, observer_character_id, &npc.home_settlement_id);
     let reputation_modifier =
         adventuresim_core::reputation::npc_reaction_modifier(fame, infamy, familiarity_bps);
-    let target_personality =
-        crate::personality::personality_or_neutral(ctx, capability.resident_character_id);
+    let target_personality = crate::personality::personality_or_neutral(ctx, resident_id);
     let current_morale = ctx
         .db
         .character_strategic_condition()
         .character_id()
-        .find(capability.resident_character_id)
+        .find(resident_id)
         .map_or(0.0, |condition| condition.morale + condition.morale_bonus);
     let outcome = resolve_claim_challenge(ClaimChallengeInput {
         approach,
@@ -1222,7 +1225,7 @@ pub fn approach_dialogue_witness(
         current_morale,
         target_transparency: target_personality.transparency,
         target_mirth: target_personality.mirth,
-        roll: (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32,
+        roll: draws::check(ctx.random(), [observer_character_id, resident_id]),
     });
     if !crate::time::advance_investigation_time(
         ctx,
@@ -1875,7 +1878,7 @@ fn observe_presentation_on_contact(ctx: &ReducerContext, observer_id: u64, subje
             crate::personality::Transparency::Guarded => 1.0,
         })
     .clamp(0.0, 5.0);
-    let roll = (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32;
+    let roll = draws::presentation(ctx.random(), observer_id, subject_id);
     let (value, confidence) = diagnosed_axis(
         PersonalityAxis::Presentation,
         truth,
@@ -2454,50 +2457,6 @@ fn personality_truth(ctx: &ReducerContext, target_id: u64, axis: PersonalityAxis
     })
 }
 
-fn discovery_axes(
-    action: SocialActionKind,
-    topic: SocialTopic,
-    is_self: bool,
-) -> Vec<PersonalityAxis> {
-    if is_self {
-        return vec![
-            PersonalityAxis::SelfKnowledge,
-            axis_for_topic(topic).unwrap_or(PersonalityAxis::Outlook),
-        ];
-    }
-    match action {
-        SocialActionKind::Listen => vec![
-            axis_for_topic(topic).unwrap_or(match topic {
-                SocialTopic::Fatigue => PersonalityAxis::Outlook,
-                SocialTopic::Hunger => PersonalityAxis::Temperance,
-                _ => PersonalityAxis::Transparency,
-            }),
-            PersonalityAxis::Transparency,
-        ],
-        SocialActionKind::Commiserate => {
-            vec![PersonalityAxis::Conscience, PersonalityAxis::Sociability]
-        }
-        SocialActionKind::Pray => vec![PersonalityAxis::Conviction],
-        SocialActionKind::Reassure => Vec::new(),
-        SocialActionKind::LightenMood => vec![PersonalityAxis::Mirth],
-        SocialActionKind::Rally => vec![
-            PersonalityAxis::Nerve,
-            if topic == SocialTopic::Faith {
-                PersonalityAxis::Conviction
-            } else {
-                PersonalityAxis::Drive
-            },
-        ],
-        SocialActionKind::Reframe => {
-            vec![PersonalityAxis::SelfRegard, PersonalityAxis::Outlook]
-        }
-        SocialActionKind::Flirt => {
-            vec![PersonalityAxis::Courtship, PersonalityAxis::Inclination]
-        }
-        SocialActionKind::Reflect => unreachable!("self-only handled above"),
-    }
-}
-
 fn award_discovery_training(
     ctx: &ReducerContext,
     observer_id: u64,
@@ -2763,7 +2722,7 @@ fn perform_social_action_authoritative(
     } else {
         0.0
     };
-    let social_roll = (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32;
+    let action_draws = draws::ActionDraws::new(ctx.random(), actor_id, target_id);
     let relevant_axis = axis_for_topic(topic);
     let truth = relevant_axis.and_then(|axis| personality_truth(ctx, target_id, axis));
     let relevant_belief = relevant_axis.and_then(|axis| {
@@ -2806,7 +2765,7 @@ fn perform_social_action_authoritative(
         familiarity_hours: familiarity,
         diagnosis_correct,
         sensitivity: sensitivity(ctx, target_id, topic),
-        roll: social_roll,
+        roll: action_draws.resolution(),
     };
     let outcome = if flirt_modifier.is_none() {
         // Incompatibility is a hard gate: it cannot leak the resolver's
@@ -2948,11 +2907,11 @@ fn perform_social_action_authoritative(
             now,
         );
     }
-    for axis in discovery_axes(action, topic, is_self) {
+    for axis in discovery::axes(action, topic, is_self) {
         let Some(truth) = personality_truth(ctx, target_id, axis) else {
             continue;
         };
-        let discovery_roll = (ctx.random::<u64>() as f64 / u64::MAX as f64) as f32;
+        let discovery_roll = action_draws.discovery(axis);
         let deception = if axis == PersonalityAxis::Transparency {
             base_target_deception
         } else {
@@ -3397,7 +3356,7 @@ mod contract_tests {
             (SocialActionKind::Reframe, SocialTopic::Injury, false),
             (SocialActionKind::Flirt, SocialTopic::Injury, false),
         ] {
-            axes.extend(discovery_axes(action, topic, is_self));
+            axes.extend(discovery::axes(action, topic, is_self));
         }
         for axis in [
             PersonalityAxis::Nerve,
@@ -3452,7 +3411,7 @@ mod contract_tests {
             social_action_skill(SocialActionKind::Reassure, false),
             Skill::Physiology
         );
-        assert!(discovery_axes(SocialActionKind::Reassure, SocialTopic::Injury, false).is_empty());
+        assert!(discovery::axes(SocialActionKind::Reassure, SocialTopic::Injury, false).is_empty());
 
         let source = crate::production_source(include_str!("social.rs"));
         let automatic = source

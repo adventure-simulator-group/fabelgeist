@@ -15,7 +15,7 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 use super::obstacles::tree::{
     BLACKTHORN_PARAMETERS, COMMON_HAWTHORN_PARAMETERS, COMMON_HAZEL_PARAMETERS,
@@ -27,7 +27,7 @@ use super::obstacles::tree::{
 };
 use super::{
     PresentedCelestialLighting, ProceduralTextureAssets, TacticalGraphicsSettings, bps,
-    stable_text_seed, unit_hash,
+    stable_text_seed,
 };
 
 // Ground-scatter orchestration and shared presentation contracts.
@@ -296,7 +296,7 @@ pub(super) fn spawn_ground_foliage(
         .woodland_plant_material
         .get_or_insert_with(|| materials.add(foliage_material(0.035, false)))
         .clone();
-    let base_seed = stable_text_seed(&environment.scene_digest) ^ stable_text_seed(&scene_id.0);
+    let base_seed = scatter_seed(&environment.scene_digest, &scene_id.0);
     // Grass uses a macro patch whose internal blade spacing matches the old
     // one-metre patch. A roughly ten-times larger footprint therefore retains
     // density while cutting extraction, visibility, and instance entities by
@@ -424,8 +424,17 @@ fn foliage_transform(
         return None;
     }
     let terrain_rotation = Quat::from_rotation_arc(Vec3::Y, normal);
-    let yaw = Quat::from_rotation_y(unit_hash(hash) * core::f32::consts::TAU);
-    let scale = 0.72 + unit_hash(splitmix64(hash ^ 0x8c0a_3c95)) * 0.58;
+    let yaw = Quat::from_rotation_y(
+        StreamId::new("visual.understory.yaw")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU,
+    );
+    let scale = 0.72
+        + StreamId::new("visual.understory.scale")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * 0.58;
     Some(
         Transform::from_xyz(world_x, height, world_z)
             .with_rotation(terrain_rotation * yaw)
@@ -542,6 +551,12 @@ impl Material for TacticalFoliageMaterial {
 }
 
 const FOLIAGE_SHADER: &str = "shaders/tactical_foliage.wgsl";
+
+fn scatter_seed(digest: &str, scene: &str) -> u64 {
+    StreamId::new("visual.ground-scatter.mod.scene")
+        .seed(stable_text_seed(digest), &[stable_text_seed(scene)])
+        .to_u64()
+}
 
 #[cfg(test)]
 mod tests;

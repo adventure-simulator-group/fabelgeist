@@ -4,6 +4,8 @@
 //! falls between its 1500 and 1600 snapshots, so we linearly interpolate the
 //! source areas and divide them by HYDE's matching cell-area grid.
 
+mod fallback;
+use fallback::fallback_profile;
 use std::{
     collections::HashMap,
     fs::File,
@@ -333,21 +335,6 @@ fn profile_from_fractions(
         .expect("exhaustive HYDE profile"),
         normalized,
     ))
-}
-
-fn fallback_profile(settlement: &ElevatedSettlementDraft) -> LandUseProfile {
-    let seed = settlement.settlement.source_node_id;
-    let cropland = 1_500 + (seed % 1_501) as u16;
-    let grazing = 1_000 + ((seed / 7) % 1_501) as u16;
-    let built_up = (settlement.settlement.population_level.max(1) as u16) * 20;
-    let natural = BASIS_POINTS_PER_WHOLE - cropland - grazing - built_up;
-    LandUseProfile::new(
-        LandUseFraction::new(cropland).unwrap(),
-        LandUseFraction::new(grazing).unwrap(),
-        LandUseFraction::new(built_up).unwrap(),
-        LandUseFraction::new(natural).unwrap(),
-    )
-    .unwrap()
 }
 
 struct HydeGrid {

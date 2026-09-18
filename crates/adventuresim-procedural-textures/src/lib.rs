@@ -48,11 +48,6 @@ use bevy::{
     prelude::{Handle, IVec2, Resource},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_determinism::inclusive_unit_f32;
-
-fn unit_hash(value: u64) -> f32 {
-    inclusive_unit_f32(value)
-}
 
 const TEXTURE_SIZE: u32 = 256;
 const OAK_BARK_TEXTURE_SIZE: u32 = 512;

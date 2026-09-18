@@ -20,6 +20,7 @@ mod scene_fault;
 mod scene_ground;
 pub mod scene_input;
 mod scene_transition_mesh;
+pub mod terrain_streams;
 mod terrain_transition;
 pub mod volumetric_terrain;
 

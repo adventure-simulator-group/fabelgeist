@@ -1,13 +1,9 @@
 use super::{FertileSurface, FungusParameters};
 use crate::{PlantLod, PlantMesh};
 use bevy::math::Vec3;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 use std::f32::consts::{PI, TAU};
 mod attachment;
-
-fn unit(seed: u64) -> f32 {
-    (splitmix64(seed) >> 40) as f32 / (1_u32 << 24) as f32
-}
 
 struct Profile<'a> {
     p: &'a FungusParameters,
@@ -83,7 +79,10 @@ pub(super) fn generate(p: &FungusParameters, seed: u64, detail: PlantLod) -> Pla
     let mut mesh = PlantMesh::default();
     let profile = Profile {
         p,
-        phase: unit(seed) * TAU,
+        phase: StreamId::new("plant.fungus.phase")
+            .rng(seed, &[])
+            .unit_f32()
+            * TAU,
     };
     let columns = detail.samples(16, 8, 6);
     mesh.surface(
@@ -156,8 +155,15 @@ fn ornaments(mesh: &mut PlantMesh, profile: &Profile, seed: u64, detail: PlantLo
         let r = ((source_index as f32 + 0.5) / f32::from(p.ornament_count)).sqrt() * 0.96;
         let angle = source_index as f32 * GOLDEN_ANGLE
             + profile.phase
-            + unit(seed ^ source_index as u64) * 0.3;
-        let scale = 0.7 + unit(seed ^ source_index as u64 ^ 0x7761_7274) * 0.6;
+            + StreamId::new("plant.fungus.ornament-angle")
+                .rng(seed, &[source_index as u64])
+                .unit_f32()
+                * 0.3;
+        let scale = 0.7
+            + StreamId::new("plant.fungus.ornament-scale")
+                .rng(seed, &[source_index as u64])
+                .unit_f32()
+                * 0.6;
         let (point, normal) = attachment::cap(profile, detail, r, angle);
         let tip = point + normal * p.ornament_height_m * scale;
         let footprint = p.ornament_radius_m * scale / p.cap_radius_m;

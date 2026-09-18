@@ -36,6 +36,54 @@ pub(super) fn append_litter_batch(
     }
 }
 
+pub(super) fn spawn_batches(
+    commands: &mut Commands,
+    meshes: &mut bevy::prelude::Assets<Mesh>,
+    assets: &Assets,
+    batches: BTreeMap<(i32, i32), LitterBatch>,
+) {
+    for ((cell_x, cell_z), batch) in batches {
+        let transform = Transform::from_xyz(
+            cell_x as f32 * LITTER_BATCH_CELL_METRES,
+            0.0,
+            cell_z as f32 * LITTER_BATCH_CELL_METRES,
+        );
+        if let Some(mesh) = batch.leaves {
+            commands.spawn((
+                Name::new("Batched tactical dry leaves"),
+                GroundScatterLayer::DryLeaves,
+                NotShadowCaster,
+                Mesh3d(meshes.add(mesh)),
+                MeshMaterial3d(assets.dry_leaf_material.clone()),
+                batched_litter_visibility(DRY_LEAF_LOCAL_END_METRES),
+                transform,
+            ));
+        }
+        if let Some(mesh) = batch.twigs {
+            commands.spawn((
+                Name::new("Batched tactical twigs"),
+                GroundScatterLayer::Twigs,
+                NotShadowCaster,
+                Mesh3d(meshes.add(mesh)),
+                MeshMaterial3d(assets.twig_material.clone()),
+                batched_litter_visibility(TWIG_LOCAL_END_METRES),
+                transform,
+            ));
+        }
+        if let Some(mesh) = batch.plants {
+            commands.spawn((
+                Name::new("Batched tactical woodland-floor plants"),
+                GroundScatterLayer::Understory,
+                NotShadowCaster,
+                Mesh3d(meshes.add(mesh)),
+                MeshMaterial3d(assets.woodland_plant_material.clone()),
+                batched_litter_visibility(WOODLAND_PLANT_LOCAL_END_METRES),
+                transform,
+            ));
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

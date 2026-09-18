@@ -67,8 +67,23 @@ impl TextureParameters {
         }
     }
 }
-pub(crate) fn seeded_hash(params: &TextureParameters, value: u64) -> u64 {
-    fabelgeist_determinism::splitmix64(value ^ params.seed)
+impl TextureParameters {
+    /// A recipe owns each purpose; context identifies authored features or cells.
+    pub(crate) fn rng(
+        &self,
+        purpose: fabelgeist_determinism::StreamId,
+        context: &[u64],
+    ) -> fabelgeist_determinism::DeterministicRng {
+        purpose.rng(self.seed, context)
+    }
+
+    pub(crate) fn field_seed(
+        &self,
+        purpose: fabelgeist_determinism::StreamId,
+        context: &[u64],
+    ) -> u64 {
+        purpose.seed(self.seed, context).to_u64()
+    }
 }
 
 #[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]

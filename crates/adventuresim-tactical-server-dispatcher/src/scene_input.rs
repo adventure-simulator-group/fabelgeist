@@ -10,7 +10,7 @@ use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, TerrainFeature, coordinates::Wgs84CoordinateE7,
 };
 use bevy::math::Vec2;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
 
 use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
@@ -412,13 +412,14 @@ fn offset_coordinate(latitude: f64, longitude: f64, east: f64, north: f64) -> (f
 }
 
 fn deterministic_seed(mission_id: &str) -> u64 {
-    let digest = Sha256::digest(mission_id.as_bytes());
-    u64::from_le_bytes(digest[..8].try_into().expect("SHA-256 prefix"))
+    Seed::derive(mission_id.as_bytes(), StreamId::new("scene.mission"), &[]).to_u64()
 }
 
 fn deterministic_detail(seed: u64, x: u16, z: u16) -> f32 {
-    let value = mix64(seed ^ (u64::from(x) << 32) ^ u64::from(z));
-    (value % RANDOM_DETAIL_BUCKETS) as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
+    let value = StreamId::new("scene.hilly-detail")
+        .rng(seed, &[u64::from(x), u64::from(z)])
+        .below(std::num::NonZeroU64::new(RANDOM_DETAIL_BUCKETS).expect("detail range is positive"));
+    value as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
 }
 
 fn sample_city_vista(

@@ -1,6 +1,8 @@
 //! Periodic growth bands and fibers sharing the displacement around branch knots.
 
+mod streams;
 use super::{grid_hash, periodic_delta, smooth, value_noise};
+use fabelgeist_determinism::StreamId;
 
 const GRAIN_FILTER_GRID: u32 = 4;
 const KNOT_TAPER: f32 = 0.30;
@@ -112,7 +114,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
             v,
             params.hewn_oak_grain.growth_wander_grid[0],
             params.hewn_oak_grain.growth_wander_grid[1],
-            0x7d13,
+            params.field_seed(streams::GROWTH_WANDER, &[]),
         ) - 0.5)
             * params.hewn_oak_grain.ring_wander;
     let growth = growth
@@ -122,7 +124,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
             v,
             params.hewn_oak_grain.spacing_warp_grid[0],
             params.hewn_oak_grain.spacing_warp_grid[1],
-            0x6ba1,
+            params.field_seed(streams::RING_SPACING, &[]),
         ) - 0.5)
             * params.hewn_oak_grain.ring_spacing_warp;
     let phase = growth * params.hewn_oak_grain.ring_count;
@@ -135,7 +137,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
                 0,
                 params.hewn_oak_grain.ring_count as i32,
                 1,
-                0x481b,
+                params.field_seed(streams::RING_WIDTH, &[]),
             );
     let within = phase - phase.floor();
     // Broad earlywood meets a narrow, asymmetric latewood ridge. Per-ring widths
@@ -155,7 +157,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
         0,
         params.hewn_oak_grain.ring_count as i32,
         1,
-        0x942a,
+        params.field_seed(streams::RING_COLOR, &[]),
     ) < params.hewn_oak_grain.dark_ring_fraction;
     GrainSample {
         // Discrete intrinsic regions at the authored sample. Only footprint
@@ -172,7 +174,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
                 params.hewn_oak_grain.vessel_rows,
             ],
             params.hewn_oak_grain.vessel_radii_cells,
-            0x67ae,
+            params.field_seed(streams::VESSELS, &[]),
         ) * (1.0 - latewood)
             * (1.0 - knot),
         rays: anatomical_marks(
@@ -184,7 +186,7 @@ pub(super) fn sample(params: &crate::TextureParameters, u: f32, v: f32) -> Grain
                 params.hewn_oak_grain.ray_rows,
             ],
             params.hewn_oak_grain.ray_radii_cells,
-            0x518d,
+            params.field_seed(streams::RAYS, &[]),
         ) * (1.0 - knot),
         knot,
         knot_rings,
@@ -222,19 +224,29 @@ fn anatomical_marks(
     v: f32,
     cells: [i32; 2],
     radius: [f32; 2],
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells[0] as f32;
     let y = v.rem_euclid(1.0) * cells[1] as f32;
     let mut field = 0.0_f32;
     for iy in (y.floor() as i32 - 1)..=(y.floor() as i32 + 1) {
         for ix in (x.floor() as i32 - 1)..=(x.floor() as i32 + 1) {
-            let random = |seed| grid_hash(params, ix, iy, cells[0], cells[1], salt ^ seed);
-            if random(0) < 1.0 - params.hewn_oak_grain.anatomical_mark_density {
+            let random = |purpose: StreamId| {
+                grid_hash(
+                    params,
+                    ix,
+                    iy,
+                    cells[0],
+                    cells[1],
+                    purpose.seed(field_seed, &[]).to_u64(),
+                )
+            };
+            if random(streams::MARK_PRESENCE) < 1.0 - params.hewn_oak_grain.anatomical_mark_density
+            {
                 continue;
             }
-            let dx = (x - ix as f32 - random(0x217a)) / radius[0];
-            let dy = (y - iy as f32 - random(0xe312)) / radius[1];
+            let dx = (x - ix as f32 - random(streams::MARK_X)) / radius[0];
+            let dy = (y - iy as f32 - random(streams::MARK_Y)) / radius[1];
             let shape = (1.0 - dx * dx - dy * dy).max(0.0);
             field = field.max(shape * shape);
         }
@@ -343,7 +355,7 @@ fn fiber_response(params: &crate::TextureParameters, growth: f32, v: f32, knot: 
             v,
             params.hewn_oak_grain.fiber_wander_grid[0],
             params.hewn_oak_grain.fiber_wander_grid[1],
-            0x328b,
+            params.field_seed(streams::FIBER_WANDER, &[]),
         ) - 0.5)
             * params.hewn_oak_grain.fiber_wander;
     let fiber_band =
@@ -355,7 +367,7 @@ fn fiber_response(params: &crate::TextureParameters, growth: f32, v: f32, knot: 
             v,
             params.hewn_oak_grain.fiber_interruption_grid[0],
             params.hewn_oak_grain.fiber_interruption_grid[1],
-            0x4ce7,
+            params.field_seed(streams::FIBER_INTERRUPTION, &[]),
         ) - params.hewn_oak_grain.fiber_interruption_threshold)
             / params.hewn_oak_grain.fiber_interruption_transition)
             .clamp(0.0, 1.0),

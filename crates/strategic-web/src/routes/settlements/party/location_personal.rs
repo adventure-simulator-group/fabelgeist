@@ -4,16 +4,6 @@ pub(super) enum LocationLookup {
     Unavailable,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-struct IncidentCaseId;
-
-impl IncidentCaseId {
-    fn parse(value: &str) -> Option<Self> {
-        let (authority, source_id) = value.split_once(':')?;
-        (authority == "incident" && !source_id.is_empty()).then_some(Self)
-    }
-}
-
 pub(super) async fn resolve_location(state: &AppState, kind: &str, id: &str) -> LocationLookup {
     let Ok(kind) = kind.parse::<LocationKind>() else {
         return LocationLookup::NotFound;
@@ -236,7 +226,7 @@ pub(super) async fn render_party_personal(
         },
         LocationKind::CaseSite
             if case_site.as_ref().is_some_and(|site| {
-                site.distance_m > 0 && IncidentCaseId::parse(&site.case_id).is_none()
+                site.raiding_allowed
             }) =>
         {
             adventuresim_core::activity::ActivityLocation::NamedOutdoorLocation
@@ -377,7 +367,6 @@ pub(super) async fn render_party_personal(
 
 #[cfg(test)]
 mod location_activity_tests {
-    use super::IncidentCaseId;
 
     #[test]
     fn case_site_preview_uses_origin_settlement_and_positive_distance_policy() {
@@ -385,18 +374,9 @@ mod location_activity_tests {
         let origin = source.find("site.origin_settlement_id").unwrap();
         let preview = source.find("ActivityPreviewRates::from_character").unwrap();
         assert!(origin < preview);
-        assert!(source.contains("IncidentCaseId::parse(&site.case_id).is_none()"));
+        assert!(source.contains("site.raiding_allowed"));
         assert!(source.contains("ActivityLocation::IneligibleNamedLocation"));
     }
 
-    #[test]
-    fn incident_case_ids_require_the_exact_authority_tag() {
-        assert_eq!(
-            IncidentCaseId::parse("incident:road-ambush"),
-            Some(IncidentCaseId)
-        );
-        assert!(IncidentCaseId::parse("incident:").is_none());
-        assert!(IncidentCaseId::parse("incidental:road-ambush").is_none());
-        assert!(IncidentCaseId::parse("case:incident:road-ambush").is_none());
-    }
+
 }

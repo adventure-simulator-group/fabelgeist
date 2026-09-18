@@ -1,7 +1,11 @@
 //! Base layout template - Three-column strategic design.
 
+#[cfg(test)]
+use appearance::{HorizonVariant, WildernessVariant};
+mod appearance;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
+use appearance::{building_tier, building_tint, horizon_variant, wilderness_variant};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 
 use super::{organization_charge, organization_colors, religion_icon_path};
@@ -215,7 +219,7 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                     script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                     script src="/static/journal-tab.js?v=journal-tab-1" defer {}
-                    script src="/static/numeric-editor.js?v=shared-numeric-editor-2" defer {}
+                    script src="/static/numeric-editor.js?v=draft-callbacks-3" defer {}
                     script src="/static/inventory-browser.js?v=equipment-portraits-1" defer {}
                     script src="/static/party-trade.js?v=provision-party-food-1-slot-controls-1" defer {}
                     script src="/static/cooking.js?v=fireplace-station-1" defer {}
@@ -235,7 +239,8 @@ fn page_shell(title: &str, header: Markup, content: Markup, scripts: ScriptProfi
                     script src="/static/travel-planner.js?v=travel-rails-2" defer {}
                     script src="/static/strategic-map.js?v=population-culling-3" defer {}
                     script src="/static/rest-duration.js?v=wake-time-5" defer {}
-                    script src="/static/training-schedule.js?v=apprentice-system-2" defer {}
+                    script src="/static/schedule-preview.js?v=server-preview-1" defer {}
+                    script src="/static/training-schedule.js?v=server-preview-1" defer {}
                     script src="/static/immediate-activity.js?v=manual-activities-2" defer {}
                 }
             }
@@ -629,118 +634,6 @@ fn camp_flame_effect() -> Markup {
     }
 }
 
-fn building_tint(settlement: &str, service: &str, material: &str) -> String {
-    let hash = settlement
-        .bytes()
-        .chain(*b":")
-        .chain(service.bytes())
-        .fold(0xcbf29ce484222325_u64, |hash, byte| {
-            (hash ^ u64::from(byte)).wrapping_mul(0x100000001b3)
-        });
-    let service_slot = match service {
-        "public-square" => 0,
-        "residences" => 1,
-        "keep" => 2,
-        "map" => 3,
-        "merchants" => 4,
-        "weapons" => 5,
-        "armor" => 6,
-        "clothing" => 7,
-        "herbalist" => 8,
-        "books" => 9,
-        "inn" => 10,
-        "religion" => 11,
-        _ => (hash % 12) as usize,
-    };
-    let settlement_shift = (hash >> 24) % 9;
-    let hue = if material == "stone" {
-        [46, 198, 218, 205, 224, 252, 282, 164, 128, 68, 36, 214][service_slot] + settlement_shift
-    } else {
-        [35, 58, 16, 8, 20, 31, 43, 56, 104, 48, 72, 350][service_slot] + settlement_shift
-    };
-    let saturation = if material == "stone" {
-        12 + (hash >> 8) % 13
-    } else {
-        30 + (hash >> 8) % 25
-    };
-    let lightness = 19 + (hash >> 16) % 8;
-    format!("hsl({hue} {saturation}% {lightness}%)")
-}
-
-fn building_tier(category: &SettlementCategory) -> &'static str {
-    match category {
-        SettlementCategory::Unknown | SettlementCategory::Hamlet | SettlementCategory::Village => {
-            "village"
-        }
-        SettlementCategory::Town => "town",
-        SettlementCategory::City | SettlementCategory::Capital => "city",
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-enum HorizonVariant {
-    Inland,
-    Coastal,
-    River,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-enum WildernessVariant {
-    Forest,
-    Grassland,
-    Hills,
-}
-
-impl WildernessVariant {
-    fn as_str(self) -> &'static str {
-        match self {
-            Self::Forest => "forest",
-            Self::Grassland => "grassland",
-            Self::Hills => "hills",
-        }
-    }
-}
-
-impl HorizonVariant {
-    fn as_str(self) -> &'static str {
-        match self {
-            Self::Inland => "inland",
-            Self::Coastal => "coastal",
-            Self::River => "river",
-        }
-    }
-}
-
-/// Temporary stable scenery selection. Imported hydrology will replace only
-/// this selector; settlement markup and CSS remain variant-driven.
-fn horizon_variant(settlement_id: &str) -> HorizonVariant {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in settlement_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    match hash % 3 {
-        0 => HorizonVariant::Inland,
-        1 => HorizonVariant::Coastal,
-        _ => HorizonVariant::River,
-    }
-}
-
-/// Temporary stable terrain selection. World terrain data can replace this
-/// selector without changing the shared camp and quest-location header.
-fn wilderness_variant(location_id: &str) -> WildernessVariant {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in location_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    match hash % 3 {
-        0 => WildernessVariant::Forest,
-        1 => WildernessVariant::Grassland,
-        _ => WildernessVariant::Hills,
-    }
-}
-
 fn character_switcher(name: &str) -> Markup {
     let initial = name.chars().next().unwrap_or('?');
     html! {
@@ -846,7 +739,7 @@ mod tests {
         assert!(markup.contains("/static/strategic-mutations.js?v=formaction-override-1\" defer"));
         assert_eq!(markup.matches("/static/training-schedule.js").count(), 1);
         assert_eq!(markup.matches("/static/immediate-activity.js").count(), 1);
-        assert!(markup.contains("/static/training-schedule.js?v=apprentice-system-2\" defer"));
+        assert!(markup.contains("/static/training-schedule.js?v=server-preview-1\" defer"));
         assert!(markup.contains("/static/immediate-activity.js?v=manual-activities-2\" defer"));
         assert_eq!(markup.matches("id=\"strategic-live-stream\"").count(), 1);
         assert!(markup.find("id=\"strategic-live-stream\"") < markup.find("id=\"strategic-page\""));

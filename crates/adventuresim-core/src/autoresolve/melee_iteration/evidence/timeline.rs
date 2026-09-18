@@ -123,7 +123,7 @@ fn simultaneous_contact_evidence(
         &mut allies,
         &mut enemies,
         1,
-        &mut SplitMix64::new(seed),
+        &mut DeterministicRng::new(fabelgeist_determinism::Seed::from_u64(seed)),
         &mut recorder,
         crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS,
     );

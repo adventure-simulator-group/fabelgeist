@@ -1,6 +1,7 @@
 //! Habitat-filtered, instanced botanical meshes shared with Plant Studio.
+mod streams;
 use super::{GroundScatterLayer, scatter_ground_without_patch};
-use crate::presentation::{bps, stable_text_seed, unit_hash};
+use crate::presentation::{bps, stable_text_seed};
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 use adventuresim_plant_generator::{
     PlantSpecies,
@@ -12,7 +13,6 @@ use adventuresim_tactical_core::prelude::{
 };
 use bevy::prelude::*;
 mod lod;
-use fabelgeist_determinism::splitmix64;
 pub(crate) use lod::PlantLodInstance;
 use lod::SpecimenCache;
 
@@ -74,9 +74,11 @@ fn present(
         for site in sites {
             let transform = Transform::from_translation(site.root)
                 .with_rotation(Quat::from_rotation_y(
-                    unit_hash(site.hash) * std::f32::consts::TAU,
+                    streams::YAW.rng(site.hash, &[]).inclusive_unit_f32() * std::f32::consts::TAU,
                 ))
-                .with_scale(Vec3::splat(0.85 + unit_hash(splitmix64(site.hash)) * 0.3));
+                .with_scale(Vec3::splat(
+                    0.85 + streams::SCALE.rng(site.hash, &[]).inclusive_unit_f32() * 0.3,
+                ));
             cache.spawn(&mut commands, site.species, transform);
             anchors.push(PlantCaptureAnchor {
                 root: site.root,
@@ -109,16 +111,20 @@ fn placements(
         super::cover_mask::CoverageMask::new(ground, stable_text_seed(&environment.scene_digest));
     for z in 0..count_z {
         for x in 0..count_x {
-            let cell = ((x as u64) << 32) | z as u64;
-            let hash = splitmix64(seed ^ cell);
-            if unit_hash(hash) > OCCUPANCY {
+            let hash = streams::SITE.seed(seed, &[x as u64, z as u64]).to_u64();
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() > OCCUPANCY {
                 continue;
             }
             let world = Vec2::new(
                 -terrain.width() * 0.5
-                    + (x as f32 + 0.15 + unit_hash(splitmix64(hash)) * 0.7) * SITE_SPACING_METRES,
+                    + (x as f32
+                        + 0.15
+                        + streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() * 0.7)
+                        * SITE_SPACING_METRES,
                 -terrain.depth() * 0.5
-                    + (z as f32 + 0.15 + unit_hash(splitmix64(hash ^ PLANT_SEED)) * 0.7)
+                    + (z as f32
+                        + 0.15
+                        + streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() * 0.7)
                         * SITE_SPACING_METRES,
             );
             let (Some(surface), Some(height), Some(normal)) = (
@@ -134,14 +140,18 @@ fn placements(
             let habitat = habitat(surface, environment);
             // A shared macro-cell roll gives patches botanical coherence; roots
             // retain independent jitter so the planting lattice is not visible.
-            let community = splitmix64(seed ^ (((x / 3) as u64) << 32) ^ (z / 3) as u64);
-            let weights = PlantSpecies::ALL.map(|species| species.habitat_weight(habitat));
-            let total: f32 = weights.iter().sum();
-            let mut roll = unit_hash(community) * total;
-            let Some(species) = weights.iter().position(|weight| {
-                roll -= weight;
-                roll < 0.0
-            }) else {
+            let community = streams::COMMUNITY
+                .seed(seed, &[(x / 3) as u64, (z / 3) as u64])
+                .to_u64();
+            let weights = PlantSpecies::ALL.map(|species| {
+                (species.habitat_weight(habitat)
+                    * f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
+                .round() as u64
+            });
+            let Ok(species) = streams::SPECIES
+                .rng(community, &[])
+                .weighted_index(&weights)
+            else {
                 continue;
             };
             candidates.push(PlantSite {
@@ -153,7 +163,7 @@ fn placements(
     }
     // Stable priority sampling spreads the bounded population over the entire
     // scene; truncating row order would leave one populated corner.
-    candidates.sort_by_key(|site| site.hash);
+    candidates.sort_by_key(|site| (site.hash, site.root.x.to_bits(), site.root.z.to_bits()));
     candidates.truncate(MAX_SPECIMENS);
     candidates
 }

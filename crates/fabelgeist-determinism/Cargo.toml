@@ -5,5 +5,13 @@ edition.workspace = true
 repository.workspace = true
 license.workspace = true
 
+[dependencies]
+blake3.workspace = true
+rand = { version = "=0.9.5", default-features = false, features = ["alloc"] }
+rand_xoshiro.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "=0.3.58"
+
 [lints]
 workspace = true

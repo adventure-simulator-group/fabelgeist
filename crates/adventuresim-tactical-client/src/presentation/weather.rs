@@ -1,6 +1,6 @@
 use super::terrain::terrain_heightmap_image;
 use super::*;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 const WEATHER_SHADER: &str = "shaders/tactical_weather.wgsl";
 const FALLING_PARTICLE_CAPACITY: usize = 3_072;
@@ -186,9 +186,15 @@ fn weather_material(
         _ => 0.0,
     };
     let bearing = f32::from(environment.weather.atmosphere.wind_direction_degrees).to_radians();
-    let seed = stable_text_seed(&environment.scene_digest)
-        ^ environment.weather.interval_start_minute.rotate_left(17);
-    let seed = (seed % 65_521) as f32;
+    let seed = StreamId::new("visual.weather.interval")
+        .seed(
+            stable_text_seed(&environment.scene_digest),
+            &[environment.weather.interval_start_minute],
+        )
+        .to_u64();
+    let seed = StreamId::new("visual.weather.shader-seed")
+        .rng(seed, &[])
+        .index(65_521) as f32;
     let radius = match layer {
         WeatherParticle::Impact => 18.0,
         WeatherParticle::Falling => 30.0,
@@ -220,8 +226,12 @@ fn weather_particle_mesh(capacity: usize) -> Mesh {
     let mut indices = Vec::with_capacity(capacity * 6);
     const QUAD_CORNERS: [[f32; 2]; 4] = [[-1.0, -1.0], [1.0, -1.0], [1.0, 1.0], [-1.0, 1.0]];
     for index in 0..capacity {
-        let seed_a = unit_hash(splitmix64(index as u64 ^ 0xa1b2_c3d4_e5f6_0718));
-        let seed_b = unit_hash(splitmix64(index as u64 ^ 0x1827_3645_5a69_7887));
+        let seed_a = StreamId::new("visual.weather.particle-primary")
+            .rng(0, &[index as u64])
+            .inclusive_unit_f32();
+        let seed_b = StreamId::new("visual.weather.particle-secondary")
+            .rng(0, &[index as u64])
+            .inclusive_unit_f32();
         let rank = (index as f32 + 0.5) / capacity as f32;
         let base = positions.len() as u32;
         for corner in QUAD_CORNERS {
@@ -317,18 +327,24 @@ fn weather_occlusion_tree_signature(
     scene: Entity,
     trees: &Query<(&GlobalTransform, &StreamedTreePresentation)>,
 ) -> u64 {
-    let mut signature = splitmix64(scene.to_bits() ^ 0x7261_696e_5f6f_6363);
-    let mut count = 0_u64;
+    let mut records = Vec::new();
     for (transform, presentation) in trees {
         let translation = transform.translation();
-        let tree = presentation.weather_occlusion_cache_key()
-            ^ u64::from(translation.x.to_bits()).rotate_left(11)
-            ^ u64::from(translation.y.to_bits()).rotate_left(29)
-            ^ u64::from(translation.z.to_bits()).rotate_left(47);
-        signature ^= splitmix64(tree);
-        count += 1;
+        let mut record = [0; 20];
+        record[..8].copy_from_slice(&presentation.weather_occlusion_cache_key().to_le_bytes());
+        record[8..12].copy_from_slice(&translation.x.to_bits().to_le_bytes());
+        record[12..16].copy_from_slice(&translation.y.to_bits().to_le_bytes());
+        record[16..].copy_from_slice(&translation.z.to_bits().to_le_bytes());
+        records.push(record);
     }
-    splitmix64(signature ^ count.rotate_left(17))
+    records.sort_unstable();
+    let fields = records.iter().map(<[u8; 20]>::as_slice).collect::<Vec<_>>();
+    fabelgeist_determinism::Seed::derive(
+        &scene.to_bits().to_le_bytes(),
+        StreamId::new("visual.weather.occlusion-signature"),
+        &fields,
+    )
+    .to_u64()
 }
 
 fn empty_weather_occlusion_image() -> Image {

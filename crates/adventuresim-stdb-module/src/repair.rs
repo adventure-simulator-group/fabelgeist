@@ -1,9 +1,12 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
+mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
 use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
 use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+pub(crate) use smiths::ensure_settlement_smith;
+use smiths::service_skill;
 use spacetimedb::{ReducerContext, Table, reducer, table};
 
 use crate::character::{character, character_equipped_item, equipment_occupancy};
@@ -129,59 +132,6 @@ pub(crate) fn initialize_item_condition(ctx: &ReducerContext, inventory: &Invent
         tier_4: 0.0,
         tier_5: 0.0,
     });
-}
-
-fn stable_skill(settlement_id: &str, salt: u64) -> u8 {
-    let mut hash = 0xcbf29ce484222325_u64 ^ salt;
-    for byte in settlement_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    3 + (hash % 3) as u8
-}
-
-pub(crate) fn ensure_settlement_smith(
-    ctx: &ReducerContext,
-    settlement_id: &str,
-) -> SettlementSmith {
-    if let Some(row) = ctx
-        .db
-        .settlement_smith()
-        .settlement_id()
-        .find(settlement_id.to_owned())
-    {
-        return row;
-    }
-    ctx.db.settlement_smith().insert(SettlementSmith {
-        settlement_id: settlement_id.to_owned(),
-        weaponsmith_skill: stable_skill(settlement_id, 0x5745_4150),
-        armourer_skill: stable_skill(settlement_id, 0x4152_4d52),
-        tailor_skill: stable_skill(settlement_id, 0x5441_494c),
-    })
-}
-
-fn service_skill(
-    ctx: &ReducerContext,
-    settlement_id: &str,
-    kind: PersistedItemKind,
-) -> Result<u8, String> {
-    use adventuresim_world_schema::SettlementService as S;
-    let specialist = match kind {
-        PersistedItemKind::Weapon | PersistedItemKind::Shield => S::Weaponsmith,
-        PersistedItemKind::Armor => S::Armorer,
-        PersistedItemKind::Clothing => S::Tailor,
-        _ => return Err("This service does not repair that item kind".into()),
-    };
-    if crate::strategic::require_settlement_service(ctx, settlement_id, specialist).is_err() {
-        crate::strategic::require_settlement_service(ctx, settlement_id, S::GeneralBlacksmith)?;
-    }
-    let service = ensure_settlement_smith(ctx, settlement_id);
-    match kind {
-        PersistedItemKind::Weapon | PersistedItemKind::Shield => Ok(service.weaponsmith_skill),
-        PersistedItemKind::Armor => Ok(service.armourer_skill),
-        PersistedItemKind::Clothing => Ok(service.tailor_skill),
-        _ => Err("This service does not repair that item kind".into()),
-    }
 }
 
 fn submit(
