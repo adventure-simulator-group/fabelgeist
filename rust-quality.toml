@@ -74,6 +74,11 @@ reason = "Six deterministic capacity review placements built through the canonic
 
 [[scopes]]
 kind = "fixture"
+path = "crates/strategic-web/src/routes/settlements/party/schedule_preview/http_tests.rs"
+reason = "Deterministic mock SQL protocol responses for schedule-preview route tests."
+
+[[scopes]]
+kind = "fixture"
 path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/furniture.rs"
 reason = "A deterministic market, roads and service frontages exercise canonical furniture placement."
 
