@@ -5,7 +5,7 @@ use adventuresim_world_schema::{
 };
 use bevy::math::{Quat, Vec2, Vec3};
 use clap::ValueEnum;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 mod emblems;
@@ -23,8 +23,11 @@ pub use lettering::SignTexture;
 #[cfg(feature = "sign-render")]
 pub use rendering::{ShopSignRenderCache, SignDetail, SignRenderAssets, SignRenderPart};
 
-const NAME_STREAM: u64 = 0x7369_676e_6e61_6d65;
-const STYLE_STREAM: u64 = 0x7369_676e_7374_796c;
+const PROPRIETOR_SEX: StreamId = StreamId::new("sign.proprietor-sex");
+const PROPRIETOR_GIVEN_NAME: StreamId = StreamId::new("sign.proprietor-given-name");
+const PROPRIETOR_SURNAME: StreamId = StreamId::new("sign.proprietor-surname");
+const SIGN_MOUNT: StreamId = StreamId::new("sign.mount");
+const SIGN_FINISH: StreamId = StreamId::new("sign.finish");
 pub const SIGN_PEDESTRIAN_CLEARANCE_METRES: f32 = 2.3;
 pub const SIGN_MAX_PROJECTION_METRES: f32 = 1.5;
 
@@ -41,15 +44,13 @@ impl ShopName {
     /// A stable business brand, without asserting that a generated resident owns it.
     pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
         let trade = shop_trade(usage)?;
-        let entropy = mix64(id.0 ^ NAME_STREAM);
-        let names = if entropy & 1 == 0 {
+        let names = if PROPRIETOR_SEX.rng(id.0, &[]).boolean() {
             &FEMALE_NAMES
         } else {
             &MALE_NAMES
         };
-        // Reduce before narrowing so native and wasm32 choose the same brand.
-        let given = names[((entropy >> 1) % names.len() as u64) as usize];
-        let surname = SURNAMES[(mix64(entropy) % SURNAMES.len() as u64) as usize];
+        let given = names[PROPRIETOR_GIVEN_NAME.rng(id.0, &[]).index(names.len())];
+        let surname = SURNAMES[PROPRIETOR_SURNAME.rng(id.0, &[]).index(SURNAMES.len())];
         Some(Self {
             proprietor: format!("{given} {surname}’s"),
             trade: trade.to_owned(),
@@ -126,17 +127,16 @@ pub struct ShopSign {
 
 impl ShopSign {
     pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
-        let style = mix64(id.0 ^ STYLE_STREAM);
         Some(Self {
             emblem: TradeEmblem::for_use(usage),
             name: ShopName::for_establishment(id, usage)?,
-            mount: if style & 1 == 0 {
+            mount: if SIGN_MOUNT.rng(id.0, &[]).boolean() {
                 SignMount::Wall
             } else {
                 SignMount::Projecting
             },
             font: SignFont::GrenzeGotisch,
-            finish: if style & 2 == 0 {
+            finish: if SIGN_FINISH.rng(id.0, &[]).boolean() {
                 SignFinish::PalePaint
             } else {
                 SignFinish::DarkWood

@@ -1,11 +1,6 @@
 //! Strategic schedule activities which combine training with other outcomes.
 
-use fabelgeist_determinism::mix64;
-
 use crate::strategic_time::MINUTES_PER_DAY;
-
-const ACTIVITY_REDISTRIBUTION_DOMAIN: u64 = 0xa4c7_1d5b_93e2_f860;
-const ACTIVITY_REDISTRIBUTION_SEGMENT_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
 pub const THIEVERY_UNAVAILABLE_REASON: &str = "Thievery is only available inside settlements.";
 pub const RAIDING_UNAVAILABLE_REASON: &str =
@@ -32,63 +27,16 @@ pub enum LocationActivity {
 
 pub const ACTIVITY_SEGMENT_MINUTES: u16 = 15;
 
-/// Replace unavailable planned activities one quarter-hour at a time.
-///
-/// Each replacement draw is weighted by the original planned minutes of the
-/// available, non-Leisure activities. The seed makes authoritative execution
-/// and client previews agree without persisting a second schedule. When no
-/// planned activity is available, the removed time remains unallocated and is
-/// therefore Leisure.
-pub fn redistribute_unavailable_segments<const N: usize>(
-    allocations: [u16; N],
-    available: [bool; N],
-    seed: u64,
-) -> [u16; N] {
-    let mut effective = allocations;
-    let mut unavailable_segments = 0_u64;
-    for index in 0..N {
-        if !available[index] {
-            unavailable_segments = unavailable_segments
-                .saturating_add(u64::from(effective[index] / ACTIVITY_SEGMENT_MINUTES));
-            effective[index] = 0;
-        }
-    }
-
-    let total_weight = allocations
-        .iter()
-        .zip(available)
-        .filter_map(|(minutes, is_available)| is_available.then_some(u64::from(*minutes)))
-        .sum::<u64>();
-    if total_weight == 0 {
-        return effective;
-    }
-
-    for segment in 0..unavailable_segments {
-        let mut draw = redistribution_roll(seed, segment) % total_weight;
-        for index in 0..N {
-            let weight = if available[index] {
-                u64::from(allocations[index])
-            } else {
-                0
-            };
-            if draw < weight {
-                effective[index] = effective[index].saturating_add(ACTIVITY_SEGMENT_MINUTES);
-                break;
-            }
-            draw = draw.saturating_sub(weight);
-        }
-    }
-    effective
-}
-
-fn redistribution_roll(seed: u64, segment: u64) -> u64 {
-    mix64(
-        seed ^ ACTIVITY_REDISTRIBUTION_DOMAIN
-            ^ segment.wrapping_mul(ACTIVITY_REDISTRIBUTION_SEGMENT_STRIDE),
-    )
-}
-
 impl ActivityLocation {
+    /// Site eligibility uses current authority, never an observer-facing ID alias.
+    pub const fn case_site(distance_metres: u64, is_incident: bool) -> Self {
+        if distance_metres > 0 && !is_incident {
+            Self::NamedOutdoorLocation
+        } else {
+            Self::IneligibleNamedLocation
+        }
+    }
+
     pub const fn allows(self, activity: LocationActivity) -> bool {
         matches!(
             (self, activity),
@@ -225,57 +173,6 @@ mod tests {
         assert!(!outdoors.allows(LocationActivity::Carousing));
         assert!(!ineligible.allows(LocationActivity::Raiding));
         assert!(!camp.allows(LocationActivity::Raiding));
-    }
-
-    #[test]
-    fn unavailable_segments_are_weighted_by_existing_available_allocations() {
-        let allocations = [60, 120, 90];
-        let available = [true, true, false];
-        let mut first = 0_u64;
-        let mut second = 0_u64;
-        for seed in 0..4_000 {
-            let effective = redistribute_unavailable_segments(allocations, available, seed);
-            first += u64::from(effective[0] - allocations[0]);
-            second += u64::from(effective[1] - allocations[1]);
-            assert_eq!(
-                effective
-                    .iter()
-                    .map(|minutes| u64::from(*minutes))
-                    .sum::<u64>(),
-                270
-            );
-        }
-        let ratio = second as f64 / first as f64;
-        assert!((1.9..2.1).contains(&ratio), "observed ratio {ratio}");
-    }
-
-    #[test]
-    fn unavailable_segments_become_leisure_without_an_available_plan() {
-        assert_eq!(
-            redistribute_unavailable_segments([60, 120], [false, false], 7),
-            [0, 0]
-        );
-    }
-
-    #[test]
-    fn redistribution_is_seeded_and_uses_quarter_hour_segments() {
-        let allocations = [60, 120, 90];
-        let available = [true, true, false];
-        let first = redistribute_unavailable_segments(allocations, available, 42);
-        assert_eq!(first, [75, 195, 0]);
-        assert_eq!(
-            first,
-            redistribute_unavailable_segments(allocations, available, 42)
-        );
-        assert!(
-            first
-                .iter()
-                .all(|minutes| minutes % ACTIVITY_SEGMENT_MINUTES == 0)
-        );
-        assert_eq!(
-            first.iter().map(|minutes| u64::from(*minutes)).sum::<u64>(),
-            270
-        );
     }
 
     #[test]

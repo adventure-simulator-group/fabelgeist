@@ -568,19 +568,15 @@ pub fn uncovered_minute_spans(
     result
 }
 
-/// Stable FNV-1a domain-separated hash. Unlike `DefaultHasher`, this result is
-/// part of gameplay and is stable across processes and compiler releases.
+/// Stable lifecycle identity derived from separately framed context fields.
 pub fn stable_lifecycle_hash(domain: &str, parts: &[&str]) -> u64 {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in domain.as_bytes().iter().copied().chain([0xff]).chain(
-        parts
-            .iter()
-            .flat_map(|part| part.as_bytes().iter().copied().chain([0xff])),
-    ) {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    hash
+    let fields: Vec<_> = parts.iter().map(|part| part.as_bytes()).collect();
+    fabelgeist_determinism::Seed::derive(
+        domain.as_bytes(),
+        fabelgeist_determinism::StreamId::new("lifecycle.identity"),
+        &fields,
+    )
+    .to_u64()
 }
 
 pub fn daily_location_target_score(
@@ -697,7 +693,9 @@ pub fn deterministic_child_seeds(
     ChildSeeds {
         identity: stable_lifecycle_hash("child-identity", &base),
         name: stable_lifecycle_hash("child-name", &base),
-        female: stable_lifecycle_hash("child-sex", &base) & 1 == 0,
+        female: fabelgeist_determinism::StreamId::new("lifecycle.child-sex")
+            .rng(stable_lifecycle_hash("child-sex", &base), &[])
+            .boolean(),
         home: stable_lifecycle_hash(
             "child-home",
             &[left, right, &pregnancy, &birth, home_location_id],

@@ -116,6 +116,8 @@ pub const PARTY_STATS_PLAYER: Route<3> =
     Route::new("/locations/{kind}/{id}/players/{character_id}");
 pub const UPDATE_TRAINING_SCHEDULE: Route<3> =
     Route::new("/locations/{kind}/{id}/party/{character_id}/schedule");
+pub const PREVIEW_TRAINING_SCHEDULE: Route<3> =
+    Route::new("/locations/{kind}/{id}/party/{character_id}/schedule/preview");
 pub const PERFORM_IMMEDIATE_ACTIVITY: Route<3> =
     Route::new("/locations/{kind}/{id}/party/{character_id}/activity");
 pub const RENOUNCE_RELIGION: Route<3> =

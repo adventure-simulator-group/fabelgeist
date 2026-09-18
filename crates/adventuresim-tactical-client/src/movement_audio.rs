@@ -2,6 +2,7 @@ use adventuresim_tactical_core::prelude::*;
 use adventuresim_world_schema::UnitBasisPoints;
 use bevy::audio::{AudioSink, AudioSinkPlayback, PlaybackMode, Volume};
 use bevy::prelude::*;
+use fabelgeist_determinism::{Seed, StreamId};
 
 use crate::{
     animation::{LocomotionPresentationEvent, LocomotionPresentationEventKind},
@@ -33,6 +34,19 @@ struct TacticalWindAudio;
 struct MovementAudioState {
     grounded_dive_active: bool,
 }
+
+type GroundedDiveAudioQuery<'world, 'state> = Query<
+    'world,
+    'state,
+    (
+        Entity,
+        &'static CharacterId,
+        &'static GlobalTransform,
+        &'static SkeletonState,
+        Option<&'static mut MovementAudioState>,
+    ),
+    Changed<SkeletonState>,
+>;
 
 fn spawn_wind_loop(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
@@ -70,7 +84,7 @@ fn update_wind_volume(
 fn play_locomotion_audio(
     mut commands: Commands,
     mut events: MessageReader<LocomotionPresentationEvent>,
-    characters: Query<(&GlobalTransform, &SkeletonState)>,
+    characters: Query<(&GlobalTransform, &SkeletonState, &CharacterId)>,
     grounds: Query<&SceneGround>,
     understory: Query<(&GlobalTransform, &GroundScatterLayer)>,
     asset_server: Res<AssetServer>,
@@ -78,10 +92,13 @@ fn play_locomotion_audio(
 ) {
     let ground = grounds.iter().next();
     for event in events.read() {
-        let Ok((transform, skeleton)) = characters.get(event.owner) else {
+        let Ok((transform, skeleton, character_id)) = characters.get(event.owner) else {
             continue;
         };
         let position = transform.translation();
+        let sequence = StreamId::new("audio.locomotion-event")
+            .seed(character_id.0, &[event.sequence])
+            .to_u64();
         match event.kind {
             LocomotionPresentationEventKind::Contact(_) => {
                 let surface = ground.and_then(|ground| ground.ground_at(position.xz()));
@@ -97,7 +114,7 @@ fn play_locomotion_audio(
                     &mut commands,
                     &asset_server,
                     family,
-                    event.sequence,
+                    sequence,
                     position,
                     config.movement.footstep_relative_volume,
                     config.movement.pitch_randomization,
@@ -106,7 +123,7 @@ fn play_locomotion_audio(
                     spawn_rustle(
                         &mut commands,
                         &asset_server,
-                        event.sequence,
+                        sequence,
                         position,
                         config.movement.tall_grass_rustle_relative_volume,
                         config.movement.tall_grass_rustle_pitch,
@@ -117,7 +134,9 @@ fn play_locomotion_audio(
                     spawn_rustle(
                         &mut commands,
                         &asset_server,
-                        event.sequence.rotate_left(17),
+                        StreamId::new("audio.understory-rustle")
+                            .seed(sequence, &[])
+                            .to_u64(),
                         position,
                         config.movement.bush_rustle_relative_volume,
                         config.movement.bush_rustle_pitch,
@@ -137,7 +156,7 @@ fn play_locomotion_audio(
                     &mut commands,
                     &asset_server,
                     "impactSoft_heavy_00",
-                    event.sequence,
+                    sequence,
                     position,
                     config.movement.body_impact_relative_volume,
                     config.movement.pitch_randomization,
@@ -150,19 +169,11 @@ fn play_locomotion_audio(
 
 fn play_grounded_dive_impacts(
     mut commands: Commands,
-    mut characters: Query<
-        (
-            Entity,
-            &GlobalTransform,
-            &SkeletonState,
-            Option<&mut MovementAudioState>,
-        ),
-        Changed<SkeletonState>,
-    >,
+    mut characters: GroundedDiveAudioQuery,
     asset_server: Res<AssetServer>,
     config: Res<TacticalAudioConfig>,
 ) {
-    for (entity, transform, skeleton, state) in &mut characters {
+    for (entity, character_id, transform, skeleton, state) in &mut characters {
         let grounded_dive_active = matches!(
             skeleton
                 .posture_transition()
@@ -180,7 +191,9 @@ fn play_grounded_dive_impacts(
                 &mut commands,
                 &asset_server,
                 "impactSoft_heavy_00",
-                skeleton.locomotion_sample_tick,
+                StreamId::new("audio.grounded-dive")
+                    .seed(character_id.0, &[skeleton.locomotion_sample_tick])
+                    .to_u64(),
                 transform.translation(),
                 config.movement.body_impact_relative_volume,
                 config.movement.pitch_randomization,
@@ -219,8 +232,13 @@ fn spawn_spatial_variant(
     volume: f32,
     pitch_randomization: [f32; 2],
 ) {
-    let sample = mixed_sequence(sequence, position);
-    let path = format!("audio/movement/{family}{}.ogg", sample % 3);
+    let sample =
+        sound_seed(sequence, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
+    let variant = sample
+        .child(StreamId::new("audio.variant"), &[])
+        .rng()
+        .index(3);
+    let path = format!("audio/movement/{family}{variant}.ogg");
     spawn_spatial_sound(
         commands,
         asset_server.load(path),
@@ -241,7 +259,7 @@ fn spawn_rustle(
     base_speed: f32,
     pitch_randomization: [f32; 2],
 ) {
-    let sample = mixed_sequence(sequence, position);
+    let sample = sound_seed(sequence, position);
     spawn_spatial_sound(
         commands,
         asset_server.load("audio/movement/foliage_rustle.ogg"),
@@ -256,13 +274,16 @@ fn spawn_rustle(
 fn spawn_spatial_sound(
     commands: &mut Commands,
     source: Handle<AudioSource>,
-    sample: u64,
+    sample: Seed,
     position: Vec3,
     volume: f32,
     base_speed: f32,
     pitch_randomization: [f32; 2],
 ) {
-    let pitch_fraction = (sample >> 32) as u32 as f32 / u32::MAX as f32;
+    let pitch_fraction = sample
+        .child(StreamId::new("audio.pitch"), &[])
+        .rng()
+        .inclusive_unit_f32();
     let pitch =
         pitch_randomization[0] + pitch_fraction * (pitch_randomization[1] - pitch_randomization[0]);
     commands.spawn((
@@ -279,11 +300,13 @@ fn spawn_spatial_sound(
     ));
 }
 
-fn mixed_sequence(sequence: u64, position: Vec3) -> u64 {
-    let mut sample = sequence
-        .wrapping_mul(6_364_136_223_846_793_005)
-        .wrapping_add(u64::from(position.x.to_bits()))
-        .wrapping_add(u64::from(position.z.to_bits()).rotate_left(23));
-    sample ^= sample >> 29;
-    sample
+fn sound_seed(sequence: u64, position: Vec3) -> Seed {
+    StreamId::new("audio.spatial-event").seed(
+        sequence,
+        &[
+            u64::from(position.x.to_bits()),
+            u64::from(position.y.to_bits()),
+            u64::from(position.z.to_bits()),
+        ],
+    )
 }

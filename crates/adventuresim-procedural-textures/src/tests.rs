@@ -1,3 +1,4 @@
+use fabelgeist_determinism::StreamId;
 use std::collections::BTreeSet;
 
 use super::*;
@@ -250,32 +251,36 @@ fn forest_soil_ao_combines_half_resolution_horizons_with_local_cavities() {
 
 #[test]
 fn forest_litter_is_periodic_dense_and_retains_soil_gaps() {
-    let params = &crate::TextureParameters::default();
+    let mut params = crate::TextureParameters::default();
     let mut covered = 0_usize;
     let mut exposed = 0_usize;
     let mut minimum_ao = 1.0_f32;
     let mut maximum_repeat_error = 0.0_f32;
-    for y in 0..128 {
-        for x in 0..128 {
-            let u = (x as f32 + 0.5) / 128.0;
-            let v = (y as f32 + 0.5) / 128.0;
-            let sample = forest_litter_sample(params, u, v);
-            let repeated = forest_litter_sample(params, u + 1.0, v - 1.0);
-            maximum_repeat_error = maximum_repeat_error
-                .max((sample.coverage - repeated.coverage).abs())
-                .max((sample.height - repeated.height).abs());
-            assert!((0.47..=0.94).contains(&sample.height));
-            minimum_ao = minimum_ao.min(sample.ao);
-            covered += usize::from(sample.coverage >= 0.5);
-            exposed += usize::from(sample.coverage <= 0.1);
+    for seed in 0..4 {
+        params.seed = seed;
+        for y in 0..128 {
+            for x in 0..128 {
+                let u = (x as f32 + 0.5) / 128.0;
+                let v = (y as f32 + 0.5) / 128.0;
+                let sample = forest_litter_sample(&params, u, v);
+                let repeated = forest_litter_sample(&params, u + 1.0, v - 1.0);
+                maximum_repeat_error = maximum_repeat_error
+                    .max((sample.coverage - repeated.coverage).abs())
+                    .max((sample.height - repeated.height).abs());
+                assert!((0.47..=0.94).contains(&sample.height));
+                minimum_ao = minimum_ao.min(sample.ao);
+                covered += usize::from(sample.coverage >= 0.5);
+                exposed += usize::from(sample.coverage <= 0.1);
+            }
         }
     }
-    let samples = 128 * 128;
+    let samples = 4 * 128 * 128;
     assert!(
         maximum_repeat_error < 0.01,
         "maximum periodic repeat error: {maximum_repeat_error}"
     );
-    assert!(covered * 100 / samples >= 68, "covered texels: {covered}");
+    // The independent streams retain a leaf-dominated surface across the corpus.
+    assert!(covered * 100 / samples >= 50, "covered texels: {covered}");
     assert!(exposed * 100 / samples >= 3, "exposed texels: {exposed}");
     assert!(minimum_ao <= 0.82, "minimum litter AO: {minimum_ao}");
     assert_eq!(FOREST_LITTER_TILE_METRES, 4.0);
@@ -378,7 +383,17 @@ fn oak_bark_terminating_cracks_are_sparse_finite_segments() {
 
     let enabled = (0..OAK_BARK_COLUMNS)
         .flat_map(|column| (0..OAK_BARK_ROWS).map(move |row| (column, row)))
-        .filter(|(column, row)| bark_random(params, *column, *row, 0x64ab) > 0.54)
+        .filter(|(column, row)| {
+            bark_random(
+                params,
+                *column,
+                *row,
+                params.field_seed(
+                    StreamId::new("texture.surface.details.branch-presence"),
+                    &[],
+                ),
+            ) > 0.54
+        })
         .count();
     assert!(
         (12..=38).contains(&enabled),

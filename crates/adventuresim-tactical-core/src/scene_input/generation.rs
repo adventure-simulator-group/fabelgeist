@@ -1,5 +1,6 @@
 use super::*;
 use bevy::math::Vec2;
+use fabelgeist_determinism::StreamId;
 
 impl TacticalSceneInput {
     pub fn generate(&self) -> Result<GeneratedTacticalScene, SceneInputError> {
@@ -124,10 +125,16 @@ fn generated_obstacles(input: &TacticalSceneInput) -> Vec<GeneratedObstacle> {
             {
                 return None;
             }
-            let coordinate = ((x as u64) << 32) ^ z as u64;
-            let tree_roll = splitmix64(input.seed ^ coordinate) % u64::from(BASIS_POINTS_PER_WHOLE);
-            let rock_seed = splitmix64(input.seed ^ coordinate ^ ROCK_PLACEMENT_DOMAIN);
-            let rock_roll = rock_seed % u64::from(BASIS_POINTS_PER_WHOLE);
+            let context = [u64::from(x), u64::from(z)];
+            let tree_roll = StreamId::new("scene.tree-placement")
+                .rng(input.seed, &context)
+                .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
+            let rock_seed = StreamId::new("scene.rock-placement")
+                .seed(input.seed, &context)
+                .to_u64();
+            let rock_roll = StreamId::new("scene.rock-presence")
+                .rng(rock_seed, &[])
+                .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64;
             if tree_roll < u64::from(sample.canopy_bps) / 12 {
                 Some(GeneratedObstacle::Tree { x, z })
             } else if rock_roll < u64::from(sample.hilly_bps) / 20 && sample.water_bps < 5_000 {

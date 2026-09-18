@@ -1,0 +1,40 @@
+//! Named random purposes owned by this generator. Names are part of its replay contract.
+use fabelgeist_determinism::StreamId;
+
+pub(super) const ANGLE: StreamId = StreamId::new("texture.ground.angle");
+pub(super) const ASPECT: StreamId = StreamId::new("texture.ground.aspect");
+pub(super) const AXIS_ANGLE: StreamId = StreamId::new("texture.ground.axis-angle");
+pub(super) const BROAD_PRIMARY: StreamId = StreamId::new("texture.ground.broad-primary");
+pub(super) const BROAD_RELIEF: StreamId = StreamId::new("texture.ground.broad-relief");
+pub(super) const BROAD_SECONDARY: StreamId = StreamId::new("texture.ground.broad-secondary");
+pub(super) const CENTER_X: StreamId = StreamId::new("texture.ground.center-x");
+pub(super) const CENTER_Y: StreamId = StreamId::new("texture.ground.center-y");
+pub(super) const CHILD_ANGLE: StreamId = StreamId::new("texture.ground.child-angle");
+pub(super) const CHILD_COUNT: StreamId = StreamId::new("texture.ground.child-count");
+pub(super) const CHILD_RADIUS: StreamId = StreamId::new("texture.ground.child-radius");
+pub(super) const CLUSTER_CHILD: StreamId = StreamId::new("texture.ground.cluster-child");
+pub(super) const COMPACTION: StreamId = StreamId::new("texture.ground.compaction");
+pub(super) const CRUMB_CLUSTERS: StreamId = StreamId::new("texture.ground.crumb-clusters");
+pub(super) const EXPOSED_SOIL_TONE: StreamId = StreamId::new("texture.ground.exposed-soil-tone");
+pub(super) const FINE_AGGREGATES: StreamId = StreamId::new("texture.ground.fine-aggregates");
+pub(super) const GRANULAR: StreamId = StreamId::new("texture.ground.granular");
+pub(super) const HUMUS: StreamId = StreamId::new("texture.ground.humus");
+pub(super) const HUMUS_BREAKUP: StreamId = StreamId::new("texture.ground.humus-breakup");
+pub(super) const HUMUS_TONE: StreamId = StreamId::new("texture.ground.humus-tone");
+pub(super) const LATTICE: StreamId = StreamId::new("texture.ground.lattice");
+pub(super) const LEAF_SHAPE: StreamId = StreamId::new("texture.ground.leaf-shape");
+pub(super) const LITTER_WARP_X: StreamId = StreamId::new("texture.ground.litter-warp-x");
+pub(super) const LITTER_WARP_Y: StreamId = StreamId::new("texture.ground.litter-warp-y");
+pub(super) const LOBES: StreamId = StreamId::new("texture.ground.lobes");
+pub(super) const MACRO_AGGREGATES: StreamId = StreamId::new("texture.ground.macro-aggregates");
+pub(super) const MEDIUM_AGGREGATES: StreamId = StreamId::new("texture.ground.medium-aggregates");
+pub(super) const MERGED_LITTER: StreamId = StreamId::new("texture.ground.merged-litter");
+pub(super) const MERGED_LITTER_DETAIL: StreamId =
+    StreamId::new("texture.ground.merged-litter-detail");
+pub(super) const MOISTURE: StreamId = StreamId::new("texture.ground.moisture");
+pub(super) const PHASE: StreamId = StreamId::new("texture.ground.phase");
+pub(super) const PORES: StreamId = StreamId::new("texture.ground.pores");
+pub(super) const PRESENCE: StreamId = StreamId::new("texture.ground.presence");
+pub(super) const RADIUS: StreamId = StreamId::new("texture.ground.radius");
+pub(super) const WARP_X: StreamId = StreamId::new("texture.ground.warp-x");
+pub(super) const WARP_Y: StreamId = StreamId::new("texture.ground.warp-y");

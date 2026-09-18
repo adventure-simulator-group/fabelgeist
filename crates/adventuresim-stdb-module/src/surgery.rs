@@ -13,7 +13,7 @@ use adventuresim_core::surgery::{
     SurgeryProcedure, simulate_blood_interval, standing_infection_multiplier,
 };
 pub use adventuresim_core::surgery::{
-    UNTREATED_CUT_BLOOD_LOSS_PER_DAY, UNTREATED_CUT_DETERIORATION_PER_DAY,
+    UNTREATED_CUT_BLOOD_LOSS_PER_DAY, UNTREATED_CUT_DETERIORATION_PER_DAY, projectile_extraction_dc,
 };
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
@@ -307,7 +307,10 @@ pub(crate) fn commit_aggregated_hit_injury(
     }
     store_injury(ctx, injury);
     if let Some(kind) = projectile.filter(|_| cut_damage + blunt_damage > 0.0) {
-        let random_depth = (ctx.random::<u64>() % 151) as f32 / 100.0;
+        let random_depth = fabelgeist_determinism::StreamId::new("surgery.projectile-depth")
+            .rng(ctx.random(), &[character_id])
+            .index(151) as f32
+            / 100.0;
         let total_damage = cut_damage.max(0.0) + blunt_damage.max(0.0);
         ctx.db.retained_projectile().insert(RetainedProjectile {
             id: 0,
@@ -349,10 +352,6 @@ pub fn commit_frostbite_injury(
 
 pub fn fracture_from_single_hit(blunt_damage: f32) -> f32 {
     (blunt_damage.max(0.0) - FRACTURE_SINGLE_HIT_THRESHOLD).max(0.0) * 0.65
-}
-
-pub fn projectile_extraction_dc(hit_damage: f32, random_depth: f32) -> f32 {
-    adventuresim_core::surgery::projectile_extraction_dc(hit_damage, random_depth)
 }
 
 fn has_projectile(ctx: &ReducerContext, character_id: u64, limb: BodyRegion) -> bool {

@@ -313,7 +313,7 @@ crate::parameters::parameter_block! {
         sample_centre_2: f32 = 0.60;
         sample_centre_3: f32 = 0.20;
         sample_centre_4: f32 = 0.60;
-        sample_child_count: f32 = 4.0;
+        cluster_child_variants: usize = 4;
         sample_radial_1: f32 = 0.34;
         sample_radial_2: f32 = 0.66;
         sample_axis_angle: f32 = 1.3;

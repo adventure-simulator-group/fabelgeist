@@ -11,7 +11,7 @@ use bevy::{
     mesh::{Indices, VertexAttributeValues},
     prelude::{Mesh, Vec2, Vec3, Vec4},
 };
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct TreeAtlasRegion {
@@ -98,7 +98,7 @@ fn stratified_tree_bake_leaves(
     leaves: &[TreeLeaf],
     stride: usize,
 ) -> Vec<TreeLeaf> {
-    let included = leaves
+    let mut included = leaves
         .iter()
         .filter(|leaf| card.includes_leaf(leaf))
         .copied()
@@ -107,6 +107,7 @@ fn stratified_tree_bake_leaves(
         return included;
     }
 
+    included.sort_by_key(|leaf| (leaf.shoot_id, leaf.leaf_ordinal));
     let mut sampled = Vec::with_capacity(included.len().div_ceil(stride));
     let mut start = 0;
     while start < included.len() {
@@ -116,11 +117,10 @@ fn stratified_tree_bake_leaves(
             end += 1;
         }
         let shoot = &included[start..end];
-        let phase_hash = splitmix64(
-            u64::from(shoot_id) ^ u64::from(card.source_group).rotate_left(23) ^ 0x1eaf_5a6d,
-        );
+        let mut random = StreamId::new("visual.tree.impostor-shoot-sampling")
+            .rng(shoot_id, &[u64::from(card.source_group)]);
         if shoot.len() >= stride {
-            let phase = phase_hash as usize % stride;
+            let phase = random.index(stride);
             let before = sampled.len();
             for ordinal in (phase..shoot.len()).step_by(stride) {
                 sampled.push(shoot[ordinal]);
@@ -132,8 +132,8 @@ fn stratified_tree_bake_leaves(
                 let wrapped = (phase + (sampled.len() - before) * stride) % shoot.len();
                 sampled.push(shoot[wrapped]);
             }
-        } else if phase_hash as usize % stride < shoot.len() {
-            sampled.push(shoot[(phase_hash.rotate_left(17) as usize) % shoot.len()]);
+        } else if random.index(stride) < shoot.len() {
+            sampled.push(shoot[random.index(shoot.len())]);
         }
         start = end;
     }
@@ -699,7 +699,7 @@ mod tests {
             source_group: 3,
             minimum_branch_depth: 0,
         };
-        let leaves = (0..32_u16)
+        let leaves = (0..32_u64)
             .flat_map(|shoot_id| {
                 (0..16).map(move |ordinal| TreeLeaf {
                     petiole_start: Vec3::ZERO,
@@ -787,7 +787,8 @@ mod tests {
         let fixture_position = Vec3::new(12.5, 0.0, 37.5);
         let obstacle_seed = obstacle_seed(fixture_position);
         let variant_index = (obstacle_seed & 3) as usize;
-        let variant_seed = splitmix64(0x6f61_6b00 ^ variant_index as u64);
+        let variant_seed =
+            crate::presentation::obstacles::tree::specimen::oak_variant_seed(variant_index);
         assert_eq!(SCENE_SEED, 47_104);
         assert_eq!(variant_index, 1);
         assert_eq!(variant_seed, FOCUSED_TREE_RECIPE_SEED);

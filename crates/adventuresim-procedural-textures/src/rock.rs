@@ -1,3 +1,4 @@
+mod streams;
 use super::*;
 
 pub const ROCK_TEXTURE_SIZE: u32 = 1024;
@@ -38,7 +39,7 @@ fn periodic_value_field(
     v: f32,
     columns: i32,
     rows: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * columns as f32;
     let y = v.rem_euclid(1.0) * rows as f32;
@@ -49,10 +50,10 @@ fn periodic_value_field(
     let value = |cell_x: i32, cell_y: i32| {
         let wrapped_x = cell_x.rem_euclid(columns) as u64;
         let wrapped_y = cell_y.rem_euclid(rows) as u64;
-        unit_hash(crate::parameters::seeded_hash(
-            params,
-            wrapped_x | (wrapped_y << 16) | salt.rotate_left(29),
-        )) * 2.0
+        params
+            .rng(streams::LATTICE, &[field_seed, wrapped_x, wrapped_y])
+            .inclusive_unit_f32()
+            * 2.0
             - 1.0
     };
     let lower = value(x0, y0).lerp(value(x0 + 1, y0), blend_x);
@@ -61,24 +62,40 @@ fn periodic_value_field(
 }
 
 fn rock_field(params: &crate::TextureParameters, u: f32, v: f32) -> RockFieldSample {
-    let broad = periodic_value_field(params, u, v, 3, 3, 0x4ad3);
+    let broad = periodic_value_field(params, u, v, 3, 3, params.field_seed(streams::BROAD, &[]));
     let structure = periodic_value_field(
         params,
         u,
         v,
         params.rock.domain_columns,
         params.rock.domain_rows,
-        0xd513,
+        params.field_seed(streams::STRUCTURE, &[]),
     );
-    let aggregate = periodic_value_field(params, u, v, 19, 19, 0xb175);
-    let grain = periodic_value_field(params, u, v, 41, 41, 0x8c29);
+    let aggregate = periodic_value_field(
+        params,
+        u,
+        v,
+        19,
+        19,
+        params.field_seed(streams::AGGREGATE, &[]),
+    );
+    let grain = periodic_value_field(params, u, v, 41, 41, params.field_seed(streams::GRAIN, &[]));
     // Smooth value-noise octaves make irregular pore/crystal grain without
     // the connected Voronoi edge graph that read as repeated U/Y/L stamps
     // once the tile was projected over broad cliff faces.
     let uv = Vec2::new(u, v);
-    let facets = params.rock.facets.sample(params, uv, 0x1ab3);
-    let pores = params.rock.pores.sample(params, uv, 0x7719);
-    let spalls = params.rock.spalls.sample(params, uv, 0x7175);
+    let facets = params
+        .rock
+        .facets
+        .sample(params, uv, params.field_seed(streams::FACETS, &[]));
+    let pores = params
+        .rock
+        .pores
+        .sample(params, uv, params.field_seed(streams::PORES, &[]));
+    let spalls = params
+        .rock
+        .spalls
+        .sample(params, uv, params.field_seed(streams::SPALLS, &[]));
     let height = (facets - spalls.facet - pores.bowl
         + params.rock.rock_field_height_1 * broad
         + params.rock.rock_field_height_2 * structure

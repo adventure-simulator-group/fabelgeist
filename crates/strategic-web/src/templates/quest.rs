@@ -754,6 +754,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -866,6 +867,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -921,6 +923,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {
@@ -977,6 +980,7 @@ mod tests {
             allow_tactical_combat: false,
         };
         let site = BackendCaseSitePin {
+            raiding_allowed: false,
             owner_character_id: 7,
             case_id: "journal:case".into(),
             case_site_id: adventuresim_stdb_client::CaseSiteId {

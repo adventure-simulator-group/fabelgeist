@@ -1,7 +1,11 @@
 //! Base layout template - Three-column strategic design.
 
+#[cfg(test)]
+use appearance::WildernessVariant;
+mod appearance;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
+use appearance::{building_tier, wilderness_variant};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 
 use super::{
@@ -233,7 +237,7 @@ fn page_shell(
                     script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                     script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                     script src="/static/journal-tab.js?v=journal-tab-1" defer {}
-                    script src="/static/numeric-editor.js?v=shared-numeric-editor-2" defer {}
+                    script src="/static/numeric-editor.js?v=draft-callbacks-3" defer {}
                     script src="/static/inventory-browser.js?v=framed-equipment-portraits-1" defer {}
                     script src="/static/party-trade.js?v=provision-party-food-1-slot-controls-1" defer {}
                     script src="/static/cooking.js?v=fireplace-station-1" defer {}
@@ -253,7 +257,8 @@ fn page_shell(
                     script src="/static/travel-planner.js?v=travel-rails-2" defer {}
                     script src="/static/strategic-map.js?v=population-culling-3" defer {}
                     script src="/static/rest-duration.js?v=wake-time-5" defer {}
-                    script src="/static/training-schedule.js?v=apprentice-system-2" defer {}
+                    script src="/static/schedule-preview.js?v=server-preview-1" defer {}
+                    script src="/static/training-schedule.js?v=server-preview-1" defer {}
                     script src="/static/immediate-activity.js?v=manual-activities-2" defer {}
                 }
             }
@@ -658,48 +663,6 @@ fn camp_flame_effect() -> Markup {
     }
 }
 
-fn building_tier(category: &SettlementCategory) -> &'static str {
-    match category {
-        SettlementCategory::Unknown | SettlementCategory::Hamlet | SettlementCategory::Village => {
-            "village"
-        }
-        SettlementCategory::Town => "town",
-        SettlementCategory::City | SettlementCategory::Capital => "city",
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-enum WildernessVariant {
-    Forest,
-    Grassland,
-    Hills,
-}
-
-impl WildernessVariant {
-    fn as_str(self) -> &'static str {
-        match self {
-            Self::Forest => "forest",
-            Self::Grassland => "grassland",
-            Self::Hills => "hills",
-        }
-    }
-}
-
-/// Temporary stable terrain selection. World terrain data can replace this
-/// selector without changing the shared camp and quest-location header.
-fn wilderness_variant(location_id: &str) -> WildernessVariant {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in location_id.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    match hash % 3 {
-        0 => WildernessVariant::Forest,
-        1 => WildernessVariant::Grassland,
-        _ => WildernessVariant::Hills,
-    }
-}
-
 fn character_switcher(name: &str) -> Markup {
     let initial = name.chars().next().unwrap_or('?');
     html! {
@@ -807,7 +770,7 @@ mod tests {
         assert!(markup.contains("/static/strategic-mutations.js?v=formaction-override-1\" defer"));
         assert_eq!(markup.matches("/static/training-schedule.js").count(), 1);
         assert_eq!(markup.matches("/static/immediate-activity.js").count(), 1);
-        assert!(markup.contains("/static/training-schedule.js?v=apprentice-system-2\" defer"));
+        assert!(markup.contains("/static/training-schedule.js?v=server-preview-1\" defer"));
         assert!(markup.contains("/static/immediate-activity.js?v=manual-activities-2\" defer"));
         assert_eq!(markup.matches("id=\"strategic-live-stream\"").count(), 1);
         assert!(markup.find("id=\"strategic-live-stream\"") < markup.find("id=\"strategic-page\""));

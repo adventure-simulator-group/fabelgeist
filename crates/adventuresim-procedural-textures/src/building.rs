@@ -8,6 +8,7 @@ use bevy::{
     image::{Image, ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+use fabelgeist_determinism::StreamId;
 
 use super::image_rgba_mipped;
 
@@ -144,8 +145,11 @@ fn baked_brick_pixel(colors: [Rgba; 2], x: u32, y: u32, size: u32) -> Rgba {
     if mortar {
         [151, 139, 119, 255]
     } else {
-        let identity = course.wrapping_mul(1_103_515_245) ^ column.wrapping_mul(12_345);
-        let tone = 0.30 + (identity & 0xff) as f32 / 255.0 * 0.50;
+        let tone = 0.30
+            + StreamId::new("texture.building.brick-tone")
+                .rng(0, &[u64::from(course), u64::from(column)])
+                .inclusive_unit_f32()
+                * 0.50;
         blend_rgba(colors[0], colors[1], tone)
     }
 }

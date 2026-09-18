@@ -6,8 +6,8 @@
 //! narrow recessed side joints, and shallow cleft planes rather than clay-tile
 //! curvature or modern machine-cut regularity.
 
+mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3, render::render_resource::TextureFormat};
-use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -29,16 +29,13 @@ struct SlateSample {
     cleavage: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
-}
-
 fn piece_id(params: &crate::TextureParameters, canonical_row: i32, column: i32) -> u64 {
-    crate::parameters::seeded_hash(
-        params,
-        0x51a7_3e29
-            ^ ((canonical_row.rem_euclid(params.slate_roof.courses) as u64) << 32)
-            ^ column.rem_euclid(params.slate_roof.pieces_per_course) as u64,
+    params.field_seed(
+        streams::PIECE,
+        &[
+            canonical_row.rem_euclid(params.slate_roof.courses) as u64,
+            column.rem_euclid(params.slate_roof.pieces_per_course) as u64,
+        ],
     )
 }
 
@@ -47,8 +44,10 @@ fn piece_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i3
     let base_wrap = base_column.div_euclid(params.slate_roof.pieces_per_course);
     let row_key = (row + params.slate_roof.course_rise_per_repeat * base_wrap)
         .rem_euclid(params.slate_roof.courses) as u64;
-    let stagger =
-        hash_unit(params, 0x718d_295b ^ row_key) * params.slate_roof.piece_coordinates_stagger;
+    let stagger = params
+        .rng(streams::COURSE_STAGGER, &[row_key])
+        .inclusive_unit_f32()
+        * params.slate_roof.piece_coordinates_stagger;
     let scaled = u * params.slate_roof.pieces_per_course as f32 - stagger;
     let column = scaled.floor() as i32;
     let wrap = column.div_euclid(params.slate_roof.pieces_per_course);
@@ -57,7 +56,8 @@ fn piece_coordinates(params: &crate::TextureParameters, u: f32, row: i32) -> (i3
 }
 
 fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
-    let heel_bias = (hash_unit(params, id ^ 0x728d) - 0.5) * params.slate_roof.lower_edge_heel_bias;
+    let heel_bias = (params.rng(streams::HEEL_BIAS, &[id]).inclusive_unit_f32() - 0.5)
+        * params.slate_roof.lower_edge_heel_bias;
     let left_clip = ((-local_x - params.slate_roof.lower_edge_left_clip_1)
         / params.slate_roof.lower_edge_left_clip_2)
         .clamp(0.0, 1.0);
@@ -66,12 +66,18 @@ fn lower_edge(params: &crate::TextureParameters, local_x: f32, id: u64) -> f32 {
         .clamp(0.0, 1.0);
     let asymmetry = left_clip
         * (params.slate_roof.lower_edge_asymmetry_1
-            + hash_unit(params, id ^ 0x941f) * params.slate_roof.lower_edge_asymmetry_2)
+            + params
+                .rng(streams::TAIL_AMPLITUDE, &[id])
+                .inclusive_unit_f32()
+                * params.slate_roof.lower_edge_asymmetry_2)
         + right_clip
             * (params.slate_roof.lower_edge_asymmetry_3
-                + hash_unit(params, id ^ 0x2e57) * params.slate_roof.lower_edge_asymmetry_4);
+                + params.rng(streams::TAIL_PHASE, &[id]).inclusive_unit_f32()
+                    * params.slate_roof.lower_edge_asymmetry_4);
     let chip_segment = ((local_x + 0.5) * params.slate_roof.lower_edge_chip_segment).floor() as u64;
-    let chip = ((hash_unit(params, id ^ chip_segment.wrapping_mul(0x85eb))
+    let chip = ((params
+        .rng(streams::TAIL_CHIP, &[id, chip_segment])
+        .inclusive_unit_f32()
         - params.slate_roof.lower_edge_chip_1)
         / params.slate_roof.lower_edge_chip_2)
         .clamp(0.0, 1.0)
@@ -90,9 +96,16 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     let id = piece_id(params, canonical_row, column);
 
     let left_boundary = -0.5
-        + (hash_unit(params, id ^ 0x14ad) - 0.5) * params.slate_roof.sample_slate_left_boundary;
+        + (params.rng(streams::BOUNDARY, &[id]).inclusive_unit_f32() - 0.5)
+            * params.slate_roof.sample_slate_left_boundary;
     let right_boundary = 0.5
-        + (hash_unit(params, piece_id(params, canonical_row, column + 1) ^ 0x14ad) - 0.5)
+        + (params
+            .rng(
+                streams::BOUNDARY,
+                &[piece_id(params, canonical_row, column + 1)],
+            )
+            .inclusive_unit_f32()
+            - 0.5)
             * params.slate_roof.sample_slate_right_boundary;
     let side_distance = (local_x - left_boundary).min(right_boundary - local_x);
     let side_joint =
@@ -106,6 +119,9 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
     } else {
         let (under_row, under_column, _) = piece_coordinates(params, u, row + 1);
         piece_id(params, under_row, under_column)
+    };
+    let unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+        params.rng(purpose, &[active_id]).inclusive_unit_f32()
     };
     let active_local_x = if front {
         local_x
@@ -124,13 +140,13 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
         active_id,
         lip_distance.min(side_distance),
     );
-    let piece_thickness = (hash_unit(params, active_id ^ 0xa673) - 0.5)
-        * params.slate_roof.sample_slate_piece_thickness;
+    let piece_thickness =
+        (unit_draw(streams::THICKNESS) - 0.5) * params.slate_roof.sample_slate_piece_thickness;
     let plane_tilt = active_local_x
-        * (hash_unit(params, active_id ^ 0x1f39) - 0.5)
+        * (unit_draw(streams::CROSS_TILT) - 0.5)
         * params.slate_roof.sample_slate_plane_tilt_1
         + (active_phase - 0.5)
-            * (hash_unit(params, active_id ^ 0xdb42) - 0.5)
+            * (unit_draw(streams::LONG_TILT) - 0.5)
             * params.slate_roof.sample_slate_plane_tilt_2;
     let lip = ((phase - (face_end - params.slate_roof.sample_slate_lip_1))
         / params.slate_roof.sample_slate_lip_2)
@@ -157,7 +173,9 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
         .max((1.0 - side_distance / params.slate_roof.sample_slate_edge_band_2).clamp(0.0, 1.0));
     let wear_cell = ((local_x + 0.5) * params.slate_roof.sample_slate_wear_cell).floor() as u64;
     let edge_wear = edge_band
-        * ((hash_unit(params, id ^ wear_cell.wrapping_mul(0xb529))
+        * ((params
+            .rng(streams::WEAR, &[id, wear_cell])
+            .inclusive_unit_f32()
             - params.slate_roof.sample_slate_edge_wear_1)
             / params.slate_roof.sample_slate_edge_wear_2)
             .clamp(0.0, 1.0);
@@ -172,8 +190,14 @@ fn sample_slate(params: &crate::TextureParameters, u: f32, v: f32) -> SlateSampl
 }
 
 fn color_and_roughness(params: &crate::TextureParameters, sample: SlateSample) -> ([u8; 3], u8) {
-    let mineral = hash_unit(params, sample.piece_id ^ 0x45c7) - 0.5;
-    let cool_shift = (hash_unit(params, sample.piece_id ^ 0x8a13) - 0.5)
+    let mineral = params
+        .rng(streams::MINERAL, &[sample.piece_id])
+        .inclusive_unit_f32()
+        - 0.5;
+    let cool_shift = (params
+        .rng(streams::COOL_SHIFT, &[sample.piece_id])
+        .inclusive_unit_f32()
+        - 0.5)
         * params.slate_roof.color_and_roughness_cool_shift;
     let color = [
         (params.slate_roof.color_and_roughness_color_1
@@ -494,7 +518,7 @@ mod tests {
             ("slate-roof-arm", &textures.arm),
         ];
         let mut manifest = String::from(
-            "recipe=slate-roof\ncandidate=4\nlayout=rising double-lapped old German scale courses\noverlap=texture +V (down-slope)\ncourse_rise_metres_per_repeat=0.3429\nnominal_piece_width_metres=0.1714\nnominal_course_exposure_metres=0.1714\nheight_range_metres=0.012\ntexture_dimensions=512x512\npattern_period_metres=4.8\nseed=recipe constants and fabelgeist splitmix64\ngenerator=adventuresim-procedural-textures 0.1.0\nexport_command=cargo test -p adventuresim-procedural-textures export_slate_roof_visual_review --lib -- --ignored --nocapture\nrevision=workspace-uncommitted-texture-iteration\ndirty_tree=true\nhash_algorithm=FNV-1a-64 over file bytes unless decoded_rgba is stated\n",
+            "recipe=slate-roof\ncandidate=4\nlayout=rising double-lapped old German scale courses\noverlap=texture +V (down-slope)\ncourse_rise_metres_per_repeat=0.3429\nnominal_piece_width_metres=0.1714\nnominal_course_exposure_metres=0.1714\nheight_range_metres=0.012\ntexture_dimensions=512x512\npattern_period_metres=4.8\nseed=named fabelgeist-determinism texture streams\ngenerator=adventuresim-procedural-textures 0.1.0\nexport_command=cargo test -p adventuresim-procedural-textures export_slate_roof_visual_review --lib -- --ignored --nocapture\nrevision=workspace-uncommitted-texture-iteration\ndirty_tree=true\nhash_algorithm=FNV-1a-64 over file bytes unless decoded_rgba is stated\n",
         );
         let mut channel_data = Vec::new();
         for (stem, handle) in channels {
@@ -550,7 +574,7 @@ mod tests {
         sheet
             .save(output.join("slate-roof-separated-contact-sheet.png"))
             .unwrap();
-        let provenance = "recipe=slate-roof\ncandidate=4\nsource=deterministic analytic split-slate courses; no external imagery\nhistorical_scope=restrained old German scale covering for slate-producing regions and high-status structures, circa 1544\norientation=texture V increases down-slope\nlayout=rising double-lapped courses with irregular clipped heels\nseed=recipe constants and fabelgeist splitmix64\n";
+        let provenance = "recipe=slate-roof\ncandidate=4\nsource=deterministic analytic split-slate courses; no external imagery\nhistorical_scope=restrained old German scale covering for slate-producing regions and high-status structures, circa 1544\norientation=texture V increases down-slope\nlayout=rising double-lapped courses with irregular clipped heels\nseed=named fabelgeist-determinism texture streams\n";
         fs::write(output.join("provenance.txt"), provenance).unwrap();
         let baseline_provenance = "recipe=slate-roof\nstate=planned baseline\nsource=flat authored comparison swatch generated by the evidence exporter\noutputs=single albedo-like reference only; no implemented PBR recipe existed\n";
         fs::write(before.join("provenance.txt"), baseline_provenance).unwrap();

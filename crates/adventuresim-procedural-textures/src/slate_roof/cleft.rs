@@ -1,6 +1,6 @@
 //! Slaty cleavage: warped terraces, aligned split ledges and edge delamination.
-use super::hash_unit;
 use crate::TextureParameters;
+use fabelgeist_determinism::StreamId;
 
 crate::parameters::parameter_block! {
     pub struct Parameters {
@@ -30,10 +30,16 @@ fn noise(params: &TextureParameters, x: f32, y: f32, id: u64) -> f32 {
     let ix = x.floor() as i32;
     let iy = y.floor() as i32;
     let random = |dx: i32, dy: i32| {
-        hash_unit(
-            params,
-            id ^ ((ix.wrapping_add(dx) as u32 as u64) << 32) ^ iy.wrapping_add(dy) as u32 as u64,
-        )
+        params
+            .rng(
+                StreamId::new("texture.slate-roof.cleft.lattice"),
+                &[
+                    id,
+                    ix.wrapping_add(dx) as u32 as u64,
+                    iy.wrapping_add(dy) as u32 as u64,
+                ],
+            )
+            .inclusive_unit_f32()
     };
     let tx = smooth(x - x.floor());
     let ty = smooth(y - y.floor());
@@ -58,7 +64,12 @@ pub(super) fn sample(
     edge_distance: f32,
 ) -> Split {
     let p = &params.slate_roof.cleft;
-    let angle = p.split_direction + (hash_unit(params, id ^ 0x347b) - 0.5) * p.direction_variation;
+    let angle = p.split_direction
+        + (params
+            .rng(StreamId::new("texture.slate-roof.cleft.split-angle"), &[id])
+            .inclusive_unit_f32()
+            - 0.5)
+            * p.direction_variation;
     let (sin, cos) = angle.sin_cos();
     let along = x * cos + y * sin;
     let across = -x * sin + y * cos;
@@ -66,19 +77,21 @@ pub(super) fn sample(
         params,
         along * p.warp_frequency,
         across * p.warp_frequency,
-        id ^ 0x6ca1,
+        params.field_seed(StreamId::new("texture.slate-roof.cleft.broad-cleft"), &[id]),
     );
     let fracture = noise(
         params,
         along * p.fracture_frequency,
         across * p.fracture_frequency,
-        id ^ 0x3187,
+        params.field_seed(StreamId::new("texture.slate-roof.cleft.fracture"), &[id]),
     ) - 0.5;
     let layers = p.layer_count as f32;
     let level = (across
         + (broad - 0.5) * p.warp_strength
         + fracture * p.fracture_strength
-        + hash_unit(params, id ^ 0x459a))
+        + params
+            .rng(StreamId::new("texture.slate-roof.cleft.layer-phase"), &[id])
+            .inclusive_unit_f32())
         * layers;
     let phase = level - level.floor();
     // Softening is a geometric ledge bevel bounded below by a texel footprint.
@@ -94,7 +107,7 @@ pub(super) fn sample(
         params,
         along * p.flake_frequency,
         across * p.flake_frequency,
-        id ^ 0xe479,
+        params.field_seed(StreamId::new("texture.slate-roof.cleft.flake"), &[id]),
     );
     let reach = (1.0 - edge_distance.max(0.0) / p.flake_reach).clamp(0.0, 1.0);
     let flake =
@@ -102,7 +115,13 @@ pub(super) fn sample(
     Split {
         // Warping changes the ledge contour, not the smooth planes between ledges.
         // Removing only the phase offset also keeps it independent of piece thickness.
-        height: (terrace - across - hash_unit(params, id ^ 0x459a) + 0.5 / layers) * p.layer_depth
+        height: (terrace
+            - across
+            - params
+                .rng(StreamId::new("texture.slate-roof.cleft.layer-phase"), &[id])
+                .inclusive_unit_f32()
+            + 0.5 / layers)
+            * p.layer_depth
             - flake * p.flake_depth,
         edge: (ledge * (1.0 - ledge) * 4.0).max(flake),
     }
@@ -146,22 +165,26 @@ mod tests {
         unchipped.slate_roof.cleft.flake_depth = 0.0;
         let mut damage = 0;
         let mut steps = 0;
-        for i in 0..300 {
-            let x = (i as f32 + 0.5) / 300.0 - 0.5;
-            let edge = sample(&p, x, 0.8, 77, 0.0);
-            let clean = sample(&unchipped, x, 0.8, 77, 0.0);
-            let face = sample(&p, x, 0.8, 77, 1.0);
-            let unchipped_face = sample(&unchipped, x, 0.8, 77, 1.0);
-            assert!(edge.height <= clean.height);
-            assert_eq!(face.height, unchipped_face.height);
-            if edge.height < clean.height - 0.001 {
-                damage += 1;
-            }
-            if face.edge > 0.5 {
-                steps += 1;
+        // Local chips are sparse: evaluate a corpus of piece identities instead
+        // of requiring one particular random edge to contain damage.
+        for id in 0..16 {
+            for i in 0..300 {
+                let x = (i as f32 + 0.5) / 300.0 - 0.5;
+                let edge = sample(&p, x, 0.8, id, 0.0);
+                let clean = sample(&unchipped, x, 0.8, id, 0.0);
+                let face = sample(&p, x, 0.8, id, 1.0);
+                let unchipped_face = sample(&unchipped, x, 0.8, id, 1.0);
+                assert!(edge.height <= clean.height);
+                assert_eq!(face.height, unchipped_face.height);
+                if edge.height < clean.height - 0.001 {
+                    damage += 1;
+                }
+                if face.edge > 0.5 {
+                    steps += 1;
+                }
             }
         }
-        assert!(damage > 5, "flake coverage: {damage}");
-        assert!(steps > 5, "cleft risers: {steps}");
+        assert!(damage > 5 * 16, "flake coverage: {damage}");
+        assert!(steps > 5 * 16, "cleft risers: {steps}");
     }
 }

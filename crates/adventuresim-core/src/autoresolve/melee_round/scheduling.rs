@@ -4,7 +4,7 @@ pub(in crate::autoresolve) fn schedule_side_melee_attacks(
     attackers: &mut [Combatant],
     defenders: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Vec<ScheduledMeleeAttack> {
@@ -25,7 +25,7 @@ pub(in crate::autoresolve) fn schedule_side_melee_attacks_in_window(
     defenders: &mut [Combatant],
     window_start: f32,
     window_seconds: f32,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Vec<ScheduledMeleeAttack> {
@@ -57,7 +57,7 @@ fn schedule_attacker(
     defenders: &mut [Combatant],
     window_start: f32,
     window_seconds: f32,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) -> Option<ScheduledMeleeAttack> {
@@ -250,7 +250,7 @@ pub(in crate::autoresolve) fn take_side_turns(
     attackers: &mut [Combatant],
     defenders: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {

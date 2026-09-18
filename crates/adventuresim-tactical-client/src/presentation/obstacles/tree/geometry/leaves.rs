@@ -1,12 +1,17 @@
+mod selection;
+pub(in crate::presentation) use selection::detailed_flat_card_group_leaves;
+use selection::sparse_woody_far_card_leaves;
+#[cfg(test)]
+use selection::{detailed_flat_card_leaf_retained, sparse_woody_far_card_retained};
+mod identity;
+pub(in crate::presentation) use identity::shoot_identity;
+mod streams;
 use bevy::{
     asset::RenderAssetUsages,
     math::{Quat, Vec3, Vec3Swizzles},
     mesh::{Indices, PrimitiveTopology},
     prelude::Mesh,
 };
-use fabelgeist_determinism::splitmix64;
-
-use crate::presentation::unit_hash;
 
 use super::{TreeBranchSegment, WoodyPlantForm, WoodyPlantParameters, branch_frame};
 
@@ -20,7 +25,7 @@ pub(in crate::presentation) struct TreeLeaf {
     pub(in crate::presentation) width: f32,
     pub(in crate::presentation) primary_group: u8,
     pub(in crate::presentation) secondary_group: u16,
-    pub(in crate::presentation) shoot_id: u16,
+    pub(in crate::presentation) shoot_id: u64,
     /// Stable ordinal within the source shoot. This is deliberately stored on
     /// the leaf rather than inferred from a mesh-building iteration order so
     /// representation LODs can make deterministic per-leaf choices.
@@ -42,10 +47,9 @@ pub(in crate::presentation) fn procedural_oak_leaves(
     // The pulsed shoot layout then cuts redundant alpha overlap while
     // retaining the oak's irregular shell.
     let leaves_per_shoot = 16_u64;
-    for (shoot_index, shoot) in branches
+    for shoot in branches
         .iter()
         .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
-        .enumerate()
     {
         let direction = (shoot.end - shoot.start).normalize();
         let tangent = direction.cross(Vec3::Y).normalize_or_zero();
@@ -56,8 +60,12 @@ pub(in crate::presentation) fn procedural_oak_leaves(
         };
         let binormal = direction.cross(tangent).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed =
-                splitmix64(seed ^ shoot_index as u64 ^ leaf_index.wrapping_mul(0x91e1_0da5));
+            let leaf_seed = streams::LEAF
+                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .to_u64();
+            let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+            };
             // Alternate leaves along each current-year shoot, then finish in
             // the tighter terminal flush characteristic of pedunculate oak.
             let along = if leaf_index < 2 {
@@ -65,19 +73,20 @@ pub(in crate::presentation) fn procedural_oak_leaves(
             } else {
                 (0.70
                     + (leaf_index - 2) as f32 / (leaves_per_shoot - 3) as f32 * 0.285
-                    + (unit_hash(leaf_seed ^ 12) - 0.5) * 0.008)
+                    + (leaf_unit_draw(streams::TERMINAL_ATTACHMENT) - 0.5) * 0.008)
                     .clamp(0.69, 0.99)
             };
             let alternate = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
-            let spiral = leaf_index as f32 * 2.399_963_1 + (unit_hash(leaf_seed ^ 2) - 0.5) * 0.65;
+            let spiral =
+                leaf_index as f32 * 2.399_963_1 + (leaf_unit_draw(streams::SPIRAL) - 0.5) * 0.65;
             let radial = (tangent * spiral.cos() + binormal * spiral.sin()).normalize();
-            let leaf_up = (radial * (0.46 + unit_hash(leaf_seed ^ 3) * 0.24)
-                + direction * (0.42 + unit_hash(leaf_seed ^ 8) * 0.18)
-                + Vec3::Y * (0.08 + unit_hash(leaf_seed ^ 9) * 0.18))
+            let leaf_up = (radial * (0.46 + leaf_unit_draw(streams::RADIAL_LIFT) * 0.24)
+                + direction * (0.42 + leaf_unit_draw(streams::DIRECTION_LIFT) * 0.18)
+                + Vec3::Y * (0.08 + leaf_unit_draw(streams::VERTICAL_LIFT) * 0.18))
                 .normalize();
             let leaf_normal_candidate = direction.cross(radial)
-                + radial * (unit_hash(leaf_seed ^ 10) - 0.5) * 0.7
-                + Vec3::Y * (unit_hash(leaf_seed ^ 11) - 0.5) * 0.35;
+                + radial * (leaf_unit_draw(streams::NORMAL_RADIAL) - 0.5) * 0.7
+                + Vec3::Y * (leaf_unit_draw(streams::NORMAL_VERTICAL) - 0.5) * 0.35;
             let leaf_normal = if leaf_normal_candidate.length_squared() > 0.001 {
                 leaf_normal_candidate.normalize()
             } else {
@@ -93,16 +102,16 @@ pub(in crate::presentation) fn procedural_oak_leaves(
             // Pedunculate-oak leaf stalks are only a few millimetres long.
             // Keeping this independent of blade size avoids the long-stalked,
             // bilateral-comb silhouette of other broadleaf genera.
-            let petiole_length = 0.003 + unit_hash(leaf_seed ^ 4) * 0.004;
+            let petiole_length = 0.003 + leaf_unit_draw(streams::PETIOLE_LENGTH) * 0.004;
             let blade_base =
                 petiole_start + (radial * 0.82 + leaf_up * 0.18).normalize() * petiole_length;
-            let leaf_length = 0.1 + unit_hash(leaf_seed ^ 5) * 0.06;
-            let leaf_width = 0.065 + unit_hash(leaf_seed ^ 6) * 0.04;
+            let leaf_length = 0.1 + leaf_unit_draw(streams::LENGTH) * 0.06;
+            let leaf_width = 0.065 + leaf_unit_draw(streams::WIDTH) * 0.04;
             let shell_exposure = ((shoot.end.xz().length() - 1.25) / 4.75).clamp(0.0, 1.0);
             let shade = if leaf_index < 2 {
-                0.58 + shell_exposure * 0.22 + unit_hash(leaf_seed ^ 7) * 0.12
+                0.58 + shell_exposure * 0.22 + leaf_unit_draw(streams::SHADE) * 0.12
             } else {
-                0.68 + shell_exposure * 0.25 + unit_hash(leaf_seed ^ 7) * 0.14
+                0.68 + shell_exposure * 0.25 + leaf_unit_draw(streams::SHADE) * 0.14
             };
             leaves.push(TreeLeaf {
                 petiole_start,
@@ -113,10 +122,10 @@ pub(in crate::presentation) fn procedural_oak_leaves(
                 width: leaf_width,
                 primary_group: shoot.primary_group,
                 secondary_group: shoot.secondary_group,
-                shoot_id: shoot_index as u16,
+                shoot_id: shoot_identity(shoot),
                 leaf_ordinal: leaf_index as u8,
                 shade,
-                torsion: (unit_hash(leaf_seed ^ 13) - 0.5) * 0.42,
+                torsion: (leaf_unit_draw(streams::TORSION) - 0.5) * 0.42,
             });
         }
     }
@@ -148,10 +157,9 @@ fn procedural_beech_leaves(
 ) -> Vec<TreeLeaf> {
     let mut leaves = Vec::new();
     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
-    for (shoot_index, shoot) in branches
+    for shoot in branches
         .iter()
         .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
-        .enumerate()
     {
         let direction = (shoot.end - shoot.start).normalize();
         let horizontal = Vec3::new(direction.x, 0.0, direction.z).normalize_or_zero();
@@ -162,24 +170,28 @@ fn procedural_beech_leaves(
         };
         let spray_side = Vec3::Y.cross(spray_forward).normalize();
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed =
-                splitmix64(seed ^ shoot_index as u64 ^ leaf_index.wrapping_mul(0x91e1_0da5));
+            let leaf_seed = streams::LEAF
+                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .to_u64();
+            let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+            };
             let along = (0.1
                 + leaf_index as f32 / (leaves_per_shoot - 1) as f32 * 0.84
-                + (unit_hash(leaf_seed ^ 1) - 0.5) * 0.018)
+                + (leaf_unit_draw(streams::ATTACHMENT) - 0.5) * 0.018)
                 .clamp(0.06, 0.97);
             let side = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
-            let blade_outward = (spray_forward * (0.56 + unit_hash(leaf_seed ^ 2) * 0.18)
-                + spray_side * side * (0.7 + unit_hash(leaf_seed ^ 3) * 0.16)
-                + Vec3::Y * (0.06 + unit_hash(leaf_seed ^ 4) * 0.1))
+            let blade_outward = (spray_forward * (0.56 + leaf_unit_draw(streams::SPIRAL) * 0.18)
+                + spray_side * side * (0.7 + leaf_unit_draw(streams::RADIAL_LIFT) * 0.16)
+                + Vec3::Y * (0.06 + leaf_unit_draw(streams::PETIOLE_LENGTH) * 0.1))
                 .normalize();
             // Keep the lamina close to horizontal while allowing a small,
             // deterministic ripple through each spray.
             let horizontal_weight = if leaf_index & 3 < 2 { 1.0 } else { 0.62 };
             let posture_normal = (Vec3::Y * horizontal_weight
                 + spray_forward * (1.0 - horizontal_weight) * 1.35
-                + spray_side * (unit_hash(leaf_seed ^ 5) - 0.5) * 0.28
-                + spray_forward * (unit_hash(leaf_seed ^ 6) - 0.5) * 0.18)
+                + spray_side * (leaf_unit_draw(streams::LENGTH) - 0.5) * 0.28
+                + spray_forward * (leaf_unit_draw(streams::WIDTH) - 0.5) * 0.18)
                 .normalize();
             let right = blade_outward.cross(posture_normal).normalize_or_zero();
             let right = if right.length_squared() > 0.25 {
@@ -189,7 +201,7 @@ fn procedural_beech_leaves(
             };
             let petiole_start = shoot.start.lerp(shoot.end, along);
             let petiole_length = parameters.petiole_length_metres[0]
-                + unit_hash(leaf_seed ^ 7)
+                + leaf_unit_draw(streams::SHADE)
                     * (parameters.petiole_length_metres[1] - parameters.petiole_length_metres[0]);
             // At mature-tree scale this card represents a small overlapping
             // beech spray, not a single isolated lamina. Keeping the card
@@ -197,12 +209,12 @@ fn procedural_beech_leaves(
             // species' closed, shade-casting crown without multiplying draw
             // and streaming work across a dense stand.
             let length = (parameters.leaf_length_metres[0]
-                + unit_hash(leaf_seed ^ 8)
+                + leaf_unit_draw(streams::DIRECTION_LIFT)
                     * (parameters.leaf_length_metres[1] - parameters.leaf_length_metres[0]))
                 * 3.0;
             let width = length
                 * (parameters.leaf_width_ratio[0]
-                    + unit_hash(leaf_seed ^ 9)
+                    + leaf_unit_draw(streams::VERTICAL_LIFT)
                         * (parameters.leaf_width_ratio[1] - parameters.leaf_width_ratio[0]));
             let blade_base = petiole_start + blade_outward * petiole_length;
             leaves.push(TreeLeaf {
@@ -214,10 +226,10 @@ fn procedural_beech_leaves(
                 width,
                 primary_group: shoot.primary_group,
                 secondary_group: shoot.secondary_group,
-                shoot_id: shoot_index as u16,
+                shoot_id: shoot_identity(shoot),
                 leaf_ordinal: leaf_index as u8,
-                shade: 0.7 + unit_hash(leaf_seed ^ 10) * 0.2,
-                torsion: (unit_hash(leaf_seed ^ 11) - 0.5) * 0.18,
+                shade: 0.7 + leaf_unit_draw(streams::NORMAL_RADIAL) * 0.2,
+                torsion: (leaf_unit_draw(streams::NORMAL_VERTICAL) - 0.5) * 0.18,
             });
         }
     }
@@ -231,24 +243,28 @@ fn procedural_multistem_shrub_leaves(
 ) -> Vec<TreeLeaf> {
     let mut leaves = Vec::new();
     let leaves_per_shoot = u64::from(parameters.leaves_per_shoot.max(4));
-    for (shoot_index, shoot) in branches
+    for shoot in branches
         .iter()
         .filter(|branch| branch.depth == 3 && branch.is_limb_tip)
-        .enumerate()
     {
         let direction = (shoot.end - shoot.start).normalize();
         let (frame_right, frame_up) = branch_frame(direction);
         for leaf_index in 0..leaves_per_shoot {
-            let leaf_seed =
-                splitmix64(seed ^ shoot_index as u64 ^ leaf_index.wrapping_mul(0x91e1_0da5));
+            let leaf_seed = streams::LEAF
+                .seed(seed, &[shoot_identity(shoot), leaf_index])
+                .to_u64();
+            let leaf_unit_draw = |purpose: fabelgeist_determinism::StreamId| {
+                purpose.rng(leaf_seed, &[]).inclusive_unit_f32()
+            };
             // Common hazel leaves are alternate and loosely distichous. The
             // golden-angle perturbation prevents a flat bilateral comb while
             // retaining opposite-side succession along each current shoot.
             let along = 0.08
                 + leaf_index as f32 / (leaves_per_shoot - 1) as f32 * 0.84
-                + (unit_hash(leaf_seed ^ 1) - 0.5) * 0.025;
+                + (leaf_unit_draw(streams::ATTACHMENT) - 0.5) * 0.025;
             let side = if leaf_index & 1 == 0 { 1.0 } else { -1.0 };
-            let phase = side * (0.82 + unit_hash(leaf_seed ^ 2) * 0.28) + leaf_index as f32 * 0.32;
+            let phase =
+                side * (0.82 + leaf_unit_draw(streams::SPIRAL) * 0.28) + leaf_index as f32 * 0.32;
             let radial = (frame_right * phase.cos() + frame_up * phase.sin()).normalize();
             let leaf_up = (radial * 0.72 + direction * 0.48 + Vec3::Y * 0.16).normalize();
             let azimuth_normal = direction.cross(radial).normalize_or_zero();
@@ -271,14 +287,14 @@ fn procedural_multistem_shrub_leaves(
             };
             let petiole_start = shoot.start.lerp(shoot.end, along.clamp(0.04, 0.96));
             let petiole_length = parameters.petiole_length_metres[0]
-                + unit_hash(leaf_seed ^ 3)
+                + leaf_unit_draw(streams::RADIAL_LIFT)
                     * (parameters.petiole_length_metres[1] - parameters.petiole_length_metres[0]);
             let length = parameters.leaf_length_metres[0]
-                + unit_hash(leaf_seed ^ 4)
+                + leaf_unit_draw(streams::PETIOLE_LENGTH)
                     * (parameters.leaf_length_metres[1] - parameters.leaf_length_metres[0]);
             let width = length
                 * (parameters.leaf_width_ratio[0]
-                    + unit_hash(leaf_seed ^ 5)
+                    + leaf_unit_draw(streams::LENGTH)
                         * (parameters.leaf_width_ratio[1] - parameters.leaf_width_ratio[0]));
             let blade_base = petiole_start + radial * petiole_length;
             leaves.push(TreeLeaf {
@@ -290,10 +306,10 @@ fn procedural_multistem_shrub_leaves(
                 width,
                 primary_group: shoot.primary_group,
                 secondary_group: shoot.secondary_group,
-                shoot_id: shoot_index as u16,
+                shoot_id: shoot_identity(shoot),
                 leaf_ordinal: leaf_index as u8,
-                shade: 0.68 + unit_hash(leaf_seed ^ 6) * 0.24,
-                torsion: (unit_hash(leaf_seed ^ 7) - 0.5) * 0.28,
+                shade: 0.68 + leaf_unit_draw(streams::WIDTH) * 0.24,
+                torsion: (leaf_unit_draw(streams::SHADE) - 0.5) * 0.28,
             });
         }
     }
@@ -310,10 +326,10 @@ pub(in crate::presentation) fn oak_leaf_card_bounds(leaf: TreeLeaf) -> (Vec3, f3
 }
 
 fn leaf_shadow_selector(leaf: TreeLeaf) -> f32 {
-    let shoot_key = u64::from(leaf.primary_group)
-        | (u64::from(leaf.secondary_group) << 8)
-        | (u64::from(leaf.shoot_id) << 24);
-    unit_hash(splitmix64(shoot_key ^ 0x5a17_8c3d_2149_b6e0))
+    let shoot_key = leaf.shoot_id;
+    streams::SHOOT_THRESHOLD
+        .rng(shoot_key, &[])
+        .inclusive_unit_f32()
 }
 
 /// Replaces every cambered production leaf with one alpha-masked quad while
@@ -381,34 +397,6 @@ fn procedural_woody_leaf_card_mesh_scaled(leaves: &[TreeLeaf], coverage_scale: f
     mesh.insert_attribute(Mesh::ATTRIBUTE_COLOR, colors);
     mesh.insert_indices(Indices::U32(indices));
     mesh
-}
-
-/// Selects one stable ordinal lane from every source shoot. Sorting the
-/// retained leaves makes the resulting mesh byte-for-byte deterministic even
-/// if the source generator changes its iteration order.
-fn sparse_woody_far_card_leaves(leaves: &[TreeLeaf]) -> Vec<TreeLeaf> {
-    let mut retained = leaves
-        .iter()
-        .filter(|leaf| sparse_woody_far_card_retained(**leaf))
-        .copied()
-        .collect::<Vec<_>>();
-    retained.sort_unstable_by_key(|leaf| {
-        (
-            leaf.primary_group,
-            leaf.secondary_group,
-            leaf.shoot_id,
-            leaf.leaf_ordinal,
-        )
-    });
-    retained
-}
-
-fn sparse_woody_far_card_retained(leaf: TreeLeaf) -> bool {
-    let shoot_key = u64::from(leaf.primary_group)
-        | (u64::from(leaf.secondary_group) << 8)
-        | (u64::from(leaf.shoot_id) << 24);
-    let retained_ordinal_lane = splitmix64(shoot_key ^ 0x74a3_2f9b_d817_c56e) as u8 & 3;
-    leaf.leaf_ordinal & 3 == retained_ordinal_lane
 }
 
 /// The near leaf is a small cambered grid: the geometry retains fold, cupping,
@@ -511,41 +499,6 @@ pub(in crate::presentation) fn procedural_oak_leaf_card_group_mesh(
 ) -> Mesh {
     let group_leaves = detailed_flat_card_group_leaves(leaves, primary_group);
     procedural_woody_leaf_card_mesh(&group_leaves)
-}
-
-/// Returns the deterministic 75% subset used exclusively by streamed
-/// playable-tree flat cards. Each shoot omits one of its four ordinal lanes;
-/// the omitted lane is salted by stable source identity, keeping the crown
-/// distributed when source vectors are reordered. Cambered leaves and baked
-/// aggregate canopy cards deliberately retain the full source set.
-pub(in crate::presentation) fn detailed_flat_card_group_leaves(
-    leaves: &[TreeLeaf],
-    primary_group: u8,
-) -> Vec<TreeLeaf> {
-    let mut retained = leaves
-        .iter()
-        .filter(|leaf| {
-            leaf.primary_group == primary_group && detailed_flat_card_leaf_retained(**leaf)
-        })
-        .copied()
-        .collect::<Vec<_>>();
-    retained.sort_unstable_by_key(|leaf| {
-        (
-            leaf.primary_group,
-            leaf.secondary_group,
-            leaf.shoot_id,
-            leaf.leaf_ordinal,
-        )
-    });
-    retained
-}
-
-fn detailed_flat_card_leaf_retained(leaf: TreeLeaf) -> bool {
-    let shoot_key = u64::from(leaf.primary_group)
-        | (u64::from(leaf.secondary_group) << 8)
-        | (u64::from(leaf.shoot_id) << 24);
-    let omitted_ordinal_lane = splitmix64(shoot_key ^ 0x8f4d_6b29_13ce_57a1) as u8 & 3;
-    leaf.leaf_ordinal & 3 != omitted_ordinal_lane
 }
 
 pub(in crate::presentation) fn procedural_oak_textured_leaf_group_mesh(

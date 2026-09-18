@@ -498,7 +498,7 @@ fn both_generated_families_issue_root_and_successor_action_text() {
         let context = GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: seed.rotate_left(23) ^ 0x7175_6573_742d_7631,
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "lubeck".into(),
             settlement_name: "Lubeck".into(),
             scope: Scope::Settlement {
@@ -572,7 +572,7 @@ fn root_rumor_then_every_referred_witness_pipeline_is_valid_in_both_families() {
         let mut context = GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: seed.rotate_left(23) ^ 0x7175_6573_742d_7631,
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer-high").seed(seed, &[]).to_u64(),
             settlement_id: "lubeck".into(),
             settlement_name: "Lubeck".into(),
             scope: Scope::Settlement {

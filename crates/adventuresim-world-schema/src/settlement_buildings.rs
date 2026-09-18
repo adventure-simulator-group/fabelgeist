@@ -2,7 +2,7 @@
 //!
 //! Capacities are gameplay catchments, not historical attendance or occupancy.
 use crate::SettlementEconomyProfile;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 
 mod catalog;
 mod parish;
@@ -13,7 +13,7 @@ pub use parish::{
 };
 use serde::{Deserialize, Serialize};
 
-const CAPACITY_DOMAIN: u64 = 0x6361_7061_6369_7479;
+const CAPACITY_DOMAIN: StreamId = StreamId::new("settlement.building-capacity");
 pub const MAX_SERVICE_BUILDINGS: usize = 4_096;
 
 /// Approximate people served, distinct from residents housed.
@@ -35,9 +35,15 @@ impl CapacityRange {
         }
     }
 
-    fn sample(self, seed: u64) -> ServiceCapacity {
+    fn sample(self, seed: Seed) -> ServiceCapacity {
         let width = u64::from(self.maximum.0) - u64::from(self.minimum.0) + 1;
-        ServiceCapacity(self.minimum.0 + (mix64(seed) % width) as u32)
+        ServiceCapacity(
+            self.minimum.0
+                + seed
+                    .rng()
+                    .below(std::num::NonZeroU64::new(width).expect("nonempty capacity range"))
+                    as u32,
+        )
     }
 }
 
@@ -170,9 +176,8 @@ impl SettlementBuildingDemand {
                     });
                     break;
                 }
-                let capacity = range.sample(
-                    seed ^ CAPACITY_DOMAIN ^ (usage as u64).rotate_left(23) ^ u64::from(ordinal),
-                );
+                let capacity =
+                    range.sample(CAPACITY_DOMAIN.seed(seed, &[usage as u64, u64::from(ordinal)]));
                 plan.buildings.push(BuildingDemand::Service {
                     usage,
                     ordinal,

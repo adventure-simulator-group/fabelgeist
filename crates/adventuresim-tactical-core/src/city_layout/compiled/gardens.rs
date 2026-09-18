@@ -3,8 +3,8 @@ use super::*;
 use crate::city_layout::gardens::{
     GardenPlantId, GardenPlantPlacement, GardenPlantScale, GardenSpecimen,
 };
-const GARDEN_SELECTION_DOMAIN: u64 = 0x7961_7264_5f73_7572;
-const GARDEN_SELECTION_DIVISOR: u64 = 3;
+const GARDEN_SELECTION_DOMAIN: StreamId = StreamId::new("city.garden-presence");
+const GARDEN_SELECTION_DIVISOR: usize = 3;
 const ACCESS_HALF_WIDTH_METRES: f32 = 0.4;
 const STREET_SEARCH_STEP_METRES: f32 = 0.25;
 const STREET_SEARCH_STEPS: usize = 24;
@@ -32,7 +32,10 @@ pub(super) fn compile(
 ) -> Option<CityGarden> {
     if lot.service.is_some()
         || lot.has_rear_range()
-        || !mix64(seed ^ GARDEN_SELECTION_DOMAIN ^ lot.id).is_multiple_of(GARDEN_SELECTION_DIVISOR)
+        || GARDEN_SELECTION_DOMAIN
+            .rng(seed, &[lot.id])
+            .index(GARDEN_SELECTION_DIVISOR)
+            != 0
     {
         return None;
     }

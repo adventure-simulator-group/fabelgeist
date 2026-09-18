@@ -573,29 +573,27 @@ fn ensure_generated_incidents_inner(
         if due <= problem.incident_count {
             continue;
         }
-        let candidates = &validated.context.witness_candidates;
-        let sites = &validated.manifest.sites;
+        let candidates = incident_draws::candidates(&validated.context);
+        let sites = incident_draws::sites(&validated.manifest);
         if candidates.is_empty() || sites.is_empty() {
             return Err("Generated incident has no persistent witness or case site".into());
         }
         for ordinal in problem.incident_count.saturating_add(1)..=due {
-            let choice = adventuresim_core::settlement_population::stable_hash(&format!(
-                "generated-incident-v1:{}:{ordinal}",
-                validated.manifest.canonical_case_id
-            ));
-            let witness = &candidates[choice as usize % candidates.len()];
-            let victim = &candidates[(choice.rotate_left(17) as usize) % candidates.len()];
-            let site = &sites[(choice.rotate_left(31) as usize) % sites.len()];
-            let circumstances: Vec<_> = witness.allowed_circumstances.iter().copied().collect();
+            let draws =
+                incident_draws::IncidentDraws::new(&validated.manifest.canonical_case_id, ordinal);
+            let witness = candidates[draws.index(incident_draws::WITNESS, candidates.len())];
+            let victim = candidates[draws.index(incident_draws::VICTIM, candidates.len())];
+            let site = sites[draws.index(incident_draws::SITE, sites.len())];
+            let circumstances = incident_draws::circumstances(witness);
             if circumstances.is_empty() {
                 return Err("Generated incident witness has no valid circumstance".into());
             }
             let circumstance =
-                circumstances[(choice.rotate_left(7) as usize) % circumstances.len()];
+                circumstances[draws.index(incident_draws::CIRCUMSTANCE, circumstances.len())];
             let evidence_kind = adventuresim_core::quest_generation::select_follow_up_evidence(
                 validated.manifest.cause,
                 site.kind,
-                choice.rotate_left(43),
+                draws.word(incident_draws::EVIDENCE),
             )
             .ok_or("Generated incident has no valid evidence relation")?;
             let evidence_description = incident_evidence_description(evidence_kind);
@@ -2305,7 +2303,7 @@ mod tests {
         let preferred = bootstrap
             .split("fn materialize_preferred_generated_fixture")
             .nth(1)
-            .and_then(|tail| tail.split("fn preferred_fixture_seed").next())
+            .and_then(|tail| tail.split("fn ordinary_generated_site_distance_m").next())
             .expect("preferred generated fixture helper");
         assert_eq!(preferred.matches("prefer_next_rumor(").count(), 1);
         assert!(
@@ -2553,3 +2551,5 @@ mod tests {
         assert!(!start.contains("accept_contract("));
     }
 }
+#[path = "local_problem/incident_draws.rs"]
+mod incident_draws;

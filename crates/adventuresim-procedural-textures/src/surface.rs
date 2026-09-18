@@ -1,4 +1,5 @@
 //! Metric oak bark with narrow raised plates and broad shouldered fissures.
+mod streams;
 use super::*;
 
 pub(super) const OAK_BARK_TILE_METRES: f32 = 0.5;
@@ -16,27 +17,28 @@ pub(super) fn bark_random(
     params: &crate::TextureParameters,
     cell_x: i32,
     cell_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
-    let hash = crate::parameters::seeded_hash(
-        params,
-        bark_cell_id(params, cell_x, cell_y) | salt.rotate_left(21),
-    );
-    unit_hash(hash)
+    params
+        .rng(
+            streams::LATTICE,
+            &[field_seed, bark_cell_id(params, cell_x, cell_y)],
+        )
+        .inclusive_unit_f32()
 }
 
 fn bark_cell_id(params: &crate::TextureParameters, cell_x: i32, cell_y: i32) -> u64 {
     let wrapped_x = cell_x.rem_euclid(params.surface.columns) as u64;
     let wrapped_y = cell_y.rem_euclid(params.surface.rows) as u64;
-    wrapped_x | (wrapped_y << 8)
+    params.field_seed(streams::CELL, &[wrapped_x, wrapped_y])
 }
 
-pub(super) fn bark_edge_random(
+pub(super) fn bark_edge_rng(
     params: &crate::TextureParameters,
     first: (i32, i32),
     second: (i32, i32),
-    salt: u64,
-) -> f32 {
+    field_seed: u64,
+) -> fabelgeist_determinism::DeterministicRng {
     let first = bark_cell_id(params, first.0, first.1);
     let second = bark_cell_id(params, second.0, second.1);
     let (lower, upper) = if first <= second {
@@ -44,8 +46,16 @@ pub(super) fn bark_edge_random(
     } else {
         (second, first)
     };
-    let hash = crate::parameters::seeded_hash(params, lower | (upper << 16) | salt.rotate_left(37));
-    unit_hash(hash)
+    params.rng(streams::EDGE, &[field_seed, lower, upper])
+}
+
+fn bark_edge_random(
+    params: &crate::TextureParameters,
+    first: (i32, i32),
+    second: (i32, i32),
+    field_seed: u64,
+) -> f32 {
+    bark_edge_rng(params, first, second, field_seed).inclusive_unit_f32()
 }
 
 pub(super) fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
@@ -60,10 +70,30 @@ pub(super) fn bark_segment_modulation(
     second: (i32, i32),
 ) -> f32 {
     let tau = core::f32::consts::TAU;
-    let frequency = 2.0 + (bark_edge_random(params, first, second, 0x8d31) * 3.0).floor();
-    let phase = bark_edge_random(params, first, second, 0xc4b7);
-    let meander =
-        0.13 * (tau * (point.x * 3.0 + bark_edge_random(params, first, second, 0x724d))).sin();
+    let frequency = 2.0
+        + bark_edge_rng(
+            params,
+            first,
+            second,
+            params.field_seed(streams::EDGE_FREQUENCY, &[]),
+        )
+        .index(3) as f32;
+    let phase = bark_edge_random(
+        params,
+        first,
+        second,
+        params.field_seed(streams::EDGE_PHASE, &[]),
+    );
+    let meander = 0.13
+        * (tau
+            * (point.x * 3.0
+                + bark_edge_random(
+                    params,
+                    first,
+                    second,
+                    params.field_seed(streams::EDGE_MEANDER, &[]),
+                )))
+        .sin();
     let wave = (tau * (point.y * frequency + phase + meander)).sin();
     0.48 + 0.52 * smoothstep(-0.55, 0.30, wave)
 }
@@ -87,10 +117,26 @@ pub(super) fn oak_bark_major_profile(
 
 pub(super) fn oak_bark_crack_x(params: &crate::TextureParameters, crack: i32, v: f32) -> f32 {
     let tau = core::f32::consts::TAU;
-    let phase = bark_random(params, crack, 0, 0xd32f);
-    let secondary_phase = bark_random(params, crack, 0, 0x82b5);
-    let offset =
-        (bark_random(params, crack, 0, 0x4c19) - 0.5) * 0.16 / params.surface.columns as f32;
+    let phase = bark_random(
+        params,
+        crack,
+        0,
+        params.field_seed(streams::CRACK_PHASE, &[]),
+    );
+    let secondary_phase = bark_random(
+        params,
+        crack,
+        0,
+        params.field_seed(streams::CRACK_SECONDARY_PHASE, &[]),
+    );
+    let offset = (bark_random(
+        params,
+        crack,
+        0,
+        params.field_seed(streams::CRACK_OFFSET, &[]),
+    ) - 0.5)
+        * 0.16
+        / params.surface.columns as f32;
     crack as f32 / params.surface.columns as f32
         + offset
         + 0.0065 * (tau * (v * 2.0 + phase)).sin()

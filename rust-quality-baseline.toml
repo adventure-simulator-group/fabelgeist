@@ -103,10 +103,6 @@ path = "crates/adventuresim-core/src/disease.rs"
 ceiling = 2273
 
 [[files]]
-path = "crates/adventuresim-core/src/encounter.rs"
-ceiling = 517
-
-[[files]]
 path = "crates/adventuresim-core/src/equipment.rs"
 ceiling = 660
 
@@ -161,10 +157,6 @@ ceiling = 1439
 [[files]]
 path = "crates/adventuresim-core/src/quest_generation/model.rs"
 ceiling = 1083
-
-[[files]]
-path = "crates/adventuresim-core/src/quest_generation/projection.rs"
-ceiling = 570
 
 [[files]]
 path = "crates/adventuresim-core/src/quest_generation/solver.rs"
@@ -820,7 +812,7 @@ ceiling = 728
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
-ceiling = 696
+ceiling = 665
 
 [[files]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -1252,11 +1244,6 @@ ceiling = 195
 path = "crates/adventuresim-core/src/settlement_population.rs"
 item = "generate"
 ceiling = 244
-
-[[functions]]
-path = "crates/adventuresim-core/src/starting_character.rs"
-item = "apply_professional_start"
-ceiling = 113
 
 [[functions]]
 path = "crates/adventuresim-core/src/starting_character.rs"
@@ -2005,11 +1992,6 @@ ceiling = 263
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-item = "materialize_preferred_generated_fixture"
-ceiling = 101
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "seed_simulation_quest_fixture_inner"
 ceiling = 171
 
@@ -2562,16 +2544,6 @@ ceiling = 116
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
 item = "on_scene_vista_bundle"
 ceiling = 125
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_vista_rocks"
-ceiling = 103
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"
-item = "spawn_vista_trees"
-ceiling = 103
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/presentation/vista.rs"

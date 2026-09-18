@@ -165,7 +165,16 @@ impl MarketRow {
         for column in 0..MAX_ROW_CANDIDATES {
             let slot = ((row as u64) << ROW_ID_SHIFT) | column as u64;
             let mut candidate = Candidate::new(
-                input.seed,
+                StreamId::new("furniture.market-anchor")
+                    .seed(
+                        input.seed,
+                        &[
+                            u64::from(frame.centre.x.to_bits()),
+                            u64::from(frame.centre.y.to_bits()),
+                            u64::from(frame.orientation.yaw_radians().to_bits()),
+                        ],
+                    )
+                    .to_u64(),
                 slot,
                 FurnitureGroupKind::Vendor,
                 FurnitureAnchor::Market {

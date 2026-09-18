@@ -1,6 +1,8 @@
 //! Periodic finite stamps. Recipes own their scales, masks and layer composition.
+mod streams;
 use crate::TextureParameters;
 use bevy::math::{IVec2, Vec2};
+use fabelgeist_determinism::StreamId;
 #[cfg(test)]
 mod tests;
 
@@ -21,11 +23,17 @@ crate::parameters::parameter_block! {
     }
 }
 
-pub(crate) fn hash(params: &TextureParameters, cell: IVec2, cells: IVec2, salt: u64) -> f32 {
-    crate::unit_hash(crate::parameters::seeded_hash(
-        params,
-        cell.x.rem_euclid(cells.x) as u64 ^ ((cell.y.rem_euclid(cells.y) as u64) << 32) ^ salt,
-    ))
+pub(crate) fn hash(params: &TextureParameters, cell: IVec2, cells: IVec2, field_seed: u64) -> f32 {
+    params
+        .rng(
+            streams::LATTICE,
+            &[
+                field_seed,
+                cell.x.rem_euclid(cells.x) as u64,
+                cell.y.rem_euclid(cells.y) as u64,
+            ],
+        )
+        .inclusive_unit_f32()
 }
 
 pub(crate) fn smooth(t: f32) -> f32 {
@@ -33,14 +41,14 @@ pub(crate) fn smooth(t: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-pub(crate) fn noise(params: &TextureParameters, uv: Vec2, cells: IVec2, salt: u64) -> f32 {
+pub(crate) fn noise(params: &TextureParameters, uv: Vec2, cells: IVec2, field_seed: u64) -> f32 {
     let p = uv.rem_euclid(Vec2::ONE) * cells.as_vec2();
     let cell = p.floor().as_ivec2();
     let f = p - p.floor();
-    let a = hash(params, cell, cells, salt);
-    let b = hash(params, cell + IVec2::X, cells, salt);
-    let c = hash(params, cell + IVec2::Y, cells, salt);
-    let d = hash(params, cell + IVec2::ONE, cells, salt);
+    let a = hash(params, cell, cells, field_seed);
+    let b = hash(params, cell + IVec2::X, cells, field_seed);
+    let c = hash(params, cell + IVec2::Y, cells, field_seed);
+    let d = hash(params, cell + IVec2::ONE, cells, field_seed);
     let x = smooth(f.x);
     let y = smooth(f.y);
     (a + (b - a) * x) * (1.0 - y) + (c + (d - c) * x) * y
@@ -55,7 +63,7 @@ pub(crate) struct Sample {
 
 impl Parameters {
     /// A two-cell search contains every allowed rotated stamp, including its feather.
-    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, salt: u64) -> Sample {
+    pub(crate) fn sample(&self, params: &TextureParameters, uv: Vec2, field_seed: u64) -> Sample {
         let cells = IVec2::from_array(self.cells);
         let p = uv.rem_euclid(Vec2::ONE) * cells.as_vec2();
         let base = p.floor().as_ivec2();
@@ -63,33 +71,37 @@ impl Parameters {
         for y in -2..=2 {
             for x in -2..=2 {
                 let cell = base + IVec2::new(x, y);
-                let random = |s| hash(params, cell, cells, salt ^ s);
+                let random = |purpose: StreamId| {
+                    hash(params, cell, cells, purpose.seed(field_seed, &[]).to_u64())
+                };
                 let site = cell.as_vec2()
                     + Vec2::splat(0.5)
-                    + (Vec2::new(random(0x1439), random(0x51ad)) - Vec2::splat(0.5)) * self.jitter;
+                    + (Vec2::new(random(streams::SITE_X), random(streams::SITE_Y))
+                        - Vec2::splat(0.5))
+                        * self.jitter;
                 // A feature's activation is fixed at its site, so the feature
                 // cannot disappear halfway across as the texel moves.
                 let cluster = noise(
                     params,
                     site / cells.as_vec2(),
                     IVec2::from_array(self.cluster_cells),
-                    salt ^ 0x517d,
+                    params.field_seed(streams::CLUSTER, &[field_seed]),
                 );
                 let density = self.density
                     * (1.0 - self.cluster_strength + cluster * 2.0 * self.cluster_strength);
-                if random(0x8251) >= density {
+                if random(streams::PRESENCE) >= density {
                     continue;
                 }
-                let angle = self.angle + (random(0x8ad3) - 0.5) * self.angle_variation;
+                let angle = self.angle + (random(streams::ANGLE) - 0.5) * self.angle_variation;
                 let (sin, cos) = angle.sin_cos();
                 let d = p - site;
                 let local = Vec2::new(cos * d.x + sin * d.y, -sin * d.x + cos * d.y)
                     / (Vec2::from_array(self.radius)
-                        * (1.0 - self.size_variation * random(0x9417)));
+                        * (1.0 - self.size_variation * random(streams::SIZE)));
                 let radius = local.abs().max_element() * (1.0 - self.roundness)
                     + local.length() * self.roundness;
                 let coverage = smooth((1.0 - radius) / self.edge_width);
-                let depth = self.depth * (1.0 - self.size_variation * random(0xb715));
+                let depth = self.depth * (1.0 - self.size_variation * random(streams::DEPTH));
                 out.bowl = out
                     .bowl
                     .max(coverage * (1.0 - radius * radius).max(0.0) * depth);

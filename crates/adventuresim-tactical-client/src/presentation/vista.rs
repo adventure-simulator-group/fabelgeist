@@ -1,10 +1,10 @@
+mod streams;
 use super::ground_scatter::{
     GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TacticalGrassInstancedMaterial, TierSpeciesBatches,
     TuftPigment, TuftPlacement, grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
 };
 use super::*;
 use adventuresim_tactical_core::vista_surface::*;
-use fabelgeist_determinism::splitmix64;
 
 pub(super) mod streets;
 mod surface;
@@ -343,7 +343,7 @@ fn spawn_near_vista_scatter(
         dryness: grass_dryness,
         wind_scale: 0.16 + bps(environment.weather.wind_speed_bps) * 0.36,
     };
-    let grass_seed = scene_seed ^ 0x6772_6173_735f_6c6f;
+    let grass_seed = streams::GRASS.seed(scene_seed, &[]).to_u64();
     let profile = GrassCommunityProfile::from_environment(environment);
     let placement = |outer_collar| VistaTuftPlacement {
         lod,
@@ -386,7 +386,7 @@ fn spawn_near_vista_scatter(
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
         &placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
-        grass_seed ^ 0x7669_7374_615f_6c6f,
+        streams::GRASS_LOD.seed(grass_seed, &[]).to_u64(),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,
         grass,
@@ -500,11 +500,7 @@ fn spawn_vista_rocks(
     let maximum = (outer / spacing).ceil().as_ivec2();
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let hash = splitmix64(scene_seed ^ cell ^ 0x726f_636b_5f76_6973);
-            let jitter = Vec2::new(unit_hash(hash) - 0.5, unit_hash(splitmix64(hash)) - 0.5)
-                * spacing
-                * 0.72;
+            let (hash, jitter) = streams::rock_cell(scene_seed, x, z, spacing);
             let point = Vec2::new(x as f32, z as f32) * spacing + jitter;
             if point.x.abs() <= playable_half_extent.x + 2.0
                 && point.y.abs() <= playable_half_extent.y + 2.0
@@ -518,7 +514,7 @@ fn spawn_vista_rocks(
                 * (1.0 - bps(sample.water_bps))
                 * (1.0 - bps(sample.wetland_bps) * 0.75)
                 * (1.0 - bps(sample.canopy_bps) * 0.42);
-            if unit_hash(splitmix64(hash ^ 0xa880_2dd1)) > exposed * 0.46 {
+            if streams::ROCK_PRESENCE.rng(hash, &[]).inclusive_unit_f32() > exposed * 0.46 {
                 continue;
             }
             let lift = 0.08;
@@ -533,7 +529,7 @@ fn spawn_vista_rocks(
             ) else {
                 continue;
             };
-            let scale = 0.55 + unit_hash(splitmix64(hash ^ 0x9137_b22c)) * 1.35;
+            let scale = 0.55 + streams::ROCK_SCALE.rng(hash, &[]).inclusive_unit_f32() * 1.35;
             transform.scale = Vec3::new(scale, scale * 0.72, scale * 0.9);
             for (name, mesh, visibility) in [
                 (
@@ -612,7 +608,7 @@ fn vista_scatter_transform(
         Transform::from_xyz(point.x, height + lift, point.y).with_rotation(
             Quat::from_rotation_arc(Vec3::Y, normal)
                 * Quat::from_rotation_y(
-                    unit_hash(splitmix64(hash ^ 0x55d8_093b)) * core::f32::consts::TAU,
+                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
                 ),
         ),
     )
@@ -717,11 +713,10 @@ fn spawn_vista_trees(
             // A regional source cell represents a stand, not individual
             // stems. Keep a physical-area-scaled silhouette sample; the
             // terrain material carries the remaining aggregate canopy.
-            let cell_key = ((x as u64) << 32) | z as u64;
             let candidate_count = vista_tree_candidate_count(
                 canopy,
                 lod.spacing_metres,
-                splitmix64(scene_seed ^ cell_key ^ 0x74c3_019d),
+                streams::tree_count_seed(scene_seed, x, z),
             )
             .min(if lod.spacing_metres <= 250.0 { 24 } else { 3 });
             if candidate_count == 0 {
@@ -729,12 +724,8 @@ fn spawn_vista_trees(
             }
             let cell_min = (Vec2::new(x as f32, z as f32) - center) * lod.spacing_metres;
             for candidate in 0..candidate_count {
-                let hash = splitmix64(
-                    scene_seed ^ cell_key ^ (candidate as u64).wrapping_mul(0x9e37_79b9),
-                );
-                let local = cell_min
-                    + Vec2::new(unit_hash(hash), unit_hash(splitmix64(hash ^ 0x51b7_2d8a)))
-                        * lod.spacing_metres;
+                let hash = streams::tree_seed(scene_seed, x, z, candidate);
+                let local = cell_min + streams::tree_jitter(hash) * lod.spacing_metres;
                 if local.x.abs() <= playable_half_extent.x + 7.0
                     && local.y.abs() <= playable_half_extent.y + 7.0
                 {
@@ -749,7 +740,8 @@ fn spawn_vista_trees(
                     continue;
                 };
                 // One calibrated whole-tree atlas avoids baking for every source cell.
-                let variant_seed = splitmix64(0x6f61_6b00);
+                let variant_seed =
+                    crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
                 let species = vista_tree_species(environment, local);
                 let cached = ensure_vista_tree_variant(
                     variant_seed,
@@ -765,7 +757,7 @@ fn spawn_vista_trees(
                 // stand at regional distance, not a survey-accurate stem.
                 let scale = vista_tree_scale(
                     lod.spacing_metres,
-                    unit_hash(splitmix64(hash ^ 0xa29c_413d)),
+                    streams::TREE_SCALE.rng(hash, &[]).inclusive_unit_f32(),
                 );
                 let card_height = cached
                     .provenance
@@ -836,7 +828,13 @@ fn vista_tree_visibility(
 
 fn vista_tree_candidate_count(canopy: f32, spacing_metres: f32, seed: u64) -> usize {
     let expected = canopy.clamp(0.0, 1.0) * spacing_metres * spacing_metres / 3_200.0;
-    expected.floor() as usize + usize::from(unit_hash(seed) < expected.fract())
+    expected.floor() as usize
+        + usize::from(
+            streams::TREE_COUNT_FRACTION
+                .rng(seed, &[])
+                .inclusive_unit_f32()
+                < expected.fract(),
+        )
 }
 
 #[cfg(test)]
@@ -1683,10 +1681,14 @@ mod tests {
     #[test]
     fn vista_tree_density_scales_with_physical_cell_area() {
         let small = (0..64_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 50.0, splitmix64(seed)))
+            .map(|seed| {
+                vista_tree_candidate_count(1.0, 50.0, streams::TEST_COUNT.seed(seed, &[]).to_u64())
+            })
             .sum::<usize>();
         let large = (0..64_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 100.0, splitmix64(seed)))
+            .map(|seed| {
+                vista_tree_candidate_count(1.0, 100.0, streams::TEST_COUNT.seed(seed, &[]).to_u64())
+            })
             .sum::<usize>();
         assert!(small > 0);
         assert!(large >= small * 3);

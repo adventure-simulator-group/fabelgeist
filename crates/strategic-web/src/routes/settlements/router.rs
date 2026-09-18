@@ -495,6 +495,10 @@ fn party_routes() -> Router<AppState> {
             post(update_training_schedule),
         )
         .route(
+            paths::PREVIEW_TRAINING_SCHEDULE.pattern(),
+            post(preview_training_schedule),
+        )
+        .route(
             paths::PERFORM_IMMEDIATE_ACTIVITY.pattern(),
             post(perform_immediate_activity),
         )
