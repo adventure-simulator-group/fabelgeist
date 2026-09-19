@@ -5,6 +5,7 @@ use crate::{
     item_catalog_schema::ItemKind,
     starting_character::{StartingAttributes, StartingCharacterSpec, StartingSkills},
 };
+use adventuresim_world_schema::person_names::{NameCulture, PersonalNameIdentity};
 
 mod evidence;
 
@@ -13,7 +14,7 @@ pub use evidence::*;
 #[derive(Clone, Debug)]
 pub struct MeleeIterationBuild {
     pub key: &'static str,
-    pub name: &'static str,
+    pub name: String,
     pub description: &'static str,
     pub equipment_description: &'static str,
     pub weapon_id: &'static str,
@@ -24,9 +25,10 @@ pub struct MeleeIterationBuild {
 
 pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String> {
     let john_spec = crate::starting_character::default_character("melee-iteration");
+    let john_name = john_spec.name.clone();
     let john = build_from_spec(
         "john",
-        "John Fabelgeist",
+        &john_name,
         "Combat-trained adventurer; strong and agile, with broadly advanced melee training.",
         "Longsword, morion, breastplate, paired steel vambraces, ordinary clothing and boots.",
         &john_spec,
@@ -141,6 +143,7 @@ fn purpose_build(
     let spec = StartingCharacterSpec {
         id: stable_id(key),
         name: name.into(),
+        name_identity: PersonalNameIdentity::authored(name, NameCulture::German),
         age_years: 28,
         background: description.into(),
         personality: crate::starting_character::default_character(key).personality,
@@ -178,7 +181,7 @@ fn stable_id(value: &str) -> u64 {
 )]
 fn build_from_spec(
     key: &'static str,
-    name: &'static str,
+    name: &str,
     description: &'static str,
     equipment_description: &'static str,
     spec: &StartingCharacterSpec,
@@ -210,7 +213,7 @@ fn build_from_spec(
     combatant.equipment = authored_equipment(weapon_id, armor_ids, shield_id)?;
     Ok(MeleeIterationBuild {
         key,
-        name,
+        name: name.to_owned(),
         description,
         equipment_description,
         weapon_id,

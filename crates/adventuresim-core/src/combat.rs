@@ -110,7 +110,7 @@ const UPPER_MUSCLE_KG_PER_STRENGTH: f32 = 5.0;
 const MUSCLE_KG_TO_JOULES: f32 = 2.0;
 const UPPER_MUSCLE_KG_TO_PUNCH_KG: f32 = 0.1;
 /// Empty-hand contacts move a whole body much more readily than they cause
-/// disabling tissue injury. This resistance puts canonical John Fabelgeist's
+/// disabling tissue injury. This resistance puts the canonical default's
 /// ordinary connected punch into a 70 kg opponent at roughly 40% imbalance.
 const UNARMED_STAGGER_RESISTANCE_JOULES_PER_KG: f32 = 0.875;
 const UNARMED_BLUNT_INJURY_SCALE: f32 = 0.2;
@@ -644,12 +644,12 @@ mod tests {
     }
 
     #[test]
-    fn johns_longsword_glances_off_munition_plate() {
-        let john = crate::starting_character::default_character("combat-matchups");
-        let john_body = MatchupCombatant {
-            name: &john.name,
+    fn canonical_longsword_glances_off_munition_plate() {
+        let player = crate::starting_character::default_character("combat-matchups");
+        let player_body = MatchupCombatant {
+            name: &player.name,
             weight_kg: 70.0,
-            will_check: john.skills.will,
+            will_check: player.skills.will,
         };
         let longsword = CombatEquipment {
             weapon: Some(CombatWeapon {
@@ -679,18 +679,18 @@ mod tests {
         };
 
         let force = attack_force(
-            &john.attributes,
-            &john_body,
+            &player.attributes,
+            &player_body,
             &longsword,
             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
         );
-        assert_in_window("John longsword energy", force, (69.0, 70.0));
+        assert_in_window("default-character longsword energy", force, (69.0, 70.0));
         let result = calculate_damage_from_force(
             1.0,
             force,
             &longsword,
             BodyPart::Head,
-            &john_body,
+            &player_body,
             &munition_armor,
             munition_armor.armor_surface(BodyPart::Head, 0.5),
             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
@@ -718,12 +718,15 @@ mod tests {
             target: BodyPart,
         }
 
-        let john = crate::starting_character::default_character("combat-matchups");
-        assert_eq!(john.name, crate::starting_character::DEFAULT_CHARACTER_NAME);
-        let john_body = MatchupCombatant {
-            name: &john.name,
+        let player = crate::starting_character::default_character("combat-matchups");
+        assert_eq!(
+            player.name,
+            crate::starting_character::default_character_name()
+        );
+        let player_body = MatchupCombatant {
+            name: &player.name,
             weight_kg: 70.0,
-            will_check: john.skills.will,
+            will_check: player.skills.will,
         };
         let light_bandit = MatchupCombatant {
             name: "light bandit",
@@ -761,12 +764,12 @@ mod tests {
         for matchup in matchups {
             let label = format!(
                 "{} -> {} ({})",
-                john_body.name, matchup.defender.name, matchup.target
+                player_body.name, matchup.defender.name, matchup.target
             );
             let result = resolve_melee_attack_by_parts(
-                &john.skills,
-                &john.attributes,
-                &john_body,
+                &player.skills,
+                &player.attributes,
+                &player_body,
                 &StubEssentials,
                 &unarmed,
                 EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
@@ -836,14 +839,14 @@ mod tests {
         }
         let avoided_matchups = [
             AvoidedMatchup {
-                label: "John punch cleanly dodged",
+                label: "default-character punch cleanly dodged",
                 response: DefenderResponse::Dodge { input_reflex: 1.0 },
                 defender_equipment: CombatEquipment::default(),
                 expected_imbalance: (0.15, 0.18),
                 expected_contact: false,
             },
             AvoidedMatchup {
-                label: "John punch caught by shield parry",
+                label: "default-character punch caught by shield parry",
                 response: DefenderResponse::Parry {
                     input_reflex: 1.0,
                     precision: 1.0,
@@ -859,9 +862,9 @@ mod tests {
 
         for matchup in avoided_matchups {
             let result = resolve_melee_attack_by_parts(
-                &john.skills,
-                &john.attributes,
-                &john_body,
+                &player.skills,
+                &player.attributes,
+                &player_body,
                 &StubEssentials,
                 &unarmed,
                 EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
@@ -877,9 +880,9 @@ mod tests {
                 },
                 MeleeContactAtTime::intended(0.0),
                 matchup.response,
-                &john.skills,
-                &john.attributes,
-                &john_body,
+                &player.skills,
+                &player.attributes,
+                &player_body,
                 &StubEssentials,
                 &matchup.defender_equipment,
             );

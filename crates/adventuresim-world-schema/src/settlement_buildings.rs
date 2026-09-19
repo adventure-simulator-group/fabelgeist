@@ -16,6 +16,35 @@ use serde::{Deserialize, Serialize};
 const CAPACITY_DOMAIN: StreamId = StreamId::new("settlement.building-capacity");
 pub const MAX_SERVICE_BUILDINGS: usize = 4_096;
 
+/// Settlement-local coordinate of one economic service establishment.
+///
+/// This value is safe inside a settlement generation pass. Persisted and
+/// transported state must use [`BusinessId`], which supplies the settlement
+/// scope explicitly.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub struct BusinessKey {
+    pub usage: BuildingUse,
+    pub ordinal: u32,
+}
+
+/// Globally scoped identity of one generated economic service establishment.
+#[derive(Clone, Debug, Eq, PartialEq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub struct BusinessId {
+    pub settlement_id: String,
+    pub key: BusinessKey,
+}
+
+impl BusinessId {
+    pub fn new(settlement_id: impl Into<String>, key: BusinessKey) -> Self {
+        Self {
+            settlement_id: settlement_id.into(),
+            key,
+        }
+    }
+}
+
 /// Approximate people served, distinct from residents housed.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct ServiceCapacity(pub u32);
@@ -89,6 +118,13 @@ pub enum BuildingDemand {
 }
 
 impl BuildingDemand {
+    pub const fn business_key(self) -> Option<BusinessKey> {
+        match self {
+            Self::Service { usage, ordinal, .. } => Some(BusinessKey { usage, ordinal }),
+            Self::Civic(_) | Self::Parish { .. } => None,
+        }
+    }
+
     pub const fn usage(self) -> BuildingUse {
         match self {
             Self::Service { usage, .. } => usage,

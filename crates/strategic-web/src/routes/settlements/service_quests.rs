@@ -202,7 +202,7 @@ mod apprenticeship_representative_tests {
             visible_features: String::new(),
             clothing: String::new(),
             profession: String::new(),
-            household: String::new(),
+            household_kind: String::new(),
             local_role: String::new(),
             service_id: String::new(),
             organization_id: organization_id.into(),

@@ -1,25 +1,26 @@
 use super::*;
 use crate::{BuildingProgram, generate, settlement_archetype};
 
+fn name(value: &str) -> RenderedPersonalName {
+    RenderedPersonalName::new(value).unwrap()
+}
+
 #[test]
-fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
-    let first = ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
+fn brands_use_the_operator_and_only_public_shops_receive_them() {
+    let first = ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap();
     assert_eq!(first.text(), "Marta Hartmann’s Tavern");
     assert_eq!(
         first,
-        ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap()
+        ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap()
     );
-    assert_ne!(
-        first,
-        ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap()
-    );
+    assert!(RenderedPersonalName::new("   ").is_err());
     for usage in [
         BuildingUse::Dwelling,
         BuildingUse::Barn,
         BuildingUse::Cathedral,
         BuildingUse::MarketHall,
     ] {
-        assert!(ShopSign::for_establishment(EstablishmentId(15), usage).is_none());
+        assert!(ShopName::for_operator(&name("Marta Hartmann"), usage).is_none());
     }
 }
 

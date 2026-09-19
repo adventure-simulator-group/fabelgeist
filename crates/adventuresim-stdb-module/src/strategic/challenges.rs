@@ -1096,9 +1096,6 @@ fn materialize_narrative_combat(
         ctx,
         &challenge.id,
         &encounter_id,
-        match archetype {
-            adventuresim_core::road_encounter_catalog::RoadCombatArchetype::Bandits => "bandit",
-        },
         u32::from(count),
     )?;
     if roster.len() != usize::from(count) {

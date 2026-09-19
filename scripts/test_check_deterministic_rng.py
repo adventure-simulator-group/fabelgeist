@@ -38,6 +38,30 @@ const RAW: &str = r#"fn splitmix64 and rand::seq::SliceRandom"#;
         self.assert_forbidden("rng.random_range(0..4);", "inferred-width random range")
         self.assert_forbidden("use rand::seq::SliceRandom;", "Rand slice selection helper")
 
+    def test_rejects_direct_hash_seed_derivation(self) -> None:
+        self.assert_forbidden(
+            """
+fn settlement_seed(value: &str) -> u64 {
+    let digest = Sha256::digest(value.as_bytes());
+    u64::from_le_bytes(digest[..8].try_into().unwrap())
+}
+""",
+            "direct hash seed derivation",
+        )
+
+    def test_allows_hash_derived_non_rng_identifiers(self) -> None:
+        self.assertEqual(
+            scan_text(
+                """
+fn adapter_id(value: &str) -> u64 {
+    let digest = Sha256::digest(value.as_bytes());
+    u64::from_le_bytes(digest[..8].try_into().unwrap())
+}
+"""
+            ),
+            [],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

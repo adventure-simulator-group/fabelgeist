@@ -214,7 +214,16 @@ mod tests {
                 support: crate::ResolvedItemId(1),
             },
         };
-        let mut sign = ShopSign::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
+        let mut sign = ShopSign::for_establishment(
+            EstablishmentId(15),
+            BuildingUse::Inn,
+            ShopName::for_operator(
+                &RenderedPersonalName::new("Marta Hartmann").unwrap(),
+                BuildingUse::Inn,
+            )
+            .unwrap(),
+        )
+        .unwrap();
         sign.mount = SignMount::Projecting;
         let board = cache.compile(
             &sign,
@@ -258,7 +267,11 @@ mod tests {
             },
         );
         assert_eq!(images.len(), 1);
-        sign.name = ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap();
+        sign.name = ShopName::for_operator(
+            &RenderedPersonalName::new("Johann Vogel").unwrap(),
+            BuildingUse::Inn,
+        )
+        .unwrap();
         cache.compile(
             &sign,
             site,

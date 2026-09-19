@@ -8,6 +8,10 @@ use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view
 
 const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("character.personality");
+mod generation;
+pub use generation::{
+    personality_from_stable_seed, personality_from_stable_seed_with_demographics,
+};
 
 /// Gateway-safe, derived visibility of strategic temperament. Behavioral
 /// fields are a cache projected from the private continuous score row; raw
@@ -738,11 +742,6 @@ pub fn random_personality(
 /// Reducer RNG is intentionally not involved. The same NPC therefore receives
 /// the same demographic axes and sparse traits regardless of bootstrap order,
 /// retries, or unrelated random draws in the surrounding transaction.
-pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> CharacterPersonality {
-    let mut random = PERSONALITY_GENERATION_DOMAIN.rng(stable_seed, &[character_id]);
-    random_personality(character_id, &mut random)
-}
-
 pub fn personality_or_neutral(ctx: &ReducerContext, character_id: u64) -> CharacterPersonality {
     ctx.db
         .character_personality()
@@ -1044,6 +1043,36 @@ mod tests {
         assert_eq!(first.presentation, repeated.presentation);
         assert_eq!(first.inclination, repeated.inclination);
         assert_eq!(first.non_neutral_count(), repeated.non_neutral_count());
+    }
+
+    #[test]
+    fn finalized_demographics_do_not_perturb_behavioral_personality_draws() {
+        let man =
+            personality_from_stable_seed_with_demographics(77, 0xabc, Sex::Male, Presentation::Man);
+        let woman = personality_from_stable_seed_with_demographics(
+            77,
+            0xabc,
+            Sex::Female,
+            Presentation::Woman,
+        );
+        assert_eq!(man.nerve, woman.nerve);
+        assert_eq!(man.drive, woman.drive);
+        assert_eq!(man.outlook, woman.outlook);
+        assert_eq!(man.sociability, woman.sociability);
+        assert_eq!(man.conscience, woman.conscience);
+        assert_eq!(man.self_regard, woman.self_regard);
+        assert_eq!(man.conviction, woman.conviction);
+        assert_eq!(man.hygiene, woman.hygiene);
+        assert_eq!(man.temperance, woman.temperance);
+        assert_eq!(man.mirth, woman.mirth);
+        assert_eq!(man.courtship, woman.courtship);
+        assert_eq!(man.transparency, woman.transparency);
+        assert_eq!(man.self_knowledge, woman.self_knowledge);
+        assert_eq!((man.sex, man.presentation), (Sex::Male, Presentation::Man));
+        assert_eq!(
+            (woman.sex, woman.presentation),
+            (Sex::Female, Presentation::Woman)
+        );
     }
 
     #[test]

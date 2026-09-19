@@ -465,7 +465,7 @@ mod npc_navigation_tests {
             visible_features: "work-worn hands".into(),
             clothing: "working clothes".into(),
             profession: "merchant".into(),
-            household: "market household".into(),
+            household_kind: "market household".into(),
             local_role: "market steward".into(),
             service_id: "merchants".into(),
             organization_id: organization_id.into(),
@@ -825,7 +825,7 @@ async fn location_npcs(
                 && npc_matches_location_binding(npc, &settlement_id, &location_id, &settlement.economy)
         })?;
         let facial = if npc.facial_hair == "none visible" { String::new() } else { format!(", with {}", npc.facial_hair) };
-        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
+        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household kind: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household_kind, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
     }).collect::<Vec<_>>();
     views.sort_by_key(|view| (!view.is_default, view.name.clone()));
     Ok(Json(views))

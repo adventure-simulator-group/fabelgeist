@@ -1,7 +1,6 @@
-//! Establishment signs with period tool pictograms. Names belong to placed lots, not shared building recipes.
+//! Establishment signs with period tool pictograms and operator-projected brands.
 use adventuresim_world_schema::{
-    person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES},
-    settlement_buildings::BuildingUse,
+    person_names::RenderedPersonalName, settlement_buildings::BuildingUse,
 };
 use bevy::math::{Quat, Vec2, Vec3};
 use clap::ValueEnum;
@@ -23,9 +22,6 @@ pub use lettering::SignTexture;
 #[cfg(feature = "sign-render")]
 pub use rendering::{ShopSignRenderCache, SignDetail, SignRenderAssets, SignRenderPart};
 
-const PROPRIETOR_SEX: StreamId = StreamId::new("sign.proprietor-sex");
-const PROPRIETOR_GIVEN_NAME: StreamId = StreamId::new("sign.proprietor-given-name");
-const PROPRIETOR_SURNAME: StreamId = StreamId::new("sign.proprietor-surname");
 const SIGN_MOUNT: StreamId = StreamId::new("sign.mount");
 const SIGN_FINISH: StreamId = StreamId::new("sign.finish");
 pub const SIGN_PEDESTRIAN_CLEARANCE_METRES: f32 = 2.3;
@@ -41,18 +37,11 @@ pub struct ShopName {
 }
 
 impl ShopName {
-    /// A stable business brand, without asserting that a generated resident owns it.
-    pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
+    /// Brand a business from the caller-supplied validated operator projection.
+    pub fn for_operator(operator: &RenderedPersonalName, usage: BuildingUse) -> Option<Self> {
         let trade = shop_trade(usage)?;
-        let names = if PROPRIETOR_SEX.rng(id.0, &[]).boolean() {
-            &FEMALE_NAMES
-        } else {
-            &MALE_NAMES
-        };
-        let given = names[PROPRIETOR_GIVEN_NAME.rng(id.0, &[]).index(names.len())];
-        let surname = SURNAMES[PROPRIETOR_SURNAME.rng(id.0, &[]).index(SURNAMES.len())];
         Some(Self {
-            proprietor: format!("{given} {surname}’s"),
+            proprietor: format!("{operator}’s"),
             trade: trade.to_owned(),
         })
     }
@@ -126,10 +115,26 @@ pub struct ShopSign {
 }
 
 impl ShopSign {
-    pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
+    pub fn for_operator(
+        id: EstablishmentId,
+        operator: &RenderedPersonalName,
+        usage: BuildingUse,
+    ) -> Option<Self> {
+        Self::for_establishment(id, usage, ShopName::for_operator(operator, usage)?)
+    }
+
+    /// Build a sign from the already-authoritative business brand.
+    pub fn for_establishment(
+        id: EstablishmentId,
+        usage: BuildingUse,
+        name: ShopName,
+    ) -> Option<Self> {
+        if name.trade != shop_trade(usage)? {
+            return None;
+        }
         Some(Self {
             emblem: TradeEmblem::for_use(usage),
-            name: ShopName::for_establishment(id, usage)?,
+            name,
             mount: if SIGN_MOUNT.rng(id.0, &[]).boolean() {
                 SignMount::Wall
             } else {

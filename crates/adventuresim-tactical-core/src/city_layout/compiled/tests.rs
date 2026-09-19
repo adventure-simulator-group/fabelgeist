@@ -123,6 +123,36 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
 }
 
 #[test]
+fn business_keys_survive_compilation_and_playable_partitioning() {
+    let city =
+        CitySite::central_german_market_town().generate(42, 6_500, &super::super::tests::economy());
+    let expected = city
+        .lots
+        .iter()
+        .filter_map(|lot| {
+            lot.service
+                .and_then(BuildingDemand::business_key)
+                .map(|key| (lot.id, key))
+        })
+        .collect::<Vec<_>>();
+    let compiled = city.compile(42).unwrap();
+    assert_eq!(
+        compiled
+            .businesses
+            .iter()
+            .map(|site| (site.building_id, site.key))
+            .collect::<Vec<_>>(),
+        expected
+    );
+    for extent in [None, Some(35.0), Some(90.0)] {
+        assert_eq!(
+            compiled.clone().partition(extent).unwrap().businesses,
+            compiled.businesses
+        );
+    }
+}
+
+#[test]
 fn gardens_are_owned_connected_and_preserve_accepted_plants_across_partition() {
     use crate::city_layout::gardens::GardenIssue;
     let city =

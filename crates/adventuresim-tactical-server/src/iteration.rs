@@ -70,7 +70,7 @@ pub fn resolve_tactical_server_melee_duel(
     }
     let left_down = combatant_defeated(app.world(), left_entity);
     let right_down = combatant_defeated(app.world(), right_entity);
-    let resolution = tactical_duel_resolution(left_down, right_down, left.name, right.name);
+    let resolution = tactical_duel_resolution(left_down, right_down, &left.name, &right.name);
     let final_center_separation_metres = app
         .world()
         .get::<Transform>(left_entity)

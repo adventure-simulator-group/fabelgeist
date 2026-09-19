@@ -918,9 +918,10 @@ turning every business into a landmark.
 ## Shop signs
 
 The `signs` module derives sign attachment sites from public ground-floor
-entrances. Public-facing trades receive stable establishment brands from the
-shared German name catalog and placed-lot identity, independently of cached
-building recipes. A brand does not create or imply an NPC ownership relation.
+entrances. The tactical scene supplies each establishment's resident operator
+and its already resolved brand. Person-named brands use that operator's current
+full name; the building client never invents a proprietor or fallback brand.
+Operator identity and display name remain distinct scene facts.
 
 Signs use a wall board or a double-sided projecting board with metal supports.
 Panels stay above pedestrian headroom and are rejected when they overlap the

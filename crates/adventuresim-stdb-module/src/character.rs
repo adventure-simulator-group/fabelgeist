@@ -1,5 +1,7 @@
 mod occupancy;
 mod origin;
+include!("character/name_types.rs");
+include!("character/name_identity.rs");
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
@@ -919,6 +921,7 @@ pub(crate) fn delete_temporary_character(
     if !character.temporary {
         return Err("Refusing to cascade-delete a persistent character".into());
     }
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, true)
 }
 
@@ -926,6 +929,7 @@ pub(crate) fn delete_character_for_world_import(
     ctx: &ReducerContext,
     character: Character,
 ) -> Result<(), String> {
+    delete_character_name_data(ctx, CharacterId::new(character.id));
     delete_character_data(ctx, character, false)
 }
 
@@ -1240,17 +1244,15 @@ fn delete_character_data(
 /// Create a new character with generated name and add initial items to it
 #[reducer]
 pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
-    let names = petname::Petnames::default();
-    let adjective =
-        names.adjectives[fabelgeist_determinism::StreamId::new("character.name-adjective")
-            .rng(id, &[])
-            .index(names.adjectives.len())];
-    let noun = names.nouns[fabelgeist_determinism::StreamId::new("character.name-noun")
-        .rng(id, &[])
-        .index(names.nouns.len())];
-    let name = format!("{adjective} {noun}");
-
-    insert_new_character(ctx, name, id, false)
+    insert_new_character(ctx, "Pending generated name".into(), id, false)?;
+    assign_generated_historical_name_for_age(
+        ctx,
+        CharacterId::new(id),
+        NameSeed::new(id),
+        WorldMinute::new(0),
+        None,
+    )?;
+    Ok(())
 }
 
 /// Create a new character with name and add initial items to it
@@ -1349,8 +1351,8 @@ pub fn create_starting_character(
 }
 
 /// Idempotently grant the canonical fallback character to a new browser
-/// owner. The owner key namespaces identity only; John has the same authored
-/// build in every session and in tactical fixtures.
+/// owner. The owner key namespaces identity only; the versioned generated
+/// build remains stable in every session and in tactical fixtures.
 #[reducer]
 pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
@@ -1703,7 +1705,6 @@ pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), 
         .id()
         .find(HERBALISM_DEMO_CHARACTER_ID)
         .ok_or_else(|| "Herbalism and foraging demo character is missing".to_string())?;
-    character.name = "Herbalism and Foraging Demo".into();
     let party_id = character
         .party_id
         .clone()
@@ -1904,6 +1905,7 @@ pub(crate) fn insert_new_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         None,
@@ -1947,6 +1949,7 @@ pub(crate) struct CharacterCreationOptions<'a> {
     pub stable_seed: u64,
     pub initial_time_minute: Option<u64>,
     pub field_actor: bool,
+    pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -1994,6 +1997,7 @@ pub(crate) fn insert_new_npc_character(
             stable_seed: id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2002,6 +2006,10 @@ pub(crate) fn insert_new_npc_character(
 
 /// Create a persistent, full-component NPC at an explicit settlement. Unlike a
 /// player character or tactical temporary, the NPC begins outside any party.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "persistent NPC insertion keeps finalized life and personality facts explicit"
+)]
 pub(crate) fn insert_persistent_npc_character(
     ctx: &ReducerContext,
     name: String,
@@ -2009,8 +2017,9 @@ pub(crate) fn insert_persistent_npc_character(
     origin_settlement_id: &str,
     stable_seed: u64,
     initial_time_minute: Option<u64>,
+    life: &NpcLifeFacts,
+    personality: &crate::personality::CharacterPersonality,
 ) -> Result<(), String> {
-    let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
         ctx,
         name,
@@ -2023,9 +2032,10 @@ pub(crate) fn insert_persistent_npc_character(
             stable_seed,
             initial_time_minute,
             field_actor: false,
+            npc_personality: Some(personality),
         },
         None,
-        Some(&life),
+        Some(life),
     )
 }
 
@@ -2051,6 +2061,7 @@ pub(crate) fn insert_persistent_field_character(
             stable_seed,
             initial_time_minute,
             field_actor: true,
+            npc_personality: None,
         },
         None,
         Some(&life),
@@ -2073,6 +2084,7 @@ pub(crate) fn insert_starting_character(
             stable_seed: spec.id,
             initial_time_minute: None,
             field_actor: false,
+            npc_personality: None,
         },
         Some(spec),
         None,
@@ -2159,6 +2171,10 @@ pub(crate) fn insert_character_with_origin(
 ) -> Result<(), String> {
     log::info!("New character created: {name} (ID: {id})");
     let temporary = options.mode.temporary();
+    let initial_name_identity = starting.map_or_else(
+        || authored_name_identity(name.clone()),
+        |spec| spec.name_identity.clone(),
+    );
     let npc = options.mode.is_npc();
     let newborn = options.mode.newborn();
     let reserved = ctx.db.child_identity_reservation().character_id().find(id);
@@ -2524,11 +2540,17 @@ pub(crate) fn insert_character_with_origin(
         // gateway row is only their derived visible projection.
         crate::personality::initialize_personality_from_visible(ctx, personality);
     } else {
-        if npc {
+        if let Some(personality) = options.npc_personality {
+            crate::personality::initialize_personality_from_visible(ctx, personality.clone());
+        } else if npc {
             crate::personality::initialize_npc_personality(ctx, id, options.stable_seed);
         } else {
             crate::personality::initialize_personality(ctx, id, false);
         }
+    }
+
+    if !temporary {
+        assign_character_name_identity(ctx, CharacterId::new(character.id), initial_name_identity)?;
     }
 
     // Newborns receive the full durable character component surface, but no
@@ -2644,7 +2666,7 @@ pub(crate) fn validate_full_character_components(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let mut missing = Vec::new();
+    let mut missing = missing_name_identity(ctx, CharacterId::new(character_id));
     if ctx.db.character().id().find(character_id).is_none() {
         missing.push("character");
     }
@@ -3601,6 +3623,60 @@ mod starting_character_boundary_tests {
         assert!(persistent.contains("CharacterCreationMode::PersistentNpc"));
         assert!(persistent.contains("create_solo_party: false"));
         assert!(persistent.contains("initial_time_minute"));
+    }
+
+    #[test]
+    fn durable_names_have_private_semantic_authority_and_authored_renames() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let names = crate::production_source(include_str!("character/name_identity.rs"));
+        assert!(names.contains("#[table(accessor = character_name_identity)]"));
+        assert!(!names.contains("#[table(accessor = character_name_identity, public)]"));
+
+        let insertion = source
+            .split("pub(crate) fn insert_character_with_origin")
+            .nth(1)
+            .unwrap()
+            .split("pub(crate) fn validate_full_character_components")
+            .next()
+            .unwrap();
+        assert!(insertion.contains("if !temporary"));
+        assert!(insertion.contains("assign_character_name_identity"));
+        assert!(insertion.contains("spec.name_identity.clone()"));
+
+        let generic = source
+            .split("pub fn create_character")
+            .nth(1)
+            .unwrap()
+            .split("fn named_character_id")
+            .next()
+            .unwrap();
+        assert!(generic.contains("assign_generated_historical_name"));
+
+        let governance = crate::production_source(include_str!("strategic/governance.rs"));
+        let rename = governance
+            .split("pub fn update_character")
+            .nth(1)
+            .unwrap()
+            .split("pub(crate) fn create_solo_party_for_character")
+            .next()
+            .unwrap();
+        assert!(rename.contains("assign_authored_character_name"));
+    }
+
+    #[test]
+    fn tactical_bot_labels_remain_synthetic_and_nonpersistent() {
+        let source = crate::production_source(include_str!("character.rs"));
+        let tactical = source
+            .split("pub fn create_temporary_character")
+            .nth(1)
+            .unwrap()
+            .split("fn scale_temporary_enemy")
+            .next()
+            .unwrap();
+        assert!(tactical.contains("petname::Petnames::default()"));
+        assert!(tactical.contains("format!(\"bot-{name}\")"));
+        assert!(!tactical.contains("assign_generated_historical_name"));
+        assert!(source.contains("if !temporary {\n        assign_character_name_identity"));
     }
 
     #[test]

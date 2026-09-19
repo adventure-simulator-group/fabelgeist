@@ -78,7 +78,7 @@ pub fn default_tactical_character_id() -> u64 {
 impl Default for Player {
     fn default() -> Self {
         Self {
-            name: adventuresim_core::starting_character::DEFAULT_CHARACTER_NAME.into(),
+            name: adventuresim_core::starting_character::default_character_name(),
         }
     }
 }
@@ -573,11 +573,14 @@ mod tactical_combat_state_tests {
     use super::*;
 
     #[test]
-    fn component_defaults_project_john_fabelgeist() {
+    fn component_defaults_project_the_shared_historical_default() {
         let player = Player::default();
         let attributes = TacticalAttributes::default();
         let skills = Skills::default();
-        assert_eq!(player.name, "John Fabelgeist");
+        assert_eq!(
+            player.name,
+            adventuresim_core::starting_character::default_character_name()
+        );
         assert_eq!(attributes.endurance, 4.0);
         assert_eq!(attributes.left_arm_strength, 4.0);
         assert_eq!(attributes.right_leg_agility, 4.0);

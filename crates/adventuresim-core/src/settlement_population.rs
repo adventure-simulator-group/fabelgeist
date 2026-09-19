@@ -2,6 +2,9 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+mod demographics;
+pub use demographics::settlement_building_seed;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum AgeBand {
@@ -145,6 +148,9 @@ pub struct GenerationInput {
     pub service_id: Option<String>,
     pub profession_override: Option<String>,
     pub local_role: String,
+    /// Final age selected by an owning population plan. `None` lets this
+    /// relation choose the age before any age-dependent profile facts.
+    pub age: Option<AgeBand>,
     pub available_bridges: BTreeSet<PresenceBridge>,
 }
 
@@ -397,13 +403,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, S
             if input.is_service_provider { 100 } else { 0 },
         ),
     ];
-    let (age, age_decision) = choose(
-        &input.seed,
-        PopulationRelation::AgeAtLocation,
-        context,
-        &input.available_bridges,
-        &age_candidates,
-    )?;
+    let (age, age_decision) = demographics::choose_age(input, context, &age_candidates)?;
     let (profession, mut profession_decision) = choose(
         &input.seed,
         PopulationRelation::ProfessionAtLocation,
@@ -578,6 +578,7 @@ mod tests {
             service_id: None,
             profession_override: None,
             local_role: "witness".into(),
+            age: None,
             available_bridges: BTreeSet::from([
                 PresenceBridge::NearbyHome,
                 PresenceBridge::HouseholdErrand,
@@ -657,5 +658,34 @@ mod tests {
             population_relation_seed("same", PopulationRelation::AgeAtLocation),
             population_relation_seed("different", PopulationRelation::AgeAtLocation)
         );
+    }
+
+    #[test]
+    fn building_plan_seed_is_stable_per_settlement_identity() {
+        assert_eq!(settlement_building_seed("same"), 16_612_061_259_017_072_879);
+        assert_ne!(
+            settlement_building_seed("same"),
+            settlement_building_seed("different")
+        );
+    }
+
+    #[test]
+    fn planned_age_precedes_age_dependent_profile_generation() {
+        let mut adult = input("planned-age", LocationContext::Overview);
+        adult.age = Some(AgeBand::Adult);
+        let mut elder = adult.clone();
+        elder.age = Some(AgeBand::Elder);
+        let adult = generate(&adult).unwrap();
+        let elder = generate(&elder).unwrap();
+        assert_eq!(adult.age, AgeBand::Adult);
+        assert_eq!(elder.age, AgeBand::Elder);
+        assert_eq!(adult.profession, elder.profession);
+        assert_eq!(adult.schedule, elder.schedule);
+        assert_eq!(adult.height, elder.height);
+        assert_eq!(adult.build, elder.build);
+        assert_eq!(adult.decisions[0].context, "household-plan");
+        assert_eq!(elder.decisions[0].context, "household-plan");
+        assert_eq!(adult.decisions[5].context, "Adult");
+        assert_eq!(elder.decisions[5].context, "Elder");
     }
 }

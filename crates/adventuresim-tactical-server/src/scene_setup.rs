@@ -23,6 +23,7 @@ pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundl
             f32::from(input.playable.depth.saturating_sub(1)) * input.playable.spacing_metres * 0.5,
         ),
         distant_buildings: input.distant_buildings.clone(),
+        establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
         parishes: input.parishes.clone(),

@@ -21,7 +21,8 @@ pub use parishes::{CITY_PARISH_PRECINCT_RADIUS_METRES, CityParish, ParishResiden
 mod compound;
 mod graph;
 pub use compiled::{
-    ChurchSitingIssue, CityCompileError, CitySceneLayout, CompiledCityLayout, CompoundIssue,
+    ChurchSitingIssue, CityBusinessSite, CityCompileError, CitySceneLayout, CompiledCityLayout,
+    CompoundIssue,
 };
 pub(crate) use compiled::{validate_scene_compound, validate_scene_gardens};
 pub use compound::{

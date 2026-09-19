@@ -1247,11 +1247,6 @@ ceiling = 244
 
 [[functions]]
 path = "crates/adventuresim-core/src/starting_character.rs"
-item = "default_character"
-ceiling = 120
-
-[[functions]]
-path = "crates/adventuresim-core/src/starting_character.rs"
 item = "generate"
 ceiling = 147
 
@@ -1656,11 +1651,6 @@ item = "establish_npc_courtship_and_wedding"
 ceiling = 138
 
 [[functions]]
-path = "crates/adventuresim-stdb-module/src/relationship/family.rs"
-item = "ensure_seeded_family_households"
-ceiling = 101
-
-[[functions]]
 path = "crates/adventuresim-stdb-module/src/relationship/marriage.rs"
 item = "settle_due_weddings"
 ceiling = 286
@@ -1689,16 +1679,6 @@ ceiling = 103
 path = "crates/adventuresim-stdb-module/src/repair.rs"
 item = "submit"
 ceiling = 124
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "ensure_settlement_population"
-ceiling = 135
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-ceiling = 224
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/simulation.rs"
@@ -8020,34 +8000,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
 item = "PopulationLocation<'a>::parse"
 fingerprint = "string:tailor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:cleric"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:reeve"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/settlement_population.rs"
-item = "insert_resident_with_seed"
-fingerprint = "string:religion"
 occurrences = 1
 
 [[findings]]

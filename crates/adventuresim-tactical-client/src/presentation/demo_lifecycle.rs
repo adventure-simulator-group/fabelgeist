@@ -59,7 +59,7 @@ mod tests {
     #[test]
     fn clearing_exhibit_removes_detached_scatter_and_descendants_but_keeps_camera() {
         let mut world = World::new();
-        world.insert_resource(PendingCityBuildings::new(&[]));
+        world.insert_resource(PendingCityBuildings::new(&[], &[]));
         let camera = world.spawn(TacticalGameplayCamera).id();
         let oak = world.spawn(SceneObstacle::Tree).id();
         let leaf = world.spawn(ChildOf(oak)).id();

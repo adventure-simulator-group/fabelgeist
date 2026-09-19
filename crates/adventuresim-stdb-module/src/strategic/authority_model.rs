@@ -1423,7 +1423,6 @@ fn materialize_hostile_group(
                 crate::world_actor::CharacterContextKind::HostileGroup,
                 &existing.id,
                 existing.case_site_id.as_str(),
-                &existing.enemy_type,
                 existing.enemy_count,
             )?;
             Ok(existing)
@@ -1437,7 +1436,6 @@ fn materialize_hostile_group(
         crate::world_actor::CharacterContextKind::HostileGroup,
         &group.id,
         group.case_site_id.as_str(),
-        &group.enemy_type,
         group.enemy_count,
     )?;
     Ok(group)

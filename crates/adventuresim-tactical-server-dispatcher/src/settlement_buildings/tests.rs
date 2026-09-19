@@ -23,6 +23,7 @@ fn settlement(id: &str, population: u32) -> SettlementSceneProfile {
         population_level: 1,
         population_estimate: population,
         economy: economy(population),
+        operators: Vec::new(),
     }
 }
 
@@ -81,12 +82,13 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
         population_level: 4,
         population_estimate: 0,
         economy: economy(6_500),
+        operators: Vec::new(),
     };
     let population = settlement.effective_population();
     let buildings = place_settlement_buildings(&settlement, 50.0).unwrap();
     let expected = CitySite::central_german_market_town()
         .generate(
-            settlement_seed(&settlement.id),
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
             population,
             &settlement.economy,
         )
@@ -134,6 +136,7 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         gardens: layout.gardens,
         buildings: layout.playable,
         distant_buildings: Vec::new(),
+        establishments: Vec::new(),
         vista: VistaSample::default(),
         weather: adventuresim_core::weather::weather_at(42, 1, 53_500_000, 10_000_000, 0),
     };
@@ -154,7 +157,9 @@ fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
         buildings.playable.len() + buildings.distant.len(),
         CitySite::central_german_market_town()
             .generate(
-                settlement_seed("massive-city-3229"),
+                adventuresim_core::settlement_population::settlement_building_seed(
+                    "massive-city-3229",
+                ),
                 100_000,
                 &economy(100_000)
             )

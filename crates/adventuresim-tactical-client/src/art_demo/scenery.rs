@@ -76,6 +76,7 @@ pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
         distant_buildings,
+        establishments: input.establishments,
         streets: input.streets,
         yards: input.yards,
         parishes,

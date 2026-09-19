@@ -710,7 +710,11 @@ fn on_server_started(
             &terrain,
             input.playable.spacing_metres,
         );
-        openings::spawn_generated_buildings(&mut commands, generated.buildings);
+        openings::spawn_generated_buildings(
+            &mut commands,
+            generated.buildings,
+            &input.establishments,
+        );
         openings::spawn_generated_boundaries(&mut commands, generated.boundaries);
         for garden in generated.gardens {
             commands.spawn((

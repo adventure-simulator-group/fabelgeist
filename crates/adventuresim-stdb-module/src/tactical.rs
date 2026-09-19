@@ -6,7 +6,7 @@ use std::collections::HashSet;
 
 mod request;
 
-pub use request::TacticalSettlementSnapshot;
+pub use request::{TacticalBusinessOperator, TacticalSettlementSnapshot};
 pub(crate) use request::{tactical_party_roster, tactical_settlement_snapshot};
 
 use crate::repair::{ItemCondition, item_condition__view};
@@ -833,7 +833,7 @@ pub fn request_tactical_server(
     let (authorized_party_member_ids, expected_party_members) =
         tactical_party_roster(ctx, &party_id)?;
     let settlement =
-        tactical_settlement_snapshot(ctx, &case_site.origin_settlement_id, &case_site.scene_key);
+        tactical_settlement_snapshot(ctx, &case_site.origin_settlement_id, &case_site.scene_key)?;
     ctx.db
         .tactical_server_request_authority()
         .insert(TacticalServerRequest {
