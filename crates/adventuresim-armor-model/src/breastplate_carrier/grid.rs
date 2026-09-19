@@ -66,10 +66,15 @@ pub(super) fn main_grid(
         FRONT_HEIGHTS[0]
     };
     let columns = chart_columns(rear, design, wearer.detail);
-    let rows = wearer
-        .detail
-        .segments(V_SAMPLES - 1, MINIMUM_BREAST_PROFILE_INTERVALS)
-        + 1;
+    let minimum_rows = if !rear
+        && design.fluting.is_some()
+        && matches!(wearer.detail, crate::ArmorDetail::Runtime(_))
+    {
+        RUNTIME_FLUTED_V_INTERVALS
+    } else {
+        MINIMUM_BREAST_PROFILE_INTERVALS
+    };
+    let rows = wearer.detail.segments(V_SAMPLES - 1, minimum_rows) + 1;
     let mut grid = Vec::with_capacity(rows);
     for row in 0..rows {
         let t = row as f32 / (rows - 1) as f32;

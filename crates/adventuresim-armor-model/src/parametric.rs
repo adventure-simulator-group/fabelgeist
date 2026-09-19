@@ -1,6 +1,8 @@
 //! Construction-independent geometry and anatomical placement for armor families.
 
 use std::collections::BTreeMap;
+#[path = "parametric_fluting.rs"]
+mod fluting;
 #[path = "parametric_normals.rs"]
 mod normals;
 #[path = "plate_edges.rs"]
@@ -53,6 +55,8 @@ pub struct PartMesh {
     shells: Vec<ShellLayout>,
 }
 
+pub type RuntimeFluting = (crate::GeneratedNormalMap, Vec<[f32; 2]>);
+
 #[derive(Clone, Debug)]
 struct ShellLayout {
     first_vertex: usize,
@@ -65,12 +69,28 @@ struct ShellLayout {
     boundary_normals: BoundaryNormals,
     extrusion: ShellExtrusion,
     relief: Option<ReliefCarrier>,
+    fluting: Option<FlutingChart>,
 }
 
 #[derive(Clone, Debug)]
 struct ReliefCarrier {
     carrier: Vec<[f32; 3]>,
     field: SurfaceRelief,
+}
+
+#[derive(Clone, Debug)]
+struct FlutingChart {
+    pattern: FlutingPattern,
+    coordinates: Vec<[f32; 2]>,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum FlutingPattern {
+    Plate(crate::PlateFluting),
+    Radial {
+        pattern: crate::RadialFluting,
+        radius: crate::Millimeters,
+    },
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -227,14 +247,23 @@ impl PartMesh {
                 .map(|i| i - shell.first_vertex as u32)
                 .collect();
             fit(&mut positions, &indices);
-            result.append(Self::from_relief_surface(
+            let rebuilt = Self::from_relief_surface(
                 positions,
                 indices,
                 shell.thickness,
                 shell.boundary_normals,
                 shell.extrusion,
                 shell.relief.as_ref().map(|relief| relief.field.clone()),
-            )?);
+            )?;
+            let mut rebuilt = rebuilt;
+            if let Some(chart) = &shell.fluting {
+                rebuilt
+                    .shells
+                    .last_mut()
+                    .ok_or(GenerateError::InvalidSurface)?
+                    .fluting = Some(chart.clone());
+            }
+            result.append(rebuilt);
         }
         result.components = self.components.clone();
         Ok(result)
@@ -412,6 +441,7 @@ impl PartMesh {
                 carrier: positions.clone(),
                 field,
             }),
+            fluting: None,
         };
         let mut mesh = Self {
             positions,

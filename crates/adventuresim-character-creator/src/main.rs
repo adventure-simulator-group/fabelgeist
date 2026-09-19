@@ -222,7 +222,7 @@ fn main() -> Result<()> {
     App::new()
         .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
         .insert_resource(args.clone())
-        .init_resource::<underlayer_preview::MailMaps>()
+        .init_resource::<underlayer_preview::EquipmentMaps>()
         .insert_resource(model)
         .insert_resource(catalog)
         .insert_resource(Studio::new(

@@ -9,11 +9,19 @@ pub(super) fn chart_columns(
     design: &BreastplateDesign,
     detail: crate::ArmorDetail,
 ) -> Vec<f32> {
-    let u_samples = detail.segments(U_SAMPLES - 1, 6) + 1;
+    let runtime_intervals = design
+        .fluting
+        .filter(|_| !rear && matches!(detail, crate::ArmorDetail::Runtime(_)))
+        .map_or(6, |_| RUNTIME_FLUTED_U_INTERVALS);
+    let u_samples = detail.segments(U_SAMPLES - 1, runtime_intervals) + 1;
     let mut columns: Vec<_> = (0..u_samples)
         .map(|i| -1.0 + 2.0 * i as f32 / (u_samples - 1) as f32)
         .collect();
-    if let Some(pattern) = design.fluting.as_ref().filter(|_| !rear) {
+    if let Some(pattern) = design
+        .fluting
+        .as_ref()
+        .filter(|_| !rear && matches!(detail, crate::ArmorDetail::BakeSource))
+    {
         let pitch = 2.0 * pattern.spread.unit() / f32::from(pattern.count.0);
         let half_width = pitch * pattern.width.unit() * 0.5;
         for flute in 0..pattern.count.0 {
@@ -50,7 +58,11 @@ pub(super) fn fan_coordinate(u: f32, t: f32, rear: bool, design: &BreastplateDes
 pub(super) fn apply_fluting(
     mesh: &mut MidMesh,
     design: &BreastplateDesign,
+    detail: crate::ArmorDetail,
 ) -> Result<(), GenerateError> {
+    if matches!(detail, crate::ArmorDetail::Runtime(_)) {
+        return Ok(());
+    }
     let Some(pattern) = &design.fluting else {
         return Ok(());
     };
@@ -147,7 +159,7 @@ pub(super) fn refine_front(
     wearer: Wearer<'_>,
     design: &BreastplateDesign,
 ) -> Result<MidMesh, GenerateError> {
-    if design.fluting.is_none() {
+    if design.fluting.is_none() || matches!(wearer.detail, crate::ArmorDetail::Runtime(_)) {
         return Ok(coarse);
     }
     let normals = match &coarse.extrusion_normals {
@@ -229,7 +241,7 @@ mod tests {
                 append_grid(&mut mesh, &grid, false);
                 mesh.extrusion_normals =
                     Some(vertex_normals(&mesh.positions, &mesh.faces).unwrap());
-                apply_fluting(&mut mesh, &design).unwrap();
+                apply_fluting(&mut mesh, &design, crate::ArmorDetail::BakeSource).unwrap();
                 let middle = &mesh.positions
                     [(V_SAMPLES / 2) * columns.len()..(V_SAMPLES / 2 + 1) * columns.len()];
                 let peaks = middle

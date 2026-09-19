@@ -77,20 +77,7 @@ pub(super) fn attach(
             direct_positions: endpoint.positions,
         });
     }
-    let mut hardware = GeneratedArmor {
-        construction_faces: Vec::new(),
-        design_hash: adventuresim_armor_model::parametric_design_hash(&serde_json::to_vec(recipe)?),
-        surface_domain: armor.surface_domain.clone(),
-        plate_edges: Vec::new(),
-        positions: mesh.positions,
-        normals,
-        indices: mesh.indices,
-        components: mesh.components,
-        texcoords: nearest.iter().map(|i| armor.texcoords[*i]).collect(),
-        joint_indices: nearest.iter().map(|i| armor.joint_indices[*i]).collect(),
-        joint_weights: nearest.iter().map(|i| armor.joint_weights[*i]).collect(),
-        morphs,
-    };
+    let mut hardware = hardware_armor(&armor, mesh, normals, nearest, morphs, recipe)?;
     if matches!(
         recipe,
         adventuresim_character_creator::fasteners::catalog::FastenerRecipe::TassetSuspension(_)
@@ -102,6 +89,31 @@ pub(super) fn attach(
     let hardware = character_morphs::correct_armor_fit(hardware, generated, samples);
     append(&mut armor, hardware)?;
     Ok(armor)
+}
+
+fn hardware_armor(
+    armor: &GeneratedArmor,
+    mesh: PartMesh,
+    normals: Vec<[f32; 3]>,
+    nearest: Vec<usize>,
+    morphs: Vec<ArmorMorph>,
+    recipe: &adventuresim_character_creator::fasteners::catalog::FastenerRecipe,
+) -> Result<GeneratedArmor> {
+    Ok(GeneratedArmor {
+        construction_faces: Vec::new(),
+        design_hash: adventuresim_armor_model::parametric_design_hash(&serde_json::to_vec(recipe)?),
+        surface_domain: armor.surface_domain.clone(),
+        plate_edges: Vec::new(),
+        positions: mesh.positions,
+        normals,
+        indices: mesh.indices,
+        components: mesh.components,
+        texcoords: nearest.iter().map(|i| armor.texcoords[*i]).collect(),
+        normal_map: None,
+        joint_indices: nearest.iter().map(|i| armor.joint_indices[*i]).collect(),
+        joint_weights: nearest.iter().map(|i| armor.joint_weights[*i]).collect(),
+        morphs,
+    })
 }
 
 fn append(armor: &mut GeneratedArmor, hardware: GeneratedArmor) -> Result<()> {

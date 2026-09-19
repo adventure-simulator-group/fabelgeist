@@ -266,9 +266,18 @@ impl Carrier<'_> {
     }
 
     fn skull(&self) -> Result<PartMesh, GenerateError> {
+        let minimum_around = if self.d.crown.fluting.is_some()
+            && matches!(self.detail, crate::ArmorDetail::Runtime(_))
+        {
+            24
+        } else {
+            8
+        };
         let mut surface = Surface::new(
             self.detail,
-            self.detail.segments(AROUND, 8).next_multiple_of(4),
+            self.detail
+                .segments(AROUND, minimum_around)
+                .next_multiple_of(4),
         );
         let radii = [
             self.profile.temple_half_width,

@@ -177,6 +177,7 @@ fn fitted_with_topology(
         positions: mesh.positions,
         normals,
         texcoords: attributes.texcoords,
+        normal_map: None,
         joint_indices: attributes.joint_indices,
         joint_weights: attributes.joint_weights,
         indices: mesh.indices,

@@ -69,11 +69,15 @@ impl Surface {
         crest: f32,
     ) -> Vec<u32> {
         let mut style = *style;
+        let runtime_fluting = matches!(self.detail, crate::ArmorDetail::Runtime(_))
+            .then_some(style.fluting)
+            .flatten();
         style.fluting = self.detail.fluting(style.fluting.as_ref()).cloned();
+        self.fluting = runtime_fluting;
         let style = &style;
         let start = self.positions.len();
         let first_index = self.indices.len();
-        let fan = style.fluting.is_some() || crest > 0.0;
+        let fan = style.fluting.is_some() || self.fluting.is_some() || crest > 0.0;
         let rim = if fan {
             self.fan_dome(&CrownChart {
                 around: self.around,
@@ -102,8 +106,9 @@ impl Surface {
         let pattern = chart.style.fluting.as_ref();
         let columns = pattern.map_or_else(
             || {
-                (0..=self.detail.segments(40, 4))
-                    .map(|i| i as f32 / self.detail.segments(40, 4) as f32)
+                let minimum = if self.fluting.is_some() { 12 } else { 4 };
+                (0..=self.detail.segments(40, minimum))
+                    .map(|i| i as f32 / self.detail.segments(40, minimum) as f32)
                     .collect()
             },
             |p| p.columns(40),
@@ -135,6 +140,9 @@ impl Surface {
                     self.vertex(chart.point(*latitude, angle))
                 };
                 self.relief[id as usize] = pattern.map_or(0.0, |p| p.relief(*u, v));
+                if self.fluting.is_some() {
+                    self.fluting_coordinates[id as usize] = [*u, v];
+                }
                 ring.push(id);
             }
             if let Some(previous) = rings.last() {

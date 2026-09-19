@@ -203,6 +203,7 @@ mod tests {
                 positions: vec![[0.1, 0.2, 0.3]],
                 normals: vec![],
                 texcoords: vec![],
+                normal_map: None,
                 joint_indices: vec![],
                 joint_weights: vec![],
                 indices: vec![],

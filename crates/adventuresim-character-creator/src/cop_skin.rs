@@ -73,6 +73,7 @@ mod tests {
             normals: mesh.normals().unwrap(),
             positions: mesh.positions.clone(),
             texcoords: vec![[0.2, 0.7]; count],
+            normal_map: None,
             indices: mesh.indices,
             joint_indices: vec![[0; 8]; count],
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; count],

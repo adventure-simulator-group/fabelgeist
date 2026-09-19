@@ -12,7 +12,7 @@ pub(super) fn regenerate_mesh(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut images: ResMut<Assets<Image>>,
-    mut mail_maps: ResMut<underlayer_preview::MailMaps>,
+    mut equipment_maps: ResMut<underlayer_preview::EquipmentMaps>,
 ) {
     if !studio.dirty {
         return;
@@ -81,10 +81,11 @@ pub(super) fn regenerate_mesh(
             &mut materials,
             &piece.generated,
             piece.name.clone(),
-            mail_maps.material(
+            equipment_maps.material(
                 &mut images,
                 material,
                 catalog.design(&piece.item_id, &piece.placement_id).as_ref(),
+                &piece.generated,
             ),
         ) {
             studio.status = format!("Armor preview failed: {error:#}");

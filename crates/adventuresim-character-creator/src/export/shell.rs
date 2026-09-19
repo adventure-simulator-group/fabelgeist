@@ -67,7 +67,7 @@ impl Writer<'_> {
                     "roughnessFactor": shell.roughness,
                 }
             });
-            if let Some(textures) = shell.textures {
+            if let Some(textures) = shell.textures.clone() {
                 self.textures.apply(textures, self.buffer, &mut material);
             }
             self.materials.push(material);

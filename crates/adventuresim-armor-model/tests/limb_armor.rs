@@ -387,3 +387,34 @@ fn pauldron_rejects_stock_too_thick_for_its_wing_returns() {
     design.gauge.thickness = Millimeters(6);
     assert!(LimbArmorDesign::Pauldron(design).validate().is_err());
 }
+
+#[test]
+fn runtime_besagew_uses_seam_free_radial_normal_relief_instead_of_spoke_geometry() {
+    use adventuresim_armor_model::{
+        ArmorDetail, ArmorLod, BesagewDesign, PlateGauge, RadialFluting, generate_besagew,
+    };
+
+    let design = BesagewDesign {
+        fluting: Some(RadialFluting::default()),
+        ..BesagewDesign::default()
+    };
+    let bake = generate_besagew(&design, PlateGauge::default(), ArmorDetail::BakeSource).unwrap();
+    let runtime = generate_besagew(
+        &design,
+        PlateGauge::default(),
+        ArmorDetail::Runtime(ArmorLod::Lod5),
+    )
+    .unwrap();
+    let fallback = vec![[0.0; 2]; runtime.positions.len()];
+    let (map, texcoords) = runtime.runtime_fluting(&fallback).unwrap().unwrap();
+
+    assert!(runtime.indices.len() * 4 < bake.indices.len());
+    assert_eq!(texcoords.len(), runtime.positions.len());
+    assert!(
+        map.rgba8
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .any(|pixel| pixel[0] != 128)
+    );
+}

@@ -22,12 +22,12 @@ impl<'a> GlbOutput<'a> {
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct SurfaceTextures {
-    pub base_color_png: &'static [u8],
-    pub normal_png: &'static [u8],
+    pub base_color_png: Option<Vec<u8>>,
+    pub normal_png: Vec<u8>,
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
-    pub occlusion_png: Option<&'static [u8]>,
+    pub occlusion_png: Option<Vec<u8>>,
     pub cutout: bool,
 }
 
@@ -35,7 +35,7 @@ pub struct SurfaceTextures {
 pub(super) struct TextureImages {
     images: Vec<Value>,
     textures: Vec<Value>,
-    shared_files: Option<BTreeMap<String, &'static [u8]>>,
+    shared_files: Option<BTreeMap<String, Vec<u8>>>,
 }
 
 impl TextureImages {
@@ -46,11 +46,11 @@ impl TextureImages {
         }
     }
 
-    fn image(&mut self, bytes: &'static [u8], buffer: &mut BufferBuilder) -> usize {
+    fn image(&mut self, bytes: &[u8], buffer: &mut BufferBuilder) -> usize {
         let index = self.images.len();
         let source = if let Some(files) = &mut self.shared_files {
             let filename = format!("texture-{}.png", blake3::hash(bytes).to_hex());
-            files.insert(filename.clone(), bytes);
+            files.insert(filename.clone(), bytes.to_vec());
             json!({"uri":filename,"mimeType":"image/png"})
         } else {
             json!({"bufferView":buffer.push(bytes, None),"mimeType":"image/png"})
@@ -77,8 +77,10 @@ impl TextureImages {
                         "shared texture {} has unexpected contents",
                         path.display()
                     ),
-                    Err(error) if error.kind() == ErrorKind::NotFound => fs::write(&path, bytes)
-                        .with_context(|| format!("writing shared texture {}", path.display()))?,
+                    Err(error) if error.kind() == ErrorKind::NotFound => {
+                        fs::write(&path, &bytes)
+                            .with_context(|| format!("writing shared texture {}", path.display()))?
+                    }
                     Err(error) => {
                         return Err(error)
                             .with_context(|| format!("reading shared texture {}", path.display()));
@@ -99,13 +101,15 @@ impl TextureImages {
         buffer: &mut BufferBuilder,
         material: &mut Value,
     ) {
-        let color = self.image(maps.base_color_png, buffer);
-        let normal = self.image(maps.normal_png, buffer);
-        material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
-        material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
+        if let Some(bytes) = maps.base_color_png {
+            let color = self.image(&bytes, buffer);
+            material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
+            material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
+        }
+        let normal = self.image(&maps.normal_png, buffer);
         material["normalTexture"] = json!({"index":normal});
         if let Some(bytes) = maps.occlusion_png {
-            let occlusion = self.image(bytes, buffer);
+            let occlusion = self.image(&bytes, buffer);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});
         }
         if maps.cutout {

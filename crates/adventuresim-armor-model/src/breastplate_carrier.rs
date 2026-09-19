@@ -45,6 +45,8 @@ use crate::{
 const U_SAMPLES: usize = 49;
 const V_SAMPLES: usize = 33;
 const SKIRT_SAMPLES: usize = 9;
+const RUNTIME_FLUTED_U_INTERVALS: usize = 12;
+const RUNTIME_FLUTED_V_INTERVALS: usize = 24;
 const REFERENCE_RIG_NECK_HEIGHT: f32 = 1.441_910_7;
 const REFERENCE_CARRIER_TOP_HEIGHT: f32 = 1.480;
 const REFERENCE_SEMANTIC_HEIGHT: f32 = 0.502_445;
@@ -221,11 +223,9 @@ pub fn generate_breastplate(
 ) -> Result<GeneratedArmor, GenerateError> {
     validate_breastplate(design)?;
     let source_hash = breastplate_design_hash(design)?;
-    let mut carrier_design = design.clone();
-    if matches!(surface.detail, crate::ArmorDetail::Runtime(_)) {
-        carrier_design.fluting = None;
-    }
-    let design = &carrier_design;
+    let runtime_fluting = matches!(surface.detail, crate::ArmorDetail::Runtime(_))
+        .then_some(design.fluting)
+        .flatten();
     if !valid_surface(surface) {
         return Err(GenerateError::InvalidSurface);
     }
@@ -264,6 +264,12 @@ pub fn generate_breastplate(
     let mut front_mid = anime::articulate(front_mid, false, base_wearer, design, &source_sampler)?;
     let back_mid = anime::articulate(back_mid, true, base_wearer, design, &source_sampler)?;
     front_mid.triangulate_left_cut();
+    let fluting_chart = runtime_breastplate_fluting_chart(
+        runtime_fluting,
+        &front_mid,
+        &back_mid,
+        base_wearer.frame,
+    );
     let mid_positions = front_mid
         .positions
         .iter()
@@ -280,7 +286,7 @@ pub fn generate_breastplate(
         solidify(front_mid, design.wall_thickness.metres())?,
         solidify(back_mid, design.wall_thickness.metres())?,
     );
-    let attributes = transfer_surface_attributes(
+    let mut attributes = transfer_surface_attributes(
         surface,
         &base,
         &source_sampler,
@@ -288,6 +294,13 @@ pub fn generate_breastplate(
         &mid_positions,
         &morph_samples,
     )?;
+    let normal_map = breastplate_normal_map(
+        runtime_fluting,
+        fluting_chart,
+        &base,
+        base_wearer,
+        &mut attributes,
+    );
     Ok(GeneratedArmor {
         construction_faces: base.construction_faces,
         plate_edges: base.plate_edges,
@@ -297,11 +310,96 @@ pub fn generate_breastplate(
         positions: base.positions,
         normals: base.normals,
         texcoords: attributes.texcoords,
+        normal_map,
         joint_indices: attributes.joint_indices,
         joint_weights: attributes.joint_weights,
         indices: base.indices,
         morphs: attributes.morphs,
     })
+}
+
+fn runtime_breastplate_fluting_chart(
+    pattern: Option<crate::PlateFluting>,
+    front: &MidMesh,
+    back: &MidMesh,
+    frame: Frame,
+) -> Option<Vec<(usize, [f32; 2])>> {
+    pattern.map(|pattern| {
+        let mut samples = breastplate_fluting_chart(front, frame, pattern)
+            .into_iter()
+            .map(|coordinate| (0, coordinate))
+            .collect::<Vec<_>>();
+        samples.extend((0..back.positions.len()).map(|_| (0, [0.0, 0.0])));
+        samples
+    })
+}
+
+fn breastplate_normal_map(
+    pattern: Option<crate::PlateFluting>,
+    chart: Option<Vec<(usize, [f32; 2])>>,
+    base: &SolidMesh,
+    wearer: Wearer<'_>,
+    attributes: &mut SurfaceAttributes,
+) -> Option<crate::GeneratedNormalMap> {
+    chart.map(|chart| {
+        let samples = base
+            .source_mid_indices
+            .iter()
+            .map(|index| chart[*index])
+            .collect::<Vec<_>>();
+        let tiles = [crate::fluting_texture::FlutingTile::new(
+            pattern.expect("fluting chart requires a pattern"),
+            0.38 * wearer.x_scale,
+            0.44 * wearer.y_scale,
+        )];
+        let (normal_map, texcoords) = crate::fluting_texture::atlas(&tiles, &samples);
+        attributes.texcoords = texcoords;
+        normal_map
+    })
+}
+
+fn breastplate_fluting_chart(
+    mesh: &MidMesh,
+    frame: Frame,
+    pattern: crate::PlateFluting,
+) -> Vec<[f32; 2]> {
+    let main_vertices = mesh.positions.len().min(mesh.main_rows * mesh.main_columns);
+    let heights = mesh.positions[..main_vertices]
+        .iter()
+        .map(|position| local(*position, frame)[1])
+        .collect::<Vec<_>>();
+    let bottom = heights.iter().copied().fold(f32::INFINITY, f32::min);
+    let top = heights.iter().copied().fold(f32::NEG_INFINITY, f32::max);
+    let reference_start = mesh.main_rows / 2 * mesh.main_columns;
+    let reference = mesh.positions[reference_start..reference_start + mesh.main_columns]
+        .iter()
+        .map(|position| local(*position, frame)[0])
+        .collect::<Vec<_>>();
+    let reference_center = reference[mesh.main_columns / 2];
+    let half_width = ((reference[mesh.main_columns - 1] - reference[0]) * 0.5)
+        .min(reference_center - reference[0])
+        .min(reference[mesh.main_columns - 1] - reference_center);
+    let mut coordinates = Vec::with_capacity(mesh.positions.len());
+    for row in 0..mesh.main_rows {
+        let row_start = row * mesh.main_columns;
+        if row_start == main_vertices {
+            break;
+        }
+        let row_end = (row_start + mesh.main_columns).min(main_vertices);
+        let lateral = mesh.positions[row_start..row_end]
+            .iter()
+            .map(|position| local(*position, frame)[0])
+            .collect::<Vec<_>>();
+        let center = lateral[lateral.len() / 2];
+        for (column, lateral) in lateral.iter().enumerate() {
+            let index = row_start + column;
+            let v = ((heights[index] - bottom) / (top - bottom)).clamp(0.0, 1.0);
+            let mapped = (0.5 + (*lateral - center) / (2.0 * half_width)).clamp(0.0, 1.0);
+            coordinates.push([pattern.unfan_coordinate(mapped, v), v]);
+        }
+    }
+    coordinates.resize(mesh.positions.len(), [0.0, 0.0]);
+    coordinates
 }
 
 fn transfer_surface_attributes(
