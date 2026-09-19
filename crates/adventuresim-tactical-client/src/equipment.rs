@@ -34,7 +34,11 @@ mod icons;
 use icons::*;
 mod model_loading;
 mod morphs;
+mod runtime_armor;
 use model_loading::resolve_procedural_equipment_models;
+use runtime_armor::{
+    RuntimeArmorBodyCache, RuntimeArmorPresentation, generate_runtime_armor_models,
+};
 mod render_binding;
 mod skin;
 mod slot_selection;
@@ -1116,17 +1120,34 @@ fn spawn_item_placeholders(
             // root hidden avoids a one-frame flash at the world origin.
             Visibility::Hidden,
         ));
-        if let Some(file) = properties.and_then(|properties| {
-            procedural_equipment_file(
-                &properties.id,
-                topology.and_then(|topology| topology.placement_id.as_deref()),
-            )
-        }) {
-            root_commands.insert(ProceduralEquipmentPresentation {
-                asset_path: procedural_equipment_asset_path(file),
+        let runtime_armor = properties.is_some_and(|properties| {
+            adventuresim_character_creator::runtime_equipment::is_runtime_armor(&properties.id)
+        });
+        if !runtime_armor {
+            if let Some(file) = properties.and_then(|properties| {
+                procedural_equipment_file(
+                    &properties.id,
+                    topology.and_then(|topology| topology.placement_id.as_deref()),
+                )
+            }) {
+                root_commands.insert(ProceduralEquipmentPresentation {
+                    asset_path: procedural_equipment_asset_path(file),
+                });
+            }
+        } else {
+            let properties = properties.expect("runtime armor requires item properties");
+            root_commands.insert(RuntimeArmorPresentation {
+                item,
+                item_id: properties.id.clone(),
+                placement_id: topology
+                    .and_then(|topology| topology.placement_id.clone())
+                    .unwrap_or_else(|| "worn".into()),
             });
         }
         let root = root_commands.id();
+        if runtime_armor {
+            continue;
+        }
         let (generated, part_name) = if let Some(holder) =
             holder_appearance.and_then(|appearance| {
                 cached_holder(appearance, &mut cache, &mut meshes, &mut materials)

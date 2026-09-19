@@ -5,17 +5,21 @@ edition = "2024"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
+[features]
+default = ["offline-creator"]
+offline-creator = ["dep:burn", "dep:fabelgeist-mhr"]
+
 [dependencies]
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
 bevy = "0.19.0"
 bevy_egui = "0.40.1"
 blake3 = "1"
-burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
     "std",
     "wgpu",
 ] }
-fabelgeist-mhr = { path = "../fabelgeist-mhr" }
+fabelgeist-mhr = { optional = true, path = "../fabelgeist-mhr" }
 adventuresim-armor-model = { path = "../adventuresim-armor-model" }
 adventuresim-world-schema = { path = "../adventuresim-world-schema" }
 clap = { version = "4.5", features = ["derive", "env"] }
