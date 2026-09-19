@@ -9,7 +9,6 @@ const RELIGION_SERVICE: &str = "religion";
 struct PreparedResident {
     input: GenerationInput,
     profile: population::GeneratedPopulationProfile,
-    provider: bool,
     age_band: NpcAgeBand,
     stable_seed: u64,
     household: String,
@@ -39,7 +38,6 @@ impl PreparedResident {
         Ok(Self {
             input,
             profile,
-            provider,
             age_band,
             stable_seed: resident_random(&draft.seed, ResidentEntropyStream::Identity).next_u64(),
             household,
@@ -53,6 +51,10 @@ impl PreparedResident {
             NpcAgeBand::Adult => 30,
             NpcAgeBand::Elder => 68,
         })
+    }
+
+    fn is_provider(&self) -> bool {
+        self.input.is_service_provider
     }
 }
 
@@ -186,12 +188,12 @@ fn insert_profile(
     draft: &ResidentDraft,
     prepared: &PreparedResident,
 ) -> SettlementResidentProfile {
-    let profession = if prepared.provider {
+    let profession = if prepared.is_provider() {
         draft.profession.as_str()
     } else {
         super::profession(prepared.profile.profession)
     };
-    let local_role = if !prepared.provider
+    let local_role = if !prepared.is_provider()
         && prepared.profile.profession == Profession::Retainer
         && draft.role != REEVE
     {
@@ -226,7 +228,7 @@ fn insert_profile(
                 "no especially notable marks",
             ][resident_random(&draft.seed, ResidentEntropyStream::VisibleFeature).index(4)]
             .into(),
-            clothing: if prepared.provider {
+            clothing: if prepared.is_provider() {
                 "clean working clothes appropriate to the trade".into()
             } else {
                 "practical local woolens".into()
@@ -236,7 +238,7 @@ fn insert_profile(
             local_role: local_role.into(),
             service_id: draft.service.clone().unwrap_or_default(),
             organization_id: String::new(),
-            conversation_id: conversation_id(draft, prepared.provider).into(),
+            conversation_id: conversation_id(draft, prepared.is_provider()).into(),
         })
 }
 

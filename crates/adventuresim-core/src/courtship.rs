@@ -10,7 +10,10 @@ use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
 mod child_identity;
-pub use child_identity::{ChildSeeds, deterministic_child_seeds};
+pub use child_identity::{
+    ChildBirthMinute, ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed,
+    PregnancyOrdinal, deterministic_child_seeds,
+};
 
 pub const ADULT_AGE_YEARS: u16 = 16;
 pub const FORMAL_COURTSHIP_AFFINITY: f32 = 45.0;
@@ -1081,14 +1084,32 @@ mod tests {
 
     #[test]
     fn child_seeds_are_parent_order_independent_and_domain_separated() {
-        let first = deterministic_child_seeds("anna", "beatrice", 3, 900, "wittenberg");
-        let reversed = deterministic_child_seeds("beatrice", "anna", 3, 900, "wittenberg");
+        let first = deterministic_child_seeds(
+            "anna",
+            "beatrice",
+            PregnancyOrdinal::new(3),
+            ChildBirthMinute::new(900),
+            "wittenberg",
+        );
+        let reversed = deterministic_child_seeds(
+            "beatrice",
+            "anna",
+            PregnancyOrdinal::new(3),
+            ChildBirthMinute::new(900),
+            "wittenberg",
+        );
         assert_eq!(first, reversed);
-        assert_ne!(first.identity, first.name);
-        assert_ne!(first.identity, first.home);
+        assert_ne!(first.identity.get(), first.name.get());
+        assert_ne!(first.identity.get(), first.home.get());
         assert_ne!(
             first,
-            deterministic_child_seeds("anna", "beatrice", 4, 900, "wittenberg")
+            deterministic_child_seeds(
+                "anna",
+                "beatrice",
+                PregnancyOrdinal::new(4),
+                ChildBirthMinute::new(900),
+                "wittenberg",
+            )
         );
     }
 }

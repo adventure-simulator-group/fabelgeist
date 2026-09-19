@@ -6,8 +6,8 @@ use super::{
 };
 use adventuresim_core::{
     courtship::{
-        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ConceptionQuantumState, CourtshipDisposition,
-        GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
+        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ChildBirthMinute, ConceptionQuantumState,
+        CourtshipDisposition, GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
         INFORMAL_COURTSHIP_AFFINITY, LEISURE_MORALE_STACK_CAP_MILLI, LeisureInterval,
         RESIDENCE_MORALE_CAP_MILLI, RESIDENCE_MORALE_SPEC, RefreshableMorale,
         SPOUSE_LEISURE_MORALE_CAP_MILLI, SPOUSE_LEISURE_MORALE_SPEC, WEDDING_NOTICE_MINUTES,
@@ -309,15 +309,15 @@ fn project_metrics(state: &ScenarioState) -> LifecycleMetrics {
     let child = deterministic_child_seeds(
         "parent_alpha",
         "parent_beta",
-        0,
-        state.birth_minute.unwrap_or(0),
+        adventuresim_core::courtship::PregnancyOrdinal::new(0),
+        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
         "shared_home",
     );
     let child_again = deterministic_child_seeds(
         "parent_beta",
         "parent_alpha",
-        0,
-        state.birth_minute.unwrap_or(0),
+        adventuresim_core::courtship::PregnancyOrdinal::new(0),
+        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
         "shared_home",
     );
     let secrecy_attempts = 12;

@@ -51,11 +51,11 @@ pub fn establish_pregnancy(
     let seeds = deterministic_child_seeds(
         &mother_id.to_string(),
         &father_id.to_string(),
-        ordinal,
-        due_minute,
+        adventuresim_core::courtship::PregnancyOrdinal::new(ordinal),
+        adventuresim_core::courtship::ChildBirthMinute::new(due_minute),
         birth_settlement_id,
     );
-    let mut reserved_child_id = seeds.identity;
+    let mut reserved_child_id = seeds.identity.get();
     while ctx.db.character().id().find(reserved_child_id).is_some()
         || ctx
             .db
@@ -74,9 +74,9 @@ pub fn establish_pregnancy(
         conceived_minute,
         due_minute,
         reserved_child_id,
-        child_name_seed: seeds.name,
+        child_name_seed: seeds.name.get(),
         child_sex: seeds.sex,
-        child_home_seed: seeds.home,
+        child_home_seed: seeds.home.get(),
         birth_settlement_id: birth_settlement_id.to_owned(),
         birth_residence_holding_id,
         status: PregnancyStatus::Active,

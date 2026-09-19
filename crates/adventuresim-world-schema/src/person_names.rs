@@ -45,6 +45,21 @@ name_id!(NameFamilyId);
 name_id!(NameFormId);
 name_id!(SurnameId);
 
+/// Stable selector used when choosing a culture/register-specific name form.
+#[derive(Clone, Copy, Debug, Deserialize, Eq, Ord, PartialEq, PartialOrd, Serialize)]
+#[serde(transparent)]
+pub struct NameFormSelectionSeed(u64);
+
+impl NameFormSelectionSeed {
+    pub const fn new(value: u64) -> Self {
+        Self(value)
+    }
+
+    pub const fn get(self) -> u64 {
+        self.0
+    }
+}
+
 /// Calendar year used by the historical name repertoire.
 ///
 /// Keeping the year distinct from arbitrary integers prevents callers from
@@ -179,7 +194,7 @@ pub enum GivenNameResolution {
 pub struct PersonalNameIdentity {
     pub given: GivenNameResolution,
     pub native_culture: NameCulture,
-    pub form_selector: u64,
+    pub form_selector: NameFormSelectionSeed,
     pub surname_id: Option<SurnameId>,
 }
 
@@ -190,7 +205,7 @@ impl PersonalNameIdentity {
                 full_name: full_name.into(),
             },
             native_culture,
-            form_selector: 0,
+            form_selector: NameFormSelectionSeed::new(0),
             surname_id: None,
         }
     }
@@ -334,9 +349,10 @@ fn generate_personal_name_from_catalog(
     if eligible_forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    let form_selector = FORM_SELECTOR_STREAM.rng(stable_seed.get(), &[]).next_u64();
+    let form_selector =
+        NameFormSelectionSeed::new(FORM_SELECTOR_STREAM.rng(stable_seed.get(), &[]).next_u64());
     let form_index = FORM_STREAM
-        .rng(form_selector, &[])
+        .rng(form_selector.get(), &[])
         .weighted_index(
             &eligible_forms
                 .iter()
@@ -455,7 +471,7 @@ fn render_family_form(
     family_id: &str,
     culture: NameCulture,
     register: NameRegister,
-    selector: u64,
+    selector: NameFormSelectionSeed,
 ) -> Result<String, NameCatalogError> {
     let forms: Vec<_> = catalog
         .given_forms
@@ -472,9 +488,11 @@ fn render_family_form(
     if forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    Ok(forms[FORM_STREAM.rng(selector, &[]).index(forms.len())]
-        .text
-        .clone())
+    Ok(
+        forms[FORM_STREAM.rng(selector.get(), &[]).index(forms.len())]
+            .text
+            .clone(),
+    )
 }
 
 fn render_surname(
@@ -482,7 +500,7 @@ fn render_surname(
     surname_id: &str,
     culture: NameCulture,
     sex: NameSex,
-    selector: u64,
+    selector: NameFormSelectionSeed,
 ) -> Result<String, NameCatalogError> {
     let sex_specific: Vec<_> = catalog
         .surname_forms
@@ -505,11 +523,11 @@ fn render_surname(
     if forms.is_empty() {
         return Err(NameCatalogError::EmptyEligibleNames);
     }
-    Ok(
-        forms[SURNAME_FORM_STREAM.rng(selector, &[]).index(forms.len())]
-            .text
-            .clone(),
-    )
+    Ok(forms[SURNAME_FORM_STREAM
+        .rng(selector.get(), &[])
+        .index(forms.len())]
+    .text
+    .clone())
 }
 
 #[cfg(test)]
@@ -602,7 +620,7 @@ mod tests {
                 recorded_form: henne.text.clone(),
             },
             native_culture: NameCulture::German,
-            form_selector: 7,
+            form_selector: NameFormSelectionSeed::new(7),
             surname_id: None,
         };
         assert_eq!(
@@ -692,7 +710,7 @@ mod tests {
                 native_form_id: NameFormId::new("johannes_hans_de"),
             },
             native_culture: NameCulture::German,
-            form_selector: 31,
+            form_selector: NameFormSelectionSeed::new(31),
             surname_id: Some(SurnameId::new("becker")),
         };
         let everyday = render_personal_name(
@@ -803,7 +821,7 @@ mod tests {
                 "heinrich",
                 NameCulture::German,
                 NameRegister::Everyday,
-                11,
+                NameFormSelectionSeed::new(11),
             )
             .unwrap(),
             "Heinrich"
@@ -814,7 +832,7 @@ mod tests {
                 "heinrich",
                 NameCulture::English,
                 NameRegister::Everyday,
-                11,
+                NameFormSelectionSeed::new(11),
             )
             .unwrap(),
             "Henry"
@@ -829,7 +847,7 @@ mod tests {
                 native_form_id: NameFormId::new("anna_de"),
             },
             native_culture: NameCulture::German,
-            form_selector: 17,
+            form_selector: NameFormSelectionSeed::new(17),
             surname_id: Some(SurnameId::new("pfeiffer")),
         };
         assert!(
