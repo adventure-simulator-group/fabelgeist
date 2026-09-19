@@ -220,9 +220,11 @@ impl EquipmentExporter<'_> {
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
-            shell.textures = adventuresim_character_creator::underlayer_material::textures(
+            if let Some(textures) = adventuresim_character_creator::underlayer_material::textures(
                 self.catalog.design(&item.id, &placement.id).as_ref(),
-            );
+            ) {
+                shell.textures = Some(textures);
+            }
         }
         crate::character_morphs::component_materials(&armor, &mut rigged_shells);
         export_rigged_glb(

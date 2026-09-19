@@ -26,20 +26,23 @@ pub(super) fn align_back_lap_width(
     wearer: Wearer<'_>,
     design: &BreastplateDesign,
 ) {
-    let columns = back.main_columns;
+    let back_columns = back.main_columns;
+    let front_columns = front.main_columns;
     let course_lift = match &design.construction {
         crate::BreastplateConstruction::Solid => 0.0,
         crate::BreastplateConstruction::Anime(shape) => shape.lap_lift.metres(),
     };
-    for (side, column) in [(-1.0, 0), (1.0, columns - 1)] {
+    for (side, back_column, front_column) in
+        [(-1.0, 0, 0), (1.0, back_columns - 1, front_columns - 1)]
+    {
         let mut front_edge: Vec<_> = front
             .positions
-            .chunks_exact(columns)
-            .map(|row| local(row[column], wearer.frame))
+            .chunks_exact(front_columns)
+            .map(|row| local(row[front_column], wearer.frame))
             .collect();
         front_edge.sort_by(|a, b| a[1].total_cmp(&b[1]));
-        for row in back.positions.chunks_exact_mut(columns) {
-            let original = row[column];
+        for row in back.positions.chunks_exact_mut(back_columns) {
+            let original = row[back_column];
             let original_local = local(original, wearer.frame);
             let reference_y = reference_height(original, wearer, design);
             let height_blend = 1.0 - smoothstep((reference_y - LAP_FULL_HEIGHT) / LAP_FADE_HEIGHT);
@@ -54,7 +57,7 @@ pub(super) fn align_back_lap_width(
                 + side * (design.wall_thickness.metres() + LAP_CLEARANCE + course_lift);
             let offset = world([target_x - original_local[0], 0.0, 0.0], wearer.frame);
             for (index, point) in row.iter_mut().enumerate() {
-                let u = -1.0 + 2.0 * index as f32 / (columns - 1) as f32;
+                let u = -1.0 + 2.0 * index as f32 / (back_columns - 1) as f32;
                 let lateral_blend = smoothstep((u * side - LAP_START_U) / (1.0 - LAP_START_U));
                 *point = add(*point, scale(offset, height_blend * lateral_blend));
             }

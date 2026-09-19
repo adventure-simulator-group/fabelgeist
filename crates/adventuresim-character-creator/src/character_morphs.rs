@@ -4,6 +4,7 @@ use super::*;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+use image::{ExtendedColorType, ImageEncoder, codecs::png::PngEncoder};
 
 pub(super) struct MorphDelta {
     name: String,
@@ -239,9 +240,21 @@ pub(super) fn rigged_armor<'a>(
     faces: &'a [[u32; 3]],
     targets: &'a [RiggedMorphTarget<'a>],
 ) -> Vec<RiggedShell<'a>> {
+    let textures = armor.normal_map.as_ref().map(|map| {
+        let mut normal_png = Vec::new();
+        PngEncoder::new(&mut normal_png)
+            .write_image(&map.rgba8, map.width, map.height, ExtendedColorType::Rgba8)
+            .expect("generated normal-map dimensions match its pixels");
+        adventuresim_character_creator::export::SurfaceTextures {
+            base_color_png: None,
+            normal_png,
+            occlusion_png: None,
+            cutout: false,
+        }
+    });
     let shell = |name, faces, hinge| RiggedShell {
         plate_edges: &armor.plate_edges,
-        textures: None,
+        textures: textures.clone(),
         texcoords: Some(&armor.texcoords),
         name,
         hinge,

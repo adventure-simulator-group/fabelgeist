@@ -342,29 +342,35 @@ fn sampled_chart(
     detail: crate::ArmorDetail,
     feature_columns: &[f32],
 ) -> Result<PartMesh, GenerateError> {
-    let pattern = detail.fluting(pattern);
+    let runtime_pattern = matches!(detail, crate::ArmorDetail::Runtime(_))
+        .then_some(pattern)
+        .flatten();
+    let geometric_pattern = detail.fluting(pattern);
     let rows = samples.len() - 1;
     let cyclic = matches!(boundary, ChartBoundary::Cyclic);
-    let columns = sampled_columns(detail, pattern, cyclic, feature_columns);
+    let columns = sampled_columns(detail, geometric_pattern, cyclic, feature_columns);
     let stride = columns.len();
     let mut positions = Vec::new();
     let mut heights = Vec::new();
-    let apex = matches!(boundary, ChartBoundary::Apex);
-    let last_row = if apex { rows - 1 } else { rows };
+    let mut chart_coordinates = Vec::new();
+    let apex = usize::from(matches!(boundary, ChartBoundary::Apex));
+    let last_row = rows - apex;
     for &v in &samples[..=last_row] {
         let axial = lerp(span[0], span[1], v);
         for u in &columns {
             positions.push(point(
-                pattern.map_or(*u, |pattern| pattern.fan_coordinate(*u, axial)),
+                geometric_pattern.map_or(*u, |pattern| pattern.fan_coordinate(*u, axial)),
                 v,
             ));
             heights.push(
-                normal_offset(*u, axial) + pattern.map_or(0.0, |pattern| pattern.relief(*u, axial)),
+                normal_offset(*u, axial)
+                    + geometric_pattern.map_or(0.0, |pattern| pattern.relief(*u, axial)),
             );
+            chart_coordinates.push([*u, axial]);
         }
     }
     let mut indices = grid_indices(last_row, stride, cyclic);
-    if apex {
+    if apex != 0 {
         append_apex(
             &mut positions,
             &mut heights,
@@ -373,51 +379,82 @@ fn sampled_chart(
             point(0.5, 1.0),
             normal_offset(0.5, span[1]),
         );
+        chart_coordinates.push([0.5, span[1]]);
     }
     if let ChartBoundary::Capped(length) = boundary {
-        let tip_rings = detail.segments(8, 2);
-        let root_y = positions[0][1];
-        let mut previous: Vec<u32> = (0..stride as u32).collect();
-        for ring in 1..tip_rings {
-            let latitude = ring as f32 / tip_rings as f32 * std::f32::consts::FRAC_PI_2;
-            let next: Vec<u32> = (0..stride)
-                .map(|column| {
-                    let base = positions[column];
-                    let index = positions.len() as u32;
-                    positions.push([
-                        base[0] * latitude.cos(),
-                        root_y - length * latitude.sin(),
-                        base[2] * latitude.cos(),
-                    ]);
-                    heights.push(heights[column] * latitude.cos().powi(2));
-                    index
-                })
-                .collect();
-            for col in 0..stride - 1 {
-                let [a, b, c, d] = [previous[col], previous[col + 1], next[col], next[col + 1]];
-                indices.extend([a, d, b, a, c, d]);
-            }
-            previous = next;
-        }
-        let tip = positions.len() as u32;
-        positions.push([0.0, root_y - length, 0.0]);
-        heights.push(0.0);
-        for col in 0..stride - 1 {
-            indices.extend([tip, previous[col + 1], previous[col]]);
-        }
+        append_capped_tip(
+            length,
+            detail,
+            &columns,
+            span[0],
+            &mut positions,
+            &mut heights,
+            &mut chart_coordinates,
+            &mut indices,
+        );
     }
     PartMesh::from_relief_surface(
         positions,
         indices,
         shell.thickness,
-        if pattern.is_some() {
+        if geometric_pattern.is_some() {
             crate::BoundaryNormals::Separate
         } else {
             crate::BoundaryNormals::Smooth
         },
         shell.extrusion,
         Some(crate::SurfaceRelief::ShellHeights(heights)),
-    )
+    )?
+    .with_fluting_chart(runtime_pattern, chart_coordinates)
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "The cap extends four corresponding mesh attribute arrays over one authored chart."
+)]
+fn append_capped_tip(
+    length: f32,
+    detail: crate::ArmorDetail,
+    columns: &[f32],
+    chart_v: f32,
+    positions: &mut Vec<[f32; 3]>,
+    heights: &mut Vec<f32>,
+    chart_coordinates: &mut Vec<[f32; 2]>,
+    indices: &mut Vec<u32>,
+) {
+    let stride = columns.len();
+    let tip_rings = detail.segments(8, 2);
+    let root_y = positions[0][1];
+    let mut previous: Vec<u32> = (0..stride as u32).collect();
+    for ring in 1..tip_rings {
+        let latitude = ring as f32 / tip_rings as f32 * std::f32::consts::FRAC_PI_2;
+        let next: Vec<u32> = (0..stride)
+            .map(|column| {
+                let base = positions[column];
+                let index = positions.len() as u32;
+                positions.push([
+                    base[0] * latitude.cos(),
+                    root_y - length * latitude.sin(),
+                    base[2] * latitude.cos(),
+                ]);
+                heights.push(heights[column] * latitude.cos().powi(2));
+                chart_coordinates.push([columns[column], chart_v]);
+                index
+            })
+            .collect();
+        for col in 0..stride - 1 {
+            let [a, b, c, d] = [previous[col], previous[col + 1], next[col], next[col + 1]];
+            indices.extend([a, d, b, a, c, d]);
+        }
+        previous = next;
+    }
+    let tip = positions.len() as u32;
+    positions.push([0.0, root_y - length, 0.0]);
+    heights.push(0.0);
+    chart_coordinates.push([0.5, chart_v]);
+    for col in 0..stride - 1 {
+        indices.extend([tip, previous[col + 1], previous[col]]);
+    }
 }
 
 fn sampled_columns(

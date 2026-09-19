@@ -126,6 +126,12 @@ fn fitted_armor_design(
     }
     let sheets = mesh.shell_vertex_ranges().collect::<Vec<_>>();
     let bytes = serde_json::to_vec(design)?;
+    let body_texcoords = nearest.iter().map(|i| uv[*i]).collect::<Vec<_>>();
+    let (normal_map, texcoords) = mesh
+        .runtime_fluting(&body_texcoords)?
+        .map_or((None, body_texcoords), |(map, texcoords)| {
+            (Some(map), texcoords)
+        });
     let mut armor = GeneratedArmor {
         construction_faces: mesh.construction_face_ranges(),
         plate_edges: mesh.plate_edges(),
@@ -133,7 +139,8 @@ fn fitted_armor_design(
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
         positions: mesh.positions,
         normals,
-        texcoords: nearest.iter().map(|i| uv[*i]).collect(),
+        texcoords,
+        normal_map,
         joint_indices: nearest
             .iter()
             .map(|i| character.skin_weights.index[*i])

@@ -20,6 +20,7 @@ adventuresim-armor-model = { path = "../adventuresim-armor-model" }
 adventuresim-world-schema = { path = "../adventuresim-world-schema" }
 clap = { version = "4.5", features = ["derive", "env"] }
 fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+image = { version = "0.25.10", default-features = false, features = ["png"] }
 rand = "0.9"
 rayon = "1.12"
 serde = { version = "1", features = ["derive"] }

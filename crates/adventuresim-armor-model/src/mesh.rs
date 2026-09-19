@@ -186,6 +186,9 @@ pub fn generate_bracer(
     validate(design)?;
     validate_surface(surface)?;
     let source_hash = design_hash(design)?;
+    let runtime_fluting = matches!(surface.detail, crate::ArmorDetail::Runtime(_))
+        .then_some(design.fluting)
+        .flatten();
     let mut carrier_design = design.clone();
     if matches!(surface.detail, crate::ArmorDetail::Runtime(_)) {
         carrier_design.fluting = None;
@@ -223,7 +226,7 @@ pub fn generate_bracer(
         .iter()
         .map(|vertex| vertex.uv)
         .collect::<Vec<_>>();
-    let texcoords = samples
+    let mut texcoords = samples
         .iter()
         .map(|sample| sample_vec2(sample, &source_uvs))
         .chain(
@@ -232,6 +235,13 @@ pub fn generate_bracer(
                 .map(|sample| sample_vec2(sample, &source_uvs)),
         )
         .collect();
+    let normal_map = bracer_normal_map(
+        runtime_fluting,
+        design,
+        surface.detail,
+        along,
+        &mut texcoords,
+    );
     let skin = samples
         .iter()
         .map(|sample| sample_skin(sample, surface))
@@ -261,10 +271,41 @@ pub fn generate_bracer(
         positions,
         normals,
         texcoords,
+        normal_map,
         joint_indices,
         joint_weights,
         indices,
         morphs,
+    })
+}
+
+fn bracer_normal_map(
+    pattern: Option<crate::PlateFluting>,
+    design: &BracerDesign,
+    detail: crate::ArmorDetail,
+    along: usize,
+    texcoords: &mut Vec<[f32; 2]>,
+) -> Option<crate::GeneratedNormalMap> {
+    pattern.map(|pattern| {
+        let columns = design.columns(detail);
+        let chart = (0..=along)
+            .flat_map(|row| {
+                columns
+                    .iter()
+                    .map(move |u| (0, [*u, 1.0 - row as f32 / along as f32]))
+            })
+            .collect::<Vec<_>>();
+        let chart = chart
+            .iter()
+            .copied()
+            .chain(chart.iter().copied())
+            .collect::<Vec<_>>();
+        let tiles = [crate::fluting_texture::FlutingTile::new(
+            pattern, 0.25, 0.30,
+        )];
+        let (normal_map, chart_texcoords) = crate::fluting_texture::atlas(&tiles, &chart);
+        *texcoords = chart_texcoords;
+        normal_map
     })
 }
 

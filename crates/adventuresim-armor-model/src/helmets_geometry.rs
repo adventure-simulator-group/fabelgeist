@@ -13,6 +13,8 @@ pub(super) struct Surface {
     pub positions: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
     pub relief: Vec<f32>,
+    pub fluting: Option<crate::PlateFluting>,
+    pub fluting_coordinates: Vec<[f32; 2]>,
 }
 
 impl Default for Surface {
@@ -29,6 +31,8 @@ impl Surface {
             positions: Vec::new(),
             indices: Vec::new(),
             relief: Vec::new(),
+            fluting: None,
+            fluting_coordinates: Vec::new(),
         }
     }
     /// Redistribute a bowl's angular samples to register a sized face aperture.
@@ -55,6 +59,7 @@ impl Surface {
         let id = self.positions.len() as u32;
         self.positions.push(point);
         self.relief.push(0.0);
+        self.fluting_coordinates.push([0.0, 0.0]);
         id
     }
 
@@ -137,6 +142,7 @@ impl Surface {
             crate::BoundaryNormals::Smooth,
             extrusion,
             relief.map(crate::SurfaceRelief::ShellHeights),
-        )
+        )?
+        .with_fluting_chart(self.fluting.as_ref(), self.fluting_coordinates)
     }
 }

@@ -229,3 +229,29 @@ fn coverage_and_offset_move_complete_boundary_rings() {
         );
     }
 }
+
+#[test]
+fn runtime_fluting_uses_a_normal_map_instead_of_dense_geometry() {
+    use adventuresim_armor_model::{ArmorDetail, ArmorLod, PlateFluting};
+
+    let design = BracerDesign {
+        fluting: Some(PlateFluting::default()),
+        ..BracerDesign::default()
+    };
+    let bake = generate_bracer(&design, &cylinder_surface(0.045)).unwrap();
+    let mut runtime_surface = cylinder_surface(0.045);
+    runtime_surface.detail = ArmorDetail::Runtime(ArmorLod::Lod5);
+    let runtime = generate_bracer(&design, &runtime_surface).unwrap();
+
+    assert!(bake.normal_map.is_none());
+    assert!(runtime.normal_map.is_some());
+    assert!(runtime.indices.len() * 4 < bake.indices.len());
+    assert_eq!(runtime.positions.len(), runtime.texcoords.len());
+    assert!(
+        runtime
+            .texcoords
+            .iter()
+            .flatten()
+            .all(|value| value.is_finite() && (0.0..=1.0).contains(value))
+    );
+}

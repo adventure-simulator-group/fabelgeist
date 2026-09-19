@@ -335,6 +335,8 @@ pub struct GeneratedArmor {
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
     pub texcoords: Vec<[f32; 2]>,
+    /// Runtime-only tangent-space flute relief. Alpha stores normalized height.
+    pub normal_map: Option<crate::GeneratedNormalMap>,
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
     pub indices: Vec<u32>,

@@ -63,6 +63,7 @@ mod tests {
             positions: vec![[-0.01, 0.0, 0.0], [0.01, 0.0, 0.0], [0.0, 0.02, 0.0]],
             normals: vec![[0.0, 0.0, 1.0]; 3],
             texcoords: vec![[0.0; 2]; 3],
+            normal_map: None,
             indices: vec![0, 1, 2],
             components: Vec::new(),
             morphs: Vec::new(),

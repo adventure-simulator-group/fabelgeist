@@ -58,6 +58,9 @@ pub fn generate_besagew(
     d.validate()?;
     gauge.validate()?;
     let radial_rows = detail.segments(24, 3);
+    let runtime_fluting = matches!(detail, crate::ArmorDetail::Runtime(_))
+        .then_some(d.fluting)
+        .flatten();
     let mut d = d.clone();
     if matches!(detail, crate::ArmorDetail::Runtime(_)) {
         d.fluting = None;
@@ -71,6 +74,7 @@ pub fn generate_besagew(
         .map(|i| i as f32 / count as f32)
         .collect::<Vec<_>>();
     let mut positions = vec![[0.0, 0.0, d.boss_height.metres()]];
+    let mut fluting_chart = vec![[0.5, 0.5]];
     let mut relief = vec![0.0];
     let mut indices = Vec::new();
     let mut previous = Vec::new();
@@ -86,6 +90,10 @@ pub fn generate_besagew(
                 d.radius.metres() * radial * angle.cos(),
                 d.radius.metres() * radial * angle.sin(),
                 height,
+            ]);
+            fluting_chart.push([
+                0.5 + radial * angle.cos() * 0.5,
+                0.5 + radial * angle.sin() * 0.5,
             ]);
             relief.push(d.fluting.as_ref().map_or(0.0, |f| f.relief(*u, radial)));
         }
@@ -116,5 +124,6 @@ pub fn generate_besagew(
         },
         Some(crate::SurfaceRelief::ShellHeights(relief)),
     )?
+    .with_radial_fluting_chart(runtime_fluting, d.radius, fluting_chart)?
     .with_component(ArmorComponentRole::Besagew, None))
 }

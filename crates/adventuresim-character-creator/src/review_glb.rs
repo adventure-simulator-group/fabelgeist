@@ -27,9 +27,11 @@ pub(super) fn write(
         shell.base_color = color;
         shell.metallic = metallic;
         shell.roughness = roughness;
-        shell.textures = adventuresim_character_creator::underlayer_material::textures(
+        if let Some(textures) = adventuresim_character_creator::underlayer_material::textures(
             catalog.design(&piece.item_id, &piece.placement_id).as_ref(),
-        );
+        ) {
+            shell.textures = Some(textures);
+        }
     }
     character_morphs::component_materials(&piece.generated, &mut shells);
     export_rigged_glb(

@@ -385,7 +385,12 @@ pub(super) fn build_pair(
     }
     let mut smooth_design = design.clone();
     smooth_design.fluting = None;
-    let mut front = build_mid(false, wearer, &smooth_design)?;
+    let front_design = if matches!(wearer.detail, crate::ArmorDetail::Runtime(_)) {
+        design
+    } else {
+        &smooth_design
+    };
+    let mut front = build_mid(false, wearer, front_design)?;
     let mut back = build_mid(true, wearer, design)?;
     let front_fit = section_clearance_fit(&mut front, false, wearer, design)?;
     let back_fit = section_clearance_fit(&mut back, true, wearer, design)?;
@@ -399,6 +404,6 @@ pub(super) fn build_pair(
     rim_extrusion(&mut back)?;
     front = refine_front(front, wearer, design)?;
     front.front_neckline_extrusion(wearer.frame)?;
-    apply_fluting(&mut front, design)?;
+    apply_fluting(&mut front, design, wearer.detail)?;
     Ok((front, back))
 }

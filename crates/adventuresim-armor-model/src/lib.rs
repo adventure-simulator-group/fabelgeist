@@ -17,6 +17,8 @@ mod pierced_plate_domain;
 mod plate_fluting;
 mod plate_patch;
 pub use plate_fluting::{FluteCount, PlateFluting};
+mod fluting_texture;
+pub use fluting_texture::GeneratedNormalMap;
 mod components;
 mod design;
 pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
