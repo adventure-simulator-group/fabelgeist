@@ -123,7 +123,8 @@ impl ShopSign {
         Self::for_establishment(id, usage, ShopName::for_operator(operator, usage)?)
     }
 
-    /// Build a sign from the already-authoritative business brand.
+    /// Build a sign from a caller-supplied business brand whose trade matches
+    /// the establishment use.
     pub fn for_establishment(
         id: EstablishmentId,
         usage: BuildingUse,

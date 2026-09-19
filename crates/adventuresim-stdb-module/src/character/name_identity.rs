@@ -37,7 +37,8 @@ fn authored_name_identity(name: String) -> PersonalNameIdentity {
     PersonalNameIdentity::authored(name, NameCulture::German)
 }
 
-/// Persist a semantic identity and refresh the compatibility display string.
+/// Persist a semantic identity and refresh `Character.name`'s native-everyday
+/// projection.
 pub(crate) fn assign_character_name_identity(
     ctx: &ReducerContext,
     character_id: CharacterId,
