@@ -34,10 +34,10 @@ mod icons;
 use icons::*;
 mod model_loading;
 mod morphs;
-mod runtime_armor;
+mod runtime_equipment;
 use model_loading::resolve_procedural_equipment_models;
-use runtime_armor::{
-    RuntimeArmorBodyCache, RuntimeArmorPresentation, generate_runtime_armor_models,
+use runtime_equipment::{
+    RuntimeEquipmentBodyCache, RuntimeEquipmentPresentation, generate_runtime_equipment_models,
 };
 mod render_binding;
 mod skin;
@@ -1120,10 +1120,10 @@ fn spawn_item_placeholders(
             // root hidden avoids a one-frame flash at the world origin.
             Visibility::Hidden,
         ));
-        let runtime_armor = properties.is_some_and(|properties| {
-            adventuresim_character_creator::runtime_equipment::is_runtime_armor(&properties.id)
+        let runtime_equipment = properties.is_some_and(|properties| {
+            adventuresim_character_creator::runtime_equipment::is_runtime_equipment(&properties.id)
         });
-        if !runtime_armor {
+        if !runtime_equipment {
             if let Some(file) = properties.and_then(|properties| {
                 procedural_equipment_file(
                     &properties.id,
@@ -1135,8 +1135,8 @@ fn spawn_item_placeholders(
                 });
             }
         } else {
-            let properties = properties.expect("runtime armor requires item properties");
-            root_commands.insert(RuntimeArmorPresentation {
+            let properties = properties.expect("runtime equipment requires item properties");
+            root_commands.insert(RuntimeEquipmentPresentation {
                 item,
                 item_id: properties.id.clone(),
                 placement_id: topology
@@ -1145,7 +1145,7 @@ fn spawn_item_placeholders(
             });
         }
         let root = root_commands.id();
-        if runtime_armor {
+        if runtime_equipment {
             continue;
         }
         let (generated, part_name) = if let Some(holder) =
@@ -1552,10 +1552,6 @@ mod tests {
         let asset_root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../assets");
         for placements in PROCEDURAL_EQUIPMENT_ASSETS.values() {
             for file in placements.values() {
-                assert!(
-                    asset_root.join("equipment/procedural").join(file).is_file(),
-                    "manifest asset {file} should exist"
-                );
                 let portrait = format!("icons/{}.png", file.strip_suffix(".glb").unwrap());
                 assert!(
                     asset_root
@@ -1599,7 +1595,7 @@ mod tests {
     }
 
     #[test]
-    fn armor_starts_with_fallback_while_requesting_its_procedural_model() {
+    fn generated_armor_starts_with_runtime_presentation() {
         let mut world = World::new();
         world.insert_resource(Assets::<Mesh>::default());
         world.insert_resource(Assets::<StandardMaterial>::default());
@@ -1621,22 +1617,48 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(&ItemPlaceholder, &ProceduralEquipmentPresentation)>()
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)
             .unwrap();
-        assert!(
-            presentation
-                .asset_path
-                .ends_with("equipment/procedural/arming_doublet--worn.glb")
-        );
-        assert!(
-            world
-                .query::<&ItemFallback>()
-                .iter(&world)
-                .any(|fallback| fallback.0 == item)
-        );
+        assert_eq!(presentation.item, item);
+        assert_eq!(presentation.item_id, "arming_doublet");
+        assert_eq!(presentation.placement_id, "worn");
+        assert!(world.query::<&ItemFallback>().iter(&world).next().is_none());
+    }
+
+    #[test]
+    fn generated_clothing_starts_with_runtime_presentation() {
+        let mut world = World::new();
+        world.insert_resource(Assets::<Mesh>::default());
+        world.insert_resource(Assets::<StandardMaterial>::default());
+        world.init_resource::<WeaponMeshCache>();
+        let item = world
+            .spawn((
+                valid_physical(),
+                EquipmentTopology {
+                    placement_id: Some("worn".into()),
+                    ..default()
+                },
+                ItemProperties {
+                    weight: 0.5,
+                    id: "linen_tunic".into(),
+                },
+            ))
+            .id();
+
+        world.run_system_once(spawn_item_placeholders).unwrap();
+
+        let presentation = world
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
+            .iter(&world)
+            .find(|(placeholder, _)| placeholder.0 == item)
+            .map(|(_, presentation)| presentation)
+            .unwrap();
+        assert_eq!(presentation.item, item);
+        assert_eq!(presentation.item_id, "linen_tunic");
+        assert_eq!(presentation.placement_id, "worn");
     }
 
     #[test]

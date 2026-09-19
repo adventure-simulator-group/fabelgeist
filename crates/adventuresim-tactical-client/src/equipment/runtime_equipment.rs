@@ -13,14 +13,14 @@ use bevy::{
 };
 
 #[derive(Component)]
-pub(super) struct RuntimeArmorPresentation {
+pub(super) struct RuntimeEquipmentPresentation {
     pub(super) item: Entity,
     pub(super) item_id: String,
     pub(super) placement_id: String,
 }
 
 #[derive(Resource, Default)]
-pub(super) struct RuntimeArmorBodyCache {
+pub(super) struct RuntimeEquipmentBodyCache {
     pub(super) body: Option<RuntimeBody>,
     pub(super) inverse_bindposes: Option<Handle<SkinnedMeshInverseBindposes>>,
     pub(super) bracer_design: Option<adventuresim_armor_model::BracerDesign>,
@@ -29,7 +29,7 @@ pub(super) struct RuntimeArmorBodyCache {
 }
 
 #[expect(clippy::too_many_arguments)]
-pub(super) fn generate_runtime_armor_models(
+pub(super) fn generate_runtime_equipment_models(
     mut commands: Commands,
     animation: Res<crate::animation::AnimationRuntime>,
     gltfs: Res<Assets<Gltf>>,
@@ -40,8 +40,8 @@ pub(super) fn generate_runtime_armor_models(
     inverse_bindposes: Res<Assets<SkinnedMeshInverseBindposes>>,
     mut images: ResMut<Assets<Image>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    mut cache: ResMut<RuntimeArmorBodyCache>,
-    pending: Query<(Entity, &RuntimeArmorPresentation), Without<ProceduralEquipmentResolved>>,
+    mut cache: ResMut<RuntimeEquipmentBodyCache>,
+    pending: Query<(Entity, &RuntimeEquipmentPresentation), Without<ProceduralEquipmentResolved>>,
 ) {
     if cache.failed {
         return;
@@ -111,28 +111,37 @@ pub(super) fn generate_runtime_armor_models(
     };
 
     for (entity, presentation) in &pending {
-        let generated =
-            match adventuresim_character_creator::runtime_equipment::generate_runtime_armor(
+        let generated = match if adventuresim_character_creator::runtime_equipment::is_runtime_armor(
+            &presentation.item_id,
+        ) {
+            adventuresim_character_creator::runtime_equipment::generate_runtime_armor(
                 body,
                 &presentation.item_id,
                 &presentation.placement_id,
                 bracer_design,
                 breastplate_design,
-            ) {
-                Ok(generated) => generated,
-                Err(error) => {
-                    error!(
-                        item = %presentation.item_id,
-                        placement = %presentation.placement_id,
-                        "failed to generate runtime armor: {error:#}"
-                    );
-                    commands.entity(entity).insert(ProceduralEquipmentResolved);
-                    continue;
-                }
-            };
+            )
+        } else {
+            adventuresim_character_creator::runtime_equipment::generate_runtime_clothing(
+                body,
+                &presentation.item_id,
+                &presentation.placement_id,
+            )
+        } {
+            Ok(generated) => generated,
+            Err(error) => {
+                error!(
+                    item = %presentation.item_id,
+                    placement = %presentation.placement_id,
+                    "failed to generate runtime equipment: {error:#}"
+                );
+                commands.entity(entity).insert(ProceduralEquipmentResolved);
+                continue;
+            }
+        };
 
-        let mesh = runtime_armor_mesh(&generated, &mut meshes);
-        let material = runtime_armor_material(
+        let mesh = runtime_equipment_mesh(&generated, &mut meshes);
+        let material = runtime_equipment_material(
             &presentation.item_id,
             &generated,
             &mut images,
@@ -373,7 +382,7 @@ fn attribute_f32x4(
     }
 }
 
-fn runtime_armor_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
+fn runtime_equipment_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> Handle<Mesh> {
     let mut mesh = Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
@@ -432,14 +441,14 @@ fn runtime_armor_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> Hand
     meshes.add(mesh)
 }
 
-fn runtime_armor_material(
+fn runtime_equipment_material(
     item_id: &str,
     armor: &GeneratedArmor,
     images: &mut Assets<Image>,
     materials: &mut Assets<StandardMaterial>,
 ) -> Handle<StandardMaterial> {
     let material =
-        adventuresim_character_creator::runtime_equipment::runtime_armor_material(item_id)
+        adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item_id)
             .unwrap_or_else(|| panic!("runtime armor material missing for {item_id}"));
     let (base_color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
     let normal_map = armor.normal_map.as_ref().map(|normal_map| {
