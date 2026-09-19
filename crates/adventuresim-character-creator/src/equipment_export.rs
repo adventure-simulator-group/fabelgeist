@@ -145,7 +145,7 @@ impl EquipmentExporter<'_> {
         let file_name = format!("{}--{}.glb", item.id, placement.id);
         let path = output.join(&file_name);
         let material = equipment.material.context("armor material missing")?;
-        let metal = adventuresim_character_creator::armor_metal::metal(material)
+        let metal = adventuresim_character_creator::armor_metal::metal(material, None)
             .map(|metal| adventuresim_character_creator::export::ShellTextures::armor(&metal))
             .transpose()?;
         let mut rigged_shells = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);

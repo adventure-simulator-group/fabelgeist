@@ -2,28 +2,36 @@
 //!
 //! Plate armor edits its own [`Metal`]. Catalog plate steel is shaded with the
 //! same material, taking its color and roughness from the catalog material and
-//! the plate's default scratches, at the same texture density.
+//! the plate's default scratches, at the same texture density, with the
+//! article's own engraving cut into it.
 use crate::item_catalog_schema::EquipmentMaterial;
 use adventuresim_armor_model::GeneratedArmor;
-use fabelgeist_armor::material::Metal;
+use fabelgeist_armor::{engraving::Engraving, material::Metal};
 
-/// The scratched metal a catalog material is shaded with, when it is plate
-/// steel. Mail keeps its ring weave; the other materials are not plate metal.
-pub fn metal(material: EquipmentMaterial) -> Option<Metal> {
+/// Whether a catalog material is plate steel, shaded with the scratched metal.
+/// Mail keeps its ring weave; the other materials are not plate metal.
+pub fn is_plate_steel(material: EquipmentMaterial) -> bool {
     use EquipmentMaterial::*;
     match material {
-        PolishedSteel | RoughSteel | OxidizedSteel => {
-            let ([red, green, blue, _], _, roughness) = crate::clothing_material::pbr(material);
-            Some(Metal {
-                color: [red, green, blue],
-                roughness,
-                ..Metal::default()
-            })
-        }
+        PolishedSteel | RoughSteel | OxidizedSteel => true,
         MailSteel | VegetableTannedLeather | Linen | Wool | QuiltedTextile | Hardwood | Lead => {
-            None
+            false
         }
     }
+}
+
+/// The scratched metal a catalog material is shaded with, when it is plate
+/// steel, with `engraving` cut into it.
+pub fn metal(material: EquipmentMaterial, engraving: Option<&Engraving>) -> Option<Metal> {
+    is_plate_steel(material).then(|| {
+        let ([red, green, blue, _], _, roughness) = crate::clothing_material::pbr(material);
+        Metal {
+            color: [red, green, blue],
+            roughness,
+            engraving: engraving.cloned(),
+            ..Metal::default()
+        }
+    })
 }
 
 /// Rescale a fitted piece's body-surface texture coordinates to the metal's
@@ -60,14 +68,17 @@ mod tests {
     #[test]
     fn catalog_polished_steel_is_the_plate_armor_default() {
         assert_eq!(
-            metal(EquipmentMaterial::PolishedSteel),
+            metal(EquipmentMaterial::PolishedSteel, None),
             Some(Metal::default())
         );
-        let rough = metal(EquipmentMaterial::RoughSteel).unwrap();
+        let rough = metal(EquipmentMaterial::RoughSteel, None).unwrap();
         assert!(rough.roughness > Metal::default().roughness);
         assert_eq!(rough.scratch_density, Metal::default().scratch_density);
+        let engraving = Engraving::new("ornament.png");
+        let engraved = metal(EquipmentMaterial::RoughSteel, Some(&engraving)).unwrap();
+        assert_eq!(engraved.engraving.as_ref(), Some(&engraving));
         for material in [EquipmentMaterial::MailSteel, EquipmentMaterial::Linen] {
-            assert!(metal(material).is_none());
+            assert!(metal(material, Some(&engraving)).is_none());
         }
     }
 

@@ -18,6 +18,7 @@ use crate::{
     },
     item_design::ItemDesign,
 };
+use fabelgeist_armor::engraving::Engraving;
 use serde::{Deserialize, Serialize};
 
 /// Stable identity of one article within a character's inventory.
@@ -58,6 +59,8 @@ pub struct CatalogArticle {
     pub placement_id: String,
     /// This article's own shape; `None` builds the catalog default.
     pub design: Option<ItemDesign>,
+    /// Ornament cut into a plate-steel article's metal.
+    pub engraving: Option<Engraving>,
 }
 
 /// Why an article cannot be worn with the rest of the outfit.
@@ -83,6 +86,7 @@ impl CatalogArticle {
             item_id: item_id.into(),
             placement_id: placement_id.into(),
             design: None,
+            engraving: None,
         }
     }
 
@@ -158,7 +162,12 @@ impl Article {
                     .design
                     .as_ref()
                     .map_or(Ok(()), ItemDesign::validate)
-                    .map_err(|error| format!("{}: {error:#}", article.item_id))
+                    .map_err(|error| format!("{}: {error:#}", article.item_id))?;
+                article
+                    .engraving
+                    .as_ref()
+                    .map_or(Ok(()), Engraving::validate)
+                    .map_err(|error| format!("{}: {error}", article.item_id))
             }
             Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
             Self::Plate(armor) => armor.validate(),

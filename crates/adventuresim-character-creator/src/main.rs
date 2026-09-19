@@ -32,6 +32,7 @@ mod drape_preview;
 mod fabric_controls;
 mod garment_controls;
 mod inventory_ui;
+mod metal_controls;
 mod metal_preview;
 mod outfit;
 mod studio_ui;

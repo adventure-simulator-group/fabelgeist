@@ -53,7 +53,12 @@ pub fn editor(ui: &mut egui::Ui, a: &mut Armor) -> bool {
             a.fauld.layer_count as f32 * a.fauld.layer_height * (1.0 - a.fauld.overlap);
         ui.label(format!("Generated fauld length: {total_height:.3} m"));
     });
-    ui.collapsing("Metal and scratches", |ui| metal(ui, &mut a.metal));
+    ui.collapsing("Metal and scratches", |ui| {
+        metal_controls::metal(ui, &mut a.metal);
+    });
+    ui.collapsing("Engraving", |ui| {
+        metal_controls::engraving(ui, &mut a.metal.engraving);
+    });
     if let Err(e) = a.validate() {
         ui.colored_label(egui::Color32::LIGHT_RED, e);
         return false;
@@ -87,29 +92,12 @@ fn construction(
     }
 }
 
-fn metal(ui: &mut egui::Ui, m: &mut fabelgeist_armor::material::Metal) {
-    ui.color_edit_button_rgb(&mut m.color);
-    slider(ui, "Roughness", &mut m.roughness, 0.08..=0.9);
-    ui.add(egui::Slider::new(&mut m.scratch_density, 0..=3000).text("Scratch count"));
-    slider(ui, "Scratch length", &mut m.scratch_length, 0.005..=0.4);
-    slider(ui, "Scratch width", &mut m.scratch_width, 0.5..=3.0);
-    slider(ui, "Scratch depth", &mut m.scratch_depth, 0.0..=1.0);
-    slider(
-        ui,
-        "Scratch angle",
-        &mut m.scratch_angle,
-        -std::f32::consts::PI..=std::f32::consts::PI,
-    );
-    slider(
-        ui,
-        "Angle spread",
-        &mut m.scratch_spread,
-        0.0..=std::f32::consts::PI,
-    );
-    ui.add(egui::DragValue::new(&mut m.seed).prefix("Seed "));
-}
-
-fn slider(ui: &mut egui::Ui, label: &str, value: &mut f32, range: std::ops::RangeInclusive<f32>) {
+pub(super) fn slider(
+    ui: &mut egui::Ui,
+    label: &str,
+    value: &mut f32,
+    range: std::ops::RangeInclusive<f32>,
+) {
     ui.add(egui::Slider::new(value, range).text(label));
 }
 

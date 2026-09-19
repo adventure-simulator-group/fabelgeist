@@ -85,19 +85,26 @@ impl PreviewScene<'_, '_> {
         armor: &[parametric_equipment::SelectedArmor<'_>],
         plate: Option<&fabelgeist_armor::Armor>,
     ) -> Result<()> {
+        self.equipment_maps.begin_generation();
         for piece in armor {
             let material = catalog.material(&piece.piece.piece.item.id)?;
+            let material = self
+                .equipment_maps
+                .material(
+                    &mut self.images,
+                    material,
+                    piece.piece.design.recipe(),
+                    piece.piece.engraving.as_ref(),
+                )
+                .map_err(anyhow::Error::msg)
+                .with_context(|| format!("{} material failed", piece.name))?;
             preview::spawn_armor(
                 &mut self.commands,
                 &mut self.meshes,
                 &mut self.materials,
                 &piece.generated,
                 piece.name.clone(),
-                self.equipment_maps.material(
-                    &mut self.images,
-                    material,
-                    piece.piece.design.recipe(),
-                ),
+                material,
             )
             .context("Armor preview failed")?;
         }

@@ -88,7 +88,7 @@ the catalog defaults, which **Save all catalog designs** in the **Output** tab
 writes. Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
-Recipes use schema version 8. Recipes from older versions are not read.
+Recipes use schema version 9. Recipes from older versions are not read.
 
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
@@ -297,6 +297,17 @@ roughness from its catalog material, polished, rough or oxidized steel, with
 the default scratches. Its body-surface UVs are rescaled to the builder's
 density of four texture repeats per metre, so scratches are the same size on a
 helmet, a vambrace and a lamella. Mail keeps its ring weave.
+
+Any plate-steel piece can carry an **engraving**: a tiling relief image cut
+into its metal. The image is either a grayscale height map, where white is the
+untouched surface and black the floor of a cut of the chosen depth, or a
+tangent-space normal map in the glTF convention. The engraving repeats a chosen
+number of times per metal tile, may be turned on the surface, and roughens the
+floor of its cuts. Its slopes add to the scratches in the baked normal map for
+both preview and export; a height map also gives the preview a parallax depth
+map, which glTF does not carry. The image path is stored in the recipe and read
+relative to the working directory. The plate armor builder edits the engraving
+under its metal; a catalog steel article edits its own in the inventory.
 
 The authored helmet, limb and garment defaults live in
 [`assets_src/equipment/armor-designs.json`](../../assets_src/equipment/armor-designs.json).

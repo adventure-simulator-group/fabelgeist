@@ -31,6 +31,8 @@ pub struct CatalogPiece<'a> {
 pub struct FittedPiece<'a> {
     pub piece: CatalogPiece<'a>,
     pub design: ItemDesign,
+    /// Ornament cut into the piece when its material is plate steel.
+    pub engraving: Option<fabelgeist_armor::engraving::Engraving>,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -65,7 +67,11 @@ impl Inventory {
                         placement,
                     };
                     match article.design(catalog).map_err(fail)? {
-                        Some(design) => loadout.fitted.push(FittedPiece { piece, design }),
+                        Some(design) => loadout.fitted.push(FittedPiece {
+                            piece,
+                            design,
+                            engraving: article.engraving.clone(),
+                        }),
                         None => loadout.clothing.push(piece),
                     }
                 }

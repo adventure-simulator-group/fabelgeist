@@ -201,10 +201,7 @@ pub(super) fn fitted_catalog_item(
         .equipment
         .as_ref()
         .and_then(|equipment| equipment.material);
-    if material
-        .and_then(adventuresim_character_creator::armor_metal::metal)
-        .is_some()
-    {
+    if material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel) {
         adventuresim_character_creator::armor_metal::scale_to_metal_density(&mut armor);
     }
     Ok(armor)

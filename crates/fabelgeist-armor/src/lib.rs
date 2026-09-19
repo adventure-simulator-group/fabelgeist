@@ -1,5 +1,6 @@
 #[allow(dead_code)]
 mod csg;
+pub mod engraving;
 pub mod material;
 mod mesh;
 pub mod pattern;

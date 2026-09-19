@@ -6,12 +6,20 @@ use adventuresim_character_creator::{
     underlayer_material,
 };
 use bevy::image::{CompressedImageFormats, ImageSampler, ImageType};
+use fabelgeist_armor::{engraving::Engraving, material::Metal};
 
 #[derive(Resource, Default)]
 pub(super) struct EquipmentMaps {
     maps: Option<MailImages>,
-    /// Scratch maps per catalog steel, baked once.
-    metals: Vec<(EquipmentMaterial, metal_preview::MetalImages)>,
+    /// Baked steels, kept while a worn article still uses them.
+    metals: Vec<BakedMetal>,
+}
+
+struct BakedMetal {
+    metal: Metal,
+    images: metal_preview::MetalImages,
+    /// Whether an article used it since the generation began.
+    used: bool,
 }
 
 struct MailImages {
@@ -21,24 +29,39 @@ struct MailImages {
 }
 
 impl EquipmentMaps {
+    /// Forget the steels no article used during the last generation.
+    pub(super) fn begin_generation(&mut self) {
+        self.metals.retain(|baked| baked.used);
+        for baked in &mut self.metals {
+            baked.used = false;
+        }
+    }
+
+    /// The preview material of a catalog article; baking a steel reads its
+    /// engraving image.
     pub(super) fn material(
         &mut self,
         images: &mut Assets<Image>,
         material: EquipmentMaterial,
         design: Option<&ParametricDesign>,
-    ) -> StandardMaterial {
+        engraving: Option<&Engraving>,
+    ) -> Result<StandardMaterial, String> {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-        if let Some(metal) = armor_metal::metal(material) {
-            let index = match self.metals.iter().position(|(known, _)| *known == material) {
+        if let Some(metal) = armor_metal::metal(material, engraving) {
+            let index = match self.metals.iter().position(|baked| baked.metal == metal) {
                 Some(index) => index,
                 None => {
-                    let baked = metal_preview::MetalImages::new(images, &metal)
-                        .expect("catalog steels are valid metals");
-                    self.metals.push((material, baked));
+                    self.metals.push(BakedMetal {
+                        images: metal_preview::MetalImages::new(images, &metal)?,
+                        metal,
+                        used: false,
+                    });
                     self.metals.len() - 1
                 }
             };
-            return self.metals[index].1.material(&metal, metallic);
+            let baked = &mut self.metals[index];
+            baked.used = true;
+            return Ok(baked.images.material(&baked.metal, metallic));
         }
         let mut result = StandardMaterial {
             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
@@ -75,6 +98,6 @@ impl EquipmentMaps {
                 result.alpha_mode = AlphaMode::Mask(0.5);
             }
         }
-        result
+        Ok(result)
     }
 }

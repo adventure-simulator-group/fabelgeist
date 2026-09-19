@@ -6,10 +6,12 @@ use bevy::{
 };
 use fabelgeist_armor::material::Metal;
 
-/// A metal's baked scratch maps, uploaded for the preview.
+/// A metal's baked maps, uploaded for the preview.
 pub(super) struct MetalImages {
     normal: Handle<Image>,
     metal_roughness: Handle<Image>,
+    /// The engraving's parallax depth map and its depth in texture units.
+    depth: Option<(Handle<Image>, f32)>,
 }
 
 impl MetalImages {
@@ -37,17 +39,27 @@ impl MetalImages {
         Ok(Self {
             normal: upload(textures.normal),
             metal_roughness: upload(textures.metal_roughness),
+            depth: textures
+                .depth
+                .map(|depth| (upload(depth.pixels), depth.uv_scale)),
         })
     }
 
-    /// The metal's color with its scratch maps; roughness comes from the map.
+    /// The metal's color with its baked maps; roughness comes from the map and
+    /// an engraved cut shows its depth in parallax.
     pub(super) fn material(&self, metal: &Metal, metallic: f32) -> StandardMaterial {
+        let (depth_map, parallax_depth_scale) = match &self.depth {
+            Some((image, uv_scale)) => (Some(image.clone()), *uv_scale),
+            None => (None, 0.0),
+        };
         StandardMaterial {
             base_color: Color::srgb(metal.color[0], metal.color[1], metal.color[2]),
             metallic,
             perceptual_roughness: 1.0,
             normal_map_texture: Some(self.normal.clone()),
             metallic_roughness_texture: Some(self.metal_roughness.clone()),
+            depth_map,
+            parallax_depth_scale,
             ..default()
         }
     }

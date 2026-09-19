@@ -32,24 +32,45 @@ pub(super) fn show(
     *dirty |= rebuild && item.worn;
 }
 
-/// Returns whether the article's generated shape changed.
+/// Returns whether the article's appearance on the body changed.
 fn catalog_article(
     ui: &mut egui::Ui,
     article: &mut CatalogArticle,
     catalog: &mut EquipmentCatalog,
     status: &mut String,
 ) -> bool {
+    let mut steel = false;
     if let Some((item, placement)) = catalog.placement(&article.item_id, &article.placement_id) {
         let material = item
             .equipment
             .as_ref()
-            .and_then(|equipment| equipment.material)
-            .map_or_else(String::new, |material| format!(" · {material:?}"));
+            .and_then(|equipment| equipment.material);
+        steel = material.is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
+        let material = material.map_or_else(String::new, |material| format!(" · {material:?}"));
         ui.small(format!(
             "{} · {} placement · {:.2} kg{material}",
             item.id, placement.id, item.weight_kg
         ));
     }
+    let mut changed = catalog_shape(ui, article, catalog, status);
+    if steel {
+        changed |= ui
+            .collapsing("Engraving", |ui| {
+                metal_controls::engraving(ui, &mut article.engraving)
+            })
+            .body_returned
+            .unwrap_or(false);
+    }
+    changed
+}
+
+/// Returns whether the article's generated shape changed.
+fn catalog_shape(
+    ui: &mut egui::Ui,
+    article: &mut CatalogArticle,
+    catalog: &mut EquipmentCatalog,
+    status: &mut String,
+) -> bool {
     let mut design = match article.design(catalog) {
         Ok(Some(design)) => design,
         Ok(None) => {

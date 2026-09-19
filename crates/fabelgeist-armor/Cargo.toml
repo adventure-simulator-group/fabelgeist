@@ -7,4 +7,5 @@ license = "GPL-3.0"
 [dependencies]
 fabelgeist-math = { path = "../fabelgeist-math" }
 fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+image = { version = "0.25.10", default-features = false, features = ["png"] }
 serde = { version = "1", features = ["derive"] }

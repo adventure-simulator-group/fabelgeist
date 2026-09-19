@@ -96,11 +96,11 @@ pub(super) fn export_character(
 }
 
 type CatalogMetals = Vec<(
-    adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
+    fabelgeist_armor::material::Metal,
     adventuresim_character_creator::export::ShellTextures,
 )>;
 
-/// Scratch maps for each catalog steel worn, baked once.
+/// Maps for each distinct catalog steel worn, engraving included, baked once.
 fn catalog_metals(
     armor: &[parametric_equipment::SelectedArmor<'_>],
     catalog: &EquipmentCatalog,
@@ -108,13 +108,17 @@ fn catalog_metals(
     let mut metals: CatalogMetals = Vec::new();
     for piece in armor {
         let material = catalog.material(&piece.piece.piece.item.id)?;
-        if metals.iter().any(|(known, _)| *known == material) {
+        let Some(metal) = adventuresim_character_creator::armor_metal::metal(
+            material,
+            piece.piece.engraving.as_ref(),
+        ) else {
+            continue;
+        };
+        if metals.iter().any(|(known, _)| *known == metal) {
             continue;
         }
-        if let Some(metal) = adventuresim_character_creator::armor_metal::metal(material) {
-            let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
-            metals.push((material, textures));
-        }
+        let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
+        metals.push((metal, textures));
     }
     Ok(metals)
 }
@@ -131,10 +135,12 @@ fn catalog_shells<'a>(
         let mut parts = rigged_armor(&piece.name, &piece.generated, &faces[i], &targets[i]);
         let material = catalog.material(&piece.piece.piece.item.id)?;
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-        let metal = metals
-            .iter()
-            .find(|(known, _)| *known == material)
-            .map(|(_, textures)| (piece.generated.texcoords.as_slice(), textures));
+        let metal = adventuresim_character_creator::armor_metal::metal(
+            material,
+            piece.piece.engraving.as_ref(),
+        )
+        .and_then(|metal| metals.iter().find(|(known, _)| *known == metal))
+        .map(|(_, textures)| (piece.generated.texcoords.as_slice(), textures));
         for shell in &mut parts {
             shell.base_color = color;
             shell.metallic = metallic;
