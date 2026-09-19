@@ -1,8 +1,4 @@
 use super::*;
-use bevy::{
-    image::{ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
-    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
-};
 use fabelgeist_armor::{Armor, ArmorPart, Construction};
 
 /// Plate armor controls. Returns whether the armor changed into a valid design.
@@ -174,34 +170,8 @@ pub fn spawn(
     images: &mut Assets<Image>,
 ) -> Result<(), String> {
     let parts = rigged_parts(a, model, states)?;
-    let textures = a.metal.textures(512)?;
-    let mut texture = |data| {
-        let mut image = Image::new(
-            Extent3d {
-                width: textures.size,
-                height: textures.size,
-                depth_or_array_layers: 1,
-            },
-            TextureDimension::D2,
-            data,
-            TextureFormat::Rgba8Unorm,
-            RenderAssetUsages::default(),
-        );
-        image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
-            address_mode_u: ImageAddressMode::Repeat,
-            address_mode_v: ImageAddressMode::Repeat,
-            ..ImageSamplerDescriptor::linear()
-        });
-        images.add(image)
-    };
-    let material = materials.add(StandardMaterial {
-        base_color: Color::srgb(a.metal.color[0], a.metal.color[1], a.metal.color[2]),
-        metallic: 1.0,
-        perceptual_roughness: 1.0,
-        normal_map_texture: Some(texture(textures.normal)),
-        metallic_roughness_texture: Some(texture(textures.metal_roughness)),
-        ..default()
-    });
+    let material =
+        materials.add(metal_preview::MetalImages::new(images, &a.metal)?.material(&a.metal, 1.0));
     for p in parts {
         let collider = animation_preview::ArmorSkin(animation_preview::BodySkin {
             positions: p.part.mesh.positions.clone(),

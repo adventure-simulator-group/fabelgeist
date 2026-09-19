@@ -187,6 +187,29 @@ pub(super) fn fitted_item(
     }
 }
 
+/// Fit a catalog item; plate steel gets the metal's texture density.
+pub(super) fn fitted_catalog_item(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    item: &ItemDefinition,
+    design: &ItemDesign,
+    placement: &str,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let mut armor = fitted_item(model, generated, design, placement, morphs)?;
+    let material = item
+        .equipment
+        .as_ref()
+        .and_then(|equipment| equipment.material);
+    if material
+        .and_then(adventuresim_character_creator::armor_metal::metal)
+        .is_some()
+    {
+        adventuresim_character_creator::armor_metal::scale_to_metal_density(&mut armor);
+    }
+    Ok(armor)
+}
+
 pub(super) struct SelectedArmor<'a> {
     pub piece: FittedPiece<'a>,
     pub name: String,
@@ -208,8 +231,15 @@ pub(super) fn selected<'a>(
             let item_id = &piece.piece.item.id;
             Ok(SelectedArmor {
                 name: format!("{item_id}--{placement}"),
-                generated: fitted_item(model, generated, &piece.design, placement, morphs)
-                    .with_context(|| format!("fitting {item_id} ({placement})"))?,
+                generated: fitted_catalog_item(
+                    model,
+                    generated,
+                    piece.piece.item,
+                    &piece.design,
+                    placement,
+                    morphs,
+                )
+                .with_context(|| format!("fitting {item_id} ({placement})"))?,
                 piece: piece.clone(),
             })
         })

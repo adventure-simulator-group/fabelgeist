@@ -1,11 +1,17 @@
-//! Preview uses the same embedded atlas and cutout policy as exported equipment.
+//! Catalog armor preview materials: the embedded mail atlas and cutout policy of
+//! exported equipment, and the scratched metal shared with plate armor.
 use super::*;
-use adventuresim_character_creator::{armor_recipes::ParametricDesign, underlayer_material};
+use adventuresim_character_creator::{
+    armor_metal, armor_recipes::ParametricDesign, item_catalog_schema::EquipmentMaterial,
+    underlayer_material,
+};
 use bevy::image::{CompressedImageFormats, ImageSampler, ImageType};
 
 #[derive(Resource, Default)]
-pub(super) struct MailMaps {
+pub(super) struct EquipmentMaps {
     maps: Option<MailImages>,
+    /// Scratch maps per catalog steel, baked once.
+    metals: Vec<(EquipmentMaterial, metal_preview::MetalImages)>,
 }
 
 struct MailImages {
@@ -14,14 +20,26 @@ struct MailImages {
     occlusion: Option<Handle<Image>>,
 }
 
-impl MailMaps {
+impl EquipmentMaps {
     pub(super) fn material(
         &mut self,
         images: &mut Assets<Image>,
-        material: adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
+        material: EquipmentMaterial,
         design: Option<&ParametricDesign>,
     ) -> StandardMaterial {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        if let Some(metal) = armor_metal::metal(material) {
+            let index = match self.metals.iter().position(|(known, _)| *known == material) {
+                Some(index) => index,
+                None => {
+                    let baked = metal_preview::MetalImages::new(images, &metal)
+                        .expect("catalog steels are valid metals");
+                    self.metals.push((material, baked));
+                    self.metals.len() - 1
+                }
+            };
+            return self.metals[index].1.material(&metal, metallic);
+        }
         let mut result = StandardMaterial {
             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
             metallic,

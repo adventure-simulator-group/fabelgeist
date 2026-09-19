@@ -8,7 +8,7 @@ pub(super) struct PreviewScene<'w, 's> {
     meshes: ResMut<'w, Assets<Mesh>>,
     materials: ResMut<'w, Assets<StandardMaterial>>,
     images: ResMut<'w, Assets<Image>>,
-    mail_maps: ResMut<'w, underlayer_preview::MailMaps>,
+    equipment_maps: ResMut<'w, underlayer_preview::EquipmentMaps>,
     inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
 }
 
@@ -93,8 +93,11 @@ impl PreviewScene<'_, '_> {
                 &mut self.materials,
                 &piece.generated,
                 piece.name.clone(),
-                self.mail_maps
-                    .material(&mut self.images, material, piece.piece.design.recipe()),
+                self.equipment_maps.material(
+                    &mut self.images,
+                    material,
+                    piece.piece.design.recipe(),
+                ),
             )
             .context("Armor preview failed")?;
         }

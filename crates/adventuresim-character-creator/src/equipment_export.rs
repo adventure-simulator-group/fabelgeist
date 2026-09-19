@@ -128,9 +128,10 @@ impl EquipmentExporter<'_> {
         let model = self.model;
         let recipe = self.recipe;
         let equipment = item.equipment.as_ref().expect("filtered equipment");
-        let armor = parametric_equipment::fitted_item(
+        let armor = parametric_equipment::fitted_catalog_item(
             model,
             self.generated,
+            item,
             design,
             &placement.id,
             &self.morphs.samples,
@@ -143,16 +144,21 @@ impl EquipmentExporter<'_> {
         let morph_targets = armor_targets(&armor);
         let file_name = format!("{}--{}.glb", item.id, placement.id);
         let path = output.join(&file_name);
+        let material = equipment.material.context("armor material missing")?;
+        let metal = adventuresim_character_creator::armor_metal::metal(material)
+            .map(|metal| adventuresim_character_creator::export::ShellTextures::armor(&metal))
+            .transpose()?;
         let mut rigged_shells = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
-        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
-            equipment.material.context("armor material missing")?,
-        );
+        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         for shell in &mut rigged_shells {
             shell.base_color = color;
             shell.metallic = metallic;
             shell.roughness = roughness;
             shell.textures =
                 adventuresim_character_creator::underlayer_material::textures(design.recipe());
+            shell.surface = metal
+                .as_ref()
+                .map(|textures| (armor.texcoords.as_slice(), textures));
         }
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),

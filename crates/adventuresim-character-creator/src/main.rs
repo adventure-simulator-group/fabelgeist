@@ -32,6 +32,7 @@ mod drape_preview;
 mod fabric_controls;
 mod garment_controls;
 mod inventory_ui;
+mod metal_preview;
 mod outfit;
 mod studio_ui;
 use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
@@ -194,7 +195,7 @@ fn main() -> Result<()> {
         .init_resource::<drape_preview::MailMaterials>()
         .init_resource::<WalkPreview>()
         .insert_resource(args.clone())
-        .init_resource::<underlayer_preview::MailMaps>()
+        .init_resource::<underlayer_preview::EquipmentMaps>()
         .insert_resource(model)
         .insert_resource(catalog)
         .insert_resource(Studio::new(&args, recipe))

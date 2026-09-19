@@ -39,7 +39,9 @@ pub struct ShellTextures {
 impl ShellTextures {
     pub fn armor(metal: &fabelgeist_armor::material::Metal) -> Result<Self> {
         use image::ImageEncoder;
-        let textures = metal.textures(512).map_err(anyhow::Error::msg)?;
+        let textures = metal
+            .textures(fabelgeist_armor::material::Metal::TEXTURE_SIZE)
+            .map_err(anyhow::Error::msg)?;
         let encode = |pixels: &[u8]| -> Result<Vec<u8>> {
             let mut bytes = Vec::new();
             image::codecs::png::PngEncoder::new(&mut bytes).write_image(
@@ -141,14 +143,6 @@ impl TextureImages {
         }
     }
 
-    fn image_bytes(&mut self, bytes: &[u8], buffer: &mut BufferBuilder) -> usize {
-        let index = self.images.len();
-        let source = json!({"bufferView": buffer.push(bytes, None), "mimeType": "image/png"});
-        self.images.push(source);
-        self.textures.push(json!({"source": index}));
-        index
-    }
-
     pub fn apply_shell_textures(
         &mut self,
         textures: &ShellTextures,
@@ -159,8 +153,8 @@ impl TextureImages {
         let (normal, metal_roughness) = if let Some(&cached) = self.shell_cache.get(&key) {
             cached
         } else {
-            let normal = self.image_bytes(&textures.normal_png, buffer);
-            let metal_roughness = self.image_bytes(&textures.metal_roughness_png, buffer);
+            let normal = self.image(&textures.normal_png, buffer);
+            let metal_roughness = self.image(&textures.metal_roughness_png, buffer);
             self.shell_cache.insert(key, (normal, metal_roughness));
             (normal, metal_roughness)
         };

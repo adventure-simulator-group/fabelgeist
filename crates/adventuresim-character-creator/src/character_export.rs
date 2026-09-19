@@ -44,10 +44,12 @@ pub(super) fn export_character(
         .zip(&clothing_targets)
         .map(|(shell, targets)| rigged_clothing(shell, targets))
         .collect::<Vec<_>>();
+    let metals = catalog_metals(&armor, catalog)?;
     shells.extend(catalog_shells(
         &armor,
         &armor_faces,
         &armor_targets,
+        &metals,
         catalog,
     )?);
     let draped_morphs = morphs.draped(&generated, &character.mesh.faces, &fitted)?;
@@ -93,18 +95,46 @@ pub(super) fn export_character(
     Ok(warnings)
 }
 
+type CatalogMetals = Vec<(
+    adventuresim_character_creator::item_catalog_schema::EquipmentMaterial,
+    adventuresim_character_creator::export::ShellTextures,
+)>;
+
+/// Scratch maps for each catalog steel worn, baked once.
+fn catalog_metals(
+    armor: &[parametric_equipment::SelectedArmor<'_>],
+    catalog: &EquipmentCatalog,
+) -> Result<CatalogMetals> {
+    let mut metals: CatalogMetals = Vec::new();
+    for piece in armor {
+        let material = catalog.material(&piece.piece.piece.item.id)?;
+        if metals.iter().any(|(known, _)| *known == material) {
+            continue;
+        }
+        if let Some(metal) = adventuresim_character_creator::armor_metal::metal(material) {
+            let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
+            metals.push((material, textures));
+        }
+    }
+    Ok(metals)
+}
+
 fn catalog_shells<'a>(
     armor: &'a [parametric_equipment::SelectedArmor<'_>],
     faces: &'a [Vec<[u32; 3]>],
     targets: &'a [Vec<RiggedMorphTarget<'a>>],
+    metals: &'a CatalogMetals,
     catalog: &EquipmentCatalog,
 ) -> Result<Vec<RiggedShell<'a>>> {
     let mut shells = Vec::new();
     for (i, piece) in armor.iter().enumerate() {
         let mut parts = rigged_armor(&piece.name, &piece.generated, &faces[i], &targets[i]);
-        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(
-            catalog.material(&piece.piece.piece.item.id)?,
-        );
+        let material = catalog.material(&piece.piece.piece.item.id)?;
+        let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
+        let metal = metals
+            .iter()
+            .find(|(known, _)| *known == material)
+            .map(|(_, textures)| (piece.generated.texcoords.as_slice(), textures));
         for shell in &mut parts {
             shell.base_color = color;
             shell.metallic = metallic;
@@ -112,6 +142,7 @@ fn catalog_shells<'a>(
             shell.textures = adventuresim_character_creator::underlayer_material::textures(
                 piece.piece.design.recipe(),
             );
+            shell.surface = metal;
         }
         shells.extend(parts);
     }

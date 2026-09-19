@@ -289,6 +289,15 @@ Catalog loading rejects armor without a recipe. The geometry code lives in
 `adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit
 envelopes, and transfer of UVs, skinning and morph targets.
 
+Every rigid armor piece is shaded with the same parametric metal as the plate
+armor builder: a base color and roughness plus a tiling scratch map for normal
+and roughness. The builder's **Metal and scratches** section edits its own
+metal, whose default is polished steel. Catalog plate steel takes its color and
+roughness from its catalog material, polished, rough or oxidized steel, with
+the default scratches. Its body-surface UVs are rescaled to the builder's
+density of four texture repeats per metre, so scratches are the same size on a
+helmet, a vambrace and a lamella. Mail keeps its ring weave.
+
 The authored helmet, limb and garment defaults live in
 [`assets_src/equipment/armor-designs.json`](../../assets_src/equipment/armor-designs.json).
 The paired torso and vambrace defaults live beside it in

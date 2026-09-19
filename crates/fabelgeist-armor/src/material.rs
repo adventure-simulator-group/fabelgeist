@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+/// Scratched steel: a base color and roughness with a tiling scratch map.
+/// Every rigid armor piece is shaded with it, whatever its construction.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Metal {
     pub color: [f32; 3],
@@ -13,10 +15,11 @@ pub struct Metal {
     pub seed: u32,
 }
 impl Default for Metal {
+    /// Polished steel.
     fn default() -> Self {
         Self {
-            color: [0.62, 0.65, 0.68],
-            roughness: 0.28,
+            color: [0.769, 0.776, 0.776],
+            roughness: 0.20,
             scratch_density: 250,
             scratch_length: 0.045,
             scratch_width: 0.65,
@@ -28,6 +31,11 @@ impl Default for Metal {
     }
 }
 impl Metal {
+    /// Texture repeats per metre of armor surface.
+    pub const TILES_PER_METRE: f32 = 4.0;
+    /// The texture size previews and exports bake.
+    pub const TEXTURE_SIZE: u32 = 512;
+
     pub fn validate(&self) -> Result<(), String> {
         let values = [
             (self.roughness, 0.08, 0.9),

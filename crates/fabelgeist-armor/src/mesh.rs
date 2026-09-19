@@ -184,12 +184,13 @@ fn emit(mesh: &mut ArmorMesh, tri: [Vec3; 3], map: &impl Fn(Vec3) -> Vec3, divis
         };
         mesh.positions.push([p[i].x, p[i].y, p[i].z]);
         mesh.normals.push([normal.x, normal.y, normal.z]);
+        let tiles = crate::material::Metal::TILES_PER_METRE;
         mesh.uvs.push(if source_normal.z.abs() > 0.99 {
-            [tri[i].x * 4.0, tri[i].y * 4.0]
+            [tri[i].x * tiles, tri[i].y * tiles]
         } else if source_normal.x.abs() > source_normal.y.abs() {
-            [tri[i].y * 4.0, tri[i].z * 4.0]
+            [tri[i].y * tiles, tri[i].z * tiles]
         } else {
-            [tri[i].x * 4.0, tri[i].z * 4.0]
+            [tri[i].x * tiles, tri[i].z * tiles]
         });
     }
     mesh.faces.push([start, start + 1, start + 2]);
