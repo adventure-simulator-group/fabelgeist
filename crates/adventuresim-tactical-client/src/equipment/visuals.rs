@@ -7,10 +7,12 @@ impl Plugin for EquipmentVisualPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(OutlinePlugin::JUMP_FLOOD)
             .init_resource::<WeaponMeshCache>()
+            .init_resource::<RuntimeEquipmentBodyCache>()
             .add_systems(
                 Update,
                 (
                     spawn_item_placeholders,
+                    generate_runtime_equipment_models,
                     request_procedural_equipment_models,
                     resolve_procedural_equipment_models,
                     sync_procedural_equipment_skins,

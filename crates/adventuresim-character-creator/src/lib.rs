@@ -17,17 +17,21 @@ mod coif_fit;
 pub mod garment_fit;
 mod gorget_fit;
 pub mod limb_fit;
+#[cfg(feature = "offline-creator")]
 pub mod lod;
 pub mod nearest_vertex;
 mod spaulder_fit;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod design_input;
+#[cfg(feature = "offline-creator")]
 pub mod export;
 pub mod fasteners;
 mod plate_section;
 pub mod profiling;
+#[cfg(feature = "offline-creator")]
 pub mod proportions;
 mod puff_and_slash_fit;
+pub mod runtime_equipment;
 pub mod surface_cut;
 mod tasset_carrier;
 pub mod underlayer;
@@ -192,4 +196,5 @@ mod tests {
     }
 }
 
+#[cfg(feature = "offline-creator")]
 pub mod underlayer_material;

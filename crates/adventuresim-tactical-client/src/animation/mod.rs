@@ -262,7 +262,7 @@ impl WeaponGrip {
 }
 
 #[derive(Resource, Default)]
-pub(super) struct AnimationRuntime {
+pub(crate) struct AnimationRuntime {
     requested_base: Option<Handle<Gltf>>,
     base_processed: bool,
     base_failed: bool,
@@ -281,6 +281,10 @@ pub(super) struct AnimationRuntime {
 }
 
 impl AnimationRuntime {
+    pub(crate) fn requested_base(&self) -> Option<&Handle<Gltf>> {
+        self.requested_base.as_ref()
+    }
+
     pub(super) fn motion_is_processed(&self, motion: &str) -> bool {
         self.processed_motions
             .iter()
