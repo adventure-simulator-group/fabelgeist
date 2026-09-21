@@ -3,14 +3,16 @@ use super::*;
 use adventuresim_armor_model::GeneratedArmor;
 use adventuresim_character_creator::{
     design_input::{load_bracer_design, load_breastplate_design},
-    runtime_equipment::{RuntimeBody, RuntimeBodyMorph},
+    runtime_equipment::RuntimeBody,
 };
-use anyhow::{Context, bail};
 use bevy::{
     gltf::{Gltf, GltfMesh, GltfNode, GltfSkin},
     mesh::{VertexAttributeValues, morph::MorphAttributes, skinning::SkinnedMeshInverseBindposes},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+
+mod body;
+use body::try_build_runtime_body;
 
 #[derive(Component)]
 pub(super) struct RuntimeEquipmentPresentation {
@@ -26,6 +28,19 @@ pub(super) struct RuntimeEquipmentBodyCache {
     pub(super) bracer_design: Option<adventuresim_armor_model::BracerDesign>,
     pub(super) breastplate_design: Option<adventuresim_armor_model::BreastplateDesign>,
     pub(super) failed: bool,
+}
+
+struct PreparedRuntimeEquipment<'a> {
+    body: &'a RuntimeBody,
+    inverse_bindposes: &'a Handle<SkinnedMeshInverseBindposes>,
+    bracer_design: &'a adventuresim_armor_model::BracerDesign,
+    breastplate_design: &'a adventuresim_armor_model::BreastplateDesign,
+}
+
+struct RuntimeEquipmentAssets<'a> {
+    meshes: &'a mut Assets<Mesh>,
+    images: &'a mut Assets<Image>,
+    materials: &'a mut Assets<StandardMaterial>,
 }
 
 #[expect(clippy::too_many_arguments)]
@@ -110,275 +125,83 @@ pub(super) fn generate_runtime_equipment_models(
         return;
     };
 
+    let prepared = PreparedRuntimeEquipment {
+        body,
+        inverse_bindposes: inverse_bindposes_handle,
+        bracer_design,
+        breastplate_design,
+    };
+    let mut assets = RuntimeEquipmentAssets {
+        meshes: &mut meshes,
+        images: &mut images,
+        materials: &mut materials,
+    };
     for (entity, presentation) in &pending {
-        let generated = match if adventuresim_character_creator::runtime_equipment::is_runtime_armor(
-            &presentation.item_id,
-        ) {
-            adventuresim_character_creator::runtime_equipment::generate_runtime_armor(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-                bracer_design,
-                breastplate_design,
-            )
-        } else {
-            adventuresim_character_creator::runtime_equipment::generate_runtime_clothing(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-            )
-        } {
-            Ok(generated) => generated,
-            Err(error) => {
-                error!(
-                    item = %presentation.item_id,
-                    placement = %presentation.placement_id,
-                    "failed to generate runtime equipment: {error:#}"
-                );
-                commands.entity(entity).insert(ProceduralEquipmentResolved);
-                continue;
-            }
-        };
-
-        let mesh = runtime_equipment_mesh(&generated, &mut meshes);
-        let material = runtime_equipment_material(
-            &presentation.item_id,
-            &generated,
-            &mut images,
-            &mut materials,
-        );
-        let part = ProceduralEquipmentPart::new(
-            presentation.item,
-            inverse_bindposes_handle.clone(),
-            body.joint_names.clone(),
-        );
-        commands.entity(entity).with_children(|commands| {
-            commands.spawn(part.render_bundle(
-                format!("Runtime armor {}", presentation.item_id),
-                mesh,
-                material,
-            ));
-        });
-        commands
-            .entity(entity)
-            .insert((ProceduralEquipmentResolved, Visibility::Inherited));
+        spawn_runtime_equipment(&mut commands, entity, presentation, &prepared, &mut assets);
     }
 }
 
-fn try_build_runtime_body(
-    base_handle: &Handle<Gltf>,
-    gltfs: &Assets<Gltf>,
-    gltf_meshes: &Assets<GltfMesh>,
-    gltf_nodes: &Assets<GltfNode>,
-    gltf_skins: &Assets<GltfSkin>,
-    meshes: &Assets<Mesh>,
-    inverse_bindposes: &Assets<SkinnedMeshInverseBindposes>,
-) -> Option<anyhow::Result<(RuntimeBody, Handle<SkinnedMeshInverseBindposes>)>> {
-    let gltf = gltfs.get(base_handle)?;
-
-    for node_handle in &gltf.nodes {
-        let Some(node) = gltf_nodes.get(node_handle) else {
-            return None;
-        };
-        let (Some(mesh_handle), Some(skin_handle)) = (node.mesh.as_ref(), node.skin.as_ref())
-        else {
-            continue;
-        };
-        let Some(gltf_mesh) = gltf_meshes.get(mesh_handle) else {
-            return None;
-        };
-        let Some(skin) = gltf_skins.get(skin_handle) else {
-            return None;
-        };
-        let Some(inverse_bindposes_asset) = inverse_bindposes.get(&skin.inverse_bind_matrices)
-        else {
-            return None;
-        };
-
-        for primitive in &gltf_mesh.primitives {
-            let Some(mesh) = meshes.get(&primitive.mesh) else {
-                return None;
-            };
-            return Some(build_runtime_body(
-                mesh,
-                skin,
-                inverse_bindposes_asset,
-                gltf_nodes,
-            ));
+fn spawn_runtime_equipment(
+    commands: &mut Commands,
+    entity: Entity,
+    presentation: &RuntimeEquipmentPresentation,
+    prepared: &PreparedRuntimeEquipment,
+    assets: &mut RuntimeEquipmentAssets,
+) {
+    let generated = match generate_runtime_equipment(presentation, prepared) {
+        Ok(generated) => generated,
+        Err(error) => {
+            error!(
+                item = %presentation.item_id,
+                placement = %presentation.placement_id,
+                "failed to generate runtime equipment: {error:#}"
+            );
+            commands.entity(entity).insert(ProceduralEquipmentResolved);
+            return;
         }
-    }
-
-    Some(Err(anyhow::anyhow!(
-        "the base rig contains no skinned mesh primitive"
-    )))
-}
-
-fn build_runtime_body(
-    mesh: &Mesh,
-    skin: &GltfSkin,
-    inverse_bindposes: &SkinnedMeshInverseBindposes,
-    gltf_nodes: &Assets<GltfNode>,
-) -> anyhow::Result<(RuntimeBody, Handle<SkinnedMeshInverseBindposes>)> {
-    let positions = attribute_vec3(mesh, Mesh::ATTRIBUTE_POSITION, "positions")?;
-    let normals = attribute_vec3(mesh, Mesh::ATTRIBUTE_NORMAL, "normals")?;
-    let texcoords = attribute_vec2(mesh, Mesh::ATTRIBUTE_UV_0, "UVs")?;
-    let joint_indices = attribute_u16x4(mesh, Mesh::ATTRIBUTE_JOINT_INDEX, "joint indices")?;
-    let joint_weights = attribute_f32x4(mesh, Mesh::ATTRIBUTE_JOINT_WEIGHT, "joint weights")?;
-    let indices = mesh
-        .indices()
-        .context("runtime armor body has no index buffer")?;
-    let indices = match indices {
-        Indices::U16(indices) => indices.iter().map(|index| u32::from(*index)).collect(),
-        Indices::U32(indices) => indices.clone(),
     };
-    let faces = indices
-        .chunks_exact(3)
-        .map(|face| [face[0], face[1], face[2]])
-        .collect::<Vec<_>>();
-    if faces.len() * 3 != indices.len() {
-        bail!("runtime armor body index buffer is not triangle-aligned");
-    }
-
-    let joint_names = skin
-        .joints
-        .iter()
-        .map(|joint| {
-            gltf_nodes
-                .get(joint)
-                .map(|node| node.name.clone())
-                .unwrap_or_else(|| "joint".into())
-        })
-        .collect::<Vec<_>>();
-    let global_joint_states = inverse_bindposes
-        .iter()
-        .map(|inverse_bindpose| {
-            let (scale, rotation, position) =
-                inverse_bindpose.inverse().to_scale_rotation_translation();
-            [
-                position.x, position.y, position.z, rotation.x, rotation.y, rotation.z, rotation.w,
-                scale.x,
-            ]
-        })
-        .collect::<Vec<_>>();
-
-    let morphs = mesh
-        .get_morph_targets()
-        .map(|targets| {
-            let names = mesh.morph_target_names().unwrap_or_default();
-            let vertex_count = positions.len();
-            names
-                .iter()
-                .enumerate()
-                .filter_map(|(index, name)| {
-                    let start = index.checked_mul(vertex_count)?;
-                    let target = targets.get(start..start + vertex_count)?;
-                    Some(RuntimeBodyMorph {
-                        name: name.clone(),
-                        positions: positions
-                            .iter()
-                            .zip(target)
-                            .map(|(base, delta)| {
-                                let delta = delta.position.to_array();
-                                [base[0] + delta[0], base[1] + delta[1], base[2] + delta[2]]
-                            })
-                            .collect(),
-                        normals: normals
-                            .iter()
-                            .zip(target)
-                            .map(|(base, delta)| {
-                                let delta = delta.normal.to_array();
-                                [base[0] + delta[0], base[1] + delta[1], base[2] + delta[2]]
-                            })
-                            .collect(),
-                        global_joint_states: global_joint_states.clone(),
-                    })
-                })
-                .collect::<Vec<_>>()
-        })
-        .unwrap_or_default();
-
-    let body = RuntimeBody {
-        detail: adventuresim_armor_model::ArmorDetail::Runtime(
-            adventuresim_armor_model::ArmorLod::Lod5,
-        ),
-        domain: "mhr_body_v1".into(),
-        faces: faces.clone(),
-        positions,
-        normals,
-        texcoords,
-        texcoord_faces: faces,
-        joint_indices: joint_indices
-            .into_iter()
-            .map(|joint| {
-                [
-                    u32::from(joint[0]),
-                    u32::from(joint[1]),
-                    u32::from(joint[2]),
-                    u32::from(joint[3]),
-                    0,
-                    0,
-                    0,
-                    0,
-                ]
-            })
-            .collect(),
-        joint_weights: joint_weights
-            .into_iter()
-            .map(|weight| {
-                [
-                    weight[0], weight[1], weight[2], weight[3], 0.0, 0.0, 0.0, 0.0,
-                ]
-            })
-            .collect(),
-        joint_names,
-        global_joint_states,
-        morphs,
-    };
-    let inverse_bindposes_handle = skin.inverse_bind_matrices.clone();
-    Ok((body, inverse_bindposes_handle))
+    let mesh = runtime_equipment_mesh(&generated, assets.meshes);
+    let material = runtime_equipment_material(
+        &presentation.item_id,
+        &generated,
+        assets.images,
+        assets.materials,
+    );
+    let part = ProceduralEquipmentPart::new(
+        presentation.item,
+        prepared.inverse_bindposes.clone(),
+        prepared.body.joint_names.clone(),
+    );
+    commands.entity(entity).with_children(|commands| {
+        commands.spawn(part.render_bundle(
+            format!("Runtime armor {}", presentation.item_id),
+            mesh,
+            material,
+        ));
+    });
+    commands
+        .entity(entity)
+        .insert((ProceduralEquipmentResolved, Visibility::Inherited));
 }
 
-fn attribute_vec3(
-    mesh: &Mesh,
-    attribute: bevy::mesh::MeshVertexAttribute,
-    label: &str,
-) -> anyhow::Result<Vec<[f32; 3]>> {
-    match mesh.attribute(attribute).context(label.to_owned())? {
-        VertexAttributeValues::Float32x3(values) => Ok(values.clone()),
-        _ => bail!("runtime armor body {label} have an unsupported vertex format"),
-    }
-}
-
-fn attribute_vec2(
-    mesh: &Mesh,
-    attribute: bevy::mesh::MeshVertexAttribute,
-    label: &str,
-) -> anyhow::Result<Vec<[f32; 2]>> {
-    match mesh.attribute(attribute).context(label.to_owned())? {
-        VertexAttributeValues::Float32x2(values) => Ok(values.clone()),
-        _ => bail!("runtime armor body {label} have an unsupported vertex format"),
-    }
-}
-
-fn attribute_u16x4(
-    mesh: &Mesh,
-    attribute: bevy::mesh::MeshVertexAttribute,
-    label: &str,
-) -> anyhow::Result<Vec<[u16; 4]>> {
-    match mesh.attribute(attribute).context(label.to_owned())? {
-        VertexAttributeValues::Uint16x4(values) => Ok(values.clone()),
-        _ => bail!("runtime armor body {label} have an unsupported vertex format"),
-    }
-}
-
-fn attribute_f32x4(
-    mesh: &Mesh,
-    attribute: bevy::mesh::MeshVertexAttribute,
-    label: &str,
-) -> anyhow::Result<Vec<[f32; 4]>> {
-    match mesh.attribute(attribute).context(label.to_owned())? {
-        VertexAttributeValues::Float32x4(values) => Ok(values.clone()),
-        _ => bail!("runtime armor body {label} have an unsupported vertex format"),
+fn generate_runtime_equipment(
+    presentation: &RuntimeEquipmentPresentation,
+    prepared: &PreparedRuntimeEquipment,
+) -> anyhow::Result<GeneratedArmor> {
+    if adventuresim_character_creator::runtime_equipment::is_runtime_armor(&presentation.item_id) {
+        adventuresim_character_creator::runtime_equipment::generate_runtime_armor(
+            prepared.body,
+            &presentation.item_id,
+            &presentation.placement_id,
+            prepared.bracer_design,
+            prepared.breastplate_design,
+        )
+    } else {
+        adventuresim_character_creator::runtime_equipment::generate_runtime_clothing(
+            prepared.body,
+            &presentation.item_id,
+            &presentation.placement_id,
+        )
     }
 }
 

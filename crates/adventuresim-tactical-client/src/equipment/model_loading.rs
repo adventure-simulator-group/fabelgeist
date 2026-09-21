@@ -3,6 +3,18 @@
 use super::*;
 use bevy::gltf::GltfExtras;
 
+pub(super) fn request_procedural_equipment_models(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    pending: Query<(Entity, &ProceduralEquipmentPresentation), Without<ProceduralEquipmentRequest>>,
+) {
+    for (entity, presentation) in &pending {
+        commands.entity(entity).insert(ProceduralEquipmentRequest(
+            asset_server.load(&presentation.asset_path),
+        ));
+    }
+}
+
 struct LoadedPart {
     name: String,
     mesh: Handle<Mesh>,

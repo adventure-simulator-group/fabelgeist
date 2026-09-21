@@ -2,6 +2,9 @@
 
 #[path = "mission_bootstrap/streams.rs"]
 mod streams;
+#[path = "mission_bootstrap/coordinates.rs"]
+mod coordinates;
+use coordinates::standalone_case_site_northward_offset;
 #[reducer]
 pub fn report_contract(
     ctx: &ReducerContext,
@@ -866,15 +869,6 @@ fn standalone_case_site_distance_m(family: StandaloneMissionFamily) -> u64 {
         StandaloneMissionFamily::Diagnostic => STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
         StandaloneMissionFamily::Animation | StandaloneMissionFamily::General => 0,
     }
-}
-
-fn standalone_case_site_northward_offset(distance_m: u64, coordinates_are_geographic: bool) -> f64 {
-    let coordinate_unit_m = if coordinates_are_geographic {
-        METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
-    } else {
-        METERS_PER_UNBOUNDED_COORDINATE_UNIT
-    };
-    distance_m as f64 / coordinate_unit_m
 }
 
 fn standalone_case_id(mission_id: &str) -> String {
