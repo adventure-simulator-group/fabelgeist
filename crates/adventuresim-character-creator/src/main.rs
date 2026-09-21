@@ -27,6 +27,8 @@ use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 mod animation_preview;
 mod armor_preview;
+mod armory;
+mod armory_ui;
 mod drape_controls;
 mod drape_preview;
 mod fabric_controls;
@@ -124,7 +126,7 @@ impl Studio {
     }
 }
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 struct CharacterMesh;
 
 struct GeneratedCharacter {
@@ -217,8 +219,12 @@ fn main() -> Result<()> {
         )
         .add_plugins(EguiPlugin::default())
         .init_resource::<CreatorPanelRight>()
-        .add_systems(Startup, (setup, animation_preview::request))
-        .add_systems(EguiPrimaryContextPass, studio_ui::show)
+        .init_resource::<armory::Armory>()
+        .add_systems(Startup, (setup, armory::setup, animation_preview::request))
+        .add_systems(
+            EguiPrimaryContextPass,
+            (studio_ui::show, armory_ui::labels.after(studio_ui::show)),
+        )
         .add_systems(
             Update,
             (
@@ -227,7 +233,16 @@ fn main() -> Result<()> {
                 regenerate_mesh,
                 drape_preview::poll.after(regenerate_mesh),
                 drape_preview::refresh_mail.after(drape_preview::poll),
-                orbit_camera,
+                (
+                    armory::enter_or_leave,
+                    armory::refit,
+                    armory::display,
+                    armory::frame_camera,
+                )
+                    .chain()
+                    .after(reload_model)
+                    .before(regenerate_mesh),
+                orbit_camera.after(armory::frame_camera),
             ),
         )
         .add_systems(

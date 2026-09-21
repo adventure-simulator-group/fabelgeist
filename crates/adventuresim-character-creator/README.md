@@ -90,6 +90,31 @@ the inventory order sets draping order.
 
 Recipes use schema version 9. Recipes from older versions are not read.
 
+## Armory
+
+The **Armory** tab is for improving the catalog's parametric equipment. It fits
+every parametric catalog item to the character's body and hangs the pieces on a
+wall, in rows from head to feet, each with its name underneath. Pieces that
+failed to fit are named in red, and their errors show on hover and in the
+editor. **Both sides** shows the left and right placements of paired pieces, and
+**Selected only** hides every other piece. Clicking a name on the wall or in the
+list selects that piece and frames it. **◀ ▶**, or the arrow keys over the
+viewport, step through the pieces. **On body** shows the selected piece where it
+is worn, in every placement, and **See-through body** shows where it clears or
+cuts into the body.
+
+The selected piece's shape controls edit its **catalog default** directly, and
+only that piece is fitted again. **Revert** restores the default the armory
+opened with, and **Save catalog designs** writes all defaults to the paths set
+on the **Output** tab. Worn articles without their own design use the edited
+default once you leave the armory. **Refit all** fits every piece to the current
+body again; this also happens automatically on entering the armory after the
+body changed. The Fabelgeist plate armor and catalog clothing without a
+parametric design are not shown.
+
+In every tab, drag orbits the view, right- or middle-drag pans, and the wheel
+zooms.
+
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
 frames from the final generated vertices, so authored shading follows identity,

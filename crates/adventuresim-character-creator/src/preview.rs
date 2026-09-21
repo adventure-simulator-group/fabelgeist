@@ -53,6 +53,7 @@ pub(super) fn spawn_armor(
     armor: &GeneratedArmor,
     name: String,
     material: StandardMaterial,
+    marker: impl Bundle + Clone,
 ) -> Result<()> {
     let parts = if armor.components.is_empty() {
         vec![(name, armor.indices.as_slice())]
@@ -82,7 +83,7 @@ pub(super) fn spawn_armor(
                 .context("generating tangents for textured armor preview")?;
         }
         commands.spawn((
-            CharacterMesh,
+            marker.clone(),
             Name::new(part_name),
             Mesh3d(meshes.add(mesh)),
             MeshMaterial3d(materials.add(material.clone())),

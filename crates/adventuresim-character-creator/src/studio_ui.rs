@@ -8,16 +8,18 @@ const PANEL_WIDTH: f32 = 380.0;
 pub(super) enum StudioTab {
     Character,
     Inventory,
+    Armory,
     Output,
 }
 
 impl StudioTab {
-    const ALL: [Self; 3] = [Self::Character, Self::Inventory, Self::Output];
+    const ALL: [Self; 4] = [Self::Character, Self::Inventory, Self::Armory, Self::Output];
 
     fn label(self) -> &'static str {
         match self {
             Self::Character => "Character",
             Self::Inventory => "Inventory",
+            Self::Armory => "Armory",
             Self::Output => "Output",
         }
     }
@@ -47,6 +49,7 @@ pub(super) fn show(
     mut catalog: ResMut<EquipmentCatalog>,
     mut studio: ResMut<Studio>,
     mut panel_right: ResMut<CreatorPanelRight>,
+    mut armory: ResMut<armory::Armory>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
     // egui points equal logical window pixels at bevy_egui's default scale.
@@ -68,7 +71,7 @@ pub(super) fn show(
             egui::Panel::bottom("creator_status").show_inside(ui, |ui| {
                 ui.add_space(4.0);
                 ui.small(&studio.status);
-                ui.small("Drag to orbit · wheel to zoom");
+                ui.small("Drag to orbit · right-drag to pan · wheel to zoom");
             });
             egui::CentralPanel::default().show_inside(ui, |ui| {
                 egui::ScrollArea::vertical()
@@ -77,6 +80,9 @@ pub(super) fn show(
                         StudioTab::Character => character(ui, &mut studio),
                         StudioTab::Inventory => {
                             inventory_ui::show(ui, &mut studio, &mut catalog, &mut drape_job)
+                        }
+                        StudioTab::Armory => {
+                            armory_ui::show(ui, &mut studio, &mut catalog, &mut armory)
                         }
                         StudioTab::Output => output(
                             ui,
@@ -185,16 +191,24 @@ fn output(
         });
     }
     if ui.button("Save all catalog designs").clicked() {
-        let paths = &studio.design_paths;
-        studio.status = match catalog.designs.save(&DesignPaths {
-            catalog: std::path::Path::new(&paths.catalog),
-            bracer: std::path::Path::new(&paths.vambrace),
-            breastplate: std::path::Path::new(&paths.breastplate),
-        }) {
-            Ok(()) => "Saved catalog, vambrace and breastplate designs".into(),
-            Err(error) => format!("Could not save catalog designs: {error:#}"),
-        };
+        save_designs(studio, catalog);
     }
+}
+
+/// Write every catalog default design to the paths set on the Output tab.
+pub(super) fn save_designs(studio: &mut Studio, catalog: &EquipmentCatalog) {
+    let paths = &studio.design_paths;
+    studio.status = match catalog.designs.save(&DesignPaths {
+        catalog: std::path::Path::new(&paths.catalog),
+        bracer: std::path::Path::new(&paths.vambrace),
+        breastplate: std::path::Path::new(&paths.breastplate),
+    }) {
+        Ok(()) => format!(
+            "Saved catalog designs to {}, {} and {}",
+            paths.catalog, paths.vambrace, paths.breastplate
+        ),
+        Err(error) => format!("Could not save catalog designs: {error:#}"),
+    };
 }
 
 fn mesh(ui: &mut egui::Ui, studio: &mut Studio) {

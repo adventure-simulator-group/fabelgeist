@@ -4,11 +4,11 @@ use bevy::ecs::system::SystemParam;
 /// The scene and asset stores the character preview spawns into.
 #[derive(SystemParam)]
 pub(super) struct PreviewScene<'w, 's> {
-    commands: Commands<'w, 's>,
-    meshes: ResMut<'w, Assets<Mesh>>,
-    materials: ResMut<'w, Assets<StandardMaterial>>,
-    images: ResMut<'w, Assets<Image>>,
-    equipment_maps: ResMut<'w, underlayer_preview::EquipmentMaps>,
+    pub commands: Commands<'w, 's>,
+    pub meshes: ResMut<'w, Assets<Mesh>>,
+    pub materials: ResMut<'w, Assets<StandardMaterial>>,
+    pub images: ResMut<'w, Assets<Image>>,
+    pub equipment_maps: ResMut<'w, underlayer_preview::EquipmentMaps>,
     inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
 }
 
@@ -105,6 +105,7 @@ impl PreviewScene<'_, '_> {
                 &piece.generated,
                 piece.name.clone(),
                 material,
+                CharacterMesh,
             )
             .context("Armor preview failed")?;
         }
@@ -126,7 +127,7 @@ impl PreviewScene<'_, '_> {
     }
 }
 
-fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {
+pub(super) fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {
     Mesh::new(
         PrimitiveTopology::TriangleList,
         RenderAssetUsages::default(),
