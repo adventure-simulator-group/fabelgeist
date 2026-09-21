@@ -1,0 +1,18 @@
+[package]
+name = "fabelgeist-mesh"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
+anyhow = { "version" = "1.0" }
+bytemuck = { "version" = "1.16" }
+indexmap = { "version" = "2.12.1", "features" = ["serde"] }
+serde = { "version" = "1", "features" = ["derive"] }
+strum = { "version" = "0.27.2", "features" = ["derive"] }
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"] }
+
+[dev-dependencies]
+tokio = { "version" = "1", "features" = ["full"] }

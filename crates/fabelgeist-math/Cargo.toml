@@ -10,14 +10,8 @@ serde = { "version" = "1", "features" = ["derive"] }
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
 wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
 
-# `From<Vec4> for wgpu::Color` cannot live in fabelgeist-gpu -- both types
-# would be foreign there, and the orphan rule forbids it. It stays here,
-# behind a feature, so that nothing that only wants the maths pulls in a GPU
-# stack.
-
 [features]
 default = []
 
 [lints]
 workspace = true
-

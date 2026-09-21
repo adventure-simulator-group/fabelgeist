@@ -10,6 +10,7 @@ fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
 fabelgeist-math = { "default-features" = false, "features" = ["wgpu"], "path" = "../fabelgeist-math" }
 anyhow = { "version" = "1.0" }
 bytemuck = { "version" = "1.16", "features" = ["derive"] }
+futures-channel = { "version" = "0.3" }
 indexmap = { "version" = "2.12.1", "features" = ["serde"] }
 serde = { "version" = "1", "features" = ["derive"] }
 strum = { "version" = "0.27.2", "features" = ["derive"] }

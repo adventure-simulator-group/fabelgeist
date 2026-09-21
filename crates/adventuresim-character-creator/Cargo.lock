@@ -120,6 +120,10 @@ name = "adventuresim-armor-model"
 version = "0.1.0"
 dependencies = [
  "blake3",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "pollster",
  "postcard",
  "serde",
  "serde_json",
@@ -143,11 +147,13 @@ dependencies = [
  "fabelgeist-armor",
  "fabelgeist-bvh",
  "fabelgeist-cloth",
+ "fabelgeist-compute",
  "fabelgeist-garment-code",
  "fabelgeist-garment-fit",
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-mhr",
+ "fabelgeist-shell",
  "gltf",
  "image",
  "rand 0.9.5",
@@ -4779,9 +4785,13 @@ dependencies = [
 name = "fabelgeist-armor"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
+ "fabelgeist-compute",
  "fabelgeist-garment-code",
+ "fabelgeist-gpu",
  "fabelgeist-math",
  "image",
+ "pollster",
  "serde",
 ]
 
@@ -4801,13 +4811,20 @@ name = "fabelgeist-cloth"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "bytemuck",
- "fabelgeist-bvh",
  "fabelgeist-compute",
  "fabelgeist-gpu",
  "fabelgeist-math",
- "fabelgeist-physics",
- "fabelgeist-xpbd",
+ "fabelgeist-shell",
+]
+
+[[package]]
+name = "fabelgeist-color"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "serde",
+ "thiserror 2.0.20",
+ "wgpu 30.0.1",
 ]
 
 [[package]]
@@ -4818,6 +4835,7 @@ dependencies = [
  "bytemuck",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "futures-channel",
  "indexmap",
  "naga 30.0.1",
  "pollster",
@@ -4885,6 +4903,7 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-physics",
+ "fabelgeist-shell",
  "fabelgeist-xpbd",
 ]
 
@@ -4895,6 +4914,7 @@ dependencies = [
  "anyhow",
  "async-lock",
  "bytemuck",
+ "fabelgeist-color",
  "fabelgeist-math",
  "fabelgeist-timer",
  "futures-channel",
@@ -4916,6 +4936,19 @@ version = "0.1.0"
 dependencies = [
  "bytemuck",
  "serde",
+ "wgpu 30.0.1",
+]
+
+[[package]]
+name = "fabelgeist-mesh"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-gpu",
+ "indexmap",
+ "serde",
+ "strum",
  "wgpu 30.0.1",
 ]
 
@@ -4950,6 +4983,21 @@ dependencies = [
  "fabelgeist-compute",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "fabelgeist-xpbd",
+]
+
+[[package]]
+name = "fabelgeist-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-mesh",
+ "fabelgeist-physics",
  "fabelgeist-xpbd",
 ]
 

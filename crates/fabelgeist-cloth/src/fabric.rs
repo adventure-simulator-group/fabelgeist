@@ -139,3 +139,16 @@ impl Fabric {
         self
     }
 }
+
+impl From<Fabric> for fabelgeist_shell::ShellMaterial {
+    fn from(f: Fabric) -> Self {
+        Self {
+            stretch_compliance: f.stretch_compliance,
+            bend_compliance: f.bend_compliance,
+            seam_compliance: f.seam_compliance,
+            thickness: f.thickness,
+            friction: f.friction,
+            damping: f.damping,
+        }
+    }
+}

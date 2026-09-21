@@ -1,21 +1,35 @@
 # Armor model
 
-This crate generates deterministic armor geometry from anatomical body samples.
-`generate_bracer` fits forearm contours. `generate_breastplate` builds separate
-front and rear carriers, fits their clearance to the wearer, closes each shell,
-and transfers anatomical UVs, skin weights, and morph correspondence.
+This crate defines the armor recipes and generates their geometry on a compute
+device. `ArmorGpu` owns the device context and the kernels every armor family
+shares; one instance serves the whole process and any number of threads.
 
-The rest of the armor catalog uses authored parametric surfaces through
-`generate_helmet`, `generate_limb_armor`, and `generate_garment_armor`. Their
-`PartFrame` inputs contain anatomical placement and physical dimensions, not
-body triangles. The character creator measures those frames and fits independent
-carrier surfaces to body cross sections. `PartMesh` adds physical inner walls
-and boundary returns, preserves outward winding under reflection, and retains
-carrier correspondence when a body morph refits the surface.
+Every part is built the same way. The host lays the part out from the design
+alone: how many carrier vertices each shell has, how they connect, and how each
+shell is thickened. The device evaluates every carrier point in the part's
+frame, the fitter (in the character creator) moves the carriers onto the
+wearer, and one shell stage thickens every shell at once. It adds the inner
+wall and the boundary returns, keeps outward winding under reflected frames,
+and computes the final normals. Nothing is read back until the finished part
+is, so a part and all of its morph samples are recorded before one readback.
+
+`DevicePart` is that part under construction. Families record into one:
+`record_helmet`, `record_close_helmet` and `record_coif` for helmets,
+`record_limb_armor` and `record_extremity_armor` for limbs, hands and feet,
+`record_garment_tube`, `record_garment_torso`, `record_fauld`,
+`record_tassets` and `record_gorget_plates` for garments. Each reads a part
+frame from a device buffer: origin, axes and half extents measured on the
+wearer, not body triangles. The close helmet and the coif also read sections
+the fitter measured (`CloseHelmetProfile`, `CoifDrapeProfile`). The vambrace
+(`gpu::bracer`) and the paired breastplate (`gpu::breastplate`) are fitted
+directly to the wearer's selected skin and carry its UVs, skin weights and
+morph correspondence. `ArmorGpu::build_in`, `generate_helmet_on` and
+`generate_limb_armor_on` build a part placed by host frames, for previews and
+tests.
 
 Construction determines the recipe family. A barbute has a continuous bowl and
 cheek opening; a burgonet has a separate peak, cheek plates and neck defense.
-They share geometric helpers, but have separate designs because changing a few
+They share device kernels, but have separate designs because changing a few
 bowl dimensions cannot express those structural differences. Morions, kettle
 hats, sallets and close helmets likewise expose their own brim, tail, visor,
 crest, opening and lower-edge controls. Cap and coif recipes have soft covering
@@ -37,9 +51,9 @@ width changes the balance of raised metal and intervening smooth land. Width
 scales with the wearer, while depth and gauge retain their millimetre values.
 Breastplates use the same flute parameters with a torso-specific distribution.
 
-Each construction supplies a surface chart for its relief. The generator fits
-the smooth carrier to anatomy, then applies relief to both shell surfaces and
-closes their boundaries. Gauge follows the carrier's extrusion direction; it
+Each construction supplies a surface chart for its relief. The smooth carrier
+is fitted to anatomy, then relief is applied to both shell surfaces and their
+boundaries are closed. Gauge follows the carrier's extrusion direction; it
 does not follow the steep local flute slopes. A body morph retains the selected
 design's vertex and triangle correspondence. Changing a design, including its
 flute count or pattern, may rebuild topology and requires new morph targets.
@@ -70,25 +84,8 @@ creator rejects an unmapped armor item instead of sending it through the
 body-topology clothing shell path. Ordinary non-armor clothing still uses its
 separate clothing generator.
 
-The breastplate implementation lives in `src/breastplate_carrier.rs` and its
-child modules:
-
-- `wearer` measures the anatomical frame and fit scales.
-- `shape` evaluates the authored carrier profiles.
-- `grid` connects the plate, shoulder, and skirt surfaces.
-- `fit` resolves body clearance and the gap between plates.
-- `shell` adds thickness and validates welded closure.
-- `sampling` transfers body surface attributes.
-- `math` owns shared vector and interpolation operations.
-
-The former fixed-surface implementation, its topology API, superseded tests, and
-target-profile experiment have been removed. The paired-carrier regression test
-covers the supported generator, including closed components, skinning, morph
-correspondence, and parameter variation.
-
-Run `cargo test -p adventuresim-armor-model` for the crate's regression tests.
-Run `just fmt-check` and `just lint` for the repository quality gates.
-See [armor references and validation](review/README.md) for source references
-and reproducible checks.
-Set `BREASTPLATE_REPORT_FIT` to emit fitting diagnostics when investigating a
-body or design that fails clearance validation.
+Run `cargo test -p adventuresim-armor-model` for the crate's regression tests;
+they build parts on the device and need a compute-capable GPU. Run `just
+fmt-check` and `just lint` for the repository quality gates. See [armor
+references and validation](review/README.md) for source references and
+reproducible checks.

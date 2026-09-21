@@ -32,7 +32,7 @@ impl DrapedGarment {
             self.fabric.body_ease_cm(armor) * 0.01 + self.fabric.fabric().particle_radius();
         anyhow::ensure!(
             super::finish::body_residual(&points, body, margin)
-                <= fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE,
+                <= fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE,
             "garment violates wearer clearance"
         );
         Ok(())
@@ -45,7 +45,7 @@ pub(super) fn validate_surface(
     body: &fabelgeist_bvh::TriangleBvh,
 ) -> Result<()> {
     anyhow::ensure!(
-        !super::armor::edges_cross(&cloth, body) && !super::armor::edges_cross(body, &cloth),
+        !super::armor::edges_cross(cloth, body) && !super::armor::edges_cross(body, cloth),
         "garment triangles intersect the wearer or an inner garment"
     );
     Ok(())

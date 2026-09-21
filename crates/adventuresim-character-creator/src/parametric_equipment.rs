@@ -1,13 +1,17 @@
-//! Fit recipe meshes and transfer skinning with stable morph correspondence.
+//! Fit recipe meshes on the device and assemble them into skinned armor with
+//! stable morph correspondence.
 
 use super::*;
-use adventuresim_armor_model::ArmorMorph;
+use adventuresim_armor_model::{ArmorMorph, HelmetDesign, LimbArmorDesign};
 use adventuresim_character_creator::{
-    armor_frames::{Side, Wearer},
+    armor_frames::Side,
     armor_recipes::{self, ParametricDesign},
+    device_frames::DeviceWearer,
+    device_piece::DeviceRecording,
     inventory::{FittedPiece, Loadout},
     item_design::ItemDesign,
 };
+use fabelgeist_compute::KernelBatch;
 
 pub(super) fn fitted_design(
     model: &BodyModel,
@@ -19,72 +23,61 @@ pub(super) fn fitted_design(
     if let ParametricDesign::Underlayer(d) = design {
         return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
     }
-    let character = &model.mhr.character;
-    let wearer = |positions, normals, joints| Wearer {
-        faces: &character.mesh.faces,
-        positions,
-        normals,
-        joints,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-    };
-    let mesh = armor_recipes::fitted_mesh(
-        design,
-        placement,
-        &wearer(
-            &generated.positions,
-            &generated.normals,
-            &generated.global_joint_states,
-        ),
-    )?;
-    let normals = mesh.normals()?;
-    let (nearest, uv) = source_correspondence(model, generated, &mesh.positions);
-    let mut targets = Vec::new();
-    for sample in morphs {
-        let endpoint = armor_recipes::fitted_mesh(
-            design,
-            placement,
-            &wearer(
-                &sample.positions,
-                &sample.normals,
-                &sample.global_joint_states,
-            ),
-        )
-        .with_context(|| format!("fitting armor morph {} ({placement})", sample.name))?;
-        validate_correspondence(&mesh, &endpoint)?;
-        let endpoint_normals = endpoint.normals()?;
-        targets.push(ArmorMorph {
-            name: sample.name.clone(),
-            position_deltas: deltas(&mesh.positions, &endpoint.positions),
-            normal_deltas: deltas(&normals, &endpoint_normals),
-            direct_positions: endpoint.positions,
-        });
+    let piece = crate::device_equipment::fitted(model, generated, morphs, |wearer, batch| {
+        record_design(wearer, batch, design, placement)
+    })?;
+    assembled(model, generated, design, piece, morphs)
+}
+
+/// Record a recipe fitted to one realization of the wearer, short of
+/// thickening. Underlayers are cut from the body instead.
+fn record_design(
+    wearer: &DeviceWearer,
+    batch: &mut KernelBatch,
+    design: &ParametricDesign,
+    placement: &str,
+) -> Result<DeviceRecording> {
+    match design {
+        ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
+            wearer.record_fitted_close_helmet(batch, d)
+        }
+        ParametricDesign::Helmet(HelmetDesign::MailCoif(d)) => wearer.record_fitted_coif(batch, d),
+        ParametricDesign::Helmet(helmet) => wearer.record_helmet(batch, helmet),
+        ParametricDesign::Limb(limb) => {
+            let region = armor_recipes::fit_region(design, placement)?;
+            if matches!(
+                limb,
+                LimbArmorDesign::MittenGauntlet(_)
+                    | LimbArmorDesign::Sabaton(_)
+                    | LimbArmorDesign::LeatherBoot(_)
+            ) {
+                wearer.record_fitted_extremity(batch, limb, region)
+            } else {
+                wearer.record_fitted_limb(batch, limb, region)
+            }
+        }
+        ParametricDesign::Garment(garment) => {
+            wearer.record_fitted_garment(batch, garment, placement)
+        }
+        ParametricDesign::Underlayer(_) => {
+            anyhow::bail!("underlayers are cut from the body, not recorded as parts")
+        }
     }
-    let bytes = serde_json::to_vec(design)?;
-    let mut armor = GeneratedArmor {
-        design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
-        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
-        positions: mesh.positions,
-        normals,
-        texcoords: nearest.iter().map(|i| uv[*i]).collect(),
-        joint_indices: nearest
-            .iter()
-            .map(|i| character.skin_weights.index[*i])
-            .collect(),
-        joint_weights: nearest
-            .iter()
-            .map(|i| character.skin_weights.weight[*i])
-            .collect(),
-        indices: mesh.indices,
-        morphs: targets,
-        components: mesh.components,
-    };
+}
+
+/// A close helmet moves with the head alone, whatever skin lies nearest.
+fn rigid_helmet(
+    model: &BodyModel,
+    design: &ParametricDesign,
+    armor: &mut GeneratedArmor,
+) -> Result<()> {
     if matches!(
         design,
-        ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(_))
+        ParametricDesign::Helmet(HelmetDesign::CloseHelmet(_))
     ) {
-        let head = character
+        let head = model
+            .mhr
+            .character
             .skeleton
             .names
             .iter()
@@ -95,71 +88,67 @@ pub(super) fn fitted_design(
             .joint_weights
             .fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
     }
+    Ok(())
+}
+
+/// The armor of a piece fitted on the device.
+fn assembled(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &ParametricDesign,
+    piece: crate::device_equipment::DevicePiece,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let crate::device_equipment::DevicePiece {
+        base,
+        skin,
+        endpoints,
+    } = piece;
+    let mut targets = Vec::with_capacity(endpoints.len());
+    for (sample, endpoint) in morphs.iter().zip(endpoints) {
+        anyhow::ensure!(
+            endpoint.indices == base.indices && endpoint.positions.len() == base.positions.len(),
+            "armor fit changed morph topology"
+        );
+        anyhow::ensure!(
+            endpoint
+                .components
+                .iter()
+                .map(|part| (&part.role, &part.vertices, &part.indices))
+                .eq(base
+                    .components
+                    .iter()
+                    .map(|part| (&part.role, &part.vertices, &part.indices))),
+            "armor fit changed component correspondence"
+        );
+        targets.push(ArmorMorph {
+            name: sample.name.clone(),
+            position_deltas: deltas(&base.positions, &endpoint.positions),
+            normal_deltas: deltas(&base.normals, &endpoint.normals),
+            direct_positions: endpoint.positions,
+        });
+    }
+    let bytes = serde_json::to_vec(design)?;
+    let mut armor = GeneratedArmor {
+        design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
+        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
+        positions: base.positions,
+        normals: base.normals,
+        texcoords: skin.texcoords,
+        joint_indices: skin.joint_indices,
+        joint_weights: skin.joint_weights,
+        indices: base.indices,
+        morphs: targets,
+        components: base.components,
+    };
+    rigid_helmet(model, design, &mut armor)?;
     Ok(character_morphs::correct_armor_fit(
         armor, generated, morphs,
     ))
 }
 
-fn validate_correspondence(
-    mesh: &adventuresim_armor_model::PartMesh,
-    endpoint: &adventuresim_armor_model::PartMesh,
-) -> Result<()> {
-    anyhow::ensure!(
-        endpoint.indices == mesh.indices && endpoint.positions.len() == mesh.positions.len(),
-        "armor fit changed morph topology"
-    );
-    anyhow::ensure!(
-        endpoint
-            .components
-            .iter()
-            .map(|part| (&part.role, &part.vertices, &part.indices))
-            .eq(mesh
-                .components
-                .iter()
-                .map(|part| (&part.role, &part.vertices, &part.indices))),
-        "armor fit changed component correspondence"
-    );
-    Ok(())
-}
-
-fn source_correspondence(
-    model: &BodyModel,
-    generated: &GeneratedCharacter,
-    positions: &[[f32; 3]],
-) -> (Vec<usize>, Vec<[f32; 2]>) {
-    let character = &model.mhr.character;
-    let nearest = positions
-        .iter()
-        .map(|point| {
-            generated
-                .positions
-                .iter()
-                .enumerate()
-                .min_by(|(_, a), (_, b)| {
-                    squared_distance(*point, **a).total_cmp(&squared_distance(*point, **b))
-                })
-                .map(|(i, _)| i)
-                .expect("validated wearer contains vertices")
-        })
-        .collect::<Vec<_>>();
-    let mut uv = vec![[0.0; 2]; generated.positions.len()];
-    for (face, uv_face) in character
-        .mesh
-        .faces
-        .iter()
-        .zip(&character.mesh.texcoord_faces)
-    {
-        for corner in 0..3 {
-            uv[face[corner] as usize] = character.mesh.texcoords[uv_face[corner] as usize];
-        }
-    }
-    (nearest, uv)
-}
-
-fn squared_distance(a: [f32; 3], b: [f32; 3]) -> f32 {
-    (0..3).map(|i| (a[i] - b[i]).powi(2)).sum()
-}
-fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
+/// Each morph endpoint's offset from the base.
+pub(super) fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
     base.iter()
         .zip(sample)
         .map(|(a, b)| std::array::from_fn(|i| b[i] - a[i]))
@@ -174,6 +163,7 @@ pub(super) fn fitted_item(
     placement: &str,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
+    let _slot = adventuresim_character_creator::fitting_slot();
     match design {
         ItemDesign::Recipe(design) => fitted_design(model, generated, design, placement, morphs),
         ItemDesign::Vambrace(design) => {
@@ -241,4 +231,58 @@ pub(super) fn selected<'a>(
             })
         })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_character_creator::item_design::CatalogDesigns;
+
+    /// Every catalog armor placement fits the measured MHR body and its
+    /// morph samples on the device, with one topology for all of them.
+    #[test]
+    #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
+    fn every_catalog_armor_fits_the_measured_body_and_its_morphs() -> Result<()> {
+        let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
+        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+        let catalog = ItemCatalog::load(
+            std::path::Path::new("../../content/items"),
+            CatalogDesigns::authored(),
+        )?;
+        let recipe = CharacterRecipe::default();
+        let body = generate_character(&model, &recipe)?;
+        let morphs = character_morphs::CharacterMorphs::generate(&model, &recipe, &body)?.samples;
+        let mut fitted = 0;
+        for item in catalog.wearable() {
+            let Some(design) = catalog.design(&item.id) else {
+                continue;
+            };
+            for placement in &item.equipment.as_ref().expect("wearable item").placements {
+                let armor =
+                    fitted_catalog_item(&model, &body, item, &design, &placement.id, &morphs)
+                        .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
+                let count = armor.positions.len();
+                anyhow::ensure!(count > 0 && armor.indices.len().is_multiple_of(3));
+                anyhow::ensure!(armor.indices.iter().all(|i| (*i as usize) < count));
+                anyhow::ensure!(armor.normals.len() == count && armor.texcoords.len() == count);
+                anyhow::ensure!(
+                    armor
+                        .positions
+                        .iter()
+                        .chain(&armor.normals)
+                        .flatten()
+                        .all(|v| v.is_finite()),
+                    "{}: non-finite geometry",
+                    item.id
+                );
+                anyhow::ensure!(armor.morphs.len() == morphs.len());
+                for morph in &armor.morphs {
+                    anyhow::ensure!(morph.direct_positions.len() == count);
+                }
+                fitted += 1;
+            }
+        }
+        anyhow::ensure!(fitted > 0, "the catalog has no parametric armor");
+        Ok(())
+    }
 }

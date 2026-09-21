@@ -341,7 +341,7 @@ impl Stream {
             }
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.as_ref().clone(),
             parameters,

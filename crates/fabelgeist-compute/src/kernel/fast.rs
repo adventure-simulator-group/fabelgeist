@@ -33,21 +33,13 @@
 //! texture or sampler binding -- have no fast path and fall back to
 //! `ComputePass::record`, which still handles everything.
 
-use std::sync::Mutex;
-
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::parameters::{PassParameter, PassParameters};
 use fabelgeist_gpu::data::gpu::shader::{BufferBinding, UniformMember};
 
-/// Uniform slots per kernel.
-///
-/// A slot is consumed per dispatch and the ring wraps. Wrapping is only safe
-/// once the batch that used a slot has been submitted, so this has to comfort­
-/// ably exceed the dispatches one batch makes of a single kernel. The busiest
-/// case here is a constraint set: substeps times colours, so of the order of a
-/// hundred.
-const SLOTS: u64 = 1024;
+/// Bytes in each buffer of a batch's [`UniformArena`].
+const CHUNK_BYTES: u64 = 64 * 1024;
 
 /// The largest uniform block the cached path packs without allocating.
 ///
@@ -67,10 +59,44 @@ pub(super) struct FastPath {
     uniform_size: u64,
     /// `uniform_size` rounded up to the device's binding alignment.
     stride: u64,
+}
 
-    /// The ring the per-dispatch uniform values are written into.
-    arena: Option<wgpu::Buffer>,
-    cursor: Mutex<u64>,
+/// The uniform values of one batch's dispatches.
+///
+/// A kernel used to own a ring of uniform slots that every batch wrote into
+/// in turn. A ring is only safe to wrap once the batch holding a slot has been
+/// submitted, and with several threads recording at once nothing guarantees
+/// that: a long batch still being recorded on one thread saw its slots
+/// overwritten by other threads' dispatches, and ran with their counts. So
+/// each batch now writes its uniforms into buffers of its own, which live
+/// exactly as long as its commands need them.
+#[derive(Default)]
+pub(super) struct UniformArena {
+    chunks: Vec<wgpu::Buffer>,
+    /// Bytes used in the last chunk.
+    used: u64,
+}
+
+impl UniformArena {
+    /// Room for one dispatch's uniform block: the buffer and its offset.
+    fn allocate(&mut self, context: &WgpuContext, stride: u64) -> (wgpu::Buffer, u64) {
+        if self.chunks.is_empty() || self.used + stride > CHUNK_BYTES {
+            // Created mapped, so that it is initialised from the start rather
+            // than zero-filled lazily around the submission that reads it.
+            let chunk = context.device.create_buffer(&wgpu::BufferDescriptor {
+                label: Some("Kernel Uniform Arena"),
+                size: CHUNK_BYTES,
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+                mapped_at_creation: true,
+            });
+            chunk.unmap();
+            self.chunks.push(chunk);
+            self.used = 0;
+        }
+        let offset = self.used;
+        self.used += stride;
+        (self.chunks.last().expect("allocated above").clone(), offset)
+    }
 }
 
 /// What a prepared dispatch needs at record time.
@@ -170,15 +196,6 @@ impl FastPath {
         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
         let stride = uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
 
-        let arena = (uniform_size > 0).then(|| {
-            context.device.create_buffer(&wgpu::BufferDescriptor {
-                label: Some("Kernel Uniform Ring"),
-                size: stride * SLOTS,
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-                mapped_at_creation: false,
-            })
-        });
-
         Some(Self {
             pipeline,
             layout,
@@ -187,8 +204,6 @@ impl FastPath {
             uniform_members: group.uniform_members.clone(),
             uniform_size,
             stride,
-            arena,
-            cursor: Mutex::new(0),
         })
     }
 
@@ -197,7 +212,10 @@ impl FastPath {
         &self,
         context: &WgpuContext,
         parameters: &PassParameters,
+        uniforms: &mut UniformArena,
     ) -> Result<Prepared> {
+        let slot = (self.uniform_binding.is_some() && self.uniform_size > 0)
+            .then(|| uniforms.allocate(context, self.stride));
         // Built fresh every dispatch. See the note at the top of this file:
         // reusing one costs wgpu the barrier between dependent passes.
         let mut entries: Vec<wgpu::BindGroupEntry> = Vec::with_capacity(self.buffers.len() + 1);
@@ -227,11 +245,11 @@ impl FastPath {
                 },
             });
         }
-        if let (Some(binding), Some(arena)) = (self.uniform_binding, &self.arena) {
+        if let (Some(binding), Some((chunk, _))) = (self.uniform_binding, &slot) {
             entries.push(wgpu::BindGroupEntry {
                 binding,
                 resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
-                    buffer: arena,
+                    buffer: chunk,
                     offset: 0,
                     size: std::num::NonZeroU64::new(self.uniform_size),
                 }),
@@ -247,17 +265,10 @@ impl FastPath {
                 entries: &entries,
             });
 
-        let dynamic_offset = match &self.arena {
+        let dynamic_offset = match &slot {
             None => None,
-            Some(arena) => {
-                let slot = {
-                    let mut cursor = self.cursor.lock().unwrap();
-                    let slot = *cursor;
-                    *cursor = (*cursor + 1) % SLOTS;
-                    slot
-                };
-                let offset = slot * self.stride;
-
+            Some((chunk, offset)) => {
+                let offset = *offset;
                 // A uniform block is a handful of words, so it is packed on
                 // the stack rather than allocated per dispatch.
                 let mut data = [0u8; MAX_UNIFORM_BYTES];
@@ -265,7 +276,7 @@ impl FastPath {
                 let data = &mut data[..size];
                 data.fill(0);
                 write_uniform(&self.uniform_members, parameters, data)?;
-                context.queue.write_buffer(arena, offset, data);
+                context.queue.write_buffer(chunk, offset, data);
                 Some(offset as u32)
             }
         };

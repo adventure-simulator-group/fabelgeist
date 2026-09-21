@@ -1,10 +1,10 @@
-#[allow(dead_code)]
 mod csg;
 pub mod engraving;
+pub mod gpu;
 pub mod material;
 mod mesh;
 pub mod pattern;
-pub use mesh::{ArmorMesh, ArmorPart, build};
+pub use mesh::{ArmorMesh, ArmorPart};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]

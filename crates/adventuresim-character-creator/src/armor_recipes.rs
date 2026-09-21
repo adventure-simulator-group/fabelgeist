@@ -5,7 +5,7 @@ use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 
-use crate::armor_frames::{FitRegion, Side, Wearer};
+use crate::armor_frames::{FitRegion, Side};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ParametricDesign {
@@ -35,17 +35,6 @@ impl ParametricDesign {
             (Self::Underlayer(a), Self::Underlayer(b)) => a.kind == b.kind,
             _ => false,
         }
-    }
-
-    pub fn generate(&self, frame: &PartFrame) -> Result<PartMesh> {
-        Ok(match self {
-            Self::Helmet(d) => generate_helmet(d, frame)?,
-            Self::Limb(d) => generate_limb_armor(d, frame)?,
-            Self::Garment(d) => generate_garment_armor(d, frame)?,
-            Self::Underlayer(_) => {
-                anyhow::bail!("body-conforming garments require source body triangles")
-            }
-        })
     }
 }
 
@@ -114,33 +103,6 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             G::Gorget => F::Neck,
         },
     })
-}
-
-pub fn fitted_mesh(
-    design: &ParametricDesign,
-    placement: &str,
-    wearer: &Wearer<'_>,
-) -> Result<PartMesh> {
-    if let ParametricDesign::Underlayer(d) = design {
-        let pattern =
-            crate::underlayer::UnderlayerPattern::new(d, placement, wearer, wearer.faces)?;
-        return Ok(pattern.evaluate(d, wearer));
-    }
-    if let ParametricDesign::Helmet(HelmetDesign::CloseHelmet(helmet)) = design {
-        return crate::close_helmet_fit::fit(helmet, wearer);
-    }
-    if let ParametricDesign::Helmet(HelmetDesign::MailCoif(coif)) = design {
-        return crate::coif_fit::fit(coif, wearer);
-    }
-    if let ParametricDesign::Garment(garment) = design {
-        return crate::garment_fit::fitted_garment(garment, placement, wearer);
-    }
-    if let ParametricDesign::Limb(limb) = design {
-        return crate::limb_fit::fitted_limb(limb, wearer, fit_region(design, placement)?);
-    }
-    let frame = wearer.frame(fit_region(design, placement)?)?;
-    let mesh = design.generate(&frame)?;
-    Ok(mesh)
 }
 
 #[cfg(test)]

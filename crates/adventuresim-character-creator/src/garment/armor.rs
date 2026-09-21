@@ -8,11 +8,14 @@ impl DrapedGarment {
         let layer = outer_layer(armor, self.fabric.fabric())?;
         let residual = layer.surface_residual(&points, &self.faces);
         anyhow::ensure!(
-            residual <= fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE,
+            residual <= fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE,
             "garment does not fit beneath armor: {:.1} mm unresolved clearance",
             residual * 1000.0
         );
-        for part in fabelgeist_armor::build(armor).map_err(anyhow::Error::msg)? {
+        for part in crate::plate_gpu()?
+            .build(armor)
+            .map_err(anyhow::Error::msg)?
+        {
             let plate = fabelgeist_bvh::TriangleBvh::new(
                 part.mesh.positions.iter().copied().map(vector).collect(),
                 part.mesh.faces,
@@ -56,10 +59,13 @@ pub(super) fn edges_cross(
 pub(super) fn outer_layer(
     armor: &fabelgeist_armor::Armor,
     fabric: Fabric,
-) -> Result<fabelgeist_cloth::outer_layer::OuterLayer> {
+) -> Result<fabelgeist_shell::outer_layer::OuterLayer> {
     let mut positions = Vec::new();
     let mut faces = Vec::new();
-    for part in fabelgeist_armor::build(armor).map_err(anyhow::Error::msg)? {
+    for part in crate::plate_gpu()?
+        .build(armor)
+        .map_err(anyhow::Error::msg)?
+    {
         let offset = positions.len() as u32;
         // This generator authors a front plate in +Z. Its rear-facing triangles
         // bound the space between the wearer and the metal, including the fauld.
@@ -73,7 +79,7 @@ pub(super) fn outer_layer(
         positions.extend(part.mesh.positions.into_iter().map(vector));
     }
     anyhow::ensure!(!faces.is_empty(), "armor has no inward surface");
-    Ok(fabelgeist_cloth::outer_layer::OuterLayer::new(
+    Ok(fabelgeist_shell::outer_layer::OuterLayer::new(
         positions,
         faces,
         // The simulated sheet is the mid-surface: reserve half its thickness

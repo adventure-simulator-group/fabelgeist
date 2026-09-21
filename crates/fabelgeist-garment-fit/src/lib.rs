@@ -54,6 +54,17 @@ pub struct FitSettings {
     /// tall the person is. The pattern's own measurements say; the model is
     /// scaled to it.
     pub body_height_cm: f32,
+    /// Substeps between the host-side swept-contact passes `fabelgeist-shell` runs
+    /// for self-collision, or 0 to leave contact to the GPU kernels.
+    ///
+    /// Each pass reads the garment back and waits for the GPU, so this is what
+    /// an interleaved step costs. Measured at 12 substeps: every substep
+    /// (prism's default) drapes the MHR test body in 542 ms a frame, once a
+    /// frame in 57 ms, off in 9.3 ms, and all three drape it the same. A
+    /// garment crumpling onto the floor is where they part: every substep
+    /// keeps its edges within 50% of rest, off leaves one at 50%, and once a
+    /// frame stretches one by 235% -- a sparse pass is worse than none.
+    pub host_contact_interval: u32,
 }
 
 impl Default for FitSettings {
@@ -70,6 +81,7 @@ impl Default for FitSettings {
             // The bundled GarmentCode bodies are around this tall; the tab
             // overwrites it from whichever body is selected.
             body_height_cm: 164.0,
+            host_contact_interval: 1,
         }
     }
 }
@@ -387,6 +399,7 @@ impl Fit {
         let cache = KernelCache::new();
         let mut cloth = Cloth::new(&context, &cache, &build.mesh, fabric)?;
         cloth.self_collision.enabled = settings.self_collision;
+        cloth.shell.host_contacts.interval_substeps = settings.host_contact_interval;
 
         let mut collisions = Collisions::new(&context, &cache)?;
         // A floor well below the body, so a garment that slips off lands
@@ -459,12 +472,7 @@ impl Fit {
             surface,
         )?;
         self.collisions.set_mesh(Some(mesh));
-        self.cloth.set_collision_surface(
-            &self.context,
-            vertices,
-            triangles,
-            settings.body_offset_cm * CM_TO_M + fabric.particle_radius(),
-        )
+        Ok(())
     }
 
     /// The posed positions on the host, before any body clearance.
@@ -569,11 +577,29 @@ impl Fit {
     /// application's own device, alongside the compositor presenting the
     /// window it is drawn in, and a whole step submitted at once occupies the
     /// GPU long enough that the compositor cannot get a swapchain image.
+    ///
+    /// Asynchronous because the host-side contact projection between substeps
+    /// reads positions back from the GPU.
     pub async fn step(&mut self, delta: f32) -> anyhow::Result<()> {
         self.cloth
             .step_interleaved(&self.context, &self.solver, &mut self.collisions, delta)
             .await?;
         self.frames += 1;
+        Ok(())
+    }
+
+    /// Step, then wait for the GPU to finish it.
+    ///
+    /// What an interactive loop must call. A step is tens of milliseconds of
+    /// GPU work and nothing throttles submission, so a loop that steps on a
+    /// timer submits faster than the device drains and the queue grows without
+    /// bound -- for a minute or so, until the driver loses the device and
+    /// takes the window with it. Waiting also hands the compositor sharing
+    /// this device a clear gap between steps.
+    #[cfg_attr(not(test), allow(dead_code))]
+    pub async fn step_and_wait(&mut self, delta: f32) -> anyhow::Result<()> {
+        self.step(delta).await?;
+        self.context.submitted_work_done().await;
         Ok(())
     }
 

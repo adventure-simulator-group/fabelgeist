@@ -1,12 +1,20 @@
 use crate::data::gpu::parameters::PassParameter;
 use crate::data::gpu::resource::GpuResource;
 use crate::prelude::*;
-use std::sync::Arc;
+use std::collections::HashMap;
+use std::sync::{Arc, RwLock};
 
 #[derive(Clone, Debug)]
 pub struct TextureBinaryOpDefinition {
     pub op_code: String,
-    pub cache: ComputePipelineCache<(ResourceDescriptor, ResourceDescriptor, ResourceDescriptor)>,
+    pub cache: Arc<
+        RwLock<
+            HashMap<
+                (ResourceDescriptor, ResourceDescriptor, ResourceDescriptor),
+                Arc<ComputePipeline>,
+            >,
+        >,
+    >,
 }
 
 impl PartialEq for TextureBinaryOpDefinition {
@@ -27,7 +35,7 @@ impl TextureBinaryOpDefinition {
     pub fn new(op_code: impl ToString) -> Self {
         Self {
             op_code: op_code.to_string(),
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         }
     }
 
@@ -177,7 +185,7 @@ impl TextureBinaryOp {
             _ => unreachable!(),
         };
 
-        crate::data::gpu::compute::ComputePass::execute(
+        crate::data::gpu::compute::ComputePass::new(
             context,
             pipeline.as_ref().clone(),
             parameters,

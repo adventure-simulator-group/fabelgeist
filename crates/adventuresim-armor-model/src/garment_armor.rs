@@ -4,17 +4,7 @@
 //! represents the garment envelope; individual links belong to material detail.
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    DesignError, GarmentPlateShape, GenerateError, Millimeters, PartFrame, PartMesh, Permille,
-    PlateFluting,
-};
-
-#[path = "garment_plate_shapes.rs"]
-mod plates;
-#[path = "garment_armor_shapes.rs"]
-mod shapes;
-#[path = "garment_armor_shell.rs"]
-mod shell;
+use crate::{DesignError, GarmentPlateShape, GenerateError, Millimeters, Permille, PlateFluting};
 
 pub const GARMENT_RING_SEGMENTS: usize = 48;
 pub const GARMENT_AXIAL_SEGMENTS: usize = 16;
@@ -113,26 +103,4 @@ impl GarmentArmorDesign {
         }
         Ok(())
     }
-}
-
-/// A torso frame spans waist to shoulder; skirts span their full hip/hem region;
-/// sleeves and chausses use one limb frame. Tassets use the combined hip frame
-/// and produce two separate fronts. A gorget frame bounds the neck itself.
-pub fn generate_garment_armor(
-    design: &GarmentArmorDesign,
-    fit: &PartFrame,
-) -> Result<PartMesh, GenerateError> {
-    design.validate()?;
-    fit.validate()?;
-    let mesh = match design.kind {
-        GarmentArmorKind::ArmingDoublet
-        | GarmentArmorKind::Brigandine
-        | GarmentArmorKind::JackOfPlates
-        | GarmentArmorKind::MailShirt => shapes::torso(design, fit),
-        GarmentArmorKind::Fauld => plates::fauld(design, fit),
-        GarmentArmorKind::Tassets => plates::tassets(design, fit),
-        GarmentArmorKind::Gorget => plates::gorget(design, fit),
-        _ => shapes::tube(design, fit),
-    }?;
-    Ok(mesh.transformed(fit))
 }

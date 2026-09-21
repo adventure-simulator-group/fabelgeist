@@ -111,7 +111,9 @@ pub fn rigged_parts(
     model: &BodyModel,
     states: &[[f32; 8]],
 ) -> Result<Vec<RiggedArmorPart>, String> {
-    let parts = fabelgeist_armor::build(a)?;
+    let parts = adventuresim_character_creator::plate_gpu()
+        .map_err(|error| error.to_string())?
+        .build(a)?;
     let candidates = model
         .mhr
         .character
@@ -125,19 +127,29 @@ pub fn rigged_parts(
     if candidates.is_empty() {
         return Err("MHR skeleton has no torso joints".into());
     }
-    Ok(parts
-        .into_iter()
+    // Each part follows the torso joint nearest its mean height: points on
+    // the vertical axis, so their distance is the height difference alone.
+    let heights = parts
+        .iter()
         .map(|part| {
             let y = part.mesh.positions.iter().map(|p| p[1]).sum::<f32>()
                 / part.mesh.positions.len() as f32;
-            let joint = *candidates
-                .iter()
-                .min_by(|&&i, &&j| {
-                    (states[i][1] - y)
-                        .abs()
-                        .total_cmp(&(states[j][1] - y).abs())
-                })
-                .unwrap();
+            [0.0, y, 0.0]
+        })
+        .collect::<Vec<_>>();
+    let joints = candidates
+        .iter()
+        .map(|&joint| [0.0, states[joint][1], 0.0])
+        .collect::<Vec<_>>();
+    let nearest = adventuresim_character_creator::armor_gpu()
+        .map_err(|error| error.to_string())?
+        .nearest_points(&heights, &joints)
+        .map_err(|error| error.to_string())?;
+    Ok(parts
+        .into_iter()
+        .zip(nearest)
+        .map(|(part, nearest)| {
+            let joint = candidates[nearest as usize];
             let n = part.mesh.positions.len();
             RiggedArmorPart {
                 part,
@@ -147,6 +159,10 @@ pub fn rigged_parts(
         })
         .collect())
 }
+#[expect(
+    clippy::too_many_arguments,
+    reason = "spawning a preview needs the armor, the wearer's pose and Bevy's asset stores"
+)]
 pub fn spawn(
     a: &Armor,
     model: &BodyModel,

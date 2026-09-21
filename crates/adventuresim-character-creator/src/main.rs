@@ -16,6 +16,7 @@ mod armor_controls;
 mod breastplate_controls;
 mod character_export;
 mod character_morphs;
+mod device_equipment;
 mod equipment_controls;
 mod equipment_export;
 mod fluting_controls;
@@ -44,14 +45,12 @@ use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
-use adventuresim_armor_model::{
-    BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
-};
+use adventuresim_armor_model::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use adventuresim_character_creator::{
     CharacterRecipe, IdentityGroup,
-    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
-    breastplate::{TorsoSurfaceInput, build_front_torso_surface},
+    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
     clothing::{GarmentSpecification, generate_clothing_shells},
+    device_torso::TorsoSurfaceInput,
     equipment_catalog::ItemCatalog,
     export::{
         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
@@ -134,6 +133,8 @@ struct GeneratedCharacter {
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     global_joint_states: Vec<[f32; 8]>,
+    /// This body on the armor device, once a piece has uploaded it.
+    device: adventuresim_character_creator::device_body::DeviceBody,
 }
 
 fn main() -> Result<()> {
@@ -376,8 +377,10 @@ mod garment_integration_tests {
     fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
         let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
         let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
-        let mut recipe = CharacterRecipe::default();
-        recipe.inventory = Default::default();
+        let mut recipe = CharacterRecipe {
+            inventory: Default::default(),
+            ..CharacterRecipe::default()
+        };
         let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
         let plate = std::env::var_os("GARMENT_TEST_ARMOR")
             .is_some()
@@ -542,9 +545,12 @@ mod garment_integration_tests {
             let parsed = gltf::Gltf::from_slice(&bytes)?;
             let armor_parts = plate
                 .as_ref()
-                .map(fabelgeist_armor::build)
-                .transpose()
-                .map_err(anyhow::Error::msg)?
+                .map(|plate| {
+                    adventuresim_character_creator::plate_gpu()?
+                        .build(plate)
+                        .map_err(anyhow::Error::msg)
+                })
+                .transpose()?
                 .unwrap_or_default();
             assert_eq!(parsed.meshes().count(), 2 + armor_parts.len());
             println!("verified draped character: {}", path.display());

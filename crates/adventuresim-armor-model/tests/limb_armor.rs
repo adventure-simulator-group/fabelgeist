@@ -1,167 +1,244 @@
-use std::collections::BTreeMap;
+mod common;
 
 use adventuresim_armor_model::{
-    BootDesign, CuisseDesign, FootArmorDesign, GauntletDesign, GreaveDesign, JointCupDesign,
-    LimbArmorDesign, Millimeters, PartFrame, PartMesh, Permille, RerebraceDesign, SpaulderDesign,
-    generate_gauntlet_thumb, generate_limb_armor,
+    BootDesign, BuiltPart, CuisseDesign, FootArmorDesign, GauntletDesign, GenerateError,
+    GreaveDesign, JointCupDesign, LimbArmorDesign, Millimeters, PartFrame, Permille,
+    RerebraceDesign, SpaulderDesign, gpu::generate_limb_armor_on, record_extremity_armor,
 };
+use common::{assert_closed_solid, bounds, frame, gpu, largest_difference, reflected, scaled};
 
-fn frame(extents: [f32; 3]) -> PartFrame {
+/// A thumb frame beside the hand, its long axis across the hand's.
+fn thumb(hand: &PartFrame) -> PartFrame {
     PartFrame {
-        origin: [0.0; 3],
-        axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
-        half_extents: extents,
+        origin: hand.point([
+            0.9 * hand.half_extents[0],
+            -0.2 * hand.half_extents[1],
+            0.3 * hand.half_extents[2],
+        ]),
+        axes: [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -1.0]],
+        half_extents: hand.half_extents.map(|v| v * 0.3),
     }
 }
 
-#[test]
-fn sabaton_rejects_ankle_trim_that_consumes_the_instep_span() {
-    let foot = FootArmorDesign {
-        ankle_cutaway: Millimeters(30),
-        ..Default::default()
-    };
-    let design = LimbArmorDesign::Sabaton(foot);
-    design.validate().unwrap();
-    for half_length in [0.030, 0.030 / 0.70] {
-        let fit = frame([0.040, 0.030, half_length]);
-        fit.validate().unwrap();
-        let result = generate_limb_armor(&design, &fit);
-        assert!(
-            matches!(
-                result,
-                Err(adventuresim_armor_model::GenerateError::SabatonTrimExceedsFoot { .. })
-            ),
-            "half length {half_length}: {result:?}"
-        );
+/// Build any limb design: a mitten gets `thumb(hand)` unless `frames`
+/// supplies a thumb frame of its own.
+fn build(design: &LimbArmorDesign, frames: &[PartFrame]) -> Result<BuiltPart, GenerateError> {
+    match design {
+        LimbArmorDesign::MittenGauntlet(_)
+        | LimbArmorDesign::Sabaton(_)
+        | LimbArmorDesign::LeatherBoot(_) => {
+            let mut frames = frames.to_vec();
+            if matches!(design, LimbArmorDesign::MittenGauntlet(_)) && frames.len() == 1 {
+                frames.push(thumb(&frames[0]));
+            }
+            gpu().build_in(&frames, |batch, buffers| {
+                record_extremity_armor(gpu(), batch, design, buffers)
+            })
+        }
+        _ => generate_limb_armor_on(gpu(), design, &frames[0]),
     }
-    let compatible = frame([0.040, 0.030, 0.060]);
-    generate_limb_armor(&design, &compatible)
-        .unwrap()
-        .normals()
-        .unwrap();
 }
 
 fn families() -> Vec<(LimbArmorDesign, PartFrame)> {
+    let at = |half_extents| frame([0.1, 0.9, -0.05], half_extents);
     vec![
         (
             LimbArmorDesign::Greave(GreaveDesign::default()),
-            frame([0.065, 0.18, 0.06]),
+            at([0.065, 0.18, 0.06]),
         ),
         (
             LimbArmorDesign::Cuisse(CuisseDesign::default()),
-            frame([0.085, 0.18, 0.08]),
+            at([0.085, 0.18, 0.08]),
         ),
         (
             LimbArmorDesign::Rerebrace(RerebraceDesign::default()),
-            frame([0.045, 0.13, 0.05]),
+            at([0.045, 0.13, 0.05]),
         ),
         (
             LimbArmorDesign::Poleyn(JointCupDesign::poleyn()),
-            frame([0.06, 0.055, 0.055]),
+            at([0.06, 0.055, 0.055]),
         ),
         (
             LimbArmorDesign::Couter(JointCupDesign::couter()),
-            frame([0.045, 0.045, 0.04]),
+            at([0.045, 0.045, 0.04]),
         ),
         (
             LimbArmorDesign::Spaulder(SpaulderDesign::default()),
-            frame([0.065, 0.09, 0.07]),
+            at([0.065, 0.09, 0.07]),
         ),
         (
             LimbArmorDesign::MittenGauntlet(GauntletDesign::default()),
-            frame([0.042, 0.09, 0.018]),
+            at([0.042, 0.09, 0.018]),
         ),
         (
             LimbArmorDesign::Sabaton(FootArmorDesign::default()),
-            frame([0.045, 0.04, 0.13]),
+            at([0.045, 0.04, 0.13]),
         ),
         (
             LimbArmorDesign::LeatherBoot(BootDesign::default()),
-            frame([0.045, 0.04, 0.13]),
+            at([0.045, 0.04, 0.13]),
         ),
     ]
 }
 
-fn check_closed_winding(mesh: &PartMesh) {
-    assert!(mesh.normals().is_ok());
-    let mut edges = BTreeMap::<(u32, u32), Vec<(u32, u32)>>::new();
-    let mut signed_volume = 0.0_f64;
-    for face in mesh.indices.as_chunks::<3>().0 {
-        for (a, b) in [(face[0], face[1]), (face[1], face[2]), (face[2], face[0])] {
-            edges.entry((a.min(b), a.max(b))).or_default().push((a, b));
-        }
-        let [a, b, c] =
-            [face[0], face[1], face[2]].map(|i| mesh.positions[i as usize].map(f64::from));
-        signed_volume += (a[0] * (b[1] * c[2] - b[2] * c[1])
-            + a[1] * (b[2] * c[0] - b[0] * c[2])
-            + a[2] * (b[0] * c[1] - b[1] * c[0]))
-            / 6.0;
-    }
-    assert!(
-        edges
-            .values()
-            .all(|uses| uses.len() == 2 && uses[0] == (uses[1].1, uses[1].0))
-    );
-    assert!(
-        signed_volume > 0.0,
-        "outward surfaces must enclose positive wall volume"
-    );
-}
-
 #[test]
-fn every_family_has_closed_walls_and_consistent_winding_at_body_extremes() {
+fn every_family_is_a_closed_outward_solid_on_small_large_and_reflected_limbs() {
     for (design, base) in families() {
         for scale in [0.72, 1.0, 1.4] {
-            let mut fit = base;
-            fit.half_extents = fit.half_extents.map(|v| v * scale);
-            let mesh =
-                generate_limb_armor(&design, &fit).unwrap_or_else(|e| panic!("{design:?}: {e}"));
-            check_closed_winding(&mesh);
-            let again = generate_limb_armor(&design, &fit).unwrap();
-            assert_eq!(mesh.positions, again.positions);
-            assert_eq!(mesh.indices, again.indices);
-            fit.axes[0][0] = -1.0;
-            check_closed_winding(&generate_limb_armor(&design, &fit).unwrap());
+            let fit = scaled(base, scale);
+            let context = format!("{design:?} at {scale}");
+            let mesh = build(&design, &[fit]).unwrap_or_else(|e| panic!("{context}: {e}"));
+            assert_closed_solid(&mesh, &context);
+            let mirrored = build(&design, &[reflected(fit)]).unwrap();
+            assert_closed_solid(&mirrored, &format!("{context}, reflected"));
+            assert_eq!(mirrored.positions.len(), mesh.positions.len());
         }
     }
 }
 
 #[test]
-fn design_controls_change_the_intended_volumes() {
-    let fit = frame([0.045, 0.04, 0.13]);
-    let rounded =
-        generate_limb_armor(&LimbArmorDesign::Sabaton(FootArmorDesign::default()), &fit).unwrap();
-    let broad = generate_limb_armor(
+fn generation_is_deterministic_and_topology_depends_only_on_the_design() {
+    for (design, base) in families() {
+        let reference = build(&design, &[base]).unwrap();
+        let again = build(&design, &[base]).unwrap();
+        assert_eq!(reference.positions, again.positions, "{design:?}");
+        assert_eq!(reference.indices, again.indices, "{design:?}");
+        for scale in [0.72, 1.4] {
+            let other = build(&design, &[scaled(base, scale)]).unwrap();
+            assert_eq!(other.indices, reference.indices, "{design:?} at {scale}");
+            assert_ne!(
+                other.positions, reference.positions,
+                "{design:?} at {scale}"
+            );
+        }
+    }
+}
+
+#[test]
+fn reflection_mirrors_the_plate_across_the_frame() {
+    // Mirrored in the world plane through the hand or foot, as a left limb
+    // mirrors a right one.
+    let mirror = |frame: PartFrame, plane: f32| PartFrame {
+        origin: [
+            2.0 * plane - frame.origin[0],
+            frame.origin[1],
+            frame.origin[2],
+        ],
+        axes: frame.axes.map(|a| [-a[0], a[1], a[2]]),
+        ..frame
+    };
+    for (design, base) in families() {
+        let frames = [base, thumb(&base)];
+        let frames = &frames[..if matches!(design, LimbArmorDesign::MittenGauntlet(_)) {
+            2
+        } else {
+            1
+        }];
+        let mesh = build(&design, frames).unwrap();
+        let reflected_frames = frames
+            .iter()
+            .map(|f| mirror(*f, base.origin[0]))
+            .collect::<Vec<_>>();
+        let mirrored = build(&design, &reflected_frames).unwrap();
+        assert_closed_solid(&mirrored, &format!("{design:?}, mirrored"));
+        let expected = mesh
+            .positions
+            .iter()
+            .map(|p| [2.0 * base.origin[0] - p[0], p[1], p[2]])
+            .collect::<Vec<_>>();
+        let mirrored_bounds = bounds(&mirrored.positions);
+        let expected_bounds = bounds(&expected);
+        for side in 0..2 {
+            for axis in 0..3 {
+                assert!(
+                    (mirrored_bounds[side][axis] - expected_bounds[side][axis]).abs() < 1e-5,
+                    "{design:?}: reflected bounds {mirrored_bounds:?} vs {expected_bounds:?}"
+                );
+            }
+        }
+    }
+}
+
+#[test]
+fn sabaton_toe_controls_widen_and_lengthen_the_toe_box() {
+    let fit = frame([0.0; 3], [0.045, 0.04, 0.13]);
+    let rounded = build(
+        &LimbArmorDesign::Sabaton(FootArmorDesign::default()),
+        &[fit],
+    )
+    .unwrap();
+    let broad = build(
         &LimbArmorDesign::Sabaton(FootArmorDesign {
             toe_width: Permille(1400),
             toe_extension: Millimeters(40),
             lame_count: 8,
             ..Default::default()
         }),
-        &fit,
+        &[fit],
     )
     .unwrap();
-    let bounds = |mesh: &PartMesh, axis: usize| {
-        mesh.positions
-            .iter()
-            .map(|p| p[axis])
-            .fold(f32::NEG_INFINITY, f32::max)
-    };
-    assert!(bounds(&broad, 0) > bounds(&rounded, 0) + 0.01);
-    assert!(bounds(&broad, 2) > bounds(&rounded, 2) + 0.025);
-    assert!(broad.indices.len() > rounded.indices.len());
-    check_closed_winding(&broad);
-    let boot = |height| {
-        generate_limb_armor(
+    let [_, rounded_high] = bounds(&rounded.positions);
+    let [_, broad_high] = bounds(&broad.positions);
+    assert!(broad_high[0] > rounded_high[0] + 0.01, "toe box not wider");
+    assert!(broad_high[2] > rounded_high[2] + 0.025, "toe not longer");
+    assert!(
+        broad.indices.len() > rounded.indices.len(),
+        "lames not added"
+    );
+    assert_closed_solid(&broad, "broad sabaton");
+}
+
+#[test]
+fn boot_shaft_height_raises_its_top_by_the_same_distance() {
+    let fit = frame([0.0; 3], [0.045, 0.04, 0.13]);
+    let top = |height| {
+        let boot = build(
             &LimbArmorDesign::LeatherBoot(BootDesign {
                 shaft_height: Millimeters(height),
                 ..Default::default()
             }),
-            &fit,
+            &[fit],
+        )
+        .unwrap();
+        bounds(&boot.positions)[1][1]
+    };
+    let rise = top(300) - top(80);
+    assert!((rise - 0.22).abs() < 0.001, "shaft rose {rise} m");
+}
+
+#[test]
+fn greave_ankle_taper_narrows_only_the_lower_leg() {
+    let fit = frame([0.0; 3], [0.065, 0.18, 0.06]);
+    let greave = |taper| {
+        build(
+            &LimbArmorDesign::Greave(GreaveDesign {
+                ankle_taper: Permille(taper),
+                ..Default::default()
+            }),
+            &[fit],
         )
         .unwrap()
     };
-    assert!((bounds(&boot(300), 1) - bounds(&boot(80), 1) - 0.22).abs() < 0.001);
+    let (narrow, wide) = (greave(450), greave(850));
+    assert_eq!(narrow.indices, wide.indices);
+    let width_between = |mesh: &BuiltPart, low: f32, high: f32| {
+        let band = mesh
+            .positions
+            .iter()
+            .filter(|p| (low..high).contains(&p[1]))
+            .copied()
+            .collect::<Vec<_>>();
+        common::extent(&band, 0)
+    };
+    let ankle = |mesh: &BuiltPart| width_between(mesh, -0.16, -0.12);
+    let knee = |mesh: &BuiltPart| width_between(mesh, 0.12, 0.16);
+    assert!(
+        ankle(&narrow) < ankle(&wide) - 0.005,
+        "ankle {} vs {}",
+        ankle(&narrow),
+        ankle(&wide)
+    );
+    assert!((knee(&narrow) - knee(&wide)).abs() < 0.002, "knee moved");
 }
 
 #[test]
@@ -203,6 +280,7 @@ fn parameter_extremes_preserve_shell_integrity() {
         LimbArmorDesign::Sabaton(FootArmorDesign {
             toe_width: Permille(1450),
             toe_extension: Millimeters(50),
+            ankle_cutaway: Millimeters(30),
             lame_count: 8,
             ..Default::default()
         }),
@@ -213,43 +291,113 @@ fn parameter_extremes_preserve_shell_integrity() {
         }),
     ];
     for design in designs {
-        check_closed_winding(&generate_limb_armor(&design, &frame([0.05, 0.08, 0.08])).unwrap());
+        let mesh = build(&design, &[frame([0.0; 3], [0.05, 0.08, 0.08])]).unwrap();
+        assert_closed_solid(&mesh, &format!("{design:?}"));
     }
 }
 
 #[test]
-fn invalid_design_and_fit_fail_at_the_boundary() {
-    let fit = frame([0.05, 0.08, 0.08]);
+fn invalid_designs_and_frames_fail_at_the_boundary() {
+    let fit = frame([0.0; 3], [0.05, 0.08, 0.08]);
     let invalid = LimbArmorDesign::Spaulder(SpaulderDesign {
         lame_count: 0,
         ..Default::default()
     });
-    assert!(generate_limb_armor(&invalid, &fit).is_err());
-    let mut invalid_fit = fit;
-    invalid_fit.half_extents[0] = f32::NAN;
-    assert!(
-        generate_limb_armor(
-            &LimbArmorDesign::Greave(GreaveDesign::default()),
-            &invalid_fit
-        )
-        .is_err()
-    );
+    assert!(invalid.validate().is_err());
+    assert!(build(&invalid, &[fit]).is_err());
+    let invalid = LimbArmorDesign::Sabaton(FootArmorDesign {
+        ankle_cutaway: Millimeters(31),
+        ..Default::default()
+    });
+    assert!(build(&invalid, &[fit]).is_err());
+
+    let greave = LimbArmorDesign::Greave(GreaveDesign::default());
+    let mut not_finite = fit;
+    not_finite.half_extents[0] = f32::NAN;
+    let mut collapsed = fit;
+    collapsed.half_extents[2] = 0.0;
+    let mut skewed = fit;
+    skewed.axes[1] = skewed.axes[0];
+    for bad in [not_finite, collapsed, skewed] {
+        assert!(build(&greave, &[bad]).is_err(), "{bad:?}");
+        assert!(
+            build(
+                &LimbArmorDesign::Sabaton(FootArmorDesign::default()),
+                &[bad]
+            )
+            .is_err(),
+            "{bad:?}"
+        );
+    }
 }
 
 #[test]
-fn separate_thumb_uses_its_anatomical_axis_and_closed_tip() {
-    let design = GauntletDesign::default();
-    for scale in [0.72, 1.0, 1.4] {
-        let mut fit = frame([0.011 * scale, 0.046 * scale, 0.012 * scale]);
-        fit.origin = [0.1, 0.2, 0.3];
-        fit.axes = [[0.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, 1.0]];
-        let mesh = generate_gauntlet_thumb(&design, &fit).unwrap();
-        check_closed_winding(&mesh);
-        assert!(
-            mesh.positions
-                .iter()
-                .any(|p| p[0] < fit.origin[0] - fit.half_extents[1])
-        );
-        assert!(mesh.positions.iter().all(|p| p[2] >= fit.origin[2] - 0.01));
+fn extremity_builders_reject_limb_plates_and_limb_builders_reject_extremities() {
+    let fit = frame([0.0; 3], [0.05, 0.08, 0.08]);
+    let greave = LimbArmorDesign::Greave(GreaveDesign::default());
+    let result = gpu().build_in(&[fit], |batch, buffers| {
+        record_extremity_armor(gpu(), batch, &greave, buffers)
+    });
+    assert!(result.is_err());
+    let boot = LimbArmorDesign::LeatherBoot(BootDesign::default());
+    assert!(generate_limb_armor_on(gpu(), &boot, &fit).is_err());
+}
+
+#[test]
+fn the_thumb_is_placed_by_its_own_frame() {
+    let design = LimbArmorDesign::MittenGauntlet(GauntletDesign::default());
+    let hand = frame([0.3, 0.9, 0.1], [0.042, 0.09, 0.018]);
+    let near = thumb(&hand);
+    let offset = [0.02, -0.01, 0.015];
+    let moved = PartFrame {
+        origin: std::array::from_fn(|i| near.origin[i] + offset[i]),
+        ..near
+    };
+    let a = build(&design, &[hand, near]).unwrap();
+    let b = build(&design, &[hand, moved]).unwrap();
+    assert_eq!(a.indices, b.indices);
+    let (mut still, mut shifted) = (0, 0);
+    for (p, q) in a.positions.iter().zip(&b.positions) {
+        if p == q {
+            still += 1;
+        } else {
+            for axis in 0..3 {
+                assert!(
+                    (q[axis] - p[axis] - offset[axis]).abs() < 1e-5,
+                    "a thumb vertex did not follow its frame rigidly: {p:?} -> {q:?}"
+                );
+            }
+            shifted += 1;
+        }
     }
+    assert!(still > shifted, "the hand plates moved with the thumb");
+    assert!(shifted > 0, "no thumb shell");
+    // The thumb lies along its own long axis, here the hand's width.
+    let thumb_points = a
+        .positions
+        .iter()
+        .zip(&b.positions)
+        .filter(|(p, q)| p != q)
+        .map(|(p, _)| *p)
+        .collect::<Vec<_>>();
+    assert!(common::extent(&thumb_points, 0) > common::extent(&thumb_points, 1));
+    assert!(largest_difference(&a.positions, &b.positions) > 0.01);
+}
+
+#[test]
+fn sabaton_rejects_ankle_trim_that_consumes_the_instep_span() {
+    let design = LimbArmorDesign::Sabaton(FootArmorDesign {
+        ankle_cutaway: Millimeters(30),
+        ..Default::default()
+    });
+    design.validate().unwrap();
+    for half_length in [0.030, 0.030 / 0.70] {
+        let short_foot = frame([0.0; 3], [0.040, 0.030, half_length]);
+        assert!(
+            build(&design, &[short_foot]).is_err(),
+            "half length {half_length}"
+        );
+    }
+    let compatible = build(&design, &[frame([0.0; 3], [0.040, 0.030, 0.060])]).unwrap();
+    assert_closed_solid(&compatible, "trimmed sabaton");
 }

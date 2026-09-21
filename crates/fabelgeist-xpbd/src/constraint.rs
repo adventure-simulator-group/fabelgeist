@@ -138,6 +138,34 @@ impl ConstraintSet {
         Ok(set)
     }
 
+    /// A set of compliant spring constraints with bump stops and damping.
+    pub fn spring(
+        context: &WgpuContext,
+        cache: &KernelCache,
+        name: impl Into<String>,
+        edges: &[[u32; 2]],
+        rest_lengths: &[f32],
+        spring_params: &[[f32; 4]],
+        compliance: f32,
+    ) -> Result<Self> {
+        if edges.len() != rest_lengths.len() || edges.len() != spring_params.len() {
+            return Err(anyhow!(
+                "ConstraintSet::spring: {} edges, {} rest lengths, {} spring params",
+                edges.len(),
+                rest_lengths.len(),
+                spring_params.len()
+            ));
+        }
+        let flat: Vec<u32> = edges.iter().flat_map(|e| e.iter().copied()).collect();
+        let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::SPRING))?;
+        let mut set = Self::new(context, name, kernel, cache, &flat, 2, compliance)?;
+        let reordered_rest = set.reorder(rest_lengths);
+        set.attach(context, "rest_lengths", &reordered_rest)?;
+        let reordered_params = set.reorder(spring_params);
+        set.attach(context, "spring_params", &reordered_params)?;
+        Ok(set)
+    }
+
     /// Permute per-constraint values from the caller's order into colour
     /// order.
     ///

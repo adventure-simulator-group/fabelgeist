@@ -415,8 +415,8 @@ reason = "Adapts serialized character clothing selections into typed parametric 
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/review_export.rs"
-item = "dedicated"
-reason = "Writes review records for items built by the established bracer and paired torso generators."
+item = "review_record"
+reason = "Writes fitted armor review records in the JSON layout the review scripts read."
 
 [[scopes]]
 kind = "authored_catalog"

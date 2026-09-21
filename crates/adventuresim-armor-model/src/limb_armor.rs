@@ -5,15 +5,7 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::parametric::{PartFrame, PartMesh};
 use crate::{DesignError, GenerateError, Millimeters, Permille, PlateFluting};
-
-#[path = "limb_armor_extremities.rs"]
-mod extremities;
-#[path = "limb_armor_mesh.rs"]
-mod mesh;
-#[path = "limb_armor_shapes.rs"]
-mod shapes;
 
 /// Padding clearance and actual wall gauge, in millimetres.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -414,40 +406,4 @@ impl LimbArmorDesign {
         }
         Ok(())
     }
-}
-
-/// Generate in a local right-handed frame, then map into the supplied wearer frame.
-///
-/// `y` is proximal, `z` faces the cop/plate and `x` points toward the wing.
-/// Feet use `y` up and `z` toward the toes. Mittens use `y` toward the wrist,
-/// `z` dorsal and `x` away from the thumb. Extents describe the unarmored region.
-pub fn generate_limb_armor(
-    design: &LimbArmorDesign,
-    fit: &PartFrame,
-) -> Result<PartMesh, GenerateError> {
-    design.validate()?;
-    fit.validate()?;
-    let mesh = match design {
-        LimbArmorDesign::Greave(d) => shapes::greave(d, fit),
-        LimbArmorDesign::Cuisse(d) => shapes::cuisse(d, fit),
-        LimbArmorDesign::Rerebrace(d) => shapes::rerebrace(d, fit),
-        LimbArmorDesign::Poleyn(d) | LimbArmorDesign::Couter(d) => shapes::joint_cup(d, fit),
-        LimbArmorDesign::Spaulder(d) => shapes::spaulder(d, fit),
-        LimbArmorDesign::MittenGauntlet(d) => extremities::gauntlet(d, fit),
-        LimbArmorDesign::Sabaton(d) => extremities::sabaton(d, fit),
-        LimbArmorDesign::LeatherBoot(d) => extremities::boot(d, fit),
-    }?;
-    Ok(mesh.transformed(fit))
-}
-
-/// Generate the mitten's separate thumb defense from its own anatomical frame.
-/// The frame spans thumb root to tip; `y` points toward the root and `z` dorsal.
-/// Append this to the main hand-frame mesh returned by `generate_limb_armor`.
-pub fn generate_gauntlet_thumb(
-    design: &GauntletDesign,
-    fit: &PartFrame,
-) -> Result<PartMesh, GenerateError> {
-    LimbArmorDesign::MittenGauntlet(design.clone()).validate()?;
-    fit.validate()?;
-    Ok(extremities::gauntlet_thumb(design, fit)?.transformed(fit))
 }

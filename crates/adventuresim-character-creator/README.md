@@ -309,10 +309,34 @@ Inspect the staged equipment before copying its GLBs, shared PNGs and manifest i
 ## Parametric armor authoring
 
 All armor catalog entries have authored parametric recipes. Preview, character
-export and equipment export use the same recipe dispatch, fit and material.
-Catalog loading rejects armor without a recipe. The geometry code lives in
-`adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit
-envelopes, and transfer of UVs, skinning and morph targets.
+export, equipment export and the armory use the same recipe dispatch, fit and
+material. Catalog loading rejects armor without a recipe. The part geometry
+lives in `adventuresim-armor-model`; the creator owns the MHR landmarks, the
+fitting passes, and the transfer of UVs, skinning and morph targets.
+
+Armor is generated and fitted entirely on the GPU. For each piece the creator
+uploads the wearer and every morph sample once (`device_equipment`), then
+records the piece against each of them (`parametric_equipment`):
+
+- The part frame of the piece's region (`device_frames`; the head and foot
+  frames have their own passes) is oriented by rig landmarks and sized by the
+  skin those landmarks own. It stays on the device.
+- The family's carriers are evaluated in that frame, and its fitter moves them
+  onto measured body sections: clearance stations for long plates
+  (`device_clearance`), foot sections and boot layering for footwear, cages for
+  garments and gorgets, and measured sections for the close helmet and the
+  coif.
+- The shells are thickened, and each vertex takes its UV and skin weights from
+  the nearest body vertex.
+
+Everything is read back after the last realization is recorded, so morph
+targets share the base topology by construction. The vambrace and the
+breastplate fit directly to the selected forearm and torso skin
+(`device_bracer`, `device_torso`). Underlayers are cut from the body on the host
+by a frozen plan, using part frames fitted on the device, and every offset,
+layer and attribute is then evaluated on the device (`device_underlayer`). The
+fitted cloth coif starts from the coif carrier fitted on the device, before its
+shell is thickened.
 
 Every rigid armor piece is shaded with the same parametric metal as the plate
 armor builder: a base color and roughness plus a tiling scratch map for normal

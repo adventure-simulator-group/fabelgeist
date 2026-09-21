@@ -9,8 +9,8 @@ impl RenderPerlin {
     pub fn execute(
         context: &WgpuContext,
         output: &GpuResource,
-        scale: fabelgeist_math::Vec3,
-        offset: fabelgeist_math::Vec3,
+        scale: fabelgeist_gpu::data::vector::Vec3,
+        offset: fabelgeist_gpu::data::vector::Vec3,
         octaves: u32,
         lacunarity: f32,
         gain: f32,

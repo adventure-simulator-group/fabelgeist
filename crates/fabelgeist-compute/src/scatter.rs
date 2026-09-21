@@ -13,10 +13,19 @@ pub struct ScatterSignature {
     pub param_names: Vec<String>,
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct ScatterDefinition {
     pub code: String,
-    pub cache: ComputePipelineCache<(ResourceType, ResourceType), (ComputePipeline, u64, u64)>,
+    pub cache: Arc<RwLock<HashMap<(ResourceType, ResourceType), Arc<(ComputePipeline, u64, u64)>>>>,
+}
+
+impl Default for ScatterDefinition {
+    fn default() -> Self {
+        Self {
+            code: String::new(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
 }
 
 impl PartialEq for ScatterDefinition {
@@ -30,7 +39,7 @@ impl ScatterDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         })
     }
 
@@ -377,7 +386,7 @@ impl Scatter {
             }
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.clone(),
             parameters,

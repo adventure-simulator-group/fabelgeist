@@ -1,0 +1,22 @@
+[package]
+name = "fabelgeist-color"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[dependencies]
+serde = { "version" = "1", "features" = ["derive"], "optional" = true }
+bytemuck = { "version" = "1.16", "features" = ["derive"], "optional" = true }
+wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl"], "optional" = true }
+thiserror = { "version" = "2.0.18" }
+
+[dev-dependencies]
+serde_json = { "version" = "1.0", "features" = ["preserve_order"] }
+
+[features]
+default = ["std", "bytemuck", "serde"]
+std = []
+wgpu = ["dep:wgpu"]
+serde = ["dep:serde"]
+bytemuck = ["dep:bytemuck"]

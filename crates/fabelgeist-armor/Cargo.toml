@@ -5,7 +5,14 @@ edition = "2024"
 license = "GPL-3.0"
 
 [dependencies]
+bytemuck = { version = "1.16", features = ["derive"] }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
 fabelgeist-math = { path = "../fabelgeist-math" }
 fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
 image = { version = "0.25.10", default-features = false, features = ["png"] }
+pollster = "0.4"
 serde = { version = "1", features = ["derive"] }
+
+[lints]
+workspace = true

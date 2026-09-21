@@ -6,14 +6,13 @@ license = "GPL-3.0"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
 
 [dependencies]
+fabelgeist-shell = { "path" = "../fabelgeist-shell" }
 fabelgeist-gpu = { "default-features" = false, "path" = "../fabelgeist-gpu" }
 fabelgeist-compute = { "path" = "../fabelgeist-compute" }
 fabelgeist-math = { "default-features" = false, "path" = "../fabelgeist-math" }
-fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
-fabelgeist-physics = { "path" = "../fabelgeist-physics" }
-fabelgeist-bvh = { "path" = "../fabelgeist-bvh" }
 anyhow = { "version" = "1.0" }
-bytemuck = { "version" = "1.16", "features" = ["derive"] }
 
 [dev-dependencies]
+fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
+fabelgeist-physics = { "path" = "../fabelgeist-physics" }
 tokio = { "version" = "1", "features" = ["full"] }

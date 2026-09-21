@@ -253,15 +253,7 @@ impl TextureView {
         }
 
         let raw_data = self.read::<u8>(context).await?;
-
-        let linear_to_srgb = |f: f32| -> u8 {
-            let srgb = if f <= 0.0031308 {
-                f * 12.92
-            } else {
-                1.055 * f.powf(1.0 / 2.4) - 0.055
-            };
-            (srgb.clamp(0.0, 1.0) * 255.0) as u8
-        };
+        let linear_to_srgb = fabelgeist_color::transfer::linear_to_srgb_u8;
 
         let rgba_data = match self.format {
             TextureFormat::Rgba8UnormSrgb => raw_data,

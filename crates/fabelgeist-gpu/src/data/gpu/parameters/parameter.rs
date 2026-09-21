@@ -1,9 +1,11 @@
 use crate::data::{
     gpu::buffer::Buffer,
     gpu::sampler::Sampler,
+    matrix::{Mat2, Mat3, Mat4},
     texture::{Texture2d, Texture3d, TextureCube, TextureView},
+    transform::Transform,
+    vector::{Vec2, Vec3, Vec4},
 };
-use fabelgeist_math::{Mat2, Mat3, Mat4, Transform, Vec2, Vec3, Vec4};
 
 #[derive(Clone, Debug)]
 pub enum PassParameter {

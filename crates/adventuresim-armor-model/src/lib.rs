@@ -4,37 +4,36 @@
 mod helmet_crown;
 pub use helmet_crown::HelmetCrown;
 
-#[path = "breastplate_carrier.rs"]
-mod breastplate;
 mod breastplate_design;
 pub use breastplate_design::*;
 mod plate_fluting;
-mod plate_patch;
 pub use plate_fluting::{FluteCount, PlateFluting};
 mod components;
 mod design;
 pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
-mod mesh;
-pub mod parametric;
-pub use parametric::{BoundaryNormals, PartFrame, PartMesh, ShellExtrusion};
+mod error;
+mod frame;
+pub use frame::{BoundaryNormals, PartFrame};
 mod garment_armor;
+pub mod gpu;
+pub use gpu::{
+    ArmorGpu, BuiltPart, DevicePart, record_extremity_armor, record_helmet, record_limb_armor,
+};
 mod garment_plate_design;
-mod gorget_plates;
+mod gorget_chart;
 pub use garment_plate_design::GarmentPlateShape;
-pub use gorget_plates::{generate_gorget_plates, gorget_control_angle, gorget_surface_angle};
+pub use gorget_chart::gorget_control_angle;
 mod helmets;
 mod limb_armor;
 pub use garment_armor::{
     GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
     GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
-    generate_garment_armor,
 };
 pub use helmets::*;
 pub use limb_armor::*;
 
-pub use breastplate::generate_breastplate;
 pub use design::*;
-pub use mesh::{GenerateError, generate_bracer};
+pub use error::GenerateError;
 
 pub const SCHEMA_VERSION: u16 = 1;
 pub const GENERATOR_VERSION: u16 = 12;

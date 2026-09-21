@@ -7,6 +7,10 @@ license = "GPL-3.0"
 
 [dependencies]
 blake3 = { workspace = true }
+bytemuck = "1.16"
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+pollster = "0.4"
 postcard = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

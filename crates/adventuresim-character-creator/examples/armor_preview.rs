@@ -1,3 +1,4 @@
+use adventuresim_character_creator::plate_gpu;
 use bevy::{
     app::{AppExit, ScheduleRunnerPlugin},
     asset::RenderAssetUsages,
@@ -13,6 +14,9 @@ use bevy::{
     winit::WinitPlugin,
 };
 use fabelgeist_armor::{Armor, Construction};
+
+/// Side of the baked metal maps, in texels.
+const PREVIEW_TEXTURE_SIZE: u32 = 512;
 
 #[derive(Resource)]
 struct Target(Handle<Image>);
@@ -104,35 +108,8 @@ fn setup(
             a.plate.roundness = 1.0;
             a.plate.hole_pairs = 1;
         }
-        let textures = a.metal.textures(512).unwrap();
-        let mut texture = |data| {
-            let mut image = Image::new(
-                Extent3d {
-                    width: 512,
-                    height: 512,
-                    depth_or_array_layers: 1,
-                },
-                TextureDimension::D2,
-                data,
-                TextureFormat::Rgba8Unorm,
-                RenderAssetUsages::default(),
-            );
-            image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
-                address_mode_u: ImageAddressMode::Repeat,
-                address_mode_v: ImageAddressMode::Repeat,
-                ..ImageSamplerDescriptor::linear()
-            });
-            images.add(image)
-        };
-        let material = materials.add(StandardMaterial {
-            base_color: Color::srgb(0.62, 0.65, 0.68),
-            metallic: 1.0,
-            perceptual_roughness: 1.0,
-            normal_map_texture: Some(texture(textures.normal)),
-            metallic_roughness_texture: Some(texture(textures.metal_roughness)),
-            ..default()
-        });
-        for p in fabelgeist_armor::build(&a).unwrap() {
+        let material = metal_material(&a, &mut images, &mut materials);
+        for p in plate_gpu().unwrap().build(&a).unwrap() {
             let mut mesh = Mesh::new(
                 PrimitiveTopology::TriangleList,
                 RenderAssetUsages::default(),
@@ -146,6 +123,45 @@ fn setup(
         }
     }
 }
+/// The armor's baked metal as a repeating preview material.
+fn metal_material(
+    armor: &Armor,
+    images: &mut Assets<Image>,
+    materials: &mut Assets<StandardMaterial>,
+) -> Handle<StandardMaterial> {
+    let textures = plate_gpu()
+        .unwrap()
+        .textures(&armor.metal, PREVIEW_TEXTURE_SIZE)
+        .unwrap();
+    let mut texture = |data| {
+        let mut image = Image::new(
+            Extent3d {
+                width: PREVIEW_TEXTURE_SIZE,
+                height: PREVIEW_TEXTURE_SIZE,
+                depth_or_array_layers: 1,
+            },
+            TextureDimension::D2,
+            data,
+            TextureFormat::Rgba8Unorm,
+            RenderAssetUsages::default(),
+        );
+        image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
+            address_mode_u: ImageAddressMode::Repeat,
+            address_mode_v: ImageAddressMode::Repeat,
+            ..ImageSamplerDescriptor::linear()
+        });
+        images.add(image)
+    };
+    materials.add(StandardMaterial {
+        base_color: Color::srgb(0.62, 0.65, 0.68),
+        metallic: 1.0,
+        perceptual_roughness: 1.0,
+        normal_map_texture: Some(texture(textures.normal)),
+        metallic_roughness_texture: Some(texture(textures.metal_roughness)),
+        ..default()
+    })
+}
+
 fn capture(
     mut commands: Commands,
     target: Res<Target>,

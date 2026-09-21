@@ -78,7 +78,7 @@ impl MatMul {
             _ => 1,
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(context, pipeline, parameters, wg_x, 1, 1)?;
+        fabelgeist_gpu::data::gpu::ComputePass::new(context, pipeline, parameters, wg_x, 1, 1)?;
 
         Ok(())
     }

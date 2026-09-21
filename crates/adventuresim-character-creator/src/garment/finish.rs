@@ -41,9 +41,9 @@ impl DrapedGarment {
                 settings.contact_iterations,
             );
             if layer.surface_residual(&points, &surface.faces)
-                <= fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE
+                <= fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE
                 && body_residual(&points, body, margin)
-                    <= fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE
+                    <= fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE
                 && super::validation::validate_surface(
                     &fabelgeist_bvh::TriangleBvh::new(points.clone(), surface.faces.clone()),
                     body,
@@ -55,7 +55,7 @@ impl DrapedGarment {
         }
         let mut issues = Vec::new();
         let residual = body_residual(&points, body, margin);
-        if residual > fabelgeist_cloth::outer_layer::CLEARANCE_TOLERANCE {
+        if residual > fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE {
             issues.push(format!(
                 "insufficient space between wearer and armor for this garment: {:.2} mm body residual",
                 residual * 1000.0

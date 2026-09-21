@@ -243,9 +243,8 @@ impl Buffer {
             (Arc::new(staging_buffer), true)
         };
 
-        let (tx, rx) = futures_channel::oneshot::channel();
-        #[cfg(not(target_arch = "wasm32"))]
-        let mut rx = rx;
+        #[allow(unused_mut)]
+        let (tx, mut rx) = futures_channel::oneshot::channel();
 
         // 1. Start mapping
         {
@@ -324,6 +323,33 @@ impl Buffer {
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let bytes = bytemuck::cast_slice(data);
         context.queue.write_buffer(&self.buffer, 0, bytes);
+        Ok(())
+    }
+
+    /// Write `data` into this buffer starting `at` bytes in.
+    ///
+    /// For a buffer that holds several things and has only one of them
+    /// changing: a ring of video frames, a slice of a vertex stream. Writing
+    /// the whole buffer to replace part of it is the alternative, and at these
+    /// sizes that is the cost.
+    pub fn write_at<T: bytemuck::NoUninit>(
+        &self,
+        context: &WgpuContext,
+        at: u64,
+        data: &[T],
+    ) -> Result<()> {
+        let bytes = bytemuck::cast_slice(data);
+        let end = at
+            .checked_add(bytes.len() as u64)
+            .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+        if end > self.size {
+            return Err(anyhow!(
+                "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
+                bytes.len(),
+                self.size
+            ));
+        }
+        context.queue.write_buffer(&self.buffer, at, bytes);
         Ok(())
     }
     pub fn from_slice<T: bytemuck::NoUninit>(

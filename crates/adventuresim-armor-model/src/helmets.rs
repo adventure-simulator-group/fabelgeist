@@ -2,41 +2,15 @@
 //! integrated face opening is deliberately distinct from a burgonet's peak and
 //! separate cheek plates; a visor is a separate solid with a real sight gap.
 
-#[path = "helmets_close.rs"]
-mod close;
 #[path = "helmets_close_design.rs"]
 mod close_design;
+#[path = "helmets_visor_domain.rs"]
+pub(crate) mod visor_domain;
 pub use close_design::{CloseHelmetDesign, SlotInclination, VentSides, VisorBreaths};
-#[path = "helmets_close_profile.rs"]
-mod close_profile;
-pub use close_profile::{CloseHelmetProfile, generate_close_helmet};
-#[path = "helmets_drape.rs"]
-mod drape;
-pub use drape::{
-    COIF_DRAPE_SECTIONS, CoifCarrier, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape,
-    CoifNeckDrape, generate_coif_carrier_with_drape, generate_coif_with_drape,
-};
-#[path = "helmets_barbute.rs"]
-mod barbute;
-#[path = "helmets_burgonet.rs"]
-mod burgonet;
-#[path = "helmets_cheek.rs"]
-mod cheek;
-#[path = "helmets_coif.rs"]
-mod coif;
-#[path = "helmets_crown_mesh.rs"]
-mod crown_mesh;
-#[path = "helmets_geometry.rs"]
-mod geometry;
-#[path = "helmets_sallet.rs"]
-mod sallet;
-#[path = "helmets_shapes.rs"]
-mod shapes;
 
 use serde::{Deserialize, Serialize};
 
-use crate::parametric::{PartFrame, PartMesh};
-use crate::{DesignError, GenerateError, Millimeters, Permille};
+use crate::{DesignError, Millimeters, Permille};
 
 /// Shared fit controls in physical units. The frame describes the bare head.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
@@ -422,11 +396,4 @@ fn valid_sallet(d: &SalletDesign) -> bool {
 
 fn valid_visor(projection: Millimeters, gap: Millimeters) -> bool {
     (12..=50).contains(&projection.0) && (5..=15).contains(&gap.0)
-}
-
-pub fn generate_helmet(design: &HelmetDesign, fit: &PartFrame) -> Result<PartMesh, GenerateError> {
-    design.validate()?;
-    fit.validate()?;
-    let local = shapes::generate(design, fit.half_extents)?;
-    Ok(local.transformed(fit))
 }

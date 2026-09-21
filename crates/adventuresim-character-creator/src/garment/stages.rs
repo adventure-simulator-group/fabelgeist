@@ -99,21 +99,18 @@ impl StageSettings {
         solver.gravity = Vec3::new(0.0, -self.gravity, 0.0);
         solver.damping = self.damping;
         fit.cloth.self_collision.enabled = self.self_collision;
-        fit.cloth.host_contacts = fabelgeist_cloth::HostContactSchedule {
+        fit.cloth.host_contacts = fabelgeist_shell::HostContactSchedule {
             interval_substeps: self.host_contact_interval,
             iterations: self.host_contact_iterations,
             outer_layer_passes: self.armor_passes,
         };
         if self.host_body_contacts {
-            fit.cloth.set_collision_surface(
-                &fit.context,
-                &body.positions,
-                &body.triangles,
-                body_clearance,
-            )
+            fit.cloth
+                .set_collision_surface(&body.positions, &body.triangles, body_clearance);
         } else {
-            fit.cloth.set_collision_surface(&fit.context, &[], &[], 0.0)
+            fit.cloth.set_collision_surface(&[], &[], 0.0);
         }
+        Ok(())
     }
 }
 

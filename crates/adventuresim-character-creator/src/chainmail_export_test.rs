@@ -10,8 +10,10 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
     let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
     let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
     let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
-    let mut recipe = CharacterRecipe::default();
-    recipe.inventory = Default::default();
+    let mut recipe = CharacterRecipe {
+        inventory: Default::default(),
+        ..CharacterRecipe::default()
+    };
     let plate = fabelgeist_armor::Armor::default();
     let selection = GarmentSelection::chainmail();
     for article in [
@@ -74,8 +76,7 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
             "body": generated.positions, "body_faces": model.mhr.character.mesh.faces,
             "garment": garment.positions, "garment_faces": garment.faces,
             "normals": garment.normals, "uv": garment.texcoords,
-            "plates": fabelgeist_armor::build(&plate).map_err(anyhow::Error::msg)?
-                .into_iter().map(|p| serde_json::json!({"name":p.name,"positions":p.mesh.positions,"faces":p.mesh.faces})).collect::<Vec<_>>(),
+            "plates": plates(&plate)?,
         }))?,
     )?;
     println!("armor fit problems: {:?}", reconciled?);
@@ -94,4 +95,16 @@ fn draped_chainmail_exports_under_plate() -> Result<()> {
     assert!(glb.materials().any(|m| m.name() == Some("Breastplate")));
     println!("verified chainmail beneath plate: {}", path.display());
     Ok(())
+}
+
+/// The plate armor's parts as the review JSON lists them.
+fn plates(plate: &fabelgeist_armor::Armor) -> Result<Vec<serde_json::Value>> {
+    Ok(adventuresim_character_creator::plate_gpu()?
+        .build(plate)
+        .map_err(anyhow::Error::msg)?
+        .into_iter()
+        .map(|p| {
+            serde_json::json!({"name":p.name,"positions":p.mesh.positions,"faces":p.mesh.faces})
+        })
+        .collect())
 }

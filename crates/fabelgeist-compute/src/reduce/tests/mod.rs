@@ -134,7 +134,7 @@ async fn min_Texture2d() -> Result<()> {
 
     let texture = fabelgeist_gpu::data::gpu::texture::Texture2d::create(
         &context,
-        fabelgeist_math::Vec2::new(width as f32, height as f32),
+        fabelgeist_gpu::data::Vec2::new(width as f32, height as f32),
         fabelgeist_gpu::data::gpu::texture::TextureFormat::R32Float,
     )?;
     texture.write(&context, &input_data)?;

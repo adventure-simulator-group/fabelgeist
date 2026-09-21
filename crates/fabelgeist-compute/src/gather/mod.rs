@@ -14,11 +14,21 @@ pub struct GatherSignature {
     pub param_names: Vec<String>,
 }
 
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct GatherDefinition {
     pub code: String,
-    pub cache:
-        ComputePipelineCache<(ResourceDescriptor, ResourceDescriptor), (ComputePipeline, u64, u64)>,
+    pub cache: Arc<
+        RwLock<HashMap<(ResourceDescriptor, ResourceDescriptor), Arc<(ComputePipeline, u64, u64)>>>,
+    >,
+}
+
+impl Default for GatherDefinition {
+    fn default() -> Self {
+        Self {
+            code: String::new(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
 }
 
 impl PartialEq for GatherDefinition {
@@ -32,7 +42,7 @@ impl GatherDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         })
     }
 
@@ -402,7 +412,7 @@ impl Gather {
             }
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.clone(),
             parameters,

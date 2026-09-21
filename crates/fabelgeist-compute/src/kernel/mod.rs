@@ -57,6 +57,12 @@ impl Kernel {
     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
     /// dispatch matches its parameters against.
     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
+        // Shader and pipeline creation read back validation error scopes,
+        // which interleave badly when two threads compile at once.
+        static COMPILING: std::sync::Mutex<()> = std::sync::Mutex::new(());
+        let _compiling = COMPILING
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
         let code = code.into();
 
         let module =
@@ -113,7 +119,7 @@ impl Kernel {
         parameters: PassParameters,
         groups: [u32; 3],
     ) -> Result<()> {
-        ComputePass::execute(
+        ComputePass::new(
             context,
             self.pipeline.clone(),
             parameters,
@@ -175,6 +181,7 @@ pub struct KernelBatch<'a> {
     context: &'a WgpuContext,
     encoder: wgpu::CommandEncoder,
     dispatches: usize,
+    uniforms: fast::UniformArena,
 }
 
 impl<'a> KernelBatch<'a> {
@@ -190,6 +197,7 @@ impl<'a> KernelBatch<'a> {
             context,
             encoder,
             dispatches: 0,
+            uniforms: fast::UniformArena::default(),
         }
     }
 
@@ -208,7 +216,7 @@ impl<'a> KernelBatch<'a> {
 
         match &kernel.fast {
             Some(fast) => {
-                let prepared = fast.prepare(self.context, parameters)?;
+                let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
                 let mut pass = self
                     .encoder
                     .begin_compute_pass(&wgpu::ComputePassDescriptor {

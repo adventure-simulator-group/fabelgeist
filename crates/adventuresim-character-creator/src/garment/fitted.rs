@@ -2,7 +2,8 @@
 //! flat panels to sew. Sewn from flat panels, a hood slides off the head: its
 //! zero-length seams close by the shortest way round, under the chin.
 use super::*;
-use adventuresim_armor_model::{CoifCarrier, CoifDesign, PartFrame};
+use crate::device_coif::{CoifCarrier, fitted_coif_carrier};
+use adventuresim_armor_model::{CoifDesign, PartFrame};
 use fabelgeist_cloth::{GarmentMesh, topology};
 use fabelgeist_math::Vec2;
 use std::collections::{HashMap, HashSet};
@@ -33,7 +34,7 @@ pub(super) fn coif(
         joint_names: &input.names,
         joints: &input.joints,
     };
-    let (frame, carrier) = crate::coif_fit::carrier(design, &wearer)?;
+    let (frame, carrier) = fitted_coif_carrier(crate::armor_gpu()?, &wearer, design)?;
     surface_mesh(&frame, &carrier, fabric.density)
 }
 
@@ -51,15 +52,11 @@ pub(super) fn surface_mesh(
     let count = carrier.positions.len();
     anyhow::ensure!(
         count > 0
-            && carrier.indices.len() % 3 == 0
+            && carrier.indices.len().is_multiple_of(3)
             && carrier.indices.iter().all(|&i| (i as usize) < count),
         "invalid fitted surface"
     );
-    let whole: Vec<[u32; 3]> = carrier
-        .indices
-        .chunks_exact(3)
-        .map(|face| [face[0], face[1], face[2]])
-        .collect();
+    let whole: Vec<[u32; 3]> = carrier.indices.as_chunks::<3>().0.to_vec();
     let cut = FrontCut::new(&carrier.positions, &whole);
     anyhow::ensure!(
         !cut.seams.is_empty(),
@@ -455,7 +452,10 @@ fn norm(a: V) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_armor_model::{CoifDrapeProfile, generate_coif_carrier_with_drape};
+    use adventuresim_armor_model::gpu::{
+        COIF_DRAPE_SECTIONS, FIT_PROFILE_WORD, frame_words, record_coif,
+    };
+    use std::f32::consts::TAU;
 
     fn head() -> PartFrame {
         PartFrame {
@@ -465,11 +465,68 @@ mod tests {
         }
     }
 
+    /// The coif's own frame, then a head-proportioned drape: a neck boundary
+    /// below the chin and flaps hanging straight down from it.
+    fn fit_words(design: &CoifDesign, frame: &PartFrame) -> Vec<f32> {
+        let own = PartFrame {
+            origin: [0.0; 3],
+            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            half_extents: frame.half_extents,
+        };
+        let mut words = frame_words(&own).to_vec();
+        words.resize(FIT_PROFILE_WORD, 0.0);
+        let gap = design.fit.clearance.metres() + design.fit.wall_thickness.metres();
+        let [width, height, depth] = frame.half_extents.map(|e| e + gap);
+        let front_height = -height * (1.0 + 0.65 * design.neck_coverage.unit());
+        let side_height = front_height + height * 0.34;
+        let back_height = front_height + height * 0.22;
+        let (front_depth, back_depth) = (depth * 0.38, -depth * 1.32);
+        words.extend([
+            front_height,
+            side_height,
+            back_height,
+            width * 1.5,
+            -depth * 0.36,
+            front_depth,
+            back_depth,
+        ]);
+        // Each flap hangs from the neck columns a twelfth of a turn either
+        // side of its centre line.
+        let edge = (TAU / 12.0).cos().powi(2);
+        for (end, depth, length, sign) in [
+            (
+                front_height,
+                front_depth,
+                design.front_flap_length.metres(),
+                1.0,
+            ),
+            (
+                back_height,
+                back_depth,
+                design.back_flap_length.metres(),
+                -1.0,
+            ),
+        ] {
+            let top = side_height + (end - side_height) * edge;
+            for i in 0..COIF_DRAPE_SECTIONS {
+                let t = i as f32 / (COIF_DRAPE_SECTIONS - 1) as f32;
+                let z = depth + sign * length * (1.0 - t) * 0.25;
+                words.extend([end - length + (top - end + length) * t, z, z]);
+            }
+        }
+        words
+    }
+
     fn coif_mesh() -> GarmentMesh {
+        let gpu = crate::armor_gpu().unwrap();
         let design = CoifDesign::default();
         let frame = head();
-        let profile = CoifDrapeProfile::from_head(&design, &frame);
-        let carrier = generate_coif_carrier_with_drape(&design, &frame, &profile).unwrap();
+        let fit = gpu.upload(&fit_words(&design, &frame)).unwrap();
+        let placement = gpu.upload(&frame_words(&frame)).unwrap();
+        let mut batch = gpu.batch("coif carrier test");
+        let part = record_coif(gpu, &mut batch, &design, &fit, &placement).unwrap();
+        batch.submit();
+        let carrier = CoifCarrier::read(gpu, &part).unwrap();
         surface_mesh(&frame, &carrier, Fabric::CHAINMAIL.density).unwrap()
     }
 

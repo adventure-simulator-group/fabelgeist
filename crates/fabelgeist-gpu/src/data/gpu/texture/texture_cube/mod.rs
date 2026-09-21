@@ -146,6 +146,11 @@ impl TextureCube {
 
         Ok(texture_value)
     }
+
+    /// A cube map holding these six images' pixels.
+    ///
+    /// Each face is stored as it arrived, on the same terms as a 2D texture:
+    /// see [`Image::packed_for`].
     pub fn create_from_images(
         context: &WgpuContext,
         images: [Image; 6],
@@ -169,65 +174,7 @@ impl TextureCube {
         let pixel_size = format.pixel_size();
 
         for (i, image) in images.into_iter().enumerate() {
-            let raw_data = &image.data;
-            let converted_data: Vec<u8> = match format {
-                TextureFormat::Rgba8Unorm | TextureFormat::Bgra8Unorm => raw_data
-                    .chunks_exact(4)
-                    .flat_map(|rgba| {
-                        let mut out = [0u8; 4];
-                        for c in 0..3 {
-                            let f = rgba[c] as f32 / 255.0;
-                            let linear = if f <= 0.04045 {
-                                f / 12.92
-                            } else {
-                                ((f + 0.055) / 1.055).powf(2.4)
-                            };
-                            out[c] = (linear.clamp(0.0, 1.0) * 255.0) as u8;
-                        }
-                        out[3] = rgba[3];
-                        if matches!(format, TextureFormat::Bgra8Unorm) {
-                            out.swap(0, 2);
-                        }
-                        out
-                    })
-                    .collect(),
-                TextureFormat::Rgba8UnormSrgb | TextureFormat::Bgra8UnormSrgb => {
-                    if matches!(format, TextureFormat::Bgra8UnormSrgb) {
-                        raw_data
-                            .chunks_exact(4)
-                            .flat_map(|rgba| [rgba[2], rgba[1], rgba[0], rgba[3]])
-                            .collect()
-                    } else {
-                        raw_data.to_vec()
-                    }
-                }
-                TextureFormat::Rgba32Float => {
-                    let mut floats = Vec::with_capacity((size * size * 4) as usize);
-                    for rgba in raw_data.chunks_exact(4) {
-                        for c in 0..3 {
-                            let f = rgba[c] as f32 / 255.0;
-                            let linear = if f <= 0.04045 {
-                                f / 12.92
-                            } else {
-                                ((f + 0.055) / 1.055).powf(2.4)
-                            };
-                            floats.push(linear);
-                        }
-                        floats.push(rgba[3] as f32 / 255.0);
-                    }
-                    bytemuck::cast_slice(&floats).to_vec()
-                }
-                _ => {
-                    if pixel_size == 4 {
-                        raw_data.to_vec()
-                    } else {
-                        return Err(anyhow::anyhow!(
-                            "Unsupported image conversion to format: {:?}",
-                            format
-                        ));
-                    }
-                }
-            };
+            let converted_data = image.packed_for(format)?;
 
             context.queue.write_texture(
                 wgpu::TexelCopyTextureInfo {

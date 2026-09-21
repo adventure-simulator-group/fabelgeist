@@ -1,8 +1,6 @@
 //! Reproducible body-visible candidate export for independent mesh review.
 use super::*;
-use adventuresim_character_creator::{
-    armor_frames::Wearer, armor_recipes, item_design::ItemDesign,
-};
+use adventuresim_character_creator::{armor_recipes, item_design::ItemDesign};
 
 pub(super) fn export(
     output: &std::path::Path,
@@ -23,51 +21,13 @@ pub(super) fn export(
             "generator_version":adventuresim_armor_model::GENERATOR_VERSION
         }))?,
     )?;
-    let wearer = Wearer {
-        faces: &character.mesh.faces,
-        positions: &body.positions,
-        normals: &body.normals,
-        joints: &body.global_joint_states,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
-        joint_names: &character.skeleton.names,
-    };
     for item in catalog.wearable() {
         let Some(design) = catalog.design(&item.id) else {
             continue;
         };
         for placement in &item.equipment.as_ref().expect("wearable item").placements {
-            let record = match &design {
-                ItemDesign::Recipe(recipe) => {
-                    let frame = wearer.frame(armor_recipes::fit_region(recipe, &placement.id)?)?;
-                    let mesh = armor_recipes::fitted_mesh(recipe, &placement.id, &wearer)
-                        .with_context(|| {
-                            format!("review generation {}/{}", item.id, placement.id)
-                        })?;
-                    serde_json::json!({
-                        "id":item.id,"placement":placement.id,"design":recipe,"positions":mesh.positions,"normals":mesh.normals()?,"indices":mesh.indices,
-                        "components":mesh.components,
-                        "frame":{"origin":frame.origin,"axes":frame.axes,"half_extents":frame.half_extents},
-                        "generator_version":adventuresim_armor_model::GENERATOR_VERSION
-                    })
-                }
-                ItemDesign::Vambrace(vambrace) => dedicated(
-                    model,
-                    &body,
-                    item,
-                    &placement.id,
-                    &design,
-                    serde_json::to_value(vambrace)?,
-                )?,
-                ItemDesign::Breastplate(breastplate) => dedicated(
-                    model,
-                    &body,
-                    item,
-                    &placement.id,
-                    &design,
-                    serde_json::to_value(breastplate)?,
-                )?,
-            };
+            let record = review_record(model, &body, item, &placement.id, &design)
+                .with_context(|| format!("review generation {}/{}", item.id, placement.id))?;
             std::fs::write(
                 output.join(format!("{}--{}.json", item.id, placement.id)),
                 serde_json::to_vec(&record)?,
@@ -77,18 +37,32 @@ pub(super) fn export(
     Ok(())
 }
 
-/// A review record for an item built by its own generator rather than a recipe.
-fn dedicated(
+/// One item's review record: its design, the fitted mesh and, for a recipe,
+/// the part frame it was fitted in.
+fn review_record(
     model: &BodyModel,
     body: &GeneratedCharacter,
     item: &ItemDefinition,
     placement: &str,
     design: &ItemDesign,
-    parameters: serde_json::Value,
 ) -> Result<serde_json::Value> {
     let armor = parametric_equipment::fitted_item(model, body, design, placement, &[])?;
-    Ok(serde_json::json!({
-        "id":item.id,"placement":placement,"design":parameters,"positions":armor.positions,"normals":armor.normals,"indices":armor.indices,
+    let mut record = serde_json::json!({
+        "id":item.id,"placement":placement,"positions":armor.positions,"normals":armor.normals,
+        "indices":armor.indices,"components":armor.components,
         "generator_version":adventuresim_armor_model::GENERATOR_VERSION
-    }))
+    });
+    record["design"] = match design {
+        ItemDesign::Recipe(recipe) => {
+            let region = armor_recipes::fit_region(recipe, placement)?;
+            let frame = device_equipment::frame(model, body, region)?;
+            record["frame"] = serde_json::json!({
+                "origin":frame.origin,"axes":frame.axes,"half_extents":frame.half_extents
+            });
+            serde_json::to_value(recipe)?
+        }
+        ItemDesign::Vambrace(vambrace) => serde_json::to_value(vambrace)?,
+        ItemDesign::Breastplate(breastplate) => serde_json::to_value(breastplate)?,
+    };
+    Ok(record)
 }

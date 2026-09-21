@@ -3,7 +3,7 @@ use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use fabelgeist_gpu::data::gpu::signature::ResourceBaseType;
 use fabelgeist_gpu::data::gpu::texture::{Texture2d, Texture3d, TextureFormat};
-use fabelgeist_math::{Vec2, Vec3};
+use fabelgeist_gpu::data::vector::{Vec2, Vec3};
 
 pub struct Resource<'a, T>(&'a [T], pub TestResourceType);
 
@@ -198,10 +198,12 @@ where
     Ok(())
 }
 
+#[allow(non_snake_case)]
 pub fn vec2<T>(x: T, y: T) -> [T; 2] {
     [x, y]
 }
 
+#[allow(non_snake_case)]
 pub fn vec4<T>(x: T, y: T, z: T, w: T) -> [T; 4] {
     [x, y, z, w]
 }

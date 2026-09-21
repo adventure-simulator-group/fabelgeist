@@ -1,6 +1,5 @@
 use crate::Scan;
 use crate::gather::Gather;
-use crate::surface_extraction::{IndexedMeshCapacity, SurfaceExtractionSettings};
 use crate::{GatherDefinition, MapDefinition, ScanDefinition, StreamDefinition};
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::{Buffer, BufferDefinition};
@@ -550,27 +549,29 @@ fn map(val: u32) -> u32 {
 
 pub struct DualContouring;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum ContouringMode {
-    Regular,
-    AdvancingFront,
-}
-
 impl DualContouring {
     pub fn execute(
         context: &WgpuContext,
         definition: &DualContouringDefinition,
         sdf: &GpuResource,
-        settings: SurfaceExtractionSettings,
-        capacity: IndexedMeshCapacity,
+        grid: (u32, u32, u32),
+        threshold: f32,
+        max_vertices: u32,
+        max_indices: u32,
+        scale: (f32, f32, f32),
+        offset: (f32, f32, f32),
     ) -> Result<(Buffer, Buffer, Buffer, Buffer)> {
         Self::execute_internal(
             context,
             definition,
             sdf,
-            settings,
-            capacity,
-            ContouringMode::Regular,
+            grid,
+            threshold,
+            max_vertices,
+            max_indices,
+            scale,
+            offset,
+            false,
         )
     }
 
@@ -578,16 +579,24 @@ impl DualContouring {
         context: &WgpuContext,
         definition: &DualContouringDefinition,
         sdf: &GpuResource,
-        settings: SurfaceExtractionSettings,
-        capacity: IndexedMeshCapacity,
+        grid: (u32, u32, u32),
+        threshold: f32,
+        max_vertices: u32,
+        max_indices: u32,
+        scale: (f32, f32, f32),
+        offset: (f32, f32, f32),
     ) -> Result<(Buffer, Buffer, Buffer, Buffer)> {
         Self::execute_internal(
             context,
             definition,
             sdf,
-            settings,
-            capacity,
-            ContouringMode::AdvancingFront,
+            grid,
+            threshold,
+            max_vertices,
+            max_indices,
+            scale,
+            offset,
+            true,
         )
     }
 
@@ -595,33 +604,31 @@ impl DualContouring {
         context: &WgpuContext,
         definition: &DualContouringDefinition,
         sdf: &GpuResource,
-        settings: SurfaceExtractionSettings,
-        capacity: IndexedMeshCapacity,
-        mode: ContouringMode,
+        grid: (u32, u32, u32),
+        threshold: f32,
+        max_vertices: u32,
+        max_indices: u32,
+        scale: (f32, f32, f32),
+        offset: (f32, f32, f32),
+        front_mode: bool,
     ) -> Result<(Buffer, Buffer, Buffer, Buffer)> {
-        let grid = settings.grid;
-        let max_vertices = capacity.vertices.get();
-        let max_indices = capacity.indices.get();
-        let grid_total = grid.cell_count();
+        let grid_total = (grid.0 * grid.1 * grid.2) as u64;
 
         // Create uniform parameter buffer info
         let mut params = PassParameters::new();
-        params.insert("grid_x", grid.width);
-        params.insert("grid_y", grid.height);
-        params.insert("grid_z", grid.depth);
+        params.insert("grid_x", grid.0);
+        params.insert("grid_y", grid.1);
+        params.insert("grid_z", grid.2);
         params.insert("max_vertices", max_vertices);
         params.insert("max_indices", max_indices);
-        params.insert(
-            "front_mode",
-            u32::from(mode == ContouringMode::AdvancingFront),
-        );
-        params.insert("threshold", settings.threshold.get());
-        params.insert("scale_x", settings.scale.x);
-        params.insert("scale_y", settings.scale.y);
-        params.insert("scale_z", settings.scale.z);
-        params.insert("offset_x", settings.offset.x);
-        params.insert("offset_y", settings.offset.y);
-        params.insert("offset_z", settings.offset.z);
+        params.insert("front_mode", u32::from(front_mode));
+        params.insert("threshold", threshold);
+        params.insert("scale_x", scale.0);
+        params.insert("scale_y", scale.1);
+        params.insert("scale_z", scale.2);
+        params.insert("offset_x", offset.0);
+        params.insert("offset_y", offset.1);
+        params.insert("offset_z", offset.2);
 
         // 1. Gather Vertex Count
         let vertex_counts_buffer = Buffer::new(
@@ -776,8 +783,8 @@ impl DualContouring {
         deinterleave_params.insert("out_positions", PassParameter::from(out_positions.clone()));
         deinterleave_params.insert("out_normals", PassParameter::from(out_normals.clone()));
 
-        let workgroups_x = max_vertices.div_ceil(64);
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        let workgroups_x = (max_vertices + 63) / 64;
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             definition.deinterleave_pipeline.clone(),
             deinterleave_params,

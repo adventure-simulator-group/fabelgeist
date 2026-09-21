@@ -12,7 +12,6 @@
 //! thin facade avoids maintaining a second copy of the sizeable WGSL kernels.
 
 use crate::dual_contouring::{DualContouring, DualContouringDefinition};
-use crate::surface_extraction::{IndexedMeshCapacity, SurfaceExtractionSettings};
 use anyhow::Result;
 use fabelgeist_gpu::data::gpu::buffer::Buffer;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
@@ -26,15 +25,29 @@ pub struct AdvancingFront;
 impl AdvancingFront {
     /// Extract an indexed triangle mesh from a 3D distance field.
     ///
-    /// The capacity independently bounds projected front candidates and
-    /// emitted triangle indices.
+    /// `max_vertices` follows the Marching Cubes API: it bounds both projected
+    /// front candidates and emitted triangle vertices (indices).
     pub fn execute(
         context: &WgpuContext,
         definition: &AdvancingFrontDefinition,
         sdf: &GpuResource,
-        settings: SurfaceExtractionSettings,
-        capacity: IndexedMeshCapacity,
+        grid: (u32, u32, u32),
+        threshold: f32,
+        max_vertices: u32,
+        scale: (f32, f32, f32),
+        offset: (f32, f32, f32),
     ) -> Result<(Buffer, Buffer, Buffer, Buffer)> {
-        DualContouring::execute_advancing_front(context, definition, sdf, settings, capacity)
+        let max_indices = max_vertices;
+        DualContouring::execute_advancing_front(
+            context,
+            definition,
+            sdf,
+            grid,
+            threshold,
+            max_vertices,
+            max_indices,
+            scale,
+            offset,
+        )
     }
 }

@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use fabelgeist_gpu::data::gpu::resource::GpuResource;
 use std::collections::HashMap;
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub struct MapSignature {
@@ -17,17 +17,30 @@ pub struct MapSignature {
 
 use fabelgeist_gpu::data::gpu::ResourceDescriptor;
 
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
-struct MapPipelineKey {
-    input: Option<ResourceDescriptor>,
-    output: ResourceDescriptor,
-    secondary: OrderedResourceDescriptors,
-}
-
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug)]
 pub struct MapDefinition {
     pub code: String,
-    cache: ComputePipelineCache<MapPipelineKey, (ComputePipeline, u64, u64)>,
+    pub cache: Arc<
+        RwLock<
+            HashMap<
+                (
+                    Option<ResourceDescriptor>,
+                    ResourceDescriptor,
+                    Vec<(String, ResourceDescriptor)>,
+                ),
+                Arc<(ComputePipeline, u64, u64)>,
+            >,
+        >,
+    >,
+}
+
+impl Default for MapDefinition {
+    fn default() -> Self {
+        Self {
+            code: String::new(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
 }
 
 impl PartialEq for MapDefinition {
@@ -42,7 +55,7 @@ impl MapDefinition {
         let _ = Self::parse_signature(&code)?;
         Ok(Self {
             code,
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         })
     }
 
@@ -408,11 +421,12 @@ impl MapDefinition {
         output_res: ResourceDescriptor,
         secondary_resources: &HashMap<String, ResourceDescriptor>,
     ) -> Result<Arc<(ComputePipeline, u64, u64)>> {
-        let key = MapPipelineKey {
-            input: input_res.clone(),
-            output: output_res.clone(),
-            secondary: secondary_resources.into(),
-        };
+        let mut sec_res_sorted: Vec<(String, ResourceDescriptor)> = secondary_resources
+            .iter()
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        sec_res_sorted.sort_by(|a, b| a.0.cmp(&b.0));
+        let key = (input_res.clone(), output_res.clone(), sec_res_sorted);
 
         {
             let cache = self.cache.read().unwrap();
@@ -545,7 +559,7 @@ impl Map {
             }
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.clone(),
             parameters,

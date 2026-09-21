@@ -10,10 +10,6 @@ pub struct Plane {
 impl Plane {
     pub const EPSILON: f32 = 1e-5;
 
-    pub fn new(normal: Vec3, w: f32) -> Self {
-        Self { normal, w }
-    }
-
     pub fn from_points(a: Vec3, b: Vec3, c: Vec3) -> Self {
         let n = (b - a).cross(c - a).normalize();
         Self {

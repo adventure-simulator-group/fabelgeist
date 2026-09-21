@@ -1,4 +1,4 @@
-//! The WGSL every solver kernel shares.
+﻿//! The WGSL every solver kernel shares.
 //!
 //! A constraint kernel is mostly its own geometry -- what `C` is and what its
 //! gradient is. Everything around that is the same for all of them, so it
@@ -217,6 +217,61 @@ fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
 /// Zero the multipliers. XPBD accumulates `lambda` across the iterations of
 /// one substep and resets it at the start of the next -- that reset is what
 /// makes the compliance behave like a real stiffness rather than drifting.
+
+/// Spring constraints with viscous damping and compression/rebound bump stops.
+pub const SPRING: &str = r#"
+@group(0) @binding(1) var<storage, read_write> lambdas: array<f32>;
+// Two particle indices per constraint.
+@group(0) @binding(2) var<storage, read> particles: array<u32>;
+@group(0) @binding(3) var<storage, read> rest_lengths: array<f32>;
+// xy = travel ratios (min_ratio, max_ratio), z = damping, w = bump factor
+@group(0) @binding(4) var<storage, read> spring_params: array<vec4<f32>>;
+@group(0) @binding(5) var<uniform> params: SolveParams;
+
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
+    let local = global_id.x;
+    if (local >= params.count) {
+        return;
+    }
+    let constraint = params.first + local;
+
+    let a = particles[constraint * 2u];
+    let b = particles[constraint * 2u + 1u];
+    let inverse_mass_a = particle_inverse_mass(a);
+    let inverse_mass_b = particle_inverse_mass(b);
+
+    let delta = particle_position(a) - particle_position(b);
+    let distance = length(delta);
+    if (distance < 1e-9) {
+        return;
+    }
+
+    let normal = delta / distance;
+    let rest = rest_lengths[constraint];
+    let sparams = spring_params[constraint];
+    let min_limit = rest * sparams.x;
+    let max_limit = rest * sparams.y;
+    let bump_factor = max(sparams.w, 1.0);
+
+    var compliance = params.compliance;
+    if (distance < min_limit || distance > max_limit) {
+        compliance = compliance / bump_factor;
+    }
+
+    let value = distance - rest;
+    let alpha_tilde = xpbd_alpha_tilde(compliance, params.substep);
+    let solved = xpbd_solve(value, inverse_mass_a + inverse_mass_b, lambdas[constraint], alpha_tilde);
+    if (!solved.valid) {
+        return;
+    }
+
+    lambdas[constraint] = lambdas[constraint] + solved.delta_lambda;
+    particle_move(a, normal * (inverse_mass_a * solved.delta_lambda));
+    particle_move(b, normal * (-inverse_mass_b * solved.delta_lambda));
+}
+"#;
+
 pub const CLEAR_LAMBDAS: &str = r#"
 @group(0) @binding(0) var<storage, read_write> lambdas: array<f32>;
 

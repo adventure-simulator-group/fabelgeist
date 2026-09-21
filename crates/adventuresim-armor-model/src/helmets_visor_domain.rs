@@ -3,15 +3,15 @@ use spade::{ConstrainedDelaunayTriangulation, Point2, Triangulation};
 
 use crate::{CloseHelmetDesign, DesignError, GenerateError, VentSides};
 
-pub(super) const HALF_WIDTH_MM: f32 = 160.0;
-pub(super) const HEIGHT_MM: f32 = 100.0;
+pub(crate) const HALF_WIDTH_MM: f32 = 160.0;
+pub(crate) const HEIGHT_MM: f32 = 100.0;
 pub(super) const SIGHT_CENTER_MM: f64 = 30.0;
 const SAMPLE_SPACING_MM: f64 = 5.0;
 const GRID_EDGE_CLEARANCE_MM: f64 = 1.0;
 const MINIMUM_WEB_MM: f64 = 3.0;
 const CORNER_STEPS: usize = 4;
 
-pub(super) struct VisorDomain {
+pub(crate) struct VisorDomain {
     pub points: Vec<[f64; 2]>,
     pub indices: Vec<u32>,
     pub relief: Vec<f32>,

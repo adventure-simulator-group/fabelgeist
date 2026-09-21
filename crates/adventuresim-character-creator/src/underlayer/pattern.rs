@@ -1,10 +1,11 @@
 //! Anatomical garment volumes; Boolean cuts operate before normal standoff.
 use super::*;
 use crate::{
-    armor_frames::{FitRegion, Side},
+    armor_frames::{FitRegion, Side, Wearer},
     surface_cut::{ConvexRegion, Plane, dot},
 };
-use anyhow::Context;
+use adventuresim_armor_model::PartFrame;
+use anyhow::{Context, Result};
 
 const TUBE_SIDES: usize = 8;
 const GARMENT_HEM_DROP_M: f32 = 0.035;
@@ -18,10 +19,16 @@ const HOSE_MEDIAL_GAP_M: f32 = 0.003;
 #[path = "mail_regions.rs"]
 mod mail_regions;
 
+/// A part frame fitted to the wearer.
+pub type RegionFrame<'a> = &'a dyn Fn(FitRegion) -> Result<PartFrame>;
+
+/// The body volumes an underlayer keeps and removes, placed by the wearer's
+/// rig and sized by the part frames `frame` fits to it.
 pub fn regions(
     design: &UnderlayerDesign,
     placement: &str,
     body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let joint = |name: &str| -> Result<[f32; 3]> {
         let i = body
@@ -38,25 +45,25 @@ pub fn regions(
         .map(|cut| box_region(cut.minimum.0, cut.maximum.0))
         .collect::<Vec<_>>();
     match design.kind {
-        UnderlayerKind::ArmingDoublet => include = doublet(design, body, &joint)?,
+        UnderlayerKind::ArmingDoublet => include = doublet(design, frame, &joint)?,
         UnderlayerKind::PaddedHose => {
-            let (panels, cuts) = hose(design, placement, body, &joint)?;
+            let (panels, cuts) = hose(design, placement, frame, &joint)?;
             include = panels;
             subtract.extend(cuts);
         }
         UnderlayerKind::MailVoiders => include = voiders(design, &joint)?,
-        UnderlayerKind::MailBrayette => include = mail_regions::brayette(design, body, &joint)?,
+        UnderlayerKind::MailBrayette => include = mail_regions::brayette(design, frame, &joint)?,
         UnderlayerKind::MailKneeVoider => {
-            include = mail_regions::knee(design, placement, body, &joint)?
+            include = mail_regions::knee(design, placement, frame, &joint)?
         }
-        UnderlayerKind::MailStandard => include = mail_regions::standard(design, body, &joint)?,
+        UnderlayerKind::MailStandard => include = mail_regions::standard(design, frame, &joint)?,
     }
     Ok((include, subtract))
 }
 
 fn doublet(
     design: &UnderlayerDesign,
-    body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
     joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let mut include = Vec::new();
@@ -64,7 +71,7 @@ fn doublet(
     let neck = joint("c_neck")?;
     let left = joint("l_uparm")?;
     let right = joint("r_uparm")?;
-    let depth = body.frame(FitRegion::Torso)?.half_extents[2] * 2.0;
+    let depth = frame(FitRegion::Torso)?.half_extents[2] * 2.0;
     let bottom = neck[1] - (neck[1] - hip[1]) * design.length.unit() - GARMENT_HEM_DROP_M;
     include.push(box_region(
         [right[0] - SHOULDER_SEAM_OVERLAP_M, bottom, hip[2] - depth],
@@ -78,8 +85,8 @@ fn doublet(
         let shoulder = joint(&format!("{prefix}_uparm"))?;
         let elbow = joint(&format!("{prefix}_lowarm"))?;
         let wrist = joint(&format!("{prefix}_wrist"))?;
-        let frame = body.frame(FitRegion::WholeArm(side))?;
-        let radius = frame.half_extents[0].max(frame.half_extents[2]) * 1.5;
+        let arm = frame(FitRegion::WholeArm(side))?;
+        let radius = arm.half_extents[0].max(arm.half_extents[2]) * 1.5;
         include.push(tube(
             shoulder,
             elbow,
@@ -103,19 +110,19 @@ fn doublet(
 fn hose(
     design: &UnderlayerDesign,
     placement: &str,
-    body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
     joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<(Vec<ConvexRegion>, Vec<ConvexRegion>)> {
     let mut include = Vec::new();
     let mut subtract = Vec::new();
     let side = Side::from_placement(placement)?;
-    let prefix = if matches!(side, Side::Left) { "l" } else { "r" };
+    let prefix = side.prefix();
     let hip = joint(&format!("{prefix}_upleg"))?;
     let knee = joint(&format!("{prefix}_lowleg"))?;
     let ankle = joint(&format!("{prefix}_foot"))?;
     let ankle = std::array::from_fn(|i| knee[i] + (ankle[i] - knee[i]) * design.length.unit());
-    let frame = body.frame(FitRegion::WholeLeg(side))?;
-    let radius = frame.half_extents[0].max(frame.half_extents[2]) * 1.5;
+    let leg = frame(FitRegion::WholeLeg(side))?;
+    let radius = leg.half_extents[0].max(leg.half_extents[2]) * 1.5;
     include.push(tube(
         hip,
         knee,

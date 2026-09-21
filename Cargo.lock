@@ -113,6 +113,10 @@ name = "adventuresim-armor-model"
 version = "0.1.0"
 dependencies = [
  "blake3",
+ "bytemuck",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "pollster",
  "postcard",
  "serde",
  "serde_json",
@@ -4717,9 +4721,13 @@ dependencies = [
 name = "fabelgeist-armor"
 version = "0.1.0"
 dependencies = [
+ "bytemuck",
+ "fabelgeist-compute",
  "fabelgeist-garment-code",
+ "fabelgeist-gpu",
  "fabelgeist-math",
  "image",
+ "pollster",
  "serde",
 ]
 
@@ -4740,14 +4748,24 @@ name = "fabelgeist-cloth"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "bytemuck",
- "fabelgeist-bvh",
  "fabelgeist-compute",
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-physics",
+ "fabelgeist-shell",
  "fabelgeist-xpbd",
  "tokio",
+]
+
+[[package]]
+name = "fabelgeist-color"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "serde",
+ "serde_json",
+ "thiserror 2.0.20",
+ "wgpu 30.0.0",
 ]
 
 [[package]]
@@ -4758,6 +4776,7 @@ dependencies = [
  "bytemuck",
  "fabelgeist-gpu",
  "fabelgeist-math",
+ "futures-channel",
  "indexmap 2.14.1",
  "naga 30.0.1",
  "pollster",
@@ -4826,6 +4845,7 @@ dependencies = [
  "fabelgeist-gpu",
  "fabelgeist-math",
  "fabelgeist-physics",
+ "fabelgeist-shell",
  "fabelgeist-xpbd",
  "tokio",
 ]
@@ -4837,6 +4857,7 @@ dependencies = [
  "anyhow",
  "async-lock",
  "bytemuck",
+ "fabelgeist-color",
  "fabelgeist-fs",
  "fabelgeist-math",
  "fabelgeist-timer",
@@ -4866,6 +4887,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "fabelgeist-mesh"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-gpu",
+ "indexmap 2.14.1",
+ "serde",
+ "strum 0.27.2",
+ "tokio",
+ "wgpu 30.0.0",
+]
+
+[[package]]
 name = "fabelgeist-physics"
 version = "0.1.0"
 dependencies = [
@@ -4890,6 +4925,22 @@ dependencies = [
  "syn 2.0.119",
  "toml",
  "walkdir",
+]
+
+[[package]]
+name = "fabelgeist-shell"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "fabelgeist-bvh",
+ "fabelgeist-compute",
+ "fabelgeist-gpu",
+ "fabelgeist-math",
+ "fabelgeist-mesh",
+ "fabelgeist-physics",
+ "fabelgeist-xpbd",
+ "tokio",
 ]
 
 [[package]]

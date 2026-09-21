@@ -88,6 +88,7 @@ impl CharacterMorphs {
                 positions: sample.positions,
                 normals: sample.normals,
                 global_joint_states: sample.global_joint_states,
+                device: Default::default(),
             });
         }
         for target in SkeletalFitMorph::ALL {
@@ -107,6 +108,7 @@ impl CharacterMorphs {
                 positions: sample.positions,
                 normals: sample.normals,
                 global_joint_states: sample.global_joint_states,
+                device: Default::default(),
             });
         }
         Ok(Self {
@@ -279,6 +281,7 @@ mod tests {
             positions: vec![],
             normals: vec![],
             global_joint_states: vec![[0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+            device: Default::default(),
         };
         let mut deltas = [[0.0, 0.12, 0.0]];
         remove_skeletal_translation(

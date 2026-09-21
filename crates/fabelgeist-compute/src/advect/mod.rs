@@ -15,19 +15,26 @@ pub struct AdvectSignature {
 #[derive(Clone, Debug)]
 pub struct AdvectDefinition {
     pub mode: u32,
-    pub cache: ComputePipelineCache<(
-        ResourceDescriptor,
-        ResourceDescriptor,
-        ResourceDescriptor,
-        u32,
-    )>,
+    pub cache: Arc<
+        RwLock<
+            HashMap<
+                (
+                    ResourceDescriptor,
+                    ResourceDescriptor,
+                    ResourceDescriptor,
+                    u32,
+                ),
+                Arc<ComputePipeline>,
+            >,
+        >,
+    >,
 }
 
 impl AdvectDefinition {
     pub fn new(mode: u32) -> Self {
         Self {
             mode,
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         }
     }
 }
@@ -281,11 +288,14 @@ impl Advect {
 
         let size = match output {
             GpuResource::Texture2d(t) => {
-                fabelgeist_math::Vec4::new(t.size.0 as f32, t.size.1 as f32, 1.0, 1.0)
+                fabelgeist_gpu::data::vector::Vec4::new(t.size.0 as f32, t.size.1 as f32, 1.0, 1.0)
             }
-            GpuResource::Texture3d(t) => {
-                fabelgeist_math::Vec4::new(t.size.0 as f32, t.size.1 as f32, t.size.2 as f32, 1.0)
-            }
+            GpuResource::Texture3d(t) => fabelgeist_gpu::data::vector::Vec4::new(
+                t.size.0 as f32,
+                t.size.1 as f32,
+                t.size.2 as f32,
+                1.0,
+            ),
             _ => return Err(anyhow!("Output must be a texture")),
         };
 
@@ -300,7 +310,7 @@ impl Advect {
             _ => unreachable!(),
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.as_ref().clone(),
             parameters,

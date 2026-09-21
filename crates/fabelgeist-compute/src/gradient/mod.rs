@@ -7,19 +7,26 @@ use std::sync::{Arc, RwLock};
 #[derive(Clone, Debug)]
 pub struct GradientDefinition {
     pub boundary_mode: u32,
-    pub cache: ComputePipelineCache<(
-        ResourceDescriptor,
-        ResourceDescriptor,
-        ResourceDescriptor,
-        u32,
-    )>,
+    pub cache: Arc<
+        RwLock<
+            HashMap<
+                (
+                    ResourceDescriptor,
+                    ResourceDescriptor,
+                    ResourceDescriptor,
+                    u32,
+                ),
+                Arc<ComputePipeline>,
+            >,
+        >,
+    >,
 }
 
 impl GradientDefinition {
     pub fn new(boundary_mode: u32) -> Self {
         Self {
             boundary_mode,
-            cache: ComputePipelineCache::default(),
+            cache: Arc::new(RwLock::new(HashMap::new())),
         }
     }
 }
@@ -233,7 +240,7 @@ impl Gradient {
             _ => unreachable!(),
         };
 
-        fabelgeist_gpu::data::gpu::ComputePass::execute(
+        fabelgeist_gpu::data::gpu::ComputePass::new(
             context,
             pipeline.as_ref().clone(),
             parameters,

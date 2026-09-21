@@ -3,8 +3,7 @@ use std::sync::Arc;
 use crate::data::gpu::texture::TextureFormat;
 use anyhow::Result;
 
-use crate::globals::WgpuContext;
-use fabelgeist_math::Vec3;
+use crate::{data::vector::Vec3, globals::WgpuContext};
 
 #[derive(Clone, Debug)]
 pub struct Texture3d {
@@ -176,9 +175,8 @@ impl Texture3d {
 
         context.queue.submit(Some(encoder.finish()));
 
-        let (tx, rx) = futures_channel::oneshot::channel();
-        #[cfg(not(target_arch = "wasm32"))]
-        let mut rx = rx;
+        #[allow(unused_mut)]
+        let (tx, mut rx) = futures_channel::oneshot::channel();
         {
             let slice = staging_buffer.slice(..);
             slice.map_async(wgpu::MapMode::Read, move |res| {

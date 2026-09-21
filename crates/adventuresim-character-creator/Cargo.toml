@@ -28,9 +28,11 @@ serde_json = "1"
 fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
 fabelgeist-garment-fit = { path = "../fabelgeist-garment-fit" }
 fabelgeist-cloth = { path = "../fabelgeist-cloth" }
+fabelgeist-shell = { path = "../fabelgeist-shell" }
 fabelgeist-math = { path = "../fabelgeist-math" }
 fabelgeist-bvh = { path = "../fabelgeist-bvh" }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
 tokio = { version = "1", features = ["rt", "time"] }
 
 [dev-dependencies]

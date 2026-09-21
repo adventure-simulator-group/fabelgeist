@@ -1,6 +1,7 @@
 // Vendored from Sensorial Prism, products/prism/libraries/csg/src.
 // Copyright Sensorial Systems. Apache-2.0; see LICENSE.
-// Adaptation: vector imports use fabelgeist-math (the vendored Prism math).
+// Adaptation: vector imports use fabelgeist-math (the vendored Prism math),
+// and items the armor does not use are removed.
 mod bsp_node;
 mod plane;
 mod polygon;
