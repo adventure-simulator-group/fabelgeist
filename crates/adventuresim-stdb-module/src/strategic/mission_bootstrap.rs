@@ -870,7 +870,6 @@ fn standalone_case_site_distance_m(family: StandaloneMissionFamily) -> u64 {
         StandaloneMissionFamily::Animation | StandaloneMissionFamily::General => 0,
     }
 }
-
 fn standalone_case_id(mission_id: &str) -> String {
     format!("case:standalone:{mission_id}")
 }
