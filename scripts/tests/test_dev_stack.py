@@ -982,12 +982,12 @@ class WorkflowTests(unittest.TestCase):
             "required",
         )
 
-    def test_animation_lab_and_combat_keep_full_stats(self):
+    def test_interactive_tactical_modes_keep_full_enemy_stats(self):
         self.assertEqual(
             dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.ANIMATION), 10_000
         )
         self.assertEqual(
-            dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.DIAGNOSTIC), 0
+            dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.DIAGNOSTIC), 10_000
         )
         self.assertEqual(
             dev_stack.tactical_combat_scale(dev_stack.TacticalPlayMode.NETWORKING), 0
