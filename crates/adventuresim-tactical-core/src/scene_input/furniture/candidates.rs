@@ -35,7 +35,7 @@ impl Candidate {
         anchor: FurnitureAnchor,
     ) -> Self {
         let (anchor_kind, anchor_id) = match anchor {
-            FurnitureAnchor::Market { .. } => (0, 0),
+            FurnitureAnchor::Market { patch_index } => (0, u64::from(patch_index)),
             FurnitureAnchor::Building { id } => (1, id),
         };
         let id = GROUP_DOMAIN
