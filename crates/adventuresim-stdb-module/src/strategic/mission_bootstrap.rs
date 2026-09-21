@@ -579,9 +579,12 @@ pub fn seed_standalone_tactical_mission(
         existing
     } else {
         let coordinates_are_geographic = settlement.source_node_id.is_some();
+        let distance_m = standalone_case_site_distance_m(standalone_mission_family);
+        let northward_offset =
+            standalone_case_site_northward_offset(distance_m, coordinates_are_geographic);
         let coordinate = encode_position_e7(
             settlement.coord_x,
-            settlement.coord_y,
+            settlement.coord_y + northward_offset,
             coordinates_are_geographic,
         )
         .ok_or("Standalone tactical site is not a valid WGS84 coordinate")?;
@@ -596,7 +599,7 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: coordinate.longitude_e7,
             latitude_e7: coordinate.latitude_e7,
             coordinates_are_geographic,
-            distance_m: 0,
+            distance_m,
         })
     };
     let hostile_group_id = format!("hostile-group:standalone:{mission_id}");
@@ -771,7 +774,7 @@ pub fn seed_standalone_tactical_mission(
                 mission_id: mission_id.clone(),
                 capability_id,
                 case_id,
-                case_site_id: case_site.id,
+                case_site_id: case_site.id.clone(),
                 hostile_group_id,
                 path_index: 0,
                 objective_id,
@@ -783,11 +786,7 @@ pub fn seed_standalone_tactical_mission(
     }
     let (authorized_party_member_ids, expected_party_members) =
         crate::tactical::tactical_party_roster(ctx, &party_id)?;
-    let settlement = crate::tactical::tactical_settlement_snapshot(
-        ctx,
-        &case_site.origin_settlement_id,
-        &case_site.scene_key,
-    )?;
+    let settlement = crate::tactical::tactical_settlement_snapshot(ctx, &case_site)?;
     ctx.db
         .tactical_server_request_authority()
         .insert(crate::tactical::TacticalServerRequest {
@@ -833,6 +832,9 @@ enum StandaloneMissionFamily {
 
 const ANIMATION_MISSION_COORDINATE_PREFIX: &str = "animation-";
 const DIAGNOSTIC_MISSION_COORDINATE_PREFIX: &str = "diagnostic-";
+const STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M: u64 = 2_000;
+const METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE: f64 = 111_000.0;
+const METERS_PER_UNBOUNDED_COORDINATE_UNIT: f64 = 1_000.0;
 
 fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily, String> {
     let (domain, coordinate) = mission_id
@@ -857,6 +859,22 @@ fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily
     } else {
         Ok(StandaloneMissionFamily::General)
     }
+}
+
+fn standalone_case_site_distance_m(family: StandaloneMissionFamily) -> u64 {
+    match family {
+        StandaloneMissionFamily::Diagnostic => STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+        StandaloneMissionFamily::Animation | StandaloneMissionFamily::General => 0,
+    }
+}
+
+fn standalone_case_site_northward_offset(distance_m: u64, coordinates_are_geographic: bool) -> f64 {
+    let coordinate_unit_m = if coordinates_are_geographic {
+        METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
+    } else {
+        METERS_PER_UNBOUNDED_COORDINATE_UNIT
+    };
+    distance_m as f64 / coordinate_unit_m
 }
 
 fn standalone_case_id(mission_id: &str) -> String {
@@ -2620,6 +2638,27 @@ mod developer_quest_source_tests {
         ] {
             assert!(standalone_mission_family(invalid).is_err());
         }
+    }
+
+    #[test]
+    fn diagnostic_standalone_missions_create_wilderness_case_sites() {
+        assert_eq!(
+            standalone_case_site_distance_m(StandaloneMissionFamily::Diagnostic),
+            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M
+        );
+        assert!(STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M > 0);
+        assert_eq!(
+            standalone_case_site_distance_m(StandaloneMissionFamily::Animation),
+            0
+        );
+        assert_eq!(
+            standalone_case_site_northward_offset(
+                STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+                true,
+            ),
+            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64
+                / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
+        );
     }
 
     #[test]
