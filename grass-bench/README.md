@@ -6,6 +6,8 @@ can be measured on its own. No server, no netcode. Runs on Windows through
 `just bench-win` (the development loop) and on WebGPU through `just bench-web`
 (the product).
 
+For the three stripped WebGL2 laptop tests, see [DOWNLEVEL.md](DOWNLEVEL.md).
+
 ## Scene
 
 - The game's terrain heightfield with Fabelgeist's forest-floor textures
@@ -33,18 +35,19 @@ can be measured on its own. No server, no netcode. Runs on Windows through
     over the patch instead of the per-vertex affector loop (wind stays
     analytic per blade: in the map it smeared under TAA). A 2D camera on its
     own render layer draws one quad with `shaders/displacement.wgsl` into an
-    `Rgba16Float` image every frame (every affector's push, per texel, plus
-    the trails); each grass vertex then samples it once (`grass_bend_map`).
+    `Rgba16Float` image every frame (`Rgba8UnormSrgb` on WebGL2), containing
+    every affector's push plus the trails; each grass vertex samples it once
+    (`grass_bend_map`).
     The affector count never reaches the grass shader. The map camera is
     active only in this mode,
     so its pass (listed as `main_opaque_pass_2d`) is part of this mode's
     cost and no other. `Map resolution` knob: 128..1024 texels over the
     128 m square. `BENCH_MAP_DEBUG=1` exaggerates the pushes (radius x4,
     push x3) to eyeball the mapping. Trails (`Trails` knob, on by default):
-    a second persistent map (`shaders/trample.wgsl`) that is never cleared;
-    a decay quad and a push quad alpha-blend into it each frame (no
-    read-back), the displacement pass adds it in, so affectors leave
-    flattened grass behind them that relaxes over `Trail seconds`.
+    a ping-pong pair of maps (`shaders/trample.wgsl`) reads the previous
+    frame's trails and writes their decay plus fresh footprints, without
+    blending or CPU readback. The displacement pass adds the result so
+    affectors leave flattened grass that relaxes over `Trail seconds`.
   - Sprite cards (no instancing) (`grass/cards.rs`): mesh chunks of textured
     plant cards from `assets/textures/foliage/atlas.png` (17 sprites in three
     families, packed by `tools/pack_foliage_atlas.py` from the janexx plant
@@ -54,8 +57,8 @@ can be measured on its own. No server, no netcode. Runs on Windows through
     only the root (identical on every vertex), the facing normal and
     (corner, hash); the custom material's vertex shader picks the family from
     a value noise over the world root, the sprite and size from hashes, and
-    reads the corner offset and atlas UV from a sprite table in a storage
-    buffer. Nothing is uploaded after the bake. The atlas ships as three
+    reads the corner offset and atlas UV from a fixed uniform sprite
+    table. Nothing is uploaded after the bake. The atlas ships as three
     images for the mip knob (mip 0 only, plain box chain, coverage-preserving
     chain with per-sprite alpha scaling) and the anisotropy knob rewrites the
     sampler. Alpha goes through the foliage alpha knob. 8 plants/m² at

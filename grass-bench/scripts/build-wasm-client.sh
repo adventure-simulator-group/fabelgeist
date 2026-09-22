@@ -38,7 +38,7 @@ case "${mode}" in
             exit 2
         fi
         profile="wasm-dev"
-        features=""
+        features="downlevel"
         ;;
     trace)
         if [[ -n "${OUT_DIR:-}" ]]; then
@@ -110,7 +110,7 @@ RUSTFLAGS="${RUSTFLAGS:-} -C target-feature=+simd128" \
 
 if [[ "${webgl2_fallback:-0}" == "1" ]]; then
     RUSTFLAGS="${RUSTFLAGS:-} -C target-feature=+simd128" \
-        cargo build --profile wasm-release-webgl2 --target "${wasm_target}"
+        cargo build --profile wasm-release-webgl2 --features downlevel --target "${wasm_target}"
 fi
 
 rm -rf "${out_dir}"

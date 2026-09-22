@@ -1,4 +1,4 @@
-//! Mesh-chunk grass: no instancing at all. Every 8 m chunk near the camera
+//! Mesh-chunk grass: no instancing at all. Every 16 m chunk near the camera
 //! is one baked mesh (tufts copied into it, world-space heights baked in),
 //! drawn through the bench custom material like any other opaque object:
 //! bevy's own frustum culling, `VisibilityRange` fade, shadows and prepasses,
@@ -18,8 +18,8 @@ use bevy::mesh::{Indices, MeshTag, PrimitiveTopology, VertexAttributeValues};
 use bevy::prelude::*;
 
 use super::{
-    BASE_SEED, BLADE_HEIGHT_M, BLADE_WIDTH_M, CELL_SPACING, JITTER_FRACTION, MIN_SLOPE_NORMAL_Y,
-    GrassEntity, Tier, TierId, grass_color, splitmix64, unit_hash,
+    BASE_SEED, BLADE_HEIGHT_M, BLADE_WIDTH_M, CELL_SPACING, GrassEntity, JITTER_FRACTION,
+    MIN_SLOPE_NORMAL_Y, Tier, TierId, grass_color, splitmix64, unit_hash,
 };
 use crate::custom_material::{
     AffectorBuffer, CUSTOM_FLAG_LIT, CustomGlobals, CustomMaterial, KIND_GRASS, KIND_GRASS_MAP,
@@ -122,7 +122,12 @@ fn triangle_tuft_mesh(seed: u64) -> Mesh {
         let lean = Vec3::new(lean_angle.cos(), 0.0, lean_angle.sin()) * height * 0.12;
         let blade_hash = unit_hash(splitmix64(hash ^ 0x6861_7368));
         let shade = 0.8 + 0.4 * unit_hash(splitmix64(hash ^ 0x7368_6164));
-        let color = [pigment.red * shade, pigment.green * shade, pigment.blue * shade, blade_hash];
+        let color = [
+            pigment.red * shade,
+            pigment.green * shade,
+            pigment.blue * shade,
+            blade_hash,
+        ];
         let base = positions.len() as u32;
         for (position, uv) in [
             (root - side_dir * half_width, [0.0, 0.0]),
@@ -137,7 +142,10 @@ fn triangle_tuft_mesh(seed: u64) -> Mesh {
         }
         indices.extend_from_slice(&[base, base + 1, base + 2]);
     }
-    let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, RenderAssetUsages::RENDER_WORLD);
+    let mut mesh = Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::RENDER_WORLD,
+    );
     mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, positions);
     mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, normals);
     mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, uvs);
@@ -186,10 +194,17 @@ fn variant_from_mesh(mesh: &Mesh) -> TuftVariant {
 /// Bakes one chunk: the game's jittered lattice, thinned by density, each
 /// tuft a rotated, scaled copy of a variant with the terrain height in its
 /// vertices. xz relative to the chunk centre (the entity's translation, which
-/// bevy's range test measures from), world y.
+/// bevy's range test measures from), with y relative to the centre's terrain height.
+fn chunk_origin(key: (i32, i32)) -> Vec3 {
+    let x = (key.0 as f32 + 0.5) * CHUNK_SIZE;
+    let z = (key.1 as f32 + 0.5) * CHUNK_SIZE;
+    Vec3::new(x, terrain_height(x, z), z)
+}
+
 fn bake_chunk(key: (i32, i32), density: f32, variants: &[TuftVariant]) -> Mesh {
     let origin = Vec2::new(key.0 as f32, key.1 as f32) * CHUNK_SIZE;
     let centre_offset = Vec2::splat(CHUNK_SIZE * 0.5);
+    let base_height = chunk_origin(key).y;
     let spacing = MESH_TIER.cell_spacing;
     let side = MESH_TIER.tufts_per_cell_side as i32;
     let footprint = MESH_TIER.footprint();
@@ -210,7 +225,8 @@ fn bake_chunk(key: (i32, i32), density: f32, variants: &[TuftVariant]) -> Mesh {
                 (x as f32 + (hash01(cell_hash, 0x39bd_7f21) - 0.5) * JITTER_FRACTION) * spacing,
                 (z as f32 + (hash01(cell_hash, 0xe651_34aa) - 0.5) * JITTER_FRACTION) * spacing,
             );
-            if gate.length() > PATCH_RADIUS || terrain_normal(gate.x, gate.y).y < MIN_SLOPE_NORMAL_Y {
+            if gate.length() > PATCH_RADIUS || terrain_normal(gate.x, gate.y).y < MIN_SLOPE_NORMAL_Y
+            {
                 continue;
             }
             let cell_origin = Vec2::new(x as f32, z as f32) * spacing
@@ -228,7 +244,11 @@ fn bake_chunk(key: (i32, i32), density: f32, variants: &[TuftVariant]) -> Mesh {
                     let centre =
                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
                     let local = centre - origin;
-                    if local.x < 0.0 || local.x >= CHUNK_SIZE || local.y < 0.0 || local.y >= CHUNK_SIZE {
+                    if local.x < 0.0
+                        || local.x >= CHUNK_SIZE
+                        || local.y < 0.0
+                        || local.y >= CHUNK_SIZE
+                    {
                         continue;
                     }
                     if centre.length() > PATCH_RADIUS
@@ -241,7 +261,11 @@ fn bake_chunk(key: (i32, i32), density: f32, variants: &[TuftVariant]) -> Mesh {
                     let scale = 0.85 + hash01(tuft_hash, 0x7363) * 0.3;
                     let rotation = Quat::from_rotation_y(yaw);
                     let local = local - centre_offset;
-                    let offset = Vec3::new(local.x, terrain_height(centre.x, centre.y), local.y);
+                    let offset = Vec3::new(
+                        local.x,
+                        terrain_height(centre.x, centre.y) - base_height,
+                        local.y,
+                    );
                     let base = positions.len() as u32;
                     for (i, p) in variant.positions.iter().enumerate() {
                         positions.push((rotation * (*p * scale) + offset).to_array());
@@ -258,7 +282,10 @@ fn bake_chunk(key: (i32, i32), density: f32, variants: &[TuftVariant]) -> Mesh {
         }
     }
 
-    let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, RenderAssetUsages::RENDER_WORLD);
+    let mut mesh = Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::RENDER_WORLD,
+    );
     mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, positions);
     mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, normals);
     mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, uvs);
@@ -311,7 +338,12 @@ fn stream_chunks(
             let tag = objects.push(ObjectParams {
                 base_color: Vec4::ONE,
                 emissive: Vec4::ZERO,
-                params: Vec4::new(0.0, 1.0, 0.0, if use_map { KIND_GRASS_MAP } else { KIND_GRASS }),
+                params: Vec4::new(
+                    0.0,
+                    1.0,
+                    0.0,
+                    if use_map { KIND_GRASS_MAP } else { KIND_GRASS },
+                ),
             });
             let handle = customs.add(CustomMaterial {
                 globals: CustomGlobals {
@@ -327,9 +359,9 @@ fn stream_chunks(
                 },
                 base_texture: None,
                 sky_cube: Some(sun_sky.sky_cube.clone()),
-                objects: objects.handle.clone(),
+                objects: objects.data,
                 affectors: affector_buffer.0.clone(),
-                sprites: sprite_table.handle.clone(),
+                sprites: sprite_table.data.clone(),
                 displacement: map.as_ref().map(|m| m.image.clone()),
                 alpha_mode: AlphaMode::Opaque,
                 cull_mode: None,
@@ -341,7 +373,9 @@ fn stream_chunks(
     };
     // The resolution knob recreates the map image: follow it.
     if let Some(map) = &map
-        && customs.get(&material).is_some_and(|m| m.displacement.as_ref() != Some(&map.image))
+        && customs
+            .get(&material)
+            .is_some_and(|m| m.displacement.as_ref() != Some(&map.image))
         && let Some(mut m) = customs.get_mut(&material)
     {
         m.displacement = Some(map.image.clone());
@@ -349,7 +383,9 @@ fn stream_chunks(
     }
     if grass.variants.is_empty() {
         grass.variants = (0..VARIANTS)
-            .map(|v| variant_from_mesh(&triangle_tuft_mesh(splitmix64(BASE_SEED ^ 0x7661_7269 ^ v))))
+            .map(|v| {
+                variant_from_mesh(&triangle_tuft_mesh(splitmix64(BASE_SEED ^ 0x7661_7269 ^ v)))
+            })
             .collect();
         let v = &grass.variants[0];
         info!(
@@ -424,18 +460,16 @@ fn stream_chunks(
             Mesh3d(handle),
             MeshMaterial3d(material.clone()),
             MeshTag(tag),
-            Transform::from_xyz(
-                (key.0 as f32 + 0.5) * CHUNK_SIZE,
-                0.0,
-                (key.1 as f32 + 0.5) * CHUNK_SIZE,
-            ),
+            Transform::from_translation(chunk_origin(key)),
             Visibility::Inherited,
         ));
         // Measured from the chunk centre (`use_aabb: true` culled every chunk
         // in bevy 0.19), padded by the half diagonal so no tuft inside the
         // range is cut; the whole chunk dithers out together.
         let pad = CHUNK_SIZE * core::f32::consts::FRAC_1_SQRT_2;
-        if std::env::var("BENCH_MESH_NO_RANGE").is_err() {
+        // WebGL2 uses the CPU streaming window as a hard range boundary.
+        // Bevy 0.19's dither-range uniform layout is smaller than its shader array.
+        if !cfg!(feature = "downlevel") && std::env::var("BENCH_MESH_NO_RANGE").is_err() {
             entity.insert(VisibilityRange {
                 start_margin: 0.0..0.0,
                 end_margin: (range + pad - 3.0).max(1.0)..(range + pad),

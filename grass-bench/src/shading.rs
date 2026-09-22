@@ -11,9 +11,14 @@ use bevy::asset::{AssetId, UntypedAssetId};
 use bevy::mesh::MeshTag;
 use bevy::prelude::*;
 use bevy::render::render_resource::Face;
-use bevy_line_boil::{BOIL_FLAG_ALPHA_MASK, BOIL_FLAG_LIT, BoilShading, LineBoilMaterial, LineBoilSettings};
+use bevy_line_boil::{
+    BOIL_FLAG_ALPHA_MASK, BOIL_FLAG_LIT, BoilShading, LineBoilMaterial, LineBoilSettings,
+};
 
-use crate::custom_material::{AffectorBuffer, CUSTOM_FLAG_LIT, CustomGlobals, CustomMaterial, ObjectParams, ObjectParamsBuffer, SpriteTableBuffer};
+use crate::custom_material::{
+    AffectorBuffer, CUSTOM_FLAG_LIT, CustomGlobals, CustomMaterial, ObjectParams,
+    ObjectParamsBuffer, SpriteTableBuffer,
+};
 use crate::settings::{BenchSettings, FoliageAlpha, ShadingMode};
 
 /// The three renderings of one surface.
@@ -149,7 +154,10 @@ fn convert_new_materials(
     mut objects: ResMut<ObjectParamsBuffer>,
     affector_buffer: Res<AffectorBuffer>,
     sprite_table: Res<SpriteTableBuffer>,
-    pending: Query<(Entity, &MeshMaterial3d<StandardMaterial>, Option<&Name>), Without<MaterialSet>>,
+    pending: Query<
+        (Entity, &MeshMaterial3d<StandardMaterial>, Option<&Name>),
+        Without<MaterialSet>,
+    >,
 ) {
     let Some(sun_sky) = sun_sky else {
         return;
@@ -169,7 +177,7 @@ fn convert_new_materials(
             cull_mode: material.cull_mode,
             lit: !material.unlit,
         };
-        let objects_handle = objects.handle.clone();
+        let objects_handle = objects.data;
         let custom = caches
             .custom
             .entry(key)
@@ -190,7 +198,7 @@ fn convert_new_materials(
                     sky_cube: Some(sun_sky.sky_cube.clone()),
                     objects: objects_handle,
                     affectors: affector_buffer.0.clone(),
-                    sprites: sprite_table.handle.clone(),
+                    sprites: sprite_table.data.clone(),
                     displacement: None,
                     alpha_mode: material.alpha_mode,
                     cull_mode: material.cull_mode,
@@ -278,7 +286,11 @@ fn apply_foliage_alpha(
         FoliageAlpha::OpaqueDiscard => (AlphaMode::Opaque, true),
     };
     // Standard and boil cannot discard from an opaque pipeline: they get Mask.
-    let pbr_alpha_mode = if force_discard { AlphaMode::Mask(0.5) } else { alpha_mode };
+    let pbr_alpha_mode = if force_discard {
+        AlphaMode::Mask(0.5)
+    } else {
+        alpha_mode
+    };
     let mut seen: HashSet<UntypedAssetId> = HashSet::new();
     for set in sets {
         if seen.insert(set.standard.id().untyped())

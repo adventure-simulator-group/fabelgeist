@@ -158,7 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     engines = [("bench", build_engine("wasm-dev" if args.dev else "wasm-release", ["webgpu"], prefix))]
     if not args.dev:
         log("Building the grass bench (WebGL2 fallback)...")
-        engines.append(("bench_webgl2", build_engine("wasm-release-webgl2", [], prefix)))
+        engines.append(("bench_webgl2", build_engine("wasm-release-webgl2", ["downlevel"], prefix)))
     for name, wasm in engines:
         command = [
             bindgen, str(wasm), "--out-dir", str(out), "--target", "web",
@@ -201,6 +201,15 @@ def main(argv: list[str] | None = None) -> int:
         page = page.replace("const WASM_BYTES_WEBGL2 = 0;", f"const WASM_BYTES_WEBGL2 = {size};")
     # Fixed newlines so the file hashes the same from Windows and Linux builds.
     (out / "index.html").write_text(page, encoding="utf-8", newline="\n")
+
+    if not args.dev:
+        for route in ("cpu-culled", "no-instancing", "no-instancing-displacement"):
+            destination = out / route / "index.html"
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            # A base URL keeps both engine imports and Bevy assets at the bundle root.
+            demo_page = page.replace('<meta charset="utf-8" />',
+                '<meta charset="utf-8" /><base href="../" />')
+            destination.write_text(demo_page, encoding="utf-8", newline="\n")
 
     if not args.no_compress:
         log("Compressing the engines and the models...")

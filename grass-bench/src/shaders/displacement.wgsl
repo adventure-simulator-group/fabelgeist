@@ -29,7 +29,11 @@ struct AffectorList {
 };
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(0) var<uniform> params: DisplacementParams;
+#ifdef DOWNLEVEL
+@group(#{MATERIAL_BIND_GROUP}) @binding(1) var<uniform> affectors: AffectorList;
+#else
 @group(#{MATERIAL_BIND_GROUP}) @binding(1) var<storage, read> affectors: AffectorList;
+#endif
 @group(#{MATERIAL_BIND_GROUP}) @binding(2) var trample_map: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(3) var trample_sampler: sampler;
 
@@ -53,10 +57,17 @@ fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
     // Trails: what the trample map remembers of earlier passes (trample.wgsl):
     // xy the flattening direction, z how hard the blades are pressed down.
     let uv = (p - params.map.xy) * params.map.z;
-    let trail = textureSampleLevel(trample_map, trample_sampler, uv, 0.0) * params.debug.z;
+    var trail = textureSampleLevel(trample_map, trample_sampler, uv, 0.0);
+#ifdef DOWNLEVEL
+    trail = vec4<f32>((trail.xy * 255.0 - 128.0) / 32.0, trail.zw);
+#endif
+    trail *= params.debug.z;
     offset += trail.xy;
     crush = max(crush, trail.z);
     // w: the remembered trail alone. A ball rolling past pushes grass aside
     // without killing it; only what the trail map kept is dead.
+#ifdef DOWNLEVEL
+    offset = (offset * 32.0 + 128.0) / 255.0;
+#endif
     return vec4<f32>(offset.x, offset.y, crush, clamp(trail.z, 0.0, 1.0));
 }

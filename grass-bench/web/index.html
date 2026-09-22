@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>GPU bench</title>
+    <link rel="icon" href="data:," />
     <style>
       html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0b0d10; overflow: hidden; }
       #bevy { width: 100%; height: 100%; display: block; outline: none; }
@@ -17,6 +18,9 @@
       #boot-console { flex: 1; overflow: auto; white-space: pre-wrap; opacity: 0.8; }
       #boot-console .warn { color: #e3b341; }
       #boot-console .err { color: #f85149; }
+      nav { position: fixed; right: 8px; top: 8px; z-index: 2;
+        font: 12px ui-monospace, monospace; background: #0b0d10cc; padding: 8px; }
+      nav a { color: #c9d1d9; margin: 0 6px; }
       #hint {
         position: fixed; left: 8px; bottom: 8px; color: #8b949e; pointer-events: none;
         font: 12px ui-monospace, Menlo, Consolas, monospace;
@@ -25,6 +29,11 @@
   </head>
   <body>
     <canvas id="bevy"></canvas>
+    <nav aria-label="Grass tests">
+      <a href="./cpu-culled/">CPU-culled</a>
+      <a href="./no-instancing/">No instancing</a>
+      <a href="./no-instancing-displacement/">Displacement</a>
+    </nav>
     <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
     <div id="boot">
       <div id="boot-status">&gt; boot</div>
@@ -78,8 +87,10 @@
       // Assets to warm into the HTTP cache the moment the engine finishes
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
       const PREFETCH = [];
+      const demo = /\/(cpu-culled|no-instancing|no-instancing-displacement)\/?$/.test(location.pathname);
+      if (demo) document.getElementById("hint").textContent = "WebGL2 grass test";
       const prefetchAssets = () => {
-        for (const href of PREFETCH) {
+        for (const href of (demo ? [] : PREFETCH)) {
           document.head.append(
             Object.assign(document.createElement("link"), {
               rel: "prefetch",
@@ -98,7 +109,7 @@
         // fallback on a WebGPU-capable browser.
         let engine = { js: "./bench.js", wasm: "./bench_bg.wasm", bytes: WASM_BYTES };
         if (WASM_BYTES_WEBGL2) {
-          const adapter = navigator.gpu
+          const adapter = !demo && navigator.gpu
             ? await Promise.race([
                 navigator.gpu.requestAdapter().catch(() => null),
                 new Promise((resolve) => setTimeout(() => resolve(null), 3000)),
@@ -115,14 +126,14 @@
         } else if (!navigator.gpu) {
           boot_status("this build needs WebGPU (Chrome/Edge, or Firefox on Windows)");
         }
-        const mod = await import(engine.js);
+        const mod = await import(new URL(engine.js, document.baseURI).href);
         const init = mod.default;
 
         boot_status("fetching engine");
         // Unbuilt serving (WASM_BYTES=0) has no ?v= cache-buster; force
         // revalidation there. Built deploys keep the immutable fast path.
         const raw = await fetch(
-          new URL(engine.wasm, import.meta.url),
+          new URL(engine.wasm, document.baseURI),
           engine.bytes ? {} : { cache: "no-cache" }
         );
         if (!raw.ok) throw new Error(`engine fetch failed: HTTP ${raw.status}`);

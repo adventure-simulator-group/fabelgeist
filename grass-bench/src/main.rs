@@ -17,7 +17,37 @@ mod stats;
 
 use bevy::asset::AssetMetaCheck;
 use bevy::prelude::*;
+use bevy::render::RenderPlugin;
+use bevy::render::error_handler::{RenderErrorHandler, RenderErrorPolicy};
+use bevy::render::settings::{RenderCreation, WgpuSettings};
 use bevy::window::{PresentMode, WindowResolution};
+
+/// Keeps the app alive through wgpu validation errors instead of quitting.
+///
+/// The default handler exits, which is right for a game and useless here: on
+/// a downlevel device (WebGL2, no storage buffers) one unsupported bind group
+/// killed the whole bench before you could pick a mode that does work. The
+/// modes that cannot exist there are compiled out, so anything that still
+/// errors is worth seeing rather than dying over -- but the log is capped,
+/// since a per-frame error would otherwise bury the console.
+fn keep_rendering(
+    error: &bevy::render::error_handler::RenderError,
+    _main: &mut World,
+    _render: &mut World,
+) -> RenderErrorPolicy {
+    use std::sync::atomic::{AtomicUsize, Ordering};
+    static SEEN: AtomicUsize = AtomicUsize::new(0);
+    let seen = SEEN.fetch_add(1, Ordering::Relaxed);
+    if seen < 8 {
+        error!(
+            "render error ignored ({:?}): {}",
+            error.ty, error.description
+        );
+    } else if seen == 8 {
+        error!("further render errors will not be logged");
+    }
+    RenderErrorPolicy::Ignore
+}
 
 fn main() {
     let settings = settings::BenchSettings::load();
@@ -26,10 +56,27 @@ fn main() {
         DefaultPlugins
             .build()
             .disable::<bevy::audio::AudioPlugin>()
+            .set(RenderPlugin {
+                render_creation: RenderCreation::Automatic(Box::new(WgpuSettings {
+                    // BENCH_DOWNLEVEL=1 holds a desktop GPU to WebGL2's
+                    // limits (no storage buffers, one cascade, and the rest),
+                    // which is the only way to reproduce a weak laptop's
+                    // failures without owning one.
+                    constrained_limits: std::env::var("BENCH_DOWNLEVEL")
+                        .is_ok()
+                        .then(bevy::render::settings::WgpuLimits::downlevel_webgl2_defaults),
+                    ..default()
+                })),
+                ..default()
+            })
             .set(WindowPlugin {
                 primary_window: Some(Window {
                     title: "GPU bench".into(),
-                    resolution: WindowResolution::new(1280, 720),
+                    resolution: if cfg!(feature = "downlevel") {
+                        WindowResolution::new(1280, 720).with_scale_factor_override(1.0)
+                    } else {
+                        WindowResolution::new(1280, 720)
+                    },
                     present_mode: if settings.vsync {
                         PresentMode::AutoVsync
                     } else {
@@ -66,7 +113,14 @@ fn main() {
     })
     .add_plugins((
         bevy::diagnostic::FrameTimeDiagnosticsPlugin::default(),
-        bevy_egui::EguiPlugin::default(),
+        bevy_egui::EguiPlugin {
+            bindless_mode_array_size: if cfg!(feature = "downlevel") {
+                None
+            } else {
+                std::num::NonZero::new(16)
+            },
+            ..default()
+        },
         bevy_line_boil::LineBoilPlugin,
         affectors::AffectorsPlugin,
         custom_material::CustomMaterialPlugin,
@@ -79,5 +133,6 @@ fn main() {
     ));
     #[cfg(not(target_family = "wasm"))]
     app.add_plugins(bevy::render::diagnostic::RenderDiagnosticsPlugin);
+    app.insert_resource(RenderErrorHandler(keep_rendering));
     app.run();
 }

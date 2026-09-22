@@ -9,6 +9,7 @@ type_complexity = "allow"
 
 [features]
 default = []
+downlevel = []
 # WebGPU backend on wasm (the product). Without it bevy's default webgl2
 # backend is used: `just bench-web-webgl2`.
 webgpu = ["bevy/webgpu"]

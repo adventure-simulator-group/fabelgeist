@@ -6,7 +6,7 @@
 use bevy::prelude::*;
 
 use crate::scene::{hash01, terrain_height};
-use crate::settings::BenchSettings;
+use crate::settings::{BenchSettings, InstancingMode};
 
 #[derive(Clone, Copy, Debug)]
 pub struct Affector {
@@ -32,8 +32,10 @@ pub struct AffectorsPlugin;
 
 impl Plugin for AffectorsPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<Affectors>()
-            .add_systems(Update, (spawn_affectors, move_affectors, feed_instanced_grass).chain());
+        app.init_resource::<Affectors>().add_systems(
+            Update,
+            (spawn_affectors, move_affectors, feed_instanced_grass).chain(),
+        );
     }
 }
 
@@ -114,36 +116,47 @@ fn move_affectors(
 /// The game's grass material has one interaction slot: the first affector
 /// drives it on both instanced paths (the chunked/culled uniform and every
 /// eidolon batch material) so the grass reacts there too.
+///
+/// Only for the path that is actually drawing. The affectors move every
+/// frame, so this system runs every frame, and touching an eidolon material
+/// asset re-extracts it and rebuilds its bind group -- a cost the eidolon
+/// mode chooses, but one no other mode should be paying. The materials
+/// outlive their entities in `Assets`, so without the gate a single visit to
+/// the eidolon mode taxed every measurement taken afterwards.
 pub fn feed_instanced_grass(
     affectors: Res<Affectors>,
     settings: Res<BenchSettings>,
     mut simple_params: Option<ResMut<crate::grass::simple::GrassSimpleParams>>,
     mut eidolon_materials: ResMut<Assets<crate::grass::eidolon::GrassMaterial>>,
 ) {
-    if !affectors.is_changed() && !settings.is_changed() {
+    if !affectors.is_changed() {
         return;
     }
-    // Backlit glow rides in the spare half of the shading vector.
-    let backlight = Vec2::new(settings.transmit, settings.transmit_power);
+    let feeds_uniform = matches!(
+        settings.instancing,
+        InstancingMode::Simple | InstancingMode::SimpleCulled
+    );
+    let feeds_materials = settings.instancing == InstancingMode::Eidolon;
+    if !feeds_uniform && !feeds_materials {
+        return;
+    }
     let (interaction, motion) = match affectors.list.first() {
-        Some(a) => (
-            a.position.extend(RADIUS),
-            a.velocity.extend(0.7),
+        Some(a) => (a.position.extend(RADIUS), a.velocity.extend(0.7)),
+        None => (
+            Vec4::new(1.0e5, 0.0, 1.0e5, RADIUS),
+            Vec4::new(0.0, 0.0, 0.0, 0.7),
         ),
-        None => (Vec4::new(1.0e5, 0.0, 1.0e5, RADIUS), Vec4::new(0.0, 0.0, 0.0, 0.7)),
     };
-    if let Some(params) = simple_params.as_mut() {
+    if feeds_uniform && let Some(params) = simple_params.as_mut() {
         for tier in params.tiers.iter_mut() {
             tier.interaction = interaction;
             tier.interaction_motion = motion;
-            tier.shading.z = backlight.x;
-            tier.shading.w = backlight.y;
         }
     }
-    for (_, material) in eidolon_materials.iter_mut() {
-        material.interaction = interaction;
-        material.interaction_motion = motion;
-        material.shading.z = backlight.x;
-        material.shading.w = backlight.y;
+    if feeds_materials {
+        for (_, material) in eidolon_materials.iter_mut() {
+            material.interaction = interaction;
+            material.interaction_motion = motion;
+        }
     }
 }

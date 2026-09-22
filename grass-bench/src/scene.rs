@@ -4,8 +4,8 @@
 //! Grass lives in `grass/`.
 
 use bevy::asset::RenderAssetUsages;
-use bevy::camera::visibility::VisibilityRange;
 use bevy::camera::Exposure;
+use bevy::camera::visibility::VisibilityRange;
 use bevy::core_pipeline::tonemapping::Tonemapping;
 use bevy::image::{ImageAddressMode, ImageLoaderSettings, ImageSampler, ImageSamplerDescriptor};
 use bevy::input::mouse::AccumulatedMouseMotion;
@@ -124,46 +124,6 @@ struct PlaceholderTree {
     leaves: Handle<StandardMaterial>,
 }
 
-/// Where the sun stands for a given elevation and compass angle, at the
-/// distance the cascade config was built around.
-fn sun_position(elevation_deg: f32, azimuth_deg: f32) -> Vec3 {
-    let (elevation, azimuth) = (elevation_deg.to_radians(), azimuth_deg.to_radians());
-    Vec3::new(
-        azimuth.sin() * elevation.cos(),
-        elevation.sin().max(0.02),
-        azimuth.cos() * elevation.cos(),
-    ) * 76.0
-}
-
-/// The sun knobs. Backlit foliage only shows with the sun low and behind the
-/// grass, so the fixed sun had no angle that could show it. The instanced
-/// grass reads bevy's light bindings and follows on its own; the custom
-/// materials carry their own copy of the direction, so it is pushed to them.
-fn move_sun(
-    settings: Res<BenchSettings>,
-    mut sun_sky: Option<ResMut<SunSky>>,
-    mut materials: ResMut<Assets<crate::custom_material::CustomMaterial>>,
-    mut sun: Query<&mut Transform, With<DirectionalLight>>,
-    mut last: Local<Option<(f32, f32)>>,
-) {
-    let angles = (settings.sun_elevation, settings.sun_azimuth);
-    if *last == Some(angles) {
-        return;
-    }
-    *last = Some(angles);
-    let position = sun_position(angles.0, angles.1);
-    for mut transform in &mut sun {
-        *transform = Transform::from_translation(position).looking_at(Vec3::ZERO, Vec3::Y);
-    }
-    let direction = position.normalize();
-    if let Some(sun_sky) = sun_sky.as_mut() {
-        sun_sky.sun_dir = direction;
-    }
-    for (_, material) in materials.iter_mut() {
-        material.globals.sun_dir = direction.extend(0.0);
-    }
-}
-
 pub struct ScenePlugin;
 
 impl Plugin for ScenePlugin {
@@ -178,7 +138,6 @@ impl Plugin for ScenePlugin {
                     tag_tree_meshes,
                     apply_lod,
                     drive_camera,
-                    move_sun,
                 ),
             );
     }
@@ -186,7 +145,6 @@ impl Plugin for ScenePlugin {
 
 fn setup(
     mut commands: Commands,
-    settings: Res<BenchSettings>,
     asset_server: Res<AssetServer>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut images: ResMut<Assets<Image>>,
@@ -194,11 +152,7 @@ fn setup(
 ) {
     // Sun: the tactical client's shape (two cascades, 72 m) at direct-sunlight
     // illuminance with the matching exposure.
-    let sun_transform = Transform::from_translation(sun_position(
-        settings.sun_elevation,
-        settings.sun_azimuth,
-    ))
-    .looking_at(Vec3::ZERO, Vec3::Y);
+    let sun_transform = Transform::from_xyz(40.0, 60.0, 25.0).looking_at(Vec3::ZERO, Vec3::Y);
     commands.spawn((
         Name::new("sun"),
         DirectionalLight {
@@ -208,7 +162,7 @@ fn setup(
             ..default()
         },
         CascadeShadowConfigBuilder {
-            num_cascades: 2,
+            num_cascades: if cfg!(feature = "downlevel") { 1 } else { 2 },
             first_cascade_far_bound: 18.0,
             maximum_distance: 72.0,
             ..default()
@@ -224,11 +178,8 @@ fn setup(
     let sky_cube = images.add(bake_sky_image(Vec3::new(0.30, 0.26, 0.16)));
     commands.insert_resource(SunSky {
         sun_dir: sun_transform.translation.normalize(),
-        sun_color: Vec4::from_array(
-            Color::srgb(1.0, 0.96, 0.9)
-                .to_linear()
-                .to_f32_array(),
-        ) * SUN_ILLUMINANCE
+        sun_color: Vec4::from_array(Color::srgb(1.0, 0.96, 0.9).to_linear().to_f32_array())
+            * SUN_ILLUMINANCE
             * scale,
         // Sky irradiance (~0.5 average) against ambient of the same size.
         sky_strength: AMBIENT_BRIGHTNESS * scale,
@@ -242,7 +193,8 @@ fn setup(
             yaw: 0.0,
             pitch: -0.2,
         },
-        Transform::from_translation(look_at + Vec3::new(0.0, 6.0, 24.0)).looking_at(look_at, Vec3::Y),
+        Transform::from_translation(look_at + Vec3::new(0.0, 6.0, 24.0))
+            .looking_at(look_at, Vec3::Y),
     ));
 
     // Ground: the Fabelgeist forest-floor set, tiled every 4 m.
@@ -311,11 +263,14 @@ fn terrain_mesh() -> Mesh {
             indices.extend_from_slice(&[a, c, b, b, c, d]);
         }
     }
-    let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, RenderAssetUsages::RENDER_WORLD)
-        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
-        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, uvs)
-        .with_inserted_indices(Indices::U32(indices));
+    let mut mesh = Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::RENDER_WORLD,
+    )
+    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
+    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, uvs)
+    .with_inserted_indices(Indices::U32(indices));
     if let Err(err) = mesh.generate_tangents() {
         warn!("terrain tangents: {err:?}");
     }
@@ -374,10 +329,22 @@ fn build_placeholder_tree(
         let mut indices = Vec::with_capacity(cards * 6);
         for i in 0..cards as u64 {
             let s = i + salt * 1000;
-            let dir = Vec3::new(hash01(s, 10) - 0.5, hash01(s, 11) - 0.5, hash01(s, 12) - 0.5).normalize_or(Vec3::Y);
+            let dir = Vec3::new(
+                hash01(s, 10) - 0.5,
+                hash01(s, 11) - 0.5,
+                hash01(s, 12) - 0.5,
+            )
+            .normalize_or(Vec3::Y);
             let center = Vec3::new(0.0, 6.8, 0.0) + dir * 2.6 * hash01(s, 13).cbrt();
-            let n = Vec3::new(hash01(s, 14) - 0.5, hash01(s, 15) - 0.5, hash01(s, 16) - 0.5).normalize_or(Vec3::Z);
-            let t = n.cross(if n.y.abs() < 0.9 { Vec3::Y } else { Vec3::X }).normalize();
+            let n = Vec3::new(
+                hash01(s, 14) - 0.5,
+                hash01(s, 15) - 0.5,
+                hash01(s, 16) - 0.5,
+            )
+            .normalize_or(Vec3::Z);
+            let t = n
+                .cross(if n.y.abs() < 0.9 { Vec3::Y } else { Vec3::X })
+                .normalize();
             let b = n.cross(t);
             let h = card_size * 0.5;
             let base = positions.len() as u32;
@@ -388,11 +355,14 @@ fn build_placeholder_tree(
             }
             indices.extend_from_slice(&[base, base + 1, base + 2, base, base + 2, base + 3]);
         }
-        Mesh::new(PrimitiveTopology::TriangleList, RenderAssetUsages::RENDER_WORLD)
-            .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
-            .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
-            .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, uvs)
-            .with_inserted_indices(Indices::U32(indices))
+        Mesh::new(
+            PrimitiveTopology::TriangleList,
+            RenderAssetUsages::RENDER_WORLD,
+        )
+        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, positions)
+        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, normals)
+        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, uvs)
+        .with_inserted_indices(Indices::U32(indices))
     };
 
     PlaceholderTree {
@@ -448,12 +418,19 @@ fn spawn_trees(
         let transform = Transform::from_translation(position)
             .with_rotation(Quat::from_rotation_y(yaw))
             .with_scale(Vec3::splat(scale));
-        let mut root = commands.spawn((Name::new(format!("tree {i}")), TreeRoot, transform, Visibility::default()));
+        let mut root = commands.spawn((
+            Name::new(format!("tree {i}")),
+            TreeRoot,
+            transform,
+            Visibility::default(),
+        ));
         match settings.tree_model {
             TreeModel::Oak => {
                 root.with_child((
                     Name::new("oak"),
-                    WorldAssetRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("models/oak.glb"))),
+                    WorldAssetRoot(
+                        asset_server.load(GltfAssetLabel::Scene(0).from_asset("models/oak.glb")),
+                    ),
                 ));
             }
             TreeModel::Placeholder => {
@@ -508,7 +485,9 @@ fn spawn_characters(
             CharacterRoot,
             Transform::from_translation(position).with_rotation(Quat::from_rotation_y(yaw)),
             Visibility::default(),
-            WorldAssetRoot(asset_server.load(GltfAssetLabel::Scene(0).from_asset("models/fabelgeist.glb"))),
+            WorldAssetRoot(
+                asset_server.load(GltfAssetLabel::Scene(0).from_asset("models/fabelgeist.glb")),
+            ),
         ));
     }
 }
@@ -547,7 +526,9 @@ fn tag_tree_meshes(
             }
         }
         if under_tree {
-            commands.entity(entity).try_insert(lod.unwrap_or(TreeLod::Lod0));
+            commands
+                .entity(entity)
+                .try_insert(lod.unwrap_or(TreeLod::Lod0));
         }
     }
 }
@@ -576,11 +557,15 @@ fn apply_lod(
 ) {
     if settings.is_changed() {
         for (entity, lod) in &all {
-            commands.entity(entity).try_insert(lod_range(*lod, settings.lod));
+            commands
+                .entity(entity)
+                .try_insert(lod_range(*lod, settings.lod));
         }
     } else {
         for (entity, lod) in &added {
-            commands.entity(entity).try_insert(lod_range(*lod, settings.lod));
+            commands
+                .entity(entity)
+                .try_insert(lod_range(*lod, settings.lod));
         }
     }
 }
@@ -599,7 +584,12 @@ fn drive_camera(
             cam.orbit_angle += dt * std::f32::consts::TAU / 60.0;
             let center = Vec3::new(0.0, terrain_height(0.0, 0.0) + 1.6, 0.0);
             let radius = 24.0;
-            let position = center + Vec3::new(cam.orbit_angle.cos() * radius, 6.0, cam.orbit_angle.sin() * radius);
+            let position = center
+                + Vec3::new(
+                    cam.orbit_angle.cos() * radius,
+                    6.0,
+                    cam.orbit_angle.sin() * radius,
+                );
             *transform = Transform::from_translation(position).looking_at(center, Vec3::Y);
             let (yaw, pitch, _) = transform.rotation.to_euler(EulerRot::YXZ);
             cam.yaw = yaw;
@@ -632,7 +622,11 @@ fn drive_camera(
         if keys.pressed(KeyCode::KeyQ) {
             wish -= Vec3::Y;
         }
-        let speed = if keys.pressed(KeyCode::ShiftLeft) { 30.0 } else { 8.0 };
+        let speed = if keys.pressed(KeyCode::ShiftLeft) {
+            30.0
+        } else {
+            8.0
+        };
         transform.translation += wish.normalize_or_zero() * speed * dt;
     }
 }

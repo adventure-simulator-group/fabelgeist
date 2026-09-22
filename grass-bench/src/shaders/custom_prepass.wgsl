@@ -1,5 +1,5 @@
 // Prepass for the bench custom material. Vertex: bevy's prepass.wgsl vertex
-// plus the grass bend for flagged objects, so depth / shadows / motion
+// plus the grass bend for flagged tables, so depth / shadows / motion
 // vectors match the main pass. Fragment: bevy's prepass fragment plus the
 // same alpha test as custom.wgsl, so cut-out leaves stay cut out.
 
@@ -16,7 +16,7 @@
 }
 #import bevy_render::globals::Globals
 #import bench::custom_bindings::{
-    globals_u, base_texture, base_sampler, objects, grass_bend, grass_bend_map, card_vertex,
+    globals_u, base_texture, base_sampler, tables, grass_bend, grass_bend_map, card_vertex,
     card_curve_uv, KIND_GRASS, KIND_CARD, KIND_GRASS_MAP, KIND_CARD_CURVED,
 }
 #ifdef VISIBILITY_RANGE_DITHER
@@ -93,7 +93,7 @@ fn vertex(vertex_no_morph: Vertex) -> VertexOutput {
     var world_from_local = mesh_world_from_local;
 #endif
 
-    let kind = objects[mesh_functions::get_tag(vertex_no_morph.instance_index)].params.w;
+    let kind = tables.objects[min(mesh_functions::get_tag(vertex_no_morph.instance_index), 127u)].params.w;
     let is_grass = abs(kind - KIND_GRASS) < 0.5;
     let is_map = abs(kind - KIND_GRASS_MAP) < 0.5;
     let is_card = abs(kind - KIND_CARD) < 0.5 || abs(kind - KIND_CARD_CURVED) < 0.5;
@@ -225,7 +225,7 @@ fn vertex(vertex_no_morph: Vertex) -> VertexOutput {
 }
 
 fn alpha_test(in: VertexOutput) {
-    let obj = objects[mesh_functions::get_tag(in.instance_index)];
+    let obj = tables.objects[min(mesh_functions::get_tag(in.instance_index), 127u)];
     var alpha = obj.base_color.a;
     // Sampled before the per-object branch: WebGPU forbids textureSample
     // (implicit derivatives) in non-uniform control flow.

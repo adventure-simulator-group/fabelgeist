@@ -8,7 +8,7 @@
 //!   opaque pipeline on purpose for the "Opaque + discard" foliage test.
 //! - A prepass fragment shader that applies the same alpha test, so the depth
 //!   pre-pass / TAA / occlusion culling see cut-out leaves, not full quads.
-//! - Per-object colour and parameters live in one storage buffer indexed by
+//! - Per-object colour and parameters live in a fixed uniform table indexed by
 //!   `MeshTag`, so every object sharing a texture shares one material handle,
 //!   hence one bind group, hence one batch. `params.w = 1` marks grass: the
 //!   vertex shader then applies wind and the affector array from the globals
@@ -18,13 +18,17 @@ use bevy::asset::{load_internal_asset, uuid_handle};
 use bevy::mesh::MeshVertexBufferLayoutRef;
 use bevy::pbr::{Material, MaterialPipeline, MaterialPipelineKey, MaterialPlugin};
 use bevy::prelude::*;
+#[cfg(not(feature = "downlevel"))]
 use bevy::render::extract_resource::{ExtractResource, ExtractResourcePlugin};
 use bevy::render::render_resource::{
-    AsBindGroup, Buffer, BufferDescriptor, BufferUsages, Face, RenderPipelineDescriptor,
-    ShaderType, SpecializedMeshPipelineError,
+    AsBindGroup, Face, RenderPipelineDescriptor, ShaderType, SpecializedMeshPipelineError,
 };
+#[cfg(not(feature = "downlevel"))]
+use bevy::render::render_resource::{Buffer, BufferDescriptor, BufferUsages};
+#[cfg(not(feature = "downlevel"))]
 use bevy::render::renderer::{RenderDevice, RenderQueue};
-use bevy::render::storage::ShaderBuffer;
+
+#[cfg(not(feature = "downlevel"))]
 use bevy::render::{Render, RenderApp, RenderSystems};
 use bevy::shader::ShaderRef;
 
@@ -39,6 +43,7 @@ pub const CUSTOM_BINDINGS_SHADER_HANDLE: Handle<Shader> =
 
 pub const CUSTOM_FLAG_LIT: u32 = 1;
 pub const MAX_AFFECTORS: usize = 16;
+pub const MAX_OBJECTS: usize = 128;
 
 /// Shared by every custom material: the one sun, the sky strength, the wind.
 #[derive(ShaderType, Debug, Clone, Copy)]
@@ -60,9 +65,6 @@ pub struct CustomGlobals {
     /// Curved cards: x bend (fraction of the card's width at the tip),
     /// y flutter, zw unused.
     pub curve: Vec4,
-    /// Backlit foliage: x strength, y lobe sharpness, z how far the light
-    /// wraps around the blade before the lobe is measured, w unused.
-    pub transmit: Vec4,
     /// Displacement map: min corner (x, z), 1 / size, w: scorch (0..1, how
     /// far a remembered trail burns the grass colour; `trample_scorch`).
     pub map: Vec4,
@@ -80,7 +82,6 @@ impl Default for CustomGlobals {
             wind: Vec4::new(0.8, 0.6, 0.18, 1.3),
             card: Vec4::new(1.0, 0.0, 0.0, 0.0),
             curve: Vec4::new(0.15, 0.35, 0.0, 0.0),
-            transmit: Vec4::new(0.8, 4.0, 0.25, 0.0),
             map: Vec4::new(0.0, 0.0, 1.0, 0.0),
         }
     }
@@ -109,14 +110,13 @@ pub struct Sprite {
 pub struct SpriteTable {
     pub family_start: UVec4,
     pub family_count: UVec4,
-    #[shader(size(runtime))]
-    pub sprites: Vec<Sprite>,
+    pub sprites: [Sprite; 32],
 }
 
-/// Handle of the one sprite table buffer; `grass/cards.rs` fills it.
+/// Shared sprite table; `grass/cards.rs` fills it.
 #[derive(Resource)]
 pub struct SpriteTableBuffer {
-    pub handle: Handle<ShaderBuffer>,
+    pub data: SpriteTable,
 }
 
 /// The affector list every custom material binds raw: one persistent GPU
@@ -124,13 +124,26 @@ pub struct SpriteTableBuffer {
 /// render world. Changing it never touches a material asset, so no bind
 /// group is rebuilt; this is the "uniform array, not a pipeline split" model
 /// at its cheapest.
+#[cfg(not(feature = "downlevel"))]
 #[derive(Resource, Clone, ExtractResource)]
 pub struct AffectorBuffer(pub Buffer);
 
+#[cfg(feature = "downlevel")]
+#[derive(ShaderType, Debug, Clone, Default)]
+pub struct AffectorUniform {
+    pub count: UVec4,
+    pub items: [Vec4; MAX_AFFECTORS],
+}
+
+#[cfg(feature = "downlevel")]
+#[derive(Resource, Default)]
+pub struct AffectorBuffer(pub AffectorUniform);
+
+#[cfg(not(feature = "downlevel"))]
 const AFFECTOR_BUFFER_BYTES: u64 = 16 + 16 * MAX_AFFECTORS as u64;
 
 /// One entry per object, indexed by `MeshTag`.
-#[derive(ShaderType, Debug, Clone, Copy)]
+#[derive(ShaderType, Debug, Clone, Copy, PartialEq)]
 pub struct ObjectParams {
     pub base_color: Vec4,
     pub emissive: Vec4,
@@ -175,12 +188,17 @@ pub struct CustomMaterial {
     #[texture(3, dimension = "cube")]
     #[sampler(4)]
     pub sky_cube: Option<Handle<Image>>,
-    #[storage(5, read_only)]
-    pub objects: Handle<ShaderBuffer>,
+    #[uniform(5)]
+    pub objects: [ObjectParams; MAX_OBJECTS],
+    #[cfg(not(feature = "downlevel"))]
     #[storage(6, read_only, buffer)]
     pub affectors: Buffer,
-    #[storage(7, read_only)]
-    pub sprites: Handle<ShaderBuffer>,
+    #[cfg(feature = "downlevel")]
+    #[uniform(6)]
+    pub affectors: AffectorUniform,
+    // Share binding 5 to stay within WebGL2's 11 uniform buffers per stage.
+    #[uniform(5)]
+    pub sprites: SpriteTable,
     /// The displacement map (`displacement.rs`); only map-mode grass reads it.
     #[texture(8)]
     #[sampler(9)]
@@ -218,6 +236,13 @@ impl Material for CustomMaterial {
         _layout: &MeshVertexBufferLayoutRef,
         key: MaterialPipelineKey<Self>,
     ) -> Result<(), SpecializedMeshPipelineError> {
+        #[cfg(feature = "downlevel")]
+        {
+            descriptor.vertex.shader_defs.push("DOWNLEVEL".into());
+            if let Some(fragment) = descriptor.fragment.as_mut() {
+                fragment.shader_defs.push("DOWNLEVEL".into());
+            }
+        }
         descriptor.primitive.cull_mode = key.bind_group_data.cull_mode;
         if key.bind_group_data.force_discard
             && let Some(fragment) = descriptor.fragment.as_mut()
@@ -231,17 +256,22 @@ impl Material for CustomMaterial {
 /// The per-object parameter table every custom material binds.
 #[derive(Resource)]
 pub struct ObjectParamsBuffer {
-    pub handle: Handle<ShaderBuffer>,
-    data: Vec<ObjectParams>,
+    pub data: [ObjectParams; MAX_OBJECTS],
+    len: usize,
     dirty: bool,
 }
 
 impl ObjectParamsBuffer {
-    /// Appends an entry and returns its `MeshTag` index.
+    /// Reuses identical parameters across meshes and returns their `MeshTag`.
     pub fn push(&mut self, params: ObjectParams) -> u32 {
-        self.data.push(params);
+        if let Some(index) = self.data[..self.len].iter().position(|value| *value == params) {
+            return index as u32;
+        }
+        assert!(self.len < MAX_OBJECTS, "object parameter table full");
+        self.data[self.len] = params;
+        self.len += 1;
         self.dirty = true;
-        (self.data.len() - 1) as u32
+        (self.len - 1) as u32
     }
 }
 
@@ -267,57 +297,51 @@ impl Plugin for CustomMaterialPlugin {
             "shaders/custom_prepass.wgsl",
             Shader::from_wgsl
         );
-        app.add_plugins((
-            MaterialPlugin::<CustomMaterial>::default(),
-            ExtractResourcePlugin::<AffectorBuffer>::default(),
-            ExtractResourcePlugin::<Affectors>::default(),
-        ))
-        .add_systems(PreStartup, create_affector_buffer)
-        .add_systems(PostUpdate, (upload_object_params, apply_grass_knobs));
-        app.sub_app_mut(RenderApp)
-            .add_systems(Render, write_affectors.in_set(RenderSystems::PrepareResources));
-        let data = vec![ObjectParams::default()];
-        let handle = app
-            .world_mut()
-            .resource_mut::<Assets<ShaderBuffer>>()
-            .add(ShaderBuffer::from(data.clone()));
+        app.add_plugins(MaterialPlugin::<CustomMaterial>::default())
+            .add_systems(PostUpdate, (upload_object_params, apply_grass_knobs));
+        #[cfg(not(feature = "downlevel"))]
+        {
+            app.add_plugins((
+                ExtractResourcePlugin::<AffectorBuffer>::default(),
+                ExtractResourcePlugin::<Affectors>::default(),
+            ))
+            .add_systems(PreStartup, create_affector_buffer);
+            app.sub_app_mut(RenderApp).add_systems(
+                Render,
+                write_affectors.in_set(RenderSystems::PrepareResources),
+            );
+        }
+        #[cfg(feature = "downlevel")]
+        app.init_resource::<AffectorBuffer>()
+            .add_systems(PostUpdate, update_affector_uniforms);
         app.insert_resource(ObjectParamsBuffer {
-            handle,
-            data,
+            data: [ObjectParams::default(); MAX_OBJECTS],
+            len: 1,
             dirty: false,
         });
-        // A one-entry placeholder so every material can bind the table before
-        // the cards module fills it.
-        let sprites = app
-            .world_mut()
-            .resource_mut::<Assets<ShaderBuffer>>()
-            .add(ShaderBuffer::from(SpriteTable {
-                sprites: vec![Sprite::default()],
-                ..default()
-            }));
-        app.insert_resource(SpriteTableBuffer { handle: sprites });
+        app.insert_resource(SpriteTableBuffer {
+            data: SpriteTable::default(),
+        });
     }
 }
 
-/// Re-uploads the table when objects were added. The GPU buffer is recreated,
-/// so every material binding it is touched to get a fresh bind group.
+/// Copies the shared uniform table to materials when objects are added.
 fn upload_object_params(
     mut table: ResMut<ObjectParamsBuffer>,
-    mut buffers: ResMut<Assets<ShaderBuffer>>,
     mut materials: ResMut<Assets<CustomMaterial>>,
 ) {
     if !table.dirty {
         return;
     }
     table.dirty = false;
-    if let Some(mut buffer) = buffers.get_mut(&table.handle) {
-        buffer.set_data(table.data.clone());
+    for (_, material) in materials.iter_mut() {
+        material.objects = table.data;
     }
-    for (_, _material) in materials.iter_mut() {}
 }
 
 /// The render device only exists once the renderer is up, so the shared
 /// affector buffer is made at startup, before any material is created.
+#[cfg(not(feature = "downlevel"))]
 fn create_affector_buffer(mut commands: Commands, device: Res<RenderDevice>) {
     commands.insert_resource(AffectorBuffer(device.create_buffer(&BufferDescriptor {
         label: Some("custom_affectors"),
@@ -329,6 +353,7 @@ fn create_affector_buffer(mut commands: Commands, device: Res<RenderDevice>) {
 
 /// Render world: packs the extracted affector list and writes it into the
 /// persistent buffer in place.
+#[cfg(not(feature = "downlevel"))]
 fn write_affectors(
     affectors: Option<Res<Affectors>>,
     buffer: Option<Res<AffectorBuffer>>,
@@ -352,7 +377,14 @@ fn write_affectors(
             .get(slot)
             // y carries the heading (radians) so the trample pass can flatten
             // along the direction of travel; the grass only reads xz and w.
-            .map(|a| Vec4::new(a.position.x, a.velocity.z.atan2(a.velocity.x), a.position.z, a.radius))
+            .map(|a| {
+                Vec4::new(
+                    a.position.x,
+                    a.velocity.z.atan2(a.velocity.x),
+                    a.position.z,
+                    a.radius,
+                )
+            })
             .unwrap_or(Vec4::ZERO);
         for component in value.to_array() {
             bytes.extend_from_slice(&component.to_le_bytes());
@@ -367,14 +399,9 @@ fn write_affectors(
 fn apply_grass_knobs(
     settings: Res<crate::settings::BenchSettings>,
     mut materials: ResMut<Assets<CustomMaterial>>,
-    mut last: Local<Option<(f32, f32, f32, f32)>>,
+    mut last: Local<Option<(f32, f32)>>,
 ) {
-    let knobs = (
-        settings.grass_width,
-        settings.trample_scorch,
-        settings.transmit,
-        settings.transmit_power,
-    );
+    let knobs = (settings.grass_width, settings.trample_scorch);
     if *last == Some(knobs) {
         return;
     }
@@ -382,7 +409,67 @@ fn apply_grass_knobs(
     for (_, material) in materials.iter_mut() {
         material.globals.blade_width = settings.grass_width;
         material.globals.map.w = settings.trample_scorch;
-        material.globals.transmit.x = settings.transmit;
-        material.globals.transmit.y = settings.transmit_power;
+    }
+}
+
+#[cfg(feature = "downlevel")]
+fn update_affector_uniforms(
+    affectors: Res<Affectors>,
+    mut buffer: ResMut<AffectorBuffer>,
+    mut materials: ResMut<Assets<CustomMaterial>>,
+    mut maps: ResMut<Assets<crate::displacement::DisplacementMaterial>>,
+    mut trails: ResMut<Assets<crate::displacement::TrampleMaterial>>,
+) {
+    if !affectors.is_changed() {
+        return;
+    }
+    buffer.0.count = UVec4::new(affectors.list.len().min(MAX_AFFECTORS) as u32, 0, 0, 0);
+    for (slot, value) in buffer.0.items.iter_mut().enumerate() {
+        *value = affectors
+            .list
+            .get(slot)
+            .map(|a| {
+                Vec4::new(
+                    a.position.x,
+                    a.velocity.z.atan2(a.velocity.x),
+                    a.position.z,
+                    a.radius,
+                )
+            })
+            .unwrap_or(Vec4::ZERO);
+    }
+    for (_, m) in materials.iter_mut() {
+        m.affectors = buffer.0.clone();
+    }
+    for (_, m) in maps.iter_mut() {
+        m.affectors = buffer.0.clone();
+    }
+    for (_, m) in trails.iter_mut() {
+        m.affectors = buffer.0.clone();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn repeated_scene_spawns_reuse_object_parameters() {
+        let mut table = ObjectParamsBuffer {
+            data: [ObjectParams::default(); MAX_OBJECTS],
+            len: 1,
+            dirty: false,
+        };
+        let grass = ObjectParams {
+            params: Vec4::new(0.0, 1.0, 0.0, KIND_GRASS),
+            ..default()
+        };
+        let tag = table.push(grass);
+        assert_ne!(tag, table.push(ObjectParams::default()));
+        // Repeated tree/character spawns must not exhaust the fixed uniform.
+        for _ in 0..MAX_OBJECTS * 4 {
+            assert_eq!(table.push(grass), tag);
+            assert_eq!(table.push(ObjectParams::default()), 0);
+        }
     }
 }

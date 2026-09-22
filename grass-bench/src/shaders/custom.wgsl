@@ -17,9 +17,9 @@
     view_transformations::position_world_to_clip,
 }
 #import bench::custom_bindings::{
-    globals_u, base_texture, base_sampler, sky_cube, sky_sampler, objects, FLAG_LIT, grass_bend,
+    globals_u, base_texture, base_sampler, sky_cube, sky_sampler, tables, FLAG_LIT, grass_bend,
     grass_bend_map, card_vertex, KIND_GRASS, KIND_CARD, KIND_GRASS_MAP, KIND_CARD_CURVED,
-    displacement_map, displacement_sampler, scorch_color, card_curve_uv, TRANSMIT_TINT,
+    displacement_map, displacement_sampler, scorch_color, card_curve_uv,
 }
 #ifdef VISIBILITY_RANGE_DITHER
 #import bench::custom_bindings::visibility_range_dither
@@ -81,7 +81,7 @@ fn vertex(vertex_no_morph: Vertex) -> VertexOutput {
 #endif
 #endif
 
-    let kind = objects[mesh_functions::get_tag(vertex_no_morph.instance_index)].params.w;
+    let kind = tables.objects[min(mesh_functions::get_tag(vertex_no_morph.instance_index), 127u)].params.w;
     let is_grass = abs(kind - KIND_GRASS) < 0.5;
     let is_map = abs(kind - KIND_GRASS_MAP) < 0.5;
     // Curved cards are cards: same placement, same corners, same table. The
@@ -164,7 +164,7 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
     visibility_range_dither(in.position, in.visibility_range_dither);
 #endif
 
-    let obj = objects[mesh_functions::get_tag(in.instance_index)];
+    let obj = tables.objects[min(mesh_functions::get_tag(in.instance_index), 127u)];
     var color = obj.base_color;
 #ifdef VERTEX_UVS_A
     // Curved cards bend the sprite by moving the point it is read from; the
@@ -228,41 +228,11 @@ fn fragment(in: VertexOutput, @builtin(front_facing) is_front: bool) -> Fragment
             shadow = fetch_directional_shadow(0u, in.world_position, normal, view_z, in.position.xy);
         }
         var n_dot_l = max(dot(normal, globals_u.sun_dir.xyz), 0.0);
-        let is_foliage = obj.params.w > 0.5;
-        if is_foliage {
-            // Thin blades: wrapped diffuse, like the game's grass. The wrap
-            // is the light that leaks through from the far side, and it is
-            // the same from every angle; with the backlit lobe below turned
-            // on, most of that leak is the lobe's job instead.
-            n_dot_l = mix(mix(0.36, 0.2, clamp(globals_u.transmit.x, 0.0, 1.0)), 1.0, n_dot_l);
+        if obj.params.w > 0.5 {
+            // Thin blades: wrapped diffuse, like the game's grass.
+            n_dot_l = mix(0.36, 1.0, n_dot_l);
         }
-        var sun = globals_u.sun_color.rgb * n_dot_l * shadow;
-        // Backlit translucency: the cheap stand-in for light scattering
-        // through a blade, from Barre-Brisebois and Bouchard's foliage model
-        // (GDC 2011). The light direction is bent *into* the blade by the
-        // normal (the wrap), and what the eye catches is how nearly it is
-        // looking straight down that bent direction -- so the glow blooms
-        // only when the sun is behind the grass, which is the half a wrapped
-        // Lambert term can never give you. Bevy's diffuse_transmission is
-        // the same story: a flipped-normal lobe, view-independent.
-        if is_foliage && globals_u.transmit.x > 0.0 {
-            let to_view = normalize(view.world_position - in.world_position.xyz);
-            let bent = normalize(globals_u.sun_dir.xyz + normal * globals_u.transmit.z);
-            let lobe = pow(max(dot(to_view, -bent), 0.0), max(globals_u.transmit.y, 1.0));
-            // Thin where the blade is thin: uv.y is the height fraction on a
-            // blade (0 root, 1 tip), so tips glow and the base stays solid.
-            // Cards have no such gradient; they take the whole term.
-            var thinness = 1.0;
-#ifdef VERTEX_UVS_A
-            if abs(obj.params.w - KIND_GRASS) < 0.5 || abs(obj.params.w - KIND_GRASS_MAP) < 0.5 {
-                thinness = clamp(in.uv.y, 0.0, 1.0);
-            }
-#endif
-            // Transmitted light is yellower and greener than reflected: it
-            // has been through the chlorophyll rather than bounced off it.
-            sun += globals_u.sun_color.rgb * TRANSMIT_TINT
-                * (lobe * globals_u.transmit.x * thinness * shadow);
-        }
+        let sun = globals_u.sun_color.rgb * n_dot_l * shadow;
         let sky = textureSampleLevel(sky_cube, sky_sampler, normal, 0.0).rgb * globals_u.sky_strength;
         var light = sun + sky;
         let metallic = obj.params.x;

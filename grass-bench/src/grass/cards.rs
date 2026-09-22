@@ -34,13 +34,13 @@ use bevy::asset::RenderAssetUsages;
 use bevy::camera::primitives::Aabb;
 use bevy::camera::visibility::{NoAutoAabb, VisibilityRange};
 use bevy::image::{
-    CompressedImageFormats, ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor,
-    ImageType,
+    CompressedImageFormats, ImageAddressMode, ImageFilterMode, ImageSampler,
+    ImageSamplerDescriptor, ImageType,
 };
 use bevy::light::NotShadowCaster;
 use bevy::mesh::{Indices, MeshTag, PrimitiveTopology};
 use bevy::prelude::*;
-use bevy::render::storage::ShaderBuffer;
+
 use serde::Deserialize;
 
 use super::{BASE_SEED, GrassEntity, MIN_SLOPE_NORMAL_Y, splitmix64};
@@ -117,7 +117,7 @@ struct CardSet {
     /// Mip 0 only, plain chain, coverage-preserving chain.
     images: Option<[Handle<Image>; 3]>,
     /// This atlas's sprite table; `None` means the shared buffer.
-    sprites: Option<Handle<ShaderBuffer>>,
+    sprites: Option<SpriteTable>,
     /// Uniform grid cell in atlas uv (zero when the atlas is shelf-packed).
     cell_uv: Vec2,
     applied_mips: Option<AtlasMips>,
@@ -217,8 +217,16 @@ fn mip_chain(base: &[u8], w: u32, h: u32, cells: &[[u32; 4]], preserve: bool) ->
         let shift = levels;
         if preserve {
             for (cell, target) in cells.iter().zip(&targets) {
-                let scaled = [cell[0] >> shift, cell[1] >> shift, (cell[2] >> shift).max(1), (cell[3] >> shift).max(1)];
-                if scaled[0] + scaled[2] > nw || scaled[1] + scaled[3] > nh || scaled[2] * scaled[3] < 4 {
+                let scaled = [
+                    cell[0] >> shift,
+                    cell[1] >> shift,
+                    (cell[2] >> shift).max(1),
+                    (cell[3] >> shift).max(1),
+                ];
+                if scaled[0] + scaled[2] > nw
+                    || scaled[1] + scaled[3] > nh
+                    || scaled[2] * scaled[3] < 4
+                {
                     continue;
                 }
                 let (mut lo, mut hi) = (1.0f32, 8.0f32);
@@ -279,7 +287,10 @@ fn decode_atlas(
             return None;
         }
     };
-    let (w, h) = (base.texture_descriptor.size.width, base.texture_descriptor.size.height);
+    let (w, h) = (
+        base.texture_descriptor.size.width,
+        base.texture_descriptor.size.height,
+    );
     let pixels = base.data.clone()?;
     let cells: Vec<[u32; 4]> = atlas.sprites.iter().map(|s| s.cell).collect();
     let started = bevy::platform::time::Instant::now();
@@ -318,32 +329,50 @@ fn decode_atlas(
 
     // Sprite table: families as contiguous runs, in family order.
     let mut table = SpriteTable::default();
+    let mut sprite_count = 0usize;
     let mut starts = [0u32; 4];
     let mut counts = [0u32; 4];
     for (fi, family) in atlas.families.iter().enumerate().take(4) {
-        starts[fi] = table.sprites.len() as u32;
+        starts[fi] = sprite_count as u32;
         for &si in &family.sprites {
             let s = &atlas.sprites[si];
             let corner = |shape: &AtlasShape, i: usize| {
-                Vec4::new(shape.pos[i][0], shape.pos[i][1], shape.uv[i][0], shape.uv[i][1])
+                Vec4::new(
+                    shape.pos[i][0],
+                    shape.pos[i][1],
+                    shape.uv[i][0],
+                    shape.uv[i][1],
+                )
             };
-            table.sprites.push(Sprite {
+            if sprite_count >= table.sprites.len() {
+                return None;
+            }
+            table.sprites[sprite_count] = Sprite {
                 tri: [corner(&s.tri, 0), corner(&s.tri, 1), corner(&s.tri, 2)],
-                quad: [corner(&s.quad, 0), corner(&s.quad, 1), corner(&s.quad, 2), corner(&s.quad, 3)],
+                quad: [
+                    corner(&s.quad, 0),
+                    corner(&s.quad, 1),
+                    corner(&s.quad, 2),
+                    corner(&s.quad, 3),
+                ],
                 info: Vec4::new(
                     s.height_m.unwrap_or(family.height_m),
                     s.family as f32,
                     s.area_ratio,
                     0.0,
                 ),
-            });
+            };
+            sprite_count += 1;
         }
         counts[fi] = family.sprites.len() as u32;
     }
     table.family_start = UVec4::from_array(starts);
     table.family_count = UVec4::from_array(counts);
     let cell_uv = atlas.cell.map_or(Vec2::ZERO, |[cw, ch]| {
-        Vec2::new(cw as f32 / atlas.atlas[0] as f32, ch as f32 / atlas.atlas[1] as f32)
+        Vec2::new(
+            cw as f32 / atlas.atlas[0] as f32,
+            ch as f32 / atlas.atlas[1] as f32,
+        )
     });
     Some((handles, table, cell_uv))
 }
@@ -353,21 +382,22 @@ fn decode_atlas(
 fn load_atlas(
     mut grass: ResMut<CardGrass>,
     mut images: ResMut<Assets<Image>>,
-    mut buffers: ResMut<Assets<ShaderBuffer>>,
-    sprite_table: Res<SpriteTableBuffer>,
+    mut sprite_table: ResMut<SpriteTableBuffer>,
     settings: Res<BenchSettings>,
 ) {
     let aniso = settings.atlas_anisotropy;
-    if let Some((handles, table, _)) = decode_atlas("foliage", ATLAS_JSON, ATLAS_PNG, &mut images, aniso) {
-        if let Some(mut buffer) = buffers.get_mut(&sprite_table.handle) {
-            buffer.set_data(table);
-        }
+    if let Some((handles, table, _)) =
+        decode_atlas("foliage", ATLAS_JSON, ATLAS_PNG, &mut images, aniso)
+    {
+        sprite_table.data = table;
         grass.sets[0].images = Some(handles);
         grass.sets[0].applied_anisotropy = Some(aniso);
     }
-    if let Some((handles, table, cell_uv)) = decode_atlas("curved", CURVED_JSON, CURVED_PNG, &mut images, aniso) {
+    if let Some((handles, table, cell_uv)) =
+        decode_atlas("curved", CURVED_JSON, CURVED_PNG, &mut images, aniso)
+    {
         grass.sets[1].images = Some(handles);
-        grass.sets[1].sprites = Some(buffers.add(ShaderBuffer::from(table)));
+        grass.sets[1].sprites = Some(table);
         grass.sets[1].cell_uv = cell_uv;
         grass.sets[1].applied_anisotropy = Some(aniso);
     }
@@ -382,7 +412,12 @@ fn load_atlas(
 /// top: the bend is a fragment, and the depth prepass drops the normal, so
 /// the per-plant phase and the card's facing have to ride along in a
 /// channel both passes keep.
-fn bake_chunk(key: (i32, i32), density: f32, shape: CardShape, curved: bool) -> Option<(Mesh, Aabb)> {
+fn bake_chunk(
+    key: (i32, i32),
+    density: f32,
+    shape: CardShape,
+    curved: bool,
+) -> Option<(Mesh, Aabb)> {
     let origin = Vec2::new(key.0 as f32, key.1 as f32) * CHUNK_SIZE;
     let half = CHUNK_SIZE * 0.5;
     let chunk_id = ((key.0 as u32 as u64) << 32) | key.1 as u32 as u64;
@@ -407,7 +442,8 @@ fn bake_chunk(key: (i32, i32), density: f32, shape: CardShape, curved: bool) -> 
     for _ in 0..candidates {
         let local = Vec2::new(next(), next()) * CHUNK_SIZE;
         let world = origin + local;
-        if world.length() > PATCH_RADIUS || terrain_normal(world.x, world.y).y < MIN_SLOPE_NORMAL_Y {
+        if world.length() > PATCH_RADIUS || terrain_normal(world.x, world.y).y < MIN_SLOPE_NORMAL_Y
+        {
             continue;
         }
         let y = terrain_height(world.x, world.y);
@@ -439,7 +475,10 @@ fn bake_chunk(key: (i32, i32), density: f32, shape: CardShape, curved: bool) -> 
         Vec3::new(-half - CARD_REACH, y_min - 0.2, -half - CARD_REACH),
         Vec3::new(half + CARD_REACH, y_max + CARD_REACH, half + CARD_REACH),
     );
-    let mut mesh = Mesh::new(PrimitiveTopology::TriangleList, RenderAssetUsages::RENDER_WORLD);
+    let mut mesh = Mesh::new(
+        PrimitiveTopology::TriangleList,
+        RenderAssetUsages::RENDER_WORLD,
+    );
     mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, positions);
     mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, normals);
     mesh.insert_attribute(Mesh::ATTRIBUTE_UV_0, uvs);
@@ -493,7 +532,11 @@ fn stream_chunks(
     };
     // The curve needs the whole cell to lean into, and the cell is a
     // rectangle: the shape knob is the plant atlas's business.
-    let shape = if curved { CardShape::Quad } else { settings.card_shape };
+    let shape = if curved {
+        CardShape::Quad
+    } else {
+        settings.card_shape
+    };
 
     let atlas_for = |mips: AtlasMips| match mips {
         AtlasMips::Off => atlas[0].clone(),
@@ -506,7 +549,12 @@ fn stream_chunks(
             let tag = objects.push(ObjectParams {
                 base_color: Vec4::ONE,
                 emissive: Vec4::ZERO,
-                params: Vec4::new(0.0, 1.0, 0.0, if curved { KIND_CARD_CURVED } else { KIND_CARD }),
+                params: Vec4::new(
+                    0.0,
+                    1.0,
+                    0.0,
+                    if curved { KIND_CARD_CURVED } else { KIND_CARD },
+                ),
             });
             let (alpha_mode, force_discard) = alpha_for(settings.foliage_alpha);
             let handle = customs.add(CustomMaterial {
@@ -519,9 +567,12 @@ fn stream_chunks(
                 },
                 base_texture: Some(atlas_for(settings.atlas_mips)),
                 sky_cube: Some(sun_sky.sky_cube.clone()),
-                objects: objects.handle.clone(),
+                objects: objects.data,
                 affectors: affector_buffer.0.clone(),
-                sprites: set.sprites.clone().unwrap_or_else(|| sprite_table.handle.clone()),
+                sprites: set
+                    .sprites
+                    .clone()
+                    .unwrap_or_else(|| sprite_table.data.clone()),
                 displacement: None,
                 alpha_mode,
                 cull_mode: None,
@@ -562,7 +613,12 @@ fn stream_chunks(
             m.base_texture = Some(atlas_for(settings.atlas_mips));
         }
     }
-    let scale_key = (settings.card_scale, shape, settings.card_curve, settings.card_flutter);
+    let scale_key = (
+        settings.card_scale,
+        shape,
+        settings.card_curve,
+        settings.card_flutter,
+    );
     if set.applied_scale != Some(scale_key) {
         set.applied_scale = Some(scale_key);
         if let Some(mut m) = customs.get_mut(&material) {
@@ -669,7 +725,9 @@ fn stream_chunks(
             NoAutoAabb,
         ));
         let pad = CHUNK_SIZE * core::f32::consts::FRAC_1_SQRT_2;
-        if std::env::var("BENCH_MESH_NO_RANGE").is_err() {
+        // WebGL2 uses the CPU streaming window as a hard range boundary.
+        // Bevy 0.19's dither-range uniform layout is smaller than its shader array.
+        if !cfg!(feature = "downlevel") && std::env::var("BENCH_MESH_NO_RANGE").is_err() {
             entity.insert(VisibilityRange {
                 start_margin: 0.0..0.0,
                 end_margin: (range + pad - 3.0).max(1.0)..(range + pad),

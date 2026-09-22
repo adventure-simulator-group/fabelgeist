@@ -18,10 +18,6 @@
     shadows,
 }
 
-// Transmitted sunlight is greener and yellower than reflected sunlight: it
-// has been through the chlorophyll rather than bounced off it.
-const TRANSMIT_TINT: vec3<f32> = vec3<f32>(0.85, 1.30, 0.35);
-
 struct GrassParams {
     // Wind direction xy, strength, and time scale.
     wind: vec4<f32>,
@@ -31,8 +27,7 @@ struct GrassParams {
     interaction_motion: vec4<f32>,
     // Root occlusion, dryness lane, authored lean, width compensation.
     params: vec4<f32>,
-    // x unused, y scales the flat ambient term, z backlit strength,
-    // w backlit lobe sharpness.
+    // y scales the flat ambient term; x/z/w reserved.
     shading: vec4<f32>,
 }
 
@@ -354,19 +349,6 @@ fn grass_fragment(
         );
         // 1/pi: Lambert BRDF normalisation.
         lit += albedo * light.color.rgb * (wrapped * shadow * occlusion * 0.3183099);
-        // Backlit translucency (the same cheap foliage lobe custom.wgsl
-        // uses): light bent into the blade by its own normal, caught only
-        // when the eye is looking nearly down that direction. The wrap above
-        // is the view-independent leak; this is the glow.
-        if grass.shading.z > 0.0 {
-            let to_view = normalize(view.world_position - in.world_position.xyz);
-            let bent = normalize(light.direction_to_light + base_normal * 0.25);
-            let lobe = pow(max(dot(to_view, -bent), 0.0), max(grass.shading.w, 1.0));
-            // Thin at the tip: uv.y is the blade's height fraction.
-            let thinness = clamp(in.uv.y, 0.0, 1.0);
-            lit += albedo * light.color.rgb * TRANSMIT_TINT
-                * (lobe * grass.shading.z * thinness * shadow * 0.3183099);
-        }
     }
     return vec4<f32>(lit * view.exposure, lod_coverage);
 }

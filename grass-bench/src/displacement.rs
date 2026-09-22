@@ -34,17 +34,19 @@
 //! carries the trail to the grass fragment shader for that).
 
 use bevy::asset::RenderAssetUsages;
+use bevy::asset::{load_internal_asset, uuid_handle};
 use bevy::camera::visibility::RenderLayers;
-use bevy::camera::{ClearColorConfig, Hdr, ImageRenderTarget, RenderTarget, ScalingMode};
+use bevy::camera::{ClearColorConfig, ImageRenderTarget, RenderTarget, ScalingMode};
 use bevy::core_pipeline::tonemapping::{DebandDither, Tonemapping};
 use bevy::image::ImageSampler;
 use bevy::prelude::*;
-use bevy::sprite_render::{AlphaMode2d, Material2d, Material2dPlugin};
 use bevy::render::render_resource::{
-    AsBindGroup, Buffer, Extent3d, ShaderType, TextureDimension, TextureFormat, TextureUsages,
+    AsBindGroup, Extent3d, ShaderType, TextureDimension, TextureFormat, TextureUsages,
 };
-use bevy::asset::{load_internal_asset, uuid_handle};
 use bevy::shader::ShaderRef;
+use bevy::sprite_render::{AlphaMode2d, Material2d, Material2dPlugin};
+#[cfg(not(feature = "downlevel"))]
+use bevy::{camera::Hdr, render::render_resource::Buffer};
 
 use crate::custom_material::AffectorBuffer;
 use crate::scene::PATCH_RADIUS;
@@ -77,14 +79,29 @@ pub struct DisplacementParams {
 pub struct DisplacementMaterial {
     #[uniform(0)]
     pub params: DisplacementParams,
+    #[cfg(not(feature = "downlevel"))]
     #[storage(1, read_only, buffer)]
     pub affectors: Buffer,
+    #[cfg(feature = "downlevel")]
+    #[uniform(1)]
+    pub affectors: crate::custom_material::AffectorUniform,
     #[texture(2)]
     #[sampler(3)]
     pub trample: Handle<Image>,
 }
 
 impl Material2d for DisplacementMaterial {
+    fn specialize(
+        _descriptor: &mut bevy::render::render_resource::RenderPipelineDescriptor,
+        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
+        _key: bevy::sprite_render::Material2dKey<Self>,
+    ) -> Result<(), bevy::render::render_resource::SpecializedMeshPipelineError> {
+        #[cfg(feature = "downlevel")]
+        if let Some(fragment) = _descriptor.fragment.as_mut() {
+            fragment.shader_defs.push("DOWNLEVEL".into());
+        }
+        Ok(())
+    }
     fn fragment_shader() -> ShaderRef {
         ShaderRef::Handle(DISPLACEMENT_SHADER_HANDLE)
     }
@@ -105,14 +122,29 @@ pub struct TrampleParams {
 pub struct TrampleMaterial {
     #[uniform(0)]
     pub params: TrampleParams,
+    #[cfg(not(feature = "downlevel"))]
     #[storage(1, read_only, buffer)]
     pub affectors: Buffer,
+    #[cfg(feature = "downlevel")]
+    #[uniform(1)]
+    pub affectors: crate::custom_material::AffectorUniform,
     /// The other image of the pair: what the map held last frame.
     #[texture(2)]
     pub previous: Handle<Image>,
 }
 
 impl Material2d for TrampleMaterial {
+    fn specialize(
+        _descriptor: &mut bevy::render::render_resource::RenderPipelineDescriptor,
+        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
+        _key: bevy::sprite_render::Material2dKey<Self>,
+    ) -> Result<(), bevy::render::render_resource::SpecializedMeshPipelineError> {
+        #[cfg(feature = "downlevel")]
+        if let Some(fragment) = _descriptor.fragment.as_mut() {
+            fragment.shader_defs.push("DOWNLEVEL".into());
+        }
+        Ok(())
+    }
     fn fragment_shader() -> ShaderRef {
         ShaderRef::Handle(TRAMPLE_SHADER_HANDLE)
     }
@@ -177,8 +209,8 @@ impl Plugin for DisplacementPlugin {
             Material2dPlugin::<DisplacementMaterial>::default(),
             Material2dPlugin::<TrampleMaterial>::default(),
         ))
-            .add_systems(Startup, setup)
-            .add_systems(Update, (sync, ping_pong).chain());
+        .add_systems(Startup, setup)
+        .add_systems(Update, (sync, ping_pong).chain());
     }
 }
 
@@ -190,8 +222,16 @@ fn map_image(resolution: u32) -> Image {
             depth_or_array_layers: 1,
         },
         TextureDimension::D2,
-        &[0u8; 8],
-        TextureFormat::Rgba16Float,
+        if cfg!(feature = "downlevel") {
+            &[188, 188, 0, 0]
+        } else {
+            &[0u8; 8]
+        },
+        if cfg!(feature = "downlevel") {
+            TextureFormat::Rgba8UnormSrgb
+        } else {
+            TextureFormat::Rgba16Float
+        },
         RenderAssetUsages::RENDER_WORLD,
     );
     image.texture_descriptor.usage =
@@ -250,6 +290,7 @@ fn setup(
             handle: image,
             scale_factor: 1.0,
         }),
+        #[cfg(not(feature = "downlevel"))]
         Hdr,
         Projection::Orthographic(OrthographicProjection {
             scaling_mode: ScalingMode::Fixed {
@@ -267,7 +308,12 @@ fn setup(
     let quad = meshes.add(Rectangle::new(MAP_SIZE, MAP_SIZE));
     let displacement = materials.add(DisplacementMaterial {
         params: DisplacementParams {
-            debug: Vec4::new(radius_scale, push_scale, settings.trample as u32 as f32, 0.0),
+            debug: Vec4::new(
+                radius_scale,
+                push_scale,
+                settings.trample as u32 as f32,
+                0.0,
+            ),
             map: mapping(),
         },
         affectors: affector_buffer.0.clone(),
@@ -298,6 +344,7 @@ fn setup(
             handle: map.written(),
             scale_factor: 1.0,
         }),
+        #[cfg(not(feature = "downlevel"))]
         Hdr,
         Projection::Orthographic(OrthographicProjection {
             scaling_mode: ScalingMode::Fixed {

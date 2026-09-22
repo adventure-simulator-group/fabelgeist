@@ -19,8 +19,6 @@ struct CustomGlobals {
     card: vec4<f32>,
     // Curved cards: x tip lean (fraction of the card's width), y flutter.
     curve: vec4<f32>,
-    // Backlit foliage: x strength, y lobe sharpness, z light wrap.
-    transmit: vec4<f32>,
     // Displacement map: min corner (x, z), 1 / size, w: scorch (0..1, how
     // far a remembered trail burns the grass colour).
     map: vec4<f32>,
@@ -46,10 +44,6 @@ struct ObjectParams {
 
 const FLAG_LIT: u32 = 1u;
 
-// What the sun turns into on its way through a blade: greener and yellower
-// than what bounces off one.
-const TRANSMIT_TINT: vec3<f32> = vec3<f32>(0.85, 1.30, 0.35);
-
 // One packed sprite of the foliage atlas (tools/pack_foliage_atlas.py).
 // Sprite space: x right, y up, origin at the root, one unit = the sprite's
 // height. Each corner is (x, y, u, v): three for the fitted apex-down
@@ -64,7 +58,7 @@ struct Sprite {
 struct SpriteTable {
     family_start: vec4<u32>,
     family_count: vec4<u32>,
-    sprites: array<Sprite>,
+    sprites: array<Sprite, 32>,
 };
 
 // `params.w` of an object: 0 plain, 1 grass blades (vertex bend, opaque),
@@ -81,9 +75,16 @@ const KIND_CARD_CURVED: f32 = 4.0;
 @group(#{MATERIAL_BIND_GROUP}) @binding(2) var base_sampler: sampler;
 @group(#{MATERIAL_BIND_GROUP}) @binding(3) var sky_cube: texture_cube<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(4) var sky_sampler: sampler;
-@group(#{MATERIAL_BIND_GROUP}) @binding(5) var<storage, read> objects: array<ObjectParams>;
+struct MaterialTables {
+    objects: array<ObjectParams, 128>,
+    sprites: SpriteTable,
+};
+@group(#{MATERIAL_BIND_GROUP}) @binding(5) var<uniform> tables: MaterialTables;
+#ifdef DOWNLEVEL
+@group(#{MATERIAL_BIND_GROUP}) @binding(6) var<uniform> affectors: AffectorList;
+#else
 @group(#{MATERIAL_BIND_GROUP}) @binding(6) var<storage, read> affectors: AffectorList;
-@group(#{MATERIAL_BIND_GROUP}) @binding(7) var<storage, read> sprites: SpriteTable;
+#endif
 @group(#{MATERIAL_BIND_GROUP}) @binding(8) var displacement_map: texture_2d<f32>;
 @group(#{MATERIAL_BIND_GROUP}) @binding(9) var displacement_sampler: sampler;
 
@@ -131,14 +132,14 @@ fn card_vertex(root: vec3<f32>, normal: vec3<f32>, uv: vec2<f32>, time: f32) -> 
     if fract(hash * 17.3) < 0.2 {
         family = 0u;
     }
-    let count = max(sprites.family_count[family], 1u);
-    let index = sprites.family_start[family] + min(u32(fract(hash * 7.91) * f32(count)), count - 1u);
+    let count = max(tables.sprites.family_count[family], 1u);
+    let index = tables.sprites.family_start[family] + min(u32(fract(hash * 7.91) * f32(count)), count - 1u);
     // Size spread: a plant is anywhere from two thirds to half again its
     // sprite's height, so a patch does not read as one stamp repeated.
-    let height = sprites.sprites[index].info.x * globals_u.card.x * mix(0.65, 1.5, fract(hash * 3.7));
-    var p = sprites.sprites[index].tri[min(corner, 2u)];
+    let height = tables.sprites.sprites[index].info.x * globals_u.card.x * mix(0.65, 1.5, fract(hash * 3.7));
+    var p = tables.sprites.sprites[index].tri[min(corner, 2u)];
     if globals_u.card.y > 0.5 {
-        p = sprites.sprites[index].quad[min(corner, 3u)];
+        p = tables.sprites.sprites[index].quad[min(corner, 3u)];
     }
     let right = vec3<f32>(normal.z, 0.0, -normal.x);
     let world = root + right * (p.x * height) + vec3<f32>(0.0, p.y * height, 0.0);
@@ -202,7 +203,10 @@ fn scorch_color(color: vec3<f32>, burn: f32) -> vec3<f32> {
 // already summed (see displacement.rs).
 fn grass_bend_map(world: vec3<f32>, uv: vec2<f32>, blade_hash: f32, time: f32) -> vec3<f32> {
     let map_uv = (world.xz - globals_u.map.xy) * globals_u.map.z;
-    let map = textureSampleLevel(displacement_map, displacement_sampler, map_uv, 0.0);
+    var map = textureSampleLevel(displacement_map, displacement_sampler, map_uv, 0.0);
+#ifdef DOWNLEVEL
+    map = vec4<f32>((map.xy * 255.0 - 128.0) / 32.0, map.zw);
+#endif
     let offset = wind_offset(world, blade_hash, time) + map.xy;
     return bend_apply(world, uv, offset, clamp(map.z, 0.0, 1.0));
 }

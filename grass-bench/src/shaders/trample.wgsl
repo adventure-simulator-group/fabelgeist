@@ -37,7 +37,11 @@ struct AffectorList {
 };
 
 @group(#{MATERIAL_BIND_GROUP}) @binding(0) var<uniform> trample: TrampleParams;
+#ifdef DOWNLEVEL
+@group(#{MATERIAL_BIND_GROUP}) @binding(1) var<uniform> affectors: AffectorList;
+#else
 @group(#{MATERIAL_BIND_GROUP}) @binding(1) var<storage, read> affectors: AffectorList;
+#endif
 @group(#{MATERIAL_BIND_GROUP}) @binding(2) var previous: texture_2d<f32>;
 
 @fragment
@@ -72,7 +76,10 @@ fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
     // The texel as it was last frame. Texel for texel: this quad rasterises
     // over the same target the previous one did, so the fragment's own
     // framebuffer position indexes it, no sampler and no filtering.
-    let was = textureLoad(previous, vec2<i32>(floor(in.position.xy)), 0);
+    var was = textureLoad(previous, vec2<i32>(floor(in.position.xy)), 0);
+#ifdef DOWNLEVEL
+    was = vec4<f32>((was.xy * 255.0 - 128.0) / 32.0, was.zw);
+#endif
     // Regrowth: the blades come back up over `recover` seconds (0: never).
     // The whole texel relaxes, the lean with the crush, and is dropped once
     // it is too shallow to see — an exponential alone would leave a smudge.
@@ -87,7 +94,12 @@ fn fragment(in: VertexOutput) -> @location(0) vec4<f32> {
     // hard as what is already there; otherwise the older, deeper trail (and
     // the direction it lies in) stands, minus what it grew back.
     if crush < prev.z {
-        return prev;
+        offset = prev.xy;
+        coverage = prev.z;
     }
-    return vec4<f32>(offset.x, offset.y, crush, 1.0);
+    else { coverage = crush; }
+#ifdef DOWNLEVEL
+    offset = (offset * 32.0 + 128.0) / 255.0;
+#endif
+    return vec4<f32>(offset.x, offset.y, coverage, 1.0);
 }

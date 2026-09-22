@@ -1,6 +1,6 @@
 //! The hand-rolled grass path, the thing under test.
 //!
-//! Each tier's tufts are split into 8 m x 8 m chunks; every chunk is an
+//! Each tier's tufts are split into 16 m x 8 m chunks; every chunk is an
 //! ordinary `Mesh3d` entity with a fitted `Aabb` and a `VisibilityRange`, so
 //! bevy's own CPU frustum + range culling decides what draws. Each visible
 //! chunk is one `draw_indexed` of the tier's tuft mesh with an instance range
@@ -11,10 +11,16 @@
 
 use std::collections::HashMap;
 
-use bevy::camera::{primitives::Aabb, visibility::{NoAutoAabb, VisibilityRange}};
+use bevy::camera::{
+    primitives::Aabb,
+    visibility::{NoAutoAabb, VisibilityRange},
+};
 use bevy::core_pipeline::core_3d::{Opaque3d, Opaque3dBatchSetKey, Opaque3dBinKey};
 use bevy::ecs::query::QueryItem;
-use bevy::ecs::system::{SystemParamItem, lifetimeless::{Read, SRes}};
+use bevy::ecs::system::{
+    SystemParamItem,
+    lifetimeless::{Read, SRes},
+};
 use bevy::light::NotShadowCaster;
 use bevy::math::Vec3A;
 use bevy::mesh::{MeshVertexBufferLayoutRef, VertexBufferLayout};
@@ -30,8 +36,7 @@ use bevy::render::mesh::{RenderMesh, RenderMeshBufferInfo};
 use bevy::render::render_asset::RenderAssets;
 use bevy::render::render_phase::{
     AddRenderCommand, BinnedRenderPhaseType, DrawFunctions, InputUniformIndex, PhaseItem,
-    RenderCommand, RenderCommandResult, SetItemPipeline, TrackedRenderPass,
-    ViewBinnedRenderPhases,
+    RenderCommand, RenderCommandResult, SetItemPipeline, TrackedRenderPass, ViewBinnedRenderPhases,
 };
 use bevy::render::render_resource::binding_types::uniform_buffer;
 use bevy::render::render_resource::{
@@ -48,7 +53,10 @@ use bevy::render::view::{ExtractedView, RenderVisibleEntities, RetainedViewEntit
 use bevy::render::{Render, RenderApp, RenderStartup, RenderSystems};
 use bevy_eidolon::components::InstanceData;
 
-use super::{GRASS_SIMPLE_SHADER_HANDLE, GrassEntity, TIER_COUNT, TIERS, Tier, TierMesh, fitted_aabb, tier_params};
+use super::{
+    GRASS_SIMPLE_SHADER_HANDLE, GrassEntity, TIER_COUNT, TIERS, Tier, TierMesh, fitted_aabb,
+    tier_params,
+};
 
 /// Chunk edge, metres.
 pub const CHUNK_SIZE: f32 = 8.0;
@@ -230,7 +238,10 @@ pub fn spawn(
                 },
             ));
         }
-        info!("grass simple {}: {chunk_count} chunks of {CHUNK_SIZE} m", tier.name);
+        info!(
+            "grass simple {}: {chunk_count} chunks of {CHUNK_SIZE} m",
+            tier.name
+        );
     }
 }
 
@@ -438,7 +449,7 @@ fn queue_grass_chunks(
     mut diag_frame: Local<u32>,
 ) {
     *diag_frame += 1;
-    let diag = *diag_frame % 180 == 0;
+    let diag = (*diag_frame).is_multiple_of(180);
     let draw_function = draw_functions.read().id::<DrawGrassSimple>();
     for (view, visible_entities) in &views {
         let Some(phase) = phases.get_mut(&view.retained_view_entity) else {
@@ -490,13 +501,14 @@ fn queue_grass_chunks(
                     mesh.primitive_topology(),
                     mesh.index_format(),
                 );
-            let pipeline = match pipelines.specialize(&pipeline_cache, &grass_pipeline, key, &mesh.layout) {
-                Ok(pipeline) => pipeline,
-                Err(err) => {
-                    error!("grass simple pipeline: {err}");
-                    continue;
-                }
-            };
+            let pipeline =
+                match pipelines.specialize(&pipeline_cache, &grass_pipeline, key, &mesh.layout) {
+                    Ok(pipeline) => pipeline,
+                    Err(err) => {
+                        error!("grass simple pipeline: {err}");
+                        continue;
+                    }
+                };
             // Re-added every frame: bevy's own material queue runs in the same
             // set and dequeues every visible mesh it never specialized (these
             // chunks have no material), so retention cannot be relied on.
@@ -531,7 +543,10 @@ fn queue_grass_chunks(
         if diag {
             info!(
                 "grass simple view {:?}: visible chunks per tier {:?} of {:?}, queued {}",
-                view.retained_view_entity, visible_per_tier, total_per_tier, queued.len()
+                view.retained_view_entity,
+                visible_per_tier,
+                total_per_tier,
+                queued.len()
             );
         }
     }

@@ -449,7 +449,12 @@ fn ribbon_mesh(width: f32, height: f32, color: Color, tier: &Tier, blades: &[Bla
             blade_threshold,
         ];
         let luminance = blade_color[0] * 0.2126 + blade_color[1] * 0.7152 + blade_color[2] * 0.0722;
-        let straw_color = [luminance * 1.12, luminance * 0.88, luminance * 0.42, blade_threshold];
+        let straw_color = [
+            luminance * 1.12,
+            luminance * 0.88,
+            luminance * 0.42,
+            blade_threshold,
+        ];
         let senescent = age > 0.82;
         let base = buffers.positions.len() as u32;
 
@@ -466,7 +471,9 @@ fn ribbon_mesh(width: f32, height: f32, color: Color, tier: &Tier, blades: &[Bla
             buffers
                 .uvs
                 .extend_from_slice(&[[0.0, height_fraction], [1.0, height_fraction]]);
-            buffers.blade_roots.extend_from_slice(&[[offset_x, offset_z]; 2]);
+            buffers
+                .blade_roots
+                .extend_from_slice(&[[offset_x, offset_z]; 2]);
             let row_color = if senescent && height_fraction >= 0.72 {
                 straw_color
             } else {
@@ -487,13 +494,20 @@ fn ribbon_mesh(width: f32, height: f32, color: Color, tier: &Tier, blades: &[Bla
         for row in 0..rows.len() - 1 {
             let lower = base + (row * 2) as u32;
             let upper = lower + 2;
-            buffers
-                .indices
-                .extend_from_slice(&[lower, lower + 1, upper + 1, lower, upper + 1, upper]);
+            buffers.indices.extend_from_slice(&[
+                lower,
+                lower + 1,
+                upper + 1,
+                lower,
+                upper + 1,
+                upper,
+            ]);
         }
         let shoulder = base + ((rows.len() - 1) * 2) as u32;
         let tip = base + (vertices_per_blade - 1) as u32;
-        buffers.indices.extend_from_slice(&[shoulder, shoulder + 1, tip]);
+        buffers
+            .indices
+            .extend_from_slice(&[shoulder, shoulder + 1, tip]);
 
         // Seed heads: about one shoot in eight, near tier only.
         if tier.seed_heads && unit_hash(splitmix64(hash ^ 0x0070_616e_6963_6c65)) < 0.125 {
@@ -612,11 +626,12 @@ pub fn scatter_tier(tier: &Tier, density: f32, base_seed: u64) -> Vec<InstanceDa
                 (x as f32 + (hash01(cell_hash, 0x39bd_7f21) - 0.5) * JITTER_FRACTION) * spacing,
                 (z as f32 + (hash01(cell_hash, 0xe651_34aa) - 0.5) * JITTER_FRACTION) * spacing,
             );
-            if gate.length() > PATCH_RADIUS || terrain_normal(gate.x, gate.y).y < MIN_SLOPE_NORMAL_Y {
+            if gate.length() > PATCH_RADIUS || terrain_normal(gate.x, gate.y).y < MIN_SLOPE_NORMAL_Y
+            {
                 continue;
             }
-            let cell_origin =
-                Vec2::new(x as f32, z as f32) * spacing - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
+            let cell_origin = Vec2::new(x as f32, z as f32) * spacing
+                - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
             for tuft_z in 0..side {
                 for tuft_x in 0..side {
                     let tuft_hash =
@@ -624,10 +639,8 @@ pub fn scatter_tier(tier: &Tier, density: f32, base_seed: u64) -> Vec<InstanceDa
                     if density < 1.0 && hash01(tuft_hash, 0x6465_6e73) >= density {
                         continue;
                     }
-                    let jitter = Vec2::new(
-                        hash01(tuft_hash, 1) - 0.5,
-                        hash01(tuft_hash, 2) - 0.5,
-                    ) * footprint
+                    let jitter = Vec2::new(hash01(tuft_hash, 1) - 0.5, hash01(tuft_hash, 2) - 0.5)
+                        * footprint
                         * 0.35;
                     let centre =
                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
@@ -701,15 +714,19 @@ impl Plugin for GrassPlugin {
             "shaders/grass_simple.wgsl",
             Shader::from_wgsl
         );
-        app.init_resource::<GrassMeshes>()
+        app.init_asset::<eidolon::GrassMaterial>()
+            .init_resource::<GrassMeshes>()
             .add_plugins((
+                #[cfg(not(feature = "downlevel"))]
                 eidolon::GrassEidolonPlugin,
                 simple::GrassSimplePlugin,
                 culled::GrassCulledPlugin,
                 mesh_chunks::GrassMeshChunksPlugin,
-                cards::GrassCardsPlugin,
             ))
             .add_systems(Update, respawn_grass);
+        if crate::settings::demo_mode().is_none() {
+            app.add_plugins(cards::GrassCardsPlugin);
+        }
     }
 }
 
@@ -747,7 +764,11 @@ fn respawn_grass(
             | InstancingMode::CardsCurved
     ) {
         // Streams its own chunks around the camera; see mesh_chunks.rs / cards.rs.
-        info!("grass: {}, range {:.0} m", settings.instancing.label(), settings.grass_range);
+        info!(
+            "grass: {}, range {:.0} m",
+            settings.instancing.label(),
+            settings.grass_range
+        );
         return;
     }
 
@@ -771,7 +792,10 @@ fn respawn_grass(
     let mut batches: [Vec<InstanceData>; TIER_COUNT] = Default::default();
     for (tier_index, tier) in tiers.iter().enumerate() {
         if tier.dropped(range) {
-            info!("grass {}: dropped (starts past the {range:.0} m range)", tier.name);
+            info!(
+                "grass {}: dropped (starts past the {range:.0} m range)",
+                tier.name
+            );
             continue;
         }
         batches[tier_index] = match tier.id {
@@ -795,7 +819,13 @@ fn respawn_grass(
     commands.insert_resource(simple::GrassSimpleParams::from_tiers(&tiers));
     match settings.instancing {
         InstancingMode::Simple => {
-            simple::spawn(&mut commands, &tiers, &tier_meshes.0, batches, settings.grass_shadows);
+            simple::spawn(
+                &mut commands,
+                &tiers,
+                &tier_meshes.0,
+                batches,
+                settings.grass_shadows,
+            );
         }
         InstancingMode::SimpleCulled => {
             culled::spawn(&mut commands, &tiers, &tier_meshes.0, batches);

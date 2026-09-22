@@ -66,8 +66,11 @@ pub enum ShadingMode {
 }
 
 impl ShadingMode {
-    pub const ALL: [ShadingMode; 3] =
-        [ShadingMode::Standard, ShadingMode::LineBoil, ShadingMode::Custom];
+    pub const ALL: [ShadingMode; 3] = [
+        ShadingMode::Standard,
+        ShadingMode::LineBoil,
+        ShadingMode::Custom,
+    ];
     pub fn label(self) -> &'static str {
         match self {
             ShadingMode::Standard => "StandardMaterial",
@@ -130,10 +133,11 @@ pub enum InstancingMode {
 }
 
 impl InstancingMode {
-    pub const ALL: [InstancingMode; 8] = [
+    pub const ALL: &'static [InstancingMode] = &[
         InstancingMode::None,
         InstancingMode::Simple,
         InstancingMode::SimpleCulled,
+        #[cfg(not(feature = "downlevel"))]
         InstancingMode::Eidolon,
         InstancingMode::MeshChunks,
         InstancingMode::MeshChunksMap,
@@ -184,7 +188,11 @@ pub enum AtlasMips {
 }
 
 impl AtlasMips {
-    pub const ALL: [AtlasMips; 3] = [AtlasMips::Off, AtlasMips::Plain, AtlasMips::CoveragePreserving];
+    pub const ALL: [AtlasMips; 3] = [
+        AtlasMips::Off,
+        AtlasMips::Plain,
+        AtlasMips::CoveragePreserving,
+    ];
     pub fn label(self) -> &'static str {
         match self {
             AtlasMips::Off => "Off",
@@ -275,16 +283,6 @@ pub struct BenchSettings {
     /// relaxes toward standing grass at this rate, so a fresh path stays
     /// dark and old ones come back on their own.
     pub trample_recover: f32,
-    /// Backlit foliage: how much sun scatters through a blade toward the
-    /// eye. 0 is the wrapped-Lambert-only look every path had before.
-    pub transmit: f32,
-    /// How tight that lobe is: high is a narrow flare when you look straight
-    /// at the sun through the grass, low is a broad glow.
-    pub transmit_power: f32,
-    /// Sun elevation and compass angle (degrees). Backlighting needs the sun
-    /// low and behind the grass, which the fixed sun could never be.
-    pub sun_elevation: f32,
-    pub sun_azimuth: f32,
     /// Moving things that push grass aside (mesh-chunk mode: the affector
     /// uniform array; instanced modes: the first one drives the game's single
     /// interaction slot).
@@ -322,10 +320,6 @@ impl Default for BenchSettings {
             trample_strength: 3.0,
             trample_scorch: 0.5,
             trample_recover: 30.0,
-            transmit: 0.8,
-            transmit_power: 4.0,
-            sun_elevation: 52.0,
-            sun_azimuth: 58.0,
             affector_count: 2,
             tree_model: TreeModel::Placeholder,
             tree_count: 20,
@@ -376,6 +370,30 @@ impl BenchSettings {
     /// Native: `BENCH_SETTINGS` env (JSON, partial is fine) over `bench.json`
     /// in the working directory. Web: the `s` URL query parameter (JSON).
     pub fn load() -> Self {
+        let mut settings = Self::load_config();
+        if let Some(mode) = demo_mode() {
+            settings.instancing = mode;
+            settings.aa = AaMode::Off;
+            settings.depth_prepass = false;
+            settings.occlusion_culling = false;
+            settings.shadows = false;
+            settings.shading = ShadingMode::Custom;
+            settings.grass_density = 0.12;
+            settings.grass_range = 18.0;
+            settings.grass_shadows = false;
+            settings.tree_count = 0;
+            settings.character_count = 0;
+            settings.displacement_res = 256;
+            settings.vsync = true;
+        }
+        #[cfg(feature = "downlevel")]
+        if settings.instancing == InstancingMode::Eidolon {
+            settings.instancing = InstancingMode::SimpleCulled;
+        }
+        settings
+    }
+
+    fn load_config() -> Self {
         #[cfg(not(target_family = "wasm"))]
         {
             if let Ok(json) = std::env::var("BENCH_SETTINGS") {
@@ -442,9 +460,7 @@ fn combo<T: Copy + PartialEq>(
         .selected_text(name(*value))
         .show_ui(ui, |ui| {
             for option in all {
-                changed |= ui
-                    .selectable_value(value, *option, name(*option))
-                    .changed();
+                changed |= ui.selectable_value(value, *option, name(*option)).changed();
             }
         });
     changed
@@ -455,6 +471,29 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
     let Ok(ctx) = contexts.ctx_mut() else {
         return;
     };
+    if let Some(mode) = demo_mode() {
+        let s = settings.bypass_change_detection();
+        let mut changed = false;
+        egui::Window::new(mode.label())
+            .default_pos((10.0, 200.0))
+            .show(ctx, |ui| {
+                ui.label("WebGL2 laptop test · right-drag looks, WASD/QE moves");
+                changed |= ui
+                    .add(egui::Slider::new(&mut s.grass_density, 0.05..=0.35).text("Density"))
+                    .changed();
+                changed |= ui
+                    .add(egui::Slider::new(&mut s.grass_range, 8.0..=30.0).text("Range (m)"))
+                    .changed();
+                changed |= ui.checkbox(&mut s.orbit, "Orbit camera").changed();
+                if mode == InstancingMode::MeshChunksMap {
+                    changed |= ui.checkbox(&mut s.trample, "Trails").changed();
+                }
+            });
+        if changed {
+            settings.set_changed();
+        }
+        return;
+    }
     let s = settings.bypass_change_detection();
     let mut changed = false;
     egui::Window::new("GPU bench")
@@ -468,7 +507,9 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                     .on_disabled_hover_text("TAA requires depth prepass");
                 ui.label(egui::RichText::new("TAA requires depth prepass").weak());
             } else {
-                changed |= ui.checkbox(&mut s.depth_prepass, "Depth pre-pass").changed();
+                changed |= ui
+                    .checkbox(&mut s.depth_prepass, "Depth pre-pass")
+                    .changed();
             }
             ui.add_enabled_ui(s.effective_depth_prepass(), |ui| {
                 changed |= ui
@@ -477,12 +518,6 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                     .changed();
             });
             changed |= ui.checkbox(&mut s.shadows, "Sun shadows").changed();
-            changed |= ui
-                .add(egui::Slider::new(&mut s.sun_elevation, 2.0..=85.0).text("Sun elevation"))
-                .changed();
-            changed |= ui
-                .add(egui::Slider::new(&mut s.sun_azimuth, 0.0..=360.0).text("Sun compass"))
-                .changed();
             #[cfg(not(target_family = "wasm"))]
             {
                 changed |= ui.checkbox(&mut s.vsync, "VSync").changed();
@@ -492,7 +527,13 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
 
             ui.separator();
             ui.heading("Materials");
-            changed |= combo(ui, "Shading", &mut s.shading, &ShadingMode::ALL, ShadingMode::label);
+            changed |= combo(
+                ui,
+                "Shading",
+                &mut s.shading,
+                &ShadingMode::ALL,
+                ShadingMode::label,
+            );
             changed |= combo(
                 ui,
                 "Foliage alpha",
@@ -504,7 +545,9 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                 ui.label(egui::RichText::new("A2C needs MSAA; bevy runs it as Mask").weak());
             }
             if s.foliage_alpha == FoliageAlpha::OpaqueDiscard && s.shading != ShadingMode::Custom {
-                ui.label(egui::RichText::new("Opaque + discard only exists in the custom shader").weak());
+                ui.label(
+                    egui::RichText::new("Opaque + discard only exists in the custom shader").weak(),
+                );
             }
 
             ui.separator();
@@ -513,7 +556,7 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                 ui,
                 "Instancing",
                 &mut s.instancing,
-                &InstancingMode::ALL,
+                InstancingMode::ALL,
                 InstancingMode::label,
             );
             changed |= ui
@@ -526,20 +569,24 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                 .add(egui::Slider::new(&mut s.affector_count, 0..=16).text("Affectors"))
                 .changed();
             changed |= ui
-                .add(egui::Slider::new(&mut s.grass_width, 0.5..=4.0).text("Blade width (mesh chunks)"))
+                .add(
+                    egui::Slider::new(&mut s.grass_width, 0.5..=4.0)
+                        .text("Blade width (mesh chunks)"),
+                )
                 .changed();
-            changed |= ui.checkbox(&mut s.grass_shadows, "Grass casts shadows").changed();
             changed |= ui
-                .add(egui::Slider::new(&mut s.transmit, 0.0..=2.0).text("Backlit glow"))
-                .changed();
-            changed |= ui
-                .add(egui::Slider::new(&mut s.transmit_power, 1.0..=16.0).text("Glow sharpness"))
+                .checkbox(&mut s.grass_shadows, "Grass casts shadows")
                 .changed();
             if s.instancing == InstancingMode::MeshChunks {
                 ui.label(egui::RichText::new("Mesh chunks always use the custom material").weak());
             }
             if s.instancing == InstancingMode::MeshChunksMap {
-                ui.label(egui::RichText::new("Wind + affectors rendered top-down once per frame, one fetch per vertex").weak());
+                ui.label(
+                    egui::RichText::new(
+                        "Wind + affectors rendered top-down once per frame, one fetch per vertex",
+                    )
+                    .weak(),
+                );
                 changed |= combo(
                     ui,
                     "Map resolution",
@@ -552,9 +599,14 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                         _ => "1024",
                     },
                 );
-                changed |= ui.checkbox(&mut s.trample, "Trails (accumulated trail map)").changed();
                 changed |= ui
-                    .add(egui::Slider::new(&mut s.trample_strength, 0.5..=6.0).text("Trail strength"))
+                    .checkbox(&mut s.trample, "Trails (accumulated trail map)")
+                    .changed();
+                changed |= ui
+                    .add(
+                        egui::Slider::new(&mut s.trample_strength, 0.5..=6.0)
+                            .text("Trail strength"),
+                    )
                     .changed();
                 changed |= ui
                     .add(egui::Slider::new(&mut s.trample_scorch, 0.0..=1.0).text("Scorch"))
@@ -566,8 +618,16 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                     )
                     .changed();
             }
-            if matches!(s.instancing, InstancingMode::Cards | InstancingMode::CardsCurved) {
-                ui.label(egui::RichText::new("Sprite cards: custom material, foliage alpha knob applies").weak());
+            if matches!(
+                s.instancing,
+                InstancingMode::Cards | InstancingMode::CardsCurved
+            ) {
+                ui.label(
+                    egui::RichText::new(
+                        "Sprite cards: custom material, foliage alpha knob applies",
+                    )
+                    .weak(),
+                );
                 if s.instancing == InstancingMode::CardsCurved {
                     ui.label(
                         egui::RichText::new(
@@ -576,18 +636,33 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                         .weak(),
                     );
                     changed |= ui
-                        .add(egui::Slider::new(&mut s.card_curve, 0.0..=0.3).text("Curve (tip lean)"))
+                        .add(
+                            egui::Slider::new(&mut s.card_curve, 0.0..=0.3)
+                                .text("Curve (tip lean)"),
+                        )
                         .changed();
                     changed |= ui
                         .add(egui::Slider::new(&mut s.card_flutter, 0.0..=1.0).text("Flutter"))
                         .changed();
                 } else {
-                    changed |= combo(ui, "Card shape", &mut s.card_shape, &CardShape::ALL, CardShape::label);
+                    changed |= combo(
+                        ui,
+                        "Card shape",
+                        &mut s.card_shape,
+                        &CardShape::ALL,
+                        CardShape::label,
+                    );
                 }
                 changed |= ui
                     .add(egui::Slider::new(&mut s.card_scale, 0.5..=2.0).text("Card scale"))
                     .changed();
-                changed |= combo(ui, "Atlas mips", &mut s.atlas_mips, &AtlasMips::ALL, AtlasMips::label);
+                changed |= combo(
+                    ui,
+                    "Atlas mips",
+                    &mut s.atlas_mips,
+                    &AtlasMips::ALL,
+                    AtlasMips::label,
+                );
                 let mut aniso = s.atlas_anisotropy.max(1).ilog2();
                 if ui
                     .add(egui::Slider::new(&mut aniso, 0..=4).text("Anisotropy (log2)"))
@@ -601,7 +676,13 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
 
             ui.separator();
             ui.heading("Trees");
-            changed |= combo(ui, "Model", &mut s.tree_model, &TreeModel::ALL, TreeModel::label);
+            changed |= combo(
+                ui,
+                "Model",
+                &mut s.tree_model,
+                &TreeModel::ALL,
+                TreeModel::label,
+            );
             changed |= ui
                 .add(egui::Slider::new(&mut s.tree_count, 0..=200).text("Count"))
                 .changed();
@@ -689,5 +770,19 @@ fn apply_camera_settings(
         if window.present_mode != wanted {
             window.present_mode = wanted;
         }
+    }
+}
+
+/// Dedicated experiments are selected by URL, or by BENCH_DEMO natively.
+pub(crate) fn demo_mode() -> Option<InstancingMode> {
+    #[cfg(target_family = "wasm")]
+    let path = web_sys::window()?.location().pathname().ok()?;
+    #[cfg(not(target_family = "wasm"))]
+    let path = std::env::var("BENCH_DEMO").ok()?;
+    match path.trim_matches('/').rsplit('/').next()? {
+        "cpu-culled" => Some(InstancingMode::SimpleCulled),
+        "no-instancing" => Some(InstancingMode::MeshChunks),
+        "no-instancing-displacement" => Some(InstancingMode::MeshChunksMap),
+        _ => None,
     }
 }

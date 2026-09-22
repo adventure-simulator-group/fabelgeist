@@ -13,9 +13,13 @@ use bevy::render::render_resource::{
 };
 use bevy::shader::ShaderRef;
 use bevy_eidolon::prelude::*;
+#[cfg(not(feature = "downlevel"))]
 use bevy_eidolon::prepass::CullComputeCamera;
 
-use super::{GRASS_EIDOLON_SHADER_HANDLE, GrassEntity, TIER_COUNT, Tier, TierMesh, fitted_aabb, tier_params};
+use super::{
+    GRASS_EIDOLON_SHADER_HANDLE, GrassEntity, TIER_COUNT, Tier, TierMesh, fitted_aabb, tier_params,
+};
+#[cfg(not(feature = "downlevel"))]
 use crate::settings::{BenchSettings, InstancingMode};
 
 /// The instanced grass material: Fabelgeist's `TacticalGrassInstancedMaterial`.
@@ -79,8 +83,10 @@ impl InstancedMaterial for GrassMaterial {
     }
 }
 
+#[cfg(not(feature = "downlevel"))]
 pub struct GrassEidolonPlugin;
 
+#[cfg(not(feature = "downlevel"))]
 impl Plugin for GrassEidolonPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
@@ -96,6 +102,7 @@ impl Plugin for GrassEidolonPlugin {
 /// The camera drives eidolon's per-instance compute cull while the eidolon
 /// path is selected; the marker is removed otherwise so the other modes carry
 /// none of its per-frame work.
+#[cfg(not(feature = "downlevel"))]
 fn sync_cull_camera(
     mut commands: Commands,
     settings: Res<BenchSettings>,
@@ -139,7 +146,11 @@ pub fn spawn(
         });
         let aabb: Aabb = fitted_aabb(&instances, tier.footprint());
         let mut entity = commands.spawn((
-            Name::new(format!("grass eidolon {} ({} tufts)", tier.name, instances.len())),
+            Name::new(format!(
+                "grass eidolon {} ({} tufts)",
+                tier.name,
+                instances.len()
+            )),
             GrassEntity,
             GpuCullCompute,
             // Batches span the whole patch: CPU frustum culling could only hide
