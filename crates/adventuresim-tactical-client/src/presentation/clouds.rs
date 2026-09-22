@@ -5,7 +5,7 @@ use noise::{cloud_seed, non_periodic_value_noise_3d};
 mod streams;
 use super::cloud_bake_assets::{
     CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
-    CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, initial_image,
+    CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, image_from_rgba8,
 };
 use super::*;
 use bevy::{
@@ -930,24 +930,21 @@ pub(in crate::presentation) fn update_tactical_clouds(
             bake_state.end_ready = false;
 
             let wind_velocity = cloud_wind_velocity(environment);
-            let initial_request = CloudBakeRequest {
-                key: bake_key.clone(),
-                endpoint: 0,
-                wind_velocity,
-            };
-            let initial = initial_image(prebaked.as_deref(), || cloud_bake_image(&initial_request));
-            if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
-                *image = initial.clone();
-            }
-            if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
-                *image = initial;
+            if let Some(prebaked) = prebaked.as_deref() {
+                let initial = image_from_rgba8(prebaked.rgba8);
+                if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
+                    *image = initial.clone();
+                }
+                if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
+                    *image = initial;
+                }
             }
             bake_state.key = Some(bake_key.clone());
             #[cfg(not(target_family = "wasm"))]
-            if prebaked.is_none() {
+            {
                 bake_state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
                     key: bake_key.clone(),
-                    endpoint: 1,
+                    endpoint: u64::from(prebaked.is_some()),
                     wind_velocity,
                 }));
             }
@@ -1058,21 +1055,9 @@ fn advance_cloud_bake_pipeline(
                 .take()
                 .expect("finished cloud bake task remains present"),
         );
-        if state.key.as_ref() == Some(&completed.request.key) {
-            if state.end_ready {
-                state.queued = Some(completed);
-            } else {
-                if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
-                    *image = completed.image;
-                }
-                state.end_ready = true;
-                state.elapsed_seconds = 0.0;
-                state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
-                    key: completed.request.key,
-                    endpoint: completed.request.endpoint + 1,
-                    wind_velocity: completed.request.wind_velocity,
-                }));
-            }
+        if let Some(next_request) = install_completed_cloud_bake(state, material, images, completed)
+        {
+            state.pending = Some(spawn_cloud_bake(next_request));
         }
     }
 
@@ -1100,6 +1085,37 @@ fn advance_cloud_bake_pipeline(
         endpoint: completed.request.endpoint + 1,
         wind_velocity: completed.request.wind_velocity,
     }));
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn install_completed_cloud_bake(
+    state: &mut CloudBakeState,
+    material: &mut TacticalCloudMaterial,
+    images: &mut Assets<Image>,
+    completed: CompletedCloudBake,
+) -> Option<CloudBakeRequest> {
+    if state.key.as_ref() != Some(&completed.request.key) {
+        return None;
+    }
+    if state.end_ready {
+        state.queued = Some(completed);
+        return None;
+    }
+    if completed.request.endpoint == 0 {
+        if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
+            *image = completed.image.clone();
+        }
+    }
+    if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
+        *image = completed.image;
+    }
+    state.end_ready = true;
+    state.elapsed_seconds = 0.0;
+    Some(CloudBakeRequest {
+        key: completed.request.key,
+        endpoint: completed.request.endpoint + 1,
+        wind_velocity: completed.request.wind_velocity,
+    })
 }
 
 fn cloud_visibility(active: bool, isolation: TacticalCloudBenchmarkIsolation) -> Visibility {
@@ -1485,5 +1501,146 @@ mod tests {
         let velocity = cloud_wind_velocity(&environment);
         assert!((velocity.x - CLOUD_MAX_WIND_METRES_PER_SECOND).abs() < 0.001);
         assert!(velocity.y.abs() < 0.001);
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_image(pixel: [u8; 4]) -> Image {
+        use bevy::{
+            asset::RenderAssetUsages,
+            render::render_resource::{Extent3d, TextureDimension, TextureFormat},
+        };
+
+        Image::new_fill(
+            Extent3d {
+                width: 1,
+                height: 1,
+                depth_or_array_layers: 1,
+            },
+            TextureDimension::D2,
+            &pixel,
+            TextureFormat::Rgba8Unorm,
+            RenderAssetUsages::RENDER_WORLD,
+        )
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_material(images: &mut Assets<Image>) -> TacticalCloudMaterial {
+        TacticalCloudMaterial {
+            lighting: Vec4::ZERO,
+            shape: Vec4::ZERO,
+            layer: Vec4::ZERO,
+            motion: Vec4::ZERO,
+            spectral: Vec4::ZERO,
+            geometry: Vec4::ZERO,
+            baked_texture_a: images.add(lifecycle_image([1, 2, 3, 4])),
+            baked_texture_b: images.add(lifecycle_image([5, 6, 7, 8])),
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_request(endpoint: u64) -> CloudBakeRequest {
+        let environment = environment();
+        CloudBakeRequest {
+            key: CloudBakeKey {
+                layers: CloudLayerParameters::layers_from_environment(&environment, None),
+                seed: 7,
+            },
+            endpoint,
+            wind_velocity: cloud_wind_velocity(&environment),
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn initial_async_bake_installs_both_endpoints_and_schedules_the_next_bake() {
+        let request = lifecycle_request(0);
+        let mut state = CloudBakeState {
+            key: Some(request.key.clone()),
+            ..Default::default()
+        };
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+        let next = install_completed_cloud_bake(
+            &mut state,
+            &mut material,
+            &mut images,
+            CompletedCloudBake {
+                request,
+                image: lifecycle_image([9, 10, 11, 12]),
+            },
+        )
+        .expect("initial bake schedules endpoint one");
+
+        assert!(state.end_ready);
+        assert_eq!(next.endpoint, 1);
+        for texture in [&material.baked_texture_a, &material.baked_texture_b] {
+            assert_eq!(
+                images.get(texture).and_then(|image| image.data.as_deref()),
+                Some(&[9, 10, 11, 12][..])
+            );
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn stale_initial_bake_is_discarded_without_changing_fallback_textures() {
+        let request = lifecycle_request(0);
+        let mut state = CloudBakeState {
+            key: Some(lifecycle_request(0).key),
+            ..Default::default()
+        };
+        state.key.as_mut().expect("key is present").seed = 8;
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+
+        assert!(
+            install_completed_cloud_bake(
+                &mut state,
+                &mut material,
+                &mut images,
+                CompletedCloudBake {
+                    request,
+                    image: lifecycle_image([9, 10, 11, 12]),
+                },
+            )
+            .is_none()
+        );
+        assert!(!state.end_ready);
+        assert_eq!(
+            images
+                .get(&material.baked_texture_a)
+                .and_then(|image| image.data.as_deref()),
+            Some(&[1, 2, 3, 4][..])
+        );
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn subsequent_completed_bake_queues_for_the_existing_interpolation_cycle() {
+        let request = lifecycle_request(1);
+        let mut state = CloudBakeState {
+            key: Some(request.key.clone()),
+            end_ready: true,
+            ..Default::default()
+        };
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+
+        assert!(
+            install_completed_cloud_bake(
+                &mut state,
+                &mut material,
+                &mut images,
+                CompletedCloudBake {
+                    request,
+                    image: lifecycle_image([9, 10, 11, 12]),
+                },
+            )
+            .is_none()
+        );
+        assert_eq!(
+            state.queued.as_ref().map(|bake| bake.request.endpoint),
+            Some(1)
+        );
     }
 }
