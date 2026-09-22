@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GPU bench</title>
+    <style>
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0b0d10; overflow: hidden; }
+      #bevy { width: 100%; height: 100%; display: block; outline: none; }
+      #boot {
+        position: fixed; inset: 0; background: #0b0d10; color: #c9d1d9;
+        font: 13px/1.5 ui-monospace, Menlo, Consolas, monospace; padding: 24px; box-sizing: border-box;
+        display: flex; flex-direction: column; gap: 12px; z-index: 10;
+      }
+      #boot.done { display: none; }
+      #boot-status { font-size: 15px; color: #e6edf3; }
+      #boot-console { flex: 1; overflow: auto; white-space: pre-wrap; opacity: 0.8; }
+      #boot-console .warn { color: #e3b341; }
+      #boot-console .err { color: #f85149; }
+      #hint {
+        position: fixed; left: 8px; bottom: 8px; color: #8b949e; pointer-events: none;
+        font: 12px ui-monospace, Menlo, Consolas, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="bevy"></canvas>
+    <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
+    <div id="boot">
+      <div id="boot-status">&gt; boot</div>
+      <div id="boot-console"></div>
+    </div>
+    <!-- Classic script: runs at parse time, before the deferred module below,
+         so nothing the engine logs is missed. -->
+    <script>
+      (() => {
+        const feed = document.getElementById("boot-console");
+        const fmt = (a) => (a instanceof Error ? a.stack || `${a}` : typeof a === "string" ? a : (() => {
+          try { return JSON.stringify(a); } catch { return String(a); }
+        })());
+        const push = (cls, text) => {
+          const line = document.createElement("div");
+          line.className = cls;
+          line.textContent = text;
+          feed.append(line);
+          while (feed.childElementCount > 300) feed.firstElementChild.remove();
+        };
+        for (const [name, cls] of [["log", ""], ["info", ""], ["debug", ""], ["warn", "warn"], ["error", "err"]]) {
+          const orig = console[name].bind(console);
+          console[name] = (...args) => {
+            orig(...args);
+            push(cls, args.map(fmt).join(" "));
+          };
+        }
+        addEventListener("error", (e) => push("err", e.message ? `${e.message} @ ${e.filename}:${e.lineno}` : `failed to load ${e.target?.src || e.target?.href || "resource"}`), true);
+        addEventListener("unhandledrejection", (e) => push("err", `unhandled rejection: ${fmt(e.reason)}`));
+        window.boot_status = (text) => {
+          document.getElementById("boot-status").textContent = `> ${text}`;
+        };
+        // The engine's first frame ends the boot screen: the canvas gets a
+        // size once winit attaches, which is the earliest reliable signal.
+        const boot = document.getElementById("boot");
+        window.boot_done = () => boot.classList.add("done");
+        new ResizeObserver(() => {
+          const c = document.getElementById("bevy");
+          if (c.width > 0) setTimeout(window.boot_done, 300);
+        }).observe(document.getElementById("bevy"));
+      })();
+    </script>
+    <script type="module">
+      // --- boot: stream the wasm for real download progress, then hand off ---
+      // Uncompressed size of bench_bg.wasm, substituted by
+      // scripts/build-wasm-client.sh. 0 => fall back to a plain byte counter.
+      const WASM_BYTES = 0;
+      // Same for the webgl2 fallback engine. 0 = this serving has no webgl2
+      // build (dev modes, unbuilt web/) and detection is skipped entirely.
+      const WASM_BYTES_WEBGL2 = 0;
+      // Assets to warm into the HTTP cache the moment the engine finishes
+      // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
+      const PREFETCH = [];
+      const prefetchAssets = () => {
+        for (const href of PREFETCH) {
+          document.head.append(
+            Object.assign(document.createElement("link"), {
+              rel: "prefetch",
+              as: "fetch",
+              crossOrigin: "anonymous",
+              href,
+            })
+          );
+        }
+      };
+      const mb = (bytes) => (bytes / 1048576).toFixed(1);
+      try {
+        // WebGPU by default; the webgl2 build when the adapter is missing or
+        // blocklisted. Probing must actually request the adapter —
+        // navigator.gpu can exist and still yield null. ?forcegl to test the
+        // fallback on a WebGPU-capable browser.
+        let engine = { js: "./bench.js", wasm: "./bench_bg.wasm", bytes: WASM_BYTES };
+        if (WASM_BYTES_WEBGL2) {
+          const adapter = navigator.gpu
+            ? await Promise.race([
+                navigator.gpu.requestAdapter().catch(() => null),
+                new Promise((resolve) => setTimeout(() => resolve(null), 3000)),
+              ])
+            : null;
+          if (!adapter || location.search.includes("forcegl")) {
+            engine = {
+              js: "./bench_webgl2.js",
+              wasm: "./bench_webgl2_bg.wasm",
+              bytes: WASM_BYTES_WEBGL2,
+            };
+            boot_status("webgpu unavailable - webgl2 engine");
+          }
+        } else if (!navigator.gpu) {
+          boot_status("this build needs WebGPU (Chrome/Edge, or Firefox on Windows)");
+        }
+        const mod = await import(engine.js);
+        const init = mod.default;
+
+        boot_status("fetching engine");
+        // Unbuilt serving (WASM_BYTES=0) has no ?v= cache-buster; force
+        // revalidation there. Built deploys keep the immutable fast path.
+        const raw = await fetch(
+          new URL(engine.wasm, import.meta.url),
+          engine.bytes ? {} : { cache: "no-cache" }
+        );
+        if (!raw.ok) throw new Error(`engine fetch failed: HTTP ${raw.status}`);
+        const total = engine.bytes || +raw.headers.get("Content-Length") || 0;
+        let got = 0;
+        const reader = raw.body.getReader();
+        const body = new ReadableStream({
+          async pull(controller) {
+            const { done, value } = await reader.read();
+            if (done) {
+              prefetchAssets();
+              return controller.close();
+            }
+            got += value.length;
+            boot_status(
+              total
+                ? `fetching engine ${Math.min(99, Math.round((got / total) * 100))}% (${mb(got)} MB)`
+                : `fetching engine ${mb(got)} MB`
+            );
+            controller.enqueue(value);
+          },
+          cancel(reason) {
+            reader.cancel(reason);
+          },
+        });
+        boot_status("compiling wasm");
+        await init({
+          module_or_path: new Response(body, { headers: { "Content-Type": "application/wasm" } }),
+        });
+      } catch (err) {
+        // winit exits its run() via a JS exception on wasm; that lands here on
+        // every successful start and is not a failure.
+        if (!`${err}`.includes("control flow")) {
+          boot_status(`FATAL: ${err?.message ?? err}`);
+          throw err;
+        }
+      }
+    </script>
+  </body>
+</html>

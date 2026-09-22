@@ -44,6 +44,10 @@ exclude = [
   # dependency and its cubecl toolchain do not belong in the everyday build.
   "crates/fabelgeist-mhr",
   "crates/fabelgeist-numpy-storage",
+  # The grass bench is a standalone benchmark with its own lockfile, target
+  # dir and dependency set (bevy_eidolon, bevy_egui); nothing the game builds
+  # should shift because of it.
+  "grass-bench",
 ]
 
 [workspace.package]

@@ -1,0 +1,74 @@
+[package]
+name = "gpu-bench"
+version = "0.1.0"
+edition = "2024"
+description = "GPU performance testbed: the tactical scene's ground, grass, trees and characters with every rendering choice on a runtime switch."
+
+[lints.clippy]
+type_complexity = "allow"
+
+[features]
+default = []
+# WebGPU backend on wasm (the product). Without it bevy's default webgl2
+# backend is used: `just bench-web-webgl2`.
+webgpu = ["bevy/webgpu"]
+# `just bench-trace`: every system emits a performance.mark/measure pair for
+# the Firefox Profiler. Structure only, not cost (see skatepark's notes).
+trace = ["bevy/trace"]
+
+[dependencies]
+# Same feature set as the game client (bevy/default + jpeg) so the shared
+# target dir's compiled bevy crates are reused as-is.
+bevy = { version = "0.19", features = ["jpeg"] }
+bevy_egui = { version = "0.41" }
+bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = "fablegeist-0.19" }
+bevy_line_boil = { path = "vendor/bevy_line_boil" }
+bytemuck = { version = "1", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["console", "Window", "Location", "Performance"] }
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+[profile.win-dev]
+inherits = "dev"
+strip = "debuginfo"
+
+[profile.win-dev.package."*"]
+opt-level = 3
+
+# Web profiles mirror skatepark's: one profile dir per mode so switching
+# between them never evicts the others' artifacts.
+[profile.wasm-release]
+inherits = "release"
+# "s" over "z": ~same size ballpark, noticeably faster wasm.
+opt-level = "s"
+lto = "thin"
+codegen-units = 1
+strip = "debuginfo"
+
+# `just bench-web`: wasm-release codegen plus DWARF so the Firefox Profiler
+# names bench-crate frames.
+[profile.wasm-dev]
+inherits = "wasm-release"
+debug = 1
+strip = "none"
+
+[profile.wasm-trace]
+inherits = "wasm-release"
+
+[profile.wasm-release-webgl2]
+inherits = "wasm-release"

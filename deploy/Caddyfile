@@ -24,5 +24,10 @@ www.{{DOMAIN}} {
     # Caddy's ETag turns an unchanged file into a free 304.
     header Cache-Control "no-cache"
 
-    file_server
+    # The grass bench ships .br/.gz next to its engines and models, which are
+    # far too big to compress per request on a cpx11. Bundles without a
+    # sibling are served as they are and `encode` handles them.
+    file_server {
+        precompressed br gzip
+    }
 }

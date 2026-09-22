@@ -75,3 +75,9 @@ output/
 *.stdout.log
 *.stderr.log
 crates/strategic-web/node_modules/
+
+# The grass bench builds and ships its own bundle (scripts/build_grass_demo.py).
+grass-bench/target/
+grass-bench/web/public/
+grass-bench/web/deploy/
+grass-bench/bench.json
