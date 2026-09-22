@@ -143,6 +143,10 @@ pub(crate) fn display(
         visibility.set_if_neq(show(active && on_body));
     }
     if !active {
+        // The wall's pieces are left behind on any other tab.
+        for (_, _, mut visibility) in &mut pieces {
+            visibility.set_if_neq(Visibility::Hidden);
+        }
         return;
     }
     if armory.arranged != Some(armory.both_sides) {
@@ -212,4 +216,42 @@ pub(crate) fn frame_camera(
         radius,
         angles,
     });
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use bevy::ecs::system::RunSystemOnce;
+    use clap::Parser;
+
+    /// Leaving the armory takes its wall down and shows the character again.
+    #[test]
+    fn pieces_are_hidden_off_the_armory_tab() {
+        let mut world = World::new();
+        world.insert_resource(Armory::default());
+        world.insert_resource(Assets::<StandardMaterial>::default());
+        let mut studio = Studio::new(&Args::parse_from(["creator"]), CharacterRecipe::default());
+        studio.tab = studio_ui::StudioTab::Character;
+        world.insert_resource(studio);
+        // A piece the armory left on the wall, and the light it lit it with.
+        let piece = world
+            .spawn((
+                ArmoryMesh {
+                    exhibit: 0,
+                    placement: 0,
+                },
+                Transform::default(),
+                Visibility::Inherited,
+            ))
+            .id();
+        let body = world.spawn((ArmoryBody, Visibility::Inherited)).id();
+        let light = world.spawn((ArmoryLight, Visibility::Inherited)).id();
+        let character = world.spawn((CharacterMesh, Visibility::Hidden)).id();
+        world.run_system_once(display).unwrap();
+        let visibility = |world: &World, entity| *world.get::<Visibility>(entity).unwrap();
+        for hidden in [piece, body, light] {
+            assert_eq!(visibility(&world, hidden), Visibility::Hidden);
+        }
+        assert_eq!(visibility(&world, character), Visibility::Inherited);
+    }
 }
