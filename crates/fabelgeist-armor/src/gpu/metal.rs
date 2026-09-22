@@ -4,9 +4,11 @@ use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
 use super::PlateGpu;
+use super::finish::FINISH_WORDS;
 use super::textures::{DRAWS_PER_SCRATCH, STAMP_GROUP};
-use crate::engraving::{Engraving, Relief, ReliefImage, ReliefPixels};
+use crate::engraving::{Cut, Engraving, Relief, ReliefImage, ReliefPixels};
 use crate::material::{DepthMap, Metal, MetalTextures};
+use crate::ornament::Ornament;
 
 /// The texture sizes a bake supports.
 const SIZES: std::ops::RangeInclusive<u32> = 32..=1024;
@@ -16,25 +18,20 @@ pub(super) fn textures(gpu: &PlateGpu, metal: &Metal, size: u32) -> Result<Metal
     if !SIZES.contains(&size) {
         return Err("Texture size must be 32–1024".into());
     }
-    let image = metal
+    let cut = metal
         .engraving
         .as_ref()
-        .map(|engraving| engraving.load().map(|image| (engraving, image)))
+        .map(|engraving| engraving.cut().map(|cut| (engraving, cut)))
         .transpose()?;
-    bake(
-        gpu,
-        metal,
-        size,
-        image.as_ref().map(|(engraving, image)| (*engraving, image)),
-    )
+    bake(gpu, metal, size, cut.as_ref().map(|(e, cut)| (*e, cut)))
 }
 
-/// Bake the maps with an already decoded engraving image.
+/// Bake the maps with the engraving's cut already resolved.
 pub(super) fn bake(
     gpu: &PlateGpu,
     metal: &Metal,
     size: u32,
-    engraving: Option<(&Engraving, &ReliefImage)>,
+    engraving: Option<(&Engraving, &Cut<'_>)>,
 ) -> Result<MetalTextures, String> {
     let texels = size * size;
     let height = gpu.scratch(texels.into(), "metal scratch height")?;
@@ -43,11 +40,21 @@ pub(super) fn bake(
     let normal = gpu.scratch(texels.into(), "metal normal")?;
     let metal_roughness = gpu.scratch(texels.into(), "metal roughness")?;
     let depth = gpu.scratch(texels.into(), "metal depth")?;
+    let finish = gpu.scratch(u64::from(texels) * u64::from(FINISH_WORDS), "metal finish")?;
     let mut batch = gpu.batch("metal textures");
     record_scratches(gpu, &mut batch, metal, size, &height)?;
+    record_finish(gpu, &mut batch, metal, size, &finish)?;
     let depth_uv = match engraving {
-        Some((engraving, image)) => {
-            record_engraving(gpu, &mut batch, engraving, image, size, &recess, &slopes)?
+        Some((engraving, cut)) => {
+            match cut {
+                Cut::Image(image) => {
+                    record_image(gpu, &mut batch, engraving, image, size, &recess, &slopes)?
+                }
+                Cut::Ornament(ornament) => {
+                    record_ornament(gpu, &mut batch, engraving, ornament, size, &recess)?
+                }
+            }
+            record_cut_slopes(gpu, &mut batch, engraving, size, &recess, &slopes)?
         }
         None => None,
     };
@@ -69,6 +76,7 @@ pub(super) fn bake(
     bake.insert("normal", normal.clone());
     bake.insert("metal_roughness", metal_roughness.clone());
     bake.insert("depth", depth.clone());
+    bake.insert("finish", finish);
     gpu.dispatch(&mut batch, &gpu.bake, &bake, texels)?;
     batch.submit();
     let bytes = |buffer: &Buffer| -> Result<Vec<u8>, String> {
@@ -88,6 +96,27 @@ pub(super) fn bake(
             })
             .transpose()?,
     })
+}
+
+/// Evaluate the planishing, polish grain and smudges into `finish`.
+fn record_finish(
+    gpu: &PlateGpu,
+    batch: &mut KernelBatch,
+    metal: &Metal,
+    size: u32,
+    finish: &Buffer,
+) -> Result<(), String> {
+    let mut parameters = PassParameters::new();
+    parameters.insert("size", size);
+    parameters.insert("seed", metal.seed);
+    parameters.insert(host_float::ZERO_FIELD, 0u32);
+    parameters.insert("pad0", 0u32);
+    parameters.insert("waviness", metal.waviness);
+    parameters.insert("grain", metal.grain);
+    parameters.insert("smudge", metal.smudge);
+    parameters.insert("pad1", 0.0f32);
+    parameters.insert("finish", finish.clone());
+    gpu.dispatch(batch, &gpu.finish, &parameters, size * size)
 }
 
 /// Stamp the metal's scratches into `height`.
@@ -132,9 +161,36 @@ fn record_scratches(
         .map_err(super::device_error)
 }
 
-/// Resample the engraving onto the tile; returns the parallax depth of a
-/// height map.
-fn record_engraving(
+/// Draw the ornament into `recess`.
+fn record_ornament(
+    gpu: &PlateGpu,
+    batch: &mut KernelBatch,
+    engraving: &Engraving,
+    ornament: &Ornament,
+    size: u32,
+    recess: &Buffer,
+) -> Result<(), String> {
+    let (sin, cos) = engraving.rotation.sin_cos();
+    let (motif, first, second, strands) = ornament.motif.words();
+    let mut draw = PassParameters::new();
+    draw.insert("size", size);
+    draw.insert("motif", motif);
+    draw.insert("repeats", ornament.repeats);
+    draw.insert("strands", strands);
+    draw.insert("tiles", engraving.tiles);
+    draw.insert("sin_rotation", sin);
+    draw.insert("cos_rotation", cos);
+    draw.insert("line", ornament.line);
+    draw.insert("first", first);
+    draw.insert("second", second);
+    draw.insert("fillets", u32::from(ornament.fillets));
+    draw.insert(host_float::ZERO_FIELD, 0u32);
+    draw.insert("recess", recess.clone());
+    gpu.dispatch(batch, &gpu.ornament, &draw, size * size)
+}
+
+/// Resample the engraving's image onto the tile.
+fn record_image(
     gpu: &PlateGpu,
     batch: &mut KernelBatch,
     engraving: &Engraving,
@@ -142,7 +198,7 @@ fn record_engraving(
     size: u32,
     recess: &Buffer,
     slopes: &Buffer,
-) -> Result<Option<f32>, String> {
+) -> Result<(), String> {
     let texels = size * size;
     let (sin, cos) = engraving.rotation.sin_cos();
     let (pixels, normal_map, strength) = match (&image.pixels, engraving.relief) {
@@ -168,7 +224,19 @@ fn record_engraving(
     sample.insert("image", pixels);
     sample.insert("recess", recess.clone());
     sample.insert("slopes", slopes.clone());
-    gpu.dispatch(batch, &gpu.engraving, &sample, texels)?;
+    gpu.dispatch(batch, &gpu.engraving, &sample, texels)
+}
+
+/// The slopes of a height map's cut; returns its parallax depth.
+fn record_cut_slopes(
+    gpu: &PlateGpu,
+    batch: &mut KernelBatch,
+    engraving: &Engraving,
+    size: u32,
+    recess: &Buffer,
+    slopes: &Buffer,
+) -> Result<Option<f32>, String> {
+    let texels = size * size;
     let Relief::Height { depth } = engraving.relief else {
         return Ok(None);
     };

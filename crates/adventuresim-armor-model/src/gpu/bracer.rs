@@ -17,7 +17,9 @@ use super::body::GpuBody;
 use super::bracer_contour_wgsl;
 use super::bracer_wgsl::{self, AXIS_WORDS, POINT_WORDS, SAMPLE_WORDS};
 use super::{ArmorGpu, device_error};
-use crate::{ArmorMorph, BracerDesign, GenerateError, GeneratedArmor, design_hash, validate};
+use crate::{
+    ArmorMorph, BracerDesign, GenerateError, GeneratedArmor, PlateFace, design_hash, validate,
+};
 
 /// Rings along the forearm, less one.
 pub(crate) const ALONG: u32 = 16;
@@ -59,6 +61,20 @@ impl Layout {
 
     fn vertex_count(&self) -> u32 {
         self.sample_count() * 2
+    }
+
+    /// The plate face of each triangle `bracer_wgsl::INDICES` writes: per
+    /// ring quad two outer then two inner triangles, then two per quad of
+    /// the end walls.
+    fn faces(&self) -> Vec<PlateFace> {
+        use PlateFace::{Edge, Inner, Outer};
+        let quads = (ALONG * self.around) as usize;
+        let walls = 2 * self.around as usize;
+        [Outer, Outer, Inner, Inner]
+            .repeat(quads)
+            .into_iter()
+            .chain(std::iter::repeat_n(Edge, 2 * walls))
+            .collect()
     }
 
     /// Displace the samples off one body realization, and thicken them into
@@ -409,6 +425,8 @@ impl DeviceBracer {
                 &self.layout.indices,
                 self.layout.triangle_count as usize * 3,
             )?,
+            faces: self.layout.faces(),
+            trim: None,
             morphs,
         })
     }

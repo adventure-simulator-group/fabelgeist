@@ -123,6 +123,11 @@ pub struct GeneratedArmor {
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
     pub indices: Vec<u32>,
+    /// The plate face of each triangle; empty for a piece that is not a
+    /// thickened plate.
+    pub faces: Vec<crate::PlateFace>,
+    /// The band along the plates' edges, once [`GeneratedArmor::trimmed`].
+    pub trim: Option<crate::ArmorTrim>,
     pub morphs: Vec<ArmorMorph>,
 }
 

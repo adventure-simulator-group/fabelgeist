@@ -3,7 +3,9 @@ pub mod engraving;
 pub mod gpu;
 pub mod material;
 mod mesh;
+pub mod ornament;
 pub mod pattern;
+pub mod trim;
 pub use mesh::{ArmorMesh, ArmorPart};
 use serde::{Deserialize, Serialize};
 

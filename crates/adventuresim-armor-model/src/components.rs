@@ -19,6 +19,15 @@ impl ArmorComponentRole {
             Self::Visor => "visor",
         }
     }
+
+    /// The name of the component's trim band.
+    pub const fn trim_name(self) -> &'static str {
+        match self {
+            Self::Skull => "skull.trim",
+            Self::Bevor => "bevor.trim",
+            Self::Visor => "visor.trim",
+        }
+    }
 }
 
 /// Reference-pose hinge in the same metre coordinate space as the mesh.

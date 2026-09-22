@@ -37,6 +37,7 @@ mod garment_controls;
 mod inventory_ui;
 mod metal_controls;
 mod metal_preview;
+mod ornament_controls;
 mod outfit;
 mod studio_ui;
 use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};

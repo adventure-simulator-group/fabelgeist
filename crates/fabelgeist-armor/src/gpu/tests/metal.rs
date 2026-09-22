@@ -2,7 +2,7 @@
 
 use super::gpu;
 use crate::engraving::{
-    Engraving, Relief,
+    Cut, Engraving, Relief,
     tests::{groove_png, png},
 };
 use crate::gpu::metal::bake;
@@ -10,17 +10,20 @@ use crate::material::{Metal, MetalTextures};
 
 const FLAT_NORMAL: [u8; 4] = [127, 127, 255, 255];
 
-/// An unscratched metal, so that only the engraving shapes the maps.
+/// A flawless metal, so that only the engraving shapes the maps.
 fn polished() -> Metal {
     Metal {
         scratch_density: 0,
+        waviness: 0.0,
+        grain: 0.0,
+        smudge: 0.0,
         ..Metal::default()
     }
 }
 
 /// Bake `metal` with `engraving` decoded from `image`.
 fn engraved(metal: &Metal, engraving: &Engraving, image: &[u8], size: u32) -> MetalTextures {
-    let image = engraving.decode(image).unwrap();
+    let image = Cut::Image(engraving.decode(image).unwrap());
     bake(gpu(), metal, size, Some((engraving, &image))).unwrap()
 }
 
@@ -53,6 +56,37 @@ fn scratches_are_deterministic_and_change_normal_and_roughness() {
     );
     assert_ne!(a.normal, smooth.normal);
     assert_ne!(a.metal_roughness, smooth.metal_roughness);
+}
+
+#[test]
+fn the_finish_tilts_and_roughens_the_surface_and_still_tiles() {
+    let size = 64;
+    let finished = Metal {
+        waviness: Metal::MAX_WAVINESS,
+        grain: 1.0,
+        smudge: 0.3,
+        ..polished()
+    };
+    let a = gpu().textures(&finished, size).unwrap();
+    assert_eq!(a.normal, gpu().textures(&finished, size).unwrap().normal);
+    let tilted = a
+        .normal
+        .as_chunks::<4>()
+        .0
+        .iter()
+        .filter(|p| **p != FLAT_NORMAL);
+    assert!(tilted.count() > (size * size / 2) as usize);
+    let roughness = |x, y| i32::from(pixel(&a.metal_roughness, size, x, y)[1]);
+    let values = (0..size).flat_map(|y| (0..size).map(move |x| (x, y)));
+    let (low, high) = values.fold((255, 0), |(low, high), (x, y)| {
+        (low.min(roughness(x, y)), high.max(roughness(x, y)))
+    });
+    assert!(high - low > 25, "gloss varies: {low}..{high}");
+    // Opposite edges of the tile continue each other: neighbours across the
+    // seam differ no more than neighbours inside it.
+    let step = |x0, x1| (roughness(x0, 7) - roughness(x1, 7)).abs();
+    let inside = (1..size).map(|x| step(x - 1, x)).max().unwrap();
+    assert!(step(size - 1, 0) <= inside + 2);
 }
 
 #[test]
@@ -149,4 +183,72 @@ fn tiling_repeats_the_engraving() {
         .collect::<Vec<_>>();
     let grooves = row.windows(2).filter(|w| w[0] < 128 && w[1] >= 128).count();
     assert_eq!(grooves, 2, "{row:?}");
+}
+
+/// The share of each depth row that is cut, top to bottom, for `ornament`
+/// filling the tile once.
+fn ornament_rows(ornament: crate::ornament::Ornament, size: u32) -> (MetalTextures, Vec<f32>) {
+    let engraving = Engraving::ornament(ornament);
+    let baked = gpu()
+        .textures(
+            &Metal {
+                engraving: Some(engraving),
+                ..polished()
+            },
+            size,
+        )
+        .unwrap();
+    let depth = baked.depth.as_ref().expect("an ornament is cut as heights");
+    let rows = (0..size)
+        .map(|y| {
+            (0..size)
+                .map(|x| f32::from(pixel(&depth.pixels, size, x, y)[0]) / 255.0)
+                .sum::<f32>()
+                / size as f32
+        })
+        .collect();
+    (baked, rows)
+}
+
+#[test]
+fn every_ornament_motif_cuts_part_of_its_cell() {
+    use crate::ornament::{Motif, Ornament};
+    let size = 128;
+    for motif in Motif::ALL {
+        let ornament = Ornament {
+            motif,
+            fillets: false,
+            ..Ornament::default()
+        };
+        let (a, rows) = ornament_rows(ornament.clone(), size);
+        let (b, _) = ornament_rows(ornament, size);
+        assert_eq!(a.normal, b.normal, "{motif:?} is deterministic");
+        let cut = rows.iter().sum::<f32>() / size as f32;
+        assert!((0.03..0.6).contains(&cut), "{motif:?} cuts {cut}");
+        // Without fillets the cell's long sides stay untouched.
+        assert!(
+            rows[0] < 0.01 && rows[size as usize - 1] < 0.01,
+            "{motif:?}"
+        );
+    }
+}
+
+#[test]
+fn fillets_run_along_both_sides_of_the_cell() {
+    use crate::ornament::{Motif, Ornament};
+    let size = 128;
+    let ornament = Ornament {
+        motif: Motif::Beads { radius: 0.3 },
+        line: 0.06,
+        ..Ornament::default()
+    };
+    let (_, rows) = ornament_rows(ornament, size);
+    // Fillets centred one line in from each side are cut the whole way along.
+    let at = (0.06 * size as f32) as usize;
+    assert!(
+        rows[at] > 0.95 && rows[size as usize - 1 - at] > 0.95,
+        "{rows:?}"
+    );
+    // Between a fillet and the beads the surface is untouched.
+    assert!(rows[(0.16 * size as f32) as usize] < 0.05, "{rows:?}");
 }

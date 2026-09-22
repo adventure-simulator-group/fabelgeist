@@ -14,8 +14,10 @@
 //! a device shares it; [`PlateGpu::open`] opens one of its own.
 
 mod armor;
+mod finish;
 mod geometry;
 mod metal;
+mod ornament;
 mod plan;
 mod textures;
 mod weld;
@@ -47,6 +49,8 @@ pub struct PlateGpu {
     scratches: Arc<Kernel>,
     engraving: Arc<Kernel>,
     cut_slopes: Arc<Kernel>,
+    finish: Arc<Kernel>,
+    ornament: Arc<Kernel>,
     bake: Arc<Kernel>,
     sort: RadixSort,
     scan: ScanDefinition,
@@ -85,6 +89,8 @@ impl PlateGpu {
             scratches: kernel(textures::scratches_source())?,
             engraving: kernel(textures::engraving_source())?,
             cut_slopes: kernel(textures::cut_slopes_source())?,
+            finish: kernel(finish::finish_source())?,
+            ornament: kernel(ornament::ornament_source())?,
             bake: kernel(textures::bake_source())?,
             sort: RadixSort::with_cache(context, cache).map_err(device_error)?,
             scan,

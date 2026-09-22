@@ -33,6 +33,8 @@ pub struct FittedPiece<'a> {
     pub design: ItemDesign,
     /// Ornament cut into the piece when its material is plate steel.
     pub engraving: Option<fabelgeist_armor::engraving::Engraving>,
+    /// Its edges' band, when its material is plate steel.
+    pub trim: Option<fabelgeist_armor::trim::Trim>,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -71,6 +73,7 @@ impl Inventory {
                             piece,
                             design,
                             engraving: article.engraving.clone(),
+                            trim: article.trim.clone(),
                         }),
                         None => loadout.clothing.push(piece),
                     }

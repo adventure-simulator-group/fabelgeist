@@ -55,7 +55,10 @@ pub(super) fn spawn_exhibit(
                 "armory {}--{}",
                 exhibit.item_id, exhibit.placements[placement]
             ),
-            material.clone(),
+            preview::ArmorShading {
+                plate: material.clone(),
+                trim: None,
+            },
             (
                 ArmoryMesh {
                     exhibit: index,

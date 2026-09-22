@@ -339,24 +339,57 @@ fitted cloth coif starts from the coif carrier fitted on the device, before its
 shell is thickened.
 
 Every rigid armor piece is shaded with the same parametric metal as the plate
-armor builder: a base color and roughness plus a tiling scratch map for normal
-and roughness. The builder's **Metal and scratches** section edits its own
-metal, whose default is polished steel. Catalog plate steel takes its color and
+armor builder: a base color and roughness plus a tiling map of the surface's
+finish, baked on the GPU into normal and roughness maps. The finish is the
+gentle undulation left by planishing, which makes reflections wobble; a dense
+polishing grain that streaks highlights; uneven gloss from handling; and fine
+scratches. The builder's **Metal and scratches** section edits its own metal,
+whose default is polished steel. Catalog plate steel takes its color and
 roughness from its catalog material, polished, rough or oxidized steel, with
-the default scratches. Its body-surface UVs are rescaled to the builder's
-density of four texture repeats per metre, so scratches are the same size on a
-helmet, a vambrace and a lamella. Mail keeps its ring weave.
+the default finish. Its body-surface UVs are rescaled to the builder's density
+of four texture repeats per metre, so the finish is the same size on a helmet,
+a vambrace and a lamella. The maps are baked at 1024 texels per repeat, a
+quarter millimetre each. Mail keeps its ring weave.
 
-Any plate-steel piece can carry an **engraving**: a tiling relief image cut
-into its metal. The image is either a grayscale height map, where white is the
-untouched surface and black the floor of a cut of the chosen depth, or a
-tangent-space normal map in the glTF convention. The engraving repeats a chosen
+Metal shows its surroundings rather than a color of its own, so the studio is
+lit by an environment as well as its spotlight: a dim room with a key soft box
+on the spotlight's side, a fill opposite, an overhead strip and a rim light
+behind. The environment is generated procedurally and filtered on the GPU. It
+also gives the body and cloth their indirect light.
+
+Any plate-steel piece can carry an **engraving**: a tiling relief cut into its
+metal, either a procedural ornament or an image. An ornament is a motif (a
+wave, zigzag, guilloche of interlaced waves, rope, beads or vine) repeated
+across the cell, with optional fillet lines along both of its long sides. The
+line width, the number of repeats and each motif's proportions are adjustable,
+and the device draws the ornament at the bake's resolution. An image is either a
+grayscale height map, where white is the untouched surface and black the floor
+of a cut of the chosen depth, or a tangent-space normal map in the glTF
+convention. An ornament is always cut as a height map. The engraving repeats a chosen
 number of times per metal tile, may be turned on the surface, and roughens the
 floor of its cuts. Its slopes add to the scratches in the baked normal map for
 both preview and export; a height map also gives the preview a parallax depth
 map, which glTF does not carry. The image path is stored in the recipe and read
-relative to the working directory. The plate armor builder edits the engraving
+relative to the working directory; an ornament is stored by its parameters. The
+plate armor builder edits the engraving
 under its metal; a catalog steel article edits its own in the inventory.
+
+A catalog steel article can also carry a **trim**: a band along every edge of
+every plate, finished with its own metal, such as gilt, bluing or bright steel
+on a darker plate. The band reaches a chosen width in from each edge and covers
+the narrow edge walls, so it wraps the plate's thickness. Every generator
+records which face of the plate each triangle lies on. The band is cut out of
+the fitted mesh along its exact border, and the cut vertices carry the piece's
+skin weights and morph targets. The trim metal's engraving is the ornament.
+Adding one sizes its cell to the band's width, and **Fit cell to band width**
+restores that after the width changes. Along the band, one engraving cell
+repeats every cell's length, starting at the edge and running inward. Each closed edge is stretched slightly so that it
+holds a whole number of repeats and its ornament closes on itself. Where a
+plate is narrower than two band widths, the bands from opposite edges meet, and
+where the band turns a sharp corner, its inner border follows the mesh to
+within one triangle. Previews and character exports shade each band as a
+separate primitive named after its piece or component with a `.trim` suffix.
+Catalog equipment assets carry no trim.
 
 The authored helmet, limb and garment defaults live in
 [`assets_src/equipment/armor-designs.json`](../../assets_src/equipment/armor-designs.json).

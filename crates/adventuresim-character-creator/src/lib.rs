@@ -48,6 +48,7 @@ pub mod export;
 pub mod inventory;
 pub mod item_design;
 pub mod proportions;
+pub mod studio_environment;
 pub mod surface_cut;
 pub mod underlayer;
 pub use adventuresim_core::item_catalog_schema;

@@ -46,48 +46,71 @@ pub(super) fn spawn_clothing(
     }
 }
 
+/// How a piece is shaded: its plate, and the band along its edges.
+pub(super) struct ArmorShading<'a> {
+    pub plate: StandardMaterial,
+    pub trim: Option<TrimPreview<'a>>,
+}
+
+/// The band along a piece's edges, as the preview shades it.
+pub(super) struct TrimPreview<'a> {
+    pub texcoords: &'a [[f32; 2]],
+    pub material: StandardMaterial,
+}
+
+/// Spawn each surface of a piece, and its trim band when it has one.
 pub(super) fn spawn_armor(
     commands: &mut Commands,
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
     armor: &GeneratedArmor,
     name: String,
-    material: StandardMaterial,
+    shading: ArmorShading<'_>,
     marker: impl Bundle + Clone,
 ) -> Result<()> {
-    let parts = if armor.components.is_empty() {
-        vec![(name, armor.indices.as_slice())]
-    } else {
-        armor
-            .components
-            .iter()
-            .map(|part| {
-                (
-                    format!("{name}.{}", part.role.name()),
-                    &armor.indices[part.indices.clone()],
-                )
-            })
-            .collect()
-    };
-    for (part_name, indices) in parts {
-        let mut mesh = Mesh::new(
-            PrimitiveTopology::TriangleList,
-            RenderAssetUsages::default(),
-        )
-        .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
-        .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, armor.texcoords.clone())
-        .with_inserted_indices(Indices::U32(indices.to_vec()));
-        if material.normal_map_texture.is_some() {
-            mesh.generate_tangents()
-                .context("generating tangents for textured armor preview")?;
+    let ArmorShading {
+        plate: material,
+        trim,
+    } = shading;
+    for surface in armor.surfaces() {
+        let part_name = match surface.component {
+            Some(index) => format!("{name}.{}", armor.components[index].role.name()),
+            None => name.clone(),
+        };
+        let mut parts = vec![(
+            part_name.clone(),
+            surface.plate,
+            armor.texcoords.as_slice(),
+            &material,
+        )];
+        if let Some(trim) = trim.as_ref().filter(|_| !surface.trim.is_empty()) {
+            parts.push((
+                format!("{part_name}.trim"),
+                surface.trim,
+                trim.texcoords,
+                &trim.material,
+            ));
         }
-        commands.spawn((
-            marker.clone(),
-            Name::new(part_name),
-            Mesh3d(meshes.add(mesh)),
-            MeshMaterial3d(materials.add(material.clone())),
-        ));
+        for (part_name, indices, texcoords, material) in parts {
+            let mut mesh = Mesh::new(
+                PrimitiveTopology::TriangleList,
+                RenderAssetUsages::default(),
+            )
+            .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
+            .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
+            .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, texcoords.to_vec())
+            .with_inserted_indices(Indices::U32(armor.indices[indices].to_vec()));
+            if material.normal_map_texture.is_some() {
+                mesh.generate_tangents()
+                    .context("generating tangents for textured armor preview")?;
+            }
+            commands.spawn((
+                marker.clone(),
+                Name::new(part_name),
+                Mesh3d(meshes.add(mesh)),
+                MeshMaterial3d(materials.add(material.clone())),
+            ));
+        }
     }
     Ok(())
 }

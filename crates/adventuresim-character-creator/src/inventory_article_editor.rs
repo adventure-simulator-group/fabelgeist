@@ -60,6 +60,10 @@ fn catalog_article(
             })
             .body_returned
             .unwrap_or(false);
+        changed |= ui
+            .collapsing("Trim", |ui| metal_controls::trim(ui, &mut article.trim))
+            .body_returned
+            .unwrap_or(false);
     }
     changed
 }

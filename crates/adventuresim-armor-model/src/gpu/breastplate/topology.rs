@@ -10,7 +10,7 @@
 
 use std::collections::BTreeMap;
 
-use crate::{BreastplateDesign, GenerateError};
+use crate::{BreastplateDesign, GenerateError, PlateFace};
 
 /// Columns of the regular carrier chart.
 pub(crate) const U_SAMPLES: usize = 49;
@@ -156,6 +156,8 @@ fn grid_faces(faces: &mut Vec<[u32; 3]>, ids: &[Vec<u32>], rear: bool) {
 pub(crate) struct SolidTopology {
     pub sources: Vec<u32>,
     pub indices: Vec<u32>,
+    /// The plate face of each triangle.
+    pub faces: Vec<PlateFace>,
 }
 
 impl SolidTopology {
@@ -178,6 +180,7 @@ impl SolidTopology {
             welded.push(index as u32 + count);
         }
         let mut indices = Vec::with_capacity(mid.faces.len() * 6);
+        let mut faces = Vec::with_capacity(mid.faces.len() * 2);
         for (face_index, [a, b, c]) in mid.faces.iter().enumerate() {
             let skirt = face_index >= mid.skirt_face_start;
             let inner = |index: u32| {
@@ -196,6 +199,7 @@ impl SolidTopology {
             };
             indices.extend([outer(*a), outer(*b), outer(*c)]);
             indices.extend([inner(*c), inner(*b), inner(*a)]);
+            faces.extend([PlateFace::Outer, PlateFace::Inner]);
         }
         for [a, b] in boundary_edges(&mid.faces)? {
             // The cut edge has its own shading normals: sharing surface
@@ -206,9 +210,14 @@ impl SolidTopology {
                 welded.push(original);
             }
             indices.extend([first, first + 1, first + 2, first, first + 2, first + 3]);
+            faces.extend([PlateFace::Edge; 2]);
         }
         validate_closed_shell(indices.as_chunks::<3>().0, &welded)?;
-        let mut solid = Self { sources, indices };
+        let mut solid = Self {
+            sources,
+            indices,
+            faces,
+        };
         solid.split_medial_crease(mid);
         Ok(solid)
     }
@@ -266,6 +275,7 @@ impl SolidTopology {
         );
         self.indices
             .extend(other.indices.into_iter().map(|index| index + offset));
+        self.faces.extend(other.faces);
     }
 }
 
@@ -329,5 +339,9 @@ mod tests {
             2 * count + 2 * mid.width() + 4 * boundary
         );
         assert_eq!(solid.indices.len(), mid.faces.len() * 6 + boundary * 6);
+        assert_eq!(solid.faces.len() * 3, solid.indices.len());
+        let count = |face| solid.faces.iter().filter(|f| **f == face).count();
+        assert_eq!(count(PlateFace::Outer), mid.faces.len());
+        assert_eq!(count(PlateFace::Edge), boundary * 2);
     }
 }

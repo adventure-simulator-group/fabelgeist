@@ -138,6 +138,8 @@ fn assembled(
         joint_indices: skin.joint_indices,
         joint_weights: skin.joint_weights,
         indices: base.indices,
+        faces: base.faces,
+        trim: None,
         morphs: targets,
         components: base.components,
     };
@@ -201,6 +203,43 @@ pub(super) struct SelectedArmor<'a> {
     pub piece: FittedPiece<'a>,
     pub name: String,
     pub generated: GeneratedArmor,
+    pub trim: Option<SelectedTrim>,
+}
+
+/// The band along a worn piece's edges, and how it is shaded.
+pub(super) struct SelectedTrim {
+    pub metal: fabelgeist_armor::material::Metal,
+    /// Per vertex, at the metal's texture density along each edge.
+    pub texcoords: Vec<[f32; 2]>,
+    pub name: String,
+}
+
+/// Cut a worn plate-steel piece's trim along its edges.
+fn trim(
+    piece: &FittedPiece<'_>,
+    name: &str,
+    generated: GeneratedArmor,
+) -> Result<(GeneratedArmor, Option<SelectedTrim>)> {
+    let steel = piece
+        .piece
+        .item
+        .equipment
+        .as_ref()
+        .and_then(|equipment| equipment.material)
+        .is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
+    let Some(trim) = piece.trim.as_ref().filter(|_| steel) else {
+        return Ok((generated, None));
+    };
+    let (generated, texcoords) =
+        adventuresim_character_creator::armor_metal::trimmed(generated, trim)?;
+    Ok((
+        generated,
+        Some(SelectedTrim {
+            metal: trim.metal.clone(),
+            texcoords,
+            name: format!("{name}.trim"),
+        }),
+    ))
 }
 
 /// Fit every worn parametric catalog item.
@@ -216,17 +255,22 @@ pub(super) fn selected<'a>(
         .map(|piece| {
             let placement = &piece.piece.placement.id;
             let item_id = &piece.piece.item.id;
+            let name = format!("{item_id}--{placement}");
+            let fitted = fitted_catalog_item(
+                model,
+                generated,
+                piece.piece.item,
+                &piece.design,
+                placement,
+                morphs,
+            )
+            .with_context(|| format!("fitting {item_id} ({placement})"))?;
+            let (generated, trim) = trim(piece, &name, fitted)
+                .with_context(|| format!("trimming {item_id} ({placement})"))?;
             Ok(SelectedArmor {
-                name: format!("{item_id}--{placement}"),
-                generated: fitted_catalog_item(
-                    model,
-                    generated,
-                    piece.piece.item,
-                    &piece.design,
-                    placement,
-                    morphs,
-                )
-                .with_context(|| format!("fitting {item_id} ({placement})"))?,
+                name,
+                generated,
+                trim,
                 piece: piece.clone(),
             })
         })
@@ -258,6 +302,7 @@ mod tests {
                 continue;
             };
             for placement in &item.equipment.as_ref().expect("wearable item").placements {
+                eprintln!("{}--{}", item.id, placement.id);
                 let armor =
                     fitted_catalog_item(&model, &body, item, &design, &placement.id, &morphs)
                         .with_context(|| format!("fitting {}--{}", item.id, placement.id))?;
@@ -279,10 +324,59 @@ mod tests {
                 for morph in &armor.morphs {
                     anyhow::ensure!(morph.direct_positions.len() == count);
                 }
+                let steel = item
+                    .equipment
+                    .as_ref()
+                    .and_then(|equipment| equipment.material)
+                    .is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
+                if steel {
+                    trims_along_every_edge(&armor)
+                        .with_context(|| format!("trimming {}--{}", item.id, placement.id))?;
+                }
                 fitted += 1;
             }
         }
         anyhow::ensure!(fitted > 0, "the catalog has no parametric armor");
+        Ok(())
+    }
+
+    /// A default trim cuts a band on every surface of a fitted steel piece,
+    /// keeping its skin, morphs and components valid.
+    fn trims_along_every_edge(armor: &GeneratedArmor) -> Result<()> {
+        let trim = fabelgeist_armor::trim::Trim::default();
+        let (trimmed, texcoords) =
+            adventuresim_character_creator::armor_metal::trimmed(armor.clone(), &trim)?;
+        let count = trimmed.positions.len();
+        anyhow::ensure!(trimmed.indices.iter().all(|i| (*i as usize) < count));
+        anyhow::ensure!(trimmed.faces.len() * 3 == trimmed.indices.len());
+        anyhow::ensure!(texcoords.len() == count && trimmed.texcoords.len() == count);
+        anyhow::ensure!(texcoords.iter().flatten().all(|v| v.is_finite()));
+        for morph in &trimmed.morphs {
+            anyhow::ensure!(morph.direct_positions.len() == count);
+            anyhow::ensure!(morph.position_deltas.len() == count);
+        }
+        for weights in &trimmed.joint_weights {
+            anyhow::ensure!((weights.iter().sum::<f32>() - 1.0).abs() < 1e-4);
+        }
+        let surfaces = trimmed.surfaces();
+        for surface in &surfaces {
+            anyhow::ensure!(!surface.trim.is_empty(), "a surface has no band");
+            if let Some(component) = surface.component.map(|i| &trimmed.components[i]) {
+                anyhow::ensure!(component.indices == (surface.plate.start..surface.trim.end));
+                anyhow::ensure!(
+                    trimmed.indices[component.indices.clone()]
+                        .iter()
+                        .all(|v| component.vertices.contains(&(*v as usize))),
+                    "a component uses another's vertices"
+                );
+            }
+        }
+        let band: usize = surfaces.iter().map(|s| s.trim.len() / 3).sum();
+        eprintln!(
+            "  trimmed: {} -> {count} vertices, {band} of {} triangles in the band",
+            armor.positions.len(),
+            trimmed.indices.len() / 3,
+        );
         Ok(())
     }
 }

@@ -11,7 +11,7 @@
 
 use std::collections::BTreeMap;
 
-use crate::{BoundaryNormals, GenerateError};
+use crate::{BoundaryNormals, GenerateError, PlateFace};
 
 /// The wall a final vertex lies on, and the carrier vertex it derives from.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -118,6 +118,17 @@ impl ShellPlan {
             carrier_triangles: carrier.len() / 3,
         })
     }
+
+    /// The plate face of each triangle, in [`ShellPlan::indices`] order.
+    pub(crate) fn faces(&self) -> impl Iterator<Item = PlateFace> + '_ {
+        let walls = self.indices.len() / 3 - 2 * self.carrier_triangles;
+        std::iter::repeat_n(PlateFace::Outer, self.carrier_triangles)
+            .chain(std::iter::repeat_n(
+                PlateFace::Inner,
+                self.carrier_triangles,
+            ))
+            .chain(std::iter::repeat_n(PlateFace::Edge, walls))
+    }
 }
 
 #[cfg(test)]
@@ -130,6 +141,14 @@ mod tests {
         assert_eq!(plan.sources.len(), 6);
         // Outer, inner and one quad per boundary edge.
         assert_eq!(plan.indices.len(), 3 + 3 + 3 * 6);
+        assert_eq!(
+            plan.faces().collect::<Vec<_>>(),
+            [
+                [PlateFace::Outer, PlateFace::Inner].as_slice(),
+                &[PlateFace::Edge; 6]
+            ]
+            .concat()
+        );
         let mut uses = BTreeMap::<(u32, u32), i32>::new();
         for t in plan.indices.as_chunks::<3>().0 {
             for (a, b) in [(t[0], t[1]), (t[1], t[2]), (t[2], t[0])] {

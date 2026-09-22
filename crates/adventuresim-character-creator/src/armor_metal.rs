@@ -3,10 +3,10 @@
 //! Plate armor edits its own [`Metal`]. Catalog plate steel is shaded with the
 //! same material, taking its color and roughness from the catalog material and
 //! the plate's default scratches, at the same texture density, with the
-//! article's own engraving cut into it.
+//! article's own engraving cut into it, and its own trim along its edges.
 use crate::item_catalog_schema::EquipmentMaterial;
-use adventuresim_armor_model::GeneratedArmor;
-use fabelgeist_armor::{engraving::Engraving, material::Metal};
+use adventuresim_armor_model::{GeneratedArmor, TrimBand, TrimError};
+use fabelgeist_armor::{engraving::Engraving, material::Metal, trim::Trim};
 
 /// Whether a catalog material is plate steel, shaded with the scratched metal.
 /// Mail keeps its ring weave; the other materials are not plate metal.
@@ -61,6 +61,32 @@ pub fn scale_to_metal_density(armor: &mut GeneratedArmor) {
     }
 }
 
+/// Cut `trim`'s band along the edges of a fitted piece. Returns the piece and
+/// its band's texture coordinates, at the metal's texture density like the
+/// rest of the plate, so the trim's ornament runs along each edge with the
+/// top of its image on the edge.
+pub fn trimmed(
+    armor: GeneratedArmor,
+    trim: &Trim,
+) -> Result<(GeneratedArmor, Vec<[f32; 2]>), TrimError> {
+    let armor = armor.trimmed(TrimBand {
+        width: trim.width,
+        period: trim.period(),
+    })?;
+    let origin = trim.cell_origin();
+    let texcoords = armor
+        .trim
+        .as_ref()
+        .map(|band| {
+            band.coordinates
+                .iter()
+                .map(|metres| metres.map(|m| m * Metal::TILES_PER_METRE + origin))
+                .collect()
+        })
+        .unwrap_or_default();
+    Ok((armor, texcoords))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -82,13 +108,12 @@ mod tests {
         }
     }
 
-    #[test]
-    fn texture_coordinates_repeat_at_the_metal_density() {
-        let mut armor = GeneratedArmor {
+    /// One metre square of plate face, mapped onto half the texture.
+    fn square() -> GeneratedArmor {
+        GeneratedArmor {
             components: Vec::new(),
             design_hash: [0; 32],
             surface_domain: "test".into(),
-            // One metre square, mapped onto half the texture.
             positions: vec![
                 [0.0, 0.0, 0.0],
                 [1.0, 0.0, 0.0],
@@ -100,11 +125,65 @@ mod tests {
             joint_indices: vec![[0; 8]; 4],
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4],
             indices: vec![0, 1, 2, 0, 2, 3],
+            faces: vec![adventuresim_armor_model::PlateFace::Outer; 2],
+            trim: None,
             morphs: Vec::new(),
-        };
+        }
+    }
+
+    #[test]
+    fn texture_coordinates_repeat_at_the_metal_density() {
+        let mut armor = square();
         scale_to_metal_density(&mut armor);
         let tiles = Metal::TILES_PER_METRE;
         assert!((armor.texcoords[2][0] - tiles).abs() < 1e-5);
         assert!((armor.texcoords[2][1] - tiles).abs() < 1e-5);
+    }
+
+    #[test]
+    fn a_trim_ornament_runs_along_the_edge_at_the_metal_density() {
+        // The metre square in 5 cm cells, wider than the band.
+        let cells = 20u32;
+        let row = cells + 1;
+        let positions = (0..row * row)
+            .map(|v| [(v % row) as f32, (v / row) as f32, 0.0].map(|x| x / cells as f32))
+            .collect::<Vec<_>>();
+        let count = positions.len();
+        let indices = (0..cells * cells)
+            .flat_map(|cell| {
+                let a = cell / cells * row + cell % cells;
+                [a, a + 1, a + row + 1, a, a + row + 1, a + row]
+            })
+            .collect::<Vec<_>>();
+        let grid = GeneratedArmor {
+            texcoords: positions.iter().map(|p| [p[0], p[1]]).collect(),
+            normals: vec![[0.0, 0.0, 1.0]; count],
+            joint_indices: vec![[0; 8]; count],
+            joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; count],
+            faces: vec![adventuresim_armor_model::PlateFace::Outer; indices.len() / 3],
+            positions,
+            indices,
+            ..square()
+        };
+        let trim = Trim::default();
+        let (armor, texcoords) = trimmed(grid, &trim).unwrap();
+        assert_eq!(texcoords.len(), armor.positions.len());
+        let tiles = Metal::TILES_PER_METRE;
+        let band = armor.trim.as_ref().unwrap().bands[0].clone();
+        let reach = armor.indices[band]
+            .iter()
+            .map(|v| texcoords[*v as usize])
+            .fold([0.0f32; 2], |most, uv| {
+                [most[0].max(uv[0]), most[1].max(uv[1])]
+            });
+        // Four metres round, with the triangles straddling the rim's start
+        // running on past it by at most a cell, and one band width in from
+        // the edge.
+        let cell = 1.0 / cells as f32;
+        assert!(
+            reach[0] >= 4.0 * tiles - 1e-3 && reach[0] <= (4.0 + cell) * tiles,
+            "{reach:?}"
+        );
+        assert!((reach[1] - trim.width * tiles).abs() < 1e-5, "{reach:?}");
     }
 }

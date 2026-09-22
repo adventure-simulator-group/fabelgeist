@@ -1,4 +1,5 @@
 //! Character studio lighting and orbit navigation.
+use adventuresim_character_creator::studio_environment;
 use bevy::{
     input::mouse::{MouseMotion, MouseWheel},
     prelude::*,
@@ -61,15 +62,15 @@ pub(crate) fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut images: ResMut<Assets<Image>>,
 ) {
     commands.spawn((
         Camera3d::default(),
-        // A restrained ambient term stands in for indirect room bounce. It
-        // prevents fully black occlusion without flattening the spotlight's
-        // form and floor shadow.
-        AmbientLight {
-            color: Color::srgb(0.78, 0.84, 0.94),
-            brightness: 155.0,
+        // The studio's soft boxes and room light everything indirectly, and
+        // give metal something to reflect.
+        GeneratedEnvironmentMapLight {
+            environment_map: images.add(studio_environment::studio_environment()),
+            intensity: studio_environment::STUDIO_ENVIRONMENT_INTENSITY,
             ..default()
         },
         Transform::default(),

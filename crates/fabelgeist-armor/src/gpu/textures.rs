@@ -1,8 +1,9 @@
 //! The metal's maps, baked per texel on the device.
 //!
-//! Three stages: the scratches are stamped into a height field, the
-//! engraving (if any) is resampled onto the tile, and every texel then
-//! derives its normal, roughness and depth. Every random number comes from
+//! Four stages: the scratches are stamped into a height field, the
+//! engraving (if any) is resampled onto the tile, the surface finish is
+//! evaluated (see [`super::finish`]), and every texel then derives its
+//! normal, roughness and depth. Every random number comes from
 //! one seeded sequence; each scratch and texel jumps straight to its own
 //! draws, so the result does not depend on scheduling. A texel stamped by
 //! several scratches keeps the deepest groove through an atomic maximum over
@@ -264,6 +265,7 @@ struct Params {{
     pad0: u32,
 }};
 @group(0) @binding(6) var<uniform> params: Params;
+@group(0) @binding(7) var<storage, read> finish: array<f32>;
 
 {math}
 {random}
@@ -302,6 +304,8 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     let here = h(x, y);
     var dx = host_mul(host_fence(h((x + 1u) % n, y) - h((x + n - 1u) % n, y)), 2.0);
     var dy = host_mul(host_fence(h(x, (y + 1u) % n) - h(x, (y + n - 1u) % n)), 2.0);
+    dx = host_fence(dx + finish[index * 3u]);
+    dy = host_fence(dy + finish[index * 3u + 1u]);
     var cut = 0.0;
     var cut_roughness = 0.0;
     if (params.engraved != 0u) {{
@@ -318,6 +322,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {{
     var roughness = host_fence(params.roughness + host_mul(here, SCRATCH_ROUGHNESS));
     roughness = host_fence(roughness + host_mul(cut, cut_roughness));
     roughness = host_fence(roughness + host_mul(host_fence(noise - 0.5), ROUGHNESS_NOISE));
+    roughness = host_fence(roughness + finish[index * 3u + 2u]);
     metal_roughness[index] = rgba(255u, channel(clamp(roughness, 0.0, 1.0)), 255u, 255u);
     let c = channel(cut);
     depth[index] = rgba(c, c, c, 255u);

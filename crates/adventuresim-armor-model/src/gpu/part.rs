@@ -15,7 +15,7 @@ mod shell_kernels;
 
 use super::staging::{Staged, StagedResults, Staging};
 use super::{ArmorGpu, device_error};
-use crate::{ArmorComponent, ArmorHinge, GenerateError};
+use crate::{ArmorComponent, ArmorHinge, GenerateError, PlateFace};
 pub(crate) use layout::{Extrusion, HingeSlot, PartLayout, SHELL_MIRRORED, SHELL_WORDS, ShellSpec};
 use shell_kernels::ShellKernels;
 
@@ -280,6 +280,7 @@ impl PartBuild {
             positions,
             normals,
             indices,
+            faces: self.layout.final_faces(),
             components,
         })
     }
@@ -304,6 +305,8 @@ pub struct BuiltPart {
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
     pub indices: Vec<u32>,
+    /// The plate face of each triangle.
+    pub faces: Vec<PlateFace>,
     pub components: Vec<ArmorComponent>,
 }
 

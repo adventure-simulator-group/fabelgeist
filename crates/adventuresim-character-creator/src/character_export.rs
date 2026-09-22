@@ -100,7 +100,8 @@ type CatalogMetals = Vec<(
     adventuresim_character_creator::export::ShellTextures,
 )>;
 
-/// Maps for each distinct catalog steel worn, engraving included, baked once.
+/// Maps for each distinct catalog steel and trim worn, engraving included,
+/// baked once.
 fn catalog_metals(
     armor: &[parametric_equipment::SelectedArmor<'_>],
     catalog: &EquipmentCatalog,
@@ -108,17 +109,18 @@ fn catalog_metals(
     let mut metals: CatalogMetals = Vec::new();
     for piece in armor {
         let material = catalog.material(&piece.piece.piece.item.id)?;
-        let Some(metal) = adventuresim_character_creator::armor_metal::metal(
+        let plate = adventuresim_character_creator::armor_metal::metal(
             material,
             piece.piece.engraving.as_ref(),
-        ) else {
-            continue;
-        };
-        if metals.iter().any(|(known, _)| *known == metal) {
-            continue;
+        );
+        let trim = piece.trim.as_ref().map(|trim| trim.metal.clone());
+        for metal in plate.into_iter().chain(trim) {
+            if metals.iter().any(|(known, _)| *known == metal) {
+                continue;
+            }
+            let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
+            metals.push((metal, textures));
         }
-        let textures = adventuresim_character_creator::export::ShellTextures::armor(&metal)?;
-        metals.push((metal, textures));
     }
     Ok(metals)
 }
@@ -132,7 +134,15 @@ fn catalog_shells<'a>(
 ) -> Result<Vec<RiggedShell<'a>>> {
     let mut shells = Vec::new();
     for (i, piece) in armor.iter().enumerate() {
-        let mut parts = rigged_armor(&piece.name, &piece.generated, &faces[i], &targets[i]);
+        let trim_name = piece.trim.as_ref().map_or(&piece.name, |trim| &trim.name);
+        let rigged = rigged_armor(
+            &piece.name,
+            trim_name,
+            &piece.generated,
+            &faces[i],
+            &targets[i],
+        );
+        let mut parts = rigged.plate;
         let material = catalog.material(&piece.piece.piece.item.id)?;
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         let metal = adventuresim_character_creator::armor_metal::metal(
@@ -151,6 +161,23 @@ fn catalog_shells<'a>(
             shell.surface = metal;
         }
         shells.extend(parts);
+        if let Some(trim) = &piece.trim {
+            let textures = metals
+                .iter()
+                .find(|(known, _)| *known == trim.metal)
+                .map(|(_, textures)| textures)
+                .context("trim metal was not baked")?;
+            let [red, green, blue] = trim.metal.color;
+            for mut shell in rigged.trim {
+                shell.base_color = [red, green, blue, 1.0];
+                shell.metallic = 1.0;
+                shell.roughness = trim.metal.roughness;
+                // The band's own coordinates run along each edge.
+                shell.texcoords = Some(&trim.texcoords);
+                shell.surface = Some((&trim.texcoords, textures));
+                shells.push(shell);
+            }
+        }
     }
     Ok(shells)
 }

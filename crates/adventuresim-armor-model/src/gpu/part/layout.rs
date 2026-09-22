@@ -3,7 +3,7 @@
 //! components its shells make up.
 
 use super::super::shell_plan::{INNER_BIT, ShellPlan};
-use crate::{ArmorComponent, ArmorComponentRole, BoundaryNormals, GenerateError};
+use crate::{ArmorComponent, ArmorComponentRole, BoundaryNormals, GenerateError, PlateFace};
 
 /// How a shell's inner wall leaves its carrier. The device holds the
 /// geometric half -- origins and axes -- because some depend on the fit.
@@ -145,6 +145,14 @@ impl PartLayout {
             ));
         }
         (indices, shells)
+    }
+
+    /// The plate face of every final triangle, in [`Self::final_indices`] order.
+    pub(super) fn final_faces(&self) -> Vec<PlateFace> {
+        self.shells
+            .iter()
+            .flat_map(|shell| shell.plan.faces())
+            .collect()
     }
 
     /// The carriers' own triangles, indexed into the arena, and their shells.

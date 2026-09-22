@@ -1,17 +1,19 @@
-//! Ornament cut into armor metal from an authored relief image.
+//! Ornament cut into armor metal, from an authored relief image or drawn
+//! procedurally.
 //!
-//! The image tiles with the metal's scratches: one metal tile spans
+//! The engraving tiles with the metal's scratches: one metal tile spans
 //! `1 / Metal::TILES_PER_METRE` of surface, and the engraving repeats
 //! [`Engraving::tiles`] times across it. A height map gives the cut a depth,
 //! so its floor can roughen and the preview can show it in parallax; a normal
-//! map only tilts the shading.
+//! map only tilts the shading. A procedural [`Ornament`] is always cut as a
+//! height map.
+use crate::ornament::Ornament;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Engraving {
-    /// The relief image, a PNG resolved against the working directory.
-    pub image: PathBuf,
+    pub source: ReliefSource,
     pub relief: Relief,
     /// Image repeats across one metal tile.
     pub tiles: f32,
@@ -20,6 +22,16 @@ pub struct Engraving {
     /// Roughness added at the floor of a cut; the untouched surface keeps the
     /// metal's finish.
     pub recess_roughness: f32,
+}
+
+/// What the engraving cuts.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ReliefSource {
+    /// A relief image, a PNG resolved against the working directory.
+    Image(PathBuf),
+    /// An ornament drawn on the device.
+    Ornament(Ornament),
 }
 
 /// How the relief image encodes the cut.
@@ -44,12 +56,22 @@ impl Relief {
 
 impl Engraving {
     pub const MIN_TILES: f32 = 0.25;
-    pub const MAX_TILES: f32 = 16.0;
+    /// Cells a few millimetres long, for a narrow trim's ornament.
+    pub const MAX_TILES: f32 = 64.0;
 
     /// An etched ornament from `image`, repeating once per metal tile.
     pub fn new(image: impl Into<PathBuf>) -> Self {
+        Self::from_source(ReliefSource::Image(image.into()))
+    }
+
+    /// An etched procedural `ornament`, repeating once per metal tile.
+    pub fn ornament(ornament: Ornament) -> Self {
+        Self::from_source(ReliefSource::Ornament(ornament))
+    }
+
+    fn from_source(source: ReliefSource) -> Self {
         Self {
-            image: image.into(),
+            source,
             relief: Relief::Height {
                 depth: Relief::ETCH_DEPTH,
             },
@@ -66,7 +88,14 @@ impl Engraving {
             Relief::Height { depth } => bounded(depth, 0.0, Relief::MAX_DEPTH),
             Relief::Normal { strength } => bounded(strength, 0.0, Relief::MAX_STRENGTH),
         };
-        if self.image.as_os_str().is_empty()
+        let source = match &self.source {
+            ReliefSource::Image(image) => !image.as_os_str().is_empty(),
+            ReliefSource::Ornament(ornament) => {
+                ornament.validate()?;
+                matches!(self.relief, Relief::Height { .. })
+            }
+        };
+        if !source
             || !relief
             || !bounded(self.tiles, Self::MIN_TILES, Self::MAX_TILES)
             || !bounded(self.rotation, -std::f32::consts::PI, std::f32::consts::PI)
@@ -77,17 +106,27 @@ impl Engraving {
         Ok(())
     }
 
-    /// Read and decode the relief image.
-    pub fn load(&self) -> Result<ReliefImage, String> {
-        let bytes = std::fs::read(&self.image)
-            .map_err(|error| format!("Engraving {}: {error}", self.image.display()))?;
-        self.decode(&bytes)
+    /// What the bake cuts: the relief image, read and decoded, or the
+    /// ornament to draw.
+    pub(crate) fn cut(&self) -> Result<Cut<'_>, String> {
+        match &self.source {
+            ReliefSource::Image(image) => {
+                let bytes = std::fs::read(image)
+                    .map_err(|error| format!("Engraving {}: {error}", image.display()))?;
+                self.decode(&bytes).map(Cut::Image)
+            }
+            ReliefSource::Ornament(ornament) => Ok(Cut::Ornament(ornament)),
+        }
     }
 
     /// Decode PNG `bytes` as this engraving's kind of relief.
     pub fn decode(&self, bytes: &[u8]) -> Result<ReliefImage, String> {
-        let image = image::load_from_memory(bytes)
-            .map_err(|error| format!("Engraving {}: {error}", self.image.display()))?;
+        let name = match &self.source {
+            ReliefSource::Image(image) => image.display().to_string(),
+            ReliefSource::Ornament(_) => "ornament".into(),
+        };
+        let image =
+            image::load_from_memory(bytes).map_err(|error| format!("Engraving {name}: {error}"))?;
         let (width, height) = (image.width() as usize, image.height() as usize);
         let pixels = match self.relief {
             Relief::Height { .. } => ReliefPixels::Height(image.to_luma32f().into_raw()),
@@ -110,6 +149,12 @@ impl Engraving {
             pixels,
         })
     }
+}
+
+/// What a bake cuts into the metal.
+pub(crate) enum Cut<'a> {
+    Image(ReliefImage),
+    Ornament(&'a Ornament),
 }
 
 /// A decoded relief image.
@@ -191,7 +236,14 @@ pub(crate) mod tests {
         engraving.relief = Relief::Height { depth: 1.0 };
         assert!(engraving.validate().is_err());
         assert!(Engraving::new("").validate().is_err());
-        assert!(Engraving::new("missing.png").load().is_err());
+        assert!(Engraving::new("missing.png").cut().is_err());
+        let mut ornament = Engraving::ornament(Ornament::default());
+        assert!(ornament.validate().is_ok());
+        ornament.relief = Relief::Normal { strength: 1.0 };
+        assert!(
+            ornament.validate().is_err(),
+            "an ornament is cut as heights"
+        );
         assert!(Engraving::new("garbage.png").decode(b"not a png").is_err());
     }
 }

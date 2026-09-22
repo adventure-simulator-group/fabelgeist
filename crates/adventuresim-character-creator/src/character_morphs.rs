@@ -231,12 +231,21 @@ pub(super) fn rigged_clothing<'a>(
     }
 }
 
+/// A piece's shells: its plates, and the bands along their edges.
+pub(super) struct RiggedArmor<'a> {
+    pub plate: Vec<RiggedShell<'a>>,
+    pub trim: Vec<RiggedShell<'a>>,
+}
+
+/// The shells of a piece, one per component, or `name` for the whole piece
+/// and `trim_name` for its band.
 pub(super) fn rigged_armor<'a>(
     name: &'a str,
+    trim_name: &'a str,
     armor: &'a GeneratedArmor,
     faces: &'a [[u32; 3]],
     targets: &'a [RiggedMorphTarget<'a>],
-) -> Vec<RiggedShell<'a>> {
+) -> RiggedArmor<'a> {
     let shell = |name, faces, hinge| RiggedShell {
         surface: None,
         textures: None,
@@ -253,21 +262,28 @@ pub(super) fn rigged_armor<'a>(
         metallic: 1.0,
         roughness: 0.20,
     };
-    if armor.components.is_empty() {
-        vec![shell(name, faces, None)]
-    } else {
-        armor
-            .components
-            .iter()
-            .map(|component| {
-                shell(
-                    component.role.name(),
-                    &faces[component.indices.start / 3..component.indices.end / 3],
-                    component.hinge,
-                )
-            })
-            .collect()
+    let triangles = |range: std::ops::Range<usize>| &faces[range.start / 3..range.end / 3];
+    let mut rigged = RiggedArmor {
+        plate: Vec::new(),
+        trim: Vec::new(),
+    };
+    for surface in armor.surfaces() {
+        let component = surface.component.map(|index| &armor.components[index]);
+        let hinge = component.and_then(|component| component.hinge);
+        rigged.plate.push(shell(
+            component.map_or(name, |component| component.role.name()),
+            triangles(surface.plate),
+            hinge,
+        ));
+        if !surface.trim.is_empty() {
+            rigged.trim.push(shell(
+                component.map_or(trim_name, |component| component.role.trim_name()),
+                triangles(surface.trim),
+                hinge,
+            ));
+        }
     }
+    rigged
 }
 
 #[cfg(test)]

@@ -98,13 +98,30 @@ impl PreviewScene<'_, '_> {
                 )
                 .map_err(anyhow::Error::msg)
                 .with_context(|| format!("{} material failed", piece.name))?;
+            let trim = piece
+                .trim
+                .as_ref()
+                .map(|trim| {
+                    Ok::<_, anyhow::Error>(preview::TrimPreview {
+                        texcoords: &trim.texcoords,
+                        material: self
+                            .equipment_maps
+                            .metal(&mut self.images, &trim.metal, 1.0)
+                            .map_err(anyhow::Error::msg)
+                            .with_context(|| format!("{} trim material failed", piece.name))?,
+                    })
+                })
+                .transpose()?;
             preview::spawn_armor(
                 &mut self.commands,
                 &mut self.meshes,
                 &mut self.materials,
                 &piece.generated,
                 piece.name.clone(),
-                material,
+                preview::ArmorShading {
+                    plate: material,
+                    trim,
+                },
                 CharacterMesh,
             )
             .context("Armor preview failed")?;

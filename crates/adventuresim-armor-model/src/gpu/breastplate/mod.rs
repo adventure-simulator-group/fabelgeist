@@ -221,6 +221,8 @@ impl DeviceBreastplate {
                 .map(|words| std::array::from_fn(|k| f32::from_bits(words[10 + k])))
                 .collect(),
             indices: self.shell.topology.indices.clone(),
+            faces: self.shell.topology.faces.clone(),
+            trim: None,
             morphs,
         })
     }

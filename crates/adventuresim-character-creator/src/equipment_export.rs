@@ -148,7 +148,15 @@ impl EquipmentExporter<'_> {
         let metal = adventuresim_character_creator::armor_metal::metal(material, None)
             .map(|metal| adventuresim_character_creator::export::ShellTextures::armor(&metal))
             .transpose()?;
-        let mut rigged_shells = rigged_armor(&item.display_name, &armor, &faces, &morph_targets);
+        // Catalog defaults carry no trim; that is an article's own finish.
+        let mut rigged_shells = rigged_armor(
+            &item.display_name,
+            &item.display_name,
+            &armor,
+            &faces,
+            &morph_targets,
+        )
+        .plate;
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         for shell in &mut rigged_shells {
             shell.base_color = color;

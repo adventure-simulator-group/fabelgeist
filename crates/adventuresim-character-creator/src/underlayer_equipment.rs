@@ -61,6 +61,9 @@ pub(super) fn fitted(
         joint_indices: fitted.joint_indices,
         joint_weights: fitted.joint_weights,
         indices: fitted.indices,
+        // Cut from the body: a quilted layer, not a thickened plate.
+        faces: Vec::new(),
+        trim: None,
         morphs: targets,
         components: Vec::new(),
     };

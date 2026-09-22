@@ -48,20 +48,7 @@ impl EquipmentMaps {
     ) -> Result<StandardMaterial, String> {
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         if let Some(metal) = armor_metal::metal(material, engraving) {
-            let index = match self.metals.iter().position(|baked| baked.metal == metal) {
-                Some(index) => index,
-                None => {
-                    self.metals.push(BakedMetal {
-                        images: metal_preview::MetalImages::new(images, &metal)?,
-                        metal,
-                        used: false,
-                    });
-                    self.metals.len() - 1
-                }
-            };
-            let baked = &mut self.metals[index];
-            baked.used = true;
-            return Ok(baked.images.material(&baked.metal, metallic));
+            return self.metal(images, &metal, metallic);
         }
         let mut result = StandardMaterial {
             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
@@ -99,5 +86,28 @@ impl EquipmentMaps {
             }
         }
         Ok(result)
+    }
+
+    /// The preview material of a scratched metal, baked once while used.
+    pub(super) fn metal(
+        &mut self,
+        images: &mut Assets<Image>,
+        metal: &Metal,
+        metallic: f32,
+    ) -> Result<StandardMaterial, String> {
+        let index = match self.metals.iter().position(|baked| baked.metal == *metal) {
+            Some(index) => index,
+            None => {
+                self.metals.push(BakedMetal {
+                    images: metal_preview::MetalImages::new(images, metal)?,
+                    metal: metal.clone(),
+                    used: false,
+                });
+                self.metals.len() - 1
+            }
+        };
+        let baked = &mut self.metals[index];
+        baked.used = true;
+        Ok(baked.images.material(&baked.metal, metallic))
     }
 }
