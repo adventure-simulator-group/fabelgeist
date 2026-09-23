@@ -148,7 +148,7 @@ def write_pages(out: Path, page: str, *, dev: bool = False) -> None:
         '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<link rel="icon" href="data:,">'
-        '<meta http-equiv="refresh" content="0;url=./instanced-cpu-culled/">'
+        '<script>location.replace("./instanced-cpu-culled/" + location.search + location.hash);</script>'
         '<title>Instanced / No-instancing, Grass demos</title></head><body>'
         '<a href="./instanced-cpu-culled/">Instanced, CPU culled</a> · '
         '<a href="./instanced-no-instancing-advanced/">Instanced / No-instancing, Advanced (WebGPU)</a></body></html>\n',

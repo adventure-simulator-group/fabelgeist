@@ -17,13 +17,21 @@ Open one of these paths:
 - `/no-instancing-textured-sprites/`: No-instancing, Textured sprites (curved).
   This is `CardsCurved`, the final mode in the full benchmark list.
 
-These pages always load the WebGL2 engine, even on a WebGPU browser. They
-lock the mode and start at 12% density and 18 m range, with no MSAA, shadows,
-trees, or characters. The small panel controls density, range, camera orbit,
+These pages default to WebGL2, even on a WebGPU browser. Add `?webgpu` or
+`?webgl2` to explicitly select the engine. The white footer at the bottom
+right shows the selected renderer and provides links to switch it. Renderer
+links preserve other query settings; navigation preserves the renderer
+choice. Explicit choices never silently switch engines. Selecting both
+flags reports an error. Instanced, Eidolon and the mixed benchmark still
+require WebGPU.
+
+The four laptop pages lock the mode and start at 12% density and 18 m range,
+with no MSAA, shadows, trees, or characters. The small panel controls
+density, range, camera orbit,
 and (on the displacement page) trails. The main `/` page opens the
 Instanced, CPU culled test. `/instanced-no-instancing-advanced/` retains the
-full benchmark panel and requires
-WebGPU, including for the original tree LOD and GPU-compute paths. Browsers
+full benchmark panel and requires WebGPU, including for the original tree
+LOD and GPU-compute paths. Browsers
 without WebGPU see a message pointing back to the laptop tests.
 All demo labels and routes start with Instanced or No-instancing. The mixed
 benchmark is named Instanced / No-instancing, Advanced, and is separate from

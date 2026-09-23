@@ -25,9 +25,11 @@
       nav section + section { border-top: 1px solid #484f58; margin-top: 8px; padding-top: 8px; }
       nav h2 { color: #8b949e; font-size: 11px; margin: 0 6px 6px; }
       #hint {
-        position: fixed; left: 8px; bottom: 8px; color: #8b949e; pointer-events: none;
-        font: 12px ui-monospace, Menlo, Consolas, monospace;
+        position: fixed; right: 8px; bottom: 8px; z-index: 11; color: white;
+        background: #0b0d10cc; padding: 8px; max-width: calc(100vw - 32px);
+        font: 12px/1.5 ui-monospace, Menlo, Consolas, monospace;
       }
+      #hint a { color: white; }
     </style>
   </head>
   <body>
@@ -48,7 +50,12 @@
         <a href="./instanced-no-instancing-advanced/">Instanced / No-instancing, Advanced (WebGPU)</a>
       </section>
     </nav>
-    <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
+    <div id="hint">
+      <div id="demo-name">Instanced / No-instancing, Grass demos</div>
+      <div id="renderer-status" role="status">Selecting renderer…</div>
+      <div>Choose renderer: <a id="choose-webgl2" href="?webgl2">?webgl2</a>
+        or <a id="choose-webgpu" href="?webgpu">?webgpu</a> (reloads the demo)</div>
+    </div>
     <div id="boot">
       <div id="boot-status">&gt; boot</div>
       <div id="boot-console"></div>
@@ -97,8 +104,7 @@
       // Uncompressed size of bench_bg.wasm, substituted by
       // scripts/build-wasm-client.sh. 0 => fall back to a plain byte counter.
       const WASM_BYTES = 0;
-      // Same for the webgl2 fallback engine. 0 = this serving has no webgl2
-      // build (dev modes, unbuilt web/) and detection is skipped entirely.
+      // Same for the WebGL2 engine. 0 = this serving has no WebGL2 build.
       const WASM_BYTES_WEBGL2 = 0;
       // Assets to warm into the HTTP cache the moment the engine finishes
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
@@ -106,13 +112,32 @@
       const demo = /\/(instanced-cpu-culled|no-instancing-mesh-chunks|no-instancing-displacement|no-instancing-textured-sprites)\/?$/.test(location.pathname);
       const eidolon = /\/instanced-eidolon\/?$/.test(location.pathname);
       const advanced = eidolon || /\/instanced-no-instancing-advanced\/?$/.test(location.pathname);
+      const query = new URLSearchParams(location.search);
+      const forceWebgpu = query.has("webgpu");
+      const forceWebgl2 = query.has("webgl2");
+      const rendererStatus = document.getElementById("renderer-status");
+      for (const renderer of ["webgl2", "webgpu"]) {
+        const url = new URL(location.href);
+        url.searchParams.delete("webgl2");
+        url.searchParams.delete("webgpu");
+        const settings = url.searchParams.toString();
+        url.search = settings ? `${settings}&${renderer}` : renderer;
+        document.getElementById(`choose-${renderer}`).href = url.href;
+      }
+      if (forceWebgpu !== forceWebgl2) {
+        for (const link of document.querySelectorAll("nav a")) {
+          const url = new URL(link.href);
+          url.search = forceWebgpu ? "webgpu" : "webgl2";
+          link.href = url.href;
+        }
+      }
       const activeLink = [...document.querySelectorAll("nav a")].find(
         link => new URL(link.href).pathname.replace(/\/$/, "") === location.pathname.replace(/\/$/, "")
       );
       if (activeLink) {
         activeLink.setAttribute("aria-current", "page");
         document.title = activeLink.textContent;
-        document.getElementById("hint").textContent = `${activeLink.textContent} · ${demo ? "WebGL2 grass test" : "full benchmark controls"}`;
+        document.getElementById("demo-name").textContent = activeLink.textContent;
       }
       const prefetchAssets = () => {
         for (const href of (demo ? [] : PREFETCH)) {
@@ -128,32 +153,37 @@
       };
       const mb = (bytes) => (bytes / 1048576).toFixed(1);
       try {
-        // WebGPU by default; the webgl2 build when the adapter is missing or
-        // blocklisted. Probing must actually request the adapter —
-        // navigator.gpu can exist and still yield null. ?forcegl to test the
-        // fallback on a WebGPU-capable browser.
+        if (forceWebgpu && forceWebgl2) {
+          throw new Error("Choose either ?webgpu or ?webgl2, not both.");
+        }
+        if (advanced && forceWebgl2) {
+          throw new Error("This demo requires WebGPU. Choose Instanced, CPU culled or one of the No-instancing tests for WebGL2.");
+        }
+        // Laptop tests default to WebGL2; explicit choices never silently
+        // switch engines. Probe WebGPU because navigator.gpu alone is not enough.
+        const useWebgpu = forceWebgpu || (!forceWebgl2 && (!demo || !WASM_BYTES_WEBGL2));
         let engine = { js: "./bench.js", wasm: "./bench_bg.wasm", bytes: WASM_BYTES };
-        if (WASM_BYTES_WEBGL2) {
-          const adapter = !demo && navigator.gpu
+        if (useWebgpu) {
+          const adapter = navigator.gpu
             ? await Promise.race([
                 navigator.gpu.requestAdapter().catch(() => null),
                 new Promise((resolve) => setTimeout(() => resolve(null), 3000)),
               ])
             : null;
-          if (advanced && (!adapter || new URLSearchParams(location.search).has("forcegl"))) {
-            throw new Error("This demo requires WebGPU. Choose Instanced, CPU culled or one of the No-instancing tests for WebGL2.");
+          if (!adapter) {
+            throw new Error("WebGPU is unavailable in this browser. Choose ?webgl2 on Instanced, CPU culled or a No-instancing test.");
           }
-          if (!adapter || location.search.includes("forcegl")) {
-            engine = {
-              js: "./bench_webgl2.js",
-              wasm: "./bench_webgl2_bg.wasm",
-              bytes: WASM_BYTES_WEBGL2,
-            };
-            boot_status("webgpu unavailable - webgl2 engine");
+        } else {
+          if (!WASM_BYTES_WEBGL2) {
+            throw new Error("This build has no WebGL2 engine. Choose ?webgpu.");
           }
-        } else if (!navigator.gpu) {
-          boot_status("this build needs WebGPU (Chrome/Edge, or Firefox on Windows)");
+          engine = {
+            js: "./bench_webgl2.js",
+            wasm: "./bench_webgl2_bg.wasm",
+            bytes: WASM_BYTES_WEBGL2,
+          };
         }
+        rendererStatus.textContent = `Renderer: ${useWebgpu ? "WebGPU" : "WebGL2"}${advanced ? " · WebGPU required for this demo" : ""}`;
         const mod = await import(new URL(engine.js, document.baseURI).href);
         const init = mod.default;
 
@@ -196,6 +226,7 @@
         // every successful start and is not a failure.
         if (!`${err}`.includes("control flow")) {
           window.boot_failed = true;
+          rendererStatus.textContent = err?.message ?? `${err}`;
           document.getElementById("boot").classList.remove("done");
           boot_status(`${err?.message ?? err}`);
           throw err;

@@ -484,7 +484,7 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
         egui::Window::new(mode.label())
             .default_pos((10.0, 200.0))
             .show(ctx, |ui| {
-                ui.label("WebGL2 laptop test · right-drag looks, WASD/QE moves");
+                ui.label("Grass test · right-drag looks, WASD/QE moves");
                 changed |= ui
                     .add(egui::Slider::new(&mut s.grass_density, 0.05..=0.35).text("Density"))
                     .changed();
