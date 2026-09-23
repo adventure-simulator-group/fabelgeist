@@ -32,6 +32,8 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCa
         }
     });
 
+    wardrobe(ui, studio, catalog, &search);
+
     let mut layers: Vec<_> = catalog
         .wearable()
         .filter(|item| matches(&item.display_name))
@@ -60,6 +62,39 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCa
                 }
             });
     }
+}
+
+/// Garments saved in the wardrobe, each worn as its own copy.
+fn wardrobe(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog, search: &str) {
+    let saved: Vec<_> = studio
+        .wardrobe
+        .library
+        .iter()
+        .filter(|(name, _)| search.is_empty() || name.as_ref().to_lowercase().contains(search))
+        .map(|(name, garment)| (name.clone(), garment.clone()))
+        .collect();
+    if saved.is_empty() {
+        return;
+    }
+    egui::CollapsingHeader::new("Wardrobe")
+        .id_salt("acquire_wardrobe")
+        .default_open(!search.is_empty())
+        .show(ui, |ui| {
+            for (name, garment) in saved {
+                ui.horizontal(|ui| {
+                    ui.label(name.as_ref()).on_hover_text(format!(
+                        "{} · {} · saved drape, fitted without simulating",
+                        garment.selection.fabric.label(),
+                        garment.selection.layer.label()
+                    ));
+                    ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                        if ui.small_button("add").clicked() {
+                            acquire(studio, catalog, vec![Article::Settled(garment)]);
+                        }
+                    });
+                });
+            }
+        });
 }
 
 fn catalog_item(
@@ -96,7 +131,12 @@ fn catalog_item(
 }
 
 /// Carry the new articles, wear them, and select the last.
-fn acquire(studio: &mut Studio, catalog: &EquipmentCatalog, articles: Vec<Article>) {
+/// Add articles to the inventory and wear each, selecting the last.
+pub(in super::super) fn acquire(
+    studio: &mut Studio,
+    catalog: &EquipmentCatalog,
+    articles: Vec<Article>,
+) {
     for article in articles {
         let id = studio.recipe.inventory.add(article);
         studio.inventory.selected = Some(id);

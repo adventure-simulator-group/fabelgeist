@@ -1,9 +1,7 @@
 //! The armory tab: browse every catalog piece and reshape its catalog default.
 use super::*;
-use adventuresim_character_creator::decoration::DecorationName;
+use adventuresim_character_creator::decoration::LibraryName;
 use armory::{Armory, ArmoryView, Frame, Region};
-
-const PROBLEM_COLOR: egui::Color32 = egui::Color32::from_rgb(235, 120, 110);
 
 pub(super) fn show(
     ui: &mut egui::Ui,
@@ -126,7 +124,7 @@ fn list(ui: &mut egui::Ui, armory: &mut Armory) {
                     .collect();
                 let mut text = egui::RichText::new(&exhibit.name);
                 if !problems.is_empty() {
-                    text = text.color(PROBLEM_COLOR);
+                    text = text.color(studio_theme::PROBLEM);
                 }
                 let hover = if problems.is_empty() {
                     format!("{} · {} triangles", exhibit.item_id, exhibit.triangles())
@@ -170,7 +168,7 @@ fn editor(
         exhibit.triangles()
     ));
     for (placement, error) in exhibit.errors() {
-        ui.colored_label(PROBLEM_COLOR, format!("{placement}: {error}"));
+        ui.colored_label(studio_theme::PROBLEM, format!("{placement}: {error}"));
     }
     let loaded = exhibit.loaded.clone();
     if exhibit.steel {
@@ -248,7 +246,7 @@ fn decoration(ui: &mut egui::Ui, studio: &mut Studio, armory: &mut Armory) {
                     Err(error) => format!("Could not save the decoration: {error:#}"),
                 };
             }
-            let saved = DecorationName::try_from(armory.decoration_name.clone())
+            let saved = LibraryName::try_from(armory.decoration_name.clone())
                 .ok()
                 .filter(|name| studio.decorations.library.get(name).is_some());
             if ui
@@ -298,7 +296,7 @@ pub(super) fn labels(
         }
         let mut text = egui::RichText::new(&exhibit.name).small();
         if exhibit.errors().next().is_some() {
-            text = text.color(PROBLEM_COLOR);
+            text = text.color(studio_theme::PROBLEM);
         }
         egui::Area::new(egui::Id::new(("armory_label", i)))
             .fixed_pos(egui::pos2(position.x, position.y))

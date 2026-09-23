@@ -148,6 +148,9 @@ pub(crate) fn caps(text: &str, size: f32, color: egui::Color32) -> egui::text::L
     job
 }
 
+/// Text naming a problem, such as a piece that failed to fit.
+pub(crate) const PROBLEM: egui::Color32 = egui::Color32::from_rgb(235, 120, 110);
+
 /// A framed group of controls under a small gold title.
 pub(crate) fn card<R>(
     ui: &mut egui::Ui,
@@ -246,6 +249,7 @@ pub(crate) enum Icon {
     Person,
     Knapsack,
     Anvil,
+    Clothes,
     OpenBook,
 }
 
@@ -268,6 +272,7 @@ impl Icon {
             Self::Person => white_icon!("person.svg"),
             Self::Knapsack => white_icon!("knapsack.svg"),
             Self::Anvil => white_icon!("anvil.svg"),
+            Self::Clothes => white_icon!("clothes.svg"),
             Self::OpenBook => white_icon!("open-book.svg"),
         };
         egui::Image::new(egui::ImageSource::Bytes {

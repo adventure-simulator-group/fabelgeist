@@ -4,10 +4,9 @@ use adventuresim_character_creator::garment::{
     ClothLayer, Construction,
     pattern::{Collar, Lower, Pattern, Sleeves, Upper, shapes},
 };
-use adventuresim_character_creator::inventory::InventoryItemId;
 use std::ops::RangeInclusive;
 
-pub(super) fn show(ui: &mut egui::Ui, id: InventoryItemId, selection: &mut GarmentSelection) {
+pub(super) fn show(ui: &mut egui::Ui, id: egui::Id, selection: &mut GarmentSelection) {
     ui.horizontal(|ui| {
         ui.label("Name");
         ui.text_edit_singleline(&mut selection.name);
@@ -43,7 +42,7 @@ pub(super) fn show(ui: &mut egui::Ui, id: InventoryItemId, selection: &mut Garme
 }
 
 /// The layer cloth is worn in; chainmail is always mail.
-pub(super) fn layer(ui: &mut egui::Ui, id: InventoryItemId, selection: &mut GarmentSelection) {
+pub(super) fn layer(ui: &mut egui::Ui, id: egui::Id, selection: &mut GarmentSelection) {
     if selection.fabric == FabricPreset::Chainmail {
         ui.weak("Chainmail is worn in the mail layer.");
         return;
@@ -63,7 +62,7 @@ pub(super) fn layer(ui: &mut egui::Ui, id: InventoryItemId, selection: &mut Garm
 }
 
 /// A named shape to fill the pattern from, when one is chosen.
-fn start_from(ui: &mut egui::Ui, id: InventoryItemId) -> Option<shapes::Shape> {
+fn start_from(ui: &mut egui::Ui, id: egui::Id) -> Option<shapes::Shape> {
     let mut chosen = None;
     egui::ComboBox::from_id_salt(("garment_shape", id))
         .selected_text("Start from a shape…")
@@ -79,7 +78,7 @@ fn start_from(ui: &mut egui::Ui, id: InventoryItemId) -> Option<shapes::Shape> {
     chosen
 }
 
-fn upper(ui: &mut egui::Ui, id: InventoryItemId, pattern: &mut Pattern) {
+fn upper(ui: &mut egui::Ui, id: egui::Id, pattern: &mut Pattern) {
     let straight = matches!(pattern.upper, Some(Upper::Straight { .. }));
     let fitted = pattern.upper == Some(Upper::Fitted);
     // Something must remain to be sewn.
@@ -156,7 +155,7 @@ fn upper(ui: &mut egui::Ui, id: InventoryItemId, pattern: &mut Pattern) {
     });
 }
 
-fn lower(ui: &mut egui::Ui, id: InventoryItemId, pattern: &mut Pattern) {
+fn lower(ui: &mut egui::Ui, id: egui::Id, pattern: &mut Pattern) {
     let trousers = matches!(pattern.lower, Some(Lower::Trousers { .. }));
     let skirt = matches!(pattern.lower, Some(Lower::Skirt { .. }));
     let may_clear = pattern.upper.is_some();

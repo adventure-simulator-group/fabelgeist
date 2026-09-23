@@ -4,7 +4,9 @@
 use anyhow::{Context, Result, ensure};
 use fabelgeist_armor::{engraving::Engraving, trim::Trim};
 use serde::{Deserialize, Serialize};
-use std::{collections::BTreeMap, fmt, path::Path};
+use std::{collections::BTreeMap, path::Path};
+
+pub use crate::library_name::LibraryName;
 
 /// How a plate-steel piece is decorated. Both parts are optional; a plain
 /// piece has neither.
@@ -30,42 +32,13 @@ impl Decoration {
     }
 }
 
-/// The name a decoration is saved under: non-empty, without surrounding space.
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
-#[serde(try_from = "String", into = "String")]
-pub struct DecorationName(String);
-
-impl TryFrom<String> for DecorationName {
-    type Error = String;
-
-    fn try_from(name: String) -> Result<Self, Self::Error> {
-        let trimmed = name.trim();
-        if trimmed.is_empty() {
-            return Err("a decoration needs a name".into());
-        }
-        Ok(Self(trimmed.to_owned()))
-    }
-}
-
-impl From<DecorationName> for String {
-    fn from(name: DecorationName) -> Self {
-        name.0
-    }
-}
-
-impl fmt::Display for DecorationName {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(&self.0)
-    }
-}
-
 /// Named decorations, designed in the studio's armory and chosen for
 /// inventory articles. Choosing one copies it into the article, so a recipe
 /// never depends on the library.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct DecorationLibrary {
-    entries: BTreeMap<DecorationName, Decoration>,
+    entries: BTreeMap<LibraryName, Decoration>,
 }
 
 impl DecorationLibrary {
@@ -103,22 +76,22 @@ impl DecorationLibrary {
     }
 
     /// Save `decoration` under `name`, replacing any decoration named so.
-    pub fn insert(&mut self, name: DecorationName, decoration: Decoration) -> Result<()> {
+    pub fn insert(&mut self, name: LibraryName, decoration: Decoration) -> Result<()> {
         ensure!(!decoration.is_plain(), "{name} decorates nothing");
         decoration.validate().map_err(anyhow::Error::msg)?;
         self.entries.insert(name, decoration);
         Ok(())
     }
 
-    pub fn remove(&mut self, name: &DecorationName) -> Option<Decoration> {
+    pub fn remove(&mut self, name: &LibraryName) -> Option<Decoration> {
         self.entries.remove(name)
     }
 
-    pub fn get(&self, name: &DecorationName) -> Option<&Decoration> {
+    pub fn get(&self, name: &LibraryName) -> Option<&Decoration> {
         self.entries.get(name)
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = (&DecorationName, &Decoration)> {
+    pub fn iter(&self) -> impl Iterator<Item = (&LibraryName, &Decoration)> {
         self.entries.iter()
     }
 
@@ -127,7 +100,7 @@ impl DecorationLibrary {
     }
 
     /// The name of a saved decoration identical to `decoration`.
-    pub fn name_of(&self, decoration: &Decoration) -> Option<&DecorationName> {
+    pub fn name_of(&self, decoration: &Decoration) -> Option<&LibraryName> {
         self.entries
             .iter()
             .find_map(|(name, saved)| (saved == decoration).then_some(name))
@@ -139,8 +112,8 @@ mod tests {
     use super::*;
     use fabelgeist_armor::ornament::Ornament;
 
-    fn name(name: &str) -> DecorationName {
-        DecorationName::try_from(name.to_owned()).unwrap()
+    fn name(name: &str) -> LibraryName {
+        LibraryName::try_from(name.to_owned()).unwrap()
     }
 
     fn vine() -> Decoration {
@@ -148,13 +121,6 @@ mod tests {
             engraving: Some(Engraving::ornament(Ornament::default())),
             trim: Some(Trim::default()),
         }
-    }
-
-    #[test]
-    fn names_are_trimmed_and_never_blank() {
-        assert_eq!(name("  Gilded vine ").to_string(), "Gilded vine");
-        assert!(DecorationName::try_from("   ".to_owned()).is_err());
-        assert!(serde_json::from_str::<DecorationName>("\"\"").is_err());
     }
 
     #[test]

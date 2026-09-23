@@ -351,6 +351,11 @@ reason = "Egui armory buttons dispatch framing, refit, design and decoration act
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/wardrobe_ui.rs"
+reason = "Egui wardrobe buttons dispatch save, drape, fit, acquire and delete actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/decoration_controls.rs"
 reason = "The egui decoration chooser dispatches through widget responses; its labels are never compared as state."
 

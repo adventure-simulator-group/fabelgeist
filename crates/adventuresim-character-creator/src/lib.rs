@@ -48,10 +48,12 @@ pub mod equipment_catalog;
 pub mod export;
 pub mod inventory;
 pub mod item_design;
+pub mod library_name;
 pub mod proportions;
 pub mod studio_environment;
 pub mod surface_cut;
 pub mod underlayer;
+pub mod wardrobe;
 pub use adventuresim_core::item_catalog_schema;
 pub mod garment;
 pub mod garment_material;
@@ -62,7 +64,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
-pub const RECIPE_VERSION: u8 = 10;
+pub const RECIPE_VERSION: u8 = 12;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]

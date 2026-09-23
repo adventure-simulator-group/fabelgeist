@@ -7,6 +7,7 @@ use adventuresim_character_creator::{
 
 #[path = "inventory_acquire.rs"]
 mod acquire;
+pub(super) use acquire::acquire;
 #[path = "inventory_article_editor.rs"]
 mod article_editor;
 
@@ -77,7 +78,7 @@ pub(super) fn wears_draped(recipe: &CharacterRecipe) -> bool {
     recipe
         .inventory
         .worn()
-        .any(|item| matches!(item.article, Article::Draped(_)))
+        .any(|item| item.article.garment().is_some())
 }
 
 fn worn(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog) {
@@ -239,7 +240,7 @@ fn shift(studio: &mut Studio, id: InventoryItemId, later: bool) {
         .recipe
         .inventory
         .get(id)
-        .is_some_and(|item| item.worn && matches!(item.article, Article::Draped(_)));
+        .is_some_and(|item| item.worn && item.article.garment().is_some());
 }
 
 fn names(

@@ -47,6 +47,9 @@ pub(super) struct Args {
     /// The library of named engravings and trims saved from the armory.
     #[arg(long, default_value = "assets_src/equipment/decorations.json")]
     pub(super) decorations: PathBuf,
+    /// The wardrobe of garments draped and saved in the studio.
+    #[arg(long, default_value = "assets_src/equipment/wardrobe.json")]
+    pub(super) wardrobe: PathBuf,
     /// Write editable default recipes for every new parametric family.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,

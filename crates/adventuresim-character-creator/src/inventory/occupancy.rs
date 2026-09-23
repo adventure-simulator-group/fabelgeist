@@ -3,7 +3,7 @@
 use super::{Article, EquipConflict, InventoryItemId};
 use crate::{
     equipment_catalog::ItemCatalog,
-    garment::{Construction, FabricPreset, GarmentSelection},
+    garment::{Construction, FabricPreset, GarmentSelection, SettledGarment},
     item_catalog_schema::{
         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
         ParentRequirement,
@@ -67,10 +67,9 @@ impl Article {
                     parents: placement.parents.clone(),
                 })
             }
-            Self::Draped(selection) => Ok(Occupancy::on_body(
-                garment_channel(selection),
-                &garment_locations(selection),
-            )),
+            Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
+                Occupancy::on_body(garment_channel(selection), &garment_locations(selection)),
+            ),
             Self::Plate(armor) => {
                 use EquipmentLocation::{Chest, Stomach};
                 let locations: &[_] = if armor.fauld.layer_count > 0 {

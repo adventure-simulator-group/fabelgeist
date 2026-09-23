@@ -27,6 +27,7 @@ pub(super) fn show(
             catalog_article(ui, item.id, article, catalog, &decorations.library, status)
         }
         Article::Draped(selection) => draped(ui, item.id, selection, drape_job),
+        Article::Settled(garment) => settled(ui, item.id, garment),
         Article::Plate(armor) => armor_preview::editor(ui, armor),
     };
     if !item.worn {
@@ -132,6 +133,33 @@ fn catalog_shape(
     changed
 }
 
+/// Returns whether the outfit must be fitted again. A settled garment keeps
+/// its drape, so only its name, layer and appearance are edited here.
+fn settled(
+    ui: &mut egui::Ui,
+    id: InventoryItemId,
+    garment: &mut adventuresim_character_creator::garment::SettledGarment,
+) -> bool {
+    let selection = &mut garment.selection;
+    ui.small(format!(
+        "{} · {} vertices · fitted from its saved drape without simulating",
+        selection.fabric.label(),
+        garment.drape.vertex_count()
+    ));
+    ui.horizontal(|ui| {
+        ui.label("Name");
+        ui.text_edit_singleline(&mut selection.name);
+    });
+    let layer = selection.layer;
+    garment_controls::layer(ui, egui::Id::new(("article", id)), selection);
+    if selection.fabric == FabricPreset::Chainmail {
+        fabric_controls::mail_weave(ui, &mut selection.mail);
+    }
+    ui.weak("Reshape it in the wardrobe and save it again to change its cut or fabric.");
+    // The layer sets which garments drape over which.
+    selection.layer != layer
+}
+
 /// Returns whether the garment must be draped again; appearance edits apply live.
 fn draped(
     ui: &mut egui::Ui,
@@ -140,6 +168,7 @@ fn draped(
     drape_job: &mut DrapeJob,
 ) -> bool {
     let before = selection.clone();
+    let id = egui::Id::new(("article", id));
     garment_controls::show(ui, id, selection);
     ui.separator();
     fabric_controls::show(ui, id, selection);

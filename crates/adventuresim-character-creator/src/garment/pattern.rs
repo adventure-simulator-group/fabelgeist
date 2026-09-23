@@ -56,6 +56,12 @@ pub struct Sleeves {
 impl Sleeves {
     pub const LENGTH: RangeInclusive<f64> = 0.1..=1.15;
     pub const CUFF_WIDTH: RangeInclusive<f64> = 0.2..=2.0;
+    /// Ends at the wrist on a straight body. The measured arm runs from the
+    /// shoulder joint, so a whole arm's length of sleeve reaches onto the hand,
+    /// and a cuff narrower than the hand is pierced by it.
+    pub const TO_THE_WRIST: f64 = 0.9;
+    /// Ends at the wrist on a fitted bodice, whose armhole sits further out.
+    pub const FITTED_TO_THE_WRIST: f64 = 0.8;
     pub const SHORT: Self = Self {
         length: 0.3,
         cuff_width: 1.0,
@@ -93,8 +99,10 @@ impl Lower {
     pub const TROUSERS_FLARE: RangeInclusive<f64> = 0.9..=1.2;
     pub const SKIRT_LENGTH: RangeInclusive<f64> = 0.1..=0.95;
     pub const SKIRT_FLARE_CM: RangeInclusive<f64> = 0.0..=20.0;
+    /// Trouser length that ends at the ankle; longer legs reach over the foot.
+    pub const TO_THE_ANKLE: f64 = 0.8;
     pub const TROUSERS: Self = Self::Trousers {
-        length: 0.9,
+        length: Self::TO_THE_ANKLE,
         width: 1.0,
         flare: 1.0,
     };

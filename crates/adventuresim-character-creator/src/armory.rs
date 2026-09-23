@@ -12,9 +12,10 @@ use studio_scene::{OrbitCamera, OrbitGoal, framing_radius};
 
 #[path = "armory_scene.rs"]
 mod scene;
+use bare_body::BareBody;
+use scene::spawn_exhibit;
 use scene::{ArmoryBody, ArmoryMesh};
 pub(super) use scene::{display, frame_camera, setup};
-use scene::{spawn_body, spawn_exhibit};
 
 /// Space between neighbouring pieces on the wall, in metres.
 const GAP: f32 = 0.14;
@@ -138,35 +139,10 @@ pub(super) enum Frame {
     Selected,
 }
 
-/// The body the exhibits were fitted to, and what it was generated from.
-struct FittedBody {
-    key: BodyKey,
-    generated: GeneratedCharacter,
-}
-
-#[derive(PartialEq)]
-struct BodyKey {
-    lod: u8,
-    correctives: bool,
-    recipe: CharacterRecipe,
-}
-
-impl BodyKey {
-    fn new(model: &BodyModel, recipe: &CharacterRecipe) -> Self {
-        let mut recipe = recipe.clone();
-        recipe.inventory = default();
-        recipe.name.clear();
-        Self {
-            lod: model.lod,
-            correctives: model.correctives,
-            recipe,
-        }
-    }
-}
-
 #[derive(Resource, Default)]
 pub(super) struct Armory {
-    body: Option<FittedBody>,
+    /// The body the exhibits were fitted to.
+    body: Option<BareBody>,
     pub exhibits: Vec<Exhibit>,
     pub selected: Option<usize>,
     pub view: ArmoryView,
@@ -294,8 +270,10 @@ pub(crate) fn enter_or_leave(
     match (active, armory.saved_camera.is_some()) {
         (true, false) => {
             armory.saved_camera = Some(*orbit);
-            let key = BodyKey::new(&model, &studio.recipe);
-            armory.refit_all |= armory.body.as_ref().is_none_or(|body| body.key != key);
+            armory.refit_all |= armory
+                .body
+                .as_ref()
+                .is_none_or(|body| !body.is_current(&model, &studio.recipe));
             armory.frame = Some(if armory.selected.is_some() {
                 Frame::Selected
             } else {
@@ -328,12 +306,12 @@ pub(crate) fn refit(
     let started = std::time::Instant::now();
     let all = std::mem::take(&mut armory.refit_all);
     if all {
-        match fit_body(&model, &studio.recipe) {
+        match BareBody::generate(&model, &studio.recipe) {
             Ok(body) => {
                 for entity in &bodies {
                     scene.commands.entity(entity).despawn();
                 }
-                armory.body_material = Some(spawn_body(&mut scene, &model, &body.generated));
+                armory.body_material = Some((body.spawn(&mut scene, &model, ArmoryBody), false));
                 armory.exhibits = exhibits(&catalog);
                 armory.body = Some(body);
                 armory.selected = armory.selected.filter(|i| *i < armory.exhibits.len());
@@ -394,13 +372,6 @@ pub(crate) fn refit(
         if stale.len() == 1 { "" } else { "s" },
         started.elapsed().as_secs_f32(),
     );
-}
-
-fn fit_body(model: &BodyModel, recipe: &CharacterRecipe) -> Result<FittedBody> {
-    Ok(FittedBody {
-        key: BodyKey::new(model, recipe),
-        generated: generate_character(model, recipe)?,
-    })
 }
 
 /// Every wearable catalog item with a parametric design, all stale.

@@ -6,11 +6,7 @@ use std::ops::RangeInclusive;
 const MM_PER_M: f32 = 1000.0;
 const SRGB_BYTE_MAX: f32 = 255.0;
 
-pub(super) fn show(
-    ui: &mut egui::Ui,
-    id: adventuresim_character_creator::inventory::InventoryItemId,
-    selection: &mut GarmentSelection,
-) {
+pub(super) fn show(ui: &mut egui::Ui, id: egui::Id, selection: &mut GarmentSelection) {
     let before = selection.fabric;
     egui::ComboBox::from_id_salt(("fabric_preset", id))
         .selected_text(selection.fabric.label())
@@ -28,7 +24,7 @@ pub(super) fn show(
     }
 }
 
-fn mail_weave(ui: &mut egui::Ui, weave: &mut MailWeave) {
+pub(super) fn mail_weave(ui: &mut egui::Ui, weave: &mut MailWeave) {
     ui.label("Chainmail rings");
     ui.small("Appearance only: changes apply without re-draping.");
     millimetres(

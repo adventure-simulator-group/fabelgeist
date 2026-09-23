@@ -98,30 +98,8 @@ pub(super) fn spawn_exhibit(
     Ok(())
 }
 
-pub(super) fn spawn_body(
-    scene: &mut PreviewScene,
-    model: &BodyModel,
-    generated: &GeneratedCharacter,
-) -> (Handle<StandardMaterial>, bool) {
-    let mesh = studio_generation::visible_body_mesh(generated, &model.mhr.character.mesh.faces);
-    let material = scene.materials.add(StandardMaterial {
-        base_color: Color::srgb(0.64, 0.39, 0.30),
-        perceptual_roughness: 0.52,
-        reflectance: 0.46,
-        ..default()
-    });
-    scene.commands.spawn((
-        ArmoryBody,
-        Name::new("armory body"),
-        Mesh3d(scene.meshes.add(mesh)),
-        MeshMaterial3d(material.clone()),
-        Visibility::Hidden,
-    ));
-    (material, false)
-}
-
-/// Show what the armory view asks for, hang pieces on the wall, and hide the
-/// dressed character while the armory is open.
+/// Show what the armory view asks for, hang pieces on the wall, and show the
+/// dressed character only on the tabs that show it.
 #[expect(
     clippy::type_complexity,
     reason = "the three preview entity kinds are disjoint queries"
@@ -159,7 +137,7 @@ pub(crate) fn display(
         }
     };
     for mut visibility in &mut character {
-        visibility.set_if_neq(show(!active));
+        visibility.set_if_neq(show(studio.tab.shows_character()));
     }
     let on_body = armory.view == ArmoryView::OnBody && armory.selected.is_some();
     for mut visibility in &mut lights {

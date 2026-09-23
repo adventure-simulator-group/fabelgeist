@@ -2,7 +2,7 @@
 //! engraving and trim, and saving decorations to and choosing them from the
 //! library.
 use super::*;
-use adventuresim_character_creator::decoration::{Decoration, DecorationLibrary, DecorationName};
+use adventuresim_character_creator::decoration::{Decoration, DecorationLibrary, LibraryName};
 
 /// The decoration library and where it is saved.
 pub(super) struct Decorations {
@@ -12,8 +12,8 @@ pub(super) struct Decorations {
 
 impl Decorations {
     /// Save `decoration` under `name` and write the library.
-    pub(super) fn save(&mut self, name: &str, decoration: &Decoration) -> Result<DecorationName> {
-        let name = DecorationName::try_from(name.to_owned()).map_err(anyhow::Error::msg)?;
+    pub(super) fn save(&mut self, name: &str, decoration: &Decoration) -> Result<LibraryName> {
+        let name = LibraryName::try_from(name.to_owned()).map_err(anyhow::Error::msg)?;
         let mut library = self.library.clone();
         library.insert(name.clone(), decoration.clone())?;
         library.save(std::path::Path::new(&self.path))?;
@@ -22,7 +22,7 @@ impl Decorations {
     }
 
     /// Delete the decoration called `name` and write the library.
-    pub(super) fn delete(&mut self, name: &DecorationName) -> Result<()> {
+    pub(super) fn delete(&mut self, name: &LibraryName) -> Result<()> {
         let mut library = self.library.clone();
         library.remove(name);
         library.save(std::path::Path::new(&self.path))?;
@@ -63,7 +63,7 @@ pub(super) fn choose(
     id_salt: impl std::hash::Hash,
     library: &DecorationLibrary,
     decoration: &mut Decoration,
-) -> Option<Option<DecorationName>> {
+) -> Option<Option<LibraryName>> {
     let mut chosen = None;
     egui::ComboBox::from_id_salt(id_salt)
         .selected_text(label(library, decoration))

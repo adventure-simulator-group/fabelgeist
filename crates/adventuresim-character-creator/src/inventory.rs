@@ -13,7 +13,7 @@ pub use occupancy::{Occupancy, WornGraph};
 use crate::{
     decoration::Decoration,
     equipment_catalog::ItemCatalog,
-    garment::GarmentSelection,
+    garment::{GarmentSelection, SettledGarment},
     item_catalog_schema::{
         EquipmentChannel, EquipmentLocation, EquipmentPlacement, ItemDefinition,
     },
@@ -47,6 +47,9 @@ pub enum Article {
     Catalog(CatalogArticle),
     /// Cloth sewn from a pattern, or fitted as a surface, and draped by simulation.
     Draped(GarmentSelection),
+    /// Cloth saved from the wardrobe once settled, fitted to the wearer
+    /// without simulating. The article holds its own copy of the drape.
+    Settled(SettledGarment),
     /// The Fabelgeist breastplate and fauld builder.
     Plate(fabelgeist_armor::Armor),
 }
@@ -129,6 +132,7 @@ impl Article {
                 Err(_) => format!("Unknown {}", article.item_id),
             },
             Self::Draped(selection) => selection.name.clone(),
+            Self::Settled(garment) => garment.selection.name.clone(),
             Self::Plate(armor) => {
                 use fabelgeist_armor::Construction;
                 let construction = match armor.construction {
@@ -148,7 +152,16 @@ impl Article {
                 .resolve(catalog)
                 .ok()
                 .map(|(item, _)| item.weight_kg),
-            Self::Draped(_) | Self::Plate(_) => None,
+            Self::Draped(_) | Self::Settled(_) | Self::Plate(_) => None,
+        }
+    }
+
+    /// The cloth's construction, fabric and layer, if this article is cloth.
+    pub fn garment(&self) -> Option<&GarmentSelection> {
+        match self {
+            Self::Draped(selection) => Some(selection),
+            Self::Settled(garment) => Some(&garment.selection),
+            Self::Catalog(_) | Self::Plate(_) => None,
         }
     }
 
@@ -169,6 +182,9 @@ impl Article {
                     .map_err(|error| format!("{}: {error}", article.item_id))
             }
             Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
+            Self::Settled(garment) => garment
+                .validate()
+                .map_err(|error| format!("{}: {error:#}", garment.selection.name)),
             Self::Plate(armor) => armor.validate(),
         }
     }
@@ -296,7 +312,7 @@ impl Inventory {
                     Article::Catalog(article) => catalog
                         .item(&article.item_id)
                         .and_then(|definition| definition.equipment.as_ref()),
-                    Article::Draped(_) | Article::Plate(_) => None,
+                    Article::Draped(_) | Article::Settled(_) | Article::Plate(_) => None,
                 };
                 Ok(occupancy::Candidate {
                     id: item.id,

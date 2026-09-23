@@ -20,12 +20,12 @@ const NOTHING: Pattern = Pattern {
 };
 /// To the wrist, narrowing towards it.
 const LONG_SLEEVES: Sleeves = Sleeves {
-    length: 1.0,
+    length: Sleeves::TO_THE_WRIST,
     cuff_width: 0.6,
 };
 /// To the wrist and close on the forearm, as fitted bodices were sleeved.
 const LONG_FITTED_SLEEVES: Sleeves = Sleeves {
-    length: 1.0,
+    length: Sleeves::FITTED_TO_THE_WRIST,
     cuff_width: 0.55,
 };
 
@@ -80,7 +80,7 @@ pub const GAMBESON: Shape = Shape {
             flare: 1.15,
         }),
         sleeves: Some(Sleeves {
-            length: 1.0,
+            length: Sleeves::TO_THE_WRIST,
             cuff_width: 0.7,
         }),
         collar: Some(Collar::STANDING),
@@ -101,7 +101,7 @@ pub const HOSE: Shape = Shape {
     name: "Hose",
     pattern: Pattern {
         lower: Some(Lower::Trousers {
-            length: 0.9,
+            length: Lower::TO_THE_ANKLE,
             width: 1.0,
             flare: 0.9,
         }),

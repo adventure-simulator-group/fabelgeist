@@ -40,13 +40,13 @@ corresponding `*_middle1` knuckle, placing it in the generated palm. The camera
 joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
-The left panel has four tabs. **Character** edits skeletal proportions
+The left panel has five tabs. **Character** edits skeletal proportions
 (**Build**), identity shape (**Body**, **Head** and **Hands**) and
 **Expression**; double-click a slider to return it to neutral. **Inventory**
 holds everything the character owns (see below). **Armory** reshapes the
-catalog's parametric equipment. **Output** loads the body model, saves and
-loads recipes, plays the animation preview, exports the rigged GLB and saves
-catalog designs.
+catalog's parametric equipment. **Wardrobe** drapes clothes once and saves
+them for any body. **Output** loads the body model, saves and loads recipes,
+plays the animation preview, exports the rigged GLB and saves catalog designs.
 
 Outside the armory, the character's name is edited above the viewport, and a
 bar below it frames a **Full body** or **Portrait** shot, turns the view,
@@ -70,6 +70,9 @@ stable ID, whether it is worn, and one of three kinds of article:
   optional trim;
 - a draped garment: a name, a sewn pattern or fitted coif, its fabric, layer
   and drape settings;
+- a settled garment: a copy of a garment saved in the wardrobe, with its
+  settled drape, fitted to the wearer without simulating (see
+  [Wardrobe](#wardrobe));
 - Fabelgeist plate armor: the breastplate and fauld builder.
 
 Only worn articles appear on the body and in exports; the rest are carried.
@@ -88,8 +91,8 @@ In the **Inventory** tab, worn articles are grouped by layer and carried
 articles are listed below them. The checkbox wears or takes off an article.
 Wearing one takes off whatever fills its place, and taking one off also takes
 off whatever hangs from it. **Acquire** adds and wears **New cloth**, **New
-plate armor** or searchable catalog items, and catalog items with left and
-right placements can add both. Selecting an article shows its editor: shape
+plate armor**, garments saved in the **Wardrobe** or searchable catalog items,
+and catalog items with left and right placements can add both. Selecting an article shows its editor: shape
 controls for parametric catalog items, the garment editor for cloth (see
 [Garments](#garments)), and plate controls. Editing a catalog item's shape gives it its own design. **Use
 catalog shape** discards that design, and **Make catalog default** copies it to
@@ -100,7 +103,7 @@ the article, where they can be edited further, so a recipe never depends on the
 library. Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
-Recipes use schema version 10. Recipes from older versions are not read.
+Recipes use schema version 12. Recipes from older versions are not read.
 
 ## Armory
 
@@ -133,6 +136,54 @@ Both write the decoration library at once; by default it is
 **Output** tab, where **Reload library** reads it again. A library that does not
 exist yet is empty.
 
+## Wardrobe
+
+The **Wardrobe** tab drapes a garment on the character's bare body and saves
+it once it has settled, so it can be worn on any body without draping again.
+
+The **Design** card holds the same garment editor as the inventory (see
+[Garments](#garments)). The garment drapes as soon as the tab opens and again
+after every pattern, fabric or drape change, from its first changed stage;
+**Drape again** simulates every stage from the placed panels. Once settling has
+finished for the design as it stands, **Save to wardrobe** saves it under its
+name, replacing a garment of the same name.
+
+Saving binds every cloth vertex to the nearest point of the body's surface: a
+body triangle, a position on it, and the offset from that point along the
+surface's tangent, bitangent and smooth normal. Wearing a saved garment
+evaluates those bindings on the wearer, so the cloth follows the body's size,
+slope and proportions while keeping its folds and its ease. Where neighbouring
+cloth was bound to body parts that moved apart, such as a hem between thighs
+on wider hips, edges stretched past a quarter beyond their settled length are
+pulled back together. The cloth is then kept outside the wearer and the
+garments beneath it, as after draping (see [Drape stages](#drape-stages)), and
+fitted under worn plate like a draped garment. Nothing is simulated, so
+a saved garment fits a new body in well under a second. The bindings name the
+body mesh's triangles, so a garment is only worn on the level of detail it was
+saved on; the default is LOD 1.
+
+**Saved garments** lists the wardrobe. Selecting one fits it to the current
+body. **Add to inventory** adds and wears a copy of it, **Edit** loads its
+settings into the design to drape and save again, and **Delete** removes it.
+The inventory can also add saved garments under **Acquire**. A worn copy
+belongs to the recipe, so a recipe never depends on the wardrobe; in the
+inventory it keeps its drape, and only its name, layer and chainmail appearance
+can be edited. Its per-vertex bindings are stored as compact base64 strings.
+
+The wardrobe is saved at once to `assets_src/equipment/wardrobe.json` by
+default, set with `--wardrobe` or on the **Output** tab, where **Reload
+wardrobe** reads it again. A wardrobe that does not exist yet is empty.
+
+The GPU test `a_settled_garment_fits_other_bodies_without_draping` drapes a
+shape (`SETTLED_TEST_SHAPE`, the tunic by default) on the canonical body,
+saves it, fits it to three random bodies and exports one of them from the
+inventory:
+
+```powershell
+$env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"
+cargo test --manifest-path crates/adventuresim-character-creator/Cargo.toml a_settled_garment -- --ignored --nocapture
+```
+
 In every tab, drag orbits the view, right- or middle-drag pans, and the wheel
 zooms.
 
@@ -157,10 +208,14 @@ the design space of the GarmentCodeData dataset:
   tunic has a **Length** measured down from the shoulder in neck-to-waist
   lengths, where 1 reaches the waist and about 2.5 the knee, plus ease and hem
   flare. The fitted bodice is cut at the waist. Either can have **Sleeves**,
-  with a length and cuff width, and a **Standing collar** with a height.
+  with a length and cuff width, and a **Standing collar** with a height. A
+  sleeve's length is a share of the arm from the shoulder joint: 0.9 ends at
+  the wrist on a straight tunic and 0.8 on a fitted bodice. Longer sleeves
+  reach over the hand, which pierces a cuff narrower than itself.
 - **Legs** is none, **Trousers** or a **Skirt**, each with a length and hem
   flare. Trousers also have ease. Their hem flare stops just below straight,
-  because narrower legs slide down the wearer while settling.
+  because narrower legs slide down the wearer while settling. A trouser length
+  of 0.8 ends at the ankle; longer legs reach over the foot.
 - **Fabric** sets the cloth's weight and drape. **Layer** is clothing, padding
   or outerwear. Padding sits between clothing and mail, and outerwear goes
   over mail and plate. Chainmail is always worn as mail.
@@ -209,10 +264,21 @@ armor passes are the main cost of a step. The armor fit sets its pass budget
 and contact iterations. Previews default to every step and start from the
 placed panels.
 
+A settled garment hangs from its highest supports, so a loose cut stands off
+the chest, belly and back. **Body fit** then draws it onto the body it
+dresses: each value closes that share of the gap down to the fabric's
+clearance, 0.7 by default, without stretching any cloth edge. Only cloth over
+the trunk and arms is drawn in, plus the legs for trousers and the head for a
+fitted coif; a hem hanging past the thighs or a sleeve over the hand follows
+only as the drawn cloth pulls it. Finally the cloth is kept outside the wearer
+and inner garments: its vertices are pushed out to clearance, and where a body
+feature smaller than a cloth triangle, such as a thumb, passes between its
+vertices, that triangle is lifted over it.
+
 Each drape keeps its completed stages, including after a failure or
-cancellation. Changing a stage re-runs from that stage: an armor fit change
-repeats only the fast host fit, and a settling or armor change resumes from the
-sewn garment. Body, pattern, fabric, resolution or sewing changes start again,
+cancellation. Changing a stage re-runs from that stage: an armor fit or body
+fit change repeats only the fast host fit, and a settling or armor change
+resumes from the sewn garment. Body, pattern, fabric, resolution or sewing changes start again,
 as does **Drape again**.
 
 Draping resolves swept vertex/triangle and edge/edge contacts after each GPU

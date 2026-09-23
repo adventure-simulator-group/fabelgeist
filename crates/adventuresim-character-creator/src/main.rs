@@ -31,8 +31,10 @@ mod animation_preview;
 mod armor_preview;
 mod armory;
 mod armory_ui;
+mod bare_body;
 mod drape_controls;
 mod drape_preview;
+mod drape_worker;
 mod fabric_controls;
 mod garment_controls;
 mod inventory_ui;
@@ -43,6 +45,8 @@ mod outfit;
 mod studio_overlay;
 mod studio_theme;
 mod studio_ui;
+mod wardrobe_tab;
+mod wardrobe_ui;
 use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
 use animation_preview::WalkPreview;
 use drape_preview::DrapeJob;
@@ -99,6 +103,8 @@ struct Studio {
     design_paths: studio_ui::DesignPathInputs,
     /// Named engravings and trims, and where they are saved.
     decorations: decoration_controls::Decorations,
+    /// Garments saved once settled, and where they are saved.
+    wardrobe: wardrobe_tab::WardrobeLibrary,
     tab: studio_ui::StudioTab,
     inventory: inventory_ui::InventoryView,
 }
@@ -127,6 +133,10 @@ impl Studio {
             decorations: decoration_controls::Decorations {
                 library: default(),
                 path: args.decorations.display().to_string(),
+            },
+            wardrobe: wardrobe_tab::WardrobeLibrary {
+                library: default(),
+                path: args.wardrobe.display().to_string(),
             },
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
@@ -202,10 +212,20 @@ fn main() -> Result<()> {
         return Ok(());
     }
 
-    let decorations =
-        adventuresim_character_creator::decoration::DecorationLibrary::load(&args.decorations)?;
-    run_studio(args, model, catalog, recipe, decorations);
+    let libraries = Libraries {
+        decorations: adventuresim_character_creator::decoration::DecorationLibrary::load(
+            &args.decorations,
+        )?,
+        wardrobe: adventuresim_character_creator::wardrobe::Wardrobe::load(&args.wardrobe)?,
+    };
+    run_studio(args, model, catalog, recipe, libraries);
     Ok(())
+}
+
+/// The studio's saved decorations and garments.
+struct Libraries {
+    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
+    wardrobe: adventuresim_character_creator::wardrobe::Wardrobe,
 }
 
 /// Open the interactive studio window on `recipe`.
@@ -214,10 +234,11 @@ fn run_studio(
     model: BodyModel,
     catalog: EquipmentCatalog,
     recipe: CharacterRecipe,
-    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
+    libraries: Libraries,
 ) {
     let mut studio = Studio::new(&args, recipe);
-    studio.decorations.library = decorations;
+    studio.decorations.library = libraries.decorations;
+    studio.wardrobe.library = libraries.wardrobe;
     App::new()
         .insert_resource(ClearColor(studio_scene::BACKDROP))
         .init_resource::<DrapeJob>()
@@ -248,6 +269,7 @@ fn run_studio(
         .init_resource::<studio_scene::CharacterBounds>()
         .init_resource::<studio_scene::ShotRequest>()
         .init_resource::<armory::Armory>()
+        .init_resource::<wardrobe_tab::WardrobeTab>()
         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
         .add_systems(
             EguiPrimaryContextPass,
@@ -267,6 +289,10 @@ fn run_studio(
                     armory::display,
                     armory::frame_camera,
                 )
+                    .chain()
+                    .after(reload_model)
+                    .before(regenerate_mesh),
+                (wardrobe_tab::update, wardrobe_tab::display)
                     .chain()
                     .after(reload_model)
                     .before(regenerate_mesh),
@@ -501,7 +527,7 @@ mod garment_integration_tests {
                         }
                     }
                     let milestone = match snapshot.stage {
-                        DrapeStage::Placed => true,
+                        DrapeStage::Placed | DrapeStage::Worn => true,
                         DrapeStage::Sewing { .. } => false,
                         DrapeStage::Settling { step, .. } => step % 60 == 0,
                     };
@@ -589,3 +615,6 @@ mod garment_integration_tests {
 
 #[cfg(test)]
 mod chainmail_export_test;
+
+#[cfg(test)]
+mod settled_garment_test;

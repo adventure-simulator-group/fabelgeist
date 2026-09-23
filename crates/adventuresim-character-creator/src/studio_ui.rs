@@ -1,8 +1,8 @@
 //! The studio side panel: tabs for the character's body, its inventory,
-//! the armory and output.
+//! the armory, the wardrobe and output.
 use super::*;
 use adventuresim_character_creator::{
-    armor_design_output::DesignPaths, decoration::DecorationLibrary,
+    armor_design_output::DesignPaths, decoration::DecorationLibrary, wardrobe::Wardrobe,
 };
 
 const PANEL_WIDTH: f32 = 392.0;
@@ -16,17 +16,31 @@ pub(super) enum StudioTab {
     Character,
     Inventory,
     Armory,
+    Wardrobe,
     Output,
 }
 
 impl StudioTab {
-    const ALL: [Self; 4] = [Self::Character, Self::Inventory, Self::Armory, Self::Output];
+    const ALL: [Self; 5] = [
+        Self::Character,
+        Self::Inventory,
+        Self::Armory,
+        Self::Wardrobe,
+        Self::Output,
+    ];
+
+    /// Whether the dressed character is shown; the armory and the wardrobe
+    /// show their own work instead.
+    pub(super) fn shows_character(self) -> bool {
+        !matches!(self, Self::Armory | Self::Wardrobe)
+    }
 
     fn label(self) -> &'static str {
         match self {
             Self::Character => "Character",
             Self::Inventory => "Inventory",
             Self::Armory => "Armory",
+            Self::Wardrobe => "Wardrobe",
             Self::Output => "Output",
         }
     }
@@ -36,6 +50,7 @@ impl StudioTab {
             Self::Character => "Shape the body, face and expression.",
             Self::Inventory => "Wear, carry and acquire equipment.",
             Self::Armory => "Browse and reshape the catalog's armor.",
+            Self::Wardrobe => "Drape clothes and save them for any body.",
             Self::Output => "Save, animate and export the character.",
         }
     }
@@ -45,6 +60,7 @@ impl StudioTab {
             Self::Character => studio_theme::Icon::Person,
             Self::Inventory => studio_theme::Icon::Knapsack,
             Self::Armory => studio_theme::Icon::Anvil,
+            Self::Wardrobe => studio_theme::Icon::Clothes,
             Self::Output => studio_theme::Icon::OpenBook,
         }
     }
@@ -75,6 +91,7 @@ pub(super) fn show(
     mut studio: ResMut<Studio>,
     mut panel_right: ResMut<CreatorPanelRight>,
     mut armory: ResMut<armory::Armory>,
+    mut wardrobe: ResMut<wardrobe_tab::WardrobeTab>,
     mut shot: ResMut<studio_scene::ShotRequest>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
@@ -108,6 +125,9 @@ pub(super) fn show(
                     }
                     StudioTab::Armory => {
                         armory_ui::show(ui, &mut studio, &mut catalog, &mut armory)
+                    }
+                    StudioTab::Wardrobe => {
+                        wardrobe_ui::show(ui, &mut studio, &catalog, &model, &mut wardrobe)
                     }
                     StudioTab::Output => output(
                         ui,
@@ -273,6 +293,8 @@ fn output(
         decoration_library(ui, studio)
     });
 
+    studio_theme::card(ui, "Wardrobe", |ui| wardrobe_library(ui, studio));
+
     studio_theme::card(ui, "Body model", |ui| mesh(ui, studio));
 }
 
@@ -292,6 +314,23 @@ fn decoration_library(ui: &mut egui::Ui, studio: &mut Studio) {
                 format!("Loaded decorations from {}", decorations.path)
             }
             Err(error) => format!("Could not load decorations: {error:#}"),
+        };
+    }
+}
+
+/// Where the wardrobe saves garments, and reloading them from there.
+fn wardrobe_library(ui: &mut egui::Ui, studio: &mut Studio) {
+    ui.small("Garments draped and saved in the wardrobe, which the inventory adds.");
+    let wardrobe = &mut studio.wardrobe;
+    ui.add(egui::TextEdit::singleline(&mut wardrobe.path).desired_width(f32::INFINITY));
+    if ui.button("Reload wardrobe").clicked() {
+        let path = std::path::Path::new(&wardrobe.path);
+        studio.status = match Wardrobe::load(path) {
+            Ok(library) => {
+                wardrobe.library = library;
+                format!("Loaded the wardrobe from {}", wardrobe.path)
+            }
+            Err(error) => format!("Could not load the wardrobe: {error:#}"),
         };
     }
 }

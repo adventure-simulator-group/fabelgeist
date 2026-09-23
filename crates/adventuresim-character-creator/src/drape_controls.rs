@@ -12,6 +12,11 @@ pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
     );
     let fabric = selection.fabric;
     let drape = &mut selection.drape;
+    ui.add(egui::Slider::new(&mut drape.body_fit, DrapeSettings::BODY_FIT).text("Body fit"))
+        .on_hover_text(
+            "How much of the gap between the settled cloth and the body it dresses to close, \
+             without stretching it. Hems past the body keep hanging.",
+        );
     ui.collapsing("Drape stages", |ui| {
         ui.small("Changing a stage re-runs from that stage and reuses earlier ones.");
         ui.add(

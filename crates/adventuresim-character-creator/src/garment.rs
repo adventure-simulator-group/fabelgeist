@@ -13,23 +13,29 @@ use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
 mod armor;
+mod conform;
+mod dressing;
 mod export;
 mod finish;
 mod fitted;
 pub mod pattern;
 mod placement;
 mod selection;
+mod settled;
 mod shading;
 mod stages;
 mod symmetrize;
 mod validation;
 pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
+pub use settled::{BodyTopology, SettledDrape, SettledGarment};
 pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
 
 #[derive(Clone)]
 pub struct DrapeInput {
     pub armor: Option<fabelgeist_armor::Armor>,
     pub selection: GarmentSelection,
+    /// A drape saved once settled, fitted to this wearer instead of simulated.
+    pub settled: Option<std::sync::Arc<SettledDrape>>,
     pub obstacles: Vec<DrapedGarment>,
     pub positions: Vec<[f32; 3]>,
     pub faces: Vec<[u32; 3]>,
@@ -61,6 +67,8 @@ pub enum DrapeStage {
     Sewing { step: u32, of: u32 },
     /// Sewn garment settling under gravity.
     Settling { step: u32, of: u32 },
+    /// Fitted from a saved drape; nothing was simulated on this wearer.
+    Worn,
 }
 
 impl std::fmt::Display for DrapeStage {
@@ -69,6 +77,7 @@ impl std::fmt::Display for DrapeStage {
             Self::Placed => f.write_str("panels placed"),
             Self::Sewing { step, of } => write!(f, "sewing step {step}/{of}"),
             Self::Settling { step, of } => write!(f, "settling step {step}/{of}"),
+            Self::Worn => f.write_str("fitted from its saved drape"),
         }
     }
 }
@@ -112,7 +121,9 @@ pub fn measured_body(input: &DrapeInput) -> Result<Body> {
 }
 
 mod drape;
+mod outfit;
 pub use drape::drape;
+pub use outfit::{OutfitOutcome, drape_outfit};
 
 /// One garment's drape result, and the stages it completed either way.
 pub struct DrapeOutcome {
@@ -120,75 +131,6 @@ pub struct DrapeOutcome {
     /// Fit problems in a draped garment. The garment is still usable.
     pub warnings: Vec<String>,
     pub checkpoints: DrapeCheckpoints,
-}
-
-/// An outfit's drape result, with checkpoints for every garment attempted.
-pub struct OutfitOutcome {
-    /// Draped garments in input order, up to the first that could not be draped.
-    pub garments: Vec<DrapedGarment>,
-    /// Fit problems in the draped garments, each naming its garment.
-    pub warnings: Vec<String>,
-    /// Why draping stopped before the last garment, if it did.
-    pub error: Option<anyhow::Error>,
-    pub checkpoints: Vec<DrapeCheckpoints>,
-}
-
-impl OutfitOutcome {
-    /// Every problem on one line, or `None` when all garments draped cleanly.
-    pub fn problems(&self) -> Option<String> {
-        let mut problems = self.warnings.clone();
-        if let Some(error) = &self.error {
-            problems.insert(0, format!("draping stopped: {error:#}"));
-        }
-        (!problems.is_empty()).then(|| problems.join("; "))
-    }
-}
-
-/// Drape garments inside to outside. `previous` holds the last outfit drape's
-/// checkpoints, so each garment re-runs only from its first changed stage.
-pub fn drape_outfit(
-    inputs: Vec<DrapeInput>,
-    previous: Vec<DrapeCheckpoints>,
-    cancel: &AtomicBool,
-    mut preview: impl FnMut(Vec<DrapedGarment>),
-) -> OutfitOutcome {
-    let mut finished = Vec::new();
-    let mut warnings = Vec::new();
-    let mut checkpoints = Vec::new();
-    for (index, mut input) in inputs.into_iter().enumerate() {
-        input.obstacles = finished.clone();
-        let outcome = drape(input, previous.get(index), cancel, |current| {
-            let mut snapshot = finished.clone();
-            snapshot.push(current);
-            preview(snapshot);
-        });
-        checkpoints.push(outcome.checkpoints);
-        match outcome.result {
-            Ok(garment) => {
-                warnings.extend(
-                    outcome
-                        .warnings
-                        .into_iter()
-                        .map(|warning| format!("{}: {warning}", garment.name)),
-                );
-                finished.push(garment);
-            }
-            Err(error) => {
-                return OutfitOutcome {
-                    garments: finished,
-                    warnings,
-                    error: Some(error),
-                    checkpoints,
-                };
-            }
-        }
-    }
-    OutfitOutcome {
-        garments: finished,
-        warnings,
-        error: None,
-        checkpoints,
-    }
 }
 
 fn clear_panels(
@@ -631,6 +573,7 @@ mod tests {
         let input = DrapeInput {
             armor: None,
             selection: GarmentSelection::default(),
+            settled: None,
             obstacles: vec![],
             positions: vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]],
             faces: vec![[0, 1, 2]],
@@ -670,6 +613,7 @@ mod seam_and_leg_regression {
         let input = DrapeInput {
             armor: None,
             selection: GarmentSelection::from_shape(&pattern::shapes::DRESS),
+            settled: None,
             obstacles: vec![],
             positions: vec![
                 [-0.1, 0., 0.],

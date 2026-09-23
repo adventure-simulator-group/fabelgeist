@@ -143,12 +143,19 @@ pub struct DrapeSettings {
     pub sewing: StageSettings,
     pub settling: StageSettings,
     pub armor_fit: ArmorFitSettings,
+    /// Share of the gap between settled cloth and the body parts it dresses
+    /// that is closed after settling, without stretching the cloth: 0 leaves
+    /// it as it hangs, 1 draws it as close as its cut allows.
+    pub body_fit: f32,
     /// Simulation steps between preview snapshots.
     pub preview_interval: u32,
 }
 
 impl DrapeSettings {
     pub const PREVIEW_INTERVAL: RangeInclusive<u32> = 1..=60;
+    pub const BODY_FIT: RangeInclusive<f32> = 0.0..=1.0;
+    /// Close most of the gap, so cloth follows the body without clinging.
+    const DEFAULT_BODY_FIT: f32 = 0.7;
 
     pub fn for_fabric(fabric: Fabric) -> Self {
         let substeps = FitSettings::default().substeps;
@@ -175,6 +182,7 @@ impl DrapeSettings {
                 ..sewing
             },
             armor_fit: ArmorFitSettings::default(),
+            body_fit: Self::DEFAULT_BODY_FIT,
             preview_interval: 1,
         }
     }
@@ -191,6 +199,11 @@ impl DrapeSettings {
             ArmorFitSettings::CONTACT_ITERATIONS.contains(&self.armor_fit.contact_iterations),
             "armor fit contact iterations must be within {:?}",
             ArmorFitSettings::CONTACT_ITERATIONS
+        );
+        ensure!(
+            self.body_fit.is_finite() && Self::BODY_FIT.contains(&self.body_fit),
+            "body fit must be within {:?}",
+            Self::BODY_FIT
         );
         ensure!(
             Self::PREVIEW_INTERVAL.contains(&self.preview_interval),
@@ -297,6 +310,7 @@ mod tests {
         DrapeInput {
             armor: None,
             selection: GarmentSelection::chainmail(),
+            settled: None,
             obstacles: vec![],
             positions: vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]],
             faces: vec![[0, 1, 2]],

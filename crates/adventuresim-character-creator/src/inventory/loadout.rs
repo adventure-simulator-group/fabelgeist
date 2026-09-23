@@ -3,7 +3,7 @@
 use super::{Article, EquipConflict, Inventory, InventoryItemId};
 use crate::{
     equipment_catalog::{ItemCatalog, is_wearable},
-    garment::GarmentSelection,
+    garment::{GarmentSelection, SettledDrape},
     item_catalog_schema::{EquipmentPlacement, ItemDefinition},
     item_design::ItemDesign,
 };
@@ -39,6 +39,8 @@ pub struct FittedPiece<'a> {
 pub struct DrapedPiece<'a> {
     pub id: InventoryItemId,
     pub selection: &'a GarmentSelection,
+    /// The saved drape fitted instead of simulating, for settled cloth.
+    pub drape: Option<&'a SettledDrape>,
 }
 
 impl Inventory {
@@ -82,6 +84,18 @@ impl Inventory {
                         DrapedPiece {
                             id: item.id,
                             selection,
+                            drape: None,
+                        },
+                    ));
+                }
+                Article::Settled(garment) => {
+                    let layer = item.article.occupancy(catalog).map_err(fail)?.layer();
+                    draped.push((
+                        layer.order(),
+                        DrapedPiece {
+                            id: item.id,
+                            selection: &garment.selection,
+                            drape: Some(&garment.drape),
                         },
                     ));
                 }

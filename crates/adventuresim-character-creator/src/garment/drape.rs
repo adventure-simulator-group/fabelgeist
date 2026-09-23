@@ -60,12 +60,20 @@ fn run(
     cancelled()?;
     let collision = super::placement::collision_surface(input);
     // Fair the settled cloth first, so the armor fit has the last word on clearance.
+    let clearance = body_clearance(input);
     super::symmetrize::symmetrize_and_relax(
         &mut output.positions,
         &output.faces,
         &collision,
-        body_clearance(input),
+        clearance,
     );
+    let cloth = super::conform::SewnCloth::new(&output.positions, &output.faces);
+    let fit = input.selection.drape.body_fit;
+    if fit > 0.0 {
+        let dressing = super::dressing::Dressing::new(input);
+        output.positions = cloth.draw_in(&output.positions, &dressing, &collision, clearance, fit);
+    }
+    output.positions = cloth.keep_out(&output.positions, &collision, clearance);
     if let Some(armor) = &input.armor {
         warnings.extend(output.finish_armor(
             armor,
@@ -193,7 +201,7 @@ fn fit_settings(input: &DrapeInput, body: &Body) -> FitSettings {
 }
 
 /// Wearer clearance for the cloth mid-surface: ease plus half the thickness.
-fn body_clearance(input: &DrapeInput) -> f32 {
+pub(super) fn body_clearance(input: &DrapeInput) -> f32 {
     input.selection.fabric.body_ease_cm(input.armor.as_ref()) * fabelgeist_garment_fit::CM_TO_M
         + input.selection.fabric.fabric().particle_radius()
 }

@@ -68,6 +68,7 @@ pub(super) fn drape_inputs(
         .map(|piece| {
             let mut input = drape_preview::input(model, generated, piece.selection.clone());
             input.armor = loadout.plate.cloned();
+            input.settled = piece.drape.cloned().map(std::sync::Arc::new);
             (piece.id, input)
         })
         .collect()
