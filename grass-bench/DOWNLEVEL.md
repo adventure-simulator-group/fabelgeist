@@ -36,8 +36,15 @@ without WebGPU see a message pointing back to the laptop tests.
 All demo labels and routes start with Instanced or No-instancing. The mixed
 benchmark is named Instanced / No-instancing, Advanced, and is separate from
 the two navigation groups. `/instanced-eidolon/` opens Instanced, Eidolon
-with the full controls available and requires WebGPU. All six pages share
-the same engines and assets.
+with exactly the same defaults and compact controls as Instanced, CPU
+culled, but requires WebGPU. Compare it with
+`/instanced-cpu-culled/?webgpu` to use the same graphics API. Both pages skip
+the sprite atlas setup and model prefetching. All six pages share the same
+engines and assets.
+
+Every demo, including the full benchmark, uses the same slider limits:
+5–100% density and 8–72 m range. The default 12% density and 18 m range on
+dedicated pages remain suitable starting points for slower hardware.
 
 ## Renderer contract
 

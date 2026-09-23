@@ -109,9 +109,9 @@
       // Assets to warm into the HTTP cache the moment the engine finishes
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
       const PREFETCH = [];
-      const demo = /\/(instanced-cpu-culled|no-instancing-mesh-chunks|no-instancing-displacement|no-instancing-textured-sprites)\/?$/.test(location.pathname);
       const eidolon = /\/instanced-eidolon\/?$/.test(location.pathname);
-      const advanced = eidolon || /\/instanced-no-instancing-advanced\/?$/.test(location.pathname);
+      const demo = eidolon || /\/(instanced-cpu-culled|no-instancing-mesh-chunks|no-instancing-displacement|no-instancing-textured-sprites)\/?$/.test(location.pathname);
+      const requiresWebgpu = eidolon || /\/instanced-no-instancing-advanced\/?$/.test(location.pathname);
       const query = new URLSearchParams(location.search);
       const forceWebgpu = query.has("webgpu");
       const forceWebgl2 = query.has("webgl2");
@@ -156,12 +156,12 @@
         if (forceWebgpu && forceWebgl2) {
           throw new Error("Choose either ?webgpu or ?webgl2, not both.");
         }
-        if (advanced && forceWebgl2) {
+        if (requiresWebgpu && forceWebgl2) {
           throw new Error("This demo requires WebGPU. Choose Instanced, CPU culled or one of the No-instancing tests for WebGL2.");
         }
         // Laptop tests default to WebGL2; explicit choices never silently
         // switch engines. Probe WebGPU because navigator.gpu alone is not enough.
-        const useWebgpu = forceWebgpu || (!forceWebgl2 && (!demo || !WASM_BYTES_WEBGL2));
+        const useWebgpu = forceWebgpu || (!forceWebgl2 && (requiresWebgpu || !demo || !WASM_BYTES_WEBGL2));
         let engine = { js: "./bench.js", wasm: "./bench_bg.wasm", bytes: WASM_BYTES };
         if (useWebgpu) {
           const adapter = navigator.gpu
@@ -183,7 +183,7 @@
             bytes: WASM_BYTES_WEBGL2,
           };
         }
-        rendererStatus.textContent = `Renderer: ${useWebgpu ? "WebGPU" : "WebGL2"}${advanced ? " · WebGPU required for this demo" : ""}`;
+        rendererStatus.textContent = `Renderer: ${useWebgpu ? "WebGPU" : "WebGL2"}${requiresWebgpu ? " · WebGPU required for this demo" : ""}`;
         const mod = await import(new URL(engine.js, document.baseURI).href);
         const init = mod.default;
 

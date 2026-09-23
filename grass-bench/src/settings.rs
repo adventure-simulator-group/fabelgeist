@@ -15,6 +15,9 @@ use bevy::window::{PresentMode, PrimaryWindow};
 use bevy_egui::{EguiContexts, EguiPrimaryContextPass, egui};
 use serde::{Deserialize, Serialize};
 
+const GRASS_DENSITY_RANGE: std::ops::RangeInclusive<f32> = 0.05..=1.0;
+const GRASS_DISTANCE_RANGE: std::ops::RangeInclusive<f32> = 8.0..=72.0;
+
 #[derive(Clone, Copy, PartialEq, Eq, Debug, Serialize, Deserialize)]
 pub enum AaMode {
     Off,
@@ -371,13 +374,6 @@ impl BenchSettings {
     /// in the working directory. Web: the `s` URL query parameter (JSON).
     pub fn load() -> Self {
         let mut settings = Self::load_config();
-        #[cfg(target_family = "wasm")]
-        if web_sys::window()
-            .and_then(|window| window.location().pathname().ok())
-            .is_some_and(|path| path.trim_matches('/') == "instanced-eidolon")
-        {
-            settings.instancing = InstancingMode::Eidolon;
-        }
         if let Some(mode) = demo_mode() {
             settings.instancing = mode;
             settings.aa = AaMode::Off;
@@ -486,10 +482,10 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
             .show(ctx, |ui| {
                 ui.label("Grass test · right-drag looks, WASD/QE moves");
                 changed |= ui
-                    .add(egui::Slider::new(&mut s.grass_density, 0.05..=0.35).text("Density"))
+                    .add(egui::Slider::new(&mut s.grass_density, GRASS_DENSITY_RANGE).text("Density"))
                     .changed();
                 changed |= ui
-                    .add(egui::Slider::new(&mut s.grass_range, 8.0..=30.0).text("Range (m)"))
+                    .add(egui::Slider::new(&mut s.grass_range, GRASS_DISTANCE_RANGE).text("Range (m)"))
                     .changed();
                 changed |= ui.checkbox(&mut s.orbit, "Orbit camera").changed();
                 if mode == InstancingMode::MeshChunksMap {
@@ -567,10 +563,10 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
                 InstancingMode::label,
             );
             changed |= ui
-                .add(egui::Slider::new(&mut s.grass_density, 0.05..=1.0).text("Density"))
+                .add(egui::Slider::new(&mut s.grass_density, GRASS_DENSITY_RANGE).text("Density"))
                 .changed();
             changed |= ui
-                .add(egui::Slider::new(&mut s.grass_range, 8.0..=72.0).text("Range (m)"))
+                .add(egui::Slider::new(&mut s.grass_range, GRASS_DISTANCE_RANGE).text("Range (m)"))
                 .changed();
             changed |= ui
                 .add(egui::Slider::new(&mut s.affector_count, 0..=16).text("Affectors"))
@@ -788,6 +784,7 @@ pub(crate) fn demo_mode() -> Option<InstancingMode> {
     let path = std::env::var("BENCH_DEMO").ok()?;
     match path.trim_matches('/').rsplit('/').next()? {
         "instanced-cpu-culled" => Some(InstancingMode::SimpleCulled),
+        "instanced-eidolon" => Some(InstancingMode::Eidolon),
         "no-instancing-mesh-chunks" => Some(InstancingMode::MeshChunks),
         "no-instancing-displacement" => Some(InstancingMode::MeshChunksMap),
         "no-instancing-textured-sprites" => Some(InstancingMode::CardsCurved),
