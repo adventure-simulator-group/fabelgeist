@@ -22,7 +22,9 @@ CPU-culled test. `/advanced/` retains the full benchmark panel and requires
 WebGPU, including for the original tree LOD and GPU-compute paths. Browsers
 without WebGPU see a message pointing back to the laptop tests.
 Navigation on every demo links all four pages; they share the same engines
-and assets.
+and assets. The Eidolon (WebGPU) link opens the advanced page with
+`?s={"instancing":"Eidolon"}` to select GPU-culled instanced grass at startup.
+The full benchmark controls remain available.
 
 ## Renderer contract
 
