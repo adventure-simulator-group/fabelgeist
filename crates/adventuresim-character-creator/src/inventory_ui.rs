@@ -54,7 +54,8 @@ fn summary(
     let weight = |items: &mut dyn Iterator<Item = &InventoryItem>| {
         items
             .filter_map(|item| item.article.weight_kg(catalog))
-            .sum::<f32>()
+            // Folding from positive zero, as an empty `sum` prints "-0.0".
+            .fold(0.0, |total, kg| total + kg)
     };
     ui.label(format!(
         "{worn} worn · {carried} carried · {:.1} kg worn of {:.1} kg",

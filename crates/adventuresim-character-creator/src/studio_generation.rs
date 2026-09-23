@@ -9,6 +9,8 @@ pub(super) struct PreviewScene<'w, 's> {
     pub materials: ResMut<'w, Assets<StandardMaterial>>,
     pub images: ResMut<'w, Assets<Image>>,
     pub equipment_maps: ResMut<'w, underlayer_preview::EquipmentMaps>,
+    /// Where the character stands, for the camera's shots.
+    pub bounds: ResMut<'w, studio_scene::CharacterBounds>,
     inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
 }
 
@@ -51,6 +53,7 @@ pub(super) fn regenerate_mesh(
     );
     drape_job.request(outfit::drape_inputs(&model, &generated, &loadout));
     let clothing_shell_count = clothed.shells.len();
+    scene.bounds.0 = studio_scene::CharacterBounds::of(&generated.positions);
     for entity in &old {
         scene.commands.entity(entity).despawn();
     }

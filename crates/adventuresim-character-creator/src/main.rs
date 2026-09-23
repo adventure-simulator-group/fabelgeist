@@ -8,9 +8,9 @@ mod fitted_existing;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
 mod studio_generation;
 use studio_generation::regenerate_mesh;
+mod character_controls;
 mod generation;
 mod preview;
-mod proportion_controls;
 use generation::generate_character;
 mod armor_controls;
 mod breastplate_controls;
@@ -39,6 +39,8 @@ mod metal_controls;
 mod metal_preview;
 mod ornament_controls;
 mod outfit;
+mod studio_overlay;
+mod studio_theme;
 mod studio_ui;
 use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
 use animation_preview::WalkPreview;
@@ -83,8 +85,8 @@ struct BodyModel {
 #[derive(Resource)]
 struct Studio {
     recipe: CharacterRecipe,
-    selected: IdentityGroup,
-    show_expressions: bool,
+    /// The open page of the character tab.
+    page: character_controls::CharacterPage,
     dirty: bool,
     status: String,
     recipe_path: String,
@@ -106,8 +108,7 @@ impl Studio {
         };
         Self {
             recipe,
-            selected: IdentityGroup::Body,
-            show_expressions: false,
+            page: character_controls::CharacterPage::Build,
             dirty: true,
             status: format!("MHR LOD {} ready", args.lod),
             recipe_path: args.recipe.display().to_string(),
@@ -120,7 +121,7 @@ impl Studio {
                 vambrace: path(&args.bracer_design, "target/bracer-design.json"),
                 breastplate: path(&args.breastplate_design, "target/breastplate-design.json"),
             },
-            tab: studio_ui::StudioTab::Inventory,
+            tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
         }
     }
@@ -194,8 +195,14 @@ fn main() -> Result<()> {
         return Ok(());
     }
 
+    run_studio(args, model, catalog, recipe);
+    Ok(())
+}
+
+/// Open the interactive studio window on `recipe`.
+fn run_studio(args: Args, model: BodyModel, catalog: EquipmentCatalog, recipe: CharacterRecipe) {
     App::new()
-        .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
+        .insert_resource(ClearColor(studio_scene::BACKDROP))
         .init_resource::<DrapeJob>()
         .init_resource::<drape_preview::MailMaterials>()
         .init_resource::<WalkPreview>()
@@ -221,11 +228,13 @@ fn main() -> Result<()> {
         )
         .add_plugins(EguiPlugin::default())
         .init_resource::<CreatorPanelRight>()
+        .init_resource::<studio_scene::CharacterBounds>()
+        .init_resource::<studio_scene::ShotRequest>()
         .init_resource::<armory::Armory>()
         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
         .add_systems(
             EguiPrimaryContextPass,
-            (studio_ui::show, armory_ui::labels.after(studio_ui::show)),
+            (studio_theme::install, studio_ui::show, armory_ui::labels).chain(),
         )
         .add_systems(
             Update,
@@ -244,7 +253,9 @@ fn main() -> Result<()> {
                     .chain()
                     .after(reload_model)
                     .before(regenerate_mesh),
-                orbit_camera.after(armory::frame_camera),
+                studio_scene::frame_shot.after(armory::frame_camera),
+                studio_scene::center_beside_panel,
+                orbit_camera.after(studio_scene::frame_shot),
             ),
         )
         .add_systems(
@@ -252,7 +263,6 @@ fn main() -> Result<()> {
             animation_preview::deform_cloth.after(bevy::transform::TransformSystems::Propagate),
         )
         .run();
-    Ok(())
 }
 
 fn save_recipe(studio: &Studio) -> Result<String> {

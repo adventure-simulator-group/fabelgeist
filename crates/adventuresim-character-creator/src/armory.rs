@@ -6,7 +6,7 @@ use adventuresim_character_creator::{
     item_design::ItemDesign,
 };
 use studio_generation::PreviewScene;
-use studio_scene::{OrbitCamera, OrbitGoal, framing};
+use studio_scene::{OrbitCamera, OrbitGoal, framing_radius};
 
 #[path = "armory_scene.rs"]
 mod scene;

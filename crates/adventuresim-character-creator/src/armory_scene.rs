@@ -209,11 +209,9 @@ pub(crate) fn frame_camera(
     armory.frame = None;
     let whole_wall = frame == Frame::Wall || armory.selected.is_none();
     let angles = whole_wall.then_some((0.0, 0.0));
-    let yaw = angles.map_or(orbit.yaw, |(yaw, _)| yaw);
-    let (focus, radius) = framing(window, panel.0, yaw, (lo + hi) * 0.5, hi - lo);
     orbit.goal = Some(OrbitGoal {
-        focus,
-        radius,
+        focus: (lo + hi) * 0.5,
+        radius: framing_radius(window, panel.0, hi - lo),
         angles,
     });
 }

@@ -341,8 +341,13 @@ reason = "Binds rasterized sign text and authored paint and metal finishes to GP
 
 [[scopes]]
 kind = "boundary_adapter"
-path = "crates/adventuresim-character-creator/src/proportion_controls.rs"
+path = "crates/adventuresim-character-creator/src/character_controls.rs"
 reason = "Egui appearance buttons dispatch actions through widget responses; their display labels are not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/studio_overlay.rs"
+reason = "Egui viewport buttons dispatch camera, appearance and save actions through widget responses; labels are never compared as state."
 
 [[scopes]]
 kind = "boundary_adapter"

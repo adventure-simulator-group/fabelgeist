@@ -40,11 +40,18 @@ corresponding `*_middle1` knuckle, placing it in the generated palm. The camera
 joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
-The left panel has three tabs. **Character** edits skeletal proportions,
-identity and expression, and randomizes or resets the body. **Inventory** holds
-everything the character owns (see below). **Output** loads the body model,
-saves and loads recipes, plays the animation preview, exports the rigged GLB
-and saves catalog designs. Drag the viewport to orbit and use the mouse wheel
+The left panel has four tabs. **Character** edits skeletal proportions
+(**Build**), identity shape (**Body**, **Head** and **Hands**) and
+**Expression**; double-click a slider to return it to neutral. **Inventory**
+holds everything the character owns (see below). **Armory** reshapes the
+catalog's parametric equipment. **Output** loads the body model, saves and
+loads recipes, plays the animation preview, exports the rigged GLB and saves
+catalog designs.
+
+Outside the armory, the character's name is edited above the viewport, and a
+bar below it frames a **Full body** or **Portrait** shot, turns the view,
+randomizes or resets the appearance and saves the recipe. The camera orbits
+the framed subject: drag to orbit, right-drag to pan and use the mouse wheel
 to zoom. The tool defaults to MHR LOD 1 with pose correctives disabled,
 preserving facial and finger topology while keeping edits interactive. The
 **Pose-corrective model** checkbox reloads the selected LOD with or without

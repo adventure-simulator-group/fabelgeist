@@ -34,6 +34,7 @@ fabelgeist-bvh = { path = "../fabelgeist-bvh" }
 fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
 fabelgeist-compute = { path = "../fabelgeist-compute" }
 tokio = { version = "1", features = ["rt", "time"] }
+egui_extras = { version = "0.34", default-features = false, features = ["svg"] }
 
 [dev-dependencies]
 gltf = { version = "1.4", default-features = false }

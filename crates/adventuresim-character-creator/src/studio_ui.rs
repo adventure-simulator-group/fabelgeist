@@ -1,8 +1,13 @@
-//! The studio side panel: the character's body, its inventory, and output.
+//! The studio side panel: tabs for the character's body, its inventory,
+//! the armory and output.
 use super::*;
 use adventuresim_character_creator::armor_design_output::DesignPaths;
 
-const PANEL_WIDTH: f32 = 380.0;
+const PANEL_WIDTH: f32 = 392.0;
+/// Height of a tab tile: its icon above its name.
+const TAB_HEIGHT: f32 = 64.0;
+/// Edge length of a tab's icon.
+const TAB_ICON: f32 = 28.0;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub(super) enum StudioTab {
@@ -23,6 +28,24 @@ impl StudioTab {
             Self::Output => "Output",
         }
     }
+
+    fn description(self) -> &'static str {
+        match self {
+            Self::Character => "Shape the body, face and expression.",
+            Self::Inventory => "Wear, carry and acquire equipment.",
+            Self::Armory => "Browse and reshape the catalog's armor.",
+            Self::Output => "Save, animate and export the character.",
+        }
+    }
+
+    fn icon(self) -> studio_theme::Icon {
+        match self {
+            Self::Character => studio_theme::Icon::Person,
+            Self::Inventory => studio_theme::Icon::Knapsack,
+            Self::Armory => studio_theme::Icon::Anvil,
+            Self::Output => studio_theme::Icon::OpenBook,
+        }
+    }
 }
 
 /// Editable paths for saving the catalog default designs.
@@ -38,7 +61,7 @@ pub(super) struct DesignPathInputs {
 )]
 #[expect(
     clippy::too_many_arguments,
-    reason = "Bevy injects the studio, drape, animation and catalog resources into this system"
+    reason = "Bevy injects the studio, drape, animation, camera and catalog resources into this system"
 )]
 pub(super) fn show(
     mut drape_job: ResMut<DrapeJob>,
@@ -50,60 +73,105 @@ pub(super) fn show(
     mut studio: ResMut<Studio>,
     mut panel_right: ResMut<CreatorPanelRight>,
     mut armory: ResMut<armory::Armory>,
+    mut shot: ResMut<studio_scene::ShotRequest>,
 ) {
     let Ok(ctx) = contexts.ctx_mut() else { return };
     // egui points equal logical window pixels at bevy_egui's default scale.
     panel_right.0 = egui::SidePanel::left("creator")
         .exact_width(PANEL_WIDTH)
+        .resizable(false)
+        .frame(
+            egui::Frame::new()
+                .fill(studio_theme::PANEL)
+                .inner_margin(egui::Margin::symmetric(16, 14)),
+        )
         .show(ctx, |ui| {
-            ui.add_space(8.0);
-            ui.horizontal(|ui| {
-                ui.label("Name");
-                ui.text_edit_singleline(&mut studio.recipe.name);
-            });
+            tabs(ui, &mut studio.tab);
+            ui.add_space(10.0);
+            ui.label(
+                egui::RichText::new(studio.tab.label())
+                    .heading()
+                    .color(studio_theme::PARCHMENT),
+            );
+            ui.label(egui::RichText::new(studio.tab.description()).color(studio_theme::MUTED));
             ui.add_space(4.0);
-            ui.horizontal(|ui| {
-                for tab in StudioTab::ALL {
-                    ui.selectable_value(&mut studio.tab, tab, tab.label());
-                }
-            });
             ui.separator();
-            egui::Panel::bottom("creator_status").show_inside(ui, |ui| {
-                ui.add_space(4.0);
-                ui.small(&studio.status);
-                ui.small("Drag to orbit · right-drag to pan · wheel to zoom");
-            });
-            egui::CentralPanel::default().show_inside(ui, |ui| {
-                egui::ScrollArea::vertical()
-                    .id_salt(("creator_controls", studio.tab))
-                    .show(ui, |ui| match studio.tab {
-                        StudioTab::Character => character(ui, &mut studio),
-                        StudioTab::Inventory => {
-                            inventory_ui::show(ui, &mut studio, &mut catalog, &mut drape_job)
-                        }
-                        StudioTab::Armory => {
-                            armory_ui::show(ui, &mut studio, &mut catalog, &mut armory)
-                        }
-                        StudioTab::Output => output(
-                            ui,
-                            &mut studio,
-                            &catalog,
-                            &model,
-                            &drape_job,
-                            &mut walk,
-                            &mut animation_players,
-                        ),
-                    });
-            });
+            egui::ScrollArea::vertical()
+                .id_salt(("creator_controls", studio.tab))
+                .auto_shrink(false)
+                .show(ui, |ui| match studio.tab {
+                    StudioTab::Character => character_controls::show(ui, &mut studio, &mut shot.0),
+                    StudioTab::Inventory => {
+                        inventory_ui::show(ui, &mut studio, &mut catalog, &mut drape_job)
+                    }
+                    StudioTab::Armory => {
+                        armory_ui::show(ui, &mut studio, &mut catalog, &mut armory)
+                    }
+                    StudioTab::Output => output(
+                        ui,
+                        &mut studio,
+                        &catalog,
+                        &model,
+                        &drape_job,
+                        &mut walk,
+                        &mut animation_players,
+                    ),
+                });
         })
         .response
         .rect
         .right();
+    let screen = ctx.content_rect();
+    let viewport = egui::Rect::from_min_max(egui::pos2(panel_right.0, screen.top()), screen.max);
+    studio_overlay::show(ctx, &mut studio, &mut shot.0, viewport);
 }
 
-fn character(ui: &mut egui::Ui, studio: &mut Studio) {
-    proportion_controls::show(ui, studio);
-    proportion_controls::show_identity(ui, studio);
+/// A row of icon tiles, one per tab; the open tab is lit in gold.
+fn tabs(ui: &mut egui::Ui, open: &mut StudioTab) {
+    let spacing = ui.spacing().item_spacing.x;
+    let count = StudioTab::ALL.len() as f32;
+    let width = (ui.available_width() - spacing * (count - 1.0)) / count;
+    ui.horizontal(|ui| {
+        for tab in StudioTab::ALL {
+            let (rect, response) =
+                ui.allocate_exact_size(egui::vec2(width, TAB_HEIGHT), egui::Sense::click());
+            let selected = *open == tab;
+            let hovered = response.hovered();
+            let painter = ui.painter();
+            if selected || hovered {
+                painter.rect_filled(rect, 6, studio_theme::SURFACE);
+            }
+            if selected {
+                let underline = egui::Rect::from_min_max(
+                    egui::pos2(rect.left() + 10.0, rect.bottom() - 2.0),
+                    egui::pos2(rect.right() - 10.0, rect.bottom()),
+                );
+                painter.rect_filled(underline, 1, studio_theme::GOLD);
+            }
+            let tint = if selected {
+                studio_theme::GOLD_BRIGHT
+            } else if hovered {
+                studio_theme::PARCHMENT
+            } else {
+                studio_theme::MUTED
+            };
+            let icon = egui::Rect::from_center_size(
+                egui::pos2(rect.center().x, rect.top() + 8.0 + TAB_ICON * 0.5),
+                egui::Vec2::splat(TAB_ICON),
+            );
+            tab.icon().image().tint(tint).paint_at(ui, icon);
+            ui.painter().text(
+                egui::pos2(rect.center().x, rect.bottom() - 14.0),
+                egui::Align2::CENTER_CENTER,
+                tab.label(),
+                egui::FontId::proportional(12.5),
+                tint,
+            );
+            if response.on_hover_text(tab.description()).clicked() {
+                *open = tab;
+            }
+        }
+    });
 }
 
 fn output(
@@ -115,84 +183,91 @@ fn output(
     walk: &mut WalkPreview,
     animation_players: &mut Query<&mut AnimationPlayer>,
 ) {
-    ui.heading("Body model");
-    mesh(ui, studio);
-    ui.separator();
-
-    ui.heading("Recipe");
-    ui.add(egui::TextEdit::singleline(&mut studio.recipe_path).hint_text("character.json"));
-    ui.horizontal(|ui| {
-        if ui.button("Save recipe").clicked() {
-            studio.status =
-                save_recipe(studio).unwrap_or_else(|error| format!("Save failed: {error:#}"));
-        }
-        if ui.button("Load recipe").clicked() {
-            match load_recipe(&studio.recipe_path) {
-                Ok(recipe) => {
-                    studio.recipe = recipe;
-                    studio.inventory = default();
-                    studio.dirty = true;
-                    studio.status = "Recipe loaded".into();
-                }
-                Err(error) => studio.status = format!("Load failed: {error:#}"),
+    studio_theme::card(ui, "Recipe", |ui| {
+        ui.add(
+            egui::TextEdit::singleline(&mut studio.recipe_path)
+                .hint_text("character.json")
+                .desired_width(f32::INFINITY),
+        );
+        ui.horizontal(|ui| {
+            if ui.button("Save recipe").clicked() {
+                studio.status =
+                    save_recipe(studio).unwrap_or_else(|error| format!("Save failed: {error:#}"));
             }
-        }
+            if ui.button("Load recipe").clicked() {
+                match load_recipe(&studio.recipe_path) {
+                    Ok(recipe) => {
+                        studio.recipe = recipe;
+                        studio.inventory = default();
+                        studio.dirty = true;
+                        studio.status = "Recipe loaded".into();
+                    }
+                    Err(error) => studio.status = format!("Load failed: {error:#}"),
+                }
+            }
+        });
     });
-    ui.separator();
 
     // A drape with problems still finishes; only a running one holds these back.
     let generated = !studio.dirty && !drape_job.running();
-    ui.heading("Animation");
-    animation(ui, walk, animation_players, generated && walk.ready());
-    ui.separator();
+    studio_theme::card(ui, "Animation", |ui| {
+        animation(ui, walk, animation_players, generated && walk.ready());
+    });
 
-    ui.heading("Rigged export");
-    ui.add(
-        egui::TextEdit::singleline(&mut studio.glb_path)
-            .hint_text("assets_src/biped/unarmed/base.glb"),
-    );
-    if ui
-        .add_enabled(generated, egui::Button::new("Export rigged GLB"))
-        .on_disabled_hover_text("Wait for generation and draping to finish.")
-        .clicked()
-    {
-        studio.status = match export_character(
-            std::path::Path::new(&studio.glb_path),
-            model,
-            &studio.recipe,
-            catalog,
-            drape_job.ready.as_deref(),
-        ) {
-            Ok(warnings) if warnings.is_empty() => format!("Exported {}", studio.glb_path),
-            Ok(warnings) => format!(
-                "Exported {} with problems: {}",
-                studio.glb_path,
-                warnings.join("; ")
-            ),
-            Err(error) => format!("Export failed: {error:#}"),
-        };
-    }
-    ui.separator();
+    studio_theme::card(ui, "Rigged export", |ui| {
+        ui.add(
+            egui::TextEdit::singleline(&mut studio.glb_path)
+                .hint_text("assets_src/biped/unarmed/base.glb")
+                .desired_width(f32::INFINITY),
+        );
+        if ui
+            .add_enabled(generated, egui::Button::new("Export rigged GLB"))
+            .on_disabled_hover_text("Wait for generation and draping to finish.")
+            .clicked()
+        {
+            studio.status = match export_character(
+                std::path::Path::new(&studio.glb_path),
+                model,
+                &studio.recipe,
+                catalog,
+                drape_job.ready.as_deref(),
+            ) {
+                Ok(warnings) if warnings.is_empty() => format!("Exported {}", studio.glb_path),
+                Ok(warnings) => format!(
+                    "Exported {} with problems: {}",
+                    studio.glb_path,
+                    warnings.join("; ")
+                ),
+                Err(error) => format!("Export failed: {error:#}"),
+            };
+        }
+    });
 
-    ui.heading("Catalog designs");
-    ui.small(
-        "Defaults for newly acquired armor and for equipment asset generation. \
-         Use “Make catalog default” on an inventory item to change them.",
-    );
-    let paths = &mut studio.design_paths;
-    for (label, path) in [
-        ("Catalog armor", &mut paths.catalog),
-        ("Vambrace", &mut paths.vambrace),
-        ("Breastplate", &mut paths.breastplate),
-    ] {
-        ui.horizontal(|ui| {
-            ui.label(label);
-            ui.text_edit_singleline(path);
-        });
-    }
-    if ui.button("Save all catalog designs").clicked() {
-        save_designs(studio, catalog);
-    }
+    studio_theme::card(ui, "Catalog designs", |ui| {
+        ui.small(
+            "Defaults for newly acquired armor and for equipment asset generation. \
+             Use “Make catalog default” on an inventory item to change them.",
+        );
+        let paths = &mut studio.design_paths;
+        egui::Grid::new("design_paths")
+            .num_columns(2)
+            .show(ui, |ui| {
+                for (label, path) in [
+                    ("Catalog armor", &mut paths.catalog),
+                    ("Vambrace", &mut paths.vambrace),
+                    ("Breastplate", &mut paths.breastplate),
+                ] {
+                    ui.label(label);
+                    ui.add(egui::TextEdit::singleline(path).desired_width(f32::INFINITY));
+                    ui.end_row();
+                }
+            });
+        if ui.button("Save all catalog designs").clicked() {
+            save_designs(studio, catalog);
+        }
+    });
+
+    studio_theme::card(ui, "Body model", |ui| mesh(ui, studio));
 }
 
 /// Write every catalog default design to the paths set on the Output tab.
