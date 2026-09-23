@@ -724,7 +724,10 @@ impl Plugin for GrassPlugin {
                 mesh_chunks::GrassMeshChunksPlugin,
             ))
             .add_systems(Update, respawn_grass);
-        if crate::settings::demo_mode().is_none() {
+        if matches!(
+            crate::settings::demo_mode(),
+            None | Some(InstancingMode::Cards | InstancingMode::CardsCurved)
+        ) {
             app.add_plugins(cards::GrassCardsPlugin);
         }
     }

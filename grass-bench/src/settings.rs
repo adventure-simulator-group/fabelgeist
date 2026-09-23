@@ -371,6 +371,13 @@ impl BenchSettings {
     /// in the working directory. Web: the `s` URL query parameter (JSON).
     pub fn load() -> Self {
         let mut settings = Self::load_config();
+        #[cfg(target_family = "wasm")]
+        if web_sys::window()
+            .and_then(|window| window.location().pathname().ok())
+            .is_some_and(|path| path.trim_matches('/') == "eidolon")
+        {
+            settings.instancing = InstancingMode::Eidolon;
+        }
         if let Some(mode) = demo_mode() {
             settings.instancing = mode;
             settings.aa = AaMode::Off;
@@ -783,6 +790,7 @@ pub(crate) fn demo_mode() -> Option<InstancingMode> {
         "cpu-culled" => Some(InstancingMode::SimpleCulled),
         "no-instancing" => Some(InstancingMode::MeshChunks),
         "no-instancing-displacement" => Some(InstancingMode::MeshChunksMap),
+        "textured-sprites" => Some(InstancingMode::CardsCurved),
         _ => None,
     }
 }

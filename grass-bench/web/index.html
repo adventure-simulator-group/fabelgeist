@@ -21,6 +21,8 @@
       nav { position: fixed; right: 8px; top: 8px; z-index: 11;
         font: 12px ui-monospace, monospace; background: #0b0d10cc; padding: 8px; }
       nav a { color: #c9d1d9; margin: 0 6px; }
+      nav section + section { border-top: 1px solid #484f58; margin-top: 8px; padding-top: 8px; }
+      nav h2 { color: #8b949e; font-size: 11px; margin: 0 6px 6px; }
       #hint {
         position: fixed; left: 8px; bottom: 8px; color: #8b949e; pointer-events: none;
         font: 12px ui-monospace, Menlo, Consolas, monospace;
@@ -30,11 +32,20 @@
   <body>
     <canvas id="bevy"></canvas>
     <nav aria-label="Grass tests">
-      <a href="./cpu-culled/">CPU-culled</a>
-      <a href="./no-instancing/">No instancing</a>
-      <a href="./no-instancing-displacement/">Displacement</a>
-      <a href="./advanced/">Advanced (WebGPU)</a>
-      <a href="./advanced/?s=%7B%22instancing%22%3A%22Eidolon%22%7D">Eidolon (WebGPU)</a>
+      <section aria-labelledby="instanced-heading">
+        <h2 id="instanced-heading">Instanced</h2>
+        <a href="./cpu-culled/">CPU-culled</a>
+        <a href="./eidolon/">Eidolon (WebGPU)</a>
+      </section>
+      <section aria-labelledby="non-instanced-heading">
+        <h2 id="non-instanced-heading">Non-instanced</h2>
+        <a href="./no-instancing/">Mesh chunks</a>
+        <a href="./no-instancing-displacement/">Displacement</a>
+        <a href="./textured-sprites/">Textured sprites</a>
+      </section>
+      <section aria-label="Full benchmark">
+        <a href="./advanced/">Advanced (WebGPU)</a>
+      </section>
     </nav>
     <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
     <div id="boot">
@@ -91,9 +102,11 @@
       // Assets to warm into the HTTP cache the moment the engine finishes
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
       const PREFETCH = [];
-      const demo = /\/(cpu-culled|no-instancing|no-instancing-displacement)\/?$/.test(location.pathname);
-      const advanced = /\/advanced\/?$/.test(location.pathname);
+      const demo = /\/(cpu-culled|no-instancing|no-instancing-displacement|textured-sprites)\/?$/.test(location.pathname);
+      const eidolon = /\/eidolon\/?$/.test(location.pathname);
+      const advanced = eidolon || /\/advanced\/?$/.test(location.pathname);
       if (demo) document.getElementById("hint").textContent = "WebGL2 grass test";
+      else if (eidolon) document.getElementById("hint").textContent = "Eidolon · WebGPU · GPU-culled instanced grass";
       else if (advanced) document.getElementById("hint").textContent = "Advanced demo · WebGPU · full benchmark controls";
       const prefetchAssets = () => {
         for (const href of (demo ? [] : PREFETCH)) {
@@ -122,7 +135,7 @@
               ])
             : null;
           if (advanced && (!adapter || new URLSearchParams(location.search).has("forcegl"))) {
-            throw new Error("The full demo requires WebGPU. Choose CPU-culled, No instancing, or Displacement above for WebGL2.");
+            throw new Error("This demo requires WebGPU. Choose CPU-culled, Mesh chunks, or Displacement above for WebGL2.");
           }
           if (!adapter || location.search.includes("forcegl")) {
             engine = {

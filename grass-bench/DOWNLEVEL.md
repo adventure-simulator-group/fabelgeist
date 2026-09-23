@@ -13,6 +13,8 @@ Open one of these paths:
 - `/no-instancing/`: baked mesh chunks with analytic affector bending.
 - `/no-instancing-displacement/`: baked mesh chunks sampling displacement and
   trail maps.
+- `/textured-sprites/`: textured sprite cards curved in the fragment shader
+  (`CardsCurved`, the final mode in the full benchmark list).
 
 These pages always load the WebGL2 engine, even on a WebGPU browser. They
 lock the mode and start at 12% density and 18 m range, with no MSAA, shadows,
@@ -21,10 +23,11 @@ and (on the displacement page) trails. The main `/` page opens the
 CPU-culled test. `/advanced/` retains the full benchmark panel and requires
 WebGPU, including for the original tree LOD and GPU-compute paths. Browsers
 without WebGPU see a message pointing back to the laptop tests.
-Navigation on every demo links all four pages; they share the same engines
-and assets. The Eidolon (WebGPU) link opens the advanced page with
-`?s={"instancing":"Eidolon"}` to select GPU-culled instanced grass at startup.
-The full benchmark controls remain available.
+Navigation groups CPU-culled and Eidolon under Instanced, and mesh chunks,
+displacement, and textured sprites under Non-instanced. The advanced
+benchmark is separate.
+`/eidolon/` starts GPU-culled instanced grass with the full controls available
+and requires WebGPU. All six pages share the same engines and assets.
 
 ## Renderer contract
 
@@ -55,7 +58,8 @@ terrain height so short-range distance tests measure from the grass.
 ## Local verification
 
 Run `python3 grass-bench/scripts/smoke-downlevel.py` from the repository
-root for bounded runs of all three routes, validation logs, and screenshots.
+root for bounded runs of the original three routes, validation logs, and
+screenshots.
 
 From `grass-bench/`, run each route interactively under desktop WebGL2 limits:
 
@@ -63,13 +67,14 @@ From `grass-bench/`, run each route interactively under desktop WebGL2 limits:
 BENCH_DOWNLEVEL=1 BENCH_DEMO=cpu-culled cargo run --features downlevel
 BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing cargo run --features downlevel
 BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing-displacement cargo run --features downlevel
+BENCH_DOWNLEVEL=1 BENCH_DEMO=textured-sprites cargo run --features downlevel
 ```
 
 The Cargo feature is required: the environment variable constrains the
 renderer but cannot remove compiled storage bindings. Desktop constrained
 limits do not emulate every WebGL capability or GLSL translation detail;
 also test the built pages in a browser. Success requires no render validation
-errors and visible, animated grass in all three modes.
+errors and visible, animated grass in all four WebGL2 modes.
 
 For bounded native runs, add `BENCH_EXIT_AFTER=20`, `BENCH_SCREENSHOT_AT=12`,
 and `BENCH_SCREENSHOT=/absolute/path/to/target/screenshot.png`. Keep logs and

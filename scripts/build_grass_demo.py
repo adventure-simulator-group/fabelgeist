@@ -137,7 +137,7 @@ def write_pages(out: Path, page: str, *, dev: bool = False) -> None:
     if dev:
         (out / "index.html").write_text(page, encoding="utf-8", newline="\n")
         return
-    for route in ("cpu-culled", "no-instancing", "no-instancing-displacement", "advanced"):
+    for route in ("cpu-culled", "no-instancing", "no-instancing-displacement", "textured-sprites", "advanced", "eidolon"):
         destination = out / route / "index.html"
         destination.parent.mkdir(parents=True, exist_ok=True)
         # All routes share engines and assets at the bundle root.
