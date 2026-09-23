@@ -16,6 +16,7 @@ mod armor_controls;
 mod breastplate_controls;
 mod character_export;
 mod character_morphs;
+mod decoration_controls;
 mod device_equipment;
 mod equipment_controls;
 mod equipment_export;
@@ -96,6 +97,8 @@ struct Studio {
     selected_correctives: bool,
     /// Where the catalog default designs are saved.
     design_paths: studio_ui::DesignPathInputs,
+    /// Named engravings and trims, and where they are saved.
+    decorations: decoration_controls::Decorations,
     tab: studio_ui::StudioTab,
     inventory: inventory_ui::InventoryView,
 }
@@ -120,6 +123,10 @@ impl Studio {
                 catalog: path(&args.armor_designs, "target/armor-designs.json"),
                 vambrace: path(&args.bracer_design, "target/bracer-design.json"),
                 breastplate: path(&args.breastplate_design, "target/breastplate-design.json"),
+            },
+            decorations: decoration_controls::Decorations {
+                library: default(),
+                path: args.decorations.display().to_string(),
             },
             tab: studio_ui::StudioTab::Character,
             inventory: inventory_ui::InventoryView::default(),
@@ -195,12 +202,22 @@ fn main() -> Result<()> {
         return Ok(());
     }
 
-    run_studio(args, model, catalog, recipe);
+    let decorations =
+        adventuresim_character_creator::decoration::DecorationLibrary::load(&args.decorations)?;
+    run_studio(args, model, catalog, recipe, decorations);
     Ok(())
 }
 
 /// Open the interactive studio window on `recipe`.
-fn run_studio(args: Args, model: BodyModel, catalog: EquipmentCatalog, recipe: CharacterRecipe) {
+fn run_studio(
+    args: Args,
+    model: BodyModel,
+    catalog: EquipmentCatalog,
+    recipe: CharacterRecipe,
+    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
+) {
+    let mut studio = Studio::new(&args, recipe);
+    studio.decorations.library = decorations;
     App::new()
         .insert_resource(ClearColor(studio_scene::BACKDROP))
         .init_resource::<DrapeJob>()
@@ -210,7 +227,7 @@ fn run_studio(args: Args, model: BodyModel, catalog: EquipmentCatalog, recipe: C
         .init_resource::<underlayer_preview::EquipmentMaps>()
         .insert_resource(model)
         .insert_resource(catalog)
-        .insert_resource(Studio::new(&args, recipe))
+        .insert_resource(studio)
         .add_plugins(
             DefaultPlugins
                 .set(AssetPlugin {

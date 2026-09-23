@@ -1,5 +1,6 @@
 //! The armory tab: browse every catalog piece and reshape its catalog default.
 use super::*;
+use adventuresim_character_creator::decoration::DecorationName;
 use armory::{Armory, ArmoryView, Frame, Region};
 
 const PROBLEM_COLOR: egui::Color32 = egui::Color32::from_rgb(235, 120, 110);
@@ -171,10 +172,13 @@ fn editor(
     for (placement, error) in exhibit.errors() {
         ui.colored_label(PROBLEM_COLOR, format!("{placement}: {error}"));
     }
+    let loaded = exhibit.loaded.clone();
+    if exhibit.steel {
+        decoration(ui, studio, armory);
+    }
     let Some(mut design) = catalog.design(&item_id) else {
         return;
     };
-    let loaded = exhibit.loaded.clone();
     let mut changed = false;
     ui.horizontal(|ui| {
         if ui
@@ -200,6 +204,66 @@ fn editor(
             Err(error) => studio.status = format!("Could not change {item_id}: {error:#}"),
         }
     }
+}
+
+/// Design an engraving and trim on the selected piece, and save it to the
+/// library that inventory articles choose from.
+fn decoration(ui: &mut egui::Ui, studio: &mut Studio, armory: &mut Armory) {
+    studio_theme::card(ui, "Decoration", |ui| {
+        ui.small(
+            "Engraving and trim, shown on this piece. Saved decorations can be \
+             chosen for any plate-steel article in the inventory.",
+        );
+        ui.horizontal(|ui| {
+            ui.label("Start from");
+            if let Some(choice) = decoration_controls::choose(
+                ui,
+                "armory_decoration",
+                &studio.decorations.library,
+                &mut armory.decoration,
+            ) {
+                armory.decoration_name = choice.map_or_else(String::new, |name| name.to_string());
+            }
+        });
+        decoration_controls::edit(ui, &mut armory.decoration);
+        ui.horizontal(|ui| {
+            ui.add(
+                egui::TextEdit::singleline(&mut armory.decoration_name)
+                    .hint_text("Decoration name")
+                    .desired_width(150.0),
+            );
+            let savable =
+                !armory.decoration.is_plain() && !armory.decoration_name.trim().is_empty();
+            if ui
+                .add_enabled(savable, studio_theme::primary_button("Save to library"))
+                .on_hover_text(format!("Write it to {}", studio.decorations.path))
+                .on_disabled_hover_text("Name an engraving or trim to save it.")
+                .clicked()
+            {
+                studio.status = match studio
+                    .decorations
+                    .save(&armory.decoration_name, &armory.decoration)
+                {
+                    Ok(name) => format!("Saved decoration {name} to {}", studio.decorations.path),
+                    Err(error) => format!("Could not save the decoration: {error:#}"),
+                };
+            }
+            let saved = DecorationName::try_from(armory.decoration_name.clone())
+                .ok()
+                .filter(|name| studio.decorations.library.get(name).is_some());
+            if ui
+                .add_enabled(saved.is_some(), egui::Button::new("Delete"))
+                .on_hover_text("Remove it from the library.")
+                .clicked()
+                && let Some(name) = saved
+            {
+                studio.status = match studio.decorations.delete(&name) {
+                    Ok(()) => format!("Deleted decoration {name}"),
+                    Err(error) => format!("Could not delete the decoration: {error:#}"),
+                };
+            }
+        });
+    });
 }
 
 /// Name every piece under where it hangs; clicking a name selects the piece.

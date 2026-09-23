@@ -1,7 +1,9 @@
 //! The studio side panel: tabs for the character's body, its inventory,
 //! the armory and output.
 use super::*;
-use adventuresim_character_creator::armor_design_output::DesignPaths;
+use adventuresim_character_creator::{
+    armor_design_output::DesignPaths, decoration::DecorationLibrary,
+};
 
 const PANEL_WIDTH: f32 = 392.0;
 /// Height of a tab tile: its icon above its name.
@@ -267,7 +269,31 @@ fn output(
         }
     });
 
+    studio_theme::card(ui, "Decoration library", |ui| {
+        decoration_library(ui, studio)
+    });
+
     studio_theme::card(ui, "Body model", |ui| mesh(ui, studio));
+}
+
+/// Where the armory saves decorations, and reloading them from there.
+fn decoration_library(ui: &mut egui::Ui, studio: &mut Studio) {
+    ui.small(
+        "Engravings and trims saved from the armory, which inventory \
+         articles choose from.",
+    );
+    let decorations = &mut studio.decorations;
+    ui.add(egui::TextEdit::singleline(&mut decorations.path).desired_width(f32::INFINITY));
+    if ui.button("Reload library").clicked() {
+        let path = std::path::Path::new(&decorations.path);
+        studio.status = match DecorationLibrary::load(path) {
+            Ok(library) => {
+                decorations.library = library;
+                format!("Loaded decorations from {}", decorations.path)
+            }
+            Err(error) => format!("Could not load decorations: {error:#}"),
+        };
+    }
 }
 
 /// Write every catalog default design to the paths set on the Output tab.

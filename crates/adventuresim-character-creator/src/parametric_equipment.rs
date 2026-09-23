@@ -227,7 +227,7 @@ fn trim(
         .as_ref()
         .and_then(|equipment| equipment.material)
         .is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
-    let Some(trim) = piece.trim.as_ref().filter(|_| steel) else {
+    let Some(trim) = piece.decoration.trim.as_ref().filter(|_| steel) else {
         return Ok((generated, None));
     };
     let (generated, texcoords) =

@@ -13,6 +13,7 @@ pub(super) fn show(
         status,
         dirty,
         inventory: view,
+        decorations,
         ..
     } = studio;
     let Some(item) = view.selected.and_then(|id| recipe.inventory.get_mut(id)) else {
@@ -22,7 +23,9 @@ pub(super) fn show(
     };
     ui.heading(item.article.name(catalog));
     let rebuild = match &mut item.article {
-        Article::Catalog(article) => catalog_article(ui, article, catalog, status),
+        Article::Catalog(article) => {
+            catalog_article(ui, item.id, article, catalog, &decorations.library, status)
+        }
         Article::Draped(selection) => draped(ui, item.id, selection, drape_job),
         Article::Plate(armor) => armor_preview::editor(ui, armor),
     };
@@ -35,8 +38,10 @@ pub(super) fn show(
 /// Returns whether the article's appearance on the body changed.
 fn catalog_article(
     ui: &mut egui::Ui,
+    id: InventoryItemId,
     article: &mut CatalogArticle,
     catalog: &mut EquipmentCatalog,
+    library: &adventuresim_character_creator::decoration::DecorationLibrary,
     status: &mut String,
 ) -> bool {
     let mut steel = false;
@@ -54,16 +59,19 @@ fn catalog_article(
     }
     let mut changed = catalog_shape(ui, article, catalog, status);
     if steel {
-        changed |= ui
-            .collapsing("Engraving", |ui| {
-                metal_controls::engraving(ui, &mut article.engraving)
-            })
-            .body_returned
-            .unwrap_or(false);
-        changed |= ui
-            .collapsing("Trim", |ui| metal_controls::trim(ui, &mut article.trim))
-            .body_returned
-            .unwrap_or(false);
+        ui.horizontal(|ui| {
+            ui.label("Decoration");
+            changed |= decoration_controls::choose(
+                ui,
+                ("article_decoration", id),
+                library,
+                &mut article.decoration,
+            )
+            .is_some();
+        })
+        .response
+        .on_hover_text("Choose an engraving and trim saved from the armory.");
+        changed |= decoration_controls::edit(ui, &mut article.decoration);
     }
     changed
 }

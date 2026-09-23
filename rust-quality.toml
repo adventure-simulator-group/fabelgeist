@@ -346,6 +346,16 @@ reason = "Egui appearance buttons dispatch actions through widget responses; the
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/armory_ui.rs"
+reason = "Egui armory buttons dispatch framing, refit, design and decoration actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/decoration_controls.rs"
+reason = "The egui decoration chooser dispatches through widget responses; its labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/studio_overlay.rs"
 reason = "Egui viewport buttons dispatch camera, appearance and save actions through widget responses; labels are never compared as state."
 

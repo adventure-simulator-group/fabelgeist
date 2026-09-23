@@ -44,6 +44,9 @@ pub(super) struct Args {
     /// Typed recipe overrides, keyed by catalog item ID, for preview and exports.
     #[arg(long)]
     pub(super) armor_designs: Option<PathBuf>,
+    /// The library of named engravings and trims saved from the armory.
+    #[arg(long, default_value = "assets_src/equipment/decorations.json")]
+    pub(super) decorations: PathBuf,
     /// Write editable default recipes for every new parametric family.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,

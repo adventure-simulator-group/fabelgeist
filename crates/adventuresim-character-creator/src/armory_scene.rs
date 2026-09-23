@@ -1,5 +1,6 @@
 //! The armory's preview meshes, their placement on the wall, and the camera framing them.
 use super::*;
+use adventuresim_character_creator::decoration::Decoration;
 
 /// Which exhibit placement a preview mesh shows.
 #[derive(Component, Clone, Copy)]
@@ -28,11 +29,13 @@ pub(crate) fn setup(mut commands: Commands) {
     ));
 }
 
+/// Spawn an exhibit's fitted placements, engraved and trimmed as `decoration` asks.
 pub(super) fn spawn_exhibit(
     scene: &mut PreviewScene,
     catalog: &EquipmentCatalog,
     index: usize,
     exhibit: &Exhibit,
+    decoration: &Decoration,
 ) -> Result<()> {
     let design = catalog.design(&exhibit.item_id);
     let material = scene
@@ -41,23 +44,46 @@ pub(super) fn spawn_exhibit(
             &mut scene.images,
             catalog.material(&exhibit.item_id)?,
             design.as_ref().and_then(ItemDesign::recipe),
-            None,
+            decoration.engraving.as_ref(),
         )
+        .map_err(anyhow::Error::msg)?;
+    let trim_material = decoration
+        .trim
+        .as_ref()
+        .map(|trim| {
+            scene
+                .equipment_maps
+                .metal(&mut scene.images, &trim.metal, 1.0)
+        })
+        .transpose()
         .map_err(anyhow::Error::msg)?;
     for (placement, fitted) in exhibit.fitted.iter().enumerate() {
         let Ok(armor) = fitted else { continue };
+        let (armor, trim) = match (&decoration.trim, &trim_material) {
+            (Some(trim), Some(material)) => {
+                let (armor, texcoords) =
+                    adventuresim_character_creator::armor_metal::trimmed(armor.clone(), trim)?;
+                (armor, Some((texcoords, material.clone())))
+            }
+            _ => (armor.clone(), None),
+        };
         preview::spawn_armor(
             &mut scene.commands,
             &mut scene.meshes,
             &mut scene.materials,
-            armor,
+            &armor,
             format!(
                 "armory {}--{}",
                 exhibit.item_id, exhibit.placements[placement]
             ),
             preview::ArmorShading {
                 plate: material.clone(),
-                trim: None,
+                trim: trim
+                    .as_ref()
+                    .map(|(texcoords, material)| preview::TrimPreview {
+                        texcoords,
+                        material: material.clone(),
+                    }),
             },
             (
                 ArmoryMesh {

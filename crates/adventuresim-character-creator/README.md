@@ -65,7 +65,9 @@ A recipe's `inventory` lists every article the character owns. Each has a
 stable ID, whether it is worn, and one of three kinds of article:
 
 - a catalog item in one of its placements, such as the left vambrace, with an
-  optional design of its own; without one it is built from the catalog default;
+  optional design of its own; without one it is built from the catalog default.
+  A plate-steel item also carries its decoration: an optional engraving and an
+  optional trim;
 - a draped garment: a name, a sewn pattern or fitted coif, its fabric, layer
   and drape settings;
 - Fabelgeist plate armor: the breastplate and fauld builder.
@@ -92,10 +94,13 @@ controls for parametric catalog items, the garment editor for cloth (see
 [Garments](#garments)), and plate controls. Editing a catalog item's shape gives it its own design. **Use
 catalog shape** discards that design, and **Make catalog default** copies it to
 the catalog defaults, which **Save all catalog designs** in the **Output** tab
-writes. Draped garments drape from the innermost layer out; within one layer,
+writes. A plate-steel article's **Decoration** chooses a decoration saved
+from the armory, or **Plain**; choosing one copies its engraving and trim into
+the article, where they can be edited further, so a recipe never depends on the
+library. Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
-Recipes use schema version 9. Recipes from older versions are not read.
+Recipes use schema version 10. Recipes from older versions are not read.
 
 ## Armory
 
@@ -118,6 +123,15 @@ default once you leave the armory. **Refit all** fits every piece to the current
 body again; this also happens automatically on entering the armory after the
 body changed. The Fabelgeist plate armor and catalog clothing without a
 parametric design are not shown.
+
+A selected plate-steel piece also shows a **Decoration** card for designing an
+engraving and trim together, previewed on that piece only. **Start from** loads
+a saved decoration to edit. **Save to library** stores the decoration under its
+name, replacing one of the same name, and **Delete** removes the named one.
+Both write the decoration library at once; by default it is
+`assets_src/equipment/decorations.json`, set with `--decorations` or on the
+**Output** tab, where **Reload library** reads it again. A library that does not
+exist yet is empty.
 
 In every tab, drag orbits the view, right- or middle-drag pans, and the wheel
 zooms.
@@ -379,7 +393,8 @@ both preview and export; a height map also gives the preview a parallax depth
 map, which glTF does not carry. The image path is stored in the recipe and read
 relative to the working directory; an ornament is stored by its parameters. The
 plate armor builder edits the engraving
-under its metal; a catalog steel article edits its own in the inventory.
+under its metal; a catalog steel article edits its own in the inventory, or
+takes one from a saved decoration.
 
 A catalog steel article can also carry a **trim**: a band along every edge of
 every plate, finished with its own metal, such as gilt, bluing or bright steel

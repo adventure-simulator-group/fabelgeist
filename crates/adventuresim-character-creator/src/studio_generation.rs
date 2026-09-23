@@ -97,7 +97,7 @@ impl PreviewScene<'_, '_> {
                     &mut self.images,
                     material,
                     piece.piece.design.recipe(),
-                    piece.piece.engraving.as_ref(),
+                    piece.piece.decoration.engraving.as_ref(),
                 )
                 .map_err(anyhow::Error::msg)
                 .with_context(|| format!("{} material failed", piece.name))?;

@@ -111,7 +111,7 @@ fn catalog_metals(
         let material = catalog.material(&piece.piece.piece.item.id)?;
         let plate = adventuresim_character_creator::armor_metal::metal(
             material,
-            piece.piece.engraving.as_ref(),
+            piece.piece.decoration.engraving.as_ref(),
         );
         let trim = piece.trim.as_ref().map(|trim| trim.metal.clone());
         for metal in plate.into_iter().chain(trim) {
@@ -147,7 +147,7 @@ fn catalog_shells<'a>(
         let (color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
         let metal = adventuresim_character_creator::armor_metal::metal(
             material,
-            piece.piece.engraving.as_ref(),
+            piece.piece.decoration.engraving.as_ref(),
         )
         .and_then(|metal| metals.iter().find(|(known, _)| *known == metal))
         .map(|(_, textures)| (piece.generated.texcoords.as_slice(), textures));
