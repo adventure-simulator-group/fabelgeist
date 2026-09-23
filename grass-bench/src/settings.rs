@@ -146,14 +146,14 @@ impl InstancingMode {
     ];
     pub fn label(self) -> &'static str {
         match self {
-            InstancingMode::None => "No grass",
-            InstancingMode::Simple => "Simple (chunked)",
-            InstancingMode::SimpleCulled => "Simple, CPU-culled",
-            InstancingMode::Eidolon => "bevy_eidolon",
-            InstancingMode::MeshChunks => "Mesh chunks (no instancing)",
-            InstancingMode::MeshChunksMap => "Mesh chunks + displacement map",
-            InstancingMode::Cards => "Sprite cards (no instancing)",
-            InstancingMode::CardsCurved => "Sprite cards, curved in the fragment",
+            InstancingMode::None => "No-instancing, No grass",
+            InstancingMode::Simple => "Instanced, Chunked",
+            InstancingMode::SimpleCulled => "Instanced, CPU culled",
+            InstancingMode::Eidolon => "Instanced, Eidolon",
+            InstancingMode::MeshChunks => "No-instancing, Mesh chunks",
+            InstancingMode::MeshChunksMap => "No-instancing, Displacement",
+            InstancingMode::Cards => "No-instancing, Textured sprites (flat)",
+            InstancingMode::CardsCurved => "No-instancing, Textured sprites (curved)",
         }
     }
 }
@@ -374,7 +374,7 @@ impl BenchSettings {
         #[cfg(target_family = "wasm")]
         if web_sys::window()
             .and_then(|window| window.location().pathname().ok())
-            .is_some_and(|path| path.trim_matches('/') == "eidolon")
+            .is_some_and(|path| path.trim_matches('/') == "instanced-eidolon")
         {
             settings.instancing = InstancingMode::Eidolon;
         }
@@ -503,7 +503,7 @@ fn settings_panel(mut contexts: EguiContexts, mut settings: ResMut<BenchSettings
     }
     let s = settings.bypass_change_detection();
     let mut changed = false;
-    egui::Window::new("GPU bench")
+    egui::Window::new("Instanced / No-instancing, Advanced")
         .default_pos((10.0, 200.0))
         .vscroll(true)
         .show(ctx, |ui| {
@@ -787,10 +787,10 @@ pub(crate) fn demo_mode() -> Option<InstancingMode> {
     #[cfg(not(target_family = "wasm"))]
     let path = std::env::var("BENCH_DEMO").ok()?;
     match path.trim_matches('/').rsplit('/').next()? {
-        "cpu-culled" => Some(InstancingMode::SimpleCulled),
-        "no-instancing" => Some(InstancingMode::MeshChunks),
+        "instanced-cpu-culled" => Some(InstancingMode::SimpleCulled),
+        "no-instancing-mesh-chunks" => Some(InstancingMode::MeshChunks),
         "no-instancing-displacement" => Some(InstancingMode::MeshChunksMap),
-        "textured-sprites" => Some(InstancingMode::CardsCurved),
+        "no-instancing-textured-sprites" => Some(InstancingMode::CardsCurved),
         _ => None,
     }
 }

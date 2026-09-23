@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GPU bench</title>
+    <title>Instanced / No-instancing, Grass demos</title>
     <link rel="icon" href="data:," />
     <style>
       html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #0b0d10; overflow: hidden; }
@@ -19,8 +19,9 @@
       #boot-console .warn { color: #e3b341; }
       #boot-console .err { color: #f85149; }
       nav { position: fixed; right: 8px; top: 8px; z-index: 11;
-        font: 12px ui-monospace, monospace; background: #0b0d10cc; padding: 8px; }
-      nav a { color: #c9d1d9; margin: 0 6px; }
+        font: 12px ui-monospace, monospace; background: #0b0d10cc; padding: 8px;
+        max-width: calc(100vw - 32px); }
+      nav a { display: block; color: #c9d1d9; margin: 6px; line-height: 1.4; }
       nav section + section { border-top: 1px solid #484f58; margin-top: 8px; padding-top: 8px; }
       nav h2 { color: #8b949e; font-size: 11px; margin: 0 6px 6px; }
       #hint {
@@ -34,17 +35,17 @@
     <nav aria-label="Grass tests">
       <section aria-labelledby="instanced-heading">
         <h2 id="instanced-heading">Instanced</h2>
-        <a href="./cpu-culled/">CPU-culled</a>
-        <a href="./eidolon/">Eidolon (WebGPU)</a>
+        <a href="./instanced-cpu-culled/">Instanced, CPU culled</a>
+        <a href="./instanced-eidolon/">Instanced, Eidolon (WebGPU)</a>
       </section>
       <section aria-labelledby="non-instanced-heading">
-        <h2 id="non-instanced-heading">Non-instanced</h2>
-        <a href="./no-instancing/">Mesh chunks</a>
-        <a href="./no-instancing-displacement/">Displacement</a>
-        <a href="./textured-sprites/">Textured sprites</a>
+        <h2 id="non-instanced-heading">No-instancing</h2>
+        <a href="./no-instancing-mesh-chunks/">No-instancing, Mesh chunks</a>
+        <a href="./no-instancing-displacement/">No-instancing, Displacement</a>
+        <a href="./no-instancing-textured-sprites/">No-instancing, Textured sprites (curved)</a>
       </section>
       <section aria-label="Full benchmark">
-        <a href="./advanced/">Advanced (WebGPU)</a>
+        <a href="./instanced-no-instancing-advanced/">Instanced / No-instancing, Advanced (WebGPU)</a>
       </section>
     </nav>
     <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
@@ -102,12 +103,17 @@
       // Assets to warm into the HTTP cache the moment the engine finishes
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
       const PREFETCH = [];
-      const demo = /\/(cpu-culled|no-instancing|no-instancing-displacement|textured-sprites)\/?$/.test(location.pathname);
-      const eidolon = /\/eidolon\/?$/.test(location.pathname);
-      const advanced = eidolon || /\/advanced\/?$/.test(location.pathname);
-      if (demo) document.getElementById("hint").textContent = "WebGL2 grass test";
-      else if (eidolon) document.getElementById("hint").textContent = "Eidolon · WebGPU · GPU-culled instanced grass";
-      else if (advanced) document.getElementById("hint").textContent = "Advanced demo · WebGPU · full benchmark controls";
+      const demo = /\/(instanced-cpu-culled|no-instancing-mesh-chunks|no-instancing-displacement|no-instancing-textured-sprites)\/?$/.test(location.pathname);
+      const eidolon = /\/instanced-eidolon\/?$/.test(location.pathname);
+      const advanced = eidolon || /\/instanced-no-instancing-advanced\/?$/.test(location.pathname);
+      const activeLink = [...document.querySelectorAll("nav a")].find(
+        link => new URL(link.href).pathname.replace(/\/$/, "") === location.pathname.replace(/\/$/, "")
+      );
+      if (activeLink) {
+        activeLink.setAttribute("aria-current", "page");
+        document.title = activeLink.textContent;
+        document.getElementById("hint").textContent = `${activeLink.textContent} · ${demo ? "WebGL2 grass test" : "full benchmark controls"}`;
+      }
       const prefetchAssets = () => {
         for (const href of (demo ? [] : PREFETCH)) {
           document.head.append(
@@ -135,7 +141,7 @@
               ])
             : null;
           if (advanced && (!adapter || new URLSearchParams(location.search).has("forcegl"))) {
-            throw new Error("This demo requires WebGPU. Choose CPU-culled, Mesh chunks, or Displacement above for WebGL2.");
+            throw new Error("This demo requires WebGPU. Choose Instanced, CPU culled or one of the No-instancing tests for WebGL2.");
           }
           if (!adapter || location.search.includes("forcegl")) {
             engine = {

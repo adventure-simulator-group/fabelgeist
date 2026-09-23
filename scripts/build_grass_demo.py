@@ -137,7 +137,7 @@ def write_pages(out: Path, page: str, *, dev: bool = False) -> None:
     if dev:
         (out / "index.html").write_text(page, encoding="utf-8", newline="\n")
         return
-    for route in ("cpu-culled", "no-instancing", "no-instancing-displacement", "textured-sprites", "advanced", "eidolon"):
+    for route in ("instanced-cpu-culled", "no-instancing-mesh-chunks", "no-instancing-displacement", "no-instancing-textured-sprites", "instanced-no-instancing-advanced", "instanced-eidolon"):
         destination = out / route / "index.html"
         destination.parent.mkdir(parents=True, exist_ok=True)
         # All routes share engines and assets at the bundle root.
@@ -148,10 +148,10 @@ def write_pages(out: Path, page: str, *, dev: bool = False) -> None:
         '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
         '<link rel="icon" href="data:,">'
-        '<meta http-equiv="refresh" content="0;url=./cpu-culled/">'
-        '<title>Grass demos</title></head><body>'
-        '<a href="./cpu-culled/">CPU-culled grass test</a> · '
-        '<a href="./advanced/">Advanced (WebGPU)</a></body></html>\n',
+        '<meta http-equiv="refresh" content="0;url=./instanced-cpu-culled/">'
+        '<title>Instanced / No-instancing, Grass demos</title></head><body>'
+        '<a href="./instanced-cpu-culled/">Instanced, CPU culled</a> · '
+        '<a href="./instanced-no-instancing-advanced/">Instanced / No-instancing, Advanced (WebGPU)</a></body></html>\n',
         encoding="utf-8", newline="\n",
     )
 

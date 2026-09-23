@@ -11,7 +11,7 @@ import re
 import subprocess
 
 CRATE = Path(__file__).resolve().parents[1]
-ROUTES = ("cpu-culled", "no-instancing", "no-instancing-displacement")
+ROUTES = ("instanced-cpu-culled", "no-instancing-mesh-chunks", "no-instancing-displacement")
 
 
 def main():

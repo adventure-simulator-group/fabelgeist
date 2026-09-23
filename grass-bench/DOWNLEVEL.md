@@ -9,25 +9,27 @@ python3 -m http.server 8080 --directory target/grass-demo/site
 
 Open one of these paths:
 
-- `/cpu-culled/`: CPU-culled instanced tufts.
-- `/no-instancing/`: baked mesh chunks with analytic affector bending.
-- `/no-instancing-displacement/`: baked mesh chunks sampling displacement and
-  trail maps.
-- `/textured-sprites/`: textured sprite cards curved in the fragment shader
-  (`CardsCurved`, the final mode in the full benchmark list).
+- `/instanced-cpu-culled/`: Instanced, CPU culled.
+- `/no-instancing-mesh-chunks/`: No-instancing, Mesh chunks, with analytic
+  affector bending.
+- `/no-instancing-displacement/`: No-instancing, Displacement, sampling
+  displacement and trail maps.
+- `/no-instancing-textured-sprites/`: No-instancing, Textured sprites (curved).
+  This is `CardsCurved`, the final mode in the full benchmark list.
 
 These pages always load the WebGL2 engine, even on a WebGPU browser. They
 lock the mode and start at 12% density and 18 m range, with no MSAA, shadows,
 trees, or characters. The small panel controls density, range, camera orbit,
 and (on the displacement page) trails. The main `/` page opens the
-CPU-culled test. `/advanced/` retains the full benchmark panel and requires
+Instanced, CPU culled test. `/instanced-no-instancing-advanced/` retains the
+full benchmark panel and requires
 WebGPU, including for the original tree LOD and GPU-compute paths. Browsers
 without WebGPU see a message pointing back to the laptop tests.
-Navigation groups CPU-culled and Eidolon under Instanced, and mesh chunks,
-displacement, and textured sprites under Non-instanced. The advanced
-benchmark is separate.
-`/eidolon/` starts GPU-culled instanced grass with the full controls available
-and requires WebGPU. All six pages share the same engines and assets.
+All demo labels and routes start with Instanced or No-instancing. The mixed
+benchmark is named Instanced / No-instancing, Advanced, and is separate from
+the two navigation groups. `/instanced-eidolon/` opens Instanced, Eidolon
+with the full controls available and requires WebGPU. All six pages share
+the same engines and assets.
 
 ## Renderer contract
 
@@ -64,10 +66,10 @@ screenshots.
 From `grass-bench/`, run each route interactively under desktop WebGL2 limits:
 
 ```bash
-BENCH_DOWNLEVEL=1 BENCH_DEMO=cpu-culled cargo run --features downlevel
-BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing cargo run --features downlevel
+BENCH_DOWNLEVEL=1 BENCH_DEMO=instanced-cpu-culled cargo run --features downlevel
+BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing-mesh-chunks cargo run --features downlevel
 BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing-displacement cargo run --features downlevel
-BENCH_DOWNLEVEL=1 BENCH_DEMO=textured-sprites cargo run --features downlevel
+BENCH_DOWNLEVEL=1 BENCH_DEMO=no-instancing-textured-sprites cargo run --features downlevel
 ```
 
 The Cargo feature is required: the environment variable constrains the
