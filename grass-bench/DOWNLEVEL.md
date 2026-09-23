@@ -17,8 +17,12 @@ Open one of these paths:
 These pages always load the WebGL2 engine, even on a WebGPU browser. They
 lock the mode and start at 12% density and 18 m range, with no MSAA, shadows,
 trees, or characters. The small panel controls density, range, camera orbit,
-and (on the displacement page) trails. The main `/` page retains the full
-benchmark panel and chooses WebGPU when available.
+and (on the displacement page) trails. The main `/` page opens the
+CPU-culled test. `/advanced/` retains the full benchmark panel and requires
+WebGPU, including for the original tree LOD and GPU-compute paths. Browsers
+without WebGPU see a message pointing back to the laptop tests.
+Navigation on every demo links all four pages; they share the same engines
+and assets.
 
 ## Renderer contract
 

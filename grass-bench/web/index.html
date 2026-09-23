@@ -18,7 +18,7 @@
       #boot-console { flex: 1; overflow: auto; white-space: pre-wrap; opacity: 0.8; }
       #boot-console .warn { color: #e3b341; }
       #boot-console .err { color: #f85149; }
-      nav { position: fixed; right: 8px; top: 8px; z-index: 2;
+      nav { position: fixed; right: 8px; top: 8px; z-index: 11;
         font: 12px ui-monospace, monospace; background: #0b0d10cc; padding: 8px; }
       nav a { color: #c9d1d9; margin: 0 6px; }
       #hint {
@@ -33,6 +33,7 @@
       <a href="./cpu-culled/">CPU-culled</a>
       <a href="./no-instancing/">No instancing</a>
       <a href="./no-instancing-displacement/">Displacement</a>
+      <a href="./advanced/">Advanced (WebGPU)</a>
     </nav>
     <div id="hint">?s={"aa":"Taa","shading":"Custom"} presets settings · ?forcegl for the WebGL2 engine</div>
     <div id="boot">
@@ -69,7 +70,9 @@
         // The engine's first frame ends the boot screen: the canvas gets a
         // size once winit attaches, which is the earliest reliable signal.
         const boot = document.getElementById("boot");
-        window.boot_done = () => boot.classList.add("done");
+        window.boot_done = () => {
+          if (!window.boot_failed) boot.classList.add("done");
+        };
         new ResizeObserver(() => {
           const c = document.getElementById("bevy");
           if (c.width > 0) setTimeout(window.boot_done, 300);
@@ -88,7 +91,9 @@
       // downloading. Substituted by scripts/build-wasm-client.sh, largest first.
       const PREFETCH = [];
       const demo = /\/(cpu-culled|no-instancing|no-instancing-displacement)\/?$/.test(location.pathname);
+      const advanced = /\/advanced\/?$/.test(location.pathname);
       if (demo) document.getElementById("hint").textContent = "WebGL2 grass test";
+      else if (advanced) document.getElementById("hint").textContent = "Advanced demo · WebGPU · full benchmark controls";
       const prefetchAssets = () => {
         for (const href of (demo ? [] : PREFETCH)) {
           document.head.append(
@@ -115,6 +120,9 @@
                 new Promise((resolve) => setTimeout(() => resolve(null), 3000)),
               ])
             : null;
+          if (advanced && (!adapter || new URLSearchParams(location.search).has("forcegl"))) {
+            throw new Error("The full demo requires WebGPU. Choose CPU-culled, No instancing, or Displacement above for WebGL2.");
+          }
           if (!adapter || location.search.includes("forcegl")) {
             engine = {
               js: "./bench_webgl2.js",
@@ -167,7 +175,9 @@
         // winit exits its run() via a JS exception on wasm; that lands here on
         // every successful start and is not a failure.
         if (!`${err}`.includes("control flow")) {
-          boot_status(`FATAL: ${err?.message ?? err}`);
+          window.boot_failed = true;
+          document.getElementById("boot").classList.remove("done");
+          boot_status(`${err?.message ?? err}`);
           throw err;
         }
       }

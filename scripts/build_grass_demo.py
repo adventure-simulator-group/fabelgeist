@@ -132,6 +132,30 @@ def compress(path: Path) -> None:
         )
 
 
+def write_pages(out: Path, page: str, *, dev: bool = False) -> None:
+    """Publish shared navigation, dedicated tests, and the unrestricted bench."""
+    if dev:
+        (out / "index.html").write_text(page, encoding="utf-8", newline="\n")
+        return
+    for route in ("cpu-culled", "no-instancing", "no-instancing-displacement", "advanced"):
+        destination = out / route / "index.html"
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        # All routes share engines and assets at the bundle root.
+        route_page = page.replace('<meta charset="utf-8" />',
+            '<meta charset="utf-8" /><base href="../" />')
+        destination.write_text(route_page, encoding="utf-8", newline="\n")
+    (out / "index.html").write_text(
+        '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<link rel="icon" href="data:,">'
+        '<meta http-equiv="refresh" content="0;url=./cpu-culled/">'
+        '<title>Grass demos</title></head><body>'
+        '<a href="./cpu-culled/">CPU-culled grass test</a> · '
+        '<a href="./advanced/">Advanced (WebGPU)</a></body></html>\n',
+        encoding="utf-8", newline="\n",
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "target/grass-demo/site")
@@ -199,17 +223,7 @@ def main(argv: list[str] | None = None) -> int:
     if len(engines) > 1:
         size = (out / "bench_webgl2_bg.wasm").stat().st_size
         page = page.replace("const WASM_BYTES_WEBGL2 = 0;", f"const WASM_BYTES_WEBGL2 = {size};")
-    # Fixed newlines so the file hashes the same from Windows and Linux builds.
-    (out / "index.html").write_text(page, encoding="utf-8", newline="\n")
-
-    if not args.dev:
-        for route in ("cpu-culled", "no-instancing", "no-instancing-displacement"):
-            destination = out / route / "index.html"
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            # A base URL keeps both engine imports and Bevy assets at the bundle root.
-            demo_page = page.replace('<meta charset="utf-8" />',
-                '<meta charset="utf-8" /><base href="../" />')
-            destination.write_text(demo_page, encoding="utf-8", newline="\n")
+    write_pages(out, page, dev=args.dev)
 
     if not args.no_compress:
         log("Compressing the engines and the models...")
