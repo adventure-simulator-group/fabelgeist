@@ -1170,7 +1170,7 @@ mod tests {
         assert!(StrategicMap::load(missing).is_err());
         let markup = strategic_map_bundle_unavailable().into_string();
         assert!(markup.contains("Map layer unavailable"));
-        assert!(markup.contains("Destination selection and direct travel remain available"));
+        assert!(markup.contains("Choose a destination from the destination list"));
     }
 
     #[test]

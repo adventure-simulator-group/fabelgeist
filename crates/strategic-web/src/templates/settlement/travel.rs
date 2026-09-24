@@ -401,7 +401,7 @@ pub(crate) fn map_destination_detail(
                             " Your party is already here."
                         } @else {
                             strong { "No direct route." }
-                            " Travel is only available to settlements connected to the current location."
+                            " Choose a connected destination from the destination list."
                         }
                     }
                 }))

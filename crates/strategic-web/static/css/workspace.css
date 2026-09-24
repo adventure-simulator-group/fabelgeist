@@ -51,6 +51,29 @@
 }
 .party-portrait-overlay { top: 1rem; width: calc(100% - 2rem); flex-wrap: nowrap; justify-content: center; overflow-x: auto; }
 
+.action-preview { display: block; margin-block: .75rem; color: var(--text-secondary); font-size: .875rem; }
+.fireplace-stage { padding: 1.25rem; overflow-y: auto; }
+.fireplace-stage > .service-visual { display: none; }
+.fireplace-stage > a { align-self: flex-start; margin-bottom: 1rem; }
+.fireplace-stage .cooking-activity { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
+.fireplace-stage .cooking-activity form { width: 100%; max-width: 46rem; }
+.fireplace-stage .cooking-activity [data-cooking-pot-empty] { padding: 1rem; border: 1px dashed var(--border-color); }
+.inventory-row-actions {
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  width: auto;
+  opacity: 1;
+  border: 0;
+  padding: .2rem !important;
+}
+.inventory-row-actions .trade-transfer { width: 2rem; height: 2rem; }
+.inventory-target-step:not([hidden]) { opacity: 1; min-width: 1.5rem; min-height: 1.5rem; }
+.inventory-actions-cell { white-space: normal; }
+.inventory-footer-actions { position: static; transform: none; opacity: 1; flex-wrap: wrap; }
+.cooking-activity .inventory-row-actions .trade-transfer { width: 2.75rem; height: 2.75rem; }
+
 @media (min-width: 1101px) {
   #strategic-page:has(.workspace-bar) { --settlement-header-height: 112px; }
   #strategic-page .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {
@@ -65,6 +88,11 @@
   #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > .left-sidebar { grid-area: left; }
   #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > .right-sidebar { grid-area: right; }
   #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) .service-visual { display: flex; }
+  #strategic-page:has(.workspace-bar) .main-grid:has([data-discard-table][hidden]) {
+    grid-template-areas: ". main right";
+  }
+  #strategic-page:has(.workspace-bar) .main-grid:has([data-discard-table][hidden]) > .left-sidebar { display: none; }
+  #strategic-page .main-grid:has(.fireplace-layout) { grid-template-columns: minmax(12rem, 22%) minmax(0, 1fr) minmax(20rem, 35%); }
   #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) .settlement-chat {
     position: fixed;
     z-index: 80;

@@ -184,17 +184,18 @@ pub fn fireplace_page(
                         input type="hidden" name="inventory_scope" value=(inventory_scope);
                         input type="hidden" name="inventory_item_ids" value="" data-cooking-ids;
                         input type="hidden" name="fractions_micros" value="" data-cooking-amounts;
-                        p class="strategic-warning" { "Loose food selected here is immediately consolidated into one spit-roasted meal. Each placed vessel cooks its contained food into a separate meal." }
+                        h2 { "Prepare a spit roast" }
+                        p { "Add food portions from your ingredients. Starting the roast combines them into one meal. Vessels cook their own contents separately." }
                         p class="small-copy text-muted cooking-preview" data-cooking-preview { "Stage at least one measured food portion." }
                         button type="submit" class="btn btn-primary" disabled data-cook-submit { "Start spit roast" }
                     }
-                    div data-cooking-pot-empty hidden {}
-                    div data-inventory-browser="cooking-pot-left" hidden { table { tbody {} } }
+                    p data-cooking-pot-empty { "No ingredients selected." }
+                    div data-inventory-browser="cooking-pot-left" { table class="trade-inventory-table" aria-label="Selected ingredients" { tbody {} } }
                 }
             }
         }
         aside class="right-sidebar fireplace-inventory-sidebar" {
-            (sidebar_section("Inventory", html! {
+            (sidebar_section("Ingredients and vessels", html! {
                 nav class="tab-list" aria-label="Ingredient inventory source" {
                     a class=(if inventory_scope == "personal" { "active" } else { "" }) href=(scope_href("personal")) aria-current=(if inventory_scope == "personal" { "page" } else { "false" }) { "Personal" }
                     a class=(if inventory_scope == "party" { "active" } else { "" }) href=(scope_href("party")) aria-current=(if inventory_scope == "party" { "page" } else { "false" }) { "Party" }
@@ -238,6 +239,9 @@ pub(super) fn fireplace_inventory_row(
 ) -> Markup {
     let definition = definitions.iter().find(|d| d.id == item_id);
     let is_tool = matches!(item_id, "cooking_pan" | "cooking_pot" | "portable_oven");
+    if !is_tool && !(lot.is_some() && adventuresim_core::food::is_cookable_ingredient(item_id)) {
+        return html! {};
+    }
     let display = lot.map_or_else(|| item_display_name(item_id), |l| l.display_name.clone());
     let measured_fraction = measured_fraction_micros.map(|value| {
         adventuresim_core::inventory_measurement::ConsumableFractionMicros::try_new(value)
