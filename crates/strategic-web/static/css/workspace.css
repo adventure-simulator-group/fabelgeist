@@ -74,6 +74,54 @@
 .inventory-footer-actions { position: static; transform: none; opacity: 1; flex-wrap: wrap; }
 .cooking-activity .inventory-row-actions .trade-transfer { width: 2.75rem; height: 2.75rem; }
 
+.candidate-navigation { display: flex; flex-wrap: wrap; gap: .75rem; padding: 1rem; background: var(--panel-bg); }
+.candidate-navigation span { color: var(--text-secondary); }
+.center-content:has([data-candidate-roster]) { overflow-y: auto; padding: 1rem; }
+.center-content:has([data-candidate-roster]) .service-visual { display: none; }
+.center-content:has([data-candidate-roster]) .party-portrait-overlay {
+  position: static;
+  transform: none;
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 1rem 0;
+}
+.center-content:has([data-candidate-roster]) .party-portrait-overlay > [data-party-portrait-members] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  max-height: 19rem;
+  overflow-y: auto;
+  padding: .25rem;
+}
+.center-content:has([data-candidate-roster]) .party-portrait {
+  width: auto;
+  min-height: 7rem;
+  padding: .7rem;
+  border: 1px solid var(--border-color);
+  background: var(--panel-bg);
+}
+.center-content:has([data-candidate-roster]) .party-portrait.selected { border: 2px solid var(--accent-light); }
+.center-content:has([data-candidate-roster]) .party-portrait-initial { display: none; }
+.center-content:has([data-candidate-roster]) .party-portrait-name { order: -1; font-size: 1rem; font-weight: 700; }
+.candidate-portrait-background { font-size: .875rem; color: var(--text-secondary); text-align: center; }
+.candidate-play-action[data-candidate-confirm-form] { position: sticky; bottom: 0; padding: .75rem; background: var(--panel-bg); z-index: 4; }
+.candidate-background-summary { margin: .75rem 0; }
+.journal-empty-state { max-width: 40rem; margin: 2rem auto; padding: 1.5rem; background: var(--panel-bg); border: 1px solid var(--border-color); }
+.journal-empty-state h2 { margin-bottom: 1rem; }
+.main-grid:has(.journal-empty-state) .journal-case-index,
+.main-grid:has(.journal-empty-state) .journal-context { display: none; }
+#strategic-page .main-grid:has(.journal-empty-state) { grid-template-columns: minmax(0, 1fr); }
+.surgery-unavailable-reason { grid-column: 1 / -1; color: var(--text-secondary); font-size: .875rem; }
+.medical-observation-summary { padding: .75rem; border-left: 3px solid var(--accent); background: var(--panel-bg); }
+.physiology-dialog[data-reading-count="1"] .physiology-region-chart svg { height: 12rem; min-height: 12rem; }
+.physiology-dialog-body { overscroll-behavior: contain; }
+.role-preferences { border: 1px solid var(--border-color); padding: .75rem; }
+.role-preferences > summary { cursor: pointer; color: var(--text-primary); min-height: 2rem; }
+.role-preferences[open] > summary { margin-bottom: 1rem; }
+.role-builder-footer { position: sticky; bottom: 0; z-index: 2; padding: 1rem; background: var(--panel-bg); border-top: 1px solid var(--border-accent); flex-wrap: wrap; }
+.recruitment-dialog .dialog-close-form { position: sticky; top: .5rem; z-index: 5; float: right; margin-right: .75rem; }
+
 @media (min-width: 1101px) {
   #strategic-page:has(.workspace-bar) { --settlement-header-height: 112px; }
   #strategic-page .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {

@@ -129,7 +129,7 @@ pub fn journal_page(
                 section class="strategic-notice journal-feedback" role="alert" { p { (feedback) } }
             }
             @if ordered_cases.is_empty() {
-                p class="text-muted" { "The journal is empty." }
+                section class="journal-empty-state" { h2 { "No problems recorded yet" } p { "Speak with people in the settlement and ask about their troubles. Reports you discover will appear here." } a href="/" class="btn btn-primary" { "Return to your location" } }
             }
             @for (index, case) in ordered_cases.iter().enumerate() {
                 section id=(format!("journal-case-panel-{index}"))

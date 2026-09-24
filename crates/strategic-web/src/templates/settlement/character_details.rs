@@ -527,7 +527,7 @@ fn character_bio_rail(
                 @if let Some(personality) = personality {
                     @let tags = personality_tags(personality);
                     @if !tags.is_empty() {
-                        div { dt { "Personality" } dd class="personality-tags" {
+                        div { dt { "Traits and identity" } dd class="personality-tags" {
                             @for (name, description) in tags {
                                 span class="personality-tag" title=(description) { (name) }
                             }
