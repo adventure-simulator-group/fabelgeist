@@ -86,6 +86,7 @@ shared_codes! {
         NeckFlare,
         PeakLength,
         PeakDrop,
+        PeakRise,
         CheekWidth,
         CheekTaper,
         OpeningWidth,

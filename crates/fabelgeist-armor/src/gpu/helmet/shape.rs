@@ -321,12 +321,17 @@ fn nape_point(t: f32, angle: f32) -> vec3<f32> {
     );
 }
 
+// The peak's central rise is independent of its downward pitch, and fades
+// to nothing at the peak's sides.
 fn peak_point(t: f32, angle: f32) -> vec3<f32> {
     let radii = dome_radii();
     let reach = design[PEAK_LENGTH] * cos(angle) * t;
+    let rise = design[PEAK_RISE]
+        * max(1.0 - abs(sin(angle)) / sin(PI / 3.0), 0.0)
+        * max(cos(angle), 0.0);
     return vec3<f32>(
         (radii.x + reach) * sin(angle),
-        brow() - design[PEAK_DROP] * cos(angle) * t,
+        brow() - design[PEAK_DROP] * cos(angle) * t + rise * t,
         (radii.z + reach) * cos(angle),
     );
 }

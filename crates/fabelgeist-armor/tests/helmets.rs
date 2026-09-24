@@ -455,3 +455,31 @@ fn invalid_coif_designs_and_head_frames_are_rejected() {
     skewed.axes[0] = skewed.axes[2];
     assert!(coif(&design, &skewed, &profile).is_err());
 }
+
+#[test]
+fn a_burgonet_peak_rise_lifts_the_peak_front_without_changing_topology() {
+    let head = head(1.0);
+    let build = |rise| {
+        helmet(
+            &HelmetDesign::Burgonet(BurgonetDesign {
+                peak_rise: Millimeters(rise),
+                ..BurgonetDesign::default()
+            }),
+            &head,
+        )
+    };
+    let flat = build(0);
+    let raised = build(20);
+    assert_closed_solid(&raised, "raised peak");
+    assert_eq!(flat.indices, raised.indices);
+    // The peak's front tip is the frontmost point; it rises by the full 20 mm.
+    let front = |part: &BuiltPart| {
+        *part
+            .positions
+            .iter()
+            .max_by(|a, b| a[2].total_cmp(&b[2]))
+            .unwrap()
+    };
+    let lift = front(&raised)[1] - front(&flat)[1];
+    assert!((lift - 0.020).abs() < 0.003, "lift {lift}");
+}

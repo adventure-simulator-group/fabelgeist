@@ -32,6 +32,7 @@ pub(super) fn burgonet(d: &BurgonetDesign, mut floats: DesignFloats, gauge: f32)
         (Slot::NeckFlare, d.neck_flare.metres()),
         (Slot::PeakLength, d.peak_length.metres()),
         (Slot::PeakDrop, d.peak_drop.metres()),
+        (Slot::PeakRise, d.peak_rise.metres()),
         (Slot::CheekWidth, d.cheek_width.unit()),
         (Slot::CheekTaper, d.cheek_taper.unit()),
         (Slot::CheekDepth, d.cheek_depth.unit()),
