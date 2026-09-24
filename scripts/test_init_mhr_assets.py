@@ -86,10 +86,10 @@ class InitMhrAssetsTests(unittest.TestCase):
             self.assertEqual(record["size_bytes"], 198_943_157)
             self.assertTrue(init.installed(destination))
 
-    def test_lod1_corrective_profile_is_bounded(self):
-        files = init.selected_files(lod1_correctives=True)
+    def test_lod4_corrective_profile_is_bounded(self):
+        files = init.selected_files(lod4_correctives=True)
         self.assertIn("corrective_activation.npz", files)
-        self.assertIn("corrective_blendshapes_lod1.npz", files)
+        self.assertIn("corrective_blendshapes_lod4.npz", files)
         self.assertNotIn("corrective_blendshapes_lod0.npz", files)
 
 

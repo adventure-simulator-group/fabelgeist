@@ -1,0 +1,938 @@
+{
+  "id": "cma-1916-686",
+  "name": "CMA 1916.686 estoc",
+  "definition": {
+    "components": [
+      {
+        "id": "pommel",
+        "kind": "profileBody",
+        "material": "steel",
+        "length": 0.051,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.018,
+            "depth": 0.018
+          },
+          {
+            "at": 0.06,
+            "width": 0.045,
+            "depth": 0.045
+          },
+          {
+            "at": 0.14,
+            "width": 0.051,
+            "depth": 0.051
+          },
+          {
+            "at": 0.25,
+            "width": 0.037,
+            "depth": 0.037
+          },
+          {
+            "at": 0.42,
+            "width": 0.024,
+            "depth": 0.024
+          },
+          {
+            "at": 0.72,
+            "width": 0.019,
+            "depth": 0.019
+          },
+          {
+            "at": 1,
+            "width": 0.019,
+            "depth": 0.019
+          }
+        ],
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip-0",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.03,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.019,
+            "depth": 0.019
+          },
+          {
+            "at": 1,
+            "width": 0.019,
+            "depth": 0.018
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "pommel.top",
+          "at": "base"
+        },
+        "ribs": {
+          "count": 7,
+          "depth": 0.00035
+        }
+      },
+      {
+        "id": "grip-1",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.0475,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.019,
+            "depth": 0.018
+          },
+          {
+            "at": 1,
+            "width": 0.021,
+            "depth": 0.018
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "grip-0.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip-2",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.03,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.021,
+            "depth": 0.018
+          },
+          {
+            "at": 1,
+            "width": 0.026,
+            "depth": 0.02
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "grip-1.top",
+          "at": "base"
+        },
+        "ribs": {
+          "count": 6,
+          "depth": 0.00035
+        }
+      },
+      {
+        "id": "grip-3",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.03749999999999999,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.026,
+            "depth": 0.02
+          },
+          {
+            "at": 1,
+            "width": 0.028,
+            "depth": 0.02
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "grip-2.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip-4",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.04000000000000001,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.028,
+            "depth": 0.02
+          },
+          {
+            "at": 1,
+            "width": 0.027,
+            "depth": 0.019
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "grip-3.top",
+          "at": "base"
+        },
+        "ribs": {
+          "count": 9,
+          "depth": 0.00035
+        }
+      },
+      {
+        "id": "grip-5",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.065,
+        "radialSegments": 32,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.027,
+            "depth": 0.019
+          },
+          {
+            "at": 1,
+            "width": 0.025,
+            "depth": 0.016
+          }
+        ],
+        "cover": {
+          "material": "darkLeather",
+          "thickness": 0.001
+        },
+        "attach": {
+          "to": "grip-4.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "guard",
+        "kind": "guardAssembly",
+        "material": "steel",
+        "nodes": {
+          "lower": [
+            0,
+            -0.006,
+            0
+          ],
+          "upper": [
+            0,
+            0.006,
+            0
+          ]
+        },
+        "anchorNode": "lower",
+        "members": [
+          {
+            "path": [
+              "lower",
+              "upper"
+            ],
+            "section": "beveled",
+            "sectionWidth": 0.032,
+            "sectionDepth": 0.024
+          }
+        ],
+        "attach": {
+          "to": "grip-5.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "left-quillon",
+        "kind": "guardAssembly",
+        "material": "steel",
+        "nodes": {
+          "p0": [
+            -0.016,
+            0,
+            0
+          ],
+          "p1": [
+            -0.020085470295639143,
+            0,
+            0
+          ],
+          "p2": [
+            -0.024170940591278285,
+            0,
+            0
+          ],
+          "p3": [
+            -0.02825641088691743,
+            0,
+            0
+          ],
+          "p4": [
+            -0.03234188118255657,
+            0,
+            0
+          ],
+          "p5": [
+            -0.0364273514781957,
+            0,
+            0
+          ],
+          "p6": [
+            -0.04051282177383486,
+            0,
+            0
+          ],
+          "p7": [
+            -0.044598292069473994,
+            0,
+            0
+          ],
+          "p8": [
+            -0.04868376236511314,
+            0,
+            0
+          ],
+          "p9": [
+            -0.05276923266075228,
+            0,
+            0
+          ],
+          "p10": [
+            -0.05685470295639142,
+            0,
+            0
+          ],
+          "p11": [
+            -0.06094017325203056,
+            0,
+            0
+          ],
+          "p12": [
+            -0.06502564354766971,
+            0,
+            0
+          ],
+          "p13": [
+            -0.06911111384330884,
+            0,
+            0
+          ],
+          "p14": [
+            -0.073196584138948,
+            0,
+            0
+          ],
+          "p15": [
+            -0.07728205443458712,
+            0,
+            0
+          ],
+          "p16": [
+            -0.08136752473022628,
+            0,
+            0
+          ],
+          "p17": [
+            -0.08545299502586542,
+            0,
+            0
+          ],
+          "p18": [
+            -0.08953846532150456,
+            0,
+            0
+          ],
+          "p19": [
+            -0.0936239356171437,
+            0,
+            0
+          ],
+          "p20": [
+            -0.09770940591278283,
+            0,
+            0
+          ],
+          "p21": [
+            -0.10179487620842198,
+            0,
+            0
+          ],
+          "p22": [
+            -0.10588034650406113,
+            0,
+            0
+          ],
+          "p23": [
+            -0.10996581679970027,
+            0,
+            0
+          ],
+          "p24": [
+            -0.11410541560418995,
+            0,
+            -0.000545186779374907
+          ],
+          "p25": [
+            -0.11796290759116411,
+            0,
+            -0.0021435935394489808
+          ],
+          "p26": [
+            -0.12127541105651744,
+            0,
+            -0.004686291501015239
+          ],
+          "p27": [
+            -0.12381718436325687,
+            0,
+            -0.007999999999999998
+          ],
+          "p28": [
+            -0.12541500986100712,
+            0,
+            -0.011858895278359668
+          ],
+          "p29": [
+            -0.12595999838262797,
+            0,
+            -0.015999999999999997
+          ],
+          "p30": [
+            -0.12595999838262797,
+            0,
+            -0.02
+          ]
+        },
+        "anchorNode": "p0",
+        "members": [
+          {
+            "path": [
+              "p0",
+              "p1",
+              "p2",
+              "p3",
+              "p4",
+              "p5",
+              "p6",
+              "p7",
+              "p8",
+              "p9",
+              "p10",
+              "p11",
+              "p12",
+              "p13",
+              "p14",
+              "p15",
+              "p16",
+              "p17",
+              "p18",
+              "p19",
+              "p20",
+              "p21",
+              "p22",
+              "p23",
+              "p24",
+              "p25",
+              "p26",
+              "p27",
+              "p28",
+              "p29",
+              "p30"
+            ],
+            "section": "round",
+            "sectionWidth": 0.01,
+            "sectionDepth": 0.01,
+            "radialSegments": 24
+          }
+        ],
+        "attach": {
+          "to": "guard.origin",
+          "at": "origin",
+          "offset": [
+            -0.016,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "id": "right-quillon",
+        "kind": "guardAssembly",
+        "material": "steel",
+        "nodes": {
+          "p0": [
+            0.016,
+            0,
+            0
+          ],
+          "p1": [
+            0.020085470295639143,
+            0,
+            0
+          ],
+          "p2": [
+            0.024170940591278285,
+            0,
+            0
+          ],
+          "p3": [
+            0.02825641088691743,
+            0,
+            0
+          ],
+          "p4": [
+            0.03234188118255657,
+            0,
+            0
+          ],
+          "p5": [
+            0.0364273514781957,
+            0,
+            0
+          ],
+          "p6": [
+            0.04051282177383486,
+            0,
+            0
+          ],
+          "p7": [
+            0.044598292069473994,
+            0,
+            0
+          ],
+          "p8": [
+            0.04868376236511314,
+            0,
+            0
+          ],
+          "p9": [
+            0.05276923266075228,
+            0,
+            0
+          ],
+          "p10": [
+            0.05685470295639142,
+            0,
+            0
+          ],
+          "p11": [
+            0.06094017325203056,
+            0,
+            0
+          ],
+          "p12": [
+            0.06502564354766971,
+            0,
+            0
+          ],
+          "p13": [
+            0.06911111384330884,
+            0,
+            0
+          ],
+          "p14": [
+            0.073196584138948,
+            0,
+            0
+          ],
+          "p15": [
+            0.07728205443458712,
+            0,
+            0
+          ],
+          "p16": [
+            0.08136752473022628,
+            0,
+            0
+          ],
+          "p17": [
+            0.08545299502586542,
+            0,
+            0
+          ],
+          "p18": [
+            0.08953846532150456,
+            0,
+            0
+          ],
+          "p19": [
+            0.0936239356171437,
+            0,
+            0
+          ],
+          "p20": [
+            0.09770940591278283,
+            0,
+            0
+          ],
+          "p21": [
+            0.10179487620842198,
+            0,
+            0
+          ],
+          "p22": [
+            0.10588034650406113,
+            0,
+            0
+          ],
+          "p23": [
+            0.10996581679970027,
+            0,
+            0
+          ],
+          "p24": [
+            0.11410541560418995,
+            0,
+            0.000545186779374907
+          ],
+          "p25": [
+            0.11796290759116411,
+            0,
+            0.0021435935394489808
+          ],
+          "p26": [
+            0.12127541105651744,
+            0,
+            0.004686291501015239
+          ],
+          "p27": [
+            0.12381718436325687,
+            0,
+            0.007999999999999998
+          ],
+          "p28": [
+            0.12541500986100712,
+            0,
+            0.011858895278359668
+          ],
+          "p29": [
+            0.12595999838262797,
+            0,
+            0.015999999999999997
+          ],
+          "p30": [
+            0.12595999838262797,
+            0,
+            0.02
+          ]
+        },
+        "anchorNode": "p0",
+        "members": [
+          {
+            "path": [
+              "p0",
+              "p1",
+              "p2",
+              "p3",
+              "p4",
+              "p5",
+              "p6",
+              "p7",
+              "p8",
+              "p9",
+              "p10",
+              "p11",
+              "p12",
+              "p13",
+              "p14",
+              "p15",
+              "p16",
+              "p17",
+              "p18",
+              "p19",
+              "p20",
+              "p21",
+              "p22",
+              "p23",
+              "p24",
+              "p25",
+              "p26",
+              "p27",
+              "p28",
+              "p29",
+              "p30"
+            ],
+            "section": "round",
+            "sectionWidth": 0.01,
+            "sectionDepth": 0.01,
+            "radialSegments": 24
+          }
+        ],
+        "attach": {
+          "to": "guard.origin",
+          "at": "origin",
+          "offset": [
+            0.016,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "id": "blade",
+        "kind": "blade",
+        "material": "steel",
+        "length": 1.253,
+        "width": 0.027,
+        "thickness": 0.016,
+        "section": "triangular",
+        "taper": 0.8,
+        "tipWidth": 0.04,
+        "point": {
+          "start": 0.94,
+          "roundness": 0.1
+        },
+        "attach": {
+          "to": "guard.top",
+          "at": "base"
+        },
+        "belly": 0,
+        "curvature": 0
+      }
+    ]
+  },
+  "description": "Three-sided thrusting sword with a trumpet pommel, three separated grip-rib bands and opposed curled quillons.",
+  "controls": [
+    {
+      "label": "Blade length",
+      "path": "components.10.length",
+      "min": 0.9,
+      "max": 1.5,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade breadth",
+      "path": "components.10.width",
+      "min": 0.02,
+      "max": 0.03,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Triangle full height",
+      "path": "components.10.thickness",
+      "min": 0.01,
+      "max": 0.018,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade taper",
+      "path": "components.10.taper",
+      "min": 0.65,
+      "max": 1.1,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Point start",
+      "path": "components.10.point.start",
+      "min": 0.85,
+      "max": 0.97,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Point roundness",
+      "path": "components.10.point.roundness",
+      "min": 0,
+      "max": 0.8,
+      "step": 0.1,
+      "unit": ""
+    },
+    {
+      "label": "Blade belly",
+      "path": "components.10.belly",
+      "min": 0,
+      "max": 0.15,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Distal curvature",
+      "path": "components.10.curvature",
+      "min": -0.01,
+      "max": 0.01,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel crown breadth",
+      "paths": [
+        "components.0.profile.2.width",
+        "components.0.profile.2.depth"
+      ],
+      "min": 0.045,
+      "max": 0.057,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel height",
+      "path": "components.0.length",
+      "min": 0.045,
+      "max": 0.06,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Lower grip length",
+      "path": "components.6.length",
+      "min": 0.055,
+      "max": 0.075,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Upper rib courses",
+      "path": "components.1.ribs.count",
+      "min": 5,
+      "max": 10,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Lower rib courses",
+      "path": "components.5.ribs.count",
+      "min": 7,
+      "max": 12,
+      "step": 1,
+      "unit": ""
+    },
+    {
+      "label": "Rib relief",
+      "paths": [
+        "components.1.ribs.depth",
+        "components.3.ribs.depth",
+        "components.5.ribs.depth"
+      ],
+      "min": 0.0002,
+      "max": 0.0005,
+      "step": 0.00005,
+      "unit": "m"
+    },
+    {
+      "label": "Leather thickness",
+      "paths": [
+        "components.1.cover.thickness",
+        "components.2.cover.thickness",
+        "components.3.cover.thickness",
+        "components.4.cover.thickness",
+        "components.5.cover.thickness",
+        "components.6.cover.thickness"
+      ],
+      "min": 0.0007,
+      "max": 0.0013,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Quillon diameter",
+      "paths": [
+        "components.8.members.0.sectionWidth",
+        "components.8.members.0.sectionDepth",
+        "components.9.members.0.sectionWidth",
+        "components.9.members.0.sectionDepth"
+      ],
+      "min": 0.008,
+      "max": 0.011,
+      "step": 0.0005,
+      "unit": "m"
+    }
+  ],
+  "choiceControls": [],
+  "reference": {
+    "accession": "1916.686",
+    "institution": "The Cleveland Museum of Art",
+    "url": "https://www.clevelandart.org/art/1916.686",
+    "photographs": [
+      "https://openaccess-cdn.clevelandart.org/1916.686/1916.686_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt0_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt1_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt2_print.jpg",
+      "https://openaccess-cdn.clevelandart.org/1916.686/1916.686_alt3_print.jpg"
+    ],
+    "rights": "CC0 under Cleveland Museum of Art Open Access. Gift of Mr. and Mrs. John L. Severance.",
+    "published": {
+      "overallLengthMetres": 1.566,
+      "bladeLengthMetres": 1.253,
+      "quillonSpanMetres": 0.262,
+      "gripLabelLengthMetres": 0.3,
+      "massKilograms": 1.6,
+      "date": "early 1500s",
+      "culture": "Germany",
+      "materials": "Steel, wood and leather",
+      "bladeSection": "Three-sided"
+    },
+    "photoEstimates": {
+      "exposedGripLengthMetres": 0.25,
+      "pommelHeightMetres": 0.051,
+      "pommelCapBreadthMetres": 0.051,
+      "pommelNeckBreadthMetres": 0.019,
+      "maximumGripBreadthMetres": 0.028,
+      "bladeHeelBreadthMetres": 0.027,
+      "guardBlockBreadthMetres": 0.032,
+      "guardHeightMetres": 0.012,
+      "quillonDiameterMetres": 0.01,
+      "ribBandsFromPommel": [
+        [
+          0,
+          0.12
+        ],
+        [
+          0.31,
+          0.43
+        ],
+        [
+          0.58,
+          0.74
+        ]
+      ],
+      "ribCourses": [
+        7,
+        6,
+        9
+      ]
+    },
+    "assumptions": [
+      "The published 300 mm grip label has ambiguous endpoints: overall minus blade is 313 mm. The exposed leather is modeled as 250 mm, with a 51 mm pommel and 12 mm guard; the original museum field is retained rather than silently redefined.",
+      "Blade full transverse height 16 mm, guard depth 24 mm, grip depths 16–20 mm and leather thickness 1 mm are unmeasured assumptions. Neither density nor hidden thickness is adjusted to match the published mass.",
+      "The triangular blade is centered on its section centroid. Its precise section dimensions and orientation are not established by a calibrated axial photograph.",
+      "Opposed terminal curls lie in a plane transverse to the blade axis. Their 16 mm nominal centerline radius and short straight cut ends are a bounded interpretation of differing photographic projections.",
+      "Six contiguous wood/leather intervals describe one visible grip with three localized rib bands. Their matched faces partition the material; they do not assert six historical grip pieces or a known cord arrangement.",
+      "The guard block and two quillons meet on complete finite surfaces as disjoint material regions. Blade and grip meet its opposing horizontal faces. Internal tang, peen, mortise, adhesive and fasteners are not reconstructed.",
+      "The trumpet pommel is modeled as rotationally symmetric; its complete transverse section is not independently measured."
+    ],
+    "scope": "Complete visible structural sword: long three-sided blade and acute point, flared trumpet pommel, tapered grip with three separated rib bands, compact beveled block and thin opposed curled quillons. Corrosion, pitting, chips, torn leather and surface wear are excluded.",
+    "coverage": {
+      "browser": [
+        "estoc"
+      ],
+      "gameplay": []
+    },
+    "calculatedMassKilograms": 1.3995433557446022
+  }
+}

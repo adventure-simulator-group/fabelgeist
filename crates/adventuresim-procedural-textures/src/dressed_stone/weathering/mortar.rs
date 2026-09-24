@@ -1,6 +1,7 @@
 //! Periodic lime binder with discrete aggregate, application strokes and stone contact.
 
-use super::{cell_id, hash_unit, noise, smoothstep};
+mod streams;
+use super::{cell_id, noise, smoothstep};
 
 const AGGREGATE_CELLS: i32 = 600;
 const STROKE_CELLS: i32 = 40;
@@ -37,15 +38,17 @@ fn aggregate(params: &crate::TextureParameters, x: f32, y: f32) -> f32 {
             let id = cell_id(
                 ix.rem_euclid(params.dressed_stone_weathering_mortar.aggregate_cells),
                 iy.rem_euclid(params.dressed_stone_weathering_mortar.aggregate_cells),
-                0x6c31,
+                params.field_seed(streams::AGGREGATE, &[]),
             );
-            let dx = px - ix as f32 - hash_unit(params, id);
-            let dy = py - iy as f32 - hash_unit(params, id ^ 0x731a);
+            let dx = px - ix as f32 - params.rng(streams::AGGREGATE_X, &[id]).inclusive_unit_f32();
+            let dy = py - iy as f32 - params.rng(streams::AGGREGATE_Y, &[id]).inclusive_unit_f32();
             let radius = super::between(
                 params
                     .dressed_stone_weathering_mortar
                     .aggregate_radius_cells,
-                hash_unit(params, id ^ 0x27ca),
+                params
+                    .rng(streams::AGGREGATE_RADIUS, &[id])
+                    .inclusive_unit_f32(),
             );
             let dome = (1.0 - (dx * dx + dy * dy) / (radius * radius)).max(0.0);
             field = field.max(dome);
@@ -66,14 +69,18 @@ fn strokes(params: &crate::TextureParameters, x: f32, y: f32) -> (f32, f32) {
             let id = cell_id(
                 ix.rem_euclid(params.dressed_stone_weathering_mortar.stroke_cells),
                 iy.rem_euclid(params.dressed_stone_weathering_mortar.stroke_cells),
-                0x314b,
+                params.field_seed(streams::STROKE, &[]),
             );
-            if hash_unit(params, id) > params.dressed_stone_weathering_mortar.stroke_density {
+            if params
+                .rng(streams::STROKE_PRESENCE, &[id])
+                .inclusive_unit_f32()
+                > params.dressed_stone_weathering_mortar.stroke_density
+            {
                 continue;
             }
-            let dx = px - ix as f32 - hash_unit(params, id ^ 0x84d1);
-            let dy = py - iy as f32 - hash_unit(params, id ^ 0x3a17);
-            let angle = (hash_unit(params, id ^ 0x374a) - 0.5)
+            let dx = px - ix as f32 - params.rng(streams::GRAIN_X, &[id]).inclusive_unit_f32();
+            let dy = py - iy as f32 - params.rng(streams::GRAIN_Y, &[id]).inclusive_unit_f32();
+            let angle = (params.rng(streams::GRAIN_ANGLE, &[id]).inclusive_unit_f32() - 0.5)
                 * params.dressed_stone_weathering_mortar.stroke_angle_spread;
             let (sin, cos) = angle.sin_cos();
             let along = dx * cos + dy * sin;
@@ -119,7 +126,7 @@ pub(in super::super) fn mortar_detail(
         sx + cy,
         sy + cx,
         params.dressed_stone_weathering_mortar.recess_noise_scale,
-        0x781a,
+        params.field_seed(streams::RECESSION, &[]),
     );
     let contact = 1.0
         - smoothstep(

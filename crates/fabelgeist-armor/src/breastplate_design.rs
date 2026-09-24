@@ -1,5 +1,5 @@
 //! Shape controls for paired torso plates and their integral waist flanges.
-use crate::{DesignError, Millimeters, Permille, PlateFluting};
+use crate::{BreastplateConstruction, DesignError, Millimeters, Permille, PlateFluting};
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
@@ -22,6 +22,7 @@ pub struct BreastplateDesign {
     /// Scale of rear shell depth; fitting still encloses the wearer.
     pub back_depth: Permille,
     pub profile: BreastplateProfile,
+    pub construction: BreastplateConstruction,
     pub fluting: Option<PlateFluting>,
     /// Scale of the default short skirt length.
     pub skirt_length: Permille,
@@ -46,6 +47,7 @@ impl Default for BreastplateDesign {
             side_return: Permille(1_000),
             back_depth: Permille(1000),
             profile: BreastplateProfile::default(),
+            construction: BreastplateConstruction::Solid,
             fluting: None,
             skirt_length: Permille(1_000),
             skirt_flare: Millimeters(30),
@@ -117,6 +119,8 @@ impl BreastplateProfile {
 }
 
 impl BreastplateDesign {
+    pub const WAIST_WIDTH_RANGE: RangeInclusive<u16> = 650..=1200;
+
     /// Early sixteenth-century rounded silhouette; no separate plackart.
     pub fn globose() -> Self {
         Self {

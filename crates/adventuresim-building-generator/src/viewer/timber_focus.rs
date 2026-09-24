@@ -32,6 +32,7 @@ fn timber_target_component_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<Str
             adventuresim_building_generator::TimberFrameProgramKind::DirectRoofCottage => {
                 "direct-roof/gable"
             }
+            adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange => "storage-range/ground-frame",
             adventuresim_building_generator::TimberFrameProgramKind::CivicMasonryTimberHall => {
                 "civic-hall/broad-span"
             }
@@ -92,6 +93,7 @@ fn timber_section_proof(view: ViewerView) -> bool {
 }
 
 fn timber_focus_item_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<u64> {
+    if view == ViewerView::TimberJettyUnderside { return jetty_bearing::item_ids(plan); }
     use adventuresim_building_generator::TimberMemberRole as Role;
     let Some(frame) = &plan.timber_frame else {
         return Vec::new();
@@ -711,38 +713,13 @@ fn timber_camera(plan: &BuildingPlan, view: ViewerView, origin: Vec2) -> Option<
         .filter(|solid| ids.contains(&solid.id.0) && !removed.contains(&solid.id.0))
         .collect::<Vec<_>>();
     let camera_focused = &focused;
-    let focus = if camera_focused.is_empty() {
-        let dimensions = plan.dimensions_metres();
-        Vec3::new(
-            dimensions.x * 0.5,
-            plan.storey_height_metres,
-            dimensions.y * 0.5,
-        )
-    } else {
-        camera_focused
-            .iter()
-            .map(|solid| solid.centre)
-            .sum::<Vec3>()
-            / camera_focused.len() as f32
-    } + Vec3::new(origin.x, 0.0, origin.y);
+    let focus = timber_framing::target(plan, view, camera_focused) + Vec3::new(origin.x, 0.0, origin.y);
     let span = camera_focused
         .iter()
         .map(|solid| solid.size.length())
         .fold(4.0_f32, f32::max)
         .clamp(4.0, 20.0);
-    let focus_extent = if camera_focused.is_empty() {
-        span
-    } else {
-        let min = camera_focused
-            .iter()
-            .map(|solid| solid.centre - solid.size * 0.5)
-            .fold(Vec3::splat(f32::INFINITY), Vec3::min);
-        let max = camera_focused
-            .iter()
-            .map(|solid| solid.centre + solid.size * 0.5)
-            .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
-        (max - min).max_element().max(4.0)
-    };
+    let focus_extent = timber_framing::extent(camera_focused);
     let opening_frame = plan
         .timber_frame
         .as_ref()
@@ -833,9 +810,9 @@ fn timber_camera(plan: &BuildingPlan, view: ViewerView, origin: Vec2) -> Option<
             -focus_extent * 1.5,
         ),
         ViewerView::TimberJettyUnderside => Vec3::new(
-            -focus_extent * 0.82,
-            -focus_extent * 0.14,
-            -focus_extent * 0.82,
+            -focus_extent * 0.9,
+            jetty_bearing::OBSERVER_EYE_HEIGHT_METRES - focus.y,
+            -focus_extent * 1.1,
         ),
         ViewerView::TimberJettyLoad => Vec3::new(
             focus_extent * 1.5,
@@ -898,8 +875,8 @@ fn timber_required_roles(plan: &BuildingPlan, view: ViewerView) -> Vec<String> {
         | ViewerView::TimberOpeningBayInterior
         | ViewerView::TimberOpeningBaySection => &["FramePost", "FrameRail", "WallHost"],
         ViewerView::TimberJointClose => &["FramePost", "FramePlate"],
+        ViewerView::TimberJettyUnderside => &["FrameJettyBeam", "FrameKnagge", "FramePost", "FrameSill", "WallHost"],
         ViewerView::TimberJettyExterior
-        | ViewerView::TimberJettyUnderside
         | ViewerView::TimberJettyLoad => &["FrameJettyBeam", "FrameKnagge"],
         ViewerView::TimberGableRoofBearing => &["FrameGableMember"],
         ViewerView::TimberDormerTrimmer => &["FrameDormerTrimmer", "RoofFraming"],
@@ -910,6 +887,7 @@ fn timber_required_roles(plan: &BuildingPlan, view: ViewerView) -> Vec<String> {
                     frame.program,
                     adventuresim_building_generator::TimberFrameProgramKind::NorthernTwoPostHallHouse
                         | adventuresim_building_generator::TimberFrameProgramKind::DirectRoofCottage
+                        | adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange
                 )
             }) =>
         {
@@ -938,6 +916,9 @@ fn timber_required_roles(plan: &BuildingPlan, view: ViewerView) -> Vec<String> {
             ],
             Some(adventuresim_building_generator::TimberFrameProgramKind::DirectRoofCottage) => {
                 &["FramePost", "FrameBrace", "FrameGableMember"]
+            }
+            Some(adventuresim_building_generator::TimberFrameProgramKind::CourtyardStorageRange) => {
+                &["FramePost", "FrameBrace", "FramePlate", "FrameFloor"]
             }
             Some(
                 adventuresim_building_generator::TimberFrameProgramKind::CivicMasonryTimberHall,

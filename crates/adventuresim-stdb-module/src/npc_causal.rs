@@ -383,12 +383,7 @@ fn settle_romance_decision(
                     policy_seed: policy.policy_seed,
                 })
         });
-    let candidates = adventuresim_core::npc_policy::stable_candidate_order(
-        character_id,
-        policy_seed,
-        day,
-        candidates,
-    );
+    let candidates = stable_romance_candidates(character_id, policy_seed, day, candidates)?;
     for candidate in candidates {
         let actor_sex = ctx
             .db
@@ -443,6 +438,21 @@ fn settle_romance_decision(
         minute,
     );
     Ok(())
+}
+
+fn stable_romance_candidates(
+    character_id: u64,
+    policy_seed: u64,
+    day: u64,
+    candidates: impl IntoIterator<Item = adventuresim_core::npc_policy::NpcCandidate>,
+) -> Result<Vec<adventuresim_core::npc_policy::NpcCandidate>, String> {
+    adventuresim_core::npc_policy::stable_candidate_order(
+        character_id,
+        policy_seed,
+        day,
+        candidates,
+    )
+    .map_err(|conflict| conflict.to_string())
 }
 
 /// Formal eligibility is directional even though the autonomous candidate

@@ -17,11 +17,11 @@ use bevy::{
     camera::{Exposure, visibility::VisibilityRange},
     core_pipeline::tonemapping::Tonemapping,
     ecs::system::SystemParam,
-    light::{EnvironmentMapLight, NotShadowCaster, Skybox},
-    pbr::wireframe::WireframePlugin,
+    light::{EnvironmentMapLight, NotShadowCaster},
+    pbr::{AtmosphereSettings, wireframe::WireframePlugin},
     prelude::*,
     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
-    window::{ExitCondition, PresentMode},
+    window::{ExitCondition, PresentMode, WindowResolution},
     winit::WinitPlugin,
 };
 use serde::Serialize;
@@ -39,6 +39,7 @@ mod gpu_readiness;
 mod interior_capture;
 mod interior_furniture_capture;
 mod manifest;
+mod plant_lods;
 mod terrain_setup;
 mod triangle_census;
 mod view_camera;
@@ -73,7 +74,7 @@ use view_specs::{
 
 use crate::camera::CameraRigConfig;
 use crate::presentation::{
-    AtmosphereIblAmbientHandoff, GroundLitterCaptureAnchors, GroundLitterCapturePair,
+    AtmosphereIblStatus, GroundLitterCaptureAnchors, GroundLitterCapturePair,
     GroundLitterDiagnostics, GroundScatterLayer, LooseStonePebblePatch, PlayableTreeAggregateWood,
     PlayableTreeBuds, PlayableTreeCanopyCard, PlayableTreeDetailedLeaves,
     PlayableTreeDetailedTrunk, PlayableTreeDetailedWood, PlayableTreeMidTrunk, PlayableTreeTrunk,
@@ -96,12 +97,16 @@ const PERFORMANCE_TARGET_FPS: f64 = 60.0;
 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;
 const SQUARE_METRES_PER_SQUARE_KILOMETRE: f64 = 1_000_000.0;
 const STANDING_EYE_HEIGHT_METRES: f32 = 1.65;
-const CAPTURE_PROFILE_VERSION: u16 = 33;
+const CAPTURE_PROFILE_VERSION: u16 = 43;
+const PLANT_REVIEW_PROFILE: &str = "plant-review";
+const FUNGUS_REVIEW_PROFILE: &str = "fungus-review";
+const PLANT_LOD_REVIEW_PROFILE: &str = "plant-lod-review";
+const PLANT_LOD_ISOLATED_PROFILE: &str = "plant-lod-isolated";
 const BEECH_LEAF_MOTION_PROFILE: &str = "beech-leaf-motion";
 const INTERIOR_REVIEW_PROFILE: &str = "interior-review";
 const CITY_REVIEW_PROFILE: &str = "city-review";
 pub(crate) const LANDFORM_REVIEW_PROFILE: &str = "landform-review";
-const CAMERA_VERSION: u16 = 21;
+const CAMERA_VERSION: u16 = 30;
 const CAPTURE_CLOCK_PHASE_SECONDS: f32 = 2.0;
 const PLASTER_GRAZING_REVIEW_LUMENS: f32 = 50_000.0;
 
@@ -140,7 +145,7 @@ struct LightingObservationParams<'w, 's> {
     spatial: SpatialQuery<'w, 's>,
     settings: Res<'w, TacticalGraphicsSettings>,
     ambient: Res<'w, GlobalAmbientLight>,
-    ambient_handoff: Res<'w, AtmosphereIblAmbientHandoff>,
+    ambient_handoff: Res<'w, AtmosphereIblStatus>,
     images: Res<'w, Assets<Image>>,
     understory_review_specimens: Query<
         'w,
@@ -160,6 +165,10 @@ struct LightingObservationParams<'w, 's> {
     presented_tree_names: Query<'w, 's, &'static Name, With<PresentedTree>>,
     terrain: Query<'w, 's, &'static SceneTerrain>,
     litter_anchors: Query<'w, 's, &'static GroundLitterCaptureAnchors>,
+    plant_anchors: Query<'w, 's, &'static crate::presentation::PlantCaptureAnchors>,
+    plant_lods: plant_lods::Instances<'w, 's>,
+    plant_meshes: Res<'w, Assets<Mesh>>,
+    plant_visible: Query<'w, 's, &'static bevy::camera::visibility::VisibleEntities>,
     obstacle_transforms: Query<
         'w,
         's,
@@ -860,8 +869,9 @@ pub(crate) fn run(
         })
         .set(WindowPlugin {
             primary_window: (!scene_performance_benchmarking).then(|| Window {
-                title: "Fabelgeist tactical scene capture".into(),
-                resolution: (VIEW_WIDTH, VIEW_HEIGHT).into(),
+                visible: false,
+                resolution: WindowResolution::new(VIEW_WIDTH, VIEW_HEIGHT)
+                    .with_scale_factor_override(1.0),
                 present_mode: PresentMode::AutoNoVsync,
                 resizable: false,
                 decorations: false,
@@ -881,7 +891,8 @@ pub(crate) fn run(
         app.add_plugins(default_plugins.disable::<WinitPlugin>())
             .add_plugins(ScheduleRunnerPlugin::run_loop(Duration::ZERO));
     } else {
-        app.add_plugins(default_plugins);
+        app.add_plugins(default_plugins)
+            .insert_resource(bevy::winit::WinitSettings::continuous());
     }
     app.add_plugins(AdventureSimulatorPhysicsPlugin {
         enable_simulation: false,
@@ -1019,13 +1030,13 @@ fn requested_feature_state() -> PresentationFeatureState {
 fn observed_presentation_features(
     settings: &TacticalGraphicsSettings,
     environment_map: Option<&EnvironmentMapLight>,
-    skybox: Option<&Skybox>,
+    atmosphere: Option<&AtmosphereSettings>,
     images: &Assets<Image>,
     exposure: &Exposure,
     tonemapping: &Tonemapping,
     ambient: &GlobalAmbientLight,
-    ambient_handoff: &AtmosphereIblAmbientHandoff,
-    celestial: &CelestialProvenance,
+    ambient_handoff: &AtmosphereIblStatus,
+    _celestial: &CelestialProvenance,
 ) -> PresentationFeatures {
     let requested = requested_feature_state();
     let observed_settings = feature_state(settings);
@@ -1059,25 +1070,11 @@ fn observed_presentation_features(
         ambient_color: ambient.color.to_linear().to_f32_array(),
         ambient_brightness: ambient.brightness,
         ambient_policy: if ambient_handoff.active {
-            "atmosphere_ibl_plus_bounded_multibounce"
+            "atmosphere_ibl"
         } else {
-            "global_ambient_fallback"
+            "awaiting_atmosphere_ibl"
         },
-        expected_ambient_brightness: if ambient_handoff.active {
-            crate::presentation::scene_ibl_visibility_floor(
-                celestial.sun_altitude_degrees,
-                celestial.moon_altitude_degrees,
-                celestial.lunar_illumination,
-            )
-            .1
-        } else {
-            crate::presentation::scene_ambient_light(
-                celestial.sun_altitude_degrees,
-                celestial.moon_altitude_degrees,
-                celestial.lunar_illumination,
-            )
-            .1
-        },
+        expected_ambient_brightness: 0.0,
     };
     let requested_matches_observed = observed_settings == requested
         && observed.camera_environment_map == requested.environment_light
@@ -1087,7 +1084,7 @@ fn observed_presentation_features(
                 .then_some([requested.environment_map_size; 2])
         && observed.camera_environment_map_intensity
             == requested.environment_light.then_some(1.0)
-        && skybox.is_some() == requested.environment_light
+        && atmosphere.is_some() == requested.atmosphere
         // Production exposure is driven by the scene's solar/lunar state and
         // may be between authored targets while the ECS observer settles.
         && observed.camera_exposure_ev100.is_finite()
@@ -1112,6 +1109,10 @@ fn selected_capture_views(
     requested: &[String],
 ) -> Result<Vec<CaptureViewSpec>, String> {
     let profile_views = match profile {
+        PLANT_REVIEW_PROFILE => view_specs::PLANT_REVIEW_VIEWS.as_slice(),
+        FUNGUS_REVIEW_PROFILE => view_specs::FUNGUS_REVIEW_VIEWS.as_slice(),
+        PLANT_LOD_REVIEW_PROFILE => view_specs::PLANT_LOD_REVIEW_VIEWS.as_slice(),
+        PLANT_LOD_ISOLATED_PROFILE => view_specs::PLANT_LOD_ISOLATED_VIEWS.as_slice(),
         "semantic" => CAPTURE_VIEWS.as_slice(),
         "environment-review" => ENVIRONMENT_REVIEW_VIEWS.as_slice(),
         LANDFORM_REVIEW_PROFILE => LANDFORM_REVIEW_VIEWS.as_slice(),
@@ -1125,6 +1126,11 @@ fn selected_capture_views(
         building_review::SHOP_PROFILE => view_specs::SHOP_REVIEW_VIEWS.as_slice(),
         building_review::WORKPLACE_PROFILE => view_specs::WORKPLACE_REVIEW_VIEWS.as_slice(),
         building_review::PARISH_PROFILE => view_specs::PARISH_REVIEW_VIEWS.as_slice(),
+        building_review::HEATING_PROFILE => view_specs::HEATING_REVIEW_VIEWS.as_slice(),
+        building_review::GARDEN_PROFILE => view_specs::GARDEN_REVIEW_VIEWS.as_slice(),
+        building_review::FACADE_PROFILE => view_specs::FACADE_REVIEW_VIEWS.as_slice(),
+        building_review::GABLE_PROFILE => view_specs::GABLE_REVIEW_VIEWS.as_slice(),
+        building_review::COMPOUND_PROFILE => view_specs::COMPOUND_REVIEW_VIEWS.as_slice(),
         "animation-play" => ANIMATION_PLAY_VIEWS.as_slice(),
         "tree-cold-traversal" => TREE_COLD_TRAVERSAL_VIEWS.as_slice(),
         BEECH_LEAF_MOTION_PROFILE => BEECH_LEAF_MOTION_VIEWS.as_slice(),
@@ -1743,6 +1749,8 @@ fn setup_scene(
         obstacles,
         buildings,
         mut furniture,
+        boundaries,
+        gardens,
         repairs,
         terrain_patch,
     } = generated;
@@ -1789,17 +1797,23 @@ fn setup_scene(
         &output,
     )
     .unwrap_or_else(|| interior_capture::capture_cameras(&buildings, &profile));
-    let city_exterior_cameras =
-        building_review::setup(&mut commands, &buildings, &input_path, &output, &profile)
-            .unwrap_or_else(|| {
-                city_capture::capture_cameras(
-                    &buildings,
-                    &input.distant_buildings,
-                    &input.streets,
-                    &terrain,
-                    &profile,
-                )
-            });
+    let city_exterior_cameras = building_review::setup(
+        &mut commands,
+        &buildings,
+        boundaries.len(),
+        &input_path,
+        &output,
+        &profile,
+    )
+    .unwrap_or_else(|| {
+        city_capture::capture_cameras(
+            &buildings,
+            &input.distant_buildings,
+            &input.streets,
+            &terrain,
+            &profile,
+        )
+    });
     let city_exterior_cameras = furniture_capture::setup(
         &mut commands,
         &furniture,
@@ -1813,6 +1827,13 @@ fn setup_scene(
     let city_exterior_cameras = catalog_cameras.unwrap_or(city_exterior_cameras);
     furniture_capture::spawn(&mut commands, &furniture);
     spawn_tactical_buildings(&mut commands, buildings);
+    buildings::spawn_boundaries(&mut commands, boundaries);
+    for garden in gardens {
+        commands.spawn((
+            garden.scene,
+            Transform::from_xyz(0.0, garden.elevation_metres, 0.0),
+        ));
+    }
     commands.spawn((
         Name::new("Neutral plaster grazing review light"),
         PlasterGrazingReviewLight,
@@ -2128,8 +2149,12 @@ fn setup_scene(
             terrain_summary.depth_metres * 0.5,
         ),
         distant_buildings: input.distant_buildings.clone(),
+        establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
         furniture_groups: furniture.groups,
         distant_furniture: furniture.distant_instances,
         lods: input.vista.lods.clone(),
@@ -2164,6 +2189,7 @@ fn setup_scene(
         tree_focus,
         rock_focus,
         debris_focus,
+        plant_focus: None,
         debris_camera: None,
         debris_leaf_distance_metres: None,
         debris_twig_distance_metres: None,
@@ -2564,7 +2590,9 @@ fn benchmark_scene_performance(
             let mask = match layer {
                 GroundScatterLayer::DryLeaves | GroundScatterLayer::Twigs => HIDE_LITTER,
                 GroundScatterLayer::Grass => HIDE_GRASS,
-                GroundScatterLayer::Understory => HIDE_UNDERSTORY,
+                GroundScatterLayer::Understory | GroundScatterLayer::BotanicalPlants => {
+                    HIDE_UNDERSTORY
+                }
                 GroundScatterLayer::LooseStone => HIDE_LOOSE_STONE,
             };
             *visibility = if mode.hidden_scene_layers & mask != 0 {
@@ -2621,6 +2649,7 @@ fn benchmark_scene_performance(
             let name = match layer {
                 GroundScatterLayer::Grass => "grass_patches",
                 GroundScatterLayer::Understory => "understory_patches",
+                GroundScatterLayer::BotanicalPlants => "botanical_lod_entities",
                 GroundScatterLayer::DryLeaves => "dry_leaf_patches",
                 GroundScatterLayer::Twigs => "twig_patches",
                 GroundScatterLayer::LooseStone => "loose_stone_patches",
@@ -3245,7 +3274,7 @@ fn capture_views(
             &mut GlobalTransform,
             &mut Projection,
             Option<&EnvironmentMapLight>,
-            Option<&Skybox>,
+            Option<&AtmosphereSettings>,
             &Exposure,
             &Tonemapping,
         ),
@@ -3381,6 +3410,13 @@ fn capture_views(
                 understory_focus = Some(specimen.focus);
             }
         }
+        state.plant_focus = lighting
+            .plant_anchors
+            .iter()
+            .flat_map(|anchors| anchors.0.iter().copied())
+            .filter(|anchor| view.pose.accepts_plant(anchor.species))
+            .map(|anchor| anchor.root)
+            .min_by(|a, b| a.length_squared().total_cmp(&b.length_squared()));
         if view.debris_target {
             let pairs = lighting
                 .litter_anchors
@@ -3425,16 +3461,25 @@ fn capture_views(
                         && name.starts_with(&format!("Shared {common_name} "))
                         && position.distance_squared(focus) <= 0.0001
                 });
-            let hide_for_view = if view.understory_species.is_some() {
+            let hide_for_view = if matches!(view.pose, CapturePose::PlantLod { .. })
+                && layer == GroundScatterLayer::BotanicalPlants
+            {
+                false
+            } else if view.understory_species.is_some() {
                 !isolated_understory_visible
             } else {
                 (layer == GroundScatterLayer::Grass && suppress_grass)
-                    || (layer == GroundScatterLayer::Understory && suppress_understory)
+                    || (matches!(
+                        layer,
+                        GroundScatterLayer::Understory | GroundScatterLayer::BotanicalPlants
+                    ) && suppress_understory)
                     || view.hide_obstacles
             };
             if matches!(
                 layer,
-                GroundScatterLayer::Grass | GroundScatterLayer::Understory
+                GroundScatterLayer::Grass
+                    | GroundScatterLayer::Understory
+                    | GroundScatterLayer::BotanicalPlants
             ) || view.hide_obstacles
                 || view.understory_species.is_some()
             {
@@ -3648,6 +3693,7 @@ fn capture_views(
                     })
                     .flatten();
             state.captures.push(CaptureRecord {
+                botanical_lods: Vec::new(),
                 view: view.slug.to_owned(),
                 label: view.label.to_owned(),
                 screenshot: format!("{}.png", view.slug),
@@ -3723,6 +3769,19 @@ fn capture_views(
         return;
     }
 
+    let botanical_lods = plant_lods::observe(
+        &lighting.plant_lods,
+        &lighting.plant_meshes,
+        lighting
+            .plant_visible
+            .get(camera.0)
+            .expect("capture camera has visibility list"),
+        state.plant_focus,
+        camera.1.translation,
+    );
+    if let Some(record) = state.captures.last_mut() {
+        record.botanical_lods = botanical_lods;
+    }
     if view.observe_recursive_lod {
         let camera_position = camera.1.translation;
         state.recursive_lods_observed.extend(
@@ -3891,6 +3950,25 @@ fn capture_views(
             );
             let final_readback_hash = deterministic_readback_hash(captured.image.data.as_deref());
             let settled_reference_hash = state.last_prime_readback_hash;
+            // Lighting convergence can precede completion of streamed geometry.
+            // Keep the camera frozen and retain bounded raw retries until the
+            // required pixel-identical pair exists; the final gate stays strict.
+            const MAX_STABLE_READBACK_ATTEMPTS: u8 = 8;
+            if view.verify_settled_readbacks
+                && settled_reference_hash != final_readback_hash
+                && prime_readbacks < MAX_STABLE_READBACK_ATTEMPTS
+            {
+                let retry_path = state
+                    .output
+                    .join(format!("{}-unsettled-{prime_readbacks}.png", view.slug));
+                save_to_disk(retry_path)(captured);
+                state.last_prime_readback_hash = final_readback_hash;
+                state.phase = CapturePhase::Settling {
+                    frames: 0,
+                    prime_readbacks: prime_readbacks + 1,
+                };
+                return;
+            }
             save_to_disk(&path)(captured);
             if let Some(record) = state.captures.last_mut() {
                 record.foreground_pixel_bps = foreground_pixel_bps;
@@ -3940,6 +4018,11 @@ fn focused_tree_lod_queued(
 fn camera_for_view(pose: CapturePose, state: &SceneCaptureState) -> (Transform, Vec3) {
     let half = state.terrain.width_metres.max(state.terrain.depth_metres) * 0.5;
     let (position, target, up) = match pose {
+        CapturePose::Plant { .. } | CapturePose::Fungus { .. } | CapturePose::PlantLod { .. } => {
+            pose.plant_camera(state.plant_focus.expect(
+                "botanical review requires actual production roots of the requested species",
+            ))
+        }
         CapturePose::Ground => (state.ground_eye_position, state.ground_eye_target, Vec3::Y),
         CapturePose::AnimationPlay { yaw_degrees } => {
             let yaw = Quat::from_rotation_y(yaw_degrees.to_radians());
@@ -4292,6 +4375,7 @@ fn build_manifest(
     };
     let mut grass_clumps = 0;
     let mut understory_clumps = 0;
+    let mut botanical_lod_entities = 0;
     let mut dry_leaf_patches = 0;
     let mut twig_patches = 0;
     let mut loose_stone_patches = 0;
@@ -4299,6 +4383,7 @@ fn build_manifest(
         match layer {
             GroundScatterLayer::Grass => grass_clumps += 1,
             GroundScatterLayer::Understory => understory_clumps += 1,
+            GroundScatterLayer::BotanicalPlants => botanical_lod_entities += 1,
             GroundScatterLayer::DryLeaves => dry_leaf_patches += 1,
             GroundScatterLayer::Twigs => twig_patches += 1,
             GroundScatterLayer::LooseStone => loose_stone_patches += 1,
@@ -4307,6 +4392,9 @@ fn build_manifest(
     let foliage_summary = FoliageSummary {
         grass_clumps,
         understory_clumps,
+        botanical_lod_entities,
+        botanical_specimens: botanical_lod_entities
+            / adventuresim_plant_generator::PlantLod::ALL.len(),
         dry_leaf_patches,
         twig_patches,
         loose_stone_patches,

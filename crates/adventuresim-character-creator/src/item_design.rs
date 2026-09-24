@@ -1,7 +1,7 @@
 //! Generator input for one equipment article, and the catalog's default designs.
 
 use crate::{
-    armor_design_input::{self, ArmorDesigns},
+    armor_design_input::{self, ArmorDesigns, ArmorPlacement},
     armor_design_output::DesignPaths,
     armor_recipes::{self, DedicatedGenerator, ParametricDesign},
     design_input,
@@ -81,14 +81,24 @@ impl CatalogDesigns {
 
     /// The design a newly acquired `item_id` is built from, if it is parametric.
     pub fn default_for(&self, item_id: &str) -> Option<ItemDesign> {
+        self.default_in(item_id, None)
+    }
+
+    /// The design `item_id` is built from in `placement`: a placement's own
+    /// saved recipe, or else the item's default.
+    pub fn default_at(&self, item_id: &str, placement: &str) -> Option<ItemDesign> {
+        self.default_in(item_id, ArmorPlacement::parse(placement))
+    }
+
+    fn default_in(&self, item_id: &str, placement: Option<ArmorPlacement>) -> Option<ItemDesign> {
         match DedicatedGenerator::for_item(item_id) {
             Some(DedicatedGenerator::Vambrace) => Some(ItemDesign::Vambrace(self.vambrace.clone())),
             Some(DedicatedGenerator::Breastplate) => {
                 Some(ItemDesign::Breastplate(self.breastplate.clone()))
             }
-            None => self
-                .overrides
-                .get(item_id)
+            None => placement
+                .and_then(|placement| self.overrides.selected(item_id, placement))
+                .or_else(|| self.overrides.defaults.get(item_id))
                 .cloned()
                 .or_else(|| armor_recipes::recipe(item_id))
                 .map(ItemDesign::Recipe),
@@ -107,7 +117,7 @@ impl CatalogDesigns {
         design.validate()?;
         match design {
             ItemDesign::Recipe(recipe) => {
-                self.overrides.insert(item_id.into(), recipe);
+                self.overrides.defaults.insert(item_id.into(), recipe);
             }
             ItemDesign::Vambrace(vambrace) => self.vambrace = vambrace,
             ItemDesign::Breastplate(breastplate) => self.breastplate = breastplate,

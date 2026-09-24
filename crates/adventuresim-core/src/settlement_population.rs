@@ -2,6 +2,9 @@
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
+mod demographics;
+pub use demographics::settlement_building_seed;
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum AgeBand {
@@ -145,6 +148,9 @@ pub struct GenerationInput {
     pub service_id: Option<String>,
     pub profession_override: Option<String>,
     pub local_role: String,
+    /// Final age selected by an owning population plan. `None` lets this
+    /// relation choose the age before any age-dependent profile facts.
+    pub age: Option<AgeBand>,
     pub available_bridges: BTreeSet<PresenceBridge>,
 }
 
@@ -180,11 +186,14 @@ pub struct GeneratedPopulationProfile {
     pub decisions: Vec<RelationDecision>,
 }
 
-/// Stable FNV-1a rather than `DefaultHasher`, whose algorithm is not a persistence contract.
+/// Stable identity seed for a persistent source coordinate.
 pub fn stable_hash(value: &str) -> u64 {
-    value.bytes().fold(1_469_598_103_934_665_603, |hash, byte| {
-        (hash ^ u64::from(byte)).wrapping_mul(1_099_511_628_211)
-    })
+    fabelgeist_determinism::Seed::derive(
+        value.as_bytes(),
+        fabelgeist_determinism::StreamId::new("population.source-identity"),
+        &[],
+    )
+    .to_u64()
 }
 
 #[derive(Clone, Copy)]
@@ -240,22 +249,15 @@ impl StableDecision for &'static str {
     }
 }
 
-fn population_relation_hash(seed: &str, relation: PopulationRelation) -> u64 {
-    let mut hash = 1_469_598_103_934_665_603_u64;
-    for value in [
-        b"adventuresim.settlement-population-choice.v1".as_slice(),
+fn population_relation_seed(
+    seed: &str,
+    relation: PopulationRelation,
+) -> fabelgeist_determinism::Seed {
+    fabelgeist_determinism::Seed::derive(
         seed.as_bytes(),
-        relation.stable_id().as_bytes(),
-    ] {
-        for byte in (value.len() as u64)
-            .to_le_bytes()
-            .into_iter()
-            .chain(value.iter().copied())
-        {
-            hash = (hash ^ u64::from(byte)).wrapping_mul(1_099_511_628_211);
-        }
-    }
-    hash
+        fabelgeist_determinism::StreamId::new("population.relation"),
+        &[relation.stable_id().as_bytes()],
+    )
 }
 
 fn choose<T: StableDecision>(
@@ -266,7 +268,7 @@ fn choose<T: StableDecision>(
     candidates: &[RelationCandidate<T>],
 ) -> Result<(T, RelationDecision), String> {
     let relation_id = relation.stable_id();
-    let valid: Vec<_> = candidates
+    let mut valid: Vec<_> = candidates
         .iter()
         .copied()
         .filter(|candidate| {
@@ -278,35 +280,32 @@ fn choose<T: StableDecision>(
                         .is_some_and(|bridge| available_bridges.contains(&bridge)))
         })
         .collect();
-    let total: u64 = valid
+    valid.sort_by_key(|candidate| candidate.value.stable_decision());
+    if valid
+        .windows(2)
+        .any(|pair| pair[0].value.stable_decision() == pair[1].value.stable_decision())
+    {
+        return Err(format!("Duplicate candidate in relation {relation_id}"));
+    }
+    let weights: Vec<_> = valid
         .iter()
         .map(|candidate| u64::from(candidate.plausibility) * u64::from(candidate.curation))
-        .sum();
-    if total == 0 {
-        return Err(format!(
-            "No valid choice for relation {relation_id} in {context}"
-        ));
-    }
-    let mut draw = population_relation_hash(seed, relation) % total;
-    for candidate in valid {
-        let weight = u64::from(candidate.plausibility) * u64::from(candidate.curation);
-        if draw < weight {
-            return Ok((
-                candidate.value,
-                RelationDecision {
-                    relation: relation_id.into(),
-                    context: context.into(),
-                    decision: candidate.value.stable_decision().into(),
-                    plausibility: candidate.plausibility,
-                    curation: candidate.curation,
-                    bridge: candidate.bridge,
-                },
-            ));
-        }
-        draw -= weight;
-    }
-    Err(format!(
-        "Weighted choice exhausted for relation {relation_id}"
+        .collect();
+    let selected = population_relation_seed(seed, relation)
+        .rng()
+        .weighted_index(&weights)
+        .map_err(|error| format!("Cannot select relation {relation_id} in {context}: {error}"))?;
+    let candidate = valid[selected];
+    Ok((
+        candidate.value,
+        RelationDecision {
+            relation: relation_id.into(),
+            context: context.into(),
+            decision: candidate.value.stable_decision().into(),
+            plausibility: candidate.plausibility,
+            curation: candidate.curation,
+            bridge: candidate.bridge,
+        },
     ))
 }
 
@@ -404,13 +403,7 @@ pub fn generate(input: &GenerationInput) -> Result<GeneratedPopulationProfile, S
             if input.is_service_provider { 100 } else { 0 },
         ),
     ];
-    let (age, age_decision) = choose(
-        &input.seed,
-        PopulationRelation::AgeAtLocation,
-        context,
-        &input.available_bridges,
-        &age_candidates,
-    )?;
+    let (age, age_decision) = demographics::choose_age(input, context, &age_candidates)?;
     let (profession, mut profession_decision) = choose(
         &input.seed,
         PopulationRelation::ProfessionAtLocation,
@@ -585,6 +578,7 @@ mod tests {
             service_id: None,
             profession_override: None,
             local_role: "witness".into(),
+            age: None,
             available_bridges: BTreeSet::from([
                 PresenceBridge::NearbyHome,
                 PresenceBridge::HouseholdErrand,
@@ -655,14 +649,43 @@ mod tests {
     }
 
     #[test]
-    fn population_relation_hash_has_fixed_versioned_vectors() {
-        assert_eq!(
-            population_relation_hash("same", PopulationRelation::AgeAtLocation),
-            2_278_414_030_378_973_202
+    fn population_relations_have_independent_streams() {
+        assert_ne!(
+            population_relation_seed("same", PopulationRelation::AgeAtLocation),
+            population_relation_seed("same", PopulationRelation::ProfessionAtLocation)
         );
-        assert_eq!(
-            population_relation_hash("x", PopulationRelation::ProfessionAtLocation),
-            11_895_146_399_370_311_533
+        assert_ne!(
+            population_relation_seed("same", PopulationRelation::AgeAtLocation),
+            population_relation_seed("different", PopulationRelation::AgeAtLocation)
         );
+    }
+
+    #[test]
+    fn building_plan_seed_is_stable_per_settlement_identity() {
+        assert_eq!(settlement_building_seed("same"), 16_612_061_259_017_072_879);
+        assert_ne!(
+            settlement_building_seed("same"),
+            settlement_building_seed("different")
+        );
+    }
+
+    #[test]
+    fn planned_age_precedes_age_dependent_profile_generation() {
+        let mut adult = input("planned-age", LocationContext::Overview);
+        adult.age = Some(AgeBand::Adult);
+        let mut elder = adult.clone();
+        elder.age = Some(AgeBand::Elder);
+        let adult = generate(&adult).unwrap();
+        let elder = generate(&elder).unwrap();
+        assert_eq!(adult.age, AgeBand::Adult);
+        assert_eq!(elder.age, AgeBand::Elder);
+        assert_eq!(adult.profession, elder.profession);
+        assert_eq!(adult.schedule, elder.schedule);
+        assert_eq!(adult.height, elder.height);
+        assert_eq!(adult.build, elder.build);
+        assert_eq!(adult.decisions[0].context, "household-plan");
+        assert_eq!(elder.decisions[0].context, "household-plan");
+        assert_eq!(adult.decisions[5].context, "Adult");
+        assert_eq!(elder.decisions[5].context, "Elder");
     }
 }

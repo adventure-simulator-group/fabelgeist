@@ -16,3 +16,6 @@ anyhow = { "version" = "1.0" }
 fabelgeist-xpbd = { "path" = "../fabelgeist-xpbd" }
 fabelgeist-physics = { "path" = "../fabelgeist-physics" }
 tokio = { "version" = "1", "features" = ["full"] }
+
+[lints]
+workspace = true

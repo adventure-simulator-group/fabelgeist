@@ -65,7 +65,7 @@ pub(super) fn reviewer_combatant(build: &MeleeIterationBuild) -> ReviewerCombata
                 .weighted_check(|skill| skills.skill_hours_trained(skill))
         });
     ReviewerCombatant {
-        name: build.name,
+        name: &build.name,
         build: build.description,
         equipment: build.equipment_description,
         attributes: AttributeContext {

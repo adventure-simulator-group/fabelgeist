@@ -1,4 +1,5 @@
 use super::super::*;
+use fabelgeist_determinism::StreamId;
 
 const BOULDER_GRID_SAMPLES: usize = 18;
 
@@ -6,7 +7,10 @@ fn rock_field(recipe: RockRecipe, point: Vec3) -> f32 {
     let dimensions = Vec3::from_array(recipe.dimensions_metres());
     let half_extents = dimensions * 0.5;
     let normalized = point / half_extents;
-    let phase = unit_hash(recipe.seed) * core::f32::consts::TAU;
+    let phase = StreamId::new("visual.obstacles.rock.phase")
+        .rng(recipe.seed, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let (sin_phase, cos_phase) = phase.sin_cos();
     let oriented = Vec3::new(
         normalized.x * cos_phase - normalized.z * sin_phase,
@@ -145,7 +149,10 @@ fn rock_material_with_textures(
             arm,
             surface: tint.extend(roughness_bias),
             geology: Vec4::new(
-                unit_hash(recipe.seed) * core::f32::consts::TAU,
+                StreamId::new("visual.obstacles.rock.phase")
+                    .rng(recipe.seed, &[])
+                    .inclusive_unit_f32()
+                    * core::f32::consts::TAU,
                 0.5,
                 macro_strength,
                 normal_strength,

@@ -1,9 +1,12 @@
+mod streams;
+use super::ground_scatter::{
+    GrassWorld, MINIMUM_GRASS_SLOPE_NORMAL_Y, TacticalGrassInstancedMaterial, TierSpeciesBatches,
+    TuftPigment, TuftPlacement, grass_scatter_density, scatter_cell_tufts, spawn_tuft_batches,
+};
 use super::*;
 use adventuresim_tactical_core::vista_surface::*;
-use fabelgeist_determinism::splitmix64;
 
-mod grass_mask;
-mod streets;
+pub(super) mod streets;
 mod surface;
 
 pub(crate) use streets::CityGroundMaterial;
@@ -15,7 +18,7 @@ pub(super) use surface::ActiveVistaSurface;
 pub(crate) struct VistaTreePresentation;
 
 /// Presentation-only scatter outside the authoritative gameplay heightfield.
-#[derive(Component)]
+#[derive(Component, Clone, Copy)]
 pub(crate) struct VistaGrassPresentation;
 
 #[derive(Component)]
@@ -39,11 +42,12 @@ pub(super) fn on_scene_vista_bundle(
     settings: Res<TacticalGraphicsSettings>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<TacticalVistaMaterial>>,
-    mut foliage_materials: ResMut<Assets<TacticalFoliageMaterial>>,
+    mut grass_materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
     mut standard_materials: ResMut<Assets<StandardMaterial>>,
     mut tree_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
     mut images: ResMut<Assets<Image>>,
     mut vista_tree_cache: ResMut<VistaTreePresentationCache>,
+    prepared_tree_impostors: PreparedTreeImpostors,
     mut city_ground: streets::CityGroundAssets,
 ) {
     let started = web_time::Instant::now();
@@ -74,10 +78,7 @@ pub(super) fn on_scene_vista_bundle(
         .unwrap_or(Color::srgb_u8(37, 61, 4));
     let material = materials.add(vista_material(weather, vista_grass_color));
     if playable_scene.is_none() {
-        warn!(
-            scene_digest = %bundle.scene_digest,
-            "Tactical vista arrived before its authoritative playable terrain; edge stitching is unavailable"
-        );
+        warn!(scene_digest = %bundle.scene_digest, "Vista arrived before playable terrain");
     }
     let mut inner_half_extent = bundle.playable_half_extent_metres;
     for (index, lod) in visible_lods.iter().copied().enumerate() {
@@ -117,6 +118,7 @@ pub(super) fn on_scene_vista_bundle(
                 &mut tree_materials,
                 &mut images,
                 &mut vista_tree_cache,
+                prepared_tree_impostors.get(),
             );
         }
         inner_half_extent = Vec2::new(
@@ -137,7 +139,7 @@ pub(super) fn on_scene_vista_bundle(
             playable_ground,
             environment,
             &mut meshes,
-            &mut foliage_materials,
+            &mut grass_materials,
             &mut standard_materials,
             &mut images,
             &settings.config.grass,
@@ -170,7 +172,7 @@ fn spawn_near_vista_details(
     playable_ground: &SceneGround,
     environment: &SceneEnvironment,
     meshes: &mut Assets<Mesh>,
-    foliage_materials: &mut Assets<TacticalFoliageMaterial>,
+    grass_materials: &mut Assets<TacticalGrassInstancedMaterial>,
     standard_materials: &mut Assets<StandardMaterial>,
     images: &mut Assets<Image>,
     grass: &crate::presentation::config::GrassConfig,
@@ -194,10 +196,9 @@ fn spawn_near_vista_details(
         playable_ground,
         environment,
         meshes,
-        foliage_materials,
-        images,
+        grass_materials,
         grass,
-        urban_ground,
+        &urban_ground,
     );
     spawn_vista_rocks(
         commands,
@@ -209,6 +210,102 @@ fn spawn_near_vista_details(
         meshes,
         standard_materials,
     );
+}
+
+/// Instance placement for the vista rings: the same tuft lattice as the
+/// playable sward, sampling height from the coarse vista heightfield and
+/// coverage from the boundary-stitched ground cover. Sites inside the playable
+/// rectangle report bare so the two swards tile without overlapping.
+struct VistaTuftPlacement<'a> {
+    lod: &'a VistaLod,
+    coarser_lod: Option<&'a VistaLod>,
+    playable_half_extent: Vec2,
+    playable_terrain: &'a SceneTerrain,
+    playable_ground: &'a SceneGround,
+    urban_ground: &'a UrbanGround,
+    profile: GrassCommunityProfile,
+    community_seed: u64,
+    /// How far past the playable rectangle this sward reaches, in metres.
+    outer_collar: f32,
+}
+
+impl TuftPlacement for VistaTuftPlacement<'_> {
+    fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2) {
+        let outer = self.playable_half_extent + Vec2::splat(self.outer_collar);
+        (
+            (-outer / cell_spacing).floor().as_ivec2(),
+            (outer / cell_spacing).ceil().as_ivec2(),
+        )
+    }
+
+    /// `coverage` clears the playable interior per tuft, which is what keeps
+    /// the boundary exact. Rejecting cells that sit wholly inside it as well is
+    /// pure speed: those cells would sample the vista heightfield once per tuft
+    /// only to discard every one.
+    fn cell_allows(&self, _cell_hash: u64, cell: IVec2, cell_spacing: f32, _jitter: f32) -> bool {
+        let centre = cell.as_vec2() * cell_spacing;
+        let interior = self.playable_half_extent - Vec2::splat(cell_spacing);
+        centre.x.abs() > interior.x || centre.y.abs() > interior.y
+    }
+
+    fn coverage(&self, centre: Vec2) -> u8 {
+        // The playable sward owns everything inside its rectangle. Gating per
+        // tuft rather than per cell keeps the boundary exact, so neither
+        // sward doubles up nor leaves a gap along it.
+        if centre.x.abs() <= self.playable_half_extent.x
+            && centre.y.abs() <= self.playable_half_extent.y
+        {
+            return 0;
+        }
+        let coverage = stitched_vista_topology_coverage(
+            self.lod,
+            self.playable_half_extent,
+            self.playable_ground,
+            centre,
+            self.urban_ground,
+        );
+        (coverage.clamp(0.0, 1.0) * 255.0) as u8
+    }
+
+    fn height(&self, centre: Vec2) -> Option<f32> {
+        let origin = Vec2::new(
+            self.lod.origin_east_metres as f32,
+            self.lod.origin_north_metres as f32,
+        );
+        let local = centre - origin;
+        let at = |offset: Vec2| {
+            presented_vista_vertex_height(
+                self.lod,
+                self.coarser_lod,
+                Some(self.playable_terrain),
+                local + offset,
+                self.playable_half_extent,
+            )
+        };
+        let height = at(Vec2::ZERO)?;
+        // Central differences over the presented surface, matching the slope
+        // gate the playable placement takes from `SceneTerrain::normal_at`.
+        let delta = 2.0;
+        let sample = |offset: Vec2| at(offset).unwrap_or(height);
+        let tangent_x = Vec3::new(
+            delta * 2.0,
+            sample(Vec2::X * delta) - sample(-Vec2::X * delta),
+            0.0,
+        );
+        let tangent_z = Vec3::new(
+            0.0,
+            sample(Vec2::Y * delta) - sample(-Vec2::Y * delta),
+            delta * 2.0,
+        );
+        let normal = tangent_z.cross(tangent_x).normalize_or_zero();
+        (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(height)
+    }
+
+    fn community(&self, centre: Vec2) -> GrassCommunity {
+        let profile = sample_vista_environment(self.lod, centre)
+            .map_or(self.profile, |sample| self.profile.localized(sample));
+        grass_community_at(centre, self.community_seed, profile)
+    }
 }
 
 #[expect(
@@ -224,109 +321,113 @@ fn spawn_near_vista_scatter(
     playable_ground: &SceneGround,
     environment: &SceneEnvironment,
     meshes: &mut Assets<Mesh>,
-    foliage_materials: &mut Assets<TacticalFoliageMaterial>,
-    images: &mut Assets<Image>,
+    grass_materials: &mut Assets<TacticalGrassInstancedMaterial>,
     grass: &crate::presentation::config::GrassConfig,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) {
+    if !grass.enabled {
+        return;
+    }
     let scene_seed = stable_text_seed(&environment.scene_digest);
     let (grass_color, grass_dryness) = grass_pigment(environment);
-    let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
-    let grass_seed = scene_seed ^ 0x6772_6173_735f_6c6f;
-    let grass_profile = GrassCommunityProfile::from_environment(environment);
-    let (coverage_mask, coverage_transform) = grass_mask::vista_grass_cover_mask_image(
+    // Blade density has to match the playable sward exactly: the two lattices
+    // abut along the playable rectangle, so any difference reads as a seam.
+    let pigment = TuftPigment {
+        color: grass_color,
+        density: grass_scatter_density(
+            bps(environment.canopy_bps),
+            bps(environment.water_bps),
+            bps(environment.cultivation_bps),
+            bps(environment.weather.snow_cover_bps),
+        ) * grass.density_scale,
+        dryness: grass_dryness,
+        wind_scale: 0.16 + bps(environment.weather.wind_speed_bps) * 0.36,
+    };
+    let grass_seed = streams::GRASS.seed(scene_seed, &[]).to_u64();
+    let profile = GrassCommunityProfile::from_environment(environment);
+    let placement = |outer_collar| VistaTuftPlacement {
         lod,
+        coarser_lod,
         playable_half_extent,
+        playable_terrain,
         playable_ground,
-        scene_seed,
-        150.0,
         urban_ground,
-    );
-    let coverage_mask = images.add(coverage_mask);
+        profile,
+        community_seed: grass_seed,
+        outer_collar,
+    };
 
     // The playable boundary selects the height/cover data source, never the
     // representation. The same globally aligned lattice and distance ranges
     // continue across it, so crossing the boundary cannot introduce an LOD
     // edge or replace blank space with a close representation.
-    if grass.enabled {
-        for grass_lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
-            let community_meshes = GrassCommunity::ALL.map(|community| {
-                GrassTopology::ALL.map(|topology| {
-                    meshes.add(configured_grass_patch_mesh(
-                        grass_color,
-                        grass_lod,
-                        topology.density() * grass.density_scale,
-                        community,
-                        grass,
-                    ))
-                })
-            });
-            let material = foliage_materials.add(configured_vista_grass_material(
-                wind_scale,
-                grass_dryness,
-                coverage_mask.clone(),
-                coverage_transform,
-                grass_lod,
-                grass.density_scale,
-                grass,
-            ));
-            spawn_vista_grass_lattice(
-                commands,
-                lod,
-                coarser_lod,
-                playable_half_extent,
-                playable_terrain,
-                playable_ground,
-                grass_seed,
-                grass_seed,
-                grass.placement.playable_patch_spacing_m,
-                80.0,
-                &community_meshes,
-                grass_profile,
-                &material,
-                configured_grass_lod_visibility(grass_lod, grass),
-                urban_ground,
-            );
-        }
-
-        let vista_meshes = GrassCommunity::ALL.map(|community| {
-            GrassTopology::ALL.map(|topology| {
-                meshes.add(configured_grass_patch_mesh(
-                    grass_color,
-                    GrassMeshLod::Vista,
-                    topology.density() * grass.density_scale,
-                    community,
-                    grass,
-                ))
-            })
-        });
-        let vista_material = foliage_materials.add(configured_vista_grass_material(
-            wind_scale,
-            grass_dryness,
-            coverage_mask,
-            coverage_transform,
-            GrassMeshLod::Vista,
-            grass.density_scale,
-            grass,
-        ));
-        spawn_vista_grass_lattice(
-            commands,
-            lod,
-            coarser_lod,
-            playable_half_extent,
-            playable_terrain,
-            playable_ground,
-            grass_seed ^ 0x7669_7374_615f_6c6f,
+    //
+    // Each tier only reaches as far as its own fade-out: the camera stays
+    // inside the playable rectangle, so a tuft farther out than the tier's
+    // terminal fade distance can never be drawn, and placing one would only
+    // cost instance memory and compute-cull work.
+    let mut batches = TierSpeciesBatches::default();
+    for grass_lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
+        scatter_cell_tufts(
+            &mut batches[grass_lod.tier_index()],
+            &placement(tier_sward_collar_metres(grass_lod, grass)),
             grass_seed,
-            grass.placement.vista_patch_spacing_m,
-            150.0,
-            &vista_meshes,
-            grass_profile,
-            &vista_material,
-            configured_grass_lod_visibility(GrassMeshLod::Vista, grass),
-            urban_ground,
+            grass_lod,
+            grass.placement.playable_patch_spacing_m,
+            grass,
         );
     }
+    // Reuse the near placements, exactly as the playable sward does, so the
+    // near-edge crossfade morphs each tuft in place instead of moving it.
+    for species in GrassSpecies::ALL {
+        batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
+            batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
+    }
+    scatter_cell_tufts(
+        &mut batches[GrassMeshLod::Vista.tier_index()],
+        &placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
+        streams::GRASS_LOD.seed(grass_seed, &[]).to_u64(),
+        GrassMeshLod::Vista,
+        grass.placement.vista_patch_spacing_m,
+        grass,
+    );
+
+    spawn_tuft_batches(
+        GrassWorld {
+            commands,
+            meshes,
+            materials: grass_materials,
+        },
+        &mut batches,
+        "Vista grass",
+        // Shadow casting out here costs cascade budget for contact detail
+        // nobody can resolve, so no vista ring tier ever casts.
+        (
+            VistaTerrain(lod.level),
+            VistaGrassPresentation,
+            NotShadowCaster,
+        ),
+        grass_seed,
+        pigment,
+        grass,
+    );
+}
+
+/// How far past the playable rectangle a ring tier scatters: its terminal fade
+/// distance, since the camera never leaves the rectangle.
+fn tier_sward_collar_metres(
+    lod: GrassMeshLod,
+    grass: &crate::presentation::config::GrassConfig,
+) -> f32 {
+    let tier = match lod {
+        GrassMeshLod::Near => &grass.lod.near,
+        GrassMeshLod::NearEdge => &grass.lod.near_edge,
+        GrassMeshLod::Far => &grass.lod.far,
+        GrassMeshLod::Vista => &grass.lod.vista,
+    };
+    // The near tier hands off to near-edge, which reuses its placements, so the
+    // near lattice has to reach as far as the wider of the two bands.
+    tier.fade_out_m[1].max(grass.lod.near_edge.fade_out_m[1])
 }
 
 const VISTA_GRASS_BOUNDARY_STITCH_METRES: f32 = 12.0;
@@ -335,38 +436,12 @@ fn smoothstep01(value: f32) -> f32 {
     value * value * (3.0 - 2.0 * value)
 }
 
-fn vista_grass_patch_topology(
-    lod: &VistaLod,
-    playable_half_extent: Vec2,
-    playable_ground: &SceneGround,
-    centre: Vec2,
-    half_extent: f32,
-    urban_ground: UrbanGround<'_>,
-) -> Option<GrassTopology> {
-    let mut total = 0.0;
-    let mut samples = 0;
-    for z in [-1.0, -0.5, 0.0, 0.5, 1.0] {
-        for x in [-1.0, -0.5, 0.0, 0.5, 1.0] {
-            let point = centre + Vec2::new(x, z) * half_extent;
-            total += stitched_vista_topology_coverage(
-                lod,
-                playable_half_extent,
-                playable_ground,
-                point,
-                urban_ground,
-            );
-            samples += 1;
-        }
-    }
-    GrassTopology::for_local_coverage(total / samples as f32)
-}
-
 fn stitched_vista_topology_coverage(
     lod: &VistaLod,
     playable_half_extent: Vec2,
     playable_ground: &SceneGround,
     point: Vec2,
-    urban_ground: UrbanGround<'_>,
+    urban_ground: &UrbanGround,
 ) -> f32 {
     if urban_ground.suppresses_grass(point) {
         return 0.0;
@@ -389,85 +464,6 @@ fn stitched_vista_topology_coverage(
         vista_coverage,
         smoothstep01(outside / VISTA_GRASS_BOUNDARY_STITCH_METRES),
     )
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "this domain boundary names each independent input explicitly"
-)]
-fn spawn_vista_grass_lattice(
-    commands: &mut Commands,
-    lod: &VistaLod,
-    coarser_lod: Option<&VistaLod>,
-    playable_half_extent: Vec2,
-    playable_terrain: &SceneTerrain,
-    playable_ground: &SceneGround,
-    seed: u64,
-    community_seed: u64,
-    spacing: f32,
-    outer_collar: f32,
-    meshes: &[[Handle<Mesh>; GrassTopology::COUNT]; 3],
-    profile: GrassCommunityProfile,
-    material: &Handle<TacticalFoliageMaterial>,
-    visibility: VisibilityRange,
-    urban_ground: UrbanGround<'_>,
-) {
-    let outer = playable_half_extent + Vec2::splat(outer_collar);
-    let minimum = (-outer / spacing).floor().as_ivec2();
-    let maximum = (outer / spacing).ceil().as_ivec2();
-    for z in minimum.y..=maximum.y {
-        for x in minimum.x..=maximum.x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let hash = splitmix64(seed ^ cell);
-            let jitter = Vec2::new(
-                unit_hash(splitmix64(hash ^ 0x39bd_7f21)) - 0.5,
-                unit_hash(splitmix64(hash ^ 0xe651_34aa)) - 0.5,
-            ) * spacing
-                * 0.04;
-            let point = Vec2::new(x as f32, z as f32) * spacing + jitter;
-            if point.x.abs() <= playable_half_extent.x && point.y.abs() <= playable_half_extent.y {
-                continue;
-            }
-            let Some(sample) = sample_vista_environment(lod, point) else {
-                continue;
-            };
-            let Some(topology) = vista_grass_patch_topology(
-                lod,
-                playable_half_extent,
-                playable_ground,
-                point,
-                spacing * 0.58,
-                urban_ground,
-            ) else {
-                continue;
-            };
-            let local_profile = profile.localized(sample);
-            let mesh = &meshes[grass_community_at(point, community_seed, local_profile) as usize]
-                [topology.index()];
-            let Some(transform) = vista_scatter_transform(
-                lod,
-                coarser_lod,
-                playable_terrain,
-                playable_half_extent,
-                point,
-                hash,
-                0.0,
-            ) else {
-                continue;
-            };
-            commands.spawn((
-                Name::new("Tactical vista grass patch"),
-                VistaTerrain(lod.level),
-                VistaGrassPresentation,
-                GroundScatterLayer::Grass,
-                NotShadowCaster,
-                Mesh3d(mesh.clone()),
-                MeshMaterial3d(material.clone()),
-                visibility.clone(),
-                transform,
-            ));
-        }
-    }
 }
 
 #[expect(
@@ -504,11 +500,7 @@ fn spawn_vista_rocks(
     let maximum = (outer / spacing).ceil().as_ivec2();
     for z in minimum.y..=maximum.y {
         for x in minimum.x..=maximum.x {
-            let cell = ((x as u32 as u64) << 32) | z as u32 as u64;
-            let hash = splitmix64(scene_seed ^ cell ^ 0x726f_636b_5f76_6973);
-            let jitter = Vec2::new(unit_hash(hash) - 0.5, unit_hash(splitmix64(hash)) - 0.5)
-                * spacing
-                * 0.72;
+            let (hash, jitter) = streams::rock_cell(scene_seed, x, z, spacing);
             let point = Vec2::new(x as f32, z as f32) * spacing + jitter;
             if point.x.abs() <= playable_half_extent.x + 2.0
                 && point.y.abs() <= playable_half_extent.y + 2.0
@@ -522,7 +514,7 @@ fn spawn_vista_rocks(
                 * (1.0 - bps(sample.water_bps))
                 * (1.0 - bps(sample.wetland_bps) * 0.75)
                 * (1.0 - bps(sample.canopy_bps) * 0.42);
-            if unit_hash(splitmix64(hash ^ 0xa880_2dd1)) > exposed * 0.46 {
+            if streams::ROCK_PRESENCE.rng(hash, &[]).inclusive_unit_f32() > exposed * 0.46 {
                 continue;
             }
             let lift = 0.08;
@@ -537,7 +529,7 @@ fn spawn_vista_rocks(
             ) else {
                 continue;
             };
-            let scale = 0.55 + unit_hash(splitmix64(hash ^ 0x9137_b22c)) * 1.35;
+            let scale = 0.55 + streams::ROCK_SCALE.rng(hash, &[]).inclusive_unit_f32() * 1.35;
             transform.scale = Vec3::new(scale, scale * 0.72, scale * 0.9);
             for (name, mesh, visibility) in [
                 (
@@ -616,7 +608,7 @@ fn vista_scatter_transform(
         Transform::from_xyz(point.x, height + lift, point.y).with_rotation(
             Quat::from_rotation_arc(Vec3::Y, normal)
                 * Quat::from_rotation_y(
-                    unit_hash(splitmix64(hash ^ 0x55d8_093b)) * core::f32::consts::TAU,
+                    streams::ROCK_YAW.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU,
                 ),
         ),
     )
@@ -706,6 +698,7 @@ fn spawn_vista_trees(
     tree_materials: &mut Assets<TacticalTreeImpostorMaterial>,
     images: &mut Assets<Image>,
     cache: &mut VistaTreePresentationCache,
+    prepared: Option<&PreparedTreeImpostorAsset>,
 ) {
     let width = usize::from(lod.width);
     let depth = usize::from(lod.depth);
@@ -720,11 +713,10 @@ fn spawn_vista_trees(
             // A regional source cell represents a stand, not individual
             // stems. Keep a physical-area-scaled silhouette sample; the
             // terrain material carries the remaining aggregate canopy.
-            let cell_key = ((x as u64) << 32) | z as u64;
             let candidate_count = vista_tree_candidate_count(
                 canopy,
                 lod.spacing_metres,
-                splitmix64(scene_seed ^ cell_key ^ 0x74c3_019d),
+                streams::tree_count_seed(scene_seed, x, z),
             )
             .min(if lod.spacing_metres <= 250.0 { 24 } else { 3 });
             if candidate_count == 0 {
@@ -732,12 +724,8 @@ fn spawn_vista_trees(
             }
             let cell_min = (Vec2::new(x as f32, z as f32) - center) * lod.spacing_metres;
             for candidate in 0..candidate_count {
-                let hash = splitmix64(
-                    scene_seed ^ cell_key ^ (candidate as u64).wrapping_mul(0x9e37_79b9),
-                );
-                let local = cell_min
-                    + Vec2::new(unit_hash(hash), unit_hash(splitmix64(hash ^ 0x51b7_2d8a)))
-                        * lod.spacing_metres;
+                let hash = streams::tree_seed(scene_seed, x, z, candidate);
+                let local = cell_min + streams::tree_jitter(hash) * lod.spacing_metres;
                 if local.x.abs() <= playable_half_extent.x + 7.0
                     && local.y.abs() <= playable_half_extent.y + 7.0
                 {
@@ -751,14 +739,10 @@ fn spawn_vista_trees(
                 let Some(height) = presented_height_at(lod, world, coarser_lod) else {
                     continue;
                 };
-                // Vista stands share one calibrated whole-tree atlas. Scale,
-                // rotation-independent view selection, and placement still
-                // break repetition without baking during every source cell.
-                let variant_seed = splitmix64(0x6f61_6b00);
-                let species =
-                    environment.map_or(TreePresentationSpecies::EnglishOak, |environment| {
-                        tree_species_for_site(Vec3::new(local.x, 0.0, local.y), environment)
-                    });
+                // One calibrated whole-tree atlas avoids baking for every source cell.
+                let variant_seed =
+                    crate::presentation::obstacles::tree::specimen::oak_variant_seed(0);
+                let species = vista_tree_species(environment, local);
                 let cached = ensure_vista_tree_variant(
                     variant_seed,
                     0.5,
@@ -767,12 +751,13 @@ fn spawn_vista_trees(
                     tree_materials,
                     images,
                     cache,
+                    prepared,
                 );
                 // Each atlas represents the visible crown mass of a small
                 // stand at regional distance, not a survey-accurate stem.
                 let scale = vista_tree_scale(
                     lod.spacing_metres,
-                    unit_hash(splitmix64(hash ^ 0xa29c_413d)),
+                    streams::TREE_SCALE.rng(hash, &[]).inclusive_unit_f32(),
                 );
                 let card_height = cached
                     .provenance
@@ -843,7 +828,13 @@ fn vista_tree_visibility(
 
 fn vista_tree_candidate_count(canopy: f32, spacing_metres: f32, seed: u64) -> usize {
     let expected = canopy.clamp(0.0, 1.0) * spacing_metres * spacing_metres / 3_200.0;
-    expected.floor() as usize + usize::from(unit_hash(seed) < expected.fract())
+    expected.floor() as usize
+        + usize::from(
+            streams::TREE_COUNT_FRACTION
+                .rng(seed, &[])
+                .inclusive_unit_f32()
+                < expected.fract(),
+        )
 }
 
 #[cfg(test)]
@@ -1191,7 +1182,7 @@ fn clear_vista_weather() -> WeatherSnapshot {
     }
 }
 
-#[derive(Component)]
+#[derive(Component, Clone, Copy)]
 pub(crate) struct VistaTerrain(pub(crate) u8);
 
 /// A terrain-surface chunk, excluding vista grass, rocks, and tree cards that
@@ -1635,17 +1626,13 @@ mod tests {
             heights_metres: vec![0.0; 49],
             environment: vec![deep_woods; 49],
         };
-        let (width, depth, mask) = grass_cover_mask_pixels(&ground, 42);
         let coverage = |x| {
-            grass_mask::stitched_vista_grass_coverage(
+            stitched_vista_topology_coverage(
                 &lod,
                 Vec2::splat(10.0),
                 &ground,
-                &mask,
-                width,
-                depth,
                 Vec2::new(x, 0.0),
-                UrbanGround::new(&[], &[]),
+                &UrbanGround::new(&[], &[]),
             )
         };
         let boundary = coverage(10.0);
@@ -1664,15 +1651,12 @@ mod tests {
             surface: CityStreetSurface::CompactedEarth,
         }];
         assert_eq!(
-            grass_mask::stitched_vista_grass_coverage(
+            stitched_vista_topology_coverage(
                 &lod,
                 Vec2::splat(10.0),
                 &ground,
-                &mask,
-                width,
-                depth,
                 Vec2::new(22.0, 0.0),
-                UrbanGround::new(&street, &[]),
+                &UrbanGround::new(&street, &[]),
             ),
             0.0
         );
@@ -1697,10 +1681,14 @@ mod tests {
     #[test]
     fn vista_tree_density_scales_with_physical_cell_area() {
         let small = (0..64_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 50.0, splitmix64(seed)))
+            .map(|seed| {
+                vista_tree_candidate_count(1.0, 50.0, streams::TEST_COUNT.seed(seed, &[]).to_u64())
+            })
             .sum::<usize>();
         let large = (0..64_u64)
-            .map(|seed| vista_tree_candidate_count(1.0, 100.0, splitmix64(seed)))
+            .map(|seed| {
+                vista_tree_candidate_count(1.0, 100.0, streams::TEST_COUNT.seed(seed, &[]).to_u64())
+            })
             .sum::<usize>();
         assert!(small > 0);
         assert!(large >= small * 3);

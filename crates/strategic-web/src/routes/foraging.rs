@@ -1,3 +1,5 @@
+mod feedback;
+
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     Router,
@@ -531,10 +533,7 @@ pub(crate) async fn activity_dialog(
                         a class="btn btn-primary character-action-dialog-close" href=(return_to) { "Return" }
                     }
                 } @else if let Some(reason) = unavailable {
-                    p role="alert" class="badge badge-danger" { (reason) }
-                    div class="modal-actions" {
-                        a class="btn btn-secondary character-action-dialog-close" href=(return_to) { "Return" }
-                    }
+                    (feedback::unavailable(reason, return_to))
                 } @else {
                     @if let Some(message) = error_message {
                         p role="alert" class="badge badge-danger" { (message) }
@@ -654,19 +653,21 @@ mod tests {
     #[test]
     fn browser_checkbox_form_accepts_one_or_many_sources_without_javascript() {
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=plants&hours=1"),
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1"),
             Ok(ForageForm {
                 source: vec!["plants".into()],
                 hours: 1,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=high_game&source=plants&hours=24"),
+            parse_forage_form(
+                b"return_to=%2Flocations%2Fcamp&source=high_game&source=plants&hours=24"
+            ),
             Ok(ForageForm {
                 source: vec!["high_game".into(), "plants".into()],
                 hours: 24,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
     }
@@ -674,15 +675,15 @@ mod tests {
     #[test]
     fn browser_checkbox_form_preserves_none_and_duplicates_for_authoritative_validation() {
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&hours=1"),
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&hours=1"),
             Ok(ForageForm {
                 source: Vec::new(),
                 hours: 1,
-                return_to: "/camp".into(),
+                return_to: "/locations/camp".into(),
             })
         );
         assert_eq!(
-            parse_forage_form(b"return_to=%2Fcamp&source=plants&source=plants&hours=1")
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&source=plants&hours=1")
                 .unwrap()
                 .source,
             ["plants", "plants"]
@@ -692,10 +693,15 @@ mod tests {
     #[test]
     fn browser_checkbox_form_rejects_ambiguous_scalar_fields() {
         assert!(
-            parse_forage_form(b"return_to=%2Fcamp&return_to=%2Fother&source=plants&hours=1")
+            parse_forage_form(
+                b"return_to=%2Flocations%2Fcamp&return_to=%2Fother&source=plants&hours=1"
+            )
+            .is_err()
+        );
+        assert!(
+            parse_forage_form(b"return_to=%2Flocations%2Fcamp&source=plants&hours=1&hours=2")
                 .is_err()
         );
-        assert!(parse_forage_form(b"return_to=%2Fcamp&source=plants&hours=1&hours=2").is_err());
     }
 
     #[test]
@@ -781,21 +787,23 @@ mod tests {
         assert!(parse_forage_form(&vec![b'x'; FORAGE_FORM_MAX_BYTES + 1]).is_err());
 
         let too_many_pairs = format!(
-            "return_to=%2Fcamp&hours=1{}",
+            "return_to=%2Flocations%2Fcamp&hours=1{}",
             "&ignored=x".repeat(FORAGE_FORM_MAX_PAIRS - 1)
         );
         assert!(parse_forage_form(too_many_pairs.as_bytes()).is_err());
 
         let too_many_sources = format!(
-            "return_to=%2Fcamp&hours=1{}",
+            "return_to=%2Flocations%2Fcamp&hours=1{}",
             "&source=plants".repeat(FORAGE_FORM_MAX_SOURCES + 1)
         );
         assert!(parse_forage_form(too_many_sources.as_bytes()).is_err());
 
         let long_source = "x".repeat(FORAGE_FORM_MAX_SOURCE_LEN + 1);
         assert!(
-            parse_forage_form(format!("return_to=%2Fcamp&hours=1&source={long_source}").as_bytes())
-                .is_err()
+            parse_forage_form(
+                format!("return_to=%2Flocations%2Fcamp&hours=1&source={long_source}").as_bytes()
+            )
+            .is_err()
         );
 
         let long_return = "x".repeat(FORAGE_FORM_MAX_RETURN_TO_LEN + 1);
@@ -870,8 +878,12 @@ mod tests {
         assert!(valid_forage_request_id(&request));
         assert!(!valid_forage_request_id("../client-feedback"));
         assert_eq!(
-            forage_result_href("/camp", &request),
-            format!("/camp?forage=true&forage_receipt={request}")
+            forage_result_href("/locations/camp", &request),
+            format!(
+                "{}?forage=true&forage_receipt={}",
+                crate::location_urls::patterns::CAMP.url([]),
+                crate::location_urls::encode_component(&request.to_string())
+            )
         );
         assert_eq!(
             forage_result_href(
@@ -879,7 +891,13 @@ mod tests {
                 &request
             ),
             format!(
-                "/locations/settlement/lubeck/party/17?building=public-square&forage=true&forage_receipt={request}"
+                "{}?building=public-square&forage=true&forage_receipt={}",
+                crate::location_urls::patterns::PARTY_PERSONAL.url([
+                    &("settlement"),
+                    &("lubeck"),
+                    &("17")
+                ]),
+                crate::location_urls::encode_component(&request.to_string())
             )
         );
     }
@@ -894,8 +912,8 @@ mod tests {
         assert_eq!(forage_error_code("database exploded"), "unavailable");
         assert_eq!(forage_error_message("../raw-error"), None);
         assert_eq!(
-            forage_error_href("/camp", "../raw-error"),
-            "/camp?forage=true&forage_error=unavailable"
+            forage_error_href("/locations/camp", "../raw-error"),
+            "/locations/camp?forage=true&forage_error=unavailable"
         );
         assert_eq!(
             forage_error_href(

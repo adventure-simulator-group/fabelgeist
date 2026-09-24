@@ -174,7 +174,7 @@ impl<'a> TimberFrameBuilder<'a> {
         }
         let delta = end - start;
         let length = delta.length();
-        debug_assert!(length > 0.05);
+        debug_assert!(length > crate::MINIMUM_TIMBER_MEMBER_LENGTH_METRES);
         let horizontal = Vec2::new(delta.x, delta.z).length();
         let yaw = if horizontal > 0.001 {
             (-delta.z).atan2(delta.x)
@@ -573,28 +573,14 @@ impl<'a> TimberFrameBuilder<'a> {
     }
 }
 
-fn timber_program_kind(archetype: BuildingArchetype) -> Option<crate::TimberFrameProgramKind> {
-    Some(match archetype {
-        BuildingArchetype::TownHouse => crate::TimberFrameProgramKind::NarrowUrbanTownHouse,
-        BuildingArchetype::HallHouse => crate::TimberFrameProgramKind::NorthernTwoPostHallHouse,
-        BuildingArchetype::FachwerkCottage => crate::TimberFrameProgramKind::DirectRoofCottage,
-        BuildingArchetype::FachwerkMerchantHouse => {
-            crate::TimberFrameProgramKind::JettiedMerchantHouse
-        }
-        BuildingArchetype::RenaissanceTownHall => {
-            crate::TimberFrameProgramKind::CivicMasonryTimberHall
-        }
-        _ => return None,
-    })
-}
-
 #[cfg(test)]
 mod wall_infill_tests {
     use super::*;
 
     #[test]
     fn timber_subtraction_stops_at_the_rendered_member_end_faces() {
-        let polygon = timber_member_end_face_polygon(Vec2::new(1.0, 2.0), Vec2::new(3.0, 2.0), 0.25);
+        let polygon =
+            timber_member_end_face_polygon(Vec2::new(1.0, 2.0), Vec2::new(3.0, 2.0), 0.25);
         let coordinates = &polygon.exterior().0;
 
         assert_eq!(coordinates[0], Coord { x: 1.0, y: 1.75 });
@@ -628,7 +614,10 @@ mod wall_infill_tests {
         {
             for solid in plan.resolved_geometry.solids.iter().filter(|solid| {
                 wall.host_solids.contains(&solid.id)
-                    && matches!(solid.shape, crate::ResolvedSolidShape::TimberPanelPrism { .. })
+                    && matches!(
+                        solid.shape,
+                        crate::ResolvedSolidShape::TimberPanelPrism { .. }
+                    )
             }) {
                 let crate::ResolvedSolidShape::TimberPanelPrism {
                     vertices,
@@ -638,8 +627,7 @@ mod wall_infill_tests {
                 else {
                     unreachable!();
                 };
-                let outer_wall_plane =
-                    wall.frame.origin.dot(outward) + wall.thickness_metres * 0.5;
+                let outer_wall_plane = wall.frame.origin.dot(outward) + wall.thickness_metres * 0.5;
                 let panel_face =
                     Vec2::new(vertices[0].x, vertices[0].z).dot(outward) + depth_metres * 0.5;
                 let setback = outer_wall_plane - panel_face;
@@ -700,15 +688,15 @@ fn triangulate_panel_polygon(polygon: &Polygon<f32>) -> Vec<[Vec2; 3]> {
 fn resolve_timber_frame_assembly(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
-    walls: &mut [crate::WallAssembly],
-    openings: &[crate::OpeningAssembly],
+    walls: &mut Vec<crate::WallAssembly>,
+    openings: &mut Vec<crate::OpeningAssembly>,
     roofs: &[RoofPiece],
     dormers: &[RoofDormer],
     stairs: &mut [Stair],
     roof_assemblies: &mut [RoofAssembly],
     geometry: &mut ResolvedGeometry,
 ) -> Option<crate::TimberFrameAssembly> {
-    let program_kind = timber_program_kind(program.archetype)?;
+    let program_kind = program.archetype.timber_frame_program()?;
     let owner = GeometryOwnerId(82_000);
     let frame_material = if matches!(
         program_kind,
@@ -772,16 +760,20 @@ fn resolve_timber_frame_assembly(
                 .map(|wall| wall.frame.origin)
                 .sum::<Vec2>()
                 / facade_walls.len() as f32;
-            line_length = facade_walls.len() as f32 * CELL_SIZE_METRES;
+            line_length = facade_walls.iter().map(|wall| wall.length_metres).sum();
             let base = f32::from(level) * program.storey_height_metres;
             let top = base + program.storey_height_metres;
             let mut storey_member_ids = Vec::new();
             let mut bay_ids = Vec::new();
             for (wall_index, wall) in facade_walls.iter().enumerate() {
-                let plane = wall.frame.origin
-                    + wall.frame.outward * (wall.thickness_metres * 0.5 - section.y * 0.5);
-                let left_plan = plane - tangent * wall.length_metres * 0.5;
-                let right_plan = plane + tangent * wall.length_metres * 0.5;
+                let span = wall_spans::WallSpan::for_frame(
+                    wall,
+                    walls,
+                    (wall.thickness_metres - section.y) * 0.5,
+                );
+                let plane = span.centre();
+                let left_plan = span.start;
+                let right_plan = span.end;
                 let left_bottom = Vec3::new(left_plan.x, base, left_plan.y);
                 let right_bottom = Vec3::new(right_plan.x, base, right_plan.y);
                 let left_top = Vec3::new(left_plan.x, top, left_plan.y);
@@ -1023,10 +1015,16 @@ fn resolve_timber_frame_assembly(
                 timber_jetty::JettyFrame {
                     projection: program.upper_storey_projection_metres,
                     storey_height: program.storey_height_metres,
-                    base, section, tangent, outward,
+                    base,
+                    section,
+                    tangent,
+                    outward,
                     facade_walls: &facade_walls,
-                    line_length, storey_id: next_storey,
-                }.build(&mut builder, &mut storey_member_ids)
+                    line_length,
+                    storey_id: next_storey,
+                    walls,
+                }
+                .build(&mut builder, &mut storey_member_ids)
             });
             line_storeys.push(crate::TimberStoreyFrame {
                 id: crate::TimberStoreyFrameId(next_storey),
@@ -1088,12 +1086,20 @@ fn resolve_timber_frame_assembly(
         // 0.60 m end clearances are a coarse animation/buildability gate.
         let length = (if ridge_x { dimensions.x } else { dimensions.y } - 1.20).max(3.0);
         let row_offset = if ridge_x { dimensions.y } else { dimensions.x } * 0.20;
-        let stations=timber_hall::post_stations(centre,tangent,cross,row_offset,length,section*timber_hall::POST_SECTION_SCALE,openings);
-        let count=stations.len()-1;
+        let stations = timber_hall::post_stations(
+            centre,
+            tangent,
+            cross,
+            row_offset,
+            length,
+            section * timber_hall::POST_SECTION_SCALE,
+            openings,
+        );
+        let count = stations.len() - 1;
         for side in [-1.0_f32, 1.0] {
             let row_centre = centre + cross * row_offset * side;
             let mut member_ids = Vec::new();
-            for (index,&along) in stations.iter().enumerate() {
+            for (index, &along) in stations.iter().enumerate() {
                 let plan = row_centre + tangent * along;
                 member_ids.push(builder.member(
                     crate::TimberMemberRole::PrimaryPost,
@@ -1103,14 +1109,20 @@ fn resolve_timber_frame_assembly(
                     crate::TimberFramePhase::PrimaryConstruction,
                 ));
                 if index < count {
-                    let next_along = stations[index+1];
+                    let next_along = stations[index + 1];
                     let next = row_centre + tangent * next_along;
-                    member_ids.extend(timber_hall::aisle_head_braces(&mut builder,plan,next,program.storey_height_metres,section));
+                    member_ids.extend(timber_hall::aisle_head_braces(
+                        &mut builder,
+                        plan,
+                        next,
+                        program.storey_height_metres,
+                        section,
+                    ));
                 }
             }
             for index in 0..count {
                 let a_along = stations[index];
-                let b_along = stations[index+1];
+                let b_along = stations[index + 1];
                 let a = row_centre + tangent * a_along;
                 let b = row_centre + tangent * b_along;
                 member_ids.push(builder.member(
@@ -1154,7 +1166,13 @@ fn resolve_timber_frame_assembly(
                 crate::TimberFramePhase::RoofConstruction,
             );
             let mut transverse_members = vec![tie];
-            transverse_members.extend(timber_hall::aisle_head_braces(&mut builder, a, b, program.storey_height_metres, section));
+            transverse_members.extend(timber_hall::aisle_head_braces(
+                &mut builder,
+                a,
+                b,
+                program.storey_height_metres,
+                section,
+            ));
             transverse_members.extend(builder.members.iter().filter_map(|member| {
                 (member.role == crate::TimberMemberRole::PrimaryPost
                     && ((member.start.distance(Vec3::new(a.x, 0.0, a.y)) <= 0.003
@@ -1200,119 +1218,7 @@ fn resolve_timber_frame_assembly(
     // Do not overlay them with a second ground-to-roof post: that former
     // shortcut created nested positive-volume timbers and two competing load
     // authorities at every corner.
-    if let Some(roof) = roofs.first() {
-        let half_width = if roof.ridge_axis == RidgeAxis::X {
-            roof.size.y * 0.5
-        } else {
-            roof.size.x * 0.5
-        };
-        let rise = half_width * roof.pitch_degrees.to_radians().tan();
-        let ridge_tangent = if roof.ridge_axis == RidgeAxis::X {
-            Vec2::X
-        } else {
-            Vec2::Y
-        };
-        let gable_tangent = Vec2::new(-ridge_tangent.y, ridge_tangent.x);
-        let half_length = if roof.ridge_axis == RidgeAxis::X {
-            roof.size.x * 0.5
-        } else {
-            roof.size.y * 0.5
-        };
-        let frame_count = ((half_length * 2.0) / 1.80).ceil().max(1.0) as usize;
-        let mut roof_frames = Vec::new();
-        for frame_index in 0..=frame_count {
-            let along = -half_length + half_length * 2.0 * frame_index as f32 / frame_count as f32;
-            let gable_centre = roof.centre + ridge_tangent * along;
-            if frame_index != 0
-                && frame_index != frame_count
-                && dormers.iter().any(|dormer| {
-                    (dormer.centre - gable_centre).dot(ridge_tangent).abs()
-                        <= dormer.width_metres * 0.5 + 0.40
-                })
-            {
-                // The child roof owns its cut and four-sided trimmer frame;
-                // a regular parent truss may not continue through that cut.
-                continue;
-            }
-            let left = gable_centre - gable_tangent * half_width;
-            let right = gable_centre + gable_tangent * half_width;
-            // A half-hip does not have the full ridge elevation at its end
-            // frames.  The former full-height A-frame recipe was structurally
-            // grounded but projected through the two upper hip faces.  Match
-            // the Stage 4 half-hip construction: the retained lower gable
-            // reaches 55% of the rise at the end, then the frame apex climbs
-            // along the short hip to the main ridge.
-            let station_rise = if roof.kind == RoofKind::HalfHip {
-                let hip_run = (half_width * 0.45).max(0.001);
-                let distance_from_end = (half_length - along.abs()).max(0.0);
-                rise * (0.55 + 0.45 * (distance_from_end / hip_run).clamp(0.0, 1.0))
-            } else {
-                rise
-            };
-            let apex = Vec3::new(gable_centre.x, top + station_rise, gable_centre.y);
-            let left_base = Vec3::new(left.x, top, left.y);
-            let right_base = Vec3::new(right.x, top, right.y);
-            builder.member(
-                crate::TimberMemberRole::GableTie,
-                left_base,
-                right_base,
-                section,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            builder.member(
-                crate::TimberMemberRole::GablePost,
-                Vec3::new(gable_centre.x, top, gable_centre.y),
-                apex,
-                section,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            let collar_y = top + station_rise * 0.58;
-            let collar_half = half_width * (1.0 - 0.58);
-            let collar_left = gable_centre - gable_tangent * collar_half;
-            let collar_right = gable_centre + gable_tangent * collar_half;
-            let collar_left = Vec3::new(collar_left.x, collar_y, collar_left.y);
-            let collar_right = Vec3::new(collar_right.x, collar_y, collar_right.y);
-            for (base, collar) in [(left_base, collar_left), (right_base, collar_right)] {
-                builder.member(
-                    crate::TimberMemberRole::Rafter,
-                    base,
-                    collar,
-                    section * 0.9,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-                builder.member(
-                    crate::TimberMemberRole::Rafter,
-                    collar,
-                    apex,
-                    section * 0.9,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-            }
-            builder.member(
-                crate::TimberMemberRole::Collar,
-                collar_left,
-                collar_right,
-                section * 0.82,
-                crate::TimberFramePhase::RoofConstruction,
-            );
-            roof_frames.push((collar_left, apex, collar_right));
-        }
-        for pair in roof_frames.windows(2) {
-            for (left, right) in [
-                (pair[0].0, pair[1].0),
-                (pair[0].1, pair[1].1),
-                (pair[0].2, pair[1].2),
-            ] {
-                builder.member(
-                    crate::TimberMemberRole::Purlin,
-                    left,
-                    right,
-                    section * 1.05,
-                    crate::TimberFramePhase::RoofConstruction,
-                );
-            }
-        }
-    }
+    roof_frame::build(&mut builder, roofs, roof_assemblies, dormers, top, section);
 
     let mut dormer_trimmer_members = Vec::new();
     for (dormer_index, dormer) in dormers.iter().enumerate() {
@@ -1532,169 +1438,16 @@ fn resolve_timber_frame_assembly(
         }
     }
 
-    // Replace monolithic Stage 3 WallHost leaves with bay-local infill
-    // panels. Opening jamb/head/sill/spandrel solids retain their independent
-    // bearing authority; these residual panels cover only the wall field
-    // around the opening and sit behind the structural timber layer.
-    let mut removed_panel_ids = std::collections::HashSet::new();
-    for wall in walls
-        .iter_mut()
-        .filter(|wall| wall.material == crate::WallMaterialClass::TimberInfill)
-    {
-        let old_panels = wall
-            .host_solids
-            .iter()
-            .copied()
-            .filter(|id| {
-                builder
-                    .geometry
-                    .solids
-                    .iter()
-                    .any(|solid| solid.id == *id && solid.role == SolidRole::WallHost)
-            })
-            .collect::<Vec<_>>();
-        removed_panel_ids.extend(old_panels.iter().copied());
-        wall.host_solids.retain(|id| !old_panels.contains(id));
+    gable_openings::resolve(
+        program,
+        &mut builder,
+        roof_assemblies,
+        walls,
+        openings,
+        &mut bays,
+    );
 
-        let half_length = wall.length_metres * 0.5;
-        let field = closed_polygon([
-            Vec2::new(-half_length, 0.0),
-            Vec2::new(half_length, 0.0),
-            Vec2::new(half_length, wall.height_metres),
-            Vec2::new(-half_length, wall.height_metres),
-        ]);
-        let mut residual = MultiPolygon(vec![field]);
-        for opening in openings
-            .iter()
-            .filter(|opening| opening.host_wall == wall.id)
-        {
-            let half_opening =
-                (opening.profile.interior_width_metres() * 0.5).min(half_length - 0.02);
-            let centre = (opening.frame.origin - wall.frame.origin).dot(wall.frame.tangent);
-            let sill = (opening.sill_elevation_metres - wall.base_elevation_metres)
-                .clamp(0.0, wall.height_metres);
-            let head =
-                (sill + opening.profile.clear_height_metres()).clamp(sill, wall.height_metres);
-            let opening_polygon = closed_polygon([
-                Vec2::new(centre - half_opening, sill),
-                Vec2::new(centre + half_opening, sill),
-                Vec2::new(centre + half_opening, head),
-                Vec2::new(centre - half_opening, head),
-            ]);
-            residual = residual.difference(&opening_polygon);
-        }
-        let wall_member_ids = bays
-            .iter()
-            .filter(|bay| bay.wall == Some(wall.id))
-            .flat_map(|bay| bay.member_ids.iter().copied())
-            .collect::<std::collections::HashSet<_>>();
-        for member in builder
-            .members
-            .iter()
-            .filter(|member| wall_member_ids.contains(&member.id))
-        {
-            residual = residual.difference(&timber_member_wall_polygon(member, wall));
-        }
-
-        let panel_depth = timber_infill_panel_depth(wall);
-        // Stage 3 opening-bearing solids retain the structural wall depth, but
-        // their exposed face is recessed from the Fachwerk plane. Their exact
-        // overlap with the opening's jamb/header members is a typed composite
-        // opening-frame relation audited below; unrelated timber receives no
-        // such permission.
-        let opening_recess = 0.012_f32.min(wall.thickness_metres - 0.04);
-        let inward = -wall.frame.outward;
-        for solid in builder.geometry.solids.iter_mut().filter(|solid| {
-            wall.host_solids.contains(&solid.id)
-                && matches!(
-                    solid.role,
-                    SolidRole::OpeningJamb
-                        | SolidRole::OpeningSill
-                        | SolidRole::OpeningHead
-                        | SolidRole::OpeningSpandrel
-                )
-        }) {
-            solid.centre += Vec3::new(inward.x, 0.0, inward.y) * opening_recess * 0.5;
-            if wall.frame.outward.x.abs() > 0.5 {
-                solid.size.x = (solid.size.x - opening_recess).max(0.04);
-            } else {
-                solid.size.z = (solid.size.z - opening_recess).max(0.04);
-            }
-        }
-        let mut panel_ids = Vec::new();
-        let triangles = residual
-            .0
-            .iter()
-            .flat_map(triangulate_panel_polygon)
-            .collect::<Vec<_>>();
-        for (index, triangle) in triangles.into_iter().enumerate() {
-            let id = ResolvedItemId(
-                (1_u64 << 60) | (u64::from(wall.owner.0) << 32) | 0x0f00_0000 | index as u64,
-            );
-            let contact = ResolvedItemId(
-                (4_u64 << 60) | (u64::from(wall.owner.0) << 32) | 0x0f00_0000 | index as u64,
-            );
-            let mid_plane = timber_infill_mid_plane(wall);
-            let vertices = triangle.map(|point| {
-                let plan = mid_plane + wall.frame.tangent * point.x;
-                Vec3::new(plan.x, wall.base_elevation_metres + point.y, plan.y)
-            });
-            let depth_offset =
-                Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y) * panel_depth * 0.5;
-            let min = vertices
-                .iter()
-                .flat_map(|vertex| [*vertex - depth_offset, *vertex + depth_offset])
-                .fold(Vec3::splat(f32::INFINITY), Vec3::min);
-            let max = vertices
-                .iter()
-                .flat_map(|vertex| [*vertex - depth_offset, *vertex + depth_offset])
-                .fold(Vec3::splat(f32::NEG_INFINITY), Vec3::max);
-            let centre = (min + max) * 0.5;
-            let size = max - min;
-            builder.geometry.solids.push(ResolvedSolid {
-                id,
-                owner: wall.owner,
-                centre,
-                size,
-                yaw_radians: 0.0,
-                crossfall_radians: 0.0,
-                longfall_radians: 0.0,
-                role: SolidRole::WallHost,
-                shape: crate::ResolvedSolidShape::TimberPanelPrism {
-                    vertices,
-                    outward: wall.frame.outward,
-                    depth_metres: panel_depth,
-                },
-                supported_by: vec![wall.support_node],
-            });
-            builder.geometry.support_interfaces.push(SupportInterface {
-                id: contact,
-                owner: wall.owner,
-                node: wall.support_node,
-                bounds: ResolvedBounds {
-                    min: Vec3::new(
-                        centre.x - size.x * 0.5,
-                        centre.y - size.y * 0.5 - 0.004,
-                        centre.z - size.z * 0.5,
-                    ),
-                    max: Vec3::new(
-                        centre.x + size.x * 0.5,
-                        centre.y - size.y * 0.5 + 0.008,
-                        centre.z + size.z * 0.5,
-                    ),
-                },
-            });
-            wall.host_solids.push(id);
-            panel_ids.push(id);
-        }
-        for bay in bays.iter_mut().filter(|bay| bay.wall == Some(wall.id)) {
-            bay.infill_solids = panel_ids.clone();
-        }
-    }
-    builder
-        .geometry
-        .solids
-        .retain(|solid| !removed_panel_ids.contains(&solid.id));
+    timber_infill::resolve(&mut builder, walls, openings, &mut bays);
 
     let (preferred_stair_origin, preferred_stair_axis, stair_width, stair_run) = stairs
         .iter()
@@ -1898,16 +1651,8 @@ fn resolve_timber_frame_assembly(
         let mut bearing_interfaces = Vec::new();
         let mut floor_joist_interfaces = Vec::new();
         let mut joist_girder_interfaces = Vec::new();
-        let joist_count = (dimensions.x / 1.35).ceil().max(2.0) as usize;
-        let mut x_stations = (0..=joist_count)
-            .map(|index| 0.20 + (dimensions.x - 0.40) * index as f32 / joist_count as f32)
-            .collect::<Vec<_>>();
         let cut_bounds = (level > 0).then(|| stair_floor_cut(level));
-        if let Some((cut_min, cut_max)) = cut_bounds {
-            x_stations.extend([cut_min.x, cut_max.x]);
-            x_stations.sort_by(f32::total_cmp);
-            x_stations.dedup_by(|left, right| (*left - *right).abs() < 0.08);
-        }
+        let x_stations = floor_stations::with_stair(program, dimensions.x, cut_bounds);
         let mut upper_girder_z = dimensions.y * 0.67;
         if (upper_girder_z - stair_end.y).abs() < 0.40 {
             upper_girder_z = (stair_end.y + 0.40).min(dimensions.y - 0.40);
@@ -2730,8 +2475,7 @@ fn resolve_timber_frame_assembly(
                                     .collect::<Vec<_>>();
                                 plan_point_in_polygon(plan, &cutout)
                             });
-                        let underside = roof_plane_height(face.plane, plan)
-                            - face.plane.normal.normalize_or_zero().y * face.thickness_metres;
+                        let underside = face.underside_height_at(plan);
                         inside_face && (underside - position.y).abs() <= 0.03
                     });
                     if on_parent_plane {
@@ -2978,76 +2722,8 @@ fn resolve_timber_frame_assembly(
         }
     }
 
-    let mut masonry_bearing_interfaces = Vec::new();
-    if program_kind == crate::TimberFrameProgramKind::CivicMasonryTimberHall {
-        let sill_contacts = builder
-            .members
-            .iter()
-            .filter(|member| {
-                member.role == crate::TimberMemberRole::Sill
-                    && (member.start.y - program.storey_height_metres).abs() <= 0.01
-            })
-            .flat_map(|member| {
-                [
-                    (member.start_node, member.support_interfaces[0]),
-                    (member.end_node, member.support_interfaces[1]),
-                ]
-            })
-            .chain(
-                builder
-                    .members
-                    .iter()
-                    .filter(|member| member.role == crate::TimberMemberRole::Knagge)
-                    .map(|member| (member.start_node, member.support_interfaces[0])),
-            )
-            .collect::<Vec<_>>();
-        for (node_id, interface_id) in sill_contacts {
-            let Some(interface) = builder
-                .geometry
-                .support_interfaces
-                .iter()
-                .find(|interface| interface.id == interface_id)
-                .copied()
-            else {
-                continue;
-            };
-            let masonry_support = walls
-                .iter()
-                .filter(|wall| {
-                    wall.storey_level == 0
-                        && wall.material == crate::WallMaterialClass::CivilianMasonry
-                })
-                .find(|wall| {
-                    wall.host_solids.iter().any(|id| {
-                        builder
-                            .geometry
-                            .solids
-                            .iter()
-                            .find(|solid| solid.id == *id)
-                            .is_some_and(|solid| {
-                                let half = solid.size * 0.5 + Vec3::splat(0.01);
-                                let min = solid.centre - half;
-                                let max = solid.centre + half;
-                                interface.bounds.max.cmpge(min).all()
-                                    && interface.bounds.min.cmple(max).all()
-                            })
-                    })
-                })
-                .map(|wall| wall.support_node);
-            if let Some(support) = masonry_support
-                && let Some(node) = builder
-                    .geometry
-                    .structural_nodes
-                    .iter_mut()
-                    .find(|node| node.id == node_id)
-            {
-                node.supported_by.push(support);
-                node.supported_by.sort_unstable();
-                node.supported_by.dedup();
-                masonry_bearing_interfaces.push(interface_id);
-            }
-        }
-    }
+    let masonry_bearing_interfaces =
+        builder.resolve_masonry_bearings(walls, program.storey_height_metres);
 
     // Roof-contour members and civic masonry contacts are added after the
     // first floor/frame pass; orient the final physical graph once more so no

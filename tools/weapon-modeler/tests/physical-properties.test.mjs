@@ -1,12 +1,20 @@
+import { generateModel } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildWeapon, measureMassProperties } from "../src/mesh.js";
-import { automaticGripPoint } from "../src/glb-export.js";
+import { measureMassProperties } from "./quality/mesh-measurements.mjs";
+
 import { PRESETS, copyPreset } from "../src/presets.js";
 
 function physical(definition) {
-  const mesh = buildWeapon(definition);
-  return measureMassProperties(mesh, automaticGripPoint(mesh.resolvedDefinition));
+  const mesh = generateModel(definition, { lod: "high" });
+  const measured = measureMassProperties(mesh, mesh.physical.controlPoint);
+  for (const field of ["massKg", "momentOfInertiaKgM2", "gripToTipM"]) {
+    assert.ok(Math.abs(mesh.physical[field] - measured[field]) < 1e-8, field);
+  }
+  mesh.physical.centerOfMass.forEach((value, axis) => {
+    assert.ok(Math.abs(value - measured.centerOfMass[axis]) < 1e-8, `center of mass ${axis}`);
+  });
+  return mesh.physical;
 }
 
 test("historical default families retain plausible mass and length", () => {
@@ -21,7 +29,7 @@ test("historical default families retain plausible mass and length", () => {
   for (const [id, minimumLength, maximumLength, minimumMass, maximumMass] of envelopes) {
     const preset = PRESETS.find((entry) => entry.id === id);
     assert.ok(preset, id);
-    const mesh = buildWeapon(preset.definition);
+    const mesh = generateModel(preset.definition);
     const properties = physical(preset.definition);
     assert.ok(mesh.stats.dimensions[1] >= minimumLength && mesh.stats.dimensions[1] <= maximumLength, `${id}: ${mesh.stats.dimensions[1]} m`);
     assert.ok(properties.massKg >= minimumMass && properties.massKg <= maximumMass, `${id}: ${properties.massKg} kg`);
@@ -34,10 +42,10 @@ test("blade depth changes rendered section, mass and inertia together", () => {
     const blade = preset.definition.components.find((part) => ["sectionBlade", "blade", "glaive"].includes(part.kind));
     assert.ok(blade, id);
     const before = physical(preset.definition);
-    const meshBefore = buildWeapon(preset.definition);
+    const meshBefore = generateModel(preset.definition);
     blade.thickness *= 1.5;
     const after = physical(preset.definition);
-    const meshAfter = buildWeapon(preset.definition);
+    const meshAfter = generateModel(preset.definition);
     const partDepth = (mesh) => {
       const part = mesh.parts.find((part) => part.label === blade.label);
       const depths = part.positions.filter((_, index) => index % 3 === 2);
@@ -47,4 +55,8 @@ test("blade depth changes rendered section, mass and inertia together", () => {
     assert.ok(after.massKg > before.massKg, id);
     assert.ok(after.momentOfInertiaKgM2 > before.momentOfInertiaKgM2, id);
   }
+});
+
+ test("canonical High physics agrees with independent integration for every authoring family", () => {
+  for (const preset of PRESETS) physical(preset.definition);
 });

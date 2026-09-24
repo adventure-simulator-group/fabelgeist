@@ -133,6 +133,7 @@ dependencies = [
  "fabelgeist-bvh",
  "fabelgeist-cloth",
  "fabelgeist-compute",
+ "fabelgeist-determinism",
  "fabelgeist-garment-code",
  "fabelgeist-garment-fit",
  "fabelgeist-gpu",
@@ -142,6 +143,7 @@ dependencies = [
  "gltf",
  "image",
  "rand 0.9.5",
+ "rayon",
  "serde",
  "serde_json",
  "tokio",
@@ -189,8 +191,9 @@ dependencies = [
 name = "adventuresim-weapon-model"
 version = "0.1.0"
 dependencies = [
- "postcard",
+ "glam",
  "serde",
+ "serde_json",
  "sha2",
  "thiserror 2.0.20",
  "tiny-skia",
@@ -202,6 +205,8 @@ version = "0.1.0"
 dependencies = [
  "fabelgeist-determinism",
  "serde",
+ "serde_json",
+ "sha2",
 ]
 
 [[package]]
@@ -4879,6 +4884,11 @@ dependencies = [
 [[package]]
 name = "fabelgeist-determinism"
 version = "0.1.0"
+dependencies = [
+ "blake3",
+ "rand 0.9.5",
+ "rand_xoshiro",
+]
 
 [[package]]
 name = "fabelgeist-fbx"
@@ -7967,8 +7977,7 @@ checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
 [[package]]
 name = "pliron"
 version = "0.17.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e51eb8628227038376c81dcb1752db90a90af24a1e38b27582c7dab235149d7"
+source = "git+https://github.com/pliron-org/pliron.git?rev=2610651306ea3ba670f68d5d8b1e1159bcd521ed#2610651306ea3ba670f68d5d8b1e1159bcd521ed"
 dependencies = [
  "awint",
  "combine",
@@ -7995,8 +8004,7 @@ dependencies = [
 [[package]]
 name = "pliron-derive"
 version = "0.17.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f878ccd6bfd39a9373175774b96785daab296dc1870bc72ff7d285151f613a56"
+source = "git+https://github.com/pliron-org/pliron.git?rev=2610651306ea3ba670f68d5d8b1e1159bcd521ed#2610651306ea3ba670f68d5d8b1e1159bcd521ed"
 dependencies = [
  "combine",
  "convert_case 0.11.0",
@@ -8433,6 +8441,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "caa0f4137e1c0a72f4c651489402276c8e8e1cf081f3b0ba156d2cbeef09e86a"
 dependencies = [
  "rand_core 0.10.1",
+]
+
+[[package]]
+name = "rand_xoshiro"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f703f4665700daf5512dcca5f43afa6af89f09db47fb56be587f80636bda2d41"
+dependencies = [
+ "rand_core 0.9.5",
 ]
 
 [[package]]

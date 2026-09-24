@@ -95,7 +95,10 @@ impl BuildingProgram {
         let depth = depth + size.extra_bays() * 2;
         self.footprint = Footprint::Rectangle { width, depth };
         self.storey_height_metres = height;
-        self.roof_pitch_degrees = pitch + (self.seed % 5) as f32;
+        self.roof_pitch_degrees = pitch
+            + fabelgeist_determinism::StreamId::new("building.workplace-roof-pitch")
+                .rng(self.seed, &[])
+                .index(5) as f32;
         self.storeys = vec![StoreyProgram {
             rooms: vec![RoomRequirement::new(room, width * depth)],
         }];

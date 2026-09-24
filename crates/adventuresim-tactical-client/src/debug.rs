@@ -27,6 +27,9 @@ impl Plugin for DebugPlugin {
             .init_resource::<DebugGameSpeed>()
             .init_resource::<DebugDumpWorldTrigger>()
             .register_required_components_with::<Collider, _>(DebugRender::none)
+            // Bodies whose colliders live on child entities (ragdolls) would
+            // otherwise fall through to Avian's default and draw their axes.
+            .register_required_components_with::<RigidBody, _>(DebugRender::none)
             .add_systems(Update, toggle_debug_visuals)
             .add_systems(Update, draw_debug_rays)
             .add_systems(Update, draw_camera_rig)

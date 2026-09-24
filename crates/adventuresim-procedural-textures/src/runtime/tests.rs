@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use bevy::asset::{AssetPlugin, LoadState};
+use bevy::asset::AssetPlugin;
 
 use super::*;
 use crate::{PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureAssets};
@@ -75,25 +75,35 @@ fn committed_collection_loads_exact_mips_and_samplers_without_baking() {
     app.finish();
     app.cleanup();
     let server = app.world().resource::<AssetServer>().clone();
-    let textures = ProceduralTextureAssets::load(
-        &server,
-        &mut app.world_mut().resource_mut::<Assets<Image>>(),
-    );
+    let textures =
+        app.world_mut()
+            .resource_scope(|world, mut residency: Mut<ProceduralTextureResidency>| {
+                let textures = ProceduralTextureAssets::reserve(
+                    &mut residency,
+                    &mut world.resource_mut::<Assets<Image>>(),
+                );
+                residency.request(
+                    &server,
+                    PROCEDURAL_TEXTURE_CATALOGUE.iter().map(|recipe| recipe.id),
+                );
+                residency.request(
+                    &server,
+                    PROCEDURAL_TEXTURE_CATALOGUE.iter().map(|recipe| recipe.id),
+                );
+                assert_eq!(
+                    residency.requested_container_count(),
+                    PROCEDURAL_TEXTURE_CATALOGUE.len()
+                );
+                textures
+            });
     let handles = requested_images(&textures);
     let deadline = Instant::now() + Duration::from_secs(30);
     loop {
         app.update();
-        for handle in &handles {
-            assert!(
-                !matches!(server.load_state(handle.id()), LoadState::Failed(_)),
-                "failed to load {:?}: {:?}",
-                handle.path(),
-                server.load_state(handle.id())
-            );
-        }
-        if handles
-            .iter()
-            .all(|handle| server.is_loaded_with_dependencies(handle.id()))
+        if app
+            .world()
+            .resource::<ProceduralTextureResidency>()
+            .is_ready(PROCEDURAL_TEXTURE_CATALOGUE.iter().map(|recipe| recipe.id))
         {
             break;
         }
@@ -112,17 +122,11 @@ fn committed_collection_loads_exact_mips_and_samplers_without_baking() {
         let bake = BakedRecipe::from_compressed_bytes(&bytes).unwrap();
         assert_eq!(bake.recipe, descriptor.id);
         for map in bake.maps {
-            let path = format!(
-                "{}#{}",
-                descriptor.id.runtime_asset_path(),
-                map.channel.slug()
-            );
-            let matches: Vec<_> = handles
+            let image = images
                 .iter()
-                .filter(|handle| handle.path().unwrap().to_string() == path)
-                .collect();
-            assert_eq!(matches.len(), 1, "runtime binding for {path}");
-            let image = images.get(matches[0]).unwrap();
+                .map(|(_, image)| image)
+                .find(|image| image.data.as_ref() == Some(&map.bytes))
+                .expect("runtime binding for baked map");
             assert_eq!(image.width(), map.size);
             assert_eq!(image.height(), map.size);
             assert_eq!(image.texture_descriptor.mip_level_count, map.mip_levels);

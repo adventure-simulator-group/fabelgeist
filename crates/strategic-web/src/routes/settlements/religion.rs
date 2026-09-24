@@ -18,7 +18,7 @@ pub(super) async fn religion_dialogue(
 ) -> Json<ReligionDialogue> {
     let settlement = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(&id))
+        .query_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -66,9 +66,7 @@ pub(super) async fn religion_dialogue(
     }) && character.current_settlement_id.as_deref() == Some(id.as_str());
     let condition = state
         .db
-        .query_sats::<CharacterCondition>(
-            &crate::spacetimedb::character_condition_by_character_id(character.id),
-        )
+        .query_sats::<CharacterCondition>(&db::character_condition_by_character_id(character.id))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -97,7 +95,7 @@ pub(super) async fn set_religion(
     let religion_id = form.religion_id.trim();
     let settlement = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(&crate::spacetimedb::settlement_by_id(&id))
+        .query_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
         .await
         .unwrap_or_default()
         .into_iter()
@@ -190,7 +188,7 @@ pub(super) async fn renounce_religion(
                 &state,
                 &kind,
                 &id,
-                format!("/locations/{kind}/{id}/party/{character_id}"),
+                paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
             )
             .await,
     )

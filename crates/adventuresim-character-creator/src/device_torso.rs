@@ -191,6 +191,9 @@ pub fn generate_breastplate_on_device(
     design: &BreastplateDesign,
     input: TorsoSurfaceInput<'_>,
 ) -> Result<GeneratedArmor> {
+    if let Some(option) = design.device_unsupported() {
+        return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
+    }
     input.check()?;
     let landmarks = input.landmarks()?;
     let support_joints = input.joints_named(|name| SUPPORT_JOINTS.contains(&name));

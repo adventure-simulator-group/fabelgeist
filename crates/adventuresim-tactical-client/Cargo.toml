@@ -7,17 +7,16 @@ repository.workspace = true
 license.workspace = true
 
 [features]
-default = ["debug", "instanced-grass"]
+default = ["debug", "client-audio"]
 debug = ["bevy/debug", "bevy/bevy_remote", "adventuresim-tactical-core/avian_debug"]
-# GPU-instanced grass through bevy_eidolon. Native-first: the browser build
-# keeps the legacy patch renderer until the wasm indirect-draw fallback lands.
-instanced-grass = ["dep:bevy_eidolon"]
+client-audio = ["bevy/audio"]
 tracy = ["bevy/trace_tracy", "dep:tracing-tracy", "dep:tracing-subscriber", "dep:tracy-client-sys"]
 # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
 remote-types = ["debug"]
 
 [dependencies]
 adventuresim-procedural-materials.workspace = true
+anyhow = "1"
 bevy.workspace = true
 bevy_flair.workspace = true
 bevy_egui.workspace = true
@@ -29,23 +28,31 @@ adventuresim-weapon-model.workspace = true
 adventuresim-world-schema.workspace = true
 adventuresim-building-generator = { workspace = true, features = ["sign-render"] }
 adventuresim-procedural-textures.workspace = true
+adventuresim-plant-generator.workspace = true
 fabelgeist-determinism.workspace = true
+flate2.workspace = true
 clap.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 serde-saphyr.workspace = true
+postcard.workspace = true
 tracing.workspace = true
 web-time.workspace = true
 todo-or-die = { version = "0.1.2", features = ["crate"] }
 tracing-tracy = { version = "0.11", optional = true }
 tracing-subscriber = { version = "0.3", optional = true }
 tracy-client-sys = { version = "=0.28.0", optional = true }
+# Drives every grass renderer on both native and wasm: the fork's WebGPU
+# indirect-draw fallback loops draw_indexed_indirect in place of
+# multi-draw-indirect, so the browser bundle uses the same instanced path.
+bevy_eidolon.workspace = true
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
-# Declared native-only so `instanced-grass` in default features stays inert
-# for the browser bundle until the wasm indirect-draw fallback lands.
-bevy_eidolon = { workspace = true, optional = true }
+# Runtime equipment is fitted on the armor device, whose readback blocks and
+# so is native-only.
+adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+fabelgeist-armor = { path = "../fabelgeist-armor" }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
 bevy = { workspace = true, default-features = false, features = [
@@ -60,7 +67,6 @@ bevy = { workspace = true, default-features = false, features = [
     "ui_bevy_render",
     "scene",
     "picking",
-    "audio",
     "jpeg",
     "png",
     "smaa_luts",
@@ -79,6 +85,11 @@ path = "src/lib.rs"
 
 [[bin]]
 name = "adventuresim-tactical-client"
+doc = false
+
+[[bin]]
+name = "art-demo"
+path = "src/art_demo_main.rs"
 doc = false
 
 [[bin]]

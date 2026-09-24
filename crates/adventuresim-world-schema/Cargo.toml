@@ -4,6 +4,7 @@ version.workspace = true
 edition.workspace = true
 repository.workspace = true
 license.workspace = true
+build = "build.rs"
 
 [features]
 default = []
@@ -11,8 +12,14 @@ spacetimedb = ["dep:spacetimedb"]
 
 [dependencies]
 serde.workspace = true
+serde_json.workspace = true
 fabelgeist-determinism.workspace = true
 spacetimedb = { workspace = true, optional = true }
+
+[build-dependencies]
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+sha2.workspace = true
 
 [dev-dependencies]
 serde_json.workspace = true

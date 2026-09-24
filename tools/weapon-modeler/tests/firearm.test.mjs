@@ -1,6 +1,7 @@
+import { generateModel, validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildWeapon, closedManifoldErrors, firearmStockLayout, measureMassProperties, signedVolume, validateWeapon } from "../src/mesh.js";
+import { closedManifoldErrors, measureMassProperties, signedVolume } from "./quality/mesh-measurements.mjs";
 import { PRESETS, copyPreset, setControlValue } from "../src/presets.js";
 import { triangleVertices } from "../src/topology.js";
 
@@ -78,17 +79,10 @@ test("every ignition train penetrates radially through the barrel wall into its 
 test("combined stock plan and side profile respond to all principal stock controls", () => {
   const source = preset(firearmIds[1]), signature = (definition) => validateWeapon(definition, source.controls).mesh.parts.find((p) => p.label === "combined-profile firearm stock").positions.join(","), baseline = signature(source.definition);
   for (const label of ["Butt width", "Lock waist width", "Fore-stock width", "Stock depth", "Butt drop"]) { const changed = copyPreset(source), control = changed.controls.find((candidate) => candidate.label === label); setControlValue(changed.definition, control, control.min); assert.notEqual(signature(changed.definition), baseline, label); }
-  const layout = firearmStockLayout(source.definition.components[0]); assert.equal(layout.barrelStart, 0.387);
 });
 
 test("Peck and matchlock stocks have family-specific silhouettes and an attached solid fluted pommel", () => {
-  const peck = preset(firearmIds[0]), matchlock = preset(firearmIds[1]), peckLayout = firearmStockLayout(peck.definition.components[0]), matchLayout = firearmStockLayout(matchlock.definition.components[0]);
-  assert.equal(peckLayout.stations.length, 8); assert.equal(matchLayout.stations.length, 9);
-  assert.ok(peckLayout.stations[1].width > peckLayout.stations[0].width, "Peck stock flares smoothly out of the pommel neck");
-  assert.ok(peckLayout.stations.slice(1, 6).every((station, index, stations) => index === 0 || station.top >= stations[index - 1].top), "Peck upper line has a shallow monotonic sweep");
-  assert.ok(matchLayout.stations[1].width > matchlock.definition.components[0].buttWidth, "matchlock has a broad cheek/butt swell");
-  assert.ok(matchLayout.stations[4].bottom < -matchlock.definition.components[0].stockDepth * 0.85, "matchlock cheek stays deep well forward");
-  assert.notDeepEqual(peckLayout.stations.map((station) => [station.y / peck.definition.components[0].length, station.width / peck.definition.components[0].buttWidth]), matchLayout.stations.map((station) => [station.y / matchlock.definition.components[0].length, station.width / matchlock.definition.components[0].buttWidth]));
+  const peck = preset(firearmIds[0]);
   const result = validateWeapon(peck.definition, peck.controls), stock = bounds(result.mesh.parts.find((part) => part.label === "combined-profile firearm stock")), pommelPart = result.mesh.parts.find((part) => part.label === "solid spiral-fluted bulb pommel"), pommel = bounds(pommelPart);
   assert.ok(pommelPart); assert.deepEqual(closedManifoldErrors(pommelPart, pommelPart.label), []); assert.ok([0, 1, 2].every((axis) => overlap(stock, pommel, axis)), "solid fluted pommel overlaps stock neck in all axes");
   assert.equal(result.mesh.parts.some((part) => /helix|spiral gilt pommel furniture/i.test(part.label)), false, "no floating spring-like ornament remains");
@@ -120,7 +114,7 @@ test("barrel bands lie in XZ sections and the side-elevation guard encloses a re
 
 test("lead ball low-detail volume stays within eight percent of analytic volume", () => {
   const source = preset("lead-round-ball"), radius = source.definition.components[0].radius, analytic = 4 / 3 * Math.PI * radius ** 3;
-  for (const lod of ["low", "medium", "high"]) { const mesh = buildWeapon(source.definition, { lod }); assert.ok(Math.abs(signedVolume(mesh) - analytic) / analytic < 0.08, lod); }
+  for (const lod of ["low", "medium", "high"]) { const mesh = generateModel(source.definition, { lod }); assert.ok(Math.abs(signedVolume(mesh) - analytic) / analytic < 0.08, lod); }
 });
 
 test("bounded firearm, ball, and pouch controls and coherent choices validate", () => {

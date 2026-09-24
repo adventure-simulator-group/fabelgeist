@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const fs = require("node:fs");
 const path = require("node:path");
 const test = require("node:test");

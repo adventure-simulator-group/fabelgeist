@@ -16,10 +16,14 @@ pub(crate) fn organization_colors(id: &str) -> (&'static str, &'static str) {
         ("#5a2333", "#f3d9a5"),
         ("#243b67", "#d8c89b"),
     ];
-    let hash = id.bytes().fold(0usize, |hash, byte| {
-        hash.wrapping_mul(31).wrapping_add(usize::from(byte))
-    });
-    PALETTES[hash % PALETTES.len()]
+    let index = fabelgeist_determinism::Seed::derive(
+        id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("web.organization-palette"),
+        &[],
+    )
+    .rng()
+    .index(PALETTES.len());
+    PALETTES[index]
 }
 
 pub(crate) fn organization_charge(definition: &OrganizationDefinition) -> &'static str {

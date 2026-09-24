@@ -22,12 +22,8 @@
     if (document.querySelector("[data-live-navigation-static]")) return true;
     // Character selection is an intentional escape from the current location.
     if (location.pathname.startsWith("/characters")) return true;
-    if (kind === "camp") return location.pathname === "/camp";
-    if (!kind || !id) return location.pathname === "/characters";
-    const encoded = encodeURIComponent(id);
-    if (kind === "case_site") return location.pathname.startsWith(`/locations/case-site/${encoded}`);
-    return location.pathname.startsWith(`/locations/settlement/${encoded}`)
-      || location.pathname.startsWith(`/settlements/${encoded}`);
+    if (!kind) return location.pathname === "/characters";
+    return window.strategicLocationUrls.contains(location.pathname, { kind, id });
   };
 
   const dispatchUpdate = () => {

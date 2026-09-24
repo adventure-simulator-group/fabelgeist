@@ -59,7 +59,7 @@ impl InventoryBrowser<'_> {
                     @if !optional_columns.is_empty() {
                         details class="inventory-column-picker" {
                             summary data-inventory-columns aria-label="Choose visible columns" title="Choose visible columns" {
-                                span aria-hidden="true" { "⚙" }
+                                span { "Columns" }
                             }
                             fieldset {
                                 legend { "Columns" }
@@ -67,6 +67,7 @@ impl InventoryBrowser<'_> {
                             }
                         }
                     }
+                    (super::interface_help::inventory_key(self.show_quantities, self.show_equipped))
                 }
                 div class="inventory-browser-table-frame" {
                 table class=(table_class) {
@@ -87,22 +88,22 @@ impl InventoryBrowser<'_> {
                         (sortable_icon_header("type", "inventory-column-type", "Item type", game_icon("Item type", "knapsack")))
                         (sortable_text_header("name", "Item", "inventory-column-item"))
                         @if self.show_quantities {
-                            (sortable_icon_header("quantity", "inventory-column-count", "Quantity", game_icon("Quantity", "open-chest")))
-                            (sortable_icon_header("target", "inventory-column-target", "Target quantity", game_icon("Target quantity", "eye-target")))
+                            (sortable_icon_header("quantity", "inventory-column-count", "Have", game_icon("Quantity", "open-chest")))
+                            (sortable_icon_header("target", "inventory-column-target", "Target", game_icon("Target quantity", "eye-target")))
                         }
                         @if self.show_equipped {
-                            (sortable_icon_header("equipped", "inventory-column-equipped", "Equipped", game_icon("Equipped", "check-mark")))
+                            (sortable_icon_header("equipped", "inventory-column-equipped", "Worn", game_icon("Equipped", "check-mark")))
                         }
                         @if self.show_condition {
                             th scope="col" class="inventory-column-durability" {
                                 button type="button" data-inventory-sort="durability" aria-label="Sort by durability" {
-                                    (game_icon("Durability", "hammer-nails"))
+                                    (game_icon("Durability", "hammer-nails")) span class="inventory-header-label" { "Wear" }
                                     span class="inventory-sort-indicator" aria-hidden="true" {}
                                 }
                             }
                         }
-                        (sortable_icon_header("weight", "inventory-column-weight", "Weight", game_icon("Weight", "weight")))
-                        (sortable_icon_header("value", "inventory-column-gold", "Currency", game_icon("Currency", "coins")))
+                        (sortable_icon_header("weight", "inventory-column-weight", "kg", game_icon("Weight", "weight")))
+                        (sortable_icon_header("value", "inventory-column-gold", "Value", game_icon("Currency", "coins")))
                         th class="inventory-actions-header" aria-label="Inventory actions" {}
                     } }
                     tbody { (self.rows) }
@@ -118,7 +119,7 @@ fn sortable_text_header(key: &str, label: &str, class: &str) -> Markup {
 }
 
 fn sortable_icon_header(key: &str, class: &str, label: &str, icon: Markup) -> Markup {
-    html! { th scope="col" class=(class) title=(label) { button type="button" data-inventory-sort=(key) aria-label=(format!("Sort by {label}")) { (icon) span class="inventory-sort-indicator" aria-hidden="true" {} } } }
+    html! { th scope="col" class=(class) title=(label) { button type="button" data-inventory-sort=(key) aria-label=(format!("Sort by {label}")) { (icon) span class="inventory-header-label" { (label) } span class="inventory-sort-indicator" aria-hidden="true" {} } } }
 }
 
 #[cfg(test)]
@@ -140,9 +141,9 @@ mod tests {
         assert!(rendered.contains("data-inventory-browser=\"trade-left\""));
         assert!(rendered.contains("data-inventory-sort=\"quantity\""));
         assert!(rendered.contains("data-inventory-sort=\"target\""));
-        assert!(rendered.contains("aria-label=\"Sort by Quantity\""));
+        assert!(rendered.contains("aria-label=\"Sort by Have\""));
         assert!(rendered.contains("open-chest.svg"));
-        assert!(rendered.contains("aria-label=\"Sort by Target quantity\""));
+        assert!(rendered.contains("aria-label=\"Sort by Target\""));
         assert!(!rendered.contains(">#<"));
         assert!(!rendered.contains(">#?<"));
         assert!(rendered.contains("precision,reach,block"));

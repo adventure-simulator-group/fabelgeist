@@ -15,9 +15,11 @@ fn iron(builder: &mut Builder, centre: Vec3, size: Vec3) {
 
 pub(super) fn chest(builder: &mut Builder, size: Vec3) {
     legs(builder, size, 0.14, 0.09);
-    builder.timber(
+    builder.handled_timber(
         Vec3::Y * (size.y + 0.06) * 0.5,
         Vec3::new(size.x - 0.045, size.y - 0.12, size.z - 0.045),
+        -Vec3::Z,
+        [0.40, 0.48, 0.60, 0.88],
     );
     boards(
         builder,
@@ -73,8 +75,11 @@ pub(super) fn standing(builder: &mut Builder, kind: FurnitureKind, size: Vec3) {
 }
 
 fn door(builder: &mut Builder, size: Vec3, side: f32) {
-    let width = size.x * 0.5 - 0.04;
-    let x = side * size.x * 0.25;
+    // Inset leaves meet at a narrow working reveal; the carcass covers their outer edges.
+    let meeting_reveal = 0.004;
+    let outer_inset = 0.025;
+    let width = (size.x - meeting_reveal) * 0.5 - outer_inset;
+    let x = side * (width + meeting_reveal) * 0.5;
     let z = -size.z * 0.5 + 0.024;
     let bottom = 0.16;
     let height = size.y - bottom - 0.06;
@@ -92,6 +97,26 @@ fn door(builder: &mut Builder, size: Vec3, side: f32) {
         builder.timber(
             Vec3::new(x, bottom + height * fraction, z),
             Vec3::new(width, 0.045, 0.035),
+        );
+    }
+    for fraction in [0.18, 0.82] {
+        iron(
+            builder,
+            Vec3::new(
+                x + side * width * 0.3,
+                bottom + height * fraction,
+                z - 0.018,
+            ),
+            Vec3::new(width * 0.4, 0.025, 0.009),
+        );
+        iron(
+            builder,
+            Vec3::new(
+                x + side * (width * 0.5 - 0.008),
+                bottom + height * fraction,
+                z - 0.012,
+            ),
+            Vec3::new(0.016, 0.06, 0.024),
         );
     }
     iron(

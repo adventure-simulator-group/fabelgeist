@@ -33,6 +33,14 @@ fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
 #[cfg(not(target_family = "wasm"))]
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, ValueEnum)]
 enum CaptureProfile {
+    /// Actual procedural flower/fungi roots at contact and gameplay distances.
+    PlantReview,
+    /// Actual placed fungi, one contact view per species and wider habitat views.
+    FungusReview,
+    /// Actual botanical LODs before, inside and after both crossfade bands.
+    PlantLodReview,
+    /// Same production roots and LODs with occluding vegetation hidden for diagnosis.
+    PlantLodIsolated,
     /// Existing exhaustive semantic presentation suite (23 recorded views).
     #[default]
     Semantic,
@@ -56,6 +64,13 @@ enum CaptureProfile {
     WorkplaceReview,
     /// Capacity-scaled chapel and parish church architectural review.
     ParishReview,
+    CompoundReview,
+    /// Supported fixed attic glazing across production building LODs.
+    GableReview,
+    HeatingReview,
+    FacadeReview,
+    /// Inspect owned garden plots and accepted planting specimens.
+    GardenReview,
     /// Production third-person camera sweep on the unmodified animation scene.
     AnimationPlay,
     /// Cold first approach, retreat, and warm second approach across tree LODs.
@@ -154,6 +169,10 @@ fn main() {
         args.triangle_census,
         args.tree_review_azimuth_degrees,
         match args.profile {
+            CaptureProfile::PlantReview => "plant-review",
+            CaptureProfile::FungusReview => "fungus-review",
+            CaptureProfile::PlantLodReview => "plant-lod-review",
+            CaptureProfile::PlantLodIsolated => "plant-lod-isolated",
             CaptureProfile::Semantic => "semantic",
             CaptureProfile::EnvironmentReview => "environment-review",
             CaptureProfile::LandformReview => tactical_scene_viewer::LANDFORM_REVIEW_PROFILE,
@@ -165,6 +184,11 @@ fn main() {
             CaptureProfile::ShopSignReview => "shop-sign-review",
             CaptureProfile::WorkplaceReview => "workplace-review",
             CaptureProfile::ParishReview => "parish-review",
+            CaptureProfile::CompoundReview => "compound-review",
+            CaptureProfile::HeatingReview => "heating-review",
+            CaptureProfile::FacadeReview => "facade-review",
+            CaptureProfile::GardenReview => "garden-review",
+            CaptureProfile::GableReview => "gable-review",
             CaptureProfile::AnimationPlay => "animation-play",
             CaptureProfile::TreeColdTraversal => "tree-cold-traversal",
             CaptureProfile::BeechLeafMotion => "beech-leaf-motion",

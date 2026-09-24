@@ -1,8 +1,9 @@
+import { generateModel, validateWeapon } from "../../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
 import { mkdirSync, writeFileSync, appendFileSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { buildWeapon, validateWeapon } from "../../src/mesh.js";
+
 import { auditPart, auditRelation, publicPartAudit, lodDifferences, POLICY } from "./audit.mjs";
 import { overlaps } from "./geometry.mjs";
 import { auditExport } from "./export-audit.mjs";
@@ -28,7 +29,7 @@ test("deterministic generator corpus satisfies mesh integrity contracts",()=>{
       // Even a rejected slider combination is worth auditing. Keep this separate
       // from geometry errors because some production rules are practical limits.
       if(!live.valid)push([{code:"production-rejection",severity:"error",count:1,examples:live.errors}]);
-      const mesh=live.mesh??buildWeapon(specimen.definition,{lod:specimen.lod});
+      const mesh=live.mesh??generateModel(specimen.definition,{lod:specimen.lod});
       const audits=mesh.parts.map((part,index)=>{
         const audit=auditPart(part,{thickness:specimen.variant==="default"});
         summary.triangles+=audit.triangles.length;

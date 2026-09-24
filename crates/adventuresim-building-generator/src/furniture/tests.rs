@@ -6,11 +6,7 @@ use bevy::math::{Quat, Vec2};
 fn stall_stock_is_supported_inside_counter_and_broad_display_has_more_goods() {
     let mut grain_spans = Vec::new();
     for variant in FurnitureVariant::ALL {
-        let recipe = FurnitureKey {
-            kind: FurnitureKind::CanvasStall,
-            variant,
-        }
-        .recipe();
+        let recipe = FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe();
         let counter_half_width = match variant {
             FurnitureVariant::Compact => 1.1,
             FurnitureVariant::Broad => 1.55,
@@ -261,11 +257,7 @@ fn authored_access_and_working_clearances_are_not_blocked_by_their_own_furniture
 #[test]
 fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
     for variant in FurnitureVariant::ALL {
-        let trough = FurnitureKey {
-            kind: FurnitureKind::HitchingTrough,
-            variant,
-        }
-        .recipe();
+        let trough = FurnitureKey::natural(FurnitureKind::HitchingTrough, variant).recipe();
         let water = trough
             .meshes
             .iter()
@@ -298,11 +290,7 @@ fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
             )),
             "water has no physical basin bottom"
         );
-        let stall = FurnitureKey {
-            kind: FurnitureKind::CanvasStall,
-            variant,
-        }
-        .recipe();
+        let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, variant).recipe();
         let canvas = stall
             .meshes
             .iter()
@@ -338,21 +326,14 @@ fn trough_water_and_sagging_canvas_are_visible_without_solid_fill_collision() {
 
 #[test]
 fn stability_check_rejects_detached_frames_and_barrels_have_a_bilged_coopered_outline() {
-    let mut detached = FurnitureKey {
-        kind: FurnitureKind::CanvasStall,
-        variant: FurnitureVariant::Compact,
-    }
-    .recipe()
-    .clone();
+    let mut detached = FurnitureKey::natural(FurnitureKind::CanvasStall, FurnitureVariant::Compact)
+        .recipe()
+        .clone();
     let mut floating = detached.members[0];
     floating.centre.y += 5.0;
     detached.members.push(floating);
     assert!(!all_members_grounded(&detached));
-    let barrel = FurnitureKey {
-        kind: FurnitureKind::Barrel,
-        variant: FurnitureVariant::Compact,
-    }
-    .recipe();
+    let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact).recipe();
     let timber = barrel
         .meshes
         .iter()

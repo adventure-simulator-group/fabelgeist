@@ -21,7 +21,7 @@ fn specimen(
             json!({
                 "id": part.component_id,
                 "material": part.material,
-                "density": part.material.density_kg_m3(),
+                "density": part.material.density(),
                 "positions": part.positions,
                 "indices": part.indices,
             })

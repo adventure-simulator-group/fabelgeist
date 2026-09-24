@@ -518,10 +518,10 @@ mod tests {
         assert_eq!(
             first.solution,
             [
-                Sigil::Hart,
-                Sigil::Crown,
-                Sigil::Sword,
                 Sigil::Moon,
+                Sigil::Crown,
+                Sigil::Hart,
+                Sigil::Sword,
                 Sigil::Rose
             ]
         );
@@ -529,20 +529,20 @@ mod tests {
             first.clues,
             vec![
                 OrderedSigilClue::Before {
-                    first: Sigil::Hart,
-                    second: Sigil::Crown,
+                    first: Sigil::Moon,
+                    second: Sigil::Crown
                 },
                 OrderedSigilClue::Before {
                     first: Sigil::Crown,
-                    second: Sigil::Sword,
+                    second: Sigil::Hart
+                },
+                OrderedSigilClue::Before {
+                    first: Sigil::Hart,
+                    second: Sigil::Sword
                 },
                 OrderedSigilClue::Before {
                     first: Sigil::Sword,
-                    second: Sigil::Moon,
-                },
-                OrderedSigilClue::Before {
-                    first: Sigil::Moon,
-                    second: Sigil::Rose,
+                    second: Sigil::Rose
                 },
             ]
         );

@@ -2,8 +2,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { PRESETS, copyPreset, HAFT_MODULES, HEAD_ASSEMBLIES, composeWeapon, compositionControls } from "./src/presets.js";
-import { validateWeapon, measureMassProperties } from "./src/mesh.js";
-import { automaticGripPoint } from "./src/glb-export.js";
+import { validateWeapon } from "./src/kernel.js";
 
 const output = resolve(process.argv[2] ?? "../../output/weapon-audit/browser");
 await mkdir(output, { recursive: true });
@@ -20,7 +19,7 @@ for (const preset of [...PRESETS, ...assemblies]) {
   if (!result.valid) throw new Error(`${preset.id}: ${result.errors.join("; ")}`);
   cases.push({ id: `${preset.id}-default`, name: preset.name, variant: "Default", definition, changes: [], rejected: [] });
   specimens.push({ id: preset.id, group: preset.id.includes("--") ? "assembly" : "browser", name: preset.name, description: preset.description,
-    design: definition, physical: measureMassProperties(result.mesh, automaticGripPoint(result.resolved)),
+    design: definition, physical: result.mesh.physical,
     parts: result.mesh.parts.map((part) => ({ id: part.componentId ?? part.label,
       material: part.material, density: part.material?.density,
       positions: Array.from({ length: part.positions.length / 3 }, (_, i) => part.positions.slice(i * 3, i * 3 + 3)),

@@ -1,11 +1,12 @@
 //! Weathered earth-and-lime daub with rare, localized exposed wattle.
 
+mod streams;
 use bevy::{
     asset::Assets,
     image::Image,
     math::{FloatExt, Vec3},
 };
-use fabelgeist_determinism::inclusive_unit_f32;
+use fabelgeist_determinism::StreamId;
 
 use super::{SurfaceTextureSet, image_rgba_mipped};
 
@@ -31,9 +32,13 @@ struct DaubSample {
     exposed_cavity: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, x: i32, y: i32, salt: u64) -> f32 {
-    let packed = x.rem_euclid(65_536) as u64 | ((y.rem_euclid(65_536) as u64) << 16);
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, packed ^ salt))
+fn hash_unit(params: &crate::TextureParameters, x: i32, y: i32, field_seed: u64) -> f32 {
+    params
+        .rng(
+            streams::LATTICE,
+            &[field_seed, x as u32 as u64, y as u32 as u64],
+        )
+        .inclusive_unit_f32()
 }
 
 fn periodic_hash(
@@ -42,9 +47,14 @@ fn periodic_hash(
     y: i32,
     cells_x: i32,
     cells_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
-    hash_unit(params, x.rem_euclid(cells_x), y.rem_euclid(cells_y), salt)
+    hash_unit(
+        params,
+        x.rem_euclid(cells_x),
+        y.rem_euclid(cells_y),
+        field_seed,
+    )
 }
 
 fn quintic(value: f32) -> f32 {
@@ -62,7 +72,7 @@ fn periodic_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
@@ -70,12 +80,12 @@ fn periodic_noise(
     let iy = y.floor() as i32;
     let tx = quintic(x.fract());
     let ty = quintic(y.fract());
-    let lower = periodic_hash(params, ix, iy, cells_x, cells_y, salt).lerp(
-        periodic_hash(params, ix + 1, iy, cells_x, cells_y, salt),
+    let lower = periodic_hash(params, ix, iy, cells_x, cells_y, field_seed).lerp(
+        periodic_hash(params, ix + 1, iy, cells_x, cells_y, field_seed),
         tx,
     );
-    let upper = periodic_hash(params, ix, iy + 1, cells_x, cells_y, salt).lerp(
-        periodic_hash(params, ix + 1, iy + 1, cells_x, cells_y, salt),
+    let upper = periodic_hash(params, ix, iy + 1, cells_x, cells_y, field_seed).lerp(
+        periodic_hash(params, ix + 1, iy + 1, cells_x, cells_y, field_seed),
         tx,
     );
     lower.lerp(upper, ty) * 2.0 - 1.0
@@ -96,14 +106,20 @@ fn capsule_distance(point: (f32, f32), start: (f32, f32), end: (f32, f32)) -> f3
     (dx * dx + dy * dy).sqrt()
 }
 
-fn sparse_capsules(params: &crate::TextureParameters, u: f32, v: f32, layer: CapsuleLayer) -> f32 {
+fn sparse_capsules(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    layer: CapsuleLayer,
+    purpose: StreamId,
+) -> f32 {
     let CapsuleLayer {
         cells,
-        salt,
         enabled_threshold,
         half_length_range,
         radius,
     } = layer;
+    let field_seed = params.field_seed(purpose, &[]);
     let scaled_x = u.rem_euclid(1.0) * cells as f32;
     let scaled_y = v.rem_euclid(1.0) * cells as f32;
     let base_x = scaled_x.floor() as i32;
@@ -113,26 +129,56 @@ fn sparse_capsules(params: &crate::TextureParameters, u: f32, v: f32, layer: Cap
         for offset_x in -1..=1 {
             let cell_x = base_x + offset_x;
             let cell_y = base_y + offset_y;
-            if periodic_hash(params, cell_x, cell_y, cells, cells, salt ^ 0x91e5)
-                < enabled_threshold
+            if periodic_hash(
+                params,
+                cell_x,
+                cell_y,
+                cells,
+                cells,
+                params.field_seed(streams::PRESENCE, &[field_seed]),
+            ) < enabled_threshold
             {
                 continue;
             }
             let center = (
                 cell_x as f32
                     + params.wattle_and_daub.sparse_capsules_center_1
-                    + periodic_hash(params, cell_x, cell_y, cells, cells, salt ^ 0x3b71)
-                        * params.wattle_and_daub.sparse_capsules_center_2,
+                    + periodic_hash(
+                        params,
+                        cell_x,
+                        cell_y,
+                        cells,
+                        cells,
+                        params.field_seed(streams::CENTER_X, &[field_seed]),
+                    ) * params.wattle_and_daub.sparse_capsules_center_2,
                 cell_y as f32
                     + params.wattle_and_daub.sparse_capsules_center_3
-                    + periodic_hash(params, cell_x, cell_y, cells, cells, salt ^ 0xc54d)
-                        * params.wattle_and_daub.sparse_capsules_center_4,
+                    + periodic_hash(
+                        params,
+                        cell_x,
+                        cell_y,
+                        cells,
+                        cells,
+                        params.field_seed(streams::CENTER_Y, &[field_seed]),
+                    ) * params.wattle_and_daub.sparse_capsules_center_4,
             );
-            let angle = periodic_hash(params, cell_x, cell_y, cells, cells, salt ^ 0x7ad3)
-                * std::f32::consts::TAU;
+            let angle = periodic_hash(
+                params,
+                cell_x,
+                cell_y,
+                cells,
+                cells,
+                params.field_seed(streams::ANGLE, &[field_seed]),
+            ) * std::f32::consts::TAU;
             let half_length = half_length_range.0
-                + periodic_hash(params, cell_x, cell_y, cells, cells, salt ^ 0xe217)
-                    * (half_length_range.1 - half_length_range.0);
+                + periodic_hash(
+                    params,
+                    cell_x,
+                    cell_y,
+                    cells,
+                    cells,
+                    params.field_seed(streams::LENGTH, &[field_seed]),
+                ) * (half_length_range.1 - half_length_range.0);
             let direction = (angle.cos() * half_length, angle.sin() * half_length);
             let point = (scaled_x, scaled_y);
             let distance = capsule_distance(
@@ -151,15 +197,27 @@ fn sparse_capsules(params: &crate::TextureParameters, u: f32, v: f32, layer: Cap
 }
 
 fn aggregate_coverage(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
-    sparse_capsules(params, u, v, params.wattle_and_daub.aggregate)
+    sparse_capsules(
+        params,
+        u,
+        v,
+        params.wattle_and_daub.aggregate,
+        streams::AGGREGATE,
+    )
 }
 
 fn fibre_coverage(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
-    sparse_capsules(params, u, v, params.wattle_and_daub.fibre)
+    sparse_capsules(params, u, v, params.wattle_and_daub.fibre, streams::FIBRE)
 }
 
 fn shrink_crack(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
-    sparse_capsules(params, u, v, params.wattle_and_daub.shrink_crack)
+    sparse_capsules(
+        params,
+        u,
+        v,
+        params.wattle_and_daub.shrink_crack,
+        streams::SHRINK_CRACK,
+    )
 }
 
 fn exposed_wattle(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) {
@@ -179,7 +237,7 @@ fn exposed_wattle(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f3
             - params.wattle_and_daub.exposed_wattle_irregular_radius_4)
             .sin()
             * params.wattle_and_daub.exposed_wattle_irregular_radius_5;
-    let edge_noise = periodic_noise(params, u, v, 17, 13, 0xc183)
+    let edge_noise = periodic_noise(params, u, v, 17, 13, params.field_seed(streams::EDGE, &[]))
         * params.wattle_and_daub.exposed_wattle_edge_noise;
     let elliptical = ((local_x / params.wattle_and_daub.exposed_wattle_elliptical_1).powi(2)
         + (local_y / params.wattle_and_daub.exposed_wattle_elliptical_2).powi(2))
@@ -217,23 +275,24 @@ fn exposed_wattle(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f3
 }
 
 fn sample_daub(params: &crate::TextureParameters, u: f32, v: f32) -> DaubSample {
-    let broad = periodic_noise(params, u, v, 4, 5, 0x39a7);
-    let medium = periodic_noise(params, u, v, 11, 9, 0x7c31);
-    let fine = periodic_noise(params, u, v, 61, 53, 0xe257);
-    let warp = periodic_noise(params, u, v, 3, 4, 0x64d9) * params.wattle_and_daub.sample_daub_warp;
+    let broad = periodic_noise(params, u, v, 4, 5, params.field_seed(streams::BROAD, &[]));
+    let medium = periodic_noise(params, u, v, 11, 9, params.field_seed(streams::MEDIUM, &[]));
+    let fine = periodic_noise(params, u, v, 61, 53, params.field_seed(streams::FINE, &[]));
+    let warp = periodic_noise(params, u, v, 3, 4, params.field_seed(streams::WARP, &[]))
+        * params.wattle_and_daub.sample_daub_warp;
     let smear = periodic_noise(
         params,
         u + warp,
         v - warp * params.wattle_and_daub.sample_daub_smear,
         5,
         9,
-        0x2ab5,
+        params.field_seed(streams::SMEAR, &[]),
     );
-    let marks =
-        params
-            .wattle_and_daub
-            .application
-            .sample(params, bevy::math::Vec2::new(u, v), 0x7239);
+    let marks = params.wattle_and_daub.application.sample(
+        params,
+        bevy::math::Vec2::new(u, v),
+        params.field_seed(streams::SPALLS, &[]),
+    );
     let trowel_mass = marks.facet + marks.edge;
     let aggregate = aggregate_coverage(params, u, v);
     let fibre = fibre_coverage(params, u, v);
@@ -458,7 +517,7 @@ mod tests {
 
     #[test]
     fn physical_scale_and_feature_coverage_are_restrained() {
-        let params = &crate::TextureParameters::default();
+        let mut params = crate::TextureParameters::default();
         assert_eq!(WATTLE_AND_DAUB_TILE_METRES, 1.5);
         assert!((0.008..=0.014).contains(&WATTLE_AND_DAUB_HEIGHT_RANGE_METRES));
         let mut aggregate = 0_usize;
@@ -466,16 +525,21 @@ mod tests {
         let mut cracks = 0_usize;
         let mut cavities = 0_usize;
         let mut wattle = 0_usize;
-        let sample_count = 512_usize.pow(2);
-        for y in 0..512 {
-            for x in 0..512 {
-                let sample =
-                    sample_daub(params, (x as f32 + 0.5) / 512.0, (y as f32 + 0.5) / 512.0);
-                aggregate += usize::from(sample.aggregate > 0.5);
-                fibre += usize::from(sample.fibre > 0.5);
-                cracks += usize::from(sample.crack > 0.5);
-                cavities += usize::from(sample.exposed_cavity > 0.5);
-                wattle += usize::from(sample.wattle > 0.5);
+        let sample_count = 4 * 512_usize.pow(2);
+        // Sparse inclusions fluctuate between tiles; bound the coverage across
+        // independently seeded tiles while preserving their physical scale.
+        for seed in 0..4 {
+            params.seed = seed;
+            for y in 0..512 {
+                for x in 0..512 {
+                    let sample =
+                        sample_daub(&params, (x as f32 + 0.5) / 512.0, (y as f32 + 0.5) / 512.0);
+                    aggregate += usize::from(sample.aggregate > 0.5);
+                    fibre += usize::from(sample.fibre > 0.5);
+                    cracks += usize::from(sample.crack > 0.5);
+                    cavities += usize::from(sample.exposed_cavity > 0.5);
+                    wattle += usize::from(sample.wattle > 0.5);
+                }
             }
         }
         let fraction = |count| count as f32 / sample_count as f32;
@@ -557,7 +621,6 @@ pub use controls::Parameters;
 #[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
 pub struct CapsuleLayer {
     pub cells: i32,
-    pub salt: u64,
     pub enabled_threshold: f32,
     pub half_length_range: (f32, f32),
     pub radius: f32,

@@ -374,13 +374,13 @@ impl MeleeAttackAuthority {
         let delay = active.started_at.elapsed_since(incoming_started_at);
         let window = reflex_window.as_secs_f32();
         (delay.as_secs_f32() <= window).then(|| {
-            let mut mixed = windup.attack_key
-                ^ u64::try_from(active.started_at.0.as_nanos()).unwrap_or(u64::MAX);
-            mixed ^= mixed >> 30;
-            mixed = mixed.wrapping_mul(0xbf58_476d_1ce4_e5b9);
-            mixed ^= mixed >> 27;
-            mixed = mixed.wrapping_mul(0x94d0_49bb_1331_11eb);
-            mixed ^= mixed >> 31;
+            let decision_sample = fabelgeist_determinism::Seed::derive(
+                &windup.attack_key.to_le_bytes(),
+                fabelgeist_determinism::StreamId::new("combat.reciprocal-attack"),
+                &[&active.started_at.0.as_nanos().to_le_bytes()],
+            )
+            .rng()
+            .inclusive_unit_f32();
             ReciprocalAttackOpportunity {
                 input_reflex: (1.0 - delay.as_secs_f32() / window.max(f32::EPSILON))
                     .clamp(0.0, 1.0),
@@ -393,7 +393,7 @@ impl MeleeAttackAuthority {
                     .ready_at
                     .elapsed_since(active.started_at)
                     .as_secs_f32(),
-                decision_sample: (mixed >> 40) as f32 / ((1_u32 << 24) - 1) as f32,
+                decision_sample,
                 consecutive_intercepts: self.consecutive_intercepts,
             }
         })

@@ -23,7 +23,7 @@
   const liveRefreshUrl = (root = document, currentLocation = location) => {
     const markedUrl = root.querySelector("[data-live-refresh-url]")?.dataset.liveRefreshUrl;
     if (markedUrl) return markedUrl;
-    if (/^\/settlements\/[^/]+\/rest\/(?:inn|temple)\/?$/.test(currentLocation.pathname)) {
+    if (/^\/locations\/settlement\/[^/]+\/places\/(?:inn|church|residences)\/rest\/?$/.test(currentLocation.pathname)) {
       return null;
     }
     return `${currentLocation.pathname}${currentLocation.search}`;
@@ -91,7 +91,7 @@
 
   const selectedInventoryTab = () => document.querySelector("[data-inventory-tab].active")?.dataset.inventoryTab;
   const scheduleEditorIsPending = () => Boolean(
-    document.querySelector('[data-skill-schedule][data-schedule-pending]'),
+    document.querySelector('[data-skill-schedule][data-schedule-pending], [data-skill-schedule][data-schedule-preview-pending]'),
   );
 
   const restoreInventoryTab = (name) => {

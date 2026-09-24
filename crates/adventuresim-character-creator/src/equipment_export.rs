@@ -52,8 +52,10 @@ pub(super) fn generate_equipment_assets(
             if placement.surface.is_empty() {
                 continue;
             }
-            let asset = if let Some(design) = catalog.design(&item.id) {
-                exporter.armor(output, item, placement, &design)?
+            let asset = if let Some(design) = catalog.placed_design(&item.id, &placement.id) {
+                exporter
+                    .armor(output, item, placement, &design)
+                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
             } else {
                 anyhow::ensure!(
                     !matches!(
@@ -168,6 +170,7 @@ impl EquipmentExporter<'_> {
                 .as_ref()
                 .map(|textures| (armor.texcoords.as_slice(), textures));
         }
+        crate::character_morphs::component_materials(&armor, &mut rigged_shells);
         export_rigged_glb(
             GlbOutput::SharedTextures(&path),
             &item.id,

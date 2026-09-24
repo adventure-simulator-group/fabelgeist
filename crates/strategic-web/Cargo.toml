@@ -9,6 +9,7 @@ name = "strategic-web"
 path = "src/main.rs"
 
 [dependencies]
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 adventuresim-core.workspace = true
 adventuresim-dialogue.workspace = true
 adventuresim-puzzles.workspace = true
@@ -39,6 +40,7 @@ clap = { workspace = true }
 thiserror = { workspace = true }
 
 [dev-dependencies]
+axum = { version = "0.8", features = ["ws"] }
 serde_urlencoded = "0.7"
 
 [lints]

@@ -1,5 +1,7 @@
-const MISSION_CANDIDATE_ENTROPY_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
+
+#[path = "mission_bootstrap/streams.rs"]
+mod streams;
 #[reducer]
 pub fn report_contract(
     ctx: &ReducerContext,
@@ -577,9 +579,12 @@ pub fn seed_standalone_tactical_mission(
         existing
     } else {
         let coordinates_are_geographic = settlement.source_node_id.is_some();
+        let distance_m = standalone_case_site_distance_m(standalone_mission_family);
+        let northward_offset =
+            standalone_case_site_northward_offset(distance_m, coordinates_are_geographic);
         let coordinate = encode_position_e7(
             settlement.coord_x,
-            settlement.coord_y,
+            settlement.coord_y + northward_offset,
             coordinates_are_geographic,
         )
         .ok_or("Standalone tactical site is not a valid WGS84 coordinate")?;
@@ -594,7 +599,7 @@ pub fn seed_standalone_tactical_mission(
             longitude_e7: coordinate.longitude_e7,
             latitude_e7: coordinate.latitude_e7,
             coordinates_are_geographic,
-            distance_m: 0,
+            distance_m,
         })
     };
     let hostile_group_id = format!("hostile-group:standalone:{mission_id}");
@@ -642,7 +647,6 @@ pub fn seed_standalone_tactical_mission(
         crate::world_actor::CharacterContextKind::HostileGroup,
         &group.id,
         group.case_site_id.as_str(),
-        &group.enemy_type,
         group.enemy_count,
     )?;
     configure_tactical_enemy_fixture(ctx, &hostile_group_id, &enemy_fixture)?;
@@ -770,7 +774,7 @@ pub fn seed_standalone_tactical_mission(
                 mission_id: mission_id.clone(),
                 capability_id,
                 case_id,
-                case_site_id: case_site.id,
+                case_site_id: case_site.id.clone(),
                 hostile_group_id,
                 path_index: 0,
                 objective_id,
@@ -782,11 +786,7 @@ pub fn seed_standalone_tactical_mission(
     }
     let (authorized_party_member_ids, expected_party_members) =
         crate::tactical::tactical_party_roster(ctx, &party_id)?;
-    let settlement = crate::tactical::tactical_settlement_snapshot(
-        ctx,
-        &case_site.origin_settlement_id,
-        &case_site.scene_key,
-    );
+    let settlement = crate::tactical::tactical_settlement_snapshot(ctx, &case_site)?;
     ctx.db
         .tactical_server_request_authority()
         .insert(crate::tactical::TacticalServerRequest {
@@ -832,6 +832,9 @@ enum StandaloneMissionFamily {
 
 const ANIMATION_MISSION_COORDINATE_PREFIX: &str = "animation-";
 const DIAGNOSTIC_MISSION_COORDINATE_PREFIX: &str = "diagnostic-";
+const STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M: u64 = 2_000;
+const METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE: f64 = 111_000.0;
+const METERS_PER_UNBOUNDED_COORDINATE_UNIT: f64 = 1_000.0;
 
 fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily, String> {
     let (domain, coordinate) = mission_id
@@ -856,6 +859,22 @@ fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily
     } else {
         Ok(StandaloneMissionFamily::General)
     }
+}
+
+fn standalone_case_site_distance_m(family: StandaloneMissionFamily) -> u64 {
+    match family {
+        StandaloneMissionFamily::Diagnostic => STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+        StandaloneMissionFamily::Animation | StandaloneMissionFamily::General => 0,
+    }
+}
+
+fn standalone_case_site_northward_offset(distance_m: u64, coordinates_are_geographic: bool) -> f64 {
+    let coordinate_unit_m = if coordinates_are_geographic {
+        METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
+    } else {
+        METERS_PER_UNBOUNDED_COORDINATE_UNIT
+    };
+    distance_m as f64 / coordinate_unit_m
 }
 
 fn standalone_case_id(mission_id: &str) -> String {
@@ -1161,8 +1180,9 @@ pub fn ensure_settlement_activity(
 
 fn settlement_activity_target(settlement_id: &str) -> usize {
     MIN_QUESTS_PER_SETTLEMENT
-        + settlement_id.bytes().map(usize::from).sum::<usize>()
-            % (MAX_QUESTS_PER_SETTLEMENT - MIN_QUESTS_PER_SETTLEMENT + 1)
+        + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(),
+            streams::QUEST_COUNT, &[]).rng()
+            .index(MAX_QUESTS_PER_SETTLEMENT - MIN_QUESTS_PER_SETTLEMENT + 1)
 }
 
 fn settlement_activity_stage_error(
@@ -1292,7 +1312,7 @@ fn ensure_settlement_activity_batched(
 }
 
 fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> Result<(), String> {
-    let target = 1 + settlement_id.bytes().map(usize::from).sum::<usize>() % 2;
+    let target = 1 + fabelgeist_determinism::Seed::derive(settlement_id.as_bytes(), streams::RECRUITING_PARTY_COUNT, &[]).rng().index(2);
     let now = crate::time::refresh_clock(ctx)?;
     for mut offer in ctx.db.recruitment_offer().iter().collect::<Vec<_>>() {
         if offer.status == RecruitmentOfferStatus::Open && now >= offer.expires_at_minute {
@@ -1377,23 +1397,12 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             .ok_or("NPC party disappeared after leader assignment")?;
         party.name = format!("{}'s company", leader_name);
         party.current_settlement_id = Some(settlement_id.to_string());
-        party.physiology_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
-        party.command_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
-        party.religion_target = 3.0 + (ctx.random::<u64>() % 3) as f32;
+        party.physiology_target = 3.0 + streams::PHYSIOLOGY.rng(leader_id, &[]).index(3) as f32;
+        party.command_target = 3.0 + streams::COMMAND.rng(leader_id, &[]).index(3) as f32;
+        party.religion_target = 3.0 + streams::RELIGION.rng(leader_id, &[]).index(3) as f32;
         ctx.db.party_authority().id().update(party);
 
-        let mut requirements = RoleRequirements::default();
-        if ctx.random::<u64>().is_multiple_of(2) {
-            requirements.melee = true;
-        } else {
-            requirements.ranged = true;
-        }
-        requirements.athletics = (ctx.random::<u64>() % 4) as u8;
-        requirements.endurance = (ctx.random::<u64>() % 4) as u8;
-        let armor = ctx.random::<u64>() % 3;
-        requirements.quarter_armor = armor == 1;
-        requirements.half_armor = armor == 2;
-        requirements.weapon_precision = (ctx.random::<u64>() % 4) as f32 * 0.5;
+        let requirements = streams::recruiting_role(leader_id);
         ctx.db
             .party_recruitment_role()
             .insert(PartyRecruitmentRole {
@@ -1727,11 +1736,11 @@ fn materialize_preferred_generated_fixture(
         .ok_or("Current settlement not found")?;
 
     let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
-    let entropy = character_id ^ seed_salt;
+    let entropy = streams::FIXTURE.seed(character_id, &[seed_salt]).to_u64();
     let initial_context = qg::GenerationContext {
-        seed: preferred_fixture_seed(entropy, family),
-        observer_entropy_hi: entropy.rotate_left(23),
-        observer_entropy_lo: entropy.rotate_right(17),
+        seed: entropy,
+        observer_entropy_hi: streams::OBSERVER_HIGH.seed(entropy, &[]).to_u64(),
+        observer_entropy_lo: streams::OBSERVER_LOW.seed(entropy, &[]).to_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -1746,14 +1755,9 @@ fn materialize_preferred_generated_fixture(
     let (context, generated) = (0..64_u64)
         .find_map(|offset| {
             let mut candidate = initial_context.clone();
-            candidate.seed = candidate.seed.wrapping_add(offset);
+            candidate.seed = streams::FIXTURE_ATTEMPT.seed(entropy, &[offset]).to_u64();
             let generated = qg::generate(&candidate).ok()?;
-            let suitable = family != qg::TemplateFamily::RecurringDepredation
-                || generated.hostile_groups.iter().any(|(_, _, threat, _)| {
-                    *threat == adventuresim_core::bestiary::ThreatId::Bandit
-                        || *threat == adventuresim_core::bestiary::ThreatId::Smuggler
-                });
-            suitable.then_some((candidate, generated))
+            preferred_fixture_is_suitable(family, &generated).then_some((candidate, generated))
         })
         .ok_or("Development quest fixture exhausted negotiable generated threats")?;
     let witness = generated
@@ -1810,20 +1814,26 @@ fn materialize_preferred_generated_fixture(
     Ok(generated.problem_id)
 }
 
-fn preferred_fixture_seed(
-    entropy: u64,
-    family: adventuresim_core::quest_generation::TemplateFamily,
-) -> u64 {
-    let seed = entropy.rotate_left(11);
-    if family == adventuresim_core::quest_generation::TemplateFamily::Outbreak {
-        seed - seed % 6
-    } else {
-        seed
-    }
+fn ordinary_generated_site_distance_m(seed: u64, site_id: &str) -> u64 {
+    4_000 + fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+        streams::SITE_DISTANCE,
+        &[site_id.as_bytes()]).rng().index(17_000) as u64
 }
 
-fn ordinary_generated_site_distance_m(seed: u64, index: usize) -> u64 {
-    4_000 + (seed.rotate_left(index as u32) % 17_000)
+fn preferred_fixture_is_suitable(
+    family: adventuresim_core::quest_generation::TemplateFamily,
+    generated: &adventuresim_core::quest_generation::GeneratedCase,
+) -> bool {
+    use adventuresim_core::{bestiary::ThreatId, quest_generation::TemplateFamily};
+    let outbreak_matches = family != TemplateFamily::Outbreak
+        || generated.outbreak.as_ref().is_some_and(|outbreak| {
+            outbreak.disease == adventuresim_core::disease::DiseaseId::Dysentery
+        });
+    let threat_matches = family != TemplateFamily::RecurringDepredation
+        || generated.hostile_groups.iter().any(|(_, _, threat, _)| {
+            matches!(*threat, ThreatId::Bandit | ThreatId::Smuggler)
+        });
+    outbreak_matches && threat_matches
 }
 
 fn materialize_simulation_acceptance_outbreak(
@@ -1847,14 +1857,14 @@ fn materialize_simulation_acceptance_outbreak(
         .find(&settlement_id)
         .ok_or("Quest acceptance outbreak settlement not found")?;
     let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
-    let entropy = character_id ^ policy_seed ^ 0x4143_4345_5054_414e;
+    let entropy = streams::ACCEPTANCE.seed(character_id, &[policy_seed]).to_u64();
     for candidate in 0..MAX_CANDIDATES {
         let candidate_entropy =
-            entropy ^ u64::from(candidate).wrapping_mul(MISSION_CANDIDATE_ENTROPY_STRIDE);
+            streams::ACCEPTANCE_CANDIDATE.seed(entropy, &[u64::from(candidate)]).to_u64();
         let context = qg::GenerationContext {
-            seed: candidate_entropy.rotate_left(11),
-            observer_entropy_hi: candidate_entropy.rotate_left(23),
-            observer_entropy_lo: candidate_entropy.rotate_right(17),
+            seed: candidate_entropy,
+            observer_entropy_hi: streams::OBSERVER_HIGH.seed(candidate_entropy, &[]).to_u64(),
+            observer_entropy_lo: streams::OBSERVER_LOW.seed(candidate_entropy, &[]).to_u64(),
             settlement_id: settlement_id.clone(),
             settlement_name: settlement.name.clone(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -1869,8 +1879,8 @@ fn materialize_simulation_acceptance_outbreak(
         let generated = qg::generate(&context)
             .map_err(|error| format!("Acceptance outbreak generation failed: {error:?}"))?;
         if generated.sites.is_empty()
-            || generated.sites.iter().enumerate().any(|(index, _)| {
-                ordinary_generated_site_distance_m(context.seed, index)
+            || generated.sites.iter().any(|site| {
+                ordinary_generated_site_distance_m(context.seed, &site.id.0)
                     > MAX_REQUIRED_ROUTE_DISTANCE_M
             })
         {
@@ -2310,11 +2320,10 @@ fn materialize_generated_quest(
         encode_position_e7(settlement.coord_x, settlement.coord_y, geographic)
             .ok_or("Generated investigation center is not a valid WGS84 coordinate")?;
     let mut site_rows = BTreeMap::new();
-    for (index, site) in generated.sites.iter().enumerate() {
+    for site in &generated.sites {
         let distance_m = fixture_site_distance_m
-            .unwrap_or_else(|| ordinary_generated_site_distance_m(seed, index));
-        let angle_seed = seed.rotate_left((index as u32).saturating_mul(11));
-        let angle = (angle_seed as f64 / u64::MAX as f64) * std::f64::consts::TAU;
+            .unwrap_or_else(|| ordinary_generated_site_distance_m(seed, &site.id.0));
+        let angle = streams::site_bearing(seed, &site.id.0);
         let distance_km = distance_m as f64 / 1_000.0;
         let (offset_x, offset_y) = if geographic {
             let latitude_scale = 111.0;
@@ -2632,19 +2641,23 @@ mod developer_quest_source_tests {
     }
 
     #[test]
-    fn outbreak_demo_seed_selects_the_waterborne_fixture() {
-        let entropy = 9_999_999_999_999_959u64 ^ 0x4f55_5442_5245_414b;
-        let seed = preferred_fixture_seed(
-            entropy,
-            adventuresim_core::quest_generation::TemplateFamily::Outbreak,
-        );
-        assert_eq!(seed % 6, 0);
+    fn diagnostic_standalone_missions_create_wilderness_case_sites() {
         assert_eq!(
-            preferred_fixture_seed(
-                entropy,
-                adventuresim_core::quest_generation::TemplateFamily::RecurringDepredation,
+            standalone_case_site_distance_m(StandaloneMissionFamily::Diagnostic),
+            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M
+        );
+        assert!(STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M > 0);
+        assert_eq!(
+            standalone_case_site_distance_m(StandaloneMissionFamily::Animation),
+            0
+        );
+        assert_eq!(
+            standalone_case_site_northward_offset(
+                STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
+                true,
             ),
-            entropy.rotate_left(11)
+            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64
+                / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
         );
     }
 
@@ -2659,7 +2672,7 @@ mod developer_quest_source_tests {
             preferred_fixture_site_distance_m(TemplateFamily::Outbreak),
             None
         );
-        assert!(ordinary_generated_site_distance_m(0, 0) >= 4_000);
+        assert!(ordinary_generated_site_distance_m(0, "site:fixture") >= 4_000);
     }
 
     #[test]
@@ -2884,7 +2897,7 @@ mod developer_quest_source_tests {
                     visible_features: "a scar".into(),
                     clothing: "a wool coat".into(),
                     profession: "laborer".into(),
-                    household: "market household".into(),
+                    household_kind: "market household".into(),
                     local_role: "resident".into(),
                     service_id: String::new(),
                     organization_id: String::new(),

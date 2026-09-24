@@ -1,13 +1,14 @@
-//! Text-only establishment signs. Names belong to placed lots, not shared building recipes.
+//! Establishment signs with period tool pictograms and operator-projected brands.
 use adventuresim_world_schema::{
-    person_names::{FEMALE_NAMES, MALE_NAMES, SURNAMES},
-    settlement_buildings::BuildingUse,
+    person_names::RenderedPersonalName, settlement_buildings::BuildingUse,
 };
 use bevy::math::{Quat, Vec2, Vec3};
 use clap::ValueEnum;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
+mod emblems;
+pub use emblems::TradeEmblem;
 mod mounting;
 pub use mounting::{MOUNTING_PLATE_THICKNESS_METRES, SignMounting};
 mod site;
@@ -21,8 +22,8 @@ pub use lettering::SignTexture;
 #[cfg(feature = "sign-render")]
 pub use rendering::{ShopSignRenderCache, SignDetail, SignRenderAssets, SignRenderPart};
 
-const NAME_STREAM: u64 = 0x7369_676e_6e61_6d65;
-const STYLE_STREAM: u64 = 0x7369_676e_7374_796c;
+const SIGN_MOUNT: StreamId = StreamId::new("sign.mount");
+const SIGN_FINISH: StreamId = StreamId::new("sign.finish");
 pub const SIGN_PEDESTRIAN_CLEARANCE_METRES: f32 = 2.3;
 pub const SIGN_MAX_PROJECTION_METRES: f32 = 1.5;
 
@@ -36,20 +37,11 @@ pub struct ShopName {
 }
 
 impl ShopName {
-    /// A stable business brand, without asserting that a generated resident owns it.
-    pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
+    /// Brand a business from the caller-supplied validated operator projection.
+    pub fn for_operator(operator: &RenderedPersonalName, usage: BuildingUse) -> Option<Self> {
         let trade = shop_trade(usage)?;
-        let entropy = mix64(id.0 ^ NAME_STREAM);
-        let names = if entropy & 1 == 0 {
-            &FEMALE_NAMES
-        } else {
-            &MALE_NAMES
-        };
-        // Reduce before narrowing so native and wasm32 choose the same brand.
-        let given = names[((entropy >> 1) % names.len() as u64) as usize];
-        let surname = SURNAMES[(mix64(entropy) % SURNAMES.len() as u64) as usize];
         Some(Self {
-            proprietor: format!("{given} {surname}’s"),
+            proprietor: format!("{operator}’s"),
             trade: trade.to_owned(),
         })
     }
@@ -115,6 +107,7 @@ pub enum SignFinish {
 #[derive(Clone, Debug, bevy::prelude::Component, Serialize, Deserialize)]
 #[component(immutable)]
 pub struct ShopSign {
+    pub emblem: Option<TradeEmblem>,
     pub name: ShopName,
     pub mount: SignMount,
     pub font: SignFont,
@@ -122,17 +115,33 @@ pub struct ShopSign {
 }
 
 impl ShopSign {
-    pub fn for_establishment(id: EstablishmentId, usage: BuildingUse) -> Option<Self> {
-        let style = mix64(id.0 ^ STYLE_STREAM);
+    pub fn for_operator(
+        id: EstablishmentId,
+        operator: &RenderedPersonalName,
+        usage: BuildingUse,
+    ) -> Option<Self> {
+        Self::for_establishment(id, usage, ShopName::for_operator(operator, usage)?)
+    }
+
+    /// Build a sign from the already-authoritative business brand.
+    pub fn for_establishment(
+        id: EstablishmentId,
+        usage: BuildingUse,
+        name: ShopName,
+    ) -> Option<Self> {
+        if name.trade != shop_trade(usage)? {
+            return None;
+        }
         Some(Self {
-            name: ShopName::for_establishment(id, usage)?,
-            mount: if style & 1 == 0 {
+            emblem: TradeEmblem::for_use(usage),
+            name,
+            mount: if SIGN_MOUNT.rng(id.0, &[]).boolean() {
                 SignMount::Wall
             } else {
                 SignMount::Projecting
             },
             font: SignFont::GrenzeGotisch,
-            finish: if style & 2 == 0 {
+            finish: if SIGN_FINISH.rng(id.0, &[]).boolean() {
                 SignFinish::PalePaint
             } else {
                 SignFinish::DarkWood

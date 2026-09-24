@@ -102,6 +102,29 @@ pub(super) fn routes(
     for building in buildings {
         routes.extend(building.routes.iter().copied());
     }
+    for compound in &input.compounds {
+        routes.extend(compound.access.iter().map(|access| {
+            route(
+                access.start_metres,
+                access.end_metres,
+                access.half_width_metres,
+            )
+        }));
+        routes.push(FurnitureFootprint::gate_sweep(compound));
+    }
+    for garden in &input.gardens {
+        routes.extend(
+            garden
+                .access
+                .iter()
+                .map(|a| route(a.start_metres, a.end_metres, a.half_width_metres)),
+        );
+        routes.push(FurnitureFootprint {
+            centre_metres: garden.cultivated_bounds.centre_metres,
+            half_extents_metres: garden.cultivated_bounds.dimensions_metres * 0.5,
+            orientation: garden.cultivated_bounds.orientation,
+        });
+    }
     routes
 }
 
@@ -119,6 +142,16 @@ pub(super) fn obstacles(
             orientation: building.placement.orientation,
         })
         .collect::<Vec<_>>();
+    for compound in &input.compounds {
+        footprints.extend(compound.boundary.fixed_members().iter().map(|member| {
+            FurnitureFootprint {
+                centre_metres: Vec2::new(member.centre_metres.x, member.centre_metres.z),
+                half_extents_metres: Vec2::new(member.size_metres.x, member.size_metres.z) * 0.5,
+                orientation: BuildingOrientation::from_radians(member.yaw_radians)
+                    .expect("validated boundary"),
+            }
+        }));
+    }
     for obstacle in obstacles {
         let (x, z, radius) = match *obstacle {
             GeneratedObstacle::Tree { x, z } => (x, z, super::super::TREE_TRUNK_RADIUS_METRES),
@@ -132,4 +165,73 @@ pub(super) fn obstacles(
         });
     }
     footprints
+}
+
+impl FurnitureFootprint {
+    fn gate_sweep(compound: &crate::city_layout::CityCompound) -> Self {
+        let gate = compound.boundary.gate.door(compound.id);
+        let hinge = Vec2::new(gate.hinge_centre.x, gate.hinge_centre.z);
+        // Reserve the inward quarter of the hinge's enclosing square for the
+        // complete leaf sweep, independently of its current dynamic state.
+        Self {
+            centre_metres: hinge
+                + compound
+                    .boundary
+                    .gate
+                    .orientation
+                    .local_to_world(Vec2::new(-compound.boundary.gate.hinge.sign(), 1.0))
+                    * gate.size_metres.x
+                    * 0.5,
+            half_extents_metres: Vec2::splat(gate.size_metres.x * 0.5 + gate.size_metres.z),
+            orientation: compound.boundary.gate.orientation,
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::city_layout::PropertySide;
+    use bevy::math::{Quat, Vec3};
+
+    #[test]
+    fn furniture_reservation_contains_both_complete_gate_sweeps() {
+        let input: TacticalSceneInput = serde_json::from_str(include_str!(
+            "../../../../../assets/tactical-scenes/compound-review.json"
+        ))
+        .unwrap();
+        let mut property = input.compounds[0].clone();
+        for yaw in [0.0, 0.71, core::f32::consts::FRAC_PI_2] {
+            for hinge in [PropertySide::Left, PropertySide::Right] {
+                property.boundary.gate.orientation =
+                    BuildingOrientation::from_radians(yaw).unwrap();
+                property.boundary.gate.hinge = hinge;
+                let reservation = FurnitureFootprint::gate_sweep(&property);
+                let door = property.boundary.gate.door(property.id);
+                for step in 0..=90 {
+                    let rotation =
+                        Quat::from_rotation_y(door.open_angle_radians * step as f32 / 90.0);
+                    for corner in [
+                        Vec2::new(-1.0, -1.0),
+                        Vec2::new(-1.0, 1.0),
+                        Vec2::new(1.0, -1.0),
+                        Vec2::ONE,
+                    ] {
+                        let closed = door.closed_centre
+                            + Quat::from_rotation_y(door.closed_yaw_radians)
+                                * Vec3::new(
+                                    corner.x * door.size_metres.x * 0.5,
+                                    0.0,
+                                    corner.y * door.size_metres.z * 0.5,
+                                );
+                        let point = door.hinge_centre + rotation * (closed - door.hinge_centre);
+                        assert!(
+                            reservation.contains(Vec2::new(point.x, point.z)),
+                            "yaw={yaw}, hinge={hinge:?}, step={step}"
+                        );
+                    }
+                }
+            }
+        }
+    }
 }

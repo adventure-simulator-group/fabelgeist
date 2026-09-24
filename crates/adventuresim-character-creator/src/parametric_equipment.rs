@@ -4,14 +4,11 @@
 use super::*;
 use adventuresim_character_creator::{
     armor_frames::Side,
-    armor_recipes::{self, ParametricDesign},
-    device_frames::DeviceWearer,
-    device_piece::DeviceRecording,
+    armor_recipes::ParametricDesign,
+    device_fit::{self, DevicePiece},
     inventory::{FittedPiece, Loadout},
     item_design::ItemDesign,
 };
-use fabelgeist_armor::{ArmorMorph, HelmetDesign, LimbArmorDesign};
-use fabelgeist_compute::KernelBatch;
 
 pub(super) fn fitted_design(
     model: &BodyModel,
@@ -20,142 +17,48 @@ pub(super) fn fitted_design(
     placement: &str,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
-    if let ParametricDesign::Underlayer(d) = design {
-        return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
-    }
-    let piece = crate::device_equipment::fitted(model, generated, morphs, |wearer, batch| {
-        record_design(wearer, batch, design, placement)
-    })?;
-    assembled(model, generated, design, piece, morphs)
-}
-
-/// Record a recipe fitted to one realization of the wearer, short of
-/// thickening. Underlayers are cut from the body instead.
-fn record_design(
-    wearer: &DeviceWearer,
-    batch: &mut KernelBatch,
-    design: &ParametricDesign,
-    placement: &str,
-) -> Result<DeviceRecording> {
     match design {
-        ParametricDesign::Helmet(HelmetDesign::CloseHelmet(d)) => {
-            wearer.record_fitted_close_helmet(batch, d)
+        ParametricDesign::Underlayer(d) => {
+            return crate::underlayer_equipment::fitted(model, generated, d, placement, morphs);
         }
-        ParametricDesign::Helmet(HelmetDesign::MailCoif(d)) => wearer.record_fitted_coif(batch, d),
-        ParametricDesign::Helmet(helmet) => wearer.record_helmet(batch, helmet),
-        ParametricDesign::Limb(limb) => {
-            let region = armor_recipes::fit_region(design, placement)?;
-            if matches!(
-                limb,
-                LimbArmorDesign::MittenGauntlet(_)
-                    | LimbArmorDesign::Sabaton(_)
-                    | LimbArmorDesign::LeatherBoot(_)
-            ) {
-                wearer.record_fitted_extremity(batch, limb, region)
-            } else {
-                wearer.record_fitted_limb(batch, limb, region)
-            }
+        ParametricDesign::TrunkHose(d) => {
+            return crate::underlayer_equipment::fitted_trunk_hose(
+                model, generated, d, placement, morphs,
+            );
         }
-        ParametricDesign::Garment(garment) => {
-            wearer.record_fitted_garment(batch, garment, placement)
-        }
-        ParametricDesign::Underlayer(_) => {
-            anyhow::bail!("underlayers are cut from the body, not recorded as parts")
-        }
+        _ => {}
     }
+    let piece = crate::device_equipment::fitted(model, generated, morphs, design, placement)?;
+    assembled(model, generated, design, placement, piece, morphs)
 }
 
-/// A close helmet moves with the head alone, whatever skin lies nearest.
-fn rigid_helmet(
-    model: &BodyModel,
-    design: &ParametricDesign,
-    armor: &mut GeneratedArmor,
-) -> Result<()> {
-    if matches!(
-        design,
-        ParametricDesign::Helmet(HelmetDesign::CloseHelmet(_))
-    ) {
-        let head = model
-            .mhr
-            .character
-            .skeleton
-            .names
-            .iter()
-            .position(|name| name == "c_head")
-            .context("rigid helmet requires c_head joint")? as u32;
-        armor.joint_indices.fill([head; 8]);
-        armor
-            .joint_weights
-            .fill([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]);
-    }
-    Ok(())
-}
-
-/// The armor of a piece fitted on the device.
+/// The armor of a recipe fitted on the device, corrected for skeletal fit.
 fn assembled(
     model: &BodyModel,
     generated: &GeneratedCharacter,
     design: &ParametricDesign,
-    piece: crate::device_equipment::DevicePiece,
+    placement: &str,
+    piece: DevicePiece,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
-    let crate::device_equipment::DevicePiece {
-        base,
-        skin,
-        endpoints,
-    } = piece;
-    let mut targets = Vec::with_capacity(endpoints.len());
-    for (sample, endpoint) in morphs.iter().zip(endpoints) {
-        anyhow::ensure!(
-            endpoint.indices == base.indices && endpoint.positions.len() == base.positions.len(),
-            "armor fit changed morph topology"
-        );
-        anyhow::ensure!(
-            endpoint
-                .components
-                .iter()
-                .map(|part| (&part.role, &part.vertices, &part.indices))
-                .eq(base
-                    .components
-                    .iter()
-                    .map(|part| (&part.role, &part.vertices, &part.indices))),
-            "armor fit changed component correspondence"
-        );
-        targets.push(ArmorMorph {
-            name: sample.name.clone(),
-            position_deltas: deltas(&base.positions, &endpoint.positions),
-            normal_deltas: deltas(&base.normals, &endpoint.normals),
-            direct_positions: endpoint.positions,
-        });
-    }
-    let bytes = serde_json::to_vec(design)?;
-    let mut armor = GeneratedArmor {
-        design_hash: fabelgeist_armor::parametric_design_hash(&bytes),
-        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
-        positions: base.positions,
-        normals: base.normals,
-        texcoords: skin.texcoords,
-        joint_indices: skin.joint_indices,
-        joint_weights: skin.joint_weights,
-        indices: base.indices,
-        faces: base.faces,
-        trim: None,
-        grids: base.grids,
-        morphs: targets,
-        components: base.components,
-    };
-    rigid_helmet(model, design, &mut armor)?;
+    let names = morphs
+        .iter()
+        .map(|sample| sample.name.as_str())
+        .collect::<Vec<_>>();
+    let armor = device_fit::assemble_recipe(
+        design,
+        piece,
+        &device_fit::Fitted {
+            placement,
+            morphs: &names,
+            domain: MHR_ANATOMICAL_UV_DOMAIN,
+            joint_names: &model.mhr.character.skeleton.names,
+            joints: &generated.global_joint_states,
+        },
+    )?;
     Ok(character_morphs::correct_armor_fit(
         armor, generated, morphs,
     ))
-}
-
-/// Each morph endpoint's offset from the base.
-pub(super) fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
-    base.iter()
-        .zip(sample)
-        .map(|(a, b)| std::array::from_fn(|i| b[i] - a[i]))
-        .collect()
 }
 
 /// Fit any parametric item's design to the wearer.

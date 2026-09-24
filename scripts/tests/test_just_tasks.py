@@ -156,104 +156,28 @@ class JustTaskTests(unittest.TestCase):
             "TACTICAL_PORT": "23202",
             "TACTICAL_MISSION_ID": "mission:test-mission",
             "TACTICAL_SCENE_KEY": "woodland",
-            "TACTICAL_SCENE_INPUT": "assets/tactical-scenes/dense-woodland.json",
+            "TACTICAL_SCENE_INPUT": "dense-woodland",
             "TACTICAL_CHARACTER_ID": "1",
-            "TACTICAL_BOTS": "3",
+            "TACTICAL_ENEMY_FIXTURE": "standard-bandit",
             "ADVENTURESIM_TACTICAL_CLAIM": "secret",
         }
 
-        server, client, environment = just_tasks.windows_tactical_commands(stage, values)
+        server, client, environment = just_tasks.windows_tactical_commands(
+            stage, values, r"E:\adventure-sim-dev\assets"
+        )
 
+        self.assertIn("--enemy-fixture", server)
+        self.assertIn("standard-bandit", server)
         self.assertIn("--required-enemy-kills", server)
-        self.assertIn("--enemy-combat-scale-bps", server)
         self.assertNotIn("--bots", server)
-        self.assertEqual(client[-4:], ["--id", "1", "--server-addr", "127.0.0.1:23202"])
+        self.assertEqual(client[1:5], ["--id", "1", "--server-addr", "127.0.0.1:23202"])
         self.assertEqual(environment["ADVENTURESIM_TACTICAL_CLAIM"], "secret")
         self.assertIn("ADVENTURESIM_TACTICAL_CLAIM", environment["WSLENV"].split(":"))
+        self.assertEqual(client[-2:], ["--asset-root", r"E:\adventure-sim-dev\assets"])
 
     def test_windows_tactical_commands_require_one_use_claim(self):
         with self.assertRaisesRegex(RuntimeError, "ADVENTURESIM_TACTICAL_CLAIM"):
-            just_tasks.windows_tactical_commands(Path("/stage"), {})
-
-    @mock.patch.object(just_tasks, "executable", return_value="cargo")
-    @mock.patch.object(just_tasks, "run", return_value=0)
-    def test_run_tactical_reseeds_if_live_and_reads_env_tactical(self, run, _executable):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            env_tactical = root / ".env.tactical"
-            env_tactical.write_text(
-                "TACTICAL_MISSION_ID=mission:fresh-123\n"
-                "ADVENTURESIM_TACTICAL_CLAIM=claim-456\n",
-                encoding="utf-8",
-            )
-            with mock.patch.object(just_tasks, "ROOT", root):
-                code = just_tasks.run_tactical(
-                    mission_id="test-mission",
-                    scene_key="woodland",
-                    enemy_fixture="standard-bandit",
-                    port="6000",
-                    url="http://127.0.0.1:23100",
-                    module="adventuresim-stdb-module",
-                    enemy_combat_scale_bps="10000",
-                    scene_input="dense-woodland",
-                )
-                self.assertEqual(code, 0)
-
-            self.assertEqual(run.call_count, 2)
-            reseed_cmd = run.call_args_list[0].args[0]
-            self.assertIn("reseed-tactical-mission", reseed_cmd)
-            self.assertIn("--if-live", reseed_cmd)
-            self.assertIn("--enemy-fixture", reseed_cmd)
-
-            server_cmd = run.call_args_list[1].args[0]
-            self.assertIn("--mission-id", server_cmd)
-            self.assertEqual(
-                server_cmd[server_cmd.index("--mission-id") + 1],
-                "mission:fresh-123",
-            )
-            self.assertIn("--enemy-fixture", server_cmd)
-            env = run.call_args_list[1].kwargs["env"]
-            self.assertEqual(env["ADVENTURESIM_TACTICAL_CLAIM"], "claim-456")
-
-    @mock.patch.object(just_tasks, "executable", return_value="cargo")
-    @mock.patch.object(just_tasks, "run", return_value=0)
-    def test_run_tactical_with_world_dump_skips_reseed_and_env(self, run, _executable):
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            env_tactical = root / ".env.tactical"
-            env_tactical.write_text(
-                "TACTICAL_MISSION_ID=mission:stale\n"
-                "ADVENTURESIM_TACTICAL_CLAIM=claim-stale\n",
-                encoding="utf-8",
-            )
-            with mock.patch.object(just_tasks, "ROOT", root):
-                code = just_tasks.run_tactical(
-                    mission_id="explicit-mission",
-                    scene_key="woodland",
-                    enemy_fixture="standard-bandit",
-                    port="6000",
-                    url="http://127.0.0.1:23100",
-                    module="adventuresim-stdb-module",
-                    enemy_combat_scale_bps="10000",
-                    scene_input="dense-woodland",
-                    brp_port="15702",
-                    world_dump="dump.scn.ron",
-                )
-                self.assertEqual(code, 0)
-
-            self.assertEqual(run.call_count, 1)
-            server_cmd = run.call_args.args[0]
-            self.assertIn("--world-dump", server_cmd)
-            self.assertIn("dump.scn.ron", server_cmd)
-            self.assertIn("--brp-port", server_cmd)
-            self.assertIn("15702", server_cmd)
-            self.assertNotIn("--enemy-fixture", server_cmd)
-            self.assertEqual(
-                server_cmd[server_cmd.index("--mission-id") + 1],
-                "explicit-mission",
-            )
-            env = run.call_args.kwargs["env"]
-            self.assertNotIn("ADVENTURESIM_TACTICAL_CLAIM", env)
+            just_tasks.windows_tactical_commands(Path("/stage"), {}, r"C:\assets")
 
     @unittest.skipUnless(os.name == "nt", "Windows process probing behavior")
     def test_windows_process_probe_does_not_use_os_kill(self):
@@ -393,6 +317,37 @@ class JustTaskTests(unittest.TestCase):
 
 
 class WasmAssetTests(unittest.TestCase):
+    def test_builds_both_apps_without_rustup_and_respects_debug_names(self):
+        for keep_names in (False, True):
+            with self.subTest(keep_names=keep_names), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / "Cargo.lock").write_text(
+                    '[[package]]\nname="wasm-bindgen"\nversion="0.2.108"\n',
+                    encoding="utf-8",
+                )
+                with mock.patch.object(build_wasm, "ROOT", root), \
+                     mock.patch.object(build_wasm, "WASM_DIR", root / "wasm"), \
+                     mock.patch.object(build_wasm.shutil, "which", side_effect=lambda name: None if name == "rustup" else name), \
+                     mock.patch.object(build_wasm.subprocess, "check_output", return_value="wasm-bindgen 0.2.108"), \
+                     mock.patch.object(build_wasm, "sync_assets"), \
+                     mock.patch.object(build_wasm, "run") as run:
+                    self.assertEqual(build_wasm.main(["--keep-name-section"] if keep_names else []), 0)
+                commands = [call.args[0] for call in run.call_args_list]
+                self.assertFalse(any(command[0] == "rustup" for command in commands))
+                bindings = [command for command in commands if command[0] == "wasm-bindgen"]
+                self.assertEqual({Path(command[-1]).name for command in bindings},
+                                 {"adventuresim-tactical-client.wasm", "art-demo.wasm"})
+                self.assertTrue(all(("--remove-name-section" in command) != keep_names
+                                    for command in bindings))
+
+    def test_bindgen_version_mismatch_fails_before_compilation(self):
+        with mock.patch.object(build_wasm.sys, "argv", ["build_wasm.py"]), \
+             mock.patch.object(build_wasm.shutil, "which", return_value="wasm-bindgen"), \
+             mock.patch.object(build_wasm.subprocess, "check_output", return_value="wasm-bindgen 0.0.0"), \
+             mock.patch.object(build_wasm, "run") as compile_command:
+            self.assertEqual(build_wasm.main(), 1)
+        compile_command.assert_not_called()
+
     def test_asset_sync_removes_stale_files_and_merges_crate_assets(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

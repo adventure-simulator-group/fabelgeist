@@ -1,8 +1,9 @@
-import { measureMassProperties, validateWeapon } from "./mesh.js";
-import { automaticGripPoint, buildSkinnedWeaponGlb } from "./glb-export.js";
-import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, composeWeapon, compositionControls, copyPreset, controlVisible, getControlValue, setControlValue } from "./presets.js";
+import { validateWeapon } from "./kernel.js";
+import { buildSkinnedWeaponGlb } from "./glb-export.js";
+import { HAFT_MODULES, HEAD_ASSEMBLIES, PRESETS, MUSEUM_STUDIES, composeWeapon, compositionControls, copyPreset, controlVisible, getControlValue, setControlValue } from "./presets.js";
 import { WeaponRenderer } from "./renderer.js";
 
+const editorPresets = [...PRESETS, ...MUSEUM_STUDIES];
 const elements = Object.fromEntries(["preset", "reset", "family", "name", "description", "controls", "stats", "status", "definition", "apply-definition", "definition-error", "dirty-state", "viewport"].map((id) => [id, document.getElementById(id)]));
 const renderer = new WeaponRenderer(elements.viewport);
 const lod = document.getElementById("lod");
@@ -15,7 +16,7 @@ const exporter = { name: document.getElementById("export-name"), joint: document
 document.querySelectorAll("[data-pose]").forEach((button) => button.addEventListener("click", () => renderer.setView(button.dataset.pose)));
 document.querySelectorAll("[data-focus]").forEach((button) => button.addEventListener("click", () => renderer.setView("front", button.dataset.focus)));
 
-for (const preset of PRESETS) {
+for (const preset of editorPresets) {
   const option = document.createElement("option"); option.value = preset.id; option.textContent = preset.name; elements.preset.append(option);
 }
 for (const module of HAFT_MODULES) { const option = document.createElement("option"); option.value = module.id; option.textContent = module.name; composer.haft.append(option); }
@@ -32,7 +33,7 @@ function rebuild(dirty = false) {
     const shield = validation.resolved.components.find((component) => ["roundShield", "shapedShield"].includes(component.kind));
     if (shield) exporter.joint.value = shield.mirrored ? "l_weapon" : "r_weapon";
     renderer.setMesh(mesh);
-    const physical = measureMassProperties(mesh, automaticGripPoint(validation.resolved));
+    const physical = mesh.physical;
     mesh.stats.physical = physical;
     const pommelMass = physical.components.filter((component) => component.id === "pommel").reduce((sum, component) => sum + component.massKg, 0);
     const balancePoint = physical.centerOfMassFromGripM * 1_000;
@@ -81,9 +82,9 @@ function renderControls() {
   for (const control of active.controls.filter(visible)) {
     const row = document.createElement("div"); row.className = "control-row";
     const label = document.createElement("label"); label.textContent = control.label;
-    const input = document.createElement("input"); input.id = `control-${elements.controls.children.length}`; label.htmlFor = input.id; input.type = "range"; input.min = control.min; input.max = control.max; input.step = control.step; input.value = getControlValue(active.definition, control);
+    const input = document.createElement("input"); input.id = `control-${elements.controls.children.length}`; label.htmlFor = input.id; input.type = "range"; input.min = control.min; input.max = control.max; input.step = control.step > 0 ? control.step : "any"; input.value = getControlValue(active.definition, control);
     const output = document.createElement("output");
-    const show = () => { output.value = `${Number(input.value).toFixed(Math.max(0, String(control.step).split(".")[1]?.length ?? 0))}${control.unit ? ` ${control.unit}` : ""}`; };
+    const show = () => { output.value = `${Number(input.value).toFixed(Math.max(0, control.step > 0 ? (String(control.step).split(".")[1]?.length ?? 0) : 6))}${control.unit ? ` ${control.unit}` : ""}`; };
     input.addEventListener("input", () => {
       const candidate = JSON.parse(JSON.stringify(active.definition)); setControlValue(candidate, control, Number(input.value));
       const validation = validateWeapon(candidate, active.controls, { lod: lod.value });
@@ -95,7 +96,7 @@ function renderControls() {
 }
 
 function select(id) {
-  active = copyPreset(PRESETS.find((preset) => preset.id === id) ?? PRESETS[0]);
+  active = copyPreset(editorPresets.find((preset) => preset.id === id) ?? PRESETS[0]);
   elements.preset.value = active.id; elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description;
   renderControls(); rebuild(false);
 }
@@ -119,7 +120,7 @@ exporter.button.addEventListener("click", async () => {
     const glb = buildSkinnedWeaponGlb(await response.arrayBuffer(), currentValidation.mesh, {
       name: exporter.name.value,
       attachment: exporter.joint.value,
-      gripPoint: automaticGripPoint(currentValidation.resolved),
+      gripPoint: currentValidation.mesh.physical.controlPoint,
     });
     exporter.status.textContent = "Writing skinned GLB…";
     const saved = await fetch(`/api/export?name=${encodeURIComponent(fileName)}`, { method: "POST", headers: { "Content-Type": "model/gltf-binary" }, body: glb });
@@ -144,7 +145,7 @@ composer.build.addEventListener("click", () => {
   const definition = composeWeapon(composer.haft.value, composer.head.value), controls = compositionControls(definition), validation = validateWeapon(definition, controls, { lod: lod.value });
   if (!validation.valid) { composer.status.textContent = `Composition rejected: ${validation.errors.join(" · ")}`; return; }
   active = { id: "composed", name: `${composer.haft.selectedOptions[0].textContent} + ${composer.head.selectedOptions[0].textContent}`, family: "Composed preview", description: "A construction study built from independent haft and head modules. Technical validation does not establish period authenticity.", definition, controls };
-  elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description; renderControls(); rebuild(true); composer.status.textContent = "Composition valid: attachments, winding, manifold topology, and camera fit passed.";
+  elements.family.textContent = active.family; elements.name.textContent = active.name; elements.description.textContent = active.description; renderControls(); rebuild(true); composer.status.textContent = "Composition generated with valid dimensions and attachments.";
 });
 
 select(PRESETS[0].id);

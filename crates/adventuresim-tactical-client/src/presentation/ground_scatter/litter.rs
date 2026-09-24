@@ -1,3 +1,7 @@
+mod batching;
+mod streams;
+use batching::append_litter_batch;
+
 use adventuresim_tactical_core::prelude::{GroundCover, SceneGround, SceneTerrain};
 use bevy::{
     asset::RenderAssetUsages,
@@ -11,12 +15,11 @@ use bevy::{
         Vec2, Vec3, default,
     },
 };
-use fabelgeist_determinism::splitmix64;
 use std::collections::BTreeMap;
 
 #[cfg(test)]
 use crate::presentation::generate_procedural_textures;
-use crate::presentation::{ProceduralTextureAssets, bps, leaf_material, unit_hash};
+use crate::presentation::{ProceduralTextureAssets, bps, leaf_material};
 
 use super::{
     GroundLitterCaptureAnchors, GroundLitterCapturePair, GroundScatterLayer,
@@ -110,9 +113,10 @@ pub(super) fn spawn(
             transition * 0.34
         };
         for pass in 0..DRY_LEAF_PASSES_PER_SAMPLE {
-            let hash =
-                splitmix64(base_seed ^ index as u64 ^ pass.rotate_left(19) ^ 0x2b6f_5dd9_81aa_9135);
-            if unit_hash(hash) >= density * 0.97 {
+            let hash = streams::LEAF_PATCH
+                .seed(base_seed, &[index as u64, pass])
+                .to_u64();
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= density * 0.97 {
                 continue;
             }
             let Some(transform) =
@@ -126,7 +130,9 @@ pub(super) fn spawn(
             dry_leaf_patch_instances += 1;
             append_litter_batch(
                 meshes,
-                &assets.dry_leaf_meshes[(hash % assets.dry_leaf_meshes.len() as u64) as usize],
+                &assets.dry_leaf_meshes[streams::DRY_LEAF_MESHES_VARIANT
+                    .rng(hash, &[])
+                    .index(assets.dry_leaf_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
                 &mut batches,
@@ -134,9 +140,10 @@ pub(super) fn spawn(
             );
         }
         for pass in 0..TWIG_PASSES_PER_SAMPLE {
-            let hash =
-                splitmix64(base_seed ^ index as u64 ^ pass.rotate_left(23) ^ 0xc41b_b83e_3a70_f965);
-            if unit_hash(hash) >= density * 0.62 {
+            let hash = streams::TWIG_PATCH
+                .seed(base_seed, &[index as u64, pass])
+                .to_u64();
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= density * 0.62 {
                 continue;
             }
             let Some(transform) =
@@ -149,7 +156,9 @@ pub(super) fn spawn(
             }
             append_litter_batch(
                 meshes,
-                &assets.twig_meshes[(hash % assets.twig_meshes.len() as u64) as usize],
+                &assets.twig_meshes[streams::TWIG_MESHES_VARIANT
+                    .rng(hash, &[])
+                    .index(assets.twig_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
                 &mut batches,
@@ -162,9 +171,10 @@ pub(super) fn spawn(
             transition * 0.38
         };
         for pass in 0..WOODLAND_PLANT_PASSES_PER_SAMPLE {
-            let hash =
-                splitmix64(base_seed ^ index as u64 ^ pass.rotate_left(27) ^ 0x7b31_eaf4_2c5d_9081);
-            if unit_hash(hash) >= plant_chance {
+            let hash = streams::PLANT_PATCH
+                .seed(base_seed, &[index as u64, pass])
+                .to_u64();
+            if streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() >= plant_chance {
                 continue;
             }
             let Some(transform) =
@@ -174,8 +184,9 @@ pub(super) fn spawn(
             };
             append_litter_batch(
                 meshes,
-                &assets.woodland_plant_meshes
-                    [(hash % assets.woodland_plant_meshes.len() as u64) as usize],
+                &assets.woodland_plant_meshes[streams::WOODLAND_PLANT_MESHES_VARIANT
+                    .rng(hash, &[])
+                    .index(assets.woodland_plant_meshes.len())],
                 transform,
                 LITTER_BATCH_CELL_METRES,
                 &mut batches,
@@ -197,46 +208,7 @@ pub(super) fn spawn(
             physical_dry_leaf_count: dry_leaf_patch_instances * DRY_LEAVES_PER_PATCH as usize,
         },
     ));
-    for ((cell_x, cell_z), batch) in batches {
-        let transform = Transform::from_xyz(
-            cell_x as f32 * LITTER_BATCH_CELL_METRES,
-            0.0,
-            cell_z as f32 * LITTER_BATCH_CELL_METRES,
-        );
-        if let Some(mesh) = batch.leaves {
-            commands.spawn((
-                Name::new("Batched tactical dry leaves"),
-                GroundScatterLayer::DryLeaves,
-                NotShadowCaster,
-                Mesh3d(meshes.add(mesh)),
-                MeshMaterial3d(assets.dry_leaf_material.clone()),
-                batched_litter_visibility(DRY_LEAF_LOCAL_END_METRES),
-                transform,
-            ));
-        }
-        if let Some(mesh) = batch.twigs {
-            commands.spawn((
-                Name::new("Batched tactical twigs"),
-                GroundScatterLayer::Twigs,
-                NotShadowCaster,
-                Mesh3d(meshes.add(mesh)),
-                MeshMaterial3d(assets.twig_material.clone()),
-                batched_litter_visibility(TWIG_LOCAL_END_METRES),
-                transform,
-            ));
-        }
-        if let Some(mesh) = batch.plants {
-            commands.spawn((
-                Name::new("Batched tactical woodland-floor plants"),
-                GroundScatterLayer::Understory,
-                NotShadowCaster,
-                Mesh3d(meshes.add(mesh)),
-                MeshMaterial3d(assets.woodland_plant_material.clone()),
-                batched_litter_visibility(WOODLAND_PLANT_LOCAL_END_METRES),
-                transform,
-            ));
-        }
-    }
+    batching::spawn_batches(commands, meshes, assets, batches);
 }
 
 fn batched_litter_visibility(local_end_metres: f32) -> VisibilityRange {
@@ -328,39 +300,6 @@ fn leaf_litter_proximity(ground: &SceneGround, grid_x: usize, grid_z: usize) -> 
     (1.0 - nearest / WOODLAND_FLOOR_TRANSITION_METRES).clamp(0.0, 1.0)
 }
 
-fn append_litter_batch(
-    meshes: &bevy::prelude::Assets<Mesh>,
-    source: &Handle<Mesh>,
-    mut transform: Transform,
-    cell_size: f32,
-    batches: &mut BTreeMap<(i32, i32), LitterBatch>,
-    kind: BatchKind,
-) {
-    let cell = (
-        (transform.translation.x / cell_size).floor() as i32,
-        (transform.translation.z / cell_size).floor() as i32,
-    );
-    transform.translation.x -= cell.0 as f32 * cell_size;
-    transform.translation.z -= cell.1 as f32 * cell_size;
-    let Some(source) = meshes.get(source) else {
-        return;
-    };
-    let transformed = source.clone().transformed_by(transform);
-    let batch = batches.entry(cell).or_default();
-    let slot = match kind {
-        BatchKind::Leaves => &mut batch.leaves,
-        BatchKind::Twigs => &mut batch.twigs,
-        BatchKind::Plants => &mut batch.plants,
-    };
-    if let Some(batch) = slot {
-        batch
-            .merge(&transformed)
-            .expect("litter variants share one vertex contract");
-    } else {
-        *slot = Some(transformed);
-    }
-}
-
 pub(super) const DRY_LEAF_MESH_VARIANTS: u64 = 4;
 pub(super) const TWIG_MESH_VARIANTS: u64 = 3;
 pub(super) const WOODLAND_PLANT_MESH_VARIANTS: u64 = 3;
@@ -398,8 +337,8 @@ fn forest_floor_patch_transform(
     let jitter = ground.grid_scale() * 0.78;
     let position = cell_origin
         + Vec2::new(
-            unit_hash(splitmix64(hash ^ 0x672a_1f04)) - 0.5,
-            unit_hash(splitmix64(hash ^ 0xeeb0_31cd)) - 0.5,
+            streams::CELL_JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+            streams::CELL_JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
         ) * jitter;
     if ground.ground_at(position).is_none_or(|sample| {
         !matches!(
@@ -433,19 +372,29 @@ pub(super) fn dry_leaf_patch_mesh(variant: u64) -> Mesh {
     const CLUSTER_COUNT: u64 = 7;
     let clusters = (0..CLUSTER_COUNT)
         .map(|cluster| {
-            let hash = splitmix64(variant.rotate_left(17) ^ cluster ^ 0x5a9d_31c4);
-            Vec2::new(unit_hash(hash) - 0.5, unit_hash(splitmix64(hash ^ 1)) - 0.5) * 0.68
+            let hash = streams::LEAF_CLUSTER.seed(variant, &[cluster]).to_u64();
+            Vec2::new(
+                streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+                streams::CENTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+            ) * 0.68
         })
         .collect::<Vec<_>>();
     for leaf in 0..DRY_LEAVES_PER_PATCH {
-        let hash = splitmix64(leaf ^ variant.rotate_left(29) ^ 0x5ec4_57d2_bf90_1c37);
-        let scatter_angle = unit_hash(splitmix64(hash ^ 0x43)) * core::f32::consts::TAU;
+        let hash = streams::LEAF.seed(variant, &[leaf]).to_u64();
+        let scatter_angle =
+            streams::SCATTER_ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
         let centre = if leaf < STRATIFIED_LEAVES {
             let column = leaf % STRATIFIED_COLUMNS;
             let row = leaf / STRATIFIED_COLUMNS;
             let jitter = Vec2::new(
-                unit_hash(splitmix64(hash ^ 0x9a31)) - 0.5,
-                unit_hash(splitmix64(hash ^ 0xb477)) - 0.5,
+                streams::STRATUM_JITTER_X
+                    .rng(hash, &[])
+                    .inclusive_unit_f32()
+                    - 0.5,
+                streams::STRATUM_JITTER_Z
+                    .rng(hash, &[])
+                    .inclusive_unit_f32()
+                    - 0.5,
             ) * 0.075;
             Vec2::new(
                 (column as f32 + 0.5) / STRATIFIED_COLUMNS as f32 - 0.5,
@@ -454,21 +403,22 @@ pub(super) fn dry_leaf_patch_mesh(variant: u64) -> Mesh {
                 + jitter
         } else {
             let cluster = clusters[leaf as usize % clusters.len()];
-            let radial = 0.025 + unit_hash(splitmix64(hash ^ 0x42)) * 0.12;
+            let radial = 0.025 + streams::RADIAL.rng(hash, &[]).inclusive_unit_f32() * 0.12;
             cluster + Vec2::new(scatter_angle.cos(), scatter_angle.sin()) * radial
         };
-        let angle = unit_hash(splitmix64(hash ^ 2)) * core::f32::consts::TAU;
-        let long =
-            Vec2::new(angle.cos(), angle.sin()) * (0.045 + unit_hash(splitmix64(hash ^ 3)) * 0.040);
-        let side = Vec2::new(-long.y, long.x) * (0.45 + unit_hash(splitmix64(hash ^ 4)) * 0.18);
+        let angle = streams::ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let long = Vec2::new(angle.cos(), angle.sin())
+            * (0.045 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.040);
+        let side = Vec2::new(-long.y, long.x)
+            * (0.45 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.18);
         data.append_cambered_leaf(
             centre,
             long,
             side,
             if leaf % 5 == 0 {
-                0.004 + unit_hash(splitmix64(hash ^ 0x781d)) * 0.008
+                0.004 + streams::LEAF_HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.008
             } else {
-                unit_hash(splitmix64(hash ^ 0x781d)) * 0.0015
+                streams::LEAF_HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.0015
             },
             hash,
             leaf_colors[leaf as usize % leaf_colors.len()],
@@ -487,22 +437,25 @@ pub(super) fn twig_patch_mesh(variant: u64) -> Mesh {
         Color::srgb_u8(62, 40, 25),
     ];
     for twig in 0..TWIGS_PER_PATCH {
-        let hash = splitmix64(twig ^ variant.rotate_left(31) ^ 0xa773_9fe2_410c_862d);
-        let centre = Vec2::new(unit_hash(hash) - 0.5, unit_hash(splitmix64(hash ^ 1)) - 0.5) * 1.02;
-        let angle = unit_hash(splitmix64(hash ^ 2)) * core::f32::consts::TAU;
-        let long =
-            Vec2::new(angle.cos(), angle.sin()) * (0.075 + unit_hash(splitmix64(hash ^ 3)) * 0.07);
+        let hash = streams::TWIG.seed(variant, &[twig]).to_u64();
+        let centre = Vec2::new(
+            streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+            streams::CENTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5,
+        ) * 1.02;
+        let angle = streams::ANGLE.rng(hash, &[]).inclusive_unit_f32() * core::f32::consts::TAU;
+        let long = Vec2::new(angle.cos(), angle.sin())
+            * (0.075 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.07);
         let lateral = Vec2::new(-long.y, long.x).normalize_or_zero();
         let start = Vec3::new(centre.x - long.x, -0.004, centre.y - long.y);
-        let bend = (unit_hash(splitmix64(hash ^ 4)) - 0.5) * 0.055;
+        let bend = (streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() - 0.5) * 0.055;
         let middle = Vec3::new(
             centre.x + lateral.x * bend,
-            0.002 + unit_hash(splitmix64(hash ^ 0x44)) * 0.004,
+            0.002 + streams::TWIG_LIFT.rng(hash, &[]).inclusive_unit_f32() * 0.004,
             centre.y + lateral.y * bend,
         );
         let end = Vec3::new(centre.x + long.x, -0.006, centre.y + long.y);
-        let sides = 5 + (hash % 2) as u32;
-        let radius = 0.006 + unit_hash(splitmix64(hash ^ 5)) * 0.005;
+        let sides = 5 + streams::TWIG_SIDES.rng(hash, &[]).index(2) as u32;
+        let radius = 0.006 + streams::TWIG_RADIUS.rng(hash, &[]).inclusive_unit_f32() * 0.005;
         let color = twig_colors[twig as usize % twig_colors.len()];
         data.append_bent_twig(
             start,
@@ -516,13 +469,19 @@ pub(super) fn twig_patch_mesh(variant: u64) -> Mesh {
             centre,
             color,
         );
-        if twig < 2 && unit_hash(splitmix64(hash ^ 6)) > 0.46 {
+        if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {
             let attach = middle.lerp(end, 0.22);
             let direction = (end - middle).normalize();
             let lateral = Vec3::new(-direction.z, 0.12, direction.x).normalize();
             let fork_end = attach
-                + (direction * 0.38 + lateral * if hash & 1 == 0 { 0.62 } else { -0.62 })
-                    .normalize()
+                + (direction * 0.38
+                    + lateral
+                        * if streams::TWIG_FORK_SIDE.rng(hash, &[]).boolean() {
+                            0.62
+                        } else {
+                            -0.62
+                        })
+                .normalize()
                     * long.length()
                     * 0.72;
             let fork_middle = attach.lerp(fork_end, 0.52) + Vec3::Y * 0.002;
@@ -555,26 +514,35 @@ pub(super) fn woodland_plant_patch_mesh(variant: u64) -> Mesh {
     ];
     let plant_count = 2 + variant % 2;
     for plant in 0..plant_count {
-        let plant_hash = splitmix64(variant.rotate_left(23) ^ plant ^ 0x91e4_3bc7);
+        let plant_hash = streams::PLANT.seed(variant, &[plant]).to_u64();
         let centre = Vec2::new(
-            unit_hash(plant_hash) - 0.5,
-            unit_hash(splitmix64(plant_hash ^ 1)) - 0.5,
+            streams::PLANT_CENTER_X
+                .rng(plant_hash, &[])
+                .inclusive_unit_f32()
+                - 0.5,
+            streams::PLANT_CENTER_Z
+                .rng(plant_hash, &[])
+                .inclusive_unit_f32()
+                - 0.5,
         ) * 0.62;
-        let leaf_count = 5 + plant_hash % 3;
-        let phase = unit_hash(splitmix64(plant_hash ^ 2)) * core::f32::consts::TAU;
+        let leaf_count = 5 + streams::LEAF_COUNT.rng(plant_hash, &[]).index(3) as u64;
+        let phase = streams::PLANT_PHASE
+            .rng(plant_hash, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         for leaf in 0..leaf_count {
-            let hash = splitmix64(plant_hash ^ leaf.rotate_left(17));
+            let hash = streams::PLANT_LEAF.seed(plant_hash, &[leaf]).to_u64();
             let angle = phase
                 + leaf as f32 * core::f32::consts::TAU / leaf_count as f32
-                + (unit_hash(hash) - 0.5) * 0.28;
-            let length = 0.11 + unit_hash(splitmix64(hash ^ 3)) * 0.075;
-            let width = length * (0.19 + unit_hash(splitmix64(hash ^ 4)) * 0.08);
+                + (streams::CENTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5) * 0.28;
+            let length = 0.11 + streams::LENGTH.rng(hash, &[]).inclusive_unit_f32() * 0.075;
+            let width = length * (0.19 + streams::WIDTH.rng(hash, &[]).inclusive_unit_f32() * 0.08);
             data.append_rosette_leaf(
                 centre,
                 Vec2::new(angle.cos(), angle.sin()),
                 length,
                 width,
-                0.055 + unit_hash(splitmix64(hash ^ 5)) * 0.055,
+                0.055 + streams::TWIG_RADIUS.rng(hash, &[]).inclusive_unit_f32() * 0.055,
                 palette[(plant as usize + leaf as usize) % palette.len()],
             );
         }
@@ -732,7 +700,7 @@ impl GroundLitterMeshData {
     fn into_mesh(self) -> Mesh {
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
-            RenderAssetUsages::RENDER_WORLD,
+            RenderAssetUsages::MAIN_WORLD,
         );
         mesh.insert_attribute(Mesh::ATTRIBUTE_POSITION, self.positions);
         mesh.insert_attribute(Mesh::ATTRIBUTE_NORMAL, self.normals);
@@ -769,18 +737,20 @@ impl GroundLitterMeshData {
         // varied plate first, then seat its lowest vertex just below the local
         // patch ground plane so every instance visibly makes contact.
         let elevated = height >= 0.004;
-        let long_slope =
-            (unit_hash(splitmix64(seed ^ 0x11)) - 0.5) * if elevated { 0.12 } else { 0.035 };
-        let side_slope =
-            (unit_hash(splitmix64(seed ^ 0x12)) - 0.5) * if elevated { 0.08 } else { 0.025 };
+        let long_slope = (streams::LONG_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
+            * if elevated { 0.12 } else { 0.035 };
+        let side_slope = (streams::SIDE_SLOPE.rng(seed, &[]).inclusive_unit_f32() - 0.5)
+            * if elevated { 0.08 } else { 0.025 };
         let camber = if elevated {
-            0.004 + unit_hash(splitmix64(seed ^ 0x13)) * 0.007
+            0.004 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.007
         } else {
-            0.0012 + unit_hash(splitmix64(seed ^ 0x13)) * 0.0022
+            0.0012 + streams::CAMBER.rng(seed, &[]).inclusive_unit_f32() * 0.0022
         };
-        let curl =
-            (unit_hash(splitmix64(seed ^ 0x14)) - 0.5) * if elevated { 0.007 } else { 0.002 };
-        let burial = 0.0007 + height.min(0.006) * 0.15 + unit_hash(splitmix64(seed ^ 0x15)) * 0.001;
+        let curl = (streams::CURL.rng(seed, &[]).inclusive_unit_f32() - 0.5)
+            * if elevated { 0.007 } else { 0.002 };
+        let burial = 0.0007
+            + height.min(0.006) * 0.15
+            + streams::BURIAL.rng(seed, &[]).inclusive_unit_f32() * 0.001;
         let long3 = Vec3::new(long.x, long_slope * long.length(), long.y);
         let side3 = Vec3::new(side.x, side_slope * side.length(), side.y);
         let centre3 = Vec3::new(centre.x, 0.0, centre.y);
@@ -873,7 +843,13 @@ mod tests {
         let base_seed = (0..100)
             .find(|base_seed| {
                 (0..9).any(|index| {
-                    unit_hash(splitmix64(*base_seed ^ index ^ 0x7b31_eaf4_2c5d_9081)) < 0.055
+                    streams::PRESENCE
+                        .rng(
+                            streams::PLANT_PATCH.seed(*base_seed, &[index, 0]).to_u64(),
+                            &[],
+                        )
+                        .inclusive_unit_f32()
+                        < 0.055
                 })
             })
             .expect("a deterministic seed with a woodland-floor plant");
@@ -1220,11 +1196,11 @@ mod tests {
             let mut expected_triangles = 0;
             let mut expected_boundaries = 0;
             for twig in 0..TWIGS_PER_PATCH {
-                let hash = splitmix64(twig ^ variant.rotate_left(31) ^ 0xa773_9fe2_410c_862d);
+                let hash = streams::TWIG.seed(variant, &[twig]).to_u64();
                 let sides = 5 + (hash % 2) as usize;
                 expected_vertices += sides * 4 + 2;
                 expected_triangles += sides * 8;
-                if twig < 2 && unit_hash(splitmix64(hash ^ 6)) > 0.46 {
+                if twig < 2 && streams::TWIG_FORK.rng(hash, &[]).inclusive_unit_f32() > 0.46 {
                     expected_vertices += sides * 4 + 1;
                     expected_triangles += sides * 7;
                     expected_boundaries += sides;

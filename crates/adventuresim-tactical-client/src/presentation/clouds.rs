@@ -1,11 +1,17 @@
 //! A single, baked optical cloud shell for the grounded tactical camera.
 
+mod noise;
+use noise::{cloud_seed, non_periodic_value_noise_3d};
+mod streams;
+use super::cloud_bake_assets::{
+    CLOUD_BAKE_AZIMUTH_SEGMENTS, CLOUD_BAKE_CHANNELS, CLOUD_BAKE_ELEVATION_SEGMENTS,
+    CLOUD_BAKE_TEXTURE_HEIGHT, CLOUD_BAKE_TEXTURE_WIDTH, image_from_rgba8,
+};
 use super::*;
 use bevy::{
     camera::{ClearColorConfig, RenderTarget, visibility::RenderLayers},
     render::render_resource::{TextureDescriptor, TextureUsages},
 };
-use fabelgeist_determinism::splitmix64;
 
 #[cfg(not(target_family = "wasm"))]
 use bevy::tasks::{AsyncComputeTaskPool, Task, block_on};
@@ -22,11 +28,6 @@ const CLOUD_CURVATURE_RADIUS_METRES: f32 = 180_000.0;
 /// Its native dome parameterization gives low elevations their own rows rather
 /// than compressing them into an orthographic texture's outer ring. The
 /// duplicated azimuth seam is 1025 x 257 RGBA8, or about 1 MiB.
-const CLOUD_BAKE_AZIMUTH_SEGMENTS: u32 = 1_024;
-const CLOUD_BAKE_ELEVATION_SEGMENTS: u32 = 256;
-const CLOUD_BAKE_TEXTURE_WIDTH: u32 = CLOUD_BAKE_AZIMUTH_SEGMENTS + 1;
-const CLOUD_BAKE_TEXTURE_HEIGHT: u32 = CLOUD_BAKE_ELEVATION_SEGMENTS + 1;
-const CLOUD_BAKE_CHANNELS: usize = 4;
 const CLOUD_BAKE_VERTICAL_SAMPLES: u32 = 48;
 const CLOUD_BAKE_REFERENCE_EYE_METRES: f32 = 1.7;
 /// Long endpoint spacing keeps the expensive CPU bake comfortably ahead of
@@ -676,25 +677,36 @@ fn baked_cloud_density(
     // translation, so integrating a ray cannot turn a single 2-D field into
     // radial wedges.
     let warp = Vec3::new(
-        non_periodic_value_noise_3d(coordinate * 0.36, seed ^ slot.rotate_left(7)),
+        non_periodic_value_noise_3d(
+            coordinate * 0.36,
+            streams::WARP_X.seed(seed, &[slot]).to_u64(),
+        ),
         non_periodic_value_noise_3d(
             coordinate * 0.36 + Vec3::splat(13.7),
-            seed ^ slot.rotate_left(13),
+            streams::WARP_Y.seed(seed, &[slot]).to_u64(),
         ),
         non_periodic_value_noise_3d(
             coordinate * 0.36 + Vec3::new(4.1, 9.7, 17.3),
-            seed ^ slot.rotate_left(19),
+            streams::WARP_Z.seed(seed, &[slot]).to_u64(),
         ),
     ) - Vec3::splat(0.5);
     let warped = coordinate + warp * Vec3::new(0.85, 0.42, 0.85);
     // Three incommensurate, non-periodic frequencies form clustered lobes;
     // no individual octave can reveal a repeated cell over the dome.
-    let broad = non_periodic_value_noise_3d(warped * 0.58, seed ^ slot.rotate_left(11)) * 0.29
-        + non_periodic_value_noise_3d(warped * 1.23, seed ^ slot.rotate_left(17)) * 0.44
-        + non_periodic_value_noise_3d(warped * 2.61, seed ^ slot.rotate_left(23)) * 0.27;
+    let broad =
+        non_periodic_value_noise_3d(warped * 0.58, streams::BROAD.seed(seed, &[slot]).to_u64())
+            * 0.29
+            + non_periodic_value_noise_3d(
+                warped * 1.23,
+                streams::MEDIUM.seed(seed, &[slot]).to_u64(),
+            ) * 0.44
+            + non_periodic_value_noise_3d(
+                warped * 2.61,
+                streams::FINE.seed(seed, &[slot]).to_u64(),
+            ) * 0.27;
     let detail = non_periodic_value_noise_3d(
         warped * 5.9 + Vec3::new(9.7, 1.3, 4.1),
-        seed ^ slot.rotate_left(29),
+        streams::DETAIL.seed(seed, &[slot]).to_u64(),
     );
     let profile = cloud_vertical_profile(height, kind, broad);
     let mut threshold = 0.78 - layer.coverage * 0.34;
@@ -760,7 +772,7 @@ fn cloud_bake_lighting_variation(
     non_periodic_value_noise_3d(
         cloud_density_coordinate(world, height, layer, seed, evolution) * 3.17
             + Vec3::new(2.1, 7.3, 11.9),
-        seed ^ slot.rotate_left(21),
+        streams::VERTICAL.seed(seed, &[slot]).to_u64(),
     )
 }
 
@@ -783,34 +795,6 @@ fn cloud_vertical_profile(height: f32, kind: u32, noise: f32) -> f32 {
     }
 }
 
-fn non_periodic_value_noise_3d(position: Vec3, seed: u64) -> f32 {
-    let cell = position.floor();
-    let fraction = position - cell;
-    // Quintic interpolation makes both first and second derivatives vanish at
-    // lattice boundaries. The cloud field is magnified over kilometres, so
-    // the cubic value-noise shoulder was still legible as broad square cells.
-    let smooth = fraction
-        * fraction
-        * fraction
-        * (fraction * (fraction * 6.0 - Vec3::splat(15.0)) + Vec3::splat(10.0));
-    let value = |offset: Vec3| {
-        let lattice = cell + offset;
-        splitmix64(
-            seed ^ (lattice.x as i64 as u64).wrapping_mul(0x9e37_79b9)
-                ^ (lattice.y as i64 as u64).rotate_left(23)
-                ^ (lattice.z as i64 as u64).wrapping_mul(0xd1b5_4a32_d192_ed03),
-        ) as f32
-            / u64::MAX as f32
-    };
-    let x0 = value(Vec3::ZERO).lerp(value(Vec3::X), smooth.x);
-    // The z=0 upper-X corner is (1, 1, 0). Sampling (1, 1, 1) here coupled
-    // adjacent Z cells and exposed axis-aligned macro blocks in the dome bake.
-    let x1 = value(Vec3::Y).lerp(value(Vec3::X + Vec3::Y), smooth.x);
-    let y0 = x0.lerp(x1, smooth.y);
-    let x2 = value(Vec3::Z).lerp(value(Vec3::Z + Vec3::X), smooth.x);
-    let x3 = value(Vec3::Z + Vec3::Y).lerp(value(Vec3::ONE), smooth.x);
-    y0.lerp(x2.lerp(x3, smooth.y), smooth.z)
-}
 fn cloud_hemisphere_mesh() -> Mesh {
     // The mesh supplies only view directions. This moderate tessellation keeps
     // a smooth horizon while eliminating the old ray-march proxy density.
@@ -870,7 +854,7 @@ fn cloud_hemisphere_mesh() -> Mesh {
     reason = "Bevy injects cloud scene state, lighting, capture controls, and material storage independently"
 )]
 pub(in crate::presentation) fn update_tactical_clouds(
-    time: Res<Time>,
+    _time: Res<Time>,
     active: Res<ActiveTacticalScene>,
     environments: Query<&SceneEnvironment>,
     celestial: Res<PresentedCelestialLighting>,
@@ -892,8 +876,8 @@ pub(in crate::presentation) fn update_tactical_clouds(
     mut images: ResMut<Assets<Image>>,
     mut bake_state: ResMut<CloudBakeState>,
     mut animation_status: ResMut<TacticalCloudAnimationStatus>,
+    prebaked: Option<Res<PrebakedCloudEnvironment>>,
 ) {
-    let _ = &time;
     for mut transform in &mut composites {
         transform.translation = camera.translation();
     }
@@ -946,25 +930,21 @@ pub(in crate::presentation) fn update_tactical_clouds(
             bake_state.end_ready = false;
 
             let wind_velocity = cloud_wind_velocity(environment);
-            let initial_request = CloudBakeRequest {
-                key: bake_key.clone(),
-                endpoint: 0,
-                wind_velocity,
-            };
-            let initial = cloud_bake_image(&initial_request);
-            if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
-                *image = initial.clone();
-            }
-            if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
-                *image = initial;
+            if let Some(prebaked) = prebaked.as_deref() {
+                let initial = image_from_rgba8(prebaked.rgba8);
+                if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
+                    *image = initial.clone();
+                }
+                if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
+                    *image = initial;
+                }
             }
             bake_state.key = Some(bake_key.clone());
-
             #[cfg(not(target_family = "wasm"))]
             {
                 bake_state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
                     key: bake_key.clone(),
-                    endpoint: 1,
+                    endpoint: u64::from(prebaked.is_some()),
                     wind_velocity,
                 }));
             }
@@ -978,7 +958,7 @@ pub(in crate::presentation) fn update_tactical_clouds(
             if isolation.freeze_animation {
                 0.0
             } else {
-                time.delta_secs()
+                _time.delta_secs()
             },
         );
         let representative_altitude = cloud_representative_altitude(layers);
@@ -1075,21 +1055,9 @@ fn advance_cloud_bake_pipeline(
                 .take()
                 .expect("finished cloud bake task remains present"),
         );
-        if state.key.as_ref() == Some(&completed.request.key) {
-            if state.end_ready {
-                state.queued = Some(completed);
-            } else {
-                if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
-                    *image = completed.image;
-                }
-                state.end_ready = true;
-                state.elapsed_seconds = 0.0;
-                state.pending = Some(spawn_cloud_bake(CloudBakeRequest {
-                    key: completed.request.key,
-                    endpoint: completed.request.endpoint + 1,
-                    wind_velocity: completed.request.wind_velocity,
-                }));
-            }
+        if let Some(next_request) = install_completed_cloud_bake(state, material, images, completed)
+        {
+            state.pending = Some(spawn_cloud_bake(next_request));
         }
     }
 
@@ -1119,6 +1087,37 @@ fn advance_cloud_bake_pipeline(
     }));
 }
 
+#[cfg(not(target_family = "wasm"))]
+fn install_completed_cloud_bake(
+    state: &mut CloudBakeState,
+    material: &mut TacticalCloudMaterial,
+    images: &mut Assets<Image>,
+    completed: CompletedCloudBake,
+) -> Option<CloudBakeRequest> {
+    if state.key.as_ref() != Some(&completed.request.key) {
+        return None;
+    }
+    if state.end_ready {
+        state.queued = Some(completed);
+        return None;
+    }
+    if completed.request.endpoint == 0 {
+        if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
+            *image = completed.image.clone();
+        }
+    }
+    if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
+        *image = completed.image;
+    }
+    state.end_ready = true;
+    state.elapsed_seconds = 0.0;
+    Some(CloudBakeRequest {
+        key: completed.request.key,
+        endpoint: completed.request.endpoint + 1,
+        wind_velocity: completed.request.wind_velocity,
+    })
+}
+
 fn cloud_visibility(active: bool, isolation: TacticalCloudBenchmarkIsolation) -> Visibility {
     if active && !isolation.hide_clouds {
         Visibility::Inherited
@@ -1143,16 +1142,18 @@ fn cloud_shell_altitude_at_distance(surface_metres: f32, horizontal_metres: f32)
         - CLOUD_CURVATURE_RADIUS_METRES
 }
 
-fn cloud_seed(environment: &SceneEnvironment) -> u64 {
-    let mut hash = 0xcbf2_9ce4_8422_2325_u64;
-    for byte in environment.scene_digest.bytes() {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x0000_0100_0000_01b3);
-    }
-    hash ^= environment.absolute_minute / 360;
-    hash ^= (environment.latitude_microdegrees as u32 as u64) << 32;
-    hash ^= environment.longitude_microdegrees as u32 as u64;
-    hash
+#[cfg(test)]
+pub(crate) fn bake_environment_rgba8(environment: &SceneEnvironment) -> Vec<u8> {
+    cloud_bake_image(&CloudBakeRequest {
+        key: CloudBakeKey {
+            layers: CloudLayerParameters::layers_from_environment(environment, None),
+            seed: cloud_seed(environment),
+        },
+        endpoint: 0,
+        wind_velocity: cloud_wind_velocity(environment),
+    })
+    .data
+    .expect("generated cloud bake has pixels")
 }
 
 fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
@@ -1500,5 +1501,146 @@ mod tests {
         let velocity = cloud_wind_velocity(&environment);
         assert!((velocity.x - CLOUD_MAX_WIND_METRES_PER_SECOND).abs() < 0.001);
         assert!(velocity.y.abs() < 0.001);
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_image(pixel: [u8; 4]) -> Image {
+        use bevy::{
+            asset::RenderAssetUsages,
+            render::render_resource::{Extent3d, TextureDimension, TextureFormat},
+        };
+
+        Image::new_fill(
+            Extent3d {
+                width: 1,
+                height: 1,
+                depth_or_array_layers: 1,
+            },
+            TextureDimension::D2,
+            &pixel,
+            TextureFormat::Rgba8Unorm,
+            RenderAssetUsages::RENDER_WORLD,
+        )
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_material(images: &mut Assets<Image>) -> TacticalCloudMaterial {
+        TacticalCloudMaterial {
+            lighting: Vec4::ZERO,
+            shape: Vec4::ZERO,
+            layer: Vec4::ZERO,
+            motion: Vec4::ZERO,
+            spectral: Vec4::ZERO,
+            geometry: Vec4::ZERO,
+            baked_texture_a: images.add(lifecycle_image([1, 2, 3, 4])),
+            baked_texture_b: images.add(lifecycle_image([5, 6, 7, 8])),
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn lifecycle_request(endpoint: u64) -> CloudBakeRequest {
+        let environment = environment();
+        CloudBakeRequest {
+            key: CloudBakeKey {
+                layers: CloudLayerParameters::layers_from_environment(&environment, None),
+                seed: 7,
+            },
+            endpoint,
+            wind_velocity: cloud_wind_velocity(&environment),
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn initial_async_bake_installs_both_endpoints_and_schedules_the_next_bake() {
+        let request = lifecycle_request(0);
+        let mut state = CloudBakeState {
+            key: Some(request.key.clone()),
+            ..Default::default()
+        };
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+        let next = install_completed_cloud_bake(
+            &mut state,
+            &mut material,
+            &mut images,
+            CompletedCloudBake {
+                request,
+                image: lifecycle_image([9, 10, 11, 12]),
+            },
+        )
+        .expect("initial bake schedules endpoint one");
+
+        assert!(state.end_ready);
+        assert_eq!(next.endpoint, 1);
+        for texture in [&material.baked_texture_a, &material.baked_texture_b] {
+            assert_eq!(
+                images.get(texture).and_then(|image| image.data.as_deref()),
+                Some(&[9, 10, 11, 12][..])
+            );
+        }
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn stale_initial_bake_is_discarded_without_changing_fallback_textures() {
+        let request = lifecycle_request(0);
+        let mut state = CloudBakeState {
+            key: Some(lifecycle_request(0).key),
+            ..Default::default()
+        };
+        state.key.as_mut().expect("key is present").seed = 8;
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+
+        assert!(
+            install_completed_cloud_bake(
+                &mut state,
+                &mut material,
+                &mut images,
+                CompletedCloudBake {
+                    request,
+                    image: lifecycle_image([9, 10, 11, 12]),
+                },
+            )
+            .is_none()
+        );
+        assert!(!state.end_ready);
+        assert_eq!(
+            images
+                .get(&material.baked_texture_a)
+                .and_then(|image| image.data.as_deref()),
+            Some(&[1, 2, 3, 4][..])
+        );
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    #[test]
+    fn subsequent_completed_bake_queues_for_the_existing_interpolation_cycle() {
+        let request = lifecycle_request(1);
+        let mut state = CloudBakeState {
+            key: Some(request.key.clone()),
+            end_ready: true,
+            ..Default::default()
+        };
+        let mut images = Assets::default();
+        let mut material = lifecycle_material(&mut images);
+
+        assert!(
+            install_completed_cloud_bake(
+                &mut state,
+                &mut material,
+                &mut images,
+                CompletedCloudBake {
+                    request,
+                    image: lifecycle_image([9, 10, 11, 12]),
+                },
+            )
+            .is_none()
+        );
+        assert_eq!(
+            state.queued.as_ref().map(|bake| bake.request.endpoint),
+            Some(1)
+        );
     }
 }

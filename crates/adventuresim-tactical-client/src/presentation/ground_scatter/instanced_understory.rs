@@ -9,6 +9,7 @@
 //! stop casting shadows; at their band distances the cast shadows were
 //! already faint.
 
+use fabelgeist_determinism::StreamId;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneGround, SceneTerrain};
@@ -21,8 +22,6 @@ use bevy::{
     shader::ShaderRef,
 };
 use bevy_eidolon::prelude::*;
-
-use crate::presentation::{splitmix64, unit_hash};
 
 use super::{
     WoodyUnderstoryPresentationCache,
@@ -195,15 +194,8 @@ pub(super) fn spawn(
         if normal.y < 0.72 {
             continue;
         }
-        let yaw = unit_hash(hash) * core::f32::consts::TAU;
-        let scale = 0.72 + unit_hash(splitmix64(hash ^ 0x8c0a_3c95)) * 0.58;
-        per_species[species_index(species)].push(InstanceData {
-            position: Vec3::new(world_x, height, world_z),
-            scale,
-            rotation: yaw,
-            seed: (splitmix64(hash ^ 0x73_68_72_75_62) & 0xffff_ffff) as u32,
-            ..Default::default()
-        });
+        per_species[species_index(species)]
+            .push(shrub_instance(hash, Vec3::new(world_x, height, world_z)));
     }
 
     for species in [
@@ -302,5 +294,27 @@ fn species_index(species: UnderstorySpecies) -> usize {
         UnderstorySpecies::CommonHazel => 0,
         UnderstorySpecies::Blackthorn => 1,
         UnderstorySpecies::CommonHawthorn => 2,
+    }
+}
+
+fn shrub_instance(hash: u64, position: Vec3) -> InstanceData {
+    let yaw = StreamId::new("visual.understory.yaw")
+        .rng(hash, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
+    let scale = 0.72
+        + StreamId::new("visual.understory.scale")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * 0.58;
+    InstanceData {
+        position,
+        scale,
+        rotation: yaw,
+        seed: (StreamId::new("visual.ground-scatter.instanced-understory.shader-seed")
+            .seed(hash, &[])
+            .to_u64()
+            & 0xffff_ffff) as u32,
+        ..Default::default()
     }
 }

@@ -1,7 +1,9 @@
 //! Cheap room-bounded indirect daylight, shared by architecture and moving PBR surfaces.
 mod exposure;
+pub(crate) use exposure::InteriorExposure;
 mod field;
 mod material;
+mod shutters;
 #[cfg(test)]
 mod tests;
 
@@ -103,6 +105,7 @@ impl Plugin for InteriorLightingPlugin {
         .add_systems(
             PostUpdate,
             (
+                shutters::update_shutter_light.before(upload_field),
                 upload_field,
                 exposure::adapt_exposure,
                 material::prepare_materials,

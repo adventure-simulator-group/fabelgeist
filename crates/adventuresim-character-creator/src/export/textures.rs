@@ -22,12 +22,12 @@ impl<'a> GlbOutput<'a> {
     }
 }
 
-#[derive(Clone, Copy)]
-pub struct SurfaceTextures<'a> {
-    pub base_color_png: &'a [u8],
-    pub normal_png: &'a [u8],
+#[derive(Clone)]
+pub struct SurfaceTextures {
+    pub base_color_png: Option<Vec<u8>>,
+    pub normal_png: Vec<u8>,
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
-    pub occlusion_png: Option<&'a [u8]>,
+    pub occlusion_png: Option<Vec<u8>>,
     pub cutout: bool,
 }
 
@@ -106,8 +106,10 @@ impl TextureImages {
                         "shared texture {} has unexpected contents",
                         path.display()
                     ),
-                    Err(error) if error.kind() == ErrorKind::NotFound => fs::write(&path, bytes)
-                        .with_context(|| format!("writing shared texture {}", path.display()))?,
+                    Err(error) if error.kind() == ErrorKind::NotFound => {
+                        fs::write(&path, &bytes)
+                            .with_context(|| format!("writing shared texture {}", path.display()))?
+                    }
                     Err(error) => {
                         return Err(error)
                             .with_context(|| format!("reading shared texture {}", path.display()));
@@ -124,17 +126,19 @@ impl TextureImages {
 
     pub fn apply(
         &mut self,
-        maps: SurfaceTextures<'_>,
+        maps: SurfaceTextures,
         buffer: &mut BufferBuilder,
         material: &mut Value,
     ) {
-        let color = self.image(maps.base_color_png, buffer);
-        let normal = self.image(maps.normal_png, buffer);
-        material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
-        material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
+        if let Some(bytes) = maps.base_color_png {
+            let color = self.image(&bytes, buffer);
+            material["pbrMetallicRoughness"]["baseColorFactor"] = json!([1.0, 1.0, 1.0, 1.0]);
+            material["pbrMetallicRoughness"]["baseColorTexture"] = json!({"index":color});
+        }
+        let normal = self.image(&maps.normal_png, buffer);
         material["normalTexture"] = json!({"index":normal});
         if let Some(bytes) = maps.occlusion_png {
-            let occlusion = self.image(bytes, buffer);
+            let occlusion = self.image(&bytes, buffer);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});
         }
         if maps.cutout {

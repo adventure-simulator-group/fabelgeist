@@ -10,7 +10,7 @@ use fabelgeist_armor::{engraving::Engraving, material::Metal};
 
 #[derive(Resource, Default)]
 pub(super) struct EquipmentMaps {
-    maps: Option<MailImages>,
+    mail: Option<MailImages>,
     /// Baked steels, kept while a worn article still uses them.
     metals: Vec<BakedMetal>,
 }
@@ -57,7 +57,7 @@ impl EquipmentMaps {
             ..default()
         };
         if let Some(textures) = underlayer_material::textures(design) {
-            let maps = self.maps.get_or_insert_with(|| {
+            let maps = self.mail.get_or_insert_with(|| {
                 let mut load = |bytes, srgb| {
                     images.add(
                         Image::from_buffer(
@@ -72,9 +72,18 @@ impl EquipmentMaps {
                     )
                 };
                 MailImages {
-                    color: load(textures.base_color_png, true),
-                    normal: load(textures.normal_png, false),
-                    occlusion: textures.occlusion_png.map(|bytes| load(bytes, false)),
+                    color: load(
+                        textures
+                            .base_color_png
+                            .as_deref()
+                            .expect("mail supplies a base-color texture"),
+                        true,
+                    ),
+                    normal: load(&textures.normal_png, false),
+                    occlusion: textures
+                        .occlusion_png
+                        .as_deref()
+                        .map(|bytes| load(bytes, false)),
                 }
             });
             result.base_color = Color::WHITE;

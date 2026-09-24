@@ -88,6 +88,15 @@ pub struct Skin {
     pub joint_weights: Vec<[f32; 8]>,
 }
 
+impl Skin {
+    /// Add `other`'s points after this skin's, matching an appended part.
+    pub fn append(&mut self, other: Skin) {
+        self.texcoords.extend(other.texcoords);
+        self.joint_indices.extend(other.joint_indices);
+        self.joint_weights.extend(other.joint_weights);
+    }
+}
+
 impl Correspondence {
     /// Record, for each of `count` points, the nearest body vertex and its
     /// attributes.

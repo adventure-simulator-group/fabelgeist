@@ -15,7 +15,7 @@ pub(super) async fn merchant_provider_id(
     settlement_id: &str,
     service_id: &str,
     location_id: &str,
-) -> Option<String> {
+) -> Option<u64> {
     let settlement_literal = sql_string_literal(settlement_id);
     let providers_sql = format!(
         "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {settlement_literal}"
@@ -26,10 +26,10 @@ pub(super) async fn merchant_provider_id(
     let (providers, presences) = tokio::join!(
         state
             .db
-            .query_sats::<crate::spacetimedb::BackendSettlementResident>(&providers_sql),
+            .query_sats::<db::BackendSettlementResident>(&providers_sql),
         state
             .db
-            .query_sats::<crate::spacetimedb::SettlementResidentPresence>(&presences_sql),
+            .query_sats::<db::SettlementResidentPresence>(&presences_sql),
     );
     let providers = providers.ok()?;
     let presences = presences.ok()?;
@@ -49,7 +49,7 @@ pub(super) async fn merchant_provider_id(
             })
     });
     let provider = matches.next()?;
-    matches.next().is_none().then(|| provider.to_string())
+    matches.next().is_none().then_some(provider)
 }
 
 pub(super) async fn provisioning_storefront_path(
@@ -67,7 +67,7 @@ pub(super) async fn provisioning_storefront_path(
                 .await
                 .is_some()
         {
-            return Some(format!("/settlements/{}/{service_id}", settlement.id));
+            return Some(paths::SETTLEMENT_PLACE.url([&settlement.id, &location_id]));
         }
     }
     None
@@ -106,7 +106,7 @@ pub(super) async fn rest_at_settlement_map(
         )
         .await
     {
-        Ok(()) => Redirect::to(&format!("/locations/settlement/{id}/map")).into_response(),
+        Ok(()) => Redirect::to(&paths::SETTLEMENT.url([&id])).into_response(),
         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
     }
 }

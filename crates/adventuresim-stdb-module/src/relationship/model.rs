@@ -452,7 +452,7 @@ pub struct Pregnancy {
     pub due_minute: u64,
     pub reserved_child_id: u64,
     pub child_name_seed: u64,
-    pub child_female: bool,
+    pub child_sex: Sex,
     pub child_home_seed: u64,
     pub birth_settlement_id: String,
     pub birth_residence_holding_id: Option<String>,

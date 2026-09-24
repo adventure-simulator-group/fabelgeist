@@ -5,12 +5,30 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
 
+#[derive(Clone)]
 pub(in super::super) struct TrafficMask {
     pub(in super::super) image: Handle<Image>,
     pub(in super::super) transform: Vec4,
 }
 
 impl TrafficMask {
+    pub(in super::super) fn neutral(images: &mut Assets<Image>) -> Self {
+        let image = Image::new_fill(
+            Extent3d {
+                width: 1,
+                height: 1,
+                depth_or_array_layers: 1,
+            },
+            TextureDimension::D2,
+            &[0, 0, 0, 255],
+            TextureFormat::Rgba8Unorm,
+            RenderAssetUsages::RENDER_WORLD,
+        );
+        Self {
+            image: images.add(image),
+            transform: Vec4::ZERO,
+        }
+    }
     pub(in super::super) fn bake(
         network: &TrafficNetwork,
         tile: TrafficTile,

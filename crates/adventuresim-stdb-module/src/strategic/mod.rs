@@ -62,3 +62,5 @@ include!("tactical_enemy_fixture.rs");
 include!("mission_bootstrap.rs");
 include!("challenges.rs");
 include!("tests.rs");
+#[path = "inventory_trade/streams.rs"]
+mod inventory_trade_streams;

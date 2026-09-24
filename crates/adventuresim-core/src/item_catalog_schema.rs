@@ -97,6 +97,11 @@ pub struct EquipmentPlacement {
     pub occupancy: Vec<OccupancyRequirement>,
     #[serde(default)]
     pub parents: Vec<ParentRequirement>,
+    /// Local geometric layering exceptions. The ordinary inner-to-outer order
+    /// follows equipment channels; these entries express constructions such as
+    /// a boot enclosing padded hose even though footwear is base clothing.
+    #[serde(default)]
+    pub layers_over: Vec<EquipmentLayerPrecedence>,
     /// Explicit many-to-many combat projection. Locations never imply
     /// protection.
     #[serde(default)]
@@ -212,6 +217,15 @@ pub struct ParentRequirement {
     /// A sided attachment must not bind to the opposite limb's garment.
     #[serde(default)]
     pub location: Option<EquipmentLocation>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct EquipmentLayerPrecedence {
+    pub location: EquipmentLocation,
+    pub channel: EquipmentChannel,
+    #[serde(default)]
+    pub order: u16,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

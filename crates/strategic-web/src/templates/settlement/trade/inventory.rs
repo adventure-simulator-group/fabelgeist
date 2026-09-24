@@ -30,6 +30,7 @@ pub(super) fn encumbrance_meter(summary: EncumbranceSummary) -> Markup {
     );
     html! {
         div class="encumbrance" {
+            p class="encumbrance-reading" { "Load " (format!("{:.1} / {:.1} kg · {:.0}% encumbrance", summary.burden_kg, summary.capacity_kg, penalty_percent)) }
             div class="encumbrance-visual" {
                 div class="encumbrance-meter"
                     tabindex="0"
@@ -39,7 +40,7 @@ pub(super) fn encumbrance_meter(summary: EncumbranceSummary) -> Markup {
                     aria-valuemin="0"
                     aria-valuemax="100"
                     aria-valuenow=(format!("{penalty_percent:.1}"))
-                    aria-valuetext=(accessible_text) {
+                    aria-valuetext=(&accessible_text) {
                     span class="encumbrance-marker"
                         style=(format!("--encumbrance-position: {penalty_percent:.4}%")) {}
                 }
@@ -139,6 +140,7 @@ pub(super) fn item_name_with_display_quality(
     html! {
         span class=(quality.map_or_else(|| "inventory-item-label".to_string(), |quality| format!("inventory-item-label item-quality-{quality}"))) title=[label]
             data-item-name=(item_id)
+            data-equipment-portrait=[crate::templates::equipment_icons::portrait(item_id)]
             data-item-kind=[definition.map(|item| item_kind_tag(item.kind))]
             data-item-melee=[definition.map(|item| item.melee)]
             data-item-weapon-holder=[matches!(item_id, "scabbard" | "weapon_loop").then_some("true")]

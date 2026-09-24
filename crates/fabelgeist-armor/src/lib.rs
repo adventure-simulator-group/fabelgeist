@@ -12,10 +12,15 @@ pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
 pub use tiling::{Constructed, MAX_TILES};
 
 mod helmet_crown;
+mod sampling;
 pub use helmet_crown::HelmetCrown;
+pub use sampling::{ArmorDetail, ArmorLod};
 
 mod breastplate_design;
 pub use breastplate_design::*;
+mod anime_design;
+pub use anime_design::{AnimeDesign, BreastplateConstruction};
+mod pierced_plate_domain;
 mod plate_fluting;
 pub use plate_fluting::{FluteCount, PlateFluting};
 mod components;
@@ -26,9 +31,12 @@ pub use surface_grid::SurfaceGrid;
 pub mod trim;
 pub use trim::{ArmorSurface, ArmorTrim, TrimBand, TrimError};
 mod design;
-pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
+mod device_support;
+pub use components::{ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, ArmorHinge};
 mod error;
+mod fauld_chart;
 mod frame;
+pub use fauld_chart::FauldLameChart;
 pub use frame::{BoundaryNormals, PartFrame};
 mod garment_armor;
 pub mod gpu;
@@ -39,20 +47,42 @@ mod garment_plate_design;
 mod gorget_chart;
 pub use garment_plate_design::GarmentPlateShape;
 pub use gorget_chart::gorget_control_angle;
+mod besagew;
 mod helmets;
 mod limb_armor;
+mod pauldron;
+mod puff_and_slash;
+mod radial_fluting;
+mod trunk_hose;
+mod waist_armor;
+mod wrapped_tassets;
+pub use radial_fluting::RadialFluting;
+mod visor_bellows;
+pub use besagew::BesagewDesign;
 pub use garment_armor::{
-    GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
-    GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
+    GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_LAME_SPACING_GAUGES, GARMENT_PANEL_ACROSS,
+    GARMENT_PANEL_ALONG, GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS,
+    GarmentArmorDesign, GarmentArmorKind,
 };
 pub use helmets::*;
 pub use limb_armor::*;
+pub use pauldron::{PauldronDesign, PauldronOutline};
+pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, TextileColor};
+pub use trunk_hose::TrunkHoseDesign;
+pub use visor_bellows::VisorBellows;
+pub use wrapped_tassets::{TassetSide, WrappedTassetDesign};
+mod joint_cup_design;
+pub use joint_cup_design::{JointCupConstruction, JointCupDesign, JointFluteOrientation};
+mod joint_extension;
+pub use joint_extension::JointExtension;
+pub use waist_armor::{TASSET_SUSPENSION_GAP_M, WaistArmorDesign};
 
 pub use design::*;
 pub use error::GenerateError;
 
 pub const SCHEMA_VERSION: u16 = 1;
-pub const GENERATOR_VERSION: u16 = 12;
+/// Identifies mesh-generation behavior in review and equipment manifests.
+pub const GENERATOR_VERSION: u16 = 17;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
@@ -82,6 +112,9 @@ pub fn breastplate_design_hash(design: &BreastplateDesign) -> Result<[u8; 32], D
 
 pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignError> {
     design.profile.validate()?;
+    if let BreastplateConstruction::Anime(anime) = &design.construction {
+        anime.validate(design.wall_thickness)?;
+    }
     if let Some(fluting) = &design.fluting {
         fluting.validate()?;
     }
@@ -91,7 +124,7 @@ pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignErro
     if !(700..=1_300).contains(&design.neck_width.0)
         || !(600..=1_400).contains(&design.neck_depth.0)
         || !(700..=1_300).contains(&design.arm_opening_depth.0)
-        || !(750..=1_200).contains(&design.waist_width.0)
+        || !BreastplateDesign::WAIST_WIDTH_RANGE.contains(&design.waist_width.0)
         || !(700..=1100).contains(&design.back_depth.0)
         || !(650..=1_150).contains(&design.plate_length.0)
         || !(850..=1_080).contains(&design.side_return.0)

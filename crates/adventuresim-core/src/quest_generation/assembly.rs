@@ -1,6 +1,11 @@
+const RNG_QUEST_FAMILY: fabelgeist_determinism::StreamId = fabelgeist_determinism::StreamId::new("quest.family");
+
+
 pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, GenerationError> {
+    let canonical = canonical_context(context)?;
+    let context = &canonical;
     if context.requested_family == Some(TemplateFamily::Outbreak)
-        || (context.requested_family.is_none() && context.seed.is_multiple_of(7))
+        || (context.requested_family.is_none() && RNG_QUEST_FAMILY.rng(context.seed, &[]).index(7) == 0)
     {
         return generate_outbreak(context);
     }
@@ -33,42 +38,42 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         _ => 50,
     };
     let (reliability, reliability_bridge) = choose(
-        context.seed.rotate_left(5),
+        context.seed,
         "module.reliability",
         "relation.reliability.context",
         &reliability_candidates(demographic, circumstance, cause),
         &mut trace,
     )?;
     let (secondary_site_kind, secondary_site_bridge) = choose(
-        context.seed.rotate_left(11),
+        context.seed,
         "module.secondary_site",
         "relation.site.cause",
         &secondary_site_candidates(cause, site),
         &mut trace,
     )?;
     let (secondary_circumstance, secondary_circumstance_bridge) = choose(
-        context.seed.rotate_left(13),
+        context.seed,
         "module.secondary_circumstance",
         "relation.circumstance.npc_fact",
         &secondary_circumstance_candidates(secondary, circumstance),
         &mut trace,
     )?;
     let (evidence_kind, evidence_bridge) = choose(
-        context.seed.rotate_left(17),
+        context.seed,
         "module.evidence",
         "relation.evidence.cause_site",
         &evidence_candidates(cause, site),
         &mut trace,
     )?;
     let (account_style, account_bridge) = choose(
-        context.seed.rotate_left(23),
+        context.seed,
         "module.account",
         "relation.account.reliability_circumstance",
         &account_style_candidates(reliability, circumstance),
         &mut trace,
     )?;
     let (route_variant, route_bridge) = choose(
-        context.seed.rotate_left(31),
+        context.seed,
         "module.route",
         "relation.route.family",
         &route_variant_candidates(family),
@@ -77,17 +82,10 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     let mut victim_target_candidates = (0..context.witness_candidates.len())
         .filter(|index| *index != primary_witness && *index != secondary_witness)
         .collect::<Vec<_>>();
-    victim_target_candidates.sort_by_key(|index| {
-        hash(
-            context.seed.rotate_left(41),
-            &format!(
-                "victim-target:{}",
-                context.witness_candidates[*index].resident_character_id
-            ),
-        )
-    });
+    fabelgeist_determinism::StreamId::new("quest.victim-target")
+        .rng(context.seed, &[]).shuffle(&mut victim_target_candidates);
     let (attack_pattern, pattern_bridge) = choose(
-        context.seed.rotate_left(37),
+        context.seed,
         "module.attack_pattern",
         "relation.pattern.family",
         &attack_pattern_candidates(family, !victim_target_candidates.is_empty()),
@@ -215,11 +213,8 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     // cannot change any part of the initial dialogue projection.
     let uncorroborated_pattern_claim =
         "There may be a pattern, yet I cannot tell which details matter.".to_owned();
-    let has_private_pattern_detail = hash(
-        context.observer_entropy_hi ^ context.observer_entropy_lo.rotate_left(17),
-        "testimony-concern:private-pattern-detail",
-    )
-    .is_multiple_of(2);
+    let has_private_pattern_detail = fabelgeist_determinism::StreamId::new("quest.private-pattern-detail")
+        .rng(context.observer_entropy_hi, &[context.observer_entropy_lo]).boolean();
     let evidence_site_label = if family == TemplateFamily::RecurringDepredation {
         "the latest incident site"
     } else {
@@ -881,7 +876,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
         DiseaseId::ShroudFever,
         DiseaseId::Bilwisschuss,
         DiseaseId::Kobeldunst,
-    ][context.seed as usize % 6];
+    ][fabelgeist_determinism::StreamId::new("quest.outbreak-disease").rng(context.seed, &[]).index(6)];
     let transmission_route = crate::disease::definition(disease).primary_community_vector;
     let carrier = ThreatId::Alp;
     let (site_kind, source, remediation, responsible_npc, carrier_threat) = match disease {

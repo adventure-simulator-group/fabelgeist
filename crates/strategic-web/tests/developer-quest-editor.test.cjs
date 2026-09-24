@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -5,7 +6,7 @@ const path = require("node:path");
 
 const root = path.resolve(__dirname, "..");
 const script = fs.readFileSync(path.join(root, "static", "developer-quest-editor.js"), "utf8");
-const layout = fs.readFileSync(path.join(root, "src", "templates", "layout.rs"), "utf8");
+const layout = readRustModuleSource(path.join(root, "src", "templates", "layout.rs"));
 const route = fs.readFileSync(path.join(root, "src", "routes", "developer_quests.rs"), "utf8");
 const {
   replaceAtPath,

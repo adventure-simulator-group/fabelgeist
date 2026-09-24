@@ -13,132 +13,11 @@ use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, BestiaryHours, OfficialReligion, ReligionHours,
 };
 
-/// A parsed organization allocation: zero minutes cannot carry a stale
-/// organization and positive minutes cannot omit the organization that grants
-/// the activity.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum OrganizationAllocation {
-    None,
-    Scheduled {
-        minutes: ActivityMinutes,
-        organization_id: String,
-    },
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ActivityMinutes(u16);
-
-impl ActivityMinutes {
-    pub fn get(self) -> u16 {
-        self.0
-    }
-}
-
-impl TryFrom<u16> for ActivityMinutes {
-    type Error = ScheduleParseError;
-
-    fn try_from(minutes: u16) -> Result<Self, Self::Error> {
-        minutes
-            .is_multiple_of(15)
-            .then_some(Self(minutes))
-            .ok_or(ScheduleParseError::NotQuarterHour)
-    }
-}
-
-impl OrganizationAllocation {
-    pub fn parse(
-        minutes: u16,
-        organization_id: Option<String>,
-    ) -> Result<Self, ScheduleParseError> {
-        match (minutes, organization_id) {
-            (0, None) => Ok(Self::None),
-            (0, Some(_)) => Err(ScheduleParseError::OrganizationWithoutMinutes),
-            (_, Some(organization_id)) => {
-                let organization_id = organization_id.trim();
-                if organization_id.is_empty() {
-                    return Err(ScheduleParseError::EmptyOrganization);
-                }
-                Ok(Self::Scheduled {
-                    minutes: ActivityMinutes::try_from(minutes)?,
-                    organization_id: organization_id.to_owned(),
-                })
-            }
-            (_, None) => Err(ScheduleParseError::MinutesWithoutOrganization),
-        }
-    }
-
-    pub fn minutes(&self) -> u16 {
-        match self {
-            Self::None => 0,
-            Self::Scheduled { minutes, .. } => minutes.get(),
-        }
-    }
-
-    pub fn organization_id(&self) -> Option<String> {
-        match self {
-            Self::None => None,
-            Self::Scheduled {
-                organization_id, ..
-            } => Some(organization_id.clone()),
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum ScheduleParseError {
-    ExceedsDay,
-    NotQuarterHour,
-    OrganizationWithoutMinutes,
-    MinutesWithoutOrganization,
-    EmptyOrganization,
-}
-
-impl std::fmt::Display for ScheduleParseError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(match self {
-            Self::ExceedsDay => "The downtime plan must fit within 24 hours",
-            Self::NotQuarterHour => "Schedule allocations must use 15-minute increments",
-            Self::OrganizationWithoutMinutes => {
-                "An organization cannot be selected without scheduled minutes"
-            }
-            Self::MinutesWithoutOrganization => {
-                "Scheduled organization activity requires an organization"
-            }
-            Self::EmptyOrganization => "Scheduled organization ID cannot be blank",
-        })
-    }
-}
-impl std::error::Error for ScheduleParseError {}
-
-/// Validates the cross-field invariants of a daily allocation at the reducer
-/// boundary. Organization policy/membership remains an authoritative DB check.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct DailySchedulePlan {
-    pub activities: [ActivityMinutes; 10],
-    pub apprenticeship: OrganizationAllocation,
-    pub practice: OrganizationAllocation,
-}
-
-pub fn validate_daily_allocation(
-    minutes: [u16; 10],
-    apprenticeship: (u16, Option<String>),
-    practice: (u16, Option<String>),
-) -> Result<DailySchedulePlan, ScheduleParseError> {
-    if minutes.into_iter().map(u64::from).sum::<u64>() > MINUTES_PER_DAY {
-        return Err(ScheduleParseError::ExceedsDay);
-    }
-    let activities = minutes
-        .map(ActivityMinutes::try_from)
-        .into_iter()
-        .collect::<Result<Vec<_>, _>>()?
-        .try_into()
-        .map_err(|_| ScheduleParseError::ExceedsDay)?;
-    Ok(DailySchedulePlan {
-        activities,
-        apprenticeship: OrganizationAllocation::parse(apprenticeship.0, apprenticeship.1)?,
-        practice: OrganizationAllocation::parse(practice.0, practice.1)?,
-    })
-}
+mod allocation;
+pub use allocation::{
+    ActivityMinutes, DailySchedule, DailySchedulePlan, OrganizationAllocation, ScheduleParseError,
+    ValidatedSchedule, validate_daily_allocation,
+};
 
 /// Stable order used by reports and schedule arrays.
 pub const SKILL_COUNT: usize = 32;
@@ -240,49 +119,6 @@ impl SkillHours {
                 .bestiary
                 .direct_values()
                 .all(|(_, hours)| hours.is_finite())
-    }
-}
-
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct DailySchedule {
-    /// Quiet study from a personally carried book or an on-site bookstore.
-    pub reading_minutes: u16,
-    /// Structured combat practice, including weapon drills, will, and balance.
-    pub combat_training_minutes: u16,
-    /// Social recreation which trains Charm at the activity rate.
-    pub carousing_minutes: u16,
-    /// Deliberate conversation with one selected relationship target. Its
-    /// relationship resolution is strategic-module state, but it consumes
-    /// discretionary time and therefore cannot also be restorative Leisure.
-    pub socializing_minutes: u16,
-    /// Supervised work in an unlocked profession.
-    pub apprenticeship_minutes: u16,
-    /// Independent paid professional work, available at Journeyman rank.
-    pub profession_practice_minutes: u16,
-    pub labor: u16,
-    pub prayer: u16,
-    pub thievery: u16,
-    pub raiding: u16,
-}
-
-impl DailySchedule {
-    pub fn allocated_minutes(&self) -> u64 {
-        [
-            self.labor,
-            self.prayer,
-            self.thievery,
-            self.raiding,
-            self.combat_training_minutes,
-            self.carousing_minutes,
-            self.socializing_minutes,
-            self.apprenticeship_minutes,
-            self.profession_practice_minutes,
-            self.reading_minutes,
-        ]
-        .into_iter()
-        .map(u64::from)
-        .sum()
     }
 }
 

@@ -4,7 +4,7 @@ use super::*;
 crate::parameters::parameter_block! {
     pub struct Parameters {
         segments_per_strip: i32 = 2;
-        grain: crate::board_grain::Parameters = Default::default();
+        grain: crate::board_grain::Parameters = floor_grain();
         joint_srgb: [u8; 3] = [64, 45, 29];
         nail_srgb: [u8; 3] = [42, 42, 40];
         sample_plank_floor_cut_skew_metres: f32 = 0.010;
@@ -75,5 +75,17 @@ crate::parameters::parameter_block! {
         joist_stations: i32 = JOIST_STATIONS;
         edge_gap_metres: f32 = EDGE_GAP_METRES;
         end_gap_metres: f32 = END_GAP_METRES;
+    }
+}
+
+/// Sawn floorboards have close, low-contrast growth bands; joints remain distinct.
+fn floor_grain() -> crate::board_grain::Parameters {
+    crate::board_grain::Parameters {
+        ring_count: 28,
+        knot_fraction: 0.12,
+        knot_radius: [0.065, 0.04],
+        light_srgb: [115, 82, 48],
+        dark_srgb: [108, 76, 44],
+        ..Default::default()
     }
 }

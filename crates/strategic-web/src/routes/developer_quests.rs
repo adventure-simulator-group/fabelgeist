@@ -3,6 +3,10 @@
 //! The module reducer enforces both gateway identity and the compiled
 //! development capability. Browser-local developer mode only controls display.
 
+const OBSERVER_HIGH: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("quest.developer-observer-high");
+const OBSERVER_LOW: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("quest.developer-observer-low");
 use super::AppState;
 use crate::{
     session::Session,
@@ -208,8 +212,8 @@ async fn active_context(
     candidates.sort_by_key(|left| left.resident_character_id);
     let context = GenerationContext {
         seed,
-        observer_entropy_hi: seed.rotate_left(17),
-        observer_entropy_lo: seed.rotate_right(13),
+        observer_entropy_hi: OBSERVER_HIGH.rng(seed, &[]).next_u64(),
+        observer_entropy_lo: OBSERVER_LOW.rng(seed, &[]).next_u64(),
         settlement_id: settlement_id.clone(),
         settlement_name: settlement.name.clone(),
         scope: adventuresim_core::local_problem::Scope::Settlement { settlement_id },

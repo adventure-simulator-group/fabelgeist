@@ -5,6 +5,8 @@ use clap::ValueEnum;
 use serde::{Deserialize, Deserializer, Serialize, de};
 
 pub const CELL_SIZE_METRES: f32 = 1.5;
+/// Thickness of resolved gable enclosure slabs, extruded inward from their face.
+pub const ROOF_ENCLOSURE_THICKNESS_METRES: f32 = 0.16;
 pub const WALL_THICKNESS_METRES: f32 = 0.18;
 pub const GRID_UNITS_PER_CELL: i32 = 30;
 pub const GRID_UNIT_METRES: f32 = CELL_SIZE_METRES / GRID_UNITS_PER_CELL as f32;

@@ -5,8 +5,9 @@ use bevy::math::{EulerRot, Quat, Vec2};
 const GROUND_CONTACT_TOLERANCE_METRES: f32 = 0.001;
 
 #[derive(Default)]
-pub(super) struct Builder {
+pub(crate) struct Builder {
     meshes: Vec<LodMesh>,
+    pub(super) wood_state: FurnitureWoodState,
     colliders: Vec<CollisionCuboid>,
     supports: Vec<Vec3>,
     clearances: Vec<FurnitureClearance>,
@@ -15,12 +16,16 @@ pub(super) struct Builder {
 }
 
 #[derive(Clone, Copy)]
-pub(super) enum CollisionPolicy {
+pub(crate) enum CollisionPolicy {
     Solid,
     Decoration,
 }
 
 impl Builder {
+    /// Preserve the caller's local origin for architectural components.
+    pub(crate) fn into_meshes(self) -> Vec<LodMesh> {
+        self.meshes
+    }
     pub(super) fn mesh(&mut self, material: BuildingLodMaterial) -> &mut LodMesh {
         if let Some(index) = self
             .meshes
@@ -33,13 +38,42 @@ impl Builder {
         self.meshes.last_mut().unwrap()
     }
 
-    pub(super) fn cuboid(
+    pub(crate) fn cuboid(
         &mut self,
         material: BuildingLodMaterial,
         centre: Vec3,
         size: Vec3,
         rotation: Quat,
         collision: CollisionPolicy,
+    ) {
+        self.member(material, centre, size, rotation, collision, None);
+    }
+
+    pub(super) fn wood_member(
+        &mut self,
+        material: BuildingLodMaterial,
+        centre: Vec3,
+        size: Vec3,
+        wear: Option<super::finish::WearFace>,
+    ) {
+        self.member(
+            material,
+            centre,
+            size,
+            Quat::IDENTITY,
+            CollisionPolicy::Solid,
+            wear,
+        );
+    }
+
+    fn member(
+        &mut self,
+        material: BuildingLodMaterial,
+        centre: Vec3,
+        size: Vec3,
+        rotation: Quat,
+        collision: CollisionPolicy,
+        wear: Option<super::finish::WearFace>,
     ) {
         let half = size * 0.5;
         let corners = [
@@ -62,8 +96,24 @@ impl Builder {
             ([4, 5, 1, 0], -Vec3::Y),
         ] {
             let positions = indices.map(|index| corners[index]);
-            self.quad(material, positions, rotation * normal);
+            if matches!(
+                material,
+                BuildingLodMaterial::InteriorTimber
+                    | BuildingLodMaterial::Timber
+                    | BuildingLodMaterial::FurnitureWood(_)
+            ) {
+                super::finish::face(
+                    self,
+                    material,
+                    positions,
+                    (centre, size, rotation, normal),
+                    wear,
+                );
+            } else {
+                self.quad(material, positions, rotation * normal);
+            }
         }
+
         for point in corners
             .into_iter()
             .filter(|point| point.y.abs() <= GROUND_CONTACT_TOLERANCE_METRES)
@@ -88,7 +138,11 @@ impl Builder {
 
     pub(super) fn timber(&mut self, centre: Vec3, size: Vec3) {
         self.cuboid(
-            BuildingLodMaterial::InteriorTimber,
+            if self.wood_state == FurnitureWoodState::Painted {
+                BuildingLodMaterial::FurnitureWood(FurnitureWoodSurface::Painted)
+            } else {
+                BuildingLodMaterial::InteriorTimber
+            },
             centre,
             size,
             Quat::IDENTITY,
@@ -116,10 +170,15 @@ impl Builder {
         positions: [Vec3; 3],
         normal: Vec3,
     ) {
+        let tangent = (positions[1] - positions[0]).normalize_or_zero();
+        let bitangent = normal.cross(tangent);
         self.mesh(material).push_triangle(
             positions,
             normal,
-            positions.map(|point| Vec2::new(point.x, point.z) / BUILDING_DETAIL_UV_METRES_PER_UNIT),
+            positions.map(|point| {
+                Vec2::new(point.dot(tangent), point.dot(bitangent))
+                    / BUILDING_DETAIL_UV_METRES_PER_UNIT
+            }),
         );
     }
 
@@ -151,7 +210,7 @@ impl Builder {
         });
     }
 
-    pub(super) fn finish(mut self) -> FurnitureRecipe {
+    pub(crate) fn finish(mut self) -> FurnitureRecipe {
         let mut bounds = CollisionBounds {
             min: Vec3::splat(f32::INFINITY),
             max: Vec3::splat(f32::NEG_INFINITY),

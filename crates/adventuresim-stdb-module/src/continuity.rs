@@ -5,12 +5,16 @@
 //! this module are scoped to the browser's selected observer and that
 //! observer's personal frontier.
 
+mod curriculum;
 use adventuresim_core::{
     courtship::ADULT_AGE_YEARS,
     prelude::Skill,
     skill::apply_direct_training,
     strategic_time::{MINUTES_PER_DAY, MINUTES_PER_YEAR},
 };
+#[cfg(test)]
+use curriculum::focus_training;
+use curriculum::{curriculum_real_hours, deterministic_child_focus};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
 use crate::{
@@ -59,15 +63,6 @@ pub fn child_stage(age_years: u16) -> ChildStage {
         6..=11 => ChildStage::MiddleChildhood,
         12..=15 => ChildStage::Adolescence,
         _ => ChildStage::Adult,
-    }
-}
-
-fn deterministic_child_focus(seed: u64) -> ChildActivityFocus {
-    match seed % 4 {
-        0 => ChildActivityFocus::Play,
-        1 => ChildActivityFocus::Study,
-        2 => ChildActivityFocus::HouseholdHelp,
-        _ => ChildActivityFocus::SocialLearning,
     }
 }
 
@@ -221,52 +216,6 @@ fn direct_skill_hours_mut(skills: &mut crate::CharacterSkills, skill: Skill) -> 
         Skill::Tailoring => &mut skills.tailoring_hours,
         _ => return None,
     })
-}
-
-fn focus_training(focus: ChildActivityFocus, adolescent: bool) -> [(Skill, f32); 2] {
-    let daily_hours = if adolescent { 3.0 } else { 2.0 };
-    match focus {
-        ChildActivityFocus::Play => [
-            (Skill::Balance, daily_hours * 0.55),
-            (Skill::Dodge, daily_hours * 0.45),
-        ],
-        ChildActivityFocus::Study => [
-            (Skill::Insight, daily_hours * 0.6),
-            (Skill::Physiology, daily_hours * 0.4),
-        ],
-        ChildActivityFocus::HouseholdHelp => [
-            (Skill::Cooking, daily_hours * 0.6),
-            (Skill::Tailoring, daily_hours * 0.4),
-        ],
-        ChildActivityFocus::SocialLearning => [
-            (Skill::Charm, daily_hours * 0.55),
-            (Skill::Insight, daily_hours * 0.45),
-        ],
-    }
-}
-
-fn curriculum_real_hours(
-    focus: ChildActivityFocus,
-    track: usize,
-    birth_minute: u64,
-    start_minute: u64,
-    end_minute: u64,
-) -> (Skill, f32) {
-    let six = birth_minute.saturating_add(6 * MINUTES_PER_YEAR);
-    let twelve = birth_minute.saturating_add(12 * MINUTES_PER_YEAR);
-    let sixteen = birth_minute.saturating_add(u64::from(ADULT_AGE_YEARS) * MINUTES_PER_YEAR);
-    let middle_minutes = end_minute
-        .min(twelve)
-        .saturating_sub(start_minute.max(six).min(end_minute.min(twelve)));
-    let adolescent_minutes = end_minute
-        .min(sixteen)
-        .saturating_sub(start_minute.max(twelve).min(end_minute.min(sixteen)));
-    let middle = focus_training(focus, false)[track];
-    let adolescent = focus_training(focus, true)[track];
-    debug_assert_eq!(middle.0, adolescent.0);
-    let hours = middle_minutes as f32 / MINUTES_PER_DAY as f32 * middle.1
-        + adolescent_minutes as f32 / MINUTES_PER_DAY as f32 * adolescent.1;
-    (middle.0, hours)
 }
 
 /// Advance only the safe childhood curriculum. The durable cursor means each

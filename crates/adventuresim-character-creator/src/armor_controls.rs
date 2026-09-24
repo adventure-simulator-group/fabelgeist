@@ -1,7 +1,6 @@
 //! Editable construction controls for catalog armor designs.
 use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
-use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use std::ops::RangeInclusive;
 #[path = "helmet_controls.rs"]
 mod helmet;
@@ -33,11 +32,111 @@ pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
     match design {
         ItemDesign::Recipe(ParametricDesign::Limb(d)) => limb::show(ui, d),
         ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
-        ItemDesign::Recipe(ParametricDesign::Garment(d)) => garment(ui, d),
+        ItemDesign::Recipe(ParametricDesign::PuffAndSlash(d)) => puff_and_slash(ui, d),
+        ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
+            super::garment_armor_controls::show(ui, d)
+        }
+        ItemDesign::Recipe(ParametricDesign::WaistAssembly(d)) => {
+            let fauld = ui
+                .collapsing("Fauld", |ui| {
+                    super::garment_armor_controls::show(ui, &mut d.fauld)
+                })
+                .body_returned
+                .unwrap_or(false);
+            let tassets = ui
+                .collapsing("Tassets", |ui| {
+                    super::garment_armor_controls::show(ui, &mut d.tassets)
+                })
+                .body_returned
+                .unwrap_or(false);
+            fauld || tassets
+        }
         ItemDesign::Recipe(ParametricDesign::Underlayer(d)) => underlayer(ui, d),
         ItemDesign::Vambrace(d) => super::equipment_controls::bracer(ui, d),
         ItemDesign::Breastplate(d) => super::equipment_controls::breastplate(ui, d),
     }
+}
+
+fn trunk_hose(ui: &mut egui::Ui, design: &mut fabelgeist_armor::TrunkHoseDesign) -> bool {
+    let mut changed = number(ui, &mut design.clearance.0, 1..=10, "Body clearance (mm)");
+    changed |= number(ui, &mut design.thickness.0, 1..=8, "Cloth thickness (mm)");
+    changed |= number(ui, &mut design.length.0, 900..=1200, "Upper-leg reach");
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.panel_count, 4..=16)
+                .step_by(2.0)
+                .text("Vertical panes"),
+        )
+        .changed();
+    ui.horizontal(|ui| {
+        ui.label("Primary fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.primary_color.0)
+            .changed();
+    });
+    ui.horizontal(|ui| {
+        ui.label("Secondary fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.secondary_color.0)
+            .changed();
+    });
+    changed
+}
+
+fn puff_and_slash(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlashDesign) -> bool {
+    let mut changed = ui
+        .add(egui::Slider::new(&mut design.puff_count, 1..=8).text("Puff courses"))
+        .changed();
+    changed |= number(
+        ui,
+        &mut design.puff_fullness.0,
+        5..=90,
+        "Puff fullness (mm)",
+    );
+    changed |= number(
+        ui,
+        &mut design.puff_roundness.0,
+        400..=2500,
+        "Puff roundness",
+    );
+    changed |= ui
+        .add(egui::Slider::new(&mut design.slash_count, 3..=16).text("Slashes per course"))
+        .changed();
+    for (value, range, label) in [
+        (&mut design.distal_fullness.0, 250..=1500, "Distal fullness"),
+        (&mut design.slash_width.0, 50..=650, "Slash width"),
+        (&mut design.slash_length.0, 300..=900, "Slash length"),
+        (
+            &mut design.constriction_width.0,
+            40..=350,
+            "Constricted band width",
+        ),
+        (&mut design.length.0, 350..=1000, "Limb coverage"),
+        (
+            &mut design.proximal_position.0,
+            0..=1000,
+            "Proximal placement",
+        ),
+        (&mut design.rotation.0, 0..=1000, "Pattern rotation"),
+        (&mut design.clearance.0, 1..=15, "Body clearance (mm)"),
+        (&mut design.thickness.0, 1..=6, "Cloth thickness (mm)"),
+    ] {
+        changed |= number(ui, value, range, label);
+    }
+    ui.horizontal(|ui| {
+        ui.label("Outer fabric");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.outer_color.0)
+            .changed();
+    });
+    ui.horizontal(|ui| {
+        ui.label("Undercloth");
+        changed |= ui
+            .color_edit_button_srgb(&mut design.undercloth_color.0)
+            .changed();
+    });
+    changed
 }
 
 fn underlayer(
@@ -57,6 +156,12 @@ fn underlayer(
         underlayer::THICKNESS_MM,
         "Material thickness (mm)",
     );
+    if !d.kind.is_mail() {
+        ui.horizontal(|ui| {
+            ui.label("Fabric");
+            changed |= ui.color_edit_button_srgb(&mut d.color.0).changed();
+        });
+    }
     if d.kind != UnderlayerKind::MailVoiders {
         let range = d.length_range();
         changed |= number(ui, &mut d.length.0, range, "Garment length");
@@ -81,86 +186,4 @@ fn underlayer(
         );
     }
     changed
-}
-
-fn garment(ui: &mut egui::Ui, d: &mut GarmentArmorDesign) -> bool {
-    let mut changed = false;
-    for (value, range, label) in [
-        (&mut d.length.0, 500..=1300, "Length"),
-        (&mut d.clearance.0, 1..=40, "Padding clearance (mm)"),
-        (&mut d.wall_thickness.0, 1..=16, "Thickness (mm)"),
-    ] {
-        changed |= number(ui, value, range, label);
-    }
-    if matches!(
-        d.kind,
-        GarmentArmorKind::Brigandine
-            | GarmentArmorKind::JackOfPlates
-            | GarmentArmorKind::Fauld
-            | GarmentArmorKind::Tassets
-            | GarmentArmorKind::Gorget
-            | GarmentArmorKind::MailSkirt
-            | GarmentArmorKind::PaddedSkirt
-    ) {
-        changed |= number(ui, &mut d.flare.0, 0..=500, "Hem flare");
-    }
-    if matches!(
-        d.kind,
-        GarmentArmorKind::ArmingDoublet
-            | GarmentArmorKind::Brigandine
-            | GarmentArmorKind::JackOfPlates
-            | GarmentArmorKind::MailShirt
-    ) {
-        changed |= number(ui, &mut d.waist.0, 800..=1100, "Waist width");
-    }
-    match &mut d.plate_shape {
-        GarmentPlateShape::None => return changed,
-        GarmentPlateShape::Fauld {
-            front_arch,
-            waist_rise,
-        } => {
-            changed |= number(ui, &mut waist_rise.0, 0..=80, "Waist rise (mm)");
-            changed |= number(ui, &mut front_arch.0, 0..=350, "Front arch")
-        }
-        GarmentPlateShape::Tassets {
-            inner_cutaway,
-            hem_point,
-            width,
-            gap,
-            hem_roundness,
-        } => {
-            changed |= number(ui, &mut inner_cutaway.0, 0..=400, "Inner cutaway");
-            changed |= number(ui, &mut hem_point.0, 0..=200, "Hem point");
-            changed |= number(ui, &mut width.0, 700..=1150, "Plate width");
-            changed |= number(ui, &mut gap.0, 100..=400, "Separation");
-            changed |= number(ui, &mut hem_roundness.0, 0..=300, "Hem roundness");
-        }
-        GarmentPlateShape::Gorget {
-            neck_clearance,
-            collar_slope,
-            collar_height,
-            hem_flatness,
-            rear_hem_flatness,
-            rear_sweep,
-            front_depth,
-            back_depth,
-            front_width,
-            back_width,
-        } => {
-            changed |= number(ui, &mut neck_clearance.0, 2..=15, "Neck clearance (mm)");
-            changed |= number(ui, &mut collar_slope.0, 0..=1000, "Collar slope");
-            changed |= number(ui, &mut collar_height.0, 500..=2000, "Collar height");
-            changed |= number(ui, &mut hem_flatness.0, 0..=1000, "Front hem flatness");
-            changed |= number(ui, &mut rear_hem_flatness.0, 0..=1000, "Rear hem flatness");
-            changed |= number(ui, &mut rear_sweep.0, 0..=1000, "Rearward shoulder sweep");
-            changed |= number(ui, &mut front_depth.0, 600..=1500, "Front depth");
-            changed |= number(ui, &mut back_depth.0, 600..=1500, "Rear depth");
-            changed |= number(ui, &mut front_width.0, 500..=1300, "Front bib width");
-            changed |= number(ui, &mut back_width.0, 500..=1300, "Rear bib width");
-        }
-    }
-    changed |= ui
-        .add(egui::Slider::new(&mut d.lame_count, 1..=8).text("Lames"))
-        .changed();
-    changed | crate::fluting_controls::show(ui, &mut d.fluting)
 }

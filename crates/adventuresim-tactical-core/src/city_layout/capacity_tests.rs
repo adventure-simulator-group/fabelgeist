@@ -4,20 +4,27 @@ use adventuresim_building_generator::{BuildingProgram, ServiceBuildingSize, sett
 use adventuresim_world_schema::settlement_buildings::ServiceCapacity;
 
 #[test]
-fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
-    let nodes = street_nodes(42);
-    let candidates = city_blocks(nodes)
-        .filter(|block| block_is_inside_city(*block) && !block.is_market())
+fn service_capacity_bands_reserve_workplace_plots_before_siting() {
+    let graph = CitySite::central_german_market_town()
+        .street_graph(42, DevelopmentExtent::for_population(40_000));
+    let candidates = graph
+        .blocks
+        .iter()
+        .copied()
+        .filter(|block| {
+            block_is_inside_city(*block, DevelopmentExtent::for_population(40_000))
+                && !block.is_market()
+        })
         .flat_map(|block| block_lots(42, block))
         .collect::<Vec<_>>();
     let mut demand = Vec::new();
-    for usage in [
-        BuildingUse::Chapel,
-        BuildingUse::ParishChurch,
-        BuildingUse::Stable,
-        BuildingUse::Dyer,
-    ] {
-        let range = usage.definition().capacity;
+    for usage in [BuildingUse::Stable, BuildingUse::Dyer] {
+        let adventuresim_world_schema::settlement_buildings::BuildingDemandPolicy::ServiceCatchment(
+            range,
+        ) = usage.definition().demand
+        else {
+            panic!("expected service catchment");
+        };
         for (ordinal, capacity) in [
             range.minimum,
             ServiceCapacity((range.minimum.0 + range.maximum.0) / 2),
@@ -26,14 +33,15 @@ fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
         .into_iter()
         .enumerate()
         {
-            demand.push(BuildingDemand {
+            demand.push(BuildingDemand::Service {
                 usage,
                 ordinal: ordinal as u32,
                 capacity,
             });
         }
     }
-    let (placed, unplaced) = services::place_services(42, 6_500, nodes, &candidates, &demand);
+    let (placed, unplaced) =
+        services::place_services(42, 6_500, &graph.blocks, &candidates, &demand);
     assert!(
         unplaced.is_empty(),
         "mixed service requests were lost: {unplaced:?}"
@@ -46,11 +54,11 @@ fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
             ServiceBuildingSize::Small,
             ServiceBuildingSize::Medium,
             ServiceBuildingSize::Large,
-        ][request.ordinal as usize];
+        ][request.ordinal() as usize];
         assert_eq!(lot.service_size(), Some(size));
         let program = BuildingProgram::settlement(
-            settlement_archetype(request.usage),
-            Some(request.usage),
+            settlement_archetype(request.usage()),
+            Some(request.usage()),
             42,
         )
         .with_service_size(size);
@@ -58,7 +66,7 @@ fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
             lot.dimensions_metres(),
             program.plot_dimensions_metres(),
             "{:?} {size:?} reserved the wrong plot",
-            request.usage
+            request.usage()
         );
         assert!(
             placed[index + 1..]
@@ -66,10 +74,10 @@ fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
                 .all(|other| !lots_overlap(lot, other.lot))
         );
     }
-    for usage in [BuildingUse::Chapel, BuildingUse::ParishChurch] {
+    for usage in [BuildingUse::Stable, BuildingUse::Dyer] {
         let footprints = demand
             .iter()
-            .filter(|request| request.usage == usage)
+            .filter(|request| request.usage() == usage)
             .map(|request| {
                 placed
                     .iter()
@@ -92,7 +100,7 @@ fn service_capacity_bands_reserve_church_and_workplace_plots_before_siting() {
 fn generated_neighbourhoods_preserve_requested_churches_and_workplaces_with_resident_lots() {
     for (seed, population) in [(42, 900), (101, 6_500)] {
         let demand = SettlementBuildingDemand::new(seed, population, &economy());
-        let city = generate_city(seed, population, &economy());
+        let city = CitySite::central_german_market_town().generate(seed, population, &economy());
         assert!(city.unplaced_services.is_empty());
         assert_eq!(city.unhoused_population, 0);
         let services = city
@@ -110,10 +118,10 @@ fn generated_neighbourhoods_preserve_requested_churches_and_workplaces_with_resi
         assert!(
             services
                 .iter()
-                .any(|request| request.usage == BuildingUse::ParishChurch)
+                .any(|request| request.usage() == BuildingUse::ParishChurch)
         );
         assert!(services.iter().any(|request| {
-            adventuresim_building_generator::WorkplaceKind::from_use(request.usage).is_some()
+            adventuresim_building_generator::WorkplaceKind::from_use(request.usage()).is_some()
         }));
         for (index, lot) in city.lots.iter().enumerate() {
             assert!(

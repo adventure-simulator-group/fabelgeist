@@ -10,7 +10,8 @@ const JSON_CHUNK: u32 = 0x4E4F_534A;
 const BIN_CHUNK: u32 = 0x004E_4942;
 
 pub(super) fn write(path: &Path, document: &Value, mut bytes: Vec<u8>) -> Result<()> {
-    let mut json_bytes = serde_json::to_vec(&document)?;
+    let mut json_bytes =
+        crate::profiling::measure("glb_serialize", || serde_json::to_vec(&document))?;
     json_bytes.resize(json_bytes.len().next_multiple_of(4), b' ');
     bytes.resize(bytes.len().next_multiple_of(4), 0);
     let total_length = 12 + 8 + json_bytes.len() + 8 + bytes.len();
@@ -32,5 +33,6 @@ pub(super) fn write(path: &Path, document: &Value, mut bytes: Vec<u8>) -> Result
         fs::create_dir_all(parent)
             .with_context(|| format!("creating export directory {}", parent.display()))?;
     }
-    fs::write(path, glb).with_context(|| format!("writing {}", path.display()))
+    crate::profiling::measure("glb_write", || fs::write(path, glb))
+        .with_context(|| format!("writing {}", path.display()))
 }

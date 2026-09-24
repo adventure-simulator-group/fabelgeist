@@ -13,7 +13,7 @@ pub(super) const PANEL_THICKNESS_METRES: f32 = 0.06;
 #[cfg(feature = "sign-render")]
 pub(super) const PAINT_OFFSET_METRES: f32 = PANEL_THICKNESS_METRES * 0.5 + 0.001;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub struct SignSite {
     pub wall: WallAssemblyId,
     /// Exterior wall face directly above a public entrance.

@@ -6,6 +6,7 @@ use super::{
     context::LocationView,
     trade::{item_name_with_food_lot, trade_inventory_table_header},
 };
+use crate::location_urls as urls;
 use crate::spacetimedb::{CharacterView, FoodLot, InventoryItem};
 use crate::templates::{
     SceneInteractableKind, SceneInteractableLink, decorative_game_icon, item_display_name,
@@ -246,10 +247,10 @@ pub fn party_social_dialog(
             div class="settlement-chat-conversation" {
               header class="conversation-dock-header" {
                 div class="settlement-chat-filters" role="group" aria-label="Visible chat channels" {
-                  @for (channel, label, abbreviation) in [("local", "Local", "L"), ("party", "Party", "P"), ("info", "Info", "I")] {
+                  @for (channel, label, _abbreviation) in [("local", "Local", "L"), ("party", "Party", "P"), ("info", "Info", "I")] {
                     label class=(format!("chat-channel-filter chat-channel-filter-{channel}")) title=(label) {
                       input type="checkbox" checked data-chat-filter=(channel) aria-label=(label) title=(label);
-                      span aria-hidden="true" { (abbreviation) }
+                      span aria-hidden="true" { (label) }
                     }
                   }
                 }
@@ -292,7 +293,7 @@ pub fn party_social_dialog(
                       ("quests", "Quests", "treasure-map", false),
                       ("lore", "Lore", "open-book", false),
                       ("tidings", "Recent Tidings", "calendar", true),
-                      ("about", "Of Thee", "person", false),
+                      ("about", "About", "person", false),
                     ] {
                       button type="button" role="tab" class="conversation-tab"
                         id=(format!("conversation-tab-{id}-{}", selected.id))
@@ -453,7 +454,7 @@ pub fn party_social_dialog(
                     @if is_self {
                         p { "To know thyself, seek thy Recent Tidings and reflect thereupon." }
                     } @else {
-                        h3 { "Of Thee" }
+                        h3 { "About" }
                         p class="text-muted small-copy" { "Ask, and hear the answer in their own words." }
                         div class="about-person-topics" {
                             @for (question, answer) in [
@@ -541,10 +542,7 @@ pub(super) fn player_chat_area(
 }
 
 pub(super) fn npc_location_id(service_id: &str) -> &str {
-    match adventuresim_core::organization::service_npc_location_id(service_id) {
-        Some(location_id) => location_id,
-        None => service_id,
-    }
+    adventuresim_core::organization::service_npc_location_id(service_id).unwrap_or(service_id)
 }
 
 /// Presentation projection of the non-character interactables available at a
@@ -574,7 +572,7 @@ fn location_fixtures(
             aria_label: "Cook at fireplace",
             icon: "campfire",
             action_label: "Cook",
-            href: format!("/locations/settlement/{settlement_id}/fireplace?building={location_id}"),
+            href: urls::patterns::SETTLEMENT_FIREPLACE.url([&settlement_id, &location_id]),
         });
     }
     if organization_service == Some("weapons") {
@@ -587,7 +585,7 @@ fn location_fixtures(
             aria_label: "Forge a weapon",
             icon: "anvil",
             action_label: "Forge",
-            href: format!("/settlements/{settlement_id}/weapons"),
+            href: urls::patterns::WEAPONS.url([&settlement_id]),
         });
     }
     fixtures
@@ -599,7 +597,7 @@ pub(super) fn npc_portrait_strip(settlement_id: &str, location_id: &str) -> Mark
             .and_then(|(organization, _)| organization.service_id.as_deref());
     html! {
         nav class="scene-interactable-strip" aria-label="People and things here" data-npc-strip
-            data-npc-settlement=(settlement_id) data-npc-location=(location_id) {
+            data-npc-settlement=(settlement_id) data-npc-location=(location_id) data-npc-place=(crate::location_urls::npc_place(location_id)) {
             @for fixture in location_fixtures(settlement_id, location_id, organization_service) {
                 span data-location-fixture {
                     (scene_interactable_link(SceneInteractableLink {
@@ -681,7 +679,7 @@ fn chat_area(
                 div class="settlement-chat-conversation" {
                   header class="conversation-dock-header" {
                     div class="settlement-chat-filters" role="group" aria-label="Visible chat channels" {
-                        @for (channel, label, abbreviation) in [
+                        @for (channel, label, _abbreviation) in [
                             ("local", "Local", "L"),
                             ("party", "Party", "P"),
                             ("settlement", "Settlement", "S"),
@@ -692,7 +690,7 @@ fn chat_area(
                             label class=(format!("chat-channel-filter chat-channel-filter-{channel}")) title=(label) {
                                 input type="checkbox" checked data-chat-filter=(channel)
                                     aria-label=(label) title=(label);
-                                span aria-hidden="true" { (abbreviation) }
+                                span aria-hidden="true" { (label) }
                             }
                         }
                     }
@@ -701,7 +699,7 @@ fn chat_area(
                         ("quest", "Quests", "treasure-map", false),
                         ("lore", "Lore", "open-book", true),
                         ("tidings", "Recent Tidings", "calendar", false),
-                        ("about", "Of Thee", "person", false),
+                        ("about", "About", "person", false),
                       ] {
                         button type="button" role="tab" class="conversation-tab" id=(format!("dialogue-category-tab-{id}"))
                           aria-controls=(format!("dialogue-category-panel-{id}")) aria-selected=(if selected_tab { "true" } else { "false" })
@@ -712,7 +710,7 @@ fn chat_area(
                       }
                     }
                   }
-                    @for (id, label, selected_panel) in [("quest", "Quests", false), ("lore", "Lore", true), ("tidings", "Recent Tidings", false), ("about", "Of Thee", false)] {
+                    @for (id, label, selected_panel) in [("quest", "Quests", false), ("lore", "Lore", true), ("tidings", "Recent Tidings", false), ("about", "About", false)] {
                       section role="tabpanel" class="dialogue-category-panel" id=(format!("dialogue-category-panel-{id}"))
                         aria-labelledby=(format!("dialogue-category-tab-{id}")) hidden[!selected_panel] data-dialogue-category-panel=(id) {
                         p class="conversation-empty" data-dialogue-category-empty { "No discovered " (label) " topics are ready to discuss." }
@@ -879,7 +877,7 @@ mod tests {
         let actor = character(1, "Ada");
         let target = character(2, "Greta");
         let location = LocationView {
-            kind: super::super::LocationKind::Settlement,
+            kind: crate::location_urls::LocationKind::Settlement,
             id: "lubeck".into(),
             name: "Lubeck".into(),
             religion_id: None,
@@ -1053,7 +1051,7 @@ mod tests {
             automatic_social_chat_enabled: false,
         };
         let location = LocationView {
-            kind: super::super::LocationKind::Settlement,
+            kind: crate::location_urls::LocationKind::Settlement,
             id: "lubeck".into(),
             name: "Lubeck".into(),
             religion_id: None,
@@ -1223,7 +1221,7 @@ mod tests {
         assert!(markup.contains("autocomplete=\"off\""));
         for label in ["Local", "Party", "Settlement", "DMs", "Guild", "Info"] {
             assert!(markup.contains(&format!("aria-label=\"{label}\" title=\"{label}\"")));
-            assert!(!markup.contains(&format!(">{label}</")));
+            assert!(markup.contains(&format!(">{label}</")));
         }
         assert_eq!(markup.matches("class=\"conversation-tab\"").count(), 4);
         assert_eq!(markup.matches("class=\"sr-only\"").count(), 4);
@@ -1237,7 +1235,7 @@ mod tests {
         assert!(strip.contains("data-npc-settlement=\"lubeck\""));
         assert!(strip.contains("data-npc-location=\"market\""));
         assert!(strip.contains("aria-label=\"Cook at fireplace\""));
-        assert!(strip.contains("/locations/settlement/lubeck/fireplace?building=market"));
+        assert!(strip.contains("/locations/settlement/lubeck/places/market/fireplace"));
         let chat =
             settlement_resident_chat_area("Market", None, "lubeck", "market", Some("merchants"))
                 .into_string();
@@ -1260,7 +1258,7 @@ mod tests {
         let strip =
             npc_portrait_strip("viabundus-0", "organization-weaponsmith-guild").into_string();
         assert!(strip.contains("aria-label=\"Forge a weapon\""));
-        assert!(strip.contains("href=\"/settlements/viabundus-0/weapons\""));
+        assert!(strip.contains("href=\"/locations/settlement/viabundus-0/places/forge\""));
         assert_eq!(strip.matches("data-location-fixture").count(), 2);
 
         let client = include_str!("../../../static/dialogue-client.js");

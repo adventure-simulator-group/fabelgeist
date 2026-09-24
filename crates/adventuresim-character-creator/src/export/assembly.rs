@@ -12,14 +12,24 @@ pub(super) fn append(
 ) -> Vec<Value> {
     let parts = mesh
         .export_body
-        .then_some((character_name, None))
+        .then_some((character_name, None, None))
         .into_iter()
-        .chain(shells.iter().map(|shell| (shell.name, shell.hinge)));
+        .chain(
+            shells
+                .iter()
+                .map(|shell| (shell.name, shell.hinge, Some(shell))),
+        );
     let primitives = geometry["primitives"].take().as_array().unwrap().clone();
     parts
         .zip(primitives)
         .enumerate()
-        .map(|(index, ((name, hinge), primitive))| {
+        .map(|(index, ((name, hinge, shell), mut primitive))| {
+            if let Some(shell) = shell.filter(|shell| !shell.plate_edges.is_empty()) {
+                primitive["extras"] = json!({"adventuresim_plate_edges": {
+                    "space": "reference_body", "units": "metres",
+                    "segments": shell.plate_edges.iter().map(|edge| edge.map(|i| shell.positions[i as usize])).collect::<Vec<_>>()
+                }});
+            }
             let mut exported = json!({"name": name, "primitives": [primitive]});
             for key in ["weights", "extras"] {
                 if let Some(value) = geometry.get(key) {
@@ -100,22 +110,27 @@ mod tests {
         let normals = [[0.0, 0.0, 1.0]; 4];
         let texcoords = [[0.0, 0.0], [0.2, 0.3], [0.4, 0.6], [0.8, 0.9]];
         let maps = SurfaceTextures {
-            base_color_png: include_bytes!(
-                "../../../../assets_src/equipment/materials/mail-base-color.png"
+            base_color_png: Some(
+                include_bytes!("../../../../assets_src/equipment/materials/mail-base-color.png")
+                    .to_vec(),
             ),
             normal_png: include_bytes!(
                 "../../../../assets_src/equipment/materials/mail-normal.png"
+            )
+            .to_vec(),
+            occlusion_png: Some(
+                include_bytes!("../../../../assets_src/equipment/materials/mail-occlusion.png")
+                    .to_vec(),
             ),
-            occlusion_png: Some(include_bytes!(
-                "../../../../assets_src/equipment/materials/mail-occlusion.png"
-            )),
             cutout: true,
         };
         let joints = [[0; 8]; 4];
         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4];
         let names = ["c_head".to_owned()];
         let states = [[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]];
-        let target_names = (0..47)
+        let target_count = adventuresim_core::character_morph::IDENTITY_MORPH_COUNT
+            + adventuresim_core::skeletal_fit::SkeletalFitMorph::ALL.len();
+        let target_names = (0..target_count)
             .map(|index| format!("fit_{index}"))
             .collect::<Vec<_>>();
         let deltas = [
@@ -139,7 +154,8 @@ mod tests {
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
             surface: None,
-            textures: Some(maps),
+            plate_edges: &[[1, 2], [0, 1]],
+            textures: Some(maps.clone()),
             texcoords: Some(&texcoords),
             name,
             hinge: (name != "skull").then_some(hinge),
@@ -157,7 +173,7 @@ mod tests {
             GlbOutput::Standalone(&path),
             "close_helmet",
             1,
-            1,
+            4,
             &RiggedMesh {
                 joint_proportions: &[],
                 morph_targets: &[],
@@ -180,9 +196,9 @@ mod tests {
         assert_eq!(parsed.images().count(), 9);
         for (image, expected) in parsed.images().zip(
             [
-                maps.base_color_png,
-                maps.normal_png,
-                maps.occlusion_png.unwrap(),
+                maps.base_color_png.as_deref().unwrap(),
+                maps.normal_png.as_slice(),
+                maps.occlusion_png.as_deref().unwrap(),
             ]
             .repeat(3),
         ) {
@@ -198,8 +214,14 @@ mod tests {
         assert_eq!(parsed.meshes().count(), 3);
         for (mesh, expected) in parsed.meshes().zip(["skull", "bevor", "visor"]) {
             assert_eq!(mesh.name(), Some(expected));
-            assert_eq!(mesh.weights().unwrap(), &[0.0; 47]);
+            assert_eq!(mesh.weights().unwrap(), &vec![0.0; target_count]);
             let primitive = mesh.primitives().next().unwrap();
+            let extras: Value =
+                serde_json::from_str(primitive.extras().as_ref().unwrap().get()).unwrap();
+            assert_eq!(
+                extras["adventuresim_plate_edges"]["segments"],
+                json!([[positions[1], positions[2]]])
+            );
             let reader = primitive.reader(|_| parsed.blob.as_deref());
             assert_eq!(
                 reader
@@ -226,9 +248,9 @@ mod tests {
             assert_ne!(color.texture().index(), occlusion.texture().index());
             assert_ne!(normal.texture().index(), occlusion.texture().index());
             for (texture, expected) in [
-                (color.texture(), maps.base_color_png),
-                (normal.texture(), maps.normal_png),
-                (occlusion.texture(), maps.occlusion_png.unwrap()),
+                (color.texture(), maps.base_color_png.as_deref().unwrap()),
+                (normal.texture(), maps.normal_png.as_slice()),
+                (occlusion.texture(), maps.occlusion_png.as_deref().unwrap()),
             ] {
                 let gltf::image::Source::View { view, .. } = texture.source().source() else {
                     panic!("material channels must use their embedded images");
@@ -251,7 +273,7 @@ mod tests {
                 vec![[0; 4]; 3]
             );
             let morphs = reader.read_morph_targets().collect::<Vec<_>>();
-            assert_eq!(morphs.len(), 47);
+            assert_eq!(morphs.len(), target_count);
             for (positions, _, _) in morphs {
                 assert_eq!(positions.unwrap().collect::<Vec<_>>(), deltas[1..]);
             }

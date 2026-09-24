@@ -16,13 +16,17 @@ use crate::physics::{
 mod ai_offense;
 mod incapacitation_forecast;
 pub use incapacitation_forecast::IncapacitationForecastConfig;
+mod ragdoll;
 mod runtime;
 pub use ai_offense::AiOffenseConfig;
+pub use ragdoll::{
+    RagdollCapsuleConfig, RagdollCapsulesConfig, RagdollConfig, RagdollMusclesConfig,
+};
 pub use runtime::{
     runtime_animation_config, runtime_combat_presentation_config, runtime_melee_authority_config,
 };
 
-pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 8;
+pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
 
 #[derive(Clone, Debug, PartialEq, Resource, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -48,9 +52,9 @@ pub struct TacticalAnimationConfig {
     pub playback: AnimationPlaybackConfig,
     pub pose_buffer: PoseBufferConfig,
     pub procedural: ProceduralAnimationConfig,
-    pub secondary_physics: SecondaryPhysicsConfig,
+    pub bouncy_bones: BouncyBonesConfig,
     pub inverse_kinematics: InverseKinematicsConfig,
-    pub full_ragdoll: FullRagdollConfig,
+    pub ragdoll: RagdollConfig,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -126,7 +130,9 @@ pub struct AnimationPlaybackConfig {
 #[serde(deny_unknown_fields)]
 pub struct PoseBufferConfig {
     pub sample_hz: f32,
-    pub inertial_halflife_seconds: f32,
+    /// Seconds an inertialized transition takes to decay fully onto its new
+    /// target. A joint already closing fast may finish sooner.
+    pub inertial_blend_seconds: f32,
     pub cull_distance_metres: f32,
     pub cull_radius_metres: f32,
     pub authored_contact_plant_limit_metres: f32,
@@ -163,17 +169,30 @@ pub struct BodyResponseConfig {
     pub maximum_frame_seconds: f32,
 }
 
+/// Additive rotational hit springs on the rendered skeleton. A hit kicks
+/// the struck bone's spring and the reaction travels the bone chain as a
+/// wave; nothing here touches gameplay or physics.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct SecondaryPhysicsConfig {
-    pub motor_frequency_hz: f32,
-    pub motor_damping_ratio: f32,
-    pub maximum_angular_speed_radians_per_second: f32,
-    pub impact_angular_speed_per_metre_per_second: f32,
-    pub maximum_locomotion_acceleration_metres_per_second_squared: f32,
-    pub ragdoll_motor_frequency_hz: f32,
-    pub ragdoll_gravity_torque: f32,
-    pub weight_response_per_second: f32,
+pub struct BouncyBonesConfig {
+    /// Bone-tip impulse per metre per second of server-applied impact
+    /// velocity change. A punch moves the whole body by a couple of metres
+    /// per second; the struck limb whips several times faster than that.
+    pub impact_impulse_scale: f32,
+    /// Impulse (bone-tip metres per second) to spin (radians per second).
+    pub strength: f32,
+    /// Wobble frequency of every spring.
+    pub frequency_hz: f32,
+    /// Envelope half-life: how fast a reaction dies out.
+    pub halflife_seconds: f32,
+    /// Wave speed: radians per second squared of parent spin per radian of
+    /// child deflection, before the parent's own response scale.
+    pub coupling_per_second_squared: f32,
+    /// Instant stiff-body share: kick attenuation per chain link applied on
+    /// the hit frame. Zero is a pure wave.
+    pub transmission: f32,
+    /// Per-bone deflection clamp.
+    pub maximum_angle_radians: f32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
@@ -226,27 +245,6 @@ pub struct InverseKinematicsConfig {
     pub maximum_settle_capture_speed_metres_per_second: f32,
     pub maximum_hip_drop_metres: f32,
     pub sole_contact_margin_metres: f32,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct FullRagdollConfig {
-    pub pelvis: RagdollCapsuleConfig,
-    pub chest: RagdollCapsuleConfig,
-    pub head: RagdollCapsuleConfig,
-    pub thigh: RagdollCapsuleConfig,
-    pub shin: RagdollCapsuleConfig,
-    pub foot: RagdollCapsuleConfig,
-    pub upper_arm: RagdollCapsuleConfig,
-    pub forearm: RagdollCapsuleConfig,
-    pub hand: RagdollCapsuleConfig,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct RagdollCapsuleConfig {
-    pub radius_metres: f32,
-    pub length_metres: f32,
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -840,7 +838,7 @@ impl TacticalCombatConfig {
         let pose = animation.pose_buffer;
         if ![
             pose.sample_hz,
-            pose.inertial_halflife_seconds,
+            pose.inertial_blend_seconds,
             pose.cull_distance_metres,
             pose.cull_radius_metres,
             pose.authored_contact_plant_limit_metres,
@@ -857,29 +855,7 @@ impl TacticalCombatConfig {
                 "invalid pose buffer tuning",
             ));
         }
-        let ragdoll = animation.full_ragdoll;
-        if [
-            ragdoll.pelvis,
-            ragdoll.chest,
-            ragdoll.head,
-            ragdoll.thigh,
-            ragdoll.shin,
-            ragdoll.foot,
-            ragdoll.upper_arm,
-            ragdoll.forearm,
-            ragdoll.hand,
-        ]
-        .into_iter()
-        .any(|capsule| {
-            !capsule.radius_metres.is_finite()
-                || !capsule.length_metres.is_finite()
-                || capsule.radius_metres <= 0.0
-                || capsule.length_metres <= 0.0
-        }) {
-            return Err(TacticalCombatConfigError::Validation(
-                "invalid full-ragdoll capsule tuning",
-            ));
-        }
+        animation.ragdoll.validate()?;
         let procedural = animation.procedural;
         let response = procedural.body_response;
         if ![
@@ -909,22 +885,24 @@ impl TacticalCombatConfig {
                 "invalid procedural animation tuning",
             ));
         }
-        let secondary = animation.secondary_physics;
+        let bouncy = animation.bouncy_bones;
         if ![
-            secondary.motor_frequency_hz,
-            secondary.motor_damping_ratio,
-            secondary.maximum_angular_speed_radians_per_second,
-            secondary.impact_angular_speed_per_metre_per_second,
-            secondary.maximum_locomotion_acceleration_metres_per_second_squared,
-            secondary.ragdoll_motor_frequency_hz,
-            secondary.ragdoll_gravity_torque,
-            secondary.weight_response_per_second,
+            bouncy.impact_impulse_scale,
+            bouncy.strength,
+            bouncy.frequency_hz,
+            bouncy.halflife_seconds,
+            bouncy.coupling_per_second_squared,
+            bouncy.transmission,
+            bouncy.maximum_angle_radians,
         ]
         .into_iter()
         .all(finite_nonnegative)
+            || bouncy.frequency_hz <= 0.0
+            || bouncy.halflife_seconds <= 0.0
+            || bouncy.transmission > 1.0
         {
             return Err(TacticalCombatConfigError::Validation(
-                "invalid secondary animation physics tuning",
+                "invalid bouncy bone tuning",
             ));
         }
         let ik = animation.inverse_kinematics;
@@ -1238,7 +1216,7 @@ impl Default for TacticalCombatConfig {
                 },
                 pose_buffer: PoseBufferConfig {
                     sample_hz: 30.0,
-                    inertial_halflife_seconds: 0.10,
+                    inertial_blend_seconds: 0.2,
                     cull_distance_metres: 100.0,
                     cull_radius_metres: 2.0,
                     authored_contact_plant_limit_metres: 0.14,
@@ -1267,15 +1245,14 @@ impl Default for TacticalCombatConfig {
                         maximum_frame_seconds: 1.0 / 30.0,
                     },
                 },
-                secondary_physics: SecondaryPhysicsConfig {
-                    motor_frequency_hz: 4.25,
-                    motor_damping_ratio: 0.78,
-                    maximum_angular_speed_radians_per_second: 18.0,
-                    impact_angular_speed_per_metre_per_second: 0.85,
-                    maximum_locomotion_acceleration_metres_per_second_squared: 24.0,
-                    ragdoll_motor_frequency_hz: 0.7,
-                    ragdoll_gravity_torque: 8.0,
-                    weight_response_per_second: 12.0,
+                bouncy_bones: BouncyBonesConfig {
+                    impact_impulse_scale: 4.0,
+                    strength: 1.0,
+                    frequency_hz: 3.0,
+                    halflife_seconds: 0.18,
+                    coupling_per_second_squared: 60.0,
+                    transmission: 0.0,
+                    maximum_angle_radians: 0.8,
                 },
                 inverse_kinematics: InverseKinematicsConfig {
                     minimum_inter_foot_separation_metres: 0.16,
@@ -1326,44 +1303,7 @@ impl Default for TacticalCombatConfig {
                     maximum_hip_drop_metres: 0.18,
                     sole_contact_margin_metres: 0.001,
                 },
-                full_ragdoll: FullRagdollConfig {
-                    pelvis: RagdollCapsuleConfig {
-                        radius_metres: 0.18,
-                        length_metres: 0.24,
-                    },
-                    chest: RagdollCapsuleConfig {
-                        radius_metres: 0.18,
-                        length_metres: 0.28,
-                    },
-                    head: RagdollCapsuleConfig {
-                        radius_metres: 0.15,
-                        length_metres: 0.16,
-                    },
-                    thigh: RagdollCapsuleConfig {
-                        radius_metres: 0.10,
-                        length_metres: 0.36,
-                    },
-                    shin: RagdollCapsuleConfig {
-                        radius_metres: 0.085,
-                        length_metres: 0.34,
-                    },
-                    foot: RagdollCapsuleConfig {
-                        radius_metres: 0.09,
-                        length_metres: 0.20,
-                    },
-                    upper_arm: RagdollCapsuleConfig {
-                        radius_metres: 0.075,
-                        length_metres: 0.27,
-                    },
-                    forearm: RagdollCapsuleConfig {
-                        radius_metres: 0.065,
-                        length_metres: 0.25,
-                    },
-                    hand: RagdollCapsuleConfig {
-                        radius_metres: 0.07,
-                        length_metres: 0.14,
-                    },
-                },
+                ragdoll: RagdollConfig::default(),
             },
         }
     }

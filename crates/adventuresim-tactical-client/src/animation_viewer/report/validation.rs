@@ -650,40 +650,18 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
             .or_insert(0) += 1;
         counts
     });
-    let secondary_frames = frames
-        .iter()
-        .filter(|frame| {
-            frame.speed_metres_per_second > 3.2
-                || is_quickstep_scenario(&frame.scenario)
-                || frame.scenario.contains("reversal")
-        })
-        .collect::<Vec<_>>();
-    let inertial_response_required = secondary_frames
-        .iter()
-        .any(|frame| is_quickstep_scenario(&frame.scenario) || frame.scenario.contains("reversal"));
-    let inertial_response_valid = !inertial_response_required
-        || secondary_frames.iter().any(|frame| {
-            frame.secondary_upper_body_maximum_inertial_acceleration_radians_per_second_squared
-                >= 0.1
-        });
-    let upper_body_secondary_physics_valid = secondary_frames.is_empty()
-        || (secondary_frames.iter().all(|frame| {
-            // The current Cascadeur rig exposes fourteen of the semantic
-            // upper-body roles (some packs omit one intermediate spine/neck
-            // target). Twelve still requires the spine/head and both arm
-            // chains instead of allowing a hand-only secondary pass.
-            frame.secondary_upper_body_bone_count >= 12
-                && frame.secondary_upper_body_mean_blend_weight.is_finite()
-                && frame
-                    .secondary_upper_body_maximum_pose_lag_degrees
-                    .is_finite()
-                && frame
-                    .secondary_upper_body_maximum_inertial_acceleration_radians_per_second_squared
-                    .is_finite()
-        }) && secondary_frames.iter().any(|frame| {
-            frame.secondary_upper_body_mean_blend_weight >= 0.18
-                && frame.secondary_upper_body_maximum_pose_lag_degrees >= 0.25
-        }) && inertial_response_valid);
+    // Hit springs only move on a server-confirmed hit, which no capture
+    // scenario delivers: every deflection must stay finite, inside the
+    // authored clamp, and at rest when no spring is active.
+    let bouncy_bones_valid = frames.iter().all(|frame| {
+        frame.bouncy_maximum_deflection_radians.is_finite()
+            && frame.bouncy_maximum_deflection_radians
+                <= runtime_animation_config()
+                    .bouncy_bones
+                    .maximum_angle_radians
+                    + 1.0e-4
+            && (frame.bouncy_active_springs > 0 || frame.bouncy_maximum_deflection_radians == 0.0)
+    });
     let validation = AnimationCaptureValidation {
         finite_transforms,
         all_scenarios_complete,
@@ -697,7 +675,7 @@ pub(super) fn build_completed_report(completed: CompletedCapture) -> CompletedRe
         phase_owned_height_valid,
         run_flight_valid,
         body_response_valid,
-        upper_body_secondary_physics_valid,
+        bouncy_bones_valid,
         straight_run_torso_sway_valid,
         speed_ramp_phase_continuity_valid,
         contact_sequences_valid,
@@ -756,7 +734,7 @@ pub(super) fn validation_passed(validation: &AnimationCaptureValidation) -> bool
         && validation.phase_owned_height_valid
         && validation.run_flight_valid
         && validation.body_response_valid
-        && validation.upper_body_secondary_physics_valid
+        && validation.bouncy_bones_valid
         && validation.straight_run_torso_sway_valid
         && validation.speed_ramp_phase_continuity_valid
         && validation.contact_sequences_valid
@@ -914,7 +892,7 @@ mod tests {
             phase_owned_height_valid: true,
             run_flight_valid: true,
             body_response_valid: true,
-            upper_body_secondary_physics_valid: true,
+            bouncy_bones_valid: true,
             straight_run_torso_sway_valid: true,
             speed_ramp_phase_continuity_valid: true,
             contact_sequences_valid: true,

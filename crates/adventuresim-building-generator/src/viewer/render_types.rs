@@ -106,6 +106,8 @@ struct CaptureManifest {
     focused_assembly_owner_id: Option<u32>,
     focused_resolved_geometry_hash: Option<String>,
     section_cut_applied: bool,
+    horizontal_section_height_metres: Option<f32>,
+    surface_sample_polygon: Option<sample_polygon::SamplePolygon>,
     section_removed_item_ids: Vec<u64>,
     inside_label_visible: bool,
     outside_label_visible: bool,

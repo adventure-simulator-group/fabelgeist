@@ -69,7 +69,7 @@ pub fn puzzle_page(
                                         p { strong { "Preparation: " } (preparation) }
                                     }
                                 }
-                                a class="btn btn-primary" href="/camp" { "Return to camp" }
+                                a class="btn btn-primary" href=(crate::location_urls::patterns::CAMP.pattern()) { "Return to camp" }
                             } @else {
                                 @if last_attempt_correct == Some(false) {
                                     @for line in fey_puzzle_speech(catalog, kind, FeySpeechPart::Wrong) {

@@ -1,4 +1,4 @@
-use fabelgeist_determinism::SplitMix64;
+use fabelgeist_determinism::DeterministicRng;
 use serde::{Deserialize, Serialize};
 
 use super::{
@@ -7,8 +7,8 @@ use super::{
     ResourceAllocationProjection, ResourceAllocationPuzzle, ResourceAllocationSpec, Sigil,
 };
 
-pub const TRUTHFUL_WITNESS_RULES_VERSION: u16 = 2;
-pub const RUNE_TRANSFORMATION_RULES_VERSION: u16 = 3;
+pub const TRUTHFUL_WITNESS_RULES_VERSION: u16 = 3;
+pub const RUNE_TRANSFORMATION_RULES_VERSION: u16 = 4;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum PuzzleKind {
@@ -443,8 +443,9 @@ impl TruthfulWitnessPuzzle {
 
     pub fn generate_with_spec(seed: u64, spec: TruthfulWitnessSpec) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        const TRUTHFUL_WITNESS_GENERATION_DOMAIN: u64 = 0x7472_7574_685f_7769;
-        let mut rng = SplitMix64::new(seed ^ TRUTHFUL_WITNESS_GENERATION_DOMAIN);
+        const TRUTHFUL_WITNESS_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+            fabelgeist_determinism::StreamId::new("puzzle.truthful_witness");
+        let mut rng = TRUTHFUL_WITNESS_GENERATION_DOMAIN.rng(seed, &[]);
         let solution_path = WitnessPath::ALL[rng.index(WitnessPath::ALL.len())];
         let liar = Witness::ALL[rng.index(Witness::ALL.len())];
         let choices = Witness::ALL.map(|speaker| {
@@ -779,8 +780,9 @@ impl RuneTransformationPuzzle {
         spec: RuneTransformationSpec,
     ) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        const RUNE_TRANSFORMATION_GENERATION_DOMAIN: u64 = 0x7275_6e65_5f74_7261;
-        let mut rng = SplitMix64::new(seed ^ RUNE_TRANSFORMATION_GENERATION_DOMAIN);
+        const RUNE_TRANSFORMATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+            fabelgeist_determinism::StreamId::new("puzzle.rune_transformation");
+        let mut rng = RUNE_TRANSFORMATION_GENERATION_DOMAIN.rng(seed, &[]);
         let active_gates = RuneGate::ALL[..usize::from(spec.gate_count)].to_vec();
         let mut available_operations = RuneOperation::ALL.to_vec();
         shuffle(&mut available_operations, &mut rng);
@@ -955,11 +957,8 @@ fn rune_gate_examples(
     })
 }
 
-pub(crate) fn shuffle<T>(values: &mut [T], rng: &mut SplitMix64) {
-    for end in (1..values.len()).rev() {
-        let selected = rng.index(end + 1);
-        values.swap(end, selected);
-    }
+pub(crate) fn shuffle<T>(values: &mut [T], rng: &mut DeterministicRng) {
+    rng.shuffle(values);
 }
 
 #[cfg(test)]

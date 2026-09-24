@@ -1,11 +1,14 @@
 //! Capacity bands selected before reserving a settlement building's physical plot.
-use adventuresim_world_schema::settlement_buildings::{BuildingUse, ServiceCapacity};
+use adventuresim_world_schema::settlement_buildings::{
+    BuildingDemand, BuildingDemandPolicy, BuildingUse, ChurchBuildingScale, ParishBuildingRole,
+    ServiceCapacity,
+};
 use clap::ValueEnum;
 use serde::{Deserialize, Serialize};
 
 use crate::{BuildingArchetype, BuildingProgram, WorkplaceKind};
 
-/// Relative capacity within a building use's authored service range.
+/// A physical programme band. Parish bands are authored independently of catchments.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize, ValueEnum)]
 #[serde(rename_all = "snake_case")]
 pub enum ServiceBuildingSize {
@@ -15,13 +18,28 @@ pub enum ServiceBuildingSize {
 }
 
 impl ServiceBuildingSize {
-    pub fn for_capacity(usage: BuildingUse, capacity: ServiceCapacity) -> Option<Self> {
-        if WorkplaceKind::from_use(usage).is_none()
-            && !matches!(usage, BuildingUse::Chapel | BuildingUse::ParishChurch)
-        {
-            return None;
+    pub fn for_demand(demand: BuildingDemand) -> Option<Self> {
+        match demand {
+            BuildingDemand::Service {
+                usage, capacity, ..
+            } => Self::for_capacity(usage, capacity),
+            BuildingDemand::Parish {
+                role: ParishBuildingRole::Church(scale),
+                ..
+            } => Some(match scale {
+                ChurchBuildingScale::Village => Self::Small,
+                ChurchBuildingScale::Neighbourhood => Self::Medium,
+                ChurchBuildingScale::PrincipalTown => Self::Large,
+            }),
+            _ => None,
         }
-        let range = usage.definition().capacity;
+    }
+
+    pub fn for_capacity(usage: BuildingUse, capacity: ServiceCapacity) -> Option<Self> {
+        WorkplaceKind::from_use(usage)?;
+        let BuildingDemandPolicy::ServiceCatchment(range) = usage.definition().demand else {
+            return None;
+        };
         let span = range.maximum.0 - range.minimum.0 + 1;
         let band = capacity.0.saturating_sub(range.minimum.0).saturating_mul(3) / span;
         Some(match band {
@@ -46,7 +64,11 @@ impl BuildingProgram {
         if self.workplace_kind().is_some() {
             self.configure_workplace_size(size);
         } else if self.archetype == BuildingArchetype::ParishChurch {
-            self.configure_small_church_size(size);
+            if self.usage == Some(BuildingUse::ParishChurch) && size == ServiceBuildingSize::Large {
+                self = Self::urban_basilica(self.archetype, self.usage, Some(size), self.seed);
+            } else {
+                self.configure_small_church_size(size);
+            }
         }
         self
     }
@@ -57,13 +79,9 @@ mod tests {
     use super::*;
 
     #[test]
-    fn service_ranges_select_monotonic_bands_for_workshops_and_small_churches() {
-        for usage in [
-            BuildingUse::HorseMill,
-            BuildingUse::Chapel,
-            BuildingUse::ParishChurch,
-        ] {
-            let range = usage.definition().capacity;
+    fn service_ranges_select_monotonic_bands_for_workshops() {
+        for usage in [BuildingUse::HorseMill] {
+            let adventuresim_world_schema::settlement_buildings::BuildingDemandPolicy::ServiceCatchment(range) = usage.definition().demand else { panic!("expected service catchment"); };
             assert_eq!(
                 ServiceBuildingSize::for_capacity(usage, range.minimum),
                 Some(ServiceBuildingSize::Small)

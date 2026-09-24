@@ -7,7 +7,8 @@ mod types;
 pub(crate) use client::{Result, SpacetimeClient, SpacetimeError};
 pub(crate) use queries::{
     SqlQuery, automatic_social_chat_by_id, autoresolve_report_by_battle_id,
-    battle_result_by_battle_id, case_site_pin_by_case_site_id, character_affinity_by_id,
+    battle_result_by_battle_id, case_site_pin_by_case_site_id,
+    case_site_pin_by_case_site_id_and_owner, character_affinity_by_id,
     character_attributes_by_character_id, character_by_id, character_capability_by_character_id,
     character_case_site_location_by_character_id, character_condition_by_character_id,
     character_death_by_character_id, character_familiarity_by_id, character_limbs_by_character_id,

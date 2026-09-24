@@ -1,4 +1,8 @@
 use super::*;
+mod glazing;
+
+#[cfg(test)]
+mod tests;
 
 /// Render the actual resolved arch cut, retaining the same sections as collision.
 pub(super) fn append(
@@ -11,11 +15,17 @@ pub(super) fn append(
         return false;
     };
     let mesh = detail.mesh_mut(material);
-    for strip in arch.strips() {
+    let strips = arch.strips();
+    for (section, strip) in strips.iter().enumerate() {
         let front = strip.front;
         let back = front.map(|point| point + strip.depth);
         let mut faces = vec![front, [back[3], back[2], back[1], back[0]]];
         for index in 0..4 {
+            // Adjacent strips share their vertical ends. Keep only the two
+            // exterior caps; all visible surfaces retain their exact sections.
+            if (index == 1 && section + 1 < strips.len()) || (index == 3 && section > 0) {
+                continue;
+            }
             let next = (index + 1) % 4;
             faces.push([front[index], back[index], back[next], front[next]]);
         }
@@ -41,6 +51,9 @@ pub(super) fn append(
                 }),
             );
         }
+    }
+    if solid.role == SolidRole::LeadedGlazing {
+        glazing::append(detail, &strips);
     }
     true
 }

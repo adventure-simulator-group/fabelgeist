@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "test": "cd ../.. && node --test crates/strategic-web/tests/*.test.cjs"
+    "test": "cd ../.. && node --test crates/strategic-web/tests/*.test.cjs",
+    "test:browser": "node --test tests/*.browser.cjs"
   },
   "devDependencies": {
     "linkedom": "0.18.12",

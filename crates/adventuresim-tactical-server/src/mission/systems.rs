@@ -21,7 +21,10 @@ use crate::{
 const TERMINAL_RETRY_BACKOFF: Duration = Duration::from_secs(1);
 const TERMINAL_PRESENTATION_DELAY: Duration = Duration::from_secs(3);
 const TERMINAL_ACK_TIMEOUT: Duration = Duration::from_secs(10);
-const PARTY_RECONNECT_GRACE: Duration = Duration::from_secs(10);
+/// Default grace for an empty party before the mission is abandoned. Overridable
+/// per mission via `MissionState::new` (see the tactical server's
+/// `--party-reconnect-grace` flag).
+pub(crate) const PARTY_RECONNECT_GRACE: Duration = Duration::from_secs(10);
 
 type MissionEnemyQuery<'world, 'state> = Query<
     'world,
@@ -205,11 +208,12 @@ pub(crate) fn check_terminal_combat_outcome(
     if has_loading_player {
         state.begin_enrollment();
     }
+    let reconnect_grace = state.reconnect_grace();
     match state.advance_enrollment(
         loaded_party,
         has_loading_player,
         time.delta(),
-        PARTY_RECONNECT_GRACE,
+        reconnect_grace,
     ) {
         EnrollmentEffect::Sealed => info!(
             expected = state.expected_party_members().get(),
@@ -288,6 +292,7 @@ mod standalone_resolution_tests {
             Some(Timer::from_seconds(0.0, TimerMode::Once)),
             1,
             std::num::NonZeroU32::new(1).unwrap(),
+            PARTY_RECONNECT_GRACE,
         ));
         app.insert_resource(TacticalConsequenceAccumulator::default());
 

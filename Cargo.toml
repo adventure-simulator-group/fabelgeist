@@ -9,10 +9,14 @@ members = [
   "crates/adventuresim-world-import",
   "crates/adventuresim-terrain",
   "crates/adventuresim-weapon-model",
+  "crates/adventuresim-weapon-model-browser",
   "crates/adventuresim-building-generator",
+  "crates/adventuresim-plant-generator",
   "crates/adventuresim-procedural-textures",
   "crates/adventuresim-procedural-materials",
   "crates/adventuresim-texture-studio",
+  "crates/adventuresim-heraldry",
+  "crates/adventuresim-heraldry-studio",
   "crates/adventuresim-stdb-module",
   "crates/adventuresim-stdb-client",
   "crates/adventuresim-tactical-core",
@@ -61,6 +65,7 @@ license = "GPL-3.0"
 [workspace.dependencies]
 ab_glyph = "0.2.32"
 adventuresim-procedural-materials = { path = "crates/adventuresim-procedural-materials" }
+adventuresim-heraldry = { path = "crates/adventuresim-heraldry" }
 adventuresim-tactical-netcode = { version = "0.1.0", default-features = false }
 adventuresim-tactical-core = { version = "0.1.0" }
 adventuresim-stdb-client = { version = "0.1.0" }
@@ -71,6 +76,7 @@ adventuresim-strategic-sim = { version = "0.1.0" }
 adventuresim-world-schema = { version = "0.1.0", path = "crates/adventuresim-world-schema" }
 adventuresim-weapon-model = { version = "0.1.0", path = "crates/adventuresim-weapon-model" }
 adventuresim-building-generator = { version = "0.1.0", path = "crates/adventuresim-building-generator" }
+adventuresim-plant-generator = { version = "0.1.0", path = "crates/adventuresim-plant-generator" }
 adventuresim-procedural-textures = { version = "0.1.0", path = "crates/adventuresim-procedural-textures" }
 
 fabelgeist-math = { version = "0.1.0", path = "crates/fabelgeist-math" }
@@ -123,6 +129,7 @@ serde = { version = "1", default-features = false, features = [
   "derive",
 ] }
 serde_json = "1"
+serde_path_to_error = "0.1.20"
 serde-saphyr = "1.0.1"
 postcard = { version = "1.1", default-features = false, features = ["alloc"] }
 sha2 = "0.10"
@@ -134,7 +141,8 @@ async-compat = "0.2.5"
 cfg-if = "1.0"
 clap = { version = "4.5.60", features = ["derive", "env"] }
 tracing = "0.1.44"
-rand = "0.9"
+rand = "=0.9.5"
+rand_xoshiro = "=0.7.0"
 rayon = "1.12"
 getrandom = { version = "0.3", features = ["wasm_js"] }
 getrandom_02 = { version = "0.2", features = ["js"], package = "getrandom" }
@@ -172,12 +180,15 @@ adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
 adventuresim-core = { path = "crates/adventuresim-core" }
 adventuresim-puzzles = { path = "crates/adventuresim-puzzles" }
 adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
-# Fork carrying two fixes over 0.5.0: (1) the duplicate CullComputeCamera
+# Fork carrying three fixes over 0.5.0: (1) the duplicate CullComputeCamera
 # extraction plugin that panics when more than one InstancedMaterialPlugin
-# registers, and (2) skipping instanced meshes whose specialized pipeline
-# hasn't finished compiling, so the GPU-driven indirect draw doesn't fire
-# against a stale pipeline during runtime view-layout switches (atmosphere ->
-# environment_map at sky-bake freeze). Consumed from our fork until upstreamed.
+# registers, (2) skipping instanced meshes whose specialized pipeline hasn't
+# finished compiling, so the GPU-driven indirect draw doesn't fire against a
+# stale pipeline during runtime view-layout switches (atmosphere ->
+# environment_map at sky-bake freeze), and (3) the WebGPU draw path that loops
+# draw_indexed_indirect with a per-batch vertex offset where the native backend
+# issues multi_draw_indexed_indirect - the whole browser sward depends on it
+# (upstream PR NicoZweifel/bevy_eidolon#19). Consumed from our fork until merged.
 bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = "fablegeist-0.19" }
 
 [profile.win-dev]
@@ -189,3 +200,12 @@ opt-level = 3
 [profile.dev]
 opt-level = 1
 strip = "debuginfo"
+
+# Keep the ordinary release profile unchanged. The art demo pays the longer
+# link once in exchange for substantially less code to download and compile.
+[profile.wasm-release]
+inherits = "release"
+codegen-units = 1
+lto = "fat"
+opt-level = "z"
+strip = "symbols"

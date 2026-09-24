@@ -155,6 +155,7 @@ fn luminance_stats(
     data: Option<&[u8]>,
     region: Option<[f32; 4]>,
     region_margin: f32,
+    polygon: Option<&sample_polygon::SamplePolygon>,
 ) -> LuminanceStats {
     let Some(data) = data else {
         return LuminanceStats::default();
@@ -184,6 +185,7 @@ fn luminance_stats(
             let x = (*index % VIEW_WIDTH as usize) as f32 / VIEW_WIDTH as f32;
             let y = (*index / VIEW_WIDTH as usize) as f32 / VIEW_HEIGHT as f32;
             x >= min_x && x <= max_x && y >= min_y && y <= max_y
+                && polygon.is_none_or(|polygon| polygon.contains(Vec2::new(x, y)))
         })
         .map(|(_, pixel)| {
             (0.2126 * f32::from(pixel[0])
@@ -211,7 +213,7 @@ fn luminance_stats(
 }
 
 fn calibration_luminance_stats(data: Option<&[u8]>, bounds: [f32; 4]) -> LuminanceStats {
-    let mut stats = luminance_stats(data, Some(bounds), 0.0);
+    let mut stats = luminance_stats(data, Some(bounds), 0.0, None);
     let [min_x, min_y, max_x, max_y] = bounds;
     let mid_x = (min_x + max_x) * 0.5;
     let mid_y = (min_y + max_y) * 0.5;
@@ -225,7 +227,7 @@ fn calibration_luminance_stats(data: Option<&[u8]>, bounds: [f32; 4]) -> Luminan
     .into_iter()
     .enumerate()
     {
-        patch_medians[index] = luminance_stats(data, Some(patch), 0.0).median;
+        patch_medians[index] = luminance_stats(data, Some(patch), 0.0, None).median;
     }
     patch_medians.sort_unstable();
     let (calibration_shadow, calibration_span) = luminance_percentile_span(data, bounds, 5, 95);

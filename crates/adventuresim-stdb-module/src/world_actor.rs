@@ -407,7 +407,6 @@ pub(crate) fn materialize_context_roster(
     kind: CharacterContextKind,
     context_id: &str,
     location_id: &str,
-    archetype: &str,
     count: u32,
 ) -> Result<Vec<u64>, String> {
     let entered_at = crate::time::refresh_clock(ctx)?;
@@ -434,12 +433,18 @@ pub(crate) fn materialize_context_roster(
         if ctx.db.character().id().find(id).is_some() {
             return Err("Deterministic field-character identity collision".into());
         }
-        let display = archetype.replace(['_', '-'], " ");
         crate::character::insert_persistent_field_character(
             ctx,
-            format!("{} {}", title_case(&display), ordinal + 1),
+            "Pending generated name".into(),
             id,
             id,
+            None,
+        )?;
+        crate::character::assign_generated_historical_name_for_age(
+            ctx,
+            crate::character::CharacterId::new(id),
+            crate::character::NameSeed::new(id),
+            crate::character::WorldMinute::new(entered_at),
             None,
         )?;
         ctx.db
@@ -470,7 +475,6 @@ pub(crate) fn rebind_road_cast_to_strategic_encounter(
     ctx: &ReducerContext,
     road_context_id: &str,
     encounter_id: &str,
-    archetype: &str,
     count: u32,
 ) -> Result<Vec<u64>, String> {
     let entered_at = crate::time::refresh_clock(ctx)?;
@@ -525,17 +529,8 @@ pub(crate) fn rebind_road_cast_to_strategic_encounter(
         CharacterContextKind::StrategicEncounter,
         encounter_id,
         encounter_id,
-        archetype,
         count,
     )
-}
-
-fn title_case(value: &str) -> String {
-    let mut chars = value.chars();
-    chars
-        .next()
-        .map(|first| first.to_uppercase().collect::<String>() + chars.as_str())
-        .unwrap_or_else(|| "Unknown".into())
 }
 
 fn context_interval_is_well_formed(active: bool, entered_at: u64, left_at: Option<u64>) -> bool {

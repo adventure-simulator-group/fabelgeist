@@ -1,9 +1,11 @@
 //! Local growth rings for cut boards: one coordinate drives relief and pigment.
+mod streams;
 use crate::{
     TextureParameters,
     stamps::{hash, noise, smooth},
 };
 use bevy::math::{IVec2, Vec2};
+use fabelgeist_determinism::StreamId;
 #[cfg(test)]
 mod tests;
 
@@ -41,12 +43,19 @@ pub(crate) struct Sample {
 
 impl Parameters {
     fn at(&self, params: &TextureParameters, uv: Vec2, id: u64) -> Sample {
-        let random = |salt| hash(params, IVec2::ZERO, IVec2::ONE, id ^ salt);
+        let random = |purpose: StreamId| {
+            hash(
+                params,
+                IVec2::ZERO,
+                IVec2::ONE,
+                purpose.seed(id, &[]).to_u64(),
+            )
+        };
         let mut across = uv.x;
-        if random(0x175a) < self.knot_fraction {
+        if random(streams::KNOT_PRESENCE) < self.knot_fraction {
             let center = Vec2::new(
-                self.knot_margin + random(0x75ad) * (1.0 - 2.0 * self.knot_margin),
-                random(0xb43d),
+                self.knot_margin + random(streams::KNOT_X) * (1.0 - 2.0 * self.knot_margin),
+                random(streams::KNOT_Y),
             );
             let d = uv - center;
             let d = Vec2::new(d.x, d.y - d.y.round());
@@ -54,21 +63,21 @@ impl Parameters {
             let envelope = 1.0 - smooth(radius.sqrt() / self.knot_influence);
             across -= d.x / (radius + self.knot_core) * self.knot_flow * envelope;
         }
-        if random(0x7943) < self.sawn_arch_fraction {
+        if random(streams::SAWN_ARCH_PRESENCE) < self.sawn_arch_fraction {
             // An oblique longitudinal cut opens rings into cathedral arches.
             // Periodic sine-squared distances made repeated closed target motifs.
-            let center = random(0x1247);
-            let along = (uv.y - random(0x4217)) * self.sawn_arch_scale;
+            let center = random(streams::ARCH_X);
+            let along = (uv.y - random(streams::ARCH_Y)) * self.sawn_arch_scale;
             across = ((across - center).powi(2) + self.sawn_arch_depth.powi(2)).sqrt() + along;
         }
         let warp = noise(
             params,
             Vec2::new(across, uv.y),
             IVec2::from_array(self.wander_cells),
-            id ^ 0x73ab,
+            params.field_seed(streams::RING_WANDER, &[id]),
         ) - 0.5;
         let coordinate = across + warp * self.ring_wander;
-        let phase = coordinate * self.ring_count as f32 + random(0x41ab);
+        let phase = coordinate * self.ring_count as f32 + random(streams::RING_PHASE);
         let ring = phase.floor() as i32;
         let width = self.ring_width
             * (1.0 - self.ring_width_variation
@@ -76,7 +85,7 @@ impl Parameters {
                     params,
                     IVec2::new(ring, 0),
                     IVec2::new(4096, 1),
-                    id ^ 0x1249,
+                    params.field_seed(streams::RING_WIDTH, &[id]),
                 ) * 2.0
                     * self.ring_width_variation);
         let t = phase.rem_euclid(1.0);
@@ -85,7 +94,7 @@ impl Parameters {
             params,
             IVec2::new(ring, 0),
             IVec2::new(4096, 1),
-            id ^ 0x1731,
+            params.field_seed(streams::RING_COLOR, &[id]),
         ) < self.dark_ring_fraction;
         let dark = u8::from(colored && t < width * (1.0 + self.ring_shoulder)) as f32;
         let fiber = (coordinate * self.fiber_count as f32 * std::f32::consts::TAU).sin();

@@ -20,3 +20,6 @@ std = []
 wgpu = ["dep:wgpu"]
 serde = ["dep:serde"]
 bytemuck = ["dep:bytemuck"]
+
+[lints]
+workspace = true

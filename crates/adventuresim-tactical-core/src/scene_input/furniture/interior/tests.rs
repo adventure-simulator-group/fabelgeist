@@ -9,7 +9,13 @@ fn interior_instances_follow_building_rotation_elevation_and_room_identity() {
     let usage = BuildingUse::Dwelling;
     let input = TacticalBuildingPlacement {
         id: 891,
-        program: BuildingProgram::settlement(settlement_archetype(usage), Some(usage), 47_101),
+        program: BuildingProgram::validated_settlement(
+            settlement_archetype(usage),
+            usage,
+            47_101,
+            None,
+        )
+        .unwrap(),
         centre_metres: Vec2::new(12.0, -19.0),
         orientation: BuildingOrientation::from_radians(0.73).unwrap(),
     };

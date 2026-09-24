@@ -72,6 +72,46 @@ surfaces with separate trim domains when controls remain coupled. No particular
 surface basis is required, and a new architecture is still a hypothesis, not a
 commitment.
 
+## Keep reference fitting general
+
+- Store reference-specific choices in recipes, body proportions, and camera
+  presets. Shared generators and fitters must express anatomical or construction
+  relationships, not museum identifiers, photographed pixel coordinates, or
+  offsets chosen solely to make one capture pass. A new base shape is preferable
+  to distorting an unrelated armor type beyond its intended construction.
+- Match coarse volumes and plate coverage before photo landmarks. A landmark in
+  a photograph may be an armor edge rather than a joint. Check another view and
+  the visible body before changing anatomy; matching a projected edge must not
+  open a coverage gap or destroy an overlap between neighboring pieces.
+- State the fitting coordinate frame and derive directions and distances from
+  anatomical anchors or the plate's chart. Distinguish nominal shape offsets
+  from measured minimum surface clearance. If a fitter requires the canonical
+  unposed body frame, make that contract explicit. Do not silently treat a world
+  axis, fixed distance, or skin-weight boundary as a general anatomical rule.
+- Separate body-shape fitting from animation ownership. A rigid metal plate
+  must keep its internal distances when only the pose changes. Use fit morphs
+  for proportion-dependent shape changes and coherent ownership for each plate;
+  articulation belongs between plates. Inspect actual animation tracks before
+  using helper joints: a helper that translates correctly for body scaling may
+  also rotate independently during animation.
+- Clearance must survive the complete fitting pipeline. Smoothing,
+  interpolation, edge rounding, height changes, and layer seating can invalidate
+  an earlier enclosure check. Sample anatomy at the final shaped location and
+  preserve or recheck support after subsequent operations. Increasing a global
+  offset is not a substitute for diagnosing the violated constraint.
+- Test the relationships affected by a change on more than its reference body.
+  Include relevant supported extremes, nonzero reference proportions, interior
+  parameter values, and representative coupled settings. Transition midpoints,
+  asymmetric or off-center sections, and local anatomical bulges can expose
+  failures that endpoint tests miss. Check the exported triangles and attachment
+  behavior as well as analytic carriers; do not change topology across morphs.
+- Keep the acceptance claims precise. Generated random-body ranges, editor
+  limits, identity targets, direct refits, and morph blends are different test
+  scopes. Name which were exercised. Unposed clearance and posed plate rigidity
+  are separate properties; neither proves collision-free articulation. An
+  independent generalization reviewer should inspect shared fitting changes and
+  their parameter interactions without reviewing code they authored.
+
 ## Evidence package
 
 - Supply the approved reference alongside current body-included renders to each

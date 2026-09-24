@@ -1,4 +1,8 @@
-use fabelgeist_determinism::{inclusive_unit_f64, mix64, unit_f64};
+#[path = "tiles/noise.rs"]
+mod noise;
+use noise::{fractal_noise, lerp, organic_vertex_noise, smoothstep};
+#[path = "tiles/streams.rs"]
+mod streams;
 use image::{ExtendedColorType, ImageEncoder, codecs::avif::AvifEncoder};
 use rayon::prelude::*;
 use sha2::{Digest, Sha256};
@@ -21,9 +25,6 @@ const NATIVE_DETAIL_BOUNDS: [f64; 4] = adventuresim_world_schema::PLAYABLE_BOUND
 const FOREST_CANOPY_THRESHOLD_PERCENT: f64 = 20.0;
 const CANOPY_CELLS_PER_DEGREE: usize = 1_000;
 const RELIEF_STEP_DEGREES: f64 = 0.01;
-const FRACTAL_OCTAVE_SEED_STRIDE: u64 = 0x9e37_79b9;
-const NOISE_X_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const NOISE_Y_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 
 #[derive(Clone, Copy)]
 struct TileProjection {
@@ -109,10 +110,26 @@ impl ForestField {
     fn density_at(&self, logical_x: f64, logical_y: f64) -> f64 {
         let base_x = (logical_x - self.origin.0) / self.step.0;
         let base_y = (logical_y - self.origin.1) / self.step.1;
-        let warp_x = fractal_noise(base_x * 0.23, base_y * 0.23, 0x0f67_47f4_6c9a_31b5) * 0.40
-            + fractal_noise(base_x * 1.19, base_y * 1.19, 0x8b72_46dc_a913_5ef0) * 0.14;
-        let warp_y = fractal_noise(base_x * 0.23, base_y * 0.23, 0xca62_d13b_98f4_07e1) * 0.40
-            + fractal_noise(base_x * 1.19, base_y * 1.19, 0x34d9_81a7_f5c0_62be) * 0.14;
+        let warp_x = fractal_noise(
+            base_x * 0.23,
+            base_y * 0.23,
+            streams::BOUNDARY_WARP_X_BROAD.seed(0, &[]).to_u64(),
+        ) * 0.40
+            + fractal_noise(
+                base_x * 1.19,
+                base_y * 1.19,
+                streams::BOUNDARY_WARP_X_FINE.seed(0, &[]).to_u64(),
+            ) * 0.14;
+        let warp_y = fractal_noise(
+            base_x * 0.23,
+            base_y * 0.23,
+            streams::BOUNDARY_WARP_Y_BROAD.seed(0, &[]).to_u64(),
+        ) * 0.40
+            + fractal_noise(
+                base_x * 1.19,
+                base_y * 1.19,
+                streams::BOUNDARY_WARP_Y_FINE.seed(0, &[]).to_u64(),
+            ) * 0.14;
         let x = base_x + warp_x;
         let y = base_y + warp_y;
         let x0 = x.floor() as i64;
@@ -123,8 +140,16 @@ impl ForestField {
         let top = lerp(sample(x0, y0), sample(x0 + 1, y0), tx);
         let bottom = lerp(sample(x0, y0 + 1), sample(x0 + 1, y0 + 1), tx);
         let interpolated = lerp(top, bottom, ty);
-        let boundary_detail = fractal_noise(x * 1.71, y * 1.71, 0x5e41_bdf0_216d_893c) * 5.4
-            + fractal_noise(x * 4.83, y * 4.83, 0x12f7_8a4c_d963_b05e) * 1.65;
+        let boundary_detail = fractal_noise(
+            x * 1.71,
+            y * 1.71,
+            streams::BOUNDARY_DETAIL_BROAD.seed(0, &[]).to_u64(),
+        ) * 5.4
+            + fractal_noise(
+                x * 4.83,
+                y * 4.83,
+                streams::BOUNDARY_DETAIL_FINE.seed(0, &[]).to_u64(),
+            ) * 1.65;
         interpolated + boundary_detail
     }
 }
@@ -316,8 +341,16 @@ impl ReliefField {
         if x < -1.0 || y < -1.0 || x > self.columns as f64 || y > self.rows as f64 {
             return false;
         }
-        let warp_x = fractal_noise(x * 0.07, y * 0.07, 0xd145_74c1_a6b2_91e5) * 0.46;
-        let warp_y = fractal_noise(x * 0.07, y * 0.07, 0x7d2e_89f3_5cab_4011) * 0.46;
+        let warp_x = fractal_noise(
+            x * 0.07,
+            y * 0.07,
+            streams::RELIEF_WARP_X.seed(0, &[]).to_u64(),
+        ) * 0.46;
+        let warp_y = fractal_noise(
+            x * 0.07,
+            y * 0.07,
+            streams::RELIEF_WARP_Y.seed(0, &[]).to_u64(),
+        ) * 0.46;
         let x = x + warp_x;
         let y = y + warp_y;
         let x0 = x.floor() as isize;
@@ -339,7 +372,11 @@ impl ReliefField {
             lerp(sample(x0, y0), sample(x0 + 1, y0), tx),
             lerp(sample(x0, y0 + 1), sample(x0 + 1, y0 + 1), tx),
             ty,
-        ) + fractal_noise(x * 0.83, y * 0.83, 0x62ec_192f_b761_0a4d) * 5.0;
+        ) + fractal_noise(
+            x * 0.83,
+            y * 0.83,
+            streams::RELIEF_DETAIL.seed(0, &[]).to_u64(),
+        ) * 5.0;
         score >= 10.0
     }
 }
@@ -676,11 +713,12 @@ fn draw_parchment_texture(pixmap: &mut Pixmap, scale: f64, origin: (f64, f64), p
 
     for cell_y in first_y..=last_y {
         for cell_x in first_x..=last_x {
-            let mut random = grid_seed(cell_x, cell_y, zoom, "parchment");
-            let x = cell_x as f64 * cell_size + 8.0 + next_unit(&mut random) * 96.0 - origin.0;
-            let y = cell_y as f64 * cell_size + 8.0 + next_unit(&mut random) * 96.0 - origin.1;
-            let length = 3.0 + next_unit(&mut random) * 8.0;
-            let slope = (next_unit(&mut random) - 0.5) * 1.8;
+            let mut random =
+                streams::PARCHMENT.rng(u64::from(zoom), &[cell_x as u64, cell_y as u64]);
+            let x = cell_x as f64 * cell_size + 8.0 + random.unit_f64() * 96.0 - origin.0;
+            let y = cell_y as f64 * cell_size + 8.0 + random.unit_f64() * 96.0 - origin.1;
+            let length = 3.0 + random.unit_f64() * 8.0;
+            let slope = (random.unit_f64() - 0.5) * 1.8;
             let mut fiber = PathBuilder::new();
             fiber.move_to(x as f32, y as f32);
             fiber.line_to((x + length) as f32, (y + slope) as f32);
@@ -688,10 +726,10 @@ fn draw_parchment_texture(pixmap: &mut Pixmap, scale: f64, origin: (f64, f64), p
                 stroke_pixmap_path(pixmap, &fiber, palette.paper_fiber, 0.55);
             }
 
-            if next_random(&mut random).is_multiple_of(5)
+            if random.index(5) == 0
                 && let Some(fleck) = Rect::from_xywh(
-                    (x + next_unit(&mut random) * 13.0) as f32,
-                    (y + 3.0 + next_unit(&mut random) * 10.0) as f32,
+                    (x + random.unit_f64() * 13.0) as f32,
+                    (y + 3.0 + random.unit_f64() * 10.0) as f32,
                     0.9,
                     0.9,
                 )
@@ -845,58 +883,6 @@ fn blend_opaque_pixel(destination: &mut [u8], source: [u8; 4], coverage: f64) {
     destination[3] = 255;
 }
 
-fn fractal_noise(mut x: f64, mut y: f64, seed: u64) -> f64 {
-    let mut amplitude = 0.58;
-    let mut total = 0.0;
-    let mut weight = 0.0;
-    for octave in 0_u64..4 {
-        total +=
-            value_noise(x, y, seed.wrapping_add(octave * FRACTAL_OCTAVE_SEED_STRIDE)) * amplitude;
-        weight += amplitude;
-        x = x * 2.03 + 17.7;
-        y = y * 2.03 - 11.3;
-        amplitude *= 0.5;
-    }
-    total / weight
-}
-
-fn value_noise(x: f64, y: f64, seed: u64) -> f64 {
-    let x0 = x.floor() as i64;
-    let y0 = y.floor() as i64;
-    let tx = smoothstep(x - x.floor());
-    let ty = smoothstep(y - y.floor());
-    let top = lerp(
-        lattice_noise(x0, y0, seed),
-        lattice_noise(x0 + 1, y0, seed),
-        tx,
-    );
-    let bottom = lerp(
-        lattice_noise(x0, y0 + 1, seed),
-        lattice_noise(x0 + 1, y0 + 1, seed),
-        tx,
-    );
-    lerp(top, bottom, ty)
-}
-
-fn lattice_noise(x: i64, y: i64, seed: u64) -> f64 {
-    let value = mix64(
-        seed ^ (x as u64).wrapping_mul(NOISE_X_STRIDE) ^ (y as u64).wrapping_mul(NOISE_Y_STRIDE),
-    );
-    signed_unit_f64(value)
-}
-
-fn signed_unit_f64(value: u64) -> f64 {
-    unit_f64(value) * 2.0 - 1.0
-}
-
-fn smoothstep(value: f64) -> f64 {
-    value * value * (3.0 - 2.0 * value)
-}
-
-fn lerp(left: f64, right: f64, amount: f64) -> f64 {
-    left + (right - left) * amount
-}
-
 fn stroke_pixmap_path(pixmap: &mut Pixmap, path: &Path, shade: [u8; 4], width: f32) {
     let stroke = Stroke {
         width,
@@ -911,32 +897,6 @@ fn stroke_pixmap_path(pixmap: &mut Pixmap, path: &Path, shade: [u8; 4], width: f
         Transform::identity(),
         None,
     );
-}
-
-fn grid_seed(x: i64, y: i64, level: u8, kind: &str) -> u64 {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in x
-        .to_le_bytes()
-        .into_iter()
-        .chain(y.to_le_bytes())
-        .chain([level])
-        .chain(kind.bytes())
-    {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    hash
-}
-
-fn next_random(state: &mut u64) -> u64 {
-    *state ^= *state << 13;
-    *state ^= *state >> 7;
-    *state ^= *state << 17;
-    *state
-}
-
-fn next_unit(state: &mut u64) -> f64 {
-    (next_random(state) >> 11) as f64 / (1_u64 << 53) as f64
 }
 
 fn stroke_source_path(
@@ -1115,14 +1075,6 @@ fn organic_closed_ring(points: &[(f64, f64)]) -> Vec<(f64, f64)> {
     }
     contour.push(contour[0]);
     contour
-}
-
-fn organic_vertex_noise(point: (f64, f64)) -> f64 {
-    let x = (point.0 * 16.0).round() as i64 as u64;
-    let y = (point.1 * 16.0).round() as i64 as u64;
-    inclusive_unit_f64(mix64(
-        x.wrapping_mul(NOISE_X_STRIDE) ^ y.wrapping_mul(NOISE_Y_STRIDE),
-    ))
 }
 
 fn tile_path(points: &[(f64, f64)], scale: f64, origin: (f64, f64), close: bool) -> Option<Path> {

@@ -8,6 +8,7 @@ use bevy::{
     image::{Image, ImageAddressMode, ImageSampler, ImageSamplerDescriptor},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+use fabelgeist_determinism::StreamId;
 
 use super::image_rgba_mipped;
 
@@ -144,8 +145,11 @@ fn baked_brick_pixel(colors: [Rgba; 2], x: u32, y: u32, size: u32) -> Rgba {
     if mortar {
         [151, 139, 119, 255]
     } else {
-        let identity = course.wrapping_mul(1_103_515_245) ^ column.wrapping_mul(12_345);
-        let tone = 0.30 + (identity & 0xff) as f32 / 255.0 * 0.50;
+        let tone = 0.30
+            + StreamId::new("texture.building.brick-tone")
+                .rng(0, &[u64::from(course), u64::from(column)])
+                .inclusive_unit_f32()
+                * 0.50;
         blend_rgba(colors[0], colors[1], tone)
     }
 }
@@ -159,7 +163,10 @@ pub fn facade_atlas() -> Image {
             let color = match x {
                 0..=63 if (x + y / 2) % 13 < 3 => [45, 24, 13, 255],
                 0..=63 => [91, 50, 25, 255],
-                64..=95 => [53, 102, 123, 255],
+                // Opaque distant proxy for dim interiors behind leaded glass.
+                // Desaturated grey-green avoids a blue panel at the LOD handoff.
+                64..=95 if (x - 64) % 8 == 0 || y % 12 == 0 => [36, 35, 30, 255],
+                64..=95 => [78, 85, 76, 255],
                 96..=127 => [94, 48, 23, 255],
                 128..=159 => [70, 38, 22, 255],
                 160..=191 => [30, 28, 24, 255],

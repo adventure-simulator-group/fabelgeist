@@ -79,10 +79,8 @@ pub(in crate::scene_input::furniture) fn market(input: &TacticalSceneInput) -> M
     let row_depth = FurnitureVariant::ALL
         .into_iter()
         .map(|variant| {
-            let (min, max) = reservation_bounds(FurnitureKey {
-                kind: FurnitureKind::CanvasStall,
-                variant,
-            });
+            let (min, max) =
+                reservation_bounds(FurnitureKey::natural(FurnitureKind::CanvasStall, variant));
             max.y - min.y
         })
         .fold(0.0_f32, f32::max);
@@ -167,7 +165,16 @@ impl MarketRow {
         for column in 0..MAX_ROW_CANDIDATES {
             let slot = ((row as u64) << ROW_ID_SHIFT) | column as u64;
             let mut candidate = Candidate::new(
-                input.seed,
+                StreamId::new("furniture.market-anchor")
+                    .seed(
+                        input.seed,
+                        &[
+                            u64::from(frame.centre.x.to_bits()),
+                            u64::from(frame.centre.y.to_bits()),
+                            u64::from(frame.orientation.yaw_radians().to_bits()),
+                        ],
+                    )
+                    .to_u64(),
                 slot,
                 FurnitureGroupKind::Vendor,
                 FurnitureAnchor::Market {

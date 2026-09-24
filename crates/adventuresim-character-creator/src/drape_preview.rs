@@ -100,9 +100,15 @@ impl MailMaterials {
         let [across, up] = weave.repeat_m();
         let material = StandardMaterial {
             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
-            base_color_texture: Some(load(textures.base_color_png, true)),
-            normal_map_texture: Some(load(textures.normal_png, false)),
-            occlusion_texture: textures.occlusion_png.map(|bytes| load(bytes, false)),
+            base_color_texture: textures
+                .base_color_png
+                .as_deref()
+                .map(|bytes| load(bytes, true)),
+            normal_map_texture: Some(load(&textures.normal_png, false)),
+            occlusion_texture: textures
+                .occlusion_png
+                .as_deref()
+                .map(|bytes| load(bytes, false)),
             // Draped UVs are pattern metres; one texture repeat is one ring tile.
             uv_transform: bevy::math::Affine2::from_scale(Vec2::new(1.0 / across, 1.0 / up)),
             metallic,

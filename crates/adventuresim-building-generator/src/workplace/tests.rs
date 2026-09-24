@@ -116,7 +116,12 @@ fn assert_gable_uvs(meshes: &[crate::LodMesh], work: &WorkplacePlan, eaves: f32)
 #[test]
 fn capacity_changes_working_space_and_roundtrips_recipe() {
     for kind in WorkplaceKind::ALL {
-        let range = kind.usage().definition().capacity;
+        let adventuresim_world_schema::settlement_buildings::BuildingDemandPolicy::ServiceCatchment(
+            range,
+        ) = kind.usage().definition().demand
+        else {
+            panic!("expected service catchment");
+        };
         let small = ServiceBuildingSize::for_capacity(kind.usage(), range.minimum).unwrap();
         let large = ServiceBuildingSize::for_capacity(kind.usage(), range.maximum).unwrap();
         let small = recipe(kind, small, 42);

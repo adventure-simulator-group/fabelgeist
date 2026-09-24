@@ -3,6 +3,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use adventuresim_building_generator::signs::ShopName;
 use adventuresim_core::weather::{WORLD_WEATHER_SEED, weather_at};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_terrain::{Cell, Surface, TerrainPack};
@@ -10,12 +11,11 @@ use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, TerrainFeature, coordinates::Wgs84CoordinateE7,
 };
 use bevy::math::Vec2;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{Seed, StreamId};
 use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
 
-use crate::settlement_buildings::{
-    SettlementBuildingLayout, SettlementSceneProfile, place_settlement_buildings,
-};
+use crate::settlement_buildings::{SettlementSceneProfile, place_settlement_buildings};
 
 mod geological_landforms;
 
@@ -32,8 +32,6 @@ const METRES_PER_LATITUDE_DEGREE: f64 = 111_320.0;
 const MIN_LONGITUDE_SCALE: f64 = 0.01;
 const PEAK_SAMPLE_RADIUS_FACTOR: f64 = 0.4;
 const HILLY_DETAIL_AMPLITUDE_METRES: f32 = 0.45;
-const DISTANT_CITY_PAD_MARGIN_METRES: f32 = 50.0;
-const DISTANT_CITY_LEVEL_BLEND_METRES: f32 = 100.0;
 const RANDOM_DETAIL_SCALE: u64 = 10_000;
 const RANDOM_DETAIL_BUCKETS: u64 = RANDOM_DETAIL_SCALE * 2 + 1;
 const SCARP_DEFAULT_THROW_CM: u16 = 800;
@@ -121,40 +119,10 @@ pub fn build_imported_scene(
             seed,
         },
     )?;
-    let mut vista = VistaSample {
-        // The near regional ring needs enough spatial frequency to preserve
-        // forest boundaries, rolling ground, and the transition from geometric
-        // grass. Coarser rings then expand rapidly to the 50-km horizon.
-        lods: VISTA_LOD_SPECS
-            .into_iter()
-            .map(|spec| {
-                let grid = sample_grid(
-                    pack,
-                    GridSampleRequest {
-                        center: coordinates,
-                        dimensions: GridDimensions::square(spec.side),
-                        spacing_metres: spec.spacing_metres,
-                        center_elevation_metres: f32::from(center.elevation_m),
-                        elevation_sampling: ElevationSampling::PreservePeaks,
-                        seed: seed ^ u64::from(spec.level),
-                    },
-                )?;
-                Ok(VistaLod {
-                    level: spec.level,
-                    spacing_metres: spec.spacing_metres,
-                    width: spec.side,
-                    depth: spec.side,
-                    origin_east_metres: 0.0,
-                    origin_north_metres: 0.0,
-                    heights_metres: grid.heights_metres,
-                    environment: grid.environment,
-                })
-            })
-            .collect::<Result<Vec<_>, String>>()?,
-    };
-    let city_elevation_metres = f32::from(center.elevation_m);
-    let building_layout =
-        settlement_building_layout(settlement, city_elevation_metres, &mut vista)?;
+    let mut vista = sample_city_vista(pack, coordinates, f32::from(center.elevation_m), seed)?;
+    // sample_grid has already subtracted the absolute centre elevation.
+    let building_layout = settlement_building_layout(settlement, &mut vista)?;
+    let establishments = bind_establishments(settlement, &building_layout)?;
     let landform = nearest_fault_scarp(pack.terrain_features(), coordinates, seed).or_else(|| {
         settlement
             .is_none()
@@ -178,8 +146,12 @@ pub fn build_imported_scene(
         landform,
         streets: building_layout.streets,
         yards: building_layout.yards,
+        parishes: building_layout.parishes,
+        compounds: building_layout.compounds,
+        gardens: building_layout.gardens,
         buildings: building_layout.playable,
         distant_buildings: building_layout.distant,
+        establishments,
         vista,
         weather: weather_at(
             WORLD_WEATHER_SEED,
@@ -193,21 +165,56 @@ pub fn build_imported_scene(
     Ok(input)
 }
 
+fn bind_establishments(
+    settlement: Option<&SettlementSceneProfile>,
+    layout: &adventuresim_tactical_core::city_layout::CitySceneLayout,
+) -> Result<Vec<SceneEstablishment>, String> {
+    let Some(settlement) = settlement else {
+        return Ok(Vec::new());
+    };
+    let mut operators = BTreeMap::new();
+    for operator in &settlement.operators {
+        if operator.business_id.settlement_id != settlement.id {
+            return Err("business operator crosses the requested settlement boundary".into());
+        }
+        if operators
+            .insert(operator.business_id.key, operator)
+            .is_some()
+        {
+            return Err("business operator identity is duplicated".into());
+        }
+    }
+    let mut establishments = Vec::with_capacity(layout.businesses.len());
+    for site in &layout.businesses {
+        let operator = operators
+            .remove(&site.key)
+            .ok_or("placed business is missing its resident operator")?;
+        establishments.push(SceneEstablishment {
+            building_id: site.building_id,
+            business_id: operator.business_id.clone(),
+            operator_character_id: operator.operator_character_id,
+            operator_name: operator.operator_name.clone(),
+            shop_name: ShopName::for_operator(&operator.operator_name, site.key.usage),
+        });
+    }
+    if !operators.is_empty() {
+        return Err("business operator has no placed establishment".into());
+    }
+    establishments.sort_by_key(|establishment| establishment.building_id);
+    Ok(establishments)
+}
+
 fn settlement_building_layout(
     settlement: Option<&SettlementSceneProfile>,
-    elevation_metres: f32,
     vista: &mut VistaSample,
-) -> Result<SettlementBuildingLayout, String> {
+) -> Result<adventuresim_tactical_core::city_layout::CitySceneLayout, String> {
     let playable_half_extent_metres = f32::from(PLAYABLE_SIDE - 1) * PLAYABLE_SPACING_METRES * 0.5;
-    let mut layout = settlement
+    let layout = settlement
         .map(|profile| place_settlement_buildings(profile, playable_half_extent_metres))
         .transpose()
         .map_err(|error| error.to_string())?
         .unwrap_or_default();
-    for building in &mut layout.distant {
-        building.base_elevation_metres = elevation_metres;
-    }
-    level_distant_city_vista(vista, &layout.distant, elevation_metres);
+    layout.level_vista(vista, 0.0);
     Ok(layout)
 }
 
@@ -314,38 +321,6 @@ fn scarp_lod(
             coordinate.abs() <= playable_half_extent + footprint_extent
         })
         .then_some(TerrainLandformLod::Fringe)
-}
-
-fn level_distant_city_vista(
-    vista: &mut VistaSample,
-    buildings: &[DistantBuildingPlacement],
-    elevation_metres: f32,
-) {
-    let Some(city_half_extent) = buildings
-        .iter()
-        .map(|building| building.centre_metres.abs())
-        .reduce(Vec2::max)
-        .map(|extent| extent + Vec2::splat(DISTANT_CITY_PAD_MARGIN_METRES))
-    else {
-        return;
-    };
-    for lod in &mut vista.lods {
-        let grid_centre = Vec2::new(
-            (f32::from(lod.width) - 1.0) * 0.5,
-            (f32::from(lod.depth) - 1.0) * 0.5,
-        );
-        for (index, height) in lod.heights_metres.iter_mut().enumerate() {
-            let grid = Vec2::new(
-                (index % usize::from(lod.width)) as f32,
-                (index / usize::from(lod.width)) as f32,
-            );
-            let point = (grid - grid_centre) * lod.spacing_metres;
-            let outside = (point.abs() - city_half_extent).max(Vec2::ZERO).length();
-            let weight = (1.0 - outside / DISTANT_CITY_LEVEL_BLEND_METRES).clamp(0.0, 1.0);
-            let smooth_weight = weight * weight * (3.0 - 2.0 * weight);
-            *height += (elevation_metres - *height) * smooth_weight;
-        }
-    }
 }
 
 pub fn materialize_scene_input(
@@ -480,18 +455,59 @@ fn offset_coordinate(latitude: f64, longitude: f64, east: f64, north: f64) -> (f
 }
 
 fn deterministic_seed(mission_id: &str) -> u64 {
-    let digest = Sha256::digest(mission_id.as_bytes());
-    u64::from_le_bytes(digest[..8].try_into().expect("SHA-256 prefix"))
+    Seed::derive(mission_id.as_bytes(), StreamId::new("scene.mission"), &[]).to_u64()
 }
 
 fn deterministic_detail(seed: u64, x: u16, z: u16) -> f32 {
-    let value = mix64(seed ^ (u64::from(x) << 32) ^ u64::from(z));
-    (value % RANDOM_DETAIL_BUCKETS) as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
+    let value = StreamId::new("scene.hilly-detail")
+        .rng(seed, &[u64::from(x), u64::from(z)])
+        .below(std::num::NonZeroU64::new(RANDOM_DETAIL_BUCKETS).expect("detail range is positive"));
+    value as f32 / RANDOM_DETAIL_SCALE as f32 - 1.0
+}
+
+fn sample_city_vista(
+    pack: &TerrainPack,
+    coordinates: Wgs84CoordinateE7,
+    elevation_metres: f32,
+    seed: u64,
+) -> Result<VistaSample, String> {
+    Ok(VistaSample {
+        // The near regional ring needs enough spatial frequency to preserve
+        // forest boundaries, rolling ground, and the transition from geometric
+        // grass. Coarser rings then expand rapidly to the 50-km horizon.
+        lods: VISTA_LOD_SPECS
+            .into_iter()
+            .map(|spec| {
+                let grid = sample_grid(
+                    pack,
+                    GridSampleRequest {
+                        center: coordinates,
+                        dimensions: GridDimensions::square(spec.side),
+                        spacing_metres: spec.spacing_metres,
+                        center_elevation_metres: elevation_metres,
+                        elevation_sampling: ElevationSampling::PreservePeaks,
+                        seed: seed ^ u64::from(spec.level),
+                    },
+                )?;
+                Ok(VistaLod {
+                    level: spec.level,
+                    spacing_metres: spec.spacing_metres,
+                    width: spec.side,
+                    depth: spec.side,
+                    origin_east_metres: 0.0,
+                    origin_north_metres: 0.0,
+                    heights_metres: grid.heights_metres,
+                    environment: grid.environment,
+                })
+            })
+            .collect::<Result<Vec<_>, String>>()?,
+    })
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::settlement_buildings::SettlementBusinessOperatorProfile;
     use adventuresim_world_schema::{
         GeologicUnitId, MappedFault, MappedGeologicWindow, SedimentaryRock, SurfaceLithology,
         TravelGeometryPoint,
@@ -500,6 +516,36 @@ mod tests {
 
     use adventuresim_terrain::{CHUNK_SIDE, Entry, Manifest, TerrainPurpose};
     use flate2::{Compression, write::DeflateEncoder};
+
+    fn add_fixture_operators(settlement: &mut SettlementSceneProfile) {
+        let seed =
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id);
+        settlement.operators =
+            adventuresim_world_schema::settlement_buildings::SettlementBuildingDemand::new(
+                seed,
+                adventuresim_core::reputation::effective_population(
+                    settlement.population_level,
+                    settlement.population_estimate,
+                ),
+                &settlement.economy,
+            )
+            .buildings
+            .into_iter()
+            .filter_map(|demand| demand.business_key())
+            .enumerate()
+            .map(|(index, key)| SettlementBusinessOperatorProfile {
+                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                    &settlement.id,
+                    key,
+                ),
+                operator_character_id: index as u64 + 1,
+                operator_name: adventuresim_world_schema::person_names::RenderedPersonalName::new(
+                    format!("Operator {index}"),
+                )
+                .unwrap(),
+            })
+            .collect();
+    }
 
     #[test]
     fn geographic_offsets_are_stable_and_axis_aligned() {
@@ -526,6 +572,44 @@ mod tests {
             (sample.canopy_bps, sample.hilly_bps, sample.wetland_bps),
             (3_700, 2_800, 1_900)
         );
+    }
+
+    #[test]
+    fn establishment_binding_is_complete_scoped_and_operator_named() {
+        let mut settlement = SettlementSceneProfile {
+            id: "binding-city".into(),
+            population_level: 1,
+            population_estimate: 900,
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
+        };
+        add_fixture_operators(&mut settlement);
+        let layout = place_settlement_buildings(&settlement, 50.0).unwrap();
+        let establishments = bind_establishments(Some(&settlement), &layout).unwrap();
+        assert_eq!(establishments.len(), layout.businesses.len());
+        assert!(establishments.iter().all(|establishment| {
+            establishment.business_id.settlement_id == settlement.id
+                && establishment
+                    .operator_name
+                    .as_str()
+                    .starts_with("Operator ")
+                && establishment.shop_name.as_ref().is_none_or(|name| {
+                    name.text()
+                        .starts_with(establishment.operator_name.as_str())
+                })
+        }));
+
+        let mut missing = settlement.clone();
+        missing.operators.pop();
+        assert!(bind_establishments(Some(&missing), &layout).is_err());
+
+        let mut duplicate = settlement.clone();
+        duplicate.operators.push(duplicate.operators[0].clone());
+        assert!(bind_establishments(Some(&duplicate), &layout).is_err());
+
+        let mut cross_settlement = settlement;
+        cross_settlement.operators[0].business_id.settlement_id = "elsewhere".into();
+        assert!(bind_establishments(Some(&cross_settlement), &layout).is_err());
     }
 
     #[test]
@@ -579,6 +663,44 @@ mod tests {
     }
 
     #[test]
+    fn imported_settlement_keeps_distant_properties_on_the_relative_datum() {
+        let (pack, directory) = constant_final_pack();
+        let mut settlement = SettlementSceneProfile {
+            id: "relative-city".into(),
+            population_level: 1,
+            population_estimate: 900,
+            economy: adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder(),
+            operators: Vec::new(),
+        };
+        add_fixture_operators(&mut settlement);
+        let input = build_imported_scene(
+            &pack,
+            "mission:relative-city",
+            "city",
+            505_000_000,
+            105_000_000,
+            123_456,
+            123_456,
+            Some(&settlement),
+        )
+        .unwrap();
+        assert_eq!(input.absolute_elevation_metres, 321);
+        assert!(!input.distant_buildings.is_empty());
+        assert!(!input.compounds.is_empty());
+        assert!(
+            input
+                .distant_buildings
+                .iter()
+                .all(|building| building.base_elevation_metres == 0.0)
+        );
+        let lod = &input.vista.lods[0];
+        let middle = usize::from(lod.width) * usize::from(lod.depth) / 2;
+        assert!(lod.heights_metres[middle].abs() < 0.01);
+        drop(pack);
+        fs::remove_dir_all(directory).expect("remove isolated terrain fixture");
+    }
+
+    #[test]
     fn nearby_fault_keeps_its_canonical_offset_and_source_orientation() {
         let center = Wgs84CoordinateE7::new(520_000_000, 100_000_000).unwrap();
         let faults = vec![
@@ -593,7 +715,7 @@ mod tests {
                     TravelGeometryPoint::new(10.01, 52.0001).unwrap(),
                 ],
             }),
-            mapped_sandstone_window(),
+            mapped_sandstone_window(10.0, 52.0),
         ];
         let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
         assert!(recipe.tangent_permyriad[0] > 9_900);
@@ -624,7 +746,7 @@ mod tests {
                     TravelGeometryPoint::new(10.01, 52.0 + latitude_offset).unwrap(),
                 ],
             }),
-            mapped_sandstone_window(),
+            mapped_sandstone_window(10.0, 52.0),
         ];
 
         let recipe = nearest_fault_scarp(&faults, center, 42).unwrap();
@@ -635,12 +757,19 @@ mod tests {
         assert_eq!(recipe.lod, TerrainLandformLod::Fringe);
     }
 
-    fn mapped_sandstone_window() -> TerrainFeature {
+    fn mapped_sandstone_window(longitude: f64, latitude: f64) -> TerrainFeature {
+        use proj4rs::{proj::Proj, transform::transform};
+        let geographic =
+            Proj::from_proj_string("+proj=longlat +datum=WGS84 +ellps=WGS84 +no_defs").unwrap();
+        let projected = Proj::from_proj_string("+proj=lcc +lat_0=52 +lon_0=10 +lat_1=35 +lat_2=65 +x_0=4000000 +y_0=2800000 +ellps=GRS80 +units=m +no_defs").unwrap();
+        let mut position = (longitude.to_radians(), latitude.to_radians(), 0.0);
+        transform(&geographic, &projected, &mut position).unwrap();
+        let (x, y) = (position.0.round() as i32, position.1.round() as i32);
         TerrainFeature::MappedGeology(MappedGeologicWindow {
             id: "egdi-window:fault-test".into(),
             unit: GeologicUnitId::new("fault-test").unwrap(),
             lithology: SurfaceLithology::Sedimentary(SedimentaryRock::Sandstone),
-            bounds_metres: [3_999_000, 2_799_000, 4_001_000, 2_801_000],
+            bounds_metres: [x - 1_000, y - 1_000, x + 1_000, y + 1_000],
         })
     }
 
@@ -702,17 +831,20 @@ mod tests {
             cultivation_source_sha256: "3".repeat(64),
             cultivated_square_count: 1,
             cultivated_native_cells: 1,
-            terrain_features: vec![TerrainFeature::MappedFault(MappedFault {
-                id: "DE:pack-fixture".into(),
-                local_name: Some("pack fixture".into()),
-                classification: None,
-                mapped_active: false,
-                mapped_capable: false,
-                trace: vec![
-                    TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
-                    TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
-                ],
-            })],
+            terrain_features: vec![
+                TerrainFeature::MappedFault(MappedFault {
+                    id: "DE:pack-fixture".into(),
+                    local_name: Some("pack fixture".into()),
+                    classification: None,
+                    mapped_active: false,
+                    mapped_capable: false,
+                    trace: vec![
+                        TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
+                        TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
+                    ],
+                }),
+                mapped_sandstone_window(10.5, 50.5),
+            ],
             entries,
             package_sha256: "0".repeat(64),
         };

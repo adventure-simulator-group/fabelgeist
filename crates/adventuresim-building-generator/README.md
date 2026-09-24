@@ -4,6 +4,152 @@ This crate converts high-level building programmes into deterministic semantic
 data and audited geometry. The tactical city adapter consumes its recipes and
 collision meshes; the standalone viewer provides architectural inspection.
 
+## Geometry compilation
+
+Generation retains the complete structural audit. Spatial indexes only prune
+impossible contact candidates; the existing overlap and clearance predicates
+remain authoritative. Candidate results preserve source order so first-match
+selection, issue ordering, and generated structural identities stay stable.
+Wall-corner and roof-weathering passes cache solid membership and bounds for
+their fixed input geometry.
+
+Render meshes use indexed vertices with shared position, normal, and texture
+coordinates where the tangent basis also agrees. Consumers must follow the
+index buffer rather than assuming consecutive vertices form separate quads.
+Arches retain their full curve subdivision and external end caps while omitting
+internal faces between adjacent sections. These render reductions do not change
+the accepted plan, collision geometry, operable closures, or LOD distances.
+
+Roof covering UVs measure distance along the actual slope, with tile courses
+across the ridge direction and texture V downslope. Detailed and distant roofs
+share this mapping. Timber gables place their real end trusses in the upper
+wall envelope, including jetties. Secondary posts and rails subdivide the end
+infill and join the same structural frame; interior trusses remain open.
+Facade and shell representations retain the exterior faces of these members,
+including their authored finish and metric grain coordinates.
+
+Eligible town houses and merchant houses can place one fixed glazed attic
+window in each exposed main timber gable. The 0.70 by 1.00 metre clear opening
+uses an existing truss rail as its lintel and new jambs bearing on the tie.
+All original truss members retain their dimensions, positions and IDs. A bay
+that cannot fit the complete supported opening remains closed.
+
+The opening and its inset wall reciprocally identify the exact roof enclosure.
+Wall dimensions determine the enclosure cut; the opening owns its clear section
+and void. The shared tessellator closes both skins and all cut boundaries, and
+Detail, Facade and Shell retain the same bay and fixed glass. Static collision
+includes this bay and glazing; general roof-enclosure collision remains outside
+this change. There is no attic room or operable-window access contract.
+Changing pitch on an aperture-bearing roof returns `TopologyEvent` before any
+mutation; unchanged-pitch requests are no-ops.
+
+The `gable-review` fixture covers both house programmes at seeds 42, 47 and
+101. Its production capture profile includes matched Detail, Facade and Shell
+front views, rear gables, attic-side inspections and the isolated fixture group.
+Use the `city-review` profile for normal urban context.
+
+```powershell
+cargo build -p adventuresim-tactical-client --bin tactical-scene-viewer --features debug
+python scripts/capture_gable_review.py --skip-build --settle-frames 24 --output target/gable-review/captures
+```
+
+Review camera offsets for `main_gable` targets use the aperture's tangent,
+vertical and outward axes, so a negative third component inspects its interior.
+Native capture windows remain hidden and update continuously in the background.
+
+Cottage and hall-house fixtures select a grounded domestic heating programme.
+A cooking hearth and rear-fed tiled stove stand on one masonry plinth, on
+opposite sides of a real kitchen/Stube partition. Only the fire-wall patch is
+replaced; existing structural frame members and partition end posts remain.
+Separate firebox and smoke-return ports connect the stove to the hearth hood
+and a hollow masonry flue. Ownership, operating space, enclosure material,
+bearings, timber clearance and smoke continuity are audited.
+
+Placement tries compact, deep and extended kitchen-side hearths, allowing
+the shaft to clear roof girders and dormer junctions without moving or cutting
+them. These authored sections retain the same rear-fed stove, grounded support
+and reserved working space. If none fits, generation reports
+`InvalidDomesticHeating`.
+
+Occupied heated recipes also prove metre-space access from the front door to
+every room after heating geometry is resolved. A blocked room rejects that
+candidate with `BlockedDomesticCirculation`; the bounded deterministic recipe
+search continues. A room-adjacency graph alone does not establish usable access.
+
+The flue cuts both skins of its actual covering, including a shed dormer when
+the underlying parent opening leaves the full shaft clear. Every other roof
+and enclosure is checked against the final shaft and weathering geometry.
+A lead backpan laps under the uphill tiles, while
+the downhill apron laps over them. Upright sheets meet the stack; counterflashing
+is tucked into the masonry and overlaps their tops and corners.
+Detail, Facade and Shell retain the same stack and weathering. Collision includes
+the heating solids, and furnishing reserves the hearth's operating space.
+Changed pitch returns `TopologyEvent` before mutation. Unheated programmes
+produce no domestic stack; working-building ovens keep their own programmes.
+
+An upper kitchen uses a continuous masonry pier beneath the appliance plinth.
+The appliance and chimney loads follow masonry to the ground. Actual deck cuts
+clear the pier and flue; mineral cover slabs close each floor perimeter, with
+inner masonry ledges and outer bearing on the retained deck. A flue crossing
+another occupied floor has a widened masonry shoulder below that junction.
+
+Heated upper floors use full joist bays within the existing maximum pitch,
+with deterministic set-out variants. Placement checks the complete timber
+sections and retains finished joists, girders and roof members. Deck pieces
+receive measured contacts to their actual joists after cutting. Unbuildable
+room, floor or roof arrangements return `InvalidDomesticHeating`; they do not
+silently lose structural members. `SOURCES.md` distinguishes historical evidence
+from authored dimensions and construction choices.
+
+```powershell
+python scripts/capture_heating_review.py --skip-build --settle-frames 24 --output target/heating-review/captures
+```
+
+The `heating-review` fixture covers both building families at seeds 42, 47 and
+101, plus the deep-hearth hall at seed `u64::MAX`.
+Cameras follow the resolved hearth, stove and roof junction. Matched distance
+views check representation continuity; interiors retain production lighting
+and the complete building geometry.
+
+Facade meshes for cottages, hall houses, town houses and timber merchant houses
+select real exterior wall pieces, timber bay members,
+aperture returns and closure layers from the same compiler as Detail. Both
+wall skins remain, enclosing views through open windows. They
+preserve metric UVs and materials, including pale timber and glass. They omit
+interior rooms and furnishing. Shell keeps its cheaper wall envelope and atlas
+details; it is not an aperture-accurate construction view.
+
+Shed dormer coverings fall toward their fronts. Their side walls follow the
+actual roof underside, and their rear edges seat on the parent slope. A shed
+that cannot reach that slope returns `InvalidRoofDormer`. The 22-degree child
+pitch is an authored fixture dimension.
+
+In playable buildings, an operable leaf has one replicated entity through both
+Detail and Facade when its exact exterior host supports that representation.
+Every window material batch follows the same policy. Unsupported host types
+keep their existing Detail-only dynamic leaves. Prepared city buildings retain
+authored closure states; they do not contain tactical opening state.
+
+Stove surfaces have continuous metric ceramic courses with narrow recessed
+joints and closed ceramic backing. This render detail remains within the
+existing shell, preserving its chamber, rear feed ports, supports and collision.
+Tile size, plain green glaze and joint dimensions are authored choices.
+
+```powershell
+python scripts/capture_facade_review.py --skip-build --settle-frames 24 --output target/facade-review/captures
+```
+
+The `facade-review` fixture includes matched house exteriors, open and closed
+shutters and glazed casements, barred windows, doors and stove courses. Opening
+camera offsets follow the selected opening's tangent, vertical and outward axes.
+The diagnostic poses use production leaf meshes and hinge transforms.
+
+Prepared recipe identities include the render compilation version as well as
+the programme. Increment that version when compiled meshes change without a
+programme schema change. Refresh the shipped city
+assets after geometry changes with
+`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+
 ## Current boundary
 
 `BuildingProgram` describes an archetype, footprint, storeys, requested room
@@ -47,10 +193,13 @@ Twelve curated programmes exercise the current vocabulary:
 
 - `town-house`: narrow, two-storey timber-frame house with a steep street gable;
 - `hall-house`: broad hall plan beneath a steep half-hip roof;
-- `fachwerk-cottage`: compact two-storey dwelling with close-studded timber
+- `fachwerk-cottage`: compact single-storey dwelling with close-studded timber
   framing and a different window rhythm from the merchant house;
-- `fachwerk-merchant-house`: three projecting storeys, dense early-modern
-  ornamental bracing, a street gable, cross-roof mass, and mixed dormers;
+- `fachwerk-merchant-house`: masonry lower walls supporting projecting timber
+  upper storeys, early-modern ornamental bracing, a street gable, cross-roof
+  mass, and mixed dormers. The upper frame and jetty supports bear on resolved
+  masonry interfaces; this is a physical construction choice, not a wall tint.
+  See [historical construction sources](SOURCES.md);
 - `renaissance-town-hall`: a broad civic building with an intersecting
   half-hip and cross-gable roofscape, a transverse wall dormer, smaller roof
   dormers, and stepped or curved gable details;
@@ -520,10 +669,29 @@ or missing proof IDs.
 catalogue,
 eligibility rules and approximate service catchments. `SettlementBuildingDemand`
 reads the canonical economy profile: it never independently rolls for a
-weaponsmith, armorer, temple, inn or other existing strategic service. Repeated
-buildings cover their catchment with independently seeded capacities. Civic
-singletons stay single; evidence-dependent institutions and power sites are
-catalogued without being invented from population alone.
+weaponsmith, armorer, temple, inn or other existing strategic service. Only
+service-catchment policies repeat independently seeded capacities. Civic
+institutions are singletons. Parish churches, rectories and the town school
+belong to a separate institutional programme; evidence-dependent institutions
+and power sites are not invented from population alone.
+
+`CitySite::parish_policy` owns the fictional town's target parish population.
+The Central German market-town default is 3,000 people per parish, an authored
+design assumption rather than a measured historical average or seating count.
+It can represent church-rich towns with a different explicit target. Each
+parish requests one church and one rectory; the principal parish also requests
+one town school when eligible. These support provisions are authored choices,
+not a claim about every historical parish. Small villages keep the modest
+village church programme even though their sole parish is designated principal.
+
+Precincts reserve all their buildings together, retrying alternative church
+sites if linked support buildings cannot fit within 90 metres. Actual housing
+lots are assigned in nearby groups with balanced population targets. Each
+parish records its real resident allocation, church, rectory and school IDs.
+These records survive scene compilation, near/distant partition and prepared
+city assets. Scene validation checks unique owners, uses, programme sizes,
+precinct distances and physical housing capacities. Incomplete demand remains
+explicit and cannot compile as a complete city.
 
 `BuildingProgram::settlement` assigns working rooms to structural families:
 stalls, milling floors, kiln rooms, vats, wards, classrooms and counting rooms.
@@ -555,9 +723,10 @@ cargo run -p adventuresim-tactical-core --bin city-layout-report -- 6500 42 > ta
 python scripts/render_city_layout_report.py target/city.json target/city.svg
 ```
 
-The report contains each lot's identity, use, service capacity, housing
-capacity, footprint and orientation, plus the actual streets and any capacity
-shortfalls. The SVG gives a building inventory and plot tooltips. Runtime
+The report contains each lot's identity, use, typed demand programme, housing
+capacity, footprint and orientation, plus parish ownership, actual streets and
+capacity shortfalls. It preserves failure diagnostics when a parish cannot be
+completed. The SVG gives a building inventory and plot tooltips. Runtime
 palettes contain up to twelve recipes per residential family and two per service
 use and size, limiting repeated structural compilation while varying ordinary
 street frontage.
@@ -565,18 +734,31 @@ street frontage.
 
 ## Chapels and parish churches
 
-`ServiceBuildingSize` selects small, medium or large programmes from the
-building use's service-capacity range. It applies to working buildings and
-small churches before city lots are reserved. The serialized `service_size`
+`ServiceBuildingSize` names small, medium or large physical programmes.
+Working buildings select a band from their service catchment; parish churches
+select it explicitly from their authored institutional role. Chapels require
+an explicit recipe and historical context. Selection precedes lot reservation.
+The serialized `service_size`
 travels with playable programmes and distant recipe keys, so both reconstruct
 the same footprint and architecture.
 
 Chapels are single-volume rubble-masonry buildings with narrow Gothic windows,
-steep tiled roofs and modest bell turrets. Parish churches have longer naves,
-lower and narrower chancels, and a repeated window rhythm. Capacity adds nave
-bays rather than enlarging the bell structure. Their authored wall topology
-uses the canonical wall, opening and roof resolvers; the cathedral retains its
-separate structural programme.
+steep tiled roofs and modest bell turrets. Small and medium parish churches have
+longer naves, lower and narrower chancels, and a repeated window rhythm.
+
+The large parish programme is an authored urban basilica with aisles, transept,
+choir, apse and a west bell tower. It shares the frozen physical kernel with the
+cathedral fixture while retaining parish use and archetype. Its four nave bays,
+one transept bay, two choir bays and footprint are fixed construction inputs;
+they are not a general parametric church or a named historical reconstruction.
+Chapels remain modest at every size, and the village parish remains small.
+
+City packing reserves the complete basilica envelope in a street-facing frame.
+Compilation composes the west-portal orientation once for rendering, collision
+and distant descriptors, checks detailed geometry against the reserved plot,
+and checks a continuous standing route from the portal to the street. Fixed
+church glazing, mirrored aisle roof seats and the tower service route follow
+the physical programme independently of ecclesiastical status.
 
 Rubble infill continues through the gables at the wall texture's physical scale.
 The lower chancel roof abuts the nave without an indoor tiled verge. The bell
@@ -605,7 +787,7 @@ bell stage. Interior floors and the hidden lengths of support posts are omitted.
 The six programme/size combinations must reduce triangle counts by at least
 half at each distance step while preserving canonical roof silhouette vertices.
 
-Generate and capture the six capacity-selected review recipes through
+Generate and capture the six explicitly sized review recipes through
 production:
 
 ```powershell
@@ -733,12 +915,13 @@ Ordinary domestic trades can continue to share houses. Work openings, shutters,
 covered frontage and useful yard space can identify their occupations without
 turning every business into a landmark.
 
-## Text-only shop signs
+## Shop signs
 
 The `signs` module derives sign attachment sites from public ground-floor
-entrances. Public-facing trades receive stable establishment brands from the
-shared German name catalog and placed-lot identity, independently of cached
-building recipes. A brand does not create or imply an NPC ownership relation.
+entrances. The tactical scene supplies each establishment's resident operator
+and its already resolved brand. Person-named brands use that operator's current
+full name; the building client never invents a proprietor or fallback brand.
+Operator identity and display name remain distinct scene facts.
 
 Signs use a wall board or a double-sided projecting board with metal supports.
 Panels stay above pedestrian headroom and are rejected when they overlap the
@@ -752,7 +935,9 @@ it over 35–45 metres and releases lettering entities beyond 60 metres. The
 texture cache retains at most 64 painted materials; boards remain visible.
 Grenze Gotisch Bold is the default, with UnifrakturCook available for
 comparison. Fonts and their licenses are bundled locally. Long names wrap onto
-two lines.
+two lines. Smiths, bakers, and weavers also receive a hammer, bread-peel, or
+shuttle pictogram. [Source notes](src/signs/SOURCES.md) distinguish period tool
+evidence from the reconstructed sign layout.
 
 ```powershell
 python scripts/capture_shop_signs.py --output target/shop-sign-review
@@ -809,3 +994,60 @@ instances and reserved spaces; `furniture-presentation.json` verifies actual
 mesh/material bindings and GPU residency for each view. Yellow outlines mark
 activity clearances; cyan outlines mark circulation in the diagnostic plate.
 Use `--scene-input` to review another deterministic seed or terrain variant.
+
+### Furniture wood treatments
+
+`FurnitureKey::natural` constructs any catalog form and size.
+`FurnitureKey::wood` accepts one of five `FinishableFurnitureKind` values and
+an authored `FurnitureWoodState`. All 130 valid keys have separate immutable
+recipes; unsupported serialized kind/state combinations are rejected.
+
+The four states preserve collision, supports and access envelopes. Handled
+surfaces replace selected faces with shallow contact depressions. Repairs
+replace one complete board; painted bases retain bare working surfaces. Room
+finishes are assigned after the furnishing layout passes navigation checks.
+
+The `interior-furniture-catalog` capture profile includes `finish-dining-table`,
+`finish-bench`, `finish-chair`, `finish-storage-chest` and `finish-workbench`.
+Each presents natural, handled, repaired and painted specimens from left to
+right under the same production lighting. `interior-catalog.json` records each
+complete key and stable instance ID.
+
+## Merchant courtyard properties
+
+The shared city compiler reserves a complete merchant property before placing
+its street house, side passage, rear store and enclosing walls. The rear store
+is a separate `StorageRange` building with its own floor, timber structure and
+usable doorway. Access routes connect the street gate to both buildings and
+reserve standing clearance through the courtyard. Compilation checks actual
+render bounds, collision geometry and the gate's complete opening sweep.
+
+Street packing selects left- and right-side passages before reserving the plot.
+The court, rear-store offset, boundary and inward-opening gate use that same
+handedness. Gate hinge position and swing direction are explicit scene data;
+rendering and collision consume the same door specification. These remain
+separate properties with complete exterior walls. Attached frontages require
+a shared construction assembly and are not implied by passage handedness.
+
+Properties crossing the playable boundary keep both buildings in the playable
+scene. Entirely distant properties retain their walls and closed gate in the
+vista. Connected terrain pads share an elevation, including adjacent properties
+whose grading margins overlap. Nearby gates use the authoritative server door
+controller and collision; distant gates are presentation geometry.
+
+The authored city site expands north and south above 40,000 residents while
+retaining its surveyed east/west road anchors. Planning allocation is capped at
+the 100,000-resident extent; insufficient lots or service capacity produce an
+explicit error rather than silently dropping residents.
+
+The `compound-review` tactical scene and capture profile provide deterministic
+views of both access orientations, courts and rear stores through production
+presentation:
+
+```powershell
+python scripts/capture_tactical_scenes.py --help
+cargo run -p adventuresim-tactical-client --bin tactical-scene-viewer --features debug -- --fixture compound-review --profile compound-review --output target/compound-review
+```
+
+This property family is an authored reconstruction informed by the references
+in [SOURCES.md](SOURCES.md), not a measured replica of a surviving property.

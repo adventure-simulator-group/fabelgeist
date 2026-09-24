@@ -13,6 +13,7 @@
       "kind": "ArmingDoublet",
       "clearance": 4,
       "thickness": 1,
+      "color": [117, 106, 80],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -99,7 +100,9 @@
         "neck_flare": 22,
         "neck_guard_fraction": 400,
         "peak_drop": 6,
-        "peak_length": 55
+        "peak_length": 55,
+        "buffe": null,
+        "peak_rise": 0
       }
     }
   },
@@ -166,7 +169,10 @@
           "start": 100,
           "width": 750
         },
-        "visor_projection": 35
+        "visor_projection": 35,
+        "bellows": null,
+        "brow_overlap": 30,
+        "brow_peak": 25
       }
     }
   },
@@ -195,7 +201,11 @@
         "wing_height": 1000,
         "wing_notch": 300,
         "wing_roundness": 1000,
-        "proximal_flare": 12
+        "proximal_flare": 12,
+        "construction": "Wrapped",
+        "flute_orientation": "Longitudinal",
+        "medial_wrap": 520,
+        "lateral_wrap": 850
       }
     }
   },
@@ -244,7 +254,9 @@
       "plate_shape": {
         "Fauld": {
           "front_arch": 350,
-          "waist_rise": 75
+          "waist_rise": 75,
+          "chevron_slope": 0,
+          "front_arch_width": 500
         }
       },
       "waist": 900,
@@ -253,7 +265,7 @@
   },
   "gorget": {
     "Garment": {
-      "clearance": 12,
+      "clearance": 10,
       "flare": 180,
       "fluting": {
         "count": 10,
@@ -419,6 +431,7 @@
       "kind": "MailVoiders",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -478,6 +491,7 @@
       "kind": "PaddedHose",
       "clearance": 1,
       "thickness": 2,
+      "color": [117, 106, 80],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -495,6 +509,112 @@
       "plate_shape": "None",
       "waist": 900,
       "wall_thickness": 5
+    }
+  },
+  "puffed_hose": {
+    "PuffAndSlash": {
+      "kind": "Hose",
+      "puff_count": 4,
+      "puff_fullness": 55,
+      "distal_fullness": 600,
+      "puff_roundness": 750,
+      "slash_count": 10,
+      "slash_width": 320,
+      "slash_length": 700,
+      "constriction_width": 110,
+      "length": 960,
+      "proximal_position": 750,
+      "rotation": 50,
+      "clearance": 4,
+      "thickness": 2,
+      "outer_color": [145, 30, 24],
+      "undercloth_color": [224, 178, 48]
+    }
+  },
+  "trunk_hose": {
+    "TrunkHose": {
+      "clearance": 8,
+      "thickness": 2,
+      "length": 1000,
+      "panel_count": 8,
+      "primary_color": [150, 33, 29],
+      "secondary_color": [48, 78, 35]
+    }
+  },
+  "split_hose": {
+    "PuffAndSlash": {
+      "kind": "Hose",
+      "puff_count": 1,
+      "puff_fullness": 5,
+      "distal_fullness": 1000,
+      "puff_roundness": 1000,
+      "slash_count": 0,
+      "slash_width": 300,
+      "slash_length": 700,
+      "constriction_width": 40,
+      "length": 1000,
+      "proximal_position": 0,
+      "rotation": 0,
+      "clearance": 2,
+      "thickness": 1,
+      "outer_color": [150, 33, 29],
+      "undercloth_color": [150, 33, 29]
+    }
+  },
+  "puffed_sleeve": {
+    "PuffAndSlash": {
+      "kind": "Sleeve",
+      "puff_count": 3,
+      "puff_fullness": 48,
+      "distal_fullness": 550,
+      "puff_roundness": 700,
+      "slash_count": 8,
+      "slash_width": 300,
+      "slash_length": 700,
+      "constriction_width": 120,
+      "length": 940,
+      "proximal_position": 800,
+      "rotation": 0,
+      "clearance": 4,
+      "thickness": 2,
+      "outer_color": [145, 30, 24],
+      "undercloth_color": [224, 178, 48]
+    }
+  },
+  "pauldron": {
+    "Limb": {
+      "Pauldron": {
+        "gauge": {
+          "clearance": 12,
+          "thickness": 2
+        },
+        "fluting": null,
+        "plate_clearance": 4,
+        "arm_allowance": 10,
+        "front_reach": 105,
+        "rear_reach": 95,
+        "front_drop": 50,
+        "rear_drop": 50,
+        "neck_reach": 38,
+        "crown_height": 1200,
+        "arm_length": 96,
+        "upper_lames": 2,
+        "lower_lames": 4,
+        "outline": {
+          "front_extension": 0,
+          "rear_extension": 0,
+          "wing_start": 1100,
+          "corner_rounding": 320,
+          "upper_span": 260,
+          "arm_wrap": 1680,
+          "front_return": 2600,
+          "rear_return": 2680,
+          "front_wing_position": 500,
+          "rear_wing_position": 500,
+          "front_wing_rounding": 800,
+          "rear_wing_rounding": 800
+        }
+      }
     }
   },
   "poleyn": {
@@ -522,7 +642,11 @@
         "wing_height": 1000,
         "wing_notch": 350,
         "wing_roundness": 1000,
-        "proximal_flare": 8
+        "proximal_flare": 8,
+        "construction": "Wrapped",
+        "flute_orientation": "Longitudinal",
+        "medial_wrap": 520,
+        "lateral_wrap": 850
       }
     }
   },
@@ -637,38 +761,69 @@
         "rear_extension": 1000,
         "wrap": 560,
         "lower_flare": 12,
-        "crown_reach": 800
+        "crown_reach": 800,
+        "besagew": null,
+        "crown_coverage": 1000
       }
     }
   },
   "tassets": {
-    "Garment": {
-      "clearance": 10,
-      "flare": 180,
-      "fluting": {
-        "count": 5,
-        "depth": 2,
-        "end": 900,
-        "fade": 150,
-        "lower_spread": 750,
-        "spread": 750,
-        "start": 100,
-        "width": 750
+    "WaistAssembly": {
+      "fauld": {
+        "clearance": 10,
+        "flare": 180,
+        "fluting": {
+          "count": 10,
+          "depth": 2,
+          "end": 900,
+          "fade": 150,
+          "lower_spread": 750,
+          "spread": 750,
+          "start": 100,
+          "width": 750
+        },
+        "kind": "Fauld",
+        "lame_count": 4,
+        "length": 750,
+        "plate_shape": {
+          "Fauld": {
+            "front_arch": 350,
+            "waist_rise": 75,
+            "chevron_slope": 0,
+            "front_arch_width": 500
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 3
       },
-      "kind": "Tassets",
-      "lame_count": 3,
-      "length": 1000,
-      "plate_shape": {
-        "Tassets": {
-          "gap": 160,
-          "hem_point": 100,
-          "hem_roundness": 80,
-          "inner_cutaway": 250,
-          "width": 1000
-        }
-      },
-      "waist": 900,
-      "wall_thickness": 3
+      "tassets": {
+        "clearance": 14,
+        "flare": 180,
+        "fluting": {
+          "count": 5,
+          "depth": 2,
+          "end": 900,
+          "fade": 150,
+          "lower_spread": 750,
+          "spread": 750,
+          "start": 100,
+          "width": 750
+        },
+        "kind": "Tassets",
+        "lame_count": 3,
+        "length": 1000,
+        "plate_shape": {
+          "Tassets": {
+            "gap": 160,
+            "hem_point": 100,
+            "hem_roundness": 80,
+            "inner_cutaway": 250,
+            "width": 1000
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 3
+      }
     }
   },
   "visored_sallet": {
@@ -707,6 +862,7 @@
       "kind": "MailBrayette",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -718,6 +874,7 @@
       "kind": "MailKneeVoider",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,
@@ -729,6 +886,7 @@
       "kind": "MailStandard",
       "clearance": 6,
       "thickness": 1,
+      "color": [196, 198, 198],
       "length": 1000,
       "sleeve_length": 1000,
       "patch_width": 80,

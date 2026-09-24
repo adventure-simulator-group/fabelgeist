@@ -1,7 +1,10 @@
 use super::*;
 use crate::autoresolve::{CombatEquipment, CombatWeapon};
 use crate::combat::EMBEDDED_COMBAT_RESOLUTION_PARAMETERS;
-use adventuresim_weapon_model::{ComponentShape, Millimeters, default_design};
+use adventuresim_weapon_model::{
+    default_design,
+    recipe::{Metres, Shape},
+};
 
 #[test]
 fn handling_improves_with_shorter_lever_and_better_balance_only() {
@@ -38,25 +41,27 @@ fn working_sections_match_reference_weapons_and_respond_to_thickness() {
     }
     let mut narrow = default_design("arming_sword").unwrap();
     let blade = narrow
+        .recipe
         .components
         .iter_mut()
         .find_map(|component| match &mut component.shape {
-            ComponentShape::Blade(blade) => Some(blade),
+            Shape::LoftedBlade(blade) => Some(blade),
             _ => None,
         })
         .unwrap();
-    blade.width = Millimeters(35);
-    blade.thickness = Millimeters(7);
+    blade.width = Metres::new(0.035).unwrap();
+    blade.thickness = Metres::new(0.007).unwrap();
     let thin = config.precision_for_design(&narrow).value();
     assert!((thin - 2.0).abs() < 0.02);
-    if let ComponentShape::Blade(blade) = &mut narrow
+    if let Shape::LoftedBlade(blade) = &mut narrow
+        .recipe
         .components
         .iter_mut()
-        .find(|component| matches!(component.shape, ComponentShape::Blade(_)))
+        .find(|component| matches!(component.shape, Shape::LoftedBlade(_)))
         .unwrap()
         .shape
     {
-        blade.thickness = Millimeters(14);
+        blade.thickness = Metres::new(0.014).unwrap();
     }
     assert!(config.precision_for_design(&narrow).value() < thin);
 }
@@ -72,7 +77,7 @@ fn every_recipe_has_finite_contact_and_furniture_does_not_add_precision() {
             "{id}: {precision}"
         );
         let mut duplicate = design.clone();
-        duplicate.components.extend(design.components);
+        duplicate.recipe.components.extend(design.recipe.components);
         assert_eq!(config.precision_for_design(&duplicate).value(), precision);
     }
     assert!(

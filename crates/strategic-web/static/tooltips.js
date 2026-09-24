@@ -88,7 +88,14 @@
       const correlated = documentRoot.createElement('span');
       correlated.className = 'strategic-skill-tooltip-line';
       correlated.textContent = `${Number(skill.correlated_hours).toFixed(1)} hours from correlated skills:`;
-      tooltip.append(title, governedBy, trained, effective, correlated);
+      tooltip.append(title);
+      if (target.hasAttribute('aria-valuenow')) {
+        const rank = documentRoot.createElement('span');
+        rank.className = 'strategic-skill-tooltip-line';
+        rank.textContent = `${target.getAttribute('aria-valuenow')} out of 5 usable rank`;
+        tooltip.append(rank);
+      }
+      tooltip.append(governedBy, trained, effective, correlated);
 
       if (Array.isArray(skill.correlations) && skill.correlations.length) {
         const table = documentRoot.createElement('table');
@@ -213,11 +220,11 @@
     };
 
     const setPinned = (target) => {
-      if (pinnedTarget && pinnedTarget !== target) {
+      if (pinnedTarget && pinnedTarget !== target && pinnedTarget.matches('button, [role="button"]')) {
         pinnedTarget.setAttribute('aria-pressed', 'false');
       }
       pinnedTarget = target;
-      if (pinnedTarget) pinnedTarget.setAttribute('aria-pressed', 'true');
+      if (pinnedTarget?.matches('button, [role="button"]')) pinnedTarget.setAttribute('aria-pressed', 'true');
     };
 
     const hide = (force = false) => {
@@ -339,14 +346,7 @@
         return;
       }
       if (event.detail === 0) return;
-      if (pinnedTarget === target) {
-        setPinned(null);
-        hide(true);
-      }
-      else {
-        show(target);
-        setPinned(target);
-      }
+      togglePinned(target);
     });
     documentRoot.addEventListener('keydown', (event) => {
       const target = event.target?.closest?.('[data-tooltip-pinnable]');

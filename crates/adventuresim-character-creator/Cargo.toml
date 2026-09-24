@@ -5,6 +5,10 @@ edition = "2024"
 repository = "https://github.com/adventure-simulator-group/fabelgeist"
 license = "GPL-3.0"
 
+[features]
+default = ["offline-creator"]
+offline-creator = ["dep:burn", "dep:fabelgeist-mhr"]
+
 [dependencies]
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
@@ -14,14 +18,16 @@ image = { version = "0.25.10", default-features = false, features = ["png"] }
 bevy = "0.19.0"
 bevy_egui = "0.40.1"
 blake3 = "1"
-burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
     "std",
     "wgpu",
 ] }
-fabelgeist-mhr = { path = "../fabelgeist-mhr" }
+fabelgeist-mhr = { optional = true, path = "../fabelgeist-mhr" }
 adventuresim-world-schema = { path = "../adventuresim-world-schema" }
 clap = { version = "4.5", features = ["derive", "env"] }
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
 rand = "0.9"
+rayon = "1.12"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
@@ -51,6 +57,9 @@ opt-level = 3
 
 [profile.dev.package.fabelgeist-math]
 opt-level = 3
+
+[patch.crates-io]
+pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
 
 [lints.clippy]
 all = { level = "warn", priority = -1 }

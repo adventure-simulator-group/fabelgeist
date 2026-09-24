@@ -1,7 +1,7 @@
 use adventuresim_core::prelude::*;
 use bevy::{ecs::system::SystemParam, prelude::*};
 use bevy_enhanced_input::prelude::Actions;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use crate::combat_config::AttackCurveConfig;
@@ -78,7 +78,7 @@ pub fn default_tactical_character_id() -> u64 {
 impl Default for Player {
     fn default() -> Self {
         Self {
-            name: adventuresim_core::starting_character::DEFAULT_CHARACTER_NAME.into(),
+            name: adventuresim_core::starting_character::default_character_name(),
         }
     }
 }
@@ -95,11 +95,10 @@ pub struct CharacterId(pub u64);
 impl CharacterId {
     /// Get associated color of this player.
     pub fn color(&self) -> Color {
-        let x = splitmix64(self.0);
-
-        let hue = (x % 360) as f32;
-        let saturation = 0.28 + ((x >> 8) & 0xFF) as f32 / 255.0 * 0.18;
-        let value = 0.90 + ((x >> 16) & 0xFF) as f32 / 255.0 * 0.08;
+        let mut random = StreamId::new("character.display-color").rng(self.0, &[]);
+        let hue = random.index(360) as f32;
+        let saturation = 0.28 + random.inclusive_unit_f32() * 0.18;
+        let value = 0.90 + random.inclusive_unit_f32() * 0.08;
 
         Color::hsv(hue, saturation, value)
     }
@@ -574,11 +573,14 @@ mod tactical_combat_state_tests {
     use super::*;
 
     #[test]
-    fn component_defaults_project_john_fabelgeist() {
+    fn component_defaults_project_the_shared_historical_default() {
         let player = Player::default();
         let attributes = TacticalAttributes::default();
         let skills = Skills::default();
-        assert_eq!(player.name, "John Fabelgeist");
+        assert_eq!(
+            player.name,
+            adventuresim_core::starting_character::default_character_name()
+        );
         assert_eq!(attributes.endurance, 4.0);
         assert_eq!(attributes.left_arm_strength, 4.0);
         assert_eq!(attributes.right_leg_agility, 4.0);

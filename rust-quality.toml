@@ -9,6 +9,46 @@ excluded_paths = [
 
 [[scopes]]
 kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/generator/bell_hanging.rs"
+reason = "Authored proportions of timber headstock, crown loops and forged suspension fittings."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/domestic/bedding.rs"
+reason = "Authored stuffed bedding profiles fitted to the existing bed envelopes."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus.rs"
+reason = "Authored supporting joinery for household and trade apparatus."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/household.rs"
+reason = "Authored socket candles and stored distaff/spindle construction."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/commerce.rs"
+reason = "Authored beam balance and line-reckoning table apparatus."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/printing.rs"
+reason = "Authored wooden screw press and compositor case reconstruction."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/weaving.rs"
+reason = "Authored manually operated loom frame, warp and heddle dimensions."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-building-generator/src/furniture/apparatus/weaving/motion.rs"
+reason = "Authored loom roller, ratchet and reciprocal suspension geometry."
+
+[[scopes]]
+kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/generator/small_church.rs"
 reason = "Authored compact chapel and parish nave/chancel dimension families."
 
@@ -31,6 +71,11 @@ reason = "Authored floor, chancel bearing and grounded bell-frame dimensions."
 kind = "fixture"
 path = "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/parish.rs"
 reason = "Six deterministic capacity review placements built through the canonical service programme API."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/strategic-web/src/routes/settlements/party/schedule_preview/http_tests.rs"
+reason = "Deterministic mock SQL protocol responses for schedule-preview route tests."
 
 [[scopes]]
 kind = "fixture"
@@ -218,11 +263,6 @@ reason = "Maps serialized botanical field names to their reference-defined numer
 kind = "boundary_adapter"
 path = "crates/adventuresim-texture-studio/src/inspector/leaf.rs"
 reason = "Maps the serialized shared leaf schema and preset catalog to egui authoring controls."
-
-[[scopes]]
-kind = "authored_catalog"
-path = "crates/adventuresim-weapon-model/src/catalog/**"
-reason = "Catalog-specific hilt dimensions and recipe family identifiers."
 
 [[scopes]]
 kind = "authored_catalog"
@@ -432,6 +472,7 @@ reason = "Adapts serialized placement IDs and the external MHR skeleton's named 
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/parametric_equipment.rs"
 reason = "Adapts serialized character clothing selections into typed parametric generators and GLB skin/morph arrays."
+
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/review_export.rs"
@@ -545,6 +586,16 @@ reason = "Egui studio buttons dispatch save, load, export and animation actions 
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/metal_controls.rs"
+reason = "Egui metal and engraving buttons dispatch actions through widget responses; labels and image sources are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/drape_controls.rs"
+reason = "Egui drape buttons dispatch reset actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/inventory_ui.rs"
 reason = "Egui inventory rows dispatch wear, discard and reorder actions through widget responses; labels are never compared as state."
 
@@ -562,3 +613,143 @@ reason = "Egui garment pattern controls dispatch typed pattern edits through wid
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/inventory_article_editor.rs"
 reason = "Egui article editor buttons dispatch design and drape actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-weapon-model/src/authoring/controls.rs"
+reason = "Validates external editor control descriptors and their serialized JSON paths."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-weapon-model/src/editor.rs"
+reason = "Maps precise canonical recipe JSON fields to browser editor descriptors and labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/spacetimedb/client/sats.rs"
+reason = "Decodes SpacetimeDB's external SATS type tags and SQL value representation into generated row types."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/flower/presets.rs"
+reason = "Physical dimensions, organ counts and solid pigments for the Central European flower catalog."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/habitat.rs"
+reason = "Conservative species occurrence weights and phenological intervals for scene habitat selection."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-plant-generator/src/viewer/**"
+reason = "Native plant authoring and deterministic specimen capture harness."
+
+[[scopes]]
+kind = "fixture"
+path = "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs"
+reason = "Fixed production plant contact, community and fade-distance capture cameras."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-plant-generator/src/viewer/controls.rs"
+reason = "The recipe editor maps serialized JSON field names and enum values to authoring widgets."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-plant-generator/src/fungus/presets.rs"
+reason = "Physical dimensions, fertile-surface topology and pigments for the native fungus catalog."
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/furniture/worship.rs"
+kind = "authored_catalog"
+reason = "Authored period furniture dimensions and component proportions."
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/bell.rs"
+kind = "authored_catalog"
+reason = "Normalized authored cast-bell section and collision wall proportions."
+
+
+[[scopes]]
+path = "crates/adventuresim-building-generator/src/signs/emblems.rs"
+kind = "authored_catalog"
+reason = "Authored normalized outlines of period trade-tool pictograms."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui.rs"
+reason = "Egui controls dispatch typed authoring actions through widget responses, without branching on display prose."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/composition.rs"
+reason = "Typed composition edits are driven by Egui button and checkbox responses."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/drawing.rs"
+reason = "Drawing treatment buttons dispatch authoring actions through widget responses."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/files.rs"
+reason = "Egui import and export actions adapt JSON documents and filesystem paths at the authoring boundary."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/presets.rs"
+reason = "Authored reference recipes, their stable catalog IDs, and physical construction defaults."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/paint/catalog.rs"
+reason = "Sourced paint ingredients, stable recipe IDs, and explicitly authored appearance estimates."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/paint.rs"
+reason = "Egui selections edit typed paint choices and expose source links and measured-mixer entry points."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/lion.rs"
+reason = "Authored source paint classification and adaptation of the attributed German lion drawing."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/lion/rig.rs"
+reason = "Authored anatomical attachment and deformation chart over the attributed compound SVG contours."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/references.rs"
+reason = "Egui recipe selection dispatches typed documents from stable reference catalog IDs."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/mixer.rs"
+reason = "Egui paint-mixer responses dispatch typed recipe actions; displayed prose is not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-heraldry-studio/src/ui/mixer/picker.rs"
+reason = "Egui stock availability and budget controls adapt pointer/widget responses to typed workshop values."
+
+[[exceptions]]
+rule = "semantic-family:microliters"
+path = "crates/adventuresim-heraldry/src/paint/mixing/search.rs"
+item = "<module>"
+fingerprint = "1000000"
+occurrences = 1
+reason = "This is the maximum accepted prepared-paint batch size, not the strategic material subsystem's liters-to-microliters conversion. The portable generator has no strategic-core dependency."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-heraldry/src/animals/eagle/paint.rs"
+reason = "Reviewed solid paint values and tongue IDs in two pinned Wikimedia eagle drawings."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/templates/architecture.rs"
+item = "SettlementPresentation::from_active_service"
+reason = "Converts the existing serialized layout service IDs into canonical typed physical places at the template boundary."

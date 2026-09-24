@@ -25,17 +25,17 @@ USER_AGENT = "adventure-simulator-mhr-initializer/1.0"
 MANIFEST_NAME = ".mhr-source.json"
 CORE_FILES = (
     "compact_v6_1.model",
-    *(f"lod{lod}.fbx" for lod in range(7)),
+    *(f"lod{lod}.fbx" for lod in range(4, 7)),
 )
 CORRECTIVE_ACTIVATION = "corrective_activation.npz"
-CORRECTIVE_FILES = tuple(f"corrective_blendshapes_lod{lod}.npz" for lod in range(7))
+CORRECTIVE_FILES = tuple(f"corrective_blendshapes_lod{lod}.npz" for lod in range(4, 7))
 
 
-def selected_files(lod1_correctives: bool = False, all_correctives: bool = False) -> tuple[str, ...]:
+def selected_files(lod4_correctives: bool = False, all_correctives: bool = False) -> tuple[str, ...]:
     files = list(CORE_FILES)
-    if lod1_correctives or all_correctives:
+    if lod4_correctives or all_correctives:
         files.append(CORRECTIVE_ACTIVATION)
-        files.extend(CORRECTIVE_FILES if all_correctives else (CORRECTIVE_FILES[1],))
+        files.extend(CORRECTIVE_FILES if all_correctives else (CORRECTIVE_FILES[0],))
     return tuple(files)
 
 
@@ -254,14 +254,14 @@ def main() -> int:
     )
     corrective_mode = parser.add_mutually_exclusive_group()
     corrective_mode.add_argument(
-        "--lod1-correctives",
+        "--lod4-correctives",
         action="store_true",
-        help="also install the LOD 1 corrective basis used by the default creator view",
+        help="also install the LOD 4 corrective basis used by the default creator view",
     )
     corrective_mode.add_argument(
         "--all-correctives",
         action="store_true",
-        help="also install every multi-gigabyte corrective basis",
+        help="also install the corrective bases for LODs 4, 5 and 6",
     )
     parser.add_argument(
         "--destination",
@@ -271,7 +271,7 @@ def main() -> int:
     )
     args = parser.parse_args()
     root = args.destination.resolve()
-    required_files = selected_files(args.lod1_correctives, args.all_correctives)
+    required_files = selected_files(args.lod4_correctives, args.all_correctives)
     if args.verify_only:
         destination = root / "assets"
         if not installed(destination, required_files):

@@ -38,6 +38,11 @@
 
 - `README.md` provides repository orientation; `wiki/index.md` owns the game
   vision and product boundaries.
+- Keep the root `README.md` minimal: project introduction and core links.
+  Never automatically append content below its AGPLv3 license link or add
+  module/feature blurbs, implementation notes, or usage instructions elsewhere
+  in that file. Expanding the root README requires an explicit user request;
+  routine documentation updates belong in the owning crate or guide.
 - Treat `research/archive/` as non-authoritative evidence, not current
   documentation. Do not use it to infer current behavior; inspect the code and
   tests instead. A claim may return to the live wiki only through the
@@ -64,6 +69,18 @@
   If the collection lacks an appropriate icon, add one from Game-Icons.net via
   Iconify and update both the collection's `ATTRIBUTION.md` and the repository's
   `THIRD_PARTY_NOTICES.md`.
+
+## Pull request context
+
+- Unless the user says otherwise, every pull request must include an
+  `Implementation context` section that links a reviewed Codex shared
+  conversation snapshot when one is available.
+- The section must also give a concise summary of the material decisions and
+  validation evidence. The PR body remains the authoritative summary of scope
+  and verification.
+- Treat every shared conversation as public publication. Before sharing, remove
+  credentials, tokens, private URLs, personal data, and nonessential local
+  paths. Codex's automatic secret masking is not sufficient review on its own.
 
 ## Rust style and maintainability
 

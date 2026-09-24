@@ -1,17 +1,27 @@
 use std::{fs, path::PathBuf};
 
+use adventuresim_building_generator::signs::ShopName;
 use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
 use adventuresim_tactical_core::prelude::*;
 use bevy::math::Vec2;
-use fabelgeist_determinism::splitmix64;
 
+#[path = "generate_scene_fixtures/compound.rs"]
+mod compound;
+#[path = "generate_scene_fixtures/facade.rs"]
+mod facade;
 #[path = "generate_scene_fixtures/fault.rs"]
 mod fault;
 #[path = "generate_scene_fixtures/furniture.rs"]
 mod furniture;
+#[path = "generate_scene_fixtures/gable.rs"]
+mod gable;
+#[path = "generate_scene_fixtures/garden.rs"]
+mod garden;
 #[path = "generate_scene_fixtures/geological.rs"]
 mod geological;
+#[path = "generate_scene_fixtures/heating.rs"]
+mod heating;
 #[path = "generate_scene_fixtures/interior.rs"]
 mod interior;
 #[path = "generate_scene_fixtures/parish.rs"]
@@ -20,8 +30,6 @@ mod parish;
 const DEFAULT_TEST_MINUTE: u64 = 339_840 + 10 * 60;
 const MASSIVE_CITY_RESIDENT_POPULATION: u32 = 40_000;
 const MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES: f32 = 50.0;
-const MASSIVE_CITY_LEVEL_HALF_EXTENT_METRES: f32 = 650.0;
-const MASSIVE_CITY_LEVEL_BLEND_METRES: f32 = 100.0;
 
 #[derive(Clone, Copy)]
 struct Fixture {
@@ -53,6 +61,11 @@ enum BuildingFixture {
     FurnitureReview,
     InteriorFurnitureCatalog,
     InteriorFurnitureRooms,
+    CompoundReview,
+    GardenReview,
+    GableReview,
+    HeatingReview,
+    FacadeReview,
 }
 
 fn main() {
@@ -62,7 +75,18 @@ fn main() {
     if !check {
         fs::create_dir_all(&output).expect("create fixture directory");
     }
-    for fixture in fixtures() {
+    let requested = std::env::args().skip_while(|arg| arg != "--fixture").nth(1);
+    let fixtures = fixtures();
+    assert!(
+        requested
+            .as_ref()
+            .is_none_or(|name| fixtures.iter().any(|fixture| fixture.name == name)),
+        "unknown fixture selector"
+    );
+    for fixture in fixtures
+        .into_iter()
+        .filter(|fixture| requested.as_ref().is_none_or(|name| fixture.name == name))
+    {
         let input = build_fixture(fixture);
         input.validate().expect(fixture.name);
         let json = serde_json::to_string_pretty(&input).expect("serialize fixture") + "\n";
@@ -75,14 +99,23 @@ fn main() {
                 fixture.name
             );
         } else {
-            fs::write(path, json).expect("write fixture");
+            if fs::read(&path).ok().as_deref() != Some(json.as_bytes()) {
+                let temporary = path.with_extension("json.tmp");
+                fs::write(&temporary, json).expect("write fixture");
+                fs::rename(temporary, path).expect("replace fixture atomically");
+            }
         }
     }
 }
 
-fn fixtures() -> [Fixture; 24] {
+fn fixtures() -> [Fixture; 29] {
     [
+        gable::fixture(),
+        heating::fixture(),
+        facade::fixture(),
         parish::fixture(),
+        compound::fixture(),
+        garden::fixture(),
         furniture::fixture(),
         interior::catalog_fixture(),
         interior::rooms_fixture(),
@@ -126,7 +159,7 @@ fn fixtures() -> [Fixture; 24] {
         fixture(
             "sparse-woodland",
             "woodland",
-            47_104,
+            47_105,
             rolling,
             sparse_woods,
             clear(),
@@ -235,13 +268,34 @@ const fn fixture(
 }
 
 fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
-    let (streets, yards, buildings, distant_buildings) = fixture_buildings(fixture.buildings);
+    let city = fixture_buildings(fixture.buildings);
+    let establishments = city
+        .businesses
+        .iter()
+        .enumerate()
+        .map(|(index, site)| {
+            let operator_name = adventuresim_world_schema::person_names::RenderedPersonalName::new(
+                format!("Fixture Operator {}", index + 1),
+            )
+            .unwrap();
+            SceneEstablishment {
+                building_id: site.building_id,
+                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                    format!("fixture:{}", fixture.scene_key),
+                    site.key,
+                ),
+                operator_character_id: site.building_id | (1_u64 << 63),
+                operator_name: operator_name.clone(),
+                shop_name: ShopName::for_operator(&operator_name, site.key.usage),
+            }
+        })
+        .collect();
     let mut vista = vista(
         fixture.vista,
         fixture.environment,
         (fixture.terrain)(0.0, 0.0),
     );
-    level_city_vista(&mut vista, !distant_buildings.is_empty());
+    city.level_vista(&mut vista, 0.0);
     TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -261,10 +315,14 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
             fixture.environment,
         ),
         landform: fixture.landform,
-        streets,
-        yards,
-        buildings,
-        distant_buildings,
+        streets: city.streets,
+        yards: city.yards,
+        parishes: city.parishes,
+        compounds: city.compounds,
+        gardens: city.gardens,
+        buildings: city.playable,
+        distant_buildings: city.distant,
+        establishments,
         vista,
         weather: fixture.weather,
     }
@@ -272,125 +330,64 @@ fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
 
 fn fixture_buildings(
     buildings: BuildingFixture,
-) -> (
-    Vec<CityStreetPatch>,
-    Vec<CityYardPatch>,
-    Vec<TacticalBuildingPlacement>,
-    Vec<DistantBuildingPlacement>,
-) {
+) -> adventuresim_tactical_core::city_layout::CitySceneLayout {
+    use adventuresim_tactical_core::city_layout::CitySceneLayout;
     match buildings {
-        BuildingFixture::Empty => (Vec::new(), Vec::new(), Vec::new(), Vec::new()),
-        BuildingFixture::InteriorFurnitureCatalog => {
-            (Vec::new(), interior::yards(), Vec::new(), Vec::new())
-        }
-        BuildingFixture::InteriorFurnitureRooms => (
-            Vec::new(),
-            interior::yards(),
-            interior::buildings(),
-            Vec::new(),
-        ),
-        BuildingFixture::Cottage => (
-            Vec::new(),
-            Vec::new(),
-            vec![building(
+        BuildingFixture::FacadeReview => CitySceneLayout {
+            playable: facade::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::GableReview => CitySceneLayout {
+            playable: gable::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::HeatingReview => CitySceneLayout {
+            playable: heating::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::CompoundReview => compound::layout(),
+        BuildingFixture::GardenReview => garden::layout(),
+        BuildingFixture::Empty => CitySceneLayout::default(),
+        BuildingFixture::InteriorFurnitureCatalog => CitySceneLayout {
+            yards: interior::yards(),
+            ..Default::default()
+        },
+        BuildingFixture::InteriorFurnitureRooms => CitySceneLayout {
+            yards: interior::yards(),
+            playable: interior::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::Cottage => CitySceneLayout {
+            playable: vec![building(
                 1,
                 BuildingArchetype::FachwerkCottage,
                 42,
                 Vec2::new(12.0, 4.0),
                 BuildingOrientation::from_radians(core::f32::consts::FRAC_PI_2).unwrap(),
             )],
-            Vec::new(),
-        ),
-        BuildingFixture::MassiveCity => massive_city_buildings(),
-        BuildingFixture::ParishReview => {
-            (Vec::new(), parish::yards(), parish::buildings(), Vec::new())
-        }
-        BuildingFixture::FurnitureReview => (
-            furniture::streets(),
-            furniture::yards(),
-            furniture::buildings(),
-            Vec::new(),
-        ),
-    }
-}
-
-fn massive_city_buildings() -> (
-    Vec<CityStreetPatch>,
-    Vec<CityYardPatch>,
-    Vec<TacticalBuildingPlacement>,
-    Vec<DistantBuildingPlacement>,
-) {
-    let recipe_seeds = [42, 47, 101];
-    let mut playable = Vec::new();
-    let mut distant = Vec::new();
-    let mut recipes = std::collections::BTreeMap::new();
-    let city = generate_city(
-        47_114,
-        MASSIVE_CITY_RESIDENT_POPULATION,
-        &massive_city_economy(),
-    );
-    for lot in city.lots {
-        let selection = splitmix64(47_114 ^ 0x6469_7374_616e_7401 ^ lot.id);
-        let archetype = lot.archetype();
-        let usage = lot
-            .building_use()
-            .unwrap_or(adventuresim_world_schema::settlement_buildings::BuildingUse::Dwelling);
-        let initial_seed = recipe_seeds[selection as usize % recipe_seeds.len()];
-        let size = lot.service_size();
-        let key = (archetype.slug(), usage, initial_seed, size);
-        let program = recipes
-            .entry(key)
-            .or_insert_with(|| {
-                BuildingProgram::validated_settlement(archetype, usage, initial_seed, size)
-                    .expect("city fixture needs a valid occupied building recipe")
-            })
-            .clone();
-        let seed = program.seed;
-        if lot.centre_metres.abs().max_element() <= MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES {
-            playable.push(TacticalBuildingPlacement {
-                id: lot.id,
-                program,
-                centre_metres: lot.centre_metres,
-                orientation: lot.orientation,
-            });
-        } else {
-            distant.push(DistantBuildingPlacement {
-                usage: Some(usage),
-                service_size: program.service_size,
-                id: lot.id,
-                archetype,
-                seed,
-                centre_metres: lot.centre_metres,
-                base_elevation_metres: 0.0,
-                orientation: lot.orientation,
-            });
-        }
-    }
-    (city.streets, city.yards, playable, distant)
-}
-
-fn level_city_vista(vista: &mut VistaSample, has_city: bool) {
-    if !has_city {
-        return;
-    }
-    for lod in &mut vista.lods {
-        let centre = Vec2::new(
-            (f32::from(lod.width) - 1.0) * 0.5,
-            (f32::from(lod.depth) - 1.0) * 0.5,
-        );
-        for (index, height) in lod.heights_metres.iter_mut().enumerate() {
-            let grid = Vec2::new(
-                (index % usize::from(lod.width)) as f32,
-                (index / usize::from(lod.width)) as f32,
-            );
-            let point = (grid - centre) * lod.spacing_metres;
-            let outside = (point.abs() - Vec2::splat(MASSIVE_CITY_LEVEL_HALF_EXTENT_METRES))
-                .max(Vec2::ZERO)
-                .length();
-            let weight = (1.0 - outside / MASSIVE_CITY_LEVEL_BLEND_METRES).clamp(0.0, 1.0);
-            let smooth_weight = weight * weight * (3.0 - 2.0 * weight);
-            *height *= 1.0 - smooth_weight;
-        }
+            ..Default::default()
+        },
+        BuildingFixture::MassiveCity => CitySite::central_german_market_town()
+            .generate(
+                47_114,
+                MASSIVE_CITY_RESIDENT_POPULATION,
+                &massive_city_economy(),
+            )
+            .compile(47_114)
+            .expect("city properties must compile")
+            .partition(Some(MASSIVE_CITY_PLAYABLE_HALF_EXTENT_METRES))
+            .expect("city must fit tactical budget"),
+        BuildingFixture::ParishReview => CitySceneLayout {
+            yards: parish::yards(),
+            playable: parish::buildings(),
+            ..Default::default()
+        },
+        BuildingFixture::FurnitureReview => CitySceneLayout {
+            streets: furniture::streets(),
+            yards: furniture::yards(),
+            playable: furniture::buildings(),
+            ..Default::default()
+        },
     }
 }
 

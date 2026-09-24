@@ -1,3 +1,4 @@
+mod streams;
 use adventuresim_tactical_core::prelude::{GroundCover, RockLithology, SceneGround, SceneTerrain};
 use bevy::{
     asset::RenderAssetUsages,
@@ -15,10 +16,8 @@ use bevy::{
     },
     shader::ShaderRef,
 };
-use fabelgeist_determinism::splitmix64;
 
 use crate::presentation::obstacles::rock::rock_color;
-use crate::presentation::unit_hash;
 
 use super::GroundScatterLayer;
 
@@ -46,8 +45,6 @@ const BILLBOARD_VERTICES: usize = 4;
 const BILLBOARD_TRIANGLES: usize = 2;
 const MIN_PEBBLE_RADIUS_METRES: f32 = 0.03;
 const MAX_PEBBLE_RADIUS_METRES: f32 = 0.08;
-const STONE_NOISE_X_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const STONE_NOISE_Y_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
 pub(crate) struct TacticalPebbleBillboardMaterial {
@@ -164,166 +161,8 @@ impl PebbleDensity {
     }
 }
 
-pub(super) fn spawn(
-    commands: &mut Commands,
-    meshes: &mut Assets<Mesh>,
-    pebble_materials: &mut Assets<TacticalPebbleMaterial>,
-    billboard_materials: &mut Assets<TacticalPebbleBillboardMaterial>,
-    terrain: &SceneTerrain,
-    ground: &SceneGround,
-    base_seed: u64,
-) {
-    let half_extent = ground.grid_scale() * 0.5;
-    let mut hero_meshes = Vec::new();
-    let mut near_meshes = Vec::new();
-    let mut billboard_meshes = Vec::new();
-    let mut pebble_counts = Vec::new();
-    for density in PebbleDensity::ALL {
-        for variant in 0..MESH_VARIANTS {
-            let seed = splitmix64(0x7065_6262_6c65_0000 ^ variant);
-            let hero = pebble_patch_mesh(seed, PebbleMeshLod::Hero, half_extent, density);
-            pebble_counts.push(hero.count_vertices() / HERO_PEBBLE_VERTICES);
-            hero_meshes.push(meshes.add(hero));
-            near_meshes.push(meshes.add(pebble_patch_mesh(
-                seed,
-                PebbleMeshLod::Near,
-                half_extent,
-                density,
-            )));
-            billboard_meshes.push(meshes.add(pebble_billboard_patch_mesh(
-                seed,
-                half_extent,
-                density,
-            )));
-        }
-    }
-    let stone_material = pebble_materials.add(TacticalPebbleMaterial::new(rock_color(
-        RockLithology::Granite,
-    )));
-    let woodland_stone_material =
-        pebble_materials.add(TacticalPebbleMaterial::new(Color::srgb_u8(104, 91, 70)));
-    let billboard_material = billboard_materials.add(TacticalPebbleBillboardMaterial {
-        color: Vec4::from_array(
-            rock_color(RockLithology::Granite)
-                .to_linear()
-                .to_f32_array(),
-        ),
-        lighting: Vec3::new(0.35, 0.86, 0.25).normalize().extend(1.0),
-        ambient: Vec4::new(1.0, 1.0, 1.0, 0.28),
-    });
-
-    for (index, sample) in ground.samples().iter().enumerate() {
-        if !matches!(
-            sample.cover,
-            GroundCover::LooseStone | GroundCover::LeafLitter
-        ) {
-            continue;
-        }
-        let grid_x = index % ground.grid_width();
-        let grid_z = index / ground.grid_width();
-        let position = Vec2::new(
-            grid_x as f32 * ground.grid_scale() - ground.width() * 0.5,
-            grid_z as f32 * ground.grid_scale() - ground.depth() * 0.5,
-        );
-        let (Some(height), Some(normal)) =
-            (terrain.height_at(position), terrain.normal_at(position))
-        else {
-            continue;
-        };
-        if normal.y < 0.72 {
-            continue;
-        }
-        let hash = splitmix64(base_seed ^ index as u64 ^ 0x7374_6f6e_655f_7363);
-        let woodland = sample.cover == GroundCover::LeafLitter;
-        let density = if woodland {
-            // Every woodland cell gets a sparse candidate patch. Individual
-            // survival still leaves irregular gaps, but keeping the patches
-            // continuous yields roughly one visible 3--8 cm stone per square
-            // metre instead of making rocks disappear from review frames.
-            PebbleDensity::Woodland
-        } else {
-            let coverage = scree_patch_coverage(base_seed, position, normal);
-            if coverage >= 0.61 {
-                PebbleDensity::Dense
-            } else if coverage >= 0.34 {
-                PebbleDensity::Sparse
-            } else {
-                continue;
-            }
-        };
-        let variant = density.asset_offset() + (hash % MESH_VARIANTS) as usize;
-        let yaw = Quat::from_rotation_y(
-            unit_hash(splitmix64(hash ^ 0x55d8_093b)) * core::f32::consts::TAU,
-        );
-        let transform = Transform::from_xyz(
-            position.x,
-            height + if woodland { -0.006 } else { 0.006 },
-            position.y,
-        )
-        .with_rotation(Quat::from_rotation_arc(Vec3::Y, normal) * yaw)
-        .with_scale(Vec3::splat(if woodland { 0.58 } else { 1.0 }));
-
-        commands.spawn((
-            Name::new(if woodland {
-                "Tactical woodland hero pebble patch"
-            } else {
-                "Tactical loose-stone hero pebble patch"
-            }),
-            GroundScatterLayer::LooseStone,
-            LooseStonePebblePatch::hero(pebble_counts[variant]),
-            NotShadowCaster,
-            Mesh3d(hero_meshes[variant].clone()),
-            MeshMaterial3d(if woodland {
-                woodland_stone_material.clone()
-            } else {
-                stone_material.clone()
-            }),
-            pebble_lod_visibility(PebbleMeshLod::Hero),
-            transform,
-        ));
-        commands.spawn((
-            Name::new(if woodland {
-                "Tactical woodland near pebble patch"
-            } else {
-                "Tactical loose-stone near pebble patch"
-            }),
-            GroundScatterLayer::LooseStone,
-            LooseStonePebblePatch {
-                physical_pebbles: 0,
-            },
-            NotShadowCaster,
-            Mesh3d(near_meshes[variant].clone()),
-            MeshMaterial3d(if woodland {
-                woodland_stone_material.clone()
-            } else {
-                stone_material.clone()
-            }),
-            pebble_lod_visibility(PebbleMeshLod::Near),
-            transform,
-        ));
-        if !woodland {
-            commands.spawn((
-                Name::new("Tactical loose-stone billboard pebble patch"),
-                GroundScatterLayer::LooseStone,
-                LooseStonePebblePatch {
-                    physical_pebbles: 0,
-                },
-                // The shader yaws each pebble quad toward the camera, so the
-                // mesh's static bounds would mis-cull; this rotation-safe box
-                // restores frustum culling for off-screen patches.
-                bevy::camera::primitives::Aabb {
-                    center: bevy::math::Vec3A::new(0.0, 0.1, 0.0),
-                    half_extents: bevy::math::Vec3A::new(half_extent + 0.3, 0.4, half_extent + 0.3),
-                },
-                NotShadowCaster,
-                Mesh3d(billboard_meshes[variant].clone()),
-                MeshMaterial3d(billboard_material.clone()),
-                pebble_lod_visibility(PebbleMeshLod::Billboard),
-                transform,
-            ));
-        }
-    }
-}
+mod spawn;
+pub(super) use spawn::spawn;
 
 fn pebble_lod_visibility(lod: PebbleMeshLod) -> VisibilityRange {
     match lod {
@@ -373,9 +212,7 @@ fn scree_noise(seed: u64, point: Vec2) -> f32 {
         let coordinate = cell + offset;
         let x = i64::from(coordinate.x as i32) as u64;
         let y = i64::from(coordinate.y as i32) as u64;
-        unit_hash(splitmix64(
-            seed ^ x.wrapping_mul(STONE_NOISE_X_STRIDE) ^ y.wrapping_mul(STONE_NOISE_Y_STRIDE),
-        ))
+        streams::LATTICE.rng(seed, &[x, y]).inclusive_unit_f32()
     };
     let bottom_left = hash(Vec2::ZERO);
     let bottom = bottom_left + (hash(Vec2::X) - bottom_left) * curve.x;
@@ -393,25 +230,33 @@ fn pebble_survives(
 ) -> bool {
     let cluster = |salt: u64| {
         Vec2::new(
-            unit_hash(splitmix64(seed ^ salt)) * 2.0 - 1.0,
-            unit_hash(splitmix64(seed ^ salt.rotate_left(19))) * 2.0 - 1.0,
+            streams::CLUSTER_X.rng(seed, &[salt]).inclusive_unit_f32() * 2.0 - 1.0,
+            streams::CLUSTER_Z.rng(seed, &[salt]).inclusive_unit_f32() * 2.0 - 1.0,
         ) * half_extent
             * 0.7
     };
     let radius = (half_extent * 0.72).max(0.18);
-    let influence = [
-        cluster(0x636c_7573_7465_7201),
-        cluster(0x636c_7573_7465_7202),
-    ]
-    .into_iter()
-    .map(|cluster| (-(centre.distance_squared(cluster) / radius.powi(2)) * 1.4).exp())
-    .fold(0.0_f32, f32::max);
+    let influence = [cluster(0), cluster(1)]
+        .into_iter()
+        .map(|cluster| (-(centre.distance_squared(cluster) / radius.powi(2)) * 1.4).exp())
+        .fold(0.0_f32, f32::max);
     let chance = match density {
         PebbleDensity::Woodland => 0.045 + influence * 0.16,
         PebbleDensity::Sparse => 0.035 + influence * 0.42,
         PebbleDensity::Dense => 0.09 + influence * 0.76,
     };
-    unit_hash(splitmix64(hash ^ 0x7065_6262_6c65_6b70)) < chance
+    streams::PRESENCE.rng(hash, &[]).inclusive_unit_f32() < chance
+}
+
+fn pebble_facet_scale(hash: u64, segment: usize, density: PebbleDensity) -> f32 {
+    if density == PebbleDensity::Woodland {
+        0.82 + streams::FACET
+            .rng(hash, &[segment as u64])
+            .inclusive_unit_f32()
+            * 0.28
+    } else {
+        1.0
+    }
 }
 
 fn pebble_patch_mesh(
@@ -439,16 +284,17 @@ fn pebble_patch_mesh(
     let mut indices = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * triangles_per_pebble * 3);
 
     for pebble in 0..PEBBLE_CANDIDATES_PER_PATCH {
-        let hash = splitmix64(seed ^ pebble as u64 ^ 0x6772_6176_656c_0001);
+        let hash = streams::PEBBLE.seed(seed, &[pebble as u64]).to_u64();
+        let unit_draw =
+            |purpose: fabelgeist_determinism::StreamId| purpose.rng(hash, &[]).inclusive_unit_f32();
         let radius = MIN_PEBBLE_RADIUS_METRES
-            + unit_hash(splitmix64(hash ^ 0x9137_b22c))
-                * (MAX_PEBBLE_RADIUS_METRES - MIN_PEBBLE_RADIUS_METRES);
+            + unit_draw(streams::RADIUS) * (MAX_PEBBLE_RADIUS_METRES - MIN_PEBBLE_RADIUS_METRES);
         // Jittered low-discrepancy points avoid overlap and the large random
         // holes which previously exposed the repeated shared mesh tiles.
         let column = pebble % PEBBLE_PATCH_COLUMNS;
         let row = pebble / PEBBLE_PATCH_COLUMNS;
-        let jitter_x = unit_hash(splitmix64(hash ^ 0x80c4_3f12)) - 0.5;
-        let jitter_z = unit_hash(splitmix64(hash ^ 0xc21a_63d4)) - 0.5;
+        let jitter_x = unit_draw(streams::JITTER_X) - 0.5;
+        let jitter_z = unit_draw(streams::JITTER_Z) - 0.5;
         let centre = Vec3::new(
             ((column as f32 + 0.5 + jitter_x * 0.88) / PEBBLE_PATCH_COLUMNS as f32 * 2.0 - 1.0)
                 * half_extent,
@@ -466,18 +312,18 @@ fn pebble_patch_mesh(
             continue;
         }
         let height_scale = if density == PebbleDensity::Woodland {
-            0.52 + unit_hash(splitmix64(hash ^ 0x4f08_d119)) * 0.30
+            0.52 + unit_draw(streams::HEIGHT) * 0.30
         } else {
-            0.85 + unit_hash(splitmix64(hash ^ 0x4f08_d119)) * 0.45
+            0.85 + unit_draw(streams::HEIGHT) * 0.45
         };
         let height = radius * height_scale;
-        let yaw = unit_hash(splitmix64(hash ^ 0x5ca1_0f77)) * core::f32::consts::TAU;
+        let yaw = unit_draw(streams::YAW) * core::f32::consts::TAU;
         let direction = Vec3::new(yaw.cos(), 0.0, yaw.sin());
         let tangent = Vec3::new(-direction.z, 0.0, direction.x);
         let lateral_scale = if density == PebbleDensity::Woodland {
-            0.52 + unit_hash(splitmix64(hash ^ 0xd71c_820e)) * 0.34
+            0.52 + unit_draw(streams::LATERAL_SCALE) * 0.34
         } else {
-            0.72 + unit_hash(splitmix64(hash ^ 0xd71c_820e)) * 0.26
+            0.72 + unit_draw(streams::LATERAL_SCALE) * 0.26
         };
         let base = positions.len() as u32;
         positions.push((centre - Vec3::Y * radius * 0.18).to_array());
@@ -487,11 +333,7 @@ fn pebble_patch_mesh(
         for &(height_fraction, radius_scale, normal_y) in ring_profiles {
             for segment in 0..radial_segments {
                 let angle = segment as f32 / radial_segments as f32 * core::f32::consts::TAU;
-                let facet_scale = if density == PebbleDensity::Woodland {
-                    0.82 + unit_hash(splitmix64(hash ^ segment as u64 ^ 0xa94f_3b21)) * 0.28
-                } else {
-                    1.0
-                };
+                let facet_scale = pebble_facet_scale(hash, segment, density);
                 let horizontal = direction * angle.cos() + tangent * angle.sin() * lateral_scale;
                 let vertex = centre
                     + direction * angle.cos() * radius * radius_scale * facet_scale
@@ -557,14 +399,14 @@ fn pebble_billboard_patch_mesh(seed: u64, half_extent: f32, density: PebbleDensi
     let mut indices = Vec::with_capacity(PEBBLE_CANDIDATES_PER_PATCH * BILLBOARD_TRIANGLES * 3);
 
     for pebble in 0..PEBBLE_CANDIDATES_PER_PATCH {
-        let hash = splitmix64(seed ^ pebble as u64 ^ 0x6772_6176_656c_0001);
+        let hash = streams::PEBBLE.seed(seed, &[pebble as u64]).to_u64();
         let radius = MIN_PEBBLE_RADIUS_METRES
-            + unit_hash(splitmix64(hash ^ 0x9137_b22c))
+            + streams::RADIUS.rng(hash, &[]).inclusive_unit_f32()
                 * (MAX_PEBBLE_RADIUS_METRES - MIN_PEBBLE_RADIUS_METRES);
         let column = pebble % PEBBLE_PATCH_COLUMNS;
         let row = pebble / PEBBLE_PATCH_COLUMNS;
-        let jitter_x = unit_hash(splitmix64(hash ^ 0x80c4_3f12)) - 0.5;
-        let jitter_z = unit_hash(splitmix64(hash ^ 0xc21a_63d4)) - 0.5;
+        let jitter_x = streams::JITTER_X.rng(hash, &[]).inclusive_unit_f32() - 0.5;
+        let jitter_z = streams::JITTER_Z.rng(hash, &[]).inclusive_unit_f32() - 0.5;
         let centre = Vec3::new(
             ((column as f32 + 0.5 + jitter_x * 0.88) / PEBBLE_PATCH_COLUMNS as f32 * 2.0 - 1.0)
                 * half_extent,
@@ -581,7 +423,7 @@ fn pebble_billboard_patch_mesh(seed: u64, half_extent: f32, density: PebbleDensi
         ) {
             continue;
         }
-        let height = radius * (0.85 + unit_hash(splitmix64(hash ^ 0x4f08_d119)) * 0.45);
+        let height = radius * (0.85 + streams::HEIGHT.rng(hash, &[]).inclusive_unit_f32() * 0.45);
         let sprite_centre = centre + Vec3::Y * height * 0.5;
         let base = positions.len() as u32;
 
@@ -711,7 +553,7 @@ mod tests {
         let patch_area = (half_extent * 2.0).powi(2);
         let stone_count = (0..MESH_VARIANTS)
             .map(|variant| {
-                let seed = splitmix64(0x7065_6262_6c65_0000 ^ variant);
+                let seed = streams::VARIANT.seed(0, &[variant]).to_u64();
                 pebble_patch_mesh(
                     seed,
                     PebbleMeshLod::Hero,

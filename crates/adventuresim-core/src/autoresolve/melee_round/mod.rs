@@ -21,7 +21,7 @@ pub(super) fn resolve_melee_turn(
     attackers: &mut [Combatant],
     defenders: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
     attack_timing: ScheduledMeleeTiming,
@@ -343,7 +343,7 @@ fn prepare_melee_exchange(
     attacker: &mut Combatant,
     defender: &Combatant,
     flanking: f32,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     parameters: crate::combat::AutoresolveParameters,
     timing: ScheduledMeleeTiming,
 ) -> PreparedMeleeExchange {

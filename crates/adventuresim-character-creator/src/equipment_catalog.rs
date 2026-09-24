@@ -74,6 +74,11 @@ impl ItemCatalog {
         self.designs.default_for(id)
     }
 
+    /// The catalog design for a parametric item worn in `placement`.
+    pub fn placed_design(&self, id: &str, placement: &str) -> Option<ItemDesign> {
+        self.designs.default_at(id, placement)
+    }
+
     /// Items with a procedural material and body surface, which the creator can generate.
     pub fn wearable(&self) -> impl Iterator<Item = &ItemDefinition> {
         self.items.iter().filter(|item| is_wearable(item))

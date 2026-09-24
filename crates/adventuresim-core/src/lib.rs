@@ -68,6 +68,7 @@ pub mod settlement_population;
 pub mod simulation_security;
 pub mod skeletal_fit;
 pub mod skill;
+pub mod smithing;
 pub mod social;
 pub mod starting_character;
 pub mod strategic_action;

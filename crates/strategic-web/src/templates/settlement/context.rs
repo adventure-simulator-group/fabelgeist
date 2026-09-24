@@ -1,4 +1,4 @@
-use std::{fmt, str::FromStr};
+use crate::location_urls::LocationKind;
 
 use adventuresim_world_schema::SettlementEconomyProfile;
 use maud::Markup;
@@ -19,41 +19,10 @@ pub struct LocationView {
     pub economy: Option<SettlementEconomyProfile>,
     pub active_building: Option<String>,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum LocationKind {
-    Settlement,
-    CaseSite,
-}
-
-impl LocationKind {
-    pub const fn as_str(self) -> &'static str {
-        match self {
-            Self::Settlement => "settlement",
-            Self::CaseSite => "case-site",
-        }
-    }
-}
-
-impl fmt::Display for LocationKind {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.write_str(self.as_str())
-    }
-}
-
-impl FromStr for LocationKind {
-    type Err = ();
-    fn from_str(value: &str) -> Result<Self, Self::Err> {
-        match value {
-            "settlement" => Ok(Self::Settlement),
-            "case-site" => Ok(Self::CaseSite),
-            _ => Err(()),
-        }
-    }
-}
-
 impl LocationView {
     pub fn valid_building<'a>(&self, building: &'a str) -> Option<&'a str> {
         (self.kind == LocationKind::Settlement
+            && crate::location_urls::SettlementPlace::parse(&self.id, building).is_some()
             && settlement_building_available(
                 &self.id,
                 self.category
@@ -65,18 +34,14 @@ impl LocationView {
         .then_some(building)
     }
     pub fn base_path(&self) -> String {
-        format!("/locations/{}/{}", self.kind, self.id)
+        self.kind.path(&self.id)
     }
 
     pub fn preserve_building(&self, path: String) -> String {
-        self.active_building
-            .as_deref()
-            .map_or(path.clone(), |building| {
-                format!(
-                    "{path}{}building={building}",
-                    if path.contains('?') { "&" } else { "?" }
-                )
-            })
+        self.active_building.as_deref().map_or_else(
+            || path.clone(),
+            |building| crate::location_urls::with_query(&path, "building", building),
+        )
     }
 
     pub(super) fn render_layout(

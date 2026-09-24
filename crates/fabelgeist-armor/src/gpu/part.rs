@@ -315,6 +315,35 @@ pub struct BuiltPart {
     pub grids: Vec<SurfaceGrid>,
 }
 
+impl BuiltPart {
+    /// Add `other`'s plates after this part's, as one part. Every plate
+    /// keeps its own vertices, faces, components and grids.
+    pub fn append(&mut self, other: BuiltPart) {
+        let vertices = self.positions.len();
+        let indices = self.indices.len();
+        let offset = vertices as u32;
+        self.positions.extend(other.positions);
+        self.normals.extend(other.normals);
+        self.indices
+            .extend(other.indices.iter().map(|i| i + offset));
+        self.faces.extend(other.faces);
+        self.components
+            .extend(other.components.into_iter().map(|mut component| {
+                component.vertices =
+                    component.vertices.start + vertices..component.vertices.end + vertices;
+                component.indices =
+                    component.indices.start + indices..component.indices.end + indices;
+                component
+            }));
+        self.grids.extend(other.grids.into_iter().map(|mut grid| {
+            for vertex in &mut grid.vertices {
+                *vertex += offset;
+            }
+            grid
+        }));
+    }
+}
+
 fn shell_table(layout: &PartLayout) -> Vec<f32> {
     let mut table = Vec::with_capacity(layout.shells.len() * SHELL_WORDS as usize);
     for shell in &layout.shells {

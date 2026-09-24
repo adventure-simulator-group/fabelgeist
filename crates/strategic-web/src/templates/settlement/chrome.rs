@@ -1,3 +1,8 @@
+mod portraits;
+pub(crate) use portraits::{
+    CharacterPortraitView, character_portrait_overlay, party_portrait_overlay, profile_membership,
+};
+
 use std::collections::BTreeSet;
 
 use adventuresim_core::strategic_time::DAYS_PER_YEAR;
@@ -11,7 +16,7 @@ use crate::spacetimedb::{
     SettlementDescription, SettlementDescriptionKind, SettlementResidenceOffer, SettlementView,
 };
 use crate::templates::{
-    decorative_game_icon, game_icon, population_description, prosperity_tier_label,
+    decorative_game_icon, population_description, prosperity_tier_label,
     settlement_layout_with_session, settlement_service_label, sidebar_section,
     stock_category_label,
 };
@@ -34,7 +39,7 @@ fn public_square_place_link(settlement: &SettlementView, current: bool) -> Marku
     let tab = visible_npc_tab(&tabs, "overview")
         .expect("every settlement exposes its overview as a navigable NPC tab");
     html! {
-        a href=(format!("/locations/settlement/{}", settlement.id))
+        a href=(crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]))
             class=(if current { "active" } else { "" })
             aria-current=(if current { "page" } else { "false" }) {
             (tab.label)
@@ -111,14 +116,14 @@ pub fn settlement_overview_page(
             }))
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, active_character, &format!("/locations/settlement/{}", settlement.id), None))
+            (party_portrait_overlay(party_members, active_character, &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, "overview"))
             @if !corpses.is_empty() {
                 nav class="scene-interactable-strip corpse-strip" aria-label="Bodies held in the settlement" {
                     @for corpse in corpses {
                         @let corpse_label = if corpse.location == "interred" { "Buried body" } else { &corpse.display_name };
                         a class="scene-interactable scene-interactable--remains corpse-portrait"
-                            href=(format!("/locations/settlement/{}?corpse={}&medical=physiology", settlement.id, corpse.corpse_id))
+                            href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string())))
                             aria-label=(format!("Examine {corpse_label} with Physiology")) {
                             span class="scene-interactable-visual" aria-hidden="true" { "☠" }
                             span class="scene-interactable-label" { (corpse_label) }
@@ -127,8 +132,8 @@ pub fn settlement_overview_page(
                 }
                 @if let Some((corpse, _)) = selected_corpse {
                     div class="quest-combat-actions corpse-medical-actions" aria-label="Corpse medical windows" {
-                        a class="btn btn-secondary" href=(format!("/locations/settlement/{}?corpse={}&medical=physiology", settlement.id, corpse.corpse_id)) { "Physiology" }
-                        a class="btn btn-secondary" href=(format!("/locations/settlement/{}?corpse={}&medical=surgery", settlement.id, corpse.corpse_id)) { "Surgery" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=physiology", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Physiology" }
+                        a class="btn btn-secondary" href=(format!("{}?corpse={}&medical=surgery", crate::location_urls::patterns::PUBLIC_SQUARE.url([&settlement.id]), crate::location_urls::encode_component(&corpse.corpse_id.to_string()))) { "Surgery" }
                     }
                 }
             }
@@ -149,7 +154,7 @@ pub fn settlement_overview_page(
         @if let Some((corpse, window)) = selected_corpse {
             (corpse_medical_dialog(
                 corpse,
-                &format!("/locations/settlement/{}", settlement.id),
+                &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]),
                 window,
             ))
         }
@@ -257,13 +262,13 @@ fn settlement_resident_location_page_with_panel(
             (sidebar_section("Places", html! {
                 nav class="settlement-places-nav" aria-label="Settlement places" {
                     (public_square_place_link(settlement, false))
-                    a href=(format!("/settlements/{}/places/residences", settlement.id))
+                    a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &("residences")]))
                         class=(if location_id == "residences" { "active" } else { "" })
                         aria-current=(if location_id == "residences" { "page" } else { "false" }) {
                         "Residences"
                     }
                     @if settlement_has_keep(&settlement.category) {
-                        a href=(format!("/settlements/{}/places/keep", settlement.id))
+                        a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &("keep")]))
                             class=(if location_id == "keep" { "active" } else { "" })
                             aria-current=(if location_id == "keep" { "page" } else { "false" }) {
                             "Keep"
@@ -272,7 +277,7 @@ fn settlement_resident_location_page_with_panel(
                     @for organization in adventuresim_core::organization::organizations_for_chapter(&settlement.id) {
                         @let chapter = organization.chapter(&settlement.id).expect("local chapter");
                         @if adventuresim_core::organization::chapter_has_standalone_building(organization, chapter, &settlement.economy) {
-                        a href=(format!("/settlements/{}/places/{}", settlement.id, chapter.location_id))
+                        a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement.id, &chapter.location_id]))
                             class=(if location_id == chapter.location_id { "active" } else { "" })
                             aria-current=(if location_id == chapter.location_id { "page" } else { "false" }) {
                             (&chapter.building_name)
@@ -283,7 +288,7 @@ fn settlement_resident_location_page_with_panel(
             }))
         }
         main class="center-content settlement-main settlement-overview" {
-            (party_portrait_overlay(party_members, Some(active_character), &format!("/locations/settlement/{}", settlement.id), None))
+            (party_portrait_overlay(party_members, Some(active_character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, location_id))
             (npc_description_stage(title, description))
             (settlement_resident_chat_area(title, Some(active_character), &settlement.id, location_id, None))
@@ -490,7 +495,7 @@ fn residence_offer_panel(
                             }
                             div class="residence-holding-actions" {
                             @if owns_holding && holding.tenure == ResidenceTenure::Owner && !holding.active {
-                                form action=(format!("/settlements/{}/residences/recover/current", settlement.id)) method="post" {
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("recover"), &("current")])) method="post" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action" title="Recover owned home" aria-label="Recover owned home" {
                                         (decorative_game_icon("hammer-nails")) span class="sr-only" { "Recover owned home" }
@@ -498,7 +503,7 @@ fn residence_offer_panel(
                                 }
                             }
                             @if owns_holding && holding.active && !holding.primary && holding.settlement_id == settlement.id {
-                                form action=(format!("/settlements/{}/residences/designate/current", settlement.id)) method="post" {
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("designate"), &("current")])) method="post" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action" title="Designate as home" aria-label="Designate as home" {
                                         (decorative_game_icon("crown")) span class="sr-only" { "Designate as home" }
@@ -506,7 +511,7 @@ fn residence_offer_panel(
                                 }
                             }
                             @if owns_holding {
-                                form action=(format!("/settlements/{}/residences/relinquish/current", settlement.id)) method="post"
+                                form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("relinquish"), &("current")])) method="post"
                                     onsubmit="return confirm('Relinquish this property? This cannot be undone.')" {
                                     input type="hidden" name="holding_id" value=(&holding.holding_id);
                                     button type="submit" class="residence-icon-action residence-icon-action-danger" title="Relinquish property" aria-label="Relinquish property" {
@@ -587,12 +592,12 @@ fn residence_offer_panel(
                         (residence_meter("sun", "leisure", &leisure_label, u32::from(offer.leisure_morale_basis_points), max_leisure))
                     }
                     div class="residence-meter-actions" {
-                    form action=(format!("/settlements/{}/residences/rent/{}", settlement.id, residence_tier_id(offer.tier))) method="post" onsubmit=(&rent_confirmation) {
+                    form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("rent"), &(residence_tier_id(offer.tier))])) method="post" onsubmit=(&rent_confirmation) {
                         button type="submit" class="residence-icon-action" title=(&rent_label) aria-label=(format!("Rent {tier}. {rent_label}")) {
                             (decorative_game_icon("bed")) span class="sr-only" { "Rent " (tier) }
                         }
                     }
-                    form action=(format!("/settlements/{}/residences/buy/{}", settlement.id, residence_tier_id(offer.tier))) method="post" onsubmit=(&buy_confirmation) {
+                    form action=(crate::location_urls::patterns::CHANGE_RESIDENCE.url([&settlement.id, &("buy"), &(residence_tier_id(offer.tier))])) method="post" onsubmit=(&buy_confirmation) {
                         button type="submit" class="residence-icon-action" title=(&purchase_label) aria-label=(format!("Buy {tier}. {purchase_label}. {upkeep_label}")) {
                             (decorative_game_icon("coins")) span class="sr-only" { "Buy " (tier) }
                         }
@@ -619,7 +624,7 @@ fn format_residence_date(minute: u64) -> String {
     let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
     format!(
         "year {}, day {}",
-        1544 + day / DAYS_PER_YEAR,
+        adventuresim_core::strategic_time::world_year_at(minute),
         day % DAYS_PER_YEAR + 1
     )
 }
@@ -796,231 +801,11 @@ pub(crate) fn visual_stage(kind: VisualStageKind, title: &str, description: &str
     }
 }
 
-pub(crate) struct CharacterPortraitView<'a> {
-    pub id: u64,
-    pub name: &'a str,
-    pub alive: bool,
-    pub active: bool,
-    pub selected: bool,
-    pub href: String,
-    pub title: String,
-    pub aria_label: String,
-    pub decoration: Option<Markup>,
-    pub badge: Option<Markup>,
-    pub actions: Option<Markup>,
-}
-
-pub(crate) fn character_portrait_overlay(
-    label: &str,
-    inventory: Option<Markup>,
-    members: &[CharacterPortraitView<'_>],
-) -> Markup {
-    html! {
-        @if !members.is_empty() {
-            div class="party-portrait-overlay" aria-label=(label) {
-                div data-party-portrait-members {
-                    @if let Some(inventory) = inventory {
-                        (inventory)
-                    }
-                    @for member in members {
-                        div class=(format!("scene-interactable scene-interactable--person party-portrait{}{}", if member.selected { " active" } else { "" }, if !member.alive { " dead" } else { "" }))
-                            data-character-id=(member.id)
-                            data-character-alive=(member.alive)
-                            data-active-character[member.active]
-                            title=(member.name) {
-                            a class="party-portrait-select"
-                                href=(&member.href)
-                                title=(&member.title)
-                                aria-label=(&member.aria_label) {
-                                @if let Some(decoration) = &member.decoration {
-                                    (decoration)
-                                }
-                                span class="scene-interactable-visual party-portrait-initial" {
-                                    span class="party-portrait-face" { (member.name.chars().next().unwrap_or('?')) }
-                                    span class="scene-interactable-label party-portrait-name" { (member.name) @if !member.alive { " (dead)" } }
-                                    @if let Some(badge) = &member.badge {
-                                        (badge)
-                                    }
-                                }
-                            }
-                            @if let Some(actions) = &member.actions {
-                                (actions)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-pub(crate) fn party_portrait_overlay(
-    party_members: &[CharacterView],
-    active_character: Option<&CharacterView>,
-    location_path: &str,
-    selected_character_id: Option<u64>,
-) -> Markup {
-    let members: Vec<&CharacterView> = if party_members.is_empty() {
-        active_character.into_iter().collect()
-    } else {
-        party_members.iter().collect()
-    };
-    let leader_id = members.first().map(|member| member.id);
-
-    let inventory = active_character.map(|_| {
-        html! {
-            div class="scene-interactable scene-interactable--fixture party-portrait party-inventory-portrait" title="Party inventory" {
-                a class="party-portrait-select" href=(format!("{}/party-inventory", location_path)) {
-                    span class="scene-interactable-visual party-portrait-initial party-chest-face" { (game_icon("Party inventory", "knapsack")) }
-                }
-            }
-        }
-    });
-    let portraits = members
-        .into_iter()
-        .map(|member| {
-            let is_active = active_character.is_some_and(|character| character.id == member.id);
-            let can_remove = Some(member.id) != leader_id;
-            let notified = member.alive && member.social_notification_count > 0;
-            let persistently_notified = notified && !member.automatic_social_chat_enabled;
-            let inspection_href = if is_active {
-                format!("{}/party/{}", location_path, member.id)
-            } else {
-                format!("{}/party/{}/stats", location_path, member.id)
-            };
-            let actions = (member.alive
-                && active_character.is_some_and(|character| character.alive))
-            .then(|| {
-                html! {
-                    span class="party-portrait-actions" aria-label=(format!("Actions for {}", member.name)) {
-                            a href=(format!("{}/party/{}/social", location_path, member.id))
-                                class=(format!("party-portrait-action party-social-action{}", if persistently_notified { " party-social-notified" } else { "" }))
-                                title=(if notified { format!("Open {}'s Recent Tidings ({} morale concerns)", member.name, member.social_notification_count) } else { format!("Talk to {}", member.name) })
-                                aria-label=(if notified { format!("Open conversation with {} to Recent Tidings; {} unaddressed morale concerns", member.name, member.social_notification_count) } else { format!("Open conversation with {}", member.name) }) {
-                                span class="party-action-icon"
-                                    style="--party-action-icon: url('/static/icons/game/conversation.svg')"
-                                    aria-hidden="true" {}
-                                @if notified {
-                                    span class="party-social-notification" aria-hidden="true" {
-                                        (member.social_notification_count)
-                                    }
-                                }
-                            }
-                            a href=(format!("{}/party/{}/inventory", location_path, member.id))
-                                class="party-portrait-action"
-                                title=(if is_active { "Open inventory and discard items".to_string() } else { format!("Compare inventory with {}", member.name) }) {
-                                span class="party-action-icon"
-                                    style="--party-action-icon: url('/static/icons/game/knapsack.svg')"
-                                    role="img" aria-label="Inventory" {}
-                            }
-                            @if can_remove {
-                                form method="post" action=(format!("{}/party/{}/remove", location_path, member.id)) {
-                                    button type="submit" class=(if is_active { "party-portrait-action party-member-remove party-member-leave" } else { "party-portrait-action party-member-remove party-member-kick-request" })
-                                        title=(if is_active { "Leave party".to_string() } else { format!("Request to remove {} from the party", member.name) })
-                                        aria-label=(if is_active { "Leave party".to_string() } else { format!("Request to remove {} from the party", member.name) }) {
-                                        span aria-hidden="true" { "×" }
-                                    }
-                                }
-                            }
-                    }
-                }
-            });
-            CharacterPortraitView {
-                id: member.id,
-                name: &member.name,
-                alive: member.alive,
-                active: is_active,
-                selected: selected_character_id == Some(member.id),
-                href: inspection_href,
-                title: format!("Inspect {}", member.name),
-                aria_label: format!("Inspect {}", member.name),
-                decoration: Some(html! {
-                    span class="incapacitation-wheel"
-                        data-strategic-condition-wheel=(member.id)
-                        role="img"
-                        aria-label="Loading strategic condition"
-                        title="Loading strategic condition" {}
-                }),
-                badge: None,
-                actions,
-            }
-        })
-        .collect::<Vec<_>>();
-    character_portrait_overlay("Active party", inventory, &portraits)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::spacetimedb::*;
     use crate::templates::settlement::test_support::*;
-
-    #[test]
-    fn notified_social_action_stays_visible_while_portrait_keeps_inspection() {
-        let member = CharacterView {
-            id: 12,
-            name: "Greta".into(),
-            xp: 0,
-            level: 1,
-            current_settlement_id: Some("lubeck".into()),
-            current_case_site_id: None,
-            party_id: Some("party".into()),
-            age_years: 24,
-            alive: true,
-            temporary: false,
-            social_notification_count: 2,
-            automatic_social_chat_enabled: false,
-        };
-        let markup = party_portrait_overlay(
-            std::slice::from_ref(&member),
-            Some(&member),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(markup.contains(
-            "class=\"party-portrait-select\" href=\"/locations/settlement/lubeck/party/12\""
-        ));
-        assert!(
-            markup.contains(
-                "class=\"party-portrait-action party-social-action party-social-notified\""
-            )
-        );
-        assert!(markup.contains("href=\"/locations/settlement/lubeck/party/12/social\""));
-        assert!(markup.contains("class=\"party-social-notification\""));
-        assert!(markup.contains("2 unaddressed morale concerns"));
-        assert!(markup.contains("/static/icons/game/conversation.svg"));
-        assert!(markup.contains("class=\"incapacitation-wheel\""));
-        assert!(markup.contains("data-strategic-condition-wheel=\"12\""));
-
-        let mut quiet = member;
-        quiet.social_notification_count = 0;
-        let quiet_markup = party_portrait_overlay(
-            &[quiet.clone()],
-            Some(&quiet),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(!quiet_markup.contains("party-social-notification"));
-        assert!(quiet_markup.contains("class=\"party-portrait-action party-social-action\""));
-        assert!(quiet_markup.contains("/party/12/social"));
-        assert!(quiet_markup.contains("aria-label=\"Open conversation with Greta\""));
-
-        let mut automatic = quiet;
-        automatic.social_notification_count = 2;
-        automatic.automatic_social_chat_enabled = true;
-        let automatic_markup = party_portrait_overlay(
-            &[automatic.clone()],
-            Some(&automatic),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(automatic_markup.contains("class=\"party-social-notification\""));
-        assert!(automatic_markup.contains("2 unaddressed morale concerns"));
-        assert!(!automatic_markup.contains("party-social-notified"));
-    }
 
     #[test]
     fn aliases_are_deduplicated_and_do_not_repeat_the_canonical_name() {
@@ -1161,7 +946,7 @@ mod tests {
         assert!(markup.contains("Bodies held in the settlement"));
         assert!(markup.contains("corpse-portrait"));
         assert!(markup.contains(
-            "/locations/settlement/viabundus-1?corpse=corpse:quest:1&amp;medical=surgery"
+            "/locations/settlement/viabundus-1/places/public-square?corpse=corpse%3Aquest%3A1&amp;medical=surgery"
         ));
         assert!(markup.contains("physiology-dialog"));
         assert!(markup.contains("action=\"/corpses/corpse:quest:1/action\""));
@@ -1255,7 +1040,10 @@ mod tests {
             .and_then(|tail| tail.split("</nav>").next())
             .expect("residence Places navigation");
         assert!(residences.contains("class=\"settlement-places-nav\""));
-        assert!(residence_places.contains("href=\"/locations/settlement/viabundus-1\""));
+        assert!(
+            residence_places
+                .contains("href=\"/locations/settlement/viabundus-1/places/public-square\"")
+        );
         assert!(residence_places.contains(&format!(">{}</a>", public_square.label)));
         assert!(residence_places.contains("aria-current=\"false\""));
         assert!(residence_places.contains("class=\"active\" aria-current=\"page\">Residences</a>"));

@@ -9,6 +9,8 @@
 //! privacy, and macro-generated SpacetimeDB names remain unchanged.
 
 include!("model.rs");
+mod sampling;
+use sampling::{canonical_context, canonicalize, choose, weighted_order};
 include!("projection.rs");
 include!("solver.rs");
 

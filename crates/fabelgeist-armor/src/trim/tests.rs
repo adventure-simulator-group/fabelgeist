@@ -216,12 +216,14 @@ fn components_keep_their_own_vertices() {
             vertices: 0..vertices,
             indices: 0..indices,
             hinge: None,
+            material: None,
         },
         ArmorComponent {
             role: ArmorComponentRole::Visor,
             vertices: vertices..2 * vertices,
             indices: indices..2 * indices,
             hinge: None,
+            material: None,
         },
     ];
     first.positions.extend(&second.positions);

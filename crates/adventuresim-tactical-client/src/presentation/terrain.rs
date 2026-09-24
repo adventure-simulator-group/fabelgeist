@@ -1,9 +1,15 @@
+mod ground_map;
 use super::*;
 use adventuresim_procedural_textures::{
     FOREST_LITTER_HEIGHT_RANGE_METRES, FOREST_LITTER_TILE_METRES, FOREST_SOIL_HEIGHT_RANGE_METRES,
     FOREST_SOIL_TILE_METRES, ROCK_HEIGHT_RANGE_METRES, ROCK_TILE_METRES,
 };
-use fabelgeist_determinism::splitmix64;
+#[cfg(test)]
+use adventuresim_tactical_core::terrain_streams as streams;
+pub(super) use ground_map::grass_cover_mask_pixels;
+use ground_map::ground_map_image;
+#[cfg(test)]
+use ground_map::{ground_mask_noise, ground_surface_pixel, organic_ground_pixels};
 
 mod cliff_surface;
 mod urban;
@@ -25,9 +31,6 @@ const DETAIL_PATCH_BASE_CUTOUT_RADIUS_METRES: f32 = 10.0;
 const DETAIL_RELIEF_MINIMUM_METRES: f32 = -0.075;
 #[cfg(test)]
 const DETAIL_RELIEF_MAXIMUM_METRES: f32 = 0.105;
-const TREE_ROOT_SEED_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const TERRAIN_NOISE_X_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const TERRAIN_NOISE_Y_STRIDE: u64 = 0xbf58_476d_1ce4_e5b9;
 pub(in crate::presentation) const TACTICAL_DIRT_SRGB: [u8; 3] = [101, 82, 49];
 
 pub(super) fn scene_ground_color(environment: &SceneEnvironment) -> Color {
@@ -404,8 +407,8 @@ fn terrain_surface_relief(
         return road_surface_relief(seed, point, ground.expect("road came from SceneGround"));
     }
 
-    let broad = signed_ground_noise(seed ^ 0x6272_6f61_645f_0001, point / 3.2) * 0.024;
-    let fine = signed_ground_noise(seed ^ 0x6669_6e65_5f00_0002, point / 0.92) * 0.009;
+    let broad = signed_ground_noise(streams::BROAD.seed(seed, &[]).to_u64(), point / 3.2) * 0.024;
+    let fine = signed_ground_noise(streams::FINE.seed(seed, &[]).to_u64(), point / 0.92) * 0.009;
     let clod_strength = match surface.map(|surface| surface.substrate) {
         Some(GroundSubstrate::Stone) => 0.0,
         Some(GroundSubstrate::Gravel) => 0.25,
@@ -460,7 +463,7 @@ fn signed_ground_noise(seed: u64, point: Vec2) -> f32 {
 
 #[cfg(test)]
 fn terrain_clod_relief(seed: u64, point: Vec2) -> f32 {
-    let field = ground_mask_noise(seed ^ 0x636c_6f64_5f66_6c64, point / 0.58);
+    let field = ground_mask_noise(streams::CLOD.seed(seed, &[]).to_u64(), point / 0.58);
     terrain_smoothstep(0.69, 0.91, field) * 0.022 - 0.003
 }
 
@@ -507,8 +510,9 @@ fn drainage_relief(
         return 0.0;
     }
     let normal = Vec2::new(-shape.downhill.y, shape.downhill.x);
-    let warp = signed_ground_noise(seed ^ 0x7269_6c6c_5f77_6172, point / 5.5) * 0.85;
-    let spacing = 2.6 + ground_mask_noise(seed ^ 0x7269_6c6c_5f73_7063, point / 11.0) * 1.4;
+    let warp = signed_ground_noise(streams::RILL_WARP.seed(seed, &[]).to_u64(), point / 5.5) * 0.85;
+    let spacing =
+        2.6 + ground_mask_noise(streams::RILL_SPACING.seed(seed, &[]).to_u64(), point / 11.0) * 1.4;
     let across = point.dot(normal) + warp;
     let distance = periodic_distance(across, spacing);
     let channel = 1.0 - terrain_smoothstep(0.08, 0.34, distance);
@@ -521,7 +525,8 @@ fn drainage_relief(
 #[cfg(test)]
 fn soil_creep_relief(seed: u64, point: Vec2, shape: TerrainShapeSample) -> f32 {
     let slope_weight = terrain_smoothstep(0.035, 0.22, shape.slope);
-    let warp = signed_ground_noise(seed ^ 0x6372_6565_705f_7772, point / 7.0) * 0.55;
+    let warp =
+        signed_ground_noise(streams::CREEP_WARP.seed(seed, &[]).to_u64(), point / 7.0) * 0.55;
     let downhill_coordinate = point.dot(shape.downhill) + warp;
     let distance = periodic_distance(downhill_coordinate, 3.1);
     let ridge = 1.0 - terrain_smoothstep(0.12, 0.52, distance);
@@ -538,7 +543,10 @@ fn rocky_substrate_relief(
     shape: Option<TerrainShapeSample>,
     strength: f32,
 ) -> f32 {
-    let fallback_angle = unit_hash(seed ^ 0x7374_7261_7461_6469) * core::f32::consts::TAU;
+    let fallback_angle = streams::STRATA_DIRECTION
+        .rng(seed, &[])
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU;
     let downhill = shape
         .map(|shape| shape.downhill)
         .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -546,19 +554,22 @@ fn rocky_substrate_relief(
     let slope_weight = shape
         .map(|shape| terrain_smoothstep(0.018, 0.18, shape.slope))
         .unwrap_or(0.35);
-    let warp = signed_ground_noise(seed ^ 0x7374_7261_7461_7772, point / 6.5) * 0.72;
+    let warp =
+        signed_ground_noise(streams::STRATA_WARP.seed(seed, &[]).to_u64(), point / 6.5) * 0.72;
     let contour = point.dot(downhill) + warp;
     let ledge_distance = periodic_distance(contour, 2.15);
     let shelf =
         (1.0 - terrain_smoothstep(0.08, 0.48, ledge_distance)) * (0.019 + slope_weight * 0.029);
 
     let fracture_a = periodic_distance(
-        point.dot(across) + signed_ground_noise(seed ^ 0x6672_6163_7475_7261, point / 4.8) * 0.4,
+        point.dot(across)
+            + signed_ground_noise(streams::FRACTURE_A.seed(seed, &[]).to_u64(), point / 4.8) * 0.4,
         3.7,
     );
     let diagonal = (across * 0.72 + downhill * 0.69).normalize_or_zero();
     let fracture_b = periodic_distance(
-        point.dot(diagonal) + signed_ground_noise(seed ^ 0x6672_6163_7475_7262, point / 5.6) * 0.34,
+        point.dot(diagonal)
+            + signed_ground_noise(streams::FRACTURE_B.seed(seed, &[]).to_u64(), point / 5.6) * 0.34,
         5.3,
     );
     let crack = (1.0 - terrain_smoothstep(0.035, 0.17, fracture_a))
@@ -584,11 +595,19 @@ fn boulder_ground_relief(
         if distance > radius * 5.0 {
             continue;
         }
-        let rock_seed = splitmix64(
-            seed ^ u64::from(rock.centre.x.to_bits()).rotate_left(29)
-                ^ u64::from(rock.centre.y.to_bits()),
-        );
-        let fallback_angle = unit_hash(rock_seed) * core::f32::consts::TAU;
+        let rock_seed = streams::ROCK_INFLUENCE
+            .seed(
+                seed,
+                &[
+                    u64::from(rock.centre.x.to_bits()),
+                    u64::from(rock.centre.y.to_bits()),
+                ],
+            )
+            .to_u64();
+        let fallback_angle = streams::ROCK_DOWNHILL
+            .rng(rock_seed, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU;
         let downhill = shape
             .map(|shape| shape.downhill)
             .unwrap_or(Vec2::new(fallback_angle.cos(), fallback_angle.sin()));
@@ -601,14 +620,15 @@ fn boulder_ground_relief(
 
         let downstream = offset.dot(downhill);
         let across = offset.dot(across_axis).abs();
-        let tail_length = radius * (3.2 + unit_hash(splitmix64(rock_seed)) * 1.1);
+        let tail_length =
+            radius * (3.2 + streams::ROCK_TAIL.rng(rock_seed, &[]).inclusive_unit_f32() * 1.1);
         let longitudinal = terrain_smoothstep(radius * 0.45, radius * 0.95, downstream)
             * (1.0 - terrain_smoothstep(tail_length * 0.62, tail_length, downstream));
         let tail_width = radius * 0.42 + downstream.max(0.0) * 0.24;
         let lateral = 1.0 - terrain_smoothstep(tail_width * 0.42, tail_width, across);
         let granular = 0.72
             + ground_mask_noise(
-                rock_seed ^ 0x6465_6272_6973_746c,
+                streams::ROCK_DEBRIS.seed(rock_seed, &[]).to_u64(),
                 Vec2::new(downstream / 1.7, across / 0.8),
             ) * 0.28;
         let debris_tail = longitudinal * lateral * granular * 0.034;
@@ -633,9 +653,12 @@ fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
         if radius > 8.0 {
             continue;
         }
-        let tree_seed = splitmix64(
-            seed ^ u64::from(tree.x.to_bits()).rotate_left(23) ^ u64::from(tree.y.to_bits()),
-        );
+        let tree_seed = streams::TREE_ROOTS
+            .seed(
+                seed,
+                &[u64::from(tree.x.to_bits()), u64::from(tree.y.to_bits())],
+            )
+            .to_u64();
         let mound = (-(radius / 1.35).powi(2)).exp() * 0.045;
         let basin = terrain_smoothstep(0.9, 1.8, radius)
             * (1.0 - terrain_smoothstep(5.2, 7.7, radius))
@@ -643,10 +666,10 @@ fn tree_root_relief(seed: u64, point: Vec2, tree_positions: &[Vec2]) -> f32 {
         let angle = offset.y.atan2(offset.x);
         let mut ridges = 0.0_f32;
         for root in 0..7_u64 {
-            let root_seed = splitmix64(tree_seed ^ root.wrapping_mul(TREE_ROOT_SEED_STRIDE));
-            let origin = unit_hash(root_seed) * core::f32::consts::TAU;
-            let phase = unit_hash(splitmix64(root_seed)) * core::f32::consts::TAU;
-            let length = 4.8 + unit_hash(splitmix64(root_seed ^ 0x6c65_6e67)) * 2.9;
+            let mut random = streams::ROOT_SHAPE.rng(tree_seed, &[root]);
+            let origin = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let phase = random.inclusive_unit_f32() * core::f32::consts::TAU;
+            let length = 4.8 + random.inclusive_unit_f32() * 2.9;
             if radius > length || radius < 0.28 {
                 continue;
             }
@@ -710,7 +733,7 @@ fn road_surface_relief(seed: u64, point: Vec2, ground: &SceneGround) -> f32 {
     let crown = (1.0 - (across / half_width).powi(2)).max(0.0) * 0.026;
     let travelled = point.dot(tangent);
     let irregularity = signed_ground_noise(
-        seed ^ 0x726f_6164_5f72_7574,
+        streams::ROAD_RUT.seed(seed, &[]).to_u64(),
         Vec2::new(travelled / 2.4, across / 1.1),
     ) * 0.004;
     (crown - ruts * 0.038 + irregularity).clamp(-0.048, 0.032)
@@ -818,228 +841,6 @@ pub(in crate::presentation) fn terrain_material(
             cliff_arm: procedural_assets.rock.arm.clone(),
         },
     }
-}
-
-const GROUND_PRESENTATION_SAMPLES_PER_CELL: usize = 6;
-
-fn ground_surface_pixel(sample: GroundSurface) -> [u8; 4] {
-    let cover = match sample.cover {
-        GroundCover::Bare => 0,
-        GroundCover::TallGrass => 1,
-        GroundCover::LeafLitter => 2,
-        GroundCover::LooseStone => 3,
-        GroundCover::Reeds => 4,
-    };
-    let substrate = match sample.substrate {
-        GroundSubstrate::Soil => 0,
-        GroundSubstrate::Stone => 1,
-        GroundSubstrate::Gravel => 2,
-        GroundSubstrate::Mud => 3,
-        GroundSubstrate::Road => 4,
-        GroundSubstrate::Water => 5,
-    };
-    [
-        cover,
-        substrate,
-        adventuresim_world_schema::UnitBasisPoints::saturating(sample.cover_density_bps)
-            .scale_u32_floor(255) as u8,
-        sample.cover_height_cm.min(255) as u8,
-    ]
-}
-
-fn chamfer_distance_to(
-    width: usize,
-    height: usize,
-    sources: impl Fn(usize) -> bool,
-    maximum: usize,
-) -> Vec<usize> {
-    let mut distance = (0..width * height)
-        .map(|index| if sources(index) { 0 } else { maximum + 1 })
-        .collect::<Vec<_>>();
-    for z in 0..height {
-        for x in 0..width {
-            let index = z * width + x;
-            for (dx, dz) in [(-1_isize, 0_isize), (0, -1), (-1, -1), (1, -1)] {
-                let nx = x as isize + dx;
-                let nz = z as isize + dz;
-                if nx >= 0 && nz >= 0 && nx < width as isize && nz < height as isize {
-                    distance[index] = distance[index]
-                        .min(distance[nz as usize * width + nx as usize].saturating_add(1));
-                }
-            }
-        }
-    }
-    for z in (0..height).rev() {
-        for x in (0..width).rev() {
-            let index = z * width + x;
-            for (dx, dz) in [(1_isize, 0_isize), (0, 1), (1, 1), (-1, 1)] {
-                let nx = x as isize + dx;
-                let nz = z as isize + dz;
-                if nx >= 0 && nz >= 0 && nx < width as isize && nz < height as isize {
-                    distance[index] = distance[index]
-                        .min(distance[nz as usize * width + nx as usize].saturating_add(1));
-                }
-            }
-        }
-    }
-    distance
-}
-
-fn encode_canopy_floor_distance(
-    ground: &SceneGround,
-    width: usize,
-    height: usize,
-    pixels: &mut [u8],
-) {
-    let metres_per_pixel = ground.grid_scale() / GROUND_PRESENTATION_SAMPLES_PER_CELL as f32;
-    let inner_radius = (2.2 / metres_per_pixel).ceil().max(1.0) as usize;
-    let outer_radius = (4.8 / metres_per_pixel).ceil().max(1.0) as usize;
-    let litter = pixels
-        .as_chunks::<4>()
-        .0
-        .iter()
-        .map(|pixel| pixel[0] == GroundCover::LeafLitter as u8)
-        .collect::<Vec<_>>();
-    let distance_to_litter =
-        chamfer_distance_to(width, height, |index| litter[index], outer_radius);
-    let distance_to_other =
-        chamfer_distance_to(width, height, |index| !litter[index], inner_radius);
-    for index in 0..width * height {
-        let encoded = if litter[index] {
-            let depth = (distance_to_other[index] as f32 / inner_radius as f32).clamp(0.0, 1.0);
-            128.0 + depth * 127.0
-        } else {
-            let proximity =
-                (1.0 - distance_to_litter[index] as f32 / outer_radius as f32).clamp(0.0, 1.0);
-            proximity * 127.0
-        };
-        // Alpha is presentation-only. It carries signed distance from the
-        // organic litter boundary instead of duplicating gameplay cover
-        // height, which remains authoritative in SceneGround.
-        pixels[index * 4 + 3] = encoded.round() as u8;
-    }
-}
-
-fn ground_mask_noise(seed: u64, point: Vec2) -> f32 {
-    let cell = point.floor();
-    let local = point - cell;
-    let curve = local * local * (Vec2::splat(3.0) - local * 2.0);
-    let hash = |offset: Vec2| {
-        let coordinate = cell + offset;
-        let x = i64::from(coordinate.x as i32) as u64;
-        let y = i64::from(coordinate.y as i32) as u64;
-        unit_hash(splitmix64(
-            seed ^ x.wrapping_mul(TERRAIN_NOISE_X_STRIDE) ^ y.wrapping_mul(TERRAIN_NOISE_Y_STRIDE),
-        ))
-    };
-    let bottom = hash(Vec2::ZERO).lerp(hash(Vec2::X), curve.x);
-    let top = hash(Vec2::Y).lerp(hash(Vec2::ONE), curve.x);
-    bottom.lerp(top, curve.y)
-}
-
-pub(super) fn organic_ground_pixels(ground: &SceneGround, seed: u64) -> (u32, u32, Vec<u8>) {
-    let source_width = ground.grid_width();
-    let source_depth = ground.grid_depth();
-    let width = (source_width - 1) * GROUND_PRESENTATION_SAMPLES_PER_CELL + 1;
-    let depth = (source_depth - 1) * GROUND_PRESENTATION_SAMPLES_PER_CELL + 1;
-    let mut pixels = Vec::with_capacity(width * depth * 4);
-    let scale = GROUND_PRESENTATION_SAMPLES_PER_CELL as f32;
-    for z in 0..depth {
-        for x in 0..width {
-            let point = Vec2::new(x as f32 / scale, z as f32 / scale);
-            let broad_point = point * 0.38;
-            let fine_point = point * 0.93;
-            let broad_warp = Vec2::new(
-                ground_mask_noise(seed ^ 0x2f31_9a87, broad_point),
-                ground_mask_noise(seed ^ 0x91b7_43cd, broad_point + Vec2::new(17.3, -9.1)),
-            ) * 2.0
-                - Vec2::ONE;
-            let fine_warp = Vec2::new(
-                ground_mask_noise(seed ^ 0x6d25_e9f1, fine_point + Vec2::new(31.7, 5.9)),
-                ground_mask_noise(seed ^ 0xc4ab_1283, fine_point + Vec2::new(-7.7, 23.1)),
-            ) * 2.0
-                - Vec2::ONE;
-            let warped = point + broad_warp * 0.78 + fine_warp * 0.22;
-            let source_x = (warped.x.round() as isize).clamp(0, source_width as isize - 1) as usize;
-            let source_z = (warped.y.round() as isize).clamp(0, source_depth as isize - 1) as usize;
-            pixels.extend_from_slice(&ground_surface_pixel(
-                ground.samples()[source_z * source_width + source_x],
-            ));
-        }
-    }
-    encode_canopy_floor_distance(ground, width, depth, &mut pixels);
-    (width as u32, depth as u32, pixels)
-}
-
-pub(super) fn grass_cover_mask_pixels(ground: &SceneGround, seed: u64) -> (u32, u32, Vec<u8>) {
-    let (width, height, ground_pixels) = organic_ground_pixels(ground, seed);
-    let mut mask = vec![0_u8; width as usize * height as usize];
-    let metres_per_pixel = ground.grid_scale() / GROUND_PRESENTATION_SAMPLES_PER_CELL as f32;
-    let radius = (4.8 / metres_per_pixel).ceil().max(1.0) as usize;
-    let width_usize = width as usize;
-    let height_usize = height as usize;
-    // The playable rectangle is a data-authority boundary, not a vegetation
-    // boundary. Only authored non-grass pixels seed this distance field.
-    let distance = chamfer_distance_to(
-        width_usize,
-        height_usize,
-        |index| ground_pixels[index * 4] != GroundCover::TallGrass as u8,
-        radius,
-    );
-    for z in 0..height as usize {
-        for x in 0..width as usize {
-            let pixel = (z * width as usize + x) * 4;
-            if ground_pixels[pixel] != GroundCover::TallGrass as u8 {
-                continue;
-            }
-            let density = ground_pixels[pixel + 2];
-            let feather = (distance[z * width_usize + x] as f32 / radius as f32)
-                .clamp(0.0, 1.0)
-                .powf(1.28);
-            mask[z * width as usize + x] = (f32::from(density) * feather) as u8;
-        }
-    }
-    (width, height, mask)
-}
-
-pub(super) fn grass_cover_mask_image(ground: &SceneGround, seed: u64) -> Image {
-    let (width, height, mask) = grass_cover_mask_pixels(ground, seed);
-    let mut image = Image::new(
-        Extent3d {
-            width,
-            height,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        mask,
-        TextureFormat::R8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    image.sampler = ImageSampler::linear();
-    image
-}
-
-fn ground_map_image(ground: Option<&SceneGround>, seed: u64) -> Image {
-    let (width, height, pixels) = ground.map_or_else(
-        || (1, 1, vec![0, 0, 0, 0]),
-        |ground| organic_ground_pixels(ground, seed),
-    );
-    let mut image = Image::new(
-        Extent3d {
-            width,
-            height,
-            depth_or_array_layers: 1,
-        },
-        TextureDimension::D2,
-        pixels,
-        TextureFormat::Rgba8Unorm,
-        RenderAssetUsages::RENDER_WORLD,
-    );
-    // The shader rounds the interpolated enum channel back to one exact cover
-    // kind before selecting a material. Linear filtering therefore smooths
-    // the baked contour itself without producing a visible colour gradient.
-    image.sampler = ImageSampler::linear();
-    image
 }
 
 pub(super) fn on_environment_added(event: On<Add, SceneEnvironment>, mut commands: Commands) {
@@ -1689,10 +1490,10 @@ mod tests {
             }
         }
         let ground = SceneGround::from_samples(17, 17, 2.0, samples).unwrap();
-        let image = grass_cover_mask_image(&ground, 91);
-        let repeated = grass_cover_mask_image(&ground, 91);
-        let values = image.data.as_deref().unwrap();
-        assert_eq!(image.data, repeated.data);
+        let (_, _, values) = grass_cover_mask_pixels(&ground, 91);
+        let (_, _, repeated) = grass_cover_mask_pixels(&ground, 91);
+        assert_eq!(values, repeated);
+        let values = values.as_slice();
         assert!(values.contains(&0), "non-grass must reject every blade");
         assert!(
             values.iter().copied().max().unwrap_or_default() > 200,

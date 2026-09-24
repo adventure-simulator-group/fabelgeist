@@ -642,7 +642,7 @@ async fn navigation(State(state): State<AppState>, session: Session) -> Json<Nav
         {
             return Json(NavigationState {
                 kind: Some("camp"),
-                path: "/camp".into(),
+                path: crate::location_urls::patterns::CAMP.pattern().into(),
                 id: None,
             });
         }
@@ -658,14 +658,14 @@ async fn navigation(State(state): State<AppState>, session: Session) -> Json<Nav
         if let Some(id) = current_case_site_id {
             return Json(NavigationState {
                 kind: Some("case_site"),
-                path: format!("/locations/case-site/{id}"),
+                path: crate::location_urls::LocationKind::CaseSite.path(&id),
                 id: Some(id),
             });
         }
         if let Some(id) = character.current_settlement_id {
             return Json(NavigationState {
                 kind: Some("settlement"),
-                path: format!("/locations/settlement/{id}"),
+                path: crate::location_urls::LocationKind::Settlement.path(&id),
                 id: Some(id),
             });
         }
@@ -730,7 +730,7 @@ mod tests {
     fn live_navigation_uses_the_canonical_case_site_contract() {
         let source = include_str!("live.rs");
         assert!(source.contains("kind: Some(\"case_site\")"));
-        assert!(source.contains("path: format!(\"/locations/case-site/{id}\")"));
+        assert!(source.contains("LocationKind::CaseSite.path"));
         assert!(!source.contains("kind: Some(\"quest\")"));
     }
 

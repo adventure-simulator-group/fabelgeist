@@ -21,6 +21,8 @@ pub enum GenerateError {
     EmptySelection,
     #[error("generated bracer geometry is degenerate")]
     Degenerate,
+    #[error("{0} is not built on the device yet")]
+    NotOnDevice(&'static str),
     #[error("armor GPU: {0}")]
     Gpu(std::sync::Arc<str>),
 }

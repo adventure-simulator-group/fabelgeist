@@ -13,6 +13,16 @@ pub(super) enum TreeLightingModeId {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(super) enum CapturePose {
+    PlantLod {
+        distance: f32,
+    },
+    Fungus {
+        distance: f32,
+        species: adventuresim_plant_generator::fungus::FungusSpecies,
+    },
+    Plant {
+        distance: f32,
+    },
     Ground,
     AnimationPlay {
         yaw_degrees: f32,
@@ -106,6 +116,7 @@ pub(super) struct CaptureViewSpec {
     pub minimum_foreground_bps: u16,
     pub lighting_mode: TreeLightingModeId,
     pub render_lod_override: Option<u8>,
+    pub building_lod_override: Option<super::building_review::ReviewLod>,
     pub validated_forced_lod: Option<u8>,
     pub leaf_lod_override: Option<TreeLeafRepresentation>,
     pub projected_scale: Option<f32>,
@@ -128,6 +139,11 @@ pub(super) struct CaptureViewSpec {
 }
 
 impl CaptureViewSpec {
+    pub const fn building_lod(mut self, level: super::building_review::ReviewLod) -> Self {
+        self.building_lod_override = Some(level);
+        self
+    }
+
     pub const fn new(
         slug: &'static str,
         label: &'static str,
@@ -143,6 +159,7 @@ impl CaptureViewSpec {
             minimum_foreground_bps,
             lighting_mode: TreeLightingModeId::Combined,
             render_lod_override: None,
+            building_lod_override: None,
             validated_forced_lod: None,
             leaf_lod_override: None,
             projected_scale: None,
@@ -657,12 +674,28 @@ pub(super) const CAPTURE_VIEWS: [CaptureViewSpec; 40] = [
 ];
 
 mod environment;
+mod plants;
+pub(super) use plants::PLANT_REVIEW_VIEWS;
+mod plant_lods;
+pub(super) use plant_lods::{PLANT_LOD_ISOLATED_VIEWS, PLANT_LOD_REVIEW_VIEWS};
+mod fungi;
+pub(super) use fungi::FUNGUS_REVIEW_VIEWS;
 mod landform;
 pub(super) use environment::ENVIRONMENT_REVIEW_VIEWS;
 pub(super) use landform::LANDFORM_REVIEW_VIEWS;
 mod building_review;
 mod parish;
 pub(super) use parish::PARISH_REVIEW_VIEWS;
+mod gable;
+mod heating;
+pub(super) use gable::GABLE_REVIEW_VIEWS;
+pub(super) use heating::HEATING_REVIEW_VIEWS;
+mod facade;
+pub(super) use facade::FACADE_REVIEW_VIEWS;
+mod compound;
+pub(super) use compound::COMPOUND_REVIEW_VIEWS;
+mod garden;
+pub(super) use garden::GARDEN_REVIEW_VIEWS;
 mod city;
 mod furniture;
 pub(super) use building_review::{SHOP_REVIEW_VIEWS, WORKPLACE_REVIEW_VIEWS};

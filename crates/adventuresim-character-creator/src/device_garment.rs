@@ -206,6 +206,9 @@ impl DeviceWearer<'_> {
         design: &GarmentArmorDesign,
         placement: &str,
     ) -> Result<DeviceRecording> {
+        if let Some(option) = design.device_unsupported() {
+            return Err(fabelgeist_armor::GenerateError::NotOnDevice(option).into());
+        }
         self.compile_garment_kernels(design, placement)?;
         self.record_garment(batch, design, placement)
     }

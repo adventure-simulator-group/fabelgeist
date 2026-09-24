@@ -4,7 +4,8 @@ use serde::{Deserialize, Serialize};
 
 pub const BODY_PROPORTION_COUNT: usize = 9;
 const GENERATED_RANGE_FRACTION: f32 = 0.35;
-const SKELETAL_SEED_DOMAIN: u64 = 0x534b_454c_4554_414c;
+const SKELETAL_SEED_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("character.skeleton");
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum BodyProportion {
@@ -104,7 +105,7 @@ impl CharacterProportions {
 
     /// Stable cosmetic variation; does not alter tactical physics or reach.
     pub fn from_character_id(id: u64) -> Self {
-        let mut random = fabelgeist_determinism::SplitMix64::new(id ^ SKELETAL_SEED_DOMAIN);
+        let mut random = SKELETAL_SEED_DOMAIN.rng(id, &[]);
         Self(std::array::from_fn(|index| {
             let unit = fabelgeist_determinism::inclusive_unit_f32(random.next_u64());
             (unit * 2.0 - 1.0) * BodyProportion::ALL[index].limit() * GENERATED_RANGE_FRACTION

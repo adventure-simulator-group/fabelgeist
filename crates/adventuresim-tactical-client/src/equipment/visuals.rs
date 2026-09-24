@@ -20,5 +20,15 @@ impl Plugin for EquipmentVisualPlugin {
                 )
                     .chain(),
             );
+        // Runtime equipment is fitted on the armor device, which the web
+        // build lacks.
+        #[cfg(not(target_family = "wasm"))]
+        app.init_resource::<RuntimeEquipmentBodyCache>()
+            .add_systems(
+                Update,
+                generate_runtime_equipment_models
+                    .after(spawn_item_placeholders)
+                    .before(request_procedural_equipment_models),
+            );
     }
 }

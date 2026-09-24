@@ -1,3 +1,4 @@
+use crate::solid_overlap::overlaps_bounds as resolved_solid_overlaps_bounds;
 use std::collections::{BTreeMap, BTreeSet, VecDeque};
 
 use bevy::math::{Quat, Vec2, Vec3};
@@ -16,13 +17,24 @@ use crate::{
 include!("audit/core.rs");
 include!("audit/vertical_circulation.rs");
 include!("audit/artillery.rs");
+mod artillery_clearance;
+mod bell_hanging;
+mod bell_swing;
+#[cfg(test)]
+mod spatial_tests;
 include!("audit/timber_geometry.rs");
 include!("audit/timber.rs");
 include!("audit/church.rs");
 include!("audit/roofs.rs");
 #[path = "audit/bearing.rs"]
 mod bearing;
+pub(crate) mod enclosure;
+mod enclosure_geometry;
+mod enclosure_sections;
+mod gable_enclosure;
+mod gable_openings;
 mod junction_bearing;
+mod shed_dormers;
 #[path = "audit/support.rs"]
 mod support;
 mod timber_bracing;

@@ -4,17 +4,12 @@
 //! retries cannot change which journey/seed encounters a party. Mount support
 //! is intentionally represented as a speed input; absent mounts are neutral.
 
+mod receipt;
 use crate::bestiary::{ActivityTime, Habitat, ThreatId, select_habitat_relation};
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::{DeterministicRng, StreamId};
+pub use receipt::{opaque_strategic_encounter_id, strategic_encounter_retry_matches};
 use serde::{Deserialize, Serialize};
-
-const ENCOUNTER_ID_HIGH_DOMAIN: u64 = 0x656e_636f_756e_7465;
-const ENCOUNTER_ID_LOW_DOMAIN: u64 = 0x7265_6365_6970_7473;
-const ENCOUNTER_ROLL_INDEX_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-const ENCOUNTER_ROLL_DOMAIN_STRIDE: u64 = 0xd6e8_feb8_6659_fd93;
-const NARRATIVE_CHANCE_DOMAIN_BASE: u64 = 100;
-const NARRATIVE_SELECTION_DOMAIN_BASE: u64 = 110;
 
 pub const ENCOUNTER_ROLL_INTERVAL_MINUTES: u64 = 180;
 pub const BASE_ENCOUNTER_BASIS_POINTS: u32 = 180;
@@ -32,35 +27,6 @@ pub const NARRATIVE_TRAVEL_INTERVAL_MINUTES: u64 = 240;
 pub const NARRATIVE_REST_INTERVAL_MINUTES: u64 = 180;
 pub const NARRATIVE_TRAVEL_CHANCE_BPS: u16 = 900;
 pub const NARRATIVE_REST_CHANCE_BPS: u16 = 1_200;
-
-/// Observer-safe, deterministic identity for a strategic encounter. The two
-/// independently domain-separated words retain no readable journey shape and
-/// provide 128 bits for durable action-receipt identity.
-pub fn opaque_strategic_encounter_id(seed: u64, roll_index: u64) -> String {
-    let high = mix64(seed ^ roll_index.rotate_left(17) ^ ENCOUNTER_ID_HIGH_DOMAIN);
-    let low = mix64(seed.rotate_left(31) ^ roll_index ^ ENCOUNTER_ID_LOW_DOMAIN);
-    format!("enc:{high:016x}{low:016x}")
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "retry validation compares every supplied receipt field explicitly"
-)]
-pub fn strategic_encounter_retry_matches(
-    receipt_encounter_id: &str,
-    receipt_character_id: u64,
-    receipt_choice: &str,
-    receipt_expected_revision: u32,
-    encounter_id: &str,
-    character_id: u64,
-    choice: &str,
-    expected_revision: u32,
-) -> bool {
-    receipt_encounter_id == encounter_id
-        && receipt_character_id == character_id
-        && receipt_choice == choice
-        && receipt_expected_revision == expected_revision
-}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum EncounterTerrain {
@@ -284,7 +250,8 @@ fn select_at_with_problem(
         + if context.night { 90 } else { 0 }
         + quest_frequency_bonus as u32
         + problem.map_or(0, |value| u32::from(value.frequency_bonus_basis_points));
-    if domain_roll(seed, index, EncounterRollDomain::Frequency) % u64::from(BASIS_POINTS_PER_WHOLE)
+    if domain_random(seed, index, EncounterRollDomain::Frequency)
+        .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64
         >= u64::from(frequency)
     {
         return None;
@@ -329,15 +296,17 @@ fn select_at_with_problem(
         }
     }
     let archetype = select_archetype_from_weights(
-        domain_roll(seed, index, EncounterRollDomain::Archetype),
+        domain_random(seed, index, EncounterRollDomain::Archetype),
         weights,
     )?;
     let count = scale_enemy_count(
         enemy_count(seed, index, context.combat_capable_members),
         archetype,
     );
-    let party_roll = (domain_roll(seed, index, EncounterRollDomain::PartyAwareness) % 1000) as u16;
-    let enemy_roll = (domain_roll(seed, index, EncounterRollDomain::EnemyAwareness) % 1000) as u16;
+    let party_roll =
+        domain_random(seed, index, EncounterRollDomain::PartyAwareness).index(1000) as u16;
+    let enemy_roll =
+        domain_random(seed, index, EncounterRollDomain::EnemyAwareness).index(1000) as u16;
     let awareness = awareness_from_rolls(
         party_roll,
         enemy_roll,
@@ -359,19 +328,23 @@ fn select_at_with_problem(
     })
 }
 
-fn select_archetype_from_weights(roll: u64, weights: [u32; 3]) -> Option<EncounterArchetype> {
-    let total = weights.iter().copied().fold(0_u32, u32::saturating_add);
-    if total == 0 {
+fn select_archetype_from_weights(
+    mut random: DeterministicRng,
+    weights: [u32; 3],
+) -> Option<EncounterArchetype> {
+    if weights == [0; 3] {
         return None;
     }
-    let pick = roll % u64::from(total);
-    Some(if pick < u64::from(weights[0]) {
-        EncounterArchetype::Bandits
-    } else if pick < u64::from(weights[0] + weights[1]) {
-        EncounterArchetype::Goblins
-    } else {
-        EncounterArchetype::Undead
-    })
+    let index = random
+        .weighted_index(&weights.map(u64::from))
+        .expect("three u32 weights fit in u64");
+    Some(
+        [
+            EncounterArchetype::Bandits,
+            EncounterArchetype::Goblins,
+            EncounterArchetype::Undead,
+        ][index],
+    )
 }
 
 fn encounter_weight(id: ThreatId, habitat: Habitat, night: bool) -> u32 {
@@ -396,7 +369,8 @@ pub fn enemy_count(seed: u64, index: u64, combat_capable_members: u16) -> u16 {
     let capable = combat_capable_members.max(1);
     let spread = (capable / 2).max(1);
     capable.saturating_add(
-        (domain_roll(seed, index, EncounterRollDomain::EnemyCount) % u64::from(spread + 1)) as u16,
+        domain_random(seed, index, EncounterRollDomain::EnemyCount).index(usize::from(spread + 1))
+            as u16,
     )
 }
 
@@ -437,8 +411,9 @@ pub fn sneak_succeeds(
     party_stealth: u16,
     enemy_awareness: u16,
 ) -> bool {
-    (domain_roll(seed, roll_index, EncounterRollDomain::PartySneak) % 1000) as u16 + party_stealth
-        > (domain_roll(seed, roll_index, EncounterRollDomain::EnemySneak) % 1000) as u16
+    (domain_random(seed, roll_index, EncounterRollDomain::PartySneak).index(1000) as u16)
+        + party_stealth
+        > (domain_random(seed, roll_index, EncounterRollDomain::EnemySneak).index(1000) as u16)
             + enemy_awareness
 }
 
@@ -456,37 +431,31 @@ enum EncounterRollDomain {
 }
 
 impl EncounterRollDomain {
-    const fn code(self) -> u64 {
-        match self {
-            Self::Frequency => 0,
-            Self::Archetype => 1,
-            Self::EnemyCount => 2,
-            Self::PartyAwareness => 3,
-            Self::EnemyAwareness => 4,
-            Self::PartySneak => 5,
-            Self::EnemySneak => 6,
-            Self::NarrativeChance(kind) => {
-                NARRATIVE_CHANCE_DOMAIN_BASE + narrative_boundary_offset(kind)
+    const fn stream(self) -> StreamId {
+        StreamId::new(match self {
+            Self::Frequency => "encounter.frequency",
+            Self::Archetype => "encounter.archetype",
+            Self::EnemyCount => "encounter.enemy-count",
+            Self::PartyAwareness => "encounter.party-awareness",
+            Self::EnemyAwareness => "encounter.enemy-awareness",
+            Self::PartySneak => "encounter.party-sneak",
+            Self::EnemySneak => "encounter.enemy-sneak",
+            Self::NarrativeChance(NarrativeBoundaryKind::Travel) => {
+                "encounter.narrative-travel-chance"
             }
-            Self::NarrativeSelection(kind) => {
-                NARRATIVE_SELECTION_DOMAIN_BASE + narrative_boundary_offset(kind)
+            Self::NarrativeChance(NarrativeBoundaryKind::Rest) => "encounter.narrative-rest-chance",
+            Self::NarrativeSelection(NarrativeBoundaryKind::Travel) => {
+                "encounter.narrative-travel-selection"
             }
-        }
+            Self::NarrativeSelection(NarrativeBoundaryKind::Rest) => {
+                "encounter.narrative-rest-selection"
+            }
+        })
     }
 }
 
-const fn narrative_boundary_offset(kind: NarrativeBoundaryKind) -> u64 {
-    match kind {
-        NarrativeBoundaryKind::Travel => 0,
-        NarrativeBoundaryKind::Rest => 1,
-    }
-}
-
-fn domain_roll(seed: u64, index: u64, domain: EncounterRollDomain) -> u64 {
-    mix64(
-        seed ^ index.wrapping_mul(ENCOUNTER_ROLL_INDEX_STRIDE)
-            ^ domain.code().wrapping_mul(ENCOUNTER_ROLL_DOMAIN_STRIDE),
-    )
+fn domain_random(seed: u64, index: u64, domain: EncounterRollDomain) -> DeterministicRng {
+    domain.stream().rng(seed, &[index])
 }
 
 /// Durable context for a goal-neutral narrative interruption roll. This uses
@@ -550,45 +519,46 @@ pub fn narrative_selection_at(
         NarrativeBoundaryKind::Travel => NARRATIVE_TRAVEL_CHANCE_BPS,
         NarrativeBoundaryKind::Rest => NARRATIVE_REST_CHANCE_BPS,
     };
-    if domain_roll(
+    if domain_random(
         seed,
         index,
         EncounterRollDomain::NarrativeChance(context.kind),
-    ) % u64::from(BASIS_POINTS_PER_WHOLE)
+    )
+    .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u64
         >= u64::from(chance)
     {
         return None;
     }
-    let candidates: Vec<_> = crate::road_encounter_catalog::definitions()
+    let mut candidates: Vec<_> = crate::road_encounter_catalog::definitions()
         .iter()
-        .filter(|definition| match context.kind {
-            NarrativeBoundaryKind::Travel => definition.triggers.travel,
-            NarrativeBoundaryKind::Rest => definition.triggers.rest,
+        .filter(|definition| {
+            definition.weight > 0
+                && match context.kind {
+                    NarrativeBoundaryKind::Travel => definition.triggers.travel,
+                    NarrativeBoundaryKind::Rest => definition.triggers.rest,
+                }
         })
         .collect();
-    let total = candidates
-        .iter()
-        .map(|definition| u64::from(definition.weight))
-        .sum::<u64>();
-    if total == 0 {
+    candidates.sort_by_key(|definition| definition.id.as_str());
+    if candidates.is_empty() {
         return None;
     }
-    let mut pick = domain_roll(
+    let weights: Vec<_> = candidates
+        .iter()
+        .map(|definition| u64::from(definition.weight))
+        .collect();
+    let selected = domain_random(
         seed,
         index,
         EncounterRollDomain::NarrativeSelection(context.kind),
-    ) % total;
-    for definition in candidates {
-        if pick < u64::from(definition.weight) {
-            return Some(NarrativeSelection {
-                boundary_minute,
-                roll_index: index,
-                catalog_id: definition.id.clone(),
-            });
-        }
-        pick -= u64::from(definition.weight);
-    }
-    None
+    )
+    .weighted_index(&weights)
+    .expect("validated bounded encounter catalog weights");
+    Some(NarrativeSelection {
+        boundary_minute,
+        roll_index: index,
+        catalog_id: candidates[selected].id.clone(),
+    })
 }
 
 #[cfg(test)]
@@ -924,7 +894,13 @@ mod tests {
             .sum::<u32>();
         // Skeletons need a causal bridge here, which random encounter selection cannot supply.
         assert_eq!(occupied_total, 0);
-        assert_eq!(select_archetype_from_weights(7, [0, 0, 0]), None);
+        assert_eq!(
+            select_archetype_from_weights(
+                fabelgeist_determinism::Seed::from_u64(7).rng(),
+                [0, 0, 0]
+            ),
+            None
+        );
         let road_with_undead_quest = EncounterContext {
             accepted_active_quest: Some(AcceptedQuestInfluence {
                 archetype: EncounterArchetype::Undead,

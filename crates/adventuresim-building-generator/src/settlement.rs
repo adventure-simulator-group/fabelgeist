@@ -1,12 +1,12 @@
 //! Occupied building uses reuse structural families, with purpose-specific room programmes.
 use crate::{BuildingArchetype, BuildingProgram, RoomKind};
 use adventuresim_world_schema::settlement_buildings::BuildingUse;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 const ROOF_VARIATION_DEGREES: f32 = 4.0;
 const STOREY_VARIATION_METRES: f32 = 0.15;
 const VALID_RECIPE_ATTEMPTS: u8 = 64;
-const RECIPE_VARIATION_DOMAIN: u64 = 0x7661_7269_6174_696f;
+const RECIPE_ATTEMPT: StreamId = StreamId::new("building.recipe-attempt");
 
 mod size;
 pub use size::ServiceBuildingSize;
@@ -47,13 +47,22 @@ impl BuildingProgram {
             let seed = if attempt == 0 {
                 initial_seed
             } else {
-                mix64(initial_seed ^ u64::from(attempt))
+                RECIPE_ATTEMPT
+                    .seed(initial_seed, &[u64::from(attempt)])
+                    .to_u64()
             };
             let mut program = Self::settlement(archetype, Some(usage), seed);
             if let Some(size) = size {
                 program = program.with_service_size(size);
             }
-            match crate::generate(&program) {
+            let generated = crate::generate(&program).and_then(|plan| {
+                if plan.domestic_heating.is_some() {
+                    crate::interior::validate_circulation(&plan)
+                        .map_err(crate::GenerationError::BlockedDomesticCirculation)?;
+                }
+                Ok(plan)
+            });
+            match generated {
                 Ok(_) => return Ok(program),
                 Err(error) => {
                     first_error.get_or_insert(error);
@@ -72,6 +81,14 @@ impl BuildingProgram {
         if let Some(usage) = usage {
             program.assign_use(usage);
         }
+        if usage == Some(BuildingUse::Dwelling)
+            && matches!(
+                archetype,
+                BuildingArchetype::TownHouse | BuildingArchetype::FachwerkMerchantHouse
+            )
+        {
+            program.domestic_heating = Some(crate::DomesticHeatingProgramme::HearthAndRearFedStove);
+        }
         if matches!(
             archetype,
             BuildingArchetype::TownHouse
@@ -81,9 +98,12 @@ impl BuildingProgram {
                 | BuildingArchetype::RenaissanceTownHall
                 | BuildingArchetype::ParishChurch
         ) {
-            let sample = mix64(seed ^ RECIPE_VARIATION_DOMAIN);
-            let roof = (sample as u16 as f32 / u16::MAX as f32) * 2.0 - 1.0;
-            let height = ((sample >> 16) as u16 as f32 / u16::MAX as f32) * 2.0 - 1.0;
+            let roof = StreamId::new("building.roof-pitch")
+                .rng(seed, &[])
+                .range_f32(-1.0, 1.0);
+            let height = StreamId::new("building.storey-height")
+                .rng(seed, &[])
+                .range_f32(-1.0, 1.0);
             // Half-hip gable framing needs the curated minimum pitch to clear
             // the opening heads below it. Vary those roofs upward from that seat.
             let roof = if matches!(
@@ -113,6 +133,9 @@ impl BuildingProgram {
 
     fn assign_use(&mut self, usage: BuildingUse) {
         use BuildingUse::*;
+        if usage != Dwelling {
+            self.domestic_heating = None;
+        }
         let (main, secondary) = match usage {
             MarketHall => (RoomKind::GreatHall, RoomKind::Storage),
             Stable => (RoomKind::Stalls, RoomKind::Storage),
@@ -188,7 +211,7 @@ mod tests {
                 let seed = if attempt == 0 {
                     42
                 } else {
-                    mix64(42 ^ attempt)
+                    RECIPE_ATTEMPT.seed(42, &[attempt]).to_u64()
                 };
                 let program = BuildingProgram::settlement(archetype, Some(usage), seed);
                 match generate(&program) {

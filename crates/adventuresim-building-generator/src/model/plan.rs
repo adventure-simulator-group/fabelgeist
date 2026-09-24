@@ -4,6 +4,7 @@ use super::*;
 pub struct BuildingPlan {
     pub archetype: BuildingArchetype,
     pub workplace: Option<crate::WorkplacePlan>,
+    pub domestic_heating: Option<crate::DomesticHeatingPlan>,
     pub seed: u64,
     pub footprint: Footprint,
     pub storey_height_metres: f32,

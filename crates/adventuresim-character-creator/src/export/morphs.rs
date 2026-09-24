@@ -134,6 +134,7 @@ mod tests {
         };
         let mut shell = RiggedShell {
             surface: None,
+            plate_edges: &[],
             textures: None,
             texcoords: None,
             hinge: None,

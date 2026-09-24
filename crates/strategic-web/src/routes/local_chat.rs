@@ -499,7 +499,7 @@ mod tests {
             visible_features: String::new(),
             clothing: String::new(),
             profession: String::new(),
-            household: String::new(),
+            household_kind: String::new(),
             local_role: String::new(),
             service_id: "inn".into(),
             organization_id: String::new(),

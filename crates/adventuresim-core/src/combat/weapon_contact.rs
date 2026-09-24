@@ -13,59 +13,58 @@ impl WeaponContactParameters {
         self,
         design: &adventuresim_weapon_model::WeaponDesign,
     ) -> ContactPrecision {
-        use adventuresim_weapon_model::{ComponentRole, ComponentShape};
-        let point = |width: adventuresim_weapon_model::Millimeters,
-                     depth: adventuresim_weapon_model::Millimeters| {
-            self.point_reference_area_mm2 / ((width.0 as f32).powi(2) + (depth.0 as f32).powi(2))
+        use adventuresim_weapon_model::{
+            ComponentRole,
+            recipe::{Metres, Shape},
+        };
+        let mm = |value: Metres| (value.get() * 1000.0) as f32;
+        let point = |width: Metres, depth: Metres| {
+            self.point_reference_area_mm2 / (mm(width).powi(2) + mm(depth).powi(2))
         };
         let mut precision: f32 = 0.0;
-        for component in &design.components {
-            if component.role != ComponentRole::Head {
+        for component in &design.recipe.components {
+            if component.role != Some(ComponentRole::Head) {
                 continue;
             }
             let candidate = match &component.shape {
-                ComponentShape::Blade(value) => point(value.width, value.thickness),
-                ComponentShape::Spear(value) => point(value.width, value.thickness),
-                ComponentShape::Partisan(value) => point(value.width, value.thickness),
-                ComponentShape::Glaive(value) => point(value.width, value.thickness),
-                ComponentShape::Bill(value) => point(value.width, value.thickness),
-                ComponentShape::Fork(value) => point(value.tine_width, value.thickness),
-                ComponentShape::CurvedBeak(value) => point(value.root_section, value.thickness),
-                ComponentShape::FacetedBeak(value) => point(value.root, value.thickness),
-                ComponentShape::Axe(value) => {
-                    self.edge_reference_area_mm2
-                        / (value.height.0 as f32 * value.thickness.0 as f32)
+                Shape::LoftedBlade(p) => point(p.width, p.thickness),
+                Shape::Blade(p) => point(p.width, p.thickness),
+                Shape::SectionBlade(p) => point(p.width, p.thickness),
+                Shape::DiamondBlade(p) => point(p.width, p.thickness),
+                Shape::Spear(p) => point(p.width, p.thickness),
+                Shape::Partisan(p) => point(p.width, p.thickness),
+                Shape::Glaive(p) => point(p.width, p.thickness),
+                Shape::Bill(p) => point(p.width, p.thickness),
+                Shape::Fork(p) => point(p.working_tine_width(), p.thickness),
+                Shape::Beak(p) => point(p.working_root(), p.working_thickness()),
+                Shape::Pick(p) => point(p.working_diameter(), p.working_diameter()),
+                Shape::FacetedBeak(p) => point(p.root, p.thickness),
+                Shape::Axe(p) => self.edge_reference_area_mm2 / (mm(p.height) * mm(p.thickness)),
+                Shape::Mace(p) => {
+                    self.broad_reference_area_mm2 / (mm(p.length) * 2.0 * mm(p.cusp_radius))
                 }
-                ComponentShape::Mace(value) => {
+                Shape::Hammer(p) => {
                     self.broad_reference_area_mm2
-                        / (value.length.0 as f32 * 2.0 * value.cusp_radius.0 as f32)
+                        / (mm(p.face) * mm(p.face_thickness.unwrap_or(p.thickness)))
                 }
-                ComponentShape::GothicMace(value) => {
-                    self.broad_reference_area_mm2
-                        / (value.length.0 as f32 * 2.0 * value.cusp_radius.0 as f32)
-                }
-                ComponentShape::HammerPoll(value) => {
-                    self.broad_reference_area_mm2
-                        / (value.face.0 as f32 * value.face_thickness.0 as f32)
-                }
-                ComponentShape::Cylinder(value) => {
-                    self.broad_reference_area_mm2
-                        / (value.length.0 as f32 * 2.0 * value.radius.0 as f32)
+                Shape::Shaft(p) => {
+                    self.broad_reference_area_mm2 / (mm(p.length) * 2.0 * mm(p.radius))
                 }
                 _ => continue,
             };
             precision = precision.max(candidate);
         }
-        // A bare staff has no separate head; its shaft is its broad contact.
         if precision == 0.0 {
-            for component in &design.components {
+            if let Some(p) = &design.recipe.shaft {
+                precision = self.broad_reference_area_mm2 / (mm(p.length) * 2.0 * mm(p.radius));
+            }
+            for component in &design.recipe.components {
                 if matches!(
                     component.role,
-                    ComponentRole::Structure | ComponentRole::Grip
-                ) && let ComponentShape::Cylinder(value) = &component.shape
+                    Some(ComponentRole::Structure | ComponentRole::Grip)
+                ) && let Shape::Shaft(p) = &component.shape
                 {
-                    let diameter = 2.0 * value.radius.0 as f32;
-                    precision = self.broad_reference_area_mm2 / (value.length.0 as f32 * diameter);
+                    precision = self.broad_reference_area_mm2 / (mm(p.length) * 2.0 * mm(p.radius));
                     break;
                 }
             }

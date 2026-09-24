@@ -1,11 +1,11 @@
-use fabelgeist_determinism::SplitMix64;
 use serde::{Deserialize, Serialize};
 
 use crate::shuffle;
 
-const RESOURCE_ALLOCATION_GENERATION_DOMAIN: u64 = 0x7265_736f_7572_6365;
+const RESOURCE_ALLOCATION_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("puzzle.resource_allocation");
 
-pub const RESOURCE_ALLOCATION_RULES_VERSION: u16 = 1;
+pub const RESOURCE_ALLOCATION_RULES_VERSION: u16 = 2;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub enum JourneyHazard {
@@ -190,7 +190,7 @@ impl ResourceAllocationPuzzle {
         spec: ResourceAllocationSpec,
     ) -> Result<Self, &'static str> {
         let spec = spec.validate()?;
-        let mut rng = SplitMix64::new(seed ^ RESOURCE_ALLOCATION_GENERATION_DOMAIN);
+        let mut rng = RESOURCE_ALLOCATION_GENERATION_DOMAIN.rng(seed, &[]);
         for _ in 0..512 {
             let mut provisions = ProvisionId::ALL.to_vec();
             let mut hazards = JourneyHazard::ALL.to_vec();

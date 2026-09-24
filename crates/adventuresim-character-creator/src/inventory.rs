@@ -112,7 +112,7 @@ impl CatalogArticle {
 
     /// The shape this article is built from, if its item is parametric.
     pub fn design(&self, catalog: &ItemCatalog) -> Result<Option<ItemDesign>, EquipConflict> {
-        let default = catalog.design(&self.item_id);
+        let default = catalog.placed_design(&self.item_id, &self.placement_id);
         match (&self.design, default) {
             (None, default) => Ok(default),
             (Some(own), Some(default)) if default.same_family(own) => Ok(Some(own.clone())),

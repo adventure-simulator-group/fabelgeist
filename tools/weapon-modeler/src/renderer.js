@@ -17,8 +17,8 @@ export function projectedFit(positions, bounds, aspect, yaw = 0, pitch = 0, vert
     const relative = [positions[index] - center[0], positions[index + 1] - center[1], positions[index + 2] - center[2]];
     projected.push([relative[0] * right[0] + relative[1] * right[1] + relative[2] * right[2], relative[0] * up[0] + relative[1] * up[1] + relative[2] * up[2], relative[0] * eyeDirection[0] + relative[1] * eyeDirection[1] + relative[2] * eyeDirection[2]]);
   }
-  const distance = Math.max(...projected.map(([x, y, depth]) => Math.max(depth + margin * Math.abs(x) / tanH, depth + margin * Math.abs(y) / tanV)), 0.01);
-  const maxProjected = Math.max(...projected.map(([x, y, depth]) => Math.max(Math.abs(x) / Math.max(1e-6, distance - depth) / tanH, Math.abs(y) / Math.max(1e-6, distance - depth) / tanV)));
+  const distance = projected.reduce((maximum, [x, y, depth]) => Math.max(maximum, depth + margin * Math.abs(x) / tanH, depth + margin * Math.abs(y) / tanV), 0.01);
+  const maxProjected = projected.reduce((maximum, [x, y, depth]) => Math.max(maximum, Math.abs(x) / Math.max(1e-6, distance - depth) / tanH, Math.abs(y) / Math.max(1e-6, distance - depth) / tanV), -Infinity);
   return { distance, maxProjected, contained: Number.isFinite(distance) && maxProjected <= 1 / margin + 1e-7 };
 }
 
@@ -144,7 +144,7 @@ export class WeaponRenderer {
       for (let index = 0; index < part.positions.length; index += 3) selected.push(part.positions.slice(index, index + 3));
     }
     if (!selected.length) return whole;
-    return { min: [0, 1, 2].map((axis) => Math.min(...selected.map((point) => point[axis]))), max: [0, 1, 2].map((axis) => Math.max(...selected.map((point) => point[axis]))) };
+    return { min: [0, 1, 2].map((axis) => selected.reduce((minimum, point) => Math.min(minimum, point[axis]), Infinity)), max: [0, 1, 2].map((axis) => selected.reduce((maximum, point) => Math.max(maximum, point[axis]), -Infinity)) };
   }
 
   draw() {

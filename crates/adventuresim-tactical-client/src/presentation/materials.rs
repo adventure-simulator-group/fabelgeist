@@ -17,7 +17,6 @@ impl Plugin for TacticalMaterialsPlugin {
             MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
             MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
             MaterialPlugin::<TacticalMoonMaterial>::default(),
-            MaterialPlugin::<TacticalSunMaterial>::default(),
             MaterialPlugin::<TacticalStarMaterial>::default(),
             MaterialPlugin::<TacticalCloudMaterial>::default(),
             MaterialPlugin::<TacticalCloudCompositeMaterial>::default(),
@@ -30,6 +29,7 @@ impl Plugin for TacticalMaterialsPlugin {
             DoorPresentationPlugin,
             WindowPresentationPlugin,
         ))
-        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin);
+        .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
+        .add_plugins(ground_scatter::plants::PlantPresentationPlugin);
     }
 }

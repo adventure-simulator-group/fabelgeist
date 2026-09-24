@@ -335,7 +335,7 @@ fn trace_attack_transformed_by_defense(event: On<MeleeAttackTransformedByDefense
 }
 
 /// Contact energy describes the local collision, not whole-body kinetic
-/// energy. This transfer scale makes John Fabelgeist's ordinary ~49.5 J punch
+/// energy. This transfer scale makes the canonical default's ordinary ~49.5 J punch
 /// move an 80 kg equipped bandit about 0.25 m under the tactical controller's
 /// standard grounded friction.
 /// Converts combat contact energy into an explicit physical delta-v. Combat

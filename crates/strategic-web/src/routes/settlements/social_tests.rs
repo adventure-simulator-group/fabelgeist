@@ -58,14 +58,13 @@ mod social_notification_query_tests {
             .nth(1)
             .and_then(|tail| tail.split("pub(crate) async fn soap_rest_preview").next())
             .expect("party member loader");
-        assert!(loader.contains(
-            "SELECT * FROM backend_character_morale_sources WHERE character_id = {}"
-        ));
         assert!(
-            !loader.contains(
-                "query::<CharacterMoraleSource>(\"SELECT * FROM backend_character_morale_sources\")"
-            )
+            loader
+                .contains("SELECT * FROM backend_character_morale_sources WHERE character_id = {}")
         );
+        assert!(!loader.contains(
+            "query::<CharacterMoraleSource>(\"SELECT * FROM backend_character_morale_sources\")"
+        ));
         assert!(loader.contains("SELECT * FROM backend_social_addresses WHERE actor_id = {}"));
         assert!(
             loader.contains("SELECT * FROM backend_automatic_social_chats WHERE actor_id = {}")

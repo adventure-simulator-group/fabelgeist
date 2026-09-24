@@ -1,11 +1,11 @@
 use super::*;
 use candidates::Candidate;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use ground::PlacementGround;
 
 const MAX_SUPPORT_ERROR_METRES: f32 = 0.045;
 const MAX_GROUP_GRADE: f32 = 0.08;
-const INSTANCE_DOMAIN: u64 = 0x6675_726e_6974_656d;
+const INSTANCE_DOMAIN: StreamId = StreamId::new("furniture.outdoor-identity");
 
 pub(super) fn generate(
     input: &TacticalSceneInput,
@@ -143,7 +143,11 @@ fn supported_instances(
             }
             Some(GeneratedFurniture {
                 scene: SceneFurniture {
-                    id: FurnitureInstanceId(mix64(candidate.id.0 ^ INSTANCE_DOMAIN ^ index as u64)),
+                    id: FurnitureInstanceId(
+                        INSTANCE_DOMAIN
+                            .seed(candidate.id.0, &[index as u64])
+                            .to_u64(),
+                    ),
                     key: item.key,
                     location: FurnitureLocation::Outdoor {
                         group_id: candidate.id,

@@ -1,0 +1,424 @@
+{
+  "id": "london-80-157",
+  "name": "London Museum 80.157 rondel dagger",
+  "family": "Dagger - 15th century",
+  "definition": {
+    "gripClearance": 0.038,
+    "components": [
+      {
+        "id": "pommel",
+        "label": "pommel rondel",
+        "kind": "pommel",
+        "role": "Structure",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.023
+          ],
+          [
+            0.0015,
+            0.023
+          ],
+          [
+            0.0025,
+            0.02
+          ],
+          [
+            0.0115,
+            0.02
+          ],
+          [
+            0.0125,
+            0.023
+          ],
+          [
+            0.014,
+            0.023
+          ]
+        ],
+        "segments": 24,
+        "attach": {
+          "to": "weapon.root",
+          "at": "base"
+        }
+      },
+      {
+        "id": "grip",
+        "label": "wood grip",
+        "kind": "profileGrip",
+        "role": "Grip",
+        "material": "wood",
+        "length": 0.076,
+        "profile": [
+          {
+            "at": 0,
+            "width": 0.025,
+            "depth": 0.022
+          },
+          {
+            "at": 0.15,
+            "width": 0.024,
+            "depth": 0.021
+          },
+          {
+            "at": 0.55,
+            "width": 0.023,
+            "depth": 0.02
+          },
+          {
+            "at": 0.85,
+            "width": 0.024,
+            "depth": 0.021
+          },
+          {
+            "at": 1,
+            "width": 0.025,
+            "depth": 0.022
+          }
+        ],
+        "attach": {
+          "to": "pommel.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "guard",
+        "label": "guard rondel",
+        "kind": "pommel",
+        "role": "Guard",
+        "material": "steel",
+        "construction": "lathed",
+        "profile": [
+          [
+            0,
+            0.022
+          ],
+          [
+            0.0015,
+            0.022
+          ],
+          [
+            0.0025,
+            0.019
+          ],
+          [
+            0.0075,
+            0.019
+          ],
+          [
+            0.0085,
+            0.022
+          ],
+          [
+            0.01,
+            0.022
+          ]
+        ],
+        "segments": 24,
+        "attach": {
+          "to": "grip.top",
+          "at": "base"
+        }
+      },
+      {
+        "id": "blade",
+        "label": "single-edged blade",
+        "kind": "blade",
+        "role": "Head",
+        "material": "steel",
+        "length": 0.254,
+        "width": 0.03,
+        "thickness": 0.005,
+        "curvature": 0,
+        "taper": 0.45,
+        "singleEdge": 1,
+        "tipWidth": 0.01,
+        "belly": 0.1,
+        "attach": {
+          "to": "guard.top",
+          "at": "heel-center"
+        },
+        "point": {
+          "start": 0.9,
+          "roundness": 0.2
+        }
+      }
+    ]
+  },
+  "controls": [
+    {
+      "label": "Blade length",
+      "path": "components.3.length",
+      "min": 0.18,
+      "max": 0.36,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade heel width",
+      "path": "components.3.width",
+      "min": 0.022,
+      "max": 0.038,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade thickness",
+      "path": "components.3.thickness",
+      "min": 0.002,
+      "max": 0.01,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade taper",
+      "path": "components.3.taper",
+      "min": 0.2,
+      "max": 1.2,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Blade asymmetry",
+      "path": "components.3.singleEdge",
+      "min": -1,
+      "max": 1,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Blade belly",
+      "path": "components.3.belly",
+      "min": 0,
+      "max": 0.2,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Body terminal width ratio",
+      "path": "components.3.tipWidth",
+      "min": 0.005,
+      "max": 0.2,
+      "step": 0.005,
+      "unit": ""
+    },
+    {
+      "label": "Point start",
+      "path": "components.3.point.start",
+      "min": 0.7,
+      "max": 0.98,
+      "step": 0.01,
+      "unit": ""
+    },
+    {
+      "label": "Point roundness",
+      "path": "components.3.point.roundness",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Exposed wood grip length",
+      "path": "components.1.length",
+      "min": 0.06,
+      "max": 0.12,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 1 width",
+      "path": "components.1.profile.0.width",
+      "min": 0.02,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 1 depth",
+      "path": "components.1.profile.0.depth",
+      "min": 0.018,
+      "max": 0.027,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 2 width",
+      "path": "components.1.profile.1.width",
+      "min": 0.02,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 2 depth",
+      "path": "components.1.profile.1.depth",
+      "min": 0.018,
+      "max": 0.027,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 3 width",
+      "path": "components.1.profile.2.width",
+      "min": 0.02,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 3 depth",
+      "path": "components.1.profile.2.depth",
+      "min": 0.018,
+      "max": 0.027,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 4 width",
+      "path": "components.1.profile.3.width",
+      "min": 0.02,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 4 depth",
+      "path": "components.1.profile.3.depth",
+      "min": 0.018,
+      "max": 0.027,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 5 width",
+      "path": "components.1.profile.4.width",
+      "min": 0.02,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Grip station 5 depth",
+      "path": "components.1.profile.4.depth",
+      "min": 0.018,
+      "max": 0.027,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 1 radius",
+      "path": "components.0.profile.0.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 2 radius",
+      "path": "components.0.profile.1.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 3 radius",
+      "path": "components.0.profile.2.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 4 radius",
+      "path": "components.0.profile.3.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 5 radius",
+      "path": "components.0.profile.4.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Pommel rondel station 6 radius",
+      "path": "components.0.profile.5.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 1 radius",
+      "path": "components.2.profile.0.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 2 radius",
+      "path": "components.2.profile.1.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 3 radius",
+      "path": "components.2.profile.2.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 4 radius",
+      "path": "components.2.profile.3.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 5 radius",
+      "path": "components.2.profile.4.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Guard rondel station 6 radius",
+      "path": "components.2.profile.5.1",
+      "min": 0.014,
+      "max": 0.029,
+      "step": 0.001,
+      "unit": "m"
+    }
+  ],
+  "choiceControls": [],
+  "notes": {
+    "status": "Museum reference study; section and hidden construction assumptions documented in museum README",
+    "source": "https://www.londonmuseum.org.uk/collections/v/object-29506/dagger-rondel-dagger/",
+    "dimensions": {
+      "overall": 0.354,
+      "blade": 0.254
+    },
+    "assumptions": [
+      "Wedge thickness5mm at heel; an independently rounded true point closes both transverse axes",
+      "Solid iron-like steel rondels with recessed circumferential bands; internal structure unknown",
+      "Plain wood grip with slightly oval22mm depth",
+      "Blade attaches through its dimension-derived heel-center anchor"
+    ],
+    "widthAmbiguity": "Museum W30mm is labeled overall; photo estimates rondels44-46mm, not a silently relabeled museum width"
+  }
+}

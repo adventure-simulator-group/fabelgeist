@@ -5,6 +5,7 @@ use crate::{
     item_catalog_schema::ItemKind,
     starting_character::{StartingAttributes, StartingCharacterSpec, StartingSkills},
 };
+use adventuresim_world_schema::person_names::{NameCulture, PersonalNameIdentity};
 
 mod evidence;
 
@@ -13,7 +14,7 @@ pub use evidence::*;
 #[derive(Clone, Debug)]
 pub struct MeleeIterationBuild {
     pub key: &'static str,
-    pub name: &'static str,
+    pub name: String,
     pub description: &'static str,
     pub equipment_description: &'static str,
     pub weapon_id: &'static str,
@@ -24,9 +25,10 @@ pub struct MeleeIterationBuild {
 
 pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String> {
     let john_spec = crate::starting_character::default_character("melee-iteration");
+    let john_name = john_spec.name.clone();
     let john = build_from_spec(
         "john",
-        "John Fabelgeist",
+        &john_name,
         "Combat-trained adventurer; strong and agile, with broadly advanced melee training.",
         "Longsword, morion, breastplate, paired steel vambraces, ordinary clothing and boots.",
         &john_spec,
@@ -141,6 +143,7 @@ fn purpose_build(
     let spec = StartingCharacterSpec {
         id: stable_id(key),
         name: name.into(),
+        name_identity: PersonalNameIdentity::authored(name, NameCulture::German),
         age_years: 28,
         background: description.into(),
         personality: crate::starting_character::default_character(key).personality,
@@ -178,7 +181,7 @@ fn stable_id(value: &str) -> u64 {
 )]
 fn build_from_spec(
     key: &'static str,
-    name: &'static str,
+    name: &str,
     description: &'static str,
     equipment_description: &'static str,
     spec: &StartingCharacterSpec,
@@ -210,7 +213,7 @@ fn build_from_spec(
     combatant.equipment = authored_equipment(weapon_id, armor_ids, shield_id)?;
     Ok(MeleeIterationBuild {
         key,
-        name,
+        name: name.to_owned(),
         description,
         equipment_description,
         weapon_id,
@@ -540,6 +543,69 @@ mod tests {
         assert!(separated);
     }
 
+    fn assert_bounded_progress(outcome: &BattleOutcome) {
+        let terminal = outcome.timeline.last().expect("terminal timeline event");
+        assert_eq!(terminal.kind, MeleeTimelineKind::Terminal);
+        assert_eq!(terminal.terminal_resolution, Some(outcome.resolution));
+        assert!(outcome.rounds <= AUTORESOLVE_MAX_COMBAT_ROUNDS);
+        assert!(outcome.timeline.iter().all(|event| {
+            event.time_seconds.is_finite()
+                && event.time_seconds >= 0.0
+                && event.tick == MeleeTimelineEvent::tick_at(event.time_seconds)
+        }));
+        assert!(
+            terminal.time_seconds
+                <= outcome.rounds as f32
+                    * crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS.combat_round_seconds
+        );
+        assert!(outcome.timeline.windows(2).all(|events| {
+            events[0].sequence < events[1].sequence
+                && events[0].tick <= events[1].tick
+                && events[0].time_seconds <= events[1].time_seconds
+        }));
+        if outcome.resolution != BattleResolution::Timeout {
+            return;
+        }
+        assert_eq!(outcome.rounds, AUTORESOLVE_MAX_COMBAT_ROUNDS);
+        assert!(outcome.summary.melee_attacks > 0);
+        assert!(outcome.summary.hits > 0);
+        assert!(
+            outcome.summary.total_health_damage.is_finite()
+                && outcome.summary.total_health_damage > 0.0
+        );
+        for side in [&outcome.allies, &outcome.enemies] {
+            assert!(
+                side.iter()
+                    .any(|fighter| !fighter.incapacitated && !fighter.yielded)
+            );
+        }
+        let continuing = outcome
+            .allies
+            .iter()
+            .chain(&outcome.enemies)
+            .filter(|fighter| !fighter.incapacitated && !fighter.yielded)
+            .any(|fighter| {
+                let ongoing_bleeding = fighter.blood_loss_fraction.is_finite()
+                    && fighter.blood_loss_fraction > 0.0
+                    && fighter.wound_flow_fraction_per_second.is_finite()
+                    && fighter.wound_flow_fraction_per_second > 0.0;
+                // Read the most recent readiness projection, including cancellation
+                // and transformation updates, so an obsolete deadline cannot pass.
+                let scheduled = outcome
+                    .timeline
+                    .iter()
+                    .rev()
+                    .filter(|event| event.combatant_id == Some(fighter.id))
+                    .find_map(|event| event.readiness_after_seconds)
+                    .is_some_and(|ready| ready.is_finite() && ready > terminal.time_seconds);
+                ongoing_bleeding || scheduled
+            });
+        assert!(
+            continuing,
+            "bounded duel stopped making physiological or scheduled combat progress"
+        );
+    }
+
     #[test]
     fn iteration_duels_make_terminal_progress() {
         let (john, opponents) = melee_iteration_roster().unwrap();
@@ -547,32 +613,22 @@ mod tests {
             let outcomes = || {
                 (1..=32)
                     .map(|seed| {
-                        resolve_battle(
+                        let outcome = resolve_battle(
                             vec![john.combatant.clone()],
                             vec![opponent.combatant.clone()],
                             seed,
                             BattleOpening::Normal,
-                        )
-                        .resolution
+                        );
+                        assert_bounded_progress(&outcome);
+                        outcome.resolution
                     })
                     .collect::<Vec<_>>()
             };
-            let first = outcomes();
-            assert_eq!(first, outcomes(), "{} was not reproducible", opponent.name);
-            assert!(
-                first
-                    .iter()
-                    .all(|resolution| *resolution != BattleResolution::Timeout),
-                "{} did not reach a victor (timeout seeds {:?})",
-                opponent.name,
-                first
-                    .iter()
-                    .enumerate()
-                    .filter_map(
-                        |(index, resolution)| (*resolution == BattleResolution::Timeout)
-                            .then_some(index + 1)
-                    )
-                    .collect::<Vec<_>>()
+            assert_eq!(
+                outcomes(),
+                outcomes(),
+                "{} was not reproducible",
+                opponent.name
             );
         }
     }

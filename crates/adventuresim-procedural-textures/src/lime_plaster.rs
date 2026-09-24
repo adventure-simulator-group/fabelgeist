@@ -1,3 +1,4 @@
+mod streams;
 use super::*;
 
 pub const LIME_PLASTER_TEXTURE_SIZE: u32 = 1024;
@@ -29,30 +30,41 @@ pub(super) struct LimePlasterSample {
     pub cavity: f32,
 }
 
-fn hash_grid(params: &crate::TextureParameters, x: i32, y: i32, cells: i32, salt: u64) -> f32 {
+fn hash_grid(
+    params: &crate::TextureParameters,
+    x: i32,
+    y: i32,
+    cells: i32,
+    field_seed: u64,
+) -> f32 {
     let x = x.rem_euclid(cells) as u64;
     let y = y.rem_euclid(cells) as u64;
-    unit_hash(crate::parameters::seeded_hash(
-        params,
-        x | (y << 16) | salt.rotate_left(33),
-    ))
+    params
+        .rng(streams::LATTICE, &[field_seed, x, y])
+        .inclusive_unit_f32()
 }
 
 fn quintic(value: f32) -> f32 {
     value * value * value * (value * (value * 6.0 - 15.0) + 10.0)
 }
 
-fn periodic_noise(params: &crate::TextureParameters, u: f32, v: f32, cells: i32, salt: u64) -> f32 {
+fn periodic_noise(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    cells: i32,
+    field_seed: u64,
+) -> f32 {
     let x = u * cells as f32;
     let y = v * cells as f32;
     let ix = x.floor() as i32;
     let iy = y.floor() as i32;
     let tx = quintic(x - x.floor());
     let ty = quintic(y - y.floor());
-    let lower =
-        hash_grid(params, ix, iy, cells, salt).lerp(hash_grid(params, ix + 1, iy, cells, salt), tx);
-    let upper = hash_grid(params, ix, iy + 1, cells, salt)
-        .lerp(hash_grid(params, ix + 1, iy + 1, cells, salt), tx);
+    let lower = hash_grid(params, ix, iy, cells, field_seed)
+        .lerp(hash_grid(params, ix + 1, iy, cells, field_seed), tx);
+    let upper = hash_grid(params, ix, iy + 1, cells, field_seed)
+        .lerp(hash_grid(params, ix + 1, iy + 1, cells, field_seed), tx);
     lower.lerp(upper, ty) * 2.0 - 1.0
 }
 
@@ -65,7 +77,7 @@ fn cellular_feature(
     u: f32,
     v: f32,
     cells: i32,
-    salt: u64,
+    field_seed: u64,
     enabled_threshold: f32,
 ) -> (f32, f32) {
     let scaled_x = u * cells as f32;
@@ -78,24 +90,46 @@ fn cellular_feature(
         for offset_x in -1..=1 {
             let candidate_x = cell_x + offset_x;
             let candidate_y = cell_y + offset_y;
-            let enabled = hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x61d3);
+            let enabled = hash_grid(
+                params,
+                candidate_x,
+                candidate_y,
+                cells,
+                params.field_seed(streams::FEATURE_PRESENCE, &[field_seed]),
+            );
             if enabled < enabled_threshold {
                 continue;
             }
             let site_x = candidate_x as f32
                 + params.lime_plaster.cellular_feature_site_x_1
-                + hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x8a4f)
-                    * params.lime_plaster.cellular_feature_site_x_2;
+                + hash_grid(
+                    params,
+                    candidate_x,
+                    candidate_y,
+                    cells,
+                    params.field_seed(streams::FEATURE_X, &[field_seed]),
+                ) * params.lime_plaster.cellular_feature_site_x_2;
             let site_y = candidate_y as f32
                 + params.lime_plaster.cellular_feature_site_y_1
-                + hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0xc279)
-                    * params.lime_plaster.cellular_feature_site_y_2;
+                + hash_grid(
+                    params,
+                    candidate_x,
+                    candidate_y,
+                    cells,
+                    params.field_seed(streams::FEATURE_Y, &[field_seed]),
+                ) * params.lime_plaster.cellular_feature_site_y_2;
             let dx = wrapped_offset((scaled_x - site_x) / cells as f32) * cells as f32;
             let dy = wrapped_offset((scaled_y - site_y) / cells as f32) * cells as f32;
             let distance = (dx * dx + dy * dy).sqrt();
             if distance < nearest {
                 nearest = distance;
-                identity = hash_grid(params, candidate_x, candidate_y, cells, salt ^ 0x3e95);
+                identity = hash_grid(
+                    params,
+                    candidate_x,
+                    candidate_y,
+                    cells,
+                    params.field_seed(streams::FEATURE_IDENTITY, &[field_seed]),
+                );
             }
         }
     }
@@ -103,17 +137,23 @@ fn cellular_feature(
 }
 
 fn oblique_micro_variation(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
-    let warp_x = periodic_noise(params, u, v, 5, 0x47b9)
+    let warp_x = periodic_noise(params, u, v, 5, params.field_seed(streams::WARP_X, &[]))
         * params.lime_plaster.oblique_micro_variation_warp_x;
-    let warp_y = periodic_noise(params, u, v, 7, 0xd263)
+    let warp_y = periodic_noise(params, u, v, 7, params.field_seed(streams::WARP_Y, &[]))
         * params.lime_plaster.oblique_micro_variation_warp_y;
-    let diagonal = periodic_noise(params, u + v + warp_x, v - u + warp_y, 19, 0x8e31);
+    let diagonal = periodic_noise(
+        params,
+        u + v + warp_x,
+        v - u + warp_y,
+        19,
+        params.field_seed(streams::DIAGONAL, &[]),
+    );
     let cross_diagonal = periodic_noise(
         params,
         u * 2.0 + v + warp_y,
         u - v * 2.0 + warp_x,
         31,
-        0x35ad,
+        params.field_seed(streams::CROSS_DIAGONAL, &[]),
     );
     diagonal * 0.62 + cross_diagonal * 0.38
 }
@@ -130,7 +170,7 @@ fn plaster_albedo(params: &crate::TextureParameters, u: f32, v: f32) -> Vec3 {
         cell_x,
         cell_y,
         params.lime_plaster.plaster_albedo_cells_per_metre,
-        0x2f49,
+        params.field_seed(streams::MINERAL, &[]),
     );
     if mineral < params.lime_plaster.plaster_fleck_fraction * 0.5 {
         params.lime_plaster.plaster_cool_fleck
@@ -146,22 +186,36 @@ pub(super) fn lime_plaster_sample(
     u: f32,
     v: f32,
 ) -> LimePlasterSample {
-    let strokes = params
-        .lime_plaster
-        .trowel_strokes
-        .sample(params, Vec2::new(u, v), 0x4f91);
-    let tracks = params
-        .lime_plaster
-        .float_tracks
-        .sample(params, Vec2::new(u, v), 0x7331);
+    let strokes = params.lime_plaster.trowel_strokes.sample(
+        params,
+        Vec2::new(u, v),
+        params.field_seed(streams::TROWEL_STROKES, &[]),
+    );
+    let tracks = params.lime_plaster.float_tracks.sample(
+        params,
+        Vec2::new(u, v),
+        params.field_seed(streams::FLOAT_TRACKS, &[]),
+    );
     let trowel = strokes.facet + tracks.bowl
         - params.lime_plaster.float_tracks.depth * params.lime_plaster.float_center;
     let trowel_edge = strokes.edge;
-    let sand = periodic_noise(params, u, v, 73, 0xa8d5);
-    let fine_aggregate = periodic_noise(params, u, v, 181, 0xb74d);
+    let sand = periodic_noise(params, u, v, 73, params.field_seed(streams::SAND, &[]));
+    let fine_aggregate = periodic_noise(
+        params,
+        u,
+        v,
+        181,
+        params.field_seed(streams::FINE_AGGREGATE, &[]),
+    );
 
-    let (aggregate_distance, aggregate_identity) =
-        cellular_feature(params, u, v, 128, 0x63af, 0.82);
+    let (aggregate_distance, aggregate_identity) = cellular_feature(
+        params,
+        u,
+        v,
+        128,
+        params.field_seed(streams::AGGREGATE, &[]),
+        0.82,
+    );
     let aggregate_radius = params.lime_plaster.lime_plaster_sample_aggregate_radius_1
         + aggregate_identity * params.lime_plaster.lime_plaster_sample_aggregate_radius_2;
     let aggregate = 1.0
@@ -171,7 +225,14 @@ pub(super) fn lime_plaster_sample(
             aggregate_distance,
         );
 
-    let (cavity_distance, cavity_identity) = cellular_feature(params, u, v, 96, 0x91c7, 0.965);
+    let (cavity_distance, cavity_identity) = cellular_feature(
+        params,
+        u,
+        v,
+        96,
+        params.field_seed(streams::CAVITY, &[]),
+        0.965,
+    );
     let cavity_radius = params.lime_plaster.lime_plaster_sample_cavity_radius_1
         + cavity_identity * params.lime_plaster.lime_plaster_sample_cavity_radius_2;
     let cavity = 1.0

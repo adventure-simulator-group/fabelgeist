@@ -1,222 +1,297 @@
-use serde::Serialize;
-
-use crate::{ComponentShape, WeaponDesign};
-
-#[derive(Clone, Debug, Eq, PartialEq, Serialize)]
+//! Numeric controls described at the serialized recipe boundary in metres.
+use crate::{
+    Material, WeaponDesign,
+    recipe::{
+        BladeCrossSection, BladePlan, FullerFaces, ProfileInterpolation, Shape, SpearSection,
+    },
+};
+use serde::{Deserialize, Serialize};
+use std::{collections::BTreeMap, sync::OnceLock};
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct NumericEditorField {
     pub path: String,
-    pub min: i32,
-    pub max: i32,
-    pub step: u32,
+    #[serde(default)]
+    pub label: String,
+    pub min: f64,
+    pub max: f64,
+    pub step: f64,
 }
 
-pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
-    let mut fields = Vec::new();
-    for (index, component) in design.components.iter().enumerate() {
-        let prefix = format!("components.{index}.shape");
-        macro_rules! field {
-            ($shape:literal, $name:literal, $min:expr, $max:expr, $step:expr) => {
-                fields.push(NumericEditorField {
-                    path: format!("{prefix}.{}.{}", $shape, $name),
-                    min: $min,
-                    max: $max,
-                    step: $step,
-                });
-            };
+/// Controls at the serialized forge boundary. Choice values come from the
+/// component's actual domain enum, so equal field names can have different sets.
+#[derive(Clone, Debug, PartialEq, Serialize)]
+#[serde(untagged)]
+pub enum EditorField {
+    Numeric(NumericEditorField),
+    Choice {
+        path: String,
+        options: Vec<serde_json::Value>,
+    },
+}
+
+pub fn editor_fields(design: &WeaponDesign) -> Vec<EditorField> {
+    let mut fields: Vec<_> = numeric_editor_fields(design)
+        .into_iter()
+        .map(EditorField::Numeric)
+        .collect();
+    for (index, component) in design.recipe.components.iter().enumerate() {
+        let mut choice = |name: &str, options| {
+            fields.push(EditorField::Choice {
+                path: format!("recipe.components.{index}.{name}"),
+                options,
+            })
+        };
+        choice(
+            "material",
+            [
+                Material::Wood,
+                Material::Leather,
+                Material::DarkLeather,
+                Material::Brass,
+                Material::Steel,
+                Material::DarkSteel,
+            ]
+            .into_iter()
+            .map(|value| serde_json::to_value(value).expect("material choice"))
+            .collect(),
+        );
+        component_choices(&component.shape, &mut choice);
+    }
+    fields
+}
+fn component_choices(shape: &Shape, mut choice: impl FnMut(&str, Vec<serde_json::Value>)) {
+    match shape {
+        Shape::LoftedBlade(p) => {
+            choice("section", section_options(p.section));
+            choice(
+                "plan",
+                [BladePlan::Straight, BladePlan::Leaf, BladePlan::Cleaver]
+                    .into_iter()
+                    .map(|value| serde_json::to_value(value).expect("blade plan choice"))
+                    .collect(),
+            );
         }
-        match &component.shape {
-            ComponentShape::Cylinder(_) => {
-                field!("Cylinder", "length", 2, 5_500, 1);
-                field!("Cylinder", "radius", 5, 80, 1);
-                field!("Cylinder", "bottom_scale", 500, 1_500, 25);
-                field!("Cylinder", "top_scale", 500, 1_500, 25);
+        Shape::SectionBlade(p) => choice(
+            "section",
+            section_options(p.section.unwrap_or(BladeCrossSection::Diamond)),
+        ),
+        Shape::Spear(_) => choice(
+            "section",
+            [SpearSection::Flat, SpearSection::Diamond]
+                .into_iter()
+                .map(|value| serde_json::to_value(value).expect("spear section choice"))
+                .collect(),
+        ),
+        _ => {}
+    }
+    let fuller = match shape {
+        Shape::LoftedBlade(p) => p.fuller.as_ref(),
+        Shape::SectionBlade(p) => p.fuller.as_ref(),
+        _ => None,
+    };
+    if let Some(fuller) = fuller {
+        for groove in 0..fuller.grooves.len() {
+            choice(
+                &format!("fuller.grooves.{groove}.faces"),
+                [FullerFaces::Front, FullerFaces::Back, FullerFaces::Both]
+                    .into_iter()
+                    .map(|v| serde_json::to_value(v).unwrap())
+                    .collect(),
+            );
+        }
+    }
+    if let Shape::ProfileGrip(p) | Shape::ProfileBody(p) = shape
+        && p.cover.is_some()
+    {
+        choice(
+            "cover.material",
+            [
+                Material::Leather,
+                Material::DarkLeather,
+                Material::Cord,
+                Material::Brass,
+            ]
+            .into_iter()
+            .map(|v| serde_json::to_value(v).unwrap())
+            .collect(),
+        );
+    }
+    if let Shape::Guard(p) = shape
+        && p.terminal_profile.is_some()
+    {
+        choice(
+            "terminalProfile.interpolation",
+            [ProfileInterpolation::Linear, ProfileInterpolation::Smooth]
+                .into_iter()
+                .map(|v| serde_json::to_value(v).unwrap())
+                .collect(),
+        );
+    }
+}
+fn section_options(current: BladeCrossSection) -> Vec<serde_json::Value> {
+    let sections = if current == BladeCrossSection::Recessed {
+        vec![BladeCrossSection::Recessed]
+    } else {
+        vec![
+            BladeCrossSection::Diamond,
+            BladeCrossSection::Fullered,
+            BladeCrossSection::Hexagonal,
+            BladeCrossSection::Lenticular,
+        ]
+    };
+    sections
+        .into_iter()
+        .map(|value| serde_json::to_value(value).expect("blade section choice"))
+        .collect()
+}
+pub fn numeric_editor_fields(design: &WeaponDesign) -> Vec<NumericEditorField> {
+    static FIELDS: OnceLock<BTreeMap<String, Vec<NumericEditorField>>> = OnceLock::new();
+    let catalog = FIELDS.get_or_init(|| {
+        serde_json::from_str(include_str!("../catalog/editor-fields.json"))
+            .expect("authored editor fields")
+    });
+    let mut fields = Vec::new();
+    for (index, component) in design.recipe.components.iter().enumerate() {
+        let value = serde_json::to_value(component).expect("serializable component");
+        let Some(kind) = value["kind"].as_str() else {
+            continue;
+        };
+        if let Some(definitions) = catalog.get(kind) {
+            append_numeric_fields(&mut fields, definitions, &value, index);
+        }
+        if let Shape::Socket(socket) = &component.shape {
+            for station in 0..socket.profile.len() {
+                for (axis, min, max) in [(0, 0.0, 1.0), (1, 0.001, 0.08)] {
+                    fields.push(NumericEditorField {
+                        path: format!("recipe.components.{index}.profile.{station}.{axis}"),
+                        label: format!(
+                            "Profile station {} {}",
+                            station + 1,
+                            if axis == 0 { "height" } else { "radius" }
+                        ),
+                        min,
+                        max,
+                        step: 0.001,
+                    });
+                }
             }
-            ComponentShape::OvalGrip(_) => {
-                field!("OvalGrip", "length", 80, 500, 5);
-                field!("OvalGrip", "width", 26, 38, 1);
-                field!("OvalGrip", "thickness", 18, 28, 1);
-                field!("OvalGrip", "bottom_scale", 750, 1_000, 25);
-                field!("OvalGrip", "top_scale", 750, 1_000, 25);
+        }
+        append_profile_fields(&mut fields, &component.shape, index);
+        if let Shape::Guard(guard) = &component.shape
+            && let Some(profile) = &guard.terminal_profile
+        {
+            for station in 0..profile.stations.len() {
+                for axis in 0..2 {
+                    fields.push(NumericEditorField {
+                        path: format!(
+                            "recipe.components.{index}.terminalProfile.stations.{station}.{axis}"
+                        ),
+                        label: format!(
+                            "Terminal station {} {}",
+                            station + 1,
+                            if axis == 0 { "length" } else { "radius" }
+                        ),
+                        min: 0.0,
+                        max: 0.1,
+                        step: 0.001,
+                    });
+                }
             }
-            ComponentShape::Blade(_) => {
-                field!("Blade", "length", 100, 1_800, 5);
-                field!("Blade", "width", 15, 160, 1);
-                field!("Blade", "thickness", 3, 24, 1);
-                field!("Blade", "curvature", -300, 300, 5);
-                field!("Blade", "taper", 100, 1_000, 25);
-                field!("Blade", "single_edge", 0, 1_000, 50);
-                field!("Blade", "belly", -300, 500, 25);
-                field!("Blade", "ricasso", 0, 500, 10);
-            }
-            ComponentShape::Guard(_) => {
-                field!("Guard", "span", 40, 600, 5);
-                field!("Guard", "radius", 3, 20, 1);
-                field!("Guard", "sweep", -100, 100, 5);
-            }
-            ComponentShape::Mace(_) => {
-                field!("Mace", "length", 60, 400, 5);
-                field!("Mace", "core_radius", 5, 60, 1);
-                field!("Mace", "cusp_radius", 15, 120, 1);
-                field!("Mace", "flanges", 4, 12, 1);
-                field!("Mace", "cusp_height", 100, 900, 25);
-            }
-            ComponentShape::Socket(_) => {
-                field!("Socket", "length", 40, 500, 5);
-                field!("Socket", "outer_radius", 10, 60, 1);
-                field!("Socket", "top_radius", 10, 60, 1);
-                field!("Socket", "wall", 1, 10, 1);
-            }
-            ComponentShape::Langet(_) => {
-                field!("Langet", "length", 40, 800, 5);
-                field!("Langet", "width", 5, 80, 1);
-                field!("Langet", "thickness", 1, 12, 1);
-            }
-            ComponentShape::Axe(_) => {
-                field!("Axe", "reach", 50, 350, 5);
-                field!("Axe", "height", 60, 500, 5);
-                field!("Axe", "thickness", 5, 50, 1);
-                field!("Axe", "beard", 0, 1_000, 25);
-                field!("Axe", "curvature", 0, 1_000, 25);
-            }
-            ComponentShape::HammerPoll(_) => {
-                field!("HammerPoll", "length", 40, 250, 5);
-                field!("HammerPoll", "face", 20, 180, 5);
-                field!("HammerPoll", "neck", 10, 120, 5);
-                field!("HammerPoll", "crown", 0, 500, 25);
-            }
-            ComponentShape::CurvedBeak(_) => {
-                field!("CurvedBeak", "length", 50, 300, 5);
-                field!("CurvedBeak", "curvature", -200, 200, 5);
-                field!("CurvedBeak", "droop", -100, 100, 5);
-            }
-            ComponentShape::FacetedBeak(_) => {
-                field!("FacetedBeak", "length", 40, 250, 5);
-                field!("FacetedBeak", "set", -100, 100, 5);
-            }
-            ComponentShape::Glaive(_) => {
-                field!("Glaive", "length", 200, 800, 10);
-                field!("Glaive", "width", 40, 180, 5);
-                field!("Glaive", "curvature", -250, 250, 5);
-            }
-            ComponentShape::Bill(_) => {
-                field!("Bill", "length", 180, 650, 10);
-                field!("Bill", "width", 40, 180, 5);
-                field!("Bill", "hook", 20, 180, 5);
-            }
-            ComponentShape::Fork(_) => {
-                field!("Fork", "length", 180, 650, 10);
-                field!("Fork", "width", 60, 240, 5);
-                field!("Fork", "crotch", 100, 800, 25);
-            }
-            ComponentShape::Partisan(_) => {
-                field!("Partisan", "length", 180, 650, 10);
-                field!("Partisan", "width", 50, 220, 5);
-                field!("Partisan", "lug_width", 60, 260, 5);
-            }
-            ComponentShape::TubePath(_) => {
-                field!("TubePath", "radius", 2, 16, 1);
-            }
-            ComponentShape::RingGuard(_) => {
-                field!("RingGuard", "radius", 25, 100, 1);
-                field!("RingGuard", "bar", 3, 14, 1);
-            }
-            ComponentShape::FigureEight(_) => {
-                field!("FigureEight", "width", 60, 240, 5);
-                field!("FigureEight", "height", 20, 100, 2);
-                field!("FigureEight", "bar", 3, 16, 1);
-            }
-            ComponentShape::FanPommel(_) => {
-                field!("FanPommel", "width", 25, 100, 1);
-                field!("FanPommel", "height", 20, 100, 1);
-                field!("FanPommel", "thickness", 5, 30, 1);
-            }
-            ComponentShape::Rondel(_) => {
-                field!("Rondel", "radius", 20, 80, 1);
-                field!("Rondel", "thickness", 5, 30, 1);
-            }
-            ComponentShape::GothicMace(_) => {
-                field!("GothicMace", "length", 80, 400, 5);
-                field!("GothicMace", "cusp_radius", 25, 100, 1);
-                field!("GothicMace", "concavity", 0, 1_000, 25);
-                field!("GothicMace", "flanges", 4, 12, 1);
-            }
-            ComponentShape::SlabGrip(_) => {
-                field!("SlabGrip", "length", 80, 400, 5);
-                field!("SlabGrip", "width", 20, 70, 1);
-                field!("SlabGrip", "scale_thickness", 3, 20, 1);
-            }
-            ComponentShape::KnuckleBow(_) => {
-                field!("KnuckleBow", "width", 40, 180, 5);
-                field!("KnuckleBow", "length", 80, 300, 5);
-                field!("KnuckleBow", "bulge", 0, 1_000, 25);
-            }
-            ComponentShape::Collar(_) => {
-                field!("Collar", "width", 5, 50, 1);
-                field!("Collar", "radius", 10, 50, 1);
-            }
-            ComponentShape::Sleeve(_) => {
-                field!("Sleeve", "length", 40, 300, 5);
-                field!("Sleeve", "radius", 8, 50, 1);
-                field!("Sleeve", "top_radius", 8, 50, 1);
-            }
-            ComponentShape::Boss(_) => {
-                field!("Boss", "radius", 4, 30, 1);
-                field!("Boss", "thickness", 4, 60, 1);
-            }
-            ComponentShape::Spear(_) => {
-                field!("Spear", "length", 120, 650, 5);
-                field!("Spear", "width", 25, 160, 5);
-                field!("Spear", "belly_position", 100, 700, 25);
-                field!("Spear", "acuteness", 300, 1_500, 25);
-            }
-            ComponentShape::ProfiledPommel(_) => {}
         }
     }
     fields
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::{MELEE_CATALOG_IDS, default_design};
-
-    #[test]
-    fn catalog_editor_fields_are_bounded_and_include_blade_ricassos() {
-        for id in MELEE_CATALOG_IDS {
-            let design = default_design(id).unwrap();
-            let value = serde_json::to_value(&design).unwrap();
-            let fields = numeric_editor_fields(&design);
-            assert!(
-                fields
-                    .iter()
-                    .all(|field| field.min < field.max && field.step > 0),
-                "{id}"
-            );
-            for field in &fields {
-                let pointer = format!("/{}", field.path.replace('.', "/"));
-                let current = value
-                    .pointer(&pointer)
-                    .and_then(serde_json::Value::as_i64)
-                    .unwrap_or_else(|| panic!("missing {id} {}", field.path));
-                assert!(
-                    (i64::from(field.min)..=i64::from(field.max)).contains(&current),
-                    "{id} {}={current} outside {}..={}",
-                    field.path,
-                    field.min,
-                    field.max
-                );
+fn append_profile_fields(fields: &mut Vec<NumericEditorField>, shape: &Shape, index: usize) {
+    if let Shape::ProfileGrip(grip) | Shape::ProfileBody(grip) = shape {
+        for station in 0..grip.profile.len() {
+            for (name, min, max) in [
+                ("at", 0.0, 1.0),
+                (
+                    "width",
+                    0.001,
+                    if matches!(shape, Shape::ProfileBody(_)) {
+                        0.2
+                    } else {
+                        0.038
+                    },
+                ),
+                (
+                    "depth",
+                    0.001,
+                    if matches!(shape, Shape::ProfileBody(_)) {
+                        0.2
+                    } else {
+                        0.028
+                    },
+                ),
+            ] {
+                if name == "at" && (station == 0 || station + 1 == grip.profile.len()) {
+                    continue;
+                }
+                fields.push(NumericEditorField {
+                    path: format!("recipe.components.{index}.profile.{station}.{name}"),
+                    label: format!("Profile station {} {name}", station + 1),
+                    min,
+                    max,
+                    step: 0.001,
+                });
             }
         }
-        let fields = numeric_editor_fields(&default_design("zweihander").unwrap());
-        assert!(
-            fields
-                .iter()
-                .any(|field| field.path.ends_with("Blade.ricasso"))
-        );
-        assert!(
-            fields
-                .iter()
-                .all(|field| !field.path.ends_with("samples") && !field.path.ends_with("segments"))
-        );
+    }
+}
+
+fn append_numeric_fields(
+    fields: &mut Vec<NumericEditorField>,
+    definitions: &[NumericEditorField],
+    value: &serde_json::Value,
+    index: usize,
+) {
+    for definition in definitions {
+        let paths = if definition.path.contains('*') {
+            (0..value["fuller"]["grooves"].as_array().map_or(0, Vec::len))
+                .map(|i| definition.path.replace('*', &i.to_string()))
+                .collect()
+        } else {
+            vec![definition.path.clone()]
+        };
+        for path in paths {
+            let pointer = format!("/{}", path.replace('.', "/"));
+            if value
+                .pointer(&pointer)
+                .is_some_and(serde_json::Value::is_number)
+            {
+                let mut field = definition.clone();
+                field.label = field_label(&path);
+                field.path = format!("recipe.components.{index}.{path}");
+                if !fields.iter().any(|f| f.path == field.path) {
+                    fields.push(field);
+                }
+            }
+        }
+    }
+}
+
+fn field_label(path: &str) -> String {
+    match path {
+        "size.0" => "Width (X)".into(),
+        "size.1" => "Length (Y)".into(),
+        "size.2" => "Depth (Z)".into(),
+        _ => {
+            let mut label = String::new();
+            for c in path.chars() {
+                if c == '.' {
+                    label.push(' ');
+                } else if c.is_uppercase() {
+                    label.push(' ');
+                    label.extend(c.to_lowercase());
+                } else if label.is_empty() {
+                    label.extend(c.to_uppercase());
+                } else {
+                    label.push(c);
+                }
+            }
+            label
+        }
     }
 }

@@ -26,30 +26,32 @@ Everything in this section is observed in the repository. It is not an
 external-source claim.
 
 - `OakBark` is an implemented `Wood` recipe whose only generated image is a
-  packed `height-ao` texture. It is `RG8Unorm`, 1024 by 1024, repeating, and has
-  a complete eleven-level mip chain.
+  packed `height-ao` texture. It is `RGBA8Unorm`, 1024 by 1024, repeating, and
+  has a complete eleven-level mip chain. RG holds 16-bit height, B holds AO,
+  and A is opaque. Tactical startup loads the committed `.ptex` bake.
 - One tile represents 0.5 m square. Mip zero therefore samples approximately
   0.488 mm per texel. The declared height range is 0.032 m. The generator clamps
-  the normalized field to `[-0.5, 0.32]`, encodes `height + 0.5`, and the shader
-  decodes `(sample.r - 0.5) * 0.032`; the currently reachable relief is thus
-  asymmetric, approximately -16 mm to +10.24 mm.
-- The current height construction uses 38 smoothly blended plate sites, an
-  explicit graph of short fissure edges, tapered checks, sparse fibre groups,
-  plate crowns, shoulders, broad breakup, and fine breakup. Its comment states
-  the core semantic contract: continuous longitudinal furrows, smoothly
-  blended crown variation, and subordinate checks that taper before they can
-  outline closed cells.
+  the normalized field to `[-0.5, 0.38]`, encodes `height + 0.5`, and the shader
+  converts decoded height back into metres. The permitted relief is thus
+  asymmetric, from -16 mm to +12.16 mm.
+- The height construction uses ten meandering longitudinal fissures and six
+  staggered rows per tile, giving nominal 5 by 8.3 cm plates. Broad valleys,
+  raised shoulders, convex crowns, chips, fractured lips, and sparse
+  terminating cracks shape the surface. These defaults reproduce the August
+  height field; an independent historical sample fixture guards the result.
+  Studio exposes the plate counts, fissure and valley widths, crown heights,
+  physical scale, and seed. The replacement sparse graph is not retained.
 - Broad AO is derived from the same metric height field at 512 by 512 using
   four directions and steps of 1, 4, 12, and 32 AO texels. Full-resolution local
   cavity visibility is multiplied into that result. The resulting AO is
   bounded; it is not a baked albedo shadow.
-- Both height and AO mip channels are made by repeated 2 by 2 byte averages.
+- Height and AO mips average decoded values over repeated 2 by 2 groups.
   The sampler is linear, repeating, and has anisotropy 8.
 - The full bark shader uses branch UVs, a world-position macro warp, and three
   axis projections blended by surface-normal weights. It derives a perturbed
   world normal from the sampled metric height rather than storing a tangent
-  normal map. Six-layer parallax and three-step directional horizon visibility
-  fade out by 12 m.
+  normal map. Sixteen-layer interpolated parallax and three-step directional
+  horizon visibility fade out by 12 m.
 - The full oak material has a constant base pigment `srgb(96, 68, 43)`, nominal
   perceptual roughness `180/255`, and zero metallic response. Height-derived
   cavity can add up to 0.10 roughness, while a small world-space sinusoid adds
@@ -68,11 +70,10 @@ external-source claim.
   `[1.0, 0.62, 0.24, 0.06]`. They do not currently add runtime displacement, so
   they should be treated as test/reference logic rather than a second visible
   bark layer.
-- Existing tests are strong on determinism, periodicity, output format,
-  independent height/AO variation, tile-edge continuity, graph connectivity,
-  short fissure edges, changing cross-section identities, tapered checks,
-  sparse fibres, broad shouldered junctions, absence of plate-ownership jumps,
-  and monotonic mip convergence. They do not yet establish botanical age
+- Existing tests cover determinism, periodicity, output format, historical
+  height agreement, physical plate/fissure scale, broad valleys, raised crowns,
+  terminating cracks, AO, mip completeness, and agreement between the current
+  recipe and committed bake. They do not yet establish botanical age
   behavior, projection quality at branch junctions, color calibration, overlay
   causality, or visually stable LOD handoffs.
 
@@ -149,10 +150,10 @@ bark flow is a surface direction, not an axis-independent noise texture
 7. **Microsurface:** sub-millimetre porosity and fibres should converge into
    roughness at ordinary camera distance, not remain explicit noisy normals.
 
-The present graph-led height field is closer to this evidence than a pure
-Voronoi or layered-noise solution. Preserve its branching/termination tests.
-The next material iteration should add explicit per-plate tilt/lift and a
-maturity-conditioned young-bark field before increasing microdetail.
+The present longitudinal-fissure height field follows this hierarchy rather
+than a pure Voronoi or layered-noise solution. Preserve its termination tests.
+The next material iteration should validate the existing plate tilt/lift and
+add a maturity-conditioned young-bark field before increasing microdetail.
 
 ### Scan and procedural workflows are complementary
 
@@ -416,18 +417,17 @@ repository already has it.
 10. Generate channel-aware mips and lower-tier aggregate descriptors from the
     same source statistics.
 
-Do not replace the current graph wholesale merely to follow a Substance node
-recipe. Its strongest parts—shared metric plate field, short explicit fissure
-graph, finite checks, and ownership-jump tests—already embody the practitioner
-principles. Improve the missing age, surface-direction, material, and LOD
-dimensions around that core.
+Preserve the current narrow plate scale and broad fissure profiles when
+exploring this proposed construction. Metric relief, finite checks, and
+historical height samples provide a baseline for evaluating the missing age,
+surface-direction, material, and LOD dimensions.
 
 ## Acceptance and testing plan
 
 ### Deterministic analytic tests
 
-Retain all existing determinism, periodic seam, ownership-continuity, graph,
-fissure, check, fibre, AO, and mip-span tests. Add:
+Retain existing determinism, periodic seam, historical height, fissure, check,
+AO, mip, and committed-bake tests. Add:
 
 - **physical scale:** report and bound distributions in metres for primary
   fissure width/depth, plate width/length, shoulder width, check width/length,
@@ -542,7 +542,7 @@ not comparable performance ceilings for this Bevy/WGSL implementation.
 
 ## Ordered priorities
 
-1. Preserve the existing graph and prove its physical feature distributions on
+1. Preserve the existing relief and prove its physical feature distributions on
    a metric cylinder.
 2. Add or expose age/radius/branch-order control with a genuinely smooth young
    bark family.

@@ -93,7 +93,7 @@ pub fn create_personal_food_lot(
     ctx.db.food_contamination().insert(FoodContamination {
         food_lot_id: lot.id,
         concentration_anchor: food::deterministic_initial_contamination(
-            ctx.random::<u64>() ^ lot.id ^ character_id,
+            fabelgeist_determinism::StreamId::new("food.lot-consumption").rng(ctx.random(), &[lot.id, character_id]).next_u64(),
         ),
         growth_per_hour: definition.growth_per_hour,
         anchor_minute: minute,
@@ -137,7 +137,7 @@ pub fn create_party_food_lot(
     ctx.db.food_contamination().insert(FoodContamination {
         food_lot_id: lot.id,
         concentration_anchor: food::deterministic_initial_contamination(
-            ctx.random::<u64>() ^ lot.id,
+            fabelgeist_determinism::StreamId::new("food.lot-update").rng(ctx.random(), &[lot.id]).next_u64(),
         ),
         growth_per_hour: definition.growth_per_hour,
         anchor_minute: minute,

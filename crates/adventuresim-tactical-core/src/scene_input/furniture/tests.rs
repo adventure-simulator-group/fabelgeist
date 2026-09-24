@@ -89,7 +89,7 @@ fn production_review_input_places_every_furniture_family() {
             .furniture
             .instances
             .iter()
-            .filter(|instance| instance.scene.key.kind == kind)
+            .filter(|instance| instance.scene.key.kind() == kind)
             .count();
         println!("{kind:?}: {count} accepted instances");
         assert!(count > 0, "production review has no {kind:?}");
@@ -143,7 +143,7 @@ fn a_wet_gentle_grade_keeps_supported_examples_of_every_family() {
                 .furniture
                 .instances
                 .iter()
-                .any(|instance| instance.scene.key.kind == kind),
+                .any(|instance| instance.scene.key.kind() == kind),
             "wet gentle slope lost {kind:?}"
         );
     }
@@ -160,7 +160,7 @@ fn furniture_groups_are_deterministic_supported_and_leave_routes_clear() {
             first
                 .instances
                 .iter()
-                .any(|instance| instance.scene.key.kind == kind),
+                .any(|instance| instance.scene.key.kind() == kind),
             "missing {kind:?}"
         );
     }
@@ -271,10 +271,7 @@ fn unsupported_or_submerged_candidates_are_rejected_without_moving_terrain() {
 
 #[test]
 fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
-    let barrel = FurnitureKey {
-        kind: FurnitureKind::Barrel,
-        variant: FurnitureVariant::Compact,
-    };
+    let barrel = FurnitureKey::natural(FurnitureKind::Barrel, FurnitureVariant::Compact);
     let bounds = barrel.recipe().bounds;
     let collider = furniture_collider(barrel);
     assert!(
@@ -289,10 +286,7 @@ fn furniture_physics_blocks_real_members_and_keeps_stall_approach_open() {
             )
             .is_some()
     );
-    let stall = FurnitureKey {
-        kind: FurnitureKind::CanvasStall,
-        variant: FurnitureVariant::Compact,
-    };
+    let stall = FurnitureKey::natural(FurnitureKind::CanvasStall, FurnitureVariant::Compact);
     let collider = furniture_collider(stall);
     for member in &stall.recipe().colliders {
         let ray = member.centre + Vec3::Y * 5.0;

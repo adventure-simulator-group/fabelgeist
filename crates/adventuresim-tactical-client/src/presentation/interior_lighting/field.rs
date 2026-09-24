@@ -21,6 +21,8 @@ pub(in crate::presentation) struct InteriorField {
     pub dimensions: UVec3,
     pub storey_height: f32,
     pub(super) samples: Vec<LightSample>,
+    pub(super) base_samples: Vec<LightSample>,
+    pub(super) shutters: Vec<super::shutters::ShutterLight>,
 }
 
 impl InteriorField {
@@ -43,6 +45,7 @@ impl InteriorField {
             .unwrap_or(1);
         let dimensions = UVec3::new(width, levels, depth);
         let mut samples = vec![LightSample::default(); (width * depth * levels) as usize];
+        let mut shutters = std::collections::BTreeMap::<u64, Vec<(usize, LightSample)>>::new();
         for storey in &plan.storeys {
             for room in &storey.rooms {
                 for cell in &room.cells {
@@ -52,6 +55,9 @@ impl InteriorField {
                         plan.storey_height_metres * SAMPLE_HEIGHT_FRACTION,
                         centre.y,
                     );
+                    let index = ((u32::from(storey.level) * depth + (cell.z - min_z) as u32)
+                        * width
+                        + (cell.x - min_x) as u32) as usize;
                     let mut positive = Vec3::ZERO;
                     let mut negative = Vec3::ZERO;
                     for opening in &storey.openings {
@@ -63,20 +69,20 @@ impl InteriorField {
                         {
                             continue;
                         }
-                        let centre = wall.centre();
-                        let source = Vec3::new(
-                            centre.x,
-                            opening.sill_metres + opening.height_metres * 0.5,
-                            centre.y,
-                        );
-                        let delta = source - point;
-                        let energy =
-                            opening.width_metres * opening.height_metres * WINDOW_TRANSMISSION
-                                / (OPENING_DISTANCE_SOFTENING_SQUARED + delta.length_squared());
-                        let direction = delta.normalize_or_zero();
-                        let bounce = Vec3::splat(energy * BOUNCE_FRACTION);
-                        positive += bounce + direction.max(Vec3::ZERO) * energy;
-                        negative += bounce + (-direction).max(Vec3::ZERO) * energy;
+                        let (opaque_closure, source_positive, source_negative) =
+                            opening_light(plan, storey, opening, point);
+                        if let Some(shutter) = opaque_closure {
+                            shutters.entry(shutter).or_default().push((
+                                index,
+                                LightSample {
+                                    positive: source_positive.extend(0.0),
+                                    negative: source_negative.extend(0.0),
+                                },
+                            ));
+                        } else {
+                            positive += source_positive;
+                            negative += source_negative;
+                        }
                     }
                     let index = ((u32::from(storey.level) * depth + (cell.z - min_z) as u32)
                         * width
@@ -98,7 +104,18 @@ impl InteriorField {
             ) - local_origin,
             dimensions,
             storey_height: plan.storey_height_metres,
+            base_samples: samples.clone(),
             samples,
+            shutters: shutters
+                .into_iter()
+                .map(
+                    |(opening_id, contributions)| super::shutters::ShutterLight {
+                        opening_id,
+                        contributions,
+                        openness: 0.0,
+                    },
+                )
+                .collect(),
         }
     }
 
@@ -113,4 +130,51 @@ impl InteriorField {
         let sample = self.samples[index];
         (sample.positive.w > 0.0).then_some(sample)
     }
+}
+
+/// One aperture contributes only within its owning room; opaque leaves start closed.
+fn opening_light(
+    plan: &BuildingPlan,
+    storey: &adventuresim_building_generator::StoreyPlan,
+    opening: &adventuresim_building_generator::Opening,
+    point: Vec3,
+) -> (Option<u64>, Vec3, Vec3) {
+    const OPENING_MATCH_TOLERANCE_METRES: f32 = 0.01;
+    let wall = storey.walls[opening.wall];
+    let opaque = plan
+        .opening_assemblies
+        .iter()
+        .find(|assembly| {
+            assembly
+                .closure
+                .layers
+                .contains(&adventuresim_building_generator::ClosureKind::TimberShutter)
+                && assembly.frame.origin.distance(wall.centre()) < OPENING_MATCH_TOLERANCE_METRES
+                && (assembly.sill_elevation_metres
+                    - (f32::from(storey.level) * plan.storey_height_metres + opening.sill_metres))
+                    .abs()
+                    < OPENING_MATCH_TOLERANCE_METRES
+        })
+        .map(|assembly| assembly.id.0);
+    let centre = wall.centre();
+    let source = Vec3::new(
+        centre.x,
+        opening.sill_metres + opening.height_metres * 0.5,
+        centre.y,
+    );
+    let delta = source - point;
+    let transmission = if opaque.is_some() {
+        1.0
+    } else {
+        WINDOW_TRANSMISSION
+    };
+    let energy = opening.width_metres * opening.height_metres * transmission
+        / (OPENING_DISTANCE_SOFTENING_SQUARED + delta.length_squared());
+    let direction = delta.normalize_or_zero();
+    let bounce = Vec3::splat(energy * BOUNCE_FRACTION);
+    (
+        opaque,
+        bounce + direction.max(Vec3::ZERO) * energy,
+        bounce + (-direction).max(Vec3::ZERO) * energy,
+    )
 }

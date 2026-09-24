@@ -40,7 +40,7 @@ impl CitySurfaceMeshBuilder {
         &mut self,
         street: CityStreetPatch,
         support: &GroundSupport,
-        groups: &[FurnitureGroup],
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
         let lift_metres = SURFACE_LIFT_METRES
             + f32::from(street.surface().priority()) * SURFACE_PRIORITY_LIFT_METRES;
@@ -71,27 +71,44 @@ impl CitySurfaceMeshBuilder {
                 kind: PatchKind::Market,
             },
         };
-        self.append(patch, support, groups);
+        self.append(patch, &[], support, groups);
     }
 
     pub(super) fn append_yard(
         &mut self,
         yard: CityYardPatch,
+        beds: &partition::SpatialIndex<'_, [Vec2; 4]>,
         support: &GroundSupport,
-        groups: &[FurnitureGroup],
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
     ) {
+        let exclusions = beds
+            .candidates(yard.corners_metres)
+            .into_iter()
+            .copied()
+            .filter(|bed| {
+                yard.surface == CityYardSurface::PackedEarth
+                    && partition::overlaps(yard.corners_metres, *bed)
+            })
+            .collect::<Vec<_>>();
         self.append(
             SurfacePatch {
                 corners: yard.corners_metres,
                 lift_metres: YARD_SURFACE_LIFT_METRES,
                 kind: PatchKind::Yard,
             },
+            &exclusions,
             support,
             groups,
         );
     }
 
-    fn append(&mut self, patch: SurfacePatch, support: &GroundSupport, groups: &[FurnitureGroup]) {
+    fn append(
+        &mut self,
+        patch: SurfacePatch,
+        exclusions: &[[Vec2; 4]],
+        support: &GroundSupport,
+        groups: &partition::SpatialIndex<'_, FurnitureGroup>,
+    ) {
         let [a, b, c, d] = patch.corners;
         let width = a.distance(b).max(d.distance(c));
         let depth = a.distance(d).max(b.distance(c));
@@ -108,28 +125,33 @@ impl CitySurfaceMeshBuilder {
                 .map(|p| p.xz())
                 .into_iter()
                 .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-            for tile in traffic::TrafficTile::covering(minimum, maximum) {
-                let polygon = support::clip_polygon(triangle.to_vec(), tile.corners());
-                for index in 1..polygon.len().saturating_sub(1) {
-                    let clipped = [polygon[0], polygon[index], polygon[index + 1]];
-                    if (clipped[1] - clipped[0])
-                        .cross(clipped[2] - clipped[0])
-                        .length_squared()
-                        <= f32::EPSILON
-                    {
-                        continue;
-                    }
-                    let vertices = self.chunks.entry(tile).or_default();
-                    for mut point in clipped {
-                        let uv = support::footprint_uv(patch.corners, point.xz());
-                        vertices.uvs.push(uv.to_array());
-                        vertices.activities.push(activity.at(point.xz()).to_array());
-                        vertices
-                            .footprints
-                            .push([width, depth, f32::from(patch.kind as u8), 1.0]);
-                        point.y += patch.lift_metres;
-                        vertices.positions.push(point.to_array());
-                        vertices.normals.push(normal.to_array());
+            for polygon in partition::subtract(triangle.to_vec(), exclusions) {
+                for tile in traffic::TrafficTile::covering(minimum, maximum) {
+                    let polygon = support::clip_polygon(polygon.clone(), tile.corners());
+                    for index in 1..polygon.len().saturating_sub(1) {
+                        let clipped = [polygon[0], polygon[index], polygon[index + 1]];
+                        if (clipped[1] - clipped[0])
+                            .cross(clipped[2] - clipped[0])
+                            .length_squared()
+                            <= f32::EPSILON
+                        {
+                            continue;
+                        }
+                        let vertices = self.chunks.entry(tile).or_default();
+                        for mut point in clipped {
+                            let uv = support::footprint_uv(patch.corners, point.xz());
+                            vertices.uvs.push(uv.to_array());
+                            vertices.activities.push(activity.at(point.xz()).to_array());
+                            vertices.footprints.push([
+                                width,
+                                depth,
+                                f32::from(patch.kind as u8),
+                                1.0,
+                            ]);
+                            point.y += patch.lift_metres;
+                            vertices.positions.push(point.to_array());
+                            vertices.normals.push(normal.to_array());
+                        }
                     }
                 }
             }
@@ -163,6 +185,44 @@ impl SurfaceVertices {
 mod tests {
     use super::*;
 
+    fn empty_groups() -> partition::SpatialIndex<'static, FurnitureGroup> {
+        partition::SpatialIndex::new(&[], |group| partition::bounds(group.footprint.corners()))
+    }
+
+    #[test]
+    fn short_surveyed_street_segment_has_finite_nonempty_ground_triangles() {
+        let terrain = SceneTerrain::new(12, 12, 1.0, |_| 0.0);
+        let mut support = GroundSupport::default();
+        support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        let mut builder = CitySurfaceMeshBuilder::default();
+        let groups = empty_groups();
+        builder.append_street(
+            CityStreetPatch::Corridor {
+                start_metres: Vec2::ZERO,
+                end_metres: Vec2::new(0.5, 0.01),
+                half_width_metres: 3.5,
+                surface: CityStreetSurface::Fieldstone,
+            },
+            &support,
+            &groups,
+        );
+        assert!(!builder.chunks.is_empty());
+        for vertices in builder.chunks.values() {
+            assert!(vertices.positions.iter().flatten().all(|v| v.is_finite()));
+            assert!(
+                vertices
+                    .positions
+                    .as_chunks::<3>()
+                    .0
+                    .iter()
+                    .all(|triangle| {
+                        let [a, b, c] = triangle.map(Vec3::from_array);
+                        (b - a).cross(c - a).length_squared() > f32::EPSILON
+                    })
+            );
+        }
+    }
+
     #[test]
     fn clipped_road_clears_spikes_and_true_terrain_diagonals_at_triangle_interiors() {
         let terrain = SceneTerrain::new(12, 12, 1.0, |point| {
@@ -174,6 +234,7 @@ mod tests {
         });
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
+        let groups = empty_groups();
         for reverse in [false, true] {
             let mut corners = [
                 Vec2::new(-4.1, -3.2),
@@ -191,7 +252,7 @@ mod tests {
                     surface: CityStreetSurface::Fieldstone,
                 },
                 &support,
-                &[],
+                &groups,
             );
             assert!(!builder.chunks.is_empty());
             for vertices in builder.chunks.values() {
@@ -223,6 +284,7 @@ mod tests {
         let mut support = GroundSupport::default();
         support.add_mesh(&terrain.mesh(), Vec3::ZERO);
         let mut builder = CitySurfaceMeshBuilder::default();
+        let groups = empty_groups();
         builder.append_street(
             CityStreetPatch::Corridor {
                 start_metres: Vec2::new(-12.0, 0.0),
@@ -231,7 +293,7 @@ mod tests {
                 surface: CityStreetSurface::Fieldstone,
             },
             &support,
-            &[],
+            &groups,
         );
         assert!(!builder.chunks.is_empty());
         assert!(

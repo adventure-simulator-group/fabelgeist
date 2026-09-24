@@ -9,6 +9,12 @@ use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
+mod child_identity;
+pub use child_identity::{
+    ChildBirthMinute, ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed,
+    PregnancyOrdinal, deterministic_child_seeds,
+};
+
 pub const ADULT_AGE_YEARS: u16 = 16;
 pub const FORMAL_COURTSHIP_AFFINITY: f32 = 45.0;
 pub const FORMAL_FATHER_APPROVAL_AFFINITY: f32 = 35.0;
@@ -568,19 +574,15 @@ pub fn uncovered_minute_spans(
     result
 }
 
-/// Stable FNV-1a domain-separated hash. Unlike `DefaultHasher`, this result is
-/// part of gameplay and is stable across processes and compiler releases.
+/// Stable lifecycle identity derived from separately framed context fields.
 pub fn stable_lifecycle_hash(domain: &str, parts: &[&str]) -> u64 {
-    let mut hash = 0xcbf29ce484222325_u64;
-    for byte in domain.as_bytes().iter().copied().chain([0xff]).chain(
-        parts
-            .iter()
-            .flat_map(|part| part.as_bytes().iter().copied().chain([0xff])),
-    ) {
-        hash ^= u64::from(byte);
-        hash = hash.wrapping_mul(0x100000001b3);
-    }
-    hash
+    let fields: Vec<_> = parts.iter().map(|part| part.as_bytes()).collect();
+    fabelgeist_determinism::Seed::derive(
+        domain.as_bytes(),
+        fabelgeist_determinism::StreamId::new("lifecycle.identity"),
+        &fields,
+    )
+    .to_u64()
 }
 
 pub fn daily_location_target_score(
@@ -666,42 +668,6 @@ pub fn conception_quantum_plan(
                 % CONCEPTION_QUANTUM_MINUTES) as u8,
             next_trial_ordinal: state.next_trial_ordinal.saturating_add(crossing_count),
         },
-    }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct ChildSeeds {
-    pub identity: u64,
-    pub name: u64,
-    pub female: bool,
-    pub home: u64,
-}
-
-/// Domain-separated child seeds make identity, naming, sex, and home placement
-/// stable without coupling any result to table insertion order.
-pub fn deterministic_child_seeds(
-    first_parent_id: &str,
-    second_parent_id: &str,
-    pregnancy_ordinal: u64,
-    birth_minute: u64,
-    home_location_id: &str,
-) -> ChildSeeds {
-    let (left, right) = if first_parent_id <= second_parent_id {
-        (first_parent_id, second_parent_id)
-    } else {
-        (second_parent_id, first_parent_id)
-    };
-    let pregnancy = pregnancy_ordinal.to_string();
-    let birth = birth_minute.to_string();
-    let base = [left, right, &pregnancy, &birth];
-    ChildSeeds {
-        identity: stable_lifecycle_hash("child-identity", &base),
-        name: stable_lifecycle_hash("child-name", &base),
-        female: stable_lifecycle_hash("child-sex", &base) & 1 == 0,
-        home: stable_lifecycle_hash(
-            "child-home",
-            &[left, right, &pregnancy, &birth, home_location_id],
-        ),
     }
 }
 
@@ -1118,14 +1084,32 @@ mod tests {
 
     #[test]
     fn child_seeds_are_parent_order_independent_and_domain_separated() {
-        let first = deterministic_child_seeds("anna", "beatrice", 3, 900, "wittenberg");
-        let reversed = deterministic_child_seeds("beatrice", "anna", 3, 900, "wittenberg");
+        let first = deterministic_child_seeds(
+            "anna",
+            "beatrice",
+            PregnancyOrdinal::new(3),
+            ChildBirthMinute::new(900),
+            "wittenberg",
+        );
+        let reversed = deterministic_child_seeds(
+            "beatrice",
+            "anna",
+            PregnancyOrdinal::new(3),
+            ChildBirthMinute::new(900),
+            "wittenberg",
+        );
         assert_eq!(first, reversed);
-        assert_ne!(first.identity, first.name);
-        assert_ne!(first.identity, first.home);
+        assert_ne!(first.identity.get(), first.name.get());
+        assert_ne!(first.identity.get(), first.home.get());
         assert_ne!(
             first,
-            deterministic_child_seeds("anna", "beatrice", 4, 900, "wittenberg")
+            deterministic_child_seeds(
+                "anna",
+                "beatrice",
+                PregnancyOrdinal::new(4),
+                ChildBirthMinute::new(900),
+                "wittenberg",
+            )
         );
     }
 }

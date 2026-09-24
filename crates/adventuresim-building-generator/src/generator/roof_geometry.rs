@@ -370,7 +370,7 @@ fn roof_plane_height(plane: RoofPlaneEquation, point: Vec2) -> f32 {
     -(plane.normal.x * point.x + plane.normal.z * point.y + plane.constant) / plane.normal.y
 }
 
-fn plan_point_in_convex_polygon(point: Vec2, polygon: &[Vec2]) -> bool {
+pub(crate) fn plan_point_in_convex_polygon(point: Vec2, polygon: &[Vec2]) -> bool {
     if polygon.len() < 3 {
         return false;
     }
@@ -421,8 +421,7 @@ fn roof_underside_height_at(assembly: &RoofAssembly, point: Vec2) -> Option<f32>
             .map(|vertex| Vec2::new(vertex.x, vertex.z))
             .collect::<Vec<_>>();
         plan_point_in_convex_polygon(point, &projected).then(|| {
-            roof_plane_height(face.plane, point)
-                - face.plane.normal.normalize_or_zero().y * face.thickness_metres
+            face.underside_height_at(point)
         })
     })
 }

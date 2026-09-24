@@ -18,3 +18,6 @@ fabelgeist-shell = { path = "../fabelgeist-shell" }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[lints]
+workspace = true

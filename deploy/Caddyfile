@@ -1,0 +1,28 @@
+# Managed by scripts/deploy.py (showcase target). Local edits are overwritten
+# on the next deploy.
+#
+# The showcase is plain files: the art demo, Texture Studio and Heraldry Studio
+# bundles plus the asset tree the art demo reads. No process besides Caddy.
+
+www.{{DOMAIN}} {
+    redir https://{{DOMAIN}}{uri} permanent
+}
+
+{{DOMAIN}} {
+    root * {{DEPLOY_ROOT}}/site
+    encode zstd gzip
+
+    # /art-demo is a page, not a directory; mirror strategic-web's route so the
+    # bundle's hardcoded /static/art-demo, /tactical/wasm and /tactical/assets
+    # roots all resolve against the same tree.
+    rewrite /art-demo /static/art-demo/index.html
+
+    @wasm path *.wasm
+    header @wasm Content-Type application/wasm
+
+    # Bundle names are not content-hashed, so every response revalidates.
+    # Caddy's ETag turns an unchanged file into a free 304.
+    header Cache-Control "no-cache"
+
+    file_server
+}

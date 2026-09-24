@@ -17,6 +17,7 @@ use crate::{
 
 mod armor;
 mod equipment_projection;
+mod mass;
 use armor::*;
 use equipment_projection::combat_weapon;
 
@@ -412,43 +413,7 @@ impl StrategicEquipment {
             armor[body_part_index(part)] =
                 adventuresim_core::equipment::aggregate_layered_armor(part, pieces);
         }
-        let dry_inventory_weight: f32 = ctx
-            .db
-            .inventory_item()
-            .character_id()
-            .filter(character_id)
-            .filter_map(|inventory: InventoryItem| {
-                if crate::inventory_container::row_is_fireplace_rooted(
-                    ctx,
-                    CarriedInventoryScope::Personal,
-                    inventory.id,
-                ) {
-                    return None;
-                }
-                if let Some(lot) = ctx
-                    .db
-                    .food_lot()
-                    .iter()
-                    .find(|lot| lot.inventory_item_id == Some(inventory.id))
-                {
-                    return Some(lot.mass_kg.max(0.0));
-                }
-                ctx.db.item().id().find(&inventory.item_id).map(|item| {
-                    let effective_quantity =
-                        crate::inventory_amount::personal_fraction(ctx, inventory.id)
-                            .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
-                    let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some()
-                    {
-                        crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)
-                            .expect("parametric inventory weapon has valid physical recipe")
-                            .mass_kg
-                    } else {
-                        item.weight
-                    };
-                    unit_mass * effective_quantity
-                })
-            })
-            .sum();
+        let dry_inventory_weight = mass::dry_inventory_weight(ctx, character_id);
         let personal_custody = OperationalCustody::character(character_id)
             .expect("persisted character identities must be nonzero");
         let contained_water_weight =

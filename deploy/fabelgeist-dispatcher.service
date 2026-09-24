@@ -1,0 +1,29 @@
+[Unit]
+Description=Fabelgeist tactical dispatcher
+After=fabelgeist-stdb.service
+Wants=fabelgeist-stdb.service
+
+[Service]
+Type=simple
+User={{SERVICE_USER}}
+WorkingDirectory={{DEPLOY_ROOT}}
+# --host 127.0.0.1 keeps spawned tactical servers off the public interface;
+# --public-url-prefix is what clients are told to dial (see deploy/Caddyfile).
+ExecStart={{DEPLOY_ROOT}}/bin/adventuresim-tactical-server-dispatcher \
+    --spacetimedb-url http://127.0.0.1:3000 \
+    --spacetimedb-module {{DATABASE}} \
+    --tactical-server-bin {{DEPLOY_ROOT}}/bin/adventuresim-tactical-server \
+    --base-port 6000 \
+    --host 127.0.0.1 \
+    --public-url-prefix wss://{{DOMAIN}}/t
+Restart=always
+RestartSec=2
+Environment=RUST_LOG=info
+EnvironmentFile={{DEPLOY_ROOT}}/env
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

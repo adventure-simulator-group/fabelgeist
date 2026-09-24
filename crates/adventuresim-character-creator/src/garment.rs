@@ -14,6 +14,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 
 mod conform;
 mod dressing;
+#[cfg(feature = "offline-creator")]
 mod export;
 mod fitted;
 mod lining;

@@ -3,6 +3,7 @@ use adventuresim_tactical_netcode::message::{ImpactSound, SuccessfulAttackRespon
 use bevy::audio::{PlaybackMode, Volume};
 use bevy::ecs::system::SystemParam;
 use bevy::prelude::*;
+use fabelgeist_determinism::StreamId;
 
 use crate::{audio_config::TacticalAudioConfig, presentation::ProceduralTextureAssets};
 
@@ -93,7 +94,8 @@ fn spawn_combat_effects(
     mut resources: CombatEffectResources,
     parents: Query<&ChildOf>,
     surfaces: BloodSurfaceQuery,
-    mut sound_sequence: Local<u64>,
+    mut sound_sequences: Local<std::collections::BTreeMap<u64, u64>>,
+    identities: Query<&CharacterId>,
     mut effect_sequence: Local<u64>,
 ) {
     if !event.impact_effects.metal_sparks
@@ -116,12 +118,16 @@ fn spawn_combat_effects(
         .affine()
         .transform_vector3(event.impact_normal)
         .normalize_or(Vec3::Y);
+    let Some(sound_seed) = combat_sound_seed(event.attacker, &identities, &mut sound_sequences)
+    else {
+        return;
+    };
     play_impact_sound(
         &mut commands,
         &resources.asset_server,
         event.impact_effects.sound,
         world_point,
-        &mut sound_sequence,
+        sound_seed,
         &resources.config,
     );
 
@@ -178,12 +184,27 @@ fn spawn_combat_effects(
     }
 }
 
+fn combat_sound_seed(
+    attacker: Entity,
+    identities: &Query<&CharacterId>,
+    sequences: &mut std::collections::BTreeMap<u64, u64>,
+) -> Option<u64> {
+    let character_id = identities.get(attacker).ok()?.0;
+    let sequence = sequences.entry(character_id).or_default();
+    *sequence = sequence.wrapping_add(1);
+    Some(
+        StreamId::new("audio.combat-event")
+            .seed(character_id, &[*sequence])
+            .to_u64(),
+    )
+}
+
 fn play_impact_sound(
     commands: &mut Commands,
     asset_server: &AssetServer,
     sound: ImpactSound,
     world_point: Vec3,
-    sequence: &mut u64,
+    seed: u64,
     config: &TacticalAudioConfig,
 ) {
     let family = match sound {
@@ -193,14 +214,17 @@ fn play_impact_sound(
         ImpactSound::BluntFlesh => "impactPunch_medium_00",
         ImpactSound::NonMetalWeapon => "impactWood_medium_00",
     };
-    *sequence = sequence.wrapping_add(1);
-    let mut sample = sequence
-        .wrapping_mul(6_364_136_223_846_793_005)
-        .wrapping_add(u64::from(world_point.x.to_bits()))
-        .wrapping_add(u64::from(world_point.z.to_bits()).rotate_left(23));
-    sample ^= sample >> 29;
-    let variant = sample % 3;
-    let pitch_fraction = ((sample >> 32) as u32) as f32 / u32::MAX as f32;
+    let context = [
+        u64::from(world_point.x.to_bits()),
+        u64::from(world_point.y.to_bits()),
+        u64::from(world_point.z.to_bits()),
+    ];
+    let variant = StreamId::new("audio.combat-variant")
+        .rng(seed, &context)
+        .index(3);
+    let pitch_fraction = StreamId::new("audio.combat-pitch")
+        .rng(seed, &context)
+        .inclusive_unit_f32();
     let pitch = config.combat.impact_pitch_randomization;
     let speed = pitch[0] + pitch_fraction * (pitch[1] - pitch[0]);
     let path = format!("audio/combat/kenney-impact-sounds/{family}{variant}.ogg");

@@ -2,7 +2,7 @@
 //! Joint spacing and exposed blocks are a procedural realization, not a
 //! reconstruction of mapped fractures or a particular rockfall event.
 
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::StreamId;
 
 const JOINT_SPACING_METRES: f32 = 3.8;
 const JOINT_SETBACK_METRES: f32 = 0.45;
@@ -16,9 +16,14 @@ const FRAGMENT_HEIGHT_METRES: f32 = 0.7;
 const FRAGMENT_RELIEF_FRACTION: f32 = 0.2;
 
 pub(super) fn front(along: f32, depth_fraction: f32, relief: f32, seed: u64) -> f32 {
-    let phase = inclusive_unit_f32(splitmix64(seed)) * JOINT_SPACING_METRES;
+    let phase = StreamId::new("terrain.granite.phase")
+        .rng(seed, &[])
+        .inclusive_unit_f32()
+        * JOINT_SPACING_METRES;
     let block = ((along + phase) / JOINT_SPACING_METRES).floor() as i64;
-    let variation = inclusive_unit_f32(splitmix64(seed ^ block as u64));
+    let variation = StreamId::new("terrain.granite.block")
+        .rng(seed, &[block as u64])
+        .inclusive_unit_f32();
     let setback = JOINT_SETBACK_METRES * variation;
     let joint_shift = (variation - 0.5) * JOINT_HEIGHT_VARIATION_FRACTION;
     let detached = if variation > RETAINED_BLOCK_FRACTION

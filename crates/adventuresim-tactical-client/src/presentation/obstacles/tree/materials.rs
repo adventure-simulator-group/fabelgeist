@@ -483,7 +483,7 @@ mod tests {
         assert!(shader.contains("textureSampleGrad"));
         assert!(!shader.contains("textureSampleLevel"));
         assert!(shader.contains("fn directional_horizon_visibility"));
-        assert!(shader.contains("layer < 6"));
+        assert!(shader.contains("layer <= 16"));
         assert!(shader.contains("horizon_step <= 3"));
         assert!(shader.contains("let bark_roughness = clamp"));
         assert!(shader.contains("bark.soil_surface.w"));
@@ -500,7 +500,7 @@ mod tests {
         assert!(shader.contains("let edge_width = max(fwidth(signed_distance)"));
         assert!(shader.contains("mix(bark.surface.rgb, bark.soil_surface.rgb, soil_coverage)"));
         assert!(shader.contains("let terrain_height = terrain_height_at(in.world_position.xz)"));
-        assert!(shader.contains("let terrain_clearance = in.world_position.y - terrain_height"));
+        assert!(shader.contains("terrain_clearance = in.world_position.y - terrain_height"));
         assert!(shader.contains("var soil_response_coverage = 0.0"));
         assert!(shader.contains("smoothstep(0.0381, 0.0508"));
         assert!(shader.contains("soil_response_coverage = soil_coverage * contact_response"));
@@ -517,7 +517,7 @@ mod tests {
     }
 
     #[test]
-    fn bark_shader_limits_terrain_and_soil_sampling_to_the_conservative_root_band() {
+    fn bark_shader_keeps_soil_derivatives_uniform_and_terrain_lookup_in_the_root_band() {
         let shader = include_str!(concat!(
             env!("CARGO_MANIFEST_DIR"),
             "/../adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
@@ -535,10 +535,10 @@ mod tests {
 
         assert!(root_band.contains("terrain_height_at(in.world_position.xz)"));
         assert!(root_band.contains("root_soil_signed_distance("));
-        assert!(root_band.contains("soil_surface_sample(in.world_position.xyz)"));
+        assert!(!root_band.contains("soil_surface_sample(in.world_position.xyz)"));
         assert!(!upper_trunk.contains("terrain_height_at(in.world_position.xz)"));
         assert!(!upper_trunk.contains("root_soil_signed_distance(\n        in.world_position"));
-        assert!(!upper_trunk.contains("soil_surface_sample(in.world_position.xyz)"));
+        assert!(upper_trunk.contains("soil_surface_sample(in.world_position.xyz)"));
     }
 
     #[test]

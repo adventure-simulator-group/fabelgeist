@@ -11,6 +11,9 @@ use serde::{Deserialize, Serialize};
 
 use crate::{BuildingPlan, ResolvedItemId, ResolvedSolid, compile_window_bars};
 
+mod gable;
+mod intersection;
+
 #[cfg(test)]
 #[path = "collision/arch_tests.rs"]
 mod arch_tests;
@@ -53,7 +56,7 @@ impl CollisionCuboid {
         }
     }
 
-    fn bounds(self) -> CollisionBounds {
+    pub(crate) fn bounds(self) -> CollisionBounds {
         let half = self.size * 0.5;
         let orientation = bevy::math::Quat::from_rotation_y(self.yaw_radians)
             * bevy::math::Quat::from_rotation_x(self.crossfall_radians)
@@ -75,8 +78,8 @@ pub struct BuildingCollision {
 }
 
 /// Compiles static collision from authoritative wall hosts and walkable timber
-/// surfaces. Opening closures are intentionally excluded: an operable door is
-/// a separate gameplay entity, not permanent masonry and not an LOD concern.
+/// surfaces and fixed main-gable glazing. Operable doors remain separate
+/// gameplay entities. This does not add collision for every roof enclosure.
 pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
     let solids = plan
         .resolved_geometry
@@ -90,6 +93,10 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
         .filter(|wall| wall.replaced_by_owner.is_none())
         .flat_map(|wall| wall.host_solids.iter().copied())
         .collect::<BTreeSet<_>>();
+    selected.extend(gable::solids(plan));
+    if let Some(heating) = &plan.domestic_heating {
+        selected.extend(heating.parts.iter().map(|p| p.solid));
+    }
     if let Some(frame) = &plan.timber_frame {
         selected.extend(
             frame
@@ -122,6 +129,13 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
                 matches!(
                     solid.role,
                     crate::SolidRole::InteriorFloor
+                        | crate::SolidRole::ChurchBell
+                        | crate::SolidRole::ChurchBellFrame
+                        | crate::SolidRole::ChurchBellFitting
+                        | crate::SolidRole::ChurchBellAxle
+                        | crate::SolidRole::ChurchBellHeadstock
+                        | crate::SolidRole::ChurchBellBearing
+                        | crate::SolidRole::ChurchBellCrown
                         | crate::SolidRole::ChurchFloor
                         | crate::SolidRole::GalleryFloor
                         | crate::SolidRole::StairTread
@@ -152,6 +166,12 @@ pub fn compile_building_collision(plan: &BuildingPlan) -> BuildingCollision {
 }
 
 pub(crate) fn collision_parts(plan: &BuildingPlan, solid: &ResolvedSolid) -> Vec<CollisionCuboid> {
+    if matches!(solid.shape, crate::ResolvedSolidShape::CylinderAlongX) {
+        return crate::axle::collision(solid);
+    }
+    if matches!(solid.shape, crate::ResolvedSolidShape::BellShell) {
+        return crate::bell::collision(solid);
+    }
     let wall = plan
         .wall_assemblies
         .iter()

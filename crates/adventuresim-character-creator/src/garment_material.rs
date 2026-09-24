@@ -4,7 +4,9 @@ use anyhow::{Result, ensure};
 use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
+#[cfg(feature = "offline-creator")]
 mod rings;
+#[cfg(feature = "offline-creator")]
 pub use rings::MailMaps;
 
 /// Air gap between neighbouring rings of the same row.
@@ -151,12 +153,14 @@ impl Default for MailWeave {
 
 /// Export-ready chainmail: generated maps, texture coordinates scaled to one
 /// ring repeat, and the steel finish.
+#[cfg(feature = "offline-creator")]
 pub struct MailSurface {
     pub maps: MailMaps,
     pub texcoords: Vec<[f32; 2]>,
     weave: MailWeave,
 }
 
+#[cfg(feature = "offline-creator")]
 impl MailSurface {
     /// `material_m` are the garment's pattern coordinates, in metres.
     pub fn new(weave: &MailWeave, material_m: &[[f32; 2]]) -> Result<Self> {
@@ -176,7 +180,7 @@ impl MailSurface {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "offline-creator"))]
 mod tests {
     use super::*;
 
@@ -188,8 +192,8 @@ mod tests {
     fn standard_rings_have_open_holes_steel_color_and_curved_normals() {
         let maps = MailMaps::new(&MailWeave::STANDARD).unwrap();
         let textures = maps.textures();
-        let color = decode(textures.base_color_png);
-        let normal = decode(textures.normal_png);
+        let color = decode(textures.base_color_png.as_deref().unwrap());
+        let normal = decode(&textures.normal_png);
         assert_eq!(color.dimensions(), normal.dimensions());
         assert!(color.pixels().any(|p| p[3] == 0));
         assert!(color.pixels().any(|p| p[3] == 255));
@@ -256,7 +260,7 @@ mod tests {
         };
         assert!(larger.repeat_m()[0] > across);
         let maps = MailMaps::new(&larger).unwrap();
-        let color = decode(maps.textures().base_color_png);
+        let color = decode(maps.textures().base_color_png.as_deref().unwrap());
         let expected = (color.width() as f32 * larger.repeat_m()[1] / larger.repeat_m()[0]).round();
         assert_eq!(color.height(), expected as u32);
     }

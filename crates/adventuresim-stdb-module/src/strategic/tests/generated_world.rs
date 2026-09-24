@@ -6,7 +6,7 @@ fn generated_case(
         &adventuresim_core::quest_generation::GenerationContext {
             seed,
             observer_entropy_hi: seed ^ 0x6f62_7365_7276_6572,
-            observer_entropy_lo: seed.rotate_left(23) ^ 0x7175_6573_742d_7631,
+            observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(seed, &[]).to_u64(),
             settlement_id: "test-settlement".into(),
             settlement_name: "Test Settlement".into(),
             scope: adventuresim_core::local_problem::Scope::Settlement {
@@ -103,10 +103,10 @@ fn acceptance_fixture_selects_before_materialization_without_rewriting_sites() {
         .split("fn materialize_generated_quest")
         .nth(1)
         .expect("ordinary generated quest materialization");
-    assert!(ordinary_generation.contains("ordinary_generated_site_distance_m(seed, index)"));
-    assert_eq!(ordinary_generated_site_distance_m(0, 0), 4_000);
+    assert!(ordinary_generation.contains("ordinary_generated_site_distance_m(seed, &site.id.0)"));
+    assert!((4_000..21_000).contains(&ordinary_generated_site_distance_m(0, "site:fixture")));
     assert!((0..64).all(|index| {
-        (4_000..21_000).contains(&ordinary_generated_site_distance_m(u64::MAX, index))
+        (4_000..21_000).contains(&ordinary_generated_site_distance_m(u64::MAX, &format!("site:{index}")))
     }));
     let selector = source
         .split("fn materialize_simulation_acceptance_outbreak")
@@ -114,7 +114,7 @@ fn acceptance_fixture_selects_before_materialization_without_rewriting_sites() {
         .and_then(|tail| tail.split("fn seed_outbreak_demo").next())
         .expect("acceptance outbreak selector");
     let selection = selector
-        .find("generated.sites.iter().enumerate().any")
+        .find("generated.sites.iter().any")
         .unwrap();
     let materialization = selector.find("materialize_generated_quest").unwrap();
     assert!(selection < materialization);
@@ -224,7 +224,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     let context = adventuresim_core::quest_generation::GenerationContext {
         seed: generated.generation_seed,
         observer_entropy_hi: generated.generation_seed ^ 0x6f62_7365_7276_6572,
-        observer_entropy_lo: generated.generation_seed.rotate_left(23) ^ 0x7175_6573_742d_7631,
+        observer_entropy_lo: fabelgeist_determinism::StreamId::new("quest.fixture-observer").seed(generated.generation_seed, &[]).to_u64(),
         settlement_id: "test-settlement".into(),
         settlement_name: "Test Settlement".into(),
         scope: adventuresim_core::local_problem::Scope::Settlement {

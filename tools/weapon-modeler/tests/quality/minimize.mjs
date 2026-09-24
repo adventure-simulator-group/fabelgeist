@@ -1,7 +1,8 @@
+import { validateWeapon } from "../../src/kernel.js";
 import { readFileSync, writeFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
 import { PRESETS, getControlValue, setControlValue } from "../../src/presets.js";
-import { validateWeapon } from "../../src/mesh.js";
+
 import { auditPart } from "./audit.mjs";
 
 // Minimize against resetting controls to the preset defaults. This finds a

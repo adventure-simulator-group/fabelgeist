@@ -11,7 +11,10 @@ use crate::armor_frames::{FitRegion, Side};
 pub enum ParametricDesign {
     Helmet(HelmetDesign),
     Limb(LimbArmorDesign),
+    PuffAndSlash(PuffAndSlashDesign),
+    TrunkHose(TrunkHoseDesign),
     Garment(GarmentArmorDesign),
+    WaistAssembly(WaistArmorDesign),
     Underlayer(crate::underlayer::UnderlayerDesign),
 }
 
@@ -20,7 +23,10 @@ impl ParametricDesign {
         match self {
             Self::Helmet(d) => d.validate().map_err(anyhow::Error::new),
             Self::Limb(d) => d.validate().map_err(anyhow::Error::new),
+            Self::PuffAndSlash(d) => d.validate().map_err(anyhow::Error::new),
+            Self::TrunkHose(d) => d.validate().map_err(anyhow::Error::new),
             Self::Garment(d) => d.validate().map_err(anyhow::Error::new),
+            Self::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
             Self::Underlayer(d) => d.validate(),
         }
     }
@@ -31,7 +37,10 @@ impl ParametricDesign {
         match (self, other) {
             (Self::Helmet(a), Self::Helmet(b)) => discriminant(a) == discriminant(b),
             (Self::Limb(a), Self::Limb(b)) => discriminant(a) == discriminant(b),
+            (Self::PuffAndSlash(a), Self::PuffAndSlash(b)) => a.kind == b.kind,
+            (Self::TrunkHose(_), Self::TrunkHose(_)) => true,
             (Self::Garment(a), Self::Garment(b)) => a.kind == b.kind,
+            (Self::WaistAssembly(_), Self::WaistAssembly(_)) => true,
             (Self::Underlayer(a), Self::Underlayer(b)) => a.kind == b.kind,
             _ => false,
         }
@@ -85,13 +94,19 @@ pub fn fit_region(design: &ParametricDesign, placement: &str) -> Result<FitRegio
             _ => F::Torso,
         },
         ParametricDesign::Helmet(_) => F::Head,
+        ParametricDesign::PuffAndSlash(d) => match d.kind {
+            PuffAndSlashKind::Sleeve => F::WholeArm(side()?),
+            PuffAndSlashKind::Hose => F::WholeLeg(side()?),
+        },
+        ParametricDesign::TrunkHose(_) => F::Hips,
+        ParametricDesign::WaistAssembly(_) => F::Hips,
         ParametricDesign::Limb(d) => match d {
             LimbArmorDesign::Greave(_) => F::LowerLeg(side()?),
             LimbArmorDesign::Cuisse(_) => F::Thigh(side()?),
             LimbArmorDesign::Rerebrace(_) => F::UpperArm(side()?),
             LimbArmorDesign::Poleyn(_) => F::Knee(side()?),
             LimbArmorDesign::Couter(_) => F::Elbow(side()?),
-            LimbArmorDesign::Spaulder(_) => F::Shoulder(side()?),
+            LimbArmorDesign::Spaulder(_) | LimbArmorDesign::Pauldron(_) => F::Shoulder(side()?),
             LimbArmorDesign::MittenGauntlet(_) => F::Hand(side()?),
             LimbArmorDesign::Sabaton(_) | LimbArmorDesign::LeatherBoot(_) => F::Foot(side()?),
         },
@@ -140,13 +155,18 @@ mod tests {
             ("morion", "Helmet", "Morion"),
             ("padded_chausses", "Underlayer", "PaddedHose"),
             ("padded_skirt", "Garment", "PaddedSkirt"),
+            ("pauldron", "Limb", "Pauldron"),
             ("poleyn", "Limb", "Poleyn"),
+            ("puffed_hose", "PuffAndSlash", "Hose"),
+            ("puffed_sleeve", "PuffAndSlash", "Sleeve"),
             ("quilted_sleeve", "Garment", "QuiltedSleeve"),
             ("rerebrace", "Limb", "Rerebrace"),
             ("sabaton", "Limb", "Sabaton"),
             ("sallet", "Helmet", "Sallet"),
             ("spaulder", "Limb", "Spaulder"),
-            ("tassets", "Garment", "Tassets"),
+            ("split_hose", "PuffAndSlash", "Hose"),
+            ("tassets", "WaistAssembly", "Tassets"),
+            ("trunk_hose", "TrunkHose", "TrunkHose"),
             ("visored_sallet", "Helmet", "VisoredSallet"),
         ];
         let catalog = decode(CATALOG_SOURCE.as_bytes()).unwrap();
@@ -154,7 +174,12 @@ mod tests {
         for (id, category, family) in expected {
             let encoded = serde_json::to_value(catalog.get(id).unwrap()).unwrap();
             let shape = &encoded[category];
-            if matches!(category, "Garment" | "Underlayer") {
+            if category == "WaistAssembly" {
+                assert_eq!(shape["fauld"]["kind"], "Fauld");
+                assert_eq!(shape["tassets"]["kind"], family);
+            } else if category == "TrunkHose" {
+                assert!(shape.is_object(), "{id} lost its {family} family");
+            } else if matches!(category, "Garment" | "Underlayer" | "PuffAndSlash") {
                 assert_eq!(shape["kind"], family, "{id}");
             } else {
                 assert!(shape.get(family).is_some(), "{id} lost its {family} family");

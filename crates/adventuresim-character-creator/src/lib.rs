@@ -12,6 +12,7 @@ pub mod device_clearance;
 pub mod device_close_helmet;
 pub mod device_coif;
 pub mod device_extremities;
+pub mod device_fit;
 pub mod device_foot_frame;
 mod device_foot_sections;
 mod device_footwear_fit;
@@ -41,18 +42,27 @@ pub mod armor_recipes;
 pub mod bracer;
 pub mod clothing;
 mod clothing_material;
+#[cfg(feature = "offline-creator")]
+pub mod lod;
+pub mod nearest_vertex;
 pub use clothing_material::pbr as equipment_pbr;
 pub mod decoration;
 pub mod design_input;
 pub mod equipment_catalog;
+#[cfg(feature = "offline-creator")]
 pub mod export;
 pub mod inventory;
 pub mod item_design;
 pub mod library_name;
+pub mod profiling;
+#[cfg(feature = "offline-creator")]
 pub mod proportions;
+pub mod runtime_equipment;
+pub mod skin_rules;
 pub mod studio_environment;
 pub mod surface_cut;
 pub mod underlayer;
+pub mod underlayer_armor;
 pub mod wardrobe;
 pub use adventuresim_core::item_catalog_schema;
 pub mod garment;
@@ -211,4 +221,5 @@ mod tests {
     }
 }
 
+#[cfg(feature = "offline-creator")]
 pub mod underlayer_material;

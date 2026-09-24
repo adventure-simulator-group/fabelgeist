@@ -1183,6 +1183,7 @@ pub enum GenerationError {
         diagnostics: Vec<FactorTrace>,
     },
     CandidateLimit,
+    Sampling(fabelgeist_determinism::SamplingError),
     InvalidManifest(Vec<String>),
 }
 
@@ -1197,9 +1198,8 @@ struct Candidate<T> {
 }
 
 fn hash(seed: u64, domain: &str) -> u64 {
-    domain.bytes().fold(seed ^ 0xcbf29ce484222325, |h, b| {
-        (h ^ u64::from(b)).wrapping_mul(0x100000001b3)
-    })
+    fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("quest.identity"), &[domain.as_bytes()]).to_u64()
 }
 
 fn scoped_id(scope: &str, kind: &str, name: &str) -> String {

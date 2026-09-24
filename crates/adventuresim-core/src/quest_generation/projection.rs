@@ -70,57 +70,6 @@ pub fn generated_testimony_pipeline(
     };
     Ok((receipt_id, pipeline))
 }
-
-fn choose<T: Copy>(
-    seed: u64,
-    module: &str,
-    relation: &str,
-    candidates: &[Candidate<T>],
-    trace: &mut Vec<FactorTrace>,
-) -> Result<(T, Option<&'static str>), GenerationError> {
-    if candidates.len() > MAX_SOLVER_CANDIDATES {
-        return Err(GenerationError::CandidateLimit);
-    }
-    let mut total = 0u64;
-    for c in candidates {
-        let accepted = c.impossible.is_none() && c.weight.combined() > 0;
-        trace.push(FactorTrace {
-            module_id: ModuleId::new(module),
-            relation_id: RelationId::new(relation),
-            factor_ids: c.factors.iter().map(|f| FactorId::new(*f)).collect(),
-            candidate_id: c.id.into(),
-            plausibility: c.weight.plausibility,
-            curation: c.weight.curation,
-            accepted,
-            hard_zero_reason: c.impossible.map(str::to_owned),
-            required_bridge: c.bridge.map(BridgeId::new),
-            decision: TraceDecision::Candidate,
-        });
-        if accepted {
-            total = total.saturating_add(c.weight.combined());
-        }
-    }
-    if total == 0 {
-        return Err(GenerationError::NoCandidates {
-            module: ModuleId::new(module),
-            diagnostics: trace.clone(),
-        });
-    }
-    let mut draw = hash(seed, module) % total;
-    for c in candidates {
-        let weight = if c.impossible.is_none() {
-            c.weight.combined()
-        } else {
-            0
-        };
-        if draw < weight {
-            return Ok((c.value, c.bridge));
-        }
-        draw -= weight;
-    }
-    unreachable!("bounded weighted draw must select")
-}
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum AccountStyle {
     VisualClaim,
@@ -285,10 +234,9 @@ fn evidence_presentation(
                     stat,
                     difficulty_milli: crate::threat_escalation::adjusted_difficulty_milli(
                         check.difficulty_min_milli
-                            + (crate::settlement_population::stable_hash(&format!(
-                                "{}:{}",
-                                evidence_id.0, topic.id
-                            )) % width) as u16,
+                            + fabelgeist_determinism::Seed::derive(
+                                evidence_id.0.as_bytes(), fabelgeist_determinism::StreamId::new("quest.evidence-difficulty"),
+                                &[topic.id.as_bytes()]).rng().below(std::num::NonZeroU64::new(width).expect("inclusive difficulty interval")) as u16,
                         investigability,
                     ),
                     success_description: check.success_description.clone(),
@@ -385,23 +333,13 @@ pub fn select_follow_up_evidence(
         .into_iter()
         .filter(|candidate| candidate.impossible.is_none() && candidate.weight.combined() > 0)
         .collect();
-    let total = candidates
-        .iter()
-        .map(|candidate| candidate.weight.combined())
-        .sum::<u64>();
-    if total == 0 {
-        return None;
-    }
-    let mut draw = entropy % total;
-    candidates.into_iter().find_map(|candidate| {
-        let weight = candidate.weight.combined();
-        if draw < weight {
-            Some(candidate.value)
-        } else {
-            draw -= weight;
-            None
-        }
-    })
+    let mut indices: Vec<_> = (0..candidates.len()).collect();
+    canonicalize(&candidates, &mut indices).expect("validated evidence catalog has unique identities");
+    if indices.is_empty() { return None; }
+    let weights: Vec<_> = indices.iter().map(|index| candidates[*index].weight.combined()).collect();
+    let selected = fabelgeist_determinism::StreamId::new("quest.follow-up-evidence")
+        .rng(entropy, &[]).weighted_index(&weights).expect("bounded catalog weights have positive non-overflowing total");
+    Some(candidates[indices[selected]].value)
 }
 
 fn account_style_candidates(
@@ -565,30 +503,4 @@ fn attack_pattern_candidates(
             factors: vec!["factor.pattern.irregular"],
         },
     ]
-}
-
-fn weighted_order<T: Copy>(
-    seed: u64,
-    domain: &str,
-    candidates: &[Candidate<T>],
-) -> Result<Vec<usize>, GenerationError> {
-    if candidates.len() > MAX_SOLVER_CANDIDATES {
-        return Err(GenerationError::CandidateLimit);
-    }
-    let mut indices = (0..candidates.len())
-        .filter(|index| {
-            let c = &candidates[*index];
-            c.impossible.is_none() && c.weight.combined() > 0
-        })
-        .collect::<Vec<_>>();
-    // Integer-only deterministic weighted permutation. Larger weights yield a
-    // smaller key on average, without duplicating inverse probability tables.
-    indices.sort_by_key(|index| {
-        let c = &candidates[*index];
-        (
-            hash(seed, &format!("{domain}:{}", c.id)) / c.weight.combined().max(1),
-            c.id,
-        )
-    });
-    Ok(indices)
 }

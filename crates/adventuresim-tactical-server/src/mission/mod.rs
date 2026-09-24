@@ -11,8 +11,9 @@ use bevy::prelude::*;
 use enrollment::PartyEnrollment;
 pub(crate) use enrollment::{AdmissionResult, EnrollmentEffect};
 pub(crate) use systems::{
-    check_mission_timeout, check_terminal_combat_outcome, fail_stalled_terminal_submission,
-    finish_terminal_presentation, process_terminal_submission_results,
+    PARTY_RECONNECT_GRACE, check_mission_timeout, check_terminal_combat_outcome,
+    fail_stalled_terminal_submission, finish_terminal_presentation,
+    process_terminal_submission_results,
 };
 pub(crate) use terminal::FrozenTerminal;
 use terminal::TerminalState;
@@ -30,6 +31,7 @@ pub(crate) struct MissionState {
     timeout: Option<Timer>,
     required_enemy_defeats: u32,
     enrollment: PartyEnrollment,
+    reconnect_grace: Duration,
     combat_outcome_hold: CombatOutcomeHold,
     terminal: TerminalState,
 }
@@ -39,11 +41,13 @@ impl MissionState {
         timeout: Option<Timer>,
         required_enemy_defeats: u32,
         expected_party_members: NonZeroU32,
+        reconnect_grace: Duration,
     ) -> Self {
         Self {
             timeout,
             required_enemy_defeats,
             enrollment: PartyEnrollment::new(expected_party_members),
+            reconnect_grace,
             combat_outcome_hold: CombatOutcomeHold::default(),
             terminal: TerminalState::default(),
         }
@@ -51,6 +55,13 @@ impl MissionState {
 
     pub(crate) fn required_enemy_defeats(&self) -> u32 {
         self.required_enemy_defeats
+    }
+
+    /// How long the mission tolerates an empty party (all members
+    /// disconnected) before abandoning it as a failure. A longer grace lets a
+    /// client reconnect after a reload without losing the running mission.
+    pub(crate) fn reconnect_grace(&self) -> Duration {
+        self.reconnect_grace
     }
 
     pub(crate) fn begin_enrollment(&mut self) {

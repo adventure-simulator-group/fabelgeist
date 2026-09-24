@@ -1,8 +1,8 @@
+use fabelgeist_determinism::StreamId;
 pub(super) mod rock;
 pub(super) mod tree;
 
 use super::*;
-use fabelgeist_determinism::splitmix64;
 use rock::{TacticalRockMaterial, procedural_rock_mesh, rock_material};
 use tree::{PendingTreePresentation, canopy_competition};
 
@@ -40,7 +40,11 @@ pub(crate) fn oak_review_terminal_specimen(
     canopy_bps: u16,
 ) -> (Mesh, Mesh, Mesh, Mesh, Vec3, Vec3) {
     let seed = obstacle_seed(root);
-    let variant_seed = splitmix64(0x6f61_6b00 ^ (seed & 3));
+    let variant_seed = crate::presentation::obstacles::tree::specimen::oak_variant_seed(
+        StreamId::new("visual.tree.preview-variant")
+            .rng(seed, &[])
+            .index(4),
+    );
     let branches = procedural_tree_skeleton(variant_seed, canopy_competition(canopy_bps));
     let competition = canopy_competition(canopy_bps);
     let leaves = procedural_oak_leaves(variant_seed, &branches, competition);
@@ -56,7 +60,7 @@ pub(crate) fn oak_review_terminal_specimen(
             };
             score(left).total_cmp(&score(right))
         })
-        .map(|(index, branch)| (index as u16, *branch))
+        .map(|(_, branch)| (tree::shoot_identity(branch), *branch))
         .expect("procedural oak has terminal shoots");
     let offset = -shoot.start;
     let mut specimen_shoot = shoot;

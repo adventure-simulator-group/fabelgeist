@@ -4,13 +4,16 @@
 //! intentionally calculation-only: callers snapshot the result when a stable
 //! journey or incident needs to outlive later rules changes.
 
+mod field;
+use field::correlated_field;
+mod streams;
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, coordinates::LatitudeMicrodegrees};
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use crate::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 
-pub const WEATHER_RULES_VERSION: u16 = 3;
+pub const WEATHER_RULES_VERSION: u16 = 4;
 /// One domain seed shared by every authoritative and player-visible weather
 /// query in the Fabelgeist world.
 pub const WORLD_WEATHER_SEED: u64 = 0x4144_5645_4e54_5552;
@@ -20,7 +23,6 @@ const HISTORY_INTERVALS: u64 = 16;
 const FIELD_FRACTION: i64 = 65_536;
 const SYNOPTIC_SPATIAL_CELLS: i64 = 8;
 const SYNOPTIC_TIME_INTERVALS: i64 = 4;
-const WEATHER_INTERVAL_HASH_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
 #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -259,42 +261,42 @@ fn interval_weather(
 ) -> IntervalWeather {
     let pressure_field = correlated_field(
         world_seed,
-        0x5052_4553,
+        streams::PRESSURE,
         interval,
         cell_latitude,
         cell_longitude,
     );
     let moisture_field = correlated_field(
         world_seed,
-        0x4d4f_4953,
+        streams::MOISTURE,
         interval,
         cell_latitude,
         cell_longitude,
     );
     let middle_moisture = correlated_field(
         world_seed,
-        0x4d49_444d,
+        streams::MIDDLE_MOISTURE,
         interval,
         cell_latitude,
         cell_longitude,
     );
     let upper_moisture = correlated_field(
         world_seed,
-        0x4849_4748,
+        streams::UPPER_MOISTURE,
         interval,
         cell_latitude,
         cell_longitude,
     );
     let convective_field = correlated_field(
         world_seed,
-        0x434f_4e56,
+        streams::CONVECTION,
         interval,
         cell_latitude,
         cell_longitude,
     );
     let occurrence_field = correlated_field(
         world_seed,
-        0x5241_494e,
+        streams::PRECIPITATION,
         interval,
         cell_latitude,
         cell_longitude,
@@ -318,28 +320,28 @@ fn interval_weather(
 
     let pressure_west = correlated_field(
         world_seed,
-        0x5052_4553,
+        streams::PRESSURE,
         interval,
         cell_latitude,
         cell_longitude - 1,
     );
     let pressure_east = correlated_field(
         world_seed,
-        0x5052_4553,
+        streams::PRESSURE,
         interval,
         cell_latitude,
         cell_longitude + 1,
     );
     let pressure_south = correlated_field(
         world_seed,
-        0x5052_4553,
+        streams::PRESSURE,
         interval,
         cell_latitude - 1,
         cell_longitude,
     );
     let pressure_north = correlated_field(
         world_seed,
-        0x5052_4553,
+        streams::PRESSURE,
         interval,
         cell_latitude + 1,
         cell_longitude,
@@ -353,7 +355,7 @@ fn interval_weather(
         .min(u32::from(BASIS_POINTS_PER_WHOLE)) as u16;
     let shear_field = correlated_field(
         world_seed,
-        0x5348_4541,
+        streams::SHEAR,
         interval,
         cell_latitude,
         cell_longitude,
@@ -600,7 +602,7 @@ fn temperature_deci_c(
     let diurnal = triangle_wave_bps((hour + 21) % 24, 24) * 25 / i32::from(BASIS_POINTS_PER_WHOLE);
     let synoptic = (i32::from(correlated_field(
         world_seed,
-        0x5445_4d50,
+        streams::TEMPERATURE,
         interval,
         cell_latitude,
         cell_longitude,
@@ -626,57 +628,6 @@ fn wind_direction(east_gradient: i32, north_gradient: i32) -> u16 {
     }
     let radians = (-(east_gradient as f64)).atan2(north_gradient as f64);
     radians.to_degrees().rem_euclid(360.0).round() as u16 % 360
-}
-
-/// Smooth deterministic field with synoptic-scale spatial correlation,
-/// eastward advection, and day-scale evolution.
-fn correlated_field(seed: u64, domain: u64, interval: u64, lat: i32, lon: i32) -> u16 {
-    let interval = interval.min(i64::MAX as u64 / (4 * FIELD_FRACTION as u64)) as i64;
-    let x = i64::from(lon) * FIELD_FRACTION - interval * 4 * FIELD_FRACTION;
-    let y = i64::from(lat) * FIELD_FRACTION + interval * FIELD_FRACTION;
-    let t = interval * FIELD_FRACTION / SYNOPTIC_TIME_INTERVALS;
-    let spatial_scale = SYNOPTIC_SPATIAL_CELLS * FIELD_FRACTION;
-    let x0 = x.div_euclid(spatial_scale);
-    let y0 = y.div_euclid(spatial_scale);
-    let t0 = t.div_euclid(FIELD_FRACTION);
-    let xf = fade_fraction(x.rem_euclid(spatial_scale), spatial_scale);
-    let yf = fade_fraction(y.rem_euclid(spatial_scale), spatial_scale);
-    let tf = fade_fraction(t.rem_euclid(FIELD_FRACTION), FIELD_FRACTION);
-    let sample = |dx: i64, dy: i64, dt: i64| {
-        (weather_hash(seed ^ domain, t0 + dt, y0 + dy, x0 + dx) % 10_001) as u16
-    };
-    let lower = lerp_bps(
-        lerp_bps(sample(0, 0, 0), sample(1, 0, 0), xf),
-        lerp_bps(sample(0, 1, 0), sample(1, 1, 0), xf),
-        yf,
-    );
-    let upper = lerp_bps(
-        lerp_bps(sample(0, 0, 1), sample(1, 0, 1), xf),
-        lerp_bps(sample(0, 1, 1), sample(1, 1, 1), xf),
-        yf,
-    );
-    lerp_bps(lower, upper, tf)
-}
-
-fn fade_fraction(remainder: i64, scale: i64) -> u32 {
-    let fraction = (remainder as u64 * 65_535 / scale as u64) as u32;
-    let f = u64::from(fraction);
-    ((f * f * (3 * 65_535 - 2 * f)) / (65_535 * 65_535)) as u32
-}
-
-fn lerp_bps(a: u16, b: u16, fraction: u32) -> u16 {
-    let a = i64::from(a);
-    let delta = i64::from(b) - a;
-    (a + delta * i64::from(fraction) / 65_535).clamp(0, i64::from(BASIS_POINTS_PER_WHOLE)) as u16
-}
-
-fn weather_hash(seed: u64, interval: i64, lat: i64, lon: i64) -> u64 {
-    mix64(
-        seed ^ (u64::from(WEATHER_RULES_VERSION) << 48)
-            ^ (interval as u64).wrapping_mul(WEATHER_INTERVAL_HASH_STRIDE)
-            ^ (lat as u64).rotate_left(17)
-            ^ (lon as u64).rotate_left(39),
-    )
 }
 
 /// Supplement an underlying terrain check with the Snow overlay.
@@ -793,7 +744,7 @@ mod tests {
     }
 
     #[test]
-    fn precipitation_is_backed_by_saturation_lift_and_a_precipitating_cloud() {
+    fn precipitation_is_backed_by_lift_and_a_precipitating_cloud() {
         let mut found = 0;
         for interval in 0..4_000 {
             let sample = interval_weather(23, interval, 214, 40, 20);
@@ -801,10 +752,16 @@ mod tests {
                 continue;
             }
             found += 1;
-            assert!(sample.atmosphere.relative_humidity_bps >= 7_000);
             assert!(sample.atmosphere.lift_bps > 0);
             assert!(
-                sample.atmosphere.low_cloud.is_some() || sample.atmosphere.middle_cloud.is_some()
+                sample
+                    .atmosphere
+                    .low_cloud
+                    .is_some_and(|cloud| cloud.form == CloudForm::Cumulonimbus)
+                    || sample
+                        .atmosphere
+                        .middle_cloud
+                        .is_some_and(|cloud| cloud.form == CloudForm::Nimbostratus)
             );
         }
         assert!(found > 0);

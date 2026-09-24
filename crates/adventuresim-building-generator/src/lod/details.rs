@@ -6,7 +6,11 @@ use super::{BuildingLod, BuildingLodMaterial, FACADE_DETAIL_OFFSET_METRES, plan_
 use crate::{BuildingPlan, OpeningUse};
 
 pub(super) fn append_opening_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
-    for opening in &plan.opening_assemblies {
+    for opening in plan
+        .opening_assemblies
+        .iter()
+        .filter(|opening| !matches!(opening.host_source, crate::WallSourceId::RoofGable { .. }))
+    {
         let width = opening.profile.exterior_width_metres();
         let height = opening.profile.clear_height_metres();
         let tangent = opening.frame.tangent.normalize_or_zero();
@@ -23,7 +27,15 @@ pub(super) fn append_opening_details(lod: &mut BuildingLod, plan: &BuildingPlan)
         let right = centre + tangent * width * 0.5;
         let bottom = opening.sill_elevation_metres;
         let top = bottom + height;
-        let (u0, u1) = opening_atlas_interval(opening.use_kind);
+        let (u0, u1) = if opening
+            .closure
+            .layers
+            .contains(&crate::ClosureKind::TimberShutter)
+        {
+            opening_atlas_interval(OpeningUse::Door)
+        } else {
+            opening_atlas_interval(opening.use_kind)
+        };
         lod.mesh_mut(BuildingLodMaterial::FacadeDetails).push_quad(
             [
                 plan_vertex(left, bottom),
@@ -54,6 +66,9 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
         let Some(wall) = plan.wall_assemblies.iter().find(|wall| wall.id == wall_id) else {
             continue;
         };
+        if matches!(wall.source, crate::WallSourceId::RoofGable { .. }) {
+            continue;
+        }
         let outward_2d = wall.frame.outward.normalize_or_zero();
         let outward = Vec3::new(outward_2d.x, 0.0, outward_2d.y);
         let surface_plane = wall.frame.origin.dot(outward_2d)
@@ -71,6 +86,16 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
             let Some(member) = frame.members.iter().find(|member| member.id == *member_id) else {
                 continue;
             };
+            // A bay also owns rear roof headers. Only members intersecting
+            // this wall's depth may become an overlay on its exterior face.
+            let wall_plane = wall.frame.origin.dot(outward_2d);
+            let half_depth = (wall.thickness_metres + member.section_metres.max_element()) * 0.5;
+            if [member.start, member.end]
+                .into_iter()
+                .any(|point| (point.dot(outward) - wall_plane).abs() > half_depth)
+            {
+                continue;
+            }
             let axis = (member.end - member.start).normalize_or_zero();
             let side = outward.cross(axis).normalize_or_zero() * member.section_metres.x * 0.5;
             if side.length_squared() <= f32::EPSILON || axis.dot(outward).abs() > 0.001 {
@@ -93,6 +118,47 @@ pub(super) fn append_timber_details(lod: &mut BuildingLod, plan: &BuildingPlan) 
     }
 }
 
+pub(super) fn append_gable_details(lod: &mut BuildingLod, plan: &BuildingPlan) {
+    let Some(frame) = &plan.timber_frame else {
+        return;
+    };
+    for roof in plan
+        .roof_assemblies
+        .iter()
+        .filter(|roof| roof.parent.is_none())
+    {
+        for face in &roof.enclosure_faces {
+            for member in crate::gable_frame::members(face, frame) {
+                if super::gable_openings::owns_member(plan, member.id) {
+                    continue;
+                }
+                let outward = crate::gable_frame::normal(face);
+                let Some(solid) = plan
+                    .resolved_geometry
+                    .solids
+                    .iter()
+                    .find(|solid| solid.id == member.solid)
+                else {
+                    continue;
+                };
+                // Keep the exterior face's authored finish and metric grain at
+                // distance, including beside an aperture's retained full solids.
+                for mesh in crate::compile_solid_detail(plan, solid).meshes {
+                    for quad in mesh.vertices.as_chunks::<4>().0 {
+                        if quad[0].normal.dot(outward) > 0.999 {
+                            lod.mesh_mut(mesh.material).push_quad(
+                                quad.map(|vertex| vertex.position),
+                                outward,
+                                quad.map(|vertex| vertex.uv),
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
     match kind {
         OpeningUse::Window => (0.25, 0.375),
@@ -101,5 +167,147 @@ fn opening_atlas_interval(kind: OpeningUse) -> (f32, f32) {
         OpeningUse::ArrowLoop => (0.625, 0.75),
         OpeningUse::GunLoop => (0.75, 0.875),
         OpeningUse::BellOpening => (0.875, 1.0),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{
+        BuildingArchetype, BuildingLodLevel, BuildingProgram, compile_solid_detail, generate,
+    };
+
+    #[test]
+    fn gable_lod_faces_preserve_actual_timber_corners_finish_and_grain() {
+        for seed in [42, 47, 101] {
+            let plan = generate(&BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                seed,
+            ))
+            .unwrap();
+            let frame = plan.timber_frame.as_ref().unwrap();
+            let solids = frame
+                .members
+                .iter()
+                .map(|member| {
+                    let solid = plan
+                        .resolved_geometry
+                        .solids
+                        .iter()
+                        .find(|solid| solid.id == member.solid)
+                        .unwrap();
+                    compile_solid_detail(&plan, solid)
+                })
+                .collect::<Vec<_>>();
+            for level in [BuildingLodLevel::Facade, BuildingLodLevel::Shell] {
+                let mut lod = BuildingLod {
+                    level,
+                    facade_runs: vec![],
+                    meshes: vec![],
+                };
+                append_gable_details(&mut lod, &plan);
+                assert!(
+                    lod.meshes
+                        .iter()
+                        .map(|mesh| mesh.vertices.len())
+                        .sum::<usize>()
+                        >= 40
+                );
+                for mesh in &lod.meshes {
+                    for quad in mesh.vertices.as_chunks::<4>().0 {
+                        assert!(
+                            solids
+                                .iter()
+                                .any(|solid| solid.meshes.iter().any(|exact_mesh| {
+                                    exact_mesh.material == mesh.material
+                                        && quad.iter().all(|vertex| {
+                                            exact_mesh.vertices.iter().any(|exact| {
+                                                exact.uv == vertex.uv
+                                                    && exact.normal.dot(vertex.normal) > 0.999
+                                                    && exact.position.distance(vertex.position)
+                                                        < 0.0001
+                                            })
+                                        })
+                                })),
+                            "gable LOD must preserve one physical timber's face and finish"
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn rear_dormer_headers_do_not_become_front_wall_overlays() {
+        for archetype in [
+            BuildingArchetype::FachwerkCottage,
+            BuildingArchetype::HallHouse,
+        ] {
+            let mut plan = generate(&BuildingProgram::fixture(archetype, 42)).unwrap();
+            let frame = plan.timber_frame.as_mut().unwrap();
+            frame.bays.retain(|bay| {
+                plan.wall_assemblies.iter().any(|wall| {
+                    Some(wall.id) == bay.wall
+                        && matches!(wall.source, crate::WallSourceId::RoofChildFront { .. })
+                })
+            });
+            let mut lod = BuildingLod {
+                level: BuildingLodLevel::Shell,
+                facade_runs: vec![],
+                meshes: vec![],
+            };
+            append_timber_details(&mut lod, &plan);
+            assert!(
+                !lod.meshes.is_empty(),
+                "front wall framing must remain visible"
+            );
+            let frame = plan.timber_frame.as_mut().unwrap();
+            let mut rear_headers = 0;
+            for bay in &mut frame.bays {
+                let wall = plan
+                    .wall_assemblies
+                    .iter()
+                    .find(|wall| Some(wall.id) == bay.wall)
+                    .unwrap();
+                let outward =
+                    Vec3::new(wall.frame.outward.x, 0.0, wall.frame.outward.y).normalize();
+                bay.member_ids.retain(|id| {
+                    let member = frame
+                        .members
+                        .iter()
+                        .find(|member| member.id == *id)
+                        .unwrap();
+                    let horizontal =
+                        (member.end - member.start).normalize().dot(outward).abs() < 0.001;
+                    let behind = member.start.dot(outward)
+                        - wall.frame.origin.dot(wall.frame.outward)
+                        < -1.0;
+                    horizontal && behind && member.role == crate::TimberMemberRole::DormerTrimmer
+                });
+                rear_headers += bay.member_ids.len();
+            }
+            assert!(
+                rear_headers > 0,
+                "fixture must exercise a rear header in a front bay"
+            );
+            lod.meshes.clear();
+            append_timber_details(&mut lod, &plan);
+            assert!(
+                lod.meshes.is_empty(),
+                "rear roof framing cannot float above the front facade"
+            );
+        }
+    }
+
+    #[test]
+    fn half_hip_does_not_project_its_inset_truss_onto_the_gable() {
+        let plan = generate(&BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)).unwrap();
+        let mut lod = BuildingLod {
+            level: BuildingLodLevel::Shell,
+            facade_runs: vec![],
+            meshes: vec![],
+        };
+        append_gable_details(&mut lod, &plan);
+        assert!(lod.meshes.is_empty());
     }
 }

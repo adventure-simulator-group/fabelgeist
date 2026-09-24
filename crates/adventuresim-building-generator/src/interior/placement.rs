@@ -1,3 +1,5 @@
+const RNG_BUILDING_FURNITURE_SIZE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.furniture-size");
 use super::budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
 use super::navigation::Navigation;
 use super::{
@@ -57,6 +59,7 @@ pub fn furnish(
         return Err(InteriorLayoutError::EmptyLayout);
     }
     layout.paths = nav.access_paths(&layout.placements, &nav.flood(&layout.placements))?;
+    super::finishes::assign(plan, program, &mut layout.placements);
     Ok(layout)
 }
 
@@ -143,10 +146,13 @@ pub(super) fn candidates(
     storey: u16,
     budget: FurnitureBudget,
 ) -> Vec<Vec<InteriorPlacement>> {
-    let seed = fabelgeist_determinism::mix64(
-        program.seed ^ u64::from(room.id) ^ (u64::from(storey) << 32),
-    );
-    let variants = if seed.is_multiple_of(2) {
+    let seed = fabelgeist_determinism::StreamId::new("building.room-furniture")
+        .seed(program.seed, &[u64::from(room.id), u64::from(storey)])
+        .to_u64();
+    let variants = if RNG_BUILDING_FURNITURE_SIZE
+        .rng(seed, &[budget.kind as u64])
+        .boolean()
+    {
         vec![FurnitureVariant::Broad, FurnitureVariant::Compact]
     } else {
         vec![FurnitureVariant::Compact]
@@ -168,10 +174,7 @@ fn variant_candidates(
     variant: FurnitureVariant,
     seed: u64,
 ) -> Vec<Vec<InteriorPlacement>> {
-    let key = FurnitureKey {
-        kind: budget.kind,
-        variant,
-    };
+    let key = FurnitureKey::natural(budget.kind, variant);
     let (min, max) = super::geometry::room_bounds(room);
     let mut choices = Vec::new();
     let preferred_facing = super::room_facing::preferred_facing(plan, room, budget.kind, min, max);
@@ -234,10 +237,22 @@ fn variant_candidates(
                     }
                     FurniturePosition::Rows => centre.y - min.y + (centre.x - min.x) * 0.01,
                 };
-                let tie = fabelgeist_determinism::mix64(
-                    seed ^ u64::from(x) ^ (u64::from(z) << 24) ^ (choices.len() as u64),
-                );
-                choices.push((score, tie, super::composition::compose(p)));
+                let tie = fabelgeist_determinism::StreamId::new("building.furniture-placement")
+                    .rng(
+                        seed,
+                        &[
+                            u64::from(x),
+                            u64::from(z),
+                            facing as u64,
+                            budget.kind as u64,
+                            variant as u64,
+                        ],
+                    )
+                    .next_u64();
+                let score = super::room_facing::placement_score(plan, &p, min, max, score);
+                if score.is_finite() {
+                    choices.push((score, tie, super::composition::compose(p)));
+                }
             }
         }
     }

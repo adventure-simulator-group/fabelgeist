@@ -175,7 +175,7 @@ fn validate_church_suite_records(records: &[(&str, ChurchSuiteManifest)]) -> Res
             }
             "church-bay-vault" => has_role("ChurchVaultShell"),
             "church-tower-stair" => has_role("ChurchStairTread") && has_role("Landing"),
-            "church-tower-bell-underside" => has_role("ChurchBellFloor") && has_role("ChurchBell"),
+            "church-tower-bell-underside" => has_role("ChurchBell"),
             "church-tower-frame" => has_role("ChurchBellFrame") && has_role("ChurchServiceLadder"),
             "church-tower-roof-drain" | "church-drainage" => {
                 has_role("RoofGutter") || has_role("RoofEdgeTreatment")

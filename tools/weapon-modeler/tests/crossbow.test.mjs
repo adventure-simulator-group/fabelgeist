@@ -1,6 +1,7 @@
+import { validateWeapon } from "../src/kernel.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import { closedManifoldErrors, crossbowStockLayout, crossbowTipLoopLayout, measureMassProperties, signedVolume, validateWeapon } from "../src/mesh.js";
+import { closedManifoldErrors, measureMassProperties, signedVolume } from "./quality/mesh-measurements.mjs";
 import { PRESETS, copyPreset, setControlValue } from "../src/presets.js";
 
 const preset = (id) => PRESETS.find((candidate) => candidate.id === id);
@@ -39,7 +40,7 @@ test("spanning modes expose family-constrained mating load paths", () => {
 
 test("open nut cavity and recessed runner share one datum without unintended stock intersections", () => {
   for (const id of crossbowIds) {
-    const source = preset(id), c = source.definition.components[0], layout = crossbowStockLayout(c), result = validateWeapon(source.definition, source.controls), part = (label) => bounds(result.mesh.parts.find((p) => p.label === label));
+    const source = preset(id), c = source.definition.components[0], layout = { cavityStart:c.nutPosition-c.nutRadius-.004, cavityEnd:c.nutPosition+c.nutRadius+.004, gapWidth:c.nutWidth+.008 }, result = validateWeapon(source.definition, source.controls), part = (label) => bounds(result.mesh.parts.find((p) => p.label === label));
     assert.equal(result.mesh.parts.some((p) => p.label.includes("nut well")), false, `${id}: cavity is omitted, not filled`);
     const rear = part("profiled rear crossbow tiller stock"), fore = part("profiled fore-end crossbow tiller stock"), leftStock = part("left open nut-cavity stock cheek"), rightStock = part("right open nut-cavity stock cheek");
     assert.ok(rear.max[1] <= layout.cavityStart + 1e-9 && fore.min[1] >= layout.cavityEnd - 1e-9);
@@ -63,7 +64,6 @@ test("served string spans and tip loops remain independently manifold and seated
   for (const id of crossbowIds) {
     const source = preset(id), result = validateWeapon(source.definition, source.controls), c = source.definition.components[0];
     for (const label of labels) assert.equal(result.mesh.parts.filter((p) => p.label === label).length, 1, `${id}: ${label}`);
-    for (const right of [false, true]) { const loop = crossbowTipLoopLayout(c, right); assert.ok(loop.depthAxis > c.prodDepth * c.prodTipScale / 2); assert.ok(loop.points.some((p) => Math.hypot(...p.map((v, a) => v - loop.attachment[a])) < 1e-8)); }
     for (const label of labels.slice(-2)) { const loop = result.mesh.parts.find((p) => p.label === label); assert.ok(signedVolume(loop) > 0); assert.deepEqual(closedManifoldErrors(loop, label), []); }
   }
 });

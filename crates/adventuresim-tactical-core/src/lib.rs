@@ -20,6 +20,7 @@ mod scene_fault;
 mod scene_ground;
 pub mod scene_input;
 mod scene_transition_mesh;
+pub mod terrain_streams;
 mod terrain_transition;
 pub mod volumetric_terrain;
 
@@ -52,9 +53,10 @@ pub mod prelude {
         walk_locomotion_profile,
     };
     pub use crate::city_layout::{
-        CityBuildingLot, CityHouseClass, CityStreetPatch, CityStreetSurface, CityYardPatch,
-        CityYardSurface, GeneratedCityLayout, MAX_CITY_LOTS, MAX_CITY_STREET_PATCHES,
-        MAX_CITY_YARD_PATCHES, generate_city,
+        CityBoundary, CityBoundaryMaterial, CityBoundaryMember, CityBuildingLot, CityCompound,
+        CityGarden, CityHouseClass, CityPlotBounds, CityPropertyId, CitySite, CityStreetPatch,
+        CityStreetSurface, CityYardPatch, CityYardSurface, GeneratedCityLayout, MAX_CITY_LOTS,
+        MAX_CITY_STREET_PATCHES, MAX_CITY_YARD_PATCHES,
     };
     pub use crate::combat::{
         Attack, Dodge, MeleeLunge, conservative_forward_lunge_acceleration,
@@ -97,7 +99,7 @@ pub mod prelude {
     };
     pub use crate::scene::{
         GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneId, SceneTerrain,
-        TerrainGenerator,
+        TerrainGenerator, UrbanGroundLookup,
     };
     pub use crate::scene_input::furniture::{
         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
@@ -105,11 +107,12 @@ pub mod prelude {
         SceneFurniture, SceneFurnitureGroup, SceneVistaFurniture, furniture_collider,
     };
     pub use crate::scene_input::{
-        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBuilding,
-        GeneratedObstacle, GeneratedTacticalScene, ROCK_RADIUS_METRES, RockArchetype,
-        RockLithology, RockRecipe, SceneBuilding, SceneDoor, SceneEnvironment,
-        SceneEnvironmentFixture, SceneInputError, SceneObstacle, SceneRepairReport, SceneSource,
-        SceneWindow, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+        BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GeneratedBoundary,
+        GeneratedBuilding, GeneratedGarden, GeneratedObstacle, GeneratedTacticalScene,
+        ROCK_RADIUS_METRES, RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding,
+        SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneEstablishment, SceneGarden,
+        SceneInputError, SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,
+        TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
         TREE_CANOPY_GROUND_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES, TREE_TRUNK_RADIUS_METRES,
         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
         VistaLod, VistaSample,

@@ -13,30 +13,7 @@ fn spawn_resolved_crowns(
                 .collect::<std::collections::HashSet<_>>()
         })
         .unwrap_or_default();
-    let isolated_church_items = section_view
-        .filter(|view| {
-            matches!(
-                view,
-                ViewerView::ChurchBayInterior
-                    | ViewerView::ChurchBaySection
-                    | ViewerView::ChurchBayLoad
-                    | ViewerView::ChurchBayVault
-                    | ViewerView::ChurchCrossingInterior
-                    | ViewerView::ChurchCrossingCutLoad
-                    | ViewerView::ChurchChoirInterior
-                    | ViewerView::ChurchChoirRadialSection
-                    | ViewerView::ChurchTowerStair
-                    | ViewerView::ChurchTowerBellUnderside
-                    | ViewerView::ChurchTowerFrame
-                    | ViewerView::ChurchDrainage
-                    | ViewerView::ChurchSupportDag
-            )
-        })
-        .map(|view| {
-            church_focus_item_ids(plan, view)
-                .into_iter()
-                .collect::<std::collections::HashSet<_>>()
-        });
+    let isolated_church_items = church_isolated_items(plan, section_view);
     let isolated_timber_items =
         section_view
             .filter(|view| timber_isolated_view(*view))
@@ -69,6 +46,22 @@ fn spawn_resolved_crowns(
             .projected_defenses
             .iter()
             .find(|defense| defense.owner == solid.owner || defense.host_owner == solid.owner);
+        if matches!(
+            solid.role,
+            SolidRole::ChurchBell
+                | SolidRole::ChurchBellFitting
+                | SolidRole::ChurchBellAxle
+                | SolidRole::ChurchBellBearing
+                | SolidRole::ChurchBellCrown
+        ) {
+            if isolated_church_items.as_ref().map_or_else(
+                || visible_owners.is_none_or(|owners| owners.contains(&solid.owner.0)),
+                |items| items.contains(&solid.id.0),
+            ) {
+                bell::spawn(world, plan, solid, origin, section_view);
+            }
+            continue;
+        }
         let wall = plan
             .wall_assemblies
             .iter()
@@ -152,7 +145,10 @@ fn spawn_resolved_crowns(
                 | SolidRole::ChurchFloor
                 | SolidRole::ChurchBellFloor
                 | SolidRole::ChurchVaultShell => &palette.floor,
-                SolidRole::ChurchStairTread | SolidRole::ArtilleryStairTread | SolidRole::StairTread | SolidRole::StairNewel => &palette.stair,
+                SolidRole::ChurchStairTread
+                | SolidRole::ArtilleryStairTread
+                | SolidRole::StairTread
+                | SolidRole::StairNewel => &palette.stair,
                 SolidRole::ChurchStairNewel | SolidRole::ChurchServiceLadder => &palette.timber,
                 SolidRole::RoofFlashing if solid.size.y <= 0.03 && solid.size.z <= 0.12 => {
                     &palette.roof
@@ -171,6 +167,7 @@ fn spawn_resolved_crowns(
                 SolidRole::OpeningClosure
                 | SolidRole::WeaponMount
                 | SolidRole::ChurchBellFrame
+                | SolidRole::ChurchBellHeadstock
                 | SolidRole::ChurchGuard => &palette.timber,
                 SolidRole::ChurchBell => &palette.roof_secondary,
                 SolidRole::Mullion => &palette.stone,
@@ -211,6 +208,25 @@ fn spawn_resolved_crowns(
             .map(|wall| wall.frame.tangent.y.abs() > 0.5)
             .unwrap_or(solid.size.z > solid.size.x);
         let (mesh, shape_yaw) = match solid.shape {
+            adventuresim_building_generator::ResolvedSolidShape::BellShell
+            | adventuresim_building_generator::ResolvedSolidShape::CylinderAlongX => (
+                flat_face_mesh(
+                    &adventuresim_building_generator::compile_solid_detail(plan, solid)
+                        .meshes
+                        .iter()
+                        .flat_map(|mesh| {
+                            mesh.indices.as_chunks::<3>().0.iter().map(|indices| {
+                                indices
+                                    .map(|index| {
+                                        mesh.vertices[index as usize].position - solid.centre
+                                    })
+                                    .to_vec()
+                            })
+                        })
+                        .collect::<Vec<_>>(),
+                ),
+                None,
+            ),
             adventuresim_building_generator::ResolvedSolidShape::SegmentalArchRing {
                 spring_height_metres,
                 rise_metres,

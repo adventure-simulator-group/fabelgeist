@@ -1,6 +1,7 @@
-use crate::MaterialClass;
+use crate::Material;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Serialize, Deserialize)]
 pub struct DerivedProperties {
     pub mass_kg: f32,
     pub length_m: f32,
@@ -14,8 +15,8 @@ pub struct DerivedProperties {
     pub balance: f32,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DerivedMaterialMass {
-    pub material: MaterialClass,
+    pub material: Material,
     pub mass_kg: f32,
 }

@@ -121,7 +121,7 @@ pub(super) async fn inventory_containers(
         .collect();
     let definitions = state
         .db
-        .query_sats_into::<adventuresim_stdb_client::Item, CatalogItemView>("SELECT * FROM item")
+        .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
         .await
         .unwrap_or_default();
     let lots = state
@@ -246,7 +246,7 @@ async fn owned_container_object(
 ) -> Option<InventoryObject> {
     let row = state
         .db
-        .query_one_sats::<InventoryObject>(&crate::spacetimedb::inventory_object_by_id(id))
+        .query_one_sats::<InventoryObject>(&db::inventory_object_by_id(id))
         .await
         .ok()
         .flatten()?;
@@ -479,5 +479,5 @@ mod preparation_ui_tests {
         assert!(script.contains("data-container-tincture"));
     }
 }
-use adventuresim_core::physical_object::CarriedInventoryScope;
 use crate::spacetimedb::InventoryLocation;
+use adventuresim_core::physical_object::CarriedInventoryScope;

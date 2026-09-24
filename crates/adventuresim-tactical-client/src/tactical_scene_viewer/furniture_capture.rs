@@ -47,7 +47,7 @@ pub(super) fn setup(
             let mut matching = layout
                 .instances
                 .iter()
-                .filter(|instance| instance.scene.key.kind == kind);
+                .filter(|instance| instance.scene.key.kind() == kind);
             // Review the stable's last accepted group rather than the inn's
             // first group so the smaller frontage frames these low objects.
             let instance = if matches!(

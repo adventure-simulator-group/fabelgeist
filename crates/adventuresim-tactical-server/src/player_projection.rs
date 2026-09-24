@@ -700,7 +700,12 @@ fn spawn_connected_player(
     };
 
     let player_collider = player_collider();
-    let spawn_position = Vec2::new(rand::random_range(-5.0..5.0), rand::random_range(-5.0..5.0));
+    let mut spawn_random = fabelgeist_determinism::StreamId::new("tactical.player-spawn")
+        .rng(player.character.id, &[]);
+    let spawn_position = Vec2::new(
+        spawn_random.range_f32(-5.0, 5.0),
+        spawn_random.range_f32(-5.0, 5.0),
+    );
     let spawn_height = q_scene
         .iter()
         .next()
@@ -794,7 +799,10 @@ fn spawn_connected_player(
             ItemOf(entity),
             quantity,
             ItemProperties {
-                weight: instance_geometry.map_or(item.item.weight, |value| value.mass_kg),
+                weight: instance_geometry
+                    .map(|value| value.mass_kg)
+                    .or_else(|| projection_equipment::projected_holder_mass(item))
+                    .unwrap_or(item.item.weight),
                 id: item.item.id.clone(),
             },
             Transform::default(),
@@ -2447,21 +2455,21 @@ mod tests {
 
     #[test]
     fn tactical_recipe_length_changes_reach_mass_and_handling() {
-        use adventuresim_weapon_model::{
-            ComponentShape, GENERATOR_VERSION, default_design, design_hash, encode,
-        };
+        use adventuresim_weapon_model::{GENERATOR_VERSION, default_design, design_hash, encode};
 
         let short = default_design("halberd").unwrap();
         let mut long = short.clone();
         let shaft = long
+            .recipe
             .components
             .iter_mut()
-            .find(|component| component.id == "shaft")
+            .find(|component| component.id.as_deref() == Some("shaft"))
             .unwrap();
-        let ComponentShape::Cylinder(shaft) = &mut shaft.shape else {
+        let adventuresim_weapon_model::recipe::Shape::Shaft(shaft) = &mut shaft.shape else {
             panic!("halberd shaft");
         };
-        shaft.length.0 += 300;
+        shaft.length =
+            adventuresim_weapon_model::recipe::Metres::new(shaft.length.get() + 0.3).unwrap();
         let appearance = |design| adventuresim_stdb_client::ConnectedWeaponAppearance {
             generator_version: GENERATOR_VERSION,
             design_hash: design_hash(design).0.to_vec(),

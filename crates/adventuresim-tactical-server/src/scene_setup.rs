@@ -8,6 +8,7 @@ impl Plugin for SceneGeometryPlugin {
     fn build(&self, app: &mut App) {
         app.add_observer(super::on_scene_terrain_added)
             .add_observer(super::openings::on_scene_building_added)
+            .add_observer(super::openings::on_scene_boundary_added)
             .add_observer(super::furniture::on_furniture_added)
             .add_observer(super::furniture::on_group_added)
             .add_observer(super::furniture::on_vista_furniture_added);
@@ -22,8 +23,12 @@ pub(crate) fn vista_bundle(input: &TacticalSceneInput) -> Option<SceneVistaBundl
             f32::from(input.playable.depth.saturating_sub(1)) * input.playable.spacing_metres * 0.5,
         ),
         distant_buildings: input.distant_buildings.clone(),
+        establishments: input.establishments.clone(),
         streets: input.streets.clone(),
         yards: input.yards.clone(),
+        parishes: input.parishes.clone(),
+        compounds: input.compounds.clone(),
+        gardens: input.gardens.clone(),
         furniture_groups: Vec::new(),
         distant_furniture: Vec::new(),
         lods: input.vista.lods.clone(),

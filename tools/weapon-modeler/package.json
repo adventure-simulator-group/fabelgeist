@@ -6,6 +6,11 @@
     "export": "node cli.mjs",
     "start": "node server.mjs",
     "test": "node --test tests/*.test.mjs",
-    "test:quality": "node --test tests/mesh-quality.test.mjs tests/quality/corpus.test.mjs"
+    "test:quality": "node --test tests/mesh-quality.test.mjs tests/quality/corpus.test.mjs",
+    "prestart": "node build-kernel.mjs",
+    "pretest": "node build-kernel.mjs",
+    "preexport": "node build-kernel.mjs",
+    "build:kernel": "node build-kernel.mjs",
+    "pretest:quality": "node build-kernel.mjs"
   }
 }

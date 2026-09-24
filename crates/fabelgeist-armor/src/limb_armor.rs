@@ -5,13 +5,22 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::{DesignError, GenerateError, Millimeters, Permille, PlateFluting};
+use crate::{DesignError, GenerateError, JointCupDesign, Millimeters, Permille, PlateFluting};
 
 /// Padding clearance and actual wall gauge, in millimetres.
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct PlateGauge {
     pub clearance: Millimeters,
     pub thickness: Millimeters,
+}
+
+impl PlateGauge {
+    pub fn validate(self) -> Result<(), DesignError> {
+        if !(2..=25).contains(&self.clearance.0) || !(1..=6).contains(&self.thickness.0) {
+            return Err(DesignError::ParametricParameters);
+        }
+        Ok(())
+    }
 }
 
 impl Default for PlateGauge {
@@ -106,72 +115,15 @@ impl Default for RerebraceDesign {
     }
 }
 
-/// A raised knee or elbow cop flowing into an integral lateral wing.
-#[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
-pub struct JointCupDesign {
-    /// Flare of the proximal rim over the adjacent upper-limb plate.
-    pub proximal_flare: Millimeters,
-    /// Rounds the free end of the fan while retaining its attachment to the cup.
-    pub wing_roundness: Permille,
-    pub wing_notch: Permille,
-    pub fluting: Option<PlateFluting>,
-    pub wing_height: Permille,
-    /// Distal fan-lobe height relative to the proximal lobe.
-    pub distal_wing_scale: Permille,
-    pub center_ridge: Millimeters,
-
-    pub gauge: PlateGauge,
-    pub dome: Permille,
-    pub wing: Permille,
-    pub length: Permille,
-}
-
-impl Default for JointCupDesign {
-    fn default() -> Self {
-        Self::poleyn()
-    }
-}
-
-impl JointCupDesign {
-    pub fn poleyn() -> Self {
-        Self {
-            proximal_flare: Millimeters(6),
-            wing_roundness: Permille(1000),
-            fluting: None,
-            wing_height: Permille(1000),
-            distal_wing_scale: Permille(1000),
-            wing_notch: Permille(0),
-            center_ridge: Millimeters(0),
-            gauge: PlateGauge::default(),
-            dome: Permille(200),
-            wing: Permille(350),
-            length: Permille(1000),
-        }
-    }
-
-    pub fn couter() -> Self {
-        Self {
-            proximal_flare: Millimeters(6),
-            wing_roundness: Permille(500),
-            fluting: None,
-            wing_height: Permille(1000),
-            distal_wing_scale: Permille(1000),
-            wing_notch: Permille(0),
-            center_ridge: Millimeters(0),
-            gauge: PlateGauge::default(),
-            dome: Permille(850),
-            wing: Permille(450),
-            length: Permille(900),
-        }
-    }
-}
-
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct SpaulderDesign {
+    pub besagew: Option<crate::BesagewDesign>,
     /// Front and rear rim flare over the adjoining upper-arm plate.
     pub lower_flare: Millimeters,
     /// Neckward reach of the closed crown apex.
     pub crown_reach: Permille,
+    /// Retained arc toward the neck, without changing the dome's curvature.
+    pub crown_coverage: Permille,
     pub fluting: Option<PlateFluting>,
     pub wrap: Permille,
     pub rear_extension: Permille,
@@ -185,8 +137,10 @@ pub struct SpaulderDesign {
 impl Default for SpaulderDesign {
     fn default() -> Self {
         Self {
+            besagew: None,
             lower_flare: Millimeters(6),
             crown_reach: Permille(800),
+            crown_coverage: Permille(1000),
             fluting: None,
             wrap: Permille(560),
             rear_extension: Permille(1000),
@@ -290,6 +244,7 @@ pub enum LimbArmorDesign {
     Poleyn(JointCupDesign),
     Couter(JointCupDesign),
     Spaulder(SpaulderDesign),
+    Pauldron(crate::PauldronDesign),
     MittenGauntlet(GauntletDesign),
     Sabaton(FootArmorDesign),
     LeatherBoot(BootDesign),
@@ -304,6 +259,7 @@ impl LimbArmorDesign {
             Self::Poleyn(d) => Some(&mut d.fluting),
             Self::Couter(d) => Some(&mut d.fluting),
             Self::Spaulder(d) => Some(&mut d.fluting),
+            Self::Pauldron(d) => Some(&mut d.fluting),
             Self::MittenGauntlet(d) => Some(&mut d.fluting),
             Self::Sabaton(d) => Some(&mut d.fluting),
             Self::LeatherBoot(_) => None,
@@ -317,6 +273,7 @@ impl LimbArmorDesign {
             Self::Poleyn(d) => d.fluting.as_ref(),
             Self::Couter(d) => d.fluting.as_ref(),
             Self::Spaulder(d) => d.fluting.as_ref(),
+            Self::Pauldron(d) => d.fluting.as_ref(),
             Self::MittenGauntlet(d) => d.fluting.as_ref(),
             Self::Sabaton(d) => d.fluting.as_ref(),
             Self::LeatherBoot(_) => None,
@@ -353,28 +310,38 @@ impl LimbArmorDesign {
                     && d.center_ridge.0 <= 12
                     && ratio(d.section_depth, 850, 1200),
             ),
-            Self::Poleyn(d) | Self::Couter(d) => (
-                d.gauge,
-                ratio(d.dome, 100, 1100)
-                    && ratio(d.wing, 0, 650)
-                    && ratio(d.length, 650, 1250)
-                    && d.wing_notch.0 <= 600
-                    && d.wing_roundness.0 <= 1000
-                    && d.proximal_flare.0 <= 15
-                    && ratio(d.wing_height, 600, 1400)
-                    && ratio(d.distal_wing_scale, 500, 2000)
-                    && d.center_ridge.0 <= 12,
-            ),
-            Self::Spaulder(d) => (
-                d.gauge,
-                ratio(d.length, 650, 1250)
-                    && ratio(d.crown, 850, 1350)
-                    && ratio(d.crown_reach, 500, 900)
-                    && d.lower_flare.0 <= 15
-                    && (2..=7).contains(&d.lame_count)
-                    && ratio(d.wrap, 450, 700)
-                    && ratio(d.rear_extension, 800, 1400),
-            ),
+            Self::Poleyn(d) | Self::Couter(d) => {
+                d.validate_construction()?;
+                (
+                    d.gauge,
+                    ratio(d.dome, 100, 1100)
+                        && d.construction.wing_range().contains(&d.wing.0)
+                        && ratio(d.length, 650, 1250)
+                        && d.wing_notch.0 <= 600
+                        && d.wing_roundness.0 <= 1000
+                        && d.proximal_flare.0 <= 15
+                        && ratio(d.wing_height, 600, 1400)
+                        && ratio(d.distal_wing_scale, 500, 2000)
+                        && d.center_ridge.0 <= 12,
+                )
+            }
+            Self::Spaulder(d) => {
+                if let Some(besagew) = &d.besagew {
+                    besagew.validate()?;
+                }
+                (
+                    d.gauge,
+                    ratio(d.length, 650, 1250)
+                        && ratio(d.crown, 850, 1350)
+                        && ratio(d.crown_reach, 500, 900)
+                        && ratio(d.crown_coverage, 200, 1000)
+                        && d.lower_flare.0 <= 15
+                        && (2..=7).contains(&d.lame_count)
+                        && ratio(d.wrap, 350, 700)
+                        && ratio(d.rear_extension, 800, 1400),
+                )
+            }
+            Self::Pauldron(d) => (d.gauge, d.valid_shape()),
             Self::MittenGauntlet(d) => (
                 d.gauge,
                 d.cuff_clearance.0 <= 15
@@ -400,8 +367,8 @@ impl LimbArmorDesign {
                     && ratio(d.toe_width, 800, 1300),
             ),
         };
-        if !valid || !(2..=25).contains(&gauge.clearance.0) || !(1..=6).contains(&gauge.thickness.0)
-        {
+        gauge.validate()?;
+        if !valid {
             return Err(DesignError::ParametricParameters.into());
         }
         Ok(())

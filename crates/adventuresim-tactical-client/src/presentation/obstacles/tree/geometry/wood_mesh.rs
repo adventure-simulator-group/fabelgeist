@@ -1,5 +1,3 @@
-#[cfg(test)]
-use crate::presentation::unit_hash;
 use adventuresim_tactical_core::prelude::TREE_TRUNK_HEIGHT_METRES;
 use bevy::{
     asset::RenderAssetUsages,
@@ -7,15 +5,12 @@ use bevy::{
     mesh::{Indices, PrimitiveTopology},
     prelude::Mesh,
 };
+#[cfg(test)]
+use fabelgeist_determinism::StreamId;
 
 #[cfg(test)]
 use super::{BarkRecipe, ENGLISH_OAK_BARK};
 use super::{TreeBranchSegment, branch_frame, transport_branch_frame};
-
-#[cfg(test)]
-const BRANCH_HASH_INDEX_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
-#[cfg(test)]
-const BRANCH_HASH_MULTIPLIER: u64 = 0xbf58_476d_1ce4_e5b9;
 
 /// Geometry budgets for live woody branch sweeps.
 ///
@@ -603,18 +598,29 @@ fn capsule_distance(point: Vec3, segment: &TreeBranchSegment) -> f32 {
 
 #[cfg(test)]
 fn bark_phase_from_branches(branches: &[TreeBranchSegment]) -> f32 {
-    let stride = (branches.len() / 64).max(1);
-    let mut hash = 0x6a09_e667_f3bc_c909_u64;
-    for (index, branch) in branches.iter().step_by(stride).enumerate() {
-        let bits = u64::from(branch.end.x.to_bits())
-            ^ u64::from(branch.end.y.to_bits()).rotate_left(17)
-            ^ u64::from(branch.end.z.to_bits()).rotate_left(33)
-            ^ (index as u64).wrapping_mul(BRANCH_HASH_INDEX_STRIDE);
-        hash ^= bits;
-        hash = hash.wrapping_mul(BRANCH_HASH_MULTIPLIER);
-        hash ^= hash >> 29;
-    }
-    unit_hash(hash) * core::f32::consts::TAU
+    let mut geometry: Vec<_> = branches
+        .iter()
+        .map(|branch| {
+            [
+                branch.start.x.to_bits(),
+                branch.start.y.to_bits(),
+                branch.start.z.to_bits(),
+                branch.end.x.to_bits(),
+                branch.end.y.to_bits(),
+                branch.end.z.to_bits(),
+            ]
+        })
+        .collect();
+    geometry.sort_unstable();
+    let bytes: Vec<u8> = geometry
+        .into_iter()
+        .flatten()
+        .flat_map(u32::to_le_bytes)
+        .collect();
+    fabelgeist_determinism::Seed::derive(&bytes, StreamId::new("visual.tree.bark-phase"), &[])
+        .rng()
+        .inclusive_unit_f32()
+        * core::f32::consts::TAU
 }
 
 #[cfg(test)]

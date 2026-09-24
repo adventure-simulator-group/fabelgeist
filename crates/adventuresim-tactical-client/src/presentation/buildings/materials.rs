@@ -1,8 +1,10 @@
+const RNG_VISUAL_BUILDING_APPEARANCE: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("visual.building.appearance");
 use adventuresim_building_generator::{
     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingLodMaterial, RoofMaterial, WallMaterialClass,
 };
 use adventuresim_procedural_textures::building::{
-    BuildingSurfacePalette, FacadeFinish, facade_atlas, fachwerk_baked_texture,
+    BuildingSurfacePalette, FacadeFinish, facade_atlas,
 };
 use adventuresim_procedural_textures::{
     CLAY_ROOF_TILE_TILE_METRES, CRENELLATION_ALPHA_CUTOFF, DRESSED_STONE_TILE_METRES,
@@ -13,14 +15,13 @@ use adventuresim_procedural_textures::{
 };
 use bevy::math::{Affine2, Vec2};
 use bevy::render::render_resource::Face;
-use fabelgeist_determinism::splitmix64;
+use fabelgeist_determinism::StreamId;
 
 use super::super::*;
 
+mod furniture;
 mod workplace;
 use workplace::WorkplaceMaterials;
-
-const APPEARANCE_DOMAIN: u64 = 0x6275_696c_645f_636f;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 enum BuildingAppearance {
@@ -47,7 +48,10 @@ impl BuildingAppearance {
     ];
 
     fn for_building(building_id: u64) -> Self {
-        match splitmix64(building_id ^ APPEARANCE_DOMAIN) % 100 {
+        match RNG_VISUAL_BUILDING_APPEARANCE
+            .rng(building_id, &[])
+            .index(100)
+        {
             0..=22 => Self::NaturalOak,
             23..=34 => Self::WeatheredOak,
             35..=49 => Self::OxideRed,
@@ -118,14 +122,12 @@ struct AppearanceMaterials {
     infill: Handle<StandardMaterial>,
     timber: Handle<StandardMaterial>,
     tile: Handle<StandardMaterial>,
-    fachwerk_baked: Handle<StandardMaterial>,
 }
 
 impl AppearanceMaterials {
     fn new(
         appearance: BuildingAppearance,
         textures: &ProceduralTextureAssets,
-        images: &mut Assets<Image>,
         materials: &mut Assets<StandardMaterial>,
     ) -> Self {
         let spec = appearance.spec();
@@ -142,7 +144,6 @@ impl AppearanceMaterials {
                 spec.infill,
             ))
         };
-        let fachwerk = images.add(fachwerk_baked_texture(spec));
         Self {
             finish: spec.finish,
             infill,
@@ -158,7 +159,6 @@ impl AppearanceMaterials {
                 spec.tile,
                 [0.40, 0.18, 0.12],
             )),
-            fachwerk_baked: materials.add(opaque_material(fachwerk)),
         }
     }
 }
@@ -175,6 +175,7 @@ pub(crate) struct TacticalBuildingMaterials {
     iron: Handle<StandardMaterial>,
     workplace: WorkplaceMaterials,
     interior_timber: Handle<StandardMaterial>,
+    furniture_wood: [Handle<StandardMaterial>; 4],
     interior_plaster: Handle<StandardMaterial>,
     floor: Handle<StandardMaterial>,
     glass: Handle<StandardMaterial>,
@@ -210,11 +211,21 @@ impl TacticalBuildingMaterials {
             BuildingLodMaterial::Roof(RoofMaterial::TimberInfill) => palette.timber.clone(),
             BuildingLodMaterial::Roof(RoofMaterial::MasonryInfill) => self.stone.clone(),
             BuildingLodMaterial::Roof(RoofMaterial::RubbleInfill) => self.rubble.clone(),
-            BuildingLodMaterial::FachwerkBaked => palette.fachwerk_baked.clone(),
             BuildingLodMaterial::Timber => palette.timber.clone(),
             BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
             BuildingLodMaterial::DressedStone => self.stone.clone(),
             BuildingLodMaterial::Iron => self.iron.clone(),
+            BuildingLodMaterial::CarvedSandstone => self.workplace.carved_sandstone.clone(),
+            BuildingLodMaterial::LeadAlloy => self.workplace.lead_alloy.clone(),
+            BuildingLodMaterial::Bronze => self.workplace.bronze.clone(),
+            BuildingLodMaterial::CandleWax => self.workplace.candle_wax.clone(),
+            BuildingLodMaterial::Earthenware => self.workplace.earthenware.clone(),
+            BuildingLodMaterial::GlazedTile => self.workplace.glazed_tile.clone(),
+            BuildingLodMaterial::Millstone => self.workplace.millstone.clone(),
+            BuildingLodMaterial::FurnitureWood(surface) => {
+                self.furniture_wood[surface as usize].clone()
+            }
+            BuildingLodMaterial::TimberEndGrain => self.workplace.timber_end_grain.clone(),
             BuildingLodMaterial::Grain => self.workplace.grain.clone(),
             BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),
             BuildingLodMaterial::UndyedCloth => self.workplace.undyed_cloth.clone(),
@@ -239,12 +250,7 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
     let appearances = BuildingAppearance::ALL
         .into_iter()
         .map(|appearance| {
-            AppearanceMaterials::new(
-                appearance,
-                &procedural_textures,
-                &mut images,
-                &mut materials,
-            )
+            AppearanceMaterials::new(appearance, &procedural_textures, &mut materials)
         })
         .collect();
     let details = images.add(facade_atlas());
@@ -279,6 +285,7 @@ pub(in crate::presentation) fn setup_tactical_building_materials(
             IRONWORK_TILE_METRES,
         )),
         workplace: WorkplaceMaterials::new(&mut materials),
+        furniture_wood: furniture::materials(&procedural_textures, &mut materials),
         interior_timber: materials.add(surface_material(
             &procedural_textures.hewn_oak,
             HEWN_OAK_TILE_METRES,

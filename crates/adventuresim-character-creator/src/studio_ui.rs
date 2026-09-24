@@ -352,36 +352,7 @@ pub(super) fn save_designs(studio: &mut Studio, catalog: &EquipmentCatalog) {
 }
 
 fn mesh(ui: &mut egui::Ui, studio: &mut Studio) {
-    let lod_changed = ui
-        .add(
-            egui::Slider::new(&mut studio.selected_lod, 0..=6)
-                .text("Mesh LOD")
-                .custom_formatter(|value, _| {
-                    let lod = value.round() as usize;
-                    let vertices = [73_639, 18_439, 10_661, 4_899, 2_461, 971, 595][lod];
-                    format!("{lod} · {vertices} vertices")
-                }),
-        )
-        .changed();
-    if lod_changed {
-        studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
-    }
-    ui.small("LOD 0 is highest fidelity; LOD 6 is lowest.");
-    if ui
-        .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
-        .changed()
-    {
-        studio.status = format!(
-            "Loading MHR LOD {} with correctives {}…",
-            studio.selected_lod,
-            if studio.selected_correctives {
-                "enabled"
-            } else {
-                "disabled"
-            }
-        );
-    }
-    ui.small("Correctives improve posed deformation but require substantially more memory.");
+    crate::model_controls::show(ui, studio);
 }
 
 fn animation(

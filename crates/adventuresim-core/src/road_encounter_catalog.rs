@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::{collections::BTreeSet, sync::OnceLock};
 
 #[cfg(runtime_catalog)]
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 
 #[cfg(runtime_catalog)]
 include!(concat!(env!("OUT_DIR"), "/road_encounter_catalog.rs"));
@@ -16,11 +16,6 @@ pub const CATALOG_REVISION: u32 = 3;
 pub const MAX_WEIGHT: u16 = 10_000;
 pub const MAX_CHOICES: usize = 8;
 pub const MAX_TEXT_BYTES: usize = 2_048;
-
-#[cfg(runtime_catalog)]
-const QUEST_ENCOUNTER_SELECTION_DOMAIN: u64 = 0x726f_6164_7175_6573;
-#[cfg(runtime_catalog)]
-const QUEST_ENCOUNTER_DRAW_STRIDE: u64 = 0x9e37_79b9_7f4a_7c15;
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -1053,27 +1048,25 @@ pub fn encounter(id: &str) -> Option<&'static EncounterDefinition> {
 
 #[cfg(runtime_catalog)]
 pub fn select_quest_eligible(seed: u64, draw: u64) -> Option<&'static EncounterDefinition> {
-    let eligible = definitions()
+    let mut eligible: Vec<_> = definitions()
         .iter()
-        .filter(|definition| !definition.quest_reward_eligibility.is_empty())
-        .collect::<Vec<_>>();
-    let total = eligible
-        .iter()
-        .map(|definition| u64::from(definition.weight))
-        .sum::<u64>();
-    if total == 0 {
+        .filter(|definition| {
+            !definition.quest_reward_eligibility.is_empty() && definition.weight > 0
+        })
+        .collect();
+    eligible.sort_by_key(|definition| definition.id.as_str());
+    if eligible.is_empty() {
         return None;
     }
-    let mut roll = mix64(
-        seed ^ draw.wrapping_mul(QUEST_ENCOUNTER_DRAW_STRIDE) ^ QUEST_ENCOUNTER_SELECTION_DOMAIN,
-    ) % total;
-    for definition in eligible {
-        if roll < u64::from(definition.weight) {
-            return Some(definition);
-        }
-        roll -= u64::from(definition.weight);
-    }
-    None
+    let weights: Vec<_> = eligible
+        .iter()
+        .map(|definition| u64::from(definition.weight))
+        .collect();
+    let selected = StreamId::new("encounter.quest-selection")
+        .rng(seed, &[draw])
+        .weighted_index(&weights)
+        .expect("validated bounded encounter catalog weights");
+    Some(eligible[selected])
 }
 #[cfg(runtime_catalog)]
 pub fn digest() -> &'static str {

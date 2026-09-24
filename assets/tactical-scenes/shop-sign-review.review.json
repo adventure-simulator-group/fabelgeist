@@ -2,75 +2,93 @@
   "signs": {
     "1": {
       "name": {
-        "proprietor": "Heinrich’s",
+        "proprietor": "Heinrich\u2019s",
         "trade": "Tavern"
       },
       "mount": "wall",
       "font": "grenze_gotisch",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "2": {
       "name": {
-        "proprietor": "Heinrich’s",
+        "proprietor": "Heinrich\u2019s",
         "trade": "Tavern"
       },
       "mount": "projecting",
       "font": "grenze_gotisch",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "3": {
       "name": {
-        "proprietor": "Heinrich’s",
+        "proprietor": "Heinrich\u2019s",
         "trade": "Tavern"
       },
       "mount": "wall",
       "font": "unifraktur_cook",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "4": {
       "name": {
-        "proprietor": "Heinrich’s",
+        "proprietor": "Heinrich\u2019s",
         "trade": "Tavern"
       },
       "mount": "projecting",
       "font": "unifraktur_cook",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "5": {
       "name": {
-        "proprietor": "Margarete Großmüller’s",
+        "proprietor": "Margarete Gro\u00dfm\u00fcller\u2019s",
         "trade": "Apothecary"
       },
       "mount": "projecting",
       "font": "unifraktur_cook",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "6": {
       "name": {
-        "proprietor": "Heinrich’s",
+        "proprietor": "Heinrich\u2019s",
         "trade": "Tavern"
       },
       "font": "grenze_gotisch",
       "mount": "projecting",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": null
     },
     "7": {
       "name": {
-        "proprietor": "Margarete’s",
+        "proprietor": "Margarete\u2019s",
         "trade": "Bakery"
       },
       "font": "grenze_gotisch",
       "mount": "projecting",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": "bread_peel"
     },
     "8": {
       "name": {
-        "proprietor": "Konrad’s",
+        "proprietor": "Konrad\u2019s",
         "trade": "Smithy"
       },
       "font": "grenze_gotisch",
       "mount": "projecting",
-      "finish": "pale_paint"
+      "finish": "pale_paint",
+      "emblem": "hammer"
+    },
+    "9": {
+      "name": {
+        "proprietor": "Anna\u2019s",
+        "trade": "Weaver"
+      },
+      "mount": "projecting",
+      "font": "grenze_gotisch",
+      "finish": "pale_paint",
+      "emblem": "shuttle"
     }
   },
   "views": [
@@ -192,6 +210,66 @@
         25,
         12,
         -205
+      ]
+    },
+    {
+      "slug": "trade-bread-peel",
+      "building": 7,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "trade-hammer",
+      "building": 8,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "trade-shuttle",
+      "building": 9,
+      "target": "sign",
+      "offset": [
+        3,
+        0.25,
+        -2
+      ]
+    },
+    {
+      "slug": "matched-detail",
+      "building": 2,
+      "target": "exterior",
+      "offset": [
+        14,
+        8,
+        -30
+      ]
+    },
+    {
+      "slug": "matched-facade",
+      "building": 2,
+      "target": "exterior",
+      "offset": [
+        14,
+        8,
+        -30
+      ]
+    },
+    {
+      "slug": "matched-shell",
+      "building": 2,
+      "target": "exterior",
+      "offset": [
+        14,
+        8,
+        -30
       ]
     }
   ]

@@ -35,12 +35,14 @@ pub(super) fn run_tactical_batch(
     for offset in 0..args.tactical_seeds {
         let outcome = resolve_tactical_server_melee_duel(john, opponent, args.first_seed + offset);
         batch.simulated_seconds += f64::from(outcome.simulated_seconds);
-        record_tactical_causal(&mut batch.causal, &outcome, john.name);
+        record_tactical_causal(&mut batch.causal, &outcome, &john.name);
         match &outcome.resolution {
-            TacticalDuelResolution::Victory { victor } if victor == john.name => {
+            TacticalDuelResolution::Victory { victor } if victor.as_str() == john.name.as_str() => {
                 batch.john_wins += 1
             }
-            TacticalDuelResolution::Victory { victor } if victor == opponent.name => {
+            TacticalDuelResolution::Victory { victor }
+                if victor.as_str() == opponent.name.as_str() =>
+            {
                 batch.opponent_wins += 1
             }
             TacticalDuelResolution::Victory { victor } => {

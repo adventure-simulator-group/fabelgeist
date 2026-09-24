@@ -5,7 +5,7 @@
 //! environmental and party inputs.
 
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
-use fabelgeist_determinism::mix64;
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -24,10 +24,6 @@ use crate::{
     },
     strategic_place::StrategicPlaceId,
 };
-
-const INVESTIGATION_ACTION_ROLL_DOMAIN: u64 = 0x494e_5645_5354_4143;
-const INVESTIGATION_ATTEMPT_SHIFT: u32 = 17;
-const INVESTIGATION_KIND_SHIFT: u32 = 41;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -1013,11 +1009,9 @@ fn result_kind(kind: InvestigationActionKind, success: bool) -> ActionResultKind
 }
 
 fn domain_roll(seed: u64, attempt: u32, kind: InvestigationActionKind) -> u16 {
-    (mix64(
-        seed ^ INVESTIGATION_ACTION_ROLL_DOMAIN
-            ^ (u64::from(attempt) << INVESTIGATION_ATTEMPT_SHIFT)
-            ^ ((kind as u64) << INVESTIGATION_KIND_SHIFT),
-    ) % u64::from(BASIS_POINTS_PER_WHOLE)) as u16
+    StreamId::new("investigation.action")
+        .rng(seed, &[u64::from(attempt), kind as u64])
+        .index(usize::from(BASIS_POINTS_PER_WHOLE)) as u16
 }
 
 #[cfg(test)]
@@ -1237,7 +1231,7 @@ mod tests {
     #[test]
     fn failures_never_delete_the_route() {
         let mut hard = input(InvestigationActionKind::ReacquireTracks);
-        hard.seed = 1;
+        hard.seed = 2;
         hard.skills.terrain_bps = 0;
         hard.skills.assistance_bps = 0;
         hard.skills.familiarity_bps = 0;

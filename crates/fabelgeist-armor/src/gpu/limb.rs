@@ -430,6 +430,7 @@ fn spaulder(gpu: &ArmorGpu, d: &SpaulderDesign) -> Result<LimbShape, GenerateErr
 /// The charts of a limb design, before any fit.
 pub(crate) fn shape(gpu: &ArmorGpu, design: &LimbArmorDesign) -> Result<LimbShape, GenerateError> {
     design.validate()?;
+    crate::device_support::on_device(design.device_unsupported())?;
     let _ = PI;
     match design {
         LimbArmorDesign::Greave(d) => greave(gpu, d),

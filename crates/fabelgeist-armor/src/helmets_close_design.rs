@@ -2,60 +2,19 @@
 use serde::{Deserialize, Serialize};
 
 use super::HelmetFit;
-use crate::{DesignError, Millimeters, Permille};
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-pub enum VentSides {
-    Both,
-    Left,
-    Right,
-}
-
-/// Slot rotation from vertical in the authored visor surface.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-pub struct SlotInclination(pub i16);
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
-pub struct VisorBreaths {
-    pub count_per_row: u8,
-    pub rows: u8,
-    pub width: Millimeters,
-    pub length: Millimeters,
-    /// Total width of each cheek pattern, including its first and last slots.
-    pub span: Millimeters,
-    pub row_spacing: Millimeters,
-    /// Lateral distance from the face center to each pattern center.
-    pub center_offset: Millimeters,
-    /// Vertical location on the authored visor, measured from brow to chin.
-    pub height: Permille,
-    /// Fraction of the maximum corner radius. Zero produces square corners.
-    pub rounding: Permille,
-    pub inclination: SlotInclination,
-    pub sides: VentSides,
-}
-
-impl Default for VisorBreaths {
-    fn default() -> Self {
-        Self {
-            count_per_row: 2,
-            rows: 1,
-            width: Millimeters(3),
-            length: Millimeters(8),
-            span: Millimeters(26),
-            row_spacing: Millimeters(22),
-            center_offset: Millimeters(30),
-            height: Permille(820),
-            rounding: Permille(500),
-            inclination: SlotInclination(90),
-            sides: VentSides::Both,
-        }
-    }
-}
+use crate::{DesignError, Millimeters, Permille, VisorBreaths};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct CloseHelmetDesign {
+    pub bellows: Option<crate::VisorBellows>,
+    /// Requested maximum extension below the jaw. Anatomical fitting raises
+    /// the hem when the wearer or underlying plates leave less room.
     pub neck_length: Millimeters,
     pub sight_ledge: Millimeters,
+    /// Visor overlap above the skull's brow, independent of eye-slot height.
+    pub brow_overlap: Millimeters,
+    /// Additional rise of the visor's upper edge at the forehead center.
+    pub brow_peak: Millimeters,
     pub crown: crate::HelmetCrown,
     pub visor_fluting: Option<crate::PlateFluting>,
     pub fit: HelmetFit,
@@ -90,8 +49,11 @@ pub struct CloseHelmetDesign {
 impl Default for CloseHelmetDesign {
     fn default() -> Self {
         Self {
+            bellows: None,
             neck_length: Millimeters(0),
             sight_ledge: Millimeters(0),
+            brow_overlap: Millimeters(30),
+            brow_peak: Millimeters(25),
             crown: crate::HelmetCrown::default(),
             visor_fluting: None,
             fit: HelmetFit {
@@ -123,15 +85,20 @@ impl Default for CloseHelmetDesign {
 
 impl CloseHelmetDesign {
     pub(super) fn validate_shape(&self) -> Result<(), DesignError> {
+        if let Some(bellows) = &self.bellows {
+            bellows.validate()?;
+        }
         self.crown.validate()?;
         if let Some(pattern) = &self.visor_fluting {
             pattern.validate()?;
         }
-        let b = self.breaths;
+        self.breaths.validate(450..=850)?;
         // The pierced lifting plate uses the same gauge as the bowl. Larger
         // gauges require a different visor construction and opening treatment.
         let valid = self.neck_length.0 <= 45
             && self.sight_ledge.0 <= 12
+            && (8..=40).contains(&self.brow_overlap.0)
+            && self.brow_peak.0 <= 30
             && self.fit.wall_thickness.0 <= 4
             && (3..=20).contains(&self.face_clearance.0)
             && (3..=15).contains(&self.temple_clearance.0)
@@ -149,35 +116,9 @@ impl CloseHelmetDesign {
             && self.nape_flare.0 <= 90
             && self.chin_projection.0 <= 25
             && (300..=550).contains(&self.ridge_height.0)
-            && self.ridge_sharpness.0 <= 1000
-            && b.count_per_row <= 8
-            && (1..=2).contains(&b.rows)
-            && (2..=6).contains(&b.width.0)
-            && (8..=20).contains(&b.length.0)
-            && (20..=60).contains(&b.span.0)
-            && (14..=25).contains(&b.row_spacing.0)
-            && (10..=100).contains(&b.center_offset.0)
-            && (450..=850).contains(&b.height.0)
-            && b.rounding.0 <= 1000
-            && (-90..=90).contains(&b.inclination.0);
+            && self.ridge_sharpness.0 <= 1000;
         if !valid {
             return Err(DesignError::ParametricParameters);
-        }
-        if b.count_per_row == 0 {
-            return Ok(());
-        }
-        let angle = f32::from(b.inclination.0).to_radians();
-        let width = f32::from(b.width.0) * angle.cos() + f32::from(b.length.0) * angle.sin().abs();
-        let height = f32::from(b.length.0) * angle.cos() + f32::from(b.width.0) * angle.sin().abs();
-        const MINIMUM_WEB_MM: f32 = 3.0;
-        let required_span =
-            width * f32::from(b.count_per_row) + MINIMUM_WEB_MM * f32::from(b.count_per_row - 1);
-        if required_span > f32::from(b.span.0)
-            || (b.sides == VentSides::Both
-                && 2.0 * f32::from(b.center_offset.0) - f32::from(b.span.0) < MINIMUM_WEB_MM)
-            || (b.rows > 1 && height + MINIMUM_WEB_MM > f32::from(b.row_spacing.0))
-        {
-            return Err(DesignError::VisorOpeningSpacing);
         }
         Ok(())
     }

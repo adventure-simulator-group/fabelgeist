@@ -5,6 +5,7 @@ use cli::Args;
 mod catalog;
 use catalog::EquipmentCatalog;
 mod fitted_existing;
+mod wrapped_tasset_controls;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
 mod studio_generation;
 use studio_generation::regenerate_mesh;
@@ -12,8 +13,12 @@ mod character_controls;
 mod generation;
 mod preview;
 use generation::generate_character;
+mod anime_controls;
 mod armor_controls;
+mod bellows_controls;
+mod besagew_controls;
 mod breastplate_controls;
+mod buffe_controls;
 mod character_export;
 mod character_morphs;
 mod construction_controls;
@@ -22,10 +27,14 @@ mod device_equipment;
 mod equipment_controls;
 mod equipment_export;
 mod fluting_controls;
+mod garment_armor_controls;
+mod joint_extension_controls;
+mod model_controls;
 mod parametric_equipment;
 mod review_export;
 mod underlayer_equipment;
 mod underlayer_preview;
+mod visor_breath_controls;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 mod animation_preview;
@@ -54,6 +63,8 @@ use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
+use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
+use adventuresim_character_creator::profiling;
 use adventuresim_character_creator::{
     CharacterRecipe, IdentityGroup,
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
@@ -159,6 +170,11 @@ struct GeneratedCharacter {
 
 fn main() -> Result<()> {
     let args = Args::parse();
+    profiling::enable(args.profile);
+    anyhow::ensure!(
+        !args.armor_bake_source,
+        "dense bake-source armor is not yet generated on the device"
+    );
     let device = Device::default();
     let model = load_body_model(&args.assets, args.lod, false, &device)
         .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
@@ -169,15 +185,22 @@ fn main() -> Result<()> {
     )?;
     let catalog = EquipmentCatalog(ItemCatalog::load(&args.catalog, designs)?);
     if let Some(path) = &args.write_armor_designs {
-        let designs = catalog
+        let defaults = catalog
             .items
             .iter()
             .filter_map(|item| {
                 let design = catalog.design(&item.id)?;
                 Some((item.id.clone(), design.recipe()?.clone()))
             })
-            .collect::<adventuresim_character_creator::armor_design_input::ArmorDesigns>();
-        std::fs::write(path, serde_json::to_vec_pretty(&designs)?)?;
+            .collect();
+        let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+            defaults,
+            placements: catalog.designs.overrides.placements.clone(),
+        };
+        std::fs::write(
+            path,
+            adventuresim_character_creator::armor_design_input::encode(&designs)?,
+        )?;
         return Ok(());
     }
 
@@ -188,7 +211,13 @@ fn main() -> Result<()> {
     recipe.validate().map_err(anyhow::Error::msg)?;
 
     if let Some(output) = &args.armor_review_dir {
-        return review_export::export(output, &model, &recipe, &catalog);
+        return review_export::export(
+            output,
+            &model,
+            &recipe,
+            &catalog,
+            args.armor_review_selection,
+        );
     }
 
     if args.generate_equipment {
@@ -362,6 +391,7 @@ fn load_body_model(
     correctives: bool,
     device: &Device,
 ) -> Result<BodyModel> {
+    CharacterLod::try_from(lod)?;
     let mhr = Mhr::from_files(
         assets,
         MhrConfig {

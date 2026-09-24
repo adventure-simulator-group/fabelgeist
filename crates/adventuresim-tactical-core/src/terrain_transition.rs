@@ -1,6 +1,6 @@
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
 use bevy::prelude::*;
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
 /// Bounded implicit footprint where a volumetric terrain patch takes ownership
@@ -80,16 +80,31 @@ impl TerrainTransitionCollar {
         let relative = point - self.origin;
         let along = relative.dot(self.tangent);
         let clamped = along.clamp(-self.half_length_metres, self.half_length_metres);
-        let wander = smooth_value_noise(self.seed ^ 0x7275_7074_7572_6501, clamped / 5.5) * 0.72
-            + smooth_value_noise(self.seed ^ 0x7275_7074_7572_6502, clamped / 1.8) * 0.28;
+        let wander = smooth_value_noise(
+            StreamId::new("terrain.transition.rupture-broad")
+                .seed(self.seed, &[])
+                .to_u64(),
+            clamped / 5.5,
+        ) * 0.72
+            + smooth_value_noise(
+                StreamId::new("terrain.transition.rupture-fine")
+                    .seed(self.seed, &[])
+                    .to_u64(),
+                clamped / 1.8,
+            ) * 0.28;
         Vec2::new(along, relative.dot(normal) - wander * self.wander_metres)
     }
 
     fn radial_coordinate(self, point: Vec2) -> (f32, f32) {
         let local = self.local_coordinates(point);
         let variation = f32::from(self.width_variation_bps) / BASIS_POINTS_PER_WHOLE as f32;
-        let width_noise =
-            smooth_value_noise(self.seed ^ 0x7769_6474_6800_0001, local.x / 4.2) * 0.5 + 0.5;
+        let width_noise = smooth_value_noise(
+            StreamId::new("terrain.transition.width")
+                .seed(self.seed, &[])
+                .to_u64(),
+            local.x / 4.2,
+        ) * 0.5
+            + 0.5;
         let local_half_width = self.half_width_metres * (1.0 - variation + width_noise * variation);
         let radial = Vec2::new(
             local.x / self.half_length_metres,
@@ -104,7 +119,11 @@ fn smooth_value_noise(seed: u64, coordinate: f32) -> f32 {
     let cell = coordinate.floor() as i64;
     let fraction = smoothstep01(coordinate - coordinate.floor());
     let sample = |offset: i64| {
-        inclusive_unit_f32(splitmix64(seed ^ cell.wrapping_add(offset) as u64)) * 2.0 - 1.0
+        StreamId::new("terrain.transition.lattice")
+            .rng(seed, &[cell.wrapping_add(offset) as u64])
+            .inclusive_unit_f32()
+            * 2.0
+            - 1.0
     };
     sample(0).lerp(sample(1), fraction)
 }

@@ -1,0 +1,97 @@
+//! Sampling repairs preserve boundaries and cannot erase a physical crease.
+use super::*;
+
+fn close_interior() -> Region {
+    Region {
+        points: vec![
+            [0.0, 0.0],
+            [0.01, 0.0],
+            [0.01, 0.01],
+            [0.0, 0.01],
+            [1e-8, 1e-8],
+        ],
+        triangles: vec![[0, 1, 4], [1, 2, 4], [2, 3, 4], [3, 0, 4]],
+        boundary: vec![0, 1, 2, 3],
+    }
+}
+
+#[test]
+fn interior_sampling_repair_preserves_exact_boundary_and_export_orientation() {
+    let mut region = close_interior();
+    let boundary = region.boundary.clone();
+    let points = region.points.clone();
+    region.improve_surface_cells(|_| (), |_| 0.001, 0.00002, 0.02);
+    assert_eq!(region.boundary, boundary);
+    assert_eq!(region.points, points);
+    assert_eq!(region.triangles.len(), 2);
+    let mut area = 0.0;
+    for face in &region.triangles {
+        let [a, b, c] = face.map(|i| region.points[i].map(|v| (v + 19.0) as f32 as f64));
+        let cross = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]);
+        assert!(cross > 0.0);
+        area += cross / 2.0;
+    }
+    assert!((area - 0.0001).abs() < 1e-8);
+}
+
+#[test]
+fn interior_sampling_repair_retains_crease_and_edge_budgets() {
+    let mut crease = close_interior();
+    let original = crease.triangles.clone();
+    crease.improve_surface_cells(|p| p[0] > p[1], |_| 0.001, 0.00002, 0.02);
+    assert_eq!(crease.triangles, original);
+    let mut short_edges = close_interior();
+    short_edges.improve_surface_cells(|_| (), |_| 0.001, 0.00002, 0.01);
+    assert_eq!(short_edges.triangles, original);
+}
+
+#[test]
+fn concave_interior_fan_retriangulates_without_moving_its_boundary() {
+    let mut region = Region {
+        points: vec![
+            [0.0000151, -0.00085],
+            [-0.000015, 0.00085],
+            [-0.0000154, 0.00043],
+            [-0.000027, 0.00021],
+            [-0.0000075, 0.0],
+            [-0.0000182, -0.00021],
+            [0.0000003, -0.00043],
+            [0.0, 0.0],
+        ],
+        triangles: (0..7).map(|i| [7, i, (i + 1) % 7]).collect(),
+        boundary: (0..7).collect(),
+    };
+    let original = region.clone();
+    region.collapse_interior_sampling(&|_| (), &|_| 0.001, 0.00002, 0.002);
+    assert_eq!(region.triangles, original.triangles);
+    region.remove_interior_fans(&|_| (), &|_| 0.001, 0.00002, 0.002);
+    assert_eq!(region.points, original.points);
+    assert_eq!(region.boundary, original.boundary);
+    assert_eq!(region.triangles.len(), 5);
+    for face in region.triangles {
+        let [a, b, c] = face.map(|i| region.points[i].map(|v| (v + 19.0) as f32 as f64));
+        assert!((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) > 0.0);
+    }
+}
+
+#[test]
+fn fan_repair_retains_unresolved_boundary_neighbors() {
+    let mut region = Region {
+        points: vec![
+            [0.0, 0.0],
+            [5e-10, 0.0],
+            [1.0, 0.0],
+            [1.0, 1.0],
+            [0.0, 1.0],
+            [1e-8, 1e-8],
+        ],
+        triangles: (0..5).map(|i| [5, i, (i + 1) % 5]).collect(),
+        boundary: (0..5).collect(),
+    };
+    let original = region.clone();
+    assert!(Region::triangulate(&region.points[..5], true).is_err());
+    region.remove_interior_fans(&|_| (), &|_| 0.001, 0.00002, 2.0);
+    assert_eq!(region.points, original.points);
+    assert_eq!(region.boundary, original.boundary);
+    assert_eq!(region.triangles, original.triangles);
+}

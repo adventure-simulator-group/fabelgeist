@@ -1,0 +1,217 @@
+{
+  "defaults": {
+    "arming_doublet": {
+      "Underlayer": {
+        "kind": "ArmingDoublet",
+        "clearance": 4,
+        "thickness": 1,
+        "color": [150, 33, 29],
+        "length": 1000,
+        "sleeve_length": 1000,
+        "patch_width": 80,
+        "cuts": []
+      }
+    },
+    "gorget": {
+      "Garment": {
+        "clearance": 8,
+        "flare": 0,
+        "fluting": null,
+        "kind": "Gorget",
+        "lame_count": 3,
+        "length": 850,
+        "plate_shape": {
+          "Gorget": {
+            "back_depth": 700,
+            "collar_height": 1500,
+            "collar_slope": 750,
+            "front_depth": 700,
+            "hem_flatness": 250,
+            "neck_clearance": 10,
+            "rear_hem_flatness": 600,
+            "rear_sweep": 500,
+            "front_width": 650,
+            "back_width": 500
+          }
+        },
+        "waist": 900,
+        "wall_thickness": 1
+      }
+    },
+    "puffed_hose": {
+      "PuffAndSlash": {
+        "kind": "Hose",
+        "puff_count": 1,
+        "puff_fullness": 20,
+        "distal_fullness": 800,
+        "puff_roundness": 1000,
+        "slash_count": 10,
+        "slash_width": 300,
+        "slash_length": 700,
+        "constriction_width": 80,
+        "length": 350,
+        "proximal_position": 1000,
+        "rotation": 50,
+        "clearance": 4,
+        "thickness": 2,
+        "outer_color": [48, 78, 35],
+        "undercloth_color": [150, 33, 29]
+      }
+    },
+    "puffed_sleeve": {
+      "PuffAndSlash": {
+        "kind": "Sleeve",
+        "puff_count": 4,
+        "puff_fullness": 30,
+        "distal_fullness": 480,
+        "puff_roundness": 720,
+        "slash_count": 8,
+        "slash_width": 350,
+        "slash_length": 700,
+        "constriction_width": 80,
+        "length": 900,
+        "proximal_position": 1000,
+        "rotation": 0,
+        "clearance": 4,
+        "thickness": 2,
+        "outer_color": [48, 78, 35],
+        "undercloth_color": [150, 33, 29]
+      }
+    },
+    "trunk_hose": {
+      "TrunkHose": {
+        "clearance": 8,
+        "thickness": 2,
+        "length": 1050,
+        "panel_count": 8,
+        "primary_color": [150, 33, 29],
+        "secondary_color": [48, 78, 35]
+      }
+    },
+    "spaulder": {
+      "Limb": {
+        "Spaulder": {
+          "crown": 1100,
+          "fluting": null,
+          "gauge": {
+            "clearance": 25,
+            "thickness": 2
+          },
+          "lame_count": 4,
+          "length": 1000,
+          "rear_extension": 1100,
+          "wrap": 560,
+          "lower_flare": 8,
+          "crown_reach": 850,
+          "besagew": null,
+          "crown_coverage": 1000
+        }
+      }
+    },
+    "split_hose": {
+      "PuffAndSlash": {
+        "kind": "Hose",
+        "puff_count": 1,
+        "puff_fullness": 5,
+        "distal_fullness": 1000,
+        "puff_roundness": 1000,
+        "slash_count": 0,
+        "slash_width": 300,
+        "slash_length": 700,
+        "constriction_width": 40,
+        "length": 1000,
+        "proximal_position": 0,
+        "rotation": 0,
+        "clearance": 2,
+        "thickness": 1,
+        "outer_color": [48, 78, 35],
+        "undercloth_color": [48, 78, 35]
+      }
+    },
+    "tassets": {
+      "WaistAssembly": {
+        "fauld": {
+          "clearance": 10,
+          "flare": 0,
+          "fluting": null,
+          "kind": "Fauld",
+          "lame_count": 3,
+          "length": 450,
+          "plate_shape": {
+            "Fauld": {
+              "front_arch": 350,
+              "waist_rise": 75,
+              "chevron_slope": 0,
+              "front_arch_width": 500
+            }
+          },
+          "waist": 900,
+          "wall_thickness": 3
+        },
+        "tassets": {
+          "clearance": 14,
+          "flare": 180,
+          "fluting": null,
+          "kind": "Tassets",
+          "lame_count": 3,
+          "length": 900,
+          "plate_shape": {
+            "Tassets": {
+              "gap": 160,
+              "hem_point": 100,
+              "hem_roundness": 80,
+              "inner_cutaway": 250,
+              "width": 850
+            }
+          },
+          "waist": 900,
+          "wall_thickness": 3
+        }
+      }
+    }
+  },
+  "placements": {
+    "split_hose": {
+      "left": {
+        "PuffAndSlash": {
+          "kind": "Hose",
+          "puff_count": 1,
+          "puff_fullness": 5,
+          "distal_fullness": 1000,
+          "puff_roundness": 1000,
+          "slash_count": 0,
+          "slash_width": 300,
+          "slash_length": 700,
+          "constriction_width": 40,
+          "length": 1000,
+          "proximal_position": 0,
+          "rotation": 0,
+          "clearance": 2,
+          "thickness": 1,
+          "outer_color": [150, 33, 29],
+          "undercloth_color": [150, 33, 29]
+        }
+      },
+      "right": {
+        "PuffAndSlash": {
+          "kind": "Hose",
+          "puff_count": 1,
+          "puff_fullness": 5,
+          "distal_fullness": 1000,
+          "puff_roundness": 1000,
+          "slash_count": 0,
+          "slash_width": 300,
+          "slash_length": 700,
+          "constriction_width": 40,
+          "length": 1000,
+          "proximal_position": 0,
+          "rotation": 0,
+          "clearance": 2,
+          "thickness": 1,
+          "outer_color": [48, 78, 35],
+          "undercloth_color": [48, 78, 35]
+        }
+      }
+    }
+  }
+}

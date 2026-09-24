@@ -5,8 +5,8 @@ mod encumbrance_tests {
         personal_encumbrance,
     };
     use crate::spacetimedb::{
-        CharacterView, CharacterAttributes, CharacterCondition, CharacterLimbs, ContainerLiquid,
-        FoodLot, FoodPreparation, InventoryItem, InventoryObject, CatalogItemView,
+        CatalogItemView, CharacterAttributes, CharacterCondition, CharacterLimbs, CharacterView,
+        ContainerLiquid, FoodLot, FoodPreparation, InventoryItem, InventoryObject,
         PartyInventoryItem,
     };
     use adventuresim_stdb_client::{InventoryLocation, PersonalInventoryLocation};

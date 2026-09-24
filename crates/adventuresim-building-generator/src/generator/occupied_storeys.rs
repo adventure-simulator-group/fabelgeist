@@ -1,6 +1,11 @@
 //! Occupied rooms and shared circulation precede any architectural envelope.
 use super::*;
 
+const ROOM_ALLOCATION: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.storey.room-allocation");
+const OPENING_LAYOUT: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("building.storey.opening-layout");
+
 pub(super) fn generate_storeys(
     program: &BuildingProgram,
     edits: &[BuildingEdit],
@@ -89,12 +94,15 @@ fn allocate_storey(
             })?;
         reservations.extend(keep_cells.into_iter().map(|cell| (cell, room_index)));
     }
+    if heated_rooms::applies(program, level) {
+        heated_rooms::reserve(program, level, footprint_cells, &mut reservations)?;
+    }
     let assignments = allocate_rooms(
         footprint_cells,
         width,
         depth,
         &storey_program.rooms,
-        layout_seed.wrapping_add(level as u64 * 0x9e37_79b9),
+        ROOM_ALLOCATION.seed(layout_seed, &[level as u64]).to_u64(),
         program.archetype,
         &reservations,
     );
@@ -112,10 +120,13 @@ fn allocate_storey(
         &walls,
         &storey_program.rooms,
         program.archetype,
-        layout_seed.wrapping_add(level as u64),
+        OPENING_LAYOUT.seed(layout_seed, &[level as u64]).to_u64(),
         level,
         straight_stair_core,
     )?;
+    if heated_rooms::applies(program, level) {
+        heated_rooms::doorway(storey_program, &walls, &mut openings);
+    }
     apply_opening_edits(storey_program, level as u16, &walls, &mut openings, edits)?;
     Ok(StoreyPlan {
         level: level as u16,

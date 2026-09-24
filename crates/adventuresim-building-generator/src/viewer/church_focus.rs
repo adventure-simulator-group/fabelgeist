@@ -103,7 +103,7 @@ fn church_camera(plan: &BuildingPlan, view: ViewerView, origin: Vec2) -> Option<
         ViewerView::ChurchTowerLouvredExterior => (tower_high, Vec3::new(-18.0, 7.0, -18.0)),
         ViewerView::ChurchTowerJunction => (tower_low, Vec3::new(15.0, 9.0, -19.0)),
         ViewerView::ChurchTowerStair => (tower_mid, Vec3::new(25.0, 13.0, -28.0)),
-        ViewerView::ChurchTowerBellUnderside => (tower_high, Vec3::new(11.0, -2.0, -10.0)),
+        ViewerView::ChurchTowerBellUnderside => (bell::focus(plan, origin), Vec3::new(2.3, -1.4, -2.6)),
         ViewerView::ChurchTowerFrame => (tower_high, Vec3::new(14.0, 3.5, -17.0)),
         ViewerView::ChurchTowerRoofDrain => (tower_high, Vec3::new(-8.0, 28.0, -24.0)),
         ViewerView::ChurchDrainage => (whole, Vec3::new(4.0, 48.0, -27.0)),
@@ -117,6 +117,8 @@ fn church_target_component_ids(plan: &BuildingPlan, view: ViewerView) -> Vec<Str
     let Some(church) = &plan.church else {
         return Vec::new();
     };
+
+
     let prefix = format!("church:{}", church.id.0);
     let suffix = match view {
         ViewerView::ChurchBayExterior
@@ -160,7 +162,7 @@ fn church_required_roles(view: ViewerView) -> Vec<String> {
             &["ChurchVaultShell", "WallButtress", "WallHost"]
         }
         ViewerView::ChurchTowerStair => &["ChurchStairTread", "Landing", "ChurchGuard"],
-        ViewerView::ChurchTowerBellUnderside => &["ChurchBellFloor", "ChurchBell"],
+        ViewerView::ChurchTowerBellUnderside => &["ChurchBell", "ChurchBellHeadstock", "ChurchBellCrown", "ChurchBellBearing", "ChurchBellAxle", "ChurchBellFitting"],
         ViewerView::ChurchTowerFrame => &["ChurchBellFrame", "ChurchBell", "ChurchServiceLadder"],
         ViewerView::ChurchTowerRoofDrain | ViewerView::ChurchDrainage => &["RoofGutter"],
         _ => &[],
@@ -199,6 +201,13 @@ fn church_section_removed_roof_item_ids(plan: &BuildingPlan, view: ViewerView) -
     let Some(church) = &plan.church else {
         return Vec::new();
     };
+    // This isolated mechanism proof removes the entire roof, with every face
+    // recorded in the manifest. The frame overview retains its building context.
+    if view == ViewerView::ChurchTowerBellUnderside {
+        return plan.roof_assemblies.iter().flat_map(|roof| &roof.faces)
+            .map(|face| face.id.0).collect();
+    }
+
     let transverse = matches!(
         view,
         ViewerView::ChurchWholeTransverseCut | ViewerView::ChurchCrossingCutLoad
@@ -228,4 +237,37 @@ fn church_section_removed_roof_item_ids(plan: &BuildingPlan, view: ViewerView) -
         })
         .map(|face| face.id.0)
         .collect()
+}
+
+fn church_isolated_items(plan: &BuildingPlan, section_view: Option<ViewerView>) -> Option<std::collections::HashSet<u64>> {
+    section_view
+        .filter(|view| {
+            matches!(
+                view,
+                ViewerView::ChurchBayInterior
+                    | ViewerView::ChurchBaySection
+                    | ViewerView::ChurchBayLoad
+                    | ViewerView::ChurchBayVault
+                    | ViewerView::ChurchCrossingInterior
+                    | ViewerView::ChurchCrossingCutLoad
+                    | ViewerView::ChurchChoirInterior
+                    | ViewerView::ChurchChoirRadialSection
+                    | ViewerView::ChurchTowerStair
+                    | ViewerView::ChurchTowerBellUnderside
+                    | ViewerView::ChurchTowerFrame
+                    | ViewerView::ChurchDrainage
+                    | ViewerView::ChurchSupportDag
+            )
+        })
+        .map(|view| {
+            let mut items = church_focus_item_ids(plan, view)
+                .into_iter().collect::<std::collections::HashSet<_>>();
+            if view == ViewerView::ChurchTowerBellUnderside {
+                // Fixed rails remain as context around the focused mechanism.
+                items.extend(plan.resolved_geometry.solids.iter()
+                    .filter(|solid| solid.role == SolidRole::ChurchBellFrame)
+                    .map(|solid| solid.id.0));
+            }
+            items
+        })
 }

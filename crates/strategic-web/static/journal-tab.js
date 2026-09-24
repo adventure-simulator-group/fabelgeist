@@ -17,6 +17,7 @@
     journalLeft.replaceWith(originalLeft);
     journalCenter.replaceWith(originalCenter);
     journalRight.replaceWith(originalRight);
+    document.dispatchEvent(new Event('journal-view-changed'));
     state.button.classList.remove("active");
     state.button.setAttribute("aria-pressed", "false");
     state.button.setAttribute("aria-label", "Open journal");
@@ -78,6 +79,7 @@
       originalLeft.replaceWith(journalLeft);
       originalCenter.replaceWith(journalCenter);
       originalRight.replaceWith(journalRight);
+      document.dispatchEvent(new Event('journal-view-changed'));
       button.classList.add("active");
       button.setAttribute("aria-pressed", "true");
       button.setAttribute("aria-label", "Close journal");

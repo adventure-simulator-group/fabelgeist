@@ -106,6 +106,7 @@ pub(super) fn breastplate(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> 
                 .suffix(" mm"),
         )
         .changed();
+    changed |= crate::anime_controls::show(ui, design);
     changed |= ui
         .add(
             egui::Slider::new(&mut design.wall_thickness.0, 1..=20)

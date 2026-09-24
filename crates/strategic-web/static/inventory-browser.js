@@ -170,13 +170,25 @@
     const aside = browser.closest(".left-sidebar, .right-sidebar");
     const grid = aside?.closest(".main-grid");
     if (!aside || !grid) return;
-    const styles = global.getComputedStyle(aside);
-    const frameWidth = (Number.parseFloat(styles.paddingLeft) || 0) + (Number.parseFloat(styles.paddingRight) || 0);
-    const table = browser.querySelector(".trade-inventory-table");
-    const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
-    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
-    const contentWidth = Math.ceil(Math.max(browserWidth, tableWidth));
+    const gridStyles = global.getComputedStyle(grid);
     const side = aside.classList.contains("left-sidebar") ? "left" : "right";
+    if (gridStyles.display !== "grid" || gridStyles.gridTemplateColumns.trim().split(/\s+/).length === 1) {
+      grid.style.removeProperty(`--inventory-${side}-width`);
+      return;
+    }
+    // Account for the nested frame, borders and scroll gutters, rather than
+    // only the rail padding. The browser fills the rail's available content.
+    const browserWidth = browser.getBoundingClientRect?.().width || browser.clientWidth || 0;
+    const asideWidth = aside.getBoundingClientRect?.().width || aside.clientWidth || 0;
+    const frameWidth = Math.max(0, asideWidth - browserWidth);
+    const table = browser.querySelector(".trade-inventory-table");
+    // Measure intrinsic content, independent of the column's current stretched width.
+    const stretchedMinimum = table?.style.minWidth || "";
+    if (table) table.style.minWidth = "0";
+    const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
+    if (table) table.style.minWidth = stretchedMinimum;
+    const minimumWidth = Number.parseFloat(global.getComputedStyle(browser).minWidth) || 0;
+    const contentWidth = Math.ceil(Math.max(minimumWidth, tableWidth));
     grid.style.setProperty(`--inventory-${side}-width`, `${contentWidth + frameWidth}px`);
   }
 
@@ -438,6 +450,12 @@
     groupFoodRows(browser);
     const body = browser.querySelector("tbody");
     if (!body) return;
+    const actionsFirst = Boolean(browser.closest(".right-sidebar"));
+    browser.querySelectorAll(".inventory-actions-header, col.inventory-column-actions").forEach((cell) => {
+      if (actionsFirst) cell.parentElement.prepend(cell);
+      else cell.parentElement.append(cell);
+    });
+    body.querySelectorAll(":scope > tr.trade-inventory-row").forEach(ensureRowActionRail);
     const rows = [...body.querySelectorAll(":scope > tr.trade-inventory-row:not(.inventory-detail-row):not(.currency-component-row):not(.alcohol-component-row):not(.food-component-row)")];
     rows.forEach((row) => normalizeDestinationRow(row, browser));
     body.querySelectorAll(":scope > tr.alcohol-component-row, :scope > tr.food-component-row")
@@ -571,6 +589,8 @@
       actions.className = "inventory-row-actions";
     }
     if (actions.parentElement !== cell) cell.prepend(actions);
+    if (row.closest(".right-sidebar")) row.prepend(cell);
+    else row.append(cell);
     return { cell, actions };
   }
 
@@ -1060,23 +1080,25 @@
     decorateContainers(browser);
   }
 
-  function hydrateProceduralWeaponIcons(root = document) {
+  function hydrateProceduralEquipmentIcons(root = document) {
     const rows = root.matches?.("tr.trade-inventory-row")
       ? [root]
       : [...(root.querySelectorAll?.("tr.trade-inventory-row") || [])];
     rows.forEach((row) => {
-      if (!row.querySelector('.inventory-item-label[data-item-melee="true"], .inventory-item-label[data-item-weapon-holder="true"]')) return;
+      if (!row.querySelector('.inventory-item-label[data-item-melee="true"], .inventory-item-label[data-item-weapon-holder="true"], .inventory-item-label[data-equipment-portrait]')) return;
       const scope = row.dataset.personalInventoryId ? "personal" : row.dataset.partyInventoryId ? "party" : "";
       const rowId = row.dataset.personalInventoryId || row.dataset.partyInventoryId || "";
       const icon = row.querySelector(".inventory-item-type .game-icon");
-      if (!scope || !/^\d+$/.test(rowId) || !icon) return;
-      const url = `/api/weapon-icons/${scope}/${rowId}.png`;
-      if (icon.dataset.proceduralWeaponIcon === url) return;
-      icon.dataset.proceduralWeaponIcon = url;
+      const portrait = row.querySelector("[data-equipment-portrait]")?.dataset.equipmentPortrait;
+      if (!icon || (!portrait && (!scope || !/^\d+$/.test(rowId)))) return;
+      const url = portrait || `/api/weapon-icons/${scope}/${rowId}.png`;
+      if (icon.dataset.proceduralEquipmentIcon === url) return;
+      icon.dataset.proceduralEquipmentIcon = url;
       const probe = new Image();
       probe.addEventListener("load", () => {
-        if (icon.isConnected && icon.dataset.proceduralWeaponIcon === url) {
-          icon.style.setProperty("--game-icon", `url("${url}")`);
+        if (icon.isConnected && icon.dataset.proceduralEquipmentIcon === url) {
+          icon.style.setProperty("--equipment-portrait", `url("${url}")`);
+          icon.classList.add("equipment-portrait");
         }
       }, { once: true });
       probe.addEventListener("error", () => {
@@ -1088,7 +1110,7 @@
 
   function mountAll(root = document) {
     root.querySelectorAll?.("[data-inventory-browser]").forEach(mount);
-    hydrateProceduralWeaponIcons(root);
+    hydrateProceduralEquipmentIcons(root);
   }
   function refresh(scope = document) {
     const browsers = scope.matches?.("[data-inventory-browser]") ? [scope] : [...(scope.querySelectorAll?.("[data-inventory-browser]") || [])];
@@ -1098,14 +1120,17 @@
       else apply(browser, browser._inventoryState || parsePanelState(global.location.search, browser.dataset.inventoryBrowser, (browser.dataset.optionalColumns || "").split(",").filter(Boolean)));
     });
     hydrateContainerState(scope);
-    hydrateProceduralWeaponIcons(scope);
+    hydrateProceduralEquipmentIcons(scope);
   }
-  const api = { parsePanelState, serializePanelState, compareValues, normalizeSortValue, rowValue, groupCurrencyRows, groupFoodRows, decorateContainers, hydrateContainerState, hydrateProceduralWeaponIcons, openContainer, closeContainer, mountAll, refresh, syncPanelWidth };
+  const api = { parsePanelState, serializePanelState, compareValues, normalizeSortValue, rowValue, groupCurrencyRows, groupFoodRows, decorateContainers, hydrateContainerState, hydrateProceduralEquipmentIcons, openContainer, closeContainer, mountAll, refresh, syncPanelWidth };
   global.strategicInventoryBrowser = api;
   if (typeof module !== "undefined") module.exports = api;
   if (global.document) {
     global.addEventListener("DOMContentLoaded", () => { mountAll(); hydrateContainerState(); });
     global.addEventListener("popstate", () => mountAll());
+    global.addEventListener("resize", () => {
+      global.document.querySelectorAll("[data-inventory-browser]").forEach(syncPanelWidth);
+    });
     global.document.addEventListener("strategic-page-mounted", () => { mountAll(); hydrateContainerState(); });
     global.document.addEventListener("inventory-container-move", (event) => {
       postContainer("/api/inventory/containers/move", {

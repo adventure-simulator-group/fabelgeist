@@ -1,25 +1,26 @@
 use super::*;
 use crate::{BuildingProgram, generate, settlement_archetype};
 
+fn name(value: &str) -> RenderedPersonalName {
+    RenderedPersonalName::new(value).unwrap()
+}
+
 #[test]
-fn brands_are_stable_per_lot_and_only_public_shops_receive_them() {
-    let first = ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap();
-    assert_eq!(first.text(), "Ursula Klein’s Tavern");
+fn brands_use_the_operator_and_only_public_shops_receive_them() {
+    let first = ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap();
+    assert_eq!(first.text(), "Marta Hartmann’s Tavern");
     assert_eq!(
         first,
-        ShopName::for_establishment(EstablishmentId(15), BuildingUse::Inn).unwrap()
+        ShopName::for_operator(&name("Marta Hartmann"), BuildingUse::Inn).unwrap()
     );
-    assert_ne!(
-        first,
-        ShopName::for_establishment(EstablishmentId(16), BuildingUse::Inn).unwrap()
-    );
+    assert!(RenderedPersonalName::new("   ").is_err());
     for usage in [
         BuildingUse::Dwelling,
         BuildingUse::Barn,
         BuildingUse::Cathedral,
         BuildingUse::MarketHall,
     ] {
-        assert!(ShopSign::for_establishment(EstablishmentId(15), usage).is_none());
+        assert!(ShopName::for_operator(&name("Marta Hartmann"), usage).is_none());
     }
 }
 
@@ -82,6 +83,7 @@ fn storefront_sites_clear_entrances_and_keep_both_mounts_above_pedestrians() {
 fn both_fonts_paint_long_german_names_without_clipping_or_missing_glyphs() {
     for font in [SignFont::GrenzeGotisch, SignFont::UnifrakturCook] {
         let sign = ShopSign {
+            emblem: None,
             name: ShopName {
                 proprietor: "Margarete Großmüller’s".to_owned(),
                 trade: "Apothecary".to_owned(),

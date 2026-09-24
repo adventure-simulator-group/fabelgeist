@@ -57,6 +57,8 @@
     const overlays = [...document.querySelectorAll("#strategic-page [data-character-action-dialog]")];
     const overlay = overlays[0];
     overlays.slice(1).forEach((extra) => { extra.hidden = true; });
+    // Dialogs must escape scrolling scene panels and their stacking contexts.
+    if (overlay) document.getElementById("strategic-page").append(overlay);
     document.body.classList.toggle(
       "character-action-dialog-open",
       dialogOwnsBodyLock(Boolean(overlay), Boolean(document.querySelector("dialog[open]"))),
@@ -78,7 +80,8 @@
     requestAnimationFrame(() => {
       if (signal.aborted || !dialog?.isConnected) return;
       const preferred = overlay.dataset.initialFocus && dialog.querySelector(overlay.dataset.initialFocus);
-      (preferred || visible(dialog)[0] || dialog).focus?.();
+      dialog.scrollTop = 0;
+      (preferred || visible(dialog)[0] || dialog).focus?.({ preventScroll: true });
     });
 
     overlay.addEventListener("keydown", (event) => {

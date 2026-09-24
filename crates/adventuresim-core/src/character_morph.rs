@@ -36,16 +36,10 @@ pub struct CharacterMorphWeights([f32; IDENTITY_MORPH_COUNT]);
 
 impl CharacterMorphWeights {
     pub fn from_character_id(character_id: u64) -> Self {
-        // SplitMix64 fixes the visual seed across clients without relying on
-        // platform hashing or a random-number library's changing algorithms.
-        let mut state = character_id;
+        let mut random = fabelgeist_determinism::StreamId::new("character.identity-morph")
+            .rng(character_id, &[]);
         Self(std::array::from_fn(|_| {
-            state = state.wrapping_add(0x9e3779b97f4a7c15);
-            let mut bits = state;
-            bits = (bits ^ (bits >> 30)).wrapping_mul(0xbf58476d1ce4e5b9);
-            bits = (bits ^ (bits >> 27)).wrapping_mul(0x94d049bb133111eb);
-            bits ^= bits >> 31;
-            let unit = (bits >> 40) as f32 / ((1_u32 << 24) - 1) as f32;
+            let unit = random.inclusive_unit_f32();
             (unit * 2.0 - 1.0) * MAX_IDENTITY_VARIATION
         }))
     }

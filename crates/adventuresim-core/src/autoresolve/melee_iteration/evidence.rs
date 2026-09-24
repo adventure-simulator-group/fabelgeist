@@ -94,7 +94,7 @@ pub struct DefenseEvidence {
 
 #[derive(Clone, Debug, serde::Serialize)]
 pub struct DisabledWeaponArmEvidence {
-    pub combatant: &'static str,
+    pub combatant: String,
     pub disabled_arm: BodyPart,
     pub capability: &'static str,
     pub attack_available: bool,
@@ -102,7 +102,7 @@ pub struct DisabledWeaponArmEvidence {
 
 #[derive(Clone, Debug, serde::Serialize)]
 pub struct FatigueCadenceEvidence {
-    pub combatant: &'static str,
+    pub combatant: String,
     pub completed_attacks: u32,
     pub completed_weapon_defenses: u32,
     pub completed_explosive_dodges: u32,
@@ -289,7 +289,7 @@ fn disabled_weapon_arm_evidence(build: &MeleeIterationBuild) -> DisabledWeaponAr
     body.health[body_part_index(disabled_arm)] = 0.0;
     let capability = melee_attack_capability(&body, &build.combatant.equipment);
     DisabledWeaponArmEvidence {
-        combatant: build.name,
+        combatant: build.name.clone(),
         disabled_arm,
         capability: match capability {
             MeleeAttackCapability::Available => "available",
@@ -354,7 +354,7 @@ fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenc
         build.combatant.incapacitation_performance(),
     );
     Ok(FatigueCadenceEvidence {
-        combatant: build.name,
+        combatant: build.name.clone(),
         completed_attacks: ATTACKS,
         completed_weapon_defenses: WEAPON_DEFENSES,
         completed_explosive_dodges: DODGES,

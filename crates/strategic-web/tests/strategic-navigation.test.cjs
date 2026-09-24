@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -27,7 +28,7 @@ test("page lifecycle resets permanent services and remounts idempotent modules",
     "inventory-browser", "live-regions", "local-chat",
     "party-notifications", "party-recruitment", "physical-evidence",
     "rest-duration", "service-quests", "strategic-map", "strategic-time",
-    "training-schedule", "travel-planner", "chat-resize",
+    "training-schedule", "travel-planner", "chat-resize", "chat-dock",
   ]) {
     assert.match(read(name), /strategic-page-mounted/, `${name} remount`);
   }
@@ -44,7 +45,7 @@ test("page lifecycle resets permanent services and remounts idempotent modules",
   assert.match(read("party-recruitment"), /!overlay\.isConnected/);
   const resize = read("chat-resize");
   for (const token of [
-    "--chat-height", "--chat-panel-height", "CHAT_BOTTOM_GAP",
+    "--chat-height", "--chat-dock-height", "CHAT_BOTTOM_GAP",
     "chat-resizing", "is-resizing", "setPointerCapture",
   ]) assert.ok(resize.includes(token), `chat resize ${token}`);
 });
@@ -90,7 +91,7 @@ test("ordinary strategic modules never reload or assign the document", () => {
 test("strategic renderer keeps one fullscreen surface and sends typed scene commands", () => {
   const renderer = fs.readFileSync("crates/strategic-web/static/strategic-renderer.js", "utf8");
   const css = fs.readFileSync("crates/strategic-web/static/css/strategic.css", "utf8");
-  const layout = fs.readFileSync("crates/strategic-web/src/templates/layout.rs", "utf8");
+  const layout = readRustModuleSource("crates/strategic-web/src/templates/layout.rs");
 
   assert.match(renderer, /type: "show-strategic-scene"/);
   assert.match(renderer, /scene: \{ type: "forge"/);

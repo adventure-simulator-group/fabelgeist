@@ -58,16 +58,16 @@ fn solve_variables(
     for family_index in family_indices {
         let family = families[family_index].value;
         let causes = cause_candidates(family);
-        for cause_index in weighted_order(context.seed.rotate_left(3), "cause", &causes)? {
+        for cause_index in weighted_order(context.seed, "cause", &causes)? {
             let cause = causes[cause_index].value;
             let sites = site_candidates(cause);
-            for site_index in weighted_order(context.seed.rotate_left(7), "site", &sites)? {
+            for site_index in weighted_order(context.seed, "site", &sites)? {
                 let site = sites[site_index].value;
                 for &primary_index in &witnesses {
                     let witness = &context.witness_candidates[primary_index];
                     let circumstances = circumstance_candidates(witness.demographic);
                     for circumstance_index in weighted_order(
-                        context.seed.rotate_left(19),
+                        context.seed,
                         "circumstance",
                         &circumstances,
                     )? {
@@ -99,7 +99,7 @@ fn solve_variables(
                         }
                         let descriptions = description_candidates(cause);
                         let Some(description_index) = weighted_order(
-                            context.seed.rotate_left(29),
+                            context.seed,
                             "description",
                             &descriptions,
                         )?
@@ -594,15 +594,9 @@ fn consequence(
 
 fn deterministic_witness_order(context: &GenerationContext) -> Vec<usize> {
     let mut indices = (0..context.witness_candidates.len()).collect::<Vec<_>>();
-    indices.sort_by_key(|index| {
-        hash(
-            context.seed,
-            &format!(
-                "witness:{}",
-                context.witness_candidates[*index].resident_character_id
-            ),
-        )
-    });
+    indices.sort_by_key(|index| context.witness_candidates[*index].resident_character_id);
+    fabelgeist_determinism::StreamId::new("quest.witness-order")
+        .rng(context.seed, &[]).shuffle(&mut indices);
     indices
 }
 

@@ -245,6 +245,7 @@ impl PartLayout {
                             ..(last.first_final as usize + last.plan.sources.len()),
                         indices: index_starts[shells.start]..index_starts[shells.end],
                         hinge: None,
+                        material: None,
                     },
                     *hinge,
                 )

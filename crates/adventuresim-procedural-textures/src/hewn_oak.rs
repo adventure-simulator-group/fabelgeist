@@ -1,7 +1,7 @@
 //! Two-color, hand-hewn structural oak with knot-deflected growth bands, fibers, and restrained adze marks.
 
+mod streams;
 use bevy::{asset::Assets, image::Image, math::Vec3};
-use fabelgeist_determinism::inclusive_unit_f32;
 
 use super::{SrgbColor, SurfaceTextureSet, image_rgba_mipped, palette::albedo_image};
 
@@ -44,10 +44,6 @@ struct HewnOakSample {
     tool_recess: f32,
 }
 
-fn hash_unit(params: &crate::TextureParameters, value: u64) -> f32 {
-    inclusive_unit_f32(crate::parameters::seeded_hash(params, value))
-}
-
 fn smooth(value: f32) -> f32 {
     value * value * (3.0 - 2.0 * value)
 }
@@ -62,11 +58,13 @@ fn grid_hash(
     y: i32,
     cells_x: i32,
     cells_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = x.rem_euclid(cells_x) as u64;
     let y = y.rem_euclid(cells_y) as u64;
-    hash_unit(params, salt ^ (x << 32) ^ y)
+    params
+        .rng(streams::LATTICE, &[field_seed, x, y])
+        .inclusive_unit_f32()
 }
 
 fn value_noise(
@@ -75,7 +73,7 @@ fn value_noise(
     v: f32,
     cells_x: i32,
     cells_y: i32,
-    salt: u64,
+    field_seed: u64,
 ) -> f32 {
     let x = u.rem_euclid(1.0) * cells_x as f32;
     let y = v.rem_euclid(1.0) * cells_y as f32;
@@ -83,13 +81,13 @@ fn value_noise(
     let y0 = y.floor() as i32;
     let tx = smooth(x.fract());
     let ty = smooth(y.fract());
-    let bottom = grid_hash(params, x0, y0, cells_x, cells_y, salt)
-        + (grid_hash(params, x0 + 1, y0, cells_x, cells_y, salt)
-            - grid_hash(params, x0, y0, cells_x, cells_y, salt))
+    let bottom = grid_hash(params, x0, y0, cells_x, cells_y, field_seed)
+        + (grid_hash(params, x0 + 1, y0, cells_x, cells_y, field_seed)
+            - grid_hash(params, x0, y0, cells_x, cells_y, field_seed))
             * tx;
-    let top = grid_hash(params, x0, y0 + 1, cells_x, cells_y, salt)
-        + (grid_hash(params, x0 + 1, y0 + 1, cells_x, cells_y, salt)
-            - grid_hash(params, x0, y0 + 1, cells_x, cells_y, salt))
+    let top = grid_hash(params, x0, y0 + 1, cells_x, cells_y, field_seed)
+        + (grid_hash(params, x0 + 1, y0 + 1, cells_x, cells_y, field_seed)
+            - grid_hash(params, x0, y0 + 1, cells_x, cells_y, field_seed))
             * tx;
     bottom + (top - bottom) * ty
 }
@@ -102,21 +100,29 @@ fn adze_relief(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) 
     let mut strongest_weight = 0.0_f32;
     for cell_y in (row - 2)..=(row + 2) {
         for cell_x in (column - 2)..=(column + 2) {
-            let id = crate::parameters::seeded_hash(
-                params,
-                0x9b71_d453
-                    ^ ((cell_x.rem_euclid(params.hewn_oak.adze_columns) as u64) << 32)
-                    ^ cell_y.rem_euclid(params.hewn_oak.adze_rows) as u64,
+            let id = params.field_seed(
+                streams::ADZE_CELL,
+                &[
+                    cell_x.rem_euclid(params.hewn_oak.adze_columns) as u64,
+                    cell_y.rem_euclid(params.hewn_oak.adze_rows) as u64,
+                ],
             );
             let center_u = (cell_x as f32
                 + params.hewn_oak.center_u_margin
-                + hash_unit(params, id ^ 0xb591) * params.hewn_oak.center_u_jitter)
+                + params
+                    .rng(streams::ADZE_CROSS_CENTER, &[id])
+                    .inclusive_unit_f32()
+                    * params.hewn_oak.center_u_jitter)
                 / params.hewn_oak.adze_columns as f32;
             let center_v = (cell_y as f32
                 + params.hewn_oak.center_v_margin
-                + hash_unit(params, id ^ 0x40fd) * params.hewn_oak.center_v_jitter)
+                + params
+                    .rng(streams::ADZE_LONG_CENTER, &[id])
+                    .inclusive_unit_f32()
+                    * params.hewn_oak.center_v_jitter)
                 / params.hewn_oak.adze_rows as f32;
-            let angle = (hash_unit(params, id ^ 0x8851) - 0.5) * params.hewn_oak.angle_spread;
+            let angle = (params.rng(streams::ADZE_ANGLE, &[id]).inclusive_unit_f32() - 0.5)
+                * params.hewn_oak.angle_spread;
             let (sin, cos) = angle.sin_cos();
             let dx = periodic_delta(u - center_u);
             let dy = periodic_delta(v - center_v);
@@ -126,15 +132,28 @@ fn adze_relief(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) 
             let cell_length = 1.0 / params.hewn_oak.adze_rows as f32;
             let distance = (local_x / cell_width).powi(2)
                 * (params.hewn_oak.cross_facet_weight
-                    + hash_unit(params, id ^ 0x23ab) * params.hewn_oak.cross_facet_variation)
+                    + params
+                        .rng(streams::ADZE_CROSS_FACET, &[id])
+                        .inclusive_unit_f32()
+                        * params.hewn_oak.cross_facet_variation)
                 + (local_y / cell_length).powi(2)
                     * (params.hewn_oak.long_facet_weight
-                        + hash_unit(params, id ^ 0xf127) * params.hewn_oak.long_facet_variation);
-            let slope_x = (hash_unit(params, id ^ 0x6c89) - 0.5) * params.hewn_oak.cross_slope;
-            let slope_y =
-                (hash_unit(params, id ^ 0xe459) - 0.5) * params.hewn_oak.longitudinal_slope;
-            let offset =
-                (hash_unit(params, id ^ 0x917d) - 0.5) * params.hewn_oak.facet_height_variation;
+                        + params
+                            .rng(streams::ADZE_LONG_FACET, &[id])
+                            .inclusive_unit_f32()
+                            * params.hewn_oak.long_facet_variation);
+            let slope_x = (params
+                .rng(streams::ADZE_CROSS_SLOPE, &[id])
+                .inclusive_unit_f32()
+                - 0.5)
+                * params.hewn_oak.cross_slope;
+            let slope_y = (params
+                .rng(streams::ADZE_LONG_SLOPE, &[id])
+                .inclusive_unit_f32()
+                - 0.5)
+                * params.hewn_oak.longitudinal_slope;
+            let offset = (params.rng(streams::ADZE_HEIGHT, &[id]).inclusive_unit_f32() - 0.5)
+                * params.hewn_oak.facet_height_variation;
             let plane = offset + local_x / cell_width * slope_x + local_y / cell_length * slope_y;
             // Blend every nearby facet continuously. Selecting just the two
             // nearest planes jumps when the second and third exchange order.
@@ -155,33 +174,49 @@ fn check_field(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
     let mut check = 0.0_f32;
     for cell_y in (row - 1)..=(row + 1) {
         for cell_x in (column - 1)..=(column + 1) {
-            let id = crate::parameters::seeded_hash(
-                params,
-                0x4c2e_78a1
-                    ^ ((cell_x.rem_euclid(params.hewn_oak.check_columns) as u64) << 32)
-                    ^ cell_y.rem_euclid(params.hewn_oak.check_rows) as u64,
+            let id = params.field_seed(
+                streams::CHECK_CELL,
+                &[
+                    cell_x.rem_euclid(params.hewn_oak.check_columns) as u64,
+                    cell_y.rem_euclid(params.hewn_oak.check_rows) as u64,
+                ],
             );
-            if hash_unit(params, id ^ 0x2ab7) < params.hewn_oak.check_absence_probability {
+            if params
+                .rng(streams::CHECK_PRESENCE, &[id])
+                .inclusive_unit_f32()
+                < params.hewn_oak.check_absence_probability
+            {
                 continue;
             }
             let center_u = (cell_x as f32
                 + params.hewn_oak.check_field_center_u_1
-                + hash_unit(params, id ^ 0xa447) * params.hewn_oak.check_field_center_u_2)
+                + params
+                    .rng(streams::CHECK_CROSS_CENTER, &[id])
+                    .inclusive_unit_f32()
+                    * params.hewn_oak.check_field_center_u_2)
                 / params.hewn_oak.check_columns as f32;
             let center_v = (cell_y as f32
                 + params.hewn_oak.check_field_center_v_1
-                + hash_unit(params, id ^ 0x77d3) * params.hewn_oak.check_field_center_v_2)
+                + params
+                    .rng(streams::CHECK_LONG_CENTER, &[id])
+                    .inclusive_unit_f32()
+                    * params.hewn_oak.check_field_center_v_2)
                 / params.hewn_oak.check_rows as f32;
             let dx = periodic_delta(u - center_u);
             let dy = periodic_delta(v - center_v);
             let bend = (dy * params.hewn_oak.check_bend_frequency
-                + hash_unit(params, id ^ 0xcb31) * params.hewn_oak.check_field_bend)
+                + params.rng(streams::CHECK_BEND, &[id]).inclusive_unit_f32()
+                    * params.hewn_oak.check_field_bend)
                 .sin()
                 * params.hewn_oak.check_bend_amplitude;
             let half_width = params.hewn_oak.check_half_width
-                + hash_unit(params, id ^ 0x5167) * params.hewn_oak.check_half_width;
+                + params.rng(streams::CHECK_WIDTH, &[id]).inclusive_unit_f32()
+                    * params.hewn_oak.check_half_width;
             let half_length = params.hewn_oak.check_half_length
-                + hash_unit(params, id ^ 0xea45) * params.hewn_oak.check_length_variation;
+                + params
+                    .rng(streams::CHECK_LENGTH, &[id])
+                    .inclusive_unit_f32()
+                    * params.hewn_oak.check_length_variation;
             let across = ((dx - bend) / half_width).abs();
             let along = (dy / half_length).abs();
             let profile =
@@ -196,8 +231,22 @@ fn sample_hewn_oak(params: &crate::TextureParameters, u: f32, v: f32) -> HewnOak
     let u = u.rem_euclid(1.0);
     let v = v.rem_euclid(1.0);
     let growth = grain::filtered_sample(params, u, v);
-    let broad_growth = value_noise(params, u, v, 3, 5, 0x81c7) - 0.5;
-    let timber_variation = value_noise(params, u, v, 6, 5, 0xd24f) - 0.5;
+    let broad_growth = value_noise(
+        params,
+        u,
+        v,
+        3,
+        5,
+        params.field_seed(streams::BROAD_GROWTH, &[]),
+    ) - 0.5;
+    let timber_variation = value_noise(
+        params,
+        u,
+        v,
+        6,
+        5,
+        params.field_seed(streams::TIMBER_VARIATION, &[]),
+    ) - 0.5;
     let (adze_cut, adze_shoulder) = adze_relief(params, u, v);
     let check = check_field(params, u, v) * params.hewn_oak.check_strength;
     let knot = growth.knot * params.hewn_oak.knot_strength;

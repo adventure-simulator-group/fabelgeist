@@ -2,6 +2,7 @@ use super::*;
 mod fortified;
 mod institutional;
 mod residential;
+mod storage_range;
 
 /// High-level input recipe for procedural building generation.
 ///
@@ -31,11 +32,15 @@ pub struct BuildingProgram {
     /// the generic room allocator, is authoritative.
     #[serde(default)]
     pub church_program: Option<ChurchProgram>,
+    /// Explicit hearth/Stube programme with a ground-founded masonry support
+    /// and finished penetrations through every crossed occupied floor.
+    pub domestic_heating: Option<crate::DomesticHeatingProgramme>,
 }
 
 impl BuildingProgram {
     pub fn fixture(archetype: BuildingArchetype, seed: u64) -> Self {
         match archetype {
+            BuildingArchetype::StorageRange => Self::storage_range(seed),
             BuildingArchetype::Workplace => {
                 let mut program = Self::town_house(seed);
                 program.usage =
@@ -57,4 +62,4 @@ impl BuildingProgram {
     }
 }
 
-pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 6;
+pub const BUILDING_DOCUMENT_SCHEMA_VERSION: u32 = 10;

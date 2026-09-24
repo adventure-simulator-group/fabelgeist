@@ -284,83 +284,6 @@ def run_spawner(spacetime_url: str, database: str, base_port: str) -> int:
     ])
 
 
-def run_tactical(
-    mission_id: str,
-    scene_key: str,
-    enemy_fixture: str,
-    port: str,
-    url: str,
-    module: str,
-    enemy_combat_scale_bps: str,
-    scene_input: str,
-    brp_port: str | None = None,
-    world_dump: str | None = None,
-) -> int:
-    if not world_dump:
-        reseed_code = run([
-            sys.executable,
-            str(ROOT / "scripts" / "dev_stack.py"),
-            "reseed-tactical-mission",
-            "--if-live",
-            "--scene-key",
-            scene_key,
-            "--enemy-fixture",
-            str(enemy_fixture),
-            "tactical-dev",
-            "23200",
-        ])
-        if reseed_code:
-            return reseed_code
-
-    environment = os.environ.copy()
-    tactical_env = ROOT / ".env.tactical"
-    if not world_dump and tactical_env.is_file():
-        env_values = read_env_file(tactical_env)
-        fresh_mission = env_values.get("TACTICAL_MISSION_ID")
-        if fresh_mission:
-            mission_id = fresh_mission
-        fresh_claim = env_values.get("ADVENTURESIM_TACTICAL_CLAIM")
-        if fresh_claim:
-            environment["ADVENTURESIM_TACTICAL_CLAIM"] = fresh_claim
-
-    command = [
-        executable("cargo"),
-        "run",
-        "--package",
-        "adventuresim-tactical-server",
-        "--features",
-        "debug",
-        "--",
-        "--addr",
-        f"0.0.0.0:{port}",
-        "--mission-id",
-        mission_id,
-        "--scene-key",
-        scene_key,
-        "--scene-input",
-        scene_input,
-        "--spacetimedb-url",
-        url,
-        "--spacetimedb-module",
-        module,
-        "--expected-party-members",
-        "1",
-        "--required-enemy-kills",
-        "1",
-        "--enemy-combat-scale-bps",
-        str(enemy_combat_scale_bps),
-        "--no-timeout",
-    ]
-    if brp_port:
-        command.extend(["--brp-port", str(brp_port)])
-    if world_dump:
-        command.extend(["--world-dump", str(world_dump)])
-    else:
-        command.extend(["--enemy-fixture", str(enemy_fixture)])
-
-    return run(command, cwd=ROOT, env=environment)
-
-
 def refuse(message: str) -> int:
     print(message, file=sys.stderr)
     return 2
@@ -592,6 +515,7 @@ def read_env_file(path: Path) -> dict[str, str]:
 def windows_tactical_commands(
     stage: Path,
     values: dict[str, str],
+    asset_root: str,
 ) -> tuple[list[str], list[str], dict[str, str]]:
     required = {
         "TACTICAL_SPACETIMEDB_URL",
@@ -600,7 +524,7 @@ def windows_tactical_commands(
         "TACTICAL_MISSION_ID",
         "TACTICAL_SCENE_KEY",
         "TACTICAL_CHARACTER_ID",
-        "TACTICAL_BOTS",
+        "TACTICAL_ENEMY_FIXTURE",
         "ADVENTURESIM_TACTICAL_CLAIM",
     }
     missing = sorted(required - values.keys())
@@ -611,13 +535,12 @@ def windows_tactical_commands(
         "--addr", f"127.0.0.1:{values['TACTICAL_PORT']}",
         "--mission-id", values["TACTICAL_MISSION_ID"],
         "--scene-key", values["TACTICAL_SCENE_KEY"],
-        "--scene-input", values.get(
-            "TACTICAL_SCENE_INPUT", "assets/tactical-scenes/dense-woodland.json"
-        ),
+        "--scene-input", values.get("TACTICAL_SCENE_INPUT", "dense-woodland"),
+        "--enemy-fixture", values["TACTICAL_ENEMY_FIXTURE"],
         "--spacetimedb-url", values["TACTICAL_SPACETIMEDB_URL"],
         "--spacetimedb-module", values["TACTICAL_SPACETIMEDB_MODULE"],
         "--expected-party-members", "1",
-        "--required-enemy-kills", values["TACTICAL_BOTS"],
+        "--required-enemy-kills", "1",
         "--enemy-combat-scale-bps", "10000",
         "--no-timeout",
     ]
@@ -625,16 +548,12 @@ def windows_tactical_commands(
         str(stage / "adventuresim-tactical-client.exe"),
         "--id", values["TACTICAL_CHARACTER_ID"],
         "--server-addr", f"127.0.0.1:{values['TACTICAL_PORT']}",
+        "--asset-root", asset_root,
     ]
     environment = os.environ.copy()
-    environment["ADVENTURESIM_TACTICAL_CLAIM"] = values[
-        "ADVENTURESIM_TACTICAL_CLAIM"
-    ]
+    environment["ADVENTURESIM_TACTICAL_CLAIM"] = values["ADVENTURESIM_TACTICAL_CLAIM"]
     forwarded = environment.get("WSLENV", "").split(":")
-    if not any(
-        entry.partition("/")[0] == "ADVENTURESIM_TACTICAL_CLAIM"
-        for entry in forwarded
-    ):
+    if not any(entry.partition("/")[0] == "ADVENTURESIM_TACTICAL_CLAIM" for entry in forwarded):
         forwarded.append("ADVENTURESIM_TACTICAL_CLAIM")
     environment["WSLENV"] = ":".join(entry for entry in forwarded if entry)
     return server, client, environment
@@ -675,57 +594,43 @@ def win_dev() -> int:
         sync_tree(assets, stage / "assets", clear=False)
 
     tactical_env = ROOT / ".env.tactical"
-    if port_is_open(23200):
-        deadline = time.monotonic() + 5
-        while port_is_open(23200) and time.monotonic() < deadline:
-            time.sleep(0.1)
-    if port_is_open(23200):
-        print("Stopping the recorded stale tactical database on port 23200...")
-        if run([
-            sys.executable,
-            str(ROOT / "scripts" / "dev_stack.py"),
-            "stop-tactical-profile",
-            "tactical-dev",
-            "23200",
-        ]):
-            return 1
-        if port_is_open(23200):
-            raise RuntimeError(
-                "port 23200 is occupied by a process not owned by this tactical profile"
-            )
     tactical_env.unlink(missing_ok=True)
     print("Starting isolated tactical database...")
-    isolated = subprocess.Popen(
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "dev_stack.py"),
-            "run-profile",
-            "--mode",
-            "tactical",
-            "tactical-dev",
-            "23200",
-        ],
-        cwd=ROOT,
-        start_new_session=True,
-    )
+    isolated = subprocess.Popen([
+        sys.executable, str(ROOT / "scripts" / "dev_stack.py"), "run-profile",
+        "--mode", "tactical", "tactical-dev", "23200",
+    ], cwd=ROOT, start_new_session=True)
     try:
         deadline = time.monotonic() + 1200
         while not tactical_env.is_file():
             if isolated.poll() is not None:
-                raise RuntimeError(
-                    f"tactical-isolated exited before becoming ready (code {isolated.returncode})"
-                )
+                raise RuntimeError(f"isolated tactical database exited with code {isolated.returncode}")
             if time.monotonic() >= deadline:
-                raise RuntimeError("tactical-isolated timed out before becoming ready")
+                raise RuntimeError("isolated tactical database timed out before becoming ready")
             time.sleep(0.1)
         server_command, client_command, server_environment = windows_tactical_commands(
-            stage, read_env_file(tactical_env)
+            stage,
+            read_env_file(tactical_env),
+            subprocess.check_output(
+                [executable("wslpath"), "-w", str(stage / "assets")], text=True
+            ).strip(),
         )
-        server = subprocess.Popen(server_command, cwd=stage, env=server_environment)
+        server = subprocess.Popen(
+            server_command,
+            cwd=stage,
+            env=server_environment,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+        )
         time.sleep(3)
         if server.poll() is not None:
             raise RuntimeError(f"native Windows tactical server exited with code {server.returncode}")
-        client = subprocess.Popen(client_command, cwd=stage)
+        client = subprocess.Popen(
+            client_command,
+            cwd=stage,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+        )
         return client.wait() if server.poll() is None else server.returncode or 1
     finally:
         print("\nShutting down...")
@@ -786,17 +691,6 @@ def parser() -> argparse.ArgumentParser:
     simulation.add_argument("--module-dir", default=str(MODULE_DIR))
     simulation.add_argument("--world-input")
     simulation.add_argument("--require-quest-coverage", action="store_true")
-    tactical = commands.add_parser("tactical")
-    tactical.add_argument("--mission-id", default="test-mission")
-    tactical.add_argument("--scene-key", default="woodland")
-    tactical.add_argument("--enemy-fixture", default="standard-bandit")
-    tactical.add_argument("--port", default="6000")
-    tactical.add_argument("--url", default=SPACETIME_URL)
-    tactical.add_argument("--module", default=SPACETIME_DATABASE)
-    tactical.add_argument("--enemy-combat-scale-bps", default="10000")
-    tactical.add_argument("--scene-input", default="dense-woodland")
-    tactical.add_argument("--brp-port")
-    tactical.add_argument("--world-dump")
     commands.add_parser("win-dev")
     return result
 
@@ -824,19 +718,6 @@ def main(argv: list[str] | None = None) -> int:
             return generate_bindings(Path(args.module_dir))
         if args.command == "spawner":
             return run_spawner(args.spacetime_url, args.database, args.base_port)
-        if args.command == "tactical":
-            return run_tactical(
-                mission_id=args.mission_id,
-                scene_key=args.scene_key,
-                enemy_fixture=args.enemy_fixture,
-                port=args.port,
-                url=args.url,
-                module=args.module,
-                enemy_combat_scale_bps=args.enemy_combat_scale_bps,
-                scene_input=args.scene_input,
-                brp_port=args.brp_port,
-                world_dump=args.world_dump,
-            )
         if args.command == "recreate-world-database":
             return recreate_world_database(
                 args.server, args.database, Path(args.module_dir)

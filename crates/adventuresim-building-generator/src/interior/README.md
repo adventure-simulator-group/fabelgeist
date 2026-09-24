@@ -22,10 +22,10 @@ room.
 | Stable stalls | Hay racks per 14 m², up to eight; troughs per 18 m², up to six |
 | Hospital ward | One bed per 12 m², up to sixteen, with both long sides accessible; washstands and cupboards |
 | Schoolroom | Teacher's desk with chair; table and two-bench groups per 12 m² |
-| Counting room | Desk and chair groups per 18 m², up to five; cabinets per 22 m² |
+| Counting room | Line-reckoning tables per 18 m², up to five; cabinets per 22 m²; weigh houses also request a balance |
 | Guardroom / armoury / tower chamber | Trade workstations, weapon racks and chests |
-| Nave / chapel | Church benches per 7 m², up to 48; one lectern |
-| Chancel | One altar and one cupboard; synagogue programmes use a lectern |
+| Nave / chapel | Seating per 7 m², up to 48; Christian pulpit and parish font, or synagogue bima |
+| Chancel | One altar and cupboard; synagogue programmes use a Torah shrine |
 | Sacristy | Cupboards and one desk |
 | Hall / common room | Table and two-bench groups per 18 m², cupboards; inns also request a counter run; bathhouses request tubs |
 | Entrance / passage / stair hall / gallery | No furnishing; circulation space remains available |
@@ -40,7 +40,9 @@ All 66 building uses select an explicit trade kit:
 | Smithy, smelter, assay house | Workbench / tool rack / crate |
 | Weaponsmith | Workbench / weapon rack / crate |
 | Armorer | Workbench / armour stand / crate |
-| Tailor, weaver, printing house, paper mill | Cutting table / shelving / crate |
+| Tailor, paper mill | Cutting table / shelving / crate |
+| Weaver | Treadle loom / spinning stool / crate |
+| Printing house | Screw press / type case / shelving |
 | Bakehouse | Kneading trough / workbench / grain bin |
 | Brewery, malthouse | Cask rack / workbench / grain bin |
 | Butcher | Butcher's block / workbench / crate |
@@ -50,11 +52,12 @@ All 66 building uses select an explicit trade kit:
 | Tannery, dyer, fulling mill, ropemaker | Drying rack / workbench / crate |
 | Chandler, potter, salt works, brickworks, glassworks | Workbench / drying rack / crate |
 | Timber yard, warehouse, woad store | Workbench / shelving / crate |
-| Town hall, weigh house, guildhall, mint, customs house | Writing desk / cupboard / chest |
+| Town hall, guildhall, mint, customs house | Reckoning table / cupboard / chest |
+| Weigh house | Balance table / reckoning table / chest |
 | Hospital | Ward bed / washstand / cupboard |
 | Bathhouse | Tub / bench / chest |
 | School, university | Writing desk / bench / shelving |
-| Guardhouse, prison, castle, arsenal | Bunk bed / armour stand / weapon rack |
+| Guardhouse, prison, castle, arsenal | Dining table / armour stand / weapon rack |
 
 Counter runs are accepted atomically: matching left end, middle and right end
 modules sit exactly one module width apart. Both customer and staff faces must
@@ -66,13 +69,18 @@ rather than independent rotations. The building seed selects a compact or broad
 preference; broad groups can fall back to compact dimensions when the larger
 furniture cannot fit.
 
-The 34 model families are dining table, bench, chair, stool, bed, bunk bed,
+The 45 interior model families are dining table, bench, chair, stool, bed,
+bunk bed,
 storage chest, cupboard, shelving, writing desk, lectern, church bench, altar,
 ward bed, bath tub, washstand, workbench, cutting table, tool rack, weapon rack,
 armour stand, grain bin, storage crate, counter middle, counter left end,
 counter right end, counter corner, display counter, drying rack, kneading
-trough, butcher's block, cask rack, hay rack, and feed trough. Stool and counter
-corner are available model families; generated compositions currently use
+trough, butcher's block, cask rack, hay rack, feed trough, candle stand,
+spinning stool, balance table, reckoning table, treadle loom, printing press,
+type case, baptismal font, pulpit, bima, and Torah shrine. Historical form
+references and reconstruction limits are in
+[the furniture source notes](../furniture/SOURCES.md). Stool and counter
+corner and bunk bed are available model families; generated compositions currently use
 benches, chairs, and straight counter runs.
 
 Access uses a 25 cm cardinal lattice and a swept 60 cm square person footprint.

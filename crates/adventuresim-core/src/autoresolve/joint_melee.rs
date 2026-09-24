@@ -4,7 +4,7 @@ pub(super) fn resolve_joint_melee_round(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -41,7 +41,7 @@ fn resolve_joint_melee_window(
     round: usize,
     window_start_seconds: f32,
     window_seconds: f32,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -201,7 +201,7 @@ fn resolve_contacts(
     allies: &mut [Combatant],
     enemies: &mut [Combatant],
     round: usize,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {
@@ -261,7 +261,7 @@ fn schedule_both_sides(
     enemies: &mut [Combatant],
     allies_first: bool,
     at_seconds: f32,
-    random: &mut SplitMix64,
+    random: &mut DeterministicRng,
     recorder: &mut BattleRecorder,
     parameters: crate::combat::AutoresolveParameters,
 ) {

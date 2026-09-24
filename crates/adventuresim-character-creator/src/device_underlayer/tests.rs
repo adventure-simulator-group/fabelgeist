@@ -132,6 +132,7 @@ fn design() -> UnderlayerDesign {
         kind: UnderlayerKind::ArmingDoublet,
         clearance: Millimeters(4),
         thickness: Millimeters(3),
+        color: fabelgeist_armor::TextileColor([220, 205, 170]),
         length: Permille(1000),
         sleeve_length: Permille(1000),
         patch_width: Millimeters(80),

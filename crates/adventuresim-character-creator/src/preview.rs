@@ -88,11 +88,25 @@ pub(super) fn spawn_armor(
             Some(index) => format!("{name}.{}", armor.components[index].role.name()),
             None => name.clone(),
         };
+        // A component with its own material, such as leather straps, is not
+        // shaded as the piece's plate.
+        let own = surface
+            .component
+            .and_then(|index| armor.components[index].material)
+            .map(|surface| {
+                let [r, g, b, a] = surface.base_color;
+                StandardMaterial {
+                    base_color: Color::srgba(r, g, b, a),
+                    metallic: surface.metallic,
+                    perceptual_roughness: surface.roughness,
+                    ..default()
+                }
+            });
         let mut parts = vec![(
             part_name.clone(),
             surface.plate,
             armor.texcoords.as_slice(),
-            &material,
+            own.as_ref().unwrap_or(&material),
         )];
         if let Some(trim) = trim.as_ref().filter(|_| !surface.trim.is_empty()) {
             parts.push((

@@ -10,6 +10,7 @@ pub(super) struct JettyFrame<'a> {
     pub tangent: Vec2,
     pub outward: Vec2,
     pub facade_walls: &'a [&'a crate::WallAssembly],
+    pub walls: &'a [crate::WallAssembly],
     pub line_length: f32,
     pub storey_id: u64,
 }
@@ -35,10 +36,12 @@ impl JettyFrame<'_> {
         let mut knaggen = Vec::new();
         let mut corner_supports = Vec::new();
         for (index, wall) in self.facade_walls.iter().enumerate() {
-            let plane = wall.frame.origin
-                + wall.frame.outward * (wall.thickness_metres * 0.5 - section.y * 0.5);
-            for sign in [-1.0_f32, 1.0] {
-                let boundary = plane + tangent * sign * wall.length_metres * 0.5;
+            let span = wall_spans::WallSpan::for_frame(
+                wall,
+                self.walls,
+                (wall.thickness_metres - section.y) * 0.5,
+            );
+            for boundary in [span.start, span.end] {
                 let outer = Vec3::new(boundary.x, beam_elevation, boundary.y);
                 let inner_plan = boundary - outward * (projection + backspan);
                 let inner = Vec3::new(inner_plan.x, beam_elevation, inner_plan.y);
@@ -57,7 +60,8 @@ impl JettyFrame<'_> {
                     section,
                     crate::TimberFramePhase::UpperStoreyAddition,
                 ));
-                let lower_plan = boundary - outward * projection;
+                let target = boundary - outward * projection;
+                let lower_plan = self.lower_bearing(builder, target);
                 let lower = Vec3::new(lower_plan.x, base - self.storey_height * 0.28, lower_plan.y);
                 let knagge = builder.member(
                     crate::TimberMemberRole::Knagge,
@@ -98,6 +102,61 @@ impl JettyFrame<'_> {
             support_polygon: vec![left_inner, right_inner, right_outer, left_outer],
         }
     }
+    fn lower_bearing(&self, builder: &TimberFrameBuilder<'_>, target: Vec2) -> Vec2 {
+        let masonry = self
+            .walls
+            .iter()
+            .filter(|wall| {
+                wall.storey_level == 0
+                    && wall.material == crate::WallMaterialClass::CivilianMasonry
+                    && wall.frame.outside_room.is_none()
+                    && wall.frame.outward.dot(self.outward) > 0.99
+            })
+            .flat_map(|wall| &wall.host_solids)
+            .collect::<BTreeSet<_>>();
+        if !masonry.is_empty() {
+            let elevation = self.base - self.storey_height * 0.28;
+            return builder
+                .geometry
+                .solids
+                .iter()
+                .filter(|solid| {
+                    masonry.contains(&solid.id)
+                        && (elevation - solid.centre.y).abs() <= solid.size.y * 0.5
+                })
+                .map(|solid| {
+                    let centre = Vec2::new(solid.centre.x, solid.centre.z);
+                    let half = Vec2::new(solid.size.x, solid.size.z) * 0.5;
+                    target.clamp(centre - half, centre + half)
+                })
+                .min_by(|a, b| {
+                    a.distance_squared(target)
+                        .total_cmp(&b.distance_squared(target))
+                })
+                .expect("masonry jetty has a solid bearing at bracket height");
+        }
+        self.walls
+            .iter()
+            .filter(|lower| {
+                lower.storey_level == 0
+                    && lower.frame.outward.dot(self.outward) > 0.99
+                    && lower.frame.outside_room.is_none()
+            })
+            .flat_map(|lower| {
+                let span = wall_spans::WallSpan::for_frame(
+                    lower,
+                    self.walls,
+                    (lower.thickness_metres - self.section.y) * 0.5,
+                );
+                [span.start, span.end]
+            })
+            .min_by(|a, b| {
+                a.distance_squared(target)
+                    .total_cmp(&b.distance_squared(target))
+            })
+            .expect("jetty facade has a ground-storey bearing")
+    }
+
     fn bearings(
         &self,
         builder: &mut TimberFrameBuilder<'_>,

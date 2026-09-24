@@ -1,6 +1,6 @@
 //! Deterministic, presenter-independent puzzle generation and analysis.
 
-pub const ORDERED_SIGIL_RULES_VERSION: u16 = 3;
+pub const ORDERED_SIGIL_RULES_VERSION: u16 = 4;
 pub const ORDERED_SIGIL_COUNT: usize = 5;
 pub const MAX_MINIMIZATION_SUBSETS: usize = 100_000;
 

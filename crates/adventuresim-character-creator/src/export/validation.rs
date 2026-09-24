@@ -4,10 +4,12 @@ use super::{RiggedMesh, RiggedShell, RiggedSocket, morphs};
 use anyhow::{Result, bail};
 
 pub(super) fn validate(
+    lod: u8,
     mesh: &RiggedMesh<'_>,
     shells: &[RiggedShell<'_>],
     sockets: &[RiggedSocket<'_>],
 ) -> Result<()> {
+    crate::lod::CharacterLod::try_from(lod)?;
     let vertices = mesh.positions.len();
     if vertices == 0 || mesh.normals.len() != vertices {
         bail!("positions and normals must contain the same non-zero vertex count");
@@ -55,14 +57,13 @@ pub(super) fn validate(
         }
     }
     for shell in shells {
-        if let Some((uvs, textures)) = shell.surface {
-            if uvs.len() != shell.positions.len()
+        if let Some((uvs, textures)) = shell.surface
+            && (uvs.len() != shell.positions.len()
                 || uvs.iter().flatten().any(|x| !x.is_finite())
                 || textures.normal_png.is_empty()
-                || textures.metal_roughness_png.is_empty()
-            {
-                bail!("invalid textured shell {}", shell.name);
-            }
+                || textures.metal_roughness_png.is_empty())
+        {
+            bail!("invalid textured shell {}", shell.name);
         }
         anyhow::ensure!(
             shell.textures.is_none() || shell.texcoords.is_some(),

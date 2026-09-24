@@ -1,5 +1,7 @@
 use super::*;
-use adventuresim_building_generator::furniture::{FurnitureKey, FurnitureKind, FurnitureVariant};
+use adventuresim_building_generator::furniture::{
+    FinishableFurnitureKind, FurnitureKey, FurnitureVariant, FurnitureWoodState,
+};
 use adventuresim_tactical_core::scene_input::furniture::FurnitureLocation;
 
 #[test]
@@ -7,10 +9,11 @@ fn interior_furniture_restore_preserves_room_identity_and_rebuilds_rotated_colli
     let _guard = DUMP_DIR_LOCK.lock().unwrap();
     let scene = SceneFurniture {
         id: FurnitureInstanceId(100_092),
-        key: FurnitureKey {
-            kind: FurnitureKind::Workbench,
-            variant: FurnitureVariant::Compact,
-        },
+        key: FurnitureKey::wood(
+            FinishableFurnitureKind::Workbench,
+            FurnitureVariant::Compact,
+            FurnitureWoodState::Repaired,
+        ),
         location: FurnitureLocation::Interior {
             building_id: 81,
             room_id: 7,

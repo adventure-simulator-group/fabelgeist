@@ -225,21 +225,41 @@ replace-world-runtime:
 # Download and verify Meta MHR v1.0.1 into the ignored authoring cache.
 init-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py
-init-mhr-lod1-correctives:
-    @{{ python_bin }} scripts/init_mhr_assets.py --lod1-correctives
+init-mhr-lod4-correctives:
+    @{{ python_bin }} scripts/init_mhr_assets.py --lod4-correctives
 verify-mhr-assets:
     @{{ python_bin }} scripts/init_mhr_assets.py --verify-only
 # Open the MHR creator on the canonical zero-coefficient base body.
 character-creator:
     @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml
 generate-procedural-equipment output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 1 --recipe assets_src/characters/mhr_base.json --equipment-output {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --generate-equipment --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json --equipment-output {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --armor-bake-source --armor-review-dir target/equipment-bake-source --lod 4 --recipe assets_src/characters/mhr_base.json --breastplate-design assets_src/equipment/breastplate-design.json --bracer-design assets_src/equipment/vambrace-design.json
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --source-directory target/equipment-bake-source
+    @just equipment-icons {{ quote(output) }}
+
+# Bake color armor portraits after geometry, textures, and edge finishes are final.
+equipment-icons output:
+    @cargo run -p adventuresim-weapon-model --example export_icon_environment -- assets/equipment/icon-studio.hdr
+    @{{ python_bin }} scripts/bake_equipment_icons.py {{ quote(output) }}
+
+# Unwrap existing generated assets without rebuilding their shapes or rigs.
+unwrap-equipment output:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage uv
+
+# Bake surface detail into the material atlas of an unwrapped equipment export.
+bake-equipment output source:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage bake --source-directory {{ quote(source) }}
+# Apply the authored texture-only plate edge finishes.
+trim-equipment output:
+    @{{ python_bin }} scripts/finish_equipment.py {{ quote(output) }} --stage trim
+
 # Model an animator reference weapon and export it against the character rig.
 weapon-modeler:
     @npm --prefix tools/weapon-modeler start
 # Export the zero-coefficient MHR base to an explicit staging path.
 export-mhr-base output:
-    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 1 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
+    @cargo run --release --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --export-only --lod 4 --recipe assets_src/characters/mhr_base.json --glb {{ quote(output) }}
 # Publish every currently authored motion as a mesh-free runtime animation.
 prepare-animation-assets:
     @{{ python_bin }} scripts/prepare_animation_assets.py
@@ -314,8 +334,8 @@ _spawner-stop:
 # works unmodified against a non-isolated/canonical database. Because that
 # reseed rewrites .env.tactical *during* this recipe, `just` (which resolves
 # {{mission_id}} from the file's content before the recipe runs, and won't
-# see the rewrite) can't be relied on for the resulting value, so the recipe
-# re-reads the file directly instead of trusting {{mission_id}}. This
+# see the rewrite) can't be relied on for the resulting value, so the second
+# line re-reads the file directly instead of trusting {{mission_id}}. This
 # means an explicitly-passed `mission_id=...` is only honored when no live
 # instance is found; get in touch if that trips you up.
 # Set brp_port to expose the Bevy Remote Protocol endpoint for CLI-driven
@@ -325,7 +345,8 @@ _spawner-stop:
 # startup rather than generating fresh procedural terrain, and never
 # connects to SpacetimeDB at all (no `tactical-isolated` needed first).
 tactical mission_id=env_var_or_default("TACTICAL_MISSION_ID", "test-mission") scene_key=env_var_or_default("TACTICAL_SCENE_KEY", "woodland") enemy_fixture=env_var_or_default("TACTICAL_ENEMY_FIXTURE", "standard-bandit") port=env_var_or_default("TACTICAL_PORT", tactical_port) url=env_var_or_default("TACTICAL_SPACETIMEDB_URL", spacetime_url) module=env_var_or_default("TACTICAL_SPACETIMEDB_MODULE", spacetime_module) enemy_combat_scale_bps=env_var_or_default("TACTICAL_ENEMY_COMBAT_SCALE_BPS", "10000") brp_port=env_var_or_default("TACTICAL_BRP_PORT", "") world_dump=env_var_or_default("TACTICAL_WORLD_DUMP", "") scene_input=env_var_or_default("TACTICAL_SCENE_INPUT", "dense-woodland"):
-    @{{ python_bin }} scripts/just_tasks.py tactical --mission-id {{ quote(mission_id) }} --scene-key {{ quote(scene_key) }} --enemy-fixture {{ quote(enemy_fixture) }} --port {{ quote(port) }} --url {{ quote(url) }} --module {{ quote(module) }} --enemy-combat-scale-bps {{ quote(enemy_combat_scale_bps) }} --scene-input {{ quote(scene_input) }} {{ if brp_port != "" { "--brp-port " + quote(brp_port) } else { "" } }} {{ if world_dump != "" { "--world-dump " + quote(world_dump) } else { "" } }}
+    @if [ {{ quote(world_dump) }} = "" ]; then {{ python_bin }} scripts/dev_stack.py reseed-tactical-mission --if-live --scene-key {{ quote(scene_key) }} --enemy-fixture {{ quote(enemy_fixture) }} tactical-dev 23200; fi
+    @MISSION_ID={{ quote(mission_id) }}; if [ -f .env.tactical ] && [ {{ quote(world_dump) }} = "" ]; then FRESH=$(grep '^TACTICAL_MISSION_ID=' .env.tactical | cut -d= -f2-); [ -n "$FRESH" ] && MISSION_ID="$FRESH"; FRESH_CLAIM=$(grep '^ADVENTURESIM_TACTICAL_CLAIM=' .env.tactical | cut -d= -f2-); [ -n "$FRESH_CLAIM" ] && export ADVENTURESIM_TACTICAL_CLAIM="$FRESH_CLAIM"; fi; cargo run --package adventuresim-tactical-server --bin adventuresim-tactical-server --features "debug" -- --addr "0.0.0.0:{{ port }}" --mission-id "$MISSION_ID" --scene-key {{ quote(scene_key) }} --scene-input {{ quote(scene_input) }} --spacetimedb-url {{ url }} --spacetimedb-module {{ module }} --expected-party-members 1 --required-enemy-kills 1 --enemy-combat-scale-bps {{ enemy_combat_scale_bps }} --no-timeout {{ if brp_port != "" { "--brp-port " + brp_port } else { "" } }} {{ if world_dump != "" { "--world-dump " + quote(world_dump) } else { "--enemy-fixture " + quote(enemy_fixture) } }}
 
 # Run a native tactical client (for testing `just tactical`). Defaults come
 # from `.env.tactical` when present, same as `tactical` above. Set brp_port
@@ -366,6 +387,15 @@ tactical-reseed profile="tactical-dev" base_port="23200" mission_id_prefix="miss
 # omits the client while retaining the validated database/server fixture.
 tactical-play mode="animation" base_port="24920" graphics_config="assets/config/tactical-graphics.yaml" presentation_trace="auto" window_capture="auto" capture_source="window" render_backend="auto" scene_input="dense-woodland" enemy_fixture="" input_script="" client_profile="dev" frame_timing_seconds="" frame_timing_warmup_seconds="5": preflight verify-db-client
     @{{ python_bin }} scripts/dev_stack.py tactical-play {{ quote(mode) }} {{ quote(base_port) }} --graphics-config {{ quote(graphics_config) }} --presentation-trace {{ quote(presentation_trace) }} --window-capture {{ quote(window_capture) }} --capture-source {{ quote(capture_source) }} --render-backend {{ quote(render_backend) }} --scene-input {{ quote(scene_input) }} --client-profile {{ quote(client_profile) }} --frame-timing-warmup-seconds {{ quote(frame_timing_warmup_seconds) }} {{ if enemy_fixture != "" { "--enemy-fixture " + quote(enemy_fixture) } else { "" } }} {{ if input_script != "" { "--input-script " + quote(input_script) } else { "" } }} {{ if frame_timing_seconds != "" { "--frame-timing-seconds " + quote(frame_timing_seconds) } else { "" } }}
+
+# The browser counterpart of `tactical-play`: one disposable session with an
+# isolated database, a seeded standalone mission, the tactical server, and the
+# wasm client served over loopback and opened in the default browser. Uses its
+# own base port so it can run alongside a native `tactical-play`. The page
+# reads its graphics and audio configs from the served bundle, so rebuild with
+# `just build-wasm` (a dependency here) after changing them.
+tactical-wasm base_port="24930" scene_input="dense-woodland" enemy_fixture="": preflight verify-db-client build-wasm
+    @{{ python_bin }} scripts/dev_stack.py tactical-play browser {{ quote(base_port) }} --scene-input {{ quote(scene_input) }} {{ if enemy_fixture != "" { "--enemy-fixture " + quote(enemy_fixture) } else { "" } }}
 
 # Launch an unbounded animation session against a named generated scene fixture.
 tactical-play-fixture fixture: preflight verify-db-client
@@ -606,11 +636,21 @@ test-environment:
     @node --test crates/strategic-web/tests/environment.test.cjs
 
 test-schedule:
-    @node --test crates/strategic-web/tests/training-schedule.test.cjs
+    @node --test crates/strategic-web/tests/training-schedule.test.cjs crates/strategic-web/tests/schedule-preview.test.cjs
+
+# Execute the portable RNG contract on native and wasm32.
+test-determinism:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
+    @{{ python_bin }} scripts/test_determinism.py
+
+check-deterministic-rng:
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
 
 # Test local workflow policy without leaving Python bytecode in the worktree.
 test-dev-stack:
-    @{{ python_bin }} -B -m unittest scripts.tests.test_dev_stack scripts.tests.test_just_tasks -v
+    @{{ python_bin }} -B -m unittest scripts.tests.test_dev_stack scripts.tests.test_just_tasks scripts.tests.test_tactical_static_server -v
 
 # Run a deterministic sample strategic NPC population.
 strategic-sim seed="42" population="100" days="":
@@ -661,6 +701,38 @@ test: test-chat test-schedule test-dev-stack build-strategic
 bake-procedural-textures recipe="all":
     @cargo run -p adventuresim-procedural-textures --bin bake-procedural-textures -- {{ recipe }}
 
+# Edit shared botanical recipes and orbit their production meshes.
+plant-studio family="flowers":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }}
+
+# Capture a flower (0..4) or fungus (0..3), with a settled image pair.
+plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
+    @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
+
+# Build and serve the art demo, Texture Studio and Heraldry Studio on one local site. No database or game server.
+showcase port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }}
+
+# Serve the previous showcase build without rebuilding.
+showcase-serve port="8090":
+    @{{ python_bin }} scripts/showcase.py --port {{ port }} --skip-build
+
+# Build the showcase site into target/showcase/site and exit.
+showcase-build:
+    @{{ python_bin }} scripts/showcase.py --build-only --no-open
+
+# Deploy to a VPS at this domain: `showcase` (default) publishes the art demo and studios as static files, `game` the playable stack. See DEPLOY.md.
+deploy domain target="showcase" *args="":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} {{ args }}
+
+# Swap the live showcase back to the previous upload.
+rollback domain:
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --rollback
+
+# Provision and configure the VPS (Caddy, firewall) without deploying anything.
+vps-setup domain target="showcase":
+    @{{ python_bin }} scripts/deploy.py {{ quote(domain) }} --target {{ target }} --setup-only
+
 fmt:
     @cargo fmt --all
     @cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml
@@ -674,12 +746,14 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
+    @{{ python_bin }} scripts/check_deterministic_rng.py
     @cargo run --package fabelgeist-rust-quality -- check .
     @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
     @cargo clippy --workspace --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
-    @cargo clippy --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+    @cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
 
 clean:
     @cargo clean

@@ -19,7 +19,8 @@ pub const NUM_FACE_EXPRESSION_BLEND_SHAPES: usize = 72;
 /// Total blend shapes carried by an MHR rig.
 pub const NUM_BLEND_SHAPES: usize = NUM_IDENTITY_BLEND_SHAPES + NUM_FACE_EXPRESSION_BLEND_SHAPES;
 
-/// Level of detail, 0 (densest) through 6.
+/// Supported runtime body detail, 4 (densest) through 6.
+pub const MIN_LOD: u8 = 4;
 pub const MAX_LOD: u8 = 6;
 
 const MODEL_DEFINITION: &str = "compact_v6_1.model";
@@ -37,7 +38,7 @@ pub struct MhrConfig {
 impl Default for MhrConfig {
     fn default() -> Self {
         Self {
-            lod: 1,
+            lod: MIN_LOD,
             pose_correctives: true,
         }
     }
@@ -115,8 +116,8 @@ impl Mhr {
     /// Loads MHR through `fabelgeist-fs`, including `prism://project`, HTTP/blob,
     /// browser File System Access handles, and native filesystem paths.
     pub async fn from_uri(asset_dir: &str, config: MhrConfig, device: &Device) -> Result<Self> {
-        if config.lod > MAX_LOD {
-            bail!("LOD {} is out of range 0..={MAX_LOD}", config.lod);
+        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
+            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
         }
         let base = asset_dir.trim_end_matches(['/', '\\']);
         let read_asset = |name: String| async move {
@@ -155,8 +156,8 @@ impl Mhr {
         config: MhrConfig,
         device: &Device,
     ) -> Result<Self> {
-        if config.lod > MAX_LOD {
-            bail!("LOD {} is out of range 0..={MAX_LOD}", config.lod);
+        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
+            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
         }
         let dir = resolve_asset_dir(asset_dir.as_ref())?;
 
@@ -192,8 +193,8 @@ impl Mhr {
         config: MhrConfig,
         device: &Device,
     ) -> Result<Self> {
-        if config.lod > MAX_LOD {
-            bail!("LOD {} is out of range 0..={MAX_LOD}", config.lod);
+        if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
+            bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
         }
         let character = Character::from_fbx_bytes(fbx, true).context("loading the MHR FBX")?;
         let correctives = if config.pose_correctives {

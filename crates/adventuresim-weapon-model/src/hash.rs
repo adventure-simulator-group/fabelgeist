@@ -20,9 +20,7 @@ pub fn holder_design_hash(design: &WeaponHolderDesign) -> DesignHash {
     hash.update(b"fabelgeist.weapon-holder-design\0");
     hash.update(HOLDER_SCHEMA_VERSION.to_le_bytes());
     hash.update(HOLDER_GENERATOR_VERSION.to_le_bytes());
-    hash.update(
-        postcard::to_allocvec(design).expect("WeaponHolderDesign is postcard-serializable"),
-    );
+    hash.update(serde_json::to_vec(design).expect("WeaponHolderDesign is JSON-serializable"));
     DesignHash(hash.finalize().into())
 }
 
@@ -31,6 +29,6 @@ pub fn design_hash(design: &WeaponDesign) -> DesignHash {
     hash.update(b"fabelgeist.weapon-design\0");
     hash.update(SCHEMA_VERSION.to_le_bytes());
     hash.update(GENERATOR_VERSION.to_le_bytes());
-    hash.update(postcard::to_allocvec(design).expect("WeaponDesign is postcard-serializable"));
+    hash.update(serde_json::to_vec(design).expect("WeaponDesign is JSON-serializable"));
     DesignHash(hash.finalize().into())
 }

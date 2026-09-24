@@ -1,6 +1,6 @@
 use super::*;
 
-pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 13] = [
+pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 19] = [
     CaptureViewSpec::new(
         "warmup",
         "Production building material warmup",
@@ -81,7 +81,8 @@ pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 
         58.0,
         100,
     )
-    .vista(),
+    .vista()
+    .settled_readback_pair(),
     CaptureViewSpec::new(
         "plaster-facade",
         "Plaster facade",
@@ -97,7 +98,8 @@ pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 
         12.0,
         100,
     )
-    .vista(),
+    .vista()
+    .settled_readback_pair(),
     CaptureViewSpec::new(
         "shell-lod",
         "Shell lod",
@@ -105,7 +107,65 @@ pub(in crate::tactical_scene_viewer) const SHOP_REVIEW_VIEWS: [CaptureViewSpec; 
         12.0,
         100,
     )
-    .vista(),
+    .vista()
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "trade-bread-peel",
+        "Bakery bread peel",
+        CapturePose::CityExterior { camera: 12 },
+        58.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "trade-hammer",
+        "Smithy hammer",
+        CapturePose::CityExterior { camera: 13 },
+        58.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "trade-shuttle",
+        "Weaver shuttle",
+        CapturePose::CityExterior { camera: 14 },
+        58.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair(),
+    CaptureViewSpec::new(
+        "matched-detail",
+        "Matched Detail",
+        CapturePose::CityExterior { camera: 15 },
+        40.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair()
+    .building_lod(super::super::building_review::ReviewLod::Detail),
+    CaptureViewSpec::new(
+        "matched-facade",
+        "Matched Facade",
+        CapturePose::CityExterior { camera: 16 },
+        40.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair()
+    .building_lod(super::super::building_review::ReviewLod::Facade),
+    CaptureViewSpec::new(
+        "matched-shell",
+        "Matched Shell",
+        CapturePose::CityExterior { camera: 17 },
+        40.0,
+        100,
+    )
+    .vista()
+    .settled_readback_pair()
+    .building_lod(super::super::building_review::ReviewLod::Shell),
 ];
 
 pub(in crate::tactical_scene_viewer) const WORKPLACE_REVIEW_VIEWS: [CaptureViewSpec; 63] = [

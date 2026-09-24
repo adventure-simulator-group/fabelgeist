@@ -11,6 +11,7 @@ impl DrapedGarment {
         let (base_color, metallic, roughness) =
             mail.map_or(crate::garment_material::CLOTH_PBR, |mail| mail.pbr());
         RiggedShell {
+            plate_edges: &[],
             surface: None,
             textures: mail.map(|mail| mail.maps.textures()),
             texcoords: Some(mail.map_or(&self.texcoords, |mail| &mail.texcoords)),

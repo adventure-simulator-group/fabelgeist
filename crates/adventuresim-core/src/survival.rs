@@ -245,7 +245,7 @@ pub fn frostbite_peripheral_index(protection_bps: [u16; 4], absolute_event_minut
         .enumerate()
         .filter_map(|(index, protection)| (protection == minimum).then_some(index))
         .collect::<Vec<_>>();
-    tied[(absolute_event_minute as usize) % tied.len()]
+    tied[(absolute_event_minute % tied.len() as u64) as usize]
 }
 
 #[cfg(test)]

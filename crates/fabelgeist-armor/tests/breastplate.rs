@@ -48,7 +48,7 @@ fn new_controls_reject_invalid_spacing_and_round_trip() {
 
 #[test]
 fn flute_extremes_within_their_ranges_are_valid() {
-    for (count, width, depth) in [(2, 850, 4), (24, 350, 1), (24, 850, 4)] {
+    for (count, width, depth) in [(2, 850, 4), (24, 350, 1), (24, 850, 4), (64, 750, 2)] {
         let mut design = BreastplateDesign::fluted();
         let flutes = design.fluting.as_mut().unwrap();
         flutes.count = FluteCount(count);
@@ -57,7 +57,7 @@ fn flute_extremes_within_their_ranges_are_valid() {
         validate_breastplate(&design).unwrap();
     }
     let mut too_many = BreastplateDesign::fluted();
-    too_many.fluting.as_mut().unwrap().count = FluteCount(25);
+    too_many.fluting.as_mut().unwrap().count = FluteCount(65);
     assert_eq!(
         validate_breastplate(&too_many),
         Err(DesignError::PlateFluting)

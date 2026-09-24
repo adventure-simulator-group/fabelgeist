@@ -328,7 +328,7 @@ fn resolve_church_tower_door_wall(
         id: wall_id,
         owner,
         source,
-        material: crate::WallMaterialClass::CathedralMasonry,
+        material: crate::WallMaterialClass::ButtressedChurchMasonry,
         storey_level: 0,
         frame: crate::WallLocalFrame {
             origin,
@@ -860,7 +860,7 @@ fn resolve_cathedral_bell_stage(
                         face,
                         bay,
                     },
-                    material: crate::WallMaterialClass::CathedralMasonry,
+                    material: crate::WallMaterialClass::ButtressedChurchMasonry,
                     storey_level: 2,
                     frame: crate::WallLocalFrame {
                         origin,

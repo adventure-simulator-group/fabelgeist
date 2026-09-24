@@ -21,5 +21,14 @@ pub(super) async fn resolve_religious_demand(
     {
         tracing::warn!(%error, character_id, demand_id, "failed to resolve religious demand");
     }
-    Redirect::to(&building.append_to(&state, &kind, &id, format!("/locations/{kind}/{id}/party/{character_id}")).await)
+    Redirect::to(
+        &building
+            .append_to(
+                &state,
+                &kind,
+                &id,
+                paths::PARTY_PERSONAL.url([&kind, &id, &character_id]),
+            )
+            .await,
+    )
 }

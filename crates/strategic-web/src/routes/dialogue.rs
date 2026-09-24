@@ -14,39 +14,15 @@ use adventuresim_core::{
     reducer_error::ReducerErrorCode,
 };
 use axum::{
-    Json, Router,
+    Json,
     extract::{Path, State},
     http::StatusCode,
-    routing::{get, post},
 };
 use serde::{Deserialize, Serialize, Serializer};
 use serde_json::json;
 
-pub fn routes() -> Router<AppState> {
-    Router::new()
-        .route("/api/dialogue/start", post(start))
-        .route("/api/dialogue/{session_id}", get(view))
-        .route("/api/dialogue/topic", post(topic))
-        .route("/api/dialogue/answer", post(answer))
-        .route(
-            "/api/dialogue/accept-order-errantry",
-            post(accept_order_errantry),
-        )
-        .route("/api/dialogue/join", post(join))
-        .route("/api/dialogue/claim-response", post(witness_approach))
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs",
-            get(location_npcs),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/social",
-            get(npc_social).post(chat_with_npc),
-        )
-        .route(
-            "/api/settlements/{settlement_id}/locations/{location_id}/npcs/{resident_character_id}/romance/{action}",
-            post(npc_romance_action),
-        )
-}
+mod router;
+pub use router::routes;
 
 #[derive(Clone, Serialize)]
 struct DialogueParticipantView {
@@ -489,7 +465,7 @@ mod npc_navigation_tests {
             visible_features: "work-worn hands".into(),
             clothing: "working clothes".into(),
             profession: "merchant".into(),
-            household: "market household".into(),
+            household_kind: "market household".into(),
             local_role: "market steward".into(),
             service_id: "merchants".into(),
             organization_id: organization_id.into(),
@@ -771,6 +747,7 @@ async fn location_npcs(
     Path((settlement_id, location_id)): Path<(String, String)>,
     session: Session,
 ) -> Result<Json<Vec<NpcView>>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let character = state
         .db
@@ -848,7 +825,7 @@ async fn location_npcs(
                 && npc_matches_location_binding(npc, &settlement_id, &location_id, &settlement.economy)
         })?;
         let facial = if npc.facial_hair == "none visible" { String::new() } else { format!(", with {}", npc.facial_hair) };
-        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
+        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household kind: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household_kind, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
     }).collect::<Vec<_>>();
     views.sort_by_key(|view| (!view.is_default, view.name.clone()));
     Ok(Json(views))
@@ -1187,6 +1164,7 @@ async fn npc_romance_action(
     )>,
     session: Session,
 ) -> Result<Json<NpcRomanceActionResult>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1268,6 +1246,7 @@ async fn npc_social(
     Path((settlement_id, location_id, resident_character_id)): Path<(String, String, String)>,
     session: Session,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()
@@ -1291,6 +1270,7 @@ async fn chat_with_npc(
     session: Session,
     Json(request): Json<NpcChatRequest>,
 ) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
     let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
     let resident_character_id = resident_character_id
         .parse::<u64>()

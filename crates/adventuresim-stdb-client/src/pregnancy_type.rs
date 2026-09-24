@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::pregnancy_status_type::PregnancyStatus;
+use super::sex_type::Sex;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct Pregnancy {
     pub due_minute: u64,
     pub reserved_child_id: u64,
     pub child_name_seed: u64,
-    pub child_female: bool,
+    pub child_sex: Sex,
     pub child_home_seed: u64,
     pub birth_settlement_id: String,
     pub birth_residence_holding_id: Option<String>,
@@ -42,7 +43,7 @@ pub struct PregnancyCols {
     pub due_minute: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub reserved_child_id: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub child_name_seed: __sdk::__query_builder::Col<Pregnancy, u64>,
-    pub child_female: __sdk::__query_builder::Col<Pregnancy, bool>,
+    pub child_sex: __sdk::__query_builder::Col<Pregnancy, Sex>,
     pub child_home_seed: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub birth_settlement_id: __sdk::__query_builder::Col<Pregnancy, String>,
     pub birth_residence_holding_id: __sdk::__query_builder::Col<Pregnancy, Option<String>>,
@@ -63,7 +64,7 @@ impl __sdk::__query_builder::HasCols for Pregnancy {
             due_minute: __sdk::__query_builder::Col::new(table_name, "due_minute"),
             reserved_child_id: __sdk::__query_builder::Col::new(table_name, "reserved_child_id"),
             child_name_seed: __sdk::__query_builder::Col::new(table_name, "child_name_seed"),
-            child_female: __sdk::__query_builder::Col::new(table_name, "child_female"),
+            child_sex: __sdk::__query_builder::Col::new(table_name, "child_sex"),
             child_home_seed: __sdk::__query_builder::Col::new(table_name, "child_home_seed"),
             birth_settlement_id: __sdk::__query_builder::Col::new(
                 table_name,

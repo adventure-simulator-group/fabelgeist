@@ -2,6 +2,7 @@ use super::*;
 
 impl BuildingProgram {
     pub(crate) fn configure_small_church_size(&mut self, size: ServiceBuildingSize) {
+        self.church_program = None;
         self.service_size = Some(size);
         let dimensions = Dimensions::from_program(self)
             .expect("small church requires an explicit chapel or parish use");

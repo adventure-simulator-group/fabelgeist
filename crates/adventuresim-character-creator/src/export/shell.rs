@@ -60,13 +60,14 @@ impl Writer<'_> {
             self.primitives.push(primitive);
             let mut material = json!({
                 "name": shell.name,
+                "doubleSided": true,
                 "pbrMetallicRoughness": {
                     "baseColorFactor": linear_base_color(shell.base_color),
                     "metallicFactor": shell.metallic,
                     "roughnessFactor": shell.roughness,
                 }
             });
-            if let Some(textures) = shell.textures {
+            if let Some(textures) = shell.textures.clone() {
                 self.textures.apply(textures, self.buffer, &mut material);
             }
             if let Some((_, textures)) = shell.surface {

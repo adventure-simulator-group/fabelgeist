@@ -84,7 +84,7 @@ pub fn simulate_life<A: PlayerAttributes>(
 
     let childhood_end = input.age_years.min(12);
     if childhood_end > TRAINING_START_AGE {
-        let emphasis = 45 + (domain_draw(input.stable_seed, "childhood") % 31) as u16;
+        let emphasis = 45 + domain_draw(input.stable_seed, "childhood").index(31) as u16;
         let schedule = DailySchedule {
             labor: 120,
             prayer: 30,
@@ -356,12 +356,13 @@ pub fn apply_creation_literacy(
     true
 }
 
-fn domain_draw(seed: u64, domain: &str) -> u64 {
-    domain
-        .bytes()
-        .fold(seed ^ 0x6c69_6665_2d76_3100, |value, byte| {
-            (value ^ u64::from(byte)).wrapping_mul(0x100000001b3)
-        })
+fn domain_draw(seed: u64, domain: &str) -> fabelgeist_determinism::DeterministicRng {
+    fabelgeist_determinism::Seed::derive(
+        &seed.to_le_bytes(),
+        fabelgeist_determinism::StreamId::new("life-simulation.draw"),
+        &[domain.as_bytes()],
+    )
+    .rng()
 }
 
 #[cfg(test)]

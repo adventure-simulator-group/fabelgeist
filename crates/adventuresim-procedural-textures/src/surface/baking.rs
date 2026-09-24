@@ -71,7 +71,7 @@ pub(crate) fn oak_bark_local_cavity(
         + periodic_sample(field, params.size(OAK_BARK_TEXTURE_SIZE), x + 1, y)
         + periodic_sample(field, params.size(OAK_BARK_TEXTURE_SIZE), x, y - 1)
         + periodic_sample(field, params.size(OAK_BARK_TEXTURE_SIZE), x, y + 1);
-    let cavity = (neighbors * params.surface.oak_bark_local_cavity_cavity - centre).max(0.0);
+    let cavity = (neighbors * 0.25 - centre).max(0.0);
     (1.0 - cavity * 1.5).clamp(0.72, 1.0)
 }
 

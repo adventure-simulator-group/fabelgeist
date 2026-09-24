@@ -4,7 +4,7 @@ mod pattern;
 pub use pattern::{RegionFrame, regions};
 
 use anyhow::{Result, ensure};
-use fabelgeist_armor::{Millimeters, Permille};
+use fabelgeist_armor::{Millimeters, Permille, TextileColor};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -32,6 +32,7 @@ pub struct UnderlayerDesign {
     pub kind: UnderlayerKind,
     pub clearance: Millimeters,
     pub thickness: Millimeters,
+    pub color: TextileColor,
     pub length: Permille,
     pub sleeve_length: Permille,
     pub patch_width: Millimeters,
@@ -108,6 +109,7 @@ mod tests {
             kind: UnderlayerKind::ArmingDoublet,
             clearance: Millimeters(4),
             thickness: Millimeters(1),
+            color: TextileColor([220, 205, 170]),
             length: Permille(1000),
             sleeve_length: Permille(1000),
             patch_width: Millimeters(80),

@@ -10,6 +10,8 @@ pub const MINUTES_PER_HOUR: u16 = 60;
 pub const MINUTES_PER_DAY: u64 = HOURS_PER_DAY as u64 * MINUTES_PER_HOUR as u64;
 pub const DAYS_PER_YEAR: u64 = 365;
 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+/// Calendar year containing strategic minute zero.
+pub const WORLD_START_YEAR: i32 = 1544;
 /// Longest settlement rest request accepted by the shared strategic contract.
 pub const MAX_SETTLEMENT_REST_MINUTES: u64 = MINUTES_PER_YEAR;
 const REAL_MICROSECONDS_PER_STRATEGIC_YEAR: u128 = 7 * 24 * 60 * 60 * 1_000_000;
@@ -31,6 +33,14 @@ pub const LUNAR_CYCLE_MINUTES: u64 = 42_524;
 pub const MAX_ITINERARY_SEGMENTS: usize = 512;
 /// Natural recovery while taking full settlement downtime.
 pub const HEALTH_RECOVERED_PER_DAY: f32 = 0.05;
+
+pub fn world_year_at(minute: u64) -> i32 {
+    WORLD_START_YEAR.saturating_add(i32::try_from(minute / MINUTES_PER_YEAR).unwrap_or(i32::MAX))
+}
+
+pub fn birth_year_from_age(minute: u64, age_years: u16) -> i32 {
+    world_year_at(minute).saturating_sub(i32::from(age_years))
+}
 
 /// A normalized position within the shared strategic day.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]

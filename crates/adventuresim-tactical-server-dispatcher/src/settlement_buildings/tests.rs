@@ -1,6 +1,6 @@
 use super::*;
+use adventuresim_building_generator::BuildingProgram;
 use adventuresim_building_generator::generate;
-use adventuresim_tactical_core::prelude::*;
 
 fn economy(population: u32) -> SettlementEconomyProfile {
     use adventuresim_world_schema::*;
@@ -23,14 +23,15 @@ fn settlement(id: &str, population: u32) -> SettlementSceneProfile {
         population_level: 1,
         population_estimate: population,
         economy: economy(population),
+        operators: Vec::new(),
     }
 }
 
-fn layout(id: &str, population: u32) -> SettlementBuildingLayout {
+fn layout(id: &str, population: u32) -> CitySceneLayout {
     place_settlement_buildings(&settlement(id, population), 50.0).unwrap()
 }
 
-fn ordered_centres(layout: &SettlementBuildingLayout) -> Vec<(u64, bevy::math::Vec2)> {
+fn ordered_centres(layout: &CitySceneLayout) -> Vec<(u64, bevy::math::Vec2)> {
     let mut centres = layout
         .playable
         .iter()
@@ -81,22 +82,34 @@ fn missing_estimate_uses_the_shared_population_level_fallback() {
         population_level: 4,
         population_estimate: 0,
         economy: economy(6_500),
+        operators: Vec::new(),
     };
     let population = settlement.effective_population();
     let buildings = place_settlement_buildings(&settlement, 50.0).unwrap();
-    let expected = generate_city(
-        settlement_seed(&settlement.id),
-        population,
-        &settlement.economy,
-    )
-    .lots
-    .len();
-    assert_eq!(buildings.playable.len() + buildings.distant.len(), expected);
+    let expected = CitySite::central_german_market_town()
+        .generate(
+            adventuresim_core::settlement_population::settlement_building_seed(&settlement.id),
+            population,
+            &settlement.economy,
+        )
+        .lots
+        .len();
+    assert_eq!(
+        buildings.playable.len() + buildings.distant.len(),
+        expected + buildings.compounds.len()
+    );
 }
 
 #[test]
 fn dense_city_layout_passes_tactical_pad_validation() {
-    let layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
+    let mut layout = place_settlement_buildings(&settlement("dense", 40_000), 50.0).unwrap();
+    // This fixture exercises the playable pads without a distant vista.
+    layout.compounds.retain(|compound| {
+        layout
+            .playable
+            .iter()
+            .any(|building| building.id == compound.front_building_id)
+    });
     let mut input = TacticalSceneInput {
         schema_version: TACTICAL_SCENE_SCHEMA_VERSION,
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
@@ -118,8 +131,12 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         landform: None,
         streets: layout.streets,
         yards: layout.yards,
+        parishes: layout.parishes,
+        compounds: layout.compounds,
+        gardens: layout.gardens,
         buildings: layout.playable,
         distant_buildings: Vec::new(),
+        establishments: Vec::new(),
         vista: VistaSample::default(),
         weather: adventuresim_core::weather::weather_at(42, 1, 53_500_000, 10_000_000, 0),
     };
@@ -132,19 +149,23 @@ fn dense_city_layout_passes_tactical_pad_validation() {
 }
 
 #[test]
-fn invalid_initial_recipe_seed_advances_deterministically_to_a_valid_program() {
+fn large_city_uses_valid_deterministic_recipes_and_preserves_all_plots() {
     let buildings = place_settlement_buildings(&settlement("massive-city-3229", 100_000), 50.0)
-        .expect("the deterministic retry sequence should find valid recipes");
+        .expect("the city should fit its population and produce valid recipes");
 
     assert_eq!(
         buildings.playable.len() + buildings.distant.len(),
-        generate_city(
-            settlement_seed("massive-city-3229"),
-            100_000,
-            &economy(100_000)
-        )
-        .lots
-        .len()
+        CitySite::central_german_market_town()
+            .generate(
+                adventuresim_core::settlement_population::settlement_building_seed(
+                    "massive-city-3229",
+                ),
+                100_000,
+                &economy(100_000)
+            )
+            .lots
+            .len()
+            + buildings.compounds.len()
     );
     assert!(
         buildings

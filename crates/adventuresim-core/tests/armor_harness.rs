@@ -81,3 +81,90 @@ fn whole_limb_and_same_fit_zone_conflict_but_adjacent_plates_and_padding_coexist
         ..forearm
     }));
 }
+
+#[test]
+fn full_pauldrons_replace_spaulders_and_coexist_with_torso_and_upper_arm_plates() {
+    let mut graph = EquipmentGraph::default();
+    let mut instance = 1;
+    for item in ["cuirass", "gorget", "pauldron", "rerebrace"] {
+        for placement in &item_catalog::definition(item)
+            .unwrap()
+            .equipment
+            .as_ref()
+            .unwrap()
+            .placements
+        {
+            graph
+                .equip(
+                    instance,
+                    EquipmentGraphPlacement {
+                        body: placement.occupancy.clone(),
+                        parents: vec![],
+                    },
+                )
+                .unwrap();
+            instance += 1;
+        }
+    }
+    for placement in &item_catalog::definition("spaulder")
+        .unwrap()
+        .equipment
+        .as_ref()
+        .unwrap()
+        .placements
+    {
+        assert_eq!(
+            graph.equip(
+                instance,
+                EquipmentGraphPlacement {
+                    body: placement.occupancy.clone(),
+                    parents: vec![]
+                }
+            ),
+            Err("body occupancy conflict")
+        );
+        instance += 1;
+    }
+}
+
+#[test]
+fn museum_helmets_mount_with_independent_gorgets_without_losing_coverage() {
+    use adventuresim_core::item_catalog::{EquipmentAnatomicalRegion, EquipmentBodyPart};
+
+    for (helmet, coverage) in [("burgonet", 0.75), ("close_helmet", 0.9)] {
+        let mut graph = EquipmentGraph::default();
+        for (id, item) in [helmet, "gorget"].into_iter().enumerate() {
+            let placement = &item_catalog::definition(item)
+                .unwrap()
+                .equipment
+                .as_ref()
+                .unwrap()
+                .placements[0];
+            let body = EquipmentGraphPlacement {
+                body: placement.occupancy.clone(),
+                parents: vec![],
+            };
+            graph.equip(id as u64, body.clone()).unwrap();
+            assert_eq!(
+                graph.equip(id as u64 + 10, body),
+                Err("body occupancy conflict"),
+                "duplicate {item} must still conflict"
+            );
+            assert_eq!(placement.protection, [EquipmentBodyPart::Head]);
+            assert!(
+                placement.surface[0]
+                    .regions
+                    .contains(&EquipmentAnatomicalRegion::Neck)
+            );
+            if item == helmet {
+                assert!(
+                    placement.surface[0]
+                        .regions
+                        .contains(&EquipmentAnatomicalRegion::Head)
+                );
+                assert_eq!(placement.surface[0].coverage, coverage);
+            }
+        }
+        assert_eq!(graph.nodes.len(), 2);
+    }
+}

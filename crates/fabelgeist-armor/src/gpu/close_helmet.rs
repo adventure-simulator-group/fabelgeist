@@ -163,6 +163,9 @@ impl CloseHelmetLayout {
 
     /// The layout of a design, built once.
     fn cached(d: &CloseHelmetDesign) -> Result<Arc<Self>, GenerateError> {
+        crate::device_support::on_device(
+            crate::HelmetDesign::CloseHelmet(d.clone()).device_unsupported(),
+        )?;
         static LAYOUTS: Mutex<Vec<(CloseHelmetDesign, Arc<CloseHelmetLayout>)>> =
             Mutex::new(Vec::new());
         let cached = LAYOUTS
@@ -337,7 +340,7 @@ fn bevor() -> CoordTopology {
 /// The visor's triangulated domain, as angles around the head and fractions
 /// down the face, with the flute relief it carries when fluted.
 fn visor(d: &CloseHelmetDesign) -> Result<CoordTopology, GenerateError> {
-    let domain = VisorDomain::new(d)?;
+    let domain = VisorDomain::new(d, crate::ArmorDetail::BakeSource)?;
     let fluted = d.visor_fluting.is_some();
     Ok(CoordTopology {
         coords: domain

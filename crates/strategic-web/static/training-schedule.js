@@ -4,16 +4,6 @@
     : window.strategicCalendar;
   const { minutesPerDay: DAY } = calendar;
   const STEP = 15;
-  const activityOrder = [
-    'combat_training_minutes',
-    'carousing_minutes',
-    'apprenticeship_minutes',
-    'profession_practice_minutes',
-    'labor_minutes',
-    'prayer_minutes',
-    'thievery_minutes',
-    'raiding_minutes',
-  ];
   const leisureTip = 'It is strongly recommended to leave enough leisure time for sleep, and a moderate amount beyond that for morale.';
 
   function format(minutes) {
@@ -274,7 +264,44 @@
       },
     );
     root._scheduleState = state;
-    render(root, state);
+    const mountedAction = root.action;
+    state.previewRequests = window.StrategicSchedulePreview.createPreviewRequests(
+      async (snapshot, signal) => {
+        const url = new URL(mountedAction);
+        url.pathname += '/preview';
+        const response = await fetch(url, {
+          method: 'POST', body: new URLSearchParams(snapshot), signal,
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) throw new Error('Preview unavailable');
+        return response.json();
+      },
+      {
+        isMounted: () => root.isConnected && root.action === mountedAction,
+        onState(result) {
+          state.preview = result.phase === 'ready' ? result.result : null;
+          root.toggleAttribute('data-schedule-preview-pending', result.phase === 'pending');
+          const status = root.querySelector('[data-schedule-preview-status]');
+          if (status) {
+            status.hidden = result.phase === 'ready';
+            status.textContent = result.phase === 'pending' ? 'Calculating…'
+              : result.phase === 'error' ? 'Preview unavailable.' : 'Editing allocation…';
+          }
+          if (!state.preview) {
+            root.querySelectorAll('[data-activity-effect]').forEach((cell) => {
+              cell.textContent = '—';
+              cell.removeAttribute('title');
+              cell.classList.remove('schedule-effect-positive', 'schedule-effect-negative');
+            });
+            root.querySelectorAll('[data-schedule-value="leisure_minutes"] [data-schedule-display]')
+              .forEach((cell) => { cell.textContent = '—'; });
+            root.querySelector('[data-schedule-value="leisure_minutes"]')?.removeAttribute('title');
+          }
+          render(root, state);
+        },
+      },
+    );
+    requestPreview(root, state);
     return state;
   }
 
@@ -283,64 +310,19 @@
       .map(([name, input]) => [name, Number(input.value)]));
   }
 
-  function redistributionRoll(seed, segment) {
-    const wrap = (value) => BigInt.asUintN(64, value);
-    let value = wrap(
-      BigInt(seed)
-      ^ 0xA4C71D5B93E2F860n
-      ^ wrap(BigInt(segment) * 0x9E3779B97F4A7C15n),
-    );
-    value = wrap((value ^ (value >> 30n)) * 0xBF58476D1CE4E5B9n);
-    value = wrap((value ^ (value >> 27n)) * 0x94D049BB133111EBn);
-    return value ^ (value >> 31n);
-  }
-
-  function effectiveAllocation(allocation, unavailableNames = [], seed = 0n) {
-    const effective = { ...allocation };
-    const unavailable = new Set(unavailableNames);
-    let unavailableSegments = 0;
-    activityOrder.forEach((name) => {
-      if (unavailable.has(name) && Object.hasOwn(effective, name)) {
-        unavailableSegments += Math.floor(effective[name] / STEP);
-        effective[name] = 0;
-      }
-    });
-    const candidates = activityOrder
-      .filter((name) => !unavailable.has(name) && Number(allocation[name] || 0) > 0);
-    const totalWeight = candidates
-      .reduce((sum, name) => sum + BigInt(allocation[name]), 0n);
-    if (totalWeight === 0n) return effective;
-
-    for (let segment = 0; segment < unavailableSegments; segment += 1) {
-      let draw = redistributionRoll(seed, segment) % totalWeight;
-      for (const name of candidates) {
-        const weight = BigInt(allocation[name]);
-        if (draw < weight) {
-          effective[name] += STEP;
-          break;
-        }
-        draw -= weight;
-      }
-    }
-    return effective;
-  }
-
   function render(root, state) {
     const allValues = values(root, state, false);
-    const unavailableNames = [...root.querySelectorAll('[data-activity-location-unavailable="true"]')]
-      .map((row) => row.dataset.activityAllocation);
-    const allocation = effectiveAllocation(
-      values(root, state),
-      unavailableNames,
-      BigInt(root.dataset.activityRedistributionSeed || 0),
-    );
     Object.entries(allValues).forEach(([name, minutes]) => {
       root.querySelectorAll(`[data-schedule-value="${name}"] [data-schedule-display]`).forEach((output) => {
         output.textContent = format(minutes);
         output.setAttribute('aria-label', `Daily allocation ${formatClock(minutes)}; click to edit`);
       });
     });
-    const leisure = Math.max(0, DAY - Object.values(allocation).reduce((sum, value) => sum + value, 0));
+    if (!state.preview) return;
+    const effective = state.preview.effective;
+    const allocation = { ...effective, labor_minutes: effective.labor, prayer_minutes: effective.prayer,
+      thievery_minutes: effective.thievery, raiding_minutes: effective.raiding };
+    const leisure = state.preview.leisure_minutes;
     root.querySelectorAll('[data-schedule-value="leisure_minutes"] [data-schedule-display]').forEach((output) => {
       output.textContent = format(leisure);
     });
@@ -353,9 +335,8 @@
     root.querySelector('[data-schedule-value="leisure_minutes"]')?.setAttribute('title', leisureTip);
   }
 
-  function setValue(root, state, target, wanted) {
-    if (!state.inputs[target]) return;
-    const allocation = values(root, state);
+  function editedAllocation(currentAllocation, target, wanted) {
+    const allocation = { ...currentAllocation };
     const names = Object.keys(allocation);
     const current = allocation[target];
     const next = Math.max(0, Math.min(DAY, Math.round(wanted / STEP) * STEP));
@@ -379,8 +360,19 @@
     } else {
       allocation[target] = next;
     }
+    return allocation;
+  }
+
+  function setValue(root, state, target, wanted) {
+    const allocation = editedAllocation(values(root, state), target, wanted);
     Object.entries(allocation).forEach(([name, minutes]) => { state.inputs[name].value = minutes; });
     render(root, state);
+  }
+
+  function requestPreview(root, state, draft = null) {
+    const snapshot = new URLSearchParams(new FormData(root));
+    if (draft) Object.entries(draft).forEach(([name, minutes]) => snapshot.set(name, minutes));
+    void state.previewRequests.request(snapshot.toString());
   }
 
   function save(root, delay = 0) {
@@ -401,7 +393,7 @@
     const originalMinutes = Number(state.inputs[name].value);
     const anchor = display.closest('.party-skill-allocation');
     const rail = display.closest('.left-sidebar');
-    window.StrategicNumericEditor.open({
+    const opened = window.StrategicNumericEditor.open({
       display,
       initialValue: originalMinutes,
       parse: parseClock,
@@ -417,18 +409,24 @@
       decreaseLabel: 'Decrease daily allocation by 15 minutes',
       saveLabel: 'Save daily allocation',
       cancelLabel: 'Cancel daily allocation edit',
+      onChange: (parsed) => {
+        state.previewRequests.invalidate();
+        if (parsed !== null) requestPreview(root, state, editedAllocation(values(root, state), name, parsed));
+      },
+      onCancel: () => requestPreview(root, state),
       onCommit: (parsed) => {
         setValue(root, state, name, parsed);
         save(root);
-        render(root, state);
+        requestPreview(root, state);
       },
     });
+    if (opened) state.previewRequests.invalidate();
   }
 
   if (typeof module !== 'undefined') module.exports = {
     calculateLeisurePreview,
     createLatestSaveQueue,
-    effectiveAllocation,
+    editedAllocation,
     parseClock,
     signedEffect,
     stepClockValue,
@@ -439,6 +437,9 @@
     root.querySelectorAll('[data-skill-schedule]').forEach(stateFor);
   }
 
+  document.addEventListener('strategic-page-unmounting', () => {
+    document.querySelectorAll('[data-skill-schedule]').forEach((root) => root._scheduleState?.previewRequests.dispose());
+  });
   mountSchedules();
   document.addEventListener('strategic-page-mounted', () => mountSchedules());
   document.addEventListener('strategic-live-regions-refreshed', (event) => {
@@ -516,6 +517,11 @@
   document.addEventListener('change', (event) => {
     const selector = event.target.closest?.('[data-organization-schedule-select]');
     const root = selector?.closest('[data-skill-schedule]');
-    if (root) save(root);
+    if (root) {
+      const state = stateFor(root);
+      state.previewRequests.invalidate();
+      save(root);
+      requestPreview(root, state);
+    }
   });
 })();

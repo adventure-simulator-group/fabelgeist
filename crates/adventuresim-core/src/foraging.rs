@@ -3,8 +3,10 @@
 //! Resources are intentionally year-round until a strategic season model is
 //! authoritative. Displayed market prices never participate in discovery.
 
+mod sampling;
+use sampling::ForageDraw;
+
 use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
 
 use crate::{
     physical_object::CustodyCharacterId,
@@ -425,9 +427,9 @@ pub fn resolve(
     let skill_bonus_permille = 1_000 + u32::from(terrain_check_millirank.min(5_000)) / 10;
     let source_count = sources.len() as u64;
     let mut yields = Vec::new();
-    for (source_index, (_, resources)) in sources.into_iter().enumerate() {
+    for (source, resources) in sources {
         let resource_count = resources.len() as u64;
-        for (resource_index, target) in resources.into_iter().enumerate() {
+        for target in resources {
             let habitat = u64::from(habitat_share_permille(target, environment));
             let food_rate = if crate::food::definition(target.item_id).is_some() {
                 FOOD_DISCOVERY_RATE_PERMILLE
@@ -444,16 +446,19 @@ pub fn resolve(
                     * 1_000
                     * 1_000
                     * search_budget_divisor(source_count, resource_count));
-            let random_key = source_index as u64 * 256 + resource_index as u64;
             let guaranteed = expected_permille / 1_000;
             let remainder = expected_permille % 1_000;
-            let discovered =
-                guaranteed + u64::from(random_below(seed, random_key, 0, 1_000) < remainder);
+            let discovered = guaranteed
+                + u64::from(
+                    ForageDraw::FractionalYield.below(seed, source.id(), target.item_id, 1_000)
+                        < remainder,
+                );
             if discovered == 0 {
                 continue;
             }
             let range = u64::from(target.yield_max - target.yield_min + 1);
-            let base_yield = u64::from(target.yield_min) + random_below(seed, random_key, 1, range);
+            let base_yield = u64::from(target.yield_min)
+                + ForageDraw::BaseYield.below(seed, source.id(), target.item_id, range);
             let yield_bonus_permille = 1_000 + u64::from(terrain_check_millirank.min(5_000)) / 10;
             let quantity = discovered
                 .saturating_mul(base_yield)
@@ -485,22 +490,10 @@ pub fn resolve_stealth(
 ) -> (Option<u16>, Option<bool>) {
     let dc = stealth_dc_millirank(environment, elapsed_minutes);
     let succeeded = dc.map(|dc| {
-        let roll = random_below(seed, 0, 2, 1_001) as u16;
+        let roll = ForageDraw::Stealth.below(seed, "", "", 1_001) as u16;
         stealth_check_millirank.saturating_add(roll) >= dc
     });
     (dc, succeeded)
-}
-
-fn random_below(seed: u64, target: u64, stream: u64, upper: u64) -> u64 {
-    let digest = Sha256::digest(
-        [
-            seed.to_le_bytes().as_slice(),
-            target.to_le_bytes().as_slice(),
-            stream.to_le_bytes().as_slice(),
-        ]
-        .concat(),
-    );
-    u64::from_le_bytes(digest[..8].try_into().expect("eight digest bytes")) % upper.max(1)
 }
 
 /// Conserve actual elapsed search time over concrete Terrain leaf skills.

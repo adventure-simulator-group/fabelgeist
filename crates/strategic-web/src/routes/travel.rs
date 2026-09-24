@@ -328,7 +328,7 @@ pub(crate) fn settlement_destination(
         )
         .to_string(),
         summary,
-        travel_action: format!("/settlements/{}/travel", settlement.id),
+        travel_action: crate::location_urls::patterns::TRAVEL.url([&settlement.id]),
         track_action: None,
         tracked: false,
         distance_m,

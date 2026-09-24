@@ -1,3 +1,4 @@
+mod sampling;
 use super::{
     CausalMetrics, CourtshipMetrics, FamilyMetrics, HousingMetrics, LIFECYCLE_REPORT_VERSION,
     LifecycleBundle, LifecycleCadence, LifecycleComparison, LifecycleMetrics, LifecycleReport,
@@ -5,8 +6,8 @@ use super::{
 };
 use adventuresim_core::{
     courtship::{
-        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ConceptionQuantumState, CourtshipDisposition,
-        GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
+        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ChildBirthMinute, ConceptionQuantumState,
+        CourtshipDisposition, GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
         INFORMAL_COURTSHIP_AFFINITY, LEISURE_MORALE_STACK_CAP_MILLI, LeisureInterval,
         RESIDENCE_MORALE_CAP_MILLI, RESIDENCE_MORALE_SPEC, RefreshableMorale,
         SPOUSE_LEISURE_MORALE_CAP_MILLI, SPOUSE_LEISURE_MORALE_SPEC, WEDDING_NOTICE_MINUTES,
@@ -22,6 +23,7 @@ use adventuresim_core::{
     },
     strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY},
 };
+use sampling::lifecycle_entropy;
 use serde::Serialize;
 use std::{
     fs::{self, OpenOptions},
@@ -221,13 +223,6 @@ impl ScenarioState {
     }
 }
 
-fn lifecycle_entropy(seed: u64, domain: &str, ordinal: u64) -> u16 {
-    let seed = seed.to_string();
-    let ordinal = ordinal.to_string();
-    (adventuresim_core::courtship::stable_lifecycle_hash(domain, &[&seed, &ordinal])
-        % u64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)) as u16
-}
-
 fn select_socializing_role<'a>(tiers: &[(&'a str, &[&'a str])]) -> Option<(&'a str, &'a str)> {
     tiers.iter().find_map(|(role, candidates)| {
         select_daily_location_target("actor", "shared_place", 9, candidates.iter().copied())
@@ -314,15 +309,15 @@ fn project_metrics(state: &ScenarioState) -> LifecycleMetrics {
     let child = deterministic_child_seeds(
         "parent_alpha",
         "parent_beta",
-        0,
-        state.birth_minute.unwrap_or(0),
+        adventuresim_core::courtship::PregnancyOrdinal::new(0),
+        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
         "shared_home",
     );
     let child_again = deterministic_child_seeds(
         "parent_beta",
         "parent_alpha",
-        0,
-        state.birth_minute.unwrap_or(0),
+        adventuresim_core::courtship::PregnancyOrdinal::new(0),
+        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
         "shared_home",
     );
     let secrecy_attempts = 12;

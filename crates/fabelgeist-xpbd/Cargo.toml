@@ -14,3 +14,6 @@ bytemuck = { "version" = "1.16", "features" = ["derive"] }
 
 [dev-dependencies]
 tokio = { "version" = "1", "features" = ["full"] }
+
+[lints]
+workspace = true

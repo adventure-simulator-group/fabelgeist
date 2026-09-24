@@ -9,7 +9,7 @@ use bevy::{
     math::{FloatExt, Vec2, Vec3, Vec3Swizzles},
     prelude::{Component, Reflect, ReflectComponent},
 };
-use fabelgeist_determinism::{inclusive_unit_f32, splitmix64};
+use fabelgeist_determinism::StreamId;
 use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -206,7 +206,12 @@ fn simulate_fault_scarp(
             let across = local.y;
             *mask = collar.blend_weight(point);
             let throw_variation = 0.84
-                + (smooth_value_noise(recipe.seed ^ 0x7468_726f_7700_0001, along / 3.6) * 0.5
+                + (smooth_value_noise(
+                    StreamId::new("terrain.volume.throw")
+                        .seed(recipe.seed, &[])
+                        .to_u64(),
+                    along / 3.6,
+                ) * 0.5
                     + 0.5)
                     * 0.16;
             *offset = if across >= 0.0 {
@@ -327,7 +332,11 @@ fn smooth_value_noise(seed: u64, coordinate: f32) -> f32 {
     let cell = coordinate.floor() as i64;
     let fraction = smoothstep01(coordinate - coordinate.floor());
     let sample = |offset: i64| {
-        inclusive_unit_f32(splitmix64(seed ^ cell.wrapping_add(offset) as u64)) * 2.0 - 1.0
+        StreamId::new("terrain.volume.lattice")
+            .rng(seed, &[cell.wrapping_add(offset) as u64])
+            .inclusive_unit_f32()
+            * 2.0
+            - 1.0
     };
     sample(0).lerp(sample(1), fraction)
 }
@@ -347,10 +356,14 @@ fn scarp_resistance(
         (SCARP_FREE_FACE_HALF_WIDTH_METRES - free_face_distance)
             / SCARP_FREE_FACE_HALF_WIDTH_METRES,
     );
-    let coherent_material =
-        (smooth_value_noise(seed ^ 0x6d61_7465_7269_616c, local.x / 6.5 + local.y / 8.0) * 0.5
-            + 0.5)
-            * 0.18;
+    let coherent_material = (smooth_value_noise(
+        StreamId::new("terrain.volume.resistance")
+            .seed(seed, &[])
+            .to_u64(),
+        local.x / 6.5 + local.y / 8.0,
+    ) * 0.5
+        + 0.5)
+        * 0.18;
     let drainage = scarp_gully_strength(seed, local.x, half_length)
         * smoothstep01((SCARP_FREE_FACE_HALF_WIDTH_METRES * 2.4 - local.y.abs()) / 3.0);
     (0.08 + free_face * 0.78 + coherent_material - drainage * 0.58).clamp(0.0, 1.0)
@@ -359,11 +372,11 @@ fn scarp_resistance(
 fn scarp_gully_strength(seed: u64, along: f32, half_length: f32) -> f32 {
     (0..SCARP_GULLY_COUNT)
         .map(|index| {
-            let hash = splitmix64(seed ^ 0x6775_6c6c_7900_0000 ^ index as u64);
+            let mut random = StreamId::new("terrain.gully").rng(seed, &[index as u64]);
             let interval = (index as f32 + 0.5) / SCARP_GULLY_COUNT as f32;
-            let jitter = (inclusive_unit_f32(hash) - 0.5) * 0.16;
+            let jitter = (random.inclusive_unit_f32() - 0.5) * 0.16;
             let centre = (interval + jitter) * half_length * 1.8 - half_length * 0.9;
-            let width = 1.4 + inclusive_unit_f32(splitmix64(hash)) * 1.3;
+            let width = 1.4 + random.inclusive_unit_f32() * 1.3;
             smoothstep01((width - (along - centre).abs()) / width)
         })
         .fold(0.0, f32::max)

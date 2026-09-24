@@ -27,3 +27,6 @@ pollster = { "version" = "0.4" }
 [target."cfg(target_arch = \"wasm32\")".dependencies]
 wgpu = { "version" = "30.0", "default-features" = false, "features" = ["webgl", "webgpu", "wgsl", "vulkan", "metal", "glsl", "fragile-send-sync-non-atomic-wasm"] }
 wasm-bindgen-futures = { "version" = "0.4" }
+
+[lints]
+workspace = true

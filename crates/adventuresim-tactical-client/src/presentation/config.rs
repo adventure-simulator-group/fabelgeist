@@ -235,6 +235,20 @@ impl TacticalGraphicsConfig {
         Self::parse(&text).map_err(|error| format!("{}: {error}", path.display()))
     }
 
+    /// Strips every effect that needs a presented surface or multi-frame
+    /// accumulation. Headless runs render to an off-screen target for
+    /// screenshots, where these only cost time.
+    pub fn disable_headless_rendering(&mut self) {
+        self.rendering.shadows.enabled = false;
+        self.rendering.bloom.enabled = false;
+        self.rendering.atmosphere.enabled = false;
+        self.rendering.atmosphere.environment_light = false;
+        self.rendering.clouds.enabled = false;
+        self.rendering.vista.maximum_lods = 1;
+        self.rendering.anti_aliasing = AntiAliasingConfig::Off;
+        self.grass.enabled = false;
+    }
+
     fn validate(&self) -> Result<(), String> {
         if let AntiAliasingConfig::Msaa { samples } = self.rendering.anti_aliasing
             && !matches!(samples, 2 | 4)

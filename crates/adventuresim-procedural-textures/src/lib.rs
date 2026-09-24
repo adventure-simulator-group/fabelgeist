@@ -7,7 +7,7 @@
 
 mod bake;
 mod runtime;
-pub use runtime::BakedTexturesPlugin;
+pub use runtime::{BakedTexturesPlugin, ProceduralTextureResidency};
 mod board_grain;
 pub mod building;
 mod catalogue;
@@ -48,18 +48,15 @@ use bevy::{
     prelude::{Handle, IVec2, Resource},
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use fabelgeist_determinism::inclusive_unit_f32;
-
-fn unit_hash(value: u64) -> f32 {
-    inclusive_unit_f32(value)
-}
 
 const TEXTURE_SIZE: u32 = 256;
-const OAK_BARK_TEXTURE_SIZE: u32 = 1024;
-const OAK_BARK_AO_SIZE: u32 = 512;
+const OAK_BARK_TEXTURE_SIZE: u32 = 512;
+const OAK_BARK_AO_SIZE: u32 = 256;
 const OAK_BARK_AO_DIRECTIONS: [(i32, i32); 4] = [(1, 0), (0, 1), (-1, 0), (0, -1)];
 const OAK_BARK_AO_STEPS: [i32; 4] = [1, 4, 12, 32];
 pub const FOREST_SOIL_TEXTURE_SIZE: u32 = 1024;
+const FOREST_LITTER_TEXTURE_SIZE: u32 = 512;
+const FOREST_LITTER_SEMANTIC_MIP_LEVEL: u32 = 2;
 const FOREST_SOIL_AO_SIZE: u32 = 512;
 const FOREST_SOIL_AO_DIRECTIONS: [(i32, i32); 4] = [(1, 0), (0, 1), (-1, 0), (0, -1)];
 const FOREST_SOIL_AO_STEPS: [i32; 4] = [1, 4, 12, 32];

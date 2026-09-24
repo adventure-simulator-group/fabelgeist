@@ -1,14 +1,14 @@
-//! Underlayers fitted on the device, assembled into armor with their own
-//! surface attributes and morph targets.
+//! The studio's underlayers: cut from the wearer on the device and corrected
+//! for skeletal fit.
 use super::*;
 mod proportions;
-use crate::parametric_equipment::deltas;
 use adventuresim_character_creator::{
     armor_frames::Wearer,
-    device_underlayer::{self, BodyShape, SurfaceDomain},
+    device_underlayer::{BodyShape, SurfaceDomain},
     underlayer::UnderlayerDesign,
+    underlayer_armor::{self, UnderlayerBody},
 };
-use fabelgeist_armor::ArmorMorph;
+use fabelgeist_armor::TrunkHoseDesign;
 
 /// Cut an underlayer from the wearer and fit it to every morph sample.
 pub(super) fn fitted(
@@ -18,8 +18,50 @@ pub(super) fn fitted(
     placement: &str,
     morphs: &[ForearmMorphSample],
 ) -> Result<GeneratedArmor> {
+    let armor = with_body(model, generated, morphs, |body, shapes| {
+        underlayer_armor::fit_underlayer(
+            adventuresim_character_creator::armor_gpu()?,
+            design,
+            placement,
+            body,
+            shapes,
+        )
+    })?;
+    Ok(character_morphs::correct_armor_fit(
+        armor, generated, morphs,
+    ))
+}
+
+/// Fit trunk hose over the hips in its two alternating fabrics.
+pub(super) fn fitted_trunk_hose(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    design: &TrunkHoseDesign,
+    placement: &str,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let armor = with_body(model, generated, morphs, |body, shapes| {
+        underlayer_armor::fit_trunk_hose(
+            adventuresim_character_creator::armor_gpu()?,
+            design,
+            placement,
+            body,
+            shapes,
+        )
+    })?;
+    Ok(character_morphs::correct_armor_fit(
+        armor, generated, morphs,
+    ))
+}
+
+fn with_body(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    morphs: &[ForearmMorphSample],
+    fit: impl FnOnce(&UnderlayerBody<'_>, &[(&str, BodyShape<'_>)]) -> Result<GeneratedArmor>,
+) -> Result<GeneratedArmor> {
     let character = &model.mhr.character;
-    let body = Wearer {
+    let wearer = Wearer {
         faces: &character.mesh.faces,
         positions: &generated.positions,
         normals: &generated.normals,
@@ -29,56 +71,28 @@ pub(super) fn fitted(
         joint_names: &character.skeleton.names,
     };
     let static_samples = proportions::samples(model, generated);
-    let fitted = device_underlayer::fit(
-        adventuresim_character_creator::armor_gpu()?,
-        design,
-        placement,
-        &body,
-        SurfaceDomain {
-            uv_faces: &character.mesh.texcoord_faces,
-            texcoords: &character.mesh.texcoords,
-        },
-        &shapes(&static_samples),
-        &shapes(morphs),
-    )?;
-    let base = fitted.base;
-    let targets = morphs
+    let proportions = static_samples.iter().map(shape).collect::<Vec<_>>();
+    let shapes = morphs
         .iter()
-        .zip(fitted.endpoints)
-        .map(|(sample, endpoint)| ArmorMorph {
-            name: sample.name.clone(),
-            position_deltas: deltas(&base.positions, &endpoint.positions),
-            normal_deltas: deltas(&base.normals, &endpoint.normals),
-            direct_positions: endpoint.positions,
-        })
-        .collect();
-    let armor = GeneratedArmor {
-        design_hash: fabelgeist_armor::parametric_design_hash(&serde_json::to_vec(design)?),
-        surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
-        positions: base.positions,
-        normals: base.normals,
-        texcoords: fitted.texcoords,
-        joint_indices: fitted.joint_indices,
-        joint_weights: fitted.joint_weights,
-        indices: fitted.indices,
-        // Cut from the body: a quilted layer, not a thickened plate.
-        faces: Vec::new(),
-        trim: None,
-        grids: Vec::new(),
-        morphs: targets,
-        components: Vec::new(),
-    };
-    Ok(character_morphs::correct_armor_fit(
-        armor, generated, morphs,
-    ))
+        .map(|sample| (sample.name.as_str(), shape(sample)))
+        .collect::<Vec<_>>();
+    fit(
+        &UnderlayerBody {
+            wearer: &wearer,
+            domain: SurfaceDomain {
+                uv_faces: &character.mesh.texcoord_faces,
+                texcoords: &character.mesh.texcoords,
+            },
+            surface_domain: MHR_ANATOMICAL_UV_DOMAIN,
+            proportions: &proportions,
+        },
+        &shapes,
+    )
 }
 
-fn shapes(samples: &[ForearmMorphSample]) -> Vec<BodyShape<'_>> {
-    samples
-        .iter()
-        .map(|sample| BodyShape {
-            positions: &sample.positions,
-            normals: &sample.normals,
-        })
-        .collect()
+fn shape(sample: &ForearmMorphSample) -> BodyShape<'_> {
+    BodyShape {
+        positions: &sample.positions,
+        normals: &sample.normals,
+    }
 }
