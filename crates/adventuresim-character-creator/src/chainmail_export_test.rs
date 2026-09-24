@@ -39,7 +39,7 @@ fn draped_chainmail_exports() -> Result<()> {
         positions,
         indices,
         weights,
-        stage: DrapeStage::Settling { step: 180, of: 180 },
+        stage: DrapeStage::Settling { step: 60, of: 60 },
         normals: serde_json::from_value(source["normals"].clone())?,
         faces: serde_json::from_value(source["garment_faces"].clone())?,
         texcoords: serde_json::from_value(source["uv"].clone())?,

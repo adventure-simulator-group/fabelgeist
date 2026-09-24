@@ -517,7 +517,7 @@ mod garment_integration_tests {
                             {
                                 write(&format!("-sewing{step}"))
                             }
-                            DrapeStage::Settling { step, .. } if step % 60 == 0 => {
+                            DrapeStage::Settling { step, .. } if step % 20 == 0 => {
                                 write(&format!("-settling{step}"))
                             }
                             _ => {}
@@ -526,7 +526,7 @@ mod garment_integration_tests {
                     let milestone = match snapshot.stage {
                         DrapeStage::Placed | DrapeStage::Worn => true,
                         DrapeStage::Sewing { .. } => false,
-                        DrapeStage::Settling { step, .. } => step % 60 == 0,
+                        DrapeStage::Settling { step, .. } => step % 20 == 0,
                     };
                     if milestone {
                         println!(
@@ -538,7 +538,14 @@ mod garment_integration_tests {
                 },
             )
             .result?;
-            assert_eq!(fitted.stage, DrapeStage::Settling { step: 180, of: 180 });
+            let steps = selection.drape.settling.steps;
+            assert_eq!(
+                fitted.stage,
+                DrapeStage::Settling {
+                    step: steps,
+                    of: steps
+                }
+            );
             assert_eq!(fitted.indices.len(), fitted.positions.len());
             assert_ne!(fitted.positions.len(), generated.positions.len());
             let body = fabelgeist_bvh::TriangleBvh::new(

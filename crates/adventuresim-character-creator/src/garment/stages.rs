@@ -143,7 +143,7 @@ impl DrapeSettings {
         Self {
             sewing,
             settling: StageSettings {
-                steps: 180,
+                steps: 60,
                 gravity: STANDARD_GRAVITY,
                 damping: fabric.damping,
                 ..sewing
