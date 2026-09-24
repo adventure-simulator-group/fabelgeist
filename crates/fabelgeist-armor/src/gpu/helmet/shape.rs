@@ -321,19 +321,116 @@ fn nape_point(t: f32, angle: f32) -> vec3<f32> {
     );
 }
 
-// The peak's central rise is independent of its downward pitch, and fades
-// to nothing at the peak's sides.
+// The peak's central rise is independent of its downward pitch.
 fn peak_point(t: f32, angle: f32) -> vec3<f32> {
     let radii = dome_radii();
     let reach = design[PEAK_LENGTH] * cos(angle) * t;
-    let rise = design[PEAK_RISE]
-        * max(1.0 - abs(sin(angle)) / sin(PI / 3.0), 0.0)
-        * max(cos(angle), 0.0);
     return vec3<f32>(
         (radii.x + reach) * sin(angle),
-        brow() - design[PEAK_DROP] * cos(angle) * t + rise * t,
+        brow() - design[PEAK_DROP] * cos(angle) * t + peak_rise(angle) * t,
         (radii.z + reach) * cos(angle),
     );
+}
+
+// The peak's central rise, fading to nothing at its sides.
+fn peak_rise(angle: f32) -> f32 {
+    return design[PEAK_RISE]
+        * max(1.0 - abs(sin(angle)) / sin(PI / 3.0), 0.0)
+        * max(cos(angle), 0.0);
+}
+
+// A tangent V-section encloses the curved face rather than cutting into it;
+// sharpness blends from the rounded ridge toward the formed flats.
+fn formed_ridge(angle: f32, depth: f32, height: f32, sharpness: f32) -> f32 {
+    let front = max(cos(angle), 0.0);
+    let rounded = height * pow4(front);
+    let apex = depth + height;
+    var angular = 0.0;
+    if (height > 0.0 && front > depth / apex) {
+        let slope = sqrt(pow2(apex / depth) - 1.0);
+        angular = max(apex - depth * slope * abs(sin(angle)) - depth * front, 0.0);
+    }
+    return rounded * (1.0 - sharpness) + angular * sharpness;
+}
+
+// The buffe's face `u` across and `v` up, from its hem to the sight gap
+// under the peak. Broad sections enclose the cheek plates, blending into the
+// chin taper below them.
+fn buffe_carrier(u: f32, v: f32) -> vec3<f32> {
+    let radii = head_radii();
+    let brow = brow();
+    let half_height = fit.half_extents.y;
+    let gauge = design[GAUGE];
+    let angle = (2.0 * u - 1.0) * design[BUFFE_SIDE_WRAP];
+    let front = max(cos(angle), 0.0);
+    let top = brow - (design[BUFFE_SIGHT_GAP] + design[PEAK_DROP]) * front + peak_rise(angle);
+    let hem = -half_height - design[BUFFE_NECK_DROP] + design[BUFFE_CHIN_POINT] * abs(sin(angle));
+    let chin_width = design[BUFFE_CHIN_WIDTH];
+    var width = radii.x * (chin_width + (1.0 - chin_width) * v) + gauge * 3.0;
+    let throat = design[BUFFE_THROAT_DEPTH];
+    let depth = radii.z * (throat + (1.0 - throat) * v);
+    let sharpness = design[BUFFE_RIDGE_SHARPNESS];
+    let ridge_height = design[BUFFE_RIDGE] * sin(PI * v);
+    var ridge: f32;
+    if (design[BUFFE_COURSES] > 0.0) {
+        ridge = formed_ridge(angle, depth, ridge_height, sharpness);
+    } else {
+        var angular = 0.0;
+        if (front > 0.0) {
+            angular = 1.0 - abs(sin(angle));
+        }
+        ridge = ridge_height * (pow4(front) * (1.0 - sharpness) + angular * sharpness);
+    }
+    let y = hem + (top - hem) * v;
+    let z = depth * cos(angle) + design[BUFFE_PROJECTION] * v * pow4(front) + ridge;
+    let lower = clamp((brow - y) / half_height, 0.0, 1.0);
+    let cheek_bottom = brow - half_height * (0.40 + 0.46 * design[CHEEK_DEPTH]) - design[CHIN_TAB];
+    var blend = clamp((y - cheek_bottom + 0.040) / 0.040, 0.0, 1.0);
+    blend = blend * blend * (3.0 - 2.0 * blend);
+    let cheek_width = radii.x * (1.0 - (1.0 - design[CHEEK_TAPER]) * lower) + gauge * 5.0;
+    width = width + max(cheek_width - width, 0.0) * blend;
+    return vec3<f32>(width * sin(angle), y, z);
+}
+
+// Where course `course` spans the face at `u`: its lower edge dropped to a
+// chevron and lapped over the course below, its upper edge dropped to the
+// next course's chevron.
+fn buffe_course_extents(u: f32, course: f32) -> vec2<f32> {
+    let angle = (2.0 * u - 1.0) * design[BUFFE_SIDE_WRAP];
+    let height = buffe_carrier(u, 1.0).y - buffe_carrier(u, 0.0).y;
+    var chevron = 0.0;
+    if (cos(angle) > 0.0) {
+        chevron = 1.0 - abs(sin(angle));
+    }
+    let drop = design[BUFFE_BOUNDARY_DROP] * chevron / height;
+    var bounds = array<f32, 4>(0.0, design[BUFFE_LOWER], design[BUFFE_UPPER], 1.0);
+    let index = u32(course);
+    var high = 1.0;
+    if (index + 1u < u32(design[BUFFE_COURSES])) {
+        high = bounds[index + 1u] - drop;
+    }
+    var low = 0.0;
+    if (index > 0u) {
+        low = bounds[index] - drop - design[BUFFE_OVERLAP] / height;
+    }
+    return vec2<f32>(low, high);
+}
+
+fn buffe_point(u: f32, v: f32, course: f32) -> vec3<f32> {
+    if (design[BUFFE_COURSES] == 0.0) {
+        return buffe_carrier(u, v);
+    }
+    let extents = buffe_course_extents(u, course);
+    var p = buffe_carrier(u, extents.x + (extents.y - extents.x) * v);
+    // Each lower edge is formed over the course beneath it; the fitted sight
+    // and exposed top edges stay where they are.
+    if (course > 0.0) {
+        let angle = (2.0 * u - 1.0) * design[BUFFE_SIDE_WRAP];
+        let lap = (2.0 * design[GAUGE] + design[BUFFE_LAP_CLEARANCE]) * (1.0 - v);
+        p.x = p.x + lap * sin(angle);
+        p.z = p.z + lap * cos(angle);
+    }
+    return p;
 }
 
 fn sallet_skirt(t: f32, angle: f32) -> vec3<f32> {
@@ -433,6 +530,9 @@ fn shell_vertex(index: u32, coord: vec4<f32>) -> ShellVertex {
     }
     if (kind == KIND_VISOR) {
         return ShellVertex(visor_point(coord.y, coord.z), 0.0);
+    }
+    if (kind == KIND_BUFFE) {
+        return ShellVertex(buffe_point(coord.y, coord.z, coord.w), 0.0);
     }
     return dome_vertex(kind, coord);
 }

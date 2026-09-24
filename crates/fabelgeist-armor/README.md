@@ -35,7 +35,12 @@ cheek opening; a burgonet has a separate peak, cheek plates and neck defense.
 They share device kernels, but have separate designs because changing a few
 bowl dimensions cannot express those structural differences. Morions, kettle
 hats, sallets and close helmets likewise expose their own brim, tail, visor,
-crest, opening and lower-edge controls. Cap and coif recipes have soft covering
+crest, opening and lower-edge controls. A burgonet's peak may rise at its
+centre independently of its pitch. A burgonet may carry a buffe, a face
+defense under the peak recorded apart from the skull: one face or two or three
+overlapping courses with chevron seams, its breaths pierced through the face or
+the top course. A close helmet's bellows folds its visor's face and sweeps it
+up toward the cheek hinges. Cap and coif recipes have soft covering
 boundaries. Clearance and gauge remain separate from style controls.
 
 Long limb plates expose length, taper and wrap. Elbow and knee cops expose
@@ -109,7 +114,7 @@ with it, and a trim band measures each point only to the rims of its own plate,
 so closely overlapping plates each keep their own face.
 
 Some recipe options have designs and validation but no device construction
-yet: pauldrons, buffes, wrapped tassets and anime breastplates among them. Each family's
+yet: pauldrons, wrapped tassets and anime breastplates among them. Each family's
 `device_unsupported` names the first such option a design uses, and every
 device entry point refuses it with `GenerateError::NotOnDevice` rather than
 building the piece without it.

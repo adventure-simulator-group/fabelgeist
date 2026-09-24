@@ -483,3 +483,83 @@ fn a_burgonet_peak_rise_lifts_the_peak_front_without_changing_topology() {
     let lift = front(&raised)[1] - front(&flat)[1];
     assert!((lift - 0.020).abs() < 0.003, "lift {lift}");
 }
+
+#[test]
+fn buffes_are_closed_solids_apart_from_the_skull_in_every_construction() {
+    use fabelgeist_armor::{ArmorComponentRole, BuffeCourses, BuffeDesign, VisorBreaths};
+    let breaths = VisorBreaths::buffe();
+    for (name, buffe) in [
+        ("plain", BuffeDesign::default()),
+        (
+            "pierced",
+            BuffeDesign {
+                breaths: Some(breaths),
+                ..BuffeDesign::default()
+            },
+        ),
+        (
+            "coursed",
+            BuffeDesign {
+                courses: Some(BuffeCourses::default()),
+                ..BuffeDesign::default()
+            },
+        ),
+        (
+            "coursed and pierced",
+            BuffeDesign {
+                courses: Some(BuffeCourses::default()),
+                breaths: Some(breaths),
+                chin_width: Permille(500),
+                ridge_sharpness: Permille(1000),
+                ..BuffeDesign::default()
+            },
+        ),
+    ] {
+        let design = HelmetDesign::Burgonet(BurgonetDesign {
+            buffe: Some(buffe),
+            ..BurgonetDesign::default()
+        });
+        design.validate().unwrap_or_else(|e| panic!("{name}: {e}"));
+        for scale in [0.8, 1.0, 1.25] {
+            let context = format!("{name} buffe at {scale}");
+            let part = helmet(&design, &head(scale));
+            assert_closed_solid(&part, &context);
+            let roles = part
+                .components
+                .iter()
+                .map(|component| component.role)
+                .collect::<Vec<_>>();
+            assert_eq!(
+                roles,
+                [ArmorComponentRole::Skull, ArmorComponentRole::Buffe],
+                "{context}"
+            );
+        }
+    }
+}
+
+#[test]
+fn a_buffe_covers_the_lower_face_below_the_peak() {
+    use fabelgeist_armor::{ArmorComponentRole, BuffeDesign};
+    let head = head(1.0);
+    let part = helmet(
+        &HelmetDesign::Burgonet(BurgonetDesign {
+            buffe: Some(BuffeDesign::default()),
+            ..BurgonetDesign::default()
+        }),
+        &head,
+    );
+    let buffe = part
+        .components
+        .iter()
+        .find(|component| component.role == ArmorComponentRole::Buffe)
+        .unwrap();
+    let [low, high] = bounds(&part.positions[buffe.vertices.clone()]);
+    // In front of the face, from below the chin to under the brow.
+    assert!(high[2] > head.origin[2] + head.half_extents[2], "{high:?}");
+    assert!(low[1] < head.origin[1] - head.half_extents[1], "{low:?}");
+    assert!(
+        high[1] < head.origin[1] + 0.2 * head.half_extents[1],
+        "{high:?}"
+    );
+}

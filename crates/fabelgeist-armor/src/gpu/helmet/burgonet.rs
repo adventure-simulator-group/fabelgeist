@@ -6,8 +6,11 @@ use std::f32::consts::{FRAC_PI_3, TAU};
 use super::codes::{Slot, VertexKind};
 use super::parts::{DesignFloats, HelmetParts};
 use super::surface::{AROUND, CoordSurface};
-use crate::BurgonetDesign;
 use crate::gpu::coord::{CoordExtrusion, CoordShell};
+use crate::pierced_plate_domain::PiercedDomain;
+use crate::{
+    ArmorComponentRole, ArmorDetail, BuffeDesign, BurgonetDesign, GenerateError, VisorBreaths,
+};
 
 const BURGONET_SKIRT_ROWS: usize = 8;
 const BURGONET_NAPE_START: usize = AROUND * 7 / 24;
@@ -23,7 +26,11 @@ const CHIN_TAB_SHARPNESS: i32 = 10;
 /// Which shell a helmet kernel dispatch evaluates, as its first value.
 pub(super) const CHEEK_SHELL: f32 = 1.0;
 
-pub(super) fn burgonet(d: &BurgonetDesign, mut floats: DesignFloats, gauge: f32) -> HelmetParts {
+pub(super) fn burgonet(
+    d: &BurgonetDesign,
+    mut floats: DesignFloats,
+    gauge: f32,
+) -> Result<HelmetParts, GenerateError> {
     for (slot, value) in [
         (Slot::Crest, d.comb_height.metres()),
         (Slot::NapeDepth, d.nape_depth.unit()),
@@ -33,6 +40,7 @@ pub(super) fn burgonet(d: &BurgonetDesign, mut floats: DesignFloats, gauge: f32)
         (Slot::PeakLength, d.peak_length.metres()),
         (Slot::PeakDrop, d.peak_drop.metres()),
         (Slot::PeakRise, d.peak_rise.metres()),
+        (Slot::ChinTab, d.chin_tab.metres()),
         (Slot::CheekWidth, d.cheek_width.unit()),
         (Slot::CheekTaper, d.cheek_taper.unit()),
         (Slot::CheekDepth, d.cheek_depth.unit()),
@@ -104,10 +112,159 @@ pub(super) fn burgonet(d: &BurgonetDesign, mut floats: DesignFloats, gauge: f32)
         shell.mirrored = mirrored;
         shells.push((shell, None));
     }
-    HelmetParts {
+    if let Some(b) = &d.buffe {
+        // The skull, its guard and cheeks come off apart from the buffe.
+        if let Some((_, component)) = shells.last_mut() {
+            *component = Some((ArmorComponentRole::Skull, false));
+        }
+        let courses = b.courses.as_ref();
+        for (slot, value) in [
+            (Slot::BuffeSightGap, b.sight_gap.metres()),
+            (Slot::BuffeProjection, b.face_projection.metres()),
+            (Slot::BuffeChinWidth, b.chin_width.unit()),
+            (Slot::BuffeThroatDepth, b.throat_depth.unit()),
+            (Slot::BuffeNeckDrop, b.neck_drop.metres()),
+            (Slot::BuffeSideWrap, b.side_wrap.radians()),
+            (Slot::BuffeRidge, b.medial_ridge.metres()),
+            (Slot::BuffeRidgeSharpness, b.ridge_sharpness.unit()),
+            (Slot::BuffeChinPoint, b.chin_point.metres()),
+            (
+                Slot::BuffeCourses,
+                courses.map_or(0.0, |c| f32::from(c.plate_count)),
+            ),
+            (
+                Slot::BuffeLower,
+                courses.map_or(0.0, |c| c.lower_boundary.unit()),
+            ),
+            (
+                Slot::BuffeUpper,
+                courses.map_or(0.0, |c| c.upper_boundary.unit()),
+            ),
+            (
+                Slot::BuffeOverlap,
+                courses.map_or(0.0, |c| c.overlap.metres()),
+            ),
+            (
+                Slot::BuffeLapClearance,
+                courses.map_or(0.0, |c| c.lap_clearance.metres()),
+            ),
+            (
+                Slot::BuffeBoundaryDrop,
+                courses.map_or(0.0, |c| c.boundary_drop.metres()),
+            ),
+        ] {
+            floats.set(slot, value);
+        }
+        let face = buffe(b, gauge)?;
+        let last = face.len() - 1;
+        for (index, shell) in face.into_iter().enumerate() {
+            shells.push((
+                shell,
+                (index == last).then_some((ArmorComponentRole::Buffe, false)),
+            ));
+        }
+    }
+    Ok(HelmetParts {
         shells,
         design: floats,
+    })
+}
+
+/// Rows up a buffe's face, or up each of its courses.
+const BUFFE_ROWS: usize = 32;
+/// Columns across a buffe's face.
+const BUFFE_COLUMNS: usize = 40;
+/// The pierced face's design chart, in millimetres: its half width and height.
+const BUFFE_CHART_HALF_WIDTH_MM: f64 = 160.0;
+const BUFFE_CHART_HEIGHT_MM: f64 = 100.0;
+
+/// A removable face defense under the peak: one face, or overlapping
+/// courses, its breaths pierced through the face or its top course. A
+/// vertex's coordinates are across the face, up it and its course, which the
+/// design alone decides.
+fn buffe(b: &BuffeDesign, gauge: f32) -> Result<Vec<CoordShell>, GenerateError> {
+    let breaths = b.breaths.filter(|breaths| breaths.count_per_row > 0);
+    let courses = b.courses.map_or(1, |courses| courses.plate_count);
+    (0..courses)
+        .map(|course| {
+            let top = course + 1 == courses;
+            let surface = match breaths.filter(|_| top) {
+                Some(breaths) => {
+                    // The top course's chart reaches down to its lapped lower edge.
+                    let height = b.courses.map_or(BUFFE_CHART_HEIGHT_MM, |courses| {
+                        let low = [
+                            0.0,
+                            courses.lower_boundary.unit(),
+                            courses.upper_boundary.unit(),
+                        ][usize::from(course)];
+                        BUFFE_CHART_HEIGHT_MM * f64::from(1.0 - low) + f64::from(courses.overlap.0)
+                    });
+                    pierced_buffe(&breaths, height, f32::from(course))?
+                }
+                None => buffe_grid(f32::from(course)),
+            };
+            Ok(surface.shell(gauge, CoordExtrusion::Normal))
+        })
+        .collect()
+}
+
+/// A plain face or course: rows up it, columns across it.
+fn buffe_grid(course: f32) -> CoordSurface {
+    let mut surface = CoordSurface::default();
+    let mut previous: Vec<u32> = Vec::new();
+    for row in 0..=BUFFE_ROWS {
+        let v = row as f32 / BUFFE_ROWS as f32;
+        let ring = (0..=BUFFE_COLUMNS)
+            .map(|column| {
+                let u = column as f32 / BUFFE_COLUMNS as f32;
+                surface.vertex(VertexKind::Buffe, [u, v, course])
+            })
+            .collect::<Vec<_>>();
+        if !previous.is_empty() {
+            surface.connect(&ring, &previous, false);
+        }
+        previous = ring;
     }
+    surface
+}
+
+/// A face or top course with its breaths cut through, triangulated in the
+/// design chart `height` millimetres tall.
+fn pierced_buffe(
+    breaths: &VisorBreaths,
+    height: f64,
+    course: f32,
+) -> Result<CoordSurface, GenerateError> {
+    let outer = [
+        [-BUFFE_CHART_HALF_WIDTH_MM, 0.0],
+        [BUFFE_CHART_HALF_WIDTH_MM, 0.0],
+        [BUFFE_CHART_HALF_WIDTH_MM, height],
+        [-BUFFE_CHART_HALF_WIDTH_MM, height],
+    ];
+    let half_columns = BUFFE_COLUMNS as i32;
+    let interior = (1..BUFFE_ROWS).flat_map(|row| {
+        (-half_columns + 1..half_columns).map(move |column| {
+            [
+                f64::from(column) * BUFFE_CHART_HALF_WIDTH_MM / f64::from(half_columns),
+                row as f64 * height / BUFFE_ROWS as f64,
+            ]
+        })
+    });
+    let holes = breaths.openings(BUFFE_CHART_HEIGHT_MM, ArmorDetail::BakeSource);
+    let domain = PiercedDomain::new(&outer, &holes, interior, ArmorDetail::BakeSource)?;
+    let mut surface = CoordSurface::default();
+    for p in &domain.points {
+        surface.vertex(
+            VertexKind::Buffe,
+            [
+                ((p[0] / BUFFE_CHART_HALF_WIDTH_MM + 1.0) * 0.5) as f32,
+                (1.0 - p[1] / height) as f32,
+                course,
+            ],
+        );
+    }
+    surface.indices = domain.indices;
+    Ok(surface)
 }
 
 /// A cheek plate fanned from its root: the pole, then rings of columns.

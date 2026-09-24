@@ -3,22 +3,12 @@
 
 use crate::{
     BreastplateConstruction, BreastplateDesign, GarmentArmorDesign, GarmentPlateShape,
-    GenerateError, HelmetDesign, LimbArmorDesign,
+    GenerateError, LimbArmorDesign,
 };
 
 /// Refuse the option `unsupported` names.
 pub(crate) fn on_device(unsupported: Option<&'static str>) -> Result<(), GenerateError> {
     unsupported.map_or(Ok(()), |option| Err(GenerateError::NotOnDevice(option)))
-}
-
-impl HelmetDesign {
-    /// The first option of this design the device cannot build yet.
-    pub fn device_unsupported(&self) -> Option<&'static str> {
-        match self {
-            Self::Burgonet(d) if d.buffe.is_some() => Some("a burgonet's buffe"),
-            _ => None,
-        }
-    }
 }
 
 impl LimbArmorDesign {

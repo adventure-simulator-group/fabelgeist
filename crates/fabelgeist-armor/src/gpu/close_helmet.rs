@@ -169,9 +169,6 @@ impl CloseHelmetLayout {
 
     /// The layout of a design, built once.
     fn cached(d: &CloseHelmetDesign) -> Result<Arc<Self>, GenerateError> {
-        crate::device_support::on_device(
-            crate::HelmetDesign::CloseHelmet(d.clone()).device_unsupported(),
-        )?;
         static LAYOUTS: Mutex<Vec<(CloseHelmetDesign, Arc<CloseHelmetLayout>)>> =
             Mutex::new(Vec::new());
         let cached = LAYOUTS

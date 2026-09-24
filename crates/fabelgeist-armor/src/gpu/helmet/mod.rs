@@ -26,7 +26,6 @@ fn recipe(
     design: &HelmetDesign,
 ) -> Result<(super::recipe::PartRecipe, Vec<f32>), GenerateError> {
     design.validate()?;
-    crate::device_support::on_device(design.device_unsupported())?;
     let kernel = CoordKernel::new(gpu, &shape::source())?;
     parts::parts(design)?.recipe(&kernel)
 }

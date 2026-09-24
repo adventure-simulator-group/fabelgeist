@@ -87,6 +87,22 @@ shared_codes! {
         PeakLength,
         PeakDrop,
         PeakRise,
+        ChinTab,
+        BuffeSightGap,
+        BuffeProjection,
+        BuffeChinWidth,
+        BuffeThroatDepth,
+        BuffeNeckDrop,
+        BuffeSideWrap,
+        BuffeRidge,
+        BuffeRidgeSharpness,
+        BuffeChinPoint,
+        BuffeCourses,
+        BuffeLower,
+        BuffeUpper,
+        BuffeOverlap,
+        BuffeLapClearance,
+        BuffeBoundaryDrop,
         CheekWidth,
         CheekTaper,
         OpeningWidth,
@@ -129,6 +145,8 @@ shared_codes! {
         SalletSkirt,
         /// Visor fraction, meridian angle.
         Visor,
+        /// Across the face, up it or its course, the course.
+        Buffe,
     }
 }
 

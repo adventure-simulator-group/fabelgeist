@@ -126,7 +126,7 @@ pub(super) fn parts(design: &HelmetDesign) -> Result<HelmetParts, GenerateError>
         HelmetDesign::Morion(d) => morion(d, floats, gauge),
         HelmetDesign::KettleHat(d) => kettle_hat(d, floats, gauge),
         HelmetDesign::Barbute(d) => barbute(d, floats, gauge),
-        HelmetDesign::Burgonet(d) => super::burgonet::burgonet(d, floats, gauge),
+        HelmetDesign::Burgonet(d) => super::burgonet::burgonet(d, floats, gauge)?,
         HelmetDesign::Sallet(d) => {
             let skull = sallet_skull(d, &mut floats).shell(gauge, CoordExtrusion::Normal);
             HelmetParts::single(skull, floats)
