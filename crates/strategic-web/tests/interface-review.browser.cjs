@@ -5,14 +5,16 @@ const test = require("node:test");
 const { chromium } = require("playwright");
 
 const staticRoot = path.join(__dirname, "../static");
-const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities"];
+const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace"];
 const shell = (content) => `<!doctype html><html><head>${styles.map(name =>
   `<link rel="stylesheet" href="/static/css/${name}.css">`).join("")}</head>
   <body><div id="strategic-page" class="app"><header class="top-bar">Riverdale</header>
+  <nav class="workspace-bar"><strong class="workspace-title">Character</strong><a href="/" data-workspace-location>Location</a>
+  <a data-workspace-inventory hidden>Party inventory</a><button data-workspace-chat hidden>Conversation</button></nav>
   <div class="main-grid"><aside class="left-sidebar">Attributes</aside>
   <main class="center-content settlement-main">${content}</main>
   <aside class="right-sidebar">Summary</aside></div></div>
-  <script src="/static/character-action-dialog.js"></script></body></html>`;
+  <script src="/static/character-action-dialog.js"></script><script src="/static/workspace.js"></script></body></html>`;
 
 async function openFixture(browser, content, width = 1280) {
   const page = await browser.newPage({ viewport: { width, height: 720 } });
@@ -78,5 +80,35 @@ test("departure field accepts valid 24-hour times and rejects ambiguous input", 
       await page.locator("#time").fill(value);
       assert.equal(await page.locator("#time").evaluate(el => el.checkValidity()), valid, value);
     }
+  } finally { await browser.close(); }
+});
+
+test("management tasks preserve the central model space and let players toggle conversation", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await openFixture(browser, `<figure class="service-visual service-visual-chest"></figure>
+      <div class="party-portrait-overlay"><div class="party-portrait"><a class="party-portrait-select" href="/member">
+      <span class="party-portrait-initial">S</span><span class="party-portrait-name">Sebastian Berndes</span></a></div></div>
+      <section class="settlement-chat">Conversation content</section>`);
+    const panes = await page.locator(".main-grid").evaluate(grid => [...grid.querySelectorAll("aside")].map(el => el.getBoundingClientRect().width));
+    assert.ok(panes.every(width => width >= 304));
+    const modelSpace = await page.locator('.main-grid').evaluate(grid => {
+      const left = grid.querySelector('.left-sidebar').getBoundingClientRect();
+      const center = grid.querySelector('main').getBoundingClientRect();
+      const right = grid.querySelector('.right-sidebar').getBoundingClientRect();
+      return center.width >= 320 && center.height >= 300 && left.right <= center.left && center.right <= right.left;
+    });
+    assert.equal(modelSpace, true, 'side panels leave a full-height central character stage');
+    assert.equal(await page.locator(".settlement-chat").isVisible(), false);
+    await page.locator("[data-workspace-chat]").click();
+    assert.equal(await page.locator(".settlement-chat").isVisible(), true);
+    assert.equal(await page.locator('.settlement-chat').evaluate(chat => {
+      const right = document.querySelector('.right-sidebar').getBoundingClientRect();
+      return chat.getBoundingClientRect().left >= right.left;
+    }), true, 'conversation stays over its side panel, clear of the character model');
+    await page.locator("[data-workspace-chat]").click();
+    assert.equal(await page.locator(".settlement-chat").isVisible(), false);
+    const name = await page.locator(".party-portrait-name").evaluate(el => ({ width: el.scrollWidth <= el.clientWidth + 1, height: el.scrollHeight <= el.clientHeight + 1 }));
+    assert.deepEqual(name, { width: true, height: true });
   } finally { await browser.close(); }
 });

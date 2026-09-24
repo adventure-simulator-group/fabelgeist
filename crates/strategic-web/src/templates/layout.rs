@@ -3,6 +3,7 @@
 #[cfg(test)]
 use appearance::WildernessVariant;
 mod appearance;
+mod workspace;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
 use appearance::{building_tier, wilderness_variant};
@@ -214,6 +215,7 @@ fn page_shell(
                 link rel="stylesheet" href="/static/css/strategic.css?v=goslar-2";
                 link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
                 link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
+                link rel="stylesheet" href="/static/css/workspace.css?v=1";
 
                 // Datastar
                 script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
@@ -227,6 +229,7 @@ fn page_shell(
                 script src="/static/developer-mode.js?v=development-clock-2" defer {}
                 script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
                 script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
+                script src="/static/workspace.js?v=1" defer {}
                 @if scripts != ScriptProfile::Entry {
                     script src="/static/live-state.js?v=location-urls-1" defer {}
                     script src="/static/live-regions.js?v=location-urls-1" defer {}
@@ -281,6 +284,7 @@ fn page_shell(
                     style=[presentation.map(|value| format!("--active-building-tint:{}", value.material.tint()))]
                     data-script-profile=(match scripts { ScriptProfile::Entry => "entry", ScriptProfile::Live => "live", ScriptProfile::Strategic => "strategic" }) {
                     (header)
+                    @if scripts != ScriptProfile::Entry { (workspace::navigation(title)) }
 
                     div class="main-grid" {
                         (content)
