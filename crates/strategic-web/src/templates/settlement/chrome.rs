@@ -837,11 +837,11 @@ pub(crate) fn character_portrait_overlay(
                                 }
                                 span class="scene-interactable-visual party-portrait-initial" {
                                     span class="party-portrait-face" { (member.name.chars().next().unwrap_or('?')) }
-                                    span class="scene-interactable-label party-portrait-name" { (member.name) @if !member.alive { " (dead)" } }
                                     @if let Some(badge) = &member.badge {
                                         (badge)
                                     }
                                 }
+                                span class="scene-interactable-label party-portrait-name" { (member.name) @if !member.alive { " (dead)" } }
                             }
                             @if let Some(actions) = &member.actions {
                                 (actions)

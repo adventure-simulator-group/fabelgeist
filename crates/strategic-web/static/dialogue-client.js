@@ -781,7 +781,7 @@
       const portrait = document.createElement("span"); portrait.className = "scene-interactable-visual party-portrait-initial settlement-npc-initials";
       const face = document.createElement("span"); face.className = npc.initials ? "party-portrait-face" : "party-portrait-face npc-portrait-silhouette"; face.setAttribute("aria-hidden", "true"); face.textContent = npc.initials || "";
       const name = document.createElement("span"); name.className = "scene-interactable-label party-portrait-name settlement-npc-name"; name.textContent = npc.name;
-      portrait.append(face, name); button.append(portrait); button.addEventListener("click", () => selectNpc(npc, button));
+      portrait.append(face); button.append(portrait, name); button.addEventListener("click", () => selectNpc(npc, button));
       button.addEventListener("keydown", (event) => { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); const offset = event.key === 'ArrowRight' ? 1 : -1; buttons[(buttons.indexOf(button) + offset + buttons.length) % buttons.length].focus(); });
       return button;
     });
@@ -789,7 +789,21 @@
     const defaultIndex = Math.max(0, people.findIndex((npc) => npc.is_default));
     selectNpc(people[defaultIndex], buttons[defaultIndex]);
   };
-  loadPeople().catch((error) => window.reportStrategicError(error, "load settlement NPCs"));
+  const retryPeople = () => loadPeople().catch((error) => {
+    if (signal.aborted) return;
+    window.reportStrategicError(error, "load settlement NPCs");
+    if (!npcStrip) return;
+    npcStrip.querySelector("[data-npc-loading]")?.remove();
+    npcStrip.querySelector("[data-npc-retry]")?.remove();
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "btn btn-secondary";
+    retry.dataset.npcRetry = "";
+    retry.textContent = "People unavailable — try again";
+    retry.addEventListener("click", () => { retry.remove(); retryPeople(); }, { once: true });
+    npcStrip.append(retry);
+  });
+  retryPeople();
   };
   mount();
   document.addEventListener("strategic-page-mounted", mount);
