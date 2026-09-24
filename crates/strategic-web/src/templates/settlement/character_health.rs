@@ -157,7 +157,7 @@ fn surgery_procedure_row(
             @if soap_applicable {
                 label class="surgery-soap-option" title="Consumes 0.04 of a soap unit; lowers contamination risk independently of other supplies" {
                     input type="checkbox" name="use_soap" value="true" disabled[!soap_available];
-                    " Use 0.04 soft soap"
+                    " Use 0.04 unit of soft soap"
                 }
             }
             @if icon == "bullet-visual" {
@@ -189,6 +189,7 @@ fn surgery_procedure_row(
                 }
             }
             @if let Some(reason) = disabled {
+                p class="surgery-unavailable-reason" { (reason) }
                 button type="submit" class="btn btn-block" disabled title=(reason) aria-label=(format!("{label}: {reason}")) { (label) }
             } @else {
                 button type="submit" class="btn btn-primary" { (label) }
@@ -281,7 +282,7 @@ pub fn surgery_dialog(
                     }
                     (surgery_procedure_row(
                         &action,
-                        "Open the body",
+                        "Open a deceased subject",
                         "scalpel",
                         SurgeryProcedure::OpenBody,
                         &[SurgeryItemRequirement::SurgeryKitReusable],
@@ -858,7 +859,7 @@ pub(super) fn physiology_dialog(
     patient_name: &str,
 ) -> Markup {
     html! {
-        dialog id=(dialog_id) class="physiology-dialog" data-physiology-dialog
+        dialog id=(dialog_id) class="physiology-dialog" data-physiology-dialog data-reading-count=(medical.readings.len())
             aria-labelledby="physiology-dialog-title" {
             div class="physiology-dialog-shell" {
                 header class="physiology-dialog-header" {
@@ -871,13 +872,14 @@ pub(super) fn physiology_dialog(
                 }
                 div class="physiology-dialog-body" {
                     @if medical.unavailable {
-                        p class="physiology-empty-state" { "Authorized Physiology chart unavailable." }
+                        p class="physiology-empty-state" { "The medical record is unavailable. Close the notebook and try again." }
                     } @else if medical.readings.is_empty() {
-                        p class="physiology-empty-state" { "No authorized shared-presence readings." }
+                        p class="physiology-empty-state" { "No observations have been recorded while you were together." }
                     } @else {
                         @let first_minute = medical.readings.first().map_or(0, |reading| reading.minute);
                         @let last_minute = medical.readings.last().map_or(first_minute, |reading| reading.minute);
                         @let latest = medical.readings.last().expect("nonempty chart");
+                        p class="medical-observation-summary" { (medical.readings.len()) " observations · latest confidence " (latest.confidence_bps / 100) "%. " @if medical.readings.len() == 1 { "One observation cannot establish a trend." } " Possible diseases are estimates, not confirmed diagnoses." }
                         section class="physiology-trend-panel" aria-labelledby="physiology-trend-title" {
                             div class="physiology-section-heading" {
                                 div {

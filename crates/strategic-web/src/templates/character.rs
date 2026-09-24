@@ -34,7 +34,7 @@ pub fn characters_list_page(
     let content = html! {
         aside class="left-sidebar" {
             (sidebar_section("Choose an adventurer", html! {
-                p class="small-copy text-muted" { "A character must be selected before entering the strategic layer." }
+                p class="small-copy text-muted" { "Continue with an adventurer, or create another." }
             }))
         }
 
@@ -73,7 +73,7 @@ pub fn characters_list_page(
                     }
                 }
             }
-            a href="/characters/candidates" class="btn btn-primary candidate-play-action" {
+            a href="/characters/candidates" class="btn btn-secondary candidate-play-action" {
                 "Create another adventurer"
             }
             @if !scenarios.is_empty() {
@@ -211,19 +211,21 @@ pub fn character_candidates_bootstrap_page(version: u16) -> Markup {
     let content = html! {
         main class="center-content candidate-bootstrap" {
             h2 class="page-title" { "Choose a stage of life" }
+            p { "Choose a starting background, then compare the adventurers available. Your choice is final only when you select Play." }
             noscript { p role="alert" { "JavaScript is required to prepare a private candidate roster." } }
             div data-candidate-bootstrap data-generator-version=(version) {}
             nav class="candidate-age-options" aria-label="Starting age" {
                 a class="candidate-age-option" data-candidate-age="young" href="#" {
-                    strong { "Young" } span { "Age 16 - No profession" }
+                    strong { "Young" } span { "Age 16 — No profession" } p { "Start without a trade and find your vocation." }
                 }
                 a class="candidate-age-option" data-candidate-age="adult" href="#" {
-                    strong { "Adult" } span { "Age 22 - Newly qualified" }
+                    strong { "Adult" } span { "Age 22 — Newly qualified" } p { "Begin with a profession at journeyman level." }
                 }
                 a class="candidate-age-option" data-candidate-age="old" href="#" {
-                    strong { "Old" } span { "Age 40 - Master" }
+                    strong { "Experienced" } span { "Age 40 — Master" } p { "Begin with a profession at master level." }
                 }
             }
+            a href="/characters" class="btn btn-secondary" { "Back to adventurers" }
             script src="/static/character-candidates.js?v=3" defer {}
         }
     };
@@ -259,11 +261,11 @@ pub fn character_candidates_page(
                 name: &candidate.character.name,
                 alive: true,
                 active: false,
-                selected: selected == Some(slot as u8),
+                selected: selected_slot == slot,
                 href: profile_href,
                 title: format!("Inspect {}", candidate.character.name),
                 aria_label: format!("Inspect {}", candidate.character.name),
-                decoration: None,
+                decoration: Some(html! { span class="candidate-portrait-background" { (&candidates[slot].background) } }),
                 badge: None,
                 actions: Some(html! {
                     span class="party-portrait-actions" aria-label=(format!("Actions for {}", candidate.character.name)) {
@@ -284,8 +286,7 @@ pub fn character_candidates_page(
     let attributes_title = format!("{}'s attributes", candidate.character.name);
     let skills_title = format!("{}'s skills", candidate.character.name);
     let portraits = character_portrait_overlay("Candidate adventurers", None, &portraits);
-    let center_before =
-        html! { span data-candidate-roster data-age-tier=(age_tier.as_str()) hidden {} };
+    let center_before = html! { nav class="candidate-navigation" { a href="/characters/candidates" { "Change life stage" } span { "Select an adventurer to compare their details" } } span data-candidate-roster data-age-tier=(age_tier.as_str()) hidden {} };
     let center_after = html! {
             @if show_inventory {
                 (candidate_inventory_view(spec))
@@ -294,17 +295,15 @@ pub fn character_candidates_page(
                     p { strong { "Background: " } (&spec.background) }
                 }
             }
-            @if let Some(selected) = selected {
                 form action="/characters/candidates" method="post" class="candidate-play-action" data-candidate-confirm-form {
                     input type="hidden" name="version" value=(version);
                     input type="hidden" name="seed" value=(seed);
                     input type="hidden" name="age" value=(age_tier.as_str());
-                    input type="hidden" name="slot" value=(selected);
+                    input type="hidden" name="slot" value=(selected_slot);
                     button type="submit" class="btn btn-primary" {
                         "Play as " (&candidate.character.name)
                     }
                 }
-            }
             script src="/static/character-candidates.js?v=3" defer {}
     };
     let content = character_sheet_markup(CharacterSheetView {
