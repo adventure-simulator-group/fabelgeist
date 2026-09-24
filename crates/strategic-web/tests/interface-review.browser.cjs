@@ -5,16 +5,14 @@ const test = require("node:test");
 const { chromium } = require("playwright");
 
 const staticRoot = path.join(__dirname, "../static");
-const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "readability"];
+const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "readability", "legends", "portraits", "chat-dock"];
 const shell = (content) => `<!doctype html><html><head>${styles.map(name =>
   `<link rel="stylesheet" href="/static/css/${name}.css">`).join("")}</head>
-  <body><div id="strategic-page" class="app"><header class="top-bar">Riverdale</header>
-  <nav class="workspace-bar"><strong class="workspace-title">Character</strong><a href="/" data-workspace-location>Location</a>
-  <a data-workspace-inventory hidden>Party inventory</a><button data-workspace-chat hidden>Conversation</button></nav>
+  <body><div id="strategic-page" class="app" data-strategic-workspace><header class="top-bar">Riverdale</header>
   <div class="main-grid"><aside class="left-sidebar">Attributes</aside>
   <main class="center-content settlement-main">${content}</main>
-  <aside class="right-sidebar">Summary</aside></div></div>
-  <script src="/static/character-action-dialog.js"></script><script src="/static/workspace.js"></script></body></html>`;
+  <aside class="right-sidebar">Summary</aside></div><aside data-chat-dock><section class="settlement-chat"><div class="settlement-chat-messages"></div></section></aside></div>
+  <script src="/static/chat-dock.js"></script><script src="/static/character-action-dialog.js"></script><script src="/static/portrait-navigation.js"></script></body></html>`;
 
 async function openFixture(browser, content, width = 1280) {
   const page = await browser.newPage({ viewport: { width, height: 720 } });
@@ -83,13 +81,13 @@ test("departure field accepts valid 24-hour times and rejects ambiguous input", 
   } finally { await browser.close(); }
 });
 
-test("management tasks preserve the central model space and let players toggle conversation", async () => {
+test("management tasks keep bottom-center chat visible through menu replacement", async () => {
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await openFixture(browser, `<figure class="service-visual service-visual-chest"></figure>
       <div class="party-portrait-overlay"><div class="party-portrait"><a class="party-portrait-select" href="/member">
       <span class="party-portrait-initial">S</span><span class="party-portrait-name">Sebastian Berndes</span></a></div></div>
-      <section class="settlement-chat">Conversation content</section>`);
+      <section class="settlement-chat"><div class="settlement-chat-messages">Conversation content</div></section>`);
     const panes = await page.locator(".main-grid").evaluate(grid => [...grid.querySelectorAll("aside")].map(el => el.getBoundingClientRect().width));
     assert.ok(panes.every(width => width >= 304));
     const modelSpace = await page.locator('.main-grid').evaluate(grid => {
@@ -99,16 +97,108 @@ test("management tasks preserve the central model space and let players toggle c
       return center.width >= 320 && center.height >= 300 && left.right <= center.left && center.right <= right.left;
     });
     assert.equal(modelSpace, true, 'side panels leave a full-height central character stage');
-    assert.equal(await page.locator(".settlement-chat").isVisible(), false);
-    await page.locator("[data-workspace-chat]").click();
+    assert.equal(await page.locator(".settlement-chat").count(), 1);
     assert.equal(await page.locator(".settlement-chat").isVisible(), true);
+    assert.equal(await page.locator('[data-workspace-chat]').count(), 0);
     assert.equal(await page.locator('.settlement-chat').evaluate(chat => {
-      const right = document.querySelector('.right-sidebar').getBoundingClientRect();
-      return chat.getBoundingClientRect().left >= right.left;
-    }), true, 'conversation stays over its side panel, clear of the character model');
-    await page.locator("[data-workspace-chat]").click();
-    assert.equal(await page.locator(".settlement-chat").isVisible(), false);
+      const center = document.querySelector('main.center-content').getBoundingClientRect();
+      const bounds = chat.getBoundingClientRect();
+      return bounds.left >= center.left && bounds.right <= center.right
+        && Math.abs((bounds.left + bounds.right) - (center.left + center.right)) < 2;
+    }), true, 'chat is centered between the panels');
+    await page.evaluate(() => {
+      sessionStorage.setItem('fabelgeist.conversation-expanded', 'false');
+      document.dispatchEvent(new Event('strategic-page-mounted'));
+    });
+    assert.equal(await page.locator('.settlement-chat').isVisible(), true, 'an old collapsed preference cannot hide chat');
+    await page.locator('.settlement-chat-messages').evaluate(el => el.append(' Party message'));
     const name = await page.locator(".party-portrait-name").evaluate(el => ({ width: el.scrollWidth <= el.clientWidth + 1, height: el.scrollHeight <= el.clientHeight + 1 }));
     assert.deepEqual(name, { width: true, height: true });
+    await page.route('**/quests', route => route.fulfill({ contentType: 'text/html', body:
+      '<aside class="left-sidebar" data-journal-case-index><button data-journal-case-select="case">Case</button></aside><main class="center-content" data-journal-case-log>Journal menu</main><aside class="right-sidebar" data-journal-context>Context</aside>' }));
+    await page.evaluate(() => {
+      window.strategicFetch = (...args) => fetch(...args);
+      document.querySelector('header').insertAdjacentHTML('beforeend', '<a href="/quests" data-journal-tab>Journal</a>');
+    });
+    await page.addScriptTag({ path: path.join(staticRoot, 'journal-tab.js') });
+    await page.locator('[data-journal-tab]').click();
+    await page.locator('[data-journal-case-log]').waitFor();
+    assert.equal(await page.locator('.settlement-chat-messages').innerText(), 'Conversation content Party message');
+    await page.locator('[data-journal-tab]').click();
+    assert.equal(await page.locator('.settlement-chat-messages').innerText(), 'Conversation content Party message');
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
+    await page.waitForFunction(() => document.querySelector('[data-chat-dock]').getBoundingClientRect().right <= innerWidth);
+    assert.equal(await page.locator('.settlement-chat').evaluate(chat => {
+      const r = chat.getBoundingClientRect();
+      return r.top >= 0 && r.bottom <= innerHeight;
+    }), true, 'chat stays in view on a scrolling narrow menu');
+
+  } finally { await browser.close(); }
+});
+
+
+test("portrait views select one tab across routes, nested treatments and remounts", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await openFixture(browser, `<div class="party-portrait-overlay">
+      <div class="party-portrait" data-character-id="7"><nav class="portrait-tabs">
+        <a data-portrait-tab="profile" href="/locations/settlement/goslar/party/7">Profile</a>
+        <a data-portrait-tab="conversation" href="/locations/settlement/goslar/party/7/social">Conversation</a>
+        <a data-portrait-tab="inventory" href="/locations/settlement/goslar/party/7/inventory">Inventory</a>
+      </nav></div>
+      <div class="party-portrait" data-character-id="8"><nav class="portrait-tabs">
+        <a data-portrait-tab="profile" href="/locations/settlement/goslar/party/8/stats">Profile</a>
+        <a data-portrait-tab="conversation" href="/locations/settlement/goslar/party/8/social">Conversation</a>
+        <a data-portrait-tab="inventory" href="/locations/settlement/goslar/party/8/inventory">Inventory</a>
+      </nav></div></div>`);
+    for (const [suffix, id, tab] of [['7', '7', 'profile'], ['7/social', '7', 'conversation'],
+      ['8/inventory', '8', 'inventory'], ['8/surgery/head', '8', 'profile'], ['8/stats', '8', 'profile']]) {
+      await page.evaluate(suffix => {
+        history.pushState({}, '', `/locations/settlement/goslar/party/${suffix}?building=inn`);
+        document.dispatchEvent(new Event('strategic-page-mounted'));
+      }, suffix);
+      const selected = page.locator('[data-portrait-tab][aria-current="page"]');
+      assert.equal(await selected.count(), 1);
+      assert.equal(await selected.getAttribute('data-portrait-tab'), tab);
+      assert.equal(await page.locator('.party-portrait.active').getAttribute('data-character-id'), id);
+    }
+    await page.evaluate(() => {
+      history.pushState({}, '', '/locations/settlement/goslar/inn');
+      document.dispatchEvent(new Event('strategic-page-mounted'));
+    });
+    assert.equal(await page.locator('[data-portrait-tab][aria-current="page"]').count(), 0);
+    assert.equal(await page.locator('#strategic-page').getAttribute('data-character-view'), null);
+  } finally { await browser.close(); }
+});
+
+test("live resident portraits use attached conversation tabs and mutually exclusive selection", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await openFixture(browser, `<nav class="scene-interactable-strip" data-npc-strip data-npc-settlement="goslar" data-npc-place="inn" data-npc-location="inn"></nav>
+      <section class="settlement-chat" data-local-chat-subject="" data-dialogue-catalog-revision="1"><div class="settlement-chat-messages"></div></section>`);
+    await page.evaluate(() => {
+      window.strategicLocationUrls = { encode: encodeURIComponent };
+      window.reportStrategicError = error => { throw error; };
+      window.strategicFetch = async path => path.endsWith('/npcs')
+        ? { ok: true, json: async () => [{ id: 'innkeeper', name: 'Anna', initials: 'A', is_default: true }, { id: 'guest', name: 'Benedikt', initials: 'B' }] }
+        : new Promise(() => {});
+    });
+    await page.addScriptTag({ url: '/static/dialogue-client.js' });
+    await page.waitForSelector('.resident-portrait.active');
+    assert.equal(await page.locator('.resident-portrait .portrait-tab').count(), 2);
+    assert.equal(await page.locator('.resident-portrait').first().evaluate(frame => {
+      const portrait = frame.querySelector('.party-portrait-initial').getBoundingClientRect();
+      const tab = frame.querySelector('.portrait-tab').getBoundingClientRect();
+      return Math.abs((portrait.left + portrait.right) - (tab.left + tab.right)) < 2;
+    }), true, 'a single conversation spoke aligns beneath the portrait');
+    await page.locator('[data-resident-conversation]').nth(1).click();
+    assert.equal(await page.locator('[data-resident-conversation][aria-pressed="true"]').count(), 1);
+    assert.equal(await page.locator('.resident-portrait.active .settlement-npc-portrait').getAttribute('data-npc-id'), 'guest');
+    await page.locator('[data-resident-conversation]').first().focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.resident-portrait.active .settlement-npc-portrait').getAttribute('data-npc-id'), 'innkeeper');
+    assert.equal(await page.locator('.settlement-chat').getAttribute('data-local-chat-subject'), 'innkeeper');
+    if (process.env.UX_CAPTURE_DIR) await page.screenshot({ path: path.join(process.env.UX_CAPTURE_DIR, 'resident-tabs-row-1280.png') });
   } finally { await browser.close(); }
 });

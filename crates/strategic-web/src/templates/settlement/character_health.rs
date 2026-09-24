@@ -1,4 +1,5 @@
 mod notebook;
+mod segments;
 use adventuresim_core::surgery::SurgeryProcedure;
 use maud::{Markup, html};
 
@@ -54,6 +55,7 @@ fn surgery_supply(label: &str, icon: &str, quantity: u32) -> Markup {
             aria-label=(&description) tabindex="0" {
             (decorative_game_icon(icon))
             span class="surgery-item-overlay surgery-item-quantity" aria-hidden="true" { "x" (quantity) }
+            span class="surgery-supply-label" aria-hidden="true" { (label) }
         }
     }
 }
@@ -108,11 +110,11 @@ fn surgery_difficulty_meter(procedure_label: &str, dc: f32, effective_skill: f32
                 effective_skill.min(difficulty),
                 &meter_label,
                 SkillRankBarOptions {
-                    show_value: false,
                     extra_class: Some("surgery-difficulty-meter"),
                     aria_label: Some(&accessible_label),
                 },
             ))
+            span class="surgery-difficulty-reading" { "Skill " (format!("{:.1}", effective_skill.max(0.0))) " / Required " (format!("{difficulty:.1}")) }
             @if over_cap {
                 span class="surgery-difficulty-over-cap-marker" aria-hidden="true" { "+" }
             }
@@ -895,8 +897,7 @@ pub(super) fn physiology_dialog(
                                     ] {
                                         li class=(format!("physiology-tone-{tone}")) {
                                             i aria-hidden="true" {}
-                                            span class="sr-only" { (name) }
-                                            span aria-hidden="true" { (short) }
+                                            span { (short) " · " (name) }
                                         }
                                     }
                                 }
@@ -1205,6 +1206,7 @@ pub(super) fn party_attributes_rail(
                     }
                 }
             }
+            (crate::templates::interface_help::body_key())
             div class="party-attributes-list" aria-label="Character attributes" {
                 (attribute_group("Head", "head", head_health, medical, 6, surgery, injuries, projectiles, &[
                     ("Intelligence", "intelligence", attributes.intelligence),
@@ -1358,33 +1360,16 @@ fn regional_health_bar(
 ) -> Markup {
     let physical_health = physical_health.clamp(0.0, 1.0);
     let physical_damage = 1.0 - physical_health;
-    let limb = [
-        BodyRegion::LeftArm,
-        BodyRegion::RightArm,
-        BodyRegion::LeftLeg,
-        BodyRegion::RightLeg,
-        BodyRegion::Chest,
-        BodyRegion::Abdomen,
-        BodyRegion::Head,
-    ][region];
+    let limb = BodyRegion::ALL[region];
     let injury = injuries
         .iter()
         .find(|injury| crate::spacetimedb::core_body_region(injury.limb) == limb);
-    let cut = injury
-        .map_or(0.0, |row| row.cut_damage)
-        .min(physical_damage);
-    let frostbite = injury
-        .map_or(0.0, |row| row.frostbite_damage)
-        .min((physical_damage - cut).max(0.0));
-    let total_blunt = injury
-        .map_or(physical_damage - cut - frostbite, |row| {
-            row.bruise_damage.max(row.fracture_damage)
-        })
-        .min((physical_damage - cut - frostbite).max(0.0));
-    let fracture = injury
-        .map_or(0.0, |row| row.fracture_damage)
-        .min(total_blunt);
-    let blunt = (total_blunt - fracture).max(0.0);
+    let segments::PhysicalDamage {
+        cut,
+        frostbite,
+        fracture,
+        blunt,
+    } = segments::PhysicalDamage::new(physical_damage, injury);
     let bandaged = injury.is_some_and(|row| row.bandaged);
     let splinted = injury.is_some_and(|row| row.splint_inventory_item_id.is_some());
     let fracture_label = if splinted {
@@ -1409,32 +1394,7 @@ fn regional_health_bar(
     } else {
         physical_health
     };
-    let segments = if humour.is_some() {
-        vec![
-            (
-                adventuresim_core::physiology::Humour::Sanguine,
-                "attribute-health-sanguine",
-                values.sanguine.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Phlegmatic,
-                "attribute-health-phlegmatic",
-                values.phlegmatic.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Choleric,
-                "attribute-health-choleric",
-                values.choleric.abs() * scale,
-            ),
-            (
-                adventuresim_core::physiology::Humour::Melancholic,
-                "attribute-health-melancholic",
-                values.melancholic.abs() * scale,
-            ),
-        ]
-    } else {
-        Vec::new()
-    };
+    let segments = segments::assessed_humours(humour, scale);
     let reading = if humour.is_some() {
         format!(
             "{name}: {:.0}% sound, {:.0}% cut, {:.0}% frostbite, {:.0}% blunt, {:.0}% {fracture_label}, {:.0}% sanguine, {:.0}% phlegmatic, {:.0}% choleric, {:.0}% melancholic impairment",
@@ -1459,44 +1419,49 @@ fn regional_health_bar(
             other * 100.0,
         )
     };
-    html! {
-        div class="attribute-health-bar" role="meter"
-            aria-label=(reading)
-            aria-valuemin="0" aria-valuemax="100" aria-valuenow=(okay * 100.0) {
-            span class="attribute-health-current" title="Sound" style=(format!("width:{:.1}%", okay * 100.0)) {}
-            span class=(if bandaged { "attribute-health-cut bandaged-cut" } else { "attribute-health-cut" }) title=(if bandaged { "Bandaged cut damage" } else { "Cut damage" }) style=(format!("width:{:.1}%", cut * 100.0)) {}
-            span class="attribute-health-frostbite" title="Frostbite damage" style=(format!("width:{:.1}%", frostbite * 100.0)) {}
-            span class="attribute-health-blunt" title="Blunt damage" style=(format!("width:{:.1}%", blunt * 100.0)) {}
-            span class=(if splinted { "attribute-health-fracture splinted-fracture" } else { "attribute-health-fracture" })
-                title=(if splinted { "Splinted fracture" } else { "Fracture" })
-                style=(format!("width:{:.1}%", fracture * 100.0)) {}
-            @if humour.is_none() && other > 0.0 {
-                span class="attribute-health-other" title="Other impairment"
-                    style=(format!("width:{:.1}%", other * 100.0)) {}
-            }
-            @for (humour, class, amount) in segments {
-                @if amount > 0.0 {
-                    @let disclosure = adventuresim_core::physiology::humour_disclosure(humour);
-                    span class=(class)
-                        title=(&disclosure)
-                        data-strategic-tooltip=(&disclosure)
-                        tabindex="0"
-                        aria-label=(format!(
-                            "{}: {:.0}% of this region. {}",
-                            humour.public_name(),
-                            amount * 100.0,
-                            disclosure,
-                        ))
-                        style=(format!("width:{:.1}%", amount * 100.0)) {}
+    crate::templates::interface_help::regional_reading(
+        limb,
+        &reading,
+        okay,
+        html! {
+            span class="attribute-health-bar" role="meter"
+                aria-label=(&reading)
+                aria-valuemin="0" aria-valuemax="100" aria-valuenow=(okay * 100.0) {
+                span class="attribute-health-current" title="Sound" style=(format!("width:{:.1}%", okay * 100.0)) {}
+                span class=(if bandaged { "attribute-health-cut bandaged-cut" } else { "attribute-health-cut" }) title=(if bandaged { "Bandaged cut damage" } else { "Cut damage" }) style=(format!("width:{:.1}%", cut * 100.0)) {}
+                span class="attribute-health-frostbite" title="Frostbite damage" style=(format!("width:{:.1}%", frostbite * 100.0)) {}
+                span class="attribute-health-blunt" title="Blunt damage" style=(format!("width:{:.1}%", blunt * 100.0)) {}
+                span class=(if splinted { "attribute-health-fracture splinted-fracture" } else { "attribute-health-fracture" })
+                    title=(if splinted { "Splinted fracture" } else { "Fracture" })
+                    style=(format!("width:{:.1}%", fracture * 100.0)) {}
+                @if humour.is_none() && other > 0.0 {
+                    span class="attribute-health-other" title="Other impairment"
+                        style=(format!("width:{:.1}%", other * 100.0)) {}
+                }
+                @for (humour, class, amount) in segments {
+                    @if amount > 0.0 {
+                        @let disclosure = adventuresim_core::physiology::humour_disclosure(humour);
+                        span class=(class)
+                            title=(&disclosure)
+                            data-strategic-tooltip=(&disclosure)
+                            tabindex="0"
+                            aria-label=(format!(
+                                "{}: {:.0}% of this region. {}",
+                                humour.public_name(),
+                                amount * 100.0,
+                                disclosure,
+                            ))
+                            style=(format!("width:{:.1}%", amount * 100.0)) {}
+                    }
+                }
+                @for (projectile_index, projectile) in projectiles.iter().filter(|projectile| crate::spacetimedb::core_body_region(projectile.limb) == limb).enumerate() {
+                    span class=(match projectile.kind { ProjectileKind::Arrowhead => "surgery-projectile-icon projectile-arrowhead", ProjectileKind::Ball => "surgery-projectile-icon projectile-ball" })
+                        style=(format!("right:{:.2}rem", 0.2 + projectile_index as f32 * 0.75))
+                        title=(match projectile.kind { ProjectileKind::Arrowhead => "Retained arrowhead", ProjectileKind::Ball => "Retained ball" }) aria-hidden="true" {}
                 }
             }
-            @for (projectile_index, projectile) in projectiles.iter().filter(|projectile| crate::spacetimedb::core_body_region(projectile.limb) == limb).enumerate() {
-                span class=(match projectile.kind { ProjectileKind::Arrowhead => "surgery-projectile-icon projectile-arrowhead", ProjectileKind::Ball => "surgery-projectile-icon projectile-ball" })
-                    style=(format!("right:{:.2}rem", 0.2 + projectile_index as f32 * 0.75))
-                    title=(match projectile.kind { ProjectileKind::Arrowhead => "Retained arrowhead", ProjectileKind::Ball => "Retained ball" }) aria-hidden="true" {}
-            }
-        }
-    }
+        },
+    )
 }
 
 fn attribute_row(name: &str, icon: &str, value: f32, health: f32, show_label: bool) -> Markup {
@@ -1506,8 +1471,8 @@ fn attribute_row(name: &str, icon: &str, value: f32, health: f32, show_label: bo
     html! {
         div class=(if show_label { "party-attribute-row" } else { "party-attribute-row party-attribute-icon-only" }) {
             (stat_icon(name, "attributes", icon, show_label))
-            @if show_label { span class="party-attribute-name" { (name) } }
-            div class="attribute-rank-bar"
+            span class="party-attribute-name" { (name) }
+            div class="attribute-rank-bar" data-tooltip-pinnable aria-keyshortcuts="Enter Space"
                 data-strategic-tooltip=(format!("{name}: {effective_value:.1} out of 5"))
                 tabindex="0"
                 role="meter" aria-valuemin="0" aria-valuemax="5" aria-valuenow=(format!("{effective_value:.1}"))
@@ -1530,6 +1495,7 @@ pub(super) fn stat_icon(label: &str, category: &str, icon: &str, decorative: boo
             title=[(!decorative).then_some(label)]
             aria-hidden=[decorative.then_some("true")]
         {}
+        span class="stat-readable-label" aria-hidden="true" { (label) }
     }
 }
 
@@ -1791,13 +1757,13 @@ mod tests {
     }
 
     #[test]
-    fn surgery_supplies_are_icon_counts_with_hover_labels() {
+    fn surgery_supplies_are_named_counts_with_hover_details() {
         let supply = surgery_supply("Bandages", "bandage-roll", 8).into_string();
         assert!(supply.contains("class=\"surgery-supply\""));
         assert!(supply.contains("data-strategic-tooltip=\"Bandages: 8 available\""));
         assert!(supply.contains("bandage-roll.svg"));
         assert!(supply.contains(">x8</span>"));
-        assert!(!supply.contains(">Bandages</span>"));
+        assert!(supply.contains(">Bandages</span>"));
     }
 
     #[test]
@@ -2141,7 +2107,7 @@ mod tests {
         assert!(markup.contains("aria-label=\"Open surgery menu for Head\""));
         assert!(markup.contains("aria-haspopup=\"dialog\" aria-expanded=\"false\""));
         assert!(markup.contains("data-strategic-tooltip=\"Intelligence: 2.2 out of 5\""));
-        assert!(markup.contains("class=\"attribute-rank-bar\" data-strategic-tooltip="));
+        assert!(markup.contains("class=\"attribute-rank-bar\" data-tooltip-pinnable"));
         assert!(!markup.contains("attribute-rank-value"));
     }
 

@@ -247,10 +247,10 @@ pub fn party_social_dialog(
             div class="settlement-chat-conversation" {
               header class="conversation-dock-header" {
                 div class="settlement-chat-filters" role="group" aria-label="Visible chat channels" {
-                  @for (channel, label, abbreviation) in [("local", "Local", "L"), ("party", "Party", "P"), ("info", "Info", "I")] {
+                  @for (channel, label, _abbreviation) in [("local", "Local", "L"), ("party", "Party", "P"), ("info", "Info", "I")] {
                     label class=(format!("chat-channel-filter chat-channel-filter-{channel}")) title=(label) {
                       input type="checkbox" checked data-chat-filter=(channel) aria-label=(label) title=(label);
-                      span aria-hidden="true" { (abbreviation) }
+                      span aria-hidden="true" { (label) }
                     }
                   }
                 }
@@ -293,7 +293,7 @@ pub fn party_social_dialog(
                       ("quests", "Quests", "treasure-map", false),
                       ("lore", "Lore", "open-book", false),
                       ("tidings", "Recent Tidings", "calendar", true),
-                      ("about", "Of Thee", "person", false),
+                      ("about", "About", "person", false),
                     ] {
                       button type="button" role="tab" class="conversation-tab"
                         id=(format!("conversation-tab-{id}-{}", selected.id))
@@ -454,7 +454,7 @@ pub fn party_social_dialog(
                     @if is_self {
                         p { "To know thyself, seek thy Recent Tidings and reflect thereupon." }
                     } @else {
-                        h3 { "Of Thee" }
+                        h3 { "About" }
                         p class="text-muted small-copy" { "Ask, and hear the answer in their own words." }
                         div class="about-person-topics" {
                             @for (question, answer) in [
@@ -679,7 +679,7 @@ fn chat_area(
                 div class="settlement-chat-conversation" {
                   header class="conversation-dock-header" {
                     div class="settlement-chat-filters" role="group" aria-label="Visible chat channels" {
-                        @for (channel, label, abbreviation) in [
+                        @for (channel, label, _abbreviation) in [
                             ("local", "Local", "L"),
                             ("party", "Party", "P"),
                             ("settlement", "Settlement", "S"),
@@ -690,7 +690,7 @@ fn chat_area(
                             label class=(format!("chat-channel-filter chat-channel-filter-{channel}")) title=(label) {
                                 input type="checkbox" checked data-chat-filter=(channel)
                                     aria-label=(label) title=(label);
-                                span aria-hidden="true" { (abbreviation) }
+                                span aria-hidden="true" { (label) }
                             }
                         }
                     }
@@ -699,7 +699,7 @@ fn chat_area(
                         ("quest", "Quests", "treasure-map", false),
                         ("lore", "Lore", "open-book", true),
                         ("tidings", "Recent Tidings", "calendar", false),
-                        ("about", "Of Thee", "person", false),
+                        ("about", "About", "person", false),
                       ] {
                         button type="button" role="tab" class="conversation-tab" id=(format!("dialogue-category-tab-{id}"))
                           aria-controls=(format!("dialogue-category-panel-{id}")) aria-selected=(if selected_tab { "true" } else { "false" })
@@ -710,7 +710,7 @@ fn chat_area(
                       }
                     }
                   }
-                    @for (id, label, selected_panel) in [("quest", "Quests", false), ("lore", "Lore", true), ("tidings", "Recent Tidings", false), ("about", "Of Thee", false)] {
+                    @for (id, label, selected_panel) in [("quest", "Quests", false), ("lore", "Lore", true), ("tidings", "Recent Tidings", false), ("about", "About", false)] {
                       section role="tabpanel" class="dialogue-category-panel" id=(format!("dialogue-category-panel-{id}"))
                         aria-labelledby=(format!("dialogue-category-tab-{id}")) hidden[!selected_panel] data-dialogue-category-panel=(id) {
                         p class="conversation-empty" data-dialogue-category-empty { "No discovered " (label) " topics are ready to discuss." }
@@ -1221,7 +1221,7 @@ mod tests {
         assert!(markup.contains("autocomplete=\"off\""));
         for label in ["Local", "Party", "Settlement", "DMs", "Guild", "Info"] {
             assert!(markup.contains(&format!("aria-label=\"{label}\" title=\"{label}\"")));
-            assert!(!markup.contains(&format!(">{label}</")));
+            assert!(markup.contains(&format!(">{label}</")));
         }
         assert_eq!(markup.matches("class=\"conversation-tab\"").count(), 4);
         assert_eq!(markup.matches("class=\"sr-only\"").count(), 4);

@@ -195,7 +195,11 @@
       dialog.returnValue = choice.input;
       dialog.close();
     });
-    dialog.append(close, keyboard);
+    const heading = document.createElement('h2');
+    heading.textContent = 'Choose equipment placement';
+    const instruction = document.createElement('p');
+    instruction.textContent = 'Select a named slot or press its letter. Marked slots show the current placement; dashed slots are unavailable.';
+    dialog.append(close, heading, instruction, keyboard);
     document.body.append(dialog);
 
     let invalidFeedbackTimer = null;

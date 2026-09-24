@@ -1,20 +1,6 @@
 /* Task surfaces retain the place's materials while giving documents room. */
-.workspace-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: .5rem 1rem;
-  padding: .5rem 1rem;
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--border-accent);
-  min-height: 3rem;
-}
-.workspace-title { margin-right: auto; }
-.workspace-bar a { padding: .3rem 0; color: var(--text-secondary); }
-.workspace-bar a[aria-current="page"] { color: var(--accent-light); border-bottom: 2px solid; }
-.workspace-bar .btn { font-size: .875rem; padding: .3rem .6rem; }
-#strategic-page:has(.workspace-bar) { height: 100dvh; }
-#strategic-page:has(.workspace-bar) > .main-grid { height: auto; flex: 1; min-height: 0; }
+#strategic-page[data-strategic-workspace] { height: 100dvh; }
+#strategic-page[data-strategic-workspace] > .main-grid { height: auto; flex: 1; min-height: 0; }
 .service-tab-label {
   display: block;
   position: absolute;
@@ -32,8 +18,6 @@
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
-.workspace-chat-closed .settlement-chat { display: none; }
-.workspace-chat-closed .settlement-main { --chat-panel-height: 0px !important; }
 .party-portrait { flex-basis: 6rem; width: 6rem; height: auto; min-height: 5.5rem; }
 .party-portrait-select { display: flex; flex-direction: column; gap: .3rem; justify-content: flex-start; }
 .party-portrait .party-portrait-name {
@@ -71,7 +55,7 @@
 .inventory-row-actions .trade-transfer { width: 2rem; height: 2rem; }
 .inventory-target-step:not([hidden]) { opacity: 1; min-width: 1.5rem; min-height: 1.5rem; }
 .inventory-actions-cell { white-space: normal; }
-.inventory-footer-actions { position: static; transform: none; opacity: 1; flex-wrap: wrap; }
+.inventory-footer-actions { position: static; transform: none; opacity: 1; flex-wrap: wrap; height: auto; flex: 0 0 auto; padding: .4rem; }
 .cooking-activity .inventory-row-actions .trade-transfer { width: 2.75rem; height: 2.75rem; }
 
 .candidate-navigation { display: flex; flex-wrap: wrap; gap: .75rem; padding: 1rem; background: var(--panel-bg); }
@@ -101,7 +85,7 @@
   border: 1px solid var(--border-color);
   background: var(--panel-bg);
 }
-.center-content:has([data-candidate-roster]) .party-portrait.selected { border: 2px solid var(--accent-light); }
+.center-content:has([data-candidate-roster]) .party-portrait.active { border: 2px solid var(--accent-light); }
 .center-content:has([data-candidate-roster]) .party-portrait-initial { display: none; }
 .center-content:has([data-candidate-roster]) .party-portrait-name { order: -1; font-size: 1rem; font-weight: 700; }
 .candidate-portrait-background { font-size: .875rem; color: var(--text-secondary); text-align: center; }
@@ -123,41 +107,74 @@
 .recruitment-dialog .dialog-close-form { position: sticky; top: .5rem; z-index: 5; float: right; margin-right: .75rem; }
 
 @media (min-width: 1101px) {
-  #strategic-page:has(.workspace-bar) { --settlement-header-height: 112px; }
+  #strategic-page[data-strategic-workspace] { --settlement-header-height: 112px; }
   #strategic-page .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {
     height: 5.5rem;
   }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) {
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) {
     grid-template-columns: minmax(19rem, 1fr) minmax(20rem, 1fr) minmax(19rem, 1fr);
     grid-template-rows: minmax(0, 1fr);
     grid-template-areas: "left main right";
   }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > main { grid-area: main; }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > .left-sidebar { grid-area: left; }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > .right-sidebar { grid-area: right; }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) .service-visual { display: flex; }
-  #strategic-page:has(.workspace-bar) .main-grid:has([data-discard-table][hidden]) {
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) > main { grid-area: main; }
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) > .left-sidebar { grid-area: left; }
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) > .right-sidebar { grid-area: right; }
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) .service-visual { display: flex; }
+  #strategic-page[data-strategic-workspace] .main-grid:has([data-discard-table][hidden]) {
     grid-template-areas: ". main right";
   }
-  #strategic-page:has(.workspace-bar) .main-grid:has([data-discard-table][hidden]) > .left-sidebar { display: none; }
+  #strategic-page[data-strategic-workspace] .main-grid:has([data-discard-table][hidden]) > .left-sidebar { display: none; }
   #strategic-page .main-grid:has(.fireplace-layout) { grid-template-columns: minmax(12rem, 22%) minmax(0, 1fr) minmax(20rem, 35%); }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) .settlement-chat {
-    position: fixed;
-    z-index: 80;
-    bottom: .75rem;
-    right: 1rem;
-    left: auto;
-    width: calc(100vw / 3 - 2rem);
-    box-shadow: var(--shadow-lg);
-  }
+
 }
 @media (max-width: 1100px) {
-  #strategic-page:has(.workspace-bar) { height: auto; min-height: 100dvh; }
-  .workspace-bar { gap: .4rem .8rem; }
-  .workspace-title { flex-basis: 100%; }
-  .workspace-bar a, .workspace-bar button { min-height: 2.75rem; display: inline-flex; align-items: center; }
+  #strategic-page[data-strategic-workspace] { height: auto; min-height: 100dvh; }
   .party-portrait-overlay { position: relative; top: auto; left: auto; transform: none; margin: .75rem auto; }
-  #strategic-page:has(.workspace-bar) .party-member-stage { min-height: 8rem; }
-  #strategic-page:has(.workspace-bar) .party-member-stage .service-visual { display: none; }
-  #strategic-page:has(.workspace-bar) .main-grid:has(.party-member-stage, .service-visual-chest) > main { min-height: 8rem; }
+  #strategic-page[data-strategic-workspace] .party-member-stage { min-height: 8rem; }
+  #strategic-page[data-strategic-workspace] .party-member-stage .service-visual { display: none; }
+  #strategic-page[data-strategic-workspace] .main-grid:has(.party-member-stage, .service-visual-chest) > main { min-height: 8rem; }
 }
+
+.fireplace-inventory-sidebar:has([data-inventory-browser="cooking-inventory-right"] tbody tr) .cooking-inventory-empty { display: none; }
+
+.center-content:has([data-candidate-roster]) .party-portrait.active::after { content: "Selected"; display: block; margin-top: .5rem; font: .75rem var(--font-ui); color: var(--text-primary); text-align: center; }
+
+.inventory-browser .inventory-column-actions { width: 2.75rem; }
+.inventory-browser .trade-inventory-row::after { display: none; }
+.inventory-browser :is(.inventory-actions-cell, .inventory-actions-header) {
+  position: sticky; z-index: 3; right: 0;
+  width: 2.75rem; min-width: 2.75rem; padding: .2rem !important;
+  background: var(--panel-bg); box-shadow: -1px 0 var(--border-color);
+}
+.right-sidebar .inventory-browser :is(.inventory-actions-cell, .inventory-actions-header) {
+  left: 0; right: auto; box-shadow: 1px 0 var(--border-color);
+}
+.inventory-browser .inventory-actions-cell > .inventory-row-actions {
+  position: static; display: flex; flex-direction: column; flex-wrap: nowrap;
+  width: auto; padding: 0 !important; transform: none;
+  align-items: center; justify-content: center; background: transparent;
+}
+.inventory-browser .inventory-actions-header > .inventory-footer-actions {
+  width: auto; padding: 0; flex-direction: column; align-items: center;
+  background: transparent;
+}
+.inventory-browser .inventory-actions-cell :is(.trade-transfer, .row-repair-form) {
+  width: 2.25rem; height: 2.25rem; min-width: 2.25rem;
+}
+#strategic-page .inventory-browser-table-frame {
+  width: 100%; min-width: 0; max-width: 100%; overflow-x: auto;
+}
+#strategic-page .inventory-browser-table-frame > .trade-inventory-table { min-width: 100%; }
+#strategic-page :is(.left-sidebar, .right-sidebar) .encumbrance-inventory-scroll {
+  margin-inline: 0; padding-inline: 0;
+}
+@media (pointer: coarse) {
+  .inventory-browser .inventory-actions-cell :is(.trade-transfer, .row-repair-form) {
+    width: 2.75rem; height: 2.75rem; min-width: 2.75rem;
+  }
+}
+.trade-inventory-table td { padding-block: .35rem; }
+.inventory-browser > .interface-key { margin-block: .25rem; }
+.inventory-browser > .interface-key > summary { padding-block: .2rem; }
+.sidebar-section:has(.inventory-browser) > .sidebar-header { margin-bottom: .5rem; }
+.inventory-footer-actions { min-height: 2rem; padding-block: .2rem; }

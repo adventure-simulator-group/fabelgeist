@@ -182,7 +182,11 @@
     const asideWidth = aside.getBoundingClientRect?.().width || aside.clientWidth || 0;
     const frameWidth = Math.max(0, asideWidth - browserWidth);
     const table = browser.querySelector(".trade-inventory-table");
+    // Measure intrinsic content, independent of the column's current stretched width.
+    const stretchedMinimum = table?.style.minWidth || "";
+    if (table) table.style.minWidth = "0";
     const tableWidth = table?.getBoundingClientRect?.().width || table?.clientWidth || 0;
+    if (table) table.style.minWidth = stretchedMinimum;
     const minimumWidth = Number.parseFloat(global.getComputedStyle(browser).minWidth) || 0;
     const contentWidth = Math.ceil(Math.max(minimumWidth, tableWidth));
     grid.style.setProperty(`--inventory-${side}-width`, `${contentWidth + frameWidth}px`);
@@ -446,6 +450,12 @@
     groupFoodRows(browser);
     const body = browser.querySelector("tbody");
     if (!body) return;
+    const actionsFirst = Boolean(browser.closest(".right-sidebar"));
+    browser.querySelectorAll(".inventory-actions-header, col.inventory-column-actions").forEach((cell) => {
+      if (actionsFirst) cell.parentElement.prepend(cell);
+      else cell.parentElement.append(cell);
+    });
+    body.querySelectorAll(":scope > tr.trade-inventory-row").forEach(ensureRowActionRail);
     const rows = [...body.querySelectorAll(":scope > tr.trade-inventory-row:not(.inventory-detail-row):not(.currency-component-row):not(.alcohol-component-row):not(.food-component-row)")];
     rows.forEach((row) => normalizeDestinationRow(row, browser));
     body.querySelectorAll(":scope > tr.alcohol-component-row, :scope > tr.food-component-row")
@@ -579,6 +589,8 @@
       actions.className = "inventory-row-actions";
     }
     if (actions.parentElement !== cell) cell.prepend(actions);
+    if (row.closest(".right-sidebar")) row.prepend(cell);
+    else row.append(cell);
     return { cell, actions };
   }
 

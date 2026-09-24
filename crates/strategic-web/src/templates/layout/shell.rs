@@ -31,17 +31,21 @@ pub(super) fn page_shell(
                     }
                 }
                 (maud::PreEscaped("<!-- strategic-page-start -->"))
-                div class="app" id="strategic-page" data-page-title=(title)
+                div class="app" id="strategic-page" data-page-title=(title) data-strategic-workspace[scripts != ScriptProfile::Entry]
                     data-architectural-family=[presentation.and_then(|value| value.family.map(|family| family.tag()))]
                     data-place-skin=[presentation.map(|value| value.skin.tag())]
                     data-building-material=[presentation.map(|value| value.material.tag())]
                     style=[presentation.map(|value| format!("--active-building-tint:{}", value.material.tint()))]
                     data-script-profile=(match scripts { ScriptProfile::Entry => "entry", ScriptProfile::Live => "live", ScriptProfile::Strategic => "strategic" }) {
                     (header)
-                    @if scripts != ScriptProfile::Entry { (workspace::navigation(title)) }
 
                     div class="main-grid" {
                         (content)
+                    }
+                    @if scripts == ScriptProfile::Strategic {
+                        aside data-chat-dock aria-label="Chat" {
+                            (crate::templates::settlement::settlement_chat_area_with_info("Party", None, &[]))
+                        }
                     }
                 }
                 (maud::PreEscaped("<!-- strategic-page-end -->"))
@@ -65,8 +69,12 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             link rel="stylesheet" href="/static/css/strategic.css?v=goslar-2";
             link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
             link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
-            link rel="stylesheet" href="/static/css/workspace.css?v=1";
+            link rel="stylesheet" href="/static/css/workspace.css?v=2";
+            link rel="stylesheet" href="/static/css/portraits.css?v=1";
+            link rel="stylesheet" href="/static/css/chat-dock.css?v=1";
             link rel="stylesheet" href="/static/css/readability.css?v=1";
+            link rel="stylesheet" href="/static/css/legends.css?v=1";
+            link rel="stylesheet" href="/static/css/stats.css?v=1";
 
             // Datastar
             script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
@@ -80,7 +88,9 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             script src="/static/developer-mode.js?v=development-clock-2" defer {}
             script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
             script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
-            script src="/static/workspace.js?v=1" defer {}
+            script src="/static/chat-dock.js?v=1" defer {}
+            script src="/static/portrait-navigation.js?v=1" defer {}
+            script src="/static/stats-panels.js?v=1" defer {}
             script src="/static/action-previews.js?v=1" defer {}
             @if scripts != ScriptProfile::Entry {
                 script src="/static/live-state.js?v=location-urls-1" defer {}
