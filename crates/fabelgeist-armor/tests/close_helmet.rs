@@ -294,3 +294,29 @@ fn invalid_and_reflected_head_frames_are_rejected() {
         assert!(build_on(&design, &bad).is_err(), "{bad:?}");
     }
 }
+
+#[test]
+fn a_bellows_visor_folds_its_face_and_leaves_the_other_plates_unchanged() {
+    use fabelgeist_armor::VisorBellows;
+    let plain = generate(CloseHelmetDesign::default(), 1.0);
+    let folded = generate(
+        CloseHelmetDesign {
+            bellows: Some(VisorBellows::default()),
+            ..CloseHelmetDesign::default()
+        },
+        1.0,
+    );
+    assert_closed_solid(&folded, "bellows visor");
+    let points =
+        |part: &BuiltPart, role| part.positions[component(part, role).vertices.clone()].to_vec();
+    for role in [Role::Skull, Role::Bevor] {
+        assert_eq!(points(&plain, role), points(&folded, role), "{role:?}");
+    }
+    let reach = |points: Vec<[f32; 3]>| {
+        points
+            .iter()
+            .map(|p| p[2])
+            .fold(f32::NEG_INFINITY, f32::max)
+    };
+    assert!(reach(points(&folded, Role::Visor)) > reach(points(&plain, Role::Visor)));
+}

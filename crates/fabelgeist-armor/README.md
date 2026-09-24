@@ -109,8 +109,7 @@ with it, and a trim band measures each point only to the rims of its own plate,
 so closely overlapping plates each keep their own face.
 
 Some recipe options have designs and validation but no device construction
-yet: pauldrons, buffes, bellows visors, wrapped tassets and anime breastplates
-among them. Each family's
+yet: pauldrons, buffes, wrapped tassets and anime breastplates among them. Each family's
 `device_unsupported` names the first such option a design uses, and every
 device entry point refuses it with `GenerateError::NotOnDevice` rather than
 building the piece without it.

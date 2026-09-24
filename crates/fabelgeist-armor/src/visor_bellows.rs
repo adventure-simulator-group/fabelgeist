@@ -42,6 +42,19 @@ impl VisorBellows {
         Ok(())
     }
 
+    /// The fold relief `down` of the way down the visor's design chart.
+    pub(crate) fn relief(self, down: f32) -> f32 {
+        if down <= self.start.unit() || down >= self.end.unit() {
+            return 0.0;
+        }
+        let cycle = (down - self.start.unit()) / (self.end.unit() - self.start.unit())
+            * f32::from(self.count);
+        let phase = cycle.fract();
+        let triangle = 1.0 - (2.0 * phase - 1.0).abs();
+        let round = (1.0 - (std::f32::consts::TAU * phase).cos()) * 0.5;
+        self.depth.metres() * (round + (triangle - round) * self.sharpness.unit())
+    }
+
     pub(crate) fn rows(self) -> impl Iterator<Item = f64> {
         const SAMPLES_PER_FOLD: u16 = 8;
         let steps = u16::from(self.count) * SAMPLES_PER_FOLD;

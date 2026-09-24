@@ -39,10 +39,14 @@ const SIDE_WRAP_COSINE: u32 = 20u;
 // Always zero; the device cannot see that it is.
 const ZERO: u32 = 21u;
 const CROWN_FLUTE: u32 = 22u;
+// After the crown's eight flute words.
+const BELLOWS_CHEEK_RISE: u32 = 30u;
 
 // Floats per vertex in a shell's turn table, and where its extra value sits.
 const TURN_WORDS: u32 = 8u;
 const TURN_EXTRA: u32 = 6u;
+// A visor vertex's bellows fold relief, computed with the design on the host.
+const TURN_BELLOWS: u32 = 7u;
 
 // The wearer's sections follow the frame in the fit buffer.
 const PROFILE: u32 = 16u;
@@ -361,8 +365,10 @@ fn visor_y(turn: Turn, t: f32) -> f32 {
         return host_add(top, host_div(host_mul(host_sub(eye, top), t), SIGHT_T));
     }
     let bottom = host_mul(-half_height(), VISOR_LOWER_EDGE_HEAD_RATIO);
-    let fall = host_mul(host_sub(bottom, eye), host_sub(t, SIGHT_T));
-    return host_add(eye, host_div(fall, host_sub(1.0, SIGHT_T)));
+    let down = host_div(host_sub(t, SIGHT_T), host_sub(1.0, SIGHT_T));
+    // A bellows face sweeps upward toward either cheek hinge.
+    let sweep = host_mul(host_mul(design[BELLOWS_CHEEK_RISE], down), exact_square(turn.s));
+    return host_add(host_add(eye, host_mul(host_sub(bottom, eye), down)), sweep);
 }
 
 // The pierced lifting visor two gauges out, its ridge and sight ledge
@@ -392,6 +398,7 @@ fn visor_point(index: u32, t: f32) -> vec3<f32> {
         ),
     );
     p.z = host_add(p.z, host_mul(host_mul(design[SIGHT_LEDGE], ledge), front));
+    p.z = host_add(p.z, host_mul(table(index, TURN_BELLOWS), front));
     return p;
 }
 

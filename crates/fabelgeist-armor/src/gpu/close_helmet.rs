@@ -80,7 +80,8 @@ impl Role {
     }
 
     /// Each vertex's turns: the sine and cosine of its design angle and of a
-    /// finite-difference sample either side, then one more design value.
+    /// finite-difference sample either side, then one more design value and
+    /// a visor vertex's bellows relief.
     fn turns(self, coord: [f32; 4], d: &CloseHelmetDesign) -> [f32; TURN_WORDS] {
         let around = |angle: f32| {
             [
@@ -88,6 +89,10 @@ impl Role {
                 angle + NORMAL_SAMPLE_ANGLE,
                 angle - NORMAL_SAMPLE_ANGLE,
             ]
+        };
+        let bellows = match self {
+            Self::Visor => d.bellows.map_or(0.0, |bellows| bellows.relief(coord[1])),
+            _ => 0.0,
         };
         let (angles, extra) = match self {
             Self::Skull if coord[3] == KIND_JAW_ROW => ([coord[0]; 3], 0.0),
@@ -108,6 +113,7 @@ impl Role {
             words[2 * k + 1] = angle.cos();
         }
         words[TURN_WORDS - 2] = extra;
+        words[TURN_WORDS - 1] = bellows;
         words
     }
 }
@@ -265,6 +271,7 @@ fn design_words(d: &CloseHelmetDesign) -> Vec<f32> {
         0.0,
     ];
     words.extend(flute_words(d.crown.fluting.as_ref()));
+    words.push(d.bellows.map_or(0.0, |bellows| bellows.cheek_rise.metres()));
     words
 }
 

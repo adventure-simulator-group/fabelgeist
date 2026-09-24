@@ -16,7 +16,6 @@ impl HelmetDesign {
     pub fn device_unsupported(&self) -> Option<&'static str> {
         match self {
             Self::Burgonet(d) if d.buffe.is_some() => Some("a burgonet's buffe"),
-            Self::CloseHelmet(d) if d.bellows.is_some() => Some("a bellows visor"),
             _ => None,
         }
     }
