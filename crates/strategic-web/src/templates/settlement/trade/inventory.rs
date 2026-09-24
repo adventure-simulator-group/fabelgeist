@@ -30,6 +30,7 @@ pub(super) fn encumbrance_meter(summary: EncumbranceSummary) -> Markup {
     );
     html! {
         div class="encumbrance" {
+            p class="encumbrance-reading" { "Load " (format!("{:.1} / {:.1} kg · {:.0}% encumbrance", summary.burden_kg, summary.capacity_kg, penalty_percent)) }
             div class="encumbrance-visual" {
                 div class="encumbrance-meter"
                     tabindex="0"
@@ -39,7 +40,7 @@ pub(super) fn encumbrance_meter(summary: EncumbranceSummary) -> Markup {
                     aria-valuemin="0"
                     aria-valuemax="100"
                     aria-valuenow=(format!("{penalty_percent:.1}"))
-                    aria-valuetext=(accessible_text) {
+                    aria-valuetext=(&accessible_text) {
                     span class="encumbrance-marker"
                         style=(format!("--encumbrance-position: {penalty_percent:.4}%")) {}
                 }

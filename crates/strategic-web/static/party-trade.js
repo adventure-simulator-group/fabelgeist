@@ -41,31 +41,6 @@ function changeTradeDraftCount(row, change) {
 
 function mountInventoryBulkControls(root = document) {
   if (!root?.querySelectorAll) root = document;
-  const browsers = root.matches?.("[data-inventory-browser]") ? [root] : [...root.querySelectorAll("[data-inventory-browser]")];
-  const closestBrowser = root.closest?.("[data-inventory-browser]");
-  if (closestBrowser && !browsers.includes(closestBrowser)) browsers.push(closestBrowser);
-
-  browsers.forEach((browser) => {
-    const placeAtStart = Boolean(browser.closest(".right-sidebar"));
-    const headerRow = browser.querySelector(".trade-inventory-table thead tr");
-    const headerCell = headerRow?.querySelector(":scope > .inventory-actions-header");
-    const actionColumn = browser.querySelector(".trade-inventory-table colgroup .inventory-column-actions");
-    if (headerCell) headerRow[placeAtStart ? "prepend" : "append"](headerCell);
-    if (actionColumn) actionColumn.parentElement[placeAtStart ? "prepend" : "append"](actionColumn);
-
-    browser.querySelectorAll("tbody > tr.trade-inventory-row:not(.inventory-detail-row)").forEach((row) => {
-      let cell = row.querySelector(":scope > .inventory-actions-cell");
-      if (!cell) {
-        cell = document.createElement("td");
-        cell.className = "inventory-actions-cell";
-        cell.setAttribute("aria-label", "Item actions");
-      }
-      const actions = row.querySelector(".inventory-row-actions");
-      if (actions && actions.parentElement !== cell) cell.append(actions);
-      row[placeAtStart ? "prepend" : "append"](cell);
-    });
-  });
-
   root.querySelectorAll(".inventory-footer-actions").forEach((actions) => {
     if (actions.closest(".inventory-actions-header")) return;
     const inventoryRegion = actions.closest(".encumbrance-inventory-rail, .smith-wares-scroll, .sidebar-section");

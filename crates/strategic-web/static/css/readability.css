@@ -1,6 +1,6 @@
 /* Plain reading surfaces and controls beneath the illustrated place signs. */
 body { font-size: 1.0625rem; }
-input, select, textarea, output, table, dl, .workspace-bar, .tab-list,
+input, select, textarea, output, table, dl, .tab-list,
 .small-copy, .rest-service-copy, .candidate-portrait-background {
   font-family: var(--font-ui);
   font-variant-numeric: lining-nums tabular-nums;
@@ -58,3 +58,7 @@ table, dl, output, .small-copy, .rest-service-copy { font-size: .875rem; line-he
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+.settlement-rest-duration .rest-days-control { grid-template-columns: minmax(5rem, 1fr) auto; padding-right: .75rem; }
+.settlement-rest-duration .rest-days-control input { width: 100%; min-height: 2.5rem; font: 1rem var(--font-ui); }
+.trade-inventory-table td { padding-block: .25rem; }

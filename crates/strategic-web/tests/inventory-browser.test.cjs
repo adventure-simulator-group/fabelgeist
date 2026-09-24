@@ -90,13 +90,6 @@ test("bulk controls mount inside a semantic header cell", () => {
   assert.doesNotMatch(source, /headerRow\.append\(actions\)/);
 });
 
-test("row controls mount in center-facing action cells", () => {
-  const source = fs.readFileSync(path.join(__dirname, "../static/party-trade.js"), "utf8");
-  assert.match(source, /createElement\("td"\)/);
-  assert.match(source, /cell\.className = "inventory-actions-cell"/);
-  assert.match(source, /row\[placeAtStart \? "prepend" : "append"\]\(cell\)/);
-});
-
 test("dynamic transfer routing survives glyph replacement", () => {
   const source = fs.readFileSync(path.join(__dirname, "../static/party-trade.js"), "utf8");
   assert.match(source, /const dynamicTransfer = event\.target\.closest\?\.\("\[data-dynamic-transfer\]"\)/);
@@ -242,7 +235,7 @@ test("rail measurement includes nested joinery and stabilizes after resizing", (
   const browser = {
     closest: selector => selector === "[hidden]" ? null : aside,
     getBoundingClientRect: () => ({ width: railWidth - 48 }),
-    querySelector: () => ({ getBoundingClientRect: () => ({ width: tableWidth }) }),
+    querySelector: () => ({ style: {}, getBoundingClientRect: () => ({ width: tableWidth }) }),
   };
   try {
     syncPanelWidth(browser);

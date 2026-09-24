@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=UnifrakturCook:wght@700&display=swap');
 
 :root {
+  --stat-current-color: color-mix(in srgb, var(--accent-dark) 85%, #000);
+  --stat-damage-color: color-mix(in srgb, var(--danger) 70%, #fff);
   color-scheme: dark;
   /* Roman lettering for controls, book type for reading, blackletter accents. */
   --font-display:'UnifrakturCook', 'Old English Text MT', serif;

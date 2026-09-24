@@ -281,8 +281,8 @@ test('slot chooser uses an icon cell, an X close control, and red invalid-key fe
 
   const result = chooseSlot(control);
   const dialog = document.querySelector('.equipment-slot-modal');
-  assert.equal(dialog.querySelector('h2'), null);
-  assert.equal(dialog.querySelector('p'), null);
+  assert.equal(dialog.querySelector('h2').textContent, 'Choose equipment placement');
+  assert.match(dialog.querySelector('p').textContent, /Select a named slot/);
   assert.equal(dialog.querySelector('.equipment-slot-cancel'), null);
   assert.equal(
     dialog.querySelector('.equipment-slot-close').getAttribute('aria-label'),

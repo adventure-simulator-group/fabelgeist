@@ -158,7 +158,8 @@ Iconify metadata does not preserve per-glyph authorship or CC0 status.
 
 Vendored icon names:
 
-acrobatic, ancient-sword, anvil, arm, arm-bandage, armor-cuisses, armor-vest,
+acrobatic, anatomical-head, ancient-sword, anvil, arm, arm-bandage, armor-cuisses,
+armor-vest,
 awareness, bandage-roll, barbute, bed, beer-stein, belt-armor, biceps,
 bleeding-eye, bleeding-wound, bo, bordered-shield, bow-arrow, bowie-knife,
 bracer, brain, bread, breastplate, broad-dagger, broadsword, brodie-helmet,
@@ -170,7 +171,8 @@ gothic-cross, greaves, halberd, hammer-nails, hammer-sickle, heart-beats,
 heart-minus, heavy-helm, helmet, help, holy-symbol, hood, house, human-ear,
 inner-self, juggler, knapsack, layered-armor, leg, light-helm, lockpicks,
 mailed-fist, mail-shirt, meal, medical-pack, metal-skirt, mounted-knight,
-musket, night-sleep, open-book, open-chest, person, piercing-sword, plain-arrow,
+muscular-torso, musket, night-sleep, open-book, open-chest, person,
+piercing-sword, plain-arrow,
 plain-dagger, pocket-bow, prayer, pteruges, relic-blade, rifle, roman-shield,
 rose, round-shield, running-ninja, saber-slash, samara-mosque, scales, scalpel,
 shield, shield-echoes, shirt, shop, skirt, sleeveless-jacket, spear-hook,
@@ -180,7 +182,8 @@ torch, treasure-map, trousers, two-handed-sword, visored-helm, warhammer,
 water-bottle, water-drop, waterskin, weight, wingfoot, wood-axe, wood-club.
 
 The files in `crates/strategic-web/static/icons/game/` were converted from
-Iconify JSON bodies into standalone SVGs without altering the artwork. CSS
+Iconify JSON bodies into standalone SVGs. The anatomical-head variant removes the targeting
+reticle from Game Icons headshot; other artwork is unchanged. CSS
 masks supply colour at runtime.
 
 ## Font Awesome Free

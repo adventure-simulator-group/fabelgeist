@@ -59,6 +59,6 @@ test("fireplace inventory exposes food and instrument exchanges", () => {
 
 test("environmental fireplace survives dynamic NPC loading", () => {
   assert.match(dialogue, /querySelectorAll\("\[data-location-fixture\]"\)/);
-  assert.match(dialogue, /replaceChildren\(\.\.\.buttons, \.\.\.locationFixtures\)/);
+  assert.match(dialogue, /replaceChildren\(\.\.\.portraits, \.\.\.locationFixtures\)/);
   assert.match(template, /data-cooking-activity\[dish\.is_none\(\)\]/);
 });

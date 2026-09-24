@@ -28,7 +28,7 @@ test("page lifecycle resets permanent services and remounts idempotent modules",
     "inventory-browser", "live-regions", "local-chat",
     "party-notifications", "party-recruitment", "physical-evidence",
     "rest-duration", "service-quests", "strategic-map", "strategic-time",
-    "training-schedule", "travel-planner", "chat-resize",
+    "training-schedule", "travel-planner", "chat-resize", "chat-dock",
   ]) {
     assert.match(read(name), /strategic-page-mounted/, `${name} remount`);
   }
@@ -45,7 +45,7 @@ test("page lifecycle resets permanent services and remounts idempotent modules",
   assert.match(read("party-recruitment"), /!overlay\.isConnected/);
   const resize = read("chat-resize");
   for (const token of [
-    "--chat-height", "--chat-panel-height", "CHAT_BOTTOM_GAP",
+    "--chat-height", "--chat-dock-height", "CHAT_BOTTOM_GAP",
     "chat-resizing", "is-resizing", "setPointerCapture",
   ]) assert.ok(resize.includes(token), `chat resize ${token}`);
 });

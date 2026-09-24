@@ -1,7 +1,7 @@
 (() => {
   const STORAGE_KEY = "adventuresim.chat-height";
-  const DESKTOP_MIN_HEIGHT = 128;
-  const MOBILE_MIN_HEIGHT = 160;
+  const DESKTOP_MIN_HEIGHT = 224;
+  const MOBILE_MIN_HEIGHT = 224;
   const MIN_STAGE_HEIGHT = 260;
   const CHAT_BOTTOM_GAP = 5;
   const KEYBOARD_STEP = 24;
@@ -17,17 +17,17 @@
     unmount();
     lifecycle = new AbortController();
     const { signal } = lifecycle;
-    const chat = document.querySelector("#strategic-page .settlement-chat");
+    const chat = document.querySelector("#strategic-page [data-chat-dock] .settlement-chat");
     const handle = chat?.querySelector(".settlement-chat-resize");
-    const container = chat?.closest(".settlement-main");
+    const container = chat?.closest("#strategic-page");
     if (!chat || !handle || !container) return;
     activeHandle = handle;
     const minimum = () => matchMedia("(max-width: 768px)").matches ? MOBILE_MIN_HEIGHT : DESKTOP_MIN_HEIGHT;
-    const maximum = () => Math.max(minimum(), container.clientHeight - MIN_STAGE_HEIGHT - CHAT_BOTTOM_GAP);
+    const maximum = () => Math.max(minimum(), innerHeight - MIN_STAGE_HEIGHT - CHAT_BOTTOM_GAP);
     const setHeight = (height, persist = true) => {
       const value = Math.round(Math.max(minimum(), Math.min(maximum(), height)));
       chat.style.setProperty("--chat-height", `${value}px`);
-      container.style.setProperty("--chat-panel-height", `${value}px`);
+      container.style.setProperty("--chat-dock-height", `${value}px`);
       handle.setAttribute("aria-valuemin", String(minimum()));
       handle.setAttribute("aria-valuenow", String(value));
       handle.setAttribute("aria-valuemax", String(Math.round(maximum())));

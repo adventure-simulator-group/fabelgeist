@@ -3,11 +3,12 @@
 #[cfg(test)]
 use appearance::WildernessVariant;
 mod appearance;
+mod controls;
 mod shell;
-mod workspace;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
 use appearance::{building_tier, wilderness_variant};
+use controls::{character_switcher, journal_button};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 use shell::{ScriptProfile, page_shell};
 
@@ -553,42 +554,6 @@ fn camp_flame_effect() -> Markup {
             @for (cx, cy, radius, drift, delay, duration) in particles {
                 circle class="fire-particle" cx=(cx) cy=(cy) r=(radius)
                     style=(format!("--fire-drift:{drift}px;animation-delay:{delay}s;animation-duration:{duration}s")) {}
-            }
-        }
-    }
-}
-
-fn character_switcher(name: &str) -> Markup {
-    let initial = name.chars().next().unwrap_or('?');
-    html! {
-        button type="button" class="developer-mode-toggle" data-developer-mode-toggle
-            aria-label="Enable developer mode" aria-pressed="false" title="Developer mode" {
-            span class="developer-mode-icon" aria-hidden="true" {}
-        }
-        details class="character-switcher" {
-            summary class="character-switcher-toggle"
-                aria-label=(format!("Character menu for {name}")) title=(name) {
-                span class="party-portrait-initial character-switcher-portrait" aria-hidden="true" {
-                    span class="party-portrait-face" { (initial) }
-                }
-            }
-            div class="character-switcher-menu" {
-                div data-character-switcher-options data-character-switcher-url="/characters/menu" {
-                    p class="character-switcher-empty" { "Loading adventurers…" }
-                }
-                a href="/characters/candidates" class="btn btn-small" { "Character select" }
-            }
-        }
-    }
-}
-
-fn journal_button() -> Markup {
-    html! {
-        span class="reference-buttons" {
-            a href="/quests" class="journal-button" data-journal-tab
-                aria-label="Open journal" aria-pressed="false"
-                title="Journal" data-strategic-tooltip="Journal" {
-                span class="journal-button-icon" aria-hidden="true" {}
             }
         }
     }

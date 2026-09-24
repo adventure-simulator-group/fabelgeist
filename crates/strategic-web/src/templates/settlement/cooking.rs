@@ -1,5 +1,6 @@
 //! Fireplace cooking and vessel-custody presentation.
 
+mod inventory;
 mod selection;
 
 use super::{
@@ -190,19 +191,7 @@ pub fn fireplace_page(
                     a class=(if inventory_scope == "party" { "active" } else { "" }) href=(scope_href("party")) aria-current=(if inventory_scope == "party" { "page" } else { "false" }) { "Party" }
                 }
                 @if dish.is_none() {
-                    div data-inventory-browser="cooking-inventory-right" {
-                        table class="trade-inventory-table" { tbody {
-                            @if inventory_scope == "personal" {
-                                @for item in personal_inventory.iter().filter(|row| row.quantity > 0) {
-                                    (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, personal_amounts.iter().find(|a| a.inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.inventory_item_id == Some(item.id)), definitions, instrument))
-                                }
-                            } @else {
-                                @for item in party_inventory.iter().filter(|row| row.quantity > 0) {
-                                    (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, party_amounts.iter().find(|a| a.party_inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.party_inventory_item_id == Some(item.id)), definitions, instrument))
-                                }
-                            }
-                        } }
-                    }
+                    (inventory::available(action_base, inventory_scope, personal_inventory, party_inventory, personal_amounts, party_amounts, food_lots, definitions, instrument))
                 }
             }))
         }
