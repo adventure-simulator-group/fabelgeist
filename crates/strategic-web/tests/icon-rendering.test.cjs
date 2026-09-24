@@ -108,7 +108,7 @@ test("travel provisioning keeps target math without forecast prose", () => {
 
 test("merchant provisioning initializes only once the Party tab DOM exists", () => {
   const trade = fs.readFileSync(path.join(staticRoot, "static", "party-trade.js"), "utf8");
-  const layout = fs.readFileSync(path.join(staticRoot, "src", "templates", "layout.rs"), "utf8");
+  const layout = readRustModuleSource(path.join(staticRoot, "src", "templates", "layout.rs"));
   assert.match(layout, /party-trade\.js[^\n]+defer/);
   assert.match(trade, /DOMContentLoaded", initializeProvisioningDraft, \{ once: true \}/);
   assert.match(trade, /selectMerchantInventoryScope\(partyTab\)/);

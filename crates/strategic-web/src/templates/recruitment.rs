@@ -1,3 +1,4 @@
+mod preferences;
 use adventuresim_core::strategic_schedule::CombatTrainingProfile;
 use maud::{Markup, html};
 
@@ -204,24 +205,7 @@ pub fn recruitment_panel(
                                 }
                             }
                         }
-                        details class="role-preferences" {
-                            summary { "Preferred abilities (optional)" }
-                        div class="role-requirements-heading" {
-                            h3 { "Individual recommendations" }
-                            p { "Applicants may still request to join if they fall short." }
-                        }
-                        div class="role-requirement-columns role-requirement-columns-individual" {
-                            (combat_requirements())
-                            div class="role-requirement-group" {
-                                header class="role-requirement-heading" {
-                                    h3 { "Mobility" }
-                                    p { "Movement and sustained physical capability" }
-                                }
-                                (numeric_requirement("athletics", "Athletics"))
-                                (numeric_requirement("endurance", "Endurance"))
-                            }
-                        }
-                        }
+                        (preferences::preferences())
                         footer class="role-builder-footer" {
                             span class="small-copy text-muted" data-role-builder-help { "Choose how many openings this role should advertise." }
                             button type="submit" class="btn btn-primary" data-role-builder-submit { "Add role" }

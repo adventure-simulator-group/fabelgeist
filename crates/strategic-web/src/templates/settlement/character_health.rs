@@ -1,3 +1,4 @@
+mod notebook;
 use adventuresim_core::surgery::SurgeryProcedure;
 use maud::{Markup, html};
 
@@ -879,7 +880,6 @@ pub(super) fn physiology_dialog(
                         @let first_minute = medical.readings.first().map_or(0, |reading| reading.minute);
                         @let last_minute = medical.readings.last().map_or(first_minute, |reading| reading.minute);
                         @let latest = medical.readings.last().expect("nonempty chart");
-                        p class="medical-observation-summary" { (medical.readings.len()) " observations · latest confidence " (latest.confidence_bps / 100) "%. " @if medical.readings.len() == 1 { "One observation cannot establish a trend." } " Possible diseases are estimates, not confirmed diagnoses." }
                         section class="physiology-trend-panel" aria-labelledby="physiology-trend-title" {
                             div class="physiology-section-heading" {
                                 div {
@@ -901,20 +901,7 @@ pub(super) fn physiology_dialog(
                                     }
                                 }
                             }
-                            div class="physiology-differential" {
-                                div {
-                                    strong { "Possible diseases" }
-                                    span { "Colour confidence improves with skill and observation." }
-                                }
-                                ul aria-label="Possible diseases ordered by estimated likelihood" {
-                                    @for (candidate_index, candidate) in latest.possible_diseases.iter().enumerate() {
-                                        @let tooltip_id = format!(
-                                            "{dialog_id}-disease-effects-{candidate_index}"
-                                        );
-                                        (physiology_likelihood(candidate, &tooltip_id))
-                                    }
-                                }
-                            }
+                            (notebook::overview(medical, dialog_id, latest))
                             ul class="physiology-trend-annotation-key" aria-label="Timeline annotations" {
                                 li { i class="physiology-baseline-key" aria-hidden="true" {} "Healthy baseline" }
                                 li { i class="physiology-event-key physiology-event-start" aria-hidden="true" {} "Medication start" }
@@ -1940,7 +1927,7 @@ mod tests {
         };
         let markup =
             physiology_dialog(&presentation, "physiology-chart-dialog", "Patient").into_string();
-        assert!(markup.contains("No authorized shared-presence readings."));
+        assert!(markup.contains("No observations have been recorded while you were together."));
         assert!(markup.contains("data-physiology-dialog"));
         assert!(markup.contains("aria-labelledby=\"physiology-dialog-title\""));
         assert!(!markup.contains("Examine"));

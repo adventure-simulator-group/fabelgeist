@@ -1,3 +1,4 @@
+const { readRustModuleSource } = require("./rust-module-source.cjs");
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -90,7 +91,7 @@ test("ordinary strategic modules never reload or assign the document", () => {
 test("strategic renderer keeps one fullscreen surface and sends typed scene commands", () => {
   const renderer = fs.readFileSync("crates/strategic-web/static/strategic-renderer.js", "utf8");
   const css = fs.readFileSync("crates/strategic-web/static/css/strategic.css", "utf8");
-  const layout = fs.readFileSync("crates/strategic-web/src/templates/layout.rs", "utf8");
+  const layout = readRustModuleSource("crates/strategic-web/src/templates/layout.rs");
 
   assert.match(renderer, /type: "show-strategic-scene"/);
   assert.match(renderer, /scene: \{ type: "forge"/);

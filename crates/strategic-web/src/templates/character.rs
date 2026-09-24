@@ -758,7 +758,8 @@ mod creation_tests {
         assert!(markup.contains("candidate-inventory-action"));
         assert!(!markup.contains("class=\"schedule-section-heading\""));
         assert!(!markup.contains("data-skill-schedule"));
-        assert!(!markup.contains("data-candidate-confirm-form"));
+        assert!(markup.contains("data-candidate-confirm-form"));
+        assert!(markup.contains("name=\"slot\" value=\"0\""));
         assert!(!markup.contains("name=\"name\""));
     }
 
