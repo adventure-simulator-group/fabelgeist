@@ -259,6 +259,7 @@ mod tests {
 
     fn input() -> DrapeInput {
         DrapeInput {
+            under_plate: None,
             selection: GarmentSelection::chainmail(),
             settled: None,
             obstacles: vec![],

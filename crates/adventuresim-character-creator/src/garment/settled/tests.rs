@@ -40,6 +40,7 @@ fn sphere(radius: f32, center: Vec3) -> (Vec<[f32; 3]>, Vec<[u32; 3]>) {
 fn wearer(positions: Vec<[f32; 3]>, faces: Vec<[u32; 3]>) -> DrapeInput {
     let count = positions.len();
     DrapeInput {
+        under_plate: None,
         selection: GarmentSelection::default(),
         settled: None,
         obstacles: vec![],

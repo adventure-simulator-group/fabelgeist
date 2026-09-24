@@ -54,6 +54,21 @@ impl Trim {
             .clamp(Engraving::MIN_TILES, Engraving::MAX_TILES)
     }
 
+    /// The same finish on a band `width` wide, its ornament shrunk in
+    /// proportion so that it still spans the band.
+    pub fn narrowed(&self, width: f32) -> Self {
+        let mut narrowed = self.clone();
+        if width < self.width {
+            let scale = self.width / width;
+            if let Some(engraving) = &mut narrowed.metal.engraving {
+                engraving.tiles =
+                    (engraving.tiles * scale).clamp(Engraving::MIN_TILES, Engraving::MAX_TILES);
+            }
+            narrowed.width = width;
+        }
+        narrowed
+    }
+
     fn tiles(&self) -> f32 {
         self.metal.engraving.as_ref().map_or(1.0, |e| e.tiles)
     }
@@ -69,6 +84,19 @@ impl Trim {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_narrowed_band_shrinks_its_ornament_with_it() {
+        let mut trim = Trim::default();
+        trim.metal.engraving = Some(Engraving {
+            tiles: 4.0,
+            ..Engraving::new("border.png")
+        });
+        let narrow = trim.narrowed(trim.width * 0.25);
+        assert_eq!(narrow.width, trim.width * 0.25);
+        assert_eq!(narrow.metal.engraving.unwrap().tiles, 16.0);
+        assert_eq!(trim.narrowed(trim.width * 2.0), trim);
+    }
 
     #[test]
     fn the_ornament_repeats_once_per_engraving_cell() {

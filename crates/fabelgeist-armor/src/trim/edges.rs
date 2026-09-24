@@ -4,6 +4,10 @@
 //! an edge wall, a seam between two charts, a crease. The rims are therefore
 //! found on the positions welded together, where the outer face is one
 //! surface whose boundary edges are used by a single outer triangle.
+//!
+//! A point measures only to the rims of its own plate: the connected part of
+//! the welded mesh it lies on. Overlapping plates, such as scales, lie within
+//! a few millimetres of each other's edges, which are not theirs.
 
 use std::collections::{BTreeMap, BTreeSet, HashMap};
 
@@ -30,6 +34,7 @@ struct Segment {
     ends: [[f32; 3]; 2],
     along: [f32; 2],
     closure: f32,
+    plate: u32,
 }
 
 /// Every rim of a piece as segments, bucketed on a grid one band wide.
@@ -37,6 +42,8 @@ pub(super) struct Rims {
     segments: Vec<Segment>,
     cells: HashMap<[i32; 3], Vec<u32>>,
     reach: f32,
+    /// Each vertex's plate.
+    plates: Vec<u32>,
 }
 
 impl Rims {
@@ -47,10 +54,12 @@ impl Rims {
         band: TrimBand,
     ) -> Self {
         let (welded, points) = weld(positions);
+        let plate_of_point = plates(indices, &welded, points.len());
         let mut rims = Self {
             segments: Vec::new(),
             cells: HashMap::new(),
             reach: band.width.max(THICKEST_PLATE),
+            plates: welded.iter().map(|w| plate_of_point[*w as usize]).collect(),
         };
         for chain in chains(&rim_edges(indices, faces, &welded)) {
             rims.push_chain(
@@ -58,18 +67,27 @@ impl Rims {
                     .iter()
                     .map(|i| points[*i as usize])
                     .collect::<Vec<_>>(),
+                plate_of_point[chain[0] as usize],
                 band,
             );
         }
         rims
     }
 
-    /// The nearest rim point within reach of `point`: one band width, or
-    /// one plate thickness when that is more.
-    pub(super) fn nearest(&self, point: [f32; 3]) -> Option<Nearest> {
+    /// The plate `vertex` lies on.
+    pub(super) fn plate(&self, vertex: u32) -> u32 {
+        self.plates[vertex as usize]
+    }
+
+    /// The nearest rim point of `plate` within reach of `point`: one band
+    /// width, or one plate thickness when that is more.
+    pub(super) fn nearest(&self, point: [f32; 3], plate: u32) -> Option<Nearest> {
         let mut best: Option<Nearest> = None;
         for &index in self.cells.get(&self.cell(point))?.iter() {
             let segment = &self.segments[index as usize];
+            if segment.plate != plate {
+                continue;
+            }
             let [a, b] = segment.ends;
             let ab = sub(b, a);
             let length = dot(ab, ab);
@@ -95,8 +113,8 @@ impl Rims {
         point.map(|x| (x / self.reach).floor() as i32)
     }
 
-    /// Add one rim, a polyline that is closed when its ends meet.
-    fn push_chain(&mut self, points: &[[f32; 3]], band: TrimBand) {
+    /// Add one rim of `plate`, a polyline that is closed when its ends meet.
+    fn push_chain(&mut self, points: &[[f32; 3]], plate: u32, band: TrimBand) {
         let mut along = vec![0.0f32];
         for pair in points.windows(2) {
             let step = sub(pair[1], pair[0]);
@@ -129,6 +147,7 @@ impl Rims {
                 ends: [pair[0], pair[1]],
                 along: [span[0] * scale, span[1] * scale],
                 closure,
+                plate,
             });
         }
     }
@@ -149,6 +168,27 @@ fn weld(positions: &[[f32; 3]]) -> (Vec<u32>, Vec<[f32; 3]>) {
         })
         .collect();
     (welded, points)
+}
+
+/// The plate of each of `count` welded points: the connected parts of the
+/// welded mesh, each named by its lowest point.
+fn plates(indices: &[u32], welded: &[u32], count: usize) -> Vec<u32> {
+    let mut parent = (0..count as u32).collect::<Vec<_>>();
+    fn root(parent: &mut [u32], mut point: u32) -> u32 {
+        while parent[point as usize] != point {
+            parent[point as usize] = parent[parent[point as usize] as usize];
+            point = parent[point as usize];
+        }
+        point
+    }
+    for triangle in indices.as_chunks::<3>().0 {
+        let [a, b, c] = triangle.map(|i| welded[i as usize]);
+        for (x, y) in [(a, b), (b, c)] {
+            let (x, y) = (root(&mut parent, x), root(&mut parent, y));
+            parent[x.max(y) as usize] = x.min(y);
+        }
+    }
+    (0..count as u32).map(|p| root(&mut parent, p)).collect()
 }
 
 /// The outer face's boundary edges between welded points, directed as the
@@ -243,19 +283,30 @@ mod tests {
             segments: Vec::new(),
             cells: HashMap::new(),
             reach: 0.1,
+            plates: Vec::new(),
         };
         let band = TrimBand {
             width: 0.1,
             period: 0.3,
         };
-        rims.push_chain(&[square.as_slice(), &square[..1]].concat(), band);
+        rims.push_chain(&[square.as_slice(), &square[..1]].concat(), 0, band);
         // On the last side, running from (0, 1) back to the origin, 3.05 m
         // round before stretching.
-        let near = rims.nearest([0.02, 0.95, 0.0]).unwrap();
+        let near = rims.nearest([0.02, 0.95, 0.0], 0).unwrap();
         assert!((near.closure - 3.9).abs() < 1e-5);
         assert!((near.distance - 0.02).abs() < 1e-6);
         assert!((near.along - 3.05 * 3.9 / 4.0).abs() < 1e-5);
-        assert!(rims.nearest([0.5, 0.5, 0.0]).is_none());
+        assert!(rims.nearest([0.5, 0.5, 0.0], 0).is_none());
+        // Another plate's rim is not this one's, however close.
+        assert!(rims.nearest([0.02, 0.95, 0.0], 1).is_none());
+    }
+
+    #[test]
+    fn plates_are_the_connected_parts_of_the_welded_mesh() {
+        // Two triangles sharing an edge, and one apart.
+        let indices = [0, 1, 2, 2, 1, 3, 4, 5, 6];
+        let welded = [0, 1, 2, 3, 4, 5, 6];
+        assert_eq!(plates(&indices, &welded, 7), [0, 0, 0, 0, 4, 4, 4]);
     }
 
     #[test]

@@ -305,6 +305,10 @@ pub(crate) fn enter_or_leave(
 }
 
 /// Fit the pieces that need it and spawn their preview meshes.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects the armory, studio, model, catalog, scene, queries and UI context"
+)]
 pub(crate) fn refit(
     mut armory: ResMut<Armory>,
     mut studio: ResMut<Studio>,
@@ -313,8 +317,9 @@ pub(crate) fn refit(
     mut scene: PreviewScene,
     old: Query<(Entity, &ArmoryMesh)>,
     bodies: Query<Entity, With<ArmoryBody>>,
+    mut contexts: EguiContexts,
 ) {
-    if studio.tab != studio_ui::StudioTab::Armory {
+    if studio.tab != studio_ui::StudioTab::Armory || studio_generation::dragging(&mut contexts) {
         return;
     }
     let started = std::time::Instant::now();

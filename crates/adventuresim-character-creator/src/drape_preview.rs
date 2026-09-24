@@ -14,6 +14,9 @@ const MAIL_MATERIAL_CACHE: usize = 4;
 pub struct DrapeJob {
     worker: DrapeWorker<InventoryItemId>,
     pub ready: Option<Vec<DrapedGarment>>,
+    /// Drape again at the next regeneration, even if nothing it lies on
+    /// changed.
+    again: bool,
 }
 
 impl DrapeJob {
@@ -23,9 +26,15 @@ impl DrapeJob {
         self.ready = None;
     }
 
-    /// Make the next request simulate every stage again.
+    /// Make the next request simulate every stage again, and make one.
     pub fn restart_from_placement(&mut self) {
         self.worker.restart_from_placement();
+        self.again = true;
+    }
+
+    /// Whether a drape was asked for again since the last request.
+    pub fn take_again(&mut self) -> bool {
+        std::mem::take(&mut self.again)
     }
 
     /// Whether a drape is queued or running. Only this holds back animation and
@@ -130,6 +139,7 @@ pub fn input(
 ) -> DrapeInput {
     let character = &model.mhr.character;
     DrapeInput {
+        under_plate: None,
         selection,
         settled: None,
         obstacles: vec![],

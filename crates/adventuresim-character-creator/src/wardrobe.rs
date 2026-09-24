@@ -97,6 +97,7 @@ mod tests {
     fn garment() -> SettledGarment {
         let positions = vec![[0., 0., 0.], [1., 0., 0.], [0., 0., 1.], [0., -1., 0.]];
         let input = DrapeInput {
+            under_plate: None,
             selection: GarmentSelection::default(),
             settled: None,
             obstacles: vec![],

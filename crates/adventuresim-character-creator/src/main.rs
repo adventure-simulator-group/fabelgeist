@@ -42,6 +42,7 @@ mod metal_controls;
 mod metal_preview;
 mod ornament_controls;
 mod outfit;
+mod studio_cache;
 mod studio_overlay;
 mod studio_theme;
 mod studio_ui;
@@ -269,6 +270,7 @@ fn run_studio(
         .init_resource::<studio_scene::CharacterBounds>()
         .init_resource::<studio_scene::ShotRequest>()
         .init_resource::<armory::Armory>()
+        .init_resource::<studio_cache::StudioCache>()
         .init_resource::<wardrobe_tab::WardrobeTab>()
         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
         .add_systems(

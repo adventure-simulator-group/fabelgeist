@@ -9,13 +9,14 @@ pub(super) fn prepare<'a>(
     loadout: &Loadout<'_>,
     generated: &GeneratedCharacter,
     fitted: Option<&'a [DrapedGarment]>,
+    lining: Option<&std::sync::Arc<adventuresim_character_creator::garment::PlateLining>>,
 ) -> (Cow<'a, [DrapedGarment]>, Vec<String>) {
     let (garments, mut warnings) = match fitted {
         Some(fitted) => (Cow::Borrowed(fitted), Vec::new()),
         None if loadout.draped.is_empty() => (Cow::Borrowed(&[][..]), Vec::new()),
         None => {
             let outcome = adventuresim_character_creator::garment::drape_outfit(
-                outfit::drape_inputs(model, generated, loadout)
+                outfit::drape_inputs(model, generated, loadout, lining)
                     .into_iter()
                     .map(|(_, input)| input)
                     .collect(),

@@ -13,9 +13,12 @@ pub(super) fn export_character(
 ) -> Result<Vec<String>> {
     let loadout = outfit::loadout(recipe, catalog)?;
     let generated = generate_character(model, recipe)?;
-    let (fitted, mut warnings) = draped::prepare(model, &loadout, &generated, fitted);
-    warnings.extend(draped::validate(model, &generated, &fitted));
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
+    let armor = parametric_equipment::selected(model, &generated, &loadout, &morphs.samples)?;
+    let lining = outfit::lining(armor.iter().map(|piece| (&piece.piece, &piece.generated)));
+    let (fitted, mut warnings) =
+        draped::prepare(model, &loadout, &generated, fitted, lining.as_ref());
+    warnings.extend(draped::validate(model, &generated, &fitted));
     let body_targets = morphs
         .body
         .iter()
@@ -28,7 +31,6 @@ pub(super) fn export_character(
         .iter()
         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
         .collect::<Vec<_>>();
-    let armor = parametric_equipment::selected(model, &generated, &loadout, &morphs.samples)?;
     let (plate_faces, plate_targets) = piece_geometry(&armor, |piece| Some(&piece.generated));
     let (lacing_faces, lacing_targets) =
         piece_geometry(&armor, |piece| piece.lacing.as_ref().map(|l| &l.generated));

@@ -209,7 +209,33 @@ pub(super) struct SelectedArmor<'a> {
     pub lacing: Option<SelectedLacing>,
 }
 
+/// A worn piece built, trimmed and laced, short of the piece it came from.
+#[derive(Clone)]
+pub(super) struct Finish {
+    pub generated: GeneratedArmor,
+    pub trim: Option<SelectedTrim>,
+    pub lacing: Option<SelectedLacing>,
+}
+
+impl<'a> SelectedArmor<'a> {
+    pub(super) fn new(piece: &FittedPiece<'a>, finish: Finish) -> Self {
+        let Finish {
+            generated,
+            trim,
+            lacing,
+        } = finish;
+        Self {
+            name: piece_name(piece),
+            generated,
+            trim,
+            lacing,
+            piece: piece.clone(),
+        }
+    }
+}
+
 /// The band along a worn piece's edges, and how it is shaded.
+#[derive(Clone)]
 pub(super) struct SelectedTrim {
     pub metal: fabelgeist_armor::material::Metal,
     /// Per vertex, at the metal's texture density along each edge.
@@ -218,6 +244,7 @@ pub(super) struct SelectedTrim {
 }
 
 /// The cord lacing a worn piece's small plates, and how it is shaded.
+#[derive(Clone)]
 pub(super) struct SelectedLacing {
     pub generated: GeneratedArmor,
     pub cord: fabelgeist_armor::Lacing,
@@ -272,8 +299,9 @@ fn trim(
     let Some(trim) = piece.decoration.trim.as_ref().filter(|_| is_steel(piece)) else {
         return Ok((generated, None));
     };
+    let trim = piece.construction.trim_on(trim);
     let (generated, texcoords) =
-        adventuresim_character_creator::armor_metal::trimmed(generated, trim)?;
+        adventuresim_character_creator::armor_metal::trimmed(generated, &trim)?;
     Ok((
         generated,
         Some(SelectedTrim {
@@ -284,7 +312,51 @@ fn trim(
     ))
 }
 
-/// Fit every worn parametric catalog item.
+/// The name a worn piece's meshes go by.
+pub(super) fn piece_name(piece: &FittedPiece<'_>) -> String {
+    format!("{}--{}", piece.piece.item.id, piece.piece.placement.id)
+}
+
+/// Whether a worn piece is rigid plate, which garments under it lie beneath.
+pub(super) fn is_rigid(piece: &FittedPiece<'_>) -> bool {
+    piece.piece.placement.outermost_channel()
+        == Some(adventuresim_character_creator::item_catalog_schema::EquipmentChannel::RigidArmor)
+}
+
+/// Fit a worn piece to the wearer and its morph samples.
+pub(super) fn fit(
+    model: &BodyModel,
+    generated: &GeneratedCharacter,
+    piece: &FittedPiece<'_>,
+    morphs: &[ForearmMorphSample],
+) -> Result<GeneratedArmor> {
+    let placement = &piece.piece.placement.id;
+    fitted_catalog_item(
+        model,
+        generated,
+        piece.piece.item,
+        &piece.design,
+        placement,
+        morphs,
+    )
+    .with_context(|| format!("fitting {} ({placement})", piece.piece.item.id))
+}
+
+/// Build, lace and trim a fitted piece as its article asks.
+pub(super) fn finish(piece: &FittedPiece<'_>, fitted: GeneratedArmor) -> Result<Finish> {
+    let name = piece_name(piece);
+    let (plates, lacing) =
+        construct(piece, &name, fitted).with_context(|| format!("building {name}"))?;
+    let (generated, trim) =
+        trim(piece, &name, plates).with_context(|| format!("trimming {name}"))?;
+    Ok(Finish {
+        generated,
+        trim,
+        lacing,
+    })
+}
+
+/// Fit and finish every worn parametric catalog item.
 pub(super) fn selected<'a>(
     model: &BodyModel,
     generated: &GeneratedCharacter,
@@ -295,29 +367,8 @@ pub(super) fn selected<'a>(
         .fitted
         .iter()
         .map(|piece| {
-            let placement = &piece.piece.placement.id;
-            let item_id = &piece.piece.item.id;
-            let name = format!("{item_id}--{placement}");
-            let fitted = fitted_catalog_item(
-                model,
-                generated,
-                piece.piece.item,
-                &piece.design,
-                placement,
-                morphs,
-            )
-            .with_context(|| format!("fitting {item_id} ({placement})"))?;
-            let (plates, lacing) = construct(piece, &name, fitted)
-                .with_context(|| format!("building {item_id} ({placement})"))?;
-            let (generated, trim) = trim(piece, &name, plates)
-                .with_context(|| format!("trimming {item_id} ({placement})"))?;
-            Ok(SelectedArmor {
-                name,
-                generated,
-                trim,
-                lacing,
-                piece: piece.clone(),
-            })
+            let fitted = fit(model, generated, piece, morphs)?;
+            Ok(SelectedArmor::new(piece, finish(piece, fitted)?))
         })
         .collect()
 }

@@ -79,6 +79,10 @@ fn run(
         output.positions = cloth.draw_in(&output.positions, &dressing, &collision, clearance, fit);
     }
     output.positions = cloth.keep_out(&output.positions, &collision, clearance);
+    if let Some(under) = &input.under_plate {
+        // The plate has the last word: cloth it covers lies under it.
+        output.positions = cloth.tuck_under(&output.positions, under);
+    }
     output.normals = output.normals_for(&output.positions);
     (output.indices, output.weights) = transfer_skin(input, &output.positions)?;
     warnings.extend(output.contact_issues(&collision));

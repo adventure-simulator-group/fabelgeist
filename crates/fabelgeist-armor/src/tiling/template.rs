@@ -16,6 +16,13 @@ use crate::{Plate, PlateFace};
 
 /// Sides of the polygon a lacing hole is cut as.
 const HOLE_SIDES: usize = 12;
+/// Spacing of the points seeded inside each face, as a share of the plate's
+/// narrower side. The faces bend with the surface between them, and a trim
+/// band finds its inner border across them.
+const INTERIOR_SPACING: f32 = 0.125;
+/// Seeded points keep this share of their spacing clear of every boundary,
+/// so no sliver forms against it.
+const INTERIOR_CLEARANCE: f32 = 0.4;
 
 /// One corner of the template.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -54,8 +61,9 @@ impl TileTemplate {
             outline.clone()
         };
         let mut template = Self::default();
-        template.face(&cap, &holes, front, PlateFace::Outer)?;
-        template.face(&outline, &holes, back, PlateFace::Inner)?;
+        let spacing = plate.width.min(plate.height) * INTERIOR_SPACING;
+        template.face(&cap, &holes, front, PlateFace::Outer, spacing)?;
+        template.face(&outline, &holes, back, PlateFace::Inner, spacing)?;
         for (a, b) in edges(&outline) {
             template.quad([(a, back), (b, back), (b, rim), (a, rim)]);
         }
@@ -90,13 +98,15 @@ impl TileTemplate {
     }
 
     /// A flat face at height `z` inside `outline` and outside `holes`, facing
-    /// out of the plate. `None` when the holes cross the outline.
+    /// out of the plate, with points seeded `spacing` apart inside it. `None`
+    /// when the holes cross the outline.
     fn face(
         &mut self,
         outline: &[[f32; 2]],
         holes: &[Vec<[f32; 2]>],
         z: f32,
         face: PlateFace,
+        spacing: f32,
     ) -> Option<()> {
         let mut points = Vec::new();
         let mut constraints = Vec::new();
@@ -108,6 +118,9 @@ impl TileTemplate {
             );
             constraints.extend((0..ring.len()).map(|i| [first + i, first + (i + 1) % ring.len()]));
         }
+        points.extend(
+            interior(outline, holes, spacing).map(|[x, y]| Point2::new(f64::from(x), f64::from(y))),
+        );
         let cdt =
             ConstrainedDelaunayTriangulation::<Point2<f64>>::bulk_load_cdt(points, constraints)
                 .ok()?;
@@ -155,6 +168,43 @@ impl TileTemplate {
             .extend([[ids[0], ids[1], ids[2]], [ids[0], ids[2], ids[3]]]);
         self.faces.extend([PlateFace::Edge; 2]);
     }
+}
+
+/// Points on a square lattice `spacing` apart inside `outline`, outside
+/// `holes`, and clear of both.
+fn interior<'a>(
+    outline: &'a [[f32; 2]],
+    holes: &'a [Vec<[f32; 2]>],
+    spacing: f32,
+) -> impl Iterator<Item = [f32; 2]> + 'a {
+    let [low, high] = [f32::min, f32::max]
+        .map(|pick| [0, 1].map(|k| outline.iter().map(|p| p[k]).fold(outline[0][k], pick)));
+    let steps = move |k: usize| ((high[k] - low[k]) / spacing).floor() as usize;
+    let clearance = spacing * INTERIOR_CLEARANCE;
+    let rings = std::iter::once(outline).chain(holes.iter().map(Vec::as_slice));
+    let boundary = rings.flat_map(edges).collect::<Vec<_>>();
+    (1..steps(1))
+        .flat_map(move |j| (1..steps(0)).map(move |i| (i, j)))
+        .filter_map(move |(i, j)| {
+            let point = [low[0] + i as f32 * spacing, low[1] + j as f32 * spacing];
+            let clear = boundary
+                .iter()
+                .all(|(a, b)| distance_to_segment(point, *a, *b) >= clearance);
+            (clear && inside(outline, point) && !holes.iter().any(|hole| inside(hole, point)))
+                .then_some(point)
+        })
+}
+
+fn distance_to_segment(p: [f32; 2], a: [f32; 2], b: [f32; 2]) -> f32 {
+    let ab = [b[0] - a[0], b[1] - a[1]];
+    let length = ab[0] * ab[0] + ab[1] * ab[1];
+    let t = if length > 0.0 {
+        (((p[0] - a[0]) * ab[0] + (p[1] - a[1]) * ab[1]) / length).clamp(0.0, 1.0)
+    } else {
+        0.0
+    };
+    let d = [p[0] - a[0] - ab[0] * t, p[1] - a[1] - ab[1] * t];
+    (d[0] * d[0] + d[1] * d[1]).sqrt()
 }
 
 /// Each edge of the closed polygon `ring`.

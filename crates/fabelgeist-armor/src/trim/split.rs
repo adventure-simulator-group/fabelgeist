@@ -35,7 +35,9 @@ pub(super) struct Split<'a> {
 
 impl<'a> Split<'a> {
     pub(super) fn new(armor: GeneratedArmor, rims: &'a Rims, band: TrimBand) -> Self {
-        let near = armor.positions.iter().map(|p| rims.nearest(*p)).collect();
+        let near = (0..armor.positions.len() as u32)
+            .map(|v| rims.nearest(armor.positions[v as usize], rims.plate(v)))
+            .collect();
         let mut component_of = vec![0; armor.positions.len()];
         for (index, component) in armor.components.iter().enumerate() {
             component_of[component.vertices.clone()].fill(index);
@@ -119,10 +121,11 @@ impl<'a> Split<'a> {
         }
         let (inner, outer) = if self.inside(a) { (a, b) } else { (b, a) };
         let [from, to] = [inner, outer].map(|v| self.armor.positions[v as usize]);
+        let plate = self.rims.plate(inner);
         let (mut low, mut high) = (0.0, 1.0);
         for _ in 0..BORDER_STEPS {
             let middle = 0.5 * (low + high);
-            match self.rims.nearest(lerp(from, to, middle)) {
+            match self.rims.nearest(lerp(from, to, middle), plate) {
                 Some(near) if near.distance < self.width => low = middle,
                 _ => high = middle,
             }
@@ -130,7 +133,7 @@ impl<'a> Split<'a> {
         let t = 0.5 * (low + high);
         let near = self
             .rims
-            .nearest(lerp(from, to, t))
+            .nearest(lerp(from, to, t), plate)
             .or(self.near[inner as usize])
             .map(|near| Nearest {
                 distance: self.width,

@@ -69,7 +69,12 @@ impl SewnCloth {
         }
     }
 
-    fn sewn(&self, positions: &[[f32; 3]]) -> Vec<Vec3> {
+    /// The sewn vertices joined to `vertex` by a cloth edge.
+    pub(super) fn neighbours(&self, vertex: usize) -> &[usize] {
+        &self.neighbours[vertex]
+    }
+
+    pub(super) fn sewn(&self, positions: &[[f32; 3]]) -> Vec<Vec3> {
         self.surface
             .positions(positions)
             .into_iter()
@@ -77,7 +82,7 @@ impl SewnCloth {
             .collect()
     }
 
-    fn expand(&self, sewn: Vec<Vec3>) -> Vec<[f32; 3]> {
+    pub(super) fn expand(&self, sewn: Vec<Vec3>) -> Vec<[f32; 3]> {
         self.surface
             .expand(&sewn.into_iter().map(array).collect::<Vec<_>>())
     }

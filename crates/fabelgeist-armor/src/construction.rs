@@ -6,6 +6,8 @@ use std::ops::RangeInclusive;
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
+use crate::trim::Trim;
+
 /// How a piece is built.
 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -47,6 +49,16 @@ impl Construction {
 
     pub fn validate(&self) -> Result<(), ConstructionError> {
         self.tiling().map_or(Ok(()), Tiling::validate)
+    }
+
+    /// `trim` as it runs on this construction. On small plates the band
+    /// follows each plate's rim, so it keeps to a share of the plate and the
+    /// plate's face still shows.
+    pub fn trim_on(&self, trim: &Trim) -> Trim {
+        match self.tiling() {
+            Some(tiling) => trim.narrowed(tiling.plate.widest_trim()),
+            None => trim.clone(),
+        }
     }
 }
 
@@ -152,6 +164,8 @@ impl Plate {
     pub const MAX_HOLE_PAIRS: u32 = 3;
     /// The deepest a bevel cuts, as a fraction of the plate's thickness.
     pub const MAX_BEVEL: f32 = 0.45;
+    /// The share of a plate's narrower side a trim band may cover.
+    const TRIM_SHARE: f32 = 0.15;
     /// Holes stay this many radii clear of each other and the plate's edge.
     const HOLE_CLEARANCE_RADII: f32 = 5.0;
     /// Each hole's distance from the plate's centre line, as a fraction of
@@ -184,6 +198,11 @@ impl Plate {
             return Err(ConstructionError::HoleSpacing);
         }
         Ok(())
+    }
+
+    /// The widest trim band along the plate's rim.
+    pub fn widest_trim(&self) -> f32 {
+        (self.width.min(self.height) * Self::TRIM_SHARE).max(Trim::MIN_WIDTH)
     }
 
     /// The widest hole the plate keeps clear of its edges and its other
@@ -318,6 +337,20 @@ mod tests {
         assert_eq!(plate.validate(), Ok(()));
         plate.hole_radius *= 1.01;
         assert_eq!(plate.validate(), Err(ConstructionError::HoleSpacing));
+    }
+
+    #[test]
+    fn trim_keeps_to_the_rim_of_small_plates() {
+        let trim = Trim::default();
+        assert_eq!(Construction::Solid.trim_on(&trim), trim);
+        for construction in [
+            Construction::Scale(Tiling::scale()),
+            Construction::Lamellar(Tiling::lamellar()),
+        ] {
+            let plate = &construction.tiling().unwrap().plate;
+            let band = construction.trim_on(&trim).width;
+            assert!(band < plate.width.min(plate.height) * 0.25, "{band}");
+        }
     }
 
     #[test]

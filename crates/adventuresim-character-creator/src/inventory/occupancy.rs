@@ -3,7 +3,7 @@
 use super::{Article, EquipConflict, InventoryItemId};
 use crate::{
     equipment_catalog::ItemCatalog,
-    garment::{Construction, FabricPreset, GarmentSelection, SettledGarment},
+    garment::{Construction, GarmentSelection, SettledGarment},
     item_catalog_schema::{
         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
         ParentRequirement,
@@ -68,21 +68,9 @@ impl Article {
                 })
             }
             Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
-                Occupancy::on_body(garment_channel(selection), &garment_locations(selection)),
+                Occupancy::on_body(selection.channel(), &garment_locations(selection)),
             ),
         }
-    }
-}
-
-/// Mail is armor however it is cut; cloth is worn in its chosen layer.
-fn garment_channel(selection: &GarmentSelection) -> EquipmentChannel {
-    match selection.fabric {
-        FabricPreset::Chainmail => EquipmentChannel::FlexibleArmor,
-        FabricPreset::Cotton
-        | FabricPreset::Silk
-        | FabricPreset::Denim
-        | FabricPreset::Wool
-        | FabricPreset::Jersey => selection.layer.channel(),
     }
 }
 

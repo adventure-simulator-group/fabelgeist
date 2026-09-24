@@ -200,7 +200,10 @@ impl SettledDrape {
         let collision = super::placement::collision_surface(input);
         let clearance = super::drape::body_clearance(input);
         let held = cloth.limit_stretch(&self.positions, &placed, TRANSFER_STRETCH);
-        let positions = cloth.keep_out(&held, &collision, clearance);
+        let mut positions = cloth.keep_out(&held, &collision, clearance);
+        if let Some(under) = &input.under_plate {
+            positions = cloth.tuck_under(&positions, under);
+        }
         let selection = &input.selection;
         let mut garment = DrapedGarment {
             form: selection.form(),

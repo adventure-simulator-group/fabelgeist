@@ -51,8 +51,11 @@ pub(super) fn spawn_exhibit(
             decoration.engraving.as_ref(),
         )
         .map_err(anyhow::Error::msg)?;
-    let trim_material = decoration
+    let trim = decoration
         .trim
+        .as_ref()
+        .map(|trim| construction.trim_on(trim));
+    let trim_material = trim
         .as_ref()
         .map(|trim| {
             scene
@@ -79,7 +82,7 @@ pub(super) fn spawn_exhibit(
             exhibit.item_id, exhibit.placements[placement]
         );
         let constructed = armor.clone().constructed(construction)?;
-        let (armor, trim) = match (&decoration.trim, &trim_material) {
+        let (armor, trim) = match (&trim, &trim_material) {
             (Some(trim), Some(material)) => {
                 let (armor, texcoords) =
                     adventuresim_character_creator::armor_metal::trimmed(constructed.plates, trim)?;

@@ -139,6 +139,19 @@ impl Default for GarmentSelection {
 }
 
 impl GarmentSelection {
+    /// The equipment channel the garment is worn in: mail is armor however
+    /// it is cut, and cloth is worn in its chosen layer.
+    pub fn channel(&self) -> EquipmentChannel {
+        match self.fabric {
+            FabricPreset::Chainmail => EquipmentChannel::FlexibleArmor,
+            FabricPreset::Cotton
+            | FabricPreset::Silk
+            | FabricPreset::Denim
+            | FabricPreset::Wool
+            | FabricPreset::Jersey => self.layer.channel(),
+        }
+    }
+
     /// Target mesh edge range; finer is available at roughly squared cost.
     pub const RESOLUTION_CM: RangeInclusive<f32> = 2.5..=6.0;
 

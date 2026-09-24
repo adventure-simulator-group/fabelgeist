@@ -166,3 +166,28 @@ fn a_piece_without_a_grid_cannot_take_plates() {
         Err(ConstructionError::NoSurfaceGrid)
     );
 }
+
+#[test]
+fn trim_runs_along_each_plates_rim_and_leaves_its_face() {
+    let construction = Construction::Scale(Tiling::scale());
+    let plates = sleeve(false).constructed(&construction).unwrap().plates;
+    let trim = construction.trim_on(&crate::trim::Trim::default());
+    let trimmed = plates
+        .trimmed(crate::TrimBand {
+            width: trim.width,
+            period: trim.period(),
+        })
+        .unwrap();
+    let outer = |range: std::ops::Range<usize>| {
+        range
+            .step_by(3)
+            .filter(|i| trimmed.faces[i / 3] == PlateFace::Outer)
+            .count()
+    };
+    let surfaces = trimmed.surfaces();
+    let band: usize = surfaces.iter().map(|s| outer(s.trim.clone())).sum();
+    let face: usize = surfaces.iter().map(|s| outer(s.plate.clone())).sum();
+    // Each scale keeps its own face inside a band along its own rim, however
+    // close the scales around it lie.
+    assert!(band > 0 && face > 0, "band {band}, face {face}");
+}

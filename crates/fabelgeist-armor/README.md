@@ -95,6 +95,9 @@ left out where it would reach past the grid's edge. Every plate and cord vertex
 is a place on a grid and a height off it, so the same vertices are realized on
 every morph of the piece and skinned as the surface beneath them. Construction
 comes before trimming, which renumbers the piece's vertices.
+`Construction::trim_on` narrows a trim to the plates' rims, its ornament shrunk
+with it, and a trim band measures each point only to the rims of its own plate,
+so closely overlapping plates each keep their own face.
 
 Use the character creator's `--write-armor-designs` command to obtain the
 current catalog recipe schema. Vambrace and breastplate designs load from their

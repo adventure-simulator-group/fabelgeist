@@ -14,30 +14,44 @@ pub(super) struct PreviewScene<'w, 's> {
     inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects the scene, caches and drape job this system rebuilds from"
+)]
 pub(super) fn regenerate_mesh(
     mut scene: PreviewScene,
     model: Res<BodyModel>,
     catalog: Res<EquipmentCatalog>,
     mut studio: ResMut<Studio>,
-    old: Query<Entity, With<CharacterMesh>>,
+    mut cache: ResMut<studio_cache::StudioCache>,
+    old: Query<(Entity, Has<drape_preview::DrapeMesh>), With<CharacterMesh>>,
     mut drape_job: ResMut<drape_preview::DrapeJob>,
     mut walk: ResMut<WalkPreview>,
+    mut contexts: EguiContexts,
 ) {
-    if !studio.dirty {
+    if !studio.dirty || dragging(&mut contexts) {
         return;
     }
     studio.dirty = false;
-    drape_job.request(Vec::new());
+    let started = std::time::Instant::now();
     let recipe = studio.recipe.clone();
     let prepared = outfit::loadout(&recipe, &catalog).and_then(|loadout| {
-        let generated = generate_character(&model, &recipe).context("Generation failed")?;
+        let generated = cache.body(&model, &recipe)?;
         let clothed =
             outfit::clothing(&model, &loadout, &generated).context("Clothing generation failed")?;
-        let armor = parametric_equipment::selected(&model, &generated, &loadout, &[])
+        let armor = cache
+            .armor(&model, &generated, &loadout)
             .context("Parametric armor generation failed")?;
-        Ok((loadout, generated, clothed, armor))
+        let lining = cache.lining(&loadout)?;
+        if drape_job.take_again() {
+            cache.forget_drape();
+        }
+        let drape = cache
+            .drape_changed(&loadout)?
+            .then(|| outfit::drape_inputs(&model, &generated, &loadout, lining.as_ref()));
+        Ok((generated, clothed, armor, drape))
     });
-    let (loadout, generated, clothed, armor) = match prepared {
+    let (generated, clothed, armor, drape) = match prepared {
         Ok(prepared) => prepared,
         Err(error) => {
             studio.status = format!("{error:#}");
@@ -51,11 +65,17 @@ pub(super) fn regenerate_mesh(
         &model,
         &generated,
     );
-    drape_job.request(outfit::drape_inputs(&model, &generated, &loadout));
+    // Draped cloth stays shown while nothing it lies on changed.
+    let redrape = drape.is_some();
+    if let Some(inputs) = drape {
+        drape_job.request(inputs);
+    }
     let clothing_shell_count = clothed.shells.len();
     scene.bounds.0 = studio_scene::CharacterBounds::of(&generated.positions);
-    for entity in &old {
-        scene.commands.entity(entity).despawn();
+    for (entity, draped) in &old {
+        if redrape || !draped {
+            scene.commands.entity(entity).despawn();
+        }
     }
     let PreviewScene {
         commands,
@@ -69,13 +89,22 @@ pub(super) fn regenerate_mesh(
     let spawned = scene.spawn_equipment(&catalog, &armor);
     studio.status = match spawned {
         Ok(()) => format!(
-            "Generated {} body vertices · {} clothing shells · {} armor pieces",
+            "Generated {} body vertices · {} clothing shells · {} armor pieces in {:.2} s",
             model.mhr.num_vertices(),
             clothing_shell_count,
             armor.len(),
+            started.elapsed().as_secs_f32(),
         ),
         Err(error) => format!("{error:#}"),
     };
+}
+
+/// Whether a control is being dragged: an edit then rebuilds once, when it is
+/// let go, rather than at every value it passes through.
+pub(super) fn dragging(contexts: &mut EguiContexts) -> bool {
+    contexts
+        .ctx_mut()
+        .is_ok_and(|ctx| ctx.egui_is_using_pointer())
 }
 
 impl PreviewScene<'_, '_> {

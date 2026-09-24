@@ -103,6 +103,12 @@ library. Its **Construction** builds it of small plates (see
 [Lamellar and scale](#lamellar-and-scale)). Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
+Edits rebuild only what they change. The body is kept while its shape stands,
+each worn piece's fit while its design and the body stand, and its
+construction, trim and lacing while their settings stand too; worn cloth is
+draped again only when the body, the garments or the fit of the plate over them
+changed. A dragged control applies its value when it is let go.
+
 Recipes use schema version 13. Recipes from older versions are not read.
 
 ## Lamellar and scale
@@ -127,6 +133,10 @@ from the row above by cords that run down over the upper lame's face, turn
 under its foot and pass up behind it into the lames below, so the lacing shows
 over every row. The cord is its own mesh, previewed and exported as a separate
 non-metal surface.
+
+A trim runs along the rim of each plate. It is kept to 15% of the plate's
+narrower side, whatever width the decoration asks, and its ornament shrinks
+with it, so each plate keeps a face of its own metal.
 
 The plates and cord are laid over the fitted piece's outer surface, so they
 follow the wearer and every body morph with the same topology, skinned like the
@@ -318,8 +328,14 @@ includes body triangle interiors and excludes joined seam copies. Fixed body
 bounds are cached between substeps. It prevents crossings missed by particle
 spheres; it does not infer layer order for already intersecting starting meshes.
 
-Fit completion and export check the emitted cloth against itself, the wearer
-and inner garments. Worn plate does not constrain the drape.
+Clothing, padding and mail lie under worn rigid plate. Wherever a plate covers
+them, the last fit presses them in towards the wearer, clear of the plate's
+inner face, each garment far enough in for those pressed over it. The press
+spreads to the cloth around it, so cloth tucks under a plate's rim. The plate is
+met as fitted, before any small plates are laid on it, so changing a piece's
+construction or decoration does not re-drape. Outerwear is not pressed. Fit
+completion and export check the emitted cloth against itself, the wearer and
+inner garments.
 
 Drape problems never block the studio. Fit problems, such as a garment
 intersecting itself, are reported in the status

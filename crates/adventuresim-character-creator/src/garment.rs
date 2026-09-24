@@ -16,6 +16,7 @@ mod conform;
 mod dressing;
 mod export;
 mod fitted;
+mod lining;
 pub mod pattern;
 mod placement;
 mod selection;
@@ -24,6 +25,7 @@ mod shading;
 mod stages;
 mod symmetrize;
 mod validation;
+pub use lining::{PlateLining, UnderPlate};
 pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
 pub use settled::{BodyTopology, SettledDrape, SettledGarment};
 pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
@@ -31,6 +33,8 @@ pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
 #[derive(Clone)]
 pub struct DrapeInput {
     pub selection: GarmentSelection,
+    /// The worn plate the garment lies under, when it is worn under plate.
+    pub under_plate: Option<UnderPlate>,
     /// A drape saved once settled, fitted to this wearer instead of simulated.
     pub settled: Option<std::sync::Arc<SettledDrape>>,
     pub obstacles: Vec<DrapedGarment>,
@@ -568,6 +572,7 @@ mod tests {
     #[test]
     fn garment_skin_interpolates_and_normalizes_body_influences() {
         let input = DrapeInput {
+            under_plate: None,
             selection: GarmentSelection::default(),
             settled: None,
             obstacles: vec![],
@@ -607,6 +612,7 @@ mod seam_and_leg_regression {
     #[test]
     fn dress_center_is_continuous_and_sides_retain_opposing_leg_motion() {
         let input = DrapeInput {
+            under_plate: None,
             selection: GarmentSelection::from_shape(&pattern::shapes::DRESS),
             settled: None,
             obstacles: vec![],
