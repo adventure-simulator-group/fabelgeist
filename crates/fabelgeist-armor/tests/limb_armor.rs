@@ -485,3 +485,54 @@ fn a_joint_extension_hangs_below_the_cup_and_its_plates_lap_outward() {
     // The default extension is 130 mm long below the cup's distal edge.
     assert!(extension < cup - 0.1, "extension {extension} vs cup {cup}");
 }
+
+#[test]
+fn spaulder_crown_coverage_and_besagew_are_closed_solids() {
+    use fabelgeist_armor::{ArmorComponentRole, BesagewDesign, RadialFluting};
+    let fit = frame([0.1, 0.9, -0.05], [0.065, 0.09, 0.07]);
+    let fluted = BesagewDesign {
+        fluting: Some(RadialFluting::default()),
+        ..BesagewDesign::default()
+    };
+    for (name, coverage, besagew) in [
+        ("short crown", 600, None),
+        ("besagew", 1000, Some(BesagewDesign::default())),
+        ("fluted besagew on a short crown", 700, Some(fluted)),
+    ] {
+        let design = LimbArmorDesign::Spaulder(SpaulderDesign {
+            crown_coverage: Permille(coverage),
+            besagew: besagew.clone(),
+            ..SpaulderDesign::default()
+        });
+        design.validate().unwrap_or_else(|e| panic!("{name}: {e}"));
+        let part = build(&design, &[fit]).unwrap_or_else(|e| panic!("{name}: {e}"));
+        assert_closed_solid(&part, name);
+        let roles = part
+            .components
+            .iter()
+            .map(|component| component.role)
+            .collect::<Vec<_>>();
+        if besagew.is_some() {
+            assert_eq!(
+                roles,
+                [ArmorComponentRole::Plate, ArmorComponentRole::Besagew],
+                "{name}"
+            );
+        } else {
+            assert!(roles.is_empty(), "{name}");
+        }
+    }
+}
+
+#[test]
+fn shorter_crown_coverage_lowers_the_crown_toward_the_neck() {
+    let fit = frame([0.0; 3], [0.065, 0.09, 0.07]);
+    let top = |coverage| {
+        let design = LimbArmorDesign::Spaulder(SpaulderDesign {
+            crown_coverage: Permille(coverage),
+            ..SpaulderDesign::default()
+        });
+        bounds(&build(&design, &[fit]).unwrap().positions)[1][1]
+    };
+    assert!(top(500) < top(1000) - 0.02);
+}

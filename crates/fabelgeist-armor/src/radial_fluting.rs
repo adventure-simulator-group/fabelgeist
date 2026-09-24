@@ -40,4 +40,10 @@ impl RadialFluting {
         }
         Ok(())
     }
+
+    /// Columns around a disc: enough samples to shape every spoke.
+    pub(crate) fn columns(self) -> usize {
+        const SAMPLES_PER_SPOKE: usize = 12;
+        usize::from(self.count.0) * SAMPLES_PER_SPOKE
+    }
 }

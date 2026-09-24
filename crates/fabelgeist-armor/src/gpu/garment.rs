@@ -261,6 +261,7 @@ fn lame_chart(
         values,
         mirrored: false,
         frame: 0,
+        around: super::chart::AROUND,
     }
 }
 

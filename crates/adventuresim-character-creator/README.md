@@ -582,7 +582,7 @@ validate and appear in the controls, but the device does not build them yet;
 fitting a design that uses one fails with an error naming it, rather than
 building the piece without it:
 
-- pauldrons, a spaulder's besagew or reduced crown coverage;
+- pauldrons;
 - a burgonet's buffe or peak rise, and bellows visors;
 - wrapped tassets and anime breastplates;
 - puff-and-slash sleeves and hose.

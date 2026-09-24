@@ -7,7 +7,7 @@
 //! topology alone.
 
 use super::ArmorGpu;
-use super::chart::{ChartBoundary, ChartKernel, PlateChart};
+use super::chart::{AROUND, ChartBoundary, ChartKernel, PlateChart};
 use super::part::Extrusion;
 use super::recipe::PartRecipe;
 use crate::{GenerateError, LimbArmorDesign};
@@ -47,6 +47,7 @@ pub(super) fn chart(
         values: [0.0; 4],
         mirrored: false,
         frame: 0,
+        around: AROUND,
     }
 }
 

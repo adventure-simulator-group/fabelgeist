@@ -5,8 +5,9 @@
 //! rerebraces, spaulders and cuisses the upper limb, so limb motion and twist
 //! weights cannot shear their plates. Body proportions still refit every plate
 //! through its morph targets. Each lame of a fauld hangs from the pelvis and
-//! each tasset from its own hip. Arming caps, mail coifs and textiles keep the
-//! body's flexible skin.
+//! each tasset from its own hip; a besagew hangs from the chest in front of
+//! the shoulder. Arming caps, mail coifs and textiles keep the body's flexible
+//! skin.
 
 use anyhow::{Context, Result};
 use fabelgeist_armor::{
@@ -68,6 +69,18 @@ pub fn attach(
         _ => return Ok(()),
     };
     let anchor = joint_index(joint_names, &joint)?;
+    let besagews = armor
+        .components
+        .iter()
+        .filter(|component| component.role == ArmorComponentRole::Besagew)
+        .map(|component| component.vertices.clone())
+        .collect::<Vec<_>>();
+    if !besagews.is_empty() {
+        let chest = joint_index(joint_names, "c_spine3")?;
+        for vertices in besagews {
+            fill(armor, vertices, chest);
+        }
+    }
     // A piece without components is one plate.
     if armor.components.is_empty() {
         fill(armor, 0..armor.positions.len(), anchor);
@@ -169,7 +182,7 @@ mod tests {
 
     fn names() -> Vec<String> {
         [
-            "root", "c_head", "l_uparm", "r_lowarm", "l_lowleg", "r_upleg",
+            "root", "c_head", "l_uparm", "r_lowarm", "l_lowleg", "r_upleg", "c_spine3",
         ]
         .map(String::from)
         .to_vec()
@@ -223,7 +236,7 @@ mod tests {
     fn cops_follow_the_lower_limb_on_their_side_and_spare_other_components() {
         let mut couter = armor(vec![
             component(ArmorComponentRole::Plate, 0..2),
-            component(ArmorComponentRole::Besagew, 2..4),
+            component(ArmorComponentRole::LeatherStraps, 2..4),
         ]);
         let design = ParametricDesign::Limb(LimbArmorDesign::Couter(JointCupDesign::couter()));
         attach(&design, "right", &names(), &[], &mut couter).unwrap();
@@ -233,6 +246,18 @@ mod tests {
         let design = ParametricDesign::Limb(LimbArmorDesign::Poleyn(JointCupDesign::poleyn()));
         attach(&design, "left", &names(), &[], &mut poleyn).unwrap();
         assert!(poleyn.joint_indices.iter().all(|j| *j == [4; 8]));
+    }
+
+    #[test]
+    fn a_spaulder_follows_the_arm_and_its_besagew_the_chest() {
+        let mut spaulder = armor(vec![
+            component(ArmorComponentRole::Plate, 0..2),
+            component(ArmorComponentRole::Besagew, 2..4),
+        ]);
+        let design = ParametricDesign::Limb(LimbArmorDesign::Spaulder(Default::default()));
+        attach(&design, "left", &names(), &[], &mut spaulder).unwrap();
+        assert_eq!(spaulder.joint_indices, [[2; 8], [2; 8], [6; 8], [6; 8]]);
+        assert!(spaulder.joint_weights.iter().all(|w| *w == RIGID));
     }
 
     #[test]

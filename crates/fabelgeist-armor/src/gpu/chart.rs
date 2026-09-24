@@ -31,7 +31,7 @@ use chart_wgsl::source;
 pub(crate) use chart_wgsl::{AUTHORED_ORIGIN, FLUTING};
 
 /// Columns across an unfluted chart.
-const AROUND: usize = 40;
+pub(crate) const AROUND: usize = 40;
 /// Latitude rings closing a capped chart's tip, the tip vertex excluded.
 const TIP_RINGS: usize = 8;
 
@@ -47,6 +47,8 @@ pub(crate) enum ChartBoundary {
     },
     /// The last row welded to one apex vertex.
     Apex,
+    /// Closed around, with the last row welded to one apex vertex: a disc.
+    CyclicApex,
 }
 
 /// Boundary codes the chart kernel reads.
@@ -59,7 +61,7 @@ impl ChartBoundary {
         match self {
             Self::Open | Self::Cyclic => BOUNDARY_ROWS_ONLY,
             Self::CappedByFrame { .. } => BOUNDARY_CAPPED,
-            Self::Apex => BOUNDARY_APEX,
+            Self::Apex | Self::CyclicApex => BOUNDARY_APEX,
         }
     }
 }
@@ -83,22 +85,35 @@ pub(crate) struct PlateChart {
     pub mirrored: bool,
     /// Which of the part's frames places this chart.
     pub frame: usize,
+    /// Columns across the chart when it is not fluted.
+    pub around: usize,
 }
 
 impl PlateChart {
     fn columns(&self) -> Vec<f32> {
+        let around = self.around;
         let mut columns = self.fluting.map_or_else(
-            || (0..=AROUND).map(|i| i as f32 / AROUND as f32).collect(),
-            |pattern| pattern.columns(AROUND),
+            || (0..=around).map(|i| i as f32 / around as f32).collect(),
+            |pattern| pattern.columns(around),
         );
-        if self.boundary == ChartBoundary::Cyclic {
+        if self.cyclic() {
             columns.pop();
         }
         columns
     }
 
+    fn cyclic(&self) -> bool {
+        matches!(
+            self.boundary,
+            ChartBoundary::Cyclic | ChartBoundary::CyclicApex
+        )
+    }
+
     fn last_row(&self) -> usize {
-        if self.boundary == ChartBoundary::Apex {
+        if matches!(
+            self.boundary,
+            ChartBoundary::Apex | ChartBoundary::CyclicApex
+        ) {
             self.rows - 1
         } else {
             self.rows
@@ -108,7 +123,7 @@ impl PlateChart {
     /// Carrier connectivity: two triangles per grid cell, closed around a
     /// cyclic chart, and the boundary's cap.
     fn indices(&self, stride: usize) -> Vec<u32> {
-        let cyclic = self.boundary == ChartBoundary::Cyclic;
+        let cyclic = self.cyclic();
         let last_row = self.last_row();
         let segments = if cyclic { stride } else { stride - 1 };
         let mut indices = Vec::new();
@@ -127,12 +142,13 @@ impl PlateChart {
         }
         let grid = (last_row + 1) * stride;
         match self.boundary {
-            ChartBoundary::Apex => {
+            ChartBoundary::Apex | ChartBoundary::CyclicApex => {
                 let tip = grid as u32;
                 let start = grid - stride;
-                for col in 0..stride - 1 {
+                for col in 0..segments {
                     let a = (start + col) as u32;
-                    indices.extend([a, a + 1, tip]);
+                    let b = (start + (col + 1) % stride) as u32;
+                    indices.extend([a, b, tip]);
                 }
             }
             ChartBoundary::CappedByFrame { .. } => {
@@ -160,7 +176,7 @@ impl PlateChart {
 
     fn extra_vertices(&self, stride: usize) -> usize {
         match self.boundary {
-            ChartBoundary::Apex => 1,
+            ChartBoundary::Apex | ChartBoundary::CyclicApex => 1,
             ChartBoundary::CappedByFrame { .. } => (TIP_RINGS - 1) * stride + 1,
             ChartBoundary::Open | ChartBoundary::Cyclic => 0,
         }
@@ -186,7 +202,7 @@ impl PlateChart {
                 grid: Some(GridShape {
                     rows: (self.last_row() + 1) as u32,
                     columns: stride as u32,
-                    cyclic: self.boundary == ChartBoundary::Cyclic,
+                    cyclic: self.cyclic(),
                 }),
             },
             ChartSlots {

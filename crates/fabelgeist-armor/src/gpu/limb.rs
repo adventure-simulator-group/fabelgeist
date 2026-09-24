@@ -6,7 +6,7 @@
 
 use std::f32::consts::PI;
 
-use super::chart::{AUTHORED_ORIGIN, ChartBoundary, ChartKernel, PlateChart};
+use super::chart::{AROUND, AUTHORED_ORIGIN, ChartBoundary, ChartKernel, PlateChart};
 use super::part::Extrusion;
 use super::recipe::PartRecipe;
 use super::{ArmorGpu, BuiltPart};
@@ -188,6 +188,19 @@ const LOWER_FLARE: u32 = 4u;
 const LENGTH: u32 = 5u;
 const GAUGE: u32 = 6u;
 const CLEARANCE: u32 = 7u;
+const COVERAGE: u32 = 8u;
+const RADIUS: u32 = 9u;
+const BOSS_HEIGHT: u32 = 10u;
+const SHOULDER_DROP: u32 = 11u;
+const MEDIAL_OFFSET: u32 = 12u;
+const PLATE_CLEARANCE: u32 = 13u;
+const OUTWARD_TILT: u32 = 14u;
+const FLUTE_COUNT: u32 = 15u;
+const FLUTE_WIDTH: u32 = 16u;
+const FLUTE_DEPTH: u32 = 17u;
+const FLUTE_START: u32 = 18u;
+const FLUTE_END: u32 = 19u;
+const FLUTE_FADE: u32 = 20u;
 "#;
 
 /// One overlapping lame; `value0` and `value1` are its axial span.
@@ -237,7 +250,9 @@ fn chart_point(u: f32, v: f32) -> vec3<f32> {
     let clearance = design[CLEARANCE];
     let wrap = min(design[WRAP], 0.60);
     let theta = lerp(-PI * wrap * design[REAR_EXTENSION], PI * wrap, u);
-    let latitude = v * PI * 0.5;
+    // Coverage trims the formed dome toward the neck rather than compressing
+    // it into the shoulder.
+    let latitude = v * design[COVERAGE] * PI * 0.5;
     let step = design[GAUGE] * 2.0;
     let radius = 1.0 / sqrt(
         pow2(sin(theta) / (width * design[CROWN] + clearance))
@@ -248,6 +263,55 @@ fn chart_point(u: f32, v: f32) -> vec3<f32> {
         -length * 0.16 + length * 1.40 * sin(latitude),
         radius * cos(theta) * cos(latitude)
             + depth * (1.10 - design[CROWN_REACH]) * (1.0 - cos(latitude)),
+    );
+}
+"#;
+
+/// A spaulder's besagew: a disc with a central boss and optional radial
+/// flutes, hung in front of the shoulder and tilted outward. Rows run from
+/// the rim to the boss's apex.
+const BESAGEW: &str = r#"
+fn besagew_fade(t: f32) -> f32 {
+    return smoothstep_clamped(t);
+}
+
+// RadialFluting::relief: spokes across the disc, fading in and out radially.
+fn chart_offset(u: f32, axial: f32) -> f32 {
+    let count = design[FLUTE_COUNT];
+    if (count == 0.0) {
+        return 0.0;
+    }
+    let radial = 1.0 - axial;
+    let distance = abs(fract(u * count) - 0.5) * 2.0 / design[FLUTE_WIDTH];
+    if (distance >= 1.0) {
+        return 0.0;
+    }
+    let fade = design[FLUTE_FADE];
+    return design[FLUTE_DEPTH] * (1.0 + cos(PI * distance)) * 0.5
+        * besagew_fade((radial - design[FLUTE_START]) / fade)
+        * besagew_fade((design[FLUTE_END] - radial) / fade);
+}
+
+fn chart_point(u: f32, v: f32) -> vec3<f32> {
+    let radial = 1.0 - v;
+    let boss = min(radial / 0.28, 1.0);
+    let height = design[BOSS_HEIGHT] * (1.0 - boss * boss * (3.0 - 2.0 * boss));
+    let angle = TAU * u;
+    let disc = vec3<f32>(
+        design[RADIUS] * radial * cos(angle),
+        design[RADIUS] * radial * sin(angle),
+        height,
+    );
+    let tilt = design[OUTWARD_TILT];
+    let origin = vec3<f32>(
+        -design[MEDIAL_OFFSET],
+        fit.half_extents.y - design[SHOULDER_DROP],
+        fit.half_extents.z + design[CLEARANCE] + design[PLATE_CLEARANCE],
+    );
+    return origin + vec3<f32>(
+        cos(tilt) * disc.x + sin(tilt) * disc.z,
+        disc.y,
+        -sin(tilt) * disc.x + cos(tilt) * disc.z,
     );
 }
 "#;
@@ -379,6 +443,7 @@ fn plain_chart(
         values: [0.0; 4],
         mirrored: false,
         frame: 0,
+        around: AROUND,
     }
 }
 
@@ -577,20 +642,54 @@ fn spaulder(gpu: &ArmorGpu, d: &SpaulderDesign) -> Result<LimbShape, GenerateErr
         chart.values = [bottom, top, 0.0, 0.0];
         part.push_chart(chart, lame_kernel.clone())?;
     }
+    // A complete crown closes at an apex; a shorter one ends in a thickened
+    // neckward edge along the same formed surface.
+    let coverage = d.crown_coverage.unit();
+    let (boundary, extrusion) = if d.crown_coverage.0 == 1000 {
+        (ChartBoundary::Apex, Extrusion::CappedAxis)
+    } else {
+        (ChartBoundary::Open, Extrusion::Normal)
+    };
     part.push_chart(
         PlateChart {
             axis: [0.0, -1.0, 0.0],
             ..plain_chart(
                 12,
-                ChartBoundary::Apex,
+                boundary,
                 gauge,
-                Extrusion::CappedAxis,
+                extrusion,
                 d.fluting,
-                [0.5, 1.0],
+                [0.5, 0.5 + 0.5 * coverage],
             )
         },
         ChartKernel::new(gpu, &format!("{SPAULDER_DESIGN}{SPAULDER_CROWN}"))?,
     )?;
+    if let Some(disc) = &d.besagew {
+        const DISC_ROWS: usize = 24;
+        const MINIMUM_COLUMNS: usize = 96;
+        part.component(ArmorComponentRole::Plate, None);
+        let tilt = f32::from(disc.outward_tilt.0) / 1000.0;
+        part.push_chart(
+            PlateChart {
+                axis: [tilt.sin(), 0.0, tilt.cos()],
+                around: disc
+                    .fluting
+                    .map_or(MINIMUM_COLUMNS, |f| f.columns().max(MINIMUM_COLUMNS)),
+                ..plain_chart(
+                    DISC_ROWS,
+                    ChartBoundary::CyclicApex,
+                    gauge,
+                    Extrusion::Along,
+                    None,
+                    [0.0, 1.0],
+                )
+            },
+            kernel(gpu, &format!("{SPAULDER_DESIGN}{BESAGEW}"))?,
+        )?;
+        part.component(ArmorComponentRole::Besagew, None);
+    }
+    let disc = d.besagew.as_ref();
+    let flutes = disc.and_then(|disc| disc.fluting);
     Ok(LimbShape {
         part,
         design: vec![
@@ -602,6 +701,19 @@ fn spaulder(gpu: &ArmorGpu, d: &SpaulderDesign) -> Result<LimbShape, GenerateErr
             d.length.unit(),
             gauge,
             d.gauge.clearance.metres() + gauge,
+            coverage,
+            disc.map_or(0.0, |disc| disc.radius.metres()),
+            disc.map_or(0.0, |disc| disc.boss_height.metres()),
+            disc.map_or(0.0, |disc| disc.shoulder_drop.metres()),
+            disc.map_or(0.0, |disc| disc.medial_offset.metres()),
+            disc.map_or(0.0, |disc| disc.plate_clearance.metres()),
+            disc.map_or(0.0, |disc| f32::from(disc.outward_tilt.0) / 1000.0),
+            flutes.map_or(0.0, |f| f32::from(f.count.0)),
+            flutes.map_or(1.0, |f| f.width.unit()),
+            flutes.map_or(0.0, |f| f.depth.metres()),
+            flutes.map_or(0.0, |f| f.start.unit()),
+            flutes.map_or(1.0, |f| f.end.unit()),
+            flutes.map_or(1.0, |f| f.fade.unit()),
         ],
     })
 }

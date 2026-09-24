@@ -3,7 +3,7 @@
 
 use crate::{
     BreastplateConstruction, BreastplateDesign, GarmentArmorDesign, GarmentPlateShape,
-    GenerateError, HelmetDesign, LimbArmorDesign, Permille,
+    GenerateError, HelmetDesign, LimbArmorDesign,
 };
 
 /// Refuse the option `unsupported` names.
@@ -28,10 +28,6 @@ impl LimbArmorDesign {
     pub fn device_unsupported(&self) -> Option<&'static str> {
         match self {
             Self::Pauldron(_) => Some("a pauldron"),
-            Self::Spaulder(d) if d.besagew.is_some() => Some("a spaulder's besagew"),
-            Self::Spaulder(d) if d.crown_coverage != Permille(1000) => {
-                Some("a spaulder's crown coverage")
-            }
             _ => None,
         }
     }
