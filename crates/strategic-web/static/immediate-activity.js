@@ -90,9 +90,9 @@
       const hours = Number(slider.value);
       modal.querySelector('[data-activity-minutes]').value = String(hours * 60);
       modal.querySelector('[data-activity-end]').textContent = `Ends at ${clock(state.start + hours * 60)}`;
-      modal.querySelector('[data-activity-hours]').textContent = `${hours} h spent`;
+      modal.querySelector('[data-activity-hours]').textContent = `Takes ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
       slider.setAttribute('aria-valuetext', `${hours} hours; ends at ${clock(state.start + hours * 60)}`);
-      modal.querySelector('[data-activity-submit]').textContent = `Spend ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+      modal.querySelector('[data-activity-submit]').textContent = `${modal.querySelector('[data-activity-preview-label]').textContent} for ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
       if (state.source) copyPreview(state.source, modal.querySelector('[data-activity-preview-row]'), hours);
     };
     const close = () => {
@@ -112,7 +112,7 @@
       const label = state.source.querySelector('.sr-only')?.textContent?.trim() || 'Activity';
       const tier = state.source.dataset.professionTier;
       const previewLabel = tier ? `${label} (${tier})` : label;
-      modal.querySelector('[data-activity-title]').textContent = `Perform ${previewLabel}`;
+      modal.querySelector('[data-activity-title]').textContent = previewLabel;
       modal.querySelector('[data-activity-preview-label]').textContent = previewLabel;
       modal.querySelector('[data-activity-kind]').value = kind;
       const schedule = button.closest('[data-skill-schedule]')

@@ -230,6 +230,7 @@ fn page_shell(
                 script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
                 script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
                 script src="/static/workspace.js?v=1" defer {}
+                script src="/static/action-previews.js?v=1" defer {}
                 @if scripts != ScriptProfile::Entry {
                     script src="/static/live-state.js?v=location-urls-1" defer {}
                     script src="/static/live-regions.js?v=location-urls-1" defer {}
