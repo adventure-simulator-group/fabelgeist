@@ -3,12 +3,12 @@
 //! station along a curve through the limb's joints, and a sleeve's top sewn to
 //! the torso's armhole.
 
-use adventuresim_armor_model::{
+use anyhow::Result;
+use fabelgeist_armor::{
     GARMENT_ARMPIT_ROW as ARMPIT, GARMENT_PANEL_ACROSS as ACROSS, GARMENT_PANEL_ALONG as ALONG,
     GARMENT_SHOULDER_DEPTH_SEGMENTS as SHOULDER, GarmentArmorDesign, GarmentArmorKind as Kind,
     gpu::record_garment_tube,
 };
-use anyhow::Result;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 

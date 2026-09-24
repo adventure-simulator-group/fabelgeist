@@ -1,7 +1,7 @@
 //! Helmets fitted on the device: the head frame, then the helmet in it.
 
-use adventuresim_armor_model::{HelmetDesign, record_helmet};
 use anyhow::Result;
+use fabelgeist_armor::{HelmetDesign, record_helmet};
 use fabelgeist_compute::KernelBatch;
 
 use crate::armor_frames::FitRegion;

@@ -1,8 +1,8 @@
 //! Device buffers one underlayer fit works in.
 
-use adventuresim_armor_model::ArmorGpu;
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::{RadixSort, SortScratch};
 use fabelgeist_gpu::prelude::Buffer;
 

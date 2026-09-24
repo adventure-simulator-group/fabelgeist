@@ -2,7 +2,7 @@
 
 use std::sync::{Condvar, Mutex, OnceLock};
 
-use adventuresim_armor_model::ArmorGpu;
+use fabelgeist_armor::ArmorGpu;
 
 /// The shared armor device, opened on first use.
 ///

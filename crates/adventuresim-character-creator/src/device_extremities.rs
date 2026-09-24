@@ -1,11 +1,11 @@
 //! Hand and foot armor fitted on the device: the mitten, the sabaton and the
 //! leather boot.
 
-use adventuresim_armor_model::{
+use anyhow::{Result, bail};
+use fabelgeist_armor::{
     BootDesign, DevicePart, GarmentArmorKind, GauntletDesign, LimbArmorDesign,
     record_extremity_armor,
 };
-use anyhow::{Result, bail};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 
@@ -104,22 +104,21 @@ impl DeviceWearer<'_> {
         let clearance =
             d.gauge.clearance.metres() + d.gauge.thickness.metres() + PROFILE_CLEARANCE_MARGIN_M;
         // Each stage is measured between the thickened boot's extremes.
-        let record_bounds = |part: &mut adventuresim_armor_model::DevicePart,
-                             batch: &mut KernelBatch|
-         -> Result<_> {
-            part.record_shells(gpu, batch)?;
-            let bounds = axial_bounds(gpu, 1)?;
-            record_axial_bounds(
-                gpu,
-                batch,
-                &frame.frame,
-                part.positions(),
-                part.vertex_count(),
-                &bounds,
-                0,
-            )?;
-            Ok(bounds)
-        };
+        let record_bounds =
+            |part: &mut fabelgeist_armor::DevicePart, batch: &mut KernelBatch| -> Result<_> {
+                part.record_shells(gpu, batch)?;
+                let bounds = axial_bounds(gpu, 1)?;
+                record_axial_bounds(
+                    gpu,
+                    batch,
+                    &frame.frame,
+                    part.positions(),
+                    part.vertex_count(),
+                    &bounds,
+                    0,
+                )?;
+                Ok(bounds)
+            };
 
         let bounds = record_bounds(&mut part, batch)?;
         let support =
@@ -237,7 +236,7 @@ fn layer_checks(garments: Vec<DevicePart>) -> Vec<DeviceCheck> {
             Box::new(move |gpu| {
                 anyhow::ensure!(
                     gpu.read::<u32>(garment.status())?[0] == 0,
-                    adventuresim_armor_model::GenerateError::InvalidSurface
+                    fabelgeist_armor::GenerateError::InvalidSurface
                 );
                 Ok(())
             })

@@ -56,7 +56,7 @@ fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecifica
         .collect()
 }
 
-/// Drape inputs for worn cloth, innermost first, each draped over worn plate.
+/// Drape inputs for worn cloth, innermost first.
 pub(super) fn drape_inputs(
     model: &BodyModel,
     generated: &GeneratedCharacter,
@@ -67,7 +67,6 @@ pub(super) fn drape_inputs(
         .iter()
         .map(|piece| {
             let mut input = drape_preview::input(model, generated, piece.selection.clone());
-            input.armor = loadout.plate.cloned();
             input.settled = piece.drape.cloned().map(std::sync::Arc::new);
             (piece.id, input)
         })

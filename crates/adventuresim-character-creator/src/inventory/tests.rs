@@ -24,7 +24,7 @@ fn default_outfit_fits_and_splits_by_generator() {
     assert_eq!(ids(&loadout.clothing), ["linen_tunic", "linen_breeches"]);
     let fitted = loadout.fitted.iter().map(|p| p.piece).collect::<Vec<_>>();
     assert_eq!(ids(&fitted), ["leather_boot", "leather_boot"]);
-    assert!(loadout.draped.is_empty() && loadout.plate.is_none());
+    assert!(loadout.draped.is_empty());
 }
 
 #[test]
@@ -96,26 +96,6 @@ fn sided_attachments_bind_only_to_their_own_limb() {
     inventory.wear(left_knee, &catalog).unwrap();
     assert_eq!(inventory.remove(hose, &catalog), [hose, left_knee]);
     assert!(inventory.get(hose).is_none());
-}
-
-#[test]
-fn plate_armor_and_catalog_breastplates_compete_for_the_chest() {
-    let catalog = authored();
-    let mut inventory = Inventory::default();
-    let cuirass = catalog_item(&mut inventory, "cuirass", "worn");
-    let fauld = catalog_item(&mut inventory, "fauld", "worn");
-    inventory.wear(cuirass, &catalog).unwrap();
-    inventory.wear(fauld, &catalog).unwrap();
-    let plate = inventory.add(Article::Plate(fabelgeist_armor::Armor::default()));
-    let mut displaced = inventory.wear(plate, &catalog).unwrap();
-    displaced.sort();
-    let expected = if fabelgeist_armor::Armor::default().fauld.layer_count > 0 {
-        vec![cuirass, fauld]
-    } else {
-        vec![cuirass]
-    };
-    assert_eq!(displaced, expected);
-    assert!(inventory.loadout(&catalog).unwrap().plate.is_some());
 }
 
 #[test]

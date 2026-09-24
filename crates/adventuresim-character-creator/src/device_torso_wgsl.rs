@@ -4,7 +4,7 @@
 //! breastplate's wearer is measured deterministically, independent of the
 //! device's fused operations.
 
-use adventuresim_armor_model::gpu::wgsl;
+use fabelgeist_armor::gpu::wgsl;
 use fabelgeist_compute::host_float;
 
 use crate::device_torso::{STATUS_COINCIDENT_LANDMARKS, STATUS_DEGENERATE_WIDTH, STATUS_NO_WIDTH};

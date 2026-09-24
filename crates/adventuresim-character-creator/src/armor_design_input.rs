@@ -67,12 +67,12 @@ mod tests {
     #[test]
     fn invalid_edits_cannot_be_saved_as_loadable_recipes() {
         let mut designs = ArmorDesigns::new();
-        let mut helmet = adventuresim_armor_model::CloseHelmetDesign::default();
+        let mut helmet = fabelgeist_armor::CloseHelmetDesign::default();
         helmet.breaths.count_per_row = 8;
-        helmet.breaths.span = adventuresim_armor_model::Millimeters(20);
+        helmet.breaths.span = fabelgeist_armor::Millimeters(20);
         designs.insert(
             "close_helmet".into(),
-            ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(helmet)),
+            ParametricDesign::Helmet(fabelgeist_armor::HelmetDesign::CloseHelmet(helmet)),
         );
         assert!(encode(&designs).is_err());
     }

@@ -1,6 +1,6 @@
 //! Shared plate relief controls.
-use adventuresim_armor_model::PlateFluting;
 use bevy_egui::egui;
+use fabelgeist_armor::PlateFluting;
 
 pub(super) fn show(ui: &mut egui::Ui, fluting: &mut Option<PlateFluting>) -> bool {
     let mut changed = false;

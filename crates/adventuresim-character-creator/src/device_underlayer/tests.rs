@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 use super::*;
 use crate::surface_cut::{Plane, SurfaceCut};
 use crate::underlayer::UnderlayerKind;
-use adventuresim_armor_model::{Millimeters, Permille};
+use fabelgeist_armor::{Millimeters, Permille};
 
 const GRID: u32 = 24;
 const SPAN_M: f32 = 0.2;

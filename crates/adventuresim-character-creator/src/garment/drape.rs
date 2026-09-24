@@ -51,7 +51,7 @@ fn run(
     };
     cancelled()?;
     let mut output = match start {
-        DrapeStart::ArmorFit { sewn, settled } => {
+        DrapeStart::Finish { sewn, settled } => {
             checkpoints.record_sewn(sewn);
             preview(settled.clone());
             settled
@@ -64,7 +64,7 @@ fn run(
     checkpoints.record_settled(output.clone());
     cancelled()?;
     let collision = super::placement::collision_surface(input);
-    // Fair the settled cloth first, so the armor fit has the last word on clearance.
+    // Fair the settled cloth before its last clearance pass.
     let clearance = body_clearance(input);
     super::symmetrize::symmetrize_and_relax(
         &mut output.positions,
@@ -79,14 +79,6 @@ fn run(
         output.positions = cloth.draw_in(&output.positions, &dressing, &collision, clearance, fit);
     }
     output.positions = cloth.keep_out(&output.positions, &collision, clearance);
-    if let Some(armor) = &input.armor {
-        warnings.extend(output.finish_armor(
-            armor,
-            &collision,
-            body_clearance(input),
-            &input.selection.drape.armor_fit,
-        )?);
-    }
     output.normals = output.normals_for(&output.positions);
     (output.indices, output.weights) = transfer_skin(input, &output.positions)?;
     warnings.extend(output.contact_issues(&collision));
@@ -177,11 +169,6 @@ fn simulate(
             // Settling starts at rest from the sewn shape.
             let sewn: Vec<_> = sewn.into_iter().map(vector).collect();
             fit.cloth.particles.write_positions(&fit.context, &sewn)?;
-            fit.cloth.outer_layer = input
-                .armor
-                .as_ref()
-                .map(|armor| super::armor::outer_layer(armor, fabric))
-                .transpose()?;
             stages.settling.apply(&mut fit, &collision, clearance)?;
             let steps = stages.settling.steps;
             for step in 0..=steps {
@@ -275,15 +262,13 @@ fn fit_settings(input: &DrapeInput, body: &Body) -> FitSettings {
     FitSettings {
         resolution_cm: input.selection.resolution_cm,
         body_height_cm: body.get("height") as f32,
-        // A mail underlayer needs less ease against the wearer than loose cloth.
-        body_offset_cm: input.selection.fabric.body_ease_cm(input.armor.as_ref()),
         ..Default::default()
     }
 }
 
 /// Wearer clearance for the cloth mid-surface: ease plus half the thickness.
 pub(super) fn body_clearance(input: &DrapeInput) -> f32 {
-    input.selection.fabric.body_ease_cm(input.armor.as_ref()) * fabelgeist_garment_fit::CM_TO_M
+    FitSettings::default().body_offset_cm * fabelgeist_garment_fit::CM_TO_M
         + input.selection.fabric.fabric().particle_radius()
 }
 

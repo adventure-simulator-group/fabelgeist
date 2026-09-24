@@ -3,7 +3,7 @@
 //! zero-length seams close by the shortest way round, under the chin.
 use super::*;
 use crate::device_coif::{CoifCarrier, fitted_coif_carrier};
-use adventuresim_armor_model::{CoifDesign, PartFrame};
+use fabelgeist_armor::{CoifDesign, PartFrame};
 use fabelgeist_cloth::{GarmentMesh, topology};
 use fabelgeist_math::Vec2;
 use std::collections::{HashMap, HashSet};
@@ -452,9 +452,7 @@ fn norm(a: V) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use adventuresim_armor_model::gpu::{
-        COIF_DRAPE_SECTIONS, FIT_PROFILE_WORD, frame_words, record_coif,
-    };
+    use fabelgeist_armor::gpu::{COIF_DRAPE_SECTIONS, FIT_PROFILE_WORD, frame_words, record_coif};
     use std::f32::consts::TAU;
 
     fn head() -> PartFrame {

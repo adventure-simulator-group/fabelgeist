@@ -3,9 +3,9 @@
 //! directional cage seats the bib on the shoulders, and the plates are built
 //! from the collar cage those measurements make.
 
-use adventuresim_armor_model::gpu::{record_gorget_plates, wgsl};
-use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use anyhow::{Result, bail, ensure};
+use fabelgeist_armor::gpu::{record_gorget_plates, wgsl};
+use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 

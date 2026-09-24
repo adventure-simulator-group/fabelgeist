@@ -5,7 +5,7 @@
 //! the plate's default scratches, at the same texture density, with the
 //! article's own engraving cut into it, and its own trim along its edges.
 use crate::item_catalog_schema::EquipmentMaterial;
-use adventuresim_armor_model::{GeneratedArmor, TrimBand, TrimError};
+use fabelgeist_armor::{GeneratedArmor, TrimBand, TrimError};
 use fabelgeist_armor::{engraving::Engraving, material::Metal, trim::Trim};
 
 /// Whether a catalog material is plate steel, shaded with the scratched metal.
@@ -125,8 +125,9 @@ mod tests {
             joint_indices: vec![[0; 8]; 4],
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 4],
             indices: vec![0, 1, 2, 0, 2, 3],
-            faces: vec![adventuresim_armor_model::PlateFace::Outer; 2],
+            faces: vec![fabelgeist_armor::PlateFace::Outer; 2],
             trim: None,
+            grids: Vec::new(),
             morphs: Vec::new(),
         }
     }
@@ -160,7 +161,7 @@ mod tests {
             normals: vec![[0.0, 0.0, 1.0]; count],
             joint_indices: vec![[0; 8]; count],
             joint_weights: vec![[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; count],
-            faces: vec![adventuresim_armor_model::PlateFace::Outer; indices.len() / 3],
+            faces: vec![fabelgeist_armor::PlateFace::Outer; indices.len() / 3],
             positions,
             indices,
             ..square()

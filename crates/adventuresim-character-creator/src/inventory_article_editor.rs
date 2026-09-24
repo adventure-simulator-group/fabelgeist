@@ -28,7 +28,6 @@ pub(super) fn show(
         }
         Article::Draped(selection) => draped(ui, item.id, selection, drape_job),
         Article::Settled(garment) => settled(ui, item.id, garment),
-        Article::Plate(armor) => armor_preview::editor(ui, armor),
     };
     if !item.worn {
         ui.small("Carried items are not shown on the body.");
@@ -73,6 +72,7 @@ fn catalog_article(
         .response
         .on_hover_text("Choose an engraving and trim saved from the armory.");
         changed |= decoration_controls::edit(ui, &mut article.decoration);
+        changed |= construction_controls::edit(ui, &mut article.construction);
     }
     changed
 }

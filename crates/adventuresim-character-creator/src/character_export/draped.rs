@@ -39,7 +39,6 @@ pub(super) fn prepare<'a>(
 
 pub(super) fn validate(
     model: &BodyModel,
-    loadout: &Loadout<'_>,
     generated: &GeneratedCharacter,
     fitted: &[DrapedGarment],
 ) -> Vec<String> {
@@ -54,7 +53,7 @@ pub(super) fn validate(
     let wearer =
         fabelgeist_bvh::TriangleBvh::new(collision_positions.clone(), collision_faces.clone());
     for garment in fitted {
-        if let Err(error) = garment.validate_body_clearance(&wearer, loadout.plate) {
+        if let Err(error) = garment.validate_body_clearance(&wearer) {
             warnings.push(format!("{}: {error:#}", garment.name));
         }
         let collision =
@@ -74,13 +73,6 @@ pub(super) fn validate(
                 .map(|p| fabelgeist_math::Vec3::new(p[0], p[1], p[2])),
         );
         collision_faces.extend(garment.faces.iter().map(|face| face.map(|i| i + offset)));
-    }
-    if let Some(armor) = loadout.plate {
-        for garment in fitted {
-            if let Err(error) = garment.validate_armor(armor) {
-                warnings.push(format!("{}: {error:#}", garment.name));
-            }
-        }
     }
     warnings
 }

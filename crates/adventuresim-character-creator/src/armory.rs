@@ -7,6 +7,7 @@ use adventuresim_character_creator::{
     item_catalog_schema::{ItemKind, Slot},
     item_design::ItemDesign,
 };
+use fabelgeist_armor::Construction;
 use studio_generation::PreviewScene;
 use studio_scene::{OrbitCamera, OrbitGoal, framing_radius};
 
@@ -70,6 +71,13 @@ impl Region {
     }
 }
 
+/// How a steel exhibit is finished: built and decorated as designed.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub(super) struct Finish {
+    pub decoration: Decoration,
+    pub construction: Construction,
+}
+
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub(super) enum ArmoryView {
     /// Every piece side by side.
@@ -89,10 +97,11 @@ pub(super) struct Exhibit {
     pub fitted: Vec<Result<GeneratedArmor, String>>,
     /// The catalog default when the armory opened, for reverting edits.
     pub loaded: ItemDesign,
-    /// Whether it is plate steel, which can be engraved and trimmed.
+    /// Whether it is plate steel, which can be built of small plates,
+    /// engraved and trimmed.
     pub steel: bool,
-    /// The decoration its preview meshes show.
-    decorated: Decoration,
+    /// The finish its preview meshes show.
+    finished: Finish,
     /// Added to the worn position to hang the piece on the wall.
     pub offset: Vec3,
     stale: bool,
@@ -157,6 +166,8 @@ pub(super) struct Armory {
     pub defaults_changed: bool,
     /// The engraving and trim being designed, shown on the selected piece.
     pub decoration: Decoration,
+    /// The construction being tried, shown on the selected piece.
+    pub construction: Construction,
     /// The name the decoration is saved to the library under.
     pub decoration_name: String,
     /// The character view to return to on leaving the armory.
@@ -183,13 +194,16 @@ impl Armory {
         self.body.is_some()
     }
 
-    /// The decoration exhibit `index` should show: the one being designed on
-    /// the selected steel piece, and none elsewhere.
-    fn decoration_for(&self, index: usize) -> Decoration {
+    /// The finish exhibit `index` should show: the one being designed on the
+    /// selected steel piece, and the plain solid piece elsewhere.
+    fn finish_for(&self, index: usize) -> Finish {
         if self.selected == Some(index) && self.exhibits[index].steel {
-            self.decoration.clone()
+            Finish {
+                decoration: self.decoration.clone(),
+                construction: self.construction.clone(),
+            }
         } else {
-            Decoration::default()
+            Finish::default()
         }
     }
 
@@ -336,9 +350,9 @@ pub(crate) fn refit(
         }
         armory.arranged = None;
     }
-    // Show what was refitted, and every piece whose decoration changed.
+    // Show what was refitted, and every piece whose finish changed.
     let respawn: Vec<usize> = (0..armory.exhibits.len())
-        .filter(|i| stale.contains(i) || armory.exhibits[*i].decorated != armory.decoration_for(*i))
+        .filter(|i| stale.contains(i) || armory.exhibits[*i].finished != armory.finish_for(*i))
         .collect();
     if respawn.is_empty() {
         return;
@@ -351,12 +365,12 @@ pub(crate) fn refit(
     // Keep only the steels this and the previous preview baked.
     scene.equipment_maps.begin_generation();
     for i in respawn {
-        let decoration = armory.decoration_for(i);
+        let finish = armory.finish_for(i);
         let exhibit = &mut armory.exhibits[i];
-        if let Err(error) = spawn_exhibit(&mut scene, &catalog, i, exhibit, &decoration) {
+        if let Err(error) = spawn_exhibit(&mut scene, &catalog, i, exhibit, &finish) {
             exhibit.fitted[0] = Err(format!("{error:#}"));
         }
-        exhibit.decorated = decoration;
+        exhibit.finished = finish;
     }
     if stale.is_empty() {
         return;
@@ -399,7 +413,7 @@ fn exhibits(catalog: &EquipmentCatalog) -> Vec<Exhibit> {
                 placements,
                 loaded,
                 steel: equipment_material(item).is_some_and(is_plate_steel),
-                decorated: Decoration::default(),
+                finished: Finish::default(),
                 offset: Vec3::ZERO,
                 stale: true,
             })

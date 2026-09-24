@@ -6,9 +6,9 @@
 //! sort and a hull over a few hundred points, which one invocation per station
 //! does; the carriers move one invocation each.
 
-use adventuresim_armor_model::gpu::device_error;
-use adventuresim_armor_model::{CuisseDesign, GreaveDesign, Millimeters, RerebraceDesign};
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
+use fabelgeist_armor::{CuisseDesign, GreaveDesign, Millimeters, RerebraceDesign};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

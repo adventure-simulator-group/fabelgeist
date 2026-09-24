@@ -1,7 +1,7 @@
 //! Controls for a procedural ornament: its motif and proportions.
 use super::*;
-use armor_preview::slider;
 use fabelgeist_armor::ornament::{Motif, Ornament};
+use metal_controls::slider;
 
 pub(super) fn ornament(ui: &mut egui::Ui, ornament: &mut Ornament) {
     egui::ComboBox::from_label("Motif")

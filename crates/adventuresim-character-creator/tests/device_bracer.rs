@@ -3,11 +3,11 @@
 use std::collections::BTreeMap;
 use std::sync::OnceLock;
 
-use adventuresim_armor_model::{ArmorGpu, BracerDesign, GeneratedArmor, Millimeters, Permille};
 use adventuresim_character_creator::bracer::{
     ForearmMorphSample, ForearmSide, ForearmSurfaceInput,
 };
 use adventuresim_character_creator::device_bracer::generate_bracer_on_device;
+use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor, Millimeters, Permille};
 
 const RINGS: usize = 13;
 const SEGMENTS: usize = 24;

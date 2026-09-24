@@ -1,6 +1,6 @@
 //! Mesh resolution and per-stage drape simulation settings for one garment.
 use super::*;
-use adventuresim_character_creator::garment::{ArmorFitSettings, DrapeSettings, StageSettings};
+use adventuresim_character_creator::garment::{DrapeSettings, StageSettings};
 
 pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
     ui.add(
@@ -25,7 +25,6 @@ pub(super) fn show(ui: &mut egui::Ui, selection: &mut GarmentSelection) {
         );
         ui.collapsing("Sewing", |ui| stage(ui, &mut drape.sewing));
         ui.collapsing("Settling", |ui| stage(ui, &mut drape.settling));
-        ui.collapsing("Armor fit", |ui| armor_fit(ui, &mut drape.armor_fit));
         if ui.button("Reset stage settings").clicked() {
             *drape = DrapeSettings::for_fabric(fabric.fabric());
         }
@@ -50,9 +49,7 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
         egui::Slider::new(&mut settings.host_contact_interval, 0..=settings.substeps)
             .text("Swept contacts every N substeps (0 = off)"),
     )
-    .on_hover_text(
-        "Swept contacts run on the GPU; with armor, each pass also reads the cloth back. Fewer passes are faster.",
-    );
+    .on_hover_text("Swept contacts run on the GPU. Fewer passes are faster.");
     ui.add_enabled_ui(settings.host_contact_interval > 0, |ui| {
         ui.add(
             egui::Slider::new(
@@ -65,24 +62,5 @@ fn stage(ui: &mut egui::Ui, settings: &mut StageSettings) {
             &mut settings.host_body_contacts,
             "Swept contacts against the body",
         );
-        ui.add(
-            egui::Slider::new(&mut settings.armor_passes, StageSettings::ARMOR_PASSES)
-                .text("Armor passes"),
-        );
     });
-}
-
-fn armor_fit(ui: &mut egui::Ui, settings: &mut ArmorFitSettings) {
-    ui.add(
-        egui::Slider::new(&mut settings.passes, ArmorFitSettings::PASSES)
-            .logarithmic(true)
-            .text("Passes"),
-    );
-    ui.add(
-        egui::Slider::new(
-            &mut settings.contact_iterations,
-            ArmorFitSettings::CONTACT_ITERATIONS,
-        )
-        .text("Contact iterations"),
-    );
 }

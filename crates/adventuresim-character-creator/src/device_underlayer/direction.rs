@@ -8,8 +8,8 @@
 //! group's sequence, realization by realization in triangle order, so every
 //! member of a group reaches the same direction.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

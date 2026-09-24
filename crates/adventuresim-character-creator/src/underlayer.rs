@@ -3,8 +3,8 @@
 mod pattern;
 pub use pattern::{RegionFrame, regions};
 
-use adventuresim_armor_model::{Millimeters, Permille};
 use anyhow::{Result, ensure};
+use fabelgeist_armor::{Millimeters, Permille};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]

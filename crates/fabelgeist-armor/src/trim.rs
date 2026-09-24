@@ -1,118 +1,126 @@
-//! A band finished apart from the rest of the plate along its edges.
+//! A trim band along every edge of a plate.
 //!
-//! The band has its own [`Metal`], so an edge can be gilded, blued or left
-//! bright on a darker plate, and the metal's engraving is the ornament that
-//! runs along it. The ornament repeats once per engraving cell along the edge,
-//! starting at the edge itself.
-use crate::engraving::Engraving;
-use crate::material::Metal;
-use serde::{Deserialize, Serialize};
+//! Real plate is often finished differently along its edges: gilded, blued,
+//! or etched with a running border. The band is found on the finished mesh
+//! from its [`PlateFace`](crate::PlateFace)s alone, so it follows whatever edges a generator
+//! produced: the outer face's boundary is the rim, the band is the outer face
+//! within [`TrimBand::width`] of it, and the edge walls always belong to it.
+//! Triangles crossing the band's inner border are cut along it, so the band
+//! keeps its width however coarse the plate's sampling.
+//!
+//! Each band vertex gets a coordinate along its nearest rim and its distance
+//! in from it. Along a closed rim the coordinate is stretched slightly so the
+//! rim holds a whole number of [`TrimBand::period`]s, and an ornament
+//! repeating at that period closes on itself.
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Trim {
-    /// How far the band reaches in from the edge, metres.
+use std::ops::Range;
+
+use thiserror::Error;
+
+use crate::GeneratedArmor;
+
+mod edges;
+mod finish;
+mod split;
+
+pub use finish::Trim;
+
+/// The band's dimensions on the surface.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct TrimBand {
+    /// How far the band reaches in from the rim, metres.
     pub width: f32,
-    pub metal: Metal,
+    /// The length along the rim an ornament repeats over, metres.
+    pub period: f32,
 }
 
-impl Default for Trim {
-    /// A gilt band two centimetres wide.
-    fn default() -> Self {
-        Self {
-            width: 0.02,
-            metal: Metal {
-                color: [1.0, 0.77, 0.34],
-                roughness: 0.25,
-                scratch_density: 0,
-                ..Metal::default()
-            },
+/// The trim band of a generated piece.
+#[derive(Clone, Debug, PartialEq)]
+pub struct ArmorTrim {
+    /// Per vertex, metres along the nearest rim and in from it. Only band
+    /// triangles read them.
+    pub coordinates: Vec<[f32; 2]>,
+    /// The band's triangles of each surface, as index ranges; see
+    /// [`GeneratedArmor::surfaces`].
+    pub bands: Vec<Range<usize>>,
+}
+
+/// One separately named surface of a piece: a component, or the whole piece
+/// when it has none. Its plate triangles come first, then its band.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct ArmorSurface {
+    /// The component, as an index into [`GeneratedArmor::components`].
+    pub component: Option<usize>,
+    pub plate: Range<usize>,
+    pub trim: Range<usize>,
+}
+
+#[derive(Clone, Copy, Debug, Error, Eq, PartialEq)]
+pub enum TrimError {
+    #[error("trim width and ornament period must be positive lengths")]
+    InvalidBand,
+    #[error("the piece does not record which face of the plate each triangle lies on")]
+    NoPlateFaces,
+    #[error("the piece is already trimmed")]
+    AlreadyTrimmed,
+}
+
+impl TrimBand {
+    fn validate(self) -> Result<Self, TrimError> {
+        if self.width.is_finite()
+            && self.width > 0.0
+            && self.period.is_finite()
+            && self.period > 0.0
+        {
+            Ok(self)
+        } else {
+            Err(TrimError::InvalidBand)
         }
     }
 }
 
-impl Trim {
-    pub const MIN_WIDTH: f32 = 0.003;
-    pub const MAX_WIDTH: f32 = 0.06;
-
-    /// The length along the edge its ornament repeats over, metres: one
-    /// engraving cell, or one metal tile without an engraving.
-    pub fn period(&self) -> f32 {
-        1.0 / (Metal::TILES_PER_METRE * self.tiles())
-    }
-
-    /// Where an engraving cell begins, in metal tiles: the engraving repeats
-    /// about the tile's centre, so the band's coordinates start here to put
-    /// the top of the image on the edge.
-    pub fn cell_origin(&self) -> f32 {
-        0.5 - 0.5 / self.tiles()
-    }
-
-    /// Engraving repeats per metal tile that make one cell as long as the
-    /// band is wide, within the engraving's range.
-    pub fn cell_tiles(&self) -> f32 {
-        (1.0 / (Metal::TILES_PER_METRE * self.width))
-            .clamp(Engraving::MIN_TILES, Engraving::MAX_TILES)
-    }
-
-    fn tiles(&self) -> f32 {
-        self.metal.engraving.as_ref().map_or(1.0, |e| e.tiles)
-    }
-
-    pub fn validate(&self) -> Result<(), String> {
-        if !self.width.is_finite() || !(Self::MIN_WIDTH..=Self::MAX_WIDTH).contains(&self.width) {
-            return Err("Invalid trim width".into());
+impl GeneratedArmor {
+    /// Cut a trim band along every edge of every plate.
+    pub fn trimmed(self, band: TrimBand) -> Result<Self, TrimError> {
+        let band = band.validate()?;
+        if self.trim.is_some() {
+            return Err(TrimError::AlreadyTrimmed);
         }
-        self.metal.validate()
+        if self.faces.is_empty() || self.faces.len() * 3 != self.indices.len() {
+            return Err(TrimError::NoPlateFaces);
+        }
+        let rims = edges::Rims::new(&self.positions, &self.indices, &self.faces, band);
+        Ok(split::Split::new(self, &rims, band).finish())
+    }
+
+    /// The piece's surfaces, each with its plate and band triangles.
+    pub fn surfaces(&self) -> Vec<ArmorSurface> {
+        let ranges = if self.components.is_empty() {
+            vec![(None, 0..self.indices.len())]
+        } else {
+            self.components
+                .iter()
+                .enumerate()
+                .map(|(index, component)| (Some(index), component.indices.clone()))
+                .collect()
+        };
+        ranges
+            .into_iter()
+            .enumerate()
+            .map(|(surface, (component, indices))| {
+                let trim = self
+                    .trim
+                    .as_ref()
+                    .map_or(indices.end..indices.end, |trim| trim.bands[surface].clone());
+                ArmorSurface {
+                    component,
+                    plate: indices.start..trim.start,
+                    trim,
+                }
+            })
+            .collect()
     }
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn the_ornament_repeats_once_per_engraving_cell() {
-        let mut trim = Trim::default();
-        assert_eq!(trim.period(), 1.0 / Metal::TILES_PER_METRE);
-        trim.metal.engraving = Some(Engraving {
-            tiles: 5.0,
-            ..Engraving::new("border.png")
-        });
-        assert!((trim.period() - 0.05).abs() < 1e-7);
-    }
-
-    #[test]
-    fn a_cell_begins_at_the_origin() {
-        for tiles in [1.0, 5.0, 12.5] {
-            let trim = Trim {
-                metal: Metal {
-                    engraving: Some(Engraving {
-                        tiles,
-                        ..Engraving::new("border.png")
-                    }),
-                    ..Metal::default()
-                },
-                ..Trim::default()
-            };
-            // The engraving samples the image at `(u - 0.5) * tiles + 0.5`.
-            let image = (trim.cell_origin() - 0.5) * tiles + 0.5;
-            assert!((image - image.round()).abs() < 1e-5, "{tiles}: {image}");
-        }
-    }
-
-    #[test]
-    fn widths_outside_the_supported_band_are_rejected() {
-        let trim = Trim::default();
-        assert!(trim.validate().is_ok());
-        for width in [0.0, Trim::MAX_WIDTH * 2.0, f32::NAN] {
-            assert!(
-                Trim {
-                    width,
-                    ..trim.clone()
-                }
-                .validate()
-                .is_err()
-            );
-        }
-    }
-}
+mod tests;

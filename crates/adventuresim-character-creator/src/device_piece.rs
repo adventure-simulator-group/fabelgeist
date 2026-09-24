@@ -1,6 +1,6 @@
 //! What recording a fitted piece on the device leaves behind.
 
-use adventuresim_armor_model::{ArmorGpu, DevicePart};
+use fabelgeist_armor::{ArmorGpu, DevicePart};
 
 use crate::armor_frames::FitRegion;
 use crate::device_frames::DeviceFrame;

@@ -22,16 +22,12 @@ impl DrapedGarment {
     }
 
     /// Check the outward side and requested ease against the closed wearer.
-    pub fn validate_body_clearance(
-        &self,
-        body: &fabelgeist_bvh::TriangleBvh,
-        armor: Option<&fabelgeist_armor::Armor>,
-    ) -> Result<()> {
+    pub fn validate_body_clearance(&self, body: &fabelgeist_bvh::TriangleBvh) -> Result<()> {
         let points: Vec<_> = self.positions.iter().copied().map(vector).collect();
-        let margin =
-            self.fabric.body_ease_cm(armor) * 0.01 + self.fabric.fabric().particle_radius();
+        let margin = FitSettings::default().body_offset_cm * fabelgeist_garment_fit::CM_TO_M
+            + self.fabric.fabric().particle_radius();
         anyhow::ensure!(
-            super::finish::body_residual(&points, body, margin)
+            body_residual(&points, body, margin)
                 <= fabelgeist_shell::outer_layer::CLEARANCE_TOLERANCE,
             "garment violates wearer clearance"
         );
@@ -45,10 +41,47 @@ pub(super) fn validate_surface(
     body: &fabelgeist_bvh::TriangleBvh,
 ) -> Result<()> {
     anyhow::ensure!(
-        !super::armor::edges_cross(cloth, body) && !super::armor::edges_cross(body, cloth),
+        !edges_cross(cloth, body) && !edges_cross(body, cloth),
         "garment triangles intersect the wearer or an inner garment"
     );
     Ok(())
+}
+
+/// How far any point lies inside `margin` of the wearer's outward side.
+fn body_residual(points: &[Vec3], body: &fabelgeist_bvh::TriangleBvh, margin: f32) -> f32 {
+    points
+        .iter()
+        .filter_map(|&point| {
+            let (index, closest, _) = body.closest_point(point, f32::MAX)?;
+            let (a, b, c) = body.triangle(index);
+            let raw = (b - a).cross(c - a);
+            (raw.length() > 1e-10).then(|| margin - (point - closest).dot(raw / raw.length()))
+        })
+        .fold(0.0, f32::max)
+}
+
+/// Whether any edge of `source` passes through a triangle of `target`.
+fn edges_cross(source: &fabelgeist_bvh::TriangleBvh, target: &fabelgeist_bvh::TriangleBvh) -> bool {
+    // Exclude endpoint contact and coplanar contact; retain strict edge crossings.
+    const ENDPOINT_TOLERANCE: f32 = 1e-6;
+    source.triangles.iter().any(|face| {
+        (0..3).any(|i| {
+            let a = source.positions[face[i] as usize];
+            let b = source.positions[face[(i + 1) % 3] as usize];
+            let delta = b - a;
+            let length = delta.length();
+            if length <= ENDPOINT_TOLERANCE * 2.0 {
+                return false;
+            }
+            let direction = delta / length;
+            target
+                .raycast(
+                    &fabelgeist_bvh::Ray::new(a + direction * ENDPOINT_TOLERANCE, direction),
+                    length - ENDPOINT_TOLERANCE * 2.0,
+                )
+                .is_some()
+        })
+    })
 }
 
 /// Whether any cloth edge passes through another cloth triangle.
@@ -137,10 +170,10 @@ mod tests {
             stage: DrapeStage::Placed,
         };
         assert!(cloth.contact_issues(&body).is_empty());
-        assert!(cloth.validate_body_clearance(&body, None).is_err());
+        assert!(cloth.validate_body_clearance(&body).is_err());
         for p in &mut cloth.positions {
             p[2] = 0.05;
         }
-        assert!(cloth.validate_body_clearance(&body, None).is_ok());
+        assert!(cloth.validate_body_clearance(&body).is_ok());
     }
 }

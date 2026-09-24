@@ -17,7 +17,6 @@ pub struct Loadout<'a> {
     pub fitted: Vec<FittedPiece<'a>>,
     /// Cloth, from the innermost layer out, in draping order.
     pub draped: Vec<DrapedPiece<'a>>,
-    pub plate: Option<&'a fabelgeist_armor::Armor>,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -33,6 +32,8 @@ pub struct FittedPiece<'a> {
     pub design: ItemDesign,
     /// Its engraving and trim, applied when its material is plate steel.
     pub decoration: crate::decoration::Decoration,
+    /// How it is built, when its material is plate steel.
+    pub construction: fabelgeist_armor::Construction,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -73,6 +74,7 @@ impl Inventory {
                             piece,
                             design,
                             decoration: article.decoration.clone(),
+                            construction: article.construction.clone(),
                         }),
                         None => loadout.clothing.push(piece),
                     }
@@ -99,7 +101,6 @@ impl Inventory {
                         },
                     ));
                 }
-                Article::Plate(armor) => loadout.plate = Some(armor),
             }
         }
         draped.sort_by_key(|(layer, _)| *layer);

@@ -66,7 +66,7 @@ pub(super) fn regenerate_mesh(
     let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
     preview::spawn_body(commands, meshes, materials, &walk, &model, &generated, mesh);
     preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells);
-    let spawned = scene.spawn_equipment(&catalog, &model, &generated, &walk, &armor, loadout.plate);
+    let spawned = scene.spawn_equipment(&catalog, &armor);
     studio.status = match spawned {
         Ok(()) => format!(
             "Generated {} body vertices · {} clothing shells · {} armor pieces",
@@ -82,11 +82,7 @@ impl PreviewScene<'_, '_> {
     fn spawn_equipment(
         &mut self,
         catalog: &EquipmentCatalog,
-        model: &BodyModel,
-        generated: &GeneratedCharacter,
-        walk: &WalkPreview,
         armor: &[parametric_equipment::SelectedArmor<'_>],
-        plate: Option<&fabelgeist_armor::Armor>,
     ) -> Result<()> {
         self.equipment_maps.begin_generation();
         for piece in armor {
@@ -128,22 +124,23 @@ impl PreviewScene<'_, '_> {
                 CharacterMesh,
             )
             .context("Armor preview failed")?;
+            if let Some(lacing) = &piece.lacing {
+                preview::spawn_armor(
+                    &mut self.commands,
+                    &mut self.meshes,
+                    &mut self.materials,
+                    &lacing.generated,
+                    lacing.name.clone(),
+                    preview::ArmorShading {
+                        plate: preview::lacing_material(&lacing.cord),
+                        trim: None,
+                    },
+                    CharacterMesh,
+                )
+                .context("Lacing preview failed")?;
+            }
         }
-        let Some(plate) = plate else {
-            return Ok(());
-        };
-        armor_preview::spawn(
-            plate,
-            model,
-            &generated.global_joint_states,
-            walk,
-            &mut self.commands,
-            &mut self.meshes,
-            &mut self.materials,
-            &mut self.images,
-        )
-        .map_err(anyhow::Error::msg)
-        .context("Plate armor generation failed")
+        Ok(())
     }
 }
 

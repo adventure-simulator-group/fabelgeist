@@ -1,142 +1,134 @@
-mod csg;
+//! Deterministic, renderer-independent parametric armor fitted to canonical
+//! anatomical surface samples, and the metal it is finished in.
+
+mod construction;
 pub mod engraving;
-pub mod gpu;
 pub mod material;
-mod mesh;
 pub mod ornament;
 pub mod pattern;
+mod skin;
+mod tiling;
+pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
+pub use tiling::{Constructed, MAX_TILES};
+
+mod helmet_crown;
+pub use helmet_crown::HelmetCrown;
+
+mod breastplate_design;
+pub use breastplate_design::*;
+mod plate_fluting;
+pub use plate_fluting::{FluteCount, PlateFluting};
+mod components;
+mod plate_face;
+pub use plate_face::PlateFace;
+mod surface_grid;
+pub use surface_grid::SurfaceGrid;
 pub mod trim;
-pub use mesh::{ArmorMesh, ArmorPart};
-use serde::{Deserialize, Serialize};
+pub use trim::{ArmorSurface, ArmorTrim, TrimBand, TrimError};
+mod design;
+pub use components::{ArmorComponent, ArmorComponentRole, ArmorHinge};
+mod error;
+mod frame;
+pub use frame::{BoundaryNormals, PartFrame};
+mod garment_armor;
+pub mod gpu;
+pub use gpu::{
+    ArmorGpu, BuiltPart, DevicePart, record_extremity_armor, record_helmet, record_limb_armor,
+};
+mod garment_plate_design;
+mod gorget_chart;
+pub use garment_plate_design::GarmentPlateShape;
+pub use gorget_chart::gorget_control_angle;
+mod helmets;
+mod limb_armor;
+pub use garment_armor::{
+    GARMENT_ARMPIT_ROW, GARMENT_AXIAL_SEGMENTS, GARMENT_PANEL_ACROSS, GARMENT_PANEL_ALONG,
+    GARMENT_RING_SEGMENTS, GARMENT_SHOULDER_DEPTH_SEGMENTS, GarmentArmorDesign, GarmentArmorKind,
+};
+pub use helmets::*;
+pub use limb_armor::*;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum Construction {
-    Solid,
-    Lamellar,
-    Scale,
+pub use design::*;
+pub use error::GenerateError;
+
+pub const SCHEMA_VERSION: u16 = 1;
+pub const GENERATOR_VERSION: u16 = 12;
+
+/// Hash a serialized typed parametric recipe for exported asset provenance.
+pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {
+    *blake3::hash(encoded).as_bytes()
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Plate {
-    pub gap: f32,
-    pub bevel: f32,
-    pub width: f32,
-    pub height: f32,
-    pub roundness: f32,
-    pub overlap: f32,
-    pub stagger: f32,
-    pub hole_radius: f32,
-    pub hole_pairs: u32,
+pub fn encode(design: &BracerDesign) -> Result<Vec<u8>, DesignError> {
+    validate(design)?;
+    postcard::to_allocvec(design).map_err(|_| DesignError::Encoding)
 }
-/// Parameters used to generate uniform overlapping fauld layers.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Fauld {
-    pub construction: Construction,
-    pub layer_count: u32,
-    pub layer_height: f32,
-    pub overlap: f32,
-    pub flare: f32,
+
+pub fn decode(bytes: &[u8]) -> Result<BracerDesign, DesignError> {
+    let design = postcard::from_bytes(bytes).map_err(|_| DesignError::Encoding)?;
+    validate(&design)?;
+    Ok(design)
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct Armor {
-    pub construction: Construction,
-    pub width: f32,
-    pub height: f32,
-    pub depth: f32,
-    pub waist: f32,
-    pub neck: f32,
-    pub arm_cut: f32,
-    pub thickness: f32,
-    pub ridge: f32,
-    pub ridge_sharpness: f32,
-    pub center_point: f32,
-    pub plate: Plate,
-    pub fauld: Fauld,
-    pub metal: material::Metal,
-    pub translation: [f32; 3],
+
+pub fn design_hash(design: &BracerDesign) -> Result<[u8; 32], DesignError> {
+    Ok(*blake3::hash(&encode(design)?).as_bytes())
 }
-impl Default for Armor {
-    fn default() -> Self {
-        Self {
-            construction: Construction::Solid,
-            // Leaves at least 5 mm along the plate normal over the default
-            // MHR chest and hips: room for an armored mail underlayer.
-            width: 0.47,
-            height: 0.43,
-            depth: 0.16,
-            waist: 0.78,
-            neck: 0.075,
-            arm_cut: 0.065,
-            thickness: 0.003,
-            ridge: 0.035,
-            ridge_sharpness: 2.0,
-            center_point: 0.025,
-            plate: Plate {
-                gap: 0.0015,
-                bevel: 0.0006,
-                width: 0.045,
-                height: 0.065,
-                roundness: 0.75,
-                overlap: 0.25,
-                stagger: 0.5,
-                hole_radius: 0.003,
-                hole_pairs: 2,
-            },
-            fauld: Fauld {
-                construction: Construction::Solid,
-                layer_count: 3,
-                layer_height: 0.065,
-                overlap: 0.25,
-                flare: 0.015,
-            },
-            metal: material::Metal::default(),
-            translation: [0.0, 1.05, 0.025],
-        }
+
+pub fn breastplate_design_hash(design: &BreastplateDesign) -> Result<[u8; 32], DesignError> {
+    validate_breastplate(design)?;
+    let bytes = postcard::to_allocvec(design).map_err(|_| DesignError::Encoding)?;
+    Ok(*blake3::hash(&bytes).as_bytes())
+}
+
+pub fn validate_breastplate(design: &BreastplateDesign) -> Result<(), DesignError> {
+    design.profile.validate()?;
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
     }
-}
-impl Armor {
-    pub fn validate(&self) -> Result<(), String> {
-        fn range(v: f32, lo: f32, hi: f32) -> bool {
-            v.is_finite() && (lo..=hi).contains(&v)
-        }
-        if !range(self.width, 0.2, 0.8)
-            || !range(self.height, 0.2, 0.8)
-            || !range(self.depth, 0.03, 0.35)
-            || !range(self.waist, 0.5, 1.2)
-            || !range(self.neck, 0.0, 0.12)
-            || !range(self.arm_cut, 0.0, 0.09)
-            || !range(self.thickness, 0.001, 0.012)
-            || !range(self.ridge, 0.0, 0.12)
-            || !range(self.ridge_sharpness, 1.0, 6.0)
-            || !range(self.center_point, 0.0, 0.08)
-            || self.translation.iter().any(|x| !range(*x, -3.0, 3.0))
-        {
-            return Err("Armor dimensions are outside supported bounds".into());
-        }
-        let p = &self.plate;
-        if !range(p.gap, 0.0, 0.005)
-            || !range(p.bevel, 0.0, self.thickness * 0.45)
-            || !range(p.width, 0.025, 0.15)
-            || !range(p.height, 0.03, 0.2)
-            || !range(p.roundness, 0.0, 1.0)
-            || !range(p.overlap, 0.0, 0.5)
-            || !range(p.stagger, 0.0, 1.0)
-            || !range(p.hole_radius, 0.0, 0.006)
-            || p.height > self.height
-            || p.width > self.width
-            || p.hole_pairs > 3
-            || p.hole_radius * 5.0 >= p.width.min(p.height)
-        {
-            return Err("Plate dimensions or hole spacing are invalid".into());
-        }
-        let f = &self.fauld;
-        if f.layer_count > 12
-            || !range(f.layer_height, 0.025, 0.15)
-            || !range(f.overlap, 0.0, 0.5)
-            || !range(f.flare, 0.0, 0.05)
-        {
-            return Err("Armor supports up to twelve bounded overlapping layers".into());
-        }
-        self.metal.validate()
+    if design.catalog_id.trim().is_empty() {
+        return Err(DesignError::EmptyCatalogId);
     }
+    if !(700..=1_300).contains(&design.neck_width.0)
+        || !(600..=1_400).contains(&design.neck_depth.0)
+        || !(700..=1_300).contains(&design.arm_opening_depth.0)
+        || !(750..=1_200).contains(&design.waist_width.0)
+        || !(700..=1100).contains(&design.back_depth.0)
+        || !(650..=1_150).contains(&design.plate_length.0)
+        || !(850..=1_080).contains(&design.side_return.0)
+        || !(500..=1_600).contains(&design.skirt_length.0)
+        || design.skirt_flare.0 > 70
+        || !(1..=20).contains(&design.wall_thickness.0)
+        || !(4..=30).contains(&design.front_clearance.0)
+        || !(6..=35).contains(&design.back_clearance.0)
+    {
+        return Err(DesignError::BreastplateEdges);
+    }
+    Ok(())
+}
+
+pub fn validate(design: &BracerDesign) -> Result<(), DesignError> {
+    if design.elbow_flare.0 > 15 || design.wrist_flare.0 > 15 || design.center_ridge.0 > 8 {
+        return Err(DesignError::Clearance);
+    }
+    if let Some(fluting) = &design.fluting {
+        fluting.validate()?;
+    }
+    if design.catalog_id.trim().is_empty() {
+        return Err(DesignError::EmptyCatalogId);
+    }
+    if !(50..=1_000).contains(&design.coverage.0) {
+        return Err(DesignError::Coverage);
+    }
+    if design.wrist_offset.0 > 950
+        || u32::from(design.coverage.0) + u32::from(design.wrist_offset.0) > 1_000
+    {
+        return Err(DesignError::Placement);
+    }
+    if !(1..=20).contains(&design.wall_thickness.0) {
+        return Err(DesignError::WallThickness);
+    }
+    if !(1..=30).contains(&design.clearance.0) {
+        return Err(DesignError::Clearance);
+    }
+    Ok(())
 }

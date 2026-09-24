@@ -10,12 +10,10 @@
 use std::f32::consts::{PI, TAU};
 use std::sync::Arc;
 
-use adventuresim_armor_model::gpu::COIF_DRAPE_SECTIONS;
-use adventuresim_armor_model::gpu::{
-    COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl,
-};
-use adventuresim_armor_model::{ArmorGpu, CoifDesign, DevicePart, PartFrame};
 use anyhow::{Context, Result, ensure};
+use fabelgeist_armor::gpu::COIF_DRAPE_SECTIONS;
+use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
+use fabelgeist_armor::{ArmorGpu, CoifDesign, DevicePart, PartFrame};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

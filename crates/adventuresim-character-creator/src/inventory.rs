@@ -1,6 +1,6 @@
 //! A character's belongings: every article carried, and which of them are worn.
 //!
-//! Catalog items, draped garments and plate armor are all articles. Whether
+//! Catalog items and draped garments are all articles. Whether
 //! worn articles fit together follows the catalog's body occupancy and
 //! attachment rules, through the same equipment graph the game uses.
 
@@ -19,6 +19,7 @@ use crate::{
     },
     item_design::ItemDesign,
 };
+use fabelgeist_armor::Construction;
 use serde::{Deserialize, Serialize};
 
 /// Stable identity of one article within a character's inventory.
@@ -50,8 +51,6 @@ pub enum Article {
     /// Cloth saved from the wardrobe once settled, fitted to the wearer
     /// without simulating. The article holds its own copy of the drape.
     Settled(SettledGarment),
-    /// The Fabelgeist breastplate and fauld builder.
-    Plate(fabelgeist_armor::Armor),
 }
 
 /// One catalog item in one of its authored placements.
@@ -64,6 +63,9 @@ pub struct CatalogArticle {
     pub design: Option<ItemDesign>,
     /// The engraving and trim of a plate-steel article.
     pub decoration: Decoration,
+    /// How a plate-steel article is built: one solid plate, or lamellar lames
+    /// or scales laced over its surface.
+    pub construction: Construction,
 }
 
 /// Why an article cannot be worn with the rest of the outfit.
@@ -90,6 +92,7 @@ impl CatalogArticle {
             placement_id: placement_id.into(),
             design: None,
             decoration: Decoration::default(),
+            construction: Construction::Solid,
         }
     }
 
@@ -133,26 +136,17 @@ impl Article {
             },
             Self::Draped(selection) => selection.name.clone(),
             Self::Settled(garment) => garment.selection.name.clone(),
-            Self::Plate(armor) => {
-                use fabelgeist_armor::Construction;
-                let construction = match armor.construction {
-                    Construction::Solid => "Solid",
-                    Construction::Lamellar => "Lamellar",
-                    Construction::Scale => "Scale",
-                };
-                format!("{construction} plate breastplate")
-            }
         }
     }
 
-    /// Catalog weight; generated garments and plate have no authored weight.
+    /// Catalog weight; generated garments have no authored weight.
     pub fn weight_kg(&self, catalog: &ItemCatalog) -> Option<f32> {
         match self {
             Self::Catalog(article) => article
                 .resolve(catalog)
                 .ok()
                 .map(|(item, _)| item.weight_kg),
-            Self::Draped(_) | Self::Settled(_) | Self::Plate(_) => None,
+            Self::Draped(_) | Self::Settled(_) => None,
         }
     }
 
@@ -161,7 +155,7 @@ impl Article {
         match self {
             Self::Draped(selection) => Some(selection),
             Self::Settled(garment) => Some(&garment.selection),
-            Self::Catalog(_) | Self::Plate(_) => None,
+            Self::Catalog(_) => None,
         }
     }
 
@@ -179,13 +173,16 @@ impl Article {
                 article
                     .decoration
                     .validate()
+                    .map_err(|error| format!("{}: {error}", article.item_id))?;
+                article
+                    .construction
+                    .validate()
                     .map_err(|error| format!("{}: {error}", article.item_id))
             }
             Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
             Self::Settled(garment) => garment
                 .validate()
                 .map_err(|error| format!("{}: {error:#}", garment.selection.name)),
-            Self::Plate(armor) => armor.validate(),
         }
     }
 }
@@ -312,7 +309,7 @@ impl Inventory {
                     Article::Catalog(article) => catalog
                         .item(&article.item_id)
                         .and_then(|definition| definition.equipment.as_ref()),
-                    Article::Draped(_) | Article::Settled(_) | Article::Plate(_) => None,
+                    Article::Draped(_) | Article::Settled(_) => None,
                 };
                 Ok(occupancy::Candidate {
                     id: item.id,

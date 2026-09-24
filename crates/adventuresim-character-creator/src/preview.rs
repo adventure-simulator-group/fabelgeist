@@ -58,6 +58,17 @@ pub(super) struct TrimPreview<'a> {
     pub material: StandardMaterial,
 }
 
+/// The cord lacing a piece's small plates, as the preview shades it.
+pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMaterial {
+    let [red, green, blue] = cord.color;
+    StandardMaterial {
+        base_color: Color::srgb(red, green, blue),
+        metallic: 0.0,
+        perceptual_roughness: cord.roughness,
+        ..default()
+    }
+}
+
 /// Spawn each surface of a piece, and its trim band when it has one.
 pub(super) fn spawn_armor(
     commands: &mut Commands,

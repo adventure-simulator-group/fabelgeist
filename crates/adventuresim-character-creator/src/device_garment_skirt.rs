@@ -3,12 +3,12 @@
 //! skirt, around the chausses beneath it, sewn to the hem of the shirt above.
 //! Tassets sit on a smooth depth datum sampled from the front of the hips.
 
-use adventuresim_armor_model::gpu::{record_fauld, record_garment_tube, record_tassets, wgsl};
-use adventuresim_armor_model::{
+use anyhow::{Result, bail};
+use fabelgeist_armor::gpu::{record_fauld, record_garment_tube, record_tassets, wgsl};
+use fabelgeist_armor::{
     DevicePart, GARMENT_RING_SEGMENTS, GarmentArmorDesign, GarmentArmorKind as Kind,
     GarmentPlateShape,
 };
-use anyhow::{Result, bail};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 

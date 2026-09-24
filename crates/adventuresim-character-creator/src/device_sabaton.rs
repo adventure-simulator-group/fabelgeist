@@ -13,9 +13,9 @@
 //! (see `fabelgeist_compute::host_float`); only the transcendental functions,
 //! whose results the tip does not amplify, are the device's.
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
-use adventuresim_armor_model::{DevicePart, FootArmorDesign, GenerateError};
 use anyhow::Result;
+use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::{DevicePart, FootArmorDesign, GenerateError};
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::PassParameters;
 

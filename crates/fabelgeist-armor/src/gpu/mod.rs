@@ -1,131 +1,253 @@
-//! Plate armor and its metal, generated on a compute device.
+//! The device armor is generated on.
 //!
-//! [`PlateGpu::build`] generates an [`Armor`]'s welded parts and
-//! [`PlateGpu::textures`] bakes a [`Metal`]'s maps. The host plans only what
-//! depends on the design alone -- the part list, the tile layout and the
-//! template tile's CSG-cut rivet holes -- and decodes the engraving image.
-//! Everything per vertex, per triangle and per texel runs on the device, in
-//! correctly rounded arithmetic (see [`fabelgeist_compute::host_float`]), so
-//! that the finite-difference normals and the micrometre weld do not depend
-//! on how a device compiler fuses or reassociates.
-//!
-//! The kernels compile into a caller's [`KernelCache`] on a caller's
-//! [`WgpuContext`], so an application that already generates other armor on
-//! a device shares it; [`PlateGpu::open`] opens one of its own.
-
-mod armor;
-mod finish;
-mod geometry;
-mod metal;
-mod ornament;
-mod plan;
-mod textures;
-mod weld;
-mod wgsl;
-
-#[cfg(test)]
-mod tests;
+//! [`ArmorGpu`] owns a compute context and the compiled kernels every armor
+//! family shares. One is enough for a whole process: its kernels are compiled
+//! once, and it may be used from any number of threads at once.
 
 use std::sync::Arc;
 
-use fabelgeist_compute::{Kernel, KernelBatch, KernelCache, RadixSort, ScanDefinition};
-use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, PassParameters, WgpuContext};
-
-use crate::{
-    Armor, ArmorPart,
-    material::{Metal, MetalTextures},
+use fabelgeist_compute::{
+    KernelBatch, KernelCache, MeshQuery, NormalWeighting, PointTargets, QueryHits,
+    VertexNormalKernels,
 };
+use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, WgpuContext};
 
-/// The plate armor kernels, compiled for one device.
-pub struct PlateGpu {
-    context: WgpuContext,
-    emit: Arc<Kernel>,
-    keys: Arc<Kernel>,
-    representatives: Arc<Kernel>,
-    weld_vertices: Arc<Kernel>,
-    weld_faces: Arc<Kernel>,
-    compact: Arc<Kernel>,
-    ranges: Arc<Kernel>,
-    scratches: Arc<Kernel>,
-    engraving: Arc<Kernel>,
-    cut_slopes: Arc<Kernel>,
-    finish: Arc<Kernel>,
-    ornament: Arc<Kernel>,
-    bake: Arc<Kernel>,
-    sort: RadixSort,
-    scan: ScanDefinition,
-    tiles: plan::TileCache,
-}
+use crate::{GenerateError, PartFrame};
 
-impl std::fmt::Debug for PlateGpu {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("PlateGpu").finish_non_exhaustive()
+pub mod anatomy;
+pub mod body;
+pub mod bracer;
+mod bracer_contour_wgsl;
+mod bracer_wgsl;
+pub mod breastplate;
+pub(crate) mod chart;
+pub(crate) mod close_helmet;
+pub(crate) mod close_helmet_dome;
+pub(crate) mod close_helmet_profile;
+pub(crate) mod close_helmet_shape;
+pub(crate) mod coif;
+pub(crate) mod coif_drape;
+pub(crate) mod coif_shape;
+pub(crate) mod coord;
+pub(crate) mod coord_topology;
+pub(crate) mod extremities;
+pub(crate) mod footwear;
+pub(crate) mod garment;
+pub(crate) mod garment_torso;
+pub(crate) mod gorget;
+pub(crate) mod helmet;
+pub(crate) mod limb;
+pub mod metal;
+pub(crate) mod mitten;
+pub(crate) mod part;
+pub(crate) mod placement;
+pub(crate) mod recipe;
+pub(crate) mod shell_plan;
+pub mod staging;
+pub mod wgsl;
+pub use close_helmet::{CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, record_close_helmet};
+pub use close_helmet_profile::CloseHelmetProfile;
+pub use coif::record_coif;
+pub use coif_drape::{
+    COIF_DRAPE_SECTIONS, COIF_DRAPE_WORDS, CoifDrapeProfile, CoifDrapeSection, CoifFlapDrape,
+    CoifNeckDrape,
+};
+pub use extremities::record_extremity_armor;
+pub use garment::{record_fauld, record_garment_tube, record_tassets};
+pub use garment_torso::record_garment_torso;
+pub use gorget::record_gorget_plates;
+pub use helmet::{generate_helmet_on, record_helmet};
+pub use limb::{generate_limb_armor_on, record_limb_armor};
+pub use part::{BuiltPart, PartSlots};
+pub use recipe::frame_words;
+pub use staging::{Staged, StagedResults, Staging};
+
+/// A part under construction on the device: its carriers, until
+/// [`DevicePart::record_shells`] thickens them, then its final mesh.
+pub struct DevicePart(part::PartBuild);
+
+impl DevicePart {
+    /// Carrier points of every shell, packed `f32` triples in shell order.
+    pub fn carriers(&self) -> &Buffer {
+        &self.0.carriers
+    }
+
+    /// Nonzero once any stage has found the part invalid.
+    pub fn status(&self) -> &Buffer {
+        &self.0.status
+    }
+
+    pub fn shell_count(&self) -> usize {
+        self.0.layout().shell_count()
+    }
+
+    /// The carriers of one shell, as indices into [`DevicePart::carriers`].
+    pub fn shell_carriers(&self, shell: usize) -> std::ops::Range<u32> {
+        let layout = self.0.layout();
+        let first = layout.first_carrier(shell);
+        first..first + layout.carrier_count(shell)
+    }
+
+    /// The carrier triangles of one shell as authored, before any
+    /// reflection rewinds them, indexed within the shell.
+    pub fn shell_carrier_triangles(&self, shell: usize) -> &[u32] {
+        self.0.layout().carrier_triangles(shell)
+    }
+
+    pub fn carrier_count(&self) -> u32 {
+        self.0.layout().total_carriers()
+    }
+
+    /// Place the part by the frame at the start of `frame` once its shells
+    /// are thickened: its shapes then evaluate it in its own frame.
+    pub fn place_by(&mut self, frame: &Buffer) {
+        self.0.placement = Some(frame.clone());
+    }
+
+    /// Thicken every shell and compute the final normals.
+    pub fn record_shells(
+        &mut self,
+        gpu: &ArmorGpu,
+        batch: &mut KernelBatch,
+    ) -> Result<(), GenerateError> {
+        self.0.record_shells(gpu, batch)
+    }
+
+    /// Final positions, once the shells are recorded.
+    pub fn positions(&self) -> &Buffer {
+        self.0.positions()
+    }
+
+    pub fn vertex_count(&self) -> u32 {
+        self.0.final_count()
+    }
+
+    /// Final triangles, once the shells are recorded.
+    pub fn indices(&self) -> &Buffer {
+        self.0.final_indices()
+    }
+
+    pub fn triangle_count(&self) -> u32 {
+        self.0.final_triangle_count()
+    }
+
+    /// Read the finished part back, after its batch has been submitted.
+    pub fn read(&self, gpu: &ArmorGpu) -> Result<BuiltPart, GenerateError> {
+        let mut staging = Staging::new();
+        let slots = self.stage(&mut staging);
+        self.finish(&gpu.read_staged(staging)?, slots)
+    }
+
+    /// Stage the finished part for a shared readback.
+    pub fn stage<'a>(&'a self, staging: &mut Staging<'a>) -> part::PartSlots {
+        self.0.stage(staging)
+    }
+
+    /// The finished part, from a shared readback.
+    pub fn finish(
+        &self,
+        results: &StagedResults,
+        slots: part::PartSlots,
+    ) -> Result<BuiltPart, GenerateError> {
+        self.0.finish(results, slots)
     }
 }
 
-impl PlateGpu {
-    /// Compile the kernels on `context`, sharing `cache`.
-    ///
-    /// Everything compiles here, the scan's pipelines included: compiling
-    /// pushes and pops the device's error scopes, which must not interleave
-    /// with another thread's, so no build or bake compiles anything later.
-    pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self, String> {
-        let kernel = |source: String| cache.get(context, &source).map_err(device_error);
-        let scan = ScanDefinition::new(
-            context,
-            "fn scan(a: u32, b: u32) -> u32 { return a + b; }".to_string(),
-        )
-        .map_err(device_error)?;
-        scan.get_or_create_pipelines(context)
-            .map_err(device_error)?;
+/// A compute device and the armor kernels compiled for it.
+pub struct ArmorGpu {
+    context: WgpuContext,
+    cache: KernelCache,
+    query: MeshQuery,
+    area_normals: VertexNormalKernels,
+    angle_normals: VertexNormalKernels,
+}
+
+impl std::fmt::Debug for ArmorGpu {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ArmorGpu")
+            .field("kernels", &self.cache.len())
+            .finish()
+    }
+}
+
+impl ArmorGpu {
+    /// Compile the shared kernels on `context`.
+    pub fn new(context: WgpuContext) -> Result<Self, GenerateError> {
+        let cache = KernelCache::new();
         Ok(Self {
-            emit: kernel(geometry::emit_source())?,
-            keys: kernel(weld::keys_source())?,
-            representatives: kernel(weld::representatives_source())?,
-            weld_vertices: kernel(weld::vertices_source())?,
-            weld_faces: kernel(weld::faces_source())?,
-            compact: kernel(weld::compact_source())?,
-            ranges: kernel(weld::ranges_source())?,
-            scratches: kernel(textures::scratches_source())?,
-            engraving: kernel(textures::engraving_source())?,
-            cut_slopes: kernel(textures::cut_slopes_source())?,
-            finish: kernel(finish::finish_source())?,
-            ornament: kernel(ornament::ornament_source())?,
-            bake: kernel(textures::bake_source())?,
-            sort: RadixSort::with_cache(context, cache).map_err(device_error)?,
-            scan,
-            tiles: plan::TileCache::default(),
-            context: context.clone(),
+            query: MeshQuery::with_cache(&context, &cache).map_err(device_error)?,
+            area_normals: VertexNormalKernels::with_cache(&context, &cache, NormalWeighting::Area)
+                .map_err(device_error)?,
+            angle_normals: VertexNormalKernels::with_cache(
+                &context,
+                &cache,
+                NormalWeighting::Angle,
+            )
+            .map_err(device_error)?,
+            context,
+            cache,
         })
     }
 
     /// Open the default adapter's device.
-    pub fn open() -> Result<Self, String> {
-        let context = pollster::block_on(WgpuContext::new()).map_err(device_error)?;
-        Self::new(&context, &KernelCache::new())
+    pub fn open() -> Result<Self, GenerateError> {
+        Self::new(pollster::block_on(WgpuContext::new()).map_err(device_error)?)
     }
 
-    /// Generate the armor's parts: the breastplate (one part, or a part per
-    /// tile), then each fauld layer, every one a closed, welded mesh.
-    pub fn build(&self, armor: &Armor) -> Result<Vec<ArmorPart>, String> {
-        armor::build(self, armor)
+    pub fn context(&self) -> &WgpuContext {
+        &self.context
     }
 
-    /// Bake the metal's maps onto a `size` square tile, reading the engraving
-    /// image if there is one. `size` must be 32–1024.
-    pub fn textures(&self, metal: &Metal, size: u32) -> Result<MetalTextures, String> {
-        metal::textures(self, metal, size)
+    pub fn cache(&self) -> &KernelCache {
+        &self.cache
     }
 
-    fn batch(&self, label: &str) -> KernelBatch<'_> {
+    pub fn query(&self) -> &MeshQuery {
+        &self.query
+    }
+
+    pub fn normals(&self, weighting: NormalWeighting) -> &VertexNormalKernels {
+        match weighting {
+            NormalWeighting::Area => &self.area_normals,
+            NormalWeighting::Angle => &self.angle_normals,
+        }
+    }
+
+    pub fn batch(&self, label: &str) -> KernelBatch<'_> {
         KernelBatch::labelled(&self.context, label)
     }
 
-    fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, String> {
+    /// Build a part placed by host frames, as previews and tests place one:
+    /// `record` records it against each of `frames` on the device, then its
+    /// shells are thickened and it is read back.
+    pub fn build_in(
+        &self,
+        frames: &[PartFrame],
+        record: impl FnOnce(&mut KernelBatch, &[&Buffer]) -> Result<DevicePart, GenerateError>,
+    ) -> Result<BuiltPart, GenerateError> {
+        let buffers = frames
+            .iter()
+            .map(|frame| {
+                frame.validate()?;
+                self.upload(&frame_words(frame))
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+        let buffers = buffers.iter().collect::<Vec<_>>();
+        let mut batch = self.batch("armor in host frames");
+        let mut part = record(&mut batch, &buffers)?;
+        part.record_shells(self, &mut batch)?;
+        batch.submit();
+        part.read(self)
+    }
+
+    /// Upload plain data into a new storage buffer.
+    pub fn upload<T: bytemuck::NoUninit>(&self, data: &[T]) -> Result<Buffer, GenerateError> {
         let bytes = bytemuck::cast_slice::<T, u8>(data);
         // A buffer cannot be empty; an empty array still needs something bound.
+        let padded;
         let bytes = if bytes.is_empty() {
-            &[0u8; 4][..]
+            padded = [0u8; 4];
+            &padded[..]
         } else {
             bytes
         };
@@ -137,56 +259,64 @@ impl PlateGpu {
         .map_err(device_error)
     }
 
-    /// A zeroed storage buffer of `words` 32-bit words.
-    fn scratch(&self, words: u64, label: &str) -> Result<Buffer, String> {
+    /// A zeroed storage buffer of `bytes` bytes.
+    pub fn scratch(&self, bytes: u64, label: &str) -> Result<Buffer, GenerateError> {
         Buffer::new(
             &self.context,
-            words.max(1) * 4,
+            bytes.max(4),
             BufferDefinition::storage()
                 .with_copy_src()
-                .with_copy_dst()
                 .with_label(label),
         )
         .map_err(device_error)
     }
 
     /// Read a buffer back. Stalls until the device has finished writing it.
-    fn read<T: bytemuck::AnyBitPattern>(&self, buffer: &Buffer) -> Result<Vec<T>, String> {
+    pub fn read<T: bytemuck::AnyBitPattern>(
+        &self,
+        buffer: &Buffer,
+    ) -> Result<Vec<T>, GenerateError> {
         pollster::block_on(buffer.read(&self.context)).map_err(device_error)
     }
 
-    /// Record `kernel` over `items` invocations.
-    fn dispatch(
+    /// The nearest of `targets` to each query, ties going to the lowest index.
+    pub fn nearest_points(
         &self,
-        batch: &mut KernelBatch,
-        kernel: &Kernel,
-        parameters: &PassParameters,
-        items: u32,
-    ) -> Result<(), String> {
-        batch
-            .dispatch_items(kernel, parameters, items)
-            .map(|_| ())
-            .map_err(device_error)
-    }
-
-    /// Inclusive prefix sums of a buffer of exactly as many words as it
-    /// sums. Runs after everything submitted before it.
-    fn inclusive_scan(&self, input: &Buffer) -> Result<Buffer, String> {
-        fabelgeist_compute::Scan::execute(&self.context, &self.scan, input).map_err(device_error)
+        queries: &[[f32; 3]],
+        targets: &[[f32; 3]],
+    ) -> Result<Vec<u32>, GenerateError> {
+        if queries.is_empty() {
+            return Ok(Vec::new());
+        }
+        if targets.is_empty() {
+            return Err(GenerateError::InvalidSurface);
+        }
+        let count = queries.len() as u32;
+        let hits = QueryHits::new(&self.context, count).map_err(device_error)?;
+        let query_buffer = self.upload(queries)?;
+        let target_buffer = self.upload(targets)?;
+        let mut batch = self.batch("armor nearest points");
+        self.query
+            .record_nearest_points(
+                &mut batch,
+                &query_buffer,
+                count,
+                PointTargets {
+                    positions: &target_buffer,
+                    candidates: None,
+                    count: targets.len() as u32,
+                },
+                &hits,
+            )
+            .map_err(device_error)?;
+        batch.submit();
+        let mut nearest: Vec<u32> = self.read(&hits.nearest)?;
+        nearest.truncate(queries.len());
+        Ok(nearest)
     }
 }
 
-/// The parameters of a pass over `count` items.
-fn counted(count: u32) -> PassParameters {
-    let mut parameters = PassParameters::new();
-    parameters.insert("count", count);
-    for pad in ["pad0", "pad1", "pad2"] {
-        parameters.insert(pad, 0u32);
-    }
-    parameters
-}
-
-/// A device failure, which plate generation cannot recover from.
-fn device_error(error: impl std::fmt::Display) -> String {
-    format!("plate armor device: {error}")
+/// A device failure, which armor generation cannot recover from.
+pub fn device_error(error: impl std::fmt::Display) -> GenerateError {
+    GenerateError::Gpu(Arc::from(error.to_string()))
 }

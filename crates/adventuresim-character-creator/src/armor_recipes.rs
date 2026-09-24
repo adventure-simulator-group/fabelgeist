@@ -1,7 +1,7 @@
 //! Catalog boundary for the authored armor recipes and anatomical fit regions.
 
-use adventuresim_armor_model::*;
 use anyhow::Result;
+use fabelgeist_armor::*;
 use serde::{Deserialize, Serialize};
 use std::{collections::BTreeMap, sync::LazyLock};
 

@@ -12,8 +12,8 @@
 
 use std::sync::Arc;
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::{Context, Result};
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
 use fabelgeist_gpu::prelude::PassParameters;
 
@@ -89,7 +89,7 @@ impl DeviceWearer<'_> {
     }
 }
 
-fn kernels(gpu: &adventuresim_armor_model::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
+fn kernels(gpu: &fabelgeist_armor::ArmorGpu) -> Result<[Arc<Kernel>; 4]> {
     let compile = |entry: &str| {
         gpu.cache()
             .get(gpu.context(), &source(entry))

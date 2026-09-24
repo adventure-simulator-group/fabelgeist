@@ -2,9 +2,9 @@
 //! skin make a cage, and every panel vertex is placed from it; the shoulder
 //! and flank seams then follow the panels they join.
 
-use adventuresim_armor_model::gpu::record_garment_torso;
-use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use anyhow::Result;
+use fabelgeist_armor::gpu::record_garment_torso;
+use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 
 use crate::armor_frames::FitRegion;

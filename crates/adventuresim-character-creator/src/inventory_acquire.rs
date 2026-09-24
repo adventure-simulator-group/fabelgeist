@@ -23,13 +23,6 @@ pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCa
                 vec![Article::Draped(GarmentSelection::default())],
             );
         }
-        if ui.button("New plate armor").clicked() {
-            acquire(
-                studio,
-                catalog,
-                vec![Article::Plate(fabelgeist_armor::Armor::default())],
-            );
-        }
     });
 
     wardrobe(ui, studio, catalog, &search);

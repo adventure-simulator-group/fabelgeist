@@ -2,9 +2,9 @@
 //! envelope, out over the garments beneath a boot, and the boot's ankle
 //! faired outward.
 
-use adventuresim_armor_model::ArmorGpu;
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::Result;
+use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

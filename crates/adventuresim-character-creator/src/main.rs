@@ -16,6 +16,7 @@ mod armor_controls;
 mod breastplate_controls;
 mod character_export;
 mod character_morphs;
+mod construction_controls;
 mod decoration_controls;
 mod device_equipment;
 mod equipment_controls;
@@ -28,7 +29,6 @@ mod underlayer_preview;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
 mod animation_preview;
-mod armor_preview;
 mod armory;
 mod armory_ui;
 mod bare_body;
@@ -53,7 +53,6 @@ use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
-use adventuresim_armor_model::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use adventuresim_character_creator::{
     CharacterRecipe, IdentityGroup,
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
@@ -77,6 +76,7 @@ use bevy::{
 use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
 use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
+use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
 use rand::{Rng, SeedableRng, rngs::StdRng};
 
@@ -436,9 +436,6 @@ mod garment_integration_tests {
             ..CharacterRecipe::default()
         };
         let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
-        let plate = std::env::var_os("GARMENT_TEST_ARMOR")
-            .is_some()
-            .then(fabelgeist_armor::Armor::default);
         let generated = generate_character(&model, &recipe)?;
         // Every named shape, in mail unless GARMENT_TEST_FABRIC names another
         // fabric, and the fitted coif.
@@ -473,21 +470,13 @@ mod garment_integration_tests {
             }
             let label = selection.name.clone();
             recipe.inventory = Default::default();
-            for article in plate
-                .clone()
-                .map(Article::Plate)
-                .into_iter()
-                .chain([Article::Draped(selection.clone())])
-            {
-                let id = recipe.inventory.add(article);
-                recipe
-                    .inventory
-                    .wear(id, &catalog)
-                    .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
-            }
+            let id = recipe.inventory.add(Article::Draped(selection.clone()));
+            recipe
+                .inventory
+                .wear(id, &catalog)
+                .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
             println!("checking {label}");
-            let mut input = drape_preview::input(&model, &generated, selection.clone());
-            input.armor = plate.clone();
+            let input = drape_preview::input(&model, &generated, selection.clone());
             let fitted = drape(
                 input,
                 None,
@@ -605,16 +594,7 @@ mod garment_integration_tests {
             }
             let bytes = std::fs::read(&path)?;
             let parsed = gltf::Gltf::from_slice(&bytes)?;
-            let armor_parts = plate
-                .as_ref()
-                .map(|plate| {
-                    adventuresim_character_creator::plate_gpu()?
-                        .build(plate)
-                        .map_err(anyhow::Error::msg)
-                })
-                .transpose()?
-                .unwrap_or_default();
-            assert_eq!(parsed.meshes().count(), 2 + armor_parts.len());
+            assert_eq!(parsed.meshes().count(), 2);
             println!("verified draped character: {}", path.display());
         }
         Ok(())

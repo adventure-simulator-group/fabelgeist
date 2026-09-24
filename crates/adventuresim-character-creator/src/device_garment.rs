@@ -9,9 +9,9 @@
 use std::collections::HashSet;
 use std::sync::{LazyLock, Mutex};
 
-use adventuresim_armor_model::gpu::body::Correspondence;
-use adventuresim_armor_model::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use anyhow::{Context, Result};
+use fabelgeist_armor::gpu::body::Correspondence;
+use fabelgeist_armor::{DevicePart, GarmentArmorDesign, GarmentArmorKind as Kind};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 

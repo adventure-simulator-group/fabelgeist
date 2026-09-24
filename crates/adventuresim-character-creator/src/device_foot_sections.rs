@@ -7,8 +7,8 @@
 //! arrive in any order: skin vertices for the anatomical envelope, or the
 //! garment slices a boot shaft must clear.
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::Result;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::{KernelBatch, host_float};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
@@ -111,10 +111,7 @@ fn counted(count: u32) -> PassParameters {
 }
 
 /// A fresh pair of ordered-float axial bounds, lowest then highest.
-pub(crate) fn axial_bounds(
-    gpu: &adventuresim_armor_model::ArmorGpu,
-    pairs: usize,
-) -> Result<Buffer> {
+pub(crate) fn axial_bounds(gpu: &fabelgeist_armor::ArmorGpu, pairs: usize) -> Result<Buffer> {
     let words = [ORDERED_POSITIVE_INFINITY, ORDERED_NEGATIVE_INFINITY].repeat(pairs);
     Ok(gpu.upload(&words)?)
 }
@@ -122,7 +119,7 @@ pub(crate) fn axial_bounds(
 /// Record the axial extent of `count` points in `frame` into the bounds
 /// pair at `pair` of `bounds`.
 pub(crate) fn record_axial_bounds(
-    gpu: &adventuresim_armor_model::ArmorGpu,
+    gpu: &fabelgeist_armor::ArmorGpu,
     batch: &mut KernelBatch,
     frame: &Buffer,
     positions: &Buffer,
@@ -151,7 +148,7 @@ pub(crate) fn record_axial_bounds(
 /// Record the sections of `points` (local points, flagged in `w`) between
 /// the first pair of `bounds`.
 pub(crate) fn record_sections(
-    gpu: &adventuresim_armor_model::ArmorGpu,
+    gpu: &fabelgeist_armor::ArmorGpu,
     batch: &mut KernelBatch,
     frame: &Buffer,
     bounds: &Buffer,

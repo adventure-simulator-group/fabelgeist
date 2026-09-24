@@ -214,14 +214,6 @@ impl SettledDrape {
             weights: Vec::new(),
             stage: DrapeStage::Worn,
         };
-        if let Some(armor) = &input.armor {
-            warnings.extend(garment.finish_armor(
-                armor,
-                &collision,
-                clearance,
-                &selection.drape.armor_fit,
-            )?);
-        }
         garment.normals = garment.normals_for(&garment.positions);
         (garment.indices, garment.weights) = transfer_skin(input, &garment.positions)?;
         warnings.extend(garment.contact_issues(&collision));

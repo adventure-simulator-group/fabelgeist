@@ -65,7 +65,7 @@ mod tests {
     use super::*;
     #[test]
     fn garment_code_preserves_dimensions_and_roundness() {
-        let mut p = crate::Armor::default().plate;
+        let mut p = crate::Tiling::scale().plate;
         for roundness in [0.0, 0.5, 1.0] {
             p.roundness = roundness;
             let outline = plate_outline(&p);

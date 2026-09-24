@@ -16,7 +16,7 @@ pub(super) struct MetalImages {
 
 impl MetalImages {
     pub(super) fn new(images: &mut Assets<Image>, metal: &Metal) -> Result<Self, String> {
-        let textures = adventuresim_character_creator::plate_gpu()
+        let textures = adventuresim_character_creator::metal_gpu()
             .map_err(|error| error.to_string())?
             .textures(metal, Metal::TEXTURE_SIZE)?;
         let mut upload = |data| {

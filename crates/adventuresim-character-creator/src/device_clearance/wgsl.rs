@@ -2,7 +2,7 @@
 //! convex section of that skin, and every carrier moved to clear the section
 //! blended from its two nearest stations.
 
-use adventuresim_armor_model::gpu::wgsl;
+use fabelgeist_armor::gpu::wgsl;
 
 use super::{SECTION_WORDS, STATION_CAPACITY, STATIONS};
 

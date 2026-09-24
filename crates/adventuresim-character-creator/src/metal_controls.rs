@@ -1,7 +1,6 @@
-//! Finish controls shared by plate armor and catalog steel: the scratched metal,
-//! the engraving cut into it, and the trim along a plate's edges.
+//! Finish controls for plate steel: the scratched metal, the engraving cut
+//! into it, and the trim along a plate's edges.
 use super::*;
-use armor_preview::slider;
 use fabelgeist_armor::{
     engraving::{Engraving, Relief, ReliefSource},
     material::Metal,
@@ -190,4 +189,13 @@ fn tiling(ui: &mut egui::Ui, cut: &mut Engraving) {
         -std::f32::consts::PI..=std::f32::consts::PI,
     );
     slider(ui, "Recess roughness", &mut cut.recess_roughness, 0.0..=1.0);
+}
+
+pub(super) fn slider(
+    ui: &mut egui::Ui,
+    label: &str,
+    value: &mut f32,
+    range: std::ops::RangeInclusive<f32>,
+) {
+    ui.add(egui::Slider::new(value, range).text(label));
 }

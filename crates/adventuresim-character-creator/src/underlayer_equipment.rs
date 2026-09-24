@@ -3,12 +3,12 @@
 use super::*;
 mod proportions;
 use crate::parametric_equipment::deltas;
-use adventuresim_armor_model::ArmorMorph;
 use adventuresim_character_creator::{
     armor_frames::Wearer,
     device_underlayer::{self, BodyShape, SurfaceDomain},
     underlayer::UnderlayerDesign,
 };
+use fabelgeist_armor::ArmorMorph;
 
 /// Cut an underlayer from the wearer and fit it to every morph sample.
 pub(super) fn fitted(
@@ -53,7 +53,7 @@ pub(super) fn fitted(
         })
         .collect();
     let armor = GeneratedArmor {
-        design_hash: adventuresim_armor_model::parametric_design_hash(&serde_json::to_vec(design)?),
+        design_hash: fabelgeist_armor::parametric_design_hash(&serde_json::to_vec(design)?),
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
         positions: base.positions,
         normals: base.normals,
@@ -64,6 +64,7 @@ pub(super) fn fitted(
         // Cut from the body: a quilted layer, not a thickened plate.
         faces: Vec::new(),
         trim: None,
+        grids: Vec::new(),
         morphs: targets,
         components: Vec::new(),
     };

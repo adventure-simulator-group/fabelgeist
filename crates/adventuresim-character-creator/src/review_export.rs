@@ -18,7 +18,7 @@ pub(super) fn export(
             "texcoords":character.mesh.texcoords,"texcoord_faces":character.mesh.texcoord_faces,
             "joint_names":character.skeleton.names,"joints":body.global_joint_states,
             "joint_indices":character.skin_weights.index,"joint_weights":character.skin_weights.weight,
-            "generator_version":adventuresim_armor_model::GENERATOR_VERSION
+            "generator_version":fabelgeist_armor::GENERATOR_VERSION
         }))?,
     )?;
     for item in catalog.wearable() {
@@ -50,7 +50,7 @@ fn review_record(
     let mut record = serde_json::json!({
         "id":item.id,"placement":placement,"positions":armor.positions,"normals":armor.normals,
         "indices":armor.indices,"components":armor.components,
-        "generator_version":adventuresim_armor_model::GENERATOR_VERSION
+        "generator_version":fabelgeist_armor::GENERATOR_VERSION
     });
     record["design"] = match design {
         ItemDesign::Recipe(recipe) => {

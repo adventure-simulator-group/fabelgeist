@@ -130,7 +130,6 @@ pub fn input(
 ) -> DrapeInput {
     let character = &model.mhr.character;
     DrapeInput {
-        armor: None,
         selection,
         settled: None,
         obstacles: vec![],

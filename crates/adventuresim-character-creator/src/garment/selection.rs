@@ -3,7 +3,7 @@ use super::pattern::{Pattern, shapes};
 use super::*;
 use crate::garment_material::MailWeave;
 use crate::item_catalog_schema::EquipmentChannel;
-use adventuresim_armor_model::{CoifDesign, HelmetDesign};
+use fabelgeist_armor::{CoifDesign, HelmetDesign};
 use std::ops::RangeInclusive;
 
 /// How a garment hangs on the body, which decides how it follows the limbs.
@@ -78,15 +78,6 @@ pub enum FabricPreset {
     Jersey,
 }
 impl FabricPreset {
-    /// Ease against the wearer, excluding the material's half thickness.
-    pub fn body_ease_cm(self, armor: Option<&fabelgeist_armor::Armor>) -> f32 {
-        const ARMORED_MAIL_EASE_CM: f32 = 0.2;
-        if self == Self::Chainmail && armor.is_some() {
-            ARMORED_MAIL_EASE_CM
-        } else {
-            FitSettings::default().body_offset_cm
-        }
-    }
     pub const ALL: [Self; 6] = [
         Self::Chainmail,
         Self::Cotton,

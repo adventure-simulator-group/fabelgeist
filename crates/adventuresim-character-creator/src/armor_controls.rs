@@ -1,7 +1,7 @@
 //! Editable construction controls for catalog armor designs.
-use adventuresim_armor_model::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
+use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape};
 use std::ops::RangeInclusive;
 #[path = "helmet_controls.rs"]
 mod helmet;
@@ -9,10 +9,10 @@ mod helmet;
 mod limb;
 
 /// The mail coif's shape controls, for the draped chainmail coif.
-pub(super) fn coif(ui: &mut egui::Ui, design: &mut adventuresim_armor_model::CoifDesign) -> bool {
-    let mut helmet = adventuresim_armor_model::HelmetDesign::MailCoif(*design);
+pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {
+    let mut helmet = fabelgeist_armor::HelmetDesign::MailCoif(*design);
     let changed = helmet::show(ui, &mut helmet);
-    if let adventuresim_armor_model::HelmetDesign::MailCoif(edited) = helmet {
+    if let fabelgeist_armor::HelmetDesign::MailCoif(edited) = helmet {
         *design = edited;
     }
     changed

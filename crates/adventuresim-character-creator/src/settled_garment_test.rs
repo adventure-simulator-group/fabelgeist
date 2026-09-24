@@ -127,7 +127,7 @@ fn a_settled_garment_fits_other_bodies_without_draping() -> Result<()> {
             "body {seed}: the garment left the wearer ({mean} m)"
         );
         garment
-            .validate_body_clearance(&wearer, None)
+            .validate_body_clearance(&wearer)
             .with_context(|| format!("body {seed}"))?;
         assert!(
             !crosses(&outcome.warnings),

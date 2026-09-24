@@ -7,11 +7,11 @@
 
 use std::sync::Arc;
 
-use adventuresim_armor_model::gpu::{
+use anyhow::Result;
+use fabelgeist_armor::gpu::{
     CLOSE_HELMET_PROFILE_WORDS, FIT_PROFILE_WORD, device_error, record_close_helmet, wgsl,
 };
-use adventuresim_armor_model::{ArmorGpu, CloseHelmetDesign};
-use anyhow::Result;
+use fabelgeist_armor::{ArmorGpu, CloseHelmetDesign};
 use fabelgeist_compute::{Kernel, KernelBatch, host_float};
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

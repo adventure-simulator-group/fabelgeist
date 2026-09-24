@@ -2,7 +2,6 @@
 //! stable morph correspondence.
 
 use super::*;
-use adventuresim_armor_model::{ArmorMorph, HelmetDesign, LimbArmorDesign};
 use adventuresim_character_creator::{
     armor_frames::Side,
     armor_recipes::{self, ParametricDesign},
@@ -11,6 +10,7 @@ use adventuresim_character_creator::{
     inventory::{FittedPiece, Loadout},
     item_design::ItemDesign,
 };
+use fabelgeist_armor::{ArmorMorph, HelmetDesign, LimbArmorDesign};
 use fabelgeist_compute::KernelBatch;
 
 pub(super) fn fitted_design(
@@ -130,7 +130,7 @@ fn assembled(
     }
     let bytes = serde_json::to_vec(design)?;
     let mut armor = GeneratedArmor {
-        design_hash: adventuresim_armor_model::parametric_design_hash(&bytes),
+        design_hash: fabelgeist_armor::parametric_design_hash(&bytes),
         surface_domain: MHR_ANATOMICAL_UV_DOMAIN.into(),
         positions: base.positions,
         normals: base.normals,
@@ -140,6 +140,7 @@ fn assembled(
         indices: base.indices,
         faces: base.faces,
         trim: None,
+        grids: base.grids,
         morphs: targets,
         components: base.components,
     };
@@ -204,6 +205,8 @@ pub(super) struct SelectedArmor<'a> {
     pub name: String,
     pub generated: GeneratedArmor,
     pub trim: Option<SelectedTrim>,
+    /// The cord lacing its small plates, when it is built of them.
+    pub lacing: Option<SelectedLacing>,
 }
 
 /// The band along a worn piece's edges, and how it is shaded.
@@ -214,20 +217,59 @@ pub(super) struct SelectedTrim {
     pub name: String,
 }
 
+/// The cord lacing a worn piece's small plates, and how it is shaded.
+pub(super) struct SelectedLacing {
+    pub generated: GeneratedArmor,
+    pub cord: fabelgeist_armor::Lacing,
+    pub name: String,
+}
+
+/// Whether a worn piece is plate steel, which can be built of small plates,
+/// engraved and trimmed.
+fn is_steel(piece: &FittedPiece<'_>) -> bool {
+    piece
+        .piece
+        .item
+        .equipment
+        .as_ref()
+        .and_then(|equipment| equipment.material)
+        .is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel)
+}
+
+/// Build a worn plate-steel piece in its construction.
+fn construct(
+    piece: &FittedPiece<'_>,
+    name: &str,
+    fitted: GeneratedArmor,
+) -> Result<(GeneratedArmor, Option<SelectedLacing>)> {
+    let construction = if is_steel(piece) {
+        &piece.construction
+    } else {
+        &fabelgeist_armor::Construction::Solid
+    };
+    let constructed = fitted.constructed(construction)?;
+    let lacing = constructed
+        .lacing
+        .zip(
+            construction
+                .tiling()
+                .and_then(|tiling| tiling.lacing.clone()),
+        )
+        .map(|(generated, cord)| SelectedLacing {
+            generated,
+            cord,
+            name: format!("{name}.lacing"),
+        });
+    Ok((constructed.plates, lacing))
+}
+
 /// Cut a worn plate-steel piece's trim along its edges.
 fn trim(
     piece: &FittedPiece<'_>,
     name: &str,
     generated: GeneratedArmor,
 ) -> Result<(GeneratedArmor, Option<SelectedTrim>)> {
-    let steel = piece
-        .piece
-        .item
-        .equipment
-        .as_ref()
-        .and_then(|equipment| equipment.material)
-        .is_some_and(adventuresim_character_creator::armor_metal::is_plate_steel);
-    let Some(trim) = piece.decoration.trim.as_ref().filter(|_| steel) else {
+    let Some(trim) = piece.decoration.trim.as_ref().filter(|_| is_steel(piece)) else {
         return Ok((generated, None));
     };
     let (generated, texcoords) =
@@ -265,12 +307,15 @@ pub(super) fn selected<'a>(
                 morphs,
             )
             .with_context(|| format!("fitting {item_id} ({placement})"))?;
-            let (generated, trim) = trim(piece, &name, fitted)
+            let (plates, lacing) = construct(piece, &name, fitted)
+                .with_context(|| format!("building {item_id} ({placement})"))?;
+            let (generated, trim) = trim(piece, &name, plates)
                 .with_context(|| format!("trimming {item_id} ({placement})"))?;
             Ok(SelectedArmor {
                 name,
                 generated,
                 trim,
+                lacing,
                 piece: piece.clone(),
             })
         })
@@ -297,6 +342,7 @@ mod tests {
         let body = generate_character(&model, &recipe)?;
         let morphs = character_morphs::CharacterMorphs::generate(&model, &recipe, &body)?.samples;
         let mut fitted = 0;
+        let mut tiled = 0;
         for item in catalog.wearable() {
             let Some(design) = catalog.design(&item.id) else {
                 continue;
@@ -332,12 +378,83 @@ mod tests {
                 if steel {
                     trims_along_every_edge(&armor)
                         .with_context(|| format!("trimming {}--{}", item.id, placement.id))?;
+                    tiled += builds_of_small_plates(&armor)
+                        .with_context(|| format!("tiling {}--{}", item.id, placement.id))?;
                 }
                 fitted += 1;
             }
         }
         anyhow::ensure!(fitted > 0, "the catalog has no parametric armor");
+        anyhow::ensure!(tiled > 0, "no steel piece takes small plates");
         Ok(())
+    }
+
+    /// Scales and lamellar lames laced over a fitted steel piece keep one
+    /// topology across its morphs, and trim like any plate. A piece no grid
+    /// describes, such as a helmet, cannot take them. Returns how many
+    /// constructions were built.
+    fn builds_of_small_plates(armor: &GeneratedArmor) -> Result<usize> {
+        use fabelgeist_armor::{Construction, ConstructionError, Tiling};
+        let mut built = 0;
+        for construction in [
+            Construction::Scale(Tiling::scale()),
+            Construction::Lamellar(Tiling::lamellar()),
+        ] {
+            let constructed = match armor.clone().constructed(&construction) {
+                Err(ConstructionError::NoSurfaceGrid) if armor.grids.is_empty() => continue,
+                Err(ConstructionError::NoPlateFits) => {
+                    eprintln!("  {}: the plates are too large", construction.name());
+                    continue;
+                }
+                result => result?,
+            };
+            let lacing = constructed.lacing.context("the default plates are laced")?;
+            let reach = construction
+                .tiling()
+                .map_or(0.0, |tiling| tiling.plate.height);
+            let [lo, hi] = [f32::min, f32::max].map(|pick| {
+                std::array::from_fn::<f32, 3, _>(|k| {
+                    armor
+                        .positions
+                        .iter()
+                        .map(|p| p[k])
+                        .fold(armor.positions[0][k], pick)
+                })
+            });
+            for piece in [&constructed.plates, &lacing] {
+                anyhow::ensure!(
+                    piece
+                        .positions
+                        .iter()
+                        .all(|p| (0..3).all(|k| p[k] > lo[k] - reach && p[k] < hi[k] + reach)),
+                    "{}: plates reach a plate's height beyond the piece",
+                    construction.name()
+                );
+                let count = piece.positions.len();
+                anyhow::ensure!(count > 0 && piece.indices.iter().all(|i| (*i as usize) < count));
+                anyhow::ensure!(piece.positions.iter().flatten().all(|v| v.is_finite()));
+                anyhow::ensure!(piece.morphs.len() == armor.morphs.len());
+                for morph in &piece.morphs {
+                    anyhow::ensure!(morph.direct_positions.len() == count);
+                    anyhow::ensure!(
+                        morph
+                            .position_deltas
+                            .iter()
+                            .flatten()
+                            .all(|v| v.is_finite())
+                    );
+                }
+            }
+            eprintln!(
+                "  {}: {} plate and {} lacing triangles",
+                construction.name(),
+                constructed.plates.indices.len() / 3,
+                lacing.indices.len() / 3,
+            );
+            trims_along_every_edge(&constructed.plates)?;
+            built += 1;
+        }
+        Ok(built)
     }
 
     /// A default trim cuts a band on every surface of a fitted steel piece,

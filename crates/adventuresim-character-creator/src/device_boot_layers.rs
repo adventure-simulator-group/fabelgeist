@@ -7,9 +7,9 @@
 //! leaves the slot unflagged. A closed garment's edges come in both
 //! directions, so the crossings do not depend on its winding.
 
-use adventuresim_armor_model::DevicePart;
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::Result;
+use fabelgeist_armor::DevicePart;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

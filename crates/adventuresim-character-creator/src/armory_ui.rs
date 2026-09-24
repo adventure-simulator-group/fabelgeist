@@ -172,6 +172,7 @@ fn editor(
     }
     let loaded = exhibit.loaded.clone();
     if exhibit.steel {
+        construction(ui, armory);
         decoration(ui, studio, armory);
     }
     let Some(mut design) = catalog.design(&item_id) else {
@@ -202,6 +203,17 @@ fn editor(
             Err(error) => studio.status = format!("Could not change {item_id}: {error:#}"),
         }
     }
+}
+
+/// Try a construction on the selected piece.
+fn construction(ui: &mut egui::Ui, armory: &mut Armory) {
+    studio_theme::card(ui, "Construction", |ui| {
+        ui.small(
+            "Shown on this piece. Each plate-steel article in the inventory \
+             chooses its own construction.",
+        );
+        construction_controls::edit(ui, &mut armory.construction);
+    });
 }
 
 /// Design an engraving and trim on the selected piece, and save it to the

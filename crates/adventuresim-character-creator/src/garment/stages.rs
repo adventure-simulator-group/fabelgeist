@@ -30,8 +30,6 @@ pub struct StageSettings {
     /// Also sweep cloth against the wearer's triangles on the host. The GPU
     /// body collider runs either way.
     pub host_body_contacts: bool,
-    /// Alternations between the armor surface and cloth contacts.
-    pub armor_passes: u32,
 }
 
 impl StageSettings {
@@ -41,7 +39,6 @@ impl StageSettings {
     pub const GRAVITY: RangeInclusive<f32> = 0.0..=30.0;
     pub const DAMPING: RangeInclusive<f32> = 0.0..=20.0;
     pub const CONTACT_ITERATIONS: RangeInclusive<u32> = 1..=8;
-    pub const ARMOR_PASSES: RangeInclusive<u32> = 1..=8;
 
     fn validate(&self, stage: &str) -> Result<()> {
         ensure!(
@@ -78,11 +75,6 @@ impl StageSettings {
             "{stage} host contact iterations must be within {:?}",
             Self::CONTACT_ITERATIONS
         );
-        ensure!(
-            Self::ARMOR_PASSES.contains(&self.armor_passes),
-            "{stage} armor passes must be within {:?}",
-            Self::ARMOR_PASSES
-        );
         Ok(())
     }
 
@@ -102,7 +94,7 @@ impl StageSettings {
         fit.cloth.host_contacts = fabelgeist_shell::HostContactSchedule {
             interval_substeps: self.host_contact_interval,
             iterations: self.host_contact_iterations,
-            outer_layer_passes: self.armor_passes,
+            ..fabelgeist_shell::HostContactSchedule::default()
         };
         if self.host_body_contacts {
             fit.cloth
@@ -114,35 +106,11 @@ impl StageSettings {
     }
 }
 
-/// Host reconciliation of the settled garment against the armor and wearer.
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
-pub struct ArmorFitSettings {
-    /// Alternating armor and contact passes before clearance is rejected.
-    pub passes: u32,
-    /// Projection sweeps in each contact pass.
-    pub contact_iterations: u32,
-}
-
-impl ArmorFitSettings {
-    pub const PASSES: RangeInclusive<u32> = 1..=2048;
-    pub const CONTACT_ITERATIONS: RangeInclusive<u32> = 1..=8;
-}
-
-impl Default for ArmorFitSettings {
-    fn default() -> Self {
-        Self {
-            passes: 512,
-            contact_iterations: 4,
-        }
-    }
-}
-
 /// Every drape stage's settings, plus how often previews are published.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
 pub struct DrapeSettings {
     pub sewing: StageSettings,
     pub settling: StageSettings,
-    pub armor_fit: ArmorFitSettings,
     /// Share of the gap between settled cloth and the body parts it dresses
     /// that is closed after settling, without stretching the cloth: 0 leaves
     /// it as it hangs, 1 draws it as close as its cut allows.
@@ -171,7 +139,6 @@ impl DrapeSettings {
             // The GPU collider tests particle spheres only; a cloth triangle can
             // pass through body triangles between them without swept contacts.
             host_body_contacts: true,
-            armor_passes: 4,
         };
         Self {
             sewing,
@@ -181,7 +148,6 @@ impl DrapeSettings {
                 damping: fabric.damping,
                 ..sewing
             },
-            armor_fit: ArmorFitSettings::default(),
             body_fit: Self::DEFAULT_BODY_FIT,
             preview_interval: 1,
         }
@@ -190,16 +156,6 @@ impl DrapeSettings {
     pub fn validate(&self) -> Result<()> {
         self.sewing.validate("sewing")?;
         self.settling.validate("settling")?;
-        ensure!(
-            ArmorFitSettings::PASSES.contains(&self.armor_fit.passes),
-            "armor fit passes must be within {:?}",
-            ArmorFitSettings::PASSES
-        );
-        ensure!(
-            ArmorFitSettings::CONTACT_ITERATIONS.contains(&self.armor_fit.contact_iterations),
-            "armor fit contact iterations must be within {:?}",
-            ArmorFitSettings::CONTACT_ITERATIONS
-        );
         ensure!(
             self.body_fit.is_finite() && Self::BODY_FIT.contains(&self.body_fit),
             "body fit must be within {:?}",
@@ -229,7 +185,7 @@ pub(super) enum DrapeStart {
     Settling {
         sewn: Vec<[f32; 3]>,
     },
-    ArmorFit {
+    Finish {
         sewn: Vec<[f32; 3]>,
         settled: DrapedGarment,
     },
@@ -253,7 +209,7 @@ impl DrapeCheckpoints {
     }
 
     /// Re-run from the earliest stage whose inputs changed. Surface appearance
-    /// is not a drape input, so a material edit only repeats the armor fit.
+    /// is not a drape input, so a material edit only repeats the finish.
     pub(super) fn start_for(previous: Option<&Self>, input: &DrapeInput) -> DrapeStart {
         let Some(previous) = previous else {
             return DrapeStart::Placement;
@@ -267,14 +223,10 @@ impl DrapeCheckpoints {
         }
         let sewn = sewn.clone();
         match &previous.settled {
-            Some(settled)
-                if before.settling == after.settling && previous.input.armor == input.armor =>
-            {
-                DrapeStart::ArmorFit {
-                    sewn,
-                    settled: settled.clone(),
-                }
-            }
+            Some(settled) if before.settling == after.settling => DrapeStart::Finish {
+                sewn,
+                settled: settled.clone(),
+            },
             _ => DrapeStart::Settling { sewn },
         }
     }
@@ -292,7 +244,6 @@ impl DrapeInput {
             && self.selection.construction == other.selection.construction
             && self.selection.fabric == other.selection.fabric
             && self.selection.resolution_cm == other.selection.resolution_cm
-            && self.armor.is_some() == other.armor.is_some()
             && self.obstacles.len() == other.obstacles.len()
             && self
                 .obstacles
@@ -308,7 +259,6 @@ mod tests {
 
     fn input() -> DrapeInput {
         DrapeInput {
-            armor: None,
             selection: GarmentSelection::chainmail(),
             settled: None,
             obstacles: vec![],
@@ -348,14 +298,10 @@ mod tests {
             edit(&mut next);
             DrapeCheckpoints::start_for(Some(&previous), &next)
         };
-        assert!(matches!(start(&|_| {}), DrapeStart::ArmorFit { .. }));
+        assert!(matches!(start(&|_| {}), DrapeStart::Finish { .. }));
         assert!(matches!(
             start(&|i| i.selection.mail.roughness = 0.9),
-            DrapeStart::ArmorFit { .. }
-        ));
-        assert!(matches!(
-            start(&|i| i.selection.drape.armor_fit.passes = 64),
-            DrapeStart::ArmorFit { .. }
+            DrapeStart::Finish { .. }
         ));
         assert!(matches!(
             start(&|i| i.selection.drape.settling.steps = 90),

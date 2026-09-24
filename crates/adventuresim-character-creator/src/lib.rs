@@ -34,8 +34,8 @@ pub mod device_torso;
 mod device_torso_wgsl;
 pub mod device_underlayer;
 pub use armor_gpu::{FittingSlot, armor_gpu, fitting_slot};
-mod plate_gpu;
-pub use plate_gpu::plate_gpu;
+mod metal_gpu;
+pub use metal_gpu::metal_gpu;
 pub mod armor_metal;
 pub mod armor_recipes;
 pub mod bracer;
@@ -64,7 +64,7 @@ use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
 /// Character recipes use this schema version; older recipes are not read.
-pub const RECIPE_VERSION: u8 = 12;
+pub const RECIPE_VERSION: u8 = 13;
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(deny_unknown_fields)]
@@ -197,15 +197,13 @@ mod tests {
     }
 
     #[test]
-    fn armor_parameters_round_trip_in_recipe() {
+    fn plate_construction_round_trips_in_recipe() {
         let mut recipe = CharacterRecipe::default();
-        let mut armor = fabelgeist_armor::Armor {
-            construction: fabelgeist_armor::Construction::Scale,
-            ..Default::default()
-        };
-        armor.plate.roundness = 0.9;
-        armor.metal.seed = 42;
-        recipe.inventory.add(inventory::Article::Plate(armor));
+        let mut tiling = fabelgeist_armor::Tiling::scale();
+        tiling.plate.roundness = 0.9;
+        let mut article = inventory::CatalogArticle::new("vambrace", "left");
+        article.construction = fabelgeist_armor::Construction::Scale(tiling);
+        recipe.inventory.add(inventory::Article::Catalog(article));
         let parsed: CharacterRecipe =
             serde_json::from_slice(&serde_json::to_vec(&recipe).unwrap()).unwrap();
         assert_eq!(recipe, parsed);

@@ -6,14 +6,14 @@
 //! selected skin of the wearer and displaced off each morph sample's skin.
 //! Everything is read back once, at the end.
 
-use adventuresim_armor_model::gpu::anatomy::{
+use anyhow::{Context, Result, bail, ensure};
+use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
-use adventuresim_armor_model::gpu::body::{BodySurface, GpuBody};
-use adventuresim_armor_model::gpu::bracer::{BracerBody, DeviceBracer, ForearmSkin};
-use adventuresim_armor_model::gpu::{device_error, wgsl};
-use adventuresim_armor_model::{ArmorGpu, BracerDesign, GeneratedArmor};
-use anyhow::{Context, Result, bail, ensure};
+use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
+use fabelgeist_armor::gpu::bracer::{BracerBody, DeviceBracer, ForearmSkin};
+use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::{ArmorGpu, BracerDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

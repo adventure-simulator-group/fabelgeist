@@ -116,26 +116,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
-name = "adventuresim-armor-model"
-version = "0.1.0"
-dependencies = [
- "blake3",
- "bytemuck",
- "fabelgeist-compute",
- "fabelgeist-gpu",
- "pollster",
- "postcard",
- "serde",
- "serde_json",
- "spade",
- "thiserror 2.0.20",
-]
-
-[[package]]
 name = "adventuresim-character-creator"
 version = "0.1.0"
 dependencies = [
- "adventuresim-armor-model",
  "adventuresim-core",
  "adventuresim-world-schema",
  "anyhow",
@@ -4827,6 +4810,7 @@ dependencies = [
 name = "fabelgeist-armor"
 version = "0.1.0"
 dependencies = [
+ "blake3",
  "bytemuck",
  "fabelgeist-compute",
  "fabelgeist-garment-code",
@@ -4834,7 +4818,11 @@ dependencies = [
  "fabelgeist-math",
  "image",
  "pollster",
+ "postcard",
  "serde",
+ "serde_json",
+ "spade",
+ "thiserror 2.0.20",
 ]
 
 [[package]]

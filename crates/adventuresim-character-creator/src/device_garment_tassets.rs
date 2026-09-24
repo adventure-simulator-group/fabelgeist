@@ -2,8 +2,8 @@
 //! front of the hips, and every carrier keeps its authored offset above it, so
 //! neighbouring lames stay lapped on one surface.
 
-use adventuresim_armor_model::DevicePart;
 use anyhow::Result;
+use fabelgeist_armor::DevicePart;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::Buffer;
 

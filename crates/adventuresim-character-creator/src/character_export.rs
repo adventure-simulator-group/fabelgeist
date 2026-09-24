@@ -3,7 +3,6 @@ use super::character_morphs::{
 };
 use super::*;
 mod draped;
-mod plates;
 
 pub(super) fn export_character(
     path: &std::path::Path,
@@ -15,7 +14,7 @@ pub(super) fn export_character(
     let loadout = outfit::loadout(recipe, catalog)?;
     let generated = generate_character(model, recipe)?;
     let (fitted, mut warnings) = draped::prepare(model, &loadout, &generated, fitted);
-    warnings.extend(draped::validate(model, &loadout, &generated, &fitted));
+    warnings.extend(draped::validate(model, &generated, &fitted));
     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
     let body_targets = morphs
         .body
@@ -30,14 +29,9 @@ pub(super) fn export_character(
         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
         .collect::<Vec<_>>();
     let armor = parametric_equipment::selected(model, &generated, &loadout, &morphs.samples)?;
-    let armor_faces = armor
-        .iter()
-        .map(|piece| piece.generated.indices.as_chunks::<3>().0.to_vec())
-        .collect::<Vec<_>>();
-    let armor_targets = armor
-        .iter()
-        .map(|piece| armor_targets(&piece.generated))
-        .collect::<Vec<_>>();
+    let (plate_faces, plate_targets) = piece_geometry(&armor, |piece| Some(&piece.generated));
+    let (lacing_faces, lacing_targets) =
+        piece_geometry(&armor, |piece| piece.lacing.as_ref().map(|l| &l.generated));
     let mut shells = clothed
         .shells
         .iter()
@@ -47,8 +41,14 @@ pub(super) fn export_character(
     let metals = catalog_metals(&armor, catalog)?;
     shells.extend(catalog_shells(
         &armor,
-        &armor_faces,
-        &armor_targets,
+        CatalogGeometry {
+            faces: &plate_faces,
+            targets: &plate_targets,
+        },
+        CatalogGeometry {
+            faces: &lacing_faces,
+            targets: &lacing_targets,
+        },
         &metals,
         catalog,
     )?);
@@ -60,16 +60,6 @@ pub(super) fn export_character(
     let mail_surfaces = mail_surfaces(&loadout, &fitted)?;
     for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
         shells.push(garment.rigged(targets, mail.as_ref()));
-    }
-    let plates = loadout
-        .plate
-        .map(|armor| {
-            plates::PlateExport::new(armor, model, &generated.global_joint_states, &body_targets)
-        })
-        .transpose()?;
-    let plate_targets = plates.as_ref().map(|p| p.targets()).unwrap_or_default();
-    if let Some(plates) = &plates {
-        shells.extend(plates.shells(&plate_targets));
     }
     export_rigged_glb(
         GlbOutput::Standalone(path),
@@ -125,10 +115,35 @@ fn catalog_metals(
     Ok(metals)
 }
 
-fn catalog_shells<'a>(
+/// Each worn piece's triangles and morph targets for the mesh `mesh` picks
+/// of it; empty where it has none.
+fn piece_geometry<'a>(
     armor: &'a [parametric_equipment::SelectedArmor<'_>],
+    mesh: impl Fn(&'a parametric_equipment::SelectedArmor<'_>) -> Option<&'a GeneratedArmor>,
+) -> (Vec<Vec<[u32; 3]>>, Vec<Vec<RiggedMorphTarget<'a>>>) {
+    armor
+        .iter()
+        .map(|piece| {
+            mesh(piece).map_or_else(Default::default, |mesh| {
+                (
+                    mesh.indices.as_chunks::<3>().0.to_vec(),
+                    armor_targets(mesh),
+                )
+            })
+        })
+        .unzip()
+}
+
+/// Each worn piece's triangles and morph targets, for one of its meshes.
+struct CatalogGeometry<'a> {
     faces: &'a [Vec<[u32; 3]>],
     targets: &'a [Vec<RiggedMorphTarget<'a>>],
+}
+
+fn catalog_shells<'a>(
+    armor: &'a [parametric_equipment::SelectedArmor<'_>],
+    plates: CatalogGeometry<'a>,
+    lacing: CatalogGeometry<'a>,
     metals: &'a CatalogMetals,
     catalog: &EquipmentCatalog,
 ) -> Result<Vec<RiggedShell<'a>>> {
@@ -139,8 +154,8 @@ fn catalog_shells<'a>(
             &piece.name,
             trim_name,
             &piece.generated,
-            &faces[i],
-            &targets[i],
+            &plates.faces[i],
+            &plates.targets[i],
         );
         let mut parts = rigged.plate;
         let material = catalog.material(&piece.piece.piece.item.id)?;
@@ -175,6 +190,22 @@ fn catalog_shells<'a>(
                 // The band's own coordinates run along each edge.
                 shell.texcoords = Some(&trim.texcoords);
                 shell.surface = Some((&trim.texcoords, textures));
+                shells.push(shell);
+            }
+        }
+        if let Some(laced) = &piece.lacing {
+            let [red, green, blue] = laced.cord.color;
+            let rigged = rigged_armor(
+                &laced.name,
+                &laced.name,
+                &laced.generated,
+                &lacing.faces[i],
+                &lacing.targets[i],
+            );
+            for mut shell in rigged.plate {
+                shell.base_color = [red, green, blue, 1.0];
+                shell.metallic = 0.0;
+                shell.roughness = laced.cord.roughness;
                 shells.push(shell);
             }
         }

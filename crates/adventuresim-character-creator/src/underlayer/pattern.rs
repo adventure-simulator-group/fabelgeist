@@ -4,8 +4,8 @@ use crate::{
     armor_frames::{FitRegion, Side, Wearer},
     surface_cut::{ConvexRegion, Plane, dot},
 };
-use adventuresim_armor_model::PartFrame;
 use anyhow::{Context, Result};
+use fabelgeist_armor::PartFrame;
 
 const TUBE_SIDES: usize = 8;
 const GARMENT_HEM_DROP_M: f32 = 0.035;

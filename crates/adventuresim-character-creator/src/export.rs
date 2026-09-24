@@ -72,7 +72,7 @@ pub struct RiggedShell<'a> {
     pub textures: Option<SurfaceTextures<'a>>,
     /// Exact per-vertex UVs, including seam splits and interpolated cut edges.
     pub texcoords: Option<&'a [[f32; 2]]>,
-    pub hinge: Option<adventuresim_armor_model::ArmorHinge>,
+    pub hinge: Option<fabelgeist_armor::ArmorHinge>,
     pub name: &'a str,
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],

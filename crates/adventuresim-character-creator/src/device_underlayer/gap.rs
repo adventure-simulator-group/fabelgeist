@@ -7,8 +7,8 @@
 //! exactly the triangles whose cell range meets its own. The nearest hit is a
 //! minimum, so the order candidates are found in does not matter.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

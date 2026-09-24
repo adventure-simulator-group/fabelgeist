@@ -132,7 +132,7 @@ mod tests {
                 normal_deltas: &[[0.0; 3]; 4],
             })
             .collect::<Vec<_>>();
-        let hinge = adventuresim_armor_model::ArmorHinge {
+        let hinge = fabelgeist_armor::ArmorHinge {
             origin: [0.1, 1.7, 0.0],
             axis: [1.0, 0.0, 0.0],
         };

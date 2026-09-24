@@ -1,8 +1,8 @@
 //! Limb armor fitted on the device.
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
-use adventuresim_armor_model::{DevicePart, LimbArmorDesign, record_limb_armor};
 use anyhow::{Result, bail};
+use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::{DevicePart, LimbArmorDesign, record_limb_armor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::PassParameters;
 
@@ -28,7 +28,7 @@ impl DeviceWearer<'_> {
         let frame = self.record_frame(batch, region)?;
         let part = record_limb_armor(gpu, batch, design, &frame.frame)?;
         let clearance =
-            |part: &DevicePart, gauge: adventuresim_armor_model::PlateGauge, style| ClearanceFit {
+            |part: &DevicePart, gauge: fabelgeist_armor::PlateGauge, style| ClearanceFit {
                 region,
                 clearance: gauge.clearance.metres(),
                 thickness: gauge.thickness.metres(),

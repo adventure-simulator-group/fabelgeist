@@ -6,8 +6,8 @@
 //! its own triangles gives it exactly. The prism sweeps follow (see
 //! [`super::sweep`]), and the room found lowers the frozen compression.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

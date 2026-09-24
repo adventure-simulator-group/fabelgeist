@@ -28,9 +28,9 @@ pub use standoff::{
 };
 pub use weld::WELD_PRECISION;
 
-use adventuresim_armor_model::gpu::device_error;
-use adventuresim_armor_model::{ArmorGpu, GenerateError};
 use anyhow::{Context, Result, bail};
+use fabelgeist_armor::gpu::device_error;
+use fabelgeist_armor::{ArmorGpu, GenerateError};
 use fabelgeist_compute::{NormalWeighting, VertexNormals};
 use fabelgeist_gpu::prelude::Buffer;
 

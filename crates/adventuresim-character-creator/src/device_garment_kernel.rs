@@ -5,8 +5,8 @@
 //! the shared WGSL -- fixed-order arithmetic, frame helpers, and point
 //! accessors for buffers of packed points -- and records the dispatch.
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::Result;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

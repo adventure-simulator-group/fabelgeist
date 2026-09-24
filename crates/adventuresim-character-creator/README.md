@@ -66,14 +66,14 @@ stable ID, whether it is worn, and one of three kinds of article:
 
 - a catalog item in one of its placements, such as the left vambrace, with an
   optional design of its own; without one it is built from the catalog default.
-  A plate-steel item also carries its decoration: an optional engraving and an
-  optional trim;
+  A plate-steel item also carries its decoration, an optional engraving and an
+  optional trim, and its construction: solid, lamellar or scale (see
+  [Lamellar and scale](#lamellar-and-scale));
 - a draped garment: a name, a sewn pattern or fitted coif, its fabric, layer
   and drape settings;
 - a settled garment: a copy of a garment saved in the wardrobe, with its
   settled drape, fitted to the wearer without simulating (see
-  [Wardrobe](#wardrobe));
-- Fabelgeist plate armor: the breastplate and fauld builder.
+  [Wardrobe](#wardrobe)).
 
 Only worn articles appear on the body and in exports; the rest are carried.
 Worn articles must fit together under the catalog's equipment rules, checked
@@ -82,28 +82,60 @@ location in a layer: clothing, padding, mail, plate and so on. Two articles
 cannot fill the same cell, except that articulated plates on one limb may share
 it when their fit zones differ. Draped cloth takes the layer of its cut, or
 mail when its fabric is chainmail, and fills the cells its cut covers (see
-[Garments](#garments)). Plate armor fills the chest, and the stomach when it
-has a fauld. Attached articles, such as mail voiders, hang from an attachment
+[Garments](#garments)). Attached articles, such as mail voiders, hang from an attachment
 point on a worn support such as the arming doublet, within that point's
 capacity and on the matching side.
 
 In the **Inventory** tab, worn articles are grouped by layer and carried
 articles are listed below them. The checkbox wears or takes off an article.
 Wearing one takes off whatever fills its place, and taking one off also takes
-off whatever hangs from it. **Acquire** adds and wears **New cloth**, **New
-plate armor**, garments saved in the **Wardrobe** or searchable catalog items,
-and catalog items with left and right placements can add both. Selecting an article shows its editor: shape
-controls for parametric catalog items, the garment editor for cloth (see
-[Garments](#garments)), and plate controls. Editing a catalog item's shape gives it its own design. **Use
+off whatever hangs from it. **Acquire** adds and wears **New cloth**, garments
+saved in the **Wardrobe** or searchable catalog items, and catalog items with
+left and right placements can add both. Selecting an article shows its editor:
+shape controls for parametric catalog items and the garment editor for cloth
+(see [Garments](#garments)). Editing a catalog item's shape gives it its own design. **Use
 catalog shape** discards that design, and **Make catalog default** copies it to
 the catalog defaults, which **Save all catalog designs** in the **Output** tab
 writes. A plate-steel article's **Decoration** chooses a decoration saved
 from the armory, or **Plain**; choosing one copies its engraving and trim into
 the article, where they can be edited further, so a recipe never depends on the
-library. Draped garments drape from the innermost layer out; within one layer,
+library. Its **Construction** builds it of small plates (see
+[Lamellar and scale](#lamellar-and-scale)). Draped garments drape from the innermost layer out; within one layer,
 the inventory order sets draping order.
 
-Recipes use schema version 12. Recipes from older versions are not read.
+Recipes use schema version 13. Recipes from older versions are not read.
+
+## Lamellar and scale
+
+A plate-steel piece can be built of small plates instead of one solid plate.
+**Lamellar** lays narrow, tall lames in rows; **Scale** lays round-footed
+scales in staggered rows. Choosing either starts from its usual plate, which
+the **Small plates** controls then reshape: width, height, thickness, gap,
+edge bevel, rounded foot, row overlap, row stagger, hole pairs and hole radius.
+Rows run from the piece's top down, each covering the top of the row below;
+each plate tilts so that its top tucks under the row above, so rows clear each
+other however many there are. Plates keep their size on the fitted piece, and
+closed pieces such as greaves take as many plates around as their girth needs.
+A plate that would reach past the piece's edge, such as at a diagonal cut, is
+left out.
+
+**Laced** threads cord through the plates' holes, with its own radius, colour
+and roughness. Every row is bound by a running cord through each pair of holes,
+across each plate's face and behind it to the next. Scale holes sit near the
+top, where the row above hides most of the cord. Lamellar lames are also hung
+from the row above by cords that run down over the upper lame's face, turn
+under its foot and pass up behind it into the lames below, so the lacing shows
+over every row. The cord is its own mesh, previewed and exported as a separate
+non-metal surface.
+
+The plates and cord are laid over the fitted piece's outer surface, so they
+follow the wearer and every body morph with the same topology, skinned like the
+surface beneath them. Breastplates, cuirasses, faulds, tassets and all limb,
+hand and foot defences can take small plates. Helmets, gorgets, brigandines
+and jacks of plates cannot yet, and a piece built of small plates still carries
+its fluting in the surface its plates follow. Small plates multiply a piece's
+geometry, and every vertex carries every body morph, so an exported lamellar
+outfit is several times larger than a solid one.
 
 ## Armory
 
@@ -124,11 +156,13 @@ opened with, and **Save catalog designs** writes all defaults to the paths set
 on the **Output** tab. Worn articles without their own design use the edited
 default once you leave the armory. **Refit all** fits every piece to the current
 body again; this also happens automatically on entering the armory after the
-body changed. The Fabelgeist plate armor and catalog clothing without a
-parametric design are not shown.
+body changed. Catalog clothing without a parametric design is not shown.
 
-A selected plate-steel piece also shows a **Decoration** card for designing an
-engraving and trim together, previewed on that piece only. **Start from** loads
+A selected plate-steel piece also shows a **Construction** card, which
+previews the piece built of lamellar lames or scales on that piece only; each
+inventory article chooses its own construction. It also shows a **Decoration**
+card for designing an engraving and trim together, previewed on that piece
+only. **Start from** loads
 a saved decoration to edit. **Save to library** stores the decoration under its
 name, replacing one of the same name, and **Delete** removes the named one.
 Both write the decoration library at once; by default it is
@@ -237,8 +271,7 @@ reaches anywhere from the waist to the knee, and changing it re-drapes from
 sewing. A **Fitted coif** in chainmail is fitted around the head and chest like
 the catalog mail coif, then settles as chainmail instead of being sewn from
 flat panels. Shirt and coif are both in the mail layer, so keep the shirt
-before the coif in the inventory to layer the coif over it. Wear **New plate
-armor** to show the shirt beneath it.
+before the coif in the inventory to layer the coif over it.
 
 Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
 diameter, row spacing, ring tilt, steel color and roughness. The wire and row
@@ -255,14 +288,12 @@ occlusion. Steel uses full metallic response.
 
 ### Drape stages
 
-Draping places the pattern panels, sews them without gravity, settles the sewn
-garment under gravity, and finally fits it beneath worn plate armor. **Drape
-stages** exposes each stage's steps, substeps, constraint iterations, gravity,
-damping and self-collision. Swept contacts read the cloth back from the GPU
-for continuous crossing checks; their interval, iterations, body inclusion and
-armor passes are the main cost of a step. The armor fit sets its pass budget
-and contact iterations. Previews default to every step and start from the
-placed panels.
+Draping places the pattern panels, sews them without gravity, and settles the
+sewn garment under gravity. **Drape stages** exposes each stage's steps,
+substeps, constraint iterations, gravity, damping and self-collision. Swept
+contacts read the cloth back from the GPU for continuous crossing checks; their
+interval, iterations and body inclusion are the main cost of a step. Previews
+default to every step and start from the placed panels.
 
 A settled garment hangs from its highest supports, so a loose cut stands off
 the chest, belly and back. **Body fit** then draws it onto the body it
@@ -276,9 +307,9 @@ feature smaller than a cloth triangle, such as a thumb, passes between its
 vertices, that triangle is lifted over it.
 
 Each drape keeps its completed stages, including after a failure or
-cancellation. Changing a stage re-runs from that stage: an armor fit or body
-fit change repeats only the fast host fit, and a settling or armor change
-resumes from the sewn garment. Body, pattern, fabric, resolution or sewing changes start again,
+cancellation. Changing a stage re-runs from that stage: a body fit change
+repeats only the fast host fit, and a settling change resumes from the sewn
+garment. Body, pattern, fabric, resolution or sewing changes start again,
 as does **Drape again**.
 
 Draping resolves swept vertex/triangle and edge/edge contacts after each GPU
@@ -287,17 +318,15 @@ includes body triangle interiors and excludes joined seam copies. Fixed body
 bounds are cached between substeps. It prevents crossings missed by particle
 spheres; it does not infer layer order for already intersecting starting meshes.
 
-When Fabelgeist plate armor is worn, its inward surfaces constrain the
-mail after sewing, including the fauld. Fit completion and export check the
-emitted cloth against itself, the wearer, inner garments, and the plate.
+Fit completion and export check the emitted cloth against itself, the wearer
+and inner garments. Worn plate does not constrain the drape.
 
 Drape problems never block the studio. Fit problems, such as a garment
-intersecting itself or unresolved armor clearance, are reported in the status
+intersecting itself, are reported in the status
 line while the garment is still shown, animated and exported. A garment that
 cannot be draped at all stops the drape there; the garments already draped
 remain usable, and export leaves the rest out and says so. Animation and export
-wait only while a drape is running. Press **Drape again** to retry. Armor dimensions still need
-enough room for the wearer and underlayer.
+wait only while a drape is running. Press **Drape again** to retry.
 
 Render an exported chainmail outfit through Bevy, with an asset/material check
 before capture:
@@ -398,7 +427,7 @@ Inspect the staged equipment before copying its GLBs, shared PNGs and manifest i
 All armor catalog entries have authored parametric recipes. Preview, character
 export, equipment export and the armory use the same recipe dispatch, fit and
 material. Catalog loading rejects armor without a recipe. The part geometry
-lives in `adventuresim-armor-model`; the creator owns the MHR landmarks, the
+lives in `fabelgeist-armor`; the creator owns the MHR landmarks, the
 fitting passes, and the transfer of UVs, skinning and morph targets.
 
 Armor is generated and fitted entirely on the GPU. For each piece the creator
@@ -457,10 +486,9 @@ number of times per metal tile, may be turned on the surface, and roughens the
 floor of its cuts. Its slopes add to the scratches in the baked normal map for
 both preview and export; a height map also gives the preview a parallax depth
 map, which glTF does not carry. The image path is stored in the recipe and read
-relative to the working directory; an ornament is stored by its parameters. The
-plate armor builder edits the engraving
-under its metal; a catalog steel article edits its own in the inventory, or
-takes one from a saved decoration.
+relative to the working directory; an ornament is stored by its parameters. A
+catalog steel article edits its own engraving in the inventory, or takes one
+from a saved decoration.
 
 A catalog steel article can also carry a **trim**: a band along every edge of
 every plate, finished with its own metal, such as gilt, bluing or bright steel
@@ -545,7 +573,7 @@ flute relief depth remains in millimetres. Both surfaces carry the relief; plate
 gauge follows the smooth carrier's extrusion direction, rather than the local
 flute normal. Unknown fields and invalid fade intervals are rejected.
 
-[Example recipes and historical references](../adventuresim-armor-model/review/breastplate/README.md)
+[Example recipes and historical references](../fabelgeist-armor/review/breastplate/README.md)
 provide editable starting points. Each recipe has one front plate and one back
 plate; a separate plackart or articulated waist plate requires a different
 construction recipe. The upper armscye is a smooth boundary of the shell, and

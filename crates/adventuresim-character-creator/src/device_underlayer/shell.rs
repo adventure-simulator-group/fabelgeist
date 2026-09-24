@@ -1,8 +1,8 @@
 //! The two cut layers of an underlayer, offset from a body realization, and
 //! the skin they carry.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

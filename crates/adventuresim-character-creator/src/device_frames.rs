@@ -7,11 +7,11 @@
 //! finishes the frame for its region. The frame never leaves the device; the
 //! chart kernels read it where it was written.
 
-use adventuresim_armor_model::ArmorGpu;
-use adventuresim_armor_model::gpu::body::{BodySurface, GpuBody};
-use adventuresim_armor_model::gpu::device_error;
-use adventuresim_armor_model::gpu::{Staged, Staging};
 use anyhow::Result;
+use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
+use fabelgeist_armor::gpu::device_error;
+use fabelgeist_armor::gpu::{Staged, Staging};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 
@@ -71,9 +71,9 @@ impl DeviceFrame {
     }
 
     /// Read the frame back, for the stages that use it on the host.
-    pub fn read(&self, gpu: &ArmorGpu) -> Result<adventuresim_armor_model::PartFrame> {
+    pub fn read(&self, gpu: &ArmorGpu) -> Result<fabelgeist_armor::PartFrame> {
         let words: Vec<f32> = gpu.read(&self.frame)?;
-        Ok(adventuresim_armor_model::PartFrame {
+        Ok(fabelgeist_armor::PartFrame {
             origin: [words[0], words[1], words[2]],
             axes: [
                 [words[3], words[4], words[5]],
@@ -139,7 +139,7 @@ impl Wearer<'_> {
 impl DeviceWearer<'_> {
     /// Fit `region`'s frame and read it back, for the stages that use it on
     /// the host. Stalls on the device.
-    pub fn read_frame(&self, region: FitRegion) -> Result<adventuresim_armor_model::PartFrame> {
+    pub fn read_frame(&self, region: FitRegion) -> Result<fabelgeist_armor::PartFrame> {
         let mut batch = self.gpu.batch("armor frame");
         let frame = self.record_frame(&mut batch, region)?;
         batch.submit();

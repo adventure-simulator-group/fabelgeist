@@ -12,14 +12,14 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 
-use adventuresim_armor_model::gpu::anatomy::{
+use anyhow::{Context, Result, bail, ensure};
+use fabelgeist_armor::gpu::anatomy::{
     DeviceSeams, DeviceSurface, STATUS_EMPTY_SELECTION, SeamTopology,
 };
-use adventuresim_armor_model::gpu::body::{BodySurface, GpuBody};
-use adventuresim_armor_model::gpu::breastplate::{DeviceBreastplate, TORSO_RIG_WORDS, TorsoBody};
-use adventuresim_armor_model::gpu::device_error;
-use adventuresim_armor_model::{ArmorGpu, BreastplateDesign, GeneratedArmor};
-use anyhow::{Context, Result, bail, ensure};
+use fabelgeist_armor::gpu::body::{BodySurface, GpuBody};
+use fabelgeist_armor::gpu::breastplate::{DeviceBreastplate, TORSO_RIG_WORDS, TorsoBody};
+use fabelgeist_armor::gpu::device_error;
+use fabelgeist_armor::{ArmorGpu, BreastplateDesign, GeneratedArmor};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

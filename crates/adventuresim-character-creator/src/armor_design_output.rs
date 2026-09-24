@@ -1,7 +1,7 @@
 //! Validate a complete studio design set before writing separate recipe files.
 use crate::armor_design_input::{self, ArmorDesigns};
-use adventuresim_armor_model::{BracerDesign, BreastplateDesign, validate, validate_breastplate};
 use anyhow::{Context, Result, ensure};
+use fabelgeist_armor::{BracerDesign, BreastplateDesign, validate, validate_breastplate};
 use std::path::{Path, PathBuf};
 
 pub struct DesignPaths<'a> {
@@ -75,7 +75,7 @@ mod tests {
         std::fs::write(&a, b"original").unwrap();
         let catalog = ArmorDesigns::new();
         let bracer = BracerDesign {
-            center_ridge: adventuresim_armor_model::Millimeters(4),
+            center_ridge: fabelgeist_armor::Millimeters(4),
             ..Default::default()
         };
         let breastplate = BreastplateDesign::default();

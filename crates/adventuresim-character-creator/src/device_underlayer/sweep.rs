@@ -11,8 +11,8 @@
 //! the neighbours of each new failure -- until none changes. A pass in which
 //! nothing fails ends the sweep, leaving every later pass idle.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

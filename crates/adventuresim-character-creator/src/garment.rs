@@ -12,11 +12,9 @@ use fabelgeist_math::Vec3;
 use serde::{Deserialize, Serialize};
 use std::sync::atomic::{AtomicBool, Ordering};
 
-mod armor;
 mod conform;
 mod dressing;
 mod export;
-mod finish;
 mod fitted;
 pub mod pattern;
 mod placement;
@@ -28,11 +26,10 @@ mod symmetrize;
 mod validation;
 pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
 pub use settled::{BodyTopology, SettledDrape, SettledGarment};
-pub use stages::{ArmorFitSettings, DrapeCheckpoints, DrapeSettings, StageSettings};
+pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
 
 #[derive(Clone)]
 pub struct DrapeInput {
-    pub armor: Option<fabelgeist_armor::Armor>,
     pub selection: GarmentSelection,
     /// A drape saved once settled, fitted to this wearer instead of simulated.
     pub settled: Option<std::sync::Arc<SettledDrape>>,
@@ -571,7 +568,6 @@ mod tests {
     #[test]
     fn garment_skin_interpolates_and_normalizes_body_influences() {
         let input = DrapeInput {
-            armor: None,
             selection: GarmentSelection::default(),
             settled: None,
             obstacles: vec![],
@@ -611,7 +607,6 @@ mod seam_and_leg_regression {
     #[test]
     fn dress_center_is_continuous_and_sides_retain_opposing_leg_motion() {
         let input = DrapeInput {
-            armor: None,
             selection: GarmentSelection::from_shape(&pattern::shapes::DRESS),
             settled: None,
             obstacles: vec![],

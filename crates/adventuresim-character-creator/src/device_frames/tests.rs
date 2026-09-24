@@ -2,7 +2,7 @@
 
 use std::sync::OnceLock;
 
-use adventuresim_armor_model::PartFrame;
+use fabelgeist_armor::PartFrame;
 
 use super::*;
 

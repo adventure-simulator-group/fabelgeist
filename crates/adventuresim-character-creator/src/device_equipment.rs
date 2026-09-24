@@ -5,9 +5,6 @@
 //! back together.
 
 use super::*;
-use adventuresim_armor_model::gpu::Staging;
-use adventuresim_armor_model::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
-use adventuresim_armor_model::{ArmorGpu, BuiltPart, PartFrame};
 use adventuresim_character_creator::{
     armor_frames::{FitRegion, Wearer},
     armor_gpu,
@@ -16,6 +13,9 @@ use adventuresim_character_creator::{
     device_frames::DeviceWearer,
     device_piece::DeviceRecording,
 };
+use fabelgeist_armor::gpu::Staging;
+use fabelgeist_armor::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
+use fabelgeist_armor::{ArmorGpu, BuiltPart, PartFrame};
 use fabelgeist_compute::KernelBatch;
 
 /// A piece fitted to the wearer and to each morph sample, with the wearer's

@@ -6,8 +6,8 @@
 //! equal hashes in ascending vertex order, and each vertex links to the
 //! lowest and to the next vertex of its group within its hash run.
 
-use adventuresim_armor_model::gpu::device_error;
 use anyhow::Result;
+use fabelgeist_armor::gpu::device_error;
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

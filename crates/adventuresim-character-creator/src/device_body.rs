@@ -2,8 +2,8 @@
 
 use std::sync::OnceLock;
 
-use adventuresim_armor_model::gpu::body::GpuBody;
 use anyhow::Result;
+use fabelgeist_armor::gpu::body::GpuBody;
 
 /// The device copy of one body realization -- the wearer or a morph sample.
 ///

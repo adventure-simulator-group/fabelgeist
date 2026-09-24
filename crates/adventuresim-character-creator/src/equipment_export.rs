@@ -184,7 +184,7 @@ impl EquipmentExporter<'_> {
             "coverage": parametric_coverage,
             "material": equipment.material,
             "triangles": faces.len(),
-            "armor_generator_version": adventuresim_armor_model::GENERATOR_VERSION,
+            "armor_generator_version": fabelgeist_armor::GENERATOR_VERSION,
             "armor_design_hash": armor.design_hash.iter().map(|byte| format!("{byte:02x}")).collect::<String>(),
             "morph_targets": armor.morphs.len(),
             "surface_uv_domain": armor.surface_domain,

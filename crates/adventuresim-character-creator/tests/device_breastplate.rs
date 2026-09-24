@@ -1,10 +1,10 @@
 //! The breastplate's device fit rejects malformed wearers.
 
-use adventuresim_armor_model::{ArmorGpu, BreastplateDesign};
 use adventuresim_character_creator::{
     bracer::ForearmMorphSample,
     device_torso::{TorsoSurfaceInput, generate_breastplate_on_device},
 };
+use fabelgeist_armor::{ArmorGpu, BreastplateDesign};
 
 struct TorsoFixture {
     positions: Vec<[f32; 3]>,

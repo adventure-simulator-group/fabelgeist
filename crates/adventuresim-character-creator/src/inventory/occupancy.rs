@@ -70,15 +70,6 @@ impl Article {
             Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
                 Occupancy::on_body(garment_channel(selection), &garment_locations(selection)),
             ),
-            Self::Plate(armor) => {
-                use EquipmentLocation::{Chest, Stomach};
-                let locations: &[_] = if armor.fauld.layer_count > 0 {
-                    &[Chest, Stomach]
-                } else {
-                    &[Chest]
-                };
-                Ok(Occupancy::on_body(EquipmentChannel::RigidArmor, locations))
-            }
         }
     }
 }

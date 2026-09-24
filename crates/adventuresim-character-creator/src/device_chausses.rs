@@ -7,11 +7,11 @@
 //! carrier around it. One invocation fits one carrier against every skin
 //! vertex of the leg.
 
-use adventuresim_armor_model::gpu::{device_error, wgsl};
-use adventuresim_armor_model::{
+use anyhow::{Context, Result};
+use fabelgeist_armor::gpu::{device_error, wgsl};
+use fabelgeist_armor::{
     DevicePart, GarmentArmorDesign, GarmentArmorKind, gpu::record_garment_tube,
 };
-use anyhow::{Context, Result};
 use fabelgeist_compute::KernelBatch;
 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
 

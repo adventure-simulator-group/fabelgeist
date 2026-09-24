@@ -1,9 +1,9 @@
 //! The frame passes in WGSL: the body's extremes, the orientation from the
 //! rig, the owned skin's bounds in the frame, and the region's finish.
 
-use adventuresim_armor_model::ArmorGpu;
-use adventuresim_armor_model::gpu::{device_error, wgsl};
 use anyhow::Result;
+use fabelgeist_armor::ArmorGpu;
+use fabelgeist_armor::gpu::{device_error, wgsl};
 
 pub(super) const ORDERED_POSITIVE_INFINITY: u32 = 0xff80_0000;
 pub(super) const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;

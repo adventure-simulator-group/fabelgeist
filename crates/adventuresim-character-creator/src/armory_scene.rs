@@ -1,6 +1,5 @@
 //! The armory's preview meshes, their placement on the wall, and the camera framing them.
 use super::*;
-use adventuresim_character_creator::decoration::Decoration;
 
 /// Which exhibit placement a preview mesh shows.
 #[derive(Component, Clone, Copy)]
@@ -29,14 +28,19 @@ pub(crate) fn setup(mut commands: Commands) {
     ));
 }
 
-/// Spawn an exhibit's fitted placements, engraved and trimmed as `decoration` asks.
+/// Spawn an exhibit's fitted placements, built, engraved and trimmed as
+/// `finish` asks.
 pub(super) fn spawn_exhibit(
     scene: &mut PreviewScene,
     catalog: &EquipmentCatalog,
     index: usize,
     exhibit: &Exhibit,
-    decoration: &Decoration,
+    finish: &Finish,
 ) -> Result<()> {
+    let Finish {
+        decoration,
+        construction,
+    } = finish;
     let design = catalog.design(&exhibit.item_id);
     let material = scene
         .equipment_maps
@@ -57,25 +61,38 @@ pub(super) fn spawn_exhibit(
         })
         .transpose()
         .map_err(anyhow::Error::msg)?;
+    let cord = construction
+        .tiling()
+        .and_then(|tiling| tiling.lacing.as_ref());
     for (placement, fitted) in exhibit.fitted.iter().enumerate() {
         let Ok(armor) = fitted else { continue };
+        let marker = (
+            ArmoryMesh {
+                exhibit: index,
+                placement,
+            },
+            Transform::default(),
+            Visibility::Hidden,
+        );
+        let name = format!(
+            "armory {}--{}",
+            exhibit.item_id, exhibit.placements[placement]
+        );
+        let constructed = armor.clone().constructed(construction)?;
         let (armor, trim) = match (&decoration.trim, &trim_material) {
             (Some(trim), Some(material)) => {
                 let (armor, texcoords) =
-                    adventuresim_character_creator::armor_metal::trimmed(armor.clone(), trim)?;
+                    adventuresim_character_creator::armor_metal::trimmed(constructed.plates, trim)?;
                 (armor, Some((texcoords, material.clone())))
             }
-            _ => (armor.clone(), None),
+            _ => (constructed.plates, None),
         };
         preview::spawn_armor(
             &mut scene.commands,
             &mut scene.meshes,
             &mut scene.materials,
             &armor,
-            format!(
-                "armory {}--{}",
-                exhibit.item_id, exhibit.placements[placement]
-            ),
+            name.clone(),
             preview::ArmorShading {
                 plate: material.clone(),
                 trim: trim
@@ -85,15 +102,22 @@ pub(super) fn spawn_exhibit(
                         material: material.clone(),
                     }),
             },
-            (
-                ArmoryMesh {
-                    exhibit: index,
-                    placement,
-                },
-                Transform::default(),
-                Visibility::Hidden,
-            ),
+            marker,
         )?;
+        if let Some((lacing, cord)) = constructed.lacing.zip(cord) {
+            preview::spawn_armor(
+                &mut scene.commands,
+                &mut scene.meshes,
+                &mut scene.materials,
+                &lacing,
+                format!("{name}.lacing"),
+                preview::ArmorShading {
+                    plate: preview::lacing_material(cord),
+                    trim: None,
+                },
+                marker,
+            )?;
+        }
     }
     Ok(())
 }

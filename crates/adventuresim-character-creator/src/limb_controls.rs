@@ -1,7 +1,7 @@
 //! Controls follow the construction of each limb defense.
 use super::number;
-use adventuresim_armor_model::{LimbArmorDesign as L, PlateGauge};
 use bevy_egui::egui;
+use fabelgeist_armor::{LimbArmorDesign as L, PlateGauge};
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
     let mut changed = false;

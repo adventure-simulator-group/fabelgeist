@@ -6,8 +6,8 @@ use crate::{
     armor_recipes::{self, DedicatedGenerator, ParametricDesign},
     design_input,
 };
-use adventuresim_armor_model::{BracerDesign, BreastplateDesign};
 use anyhow::{Context, Result, ensure};
+use fabelgeist_armor::{BracerDesign, BreastplateDesign};
 use serde::{Deserialize, Serialize};
 use std::path::Path;
 
@@ -25,10 +25,11 @@ impl ItemDesign {
         match self {
             Self::Recipe(design) => design.validate(),
             Self::Vambrace(design) => {
-                adventuresim_armor_model::validate(design).context("invalid vambrace design")
+                fabelgeist_armor::validate(design).context("invalid vambrace design")
             }
-            Self::Breastplate(design) => adventuresim_armor_model::validate_breastplate(design)
-                .context("invalid breastplate design"),
+            Self::Breastplate(design) => {
+                fabelgeist_armor::validate_breastplate(design).context("invalid breastplate design")
+            }
         }
     }
 
@@ -154,7 +155,7 @@ mod tests {
         let ItemDesign::Vambrace(mut edited) = designs.default_for("vambrace").unwrap() else {
             unreachable!()
         };
-        edited.center_ridge = adventuresim_armor_model::Millimeters(5);
+        edited.center_ridge = fabelgeist_armor::Millimeters(5);
         designs
             .set_default("vambrace", ItemDesign::Vambrace(edited.clone()))
             .unwrap();
