@@ -113,56 +113,8 @@ pub(super) fn burgonet(
         shells.push((shell, None));
     }
     if let Some(b) = &d.buffe {
-        // The skull, its guard and cheeks come off apart from the buffe.
-        if let Some((_, component)) = shells.last_mut() {
-            *component = Some((ArmorComponentRole::Skull, false));
-        }
-        let courses = b.courses.as_ref();
-        for (slot, value) in [
-            (Slot::BuffeSightGap, b.sight_gap.metres()),
-            (Slot::BuffeProjection, b.face_projection.metres()),
-            (Slot::BuffeChinWidth, b.chin_width.unit()),
-            (Slot::BuffeThroatDepth, b.throat_depth.unit()),
-            (Slot::BuffeNeckDrop, b.neck_drop.metres()),
-            (Slot::BuffeSideWrap, b.side_wrap.radians()),
-            (Slot::BuffeRidge, b.medial_ridge.metres()),
-            (Slot::BuffeRidgeSharpness, b.ridge_sharpness.unit()),
-            (Slot::BuffeChinPoint, b.chin_point.metres()),
-            (
-                Slot::BuffeCourses,
-                courses.map_or(0.0, |c| f32::from(c.plate_count)),
-            ),
-            (
-                Slot::BuffeLower,
-                courses.map_or(0.0, |c| c.lower_boundary.unit()),
-            ),
-            (
-                Slot::BuffeUpper,
-                courses.map_or(0.0, |c| c.upper_boundary.unit()),
-            ),
-            (
-                Slot::BuffeOverlap,
-                courses.map_or(0.0, |c| c.overlap.metres()),
-            ),
-            (
-                Slot::BuffeLapClearance,
-                courses.map_or(0.0, |c| c.lap_clearance.metres()),
-            ),
-            (
-                Slot::BuffeBoundaryDrop,
-                courses.map_or(0.0, |c| c.boundary_drop.metres()),
-            ),
-        ] {
-            floats.set(slot, value);
-        }
-        let face = buffe(b, gauge)?;
-        let last = face.len() - 1;
-        for (index, shell) in face.into_iter().enumerate() {
-            shells.push((
-                shell,
-                (index == last).then_some((ArmorComponentRole::Buffe, false)),
-            ));
-        }
+        buffe_floats(b, &mut floats);
+        add_buffe(b, gauge, &mut shells)?;
     }
     Ok(HelmetParts {
         shells,
@@ -206,6 +158,69 @@ fn buffe(b: &BuffeDesign, gauge: f32) -> Result<Vec<CoordShell>, GenerateError> 
             Ok(surface.shell(gauge, CoordExtrusion::Normal))
         })
         .collect()
+}
+
+/// Close the skull, its guard and cheeks as one component, then add the
+/// buffe's shells as another.
+fn add_buffe(
+    b: &BuffeDesign,
+    gauge: f32,
+    shells: &mut Vec<(CoordShell, Option<(ArmorComponentRole, bool)>)>,
+) -> Result<(), GenerateError> {
+    if let Some((_, component)) = shells.last_mut() {
+        *component = Some((ArmorComponentRole::Skull, false));
+    }
+    let face = buffe(b, gauge)?;
+    let last = face.len() - 1;
+    for (index, shell) in face.into_iter().enumerate() {
+        shells.push((
+            shell,
+            (index == last).then_some((ArmorComponentRole::Buffe, false)),
+        ));
+    }
+    Ok(())
+}
+
+/// The buffe's design floats: its face, and its courses if it has them.
+fn buffe_floats(b: &BuffeDesign, floats: &mut DesignFloats) {
+    let courses = b.courses.as_ref();
+    for (slot, value) in [
+        (Slot::BuffeSightGap, b.sight_gap.metres()),
+        (Slot::BuffeProjection, b.face_projection.metres()),
+        (Slot::BuffeChinWidth, b.chin_width.unit()),
+        (Slot::BuffeThroatDepth, b.throat_depth.unit()),
+        (Slot::BuffeNeckDrop, b.neck_drop.metres()),
+        (Slot::BuffeSideWrap, b.side_wrap.radians()),
+        (Slot::BuffeRidge, b.medial_ridge.metres()),
+        (Slot::BuffeRidgeSharpness, b.ridge_sharpness.unit()),
+        (Slot::BuffeChinPoint, b.chin_point.metres()),
+        (
+            Slot::BuffeCourses,
+            courses.map_or(0.0, |c| f32::from(c.plate_count)),
+        ),
+        (
+            Slot::BuffeLower,
+            courses.map_or(0.0, |c| c.lower_boundary.unit()),
+        ),
+        (
+            Slot::BuffeUpper,
+            courses.map_or(0.0, |c| c.upper_boundary.unit()),
+        ),
+        (
+            Slot::BuffeOverlap,
+            courses.map_or(0.0, |c| c.overlap.metres()),
+        ),
+        (
+            Slot::BuffeLapClearance,
+            courses.map_or(0.0, |c| c.lap_clearance.metres()),
+        ),
+        (
+            Slot::BuffeBoundaryDrop,
+            courses.map_or(0.0, |c| c.boundary_drop.metres()),
+        ),
+    ] {
+        floats.set(slot, value);
+    }
 }
 
 /// A plain face or course: rows up it, columns across it.
