@@ -145,7 +145,7 @@ test("settlement NPCs reuse the circular party portrait structure", () => {
   assert.match(source, /party-portrait-initial settlement-npc-initials/);
   assert.match(source, /party-portrait-face/);
   assert.match(source, /party-portrait-name settlement-npc-name/);
-  assert.match(source, /portrait\.append\(face, name\)/);
+  assert.match(source, /portrait\.append\(face\)/);
   assert.doesNotMatch(source, /data\.openNpcSocial|dataset\.openNpcSocial/);
   assert.doesNotMatch(source, /settlement-npc-social-button/);
   assert.doesNotMatch(source, /npc-social-summary/);

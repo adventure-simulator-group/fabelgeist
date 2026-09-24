@@ -5,7 +5,7 @@ const test = require("node:test");
 const { chromium } = require("playwright");
 
 const staticRoot = path.join(__dirname, "../static");
-const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace"];
+const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "readability"];
 const shell = (content) => `<!doctype html><html><head>${styles.map(name =>
   `<link rel="stylesheet" href="/static/css/${name}.css">`).join("")}</head>
   <body><div id="strategic-page" class="app"><header class="top-bar">Riverdale</header>

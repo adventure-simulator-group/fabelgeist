@@ -5,7 +5,7 @@ const test = require("node:test");
 const { chromium } = require("playwright");
 
 const staticRoot = path.join(__dirname, "..", "static");
-const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities"];
+const styles = ["base", "reset", "layout", "components", "strategic", "architecture", "utilities", "workspace", "readability"];
 const skins = ["map-board", "civic-court", "merchant-hall", "hearth-room", "sanctuary", "ironbound-store", "domestic-cabinet"];
 
 function fixture(skin, forge = false) {
