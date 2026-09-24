@@ -1932,9 +1932,9 @@ body.character-action-dialog-open { overflow: hidden; }
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 70%);
 }
 .character-action-dialog:focus-visible { box-shadow: 0 0 0 2px var(--accent-light), 0 1rem 3rem rgb(0 0 0 / 70%); }
-.character-action-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; }
+.character-action-dialog-header { position: sticky; top: -1rem; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .75rem; margin-bottom: .85rem; background: var(--panel-bg); }
 .character-action-dialog-header h2 { margin: 0; }
-.character-action-dialog-close,
+.character-action-dialog-close:not(.btn),
 .activity-modal-close,
 .dialog-close,
 .physiology-dialog-close {
@@ -1952,7 +1952,7 @@ body.character-action-dialog-open { overflow: hidden; }
   text-decoration: none;
   cursor: pointer;
 }
-.character-action-dialog-close { font-size: 1.65rem; }
+.character-action-dialog-close:not(.btn) { flex-shrink: 0; font-size: 1.65rem; }
 .character-action-dialog-close:hover,
 .activity-modal-close:hover,
 .dialog-close:hover,
@@ -2440,6 +2440,24 @@ body.character-action-dialog-open { overflow: hidden; }
 .fireplace-layout {
     display: contents;
 }
+
+.tab-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: .75rem; }
+.tab-list a { padding: .5rem .75rem; border-bottom: 3px solid transparent; }
+.tab-list a[aria-current="page"] { border-color: var(--accent-light); color: var(--text-primary); }
+.tab-list a:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+
+.strategic-map.strategic-map-unavailable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 12rem;
+  height: auto;
+  padding: 2rem;
+  background: var(--panel-bg);
+  color: var(--text-primary);
+}
+.strategic-map-unavailable p { max-width: 42ch; color: var(--text-secondary); }
 
 .fireplace-portrait:focus-visible,
 .forge-portrait:focus-visible {
@@ -6089,7 +6107,7 @@ body.chat-resizing {
 
 .surgery-procedure-unavailable > * {
     filter: grayscale(1);
-    opacity: .38;
+    color: var(--text-secondary);
 }
 
 .surgery-procedure-unavailable:focus-visible {
