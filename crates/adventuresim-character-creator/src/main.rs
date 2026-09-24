@@ -423,7 +423,7 @@ mod belt_mount_tests {
 mod garment_integration_tests {
     use super::*;
     use adventuresim_character_creator::{
-        garment::{DrapeStage, drape},
+        garment::{DrapeSettings, DrapeStage, drape},
         inventory::Article,
     };
     #[test]
@@ -440,12 +440,20 @@ mod garment_integration_tests {
             .is_some()
             .then(fabelgeist_armor::Armor::default);
         let generated = generate_character(&model, &recipe)?;
-        // Every named shape in mail, and the fitted coif.
+        // Every named shape, in mail unless GARMENT_TEST_FABRIC names another
+        // fabric, and the fitted coif.
+        let fabric = match std::env::var("GARMENT_TEST_FABRIC") {
+            Ok(name) => *FabricPreset::ALL
+                .iter()
+                .find(|preset| preset.label() == name)
+                .context("unknown GARMENT_TEST_FABRIC")?,
+            Err(_) => FabricPreset::Chainmail,
+        };
         let garments: Vec<_> = adventuresim_character_creator::garment::pattern::shapes::SHAPES
             .iter()
             .map(|shape| GarmentSelection {
-                fabric: FabricPreset::Chainmail,
-                drape: GarmentSelection::chainmail().drape,
+                fabric,
+                drape: DrapeSettings::for_fabric(fabric.fabric()),
                 ..GarmentSelection::from_shape(shape)
             })
             .chain([GarmentSelection {

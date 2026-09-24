@@ -2,6 +2,11 @@ use super::stages::DrapeStart;
 use super::*;
 
 const STEP_SECONDS: f32 = 1.0 / 60.0;
+/// Share of the sewing steps over which the seams are drawn shut; the rest
+/// hold them closed. Near-rigid zero-length seams would otherwise snap shut in
+/// the first few frames, cutting sleeves and other tubes straight through the
+/// limb inside them instead of wrapping them round it.
+const SEAM_CLOSING_SHARE: f32 = 0.75;
 
 /// Drape one garment, resuming from the previous drape's checkpoints when only
 /// later stages changed. Completed stages are returned even when draping fails.
@@ -144,9 +149,13 @@ fn simulate(
                     // Close the seams before gravity can pull the still-separated
                     // panels below their supporting shoulders or waistband.
                     stages.sewing.apply(&mut fit, &collision, clearance)?;
+                    let seams = SeamClosure::new(&fit, &build.mesh, &fit.positions().await?);
                     let steps = stages.sewing.steps;
+                    let closing = (steps as f32 * SEAM_CLOSING_SHARE).max(1.0);
                     for step in 1..=steps {
                         cancelled()?;
+                        let open = (1.0 - step as f32 / closing).max(0.0);
+                        seams.hold_open(&mut fit, open)?;
                         fit.step(STEP_SECONDS).await?;
                         if step % stages.preview_interval == 0 || step == steps {
                             let stage = DrapeStage::Sewing { step, of: steps };
@@ -159,6 +168,7 @@ fn simulate(
                             preview(output.clone());
                         }
                     }
+                    seams.shut(&mut fit)?;
                     let sewn = fit.positions().await?;
                     checkpoints.record_sewn(sewn.clone());
                     sewn
@@ -188,6 +198,77 @@ fn simulate(
             }
             Ok(output)
         })
+}
+
+/// Seams drawn shut over the sewing stage, from the gaps the panels were
+/// placed at.
+struct SeamClosure {
+    gaps: Vec<f32>,
+    /// Bend weights in colour order, as built and with every hinge across a
+    /// seam slack. Such a hinge spans the open gap and would read it as a
+    /// sharp crease, wrenching the panels round to flatten it.
+    bends: Vec<f32>,
+    open_bends: Vec<f32>,
+}
+
+impl SeamClosure {
+    fn new(fit: &Fit, mesh: &fabelgeist_cloth::GarmentMesh, placed: &[[f32; 3]]) -> Self {
+        let gaps = mesh
+            .seams
+            .iter()
+            .map(|&[a, b]| (vector(placed[a as usize]) - vector(placed[b as usize])).length())
+            .collect();
+        // A hinge across a seam joins triangles whose shared edge only exists
+        // once the seam's copies meet.
+        let triangles: std::collections::HashSet<[u32; 3]> = mesh
+            .triangles
+            .iter()
+            .map(|&triangle| {
+                let mut sorted = triangle;
+                sorted.sort_unstable();
+                sorted
+            })
+            .collect();
+        let open_bends: Vec<_> = mesh
+            .bends
+            .iter()
+            .zip(&mesh.bend_weights)
+            .map(|(bend, &weights)| {
+                let [a, b, wings @ ..] = bend.particles();
+                let within_the_mesh = wings.iter().all(|&wing| {
+                    let mut triangle = [a, b, wing];
+                    triangle.sort_unstable();
+                    triangles.contains(&triangle)
+                });
+                if within_the_mesh { weights } else { [0.0; 8] }
+            })
+            .collect();
+        let colour_order = |weights: &[[f32; 8]]| fit.cloth.bending.reorder(weights).concat();
+        Self {
+            gaps,
+            bends: colour_order(&mesh.bend_weights),
+            open_bends: colour_order(&open_bends),
+        }
+    }
+
+    /// Hold each seam open by `open` of its placed gap.
+    fn hold_open(&self, fit: &mut Fit, open: f32) -> Result<()> {
+        self.set(fit, open, &self.open_bends)
+    }
+
+    /// Shut every seam and let the hinges across them bend the cloth.
+    fn shut(&self, fit: &mut Fit) -> Result<()> {
+        self.set(fit, 0.0, &self.bends)
+    }
+
+    fn set(&self, fit: &mut Fit, open: f32, bends: &[f32]) -> Result<()> {
+        let rest: Vec<f32> = self.gaps.iter().map(|gap| gap * open).collect();
+        let rest = fit.cloth.seams.reorder(&rest);
+        fit.cloth
+            .seams
+            .attach(&fit.context, "rest_lengths", &rest)?;
+        fit.cloth.bending.attach_raw(&fit.context, "weights", bends)
+    }
 }
 
 fn fit_settings(input: &DrapeInput, body: &Body) -> FitSettings {
