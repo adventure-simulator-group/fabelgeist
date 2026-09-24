@@ -583,8 +583,6 @@ fitting a design that uses one fails with an error naming it, rather than
 building the piece without it:
 
 - pauldrons, a spaulder's besagew or reduced crown coverage;
-- raised joint cops, joint extensions, transverse joint fluting and non-default
-  joint cup wraps;
 - a burgonet's buffe or peak rise, and bellows visors;
 - wrapped tassets and anime breastplates;
 - puff-and-slash sleeves and hose.

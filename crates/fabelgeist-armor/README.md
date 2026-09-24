@@ -39,8 +39,14 @@ crest, opening and lower-edge controls. Cap and coif recipes have soft covering
 boundaries. Clearance and gauge remain separate from style controls.
 
 Long limb plates expose length, taper and wrap. Elbow and knee cops expose
-localized projection and wing dimensions; shoulder, finger and foot defenses
-have overlapping lame controls. Gauntlets fit the hand and thumb independently.
+localized projection and wing dimensions. A wrapped cup encloses the joint and
+flows into its side fan; a raised cop is a closed dish with a laterally
+returned fan and its own medial and lateral wrap. Transverse fluting runs a
+cop's flutes across it instead of along it. A wrapped cup may carry a joint
+extension: overlapping lower plates that follow its distal edge, lap outward
+and end in a longer terminal plate, recorded as their own component beside the
+cup's plate. Shoulder, finger and foot defenses have overlapping lame
+controls. Gauntlets fit the hand and thumb independently.
 Textile and mail envelopes use garment patterns with neck, arm and hem openings,
 plus joint-following sleeves and leg coverings. They represent the garment's
 volume; individual mail rings and closures are outside this geometry layer.
@@ -100,8 +106,8 @@ with it, and a trim band measures each point only to the rims of its own plate,
 so closely overlapping plates each keep their own face.
 
 Some recipe options have designs and validation but no device construction
-yet: pauldrons, besagews, raised joint cops, joint extensions, buffes, bellows
-visors, wrapped tassets and anime breastplates among them. Each family's
+yet: pauldrons, besagews, buffes, bellows visors, wrapped tassets and anime
+breastplates among them. Each family's
 `device_unsupported` names the first such option a design uses, and every
 device entry point refuses it with `GenerateError::NotOnDevice` rather than
 building the piece without it.

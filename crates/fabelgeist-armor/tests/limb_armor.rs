@@ -401,3 +401,87 @@ fn sabaton_rejects_ankle_trim_that_consumes_the_instep_span() {
     let compatible = build(&design, &[frame([0.0; 3], [0.040, 0.030, 0.060])]).unwrap();
     assert_closed_solid(&compatible, "trimmed sabaton");
 }
+
+#[test]
+fn joint_cup_constructions_are_closed_solids_with_plate_and_extension_components() {
+    use fabelgeist_armor::{
+        ArmorComponentRole, JointCupConstruction, JointExtension, JointFluteOrientation,
+        PlateFluting,
+    };
+    let fit = frame([0.1, 0.9, -0.05], [0.06, 0.055, 0.055]);
+    let raised = JointCupDesign {
+        construction: JointCupConstruction::RaisedCop,
+        wing: Permille(1200),
+        medial_wrap: Permille(400),
+        lateral_wrap: Permille(900),
+        ..JointCupDesign::poleyn()
+    };
+    let extended = JointCupDesign {
+        distal_extension: Some(JointExtension::default()),
+        ..JointCupDesign::poleyn()
+    };
+    let transverse = JointCupDesign {
+        fluting: Some(PlateFluting::default()),
+        flute_orientation: JointFluteOrientation::Transverse,
+        ..JointCupDesign::couter()
+    };
+    for (name, design, extension_lames) in [
+        ("raised cop", raised, 0),
+        ("extended poleyn", extended, 3),
+        ("transverse flutes", transverse, 0),
+    ] {
+        let limb = LimbArmorDesign::Poleyn(design);
+        limb.validate().unwrap_or_else(|e| panic!("{name}: {e}"));
+        let part = build(&limb, &[fit]).unwrap_or_else(|e| panic!("{name}: {e}"));
+        assert_closed_solid(&part, name);
+        let roles = part
+            .components
+            .iter()
+            .map(|component| component.role)
+            .collect::<Vec<_>>();
+        let expected = if extension_lames > 0 {
+            vec![
+                ArmorComponentRole::Plate,
+                ArmorComponentRole::JointExtension,
+            ]
+        } else {
+            vec![ArmorComponentRole::Plate]
+        };
+        assert_eq!(roles, expected, "{name}");
+        let covered = part
+            .components
+            .iter()
+            .map(|component| component.vertices.len())
+            .sum::<usize>();
+        assert_eq!(covered, part.positions.len(), "{name}");
+    }
+}
+
+#[test]
+fn a_joint_extension_hangs_below_the_cup_and_its_plates_lap_outward() {
+    use fabelgeist_armor::{ArmorComponentRole, JointExtension};
+    let fit = frame([0.0; 3], [0.06, 0.055, 0.055]);
+    let design = JointCupDesign {
+        distal_extension: Some(JointExtension::default()),
+        ..JointCupDesign::poleyn()
+    };
+    let part = build(&LimbArmorDesign::Poleyn(design), &[fit]).unwrap();
+    let range = |role| {
+        part.components
+            .iter()
+            .find(|component| component.role == role)
+            .unwrap()
+            .vertices
+            .clone()
+    };
+    let lowest = |vertices: std::ops::Range<usize>| {
+        part.positions[vertices]
+            .iter()
+            .map(|p| p[1])
+            .fold(f32::INFINITY, f32::min)
+    };
+    let cup = lowest(range(ArmorComponentRole::Plate));
+    let extension = lowest(range(ArmorComponentRole::JointExtension));
+    // The default extension is 130 mm long below the cup's distal edge.
+    assert!(extension < cup - 0.1, "extension {extension} vs cup {cup}");
+}

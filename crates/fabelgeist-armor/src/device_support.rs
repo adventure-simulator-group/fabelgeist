@@ -3,8 +3,7 @@
 
 use crate::{
     BreastplateConstruction, BreastplateDesign, GarmentArmorDesign, GarmentPlateShape,
-    GenerateError, HelmetDesign, JointCupConstruction, JointCupDesign, JointFluteOrientation,
-    LimbArmorDesign, Permille,
+    GenerateError, HelmetDesign, LimbArmorDesign, Permille,
 };
 
 /// Refuse the option `unsupported` names.
@@ -29,31 +28,12 @@ impl LimbArmorDesign {
     pub fn device_unsupported(&self) -> Option<&'static str> {
         match self {
             Self::Pauldron(_) => Some("a pauldron"),
-            Self::Couter(d) | Self::Poleyn(d) => joint_cup(d),
             Self::Spaulder(d) if d.besagew.is_some() => Some("a spaulder's besagew"),
             Self::Spaulder(d) if d.crown_coverage != Permille(1000) => {
                 Some("a spaulder's crown coverage")
             }
             _ => None,
         }
-    }
-}
-
-fn joint_cup(design: &JointCupDesign) -> Option<&'static str> {
-    if design.construction == JointCupConstruction::RaisedCop {
-        Some("a raised joint cop")
-    } else if design.distal_extension.is_some() {
-        Some("a joint extension")
-    } else if design.fluting.is_some()
-        && design.flute_orientation != JointFluteOrientation::Longitudinal
-    {
-        Some("transverse joint fluting")
-    } else if design.medial_wrap != JointCupDesign::DEFAULT_MEDIAL_WRAP
-        || design.lateral_wrap != JointCupDesign::DEFAULT_LATERAL_WRAP
-    {
-        Some("a joint cup's wrap")
-    } else {
-        None
     }
 }
 
