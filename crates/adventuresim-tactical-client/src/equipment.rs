@@ -34,8 +34,10 @@ mod icons;
 use icons::*;
 mod model_loading;
 mod morphs;
+mod placeholder;
 mod runtime_equipment;
-use model_loading::resolve_procedural_equipment_models;
+use model_loading::{request_procedural_equipment_models, resolve_procedural_equipment_models};
+use placeholder::spawn_item_placeholders;
 use runtime_equipment::{
     RuntimeEquipmentBodyCache, RuntimeEquipmentPresentation, generate_runtime_equipment_models,
 };
@@ -1068,166 +1070,6 @@ fn cached_holder(
     };
     cache.holders.insert(key, cached.clone());
     Some(cached)
-}
-
-#[expect(
-    clippy::type_complexity,
-    reason = "the Bevy query selects every appearance change that can invalidate an equipment placeholder"
-)]
-fn spawn_item_placeholders(
-    mut commands: Commands,
-    added: Query<
-        (
-            Entity,
-            &TacticalEquipmentPhysical,
-            Option<&EquipmentTopology>,
-            Option<&ItemProperties>,
-            Option<&WeaponAppearance>,
-            Option<&WeaponHolderAppearance>,
-        ),
-        Or<(
-            Added<TacticalEquipmentPhysical>,
-            Added<EquipmentTopology>,
-            Changed<EquipmentTopology>,
-            Added<ItemProperties>,
-            Changed<ItemProperties>,
-            Added<WeaponAppearance>,
-            Changed<WeaponAppearance>,
-            Added<WeaponHolderAppearance>,
-            Changed<WeaponHolderAppearance>,
-        )>,
-    >,
-    existing: Query<(Entity, &ItemPlaceholder)>,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
-    mut cache: ResMut<WeaponMeshCache>,
-) {
-    for (item, physical, topology, properties, appearance, holder_appearance) in &added {
-        if !physical.is_valid() {
-            continue;
-        }
-        for (root, placeholder) in &existing {
-            if placeholder.0 == item {
-                commands.entity(root).despawn();
-            }
-        }
-        commands.entity(item).remove::<EquipmentAttachmentSockets>();
-        let mut root_commands = commands.spawn((
-            Name::new("Tactical item placeholder"),
-            ItemPlaceholder(item),
-            Transform::default(),
-            // Attachment is resolved on the following update. Keeping the
-            // root hidden avoids a one-frame flash at the world origin.
-            Visibility::Hidden,
-        ));
-        let runtime_equipment = properties.is_some_and(|properties| {
-            adventuresim_character_creator::runtime_equipment::is_runtime_equipment(&properties.id)
-        });
-        if !runtime_equipment {
-            if let Some(file) = properties.and_then(|properties| {
-                procedural_equipment_file(
-                    &properties.id,
-                    topology.and_then(|topology| topology.placement_id.as_deref()),
-                )
-            }) {
-                root_commands.insert(ProceduralEquipmentPresentation {
-                    asset_path: procedural_equipment_asset_path(file),
-                });
-            }
-        } else {
-            let properties = properties.expect("runtime equipment requires item properties");
-            root_commands.insert(RuntimeEquipmentPresentation {
-                item,
-                item_id: properties.id.clone(),
-                placement_id: topology
-                    .and_then(|topology| topology.placement_id.clone())
-                    .unwrap_or_else(|| "worn".into()),
-            });
-        }
-        let root = root_commands.id();
-        if runtime_equipment {
-            continue;
-        }
-        let (generated, part_name) = if let Some(holder) =
-            holder_appearance.and_then(|appearance| {
-                cached_holder(appearance, &mut cache, &mut meshes, &mut materials)
-            }) {
-            (Some(holder), "Procedural weapon holder part")
-        } else if properties.is_some_and(|properties| {
-            matches!(
-                properties.id.as_str(),
-                "scabbard" | "sword_sheath" | "boot_sheath" | "forearm_holster" | "weapon_loop"
-            )
-        }) {
-            // Holder catalog rows are semantic chassis, not renderable generic
-            // boxes. An absent, corrupt, or unsupported holder instance stays
-            // visually absent until a valid first-class recipe arrives.
-            continue;
-        } else {
-            (
-                appearance.and_then(|appearance| {
-                    cached_weapon(appearance, &mut cache, &mut meshes, &mut materials)
-                }),
-                "Procedural weapon part",
-            )
-        };
-        if let Some(generated) = generated {
-            commands.entity(root).with_children(|parent| {
-                for part in generated.parts {
-                    parent.spawn((
-                        Name::new(part_name),
-                        Mesh3d(part.mesh),
-                        MeshMaterial3d(part.material),
-                        Transform::from_translation(-generated.grip),
-                        GrabTargetOutline(item),
-                        OutlineVolume {
-                            visible: false,
-                            colour: Color::WHITE,
-                            width: 4.0,
-                        },
-                        OutlineMode::FloodFlat,
-                    ));
-                }
-            });
-        } else {
-            commands.entity(root).with_child((
-                Name::new("Tactical item fallback"),
-                ItemFallback(item),
-                Mesh3d(meshes.add(Cuboid::new(
-                    physical.dimensions_m.x,
-                    physical.dimensions_m.y,
-                    physical.dimensions_m.z,
-                ))),
-                MeshMaterial3d(materials.add(StandardMaterial {
-                    base_color: Color::srgb(0.48, 0.34, 0.18),
-                    perceptual_roughness: 0.8,
-                    ..default()
-                })),
-                // The root is the authored grip. Box centre is offset from it;
-                // local +Y remains the weapon-tip direction.
-                Transform::from_translation(-physical.anchor_offset_m),
-                GrabTargetOutline(item),
-                OutlineVolume {
-                    visible: false,
-                    colour: Color::WHITE,
-                    width: 4.0,
-                },
-                OutlineMode::FloodFlat,
-            ));
-        }
-    }
-}
-
-fn request_procedural_equipment_models(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-    pending: Query<(Entity, &ProceduralEquipmentPresentation), Without<ProceduralEquipmentRequest>>,
-) {
-    for (entity, presentation) in &pending {
-        commands.entity(entity).insert(ProceduralEquipmentRequest(
-            asset_server.load(&presentation.asset_path),
-        ));
-    }
 }
 
 fn semantic_attachment_axis(role: BoneRole) -> Option<(BoneRole, BoneRole)> {

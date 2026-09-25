@@ -12,6 +12,12 @@ use adventuresim_armor_model::{ArmorMorph, GeneratedArmor, PartMesh, parametric_
 use anyhow::{Context, Result, bail};
 use std::sync::LazyLock;
 
+const VAMBRACE_ITEM_ID: &str = "vambrace";
+const BREASTPLATE_ITEM_ID: &str = "breastplate";
+const CUIRASS_ITEM_ID: &str = "cuirass";
+const LEFT_FOREARM_PLACEMENT_ID: &str = "left";
+const RIGHT_FOREARM_PLACEMENT_ID: &str = "right";
+
 /// One body realization used to refit an armor piece.
 #[derive(Clone, Debug, PartialEq)]
 pub struct RuntimeBodyMorph {
@@ -105,8 +111,8 @@ pub fn generate_runtime_armor(
 ) -> Result<GeneratedArmor> {
     body.validate()?;
     match item_id {
-        "vambrace" => generate_vambrace(body, placement, bracer_design),
-        "breastplate" | "cuirass" => generate_breastplate(body, breastplate_design),
+        VAMBRACE_ITEM_ID => generate_vambrace(body, placement, bracer_design),
+        BREASTPLATE_ITEM_ID | CUIRASS_ITEM_ID => generate_breastplate(body, breastplate_design),
         _ => {
             let design = armor_recipes::recipe(item_id)
                 .with_context(|| format!("no runtime armor recipe for {item_id}"))?;
@@ -204,8 +210,8 @@ fn generate_vambrace(
     design: &adventuresim_armor_model::BracerDesign,
 ) -> Result<GeneratedArmor> {
     let side = match placement {
-        "left" => ForearmSide::Left,
-        "right" => ForearmSide::Right,
+        LEFT_FOREARM_PLACEMENT_ID => ForearmSide::Left,
+        RIGHT_FOREARM_PLACEMENT_ID => ForearmSide::Right,
         _ => bail!("vambrace placement {placement} has no forearm side"),
     };
     let morphs = body.forearm_morphs();
@@ -358,8 +364,10 @@ pub fn runtime_equipment_material(
 
 /// Returns whether the item has an authored parametric armor runtime path.
 pub fn is_runtime_armor(item_id: &str) -> bool {
-    matches!(item_id, "vambrace" | "breastplate" | "cuirass")
-        || armor_recipes::is_parametric(item_id)
+    matches!(
+        item_id,
+        VAMBRACE_ITEM_ID | BREASTPLATE_ITEM_ID | CUIRASS_ITEM_ID
+    ) || armor_recipes::is_parametric(item_id)
 }
 
 /// Returns whether the item has an authored fitted clothing runtime path.
