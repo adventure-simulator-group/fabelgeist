@@ -428,7 +428,7 @@ ceiling = 848
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-ceiling = 2433
+ceiling = 2392
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
@@ -8679,13 +8679,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "seed_world_rows"
 fingerprint = "string:ravenmoor"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-item = "standalone_mission_family"
-fingerprint = "string:mission"
 occurrences = 1
 
 [[findings]]
