@@ -39,6 +39,7 @@ use model_loading::resolve_procedural_equipment_models;
 use runtime_equipment::{
     RuntimeEquipmentBodyCache, RuntimeEquipmentPresentation, generate_runtime_equipment_models,
 };
+mod placeholder_visual;
 mod render_binding;
 mod skin;
 mod slot_selection;
@@ -1172,48 +1173,16 @@ fn spawn_item_placeholders(
             )
         };
         if let Some(generated) = generated {
-            commands.entity(root).with_children(|parent| {
-                for part in generated.parts {
-                    parent.spawn((
-                        Name::new(part_name),
-                        Mesh3d(part.mesh),
-                        MeshMaterial3d(part.material),
-                        Transform::from_translation(-generated.grip),
-                        GrabTargetOutline(item),
-                        OutlineVolume {
-                            visible: false,
-                            colour: Color::WHITE,
-                            width: 4.0,
-                        },
-                        OutlineMode::FloodFlat,
-                    ));
-                }
-            });
+            placeholder_visual::spawn_generated(&mut commands, root, item, generated, part_name);
         } else {
-            commands.entity(root).with_child((
-                Name::new("Tactical item fallback"),
-                ItemFallback(item),
-                Mesh3d(meshes.add(Cuboid::new(
-                    physical.dimensions_m.x,
-                    physical.dimensions_m.y,
-                    physical.dimensions_m.z,
-                ))),
-                MeshMaterial3d(materials.add(StandardMaterial {
-                    base_color: Color::srgb(0.48, 0.34, 0.18),
-                    perceptual_roughness: 0.8,
-                    ..default()
-                })),
-                // The root is the authored grip. Box centre is offset from it;
-                // local +Y remains the weapon-tip direction.
-                Transform::from_translation(-physical.anchor_offset_m),
-                GrabTargetOutline(item),
-                OutlineVolume {
-                    visible: false,
-                    colour: Color::WHITE,
-                    width: 4.0,
-                },
-                OutlineMode::FloodFlat,
-            ));
+            placeholder_visual::spawn_fallback(
+                &mut commands,
+                root,
+                item,
+                physical,
+                &mut meshes,
+                &mut materials,
+            );
         }
     }
 }
