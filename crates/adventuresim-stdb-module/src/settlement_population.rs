@@ -322,7 +322,6 @@ fn business_row_id(business_id: &BusinessId) -> Result<String, String> {
         .map(|key| format!("business-operator:{key}"))
         .map_err(|error| format!("Could not serialize business identity: {error}"))
 }
-
 #[derive(Clone, Copy)]
 enum PopulationLocation<'a> {
     Overview,

@@ -1,6 +1,7 @@
 //! Runtime armor generation from the canonical rig's CPU mesh data.
 
 use crate::{
+    armor_design_input::ArmorPlacement,
     armor_frames::Wearer,
     armor_recipes::{self, ParametricDesign},
     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
@@ -10,7 +11,25 @@ use crate::{
 };
 use adventuresim_armor_model::{ArmorMorph, GeneratedArmor, PartMesh, parametric_design_hash};
 use anyhow::{Context, Result, bail};
+use serde::Deserialize;
 use std::sync::LazyLock;
+
+#[derive(Clone, Copy, Debug, serde::Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum FittedArmorKind {
+    Vambrace,
+    Breastplate,
+    Cuirass,
+}
+
+impl FittedArmorKind {
+    fn parse(item_id: &str) -> Option<Self> {
+        Self::deserialize(
+            serde::de::value::StrDeserializer::<serde::de::value::Error>::new(item_id),
+        )
+        .ok()
+    }
+}
 
 /// One body realization used to refit an armor piece.
 #[derive(Clone, Debug, PartialEq)]
@@ -104,10 +123,12 @@ pub fn generate_runtime_armor(
     breastplate_design: &adventuresim_armor_model::BreastplateDesign,
 ) -> Result<GeneratedArmor> {
     body.validate()?;
-    match item_id {
-        "vambrace" => generate_vambrace(body, placement, bracer_design),
-        "breastplate" | "cuirass" => generate_breastplate(body, breastplate_design),
-        _ => {
+    match FittedArmorKind::parse(item_id) {
+        Some(FittedArmorKind::Vambrace) => generate_vambrace(body, placement, bracer_design),
+        Some(FittedArmorKind::Breastplate | FittedArmorKind::Cuirass) => {
+            generate_breastplate(body, breastplate_design)
+        }
+        None => {
             let design = armor_recipes::recipe(item_id)
                 .with_context(|| format!("no runtime armor recipe for {item_id}"))?;
             generate_parametric(body, &design, placement)
@@ -203,9 +224,9 @@ fn generate_vambrace(
     placement: &str,
     design: &adventuresim_armor_model::BracerDesign,
 ) -> Result<GeneratedArmor> {
-    let side = match placement {
-        "left" => ForearmSide::Left,
-        "right" => ForearmSide::Right,
+    let side = match ArmorPlacement::parse(placement) {
+        Some(ArmorPlacement::Left) => ForearmSide::Left,
+        Some(ArmorPlacement::Right) => ForearmSide::Right,
         _ => bail!("vambrace placement {placement} has no forearm side"),
     };
     let morphs = body.forearm_morphs();

@@ -12,6 +12,9 @@ use bevy::{
     render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
 
+mod morphs;
+use morphs::runtime_body_morphs;
+
 #[derive(Component)]
 pub(super) struct RuntimeEquipmentPresentation {
     pub(super) item: Entity,
@@ -97,6 +100,24 @@ pub(super) fn generate_runtime_equipment_models(
         }
     }
 
+    spawn_pending_runtime_equipment(
+        &mut commands,
+        &pending,
+        &mut meshes,
+        &mut images,
+        &mut materials,
+        &cache,
+    );
+}
+
+fn spawn_pending_runtime_equipment(
+    commands: &mut Commands,
+    pending: &Query<(Entity, &RuntimeEquipmentPresentation), Without<ProceduralEquipmentResolved>>,
+    meshes: &mut Assets<Mesh>,
+    images: &mut Assets<Image>,
+    materials: &mut Assets<StandardMaterial>,
+    cache: &RuntimeEquipmentBodyCache,
+) {
     let Some(body) = cache.body.as_ref() else {
         return;
     };
@@ -110,7 +131,7 @@ pub(super) fn generate_runtime_equipment_models(
         return;
     };
 
-    for (entity, presentation) in &pending {
+    for (entity, presentation) in pending {
         let generated = match if adventuresim_character_creator::runtime_equipment::is_runtime_armor(
             &presentation.item_id,
         ) {
@@ -140,13 +161,9 @@ pub(super) fn generate_runtime_equipment_models(
             }
         };
 
-        let mesh = runtime_equipment_mesh(&generated, &mut meshes);
-        let material = runtime_equipment_material(
-            &presentation.item_id,
-            &generated,
-            &mut images,
-            &mut materials,
-        );
+        let mesh = runtime_equipment_mesh(&generated, meshes);
+        let material =
+            runtime_equipment_material(&presentation.item_id, &generated, images, materials);
         let part = ProceduralEquipmentPart::new(
             presentation.item,
             inverse_bindposes_handle.clone(),
@@ -177,35 +194,24 @@ fn try_build_runtime_body(
     let gltf = gltfs.get(base_handle)?;
 
     for node_handle in &gltf.nodes {
-        let Some(node) = gltf_nodes.get(node_handle) else {
-            return None;
-        };
+        let node = gltf_nodes.get(node_handle)?;
         let (Some(mesh_handle), Some(skin_handle)) = (node.mesh.as_ref(), node.skin.as_ref())
         else {
             continue;
         };
-        let Some(gltf_mesh) = gltf_meshes.get(mesh_handle) else {
-            return None;
+        let gltf_mesh = gltf_meshes.get(mesh_handle)?;
+        let skin = gltf_skins.get(skin_handle)?;
+        let inverse_bindposes_asset = inverse_bindposes.get(&skin.inverse_bind_matrices)?;
+        let Some(primitive) = gltf_mesh.primitives.first() else {
+            continue;
         };
-        let Some(skin) = gltf_skins.get(skin_handle) else {
-            return None;
-        };
-        let Some(inverse_bindposes_asset) = inverse_bindposes.get(&skin.inverse_bind_matrices)
-        else {
-            return None;
-        };
-
-        for primitive in &gltf_mesh.primitives {
-            let Some(mesh) = meshes.get(&primitive.mesh) else {
-                return None;
-            };
-            return Some(build_runtime_body(
-                mesh,
-                skin,
-                inverse_bindposes_asset,
-                gltf_nodes,
-            ));
-        }
+        let mesh = meshes.get(&primitive.mesh)?;
+        return Some(build_runtime_body(
+            mesh,
+            skin,
+            inverse_bindposes_asset,
+            gltf_nodes,
+        ));
     }
 
     Some(Err(anyhow::anyhow!(
@@ -231,13 +237,11 @@ fn build_runtime_body(
         Indices::U16(indices) => indices.iter().map(|index| u32::from(*index)).collect(),
         Indices::U32(indices) => indices.clone(),
     };
-    let faces = indices
-        .chunks_exact(3)
-        .map(|face| [face[0], face[1], face[2]])
-        .collect::<Vec<_>>();
-    if faces.len() * 3 != indices.len() {
+    let (faces, remainder) = indices.as_chunks::<3>();
+    if !remainder.is_empty() {
         bail!("runtime armor body index buffer is not triangle-aligned");
     }
+    let faces = faces.to_vec();
 
     let joint_names = skin
         .joints
@@ -261,41 +265,7 @@ fn build_runtime_body(
         })
         .collect::<Vec<_>>();
 
-    let morphs = mesh
-        .get_morph_targets()
-        .map(|targets| {
-            let names = mesh.morph_target_names().unwrap_or_default();
-            let vertex_count = positions.len();
-            names
-                .iter()
-                .enumerate()
-                .filter_map(|(index, name)| {
-                    let start = index.checked_mul(vertex_count)?;
-                    let target = targets.get(start..start + vertex_count)?;
-                    Some(RuntimeBodyMorph {
-                        name: name.clone(),
-                        positions: positions
-                            .iter()
-                            .zip(target)
-                            .map(|(base, delta)| {
-                                let delta = delta.position.to_array();
-                                [base[0] + delta[0], base[1] + delta[1], base[2] + delta[2]]
-                            })
-                            .collect(),
-                        normals: normals
-                            .iter()
-                            .zip(target)
-                            .map(|(base, delta)| {
-                                let delta = delta.normal.to_array();
-                                [base[0] + delta[0], base[1] + delta[1], base[2] + delta[2]]
-                            })
-                            .collect(),
-                        global_joint_states: global_joint_states.clone(),
-                    })
-                })
-                .collect::<Vec<_>>()
-        })
-        .unwrap_or_default();
+    let morphs = runtime_body_morphs(mesh, &positions, &normals, &global_joint_states);
 
     let body = RuntimeBody {
         detail: adventuresim_armor_model::ArmorDetail::Runtime(

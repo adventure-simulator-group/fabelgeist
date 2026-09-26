@@ -18,6 +18,7 @@ pub(super) struct ResidentDraft {
     pub(super) sex: Sex,
     pub(super) presentation: Presentation,
     pub(super) exact_age: Option<u16>,
+    pub(super) inherited_surname: Option<adventuresim_world_schema::person_names::SurnameId>,
 }
 
 #[derive(Clone, Copy)]
@@ -61,11 +62,7 @@ impl ResidentDraft {
         presence: DefaultPresence,
         business_id: Option<BusinessId>,
     ) -> Self {
-        let sex = if resident_random(&seed, ResidentEntropyStream::Sex).boolean() {
-            Sex::Female
-        } else {
-            Sex::Male
-        };
+        let female = resident_random(&seed, ResidentEntropyStream::Sex).boolean();
         Self {
             character_id: resident_character_id(&seed),
             seed,
@@ -75,12 +72,14 @@ impl ResidentDraft {
             role: role.into(),
             is_default: presence.is_default(),
             business_id,
-            sex,
-            presentation: match sex {
-                Sex::Female => Presentation::Woman,
-                Sex::Male => Presentation::Man,
+            sex: if female { Sex::Female } else { Sex::Male },
+            presentation: if female {
+                Presentation::Woman
+            } else {
+                Presentation::Man
             },
             exact_age: None,
+            inherited_surname: None,
         }
     }
 
@@ -221,6 +220,53 @@ pub(super) fn finalize_household_demographics(drafts: &mut [ResidentDraft]) -> V
         .chunks(4)
         .map(|family| family.iter().map(ResidentDraft::character_id).collect())
         .collect()
+}
+
+fn name_sex(sex: Sex) -> adventuresim_world_schema::person_names::NameSex {
+    match sex {
+        Sex::Female => adventuresim_world_schema::person_names::NameSex::Female,
+        Sex::Male => adventuresim_world_schema::person_names::NameSex::Male,
+    }
+}
+
+fn assign_household_surnames(
+    drafts: &mut [ResidentDraft],
+    household_groups: &[Vec<u64>],
+) -> Result<(), String> {
+    for household in household_groups {
+        let Some(first_character_id) = household.first() else {
+            continue;
+        };
+        let first = drafts
+            .iter()
+            .find(|draft| draft.character_id() == *first_character_id)
+            .ok_or("Household surname references an unknown resident")?;
+        let birth_year = adventuresim_world_schema::person_names::NameBirthYear::new(
+            adventuresim_core::strategic_time::birth_year_from_age(
+                0,
+                first.exact_age.unwrap_or(30),
+            ),
+        );
+        let identity = crate::character::generated_historical_identity(
+            name_sex(first.sex),
+            resident_random(&first.seed, ResidentEntropyStream::Identity)
+                .next_u64()
+                .into(),
+            birth_year,
+            None,
+        )?;
+        let surname = identity
+            .surname_id
+            .ok_or("Generated household identity has no hereditary surname")?;
+        for character_id in household {
+            let draft = drafts
+                .iter_mut()
+                .find(|draft| draft.character_id() == *character_id)
+                .ok_or("Household surname references an unknown resident")?;
+            draft.inherited_surname = Some(surname.clone());
+        }
+    }
+    Ok(())
 }
 
 fn business_drafts(
@@ -441,6 +487,7 @@ pub(super) fn settlement_resident_drafts(
     households.extend(organizations.iter().map(|draft| vec![draft.character_id()]));
     drafts.extend(organizations);
     validate(&drafts)?;
+    assign_household_surnames(&mut drafts, &households)?;
     Ok((drafts, households))
 }
 
@@ -521,5 +568,28 @@ mod tests {
             assert!(canonical_service(usage, 1).is_none());
         }
         assert!(canonical_service(BuildingUse::ParishChurch, 0).is_none());
+    }
+
+    #[test]
+    fn household_members_share_a_deterministic_inherited_surname() {
+        let mut drafts = (0..4)
+            .map(|ordinal| {
+                ResidentDraft::resident(
+                    resident_seed("surname-test", "overview", ordinal),
+                    "overview",
+                    "resident",
+                    "resident",
+                    DefaultPresence::Additional,
+                )
+            })
+            .collect::<Vec<_>>();
+        let households = finalize_household_demographics(&mut drafts);
+        assign_household_surnames(&mut drafts, &households).unwrap();
+        let surname = drafts[0].inherited_surname.clone().unwrap();
+        assert!(
+            drafts
+                .iter()
+                .all(|draft| draft.inherited_surname.as_ref() == Some(&surname))
+        );
     }
 }

@@ -189,12 +189,13 @@ fn bind_establishments(
         let operator = operators
             .remove(&site.key)
             .ok_or("placed business is missing its resident operator")?;
+        let operator_name = operator.operator_name.clone();
         establishments.push(SceneEstablishment {
             building_id: site.building_id,
             business_id: operator.business_id.clone(),
             operator_character_id: operator.operator_character_id,
-            operator_name: operator.operator_name.clone(),
-            shop_name: ShopName::for_operator(&operator.operator_name, site.key.usage),
+            operator_name: operator_name.clone(),
+            shop_name: ShopName::for_operator(&operator_name, site.key.usage),
         });
     }
     if !operators.is_empty() {
@@ -539,10 +540,11 @@ mod tests {
                     key,
                 ),
                 operator_character_id: index as u64 + 1,
-                operator_name: adventuresim_world_schema::person_names::RenderedPersonalName::new(
-                    format!("Operator {index}"),
-                )
-                .unwrap(),
+                operator_name:
+                    adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
+                        format!("Operator {index}"),
+                    )
+                    .unwrap(),
             })
             .collect();
     }

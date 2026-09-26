@@ -1,7 +1,7 @@
 // Persistent semantic personal-name authority and projection helpers.
 
 use adventuresim_world_schema::person_names::{
-    GivenNameResolution, NameBirthYear, NameCulture, NameGenerationContext, NameRegister, NameSex,
+    NameBirthYear, NameCulture, NameGenerationContext, NameRegister, NameSex,
     NameStableSeed, PersonalNameIdentity, SurnameId,
     generate_personal_name, render_personal_name,
 };
@@ -87,15 +87,6 @@ pub(crate) fn assign_authored_character_name(
     assign_character_name_identity(ctx, character_id, identity)
 }
 
-pub(crate) fn character_name_is_authored(ctx: &ReducerContext, character_id: CharacterId) -> bool {
-    ctx.db
-        .character_name_identity()
-        .character_id()
-        .find(character_id.get())
-        .and_then(|row| NameIdentityJson::parse(row.identity_json.as_str()).ok())
-        .is_some_and(|identity| matches!(identity.given, GivenNameResolution::Authored { .. }))
-}
-
 pub(crate) fn assign_generated_historical_name(
     ctx: &ReducerContext,
     character_id: CharacterId,
@@ -104,18 +95,27 @@ pub(crate) fn assign_generated_historical_name(
     inherited_surname: Option<SurnameId>,
 ) -> Result<SurnameId, String> {
     let sex = character_name_sex(ctx, character_id)?;
-    let identity = generate_personal_name(
-        NameGenerationContext::german_lutheran(sex, birth_year),
-        NameStableSeed::new(stable_seed.get()),
-        inherited_surname,
-    )
-    .map_err(|error| error.to_string())?;
+    let identity = generated_historical_identity(sex, stable_seed, birth_year, inherited_surname)?;
     let surname = identity
         .surname_id
         .clone()
         .ok_or("Generated German identity has no hereditary surname")?;
     assign_character_name_identity(ctx, character_id, identity)?;
     Ok(surname)
+}
+
+pub(crate) fn generated_historical_identity(
+    sex: NameSex,
+    stable_seed: NameSeed,
+    birth_year: NameBirthYear,
+    inherited_surname: Option<SurnameId>,
+) -> Result<PersonalNameIdentity, String> {
+    generate_personal_name(
+        NameGenerationContext::german_lutheran(sex, birth_year),
+        NameStableSeed::new(stable_seed.get()),
+        inherited_surname,
+    )
+    .map_err(|error| error.to_string())
 }
 
 pub(crate) fn assign_generated_historical_name_for_age(
@@ -177,31 +177,6 @@ pub(crate) fn assign_newborn_historical_name(
         NameBirthYear::new(adventuresim_core::strategic_time::world_year_at(due_minute.get())),
         inherited_surname,
     )?;
-    Ok(())
-}
-
-pub(crate) fn assign_generated_name_demographics(
-    ctx: &ReducerContext,
-    character_id: CharacterId,
-    sex: crate::personality::Sex,
-    age_years: u16,
-) -> Result<(), String> {
-    let mut personality = ctx
-        .db
-        .character_personality()
-        .character_id()
-        .find(character_id.get())
-        .ok_or("Resident character has no personality")?;
-    personality.sex = sex;
-    personality.presentation = match sex {
-        crate::personality::Sex::Female => crate::personality::Presentation::Woman,
-        crate::personality::Sex::Male => crate::personality::Presentation::Man,
-    };
-    ctx.db
-        .character_personality()
-        .character_id()
-        .update(personality);
-    crate::relationship::set_seeded_character_birth_from_age(ctx, character_id.get(), age_years);
     Ok(())
 }
 
