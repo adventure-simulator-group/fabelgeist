@@ -8,45 +8,16 @@ Museum of Art. Each image's museum and object record are recorded in
 See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
 object list and source licensing policies.
 
-## Heraldic lion artwork
+## Heraldic source artwork
 
-`crates/adventuresim-heraldry/references/German_Lion_1530.svg` is *Lion Rampant
-Or (16th century German)* by Tom Lemmens (Tom-L, 2013), after Rinaldum (2009),
-licensed under Creative Commons Attribution-ShareAlike 3.0 Unported. It is a
-modern redraw based on BSB Cod.icon. 391, southern Germany, c. 1530. The
-vendored SVG is unmodified. Fabelgeist contributors adapt anatomy, tinctures,
-painted tones, line widths, tails and heraldic composition. Adapted
-lion artwork remains under CC BY-SA 3.0; this does not relicense the software.
+`assets/heraldry/` retains unmodified Wikimedia Commons SVGs of a German lion
+and two Wernigerode-style eagles. The lion is by Tom Lemmens (Tom-L), after
+Rinaldum; the eagles are by Tom Lemmens (Tom-L) and Heralder. All are used under
+[Creative Commons Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/).
 
-- Source and contributor history:
-  <https://commons.wikimedia.org/wiki/File:Lion_Rampant_Or_(16th_century_German).svg>
-- Rinaldum's original:
-  <https://commons.wikimedia.org/wiki/File:H%C3%A9raldique_meuble_lion_rampant_02.svg>
-- License: <https://creativecommons.org/licenses/by-sa/3.0/>
-- [Asset details, construction and modifications](crates/adventuresim-heraldry/references/ATTRIBUTION.md)
-- SHA-256:
-  `206a2186210fd5957c6dd9749dd6d0ffedcb82ebff7eb5eee126d26b5a2ca672`
-
-## Heraldic eagle artwork
-
-`crates/adventuresim-heraldry/references/eagles/` includes *Arms of the King of
-the Romans (c.1433-1486)* and *Arms of the Holy Roman Emperor
-(c.1433-c.1450)* by Tom Lemmens (Tom-L) and Heralder, under
-[CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The originals
-are retained unchanged. Adapted artwork remains under that license.
-
-- [Single eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_King_of_the_Romans_(c.1433-1486).svg)
-- [Double eagle source](https://commons.wikimedia.org/wiki/File:Arms_of_the_Holy_Roman_Emperor_(c.1433-c.1450).svg)
-- [Historical provenance, hashes and construction](crates/adventuresim-heraldry/references/EAGLES.md)
-- [Single eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/single.credit.txt)
-- [Double eagle credit and modifications](crates/adventuresim-heraldry/references/eagles/double.credit.txt)
-
-Fabelgeist contributors remove the source shields, identify tongue paths,
-recolor, separate painted tones, alter line widths and asymmetry, reflect,
-compose and render the artwork on physical materials. The double eagle is
-based on the Wernigerode armorial, c. 1475–1500; its modern halos differ from
-the manuscript's head crowns. The single is a modern adaptation in that style.
-Credits and license notices accompany derived exports.
+[Source artwork attribution](assets/heraldry/ATTRIBUTION.md) records each title,
+source page, creator, historical model, limitations and file hash. No pigment
+datasets or paint-model adaptations accompany these original drawings.
 
 ## Bevy PBR shader
 

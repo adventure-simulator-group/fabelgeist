@@ -709,7 +709,7 @@ plant-studio family="flowers":
 plant-capture preset="0" view="full" output="target/plant-captures/specimen" family="flowers" lod="high":
     @cargo run -p adventuresim-plant-generator --features viewer --bin plant-viewer -- --family {{ family }} --preset {{ preset }} --view {{ view }} --lod {{ lod }} --output {{ quote(output) }}
 
-# Build and serve the art demo, Texture Studio and Heraldry Studio on one local site. No database or game server.
+# Build and serve the art demo and Texture Studio on one local site. No database or game server.
 showcase port="8090":
     @{{ python_bin }} scripts/showcase.py --port {{ port }}
 
