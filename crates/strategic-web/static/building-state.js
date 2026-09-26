@@ -29,7 +29,7 @@
     tabs.forEach((tab) => {
       const selected = tab.dataset.buildingId === building;
       tab.classList.toggle("active", selected);
-      tab.setAttribute("aria-current", selected ? "page" : "false");
+      tab.setAttribute("aria-current", selected ? ((buildingContextPath || page.hasAttribute("data-character-view")) ? "location" : "page") : "false");
       if (selected) {
         presentation.forEach((name) => {
           if (tab.dataset[name]) page.dataset[name] = tab.dataset[name];

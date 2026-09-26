@@ -3,10 +3,14 @@
 #[cfg(test)]
 use appearance::WildernessVariant;
 mod appearance;
+mod controls;
+mod shell;
 use crate::spacetimedb::SettlementCategory;
 use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
 use appearance::{building_tier, wilderness_variant};
+use controls::{character_switcher, journal_button};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
+use shell::{ScriptProfile, page_shell};
 
 use super::{
     architecture::SettlementPresentation, organization_charge, organization_colors,
@@ -26,13 +30,6 @@ const fn chapter_building_kind_tag(
         ChapterBuildingKind::Commandery => "commandery",
         ChapterBuildingKind::Lodge => "lodge",
     }
-}
-
-#[derive(Clone, Copy, PartialEq, Eq)]
-enum ScriptProfile {
-    Entry,
-    Live,
-    Strategic,
 }
 
 /// Minimal shell for selecting or creating a character. It intentionally omits
@@ -189,107 +186,6 @@ pub fn camp_location_layout_with_session(
         ScriptProfile::Strategic,
         None,
     )
-}
-
-fn page_shell(
-    title: &str,
-    header: Markup,
-    content: Markup,
-    scripts: ScriptProfile,
-    presentation: Option<SettlementPresentation>,
-) -> Markup {
-    html! {
-        (DOCTYPE)
-        html lang="en" {
-            head {
-                meta charset="utf-8";
-                meta name="viewport" content="width=device-width, initial-scale=1";
-                title { (title) " - Fabelgeist" }
-
-                link rel="stylesheet" href="/static/css/base.css?v=roman-garamond-1";
-                // Shared CSS
-                link rel="stylesheet" href="/static/css/reset.css?v=roman-garamond-1";
-                link rel="stylesheet" href="/static/css/layout.css?v=goslar-1";
-                link rel="stylesheet" href="/static/css/components.css?v=roman-garamond-1";
-                link rel="stylesheet" href="/static/css/strategic.css?v=goslar-2";
-                link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
-                link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
-
-                // Datastar
-                script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar/bundles/datastar.js" {}
-                script {
-                    (PreEscaped(format!(
-                        "window.strategicCalendar=Object.freeze({{minutesPerDay:{MINUTES_PER_DAY},daysPerYear:{DAYS_PER_YEAR},lunarCycleMinutes:{LUNAR_CYCLE_MINUTES}}});"
-                    )))
-                }
-                script src="/static/background-fetch.js?v=background-fetch-2" {}
-                script src="/static/location-urls.js?v=location-urls-1" {}
-                script src="/static/developer-mode.js?v=development-clock-2" defer {}
-                script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
-                script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
-                @if scripts != ScriptProfile::Entry {
-                    script src="/static/live-state.js?v=location-urls-1" defer {}
-                    script src="/static/live-regions.js?v=location-urls-1" defer {}
-                }
-                @if scripts == ScriptProfile::Strategic {
-                    script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
-                    script type="module" src="/static/strategic-renderer.js?v=model-owned-forge-controls-1" {}
-                    script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
-                    script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
-                    script src="/static/journal-tab.js?v=journal-tab-1" defer {}
-                    script src="/static/numeric-editor.js?v=draft-callbacks-3" defer {}
-                    script src="/static/inventory-browser.js?v=framed-equipment-portraits-1" defer {}
-                    script src="/static/party-trade.js?v=provision-party-food-1-slot-controls-1" defer {}
-                    script src="/static/cooking.js?v=fireplace-station-1" defer {}
-                    script src="/static/herbalism.js?v=bounded-craft-1" defer {}
-                    script src="/static/equipment-toggle.js?v=location-keyboard-slots-5" defer {}
-                    script src="/static/party-notifications.js?v=standing-leadership-votes-5" defer {}
-                script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}
-                script src="/static/physiology-dialog.js?v=visual-notebook-2" defer {}
-                    script src="/static/service-quests.js?v=location-urls-1" defer {}
-                    script src="/static/dialogue-client.js?v=location-urls-1" defer {}
-                    script src="/static/physical-evidence.js?v=location-urls-1" defer {}
-                    script src="/static/developer-quest-editor.js?v=scenario-gallery-1" defer {}
-                    script src="/static/chat-resize.js?v=counterparty-portraits-1" defer {}
-                    script src="/static/local-chat.js?v=location-urls-1" defer {}
-                    script src="/static/strategic-condition.js?v=strategic-condition-4" defer {}
-                    script src="/static/building-state.js?v=goslar-1" defer {}
-                    script src="/static/travel-planner.js?v=travel-rails-2" defer {}
-                    script src="/static/strategic-map.js?v=population-culling-3" defer {}
-                    script src="/static/rest-duration.js?v=wake-time-5" defer {}
-                    script src="/static/schedule-preview.js?v=server-preview-1" defer {}
-                    script src="/static/training-schedule.js?v=server-preview-1" defer {}
-                    script src="/static/immediate-activity.js?v=manual-activities-2" defer {}
-                }
-            }
-            body {
-                @if scripts == ScriptProfile::Strategic {
-                    div id="strategic-render-surface" aria-hidden="true" {
-                        canvas id="game-canvas" {}
-                    }
-                }
-                @if scripts != ScriptProfile::Entry {
-                    div id="strategic-live-stream" data-init="@get('/live')" {
-                        span id="strategic-live-revision" data-live-revision="0" hidden {}
-                    }
-                }
-                (maud::PreEscaped("<!-- strategic-page-start -->"))
-                div class="app" id="strategic-page" data-page-title=(title)
-                    data-architectural-family=[presentation.and_then(|value| value.family.map(|family| family.tag()))]
-                    data-place-skin=[presentation.map(|value| value.skin.tag())]
-                    data-building-material=[presentation.map(|value| value.material.tag())]
-                    style=[presentation.map(|value| format!("--active-building-tint:{}", value.material.tint()))]
-                    data-script-profile=(match scripts { ScriptProfile::Entry => "entry", ScriptProfile::Live => "live", ScriptProfile::Strategic => "strategic" }) {
-                    (header)
-
-                    div class="main-grid" {
-                        (content)
-                    }
-                }
-                (maud::PreEscaped("<!-- strategic-page-end -->"))
-            }
-        }
-    }
 }
 
 fn entry_top_bar() -> Markup {
@@ -658,42 +554,6 @@ fn camp_flame_effect() -> Markup {
             @for (cx, cy, radius, drift, delay, duration) in particles {
                 circle class="fire-particle" cx=(cx) cy=(cy) r=(radius)
                     style=(format!("--fire-drift:{drift}px;animation-delay:{delay}s;animation-duration:{duration}s")) {}
-            }
-        }
-    }
-}
-
-fn character_switcher(name: &str) -> Markup {
-    let initial = name.chars().next().unwrap_or('?');
-    html! {
-        button type="button" class="developer-mode-toggle" data-developer-mode-toggle
-            aria-label="Enable developer mode" aria-pressed="false" title="Developer mode" {
-            span class="developer-mode-icon" aria-hidden="true" {}
-        }
-        details class="character-switcher" {
-            summary class="character-switcher-toggle"
-                aria-label=(format!("Character menu for {name}")) title=(name) {
-                span class="party-portrait-initial character-switcher-portrait" aria-hidden="true" {
-                    span class="party-portrait-face" { (initial) }
-                }
-            }
-            div class="character-switcher-menu" {
-                div data-character-switcher-options data-character-switcher-url="/characters/menu" {
-                    p class="character-switcher-empty" { "Loading adventurers…" }
-                }
-                a href="/characters/candidates" class="btn btn-small" { "Character select" }
-            }
-        }
-    }
-}
-
-fn journal_button() -> Markup {
-    html! {
-        span class="reference-buttons" {
-            a href="/quests" class="journal-button" data-journal-tab
-                aria-label="Open journal" aria-pressed="false"
-                title="Journal" data-strategic-tooltip="Journal" {
-                span class="journal-button-icon" aria-hidden="true" {}
             }
         }
     }

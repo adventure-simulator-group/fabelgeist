@@ -277,9 +277,9 @@ pub(crate) fn travel_preferences_form(party: &PartyView, action: &str) -> Markup
                 }
             }
             div class="travel-period-control" {
-                label for="journey-start-time" { "Journey begins at" }
-                input id="journey-start-time" type="time" name="journey_start_time"
-                    value=(departure_time) step="900" required
+                label for="journey-start-time" { "Departure (24-hour HH:MM)" }
+                input id="journey-start-time" type="text" name="journey_start_time"
+                    value=(departure_time) pattern="([01][0-9]|2[0-3]):[0-5][0-9]" maxlength="5" size="5" required
                     readonly[party.wilderness_canonical_anchor_minute.is_some()];
             }
         }
@@ -401,7 +401,7 @@ pub(crate) fn map_destination_detail(
                             " Your party is already here."
                         } @else {
                             strong { "No direct route." }
-                            " Travel is only available to settlements connected to the current location."
+                            " Choose a connected destination from the destination list."
                         }
                     }
                 }))

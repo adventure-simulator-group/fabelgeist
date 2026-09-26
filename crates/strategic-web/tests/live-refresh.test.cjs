@@ -9,7 +9,7 @@ const { readRustModuleSource } = require("./rust-module-source.cjs");
 const root = path.join(__dirname, "..");
 
 test("all strategic clock script references use the accessible clock cache key", () => {
-  const layout = fs.readFileSync(path.join(root, "src", "templates", "layout.rs"), "utf8");
+  const layout = readRustModuleSource(path.join(root, "src", "templates", "layout.rs"));
   const references = [...layout.matchAll(/\/static\/strategic-time\.js\?v=([^\"]+)/g)]
     .map((match) => match[1]);
   assert.deepEqual(references, ["accessible-clock-2", "accessible-clock-2"]);

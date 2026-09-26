@@ -18,7 +18,7 @@ test("grouped inventory disclosures stay beside their labels in narrow merchant 
   assert.match(strategicCss, /:is\(\.currency-parent-row, \.alcohol-parent-row, \.food-parent-row\) \.inventory-item-label \{[\s\S]*display: inline-block;[\s\S]*max-width: calc\(100% - 1\.5rem\);/);
   assert.match(strategicCss, /:is\(\.currency-parent-row, \.alcohol-parent-row, \.food-parent-row\) \.currency-disclosure \{[\s\S]*vertical-align: middle;/);
 });
-const layoutTemplate = fs.readFileSync("crates/strategic-web/src/templates/layout.rs", "utf8");
+const layoutTemplate = readRustModuleSource("crates/strategic-web/src/templates/layout.rs");
 const settlementTemplate = readRustModuleSource("crates/strategic-web/src/templates/settlement/mod.rs");
 const window = {
   strategicCalendar,

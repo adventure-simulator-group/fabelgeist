@@ -3,6 +3,7 @@
    SETTLEMENT INTERFACE
    ============================================ */
 :root {
+  --rank-tier-0: #4c9b55;
   --rank-tier-1: #a8c84a;
   --rank-tier-2: #e0bd3f;
   --rank-tier-3: #e48336;
@@ -1098,7 +1099,7 @@ tr[data-container-parent-object-id] .inventory-item-name { padding-left:1rem; }
   background: var(--panel-bg);
 }
 .condition-bar > span { display: block; min-width: 0; }
-.condition-green { background: #4c9b55; }
+.condition-green { background: var(--rank-tier-0); }
 .condition-tier-1 { --condition-color: var(--rank-tier-1); background-color: var(--condition-color); }
 .condition-tier-2 { --condition-color: var(--rank-tier-2); background-color: var(--condition-color); }
 .condition-tier-3 { --condition-color: var(--rank-tier-3); background-color: var(--condition-color); }
@@ -1932,9 +1933,9 @@ body.character-action-dialog-open { overflow: hidden; }
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 70%);
 }
 .character-action-dialog:focus-visible { box-shadow: 0 0 0 2px var(--accent-light), 0 1rem 3rem rgb(0 0 0 / 70%); }
-.character-action-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; }
+.character-action-dialog-header { position: sticky; top: -1rem; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: .75rem; margin-bottom: .85rem; background: var(--panel-bg); }
 .character-action-dialog-header h2 { margin: 0; }
-.character-action-dialog-close,
+.character-action-dialog-close:not(.btn),
 .activity-modal-close,
 .dialog-close,
 .physiology-dialog-close {
@@ -1952,7 +1953,7 @@ body.character-action-dialog-open { overflow: hidden; }
   text-decoration: none;
   cursor: pointer;
 }
-.character-action-dialog-close { font-size: 1.65rem; }
+.character-action-dialog-close:not(.btn) { flex-shrink: 0; font-size: 1.65rem; }
 .character-action-dialog-close:hover,
 .activity-modal-close:hover,
 .dialog-close:hover,
@@ -2440,6 +2441,24 @@ body.character-action-dialog-open { overflow: hidden; }
 .fireplace-layout {
     display: contents;
 }
+
+.tab-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: .75rem; }
+.tab-list a { padding: .5rem .75rem; border-bottom: 3px solid transparent; }
+.tab-list a[aria-current="page"] { border-color: var(--accent-light); color: var(--text-primary); }
+.tab-list a:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+
+.strategic-map.strategic-map-unavailable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 12rem;
+  height: auto;
+  padding: 2rem;
+  background: var(--panel-bg);
+  color: var(--text-primary);
+}
+.strategic-map-unavailable p { max-width: 42ch; color: var(--text-secondary); }
 
 .fireplace-portrait:focus-visible,
 .forge-portrait:focus-visible {
@@ -4249,6 +4268,7 @@ button.party-portrait-action {
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--summary-rank-color) 55%, transparent);
 }
 
+.skill-rank-tier-0 { --summary-rank-color: var(--rank-tier-0); --skill-icon-color: var(--rank-tier-0); }
 .skill-rank-tier-1 { --summary-rank-color: var(--rank-tier-1); --skill-icon-color: var(--rank-tier-1); }
 .skill-rank-tier-2 { --summary-rank-color: var(--rank-tier-2); --skill-icon-color: var(--rank-tier-2); }
 .skill-rank-tier-3 { --summary-rank-color: var(--rank-tier-3); --skill-icon-color: var(--rank-tier-3); }
@@ -4596,6 +4616,7 @@ button.identity-control:disabled {
 
 .party-skill-icon-cell { padding-inline: 0 !important; text-align: center; }
 .party-skill-icon-cell:is(
+  .skill-rank-tier-0,
   .skill-rank-tier-1,
   .skill-rank-tier-2,
   .skill-rank-tier-3,
@@ -4605,6 +4626,7 @@ button.identity-control:disabled {
   --stat-icon-color: var(--skill-icon-color);
 }
 .party-skill-icon-cell:is(
+  .skill-rank-tier-0,
   .skill-rank-tier-1,
   .skill-rank-tier-2,
   .skill-rank-tier-3,
@@ -4719,8 +4741,6 @@ button.identity-control:disabled {
   position: relative;
   overflow: hidden;
   background: var(--bg-tertiary);
-  --stat-current-color: color-mix(in srgb, var(--accent-dark) 85%, #000);
-  --stat-damage-color: color-mix(in srgb, var(--danger) 70%, #fff);
 }
 
 .attribute-rank-bar {
@@ -4763,7 +4783,7 @@ button.identity-control:disabled {
 .skill-rank-bar {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 2rem;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: 0.3rem;
   min-height: 1rem;
@@ -4863,7 +4883,6 @@ button.identity-control:disabled {
   white-space: nowrap;
 }
 
-.skill-rank-value { color: var(--text-primary); font-size: var(--font-size-xs); font-variant-numeric: tabular-nums; text-align: right; }
 
 .limb-attribute-pair {
   display: grid;
@@ -4904,10 +4923,10 @@ button.identity-control:disabled {
 .attribute-health-choleric,
 .attribute-health-melancholic { display: block; height: 100%; flex: 0 0 auto; }
 
-.attribute-health-current { background: #eee8dc; }
+.attribute-health-current { background: #5f9e55; }
 .attribute-health-cut { background: #c63b3b; }
 .attribute-health-blunt { background: #c7a7e8; }
-.attribute-health-other { background: #5f9e55; }
+.attribute-health-other { background: #737480; background-image: radial-gradient(#d5d5db .7px, transparent .8px); background-size: 4px 4px; }
 .attribute-health-sanguine { background: #e889a8; }
 .attribute-health-phlegmatic { background: #6fa9dc; }
 .attribute-health-choleric { background: #e1c34e; }
@@ -6089,7 +6108,7 @@ body.chat-resizing {
 
 .surgery-procedure-unavailable > * {
     filter: grayscale(1);
-    opacity: .38;
+    color: var(--text-secondary);
 }
 
 .surgery-procedure-unavailable:focus-visible {

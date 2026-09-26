@@ -221,10 +221,10 @@ pub(crate) fn rest_service_menu(
     html! {
     section class="rest-service-menu" aria-label=(format!("{} rest service", location))
         data-live-refresh-url=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &(kind.place())]))
-        title=(match kind { RestServiceKind::Inn => "A bed costs 1 coin per day. Injuries are tended before downtime.", RestServiceKind::Residence => "An active local residence provides full board through its recurring upkeep.", RestServiceKind::Temple => "Sanctuary is free. Injuries are tended before downtime." }) {
+        data-rest-daily-cost=(if kind == RestServiceKind::Inn { adventuresim_core::strategic_economy::INN_FULL_BOARD_GOLD_PER_DAY } else { 0 }) {
         div class="rest-service-heading" { strong { "Rest" } }
         @if kind == RestServiceKind::Inn {
-            p class="rest-service-copy" { "2 coin / day · meals + water + treatment included" }
+            p class="rest-service-copy" { (adventuresim_core::strategic_economy::INN_FULL_BOARD_GOLD_PER_DAY) " coin / day · meals, water and treatment included" }
         } @else if kind == RestServiceKind::Residence {
             p class="rest-service-copy" { "Home provides meals, water, and treatment." }
         } @else {
@@ -234,9 +234,10 @@ pub(crate) fn rest_service_menu(
                 @let minutes = default_minutes.unwrap_or(0);
                 @let initial_minutes = if minutes == 0 { MINUTES_PER_DAY } else { minutes.max(MINUTES_PER_DAY) };
                 (settlement_rest_duration_control(initial_minutes))
+                output class="action-preview" data-rest-booking-preview aria-live="polite" { "Choose how many days this adventurer will rest." }
                 button type="submit" class="btn btn-primary btn-small btn-block" data-rest-submit title="Rest for the selected duration" {
                     (decorative_game_icon("night-sleep"))
-                    span class="sr-only" { "Rest" }
+                    span { "Rest this adventurer" }
                 }
         }
         (soap_wash_preview(soap_preview))

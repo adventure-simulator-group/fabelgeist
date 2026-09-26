@@ -1,5 +1,8 @@
 //! Fireplace cooking and vessel-custody presentation.
 
+mod inventory;
+mod selection;
+
 use super::{
     chrome::{VisualStageKind, visual_stage},
     trade::*,
@@ -178,41 +181,17 @@ pub fn fireplace_page(
             a class="btn btn-secondary btn-small" href=(back_href) { "Back" }
             (visual_stage(VisualStageKind::Campfire, title, "A working fireplace and its cooking station"))
             @if dish.is_none() {
-                section class="cooking-activity" {
-                    input type="radio" name="method-preview" value=(method) checked hidden data-cooking-method;
-                    form id="cooking-submit-form" method="post" action=(format!("{action_base}/ingredients")) {
-                        input type="hidden" name="inventory_scope" value=(inventory_scope);
-                        input type="hidden" name="inventory_item_ids" value="" data-cooking-ids;
-                        input type="hidden" name="fractions_micros" value="" data-cooking-amounts;
-                        p class="strategic-warning" { "Loose food selected here is immediately consolidated into one spit-roasted meal. Each placed vessel cooks its contained food into a separate meal." }
-                        p class="small-copy text-muted cooking-preview" data-cooking-preview { "Stage at least one measured food portion." }
-                        button type="submit" class="btn btn-primary" disabled data-cook-submit { "Start spit roast" }
-                    }
-                    div data-cooking-pot-empty hidden {}
-                    div data-inventory-browser="cooking-pot-left" hidden { table { tbody {} } }
-                }
+                (selection::selection(action_base, inventory_scope, method))
             }
         }
         aside class="right-sidebar fireplace-inventory-sidebar" {
-            (sidebar_section("Inventory", html! {
+            (sidebar_section("Ingredients and vessels", html! {
                 nav class="tab-list" aria-label="Ingredient inventory source" {
                     a class=(if inventory_scope == "personal" { "active" } else { "" }) href=(scope_href("personal")) aria-current=(if inventory_scope == "personal" { "page" } else { "false" }) { "Personal" }
                     a class=(if inventory_scope == "party" { "active" } else { "" }) href=(scope_href("party")) aria-current=(if inventory_scope == "party" { "page" } else { "false" }) { "Party" }
                 }
                 @if dish.is_none() {
-                    div data-inventory-browser="cooking-inventory-right" {
-                        table class="trade-inventory-table" { tbody {
-                            @if inventory_scope == "personal" {
-                                @for item in personal_inventory.iter().filter(|row| row.quantity > 0) {
-                                    (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, personal_amounts.iter().find(|a| a.inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.inventory_item_id == Some(item.id)), definitions, instrument))
-                                }
-                            } @else {
-                                @for item in party_inventory.iter().filter(|row| row.quantity > 0) {
-                                    (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, party_amounts.iter().find(|a| a.party_inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.party_inventory_item_id == Some(item.id)), definitions, instrument))
-                                }
-                            }
-                        } }
-                    }
+                    (inventory::available(action_base, inventory_scope, personal_inventory, party_inventory, personal_amounts, party_amounts, food_lots, definitions, instrument))
                 }
             }))
         }
@@ -238,6 +217,9 @@ pub(super) fn fireplace_inventory_row(
 ) -> Markup {
     let definition = definitions.iter().find(|d| d.id == item_id);
     let is_tool = matches!(item_id, "cooking_pan" | "cooking_pot" | "portable_oven");
+    if !is_tool && !(lot.is_some() && adventuresim_core::food::is_cookable_ingredient(item_id)) {
+        return html! {};
+    }
     let display = lot.map_or_else(|| item_display_name(item_id), |l| l.display_name.clone());
     let measured_fraction = measured_fraction_micros.map(|value| {
         adventuresim_core::inventory_measurement::ConsumableFractionMicros::try_new(value)

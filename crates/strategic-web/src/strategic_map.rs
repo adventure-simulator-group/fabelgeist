@@ -689,8 +689,8 @@ pub fn strategic_map(
 pub fn strategic_map_unavailable(settlement_name: &str) -> Markup {
     html! {
         section class="strategic-map strategic-map-unavailable" role="status" aria-labelledby="map-unavailable-title" {
-            h2 id="map-unavailable-title" { "Map data not initialized" }
-            p { (settlement_name) " does not have imported geographic source data. Initialize and load the historical world before using settlement map pins or travel actions." }
+            h2 id="map-unavailable-title" { "Routes unavailable" }
+            p { "Routes from " (settlement_name) " cannot be shown at present. You can still visit places in this settlement." }
         }
     }
 }
@@ -699,7 +699,7 @@ pub fn strategic_map_bundle_unavailable() -> Markup {
     html! {
         section class="strategic-map strategic-map-unavailable" role="status" aria-labelledby="map-bundle-unavailable-title" {
             h2 id="map-bundle-unavailable-title" { "Map layer unavailable" }
-            p { "The optional offline map bundle is not installed. Destination selection and direct travel remain available in the surrounding HTML interface." }
+            p { "Choose a destination from the destination list to inspect its route and travel options." }
         }
     }
 }
@@ -1106,7 +1106,7 @@ mod tests {
         origin.source_node_id = None;
         assert!(!has_geographic_source(&origin));
         let markup = strategic_map_unavailable(&origin.name).into_string();
-        assert!(markup.contains("Map data not initialized"));
+        assert!(markup.contains("Routes unavailable"));
         assert!(markup.contains("role=\"status\""));
         assert!(!markup.contains("data-map-pin"));
         assert!(!markup.contains("Begin journey"));
@@ -1170,7 +1170,7 @@ mod tests {
         assert!(StrategicMap::load(missing).is_err());
         let markup = strategic_map_bundle_unavailable().into_string();
         assert!(markup.contains("Map layer unavailable"));
-        assert!(markup.contains("Destination selection and direct travel remain available"));
+        assert!(markup.contains("Choose a destination from the destination list"));
     }
 
     #[test]

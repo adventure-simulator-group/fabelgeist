@@ -140,12 +140,13 @@ test("settlement NPC selection is accessible and actor-backed", () => {
   assert.match(source, /generation === selectionGeneration/);
 });
 
-test("settlement NPCs reuse the circular party portrait structure", () => {
-  assert.match(source, /party-portrait settlement-npc-portrait/);
+test("settlement NPCs reuse square portrait frames and attached conversation tabs", () => {
+  assert.match(source, /party-portrait-select settlement-npc-portrait/);
+  assert.match(source, /portrait-tabs/);
   assert.match(source, /party-portrait-initial settlement-npc-initials/);
   assert.match(source, /party-portrait-face/);
   assert.match(source, /party-portrait-name settlement-npc-name/);
-  assert.match(source, /portrait\.append\(face, name\)/);
+  assert.match(source, /portrait\.append\(face\)/);
   assert.doesNotMatch(source, /data\.openNpcSocial|dataset\.openNpcSocial/);
   assert.doesNotMatch(source, /settlement-npc-social-button/);
   assert.doesNotMatch(source, /npc-social-summary/);

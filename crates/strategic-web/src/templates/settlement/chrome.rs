@@ -1,3 +1,8 @@
+mod portraits;
+pub(crate) use portraits::{
+    CharacterPortraitView, character_portrait_overlay, party_portrait_overlay, profile_membership,
+};
+
 use std::collections::BTreeSet;
 
 use adventuresim_core::strategic_time::DAYS_PER_YEAR;
@@ -11,7 +16,7 @@ use crate::spacetimedb::{
     SettlementDescription, SettlementDescriptionKind, SettlementResidenceOffer, SettlementView,
 };
 use crate::templates::{
-    decorative_game_icon, game_icon, population_description, prosperity_tier_label,
+    decorative_game_icon, population_description, prosperity_tier_label,
     settlement_layout_with_session, settlement_service_label, sidebar_section,
     stock_category_label,
 };
@@ -796,231 +801,11 @@ pub(crate) fn visual_stage(kind: VisualStageKind, title: &str, description: &str
     }
 }
 
-pub(crate) struct CharacterPortraitView<'a> {
-    pub id: u64,
-    pub name: &'a str,
-    pub alive: bool,
-    pub active: bool,
-    pub selected: bool,
-    pub href: String,
-    pub title: String,
-    pub aria_label: String,
-    pub decoration: Option<Markup>,
-    pub badge: Option<Markup>,
-    pub actions: Option<Markup>,
-}
-
-pub(crate) fn character_portrait_overlay(
-    label: &str,
-    inventory: Option<Markup>,
-    members: &[CharacterPortraitView<'_>],
-) -> Markup {
-    html! {
-        @if !members.is_empty() {
-            div class="party-portrait-overlay" aria-label=(label) {
-                div data-party-portrait-members {
-                    @if let Some(inventory) = inventory {
-                        (inventory)
-                    }
-                    @for member in members {
-                        div class=(format!("scene-interactable scene-interactable--person party-portrait{}{}", if member.selected { " active" } else { "" }, if !member.alive { " dead" } else { "" }))
-                            data-character-id=(member.id)
-                            data-character-alive=(member.alive)
-                            data-active-character[member.active]
-                            title=(member.name) {
-                            a class="party-portrait-select"
-                                href=(&member.href)
-                                title=(&member.title)
-                                aria-label=(&member.aria_label) {
-                                @if let Some(decoration) = &member.decoration {
-                                    (decoration)
-                                }
-                                span class="scene-interactable-visual party-portrait-initial" {
-                                    span class="party-portrait-face" { (member.name.chars().next().unwrap_or('?')) }
-                                    span class="scene-interactable-label party-portrait-name" { (member.name) @if !member.alive { " (dead)" } }
-                                    @if let Some(badge) = &member.badge {
-                                        (badge)
-                                    }
-                                }
-                            }
-                            @if let Some(actions) = &member.actions {
-                                (actions)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-pub(crate) fn party_portrait_overlay(
-    party_members: &[CharacterView],
-    active_character: Option<&CharacterView>,
-    location_path: &str,
-    selected_character_id: Option<u64>,
-) -> Markup {
-    let members: Vec<&CharacterView> = if party_members.is_empty() {
-        active_character.into_iter().collect()
-    } else {
-        party_members.iter().collect()
-    };
-    let leader_id = members.first().map(|member| member.id);
-
-    let inventory = active_character.map(|_| {
-        html! {
-            div class="scene-interactable scene-interactable--fixture party-portrait party-inventory-portrait" title="Party inventory" {
-                a class="party-portrait-select" href=(format!("{}/party-inventory", location_path)) {
-                    span class="scene-interactable-visual party-portrait-initial party-chest-face" { (game_icon("Party inventory", "knapsack")) }
-                }
-            }
-        }
-    });
-    let portraits = members
-        .into_iter()
-        .map(|member| {
-            let is_active = active_character.is_some_and(|character| character.id == member.id);
-            let can_remove = Some(member.id) != leader_id;
-            let notified = member.alive && member.social_notification_count > 0;
-            let persistently_notified = notified && !member.automatic_social_chat_enabled;
-            let inspection_href = if is_active {
-                format!("{}/party/{}", location_path, member.id)
-            } else {
-                format!("{}/party/{}/stats", location_path, member.id)
-            };
-            let actions = (member.alive
-                && active_character.is_some_and(|character| character.alive))
-            .then(|| {
-                html! {
-                    span class="party-portrait-actions" aria-label=(format!("Actions for {}", member.name)) {
-                            a href=(format!("{}/party/{}/social", location_path, member.id))
-                                class=(format!("party-portrait-action party-social-action{}", if persistently_notified { " party-social-notified" } else { "" }))
-                                title=(if notified { format!("Open {}'s Recent Tidings ({} morale concerns)", member.name, member.social_notification_count) } else { format!("Talk to {}", member.name) })
-                                aria-label=(if notified { format!("Open conversation with {} to Recent Tidings; {} unaddressed morale concerns", member.name, member.social_notification_count) } else { format!("Open conversation with {}", member.name) }) {
-                                span class="party-action-icon"
-                                    style="--party-action-icon: url('/static/icons/game/conversation.svg')"
-                                    aria-hidden="true" {}
-                                @if notified {
-                                    span class="party-social-notification" aria-hidden="true" {
-                                        (member.social_notification_count)
-                                    }
-                                }
-                            }
-                            a href=(format!("{}/party/{}/inventory", location_path, member.id))
-                                class="party-portrait-action"
-                                title=(if is_active { "Open inventory and discard items".to_string() } else { format!("Compare inventory with {}", member.name) }) {
-                                span class="party-action-icon"
-                                    style="--party-action-icon: url('/static/icons/game/knapsack.svg')"
-                                    role="img" aria-label="Inventory" {}
-                            }
-                            @if can_remove {
-                                form method="post" action=(format!("{}/party/{}/remove", location_path, member.id)) {
-                                    button type="submit" class=(if is_active { "party-portrait-action party-member-remove party-member-leave" } else { "party-portrait-action party-member-remove party-member-kick-request" })
-                                        title=(if is_active { "Leave party".to_string() } else { format!("Request to remove {} from the party", member.name) })
-                                        aria-label=(if is_active { "Leave party".to_string() } else { format!("Request to remove {} from the party", member.name) }) {
-                                        span aria-hidden="true" { "×" }
-                                    }
-                                }
-                            }
-                    }
-                }
-            });
-            CharacterPortraitView {
-                id: member.id,
-                name: &member.name,
-                alive: member.alive,
-                active: is_active,
-                selected: selected_character_id == Some(member.id),
-                href: inspection_href,
-                title: format!("Inspect {}", member.name),
-                aria_label: format!("Inspect {}", member.name),
-                decoration: Some(html! {
-                    span class="incapacitation-wheel"
-                        data-strategic-condition-wheel=(member.id)
-                        role="img"
-                        aria-label="Loading strategic condition"
-                        title="Loading strategic condition" {}
-                }),
-                badge: None,
-                actions,
-            }
-        })
-        .collect::<Vec<_>>();
-    character_portrait_overlay("Active party", inventory, &portraits)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::spacetimedb::*;
     use crate::templates::settlement::test_support::*;
-
-    #[test]
-    fn notified_social_action_stays_visible_while_portrait_keeps_inspection() {
-        let member = CharacterView {
-            id: 12,
-            name: "Greta".into(),
-            xp: 0,
-            level: 1,
-            current_settlement_id: Some("lubeck".into()),
-            current_case_site_id: None,
-            party_id: Some("party".into()),
-            age_years: 24,
-            alive: true,
-            temporary: false,
-            social_notification_count: 2,
-            automatic_social_chat_enabled: false,
-        };
-        let markup = party_portrait_overlay(
-            std::slice::from_ref(&member),
-            Some(&member),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(markup.contains(
-            "class=\"party-portrait-select\" href=\"/locations/settlement/lubeck/party/12\""
-        ));
-        assert!(
-            markup.contains(
-                "class=\"party-portrait-action party-social-action party-social-notified\""
-            )
-        );
-        assert!(markup.contains("href=\"/locations/settlement/lubeck/party/12/social\""));
-        assert!(markup.contains("class=\"party-social-notification\""));
-        assert!(markup.contains("2 unaddressed morale concerns"));
-        assert!(markup.contains("/static/icons/game/conversation.svg"));
-        assert!(markup.contains("class=\"incapacitation-wheel\""));
-        assert!(markup.contains("data-strategic-condition-wheel=\"12\""));
-
-        let mut quiet = member;
-        quiet.social_notification_count = 0;
-        let quiet_markup = party_portrait_overlay(
-            &[quiet.clone()],
-            Some(&quiet),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(!quiet_markup.contains("party-social-notification"));
-        assert!(quiet_markup.contains("class=\"party-portrait-action party-social-action\""));
-        assert!(quiet_markup.contains("/party/12/social"));
-        assert!(quiet_markup.contains("aria-label=\"Open conversation with Greta\""));
-
-        let mut automatic = quiet;
-        automatic.social_notification_count = 2;
-        automatic.automatic_social_chat_enabled = true;
-        let automatic_markup = party_portrait_overlay(
-            &[automatic.clone()],
-            Some(&automatic),
-            "/locations/settlement/lubeck",
-            None,
-        )
-        .into_string();
-        assert!(automatic_markup.contains("class=\"party-social-notification\""));
-        assert!(automatic_markup.contains("2 unaddressed morale concerns"));
-        assert!(!automatic_markup.contains("party-social-notified"));
-    }
 
     #[test]
     fn aliases_are_deduplicated_and_do_not_repeat_the_canonical_name() {

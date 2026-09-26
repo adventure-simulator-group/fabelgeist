@@ -749,9 +749,12 @@
     npcStrip?.querySelectorAll(".settlement-npc-portrait").forEach((candidate) => {
       const active = candidate === button;
       candidate.classList.toggle("active", active);
+      candidate.closest('.resident-portrait')?.classList.toggle('active', active);
+      candidate.closest('.resident-portrait')?.querySelector('[data-resident-conversation]')?.setAttribute('aria-pressed', String(active));
       candidate.setAttribute("aria-pressed", String(active));
       candidate.tabIndex = active ? 0 : -1;
     });
+    document.dispatchEvent(new Event("portrait-view-selected"));
     if (npcDescription) {
       const placeholder = document.createElement("div"); placeholder.className = npc.initials ? "visual-stage-placeholder" : "visual-stage-placeholder npc-portrait-silhouette"; placeholder.setAttribute("aria-hidden", "true"); placeholder.textContent = npc.initials || "";
       const heading = document.createElement("h2"); heading.textContent = npc.name;
@@ -777,19 +780,44 @@
       return;
     }
     const buttons = people.map((npc) => {
-      const button = document.createElement("button"); button.type = "button"; button.className = "scene-interactable scene-interactable--person party-portrait settlement-npc-portrait"; button.dataset.npcId = npc.id; button.setAttribute("aria-label", `Talk to ${npc.name}`); button.setAttribute("aria-pressed", "false"); button.tabIndex = -1;
+      const button = document.createElement("button"); button.type = "button"; button.className = "party-portrait-select settlement-npc-portrait"; button.dataset.npcId = npc.id; button.setAttribute("aria-label", `Talk to ${npc.name}`); button.setAttribute("aria-pressed", "false"); button.tabIndex = -1;
       const portrait = document.createElement("span"); portrait.className = "scene-interactable-visual party-portrait-initial settlement-npc-initials";
       const face = document.createElement("span"); face.className = npc.initials ? "party-portrait-face" : "party-portrait-face npc-portrait-silhouette"; face.setAttribute("aria-hidden", "true"); face.textContent = npc.initials || "";
       const name = document.createElement("span"); name.className = "scene-interactable-label party-portrait-name settlement-npc-name"; name.textContent = npc.name;
-      portrait.append(face, name); button.append(portrait); button.addEventListener("click", () => selectNpc(npc, button));
+      portrait.append(face); button.append(portrait, name); button.addEventListener("click", () => selectNpc(npc, button));
       button.addEventListener("keydown", (event) => { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); const offset = event.key === 'ArrowRight' ? 1 : -1; buttons[(buttons.indexOf(button) + offset + buttons.length) % buttons.length].focus(); });
       return button;
     });
-    npcStrip.replaceChildren(...buttons, ...locationFixtures);
+    const portraits = buttons.map(button => {
+      const frame = document.createElement('div');
+      frame.className = 'scene-interactable scene-interactable--person party-portrait resident-portrait';
+      const tabs = document.createElement('div'); tabs.className = 'portrait-tabs';
+      const talk = document.createElement('button'); talk.type = 'button'; talk.className = 'portrait-tab';
+      talk.dataset.residentConversation = ''; talk.setAttribute('aria-pressed', 'false');
+      talk.setAttribute('aria-label', button.getAttribute('aria-label')); talk.setAttribute('data-strategic-tooltip', 'Conversation');
+      const icon = document.createElement('span'); icon.className = 'game-icon'; icon.style.setProperty('--game-icon', "url('/static/icons/game/conversation.svg')"); icon.setAttribute('aria-hidden', 'true');
+      talk.append(icon); talk.addEventListener('click', () => button.click());
+      tabs.append(talk); frame.append(button, tabs); return frame;
+    });
+    npcStrip.replaceChildren(...portraits, ...locationFixtures);
     const defaultIndex = Math.max(0, people.findIndex((npc) => npc.is_default));
     selectNpc(people[defaultIndex], buttons[defaultIndex]);
   };
-  loadPeople().catch((error) => window.reportStrategicError(error, "load settlement NPCs"));
+  const retryPeople = () => loadPeople().catch((error) => {
+    if (signal.aborted) return;
+    window.reportStrategicError(error, "load settlement NPCs");
+    if (!npcStrip) return;
+    npcStrip.querySelector("[data-npc-loading]")?.remove();
+    npcStrip.querySelector("[data-npc-retry]")?.remove();
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "btn btn-secondary";
+    retry.dataset.npcRetry = "";
+    retry.textContent = "People unavailable — try again";
+    retry.addEventListener("click", () => { retry.remove(); retryPeople(); }, { once: true });
+    npcStrip.append(retry);
+  });
+  retryPeople();
   };
   mount();
   document.addEventListener("strategic-page-mounted", mount);

@@ -123,3 +123,6 @@ pub(super) mod test_support {
         }
     }
 }
+
+#[cfg(test)]
+mod interface_fixtures;

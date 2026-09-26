@@ -1,3 +1,7 @@
+mod rank;
+use rank::skill_rank_bar_with_tooltip;
+pub(super) use rank::{SkillRankBarOptions, skill_rank_bar, skill_rank_tier};
+
 use adventuresim_core::{
     activity::{PRAYER_MORALE_LIMIT, PRAYER_MORALE_SCALE_MINUTES, settlement_population_scale},
     body::BodyPart,
@@ -52,17 +56,6 @@ fn finite_rank(rank: f32) -> f32 {
         rank.clamp(0.0, 5.0)
     } else {
         0.0
-    }
-}
-
-pub(super) fn skill_rank_tier(rank: f32) -> u8 {
-    let rank = finite_rank(rank);
-    match rank {
-        rank if rank <= 1.0 => 1,
-        rank if rank <= 2.0 => 2,
-        rank if rank <= 3.0 => 3,
-        rank if rank <= 4.0 => 4,
-        _ => 5,
     }
 }
 
@@ -169,8 +162,8 @@ fn summary_mask_icon(
     }
 }
 
-fn qualifying_tooltip(family: &str, entries: &[(&str, f32)]) -> String {
-    let mut tooltip = family.to_owned();
+fn qualifying_tooltip(family: &str, rank: f32, entries: &[(&str, f32)]) -> String {
+    let mut tooltip = format!("{family} — {rank:.1}");
     for (label, rank) in entries {
         tooltip.push_str(&format!("\n{label} — {:.1}", finite_rank(*rank)));
     }
@@ -191,7 +184,7 @@ fn push_standalone_summary_icon(
     ));
     if rank >= SUMMARY_SKILL_THRESHOLD {
         let text = format!("{label} — {rank:.1}");
-        icons.push(summary_mask_icon(&text, &text, rank, "skills", icon));
+        icons.push(summary_mask_icon(label, &text, rank, "skills", icon));
     }
 }
 
@@ -231,8 +224,8 @@ pub(super) fn character_summary_icons(
                 view.effective_skill_hours(skill),
                 character_aptitude(attributes, skill),
             ));
-            let label = format!("{label} — {rank:.1}");
-            icons.push(summary_mask_icon(&label, &label, rank, "skills", icon));
+            let tooltip = format!("{label} — {rank:.1}");
+            icons.push(summary_mask_icon(label, &tooltip, rank, "skills", icon));
         }
     }
 
@@ -261,8 +254,8 @@ pub(super) fn character_summary_icons(
         } else {
             ("Dodge", dodge)
         };
-        let label = format!("{armor_label} — {defense} {rank:.1}");
-        let tooltip = format!("{label}\nDodge — {dodge:.1}\nBlock — {block:.1}");
+        let label = format!("{armor_label} — {defense}");
+        let tooltip = format!("{label} {rank:.1}\nDodge — {dodge:.1}\nBlock — {block:.1}");
         icons.push(SummaryIcon {
             label,
             tooltip,
@@ -311,8 +304,8 @@ pub(super) fn character_summary_icons(
             character_aptitude(attributes, Skill::Insight),
         ));
         icons.push(summary_mask_icon(
-            format!("Social — {rank:.1}"),
-            qualifying_tooltip("Social", &qualifying_social),
+            "Social",
+            qualifying_tooltip("Social", rank, &qualifying_social),
             rank,
             "skills",
             "social",
@@ -356,8 +349,8 @@ pub(super) fn character_summary_icons(
             character_aptitude(attributes, Skill::Religion),
         ));
         icons.push(SummaryIcon {
-            label: format!("{} religion — {rank:.1}", primary.label()),
-            tooltip: qualifying_tooltip("Religion", &religion_entries),
+            label: format!("{} religion", primary.label()),
+            tooltip: qualifying_tooltip(primary.label(), rank, &religion_entries),
             rank,
             kind: SummaryIconKind::Mask(religion_icon_path(Some(primary.religion_id())).into()),
         });
@@ -382,8 +375,8 @@ pub(super) fn character_summary_icons(
             character_aptitude(attributes, Skill::Bestiary),
         ));
         icons.push(summary_mask_icon(
-            format!("Bestiary — {rank:.1}"),
-            qualifying_tooltip("Bestiary", &bestiary_entries),
+            "Bestiary",
+            qualifying_tooltip("Bestiary", rank, &bestiary_entries),
             rank,
             "bestiary",
             "bestiary",
@@ -404,8 +397,8 @@ pub(super) fn character_summary_icons(
         let strongest = strongest_oral_language(skills);
         let rank = finite_rank((skills.oral_languages.effective(strongest) / 1000.0).min(instinct));
         icons.push(SummaryIcon {
-            label: format!("Oral languages — {rank:.1}"),
-            tooltip: qualifying_tooltip("Oral languages", &oral_entries),
+            label: "Oral languages".into(),
+            tooltip: qualifying_tooltip("Oral languages", rank, &oral_entries),
             rank,
             kind: SummaryIconKind::Monogram {
                 text: "O",
@@ -432,8 +425,8 @@ pub(super) fn character_summary_icons(
         let rank =
             finite_rank((skills.written_languages.effective(strongest) / 1000.0).min(intelligence));
         icons.push(SummaryIcon {
-            label: format!("Written languages — {rank:.1}"),
-            tooltip: qualifying_tooltip("Written languages", &written_entries),
+            label: "Written languages".into(),
+            tooltip: qualifying_tooltip("Written languages", rank, &written_entries),
             rank,
             kind: SummaryIconKind::Monogram {
                 text: "W",
@@ -478,8 +471,8 @@ pub(super) fn character_summary_icons(
             character_aptitude(attributes, Skill::TerrainPlains),
         ));
         icons.push(summary_mask_icon(
-            format!("Terrain — {rank:.1}"),
-            qualifying_tooltip("Terrain", &terrain_entries),
+            "Terrain",
+            qualifying_tooltip("Terrain", rank, &terrain_entries),
             rank,
             "terrain",
             "terrain",
@@ -994,7 +987,7 @@ pub(super) fn skill_action_icon(
                 span class="stat-icon" style=(format!("--stat-icon: url('/static/icons/game/{icon}.svg')")) aria-hidden="true" {}
                 @if open { span class="sr-only" { " (open)" } }
             }
-            span class="sr-only" { (name) }
+            span class="skill-row-label" { (name) }
         },
     }
 }
@@ -1028,7 +1021,8 @@ pub(super) fn party_skills_rail(
     html! {
         (sidebar_section("", html! {
             @if let Some(skills) = skills {
-                h3 class="sr-only" { (title) }
+                h3 class="sidebar-header" { (title) }
+                (crate::templates::interface_help::skill_key())
                 @if let (Some(schedule), Some(action)) = (schedule, schedule_action) {
                     form class="skill-schedule" data-skill-schedule
                         action=(action) method="post" {
@@ -1142,7 +1136,7 @@ fn skills_table(
         0.0
     };
     html! {
-            table class="party-skills-table" {
+            table class="party-skills-table" aria-label=(title) {
                 colgroup {
                     col class="party-skill-name-column";
                     @if schedule.is_some() {
@@ -1164,10 +1158,6 @@ fn skills_table(
                 } @else {
                     colgroup { col class="religion-expand-column"; }
                 }
-                thead { tr class="schedule-context-heading" {
-                        th scope="colgroup" colspan=(if schedule.is_some() { "8" } else { "2" }) class="schedule-table-title" { (title) }
-                    th scope="col" aria-label="Skill details" {}
-                } }
                 tbody {
                     @if skills.will_hours > 0.0 { (party_skill_row(skills, "Will", "will", Skill::Will, instinct, head_health, schedule.is_some(), None)) }
                     (social_skill_rows(skills, instinct, head_health, schedule))
@@ -1341,7 +1331,7 @@ fn terrain_skill_rows(
                         average_hours,
                         average_effective_hours,
                     ),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {
@@ -1359,7 +1349,7 @@ fn terrain_skill_rows(
                     (stat_icon(name, "terrain", icon, false))
                 }
                 td class="party-skill-meter" colspan=[schedule_context.then_some("7")] {
-                    (skill_rank_bar_with_tooltip(uncapped, sub_rank, &SkillTooltip::ordinary(skills, skill), skill_rail_bar_options()))
+                    (skill_rank_bar_with_tooltip(uncapped, sub_rank, &SkillTooltip::ordinary(skills, skill), SkillRankBarOptions::default()))
                 }
                 td class="religion-expand-cell" {}
             }
@@ -1389,16 +1379,16 @@ fn language_skill_rows(
                 @let current_rank = (effective / 1000.0).clamp(0.0, 5.0).min(aptitude.clamp(0.0, 5.0));
                 tr class=(format!("party-skill-row language-primary-row language-{kind}")) {
                     th scope="row" class=(skill_icon_cell_class(current_rank, "")) { span class=(format!("language-monogram language-{kind}")) title=(format!("{family} languages")) aria-hidden="true" { (if kind=="oral" {"O"} else {"W"}) } span class="sr-only" { (family) } }
-                    td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let aptitude=if kind=="oral" {oral_aptitude} else {written_aptitude}; @let tooltip=if kind=="oral" { oral_language_family_tooltip(skills) } else { written_language_family_tooltip(skills) }; @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(aptitude.clamp(0.0,5.0)),&tooltip,skill_rail_bar_options())) }
+                    td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let aptitude=if kind=="oral" {oral_aptitude} else {written_aptitude}; @let tooltip=if kind=="oral" { oral_language_family_tooltip(skills) } else { written_language_family_tooltip(skills) }; @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(aptitude.clamp(0.0,5.0)),&tooltip,SkillRankBarOptions::default())) }
                     td class="religion-expand-cell" { button type="button" class="religion-expand-button" data-language-expand=(kind) aria-expanded="false" aria-label=(format!("Expand {family} languages")) { span class="religion-expand-chevron" aria-hidden="true" { "›" } } }
                 }
                 @if kind=="oral" { @for language in OralLanguage::ALL { @let descriptor=language.descriptor(); @let effective=skills.oral_languages.effective(language);
                     @if effective.is_finite() && effective > 0.0 {
-                        tr class="party-skill-row language-detail-row" data-language-detail="oral" hidden { th scope="row" class=(skill_icon_cell_class((effective / 1000.0).clamp(0.0, 5.0).min(oral_aptitude.clamp(0.0, 5.0)), "religion-subskill-name")) { span class=(if descriptor.germanic_style {"language-monogram language-oral language-blackletter"} else {"language-monogram language-oral"}) title=(format!("{} — {}",descriptor.english,descriptor.native)) aria-hidden="true" { (descriptor.monogram) } span class="sr-only" { (descriptor.english) } } td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(oral_aptitude.clamp(0.0,5.0)),&oral_language_tooltip(skills, language),skill_rail_bar_options())) } td class="religion-expand-cell" {} }
+                        tr class="party-skill-row language-detail-row" data-language-detail="oral" hidden { th scope="row" class=(skill_icon_cell_class((effective / 1000.0).clamp(0.0, 5.0).min(oral_aptitude.clamp(0.0, 5.0)), "religion-subskill-name")) { span class=(if descriptor.germanic_style {"language-monogram language-oral language-blackletter"} else {"language-monogram language-oral"}) title=(format!("{} — {}",descriptor.english,descriptor.native)) aria-hidden="true" { (descriptor.monogram) } span class="sr-only" { (descriptor.english) } } td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(oral_aptitude.clamp(0.0,5.0)),&oral_language_tooltip(skills, language),SkillRankBarOptions::default())) } td class="religion-expand-cell" {} }
                     }
                 }} @else { @for language in WrittenLanguage::ALL { @let descriptor=language.descriptor(); @let effective=skills.written_languages.effective(language);
                     @if effective.is_finite() && effective > 0.0 {
-                        tr class="party-skill-row language-detail-row" data-language-detail="written" hidden { th scope="row" class=(skill_icon_cell_class((effective / 1000.0).clamp(0.0, 5.0).min(written_aptitude.clamp(0.0, 5.0)), "religion-subskill-name")) { span class=(if descriptor.germanic_style {"language-monogram language-written language-blackletter"} else {"language-monogram language-written"}) title=(format!("{} — {}",descriptor.english,descriptor.native)) aria-hidden="true" { (descriptor.monogram) } span class="sr-only" { (descriptor.english) } } td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(written_aptitude.clamp(0.0,5.0)),&written_language_tooltip(skills, language),skill_rail_bar_options())) } td class="religion-expand-cell" {} }
+                        tr class="party-skill-row language-detail-row" data-language-detail="written" hidden { th scope="row" class=(skill_icon_cell_class((effective / 1000.0).clamp(0.0, 5.0).min(written_aptitude.clamp(0.0, 5.0)), "religion-subskill-name")) { span class=(if descriptor.germanic_style {"language-monogram language-written language-blackletter"} else {"language-monogram language-written"}) title=(format!("{} — {}",descriptor.english,descriptor.native)) aria-hidden="true" { (descriptor.monogram) } span class="sr-only" { (descriptor.english) } } td class="party-skill-meter" colspan=[schedule_context.then_some("7")] { @let rank=(effective/1000.0).clamp(0.0,5.0); (skill_rank_bar_with_tooltip(rank,rank.min(written_aptitude.clamp(0.0,5.0)),&written_language_tooltip(skills, language),SkillRankBarOptions::default())) } td class="religion-expand-cell" {} }
                     }
                 }}
             }
@@ -1488,7 +1478,7 @@ fn religion_skill_rows(
                     Skill::Religion.training_rank(primary_effective),
                     primary_rank,
                     &religion_tooltip(skills, primary),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {
@@ -1514,7 +1504,7 @@ fn religion_skill_rows(
                         Skill::Religion.training_rank(effective),
                         current_rank,
                         &religion_tooltip(skills, religion),
-                        skill_rail_bar_options(),
+                        SkillRankBarOptions::default(),
                     ))
                 }
                 td class="religion-expand-cell" {}
@@ -1594,7 +1584,7 @@ fn bestiary_skill_rows(
                     Skill::Bestiary.training_rank(aggregate_effective),
                     aggregate_rank,
                     &bestiary_family_tooltip(skills),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {
@@ -1625,7 +1615,7 @@ fn bestiary_skill_rows(
                             Skill::Bestiary.training_rank(effective),
                             current_rank,
                             &bestiary_tooltip(skills, category),
-                            skill_rail_bar_options(),
+                            SkillRankBarOptions::default(),
                         ))
                     }
                     td class="religion-expand-cell" {}
@@ -1699,7 +1689,7 @@ fn social_skill_rows(
                         average_hours,
                         average_hours,
                     ),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {
@@ -1718,7 +1708,7 @@ fn social_skill_rows(
                     (stat_icon(name, "skills", icon, false))
                 }
                 td class="party-skill-meter" colspan=[schedule.map(|_| "7")] {
-                    (skill_rank_bar_with_tooltip(uncapped, current_rank, &SkillTooltip::direct(skill, hours), skill_rail_bar_options()))
+                    (skill_rank_bar_with_tooltip(uncapped, current_rank, &SkillTooltip::direct(skill, hours), SkillRankBarOptions::default()))
                 }
                 td class="religion-expand-cell" {}
             }
@@ -1826,7 +1816,7 @@ fn combat_meta_group(
                         average_hours,
                         average_effective_hours,
                     ),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {
@@ -1848,7 +1838,7 @@ fn combat_meta_group(
                     }
                 }
                 td class="party-skill-meter" colspan=[schedule.map(|_| "7")] {
-                    (skill_rank_bar_with_tooltip(uncapped, current_rank, &SkillTooltip::ordinary(skills, skill), skill_rail_bar_options()))
+                    (skill_rank_bar_with_tooltip(uncapped, current_rank, &SkillTooltip::ordinary(skills, skill), SkillRankBarOptions::default()))
                 }
                 td class="religion-expand-cell" {}
             }
@@ -1904,7 +1894,7 @@ fn party_skill_row(
                     uncapped_rank,
                     effective_rank,
                     &SkillTooltip::ordinary(skills, skill),
-                    skill_rail_bar_options(),
+                    SkillRankBarOptions::default(),
                 ))
             }
             td class="religion-expand-cell" {}
@@ -2057,92 +2047,6 @@ impl PlayerSkills for CharacterSkillHours<'_> {
             Skill::Tailoring => skills.tailoring_hours,
             Skill::Smithing => skills.smithing_hours,
             Skill::Religion | Skill::Bestiary => 0.0,
-        }
-    }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub(super) struct SkillRankBarOptions<'a> {
-    pub(super) show_value: bool,
-    pub(super) extra_class: Option<&'a str>,
-    pub(super) aria_label: Option<&'a str>,
-}
-
-impl Default for SkillRankBarOptions<'_> {
-    fn default() -> Self {
-        Self {
-            show_value: true,
-            extra_class: None,
-            aria_label: None,
-        }
-    }
-}
-
-fn skill_rail_bar_options() -> SkillRankBarOptions<'static> {
-    SkillRankBarOptions {
-        show_value: false,
-        ..SkillRankBarOptions::default()
-    }
-}
-
-pub(super) fn skill_rank_bar(
-    rank: f32,
-    effective_rank: f32,
-    title: &str,
-    options: SkillRankBarOptions<'_>,
-) -> Markup {
-    skill_rank_bar_markup(rank, effective_rank, Some(title), None, options)
-}
-
-fn skill_rank_bar_with_tooltip(
-    rank: f32,
-    effective_rank: f32,
-    tooltip: &SkillTooltip,
-    options: SkillRankBarOptions<'_>,
-) -> Markup {
-    skill_rank_bar_markup(rank, effective_rank, None, Some(tooltip), options)
-}
-
-fn skill_rank_bar_markup(
-    rank: f32,
-    effective_rank: f32,
-    title: Option<&str>,
-    skill_tooltip: Option<&SkillTooltip>,
-    options: SkillRankBarOptions<'_>,
-) -> Markup {
-    let rank = rank.clamp(0.0, 5.0);
-    let effective_rank = effective_rank.clamp(0.0, rank);
-    let class = options.extra_class.map_or_else(
-        || "skill-rank-bar".to_owned(),
-        |extra| format!("skill-rank-bar {extra}"),
-    );
-    let aria_label = options
-        .aria_label
-        .map_or_else(|| format!("{effective_rank:.1} out of 5"), str::to_owned);
-    let tooltip_description = skill_tooltip.map(SkillTooltip::accessible_description);
-    let tooltip_json = skill_tooltip
-        .map(|tooltip| serde_json::to_string(tooltip).expect("skill tooltip data serializes"));
-    html! {
-        div class=(class) title=[title] aria-label=(aria_label)
-            data-strategic-tooltip=[tooltip_description]
-            data-skill-tooltip=[tooltip_json]
-            tabindex=[skill_tooltip.map(|_| "0")]
-            role="meter" aria-valuemin="0" aria-valuemax="5" aria-valuenow=(format!("{effective_rank:.1}")) {
-            span class="skill-rank-track" aria-hidden="true" {
-                @for tier in 1..=5 {
-                    @let offset = (tier - 1) as f32;
-                    @let current = (effective_rank - offset).clamp(0.0, 1.0) * 100.0;
-                    @let trained = (rank - offset).clamp(0.0, 1.0) * 100.0;
-                    @let damaged = (trained - current).max(0.0);
-                    span class=(format!("skill-rank-segment skill-rank-segment-{tier}")) {
-                        span class="rank-current" style=(format!("width:{current:.1}%")) {}
-                        span class="rank-damage" style=(format!("left:{current:.1}%;width:{damaged:.1}%")) {}
-                    }
-                }
-            }
-            @if options.show_value {
-                span class="skill-rank-value" aria-hidden="true" { (format!("{effective_rank:.1}")) }
-            }
         }
     }
 }
@@ -2807,17 +2711,11 @@ mod tests {
             profile,
             None,
         );
-        assert!(icons[0].label.starts_with("Sword —"));
-        assert!(icons[1].label.starts_with("Knife —"));
+        assert!(icons[0].label == "Sword");
+        assert!(icons[1].label == "Knife");
         assert!(icons[2].label.starts_with("Full armor — Block"));
-        assert!(icons[3].label.starts_with("Social —"));
-        assert_eq!(
-            icons
-                .iter()
-                .filter(|icon| icon.label.starts_with("Sword —"))
-                .count(),
-            1
-        );
+        assert!(icons[3].label == "Social");
+        assert_eq!(icons.iter().filter(|icon| icon.label == "Sword").count(), 1);
     }
 
     #[test]
@@ -2884,10 +2782,7 @@ mod tests {
             CombatTrainingProfile::default(),
             None,
         );
-        let social = icons
-            .iter()
-            .find(|icon| icon.label.starts_with("Social —"))
-            .unwrap();
+        let social = icons.iter().find(|icon| icon.label == "Social").unwrap();
         assert!(social.tooltip.contains("Insight —"));
         assert!(social.tooltip.contains("Command —"));
         assert!(!social.tooltip.contains("Charm —"));
@@ -2986,8 +2881,8 @@ mod tests {
         }
         assert!(meter.contains("role=\"meter\""));
         assert!(meter.contains("aria-valuenow=\"2.8\""));
-        assert!(meter.contains("class=\"skill-rank-value\""));
-        assert!(!meter.contains("tabindex"));
+        assert!(!meter.contains("class=\"skill-rank-value\""));
+        assert!(meter.contains("tabindex=\"0\""));
         let allocation = schedule_allocation_cell("smithing_minutes", 75, true).into_string();
         assert!(allocation.contains("data-schedule-input"));
         assert!(allocation.contains("data-schedule-display"));
@@ -3000,8 +2895,9 @@ mod tests {
     #[test]
     fn skill_icons_use_the_current_bar_band_without_rounding() {
         for (rank, tier) in [
-            (f32::NAN, 1),
-            (0.0, 1),
+            (f32::NAN, 0),
+            (-1.0, 0),
+            (0.0, 0),
             (0.99, 1),
             (1.0, 1),
             (1.01, 2),
@@ -3143,9 +3039,7 @@ mod tests {
         )
         .into_string();
 
-        assert!(rendered.contains(
-            "scope=\"colgroup\" colspan=\"8\" class=\"schedule-table-title\">Your skills"
-        ));
+        assert!(rendered.contains("class=\"party-skills-table\" aria-label=\"Your skills\""));
         assert_eq!(rendered.matches("<colgroup>").count(), 2);
         assert!(rendered.contains(
             "<col class=\"religion-auto-column\"><col class=\"party-skill-time-column\"><col class=\"religion-expand-column\">"
@@ -3213,8 +3107,8 @@ mod tests {
             CharacterSheetActions::default(),
         )
         .into_string();
-        assert!(!rail.contains("class=\"sidebar-header\">Your skills"));
-        assert!(rail.contains("<h3 class=\"sr-only\">Your skills</h3>"));
+        assert!(rail.contains("class=\"sidebar-header\">Your skills"));
+        assert!(rail.contains("<h3 class=\"sidebar-header\">Your skills</h3>"));
         assert!(rail.contains("data-schedule-save-status"));
         assert!(rail.contains("role=\"status\" aria-live=\"polite\" hidden"));
         assert!(rail.contains("data-schedule-retry>Retry</button>"));

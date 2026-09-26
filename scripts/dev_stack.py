@@ -2140,6 +2140,10 @@ def tactical_session_config(
 def tactical_combat_scale(mode: TacticalPlayMode) -> int:
     combat_modes = (
         TacticalPlayMode.ANIMATION, TacticalPlayMode.COMBAT, TacticalPlayMode.BROWSER,
+        # Diagnostic sessions use a passive enemy fixture, but still need a
+        # live enemy while the native client completes its initial presentation
+        # and submits the first input.
+        TacticalPlayMode.DIAGNOSTIC,
     )
     return 10_000 if mode in combat_modes else 0
 

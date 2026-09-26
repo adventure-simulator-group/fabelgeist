@@ -1,3 +1,4 @@
+mod preferences;
 use adventuresim_core::strategic_schedule::CombatTrainingProfile;
 use maud::{Markup, html};
 
@@ -190,6 +191,26 @@ pub fn recruitment_panel(
                             }
                         }
                     }
+                    form action="/party-recruitment/roles" method="post" class="role-builder" data-role-builder {
+                        section class="role-details-card" aria-labelledby="role-details-heading" {
+                            h3 id="role-details-heading" { "Add a recruitment role" }
+                            div class="role-builder-header" {
+                                label class="role-name-field" {
+                                    span { "Role name" }
+                                    input type="text" name="name" placeholder="e.g. Armored melee" required;
+                                }
+                                label class="role-slots-field" {
+                                    span { "Slots" }
+                                    input type="number" name="quantity" min="1" max="8" value="1" required;
+                                }
+                            }
+                        }
+                        (preferences::preferences())
+                        footer class="role-builder-footer" {
+                            span class="small-copy text-muted" data-role-builder-help { "Choose how many openings this role should advertise." }
+                            button type="submit" class="btn btn-primary" data-role-builder-submit { "Add role" }
+                        }
+                    }
                     section class="saved-role-section" aria-labelledby="saved-role-heading" {
                         div class="saved-role-heading" {
                             h3 id="saved-role-heading" { "Saved roles" }
@@ -214,42 +235,8 @@ pub fn recruitment_panel(
                             }
                             button type="button" class="saved-role-save" data-save-current-role {
                                 span aria-hidden="true" { "+" }
-                                "Save role"
+                                "Save these preferences as a template"
                             }
-                        }
-                    }
-                    form action="/party-recruitment/roles" method="post" class="role-builder" data-role-builder {
-                        section class="role-details-card" aria-labelledby="role-details-heading" {
-                            h3 id="role-details-heading" { "Role details" }
-                            div class="role-builder-header" {
-                                label class="role-name-field" {
-                                    span { "Role name" }
-                                    input type="text" name="name" placeholder="e.g. Armored melee";
-                                }
-                                label class="role-slots-field" {
-                                    span { "Slots" }
-                                    input type="number" name="quantity" min="1" max="8" value="1" required;
-                                }
-                            }
-                        }
-                        div class="role-requirements-heading" {
-                            h3 { "Individual recommendations" }
-                            p { "Applicants may still request to join if they fall short." }
-                        }
-                        div class="role-requirement-columns role-requirement-columns-individual" {
-                            (combat_requirements())
-                            div class="role-requirement-group" {
-                                header class="role-requirement-heading" {
-                                    h3 { "Mobility" }
-                                    p { "Movement and sustained physical capability" }
-                                }
-                                (numeric_requirement("athletics", "Athletics"))
-                                (numeric_requirement("endurance", "Endurance"))
-                            }
-                        }
-                        footer class="role-builder-footer" {
-                            span class="small-copy text-muted" data-role-builder-help { "Choose how many openings this role should advertise." }
-                            button type="submit" class="btn btn-primary" data-role-builder-submit { "Add role" }
                         }
                     }
                 }

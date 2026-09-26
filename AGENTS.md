@@ -70,6 +70,18 @@
   Iconify and update both the collection's `ATTRIBUTION.md` and the repository's
   `THIRD_PARTY_NOTICES.md`.
 
+## Pull request context
+
+- Unless the user says otherwise, every pull request must include an
+  `Implementation context` section that links a reviewed Codex shared
+  conversation snapshot when one is available.
+- The section must also give a concise summary of the material decisions and
+  validation evidence. The PR body remains the authoritative summary of scope
+  and verification.
+- Treat every shared conversation as public publication. Before sharing, remove
+  credentials, tokens, private URLs, personal data, and nonessential local
+  paths. Codex's automatic secret masking is not sufficient review on its own.
+
 ## Rust style and maintainability
 
 - Before editing Rust source or Cargo manifests, also follow

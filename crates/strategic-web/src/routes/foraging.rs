@@ -1,3 +1,5 @@
+mod feedback;
+
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     Router,
@@ -531,10 +533,7 @@ pub(crate) async fn activity_dialog(
                         a class="btn btn-primary character-action-dialog-close" href=(return_to) { "Return" }
                     }
                 } @else if let Some(reason) = unavailable {
-                    p role="alert" class="badge badge-danger" { (reason) }
-                    div class="modal-actions" {
-                        a class="btn btn-secondary character-action-dialog-close" href=(return_to) { "Return" }
-                    }
+                    (feedback::unavailable(reason, return_to))
                 } @else {
                     @if let Some(message) = error_message {
                         p role="alert" class="badge badge-danger" { (message) }
