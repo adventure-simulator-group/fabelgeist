@@ -132,7 +132,7 @@ fn insert_identity(
         name_sex,
         prepared.stable_seed.into(),
         birth_year,
-        None,
+        draft.inherited_surname.clone(),
     )?;
     let name = adventuresim_world_schema::person_names::render_personal_name(
         &identity,
