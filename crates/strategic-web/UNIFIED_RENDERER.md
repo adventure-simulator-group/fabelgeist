@@ -38,6 +38,15 @@ The preload queue retains shared compiled recipes instead of expanding every
 member into a separate CPU record. Cut masonry, gable face selections, and other
 specialized surfaces retain their semantic geometry compilers. Tactical plans,
 collision, and operable elements keep their authoritative representation.
+Common rectangular civilian background shells compile from their programmes and
+the shared roof-plane recipe. This distant representation keeps wall heights,
+upper-storey projection, roof pitch, and metric texture scale, with simplified
+window marks and no individual dormers, interior framing, or joinery. Churches,
+workplaces, fortifications, and other specialized shapes use their semantic
+shell compilers. Playable buildings and the service street retain their semantic
+shells so their standard renderer LOD crossfades remain aligned. Detailed
+facades and playable assets still finish before
+readiness; selecting a venue never triggers this omitted-detail work.
 Conversations occupy the buildings' furnished circulation space, with camera
 clearance checked against architecture and furniture. Placement favors rooms
 receiving actual daylight and seats feet on the physical floor. Outdoor

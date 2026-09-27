@@ -13,6 +13,8 @@ use crate::{
 };
 
 mod closures;
+mod program_shell;
+pub use program_shell::compile_program_shell;
 mod compilation;
 #[path = "lod/crowns.rs"]
 mod crowns;

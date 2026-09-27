@@ -68,7 +68,7 @@ mod urban_church;
 mod wall_corner_bonds;
 mod wall_material;
 mod wall_spans;
-use wall_material::wall_material_and_thickness;
+pub(crate) use wall_material::wall_material_and_thickness;
 include!("generator/wall_derivation.rs");
 include!("generator/window_closures.rs");
 include!("generator/internal_partitions.rs");

@@ -1,6 +1,6 @@
 use crate::BuildingArchetype;
 
-pub(super) fn wall_material_and_thickness(
+pub(crate) fn wall_material_and_thickness(
     archetype: BuildingArchetype,
     exterior: bool,
     level: u16,

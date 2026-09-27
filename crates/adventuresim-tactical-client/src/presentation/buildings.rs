@@ -227,7 +227,10 @@ fn cached_building_levels(
         BuildingDetail::Dynamic => compile_static_building_lod(plan, BuildingLodLevel::Facade),
         _ => kit.as_ref().expect("static kit").facade(),
     };
-    let shell = compile_building_lod(plan, BuildingLodLevel::Shell);
+    let shell = (detail == BuildingDetail::Facade)
+        .then(|| adventuresim_building_generator::compile_program_shell(program))
+        .flatten()
+        .unwrap_or_else(|| compile_building_lod(plan, BuildingLodLevel::Shell));
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
             .iter()
