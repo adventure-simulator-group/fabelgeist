@@ -8,6 +8,12 @@ excluded_paths = [
 ]
 
 [[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-tactical-client/src/strategic_scene/status.rs"
+item = "capture_asset_failures"
+reason = "Classifies Bevy asset-path failure events for the scene's required rig, idle clip and procedural texture files."
+
+[[scopes]]
 kind = "authored_catalog"
 path = "crates/adventuresim-building-generator/src/generator/bell_hanging.rs"
 reason = "Authored proportions of timber headstock, crown loops and forged suspension fittings."

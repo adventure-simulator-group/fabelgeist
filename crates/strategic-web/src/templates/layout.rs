@@ -12,10 +12,7 @@ use controls::{character_switcher, journal_button};
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 use shell::{ScriptProfile, page_shell};
 
-use super::{
-    architecture::SettlementPresentation, organization_charge, organization_colors,
-    religion_icon_path,
-};
+use super::architecture::SettlementPresentation;
 
 const fn chapter_building_kind_tag(
     kind: adventuresim_core::organization::ChapterBuildingKind,
@@ -205,7 +202,7 @@ fn settlement_top_bar(
     settlement_id: &str,
     category: &SettlementCategory,
     active_service: &str,
-    religion_id: Option<&str>,
+    _religion_id: Option<&str>,
     economy: Option<&adventuresim_world_schema::SettlementEconomyProfile>,
     logged_in_as: Option<&str>,
 ) -> Markup {
@@ -245,7 +242,7 @@ fn settlement_top_bar(
 
             nav class="top-bar-center settlement-services" aria-label="Settlement services"
                 data-settlement-id=(settlement_id) {
-                @for (path, service_id, label, icon) in services {
+                @for (path, service_id, label, _icon) in services {
                     @let place = adventuresim_core::organization::service_npc_location_id(service_id).unwrap_or(service_id);
                     @let available = settlement_building_available(settlement_id, category, economy, place);
                     @if available {
@@ -270,16 +267,6 @@ fn settlement_top_bar(
                         data-strategic-tooltip=(label)
                         aria-current=(if selected { "page" } else { "false" })
                     {
-                        span class="service-tab-building" aria-hidden="true" {}
-                        @if path == "weapons" {
-                            span class="topbar-scene-effect-plane" aria-hidden="true" {
-                                (smoke_effect("wilderness-smoke building-chimney-smoke"))
-                            }
-                        }
-                        span
-                            class=(format!("service-tab-icon service-tab-icon-{}", icon))
-                            style=[(path == "religion").then(|| format!("--service-tab-icon: url('{}')", religion_icon_path(religion_id)))]
-                            aria-hidden="true" {}
                         span class="service-tab-label" aria-hidden="true" { (label) }
                     }
                     }
@@ -289,8 +276,6 @@ fn settlement_top_bar(
                     @let standalone = economy.is_none_or(|profile| adventuresim_core::organization::chapter_has_standalone_building(organization, chapter, profile));
                     @if standalone {
                     @let kind = chapter_building_kind_tag(chapter.building_kind);
-                    @let charge = organization_charge(organization);
-                    @let (field, accent) = organization_colors(&organization.id);
                     @let presentation = SettlementPresentation::for_place(settlement_id, Some(crate::location_urls::SettlementPlace::Chapter(&chapter.location_id)));
                     @let tint = presentation.material.tint();
                     a href=(crate::location_urls::patterns::SETTLEMENT_PLACE.url([&settlement_id, &chapter.location_id]))
@@ -306,10 +291,6 @@ fn settlement_top_bar(
                         aria-label=(&chapter.building_name)
                         data-strategic-tooltip=(&chapter.building_name)
                         aria-current=(if active_service == chapter.location_id { "page" } else { "false" }) {
-                        span class="service-tab-building" aria-hidden="true" {}
-                        span class="service-tab-icon service-tab-icon-organization"
-                            style=(format!("--service-tab-icon: url('/static/icons/game/{charge}.svg'); --organization-field: {field}; --organization-accent: {accent}"))
-                            aria-hidden="true" {}
                         span class="service-tab-label" aria-hidden="true" { (&chapter.building_name) }
                     }
                     }
@@ -576,8 +557,8 @@ mod tests {
     use super::{
         ScriptProfile, SettlementPresentation, WildernessVariant, building_tier,
         chapter_building_kind_tag, entry_layout, journal_layout, page_shell,
-        quest_location_top_bar, religion_icon_path, settlement_layout_with_session,
-        settlement_top_bar, wilderness_variant,
+        quest_location_top_bar, settlement_layout_with_session, settlement_top_bar,
+        wilderness_variant,
     };
     use crate::spacetimedb::SettlementCategory;
 
@@ -684,7 +665,7 @@ mod tests {
     }
 
     #[test]
-    fn standalone_organization_facade_has_exact_identity_and_heraldry() {
+    fn standalone_organization_facade_has_exact_identity_and_visible_name() {
         let organization = adventuresim_core::organization::catalog()
             .organizations
             .iter()
@@ -703,10 +684,8 @@ mod tests {
         .into_string();
         assert!(markup.contains("data-service-id=\"organization\""));
         assert!(markup.contains(&format!("data-building-id=\"{}\"", chapter.location_id)));
-        assert!(markup.contains(&format!(
-            "/static/icons/game/{}.svg",
-            super::organization_charge(organization)
-        )));
+        assert!(markup.contains(&chapter.building_name));
+        assert!(!markup.contains("service-tab-icon"));
     }
 
     #[test]
@@ -765,16 +744,14 @@ mod tests {
             None,
         )
         .into_string();
-        assert_eq!(markup.matches("class=\"service-tab-building\"").count(), 11);
-        assert_eq!(markup.matches("class=\"service-tab-icon ").count(), 11);
+        assert_eq!(markup.matches("class=\"service-tab-label\"").count(), 11);
+        assert!(!markup.contains("service-tab-icon"));
         assert!(markup.contains("aria-label=\"Public square\""));
         assert!(markup.contains("href=\"/locations/settlement/s\""));
         assert!(markup.contains("data-service-id=\"public-square\""));
-        assert!(markup.contains("service-tab-icon-market"));
         assert!(markup.contains("aria-label=\"Residences\""));
         assert!(markup.contains("href=\"/locations/settlement/s/places/residences\""));
         assert!(markup.contains("data-service-id=\"residences\""));
-        assert!(markup.contains("service-tab-icon-house"));
         assert!(!markup.contains("aria-label=\"Keep\""));
         assert!(markup.contains("aria-label=\"Church\""));
         let inn = markup
@@ -785,8 +762,6 @@ mod tests {
         assert!(inn.contains("aria-label=\"Inn\""));
         assert!(inn.contains("data-strategic-tooltip=\"Inn\""));
         assert!(markup.contains("aria-current=\"page\""));
-        assert!(markup.contains("--service-tab-icon: url("));
-        assert!(markup.contains(religion_icon_path(Some("roman_catholic"))));
 
         let css = include_str!("../../static/css/layout.css").replace("\r\n", "\n");
         for service in [
@@ -831,12 +806,12 @@ mod tests {
             None,
         )
         .into_string();
-        assert_eq!(town.matches("class=\"service-tab-building\"").count(), 12);
+        assert_eq!(town.matches("class=\"service-tab-label\"").count(), 12);
         assert!(town.contains("aria-label=\"Keep\""));
         assert!(
             town.contains("href=\"/locations/settlement/t/places/keep\" class=\"nav-tab active\"")
         );
-        assert!(town.contains("service-tab-icon-castle"));
+        assert!(!town.contains("service-tab-icon-castle"));
         assert!(town.contains(
             "data-service-id=\"keep\" data-building-id=\"keep\" data-building-material=\"ironbound-timber\""
         ));
@@ -1091,7 +1066,7 @@ mod tests {
     }
 
     #[test]
-    fn weapons_tabs_receive_decorative_smoke_without_changing_service_navigation() {
+    fn building_navigation_uses_labels_without_decorative_smoke() {
         let markup = settlement_top_bar(
             "Smallville",
             "s",
@@ -1102,8 +1077,8 @@ mod tests {
             None,
         )
         .into_string();
-        assert_eq!(markup.matches("building-chimney-smoke").count(), 1);
-        assert!(markup.contains("aria-hidden=\"true\""));
+        assert!(!markup.contains("building-chimney-smoke"));
+        assert!(markup.contains("service-tab-label"));
         assert_eq!(markup.matches("class=\"nav-tab").count(), 11);
     }
 

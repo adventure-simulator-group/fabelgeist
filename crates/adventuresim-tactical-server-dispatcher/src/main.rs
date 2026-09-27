@@ -4,7 +4,7 @@
 //! whenever a new request appears. The spawned server will then call
 //! create_tactical_server_for_request to register itself.
 
-mod settlement_economy_adapter;
+use adventuresim_tactical_server_dispatcher::settlement_economy_adapter;
 
 use std::collections::HashSet;
 use std::net::{IpAddr, SocketAddr};

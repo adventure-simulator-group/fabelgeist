@@ -8,7 +8,7 @@ use std::collections::BTreeMap;
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 
-use super::{AnimationRuntime, PresentedSkeleton};
+use super::{AnimatedActors, AnimationRuntime, PresentedSkeleton};
 
 /// Read-only coordinates presented to the semantic pose router. Every field
 /// comes from client presentation state or its pure semantic evaluation.
@@ -107,7 +107,7 @@ pub(super) fn evaluate_semantic_route_paths(
     mut commands: Commands,
     mut telemetry: ResMut<SemanticRouteTelemetry>,
     runtime: Res<AnimationRuntime>,
-    players: Query<(Entity, &PresentedSkeleton, Option<&InventoryItems>), With<Player>>,
+    players: Query<(Entity, &PresentedSkeleton, Option<&InventoryItems>), AnimatedActors>,
     items: Query<&ItemProperties, With<WeaponItem>>,
     equip_slots: Query<&EquipSlot>,
 ) {

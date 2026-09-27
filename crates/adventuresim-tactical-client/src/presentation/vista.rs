@@ -224,7 +224,7 @@ struct VistaTuftPlacement<'a> {
     playable_ground: &'a SceneGround,
     urban_ground: &'a UrbanGround,
     profile: GrassCommunityProfile,
-    community_seed: u64,
+    communities: GrassCommunityField,
     /// How far past the playable rectangle this sward reaches, in metres.
     outer_collar: f32,
 }
@@ -301,10 +301,10 @@ impl TuftPlacement for VistaTuftPlacement<'_> {
         (normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(height)
     }
 
-    fn community(&self, centre: Vec2) -> GrassCommunity {
+    fn community(&mut self, centre: Vec2) -> GrassCommunity {
         let profile = sample_vista_environment(self.lod, centre)
             .map_or(self.profile, |sample| self.profile.localized(sample));
-        grass_community_at(centre, self.community_seed, profile)
+        self.communities.at(centre, profile)
     }
 }
 
@@ -353,7 +353,7 @@ fn spawn_near_vista_scatter(
         playable_ground,
         urban_ground,
         profile,
-        community_seed: grass_seed,
+        communities: GrassCommunityField::new(grass_seed),
         outer_collar,
     };
 
@@ -370,7 +370,7 @@ fn spawn_near_vista_scatter(
     for grass_lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
         scatter_cell_tufts(
             &mut batches[grass_lod.tier_index()],
-            &placement(tier_sward_collar_metres(grass_lod, grass)),
+            &mut placement(tier_sward_collar_metres(grass_lod, grass)),
             grass_seed,
             grass_lod,
             grass.placement.playable_patch_spacing_m,
@@ -385,7 +385,7 @@ fn spawn_near_vista_scatter(
     }
     scatter_cell_tufts(
         &mut batches[GrassMeshLod::Vista.tier_index()],
-        &placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
+        &mut placement(tier_sward_collar_metres(GrassMeshLod::Vista, grass)),
         streams::GRASS_LOD.seed(grass_seed, &[]).to_u64(),
         GrassMeshLod::Vista,
         grass.placement.vista_patch_spacing_m,

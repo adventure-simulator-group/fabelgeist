@@ -735,6 +735,7 @@
     selectionGeneration += 1;
     contextualMutation = null;
     selectedNpc = npc;
+    document.dispatchEvent(new CustomEvent("strategic-character-selected", { detail: { id: npc.id } }));
     syncConversationPanels(npc);
     chat.dataset.localChatSubject = npc.id;
     chat.dispatchEvent(new Event("local-chat-subject-changed"));
@@ -769,9 +770,8 @@
   const loadPeople = async () => {
     if (!npcStrip) { begin(); return; }
     const path = `/api/locations/settlement/${window.strategicLocationUrls.encode(npcStrip.dataset.npcSettlement)}/places/${window.strategicLocationUrls.encode(npcStrip.dataset.npcPlace)}/npcs`;
-    const response = await window.strategicFetch(path, { headers: { Accept: "application/json" } });
-    if (!response.ok) throw new Error(`Could not load people here (${response.status})`);
-    const people = await response.json();
+    const { loadPeople: loadResidents } = await import("/static/strategic-scene.js?v=tactical-city-3");
+    const people = await loadResidents(path);
     const locationFixtures = [...npcStrip.querySelectorAll("[data-location-fixture]")];
     if (!people.length) {
       npcStrip.querySelector("[data-npc-loading]")?.remove();
@@ -782,7 +782,7 @@
     const buttons = people.map((npc) => {
       const button = document.createElement("button"); button.type = "button"; button.className = "party-portrait-select settlement-npc-portrait"; button.dataset.npcId = npc.id; button.setAttribute("aria-label", `Talk to ${npc.name}`); button.setAttribute("aria-pressed", "false"); button.tabIndex = -1;
       const portrait = document.createElement("span"); portrait.className = "scene-interactable-visual party-portrait-initial settlement-npc-initials";
-      const face = document.createElement("span"); face.className = npc.initials ? "party-portrait-face" : "party-portrait-face npc-portrait-silhouette"; face.setAttribute("aria-hidden", "true"); face.textContent = npc.initials || "";
+      const face = document.createElement("span"); face.className = npc.initials ? "party-portrait-face" : "party-portrait-face npc-portrait-silhouette"; face.setAttribute("aria-hidden", "true"); face.textContent = npc.initials || ""; face.dataset.bevyCharacter = String(npc.id);
       const name = document.createElement("span"); name.className = "scene-interactable-label party-portrait-name settlement-npc-name"; name.textContent = npc.name;
       portrait.append(face); button.append(portrait, name); button.addEventListener("click", () => selectNpc(npc, button));
       button.addEventListener("keydown", (event) => { if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return; event.preventDefault(); const offset = event.key === 'ArrowRight' ? 1 : -1; buttons[(buttons.indexOf(button) + offset + buttons.length) % buttons.length].focus(); });

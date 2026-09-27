@@ -150,8 +150,7 @@ test("settlement tabs layer tiered tintable buildings and proportional horizons 
   assert.match(layoutTemplate, /SettlementVenueKind::from_id\(building_id\)/);
 });
 
-test("settlement smithies and wilderness tabs use independent non-interactive effect layers", () => {
-  assert.match(layoutTemplate, /path == "weapons"[\s\S]*building-chimney-smoke/);
+test("wilderness tabs retain their independent non-interactive effect layers", () => {
   assert.match(layoutTemplate, /class="wilderness-flame campfire-flame"[\s\S]*aria-hidden="true"/);
   assert.match(layoutTemplate, /smoke_effect\("wilderness-smoke campfire-smoke"\)/);
   assert.match(layoutTemplate, /class="topbar-scene-effect-plane"/);

@@ -14,8 +14,10 @@ use bevy::{
         Transform, Vec2, Vec3, Vec4,
     },
 };
+#[cfg(test)]
+use community::grass_community_at;
 pub(in crate::presentation) use community::{
-    GrassCommunity, GrassCommunityProfile, grass_community_at,
+    GrassCommunity, GrassCommunityField, GrassCommunityProfile,
 };
 
 use crate::presentation::{

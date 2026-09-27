@@ -1,25 +1,30 @@
 use adventuresim_building_generator::{
-    BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_collision,
-    compile_building_detail, compile_building_lod, compile_static_building_detail,
-    compile_static_building_lod, generate,
+    BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_detail,
+    compile_building_lod, compile_static_building_detail, compile_static_building_lod,
 };
+use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
 
 use super::recipe_mesh::recipe_mesh;
 use super::*;
 
 mod boundaries;
-mod city_detail;
+mod gpu;
 mod materials;
-mod prepared;
 mod signs;
 mod streaming;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
-pub(in crate::presentation) use prepared::PreparedCityAssets;
 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
 pub(crate) use signs::PresentedSign;
 pub(crate) use streaming::PendingCityBuildings;
+
+pub(crate) fn city_gpu_ready() -> bool {
+    gpu::is_ready()
+}
+pub(super) fn reset_gpu(world: &mut World) {
+    gpu::reset(world);
+}
 
 pub(super) const DETAIL_LOD_END_START_METRES: f32 = 55.0;
 pub(super) const DETAIL_LOD_END_END_METRES: f32 = 70.0;
@@ -62,7 +67,6 @@ enum BuildingDetail {
     Dynamic,
     Static,
     Facade,
-    Shell,
 }
 
 #[derive(Clone)]
@@ -83,22 +87,39 @@ struct CompiledBuildingLevels {
 }
 
 #[derive(Default, Resource)]
-pub(in crate::presentation) struct TacticalBuildingMeshCache(Vec<CompiledBuildingLevels>);
+pub(crate) struct TacticalBuildingMeshCache {
+    levels: Vec<CompiledBuildingLevels>,
+    pub(crate) recipes: GeneratedBuildingRecipes,
+}
+
+/// Client-generated geometry transferred to the descriptor observer and then
+/// released. Replicated descriptors instead compile their program on arrival.
+#[derive(Component)]
+pub(crate) struct PreparedBuildingGeometry(pub(crate) GeneratedBuildingRecipe);
+
+#[derive(bevy::ecs::query::QueryData)]
+struct BuildingSource {
+    building: &'static SceneBuilding,
+    establishment: Option<&'static SceneEstablishment>,
+    authored_sign: Option<&'static adventuresim_building_generator::signs::ShopSign>,
+    prepared: Option<&'static PreparedBuildingGeometry>,
+}
 
 fn on_scene_building_added(
     event: On<Add, SceneBuilding>,
     mut commands: Commands,
-    buildings: Query<(
-        &SceneBuilding,
-        Option<&SceneEstablishment>,
-        Option<&adventuresim_building_generator::signs::ShopSign>,
-    )>,
+    buildings: Query<BuildingSource>,
     mut meshes: ResMut<Assets<Mesh>>,
     materials: Res<TacticalBuildingMaterials>,
     mut cache: ResMut<TacticalBuildingMeshCache>,
     mut signs: signs::SignAssets,
 ) -> Result {
-    let (building, establishment, authored_sign) = buildings.get(event.entity)?;
+    let BuildingSourceItem {
+        building,
+        establishment,
+        authored_sign,
+        prepared,
+    } = buildings.get(event.entity)?;
     let resolved_sign = authored_sign.cloned().or_else(|| {
         establishment.and_then(|establishment| {
             establishment.shop_name.clone().and_then(|name| {
@@ -115,9 +136,11 @@ fn on_scene_building_added(
         &building.program,
         BuildingDetail::Dynamic,
         &mut meshes,
+        prepared.map(|prepared| &prepared.0),
     )?;
     commands
         .entity(event.entity)
+        .remove::<PreparedBuildingGeometry>()
         .insert((
             Visibility::default(),
             super::building_closures::FacadeOpenings(compiled.facade_openings.clone()),
@@ -176,29 +199,40 @@ fn cached_building_levels(
     program: &BuildingProgram,
     detail: BuildingDetail,
     meshes: &mut Assets<Mesh>,
+    prepared: Option<&GeneratedBuildingRecipe>,
 ) -> Result<CompiledBuildingLevels> {
     if let Some(compiled) = cache
-        .0
+        .levels
         .iter()
         .find(|compiled| compiled.program == *program && compiled.detail == detail)
     {
         return Ok(compiled.clone());
     }
 
-    let plan = generate(program)?;
-    let collision = compile_building_collision(&plan);
+    let generated;
+    let geometry = if let Some(prepared) = prepared {
+        prepared
+    } else {
+        generated = match cache.recipes.take(program) {
+            Some(recipe) => recipe,
+            None => GeneratedBuildingRecipe::generate(program.clone())?,
+        };
+        &generated
+    };
+    let plan = &geometry.plan;
+    let collision = &geometry.collision;
     let local_origin = collision.bounds.centre();
     let floor_offset_metres = local_origin.y - collision.bounds.min.y;
     let detail_meshes = match detail {
-        BuildingDetail::Dynamic => Some(compile_static_building_detail(&plan)),
-        BuildingDetail::Static => Some(compile_building_detail(&plan)),
-        BuildingDetail::Facade | BuildingDetail::Shell => None,
+        BuildingDetail::Dynamic => Some(compile_static_building_detail(plan)),
+        BuildingDetail::Static => Some(compile_building_detail(plan)),
+        BuildingDetail::Facade => None,
     };
     let facade = match detail {
-        BuildingDetail::Dynamic => compile_static_building_lod(&plan, BuildingLodLevel::Facade),
-        _ => compile_building_lod(&plan, BuildingLodLevel::Facade),
+        BuildingDetail::Dynamic => compile_static_building_lod(plan, BuildingLodLevel::Facade),
+        _ => compile_building_lod(plan, BuildingLodLevel::Facade),
     };
-    let shell = compile_building_lod(&plan, BuildingLodLevel::Shell);
+    let shell = compile_building_lod(plan, BuildingLodLevel::Shell);
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
             .iter()
@@ -210,11 +244,13 @@ fn cached_building_levels(
             .collect()
     };
     let compiled = CompiledBuildingLevels {
-        facade_openings: plan.facade_dynamic_openings(),
-        interior: Some(super::interior_lighting::InteriorField::from_plan(
-            &plan,
-            local_origin,
-        )),
+        facade_openings: if detail == BuildingDetail::Dynamic {
+            plan.facade_dynamic_openings()
+        } else {
+            Default::default()
+        },
+        interior: (detail == BuildingDetail::Dynamic)
+            .then(|| super::interior_lighting::InteriorField::from_plan(plan, local_origin)),
         program: program.clone(),
         detail,
         floor_offset_metres,
@@ -224,7 +260,7 @@ fn cached_building_levels(
             .and_then(adventuresim_building_generator::signs::shop_trade)
             .is_some()
         {
-            signs::sites(&plan)
+            signs::sites(plan)
         } else {
             Vec::new()
         },
@@ -232,7 +268,7 @@ fn cached_building_levels(
         lod1: compile_batches(&facade.meshes, meshes),
         lod2: compile_batches(&shell.meshes, meshes),
     };
-    cache.0.push(compiled.clone());
+    cache.levels.push(compiled.clone());
     Ok(compiled)
 }
 
@@ -262,7 +298,6 @@ fn spawn_building_levels(
                 if matches!(
                     (compiled.detail, level),
                     (BuildingDetail::Facade, BuildingRenderLevel::Lod1)
-                        | (BuildingDetail::Shell, BuildingRenderLevel::Lod2)
                 ) {
                     VisibilityRange {
                         start_margin: 0.0..0.0,
@@ -301,10 +336,121 @@ pub(super) fn building_lod_visibility(level: BuildingRenderLevel) -> VisibilityR
 
 #[cfg(test)]
 mod tests {
-    use adventuresim_building_generator::LodVertex;
+    use adventuresim_building_generator::{LodVertex, compile_building_collision, generate};
 
     use super::recipe_mesh::recipe_mesh;
     use super::*;
+
+    #[test]
+    fn prepared_geometry_and_replicated_recipes_produce_the_same_meshes() {
+        let program = BuildingProgram::fixture(
+            adventuresim_building_generator::BuildingArchetype::TownHouse,
+            42,
+        );
+        let plan = generate(&program).unwrap();
+        let collision = compile_building_collision(&plan);
+        let prepared = GeneratedBuildingRecipe {
+            program: program.clone(),
+            plan,
+            collision,
+        };
+        let mut meshes = Assets::default();
+        let mut cache = TacticalBuildingMeshCache::default();
+        let local = cached_building_levels(
+            &mut cache,
+            &program,
+            BuildingDetail::Dynamic,
+            &mut meshes,
+            Some(&prepared),
+        )
+        .unwrap();
+        cache.levels.clear();
+        let remote = cached_building_levels(
+            &mut cache,
+            &program,
+            BuildingDetail::Dynamic,
+            &mut meshes,
+            None,
+        )
+        .unwrap();
+        assert_eq!(local.local_origin, remote.local_origin);
+        assert_eq!(local.facade_openings, remote.facade_openings);
+        assert!(local.interior.is_some());
+        for (local, remote) in [
+            (&local.lod0, &remote.lod0),
+            (&local.lod1, &remote.lod1),
+            (&local.lod2, &remote.lod2),
+        ] {
+            assert_eq!(local.len(), remote.len());
+            for (local, remote) in local.iter().zip(remote) {
+                assert_eq!(local.material, remote.material);
+                assert_eq!(local.triangles, remote.triangles);
+                let positions = |mesh: &Handle<Mesh>| {
+                    meshes
+                        .get(mesh)
+                        .unwrap()
+                        .attribute(Mesh::ATTRIBUTE_POSITION)
+                        .unwrap()
+                        .as_float3()
+                        .unwrap()
+                };
+                assert_eq!(positions(&local.mesh), positions(&remote.mesh));
+            }
+        }
+        let facade = cached_building_levels(
+            &mut cache,
+            &program,
+            BuildingDetail::Facade,
+            &mut meshes,
+            Some(&prepared),
+        )
+        .unwrap();
+        assert!(facade.interior.is_none());
+        assert!(facade.facade_openings.is_empty());
+        assert!(facade.lod0.is_empty());
+        assert!(!facade.lod1.is_empty() && !facade.lod2.is_empty());
+    }
+
+    #[test]
+    fn city_consumes_prepared_recipes_and_reuses_resident_meshes() {
+        let program = BuildingProgram::fixture(
+            adventuresim_building_generator::BuildingArchetype::TownHouse,
+            42,
+        );
+        let mut meshes = Assets::default();
+        let mut cache = TacticalBuildingMeshCache::default();
+        cache.recipes.get_or_generate(&program).unwrap();
+        let first = cached_building_levels(
+            &mut cache,
+            &program,
+            BuildingDetail::Facade,
+            &mut meshes,
+            None,
+        )
+        .unwrap();
+        assert!(
+            cache.recipes.take(&program).is_none(),
+            "rendering must consume the prepared plan"
+        );
+        let resident_count = meshes.len();
+        let second = cached_building_levels(
+            &mut cache,
+            &program,
+            BuildingDetail::Facade,
+            &mut meshes,
+            None,
+        )
+        .unwrap();
+        assert_eq!(meshes.len(), resident_count);
+        for (first, second) in first
+            .lod1
+            .iter()
+            .zip(&second.lod1)
+            .chain(first.lod2.iter().zip(&second.lod2))
+        {
+            assert_eq!(first.mesh, second.mesh);
+        }
+    }
 
     #[test]
     fn shell_lod_has_no_artificial_distance_cutoff() {

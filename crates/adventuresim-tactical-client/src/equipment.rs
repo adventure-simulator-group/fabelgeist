@@ -40,10 +40,20 @@ use model_loading::{procedural_presentation, resolve_procedural_equipment_models
 #[cfg(not(target_family = "wasm"))]
 use runtime_equipment::{RuntimeEquipmentBodyCache, generate_runtime_equipment_models};
 mod placeholder_visual;
+#[derive(Component)]
+pub(crate) struct RuntimeEquipmentPresentation {
+    #[cfg(not(target_family = "wasm"))]
+    pub(super) item: Entity,
+    #[cfg(not(target_family = "wasm"))]
+    pub(super) item_id: String,
+    #[cfg(not(target_family = "wasm"))]
+    pub(super) placement_id: String,
+}
+
 mod render_binding;
 mod skin;
 mod slot_selection;
-mod visuals;
+pub(crate) mod visuals;
 pub(crate) use render_binding::ProceduralEquipmentPart;
 use skin::sync_procedural_equipment_skins;
 pub(crate) use visuals::EquipmentVisualPlugin;
@@ -278,7 +288,7 @@ fn procedural_equipment_asset_path(file: &str) -> String {
 }
 
 #[derive(Component)]
-struct ProceduralEquipmentPresentation {
+pub(crate) struct ProceduralEquipmentPresentation {
     asset_path: String,
 }
 
@@ -1265,7 +1275,7 @@ fn update_item_placeholders(
         (&EquipmentTopology, Option<&EquipmentAttachmentSockets>),
         Without<ItemPlaceholder>,
     >,
-    rigs: Query<&HumanoidRig, With<Player>>,
+    rigs: Query<&HumanoidRig, crate::animation::AnimatedActors>,
     bind_nodes: Query<(&AuthoredBindTransform, Option<&ChildOf>)>,
     mut placeholders: Query<(
         Entity,
@@ -1568,10 +1578,7 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(
-                &ItemPlaceholder,
-                &runtime_equipment::RuntimeEquipmentPresentation,
-            )>()
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)
@@ -1605,10 +1612,7 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(
-                &ItemPlaceholder,
-                &runtime_equipment::RuntimeEquipmentPresentation,
-            )>()
+            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)

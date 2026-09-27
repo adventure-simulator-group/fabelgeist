@@ -243,6 +243,11 @@ pub(in crate::presentation) fn cache_initialized_atmosphere(
 }
 
 impl AtmosphereIblCache {
+    pub(crate) fn is_ready(&self, settings: &TacticalGraphicsSettings) -> bool {
+        !settings.config.rendering.atmosphere.enabled
+            || matches!(self.phase, AtmosphereIblPhase::Cached)
+    }
+
     fn complete_if_ready(
         &mut self,
         commands: &mut Commands,

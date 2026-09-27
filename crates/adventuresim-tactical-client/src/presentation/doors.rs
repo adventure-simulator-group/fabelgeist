@@ -1,6 +1,6 @@
 //! Presentation for replicated server-authoritative door leaves.
 
-use bevy::{math::primitives::Cuboid, prelude::*};
+use bevy::prelude::*;
 use bevy_mod_outline::{OutlineMode, OutlineVolume};
 
 use super::{SceneDoor, TacticalBuildingMaterials, building_closures};
@@ -16,7 +16,8 @@ pub(crate) struct DoorPresentationPlugin;
 
 impl Plugin for DoorPresentationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_observer(on_scene_door_added);
+        app.init_resource::<super::closure_meshes::ClosureMeshes>()
+            .add_observer(on_scene_door_added);
         app.add_systems(
             Update,
             building_closures::sync.in_set(building_closures::BuildingClosureVisibility),
@@ -29,12 +30,13 @@ pub(in crate::presentation) fn on_scene_door_added(
     mut commands: Commands,
     doors: Query<&SceneDoor>,
     mut meshes: ResMut<Assets<Mesh>>,
+    mut cache: ResMut<super::closure_meshes::ClosureMeshes>,
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let door = doors.get(event.entity)?;
     commands.entity(event.entity).insert((
         PresentedDoorLeaf,
-        Mesh3d(meshes.add(Cuboid::from_size(door.size_metres))),
+        Mesh3d(cache.door(door.size_metres, &mut meshes)),
         MeshMaterial3d(materials.get_for_building(door.building_id, BuildingLodMaterial::Timber)),
         Visibility::default(),
         GrabTargetOutline(event.entity),

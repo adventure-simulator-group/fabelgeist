@@ -81,14 +81,12 @@ fn layout_seed(program: &BuildingProgram) -> u64 {
     }
 }
 
-/// Generates a building that satisfies the complete structural contract.
+/// Generates a building, rejecting unsupported inputs and construction failures.
 ///
-/// `Ok` is a strong guarantee: the returned plan has passed [`crate::audit_plan`].
-/// Programs that cannot produce a valid building are rejected with a typed error;
-/// callers never receive a knowingly invalid plan.
+/// Exhaustive geometric proofs are explicit: tests and inspection tools call
+/// [`crate::audit_plan`]. Editor documents also run that audit before acceptance.
 pub fn generate(program: &BuildingProgram) -> Result<BuildingPlan, GenerationError> {
-    let plan = generate_unchecked(program, &[])?;
-    validate_generated_plan(plan)
+    generate_unchecked(program, &[])
 }
 
 /// Regenerates and audits a versioned editor document.

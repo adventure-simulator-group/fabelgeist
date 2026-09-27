@@ -1,6 +1,5 @@
 //! Presentation for replicated server-authoritative window casements.
 
-use adventuresim_building_generator::compile_window_leaf;
 use bevy::prelude::*;
 use bevy_mod_outline::{OutlineMode, OutlineVolume};
 
@@ -13,7 +12,8 @@ pub(crate) struct WindowPresentationPlugin;
 
 impl Plugin for WindowPresentationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_observer(on_scene_window_added);
+        app.init_resource::<super::closure_meshes::ClosureMeshes>()
+            .add_observer(on_scene_window_added);
     }
 }
 
@@ -22,21 +22,18 @@ fn on_scene_window_added(
     mut commands: Commands,
     windows: Query<&SceneWindow>,
     mut meshes: ResMut<Assets<Mesh>>,
+    mut cache: ResMut<super::closure_meshes::ClosureMeshes>,
     materials: Res<TacticalBuildingMaterials>,
 ) -> Result {
     let window = windows.get(event.entity)?;
-    let batches = compile_window_leaf(
-        window.size_metres,
-        window.leaf,
-        adventuresim_building_generator::ClosureState::Operable,
-    );
+    let batches = cache.window(window.size_metres, window.leaf, &mut meshes);
     let body = batches
         .iter()
         .find(|batch| batch.material == window.leaf.material())
         .expect("window leaf has its primary material");
     commands.entity(event.entity).insert((
         PresentedWindowCasement,
-        Mesh3d(meshes.add(super::recipe_mesh::recipe_mesh(body, Vec3::ZERO))),
+        Mesh3d(body.mesh.clone()),
         MeshMaterial3d(materials.get_for_building(window.building_id, window.leaf.material())),
         Visibility::default(),
         super::building_lod_visibility(super::BuildingRenderLevel::Lod0),
@@ -55,7 +52,7 @@ fn on_scene_window_added(
             .filter(|batch| batch.material != window.leaf.material())
         {
             parent.spawn((
-                Mesh3d(meshes.add(super::recipe_mesh::recipe_mesh(batch, Vec3::ZERO))),
+                Mesh3d(batch.mesh.clone()),
                 MeshMaterial3d(materials.get_for_building(window.building_id, batch.material)),
                 Transform::IDENTITY,
                 super::building_lod_visibility(super::BuildingRenderLevel::Lod0),

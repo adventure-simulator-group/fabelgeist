@@ -48,20 +48,23 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
         {
             return invalid("garden ownership, membership or plant identity is invalid");
         }
-        let usage = input
+        let owner = input
             .buildings
             .iter()
             .find(|b| b.id == garden.front_building_id)
-            .map(|b| b.program.usage)
+            .map(|b| (b.program.usage, b.centre_metres))
             .or_else(|| {
                 input
                     .distant_buildings
                     .iter()
                     .find(|b| b.id == garden.front_building_id)
-                    .map(|b| b.usage)
+                    .map(|b| (b.usage, b.centre_metres))
             });
-        if !matches!(usage, Some(Some(_))) {
+        let Some((Some(_), centre)) = owner else {
             return invalid("garden owner must reference an occupied front building");
+        };
+        if !garden.plot.contains(centre) || garden.cultivated_bounds.contains(centre) {
+            return invalid("garden owner geometry lies outside its property");
         }
         garden.validate_geometry(&input.streets).map_err(|issue| {
             SceneInputError::Validation(format!("garden {}: {issue:?}", garden.owner.0))
@@ -82,12 +85,23 @@ pub(super) fn validate(input: &TacticalSceneInput) -> Result<(), SceneInputError
     Ok(())
 }
 
-pub(super) fn validate_generated(
-    input: &TacticalSceneInput,
-    buildings: &[GeneratedBuilding],
-) -> Result<(), SceneInputError> {
-    crate::city_layout::validate_scene_gardens(&input.gardens, buildings, &input.distant_buildings)
+impl TacticalSceneInput {
+    /// Exhaustively checks garden clearance against complete rendered buildings.
+    ///
+    /// Intended for scene authoring and tests. This compiles every distinct
+    /// distant recipe, including its detailed meshes, and is not part of loading
+    /// an accepted scene. Runtime validation retains ownership and plot checks.
+    pub fn audit_garden_clearance(
+        &self,
+        generated: &GeneratedTacticalScene,
+    ) -> Result<(), SceneInputError> {
+        crate::city_layout::validate_scene_gardens(
+            &self.gardens,
+            &generated.buildings,
+            &self.distant_buildings,
+        )
         .map_err(SceneInputError::Validation)
+    }
 }
 
 pub(super) fn generate(

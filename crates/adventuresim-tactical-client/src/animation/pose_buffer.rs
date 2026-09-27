@@ -15,11 +15,11 @@ use std::{
 use bevy::{
     animation::{AnimationTargetId, animated_field},
     asset::{AssetEvent, AssetId},
-    camera::primitives::{Frustum, Sphere},
+    camera::visibility::RenderLayers,
 };
 
 use super::*;
-use crate::presentation::TacticalGameplayCamera;
+mod visibility;
 
 mod inertialization;
 mod physics_pose;
@@ -302,7 +302,7 @@ impl PosePlanKey {
 }
 
 #[derive(Component)]
-pub(super) struct PoseBufferRig {
+pub(crate) struct PoseBufferRig {
     definition: Arc<RigDefinition>,
     entities: Vec<Option<Entity>>,
     previous: Vec<LocalPose>,
@@ -393,7 +393,7 @@ pub(super) fn update_pose_buffers(
     procedural_clock: Res<ProceduralAnimationClock>,
     catalog: Res<AnimationPackCatalog>,
     clips: Res<Assets<AnimationClip>>,
-    cameras: Query<(&GlobalTransform, &Frustum), With<TacticalGameplayCamera>>,
+    cameras: visibility::AnimationViews,
     terrain: Query<&SceneTerrain>,
     terrain_ik_enabled: Res<TerrainIkEnabled>,
     owners: Query<(
@@ -402,6 +402,7 @@ pub(super) fn update_pose_buffers(
         &AnimationPlayback,
         &GlobalTransform,
         Option<&mut PoseBufferRig>,
+        Option<&RenderLayers>,
     )>,
     rig_scenes: Query<(&AnimationRigScene, &Transform)>,
     targets: Query<(
@@ -418,10 +419,9 @@ pub(super) fn update_pose_buffers(
     mut metrics: ResMut<PoseBufferMetrics>,
 ) {
     let _spike = crate::animation::diagnostics::SpikeGuard::new("update_pose_buffers");
-    let camera = cameras.iter().next();
     metrics.culled_character_count = 0;
 
-    for (owner, skeleton, playback, owner_transform, rig) in owners {
+    for (owner, skeleton, playback, owner_transform, rig, layers) in owners {
         let family = catalog
             .packs
             .get(&skeleton.animation_pack)
@@ -462,17 +462,8 @@ pub(super) fn update_pose_buffers(
         }
 
         let position = owner_transform.translation();
-        let frozen = camera.is_some_and(|(camera_transform, frustum)| {
-            position.distance_squared(camera_transform.translation())
-                > pose_tuning().cull_distance_metres * pose_tuning().cull_distance_metres
-                || !frustum.intersects_sphere(
-                    &Sphere {
-                        center: position.into(),
-                        radius: pose_tuning().cull_radius_metres,
-                    },
-                    false,
-                )
-        });
+        // Initialize retained models before culling so first selection has a pose.
+        let frozen = rig.active && visibility::outside_views(position, layers, &cameras);
         if frozen {
             rig.frozen = true;
             metrics.culled_character_count += 1;

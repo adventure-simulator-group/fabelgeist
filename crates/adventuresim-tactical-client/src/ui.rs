@@ -52,17 +52,12 @@ pub(crate) struct TacticalUiRoot;
 /// Pins the primary egui context to the gameplay camera. The automatic
 /// first-camera adoption is disabled in `UiPlugin::build`, so cameras that
 /// render offscreen never receive UI passes.
-#[expect(
-    clippy::type_complexity,
-    reason = "the Bevy camera filter selects newly added gameplay cameras without cloud or existing egui contexts"
-)]
 fn attach_primary_egui_context(
     mut commands: Commands,
     cameras: Query<
         Entity,
         (
-            Added<Camera3d>,
-            Without<crate::presentation::TacticalCloudOffscreenCamera>,
+            Added<crate::presentation::TacticalGameplayCamera>,
             Without<EguiContext>,
         ),
     >,
@@ -946,6 +941,23 @@ fn on_new_player_added_hook(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn strategic_scene_cameras_do_not_receive_tactical_egui_contexts() {
+        let mut app = App::new();
+        app.add_systems(Update, attach_primary_egui_context);
+        let gameplay = app
+            .world_mut()
+            .spawn((
+                Camera3d::default(),
+                crate::presentation::TacticalGameplayCamera,
+            ))
+            .id();
+        let portrait = app.world_mut().spawn(Camera3d::default()).id();
+        app.update();
+        assert!(app.world().get::<PrimaryEguiContext>(gameplay).is_some());
+        assert!(app.world().get::<EguiContext>(portrait).is_none());
+    }
 
     #[test]
     fn combat_label_surfaces_live_and_incapacitated_state() {

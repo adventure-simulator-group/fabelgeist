@@ -28,13 +28,14 @@ pub(super) fn append(lod: &mut BuildingLod, plan: &BuildingPlan) {
             }
         }
     }
+    let compiler = crate::detail::SolidDetailCompiler::new(plan);
     for solid in plan
         .resolved_geometry
         .solids
         .iter()
         .filter(|solid| ids.contains(&solid.id))
     {
-        for mesh in crate::compile_solid_detail(plan, solid).meshes {
+        for mesh in compiler.compile(solid).meshes {
             let target = lod.mesh_mut(mesh.material);
             let offset = target.vertices.len() as u32;
             target.vertices.extend(mesh.vertices);

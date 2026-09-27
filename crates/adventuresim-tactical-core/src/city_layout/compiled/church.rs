@@ -1,6 +1,6 @@
 //! Validate the principal church's complete envelope and street approach.
 use super::*;
-use adventuresim_building_generator::interior::standing_path_clear;
+use adventuresim_building_generator::interior::StandingClearance;
 use recipes::Recipe;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -47,12 +47,9 @@ pub(super) fn validate(
     };
     // Door leaves are dynamic and excluded from static building collision.
     // This continuous body sweep includes the portal throat and its outer path.
-    if !standing_path_clear(
-        &recipe.collision.cuboids,
-        physical(door),
-        physical(street),
-        0.0,
-    ) {
+    if !StandingClearance::new(&recipe.collision.cuboids, 0.0)
+        .is_clear(physical(door), physical(street))
+    {
         return Err(error(ChurchSitingIssue::ApproachBlocked));
     }
     Ok(())

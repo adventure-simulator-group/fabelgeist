@@ -23,7 +23,6 @@ pub mod interior;
 mod lod;
 mod member_uv;
 mod model;
-pub mod prepared;
 mod roof_enclosure;
 mod roof_tessellation;
 mod settlement;

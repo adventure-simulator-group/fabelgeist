@@ -6,12 +6,20 @@ collision meshes; the standalone viewer provides architectural inspection.
 
 ## Geometry compilation
 
-Generation retains the complete structural audit. Spatial indexes only prune
+Runtime generation performs input and construction checks. Exhaustive
+structural audits run explicitly in tests and authoring tools; editor documents
+must pass them before acceptance. Within those audits, spatial indexes prune
 impossible contact candidates; the existing overlap and clearance predicates
 remain authoritative. Candidate results preserve source order so first-match
 selection, issue ordering, and generated structural identities stay stable.
 Wall-corner and roof-weathering passes cache solid membership and bounds for
 their fixed input geometry.
+
+Attic-window candidate searches resolve timber member solids once per gable
+and query a conservative bounds index before applying the exact oriented
+contact test. Candidate order and the permitted tie/head contacts remain
+unchanged. The index is rebuilt for each gable so earlier inserted apertures
+are included in subsequent searches.
 
 Render meshes use indexed vertices with shared position, normal, and texture
 coordinates where the tangent basis also agrees. Consumers must follow the
@@ -127,7 +135,7 @@ pitch is an authored fixture dimension.
 In playable buildings, an operable leaf has one replicated entity through both
 Detail and Facade when its exact exterior host supports that representation.
 Every window material batch follows the same policy. Unsupported host types
-keep their existing Detail-only dynamic leaves. Prepared city buildings retain
+keep their existing Detail-only dynamic leaves. Generated city buildings retain
 authored closure states; they do not contain tactical opening state.
 
 Stove surfaces have continuous metric ceramic courses with narrow recessed
@@ -144,11 +152,11 @@ shutters and glazed casements, barred windows, doors and stove courses. Opening
 camera offsets follow the selected opening's tangent, vertical and outward axes.
 The diagnostic poses use production leaf meshes and hinge transforms.
 
-Prepared recipe identities include the render compilation version as well as
-the programme. Increment that version when compiled meshes change without a
-programme schema change. Refresh the shipped city
-assets after geometry changes with
-`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
+The client compiles building geometry and LODs from programmes during initial
+loading. Compiled building assets are not shipped. Repeated material textures
+may be served and shared. The tactical client's resident city renderer packs
+generated meshes into GPU buffers and selects visible LODs with compute passes;
+see the [shared renderer guide](../strategic-web/UNIFIED_RENDERER.md).
 
 ## Current boundary
 
@@ -167,13 +175,14 @@ roof pitch. `generate` produces:
 - eight distinct defensive crowns, continuous wall walks, tower-top decks,
   detached curtain walls, square bell towers, and corbelled corner bartizans.
 
-`generate` is also the public validity boundary. An `Ok(BuildingPlan)` has
-passed the complete semantic and geometric audit; a recipe that cannot produce
-an audit-clean building returns a typed `GenerationError::StructuralContract`
-containing the audit findings. Internal unchecked construction exists only so
-the generator's mutation tests can prove that this boundary rejects corrupted
-plans. The fixture seed matrix continuously exercises all archetypes at zero,
-adjacent, ordinary proof, large, and wrapping-boundary seeds.
+`generate` rejects unsupported inputs and construction failures without running
+the exhaustive semantic and geometric audit during gameplay. Tests and
+inspection tools call `audit_plan` explicitly. `generate_document` and
+`edit_document` audit authoring results before accepting them, returning
+`GenerationError::StructuralContract` with the findings on failure. The fixture
+seed matrix generates and audits all archetypes at zero, adjacent, ordinary
+proof, large, and wrapping-boundary seeds. Mutation tests verify that the
+authoring audit rejects corrupted plans.
 
 The grid is topological rather than voxel geometry. Floors, wall openings,
 roofs, towers, stairs, and battlements are derived structures. Circular towers
@@ -288,8 +297,8 @@ the script runner share the same player-build edit reducer.
 grid snapping and cardinal-axis rule as the Construct-mode drag tool.
 
 `BuildingDocument` is versioned JSON containing a `BuildingProgram` plus an
-ordered edit log. Each UI command regenerates the complete plan and runs the
-same audit as `generate`; an invalid command reports an error and leaves the
+ordered edit log. Each UI command regenerates the complete plan and runs
+`audit_plan`; an invalid command reports an error and leaves the
 current document and scene unchanged. Undo and redo operate on document
 snapshots. Save and load never serialize resolved meshes, which remain derived
 evidence rather than a parallel editing authority.

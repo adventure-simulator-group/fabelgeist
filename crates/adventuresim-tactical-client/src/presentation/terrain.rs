@@ -125,7 +125,7 @@ struct DetailRockInfluence {
 }
 
 #[derive(Component)]
-pub(in crate::presentation) struct PendingTerrainPresentation;
+pub(crate) struct PendingTerrainPresentation;
 
 pub(in crate::presentation) fn on_game_scene_added(
     event: On<Add, SceneId>,

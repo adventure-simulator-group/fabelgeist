@@ -95,6 +95,7 @@ fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurc
         }
         return;
     }
+    let compiler = crate::detail::SolidDetailCompiler::new(plan);
     for solid in plan
         .resolved_geometry
         .solids
@@ -112,6 +113,6 @@ fn append_belfry(lod: &mut BuildingLod, plan: &BuildingPlan, church: &SmallChurc
         }
         exposed.centre.y = (bottom + top) * 0.5;
         exposed.size.y = top - bottom;
-        append_outward_solid(lod, plan, &exposed, None);
+        append_outward_solid(lod, plan, &compiler, &exposed, None);
     }
 }

@@ -19,7 +19,7 @@ use std::sync::Arc;
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
 use bevy::{
     camera::{primitives::Aabb, visibility::NoFrustumCulling},
-    color::{Color, LinearRgba},
+    color::Color,
     light::NotShadowCaster,
     prelude::*,
 };
@@ -30,15 +30,19 @@ use crate::presentation::{bps, stable_text_seed};
 use super::{
     GrassInteractor, GroundScatterLayer,
     grass::{
-        GrassCommunity, GrassCommunityProfile, GrassMeshLod, GrassSpecies, cell_allows_grass,
-        configured_tuft_footprint_metres, grass_community_at, grass_species, grass_tuft_mesh,
+        GrassCommunity, GrassCommunityField, GrassCommunityProfile, GrassMeshLod, GrassSpecies,
+        cell_allows_grass, configured_tuft_footprint_metres, grass_species, grass_tuft_mesh,
     },
     grass_pigment, grass_scatter_density,
 };
 
 use super::cover_mask::CoverageMask;
+mod batches;
+mod culling;
 mod diagnostics;
+pub(in crate::presentation) use batches::spawn_tuft_batches;
 mod material;
+mod view_culling;
 pub(crate) use diagnostics::GrassTriangleCount;
 pub(in crate::presentation) use material::TacticalGrassInstancedMaterial;
 
@@ -50,7 +54,7 @@ impl Plugin for InstancedGrassPlugin {
             InstancedMaterialCorePlugin,
             GpuComputeCullCorePlugin,
             InstancedMaterialPlugin::<TacticalGrassInstancedMaterial>::default(),
-            GpuCullComputePlugin::<TacticalGrassInstancedMaterial>::default(),
+            view_culling::GrassCullingPlugin,
             InstancedMaterialPlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
             GpuCullComputePlugin::<super::TacticalShrubBarkInstancedMaterial>::default(),
             InstancedMaterialPlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
@@ -102,18 +106,18 @@ fn present_instanced_grass(
         let ground = masked_ground.as_ref().unwrap_or(ground);
         let grass = &settings.config.grass;
         let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
-        let placement = ScenePlacement {
+        let mut placement = ScenePlacement {
             terrain,
             ground,
             mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
             profile: GrassCommunityProfile::from_environment(environment),
-            base_seed,
+            communities: GrassCommunityField::new(base_seed),
         };
         let mut batches = TierSpeciesBatches::default();
         for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
             scatter_cell_tufts(
                 &mut batches[lod.tier_index()],
-                &placement,
+                &mut placement,
                 base_seed,
                 lod,
                 grass.placement.playable_patch_spacing_m,
@@ -127,7 +131,7 @@ fn present_instanced_grass(
         }
         scatter_cell_tufts(
             &mut batches[GrassMeshLod::Vista.tier_index()],
-            &placement,
+            &mut placement,
             base_seed ^ 0x7669_7374_615f_6c6f,
             GrassMeshLod::Vista,
             grass.placement.vista_patch_spacing_m,
@@ -345,7 +349,7 @@ pub(in crate::presentation) trait TuftPlacement {
     fn height(&self, centre: Vec2) -> Option<f32>;
 
     /// Which community - and so which species pool - claims this site.
-    fn community(&self, centre: Vec2) -> GrassCommunity;
+    fn community(&mut self, centre: Vec2) -> GrassCommunity;
 }
 
 /// The command buffer and asset stores a sward spawn writes through.
@@ -365,7 +369,7 @@ struct ScenePlacement<'a> {
     ground: &'a SceneGround,
     mask: CoverageMask,
     profile: GrassCommunityProfile,
-    base_seed: u64,
+    communities: GrassCommunityField,
 }
 
 impl TuftPlacement for ScenePlacement<'_> {
@@ -401,8 +405,8 @@ impl TuftPlacement for ScenePlacement<'_> {
             .map(|_| height)
     }
 
-    fn community(&self, centre: Vec2) -> GrassCommunity {
-        grass_community_at(centre, self.base_seed, self.profile)
+    fn community(&mut self, centre: Vec2) -> GrassCommunity {
+        self.communities.at(centre, self.profile)
     }
 }
 
@@ -418,90 +422,11 @@ pub(in crate::presentation) struct TuftPigment {
     pub(in crate::presentation) wind_scale: f32,
 }
 
-/// Turns filled instance batches into one entity per (tier, species), each
-/// carrying `marker` on top of the shared instanced-draw components.
-pub(in crate::presentation) fn spawn_tuft_batches(
-    world: GrassWorld<'_, '_, '_>,
-    batches: &mut TierSpeciesBatches,
-    label: &str,
-    marker: impl Bundle + Clone,
-    base_seed: u64,
-    pigment: TuftPigment,
-    grass: &crate::presentation::config::GrassConfig,
-) {
-    let GrassWorld {
-        commands,
-        meshes,
-        materials,
-    } = world;
-    for lod in TIERS {
-        let material = materials.add(diagnostics::material(
-            lod,
-            grass,
-            pigment.density,
-            pigment.dryness,
-            pigment.wind_scale,
-        ));
-        for species in GrassSpecies::ALL {
-            let instances = std::mem::take(&mut batches[lod.tier_index()][species.index()]);
-            if instances.is_empty() {
-                continue;
-            }
-            let (mesh, triangle_count) = diagnostics::add_mesh(
-                meshes,
-                grass_tuft_mesh(
-                    pigment.color,
-                    lod,
-                    pigment.density,
-                    species,
-                    streams::TUFT_MESH
-                        .seed(
-                            base_seed,
-                            &[species.index() as u64, lod.tier_index() as u64],
-                        )
-                        .to_u64(),
-                    grass,
-                ),
-            );
-            let mut entity = commands.spawn((
-                Name::new(format!(
-                    "{label} {species:?} {lod:?} tufts ({})",
-                    instances.len()
-                )),
-                GroundScatterLayer::Grass,
-                triangle_count,
-                GpuCullCompute,
-                // Batches span the whole scene, so CPU frustum culling can
-                // only ever hide them wholesale - and worse, a culled frame
-                // drops the batch from `RenderMeshInstances`, which makes
-                // eidolon free and re-upload the retained instance buffers
-                // every time the camera pitch crosses the horizon. Culling
-                // belongs solely to the GPU compute pass.
-                NoFrustumCulling,
-                Mesh3d(mesh),
-                InstancedMeshMaterial(material.clone()),
-                fitted_batch_aabb(&instances, configured_tuft_footprint_metres(lod, grass)),
-                InstanceMaterialData {
-                    instances: Arc::new(instances),
-                    color: LinearRgba::WHITE,
-                    visibility_range: configured_tier_visibility_range(lod, grass),
-                },
-                Transform::default(),
-                Visibility::Inherited,
-            ));
-            entity.insert(marker.clone());
-            if !diagnostics::casts_shadows(lod, grass) {
-                entity.insert(NotShadowCaster);
-            }
-        }
-    }
-}
-
 /// Walks the jittered placement cells and fills per-species instance vectors
 /// with tuft placements.
 pub(in crate::presentation) fn scatter_cell_tufts(
     species_batches: &mut [Vec<InstanceData>; GrassSpecies::ALL.len()],
-    placement: &impl TuftPlacement,
+    placement: &mut impl TuftPlacement,
     base_seed: u64,
     lod: GrassMeshLod,
     cell_spacing: f32,

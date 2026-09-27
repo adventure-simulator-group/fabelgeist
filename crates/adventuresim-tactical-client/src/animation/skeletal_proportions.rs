@@ -69,9 +69,9 @@ impl BoneReference {
 pub(super) fn sync_skeletal_proportions(
     mut commands: Commands,
     owners: Query<(
-        &CharacterId,
-        Option<&CharacterSkeletalProportions>,
-        Option<&SkeletalProportionReference>,
+        Ref<CharacterId>,
+        Option<Ref<CharacterSkeletalProportions>>,
+        Option<Ref<SkeletalProportionReference>>,
     )>,
     bones: Query<(
         Entity,
@@ -81,15 +81,34 @@ pub(super) fn sync_skeletal_proportions(
         Option<&Name>,
         Option<&SkeletalJointOffset>,
     )>,
+    new_bones: Query<
+        &AuthoredBindTransform,
+        Or<(Added<AuthoredBindTransform>, Changed<SkeletalJointBasis>)>,
+    >,
+    mut removed_proportions: RemovedComponents<CharacterSkeletalProportions>,
+    mut removed_references: RemovedComponents<SkeletalProportionReference>,
 ) {
+    let rebuilt: HashSet<_> = new_bones
+        .iter()
+        .map(|bone| bone.owner)
+        .chain(removed_proportions.read())
+        .chain(removed_references.read())
+        .collect();
     let mut rigs = BTreeMap::<Entity, BTreeMap<Entity, BoneReference>>::new();
     for (entity, bind, basis, parent, name, _) in &bones {
         let Ok((id, explicit, reference)) = owners.get(bind.owner) else {
             continue;
         };
+        if !rebuilt.contains(&bind.owner)
+            && !id.is_changed()
+            && !explicit.as_ref().is_some_and(|value| value.is_changed())
+            && !reference.as_ref().is_some_and(|value| value.is_changed())
+        {
+            continue;
+        }
         if let Some(basis) = basis {
             let exported = SkeletalProportionReference(basis.0.reference);
-            if reference != Some(&exported) {
+            if reference.as_deref() != Some(&exported) {
                 commands.entity(bind.owner).insert(exported);
             }
         }
@@ -232,5 +251,25 @@ mod tests {
         }
         world.run_system_cached(sync_skeletal_proportions).unwrap();
         assert!((world.get::<SkeletalJointOffset>(rigs[1].0).unwrap().0.y - 0.05).abs() < 1e-6);
+        let hip = rigs[1].1[0];
+        let owner = world.get::<AuthoredBindTransform>(hip).unwrap().owner;
+        world
+            .entity_mut(owner)
+            .insert(CharacterSkeletalProportions::default());
+        world.run_system_cached(sync_skeletal_proportions).unwrap();
+        assert_eq!(world.get::<SkeletalJointOffset>(hip).unwrap().0.x, 0.0);
+        world
+            .entity_mut(owner)
+            .remove::<CharacterSkeletalProportions>();
+        world.run_system_cached(sync_skeletal_proportions).unwrap();
+        let expected = world
+            .get::<SkeletalJointBasis>(hip)
+            .unwrap()
+            .0
+            .translation(CharacterProportions::from_character_id(43));
+        assert_eq!(
+            world.get::<SkeletalJointOffset>(hip).unwrap().0.x,
+            expected[0]
+        );
     }
 }

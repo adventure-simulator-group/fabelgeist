@@ -3,28 +3,38 @@ use super::{geometry::*, obstruction::Obstruction};
 use crate::CollisionCuboid;
 use bevy::math::Vec2;
 
-/// Conservative continuous sweep in the input cuboids' coordinate system.
-pub fn standing_path_clear(
-    cuboids: &[CollisionCuboid],
-    start: Vec2,
-    end: Vec2,
-    floor_elevation_metres: f32,
-) -> bool {
-    cuboids.iter().all(|solid| {
-        let obstruction = Obstruction::new(
-            solid.centre,
-            solid.size,
-            solid.yaw_radians,
-            solid.crossfall_radians,
-            solid.longfall_radians,
-        );
-        obstruction
-            .projection(
-                floor_elevation_metres + FLOOR_CLEARANCE,
-                floor_elevation_metres + PERSON_HEIGHT,
-            )
-            .is_none_or(|rect| !segment_intersects(rect.expanded(PERSON_RADIUS), start, end))
-    })
+/// Height-clipped obstacles for repeated conservative standing-body sweeps.
+/// Coordinates and elevation belong to the input cuboids' coordinate system.
+pub struct StandingClearance(Vec<Rect>);
+
+impl StandingClearance {
+    pub fn new(cuboids: &[CollisionCuboid], floor_elevation_metres: f32) -> Self {
+        Self(
+            cuboids
+                .iter()
+                .filter_map(|solid| {
+                    Obstruction::new(
+                        solid.centre,
+                        solid.size,
+                        solid.yaw_radians,
+                        solid.crossfall_radians,
+                        solid.longfall_radians,
+                    )
+                    .projection(
+                        floor_elevation_metres + FLOOR_CLEARANCE,
+                        floor_elevation_metres + PERSON_HEIGHT,
+                    )
+                    .map(|rect| rect.expanded(PERSON_RADIUS))
+                })
+                .collect(),
+        )
+    }
+
+    pub fn is_clear(&self, start: Vec2, end: Vec2) -> bool {
+        self.0
+            .iter()
+            .all(|&rect| !segment_intersects(rect, start, end))
+    }
 }
 
 fn segment_intersects(rect: Rect, start: Vec2, end: Vec2) -> bool {
@@ -64,8 +74,41 @@ mod tests {
             crossfall_radians: 0.0,
             longfall_radians: 0.0,
         };
-        assert!(!standing_path_clear(&[obstacle], -Vec2::X, Vec2::X, 0.0));
+        assert!(!StandingClearance::new(&[obstacle], 0.0).is_clear(-Vec2::X, Vec2::X));
         obstacle.centre.y = 3.0;
-        assert!(standing_path_clear(&[obstacle], -Vec2::X, Vec2::X, 0.0));
+        assert!(StandingClearance::new(&[obstacle], 0.0).is_clear(-Vec2::X, Vec2::X));
+    }
+
+    #[test]
+    fn prepared_clearance_preserves_rotated_obstacles_at_multiple_heights() {
+        let cuboids = [0.0, 0.3, 1.1].map(|angle| CollisionCuboid {
+            source: crate::ResolvedItemId(1),
+            centre: Vec3::new(angle, 1.2, -angle),
+            size: Vec3::new(2.0, 0.3, 0.2),
+            yaw_radians: angle,
+            crossfall_radians: angle * 0.5,
+            longfall_radians: angle,
+        });
+        for floor in [-1.0, 0.0, 0.2, 1.0, 3.0] {
+            let clearance = StandingClearance::new(&cuboids, floor);
+            for x in -8..=8 {
+                let start = Vec2::new(x as f32 * 0.25, -2.0);
+                let end = Vec2::new(-start.x, 2.0);
+                let original = cuboids.iter().all(|s| {
+                    Obstruction::new(
+                        s.centre,
+                        s.size,
+                        s.yaw_radians,
+                        s.crossfall_radians,
+                        s.longfall_radians,
+                    )
+                    .projection(floor + FLOOR_CLEARANCE, floor + PERSON_HEIGHT)
+                    .is_none_or(|rect| {
+                        !segment_intersects(rect.expanded(PERSON_RADIUS), start, end)
+                    })
+                });
+                assert_eq!(clearance.is_clear(start, end), original);
+            }
+        }
     }
 }

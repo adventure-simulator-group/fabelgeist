@@ -1758,6 +1758,7 @@ fn setup_scene(
         gardens,
         repairs,
         terrain_patch,
+        building_recipes: _,
     } = generated;
     let terrain_summary = TerrainSummary::new(&input, &terrain);
     let (

@@ -7,9 +7,9 @@ mod storage_range;
 /// High-level input recipe for procedural building generation.
 ///
 /// The recipe is intentionally allowed to describe combinations that cannot be
-/// built. The public [`crate::generate`] boundary is the validator: every
-/// successful result has passed the complete structural audit, while an
-/// unbuildable recipe returns [`crate::GenerationError`].
+/// built. [`crate::generate`] rejects unsupported inputs and construction
+/// failures with [`crate::GenerationError`]. Tests and authoring tools use
+/// [`crate::audit_plan`] for exhaustive semantic and geometric verification.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BuildingProgram {
     pub archetype: BuildingArchetype,

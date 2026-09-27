@@ -1,11 +1,10 @@
 //! Persistent browser renderer shared by strategic scenes and tactical play.
 //!
-//! The proof of concept deliberately installs the complete tactical plugin
-//! graph and retains eager asset loading. This module supplies only the
-//! lifecycle seam: JavaScript queues typed scene commands, Bevy owns the one
-//! running world, and scene-scoped entities are removed without recreating the
-//! Wasm application, WebGPU device, or persistent asset stores.
+//! JavaScript queues typed scene commands; Bevy retains strategic venues,
+//! character rigs and camera views alongside the tactical plugin graph.
+//! Changing modes preserves the Wasm application, WebGPU device and assets.
 
+mod forge_view;
 use std::{
     collections::VecDeque,
     sync::{Mutex, OnceLock},
@@ -15,8 +14,6 @@ use adventuresim_tactical_netcode::prelude::AdventureSimulatorClient;
 use adventuresim_weapon_model::{WeaponDesign, default_design, encode, generate};
 use bevy::{
     asset::RenderAssetUsages,
-    camera::Exposure,
-    light::GlobalAmbientLight,
     mesh::{Indices, PrimitiveTopology},
     prelude::*,
 };
@@ -40,6 +37,13 @@ pub(crate) enum BrowserMode {
 #[derive(Debug, Deserialize)]
 #[serde(tag = "type", rename_all = "kebab-case")]
 enum BrowserCommand {
+    PrepareStrategicScene {
+        location: String,
+        input_json: String,
+    },
+    SyncStrategicView {
+        view: crate::strategic_scene::protocol::StrategicView,
+    },
     ShowStrategicScene {
         scene: StrategicScene,
     },
@@ -124,12 +128,46 @@ impl BrowserRuntimePlugin {
 
 impl Plugin for BrowserRuntimePlugin {
     fn build(&self, app: &mut App) {
+        app.add_plugins(crate::strategic_scene::StrategicScenePlugin);
         app.insert_resource(self.initial_mode)
             .init_resource::<ForgePreviewView>()
+            .add_systems(Startup, forge_view::setup)
+            .add_systems(Update, forge_view::sync)
             .add_systems(
                 Update,
                 (drain_browser_commands, sync_tactical_ui_visibility),
+            )
+            .add_systems(
+                PostUpdate,
+                sync_gameplay_view
+                    .before(bevy::camera::CameraUpdateSystems)
+                    .before(bevy::transform::TransformSystems::Propagate),
             );
+    }
+}
+
+fn sync_gameplay_view(
+    mode: Res<BrowserMode>,
+    sky: Res<crate::presentation::AtmosphereIblCache>,
+    settings: Res<crate::presentation::TacticalGraphicsSettings>,
+    view: Option<Res<crate::strategic_scene::protocol::StrategicView>>,
+    mut cameras: Query<&mut Camera, With<TacticalGameplayCamera>>,
+) {
+    for mut camera in &mut cameras {
+        if *mode == BrowserMode::Tactical {
+            camera.is_active = true;
+            camera.viewport = None;
+            camera.sub_camera_view = None;
+        } else {
+            // The atmosphere bake validates submissions from this exact camera.
+            // Render a masked one-pixel view until its shared environment map exists.
+            camera.is_active = view.is_some() && !sky.is_ready(&settings);
+            camera.viewport = Some(bevy::camera::Viewport {
+                physical_size: UVec2::ONE,
+                ..default()
+            });
+            camera.sub_camera_view = None;
+        }
     }
 }
 
@@ -146,7 +184,6 @@ pub(crate) fn queue_json(json: &str) -> Result<(), String> {
 
 #[expect(
     clippy::too_many_arguments,
-    clippy::type_complexity,
     reason = "the browser command bridge coordinates the complete renderer state in one exclusive drain"
 )]
 fn drain_browser_commands(
@@ -158,31 +195,23 @@ fn drain_browser_commands(
     clients: Query<Entity, With<AdventureSimulatorClient>>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    mut cameras: Query<
-        (&mut Transform, &mut Exposure),
-        (With<TacticalGameplayCamera>, Without<StrategicSceneRoot>),
-    >,
     mut scene_roots: Query<&mut Transform, (With<StrategicSceneRoot>, Without<Camera3d>)>,
     mut preview_view: ResMut<ForgePreviewView>,
-    mut ambient: ResMut<GlobalAmbientLight>,
 ) {
-    let pending = COMMANDS
-        .get_or_init(|| Mutex::new(VecDeque::new()))
-        .lock()
-        .map(|mut queue| queue.drain(..).collect::<Vec<_>>())
-        .unwrap_or_default();
+    let pending = pending_commands();
 
     for command in pending {
         match command {
+            BrowserCommand::PrepareStrategicScene {
+                location,
+                input_json,
+            } => prepare_city(&mut commands, location, input_json),
+            BrowserCommand::SyncStrategicView { view } => {
+                commands.insert_resource(view);
+            }
             BrowserCommand::ShowStrategicScene { scene } => {
                 *mode = BrowserMode::Strategic;
                 despawn_strategic_scene(&mut commands, &scene_entities);
-                for (mut camera, mut exposure) in &mut cameras {
-                    *camera = Transform::IDENTITY.looking_to(Vec3::NEG_Z, Vec3::Y);
-                    exposure.ev100 = 8.0;
-                }
-                ambient.color = Color::srgb(0.95, 0.82, 0.66);
-                ambient.brightness = 1_200.0;
                 match scene {
                     StrategicScene::Forge {
                         catalog_id,
@@ -210,6 +239,7 @@ fn drain_browser_commands(
                 }
             }
             BrowserCommand::HideStrategicScene => {
+                commands.remove_resource::<crate::strategic_scene::protocol::StrategicView>();
                 despawn_strategic_scene(&mut commands, &scene_entities);
                 *preview_view = ForgePreviewView::default();
             }
@@ -217,12 +247,9 @@ fn drain_browser_commands(
                 server_addr,
                 character_id,
             } => {
+                commands.queue(crate::strategic_scene::release_scene);
+                commands.remove_resource::<crate::strategic_scene::protocol::StrategicView>();
                 despawn_strategic_scene(&mut commands, &scene_entities);
-                for (_, mut exposure) in &mut cameras {
-                    *exposure = Exposure::SUNLIGHT;
-                }
-                ambient.color = Color::srgb(0.36, 0.48, 0.72);
-                ambient.brightness = 0.6;
                 if clients.is_empty() {
                     args.id = character_id;
                     args.server_addr.clone_from(&server_addr);
@@ -242,6 +269,14 @@ fn drain_browser_commands(
             }
         }
     }
+}
+
+fn pending_commands() -> Vec<BrowserCommand> {
+    COMMANDS
+        .get_or_init(|| Mutex::new(VecDeque::new()))
+        .lock()
+        .map(|mut queue| queue.drain(..).collect())
+        .unwrap_or_default()
 }
 
 fn despawn_strategic_scene(
@@ -311,6 +346,9 @@ fn spawn_forge_scene(
         commands.spawn((
             Name::new(format!("Strategic forge part {}", part.component_id)),
             Mesh3d(meshes.add(mesh)),
+            bevy::camera::visibility::RenderLayers::layer(
+                crate::strategic_scene::protocol::FORGE_LAYER,
+            ),
             MeshMaterial3d(materials.add(preview_material(part.material))),
             Transform::from_translation(-center),
             ChildOf(root),
@@ -319,6 +357,9 @@ fn spawn_forge_scene(
 
     commands.spawn((
         Name::new("Strategic forge preview light"),
+        bevy::camera::visibility::RenderLayers::layer(
+            crate::strategic_scene::protocol::FORGE_LAYER,
+        ),
         StrategicSceneEntity,
         DirectionalLight {
             illuminance: 60_000.0,
@@ -330,6 +371,9 @@ fn spawn_forge_scene(
 
     commands.spawn((
         Name::new("Strategic forge preview fill light"),
+        bevy::camera::visibility::RenderLayers::layer(
+            crate::strategic_scene::protocol::FORGE_LAYER,
+        ),
         StrategicSceneEntity,
         PointLight {
             intensity: 12_000.0,
@@ -434,4 +478,11 @@ mod tests {
         view.zoom(10_000.0);
         assert_eq!(view.distance, 4.5);
     }
+}
+
+fn prepare_city(commands: &mut Commands, location: String, input_json: String) {
+    commands.insert_resource(crate::strategic_scene::SceneDocument::parse(
+        location,
+        &input_json,
+    ));
 }

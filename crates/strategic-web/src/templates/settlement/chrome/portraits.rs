@@ -43,7 +43,7 @@ pub(crate) fn character_portrait_overlay(
                                     (decoration)
                                 }
                                 span class="scene-interactable-visual party-portrait-initial" {
-                                    span class="party-portrait-face" { (member.name.chars().next().unwrap_or('?')) }
+                                    span class="party-portrait-face" data-bevy-character=(member.id) { (member.name.chars().next().unwrap_or('?')) }
                                     @if let Some(badge) = &member.badge {
                                         (badge)
                                     }

@@ -12,7 +12,7 @@ pub(super) fn character_switcher(name: &str) -> Markup {
             summary class="character-switcher-toggle"
                 aria-label=(format!("Character menu for {name}")) title=(name) {
                 span class="party-portrait-initial character-switcher-portrait" aria-hidden="true" {
-                    span class="party-portrait-face" { (initial) }
+                    span class="party-portrait-face" data-bevy-current-character { (initial) }
                 }
             }
             div class="character-switcher-menu" {

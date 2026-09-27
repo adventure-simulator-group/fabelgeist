@@ -148,16 +148,9 @@ The browser reads `assets/art-demo/city-layout.json` and the companion
 `city-furniture.json`; expensive settlement recipe validation and furniture
 placement run during asset generation instead of tab navigation.
 
-Then run
-`cargo run -p adventuresim-tactical-client --example prepare-art-demo-buildings`.
-Pass `-- --output target/art-demo-buildings` to prepare an isolated copy for
-validation without replacing the shipped assets.
-This writes the production facade, shell and detail meshes to
-`assets/art-demo/buildings`, keyed by the serialized recipe. Overview and
-inspection assets are separate; placement materials and shop names remain
-deterministic at runtime. Regenerate these assets after changing building
-recipes or the city layout. The browser does not compile building geometry
-or collision.
+The client generates building geometry and LODs from those recipes. Compiled
+building meshes are not served. Reusable surface textures may be served;
+placement materials and shop names remain deterministic at runtime.
 
 After changing the fixed oak specimen, tree geometry, or impostor renderer,
 regenerate its canonical impostors with:

@@ -346,7 +346,10 @@ fn both_ridge_axes_preserve_original_members_and_omit_blocked_bays() {
         obstruction.solid = ResolvedItemId(999);
         builder.members.push(obstruction);
         assert!(
-            !candidate.fits(&builder, face),
+            !candidate.fits(
+                &OpeningObstacles::new(&builder.members, &builder.geometry.solids),
+                face
+            ),
             "exterior jamb strip must be clear"
         );
         builder.members.pop();

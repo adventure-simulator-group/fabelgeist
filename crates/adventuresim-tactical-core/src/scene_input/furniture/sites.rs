@@ -1,9 +1,7 @@
 //! Lightweight frontage geometry shared by tactical and distant building sites.
 use super::*;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
-use adventuresim_building_generator::{
-    BuildingPlan, BuildingProgram, CollisionBounds, OpeningUse, compile_building_collision,
-};
+use adventuresim_building_generator::{BuildingPlan, BuildingProgram, CollisionBounds, OpeningUse};
 #[derive(Clone)]
 pub(super) struct FurnitureSite {
     pub placement: TacticalBuildingPlacement,
@@ -72,6 +70,7 @@ impl SiteRecipe {
 pub(super) fn collect(
     input: &TacticalSceneInput,
     buildings: &[GeneratedBuilding],
+    recipes: &mut crate::scene_input::GeneratedBuildingRecipes,
 ) -> Result<Vec<FurnitureSite>, SceneInputError> {
     let mut sites = buildings
         .iter()
@@ -83,10 +82,10 @@ pub(super) fn collect(
         let recipe = if let Some((_, recipe)) = cache.iter().find(|(key, _)| *key == program) {
             recipe.clone()
         } else {
-            let plan = adventuresim_building_generator::generate(&program).map_err(|e| {
+            let generated = recipes.get_or_generate(&program).map_err(|e| {
                 SceneInputError::Validation(format!("distant furniture site {}: {e}", distant.id))
             })?;
-            let recipe = SiteRecipe::new(&plan, compile_building_collision(&plan).bounds);
+            let recipe = SiteRecipe::new(&generated.plan, generated.collision.bounds);
             cache.push((program.clone(), recipe.clone()));
             recipe
         };

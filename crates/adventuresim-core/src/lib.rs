@@ -22,6 +22,7 @@ pub mod disease;
 pub mod durability;
 pub mod encounter;
 pub mod equipment;
+pub mod equipment_presentation;
 pub mod errantry;
 pub mod essential;
 pub mod filth;
