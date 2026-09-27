@@ -1,7 +1,4 @@
-use super::super::{
-    BuildingPresentationScope, BuildingRenderLevel, DistantCityBuildingPresentation,
-    PendingCityBuildings, PresentedBuildingMesh,
-};
+use super::super::{DistantCityBuildingPresentation, PendingCityBuildings};
 use super::*;
 use bevy::{
     camera::{
@@ -16,7 +13,9 @@ use std::collections::HashMap;
 const FACADE_OVERLAY_FLAG: u32 = 1 << 8;
 const LOD_LEVEL_MASK: u32 = 3;
 
+mod input;
 mod props;
+pub(in crate::presentation::buildings) use input::PendingGpuBuildings;
 #[cfg(test)]
 mod tests;
 
@@ -28,57 +27,13 @@ pub(super) struct Building {
 }
 
 struct Part {
-    entity: Entity,
+    entity: Option<Entity>,
     root: Entity,
     transform: Mat4,
     mesh: Handle<Mesh>,
     material: Handle<StandardMaterial>,
     level: u32,
     fade: Option<std::ops::Range<f32>>,
-}
-
-fn parts(world: &mut World) -> Vec<Part> {
-    world
-        .query::<(
-            Entity,
-            &ChildOf,
-            &GlobalTransform,
-            &Mesh3d,
-            &PresentedBuildingMesh,
-            Option<&MeshMaterial3d<StandardMaterial>>,
-            Option<&crate::presentation::interior_lighting::InteriorMaterialSource>,
-        )>()
-        .iter(world)
-        .filter_map(
-            |(entity, parent, transform, mesh, part, standard, interior)| {
-                if !matches!(part.scope, BuildingPresentationScope::DistantCity) {
-                    return None;
-                }
-                let material = standard
-                    .map(|m| m.0.clone())
-                    .or_else(|| interior.map(|m| m.0.clone()))?;
-                Some(Part {
-                    entity,
-                    root: parent.parent(),
-                    transform: transform.to_matrix(),
-                    mesh: mesh.0.clone(),
-                    material,
-                    level: (match part.level {
-                        BuildingRenderLevel::Lod0 => 0,
-                        BuildingRenderLevel::Lod1 => 1,
-                        BuildingRenderLevel::Lod2 => 2,
-                    }) | if part.material
-                        == adventuresim_building_generator::BuildingLodMaterial::FacadeDetails
-                    {
-                        FACADE_OVERLAY_FLAG
-                    } else {
-                        0
-                    },
-                    fade: None,
-                })
-            },
-        )
-        .collect()
 }
 
 type MaterialRanges =
@@ -270,16 +225,13 @@ pub(super) fn assemble(world: &mut World) {
     {
         return;
     }
-    let mut parts = parts(world);
+    let mut parts = std::mem::take(&mut world.resource_mut::<PendingGpuBuildings>().parts);
     // Only publish alongside a completed city; interactive furniture is never
     // consumed by this static scenery path.
     if parts.is_empty() {
         return;
     }
     parts.extend(props::parts(world));
-    if parts.is_empty() {
-        return;
-    }
     READY.store(false, Ordering::Relaxed);
     let packed = pack(world, &parts);
     let scene = upload(world, packed);
@@ -289,7 +241,9 @@ pub(super) fn assemble(world: &mut World) {
         .map(|part| part.root)
         .collect();
     for part in parts {
-        world.entity_mut(part.entity).despawn();
+        if let Some(entity) = part.entity {
+            world.entity_mut(entity).despawn();
+        }
     }
     // Vista descriptors still retain the recipes and identities. These roots
     // have no physics, animation or remaining render children to update.

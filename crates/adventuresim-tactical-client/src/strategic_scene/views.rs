@@ -27,7 +27,7 @@ pub(super) struct ViewSpec {
     pub layers: RenderLayers,
 }
 
-fn person_view(
+pub(super) fn person_view(
     rect: CanvasRect,
     anchor: Vec3,
     facing: Quat,
@@ -197,7 +197,7 @@ fn view_specs(view: Option<&StrategicView>, scene: &RetainedScene) -> Vec<ViewSp
     specs
 }
 
-fn focused_layers(
+pub(super) fn focused_layers(
     scene: &RetainedScene,
     selected: Option<super::protocol::PortraitId>,
 ) -> RenderLayers {

@@ -1,12 +1,13 @@
 use super::*;
 
 #[test]
-fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
+fn queued_buildings_share_geometry_without_per_part_render_entities() {
     let mut world = World::new();
     world.init_resource::<Assets<Mesh>>();
     world.init_resource::<Assets<StandardMaterial>>();
     world.init_resource::<Assets<material::CityMaterial>>();
     world.init_resource::<Assets<ShaderBuffer>>();
+    world.init_resource::<PendingGpuBuildings>();
     let mut mesh = Mesh::from(Cuboid::new(2.0, 3.0, 4.0));
     // Repeated indexed triangles span 66 draw clusters, including a partial
     // final cluster, without adding unique geometry.
@@ -24,25 +25,25 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
         .add(StandardMaterial::default());
     for x in [0.0, 20.0] {
         let root = world.spawn_empty().id();
-        for level in [BuildingRenderLevel::Lod1, BuildingRenderLevel::Lod2] {
-            world.spawn((
-                ChildOf(root),
-                GlobalTransform::from_translation(Vec3::new(x, 0.0, 0.0)),
-                Mesh3d(mesh.clone()),
-                MeshMaterial3d(material.clone()),
-                PresentedBuildingMesh {
-                    scope: BuildingPresentationScope::DistantCity,
+        for level in [1, 2 | FACADE_OVERLAY_FLAG] {
+            world
+                .resource_mut::<PendingGpuBuildings>()
+                .parts
+                .push(Part {
+                    entity: None,
+                    root,
+                    transform: Mat4::from_translation(Vec3::new(x, 0.0, 0.0)),
+                    mesh: mesh.clone(),
+                    material: material.clone(),
                     level,
-                    material: if matches!(level, BuildingRenderLevel::Lod2) {
-                        adventuresim_building_generator::BuildingLodMaterial::FacadeDetails
-                    } else {
-                        adventuresim_building_generator::BuildingLodMaterial::Timber
-                    },
-                    triangles: 4_161,
-                },
-            ));
+                    fade: None,
+                });
         }
     }
+    assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), 0);
+    let packed = pack(&world, &world.resource::<PendingGpuBuildings>().parts);
+    assert_eq!(packed.buildings[1].bounds.x, 20.0);
+    assert_eq!(packed.buildings[0].levels.x, 6);
     assemble(&mut world);
     let scene = world.resource::<CityGpuScene>();
     assert_eq!(scene.count, 2);
@@ -87,10 +88,30 @@ fn repeated_buildings_share_geometry_and_release_per_part_render_entities() {
         24 * 3 * size_of::<Vec4>(),
         "one canonical cube, even across two buildings and two LODs"
     );
-    assert_eq!(
-        world.query::<&PresentedBuildingMesh>().iter(&world).count(),
-        0
-    );
+    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
+    let batches = world.query::<&Mesh3d>().iter(&world).count();
+    assemble(&mut world);
+    assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), batches);
+}
+
+#[test]
+fn replacing_city_discards_unpublished_instances() {
+    let mut world = World::new();
+    let root = world.spawn_empty().id();
+    world.insert_resource(PendingGpuBuildings {
+        parts: vec![Part {
+            entity: None,
+            root,
+            transform: Mat4::IDENTITY,
+            mesh: Handle::default(),
+            material: Handle::default(),
+            level: 1,
+            fade: None,
+        }],
+    });
+    super::super::reset(&mut world);
+    assert!(world.resource::<PendingGpuBuildings>().parts.is_empty());
+    assert_eq!(world.resource::<CityGpuScene>().count, 0);
 }
 
 #[test]

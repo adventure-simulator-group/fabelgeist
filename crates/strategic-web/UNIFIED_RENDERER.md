@@ -114,6 +114,12 @@ pipelines settle; the central conversation view stays live. A changed
 outfit, camera framing, viewport size or retained location invalidates the
 corresponding capture. Scrolling repositions retained images without rebuilding
 geometry.
+When the layout supplies a portrait size, cold readiness includes portraits for
+residents of unvisited venues at those dimensions. A pool of at most two snapshot
+camera entities captures these images and stays inactive between captures.
+Completed images remain resident. This also avoids exhausting Bevy's limited
+distance-visibility camera table with inactive cameras. A later layout requiring
+different dimensions still creates a new capture when that portrait is shown.
 Unchanged layout does not rebuild camera projections. The bridge exposes
 bounded readiness and navigation samples through
 `window.strategicRendererMetrics`.
@@ -153,7 +159,13 @@ its visible clusters with one global atomic operation. Workgroups check 64
 ranges at once; rejected ranges need no emission or synchronization. Each lane
 emits clusters of at most 64 triangles. Each visible entry stores an 8-byte pair
 of range index and index-buffer offset; the source has one record per range.
-The original per-part entities are released. Static outdoor vista furniture
+Static building parts enter an assembly queue directly, without temporary
+render entities or standard mesh GPU uploads. Their CPU meshes remain cached
+for reuse; the renderer uploads only the packed storage buffers. Building roots
+remain available for shop signs. Standalone preload uses a 64 ms work budget
+between yields, amortizing intervening frames. An individual building finishes
+before yielding and can exceed that budget.
+Static outdoor vista furniture
 joins these buffers, sharing canonical recipe geometry and retaining its
 distance fade. Its scenery roots have no tactical physics or animation and are
 released with their render children; the generated scene descriptors retain

@@ -14,9 +14,12 @@ use bevy::{
 };
 use std::collections::HashMap;
 
+mod preload;
+
 // A newly active view needs visibility, material specialization and render-world
 // preparation before its image contains geometry, even with resident assets.
 const CAPTURE_SETTLED_FRAMES: usize = 4;
+const CONCURRENT_CAPTURES: usize = 2;
 const COMPOSITOR_ORDER: isize = 256;
 
 fn compositor_camera(active: bool) -> Camera {
@@ -45,31 +48,55 @@ struct Signature {
     transform: Transform,
     equipment: Vec<EquipmentAppearance>,
 }
+
+impl Signature {
+    fn new(spec: &ViewSpec, view: Option<&StrategicView>) -> Self {
+        let key = spec.cache.as_ref().expect("cached view");
+        Self {
+            rect: match key {
+                ViewKey::Street => spec.rect.uncropped(),
+                ViewKey::Portrait { .. } => CanvasRect {
+                    x: 0,
+                    y: 0,
+                    ..spec.rect
+                },
+            },
+            transform: spec.transform,
+            equipment: match key {
+                ViewKey::Street => Vec::new(),
+                ViewKey::Portrait { person: id, .. } => view
+                    .and_then(|view| view.people.iter().find(|person| person.id == *id))
+                    .map_or_else(Vec::new, |person| person.equipment.clone()),
+            },
+        }
+    }
+}
 struct Frame {
-    camera: Entity,
+    camera: Option<Entity>,
+    image: Handle<Image>,
+    projection: Projection,
+    layers: RenderLayers,
     sprite: Entity,
     signature: Signature,
     remaining: usize,
-    visible: bool,
 }
 #[derive(Resource, Default)]
 pub(super) struct CachedViews {
     scene: Option<Entity>,
     compositor: Option<Entity>,
     frames: HashMap<ViewKey, Frame>,
+    free_cameras: Vec<Entity>,
 }
 impl CachedViews {
     pub(super) fn pending_captures(&self) -> usize {
         self.frames
             .values()
-            .filter(|frame| frame.visible && frame.remaining > 0)
+            .filter(|frame| frame.remaining > 0)
             .count()
     }
 
     pub(super) fn is_ready(&self) -> bool {
-        self.frames
-            .values()
-            .all(|frame| !frame.visible || frame.remaining == 0)
+        self.frames.values().all(|frame| frame.remaining == 0)
     }
 }
 
@@ -110,37 +137,25 @@ impl CacheWorld<'_> {
                 .id()
         });
         if self.retained.scene != scene.root {
+            let mut released = Vec::new();
             for (_, frame) in self.retained.frames.drain() {
-                commands.entity(frame.camera).despawn();
+                if let Some(camera) = frame.camera {
+                    deactivate(commands, camera);
+                    released.push(camera);
+                }
                 commands.entity(frame.sprite).despawn();
             }
+            self.retained.free_cameras.extend(released);
             self.retained.scene = scene.root;
         }
         for frame in self.retained.frames.values_mut() {
-            frame.visible = false;
             commands.entity(frame.sprite).insert(Visibility::Hidden);
         }
         for spec in specs {
             let Some(key) = &spec.cache else {
                 continue;
             };
-            let signature = Signature {
-                rect: match key {
-                    ViewKey::Street => spec.rect.uncropped(),
-                    ViewKey::Portrait { .. } => CanvasRect {
-                        x: 0,
-                        y: 0,
-                        ..spec.rect
-                    },
-                },
-                transform: spec.transform,
-                equipment: match key {
-                    ViewKey::Street => Vec::new(),
-                    ViewKey::Portrait { person: id, .. } => view
-                        .and_then(|view| view.people.iter().find(|person| person.id == *id))
-                        .map_or_else(Vec::new, |person| person.equipment.clone()),
-                },
-            };
+            let signature = Signature::new(spec, view);
             let changed = self
                 .retained
                 .frames
@@ -148,7 +163,10 @@ impl CacheWorld<'_> {
                 .is_none_or(|frame| frame.signature != signature);
             if changed {
                 if let Some(previous) = self.retained.frames.remove(key) {
-                    commands.entity(previous.camera).despawn();
+                    if let Some(camera) = previous.camera {
+                        deactivate(commands, camera);
+                        self.retained.free_cameras.push(camera);
+                    }
                     commands.entity(previous.sprite).despawn();
                 }
                 let frame = self.create(commands, spec, signature);
@@ -156,6 +174,16 @@ impl CacheWorld<'_> {
             }
             let frame = self.retained.frames.get_mut(key).expect("created snapshot");
             frame.show(commands, spec, window);
+        }
+        if let Some(view) = view {
+            for spec in preload::specs(view, scene) {
+                let key = spec.cache.clone().expect("portrait preload");
+                if !self.retained.frames.contains_key(&key) {
+                    let signature = Signature::new(&spec, Some(view));
+                    let frame = self.create(commands, &spec, signature);
+                    self.retained.frames.insert(key, frame);
+                }
+            }
         }
         let active = view.is_some();
         // Replacing Camera would erase its computed render-target metadata.
@@ -175,31 +203,10 @@ impl CacheWorld<'_> {
             TextureFormat::Rgba8UnormSrgb,
             None,
         ));
-        let mut camera = Camera {
-            order: -1,
-            clear_color: ClearColorConfig::Custom(Color::srgb(0.13, 0.16, 0.19)),
-            ..default()
-        };
-        rect.apply(&mut camera, UVec2::new(rect.width, rect.height));
-        let camera = commands
-            .spawn((
-                StrategicCamera,
-                crate::presentation::interior_lighting::FixedViewExposure,
-                SnapshotCamera,
-                Camera3d::default(),
-                camera,
-                RenderTarget::Image(image.clone().into()),
-                spec.transform,
-                spec.projection.clone(),
-                spec.layers.clone(),
-                Msaa::Off,
-                bevy::camera::Exposure::SUNLIGHT,
-            ))
-            .id();
         let sprite = commands
             .spawn((
                 Sprite {
-                    image,
+                    image: image.clone(),
                     custom_size: Some(Vec2::new(rect.width as f32, rect.height as f32)),
                     ..default()
                 },
@@ -208,18 +215,50 @@ impl CacheWorld<'_> {
             ))
             .id();
         Frame {
-            camera,
+            camera: None,
+            image,
+            projection: spec.projection.clone(),
+            layers: spec.layers.clone(),
             sprite,
             signature,
             remaining: CAPTURE_SETTLED_FRAMES,
-            visible: true,
         }
     }
 }
 
 impl Frame {
+    fn start_capture(&mut self, commands: &mut Commands, reusable: Option<Entity>) {
+        let rect = self.signature.rect;
+        let mut camera = Camera {
+            order: -1,
+            clear_color: ClearColorConfig::Custom(Color::srgb(0.13, 0.16, 0.19)),
+            ..default()
+        };
+        rect.apply(&mut camera, UVec2::new(rect.width, rect.height));
+        let mut entity = match reusable {
+            Some(camera) => commands.entity(camera),
+            None => commands.spawn_empty(),
+        };
+        self.camera = Some(
+            entity
+                .insert((
+                    StrategicCamera,
+                    crate::presentation::interior_lighting::FixedViewExposure,
+                    SnapshotCamera,
+                    Camera3d::default(),
+                    camera,
+                    RenderTarget::Image(self.image.clone().into()),
+                    self.signature.transform,
+                    self.projection.clone(),
+                    self.layers.clone(),
+                    Msaa::Off,
+                    bevy::camera::Exposure::SUNLIGHT,
+                ))
+                .id(),
+        );
+    }
+
     fn show(&mut self, commands: &mut Commands, spec: &ViewSpec, window: &Window) {
-        self.visible = true;
         let scale = window.scale_factor();
         let rect = spec.rect;
         commands.entity(self.sprite).insert((
@@ -246,6 +285,14 @@ impl Frame {
             });
         }
     }
+}
+
+fn deactivate(commands: &mut Commands, camera: Entity) {
+    commands.queue(move |world: &mut World| {
+        if let Some(mut camera) = world.get_mut::<Camera>(camera) {
+            camera.is_active = false;
+        }
+    });
 }
 
 #[cfg(test)]
@@ -287,25 +334,23 @@ mod tests {
                 },
             );
         app.update();
-        let (camera, sprite) = {
+        let (image, sprite) = {
             let mut cache = app.world_mut().resource_mut::<CachedViews>();
             let frame = cache.frames.get_mut(&ViewKey::Street).unwrap();
             frame.remaining = 0;
-            (frame.camera, frame.sprite)
+            (frame.image.clone(), frame.sprite)
         };
         app.update();
         let cache = app.world().resource::<CachedViews>();
         let frame = &cache.frames[&ViewKey::Street];
-        assert_eq!(frame.camera, camera);
+        assert_eq!(frame.image, image);
         assert_eq!(frame.remaining, 0);
         assert_eq!(
             app.world()
-                .get::<Camera>(camera)
+                .resource::<Assets<Image>>()
+                .get(&image)
                 .unwrap()
-                .viewport
-                .as_ref()
-                .unwrap()
-                .physical_size,
+                .size(),
             UVec2::new(2000, 200)
         );
         assert_eq!(
@@ -335,10 +380,12 @@ mod tests {
                     slot: 0,
                 },
                 Frame {
-                    camera,
+                    camera: Some(camera),
+                    image: Handle::default(),
+                    projection: PerspectiveProjection::default().into(),
+                    layers: RenderLayers::default(),
                     sprite: Entity::PLACEHOLDER,
                     remaining,
-                    visible: true,
                     signature: Signature {
                         rect: CanvasRect {
                             x: 0,
@@ -401,6 +448,7 @@ mod tests {
 }
 
 fn settle(
+    mut commands: Commands,
     mut cached: ResMut<CachedViews>,
     ready: Res<super::status::SceneAssetsReady>,
     mut cameras: Query<
@@ -408,21 +456,32 @@ fn settle(
         With<SnapshotCamera>,
     >,
 ) {
+    // Inactive Camera entities still consume Bevy's limited distance-visibility
+    // slots. Reuse a bounded pair for captures, retaining completed images.
+    let cached = &mut *cached;
+    let mut active = 0;
     for frame in cached.frames.values_mut() {
-        if !frame.visible {
-            if let Ok((mut camera, _)) = cameras.get_mut(frame.camera) {
-                camera.is_active = false;
+        if frame.remaining == 0 {
+            if let Some(camera) = frame.camera.take() {
+                if let Ok((mut view, _)) = cameras.get_mut(camera) {
+                    view.is_active = false;
+                }
+                cached.free_cameras.push(camera);
             }
             continue;
         }
+        let Some(camera) = frame.camera else {
+            continue;
+        };
+        active += 1;
         if !ready.0 && frame.remaining > 0 {
             frame.remaining = CAPTURE_SETTLED_FRAMES;
         }
-        if let Ok((mut camera, visible)) = cameras.get_mut(frame.camera) {
+        if let Ok((mut camera, visible)) = cameras.get_mut(camera) {
             // Do not redraw every snapshot throughout city generation. The live
             // view warms shared assets; snapshot pipelines settle when first used.
-            camera.is_active = ready.0 && frame.remaining > 0;
-            if ready.0 {
+            camera.is_active = ready.0;
+            if camera.is_active {
                 if frame.remaining == 1 {
                     info!(
                         meshes = visible.len(std::any::TypeId::of::<Mesh3d>()),
@@ -431,6 +490,16 @@ fn settle(
                 }
                 frame.remaining = frame.remaining.saturating_sub(1);
             }
+        }
+    }
+    if ready.0 {
+        for frame in cached
+            .frames
+            .values_mut()
+            .filter(|frame| frame.remaining > 0 && frame.camera.is_none())
+            .take(CONCURRENT_CAPTURES.saturating_sub(active))
+        {
+            frame.start_capture(&mut commands, cached.free_cameras.pop());
         }
     }
 }

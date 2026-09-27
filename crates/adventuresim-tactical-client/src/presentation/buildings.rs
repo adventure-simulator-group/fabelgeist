@@ -36,7 +36,6 @@ pub(crate) struct DistantCityBuildingPresentation;
 
 #[derive(Component)]
 pub(crate) struct PresentedBuildingMesh {
-    pub(crate) scope: BuildingPresentationScope,
     pub(crate) level: BuildingRenderLevel,
     pub(crate) material: BuildingLodMaterial,
     pub(crate) triangles: usize,
@@ -47,12 +46,6 @@ pub(crate) enum BuildingRenderLevel {
     Lod0,
     Lod1,
     Lod2,
-}
-
-#[derive(Clone, Copy, Debug)]
-pub(crate) enum BuildingPresentationScope {
-    Playable,
-    DistantCity,
 }
 
 #[derive(Clone)]
@@ -150,13 +143,7 @@ fn on_scene_building_added(
                 .ok_or("playable building needs interior lighting")?,
         ))
         .with_children(|parent| {
-            spawn_building_levels(
-                parent,
-                building.id,
-                &compiled,
-                BuildingPresentationScope::Playable,
-                &materials,
-            );
+            spawn_building_levels(parent, building.id, &compiled, &materials);
             signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
         });
     Ok(())
@@ -169,6 +156,7 @@ fn on_scene_vista_buildings(
     streaming: Option<Res<StreamCityTraffic>>,
     mut assets: streaming::CityBuildingAssets,
 ) -> Result {
+    assets.gpu.clear();
     for entity in &existing {
         commands.entity(entity).despawn();
     }
@@ -236,10 +224,18 @@ fn cached_building_levels(
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
         source
             .iter()
-            .map(|batch| CompiledBuildingBatch {
-                material: batch.material,
-                mesh: meshes.add(recipe_mesh(batch, local_origin)),
-                triangles: batch.indices.len() / 3,
+            .map(|batch| {
+                let mut mesh = recipe_mesh(batch, local_origin);
+                if detail != BuildingDetail::Dynamic {
+                    // GPU assembly uploads these vertices through its own
+                    // storage buffers; Bevy must not upload a second copy.
+                    mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
+                }
+                CompiledBuildingBatch {
+                    material: batch.material,
+                    mesh: meshes.add(mesh),
+                    triangles: batch.indices.len() / 3,
+                }
             })
             .collect()
     };
@@ -276,7 +272,6 @@ fn spawn_building_levels(
     parent: &mut ChildSpawnerCommands,
     building_id: u64,
     compiled: &CompiledBuildingLevels,
-    scope: BuildingPresentationScope,
     materials: &TacticalBuildingMaterials,
 ) {
     for (level, batches) in [
@@ -288,7 +283,6 @@ fn spawn_building_levels(
             parent.spawn((
                 Name::new(format!("Building {:?} {:?}", level, batch.material)),
                 PresentedBuildingMesh {
-                    scope,
                     level,
                     material: batch.material,
                     triangles: batch.triangles,
@@ -383,6 +377,13 @@ mod tests {
         ] {
             assert_eq!(local.len(), remote.len());
             for (local, remote) in local.iter().zip(remote) {
+                assert!(
+                    meshes
+                        .get(&local.mesh)
+                        .unwrap()
+                        .asset_usage
+                        .contains(RenderAssetUsages::RENDER_WORLD)
+                );
                 assert_eq!(local.material, remote.material);
                 assert_eq!(local.triangles, remote.triangles);
                 let positions = |mesh: &Handle<Mesh>| {
@@ -409,6 +410,12 @@ mod tests {
         assert!(facade.facade_openings.is_empty());
         assert!(facade.lod0.is_empty());
         assert!(!facade.lod1.is_empty() && !facade.lod2.is_empty());
+        for batch in facade.lod1.iter().chain(&facade.lod2) {
+            assert_eq!(
+                meshes.get(&batch.mesh).unwrap().asset_usage,
+                RenderAssetUsages::MAIN_WORLD
+            );
+        }
     }
 
     #[test]

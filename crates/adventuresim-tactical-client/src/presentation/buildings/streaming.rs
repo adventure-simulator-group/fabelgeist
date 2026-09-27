@@ -2,7 +2,9 @@
 use super::*;
 use std::collections::VecDeque;
 
-const BUILDING_BATCH_BUDGET: std::time::Duration = std::time::Duration::from_millis(8);
+// Standalone city preload publishes static geometry only after the queue drains.
+// Yield often enough for loading UI while amortizing the intervening scene frames.
+const BUILDING_BATCH_BUDGET: std::time::Duration = std::time::Duration::from_millis(64);
 const REPRIORITIZE_DISTANCE_METRES: f32 = 10.0;
 
 #[derive(Clone)]
@@ -164,6 +166,7 @@ pub(super) struct CityBuildingAssets<'w> {
     materials: Res<'w, TacticalBuildingMaterials>,
     cache: ResMut<'w, TacticalBuildingMeshCache>,
     signs: signs::SignAssets<'w>,
+    pub(super) gpu: ResMut<'w, gpu::PendingGpuBuildings>,
 }
 
 impl CityBuildingAssets<'_> {
@@ -181,25 +184,26 @@ impl CityBuildingAssets<'_> {
             &mut self.meshes,
             None,
         )?;
+        let transform = Transform::from_xyz(
+            placement.centre_metres.x,
+            placement.base_elevation_metres + compiled.floor_offset_metres,
+            placement.centre_metres.y,
+        )
+        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
             Visibility::default(),
-            Transform::from_xyz(
-                placement.centre_metres.x,
-                placement.base_elevation_metres + compiled.floor_offset_metres,
-                placement.centre_metres.y,
-            )
-            .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians())),
+            transform,
         ));
+        self.gpu.push(
+            entity.id(),
+            &transform,
+            placement.id,
+            &compiled,
+            &self.materials,
+        );
         entity.with_children(|parent| {
-            spawn_building_levels(
-                parent,
-                placement.id,
-                &compiled,
-                BuildingPresentationScope::DistantCity,
-                &self.materials,
-            );
             let sign = establishment.and_then(|establishment| {
                 establishment.shop_name.clone().and_then(|name| {
                     adventuresim_building_generator::signs::ShopSign::for_establishment(
