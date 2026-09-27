@@ -12,10 +12,15 @@ use std::collections::HashMap;
 // Low bits encode LOD; facade decals are not part of the shadow silhouette.
 const FACADE_OVERLAY_FLAG: u32 = 1 << 8;
 const LOD_LEVEL_MASK: u32 = 3;
+const COMPONENT_FLAG: u32 = 1 << 9;
+const COMPONENT_INDEX_SHIFT: u32 = 10;
+const COMPONENT_RECORD: u32 = 2;
 
 mod input;
 mod props;
+mod ranges;
 pub(in crate::presentation::buildings) use input::PendingGpuBuildings;
+pub(super) use ranges::DrawRange;
 #[cfg(test)]
 mod tests;
 
@@ -24,12 +29,16 @@ pub(super) struct Building {
     transform: Mat4,
     bounds: Vec4,
     levels: UVec4,
+    uv_offset: Vec4,
 }
 
+#[derive(Clone)]
 struct Part {
     entity: Option<Entity>,
     root: Entity,
     transform: Mat4,
+    local_transform: Mat4,
+    uv_offset: Vec2,
     mesh: Handle<Mesh>,
     material: Handle<StandardMaterial>,
     level: u32,
@@ -45,13 +54,17 @@ struct PackedCity {
     batches: MaterialRanges,
 }
 
-fn pack(world: &World, parts: &[Part]) -> PackedCity {
+fn pack(world: &World, parts: impl Iterator<Item = Part> + Clone) -> PackedCity {
     let mut geometry = geometry::Geometry::default();
     let mut meshes = HashMap::new();
     let mut roots = HashMap::new();
+    let mut components = HashMap::new();
     let mut buildings: Vec<Building> = Vec::new();
     let mut batches = MaterialRanges::new();
-    for part in parts {
+    // All component records share their owner's bounds and LOD choice. A beam
+    // must never select a different representation from the surrounding facade.
+    let mut bounds: HashMap<Entity, (Vec4, u32)> = HashMap::new();
+    for part in parts.clone() {
         let slices = meshes.entry(part.mesh.id()).or_insert_with(|| {
             geometry.insert(
                 world
@@ -60,11 +73,22 @@ fn pack(world: &World, parts: &[Part]) -> PackedCity {
                     .expect("resident city mesh"),
             )
         });
+        let radius = slices.iter().map(|slice| slice.radius).fold(0.0, f32::max)
+            + part.local_transform.w_axis.truncate().length();
+        let bound = bounds
+            .entry(part.root)
+            .or_insert((part.transform.w_axis.truncate().extend(0.0), 0));
+        bound.0.w = bound.0.w.max(radius);
+        bound.1 |= 1 << (part.level & LOD_LEVEL_MASK);
+    }
+    for part in parts {
+        let slices = &meshes[&part.mesh.id()];
         let building = *roots.entry(part.root).or_insert_with(|| {
             let index = buildings.len();
             buildings.push(Building {
                 transform: part.transform,
-                bounds: Vec4::ZERO,
+                bounds: bounds[&part.root].0,
+                uv_offset: Vec4::ZERO,
                 levels: part.fade.as_ref().map_or(UVec4::ZERO, |fade| {
                     UVec4::new(0, 1, fade.start.to_bits(), fade.end.to_bits())
                 }),
@@ -72,13 +96,8 @@ fn pack(world: &World, parts: &[Part]) -> PackedCity {
             index
         });
         let record = &mut buildings[building];
-        // Radius about the building origin encloses every LOD and material part.
-        let radius = slices.iter().map(|slice| slice.radius).fold(0.0, f32::max);
-        record.bounds = record
-            .transform
-            .transform_point3(Vec3::ZERO)
-            .extend(record.bounds.w.max(radius));
-        record.levels.x |= 1 << (part.level & LOD_LEVEL_MASK);
+        record.levels.x = bounds[&part.root].1;
+        let component = component_index(&part, &mut buildings, &mut components);
         for slice in slices.iter() {
             let jobs = &mut batches
                 .entry((slice.page, part.material.id()))
@@ -88,7 +107,7 @@ fn pack(world: &World, parts: &[Part]) -> PackedCity {
                 building as u32,
                 slice.start,
                 slice.count,
-                part.level,
+                part.level | component,
             ));
         }
     }
@@ -98,6 +117,34 @@ fn pack(world: &World, parts: &[Part]) -> PackedCity {
         buildings,
         batches,
     }
+}
+
+type ComponentTransforms = HashMap<([u32; 16], [u32; 2]), u32>;
+
+fn component_index(
+    part: &Part,
+    records: &mut Vec<Building>,
+    components: &mut ComponentTransforms,
+) -> u32 {
+    if part.local_transform == Mat4::IDENTITY && part.uv_offset == Vec2::ZERO {
+        return 0;
+    }
+    *components
+        .entry((
+            part.local_transform.to_cols_array().map(f32::to_bits),
+            part.uv_offset.to_array().map(f32::to_bits),
+        ))
+        .or_insert_with(|| {
+            let index = u32::try_from(records.len()).expect("bounded city component count");
+            assert!(index <= u32::MAX >> COMPONENT_INDEX_SHIFT);
+            records.push(Building {
+                transform: part.local_transform,
+                bounds: Vec4::ZERO,
+                levels: UVec4::new(0, COMPONENT_RECORD, 0, 0),
+                uv_offset: part.uv_offset.extend(0.0).extend(0.0),
+            });
+            COMPONENT_FLAG | index << COMPONENT_INDEX_SHIFT
+        })
 }
 
 fn spawn_batch(
@@ -113,14 +160,15 @@ fn spawn_batch(
         .get(&handle)
         .expect("resident city material")
         .clone();
-    let ranges = jobs.len() as u32;
-    let capacity = jobs
-        .iter()
-        .map(|job| job.z.div_ceil(VERTICES_PER_CLUSTER))
-        .sum();
+    let grouped = ranges::InstanceRanges::new(jobs);
+    let ranges = grouped.ranges.len() as u32;
+    let capacity = grouped.capacity;
+    let owners = world
+        .resource_mut::<Assets<ShaderBuffer>>()
+        .add(ShaderBuffer::from(grouped.owners));
     let source = world
         .resource_mut::<Assets<ShaderBuffer>>()
-        .add(ShaderBuffer::from(jobs));
+        .add(ShaderBuffer::from(grouped.ranges));
     let material = world
         .resource_mut::<Assets<material::CityMaterial>>()
         .add(material::CityMaterial::from_source(authored));
@@ -139,6 +187,7 @@ fn spawn_batch(
         },
     ));
     GpuBatch {
+        owners,
         material,
         source,
         vertices: vertices.clone(),
@@ -160,7 +209,7 @@ fn upload(world: &mut World, packed: PackedCity) -> CityGpuScene {
         .iter()
         .map(|p| p.vertices.len() * size_of::<Vec4>() + p.indices.len() * size_of::<u32>())
         .sum();
-    let ranges = batches.values().map(|(_, jobs)| jobs.len()).sum::<usize>();
+    let unshared_ranges = batches.values().map(|(_, jobs)| jobs.len()).sum::<usize>();
     let clusters: u32 = batches
         .values()
         .flat_map(|(_, jobs)| jobs)
@@ -204,7 +253,8 @@ fn upload(world: &mut World, packed: PackedCity) -> CityGpuScene {
         buildings = count,
         batches = gpu_batches.len(),
         clusters,
-        ranges,
+        unshared_ranges,
+        ranges = gpu_batches.iter().map(|batch| batch.ranges).sum::<u32>(),
         geometry_bytes,
         pages = pages.len(),
         "GPU city resident"
@@ -225,22 +275,23 @@ pub(super) fn assemble(world: &mut World) {
     {
         return;
     }
-    let mut parts = std::mem::take(&mut world.resource_mut::<PendingGpuBuildings>().parts);
+    let mut pending = std::mem::take(&mut *world.resource_mut::<PendingGpuBuildings>());
     // Only publish alongside a completed city; interactive furniture is never
     // consumed by this static scenery path.
-    if parts.is_empty() {
+    if pending.is_empty() {
         return;
     }
-    parts.extend(props::parts(world));
+    pending.parts.extend(props::parts(world));
     READY.store(false, Ordering::Relaxed);
-    let packed = pack(world, &parts);
+    let packed = pack(world, pending.iter(world.get_resource()));
     let scene = upload(world, packed);
-    let prop_roots: std::collections::HashSet<_> = parts
+    let prop_roots: std::collections::HashSet<_> = pending
+        .parts
         .iter()
         .filter(|part| part.fade.is_some())
         .map(|part| part.root)
         .collect();
-    for part in parts {
+    for part in pending.parts {
         if let Some(entity) = part.entity {
             world.entity_mut(entity).despawn();
         }

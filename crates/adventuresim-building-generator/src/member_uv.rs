@@ -31,11 +31,15 @@ pub(crate) fn member_uvs(
     };
     let across = along.cross(normal);
     // A member's position chooses a repeat phase, without world-space rotation stretching it.
-    let phase = Vec2::new(centre.dot(Vec3::new(0.37, 0.61, 0.83)), centre.length());
+    let phase = phase(centre);
     positions.map(|point| {
         let local = rotation.inverse() * (point - centre);
         Vec2::new(local.dot(across), local.dot(along)) / BUILDING_DETAIL_UV_METRES_PER_UNIT + phase
     })
+}
+
+pub(crate) fn phase(centre: Vec3) -> Vec2 {
+    Vec2::new(centre.dot(Vec3::new(0.37, 0.61, 0.83)), centre.length())
 }
 
 #[cfg(test)]

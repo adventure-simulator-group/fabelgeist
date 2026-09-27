@@ -28,6 +28,16 @@ bays; horizontal scrolling crops the same camera projection.
 Business operators resolve to the scene's establishments. Required distant
 buildings receive full detail and furnished interiors on the shared frontage
 before readiness; the remaining city retains generated facade and shell assets.
+Static timber members use a client-generated construction kit. Exact dimensions
+and finishes identify shared component meshes; placement, rotation, and wood
+texture phase are instance data. Canonical component transforms are shared
+across repeated building recipes. Each instance follows its parent building's
+GPU visibility and LOD selection. Geometry ranges reference deduplicated lists
+of building placements; the GPU expands only selected instances into draws.
+The preload queue retains shared compiled recipes instead of expanding every
+member into a separate CPU record. Cut masonry, gable face selections, and other
+specialized surfaces retain their semantic geometry compilers. Tactical plans,
+collision, and operable elements keep their authoritative representation.
 Conversations occupy the buildings' furnished circulation space, with camera
 clearance checked against architecture and furniture. Placement favors rooms
 receiving actual daylight and seats feet on the physical floor. Outdoor

@@ -196,13 +196,8 @@ impl CityBuildingAssets<'_> {
             Visibility::default(),
             transform,
         ));
-        self.gpu.push(
-            entity.id(),
-            &transform,
-            placement.id,
-            &compiled,
-            &self.materials,
-        );
+        self.gpu
+            .push(entity.id(), &transform, placement.id, &compiled);
         entity.with_children(|parent| {
             let sign = establishment.and_then(|establishment| {
                 establishment.shop_name.clone().and_then(|name| {

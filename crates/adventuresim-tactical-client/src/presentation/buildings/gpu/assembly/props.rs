@@ -32,6 +32,8 @@ pub(super) fn parts(world: &mut World) -> Vec<Part> {
                 entity: Some(entity),
                 root: parent.parent(),
                 transform: transform.to_matrix(),
+                local_transform: Mat4::IDENTITY,
+                uv_offset: Vec2::ZERO,
                 mesh: mesh.0.clone(),
                 material,
                 level: 2,

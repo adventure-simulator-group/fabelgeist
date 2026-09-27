@@ -26,9 +26,11 @@ mod gable_openings;
 mod small_church;
 mod urban_church;
 mod vertex_remap;
+pub(crate) use compilation::compile_components;
 #[cfg(test)]
 use compilation::extract_facade_runs;
 pub use compilation::{compile_building_lod, compile_static_building_lod};
+pub(crate) use exterior::component_solids;
 #[path = "lod/walls.rs"]
 mod walls;
 

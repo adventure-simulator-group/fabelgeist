@@ -36,6 +36,7 @@ pub(super) const MAX_CITY_VIEWS: usize = 64;
 
 #[derive(Clone)]
 struct GpuBatch {
+    pub owners: Handle<ShaderBuffer>,
     pub material: Handle<material::CityMaterial>,
     pub source: Handle<ShaderBuffer>,
     pub vertices: Handle<ShaderBuffer>,

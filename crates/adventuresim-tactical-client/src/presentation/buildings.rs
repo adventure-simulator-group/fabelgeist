@@ -1,15 +1,17 @@
 use adventuresim_building_generator::{
-    BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_detail,
-    compile_building_lod, compile_static_building_detail, compile_static_building_lod,
+    BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_lod,
+    compile_static_building_detail, compile_static_building_lod,
 };
 use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
 use bevy::ecs::hierarchy::ChildSpawnerCommands;
+use std::sync::Arc;
 
 use super::recipe_mesh::recipe_mesh;
 use super::*;
 
 mod boundaries;
 mod gpu;
+mod kit;
 mod materials;
 mod signs;
 mod streaming;
@@ -53,6 +55,8 @@ struct CompiledBuildingBatch {
     material: BuildingLodMaterial,
     mesh: Handle<Mesh>,
     triangles: usize,
+    transform: Mat4,
+    uv_offset: Vec2,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -81,7 +85,8 @@ struct CompiledBuildingLevels {
 
 #[derive(Default, Resource)]
 pub(crate) struct TacticalBuildingMeshCache {
-    levels: Vec<CompiledBuildingLevels>,
+    levels: Vec<Arc<CompiledBuildingLevels>>,
+    components: kit::ComponentCache,
     pub(crate) recipes: GeneratedBuildingRecipes,
 }
 
@@ -188,7 +193,7 @@ fn cached_building_levels(
     detail: BuildingDetail,
     meshes: &mut Assets<Mesh>,
     prepared: Option<&GeneratedBuildingRecipe>,
-) -> Result<CompiledBuildingLevels> {
+) -> Result<Arc<CompiledBuildingLevels>> {
     if let Some(compiled) = cache
         .levels
         .iter()
@@ -211,14 +216,16 @@ fn cached_building_levels(
     let collision = &geometry.collision;
     let local_origin = collision.bounds.centre();
     let floor_offset_metres = local_origin.y - collision.bounds.min.y;
+    let kit = (detail != BuildingDetail::Dynamic)
+        .then(|| adventuresim_building_generator::BuildingKit::new(plan));
     let detail_meshes = match detail {
         BuildingDetail::Dynamic => Some(compile_static_building_detail(plan)),
-        BuildingDetail::Static => Some(compile_building_detail(plan)),
+        BuildingDetail::Static => Some(kit.as_ref().expect("static kit").detail()),
         BuildingDetail::Facade => None,
     };
     let facade = match detail {
         BuildingDetail::Dynamic => compile_static_building_lod(plan, BuildingLodLevel::Facade),
-        _ => compile_building_lod(plan, BuildingLodLevel::Facade),
+        _ => kit.as_ref().expect("static kit").facade(),
     };
     let shell = compile_building_lod(plan, BuildingLodLevel::Shell);
     let compile_batches = |source: &[LodMesh], meshes: &mut Assets<Mesh>| {
@@ -235,11 +242,13 @@ fn cached_building_levels(
                     material: batch.material,
                     mesh: meshes.add(mesh),
                     triangles: batch.indices.len() / 3,
+                    transform: Mat4::IDENTITY,
+                    uv_offset: Vec2::ZERO,
                 }
             })
             .collect()
     };
-    let compiled = CompiledBuildingLevels {
+    let mut compiled = CompiledBuildingLevels {
         facade_openings: if detail == BuildingDetail::Dynamic {
             plan.facade_dynamic_openings()
         } else {
@@ -264,6 +273,10 @@ fn cached_building_levels(
         lod1: compile_batches(&facade.meshes, meshes),
         lod2: compile_batches(&shell.meshes, meshes),
     };
+    if let Some(kit) = kit {
+        cache.components.append(&kit, &mut compiled, meshes);
+    }
+    let compiled = Arc::new(compiled);
     cache.levels.push(compiled.clone());
     Ok(compiled)
 }
@@ -288,6 +301,7 @@ fn spawn_building_levels(
                     triangles: batch.triangles,
                 },
                 Mesh3d(batch.mesh.clone()),
+                Transform::from_matrix(batch.transform),
                 MeshMaterial3d(materials.get_for_building(building_id, batch.material)),
                 if matches!(
                     (compiled.detail, level),

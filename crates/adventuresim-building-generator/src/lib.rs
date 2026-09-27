@@ -42,8 +42,8 @@ pub use collision::{
     BuildingCollision, CollisionBounds, CollisionCuboid, compile_building_collision,
 };
 pub use detail::{
-    BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, compile_building_detail,
-    compile_solid_detail, compile_static_building_detail,
+    BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
+    TimberInstance, compile_building_detail, compile_solid_detail, compile_static_building_detail,
 };
 pub use doors::{DoorSpec, compile_operable_doors};
 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};

@@ -16,7 +16,8 @@ pub(super) fn geometry_layout() -> BindGroupLayoutDescriptor {
                 storage_buffer_read_only::<Vec4>(false),
                 storage_buffer_read_only::<assembly::Building>(false),
                 storage_buffer_read_only::<UVec2>(false),
-                storage_buffer_read_only::<UVec4>(false),
+                storage_buffer_read_only::<assembly::DrawRange>(false),
+                storage_buffer_read_only::<u32>(false),
                 storage_buffer_read_only::<u32>(false),
             ),
         ),
@@ -61,10 +62,11 @@ impl Scratch {
         let mut prepared = Vec::new();
         let mut bytes = 0;
         for batch in scene.batches.iter() {
-            let (Some(vertices), Some(indices), Some(ranges)) = (
+            let (Some(vertices), Some(indices), Some(ranges), Some(owners)) = (
                 buffers.get(&batch.vertices),
                 buffers.get(&batch.indices),
                 buffers.get(&batch.source),
+                buffers.get(&batch.owners),
             ) else {
                 return false;
             };
@@ -105,6 +107,7 @@ impl Scratch {
                     visible.as_entire_binding(),
                     ranges.buffer.as_entire_binding(),
                     indices.buffer.as_entire_binding(),
+                    owners.buffer.as_entire_binding(),
                 )),
             );
             prepared.push(Batch {

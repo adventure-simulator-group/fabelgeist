@@ -6,11 +6,20 @@ use adventuresim_building_generator::BuildingLodMaterial;
 #[derive(Default, Resource)]
 pub(in crate::presentation::buildings) struct PendingGpuBuildings {
     pub(super) parts: Vec<Part>,
+    pub(super) buildings: Vec<Placement>,
+}
+
+pub(super) struct Placement {
+    root: Entity,
+    transform: Mat4,
+    building_id: u64,
+    compiled: Arc<CompiledBuildingLevels>,
 }
 
 impl PendingGpuBuildings {
     pub(in crate::presentation::buildings) fn clear(&mut self) {
         self.parts.clear();
+        self.buildings.clear();
         READY.store(false, Ordering::Relaxed);
     }
 
@@ -19,27 +28,52 @@ impl PendingGpuBuildings {
         root: Entity,
         transform: &Transform,
         building_id: u64,
-        compiled: &CompiledBuildingLevels,
-        materials: &TacticalBuildingMaterials,
+        compiled: &Arc<CompiledBuildingLevels>,
     ) {
-        for (level, batches) in [&compiled.lod0, &compiled.lod1, &compiled.lod2]
-            .into_iter()
-            .enumerate()
-        {
-            self.parts.extend(batches.iter().map(|batch| Part {
-                entity: None,
-                root,
-                transform: transform.to_matrix(),
-                mesh: batch.mesh.clone(),
-                material: materials.get_for_building(building_id, batch.material),
-                level: level as u32
-                    | if batch.material == BuildingLodMaterial::FacadeDetails {
-                        FACADE_OVERLAY_FLAG
-                    } else {
-                        0
-                    },
-                fade: None,
-            }));
-        }
+        self.buildings.push(Placement {
+            root,
+            transform: transform.to_matrix(),
+            building_id,
+            compiled: compiled.clone(),
+        });
+    }
+
+    pub(super) fn is_empty(&self) -> bool {
+        self.parts.is_empty() && self.buildings.is_empty()
+    }
+
+    pub(super) fn iter<'a>(
+        &'a self,
+        materials: Option<&'a TacticalBuildingMaterials>,
+    ) -> impl Iterator<Item = Part> + Clone + 'a {
+        self.parts
+            .iter()
+            .cloned()
+            .chain(self.buildings.iter().flat_map(move |placement| {
+                let compiled = &placement.compiled;
+                [&compiled.lod0, &compiled.lod1, &compiled.lod2]
+                    .into_iter()
+                    .enumerate()
+                    .flat_map(move |(level, batches)| {
+                        batches.iter().map(move |batch| Part {
+                            entity: None,
+                            root: placement.root,
+                            transform: placement.transform,
+                            local_transform: batch.transform,
+                            uv_offset: batch.uv_offset,
+                            mesh: batch.mesh.clone(),
+                            material: materials
+                                .expect("city building materials")
+                                .get_for_building(placement.building_id, batch.material),
+                            level: level as u32
+                                | if batch.material == BuildingLodMaterial::FacadeDetails {
+                                    FACADE_OVERLAY_FLAG
+                                } else {
+                                    0
+                                },
+                            fade: None,
+                        })
+                    })
+            }))
     }
 }
