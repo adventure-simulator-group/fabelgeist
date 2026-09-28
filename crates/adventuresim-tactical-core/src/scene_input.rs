@@ -198,7 +198,7 @@ pub enum SceneObstacle {
     Rock(RockRecipe),
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub enum GeneratedObstacle {
     Tree { x: u16, z: u16 },
     Rock { x: u16, z: u16, recipe: RockRecipe },

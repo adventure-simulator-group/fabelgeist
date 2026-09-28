@@ -139,7 +139,7 @@ pub struct SceneWindow {
     pub barred: bool,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct GeneratedBuilding {
     pub placement: TacticalBuildingPlacement,
     pub plan: BuildingPlan,

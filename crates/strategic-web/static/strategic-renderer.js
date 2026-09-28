@@ -164,7 +164,9 @@ const forgeHostContains = (event) => {
 if (surface && canvas) {
   runtimePromise = import("/tactical/wasm/adventuresim-tactical-client.js")
     .then(async (runtime) => {
-      await runtime.default();
+      const generationModule = await WebAssembly.compileStreaming(
+        fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm"));
+      await runtime.default({ module_or_path: generationModule });
       const [graphics, audio] = await Promise.all([
         fetch("/tactical/assets/config/tactical-graphics.yaml"),
         fetch("/tactical/assets/config/tactical-audio.yaml"),
@@ -172,7 +174,7 @@ if (surface && canvas) {
       if (!graphics.ok) throw new Error(`tactical graphics config: HTTP ${graphics.status}`);
       if (!audio.ok) throw new Error(`tactical audio config: HTTP ${audio.status}`);
       runtime.wasm_boot(await graphics.text(), await audio.text());
-      return runtime;
+      return { ...runtime, generationModule };
     })
     .catch((error) => {
       console.error("persistent Bevy renderer unavailable", error);

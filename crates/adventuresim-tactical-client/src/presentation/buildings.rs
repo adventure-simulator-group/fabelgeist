@@ -13,7 +13,7 @@ mod boundaries;
 mod gpu;
 mod kit;
 mod materials;
-mod signs;
+pub(in crate::presentation) mod signs;
 mod streaming;
 pub(crate) use materials::TacticalBuildingMaterials;
 pub(in crate::presentation) use materials::setup_tactical_building_materials;
@@ -202,6 +202,12 @@ fn cached_building_levels(
         return Ok(compiled.clone());
     }
 
+    #[cfg(target_family = "wasm")]
+    if detail == BuildingDetail::Facade {
+        let prepared = super::generation::take_facade(program)?;
+        return Ok(kit::install_facade(cache, prepared, meshes));
+    }
+
     let generated;
     let geometry = if let Some(prepared) = prepared {
         prepared
@@ -277,7 +283,9 @@ fn cached_building_levels(
         lod2: compile_batches(&shell.meshes, meshes),
     };
     if let Some(kit) = kit {
-        cache.components.append(&kit, &mut compiled, meshes);
+        cache
+            .components
+            .append(&kit.instances, &mut compiled, meshes);
     }
     let compiled = Arc::new(compiled);
     cache.levels.push(compiled.clone());

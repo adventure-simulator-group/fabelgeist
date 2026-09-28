@@ -3,7 +3,7 @@ use super::*;
 use bevy::math::Mat4;
 
 /// A timber member's metric geometry, independent of its position in a building.
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct TimberComponent {
     pub size_metres: Vec3,
     pub interior: bool,
@@ -28,7 +28,7 @@ impl TimberComponent {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 pub struct TimberInstance {
     pub source: crate::ResolvedItemId,
     pub component: TimberComponent,

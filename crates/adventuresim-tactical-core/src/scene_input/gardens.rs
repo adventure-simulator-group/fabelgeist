@@ -14,7 +14,7 @@ pub struct SceneGarden {
     pub garden: CityGarden,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct GeneratedGarden {
     pub scene: SceneGarden,
     pub elevation_metres: f32,

@@ -80,7 +80,11 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+      response.end(`export default async function(){}; export function wasm_generation_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+    }
+    if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
+      response.setHeader("Content-Type", "application/wasm");
+      response.end(Buffer.from([0, 97, 115, 109, 1, 0, 0, 0])); return;
     }
     let file;
     if (url.pathname.startsWith("/static/")) file = path.join(root, "crates/strategic-web/static", url.pathname.slice(8));
@@ -307,7 +311,7 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.waitForFunction(count => window.commands.filter(command => command.type === "sync-strategic-view").length > count, before);
       assert.equal(await page.evaluate(() => window.originalCanvas === document.querySelector("#game-canvas")), true);
     }
-    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, metrics: await page.evaluate(() => window.strategicRendererMetrics) }, null, 2));
+    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, metrics: await page.evaluate(() => window.strategicRendererMetrics), generation: await page.evaluate(() => window.strategicGenerationMetrics) }, null, 2));
     const production = path.join(output, "fixtures/inventory.html");
     if (realRenderer && fs.existsSync(production)) {
       await page.setViewportSize({width: 1440, height: 1000});

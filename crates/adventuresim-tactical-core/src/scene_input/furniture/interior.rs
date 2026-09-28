@@ -3,7 +3,7 @@ use adventuresim_building_generator::interior::{
     InteriorLayout, InteriorPlacement, furnish, furniture_floor_height,
 };
 use fabelgeist_determinism::StreamId;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use super::*;
 
@@ -12,7 +12,7 @@ const INTERIOR_INSTANCE_DOMAIN: StreamId = StreamId::new("furniture.interior-ide
 #[cfg(test)]
 mod tests;
 
-#[derive(Clone, Debug, PartialEq, Serialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InteriorBuildingLayout {
     pub building_id: u64,
     pub layout: InteriorLayout,

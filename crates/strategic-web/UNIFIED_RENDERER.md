@@ -6,6 +6,27 @@ retaining that runtime. The map remains in its existing HTML renderer.
 HTML-only pages such as the journal hide the retained scene; returning to a
 venue reuses its scene document, roster and equipment.
 
+## Client generation workers
+
+Cold preparation starts a bounded pool of up to four CPU workers, reserving a
+logical core for the document where available. They share the compiled Wasm
+module, but each owns its generation memory. Workers never boot Bevy, create a
+canvas, or request a GPU device. They terminate after preparation.
+
+The static tactical scene and each distinct background building program are
+independent jobs. Workers return locally generated CBOR products through
+transferable buffers while the renderer loads textures. Rust parses the original
+scene JSON and verifies each returned product against its requested identity.
+Temporary building-plan memoization stays in the scene worker; final facade
+geometry and component placements come from the building workers. Playable venue
+installation, render assets, and GPU upload remain in the persistent application.
+
+Readiness requires all generation jobs, installation, and existing asset gates.
+A failed worker or invalid product fails loading explicitly. Warm venue and
+portrait switches use retained assets and do not schedule generation jobs.
+`window.strategicGenerationMetrics` reports worker count, product bytes, summed
+worker time, installation decoding time, and elapsed preparation time.
+
 ## Presentation and authority
 
 `/api/scene-assets` prepares the dispatcher's `TacticalSceneInput` for the

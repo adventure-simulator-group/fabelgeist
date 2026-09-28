@@ -142,7 +142,7 @@ fn update_lettering(
     }
 }
 
-pub(super) fn sites(
+pub(in crate::presentation) fn sites(
     plan: &adventuresim_building_generator::BuildingPlan,
 ) -> Vec<(SignMount, SignSite)> {
     let Some(site) = SignSite::for_plan(plan) else {

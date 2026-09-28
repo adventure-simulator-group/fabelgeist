@@ -1,6 +1,6 @@
 //! Compile each distinct component once across every generated city building.
 use super::*;
-use adventuresim_building_generator::{BuildingKit, TimberComponent};
+use adventuresim_building_generator::{TimberComponent, TimberInstance};
 
 #[derive(Default)]
 pub(super) struct ComponentCache {
@@ -39,11 +39,11 @@ impl ComponentCache {
 
     pub(super) fn append(
         &mut self,
-        kit: &BuildingKit<'_>,
+        instances: &[TimberInstance],
         compiled: &mut CompiledBuildingLevels,
         meshes: &mut Assets<Mesh>,
     ) {
-        for instance in &kit.instances {
+        for instance in instances {
             if compiled.detail == BuildingDetail::Facade && !instance.facade {
                 continue;
             }
@@ -61,4 +61,46 @@ impl ComponentCache {
             }
         }
     }
+}
+
+#[cfg(target_family = "wasm")]
+pub(super) fn install_facade(
+    cache: &mut TacticalBuildingMeshCache,
+    prepared: super::super::generation::PreparedFacade,
+    meshes: &mut Assets<Mesh>,
+) -> Arc<CompiledBuildingLevels> {
+    let mut batches = |source: &[LodMesh]| {
+        source
+            .iter()
+            .map(|batch| {
+                let mut mesh = recipe_mesh(batch, prepared.local_origin);
+                mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
+                CompiledBuildingBatch {
+                    material: batch.material,
+                    mesh: meshes.add(mesh),
+                    triangles: batch.indices.len() / 3,
+                    transform: Mat4::IDENTITY,
+                    uv_offset: Vec2::ZERO,
+                }
+            })
+            .collect()
+    };
+    let mut compiled = CompiledBuildingLevels {
+        facade_openings: Default::default(),
+        interior: None,
+        program: prepared.program,
+        detail: BuildingDetail::Facade,
+        floor_offset_metres: prepared.floor_offset_metres,
+        local_origin: prepared.local_origin,
+        sign_sites: prepared.sign_sites,
+        lod0: Vec::new(),
+        lod1: batches(&prepared.facade),
+        lod2: batches(&prepared.shell),
+    };
+    cache
+        .components
+        .append(&prepared.instances, &mut compiled, meshes);
+    let compiled = Arc::new(compiled);
+    cache.levels.push(compiled.clone());
+    compiled
 }
