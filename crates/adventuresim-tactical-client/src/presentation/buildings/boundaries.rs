@@ -65,7 +65,9 @@ pub(super) fn on_vista(
                 parent.spawn((
                     Mesh3d(meshes.add(super::super::recipe_mesh::metric_cuboid(door.size_metres))),
                     MeshMaterial3d(
-                        materials.get_for_building(front.id, BuildingLodMaterial::Timber),
+                        materials
+                            .for_building(front.id)
+                            .get(BuildingLodMaterial::Timber),
                     ),
                     Transform::from_translation(door.closed_centre)
                         .with_rotation(Quat::from_rotation_y(door.closed_yaw_radians)),
@@ -107,7 +109,9 @@ fn fixed(
         batches.insert(
             member,
             elevation,
-            materials.get_for_building(boundary.front_building_id, material),
+            materials
+                .for_building(boundary.front_building_id)
+                .get(material),
         );
     }
 }

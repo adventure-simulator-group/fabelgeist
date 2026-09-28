@@ -51,6 +51,9 @@ impl PendingGpuBuildings {
             .cloned()
             .chain(self.buildings.iter().flat_map(move |placement| {
                 let compiled = &placement.compiled;
+                let palette = materials
+                    .expect("city building materials")
+                    .for_building(placement.building_id);
                 [&compiled.lod0, &compiled.lod1, &compiled.lod2]
                     .into_iter()
                     .enumerate()
@@ -62,9 +65,7 @@ impl PendingGpuBuildings {
                             local_transform: batch.transform,
                             uv_offset: batch.uv_offset,
                             mesh: batch.mesh.clone(),
-                            material: materials
-                                .expect("city building materials")
-                                .get_for_building(placement.building_id, batch.material),
+                            material: palette.get(batch.material),
                             level: level as u32
                                 | if batch.material == BuildingLodMaterial::FacadeDetails {
                                     FACADE_OVERLAY_FLAG

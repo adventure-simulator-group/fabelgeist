@@ -79,6 +79,7 @@ fn on_furniture_added(
             use_aabb: false,
         }),
     };
+    let palette = materials.for_building(instance.id.0);
     commands
         .entity(event.entity)
         .insert(Visibility::default())
@@ -90,7 +91,7 @@ fn on_furniture_added(
                         material: batch.material,
                     },
                     Mesh3d(batch.mesh.clone()),
-                    MeshMaterial3d(materials.get_for_building(instance.id.0, batch.material)),
+                    MeshMaterial3d(palette.get(batch.material)),
                     Transform::IDENTITY,
                 ));
                 if let Some(range) = &range {

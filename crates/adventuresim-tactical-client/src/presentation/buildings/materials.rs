@@ -20,6 +20,7 @@ use fabelgeist_determinism::StreamId;
 use super::super::*;
 
 mod furniture;
+mod palette;
 mod workplace;
 use workplace::WorkplaceMaterials;
 
@@ -184,59 +185,11 @@ pub(crate) struct TacticalBuildingMaterials {
 }
 
 impl TacticalBuildingMaterials {
-    pub(crate) fn get_for_building(
-        &self,
-        building_id: u64,
-        material: BuildingLodMaterial,
-    ) -> Handle<StandardMaterial> {
+    pub(crate) fn for_building(&self, building_id: u64) -> palette::BuildingPalette<'_> {
         let appearance = BuildingAppearance::for_building(building_id);
-        let palette = &self.appearances[appearance as usize];
-        match material {
-            BuildingLodMaterial::Wall(WallMaterialClass::TimberInfill) => palette.infill.clone(),
-            BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry)
-                if palette.finish == FacadeFinish::FullyRendered =>
-            {
-                palette.infill.clone()
-            }
-            BuildingLodMaterial::Wall(WallMaterialClass::CivilianMasonry) => self.brick.clone(),
-            BuildingLodMaterial::Wall(WallMaterialClass::RubbleMasonry) => self.rubble.clone(),
-            BuildingLodMaterial::Wall(
-                WallMaterialClass::InternalTimber | WallMaterialClass::InternalMasonry,
-            ) => self.interior_plaster.clone(),
-            BuildingLodMaterial::Wall(_) | BuildingLodMaterial::CrownMasonry => self.stone.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::ClayTile) => palette.tile.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::Slate) => self.slate.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::Lead) => self.lead.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::TimberShingle) => self.timber_roof.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::TimberInfill) => palette.timber.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::MasonryInfill) => self.stone.clone(),
-            BuildingLodMaterial::Roof(RoofMaterial::RubbleInfill) => self.rubble.clone(),
-            BuildingLodMaterial::Timber => palette.timber.clone(),
-            BuildingLodMaterial::InteriorTimber => self.interior_timber.clone(),
-            BuildingLodMaterial::DressedStone => self.stone.clone(),
-            BuildingLodMaterial::Iron => self.iron.clone(),
-            BuildingLodMaterial::CarvedSandstone => self.workplace.carved_sandstone.clone(),
-            BuildingLodMaterial::LeadAlloy => self.workplace.lead_alloy.clone(),
-            BuildingLodMaterial::Bronze => self.workplace.bronze.clone(),
-            BuildingLodMaterial::CandleWax => self.workplace.candle_wax.clone(),
-            BuildingLodMaterial::Earthenware => self.workplace.earthenware.clone(),
-            BuildingLodMaterial::GlazedTile => self.workplace.glazed_tile.clone(),
-            BuildingLodMaterial::Millstone => self.workplace.millstone.clone(),
-            BuildingLodMaterial::FurnitureWood(surface) => {
-                self.furniture_wood[surface as usize].clone()
-            }
-            BuildingLodMaterial::TimberEndGrain => self.workplace.timber_end_grain.clone(),
-            BuildingLodMaterial::Grain => self.workplace.grain.clone(),
-            BuildingLodMaterial::DyedCloth => self.workplace.dyed_cloth.clone(),
-            BuildingLodMaterial::UndyedCloth => self.workplace.undyed_cloth.clone(),
-            BuildingLodMaterial::Hide => self.workplace.hide.clone(),
-            BuildingLodMaterial::ProcessLiquid => self.workplace.process_liquid.clone(),
-            BuildingLodMaterial::HempRope => self.workplace.hemp_rope.clone(),
-            BuildingLodMaterial::InteriorPlaster => self.interior_plaster.clone(),
-            BuildingLodMaterial::Floor => self.floor.clone(),
-            BuildingLodMaterial::Glass => self.glass.clone(),
-            BuildingLodMaterial::FacadeDetails => self.details.clone(),
-            BuildingLodMaterial::CrownMask => self.crown_mask.clone(),
+        palette::BuildingPalette {
+            assets: self,
+            appearance: &self.appearances[appearance as usize],
         }
     }
 }
