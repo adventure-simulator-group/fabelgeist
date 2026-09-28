@@ -116,7 +116,7 @@ test("one canvas retains street, portraits and character views across warm navig
   const warnings = [];
   const output = path.join(reviewRoot, peoplePerPlace > 2 ? "stress" : ""); fs.mkdirSync(output, { recursive: true });
   fs.writeFileSync(path.join(output, "equipment-diagnostics.log"), "");
-  let telemetry;
+  let telemetry, initialLoad;
   let rejectFatal;
   const fatal = new Promise((_, reject) => { rejectFatal = reject; });
   fatal.catch(() => {});
@@ -160,12 +160,46 @@ test("one canvas retains street, portraits and character views across warm navig
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
     await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     telemetry = setInterval(async () => {
-      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, probe: window.renderProbe?.status?.(),
+      const state = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics, generation: window.strategicGenerationMetrics, probe: window.renderProbe?.status?.(),
         status: document.querySelector('#strategic-scene-status')?.textContent })).catch(error => ({ error: error.message }));
       fs.writeFileSync(path.join(output, "live-state.json"), JSON.stringify(state, null, 2));
     }, 5000);
     const ready = () => Promise.race([fatal, page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 1_500_000 : 15_000 })]);
     await ready();
+    if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
+      await page.evaluate(() => window.strategicGenerationCacheSettled);
+      initialLoad = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics,
+        generation: window.strategicGenerationMetrics }));
+      initialLoad.storage = await page.evaluate(() => new Promise((resolve, reject) => {
+        const request = indexedDB.open("fabelgeist-generated-assets", 1);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          const db = request.result, tx = db.transaction("products", "readonly");
+          const totals = { records: 0, bytes: 0, decodedBytes: 0 };
+          tx.oncomplete = () => { db.close(); resolve(totals); };
+          tx.onerror = () => reject(tx.error);
+          const cursor = tx.objectStore("products").openCursor();
+          cursor.onsuccess = () => {
+            if (!cursor.result) return;
+            const record = cursor.result.value;
+            totals.records++; totals.bytes += record.size;
+            totals.decodedBytes += record.decodedSize;
+            cursor.result.continue();
+          };
+        };
+      }));
+      fs.writeFileSync(path.join(output, "initial-load.json"), JSON.stringify(initialLoad, null, 2));
+      if (process.env.STRATEGIC_RELOAD_CLEAR_CACHE === "1") {
+        await page.evaluate(() => new Promise((resolve, reject) => {
+          const request = indexedDB.deleteDatabase("fabelgeist-generated-assets");
+          request.onsuccess = resolve; request.onerror = () => reject(request.error);
+          request.onblocked = () => reject(new Error("Generated cache is still open"));
+        }));
+      }
+      await page.reload(); await ready();
+      await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
+    }
+    const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics);
     assert.equal(await page.locator("canvas").count(), 1, "all views share one DOM canvas");
     if (!realRenderer) {
       await page.waitForFunction(() => {
@@ -311,7 +345,9 @@ test("one canvas retains street, portraits and character views across warm navig
       await page.waitForFunction(count => window.commands.filter(command => command.type === "sync-strategic-view").length > count, before);
       assert.equal(await page.evaluate(() => window.originalCanvas === document.querySelector("#game-canvas")), true);
     }
-    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, metrics: await page.evaluate(() => window.strategicRendererMetrics), generation: await page.evaluate(() => window.strategicGenerationMetrics) }, null, 2));
+    const generation = await page.evaluate(() => window.strategicGenerationMetrics);
+    assert.deepEqual(generation, generationAtReady, "warm navigation schedules no new generation");
+    fs.writeFileSync(path.join(output, realRenderer ? "benchmark.json" : "bridge.json"), JSON.stringify({ sceneFixture, samples, steadyFrames, missing, errors, initialLoad, metrics: await page.evaluate(() => window.strategicRendererMetrics), generation }, null, 2));
     const production = path.join(output, "fixtures/inventory.html");
     if (realRenderer && fs.existsSync(production)) {
       await page.setViewportSize({width: 1440, height: 1000});

@@ -27,6 +27,32 @@ portrait switches use retained assets and do not schedule generation jobs.
 `window.strategicGenerationMetrics` reports worker count, product bytes, summed
 worker time, installation decoding time, and elapsed preparation time.
 
+## Locally generated asset cache
+
+IndexedDB retains immutable generation products across document reloads. Nothing
+is baked offline or downloaded as geometry. Repeated material textures continue
+to use the normal asset server. A cache key includes the complete job input and
+the SHA-256 digest of the actual Wasm executable, so generator, dependency,
+compiler, or serialization changes invalidate earlier products automatically.
+The original JSON seed representation remains intact throughout key generation.
+
+Products are gzip-compressed locally, carry a content checksum, and are decoded
+and identity-checked by Rust. The cache-format revision is also part of the key.
+Decompression enforces the recorded output size and product-size limit. Corrupt
+entries are removed and regenerated. Disabled storage, blocked
+opens, timeouts, and quota errors degrade to client generation. Writes do not
+delay readiness; `window.strategicGenerationCacheSettled` lets diagnostics wait
+for persistence before testing a reload. Best-effort eviction targets a 512 MiB
+budget after each preparation; products larger than 128 MiB are not stored.
+Oldest writes are evicted first. These records never contain live tactical tick
+state.
+
+Cache reads have bounded concurrency; workers start only for misses. A fully
+cached scene starts no generation workers. Render-asset installation, texture
+residency, GPU uploads, equipment, and portrait preparation still run, so a cache
+hit is not equivalent to whole-game readiness. Generation metrics distinguish
+hits, misses, read time, decoding, worker time, and complete preparation time.
+
 ## Presentation and authority
 
 `/api/scene-assets` prepares the dispatcher's `TacticalSceneInput` for the
@@ -130,12 +156,14 @@ instances compile only the render data they consume; indoor lighting fields
 and dynamic opening sets belong to detailed playable instances. LOD passes
 reuse their solid compiler's geometry index across all selected solids.
 
-Distant furniture-site preparation retains one generated recipe per complete
-building program. Venue promotion reuses these plans, and city mesh compilation
-consumes them without regenerating the roofs, frames or collision. Temporary
-plans are released as meshes become resident; unused recipes are dropped when
-city preparation completes or the location is replaced. They never enter a
-scene document or the replication protocol.
+Distant furniture-site preparation shares one generated recipe per complete
+building program inside its generation job. The browser scene worker releases
+this temporary memoization after exporting the static scene; separate building
+workers generate facade products concurrently. This duplicates some planning
+in exchange for parallelism and avoids transferring every full distant plan.
+Native preparation can hand its recipe memoization directly to venue promotion
+and mesh compilation. Unused prepared facade products are released after city
+installation. Compiler memoization never enters a scene document or replication.
 
 Ordinary building generation checks inputs and construction constraints.
 Exhaustive structural audits belong to explicit tests and authoring acceptance.
@@ -194,11 +222,12 @@ textures may be served and shared across instances.
 After generation finishes, the static distant city is packed into persistent
 GPU buffers. Each mesh asset contributes indexed canonical geometry once; each
 building contributes a transform, bounds and available LODs. Material batches
-reference whole mesh ranges. One compute lane checks each range and reserves
-its visible clusters with one global atomic operation. Workgroups check 64
-ranges at once; rejected ranges need no emission or synchronization. Each lane
+reference whole mesh ranges. One compute lane checks each range's owner list and
+reserves each visible owner's clusters with one global atomic operation.
+Workgroups check 64 ranges at once; rejected owners need no emission. Each lane
 emits clusters of at most 64 triangles. Each visible entry stores an 8-byte pair
-of range index and index-buffer offset; the source has one record per range.
+of range index and encoded placement/cluster index. Ranges share geometry across
+their owner lists; the vertex shader resolves the owner and local cluster.
 Static building parts enter an assembly queue directly, without temporary
 render entities or standard mesh GPU uploads. Their CPU meshes remain cached
 for reuse; the renderer uploads only the packed storage buffers. Building roots

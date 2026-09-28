@@ -59,6 +59,10 @@ pub(super) fn take_facade(program: &BuildingProgram) -> Result<PreparedFacade, S
     Ok(products.facades.swap_remove(index))
 }
 
+pub(super) fn release_unused_facades() {
+    products().facades.clear();
+}
+
 fn jobs(input_json: &str) -> Result<Vec<String>, String> {
     let input: TacticalSceneInput = serde_json::from_str(input_json).map_err(|e| e.to_string())?;
     input.validate().map_err(|e| e.to_string())?;
