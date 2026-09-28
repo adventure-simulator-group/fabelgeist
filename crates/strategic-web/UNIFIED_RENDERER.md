@@ -437,6 +437,19 @@ completion callbacks. Callback latency includes main-thread scheduling and
 earlier queued work; synchronous pipeline-creation calls can return before the
 browser/backend finishes preparing the pipeline.
 
+Add `STRATEGIC_STARTUP_BROWSER_TRACE=1` to capture browser GPU-service events,
+including Dawn pipeline creation and DirectX shader compilation where the
+backend exposes them. The `*-browser.json` files use the Chrome trace format;
+`city-document-start` aligns them with the page's performance clock. Nested
+pipeline and shader-compiler spans overlap and must not be added together.
+Shader sources and pipeline descriptors are included in startup trace events
+to attribute compiler work to material and vertex-layout variants.
+
+Add `STRATEGIC_STARTUP_WORKERS=1` to sample generation workers separately. The
+diagnostic pauses workers at startup to attach the profiler and collects their
+profiles before the pool terminates them. These worker profiles have their own
+clocks and sampling overhead; their summed CPU time is not elapsed readiness.
+
 Add `STRATEGIC_STARTUP_GPU_TIMESTAMPS=1` to sample pass timestamps in every eighth
 command encoder, with at most two readbacks outstanding. This opt-in diagnostic
 requires timestamp-query support and observes submissions outside animation

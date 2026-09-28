@@ -13,10 +13,14 @@ exports.install = function installStartupGpuProfile() {
       const id = ++nextPipeline, start = performance.now();
       mark("gpu-create-start", { id, method, label: descriptor.label || "",
         codeCharacters: descriptor.code?.length,
+        source: descriptor.code,
         vertex: shaderIds.get(descriptor.vertex?.module),
         fragment: shaderIds.get(descriptor.fragment?.module),
         compute: shaderIds.get(descriptor.compute?.module),
-        samples: descriptor.multisample?.count });
+        samples: descriptor.multisample?.count,
+        buffers: descriptor.vertex?.buffers,
+        targets: descriptor.fragment?.targets,
+        primitive: descriptor.primitive, depthStencil: descriptor.depthStencil });
       const result = original.call(this, descriptor);
       if (method === "createShaderModule") shaderIds.set(result, id);
       const finish = error => mark("gpu-create-end", {

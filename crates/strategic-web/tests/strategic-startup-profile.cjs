@@ -31,6 +31,7 @@ exports.attach = async (page, output) => {
       };
     }
     window.startupProfile.mark("document-start");
+    performance.mark("city-document-start");
   }
   const timestamps = process.env.STRATEGIC_STARTUP_GPU_TIMESTAMPS === "1"
     ? `(${require("./startup-gpu-timestamps.cjs").install.toString()})();` : "";
@@ -39,8 +40,12 @@ exports.attach = async (page, output) => {
   const cdp = await page.context().newCDPSession(page);
   await cdp.send("Profiler.enable");
   await cdp.send("Profiler.setSamplingInterval", { interval: 1000 });
+  const browserTrace = process.env.STRATEGIC_STARTUP_BROWSER_TRACE === "1"
+    ? require("./startup-browser-trace.cjs").attach(cdp, output) : null;
+  if (process.env.STRATEGIC_STARTUP_WORKERS === "1")
+    await require("./startup-worker-profile.cjs").attach(page, cdp, output);
   return {
-    start: () => cdp.send("Profiler.start"),
+    async start() { await browserTrace?.start(); await cdp.send("Profiler.start"); },
     async stop(name) {
       const { profile } = await cdp.send("Profiler.stop");
       const trace = await page.evaluate(() => { window.startupProfile.active = false; return ({ ...window.startupProfile,
@@ -48,6 +53,7 @@ exports.attach = async (page, output) => {
         metrics: window.strategicRendererMetrics }); });
       fs.writeFileSync(path.join(output, `${name}.cpuprofile`), JSON.stringify(profile));
       fs.writeFileSync(path.join(output, `${name}-trace.json`), JSON.stringify(trace));
+      await browserTrace?.stop(name);
     },
     async beginNavigation() {
       await page.evaluate(() => {
@@ -72,6 +78,10 @@ exports.attach = async (page, output) => {
 };
 
 const transforms = {
+  "strategic-generation-pool.js": [
+    ['for (const worker of workers) worker.terminate();',
+      'if (window.stopStartupWorkers) await window.stopStartupWorkers(); for (const worker of workers) worker.terminate();'],
+  ],
   "strategic-renderer.js": [
     ['const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");',
       'window.startupProfile.mark("wasm-fetch-start"); const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm"); window.startupProfile.mark("wasm-headers");'],
