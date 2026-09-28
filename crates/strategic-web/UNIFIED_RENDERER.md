@@ -47,11 +47,22 @@ budget after each preparation; products larger than 128 MiB are not stored.
 Oldest writes are evicted first. These records never contain live tactical tick
 state.
 
+Opening and reading storage use a two-second deadline. Background writes and
+eviction have a separate thirty-second deadline because their completion events
+can queue behind generation frames. If a deadline fires after an IndexedDB
+transaction has finished, its queued completion event resolves the operation.
+
 Cache reads have bounded concurrency; workers start only for misses. A fully
 cached scene starts no generation workers. Render-asset installation, texture
 residency, GPU uploads, equipment, and portrait preparation still run, so a cache
 hit is not equivalent to whole-game readiness. Generation metrics distinguish
 hits, misses, read time, decoding, worker time, and complete preparation time.
+
+Installation also reuses deterministic intermediate values within the document.
+A building chooses its material palette once per assembly traversal and shares
+it across modular components. Ground-mask rasterization computes each noise
+lattice corner once, then interpolates the same values for neighboring pixels.
+Neither changes the generated appearance or requires stored render products.
 
 ## Presentation and authority
 
@@ -368,6 +379,26 @@ When a production inventory fixture is present, `location-replacement.json`
 also records the cost and requests for replacing the retained settlement.
 
 ### Draw and timing measurements
+
+For startup CPU attribution, set `STRATEGIC_STARTUP_PROFILE=1` alongside
+`STRATEGIC_RENDER_BENCHMARK=1`. Add `STRATEGIC_RELOAD_BENCHMARK=1` to capture
+both empty-cache startup and the subsequent cached reload. The test server
+instruments its JavaScript responses without modifying production files or
+disabling the browser HTTP cache. Captures contain DevTools CPU samples, resource
+timings, long tasks, generation stages, and readiness milestones.
+
+```sh
+node crates/strategic-web/tests/summarize-startup-profile.cjs target/strategic-scene-review
+```
+
+CPU sampling adds overhead; use separate unprofiled runs for latency comparisons.
+Summary buckets are disjoint, while inclusive function costs overlap. Asynchronous
+cache-read and decompression spans also overlap and must not be added as elapsed
+time. Browser idle samples do not identify GPU wait time. The gap between asset
+readiness and snapshot readiness includes capture scheduling and rendering; it
+is not a measurement of portrait generation alone. Asset readiness can become
+false again while new capture pipelines compile, so first-observed milestones
+are not boundaries between independent, nonoverlapping phases.
 
 Set `STRATEGIC_GPU_PROFILE=1` alongside `STRATEGIC_RENDER_BENCHMARK=1` to
 capture steady frames. Use a fresh browser run for each location, setting
