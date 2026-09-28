@@ -66,6 +66,18 @@ it across modular components. Ground-mask rasterization computes each noise
 lattice corner once, then interpolates the same values for neighboring pixels.
 Neither changes the generated appearance or requires stored render products.
 
+Interior furnishing retains navigation obstruction counts while trying candidate
+groups. Accepted furniture remains in the graph; rejecting a group removes only
+its contributions. The same reachability and access-path checks still decide
+placement in both the scene worker and promoted strategic venues.
+
+Grass derives one seed for each spatially identified tuft and draws its jitter,
+species, rotation, and shader variation from fixed slots in that tuft's stream.
+This avoids repeatedly hashing the same identity for individual visual fields.
+Tuft density, representation, coverage, and fade distances remain unchanged.
+Street and yard meshes query a bounds hierarchy over the presented terrain
+triangles before clipping, preserving terrain seams and exact surface heights.
+
 ## Presentation and authority
 
 `/api/scene-assets` prepares the dispatcher's `TacticalSceneInput` for the
@@ -95,9 +107,13 @@ across repeated building recipes. Each instance follows its parent building's
 GPU visibility and LOD selection. Geometry ranges reference deduplicated lists
 of building placements; the GPU expands only selected instances into draws.
 The preload queue retains shared compiled recipes instead of expanding every
-member into a separate CPU record. Cut masonry, gable face selections, and other
-specialized surfaces retain their semantic geometry compilers. Tactical plans,
-collision, and operable elements keep their authoritative representation.
+member into a separate CPU record. Assembly groups recipes by geometry and
+palette, resolves component geometry once per group, and passes shared owner
+lists directly to range packing. Even temporary draw records stay grouped;
+duplicate components retain their draw multiplicity. Cut masonry, gable face
+selections, and other specialized surfaces retain their semantic geometry
+compilers. Tactical plans, collision, and operable elements keep their
+authoritative representation.
 Buildings outside the tactical boundary use three shared exterior variants per
 architectural family. Occupation, service size, and individual building seeds do
 not create additional exterior meshes. The settlement's canonical prosperity
