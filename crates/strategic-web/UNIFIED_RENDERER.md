@@ -5,6 +5,8 @@ device and asset store. Soft navigation replaces `#strategic-page` while
 retaining that runtime. The map remains in its existing HTML renderer.
 HTML-only pages such as the journal hide the retained scene; returning to a
 venue reuses its scene document, roster and equipment.
+Forge teardown removes only the forge preview. The strategic scene bridge owns
+view visibility and retains the current view across ordinary page replacement.
 
 ## Client generation workers
 

@@ -4,9 +4,9 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 function instrument(source, replacements) {
-  for (const [from, to] of replacements) {
+  for (const [from, to, all] of replacements) {
     assert(source.includes(from), `Startup profiling anchor missing: ${from}`);
-    source = source.replace(from, to);
+    source = all ? source.replaceAll(from, to) : source.replace(from, to);
   }
   return source;
 }
@@ -84,7 +84,7 @@ const transforms = {
     ['runtime = value; schedule();',
       'runtime = value; window.startupProfile.readStatus = () => runtime.wasm_strategic_status(); schedule();'],
     ['command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });',
-      'window.startupProfile.mark("view-command", {revision: revision + 1, place: view.active_place}); command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });'],
+      'window.startupProfile.mark("view-command", {revision: revision + 1, place: view.active_place}); command({ type: "sync-strategic-view", view: { ...view, revision: ++revision } });', true],
     ['await prepareGeneratedScene(await runtimePromise, input);',
       'window.startupProfile.mark("scene-response"); await prepareGeneratedScene(await runtimePromise, input); window.startupProfile.mark("generation-ready");'],
     ['metrics.state = state;',
