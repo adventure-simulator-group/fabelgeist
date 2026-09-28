@@ -28,7 +28,7 @@ fn components_share_geometry_and_pose_but_follow_their_buildings_lod() {
             });
         }
     }
-    let packed = pack(&world, parts.iter().cloned());
+    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned()));
     let owners: Vec<_> = packed
         .buildings
         .iter()
@@ -45,14 +45,18 @@ fn components_share_geometry_and_pose_but_follow_their_buildings_lod() {
     );
     assert_eq!(packed.geometry.pages[0].vertices.len(), 24 * 3);
     let jobs = &packed.batches.values().next().unwrap().1;
-    for job in jobs {
-        let component = &packed.buildings[(job.w >> COMPONENT_INDEX_SHIFT) as usize];
+    for range in &jobs.ranges {
+        let component = &packed.buildings[(range.geometry.w >> COMPONENT_INDEX_SHIFT) as usize];
         assert_eq!(component.levels.y, COMPONENT_RECORD);
         assert_eq!(
             component.uv_offset.truncate().truncate(),
             Vec2::new(0.5, 0.25)
         );
-        assert_eq!(packed.buildings[job.x as usize].levels.x, 6);
+        for owner in
+            &jobs.owners[range.geometry.x as usize..(range.geometry.x + range.instances.x) as usize]
+        {
+            assert_eq!(packed.buildings[*owner as usize].levels.x, 6);
+        }
     }
 }
 
@@ -99,7 +103,7 @@ fn queued_buildings_share_geometry_without_per_part_render_entities() {
         }
     }
     assert_eq!(world.query::<&Mesh3d>().iter(&world).count(), 0);
-    let packed = pack(&world, world.resource::<PendingGpuBuildings>().iter(None));
+    let packed = pack(&world, world.resource::<PendingGpuBuildings>().groups(None));
     assert_eq!(packed.buildings[1].bounds.x, 20.0);
     assert_eq!(packed.buildings[0].levels.x, 6);
     assemble(&mut world);
@@ -227,7 +231,7 @@ fn only_static_outdoor_props_enter_shared_gpu_geometry() {
         parts.iter().map(|part| part.root).collect::<Vec<_>>(),
         roots[..2]
     );
-    let packed = pack(&world, parts.iter().cloned());
+    let packed = pack(&world, input::Group::from_parts(parts.iter().cloned()));
     assert_eq!(packed.buildings.len(), 2);
     assert_eq!(packed.geometry.pages[0].vertices.len(), 24 * 3);
     assert_eq!(packed.geometry.pages[0].indices.len(), 36);
