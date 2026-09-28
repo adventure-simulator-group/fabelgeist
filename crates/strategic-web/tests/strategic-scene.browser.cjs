@@ -97,7 +97,10 @@ async function serve() {
         fs.writeFileSync(path.join(reviewRoot, "missing-assets.json"), JSON.stringify(missing, null, 2));
         response.statusCode = 404; response.end(); return;
       }
-      fs.createReadStream(file).pipe(response); return;
+      if (process.env.STRATEGIC_STARTUP_PROFILE === "1" && url.pathname.startsWith("/static/") && file.endsWith(".js")) {
+        response.end(require("./strategic-startup-profile.cjs").rewrite(path.basename(file), fs.readFileSync(file, "utf8")));
+      } else fs.createReadStream(file).pipe(response);
+      return;
     }
     response.setHeader("Content-Type", "text/html"); response.setHeader("X-Strategic-Response", "root");
     response.setHeader("X-Strategic-Script-Profile", "strategic"); response.setHeader("X-Strategic-Canonical-Url", url.pathname);
@@ -157,6 +160,9 @@ test("one canvas retains street, portraits and character views across warm navig
       assert(adapter, "The benchmark requires an actual WebGPU adapter");
       fs.writeFileSync(path.join(output, "adapter.json"), JSON.stringify({...adapter, browser: browser.version(), captured: new Date().toISOString()}, null, 2));
     }
+    const startup = process.env.STRATEGIC_STARTUP_PROFILE === "1"
+      ? await require("./strategic-startup-profile.cjs").attach(page, output) : null;
+    await startup?.start();
     await page.goto(`${origin}${town}/places/${process.env.STRATEGIC_PROFILE_PLACE || 'inn'}`);
     await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     telemetry = setInterval(async () => {
@@ -166,6 +172,7 @@ test("one canvas retains street, portraits and character views across warm navig
     }, 5000);
     const ready = () => Promise.race([fatal, page.waitForFunction(() => document.body.hasAttribute("data-strategic-scene-ready"), null, { timeout: realRenderer ? 1_500_000 : 15_000 })]);
     await ready();
+    await startup?.stop("cold-startup");
     if (process.env.STRATEGIC_RELOAD_BENCHMARK === "1") {
       await page.evaluate(() => window.strategicGenerationCacheSettled);
       initialLoad = await page.evaluate(() => ({ metrics: window.strategicRendererMetrics,
@@ -196,7 +203,9 @@ test("one canvas retains street, portraits and character views across warm navig
           request.onblocked = () => reject(new Error("Generated cache is still open"));
         }));
       }
+      await startup?.start();
       await page.reload(); await ready();
+      await startup?.stop("reload-startup");
       await page.evaluate(() => { window.originalCanvas = document.querySelector("#game-canvas"); });
     }
     const generationAtReady = await page.evaluate(() => window.strategicGenerationMetrics);
