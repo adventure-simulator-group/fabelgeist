@@ -13,7 +13,9 @@ view visibility and retains the current view across ordinary page replacement.
 Cold preparation starts a bounded pool of up to four CPU workers, reserving a
 logical core for the document where available. They share the compiled Wasm
 module, but each owns its generation memory. Workers never boot Bevy, create a
-canvas, or request a GPU device. They terminate after preparation.
+canvas, or request a GPU device. Dependent preparation phases reuse initialized
+workers from the same pool. They terminate after the complete preparation, or
+immediately on failure.
 
 Occupied building plans, interiors, detail meshes, LODs, and tangents are
 independent jobs alongside the distinct background exterior prototypes. Terrain
@@ -21,6 +23,9 @@ generation then consumes their prepared plans and compact doorway/footprint
 records. Workers return locally generated CBOR products through transferable
 buffers while the renderer loads textures. Occupied mesh vertex and index arrays
 use packed byte strings, avoiding scalar-by-scalar decoding on the main thread.
+After terrain preparation, independent landscape jobs clip street and yard
+meshes and scatter playable and vista grass. Their inputs include the graphics
+configuration; packed geometry and instance attributes preserve native results.
 Rust parses the original scene JSON and verifies each returned product against
 its requested identity. Entity installation, render assets, and GPU upload
 remain in the persistent application.
@@ -61,6 +66,10 @@ or exhausted quota still disable the cache for that preparation.
 
 Cache reads have bounded concurrency; each miss starts its worker without waiting
 for unrelated reads. Resident exterior meshes skip their disk products entirely.
+Opening the cache reads a key inventory once, so products known to be absent
+skip individual IndexedDB read transactions. A timed-out inventory leaves
+ordinary lookups available. Products written by another document after that
+inventory may be regenerated until the next cache opening.
 Up to 64 previous occupied-building semantic recipes remain available alongside
 the current city's newly prepared recipes; their installed meshes stay in the
 renderer's building asset cache. A fully cached scene starts no generation
@@ -69,7 +78,14 @@ residency, GPU uploads, equipment, and portrait preparation still run, so a cach
 hit is not equivalent to whole-game readiness. Generation metrics distinguish
 hits, misses, summed lookup duration, decoding, worker time, and complete
 preparation time. Concurrent lookup and worker durations are not additive elapsed
-time. Worker count includes instances started in both preparation phases.
+time. Worker count includes instances started in all preparation phases.
+
+The document retains landscape products for the three most recently prepared
+scene/configuration pairs. Returning to one reuses street and yard mesh handles,
+nearby traffic-mask images, and grass placements. Grass instance buffers and
+entities are still installed again. Changing the graphics configuration requires
+new landscape products. This retention is separate from the disk cache and the
+bounded snapshot cache.
 
 Installation also reuses deterministic intermediate values within the document.
 A building chooses its material palette once per assembly traversal and shares
@@ -248,7 +264,7 @@ digest, including its environment, match. The inactive-city cache holds at most
 two cities and 64 MiB of image pixels; unfinished captures are discarded.
 Scrolling repositions retained images without rebuilding geometry.
 When the layout supplies a portrait size, cold readiness includes portraits for
-residents of unvisited venues at those dimensions. A pool of at most two snapshot
+residents of unvisited venues at those dimensions. A pool of at most four snapshot
 camera entities captures these images and stays inactive between captures.
 New and reused capture cameras receive the tactical environment before camera
 preparation and render extraction, avoiding an initial frame with default
@@ -450,6 +466,14 @@ building layouts. This isolates scene replacement and cross-city asset reuse;
 it does not measure a completely different set of occupied building programs.
 `travel.json` records elapsed arrival time and generation metrics separately.
 The usual missing-asset assertion still applies after results are recorded.
+
+To measure new occupied layouts, generate validated fixtures with the ignored
+`distinct_city_inputs_validate_occupied_layouts` tactical-client test, setting
+`STRATEGIC_TRAVEL_FIXTURE_DIR` to an absolute output directory. Set
+`STRATEGIC_TRAVEL_SCENE_INPUT` and `STRATEGIC_TRAVEL_SECOND_INPUT` to its two JSON
+files. This measures A → B → C → A with different occupied programs at both
+destinations. Preserve the exact files for before/after comparisons; the test
+uses fixed authored seeds rather than searching for easier layouts at runtime.
 
 Preparing a destination before arrival requires a server-authorized scene input.
 The current scene endpoint only serves the character's current settlement, so

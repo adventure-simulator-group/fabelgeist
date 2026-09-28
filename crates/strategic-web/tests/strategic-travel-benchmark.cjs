@@ -6,7 +6,7 @@ const path = require("node:path");
 exports.run = async (page, output, ready, profiler) => {
   const results = [];
   await page.evaluate(() => window.strategicGenerationCacheSettled);
-  for (const settlement of ["travel-destination", "scene-review"]) {
+  for (const settlement of ["travel-destination", ...(process.env.STRATEGIC_TRAVEL_SECOND_INPUT ? ["travel-second"] : []), "scene-review"]) {
     const destination = `/locations/settlement/${settlement}/places/inn`;
     await profiler?.start();
     const started = performance.now();

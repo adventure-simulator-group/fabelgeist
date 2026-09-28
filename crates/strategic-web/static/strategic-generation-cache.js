@@ -86,9 +86,17 @@ export async function openGeneratedCache(revision, storage) {
     }
   }
   const key = job => digest(new TextEncoder().encode(`${CACHE_FORMAT}\n${revision}\n${job}`));
+  // One small inventory avoids serial read transactions for new-city misses.
+  // A timed-out inventory leaves normal reads available. Another document's
+  // later writes may cause a harmless regeneration until the next opening.
+  const storedKeys = await transaction("readonly", (store, done) => {
+    const request = store.getAllKeys();
+    request.onsuccess = () => done(new Set(request.result));
+  });
   async function remove(job) {
     const id = await key(job);
     await transaction("readwrite", store => store.delete(id));
+    storedKeys?.delete(id);
   }
   async function prune() {
     // Walk newest first without copying every large blob into a JS array.
@@ -112,6 +120,7 @@ export async function openGeneratedCache(revision, storage) {
     async get(job) {
       if (disabled) return undefined;
       const id = await key(job);
+      if (storedKeys && !storedKeys.has(id)) return undefined;
       const record = await transaction("readonly", (store, done) => {
         const request = store.get(id); request.onsuccess = () => done(request.result);
       });
@@ -134,6 +143,7 @@ export async function openGeneratedCache(revision, storage) {
         await transaction("readwrite", store => store.put({ key: id, revision,
           bytes: compressed, checksum, size: compressed.byteLength,
           decodedSize: bytes.byteLength, used: Date.now() }));
+        storedKeys?.add(id);
       })().catch(() => { disabled = true; });
       writes.add(write); write.finally(() => writes.delete(write));
     },

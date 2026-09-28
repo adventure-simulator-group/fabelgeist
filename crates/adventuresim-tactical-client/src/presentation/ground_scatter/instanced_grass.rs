@@ -41,7 +41,7 @@ use super::cover_mask::CoverageMask;
 mod batches;
 mod culling;
 mod diagnostics;
-pub(in crate::presentation) use batches::spawn_tuft_batches;
+pub(in crate::presentation) use batches::{PreparedTufts, spawn_tuft_batches};
 mod material;
 mod view_culling;
 pub(crate) use diagnostics::GrassTriangleCount;
@@ -101,42 +101,17 @@ fn present_instanced_grass(
             bps(environment.weather.snow_cover_bps),
         ) * settings.config.grass.density_scale;
         let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
-        let masked_ground = fault_scarp.map(|recipe| {
-            super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
-        });
-        let ground = masked_ground.as_ref().unwrap_or(ground);
         let grass = &settings.config.grass;
         let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
-        let mut placement = ScenePlacement {
-            terrain,
-            ground,
-            mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
-            profile: GrassCommunityProfile::from_environment(environment),
-            communities: GrassCommunityField::new(base_seed),
-        };
-        let mut batches = TierSpeciesBatches::default();
-        for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
-            scatter_cell_tufts(
-                &mut batches[lod.tier_index()],
-                &mut placement,
-                base_seed,
-                lod,
-                grass.placement.playable_patch_spacing_m,
-                grass,
-            );
-        }
-        // Reuse near placements so the near-edge crossfade does not move tufts.
-        for species in GrassSpecies::ALL {
-            batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
-                batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
-        }
-        scatter_cell_tufts(
-            &mut batches[GrassMeshLod::Vista.tier_index()],
-            &mut placement,
-            base_seed ^ 0x7669_7374_615f_6c6f,
-            GrassMeshLod::Vista,
-            grass.placement.vista_patch_spacing_m,
-            grass,
+        #[cfg(target_family = "wasm")]
+        let prepared = crate::presentation::generation::landscape::grass(&environment.scene_digest);
+        #[cfg(not(target_family = "wasm"))]
+        let prepared: Option<
+            std::sync::Arc<crate::presentation::vista::grass::PreparedGrass>,
+        > = None;
+        let mut batches = prepared.map_or_else(
+            || prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp),
+            |prepared| prepared.playable.to_batches(),
         );
         spawn_tuft_batches(
             GrassWorld {
@@ -162,6 +137,55 @@ fn present_instanced_grass(
         );
         commands.entity(entity).insert(InstancedGrassPresented);
     }
+}
+
+pub(in crate::presentation) fn prepare_scene_tufts(
+    terrain: &SceneTerrain,
+    ground: &SceneGround,
+    environment: &SceneEnvironment,
+    grass: &crate::presentation::config::GrassConfig,
+    fault_scarp: Option<&adventuresim_tactical_core::prelude::TerrainLandformRecipe>,
+) -> TierSpeciesBatches {
+    if !grass.enabled {
+        return Default::default();
+    }
+    let masked_ground = fault_scarp.map(|recipe| {
+        super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
+    });
+    let ground = masked_ground.as_ref().unwrap_or(ground);
+    let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
+    let mut placement = ScenePlacement {
+        terrain,
+        ground,
+        mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
+        profile: GrassCommunityProfile::from_environment(environment),
+        communities: GrassCommunityField::new(base_seed),
+    };
+    let mut batches = TierSpeciesBatches::default();
+    for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
+        scatter_cell_tufts(
+            &mut batches[lod.tier_index()],
+            &mut placement,
+            base_seed,
+            lod,
+            grass.placement.playable_patch_spacing_m,
+            grass,
+        );
+    }
+    // Reuse near placements so the near-edge crossfade does not move tufts.
+    for species in GrassSpecies::ALL {
+        batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
+            batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
+    }
+    scatter_cell_tufts(
+        &mut batches[GrassMeshLod::Vista.tier_index()],
+        &mut placement,
+        base_seed ^ 0x7669_7374_615f_6c6f,
+        GrassMeshLod::Vista,
+        grass.placement.vista_patch_spacing_m,
+        grass,
+    );
+    batches
 }
 
 /// Every gameplay/viewer camera drives eidolon's per-instance compute cull.

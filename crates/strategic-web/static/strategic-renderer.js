@@ -181,8 +181,9 @@ if (surface && canvas) {
       ]);
       if (!graphics.ok) throw new Error(`tactical graphics config: HTTP ${graphics.status}`);
       if (!audio.ok) throw new Error(`tactical audio config: HTTP ${audio.status}`);
-      runtime.wasm_boot(await graphics.text(), await audio.text());
-      return { ...runtime, generationModule, generationRevision };
+      const generationGraphicsConfig = await graphics.text();
+      runtime.wasm_boot(generationGraphicsConfig, await audio.text());
+      return { ...runtime, generationModule, generationRevision, generationGraphicsConfig };
     })
     .catch((error) => {
       console.error("persistent Bevy renderer unavailable", error);

@@ -12,12 +12,17 @@ pub(super) struct CitySurfaceMeshBuilder {
     chunks: std::collections::BTreeMap<traffic::TrafficTile, SurfaceVertices>,
 }
 
-#[derive(Default)]
-struct SurfaceVertices {
+#[derive(Clone, Default, serde::Serialize, serde::Deserialize)]
+pub(super) struct SurfaceVertices {
+    #[serde(with = "crate::presentation::packed")]
     positions: Vec<[f32; 3]>,
+    #[serde(with = "crate::presentation::packed")]
     normals: Vec<[f32; 3]>,
+    #[serde(with = "crate::presentation::packed")]
     uvs: Vec<[f32; 2]>,
+    #[serde(with = "crate::presentation::packed")]
     footprints: Vec<[f32; 4]>,
+    #[serde(with = "crate::presentation::packed")]
     activities: Vec<[f32; 2]>,
 }
 
@@ -158,6 +163,13 @@ impl CitySurfaceMeshBuilder {
         });
     }
 
+    pub(super) fn into_vertices(
+        self,
+    ) -> impl Iterator<Item = (traffic::TrafficTile, SurfaceVertices)> {
+        self.chunks.into_iter()
+    }
+
+    #[cfg(test)]
     pub(super) fn build(self) -> impl Iterator<Item = (traffic::TrafficTile, Mesh)> {
         self.chunks
             .into_iter()
@@ -166,7 +178,7 @@ impl CitySurfaceMeshBuilder {
 }
 
 impl SurfaceVertices {
-    fn build(self) -> Mesh {
+    pub(super) fn build(self) -> Mesh {
         let mut mesh = Mesh::new(
             PrimitiveTopology::TriangleList,
             RenderAssetUsages::RENDER_WORLD,

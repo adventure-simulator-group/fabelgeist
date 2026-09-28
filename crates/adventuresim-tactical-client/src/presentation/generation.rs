@@ -6,12 +6,15 @@ use serde::{Deserialize, Serialize};
 use std::sync::{Mutex, OnceLock};
 
 mod building;
-mod packed;
+pub(crate) mod landscape;
+use super::packed;
 pub(super) mod venue;
 pub(super) use building::PreparedFacade;
 pub(super) use venue::VenueGeometry;
 #[cfg(test)]
 mod tests;
+#[cfg(test)]
+mod travel_fixtures;
 #[cfg(target_family = "wasm")]
 mod wasm;
 
@@ -20,6 +23,14 @@ enum GenerationJob {
     Scene(Box<TacticalSceneInput>),
     Building(Box<BuildingProgram>),
     Venue(Box<BuildingProgram>),
+    Grass {
+        input: Box<TacticalSceneInput>,
+        graphics: String,
+    },
+    Ground {
+        input: Box<TacticalSceneInput>,
+        graphics: String,
+    },
 }
 
 #[derive(Serialize, Deserialize)]
@@ -27,10 +38,15 @@ enum GenerationProduct {
     Scene(Box<GeneratedTacticalScene>),
     Building(Box<PreparedFacade>),
     Venue(Box<venue::PreparedVenue>),
+    Grass(Box<landscape::GrassProduct>),
+    Ground(Box<landscape::GroundProduct>),
 }
 
 #[derive(Default)]
 struct PreparedProducts {
+    ground: Vec<landscape::GroundProduct>,
+    grass: Vec<landscape::GrassProduct>,
+    active_ground: Option<(String, String)>,
     scenes: Vec<GeneratedTacticalScene>,
     facades: Vec<PreparedFacade>,
     resident_facades: Vec<BuildingProgram>,
@@ -165,6 +181,8 @@ fn venue_jobs(input_json: &str, view_json: &str) -> Result<Vec<String>, String> 
 
 #[derive(Default, Serialize, Deserialize)]
 struct Dependencies {
+    grass: Option<landscape::GrassDependencies>,
+    ground: Option<landscape::GroundDependencies>,
     sites: Vec<(
         BuildingProgram,
         adventuresim_tactical_core::scene_input::furniture::FurnitureSiteRecipe,
@@ -178,6 +196,31 @@ fn dependencies(job_json: &str) -> Result<Vec<u8>, String> {
     let products = products();
     let mut data = Dependencies::default();
     match job {
+        GenerationJob::Grass { input, .. } => {
+            let digest = input.digest().map_err(|e| e.to_string())?;
+            let scene = products
+                .scenes
+                .iter()
+                .find(|s| s.digest == digest)
+                .ok_or("scene not prepared for grass job")?;
+            data.grass = Some(landscape::GrassDependencies {
+                terrain: scene.terrain.clone(),
+                ground: scene.ground.clone(),
+            });
+        }
+
+        GenerationJob::Ground { input, .. } => {
+            let digest = input.digest().map_err(|e| e.to_string())?;
+            let scene = products
+                .scenes
+                .iter()
+                .find(|s| s.digest == digest)
+                .ok_or("scene not prepared for ground job")?;
+            data.ground = Some(landscape::GroundDependencies {
+                terrain: scene.terrain.clone(),
+                groups: scene.furniture.groups.clone(),
+            });
+        }
         GenerationJob::Scene(input) => {
             data.sites = products.sites.clone();
             for building in input.buildings {
@@ -237,6 +280,21 @@ fn generate(job_json: &str, dependencies: &[u8]) -> Result<Vec<u8>, String> {
     let dependencies: Dependencies =
         ciborium::from_reader(dependencies).map_err(|e| e.to_string())?;
     let product = match job {
+        GenerationJob::Grass { input, graphics } => {
+            GenerationProduct::Grass(Box::new(landscape::GrassProduct::generate(
+                &input,
+                graphics,
+                dependencies.grass.ok_or("missing grass dependencies")?,
+            )?))
+        }
+
+        GenerationJob::Ground { input, graphics } => {
+            GenerationProduct::Ground(Box::new(landscape::GroundProduct::generate(
+                &input,
+                graphics,
+                dependencies.ground.ok_or("missing ground dependencies")?,
+            )?))
+        }
         GenerationJob::Scene(input) => {
             let mut recipes =
                 adventuresim_tactical_core::scene_input::GeneratedBuildingRecipes::default();
@@ -266,6 +324,23 @@ fn receive(job_json: &str, bytes: &[u8]) -> Result<(), String> {
     let job: GenerationJob = serde_json::from_str(job_json).map_err(|e| e.to_string())?;
     let product: GenerationProduct = ciborium::from_reader(bytes).map_err(|e| e.to_string())?;
     match (job, product) {
+        (GenerationJob::Grass { input, graphics }, GenerationProduct::Grass(grass))
+            if input.digest().map_err(|e| e.to_string())? == grass.digest
+                && graphics == grass.graphics =>
+        {
+            let mut products = products();
+            products.grass.push(*grass);
+            if products.grass.len() > landscape::RETAINED_LANDSCAPE_SCENES {
+                products.grass.remove(0);
+            }
+        }
+
+        (GenerationJob::Ground { input, graphics }, GenerationProduct::Ground(ground))
+            if input.digest().map_err(|e| e.to_string())? == ground.digest
+                && graphics == ground.graphics =>
+        {
+            landscape::retain(*ground);
+        }
         (GenerationJob::Scene(input), GenerationProduct::Scene(scene))
             if input.digest().map_err(|e| e.to_string())? == scene.digest =>
         {

@@ -50,7 +50,11 @@ async function serve() {
     if (url.pathname === "/api/scene-assets") {
       response.setHeader("Content-Type", "application/json");
       let input = fs.readFileSync(path.resolve(root, sceneFixture), "utf8");
-      if (url.searchParams.get("settlement") === "travel-destination") {
+      const destination = url.searchParams.get("settlement");
+      const distinct = destination === "travel-destination" ? process.env.STRATEGIC_TRAVEL_SCENE_INPUT
+        : destination === "travel-second" ? process.env.STRATEGIC_TRAVEL_SECOND_INPUT : null;
+      if (distinct) input = fs.readFileSync(path.resolve(root, distinct), "utf8");
+      else if (destination === "travel-destination") {
         // A distinct terrain/scene with validated occupied building layouts.
         // Preserve full-width seeds; do not parse this document through JS numbers.
         input = input.replace(/("seed"\s*:\s*)(\d+)/,
@@ -90,7 +94,7 @@ async function serve() {
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client.js") {
       response.setHeader("Content-Type", "text/javascript");
       const street = {height: 30, width: services.length * 20, bays: services.map((id, index) => ({id, width: index % 2 ? 18 : 24}))};
-      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
+      response.end(`export default async function(){}; export function wasm_begin_generation(){} export function wasm_generation_jobs(){return "[]";} export function wasm_venue_jobs(){return "[]";} export function wasm_landscape_jobs(){return "[]";} export function wasm_boot(){window.boots=(window.boots||0)+1;} export function wasm_command(json){(window.commands||=[]).push(JSON.parse(json));} export function wasm_strategic_status(){return JSON.stringify({ready:true,street:${JSON.stringify(street)},revision:window.commands?.filter(command=>command.type==="sync-strategic-view").at(-1)?.view.revision})}`); return;
     }
     if (!realRenderer && url.pathname === "/tactical/wasm/adventuresim-tactical-client_bg.wasm") {
       response.setHeader("Content-Type", "application/wasm");
@@ -98,6 +102,10 @@ async function serve() {
     }
     let file;
     if (url.pathname.startsWith("/static/")) file = path.join(root, "crates/strategic-web/static", url.pathname.slice(8));
+    if (process.env.STRATEGIC_STATIC_DIR && url.pathname.startsWith("/static/")) {
+      const saved = path.join(root, process.env.STRATEGIC_STATIC_DIR, url.pathname.slice(8));
+      if (fs.existsSync(saved)) file = saved;
+    }
     if (url.pathname.startsWith("/tactical/")) file = path.join(root, "crates/adventuresim-stdb-module/static", url.pathname.slice(10));
     if (process.env.STRATEGIC_WASM_DIR && url.pathname.startsWith("/tactical/wasm/"))
       file = path.join(root, process.env.STRATEGIC_WASM_DIR, path.basename(url.pathname));

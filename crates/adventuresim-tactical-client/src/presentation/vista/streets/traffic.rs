@@ -20,7 +20,9 @@ const FILTER_GUTTER_PIXELS: usize = 1;
 const TILE_PIXELS: usize = TILE_INTERIOR_PIXELS + FILTER_GUTTER_PIXELS * 2;
 const ROAD_SHOULDER_METRES: f32 = 1.2;
 
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+#[derive(
+    Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, serde::Serialize, serde::Deserialize,
+)]
 pub(super) struct TrafficTile(pub i32, pub i32);
 
 impl TrafficTile {

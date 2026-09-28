@@ -1,6 +1,12 @@
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+pub fn wasm_landscape_jobs(input_json: &str, graphics: &str) -> Result<String, JsValue> {
+    let jobs = super::landscape::jobs(input_json, graphics).map_err(|e| JsValue::from_str(&e))?;
+    serde_json::to_string(&jobs).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+#[wasm_bindgen]
 pub fn wasm_generation_jobs(input_json: &str) -> Result<String, JsValue> {
     let jobs = super::jobs(input_json).map_err(|error| JsValue::from_str(&error))?;
     serde_json::to_string(&jobs).map_err(|error| JsValue::from_str(&error.to_string()))

@@ -7,7 +7,7 @@ const CITY_GROUND_SHADER: &str = "shaders/tactical_city_ground.wgsl";
 const FIELDSTONE_SPACING_METRES: f32 = 0.28;
 const GRAVEL_SPACING_METRES: f32 = 0.055;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
 pub(super) enum CityGroundKind {
     EarthStreet,
     GravelStreet,
