@@ -8,7 +8,7 @@ self.onmessage = async event => {
       return;
     }
     const started = performance.now();
-    const bytes = wasm_generate_job(event.data.job);
+    const bytes = wasm_generate_job(event.data.job, event.data.dependencies);
     self.postMessage({ bytes, milliseconds: performance.now() - started }, [bytes.buffer]);
   } catch (error) {
     self.postMessage({ error: String(error) });

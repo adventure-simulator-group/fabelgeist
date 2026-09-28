@@ -1,7 +1,7 @@
 //! Lightweight frontage geometry shared by tactical and distant building sites.
 use super::*;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
-use adventuresim_building_generator::{BuildingPlan, BuildingProgram, CollisionBounds, OpeningUse};
+use adventuresim_building_generator::{BuildingPlan, CollisionBounds, OpeningUse};
 #[cfg(test)]
 mod tests;
 #[derive(Clone)]
@@ -10,13 +10,13 @@ pub(super) struct FurnitureSite {
     pub half_extents: Vec2,
     pub routes: Vec<FurnitureFootprint>,
 }
-#[derive(Clone)]
-struct SiteRecipe {
+#[derive(Clone, Debug, Serialize, Deserialize)]
+pub struct FurnitureSiteRecipe {
     half_extents: Vec2,
     routes: Vec<FurnitureFootprint>,
 }
-impl SiteRecipe {
-    fn new(plan: &BuildingPlan, bounds: CollisionBounds) -> Self {
+impl FurnitureSiteRecipe {
+    pub fn new(plan: &BuildingPlan, bounds: CollisionBounds) -> Self {
         let centre = bounds.centre();
         let origin = Vec2::new(centre.x, centre.z);
         let mut routes = Vec::new();
@@ -78,19 +78,22 @@ pub(super) fn collect(
 ) -> Result<Vec<FurnitureSite>, SceneInputError> {
     let mut sites = buildings
         .iter()
-        .map(|b| SiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone(), 1.0))
+        .map(|b| {
+            FurnitureSiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone(), 1.0)
+        })
         .collect::<Vec<_>>();
-    let mut cache: Vec<(BuildingProgram, SiteRecipe)> = Vec::new();
     for distant in &input.distant_buildings {
         let program = distant.exterior_program();
-        let recipe = if let Some((_, recipe)) = cache.iter().find(|(key, _)| *key == program) {
+        let recipe = if let Some((_, recipe)) =
+            recipes.sites.iter().find(|(key, _)| *key == program)
+        {
             recipe.clone()
         } else {
             let generated = recipes.get_or_generate(&program).map_err(|e| {
                 SceneInputError::Validation(format!("distant furniture site {}: {e}", distant.id))
             })?;
-            let recipe = SiteRecipe::new(&generated.plan, generated.collision.bounds);
-            cache.push((program.clone(), recipe.clone()));
+            let recipe = FurnitureSiteRecipe::new(&generated.plan, generated.collision.bounds);
+            recipes.sites.push((program.clone(), recipe.clone()));
             recipe
         };
         sites.push(recipe.place(

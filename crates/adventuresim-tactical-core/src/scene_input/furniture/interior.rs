@@ -29,15 +29,23 @@ pub(super) fn append(
                 building.placement.id,
             ))
         })?;
-        for placement in &layout.placements {
-            furniture.instances.push(instance(building, placement));
-        }
-        furniture.interiors.push(InteriorBuildingLayout {
-            building_id: building.placement.id,
-            layout,
-        });
+        install(furniture, building, layout);
     }
     Ok(())
+}
+
+pub(super) fn install(
+    furniture: &mut FurnitureLayout,
+    building: &GeneratedBuilding,
+    layout: InteriorLayout,
+) {
+    for placement in &layout.placements {
+        furniture.instances.push(instance(building, placement));
+    }
+    furniture.interiors.push(InteriorBuildingLayout {
+        building_id: building.placement.id,
+        layout,
+    });
 }
 
 fn instance(building: &GeneratedBuilding, placement: &InteriorPlacement) -> GeneratedFurniture {

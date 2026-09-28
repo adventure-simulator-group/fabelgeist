@@ -25,7 +25,9 @@ pub(super) fn install(app: &mut App) {
 fn wait_for_installation(
     view: Option<Res<super::protocol::StrategicView>>,
     installed: Res<super::status::SceneInstallationReady>,
+    scene: Option<Res<super::RetainedScene>>,
     mut opened: Local<bool>,
+    mut previous_scene: Local<Option<Entity>>,
     mut cameras: Query<
         &mut VisibleEntities,
         Or<(
@@ -34,13 +36,21 @@ fn wait_for_installation(
         )>,
     >,
 ) {
-    *opened |= installed.0;
+    let root = scene.as_ref().and_then(|scene| scene.root);
+    if *previous_scene != root {
+        *previous_scene = root;
+        *opened = false;
+    } else {
+        *opened |= installed.0;
+    }
     if *opened || view.is_none() {
         return;
     }
     // Keep atmosphere baking, light visibility, uploads, and pose initialization
     // running. Only postpone mesh specialization until the final environment is
-    // installed. Once opened, weather changes must never blank a retained view.
+    // installed. Reopen for each city; weather changes within an installed city
+    // never close this gate. The first frame of a replacement ignores the old
+    // city's readiness, which is published at the end of the previous frame.
     for mut visible in &mut cameras {
         visible.get_mut(TypeId::of::<Mesh3d>()).clear();
     }
@@ -133,6 +143,33 @@ mod tests {
             .0 = false;
         app.update();
         assert_eq!(meshes(&app), [1, 1, 1], "later rebakes cannot blank views");
+        // A city replacement must not inherit the old city's ready latch.
+        let root = app.world_mut().spawn_empty().id();
+        app.insert_resource(super::super::RetainedScene {
+            root: Some(root),
+            ..default()
+        });
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = true;
+        app.update();
+        assert_eq!(
+            meshes(&app),
+            [0, 0, 1],
+            "ignore stale readiness on replacement"
+        );
+        populate(&mut app);
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = false;
+        app.update();
+        assert_eq!(meshes(&app), [0, 0, 1]);
+        populate(&mut app);
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = true;
+        app.update();
+        assert_eq!(meshes(&app), [1, 1, 1], "destination opens when installed");
     }
 
     #[test]

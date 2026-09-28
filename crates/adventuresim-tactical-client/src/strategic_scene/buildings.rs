@@ -1,8 +1,8 @@
 //! Anchors in the full-size tactical buildings along the shared frontage.
 use super::protocol::PlaceKind;
+use crate::presentation::venues::select_building;
 use adventuresim_building_generator::{OpeningUse, interior::InteriorLayout};
 use adventuresim_tactical_core::prelude::*;
-use adventuresim_world_schema::settlement_buildings::BuildingUse;
 use bevy::prelude::*;
 
 pub(super) const ROOM_LAYER: usize = 0;
@@ -11,23 +11,6 @@ pub(super) struct Venue {
     pub anchor: Vec3,
     pub approach: Vec3,
     pub positions: Vec<Transform>,
-}
-
-pub(super) fn building_use(kind: PlaceKind) -> BuildingUse {
-    match kind {
-        PlaceKind::Square => BuildingUse::WeighHouse,
-        PlaceKind::Market => BuildingUse::GeneralShop,
-        PlaceKind::Residence | PlaceKind::Camp => BuildingUse::Dwelling,
-        PlaceKind::Keep => BuildingUse::Guardhouse,
-        PlaceKind::Smith => BuildingUse::Weaponsmith,
-        PlaceKind::Armor => BuildingUse::Armorer,
-        PlaceKind::Tailor => BuildingUse::Tailor,
-        PlaceKind::Apothecary => BuildingUse::Herbalist,
-        PlaceKind::Books => BuildingUse::Bookshop,
-        PlaceKind::Inn => BuildingUse::Inn,
-        PlaceKind::Church => BuildingUse::ParishChurch,
-        PlaceKind::Guild => BuildingUse::Guildhall,
-    }
 }
 
 pub(super) fn transform(building: &GeneratedBuilding) -> Transform {
@@ -212,31 +195,14 @@ fn select_buildings(
     let mut promoted = Vec::new();
     let mut selected = std::collections::HashMap::new();
     for place in &view.places {
-        let operator_building = input
-            .establishments
-            .iter()
-            .find(|establishment| {
-                view.people.iter().any(|person| {
-                    person.place == place.id && person.id.0 == establishment.operator_character_id
-                })
-            })
-            .map(|establishment| establishment.building_id);
-        let usage = building_use(place.kind);
-        let id = operator_building
-            .or_else(|| {
-                input
-                    .buildings
-                    .iter()
-                    .find(|building| building.program.usage == Some(usage))
-                    .map(|building| building.id)
-            })
-            .or_else(|| {
-                input
-                    .distant_buildings
-                    .iter()
-                    .find(|building| building.usage == Some(usage))
-                    .map(|building| building.id)
-            });
+        let id = select_building(
+            input,
+            place.kind,
+            view.people
+                .iter()
+                .filter(|p| p.place == place.id)
+                .map(|p| p.id.0),
+        );
         if let Some(id) = id {
             selected.insert(place.id.clone(), id);
             if !generated

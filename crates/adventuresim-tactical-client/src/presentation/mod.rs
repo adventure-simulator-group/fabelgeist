@@ -35,6 +35,7 @@ pub(crate) mod procedural_texture_setup;
 pub(crate) mod recipe_mesh;
 mod sky;
 mod terrain;
+pub(crate) mod venues;
 mod vista;
 mod volumetric;
 mod weather;

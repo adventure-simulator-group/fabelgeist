@@ -5,43 +5,7 @@ use serde::Deserialize;
 pub(crate) const FORGE_LAYER: usize = 1;
 pub(crate) const COMPOSITOR_LAYER: usize = 2;
 
-#[derive(Clone, Debug, Deserialize, PartialEq, Eq, Hash)]
-pub(crate) struct PlaceId(pub String);
-
-#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq, Hash)]
-#[serde(try_from = "String")]
-pub(crate) struct PortraitId(pub u64);
-
-impl TryFrom<String> for PortraitId {
-    type Error = std::num::ParseIntError;
-    fn try_from(value: String) -> Result<Self, Self::Error> {
-        value.parse().map(Self)
-    }
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "kebab-case")]
-pub(crate) enum PlaceKind {
-    Square,
-    Residence,
-    Keep,
-    Market,
-    Smith,
-    Armor,
-    Tailor,
-    Apothecary,
-    Books,
-    Inn,
-    Church,
-    Guild,
-    Camp,
-}
-
-#[derive(Clone, Debug, Deserialize, PartialEq, Eq)]
-pub(crate) struct Place {
-    pub id: PlaceId,
-    pub kind: PlaceKind,
-}
+pub(crate) use crate::presentation::venues::{Place, PlaceId, PlaceKind, PortraitId};
 
 #[derive(Clone, Copy, Debug, Deserialize, PartialEq)]
 pub(crate) struct CanvasRect {
@@ -126,14 +90,6 @@ pub(crate) struct StrategicView {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn character_identity_survives_javascript_integer_limit() {
-        let id: PortraitId = serde_json::from_str("\"18446744073709551615\"").unwrap();
-        assert_eq!(id.0, u64::MAX);
-        assert!(serde_json::from_str::<PortraitId>("42").is_err());
-        assert!(serde_json::from_str::<PortraitId>("\"someone\"").is_err());
-    }
 
     #[test]
     fn offscreen_views_do_not_create_invalid_gpu_viewports() {

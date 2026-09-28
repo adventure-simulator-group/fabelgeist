@@ -101,6 +101,7 @@ pub(super) fn install_facade(
         .components
         .append(&prepared.instances, &mut compiled, meshes);
     let compiled = Arc::new(compiled);
+    super::super::generation::retain_facade(&compiled.program);
     cache.levels.push(compiled.clone());
     compiled
 }

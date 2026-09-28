@@ -4,6 +4,18 @@ use fabelgeist_determinism::StreamId;
 
 impl TacticalSceneInput {
     pub fn generate(&self) -> Result<GeneratedTacticalScene, SceneInputError> {
+        let mut generated = self.generate_unfurnished(GeneratedBuildingRecipes::default())?;
+        generated
+            .furniture
+            .furnish_interiors(&generated.buildings)?;
+        Ok(generated)
+    }
+
+    /// Generate terrain and outdoor assets before independent interior jobs.
+    pub fn generate_unfurnished(
+        &self,
+        mut building_recipes: GeneratedBuildingRecipes,
+    ) -> Result<GeneratedTacticalScene, SceneInputError> {
         self.validate()?;
         let (grid_width, grid_depth, grid_spacing, mut heights, mut environment) =
             upsample_playable_grid(&self.playable);
@@ -15,7 +27,7 @@ impl TacticalSceneInput {
             &mut heights,
             &mut environment,
         );
-        let mut buildings = buildings::prepare_buildings(&self.buildings)?;
+        let mut buildings = buildings::prepare_buildings(&self.buildings, &mut building_recipes)?;
         buildings::validate_building_pads(&buildings)?;
         compounds::validate_generated(&self.compounds, &buildings, &self.streets)?;
         let garden_anchors = gardens::terrain_anchors(self)?;
@@ -66,8 +78,7 @@ impl TacticalSceneInput {
         )?;
         gardens::validate_surface(self, &terrain, &buildings)?;
         let terrain_patch = crate::scene_fault::generate(self.landform, &terrain)?;
-        let mut building_recipes = GeneratedBuildingRecipes::default();
-        let mut furniture = furniture::generate(
+        let furniture = furniture::generate(
             self,
             &buildings,
             &terrain,
@@ -75,7 +86,6 @@ impl TacticalSceneInput {
             &obstacles,
             &mut building_recipes,
         )?;
-        furniture.furnish_interiors(&buildings)?;
         Ok(GeneratedTacticalScene {
             digest: self.digest()?,
             terrain,

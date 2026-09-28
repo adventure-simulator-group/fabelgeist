@@ -17,6 +17,7 @@ use std::collections::HashMap;
 #[cfg(test)]
 mod environment_tests;
 mod preload;
+mod travel;
 
 // A newly active view needs visibility, material specialization and render-world
 // preparation before its image contains geometry, even with resident assets.
@@ -85,6 +86,8 @@ struct Frame {
 #[derive(Resource, Default)]
 pub(super) struct CachedViews {
     scene: Option<Entity>,
+    identity: (String, String),
+    previous: std::collections::VecDeque<travel::SavedViews>,
     compositor: Option<Entity>,
     frames: HashMap<ViewKey, Frame>,
     free_cameras: Vec<Entity>,
@@ -142,16 +145,7 @@ impl CacheWorld<'_> {
                 .id()
         });
         if self.retained.scene != scene.root {
-            let mut released = Vec::new();
-            for (_, frame) in self.retained.frames.drain() {
-                if let Some(camera) = frame.camera {
-                    deactivate(commands, camera);
-                    released.push(camera);
-                }
-                commands.entity(frame.sprite).despawn();
-            }
-            self.retained.free_cameras.extend(released);
-            self.retained.scene = scene.root;
+            self.retained.change_scene(commands, scene);
         }
         for frame in self.retained.frames.values_mut() {
             commands.entity(frame.sprite).insert(Visibility::Hidden);
@@ -183,8 +177,20 @@ impl CacheWorld<'_> {
         if let Some(view) = view {
             for spec in preload::specs(view, scene) {
                 let key = spec.cache.clone().expect("portrait preload");
-                if !self.retained.frames.contains_key(&key) {
-                    let signature = Signature::new(&spec, Some(view));
+                let signature = Signature::new(&spec, Some(view));
+                if self
+                    .retained
+                    .frames
+                    .get(&key)
+                    .is_none_or(|frame| frame.signature != signature)
+                {
+                    if let Some(previous) = self.retained.frames.remove(&key) {
+                        if let Some(camera) = previous.camera {
+                            deactivate(commands, camera);
+                            self.retained.free_cameras.push(camera);
+                        }
+                        commands.entity(previous.sprite).despawn();
+                    }
                     let frame = self.create(commands, &spec, signature);
                     self.retained.frames.insert(key, frame);
                 }

@@ -29,16 +29,23 @@ export async function generateJobs(module, jobs, receive, options = {}) {
       worker.onmessageerror = () => {
         finish(new Error("Scene generation transfer failed"));
       };
-      try { worker.postMessage(message); } catch (error) { finish(error); }
+      try { worker.postMessage(message, message.dependencies ? [message.dependencies.buffer] : []); }
+      catch (error) { finish(error); }
     });
   }
   try {
     await Promise.all(Array.from({ length: concurrency }, async () => {
-      const worker = createWorker(); workers.push(worker);
-      await exchange(worker, { module });
+      let worker;
       while (!failed && cursor < jobs.length) {
-        const job = jobs[cursor++];
-        const result = await exchange(worker, { job });
+        const candidate = jobs[cursor++];
+        const job = options.resolveJob ? await options.resolveJob(candidate) : candidate;
+        if (failed || job == null) continue;
+        if (!worker) {
+          worker = createWorker(); workers.push(worker);
+          await exchange(worker, { module });
+        }
+        const dependencies = options.dependencies?.(job);
+        const result = await exchange(worker, { job, dependencies });
         await receive(job, result.bytes, result.milliseconds);
       }
     }).map(promise => promise.catch(error => { failed = true; throw error; })));
@@ -46,5 +53,5 @@ export async function generateJobs(module, jobs, receive, options = {}) {
     for (const cancel of pending) cancel();
     for (const worker of workers) worker.terminate();
   }
-  return concurrency;
+  return workers.length;
 }

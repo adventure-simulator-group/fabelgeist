@@ -72,14 +72,14 @@ export function installStrategicScene(command, runtimePromise) {
   let revision = 0;
   const equipment = new Map();
   let sceneLocation, scenePending, sceneError = false;
-  async function loadScene(location, settlement) {
+  async function loadScene(location, settlement, venues) {
     if (scenePending || sceneError) return;
     scenePending = true;
     try {
       const response = await (window.strategicFetch || fetch)(`/api/scene-assets${settlement ? `?settlement=${encodeURIComponent(settlement)}` : ""}`, { headers: { Accept: "application/json" } });
       if (!response.ok) throw new Error(`Could not prepare tactical scene (${response.status})`);
       const input = await response.text();
-      await prepareGeneratedScene(await runtimePromise, input);
+      await prepareGeneratedScene(await runtimePromise, input, venues);
       command({ type: "prepare-strategic-scene", location, input_json: input });
       sceneLocation = location;
     } catch (error) { sceneError = true; fail(error); }
@@ -249,9 +249,9 @@ export function installStrategicScene(command, runtimePromise) {
     if (!hasScene(page)) { hideScene(); return; }
     const nav = page.querySelector(".settlement-services[data-settlement-id]");
     const locationId = nav?.dataset.settlementId || location.pathname.split("/").slice(0, 4).join("/");
-    if (sceneLocation !== locationId) { loadScene(locationId, nav?.dataset.settlementId); return; }
     const places = placeList(nav);
     if (!places.length) places.push({ id: "camp", kind: "camp" });
+    if (rosterPending) return;
     const active = nav?.querySelector('[data-building-id].active')?.dataset.buildingId || places[0].id;
     const people = new Map(roster.map(person => [person.id, person]));
     const portraits = [];
@@ -271,6 +271,10 @@ export function installStrategicScene(command, runtimePromise) {
     }
     const activeMember = page.querySelector(".party-portrait.active[data-character-id]");
     if (rosterPending) return;
+    if (sceneLocation !== locationId) {
+      loadScene(locationId, nav?.dataset.settlementId, { places, people: [...people.values()] });
+      return;
+    }
     const missingEquipment = [...people.keys()].filter(id => !equipment.has(id));
     if (missingEquipment.length) {
       document.body.removeAttribute("data-strategic-scene-ready");

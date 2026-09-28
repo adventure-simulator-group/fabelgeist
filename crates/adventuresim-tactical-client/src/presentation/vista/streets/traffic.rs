@@ -55,20 +55,31 @@ struct Road {
     start: Vec2,
     end: Vec2,
     half_width: f32,
+    forward: Vec2,
+    length: f32,
 }
 
 impl Road {
+    fn new(start: Vec2, end: Vec2, half_width: f32) -> Self {
+        Self {
+            start,
+            end,
+            half_width,
+            forward: (end - start).normalize(),
+            length: start.distance(end),
+        }
+    }
+
     fn coordinates(self, point: Vec2) -> Vec2 {
-        let forward = (self.end - self.start).normalize();
         let delta = point - self.start;
-        Vec2::new(forward.perp_dot(delta), forward.dot(delta))
+        Vec2::new(self.forward.perp_dot(delta), self.forward.dot(delta))
     }
 
     fn clearance(self, point: Vec2) -> f32 {
         let local = self.coordinates(point);
         (self.half_width - local.x.abs())
             .min(local.y)
-            .min(self.start.distance(self.end) - local.y)
+            .min(self.length - local.y)
     }
 }
 

@@ -66,7 +66,7 @@ export async function openGeneratedCache(revision, storage) {
             if (error.name === "InvalidStateError") return;
             reject(error); return;
           }
-          reject(new Error("Cache transaction timed out"));
+          reject(new DOMException("Cache transaction timed out", "TimeoutError"));
         }, mode === "readonly" ? STORAGE_TIMEOUT_MS : WRITE_TIMEOUT_MS);
         let result;
         tx.oncomplete = () => { clearTimeout(timer); resolve(result); };
@@ -78,7 +78,12 @@ export async function openGeneratedCache(revision, storage) {
           reject(error);
         }
       });
-    } catch { disabled = true; return undefined; }
+    } catch (error) {
+      // A busy frame can exhaust one read's budget without making storage
+      // unusable. Let later jobs persist and future reads try again.
+      if (error?.name !== "TimeoutError") disabled = true;
+      return undefined;
+    }
   }
   const key = job => digest(new TextEncoder().encode(`${CACHE_FORMAT}\n${revision}\n${job}`));
   async function remove(job) {

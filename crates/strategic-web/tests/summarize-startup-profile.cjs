@@ -65,5 +65,5 @@ function summarize(name) {
   console.log(name, JSON.stringify({ markers, readiness, buckets: result.buckets, restoration: result.restoration,
     topSelf: result.topSelf.slice(0, 8) }, null, 2));
 }
-for (const name of ["cold-startup", "reload-startup"])
+for (const name of ["cold-startup", "reload-startup", "travel-travel-destination", "travel-scene-review"])
   if (fs.existsSync(path.join(directory, `${name}.cpuprofile`))) summarize(name);
