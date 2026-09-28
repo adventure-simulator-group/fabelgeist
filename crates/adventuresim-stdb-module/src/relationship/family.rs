@@ -198,51 +198,9 @@ pub fn ensure_seeded_family_households(
                 noble,
             )?;
         }
-        let family_ids: Vec<u64> = plan.members.iter().map(|(character_id, _)| *character_id).collect();
-        assign_seeded_family_names(ctx, &family_ids)?;
         for &(subject_id, related_id, kind) in &plan.kinships {
             ensure_kinship(ctx, subject_id, related_id, kind, 0);
         }
-    }
-    Ok(())
-}
-
-fn assign_seeded_family_names(ctx: &ReducerContext, family: &[u64]) -> Result<(), String> {
-    let mut surname = family.iter().copied().find_map(|character_id| {
-        crate::character::character_hereditary_surname(
-            ctx,
-            crate::character::CharacterId::new(character_id),
-        )
-    });
-    for character_id in family.iter().copied() {
-        if crate::character::character_name_is_authored(
-            ctx,
-            crate::character::CharacterId::new(character_id),
-        ) {
-            continue;
-        }
-        let age_years = ctx
-            .db
-            .character()
-            .id()
-            .find(character_id)
-            .ok_or("Seeded family member is missing its Character")?
-            .age_years;
-        let seed = fabelgeist_determinism::Seed::derive(
-            &character_id.to_le_bytes(),
-            fabelgeist_determinism::StreamId::new("resident.personal-name"),
-            &[&2u16.to_le_bytes()],
-        )
-        .to_u64();
-        surname = Some(crate::character::assign_generated_historical_name(
-            ctx,
-            crate::character::CharacterId::new(character_id),
-            crate::character::NameSeed::new(seed),
-            adventuresim_world_schema::person_names::NameBirthYear::new(
-                adventuresim_core::strategic_time::birth_year_from_age(0, age_years),
-            ),
-            surname,
-        )?);
     }
     Ok(())
 }

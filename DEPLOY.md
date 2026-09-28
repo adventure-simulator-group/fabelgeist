@@ -3,7 +3,7 @@
 One command, one VPS, two things it can put there:
 
 ```bash
-just deploy example.com          # the showcase: art demo, Texture Studio, Heraldry Studio
+just deploy example.com          # the showcase: art demo and Texture Studio
 just deploy example.com game     # the playable game (strategic web, tactical servers, SpacetimeDB)
 ```
 
@@ -57,9 +57,9 @@ Without the token, the script connects to `DEPLOY_HOST` (or the domain) as
 
 This is the default, and what goes public first. It is plain files:
 
-- `/` a landing page linking the three
+- `/` a landing page linking the two
 - `/art-demo` the procedural art demo
-- `/texture-studio/` and `/heraldry-studio/`
+- `/texture-studio/` the material editor
 - `/tactical/assets/...` the asset tree the art demo reads
 
 The deploy runs `scripts/showcase.py --build-only` locally, hashes the site

@@ -1101,10 +1101,10 @@ fn install_completed_cloud_bake(
         state.queued = Some(completed);
         return None;
     }
-    if completed.request.endpoint == 0 {
-        if let Some(mut image) = images.get_mut(&material.baked_texture_a) {
-            *image = completed.image.clone();
-        }
+    if completed.request.endpoint == 0
+        && let Some(mut image) = images.get_mut(&material.baked_texture_a)
+    {
+        *image = completed.image.clone();
     }
     if let Some(mut image) = images.get_mut(&material.baked_texture_b) {
         *image = completed.image;

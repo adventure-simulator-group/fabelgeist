@@ -267,10 +267,10 @@ fn materialize_requested_scene(
                     .iter()
                     .map(|operator| {
                         let operator_name =
-                        adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
-                            operator.operator_name.clone(),
-                        )
-                        .map_err(|error| format!("invalid operator name: {error:?}"))?;
+                            adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
+                                operator.operator_name.clone(),
+                            )
+                            .map_err(|error| format!("invalid operator name: {error}"))?;
                         Ok(SettlementBusinessOperatorProfile {
                             business_id:
                                 adventuresim_world_schema::settlement_buildings::BusinessId::new(

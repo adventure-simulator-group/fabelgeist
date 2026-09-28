@@ -269,27 +269,28 @@ const fn fixture(
 
 fn build_fixture(fixture: Fixture) -> TacticalSceneInput {
     let city = fixture_buildings(fixture.buildings);
-    let establishments = city
-        .businesses
-        .iter()
-        .enumerate()
-        .map(|(index, site)| {
-            let operator_name = adventuresim_world_schema::person_names::RenderedPersonalName::new(
-                format!("Fixture Operator {}", index + 1),
-            )
-            .unwrap();
-            SceneEstablishment {
-                building_id: site.building_id,
-                business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
-                    format!("fixture:{}", fixture.scene_key),
-                    site.key,
-                ),
-                operator_character_id: site.building_id | (1_u64 << 63),
-                operator_name: operator_name.clone(),
-                shop_name: ShopName::for_operator(&operator_name, site.key.usage),
-            }
-        })
-        .collect();
+    let establishments =
+        city.businesses
+            .iter()
+            .enumerate()
+            .map(|(index, site)| {
+                let operator_name =
+                    adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
+                        format!("Fixture Operator {}", index + 1),
+                    )
+                    .expect("fixture operator name is valid");
+                SceneEstablishment {
+                    building_id: site.building_id,
+                    business_id: adventuresim_world_schema::settlement_buildings::BusinessId::new(
+                        format!("fixture:{}", fixture.scene_key),
+                        site.key,
+                    ),
+                    operator_character_id: site.building_id | (1_u64 << 63),
+                    operator_name: operator_name.clone(),
+                    shop_name: ShopName::for_operator(&operator_name, site.key.usage),
+                }
+            })
+            .collect();
     let mut vista = vista(
         fixture.vista,
         fixture.environment,

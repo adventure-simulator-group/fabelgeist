@@ -3,14 +3,13 @@
 
     just showcase
 
-Three WebGPU applications are already independent of SpacetimeDB and the
+Two WebGPU applications are already independent of SpacetimeDB and the
 strategic server; only their routing lived inside strategic-web. This puts them
 under one origin as plain static files:
 
-    /                   landing page linking the three
+    /                   landing page linking the two
     /art-demo           the procedural art demo (armor, weapons, city, oak)
     /texture-studio/    Texture Studio
-    /heraldry-studio/   Heraldry Studio
 
 Nothing here starts SpacetimeDB, strategic-web, or a tactical server. The art
 demo's hardcoded roots (`/tactical/wasm`, `/tactical/assets`, `/static/art-demo`)
@@ -73,7 +72,6 @@ LANDING_PAGE = """<!doctype html>
     <ul>
       <li><a href="/art-demo"><strong>Procedural art</strong><small>Museum armor, weapons, a 30,000-resident city, and an oak with terrain.</small></a></li>
       <li><a href="/texture-studio/"><strong>Texture Studio</strong><small>Material editor for the procedural texture catalogue.</small></a></li>
-      <li><a href="/heraldry-studio/"><strong>Heraldry Studio</strong><small>Parametric coats of arms on painted shields and panels.</small></a></li>
     </ul>
     <footer>No account, database, or game server is involved on these pages.</footer>
   </main>
@@ -150,7 +148,6 @@ def build(site: Path, bindgen_cli: str, dev: bool) -> None:
     site.mkdir(parents=True, exist_ok=True)
     build_art_demo(site, bindgen, dev)
     build_studio(site, "build_texture_studio.py", "texture-studio", bindgen, dev)
-    build_studio(site, "build_heraldry_studio.py", "heraldry-studio", bindgen, dev)
     # Fixed newlines so the file hashes the same from Windows and Linux builds.
     (site / "index.html").write_text(LANDING_PAGE, encoding="utf-8", newline="\n")
     log(f"Showcase built to {site}")

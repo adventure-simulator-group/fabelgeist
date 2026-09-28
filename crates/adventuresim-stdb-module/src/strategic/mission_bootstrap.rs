@@ -1,5 +1,10 @@
 
 
+#[path = "mission_bootstrap/standalone.rs"]
+mod standalone;
+use standalone::{
+    StandaloneMissionFamily, standalone_case_id, standalone_case_site_northward_offset,
+};
 #[path = "mission_bootstrap/streams.rs"]
 mod streams;
 #[reducer]
@@ -539,7 +544,7 @@ pub fn seed_standalone_tactical_mission(
         return Ok(());
     }
     adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
-    let standalone_mission_family = standalone_mission_family(&mission_id)?;
+    let standalone_mission_family = StandaloneMissionFamily::from_mission_id(&mission_id)?;
 
     if !ctx
         .db
@@ -579,7 +584,7 @@ pub fn seed_standalone_tactical_mission(
         existing
     } else {
         let coordinates_are_geographic = settlement.source_node_id.is_some();
-        let distance_m = standalone_case_site_distance_m(standalone_mission_family);
+        let distance_m = standalone_mission_family.case_site_distance_m();
         let northward_offset =
             standalone_case_site_northward_offset(distance_m, coordinates_are_geographic);
         let coordinate = encode_position_e7(
@@ -821,64 +826,6 @@ pub fn seed_standalone_tactical_mission(
             claim_hash: Sha256::digest(tactical_claim.as_bytes()).to_vec(),
         });
     Ok(())
-}
-
-#[derive(Clone, Copy, Eq, PartialEq)]
-enum StandaloneMissionFamily {
-    Animation,
-    Diagnostic,
-    General,
-}
-
-const ANIMATION_MISSION_COORDINATE_PREFIX: &str = "animation-";
-const DIAGNOSTIC_MISSION_COORDINATE_PREFIX: &str = "diagnostic-";
-const STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M: u64 = 2_000;
-const METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE: f64 = 111_000.0;
-const METERS_PER_UNBOUNDED_COORDINATE_UNIT: f64 = 1_000.0;
-
-fn standalone_mission_family(mission_id: &str) -> Result<StandaloneMissionFamily, String> {
-    let (domain, coordinate) = mission_id
-        .split_once(':')
-        .ok_or("Standalone mission ID has no domain")?;
-    if domain != "mission" || coordinate.is_empty() {
-        return Err("Standalone mission ID has an invalid domain coordinate".into());
-    }
-    if let Some(animation_coordinate) = coordinate.strip_prefix(ANIMATION_MISSION_COORDINATE_PREFIX)
-    {
-        if animation_coordinate.is_empty() {
-            return Err("Animation mission ID has no coordinate".into());
-        }
-        Ok(StandaloneMissionFamily::Animation)
-    } else if let Some(diagnostic_coordinate) =
-        coordinate.strip_prefix(DIAGNOSTIC_MISSION_COORDINATE_PREFIX)
-    {
-        if diagnostic_coordinate.is_empty() {
-            return Err("Diagnostic mission ID has no coordinate".into());
-        }
-        Ok(StandaloneMissionFamily::Diagnostic)
-    } else {
-        Ok(StandaloneMissionFamily::General)
-    }
-}
-
-fn standalone_case_site_distance_m(family: StandaloneMissionFamily) -> u64 {
-    match family {
-        StandaloneMissionFamily::Diagnostic => STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
-        StandaloneMissionFamily::Animation | StandaloneMissionFamily::General => 0,
-    }
-}
-
-fn standalone_case_site_northward_offset(distance_m: u64, coordinates_are_geographic: bool) -> f64 {
-    let coordinate_unit_m = if coordinates_are_geographic {
-        METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
-    } else {
-        METERS_PER_UNBOUNDED_COORDINATE_UNIT
-    };
-    distance_m as f64 / coordinate_unit_m
-}
-
-fn standalone_case_id(mission_id: &str) -> String {
-    format!("case:standalone:{mission_id}")
 }
 
 fn retire_interrupted_standalone_requests(
@@ -2614,52 +2561,6 @@ fn preferred_fixture_site_distance_m(
 #[cfg(test)]
 mod developer_quest_source_tests {
     use super::*;
-
-    #[test]
-    fn standalone_mission_family_uses_an_exact_mission_tag() {
-        assert!(
-            standalone_mission_family("mission:animation-demo").unwrap()
-                == StandaloneMissionFamily::Animation
-        );
-        assert!(
-            standalone_mission_family("mission:ordinary").unwrap()
-                == StandaloneMissionFamily::General
-        );
-        assert!(
-            standalone_mission_family("mission:diagnostic-demo").unwrap()
-                == StandaloneMissionFamily::Diagnostic
-        );
-        for invalid in [
-            "mission:",
-            "mission:animation-",
-            "mission:diagnostic-",
-            "case:animation-demo",
-            "animation-demo",
-        ] {
-            assert!(standalone_mission_family(invalid).is_err());
-        }
-    }
-
-    #[test]
-    fn diagnostic_standalone_missions_create_wilderness_case_sites() {
-        assert_eq!(
-            standalone_case_site_distance_m(StandaloneMissionFamily::Diagnostic),
-            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M
-        );
-        assert!(STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M > 0);
-        assert_eq!(
-            standalone_case_site_distance_m(StandaloneMissionFamily::Animation),
-            0
-        );
-        assert_eq!(
-            standalone_case_site_northward_offset(
-                STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M,
-                true,
-            ),
-            STANDALONE_DIAGNOSTIC_SITE_DISTANCE_M as f64
-                / METERS_PER_GEOGRAPHIC_LATITUDE_DEGREE
-        );
-    }
 
     #[test]
     fn only_the_recurring_threat_gallery_fixture_gets_the_nearby_site_override() {
