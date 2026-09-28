@@ -282,6 +282,7 @@ test("one canvas retains street, portraits and character views across warm navig
           maxHeight: style.maxHeight, transform: style.transform, clip: document.querySelector('#strategic-render-surface').style.clipPath};
       })), null, 2));
     const coldRequests = requests.length;
+    if (process.env.STRATEGIC_NAVIGATION_PROFILE === "1") await startup?.beginNavigation();
     for (const place of [...services, "inn"]) {
       const started = performance.now();
       await page.locator(`[data-building-id="${place}"]`).click();
@@ -302,6 +303,7 @@ test("one canvas retains street, portraits and character views across warm navig
           await page.evaluate(() => window.strategicRendererMetrics.state), null, 2));
       }
     }
+    if (process.env.STRATEGIC_NAVIGATION_PROFILE === "1") await startup?.endNavigation();
     assert.equal(requests.slice(coldRequests).filter(url => url.startsWith("/tactical/")).length, 0, "warm navigation loads no renderer assets");
     assert.equal(requests.slice(coldRequests).filter(url => url.startsWith("/api/scene-equipment")).length, 0, "warm navigation reuses equipment appearances");
     assert.equal(requests.slice(coldRequests).filter(url => url === "/api/scene-assets").length, 0, "warm navigation reuses tactical scene document");

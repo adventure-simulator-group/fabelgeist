@@ -38,7 +38,7 @@ function summarize(name) {
   const sorted = map => [...map].sort((a, b) => b[1] - a[1]).map(([name, milliseconds]) => ({ name, milliseconds }));
   const states = trace.events.filter(event => event.kind === "readiness");
   const first = predicate => states.find(predicate)?.at;
-  const markers = trace.events.filter(event => !["readiness", "receive", "decompress", "cache-read", "renderer"].includes(event.kind));
+  const markers = trace.events.filter(event => !["readiness", "receive", "decompress", "cache-read", "renderer", "animation-frame"].includes(event.kind) && !event.kind.startsWith("gpu-"));
   const readiness = {
     textures: first(state => state.textures_ready),
     allCharactersPosed: first(state => state.characters > 0 && state.posed_characters === state.characters),
@@ -52,6 +52,7 @@ function summarize(name) {
   const restores = trace.events.filter(event => ["receive", "decompress", "cache-read"].includes(event.kind));
   const result = { elapsedMilliseconds: (profile.endTime - profile.startTime) / 1000,
     generation: trace.generation, markers, readiness, buckets: sorted(buckets),
+    gpu: require("./startup-gpu-profile.cjs").summarize(trace.events),
     topSelf: sorted(self).slice(0, 70), inclusive: sorted(inclusive),
     restoration: Object.fromEntries(["receive", "decompress", "cache-read"].map(kind => {
       const events = restores.filter(event => event.kind === kind);
