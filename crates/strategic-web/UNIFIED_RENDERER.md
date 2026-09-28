@@ -196,6 +196,9 @@ geometry.
 When the layout supplies a portrait size, cold readiness includes portraits for
 residents of unvisited venues at those dimensions. A pool of at most two snapshot
 camera entities captures these images and stays inactive between captures.
+New and reused capture cameras receive the tactical environment before camera
+preparation and render extraction, avoiding an initial frame with default
+rendering settings and its unnecessary pipeline specializations.
 Completed images remain resident. This also avoids exhausting Bevy's limited
 distance-visibility camera table with inactive cameras. A later layout requiring
 different dimensions still creates a new capture when that portrait is shown.
@@ -399,6 +402,19 @@ readiness and snapshot readiness includes capture scheduling and rendering; it
 is not a measurement of portrait generation alone. Asset readiness can become
 false again while new capture pipelines compile, so first-observed milestones
 are not boundaries between independent, nonoverlapping phases.
+
+Startup profiles also record WebGPU pipeline-creation calls and sampled queue
+completion callbacks. Callback latency includes main-thread scheduling and
+earlier queued work; synchronous pipeline-creation calls can return before the
+browser/backend finishes preparing the pipeline.
+
+Add `STRATEGIC_STARTUP_GPU_TIMESTAMPS=1` to sample pass timestamps in every eighth
+command encoder, with at most two readbacks outstanding. This opt-in diagnostic
+requires timestamp-query support and observes submissions outside animation
+callbacks too. Pass durations exclude the diagnostic's query-copy/readback work;
+the samples do not cover every pass or measure the whole GPU workload. Run
+`node --test crates/strategic-web/tests/startup-gpu-timestamps.browser.cjs` to
+verify sampling against known WebGPU passes.
 
 Set `STRATEGIC_GPU_PROFILE=1` alongside `STRATEGIC_RENDER_BENCHMARK=1` to
 capture steady frames. Use a fresh browser run for each location, setting

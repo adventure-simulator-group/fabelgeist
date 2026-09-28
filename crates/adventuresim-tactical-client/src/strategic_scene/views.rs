@@ -374,7 +374,9 @@ pub(super) fn sync_environment(
         || environment.as_ref().is_some_and(|value| value.is_changed())
         || atmosphere.as_ref().is_some_and(|value| value.is_changed());
     for (entity, marker) in &targets {
-        if !changed && !marker.is_added() {
+        // A reused snapshot camera reinserts its marker and camera defaults.
+        // Restore the final settings before extraction, just as for a new view.
+        if !changed && !marker.is_changed() {
             continue;
         }
         let mut target = commands.entity(entity);
