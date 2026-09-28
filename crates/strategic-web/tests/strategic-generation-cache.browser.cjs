@@ -64,5 +64,28 @@ test("local products survive reload and invalidate on input, revision, or corrup
       finally { IDBObjectStore.prototype.put = original; }
       return true;
     }), true);
+    const pageErrors = [];
+    page.on("pageerror", error => pageErrors.push(error.message));
+    assert.equal(await page.evaluate(async () => {
+      const { openGeneratedCache } = await import("/cache.js");
+      const cache = await openGeneratedCache("delayed-completion");
+      const originalTimer = window.setTimeout, originalAbort = IDBTransaction.prototype.abort;
+      let attemptedAbort = false;
+      // Deterministically put the timeout ahead of the completion event for a
+      // transaction which is already no longer abortable.
+      window.setTimeout = (callback, delay, ...args) => {
+        if (delay === 2_000) { queueMicrotask(callback); return 0; }
+        return originalTimer(callback, delay, ...args);
+      };
+      IDBTransaction.prototype.abort = () => {
+        attemptedAbort = true; throw new DOMException("finished", "InvalidStateError");
+      };
+      try { return await cache.get("missing") === undefined && attemptedAbort; }
+      finally {
+        window.setTimeout = originalTimer; IDBTransaction.prototype.abort = originalAbort;
+        await cache.close();
+      }
+    }), true);
+    assert.deepEqual(pageErrors, []);
   } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }
 });

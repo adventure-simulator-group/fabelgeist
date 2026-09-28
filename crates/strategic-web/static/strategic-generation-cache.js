@@ -3,6 +3,9 @@ const DATABASE = "fabelgeist-generated-assets";
 const STORE = "products";
 const CACHE_FORMAT = "gzip-cbor-v1";
 const STORAGE_TIMEOUT_MS = 2_000;
+// Background writes can queue behind long generation frames. They never gate
+// readiness, so use a separate deadline from interactive reads and opening.
+const WRITE_TIMEOUT_MS = 30_000;
 const MAX_CACHE_BYTES = 512 * 1024 * 1024;
 const MAX_PRODUCT_BYTES = 128 * 1024 * 1024;
 const digest = async bytes => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes)),
@@ -55,12 +58,25 @@ export async function openGeneratedCache(revision, storage) {
     try {
       return await new Promise((resolve, reject) => {
         const tx = database.transaction(STORE, mode);
-        const timer = setTimeout(() => { tx.abort(); reject(new Error("Cache transaction timed out")); }, STORAGE_TIMEOUT_MS);
+        const timer = setTimeout(() => {
+          try { tx.abort(); }
+          catch (error) {
+            // The transaction may have finished while its completion event was
+            // waiting behind a busy main thread. Let that event resolve it.
+            if (error.name === "InvalidStateError") return;
+            reject(error); return;
+          }
+          reject(new Error("Cache transaction timed out"));
+        }, mode === "readonly" ? STORAGE_TIMEOUT_MS : WRITE_TIMEOUT_MS);
         let result;
         tx.oncomplete = () => { clearTimeout(timer); resolve(result); };
         tx.onabort = tx.onerror = () => { clearTimeout(timer); reject(tx.error); };
         try { operation(tx.objectStore(STORE), value => { result = value; }); }
-        catch (error) { clearTimeout(timer); tx.abort(); reject(error); }
+        catch (error) {
+          clearTimeout(timer);
+          try { tx.abort(); } catch { /* Already completed; preserve the original error. */ }
+          reject(error);
+        }
       });
     } catch { disabled = true; return undefined; }
   }
