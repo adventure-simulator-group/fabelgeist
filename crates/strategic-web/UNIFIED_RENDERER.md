@@ -201,6 +201,12 @@ camera entities captures these images and stays inactive between captures.
 New and reused capture cameras receive the tactical environment before camera
 preparation and render extraction, avoiding an initial frame with default
 rendering settings and its unnecessary pipeline specializations.
+Initial scene mesh draws wait for CPU installation and the final atmosphere
+environment. Cameras, lighting preparation, asset uploads, and character pose
+initialization continue during this wait. This avoids specializing meshes for
+temporary lighting. The gate opens permanently after initial installation, so
+later weather changes do not blank retained views. GPU preparation, snapshot
+completion, and settled-frame checks still follow before reporting readiness.
 Completed images remain resident. This also avoids exhausting Bevy's limited
 distance-visibility camera table with inactive cameras. A later layout requiring
 different dimensions still creates a new capture when that portrait is shown.

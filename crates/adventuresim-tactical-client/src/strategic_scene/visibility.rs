@@ -12,8 +12,38 @@ use std::any::TypeId;
 pub(super) fn install(app: &mut App) {
     app.add_systems(
         PostUpdate,
-        enforce_far_plane.after(VisibilitySystems::CheckVisibility),
+        (enforce_far_plane, wait_for_installation)
+            .chain()
+            .after(VisibilitySystems::CheckVisibility),
     );
+}
+
+#[expect(
+    clippy::type_complexity,
+    reason = "Initial scene and bootstrap camera mesh lists share the installation gate"
+)]
+fn wait_for_installation(
+    view: Option<Res<super::protocol::StrategicView>>,
+    installed: Res<super::status::SceneInstallationReady>,
+    mut opened: Local<bool>,
+    mut cameras: Query<
+        &mut VisibleEntities,
+        Or<(
+            With<StrategicCamera>,
+            With<crate::presentation::TacticalGameplayCamera>,
+        )>,
+    >,
+) {
+    *opened |= installed.0;
+    if *opened || view.is_none() {
+        return;
+    }
+    // Keep atmosphere baking, light visibility, uploads, and pose initialization
+    // running. Only postpone mesh specialization until the final environment is
+    // installed. Once opened, weather changes must never blank a retained view.
+    for mut visible in &mut cameras {
+        visible.get_mut(TypeId::of::<Mesh3d>()).clear();
+    }
 }
 
 fn enforce_far_plane(
@@ -46,6 +76,64 @@ fn enforce_far_plane(
 mod tests {
     use super::*;
     use bevy::camera::CameraProjection;
+
+    #[test]
+    fn initial_mesh_gate_preserves_other_views_and_never_recloses() {
+        let mut app = App::new();
+        app.init_resource::<super::super::status::SceneInstallationReady>()
+            .add_systems(Update, wait_for_installation);
+        let mesh = app.world_mut().spawn_empty().id();
+        let cameras = [
+            app.world_mut().spawn(StrategicCamera).id(),
+            app.world_mut()
+                .spawn(crate::presentation::TacticalGameplayCamera)
+                .id(),
+            app.world_mut().spawn_empty().id(),
+        ];
+        let populate = |app: &mut App| {
+            for camera in cameras {
+                let mut visible = VisibleEntities::default();
+                visible.get_mut(TypeId::of::<Mesh3d>()).push(mesh);
+                visible.get_mut(TypeId::of::<PointLight>()).push(mesh);
+                app.world_mut().entity_mut(camera).insert(visible);
+            }
+        };
+        let meshes = |app: &App| {
+            cameras.map(|camera| {
+                let visible = app.world().get::<VisibleEntities>(camera).unwrap();
+                assert_eq!(visible.get(TypeId::of::<PointLight>()), &[mesh]);
+                visible.get(TypeId::of::<Mesh3d>()).len()
+            })
+        };
+        populate(&mut app);
+        app.update();
+        assert_eq!(meshes(&app), [1, 1, 1], "tactical mode is unaffected");
+        app.insert_resource(super::super::protocol::StrategicView {
+            revision: 1,
+            location: "town".into(),
+            places: vec![],
+            people: vec![],
+            active_place: None,
+            selected: None,
+            street: None,
+            stage: None,
+            forge: None,
+            portraits: vec![],
+        });
+        app.update();
+        assert_eq!(meshes(&app), [0, 0, 1], "only scene meshes wait");
+        populate(&mut app);
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = true;
+        app.update();
+        assert_eq!(meshes(&app), [1, 1, 1]);
+        app.world_mut()
+            .resource_mut::<super::super::status::SceneInstallationReady>()
+            .0 = false;
+        app.update();
+        assert_eq!(meshes(&app), [1, 1, 1], "later rebakes cannot blank views");
+    }
 
     #[test]
     fn finite_actor_view_retains_crossing_bounds_and_preserves_other_views() {
