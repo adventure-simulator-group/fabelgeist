@@ -14,6 +14,7 @@
 //! the native backend issues `multi_draw_indexed_indirect`.
 
 mod streams;
+mod variation;
 use std::sync::Arc;
 
 use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
@@ -458,14 +459,10 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                 - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
             for tuft_z in 0..side {
                 for tuft_x in 0..side {
-                    let tuft_hash = streams::TUFT
-                        .seed(cell_hash, &[tuft_x as u64, tuft_z as u64])
-                        .to_u64();
-                    let jitter = Vec2::new(
-                        streams::JITTER_X.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
-                        streams::JITTER_Z.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
-                    ) * footprint
-                        * 0.35;
+                    let variation = variation::TuftVariation::new(
+                        streams::TUFT.seed(cell_hash, &[tuft_x as u64, tuft_z as u64]),
+                    );
+                    let jitter = variation.jitter * footprint * 0.35;
                     let centre =
                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
                     let coverage = placement.coverage(centre);
@@ -476,18 +473,15 @@ pub(in crate::presentation) fn scatter_cell_tufts(
                         continue;
                     };
                     let community = placement.community(centre);
-                    let species =
-                        grass_species(community, streams::SPECIES.seed(tuft_hash, &[]).to_u64());
+                    let species = grass_species(community, variation.species);
                     let batch = &mut species_batches[species.index()];
                     batch.push(InstanceData {
                         position: Vec3::new(centre.x, height, centre.y),
                         scale: 1.0,
-                        rotation: streams::YAW.rng(tuft_hash, &[]).inclusive_unit_f32()
-                            * core::f32::consts::TAU,
+                        rotation: variation.rotation,
                         index: batch.len() as u32,
                         batch_id: 0,
-                        seed: u32::from(coverage)
-                            | ((streams::SHADER_SEED.seed(tuft_hash, &[]).to_u64() as u32) << 8),
+                        seed: u32::from(coverage) | (variation.shader_seed << 8),
                     });
                     emitted += 1;
                 }
