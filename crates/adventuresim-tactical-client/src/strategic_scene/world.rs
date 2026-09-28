@@ -116,6 +116,10 @@ fn prepare(
             .resource_mut::<crate::presentation::TacticalBuildingMeshCache>()
             .recipes = recipes;
     });
+    let mut lods = input.vista.lods.clone();
+    if let Some(street) = &retained.street {
+        street.clear_foreground_canopy(&mut lods);
+    }
     commands.trigger(SceneVistaBundle {
         scene_digest: generated.digest,
         playable_half_extent_metres: half_extent,
@@ -133,7 +137,7 @@ fn prepare(
         gardens: input.gardens.clone(),
         furniture_groups: generated.furniture.groups,
         distant_furniture: generated.furniture.distant_instances,
-        lods: input.vista.lods.clone(),
+        lods,
     });
     retained.pending = generated.buildings.into();
     retained.next_place = view.places.len();

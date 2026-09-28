@@ -2,6 +2,19 @@ use super::*;
 use adventuresim_building_generator::BuildingArchetype;
 
 #[test]
+fn massive_city_workers_prepare_only_shared_exteriors() {
+    let input = include_str!("../../../../../assets/tactical-scenes/massive-city.json");
+    let requests = jobs(input).unwrap();
+    assert!(requests.len() <= 1 + BuildingArchetype::ALL.len() * 3);
+    assert!(matches!(
+        serde_json::from_str::<GenerationJob>(&requests[0]).unwrap(),
+        GenerationJob::Scene(_)
+    ));
+    assert_eq!(requests, jobs(input).unwrap());
+    println!("massive city generation jobs: {}", requests.len());
+}
+
+#[test]
 fn worker_products_round_trip_geometry_and_reject_wrong_inputs() {
     let program = BuildingProgram::fixture(BuildingArchetype::FachwerkCottage, u64::MAX);
     let job = serde_json::to_string(&GenerationJob::Building(Box::new(program.clone()))).unwrap();

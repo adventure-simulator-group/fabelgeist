@@ -29,6 +29,7 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
             .pop()
             .unwrap();
             let distant = DistantBuildingPlacement {
+                prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
                 id: 1,
                 archetype,
                 usage: Some(usage),
@@ -41,7 +42,7 @@ fn sized_church_and_workplace_recipes_survive_distant_transport_with_playable_ge
             let encoded = serde_json::to_string(&distant).unwrap();
             let restored: DistantBuildingPlacement = serde_json::from_str(&encoded).unwrap();
             assert_eq!(restored.service_size, Some(size));
-            let reconstructed = restored.program();
+            let reconstructed = restored.occupied_program();
             assert_eq!(reconstructed, playable.placement.program);
             assert_eq!(
                 reconstructed.plot_dimensions_metres(),

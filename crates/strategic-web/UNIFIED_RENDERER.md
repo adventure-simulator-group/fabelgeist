@@ -15,7 +15,7 @@ logical core for the document where available. They share the compiled Wasm
 module, but each owns its generation memory. Workers never boot Bevy, create a
 canvas, or request a GPU device. They terminate after preparation.
 
-The static tactical scene and each distinct background building program are
+The static tactical scene and each distinct background exterior prototype are
 independent jobs. Workers return locally generated CBOR products through
 transferable buffers while the renderer loads textures. Rust parses the original
 scene JSON and verifies each returned product against its requested identity.
@@ -98,6 +98,27 @@ The preload queue retains shared compiled recipes instead of expanding every
 member into a separate CPU record. Cut masonry, gable face selections, and other
 specialized surfaces retain their semantic geometry compilers. Tactical plans,
 collision, and operable elements keep their authoritative representation.
+Buildings outside the tactical boundary use three shared exterior variants per
+architectural family. Occupation, service size, and individual building seeds do
+not create additional exterior meshes. The settlement's canonical prosperity
+tier travels with each distant placement: poorer settlements omit ornate
+merchant-house exteriors and use plain or weathered finishes; richer settlements
+can use brick infill and decorative finishes. Geometry and finish select the
+same variant, keeping the prototype pool bounded. Landmarks retain their
+frontage direction. Each model may shrink uniformly to fit its reserved plot,
+but never expands the plot or changes the city's placement.
+Outdoor furniture also uses the prototype's scaled footprint and doors; its
+occupation still selects the kind of street activity. Preparing this scenery
+does not reconstruct the original occupied buildings.
+The strategic street reserves its camera approach before placing background
+tree stands, so changes to scene identity cannot put foliage in front of tabs.
+
+The occupied recipe remains available for buildings promoted to the strategic
+street or playable tactical area. Those buildings retain their original plans,
+equipment, furnishings, collision, and detailed assets. All exterior prototypes
+are generated on the client and participate in the existing local cache; no
+prebuilt geometry is served. Scene documents use the current schema directly.
+
 Common rectangular civilian background shells compile from their programmes and
 the shared roof-plane recipe. This distant representation keeps wall heights,
 upper-storey projection, roof pitch, and metric texture scale, with simplified

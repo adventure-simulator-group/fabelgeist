@@ -68,7 +68,7 @@ fn jobs(input_json: &str) -> Result<Vec<String>, String> {
     input.validate().map_err(|e| e.to_string())?;
     let mut programs = Vec::new();
     for placement in &input.distant_buildings {
-        let program = placement.program();
+        let program = placement.exterior_program();
         if !programs.contains(&program) {
             programs.push(program);
         }

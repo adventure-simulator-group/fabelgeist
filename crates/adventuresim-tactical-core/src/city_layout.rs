@@ -68,6 +68,7 @@ pub const MAX_CITY_LOTS: usize = 16_384;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct GeneratedCityLayout {
+    pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub lots: Vec<CityBuildingLot>,
     pub streets: Vec<CityStreetPatch>,
     pub yards: Vec<CityYardPatch>,
@@ -129,6 +130,7 @@ impl CitySite {
         );
         if !demand.shortfalls.is_empty() {
             return GeneratedCityLayout {
+                prosperity: economy.prosperity_tier,
                 lots: Vec::new(),
                 streets: Vec::new(),
                 yards: Vec::new(),
@@ -183,6 +185,7 @@ impl CitySite {
         let yards = city_yard_patches(&selected);
         let streets = city_street_patches(&graph, &developed_blocks);
         GeneratedCityLayout {
+            prosperity: economy.prosperity_tier,
             lots: selected
                 .into_iter()
                 .map(|candidate| candidate.lot)

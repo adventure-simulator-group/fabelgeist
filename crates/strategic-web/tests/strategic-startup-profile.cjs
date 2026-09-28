@@ -95,6 +95,8 @@ const transforms = {
       'const started = performance.now(); window.startupProfile.mark("generation-start");'],
     ['runtime.wasm_receive_job(job, bytes);',
       'runtime.wasm_receive_job(job, bytes); window.startupProfile.mark("receive", {start: receiveStarted, duration: performance.now() - receiveStarted, bytes: bytes.byteLength});'],
+    ['metrics.workerMilliseconds += milliseconds;',
+      'metrics.workerMilliseconds += milliseconds; { const parsed = JSON.parse(job); window.startupProfile.mark("worker-job", {type: parsed.Scene ? "scene" : "building", archetype: parsed.Building?.archetype, milliseconds, bytes: bytes.byteLength}); }'],
   ],
   "strategic-generation-cache.js": [
     ['async function decode(record) {',

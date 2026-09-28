@@ -37,6 +37,25 @@ enum BuildingAppearance {
 }
 
 impl BuildingAppearance {
+    fn for_distant_building(
+        prosperity: adventuresim_world_schema::ProsperityTier,
+        variant: adventuresim_tactical_core::scene_input::DistantBuildingVariant,
+    ) -> Self {
+        use adventuresim_tactical_core::scene_input::DistantBuildingVariant::*;
+        use adventuresim_world_schema::ProsperityTier::*;
+        match (prosperity, variant) {
+            (Subsistence | Modest, Plain) => Self::NaturalOak,
+            (Subsistence | Modest, Weathered) => Self::WeatheredOak,
+            (Subsistence | Modest, Decorated) => Self::WeatheredGray,
+            (Comfortable, Plain) => Self::NaturalOak,
+            (Comfortable, Weathered) => Self::OxideRed,
+            (Comfortable, Decorated) => Self::RenderedCream,
+            (Prosperous | Wealthy, Plain) => Self::RedBrownBrick,
+            (Prosperous | Wealthy, Weathered) => Self::RenderedOchre,
+            (Prosperous | Wealthy, Decorated) => Self::Ochre,
+        }
+    }
+
     const ALL: [Self; 8] = [
         Self::NaturalOak,
         Self::WeatheredOak,
@@ -185,6 +204,18 @@ pub(crate) struct TacticalBuildingMaterials {
 }
 
 impl TacticalBuildingMaterials {
+    pub(super) fn for_distant_building(
+        &self,
+        prosperity: adventuresim_world_schema::ProsperityTier,
+        variant: adventuresim_tactical_core::scene_input::DistantBuildingVariant,
+    ) -> palette::BuildingPalette<'_> {
+        let appearance = BuildingAppearance::for_distant_building(prosperity, variant);
+        palette::BuildingPalette {
+            assets: self,
+            appearance: &self.appearances[appearance as usize],
+        }
+    }
+
     pub(crate) fn for_building(&self, building_id: u64) -> palette::BuildingPalette<'_> {
         let appearance = BuildingAppearance::for_building(building_id);
         palette::BuildingPalette {
@@ -377,6 +408,34 @@ fn palette_surface_material(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn distant_finishes_follow_settlement_prosperity() {
+        use adventuresim_tactical_core::scene_input::DistantBuildingVariant::*;
+        use adventuresim_world_schema::ProsperityTier::*;
+        for variant in [Plain, Weathered, Decorated] {
+            for tier in [Subsistence, Modest] {
+                let appearance = BuildingAppearance::for_distant_building(tier, variant);
+                assert!(matches!(
+                    appearance,
+                    BuildingAppearance::NaturalOak
+                        | BuildingAppearance::WeatheredOak
+                        | BuildingAppearance::WeatheredGray
+                ));
+                assert_eq!(appearance.spec().finish, FacadeFinish::PlasterInfill);
+            }
+        }
+        assert_eq!(
+            BuildingAppearance::for_distant_building(Wealthy, Plain)
+                .spec()
+                .finish,
+            FacadeFinish::BrickInfill
+        );
+        assert_eq!(
+            BuildingAppearance::for_distant_building(Comfortable, Decorated),
+            BuildingAppearance::RenderedCream
+        );
+    }
 
     #[test]
     fn standard_glass_uses_nominal_scalar_thickness_not_packed_red() {

@@ -5,6 +5,7 @@ use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 use serde::Serialize;
 use std::collections::HashMap;
+mod clearance;
 
 const BUILDING_GAP_METRES: f32 = 4.0;
 const MINIMUM_BAY_METRES: f32 = 18.0;

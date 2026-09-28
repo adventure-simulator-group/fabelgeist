@@ -16,6 +16,7 @@ fn fixture() -> TacticalSceneInput {
         .lots
         .iter()
         .map(|lot| DistantBuildingPlacement {
+            prosperity: economy.prosperity_tier,
             id: lot.id,
             archetype: lot.archetype(),
             usage: Some(lot.building_use().unwrap_or(BuildingUse::Dwelling)),
@@ -41,7 +42,7 @@ fn parish_scene_round_trip_preserves_population_and_near_far_ownership() {
     let church = input.distant_buildings.remove(church_index);
     input.buildings.push(TacticalBuildingPlacement {
         id: church.id,
-        program: church.program(),
+        program: church.occupied_program(),
         centre_metres: church.centre_metres,
         orientation: church.orientation,
     });

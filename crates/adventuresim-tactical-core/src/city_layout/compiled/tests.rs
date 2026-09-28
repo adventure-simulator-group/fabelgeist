@@ -39,7 +39,7 @@ fn principal_parish_retains_street_access_and_exact_recipe_across_city_partition
                 .into_iter()
                 .find(|building| building.id == principal.id)
                 .unwrap();
-            assert_eq!(distant.program(), principal.program);
+            assert_eq!(distant.occupied_program(), principal.program);
             assert_eq!(distant.orientation, principal.orientation);
         }
     }
@@ -92,7 +92,8 @@ fn compiled_compounds_preserve_capacity_identity_and_exact_distant_recipes() {
             .iter()
             .find(|b| b.id == distant.id)
             .unwrap();
-        assert_eq!(distant.program(), original.program);
+        assert_eq!(distant.occupied_program(), original.program);
+        assert_eq!(distant.prosperity, compiled.prosperity);
     }
     let partition = compiled.clone().partition(Some(50.0)).unwrap();
     for compound in compiled.compounds {

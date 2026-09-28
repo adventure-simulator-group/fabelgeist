@@ -1,8 +1,8 @@
 //! Versioned scene document shared by production dispatch and capture tools.
 use super::*;
 
-pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 23;
-pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 51;
+pub const TACTICAL_SCENE_SCHEMA_VERSION: u16 = 24;
+pub const TACTICAL_SCENE_GENERATION_VERSION: u16 = 52;
 pub const MAX_SCENE_INPUT_BYTES: u64 = 32 * 1024 * 1024;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]

@@ -2,6 +2,8 @@
 use super::*;
 use crate::scene_input::{SceneInputError, TacticalBuildingPlacement};
 use adventuresim_building_generator::{BuildingPlan, BuildingProgram, CollisionBounds, OpeningUse};
+#[cfg(test)]
+mod tests;
 #[derive(Clone)]
 pub(super) struct FurnitureSite {
     pub placement: TacticalBuildingPlacement,
@@ -46,14 +48,16 @@ impl SiteRecipe {
             routes,
         }
     }
-    fn place(&self, placement: TacticalBuildingPlacement) -> FurnitureSite {
+    fn place(&self, placement: TacticalBuildingPlacement, scale: f32) -> FurnitureSite {
         let routes = self
             .routes
             .iter()
             .map(|r| FurnitureFootprint {
                 centre_metres: placement.centre_metres
-                    + placement.orientation.local_to_world(r.centre_metres),
-                half_extents_metres: r.half_extents_metres,
+                    + placement
+                        .orientation
+                        .local_to_world(r.centre_metres * scale),
+                half_extents_metres: r.half_extents_metres * scale,
                 orientation: BuildingOrientation::from_radians(
                     placement.orientation.yaw_radians() + r.orientation.yaw_radians(),
                 )
@@ -62,7 +66,7 @@ impl SiteRecipe {
             .collect();
         FurnitureSite {
             placement,
-            half_extents: self.half_extents,
+            half_extents: self.half_extents * scale,
             routes,
         }
     }
@@ -74,11 +78,11 @@ pub(super) fn collect(
 ) -> Result<Vec<FurnitureSite>, SceneInputError> {
     let mut sites = buildings
         .iter()
-        .map(|b| SiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone()))
+        .map(|b| SiteRecipe::new(&b.plan, b.collision.bounds).place(b.placement.clone(), 1.0))
         .collect::<Vec<_>>();
     let mut cache: Vec<(BuildingProgram, SiteRecipe)> = Vec::new();
     for distant in &input.distant_buildings {
-        let program = distant.program();
+        let program = distant.exterior_program();
         let recipe = if let Some((_, recipe)) = cache.iter().find(|(key, _)| *key == program) {
             recipe.clone()
         } else {
@@ -89,12 +93,17 @@ pub(super) fn collect(
             cache.push((program.clone(), recipe.clone()));
             recipe
         };
-        sites.push(recipe.place(TacticalBuildingPlacement {
-            id: distant.id,
-            program,
-            centre_metres: distant.centre_metres,
-            orientation: distant.orientation,
-        }));
+        sites.push(recipe.place(
+            TacticalBuildingPlacement {
+                id: distant.id,
+                // Occupation selects street activity, while the visible prototype
+                // owns its physical footprint and door reservations.
+                program: distant.occupied_program(),
+                centre_metres: distant.centre_metres,
+                orientation: distant.orientation,
+            },
+            distant.exterior_scale(&program),
+        ));
     }
     Ok(sites)
 }

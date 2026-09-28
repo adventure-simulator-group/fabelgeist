@@ -12,7 +12,7 @@ pub(in crate::presentation::buildings) struct PendingGpuBuildings {
 pub(super) struct Placement {
     root: Entity,
     transform: Mat4,
-    building_id: u64,
+    appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
     compiled: Arc<CompiledBuildingLevels>,
 }
 
@@ -27,13 +27,13 @@ impl PendingGpuBuildings {
         &mut self,
         root: Entity,
         transform: &Transform,
-        building_id: u64,
+        appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
         compiled: &Arc<CompiledBuildingLevels>,
     ) {
         self.buildings.push(Placement {
             root,
             transform: transform.to_matrix(),
-            building_id,
+            appearance,
             compiled: compiled.clone(),
         });
     }
@@ -53,7 +53,10 @@ impl PendingGpuBuildings {
                 let compiled = &placement.compiled;
                 let palette = materials
                     .expect("city building materials")
-                    .for_building(placement.building_id);
+                    .for_distant_building(
+                        placement.appearance.prosperity,
+                        placement.appearance.exterior_variant(),
+                    );
                 [&compiled.lod0, &compiled.lod1, &compiled.lod2]
                     .into_iter()
                     .enumerate()
