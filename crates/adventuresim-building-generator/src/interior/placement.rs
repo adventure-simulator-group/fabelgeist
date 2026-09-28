@@ -1,7 +1,7 @@
 const RNG_BUILDING_FURNITURE_SIZE: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("building.furniture-size");
 use super::budgets::{FurnitureBudget, FurniturePosition, furniture_budgets};
-use super::navigation::Navigation;
+use super::navigation::{Navigation, Occupancy};
 use super::{
     FurnitureAccessPath, InteriorLayout, InteriorLayoutError, InteriorPlacement,
     UnmetFurnitureBudget,
@@ -18,6 +18,7 @@ pub fn furnish(
     program: &BuildingProgram,
 ) -> Result<InteriorLayout, InteriorLayoutError> {
     let nav = Navigation::new(plan)?;
+    let mut occupancy = Occupancy::new(&nav);
     let mut layout = InteriorLayout::default();
     for storey in &plan.storeys {
         for room in &storey.rooms {
@@ -36,10 +37,12 @@ pub fn furnish(
                         layout.placements.truncate(previous);
                         continue;
                     }
-                    let flood = nav.flood(&layout.placements);
+                    let change = occupancy.add(&layout.placements[previous..]);
+                    let flood = occupancy.flood();
                     if nav.verify_rooms(&flood).is_err()
                         || nav.access_paths(&layout.placements, &flood).is_err()
                     {
+                        occupancy.remove(change);
                         layout.placements.truncate(previous);
                         continue;
                     }
@@ -60,7 +63,7 @@ pub fn furnish(
     if layout.placements.is_empty() {
         return Err(InteriorLayoutError::EmptyLayout);
     }
-    layout.paths = nav.access_paths(&layout.placements, &nav.flood(&layout.placements))?;
+    layout.paths = nav.access_paths(&layout.placements, &occupancy.flood())?;
     super::finishes::assign(plan, program, &mut layout.placements);
     Ok(layout)
 }
