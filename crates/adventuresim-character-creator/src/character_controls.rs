@@ -1,6 +1,7 @@
 //! The character tab: skeletal build, identity shape, and expression.
 use super::*;
 use adventuresim_core::character_proportions::{BodyProportion, CharacterProportions};
+use fabelgeist_determinism::{DeterministicRng, StreamId};
 use studio_scene::Shot;
 use studio_theme::stat_slider;
 
@@ -10,6 +11,11 @@ const IDENTITY_LIMIT: f32 = 3.0;
 const EXPRESSION_LIMIT: f32 = 1.0;
 /// Randomized identity stays within a plausible range of the population.
 const RANDOM_IDENTITY_LIMIT: f32 = 1.35;
+const IDENTITY_VARIATION_STREAM: StreamId = StreamId::new("character.creator.identity-variation");
+
+pub(super) fn identity_rng(seed: u64) -> DeterministicRng {
+    IDENTITY_VARIATION_STREAM.rng(seed, &[])
+}
 
 /// One page of the character tab.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -139,9 +145,9 @@ fn expression(ui: &mut egui::Ui, studio: &mut Studio) {
 pub(super) fn randomize(studio: &mut Studio) {
     studio.seed = studio.seed.wrapping_add(1);
     studio.recipe.proportions = CharacterProportions::from_character_id(studio.seed);
-    let mut rng = StdRng::seed_from_u64(studio.seed);
+    let mut rng = identity_rng(studio.seed);
     for value in &mut studio.recipe.identity {
-        *value = rng.random_range(-RANDOM_IDENTITY_LIMIT..=RANDOM_IDENTITY_LIMIT);
+        *value = rng.range_f32(-RANDOM_IDENTITY_LIMIT, RANDOM_IDENTITY_LIMIT);
     }
     studio.dirty = true;
     studio.status = "Rolled a new appearance".into();

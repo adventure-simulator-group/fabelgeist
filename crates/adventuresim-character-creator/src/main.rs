@@ -90,7 +90,6 @@ use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
 use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
-use rand::{Rng, SeedableRng, rngs::StdRng};
 
 #[derive(Resource)]
 struct BodyModel {
