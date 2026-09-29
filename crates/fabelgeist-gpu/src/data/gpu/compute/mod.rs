@@ -1,69 +1,24 @@
-pub mod advancing_front;
-pub mod advect;
-pub mod broadcast;
-pub mod distance_field;
-pub mod distance_field_jfa;
-pub mod divergence;
-pub mod dual_contouring;
-pub mod gather;
-pub mod gradient;
-pub mod map;
-pub mod marching_cubes;
-pub mod matmul;
+//! Running a shader over GPU data.
+//!
+//! The pipeline, the pass, the resource vocabulary the two speak in, and the
+//! binary op that `Texture2d::add` and `Texture2d::mix` are made of. What is
+//! *not* here is the algorithm library built on top -- `Map`, `Reduce`,
+//! `Scan`, `Sort`, marching cubes and the rest live in `fabelgeist-compute`, which
+//! depends on this crate.
+
 mod pass;
-pub mod perlin_noise;
 mod pipeline;
-pub mod reduce;
-pub mod reshape;
-pub mod scan;
-pub mod scatter;
 pub mod signature;
-pub mod simplex_noise;
-pub mod stencil;
-pub mod stream;
-mod surface_extraction;
 pub mod texture_ops;
-pub mod transpose;
 
-#[cfg(test)]
-pub mod test_utils;
-
-pub use advect::{Advect, AdvectDefinition};
-pub use distance_field::DistanceField;
-pub use distance_field_jfa::DistanceFieldJfa;
-pub use divergence::{Divergence, DivergenceDefinition};
-pub use gather::*;
-pub use gradient::{Gradient, GradientDefinition};
-pub use map::{MapDefinition, MapSignature};
-pub use perlin_noise::RenderPerlin;
-pub use reduce::{Max, Min, ReduceDefinition};
-pub use scatter::*;
-pub use simplex_noise::RenderSimplex;
-pub use surface_extraction::*;
+pub use pass::*;
+pub use pipeline::*;
+pub use signature::*;
 pub use texture_ops::{TextureBinaryOp, TextureBinaryOpDefinition};
-
-/// Thread-safe cache shared by compute definitions that specialize pipelines by resource shape.
-pub type ComputePipelineCache<Key, Value = pipeline::ComputePipeline> =
-    std::sync::Arc<std::sync::RwLock<std::collections::HashMap<Key, std::sync::Arc<Value>>>>;
-
-/// Deterministically ordered named resources used as part of a pipeline cache key.
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub(crate) struct OrderedResourceDescriptors(Vec<(String, ResourceDescriptor)>);
-
-impl From<&std::collections::HashMap<String, ResourceDescriptor>> for OrderedResourceDescriptors {
-    fn from(resources: &std::collections::HashMap<String, ResourceDescriptor>) -> Self {
-        let mut ordered = resources
-            .iter()
-            .map(|(name, descriptor)| (name.clone(), descriptor.clone()))
-            .collect::<Vec<_>>();
-        ordered.sort_by(|left, right| left.0.cmp(&right.0));
-        Self(ordered)
-    }
-}
 
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum ResourceDescriptor {
-    Buffer(crate::data::gpu::compute::signature::ResourceBaseType),
+    Buffer(signature::ResourceBaseType),
     Texture2d(crate::data::gpu::texture::TextureFormat),
     Texture3d(crate::data::gpu::texture::TextureFormat),
 }
@@ -71,7 +26,7 @@ pub enum ResourceDescriptor {
 impl ResourceDescriptor {
     pub fn from_resource(
         res: &crate::data::gpu::resource::GpuResource,
-        sig_type: crate::data::gpu::compute::signature::ResourceBaseType,
+        sig_type: signature::ResourceBaseType,
     ) -> Self {
         match res {
             crate::data::gpu::resource::GpuResource::Buffer(_) => {
@@ -252,19 +207,6 @@ impl ResourceDescriptor {
         code
     }
 }
-
-pub use broadcast::*;
-pub use map::*;
-pub use matmul::*;
-pub use pass::*;
-pub use pipeline::*;
-pub use reduce::*;
-pub use reshape::*;
-pub use scan::*;
-pub use signature::*;
-pub use stencil::*;
-pub use stream::*;
-pub use transpose::*;
 
 pub fn build_compute_pipeline(
     context: &crate::globals::WgpuContext,

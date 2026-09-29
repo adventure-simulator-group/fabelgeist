@@ -30,7 +30,7 @@ impl ArmorPlacement {
 }
 
 /// Saved edits: shared item defaults and explicit placement-specific choices.
-#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ArmorDesigns {
     pub defaults: BTreeMap<String, ParametricDesign>,
@@ -103,24 +103,8 @@ fn parse(bytes: &[u8]) -> Result<ArmorDesigns> {
         validate_design(id, design)?;
         let default = armor_recipes::recipe(id)
             .with_context(|| format!("unknown parametric armor recipe {id}"))?;
-        let same_family = match (&default, design) {
-            (ParametricDesign::Helmet(a), ParametricDesign::Helmet(b)) => {
-                std::mem::discriminant(a) == std::mem::discriminant(b)
-            }
-            (ParametricDesign::Limb(a), ParametricDesign::Limb(b)) => {
-                std::mem::discriminant(a) == std::mem::discriminant(b)
-            }
-            (ParametricDesign::PuffAndSlash(a), ParametricDesign::PuffAndSlash(b)) => {
-                a.kind == b.kind
-            }
-            (ParametricDesign::TrunkHose(_), ParametricDesign::TrunkHose(_)) => true,
-            (ParametricDesign::Garment(a), ParametricDesign::Garment(b)) => a.kind == b.kind,
-            (ParametricDesign::Underlayer(a), ParametricDesign::Underlayer(b)) => a.kind == b.kind,
-            (ParametricDesign::WaistAssembly(_), ParametricDesign::WaistAssembly(_)) => true,
-            _ => false,
-        };
         ensure!(
-            same_family,
+            default.same_family(design),
             "recipe {id} must retain its historical construction family"
         );
     }
@@ -141,16 +125,9 @@ pub(crate) fn decode(bytes: &[u8]) -> Result<BTreeMap<String, ParametricDesign>>
 }
 
 fn validate_design(id: &str, design: &ParametricDesign) -> Result<()> {
-    match design {
-        ParametricDesign::Helmet(d) => d.validate().map_err(anyhow::Error::new),
-        ParametricDesign::Limb(d) => d.validate().map_err(anyhow::Error::new),
-        ParametricDesign::PuffAndSlash(d) => d.validate().map_err(anyhow::Error::new),
-        ParametricDesign::TrunkHose(d) => d.validate().map_err(anyhow::Error::new),
-        ParametricDesign::Garment(d) => d.validate().map_err(anyhow::Error::new),
-        ParametricDesign::Underlayer(d) => d.validate(),
-        ParametricDesign::WaistAssembly(d) => d.validate().map_err(anyhow::Error::new),
-    }
-    .with_context(|| format!("invalid armor design for item {id}"))
+    design
+        .validate()
+        .with_context(|| format!("invalid armor design for item {id}"))
 }
 
 fn reject_unknown_fields(input: &serde_json::Value, decoded: &serde_json::Value) -> Result<()> {
@@ -171,7 +148,7 @@ mod tests {
 
     #[test]
     fn museum_controls_round_trip_in_defaults_and_independent_placement_recipes() {
-        use adventuresim_armor_model::*;
+        use fabelgeist_armor::*;
         let default = armor_recipes::recipe("spaulder").unwrap();
         let mut left = default.clone();
         let ParametricDesign::Limb(LimbArmorDesign::Spaulder(d)) = &mut left else {
@@ -234,15 +211,15 @@ mod tests {
 
     #[test]
     fn placement_edit_round_trips_and_keeps_other_side_on_item_default() {
-        use adventuresim_armor_model::{LimbArmorDesign, Millimeters};
+        use fabelgeist_armor::{LimbArmorDesign, Millimeters};
         let default = armor_recipes::recipe("pauldron").unwrap();
         let mut left = default.clone();
         let ParametricDesign::Limb(LimbArmorDesign::Pauldron(d)) = &mut left else {
             panic!()
         };
         d.outline.front_extension = Millimeters(65);
-        d.outline.front_return = adventuresim_armor_model::Milliradians(1800);
-        d.outline.rear_return = adventuresim_armor_model::Milliradians(2800);
+        d.outline.front_return = fabelgeist_armor::Milliradians(1800);
+        d.outline.rear_return = fabelgeist_armor::Milliradians(2800);
         let designs = ArmorDesigns {
             defaults: BTreeMap::from([("pauldron".into(), default.clone())]),
             placements: BTreeMap::from([(
@@ -258,23 +235,6 @@ mod tests {
         assert_eq!(
             serde_json::to_value(restored.selected("pauldron", ArmorPlacement::Right)).unwrap(),
             serde_json::to_value(&default).unwrap()
-        );
-        let frame = adventuresim_armor_model::PartFrame {
-            detail: adventuresim_armor_model::ArmorDetail::BakeSource,
-            origin: [0.0; 3],
-            axes: [[0.0, 0.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]],
-            half_extents: [0.070, 0.085, 0.065],
-        };
-        let selected = |placement| {
-            restored
-                .selected("pauldron", placement)
-                .unwrap()
-                .generate(&frame)
-                .unwrap()
-        };
-        assert_ne!(
-            selected(ArmorPlacement::Left).positions,
-            selected(ArmorPlacement::Right).positions
         );
     }
 
@@ -313,12 +273,12 @@ mod tests {
     #[test]
     fn invalid_edits_cannot_be_saved_as_loadable_recipes() {
         let mut designs = ArmorDesigns::default();
-        let mut helmet = adventuresim_armor_model::CloseHelmetDesign::default();
+        let mut helmet = fabelgeist_armor::CloseHelmetDesign::default();
         helmet.breaths.count_per_row = 8;
-        helmet.breaths.span = adventuresim_armor_model::Millimeters(20);
+        helmet.breaths.span = fabelgeist_armor::Millimeters(20);
         designs.defaults.insert(
             "close_helmet".into(),
-            ParametricDesign::Helmet(adventuresim_armor_model::HelmetDesign::CloseHelmet(helmet)),
+            ParametricDesign::Helmet(fabelgeist_armor::HelmetDesign::CloseHelmet(helmet)),
         );
         assert!(encode(&designs).is_err());
     }

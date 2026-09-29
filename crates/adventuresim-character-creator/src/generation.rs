@@ -84,5 +84,6 @@ pub(super) fn generate_character(
         positions,
         normals,
         global_joint_states,
+        device: Default::default(),
     })
 }

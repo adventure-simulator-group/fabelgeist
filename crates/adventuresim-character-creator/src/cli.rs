@@ -55,10 +55,13 @@ pub(super) struct Args {
     /// Saved item defaults and placement-specific armor recipes for preview and exports.
     #[arg(long)]
     pub(super) armor_designs: Option<PathBuf>,
-    /// Leather closure dimensions and fastening layouts for preview and exports.
-    #[arg(long)]
-    pub(super) fastener_designs: Option<PathBuf>,
-    /// Write editable item defaults and any loaded placement-specific recipes.
+    /// The library of named engravings and trims saved from the armory.
+    #[arg(long, default_value = "assets_src/equipment/decorations.json")]
+    pub(super) decorations: PathBuf,
+    /// The wardrobe of garments draped and saved in the studio.
+    #[arg(long, default_value = "assets_src/equipment/wardrobe.json")]
+    pub(super) wardrobe: PathBuf,
+    /// Write editable default recipes for every new parametric family.
     #[arg(long)]
     pub(super) write_armor_designs: Option<PathBuf>,
     /// Print JSON wall-clock timings for generation and export stages.

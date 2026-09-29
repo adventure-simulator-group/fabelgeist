@@ -40,14 +40,197 @@ corresponding `*_middle1` knuckle, placing it in the generated palm. The camera
 joint is positioned at the midpoint of the generated eye joints. Their rotations
 inherit the wrist or head without mirrored negative scale.
 
-Use the left panel to edit, randomize, reset, save, load, and export. Drag the
-viewport to orbit and use the mouse wheel to zoom. The default is MHR LOD 4
-with pose correctives disabled. Only LODs 4–6 are available in the UI, CLI, and
-GLB exporter. LOD 4 has 2,461 vertices and 4,918 triangles before clothing hides
-body faces. The **Pose-corrective model** checkbox reloads the selected LOD with
-or without MHR's corrective network for direct comparison.
-Recipes contain model coordinates, not authoritative character state, and must
-be regenerated and validated when connected to game creation.
+The left panel has five tabs. **Character** edits skeletal proportions
+(**Build**), identity shape (**Body**, **Head** and **Hands**) and
+**Expression**; double-click a slider to return it to neutral. **Inventory**
+holds everything the character owns (see below). **Armory** reshapes the
+catalog's parametric equipment. **Wardrobe** drapes clothes once and saves
+them for any body. **Output** loads the body model, saves and loads recipes,
+plays the animation preview, exports the rigged GLB and saves catalog designs.
+
+Outside the armory, the character's name is edited above the viewport, and a
+bar below it frames a **Full body** or **Portrait** shot, turns the view,
+randomizes or resets the appearance and saves the recipe. The camera orbits
+the framed subject: drag to orbit, right-drag to pan and use the mouse wheel
+to zoom. The default is MHR LOD 4 with pose correctives disabled. Only LODs
+4–6 are available in the UI, CLI, and GLB exporter. LOD 4 has 2,461 vertices
+and 4,918 triangles before clothing hides body faces. The **Pose-corrective
+model** checkbox reloads the selected LOD with or without MHR's corrective
+network for direct comparison. Recipes contain model
+coordinates, not authoritative character state, and must be regenerated and
+validated when connected to game creation.
+
+## Inventory
+
+A recipe's `inventory` lists every article the character owns. Each has a
+stable ID, whether it is worn, and one of three kinds of article:
+
+- a catalog item in one of its placements, such as the left vambrace, with an
+  optional design of its own; without one it is built from the catalog default.
+  A plate-steel item also carries its decoration, an optional engraving and an
+  optional trim, and its construction: solid, lamellar or scale (see
+  [Lamellar and scale](#lamellar-and-scale));
+- a draped garment: a name, a sewn pattern or fitted coif, its fabric, layer
+  and drape settings;
+- a settled garment: a copy of a garment saved in the wardrobe, with its
+  settled drape, fitted to the wearer without simulating (see
+  [Wardrobe](#wardrobe)).
+
+Only worn articles appear on the body and in exports; the rest are carried.
+Worn articles must fit together under the catalog's equipment rules, checked
+through the same equipment graph the game uses. Each fills body cells, a
+location in a layer: clothing, padding, mail, plate and so on. Two articles
+cannot fill the same cell, except that articulated plates on one limb may share
+it when their fit zones differ. Draped cloth takes the layer of its cut, or
+mail when its fabric is chainmail, and fills the cells its cut covers (see
+[Garments](#garments)). Attached articles, such as mail voiders, hang from an attachment
+point on a worn support such as the arming doublet, within that point's
+capacity and on the matching side.
+
+In the **Inventory** tab, worn articles are grouped by layer and carried
+articles are listed below them. The checkbox wears or takes off an article.
+Wearing one takes off whatever fills its place, and taking one off also takes
+off whatever hangs from it. **Acquire** adds and wears **New cloth**, garments
+saved in the **Wardrobe** or searchable catalog items, and catalog items with
+left and right placements can add both. Selecting an article shows its editor:
+shape controls for parametric catalog items and the garment editor for cloth
+(see [Garments](#garments)). Editing a catalog item's shape gives it its own design. **Use
+catalog shape** discards that design, and **Make catalog default** copies it to
+the catalog defaults, which **Save all catalog designs** in the **Output** tab
+writes. A plate-steel article's **Decoration** chooses a decoration saved
+from the armory, or **Plain**; choosing one copies its engraving and trim into
+the article, where they can be edited further, so a recipe never depends on the
+library. Its **Construction** builds it of small plates (see
+[Lamellar and scale](#lamellar-and-scale)). Draped garments drape from the innermost layer out; within one layer,
+the inventory order sets draping order.
+
+Edits rebuild only what they change. The body is kept while its shape stands,
+each worn piece's fit while its design and the body stand, and its
+construction, trim and lacing while their settings stand too; worn cloth is
+draped again only when the body, the garments or the fit of the plate over them
+changed. A dragged control applies its value when it is let go.
+
+Recipes use schema version 13. Recipes from older versions are not read.
+
+## Lamellar and scale
+
+A plate-steel piece can be built of small plates instead of one solid plate.
+**Lamellar** lays narrow, tall lames in rows; **Scale** lays round-footed
+scales in staggered rows. Choosing either starts from its usual plate, which
+the **Small plates** controls then reshape: width, height, thickness, gap,
+edge bevel, rounded foot, row overlap, row stagger, hole pairs and hole radius.
+Rows run from the piece's top down, each covering the top of the row below;
+each plate tilts so that its top tucks under the row above, so rows clear each
+other however many there are. Plates keep their size on the fitted piece, and
+closed pieces such as greaves take as many plates around as their girth needs.
+A plate that would reach past the piece's edge, such as at a diagonal cut, is
+left out.
+
+**Laced** threads cord through the plates' holes, with its own radius, colour
+and roughness. Every row is bound by a running cord through each pair of holes,
+across each plate's face and behind it to the next. Scale holes sit near the
+top, where the row above hides most of the cord. Lamellar lames are also hung
+from the row above by cords that run down over the upper lame's face, turn
+under its foot and pass up behind it into the lames below, so the lacing shows
+over every row. The cord is its own mesh, previewed and exported as a separate
+non-metal surface.
+
+A trim runs along the rim of each plate. It is kept to 15% of the plate's
+narrower side, whatever width the decoration asks, and its ornament shrinks
+with it, so each plate keeps a face of its own metal.
+
+The plates and cord are laid over the fitted piece's outer surface, so they
+follow the wearer and every body morph with the same topology, skinned like the
+surface beneath them. Breastplates, cuirasses, faulds, tassets and all limb,
+hand and foot defences can take small plates. Helmets, gorgets, brigandines
+and jacks of plates cannot yet, and a piece built of small plates still carries
+its fluting in the surface its plates follow. Small plates multiply a piece's
+geometry, and every vertex carries every body morph, so an exported lamellar
+outfit is several times larger than a solid one.
+
+## Armory
+
+The **Armory** tab is for improving the catalog's parametric equipment. It fits
+every parametric catalog item to the character's body and hangs the pieces on a
+wall, in rows from head to feet, each with its name underneath. Pieces that
+failed to fit are named in red, and their errors show on hover and in the
+editor. **Both sides** shows the left and right placements of paired pieces, and
+**Selected only** hides every other piece. Clicking a name on the wall or in the
+list selects that piece and frames it. **◀ ▶**, or the arrow keys over the
+viewport, step through the pieces. **On body** shows the selected piece where it
+is worn, in every placement, and **See-through body** shows where it clears or
+cuts into the body.
+
+The selected piece's shape controls edit its **catalog default** directly, and
+only that piece is fitted again. **Revert** restores the default the armory
+opened with, and **Save catalog designs** writes all defaults to the paths set
+on the **Output** tab. Worn articles without their own design use the edited
+default once you leave the armory. **Refit all** fits every piece to the current
+body again; this also happens automatically on entering the armory after the
+body changed. Catalog clothing without a parametric design is not shown.
+
+A selected plate-steel piece also shows a **Construction** card, which
+previews the piece built of lamellar lames or scales on that piece only; each
+inventory article chooses its own construction. It also shows a **Decoration**
+card for designing an engraving and trim together, previewed on that piece
+only. **Start from** loads
+a saved decoration to edit. **Save to library** stores the decoration under its
+name, replacing one of the same name, and **Delete** removes the named one.
+Both write the decoration library at once; by default it is
+`assets_src/equipment/decorations.json`, set with `--decorations` or on the
+**Output** tab, where **Reload library** reads it again. A library that does not
+exist yet is empty.
+
+## Wardrobe
+
+The **Wardrobe** tab drapes a garment on the character's bare body and saves
+it once it has settled, so it can be worn on any body without draping again.
+
+The **Design** card holds the same garment editor as the inventory (see
+[Garments](#garments)). The garment drapes as soon as the tab opens and again
+after every pattern, fabric or drape change, from its first changed stage;
+**Drape again** simulates every stage from the placed panels. Once settling has
+finished for the design as it stands, **Save to wardrobe** saves it under its
+name, replacing a garment of the same name.
+
+Saving binds every cloth vertex to the nearest point of the body's surface: a
+body triangle, a position on it, and the offset from that point along the
+surface's tangent, bitangent and smooth normal. Wearing a saved garment
+evaluates those bindings on the wearer, so the cloth follows the body's size,
+slope and proportions while keeping its folds and its ease. Where neighbouring
+cloth was bound to body parts that moved apart, such as a hem between thighs
+on wider hips, edges stretched past a quarter beyond their settled length are
+pulled back together. The cloth is then kept outside the wearer and the
+garments beneath it, as after draping (see [Drape stages](#drape-stages)), and
+fitted under worn plate like a draped garment. Nothing is simulated, so
+a saved garment fits a new body in well under a second. The bindings name the
+body mesh's triangles, so a garment is only worn on the level of detail it was
+saved on; the default is LOD 1.
+
+**Saved garments** lists the wardrobe. Selecting one fits it to the current
+body. **Add to inventory** adds and wears a copy of it, **Edit** loads its
+settings into the design to drape and save again, and **Delete** removes it.
+The inventory can also add saved garments under **Acquire**. A worn copy
+belongs to the recipe, so a recipe never depends on the wardrobe; in the
+inventory it keeps its drape, and only its name, layer and chainmail appearance
+can be edited. Its per-vertex bindings are stored as compact base64 strings.
+
+The wardrobe is saved at once to `assets_src/equipment/wardrobe.json` by
+default, set with `--wardrobe` or on the **Output** tab, where **Reload
+wardrobe** reads it again. A wardrobe that does not exist yet is empty.
+
+The GPU test `a_settled_garment_fits_other_bodies_without_draping` drapes a
+shape (`SETTLED_TEST_SHAPE`, the tunic by default) on the canonical body,
+saves it, fits it to three random bodies and exports one of them from the
+inventory:
+
+```powershell
+$env:MHR_ASSETS = "target/mhr-assets/v1.0.1/assets"
+cargo test --manifest-path crates/adventuresim-character-creator/Cargo.toml a_settled_garment -- --ignored --nocapture
+```
+
+In every tab, drag orbits the view, right- or middle-drag pans, and the wheel
+zooms.
 
 The preview reads each LOD's authored `ByVertice/Direct` normals from its MHR
 FBX. It stores those normals in local rest-surface frames and reconstructs the
@@ -55,6 +238,119 @@ frames from the final generated vertices, so authored shading follows identity,
 expression, skinning, and optional pose-corrective displacement. Triangle-only
 normal reconstruction is retained internally only to define those frames; it is
 not sent to Bevy as the character's shading normal.
+
+## Garments
+
+**New cloth** adds a cotton shirt to reshape. Every setting is in its editor,
+and a garment is sewn to the wearer's measurements from a GarmentCode pattern,
+the design space of the GarmentCodeData dataset:
+
+- **Name** labels it in the inventory and the export.
+- **Sewn pattern** or **Fitted coif** chooses how it is made. The coif is a
+  mail hood with neck, breast and back flaps, fitted around the head and
+  sharing the catalog mail coif's controls.
+- **Body** is none, a **Straight tunic** or a **Fitted bodice**. The straight
+  tunic has a **Length** measured down from the shoulder in neck-to-waist
+  lengths, where 1 reaches the waist and about 2.5 the knee, plus ease and hem
+  flare. The fitted bodice is cut at the waist. Either can have **Sleeves**,
+  with a length and cuff width, and a **Standing collar** with a height. A
+  sleeve's length is a share of the arm from the shoulder joint: 0.9 ends at
+  the wrist on a straight tunic and 0.8 on a fitted bodice. Longer sleeves
+  reach over the hand, which pierces a cuff narrower than itself.
+- **Legs** is none, **Trousers** or a **Skirt**, each with a length and hem
+  flare. Trousers also have ease. Their hem flare stops just below straight,
+  because narrower legs slide down the wearer while settling. A trouser length
+  of 0.8 ends at the ankle; longer legs reach over the foot.
+- **Fabric** sets the cloth's weight and drape. **Layer** is clothing, padding
+  or outerwear. Padding sits between clothing and mail, and outerwear goes
+  over mail and plate. Chainmail is always worn as mail.
+
+A garment must keep a body or legs. It fills the body cells it covers: the
+chest and stomach for a body, the arms for sleeves and the legs for a lower
+garment. A long tunic over trousers therefore fits in one layer, while two
+garments on the torso in the same layer displace each other.
+
+**Start from a shape** fills in the pattern and layer from a medieval wardrobe:
+shirt, fitted shirt, tunic, doublet, gambeson, trousers, hose, braies, skirt,
+dress, kirtle, surcoat and houppelande. Everything stays editable afterwards.
+
+## Draped chainmail
+
+Choose **Chainmail** as a garment's fabric to make it mail armor. A mail shirt
+is the straight tunic with sleeves, as hauberks were cut; its **Length**
+reaches anywhere from the waist to the knee, and changing it re-drapes from
+sewing. A **Fitted coif** in chainmail is fitted around the head and chest like
+the catalog mail coif, then settles as chainmail instead of being sewn from
+flat panels. Shirt and coif are both in the mail layer, so keep the shirt
+before the coif in the inventory to layer the coif over it.
+
+Selecting **Chainmail** shows its ring controls: outer ring diameter, wire
+diameter, row spacing, ring tilt, steel color and roughness. The wire and row
+spacing limits follow the ring so every link keeps an opening for its four
+neighbours. These are appearance only: edits update the shown garment and the
+export without re-draping. The mail's mass comes from its fabric preset.
+
+Mail uses the sewing panels' material coordinates in metres, with separate
+vertices at UV seams and joined vertices for animation physics. The preview
+material and the export scale them so one texture repeat covers one ring across
+and two rows up. The creator generates the repeating maps from the weave:
+cutout color, tangent-space normals from the tilted round wire, and ambient
+occlusion. Steel uses full metallic response.
+
+### Drape stages
+
+Draping places the pattern panels, sews them without gravity, and settles the
+sewn garment under gravity. **Drape stages** exposes each stage's steps,
+substeps, constraint iterations, gravity, damping and self-collision. Swept
+contacts read the cloth back from the GPU for continuous crossing checks; their
+interval, iterations and body inclusion are the main cost of a step. Previews
+default to every step and start from the placed panels.
+
+A settled garment hangs from its highest supports, so a loose cut stands off
+the chest, belly and back. **Body fit** then draws it onto the body it
+dresses: each value closes that share of the gap down to the fabric's
+clearance, 0.7 by default, without stretching any cloth edge. Only cloth over
+the trunk and arms is drawn in, plus the legs for trousers and the head for a
+fitted coif; a hem hanging past the thighs or a sleeve over the hand follows
+only as the drawn cloth pulls it. Finally the cloth is kept outside the wearer
+and inner garments: its vertices are pushed out to clearance, and where a body
+feature smaller than a cloth triangle, such as a thumb, passes between its
+vertices, that triangle is lifted over it.
+
+Each drape keeps its completed stages, including after a failure or
+cancellation. Changing a stage re-runs from that stage: a body fit change
+repeats only the fast host fit, and a settling change resumes from the sewn
+garment. Body, pattern, fabric, resolution or sewing changes start again,
+as does **Drape again**.
+
+Draping resolves swept vertex/triangle and edge/edge contacts after each GPU
+substep. This host projection is vendored from Prism's `shell` library and
+includes body triangle interiors and excludes joined seam copies. Fixed body
+bounds are cached between substeps. It prevents crossings missed by particle
+spheres; it does not infer layer order for already intersecting starting meshes.
+
+Clothing, padding and mail lie under worn rigid plate. Wherever a plate covers
+them, the last fit presses them in towards the wearer, clear of the plate's
+inner face, each garment far enough in for those pressed over it. The press
+spreads to the cloth around it, so cloth tucks under a plate's rim. The plate is
+met as fitted, before any small plates are laid on it, so changing a piece's
+construction or decoration does not re-drape. Outerwear is not pressed. Fit
+completion and export check the emitted cloth against itself, the wearer and
+inner garments.
+
+Drape problems never block the studio. Fit problems, such as a garment
+intersecting itself, are reported in the status
+line while the garment is still shown, animated and exported. A garment that
+cannot be draped at all stops the drape there; the garments already draped
+remain usable, and export leaves the rest out and says so. Animation and export
+wait only while a drape is running. Press **Drape again** to retry.
+
+Render an exported chainmail outfit through Bevy, with an asset/material check
+before capture:
+
+```powershell
+cargo run --manifest-path crates/adventuresim-character-creator/Cargo.toml --example garment_preview -- outfit.glb outfit.png
+```
 
 ## Animation integration
 
@@ -101,7 +397,7 @@ when dropped. Mesh assets remain shared; weights belong to each instance.
 
 ## Skeletal proportions
 
-Recipe version 4 also stores nine absolute MHR skeletal coefficients in
+Recipes also store nine absolute MHR skeletal coefficients in
 `proportions`, ordered as hip width, shoulder width, upper arm length, lower arm
 length, upper leg length, lower leg length, spine length, neck length, and foot
 length. The creator's **Skeletal proportions** controls use the pinned model's
@@ -152,10 +448,87 @@ Inspect the staged equipment before copying its GLBs, shared PNGs and manifest i
 ## Parametric armor authoring
 
 All armor catalog entries have authored parametric recipes. Preview, character
-export and equipment export use the same recipe dispatch, fit and material.
-Catalog loading rejects armor without a recipe. The geometry code lives in
-`adventuresim-armor-model`; the creator owns MHR landmarks, smooth fit
-envelopes, and transfer of UVs, skinning and morph targets.
+export, equipment export and the armory use the same recipe dispatch, fit and
+material. Catalog loading rejects armor without a recipe. The part geometry
+lives in `fabelgeist-armor`; the creator owns the MHR landmarks, the
+fitting passes, and the transfer of UVs, skinning and morph targets.
+
+Armor is generated and fitted entirely on the GPU. For each piece the creator
+uploads the wearer and every morph sample once (`device_equipment`), then
+records the piece against each of them (`parametric_equipment`):
+
+- The part frame of the piece's region (`device_frames`; the head and foot
+  frames have their own passes) is oriented by rig landmarks and sized by the
+  skin those landmarks own. It stays on the device.
+- The family's carriers are evaluated in that frame, and its fitter moves them
+  onto measured body sections: clearance stations for long plates
+  (`device_clearance`), foot sections and boot layering for footwear, cages for
+  garments and gorgets, and measured sections for the close helmet and the
+  coif.
+- The shells are thickened, and each vertex takes its UV and skin weights from
+  the nearest body vertex.
+
+Everything is read back after the last realization is recorded, so morph
+targets share the base topology by construction. The vambrace and the
+breastplate fit directly to the selected forearm and torso skin
+(`device_bracer`, `device_torso`). Underlayers are cut from the body on the host
+by a frozen plan, using part frames fitted on the device, and every offset,
+layer and attribute is then evaluated on the device (`device_underlayer`). The
+fitted cloth coif starts from the coif carrier fitted on the device, before its
+shell is thickened.
+
+Every rigid armor piece is shaded with the same parametric metal as the plate
+armor builder: a base color and roughness plus a tiling map of the surface's
+finish, baked on the GPU into normal and roughness maps. The finish is the
+gentle undulation left by planishing, which makes reflections wobble; a dense
+polishing grain that streaks highlights; uneven gloss from handling; and fine
+scratches. The builder's **Metal and scratches** section edits its own metal,
+whose default is polished steel. Catalog plate steel takes its color and
+roughness from its catalog material, polished, rough or oxidized steel, with
+the default finish. Its body-surface UVs are rescaled to the builder's density
+of four texture repeats per metre, so the finish is the same size on a helmet,
+a vambrace and a lamella. The maps are baked at 1024 texels per repeat, a
+quarter millimetre each. Mail keeps its ring weave.
+
+Metal shows its surroundings rather than a color of its own, so the studio is
+lit by an environment as well as its spotlight: a dim room with a key soft box
+on the spotlight's side, a fill opposite, an overhead strip and a rim light
+behind. The environment is generated procedurally and filtered on the GPU. It
+also gives the body and cloth their indirect light.
+
+Any plate-steel piece can carry an **engraving**: a tiling relief cut into its
+metal, either a procedural ornament or an image. An ornament is a motif (a
+wave, zigzag, guilloche of interlaced waves, rope, beads or vine) repeated
+across the cell, with optional fillet lines along both of its long sides. The
+line width, the number of repeats and each motif's proportions are adjustable,
+and the device draws the ornament at the bake's resolution. An image is either a
+grayscale height map, where white is the untouched surface and black the floor
+of a cut of the chosen depth, or a tangent-space normal map in the glTF
+convention. An ornament is always cut as a height map. The engraving repeats a chosen
+number of times per metal tile, may be turned on the surface, and roughens the
+floor of its cuts. Its slopes add to the scratches in the baked normal map for
+both preview and export; a height map also gives the preview a parallax depth
+map, which glTF does not carry. The image path is stored in the recipe and read
+relative to the working directory; an ornament is stored by its parameters. A
+catalog steel article edits its own engraving in the inventory, or takes one
+from a saved decoration.
+
+A catalog steel article can also carry a **trim**: a band along every edge of
+every plate, finished with its own metal, such as gilt, bluing or bright steel
+on a darker plate. The band reaches a chosen width in from each edge and covers
+the narrow edge walls, so it wraps the plate's thickness. Every generator
+records which face of the plate each triangle lies on. The band is cut out of
+the fitted mesh along its exact border, and the cut vertices carry the piece's
+skin weights and morph targets. The trim metal's engraving is the ornament.
+Adding one sizes its cell to the band's width, and **Fit cell to band width**
+restores that after the width changes. Along the band, one engraving cell
+repeats every cell's length, starting at the edge and running inward. Each closed edge is stretched slightly so that it
+holds a whole number of repeats and its ornament closes on itself. Where a
+plate is narrower than two band widths, the bands from opposite edges meet, and
+where the band turns a sharp corner, its inner border follows the mesh to
+within one triangle. Previews and character exports shade each band as a
+separate primitive named after its piece or component with a `.trim` suffix.
+Catalog equipment assets carry no trim.
 
 The authored helmet, limb and garment defaults live in
 [`assets_src/equipment/armor-designs.json`](../../assets_src/equipment/armor-designs.json).
@@ -176,18 +549,18 @@ families and parameters are validated when loading or saving. The authored
 catalog is a separate input format; generate an editable document with
 `--write-armor-designs` rather than passing the raw catalog to `--armor-designs`.
 
-For example, edit `defaults.pauldron` for both shoulders, then copy that recipe
-to `placements.pauldron.left` and change its wing dimensions for an asymmetric
-pair. The editor exposes the shared default and a **Customize** toggle for each
-equipped placement. Disabling that toggle restores the shared default for that
-placement. Preview, character export, equipment export and review output all
-select the same placement recipe, including neighboring fastener support.
+For example, edit `defaults.spaulder` for both shoulders, then copy that
+recipe to `placements.spaulder.left` and change it for an asymmetric pair. A
+newly acquired article starts from its placement's recipe, and the armory then
+edits that article's own design. Equipment export and review output select the
+same placement recipe.
 
 Use `--bracer-design` for
 the vambrace and `--breastplate-design` for the paired torso plates; these are
-separate recipe files, outside the catalog override map. The editor's **Save all
-armor designs** button writes the catalog, vambrace and breastplate recipes to
-the three displayed paths. Each path must be distinct and its parent directory
+separate recipe files, outside the catalog override map. Together these are
+the catalog defaults that newly acquired inventory items start from. The
+**Output** tab's **Save all catalog designs** button writes the catalog,
+vambrace and breastplate recipes to the three displayed paths. Each path must be distinct and its parent directory
 must exist. Pass all three files back through their corresponding options to
 reproduce the saved set in preview or export.
 
@@ -197,10 +570,24 @@ milliradians. The serialized design contributes to the asset's design hash and
 generator version. Generate current defaults before editing; recipe files must
 include the required fields of the current schema.
 
-The [museum armor authoring guide](../adventuresim-armor-model/review/museum/README.md)
+The [museum armor authoring guide](../fabelgeist-armor/review/museum/README.md)
 describes anime torso courses, wrapping tassets, independent pauldron wings,
 joint extensions, besagews, buffes and bellows visors, with primary historical
 references and construction limits.
+
+### Options not yet built on the device
+
+Armor is fitted and thickened on the armor device. These recipe options parse,
+validate and appear in the controls, but the device does not build them yet;
+fitting a design that uses one fails with an error naming it, rather than
+building the piece without it:
+
+- pauldrons;
+- wrapped tassets and anime breastplates;
+- puff-and-slash sleeves and hose.
+
+Fastenings, dense bake sources (`--armor-bake-source`), runtime levels of
+detail and generated fluting normal maps are not built on the device either.
 
 Metal recipes expose construction-specific shape controls. Helmet crowns have
 fullness, ridge height and optional fluting; sallets add face-opening width and
@@ -268,7 +655,7 @@ flute relief depth remains in millimetres. Both surfaces carry the relief; plate
 gauge follows the smooth carrier's extrusion direction, rather than the local
 flute normal. Unknown fields and invalid fade intervals are rejected.
 
-[Example recipes and historical references](../adventuresim-armor-model/review/breastplate/README.md)
+[Example recipes and historical references](../fabelgeist-armor/review/breastplate/README.md)
 provide editable starting points. Each recipe has one front plate and one back
 plate; a separate plackart or articulated waist plate requires a different
 construction recipe. The upper armscye is a smooth boundary of the shell, and
@@ -293,10 +680,11 @@ not a proof of continuous clearance. Assembled views combine unchanged parts to
 expose interface problems. Static review does not replace inspection of
 installed equipment under runtime animation.
 
+`--armor-review-selection` chooses what the review exports besides the body:
+`catalog` (the default) fits every placement of every parametric catalog item,
+`recipe` only the catalog articles the recipe wears, and `body` nothing more.
+
 Add `--profile` to a CLI export to print JSON timing events to standard error.
-Events separate body generation, equipment planning and fitting by item,
-fastener attachment, runtime topology conversion, GLB serialization and writes,
-and review JSON serialization and writes.
 
 Studio and review generation fit equipment as a character instance. This path
 builds only the current body, parallelizes independent equipment layers, and
@@ -337,20 +725,14 @@ the equipment manifest, then capture idle, walking and raised-guard scenarios.
 
 ## Equipment material UVs
 
-`just generate-procedural-equipment DIRECTORY` exports native LOD4 geometry.
-Runtime body and armor exports support LODs 4–6. Armor evaluates its
-construction recipe at each level; it does not simplify a triangulated
-high-resolution mesh.
-Structural openings and plate boundaries remain explicit. Fitting uses complete
-shells; runtime exports omit constructed inner and return faces and render the
-exterior from both sides. Clothing and fasteners have separate
-triangle counts from the metal armor.
+`just generate-procedural-equipment DIRECTORY` exports native LOD4 body
+geometry with the device-built armor. Runtime body exports support LODs 4–6.
+Structural openings and plate boundaries remain explicit.
 
-Generate matching dense bake inputs with the same body and equipment recipes,
-adding `--armor-review-dir SOURCE_DIRECTORY --armor-review-selection recipe
---armor-bake-source` to the creator command. This mode writes review JSON;
-the selected body LOD remains unchanged. Runtime review exports also write
-base-pose GLBs for material finishing and static display assemblies.
+The tactical client generates armor and clothing at runtime from its base rig
+through the creator library, fitting armor on the armor device. The device
+reads results back synchronously, so the web build does not generate runtime
+equipment.
 
 Set `BLENDER_BIN` to the Blender executable when it is not on PATH. Run
 `python scripts/finish_equipment.py DIRECTORY --source-directory SOURCE_DIRECTORY`
@@ -563,6 +945,10 @@ That surviving hose contains sewn-in plates; it is evidence for the mail strip
 arrangement, not a claim that the game's padded hose replicates that garment.
 
 ## Full pauldrons
+
+The armor device does not build pauldrons yet; see
+[Options not yet built on the device](#options-not-yet-built-on-the-device).
+This section describes the recipe and the construction it will produce.
 
 `pauldron` is a separate catalog choice from the smaller `spaulder`. A formed
 shoulder plate has independent front and rear wing reach and drop, proximal

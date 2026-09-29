@@ -32,6 +32,7 @@ fn export_equipment_with_maps(
     let joints = [[0; 8]; 3];
     let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
     let shell = RiggedShell {
+        surface: None,
         plate_edges: &[],
         name: "mail",
         hinge: None,

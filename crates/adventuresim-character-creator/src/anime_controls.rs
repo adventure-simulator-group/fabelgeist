@@ -1,6 +1,6 @@
 //! Solid or horizontally articulated breastplate construction controls.
-use adventuresim_armor_model::{AnimeDesign, BreastplateConstruction, BreastplateDesign};
 use bevy_egui::egui;
+use fabelgeist_armor::{AnimeDesign, BreastplateConstruction, BreastplateDesign};
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
     let original_construction = design.construction.clone();

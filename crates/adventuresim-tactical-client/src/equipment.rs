@@ -34,11 +34,11 @@ mod icons;
 use icons::*;
 mod model_loading;
 mod morphs;
+#[cfg(not(target_family = "wasm"))]
 mod runtime_equipment;
-use model_loading::resolve_procedural_equipment_models;
-use runtime_equipment::{
-    RuntimeEquipmentBodyCache, RuntimeEquipmentPresentation, generate_runtime_equipment_models,
-};
+use model_loading::{procedural_presentation, resolve_procedural_equipment_models};
+#[cfg(not(target_family = "wasm"))]
+use runtime_equipment::{RuntimeEquipmentBodyCache, generate_runtime_equipment_models};
 mod placeholder_visual;
 mod render_binding;
 mod skin;
@@ -1121,34 +1121,16 @@ fn spawn_item_placeholders(
             // root hidden avoids a one-frame flash at the world origin.
             Visibility::Hidden,
         ));
-        let runtime_equipment = properties.is_some_and(|properties| {
-            adventuresim_character_creator::runtime_equipment::is_runtime_equipment(&properties.id)
-        });
-        if !runtime_equipment {
-            if let Some(file) = properties.and_then(|properties| {
-                procedural_equipment_file(
-                    &properties.id,
-                    topology.and_then(|topology| topology.placement_id.as_deref()),
-                )
-            }) {
-                root_commands.insert(ProceduralEquipmentPresentation {
-                    asset_path: procedural_equipment_asset_path(file),
-                });
-            }
-        } else {
-            let properties = properties.expect("runtime equipment requires item properties");
-            root_commands.insert(RuntimeEquipmentPresentation {
-                item,
-                item_id: properties.id.clone(),
-                placement_id: topology
-                    .and_then(|topology| topology.placement_id.clone())
-                    .unwrap_or_else(|| "worn".into()),
-            });
-        }
-        let root = root_commands.id();
-        if runtime_equipment {
+        // The web build has no armor device to fit runtime equipment on.
+        #[cfg(not(target_family = "wasm"))]
+        if let Some(presentation) = runtime_equipment::presentation(item, properties, topology) {
+            root_commands.insert(presentation);
             continue;
         }
+        if let Some(presentation) = procedural_presentation(properties, topology) {
+            root_commands.insert(presentation);
+        }
+        let root = root_commands.id();
         let (generated, part_name) = if let Some(holder) =
             holder_appearance.and_then(|appearance| {
                 cached_holder(appearance, &mut cache, &mut meshes, &mut materials)
@@ -1586,7 +1568,10 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
+            .query::<(
+                &ItemPlaceholder,
+                &runtime_equipment::RuntimeEquipmentPresentation,
+            )>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)
@@ -1620,7 +1605,10 @@ mod tests {
         world.run_system_once(spawn_item_placeholders).unwrap();
 
         let presentation = world
-            .query::<(&ItemPlaceholder, &RuntimeEquipmentPresentation)>()
+            .query::<(
+                &ItemPlaceholder,
+                &runtime_equipment::RuntimeEquipmentPresentation,
+            )>()
             .iter(&world)
             .find(|(placeholder, _)| placeholder.0 == item)
             .map(|(_, presentation)| presentation)

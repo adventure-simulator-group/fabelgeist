@@ -134,8 +134,23 @@ impl Mat4 {
     }
 
     pub fn look_at(eye: Vec3, target: Vec3, up: Vec3) -> Self {
-        let f = (target - eye).normalize();
-        let s = f.cross(up).normalize();
+        let diff = target.sub(eye);
+        let f = if diff.length_squared() < 1e-8 {
+            Vec3::new(0.0, 0.0, -1.0)
+        } else {
+            diff.normalize()
+        };
+
+        let mut s = f.cross(up);
+        if s.length_squared() < 1e-8 {
+            let alt_up = if up.z.abs() < 0.9 {
+                Vec3::new(0.0, 0.0, 1.0)
+            } else {
+                Vec3::new(1.0, 0.0, 0.0)
+            };
+            s = f.cross(alt_up);
+        }
+        let s = s.normalize();
         let u = s.cross(f);
 
         Self {

@@ -317,3 +317,17 @@ pub(super) fn resolve_procedural_equipment_models(
         commands.entity(root).insert(ProceduralEquipmentResolved);
     }
 }
+
+/// The prebuilt model an item is presented with, if the catalog has one.
+pub(super) fn procedural_presentation(
+    properties: Option<&ItemProperties>,
+    topology: Option<&EquipmentTopology>,
+) -> Option<ProceduralEquipmentPresentation> {
+    let file = procedural_equipment_file(
+        &properties?.id,
+        topology.and_then(|topology| topology.placement_id.as_deref()),
+    )?;
+    Some(ProceduralEquipmentPresentation {
+        asset_path: procedural_equipment_asset_path(file),
+    })
+}

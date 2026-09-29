@@ -6,7 +6,7 @@ use wgpu::util::DeviceExt;
 pub struct ComputePass;
 
 impl ComputePass {
-    pub fn execute(
+    pub fn new(
         context: &WgpuContext,
         pipeline_def: ComputePipeline,
         parameters: PassParameters,
@@ -50,13 +50,13 @@ impl ComputePass {
             .ok_or_else(|| anyhow!("ComputePass: ComputePipeline missing actual WGPU pipeline."))?;
 
         // Check for validation errors in the pipeline itself
-        if let Ok(guard) = pipeline_def.validation_error.lock()
-            && let Some(err) = guard.as_ref()
-        {
-            return Err(anyhow!(
-                "ComputePass: Cannot use invalid ComputePipeline: {}",
-                err
-            ));
+        if let Ok(guard) = pipeline_def.validation_error.lock() {
+            if let Some(err) = guard.as_ref() {
+                return Err(anyhow!(
+                    "ComputePass: Cannot use invalid ComputePipeline: {}",
+                    err
+                ));
+            }
         }
 
         let pipeline = pipeline_val;
@@ -156,7 +156,8 @@ impl ComputePass {
                                     let col_stride = member.size / 3;
                                     for i in 0..3 {
                                         for j in 0..3 {
-                                            let offset = start + i * col_stride as usize + j * 4;
+                                            let offset =
+                                                start + i as usize * col_stride as usize + j * 4;
                                             buffer_data[offset..offset + 4]
                                                 .copy_from_slice(&v.columns[i][j].to_le_bytes());
                                         }
@@ -206,13 +207,13 @@ impl ComputePass {
                 uniform_buffer = Some(buffer);
             }
 
-            if let Some(buffer) = &uniform_buffer
-                && let Some(uniform_binding_idx) = bg_reflection.uniform_binding
-            {
-                bind_group_entries.push(wgpu::BindGroupEntry {
-                    binding: uniform_binding_idx,
-                    resource: buffer.as_entire_binding(),
-                });
+            if let Some(buffer) = &uniform_buffer {
+                if let Some(uniform_binding_idx) = bg_reflection.uniform_binding {
+                    bind_group_entries.push(wgpu::BindGroupEntry {
+                        binding: uniform_binding_idx,
+                        resource: buffer.as_entire_binding(),
+                    });
+                }
             }
 
             // 2. Buffers (Storage / Uniform from Buffer)
@@ -259,10 +260,10 @@ impl ComputePass {
                     )
                 })?;
 
-                let (view, actual_format, dim) =
-                    match val {
-                        PassParameter::Texture2d(tex) => {
-                            let view = if let Some(expected_fmt) = binding_info.format {
+                let (view, actual_format, dim) = match val {
+                    PassParameter::Texture2d(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
                                 let view_format = wgpu::TextureFormat::from(tex.format);
                                 if view_format != expected_fmt {
                                     // Check for sRGB/Unorm alias
@@ -283,74 +284,122 @@ impl ComputePass {
                                 tex.view.clone()
                             };
 
-                            (
-                                view,
-                                tex.texture.as_ref().map(|t| t.format()),
-                                wgpu::TextureViewDimension::D2,
-                            )
-                        }
-                        PassParameter::Texture3d(tex) => {
-                            let view = if let Some(expected_fmt) = binding_info.format {
-                                let view_format = wgpu::TextureFormat::from(tex.format);
-                                if view_format != expected_fmt {
-                                    // Check for sRGB/Unorm alias
-                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
-                                        == expected_fmt
-                                    {
-                                        Some(tex.view_with_format(
-                                            context,
-                                            tex.format.srgb_counterpart(),
-                                        )?)
-                                    } else {
-                                        tex.view.clone()
-                                    }
-                                } else {
-                                    tex.view.clone()
-                                }
-                            } else {
-                                tex.view.clone()
-                            };
-
-                            (
-                                view,
-                                tex.texture.as_ref().map(|t| t.format()),
-                                wgpu::TextureViewDimension::D3,
-                            )
-                        }
-                        _ => {
-                            return Err(anyhow!(
-                                "ComputePass: Parameter '{}' is not a Texture2d or Texture3d",
-                                name
-                            ));
-                        }
-                    };
-
-                if let Some(expected_format) = binding_info.format
-                    && let Some(actual_fmt) = actual_format
-                    && actual_fmt != expected_format
-                {
-                    // Allow sRGB counterparts
-                    let mut allowed = false;
-                    if let PassParameter::Texture2d(tex) = val {
-                        if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
-                            == expected_format
-                        {
-                            allowed = true;
-                        }
-                    } else if let PassParameter::Texture3d(tex) = val
-                        && wgpu::TextureFormat::from(tex.format.srgb_counterpart())
-                            == expected_format
-                    {
-                        allowed = true;
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::D2,
+                        )
                     }
+                    PassParameter::Texture3d(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
+                                let view_format = wgpu::TextureFormat::from(tex.format);
+                                if view_format != expected_fmt {
+                                    // Check for sRGB/Unorm alias
+                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                        == expected_fmt
+                                    {
+                                        Some(tex.view_with_format(
+                                            context,
+                                            tex.format.srgb_counterpart(),
+                                        )?)
+                                    } else {
+                                        tex.view.clone()
+                                    }
+                                } else {
+                                    tex.view.clone()
+                                }
+                            } else {
+                                tex.view.clone()
+                            };
 
-                    if !allowed {
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::D3,
+                        )
+                    }
+                    PassParameter::TextureCube(tex) => {
+                        let view =
+                            if let Some(expected_fmt) = binding_info.format {
+                                let view_format = wgpu::TextureFormat::from(tex.format);
+                                if view_format != expected_fmt {
+                                    if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                        == expected_fmt
+                                    {
+                                        Some(tex.view_with_format(
+                                            context,
+                                            tex.format.srgb_counterpart(),
+                                        )?)
+                                    } else {
+                                        tex.view.clone()
+                                    }
+                                } else {
+                                    tex.view.clone()
+                                }
+                            } else {
+                                tex.view.clone()
+                            };
+
+                        (
+                            view,
+                            tex.texture.as_ref().map(|t| t.format()),
+                            wgpu::TextureViewDimension::Cube,
+                        )
+                    }
+                    PassParameter::TextureView(tex) => (
+                        tex.view.clone(),
+                        tex.texture.as_ref().map(|t| t.format()),
+                        tex.dimension,
+                    ),
+                    _ => {
                         return Err(anyhow!(
-                            "ComputePass: Texture '{}' format mismatch. Expected {:?}, got {:?}",
-                            name,
-                            expected_format,
-                            actual_fmt
+                            "ComputePass: Parameter '{}' is not a Texture2d, Texture3d, TextureCube, or TextureView",
+                            name
                         ));
+                    }
+                };
+
+                if let Some(expected_format) = binding_info.format {
+                    if let Some(actual_fmt) = actual_format {
+                        if actual_fmt != expected_format {
+                            // Allow sRGB counterparts
+                            let mut allowed = false;
+                            if let PassParameter::Texture2d(tex) = val {
+                                if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                    == expected_format
+                                {
+                                    allowed = true;
+                                }
+                            } else if let PassParameter::Texture3d(tex) = val {
+                                if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                    == expected_format
+                                {
+                                    allowed = true;
+                                }
+                            } else if let PassParameter::TextureCube(tex) = val {
+                                if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                    == expected_format
+                                {
+                                    allowed = true;
+                                }
+                            } else if let PassParameter::TextureView(tex) = val {
+                                if wgpu::TextureFormat::from(tex.format.srgb_counterpart())
+                                    == expected_format
+                                {
+                                    allowed = true;
+                                }
+                            }
+
+                            if !allowed {
+                                return Err(anyhow!(
+                                    "ComputePass: Texture '{}' format mismatch. Expected {:?}, got {:?}",
+                                    name,
+                                    expected_format,
+                                    actual_fmt
+                                ));
+                            }
+                        }
                     }
                 }
 

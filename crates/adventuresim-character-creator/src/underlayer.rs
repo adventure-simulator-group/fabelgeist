@@ -1,16 +1,10 @@
-//! Fitted textile garments and detachable mail patches on the source body.
-mod direction;
-mod gap;
+//! Fitted textile garments and detachable mail patches cut from the source
+//! body.
 mod pattern;
-mod standoff;
-pub use pattern::regions;
+pub use pattern::{RegionFrame, regions};
 
-use crate::{
-    armor_frames::Wearer,
-    surface_cut::{SurfaceCut, interpolate},
-};
-use adventuresim_armor_model::{Millimeters, PartMesh, Permille, TextileColor};
 use anyhow::{Result, ensure};
+use fabelgeist_armor::{Millimeters, Permille, TextileColor};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -32,7 +26,7 @@ impl UnderlayerKind {
     }
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct UnderlayerDesign {
     pub kind: UnderlayerKind,
@@ -46,14 +40,14 @@ pub struct UnderlayerDesign {
     pub cuts: Vec<SurfaceBox>,
 }
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct SurfaceBox {
     pub minimum: ReferencePoint,
     pub maximum: ReferencePoint,
 }
 
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ReferencePoint(pub [f32; 3]);
 
 pub const CLEARANCE_MM: std::ops::RangeInclusive<u16> = 1..=10;
@@ -106,172 +100,37 @@ impl UnderlayerDesign {
     }
 }
 
-/// Immutable connectivity and source points shared by neutral and morphed bodies.
-pub struct UnderlayerPattern {
-    pub cut: SurfaceCut,
-    borders: Vec<[u32; 2]>,
-    compression: Vec<f32>,
-    direction_constraints: Vec<direction::Constraint>,
-}
-
-#[derive(Clone)]
-pub struct UnderlayerEnvelope {
-    compression: Vec<f32>,
-    direction_constraints: Vec<direction::Constraint>,
-}
-
-impl UnderlayerEnvelope {
-    pub fn new(body: &Wearer<'_>) -> Self {
-        Self {
-            compression: standoff::compression(body),
-            direction_constraints: Vec::new(),
-        }
-    }
-
-    /// Fast single-body fitting keeps the requested stack depth everywhere.
-    /// Unlike the reusable envelope, it does not reserve tight folds for other
-    /// identities or compress locally converging offsets.
-    pub fn for_instance(body: &Wearer<'_>) -> Self {
-        Self {
-            compression: vec![1.0; body.positions.len()],
-            direction_constraints: Vec::new(),
-        }
-    }
-
-    /// Freeze the tightest sampled layer envelope before creating any targets.
-    /// Interpolating independent compression minima could invert the offset
-    /// when many identity targets are blended with negative weights.
-    pub fn constrain_for(&mut self, body: &Wearer<'_>) {
-        let directions = direction::constrained(body, &self.direction_constraints);
-        for (limit, sample) in self
-            .compression
-            .iter_mut()
-            .zip(standoff::along(body, &directions))
-        {
-            *limit = limit.min(sample);
-        }
-    }
-
-    /// Unposed body proportions can turn a neutral offset through its surface.
-    /// Establish their common outward cone before computing the layer envelope.
-    pub fn constrain_directions_for(&mut self, body: &Wearer<'_>) {
-        self.direction_constraints
-            .extend(direction::constraints(body));
-    }
-
-    /// Bone proportion translations retain the reference offset vectors.
-    /// Check that exact extrusion, rather than solving a new shaped direction.
-    pub fn constrain_translation_for(&mut self, reference: &Wearer<'_>, shaped: &Wearer<'_>) {
-        let directions = direction::constrained(reference, &self.direction_constraints);
-        for (limit, sample) in self
-            .compression
-            .iter_mut()
-            .zip(standoff::along(shaped, &directions))
-        {
-            *limit = limit.min(sample);
-        }
-    }
-}
-
-impl UnderlayerPattern {
-    pub fn new(
-        design: &UnderlayerDesign,
-        placement: &str,
-        body: &Wearer<'_>,
-        uv_faces: &[[u32; 3]],
-        envelope: &UnderlayerEnvelope,
-    ) -> Result<Self> {
-        design.validate()?;
-        let (include, subtract) = regions(design, placement, body)?;
-        let cut = SurfaceCut::new(body.positions, body.faces, uv_faces, &include, &subtract);
-        ensure!(
-            !cut.faces.is_empty(),
-            "underlayer cuts removed the whole garment"
-        );
-        let positions = cut
-            .points
-            .iter()
-            .map(|s| {
-                interpolate(
-                    body.faces[s.triangle].map(|v| body.positions[v as usize]),
-                    s.weights,
-                )
-            })
-            .collect::<Vec<_>>();
-        let borders = cut.borders(&positions);
-        Ok(Self {
-            cut,
-            borders,
-            compression: envelope.compression.clone(),
-            direction_constraints: envelope.direction_constraints.clone(),
-        })
-    }
-
-    pub fn evaluate(&self, design: &UnderlayerDesign, body: &Wearer<'_>) -> PartMesh {
-        let count = self.cut.points.len() as u32;
-        let compression = &self.compression;
-        let directions = direction::constrained(body, &self.direction_constraints);
-        let mut positions = Vec::new();
-        for offset in [
-            design.clearance.metres() + design.thickness.metres(),
-            design.clearance.metres(),
-        ] {
-            for point in &self.cut.points {
-                let face = body.faces[point.triangle];
-                // Cut vertices lie on the already offset source triangle.
-                // Renormalizing an interpolated normal here would bow its
-                // interior and make changing a cut change the bulk surface.
-                positions.push(interpolate(
-                    face.map(|v| {
-                        let v = v as usize;
-                        std::array::from_fn(|i| {
-                            body.positions[v][i] + offset * compression[v] * directions[v][i]
-                        })
-                    }),
-                    point.weights,
-                ));
-            }
-        }
-        let mut indices = Vec::new();
-        for &[a, b, c] in &self.cut.faces {
-            indices.extend([a, b, c]);
-        }
-        for &[a, b, c] in &self.cut.faces {
-            indices.extend([c + count, b + count, a + count]);
-        }
-        for &[a, b] in &self.borders {
-            // A textile cut edge has its own shading normal. Sharing these
-            // vertices with the inner face would darken the hem and collar.
-            let first = positions.len() as u32;
-            for index in [a, b, a + count, b + count] {
-                positions.push(positions[index as usize]);
-            }
-            indices.extend([first + 1, first, first + 2, first + 1, first + 2, first + 3]);
-        }
-        let mut mesh = PartMesh::new();
-        mesh.positions = positions;
-        mesh.indices = indices;
-        mesh
-    }
-
-    /// Transfer source attributes to the inner face and independent cut-edge vertices.
-    pub fn shell_attributes<T: Copy>(&self, outer: &[T]) -> Vec<T> {
-        assert_eq!(outer.len(), self.cut.points.len());
-        let mut result = outer.to_vec();
-        result.extend_from_slice(outer);
-        for &[a, b] in &self.borders {
-            result.extend([
-                outer[a as usize],
-                outer[b as usize],
-                outer[a as usize],
-                outer[b as usize],
-            ]);
-        }
-        result
-    }
-}
-
 #[cfg(test)]
-mod body_fixture;
-#[cfg(test)]
-mod tests;
+mod tests {
+    use super::*;
+
+    fn design() -> UnderlayerDesign {
+        UnderlayerDesign {
+            kind: UnderlayerKind::ArmingDoublet,
+            clearance: Millimeters(4),
+            thickness: Millimeters(1),
+            color: TextileColor([220, 205, 170]),
+            length: Permille(1000),
+            sleeve_length: Permille(1000),
+            patch_width: Millimeters(80),
+            cuts: vec![],
+        }
+    }
+
+    #[test]
+    fn invalid_cut_and_construction_ranges_are_rejected() {
+        let mut candidate = design();
+        candidate.kind = UnderlayerKind::PaddedHose;
+        candidate.length = Permille(1100);
+        assert!(candidate.validate().is_err());
+        candidate.length = Permille(700);
+        assert!(candidate.validate().is_ok());
+        candidate.cuts.push(SurfaceBox {
+            minimum: ReferencePoint([0.; 3]),
+            maximum: ReferencePoint([1., f32::NAN, 1.]),
+        });
+        assert!(candidate.validate().is_err());
+        candidate.cuts[0].maximum = ReferencePoint([0., 1., 1.]);
+        assert!(candidate.validate().is_err());
+    }
+}

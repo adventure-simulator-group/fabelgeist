@@ -1,60 +1,40 @@
-//! Runtime armor generation from the canonical rig's CPU mesh data.
+//! Runtime equipment generated on the armor device from the canonical rig's
+//! mesh data, without an intermediate GLB.
 
 use crate::{
-    armor_design_input::ArmorPlacement,
-    armor_frames::Wearer,
-    armor_recipes::{self, ParametricDesign},
-    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
-    breastplate::{TorsoSurfaceInput, build_front_torso_surface},
+    armor_frames::Side,
+    armor_recipes::{self, DedicatedGenerator, ParametricDesign},
+    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
     clothing::{GarmentSpecification, generate_clothing_shells},
-    nearest_vertex::NearestVertices,
+    device_body::DeviceBody,
+    device_fit::{self, FitBody, Fitted, Realization, deltas},
+    device_torso::TorsoSurfaceInput,
+    device_underlayer::{BodyShape, SurfaceDomain},
+    underlayer_armor::{self, UnderlayerBody},
 };
-use adventuresim_armor_model::{ArmorMorph, GeneratedArmor, PartMesh, parametric_design_hash};
 use anyhow::{Context, Result, bail};
-use serde::Deserialize;
+use fabelgeist_armor::{
+    ArmorGpu, ArmorMorph, BracerDesign, BreastplateDesign, GeneratedArmor, parametric_design_hash,
+};
 use std::sync::LazyLock;
 
-#[derive(Clone, Copy, Debug, serde::Deserialize)]
-#[serde(rename_all = "snake_case")]
-enum FittedArmorKind {
-    Vambrace,
-    Breastplate,
-    Cuirass,
-}
-
-impl FittedArmorKind {
-    fn parse(item_id: &str) -> Option<Self> {
-        Self::deserialize(
-            serde::de::value::StrDeserializer::<serde::de::value::Error>::new(item_id),
-        )
-        .ok()
-    }
-}
-
-/// One body realization used to refit an armor piece.
-#[derive(Clone, Debug, PartialEq)]
-pub struct RuntimeBodyMorph {
-    pub name: String,
-    pub positions: Vec<[f32; 3]>,
-    pub normals: Vec<[f32; 3]>,
-    pub global_joint_states: Vec<[f32; 8]>,
-}
-
-/// The body data needed to generate an armor mesh without an intermediate GLB.
-#[derive(Clone, Debug, PartialEq)]
+/// The body data needed to generate equipment, with its morph realizations.
 pub struct RuntimeBody {
-    pub detail: adventuresim_armor_model::ArmorDetail,
     pub domain: String,
     pub faces: Vec<[u32; 3]>,
     pub positions: Vec<[f32; 3]>,
     pub normals: Vec<[f32; 3]>,
+    /// One surface coordinate per vertex; `texcoord_faces` index them.
     pub texcoords: Vec<[f32; 2]>,
     pub texcoord_faces: Vec<[u32; 3]>,
     pub joint_indices: Vec<[u32; 8]>,
     pub joint_weights: Vec<[f32; 8]>,
     pub joint_names: Vec<String>,
     pub global_joint_states: Vec<[f32; 8]>,
-    pub morphs: Vec<RuntimeBodyMorph>,
+    /// Each realization a piece is refitted to, becoming one of its morphs.
+    pub morphs: Vec<ForearmMorphSample>,
+    /// This body on the armor device, once a piece has uploaded it.
+    pub device: DeviceBody,
 }
 
 impl RuntimeBody {
@@ -75,65 +55,221 @@ impl RuntimeBody {
                     || morph.global_joint_states.len() != self.joint_names.len()
             })
         {
-            bail!("runtime armor body data is inconsistent");
+            bail!("runtime equipment body data is inconsistent");
         }
         Ok(())
     }
 
-    fn wearer<'a>(
-        &'a self,
-        positions: &'a [[f32; 3]],
-        normals: &'a [[f32; 3]],
-        joints: &'a [[f32; 8]],
-    ) -> Wearer<'a> {
-        Wearer {
-            detail: self.detail,
+    fn fit_body(&self) -> FitBody<'_> {
+        FitBody {
             faces: &self.faces,
-            positions,
-            normals,
+            texcoords: &self.texcoords,
             joint_indices: &self.joint_indices,
             joint_weights: &self.joint_weights,
             joint_names: &self.joint_names,
-            joints,
         }
     }
 
-    fn forearm_morphs(&self) -> Vec<ForearmMorphSample> {
+    fn wearer(&self) -> Realization<'_> {
+        Realization {
+            positions: &self.positions,
+            normals: &self.normals,
+            joints: &self.global_joint_states,
+            device: &self.device,
+        }
+    }
+
+    fn morph_realizations(&self) -> Vec<(&str, Realization<'_>)> {
         self.morphs
             .iter()
-            .map(|morph| ForearmMorphSample {
-                name: morph.name.clone(),
-                positions: morph.positions.clone(),
-                normals: morph.normals.clone(),
-                global_joint_states: morph.global_joint_states.clone(),
+            .map(|morph| {
+                (
+                    morph.name.as_str(),
+                    Realization {
+                        positions: &morph.positions,
+                        normals: &morph.normals,
+                        joints: &morph.global_joint_states,
+                        device: &morph.device,
+                    },
+                )
             })
+            .collect()
+    }
+
+    fn morph_names(&self) -> Vec<&str> {
+        self.morphs
+            .iter()
+            .map(|morph| morph.name.as_str())
             .collect()
     }
 }
 
-/// Generate one fitted armor piece directly into renderer-independent data.
+/// Generate one fitted equipment item: armor on the armor device, clothing
+/// offset from the body.
+pub fn generate(
+    body: &RuntimeBody,
+    item_id: &str,
+    placement: &str,
+    bracer_design: &BracerDesign,
+    breastplate_design: &BreastplateDesign,
+) -> Result<GeneratedArmor> {
+    if is_runtime_armor(item_id) {
+        generate_runtime_armor(body, item_id, placement, bracer_design, breastplate_design)
+    } else {
+        generate_runtime_clothing(body, item_id, placement)
+    }
+}
+
+/// Generate one fitted armor piece on the armor device.
 ///
-/// The output contains the same runtime-resolution geometry and morph
-/// correspondence as the exported equipment, but no GLB serialization step.
+/// The output contains the same geometry and morph correspondence as the
+/// exported equipment, built from the authored catalog design.
 pub fn generate_runtime_armor(
     body: &RuntimeBody,
     item_id: &str,
     placement: &str,
-    bracer_design: &adventuresim_armor_model::BracerDesign,
-    breastplate_design: &adventuresim_armor_model::BreastplateDesign,
+    bracer_design: &BracerDesign,
+    breastplate_design: &BreastplateDesign,
 ) -> Result<GeneratedArmor> {
     body.validate()?;
-    match FittedArmorKind::parse(item_id) {
-        Some(FittedArmorKind::Vambrace) => generate_vambrace(body, placement, bracer_design),
-        Some(FittedArmorKind::Breastplate | FittedArmorKind::Cuirass) => {
-            generate_breastplate(body, breastplate_design)
+    let gpu = crate::armor_gpu()?;
+    let _slot = crate::fitting_slot();
+    match DedicatedGenerator::for_item(item_id) {
+        Some(DedicatedGenerator::Vambrace) => {
+            generate_vambrace(gpu, body, placement, bracer_design)
+        }
+        Some(DedicatedGenerator::Breastplate) => {
+            generate_breastplate(gpu, body, breastplate_design)
         }
         None => {
             let design = armor_recipes::recipe(item_id)
                 .with_context(|| format!("no runtime armor recipe for {item_id}"))?;
-            generate_parametric(body, &design, placement)
+            generate_parametric(gpu, body, &design, placement)
         }
     }
+}
+
+fn generate_vambrace(
+    gpu: &ArmorGpu,
+    body: &RuntimeBody,
+    placement: &str,
+    design: &BracerDesign,
+) -> Result<GeneratedArmor> {
+    let side = match Side::from_placement(placement)? {
+        Side::Left => ForearmSide::Left,
+        Side::Right => ForearmSide::Right,
+    };
+    crate::device_bracer::generate_bracer_on_device(
+        gpu,
+        design,
+        ForearmSurfaceInput {
+            domain: &body.domain,
+            side,
+            positions: &body.positions,
+            normals: &body.normals,
+            faces: &body.faces,
+            texcoords: &body.texcoords,
+            texcoord_faces: &body.texcoord_faces,
+            joint_indices: &body.joint_indices,
+            joint_weights: &body.joint_weights,
+            joint_names: &body.joint_names,
+            global_joint_states: &body.global_joint_states,
+            morphs: &body.morphs,
+        },
+    )
+}
+
+fn generate_breastplate(
+    gpu: &ArmorGpu,
+    body: &RuntimeBody,
+    design: &BreastplateDesign,
+) -> Result<GeneratedArmor> {
+    crate::device_torso::generate_breastplate_on_device(
+        gpu,
+        design,
+        TorsoSurfaceInput {
+            domain: &body.domain,
+            positions: &body.positions,
+            normals: &body.normals,
+            faces: &body.faces,
+            texcoords: &body.texcoords,
+            texcoord_faces: &body.texcoord_faces,
+            joint_indices: &body.joint_indices,
+            joint_weights: &body.joint_weights,
+            joint_names: &body.joint_names,
+            global_joint_states: &body.global_joint_states,
+            morphs: &body.morphs,
+        },
+    )
+}
+
+fn generate_parametric(
+    gpu: &ArmorGpu,
+    body: &RuntimeBody,
+    design: &ParametricDesign,
+    placement: &str,
+) -> Result<GeneratedArmor> {
+    match design {
+        ParametricDesign::Underlayer(underlayer) => with_underlayer_body(body, |cut, morphs| {
+            underlayer_armor::fit_underlayer(gpu, underlayer, placement, cut, morphs)
+        }),
+        ParametricDesign::TrunkHose(hose) => with_underlayer_body(body, |cut, morphs| {
+            underlayer_armor::fit_trunk_hose(gpu, hose, placement, cut, morphs)
+        }),
+        _ => {
+            let piece = device_fit::fit_recipe(
+                gpu,
+                &body.fit_body(),
+                &body.wearer(),
+                &body.morph_realizations(),
+                design,
+                placement,
+            )?;
+            device_fit::assemble_recipe(
+                design,
+                piece,
+                &Fitted {
+                    placement,
+                    morphs: &body.morph_names(),
+                    domain: &body.domain,
+                    joint_names: &body.joint_names,
+                    joints: &body.global_joint_states,
+                },
+            )
+        }
+    }
+}
+
+fn with_underlayer_body(
+    body: &RuntimeBody,
+    fit: impl FnOnce(&UnderlayerBody<'_>, &[(&str, BodyShape<'_>)]) -> Result<GeneratedArmor>,
+) -> Result<GeneratedArmor> {
+    let wearer = body.wearer().wearer(&body.fit_body());
+    let morphs = body
+        .morphs
+        .iter()
+        .map(|morph| {
+            (
+                morph.name.as_str(),
+                BodyShape {
+                    positions: &morph.positions,
+                    normals: &morph.normals,
+                },
+            )
+        })
+        .collect::<Vec<_>>();
+    fit(
+        &UnderlayerBody {
+            wearer: &wearer,
+            domain: SurfaceDomain {
+                uv_faces: &body.texcoord_faces,
+                texcoords: &body.texcoords,
+            },
+            surface_domain: &body.domain,
+            proportions: &[],
+        },
+        &morphs,
+    )
 }
 
 /// Generate one fitted clothing item directly from the canonical body mesh.
@@ -196,164 +332,28 @@ pub fn generate_runtime_clothing(
                 .map_err(anyhow::Error::msg)?;
             Ok(ArmorMorph {
                 name: morph.name.clone(),
-                direct_positions: fitted.positions.clone(),
                 position_deltas: deltas(&base_positions, &fitted.positions),
                 normal_deltas: deltas(&base_normals, &fitted.normals),
+                direct_positions: fitted.positions,
             })
         })
         .collect::<Result<Vec<_>>>()?;
     Ok(GeneratedArmor {
-        construction_faces: Vec::new(),
-        plate_edges: Vec::new(),
-        components: Vec::new(),
         design_hash,
         surface_domain: body.domain.clone(),
         positions: base_positions,
         normals: base_normals,
         texcoords: body.texcoords.clone(),
-        normal_map: None,
         joint_indices: body.joint_indices.clone(),
         joint_weights: body.joint_weights.clone(),
         indices,
+        // Offset from the body: a cloth layer, not a thickened plate.
+        faces: Vec::new(),
+        trim: None,
+        grids: Vec::new(),
         morphs,
+        components: Vec::new(),
     })
-}
-
-fn generate_vambrace(
-    body: &RuntimeBody,
-    placement: &str,
-    design: &adventuresim_armor_model::BracerDesign,
-) -> Result<GeneratedArmor> {
-    let side = match ArmorPlacement::parse(placement) {
-        Some(ArmorPlacement::Left) => ForearmSide::Left,
-        Some(ArmorPlacement::Right) => ForearmSide::Right,
-        _ => bail!("vambrace placement {placement} has no forearm side"),
-    };
-    let morphs = body.forearm_morphs();
-    let surface = build_forearm_surface(ForearmSurfaceInput {
-        domain: &body.domain,
-        side,
-        positions: &body.positions,
-        normals: &body.normals,
-        faces: &body.faces,
-        texcoords: &body.texcoords,
-        texcoord_faces: &body.texcoord_faces,
-        joint_indices: &body.joint_indices,
-        joint_weights: &body.joint_weights,
-        joint_names: &body.joint_names,
-        global_joint_states: &body.global_joint_states,
-        morphs: &morphs,
-    })
-    .map_err(anyhow::Error::msg)?;
-    adventuresim_armor_model::generate_bracer(design, &surface).map_err(anyhow::Error::new)
-}
-
-fn generate_breastplate(
-    body: &RuntimeBody,
-    design: &adventuresim_armor_model::BreastplateDesign,
-) -> Result<GeneratedArmor> {
-    let morphs = body.forearm_morphs();
-    let surface = build_front_torso_surface(TorsoSurfaceInput {
-        domain: &body.domain,
-        positions: &body.positions,
-        normals: &body.normals,
-        faces: &body.faces,
-        texcoords: &body.texcoords,
-        texcoord_faces: &body.texcoord_faces,
-        joint_indices: &body.joint_indices,
-        joint_weights: &body.joint_weights,
-        joint_names: &body.joint_names,
-        global_joint_states: &body.global_joint_states,
-        morphs: &morphs,
-    })
-    .map_err(anyhow::Error::msg)?;
-    adventuresim_armor_model::generate_breastplate(design, &surface).map_err(anyhow::Error::new)
-}
-
-fn generate_parametric(
-    body: &RuntimeBody,
-    design: &ParametricDesign,
-    placement: &str,
-) -> Result<GeneratedArmor> {
-    let mesh = armor_recipes::fitted_mesh(
-        design,
-        placement,
-        &body.wearer(&body.positions, &body.normals, &body.global_joint_states),
-        &[],
-    )?;
-    let mut armor = assemble_parametric(body, design, mesh)?;
-    for morph in &body.morphs {
-        let endpoint = armor_recipes::fitted_mesh(
-            design,
-            placement,
-            &body.wearer(&morph.positions, &morph.normals, &morph.global_joint_states),
-            &[],
-        )?;
-        if endpoint.indices != armor.indices || endpoint.positions.len() != armor.positions.len() {
-            bail!("runtime armor morph changed topology for {placement}");
-        }
-        let normals = endpoint.normals().map_err(anyhow::Error::new)?;
-        armor.morphs.push(ArmorMorph {
-            name: morph.name.clone(),
-            direct_positions: endpoint.positions.clone(),
-            position_deltas: deltas(&armor.positions, &endpoint.positions),
-            normal_deltas: deltas(&armor.normals, &normals),
-        });
-    }
-    Ok(armor)
-}
-
-fn assemble_parametric(
-    body: &RuntimeBody,
-    design: &ParametricDesign,
-    mesh: PartMesh,
-) -> Result<GeneratedArmor> {
-    let nearest = NearestVertices::new(&body.positions);
-    let source = mesh
-        .positions
-        .iter()
-        .map(|position| nearest.nearest(*position))
-        .collect::<Vec<_>>();
-    let body_texcoords = source
-        .iter()
-        .map(|index| body.texcoords[*index])
-        .collect::<Vec<_>>();
-    let (normal_map, texcoords) = mesh
-        .runtime_fluting(&body_texcoords)
-        .map_err(anyhow::Error::new)?
-        .map_or((None, body_texcoords), |(map, texcoords)| {
-            (Some(map), texcoords)
-        });
-    let normals = mesh.normals().map_err(anyhow::Error::new)?;
-    let encoded = serde_json::to_vec(design)?;
-    Ok(GeneratedArmor {
-        construction_faces: mesh.construction_face_ranges(),
-        plate_edges: Vec::new(),
-        components: mesh.components,
-        design_hash: parametric_design_hash(&encoded),
-        surface_domain: body.domain.clone(),
-        positions: mesh.positions,
-        normals,
-        texcoords,
-        normal_map,
-        joint_indices: source
-            .iter()
-            .map(|index| body.joint_indices[*index])
-            .collect(),
-        joint_weights: source
-            .iter()
-            .map(|index| body.joint_weights[*index])
-            .collect(),
-        indices: mesh.indices,
-        morphs: Vec::new(),
-    })
-}
-
-fn deltas(base: &[[f32; 3]], sample: &[[f32; 3]]) -> Vec<[f32; 3]> {
-    base.iter()
-        .zip(sample)
-        .map(|(base, sample)| std::array::from_fn(|axis| sample[axis] - base[axis]))
-        .collect()
 }
 
 static ITEM_CATALOG: LazyLock<Vec<crate::item_catalog_schema::ItemDefinition>> =
@@ -377,13 +377,12 @@ pub fn runtime_equipment_material(
         .and_then(|equipment| equipment.material)
 }
 
-/// Returns whether the item has an authored parametric armor runtime path.
+/// Whether the item has an authored parametric armor runtime path.
 pub fn is_runtime_armor(item_id: &str) -> bool {
-    matches!(item_id, "vambrace" | "breastplate" | "cuirass")
-        || armor_recipes::is_parametric(item_id)
+    armor_recipes::is_parametric(item_id)
 }
 
-/// Returns whether the item has an authored fitted clothing runtime path.
+/// Whether the item has an authored fitted clothing runtime path.
 pub fn is_runtime_clothing(item_id: &str) -> bool {
     catalog_item(item_id).is_some_and(|item| {
         (matches!(item.kind, crate::item_catalog_schema::ItemKind::Clothing)
@@ -392,7 +391,7 @@ pub fn is_runtime_clothing(item_id: &str) -> bool {
     })
 }
 
-/// Returns whether the item should be generated from the loaded body rig.
+/// Whether the item should be generated from the loaded body rig.
 pub fn is_runtime_equipment(item_id: &str) -> bool {
     is_runtime_armor(item_id) || is_runtime_clothing(item_id)
 }
@@ -407,8 +406,10 @@ mod tests {
             assert!(is_runtime_clothing(item_id), "{item_id}");
             assert!(is_runtime_equipment(item_id), "{item_id}");
         }
-        assert!(is_runtime_armor("leather_boot"));
-        assert!(!is_runtime_clothing("leather_boot"));
+        for item_id in ["leather_boot", "vambrace", "breastplate", "cuirass"] {
+            assert!(is_runtime_armor(item_id), "{item_id}");
+            assert!(!is_runtime_clothing(item_id), "{item_id}");
+        }
         assert!(!is_runtime_equipment("arming_sword"));
     }
 }

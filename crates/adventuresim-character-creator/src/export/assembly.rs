@@ -147,12 +147,13 @@ mod tests {
                 normal_deltas: &[[0.0; 3]; 4],
             })
             .collect::<Vec<_>>();
-        let hinge = adventuresim_armor_model::ArmorHinge {
+        let hinge = fabelgeist_armor::ArmorHinge {
             origin: [0.1, 1.7, 0.0],
             axis: [1.0, 0.0, 0.0],
         };
         let faces = [[1, 2, 3]];
         let shells = ["skull", "bevor", "visor"].map(|name| RiggedShell {
+            surface: None,
             plate_edges: &[[1, 2], [0, 1]],
             textures: Some(maps.clone()),
             texcoords: Some(&texcoords),

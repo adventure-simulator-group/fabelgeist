@@ -727,20 +727,48 @@ path = "crates/fabelgeist-animation/src/animation/retarget/retargeter.rs"
 ceiling = 711
 
 [[files]]
+path = "crates/fabelgeist-compute/src/dual_contouring/mod.rs"
+ceiling = 698
+
+[[files]]
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+ceiling = 502
+
+[[files]]
+path = "crates/fabelgeist-compute/src/stencil.rs"
+ceiling = 927
+
+[[files]]
+path = "crates/fabelgeist-compute/src/stereo/rig.rs"
+ceiling = 607
+
+[[files]]
 path = "crates/fabelgeist-fs/src/lib.rs"
 ceiling = 844
 
 [[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/dual_contouring/mod.rs"
-ceiling = 692
+path = "crates/fabelgeist-garment-code/src/garment/edge.rs"
+ceiling = 640
 
 [[files]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/stencil.rs"
-ceiling = 906
+path = "crates/fabelgeist-garment-code/src/measure/mod.rs"
+ceiling = 528
+
+[[files]]
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+ceiling = 515
+
+[[files]]
+path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
+ceiling = 624
 
 [[files]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs"
-ceiling = 695
+ceiling = 579
+
+[[files]]
+path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
+ceiling = 955
 
 [[files]]
 path = "crates/strategic-web/src/live.rs"
@@ -2412,11 +2440,6 @@ ceiling = 104
 
 [[functions]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "spawn_item_placeholders"
-ceiling = 123
-
-[[functions]]
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
 item = "update_item_placeholders"
 ceiling = 107
 
@@ -2761,109 +2784,194 @@ item = "Joint::build"
 ceiling = 173
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs"
-item = "create_bind_groups"
-ceiling = 278
+path = "crates/fabelgeist-cloth/src/garment/mod.rs"
+item = "build"
+ceiling = 111
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/advect/mod.rs"
+path = "crates/fabelgeist-color/src/conversion.rs"
+item = "convert_pixels"
+ceiling = 255
+
+[[functions]]
+path = "crates/fabelgeist-compute/src/advect/mod.rs"
 item = "AdvectDefinition::build_pipeline"
 ceiling = 127
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/distance_field_jfa.rs"
+path = "crates/fabelgeist-compute/src/distance_field_jfa.rs"
 item = "DistanceFieldJfa::distance_field_3d"
-ceiling = 104
+ceiling = 105
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/dual_contouring/mod.rs"
+path = "crates/fabelgeist-compute/src/dual_contouring/mod.rs"
 item = "DualContouring::execute_internal"
-ceiling = 176
+ceiling = 174
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/dual_contouring/mod.rs"
+path = "crates/fabelgeist-compute/src/dual_contouring/mod.rs"
 item = "DualContouringDefinition::new"
 ceiling = 442
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/gather/mod.rs"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
 item = "GatherDefinition::build_pipeline"
-ceiling = 172
+ceiling = 175
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/map/mod.rs"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
 item = "MapDefinition::build_pipeline"
-ceiling = 231
+ceiling = 234
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/marching_cubes/mod.rs"
+path = "crates/fabelgeist-compute/src/marching_cubes/mod.rs"
 item = "MarchingCubes::execute"
 ceiling = 140
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/marching_cubes/mod.rs"
+path = "crates/fabelgeist-compute/src/marching_cubes/mod.rs"
 item = "MarchingCubesDefinition::new"
 ceiling = 224
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs"
-item = "ComputePass::record"
-ceiling = 365
+path = "crates/fabelgeist-compute/src/mesh_query/wgsl.rs"
+item = "closest_triangles"
+ceiling = 108
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/perlin_noise.rs"
+path = "crates/fabelgeist-compute/src/mesh_query/wgsl.rs"
+item = "ray_triangles"
+ceiling = 106
+
+[[functions]]
+path = "crates/fabelgeist-compute/src/perlin_noise.rs"
 item = "RenderPerlin::execute"
 ceiling = 104
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
-item = "ComputePipeline::new"
-ceiling = 247
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/reduce/mod.rs"
+path = "crates/fabelgeist-compute/src/reduce/mod.rs"
 item = "Reduce::execute"
-ceiling = 129
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/reduce/mod.rs"
-item = "ReduceDefinition::get_or_create_pipeline"
-ceiling = 118
-
-[[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/scan.rs"
-item = "Scan::execute"
 ceiling = 133
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/scatter.rs"
-item = "ScatterDefinition::build_pipeline"
-ceiling = 158
+path = "crates/fabelgeist-compute/src/reduce/mod.rs"
+item = "ReduceDefinition::get_or_create_pipeline"
+ceiling = 121
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/simplex_noise.rs"
+path = "crates/fabelgeist-compute/src/scan.rs"
+item = "Scan::execute"
+ceiling = 135
+
+[[functions]]
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+ceiling = 161
+
+[[functions]]
+path = "crates/fabelgeist-compute/src/simplex_noise.rs"
 item = "RenderSimplex::execute"
 ceiling = 129
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/stencil.rs"
+path = "crates/fabelgeist-compute/src/stencil.rs"
 item = "StencilDefinition::build_pipeline"
-ceiling = 577
+ceiling = 580
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/stencil.rs"
+path = "crates/fabelgeist-compute/src/stencil.rs"
 item = "StencilDefinition::parse_signature"
 ceiling = 133
 
 [[functions]]
-path = "crates/fabelgeist-gpu/src/data/gpu/compute/stream/mod.rs"
+path = "crates/fabelgeist-compute/src/stereo/pipeline.rs"
+item = "StereoDepth::record"
+ceiling = 132
+
+[[functions]]
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
 item = "StreamDefinition::build_pipeline"
-ceiling = 123
+ceiling = 125
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/curve/svg_parse.rs"
+item = "parse_path_data"
+ceiling = 138
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/measure/mod.rs"
+item = "Measurer<'a>::body"
+ceiling = 102
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/optimize.rs"
+item = "minimize_bounded"
+ceiling = 118
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/pattern/spec.rs"
+item = "PatternSpec::to_json"
+ceiling = 105
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "bodice_back_half"
+ceiling = 101
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/circle_skirt.rs"
+item = "skirt_circle"
+ceiling = 107
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/pants.rs"
+item = "pant_panel"
+ceiling = 105
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/pants.rs"
+item = "pants_half"
+ceiling = 105
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
+item = "fitted_skirt_panel"
+ceiling = 173
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
+item = "pencil_skirt"
+ceiling = 103
+
+[[functions]]
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "sleeve"
+ceiling = 122
+
+[[functions]]
+path = "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs"
+item = "create_bind_groups"
+ceiling = 280
+
+[[functions]]
+path = "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs"
+item = "ComputePass::record"
+ceiling = 413
+
+[[functions]]
+path = "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
+item = "ComputePipeline::new"
+ceiling = 251
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
-item = "TextureCube::create_from_images"
-ceiling = 110
+item = "TextureCube::blit_texture_to_face"
+ceiling = 161
+
+[[functions]]
+path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
+item = "TextureCube::render_face_shader_raw"
+ceiling = 149
 
 [[functions]]
 path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
@@ -2871,14 +2979,34 @@ item = "TextureCube::render_shader_raw"
 ceiling = 142
 
 [[functions]]
+path = "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs"
+item = "TextureCube::set_side_image"
+ceiling = 104
+
+[[functions]]
 path = "crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs"
 item = "Blitter::new"
 ceiling = 188
 
 [[functions]]
+path = "crates/fabelgeist-mesh/src/gpu.rs"
+item = "GpuMesh::box_shape"
+ceiling = 139
+
+[[functions]]
+path = "crates/fabelgeist-mesh/src/gpu.rs"
+item = "GpuMesh::displacement"
+ceiling = 107
+
+[[functions]]
 path = "crates/fabelgeist-mhr/src/model.rs"
 item = "Mhr::new"
 ceiling = 140
+
+[[functions]]
+path = "crates/fabelgeist-physics/src/wgsl.rs"
+item = "mesh_source"
+ceiling = 138
 
 [[functions]]
 path = "crates/strategic-web/src/live.rs"
@@ -3573,30 +3701,9 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Export rigged GLB"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Load recipe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
 path = "crates/adventuresim-character-creator/src/model_controls.rs"
 item = "show"
 fingerprint = "string:Pose-corrective model"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-character-creator/src/main.rs"
-item = "studio_ui"
-fingerprint = "string:Save recipe"
 occurrences = 1
 
 [[findings]]
@@ -10594,6 +10701,181 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/examples/export_icon.rs"
+item = "main"
+fingerprint = "string:holder:"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/examples/export_obj.rs"
+item = "main"
+fingerprint = "string:--holder"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:arming_sword"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:baselard"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:bauernwehr"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:club"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:falchion"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:flanged_mace"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:halberd"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:hand_axe"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:hunting_spear"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:katzbalger"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:knife"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:kriegsmesser"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:longsword"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:messer"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:military_pike"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:misericorde"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:rapier"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:rondel_dagger"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:spear"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:utility_knife"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:walking_staff"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:war_hammer"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/adventuresim-weapon-model/src/catalog.rs"
+item = "recommended_holder"
+fingerprint = "string:zweihander"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
 path = "crates/fabelgeist-animation/src/animation/retarget/profiles/mixamo.rs"
 item = "finger_roles"
 fingerprint = "string:Index"
@@ -10626,6 +10908,335 @@ path = "crates/fabelgeist-animation/src/animation/retarget/profiles/mixamo.rs"
 item = "finger_roles"
 fingerprint = "string:Thumb"
 occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:Resource<"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:f32"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:ptr<"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:texture_"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:u32"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:vec2<u32>"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::build_pipeline"
+fingerprint = "string:vec3<u32>"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/gather/mod.rs"
+item = "GatherDefinition::parse_signature"
+fingerprint = "string:index"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::build_pipeline"
+fingerprint = "string:f32"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::build_pipeline"
+fingerprint = "string:u32"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::build_pipeline"
+fingerprint = "string:vec2<u32>"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::build_pipeline"
+fingerprint = "string:vec3<u32>"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::parse_signature"
+fingerprint = "string:index"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/map/mod.rs"
+item = "MapDefinition::parse_signature"
+fingerprint = "string:size"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/reduce/mod.rs"
+item = "ReduceDefinition::get_or_create_pipeline"
+fingerprint = "string:output"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:Resource"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:Resource<"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:ptr<"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:texture_"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:u32"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:vec2<u32>"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::build_pipeline"
+fingerprint = "string:vec3<u32>"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/scatter.rs"
+item = "ScatterDefinition::parse_signature"
+fingerprint = "string:index"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:f32"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:index"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:size"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:u32"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:vec2<u32>"
+occurrences = 4
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:vec3<u32>"
+occurrences = 5
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::build_pipeline"
+fingerprint = "string:vec4<u32>"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:Neighbors"
+occurrences = 3
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:Neighbors1D"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:Neighbors2D"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:Neighbors3D"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:Neighbors4D"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:center"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:index"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:input"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:size"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stencil.rs"
+item = "StencilDefinition::parse_signature"
+fingerprint = "string:val"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::build_pipeline"
+fingerprint = "string:Resource<"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::build_pipeline"
+fingerprint = "string:offset"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::build_pipeline"
+fingerprint = "string:ptr<"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::build_pipeline"
+fingerprint = "string:texture_"
+occurrences = 2
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::parse_signature"
+fingerprint = "string:index"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::parse_signature"
+fingerprint = "string:offset"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-compute/src/stream/mod.rs"
+item = "StreamDefinition::parse_signature"
+fingerprint = "string:u32"
+occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
@@ -10716,6 +11327,454 @@ rule = "raw-string-branch"
 path = "crates/fabelgeist-fbx/src/lib.rs"
 item = "Scene::from_roots"
 fingerprint = "string:Objects"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/curve/svg_parse.rs"
+item = "path_data_from_svg"
+fingerprint = "string:d"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "Body::eval_dependencies"
+fingerprint = "string:vert_bust_line"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "collect_params"
+fingerprint = "string:range"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "collect_params"
+fingerprint = "string:type"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "param_kind"
+fingerprint = "string:bool"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "param_kind"
+fingerprint = "string:float"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "param_kind"
+fingerprint = "string:int"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "param_kind"
+fingerprint = "string:select"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "param_kind"
+fingerprint = "string:select_null"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "scalar_yaml"
+fingerprint = "string:NaN"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/design.rs"
+item = "scalar_yaml"
+fingerprint = "string:inf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bands.rs"
+item = "CuffKind::from_name"
+fingerprint = "string:CuffBand"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bands.rs"
+item = "CuffKind::from_name"
+fingerprint = "string:CuffBandSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bands.rs"
+item = "CuffKind::from_name"
+fingerprint = "string:CuffSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "add_collars"
+fingerprint = "string:back"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "add_collars"
+fingerprint = "string:bottom"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "add_collars"
+fingerprint = "string:front"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "add_sleeves"
+fingerprint = "string:sleeve.sleeveless"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "bodice_half"
+fingerprint = "string:shirt.strapless"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/bodice.rs"
+item = "shirt_eval_dep_params"
+fingerprint = "string:left.enable_asym"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/circle_skirt.rs"
+item = "skirt_circle"
+fingerprint = "string:cut.add"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/circle_skirt.rs"
+item = "skirt_circle"
+fingerprint = "string:cut.place"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "CollarStyle::from_name"
+fingerprint = "string:Hood2Panels"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "CollarStyle::from_name"
+fingerprint = "string:SimpleLapel"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "CollarStyle::from_name"
+fingerprint = "string:Turtle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:Bezier2NeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:CircleArcNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:CircleNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:CurvyNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:SquareNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:TrapezoidNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/collars.rs"
+item = "neckline"
+fingerprint = "string:VNeckHalf"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/godet.rs"
+item = "godet_skirt"
+fingerprint = "string:PencilSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/godet.rs"
+item = "godet_skirt"
+fingerprint = "string:Skirt2"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/godet.rs"
+item = "godet_skirt"
+fingerprint = "string:base"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_belt"
+fingerprint = "string:FittedWB"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_belt"
+fingerprint = "string:StraightWB"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:AsymmSkirtCircle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:GodetSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:Pants"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:PencilSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:Skirt2"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:SkirtCircle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:SkirtLevels"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_lower"
+fingerprint = "string:SkirtManyPanels"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_upper"
+fingerprint = "string:FittedShirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/meta_garment.rs"
+item = "build_upper"
+fingerprint = "string:Shirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/pants.rs"
+item = "pant_panel"
+fingerprint = "string:flare"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/pants.rs"
+item = "pants_half"
+fingerprint = "string:cuff.type"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/pants.rs"
+item = "pants_half"
+fingerprint = "string:length.range"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/shapes.rs"
+item = "build"
+fingerprint = "string:SIGGRAPH_logo"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/shapes.rs"
+item = "build"
+fingerprint = "string:SVGFile"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/shapes.rs"
+item = "build"
+fingerprint = "string:Sun"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_levels.rs"
+item = "build_skirt"
+fingerprint = "string:AsymmSkirtCircle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_levels.rs"
+item = "build_skirt"
+fingerprint = "string:PencilSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_levels.rs"
+item = "build_skirt"
+fingerprint = "string:Skirt2"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_levels.rs"
+item = "build_skirt"
+fingerprint = "string:SkirtCircle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_levels.rs"
+item = "skirt_levels"
+fingerprint = "string:PencilSkirt"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/skirt_paneled.rs"
+item = "pencil_skirt"
+fingerprint = "string:style_side_cut"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "ArmholeShape::from_name"
+fingerprint = "string:ArmholeAngle"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "ArmholeShape::from_name"
+fingerprint = "string:ArmholeCurve"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "ArmholeShape::from_name"
+fingerprint = "string:ArmholeSquare"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "cuff_len_adj"
+fingerprint = "string:cuff.type"
+occurrences = 1
+
+[[findings]]
+rule = "raw-string-branch"
+path = "crates/fabelgeist-garment-code/src/programs/sleeves.rs"
+item = "sleeve"
+fingerprint = "string:cuff.type"
 occurrences = 1
 
 [[findings]]
@@ -13705,179 +14764,4 @@ rule = "semantic-family:surgery-procedure"
 path = "crates/strategic-web/src/spacetimedb/mod.rs"
 item = "adventuresim_core::surgery::SurgeryProcedure::sats_name"
 fingerprint = "stitch"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/examples/export_icon.rs"
-item = "main"
-fingerprint = "string:holder:"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/examples/export_obj.rs"
-item = "main"
-fingerprint = "string:--holder"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:arming_sword"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:baselard"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:bauernwehr"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:club"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:falchion"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:flanged_mace"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:halberd"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:hand_axe"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:hunting_spear"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:katzbalger"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:knife"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:kriegsmesser"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:longsword"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:messer"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:military_pike"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:misericorde"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:rapier"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:rondel_dagger"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:spear"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:utility_knife"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:walking_staff"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:war_hammer"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-weapon-model/src/catalog.rs"
-item = "recommended_holder"
-fingerprint = "string:zweihander"
 occurrences = 1

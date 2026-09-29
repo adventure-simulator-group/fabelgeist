@@ -1,10 +1,10 @@
 //! Sample MHR identity and refit clothing with fixed vertex correspondence.
 
 use super::*;
+mod draped;
 use adventuresim_character_creator::clothing::ClothingShell;
 use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
 use adventuresim_core::skeletal_fit::SkeletalFitMorph;
-use image::{ExtendedColorType, ImageEncoder, codecs::png::PngEncoder};
 
 pub(super) struct MorphDelta {
     name: String,
@@ -78,6 +78,7 @@ impl CharacterMorphs {
                 positions: sample.positions,
                 normals: sample.normals,
                 global_joint_states: sample.global_joint_states,
+                device: Default::default(),
             });
         }
         for target in SkeletalFitMorph::ALL {
@@ -97,6 +98,7 @@ impl CharacterMorphs {
                 positions: sample.positions,
                 normals: sample.normals,
                 global_joint_states: sample.global_joint_states,
+                device: Default::default(),
             });
         }
         Ok(Self {
@@ -206,6 +208,7 @@ pub(super) fn component_materials(armor: &GeneratedArmor, shells: &mut [RiggedSh
             shell.metallic = material.metallic;
             shell.roughness = material.roughness;
             shell.textures = None;
+            shell.surface = None;
             shell.plate_edges = &[];
         }
     }
@@ -217,6 +220,7 @@ pub(super) fn rigged_clothing<'a>(
 ) -> RiggedShell<'a> {
     let specification = &shell.specification;
     RiggedShell {
+        surface: None,
         plate_edges: &[],
         textures: None,
         texcoords: None,
@@ -234,27 +238,25 @@ pub(super) fn rigged_clothing<'a>(
     }
 }
 
+/// A piece's shells: its plates, and the bands along their edges.
+pub(super) struct RiggedArmor<'a> {
+    pub plate: Vec<RiggedShell<'a>>,
+    pub trim: Vec<RiggedShell<'a>>,
+}
+
+/// The shells of a piece, one per component, or `name` for the whole piece
+/// and `trim_name` for its band.
 pub(super) fn rigged_armor<'a>(
     name: &'a str,
+    trim_name: &'a str,
     armor: &'a GeneratedArmor,
     faces: &'a [[u32; 3]],
     targets: &'a [RiggedMorphTarget<'a>],
-) -> Vec<RiggedShell<'a>> {
-    let textures = armor.normal_map.as_ref().map(|map| {
-        let mut normal_png = Vec::new();
-        PngEncoder::new(&mut normal_png)
-            .write_image(&map.rgba8, map.width, map.height, ExtendedColorType::Rgba8)
-            .expect("generated normal-map dimensions match its pixels");
-        adventuresim_character_creator::export::SurfaceTextures {
-            base_color_png: None,
-            normal_png,
-            occlusion_png: None,
-            cutout: false,
-        }
-    });
+) -> RiggedArmor<'a> {
     let shell = |name, faces, hinge| RiggedShell {
-        plate_edges: &armor.plate_edges,
-        textures: textures.clone(),
+        plate_edges: &[],
+        surface: None,
+        textures: None,
         texcoords: Some(&armor.texcoords),
         name,
         hinge,
@@ -268,21 +270,28 @@ pub(super) fn rigged_armor<'a>(
         metallic: 1.0,
         roughness: 0.20,
     };
-    if armor.components.is_empty() {
-        vec![shell(name, faces, None)]
-    } else {
-        armor
-            .components
-            .iter()
-            .map(|component| {
-                shell(
-                    component.role.name(),
-                    &faces[component.indices.start / 3..component.indices.end / 3],
-                    component.hinge,
-                )
-            })
-            .collect()
+    let triangles = |range: std::ops::Range<usize>| &faces[range.start / 3..range.end / 3];
+    let mut rigged = RiggedArmor {
+        plate: Vec::new(),
+        trim: Vec::new(),
+    };
+    for surface in armor.surfaces() {
+        let component = surface.component.map(|index| &armor.components[index]);
+        let hinge = component.and_then(|component| component.hinge);
+        rigged.plate.push(shell(
+            component.map_or(name, |component| component.role.name()),
+            triangles(surface.plate),
+            hinge,
+        ));
+        if !surface.trim.is_empty() {
+            rigged.trim.push(shell(
+                component.map_or(trim_name, |component| component.role.trim_name()),
+                triangles(surface.trim),
+                hinge,
+            ));
+        }
     }
+    rigged
 }
 
 #[cfg(test)]
@@ -296,6 +305,7 @@ mod tests {
             positions: vec![],
             normals: vec![],
             global_joint_states: vec![[0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]],
+            device: Default::default(),
         };
         let mut deltas = [[0.0, 0.12, 0.0]];
         remove_skeletal_translation(
@@ -331,6 +341,7 @@ mod tests {
             positions: vec![],
             normals: vec![],
             global_joint_states: states.clone(),
+            device: Default::default(),
         };
         remove_skeletal_translation(&mut residual, &sample, &reference, &[indices], &[weights]);
         let (exported_indices, exported_weights) =

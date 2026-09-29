@@ -1,97 +1,119 @@
 //! Data model for the standalone MHR character creator.
 
-mod armor_clearance;
 pub mod armor_design_input;
 pub mod armor_design_output;
 pub mod armor_frames;
-pub mod armor_layer;
+mod armor_gpu;
+pub mod device_body;
+mod device_boot_layers;
+pub mod device_bracer;
+mod device_chausses;
+pub mod device_clearance;
+pub mod device_close_helmet;
+pub mod device_coif;
+pub mod device_extremities;
+pub mod device_fit;
+pub mod device_foot_frame;
+mod device_foot_sections;
+mod device_footwear_fit;
+pub mod device_frames;
+pub mod device_garment;
+mod device_garment_kernel;
+mod device_garment_skirt;
+mod device_garment_tassets;
+mod device_garment_torso;
+mod device_garment_tube;
+mod device_gorget;
+mod device_gorget_bib;
+mod device_gorget_cage;
+pub mod device_head_frame;
+pub mod device_helmet;
+pub mod device_limb;
+pub mod device_piece;
+mod device_sabaton;
+pub mod device_torso;
+mod device_torso_wgsl;
+pub mod device_underlayer;
+pub use armor_gpu::{FittingSlot, armor_gpu, fitting_slot};
+mod metal_gpu;
+pub use metal_gpu::metal_gpu;
+pub mod armor_metal;
 pub mod armor_recipes;
-mod besagew_fit;
-mod besagew_support;
 pub mod bracer;
-pub mod breastplate;
-mod close_helmet_fit;
 pub mod clothing;
 mod clothing_material;
-mod coif_fit;
-pub mod garment_fit;
-mod gorget_fit;
-pub mod limb_fit;
 #[cfg(feature = "offline-creator")]
 pub mod lod;
 pub mod nearest_vertex;
-mod spaulder_fit;
 pub use clothing_material::pbr as equipment_pbr;
+pub mod decoration;
 pub mod design_input;
+pub mod equipment_catalog;
 #[cfg(feature = "offline-creator")]
 pub mod export;
-pub mod fasteners;
-mod plate_section;
+pub mod inventory;
+pub mod item_design;
+pub mod library_name;
 pub mod profiling;
 #[cfg(feature = "offline-creator")]
 pub mod proportions;
-mod puff_and_slash_fit;
 pub mod runtime_equipment;
+pub mod skin_rules;
+pub mod studio_environment;
 pub mod surface_cut;
-mod tasset_carrier;
 pub mod underlayer;
-mod wrapped_tasset_fit;
+pub mod underlayer_armor;
+pub mod wardrobe;
 pub use adventuresim_core::item_catalog_schema;
+pub mod garment;
+pub mod garment_material;
 
 use serde::{Deserialize, Serialize};
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 pub const EXPRESSION_COUNT: usize = 72;
 
+/// Character recipes use this schema version; older recipes are not read.
+pub const RECIPE_VERSION: u8 = 13;
+
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
 pub struct CharacterRecipe {
-    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub version: u8,
     pub name: String,
+    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
     pub identity: Vec<f32>,
     pub expression: Vec<f32>,
-    pub clothing: Vec<ClothingSelection>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-pub struct ClothingSelection {
-    pub item_id: String,
-    pub placement_id: String,
+    pub inventory: inventory::Inventory,
 }
 
 impl Default for CharacterRecipe {
     fn default() -> Self {
+        use inventory::{Article, CatalogArticle};
+        let mut inventory = inventory::Inventory::default();
+        for (item, placement) in [
+            ("linen_tunic", "worn"),
+            ("linen_breeches", "worn"),
+            ("leather_boot", "left"),
+            ("leather_boot", "right"),
+        ] {
+            let id = inventory.add(Article::Catalog(CatalogArticle::new(item, placement)));
+            inventory.get_mut(id).expect("just added").worn = true;
+        }
         Self {
-            version: 4,
+            version: RECIPE_VERSION,
             proportions: Default::default(),
             name: "New adventurer".into(),
             identity: vec![0.0; IDENTITY_MORPH_COUNT],
             expression: vec![0.0; EXPRESSION_COUNT],
-            clothing: vec![
-                ClothingSelection {
-                    item_id: "linen_tunic".into(),
-                    placement_id: "worn".into(),
-                },
-                ClothingSelection {
-                    item_id: "linen_breeches".into(),
-                    placement_id: "worn".into(),
-                },
-                ClothingSelection {
-                    item_id: "leather_boot".into(),
-                    placement_id: "left".into(),
-                },
-                ClothingSelection {
-                    item_id: "leather_boot".into(),
-                    placement_id: "right".into(),
-                },
-            ],
+            inventory,
         }
     }
 }
 
 impl CharacterRecipe {
     pub fn validate(&self) -> Result<(), String> {
-        if self.version != 4 {
+        if self.version != RECIPE_VERSION {
             return Err(format!(
                 "unsupported character recipe version {}",
                 self.version
@@ -112,18 +134,7 @@ impl CharacterRecipe {
         {
             return Err("recipe contains a non-finite coefficient".into());
         }
-        for (index, selection) in self.clothing.iter().enumerate() {
-            if selection.item_id.is_empty() || selection.placement_id.is_empty() {
-                return Err("clothing selections require item and placement IDs".into());
-            }
-            if self.clothing[..index].contains(selection) {
-                return Err(format!(
-                    "recipe contains duplicate {}/{} clothing",
-                    selection.item_id, selection.placement_id
-                ));
-            }
-        }
-        Ok(())
+        self.inventory.validate()
     }
 
     pub fn reset_body(&mut self) {
@@ -185,14 +196,28 @@ mod tests {
     }
 
     #[test]
-    fn canonical_mhr_base_has_zero_coefficients_and_no_fitted_clothing() {
+    fn canonical_mhr_base_has_zero_coefficients_and_carries_nothing() {
         let recipe: CharacterRecipe =
             serde_json::from_str(include_str!("../../../assets_src/characters/mhr_base.json"))
                 .unwrap();
         assert!(recipe.validate().is_ok());
         assert!(recipe.identity.iter().all(|value| *value == 0.0));
         assert!(recipe.expression.iter().all(|value| *value == 0.0));
-        assert!(recipe.clothing.is_empty());
+        assert!(recipe.inventory.items().is_empty());
+    }
+
+    #[test]
+    fn plate_construction_round_trips_in_recipe() {
+        let mut recipe = CharacterRecipe::default();
+        let mut tiling = fabelgeist_armor::Tiling::scale();
+        tiling.plate.roundness = 0.9;
+        let mut article = inventory::CatalogArticle::new("vambrace", "left");
+        article.construction = fabelgeist_armor::Construction::Scale(tiling);
+        recipe.inventory.add(inventory::Article::Catalog(article));
+        let parsed: CharacterRecipe =
+            serde_json::from_slice(&serde_json::to_vec(&recipe).unwrap()).unwrap();
+        assert_eq!(recipe, parsed);
+        assert!(parsed.validate().is_ok());
     }
 }
 

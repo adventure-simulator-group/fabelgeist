@@ -121,12 +121,16 @@ used. Fitting uses complete shells, while display metal retains the outer
 sheets with two-sided materials. Dense geometry exists only as bake input.
 The checked-in source and prepared character bases both use LOD4.
 
-To rebuild a museum assembly, use its `body.json`, `armor.json`,
-`breastplate.json`, `vambrace.json`, and `fasteners.json` from
-`crates/adventuresim-armor-model/review/museum/{henry,nuremberg}` with the
-character creator's recipe and design flags. Export at `--lod 4` with
-`--armor-review-selection recipe --armor-review-dir RUNTIME_DIRECTORY`.
-Repeat to a separate source directory with `--armor-bake-source`. Run
+The museum recipes live in
+`crates/fabelgeist-armor/review/museum/{henry,nuremberg}`. The armor device
+does not yet build their fastenings, pauldrons and other options listed in the
+creator guide, nor dense bake sources, so the checked-in assemblies cannot be
+rebuilt until those are ported. They were built from the
+museum's `body.json`, `armor.json`, `breastplate.json`, `vambrace.json` and
+`fasteners.json` with the character creator's recipe and design flags, at
+`--lod 4` with `--armor-review-selection recipe --armor-review-dir
+RUNTIME_DIRECTORY`, and again to a separate source directory with
+`--armor-bake-source`. Run
 `scripts/finish_equipment.py RUNTIME_DIRECTORY --stage uv`, then use
 `--stage bake --source-directory SOURCE_DIRECTORY` to bake the runtime GLBs.
 Apply the museum's `metal.json` with `scripts/color_armor.py` and then its

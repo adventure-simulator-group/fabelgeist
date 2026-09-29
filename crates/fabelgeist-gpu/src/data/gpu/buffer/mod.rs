@@ -28,7 +28,6 @@ impl Default for BufferDefinition {
         Self::all()
     }
 }
-
 impl BufferDefinition {
     pub fn new() -> Self {
         Self {
@@ -59,7 +58,6 @@ impl BufferDefinition {
             map_read: false,
         }
     }
-
     pub fn with_label(mut self, label: impl ToString) -> Self {
         self.label = Some(label.to_string());
         self
@@ -146,7 +144,6 @@ impl BufferDefinition {
         self
     }
 }
-
 impl Buffer {
     pub fn new(context: &WgpuContext, bytes: u64, definition: BufferDefinition) -> Result<Buffer> {
         if bytes == 0 {
@@ -222,7 +219,6 @@ impl Buffer {
     ) -> Result<Buffer> {
         Self::from_slice(context, &data, definition.unwrap_or_default())
     }
-
     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
         let size = self.size;
         let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
@@ -247,9 +243,8 @@ impl Buffer {
             (Arc::new(staging_buffer), true)
         };
 
-        let (tx, rx) = futures_channel::oneshot::channel();
-        #[cfg(not(target_arch = "wasm32"))]
-        let mut rx = rx;
+        #[allow(unused_mut)]
+        let (tx, mut rx) = futures_channel::oneshot::channel();
 
         // 1. Start mapping
         {
@@ -262,15 +257,26 @@ impl Buffer {
         // 2. Poll if on native
         #[cfg(not(target_arch = "wasm32"))]
         {
+            // Waiting on the queue is what a readback actually costs. Asking
+            // whether it is done and then sleeping a millisecond between asks
+            // adds the sleep's granularity to every one -- and on Windows that
+            // is not a millisecond, it is whatever the system timer is set to,
+            // which turned a four-megabyte read into four milliseconds and
+            // sometimes eight. `Wait` returns when the work is done.
+            let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
             loop {
                 match rx.try_recv() {
                     Ok(Some(res)) => {
                         res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
                         break;
                     }
+                    // `Wait` covers submitted work, so this is reached only for
+                    // a buffer that was already mappable and had nothing
+                    // submitted for it. Yielding keeps that case from spinning
+                    // a core without putting a sleep back in the common one.
                     Ok(None) => {
                         let _ = context.device.poll(wgpu::PollType::Poll);
-                        fabelgeist_timer::sleep(std::time::Duration::from_millis(1)).await;
+                        std::thread::yield_now();
                     }
                     Err(_) => return Err(anyhow!("Mapping channel closed")),
                 }
@@ -287,7 +293,10 @@ impl Buffer {
         // This prevents WebAssembly memory growth from detaching/invalidating the mapped range buffer view.
         let t_size = std::mem::size_of::<T>();
         let len_t = (size as usize) / t_size;
-        let mut result = vec![<T as bytemuck::Zeroable>::zeroed(); len_t];
+        let mut result = Vec::with_capacity(len_t);
+        unsafe {
+            result.set_len(len_t);
+        }
 
         // 4. Get data and unmap
         let slice = target_buffer.slice(..);
@@ -311,13 +320,38 @@ impl Buffer {
 
         Ok(result)
     }
-
     pub fn write<T: bytemuck::NoUninit>(&self, context: &WgpuContext, data: &[T]) -> Result<()> {
         let bytes = bytemuck::cast_slice(data);
         context.queue.write_buffer(&self.buffer, 0, bytes);
         Ok(())
     }
 
+    /// Write `data` into this buffer starting `at` bytes in.
+    ///
+    /// For a buffer that holds several things and has only one of them
+    /// changing: a ring of video frames, a slice of a vertex stream. Writing
+    /// the whole buffer to replace part of it is the alternative, and at these
+    /// sizes that is the cost.
+    pub fn write_at<T: bytemuck::NoUninit>(
+        &self,
+        context: &WgpuContext,
+        at: u64,
+        data: &[T],
+    ) -> Result<()> {
+        let bytes = bytemuck::cast_slice(data);
+        let end = at
+            .checked_add(bytes.len() as u64)
+            .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+        if end > self.size {
+            return Err(anyhow!(
+                "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
+                bytes.len(),
+                self.size
+            ));
+        }
+        context.queue.write_buffer(&self.buffer, at, bytes);
+        Ok(())
+    }
     pub fn from_slice<T: bytemuck::NoUninit>(
         context: &WgpuContext,
         data: &[T],
@@ -326,7 +360,6 @@ impl Buffer {
         let bytes = bytemuck::cast_slice(data);
         Self::from_bytes(context, bytes, definition)
     }
-
     pub fn from_bytes(
         context: &WgpuContext,
         bytes: &[u8],

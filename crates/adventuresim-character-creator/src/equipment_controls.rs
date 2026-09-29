@@ -1,148 +1,132 @@
-//! Egui controls for parametric equipment designs.
+//! Egui controls for the vambrace and breastplate generators' designs.
 
-use super::{BracerDesign, BreastplateDesign, Studio, egui};
+use super::{BracerDesign, BreastplateDesign, egui};
 
-pub(super) fn show(ui: &mut egui::Ui, catalog: &mut super::EquipmentCatalog, studio: &mut Studio) {
-    super::armor_controls::show(ui, catalog, studio);
-    bracer(ui, studio);
-    breastplate(ui, studio);
-}
-
-pub(super) fn bracer(ui: &mut egui::Ui, studio: &mut Studio) {
-    ui.collapsing("Parametric bracers", |ui| {
-        let mut changed = false;
+pub(super) fn bracer(ui: &mut egui::Ui, design: &mut BracerDesign) -> bool {
+    let mut changed = false;
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.coverage.0, 50..=1_000)
+                .text("Forearm coverage")
+                .suffix(" ‰"),
+        )
+        .changed();
+    let maximum_offset = 1_000_u16 - design.coverage.0;
+    if design.wrist_offset.0 > maximum_offset {
+        design.wrist_offset.0 = maximum_offset;
+        changed = true;
+    }
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.wrist_offset.0, 0..=maximum_offset)
+                .text("Wrist offset")
+                .suffix(" ‰"),
+        )
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.wall_thickness.0, 1..=20)
+                .text("Wall thickness")
+                .suffix(" mm"),
+        )
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.clearance.0, 1..=30)
+                .text("Body clearance")
+                .suffix(" mm"),
+        )
+        .changed();
+    for (value, maximum, label) in [
+        (&mut design.elbow_flare.0, 15, "Elbow flare"),
+        (&mut design.wrist_flare.0, 15, "Wrist flare"),
+        (&mut design.center_ridge.0, 8, "Central ridge"),
+    ] {
         changed |= ui
             .add(
-                egui::Slider::new(&mut studio.bracer_design.coverage.0, 50..=1_000)
-                    .text("Forearm coverage")
-                    .suffix(" ‰"),
+                egui::Slider::new(value, 0..=maximum)
+                    .text(label)
+                    .suffix(" mm"),
             )
             .changed();
-        let maximum_offset = 1_000_u16 - studio.bracer_design.coverage.0;
-        if studio.bracer_design.wrist_offset.0 > maximum_offset {
-            studio.bracer_design.wrist_offset.0 = maximum_offset;
+    }
+    changed |= crate::fluting_controls::show(ui, &mut design.fluting);
+    ui.horizontal(|ui| {
+        if ui.button("Bracelet").clicked() {
+            *design = BracerDesign::bracelet();
             changed = true;
         }
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut studio.bracer_design.wrist_offset.0, 0..=maximum_offset)
-                    .text("Wrist offset")
-                    .suffix(" ‰"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut studio.bracer_design.wall_thickness.0, 1..=20)
-                    .text("Wall thickness")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut studio.bracer_design.clearance.0, 1..=30)
-                    .text("Body clearance")
-                    .suffix(" mm"),
-            )
-            .changed();
-        for (value, maximum, label) in [
-            (&mut studio.bracer_design.elbow_flare.0, 15, "Elbow flare"),
-            (&mut studio.bracer_design.wrist_flare.0, 15, "Wrist flare"),
-            (&mut studio.bracer_design.center_ridge.0, 8, "Central ridge"),
-        ] {
-            changed |= ui
-                .add(
-                    egui::Slider::new(value, 0..=maximum)
-                        .text(label)
-                        .suffix(" mm"),
-                )
-                .changed();
-        }
-        changed |= crate::fluting_controls::show(ui, &mut studio.bracer_design.fluting);
-        ui.horizontal(|ui| {
-            if ui.button("Bracelet").clicked() {
-                studio.bracer_design = BracerDesign::bracelet();
-                changed = true;
-            }
-            if ui.button("Vambrace").clicked() {
-                studio.bracer_design = BracerDesign::default();
-                changed = true;
-            }
-            if ui.button("Full forearm").clicked() {
-                studio.bracer_design = BracerDesign::full_forearm();
-                changed = true;
-            }
-        });
-        ui.small("Enable either Vambrace catalog placement above to preview it.");
-        studio.dirty |= changed;
-    });
-}
-
-pub(super) fn breastplate(ui: &mut egui::Ui, studio: &mut Studio) {
-    ui.collapsing("Parametric breastplate", |ui| {
-        let design = &mut studio.breastplate_design;
-        let mut changed = false;
-        changed |= ui
-            .add(egui::Slider::new(&mut design.neck_width.0, 700..=1_300).text("Neck width"))
-            .changed();
-        changed |= ui
-            .add(egui::Slider::new(&mut design.neck_depth.0, 600..=1_400).text("Neck depth"))
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.arm_opening_depth.0, 700..=1_300)
-                    .text("Arm opening depth"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(
-                    &mut design.waist_width.0,
-                    BreastplateDesign::WAIST_WIDTH_RANGE,
-                )
-                .text("Waist width"),
-            )
-            .changed();
-        changed |= ui
-            .add(egui::Slider::new(&mut design.plate_length.0, 650..=1_150).text("Plate length"))
-            .changed();
-        changed |= ui
-            .add(egui::Slider::new(&mut design.side_return.0, 850..=1_080).text("Side return"))
-            .changed();
-        changed |= crate::breastplate_controls::shape(ui, design);
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.skirt_length.0, 500..=1_600)
-                    .text("Skirt length")
-                    .suffix(" ‰"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.skirt_flare.0, 0..=70)
-                    .text("Skirt flare")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= crate::anime_controls::show(ui, design);
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.front_clearance.0, 4..=30)
-                    .text("Front clearance")
-                    .suffix(" mm"),
-            )
-            .changed();
-        changed |= ui
-            .add(
-                egui::Slider::new(&mut design.back_clearance.0, 6..=35)
-                    .text("Back clearance")
-                    .suffix(" mm"),
-            )
-            .changed();
-        if ui.button("Reset breastplate").clicked() {
-            *design = BreastplateDesign::default();
+        if ui.button("Vambrace").clicked() {
+            *design = BracerDesign::default();
             changed = true;
         }
-        ui.small("Enable Breastplate · worn above to preview it.");
-        studio.dirty |= changed;
+        if ui.button("Full forearm").clicked() {
+            *design = BracerDesign::full_forearm();
+            changed = true;
+        }
     });
+    changed
+}
+
+pub(super) fn breastplate(ui: &mut egui::Ui, design: &mut BreastplateDesign) -> bool {
+    let mut changed = false;
+    changed |= ui
+        .add(egui::Slider::new(&mut design.neck_width.0, 700..=1_300).text("Neck width"))
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut design.neck_depth.0, 600..=1_400).text("Neck depth"))
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.arm_opening_depth.0, 700..=1_300)
+                .text("Arm opening depth"),
+        )
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut design.waist_width.0, 750..=1_200).text("Waist width"))
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut design.plate_length.0, 650..=1_150).text("Plate length"))
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut design.side_return.0, 850..=1_080).text("Side return"))
+        .changed();
+    changed |= crate::breastplate_controls::shape(ui, design);
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.skirt_length.0, 500..=1_600)
+                .text("Skirt length")
+                .suffix(" ‰"),
+        )
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.skirt_flare.0, 0..=70)
+                .text("Skirt flare")
+                .suffix(" mm"),
+        )
+        .changed();
+    changed |= crate::anime_controls::show(ui, design);
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.wall_thickness.0, 1..=20)
+                .text("Wall thickness")
+                .suffix(" mm"),
+        )
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.front_clearance.0, 4..=30)
+                .text("Front clearance")
+                .suffix(" mm"),
+        )
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(&mut design.back_clearance.0, 6..=35)
+                .text("Back clearance")
+                .suffix(" mm"),
+        )
+        .changed();
+    changed
 }

@@ -1,7 +1,7 @@
 //! Controls follow the construction of each limb defense.
 use super::number;
-use adventuresim_armor_model::LimbArmorDesign as L;
 use bevy_egui::egui;
+use fabelgeist_armor::LimbArmorDesign as L;
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
     let mut changed = false;
@@ -30,7 +30,7 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
         ],
         L::Poleyn(d) | L::Couter(d) => {
             changed |= joint_construction(ui, d);
-            if d.construction == adventuresim_armor_model::JointCupConstruction::Wrapped {
+            if d.construction == fabelgeist_armor::JointCupConstruction::Wrapped {
                 changed |= crate::joint_extension_controls::show(ui, &mut d.distal_extension);
             }
             vec![
@@ -100,8 +100,8 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut L) -> bool {
     changed | material_controls(ui, design)
 }
 
-fn joint_construction(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::JointCupDesign) -> bool {
-    use adventuresim_armor_model::JointCupConstruction;
+fn joint_construction(ui: &mut egui::Ui, d: &mut fabelgeist_armor::JointCupDesign) -> bool {
+    use fabelgeist_armor::JointCupConstruction;
     let mut changed = false;
     ui.horizontal(|ui| {
         changed |= ui
@@ -129,17 +129,17 @@ fn joint_construction(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Joint
         changed |= number(
             ui,
             &mut d.medial_wrap.0,
-            adventuresim_armor_model::JointCupDesign::MEDIAL_WRAP_RANGE,
+            fabelgeist_armor::JointCupDesign::MEDIAL_WRAP_RANGE,
             "Medial coverage",
         );
         changed |= number(
             ui,
             &mut d.lateral_wrap.0,
-            adventuresim_armor_model::JointCupDesign::LATERAL_WRAP_RANGE,
+            fabelgeist_armor::JointCupDesign::LATERAL_WRAP_RANGE,
             "Lateral coverage",
         );
     }
-    use adventuresim_armor_model::JointFluteOrientation;
+    use fabelgeist_armor::JointFluteOrientation;
     ui.horizontal(|ui| {
         ui.label("Flute direction");
         changed |= ui
@@ -162,7 +162,7 @@ fn joint_construction(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Joint
 
 fn material_controls(ui: &mut egui::Ui, design: &mut L) -> bool {
     let thickness_range = if matches!(design, L::Pauldron(_)) {
-        adventuresim_armor_model::PauldronDesign::THICKNESS_RANGE
+        fabelgeist_armor::PauldronDesign::THICKNESS_RANGE
     } else {
         1..=6
     };
@@ -190,7 +190,7 @@ fn material_controls(ui: &mut egui::Ui, design: &mut L) -> bool {
     changed
 }
 
-fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::PauldronDesign) -> bool {
+fn pauldron_controls(ui: &mut egui::Ui, d: &mut fabelgeist_armor::PauldronDesign) -> bool {
     let mut changed = ui
         .add(egui::Slider::new(&mut d.upper_lames, 1..=3).text("Neck lames"))
         .changed();
@@ -200,7 +200,7 @@ fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Pauldr
     for (value, range, label) in [
         (
             &mut d.front_reach.0,
-            adventuresim_armor_model::PauldronDesign::FRONT_REACH_RANGE,
+            fabelgeist_armor::PauldronDesign::FRONT_REACH_RANGE,
             "Front wing reach (mm)",
         ),
         (
@@ -219,7 +219,7 @@ fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Pauldr
         (&mut d.neck_reach.0, 20..=60, "Neck reach (mm)"),
         (
             &mut d.plate_clearance.0,
-            adventuresim_armor_model::PauldronDesign::PLATE_CLEARANCE_RANGE,
+            fabelgeist_armor::PauldronDesign::PLATE_CLEARANCE_RANGE,
             "Supporting plate separation (mm)",
         ),
         (&mut d.arm_allowance.0, 0..=20, "Rerebrace allowance (mm)"),
@@ -242,7 +242,7 @@ fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Pauldr
         ),
         (
             &mut d.outline.corner_rounding.0,
-            adventuresim_armor_model::PauldronOutline::CORNER_ROUNDING_RANGE,
+            fabelgeist_armor::PauldronOutline::CORNER_ROUNDING_RANGE,
             "Angular corner rounding",
         ),
         (
@@ -261,11 +261,8 @@ fn pauldron_controls(ui: &mut egui::Ui, d: &mut adventuresim_armor_model::Pauldr
     changed | hanging_wing_controls(ui, &mut d.outline)
 }
 
-fn hanging_wing_controls(
-    ui: &mut egui::Ui,
-    d: &mut adventuresim_armor_model::PauldronOutline,
-) -> bool {
-    use adventuresim_armor_model::PauldronOutline as Outline;
+fn hanging_wing_controls(ui: &mut egui::Ui, d: &mut fabelgeist_armor::PauldronOutline) -> bool {
+    use fabelgeist_armor::PauldronOutline as Outline;
     let mut changed = false;
     for (value, range, label) in [
         (

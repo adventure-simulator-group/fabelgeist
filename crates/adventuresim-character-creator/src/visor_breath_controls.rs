@@ -1,7 +1,7 @@
 //! Shared pierced helmet-plate opening controls.
 use super::armor_controls::number;
-use adventuresim_armor_model::{VentSides, VisorBreaths};
 use bevy_egui::egui;
+use fabelgeist_armor::{VentSides, VisorBreaths};
 
 pub(super) fn show(
     ui: &mut egui::Ui,

@@ -1,12 +1,21 @@
-//! Editable construction controls for selected catalog armor.
-use super::{EquipmentCatalog, Studio};
-use adventuresim_character_creator::armor_recipes::ParametricDesign;
+//! Editable construction controls for catalog armor designs.
+use adventuresim_character_creator::{armor_recipes::ParametricDesign, item_design::ItemDesign};
 use bevy_egui::egui;
 use std::ops::RangeInclusive;
 #[path = "helmet_controls.rs"]
 mod helmet;
 #[path = "limb_controls.rs"]
 mod limb;
+
+/// The mail coif's shape controls, for the draped chainmail coif.
+pub(super) fn coif(ui: &mut egui::Ui, design: &mut fabelgeist_armor::CoifDesign) -> bool {
+    let mut helmet = fabelgeist_armor::HelmetDesign::MailCoif(*design);
+    let changed = helmet::show(ui, &mut helmet);
+    if let fabelgeist_armor::HelmetDesign::MailCoif(edited) = helmet {
+        *design = edited;
+    }
+    changed
+}
 
 pub(super) fn number(
     ui: &mut egui::Ui,
@@ -18,77 +27,38 @@ pub(super) fn number(
         .changed()
 }
 
-pub(super) fn show(ui: &mut egui::Ui, catalog: &mut EquipmentCatalog, studio: &mut Studio) {
-    let selected = catalog
-        .0
-        .iter()
-        .filter(|item| studio.recipe.clothing.iter().any(|c| c.item_id == item.id))
-        .filter_map(|item| {
-            catalog
-                .default_design(&item.id)
-                .map(|design| (item.id.clone(), item.display_name.clone(), design))
-        })
-        .collect::<Vec<_>>();
-    for (id, label, mut design) in selected {
-        let changed = ui
-            .collapsing(format!("{label} default shape"), |ui| {
-                controls(ui, &mut design)
-            })
-            .body_returned
-            .unwrap_or(false);
-        if changed {
-            catalog.1.defaults.insert(id.clone(), design.clone());
-            studio.dirty = true;
-        }
-        placement_controls(ui, catalog, studio, &id, &label, &design);
-    }
-    super::fastener_controls::show(ui, catalog, studio);
-    for (label, path) in [
-        ("Fastenings", &mut studio.fastener_designs_path),
-        ("Catalog armor", &mut studio.armor_designs_path),
-        ("Vambrace", &mut studio.bracer_design_path),
-        ("Breastplate", &mut studio.breastplate_design_path),
-    ] {
-        ui.horizontal(|ui| {
-            ui.label(label);
-            ui.text_edit_singleline(path);
-        });
-    }
-    if ui.button("Save all armor designs").clicked() {
-        studio.status = match save(catalog, studio) {
-            Ok(()) => "Saved armor shapes and fastenings".into(),
-            Err(error) => format!("Could not save armor designs: {error}"),
-        };
-    }
-}
-
-fn controls(ui: &mut egui::Ui, design: &mut ParametricDesign) -> bool {
+/// Shape controls for one catalog item's design. Returns whether it changed.
+pub(super) fn design(ui: &mut egui::Ui, design: &mut ItemDesign) -> bool {
     match design {
-        ParametricDesign::Limb(d) => limb::show(ui, d),
-        ParametricDesign::PuffAndSlash(d) => puff_and_slash(ui, d),
-        ParametricDesign::TrunkHose(d) => trunk_hose(ui, d),
-        ParametricDesign::Helmet(d) => helmet::show(ui, d),
-        ParametricDesign::Garment(d) => super::garment_controls::show(ui, d),
-        ParametricDesign::Underlayer(d) => underlayer(ui, d),
-        ParametricDesign::WaistAssembly(d) => {
+        ItemDesign::Recipe(ParametricDesign::Limb(d)) => limb::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Helmet(d)) => helmet::show(ui, d),
+        ItemDesign::Recipe(ParametricDesign::PuffAndSlash(d)) => puff_and_slash(ui, d),
+        ItemDesign::Recipe(ParametricDesign::TrunkHose(d)) => trunk_hose(ui, d),
+        ItemDesign::Recipe(ParametricDesign::Garment(d)) => {
+            super::garment_armor_controls::show(ui, d)
+        }
+        ItemDesign::Recipe(ParametricDesign::WaistAssembly(d)) => {
             let fauld = ui
                 .collapsing("Fauld", |ui| {
-                    super::garment_controls::show(ui, &mut d.fauld)
+                    super::garment_armor_controls::show(ui, &mut d.fauld)
                 })
                 .body_returned
                 .unwrap_or(false);
             let tassets = ui
                 .collapsing("Tassets", |ui| {
-                    super::garment_controls::show(ui, &mut d.tassets)
+                    super::garment_armor_controls::show(ui, &mut d.tassets)
                 })
                 .body_returned
                 .unwrap_or(false);
             fauld || tassets
         }
+        ItemDesign::Recipe(ParametricDesign::Underlayer(d)) => underlayer(ui, d),
+        ItemDesign::Vambrace(d) => super::equipment_controls::bracer(ui, d),
+        ItemDesign::Breastplate(d) => super::equipment_controls::breastplate(ui, d),
     }
 }
 
-fn trunk_hose(ui: &mut egui::Ui, design: &mut adventuresim_armor_model::TrunkHoseDesign) -> bool {
+fn trunk_hose(ui: &mut egui::Ui, design: &mut fabelgeist_armor::TrunkHoseDesign) -> bool {
     let mut changed = number(ui, &mut design.clearance.0, 1..=10, "Body clearance (mm)");
     changed |= number(ui, &mut design.thickness.0, 1..=8, "Cloth thickness (mm)");
     changed |= number(ui, &mut design.length.0, 900..=1200, "Upper-leg reach");
@@ -114,10 +84,7 @@ fn trunk_hose(ui: &mut egui::Ui, design: &mut adventuresim_armor_model::TrunkHos
     changed
 }
 
-fn puff_and_slash(
-    ui: &mut egui::Ui,
-    design: &mut adventuresim_armor_model::PuffAndSlashDesign,
-) -> bool {
+fn puff_and_slash(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlashDesign) -> bool {
     let mut changed = ui
         .add(egui::Slider::new(&mut design.puff_count, 1..=8).text("Puff courses"))
         .changed();
@@ -170,85 +137,6 @@ fn puff_and_slash(
             .changed();
     });
     changed
-}
-
-fn placement_controls(
-    ui: &mut egui::Ui,
-    catalog: &mut EquipmentCatalog,
-    studio: &mut Studio,
-    id: &str,
-    label: &str,
-    default: &ParametricDesign,
-) {
-    use adventuresim_character_creator::armor_design_input::ArmorPlacement;
-    let placements = studio
-        .recipe
-        .clothing
-        .iter()
-        .filter(|c| c.item_id == id)
-        .filter_map(|c| ArmorPlacement::parse(&c.placement_id))
-        .collect::<std::collections::BTreeSet<_>>();
-    for placement in placements {
-        let mut specific = catalog
-            .1
-            .placements
-            .get(id)
-            .and_then(|p| p.get(&placement))
-            .is_some();
-        let toggle = ui.checkbox(
-            &mut specific,
-            format!("Customize {label} {}", placement.as_str()),
-        );
-        if toggle.changed() {
-            if specific {
-                catalog
-                    .1
-                    .placements
-                    .entry(id.into())
-                    .or_default()
-                    .insert(placement, default.clone());
-            } else if let Some(choices) = catalog.1.placements.get_mut(id) {
-                choices.remove(&placement);
-                if choices.is_empty() {
-                    catalog.1.placements.remove(id);
-                }
-            }
-            studio.dirty = true;
-        }
-        if let Some(design) = catalog
-            .1
-            .placements
-            .get_mut(id)
-            .and_then(|p| p.get_mut(&placement))
-        {
-            studio.dirty |= ui
-                .collapsing(format!("{label} {} shape", placement.as_str()), |ui| {
-                    controls(ui, design)
-                })
-                .body_returned
-                .unwrap_or(false);
-        }
-    }
-}
-
-fn save(catalog: &EquipmentCatalog, studio: &Studio) -> anyhow::Result<()> {
-    for recipe in catalog.2.values() {
-        recipe.validate()?;
-    }
-    std::fs::write(
-        &studio.fastener_designs_path,
-        serde_json::to_vec_pretty(&catalog.2)?,
-    )?;
-    adventuresim_character_creator::armor_design_output::DesignPaths {
-        catalog: std::path::Path::new(&studio.armor_designs_path),
-        bracer: std::path::Path::new(&studio.bracer_design_path),
-        breastplate: std::path::Path::new(&studio.breastplate_design_path),
-    }
-    .save(
-        &catalog.1,
-        &studio.bracer_design,
-        &studio.breastplate_design,
-    )
 }
 
 fn underlayer(

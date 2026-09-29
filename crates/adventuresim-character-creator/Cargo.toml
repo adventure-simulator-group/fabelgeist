@@ -12,6 +12,9 @@ offline-creator = ["dep:burn", "dep:fabelgeist-mhr"]
 [dependencies]
 adventuresim-core = { path = "../adventuresim-core" }
 anyhow = "1"
+base64 = "0.22"
+fabelgeist-armor = { path = "../fabelgeist-armor" }
+image = { version = "0.25.10", default-features = false, features = ["png"] }
 bevy = "0.19.0"
 bevy_egui = "0.40.1"
 blake3 = "1"
@@ -20,20 +23,40 @@ burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b150
     "wgpu",
 ] }
 fabelgeist-mhr = { optional = true, path = "../fabelgeist-mhr" }
-adventuresim-armor-model = { path = "../adventuresim-armor-model" }
 adventuresim-world-schema = { path = "../adventuresim-world-schema" }
 clap = { version = "4.5", features = ["derive", "env"] }
 fabelgeist-determinism = { path = "../fabelgeist-determinism" }
-image = { version = "0.25.10", default-features = false, features = ["png"] }
 rand = "0.9"
 rayon = "1.12"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 
+fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+fabelgeist-garment-fit = { path = "../fabelgeist-garment-fit" }
+fabelgeist-cloth = { path = "../fabelgeist-cloth" }
+fabelgeist-shell = { path = "../fabelgeist-shell" }
+fabelgeist-math = { path = "../fabelgeist-math" }
+fabelgeist-bvh = { path = "../fabelgeist-bvh" }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+tokio = { version = "1", features = ["rt", "time"] }
+egui_extras = { version = "0.34", default-features = false, features = ["svg"] }
+
 [dev-dependencies]
 gltf = { version = "1.4", default-features = false }
 
 [workspace]
+
+# Swept surface contacts execute on the CPU between GPU substeps. Keep their
+# geometry kernels optimized in the interactive development application.
+[profile.dev.package.fabelgeist-cloth]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-bvh]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-math]
+opt-level = 3
 
 [patch.crates-io]
 pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }

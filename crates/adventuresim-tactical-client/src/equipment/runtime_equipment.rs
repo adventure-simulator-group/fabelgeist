@@ -1,16 +1,16 @@
 use super::*;
 
-use adventuresim_armor_model::GeneratedArmor;
 use adventuresim_character_creator::{
+    bracer::ForearmMorphSample,
     design_input::{load_bracer_design, load_breastplate_design},
-    runtime_equipment::{RuntimeBody, RuntimeBodyMorph},
+    runtime_equipment::RuntimeBody,
 };
 use anyhow::{Context, bail};
 use bevy::{
     gltf::{Gltf, GltfMesh, GltfNode, GltfSkin},
     mesh::{VertexAttributeValues, morph::MorphAttributes, skinning::SkinnedMeshInverseBindposes},
-    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
+use fabelgeist_armor::GeneratedArmor;
 
 mod morphs;
 use morphs::runtime_body_morphs;
@@ -26,8 +26,8 @@ pub(super) struct RuntimeEquipmentPresentation {
 pub(super) struct RuntimeEquipmentBodyCache {
     pub(super) body: Option<RuntimeBody>,
     pub(super) inverse_bindposes: Option<Handle<SkinnedMeshInverseBindposes>>,
-    pub(super) bracer_design: Option<adventuresim_armor_model::BracerDesign>,
-    pub(super) breastplate_design: Option<adventuresim_armor_model::BreastplateDesign>,
+    pub(super) bracer_design: Option<fabelgeist_armor::BracerDesign>,
+    pub(super) breastplate_design: Option<fabelgeist_armor::BreastplateDesign>,
     pub(super) failed: bool,
 }
 
@@ -41,7 +41,6 @@ pub(super) fn generate_runtime_equipment_models(
     gltf_skins: Res<Assets<GltfSkin>>,
     mut meshes: ResMut<Assets<Mesh>>,
     inverse_bindposes: Res<Assets<SkinnedMeshInverseBindposes>>,
-    mut images: ResMut<Assets<Image>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut cache: ResMut<RuntimeEquipmentBodyCache>,
     pending: Query<(Entity, &RuntimeEquipmentPresentation), Without<ProceduralEquipmentResolved>>,
@@ -79,42 +78,17 @@ pub(super) fn generate_runtime_equipment_models(
         }
     }
 
-    if cache.bracer_design.is_none() {
-        match load_bracer_design(None) {
-            Ok(design) => cache.bracer_design = Some(design),
-            Err(error) => {
-                error!("failed to load the runtime bracer design: {error:#}");
-                cache.failed = true;
-                return;
-            }
-        }
-    }
-    if cache.breastplate_design.is_none() {
-        match load_breastplate_design(None) {
-            Ok(design) => cache.breastplate_design = Some(design),
-            Err(error) => {
-                error!("failed to load the runtime breastplate design: {error:#}");
-                cache.failed = true;
-                return;
-            }
-        }
+    if !load_designs(&mut cache) {
+        return;
     }
 
-    spawn_pending_runtime_equipment(
-        &mut commands,
-        &pending,
-        &mut meshes,
-        &mut images,
-        &mut materials,
-        &cache,
-    );
+    spawn_pending_runtime_equipment(&mut commands, &pending, &mut meshes, &mut materials, &cache);
 }
 
 fn spawn_pending_runtime_equipment(
     commands: &mut Commands,
     pending: &Query<(Entity, &RuntimeEquipmentPresentation), Without<ProceduralEquipmentResolved>>,
     meshes: &mut Assets<Mesh>,
-    images: &mut Assets<Image>,
     materials: &mut Assets<StandardMaterial>,
     cache: &RuntimeEquipmentBodyCache,
 ) {
@@ -132,23 +106,13 @@ fn spawn_pending_runtime_equipment(
     };
 
     for (entity, presentation) in pending {
-        let generated = match if adventuresim_character_creator::runtime_equipment::is_runtime_armor(
+        let generated = match adventuresim_character_creator::runtime_equipment::generate(
+            body,
             &presentation.item_id,
+            &presentation.placement_id,
+            bracer_design,
+            breastplate_design,
         ) {
-            adventuresim_character_creator::runtime_equipment::generate_runtime_armor(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-                bracer_design,
-                breastplate_design,
-            )
-        } else {
-            adventuresim_character_creator::runtime_equipment::generate_runtime_clothing(
-                body,
-                &presentation.item_id,
-                &presentation.placement_id,
-            )
-        } {
             Ok(generated) => generated,
             Err(error) => {
                 error!(
@@ -162,8 +126,7 @@ fn spawn_pending_runtime_equipment(
         };
 
         let mesh = runtime_equipment_mesh(&generated, meshes);
-        let material =
-            runtime_equipment_material(&presentation.item_id, &generated, images, materials);
+        let material = runtime_equipment_material(&presentation.item_id, materials);
         let part = ProceduralEquipmentPart::new(
             presentation.item,
             inverse_bindposes_handle.clone(),
@@ -180,6 +143,50 @@ fn spawn_pending_runtime_equipment(
             .entity(entity)
             .insert((ProceduralEquipmentResolved, Visibility::Inherited));
     }
+}
+
+/// Load the catalog's vambrace and breastplate designs once; false when
+/// they are unavailable.
+fn load_designs(cache: &mut RuntimeEquipmentBodyCache) -> bool {
+    if cache.bracer_design.is_none() {
+        match load_bracer_design(None) {
+            Ok(design) => cache.bracer_design = Some(design),
+            Err(error) => {
+                error!("failed to load the runtime bracer design: {error:#}");
+                cache.failed = true;
+                return false;
+            }
+        }
+    }
+    if cache.breastplate_design.is_none() {
+        match load_breastplate_design(None) {
+            Ok(design) => cache.breastplate_design = Some(design),
+            Err(error) => {
+                error!("failed to load the runtime breastplate design: {error:#}");
+                cache.failed = true;
+                return false;
+            }
+        }
+    }
+    true
+}
+
+/// The presentation of an item generated on the armor device, if it is one.
+pub(super) fn presentation(
+    item: Entity,
+    properties: Option<&ItemProperties>,
+    topology: Option<&EquipmentTopology>,
+) -> Option<RuntimeEquipmentPresentation> {
+    let properties = properties.filter(|properties| {
+        adventuresim_character_creator::runtime_equipment::is_runtime_equipment(&properties.id)
+    })?;
+    Some(RuntimeEquipmentPresentation {
+        item,
+        item_id: properties.id.clone(),
+        placement_id: topology
+            .and_then(|topology| topology.placement_id.clone())
+            .unwrap_or_else(|| "worn".into()),
+    })
 }
 
 fn try_build_runtime_body(
@@ -268,9 +275,6 @@ fn build_runtime_body(
     let morphs = runtime_body_morphs(mesh, &positions, &normals, &global_joint_states);
 
     let body = RuntimeBody {
-        detail: adventuresim_armor_model::ArmorDetail::Runtime(
-            adventuresim_armor_model::ArmorLod::Lod5,
-        ),
         domain: "mhr_body_v1".into(),
         faces: faces.clone(),
         positions,
@@ -303,6 +307,7 @@ fn build_runtime_body(
         joint_names,
         global_joint_states,
         morphs,
+        device: Default::default(),
     };
     let inverse_bindposes_handle = skin.inverse_bind_matrices.clone();
     Ok((body, inverse_bindposes_handle))
@@ -413,32 +418,16 @@ fn runtime_equipment_mesh(armor: &GeneratedArmor, meshes: &mut Assets<Mesh>) -> 
 
 fn runtime_equipment_material(
     item_id: &str,
-    armor: &GeneratedArmor,
-    images: &mut Assets<Image>,
     materials: &mut Assets<StandardMaterial>,
 ) -> Handle<StandardMaterial> {
     let material =
         adventuresim_character_creator::runtime_equipment::runtime_equipment_material(item_id)
             .unwrap_or_else(|| panic!("runtime armor material missing for {item_id}"));
     let (base_color, metallic, roughness) = adventuresim_character_creator::equipment_pbr(material);
-    let normal_map = armor.normal_map.as_ref().map(|normal_map| {
-        images.add(Image::new(
-            Extent3d {
-                width: normal_map.width,
-                height: normal_map.height,
-                depth_or_array_layers: 1,
-            },
-            TextureDimension::D2,
-            normal_map.rgba8.clone(),
-            TextureFormat::Rgba8Unorm,
-            RenderAssetUsages::default(),
-        ))
-    });
     materials.add(StandardMaterial {
         base_color: Color::srgba(base_color[0], base_color[1], base_color[2], base_color[3]),
         metallic,
         perceptual_roughness: roughness,
-        normal_map_texture: normal_map,
         ..default()
     })
 }

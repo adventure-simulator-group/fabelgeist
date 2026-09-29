@@ -8,7 +8,6 @@ members = [
   "crates/adventuresim-world-schema",
   "crates/adventuresim-world-import",
   "crates/adventuresim-terrain",
-  "crates/adventuresim-armor-model",
   "crates/adventuresim-weapon-model",
   "crates/adventuresim-weapon-model-browser",
   "crates/adventuresim-building-generator",
@@ -31,8 +30,19 @@ members = [
   "crates/fabelgeist-timer",
   "crates/fabelgeist-fs",
   "crates/fabelgeist-gpu",
+  "crates/fabelgeist-color",
+  "crates/fabelgeist-mesh",
+  "crates/fabelgeist-shell",
   "crates/fabelgeist-fbx",
   "crates/fabelgeist-rust-quality",
+  "crates/fabelgeist-compute",
+  "crates/fabelgeist-bvh",
+  "crates/fabelgeist-xpbd",
+  "crates/fabelgeist-physics",
+  "crates/fabelgeist-cloth",
+  "crates/fabelgeist-garment-code",
+  "crates/fabelgeist-garment-fit",
+  "crates/fabelgeist-armor",
 ]
 exclude = [
   "wiki",
@@ -61,7 +71,6 @@ adventuresim-puzzles = { version = "0.1.0", path = "crates/adventuresim-puzzles"
 adventuresim-dialogue = { version = "0.1.0", path = "crates/adventuresim-dialogue" }
 adventuresim-strategic-sim = { version = "0.1.0" }
 adventuresim-world-schema = { version = "0.1.0", path = "crates/adventuresim-world-schema" }
-adventuresim-armor-model = { version = "0.1.0", path = "crates/adventuresim-armor-model" }
 adventuresim-weapon-model = { version = "0.1.0", path = "crates/adventuresim-weapon-model" }
 adventuresim-building-generator = { version = "0.1.0", path = "crates/adventuresim-building-generator" }
 adventuresim-plant-generator = { version = "0.1.0", path = "crates/adventuresim-plant-generator" }

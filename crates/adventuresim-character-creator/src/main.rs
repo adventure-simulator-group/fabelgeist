@@ -1,22 +1,17 @@
 mod studio_scene;
-use studio_scene::{orbit_camera, setup};
+use studio_scene::{CreatorPanelRight, orbit_camera, setup};
 mod cli;
 use cli::Args;
 mod catalog;
-use catalog::{EquipmentCatalog, load_item_catalog, procedural_items};
-mod breastplate_skeletal_fit;
-mod fastener_controls;
-mod fastener_equipment;
-mod fastener_skin;
+use catalog::EquipmentCatalog;
 mod fitted_existing;
-mod waist_skin;
 mod wrapped_tasset_controls;
 use fitted_existing::{fitted_bracer, fitted_breastplate};
 mod studio_generation;
 use studio_generation::regenerate_mesh;
+mod character_controls;
 mod generation;
 mod preview;
-mod proportion_controls;
 use generation::generate_character;
 mod anime_controls;
 mod armor_controls;
@@ -26,55 +21,79 @@ mod breastplate_controls;
 mod buffe_controls;
 mod character_export;
 mod character_morphs;
+mod construction_controls;
+mod decoration_controls;
+mod device_equipment;
 mod equipment_controls;
 mod equipment_export;
-mod equipment_layering;
 mod fluting_controls;
-mod garment_controls;
+mod garment_armor_controls;
 mod joint_extension_controls;
 mod model_controls;
 mod parametric_equipment;
 mod review_export;
-mod review_glb;
-mod shoulder_skin;
 mod underlayer_equipment;
 mod underlayer_preview;
 mod visor_breath_controls;
 use character_export::export_character;
 use equipment_export::generate_equipment_assets;
+mod animation_preview;
+mod armory;
+mod armory_ui;
+mod bare_body;
+mod drape_controls;
+mod drape_preview;
+mod drape_worker;
+mod fabric_controls;
+mod garment_controls;
+mod inventory_ui;
+mod metal_controls;
+mod metal_preview;
+mod ornament_controls;
+mod outfit;
+mod studio_cache;
+mod studio_overlay;
+mod studio_theme;
+mod studio_ui;
+mod wardrobe_tab;
+mod wardrobe_ui;
+use adventuresim_character_creator::garment::{FabricPreset, GarmentForm, GarmentSelection};
+use animation_preview::WalkPreview;
+use drape_preview::DrapeJob;
 
 use adventuresim_core::character_morph::IDENTITY_MORPH_COUNT;
 
-use adventuresim_armor_model::{
-    BracerDesign, BreastplateDesign, GeneratedArmor, generate_bracer, generate_breastplate,
-};
 use adventuresim_character_creator::lod::{CharacterLod, MAX_CHARACTER_LOD, MIN_CHARACTER_LOD};
 use adventuresim_character_creator::profiling;
 use adventuresim_character_creator::{
-    CharacterRecipe, ClothingSelection, IdentityGroup,
-    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput, build_forearm_surface},
-    breastplate::{TorsoSurfaceInput, build_front_torso_surface},
+    CharacterRecipe, IdentityGroup,
+    bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
     clothing::{GarmentSpecification, generate_clothing_shells},
-    design_input::load_breastplate_design,
+    device_torso::TorsoSurfaceInput,
+    equipment_catalog::ItemCatalog,
     export::{
         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
     },
-    item_catalog_schema::{EquipmentLocation, ItemCatalogDocument, ItemDefinition},
+    item_catalog_schema::{EquipmentLocation, ItemDefinition},
+    item_design::CatalogDesigns,
 };
 use anyhow::{Context, Result};
 use bevy::{
-    asset::RenderAssetUsages, mesh::Indices, prelude::*, render::render_resource::PrimitiveTopology,
+    asset::RenderAssetUsages,
+    mesh::{Indices, skinning::SkinnedMeshInverseBindposes},
+    prelude::*,
+    render::render_resource::PrimitiveTopology,
 };
 use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
 use burn::tensor::{Device, Tensor, TensorData};
 use clap::Parser;
-use fabelgeist_determinism::StreamId;
+use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
+use rand::{Rng, SeedableRng, rngs::StdRng};
 
 #[derive(Resource)]
 struct BodyModel {
-    armor_detail: adventuresim_armor_model::ArmorDetail,
     mhr: Mhr,
     lod: u8,
     correctives: bool,
@@ -83,8 +102,8 @@ struct BodyModel {
 #[derive(Resource)]
 struct Studio {
     recipe: CharacterRecipe,
-    selected: IdentityGroup,
-    show_expressions: bool,
+    /// The open page of the character tab.
+    page: character_controls::CharacterPage,
     dirty: bool,
     status: String,
     recipe_path: String,
@@ -92,25 +111,25 @@ struct Studio {
     seed: u64,
     selected_lod: u8,
     selected_correctives: bool,
-    armor_designs_path: String,
-    fastener_designs_path: String,
-    bracer_design_path: String,
-    breastplate_design_path: String,
-    bracer_design: BracerDesign,
-    breastplate_design: BreastplateDesign,
+    /// Where the catalog default designs are saved.
+    design_paths: studio_ui::DesignPathInputs,
+    /// Named engravings and trims, and where they are saved.
+    decorations: decoration_controls::Decorations,
+    /// Garments saved once settled, and where they are saved.
+    wardrobe: wardrobe_tab::WardrobeLibrary,
+    tab: studio_ui::StudioTab,
+    inventory: inventory_ui::InventoryView,
 }
 
 impl Studio {
-    fn new(
-        args: &Args,
-        recipe: CharacterRecipe,
-        bracer_design: BracerDesign,
-        breastplate_design: BreastplateDesign,
-    ) -> Self {
+    fn new(args: &Args, recipe: CharacterRecipe) -> Self {
+        let path = |path: &Option<std::path::PathBuf>, default: &str| {
+            path.as_ref()
+                .map_or_else(|| default.into(), |path| path.display().to_string())
+        };
         Self {
             recipe,
-            selected: IdentityGroup::Body,
-            show_expressions: false,
+            page: character_controls::CharacterPage::Build,
             dirty: true,
             status: format!("MHR LOD {} ready", args.lod),
             recipe_path: args.recipe.display().to_string(),
@@ -118,29 +137,26 @@ impl Studio {
             seed: 1544,
             selected_lod: args.lod,
             selected_correctives: false,
-            armor_designs_path: args.armor_designs.as_ref().map_or_else(
-                || "target/armor-designs.json".into(),
-                |path| path.display().to_string(),
-            ),
-            fastener_designs_path: args.fastener_designs.as_ref().map_or_else(
-                || "target/armor-fasteners.json".into(),
-                |path| path.display().to_string(),
-            ),
-            bracer_design,
-            breastplate_design,
-            bracer_design_path: args.bracer_design.as_ref().map_or_else(
-                || "target/bracer-design.json".into(),
-                |path| path.display().to_string(),
-            ),
-            breastplate_design_path: args.breastplate_design.as_ref().map_or_else(
-                || "target/breastplate-design.json".into(),
-                |path| path.display().to_string(),
-            ),
+            design_paths: studio_ui::DesignPathInputs {
+                catalog: path(&args.armor_designs, "target/armor-designs.json"),
+                vambrace: path(&args.bracer_design, "target/bracer-design.json"),
+                breastplate: path(&args.breastplate_design, "target/breastplate-design.json"),
+            },
+            decorations: decoration_controls::Decorations {
+                library: default(),
+                path: args.decorations.display().to_string(),
+            },
+            wardrobe: wardrobe_tab::WardrobeLibrary {
+                library: default(),
+                path: args.wardrobe.display().to_string(),
+            },
+            tab: studio_ui::StudioTab::Character,
+            inventory: inventory_ui::InventoryView::default(),
         }
     }
 }
 
-#[derive(Component)]
+#[derive(Component, Clone)]
 struct CharacterMesh;
 
 struct GeneratedCharacter {
@@ -148,28 +164,44 @@ struct GeneratedCharacter {
     positions: Vec<[f32; 3]>,
     normals: Vec<[f32; 3]>,
     global_joint_states: Vec<[f32; 8]>,
+    /// This body on the armor device, once a piece has uploaded it.
+    device: adventuresim_character_creator::device_body::DeviceBody,
 }
 
 fn main() -> Result<()> {
     let args = Args::parse();
     profiling::enable(args.profile);
-    let bracer_design = adventuresim_character_creator::design_input::load_bracer_design(
-        args.bracer_design.as_deref(),
-    )?;
-    let breastplate_design = load_breastplate_design(args.breastplate_design.as_deref())?;
-    let device = Device::default();
-    let mut model = load_body_model(&args.assets, args.lod, false, &device)
-        .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
-    if args.armor_bake_source {
-        model.armor_detail = adventuresim_armor_model::ArmorDetail::BakeSource;
-    }
-    let catalog = EquipmentCatalog(
-        load_item_catalog(&args.catalog)?,
-        adventuresim_character_creator::armor_design_input::load(args.armor_designs.as_deref())?,
-        adventuresim_character_creator::fasteners::catalog::load(args.fastener_designs.as_deref())?,
+    anyhow::ensure!(
+        !args.armor_bake_source,
+        "dense bake-source armor is not yet generated on the device"
     );
+    let device = Device::default();
+    let model = load_body_model(&args.assets, args.lod, false, &device)
+        .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
+    let designs = CatalogDesigns::load(
+        args.armor_designs.as_deref(),
+        args.bracer_design.as_deref(),
+        args.breastplate_design.as_deref(),
+    )?;
+    let catalog = EquipmentCatalog(ItemCatalog::load(&args.catalog, designs)?);
     if let Some(path) = &args.write_armor_designs {
-        return write_armor_designs(path, &catalog);
+        let defaults = catalog
+            .items
+            .iter()
+            .filter_map(|item| {
+                let design = catalog.design(&item.id)?;
+                Some((item.id.clone(), design.recipe()?.clone()))
+            })
+            .collect();
+        let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+            defaults,
+            placements: catalog.designs.overrides.placements.clone(),
+        };
+        std::fs::write(
+            path,
+            adventuresim_character_creator::armor_design_input::encode(&designs)?,
+        )?;
+        return Ok(());
     }
 
     let recipe: CharacterRecipe = serde_json::from_slice(
@@ -184,8 +216,6 @@ fn main() -> Result<()> {
             &model,
             &recipe,
             &catalog,
-            &bracer_design,
-            &breastplate_design,
             args.armor_review_selection,
         );
     }
@@ -196,8 +226,6 @@ fn main() -> Result<()> {
             &model,
             &recipe,
             &catalog,
-            &bracer_design,
-            &breastplate_design,
             &args.equipment_item,
         )?;
         println!(
@@ -207,162 +235,108 @@ fn main() -> Result<()> {
         return Ok(());
     }
     if args.export_only {
-        export_character(
-            &args.glb,
-            &model,
-            &recipe,
-            &catalog,
-            &bracer_design,
-            &breastplate_design,
-        )?;
+        for warning in export_character(&args.glb, &model, &recipe, &catalog, None)? {
+            eprintln!("warning: {warning}");
+        }
         println!("Exported {}", args.glb.display());
         return Ok(());
     }
 
+    let libraries = Libraries {
+        decorations: adventuresim_character_creator::decoration::DecorationLibrary::load(
+            &args.decorations,
+        )?,
+        wardrobe: adventuresim_character_creator::wardrobe::Wardrobe::load(&args.wardrobe)?,
+    };
+    run_studio(args, model, catalog, recipe, libraries);
+    Ok(())
+}
+
+/// The studio's saved decorations and garments.
+struct Libraries {
+    decorations: adventuresim_character_creator::decoration::DecorationLibrary,
+    wardrobe: adventuresim_character_creator::wardrobe::Wardrobe,
+}
+
+/// Open the interactive studio window on `recipe`.
+fn run_studio(
+    args: Args,
+    model: BodyModel,
+    catalog: EquipmentCatalog,
+    recipe: CharacterRecipe,
+    libraries: Libraries,
+) {
+    let mut studio = Studio::new(&args, recipe);
+    studio.decorations.library = libraries.decorations;
+    studio.wardrobe.library = libraries.wardrobe;
     App::new()
-        .insert_resource(ClearColor(Color::srgb(0.035, 0.045, 0.055)))
+        .insert_resource(ClearColor(studio_scene::BACKDROP))
+        .init_resource::<DrapeJob>()
+        .init_resource::<drape_preview::MailMaterials>()
+        .init_resource::<WalkPreview>()
         .insert_resource(args.clone())
         .init_resource::<underlayer_preview::EquipmentMaps>()
         .insert_resource(model)
         .insert_resource(catalog)
-        .insert_resource(Studio::new(
-            &args,
-            recipe,
-            bracer_design,
-            breastplate_design,
-        ))
-        .add_plugins(DefaultPlugins.set(WindowPlugin {
-            primary_window: Some(Window {
-                title: "Fabelgeist · Character Studio".into(),
-                resolution: (1440, 900).into(),
-                ..default()
-            }),
-            ..default()
-        }))
+        .insert_resource(studio)
+        .add_plugins(
+            DefaultPlugins
+                .set(AssetPlugin {
+                    file_path: "../../assets".into(),
+                    ..default()
+                })
+                .set(WindowPlugin {
+                    primary_window: Some(Window {
+                        title: "Fabelgeist · Character Studio".into(),
+                        resolution: (1440, 900).into(),
+                        ..default()
+                    }),
+                    ..default()
+                }),
+        )
         .add_plugins(EguiPlugin::default())
-        .add_systems(Startup, setup)
-        .add_systems(EguiPrimaryContextPass, studio_ui)
+        .init_resource::<CreatorPanelRight>()
+        .init_resource::<studio_scene::CharacterBounds>()
+        .init_resource::<studio_scene::ShotRequest>()
+        .init_resource::<armory::Armory>()
+        .init_resource::<studio_cache::StudioCache>()
+        .init_resource::<wardrobe_tab::WardrobeTab>()
+        .add_systems(Startup, (setup, armory::setup, animation_preview::request))
+        .add_systems(
+            EguiPrimaryContextPass,
+            (studio_theme::install, studio_ui::show, armory_ui::labels).chain(),
+        )
         .add_systems(
             Update,
             (
                 reload_model.before(regenerate_mesh),
+                animation_preview::prepare,
                 regenerate_mesh,
-                orbit_camera,
+                drape_preview::poll.after(regenerate_mesh),
+                drape_preview::refresh_mail.after(drape_preview::poll),
+                (
+                    armory::enter_or_leave,
+                    armory::refit,
+                    armory::display,
+                    armory::frame_camera,
+                )
+                    .chain()
+                    .after(reload_model)
+                    .before(regenerate_mesh),
+                (wardrobe_tab::update, wardrobe_tab::display)
+                    .chain()
+                    .after(reload_model)
+                    .before(regenerate_mesh),
+                studio_scene::frame_shot.after(armory::frame_camera),
+                studio_scene::center_beside_panel,
+                orbit_camera.after(studio_scene::frame_shot),
             ),
         )
+        .add_systems(
+            PostUpdate,
+            animation_preview::deform_cloth.after(bevy::transform::TransformSystems::Propagate),
+        )
         .run();
-    Ok(())
-}
-
-fn write_armor_designs(path: &std::path::Path, catalog: &EquipmentCatalog) -> Result<()> {
-    let mut designs = catalog.1.clone();
-    designs.defaults = catalog
-        .0
-        .iter()
-        .filter_map(|item| {
-            catalog
-                .default_design(&item.id)
-                .map(|d| (item.id.clone(), d))
-        })
-        .collect();
-    std::fs::write(
-        path,
-        adventuresim_character_creator::armor_design_input::encode(&designs)?,
-    )?;
-    Ok(())
-}
-
-#[expect(
-    deprecated,
-    reason = "egui's replacement requires a parent Ui, but this is the top-level panel"
-)]
-fn studio_ui(
-    mut contexts: EguiContexts,
-    model: Res<BodyModel>,
-    mut catalog: ResMut<EquipmentCatalog>,
-    mut studio: ResMut<Studio>,
-) {
-    let Ok(ctx) = contexts.ctx_mut() else { return };
-    egui::SidePanel::left("creator")
-        .exact_width(360.0)
-        .show(ctx, |ui| {
-            ui.add_space(8.0);
-            ui.label("Name");
-            ui.text_edit_singleline(&mut studio.recipe.name);
-            model_controls::show(ui, &mut studio);
-            ui.separator();
-
-            ui.collapsing("Catalog clothing and armor", |ui| {
-                for item in procedural_items(&catalog) {
-                    let equipment = item.equipment.as_ref().expect("filtered equipment");
-                    for placement in &equipment.placements {
-                        let selection = ClothingSelection {
-                            item_id: item.id.clone(),
-                            placement_id: placement.id.clone(),
-                        };
-                        let mut enabled = studio.recipe.clothing.contains(&selection);
-                        let label = if equipment.placements.len() == 1 {
-                            item.display_name.clone()
-                        } else {
-                            format!("{} · {}", item.display_name, placement.id)
-                        };
-                        if ui.checkbox(&mut enabled, label).changed() {
-                            if enabled {
-                                studio.recipe.clothing.push(selection.clone());
-                            } else {
-                                studio
-                                    .recipe
-                                    .clothing
-                                    .retain(|selected| selected != &selection);
-                            }
-                            studio.dirty = true;
-                        }
-                    }
-                }
-            });
-            ui.small("Armor recipes follow body proportions and share its MHR skin.");
-            equipment_controls::show(ui, &mut catalog, &mut studio);
-            ui.separator();
-
-            proportion_controls::show(ui, &mut studio);
-            proportion_controls::show_identity(ui, &mut studio);
-            ui.add(egui::TextEdit::singleline(&mut studio.recipe_path).hint_text("character.json"));
-            ui.horizontal(|ui| {
-                if ui.button("Save recipe").clicked() {
-                    studio.status = save_recipe(&studio)
-                        .unwrap_or_else(|error| format!("Save failed: {error:#}"));
-                }
-                if ui.button("Load recipe").clicked() {
-                    match load_recipe(&studio.recipe_path) {
-                        Ok(recipe) => {
-                            studio.recipe = recipe;
-                            studio.dirty = true;
-                            studio.status = "Recipe loaded".into();
-                        }
-                        Err(error) => studio.status = format!("Load failed: {error:#}"),
-                    }
-                }
-            });
-            ui.add(
-                egui::TextEdit::singleline(&mut studio.glb_path)
-                    .hint_text("assets_src/biped/unarmed/base.glb"),
-            );
-            if ui.button("Export rigged GLB").clicked() {
-                studio.status = export_character(
-                    std::path::Path::new(&studio.glb_path),
-                    &model,
-                    &studio.recipe,
-                    &catalog,
-                    &studio.bracer_design,
-                    &studio.breastplate_design,
-                )
-                .map(|()| format!("Exported {}", studio.glb_path))
-                .unwrap_or_else(|error| format!("Export failed: {error:#}"));
-            }
-            ui.add_space(6.0);
-            ui.small(&studio.status);
-            ui.small("Drag to orbit · wheel to zoom");
-        });
 }
 
 fn save_recipe(studio: &Studio) -> Result<String> {
@@ -382,47 +356,6 @@ fn load_recipe(path: &str) -> Result<CharacterRecipe> {
     let recipe: CharacterRecipe = serde_json::from_slice(&std::fs::read(path)?)?;
     recipe.validate().map_err(anyhow::Error::msg)?;
     Ok(recipe)
-}
-
-fn selected_garments(
-    recipe: &CharacterRecipe,
-    catalog: &EquipmentCatalog,
-) -> Result<Vec<GarmentSpecification>, String> {
-    recipe
-        .clothing
-        .iter()
-        .filter(|selection| {
-            !adventuresim_character_creator::armor_recipes::is_parametric(&selection.item_id)
-        })
-        .map(|selection| {
-            let item = procedural_items(catalog)
-                .find(|item| item.id == selection.item_id)
-                .ok_or_else(|| format!("unknown procedural item {}", selection.item_id))?;
-            let placement = item
-                .equipment
-                .as_ref()
-                .and_then(|equipment| {
-                    equipment
-                        .placements
-                        .iter()
-                        .find(|placement| placement.id == selection.placement_id)
-                })
-                .ok_or_else(|| {
-                    format!(
-                        "item {} has no placement {}",
-                        selection.item_id, selection.placement_id
-                    )
-                })?;
-            Ok(GarmentSpecification::from_catalog(
-                format!("{} · {}", item.display_name, placement.id),
-                placement,
-                item.equipment
-                    .as_ref()
-                    .and_then(|equipment| equipment.material)
-                    .ok_or_else(|| format!("item {} has no procedural material", item.id))?,
-            ))
-        })
-        .collect()
 }
 
 fn placement_coverage(
@@ -468,9 +401,6 @@ fn load_body_model(
         device,
     )?;
     Ok(BodyModel {
-        armor_detail: adventuresim_armor_model::ArmorDetail::Runtime(
-            adventuresim_armor_model::ArmorLod::try_from(lod).map_err(anyhow::Error::msg)?,
-        ),
         mhr,
         lod,
         correctives,
@@ -520,3 +450,198 @@ mod belt_mount_tests {
         );
     }
 }
+
+#[cfg(test)]
+mod garment_integration_tests {
+    use super::*;
+    use adventuresim_character_creator::{
+        garment::{DrapeSettings, DrapeStage, drape},
+        inventory::Article,
+    };
+    #[test]
+    #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
+    fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
+        let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
+        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+        let mut recipe = CharacterRecipe {
+            inventory: Default::default(),
+            ..CharacterRecipe::default()
+        };
+        let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
+        let generated = generate_character(&model, &recipe)?;
+        // Every named shape, in mail unless GARMENT_TEST_FABRIC names another
+        // fabric, and the fitted coif.
+        let fabric = match std::env::var("GARMENT_TEST_FABRIC") {
+            Ok(name) => *FabricPreset::ALL
+                .iter()
+                .find(|preset| preset.label() == name)
+                .context("unknown GARMENT_TEST_FABRIC")?,
+            Err(_) => FabricPreset::Chainmail,
+        };
+        let garments: Vec<_> = adventuresim_character_creator::garment::pattern::shapes::SHAPES
+            .iter()
+            .map(|shape| GarmentSelection {
+                fabric,
+                drape: DrapeSettings::for_fabric(fabric.fabric()),
+                ..GarmentSelection::from_shape(shape)
+            })
+            .chain([GarmentSelection {
+                name: "Coif".into(),
+                ..GarmentSelection::chainmail_coif()
+            }])
+            .collect();
+        if let Ok(name) = std::env::var("GARMENT_TEST_SHAPE") {
+            assert!(
+                garments.iter().any(|garment| garment.name == name),
+                "unknown GARMENT_TEST_SHAPE"
+            );
+        }
+        for selection in garments {
+            if std::env::var("GARMENT_TEST_SHAPE").is_ok_and(|name| name != selection.name) {
+                continue;
+            }
+            let label = selection.name.clone();
+            recipe.inventory = Default::default();
+            let id = recipe.inventory.add(Article::Draped(selection.clone()));
+            recipe
+                .inventory
+                .wear(id, &catalog)
+                .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
+            println!("checking {label}");
+            let input = drape_preview::input(&model, &generated, selection.clone());
+            let fitted = drape(
+                input,
+                None,
+                &std::sync::atomic::AtomicBool::new(false),
+                |snapshot| {
+                    let steps = selection.drape.settling.steps;
+                    let write = |suffix: &str| {
+                        let diagnostic = serde_json::json!({
+                            "body": generated.positions,
+                            "body_faces": model.mhr.character.mesh.faces,
+                            "garment": snapshot.positions,
+                            "garment_faces": snapshot.faces,
+                            "uv": snapshot.texcoords,
+                            "normals": snapshot.normals,
+                        });
+                        std::fs::write(
+                            std::env::temp_dir()
+                                .join(format!("fabelgeist-drape-{label}{suffix}.json")),
+                            serde_json::to_vec(&diagnostic).unwrap(),
+                        )
+                        .unwrap();
+                    };
+                    if snapshot.stage
+                        == (DrapeStage::Settling {
+                            step: steps,
+                            of: steps,
+                        })
+                    {
+                        write("");
+                    }
+                    // Every milestone, to see where a drape goes wrong.
+                    if std::env::var_os("GARMENT_TEST_SNAPSHOTS").is_some() {
+                        match snapshot.stage {
+                            DrapeStage::Placed => write("-placed"),
+                            DrapeStage::Sewing { step, of } if step == of => write("-sewn"),
+                            DrapeStage::Sewing { step, .. }
+                                if [5, 10, 20, 30, 45].contains(&step) =>
+                            {
+                                write(&format!("-sewing{step}"))
+                            }
+                            DrapeStage::Settling { step, .. } if step % 20 == 0 => {
+                                write(&format!("-settling{step}"))
+                            }
+                            _ => {}
+                        }
+                    }
+                    let milestone = match snapshot.stage {
+                        DrapeStage::Placed | DrapeStage::Worn => true,
+                        DrapeStage::Sewing { .. } => false,
+                        DrapeStage::Settling { step, .. } => step % 20 == 0,
+                    };
+                    if milestone {
+                        println!(
+                            "drape {}: {} vertices",
+                            snapshot.stage,
+                            snapshot.positions.len()
+                        );
+                    }
+                },
+            )
+            .result?;
+            let steps = selection.drape.settling.steps;
+            assert_eq!(
+                fitted.stage,
+                DrapeStage::Settling {
+                    step: steps,
+                    of: steps
+                }
+            );
+            assert_eq!(fitted.indices.len(), fitted.positions.len());
+            assert_ne!(fitted.positions.len(), generated.positions.len());
+            let body = fabelgeist_bvh::TriangleBvh::new(
+                generated
+                    .positions
+                    .iter()
+                    .map(|p| fabelgeist_math::Vec3::from_array(*p))
+                    .collect(),
+                model.mhr.character.mesh.faces.clone(),
+            );
+            let distances: Vec<_> = fitted
+                .positions
+                .iter()
+                .map(|p| {
+                    body.closest_point(fabelgeist_math::Vec3::from_array(*p), f32::MAX)
+                        .unwrap()
+                        .2
+                })
+                .collect();
+            let mean = distances.iter().sum::<f32>() / distances.len() as f32;
+            println!("mean garment distance from body: {mean:.4} m");
+            std::fs::write(
+                std::env::temp_dir().join(format!("fabelgeist-drape-{label}.json")),
+                serde_json::to_vec(
+                    &serde_json::json!({"body":generated.positions,"body_faces":model.mhr.character.mesh.faces,"garment":fitted.positions,"garment_faces":fitted.faces,"uv":fitted.texcoords,"normals":fitted.normals}),
+                )?,
+            )?;
+            let maximum_distance = match selection.form() {
+                GarmentForm::Upper | GarmentForm::Legged | GarmentForm::Fitted => 0.08,
+                GarmentForm::Skirted => 0.25,
+            };
+            assert!(
+                mean < maximum_distance,
+                "{label} did not remain fitted to the body: {mean}",
+            );
+            let top = fitted
+                .positions
+                .iter()
+                .map(|p| p[1])
+                .fold(f32::NEG_INFINITY, f32::max);
+            assert!(top > 0.8, "garment fell below the waist");
+            let directory =
+                std::env::temp_dir().join(format!("fabelgeist-drape-{}", std::process::id()));
+            let path = directory.join(format!("{label}.glb"));
+            for warning in export_character(
+                &path,
+                &model,
+                &recipe,
+                &catalog,
+                Some(std::slice::from_ref(&fitted)),
+            )? {
+                println!("export warning: {warning}");
+            }
+            let bytes = std::fs::read(&path)?;
+            let parsed = gltf::Gltf::from_slice(&bytes)?;
+            assert_eq!(parsed.meshes().count(), 2);
+            println!("verified draped character: {}", path.display());
+        }
+        Ok(())
+    }
+}
+
+#[cfg(test)]
+mod chainmail_export_test;
+
+#[cfg(test)]
+mod settled_garment_test;

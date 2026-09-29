@@ -381,8 +381,28 @@ reason = "Binds rasterized sign text and authored paint and metal finishes to GP
 
 [[scopes]]
 kind = "boundary_adapter"
-path = "crates/adventuresim-character-creator/src/proportion_controls.rs"
+path = "crates/adventuresim-character-creator/src/character_controls.rs"
 reason = "Egui appearance buttons dispatch actions through widget responses; their display labels are not compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/armory_ui.rs"
+reason = "Egui armory buttons dispatch framing, refit, design and decoration actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/wardrobe_ui.rs"
+reason = "Egui wardrobe buttons dispatch save, drape, fit, acquire and delete actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/decoration_controls.rs"
+reason = "The egui decoration chooser dispatches through widget responses; its labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/studio_overlay.rs"
+reason = "Egui viewport buttons dispatch camera, appearance and save actions through widget responses; labels are never compared as state."
 
 [[scopes]]
 kind = "boundary_adapter"
@@ -452,11 +472,12 @@ reason = "Adapts serialized placement IDs and the external MHR skeleton's named 
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/parametric_equipment.rs"
 reason = "Adapts serialized character clothing selections into typed parametric generators and GLB skin/morph arrays."
+
 [[scopes]]
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/review_export.rs"
-item = "piece_document"
-reason = "Dispatches stable authored item IDs to the established bracer and paired torso generators for review exports."
+item = "review_record"
+reason = "Writes fitted armor review records in the JSON layout the review scripts read."
 
 [[scopes]]
 kind = "authored_catalog"
@@ -557,6 +578,41 @@ reason = "Deterministic interior catalog and furnished settlement review fixture
 kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/armor_controls.rs"
 reason = "Egui controls dispatch design edits and save actions through widget responses, without comparing display labels."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/studio_ui.rs"
+reason = "Egui studio buttons dispatch save, load, export and animation actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/metal_controls.rs"
+reason = "Egui metal and engraving buttons dispatch actions through widget responses; labels and image sources are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/drape_controls.rs"
+reason = "Egui drape buttons dispatch reset actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_ui.rs"
+reason = "Egui inventory rows dispatch wear, discard and reorder actions through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_acquire.rs"
+reason = "Egui acquisition buttons dispatch typed articles through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/garment_controls.rs"
+reason = "Egui garment pattern controls dispatch typed pattern edits through widget responses; labels are never compared as state."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-character-creator/src/inventory_article_editor.rs"
+reason = "Egui article editor buttons dispatch design and drape actions through widget responses; labels are never compared as state."
 
 [[scopes]]
 kind = "boundary_adapter"

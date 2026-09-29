@@ -38,6 +38,18 @@ impl ComputePipeline {
         device: &wgpu::Device,
         entry_point: &str,
     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+        self.get_or_create_pipeline_validated(device, entry_point, true)
+    }
+
+    /// The same, with control over whether the validation error scope is read
+    /// back. Draining the queue to read it is only safe on a device nothing
+    /// else is submitting to -- see `WgpuContext::blocking_validation`.
+    pub fn get_or_create_pipeline_validated(
+        &self,
+        device: &wgpu::Device,
+        entry_point: &str,
+        blocking_validation: bool,
+    ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
         use std::collections::hash_map::DefaultHasher;
         use std::hash::{Hash, Hasher};
 
@@ -63,7 +75,8 @@ impl ComputePipeline {
 
         // Create Pipeline
         #[cfg(not(target_arch = "wasm32"))]
-        let error_scope = device.push_error_scope(wgpu::ErrorFilter::Validation);
+        let error_scope =
+            blocking_validation.then(|| device.push_error_scope(wgpu::ErrorFilter::Validation));
 
         let module = self
             .shader
@@ -92,12 +105,12 @@ impl ComputePipeline {
 
         // POP ERROR SCOPE
         #[cfg(not(target_arch = "wasm32"))]
-        {
+        if let Some(error_scope) = error_scope {
             let _ = device.poll(wgpu::PollType::wait_indefinitely());
-            if let Some(e) = pollster::block_on(error_scope.pop())
-                && let Ok(mut guard) = self.validation_error.lock()
-            {
-                *guard = Some(e.to_string());
+            if let Some(e) = pollster::block_on(error_scope.pop()) {
+                if let Ok(mut guard) = self.validation_error.lock() {
+                    *guard = Some(e.to_string());
+                }
             }
         }
 
@@ -181,7 +194,7 @@ impl ComputePipeline {
                                 }
 
                                 layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                    binding,
+                                    binding: binding,
                                     visibility: wgpu::ShaderStages::COMPUTE,
                                     ty: wgpu::BindingType::Buffer {
                                         ty: wgpu::BufferBindingType::Uniform,
@@ -197,7 +210,7 @@ impl ComputePipeline {
                                 group_reflection.uniform_binding = Some(binding);
 
                                 layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                    binding,
+                                    binding: binding,
                                     visibility: wgpu::ShaderStages::COMPUTE,
                                     ty: wgpu::BindingType::Buffer {
                                         ty: wgpu::BufferBindingType::Uniform,
@@ -219,7 +232,7 @@ impl ComputePipeline {
                             );
 
                             layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                binding,
+                                binding: binding,
                                 visibility: wgpu::ShaderStages::COMPUTE,
                                 ty: wgpu::BindingType::Buffer {
                                     ty: wgpu::BufferBindingType::Storage { read_only },
@@ -269,7 +282,7 @@ impl ComputePipeline {
                                         wgpu_format = Some(fmt);
 
                                         layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                            binding,
+                                            binding: binding,
                                             visibility: wgpu::ShaderStages::COMPUTE,
                                             ty: wgpu::BindingType::StorageTexture {
                                                 access,
@@ -307,7 +320,7 @@ impl ComputePipeline {
                                         };
 
                                         layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                            binding,
+                                            binding: binding,
                                             visibility: wgpu::ShaderStages::COMPUTE,
                                             ty: wgpu::BindingType::Texture {
                                                 multisampled: false,
@@ -332,7 +345,7 @@ impl ComputePipeline {
                                         .sampler_bindings
                                         .push((name.clone(), binding));
                                     layout_entries.push(wgpu::BindGroupLayoutEntry {
-                                        binding,
+                                        binding: binding,
                                         visibility: wgpu::ShaderStages::COMPUTE,
                                         ty: wgpu::BindingType::Sampler(
                                             wgpu::SamplerBindingType::Filtering,
@@ -393,14 +406,18 @@ impl ComputePipeline {
         // We stored compute entry in vertex_entry_point for now
         let entry = &reflection.vertex_entry_point;
 
-        if let Ok(p_wgpu) = pipeline.get_or_create_pipeline(&context.device, entry) {
+        if let Ok(p_wgpu) = pipeline.get_or_create_pipeline_validated(
+            &context.device,
+            entry,
+            context.blocking_validation,
+        ) {
             pipeline.pipeline = Some(p_wgpu);
         }
 
-        if let Ok(guard) = pipeline.validation_error.lock()
-            && let Some(err) = guard.as_ref()
-        {
-            return Err(anyhow!("ComputePipeline Creation Error: {}", err));
+        if let Ok(guard) = pipeline.validation_error.lock() {
+            if let Some(err) = guard.as_ref() {
+                return Err(anyhow!("ComputePipeline Creation Error: {}", err));
+            }
         }
 
         Ok(pipeline)

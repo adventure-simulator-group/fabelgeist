@@ -2,12 +2,13 @@
 
 use super::*;
 
+/// Each morph target of the base rig as a whole-body realization.
 pub(super) fn runtime_body_morphs(
     mesh: &Mesh,
     positions: &[[f32; 3]],
     normals: &[[f32; 3]],
     global_joint_states: &[[f32; 8]],
-) -> Vec<RuntimeBodyMorph> {
+) -> Vec<ForearmMorphSample> {
     let Some(targets) = mesh.get_morph_targets() else {
         return Vec::new();
     };
@@ -19,7 +20,7 @@ pub(super) fn runtime_body_morphs(
         .filter_map(|(index, name)| {
             let start = index.checked_mul(vertex_count)?;
             let target = targets.get(start..start + vertex_count)?;
-            Some(RuntimeBodyMorph {
+            Some(ForearmMorphSample {
                 name: name.clone(),
                 positions: positions
                     .iter()
@@ -38,6 +39,7 @@ pub(super) fn runtime_body_morphs(
                     })
                     .collect(),
                 global_joint_states: global_joint_states.to_vec(),
+                device: Default::default(),
             })
         })
         .collect()

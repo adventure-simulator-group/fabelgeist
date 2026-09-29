@@ -1,10 +1,19 @@
 //! Reproducible body-visible candidate export for independent mesh review.
 use super::*;
+use adventuresim_character_creator::{
+    armor_recipes,
+    inventory::{Article, CatalogArticle},
+    item_design::ItemDesign,
+};
 
+/// What the review exports besides the body.
 #[derive(Clone, Copy, clap::ValueEnum)]
 pub(super) enum ReviewSelection {
+    /// Every placement of every parametric catalog item.
     Catalog,
+    /// Only the catalog articles the recipe wears.
     Recipe,
+    /// Only the body.
     Body,
 }
 
@@ -13,8 +22,6 @@ pub(super) fn export(
     model: &BodyModel,
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    bracer_design: &BracerDesign,
-    breastplate_design: &BreastplateDesign,
     selection: ReviewSelection,
 ) -> Result<()> {
     std::fs::create_dir_all(output)?;
@@ -27,212 +34,90 @@ pub(super) fn export(
             "texcoords":character.mesh.texcoords,"texcoord_faces":character.mesh.texcoord_faces,
             "joint_names":character.skeleton.names,"joints":body.global_joint_states,
             "joint_indices":character.skin_weights.index,"joint_weights":character.skin_weights.weight,
-            "generator_version":adventuresim_armor_model::GENERATOR_VERSION
+            "generator_version":fabelgeist_armor::GENERATOR_VERSION
         }))?,
     )?;
-    if matches!(selection, ReviewSelection::Body) {
-        return Ok(());
-    }
-    let mut review_recipe = recipe.clone();
-    if matches!(selection, ReviewSelection::Catalog) {
-        review_recipe.clothing = procedural_items(catalog)
-            .filter(|item| adventuresim_character_creator::armor_recipes::is_parametric(&item.id))
-            .flat_map(|item| {
-                item.equipment
-                    .as_ref()
-                    .expect("procedural item")
-                    .placements
-                    .iter()
-                    .map(|p| ClothingSelection {
-                        item_id: item.id.clone(),
-                        placement_id: p.id.clone(),
-                    })
-            })
-            .collect();
-    }
-    if matches!(selection, ReviewSelection::Recipe) {
-        return export_pieces(
-            output,
-            model,
-            recipe,
-            catalog,
-            bracer_design,
-            breastplate_design,
-            &body,
-            &review_recipe,
-        );
-    }
-    for selection in std::mem::take(&mut review_recipe.clothing) {
-        eprintln!(
-            "Review mesh: {} ({})",
-            selection.item_id, selection.placement_id
-        );
-        review_recipe.clothing = vec![selection];
-        export_pieces(
-            output,
-            model,
-            recipe,
-            catalog,
-            bracer_design,
-            breastplate_design,
-            &body,
-            &review_recipe,
+    let pieces = match selection {
+        ReviewSelection::Body => return Ok(()),
+        ReviewSelection::Catalog => catalog_pieces(catalog),
+        ReviewSelection::Recipe => worn_pieces(recipe, catalog)?,
+    };
+    for (article, design) in pieces {
+        let (item, placement) = (&article.item_id, &article.placement_id);
+        eprintln!("Review mesh: {item} ({placement})");
+        let item = catalog
+            .item(item)
+            .with_context(|| format!("unknown review item {item}"))?;
+        let record = review_record(model, &body, item, placement, &design)
+            .with_context(|| format!("review generation {}/{placement}", item.id))?;
+        std::fs::write(
+            output.join(format!("{}--{placement}.json", item.id)),
+            serde_json::to_vec(&record)?,
         )?;
     }
     Ok(())
 }
 
-#[expect(
-    clippy::too_many_arguments,
-    reason = "review export keeps one explicit set of generation inputs"
-)]
-fn export_pieces(
-    output: &std::path::Path,
-    model: &BodyModel,
+/// Every placement of every parametric catalog item, in its placement's design.
+fn catalog_pieces(catalog: &EquipmentCatalog) -> Vec<(CatalogArticle, ItemDesign)> {
+    catalog
+        .wearable()
+        .flat_map(|item| {
+            let placements = &item.equipment.as_ref().expect("wearable item").placements;
+            placements.iter().filter_map(|placement| {
+                let design = catalog.placed_design(&item.id, &placement.id)?;
+                Some((CatalogArticle::new(&item.id, &placement.id), design))
+            })
+        })
+        .collect()
+}
+
+/// The parametric catalog articles the recipe wears, in their own designs.
+fn worn_pieces(
     recipe: &CharacterRecipe,
     catalog: &EquipmentCatalog,
-    bracer_design: &BracerDesign,
-    breastplate_design: &BreastplateDesign,
-    body: &GeneratedCharacter,
-    review_recipe: &CharacterRecipe,
-) -> Result<()> {
-    let pieces = crate::profiling::measure("equipment_total", || {
-        parametric_equipment::selected(
-            model,
-            body,
-            review_recipe,
-            catalog,
-            bracer_design,
-            breastplate_design,
-            parametric_equipment::EquipmentFit::CharacterInstance,
-        )
-    })?;
-    let character = &model.mhr.character;
-    for piece in pieces {
-        if matches!(
-            model.armor_detail,
-            adventuresim_armor_model::ArmorDetail::Runtime(_)
-        ) {
-            crate::profiling::measure("glb_total", || {
-                crate::review_glb::write(
-                    &output.join(format!("{}.glb", piece.name)),
-                    &piece,
-                    model,
-                    body,
-                    recipe,
-                    catalog,
-                )
-            })?;
+) -> Result<Vec<(CatalogArticle, ItemDesign)>> {
+    let mut pieces = Vec::new();
+    for worn in recipe.inventory.worn() {
+        let Article::Catalog(article) = &worn.article else {
+            continue;
+        };
+        let design = article
+            .design(catalog)
+            .map_err(|conflict| anyhow::anyhow!("{conflict:?}"))?;
+        if let Some(design) = design {
+            pieces.push((article.clone(), design));
         }
-        let mut document = piece_document(&piece, catalog, bracer_design, breastplate_design)?;
-        document["joint_names"] = serde_json::to_value(&character.skeleton.names)?;
-        document["joints"] = serde_json::to_value(&body.global_joint_states)?;
-        let json =
-            crate::profiling::measure("review_json_serialize", || serde_json::to_vec(&document))?;
-        crate::profiling::measure("review_json_write", || {
-            std::fs::write(output.join(format!("{}.json", piece.name)), json)
-        })?;
     }
-    Ok(())
+    Ok(pieces)
 }
 
-/// Generated pieces are authoritative after selection filters ordinary clothes.
-fn piece_document(
-    piece: &parametric_equipment::SelectedArmor,
-    catalog: &EquipmentCatalog,
-    bracer: &BracerDesign,
-    breastplate: &BreastplateDesign,
+/// One item's review record: its design, the fitted mesh and, for a recipe,
+/// the part frame it was fitted in.
+fn review_record(
+    model: &BodyModel,
+    body: &GeneratedCharacter,
+    item: &ItemDefinition,
+    placement: &str,
+    design: &ItemDesign,
 ) -> Result<serde_json::Value> {
-    let design = if let Some(design) = catalog.design(&piece.item_id, &piece.placement_id) {
-        serde_json::to_value(design)?
-    } else if piece.item_id == "vambrace" {
-        serde_json::to_value(bracer)?
-    } else {
-        serde_json::to_value(breastplate)?
+    let armor = parametric_equipment::fitted_item(model, body, design, placement, &[])?;
+    let mut record = serde_json::json!({
+        "id":item.id,"placement":placement,"positions":armor.positions,"normals":armor.normals,
+        "indices":armor.indices,"components":armor.components,
+        "generator_version":fabelgeist_armor::GENERATOR_VERSION
+    });
+    record["design"] = match design {
+        ItemDesign::Recipe(recipe) => {
+            let region = armor_recipes::fit_region(recipe, placement)?;
+            let frame = device_equipment::frame(model, body, region)?;
+            record["frame"] = serde_json::json!({
+                "origin":frame.origin,"axes":frame.axes,"half_extents":frame.half_extents
+            });
+            serde_json::to_value(recipe)?
+        }
+        ItemDesign::Vambrace(vambrace) => serde_json::to_value(vambrace)?,
+        ItemDesign::Breastplate(breastplate) => serde_json::to_value(breastplate)?,
     };
-    let armor = &piece.generated;
-    Ok(serde_json::json!({
-        "id": piece.item_id, "placement": piece.placement_id,
-        "design": design, "fasteners": catalog.2.get(&piece.item_id),
-        "positions": armor.positions, "normals": armor.normals, "indices": armor.indices,
-        "components": armor.components, "construction_faces": armor.construction_faces,
-        "joint_indices": armor.joint_indices, "joint_weights": armor.joint_weights,
-        "generator_version": adventuresim_armor_model::GENERATOR_VERSION,
-    }))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use adventuresim_armor_model::{LimbArmorDesign, Milliradians};
-    use adventuresim_character_creator::armor_design_input::{ArmorDesigns, ArmorPlacement};
-    use adventuresim_character_creator::armor_recipes::{self, ParametricDesign};
-    use std::collections::BTreeMap;
-
-    #[test]
-    fn filtered_review_piece_keeps_its_placement_design_and_identity() {
-        let default = armor_recipes::recipe("pauldron").unwrap();
-        let mut left = default.clone();
-        let ParametricDesign::Limb(LimbArmorDesign::Pauldron(d)) = &mut left else {
-            panic!()
-        };
-        d.outline.front_return = Milliradians(1800);
-        let catalog = EquipmentCatalog(
-            vec![],
-            ArmorDesigns {
-                defaults: BTreeMap::from([("pauldron".into(), default.clone())]),
-                placements: BTreeMap::from([(
-                    "pauldron".into(),
-                    BTreeMap::from([(ArmorPlacement::Left, left.clone())]),
-                )]),
-            },
-            Default::default(),
-        );
-        // This already-filtered result may follow any number of ordinary
-        // clothing selections; its metadata cannot depend on their positions.
-        let mut piece = parametric_equipment::SelectedArmor {
-            item_id: "pauldron".into(),
-            placement_id: "left".into(),
-            name: "pauldron--left".into(),
-            generated: GeneratedArmor {
-                construction_faces: Vec::new(),
-                plate_edges: vec![],
-                components: vec![],
-                design_hash: [0; 32],
-                surface_domain: "test".into(),
-                positions: vec![[0.1, 0.2, 0.3]],
-                normals: vec![],
-                texcoords: vec![],
-                normal_map: None,
-                joint_indices: vec![],
-                joint_weights: vec![],
-                indices: vec![],
-                morphs: vec![],
-            },
-        };
-        let document = piece_document(
-            &piece,
-            &catalog,
-            &BracerDesign::default(),
-            &BreastplateDesign::default(),
-        )
-        .unwrap();
-        assert_eq!(document["id"], "pauldron");
-        assert_eq!(document["placement"], "left");
-        assert_eq!(document["design"], serde_json::to_value(left).unwrap());
-        assert_eq!(
-            document["positions"],
-            serde_json::to_value(&piece.generated.positions).unwrap()
-        );
-        piece.placement_id = "right".into();
-        let document = piece_document(
-            &piece,
-            &catalog,
-            &BracerDesign::default(),
-            &BreastplateDesign::default(),
-        )
-        .unwrap();
-        assert_eq!(document["placement"], "right");
-        assert_eq!(document["design"], serde_json::to_value(default).unwrap());
-    }
+    Ok(record)
 }

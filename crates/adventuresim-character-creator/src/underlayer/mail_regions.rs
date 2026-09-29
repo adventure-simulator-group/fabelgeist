@@ -10,7 +10,7 @@ const KNEE_STRIP_LENGTH_M: f32 = 0.12;
 
 pub(super) fn brayette(
     design: &UnderlayerDesign,
-    body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
     joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let pelvis = joint("c_spine0")?;
@@ -19,7 +19,7 @@ pub(super) fn brayette(
     let top = pelvis[1] + BRAYETTE_WAIST_ABOVE_PELVIS_M;
     let hem = hip[1] - (hip[1] - knee[1]) * BRAYETTE_LEG_FRACTION;
     let bottom = top - (top - hem) * design.length.unit();
-    let extent = body.frame(FitRegion::Hips)?.half_extents;
+    let extent = frame(FitRegion::Hips)?.half_extents;
     // A continuous pelvic surface supplies the crotch bridge and both leg
     // openings, rather than two disconnected thigh sleeves.
     Ok(vec![box_region(
@@ -35,16 +35,16 @@ pub(super) fn brayette(
 pub(super) fn knee(
     design: &UnderlayerDesign,
     placement: &str,
-    body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
     joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let side = Side::from_placement(placement)?;
-    let prefix = if matches!(side, Side::Left) { "l" } else { "r" };
+    let prefix = side.prefix();
     let knee = joint(&format!("{prefix}_lowleg"))?;
-    let frame = body.frame(FitRegion::Knee(side))?;
+    let knee_frame = frame(FitRegion::Knee(side))?;
     let half_height = KNEE_STRIP_LENGTH_M * design.length.unit() * 0.5;
     let half_width = design.patch_width.metres() * 0.5;
-    let rear_depth = frame.half_extents[2] * 2.;
+    let rear_depth = knee_frame.half_extents[2] * 2.;
     // The A 6147 cutting pattern places narrow longitudinal mail strips
     // alongside one another across the knee flexion zone.
     Ok([
@@ -62,13 +62,13 @@ pub(super) fn knee(
 
 pub(super) fn standard(
     design: &UnderlayerDesign,
-    body: &Wearer<'_>,
+    frame: RegionFrame<'_>,
     joint: &impl Fn(&str) -> Result<[f32; 3]>,
 ) -> Result<Vec<ConvexRegion>> {
     let neck = joint("c_neck")?;
-    let frame = body.frame(FitRegion::Neck)?;
-    let half_width = frame.half_extents[0] + design.patch_width.metres() * 0.5;
-    let depth = frame.half_extents[2] * 2.;
+    let neck_frame = frame(FitRegion::Neck)?;
+    let half_width = neck_frame.half_extents[0] + design.patch_width.metres() * 0.5;
+    let depth = neck_frame.half_extents[2] * 2.;
     let mut region = box_region(
         [
             neck[0] - half_width,

@@ -92,6 +92,7 @@ pub(super) fn samples(model: &BodyModel, body: &GeneratedCharacter) -> Vec<Forea
             positions,
             normals: body.normals.clone(),
             global_joint_states,
+            device: Default::default(),
         }
     })
     .collect()

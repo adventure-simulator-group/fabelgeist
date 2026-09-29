@@ -1,0 +1,23 @@
+[package]
+name = "fabelgeist-garment-fit"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0"
+
+[dependencies]
+anyhow = "1"
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+fabelgeist-cloth = { path = "../fabelgeist-cloth" }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+fabelgeist-math = { path = "../fabelgeist-math" }
+fabelgeist-physics = { path = "../fabelgeist-physics" }
+fabelgeist-xpbd = { path = "../fabelgeist-xpbd" }
+fabelgeist-bvh = { path = "../fabelgeist-bvh" }
+fabelgeist-shell = { path = "../fabelgeist-shell" }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[lints]
+workspace = true

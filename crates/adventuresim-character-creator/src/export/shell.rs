@@ -50,7 +50,7 @@ impl Writer<'_> {
                 "indices": shell_index_accessor,
                 "material": material,
             });
-            if let Some(uv) = shell.texcoords {
+            if let Some(uv) = shell.texcoords.or_else(|| shell.surface.map(|(uv, _)| uv)) {
                 let view = self
                     .buffer
                     .push(&f32_bytes(uv.iter().flatten().copied()), Some(34_962));
@@ -69,6 +69,10 @@ impl Writer<'_> {
             });
             if let Some(textures) = shell.textures.clone() {
                 self.textures.apply(textures, self.buffer, &mut material);
+            }
+            if let Some((_, textures)) = shell.surface {
+                self.textures
+                    .apply_shell_textures(textures, self.buffer, &mut material);
             }
             self.materials.push(material);
         }

@@ -1,5 +1,5 @@
 //! Geometry, skinning, morph and physical-boundary contracts for rigged export.
-use super::SurfaceTextures;
+use super::{ShellTextures, SurfaceTextures};
 
 pub struct RiggedMesh<'a> {
     pub joint_proportions: &'a [adventuresim_core::character_proportions::JointProportionBasis],
@@ -21,10 +21,12 @@ pub struct RiggedMesh<'a> {
 pub struct RiggedShell<'a> {
     /// Physical plate boundaries, separate from UV seams.
     pub plate_edges: &'a [[u32; 2]],
+    /// Baked plate maps and the UVs that read them.
+    pub surface: Option<(&'a [[f32; 2]], &'a ShellTextures)>,
     pub textures: Option<SurfaceTextures>,
     /// Exact per-vertex UVs, including seam splits and interpolated cut edges.
     pub texcoords: Option<&'a [[f32; 2]]>,
-    pub hinge: Option<adventuresim_armor_model::ArmorHinge>,
+    pub hinge: Option<fabelgeist_armor::ArmorHinge>,
     pub name: &'a str,
     pub positions: &'a [[f32; 3]],
     pub normals: &'a [[f32; 3]],

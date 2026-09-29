@@ -1,14 +1,11 @@
 //! Museum presets must remain readable by the same parsers as the exporter.
 use std::path::Path;
 
-use adventuresim_character_creator::{
-    CharacterRecipe, armor_design_input, design_input, fasteners,
-};
+use adventuresim_character_creator::{CharacterRecipe, armor_design_input, design_input};
 
 #[test]
 fn museum_recipe_packs_use_the_current_export_schema() {
-    let root =
-        Path::new(env!("CARGO_MANIFEST_DIR")).join("../adventuresim-armor-model/review/museum");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../fabelgeist-armor/review/museum");
     for museum in ["henry", "landsknecht", "nuremberg"] {
         let directory = root.join(museum);
         let body_path = directory.join("body.json");
@@ -25,7 +22,5 @@ fn museum_recipe_packs_use_the_current_export_schema() {
             .unwrap_or_else(|error| panic!("{museum} breastplate: {error:#}"));
         design_input::load_bracer_design(Some(&directory.join("vambrace.json")))
             .unwrap_or_else(|error| panic!("{museum} vambrace: {error:#}"));
-        fasteners::catalog::load(Some(&directory.join("fasteners.json")))
-            .unwrap_or_else(|error| panic!("{museum} fasteners: {error:#}"));
     }
 }

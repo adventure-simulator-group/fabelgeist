@@ -31,11 +31,40 @@ pub struct SurfaceTextures {
     pub cutout: bool,
 }
 
+pub struct ShellTextures {
+    pub normal_png: Vec<u8>,
+    pub metal_roughness_png: Vec<u8>,
+}
+
+impl ShellTextures {
+    pub fn armor(metal: &fabelgeist_armor::material::Metal) -> Result<Self> {
+        use image::ImageEncoder;
+        let textures = crate::metal_gpu()?
+            .textures(metal, fabelgeist_armor::material::Metal::TEXTURE_SIZE)
+            .map_err(anyhow::Error::msg)?;
+        let encode = |pixels: &[u8]| -> Result<Vec<u8>> {
+            let mut bytes = Vec::new();
+            image::codecs::png::PngEncoder::new(&mut bytes).write_image(
+                pixels,
+                textures.size,
+                textures.size,
+                image::ExtendedColorType::Rgba8,
+            )?;
+            Ok(bytes)
+        };
+        Ok(Self {
+            normal_png: encode(&textures.normal)?,
+            metal_roughness_png: encode(&textures.metal_roughness)?,
+        })
+    }
+}
+
 #[derive(Default)]
 pub(super) struct TextureImages {
     images: Vec<Value>,
     textures: Vec<Value>,
     shared_files: Option<BTreeMap<String, Vec<u8>>>,
+    shell_cache: std::collections::HashMap<*const ShellTextures, (usize, usize)>,
 }
 
 impl TextureImages {
@@ -116,5 +145,26 @@ impl TextureImages {
             material["alphaMode"] = "MASK".into();
             material["alphaCutoff"] = 0.5.into();
         }
+    }
+
+    pub fn apply_shell_textures(
+        &mut self,
+        textures: &ShellTextures,
+        buffer: &mut BufferBuilder,
+        material: &mut Value,
+    ) {
+        let key = textures as *const ShellTextures;
+        let (normal, metal_roughness) = if let Some(&cached) = self.shell_cache.get(&key) {
+            cached
+        } else {
+            let normal = self.image(&textures.normal_png, buffer);
+            let metal_roughness = self.image(&textures.metal_roughness_png, buffer);
+            self.shell_cache.insert(key, (normal, metal_roughness));
+            (normal, metal_roughness)
+        };
+        material["normalTexture"] = json!({"index": normal});
+        material["pbrMetallicRoughness"]["metallicRoughnessTexture"] =
+            json!({"index": metal_roughness});
+        material["pbrMetallicRoughness"]["roughnessFactor"] = 1.0.into();
     }
 }

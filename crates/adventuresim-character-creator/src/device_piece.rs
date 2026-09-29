@@ -1,0 +1,19 @@
+//! What recording a fitted piece on the device leaves behind.
+
+use fabelgeist_armor::{ArmorGpu, DevicePart};
+
+use crate::armor_frames::FitRegion;
+use crate::device_frames::DeviceFrame;
+
+/// A piece recorded on the device, short of thickening, with the frames
+/// that place it: their validity is only known once the batch has run.
+pub struct DeviceRecording {
+    pub part: DevicePart,
+    pub frames: Vec<(DeviceFrame, FitRegion)>,
+    /// Wearer-dependent failures the fit raised on the device, read back and
+    /// reported as errors once the batch has run.
+    pub checks: Vec<DeviceCheck>,
+}
+
+/// Reads a fit's status back and turns a raised failure into its error.
+pub type DeviceCheck = Box<dyn Fn(&ArmorGpu) -> anyhow::Result<()>>;

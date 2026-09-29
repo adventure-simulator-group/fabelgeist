@@ -16,14 +16,12 @@ remote-types = ["debug"]
 
 [dependencies]
 adventuresim-procedural-materials.workspace = true
-adventuresim-armor-model.workspace = true
 anyhow = "1"
 bevy.workspace = true
 bevy_flair.workspace = true
 bevy_egui.workspace = true
 bevy_mod_outline.workspace = true
 adventuresim-core.workspace = true
-adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
 adventuresim-tactical-core = { workspace = true, features = ["meshgen"] }
 adventuresim-tactical-netcode = { workspace = true, features = ["client"] }
 adventuresim-weapon-model.workspace = true
@@ -51,6 +49,10 @@ bevy_eidolon.workspace = true
 
 [target."cfg(not(target_family = \"wasm\"))".dependencies]
 bevy = { workspace = true, default-features = true, features = ["file_watcher", "jpeg"] }
+# Runtime equipment is fitted on the armor device, whose readback blocks and
+# so is native-only.
+adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+fabelgeist-armor = { path = "../fabelgeist-armor" }
 
 [target."cfg(target_family = \"wasm\")".dependencies]
 bevy = { workspace = true, default-features = false, features = [
