@@ -1012,7 +1012,7 @@ fn issue_rumor_action_graph(
                 resident_character_id: target.resident_character_id,
                 demographic: target.demographic.as_str().to_owned(),
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
                 expected_settlement_id: target.expected_settlement_id.clone(),
                 expected_location: target.expected_location.clone(),

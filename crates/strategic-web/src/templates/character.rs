@@ -12,12 +12,12 @@ use crate::spacetimedb::{
     BackendDevelopmentScenario, BackendOrganizationMembership, CharacterAttributes,
     CharacterCapability, CharacterLimbs, CharacterSkills, CharacterView, Conscience, Conviction,
     Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, OrganizationMembershipStatus,
-    OrganizationPresentation, Outlook, Personality, Presentation, SelfKnowledge, SelfRegard, Sex,
+    OrganizationPresentation, Outlook, Personality, Presentation, SelfKnowledge, SelfRegard,
     Sociability, Temperance, Transparency,
 };
 use adventuresim_core::starting_character::{
     StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
-    StartingPresentation, StartingSex, StartingSlot,
+    StartingPresentation, StartingSlot,
 };
 use adventuresim_core::{
     equipment::weapon_skill_distribution_for_item,
@@ -672,10 +672,7 @@ fn candidate_personality(spec: &StartingCharacterSpec) -> Personality {
         courtship: Courtship::Neutral,
         transparency: Transparency::Neutral,
         self_knowledge: SelfKnowledge::Neutral,
-        sex: match spec.personality.sex {
-            StartingSex::Female => Sex::Female,
-            StartingSex::Male => Sex::Male,
-        },
+        sex: spec.personality.sex,
         presentation: match spec.personality.presentation {
             StartingPresentation::Man => Presentation::Man,
             StartingPresentation::Ambiguous => Presentation::Ambiguous,

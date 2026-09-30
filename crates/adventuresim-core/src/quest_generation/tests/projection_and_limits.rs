@@ -45,7 +45,7 @@ fn every_pattern_becomes_an_earned_observer_clue_and_executable_condition() {
                 cohort_id: String::new(),
                 demographic: WitnessDemographic::Merchant,
                 age_band: String::new(),
-                sex: String::new(),
+                sex: None,
                 profession: String::new(),
             },
         ),
@@ -303,7 +303,8 @@ fn visible_developer_witnesses_preserve_all_presentations_and_pattern_targets() 
             candidate
         })
         .collect::<Vec<_>>();
-    assert!(candidates.iter().all(|candidate| candidate.sex.is_empty()));
+    assert!(candidates.iter().all(|candidate| candidate.sex.is_none()));
+    assert_eq!(serde_json::to_value(&candidates[0]).unwrap()["sex"], serde_json::Value::Null);
     assert_eq!(
         candidates
             .iter()
@@ -351,7 +352,8 @@ fn visible_developer_witnesses_preserve_all_presentations_and_pattern_targets() 
         current,
         &source.settlement_id
     ));
-    assert!(target.sex.is_empty());
+    assert!(target.sex.is_none());
+    assert_eq!(serde_json::to_value(target).unwrap()["sex"], serde_json::Value::Null);
 }
 
 #[test]

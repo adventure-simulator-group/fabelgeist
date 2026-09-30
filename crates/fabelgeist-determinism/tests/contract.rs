@@ -15,6 +15,7 @@ fn complete_derivation_and_sampling_vectors() {
     let mut indices = seed().rng();
     assert_eq!(indices.index(3), 0);
     assert_eq!(indices.index(257), 35);
+    assert_eq!(seed().rng().choose(&["first", "second", "third"]), &"first");
     assert!(seed().rng().boolean());
     assert_eq!(Seed::from_u64(0).rng().next_u64(), 0xe220_a839_7b1d_cdaf);
     let mut rng = seed().rng();

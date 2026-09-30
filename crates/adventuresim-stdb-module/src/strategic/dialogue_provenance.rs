@@ -452,7 +452,7 @@ fn dialogue_fact_context(
                     FactKey::ParticipantSex {
                         role: participant.role.clone(),
                     },
-                    FactValue::Text(npc.sex.stable_id().into()),
+                    FactValue::Sex { sex: npc.sex },
                 );
                 result.facts.insert(
                     FactKey::ParticipantLocalRole {

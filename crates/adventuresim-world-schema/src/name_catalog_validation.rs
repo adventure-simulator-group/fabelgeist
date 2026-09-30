@@ -1,20 +1,21 @@
 // Build-time validation for the externally authored name catalog.
 
 use super::name_catalog_schema::{
-    GivenNameFamilyDefinition, GivenNameFormDefinition, NameCatalogDocument, NameCulture,
+    GivenNameFamilyDefinition, GivenNameFormDefinition, NameCatalogDocument,
     NameObservationDefinition, NameRegister, NameReligiousTradition, NameRepertoireDefinition,
-    NameSex, NameSourceDefinition, SurnameClass, SurnameDefinition, SurnameFormDefinition,
+    NameSourceDefinition, SurnameClass, SurnameDefinition, SurnameFormDefinition,
 };
 use std::collections::{BTreeMap, BTreeSet};
 
 use crate::calendar::CalendarYear;
+use crate::demographics::{Culture, Sex};
 
 #[path = "name_catalog_validation/derivations.rs"]
 mod derivations;
 
 const SECURE_WEB_SCHEME: &str = "https://";
 
-type FamilyIndex<'a> = BTreeMap<&'a str, NameSex>;
+type FamilyIndex<'a> = BTreeMap<&'a str, Sex>;
 type FormIndex<'a> = BTreeMap<&'a str, &'a GivenNameFormDefinition>;
 type SurnameIndex<'a> = BTreeMap<&'a str, SurnameClass>;
 type SurnameFormIndex<'a> = BTreeMap<&'a str, Vec<&'a SurnameFormDefinition>>;
@@ -219,18 +220,8 @@ fn validate_repertoires(
 }
 
 fn repertoire_selectors_overlap(
-    left: (
-        NameCulture,
-        NameReligiousTradition,
-        CalendarYear,
-        CalendarYear,
-    ),
-    right: (
-        NameCulture,
-        NameReligiousTradition,
-        CalendarYear,
-        CalendarYear,
-    ),
+    left: (Culture, NameReligiousTradition, CalendarYear, CalendarYear),
+    right: (Culture, NameReligiousTradition, CalendarYear, CalendarYear),
 ) -> bool {
     left.0 == right.0 && left.1 == right.1 && left.2 <= right.3 && right.2 <= left.3
 }
@@ -252,10 +243,12 @@ fn validate_family_frequencies<'a>(
     families: &FamilyIndex<'_>,
 ) -> Result<BTreeSet<&'a str>, String> {
     let mut eligible_families = BTreeSet::new();
-    for (sex, frequencies) in [
-        (NameSex::Female, &repertoire.female_families),
-        (NameSex::Male, &repertoire.male_families),
-    ] {
+    for &sex in Sex::VARIANTS {
+        let frequencies = repertoire
+            .families
+            .get(&sex)
+            .map(Vec::as_slice)
+            .unwrap_or(&[]);
         if frequencies.is_empty() {
             return Err(format!(
                 "repertoire {} has no {:?} families",
@@ -366,7 +359,7 @@ fn validate_surname_frequencies(
             .flatten()
             .filter(|form| form.culture == repertoire.culture)
             .collect::<Vec<_>>();
-        for sex in [NameSex::Female, NameSex::Male] {
+        for &sex in Sex::VARIANTS {
             if !compatible_forms
                 .iter()
                 .any(|form| form.sex.is_none() || form.sex == Some(sex))
@@ -418,7 +411,7 @@ fn validate_id(kind: &str, id: &str) -> Result<(), String> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::name_catalog_schema::NameDerivationDefinition;
+    use super::super::name_catalog_schema::{FrequencyFamilyDefinition, NameDerivationDefinition};
     use super::*;
 
     #[test]
@@ -429,10 +422,77 @@ mod tests {
     }
 
     #[test]
+    fn repertoire_family_groups_use_sex_keys_and_require_correct_coverage() {
+        let mut repertoire = NameRepertoireDefinition {
+            id: "fixture_repertoire".into(),
+            culture: Culture::German,
+            religious_tradition: NameReligiousTradition::WesternChristian,
+            start_year: CalendarYear::new(1500).unwrap(),
+            end_year: CalendarYear::new(1600).unwrap(),
+            families: BTreeMap::from([
+                (
+                    Sex::Female,
+                    vec![FrequencyFamilyDefinition {
+                        family_id: "anna".into(),
+                        frequency: 3,
+                    }],
+                ),
+                (
+                    Sex::Male,
+                    vec![FrequencyFamilyDefinition {
+                        family_id: "hans".into(),
+                        frequency: 4,
+                    }],
+                ),
+            ]),
+            everyday_forms: vec![],
+            surnames: vec![],
+        };
+        let definitions = [
+            GivenNameFamilyDefinition {
+                id: "anna".into(),
+                sex: Sex::Female,
+            },
+            GivenNameFamilyDefinition {
+                id: "hans".into(),
+                sex: Sex::Male,
+            },
+        ];
+        let families = validate_families(&definitions).unwrap();
+        assert!(validate_family_frequencies(&repertoire, &families).is_ok());
+
+        let wire = serde_json::to_value(&repertoire).unwrap();
+        assert_eq!(wire["families"]["female"][0]["family_id"], "anna");
+        assert_eq!(wire["families"]["male"][0]["family_id"], "hans");
+        assert!(serde_json::from_value::<NameRepertoireDefinition>(wire.clone()).is_ok());
+        let mut old_shape = wire.clone();
+        old_shape["male_families"] = serde_json::json!([]);
+        assert!(serde_json::from_value::<NameRepertoireDefinition>(old_shape).is_err());
+        let mut unknown = wire;
+        unknown["families"]["unknown"] = serde_json::json!([]);
+        assert!(serde_json::from_value::<NameRepertoireDefinition>(unknown).is_err());
+
+        repertoire.families.remove(&Sex::Female);
+        assert!(
+            validate_family_frequencies(&repertoire, &families)
+                .unwrap_err()
+                .contains("no Female families")
+        );
+        repertoire
+            .families
+            .insert(Sex::Female, repertoire.families[&Sex::Male].clone());
+        assert!(
+            validate_family_frequencies(&repertoire, &families)
+                .unwrap_err()
+                .contains("under the wrong sex")
+        );
+    }
+
+    #[test]
     fn overlapping_selectors_are_ambiguous_but_adjacent_periods_are_not() {
         let year = |value| CalendarYear::new(value).unwrap();
         let first = (
-            NameCulture::German,
+            Culture::German,
             NameReligiousTradition::WesternChristian,
             year(1500),
             year(1550),
@@ -440,7 +500,7 @@ mod tests {
         assert!(repertoire_selectors_overlap(
             first,
             (
-                NameCulture::German,
+                Culture::German,
                 NameReligiousTradition::WesternChristian,
                 year(1550),
                 year(1600)
@@ -449,7 +509,7 @@ mod tests {
         assert!(!repertoire_selectors_overlap(
             first,
             (
-                NameCulture::German,
+                Culture::German,
                 NameReligiousTradition::WesternChristian,
                 year(1551),
                 year(1600)
@@ -458,16 +518,7 @@ mod tests {
         assert!(!repertoire_selectors_overlap(
             first,
             (
-                NameCulture::English,
-                NameReligiousTradition::WesternChristian,
-                year(1500),
-                year(1550)
-            )
-        ));
-        assert!(!repertoire_selectors_overlap(
-            first,
-            (
-                NameCulture::German,
+                Culture::German,
                 NameReligiousTradition::Jewish,
                 year(1500),
                 year(1550)
@@ -479,22 +530,24 @@ mod tests {
     fn derivation_frequency_must_match_its_repertoire_entry() {
         let repertoire = NameRepertoireDefinition {
             id: "fixture_repertoire".into(),
-            culture: NameCulture::German,
+            culture: Culture::German,
             religious_tradition: NameReligiousTradition::WesternChristian,
             start_year: CalendarYear::new(1500).unwrap(),
             end_year: CalendarYear::new(1600).unwrap(),
-            female_families: vec![],
-            male_families: vec![
-                super::super::name_catalog_schema::FrequencyFamilyDefinition {
-                    family_id: "fixture_family".into(),
-                    frequency: 4,
-                },
-            ],
+            families: BTreeMap::from([(
+                Sex::Male,
+                vec![
+                    super::super::name_catalog_schema::FrequencyFamilyDefinition {
+                        family_id: "fixture_family".into(),
+                        frequency: 4,
+                    },
+                ],
+            )]),
             everyday_forms: vec![],
             surnames: vec![],
         };
         let mut families = BTreeMap::new();
-        families.insert("fixture_family", NameSex::Male);
+        families.insert("fixture_family", Sex::Male);
         let derivation = NameDerivationDefinition {
             id: "fixture_derivation".into(),
             repertoire_id: "fixture_repertoire".into(),

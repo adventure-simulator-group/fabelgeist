@@ -15,12 +15,14 @@ serde.workspace = true
 serde_json.workspace = true
 fabelgeist-determinism.workspace = true
 spacetimedb = { workspace = true, optional = true }
+strum = { version = "0.28", features = ["derive"] }
 
 [build-dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
 spacetimedb.workspace = true
+strum = { version = "0.28", features = ["derive"] }
 
 [dev-dependencies]
 serde_json.workspace = true

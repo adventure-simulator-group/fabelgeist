@@ -13,7 +13,7 @@ pub use adventuresim_core::{
     },
     personality::{
         Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-        Personality, Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance,
+        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
         Transparency,
     },
     physiology::BodyRegion,
@@ -65,6 +65,7 @@ pub use adventuresim_stdb_client::{
     BackendPhysiologyDifferential, FilthOrigin, FilthSubstance, FoodPreparation,
     JourneyCaseSiteEndpoint, JourneySettlementEndpoint, StrategicEncounterLoss,
 };
+use adventuresim_world_schema::Sex;
 use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Value;
@@ -2472,7 +2473,7 @@ mod tests {
 
     #[test]
     fn personality_conversion_maps_every_axis_family() {
-        let row = sats::CharacterPersonality {
+        let mut row = sats::CharacterPersonality {
             character_id: 7,
             projection_character_id: 9,
             nerve: sats::Nerve::Brave,
@@ -2496,6 +2497,9 @@ mod tests {
         assert_eq!(mapped.nerve, Nerve::Brave);
         assert_eq!(mapped.self_knowledge, SelfKnowledge::SelfDeceiving);
         assert_eq!(mapped.inclination, Inclination::Neither);
+        assert_eq!(mapped.sex, Sex::Female);
+        row.sex = sats::Sex::Male;
+        assert_eq!(core_personality(&row).sex, Sex::Male);
     }
 
     #[test]

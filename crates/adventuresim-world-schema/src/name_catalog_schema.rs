@@ -1,8 +1,10 @@
 // Serialized schema for the externally authored personal-name catalog.
 
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 
 use crate::calendar::CalendarYear;
+use crate::demographics::{Culture, Sex};
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -54,22 +56,6 @@ pub struct NameSourceDefinition {
     pub quantitative: bool,
     pub population_bias: String,
     pub notes: String,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum NameSex {
-    Female,
-    Male,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum NameCulture {
-    German,
-    English,
-    Italian,
-    Elven,
 }
 
 #[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -129,7 +115,7 @@ pub struct NameDerivationDefinition {
 #[serde(deny_unknown_fields)]
 pub struct GivenNameFamilyDefinition {
     pub id: String,
-    pub sex: NameSex,
+    pub sex: Sex,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -137,7 +123,7 @@ pub struct GivenNameFamilyDefinition {
 pub struct GivenNameFormDefinition {
     pub id: String,
     pub text: String,
-    pub culture: NameCulture,
+    pub culture: Culture,
     pub register: NameRegister,
     pub family_ids: Vec<String>,
 }
@@ -155,8 +141,8 @@ pub struct SurnameFormDefinition {
     pub id: String,
     pub surname_id: String,
     pub text: String,
-    pub culture: NameCulture,
-    pub sex: Option<NameSex>,
+    pub culture: Culture,
+    pub sex: Option<Sex>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -188,12 +174,11 @@ pub struct FrequencySurnameDefinition {
 #[serde(deny_unknown_fields)]
 pub struct NameRepertoireDefinition {
     pub id: String,
-    pub culture: NameCulture,
+    pub culture: Culture,
     pub religious_tradition: NameReligiousTradition,
     pub start_year: CalendarYear,
     pub end_year: CalendarYear,
-    pub female_families: Vec<FrequencyFamilyDefinition>,
-    pub male_families: Vec<FrequencyFamilyDefinition>,
+    pub families: BTreeMap<Sex, Vec<FrequencyFamilyDefinition>>,
     pub everyday_forms: Vec<FrequencyFormDefinition>,
     pub surnames: Vec<FrequencySurnameDefinition>,
 }
@@ -206,9 +191,7 @@ pub struct NameRepertoireDefinition {
 pub struct NameRepertoireFragmentDefinition {
     pub repertoire_id: String,
     #[serde(default)]
-    pub male_families: Vec<FrequencyFamilyDefinition>,
-    #[serde(default)]
-    pub female_families: Vec<FrequencyFamilyDefinition>,
+    pub families: BTreeMap<Sex, Vec<FrequencyFamilyDefinition>>,
     #[serde(default)]
     pub everyday_forms: Vec<FrequencyFormDefinition>,
     #[serde(default)]

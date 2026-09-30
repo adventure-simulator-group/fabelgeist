@@ -9,7 +9,7 @@ use crate::{
     investigation_action::{InvestigationActionKind, InvestigationTargetKind, Terrain},
     local_problem::{Effects, Scope, Symptom},
 };
-use adventuresim_world_schema::{BestiaryCategory, calendar::StrategicMinute};
+use adventuresim_world_schema::{BestiaryCategory, Sex, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
@@ -325,7 +325,7 @@ pub struct WitnessCandidate {
     pub display_name: String,
     pub demographic: WitnessDemographic,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub visible_description: String,
     pub expected_location: String,
@@ -378,7 +378,7 @@ pub fn visible_witness_presence_version(input: &VisibleWitnessCandidateInput<'_>
 
 /// Build the exact witness candidate available to the developer quest UI.
 ///
-/// The empty sex selector is intentional. The current catalog has no
+/// The absent sex selector is intentional. The current catalog has no
 /// sex-specific demographic rules, and future rules must fall back rather than
 /// turn visible presentation into private sex.
 pub fn visible_witness_candidate(
@@ -387,7 +387,7 @@ pub fn visible_witness_candidate(
     let age_band = input.age_band.to_ascii_lowercase();
     let authored = crate::quest_catalog::catalog().witness_demographic_for(
         &age_band,
-        "",
+        None,
         input.profession,
         input.local_role,
     )?;
@@ -411,7 +411,7 @@ pub fn visible_witness_candidate(
         display_name: input.display_name.into(),
         demographic,
         age_band,
-        sex: String::new(),
+        sex: None,
         profession: input.profession.into(),
         visible_description: format!(
             "{}, {}, with {}, wearing {}",
@@ -450,7 +450,7 @@ pub struct GeneratedPatternTarget {
     pub resident_character_id: u64,
     pub demographic: WitnessDemographic,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub expected_settlement_id: String,
     pub expected_location: String,
@@ -1102,7 +1102,7 @@ pub enum GeneratedPatternCondition {
         cohort_id: String,
         demographic: WitnessDemographic,
         age_band: String,
-        sex: String,
+        sex: Option<Sex>,
         profession: String,
     },
     BroadSurvey,

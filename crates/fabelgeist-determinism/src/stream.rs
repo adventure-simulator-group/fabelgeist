@@ -55,6 +55,13 @@ impl DeterministicRng {
         usize::try_from(self.below(bound)).expect("sample fits collection length")
     }
 
+    /// Choose uniformly from candidates in their stable authored order.
+    ///
+    /// Like [`Self::index`], this requires a nonempty collection.
+    pub fn choose<'a, T>(&mut self, candidates: &'a [T]) -> &'a T {
+        &candidates[self.index(candidates.len())]
+    }
+
     pub fn boolean(&mut self) -> bool {
         self.below(NonZeroU64::new(2).expect("two outcomes")) == 0
     }

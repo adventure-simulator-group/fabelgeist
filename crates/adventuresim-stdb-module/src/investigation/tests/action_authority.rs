@@ -256,7 +256,7 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
     assert!(validator.contains("pattern_target_matches"));
     assert!(validator.contains("generated_npc_presence_version"));
     assert!(validator.contains("developer_npc_witness_candidate"));
-    assert!(validator.contains("target.sex.is_empty()"));
+    assert!(validator.contains("target.sex.is_none()"));
     assert!(validator.contains("npc_is_present"));
     assert!(validator.contains("capability.target_id != *cohort_id"));
     assert!(

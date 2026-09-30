@@ -9,6 +9,12 @@ use std::{
 #[path = "src/calendar.rs"]
 #[expect(dead_code, reason = "build script uses only calendar year validation")]
 mod calendar;
+#[path = "src/demographics.rs"]
+#[allow(
+    dead_code,
+    reason = "build script includes shared source but only deserializes its enums"
+)]
+mod demographics;
 #[path = "src/name_catalog_schema.rs"]
 mod name_catalog_schema;
 #[path = "src/name_catalog_validation.rs"]
@@ -92,8 +98,9 @@ fn apply_repertoire_fragments(catalog: &mut name_catalog_schema::NameCatalogDocu
                     fragment.repertoire_id
                 )
             });
-        repertoire.male_families.extend(fragment.male_families);
-        repertoire.female_families.extend(fragment.female_families);
+        for (sex, families) in fragment.families {
+            repertoire.families.entry(sex).or_default().extend(families);
+        }
         repertoire.everyday_forms.extend(fragment.everyday_forms);
         repertoire.surnames.extend(fragment.surnames);
     }

@@ -13,10 +13,11 @@ use adventuresim_core::{
     morale::{MoraleEventKind, MoraleSourceKind},
     personality::{
         Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-        Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance, Transparency,
+        Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
     },
     strategic_place::CaseSiteId,
 };
+use adventuresim_world_schema::Sex;
 use spacetimedb_sats::serde::SerdeWrapper;
 
 fn sats_json_roundtrip<T>(value: T) -> String

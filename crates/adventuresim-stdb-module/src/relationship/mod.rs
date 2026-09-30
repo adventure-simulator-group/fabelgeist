@@ -13,8 +13,8 @@ use adventuresim_core::courtship::{
     uncovered_minute_spans,
 };
 use adventuresim_core::strategic_schedule::{DailySchedule, restorative_leisure_spans};
-use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::{Sex, calendar::MINUTES_PER_DAY};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::character::{character, character__view, character_death};
@@ -23,7 +23,7 @@ use crate::condition::morale_event as _;
 use crate::continuity::{EstateDispositionStatus, estate_disposition};
 use crate::corpse::strategic_corpse;
 use crate::personality::{
-    Courtship as PersonalityCourtship, Inclination, Presentation, Sex, character_personality,
+    Courtship as PersonalityCourtship, Inclination, Presentation, character_personality,
 };
 use crate::residence::{ResidenceTransitionKind, residence_holding, residence_transition};
 use crate::settlement_population::{npc_is_present, settlement_resident_presence};

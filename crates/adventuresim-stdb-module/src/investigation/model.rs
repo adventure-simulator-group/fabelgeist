@@ -27,6 +27,7 @@ use adventuresim_core::investigation as inv;
 use adventuresim_core::investigation_action as action;
 use adventuresim_core::skill::{PlayerSkills, Skill};
 use adventuresim_core::strategic_place::CaseSiteId;
+use adventuresim_world_schema::Sex;
 use inv::{DestinationKnowledgeStage, InvestigationProvenanceKind};
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
@@ -961,7 +962,7 @@ pub struct InvestigationPatternTargetAuthority {
     pub resident_character_id: u64,
     pub demographic: String,
     pub age_band: String,
-    pub sex: String,
+    pub sex: Option<Sex>,
     pub profession: String,
     pub expected_settlement_id: String,
     pub expected_location: String,

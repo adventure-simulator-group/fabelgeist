@@ -16,7 +16,7 @@ pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::Gener
             display_name: display_name.into(),
             demographic,
             age_band: "adult".into(),
-            sex: "unspecified".into(),
+            sex: None,
             profession: id.into(),
             visible_description: description.into(),
             expected_location: location.into(),

@@ -24,6 +24,11 @@ receive a separate modifier. Region, class, and education are accepted
 generation context but do not alter the production repertoire without
 comparable evidence.
 
+Catalog `sex` and `culture` values deserialize into the shared world-schema
+`Sex` and `Culture` types. Culture selects a naming repertoire and is separate
+from oral and written language skill. Repertoire family frequencies are keyed
+by `Sex`; each supported sex must have eligible families.
+
 Repertoire frequencies are relative sampling scores, not probabilities or raw
 counts. Numeric observations use a square-root-smoothed integer score;
 attestations without a comparable count receive score one. Family scores are

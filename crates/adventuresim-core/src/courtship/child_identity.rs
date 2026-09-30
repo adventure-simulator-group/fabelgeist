@@ -1,7 +1,6 @@
 /// Deterministic child identity inputs shared by conception and birth.
 use super::stable_lifecycle_hash;
-use crate::personality::Sex;
-use adventuresim_world_schema::calendar::StrategicMinute;
+use adventuresim_world_schema::{Sex, calendar::StrategicMinute};
 
 macro_rules! child_value {
     ($name:ident) => {
@@ -66,14 +65,9 @@ pub fn deterministic_child_seeds(
     ChildSeeds {
         identity: ChildIdentitySeed::new(stable_lifecycle_hash(CHILD_IDENTITY_DOMAIN, &base)),
         name: ChildNameSeed::new(stable_lifecycle_hash(CHILD_NAME_DOMAIN, &base)),
-        sex: if CHILD_SEX_STREAM
+        sex: *CHILD_SEX_STREAM
             .rng(stable_lifecycle_hash(CHILD_SEX_DOMAIN, &base), &[])
-            .boolean()
-        {
-            Sex::Female
-        } else {
-            Sex::Male
-        },
+            .choose(Sex::VARIANTS),
         home: HouseholdPlacementSeed::new(stable_lifecycle_hash(
             CHILD_HOME_DOMAIN,
             &[left, right, &pregnancy, &birth, home_location_id],
