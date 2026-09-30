@@ -13,6 +13,7 @@
 //! renderer: the fork's WebGPU draw path loops `draw_indexed_indirect` where
 //! the native backend issues `multi_draw_indexed_indirect`.
 
+mod incremental;
 mod streams;
 use std::sync::Arc;
 
@@ -57,6 +58,7 @@ impl Plugin for InstancedGrassPlugin {
             GpuCullComputePlugin::<super::TacticalShrubLeafInstancedMaterial>::default(),
         ))
         .init_resource::<InstancedGrassInteractionState>()
+        .init_resource::<InstancedGrassGenerationState>()
         .add_systems(
             Update,
             (
@@ -77,17 +79,34 @@ pub(super) struct InstancedGrassPresented;
 /// that `presentation::vista` spawns from the same lattice and batching path.
 fn present_instanced_grass(
     scenes: super::scene_mask::InstancedGrassSceneQuery,
+    mut generation_state: ResMut<InstancedGrassGenerationState>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
     settings: Res<crate::presentation::TacticalGraphicsSettings>,
 ) {
+    if let Some(mut generation) =
+        generation_state.take_pending_for_existing_scene(|scene| scenes.get(scene).is_ok())
+    {
+        if generation.advance() {
+            let scene = generation.scene();
+            generation.spawn(GrassWorld {
+                commands: &mut commands,
+                meshes: &mut meshes,
+                materials: &mut materials,
+            });
+            commands.entity(scene).insert(InstancedGrassPresented);
+        } else {
+            generation_state.pending = Some(generation);
+        }
+        return;
+    }
+
     for (entity, _scene_id, terrain, ground, environment, fault_scarp) in &scenes {
         if !settings.config.grass.enabled {
             commands.entity(entity).insert(InstancedGrassPresented);
             continue;
         }
-        let started = web_time::Instant::now();
         let (grass_color, grass_dryness) = grass_pigment(environment);
         let grass_density = grass_scatter_density(
             bps(environment.canopy_bps),
@@ -96,66 +115,46 @@ fn present_instanced_grass(
             bps(environment.weather.snow_cover_bps),
         ) * settings.config.grass.density_scale;
         let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
-        let masked_ground = fault_scarp.map(|recipe| {
+        let configured_ground = fault_scarp.map(|recipe| {
             super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
         });
-        let ground = masked_ground.as_ref().unwrap_or(ground);
-        let grass = &settings.config.grass;
+        let ground = configured_ground.unwrap_or_else(|| ground.clone());
         let base_seed = stable_text_seed(&environment.scene_digest) ^ 0x6772_6173_735f_6c6f;
-        let placement = ScenePlacement {
-            terrain,
+        generation_state.pending = Some(incremental::GrassGeneration::new(
+            entity,
+            terrain.clone(),
             ground,
-            mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
-            profile: GrassCommunityProfile::from_environment(environment),
+            GrassCommunityProfile::from_environment(environment),
             base_seed,
-        };
-        let mut batches = TierSpeciesBatches::default();
-        for lod in [GrassMeshLod::Near, GrassMeshLod::Far] {
-            scatter_cell_tufts(
-                &mut batches[lod.tier_index()],
-                &placement,
-                base_seed,
-                lod,
-                grass.placement.playable_patch_spacing_m,
-                grass,
-            );
-        }
-        // Reuse near placements so the near-edge crossfade does not move tufts.
-        for species in GrassSpecies::ALL {
-            batches[GrassMeshLod::NearEdge.tier_index()][species.index()] =
-                batches[GrassMeshLod::Near.tier_index()][species.index()].clone();
-        }
-        scatter_cell_tufts(
-            &mut batches[GrassMeshLod::Vista.tier_index()],
-            &placement,
-            base_seed ^ 0x7669_7374_615f_6c6f,
-            GrassMeshLod::Vista,
-            grass.placement.vista_patch_spacing_m,
-            grass,
-        );
-        spawn_tuft_batches(
-            GrassWorld {
-                commands: &mut commands,
-                meshes: &mut meshes,
-                materials: &mut materials,
-            },
-            &mut batches,
-            "Instanced grass",
-            (),
-            base_seed,
+            stable_text_seed(&environment.scene_digest),
             TuftPigment {
                 color: grass_color,
                 density: grass_density,
                 dryness: grass_dryness,
                 wind_scale,
             },
-            grass,
-        );
-        tracing::info!(
-            elapsed_ms = started.elapsed().as_millis(),
-            "Generated instanced tactical grass"
-        );
-        commands.entity(entity).insert(InstancedGrassPresented);
+            settings.config.grass.clone(),
+        ));
+        break;
+    }
+}
+
+/// The in-flight generator is deliberately exclusive: it guarantees one final
+/// batch set per scene while allowing each placement slice to yield to input.
+#[derive(Resource, Default)]
+struct InstancedGrassGenerationState {
+    pending: Option<incremental::GrassGeneration>,
+}
+
+impl InstancedGrassGenerationState {
+    /// Returns the retained generation only while its source scene is still
+    /// present. A replacement cannot spawn a stale mask or instance batch.
+    fn take_pending_for_existing_scene(
+        &mut self,
+        scene_exists: impl FnOnce(Entity) -> bool,
+    ) -> Option<incremental::GrassGeneration> {
+        let generation = self.pending.take()?;
+        scene_exists(generation.scene()).then_some(generation)
     }
 }
 
@@ -363,7 +362,7 @@ pub(in crate::presentation) type TierSpeciesBatches =
 struct ScenePlacement<'a> {
     terrain: &'a SceneTerrain,
     ground: &'a SceneGround,
-    mask: CoverageMask,
+    mask: &'a CoverageMask,
     profile: GrassCommunityProfile,
     base_seed: u64,
 }
@@ -508,65 +507,88 @@ pub(in crate::presentation) fn scatter_cell_tufts(
     grass: &crate::presentation::config::GrassConfig,
 ) -> u32 {
     let (minimum, maximum) = placement.lattice_bounds(cell_spacing);
+    let footprint = configured_tuft_footprint_metres(lod, grass);
+    let mut emitted = 0_u32;
+    for z in minimum.y..=maximum.y {
+        for x in minimum.x..=maximum.x {
+            emitted += scatter_one_cell(
+                species_batches,
+                placement,
+                base_seed,
+                lod,
+                cell_spacing,
+                footprint,
+                IVec2::new(x, z),
+                grass,
+            );
+        }
+    }
+    emitted
+}
+
+/// Fills one lattice cell, shared by full and resumable deterministic walks.
+pub(super) fn scatter_one_cell(
+    species_batches: &mut [Vec<InstanceData>; GrassSpecies::ALL.len()],
+    placement: &impl TuftPlacement,
+    base_seed: u64,
+    lod: GrassMeshLod,
+    cell_spacing: f32,
+    footprint: f32,
+    cell: IVec2,
+    grass: &crate::presentation::config::GrassConfig,
+) -> u32 {
+    let cell_hash = streams::CELL
+        .seed(base_seed, &[cell.x as u32 as u64, cell.y as u32 as u64])
+        .to_u64();
+    if !placement.cell_allows(
+        cell_hash,
+        cell,
+        cell_spacing,
+        grass.placement.jitter_fraction,
+    ) {
+        return 0;
+    }
     let side = match lod {
         GrassMeshLod::Near => grass.lod.near.native_tufts_per_cell_side,
         GrassMeshLod::NearEdge => grass.lod.near_edge.native_tufts_per_cell_side,
         GrassMeshLod::Far => grass.lod.far.native_tufts_per_cell_side,
         GrassMeshLod::Vista => grass.lod.vista.native_tufts_per_cell_side,
     } as i32;
-    let footprint = configured_tuft_footprint_metres(lod, grass);
-    let mut emitted = 0_u32;
-    for z in minimum.y..=maximum.y {
-        for x in minimum.x..=maximum.x {
-            let cell_hash = streams::CELL
-                .seed(base_seed, &[x as u32 as u64, z as u32 as u64])
+    let cell_origin = Vec2::new(cell.x as f32, cell.y as f32) * cell_spacing
+        - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
+    let mut emitted = 0;
+    for tuft_z in 0..side {
+        for tuft_x in 0..side {
+            let tuft_hash = streams::TUFT
+                .seed(cell_hash, &[tuft_x as u64, tuft_z as u64])
                 .to_u64();
-            if !placement.cell_allows(
-                cell_hash,
-                IVec2::new(x, z),
-                cell_spacing,
-                grass.placement.jitter_fraction,
-            ) {
+            let jitter = Vec2::new(
+                streams::JITTER_X.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
+                streams::JITTER_Z.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
+            ) * footprint
+                * 0.35;
+            let centre = cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
+            let coverage = placement.coverage(centre);
+            if coverage == 0 {
                 continue;
             }
-            let cell_origin = Vec2::new(x as f32, z as f32) * cell_spacing
-                - Vec2::splat((side - 1) as f32 * 0.5 * footprint);
-            for tuft_z in 0..side {
-                for tuft_x in 0..side {
-                    let tuft_hash = streams::TUFT
-                        .seed(cell_hash, &[tuft_x as u64, tuft_z as u64])
-                        .to_u64();
-                    let jitter = Vec2::new(
-                        streams::JITTER_X.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
-                        streams::JITTER_Z.rng(tuft_hash, &[]).inclusive_unit_f32() - 0.5,
-                    ) * footprint
-                        * 0.35;
-                    let centre =
-                        cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
-                    let coverage = placement.coverage(centre);
-                    if coverage == 0 {
-                        continue;
-                    }
-                    let Some(height) = placement.height(centre) else {
-                        continue;
-                    };
-                    let community = placement.community(centre);
-                    let species =
-                        grass_species(community, streams::SPECIES.seed(tuft_hash, &[]).to_u64());
-                    let batch = &mut species_batches[species.index()];
-                    batch.push(InstanceData {
-                        position: Vec3::new(centre.x, height, centre.y),
-                        scale: 1.0,
-                        rotation: streams::YAW.rng(tuft_hash, &[]).inclusive_unit_f32()
-                            * core::f32::consts::TAU,
-                        index: batch.len() as u32,
-                        batch_id: 0,
-                        seed: u32::from(coverage)
-                            | ((streams::SHADER_SEED.seed(tuft_hash, &[]).to_u64() as u32) << 8),
-                    });
-                    emitted += 1;
-                }
-            }
+            let Some(height) = placement.height(centre) else {
+                continue;
+            };
+            let community = placement.community(centre);
+            let species = grass_species(community, streams::SPECIES.seed(tuft_hash, &[]).to_u64());
+            let batch = &mut species_batches[species.index()];
+            batch.push(InstanceData {
+                position: Vec3::new(centre.x, height, centre.y),
+                scale: 1.0,
+                rotation: streams::YAW.rng(tuft_hash, &[]).inclusive_unit_f32()
+                    * core::f32::consts::TAU,
+                index: batch.len() as u32,
+                batch_id: 0,
+                seed: u32::from(coverage)
+                    | ((streams::SHADER_SEED.seed(tuft_hash, &[]).to_u64() as u32) << 8),
+            });
+            emitted += 1;
         }
     }
     emitted
@@ -576,6 +598,10 @@ pub(in crate::presentation) fn scatter_cell_tufts(
 mod tests {
     use super::*;
     use crate::presentation::ground_scatter::grass::{grass_lod_visibility, tuft_blade_side};
+    use adventuresim_tactical_core::prelude::{
+        GroundSurface, SceneEnvironmentFixture, SceneGround, SceneTerrain,
+    };
+    use bevy::tasks::{AsyncComputeTaskPool, TaskPoolBuilder};
 
     #[test]
     fn instanced_tiers_reproduce_legacy_per_cell_shoot_totals() {
@@ -671,5 +697,41 @@ mod tests {
         let coverage = 173_u8;
         let seed = u32::from(coverage) | (0xdead_beef_u32 << 8);
         assert_eq!((seed & 0xff) as u8, coverage);
+    }
+
+    #[test]
+    fn replaced_scene_discards_pending_grass_before_it_can_spawn() {
+        AsyncComputeTaskPool::get_or_init(|| TaskPoolBuilder::new().num_threads(1).build());
+        let scene = Entity::from_raw_u32(17).expect("test entity index is valid");
+        let terrain = SceneTerrain::from_heightmap(9, 9, 2.0, vec![0.0; 81])
+            .expect("flat test terrain is valid");
+        let ground = SceneGround::from_samples(9, 9, 2.0, vec![GroundSurface::default(); 81])
+            .expect("test ground is valid");
+        let mut state = InstancedGrassGenerationState {
+            pending: Some(incremental::GrassGeneration::new(
+                scene,
+                terrain,
+                ground,
+                GrassCommunityProfile::from_environment(
+                    &SceneEnvironmentFixture::TemperateHills.snapshot("stale-grass"),
+                ),
+                17,
+                19,
+                TuftPigment {
+                    color: Color::WHITE,
+                    density: 1.0,
+                    dryness: 0.0,
+                    wind_scale: 0.0,
+                },
+                crate::presentation::config::TacticalGraphicsConfig::parse(include_str!(
+                    "../../../../../assets/config/tactical-graphics.yaml"
+                ))
+                .expect("shipped graphics configuration is valid")
+                .grass,
+            )),
+        };
+
+        assert!(state.take_pending_for_existing_scene(|_| false).is_none());
+        assert!(state.pending.is_none());
     }
 }
