@@ -16,7 +16,7 @@ pub struct BackendInvestigationJournalEntry {
     pub contradiction_group: String,
     pub corrected_by: String,
     pub supersedes: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -39,7 +39,7 @@ pub struct BackendInvestigationLead {
     pub current_learned_location: String,
     pub contradiction_group: String,
     pub corrected_by: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -72,7 +72,7 @@ pub struct BackendInvestigationActionOutcome {
     pub outcome_id: String,
     pub action_id: String,
     pub wording: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -83,10 +83,10 @@ pub struct BackendInvestigationCaseSummary {
     /// Later leads and journal headlines never replace it.
     pub subject: String,
     pub status: String,
-    pub latest_update_at: u64,
+    pub latest_update_at: StrategicMinute,
 }
 
-fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, u64) {
+fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, StrategicMinute) {
     let mut canonical_matches: Vec<_> = ctx
         .db
         .quest_generation_authority()
@@ -104,10 +104,10 @@ fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, 
     let canonical_case_id = match canonical_matches.as_slice() {
         [canonical] => canonical.clone(),
         [] => public_case_id.to_owned(),
-        _ => return (crate::strategic::CaseStatus::Open.stable_id().into(), 0),
+        _ => return (crate::strategic::CaseStatus::Open.stable_id().into(), StrategicMinute::ZERO),
     };
     let Some(case) = ctx.db.case_authority().id().find(canonical_case_id.clone()) else {
-        return (crate::strategic::CaseStatus::Open.stable_id().into(), 0);
+        return (crate::strategic::CaseStatus::Open.stable_id().into(), StrategicMinute::ZERO);
     };
     let status = case.resolution_status.stable_id();
     let resolved_at = ctx
@@ -115,7 +115,7 @@ fn journal_case_resolution(ctx: &ViewContext, public_case_id: &str) -> (String, 
         .case_outcome()
         .case_id()
         .find(canonical_case_id)
-        .map_or(0, |outcome| outcome.resolved_at_minute);
+        .map_or(StrategicMinute::ZERO, |outcome| outcome.resolved_at_minute);
     (status.into(), resolved_at)
 }
 
@@ -126,7 +126,7 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
     }
     let journal = backend_investigation_journal(ctx);
     let leads = backend_investigation_leads(ctx);
-    let mut cases: BTreeMap<(u64, String), (u64, String, u64)> = BTreeMap::new();
+    let mut cases: BTreeMap<(u64, String), (StrategicMinute, String, StrategicMinute)> = BTreeMap::new();
     for (owner_character_id, case_id, summary, recorded_at) in journal.into_iter().map(|row| {
         (
             row.owner_character_id,
@@ -136,9 +136,9 @@ pub fn backend_investigation_cases(ctx: &ViewContext) -> Vec<BackendInvestigatio
         )
     }) {
         let case = cases.entry((owner_character_id, case_id)).or_insert((
-            u64::MAX,
+            StrategicMinute::MAX,
             "Unlabelled problem".into(),
-            0,
+            StrategicMinute::ZERO,
         ));
         case.2 = case.2.max(recorded_at);
         if recorded_at < case.0 {
@@ -195,7 +195,7 @@ pub struct BackendPhysicalEvidenceInspection {
     pub stat_label: String,
     pub passed: bool,
     pub narration: String,
-    pub attempted_at: u64,
+    pub attempted_at: StrategicMinute,
 }
 
 fn is_gateway(ctx: &ViewContext) -> bool {
@@ -943,7 +943,7 @@ fn observer_pattern_route_has_live_corroborated_clue(
     owner_character_id: u64,
     case_id: &str,
     evidence_id: &str,
-    observer_personal_minute: u64,
+    observer_personal_minute: StrategicMinute,
     knowledge: impl IntoIterator<Item = InvestigationEvidenceKnowledge>,
 ) -> bool {
     let mut numeric_ids = BTreeMap::new();
@@ -1014,7 +1014,7 @@ fn capability_has_live_pattern_support_view(
             .character_time()
             .character_id()
             .find(capability.owner_character_id)
-            .map_or(0, |time| time.minutes),
+            .map_or(StrategicMinute::ZERO, |time| time.minutes),
         ctx.db
             .investigation_evidence_knowledge()
             .owner_character_id()
@@ -1313,7 +1313,7 @@ fn projected_target_changed_availability() -> ProjectedActionAvailability {
 
 fn public_contact_schedule_wait_minutes(
     presence: &crate::SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u32> {
     if crate::settlement_population::npc_presence_remaining_minutes(presence, minute).is_some() {
         return Some(0);
@@ -1332,7 +1332,7 @@ fn public_contact_schedule_wait_minutes(
 fn projected_contact_schedule_wait_minutes(
     ctx: &ViewContext,
     presence: &crate::SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u32> {
     if crate::settlement_population::npc_presence_remaining_minutes_at_view(ctx, presence, minute)
         .is_some()
@@ -1434,7 +1434,7 @@ fn projected_contact_presence_availability(
     capability: &InvestigationActionCapability,
     kind: action::InvestigationActionKind,
     settlement_id: Option<&str>,
-    started_at: Option<u64>,
+    started_at: Option<StrategicMinute>,
 ) -> Option<ProjectedActionAvailability> {
     if kind != action::InvestigationActionKind::LocateContact
         || capability.target_kind != action::InvestigationTargetKind::Contact
@@ -1478,20 +1478,20 @@ fn projected_contact_presence_availability(
     }
 }
 
-fn night_window_wait_minutes(minute: u64) -> u32 {
+fn night_window_wait_minutes(minute: StrategicMinute) -> u32 {
     u32::from(
         adventuresim_core::strategic_time::StrategicMinuteOfDay::from_absolute(minute)
             .minutes_until_night(),
     )
 }
 
-fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<u64> {
+fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<StrategicMinute> {
     let official_minute = ctx
         .db
         .world_clock()
         .id()
         .find(0)
-        .map_or(0, |clock| clock.official_minutes);
+        .map_or(StrategicMinute::ZERO, |clock| clock.official_minutes);
     let living_party_minute = ctx
         .db
         .party_member()
@@ -1513,7 +1513,7 @@ fn projected_party_activity_minute(ctx: &ViewContext, party_id: &str) -> Option<
 fn projected_night_window_wait_minutes(
     ctx: &ViewContext,
     capability: &InvestigationActionCapability,
-    started_at: u64,
+    started_at: StrategicMinute,
 ) -> u32 {
     let output = ctx
         .db
@@ -1569,6 +1569,7 @@ fn victim_cohort_is_current_view(
     let Some(started_at) = projected_party_activity_minute(ctx, party_id) else {
         return false;
     };
+    let at = started_at;
     let Some(target) = ctx
         .db
         .investigation_pattern_target_authority()
@@ -1671,10 +1672,8 @@ fn victim_cohort_is_current_view(
         &expected,
         &current,
         &presence.settlement_id,
-    ) && crate::settlement_population::npc_presence_remaining_minutes_at_view(
-        ctx, &presence, started_at,
-    )
-    .is_some()
+    ) && crate::settlement_population::npc_presence_remaining_minutes_at_view(ctx, &presence, at)
+        .is_some()
 }
 
 fn action_unavailable_reason_view(

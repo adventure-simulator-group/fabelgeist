@@ -485,7 +485,7 @@ impl LiveRunner {
                                         presence.end_minute,
                                         presence.context_suppressed,
                                         presence.health_suppressed,
-                                        payer_minute,
+                                        StrategicMinute::new(payer_minute.minutes),
                                     )
                             })
                     })
@@ -857,8 +857,8 @@ impl LiveRunner {
             .filter(|row| row.owner_character_id == leader_id && row.open && row.active)
             .collect::<Vec<_>>();
         challenges.sort_by(|left, right| {
-            left.absolute_minute
-                .cmp(&right.absolute_minute)
+            calendar_minute(&left.absolute_minute)
+                .cmp(&calendar_minute(&right.absolute_minute))
                 .then_with(|| left.id.cmp(&right.id))
         });
         challenges.into_iter().next()

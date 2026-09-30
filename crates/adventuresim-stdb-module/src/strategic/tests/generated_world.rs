@@ -13,7 +13,7 @@ fn generated_case(
                 settlement_id: "test-settlement".into(),
             },
             ordinal: 0,
-            now_minute: 10_000,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(10_000),
             incident_weather: adventuresim_core::weather::Precipitation::Clear,
             requested_family: Some(family),
             witness_candidates: adventuresim_core::quest_generation::test_witnesses(),
@@ -68,6 +68,7 @@ fn simulation_quest_fixture_exposes_ordinary_provisioning_to_both_paths() {
         environment
             .contains("default_merchant_provider(ctx, &settlement_id, \"merchants\", \"market\")")
     );
+    assert!(environment.contains("npc_is_present("));
     assert!(environment.contains("npc_is_present(ctx, &provider, minute)"));
 
     let fixture = STRATEGIC_SOURCE
@@ -231,7 +232,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
             settlement_id: "test-settlement".into(),
         },
         ordinal: 0,
-        now_minute: 10_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(10_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::DisappearanceOrLoss),
         witness_candidates: adventuresim_core::quest_generation::test_witnesses(),
@@ -334,7 +335,7 @@ fn dialogue_case_provenance_fails_closed_for_generated_authority_damage() {
     ));
     mutations.push(mutate_context(
         &authority,
-        |context| context.now_minute = context.now_minute.saturating_add(1),
+        |context| context.now_minute = context.now_minute.saturating_add_minutes(1),
         true,
     ));
     mutations.push(mutate_context(

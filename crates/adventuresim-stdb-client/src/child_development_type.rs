@@ -5,13 +5,14 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::child_activity_focus_type::ChildActivityFocus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ChildDevelopment {
     pub character_id: u64,
     pub focus: ChildActivityFocus,
-    pub trained_through_minute: u64,
+    pub trained_through_minute: StrategicMinute,
     pub first_curriculum_effective_hours: f32,
     pub second_curriculum_effective_hours: f32,
 }
@@ -26,7 +27,7 @@ impl __sdk::InModule for ChildDevelopment {
 pub struct ChildDevelopmentCols {
     pub character_id: __sdk::__query_builder::Col<ChildDevelopment, u64>,
     pub focus: __sdk::__query_builder::Col<ChildDevelopment, ChildActivityFocus>,
-    pub trained_through_minute: __sdk::__query_builder::Col<ChildDevelopment, u64>,
+    pub trained_through_minute: __sdk::__query_builder::Col<ChildDevelopment, StrategicMinute>,
     pub first_curriculum_effective_hours: __sdk::__query_builder::Col<ChildDevelopment, f32>,
     pub second_curriculum_effective_hours: __sdk::__query_builder::Col<ChildDevelopment, f32>,
 }

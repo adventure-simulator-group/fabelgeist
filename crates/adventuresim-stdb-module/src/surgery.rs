@@ -6,7 +6,6 @@
 
 use adventuresim_core::physiology::BodyRegion;
 use adventuresim_core::prelude::*;
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
 #[cfg(test)]
 use adventuresim_core::surgery::untreated_cut_progress;
 use adventuresim_core::surgery::{
@@ -15,6 +14,7 @@ use adventuresim_core::surgery::{
 pub use adventuresim_core::surgery::{
     UNTREATED_CUT_BLOOD_LOSS_PER_DAY, UNTREATED_CUT_DETERIORATION_PER_DAY, projectile_extraction_dc,
 };
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
 use crate::character::character;
@@ -120,7 +120,7 @@ pub struct LimbInjury {
     /// Continuous deterministic wound exposure carried across time chunks.
     pub infection_exposure: f32,
     pub infection_checks: u32,
-    pub infection_origin_minute: Option<u64>,
+    pub infection_origin_minute: Option<StrategicMinute>,
 }
 
 #[derive(Clone, Debug)]
@@ -205,7 +205,7 @@ pub(crate) fn seed_field_cut(
     character_id: u64,
     limb: BodyRegion,
     damage: f32,
-    origin_minute: u64,
+    origin_minute: StrategicMinute,
 ) {
     let mut injury = injury_for(ctx, character_id, limb);
     if injury.cut_damage <= 0.0 {
@@ -292,7 +292,7 @@ pub(crate) fn commit_aggregated_hit_injury(
                 .character_time()
                 .character_id()
                 .find(character_id)
-                .map_or(0, |row| row.minutes)
+                .map_or(StrategicMinute::ZERO, |row| row.minutes)
         });
         injury.bandaged = false;
         injury.stitched = false;
@@ -699,7 +699,10 @@ fn accrue_standing_infection(
                 0.0
             },
             &format!("{}:{}", injury.id, injury.infection_checks),
-            injury.infection_origin_minute.unwrap_or(0) + u64::from(injury.infection_checks),
+            injury
+                .infection_origin_minute
+                .unwrap_or(StrategicMinute::ZERO)
+                .saturating_add_minutes(u64::from(injury.infection_checks)),
         )?;
     }
     Ok(())
@@ -778,7 +781,7 @@ fn infection_control_check(ctx: &ReducerContext, actor_id: u64, surgical_skill: 
         .character_time()
         .character_id()
         .find(actor_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let immunity = ctx
         .db
         .character_attributes()
@@ -791,21 +794,9 @@ fn infection_control_check(ctx: &ReducerContext, actor_id: u64, surgical_skill: 
         .character_id()
         .filter(actor_id)
         .any(|row| {
-            crate::disease::parse_id(&row.disease_id).is_ok_and(|disease_id| {
+            crate::disease::episode(&row).is_ok_and(|episode| {
                 !matches!(
-                    adventuresim_core::disease::evaluate(
-                        adventuresim_core::disease::InfectionEpisode {
-                            id: row.id,
-                            character_id: row.character_id,
-                            disease_id,
-                            contracted_at: row.contracted_at,
-                            ruleset_version: row.ruleset_version,
-                            phenotype_key_version: row.phenotype_key_version,
-                        },
-                        now,
-                        immunity,
-                    )
-                    .stage,
+                    adventuresim_core::disease::evaluate(episode, now, immunity,).stage,
                     adventuresim_core::disease::DiseaseStage::Resolved
                 )
             })
@@ -854,7 +845,7 @@ fn align_and_advance(
         if id == patient_id && actor_id == patient_id {
             continue;
         }
-        let catchup = aligned.saturating_sub(time);
+        let catchup = aligned.elapsed_since(time);
         if catchup > 0 && !crate::time::advance_character_wait_time(ctx, id, catchup)? {
             return Ok(false);
         }
@@ -1126,7 +1117,7 @@ pub fn treat_limb(
                     .character_time()
                     .character_id()
                     .find(patient_id)
-                    .map_or(0, |row| row.minutes)
+                    .map_or(StrategicMinute::ZERO, |row| row.minutes)
             });
             injury.bandaged = false;
             injury.stitched = false;

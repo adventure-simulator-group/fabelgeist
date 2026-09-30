@@ -4,7 +4,7 @@
 //! grants no disclosure authority, performs no inference, and has no wire or
 //! persistence format.
 
-use adventuresim_world_schema::UnitBasisPoints;
+use adventuresim_world_schema::{UnitBasisPoints, calendar::StrategicMinute};
 use std::{fmt, num::NonZeroU64};
 
 use crate::{
@@ -137,7 +137,7 @@ pub struct SharedProvenance<
     recipient: CustodyCharacterId,
     subject: KnowledgeSubject<S>,
     proposition: P,
-    shared_minute: u64,
+    shared_minute: StrategicMinute,
     rule: V,
 }
 
@@ -189,8 +189,8 @@ pub struct KnowledgeEnvelope<
     subject: KnowledgeSubject<S>,
     proposition: P,
     source: KnowledgeSource<R, S, P, V>,
-    source_minute: u64,
-    learned_minute: u64,
+    source_minute: StrategicMinute,
+    learned_minute: StrategicMinute,
     confidence: KnowledgeConfidence,
     visibility: KnowledgeVisibility<V>,
     lineage: KnowledgeLineage,
@@ -213,9 +213,9 @@ impl<
         subject: KnowledgeSubject<S>,
         proposition: P,
         source: KnowledgeSource<R, S, P, V>,
-        source_minute: u64,
-        learned_minute: u64,
-        observer_personal_minute: u64,
+        source_minute: StrategicMinute,
+        learned_minute: StrategicMinute,
+        observer_personal_minute: StrategicMinute,
         confidence: KnowledgeConfidence,
         visibility: KnowledgeVisibility<V>,
         lineage: KnowledgeLineage,
@@ -267,10 +267,10 @@ impl<
     pub const fn source(&self) -> &KnowledgeSource<R, S, P, V> {
         &self.source
     }
-    pub const fn source_minute(&self) -> u64 {
+    pub const fn source_minute(&self) -> StrategicMinute {
         self.source_minute
     }
-    pub const fn learned_minute(&self) -> u64 {
+    pub const fn learned_minute(&self) -> StrategicMinute {
         self.learned_minute
     }
     pub const fn confidence(&self) -> KnowledgeConfidence {
@@ -376,7 +376,7 @@ enum ProjectionScope<V: DomainVisibilityRule> {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ProjectionGrant<V: DomainVisibilityRule> {
     viewer: CustodyCharacterId,
-    viewer_personal_minute: u64,
+    viewer_personal_minute: StrategicMinute,
     scope: ProjectionScope<V>,
 }
 
@@ -390,7 +390,7 @@ impl<V: DomainVisibilityRule> ProjectionGrant<V> {
     )]
     pub(crate) fn for_authenticated_observer(
         viewer: CustodyCharacterId,
-        viewer_personal_minute: u64,
+        viewer_personal_minute: StrategicMinute,
     ) -> Self {
         Self {
             viewer,
@@ -408,7 +408,7 @@ impl<V: DomainVisibilityRule> ProjectionGrant<V> {
     )]
     pub(crate) fn for_authenticated_public_disclosure(
         viewer: CustodyCharacterId,
-        viewer_personal_minute: u64,
+        viewer_personal_minute: StrategicMinute,
         rule: V,
     ) -> Self {
         Self {
@@ -428,7 +428,7 @@ pub enum ProjectionRejection {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct KnownFactProjection<T: PublicKnowledgePresentation> {
     pub reference: Option<KnownFactReference>,
-    pub learned_minute: u64,
+    pub learned_minute: StrategicMinute,
     pub confidence: ConfidenceBand,
     pub presentation: T,
 }
@@ -533,7 +533,7 @@ pub struct SharingReceipt<S: DomainKnowledgeSubject, P: DomainProposition, V: Do
     recipient: CustodyCharacterId,
     subject: KnowledgeSubject<S>,
     proposition: P,
-    shared_minute: u64,
+    shared_minute: StrategicMinute,
     rule: V,
 }
 
@@ -544,8 +544,8 @@ impl<S: DomainKnowledgeSubject, P: DomainProposition, V: DomainVisibilityRule>
         id: SharingReceiptId,
         source: &KnowledgeEnvelope<S, P, R, V>,
         recipient: CustodyCharacterId,
-        shared_minute: u64,
-        sharer_personal_minute: u64,
+        shared_minute: StrategicMinute,
+        sharer_personal_minute: StrategicMinute,
     ) -> Result<Self, KnowledgeError> {
         let KnowledgeVisibility::Shareable(rule) = &source.visibility else {
             return Err(KnowledgeError::NotShareable);
@@ -584,7 +584,7 @@ impl<S: DomainKnowledgeSubject, P: DomainProposition, V: DomainVisibilityRule>
     pub const fn recipient(&self) -> CustodyCharacterId {
         self.recipient
     }
-    pub const fn shared_minute(&self) -> u64 {
+    pub const fn shared_minute(&self) -> StrategicMinute {
         self.shared_minute
     }
     pub const fn rule(&self) -> &V {
@@ -594,8 +594,8 @@ impl<S: DomainKnowledgeSubject, P: DomainProposition, V: DomainVisibilityRule>
     pub fn try_recipient_envelope<R: DomainKnowledgeSource>(
         &self,
         record_id: KnowledgeRecordId,
-        learned_minute: u64,
-        recipient_personal_minute: u64,
+        learned_minute: StrategicMinute,
+        recipient_personal_minute: StrategicMinute,
         confidence: KnowledgeConfidence,
         lineage: KnowledgeLineage,
     ) -> Result<KnowledgeEnvelope<S, P, R, V>, KnowledgeError> {
@@ -632,7 +632,7 @@ pub struct ContradictionRecord<C: DomainContradiction> {
     observer: CustodyCharacterId,
     left: (KnowledgeRecordId, KnowledgeRevision),
     right: (KnowledgeRecordId, KnowledgeRevision),
-    recorded_minute: u64,
+    recorded_minute: StrategicMinute,
     rationale: C,
 }
 
@@ -650,8 +650,8 @@ impl<C: DomainContradiction> ContradictionRecord<C> {
         id: ContradictionId,
         left: &KnowledgeEnvelope<S1, P1, R1, V1>,
         right: &KnowledgeEnvelope<S2, P2, R2, V2>,
-        recorded_minute: u64,
-        observer_personal_minute: u64,
+        recorded_minute: StrategicMinute,
+        observer_personal_minute: StrategicMinute,
         rationale: C,
     ) -> Result<Self, KnowledgeError> {
         if left.record_id == right.record_id {
@@ -687,7 +687,7 @@ impl<C: DomainContradiction> ContradictionRecord<C> {
     pub const fn id(&self) -> ContradictionId {
         self.id
     }
-    pub const fn recorded_minute(&self) -> u64 {
+    pub const fn recorded_minute(&self) -> StrategicMinute {
         self.recorded_minute
     }
     pub const fn rationale(&self) -> &C {
@@ -888,11 +888,15 @@ mod tests {
     }
 
     fn observer_grant(id: u64, minute: u64) -> ProjectionGrant<Visibility> {
-        ProjectionGrant::for_authenticated_observer(observer(id), minute)
+        ProjectionGrant::for_authenticated_observer(observer(id), StrategicMinute::new(minute))
     }
 
     fn public_grant(id: u64, minute: u64, rule: Visibility) -> ProjectionGrant<Visibility> {
-        ProjectionGrant::for_authenticated_public_disclosure(observer(id), minute, rule)
+        ProjectionGrant::for_authenticated_public_disclosure(
+            observer(id),
+            StrategicMinute::new(minute),
+            rule,
+        )
     }
 
     fn envelope(
@@ -909,9 +913,9 @@ mod tests {
             KnowledgeSubject::Domain(Subject::Outbreak(4)),
             Proposition::SourceLocation,
             KnowledgeSource::DirectObservation(Source::Testimony(8)),
-            learned - 1,
-            learned,
-            learned,
+            StrategicMinute::new(learned - 1),
+            StrategicMinute::new(learned),
+            StrategicMinute::new(learned),
             KnowledgeConfidence::try_new(6_000).unwrap(),
             visibility,
             KnowledgeLineage::try_new(
@@ -1001,9 +1005,9 @@ mod tests {
                 subject,
                 proposition,
                 source,
-                101,
-                100,
-                100,
+                StrategicMinute::new(101),
+                StrategicMinute::new(100),
+                StrategicMinute::new(100),
                 confidence,
                 visibility,
                 lineage,
@@ -1018,9 +1022,9 @@ mod tests {
                 subject,
                 proposition,
                 source,
-                99,
-                101,
-                100,
+                StrategicMinute::new(99),
+                StrategicMinute::new(101),
+                StrategicMinute::new(100),
                 confidence,
                 visibility,
                 lineage,
@@ -1078,8 +1082,8 @@ mod tests {
             ContradictionId::try_new(1).unwrap(),
             &left,
             &right,
-            115,
-            115,
+            StrategicMinute::new(115),
+            StrategicMinute::new(115),
             Contradiction::MutuallyExclusiveLocations,
         )
         .unwrap();
@@ -1098,8 +1102,8 @@ mod tests {
                 ContradictionId::try_new(2).unwrap(),
                 &left,
                 &other_observer,
-                115,
-                115,
+                StrategicMinute::new(115),
+                StrategicMinute::new(115),
                 Contradiction::MutuallyExclusiveLocations,
             ),
             Err(KnowledgeError::ContradictionObserverMismatch)
@@ -1120,15 +1124,15 @@ mod tests {
             SharingReceiptId::try_new(4).unwrap(),
             &source,
             observer(8),
-            110,
-            110,
+            StrategicMinute::new(110),
+            StrategicMinute::new(110),
         )
         .unwrap();
         let recipient = receipt
             .try_recipient_envelope::<Source>(
                 KnowledgeRecordId::try_new(2).unwrap(),
-                115,
-                115,
+                StrategicMinute::new(115),
+                StrategicMinute::new(115),
                 KnowledgeConfidence::try_new(5_000).unwrap(),
                 KnowledgeLineage::try_new(KnowledgeRevision::try_new(1).unwrap(), None).unwrap(),
             )
@@ -1136,7 +1140,7 @@ mod tests {
         assert_eq!(recipient.observer(), observer(8));
         assert_eq!(recipient.subject(), source.subject());
         assert_eq!(recipient.proposition(), source.proposition());
-        assert_eq!(recipient.source_minute(), 110);
+        assert_eq!(recipient.source_minute(), StrategicMinute::new(110));
         assert_eq!(
             recipient.visibility(),
             &KnowledgeVisibility::ObserverPrivate
@@ -1157,9 +1161,9 @@ mod tests {
                 recipient.subject().clone(),
                 recipient.proposition().clone(),
                 KnowledgeSource::<Source, Subject, Proposition, Visibility>::Shared(shared.clone(),),
-                110,
-                115,
-                115,
+                StrategicMinute::new(110),
+                StrategicMinute::new(115),
+                StrategicMinute::new(115),
                 KnowledgeConfidence::try_new(5_000).unwrap(),
                 KnowledgeVisibility::ObserverPrivate,
                 KnowledgeLineage::try_new(KnowledgeRevision::try_new(1).unwrap(), None).unwrap(),
@@ -1179,9 +1183,9 @@ mod tests {
                     KnowledgeSource::<Source, Subject, Proposition, Visibility>::Shared(
                         shared.clone(),
                     ),
-                    110,
-                    115,
-                    115,
+                    StrategicMinute::new(110),
+                    StrategicMinute::new(115),
+                    StrategicMinute::new(115),
                     KnowledgeConfidence::try_new(5_000).unwrap(),
                     visibility,
                     KnowledgeLineage::try_new(KnowledgeRevision::try_new(1).unwrap(), None)
@@ -1198,8 +1202,8 @@ mod tests {
                 SharingReceiptId::try_new(5).unwrap(),
                 &private,
                 observer(8),
-                110,
-                110,
+                StrategicMinute::new(110),
+                StrategicMinute::new(110),
             ),
             Err(KnowledgeError::NotShareable)
         );

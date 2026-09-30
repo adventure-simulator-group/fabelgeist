@@ -1,3 +1,5 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
+
 pub(super) type ServiceRenderer = fn(
     &SettlementView,
     Option<&CharacterView>,
@@ -171,7 +173,7 @@ pub(super) async fn merchant_shop(
         .as_ref()
         .ok()
         .and_then(|rows| rows.first())
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
     let problem_effects = consequences
         .unwrap_or_default()
         .into_iter()
@@ -429,11 +431,13 @@ pub(super) async fn equipment_rest_recommendation(
     let now = times
         .unwrap_or_default()
         .first()
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
     let smith_wait = orders
         .unwrap_or_default()
         .iter()
-        .map(|order| order.ready_at_minutes.saturating_sub(now))
+        .map(|order| {
+            StrategicMinute::new(order.ready_at_minutes.minutes).elapsed_since(now)
+        })
         .max()
         .unwrap_or(0);
     (field_minutes, smith_wait)

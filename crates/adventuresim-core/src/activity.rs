@@ -1,6 +1,6 @@
 //! Strategic schedule activities which combine training with other outcomes.
 
-use crate::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{StrategicMinute, is_sunday_day_index};
 
 pub const THIEVERY_UNAVAILABLE_REASON: &str = "Thievery is only available inside settlements.";
 pub const RAIDING_UNAVAILABLE_REASON: &str =
@@ -64,8 +64,6 @@ pub const ACTIVITY_TRAINING_RATE: f32 = 0.25;
 pub const PRAYER_MORALE_LIMIT: f32 = 4.0;
 pub const PRAYER_MORALE_SCALE_MINUTES: f32 = 60.0;
 pub const MAX_DAILY_PRAYER_OBLIGATION_MINUTES: f32 = 120.0;
-pub const DAYS_PER_WEEK: u64 = 7;
-pub const SUNDAY_INDEX: u64 = 6;
 pub const CAROUSING_MORALE_LIMIT: f32 = 4.0;
 pub const CAROUSING_MORALE_SCALE_MINUTES: f32 = 120.0;
 
@@ -73,21 +71,17 @@ pub fn carousing_morale_per_day(minutes: u16) -> f32 {
     CAROUSING_MORALE_LIMIT * (1.0 - (-f32::from(minutes) / CAROUSING_MORALE_SCALE_MINUTES).exp())
 }
 
-pub fn is_sunday(day: u64) -> bool {
-    day % DAYS_PER_WEEK == SUNDAY_INDEX
-}
-
-pub fn sundays_overlapping(start_minute: u64, elapsed_minutes: u64) -> Vec<u64> {
+pub fn sundays_overlapping(start_minute: StrategicMinute, elapsed_minutes: u64) -> Vec<u64> {
     if elapsed_minutes == 0 {
         return Vec::new();
     }
-    let first_day = start_minute / MINUTES_PER_DAY;
+    let first_day = start_minute.day_index();
     let last_day = start_minute
-        .saturating_add(elapsed_minutes)
-        .saturating_sub(1)
-        / MINUTES_PER_DAY;
+        .saturating_add_minutes(elapsed_minutes)
+        .saturating_sub_minutes(1)
+        .day_index();
     (first_day..=last_day)
-        .filter(|day| is_sunday(*day))
+        .filter(|day| is_sunday_day_index(*day))
         .collect()
 }
 
@@ -154,6 +148,7 @@ pub fn raiding_retaliation_chance(hours: f32) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 
     #[test]
     fn location_activity_matrix_distinguishes_inns_settlements_and_outdoors() {
@@ -229,20 +224,20 @@ mod tests {
 
     #[test]
     fn sunday_is_every_seventh_calendar_day() {
-        assert!(!is_sunday(0));
-        assert!(!is_sunday(5));
-        assert!(is_sunday(6));
-        assert!(is_sunday(13));
+        assert!(!is_sunday_day_index(0));
+        assert!(!is_sunday_day_index(5));
+        assert!(is_sunday_day_index(6));
+        assert!(is_sunday_day_index(13));
     }
 
     #[test]
     fn travel_detects_each_sunday_it_overlaps() {
-        let saturday_evening = 5 * MINUTES_PER_DAY + 20 * 60;
+        let saturday_evening = StrategicMinute::new(5 * MINUTES_PER_DAY + 20 * 60);
         assert_eq!(sundays_overlapping(saturday_evening, 32 * 60), vec![6]);
         assert_eq!(
             sundays_overlapping(saturday_evening, 8 * MINUTES_PER_DAY),
             vec![6, 13]
         );
-        assert!(sundays_overlapping(0, 0).is_empty());
+        assert!(sundays_overlapping(StrategicMinute::ZERO, 0).is_empty());
     }
 }

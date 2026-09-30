@@ -6,7 +6,7 @@ mod appearance;
 mod controls;
 mod shell;
 use crate::spacetimedb::SettlementCategory;
-use adventuresim_core::strategic_time::{DAYS_PER_YEAR, LUNAR_CYCLE_MINUTES, MINUTES_PER_DAY};
+use adventuresim_core::strategic_time::LUNAR_CYCLE_MINUTES;
 use appearance::{building_tier, wilderness_variant};
 use controls::{character_switcher, journal_button};
 use maud::{DOCTYPE, Markup, PreEscaped, html};

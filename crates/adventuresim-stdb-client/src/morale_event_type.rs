@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::morale_event_kind_type::MoraleEventKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,8 +14,8 @@ pub struct MoraleEvent {
     pub character_id: u64,
     pub kind: MoraleEventKind,
     pub magnitude: f32,
-    pub occurred_at_minute: u64,
-    pub expires_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
+    pub expires_at_minute: StrategicMinute,
     pub source_id: Option<String>,
 }
 
@@ -30,8 +31,8 @@ pub struct MoraleEventCols {
     pub character_id: __sdk::__query_builder::Col<MoraleEvent, u64>,
     pub kind: __sdk::__query_builder::Col<MoraleEvent, MoraleEventKind>,
     pub magnitude: __sdk::__query_builder::Col<MoraleEvent, f32>,
-    pub occurred_at_minute: __sdk::__query_builder::Col<MoraleEvent, u64>,
-    pub expires_at_minute: __sdk::__query_builder::Col<MoraleEvent, u64>,
+    pub occurred_at_minute: __sdk::__query_builder::Col<MoraleEvent, StrategicMinute>,
+    pub expires_at_minute: __sdk::__query_builder::Col<MoraleEvent, StrategicMinute>,
     pub source_id: __sdk::__query_builder::Col<MoraleEvent, Option<String>>,
 }
 

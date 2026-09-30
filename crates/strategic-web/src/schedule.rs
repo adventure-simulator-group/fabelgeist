@@ -91,7 +91,7 @@ impl SchedulePreview {
             .effective_at(location, character_id);
         Ok(Self {
             effective,
-            leisure_minutes: adventuresim_core::strategic_time::MINUTES_PER_DAY
+            leisure_minutes: adventuresim_world_schema::calendar::MINUTES_PER_DAY
                 - effective.allocated_minutes(),
         })
     }

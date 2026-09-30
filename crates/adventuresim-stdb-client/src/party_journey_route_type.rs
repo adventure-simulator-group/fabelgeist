@@ -8,6 +8,7 @@ use super::journey_precipitation_type::JourneyPrecipitation;
 use super::journey_route_leg_type::JourneyRouteLeg;
 use super::journey_route_point_type::JourneyRoutePoint;
 use super::journey_terrain_span_type::JourneyTerrainSpan;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,7 +17,7 @@ pub struct PartyJourneyRoute {
     pub gateway_bucket: u8,
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
+    pub weather_interval_start: StrategicMinute,
     pub precipitation: JourneyPrecipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
@@ -40,7 +41,7 @@ pub struct PartyJourneyRouteCols {
     pub gateway_bucket: __sdk::__query_builder::Col<PartyJourneyRoute, u8>,
     pub package_digest: __sdk::__query_builder::Col<PartyJourneyRoute, String>,
     pub weather_rules_version: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,
-    pub weather_interval_start: __sdk::__query_builder::Col<PartyJourneyRoute, u64>,
+    pub weather_interval_start: __sdk::__query_builder::Col<PartyJourneyRoute, StrategicMinute>,
     pub precipitation: __sdk::__query_builder::Col<PartyJourneyRoute, JourneyPrecipitation>,
     pub intensity_bps: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,
     pub ground_moisture_bps: __sdk::__query_builder::Col<PartyJourneyRoute, u16>,

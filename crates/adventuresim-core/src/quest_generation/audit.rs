@@ -11,7 +11,7 @@ pub fn audit(seeds: u64) -> BTreeMap<TemplateFamily, u64> {
                 settlement_id: "audit".into(),
             },
             ordinal: 0,
-            now_minute: 1_000,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1_000),
             incident_weather: crate::weather::Precipitation::Clear,
             requested_family: None,
             witness_candidates: test_witnesses(),

@@ -94,8 +94,8 @@ pub fn build_imported_scene(
     scene_key: &str,
     latitude_e7: i32,
     longitude_e7: i32,
-    absolute_minute: u64,
-    lunar_phase_minute: u64,
+    absolute_minute: adventuresim_world_schema::calendar::StrategicMinute,
+    lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute,
     settlement: Option<&SettlementSceneProfile>,
 ) -> Result<TacticalSceneInput, String> {
     let coordinates = Wgs84CoordinateE7::new(latitude_e7, longitude_e7)
@@ -623,8 +623,8 @@ mod tests {
             "known-coordinate",
             505_000_000,
             105_000_000,
-            123_456,
-            123_456,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             None,
         )
         .expect("known coordinate should produce a tactical scene");
@@ -657,7 +657,13 @@ mod tests {
         );
         assert_eq!(
             input.weather,
-            weather_at(WORLD_WEATHER_SEED, 123_456, 50_500_000, 10_500_000, 321)
+            weather_at(
+                WORLD_WEATHER_SEED,
+                adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+                50_500_000,
+                10_500_000,
+                321
+            )
         );
 
         drop(pack);
@@ -681,8 +687,8 @@ mod tests {
             "city",
             505_000_000,
             105_000_000,
-            123_456,
-            123_456,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
             Some(&settlement),
         )
         .unwrap();

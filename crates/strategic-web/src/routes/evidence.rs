@@ -101,8 +101,12 @@ async fn evidence_at_site(
                 .filter(|attempt| attempt.evidence_id == item.evidence_id)
                 .cloned()
                 .collect::<Vec<_>>();
-            item_inspections
-                .sort_by_key(|attempt| (attempt.attempted_at, attempt.attempt_id.clone()));
+            item_inspections.sort_by_key(|attempt| {
+                (
+                    crate::spacetimedb::calendar_minute(&attempt.attempted_at),
+                    attempt.attempt_id.clone(),
+                )
+            });
             EvidenceView {
                 id: item.evidence_id,
                 label: item.label,

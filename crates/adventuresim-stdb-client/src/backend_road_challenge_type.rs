@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendRoadChallenge {
     pub id: String,
     pub owner_character_id: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub presentation_json: String,
     pub revision: u32,
     pub open: bool,
@@ -28,7 +30,7 @@ impl __sdk::InModule for BackendRoadChallenge {
 pub struct BackendRoadChallengeCols {
     pub id: __sdk::__query_builder::Col<BackendRoadChallenge, String>,
     pub owner_character_id: __sdk::__query_builder::Col<BackendRoadChallenge, u64>,
-    pub absolute_minute: __sdk::__query_builder::Col<BackendRoadChallenge, u64>,
+    pub absolute_minute: __sdk::__query_builder::Col<BackendRoadChallenge, StrategicMinute>,
     pub presentation_json: __sdk::__query_builder::Col<BackendRoadChallenge, String>,
     pub revision: __sdk::__query_builder::Col<BackendRoadChallenge, u32>,
     pub open: __sdk::__query_builder::Col<BackendRoadChallenge, bool>,

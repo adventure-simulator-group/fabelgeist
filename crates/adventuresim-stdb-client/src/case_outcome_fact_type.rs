@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CaseOutcomeFact {
@@ -12,7 +14,7 @@ pub struct CaseOutcomeFact {
     pub party_id: String,
     pub source_id: String,
     pub fact_json: String,
-    pub happened_at_minute: u64,
+    pub happened_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CaseOutcomeFact {
@@ -28,7 +30,7 @@ pub struct CaseOutcomeFactCols {
     pub party_id: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
     pub source_id: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
     pub fact_json: __sdk::__query_builder::Col<CaseOutcomeFact, String>,
-    pub happened_at_minute: __sdk::__query_builder::Col<CaseOutcomeFact, u64>,
+    pub happened_at_minute: __sdk::__query_builder::Col<CaseOutcomeFact, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CaseOutcomeFact {

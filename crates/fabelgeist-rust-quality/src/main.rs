@@ -1,4 +1,5 @@
 mod analyze;
+mod calendar_flow;
 mod config;
 mod manifests;
 mod scan;

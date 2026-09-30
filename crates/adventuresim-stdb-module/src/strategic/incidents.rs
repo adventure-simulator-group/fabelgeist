@@ -364,7 +364,7 @@ pub(crate) fn maybe_trigger_activity_incident(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let entropy_id = format!(
         "activity-entropy:{party_id}:{}:{character_id}:{occurrence_minute}",
         settlement.id
@@ -620,7 +620,7 @@ pub(crate) fn finish_incident_for_hostile_group(
             .character_time()
             .character_id()
             .find(incident.instigator_id)
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |t| t.minutes);
         crate::reputation::record_event(
             ctx,
             format!("resist-authority:{}", incident.id.value),
@@ -659,7 +659,7 @@ fn activity_incident_source_id(
     party_id: &str,
     settlement_id: &str,
     character_id: u64,
-    occurrence_minute: u64,
+    occurrence_minute: StrategicMinute,
 ) -> IncidentSourceId {
     IncidentSourceId {
         value: format!(

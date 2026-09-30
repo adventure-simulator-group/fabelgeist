@@ -9,7 +9,7 @@ pub fn initialize_time(ctx: &ReducerContext) {
     }
 }
 
-pub fn refresh_clock(ctx: &ReducerContext) -> Result<u64, String> {
+pub fn refresh_clock(ctx: &ReducerContext) -> Result<StrategicMinute, String> {
     if ctx.db.world_clock().id().find(0).is_none() {
         initialize_time(ctx);
     }
@@ -19,7 +19,7 @@ pub fn refresh_clock(ctx: &ReducerContext) -> Result<u64, String> {
         .id()
         .find(0)
         .ok_or_else(|| "World clock is not initialized".to_string())?;
-    let official_minutes = calculate_official_minutes(
+    let official_minutes = calculate_official_minute(
         clock.epoch_micros,
         ctx.timestamp.to_micros_since_unix_epoch(),
     );
@@ -115,8 +115,8 @@ fn advance_married_family_by(
             .character_id()
             .find(related_id)
             .ok_or("Married family member has no subjective clock")?
-            .minutes
-            .saturating_add(elapsed);
+            .minutes;
+        let target = target.saturating_add_minutes(elapsed);
         advance_stationary_character_to(ctx, related_id, target)?;
     }
     Ok(())

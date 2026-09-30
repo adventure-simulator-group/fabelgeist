@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use super::backend_fireplace_dish_type::BackendFireplaceDish;
 use super::cooking_method_type::CookingMethod;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_fireplace_dishes`.

@@ -115,7 +115,7 @@ pub(super) const MAX_CASE_SITE_SAFE_WINDOW_SEARCH_MINUTES: u64 =
     MAX_CASE_SITE_SAFE_WINDOW_SEARCH_DAYS * MINUTES_PER_DAY;
 
 pub(super) fn generated_safe_departure_waits(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     walking_minutes: u16,
     travel_at_night: bool,
 ) -> Vec<u64> {
@@ -123,7 +123,7 @@ pub(super) fn generated_safe_departure_waits(
         .step_by(60)
         .filter(|wait| {
             adventuresim_core::strategic_time::is_walking_time(
-                starting_minute.saturating_add(*wait),
+                starting_minute.saturating_add_minutes(*wait),
                 walking_minutes,
                 travel_at_night,
             )
@@ -140,7 +140,7 @@ pub(super) fn generated_safe_departure_waits(
 }
 
 pub(super) fn generated_daily_walking_start_waits(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     walking_minutes: u16,
     travel_at_night: bool,
 ) -> Vec<u64> {
@@ -148,7 +148,7 @@ pub(super) fn generated_daily_walking_start_waits(
         .filter_map(|day_offset| {
             let day_wait = day_offset * MINUTES_PER_DAY;
             adventuresim_core::strategic_time::minutes_until_next_walking_start(
-                starting_minute.saturating_add(day_wait),
+                starting_minute.saturating_add_days(day_offset),
                 walking_minutes,
                 travel_at_night,
             )

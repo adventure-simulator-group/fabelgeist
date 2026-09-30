@@ -195,6 +195,7 @@ async fn resolve_organizations(
         .map_err(|_| unavailable())?
         .ok_or_else(unavailable)?
         .minutes;
+    let minute = adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes);
     let eligible = |id: Option<&str>, practice: bool| {
         id.is_some_and(|id| {
             let Some(definition) = adventuresim_core::organization::organization(id) else {
@@ -208,7 +209,10 @@ async fn resolve_organizations(
                     row.organization_id == id
                         && row.status
                             == adventuresim_stdb_client::OrganizationMembershipStatus::Active
-                        && minute <= row.dues_paid_through_minute
+                        && minute
+                            <= adventuresim_world_schema::calendar::StrategicMinute::new(
+                                row.dues_paid_through_minute.minutes,
+                            )
                         && (!practice
                             || definition
                                 .role(&row.role_id)

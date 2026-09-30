@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendInvestigationJournalEntry {
@@ -17,7 +19,7 @@ pub struct BackendInvestigationJournalEntry {
     pub contradiction_group: String,
     pub corrected_by: String,
     pub supersedes: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 impl __sdk::InModule for BackendInvestigationJournalEntry {
@@ -38,7 +40,7 @@ pub struct BackendInvestigationJournalEntryCols {
     pub contradiction_group: __sdk::__query_builder::Col<BackendInvestigationJournalEntry, String>,
     pub corrected_by: __sdk::__query_builder::Col<BackendInvestigationJournalEntry, String>,
     pub supersedes: __sdk::__query_builder::Col<BackendInvestigationJournalEntry, String>,
-    pub recorded_at: __sdk::__query_builder::Col<BackendInvestigationJournalEntry, u64>,
+    pub recorded_at: __sdk::__query_builder::Col<BackendInvestigationJournalEntry, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendInvestigationJournalEntry {

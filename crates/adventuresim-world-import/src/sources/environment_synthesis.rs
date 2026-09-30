@@ -651,7 +651,7 @@ mod tests {
 
     fn topology_draft() -> FinalizedSoilWorldDraft {
         FinalizedSoilWorldDraft {
-            year: 1544,
+            year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
             spatial_grid: SpatialGridSpec::default(),
             sources: vec![crate::manifest::hydrology()],
             road_types: vec![TravelEdgeKind::Ferry],

@@ -265,7 +265,7 @@ pub(crate) fn build_strategic_encounter(
     roll_index: u64,
     movement_minute: u64,
     elapsed_minute: u64,
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     longitude_e7: i32,
     latitude_e7: i32,
     fatigue_percent: u8,
@@ -470,9 +470,8 @@ fn maybe_interrupt_travel(
         requested_minutes,
         |minute| {
             let terrain = core_encounter_terrain(encounter_terrain_at(route.as_ref(), minute));
-            let absolute_minute = local_start.saturating_add(minute.saturating_sub(completed));
             let night = adventuresim_core::strategic_time::StrategicMinuteOfDay::from_absolute(
-                absolute_minute,
+                local_start.saturating_add_minutes(minute.saturating_sub(completed)),
             )
             .is_night();
             adventuresim_core::encounter::EncounterContext {

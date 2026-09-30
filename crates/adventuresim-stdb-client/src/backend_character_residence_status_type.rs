@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::housing_tier_type::HousingTier;
 use super::residence_tenure_type::ResidenceTenure;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -19,9 +20,9 @@ pub struct BackendCharacterResidenceStatus {
     pub active: bool,
     pub primary: bool,
     pub occupied: bool,
-    pub acquired_minute: u64,
-    pub last_billed_minute: u64,
-    pub next_due_minute: u64,
+    pub acquired_minute: StrategicMinute,
+    pub last_billed_minute: StrategicMinute,
+    pub next_due_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for BackendCharacterResidenceStatus {
@@ -41,9 +42,12 @@ pub struct BackendCharacterResidenceStatusCols {
     pub active: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, bool>,
     pub primary: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, bool>,
     pub occupied: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, bool>,
-    pub acquired_minute: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
-    pub last_billed_minute: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
-    pub next_due_minute: __sdk::__query_builder::Col<BackendCharacterResidenceStatus, u64>,
+    pub acquired_minute:
+        __sdk::__query_builder::Col<BackendCharacterResidenceStatus, StrategicMinute>,
+    pub last_billed_minute:
+        __sdk::__query_builder::Col<BackendCharacterResidenceStatus, StrategicMinute>,
+    pub next_due_minute:
+        __sdk::__query_builder::Col<BackendCharacterResidenceStatus, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendCharacterResidenceStatus {

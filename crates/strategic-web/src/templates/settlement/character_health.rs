@@ -1,3 +1,4 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
 mod notebook;
 mod segments;
 use adventuresim_core::surgery::SurgeryProcedure;
@@ -689,7 +690,9 @@ fn physiology_series_paths(
     if readings.is_empty() {
         return Vec::new();
     }
-    let first_minute = readings.first().map_or(0, |reading| reading.minute);
+    let first_minute = readings
+        .first()
+        .map_or(StrategicMinute::ZERO, |reading| reading.minute);
     let last_minute = readings
         .last()
         .map_or(first_minute, |reading| reading.minute);
@@ -715,9 +718,9 @@ fn physiology_series_paths(
     paths
 }
 
-fn physiology_relative_day_label(minute: u64, today: u64) -> String {
+fn physiology_relative_day_label(minute: StrategicMinute, today: StrategicMinute) -> String {
     let days_ago =
-        today.saturating_sub(minute) / adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        today.elapsed_since(minute) / adventuresim_world_schema::calendar::MINUTES_PER_DAY;
     match days_ago {
         0 => "Today".to_owned(),
         1 => "1 day ago".to_owned(),
@@ -725,12 +728,16 @@ fn physiology_relative_day_label(minute: u64, today: u64) -> String {
     }
 }
 
-fn physiology_time_y(minute: u64, first_minute: u64, last_minute: u64) -> f32 {
-    let duration = last_minute.saturating_sub(first_minute);
+fn physiology_time_y(
+    minute: StrategicMinute,
+    first_minute: StrategicMinute,
+    last_minute: StrategicMinute,
+) -> f32 {
+    let duration = last_minute.elapsed_since(first_minute);
     if duration == 0 {
         50.0
     } else {
-        4.0 + minute.saturating_sub(first_minute).min(duration) as f32 * 92.0 / duration as f32
+        4.0 + minute.elapsed_since(first_minute).min(duration) as f32 * 92.0 / duration as f32
     }
 }
 
@@ -801,7 +808,7 @@ fn physiology_reading_snapshot(
     reading: &ChartReadingPresentation,
     region_index: usize,
     region_label: &str,
-    today: u64,
+    today: StrategicMinute,
 ) -> Markup {
     let values = reading.humour_deviations_bps[region_index];
     html! {
@@ -841,7 +848,7 @@ fn physiology_reading_aria_label(
     reading: &ChartReadingPresentation,
     region_index: usize,
     region_label: &str,
-    today: u64,
+    today: StrategicMinute,
 ) -> String {
     let values = reading.humour_deviations_bps[region_index];
     format!(
@@ -879,7 +886,7 @@ pub(super) fn physiology_dialog(
                     } @else if medical.readings.is_empty() {
                         p class="physiology-empty-state" { "No observations have been recorded while you were together." }
                     } @else {
-                        @let first_minute = medical.readings.first().map_or(0, |reading| reading.minute);
+                        @let first_minute = medical.readings.first().map_or(StrategicMinute::ZERO, |reading| reading.minute);
                         @let last_minute = medical.readings.last().map_or(first_minute, |reading| reading.minute);
                         @let latest = medical.readings.last().expect("nonempty chart");
                         section class="physiology-trend-panel" aria-labelledby="physiology-trend-title" {
@@ -923,7 +930,7 @@ pub(super) fn physiology_dialog(
                                         @let gap_start = gap.from.clamp(first_minute, last_minute);
                                         @let gap_end = gap.to.clamp(first_minute, last_minute);
                                         @if gap_end > gap_start {
-                                            @let gap_midpoint = gap_start + (gap_end - gap_start) / 2;
+                                            @let gap_midpoint = gap_start.midpoint(gap_end);
                                             @let gap_y = physiology_time_y(
                                                 gap_midpoint,
                                                 first_minute,
@@ -1603,7 +1610,7 @@ mod tests {
             substance: FilthSubstance::Blood,
             origin: FilthOrigin::Foreign,
             amount: 2,
-            deposited_at: 10,
+            deposited_at: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
         };
         let serialized =
             serde_json::to_value(spacetimedb_sats::serde::SerdeWrapper::from_ref(&deposit))
@@ -1930,7 +1937,7 @@ mod tests {
                 route: adventuresim_core::physiology::InterventionRoute::Oral,
                 dose: adventuresim_core::physiology::DoseMilliunits::STANDARD,
                 region: None,
-                administered_at: 100,
+                administered_at: StrategicMinute::new(100),
                 stopped_at: None,
             }],
             ..Default::default()
@@ -1951,7 +1958,7 @@ mod tests {
         let presentation = crate::medical::MedicalPresentation {
             readings: vec![
                 crate::medical::ChartReadingPresentation {
-                    minute: 1_440,
+                    minute: StrategicMinute::new(1_440),
                     physiology_band: 2,
                     observation_minutes: 1_440,
                     humour_deviations_bps: [[-1_200, 2_300, 3_400, 4_500]; 7],
@@ -1965,7 +1972,7 @@ mod tests {
                     confidence_bps: 7_000,
                 },
                 crate::medical::ChartReadingPresentation {
-                    minute: 4_320,
+                    minute: StrategicMinute::new(4_320),
                     physiology_band: 2,
                     observation_minutes: 4_320,
                     humour_deviations_bps: [[-1_000, 2_100, 3_200, 4_300]; 7],
@@ -1980,8 +1987,8 @@ mod tests {
                 },
             ],
             gaps: vec![crate::medical::ChartGapPresentation {
-                from: 2_160,
-                to: 2_880,
+                from: StrategicMinute::new(2_160),
+                to: StrategicMinute::new(2_880),
             }],
             administrations: vec![crate::medical::AdministrationPresentation {
                 id: 1,
@@ -1991,8 +1998,8 @@ mod tests {
                 route: adventuresim_core::physiology::InterventionRoute::Oral,
                 dose: adventuresim_core::physiology::DoseMilliunits::STANDARD,
                 region: None,
-                administered_at: 1_800,
-                stopped_at: Some(3_600),
+                administered_at: StrategicMinute::new(1_800),
+                stopped_at: Some(StrategicMinute::new(3_600)),
             }],
             ..Default::default()
         };
@@ -2059,9 +2066,18 @@ mod tests {
 
     #[test]
     fn physiology_chart_formats_relative_days() {
-        assert_eq!(physiology_relative_day_label(0, 4_320), "3 days ago");
-        assert_eq!(physiology_relative_day_label(2_880, 4_320), "1 day ago");
-        assert_eq!(physiology_relative_day_label(4_320, 4_320), "Today");
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(0), StrategicMinute::new(4_320)),
+            "3 days ago"
+        );
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(2_880), StrategicMinute::new(4_320)),
+            "1 day ago"
+        );
+        assert_eq!(
+            physiology_relative_day_label(StrategicMinute::new(4_320), StrategicMinute::new(4_320)),
+            "Today"
+        );
     }
 
     #[test]

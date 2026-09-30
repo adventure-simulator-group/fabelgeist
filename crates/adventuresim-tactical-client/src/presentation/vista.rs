@@ -1100,8 +1100,10 @@ fn vista_sample_color(sample: EnvironmentalSample, weather: WeatherSnapshot) -> 
         generation_version: TACTICAL_SCENE_GENERATION_VERSION,
         latitude_microdegrees: 53_500_000,
         longitude_microdegrees: 10_000_000,
-        absolute_minute: 12 * 60,
-        lunar_phase_minute: 12 * 60,
+        absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO
+            .saturating_add_minutes(12 * 60),
+        lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO
+            .saturating_add_minutes(12 * 60),
         absolute_elevation_metres: 20,
         weather,
         canopy_bps: sample.canopy_bps,
@@ -1169,7 +1171,7 @@ fn sample_vista_color(lod: &VistaLod, world: Vec2, weather: WeatherSnapshot) -> 
 fn clear_vista_weather() -> WeatherSnapshot {
     WeatherSnapshot {
         rules_version: WEATHER_RULES_VERSION,
-        interval_start_minute: 0,
+        interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
         cell_latitude: 0,
         cell_longitude: 0,
         temperature_deci_c: 100,
@@ -1540,8 +1542,8 @@ mod tests {
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
             latitude_microdegrees: 53_500_000,
             longitude_microdegrees: 10_000_000,
-            absolute_minute: 12 * 60,
-            lunar_phase_minute: 12 * 60,
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
             absolute_elevation_metres: 20,
             weather: clear_vista_weather(),
             canopy_bps: 0,

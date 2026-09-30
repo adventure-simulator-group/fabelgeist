@@ -5,6 +5,7 @@ use super::{
     semantic_digest,
 };
 use adventuresim_core::quest_generation::{RouteClass, TemplateFamily};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -298,12 +299,8 @@ pub fn render_markdown_stories(report: &PublicEvaluationReport) -> String {
     output
 }
 
-fn story_time(game_minute: u64) -> (u64, u64, u64) {
-    (
-        game_minute / (24 * 60) + 1,
-        game_minute % (24 * 60) / 60,
-        game_minute % 60,
-    )
+fn story_time(game_minute: StrategicMinute) -> (u64, u64, u64) {
+    game_minute.day_hour_minute()
 }
 
 pub fn evaluate_cases(
@@ -1306,7 +1303,7 @@ mod tests {
             initial_classification: PolicyClassification::default(),
             events: vec![super::super::PublicTraceEvent {
                 step: 0,
-                game_minute: 0,
+                game_minute: StrategicMinute::ZERO,
                 location: "the market".into(),
                 observation_provenance: "offline_projection/player_frame".into(),
                 pre_observation_digest: "pre".into(),

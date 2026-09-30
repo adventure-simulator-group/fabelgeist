@@ -7,6 +7,7 @@ use std::{fmt, str::FromStr};
 
 use serde::{Deserialize, Serialize};
 
+pub mod calendar;
 pub mod coordinates;
 mod economy;
 mod geologic_window;
@@ -18,9 +19,8 @@ mod language;
 mod terrain_feature;
 pub use geologic_window::*;
 mod world_build_report;
-pub use language::*;
-pub use terrain_feature::*;
 pub use world_build_report::*;
+pub use {language::*, terrain_feature::*};
 pub const WORLD_SCHEMA_VERSION: u32 = 29;
 pub const CURRENT_INFERENCE_RULES_VERSION: u32 = 10;
 pub const MAX_EDGE_GEOMETRY_POINTS: usize = 512;
@@ -3978,7 +3978,7 @@ pub struct WorldMetadata {
     pub schema_version: u32,
     pub inference_rules_version: u32,
     pub spatial_grid: SpatialGridSpec,
-    pub world_year: i32,
+    pub world_year: calendar::CalendarYear,
     /// BLAKE3 of the canonical schema/rules/year/grid/source-manifest tuple.
     pub manifest_digest: String,
     pub sources: Vec<SourceProvenance>,
@@ -4051,6 +4051,7 @@ pub enum SourceSpatialCoverage {
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 #[serde(rename_all = "kebab-case", deny_unknown_fields)]
+/// Source coverage can include BCE years, outside the positive game calendar.
 pub enum SourceTemporalCoverage {
     Timeless,
     Year(i32),

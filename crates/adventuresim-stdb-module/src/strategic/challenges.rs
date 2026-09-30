@@ -132,7 +132,7 @@ fn apply_narrative_effect(
     ctx: &ReducerContext,
     occurrence_id: &str,
     party_id: &str,
-    now: u64,
+    now: StrategicMinute,
     effect: &adventuresim_core::road_encounter_catalog::Effect,
 ) -> Result<(), String> {
     use adventuresim_core::road_encounter_catalog::Effect;
@@ -254,13 +254,13 @@ pub struct RoadChallengeAuthority {
     pub case_id: String,
     pub finale_case_site_id: Option<CaseSiteId>,
     pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
+    pub journey_departure_minute: StrategicMinute,
     pub camp_movement_minute: u64,
     pub available_at_elapsed_minute: u64,
     pub catalog_id: String,
     pub catalog_revision: u32,
     pub catalog_digest: String,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub longitude_e7: i32,
     pub latitude_e7: i32,
     pub trigger: NarrativeEncounterTrigger,
@@ -303,7 +303,7 @@ pub struct RoadChallengeResolutionReceipt {
     pub catalog_digest: String,
     pub result_transcript: String,
     pub effects_json: String,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -315,7 +315,7 @@ pub struct NarrativeEncounterInformation {
     pub occurrence_id: String,
     pub party_id: String,
     pub information_id: String,
-    pub learned_at_minute: u64,
+    pub learned_at_minute: StrategicMinute,
 }
 
 /// Private outcome contract for a catalog-authored transition into the normal
@@ -344,14 +344,14 @@ pub struct NarrativeCombatFollowupReceipt {
     pub result_transcript: String,
     pub applied_payload_json: String,
     pub virtue_exemplified: Option<crate::personality::ChivalricVirtue>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
 pub struct BackendRoadChallenge {
     pub id: String,
     pub owner_character_id: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub presentation_json: String,
     pub revision: u32,
     pub open: bool,
@@ -399,7 +399,7 @@ pub struct ChallengeAuthority {
     pub party_id: String,
     pub finale_case_site_id: CaseSiteId,
     pub finale_hostile_group_id: String,
-    pub journey_departure_minute: u64,
+    pub journey_departure_minute: StrategicMinute,
     pub camp_movement_minute: u64,
     pub camp_elapsed_minute: u64,
     pub errantry_frame_json: String,
@@ -407,7 +407,7 @@ pub struct ChallengeAuthority {
     pub presenter_catalog_id: ChallengePresenterCatalogId,
     pub revision: u32,
     pub open: bool,
-    pub solved_at_minute: Option<u64>,
+    pub solved_at_minute: Option<StrategicMinute>,
 }
 
 /// Durable source/revision receipt. Wrong attempts are retained and retryable;
@@ -426,7 +426,7 @@ pub struct ChallengeAttemptReceipt {
     pub submission_json: String,
     pub correct: bool,
     pub resulting_revision: u32,
-    pub attempted_at_minute: u64,
+    pub attempted_at_minute: StrategicMinute,
 }
 
 /// Trusted-gateway, observer-bound projection. Puzzle seed and canonical
@@ -949,12 +949,7 @@ pub(crate) fn materialize_chance_narrative_encounter(
             virtue_exemplified: None,
             result_transcript: None,
         });
-    crate::world_actor::materialize_road_encounter_cast(
-        ctx,
-        &id,
-        definition,
-        official_minute,
-    )?;
+    crate::world_actor::materialize_road_encounter_cast(ctx, &id, definition, official_minute)?;
     ctx.db
         .narrative_encounter_private_authority()
         .insert(NarrativeEncounterPrivateAuthority {
@@ -970,9 +965,13 @@ pub(crate) fn materialize_chance_narrative_encounter(
 }
 
 fn narrative_combat_roll(seed: u64, occurrence_id: &str) -> u64 {
-    fabelgeist_determinism::Seed::derive(&seed.to_le_bytes(),
+    fabelgeist_determinism::Seed::derive(
+        &seed.to_le_bytes(),
         fabelgeist_determinism::StreamId::new("encounter.narrative-combat"),
-        &[occurrence_id.as_bytes()]).rng().next_u64()
+        &[occurrence_id.as_bytes()],
+    )
+    .rng()
+    .next_u64()
 }
 
 fn materialize_narrative_combat(
@@ -1269,7 +1268,7 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
                 && challenge.solved_at_minute.is_none()
                 && challenge.case_id == contract.case_id
                 && challenge.finale_case_site_id == destination.id
-                && challenge.journey_departure_minute == 0
+                && challenge.journey_departure_minute == StrategicMinute::ZERO
         })
         .collect::<Vec<_>>();
     candidates.sort_by(|left, right| left.id.cmp(&right.id));
@@ -1309,7 +1308,7 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
             challenge.open
                 && challenge.case_id == contract.case_id
                 && challenge.finale_case_site_id.as_ref() == Some(&destination.id)
-                && challenge.journey_departure_minute == 0
+                && challenge.journey_departure_minute == StrategicMinute::ZERO
         })
         .collect::<Vec<_>>();
     road_candidates.sort_by(|left, right| left.id.cmp(&right.id));
@@ -1321,7 +1320,7 @@ pub(crate) fn bind_errantry_trials_to_current_camp(
             .saturating_add(COURIER_REST_DELAY_MINUTES);
         challenge.absolute_minute = journey
             .departure_minute
-            .saturating_add(challenge.available_at_elapsed_minute);
+            .saturating_add_minutes(challenge.available_at_elapsed_minute);
         ctx.db.road_challenge_authority().id().update(challenge);
     }
     Ok(())
@@ -1914,10 +1913,7 @@ impl<'a> ErrantryChallengeId<'a> {
         };
         let character_id = parts.next()?.parse().ok()?;
         let _ordinal = parts.next()?.parse::<u64>().ok()?;
-        if domain != "challenge"
-            || puzzle_kind.is_empty()
-            || parts.next().is_some()
-        {
+        if domain != "challenge" || puzzle_kind.is_empty() || parts.next().is_some() {
             return None;
         }
         Some(Self {
@@ -2029,8 +2025,12 @@ fn materialize_development_road_encounter(
     {
         return Err("Road encounter demo requires a reached journey camp".into());
     }
-    let catalog_hash = fabelgeist_determinism::Seed::derive(catalog_id.as_bytes(),
-        fabelgeist_determinism::StreamId::new("encounter.demo-roll-index"), &[]).to_u64();
+    let catalog_hash = fabelgeist_determinism::Seed::derive(
+        catalog_id.as_bytes(),
+        fabelgeist_determinism::StreamId::new("encounter.demo-roll-index"),
+        &[],
+    )
+    .to_u64();
     let selection = adventuresim_core::encounter::NarrativeSelection {
         boundary_minute: journey.completed_elapsed_minutes,
         roll_index: catalog_hash,
@@ -2378,7 +2378,7 @@ fn materialize_order_errantry(
         party_id: party_id.clone(),
         finale_case_site_id: case_site_id.clone(),
         finale_hostile_group_id: hostile_group_id.clone(),
-        journey_departure_minute: 0,
+        journey_departure_minute: StrategicMinute::ZERO,
         camp_movement_minute: 0,
         camp_elapsed_minute: 0,
         errantry_frame_json: serde_json::to_string(&frame)
@@ -2399,13 +2399,13 @@ fn materialize_order_errantry(
             case_id: case_id.clone(),
             finale_case_site_id: Some(case_site_id.clone()),
             finale_hostile_group_id: hostile_group_id.clone(),
-            journey_departure_minute: 0,
+            journey_departure_minute: StrategicMinute::ZERO,
             camp_movement_minute: 0,
             available_at_elapsed_minute: 0,
             catalog_id: road_definition.id.clone(),
             catalog_revision: road_definition.version,
             catalog_digest: adventuresim_core::road_encounter_catalog::digest().into(),
-            absolute_minute: 0,
+            absolute_minute: StrategicMinute::ZERO,
             longitude_e7: 0,
             latitude_e7: 0,
             trigger: NarrativeEncounterTrigger::Rest,
@@ -2588,7 +2588,7 @@ mod challenge_source_boundary_tests {
             submission_json: r#"{"kind":"ordered_sigils","answer":{"ordering":["Crown","Hart","Moon","Rose","Sword"]}}"#.into(),
             correct: true,
             resulting_revision: 1,
-            attempted_at_minute: 42,
+            attempted_at_minute: adventuresim_world_schema::calendar::StrategicMinute::new(42),
         };
         validate_challenge_retry(
             &receipt,

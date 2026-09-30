@@ -108,7 +108,7 @@ pub(super) mod test_support {
             journey_minutes: 48,
             camp_stop_minutes: Vec::new(),
             camp_forecasts: Vec::new(),
-            departure_minute: 0,
+            departure_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             itinerary_total_elapsed_minutes: 96,
             itinerary_segments: Vec::new(),
             round_trip_destination: true,

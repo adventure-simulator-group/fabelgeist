@@ -1169,7 +1169,7 @@ async fn render_quest_location(
         .map(|row| {
             (row.calories_used.max(0.0)
                 / adventuresim_core::provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY
-                * adventuresim_core::strategic_time::MINUTES_PER_DAY as f32)
+                * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32)
                 .ceil() as u64
         })
         .max()
@@ -1740,7 +1740,9 @@ mod quest_route_tests {
             walking_minutes_per_day: 480,
             travel_at_night: false,
             journey_start_minute_of_day: 0,
-            wilderness_canonical_anchor_minute: Some(0),
+            wilderness_canonical_anchor_minute: Some(
+                adventuresim_world_schema::calendar::StrategicMinute::ZERO,
+            ),
             wilderness_elapsed_minutes: 0,
             camp_destination: None,
             camp_remaining_minutes: 0,
@@ -1796,7 +1798,7 @@ mod quest_route_tests {
             journey_minutes: 60,
             camp_stop_minutes: Vec::new(),
             camp_forecasts: Vec::new(),
-            departure_minute: 0,
+            departure_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             itinerary_total_elapsed_minutes: 60,
             itinerary_segments: Vec::new(),
             round_trip_destination: false,

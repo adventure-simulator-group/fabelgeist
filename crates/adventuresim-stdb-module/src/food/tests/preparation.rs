@@ -107,7 +107,7 @@ fn request_identity_binds_generation_and_submitted_locator() {
 #[test]
 fn grown_contamination_and_terminal_boundaries_are_planning_inputs() {
     let source = crate::production_source(crate::food::FOOD_SOURCE);
-    assert!(source.contains("current_minute.saturating_sub(row.anchor_minute)"));
+    assert!(source.contains("current_minute.elapsed_since(row.anchor_minute)"));
     assert!(source.contains("preparation_terminal_minute("));
     assert!(source.contains("preview_disease_terminal_boundary"));
     assert!(source.contains("preview_injury_boundary"));
@@ -142,7 +142,7 @@ fn material_revision_overflow_fails_closed() {
         mass_kg: 1.0,
         nutrition_kcal: 1.0,
         total_value: 1.0,
-        created_at_minute: 0,
+        created_at_minute: StrategicMinute::ZERO,
     };
     assert!(retain_lot_fraction(&mut lot, 0.5).is_err());
     assert_eq!(lot.material_revision, u64::MAX);
@@ -171,7 +171,7 @@ fn physical_preparation_keeps_safe_prefix_and_exact_instance_tool_rules() {
     assert!(wait < reducer.find("lot.preparation = post.next").unwrap());
     assert!(wait < reducer.find("apply_direct_training").unwrap());
     assert!(source.contains(
-        "effective_weapon_stat(item.accuracy, damage, item.edge_sensitivity) >= 0.5"
+        "effective_weapon_stat(item.precision, damage, item.edge_sensitivity) >= 0.5"
     ));
     assert!(source.contains("row_is_fireplace_rooted"));
     assert!(source.contains("Skill::Knife"));

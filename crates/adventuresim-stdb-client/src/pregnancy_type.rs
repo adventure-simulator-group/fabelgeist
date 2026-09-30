@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::pregnancy_status_type::PregnancyStatus;
 use super::sex_type::Sex;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -14,8 +15,8 @@ pub struct Pregnancy {
     pub mother_id: u64,
     pub father_id: u64,
     pub ordinal: u64,
-    pub conceived_minute: u64,
-    pub due_minute: u64,
+    pub conceived_minute: StrategicMinute,
+    pub due_minute: StrategicMinute,
     pub reserved_child_id: u64,
     pub child_name_seed: u64,
     pub child_sex: Sex,
@@ -24,7 +25,7 @@ pub struct Pregnancy {
     pub birth_residence_holding_id: Option<String>,
     pub status: PregnancyStatus,
     pub birth_character_id: Option<u64>,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for Pregnancy {
@@ -39,8 +40,8 @@ pub struct PregnancyCols {
     pub mother_id: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub father_id: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub ordinal: __sdk::__query_builder::Col<Pregnancy, u64>,
-    pub conceived_minute: __sdk::__query_builder::Col<Pregnancy, u64>,
-    pub due_minute: __sdk::__query_builder::Col<Pregnancy, u64>,
+    pub conceived_minute: __sdk::__query_builder::Col<Pregnancy, StrategicMinute>,
+    pub due_minute: __sdk::__query_builder::Col<Pregnancy, StrategicMinute>,
     pub reserved_child_id: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub child_name_seed: __sdk::__query_builder::Col<Pregnancy, u64>,
     pub child_sex: __sdk::__query_builder::Col<Pregnancy, Sex>,
@@ -49,7 +50,7 @@ pub struct PregnancyCols {
     pub birth_residence_holding_id: __sdk::__query_builder::Col<Pregnancy, Option<String>>,
     pub status: __sdk::__query_builder::Col<Pregnancy, PregnancyStatus>,
     pub birth_character_id: __sdk::__query_builder::Col<Pregnancy, Option<u64>>,
-    pub resolved_minute: __sdk::__query_builder::Col<Pregnancy, Option<u64>>,
+    pub resolved_minute: __sdk::__query_builder::Col<Pregnancy, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for Pregnancy {
@@ -85,7 +86,6 @@ impl __sdk::__query_builder::HasCols for Pregnancy {
 ///
 /// Provides typed access to indexed columns for query building.
 pub struct PregnancyIxCols {
-    pub due_minute: __sdk::__query_builder::IxCol<Pregnancy, u64>,
     pub father_id: __sdk::__query_builder::IxCol<Pregnancy, u64>,
     pub id: __sdk::__query_builder::IxCol<Pregnancy, String>,
     pub mother_id: __sdk::__query_builder::IxCol<Pregnancy, u64>,
@@ -95,7 +95,6 @@ impl __sdk::__query_builder::HasIxCols for Pregnancy {
     type IxCols = PregnancyIxCols;
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         PregnancyIxCols {
-            due_minute: __sdk::__query_builder::IxCol::new(table_name, "due_minute"),
             father_id: __sdk::__query_builder::IxCol::new(table_name, "father_id"),
             id: __sdk::__query_builder::IxCol::new(table_name, "id"),
             mother_id: __sdk::__query_builder::IxCol::new(table_name, "mother_id"),

@@ -1090,7 +1090,7 @@ mod tests {
     #[test]
     fn empty_world_reads_zero_rasters_after_source_verification() {
         let draft: WorldDraft<ForestSettlementDraft> = WorldDraft {
-            year: 1544,
+            year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
             spatial_grid: SpatialGridSpec::default(),
             sources: Vec::new(),
             road_types: Vec::new(),
@@ -1172,7 +1172,7 @@ mod tests {
         let viabundus = std::env::var_os("VIABUNDUS_DIR").expect("set VIABUNDUS_DIR");
         let raw = crate::sources::viabundus::compile(
             Path::new(&viabundus),
-            1544,
+            adventuresim_world_schema::calendar::WORLD_START_YEAR,
             SpatialGridSpec::default(),
             None,
         )

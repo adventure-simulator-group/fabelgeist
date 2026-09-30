@@ -1,3 +1,4 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
     Form, Json, Router,
     extract::{Path, Query, State},
@@ -84,16 +85,14 @@ fn npc_authority_matches(
     npc: &BackendSettlementResident,
     presence: &SettlementResidentPresence,
     requested_location_id: &str,
-    minute: u64,
+    minute: adventuresim_world_schema::calendar::StrategicMinute,
 ) -> bool {
-    let minute = (minute % adventuresim_core::strategic_time::MINUTES_PER_DAY) as u16;
     npc.character_id == presence.character_id
         && npc.home_settlement_id == settlement_id
         && presence.settlement_id == settlement_id
         && presence.location_id == requested_location_id
         && !requested_location_id.is_empty()
-        && presence.start_minute <= minute
-        && minute < presence.end_minute
+        && minute.contains_daily_window(presence.start_minute, presence.end_minute)
 }
 
 fn npc_history_location_is_navigable(
@@ -117,6 +116,24 @@ fn npc_history_location_is_navigable(
 enum ConversationSelector {
     Npc(String),
     PlayerParty(String),
+}
+
+async fn actor_strategic_minute(
+    state: &AppState,
+    actor_id: u64,
+) -> Result<StrategicMinute, String> {
+    state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            actor_id,
+        ))
+        .await
+        .map(|time| {
+            time.map_or(StrategicMinute::new(720), |time| {
+                StrategicMinute::new(time.minutes.minutes)
+            })
+        })
+        .map_err(|error| error.to_string())
 }
 
 async fn actor_and_selector(
@@ -179,14 +196,7 @@ async fn actor_and_selector(
                 .await
                 .map_err(|error| error.to_string())?
                 .ok_or("NPC is not local")?;
-            let minute = state
-                .db
-                .query_one_sats::<CharacterTime>(
-                    &crate::spacetimedb::character_time_by_character_id(actor.id),
-                )
-                .await
-                .map_err(|error| error.to_string())?
-                .map_or(720, |time| time.minutes);
+            let minute = actor_strategic_minute(state, actor.id).await?;
             if !npc_authority_matches(settlement, &npc, &presence, location_id, minute) {
                 return Err("NPC is not local".into());
             }
@@ -383,6 +393,8 @@ async fn incoming(State(state): State<AppState>, session: Session) -> Json<Vec<I
 mod tests {
     use super::{LocalChatMessageView, npc_authority_matches, npc_history_location_is_navigable};
 
+    use adventuresim_world_schema::calendar::StrategicMinute;
+
     use crate::spacetimedb::{
         BackendLocalChatMessage, BackendSettlementResident, NpcAgeBand, NpcPresentation,
         SettlementCategory, SettlementResidentPresence,
@@ -510,7 +522,7 @@ mod tests {
             settlement_id: "riverdale".into(),
             location_id: "inn".into(),
             start_minute: 0,
-            end_minute: adventuresim_core::strategic_time::MINUTES_PER_DAY as u16,
+            end_minute: adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16,
             is_default: true,
             context_suppressed: false,
             health_suppressed: false,
@@ -520,8 +532,28 @@ mod tests {
             &npc,
             &presence,
             "inn",
-            720
+            adventuresim_world_schema::calendar::StrategicMinute::new(720)
         ));
+        presence.start_minute = 1_200;
+        presence.end_minute = 120;
+        for minute in [1_380, 60] {
+            assert!(npc_authority_matches(
+                "riverdale",
+                &npc,
+                &presence,
+                "inn",
+                StrategicMinute::new(minute)
+            ));
+        }
+        assert!(!npc_authority_matches(
+            "riverdale",
+            &npc,
+            &presence,
+            "inn",
+            StrategicMinute::new(720)
+        ));
+        presence.start_minute = 0;
+        presence.end_minute = adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16;
 
         presence.settlement_id = "ironforge".into();
         assert!(!npc_authority_matches(
@@ -529,7 +561,7 @@ mod tests {
             &npc,
             &presence,
             "inn",
-            720
+            adventuresim_world_schema::calendar::StrategicMinute::new(720)
         ));
         presence.settlement_id = "riverdale".into();
         presence.end_minute = 600;
@@ -538,15 +570,15 @@ mod tests {
             &npc,
             &presence,
             "inn",
-            720
+            adventuresim_world_schema::calendar::StrategicMinute::new(720)
         ));
-        presence.end_minute = adventuresim_core::strategic_time::MINUTES_PER_DAY as u16;
+        presence.end_minute = adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16;
         assert!(!npc_authority_matches(
             "riverdale",
             &npc,
             &presence,
             "market",
-            720
+            adventuresim_world_schema::calendar::StrategicMinute::new(720)
         ));
     }
 

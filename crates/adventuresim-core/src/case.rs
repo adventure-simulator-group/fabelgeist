@@ -1,10 +1,10 @@
 //! Strategic case, objective, contract, and custody rules.
 //!
-//! A [`Case`] exists because something happened in the world. A [`Contract`]
-//! is merely one party's agreement to help with it. Neither tactical combat
-//! nor contract acceptance resolves a case directly: authenticated
-//! [`OutcomeFact`]s are reduced through the objective expression.
+//! A [`Case`] records an occurrence; a [`Contract`] records an agreement.
+//! Authenticated [`OutcomeFact`]s resolve objectives, not tactical combat or
+//! contract acceptance alone.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -162,7 +162,7 @@ pub enum ObjectiveRequirement {
     },
     SurviveWindow {
         site_id: String,
-        through_minute: u64,
+        through_minute: StrategicMinute,
     },
     Rescue {
         subject_id: SubjectId,
@@ -204,7 +204,7 @@ pub enum ObjectiveRequirement {
     },
     Protect {
         subject_id: SubjectId,
-        through_minute: u64,
+        through_minute: StrategicMinute,
     },
     Negotiate {
         subject_ref: String,
@@ -228,7 +228,7 @@ pub struct OutcomeFact {
     pub case_id: CaseId,
     pub party_id: String,
     pub source_id: String,
-    pub happened_at: u64,
+    pub happened_at: StrategicMinute,
     pub kind: OutcomeFactKind,
 }
 
@@ -249,7 +249,7 @@ pub enum OutcomeFactKind {
     },
     WindowSurvived {
         site_id: String,
-        through_minute: u64,
+        through_minute: StrategicMinute,
     },
     SubjectRescued {
         subject_id: SubjectId,
@@ -290,7 +290,7 @@ pub enum OutcomeFactKind {
     },
     SubjectProtected {
         subject_id: SubjectId,
-        through_minute: u64,
+        through_minute: StrategicMinute,
     },
     Negotiated {
         subject_ref: String,
@@ -360,10 +360,9 @@ impl ObjectiveExpression {
                 }
             }
         }
-        if leaves > MAX_LEAVES {
-            return Err(ValidationError::TooManyLeaves);
-        }
-        Ok(Self { alternatives })
+        (leaves <= MAX_LEAVES)
+            .then_some(Self { alternatives })
+            .ok_or(ValidationError::TooManyLeaves)
     }
 
     pub fn evaluate(&self, case_id: &CaseId, party_id: &str, facts: &[OutcomeFact]) -> Evaluation {
@@ -648,7 +647,7 @@ mod tests {
             case_id: cid(case),
             party_id: party.into(),
             source_id: id.into(),
-            happened_at: 1,
+            happened_at: StrategicMinute::new(1),
             kind,
         }
     }

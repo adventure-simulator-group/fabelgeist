@@ -4,6 +4,7 @@ use crate::spacetimedb::{
     BackendBestiaryDeduction, BackendInvestigationCaseSummary, BackendInvestigationJournalEntry,
     BackendInvestigationLead, BestiaryDeductionExt,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use maud::{Markup, html};
 use std::{
     cmp::Reverse,
@@ -12,7 +13,7 @@ use std::{
 
 #[derive(Clone, Debug)]
 struct JournalRecord {
-    recorded_at: u64,
+    recorded_at: StrategicMinute,
     summary: String,
     source: String,
 }
@@ -53,7 +54,7 @@ pub fn journal_page(
     ordered_cases.sort_by_key(|case| {
         (
             case.status != "open",
-            Reverse(case.latest_update_at),
+            Reverse(StrategicMinute::new(case.latest_update_at.minutes)),
             case.case_id.clone(),
         )
     });
@@ -63,7 +64,7 @@ pub fn journal_page(
             .entry(entry.case_id.clone())
             .or_default()
             .push(JournalRecord {
-                recorded_at: entry.recorded_at,
+                recorded_at: StrategicMinute::new(entry.recorded_at.minutes),
                 summary: entry.summary.clone(),
                 source: entry.source_label.clone(),
             });
@@ -76,7 +77,7 @@ pub fn journal_page(
             .entry(lead.case_id.clone())
             .or_default()
             .push(JournalRecord {
-                recorded_at: lead.recorded_at,
+                recorded_at: StrategicMinute::new(lead.recorded_at.minutes),
                 summary: lead.summary.clone(),
                 source: lead.source_label.clone(),
             });
@@ -199,7 +200,9 @@ mod tests {
             case_id: case_id.into(),
             subject: title.into(),
             status: status.into(),
-            latest_update_at,
+            latest_update_at: adventuresim_stdb_client::StrategicMinute {
+                minutes: latest_update_at,
+            },
         }
     }
 
@@ -229,7 +232,9 @@ mod tests {
             current_learned_location: String::new(),
             contradiction_group: "shape".into(),
             corrected_by: String::new(),
-            recorded_at,
+            recorded_at: adventuresim_stdb_client::StrategicMinute {
+                minutes: recorded_at,
+            },
         }
     }
 
@@ -251,7 +256,9 @@ mod tests {
             contradiction_group: String::new(),
             corrected_by: String::new(),
             supersedes: String::new(),
-            recorded_at,
+            recorded_at: adventuresim_stdb_client::StrategicMinute {
+                minutes: recorded_at,
+            },
         }
     }
 
@@ -371,7 +378,7 @@ mod tests {
             support_band: "plausible".into(),
             provenance_json:
                 r#"["received report from the miller","learned diagnostic clue: pawprints"]"#.into(),
-            updated_at: 1,
+            updated_at: adventuresim_stdb_client::StrategicMinute { minutes: 1 },
         }];
 
         let markup = bestiary_journal_results(&results).into_string();

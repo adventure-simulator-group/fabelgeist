@@ -6,8 +6,8 @@ use super::{
 };
 use adventuresim_core::{
     courtship::{
-        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ChildBirthMinute, ConceptionQuantumState,
-        CourtshipDisposition, GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
+        CONCEPTION_CHANCE_PER_TEN_THOUSAND, ConceptionQuantumState, CourtshipDisposition,
+        GESTATION_MINUTES, HOUSING_BILLING_PERIOD_MINUTES, HousingTier,
         INFORMAL_COURTSHIP_AFFINITY, LEISURE_MORALE_STACK_CAP_MILLI, LeisureInterval,
         RESIDENCE_MORALE_CAP_MILLI, RESIDENCE_MORALE_SPEC, RefreshableMorale,
         SPOUSE_LEISURE_MORALE_CAP_MILLI, SPOUSE_LEISURE_MORALE_SPEC, WEDDING_NOTICE_MINUTES,
@@ -21,8 +21,8 @@ use adventuresim_core::{
     strategic_schedule::{
         SocializingSociability, SocializingTrainingWeights, socializing_training_weights,
     },
-    strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY},
 };
+use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, MINUTES_PER_DAY, StrategicMinute};
 use sampling::lifecycle_entropy;
 use serde::Serialize;
 use std::{
@@ -39,12 +39,12 @@ const PRIVATE_SCENARIO_CANARY: &str = "DO_NOT_PROJECT_LIFECYCLE_AUTHORITY";
 #[derive(Clone, Debug, PartialEq, Eq)]
 struct ScenarioState {
     private_projection_canary: &'static str,
-    now: u64,
+    now: StrategicMinute,
     renter_funds: u64,
-    renter_next_due: u64,
+    renter_next_due: StrategicMinute,
     renter_paid: u64,
     owner_funds: u64,
-    owner_next_due: u64,
+    owner_next_due: StrategicMinute,
     owner_paid: u64,
     residence_morale: RefreshableMorale,
     spouse_morale: RefreshableMorale,
@@ -54,8 +54,8 @@ struct ScenarioState {
     dowry_payments: u64,
     conception: ConceptionQuantumState,
     conception_trials: u64,
-    conception_minute: Option<u64>,
-    birth_minute: Option<u64>,
+    conception_minute: Option<StrategicMinute>,
+    birth_minute: Option<StrategicMinute>,
     births: u64,
     npc_processed: u64,
     npc_batches: u64,
@@ -66,12 +66,12 @@ impl ScenarioState {
     fn new() -> Self {
         Self {
             private_projection_canary: PRIVATE_SCENARIO_CANARY,
-            now: 0,
+            now: StrategicMinute::ZERO,
             renter_funds: 50,
-            renter_next_due: HOUSING_BILLING_PERIOD_MINUTES,
+            renter_next_due: StrategicMinute::new(HOUSING_BILLING_PERIOD_MINUTES),
             renter_paid: 0,
             owner_funds: 25,
-            owner_next_due: HOUSING_BILLING_PERIOD_MINUTES,
+            owner_next_due: StrategicMinute::new(HOUSING_BILLING_PERIOD_MINUTES),
             owner_paid: 0,
             residence_morale: RefreshableMorale::default(),
             spouse_morale: RefreshableMorale::default(),
@@ -90,16 +90,15 @@ impl ScenarioState {
         }
     }
 
-    fn advance_to(&mut self, end: u64, seed: u64) {
+    fn advance_to(&mut self, end: StrategicMinute, seed: u64) {
         while self.now < end {
-            let boundary =
-                end.min((self.now / MINUTES_PER_DAY + 1).saturating_mul(MINUTES_PER_DAY));
+            let boundary = end.min(self.now.day_start().saturating_add_days(1));
             self.process_interval(self.now, boundary, seed);
             self.now = boundary;
         }
     }
 
-    fn process_interval(&mut self, start: u64, end: u64, seed: u64) {
+    fn process_interval(&mut self, start: StrategicMinute, end: StrategicMinute, seed: u64) {
         self.process_billing(end);
         self.process_wedding(end);
         self.process_joint_leisure(start, end, seed);
@@ -108,7 +107,7 @@ impl ScenarioState {
         self.process_npc_batch();
     }
 
-    fn process_billing(&mut self, through: u64) {
+    fn process_billing(&mut self, through: StrategicMinute) {
         let renter = plan_due_period_settlement(
             self.renter_next_due,
             through,
@@ -134,8 +133,8 @@ impl ScenarioState {
         self.owner_paid = self.owner_paid.saturating_add(owner.periods_paid);
     }
 
-    fn process_wedding(&mut self, through: u64) {
-        if through < WEDDING_NOTICE_MINUTES || self.wedding_done {
+    fn process_wedding(&mut self, through: StrategicMinute) {
+        if through < StrategicMinute::new(WEDDING_NOTICE_MINUTES) || self.wedding_done {
             return;
         }
         self.wedding_done = true;
@@ -146,23 +145,23 @@ impl ScenarioState {
         }
     }
 
-    fn process_joint_leisure(&mut self, start: u64, end: u64, seed: u64) {
+    fn process_joint_leisure(&mut self, start: StrategicMinute, end: StrategicMinute, seed: u64) {
         if !self.wedding_done || self.conception_minute.is_some() {
             return;
         }
-        let married_start = start.max(WEDDING_NOTICE_MINUTES);
+        let married_start = start.max(StrategicMinute::new(WEDDING_NOTICE_MINUTES));
         if married_start >= end {
             return;
         }
-        let day_start = married_start / MINUTES_PER_DAY * MINUTES_PER_DAY;
+        let day_start = married_start.day_start();
         let left = LeisureInterval {
-            start_minute: day_start + 12 * 60,
-            end_minute: day_start + 24 * 60,
+            start_minute: day_start.saturating_add_minutes(12 * 60),
+            end_minute: day_start.saturating_add_days(1),
             location_id: "shared_home",
         };
         let right = LeisureInterval {
-            start_minute: day_start + 10 * 60,
-            end_minute: day_start + 22 * 60,
+            start_minute: day_start.saturating_add_minutes(10 * 60),
+            end_minute: day_start.saturating_add_minutes(22 * 60),
             location_id: "shared_home",
         };
         let joint = joint_leisure_minutes_in(left, right, married_start, end);
@@ -175,22 +174,22 @@ impl ScenarioState {
                 let conceived = left
                     .start_minute
                     .max(married_start)
-                    .saturating_add(trial.crossing_offset_minutes);
+                    .saturating_add_minutes(trial.crossing_offset_minutes);
                 self.conception_minute = Some(conceived);
-                self.birth_minute = Some(conceived.saturating_add(GESTATION_MINUTES));
+                self.birth_minute = Some(conceived.saturating_add_minutes(GESTATION_MINUTES));
                 break;
             }
         }
         self.conception = plan.state;
     }
 
-    fn process_birth(&mut self, through: u64) {
+    fn process_birth(&mut self, through: StrategicMinute) {
         if self.births == 0 && self.birth_minute.is_some_and(|birth| through >= birth) {
             self.births = 1;
         }
     }
 
-    fn process_morale(&mut self, now: u64) {
+    fn process_morale(&mut self, now: StrategicMinute) {
         let residence_gain = residence_leisure_bonus_milli(
             20_000,
             HousingTier::Fancy.economy().leisure_morale_basis_points,
@@ -232,12 +231,12 @@ fn select_socializing_role<'a>(tiers: &[(&'a str, &[&'a str])]) -> Option<(&'a s
 
 fn run_cadence(seed: u64, cadence: LifecycleCadence) -> Result<LifecycleReport, String> {
     let mut state = ScenarioState::new();
-    let horizon = HORIZON_DAYS.saturating_mul(MINUTES_PER_DAY);
+    let horizon = StrategicMinute::day_start_for_index(HORIZON_DAYS);
     match cadence {
         LifecycleCadence::Whole => state.advance_to(horizon, seed),
         LifecycleCadence::Daily => {
             for day in 1..=HORIZON_DAYS {
-                state.advance_to(day.saturating_mul(MINUTES_PER_DAY), seed);
+                state.advance_to(StrategicMinute::day_start_for_index(day), seed);
             }
         }
     }
@@ -304,20 +303,20 @@ fn project_metrics(state: &ScenarioState) -> LifecycleMetrics {
     ]);
     let residence_live = state.residence_morale.milli_points;
     let spouse_live = state.spouse_morale.milli_points;
-    let combined =
-        bounded_leisure_morale_total(state.residence_morale, state.spouse_morale, state.now);
+    let now = state.now;
+    let combined = bounded_leisure_morale_total(state.residence_morale, state.spouse_morale, now);
     let child = deterministic_child_seeds(
         "parent_alpha",
         "parent_beta",
         adventuresim_core::courtship::PregnancyOrdinal::new(0),
-        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
+        state.birth_minute.unwrap_or(StrategicMinute::ZERO),
         "shared_home",
     );
     let child_again = deterministic_child_seeds(
         "parent_beta",
         "parent_alpha",
         adventuresim_core::courtship::PregnancyOrdinal::new(0),
-        ChildBirthMinute::new(state.birth_minute.unwrap_or(0)),
+        state.birth_minute.unwrap_or(StrategicMinute::ZERO),
         "shared_home",
     );
     let secrecy_attempts = 12;

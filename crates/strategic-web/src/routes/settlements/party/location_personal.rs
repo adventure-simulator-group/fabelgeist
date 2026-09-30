@@ -154,7 +154,7 @@ pub(super) async fn render_party_personal(
     let character_minute =
         query_single::<CharacterTime>(state, db::character_time_by_character_id(character_id))
             .await
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
     let capability = get_character_capability(state, character_id).await;
     let combat_profile = get_combat_training_profile(state, character_id).await;
     let can_examine = false;

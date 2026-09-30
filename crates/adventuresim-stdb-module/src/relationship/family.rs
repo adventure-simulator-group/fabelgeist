@@ -8,7 +8,7 @@ fn ensure_kinship(
     subject_id: u64,
     related_id: u64,
     kind: KinshipKind,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let id = kinship_id(subject_id, related_id, kind);
     if ctx.db.character_kinship().id().find(&id).is_none() {
@@ -32,7 +32,7 @@ fn join_household(
     ctx: &ReducerContext,
     household_id: &str,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     role: HouseholdRole,
 ) {
     if ctx
@@ -76,8 +76,7 @@ pub fn set_seeded_character_birth_from_age(
 ) {
     let row = CharacterBirth {
         character_id,
-        birth_minute: -(i64::from(age_years)
-            * i64::try_from(MINUTES_PER_YEAR).unwrap_or(i64::MAX)),
+        birth_minute: StrategicMinute::ZERO.signed_birth_minute_for_age(age_years),
     };
     if ctx
         .db
@@ -92,19 +91,18 @@ pub fn set_seeded_character_birth_from_age(
     }
 }
 
-pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: u64) -> Option<u16> {
+pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
     let character = ctx.db.character().id().find(character_id)?;
     let Some(birth) = ctx.db.character_birth().character_id().find(character_id) else {
         return Some(character.age_years);
     };
-    let elapsed = i128::from(minute).saturating_sub(i128::from(birth.birth_minute));
-    Some((elapsed.max(0) as u128 / u128::from(MINUTES_PER_YEAR)).min(u128::from(u16::MAX)) as u16)
+    Some(minute.age_years_since_signed_birth(birth.birth_minute))
 }
 
 /// Refresh the cached display age from the authoritative birth coordinate.
 /// Calling this at every lifecycle boundary naturally promotes dependents at
 /// their yearly boundary without granting newborn starter equipment.
-pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: u64) {
+pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) {
     let Some(mut character) = ctx.db.character().id().find(character_id) else {
         return;
     };
@@ -180,11 +178,11 @@ pub fn ensure_seeded_family_households(
             ctx.db.household().insert(Household {
                 id: plan.household_id.clone(),
                 home_settlement_id: settlement_id.to_owned(),
-                created_minute: 0,
+                created_minute: StrategicMinute::ZERO,
             });
         }
         for &(character_id, role) in &plan.members {
-            join_household(ctx, &plan.household_id, character_id, 0, role);
+            join_household(ctx, &plan.household_id, character_id, StrategicMinute::ZERO, role);
         }
         let noble = plan.members.iter().any(|(character_id, _)| {
             crate::social_roles::character_has_profession(ctx, *character_id, "noble")
@@ -199,13 +197,17 @@ pub fn ensure_seeded_family_households(
             )?;
         }
         for &(subject_id, related_id, kind) in &plan.kinships {
-            ensure_kinship(ctx, subject_id, related_id, kind, 0);
+            ensure_kinship(ctx, subject_id, related_id, kind, StrategicMinute::ZERO);
         }
     }
     Ok(())
 }
 
-fn father_of_at(ctx: &ReducerContext, child_id: u64, minute: u64) -> Result<Option<u64>, String> {
+fn father_of_at(
+    ctx: &ReducerContext,
+    child_id: u64,
+    minute: StrategicMinute,
+) -> Result<Option<u64>, String> {
     let father = ctx.db.character_kinship().iter().find_map(|edge| {
         (edge.subject_id == child_id
             && edge.kind == KinshipKind::Parent
@@ -232,7 +234,7 @@ fn father_of_at(ctx: &ReducerContext, child_id: u64, minute: u64) -> Result<Opti
 fn relationship_conflicts_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     permitted_courtship_id: Option<&str>,
 ) -> bool {
     let courtship_conflict = ctx.db.courtship().iter().any(|row| {

@@ -9,8 +9,8 @@ use adventuresim_core::{
     simulation_security::MAX_SIMULATION_SKILL_HOURS,
     skill::{PlayerSkills, Skill},
     strategic_schedule::*,
-    strategic_time::MINUTES_PER_DAY,
 };
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::{BestiaryCategory, OfficialReligion};
 use serde::{Deserialize, Serialize};
 use std::collections::VecDeque;

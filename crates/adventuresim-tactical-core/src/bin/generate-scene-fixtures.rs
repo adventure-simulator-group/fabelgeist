@@ -622,7 +622,9 @@ const fn weather(
 ) -> WeatherSnapshot {
     WeatherSnapshot {
         rules_version: WEATHER_RULES_VERSION,
-        interval_start_minute: DEFAULT_TEST_MINUTE,
+        interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
+            DEFAULT_TEST_MINUTE,
+        ),
         cell_latitude: 214,
         cell_longitude: 40,
         temperature_deci_c,

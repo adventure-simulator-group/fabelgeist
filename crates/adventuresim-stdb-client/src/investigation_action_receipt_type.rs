@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationActionReceipt {
@@ -11,7 +13,7 @@ pub struct InvestigationActionReceipt {
     pub actor_id: u64,
     pub action_kind: String,
     pub canonical_payload: String,
-    pub applied_at: u64,
+    pub applied_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationActionReceipt {
@@ -26,7 +28,7 @@ pub struct InvestigationActionReceiptCols {
     pub actor_id: __sdk::__query_builder::Col<InvestigationActionReceipt, u64>,
     pub action_kind: __sdk::__query_builder::Col<InvestigationActionReceipt, String>,
     pub canonical_payload: __sdk::__query_builder::Col<InvestigationActionReceipt, String>,
-    pub applied_at: __sdk::__query_builder::Col<InvestigationActionReceipt, u64>,
+    pub applied_at: __sdk::__query_builder::Col<InvestigationActionReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationActionReceipt {

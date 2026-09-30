@@ -4,11 +4,14 @@
 //! no infection row, private meter, phenotype, diagnosis or recommendation
 //! type available to serialize.
 
+mod administrations;
+
 use crate::spacetimedb::{BackendPhysiologyAdministration, BackendPhysiologyChart};
 use adventuresim_core::{
     disease::{DiseaseId, definition, elemental_association},
     physiology::{BodyRegion, DoseMilliunits, Humour},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -53,7 +56,7 @@ pub struct HumourVitals {
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ChartReadingPresentation {
-    pub minute: u64,
+    pub minute: StrategicMinute,
     pub physiology_band: u8,
     pub observation_minutes: u64,
     pub humour_deviations_bps: [[i16; 4]; 7],
@@ -74,8 +77,8 @@ pub struct DiseaseLikelihoodPresentation {
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ChartGapPresentation {
-    pub from: u64,
-    pub to: u64,
+    pub from: StrategicMinute,
+    pub to: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -87,14 +90,44 @@ pub struct AdministrationPresentation {
     pub route: adventuresim_core::physiology::InterventionRoute,
     pub dose: DoseMilliunits,
     pub region: Option<adventuresim_core::physiology::BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
+}
+
+impl AdministrationPresentation {
+    fn from_backend(row: &BackendPhysiologyAdministration) -> Self {
+        Self {
+            id: row.id,
+            preparation_id: row.preparation_id.clone(),
+            display_name: adventuresim_core::item_catalog::definition(&row.preparation_id)
+                .map_or_else(
+                    || {
+                        let mut readable = row.preparation_id.replace('_', " ");
+                        if let Some(first) = readable.get_mut(0..1) {
+                            first.make_ascii_uppercase();
+                        }
+                        readable
+                    },
+                    |definition| definition.display_name.clone(),
+                ),
+            profile_version: row.profile_version,
+            route: crate::spacetimedb::core_intervention_route(row.route),
+            dose: DoseMilliunits::try_new(row.dose_milliunits)
+                .expect("backend administration dose must satisfy the physiology invariant"),
+            region: row.region.map(crate::spacetimedb::core_body_region),
+            administered_at: StrategicMinute::new(row.administered_at.minutes),
+            stopped_at: row
+                .stopped_at
+                .as_ref()
+                .map(|minute| StrategicMinute::new(minute.minutes)),
+        }
+    }
 }
 
 pub fn sanitize(
     rows: &[BackendPhysiologyChart],
     administrations: &[BackendPhysiologyAdministration],
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> MedicalPresentation {
     let mut readings = rows
         .iter()
@@ -105,7 +138,7 @@ pub fn sanitize(
             let choleric: [i16; 7] = row.choleric_bps.clone().try_into().ok()?;
             let melancholic: [i16; 7] = row.melancholic_bps.clone().try_into().ok()?;
             Some(ChartReadingPresentation {
-                minute: row.observed_at,
+                minute: StrategicMinute::new(row.observed_at.minutes),
                 physiology_band: row.physiology_band,
                 observation_minutes: row.observation_minutes,
                 humour_deviations_bps: std::array::from_fn(|region| {
@@ -138,8 +171,8 @@ pub fn sanitize(
         .iter()
         .filter_map(|row| {
             Some(ChartGapPresentation {
-                from: row.gap_from?,
-                to: row.gap_to?,
+                from: crate::spacetimedb::calendar_minute(row.gap_from.as_ref()?),
+                to: crate::spacetimedb::calendar_minute(row.gap_to.as_ref()?),
             })
         })
         .collect::<Vec<_>>();
@@ -176,45 +209,9 @@ pub fn sanitize(
     };
     let administrations = administrations
         .iter()
-        .map(|row| AdministrationPresentation {
-            id: row.id,
-            preparation_id: row.preparation_id.clone(),
-            display_name: adventuresim_core::item_catalog::definition(&row.preparation_id)
-                .map_or_else(
-                    || {
-                        let mut readable = row.preparation_id.replace('_', " ");
-                        if let Some(first) = readable.get_mut(0..1) {
-                            first.make_ascii_uppercase();
-                        }
-                        readable
-                    },
-                    |definition| definition.display_name.clone(),
-                ),
-            profile_version: row.profile_version,
-            route: crate::spacetimedb::core_intervention_route(row.route),
-            dose: DoseMilliunits::try_new(row.dose_milliunits)
-                .expect("backend administration dose must satisfy the physiology invariant"),
-            region: row.region.map(crate::spacetimedb::core_body_region),
-            administered_at: row.administered_at,
-            stopped_at: row.stopped_at,
-        })
+        .map(AdministrationPresentation::from_backend)
         .collect::<Vec<_>>();
-    let active_administrations = administrations
-        .iter()
-        .filter(|row| {
-            row.stopped_at.is_none()
-                && adventuresim_core::physiology::intervention_profile(
-                    &row.preparation_id,
-                    row.profile_version,
-                )
-                .is_some_and(|profile| {
-                    current_minute >= row.administered_at
-                        && current_minute
-                            < row.administered_at.saturating_add(profile.duration_minutes)
-                })
-        })
-        .cloned()
-        .collect();
+    let active_administrations = administrations::active(&administrations, current_minute);
     MedicalPresentation {
         regional_humours,
         concealed_other,
@@ -349,7 +346,7 @@ mod tests {
                 id: "reading".into(),
                 observer_id: 1,
                 patient_id: 2,
-                observed_at: 100,
+                observed_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
                 physiology_band: 3,
                 observation_minutes: 100,
                 sanguine_bps: vec![-1_200; 7],
@@ -370,7 +367,7 @@ mod tests {
                 id: "gap".into(),
                 observer_id: 1,
                 patient_id: 2,
-                observed_at: 200,
+                observed_at: adventuresim_stdb_client::StrategicMinute { minutes: 200 },
                 physiology_band: 3,
                 observation_minutes: 0,
                 sanguine_bps: Vec::new(),
@@ -380,11 +377,11 @@ mod tests {
                 possible_diseases: Vec::new(),
                 known_interventions: Vec::new(),
                 confidence_bps: 0,
-                gap_from: Some(150),
-                gap_to: Some(200),
+                gap_from: Some(adventuresim_stdb_client::StrategicMinute { minutes: 150 }),
+                gap_to: Some(adventuresim_stdb_client::StrategicMinute { minutes: 200 }),
             },
         ];
-        let presentation = sanitize(&rows, &[], 200);
+        let presentation = sanitize(&rows, &[], StrategicMinute::new(200));
         assert_eq!(presentation.readings.len(), 1);
         assert_eq!(presentation.gaps.len(), 1);
         let regions = presentation.regional_humours.expect("regional readings");
@@ -415,8 +412,8 @@ mod tests {
                 route: adventuresim_stdb_client::InterventionRoute::Oral,
                 dose_milliunits: DoseMilliunits::try_new(750).unwrap().get(),
                 region: None,
-                administered_at: 100,
-                stopped_at: Some(200),
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
+                stopped_at: Some(adventuresim_stdb_client::StrategicMinute { minutes: 200 }),
             },
             BackendPhysiologyAdministration {
                 id: 2,
@@ -426,7 +423,7 @@ mod tests {
                 route: adventuresim_stdb_client::InterventionRoute::Oral,
                 dose_milliunits: DoseMilliunits::STANDARD.get(),
                 region: None,
-                administered_at: 300,
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
                 stopped_at: None,
             },
             BackendPhysiologyAdministration {
@@ -437,14 +434,20 @@ mod tests {
                 route: adventuresim_stdb_client::InterventionRoute::Oral,
                 dose_milliunits: DoseMilliunits::STANDARD.get(),
                 region: None,
-                administered_at: 100,
+                administered_at: adventuresim_stdb_client::StrategicMinute { minutes: 100 },
                 stopped_at: None,
             },
         ];
-        let presentation = sanitize(&[], &administrations, 500);
+        let presentation = sanitize(&[], &administrations, StrategicMinute::new(500));
         assert_eq!(presentation.administrations.len(), 3);
-        assert_eq!(presentation.administrations[0].administered_at, 100);
-        assert_eq!(presentation.administrations[0].stopped_at, Some(200));
+        assert_eq!(
+            presentation.administrations[0].administered_at,
+            StrategicMinute::new(100)
+        );
+        assert_eq!(
+            presentation.administrations[0].stopped_at,
+            Some(StrategicMinute::new(200))
+        );
         assert_eq!(presentation.active_administrations.len(), 1);
         assert_eq!(
             presentation.active_administrations[0].preparation_id,
@@ -455,7 +458,7 @@ mod tests {
             "Oral rehydration draught"
         );
 
-        let expired = sanitize(&[], &administrations, 1_000);
+        let expired = sanitize(&[], &administrations, StrategicMinute::new(1_000));
         assert!(expired.active_administrations.is_empty());
         assert_eq!(expired.administrations.len(), 3);
     }

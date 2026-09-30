@@ -39,7 +39,11 @@ pub(super) fn cloud_seed(environment: &SceneEnvironment) -> u64 {
         environment.scene_digest.as_bytes(),
         streams::ENVIRONMENT,
         &[
-            &(environment.absolute_minute / 360).to_le_bytes(),
+            &environment
+                .absolute_minute
+                .period_index(360)
+                .expect("cloud seed period must be nonzero")
+                .to_le_bytes(),
             &environment.latitude_microdegrees.to_le_bytes(),
             &environment.longitude_microdegrees.to_le_bytes(),
         ],

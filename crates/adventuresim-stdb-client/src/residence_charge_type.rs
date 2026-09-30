@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::residence_charge_outcome_type::ResidenceChargeOutcome;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -12,7 +13,7 @@ pub struct ResidenceCharge {
     pub id: String,
     pub holding_id: String,
     pub owner_character_id: u64,
-    pub due_minute: u64,
+    pub due_minute: StrategicMinute,
     pub base_housing_amount: u64,
     pub adult_necessities_amount: u64,
     pub dependent_necessities_amount: u64,
@@ -20,7 +21,7 @@ pub struct ResidenceCharge {
     pub supported_adults: u32,
     pub supported_dependents: u32,
     pub outcome: ResidenceChargeOutcome,
-    pub recorded_minute: u64,
+    pub recorded_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for ResidenceCharge {
@@ -34,7 +35,7 @@ pub struct ResidenceChargeCols {
     pub id: __sdk::__query_builder::Col<ResidenceCharge, String>,
     pub holding_id: __sdk::__query_builder::Col<ResidenceCharge, String>,
     pub owner_character_id: __sdk::__query_builder::Col<ResidenceCharge, u64>,
-    pub due_minute: __sdk::__query_builder::Col<ResidenceCharge, u64>,
+    pub due_minute: __sdk::__query_builder::Col<ResidenceCharge, StrategicMinute>,
     pub base_housing_amount: __sdk::__query_builder::Col<ResidenceCharge, u64>,
     pub adult_necessities_amount: __sdk::__query_builder::Col<ResidenceCharge, u64>,
     pub dependent_necessities_amount: __sdk::__query_builder::Col<ResidenceCharge, u64>,
@@ -42,7 +43,7 @@ pub struct ResidenceChargeCols {
     pub supported_adults: __sdk::__query_builder::Col<ResidenceCharge, u32>,
     pub supported_dependents: __sdk::__query_builder::Col<ResidenceCharge, u32>,
     pub outcome: __sdk::__query_builder::Col<ResidenceCharge, ResidenceChargeOutcome>,
-    pub recorded_minute: __sdk::__query_builder::Col<ResidenceCharge, u64>,
+    pub recorded_minute: __sdk::__query_builder::Col<ResidenceCharge, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for ResidenceCharge {

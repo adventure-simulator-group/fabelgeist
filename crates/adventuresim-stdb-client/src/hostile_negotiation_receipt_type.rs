@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
 use super::hostile_negotiation_outcome_type::HostileNegotiationOutcome;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -20,7 +21,7 @@ pub struct HostileNegotiationReceipt {
     pub expected_revision: u32,
     pub outcome: HostileNegotiationOutcome,
     pub response: String,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for HostileNegotiationReceipt {
@@ -41,7 +42,7 @@ pub struct HostileNegotiationReceiptCols {
     pub expected_revision: __sdk::__query_builder::Col<HostileNegotiationReceipt, u32>,
     pub outcome: __sdk::__query_builder::Col<HostileNegotiationReceipt, HostileNegotiationOutcome>,
     pub response: __sdk::__query_builder::Col<HostileNegotiationReceipt, String>,
-    pub occurred_at_minute: __sdk::__query_builder::Col<HostileNegotiationReceipt, u64>,
+    pub occurred_at_minute: __sdk::__query_builder::Col<HostileNegotiationReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for HostileNegotiationReceipt {

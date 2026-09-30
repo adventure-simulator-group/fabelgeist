@@ -9,9 +9,10 @@ fn fixture_directory() -> PathBuf {
 
 #[test]
 fn parses_settlement_enrichment_into_domain_types() {
-    let world = WorldBuilder::new(1544)
-        .build_from_viabundus(&fixture_directory())
-        .unwrap();
+    let world =
+        WorldBuilder::new(adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap())
+            .build_from_viabundus(&fixture_directory())
+            .unwrap();
 
     assert_eq!(world.settlement_aliases.len(), 1);
     let alias = &world.settlement_aliases[0];
@@ -35,10 +36,11 @@ fn parses_settlement_enrichment_into_domain_types() {
 
 #[test]
 fn playable_bounds_filter_topology_before_enrichment() {
-    let world = WorldBuilder::new(1544)
-        .with_bounds([10.68, 53.86, 10.69, 53.87])
-        .build_from_viabundus(&fixture_directory())
-        .unwrap();
+    let world =
+        WorldBuilder::new(adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap())
+            .with_bounds([10.68, 53.86, 10.69, 53.87])
+            .build_from_viabundus(&fixture_directory())
+            .unwrap();
 
     assert_eq!(world.report.settlements, 1);
     assert_eq!(world.report.nodes, 1);

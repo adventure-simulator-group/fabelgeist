@@ -13,7 +13,7 @@ use adventuresim_core::strategic_place::{SettlementVenueKind, StrategicPlaceId};
 use adventuresim_core::strategic_presence::{
     DailyPresenceWindow, PresenceFrontier, ScheduledStrategicPresence, StrategicPresence,
 };
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use adventuresim_world_schema::settlement_buildings::BusinessId;
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
@@ -515,7 +515,7 @@ pub fn ensure_settlement_population(
 pub fn npc_is_present(
     ctx: &ReducerContext,
     presence: &SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> bool {
     npc_presence_remaining_minutes_at(ctx, presence, minute).is_some()
 }
@@ -542,7 +542,7 @@ pub fn npc_strategic_presence_at(
     ctx: &ReducerContext,
     presence: &SettlementResidentPresence,
     observer_character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<ScheduledStrategicPresence> {
     let suppression =
         crate::outbreak::patient_presence_suppression_at(ctx, presence.character_id, minute)?;
@@ -571,7 +571,7 @@ pub fn npc_strategic_presence_at(
 pub fn npc_presence_remaining_minutes_at(
     ctx: &ReducerContext,
     presence: &SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u64> {
     let suppression =
         crate::outbreak::patient_presence_suppression_at(ctx, presence.character_id, minute)?;
@@ -590,7 +590,7 @@ pub fn npc_presence_remaining_minutes_at(
 pub fn npc_presence_remaining_minutes_at_view(
     ctx: &ViewContext,
     presence: &SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u64> {
     let suppression =
         crate::outbreak::patient_presence_suppression_at_view(ctx, presence.character_id, minute)?;
@@ -610,7 +610,7 @@ pub fn npc_presence_remaining_minutes_at_view(
 /// Wrapped schedules (for example 20:00–02:00) remain one continuous window.
 pub fn npc_presence_remaining_minutes(
     presence: &SettlementResidentPresence,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u64> {
     DailyPresenceWindow {
         start_minute: presence.start_minute,
@@ -627,6 +627,10 @@ pub fn npc_presence_remaining_minutes(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn at(value: u64) -> StrategicMinute {
+        StrategicMinute::new(value)
+    }
 
     #[test]
     fn canonical_npc_places_use_physical_venue_identity() {
@@ -655,27 +659,30 @@ mod tests {
     #[test]
     fn presence_remaining_handles_daytime_and_wrapped_schedules() {
         let daytime = presence(480, 1_020);
-        assert_eq!(npc_presence_remaining_minutes(&daytime, 900), Some(120));
-        assert_eq!(npc_presence_remaining_minutes(&daytime, 1_020), None);
+        assert_eq!(npc_presence_remaining_minutes(&daytime, at(900)), Some(120));
+        assert_eq!(npc_presence_remaining_minutes(&daytime, at(1_020)), None);
 
         let overnight = presence(1_200, 120);
-        assert_eq!(npc_presence_remaining_minutes(&overnight, 1_380), Some(180));
-        assert_eq!(npc_presence_remaining_minutes(&overnight, 60), Some(60));
-        assert_eq!(npc_presence_remaining_minutes(&overnight, 600), None);
+        assert_eq!(
+            npc_presence_remaining_minutes(&overnight, at(1_380)),
+            Some(180)
+        );
+        assert_eq!(npc_presence_remaining_minutes(&overnight, at(60)), Some(60));
+        assert_eq!(npc_presence_remaining_minutes(&overnight, at(600)), None);
     }
 
     #[test]
     fn contextual_membership_suppresses_without_rewriting_schedule() {
         let mut row = presence(480, 1_020);
         row.context_suppressed = true;
-        assert_eq!(npc_presence_remaining_minutes(&row, 900), None);
+        assert_eq!(npc_presence_remaining_minutes(&row, at(900)), None);
         assert_eq!((row.start_minute, row.end_minute), (480, 1_020));
 
         row.context_suppressed = false;
-        assert_eq!(npc_presence_remaining_minutes(&row, 900), Some(120));
+        assert_eq!(npc_presence_remaining_minutes(&row, at(900)), Some(120));
 
         row.health_suppressed = true;
-        assert_eq!(npc_presence_remaining_minutes(&row, 900), None);
+        assert_eq!(npc_presence_remaining_minutes(&row, at(900)), None);
         assert_eq!((row.start_minute, row.end_minute), (480, 1_020));
     }
 

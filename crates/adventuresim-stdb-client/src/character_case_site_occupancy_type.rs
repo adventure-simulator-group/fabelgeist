@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::case_site_id_type::CaseSiteId;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -13,8 +14,8 @@ pub struct CharacterCaseSiteOccupancy {
     pub character_id: u64,
     pub gateway_bucket: u8,
     pub case_site_id: CaseSiteId,
-    pub entered_at: u64,
-    pub left_at: Option<u64>,
+    pub entered_at: StrategicMinute,
+    pub left_at: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for CharacterCaseSiteOccupancy {
@@ -29,8 +30,8 @@ pub struct CharacterCaseSiteOccupancyCols {
     pub character_id: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, u64>,
     pub gateway_bucket: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, u8>,
     pub case_site_id: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, CaseSiteId>,
-    pub entered_at: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, u64>,
-    pub left_at: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, Option<u64>>,
+    pub entered_at: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, StrategicMinute>,
+    pub left_at: __sdk::__query_builder::Col<CharacterCaseSiteOccupancy, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterCaseSiteOccupancy {

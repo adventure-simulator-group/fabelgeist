@@ -133,7 +133,7 @@ fn outbreak_validator_rejects_incoherent_private_truth_and_routes() {
     chronology.outbreak.as_mut().unwrap().exposure_chronology[0].exposed_at =
         chronology.outbreak.as_ref().unwrap().exposure_chronology[0]
             .became_symptomatic_at
-            .saturating_add(1);
+            .saturating_add_minutes(1);
     assert!(
         validate(&chronology)
             .unwrap_err()
@@ -202,7 +202,7 @@ fn patient_courses_and_bindings_are_exact_and_carriers_have_no_direct_fix() {
             let definition = crate::disease::definition(truth.disease);
             assert_eq!(
                 exposure.became_symptomatic_at,
-                exposure.exposed_at + definition.incubation_minutes
+                exposure.exposed_at.saturating_add_minutes(definition.incubation_minutes)
             );
             assert_ne!(exposure.patient_character_id, 0);
             assert!(
@@ -263,7 +263,7 @@ fn only_the_exact_source_remediation_fact_satisfies_the_case() {
         case_id: case_id.clone(),
         party_id: "party:test".into(),
         source_id: format!("source:{id}"),
-        happened_at: 10,
+        happened_at: adventuresim_world_schema::calendar::StrategicMinute::new(10),
         kind: OutcomeFactKind::SourceRemediated {
             remediation_id: remediation_id.into(),
         },

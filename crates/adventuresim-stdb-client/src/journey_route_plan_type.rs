@@ -8,13 +8,14 @@ use super::journey_precipitation_type::JourneyPrecipitation;
 use super::journey_route_leg_type::JourneyRouteLeg;
 use super::journey_route_point_type::JourneyRoutePoint;
 use super::journey_terrain_span_type::JourneyTerrainSpan;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct JourneyRoutePlan {
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
+    pub weather_interval_start: StrategicMinute,
     pub precipitation: JourneyPrecipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,

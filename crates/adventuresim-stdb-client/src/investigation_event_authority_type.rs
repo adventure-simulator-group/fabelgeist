@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct InvestigationEventAuthority {
     pub id: String,
     pub case_id: String,
     pub canonical_propositions_json: String,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationEventAuthority {
@@ -25,7 +27,7 @@ pub struct InvestigationEventAuthorityCols {
     pub case_id: __sdk::__query_builder::Col<InvestigationEventAuthority, String>,
     pub canonical_propositions_json:
         __sdk::__query_builder::Col<InvestigationEventAuthority, String>,
-    pub occurred_at: __sdk::__query_builder::Col<InvestigationEventAuthority, u64>,
+    pub occurred_at: __sdk::__query_builder::Col<InvestigationEventAuthority, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationEventAuthority {

@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::marriage_status_type::MarriageStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -15,9 +16,9 @@ pub struct Marriage {
     pub commitment_id: String,
     pub household_id: String,
     pub ceremony_settlement_id: String,
-    pub married_minute: u64,
+    pub married_minute: StrategicMinute,
     pub status: MarriageStatus,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for Marriage {
@@ -34,9 +35,9 @@ pub struct MarriageCols {
     pub commitment_id: __sdk::__query_builder::Col<Marriage, String>,
     pub household_id: __sdk::__query_builder::Col<Marriage, String>,
     pub ceremony_settlement_id: __sdk::__query_builder::Col<Marriage, String>,
-    pub married_minute: __sdk::__query_builder::Col<Marriage, u64>,
+    pub married_minute: __sdk::__query_builder::Col<Marriage, StrategicMinute>,
     pub status: __sdk::__query_builder::Col<Marriage, MarriageStatus>,
-    pub resolved_minute: __sdk::__query_builder::Col<Marriage, Option<u64>>,
+    pub resolved_minute: __sdk::__query_builder::Col<Marriage, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for Marriage {

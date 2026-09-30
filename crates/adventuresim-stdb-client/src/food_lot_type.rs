@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::food_preparation_type::FoodPreparation;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -26,7 +27,7 @@ pub struct FoodLot {
     pub mass_kg: f32,
     pub nutrition_kcal: f32,
     pub total_value: f32,
-    pub created_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for FoodLot {
@@ -54,7 +55,7 @@ pub struct FoodLotCols {
     pub mass_kg: __sdk::__query_builder::Col<FoodLot, f32>,
     pub nutrition_kcal: __sdk::__query_builder::Col<FoodLot, f32>,
     pub total_value: __sdk::__query_builder::Col<FoodLot, f32>,
-    pub created_at_minute: __sdk::__query_builder::Col<FoodLot, u64>,
+    pub created_at_minute: __sdk::__query_builder::Col<FoodLot, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for FoodLot {

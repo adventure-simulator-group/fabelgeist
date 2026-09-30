@@ -7,6 +7,10 @@
 //! reducer/view/table ABI while keeping each gameplay domain navigable.
 
 #[cfg(test)]
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::StrategicMinute;
+
+#[cfg(test)]
 pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("autoresolve.rs"),
     include_str!("party_readiness.rs"),

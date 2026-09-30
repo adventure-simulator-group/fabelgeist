@@ -9,7 +9,7 @@ use crate::{
     investigation_action::{InvestigationActionKind, InvestigationTargetKind, Terrain},
     local_problem::{Effects, Scope, Symptom},
 };
-use adventuresim_world_schema::BestiaryCategory;
+use adventuresim_world_schema::{BestiaryCategory, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
@@ -312,7 +312,7 @@ pub struct GenerationContext {
     pub settlement_name: String,
     pub scope: Scope,
     pub ordinal: u16,
-    pub now_minute: u64,
+    pub now_minute: StrategicMinute,
     /// Private incident-time precipitation snapshot committed with generation.
     pub incident_weather: crate::weather::Precipitation,
     pub requested_family: Option<TemplateFamily>,
@@ -513,7 +513,7 @@ pub struct CanonicalEvent {
     pub subject: String,
     pub predicate: String,
     pub object: String,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -629,9 +629,9 @@ pub struct OutbreakExposure {
     /// Explicit authoritative kinship only. `None` means clergy/civic custody;
     /// generation must never infer family from witness adjacency.
     pub episode_id: u64,
-    pub exposed_at: u64,
-    pub became_symptomatic_at: u64,
-    pub died_at: Option<u64>,
+    pub exposed_at: StrategicMinute,
+    pub became_symptomatic_at: StrategicMinute,
+    pub died_at: Option<StrategicMinute>,
     pub death_kind: Option<OutbreakPatientDeathKind>,
 }
 

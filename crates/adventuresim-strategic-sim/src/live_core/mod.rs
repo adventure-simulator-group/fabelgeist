@@ -22,8 +22,10 @@ use adventuresim_core::simulation_security::{
 use adventuresim_core::strategic_presence::DailyPresenceWindow;
 use adventuresim_stdb_client::spacetimedb_sdk::{DbContext, Table};
 use adventuresim_stdb_client::*;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use adventuresim_world_schema::{
     SettlementActionService as DomainSettlementActionService,
+    calendar::StrategicMinute,
     coordinates::{LatitudeE7, LatitudeMicrodegrees, LongitudeE7, LongitudeMicrodegrees},
 };
 use serde::{Deserialize, Serialize};
@@ -36,7 +38,7 @@ use std::{
 
 use adventuresim_core::strategic_currency::is_currency_id;
 use adventuresim_core::strategic_time::{
-    DEFAULT_JOURNEY_START_MINUTE_OF_DAY, DEFAULT_NIGHT_JOURNEY_START_MINUTE_OF_DAY, MINUTES_PER_DAY,
+    DEFAULT_JOURNEY_START_MINUTE_OF_DAY, DEFAULT_NIGHT_JOURNEY_START_MINUTE_OF_DAY,
 };
 use url::Url;
 
@@ -207,6 +209,10 @@ use schema_types::{
     domain_body_region, domain_incapacitation_status, reducer_intervention_route,
     reducer_surgery_procedure,
 };
+
+fn calendar_minute(value: &adventuresim_stdb_client::StrategicMinute) -> StrategicMinute {
+    StrategicMinute::new(value.minutes)
+}
 
 mod failure {
     use super::*;

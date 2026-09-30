@@ -1,6 +1,5 @@
-/// Converts a trusted mission outcome into a typed strategic fact. This is the
-/// only battle-to-case seam: tactical code cannot resolve a case or pay a
-/// contract directly.
+/// Converts a trusted mission outcome into a typed strategic fact. Tactical
+/// code cannot resolve a case or pay a contract directly.
 fn ingest_hostile_group_defeat_fact(
     ctx: &ReducerContext,
     outcome_source_id: &str,
@@ -429,7 +428,7 @@ fn seed_case_custody(
     Ok(())
 }
 
-fn party_strategic_minute(ctx: &ReducerContext, party_id: &str) -> Result<u64, String> {
+fn party_strategic_minute(ctx: &ReducerContext, party_id: &str) -> Result<StrategicMinute, String> {
     let party = ctx
         .db
         .party_authority()
@@ -441,7 +440,7 @@ fn party_strategic_minute(ctx: &ReducerContext, party_id: &str) -> Result<u64, S
         .character_time()
         .character_id()
         .find(party.leader_id)
-        .map_or(0, |time| time.minutes))
+        .map_or(StrategicMinute::ZERO, |t| t.minutes))
 }
 
 fn open_case_expression(

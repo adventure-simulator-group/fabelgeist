@@ -46,7 +46,7 @@ impl LiveRunner {
                         row.case_id,
                         row.subject,
                         DomainCaseStatus::from_stable_id(&row.status)?,
-                        row.latest_update_at,
+                        calendar_minute(&row.latest_update_at),
                     ))
                 }),
         )
@@ -230,7 +230,9 @@ impl LiveRunner {
             .iter()
             .filter(|row| row.owner_character_id == character_id)
             .count();
-        let latest_lead_at = leads.iter().map(|row| row.recorded_at).max().unwrap_or(0);
+        let latest_lead_at = leads.iter().fold(StrategicMinute::ZERO, |latest, row| {
+            latest.max(calendar_minute(&row.recorded_at))
+        });
         let outcomes = self
             .connection
             .db
@@ -238,11 +240,9 @@ impl LiveRunner {
             .iter()
             .filter(|row| row.owner_character_id == character_id && row.case_id == case_id)
             .collect::<Vec<_>>();
-        let latest_outcome_at = outcomes
-            .iter()
-            .map(|row| row.recorded_at)
-            .max()
-            .unwrap_or(0);
+        let latest_outcome_at = outcomes.iter().fold(StrategicMinute::ZERO, |latest, row| {
+            latest.max(calendar_minute(&row.recorded_at))
+        });
         let pins = self
             .connection
             .db
@@ -257,7 +257,7 @@ impl LiveRunner {
             .backend_investigation_cases()
             .iter()
             .find(|row| row.owner_character_id == character_id && row.case_id == case_id)
-            .map_or(0, |row| row.latest_update_at);
+            .map_or(StrategicMinute::ZERO, |row| calendar_minute(&row.latest_update_at));
         let party = self.party_for(character_id)?;
         let location = if let Some(settlement_id) = party.current_settlement_id {
             format!("settlement:{settlement_id}")
@@ -466,7 +466,7 @@ impl LiveRunner {
             .backend_character_times()
             .iter()
             .find(|row| row.character_id == character_id)
-            .map_or(720, |row| row.minutes);
+            .map_or(StrategicMinute::new(720), |row| calendar_minute(&row.minutes));
         let candidates = self
             .connection
             .db
@@ -553,20 +553,20 @@ impl LiveRunner {
         Ok(PublicDialogueStartOutcome::Started(session_id))
     }
 
-    pub(super) fn official_world_minute(&self) -> u64 {
+    pub(super) fn official_world_minute(&self) -> StrategicMinute {
         self.connection
             .db
             .world_clock()
             .iter()
-            .map(|clock| clock.official_minutes)
+            .map(|clock| calendar_minute(&clock.official_minutes))
             .max()
-            .unwrap_or(0)
+            .unwrap_or(StrategicMinute::ZERO)
     }
 
     pub(super) fn public_discovery_fingerprint(
         &self,
         character_id: u64,
-        official_minute: u64,
+        official_minute: StrategicMinute,
         candidates: &[PublicNpcCandidate],
     ) -> (PublicDiscoveryFingerprint, usize, &'static str) {
         let settlement_id = self
@@ -589,22 +589,22 @@ impl LiveRunner {
             .iter()
             .filter(|symptom| {
                 symptom.settlement_id == settlement_id
-                    && symptom.active_from <= official_minute
-                    && official_minute < symptom.active_until
+                    && StrategicMinute::new(symptom.active_from.minutes) <= official_minute
+                    && official_minute < StrategicMinute::new(symptom.active_until.minutes)
             })
             .map(|symptom| {
                 (
                     symptom.symptom,
                     symptom.public_summary,
-                    symptom.active_from,
-                    symptom.active_until,
+                    StrategicMinute::new(symptom.active_from.minutes),
+                    StrategicMinute::new(symptom.active_until.minutes),
                 )
             })
             .collect::<Vec<_>>();
         active_symptoms.sort();
         let oldest_age = active_symptoms
             .iter()
-            .map(|(_, _, active_from, _)| official_minute.saturating_sub(*active_from))
+            .map(|(_, _, active_from, _)| official_minute.elapsed_since(*active_from))
             .max();
         let active_symptom_count = active_symptoms.len();
         (
@@ -647,6 +647,7 @@ impl LiveRunner {
         let candidates = self.visible_npc_candidates(character_id, None, None);
         let visible_candidate_count = candidates.len();
         let official_minute = self.official_world_minute();
+        let official_time = official_minute;
         let (public_fingerprint, active_symptom_count, oldest_symptom_age_bucket) =
             self.public_discovery_fingerprint(character_id, official_minute, &candidates);
         let previous_contact = public_discovery_previous_contact(
@@ -655,13 +656,9 @@ impl LiveRunner {
         );
         let candidate = stable_discovery_action_candidate(candidates, previous_contact);
         let location_class = discovery_location_class(candidate.as_ref());
-        let public_backoff = self
-            .generated_discovery_backoff
-            .get(&character_id)
-            .is_some_and(|backoff| {
-                public_discovery_backoff_active(backoff, &public_fingerprint, official_minute)
-            });
-        if public_backoff {
+        if self.generated_discovery_backoff.get(&character_id).is_some_and(|backoff| {
+            public_discovery_backoff_active(backoff, &public_fingerprint, official_time)
+        }) {
             self.metrics.generated_discovery_public_backoff_suppressions = self
                 .metrics
                 .generated_discovery_public_backoff_suppressions
@@ -884,7 +881,7 @@ impl LiveRunner {
             PublicDiscoveryBackoff {
                 fingerprint: public_fingerprint,
                 last_contact: public_discovery_contact_identity(&candidate),
-                retry_at: official_minute.saturating_add(PUBLIC_DISCOVERY_BACKOFF_MINUTES),
+                retry_at: official_time.saturating_add_minutes(PUBLIC_DISCOVERY_BACKOFF_MINUTES),
             },
         );
         Ok(GeneratedDiscoveryOutcome::NoPublicRumor)
@@ -1353,7 +1350,7 @@ impl LiveRunner {
             .backend_character_times()
             .iter()
             .find(|row| row.character_id == character_id)
-            .map(|row| row.minutes)
+            .map(|row| StrategicMinute::new(row.minutes.minutes))
             .ok_or("projected investigation actor clock is unavailable")?;
         let party_member_ids = self
             .connection
@@ -1371,7 +1368,7 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == *member_id)
-                    .map(|row| row.minutes)
+                    .map(|row| StrategicMinute::new(row.minutes.minutes))
                     .ok_or("projected investigation party clock is unavailable")
             })
             .collect::<Result<Vec<_>, _>>()?;
@@ -1753,7 +1750,7 @@ impl LiveRunner {
                         .backend_character_times()
                         .iter()
                         .find(|row| row.character_id == character_id)
-                        .map(|row| row.minutes)
+                        .map(|row| StrategicMinute::new(row.minutes.minutes))
                         .ok_or("projected investigation actor clock is unavailable")?;
                     if let Some(wait_minutes) = current_contact_schedule_wait_minutes(
                         &action,
@@ -1949,9 +1946,9 @@ impl LiveRunner {
                             && !known_outcomes.contains(&row.outcome_id)
                     })
                     .collect::<Vec<_>>();
-                outcomes.sort_by_key(|row| (row.recorded_at, row.outcome_id.clone()));
+                outcomes.sort_by_key(|row| (calendar_minute(&row.recorded_at), row.outcome_id.clone()));
                 let action_elapsed_after = self.public_party_elapsed_max(party_id);
-                let actual_minutes = action_elapsed_after.saturating_sub(action_elapsed_before);
+                let actual_minutes = action_elapsed_after.elapsed_since(action_elapsed_before);
                 let outcome_class = if outcomes.is_empty() {
                     // The ordinary completed failure path always publishes a
                     // safe outcome. No new outcome after a successful reducer
@@ -2155,9 +2152,9 @@ impl LiveRunner {
                                 travel_at_night,
                                 ..
                             } => {
-                                let configured_starting_minute = self
-                                    .public_party_elapsed_max(party_id)
-                                    .checked_add(wait_minutes);
+                                let configured_starting_minute =
+                                    self.public_party_elapsed_max(party_id)
+                                        .checked_add_minutes(wait_minutes);
                                 if !followed_safe_wait
                                     && route_origin.current_settlement_id.is_some()
                                     && self.wait_for_safe_departure_at_settlement(
@@ -2334,7 +2331,7 @@ impl LiveRunner {
                             && row.corrected_by.is_empty()
                     })
                     .collect::<Vec<_>>();
-                witnesses.sort_by_key(|row| (row.recorded_at, row.lead_id.clone()));
+                witnesses.sort_by_key(|row| (calendar_minute(&row.recorded_at), row.lead_id.clone()));
                 witnesses.reverse();
                 let mut attempted_witnesses = HashSet::new();
                 let mut witness_progressed = false;

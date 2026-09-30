@@ -1,13 +1,7 @@
 (() => {
-  const {
-    minutesPerDay: DAY,
-    daysPerYear: DAYS_PER_YEAR,
-    lunarCycleMinutes: LUNAR_CYCLE,
-  } = globalThis.strategicCalendar;
+  const calendar = globalThis.strategicCalendar;
+  const { minutesPerDay: DAY, daysPerYear: DAYS_PER_YEAR, calendarDate, formatClock } = calendar;
   const MAX_TARGET_SURPLUS_DAYS = DAYS_PER_YEAR;
-  const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const MONTH_DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   const MAX_U32 = 4294967295;
   const TRACK_START = 0;
   const TRACK_END = 100;
@@ -96,15 +90,11 @@
     return segment.fatigueStart + (segment.fatigueEnd - segment.fatigueStart) * fraction;
   };
   const timePeriodAt = (absoluteMinute) => {
-    const minute = ((Math.floor(absoluteMinute) % DAY) + DAY) % DAY;
+    const minute = calendar.minuteOfDay(absoluteMinute);
     if (minute >= DAWN && minute < DAYLIGHT) return "sunrise";
     if (minute >= DAYLIGHT && minute < SUNSET) return "day";
     if (minute >= SUNSET && minute < NIGHT) return "sunset";
     return "night";
-  };
-  const formatClock = (absoluteMinute) => {
-    const minute = ((Math.floor(absoluteMinute) % DAY) + DAY) % DAY;
-    return `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
   };
   const attachRailTooltip = (track, valueAtFraction) => {
     const tooltip = document.createElement("span");
@@ -124,23 +114,6 @@
       tooltip.hidden = false;
     };
     track.onpointerleave = () => { tooltip.hidden = true; };
-  };
-
-  const calendarDate = (absoluteMinute) => {
-    const absoluteDay = Math.floor(absoluteMinute / DAY);
-    let dayOfYear = ((absoluteDay % DAYS_PER_YEAR) + DAYS_PER_YEAR) % DAYS_PER_YEAR;
-    let monthIndex = 0;
-    while (dayOfYear >= MONTH_DAYS[monthIndex]) {
-      dayOfYear -= MONTH_DAYS[monthIndex];
-      monthIndex += 1;
-    }
-    const weekdayIndex = ((absoluteDay % WEEKDAYS.length) + WEEKDAYS.length) % WEEKDAYS.length;
-    return {
-      weekday: WEEKDAYS[weekdayIndex],
-      day: dayOfYear + 1,
-      month: MONTHS[monthIndex],
-      isSunday: weekdayIndex === 6,
-    };
   };
 
   const moonName = (phase) => {
@@ -167,7 +140,7 @@
   };
 
   const moonSvg = (absoluteMinute) => {
-    const phase = ((absoluteMinute % LUNAR_CYCLE) + LUNAR_CYCLE) % LUNAR_CYCLE / LUNAR_CYCLE;
+    const phase = calendar.lunarPhase(absoluteMinute);
     const geometry = moonGeometry(phase);
     const illumination = geometry.illumination;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -200,11 +173,12 @@
     track.replaceChildren();
     let elapsed = 0;
     while (elapsed < total) {
-      const absolute = departure + elapsed;
-      const dayStart = Math.floor(absolute / DAY) * DAY;
-      const nextBoundary = [dayStart + DAWN, dayStart + DAYLIGHT, dayStart + SUNSET, dayStart + NIGHT, dayStart + DAY + DAWN]
+      const absolute = calendar.addMinutes(departure, elapsed);
+      const dayStart = calendar.dayStart(absolute);
+      const nextBoundary = [DAWN, DAYLIGHT, SUNSET, NIGHT, DAY + DAWN]
+        .map((offset) => calendar.addMinutes(dayStart, offset))
         .find((boundary) => boundary > absolute);
-      const end = Math.min(total, elapsed + Math.max(1, nextBoundary - absolute));
+      const end = Math.min(total, elapsed + Math.max(1, calendar.elapsedSince(nextBoundary, absolute)));
       const segment = document.createElement("span");
       segment.className = `travel-daylight-segment ${timePeriodAt(absolute)}`;
       segment.style.top = `${elapsed / total * 100}%`;
@@ -212,11 +186,11 @@
       track.append(segment);
       elapsed = end;
     }
-    const firstMidnight = Math.ceil(departure / DAY) * DAY;
-    for (let midnight = firstMidnight; midnight <= departure + total; midnight += DAY) {
+    const firstMidnight = calendar.nextMidnightAtOrAfter(departure);
+    for (let midnight = firstMidnight; midnight <= calendar.addMinutes(departure, total); midnight = calendar.addDays(midnight, 1)) {
       const tick = document.createElement("span");
       tick.className = "travel-midnight-tick";
-      tick.style.top = `${(midnight - departure) / total * 100}%`;
+      tick.style.top = `${calendar.elapsedSince(midnight, departure) / total * 100}%`;
       const date = calendarDate(midnight);
       tick.classList.toggle("sunday", date.isSunday);
       const label = document.createElement("span");
@@ -232,7 +206,7 @@
       track.append(tick);
     }
     attachRailTooltip(track, (fraction) => {
-      const absolute = departure + total * fraction;
+      const absolute = calendar.addMinutes(departure, total * fraction);
       const period = timePeriodAt(absolute);
       return `${period[0].toUpperCase()}${period.slice(1)} · ${formatClock(absolute)}`;
     });

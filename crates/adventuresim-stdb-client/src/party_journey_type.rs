@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::journey_camp_interval_type::JourneyCampInterval;
 use super::journey_endpoint_type::JourneyEndpoint;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -20,7 +21,7 @@ pub struct PartyJourney {
     pub actual_camp_intervals: Vec<JourneyCampInterval>,
     pub forecast_camp_intervals: Vec<JourneyCampInterval>,
     pub fatigue_percent: u8,
-    pub departure_minute: u64,
+    pub departure_minute: StrategicMinute,
     pub total_elapsed_minutes: u64,
     pub completed_elapsed_minutes: u64,
     pub walking_minutes_per_day: u16,
@@ -46,7 +47,7 @@ pub struct PartyJourneyCols {
     pub forecast_camp_intervals:
         __sdk::__query_builder::Col<PartyJourney, Vec<JourneyCampInterval>>,
     pub fatigue_percent: __sdk::__query_builder::Col<PartyJourney, u8>,
-    pub departure_minute: __sdk::__query_builder::Col<PartyJourney, u64>,
+    pub departure_minute: __sdk::__query_builder::Col<PartyJourney, StrategicMinute>,
     pub total_elapsed_minutes: __sdk::__query_builder::Col<PartyJourney, u64>,
     pub completed_elapsed_minutes: __sdk::__query_builder::Col<PartyJourney, u64>,
     pub walking_minutes_per_day: __sdk::__query_builder::Col<PartyJourney, u16>,

@@ -22,19 +22,13 @@ use crate::{
     character_training_schedule, inventory_item,
 };
 use adventuresim_core::physiology::{BodyMassKg, BodyRegion};
-
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+mod fear;
+use fear::enemy_fear_multiplier;
 pub const RECENT_MORALE_DURATION_MINUTES: u64 = 7 * 24 * 60;
 const LEISURE_MORALE_SOURCE_ID: &str = "settlement-leisure";
 const MASTERY_MORALE_SOURCE_ID: &str = "mastery-enjoyment";
 const INJURY_MORALE_PER_HEALTH_DEFICIT: f32 = 5.0;
-fn enemy_fear_multiplier(enemy_type: &str) -> Result<f32, String> {
-    enemy_type
-        .parse::<adventuresim_core::bestiary::ThreatId>()
-        .map(|id| 1.0 + f32::from(id.profile().combat.fear) / 50.0)
-        .map_err(|_| format!("Unknown threat ID in quest: {enemy_type}"))
-}
-
-/// Durable strategic inputs for blood loss and religious morale relationships.
 #[derive(Clone, Debug)]
 #[table(accessor = character_condition)]
 pub struct CharacterCondition {
@@ -83,8 +77,8 @@ pub struct MoraleEvent {
     pub kind: MoraleEventKind,
     /// Positive values are successes; negative values are setbacks.
     pub magnitude: f32,
-    pub occurred_at_minute: u64,
-    pub expires_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
+    pub expires_at_minute: StrategicMinute,
     pub source_id: Option<String>,
 }
 
@@ -147,8 +141,8 @@ pub struct ReligiousDemand {
     pub description: String,
     pub fervor: f32,
     pub status: String,
-    pub created_at_minute: u64,
-    pub resolved_at_minute: Option<u64>,
+    pub created_at_minute: StrategicMinute,
+    pub resolved_at_minute: Option<StrategicMinute>,
     pub resolution: Option<String>,
 }
 
@@ -305,7 +299,7 @@ fn exposure_location(ctx: &ReducerContext, character_id: u64) -> ExposureLocatio
 pub fn apply_weather_exposure(
     ctx: &ReducerContext,
     character_id: u64,
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     elapsed_minutes: u64,
     moving: bool,
     shelter: adventuresim_core::survival::ExposureShelter,
@@ -334,13 +328,8 @@ pub fn apply_weather_exposure(
     let weather = (0..elapsed_minutes).map(|offset| {
         let (latitude, longitude, elevation) = location.position(if moving { offset } else { 0 });
         let weather_minute = wilderness_environment_start.map_or_else(
-            || starting_minute.saturating_add(offset),
-            |environment_start| {
-                let frozen_day = environment_start / MINUTES_PER_DAY * MINUTES_PER_DAY;
-                frozen_day.saturating_add(
-                    (environment_start % MINUTES_PER_DAY + offset) % MINUTES_PER_DAY,
-                )
-            },
+            || starting_minute.saturating_add_minutes(offset),
+            |environment_start| environment_start.wrapping_day_offset(offset),
         );
         adventuresim_core::weather::weather_at(
             adventuresim_core::weather::WORLD_WEATHER_SEED,
@@ -374,7 +363,7 @@ pub fn apply_weather_exposure(
     // ordinary injury settlement, so replay commutes with the already-clipped
     // interval while preserving identical limb projections across partitions.
     for event_offset in outcome.frostbite_event_offsets {
-        let event_minute = starting_minute.saturating_add(event_offset);
+        let event_minute = starting_minute.saturating_add_minutes(event_offset);
         let peripheral = adventuresim_core::survival::frostbite_peripheral_index(
             clothing.peripheral_protection_bps,
             event_minute,
@@ -954,7 +943,7 @@ fn base_morale(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let (_, limbs, _, _) = load_character_parts(ctx, character_id)?;
     let will = mental_check(ctx, character_id, Skill::Will)?.max(MINIMUM_WILL_CHECK);
     let personality = crate::personality::personality_or_neutral(ctx, character_id);
@@ -1157,10 +1146,9 @@ fn base_morale(
     }
 
     for event in ctx.db.morale_event().character_id().filter(character_id) {
-        let duration = event
-            .expires_at_minute
-            .saturating_sub(event.occurred_at_minute);
-        let age = current_minute.saturating_sub(event.occurred_at_minute);
+        let occurred_at = event.occurred_at_minute;
+        let duration = event.expires_at_minute.elapsed_since(occurred_at);
+        let age = current_minute.elapsed_since(occurred_at);
         let effect = if event.source_id.as_deref() == Some(LEISURE_MORALE_SOURCE_ID) {
             leisure_morale_effect(event.magnitude, age as f32, duration)
         } else if event.source_id.as_deref() == Some(MASTERY_MORALE_SOURCE_ID) {
@@ -1204,7 +1192,7 @@ pub fn record_mastery_training_morale(
         return;
     }
     let interval_end = character_minute(ctx, character_id);
-    let interval_start = interval_end.saturating_sub(elapsed_minutes);
+    let interval_start = interval_end.saturating_sub_minutes(elapsed_minutes);
     let existing = ctx
         .db
         .morale_event()
@@ -1212,12 +1200,11 @@ pub fn record_mastery_training_morale(
         .filter(character_id)
         .find(|event| event.source_id.as_deref() == Some(MASTERY_MORALE_SOURCE_ID));
     let at_interval_start = existing.as_ref().map_or(0.0, |event| {
-        let duration = event
-            .expires_at_minute
-            .saturating_sub(event.occurred_at_minute);
+        let occurred_at = event.occurred_at_minute;
+        let duration = event.expires_at_minute.elapsed_since(occurred_at);
         event.magnitude
             * adventuresim_core::morale::mastery_enjoyment_decay(
-                interval_start.saturating_sub(event.occurred_at_minute),
+                interval_start.elapsed_since(occurred_at),
                 duration,
             )
     });
@@ -1235,7 +1222,7 @@ pub fn record_mastery_training_morale(
         kind: MoraleEventKind::MasteryEnjoyment,
         magnitude,
         occurred_at_minute: interval_end,
-        expires_at_minute: interval_end.saturating_add(RECENT_MORALE_DURATION_MINUTES),
+        expires_at_minute: interval_end.saturating_add_minutes(RECENT_MORALE_DURATION_MINUTES),
         source_id: Some(MASTERY_MORALE_SOURCE_ID.into()),
     };
     if existing.is_some() {
@@ -1456,12 +1443,12 @@ fn refresh_one_strategic_condition(
     Ok(row)
 }
 
-fn character_minute(ctx: &ReducerContext, character_id: u64) -> u64 {
+fn character_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
     ctx.db
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes)
+        .map_or(StrategicMinute::ZERO, |time| time.minutes)
 }
 
 fn ensure_holy_day_demand(
@@ -1481,8 +1468,8 @@ fn ensure_holy_day_demand(
         return Ok(());
     }
     let current_minute = crate::time::refresh_clock(ctx)?;
-    let current_day = current_minute / MINUTES_PER_DAY;
-    if !is_sunday(current_day) {
+    let current_day = current_minute.day_index();
+    if !adventuresim_world_schema::calendar::is_sunday_day_index(current_day) {
         return Ok(());
     }
     let demands: Vec<_> = ctx
@@ -1495,7 +1482,7 @@ fn ensure_holy_day_demand(
         return Ok(());
     }
     if demands.iter().any(|demand| {
-        demand.kind == "holy_day" && demand.created_at_minute / MINUTES_PER_DAY == current_day
+        demand.kind == "holy_day" && demand.created_at_minute.day_index() == current_day
     }) {
         return Ok(());
     }
@@ -1577,7 +1564,7 @@ fn refuse_expired_holy_day_demands(
     departing: bool,
 ) -> Result<bool, String> {
     let current_minute = crate::time::refresh_clock(ctx)?;
-    let current_day = current_minute / MINUTES_PER_DAY;
+    let current_day = current_minute.day_index();
     let pending: Vec<_> = ctx
         .db
         .religious_demand()
@@ -1587,7 +1574,7 @@ fn refuse_expired_holy_day_demands(
             demand.kind == "holy_day"
                 && demand.status == "pending"
                 && holy_day_demand_has_expired(
-                    demand.created_at_minute / MINUTES_PER_DAY,
+                    demand.created_at_minute.day_index(),
                     current_day,
                     departing,
                 )
@@ -1650,8 +1637,8 @@ pub fn resolve_religious_demand(
         if character.current_settlement_id.is_none() {
             return Err("A holy day can only be observed at a settlement".into());
         }
-        let current_day = crate::time::refresh_clock(ctx)? / MINUTES_PER_DAY;
-        if current_day != demand.created_at_minute / MINUTES_PER_DAY {
+        let current_day = crate::time::refresh_clock(ctx)?.day_index();
+        if current_day != demand.created_at_minute.day_index() {
             return Err("This holy day has already passed".into());
         }
     }
@@ -1667,7 +1654,7 @@ pub fn resolve_religious_demand(
             crate::time::spend_private_settlement_downtime(
                 ctx,
                 demand.character_id,
-                adventuresim_core::strategic_time::MINUTES_PER_DAY,
+                adventuresim_world_schema::calendar::MINUTES_PER_DAY,
                 true,
             )?;
             record_morale_event(
@@ -1717,7 +1704,7 @@ pub fn record_morale_event(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |time| time.minutes);
     let duration = stored_morale_event_duration(ctx, character_id, magnitude);
     ctx.db.morale_event().insert(MoraleEvent {
         id: 0,
@@ -1725,7 +1712,7 @@ pub fn record_morale_event(
         kind,
         magnitude,
         occurred_at_minute,
-        expires_at_minute: occurred_at_minute.saturating_add(duration),
+        expires_at_minute: occurred_at_minute.saturating_add_minutes(duration),
         source_id,
     });
     refresh_character_strategic_condition(ctx, character_id)?;
@@ -1740,7 +1727,7 @@ pub fn upsert_refreshable_morale_event_at_without_refresh(
     character_id: u64,
     kind: MoraleEventKind,
     magnitude: f32,
-    occurred_at_minute: u64,
+    occurred_at_minute: StrategicMinute,
     source_id: &str,
 ) -> Result<(), String> {
     if magnitude == 0.0 || !magnitude.is_finite() {
@@ -1759,7 +1746,7 @@ pub fn upsert_refreshable_morale_event_at_without_refresh(
         kind,
         magnitude,
         occurred_at_minute,
-        expires_at_minute: occurred_at_minute.saturating_add(duration),
+        expires_at_minute: occurred_at_minute.saturating_add_minutes(duration),
         source_id: Some(source_id.into()),
     };
     if existing.is_some() {
@@ -1778,8 +1765,8 @@ pub(crate) fn upsert_fixed_morale_event_without_refresh(
     character_id: u64,
     kind: MoraleEventKind,
     magnitude: f32,
-    occurred_at_minute: u64,
-    expires_at_minute: u64,
+    occurred_at_minute: StrategicMinute,
+    expires_at_minute: StrategicMinute,
     source_id: &str,
 ) {
     let existing = ctx
@@ -1822,7 +1809,7 @@ fn insert_morale_event_without_refresh(
         kind,
         magnitude,
         occurred_at_minute,
-        expires_at_minute: occurred_at_minute.saturating_add(duration),
+        expires_at_minute: occurred_at_minute.saturating_add_minutes(duration),
         source_id: Some(source_id),
     });
 }
@@ -1893,7 +1880,7 @@ fn has_morale_source(ctx: &ReducerContext, character_id: u64, source_id: &str) -
 pub fn apply_travel_condition(
     ctx: &ReducerContext,
     character_id: u64,
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     elapsed_minutes: u64,
     prayer_minutes: u16,
 ) -> Result<(), String> {
@@ -1901,13 +1888,13 @@ pub fn apply_travel_condition(
         return Err("Travel condition interval cannot exceed one year".into());
     }
     let interval_end = starting_minute
-        .checked_add(elapsed_minutes)
+        .checked_add_minutes(elapsed_minutes)
         .ok_or("Travel condition interval overflow")?;
     for (segment_start, segment_end, history_minute) in
         adventuresim_core::alcohol::travel_evening_segments(starting_minute, interval_end)
             .map_err(str::to_string)?
     {
-        apply_elapsed_needs(ctx, character_id, segment_end - segment_start)?;
+        apply_elapsed_needs(ctx, character_id, segment_end.elapsed_since(segment_start))?;
         // Movement alone may spend potable alcohol as emergency hydration.
         // Attribute each whole serving to the evening in which the deficit
         // arose; generic waits and camp downtime never invoke this fallback.
@@ -1955,7 +1942,7 @@ pub fn apply_travel_condition(
                 -prayer_penalty,
                 format!(
                     "travel-prayer:{starting_minute}:{}",
-                    starting_minute.saturating_add(elapsed_minutes)
+                    starting_minute.saturating_add_minutes(elapsed_minutes)
                 ),
             );
         }
@@ -1968,10 +1955,10 @@ pub fn apply_travel_condition(
 pub(crate) fn apply_canonical_wilderness_observance(
     ctx: &ReducerContext,
     character_id: u64,
-    canonical_start: u64,
-    canonical_end: u64,
+    canonical_start: StrategicMinute,
+    canonical_end: StrategicMinute,
 ) -> Result<(), String> {
-    let elapsed = canonical_end.saturating_sub(canonical_start);
+    let elapsed = canonical_end.elapsed_since(canonical_start);
     if elapsed == 0 {
         return Ok(());
     }
@@ -2019,14 +2006,14 @@ fn leisure_morale_effect(magnitude: f32, age_minutes: f32, duration: u64) -> f32
 }
 
 fn accumulated_leisure_morale(
-    existing: Option<(f32, u64, u64)>,
+    existing: Option<(f32, StrategicMinute, StrategicMinute)>,
     earned: f32,
     morale_earning_minutes: f32,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
 ) -> f32 {
     let retained = existing.map_or(0.0, |(magnitude, occurred_at, expires_at)| {
-        let duration = expires_at.saturating_sub(occurred_at);
-        let age_at_interval_end = interval_end_minute.saturating_sub(occurred_at) as f32;
+        let duration = expires_at.elapsed_since(occurred_at);
+        let age_at_interval_end = interval_end_minute.elapsed_since(occurred_at) as f32;
         let age_before_earning = (age_at_interval_end - morale_earning_minutes.max(0.0)).max(0.0);
         leisure_morale_effect(magnitude, age_before_earning, duration)
     });
@@ -2038,7 +2025,7 @@ fn upsert_leisure_morale(
     character_id: u64,
     earned: f32,
     morale_earning_minutes: f32,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
 ) {
     if earned <= 0.0 || !earned.is_finite() {
         return;
@@ -2066,7 +2053,7 @@ fn upsert_leisure_morale(
         event.magnitude = magnitude;
         event.occurred_at_minute = interval_end_minute;
         event.expires_at_minute =
-            interval_end_minute.saturating_add(RECENT_MORALE_DURATION_MINUTES);
+            interval_end_minute.saturating_add_minutes(RECENT_MORALE_DURATION_MINUTES);
         ctx.db.morale_event().id().update(event);
     } else {
         ctx.db.morale_event().insert(MoraleEvent {
@@ -2075,7 +2062,8 @@ fn upsert_leisure_morale(
             kind: MoraleEventKind::Leisure,
             magnitude,
             occurred_at_minute: interval_end_minute,
-            expires_at_minute: interval_end_minute.saturating_add(RECENT_MORALE_DURATION_MINUTES),
+            expires_at_minute: interval_end_minute
+                .saturating_add_minutes(RECENT_MORALE_DURATION_MINUTES),
             source_id: Some(LEISURE_MORALE_SOURCE_ID.into()),
         });
     }
@@ -2091,7 +2079,7 @@ pub fn apply_settlement_leisure_condition(
     character_id: u64,
     schedule: DailySchedule,
     elapsed_minutes: u64,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut stats = ctx
         .db
@@ -2320,6 +2308,7 @@ mod tests {
         religion_cohort_pressure, require_profession_service,
         settlement_rest_elapsed_needs_provision, water_reserve_days,
     };
+    use adventuresim_world_schema::calendar::StrategicMinute;
     use std::collections::BTreeMap;
 
     #[test]
@@ -2386,7 +2375,7 @@ mod tests {
     use adventuresim_core::strategic_schedule::{
         DailySchedule, LEISURE_MORALE_LIMIT, settlement_leisure_outcome,
     };
-    use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+    use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 
     #[test]
     fn condition_reserve_days_exclude_carried_provisions() {
@@ -2502,10 +2491,15 @@ mod tests {
     fn leisure_morale_upsert_is_capped_independent_of_sync_frequency() {
         let duration = super::RECENT_MORALE_DURATION_MINUTES;
         let mut magnitude = 0.0;
-        let mut occurred_at = 0;
+        let mut occurred_at = StrategicMinute::ZERO;
         for interval_end in 1..=1_000 {
+            let interval_end = StrategicMinute::new(interval_end);
             magnitude = accumulated_leisure_morale(
-                Some((magnitude, occurred_at, occurred_at + duration)),
+                Some((
+                    magnitude,
+                    occurred_at,
+                    occurred_at.saturating_add_minutes(duration),
+                )),
                 LEISURE_MORALE_LIMIT / 100.0,
                 1.0,
                 interval_end,
@@ -2517,7 +2511,10 @@ mod tests {
 
     #[test]
     fn zero_earned_leisure_does_not_create_morale() {
-        assert_eq!(accumulated_leisure_morale(None, 0.0, 0.0, 1_440), 0.0);
+        assert_eq!(
+            accumulated_leisure_morale(None, 0.0, 0.0, StrategicMinute::new(1_440)),
+            0.0
+        );
     }
 
     #[test]
@@ -2531,7 +2528,7 @@ mod tests {
             None,
             first.morale,
             first.morale_earning_minutes,
-            MINUTES_PER_DAY,
+            StrategicMinute::new(MINUTES_PER_DAY),
         );
         assert_eq!(first.fatigue_delta, -200.0);
         assert_eq!(after_first, 0.0);
@@ -2541,7 +2538,7 @@ mod tests {
             None,
             second.morale,
             second.morale_earning_minutes,
-            MINUTES_PER_DAY.saturating_mul(2),
+            StrategicMinute::new(MINUTES_PER_DAY.saturating_mul(2)),
         );
         assert!(after_second > 0.0);
     }
@@ -2550,23 +2547,27 @@ mod tests {
         schedule: DailySchedule,
         step_minutes: u64,
         total_minutes: u64,
-        starting_minute: u64,
+        starting_minute: StrategicMinute,
         starting_fatigue: f32,
         starting_morale: f32,
     ) -> (f32, f32) {
         let duration = super::RECENT_MORALE_DURATION_MINUTES;
         let mut fatigue = starting_fatigue;
         let mut morale = starting_morale;
-        let mut occurred_at = 0;
+        let mut occurred_at = StrategicMinute::ZERO;
         let mut elapsed = 0;
         while elapsed < total_minutes {
             let interval = step_minutes.min(total_minutes - elapsed);
-            let interval_end = starting_minute + elapsed + interval;
+            let interval_end = starting_minute.saturating_add_minutes(elapsed + interval);
             let outcome = settlement_leisure_outcome(schedule, interval, fatigue);
             fatigue += outcome.fatigue_delta;
             if outcome.morale > 0.0 {
                 morale = accumulated_leisure_morale(
-                    Some((morale, occurred_at, occurred_at + duration)),
+                    Some((
+                        morale,
+                        occurred_at,
+                        occurred_at.saturating_add_minutes(duration),
+                    )),
                     outcome.morale,
                     outcome.morale_earning_minutes,
                     interval_end,
@@ -2578,8 +2579,8 @@ mod tests {
         let effect = leisure_morale_effect(
             morale,
             starting_minute
-                .saturating_add(total_minutes)
-                .saturating_sub(occurred_at) as f32,
+                .saturating_add_minutes(total_minutes)
+                .elapsed_since(occurred_at) as f32,
             duration,
         );
         (fatigue, effect)
@@ -2592,7 +2593,7 @@ mod tests {
             ..Default::default()
         };
         let total = 4 * MINUTES_PER_DAY;
-        let start = 2 * MINUTES_PER_DAY;
+        let start = StrategicMinute::new(2 * MINUTES_PER_DAY);
         let aggregate = apply_partitioned_leisure(schedule, total, total, start, 350.0, 2.0);
         let daily = apply_partitioned_leisure(schedule, MINUTES_PER_DAY, total, start, 350.0, 2.0);
         let hourly = apply_partitioned_leisure(schedule, 60, total, start, 350.0, 2.0);
@@ -2611,7 +2612,7 @@ mod tests {
             ..Default::default()
         };
         let total = 2 * MINUTES_PER_DAY;
-        let start = MINUTES_PER_DAY;
+        let start = StrategicMinute::new(MINUTES_PER_DAY);
         let aggregate = apply_partitioned_leisure(schedule, total, total, start, 150.0, 2.0);
         let daily = apply_partitioned_leisure(schedule, MINUTES_PER_DAY, total, start, 150.0, 2.0);
         let hourly = apply_partitioned_leisure(schedule, 60, total, start, 150.0, 2.0);

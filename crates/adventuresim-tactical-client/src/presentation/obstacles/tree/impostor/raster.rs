@@ -798,12 +798,14 @@ mod tests {
             generation_version: 8,
             latitude_microdegrees: 53_500_000,
             longitude_microdegrees: 10_000_000,
-            absolute_minute: 340_440,
-            lunar_phase_minute: 340_440,
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(340_440),
             absolute_elevation_metres: 42,
             weather: WeatherSnapshot {
                 rules_version: adventuresim_tactical_core::prelude::WEATHER_RULES_VERSION,
-                interval_start_minute: 340_440,
+                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
+                    340_440,
+                ),
                 cell_latitude: 214,
                 cell_longitude: 40,
                 temperature_deci_c: 120,

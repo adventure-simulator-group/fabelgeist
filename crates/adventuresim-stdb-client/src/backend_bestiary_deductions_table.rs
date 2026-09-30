@@ -3,6 +3,7 @@
 
 #![allow(unused, clippy::all)]
 use super::backend_bestiary_deduction_type::BackendBestiaryDeduction;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_bestiary_deductions`.

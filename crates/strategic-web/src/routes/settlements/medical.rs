@@ -27,10 +27,9 @@ fn residence_notice(code: Option<&str>) -> Option<&'static str> {
     }
 }
 
-fn relationship_date_label(minute: u64) -> String {
-    let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    let year = adventuresim_core::strategic_time::world_year_at(minute);
-    let day_of_year = day % adventuresim_core::strategic_time::DAYS_PER_YEAR + 1;
+fn relationship_date_label(minute: StrategicMinute) -> String {
+    let year = minute.calendar_year();
+    let day_of_year = minute.day_of_year();
     format!("year {year}, day {day_of_year}")
 }
 
@@ -615,15 +614,14 @@ pub(super) async fn settlement_resident_place(
             .await
             .ok()
             .flatten()
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
         let wedding = relationship
             .as_ref()
-            .and_then(|row| row.wedding_effective_minute)
+            .and_then(|row| row.wedding_effective_minute.as_ref())
             .map(|effective_minute| WeddingPresentation {
-                days_remaining: effective_minute
-                    .saturating_sub(character_minute)
-                    .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY),
-                date_label: relationship_date_label(effective_minute),
+                days_remaining: character_minute
+                    .days_until_ceil(StrategicMinute::new(effective_minute.minutes)),
+                date_label: relationship_date_label(StrategicMinute::new(effective_minute.minutes)),
             });
         let presentation = relationship.as_ref().map(|status| {
             let name = |id: Option<u64>| {
@@ -640,9 +638,8 @@ pub(super) async fn settlement_resident_place(
                 courtship_kind: status.courtship_kind,
                 courtship_exposed: status.courtship_exposed,
                 wedding,
-                pregnancy_due_days: status.pregnancy_due_minute.map(|due| {
-                    due.saturating_sub(character_minute)
-                        .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+                pregnancy_due_days: status.pregnancy_due_minute.as_ref().map(|due| {
+                    character_minute.days_until_ceil(StrategicMinute::new(due.minutes))
                 }),
                 children: children
                     .iter()

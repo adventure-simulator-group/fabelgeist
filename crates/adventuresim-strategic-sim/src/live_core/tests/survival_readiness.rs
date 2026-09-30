@@ -102,7 +102,7 @@ fn generated_route_forecast_can_stage_a_week_ahead_but_public_waits_remain_daily
 
 #[test]
 fn generated_route_search_finds_a_warmer_hour_inside_a_daily_walking_window() {
-    let starting_minute = 600;
+    let starting_minute = StrategicMinute::new(600);
     let walking_minutes = 600;
     let daily_start = adventuresim_core::strategic_time::minutes_until_next_walking_start(
         starting_minute,
@@ -196,7 +196,7 @@ fn combined_case_site_search_can_skip_a_thermal_unsafe_fatigue_safe_mode() {
         260,
         67,
         false,
-        600,
+        StrategicMinute::new(600),
         |minutes, travel_at_night, wait_minutes| {
             let fatigue_safe = true;
             let thermal_safe = travel_at_night;
@@ -220,14 +220,21 @@ fn combined_case_site_search_can_skip_a_thermal_unsafe_fatigue_safe_mode() {
         .nth(1)
         .and_then(|tail| tail.split(") else").next())
         .expect("candidate sequential thermal projection");
-    assert!(thermal_candidate.contains("candidate_start,"));
+    assert!(thermal_candidate.contains("starting_minute: candidate_start"));
     assert!(departure.contains("&& thermal_safe"));
 }
 
 #[test]
 fn combined_case_site_search_reports_no_plan_when_every_joint_candidate_is_unsafe() {
     assert_eq!(
-        select_generated_case_site_plan(480, 260, 67, false, 600, |_, _, _| None::<()>),
+        select_generated_case_site_plan(
+            480,
+            260,
+            67,
+            false,
+            StrategicMinute::new(600),
+            |_, _, _| None::<()>,
+        ),
         None
     );
     assert_eq!(
@@ -1119,20 +1126,20 @@ fn staggered_default_providers_remain_ambiguous_before_hours_filtering() {
     assert_eq!(
         visible_unique_default_provider(
             &[(7, 0, 720, false, false), (8, 720, 1_440, false, false)],
-            300
+            StrategicMinute::new(300)
         ),
         None
     );
     assert_eq!(
-        visible_unique_default_provider(&[(7, 0, 720, false, false)], 300),
+        visible_unique_default_provider(&[(7, 0, 720, false, false)], StrategicMinute::new(300)),
         Some(7)
     );
     assert_eq!(
-        visible_unique_default_provider(&[(7, 0, 720, false, false)], 900),
+        visible_unique_default_provider(&[(7, 0, 720, false, false)], StrategicMinute::new(900)),
         None
     );
     assert_eq!(
-        visible_unique_default_provider(&[(7, 0, 720, true, false)], 300),
+        visible_unique_default_provider(&[(7, 0, 720, true, false)], StrategicMinute::new(300)),
         None
     );
 }
@@ -1294,7 +1301,7 @@ fn outbound_safe_projection_can_still_reject_the_return_camp() {
         truncated: false,
     };
     let outbound = projected_itinerary_thermal_state(
-        332_661,
+        StrategicMinute::new(332_661),
         &itinerary(1),
         point,
         point,
@@ -1323,7 +1330,7 @@ fn outbound_safe_projection_can_still_reject_the_return_camp() {
         truncated: false,
     };
     let returned = projected_itinerary_thermal_state(
-        332_662,
+        StrategicMinute::new(332_662),
         &return_camp,
         point,
         point,
@@ -1346,7 +1353,8 @@ fn thermal_projection_uses_core_itinerary_movement_not_provisioning_reserve() {
         camp_schedule: Default::default(),
     }];
     let itinerary =
-        adventuresim_core::strategic_time::forecast_itinerary(720, movement, 480, false, &members)
+        adventuresim_core::strategic_time::forecast_itinerary(
+adventuresim_world_schema::calendar::StrategicMinute::new(720), movement, 480, false, &members)
             .unwrap();
     assert_eq!(itinerary.total_movement_minutes, movement);
     assert!(itinerary.total_elapsed_minutes < 240);
@@ -1426,7 +1434,7 @@ fn projected_route_thermal_safe(
         truncated: false,
     };
     projected_itinerary_thermal_safe(
-        starting_minute,
+        StrategicMinute::new(starting_minute),
         &itinerary,
         origin,
         destination,

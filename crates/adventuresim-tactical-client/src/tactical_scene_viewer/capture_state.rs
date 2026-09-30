@@ -1,6 +1,7 @@
 use std::{collections::BTreeSet, path::PathBuf};
 
 use adventuresim_tactical_core::prelude::{SceneSource, WeatherSnapshot};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::prelude::{Entity, Resource, Vec3};
 
 use super::{
@@ -67,7 +68,7 @@ pub(super) struct SceneCaptureState {
     pub(super) output: PathBuf,
     pub(super) digest: String,
     pub(super) seed: u64,
-    pub(super) absolute_minute: u64,
+    pub(super) absolute_minute: StrategicMinute,
     pub(super) latitude_microdegrees: i32,
     pub(super) longitude_microdegrees: i32,
     pub(super) canopy_bps: u16,

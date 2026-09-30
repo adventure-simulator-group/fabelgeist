@@ -538,7 +538,7 @@ impl LiveRunner {
                     })
             })
             .collect::<Vec<_>>();
-        visible_unique_default_provider(&providers, minute)
+        visible_unique_default_provider(&providers, StrategicMinute::new(minute.minutes))
     }
 
     pub(super) fn public_equipment_storefront_offer(
@@ -995,7 +995,7 @@ impl LiveRunner {
         party_id: &str,
         leader_agent: u32,
         pin: &BackendCaseSitePin,
-        configured_starting_minute: Option<u64>,
+        configured_starting_minute: Option<StrategicMinute>,
     ) -> DepartureReadiness {
         let Ok(party) = self.party_by_id(party_id) else {
             return DepartureReadiness::Deferred(
@@ -1064,7 +1064,7 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == *character_id)
-                    .map(|row| row.minutes)
+                    .map(|row| StrategicMinute::new(row.minutes.minutes))
             })
             .max();
         let Some(observed_starting_minute) = observed_starting_minute else {
@@ -1074,7 +1074,7 @@ impl LiveRunner {
         };
         let starting_minute = configured_starting_minute.unwrap_or(observed_starting_minute);
         if starting_minute < observed_starting_minute
-            || starting_minute.saturating_sub(observed_starting_minute) > MINUTES_PER_DAY
+            || starting_minute.elapsed_since(observed_starting_minute) > MINUTES_PER_DAY
         {
             return DepartureReadiness::Deferred(
                 DepartureDeferralReason::RouteWeatherProjectionUnavailable,
@@ -1173,7 +1173,7 @@ impl LiveRunner {
                             let mut accepted_plan = None;
                             let plan_safe = (|| {
                                 let candidate_start =
-                                    starting_minute.saturating_add(candidate_wait);
+                                    starting_minute.saturating_add_minutes(candidate_wait);
                                 // A delayed candidate is authority to configure a
                                 // journey-local future start only from a real settlement.
                                 // The travel reducer remains authoritative for departure.
@@ -1189,7 +1189,7 @@ impl LiveRunner {
                                     })
                                     .collect::<Vec<_>>();
                                 if !adventuresim_core::strategic_time::is_walking_time(
-                                    candidate_start,
+candidate_start,
                                     candidate_walking_minutes,
                                     candidate_travel_at_night,
                                 ) {
@@ -1198,7 +1198,7 @@ impl LiveRunner {
                                 }
                                 let Some(candidate_outbound) =
                                     adventuresim_core::strategic_time::forecast_itinerary(
-                                        candidate_start,
+candidate_start,
                                         movement_minutes,
                                         candidate_walking_minutes,
                                         candidate_travel_at_night,
@@ -1235,11 +1235,11 @@ impl LiveRunner {
                                     })
                                     .collect::<Vec<_>>();
                                 let candidate_return_start = candidate_start
-                                    .saturating_add(candidate_outbound.total_elapsed_minutes)
-                                    .saturating_add(action_minutes);
+                                    .saturating_add_minutes(candidate_outbound.total_elapsed_minutes)
+                                    .saturating_add_minutes(action_minutes);
                                 let Some(candidate_return) =
                                     adventuresim_core::strategic_time::forecast_itinerary(
-                                        candidate_return_start,
+candidate_return_start,
                                         movement_minutes,
                                         candidate_walking_minutes,
                                         candidate_travel_at_night,
@@ -1399,14 +1399,14 @@ impl LiveRunner {
                                             })
                                             .collect::<Vec<_>>();
                                         let recovered_return_start = candidate_start
-                                            .saturating_add(
+                                            .saturating_add_minutes(
                                                 candidate_outbound.total_elapsed_minutes,
                                             )
-                                            .saturating_add(recovery_minutes)
-                                            .saturating_add(action_minutes);
+                                            .saturating_add_minutes(recovery_minutes)
+                                            .saturating_add_minutes(action_minutes);
                                         if let Some(recovered_return) =
                                             adventuresim_core::strategic_time::forecast_itinerary(
-                                                recovered_return_start,
+recovered_return_start,
                                                 movement_minutes,
                                                 candidate_walking_minutes,
                                                 candidate_travel_at_night,
@@ -1660,7 +1660,7 @@ impl LiveRunner {
         };
         let planned_travel_at_night = party.travel_at_night;
         let Some(itinerary) = adventuresim_core::strategic_time::forecast_itinerary(
-            starting_minute,
+starting_minute,
             movement_minutes,
             planned_walking_minutes,
             planned_travel_at_night,
@@ -1676,8 +1676,8 @@ impl LiveRunner {
             );
         }
         let return_start_minute = starting_minute
-            .saturating_add(itinerary.total_elapsed_minutes)
-            .saturating_add(action_minutes);
+            .saturating_add_minutes(itinerary.total_elapsed_minutes)
+            .saturating_add_minutes(action_minutes);
         let return_members = itinerary_members
             .iter()
             .enumerate()
@@ -1693,7 +1693,7 @@ impl LiveRunner {
             )
             .collect::<Vec<_>>();
         let Some(return_itinerary) = adventuresim_core::strategic_time::forecast_itinerary(
-            return_start_minute,
+return_start_minute,
             movement_minutes,
             planned_walking_minutes,
             planned_travel_at_night,
@@ -1709,22 +1709,22 @@ impl LiveRunner {
             );
         }
         let delayed_forecast = adventuresim_core::strategic_time::minutes_until_next_walking_start(
-            starting_minute,
+starting_minute,
             planned_walking_minutes,
             planned_travel_at_night,
         )
         .and_then(representable_safe_departure_wait_minutes)
         .filter(|wait_minutes| {
             adventuresim_core::strategic_time::is_walking_time(
-                starting_minute.saturating_add(*wait_minutes),
+starting_minute.saturating_add_minutes(*wait_minutes),
                 planned_walking_minutes,
                 planned_travel_at_night,
             )
         })
         .and_then(|wait_minutes| {
-            let delayed_start = starting_minute.saturating_add(wait_minutes);
+            let delayed_start = starting_minute.saturating_add_minutes(wait_minutes);
             let outbound = adventuresim_core::strategic_time::forecast_itinerary(
-                delayed_start,
+delayed_start,
                 movement_minutes,
                 planned_walking_minutes,
                 planned_travel_at_night,
@@ -1749,10 +1749,10 @@ impl LiveRunner {
                 )
                 .collect::<Vec<_>>();
             let return_start = delayed_start
-                .saturating_add(outbound.total_elapsed_minutes)
-                .saturating_add(action_minutes);
+                .saturating_add_minutes(outbound.total_elapsed_minutes)
+                .saturating_add_minutes(action_minutes);
             let returned = adventuresim_core::strategic_time::forecast_itinerary(
-                return_start,
+return_start,
                 movement_minutes,
                 planned_walking_minutes,
                 planned_travel_at_night,
@@ -2019,7 +2019,7 @@ impl LiveRunner {
                 .backend_character_times()
                 .iter()
                 .find(|row| row.character_id == character_id)
-                .map(|row| row.minutes);
+                .map(|row| StrategicMinute::new(row.minutes.minutes));
             let condition = self
                 .connection
                 .db
@@ -2062,7 +2062,7 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == *character_id)
-                    .map(|row| row.minutes)
+                    .map(|row| StrategicMinute::new(row.minutes.minutes))
             })
             .max()
         else {
@@ -2087,7 +2087,7 @@ impl LiveRunner {
                 .backend_character_times()
                 .iter()
                 .find(|row| row.character_id == character_id)
-                .map(|row| row.minutes);
+                .map(|row| StrategicMinute::new(row.minutes.minutes));
             let condition = self
                 .connection
                 .db
@@ -2101,7 +2101,7 @@ impl LiveRunner {
             };
             projected_stationary_outdoor_thermal_state(
                 minute,
-                target_minute.saturating_sub(minute),
+                target_minute.elapsed_since(minute),
                 site,
                 adventuresim_core::survival::SurvivalState {
                     wetness_bps: condition.wetness_bps,
@@ -2163,12 +2163,13 @@ impl LiveRunner {
                     .backend_character_times()
                     .iter()
                     .find(|row| row.character_id == *character_id)
-                    .map(|row| row.minutes)
+                    .map(|row| StrategicMinute::new(row.minutes.minutes))
             })
             .max()
         else {
             return OnSiteActionDecision::Hold;
         };
+        let strategic_start = starting_minute;
         let has_tent = self.party_item_quantity(party_id, PARTY_TENT_ITEM_ID) > 0;
         let recovery_members = member_ids
             .iter()
@@ -2285,7 +2286,7 @@ impl LiveRunner {
                 }]
             };
             let Some(return_now) = adventuresim_core::strategic_time::forecast_itinerary(
-                starting_minute,
+                strategic_start,
                 movement_minutes,
                 party.walking_minutes_per_day,
                 party.travel_at_night,
@@ -2295,8 +2296,9 @@ impl LiveRunner {
             };
             let action_calories =
                 calories_after_strenuous_action(stats.calories_used, action_minutes);
+            let action_start = strategic_start.saturating_add_minutes(action_minutes);
             let Some(return_after_action) = adventuresim_core::strategic_time::forecast_itinerary(
-                starting_minute.saturating_add(action_minutes),
+                action_start,
                 movement_minutes,
                 party.walking_minutes_per_day,
                 party.travel_at_night,
@@ -2319,7 +2321,7 @@ impl LiveRunner {
                 frostbite_progress_minutes: 0,
             };
             return_now_safe &= projected_itinerary_thermal_safe(
-                starting_minute,
+                strategic_start,
                 &return_now,
                 site,
                 origin,
@@ -2335,7 +2337,7 @@ impl LiveRunner {
                     fatigue_capacity,
                 );
             let Some(action) = projected_stationary_outdoor_thermal_state(
-                starting_minute,
+                strategic_start,
                 action_minutes,
                 site,
                 state,
@@ -2345,7 +2347,7 @@ impl LiveRunner {
             };
             action_return_safe &= action.safe
                 && projected_itinerary_thermal_safe(
-                    starting_minute.saturating_add(action_minutes),
+                    action_start,
                     &return_after_action,
                     site,
                     origin,
@@ -2371,10 +2373,10 @@ impl LiveRunner {
                 );
                 let recovered_action_calories =
                     calories_after_strenuous_action(recovered_calories, action_minutes);
+                let recovery_start = strategic_start.saturating_add_minutes(recovery_minutes);
+                let recovered_action_start = recovery_start.saturating_add_minutes(action_minutes);
                 let Some(recovered_return) = adventuresim_core::strategic_time::forecast_itinerary(
-                    starting_minute
-                        .saturating_add(recovery_minutes)
-                        .saturating_add(action_minutes),
+                    recovered_action_start,
                     movement_minutes,
                     party.walking_minutes_per_day,
                     party.travel_at_night,
@@ -2386,7 +2388,7 @@ impl LiveRunner {
                     return OnSiteActionDecision::Hold;
                 }
                 let recovery = projected_stationary_field_thermal_state(
-                    starting_minute,
+                    strategic_start,
                     recovery_minutes,
                     site,
                     state,
@@ -2396,7 +2398,7 @@ impl LiveRunner {
                 let recovery_action_return_thermal_safe = recovery
                     .and_then(|recovery| {
                         let action = projected_stationary_outdoor_thermal_state(
-                            starting_minute.saturating_add(recovery_minutes),
+                            recovery_start,
                             action_minutes,
                             site,
                             recovery.state,
@@ -2406,9 +2408,7 @@ impl LiveRunner {
                             recovery.safe
                                 && action.safe
                                 && projected_itinerary_thermal_safe(
-                                    starting_minute
-                                        .saturating_add(recovery_minutes)
-                                        .saturating_add(action_minutes),
+                                    recovered_action_start,
                                     &recovered_return,
                                     site,
                                     origin,

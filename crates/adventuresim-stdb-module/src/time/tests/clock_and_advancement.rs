@@ -6,7 +6,7 @@ fn explicit_stationary_frontiers_still_reject_retroactive_targets() {
         .nth(1)
         .and_then(|tail| tail.split("pub fn update_training_schedule").next())
         .expect("explicit stationary advancement");
-    assert!(advance.contains("if target_minutes < character_time.minutes"));
+    assert!(advance.contains("if target_minutes < starting_minute"));
     assert!(advance.contains("Character time cannot be advanced retroactively"));
 }
 
@@ -75,10 +75,12 @@ fn authoritative_time_paths_split_at_lifecycle_boundaries() {
             .nth(1)
             .and_then(|tail| tail.split(end).next())
             .expect("time advancement path");
-        assert!(path.contains("next_lifecycle_boundary"));
+        assert!(path.contains("first_lifecycle_segment"));
         assert!(path.contains("minutes.saturating_sub(first)"));
         assert!(path.contains("settle_lifecycle_after_character_time_write"));
     }
+    let lifecycle = crate::production_source(include_str!("../advancement/lifecycle.rs"));
+    assert!(lifecycle.contains("next_lifecycle_boundary"));
 }
 
 #[test]

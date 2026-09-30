@@ -312,14 +312,14 @@ impl LiveRunner {
             .iter()
             .find(|row| row.character_id == character_id)
             .ok_or("missing activity condition")?;
-        let elapsed_minutes = self
+        let elapsed_minutes = StrategicMinute::new(self
             .connection
             .db
             .backend_character_times()
             .iter()
             .find(|row| row.character_id == character_id)
             .ok_or("missing activity clock")?
-            .minutes;
+            .minutes.minutes);
         let (visible_food_kcal, visible_water_ml) = self.visible_rest_supplies(character_id);
         Ok(ActivityObservation {
             personal_gold_coin: self.personal_gold(character_id),
@@ -507,8 +507,8 @@ impl LiveRunner {
             .db
             .backend_character_times()
             .iter()
-            .find(|row| row.character_id == patient_id)?
-            .minutes;
+            .find(|row| row.character_id == patient_id)
+            .map(|row| StrategicMinute::new(row.minutes.minutes))?;
         let mut charts = self
             .connection
             .db
@@ -516,7 +516,7 @@ impl LiveRunner {
             .iter()
             .filter(|chart| {
                 chart.patient_id == patient_id
-                    && public_chart_is_fresh(patient_minute, chart.observed_at)
+                    && public_chart_is_fresh(patient_minute, StrategicMinute::new(chart.observed_at.minutes))
                     && chart.confidence_bps >= MIN_ACTIONABLE_PHYSIOLOGY_CONFIDENCE_BPS
                     && chart.gap_from.is_none()
                     && chart.gap_to.is_none()
@@ -542,11 +542,11 @@ impl LiveRunner {
         charts.sort_by(|left, right| {
             compare_public_chart_rank(
                 left.confidence_bps,
-                left.observed_at,
+                StrategicMinute::new(left.observed_at.minutes),
                 left.observer_id,
                 &left.id,
                 right.confidence_bps,
-                right.observed_at,
+                StrategicMinute::new(right.observed_at.minutes),
                 right.observer_id,
                 &right.id,
             )
@@ -1140,7 +1140,7 @@ impl LiveRunner {
                         .find(|row| row.character_id == character_id)
                         .ok_or("missing patient clock after sponsored recovery rest")?
                         .minutes;
-                    let actual_rest_minutes = rest_ended_at.saturating_sub(rest_started_at);
+                    let actual_rest_minutes = StrategicMinute::new(rest_ended_at.minutes).elapsed_since(StrategicMinute::new(rest_started_at.minutes));
                     let payer_purse_after = self.personal_gold(sponsor.payer_id);
                     let patient_purse_after = self.personal_gold(character_id);
                     let sponsor_spend = payer_purse_before.saturating_sub(payer_purse_after);
@@ -1232,7 +1232,7 @@ impl LiveRunner {
                         .find(|row| row.character_id == character_id)
                         .ok_or("missing patient clock after natural recovery rest")?
                         .minutes;
-                    rest_ended_at.saturating_sub(rest_started_at)
+                    StrategicMinute::new(rest_ended_at.minutes).elapsed_since(StrategicMinute::new(rest_started_at.minutes))
                 };
                 self.metrics.treatment_rest_minutes = self
                     .metrics
@@ -1445,7 +1445,7 @@ impl LiveRunner {
                 .ok_or("missing patient clock after medical recovery rest")?
                 .minutes;
             let actual_medical_rest_minutes =
-                medical_rest_ended_at.saturating_sub(medical_rest_started_at);
+                StrategicMinute::new(medical_rest_ended_at.minutes).elapsed_since(StrategicMinute::new(medical_rest_started_at.minutes));
             self.metrics.treatment_rest_minutes = self
                 .metrics
                 .treatment_rest_minutes
@@ -1671,9 +1671,9 @@ impl LiveRunner {
             return Ok(false);
         }
         let current_minute = self.public_party_elapsed_max(&starting_party.id);
-        let journey_start_minute_of_day =
-            u16::try_from(current_minute.saturating_add(wait_minutes) % MINUTES_PER_DAY)
-                .map_err(|_| "journey start time is outside one day")?;
+        let journey_start_minute_of_day = current_minute
+            .saturating_add_minutes(wait_minutes)
+            .minute_of_day();
         self.configure_safe_departure_itinerary(
             character_id,
             walking_minutes_per_day,
@@ -1752,14 +1752,14 @@ impl LiveRunner {
         }) {
             return Ok(());
         }
-        let now = self
+        let now = calendar_minute(&self
             .connection
             .db
             .backend_character_times()
             .iter()
             .find(|row| row.character_id == character_id)
             .ok_or("missing maintenance clock")?
-            .minutes;
+            .minutes);
         let medical_reserve = self.observable_medical_reserve(character_id, &settlement);
         let mut repair_budget = spending_budget_after_medical_reserve(
             self.personal_gold(character_id),
@@ -1779,7 +1779,7 @@ impl LiveRunner {
             .repair_order()
             .iter()
             .filter(|order| order.owner_character_id == character_id)
-            .map(|order| (order.ready_at_minutes, order.id, order.quoted_cost))
+            .map(|order| (calendar_minute(&order.ready_at_minutes), order.id, order.quoted_cost))
             .collect::<Vec<_>>();
         reserved_quotes.sort_unstable();
         repair_budget = adventuresim_core::durability::repair_budget_after_reservations(
@@ -1894,7 +1894,7 @@ impl LiveRunner {
         if orders.is_empty() {
             return Ok(());
         }
-        orders.sort_by_key(|order| (order.ready_at_minutes, order.id));
+        orders.sort_by_key(|order| (calendar_minute(&order.ready_at_minutes), order.id));
         let mut retrieval_budget = spending_budget_after_medical_reserve(
             self.personal_gold(character_id),
             medical_reserve,
@@ -1916,11 +1916,11 @@ impl LiveRunner {
         }
         let ready_at = affordable
             .iter()
-            .map(|order| order.ready_at_minutes)
+            .map(|order| calendar_minute(&order.ready_at_minutes))
             .max()
             .unwrap_or(now);
         if ready_at > now {
-            let mut remaining = ready_at - now;
+            let mut remaining = ready_at.elapsed_since(now);
             while remaining > 0 {
                 let wait = remaining.min(MINUTES_PER_DAY);
                 let rest_service = self.settlement_rest_service(character_id)?;
@@ -1962,7 +1962,7 @@ impl LiveRunner {
                     .find(|row| row.character_id == character_id)
                     .ok_or("missing repair wait clock")?
                     .minutes;
-                remaining = ready_at.saturating_sub(current);
+                remaining = ready_at.elapsed_since(calendar_minute(&current));
             }
         }
         for order in affordable {

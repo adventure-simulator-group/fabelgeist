@@ -742,7 +742,7 @@ pub(crate) async fn medical_presentation(
         .query_one_sats::<CharacterTime>(&db::character_time_by_character_id(target_id))
         .await
     {
-        Ok(Some(time)) => time.minutes,
+        Ok(Some(time)) => adventuresim_world_schema::calendar::StrategicMinute::new(time.minutes.minutes),
         Ok(None) => {
             tracing::error!(
                 target_id,

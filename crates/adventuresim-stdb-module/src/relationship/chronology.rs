@@ -1,5 +1,25 @@
 // Owns canonical personal-time policy and deterministic NPC clock advancement.
-pub fn canonical_now(ctx: &ReducerContext, character_id: u64) -> Result<u64, String> {
+pub(crate) fn character_alive_at(
+    ctx: &ReducerContext,
+    character_id: u64,
+    minute: StrategicMinute,
+) -> bool {
+    ctx.db.character().id().find(character_id).is_some()
+        && ctx
+            .db
+            .character_birth()
+            .character_id()
+            .find(character_id)
+            .is_none_or(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
+        && ctx
+            .db
+            .character_death()
+            .character_id()
+            .find(character_id)
+            .is_none_or(|death| death.strategic_minute > minute)
+}
+
+pub fn canonical_now(ctx: &ReducerContext, character_id: u64) -> Result<StrategicMinute, String> {
     ctx.db
         .character_time()
         .character_id()
@@ -15,48 +35,43 @@ pub fn canonical_now(ctx: &ReducerContext, character_id: u64) -> Result<u64, Str
 pub(crate) fn next_lifecycle_boundary(
     ctx: &ReducerContext,
     character_id: u64,
-    start_minute: u64,
-    end_minute: u64,
-) -> Option<u64> {
+    start_minute: StrategicMinute,
+    end_minute: StrategicMinute,
+) -> Option<StrategicMinute> {
     let birthday = ctx
         .db
         .character_birth()
         .character_id()
         .find(character_id)
         .and_then(|birth| {
-            let year = i128::from(MINUTES_PER_YEAR);
-            let start = i128::from(start_minute);
-            let birth_minute = i128::from(birth.birth_minute);
-            let completed = (start.saturating_sub(birth_minute)).max(0) / year;
-            let next = birth_minute.saturating_add((completed + 1).saturating_mul(year));
-            u64::try_from(next)
-                .ok()
-                .filter(|minute| start_minute < *minute && *minute < end_minute)
+            start_minute.next_signed_birth_anniversary_before(birth.birth_minute, end_minute)
         });
     let wedding = ctx
         .db
         .exclusive_commitment()
-        .effective_minute()
-        .filter((start_minute.saturating_add(1))..end_minute)
+        .iter()
         .filter(|row| {
-            row.status == CommitmentStatus::Reserved
+            start_minute < row.effective_minute
+                && row.effective_minute < end_minute
+                && row.status == CommitmentStatus::Reserved
                 && row.kind == CommitmentKind::Engagement
                 && (row.first_character_id == character_id
                     || row.second_character_id == character_id)
         })
         .map(|row| row.effective_minute)
-        .next();
+        .min();
     let birth = ctx
         .db
         .pregnancy()
-        .due_minute()
-        .filter((start_minute.saturating_add(1))..end_minute)
+        .iter()
         .filter(|row| {
-            row.status == PregnancyStatus::Active
+            start_minute < row.due_minute
+                && row.due_minute < end_minute
+                && row.status == PregnancyStatus::Active
                 && (row.mother_id == character_id || row.father_id == character_id)
         })
         .map(|row| row.due_minute)
-        .next();
+        .min();
     let marriage = ctx
         .db
         .marriage()
@@ -122,7 +137,7 @@ pub fn initialize_npc_policy(
 pub fn advance_npc_personal_time(
     ctx: &ReducerContext,
     character_id: u64,
-    target_minute: u64,
+    target_minute: StrategicMinute,
 ) -> Result<(), String> {
     if ctx
         .db

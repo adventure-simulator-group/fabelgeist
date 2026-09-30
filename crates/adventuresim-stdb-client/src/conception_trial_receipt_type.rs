@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ConceptionTrialReceipt {
     pub id: String,
     pub pair_id: String,
     pub ordinal: u64,
-    pub minute: u64,
+    pub minute: StrategicMinute,
     pub succeeded: bool,
 }
 
@@ -25,7 +27,7 @@ pub struct ConceptionTrialReceiptCols {
     pub id: __sdk::__query_builder::Col<ConceptionTrialReceipt, String>,
     pub pair_id: __sdk::__query_builder::Col<ConceptionTrialReceipt, String>,
     pub ordinal: __sdk::__query_builder::Col<ConceptionTrialReceipt, u64>,
-    pub minute: __sdk::__query_builder::Col<ConceptionTrialReceipt, u64>,
+    pub minute: __sdk::__query_builder::Col<ConceptionTrialReceipt, StrategicMinute>,
     pub succeeded: __sdk::__query_builder::Col<ConceptionTrialReceipt, bool>,
 }
 

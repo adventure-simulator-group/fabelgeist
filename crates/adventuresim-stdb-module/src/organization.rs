@@ -4,7 +4,7 @@ use adventuresim_core::organization::{
     OrganizationDefinition, OrganizationMembershipStatus, Privilege, Requirement, organization,
 };
 use adventuresim_core::skill::Skill;
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::{BestiaryCategory, OfficialReligion};
 use spacetimedb::{ReducerContext, Table, ViewContext, reducer, table, view};
 
@@ -23,8 +23,8 @@ pub struct OrganizationMembership {
     #[index(btree)]
     pub character_id: u64,
     pub organization_id: String,
-    pub joined_minute: u64,
-    pub dues_paid_through_minute: u64,
+    pub joined_minute: StrategicMinute,
+    pub dues_paid_through_minute: StrategicMinute,
     pub status: OrganizationMembershipStatus,
     pub apprenticeship_minutes_accrued: u64,
     pub practice_minutes_accrued: u64,
@@ -59,8 +59,8 @@ pub struct BackendOrganizationMembership {
     pub character_id: u64,
     pub organization_id: String,
     pub role_id: String,
-    pub joined_minute: u64,
-    pub dues_paid_through_minute: u64,
+    pub joined_minute: StrategicMinute,
+    pub dues_paid_through_minute: StrategicMinute,
     pub status: OrganizationMembershipStatus,
     pub apprenticeship_minutes_accrued: u64,
     pub practice_minutes_accrued: u64,
@@ -120,18 +120,7 @@ pub fn membership_role(
         .ok_or_else(|| "Organization membership references an unknown canonical role".into())
 }
 
-fn current_minute(ctx: &ReducerContext, character_id: u64) -> Result<u64, String> {
-    ctx.db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map(|row| row.minutes)
-        .ok_or_else(|| "Character time record not found".to_string())
-}
-
-pub fn membership_is_current(row: &OrganizationMembership, minute: u64) -> bool {
-    row.status == OrganizationMembershipStatus::Active && minute <= row.dues_paid_through_minute
-}
+include!("organization/membership.rs");
 
 pub fn active_membership(
     ctx: &ReducerContext,
@@ -297,9 +286,12 @@ pub fn join_organization(
         )?;
     }
     let minute = current_minute(ctx, character_id)?;
-    let paid_through = definition.dues.as_ref().map_or(u64::MAX, |dues| {
-        minute.saturating_add(u64::from(dues.interval_days) * MINUTES_PER_DAY)
-    });
+    let paid_through = definition
+        .dues
+        .as_ref()
+        .map_or(StrategicMinute::MAX, |dues| {
+            minute.saturating_add_days(u64::from(dues.interval_days))
+        });
     ctx.db
         .organization_membership()
         .insert(OrganizationMembership {
@@ -365,8 +357,7 @@ pub fn pay_organization_dues(
     } else {
         now
     };
-    row.dues_paid_through_minute =
-        base.saturating_add(u64::from(dues.interval_days) * MINUTES_PER_DAY);
+    row.dues_paid_through_minute = base.saturating_add_days(u64::from(dues.interval_days));
     row.status = OrganizationMembershipStatus::Active;
     ctx.db.organization_membership().id().update(row);
     Ok(())
@@ -533,17 +524,6 @@ pub fn presented_privilege(
         && active_membership(ctx, character_id, &presentation.organization_id).is_ok()
 }
 
-fn current_membership_grants(
-    definition: &OrganizationDefinition,
-    membership: &OrganizationMembership,
-    role: &adventuresim_core::organization::OrganizationRoleDefinition,
-    minute: u64,
-    privilege: Privilege,
-) -> bool {
-    membership_is_current(membership, minute)
-        && definition.has_privilege_at_role(&role.id, privilege)
-}
-
 /// Global presented privileges deliberately ignore current settlement and
 /// local recognition. Presentation, active dues-current membership, and role
 /// remain authoritative.
@@ -612,8 +592,8 @@ mod tests {
             id: 1,
             character_id: 7,
             organization_id: "lodge_hart_king".into(),
-            joined_minute: 0,
-            dues_paid_through_minute: paid_through,
+            joined_minute: StrategicMinute::ZERO,
+            dues_paid_through_minute: StrategicMinute::new(paid_through),
             status,
             apprenticeship_minutes_accrued: 0,
             practice_minutes_accrued: 0,
@@ -629,14 +609,14 @@ mod tests {
             definition,
             &warden,
             warden_role,
-            100,
+            StrategicMinute::new(100),
             Privilege::ForagePlants
         ));
         assert!(!current_membership_grants(
             definition,
             &warden,
             warden_role,
-            100,
+            StrategicMinute::new(100),
             Privilege::ForageHighGame
         ));
         let master = membership_at(OrganizationMembershipStatus::Active, 100);
@@ -645,7 +625,7 @@ mod tests {
             definition,
             &master,
             master_role,
-            100,
+            StrategicMinute::new(100),
             Privilege::ForageHighGame
         ));
         let lapsed = membership_at(OrganizationMembershipStatus::Active, 99);
@@ -653,7 +633,7 @@ mod tests {
             definition,
             &lapsed,
             master_role,
-            100,
+            StrategicMinute::new(100),
             Privilege::ForageHighGame
         ));
         let suspended = membership_at(OrganizationMembershipStatus::Suspended, 100);
@@ -661,7 +641,7 @@ mod tests {
             definition,
             &suspended,
             master_role,
-            100,
+            StrategicMinute::new(100),
             Privilege::ForageHighGame
         ));
     }

@@ -121,9 +121,9 @@ fn insert_identity(
     draft: &ResidentDraft,
     prepared: &PreparedResident,
 ) -> Result<(), String> {
-    let birth_year = adventuresim_world_schema::person_names::NameBirthYear::new(
-        adventuresim_core::strategic_time::birth_year_from_age(0, prepared.exact_age(draft)),
-    );
+    let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+        .birth_year_for_age(prepared.exact_age(draft))
+        .ok_or("Resident age predates the calendar")?;
     let name_sex = match draft.sex {
         Sex::Female => adventuresim_world_schema::person_names::NameSex::Female,
         Sex::Male => adventuresim_world_schema::person_names::NameSex::Male,

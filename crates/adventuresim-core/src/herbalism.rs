@@ -1,5 +1,7 @@
 //! Shared physical-preparation and tincture timing constants.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
+
 pub const BASE_CUT_MINUTES: u32 = 10;
 pub const BASE_GRIND_MINUTES: u32 = 20;
 pub const CHECK_TIME_REDUCTION_PER_RANK: f32 = 0.06;
@@ -191,12 +193,12 @@ pub struct PreparationPlanAuthority {
     pub coordinates: ActionCoordinates<PreparationPlanTarget>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
     /// Exact terminal boundary hydrated by the authoritative persistence
     /// adapter. A boundary inside the requested interval makes the plan
     /// wait-only; completion effects must never be invented by the reducer.
-    pub terminal_minute: Option<u64>,
+    pub terminal_minute: Option<StrategicMinute>,
     pub rights: PrivateRightsDecision<()>,
     pub custody_matches: bool,
     pub revision_current: bool,
@@ -383,9 +385,9 @@ mod tests {
                 revision: SnapshotRevision(1),
                 digest: SnapshotDigest(digest),
             },
-            current_minute: 100,
+            current_minute: StrategicMinute::new(100),
             duration: RequestedDuration::try_new(10).unwrap(),
-            terminal_minute: Some(105),
+            terminal_minute: Some(StrategicMinute::new(105)),
             rights: decide_preparation_rights(&question, true, 1),
             custody_matches: true,
             revision_current: true,

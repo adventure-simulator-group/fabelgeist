@@ -200,9 +200,9 @@ pub(super) async fn camp(
                 .iter()
                 .find(|time| time.character_id == member.id)
         })
-        .map(|time| time.minutes)
+        .map(|time| StrategicMinute::new(time.minutes.minutes))
         .max()
-        .unwrap_or(0);
+        .unwrap_or(StrategicMinute::ZERO);
     let expects_direct_demo = party
         .active_contract_id
         .as_deref()
@@ -320,24 +320,25 @@ pub(super) async fn camp(
         .filter_map(|member| stats.iter().find(|stat| stat.character_id == member.id))
         .map(|stat| {
             ((stat.calories_used / STRATEGIC_TRAVEL_KCAL_PER_DAY)
-                * adventuresim_core::strategic_time::MINUTES_PER_DAY as f32)
+                * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32)
                 .ceil() as u64
         })
         .max()
         .unwrap_or(0);
     let default_rest_minutes = minutes_until_next_walking_start(
-        current_party_minute,
+current_party_minute,
         party.walking_minutes_per_day,
         party.travel_at_night,
     )
     .unwrap_or(fatigue_rest_minutes)
     .max(1);
-    let planned_wake_minute = (current_party_minute.saturating_add(default_rest_minutes)
-        % adventuresim_core::strategic_time::MINUTES_PER_DAY) as u16;
+    let planned_wake_minute = current_party_minute
+        .saturating_add_minutes(default_rest_minutes)
+        .minute_of_day();
     let continue_block_reason = camp_continue_block_reason(
         encounter.as_ref().map(|encounter| encounter.status),
         is_walking_time(
-            current_party_minute,
+current_party_minute,
             party.walking_minutes_per_day,
             party.travel_at_night,
         ),
@@ -348,10 +349,7 @@ pub(super) async fn camp(
             row.total_elapsed_minutes
                 .saturating_sub(row.completed_elapsed_minutes)
         });
-    let remaining_rest_intervals: Vec<_> = journey
-        .as_ref()
-        .into_iter()
-        .flat_map(|journey| {
+    let remaining_rest_intervals: Vec<_> = journey.iter().flat_map(|journey| {
             let remaining_start = journey.completed_elapsed_minutes;
             let remaining_end = journey.total_elapsed_minutes;
             journey
@@ -365,13 +363,13 @@ pub(super) async fn camp(
                         .min(remaining_end);
                     (camp_end > camp_start).then(|| {
                         (
-                            journey.departure_minute.saturating_add(camp_start),
+                            StrategicMinute::new(journey.departure_minute.minutes)
+                                .saturating_add_minutes(camp_start),
                             camp_end - camp_start,
                         )
                     })
                 })
-        })
-        .collect();
+    }).collect();
     let provision_forecast = travel_provision_forecast_for_minutes(
         &state,
         Some(&party),
@@ -406,9 +404,8 @@ pub(super) async fn camp(
         .filter(|challenge| !challenge.open)
         .collect::<Vec<_>>();
     road_history.sort_by(|left, right| {
-        right
-            .absolute_minute
-            .cmp(&left.absolute_minute)
+        crate::spacetimedb::calendar_minute(&right.absolute_minute)
+            .cmp(&crate::spacetimedb::calendar_minute(&left.absolute_minute))
             .then_with(|| right.id.cmp(&left.id))
     });
     if let Some(requested) = query.road_occurrence.as_deref()
@@ -583,7 +580,7 @@ mod direct_demo_redirect_tests {
         BackendRoadChallenge {
             id: "road:demo:7".into(),
             owner_character_id: 7,
-            absolute_minute: 0,
+            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
             presentation_json: "{}".into(),
             revision: 0,
             open,
@@ -950,9 +947,7 @@ pub(crate) async fn travel_provision_forecast(
         })
         .map(|segment| {
             (
-                destination
-                    .departure_minute
-                    .saturating_add(segment.elapsed_start),
+                destination.departure_minute.saturating_add_minutes(segment.elapsed_start),
                 segment.elapsed_minutes,
             )
         })
@@ -973,7 +968,7 @@ pub(super) async fn travel_provision_forecast_for_minutes(
     party: Option<&PartyView>,
     travelers: &[CharacterView],
     planning_minutes: u64,
-    rest_intervals: &[(u64, u64)],
+    rest_intervals: &[(StrategicMinute, u64)],
     departing_settlement: bool,
 ) -> Result<Option<TravelProvisionForecast>, String> {
     let mut travelers: Vec<_> = travelers.iter().filter(|traveler| traveler.alive).collect();
@@ -1076,7 +1071,7 @@ pub(super) async fn travel_provision_forecast_for_minutes(
                 .map(|(start, minutes)| {
                     adventuresim_core::alcohol::rest_evenings(
                         *start,
-                        start.saturating_add(*minutes),
+                        start.saturating_add_minutes(*minutes),
                     )
                 })
                 .collect::<Result<Vec<_>, _>>()?

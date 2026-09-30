@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SocialAddress {
@@ -11,7 +13,7 @@ pub struct SocialAddress {
     pub actor_id: u64,
     pub target_id: u64,
     pub source_id: String,
-    pub addressed_at_minute: u64,
+    pub addressed_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for SocialAddress {
@@ -26,7 +28,7 @@ pub struct SocialAddressCols {
     pub actor_id: __sdk::__query_builder::Col<SocialAddress, u64>,
     pub target_id: __sdk::__query_builder::Col<SocialAddress, u64>,
     pub source_id: __sdk::__query_builder::Col<SocialAddress, String>,
-    pub addressed_at_minute: __sdk::__query_builder::Col<SocialAddress, u64>,
+    pub addressed_at_minute: __sdk::__query_builder::Col<SocialAddress, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for SocialAddress {

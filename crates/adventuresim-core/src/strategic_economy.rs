@@ -26,7 +26,7 @@ pub fn merchant_buy_price(base_value: u32) -> u32 {
 
 /// Charges each complete inn day once and rounds any partial day up once.
 pub fn inn_full_board_cost(requested_minutes: u64) -> Option<u64> {
-    let minutes_per_day = crate::strategic_time::MINUTES_PER_DAY;
+    let minutes_per_day = adventuresim_world_schema::calendar::MINUTES_PER_DAY;
     let complete_days = requested_minutes / minutes_per_day;
     let partial_day = u64::from(!requested_minutes.is_multiple_of(minutes_per_day));
     complete_days

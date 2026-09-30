@@ -152,7 +152,7 @@ impl OutbreakWaterFlow {
             place: crate::world_event::WorldEventPlace::Strategic {
                 place_id: "simulated-well".into(),
             },
-            occurred_at_minute: 1,
+            occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
             payload: crate::world_event::WorldEventPayloadRef::FoodWaterInfection {
                 carrier_id: 1,
                 contribution_digest: digest,

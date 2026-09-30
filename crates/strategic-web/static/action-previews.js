@@ -3,11 +3,8 @@
     if (!Number.isInteger(days) || days < 1) return "Enter a whole number of days.";
     const cost = `${days * dailyCost} coin for lodging`;
     if (!Number.isFinite(start)) return `${cost}. Wake time unavailable.`;
-    const end = start + days * calendar.minutesPerDay;
-    const minute = end % calendar.minutesPerDay;
-    const time = `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
-    const day = Math.floor(end / calendar.minutesPerDay) % calendar.daysPerYear + 1;
-    return `${cost}. Wake on day ${day}, ${time}.`;
+    const end = calendar.addDays(start, days);
+    return `${cost}. Wake on day ${calendar.dayOfYear(end)}, ${calendar.formatClock(end)}.`;
   }
   if (typeof module !== "undefined") module.exports = { restBooking };
   if (typeof document === "undefined") return;

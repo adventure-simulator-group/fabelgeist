@@ -4,7 +4,7 @@
 //! private target to an opaque capability and supplies only authoritative
 //! environmental and party inputs.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
@@ -402,12 +402,12 @@ mod planning_adapter_tests {
                 revision: SnapshotRevision(3),
                 digest: SnapshotDigest([2; 32]),
             },
-            current_minute: 100,
+            current_minute: StrategicMinute::new(100),
             duration: RequestedDuration::try_new(45).unwrap(),
             boundaries: TimeBoundaries {
                 terminal_minute: None,
                 interruption: boundary.map(|at_minute| ScheduledInterruption {
-                    at_minute,
+                    at_minute: StrategicMinute::new(at_minute),
                     cause: InvestigationPlanInterruption::ParticipantBoundary,
                 }),
             },
@@ -651,7 +651,7 @@ pub struct InvestigationPlanAuthority {
     pub coordinates: ActionCoordinates<InvestigationPlanTarget>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
     pub boundaries: TimeBoundaries<InvestigationPlanInterruption>,
     pub rights: PrivateRightsDecision<InvestigationRightsEvidence>,

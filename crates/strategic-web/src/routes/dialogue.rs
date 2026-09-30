@@ -5,7 +5,8 @@ use crate::spacetimedb::{
     BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendSettlementResident,
     BackendSettlementResidentRelationship, BackendSocialChatReceipt, CharacterTime, CourtshipKind,
     FamiliarityBand, MoraleBand, SettlementCategory, SettlementResidentPresence, SettlementView,
-    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, npc_age_band_id, npc_presentation_id,
+    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, calendar_countdown_days,
+    calendar_minute, npc_age_band_id, npc_presentation_id,
 };
 use crate::{session::Session, spacetimedb::sql_string_literal};
 use adventuresim_core::{
@@ -13,6 +14,7 @@ use adventuresim_core::{
     dialogue_boundary::{PublicDialogueStartError, PublicDialogueStartOutcome},
     reducer_error::ReducerErrorCode,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
     Json,
     extract::{Path, State},
@@ -394,18 +396,8 @@ fn npc_location_is_navigable(
     )
 }
 
-fn npc_presence_contains(start_minute: u16, end_minute: u16, minute: u64) -> bool {
-    let minute = minute % adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    let start = u64::from(start_minute);
-    let end = u64::from(end_minute);
-    if start == end {
-        false
-    } else if start < end {
-        start <= minute && minute < end
-    } else {
-        minute >= start || minute < end
-    }
-}
+mod presence;
+use presence::npc_presence_contains;
 
 fn npc_matches_location_binding(
     npc: &BackendSettlementResident,
@@ -616,10 +608,26 @@ mod npc_navigation_tests {
 
     #[test]
     fn browser_presence_check_supports_wrapped_daily_windows() {
-        assert!(npc_presence_contains(1_200, 120, 1_380));
-        assert!(npc_presence_contains(1_200, 120, 60));
-        assert!(!npc_presence_contains(1_200, 120, 600));
-        assert!(!npc_presence_contains(480, 1_020, 1_020));
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_380)
+        ));
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(60)
+        ));
+        assert!(!npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(600)
+        ));
+        assert!(!npc_presence_contains(
+            480,
+            1_020,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_020)
+        ));
     }
 
     #[test]
@@ -816,8 +824,7 @@ async fn location_npcs(
         .await
         .ok()
         .flatten()
-        .map_or(720, |time| time.minutes)
-        % adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
     let mut views = presences.into_iter().filter(|presence| presence.settlement_id == settlement_id && presence.location_id == location_id && npc_presence_contains(presence.start_minute, presence.end_minute, minute)).filter_map(|presence| {
         let npc = npcs.iter().find(|npc| {
             npc.character_id == presence.character_id
@@ -920,8 +927,7 @@ async fn available_social_npc(
         .await
         .ok()
         .flatten()
-        .map_or(720, |time| time.minutes)
-        % adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
     let present = state
         .db
         .query_sats::<SettlementResidentPresence>(
@@ -970,7 +976,7 @@ async fn npc_social_view(
         ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
     let courting_this_npc = status
         .as_ref()
         .is_some_and(|status| status.courtship_partner_id == Some(npc.character_id));
@@ -996,11 +1002,7 @@ async fn npc_social_view(
             .as_ref()
             .is_some_and(|status| status.courtship_exposed);
     let wedding_countdown_days = active_commitment.as_ref().map(|commitment| {
-        commitment
-            .wedding_effective_minute
-            .unwrap_or(actor_minute)
-            .saturating_sub(actor_minute)
-            .div_ceil(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+        calendar_countdown_days(actor_minute, commitment.wedding_effective_minute.as_ref())
     });
     let affinity = relationship
         .as_ref()

@@ -1,3 +1,4 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
 use sha2::{Digest, Sha256};
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
@@ -113,10 +114,10 @@ pub struct TacticalServerRequest {
     /// Immutable settlement scale captured when entering a settlement scene.
     pub settlement: Option<TacticalSettlementSnapshot>,
     /// Requesting leader's absolute strategic minute captured atomically.
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     /// Canonical minute used only for lunar phase. Wilderness time of day may
     /// advance while this value remains fixed for the entire excursion.
-    pub lunar_phase_minute: u64,
+    pub lunar_phase_minute: StrategicMinute,
     /// Living strategic party members bound when the mission is requested.
     pub expected_party_members: u32,
     /// Immutable participant authority captured with the mission request.

@@ -117,7 +117,7 @@ pub struct PersonalityDevelopmentEvent {
     pub resulting_score: i16,
     pub deed: String,
     pub virtue: ChivalricVirtue,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute,
 }
 
 impl CharacterPersonalityScores {
@@ -529,7 +529,7 @@ pub fn apply_personality_development(
     delta: i16,
     deed: &str,
     virtue: ChivalricVirtue,
-    occurred_at_minute: u64,
+    occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute,
 ) -> Result<(), String> {
     if let Some(existing) = ctx
         .db
@@ -1299,7 +1299,7 @@ mod tests {
             resulting_score: CHIVALRIC_DEED_DELTA,
             deed: "RallyAndEscortCourierThroughFord".into(),
             virtue: ChivalricVirtue::Courage,
-            occurred_at_minute: 60,
+            occurred_at_minute: adventuresim_world_schema::calendar::StrategicMinute::new(60),
         };
         assert!(development_replay_matches(
             &event,

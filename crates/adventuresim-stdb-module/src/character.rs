@@ -2,6 +2,7 @@ mod occupancy;
 mod origin;
 include!("character/name_types.rs");
 include!("character/name_identity.rs");
+use adventuresim_world_schema::calendar::StrategicMinute;
 use occupancy::{character_occupancy_id, conflicting_equipment_roots};
 
 use adventuresim_core::{
@@ -283,7 +284,7 @@ pub struct CharacterDeath {
     pub cause: DeathCause,
     pub source: DeathSource,
     pub source_id: Option<String>,
-    pub strategic_minute: u64,
+    pub strategic_minute: StrategicMinute,
 }
 
 /// Death authority is private because its timestamp may lie beyond another
@@ -332,7 +333,7 @@ pub fn transition_character_to_dead(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     transition_character_to_dead_at(
         ctx,
         character_id,
@@ -351,7 +352,7 @@ pub fn transition_character_to_dead_at(
     cause: DeathCause,
     source: DeathSource,
     source_id: Option<String>,
-    strategic_minute: u64,
+    strategic_minute: StrategicMinute,
 ) -> Result<CharacterDeath, String> {
     if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
         crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
@@ -368,7 +369,7 @@ pub fn transition_character_to_dead_at(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     if strategic_minute > current_minute {
         return Err("Character death cannot be after their personal clock".into());
     }
@@ -1249,7 +1250,7 @@ pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
         ctx,
         CharacterId::new(id),
         NameSeed::new(id),
-        WorldMinute::new(0),
+        StrategicMinute::new(0),
         None,
     )?;
     Ok(())
@@ -1516,9 +1517,9 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
         .character_time()
         .character_id()
         .find(DAMAGED_CHARACTER_ID)
+        .map(|time| time.minutes)
         .ok_or("Surgery demo primary surgeon is missing time")?
-        .minutes
-        .max(200);
+        .max(StrategicMinute::new(200));
     for (id, procedure_hours, lag) in [
         (DAMAGED_CHARACTER_ID, 20_000.0, 0),
         (9_000_001, 3_333.0, 100),
@@ -1540,7 +1541,7 @@ pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String>
             .character_id()
             .find(id)
             .ok_or("Surgery demo character is missing time")?;
-        time.minutes = fixture_now.saturating_sub(lag);
+        time.minutes = fixture_now.saturating_sub_minutes(lag);
         ctx.db.character_time().character_id().update(time);
         crate::capability::refresh_character_capability(ctx, id)?;
     }
@@ -1947,7 +1948,7 @@ pub(crate) struct CharacterCreationOptions<'a> {
     /// actors so world seeding does not eagerly objectify thousands of items.
     pub materialize_generated_carry: bool,
     pub stable_seed: u64,
-    pub initial_time_minute: Option<u64>,
+    pub initial_time_minute: Option<StrategicMinute>,
     pub field_actor: bool,
     pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
 }
@@ -2016,7 +2017,7 @@ pub(crate) fn insert_persistent_npc_character(
     id: u64,
     origin_settlement_id: &str,
     stable_seed: u64,
-    initial_time_minute: Option<u64>,
+    initial_time_minute: Option<StrategicMinute>,
     life: &NpcLifeFacts,
     personality: &crate::personality::CharacterPersonality,
 ) -> Result<(), String> {
@@ -2046,7 +2047,7 @@ pub(crate) fn insert_persistent_field_character(
     name: String,
     id: u64,
     stable_seed: u64,
-    initial_time_minute: Option<u64>,
+    initial_time_minute: Option<StrategicMinute>,
 ) -> Result<(), String> {
     let life = NpcLifeFacts::from_stable_seed(stable_seed);
     insert_character_with_origin(
@@ -2091,9 +2092,12 @@ pub(crate) fn insert_starting_character(
     )
 }
 
-fn initial_membership_minutes(now: u64, dues_interval_days: Option<u32>) -> (u64, u64) {
-    let paid_through = dues_interval_days.map_or(u64::MAX, |days| {
-        now.saturating_add(u64::from(days) * adventuresim_core::strategic_time::MINUTES_PER_DAY)
+fn initial_membership_minutes(
+    now: StrategicMinute,
+    dues_interval_days: Option<u32>,
+) -> (StrategicMinute, StrategicMinute) {
+    let paid_through = dues_interval_days.map_or(StrategicMinute::MAX, |days| {
+        now.saturating_add_days(u64::from(days))
     });
     (now, paid_through)
 }
@@ -2205,15 +2209,11 @@ pub(crate) fn insert_character_with_origin(
         alive: true,
         party_treatment_decision: crate::world_actor::ContextualDecisionState::Allowed,
     });
-    let initial_minute = options.initial_time_minute.unwrap_or(0);
-    let birth_minute =
-        i128::from(initial_minute).saturating_sub(i128::from(character.age_years).saturating_mul(
-            i128::from(adventuresim_core::strategic_time::MINUTES_PER_YEAR),
-        ));
+    let initial_minute = options.initial_time_minute.unwrap_or(StrategicMinute::ZERO);
     crate::relationship::record_character_birth(
         ctx,
         character.id,
-        birth_minute.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64,
+        initial_minute.signed_birth_minute_for_age(character.age_years),
     );
     if !temporary && !newborn {
         let urban = matches!(
@@ -3470,6 +3470,7 @@ mod starting_character_boundary_tests {
     use adventuresim_core::item_catalog::{
         EquipmentChannel, EquipmentLocation, OccupancyRequirement, ParentRequirement,
     };
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     #[test]
     fn character_occupancy_id_identifies_each_item_requirement() {
@@ -3518,12 +3519,15 @@ mod starting_character_boundary_tests {
 
     #[test]
     fn membership_period_is_anchored_to_current_character_time() {
-        assert_eq!(initial_membership_minutes(9_000, None), (9_000, u64::MAX));
         assert_eq!(
-            initial_membership_minutes(9_000, Some(30)),
+            initial_membership_minutes(StrategicMinute::new(9_000), None),
+            (StrategicMinute::new(9_000), StrategicMinute::MAX)
+        );
+        assert_eq!(
+            initial_membership_minutes(StrategicMinute::new(9_000), Some(30)),
             (
-                9_000,
-                9_000 + 30 * adventuresim_core::strategic_time::MINUTES_PER_DAY
+                StrategicMinute::new(9_000),
+                StrategicMinute::new(9_000).saturating_add_days(30)
             )
         );
     }

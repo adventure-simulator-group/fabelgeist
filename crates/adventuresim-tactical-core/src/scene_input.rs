@@ -6,15 +6,13 @@
 //! never need access to the continental source pack.
 
 mod rock_recipe;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use rock_recipe::rock_recipe;
 mod rock_streams;
 use crate::terrain_streams as streams;
 use std::{fs, path::Path};
 
-use adventuresim_core::{
-    strategic_time::MINUTES_PER_DAY,
-    weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot},
-};
+use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
 use bevy::prelude::Component;
 use serde::{Deserialize, Serialize};
@@ -1126,8 +1124,8 @@ mod tests {
             source: SceneSource::SyntheticFixture("dense-woodland".into()),
             latitude_microdegrees: 53_500_000,
             longitude_microdegrees: 10_000_000,
-            absolute_minute: 123_456,
-            lunar_phase_minute: 123_456,
+            absolute_minute: StrategicMinute::new(123_456),
+            lunar_phase_minute: StrategicMinute::new(123_456),
             absolute_elevation_metres: 80,
             playable: TerrainSampleGrid {
                 width: 3,
@@ -1146,7 +1144,13 @@ mod tests {
             distant_buildings: Vec::new(),
             establishments: Vec::new(),
             vista: VistaSample::default(),
-            weather: weather_at(42, 123_456, 53_500_000, 10_000_000, 80),
+            weather: weather_at(
+                42,
+                adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+                53_500_000,
+                10_000_000,
+                80,
+            ),
         }
     }
 
@@ -1407,7 +1411,7 @@ mod tests {
         for name in names {
             let input = TacticalSceneInput::load(&root.join(format!("{name}.json"))).unwrap();
             assert_eq!(input.source, SceneSource::SyntheticFixture(name.into()));
-            assert_eq!(input.absolute_minute % 1_440, 10 * 60);
+            assert_eq!(input.absolute_minute.minute_of_day(), 10 * 60);
             let generated = input.generate().unwrap();
             assert_eq!(generated.terrain.width(), 100.0);
             assert!(generated.terrain.grid_scale() <= 2.0);

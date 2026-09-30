@@ -331,13 +331,7 @@ pub fn backend_ingredient_preparation_plans(
         .collect::<Vec<_>>();
     let mut plans = Vec::new();
     for actor in actors {
-        let Some(_) = ctx
-            .db
-            .character_time()
-            .character_id()
-            .find(actor.id)
-            .map(|time| time.minutes)
-        else {
+        let Some(_) = ctx.db.character_time().character_id().find(actor.id) else {
             continue;
         };
         let Some(place) = actor.current_settlement_id.as_deref().and_then(|id| {
@@ -516,7 +510,7 @@ pub struct BackendFireplaceDish {
     pub fireplace_fixture_id: String,
     pub contributor_name: String,
     pub method: CookingMethod,
-    pub started_at_minute: u64,
+    pub started_at_minute: StrategicMinute,
     pub target_minutes: u32,
     pub display_name: String,
 }

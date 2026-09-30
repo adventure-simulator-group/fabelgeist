@@ -4,7 +4,7 @@
 //! permission, subscription, or command bus. Domain reducers remain
 //! responsible for deciding rights and knowledge before constructing one.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
@@ -101,7 +101,7 @@ pub enum WorldEventConsequence {
         source_id: String,
         raw_fame: i32,
         raw_infamy: i32,
-        minute: u64,
+        minute: StrategicMinute,
     },
     DiscoveredOffense {
         offense_id: String,
@@ -109,12 +109,12 @@ pub enum WorldEventConsequence {
         settlement_id: String,
         kind: WorldEventOffenseKind,
         severity: u8,
-        minute: u64,
+        minute: StrategicMinute,
     },
     LocalProblemOutcome {
         problem_id: String,
         source_outcome_id: String,
-        minute: u64,
+        minute: StrategicMinute,
         mitigation_bps: u16,
         resolve: bool,
     },
@@ -123,13 +123,13 @@ pub enum WorldEventConsequence {
         case_id: String,
         character_id: u64,
         party_id: String,
-        minute: u64,
+        minute: StrategicMinute,
     },
     InfectionEpisode {
         episode_id: u64,
         character_id: u64,
         disease_id: String,
-        contracted_at: u64,
+        contracted_at: StrategicMinute,
         contribution_digest: String,
     },
 }
@@ -138,7 +138,7 @@ pub fn plan_food_water_infection(
     episode_id: u64,
     character_id: u64,
     disease_id: &str,
-    contracted_at: u64,
+    contracted_at: StrategicMinute,
     contribution_digest: &str,
 ) -> Vec<WorldEventConsequence> {
     vec![WorldEventConsequence::InfectionEpisode {
@@ -155,7 +155,7 @@ pub fn plan_noticed_illegal_foraging(
     settlement_id: &str,
     request_id: &str,
     infamy_centipoints: i32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Vec<WorldEventConsequence> {
     let event_id = format!("forage:{character_id}:{request_id}");
     vec![
@@ -208,7 +208,7 @@ pub fn plan_generated_case_resolution(
     local_problem_id: Option<&str>,
     participant_ids: &[u64],
     fame: i32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Vec<WorldEventConsequence> {
     let mut consequences = Vec::new();
     if let Some(problem_id) = local_problem_id {
@@ -253,7 +253,7 @@ pub struct WorldEventEnvelope {
     /// Canonical occurrence place and legal jurisdiction. This is not proof
     /// that any character observed or learned about the event.
     pub place: WorldEventPlace,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
     pub payload: WorldEventPayloadRef,
 }
 
@@ -423,7 +423,7 @@ mod tests {
             place: WorldEventPlace::Settlement {
                 settlement_id: "lubeck".into(),
             },
-            occurred_at_minute: 60,
+            occurred_at_minute: StrategicMinute::new(60),
             payload: WorldEventPayloadRef::NoticedIllegalForaging {
                 request_id: "req".into(),
             },
@@ -468,7 +468,7 @@ mod tests {
             WorldEventReplayDecision::Replay
         );
         let mut collision = event.clone();
-        collision.occurred_at_minute += 1;
+        collision.occurred_at_minute = collision.occurred_at_minute.saturating_add_minutes(1);
         assert_eq!(
             classify_world_event_retry(Some(&event), &collision),
             WorldEventReplayDecision::Collision
@@ -477,7 +477,7 @@ mod tests {
 
     #[test]
     fn illegal_foraging_plan_matches_legacy_ids_amounts_and_order() {
-        let plan = plan_noticed_illegal_foraging(7, "lubeck", "req", 100, 60);
+        let plan = plan_noticed_illegal_foraging(7, "lubeck", "req", 100, StrategicMinute::new(60));
         assert_eq!(plan.len(), 2);
         assert!(matches!(
             &plan[0],
@@ -489,8 +489,9 @@ mod tests {
                 source_id,
                 raw_fame: 0,
                 raw_infamy: 100,
-                minute: 60,
+                minute,
             } if event_id == "forage:7:req" && settlement_id == "lubeck" && source_id == "req"
+                && *minute == StrategicMinute::new(60)
         ));
         assert!(matches!(
             &plan[1],
@@ -500,8 +501,9 @@ mod tests {
                 settlement_id,
                 kind: WorldEventOffenseKind::IllegalForaging,
                 severity: 1,
-                minute: 60,
+                minute,
             } if offense_id == "offense:forage:7:req" && settlement_id == "lubeck"
+                && *minute == StrategicMinute::new(60)
         ));
     }
 
@@ -517,17 +519,18 @@ mod tests {
             Some("problem"),
             &participants,
             500,
-            60,
+            StrategicMinute::new(60),
         );
         assert!(matches!(
             &plan[0],
             WorldEventConsequence::LocalProblemOutcome {
                 problem_id,
                 source_outcome_id,
-                minute: 60,
+                minute,
                 mitigation_bps: 10_000,
                 resolve: true,
             } if problem_id == "problem" && source_outcome_id == "outcome"
+                && *minute == StrategicMinute::new(60)
         ));
         for (pair, character_id) in plan[1..].as_chunks::<2>().0.iter().zip([4, 9]) {
             assert!(matches!(
@@ -537,9 +540,10 @@ mod tests {
                     case_id,
                     character_id: actual,
                     party_id,
-                    minute: 60,
+                    minute,
                 } if snapshot_id == &format!("canonical-case:{character_id}")
                     && case_id == "canonical-case" && *actual == character_id && party_id == "party"
+                    && *minute == StrategicMinute::new(60)
             ));
             assert!(matches!(
                 &pair[1],
@@ -569,7 +573,7 @@ mod tests {
                 None,
                 &[],
                 500,
-                60
+                StrategicMinute::new(60)
             )
             .is_empty()
         );
@@ -579,7 +583,7 @@ mod tests {
     fn planned_reputation_uses_the_unchanged_spillover_formula() {
         use crate::reputation::{ReputationEdge, ReputationSettlement, contributions};
 
-        let plan = plan_noticed_illegal_foraging(7, "lubeck", "req", 100, 60);
+        let plan = plan_noticed_illegal_foraging(7, "lubeck", "req", 100, StrategicMinute::new(60));
         let WorldEventConsequence::Reputation {
             settlement_id,
             raw_fame,

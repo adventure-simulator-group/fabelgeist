@@ -390,10 +390,10 @@ pub fn validate(case: &GeneratedCase) -> Result<(), Vec<String>> {
                     let definition = crate::disease::definition(outbreak.disease);
                     let course_end = exposure
                         .exposed_at
-                        .saturating_add(definition.incubation_minutes)
-                        .saturating_add(definition.rise_minutes)
-                        .saturating_add(definition.peak_minutes)
-                        .saturating_add(definition.recovery_minutes);
+                        .saturating_add_minutes(definition.incubation_minutes)
+                        .saturating_add_minutes(definition.rise_minutes)
+                        .saturating_add_minutes(definition.peak_minutes)
+                        .saturating_add_minutes(definition.recovery_minutes);
                     let terminal = crate::disease::first_combined_terminal(
                         &[episode],
                         exposure.exposed_at,
@@ -420,7 +420,7 @@ pub fn validate(case: &GeneratedCase) -> Result<(), Vec<String>> {
                         || exposure.became_symptomatic_at
                             != exposure
                                 .exposed_at
-                                .saturating_add(definition.incubation_minutes)
+                                .saturating_add_minutes(definition.incubation_minutes)
                         || !death_is_coherent
                         || exposure.exposed_at > exposure.became_symptomatic_at
                         || exposure

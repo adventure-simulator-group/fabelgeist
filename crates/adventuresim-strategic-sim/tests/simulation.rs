@@ -1,8 +1,7 @@
-use adventuresim_core::{
-    simulation_security::MAX_SIMULATION_SKILL_HOURS,
-    strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY},
-};
+use adventuresim_core::simulation_security::MAX_SIMULATION_SKILL_HOURS;
 use adventuresim_strategic_sim::*;
+use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use std::process::Command;
 
 fn config(seed: u64, population: u32, days: u32) -> SimulationConfig {

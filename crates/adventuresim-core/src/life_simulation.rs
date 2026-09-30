@@ -12,7 +12,8 @@ use crate::strategic_schedule::{
     ActivityTrainingProfile, DailySchedule, SkillHours, SocializingSociability,
     apply_curriculum_training, apply_religion_training, apply_schedule_training,
 };
-use crate::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY, MINUTES_PER_YEAR};
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, MINUTES_PER_YEAR};
 use adventuresim_world_schema::{
     OfficialReligion, OralLanguageHours, WrittenLanguage, WrittenLanguageHours,
 };

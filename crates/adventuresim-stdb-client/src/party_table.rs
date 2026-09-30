@@ -5,6 +5,7 @@
 use super::case_site_id_type::CaseSiteId;
 use super::journey_endpoint_type::JourneyEndpoint;
 use super::party_type::Party;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `party`.

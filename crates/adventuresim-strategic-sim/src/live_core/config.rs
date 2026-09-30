@@ -71,7 +71,7 @@ impl CoreLoopConfig {
     pub fn validate(&self) -> Result<(), String> {
         const MAX_DURATION_YEARS: u32 = 100;
         const MAX_DURATION_DAYS: u32 =
-            adventuresim_core::strategic_time::DAYS_PER_YEAR as u32 * MAX_DURATION_YEARS;
+            adventuresim_world_schema::calendar::DAYS_PER_YEAR as u32 * MAX_DURATION_YEARS;
 
         validate_loopback_url(&self.host)?;
         if !self.database.starts_with("adventuresim-sim-")

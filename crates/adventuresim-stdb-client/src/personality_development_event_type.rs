@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::chivalric_virtue_type::ChivalricVirtue;
 use super::mutable_personality_axis_type::MutablePersonalityAxis;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct PersonalityDevelopmentEvent {
     pub resulting_score: i16,
     pub deed: String,
     pub virtue: ChivalricVirtue,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for PersonalityDevelopmentEvent {
@@ -35,7 +36,8 @@ pub struct PersonalityDevelopmentEventCols {
     pub resulting_score: __sdk::__query_builder::Col<PersonalityDevelopmentEvent, i16>,
     pub deed: __sdk::__query_builder::Col<PersonalityDevelopmentEvent, String>,
     pub virtue: __sdk::__query_builder::Col<PersonalityDevelopmentEvent, ChivalricVirtue>,
-    pub occurred_at_minute: __sdk::__query_builder::Col<PersonalityDevelopmentEvent, u64>,
+    pub occurred_at_minute:
+        __sdk::__query_builder::Col<PersonalityDevelopmentEvent, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for PersonalityDevelopmentEvent {

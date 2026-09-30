@@ -38,19 +38,19 @@ pub(super) fn focus_training(focus: ChildActivityFocus, adolescent: bool) -> [(S
 pub(super) fn curriculum_real_hours(
     focus: ChildActivityFocus,
     track: usize,
-    birth_minute: u64,
-    start_minute: u64,
-    end_minute: u64,
+    birth_minute: StrategicMinute,
+    start_minute: StrategicMinute,
+    end_minute: StrategicMinute,
 ) -> (Skill, f32) {
-    let six = birth_minute.saturating_add(6 * MINUTES_PER_YEAR);
-    let twelve = birth_minute.saturating_add(12 * MINUTES_PER_YEAR);
-    let sixteen = birth_minute.saturating_add(u64::from(ADULT_AGE_YEARS) * MINUTES_PER_YEAR);
+    let six = birth_minute.saturating_add_years(6);
+    let twelve = birth_minute.saturating_add_years(12);
+    let sixteen = birth_minute.saturating_add_years(ADULT_AGE_YEARS);
     let middle_minutes = end_minute
         .min(twelve)
-        .saturating_sub(start_minute.max(six).min(end_minute.min(twelve)));
+        .elapsed_since(start_minute.max(six).min(end_minute.min(twelve)));
     let adolescent_minutes = end_minute
         .min(sixteen)
-        .saturating_sub(start_minute.max(twelve).min(end_minute.min(sixteen)));
+        .elapsed_since(start_minute.max(twelve).min(end_minute.min(sixteen)));
     let middle = focus_training(focus, false)[track];
     let adolescent = focus_training(focus, true)[track];
     debug_assert_eq!(middle.0, adolescent.0);

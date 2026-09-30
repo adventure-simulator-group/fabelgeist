@@ -7,6 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 use super::housing_tier_type::HousingTier;
 use super::residence_holding_status_type::ResidenceHoldingStatus;
 use super::residence_tenure_type::ResidenceTenure;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -18,10 +19,10 @@ pub struct ResidenceHolding {
     pub tenure: ResidenceTenure,
     pub status: ResidenceHoldingStatus,
     pub acquired_ordinal: u64,
-    pub acquired_minute: u64,
-    pub last_billed_minute: u64,
-    pub next_due_minute: u64,
-    pub resolved_minute: Option<u64>,
+    pub acquired_minute: StrategicMinute,
+    pub last_billed_minute: StrategicMinute,
+    pub next_due_minute: StrategicMinute,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 impl __sdk::InModule for ResidenceHolding {
@@ -39,10 +40,10 @@ pub struct ResidenceHoldingCols {
     pub tenure: __sdk::__query_builder::Col<ResidenceHolding, ResidenceTenure>,
     pub status: __sdk::__query_builder::Col<ResidenceHolding, ResidenceHoldingStatus>,
     pub acquired_ordinal: __sdk::__query_builder::Col<ResidenceHolding, u64>,
-    pub acquired_minute: __sdk::__query_builder::Col<ResidenceHolding, u64>,
-    pub last_billed_minute: __sdk::__query_builder::Col<ResidenceHolding, u64>,
-    pub next_due_minute: __sdk::__query_builder::Col<ResidenceHolding, u64>,
-    pub resolved_minute: __sdk::__query_builder::Col<ResidenceHolding, Option<u64>>,
+    pub acquired_minute: __sdk::__query_builder::Col<ResidenceHolding, StrategicMinute>,
+    pub last_billed_minute: __sdk::__query_builder::Col<ResidenceHolding, StrategicMinute>,
+    pub next_due_minute: __sdk::__query_builder::Col<ResidenceHolding, StrategicMinute>,
+    pub resolved_minute: __sdk::__query_builder::Col<ResidenceHolding, Option<StrategicMinute>>,
 }
 
 impl __sdk::__query_builder::HasCols for ResidenceHolding {

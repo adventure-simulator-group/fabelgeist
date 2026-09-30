@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::contract_interaction_stage_type::ContractInteractionStage;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -15,7 +16,7 @@ pub struct ContractIssuerInteractionReceipt {
     pub stage: ContractInteractionStage,
     pub issuer_resident_character_id: u64,
     pub interacting_character_id: u64,
-    pub interacted_at_minute: u64,
+    pub interacted_at_minute: StrategicMinute,
     pub dialogue_session_id: String,
     pub dialogue_action_id: String,
     pub dialogue_revision: u64,
@@ -40,7 +41,8 @@ pub struct ContractIssuerInteractionReceiptCols {
         __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, u64>,
     pub interacting_character_id:
         __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, u64>,
-    pub interacted_at_minute: __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, u64>,
+    pub interacted_at_minute:
+        __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, StrategicMinute>,
     pub dialogue_session_id: __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, String>,
     pub dialogue_action_id: __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, String>,
     pub dialogue_revision: __sdk::__query_builder::Col<ContractIssuerInteractionReceipt, u64>,

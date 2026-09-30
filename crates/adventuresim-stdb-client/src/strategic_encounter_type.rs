@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::strategic_encounter_loss_type::StrategicEncounterLoss;
 use super::strategic_encounter_status_type::StrategicEncounterStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct StrategicEncounter {
     pub roll_index: u64,
     pub journey_movement_minute: u64,
     pub journey_elapsed_minute: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub longitude_e_7: i32,
     pub latitude_e_7: i32,
     pub terrain: String,
@@ -51,7 +52,7 @@ pub struct StrategicEncounterCols {
     pub roll_index: __sdk::__query_builder::Col<StrategicEncounter, u64>,
     pub journey_movement_minute: __sdk::__query_builder::Col<StrategicEncounter, u64>,
     pub journey_elapsed_minute: __sdk::__query_builder::Col<StrategicEncounter, u64>,
-    pub absolute_minute: __sdk::__query_builder::Col<StrategicEncounter, u64>,
+    pub absolute_minute: __sdk::__query_builder::Col<StrategicEncounter, StrategicMinute>,
     pub longitude_e_7: __sdk::__query_builder::Col<StrategicEncounter, i32>,
     pub latitude_e_7: __sdk::__query_builder::Col<StrategicEncounter, i32>,
     pub terrain: __sdk::__query_builder::Col<StrategicEncounter, String>,

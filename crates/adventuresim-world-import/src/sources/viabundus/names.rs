@@ -2,7 +2,7 @@ use std::{collections::HashMap, path::Path};
 
 use adventuresim_world_schema::{
     LanguageCode, SETTLEMENT_ALIAS_NAME_MAX_BYTES, SETTLEMENT_ALIAS_PREFIX_MAX_BYTES,
-    SettlementAliasImport, valid_bounded_source_text,
+    SettlementAliasImport, calendar::CalendarYear, valid_bounded_source_text,
 };
 use serde::Deserialize;
 
@@ -27,7 +27,7 @@ struct RawAlternativeName {
 
 pub(super) fn compile(
     path: &Path,
-    year: i32,
+    year: CalendarYear,
     settlement_ids: &HashMap<u64, String>,
 ) -> Result<Vec<SettlementAliasImport>> {
     let mut aliases = Vec::new();

@@ -1,19 +1,19 @@
-//! Resolution-independent celestial presentation layered over Bevy's
-//! physically based atmosphere.
+//! Resolution-independent celestial presentation over Bevy's atmosphere.
 
 use super::*;
+mod astrometry;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::{LatitudeMicrodegrees, LongitudeMicrodegrees};
+use astrometry::equatorial_to_world;
 use bevy::{
     camera::visibility::NoFrustumCulling,
     light::{CascadeShadowConfig, CascadeShadowConfigBuilder, SunDisk},
 };
-
 const MOON_DISTANCE_METRES: f32 = 30_000.0;
 const MOON_ANGULAR_RADIUS_RADIANS: f32 = 0.25_f32.to_radians();
 const STAR_DISTANCE_METRES: f32 = 55_000.0;
 const MOON_SHADER: &str = "shaders/tactical_moon.wgsl";
 const STAR_SHADER: &str = "shaders/tactical_stars.wgsl";
-
 /// One short cascade preserves contact-scale tactical shadows without paying
 /// Bevy's four-cascade, 150 m default for distant scenery.
 pub(in crate::presentation) const TACTICAL_DIRECTIONAL_SHADOW_MAP_SIZE: usize = 1024;
@@ -646,33 +646,6 @@ fn smoothstep(edge0: f32, edge1: f32, value: f32) -> f32 {
     t * t * (3.0 - 2.0 * t)
 }
 
-fn equatorial_to_world(
-    absolute_minute: u64,
-    latitude: LatitudeMicrodegrees,
-    longitude: LongitudeMicrodegrees,
-) -> Mat4 {
-    let latitude = (latitude.degrees() as f32).to_radians();
-    let longitude = (longitude.degrees() as f32).to_radians();
-    let day = absolute_minute as f32 / MINUTES_PER_DAY as f32;
-    let sidereal = (4.383_4 + day * core::f32::consts::TAU * 1.002_737_9 + longitude)
-        .rem_euclid(core::f32::consts::TAU);
-    let (sin_latitude, cos_latitude) = latitude.sin_cos();
-    let (sin_sidereal, cos_sidereal) = sidereal.sin_cos();
-    Mat4::from_mat3(Mat3::from_cols(
-        Vec3::new(
-            -sin_sidereal,
-            cos_latitude * cos_sidereal,
-            sin_latitude * cos_sidereal,
-        ),
-        Vec3::new(0.0, sin_latitude, -cos_latitude),
-        Vec3::new(
-            cos_sidereal,
-            cos_latitude * sin_sidereal,
-            sin_latitude * sin_sidereal,
-        ),
-    ))
-}
-
 fn star_mesh() -> Mesh {
     let stars = parse_star_catalog(include_str!(concat!(
         env!("CARGO_MANIFEST_DIR"),
@@ -801,12 +774,12 @@ mod tests {
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
             latitude_microdegrees: 0,
             longitude_microdegrees: 0,
-            absolute_minute: 0,
-            lunar_phase_minute: 0,
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
             absolute_elevation_metres: 0,
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
-                interval_start_minute: 0,
+                interval_start_minute: StrategicMinute::ZERO,
                 cell_latitude: 0,
                 cell_longitude: 0,
                 temperature_deci_c: 100,

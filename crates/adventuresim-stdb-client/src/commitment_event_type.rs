@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::commitment_status_type::CommitmentStatus;
 use super::commitment_terminal_reason_type::CommitmentTerminalReason;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -14,7 +15,7 @@ pub struct CommitmentEvent {
     pub commitment_id: String,
     pub status: CommitmentStatus,
     pub reason: Option<CommitmentTerminalReason>,
-    pub minute: u64,
+    pub minute: StrategicMinute,
 }
 
 impl __sdk::InModule for CommitmentEvent {
@@ -29,7 +30,7 @@ pub struct CommitmentEventCols {
     pub commitment_id: __sdk::__query_builder::Col<CommitmentEvent, String>,
     pub status: __sdk::__query_builder::Col<CommitmentEvent, CommitmentStatus>,
     pub reason: __sdk::__query_builder::Col<CommitmentEvent, Option<CommitmentTerminalReason>>,
-    pub minute: __sdk::__query_builder::Col<CommitmentEvent, u64>,
+    pub minute: __sdk::__query_builder::Col<CommitmentEvent, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CommitmentEvent {

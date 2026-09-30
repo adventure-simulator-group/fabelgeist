@@ -4,10 +4,8 @@
 //! being joined through feature-specific strings or upgraded from a coarse
 //! settlement to an exact venue without explicit evidence.
 
-use crate::{
-    strategic_place::{PlaceIdentityError, StrategicPlaceId},
-    strategic_time::MINUTES_PER_DAY,
-};
+use crate::strategic_place::{PlaceIdentityError, StrategicPlaceId};
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum ResidencePresenceRole {
@@ -40,7 +38,7 @@ pub struct StrategicPresence {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PresenceFrontier {
     pub observer_character_id: u64,
-    pub personal_minute: u64,
+    pub personal_minute: StrategicMinute,
 }
 
 impl StrategicPresence {
@@ -127,7 +125,7 @@ impl StrategicPresence {
         character_id: u64,
         place: StrategicPlaceId,
         owner_character_id: u64,
-        admitted_minute: u64,
+        admitted_minute: StrategicMinute,
         frontier: PresenceFrontier,
         holding_active: bool,
     ) -> Result<Self, PresenceError> {
@@ -262,10 +260,10 @@ pub struct PresenceSuppression {
 /// minute. A later recovery, death, or source remediation cannot rewrite an
 /// earlier projection.
 pub fn outbreak_patient_suppression_at(
-    contracted_minute: u64,
-    recovery_minute: u64,
-    remediation_minute: Option<u64>,
-    observer_minute: u64,
+    contracted_minute: StrategicMinute,
+    recovery_minute: StrategicMinute,
+    remediation_minute: Option<StrategicMinute>,
+    observer_minute: StrategicMinute,
     alive_at_observer: bool,
 ) -> Result<PresenceSuppression, PresenceError> {
     if recovery_minute < contracted_minute {
@@ -287,7 +285,10 @@ pub fn outbreak_patient_suppression_at(
 }
 
 impl DailyPresenceWindow {
-    pub fn minutes_until_start(self, personal_minute: u64) -> Result<u32, PresenceError> {
+    pub fn minutes_until_start(
+        self,
+        personal_minute: StrategicMinute,
+    ) -> Result<u32, PresenceError> {
         if u64::from(self.start_minute) > MINUTES_PER_DAY
             || u64::from(self.end_minute) > MINUTES_PER_DAY
             || self.start_minute == self.end_minute
@@ -300,15 +301,19 @@ impl DailyPresenceWindow {
         {
             return Ok(0);
         }
-        let current = personal_minute % MINUTES_PER_DAY;
-        let start = u64::from(self.start_minute);
-        let wait = (start + MINUTES_PER_DAY - current) % MINUTES_PER_DAY;
-        Ok(if wait == 0 { MINUTES_PER_DAY } else { wait } as u32)
+        let wait = personal_minute
+            .minutes_until_time_of_day(self.start_minute)
+            .ok_or(PresenceError::InvalidSchedule)?;
+        Ok(if wait == 0 {
+            MINUTES_PER_DAY as u32
+        } else {
+            u32::from(wait)
+        })
     }
 
     pub fn remaining_minutes(
         self,
-        personal_minute: u64,
+        personal_minute: StrategicMinute,
         context_suppressed: bool,
         health_suppressed: bool,
     ) -> Result<u64, PresenceError> {
@@ -320,26 +325,9 @@ impl DailyPresenceWindow {
         if context_suppressed || health_suppressed {
             return Err(PresenceError::Suppressed);
         }
-        let minute = personal_minute % MINUTES_PER_DAY;
-        let start = u64::from(self.start_minute);
-        let end = u64::from(self.end_minute);
-        if start == end {
-            return Err(PresenceError::OutsideSchedule);
-        }
-        let remaining = if start < end {
-            if start <= minute && minute < end {
-                Some(end - minute)
-            } else {
-                None
-            }
-        } else if minute >= start {
-            Some((MINUTES_PER_DAY - minute) + end)
-        } else if minute < end {
-            Some(end - minute)
-        } else {
-            None
-        };
-        remaining.ok_or(PresenceError::OutsideSchedule)
+        personal_minute
+            .remaining_daily_window_minutes(self.start_minute, self.end_minute)
+            .ok_or(PresenceError::OutsideSchedule)
     }
 }
 
@@ -380,7 +368,7 @@ mod tests {
     fn frontier(observer_character_id: u64, personal_minute: u64) -> PresenceFrontier {
         PresenceFrontier {
             observer_character_id,
-            personal_minute,
+            personal_minute: StrategicMinute::new(personal_minute),
         }
     }
 
@@ -428,14 +416,20 @@ mod tests {
             1,
             home.clone(),
             1,
-            100,
+            StrategicMinute::new(100),
             observer_frontier,
             true,
         )
         .unwrap();
-        let guest =
-            StrategicPresence::residence_occupancy(2, home, 1, 150, observer_frontier, true)
-                .unwrap();
+        let guest = StrategicPresence::residence_occupancy(
+            2,
+            home,
+            1,
+            StrategicMinute::new(150),
+            observer_frontier,
+            true,
+        )
+        .unwrap();
 
         assert_eq!(
             owner.basis(),
@@ -468,13 +462,20 @@ mod tests {
             Err(PresenceError::Suppressed)
         );
         assert_eq!(
-            window.remaining_minutes(1_100, false, false),
+            window.remaining_minutes(StrategicMinute::new(1_100), false, false),
             Err(PresenceError::OutsideSchedule)
         );
 
         let home = StrategicPlaceId::residence("lubeck", "holding-1").unwrap();
         assert_eq!(
-            StrategicPresence::residence_occupancy(2, home, 1, 800, frontier(1, 720), true),
+            StrategicPresence::residence_occupancy(
+                2,
+                home,
+                1,
+                StrategicMinute::new(800),
+                frontier(1, 720),
+                true
+            ),
             Err(PresenceError::FutureEvidence)
         );
     }
@@ -485,15 +486,27 @@ mod tests {
             start_minute: 240,
             end_minute: 960,
         };
-        assert_eq!(daytime.minutes_until_start(77), Ok(163));
-        assert_eq!(daytime.minutes_until_start(300), Ok(0));
+        assert_eq!(
+            daytime.minutes_until_start(StrategicMinute::new(77)),
+            Ok(163)
+        );
+        assert_eq!(
+            daytime.minutes_until_start(StrategicMinute::new(300)),
+            Ok(0)
+        );
 
         let overnight = DailyPresenceWindow {
             start_minute: 1_200,
             end_minute: 120,
         };
-        assert_eq!(overnight.minutes_until_start(60), Ok(0));
-        assert_eq!(overnight.minutes_until_start(600), Ok(600));
+        assert_eq!(
+            overnight.minutes_until_start(StrategicMinute::new(60)),
+            Ok(0)
+        );
+        assert_eq!(
+            overnight.minutes_until_start(StrategicMinute::new(600)),
+            Ok(600)
+        );
     }
 
     #[test]
@@ -515,28 +528,56 @@ mod tests {
     #[test]
     fn outbreak_suppression_is_projected_at_the_observer_frontier() {
         assert_eq!(
-            outbreak_patient_suppression_at(100, 300, Some(250), 200, true).unwrap(),
+            outbreak_patient_suppression_at(
+                StrategicMinute::new(100),
+                StrategicMinute::new(300),
+                Some(StrategicMinute::new(250)),
+                StrategicMinute::new(200),
+                true
+            )
+            .unwrap(),
             PresenceSuppression {
                 context_suppressed: true,
                 health_suppressed: true,
             }
         );
         assert_eq!(
-            outbreak_patient_suppression_at(100, 300, Some(250), 260, true).unwrap(),
+            outbreak_patient_suppression_at(
+                StrategicMinute::new(100),
+                StrategicMinute::new(300),
+                Some(StrategicMinute::new(250)),
+                StrategicMinute::new(260),
+                true
+            )
+            .unwrap(),
             PresenceSuppression {
                 context_suppressed: false,
                 health_suppressed: true,
             }
         );
         assert_eq!(
-            outbreak_patient_suppression_at(100, 300, Some(250), 300, true).unwrap(),
+            outbreak_patient_suppression_at(
+                StrategicMinute::new(100),
+                StrategicMinute::new(300),
+                Some(StrategicMinute::new(250)),
+                StrategicMinute::new(300),
+                true
+            )
+            .unwrap(),
             PresenceSuppression {
                 context_suppressed: false,
                 health_suppressed: false,
             }
         );
         assert_eq!(
-            outbreak_patient_suppression_at(100, 300, None, 200, false).unwrap(),
+            outbreak_patient_suppression_at(
+                StrategicMinute::new(100),
+                StrategicMinute::new(300),
+                None,
+                StrategicMinute::new(200),
+                false
+            )
+            .unwrap(),
             PresenceSuppression {
                 context_suppressed: false,
                 health_suppressed: true,

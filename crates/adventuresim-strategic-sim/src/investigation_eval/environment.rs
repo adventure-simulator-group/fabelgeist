@@ -1,3 +1,4 @@
+use adventuresim_world_schema::calendar::StrategicMinute;
 mod fixtures;
 use super::{
     ArgumentValue, Capability, CapabilityIdentity, ChoiceArguments, ChoiceId, ChoiceKind,
@@ -62,7 +63,7 @@ pub struct InvestigationEnvironment {
     journal_location_indexes: BTreeMap<JournalLocationKey, usize>,
     prepared: BTreeSet<String>,
     /// Ordinary schedules are player-visible state, not a pipeline error.
-    witness_returns_at: BTreeMap<usize, u64>,
+    witness_returns_at: BTreeMap<usize, StrategicMinute>,
     trace: Vec<PublicTraceEvent>,
     completed_action_provenance: Vec<CompletedAction>,
     route: Option<RouteClass>,
@@ -112,7 +113,7 @@ impl InvestigationEnvironment {
             version: EVAL_FORMAT_VERSION,
             case_id: generated.public_case_id.clone(),
             step: 0,
-            game_minute: 0,
+            game_minute: StrategicMinute::ZERO,
             discovery: DiscoveryView {
                 problem_summary: "No local problem has been learned yet.".into(),
                 consequence_summary: String::new(),
@@ -125,7 +126,7 @@ impl InvestigationEnvironment {
         };
         let mut witness_returns_at = BTreeMap::new();
         if generated.generation_seed.is_multiple_of(2) {
-            witness_returns_at.insert(1, 90);
+            witness_returns_at.insert(1, StrategicMinute::new(90));
         }
         let mut value = Self {
             generated,
@@ -311,7 +312,7 @@ impl InvestigationEnvironment {
                     .witness_returns_at
                     .get(&index)
                     .ok_or("witness has no scheduled return")?;
-                let wait = return_at.saturating_sub(self.frame.game_minute).max(15);
+                let wait = return_at.elapsed_since(self.frame.game_minute).max(15);
                 self.frame.game_minute = return_at;
                 self.refresh_witness_availability();
                 learned.push("The referred witness returns to their expected location.".into());
@@ -523,7 +524,7 @@ impl InvestigationEnvironment {
         self.frame.party.supplies = self.frame.party.supplies.saturating_sub(cost);
         self.frame.step += 1;
         if !waiting_for_witness {
-            self.frame.game_minute += u64::from(minutes);
+            self.advance_game_time(minutes);
         }
         self.refresh_choices();
         let post_observation_digest =
@@ -823,6 +824,13 @@ impl InvestigationEnvironment {
         }
     }
 
+    fn advance_game_time(&mut self, minutes: u32) {
+        self.frame.game_minute = self
+            .frame
+            .game_minute
+            .saturating_add_minutes(u64::from(minutes));
+    }
+
     fn witness_available(&self, index: usize) -> bool {
         self.witness_returns_at
             .get(&index)
@@ -840,7 +848,7 @@ impl InvestigationEnvironment {
                     .is_none_or(|return_at| game_minute >= *return_at)
             {
                 WitnessAvailability::Available
-            } else if game_minute == 0 {
+            } else if game_minute == StrategicMinute::ZERO {
                 WitnessAvailability::ScheduledElsewhere
             } else {
                 WitnessAvailability::AwaitingReturn

@@ -7,6 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 use super::recruitment_offer_id_type::RecruitmentOfferId;
 use super::recruitment_offer_status_type::RecruitmentOfferStatus;
 use super::recruitment_source_id_type::RecruitmentSourceId;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -20,8 +21,8 @@ pub struct RecruitmentOffer {
     pub location_id: String,
     pub leader_id: u64,
     pub status: RecruitmentOfferStatus,
-    pub created_at_minute: u64,
-    pub expires_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
+    pub expires_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for RecruitmentOffer {
@@ -41,8 +42,8 @@ pub struct RecruitmentOfferCols {
     pub location_id: __sdk::__query_builder::Col<RecruitmentOffer, String>,
     pub leader_id: __sdk::__query_builder::Col<RecruitmentOffer, u64>,
     pub status: __sdk::__query_builder::Col<RecruitmentOffer, RecruitmentOfferStatus>,
-    pub created_at_minute: __sdk::__query_builder::Col<RecruitmentOffer, u64>,
-    pub expires_at_minute: __sdk::__query_builder::Col<RecruitmentOffer, u64>,
+    pub created_at_minute: __sdk::__query_builder::Col<RecruitmentOffer, StrategicMinute>,
+    pub expires_at_minute: __sdk::__query_builder::Col<RecruitmentOffer, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for RecruitmentOffer {

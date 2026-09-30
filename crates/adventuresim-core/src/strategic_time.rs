@@ -4,22 +4,19 @@ use crate::{
     provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY,
     strategic_schedule::{DailySchedule, settlement_leisure_outcome},
 };
+#[cfg(test)]
+use adventuresim_world_schema::calendar::WORLD_START_DAY_OF_YEAR;
+use adventuresim_world_schema::calendar::{
+    MINUTES_PER_DAY, MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE,
+};
 
 pub const HOURS_PER_DAY: u16 = 24;
 pub const MINUTES_PER_HOUR: u16 = 60;
-pub const MINUTES_PER_DAY: u64 = HOURS_PER_DAY as u64 * MINUTES_PER_HOUR as u64;
-pub const DAYS_PER_YEAR: u64 = 365;
-pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
-/// Calendar year containing strategic minute zero.
-pub const WORLD_START_YEAR: i32 = 1544;
 /// Longest settlement rest request accepted by the shared strategic contract.
 pub const MAX_SETTLEMENT_REST_MINUTES: u64 = MINUTES_PER_YEAR;
 const REAL_MICROSECONDS_PER_STRATEGIC_YEAR: u128 = 7 * 24 * 60 * 60 * 1_000_000;
 const DAYLIGHT_START_MINUTE: u16 = 6 * 60;
 const DAYLIGHT_END_MINUTE: u16 = 20 * 60;
-/// August 20 at 00:00 in the shared non-leap strategic calendar.
-pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
-pub const WORLD_START_MINUTE: u64 = WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY;
 pub const DEFAULT_WALKING_MINUTES_PER_DAY: u16 = 8 * 60;
 /// Default journey-local departure time, at 08:00.
 pub const DEFAULT_JOURNEY_START_MINUTE_OF_DAY: u16 = 8 * 60;
@@ -33,14 +30,6 @@ pub const LUNAR_CYCLE_MINUTES: u64 = 42_524;
 pub const MAX_ITINERARY_SEGMENTS: usize = 512;
 /// Natural recovery while taking full settlement downtime.
 pub const HEALTH_RECOVERED_PER_DAY: f32 = 0.05;
-
-pub fn world_year_at(minute: u64) -> i32 {
-    WORLD_START_YEAR.saturating_add(i32::try_from(minute / MINUTES_PER_YEAR).unwrap_or(i32::MAX))
-}
-
-pub fn birth_year_from_age(minute: u64, age_years: u16) -> i32 {
-    world_year_at(minute).saturating_sub(i32::from(age_years))
-}
 
 /// A normalized position within the shared strategic day.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -66,8 +55,8 @@ impl StrategicMinuteOfDay {
     }
 
     /// Normalize an absolute strategic minute to its position within the day.
-    pub const fn from_absolute(absolute_minute: u64) -> Self {
-        Self((absolute_minute % MINUTES_PER_DAY) as u16)
+    pub const fn from_absolute(absolute_minute: StrategicMinute) -> Self {
+        Self(absolute_minute.minute_of_day())
     }
 
     pub const fn get(self) -> u16 {
@@ -188,10 +177,10 @@ pub fn daylight_walking_window(walking_minutes: u16) -> Option<(u16, u16)> {
 }
 
 fn walking_window_at_or_after(
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     walking_minutes: u16,
     travel_at_night: bool,
-) -> Option<(u64, u64)> {
+) -> Option<(StrategicMinute, StrategicMinute)> {
     let (start, end) =
         scheduled_walking_window_at_or_after(absolute_minute, walking_minutes, travel_at_night)?;
     Some((start.max(absolute_minute), end))
@@ -199,7 +188,11 @@ fn walking_window_at_or_after(
 
 /// Return whether the supplied canonical minute falls inside the party's
 /// configured daily walking window.
-pub fn is_walking_time(absolute_minute: u64, walking_minutes: u16, travel_at_night: bool) -> bool {
+pub fn is_walking_time(
+    absolute_minute: StrategicMinute,
+    walking_minutes: u16,
+    travel_at_night: bool,
+) -> bool {
     let Some((start, end)) =
         scheduled_walking_window_at_or_after(absolute_minute, walking_minutes, travel_at_night)
     else {
@@ -213,7 +206,7 @@ pub fn is_walking_time(absolute_minute: u64, walking_minutes: u16, travel_at_nig
 /// at the following day's start so an optional extra rest still wakes on the
 /// established daily schedule.
 pub fn minutes_until_next_walking_start(
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     walking_minutes: u16,
     travel_at_night: bool,
 ) -> Option<u64> {
@@ -224,43 +217,43 @@ pub fn minutes_until_next_walking_start(
     } else {
         scheduled_walking_window_at_or_after(end, walking_minutes, travel_at_night)?.0
     };
-    Some(next_start.saturating_sub(absolute_minute))
+    Some(next_start.elapsed_since(absolute_minute))
 }
 
 fn scheduled_walking_window_at_or_after(
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     walking_minutes: u16,
     travel_at_night: bool,
-) -> Option<(u64, u64)> {
+) -> Option<(StrategicMinute, StrategicMinute)> {
     let (day_start, day_end) = daylight_walking_window(walking_minutes)?;
-    let day = absolute_minute / MINUTES_PER_DAY;
+    let day = absolute_minute.day_start();
     if !travel_at_night {
-        let start = day * MINUTES_PER_DAY + u64::from(day_start);
-        let end = day * MINUTES_PER_DAY + u64::from(day_end);
+        let start = day.saturating_add_minutes(u64::from(day_start));
+        let end = day.saturating_add_minutes(u64::from(day_end));
         return if absolute_minute < end {
             Some((start, end))
         } else {
-            Some((start + MINUTES_PER_DAY, end + MINUTES_PER_DAY))
+            Some((start.saturating_add_days(1), end.saturating_add_days(1)))
         };
     }
 
     let before_midnight = u64::from(walking_minutes / 2);
     let after_midnight = u64::from(walking_minutes) - before_midnight;
-    let current_midnight = day * MINUTES_PER_DAY;
-    let current_start = current_midnight.saturating_sub(before_midnight);
-    let current_end = current_midnight.saturating_add(after_midnight);
+    let current_midnight = day;
+    let current_start = current_midnight.saturating_sub_minutes(before_midnight);
+    let current_end = current_midnight.saturating_add_minutes(after_midnight);
     if absolute_minute < current_end {
         return Some((current_start, current_end));
     }
-    let next_midnight = current_midnight.saturating_add(MINUTES_PER_DAY);
+    let next_midnight = current_midnight.saturating_add_days(1);
     Some((
-        next_midnight.saturating_sub(before_midnight),
-        next_midnight.saturating_add(after_midnight),
+        next_midnight.saturating_sub_minutes(before_midnight),
+        next_midnight.saturating_add_minutes(after_midnight),
     ))
 }
 
 pub fn forecast_itinerary(
-    start_minute: u64,
+    start_minute: StrategicMinute,
     movement_minutes: u64,
     walking_minutes_per_day: u16,
     travel_at_night: bool,
@@ -288,7 +281,7 @@ pub fn forecast_itinerary(
             // A complete post-walk interval is therefore exactly
             // 24 hours minus the configured walking time; the first interval
             // may be shorter when a journey begins partway through the day.
-            let duration = walk_start - absolute;
+            let duration = walk_start.elapsed_since(absolute);
             let required = common_fatigue_clear_minutes(&members);
             let (average_start, _) = fatigue_summary(&members);
             for member in &mut members {
@@ -301,7 +294,7 @@ pub fn forecast_itinerary(
             let (average_end, maximum_end) = fatigue_summary(&members);
             segments.push(ItinerarySegment {
                 kind: ItinerarySegmentKind::Camp,
-                elapsed_start: absolute.saturating_sub(start_minute),
+                elapsed_start: absolute.elapsed_since(start_minute),
                 elapsed_minutes: duration,
                 movement_start: movement,
                 movement_minutes: 0,
@@ -310,13 +303,13 @@ pub fn forecast_itinerary(
                 maximum_fatigue_end: maximum_end,
                 required_rest_minutes: required,
             });
-            absolute = absolute.saturating_add(duration);
+            absolute = absolute.saturating_add_minutes(duration);
             continue;
         }
-        let available = walk_end.saturating_sub(absolute);
+        let available = walk_end.elapsed_since(absolute);
         let duration = available.min(movement_minutes.saturating_sub(movement));
         if duration == 0 {
-            absolute = absolute.saturating_add(1);
+            absolute = absolute.saturating_add_minutes(1);
             continue;
         }
         let (average_start, _) = fatigue_summary(&members);
@@ -331,7 +324,7 @@ pub fn forecast_itinerary(
         let (average_end, maximum_end) = fatigue_summary(&members);
         segments.push(ItinerarySegment {
             kind: ItinerarySegmentKind::Walking,
-            elapsed_start: absolute.saturating_sub(start_minute),
+            elapsed_start: absolute.elapsed_since(start_minute),
             elapsed_minutes: duration,
             movement_start: movement.saturating_sub(duration),
             movement_minutes: duration,
@@ -340,13 +333,13 @@ pub fn forecast_itinerary(
             maximum_fatigue_end: maximum_end,
             required_rest_minutes: 0,
         });
-        absolute = absolute.saturating_add(duration);
+        absolute = absolute.saturating_add_minutes(duration);
     }
     Some(ItineraryForecast {
         segments,
         member_final_fatigue: members.iter().map(fatigue_fraction).collect(),
         member_maximum_fatigue,
-        total_elapsed_minutes: absolute.saturating_sub(start_minute),
+        total_elapsed_minutes: absolute.elapsed_since(start_minute),
         total_movement_minutes: movement,
         truncated,
     })
@@ -354,8 +347,11 @@ pub fn forecast_itinerary(
 
 /// Canonical lunar cycle fraction: 0=new, .25=first quarter, .5=full,
 /// .75=last quarter. Day 1 00:00 is a new moon.
-pub fn lunar_phase(absolute_minute: u64) -> f64 {
-    (absolute_minute % LUNAR_CYCLE_MINUTES) as f64 / LUNAR_CYCLE_MINUTES as f64
+pub fn lunar_phase(absolute_minute: StrategicMinute) -> f64 {
+    absolute_minute
+        .offset_within_interval_minutes(LUNAR_CYCLE_MINUTES)
+        .expect("lunar cycle has positive width") as f64
+        / LUNAR_CYCLE_MINUTES as f64
 }
 
 pub fn lunar_illumination(phase: f64) -> f64 {
@@ -398,16 +394,19 @@ pub fn real_micros_for_official_minutes(elapsed_minutes: u64) -> u128 {
 }
 
 /// Convert wall-clock timestamps to the shared absolute strategic calendar.
-pub fn official_minutes(epoch_micros: i64, now_micros: i64) -> u64 {
-    WORLD_START_MINUTE.saturating_add(elapsed_official_minutes(epoch_micros, now_micros))
+pub fn official_minute(epoch_micros: i64, now_micros: i64) -> StrategicMinute {
+    WORLD_START_MINUTE.saturating_add_minutes(elapsed_official_minutes(epoch_micros, now_micros))
 }
 
 /// Choose an epoch whose derived official clock is exactly `target_minutes`
 /// at `now_micros`. Developer tooling uses this to move a disposable world's
 /// wall clock alongside an explicitly advanced character without changing the
 /// production conversion rate.
-pub fn epoch_micros_for_official_minute(now_micros: i64, target_minutes: u64) -> Option<i64> {
-    let elapsed_minutes = target_minutes.saturating_sub(WORLD_START_MINUTE);
+pub fn epoch_micros_for_official_minute(
+    now_micros: i64,
+    target_minute: StrategicMinute,
+) -> Option<i64> {
+    let elapsed_minutes = target_minute.elapsed_since(WORLD_START_MINUTE);
     let elapsed_micros = real_micros_for_official_minutes(elapsed_minutes);
     now_micros.checked_sub(i64::try_from(elapsed_micros).ok()?)
 }
@@ -480,10 +479,18 @@ mod tests {
 
     #[test]
     fn strategic_minute_of_day_owns_the_shared_night_window() {
-        let before_dawn = StrategicMinuteOfDay::from_absolute(u64::from(DAYLIGHT_START_MINUTE - 1));
-        let dawn = StrategicMinuteOfDay::from_absolute(u64::from(DAYLIGHT_START_MINUTE));
-        let before_night = StrategicMinuteOfDay::from_absolute(u64::from(DAYLIGHT_END_MINUTE - 1));
-        let night = StrategicMinuteOfDay::from_absolute(u64::from(DAYLIGHT_END_MINUTE));
+        let before_dawn = StrategicMinuteOfDay::from_absolute(StrategicMinute::new(u64::from(
+            DAYLIGHT_START_MINUTE - 1,
+        )));
+        let dawn = StrategicMinuteOfDay::from_absolute(StrategicMinute::new(u64::from(
+            DAYLIGHT_START_MINUTE,
+        )));
+        let before_night = StrategicMinuteOfDay::from_absolute(StrategicMinute::new(u64::from(
+            DAYLIGHT_END_MINUTE - 1,
+        )));
+        let night = StrategicMinuteOfDay::from_absolute(StrategicMinute::new(u64::from(
+            DAYLIGHT_END_MINUTE,
+        )));
 
         assert!(before_dawn.is_night());
         assert!(!dawn.is_night());
@@ -516,8 +523,8 @@ mod tests {
             MINUTES_PER_YEAR
         );
         assert_eq!(
-            official_minutes(0, one_week_micros),
-            WORLD_START_MINUTE + MINUTES_PER_YEAR
+            official_minute(0, one_week_micros),
+            WORLD_START_MINUTE.saturating_add_minutes(MINUTES_PER_YEAR)
         );
     }
 
@@ -530,7 +537,8 @@ mod tests {
     fn initialized_world_starts_on_august_twentieth() {
         const DAYS_BEFORE_AUGUST: u64 = 31 + 28 + 31 + 30 + 31 + 30 + 31;
         assert_eq!(WORLD_START_DAY_OF_YEAR, DAYS_BEFORE_AUGUST + 19);
-        assert_eq!(official_minutes(42, 42), WORLD_START_MINUTE);
+        assert_eq!(official_minute(42, 42), WORLD_START_MINUTE);
+        assert_eq!(official_minute(42, 42).calendar_year().get(), 1544);
     }
 
     #[test]
@@ -538,12 +546,12 @@ mod tests {
         let now = 2_000_000_000_000_000_i64;
         for target in [
             WORLD_START_MINUTE,
-            WORLD_START_MINUTE + 1,
-            WORLD_START_MINUTE + MINUTES_PER_DAY,
-            WORLD_START_MINUTE + 16 * MINUTES_PER_YEAR,
+            WORLD_START_MINUTE.saturating_add_minutes(1),
+            WORLD_START_MINUTE.saturating_add_days(1),
+            WORLD_START_MINUTE.saturating_add_years(16),
         ] {
             let epoch = epoch_micros_for_official_minute(now, target).unwrap();
-            assert_eq!(official_minutes(epoch, now), target);
+            assert_eq!(official_minute(epoch, now), target);
         }
     }
 
@@ -630,13 +638,17 @@ mod tests {
     #[test]
     fn camp_wake_time_stays_on_the_absolute_daylight_schedule() {
         assert_eq!(
-            minutes_until_next_walking_start(7 * 60, 8 * 60, false),
+            minutes_until_next_walking_start(StrategicMinute::new(7 * 60), 8 * 60, false),
             Some(60)
         );
-        assert!(!is_walking_time(7 * 60, 8 * 60, false));
-        assert!(is_walking_time(9 * 60, 8 * 60, false));
+        assert!(!is_walking_time(
+            StrategicMinute::new(7 * 60),
+            8 * 60,
+            false
+        ));
+        assert!(is_walking_time(StrategicMinute::new(9 * 60), 8 * 60, false));
         assert_eq!(
-            minutes_until_next_walking_start(9 * 60, 8 * 60, false),
+            minutes_until_next_walking_start(StrategicMinute::new(9 * 60), 8 * 60, false),
             Some(23 * 60)
         );
     }
@@ -644,16 +656,16 @@ mod tests {
     #[test]
     fn camp_wake_time_stays_on_the_absolute_night_schedule() {
         assert_eq!(
-            minutes_until_next_walking_start(60, 8 * 60, true),
+            minutes_until_next_walking_start(StrategicMinute::new(60), 8 * 60, true),
             Some(19 * 60)
         );
         assert_eq!(
-            minutes_until_next_walking_start(18 * 60, 8 * 60, true),
+            minutes_until_next_walking_start(StrategicMinute::new(18 * 60), 8 * 60, true),
             Some(2 * 60)
         );
-        assert!(is_walking_time(21 * 60, 8 * 60, true));
+        assert!(is_walking_time(StrategicMinute::new(21 * 60), 8 * 60, true));
         assert_eq!(
-            minutes_until_next_walking_start(21 * 60, 8 * 60, true),
+            minutes_until_next_walking_start(StrategicMinute::new(21 * 60), 8 * 60, true),
             Some(23 * 60)
         );
     }
@@ -661,7 +673,7 @@ mod tests {
     #[test]
     fn itinerary_tracks_elapsed_separately_from_movement() {
         let forecast = forecast_itinerary(
-            8 * 60,
+            StrategicMinute::new(8 * 60),
             12 * 60,
             8 * 60,
             false,
@@ -687,7 +699,7 @@ mod tests {
     #[test]
     fn itinerary_preserves_per_member_final_fatigue_in_input_order() {
         let forecast = forecast_itinerary(
-            8 * 60,
+            StrategicMinute::new(8 * 60),
             60,
             8 * 60,
             false,
@@ -710,7 +722,7 @@ mod tests {
     #[test]
     fn itinerary_preserves_per_member_peak_even_when_camp_lowers_final_fatigue() {
         let forecast = forecast_itinerary(
-            6 * 60,
+            StrategicMinute::new(6 * 60),
             600,
             8 * 60,
             false,
@@ -723,7 +735,7 @@ mod tests {
     #[test]
     fn partial_first_and_final_days_respect_daylight() {
         let forecast = forecast_itinerary(
-            14 * 60,
+            StrategicMinute::new(14 * 60),
             3 * 60,
             8 * 60,
             false,
@@ -742,7 +754,7 @@ mod tests {
     #[test]
     fn night_travel_is_one_window_centered_on_midnight() {
         let forecast = forecast_itinerary(
-            20 * 60,
+            StrategicMinute::new(20 * 60),
             10 * 60,
             8 * 60,
             true,
@@ -790,7 +802,7 @@ mod tests {
     fn quest_return_is_just_bounded_double_movement() {
         let outbound = 9 * 60;
         let forecast = forecast_itinerary(
-            8 * 60,
+            StrategicMinute::new(8 * 60),
             outbound * 2,
             8 * 60,
             false,
@@ -804,7 +816,7 @@ mod tests {
     #[test]
     fn non_walking_time_is_implied_by_the_daily_walking_window() {
         let forecast = forecast_itinerary(
-            8 * 60,
+            StrategicMinute::new(8 * 60),
             10 * 60,
             8 * 60,
             false,
@@ -823,11 +835,11 @@ mod tests {
 
     #[test]
     fn lunar_phase_has_canonical_quarters_and_wraps_near_overflow() {
-        assert_eq!(lunar_phase(0), 0.0);
-        assert!((lunar_phase(LUNAR_CYCLE_MINUTES / 4) - 0.25).abs() < 0.0001);
-        assert!((lunar_phase(LUNAR_CYCLE_MINUTES / 2) - 0.5).abs() < 0.0001);
-        assert_eq!(lunar_phase(LUNAR_CYCLE_MINUTES), 0.0);
-        assert!(lunar_phase(u64::MAX).is_finite());
+        assert_eq!(lunar_phase(StrategicMinute::new(0)), 0.0);
+        assert!((lunar_phase(StrategicMinute::new(LUNAR_CYCLE_MINUTES / 4)) - 0.25).abs() < 0.0001);
+        assert!((lunar_phase(StrategicMinute::new(LUNAR_CYCLE_MINUTES / 2)) - 0.5).abs() < 0.0001);
+        assert_eq!(lunar_phase(StrategicMinute::new(LUNAR_CYCLE_MINUTES)), 0.0);
+        assert!(lunar_phase(StrategicMinute::new(u64::MAX)).is_finite());
         assert!((lunar_illumination(0.0) - 0.0).abs() < f64::EPSILON);
         assert!((lunar_illumination(0.5) - 1.0).abs() < f64::EPSILON);
     }
@@ -835,7 +847,7 @@ mod tests {
     #[test]
     fn itinerary_materialization_is_capped() {
         let forecast = forecast_itinerary(
-            0,
+            StrategicMinute::new(0),
             u64::MAX,
             MIN_WALKING_MINUTES_PER_DAY,
             false,

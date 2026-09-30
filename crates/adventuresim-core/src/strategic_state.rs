@@ -6,6 +6,8 @@
 
 use std::fmt;
 
+use adventuresim_world_schema::calendar::StrategicMinute;
+
 use crate::strategic_place::CaseSiteId;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -13,16 +15,16 @@ pub enum ContractState {
     Offered,
     Accepted {
         party_id: String,
-        accepted_at: u64,
+        accepted_at: StrategicMinute,
     },
     ReadyToReport {
         party_id: String,
-        accepted_at: u64,
+        accepted_at: StrategicMinute,
     },
     Paid {
         party_id: String,
-        accepted_at: u64,
-        paid_at: u64,
+        accepted_at: StrategicMinute,
+        paid_at: StrategicMinute,
     },
     Withdrawn {
         prior_acceptance: Option<ContractAcceptance>,
@@ -32,7 +34,7 @@ pub enum ContractState {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct ContractAcceptance {
     pub party_id: String,
-    pub accepted_at: u64,
+    pub accepted_at: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -48,8 +50,8 @@ impl ContractState {
     pub fn parse(
         status: FlatContractStatus,
         party_id: Option<String>,
-        accepted_at: Option<u64>,
-        paid_at: Option<u64>,
+        accepted_at: Option<StrategicMinute>,
+        paid_at: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, party_id, accepted_at, paid_at) {
             (FlatContractStatus::Offered, None, None, None) => Ok(Self::Offered),
@@ -269,28 +271,28 @@ pub enum FlatCommitmentReason {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CommitmentState {
     Reserved {
-        effective_minute: u64,
+        effective_minute: StrategicMinute,
     },
     Fulfilled {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
     Cancelled {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
         reason: FlatCommitmentReason,
     },
     Expired {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
     Ended {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
     },
 }
 
 impl CommitmentState {
     pub fn parse(
         status: FlatCommitmentStatus,
-        effective_minute: u64,
-        resolved_minute: Option<u64>,
+        effective_minute: StrategicMinute,
+        resolved_minute: Option<StrategicMinute>,
         reason: Option<FlatCommitmentReason>,
     ) -> Result<Self, StateParseError> {
         match (status, resolved_minute, reason) {
@@ -373,7 +375,7 @@ pub enum CourtshipState {
     Active,
     Exposed,
     Ended {
-        resolved_minute: u64,
+        resolved_minute: StrategicMinute,
         reason: FlatCourtshipTerminalReason,
     },
 }
@@ -384,7 +386,7 @@ pub fn parse_courtship(
     approved_father_id: Option<u64>,
     planned_dowry: u32,
     status: FlatCourtshipStatus,
-    resolved_minute: Option<u64>,
+    resolved_minute: Option<StrategicMinute>,
     terminal_reason: Option<FlatCourtshipTerminalReason>,
 ) -> Result<(CourtshipRoute, CourtshipState), StateParseError> {
     let route = match (kind, secrecy_reason, approved_father_id) {
@@ -425,14 +427,14 @@ pub enum FlatMarriageStatus {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum MarriageState {
     Active,
-    Widowed { resolved_minute: u64 },
-    Ended { resolved_minute: u64 },
+    Widowed { resolved_minute: StrategicMinute },
+    Ended { resolved_minute: StrategicMinute },
 }
 
 impl MarriageState {
     pub fn parse(
         status: FlatMarriageStatus,
-        resolved_minute: Option<u64>,
+        resolved_minute: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, resolved_minute) {
             (FlatMarriageStatus::Active, None) => Ok(Self::Active),
@@ -459,15 +461,20 @@ pub enum FlatPregnancyStatus {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PregnancyState {
     Active,
-    Born { child_id: u64, resolved_minute: u64 },
-    Ended { resolved_minute: u64 },
+    Born {
+        child_id: u64,
+        resolved_minute: StrategicMinute,
+    },
+    Ended {
+        resolved_minute: StrategicMinute,
+    },
 }
 
 impl PregnancyState {
     pub fn parse(
         status: FlatPregnancyStatus,
         child_id: Option<u64>,
-        resolved_minute: Option<u64>,
+        resolved_minute: Option<StrategicMinute>,
     ) -> Result<Self, StateParseError> {
         match (status, child_id, resolved_minute) {
             (FlatPregnancyStatus::Active, None, None) => Ok(Self::Active),
@@ -498,8 +505,8 @@ mod tests {
             ContractState::parse(
                 FlatContractStatus::Paid,
                 Some("p".into()),
-                Some(10),
-                Some(9)
+                Some(StrategicMinute::new(10)),
+                Some(StrategicMinute::new(9))
             )
             .is_err()
         );
@@ -543,13 +550,19 @@ mod tests {
     #[test]
     fn commitment_terminal_fields_are_all_or_nothing() {
         assert!(
-            CommitmentState::parse(FlatCommitmentStatus::Reserved, 10, Some(11), None).is_err()
+            CommitmentState::parse(
+                FlatCommitmentStatus::Reserved,
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
+                None,
+            )
+            .is_err()
         );
         assert!(
             CommitmentState::parse(
                 FlatCommitmentStatus::Cancelled,
-                10,
-                Some(11),
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
                 Some(FlatCommitmentReason::CancelledByParticipant)
             )
             .is_ok()
@@ -557,8 +570,8 @@ mod tests {
         assert!(
             CommitmentState::parse(
                 FlatCommitmentStatus::Fulfilled,
-                10,
-                Some(11),
+                StrategicMinute::new(10),
+                Some(StrategicMinute::new(11)),
                 Some(FlatCommitmentReason::ParticipantDead)
             )
             .is_err()
@@ -579,8 +592,18 @@ mod tests {
             )
             .is_err()
         );
-        assert!(MarriageState::parse(FlatMarriageStatus::Active, Some(1)).is_err());
-        assert!(PregnancyState::parse(FlatPregnancyStatus::Born, None, Some(10)).is_err());
+        assert!(
+            MarriageState::parse(FlatMarriageStatus::Active, Some(StrategicMinute::new(1)))
+                .is_err()
+        );
+        assert!(
+            PregnancyState::parse(
+                FlatPregnancyStatus::Born,
+                None,
+                Some(StrategicMinute::new(10)),
+            )
+            .is_err()
+        );
         assert!(PregnancyState::parse(FlatPregnancyStatus::Active, None, None).is_ok());
     }
 }

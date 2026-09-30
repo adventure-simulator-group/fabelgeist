@@ -1,8 +1,5 @@
-//! Private typed occurrence authority and synchronous consequence adapters.
-//!
-//! This is deliberately not a public event log or subscription surface. It
-//! records exact canonical provenance only after all consequences succeed in
-//! the surrounding SpacetimeDB transaction.
+//! Private transactional occurrence authority and consequence adapters.
+//! Receipts remain private and are recorded after consequences succeed.
 
 use adventuresim_core::world_event::{
     WORLD_EVENT_SCHEMA_REVISION, WorldEventActor, WorldEventConsequence, WorldEventEnvelope,
@@ -10,6 +7,7 @@ use adventuresim_core::world_event::{
     WorldEventReputationMeaning as ReputationMeaning, WorldEventSource, WorldEventSubject,
     plan_food_water_infection, plan_generated_case_resolution, plan_noticed_illegal_foraging,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, table};
@@ -98,12 +96,11 @@ pub struct PersistedWorldEventEnvelope {
     pub actor: PersistedWorldEventActor,
     pub subjects: Vec<PersistedWorldEventSubject>,
     pub place: PersistedWorldEventPlace,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
     pub payload: PersistedWorldEventPayloadRef,
 }
 
-/// Private exact-match replay authority. Consequence details and provenance
-/// never enter a public table or view.
+/// Private exact-match replay authority; details never enter public views.
 #[derive(Clone, Debug)]
 #[table(accessor = world_event_receipt)]
 pub struct WorldEventReceipt {
@@ -154,20 +151,15 @@ impl WorldEventRequest {
 }
 
 fn consequence_identity(consequence: &WorldEventConsequence) -> (&'static str, String) {
+    use WorldEventConsequence::*;
     match consequence {
-        WorldEventConsequence::Reputation { event_id, .. } => ("reputation", event_id.clone()),
-        WorldEventConsequence::DiscoveredOffense { offense_id, .. } => {
-            ("offense", offense_id.clone())
-        }
-        WorldEventConsequence::LocalProblemOutcome {
+        Reputation { event_id, .. } => ("reputation", event_id.clone()),
+        DiscoveredOffense { offense_id, .. } => ("offense", offense_id.clone()),
+        LocalProblemOutcome {
             source_outcome_id, ..
         } => ("local_problem", source_outcome_id.clone()),
-        WorldEventConsequence::CaseParticipantSnapshot { snapshot_id, .. } => {
-            ("case_participant", snapshot_id.clone())
-        }
-        WorldEventConsequence::InfectionEpisode { episode_id, .. } => {
-            ("infection_episode", episode_id.to_string())
-        }
+        CaseParticipantSnapshot { snapshot_id, .. } => ("case_participant", snapshot_id.clone()),
+        InfectionEpisode { episode_id, .. } => ("infection_episode", episode_id.to_string()),
     }
 }
 
@@ -821,7 +813,7 @@ pub(crate) fn commit_noticed_illegal_foraging(
     settlement_id: &str,
     request_id: &str,
     infamy_centipoints: i32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let envelope = WorldEventEnvelope {
         schema_revision: WORLD_EVENT_SCHEMA_REVISION,
@@ -874,7 +866,7 @@ pub(crate) fn commit_generated_case_resolution(
     settlement_id: &str,
     local_problem_id: Option<&str>,
     fame: i32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut subjects = vec![WorldEventSubject::Case {
         canonical_case_id: canonical_case_id.into(),
@@ -958,7 +950,7 @@ pub(crate) fn commit_food_water_infection(
     consumed_fraction_bps: u16,
     disease_id: &str,
     episode_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let envelope = WorldEventEnvelope {
         schema_revision: WORLD_EVENT_SCHEMA_REVISION,
@@ -1021,12 +1013,12 @@ mod tests {
             place: WorldEventPlace::Settlement {
                 settlement_id: "lubeck".into(),
             },
-            occurred_at_minute: 60,
+            occurred_at_minute: StrategicMinute::new(60),
             payload: WorldEventPayloadRef::NoticedIllegalForaging {
                 request_id: "req".into(),
             },
         };
-        assert_eq!(persist(&event).occurred_at_minute, 60);
+        assert_eq!(persist(&event).occurred_at_minute, StrategicMinute::new(60));
         assert_eq!(
             fingerprint(WorldEventFingerprintDomain::Envelope, &event),
             fingerprint(WorldEventFingerprintDomain::Envelope, &event.clone())
@@ -1065,7 +1057,7 @@ mod tests {
             settlement_id: "lubeck".into(),
             kind: ExistingOffenseKind::IllegalForaging,
             severity: 1,
-            minute: 60,
+            minute: StrategicMinute::new(60),
         };
         assert_eq!(
             consequence_identity(&consequence),
@@ -1083,7 +1075,7 @@ mod tests {
             source_id: "req".into(),
             raw_fame: 0,
             raw_infamy: 100,
-            minute: 60,
+            minute: StrategicMinute::new(60),
         };
         let offense = WorldEventConsequence::DiscoveredOffense {
             offense_id: "offense:forage:7:req".into(),
@@ -1091,7 +1083,7 @@ mod tests {
             settlement_id: "lubeck".into(),
             kind: ExistingOffenseKind::IllegalForaging,
             severity: 1,
-            minute: 60,
+            minute: StrategicMinute::new(60),
         };
         assert!(
             validate_consequence_order(
@@ -1122,7 +1114,7 @@ mod tests {
             place: WorldEventPlace::Settlement {
                 settlement_id: "lubeck".into(),
             },
-            occurred_at_minute: 60,
+            occurred_at_minute: StrategicMinute::new(60),
             payload: WorldEventPayloadRef::NoticedIllegalForaging {
                 request_id: "req".into(),
             },
@@ -1149,7 +1141,7 @@ mod tests {
                 source_id: "req".into(),
                 raw_fame: 0,
                 raw_infamy: 100,
-                minute: 60,
+                minute: StrategicMinute::new(60),
             },
             WorldEventConsequence::DiscoveredOffense {
                 offense_id: "offense:forage:7:req".into(),
@@ -1157,7 +1149,7 @@ mod tests {
                 settlement_id: "lubeck".into(),
                 kind: ExistingOffenseKind::IllegalForaging,
                 severity: 1,
-                minute: 60,
+                minute: StrategicMinute::new(60),
             },
         ];
         assert!(validate_semantic_binding(&request, &envelope, &consequences).is_ok());

@@ -120,7 +120,7 @@ fn persistent_npc_chat_authority_accepts_generated_ids_without_trusting_their_pr
         "inn",
         0,
         1_440,
-        720,
+        StrategicMinute::new(720),
     ));
     assert!(!npc_conversation_authority_matches(
         "riverdale",
@@ -132,7 +132,7 @@ fn persistent_npc_chat_authority_accepts_generated_ids_without_trusting_their_pr
         "inn",
         0,
         1_440,
-        720,
+        StrategicMinute::new(720),
     ));
     assert!(!npc_conversation_authority_matches(
         "riverdale",
@@ -144,7 +144,7 @@ fn persistent_npc_chat_authority_accepts_generated_ids_without_trusting_their_pr
         "inn",
         0,
         1_440,
-        720,
+        StrategicMinute::new(720),
     ));
     assert!(!npc_conversation_authority_matches(
         "riverdale",
@@ -156,7 +156,7 @@ fn persistent_npc_chat_authority_accepts_generated_ids_without_trusting_their_pr
         "inn",
         0,
         600,
-        720,
+        StrategicMinute::new(720),
     ));
     assert!(!npc_conversation_authority_matches(
         "riverdale",
@@ -168,7 +168,7 @@ fn persistent_npc_chat_authority_accepts_generated_ids_without_trusting_their_pr
         "market",
         0,
         1_440,
-        720,
+        StrategicMinute::new(720),
     ));
 }
 
@@ -721,24 +721,24 @@ fn incidents_own_sources_sites_and_lifecycle_without_quest_side_effects() {
 #[test]
 fn recruitment_offer_lifecycle_expires_and_closes_stale_bindings() {
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, 10, 20, true),
+        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(10), StrategicMinute::new(20), true),
         RecruitmentOfferStatus::Open
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, 20, 20, true),
+        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(20), StrategicMinute::new(20), true),
         RecruitmentOfferStatus::Expired
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, 10, 20, false),
+        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(10), StrategicMinute::new(20), false),
         RecruitmentOfferStatus::Closed
     );
     assert_eq!(
-        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, 20, 20, false),
+        refreshed_recruitment_offer_status(RecruitmentOfferStatus::Open, StrategicMinute::new(20), StrategicMinute::new(20), false),
         RecruitmentOfferStatus::Closed
     );
-    let first = renewed_recruitment_offer_expiry(20);
+    let first = renewed_recruitment_offer_expiry(StrategicMinute::new(20));
     let second = renewed_recruitment_offer_expiry(first);
-    assert!(first > 20);
+    assert!(first > StrategicMinute::new(20));
     assert!(second > first);
 }
 
@@ -758,8 +758,8 @@ fn recruitment_offer_requires_every_authoritative_location_binding() {
         location_id: "inn".into(),
         leader_id: 7,
         status: RecruitmentOfferStatus::Open,
-        created_at_minute: 0,
-        expires_at_minute: 10,
+        created_at_minute: StrategicMinute::ZERO,
+        expires_at_minute: StrategicMinute::new(10),
     };
     let live = RecruitmentOfferBindingFields {
         party_leader_id: 7,

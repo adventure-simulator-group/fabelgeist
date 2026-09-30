@@ -223,10 +223,6 @@ path = "crates/adventuresim-stdb-module/src/alcohol.rs"
 ceiling = 642
 
 [[files]]
-path = "crates/adventuresim-stdb-module/src/browser_session.rs"
-ceiling = 547
-
-[[files]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
 ceiling = 689
 
@@ -680,7 +676,7 @@ ceiling = 765
 
 [[files]]
 path = "crates/adventuresim-world-import/src/sources/drought.rs"
-ceiling = 760
+ceiling = 714
 
 [[files]]
 path = "crates/adventuresim-world-import/src/sources/geology.rs"
@@ -705,10 +701,6 @@ ceiling = 1037
 [[files]]
 path = "crates/adventuresim-world-import/src/sources/tree_species.rs"
 ceiling = 694
-
-[[files]]
-path = "crates/adventuresim-world-import/src/sources/viabundus/mod.rs"
-ceiling = 566
 
 [[files]]
 path = "crates/adventuresim-world-import/src/validation.rs"
@@ -776,7 +768,7 @@ ceiling = 632
 
 [[files]]
 path = "crates/strategic-web/src/routes/dialogue.rs"
-ceiling = 1503
+ceiling = 1497
 
 [[files]]
 path = "crates/strategic-web/src/routes/foraging.rs"
@@ -864,7 +856,7 @@ ceiling = 2395
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/chrome.rs"
-ceiling = 765
+ceiling = 763
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/social.rs"
@@ -1314,21 +1306,6 @@ item = "available_stacks"
 ceiling = 108
 
 [[functions]]
-path = "crates/adventuresim-stdb-module/src/alcohol.rs"
-item = "process_rest_evenings"
-ceiling = 117
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/browser_session.rs"
-item = "backend_browser_character_access"
-ceiling = 111
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/browser_session.rs"
-item = "select_browser_character"
-ceiling = 104
-
-[[functions]]
 path = "crates/adventuresim-stdb-module/src/capability.rs"
 item = "StrategicEquipment::load"
 ceiling = 176
@@ -1432,11 +1409,6 @@ ceiling = 322
 path = "crates/adventuresim-stdb-module/src/disease.rs"
 item = "seed_sick_character"
 ceiling = 255
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/filth.rs"
-item = "blood_exposure_attempts_through"
-ceiling = 114
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/filth.rs"
@@ -1722,11 +1694,6 @@ ceiling = 139
 path = "crates/adventuresim-stdb-module/src/social.rs"
 item = "automatic_personality_fit"
 ceiling = 125
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/social.rs"
-item = "chat_with_party_member"
-ceiling = 105
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/social.rs"
@@ -3024,11 +2991,6 @@ item = "negotiated_post_root"
 ceiling = 102
 
 [[functions]]
-path = "crates/strategic-web/src/medical.rs"
-item = "sanitize"
-ceiling = 133
-
-[[functions]]
 path = "crates/strategic-web/src/routes/developer_quests.rs"
 item = "spawn"
 ceiling = 110
@@ -3042,11 +3004,6 @@ ceiling = 171
 path = "crates/strategic-web/src/routes/dialogue.rs"
 item = "npc_social_view"
 ceiling = 167
-
-[[functions]]
-path = "crates/strategic-web/src/routes/local_chat.rs"
-item = "actor_and_selector"
-ceiling = 103
 
 [[functions]]
 path = "crates/strategic-web/src/routes/mod.rs"

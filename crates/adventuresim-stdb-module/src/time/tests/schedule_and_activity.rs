@@ -19,12 +19,12 @@ fn effective_schedule_redistributes_location_activities_without_mutating_saved_p
     assert_eq!(settlement.allocated_minutes(), saved.allocated_minutes());
     let saved_recovery = adventuresim_core::strategic_schedule::restorative_leisure_minutes(
         core_schedule(&saved),
-        0,
+adventuresim_world_schema::calendar::StrategicMinute::new(0),
         MINUTES_PER_DAY,
     );
     let effective_recovery = adventuresim_core::strategic_schedule::restorative_leisure_minutes(
         core_schedule(&settlement),
-        0,
+adventuresim_world_schema::calendar::StrategicMinute::new(0),
         MINUTES_PER_DAY,
     );
     assert_eq!(effective_recovery, saved_recovery);

@@ -296,8 +296,10 @@ fn materialize_requested_scene(
         &request.scene_key,
         request.latitude_e_7,
         request.longitude_e_7,
-        request.absolute_minute,
-        request.lunar_phase_minute,
+        adventuresim_world_schema::calendar::StrategicMinute::new(request.absolute_minute.minutes),
+        adventuresim_world_schema::calendar::StrategicMinute::new(
+            request.lunar_phase_minute.minutes,
+        ),
         profile.as_ref(),
     )?;
     scene_input::materialize_scene_input(directory, &request.mission_id, &input)

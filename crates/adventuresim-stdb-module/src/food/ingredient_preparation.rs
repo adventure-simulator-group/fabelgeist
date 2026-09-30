@@ -161,9 +161,9 @@ fn grinding_tool_binding(ctx: &ReducerContext, character_id: u64) -> String {
 fn preparation_terminal_minute(
     ctx: &ReducerContext,
     character_id: u64,
-    current_minute: u64,
+    current_minute: StrategicMinute,
     duration: u64,
-) -> Result<Option<u64>, String> {
+) -> Result<Option<StrategicMinute>, String> {
     let injury = crate::surgery::preview_injury_boundary(
         ctx,
         character_id,
@@ -174,7 +174,7 @@ fn preparation_terminal_minute(
         crate::disease::preview_disease_terminal_boundary(ctx, character_id, injury.elapsed, true)?;
     let safe = injury.elapsed.min(disease_safe);
     Ok((safe < duration || injury.terminal || disease_terminal)
-        .then_some(current_minute.saturating_add(safe)))
+        .then_some(current_minute.saturating_add_minutes(safe)))
 }
 
 #[expect(

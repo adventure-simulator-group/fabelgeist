@@ -172,7 +172,7 @@ async fn camp_fireplace_context(
     }
     let place = adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
         party_id,
-        journey.departure_minute,
+adventuresim_world_schema::calendar::StrategicMinute::new(journey.departure_minute.minutes),
         journey.completed_movement_minutes,
     )
     .map_err(|_| "This journey camp has no canonical identity")?;
@@ -196,7 +196,7 @@ async fn fireplace_rows(
     Option<BackendFireplaceDish>,
     Vec<BackendFireplaceStation>,
     Vec<BackendFireplaceDish>,
-    u64,
+    StrategicMinute,
 ) {
     let personal = state
         .db
@@ -278,7 +278,7 @@ async fn fireplace_rows(
         .collect::<Vec<_>>();
     let minute = query_single::<CharacterTime>(state, db::character_time_by_character_id(actor.id))
         .await
-        .map_or(0, |row| row.minutes);
+        .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
     (
         personal,
         party,

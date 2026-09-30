@@ -2,7 +2,7 @@
 pub fn settle_due_weddings(
     ctx: &ReducerContext,
     participant_id: u64,
-    _participant_frontier: u64,
+    _participant_frontier: StrategicMinute,
 ) -> Result<(), String> {
     let now = crate::time::refresh_clock(ctx)?;
     let due: Vec<_> = ctx
@@ -298,7 +298,7 @@ pub fn settle_due_weddings(
 /// the batch.
 pub fn settle_due_weddings_global(
     ctx: &ReducerContext,
-    now: u64,
+    now: StrategicMinute,
     limit: usize,
 ) -> Result<usize, String> {
     let mut due: Vec<_> = ctx
@@ -326,7 +326,7 @@ fn resolve_marriage(
     ctx: &ReducerContext,
     mut marriage: Marriage,
     status: MarriageStatus,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     if marriage.status != MarriageStatus::Active {
         return;
@@ -346,7 +346,11 @@ fn resolve_marriage(
         {
             leave_household(ctx, character_id);
         }
-        crate::residence::remove_nonowned_occupancy_effective(ctx, character_id, minute);
+        crate::residence::remove_nonowned_occupancy_effective(
+            ctx,
+            character_id,
+            minute,
+        );
     }
     for (subject_id, related_id) in [
         (marriage.first_character_id, marriage.second_character_id),
@@ -434,7 +438,7 @@ pub fn end_marriage(
 pub fn settle_marriage_lifecycle_for_character(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let Some(participant) = ctx
         .db

@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::courtship_kind_type::CourtshipKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -16,9 +17,9 @@ pub struct BackendCharacterRelationshipStatus {
     pub courtship_exposed: bool,
     pub wedding_commitment_id: Option<String>,
     pub wedding_partner_id: Option<u64>,
-    pub wedding_effective_minute: Option<u64>,
+    pub wedding_effective_minute: Option<StrategicMinute>,
     pub wedding_settlement_id: Option<String>,
-    pub pregnancy_due_minute: Option<u64>,
+    pub pregnancy_due_minute: Option<StrategicMinute>,
     pub pregnancy_child_id: Option<u64>,
 }
 
@@ -42,11 +43,11 @@ pub struct BackendCharacterRelationshipStatusCols {
     pub wedding_partner_id:
         __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<u64>>,
     pub wedding_effective_minute:
-        __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<u64>>,
+        __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<StrategicMinute>>,
     pub wedding_settlement_id:
         __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<String>>,
     pub pregnancy_due_minute:
-        __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<u64>>,
+        __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<StrategicMinute>>,
     pub pregnancy_child_id:
         __sdk::__query_builder::Col<BackendCharacterRelationshipStatus, Option<u64>>,
 }

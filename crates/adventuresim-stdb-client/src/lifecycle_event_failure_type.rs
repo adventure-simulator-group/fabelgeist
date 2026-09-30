@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::lifecycle_event_kind_type::LifecycleEventKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -12,8 +13,8 @@ pub struct LifecycleEventFailure {
     pub id: String,
     pub event_kind: LifecycleEventKind,
     pub event_id: String,
-    pub effective_minute: u64,
-    pub recorded_minute: u64,
+    pub effective_minute: StrategicMinute,
+    pub recorded_minute: StrategicMinute,
     pub error: String,
 }
 
@@ -28,8 +29,8 @@ pub struct LifecycleEventFailureCols {
     pub id: __sdk::__query_builder::Col<LifecycleEventFailure, String>,
     pub event_kind: __sdk::__query_builder::Col<LifecycleEventFailure, LifecycleEventKind>,
     pub event_id: __sdk::__query_builder::Col<LifecycleEventFailure, String>,
-    pub effective_minute: __sdk::__query_builder::Col<LifecycleEventFailure, u64>,
-    pub recorded_minute: __sdk::__query_builder::Col<LifecycleEventFailure, u64>,
+    pub effective_minute: __sdk::__query_builder::Col<LifecycleEventFailure, StrategicMinute>,
+    pub recorded_minute: __sdk::__query_builder::Col<LifecycleEventFailure, StrategicMinute>,
     pub error: __sdk::__query_builder::Col<LifecycleEventFailure, String>,
 }
 

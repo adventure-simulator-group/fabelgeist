@@ -744,7 +744,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
     .flatten()
     {
         if !bridges.iter().any(|b: &CausalBridge| b.id.0 == key) {
-            bridges.push(bridge(key, &prefix, family, context.now_minute));
+            bridges.push(bridge(key, &prefix, family));
         }
     }
     for item in &bridges {
@@ -790,7 +790,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
             attack_pattern.stable_variant_id(),
             consequence(cause, template).symptom.stable_variant_id()
         ),
-        occurred_at: context.now_minute.saturating_sub(180),
+        occurred_at: context.now_minute.saturating_sub_minutes(180),
     }]
     .into_iter()
     .chain(bridges.iter().map(|b| CanonicalEvent {
@@ -799,7 +799,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
         subject: "causal bridge".into(),
         predicate: "explains".into(),
         object: b.explanation.clone(),
-        occurred_at: context.now_minute.saturating_sub(120),
+        occurred_at: context.now_minute.saturating_sub_minutes(120),
     }))
     .collect();
     if trace.len() > MAX_FACTOR_TRACE_RECORDS
@@ -1272,7 +1272,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 .saturating_add(definition.rise_minutes)
                 .saturating_add(definition.peak_minutes)
                 .saturating_add(definition.recovery_minutes);
-            let exposed_at = context.now_minute.saturating_sub(course_duration);
+            let exposed_at = context.now_minute.saturating_sub_minutes(course_duration);
             let episode_id = crate::disease::outbreak_exposure_seed(
                 resident_character_id,
                 &format!("{}:{patient_ref}", problem_id),
@@ -1285,22 +1285,22 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
                 ruleset_version: crate::physiology::PHYSIOLOGY_RULESET_VERSION,
                 phenotype_key_version: crate::physiology::PHENOTYPE_KEY_VERSION,
             };
-            let became_symptomatic_at = exposed_at.saturating_add(definition.incubation_minutes);
+            let became_symptomatic_at = exposed_at.saturating_add_minutes(definition.incubation_minutes);
             let immunity = f32::from(immunity_milli) / 1_000.0;
             let terminal = crate::disease::first_combined_terminal(
                 &[episode],
                 exposed_at,
                 exposed_at
-                    .saturating_add(definition.incubation_minutes)
-                    .saturating_add(definition.rise_minutes)
-                    .saturating_add(definition.peak_minutes)
-                    .saturating_add(definition.recovery_minutes),
+                    .saturating_add_minutes(definition.incubation_minutes)
+                    .saturating_add_minutes(definition.rise_minutes)
+                    .saturating_add_minutes(definition.peak_minutes)
+                    .saturating_add_minutes(definition.recovery_minutes),
                 immunity,
             );
             let (died_at, death_kind) = if carrier_death {
                 let attack_at = context
                     .now_minute
-                    .saturating_sub(crate::strategic_time::MINUTES_PER_DAY)
+                    .saturating_sub_days(1)
                     .max(became_symptomatic_at);
                 let attack_precedes_terminal =
                     terminal.is_none_or(|(terminal_at, _)| attack_at < terminal_at);
@@ -1388,7 +1388,7 @@ fn generate_outbreak(context: &GenerationContext) -> Result<GeneratedCase, Gener
             object: "the same few days".into(),
             occurred_at: context
                 .now_minute
-                .saturating_sub(3 * crate::strategic_time::MINUTES_PER_DAY),
+                .saturating_sub_days(3),
         }],
         consequence: ConsequenceProfile {
             symptom: Symptom::SickLocals,

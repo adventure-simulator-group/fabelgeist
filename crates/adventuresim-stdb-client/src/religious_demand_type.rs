@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ReligiousDemand {
@@ -14,8 +16,8 @@ pub struct ReligiousDemand {
     pub description: String,
     pub fervor: f32,
     pub status: String,
-    pub created_at_minute: u64,
-    pub resolved_at_minute: Option<u64>,
+    pub created_at_minute: StrategicMinute,
+    pub resolved_at_minute: Option<StrategicMinute>,
     pub resolution: Option<String>,
 }
 
@@ -34,8 +36,8 @@ pub struct ReligiousDemandCols {
     pub description: __sdk::__query_builder::Col<ReligiousDemand, String>,
     pub fervor: __sdk::__query_builder::Col<ReligiousDemand, f32>,
     pub status: __sdk::__query_builder::Col<ReligiousDemand, String>,
-    pub created_at_minute: __sdk::__query_builder::Col<ReligiousDemand, u64>,
-    pub resolved_at_minute: __sdk::__query_builder::Col<ReligiousDemand, Option<u64>>,
+    pub created_at_minute: __sdk::__query_builder::Col<ReligiousDemand, StrategicMinute>,
+    pub resolved_at_minute: __sdk::__query_builder::Col<ReligiousDemand, Option<StrategicMinute>>,
     pub resolution: __sdk::__query_builder::Col<ReligiousDemand, Option<String>>,
 }
 

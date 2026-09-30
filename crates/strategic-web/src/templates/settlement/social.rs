@@ -1170,7 +1170,7 @@ mod tests {
             axis: adventuresim_stdb_client::PersonalityAxis::SelfRegard,
             perceived_value: 1,
             confidence: 0.64,
-            observed_at_minute: 0,
+            observed_at_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
         });
         assert!(tooltip.contains("Confidence: 64%"));
         assert!(tooltip.contains("Injury is touchy"));

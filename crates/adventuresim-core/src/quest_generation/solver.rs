@@ -529,7 +529,7 @@ fn report_catalog_id(report: ReportDescription) -> &'static str {
     report_id(report)
 }
 
-fn bridge(id: &str, prefix: &str, family: TemplateFamily, _now: u64) -> CausalBridge {
+fn bridge(id: &str, prefix: &str, family: TemplateFamily) -> CausalBridge {
     let catalog_id = id.trim_start_matches("bridge.");
     let authored = crate::quest_catalog::catalog()
         .bridge(catalog_id)

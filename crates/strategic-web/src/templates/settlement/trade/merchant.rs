@@ -188,7 +188,7 @@ pub fn live_merchant_shop_page(
     conditions: &[crate::spacetimedb::ItemCondition],
     smith: Option<&crate::spacetimedb::SettlementSmith>,
     repair_orders: &[crate::spacetimedb::RepairOrder],
-    now_minutes: u64,
+    now_minutes: adventuresim_world_schema::calendar::StrategicMinute,
     personal_encumbrance: EncumbranceSummary,
     party_encumbrance: EncumbranceSummary,
     rest_default_minutes: Option<u64>,
@@ -555,7 +555,7 @@ mod tests {
             mass_kg: 25.0,
             nutrition_kcal: 5_000.0,
             total_value: 10.0,
-            created_at_minute: 1,
+            created_at_minute: adventuresim_stdb_client::StrategicMinute { minutes: 1 },
         };
         assert_eq!(merchant_inventory_weight(None, Some(&lot)), "25");
         assert_eq!(merchant_inventory_sell_price(None, Some(&lot)), 8);
@@ -658,7 +658,7 @@ mod tests {
                 &[],
                 None,
                 &[],
-                0,
+                adventuresim_world_schema::calendar::StrategicMinute::ZERO,
                 EncumbranceSummary::new(10.0, 100.0),
                 EncumbranceSummary::new(30.0, 200.0),
                 None,
@@ -757,7 +757,7 @@ mod tests {
             &[],
             None,
             &[],
-            0,
+            adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             EncumbranceSummary::default(),
             EncumbranceSummary::default(),
             None,

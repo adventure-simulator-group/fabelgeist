@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct LocalProblemReceipt {
@@ -17,8 +19,8 @@ pub struct LocalProblemReceipt {
     pub contact_resident_character_id: u64,
     pub expected_location_id: String,
     pub safe_summary: String,
-    pub learned_at: u64,
-    pub official_learned_at: u64,
+    pub learned_at: StrategicMinute,
+    pub official_learned_at: StrategicMinute,
 }
 
 impl __sdk::InModule for LocalProblemReceipt {
@@ -39,8 +41,8 @@ pub struct LocalProblemReceiptCols {
     pub contact_resident_character_id: __sdk::__query_builder::Col<LocalProblemReceipt, u64>,
     pub expected_location_id: __sdk::__query_builder::Col<LocalProblemReceipt, String>,
     pub safe_summary: __sdk::__query_builder::Col<LocalProblemReceipt, String>,
-    pub learned_at: __sdk::__query_builder::Col<LocalProblemReceipt, u64>,
-    pub official_learned_at: __sdk::__query_builder::Col<LocalProblemReceipt, u64>,
+    pub learned_at: __sdk::__query_builder::Col<LocalProblemReceipt, StrategicMinute>,
+    pub official_learned_at: __sdk::__query_builder::Col<LocalProblemReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for LocalProblemReceipt {

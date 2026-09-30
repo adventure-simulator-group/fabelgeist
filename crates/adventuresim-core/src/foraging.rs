@@ -6,6 +6,7 @@
 mod sampling;
 use sampling::ForageDraw;
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 
 use crate::{
@@ -684,9 +685,9 @@ pub struct ForagePlanAuthority {
     pub coordinates: ActionCoordinates<ForagePlanTarget>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
-    pub terminal_minute: Option<u64>,
+    pub terminal_minute: Option<StrategicMinute>,
     pub exact_presence: bool,
     pub encounter_clear: bool,
     pub environment_current: bool,
@@ -1082,7 +1083,7 @@ mod tests {
                     revision: SnapshotRevision(0),
                     digest: SnapshotDigest([1; 32]),
                 },
-                current_minute: 100,
+                current_minute: StrategicMinute::new(100),
                 duration: RequestedDuration::try_new(60).unwrap(),
                 terminal_minute,
                 exact_presence: true,
@@ -1112,12 +1113,14 @@ mod tests {
             stealth_succeeded: Some(false),
         };
 
-        let PlanningOutcome::Ready(zero) = build(Some(100), None) else {
+        let PlanningOutcome::Ready(zero) = build(Some(StrategicMinute::new(100)), None) else {
             panic!("zero-time plan rejected")
         };
         assert_eq!(zero.effects().len(), 1);
 
-        let PlanningOutcome::Ready(partial) = build(Some(130), Some(result.clone())) else {
+        let PlanningOutcome::Ready(partial) =
+            build(Some(StrategicMinute::new(130)), Some(result.clone()))
+        else {
             panic!("partial plan rejected")
         };
         assert!(partial.effects().iter().any(|effect| matches!(
@@ -1195,7 +1198,7 @@ mod tests {
                 revision: SnapshotRevision(1),
                 digest: SnapshotDigest([3; 32]),
             },
-            current_minute: 0,
+            current_minute: StrategicMinute::ZERO,
             duration: RequestedDuration::try_new(60).unwrap(),
             terminal_minute: None,
             exact_presence: true,

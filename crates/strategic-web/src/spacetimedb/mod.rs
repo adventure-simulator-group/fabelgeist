@@ -1,9 +1,11 @@
 //! SpacetimeDB HTTP client module
 
+mod calendar;
 mod client;
 mod queries;
 mod types;
 
+pub(crate) use calendar::{calendar_countdown_days, calendar_minute};
 pub(crate) use client::{Result, SpacetimeClient, SpacetimeError};
 pub(crate) use queries::{
     SqlQuery, automatic_social_chat_by_id, autoresolve_report_by_battle_id,

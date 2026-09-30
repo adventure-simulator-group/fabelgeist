@@ -39,7 +39,7 @@ pub(super) fn generation_context(seed: u64, family: TemplateFamily) -> qg::Gener
             settlement_id: "settlement:evaluator".into(),
         },
         ordinal: (seed & u64::from(u16::MAX)) as u16,
-        now_minute: 100_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(family),
         witness_candidates: vec![

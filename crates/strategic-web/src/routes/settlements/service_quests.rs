@@ -216,7 +216,7 @@ mod apprenticeship_representative_tests {
             settlement_id: settlement_id.into(),
             location_id: location_id.into(),
             start_minute: 0,
-            end_minute: adventuresim_core::strategic_time::MINUTES_PER_DAY as u16,
+            end_minute: adventuresim_world_schema::calendar::MINUTES_PER_DAY as u16,
             is_default: true,
             context_suppressed: false,
             health_suppressed: false,

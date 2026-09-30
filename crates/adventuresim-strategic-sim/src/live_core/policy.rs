@@ -50,9 +50,9 @@ struct PublicInterventionOffer {
     inventory_item_id: Option<u64>,
 }
 
-fn public_chart_is_fresh(patient_minute: u64, observed_at: u64) -> bool {
+fn public_chart_is_fresh(patient_minute: StrategicMinute, observed_at: StrategicMinute) -> bool {
     observed_at <= patient_minute
-        && patient_minute.saturating_sub(observed_at) <= MAX_ACTIONABLE_PHYSIOLOGY_CHART_AGE_MINUTES
+        && patient_minute.elapsed_since(observed_at) <= MAX_ACTIONABLE_PHYSIOLOGY_CHART_AGE_MINUTES
 }
 
 #[expect(
@@ -61,11 +61,11 @@ fn public_chart_is_fresh(patient_minute: u64, observed_at: u64) -> bool {
 )]
 fn compare_public_chart_rank(
     left_confidence: u16,
-    left_observed_at: u64,
+    left_observed_at: StrategicMinute,
     left_observer_id: u64,
     left_id: &str,
     right_confidence: u16,
-    right_observed_at: u64,
+    right_observed_at: StrategicMinute,
     right_observer_id: u64,
     right_id: &str,
 ) -> std::cmp::Ordering {

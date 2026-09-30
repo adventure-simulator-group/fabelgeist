@@ -371,7 +371,7 @@ fn context(seed: u64, family: TemplateFamily) -> GenerationContext {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: crate::weather::Precipitation::Clear,
         requested_family: Some(family),
         witness_candidates: test_witnesses(),
@@ -502,7 +502,7 @@ fn referred_witness_pipeline_fits_every_stable_id_budget_in_both_families() {
                     &generated,
                     witness,
                     index,
-                    50_000,
+                    adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
                 )
                 .unwrap();
                 assert!(receipt_id.starts_with("testimony:"));
@@ -539,11 +539,27 @@ fn incident_weather_changes_perception_without_changing_reliability_stages() {
     let generated = generate(&clear_context).unwrap();
     let witness = &generated.witnesses[0];
     let (_, clear) =
-        generated_testimony_pipeline(&clear_context, 1, &generated, witness, 0, 50_000).unwrap();
+        generated_testimony_pipeline(
+            &clear_context,
+            1,
+            &generated,
+            witness,
+            0,
+            adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
+        )
+        .unwrap();
     let mut rainy_context = clear_context.clone();
     rainy_context.incident_weather = crate::weather::Precipitation::Rain;
     let (_, rainy) =
-        generated_testimony_pipeline(&rainy_context, 1, &generated, witness, 0, 50_000).unwrap();
+        generated_testimony_pipeline(
+            &rainy_context,
+            1,
+            &generated,
+            witness,
+            0,
+            adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
+        )
+        .unwrap();
     assert_eq!(rainy.perception, PerceptionCondition::PoorPerception);
     assert_eq!(rainy.memory, clear.memory);
     assert_eq!(rainy.disclosure, clear.disclosure);

@@ -17,7 +17,7 @@ fn record_commitment_event(
     commitment: &ExclusiveCommitment,
     status: CommitmentStatus,
     reason: Option<CommitmentTerminalReason>,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let id = format!(
         "commitment-event:{}:{minute}:{}",
@@ -42,7 +42,7 @@ fn transition_commitment_terminal(
     mut commitment: ExclusiveCommitment,
     status: CommitmentStatus,
     reason: CommitmentTerminalReason,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<ExclusiveCommitment, String> {
     commitment.parsed_state()?;
     if commitment.status != CommitmentStatus::Reserved {
@@ -112,7 +112,7 @@ fn transition_commitment_terminal(
 pub(crate) fn settle_relationship_lifecycle_for_death(
     ctx: &ReducerContext,
     character_id: u64,
-    death_minute: u64,
+    death_minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut commitments = ctx
         .db
@@ -203,7 +203,7 @@ pub(crate) fn reserve_wedding(
     ctx: &ReducerContext,
     first_character_id: u64,
     second_character_id: u64,
-    scheduled_from_minute: u64,
+    scheduled_from_minute: StrategicMinute,
 ) -> Result<ExclusiveCommitment, CourtshipPairError> {
     if first_character_id == second_character_id {
         return Err("A character cannot marry themself".into());
@@ -269,7 +269,6 @@ pub(crate) fn reserve_wedding(
                 "Wedding scheduling requires a shared ceremony settlement",
             )
         })?;
-    let prefix = commitment_id(first, second);
     let ordinal = ctx
         .db
         .exclusive_commitment()
@@ -277,7 +276,8 @@ pub(crate) fn reserve_wedding(
         .filter(first)
         .filter(|row| row.second_character_id == second)
         .count();
-    let id = format!("{prefix}:{scheduled_from_minute}:{ordinal}");
+    let pair_id = commitment_id(first, second);
+    let id = format!("{pair_id}:{scheduled_from_minute}:{ordinal}");
     let row = ExclusiveCommitment {
         id: id.clone(),
         first_character_id: first,
@@ -285,7 +285,7 @@ pub(crate) fn reserve_wedding(
         kind: CommitmentKind::Engagement,
         status: CommitmentStatus::Reserved,
         ceremony_settlement_id,
-        effective_minute: scheduled_from_minute.saturating_add(WEDDING_NOTICE_MINUTES),
+        effective_minute: scheduled_from_minute.saturating_add_minutes(WEDDING_NOTICE_MINUTES),
         created_minute: scheduled_from_minute,
         resolved_minute: None,
         terminal_reason: None,

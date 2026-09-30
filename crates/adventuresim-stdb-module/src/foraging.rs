@@ -13,9 +13,13 @@ use adventuresim_core::{
     },
     strategic_place::StrategicPlaceId,
 };
-use adventuresim_world_schema::coordinates::Wgs84CoordinateE7;
+use adventuresim_world_schema::{calendar::StrategicMinute, coordinates::Wgs84CoordinateE7};
 use sha2::{Digest, Sha256};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
+
+mod timing;
+
+use timing::{character_minute, forage_terminal_minute};
 
 use crate::{
     capability::StrategicEquipment,
@@ -64,8 +68,8 @@ pub struct ForageAttemptAuthority {
     pub environment_digest: String,
     pub canonical_place: String,
     pub resolution_seed: u64,
-    pub started_at: u64,
-    pub completed_at: u64,
+    pub started_at: StrategicMinute,
+    pub completed_at: StrategicMinute,
     pub requested_minutes: u64,
     pub elapsed_minutes: u64,
     pub source_ids: Vec<String>,
@@ -514,7 +518,7 @@ fn acting_checks(
 fn resolution_seed(
     private_entropy: u64,
     character_id: u64,
-    started_at: u64,
+    started_at: StrategicMinute,
     attestation: &ForageEnvironmentAttestation,
     sources: &[String],
 ) -> u64 {
@@ -522,7 +526,7 @@ fn resolution_seed(
     hasher.update(b"forage-resolution-v2");
     hasher.update(private_entropy.to_le_bytes());
     hasher.update(character_id.to_le_bytes());
-    hasher.update(started_at.to_le_bytes());
+    hasher.update(started_at.get().to_le_bytes());
     hasher.update(attestation.latitude_e7.to_le_bytes());
     hasher.update(attestation.longitude_e7.to_le_bytes());
     for source in sources {
@@ -543,34 +547,6 @@ fn encode_digest(bytes: &[u8]) -> String {
         let _ = write!(&mut output, "{byte:02x}");
     }
     output
-}
-
-fn forage_terminal_minute(
-    ctx: &ReducerContext,
-    character_id: u64,
-    current_minute: u64,
-    duration: u64,
-) -> Result<Option<u64>, String> {
-    let injury = crate::surgery::preview_injury_boundary(
-        ctx,
-        character_id,
-        duration,
-        crate::surgery::InjuryRecoveryMinutes::NONE,
-    )?;
-    let (disease_safe, disease_terminal) = crate::disease::preview_disease_terminal_boundary(
-        ctx,
-        character_id,
-        injury.elapsed,
-        false,
-    )?;
-    let safe = injury.elapsed.min(disease_safe);
-    if safe < duration || injury.terminal || disease_terminal {
-        Ok(Some(current_minute.checked_add(safe).ok_or(
-            "Foraging terminal time exceeds the strategic clock",
-        )?))
-    } else {
-        Ok(None)
-    }
 }
 
 fn environment_digest(
@@ -616,8 +592,8 @@ fn forage_authority_digest(
     environment_digest: [u8; 32],
     source_ids: &[String],
     requested_minutes: u64,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
@@ -636,8 +612,13 @@ fn forage_authority_digest(
         frame(source.as_bytes());
     }
     frame(&requested_minutes.to_le_bytes());
-    frame(&current_minute.to_le_bytes());
-    frame(&terminal_minute.unwrap_or(u64::MAX).to_le_bytes());
+    frame(&current_minute.get().to_le_bytes());
+    frame(
+        &terminal_minute
+            .unwrap_or(StrategicMinute::MAX)
+            .get()
+            .to_le_bytes(),
+    );
     frame(&attempt_generation.to_le_bytes());
     frame(&terrain_check.to_le_bytes());
     frame(&stealth_check.to_le_bytes());
@@ -679,8 +660,8 @@ fn build_forage_planner(
     environment: ForageEnvironment,
     source_ids: &[String],
     requested_minutes: u64,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
     terrain_check: u16,
     stealth_check: u16,
@@ -743,7 +724,7 @@ fn build_forage_planner(
         stealth_check,
         seed,
     );
-    let decisions = license_decisions(ctx, actor, source_ids, current_minute)?;
+    let decisions = license_decisions(ctx, actor, source_ids, current_minute.get())?;
     Ok(foraging::build_forage_plan(foraging::ForagePlanAuthority {
         coordinates,
         provenance: PlanProvenance {
@@ -870,13 +851,7 @@ pub fn forage_current_vicinity(
     });
     let (terrain_check, stealth_check) = acting_checks(ctx, character_id, environment.terrain)?;
     crate::time::initialize_character_time(ctx, character_id)?;
-    let started_at = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character time record not found")?
-        .minutes;
+    let started_at = character_minute(ctx, character_id)?;
     let seed = resolution_seed(
         ctx.random::<u64>(),
         character_id,
@@ -972,14 +947,8 @@ pub fn forage_current_vicinity(
         return Err("Foraging planner effects do not match authority".into());
     }
     let completed = crate::time::advance_investigation_time(ctx, character_id, requested_minutes)?;
-    let completed_at = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character time record not found after foraging")?
-        .minutes;
-    let elapsed = completed_at.saturating_sub(started_at);
+    let completed_at = character_minute(ctx, character_id)?;
+    let elapsed = completed_at.elapsed_since(started_at);
     let interrupted = !planned.time().permits_completion_effects();
     if elapsed != planned.time().elapsed_minutes
         || completed != planned.time().permits_completion_effects()
@@ -1303,16 +1272,12 @@ mod tests {
     #[test]
     fn planner_uses_committing_time_policy_and_checked_attempt_generation() {
         let source = crate::production_source(include_str!("foraging.rs"));
-        let preview = source
-            .split("fn forage_terminal_minute")
-            .nth(1)
-            .and_then(|tail| tail.split("fn environment_digest").next())
-            .expect("foraging terminal preview");
+        let preview = crate::production_source(include_str!("foraging/timing.rs"));
         assert!(preview.contains("preview_injury_boundary("));
         assert!(preview.contains("InjuryRecoveryMinutes::NONE"));
         assert!(preview.contains("preview_disease_terminal_boundary("));
         assert!(preview.contains("injury.elapsed"));
-        assert!(preview.contains("current_minute.checked_add(safe)"));
+        assert!(preview.contains("current_minute.checked_add_minutes(safe)"));
 
         let reducer = source
             .split("pub fn forage_current_vicinity")

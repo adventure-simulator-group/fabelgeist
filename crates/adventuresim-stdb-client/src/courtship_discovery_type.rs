@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CourtshipDiscovery {
@@ -11,7 +13,7 @@ pub struct CourtshipDiscovery {
     pub courtship_id: String,
     pub observer_id: u64,
     pub day: u64,
-    pub attempted_minute: u64,
+    pub attempted_minute: StrategicMinute,
     pub succeeded: bool,
     pub observer_insight: f32,
     pub weaker_deception: f32,
@@ -29,7 +31,7 @@ pub struct CourtshipDiscoveryCols {
     pub courtship_id: __sdk::__query_builder::Col<CourtshipDiscovery, String>,
     pub observer_id: __sdk::__query_builder::Col<CourtshipDiscovery, u64>,
     pub day: __sdk::__query_builder::Col<CourtshipDiscovery, u64>,
-    pub attempted_minute: __sdk::__query_builder::Col<CourtshipDiscovery, u64>,
+    pub attempted_minute: __sdk::__query_builder::Col<CourtshipDiscovery, StrategicMinute>,
     pub succeeded: __sdk::__query_builder::Col<CourtshipDiscovery, bool>,
     pub observer_insight: __sdk::__query_builder::Col<CourtshipDiscovery, f32>,
     pub weaker_deception: __sdk::__query_builder::Col<CourtshipDiscovery, f32>,
