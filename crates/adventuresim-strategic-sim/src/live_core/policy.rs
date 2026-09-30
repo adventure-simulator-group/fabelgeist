@@ -574,8 +574,8 @@ fn live_personality(character_id: u64, p: &core_personality::Personality) -> Cha
             core_personality::Presentation::Woman => adventuresim_stdb_client::Presentation::Woman,
         },
         sex: match p.sex {
-            core_personality::Sex::Female => adventuresim_stdb_client::Sex::Female,
-            core_personality::Sex::Male => adventuresim_stdb_client::Sex::Male,
+            adventuresim_world_schema::Sex::Female => adventuresim_stdb_client::Sex::Female,
+            adventuresim_world_schema::Sex::Male => adventuresim_stdb_client::Sex::Male,
         },
     }
 }

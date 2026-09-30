@@ -44,20 +44,18 @@ pub(super) fn validate(
 fn repertoire_targets(repertoires: &[NameRepertoireDefinition]) -> BTreeMap<TargetKey, u64> {
     let mut targets = BTreeMap::new();
     for repertoire in repertoires {
-        for entry in repertoire
-            .female_families
-            .iter()
-            .chain(repertoire.male_families.iter())
-        {
-            targets.insert(
-                (
-                    repertoire.id.clone(),
-                    Some(entry.family_id.clone()),
-                    None,
-                    None,
-                ),
-                entry.frequency,
-            );
+        for families in repertoire.families.values() {
+            for entry in families {
+                targets.insert(
+                    (
+                        repertoire.id.clone(),
+                        Some(entry.family_id.clone()),
+                        None,
+                        None,
+                    ),
+                    entry.frequency,
+                );
+            }
         }
         for entry in &repertoire.everyday_forms {
             targets.insert(

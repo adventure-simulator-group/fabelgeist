@@ -3178,7 +3178,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
         .find(TARGET)
         .map_or(StrategicMinute::ZERO, |v| v.minutes);
     let mut viewer_personality = crate::personality::personality_or_neutral(ctx, VIEWER);
-    viewer_personality.sex = crate::personality::Sex::Male;
+    viewer_personality.sex = adventuresim_world_schema::Sex::Male;
     viewer_personality.presentation = crate::personality::Presentation::Man;
     viewer_personality.inclination = crate::personality::Inclination::Women;
     crate::personality::update_personality_demographics(
@@ -3194,7 +3194,7 @@ pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
     personality.conscience = crate::personality::Conscience::Cruel;
     personality.mirth = crate::personality::Mirth::Merry;
     personality.courtship = crate::personality::Courtship::Amorous;
-    personality.sex = crate::personality::Sex::Female;
+    personality.sex = adventuresim_world_schema::Sex::Female;
     personality.presentation = crate::personality::Presentation::Woman;
     personality.inclination = crate::personality::Inclination::Men;
     crate::personality::reset_personality_from_visible(ctx, personality);

@@ -129,7 +129,7 @@
     sites: { id: "site:new", kind: null, role: "evidence", terrain: "underground", safe_label: "Place a witness described", exact_location_initially_known: false, is_true_location: false },
     areas: { id: "area:new", safe_label: "Nearby search area", terrain: "forest", contains_site_ids: [] },
     witnesses: { id: "witness:new", resident_character_id: "", display_name: "", demographic: null, circumstance: null, description: null, expected_location: "", expected_location_label: "", visible_description: "", testimony: [] },
-    pattern_targets: { cohort_id: "cohort:new", resident_character_id: "", demographic: null, age_band: "adult", sex: "female", profession: "", expected_settlement_id: "", expected_location: "", expected_location_label: "", presence_version: 0 },
+    pattern_targets: { cohort_id: "cohort:new", resident_character_id: "", demographic: null, age_band: "adult", sex: null, profession: "", expected_settlement_id: "", expected_location: "", expected_location_label: "", presence_version: 0 },
     evidence: { id: "evidence:new", kind: null, proposition_id: "proposition:new", site_id: "site:new", portrait_label: "Physical evidence", portrait_icon: "footprint", base_description: "You inspect the evidence.", inspection_topics: [], safe_description: "Physical evidence", corrects_proposition_id: null },
     track_trails: { id: "track-trail:new", segment_ids: [] },
     track_segments: { id: "track-segment:new", trail_id: "track-trail:new", ordinal: 0, terrain: "settlement", safe_finding: "The trail continues across this ground.", predecessor: null, next: null },
@@ -363,7 +363,7 @@
         if (binding) {
           const snapshot = document.createElement("p");
           snapshot.className = "developer-quest-binding-snapshot";
-          snapshot.textContent = `Bound NPC snapshot: ${binding.age_band}, ${binding.sex}, ${binding.profession}; presence ${binding.presence_version}. Allowed circumstances: ${binding.allowed_circumstances.map(label).join(", ")}.`;
+          snapshot.textContent = `Bound NPC snapshot: ${binding.age_band}, ${binding.sex ?? "undisclosed sex"}, ${binding.profession}; presence ${binding.presence_version}. Allowed circumstances: ${binding.allowed_circumstances.map(label).join(", ")}.`;
           fieldset.append(snapshot);
         }
       }

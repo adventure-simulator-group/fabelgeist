@@ -3,6 +3,17 @@
 const E7_UNITS_PER_COORDINATE_UNIT: i32 = 10_000_000;
 const MILLIONTHS_PER_COORDINATE_UNIT: i32 = 1_000_000;
 
+/// Whether finite geographic coordinates fall inside inclusive WGS84 bounds.
+pub fn coordinates_in_bounds(longitude: f64, latitude: f64, bounds: [f64; 4]) -> bool {
+    let [west, south, east, north] = bounds;
+    longitude.is_finite()
+        && latitude.is_finite()
+        && longitude >= west
+        && longitude <= east
+        && latitude >= south
+        && latitude <= north
+}
+
 /// An E7-scaled coordinate component without WGS84 axis bounds.
 ///
 /// This is reserved for strategic locations whose coordinate system is

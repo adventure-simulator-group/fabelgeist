@@ -2,12 +2,12 @@ use adventuresim_core::{
     attribute::PlayerAttributeValues,
     personality::{
         Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-        Personality, Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance,
+        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
         Transparency,
     },
     strategic_schedule::{DailySchedule, SkillHours},
 };
-use adventuresim_world_schema::{BestiaryHours, ReligionHours};
+use adventuresim_world_schema::{BestiaryHours, ReligionHours, Sex};
 use fabelgeist_determinism::DeterministicRng;
 use serde::{Deserialize, Serialize};
 
@@ -384,11 +384,7 @@ fn generated_personality(rng: &mut DeterministicRng) -> Personality {
             }
         }
     }
-    p.sex = if rng.boolean() {
-        Sex::Female
-    } else {
-        Sex::Male
-    };
+    p.sex = *rng.choose(Sex::VARIANTS);
     p.presentation = match (p.sex, rng.index(100)) {
         (_, 0..=3) => Presentation::Ambiguous,
         (Sex::Female, 4) => Presentation::Man,

@@ -632,7 +632,7 @@ fn build_actions(
                 cohort_id: target.cohort_id.clone(),
                 demographic: target.demographic,
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
             }
         }

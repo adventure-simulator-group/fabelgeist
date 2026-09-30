@@ -1,10 +1,11 @@
 // Persistent semantic personal-name authority and projection helpers.
 
 use adventuresim_world_schema::{
+    Culture, Sex,
     calendar::CalendarYear,
     person_names::{
-        NameCulture, NameGenerationContext, NameRegister, NameSex, NameStableSeed,
-        PersonalNameIdentity, SurnameId, generate_personal_name, render_personal_name,
+        NameGenerationContext, NameRegister, NameStableSeed, PersonalNameIdentity, SurnameId,
+        generate_personal_name, render_personal_name,
     },
 };
 
@@ -22,24 +23,21 @@ pub struct CharacterNameIdentity {
     pub identity_json: NameIdentityJson,
 }
 
-fn character_name_sex(ctx: &ReducerContext, character_id: CharacterId) -> Result<NameSex, String> {
+fn character_name_sex(ctx: &ReducerContext, character_id: CharacterId) -> Result<Sex, String> {
     let personality = ctx
         .db
         .character_personality()
         .character_id()
         .find(character_id.get())
         .ok_or_else(|| format!("Character {} has no personality", character_id.get()))?;
-    Ok(match personality.sex {
-        crate::personality::Sex::Female => NameSex::Female,
-        crate::personality::Sex::Male => NameSex::Male,
-    })
+    Ok(personality.sex)
 }
 
 fn authored_name_identity(name: String) -> PersonalNameIdentity {
-    PersonalNameIdentity::authored(name, NameCulture::German)
+    PersonalNameIdentity::authored(name, Culture::German)
 }
 
-/// Persist a semantic identity and refresh the compatibility display string.
+/// Persist a semantic identity and refresh the character's display name.
 pub(crate) fn assign_character_name_identity(
     ctx: &ReducerContext,
     character_id: CharacterId,
@@ -107,7 +105,7 @@ pub(crate) fn assign_generated_historical_name(
 }
 
 pub(crate) fn generated_historical_identity(
-    sex: NameSex,
+    sex: Sex,
     stable_seed: NameSeed,
     birth_year: CalendarYear,
     inherited_surname: Option<SurnameId>,
@@ -152,7 +150,7 @@ pub(crate) fn assign_newborn_historical_name(
     mother_id: CharacterId,
     due_minute: StrategicMinute,
     stable_seed: NameSeed,
-    sex: crate::personality::Sex,
+    sex: Sex,
 ) -> Result<(), String> {
     let mut personality = ctx
         .db
@@ -162,8 +160,8 @@ pub(crate) fn assign_newborn_historical_name(
         .ok_or("Newborn has no personality")?;
     personality.sex = sex;
     personality.presentation = match sex {
-        crate::personality::Sex::Female => crate::personality::Presentation::Woman,
-        crate::personality::Sex::Male => crate::personality::Presentation::Man,
+        Sex::Female => crate::personality::Presentation::Woman,
+        Sex::Male => crate::personality::Presentation::Man,
     };
     ctx.db
         .character_personality()

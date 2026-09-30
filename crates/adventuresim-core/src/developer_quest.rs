@@ -1910,7 +1910,7 @@ pub fn schema_json(witness_candidates: &[qg::WitnessCandidate]) -> Value {
                 "pattern_condition": {
                     "night_window":{"kind":"night_window"},
                     "road_route":{"kind":"road_route"},
-                    "victim_profile":{"kind":"victim_profile","cohort_id":"cohort:new","demographic":demographics.first().map(|item| item.id.clone()).unwrap_or_default(),"age_band":"adult","sex":"female","profession":""},
+                    "victim_profile":{"kind":"victim_profile","cohort_id":"cohort:new","demographic":demographics.first().map(|item| item.id.clone()).unwrap_or_default(),"age_band":"adult","sex":null,"profession":""},
                     "broad_survey":{"kind":"broad_survey"}
                 },
                 "action_consequence": {

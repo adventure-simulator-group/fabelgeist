@@ -5,6 +5,7 @@
     reason = "runtime deserialization validates the complete schema without reading every field"
 )]
 
+use adventuresim_world_schema::Sex;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
@@ -297,8 +298,10 @@ pub enum FactKey {
 
 impl FactKey {
     pub fn authoring_value_is_valid(&self, value: &FactValue) -> bool {
-        let _ = value;
-        true
+        match self {
+            Self::ParticipantSex { .. } => matches!(value, FactValue::Sex { .. }),
+            _ => !matches!(value, FactValue::Sex { .. }),
+        }
     }
 
     pub fn participant_roles(&self) -> impl Iterator<Item = &str> {
@@ -351,5 +354,6 @@ impl FactKey {
 pub enum FactValue {
     Bool(bool),
     Integer(i64),
+    Sex { sex: Sex },
     Text(String),
 }

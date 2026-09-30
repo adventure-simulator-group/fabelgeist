@@ -62,7 +62,7 @@ impl ResidentDraft {
         presence: DefaultPresence,
         business_id: Option<BusinessId>,
     ) -> Self {
-        let female = resident_random(&seed, ResidentEntropyStream::Sex).boolean();
+        let sex = *resident_random(&seed, ResidentEntropyStream::Sex).choose(Sex::VARIANTS);
         Self {
             character_id: resident_character_id(&seed),
             seed,
@@ -72,11 +72,10 @@ impl ResidentDraft {
             role: role.into(),
             is_default: presence.is_default(),
             business_id,
-            sex: if female { Sex::Female } else { Sex::Male },
-            presentation: if female {
-                Presentation::Woman
-            } else {
-                Presentation::Man
+            sex,
+            presentation: match sex {
+                Sex::Female => Presentation::Woman,
+                Sex::Male => Presentation::Man,
             },
             exact_age: None,
             inherited_surname: None,
@@ -222,13 +221,6 @@ pub(super) fn finalize_household_demographics(drafts: &mut [ResidentDraft]) -> V
         .collect()
 }
 
-fn name_sex(sex: Sex) -> adventuresim_world_schema::person_names::NameSex {
-    match sex {
-        Sex::Female => adventuresim_world_schema::person_names::NameSex::Female,
-        Sex::Male => adventuresim_world_schema::person_names::NameSex::Male,
-    }
-}
-
 fn assign_household_surnames(
     drafts: &mut [ResidentDraft],
     household_groups: &[Vec<u64>],
@@ -245,7 +237,7 @@ fn assign_household_surnames(
             .birth_year_for_age(first.exact_age.unwrap_or(30))
             .ok_or("Resident age predates the calendar")?;
         let identity = crate::character::generated_historical_identity(
-            name_sex(first.sex),
+            first.sex,
             resident_random(&first.seed, ResidentEntropyStream::Identity)
                 .next_u64()
                 .into(),

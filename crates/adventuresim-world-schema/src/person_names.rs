@@ -1,6 +1,6 @@
 //! Historically sourced personal-name identities, generation, and rendering.
 
-use crate::{OfficialReligion, calendar::CalendarYear};
+use crate::{Culture, OfficialReligion, Sex, calendar::CalendarYear};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -10,7 +10,7 @@ mod name_catalog_schema {
 }
 use name_catalog_schema::NameCatalogDocument;
 pub use name_catalog_schema::{
-    HistoricalRecordUnit, NameCulture, NameRegister, NameReligiousTradition, NameSex, SurnameClass,
+    HistoricalRecordUnit, NameRegister, NameReligiousTradition, SurnameClass,
 };
 
 include!(concat!(env!("OUT_DIR"), "/name_catalog.rs"));
@@ -169,13 +169,13 @@ pub enum GivenNameResolution {
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct PersonalNameIdentity {
     pub given: GivenNameResolution,
-    pub native_culture: NameCulture,
+    pub native_culture: Culture,
     pub form_selector: NameFormSelectionSeed,
     pub surname_id: Option<SurnameId>,
 }
 
 impl PersonalNameIdentity {
-    pub fn authored(full_name: impl Into<String>, native_culture: NameCulture) -> Self {
+    pub fn authored(full_name: impl Into<String>, native_culture: Culture) -> Self {
         Self {
             given: GivenNameResolution::Authored {
                 full_name: full_name.into(),
@@ -218,8 +218,8 @@ pub enum NameGeographicRegion {
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct NameGenerationContext {
-    pub sex: NameSex,
-    pub culture: NameCulture,
+    pub sex: Sex,
+    pub culture: Culture,
     pub religion: OfficialReligion,
     pub geographic_region: NameGeographicRegion,
     pub birth_year: CalendarYear,
@@ -228,10 +228,10 @@ pub struct NameGenerationContext {
 }
 
 impl NameGenerationContext {
-    pub fn german_lutheran(sex: NameSex, birth_year: CalendarYear) -> Self {
+    pub fn german_lutheran(sex: Sex, birth_year: CalendarYear) -> Self {
         Self {
             sex,
-            culture: NameCulture::German,
+            culture: Culture::German,
             religion: OfficialReligion::Lutheran,
             geographic_region: NameGeographicRegion::Mvp,
             birth_year,
@@ -303,10 +303,10 @@ fn generate_personal_name_from_catalog(
     inherited_surname: Option<SurnameId>,
 ) -> Result<PersonalNameIdentity, NameCatalogError> {
     let repertoire = matching_repertoire(catalog, context)?;
-    let family_weights = match context.sex {
-        NameSex::Female => &repertoire.female_families,
-        NameSex::Male => &repertoire.male_families,
-    };
+    let family_weights = repertoire
+        .families
+        .get(&context.sex)
+        .ok_or(NameCatalogError::EmptyEligibleNames)?;
     let family_index = FAMILY_STREAM
         .rng(stable_seed.get(), &[])
         .weighted_index(
@@ -367,9 +367,9 @@ fn generate_personal_name_from_catalog(
 
 pub fn render_personal_name(
     identity: &PersonalNameIdentity,
-    viewer_culture: NameCulture,
+    viewer_culture: Culture,
     register: NameRegister,
-    sex: NameSex,
+    sex: Sex,
 ) -> Result<RenderedPersonalName, NameCatalogError> {
     let catalog = catalog();
     let given = match &identity.given {
@@ -445,7 +445,7 @@ fn form_text<'a>(
 fn render_family_form(
     catalog: &NameCatalogDocument,
     family_id: &str,
-    culture: NameCulture,
+    culture: Culture,
     register: NameRegister,
     selector: NameFormSelectionSeed,
 ) -> Result<String, NameCatalogError> {
@@ -474,8 +474,8 @@ fn render_family_form(
 fn render_surname(
     catalog: &NameCatalogDocument,
     surname_id: &str,
-    culture: NameCulture,
-    sex: NameSex,
+    culture: Culture,
+    sex: Sex,
     selector: NameFormSelectionSeed,
 ) -> Result<String, NameCatalogError> {
     let sex_specific: Vec<_> = catalog
@@ -521,24 +521,41 @@ mod tests {
     }
 
     #[test]
+    fn repertoire_fragments_extend_the_matching_sex_group() {
+        let repertoire = catalog()
+            .repertoires
+            .iter()
+            .find(|entry| entry.id == GERMAN_WESTERN_CHRISTIAN_REPERTOIRE_ID)
+            .unwrap();
+        let female = &repertoire.families[&Sex::Female];
+        let male = &repertoire.families[&Sex::Male];
+        assert_eq!(female[0].family_id, "anna");
+        assert_eq!(male[0].family_id, "johannes");
+        assert!(female.iter().any(|entry| entry.family_id == "aulia"));
+        assert!(male.iter().any(|entry| entry.family_id == "gallus"));
+        assert!(!female.iter().any(|entry| entry.family_id == "gallus"));
+        assert!(!male.iter().any(|entry| entry.family_id == "aulia"));
+    }
+
+    #[test]
     fn generated_name_has_resolved_family_and_stable_rendering() {
         let context =
-            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1522).unwrap());
+            NameGenerationContext::german_lutheran(Sex::Male, CalendarYear::new(1522).unwrap());
         let identity = generate_personal_name(context, NameStableSeed::new(42), None).unwrap();
         let first = render_personal_name(
             &identity,
-            NameCulture::German,
+            Culture::German,
             NameRegister::Everyday,
-            NameSex::Male,
+            Sex::Male,
         )
         .unwrap();
         assert_eq!(
             first,
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap()
         );
@@ -596,16 +613,16 @@ mod tests {
                     .collect(),
                 recorded_form: henne.text.clone(),
             },
-            native_culture: NameCulture::German,
+            native_culture: Culture::German,
             form_selector: NameFormSelectionSeed::new(7),
             surname_id: None,
         };
         assert_eq!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap()
             .as_str(),
@@ -615,13 +632,13 @@ mod tests {
 
     #[test]
     fn authored_names_are_not_parsed() {
-        let identity = PersonalNameIdentity::authored("Theophrastus Bombast", NameCulture::German);
+        let identity = PersonalNameIdentity::authored("Theophrastus Bombast", Culture::German);
         assert_eq!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap()
             .as_str(),
@@ -640,13 +657,13 @@ mod tests {
                 .is_err()
             );
         }
-        let authored = PersonalNameIdentity::authored("Hans\nBecker", NameCulture::German);
+        let authored = PersonalNameIdentity::authored("Hans\nBecker", Culture::German);
         assert!(
             render_personal_name(
                 &authored,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .is_err()
         );
@@ -655,7 +672,7 @@ mod tests {
     #[test]
     fn culture_and_period_select_the_baseline_without_invented_modifiers() {
         let lutheran =
-            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1520).unwrap());
+            NameGenerationContext::german_lutheran(Sex::Male, CalendarYear::new(1520).unwrap());
         let mut catholic_elsewhere = lutheran;
         catholic_elsewhere.religion = OfficialReligion::RomanCatholic;
         catholic_elsewhere.geographic_region = NameGeographicRegion::Unspecified;
@@ -663,13 +680,6 @@ mod tests {
         assert_eq!(
             generate_personal_name(lutheran, NameStableSeed::new(91), None).unwrap(),
             generate_personal_name(catholic_elsewhere, NameStableSeed::new(91), None).unwrap()
-        );
-
-        let mut english = lutheran;
-        english.culture = NameCulture::English;
-        assert_eq!(
-            generate_personal_name(english, NameStableSeed::new(91), None),
-            Err(NameCatalogError::NoMatchingRepertoire)
         );
 
         let mut jewish = lutheran;
@@ -687,24 +697,24 @@ mod tests {
                 family_id: NameFamilyId::new("johannes"),
                 native_form_id: NameFormId::new("johannes_hans_de"),
             },
-            native_culture: NameCulture::German,
+            native_culture: Culture::German,
             form_selector: NameFormSelectionSeed::new(31),
             surname_id: Some(SurnameId::new("becker")),
         };
         let everyday = render_personal_name(
             &identity,
-            NameCulture::German,
+            Culture::German,
             NameRegister::Everyday,
-            NameSex::Male,
+            Sex::Male,
         )
         .unwrap();
         assert_eq!(everyday.as_str(), "Hans Becker");
         assert_eq!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Documentary,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap()
             .as_str(),
@@ -713,9 +723,9 @@ mod tests {
         assert_eq!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap(),
             everyday
@@ -749,7 +759,7 @@ mod tests {
         repertoire.everyday_forms.push(extra_frequency);
 
         let context =
-            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1520).unwrap());
+            NameGenerationContext::german_lutheran(Sex::Male, CalendarYear::new(1520).unwrap());
         for seed in 0..256 {
             let original = generate_personal_name_from_catalog(
                 catalog(),
@@ -774,7 +784,7 @@ mod tests {
     }
 
     #[test]
-    fn culture_specific_equivalents_render_from_one_family() {
+    fn register_specific_forms_render_from_one_family() {
         let synthetic: NameCatalogDocument = serde_json::from_value(serde_json::json!({
             "given_forms": [
                 {
@@ -785,10 +795,10 @@ mod tests {
                     "family_ids": ["heinrich"]
                 },
                 {
-                    "id": "henry_en",
-                    "text": "Henry",
-                    "culture": "english",
-                    "register": "everyday",
+                    "id": "heinricus_doc",
+                    "text": "Heinricus",
+                    "culture": "german",
+                    "register": "documentary",
                     "family_ids": ["heinrich"]
                 }
             ]
@@ -798,7 +808,7 @@ mod tests {
             render_family_form(
                 &synthetic,
                 "heinrich",
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
                 NameFormSelectionSeed::new(11),
             )
@@ -809,12 +819,12 @@ mod tests {
             render_family_form(
                 &synthetic,
                 "heinrich",
-                NameCulture::English,
-                NameRegister::Everyday,
+                Culture::German,
+                NameRegister::Documentary,
                 NameFormSelectionSeed::new(11),
             )
             .unwrap(),
-            "Henry"
+            "Heinricus"
         );
     }
 
@@ -825,16 +835,16 @@ mod tests {
                 family_id: NameFamilyId::new("anna"),
                 native_form_id: NameFormId::new("anna_de"),
             },
-            native_culture: NameCulture::German,
+            native_culture: Culture::German,
             form_selector: NameFormSelectionSeed::new(17),
             surname_id: Some(SurnameId::new("pfeiffer")),
         };
         assert!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Female,
+                Sex::Female,
             )
             .unwrap()
             .as_str()
@@ -843,9 +853,9 @@ mod tests {
         assert!(
             render_personal_name(
                 &identity,
-                NameCulture::German,
+                Culture::German,
                 NameRegister::Everyday,
-                NameSex::Male,
+                Sex::Male,
             )
             .unwrap()
             .as_str()

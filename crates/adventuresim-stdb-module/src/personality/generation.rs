@@ -1,5 +1,9 @@
 use super::*;
 
+/// Stable entropy purpose for persisted character personality generation.
+pub(super) const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("character.personality");
+
 const BEHAVIOR: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("character.personality.behavior");
 const SEX: fabelgeist_determinism::StreamId =
@@ -10,11 +14,7 @@ const INCLINATION: fabelgeist_determinism::StreamId =
     fabelgeist_determinism::StreamId::new("character.personality.inclination");
 
 pub fn personality_from_stable_seed(character_id: u64, stable_seed: u64) -> CharacterPersonality {
-    let sex = if SEX.rng(stable_seed, &[character_id]).boolean() {
-        Sex::Female
-    } else {
-        Sex::Male
-    };
+    let sex = *SEX.rng(stable_seed, &[character_id]).choose(Sex::VARIANTS);
     let presentation = match (
         sex,
         PRESENTATION.rng(stable_seed, &[character_id]).index(100),

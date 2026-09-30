@@ -9,6 +9,9 @@ use serde::{Deserialize, Serialize};
 
 pub mod calendar;
 pub mod coordinates;
+pub use coordinates::coordinates_in_bounds;
+mod demographics;
+pub use demographics::{Culture, Sex};
 mod economy;
 mod geologic_window;
 mod geology;
@@ -162,16 +165,6 @@ pub const PLAYABLE_BOUNDS: [f64; 4] = [8.965, 50.877, 11.200, 52.250];
 
 /// Smallest whole-degree source-tile envelope covering [`PLAYABLE_BOUNDS`].
 pub const PLAYABLE_SOURCE_TILE_BOUNDS: [i16; 4] = [8, 50, 12, 53];
-
-pub fn coordinates_in_bounds(longitude: f64, latitude: f64, bounds: [f64; 4]) -> bool {
-    let [west, south, east, north] = bounds;
-    longitude.is_finite()
-        && latitude.is_finite()
-        && longitude >= west
-        && longitude <= east
-        && latitude >= south
-        && latitude <= north
-}
 
 #[cfg(test)]
 mod playable_bounds_tests {

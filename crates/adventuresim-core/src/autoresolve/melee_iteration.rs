@@ -5,7 +5,7 @@ use crate::{
     item_catalog_schema::ItemKind,
     starting_character::{StartingAttributes, StartingCharacterSpec, StartingSkills},
 };
-use adventuresim_world_schema::person_names::{NameCulture, PersonalNameIdentity};
+use adventuresim_world_schema::{Culture, person_names::PersonalNameIdentity};
 
 mod evidence;
 
@@ -143,7 +143,7 @@ fn purpose_build(
     let spec = StartingCharacterSpec {
         id: stable_id(key),
         name: name.into(),
-        name_identity: PersonalNameIdentity::authored(name, NameCulture::German),
+        name_identity: PersonalNameIdentity::authored(name, Culture::German),
         age_years: 28,
         background: description.into(),
         personality: crate::starting_character::default_character(key).personality,

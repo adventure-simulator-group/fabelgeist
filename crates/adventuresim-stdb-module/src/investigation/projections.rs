@@ -1362,7 +1362,7 @@ fn referred_contact_target_matches(
             resident_character_id: expected.resident_character_id,
             demographic: expected.demographic,
             age_band: expected.age_band.clone(),
-            sex: expected.sex.clone(),
+            sex: expected.sex,
             profession: expected.profession.clone(),
             expected_settlement_id: expected_settlement_id.into(),
             expected_location: expected.expected_location.clone(),
@@ -1402,7 +1402,7 @@ fn referred_contact_is_current_view(
     else {
         return false;
     };
-    let Some(current) = (if expected.sex.is_empty() {
+    let Some(current) = (if expected.sex.is_none() {
         crate::strategic::developer_npc_witness_candidate(&npc, presence)
     } else {
         Some(adventuresim_core::quest_generation::WitnessCandidate {
@@ -1410,7 +1410,7 @@ fn referred_contact_is_current_view(
             display_name: npc.name.clone(),
             demographic: crate::strategic::generated_npc_demographic(&npc),
             age_band: npc.age_band.stable_id().to_owned(),
-            sex: npc.sex.stable_id().to_owned(),
+            sex: Some(npc.sex),
             profession: npc.profession.clone(),
             visible_description: String::new(),
             expected_location: presence.location_id.clone(),
@@ -1642,14 +1642,14 @@ fn victim_cohort_is_current_view(
         resident_character_id: target.resident_character_id,
         demographic,
         age_band: target.age_band.clone(),
-        sex: target.sex.clone(),
+        sex: target.sex,
         profession: target.profession.clone(),
         expected_settlement_id: target.expected_settlement_id.clone(),
         expected_location: target.expected_location.clone(),
         expected_location_label: String::new(),
         presence_version: target.presence_version,
     };
-    let Some(current) = (if target.sex.is_empty() {
+    let Some(current) = (if target.sex.is_none() {
         crate::strategic::developer_npc_witness_candidate(&npc, &presence)
     } else {
         Some(adventuresim_core::quest_generation::WitnessCandidate {
@@ -1657,7 +1657,7 @@ fn victim_cohort_is_current_view(
             display_name: npc.name.clone(),
             demographic: crate::strategic::generated_npc_demographic(&npc),
             age_band: npc.age_band.stable_id().to_owned(),
-            sex: npc.sex.stable_id().to_owned(),
+            sex: Some(npc.sex),
             profession: npc.profession.clone(),
             visible_description: String::new(),
             expected_location: presence.location_id.clone(),

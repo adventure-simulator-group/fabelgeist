@@ -1447,7 +1447,7 @@ fn generated_witness_candidates(
                 circumstances.insert(Circumstance::SecretRiversideMeeting);
             }
             let age_band = npc.age_band.stable_id().to_owned();
-            let sex = npc.sex.stable_id().to_owned();
+            let sex = Some(npc.sex);
             let presence_version = generated_npc_presence_version(&npc, &presence);
             Some(WitnessCandidate {
                 resident_character_id: npc.character_id,
@@ -1547,7 +1547,7 @@ pub(crate) fn generated_npc_demographic(
     npc: &crate::settlement_population::ResolvedSettlementResident,
 ) -> adventuresim_core::quest_generation::WitnessDemographic {
     let age_band = npc.age_band.stable_id();
-    let sex = npc.sex.stable_id();
+    let sex = Some(npc.sex);
     let authored = adventuresim_core::quest_catalog::catalog()
         .witness_demographic_for(age_band, sex, &npc.profession, &npc.local_role)
         .expect("validated demographic catalog has one fallback");
@@ -2760,7 +2760,8 @@ mod developer_quest_source_tests {
 
     #[test]
     fn developer_witness_projection_matches_core_for_every_presentation() {
-        use crate::personality::{Presentation, Sex};
+        use crate::personality::Presentation;
+        use adventuresim_world_schema::Sex;
         use crate::settlement_population::{
             NpcAgeBand, ResolvedSettlementResident, SettlementResidentPresence,
             SettlementResidentProfile,
@@ -2830,7 +2831,7 @@ mod developer_quest_source_tests {
             .unwrap();
             let authoritative = developer_npc_witness_candidate(&npc, &presence).unwrap();
             assert_eq!(authoritative, direct);
-            assert!(authoritative.sex.is_empty());
+            assert!(authoritative.sex.is_none());
         }
     }
 

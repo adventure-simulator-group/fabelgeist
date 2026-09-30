@@ -7,6 +7,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::sync::OnceLock;
 
 mod authoring_schema;
+mod condition_validation;
+use condition_validation::validate_condition_roles;
 #[cfg(test)]
 mod catalog_revision;
 pub use authoring_schema::{
@@ -498,35 +500,13 @@ pub enum DialogueError {
     AmbiguousPriority { topic: String, priority: i32 },
     NoEligibleResponse(String),
     InvalidPrompt(String),
+    InvalidFactValue(FactKey),
     EmptyContent(String),
     DanglingTopic(String),
     InvalidTestimonyContract(String),
     SourceAlignment,
     MissingRuntimeSlot(RuntimeSlot),
     InvalidRuntimeValue(RuntimeSlot),
-}
-
-fn validate_condition_roles(
-    condition: &Condition,
-    roles: &BTreeMap<String, Role>,
-    errors: &mut Vec<DialogueError>,
-) {
-    match condition {
-        Condition::All { conditions } | Condition::Any { conditions } => {
-            for child in conditions {
-                validate_condition_roles(child, roles, errors);
-            }
-        }
-        Condition::Not { condition } => validate_condition_roles(condition, roles, errors),
-        Condition::Fact { key, .. } => {
-            for role in key.participant_roles() {
-                if !roles.contains_key(role) {
-                    errors.push(DialogueError::UnknownRole(role.into()));
-                }
-            }
-        }
-        Condition::Always => {}
-    }
 }
 
 fn validate_response_semantics(
@@ -1104,6 +1084,38 @@ mod tests {
             key,
             equals: FactValue::Bool(true),
         }));
+    }
+
+    #[test]
+    fn participant_sex_fact_roundtrips_and_rejects_text_value() {
+        let key = FactKey::ParticipantSex {
+            role: "speaker".into(),
+        };
+        let value = FactValue::Sex {
+            sex: adventuresim_world_schema::Sex::Female,
+        };
+        let json = serde_json::to_value(&value).unwrap();
+        assert_eq!(json, serde_json::json!({ "sex": "female" }));
+        let decoded: FactValue = serde_json::from_value(json).unwrap();
+        let mut facts = FactContext::default();
+        facts.facts.insert(key.clone(), decoded.clone());
+        assert!(facts.matches(&Condition::Fact {
+            key: key.clone(),
+            equals: decoded,
+        }));
+
+        let text_value = FactValue::Text("female".into());
+        assert!(!key.authoring_value_is_valid(&text_value));
+        let mut errors = Vec::new();
+        validate_condition_roles(
+            &Condition::Fact {
+                key: key.clone(),
+                equals: text_value,
+            },
+            &BTreeMap::new(),
+            &mut errors,
+        );
+        assert!(errors.contains(&DialogueError::InvalidFactValue(key)));
     }
     #[test]
     fn conversation_start_selects_contextual_authored_greeting() {

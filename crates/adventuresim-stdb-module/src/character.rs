@@ -11,7 +11,7 @@ use adventuresim_core::{
     organization::OrganizationMembershipStatus,
     starting_character::{
         StartingAgeTier, StartingCharacterSpec, StartingInclination, StartingPersonalityTrait,
-        StartingPresentation, StartingSex, StartingSlot,
+        StartingPresentation, StartingSlot,
     },
 };
 use fabelgeist_determinism::StreamId;
@@ -2521,10 +2521,7 @@ pub(crate) fn insert_character_with_origin(
                 }
             }
         }
-        personality.sex = match starting.personality.sex {
-            StartingSex::Female => crate::personality::Sex::Female,
-            StartingSex::Male => crate::personality::Sex::Male,
-        };
+        personality.sex = starting.personality.sex;
         personality.presentation = match starting.personality.presentation {
             StartingPresentation::Man => crate::personality::Presentation::Man,
             StartingPresentation::Ambiguous => crate::personality::Presentation::Ambiguous,

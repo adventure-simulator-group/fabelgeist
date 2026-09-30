@@ -1,13 +1,12 @@
 use crate::strategic::strategic_gateway_authority__view;
 pub use adventuresim_core::personality::{
     Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
-    Presentation, SelfKnowledge, SelfRegard, Sex, Sociability, Temperance, Transparency,
+    Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
 };
+use adventuresim_world_schema::Sex;
 use fabelgeist_determinism::DeterministicRng;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
-const PERSONALITY_GENERATION_DOMAIN: fabelgeist_determinism::StreamId =
-    fabelgeist_determinism::StreamId::new("character.personality");
 mod generation;
 pub use generation::{
     personality_from_stable_seed, personality_from_stable_seed_with_demographics,
@@ -707,11 +706,7 @@ pub fn random_personality(
             }
         }
     }
-    result.sex = if random.boolean() {
-        Sex::Female
-    } else {
-        Sex::Male
-    };
+    result.sex = *random.choose(Sex::VARIANTS);
     let presentation_roll = random.index(100);
     result.presentation = match (result.sex, presentation_roll) {
         (_, 0..=3) => Presentation::Ambiguous,
@@ -780,7 +775,7 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
             // always-assigned demographic axes must still have real values.
             let generated = random_personality(
                 character_id,
-                &mut PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+                &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
             );
             let mut neutral = CharacterPersonality::neutral(character_id);
             neutral.sex = generated.sex;
@@ -795,7 +790,7 @@ pub fn initialize_personality(ctx: &ReducerContext, character_id: u64, npc: bool
 pub fn assign_random_personality(ctx: &ReducerContext, character_id: u64) {
     let row = random_personality(
         character_id,
-        &mut PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
+        &mut generation::PERSONALITY_GENERATION_DOMAIN.rng(ctx.random(), &[character_id]),
     );
     reset_personality_from_visible(ctx, row);
 }

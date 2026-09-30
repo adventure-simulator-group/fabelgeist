@@ -100,7 +100,7 @@ pub fn generate(context: &GenerationContext) -> Result<GeneratedCase, Generation
             resident_character_id: candidate.resident_character_id,
             demographic: candidate.demographic,
             age_band: candidate.age_band.clone(),
-            sex: candidate.sex.clone(),
+            sex: candidate.sex,
             profession: candidate.profession.clone(),
             expected_settlement_id: context.settlement_id.clone(),
             expected_location: candidate.expected_location.clone(),

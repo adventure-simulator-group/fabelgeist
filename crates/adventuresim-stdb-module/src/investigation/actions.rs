@@ -592,14 +592,14 @@ fn validate_generated_pattern_condition(
                 resident_character_id: target.resident_character_id,
                 demographic: *demographic,
                 age_band: target.age_band.clone(),
-                sex: target.sex.clone(),
+                sex: target.sex,
                 profession: target.profession.clone(),
                 expected_settlement_id: target.expected_settlement_id.clone(),
                 expected_location: target.expected_location.clone(),
                 expected_location_label: String::new(),
                 presence_version: target.presence_version,
             };
-            let current = if target.sex.is_empty() {
+            let current = if target.sex.is_none() {
                 crate::strategic::developer_npc_witness_candidate(&npc, &presence)
                     .ok_or_else(|| {
                         adventuresim_core::reducer_error::coded_reducer_error(
@@ -613,7 +613,7 @@ fn validate_generated_pattern_condition(
                     display_name: npc.name.clone(),
                     demographic: crate::strategic::generated_npc_demographic(&npc),
                     age_band: npc.age_band.stable_id().to_owned(),
-                    sex: npc.sex.stable_id().to_owned(),
+                    sex: Some(npc.sex),
                     profession: npc.profession.clone(),
                     visible_description: String::new(),
                     expected_location: presence.location_id.clone(),

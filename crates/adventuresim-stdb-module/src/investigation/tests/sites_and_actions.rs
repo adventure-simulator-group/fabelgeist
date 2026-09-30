@@ -829,7 +829,7 @@ fn locate_contact_stale_target_beats_off_hours_schedule_wait() {
         display_name: "Ada".into(),
         demographic: WitnessDemographic::Laborer,
         age_band: "adult".into(),
-        sex: "female".into(),
+        sex: Some(adventuresim_world_schema::Sex::Female),
         profession: "weaver".into(),
         visible_description: String::new(),
         expected_location: location.into(),

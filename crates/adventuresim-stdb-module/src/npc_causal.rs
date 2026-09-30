@@ -11,10 +11,11 @@ use spacetimedb::{ReducerContext, ScheduleAt, SpacetimeType, Table, TimeDuration
 
 use crate::CharacterTime;
 use crate::character::character as _;
-use crate::personality::{Sex, character_personality as _};
+use crate::personality::character_personality as _;
 use crate::relationship::npc_policy;
 use crate::settlement_population::settlement_resident_presence;
 use crate::time::{ScheduleAllocation, character_time, character_training_schedule};
+use adventuresim_world_schema::Sex;
 
 const NPC_CAUSAL_SCHEDULE_ID: u64 = 0;
 const NPC_CAUSAL_INTERVAL_MICROS: i64 = 5_000_000;
@@ -509,7 +510,7 @@ pub fn run_npc_causal_tick(
 
 #[cfg(test)]
 mod tests {
-    use crate::personality::Sex;
+    use adventuresim_world_schema::Sex;
 
     use super::npc_courtship_roles;
 

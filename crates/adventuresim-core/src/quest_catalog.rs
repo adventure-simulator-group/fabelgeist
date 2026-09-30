@@ -4,7 +4,7 @@
 //! `build.rs`. Deployment never reads loose data files.
 
 use adventuresim_dialogue::{Condition, FactContext, SourceRef};
-use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, BestiaryCategory};
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, BestiaryCategory, Sex};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -230,7 +230,7 @@ pub struct WitnessMatchRule {
     #[serde(default)]
     pub age_bands: Vec<String>,
     #[serde(default)]
-    pub sexes: Vec<String>,
+    pub sexes: Vec<Sex>,
     #[serde(default)]
     pub professions: Vec<String>,
     #[serde(default)]
@@ -608,7 +608,7 @@ impl Catalog {
     pub fn witness_demographic_for(
         &self,
         age_band: &str,
-        sex: &str,
+        sex: Option<Sex>,
         profession: &str,
         local_role: &str,
     ) -> Option<&WitnessDemographicDefinition> {
@@ -628,7 +628,8 @@ impl Catalog {
                 !rule.fallback
                     && (rule.age_bands.is_empty()
                         || rule.age_bands.iter().any(|value| value == age_band))
-                    && (rule.sexes.is_empty() || rule.sexes.iter().any(|value| value == sex))
+                    && (rule.sexes.is_empty()
+                        || sex.is_some_and(|value| rule.sexes.contains(&value)))
                     && (rule.professions.is_empty()
                         || rule.professions.iter().any(|value| {
                             crate::quest_catalog_validation::selector_matches_fact(
@@ -1346,21 +1347,21 @@ mod tests {
         let catalog = catalog();
         assert_eq!(
             catalog
-                .witness_demographic_for("adult", "male", "merchant", "resident")
+                .witness_demographic_for("adult", Some(Sex::Male), "merchant", "resident")
                 .unwrap()
                 .id,
             "merchant"
         );
         assert_eq!(
             catalog
-                .witness_demographic_for("adult", "male", "mer", "resident")
+                .witness_demographic_for("adult", Some(Sex::Male), "mer", "resident")
                 .unwrap()
                 .id,
             "laborer"
         );
         assert_eq!(
             catalog
-                .witness_demographic_for("adult", "male", "chant", "resident")
+                .witness_demographic_for("adult", Some(Sex::Male), "chant", "resident")
                 .unwrap()
                 .id,
             "laborer"
@@ -1378,6 +1379,52 @@ mod tests {
                 .unwrap_err()
                 .contains("matches no authoritative NPC profession")
         );
+    }
+
+    #[test]
+    fn sex_specific_demographic_requires_known_matching_sex() {
+        let (mut raw, files) = raw_catalog();
+        let investigation = raw
+            .iter_mut()
+            .find(|document| document["witness_demographics"].is_array())
+            .unwrap();
+        investigation["witness_demographics"][2]["match_rules"][0]["sexes"] =
+            serde_json::json!(["female"]);
+        let mut invalid = raw.clone();
+        let invalid_investigation = invalid
+            .iter_mut()
+            .find(|document| document["witness_demographics"].is_array())
+            .unwrap();
+        invalid_investigation["witness_demographics"][2]["match_rules"][0]["sexes"] =
+            serde_json::json!(["unknown"]);
+        assert!(
+            crate::quest_catalog_validation::validate_documents(&invalid, &files)
+                .unwrap_err()
+                .contains("unknown sex selector unknown")
+        );
+        crate::quest_catalog_validation::validate_documents(&raw, &files).unwrap();
+        let documents = raw
+            .into_iter()
+            .map(serde_json::from_value)
+            .collect::<Result<Vec<CatalogDocument>, _>>()
+            .unwrap();
+        let catalog = Catalog::compile(documents).unwrap();
+        assert_eq!(
+            catalog
+                .witness_demographic_for("adult", Some(Sex::Female), "merchant", "resident")
+                .unwrap()
+                .id,
+            "merchant"
+        );
+        for sex in [Some(Sex::Male), None] {
+            assert_eq!(
+                catalog
+                    .witness_demographic_for("adult", sex, "merchant", "resident")
+                    .unwrap()
+                    .id,
+                "laborer"
+            );
+        }
     }
 
     #[test]
@@ -1408,21 +1455,21 @@ mod tests {
 
             assert_eq!(
                 catalog
-                    .witness_demographic_for("child", "female", "laborer", "resident")
+                    .witness_demographic_for("child", Some(Sex::Female), "laborer", "resident")
                     .unwrap()
                     .id,
                 "child"
             );
             assert_eq!(
                 catalog
-                    .witness_demographic_for("adult", "male", "merchant", "market steward")
+                    .witness_demographic_for("adult", Some(Sex::Male), "merchant", "market steward")
                     .unwrap()
                     .id,
                 "merchant"
             );
             assert_eq!(
                 catalog
-                    .witness_demographic_for("adult", "male", "artisan", "resident")
+                    .witness_demographic_for("adult", Some(Sex::Male), "artisan", "resident")
                     .unwrap()
                     .id,
                 "laborer"

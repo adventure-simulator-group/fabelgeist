@@ -8,7 +8,7 @@ build = "build.rs"
 
 [features]
 default = []
-spacetimedb = ["dep:spacetimedb"]
+spacetimedb = ["dep:spacetimedb", "adventuresim-world-schema/spacetimedb"]
 
 [dependencies]
 enum-assoc = "1.3.0"

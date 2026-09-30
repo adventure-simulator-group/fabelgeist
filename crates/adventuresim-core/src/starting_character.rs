@@ -2,7 +2,9 @@
 
 mod names;
 mod professional;
-use adventuresim_world_schema::{BestiaryHours, ReligionHours, person_names::PersonalNameIdentity};
+use adventuresim_world_schema::{
+    BestiaryHours, ReligionHours, Sex, person_names::PersonalNameIdentity,
+};
 pub use names::default_character_name;
 use serde::{Deserialize, Serialize};
 
@@ -245,12 +247,6 @@ pub enum StartingPersonalityTrait {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
-pub enum StartingSex {
-    Female,
-    Male,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum StartingPresentation {
     Man,
     Ambiguous,
@@ -268,7 +264,7 @@ pub enum StartingInclination {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct StartingPersonality {
     pub traits: Vec<StartingPersonalityTrait>,
-    pub sex: StartingSex,
+    pub sex: Sex,
     pub presentation: StartingPresentation,
     pub inclination: StartingInclination,
 }
@@ -424,7 +420,7 @@ pub fn default_character(identity_seed: &str) -> StartingCharacterSpec {
         background: "Combat-trained adventurer".into(),
         personality: StartingPersonality {
             traits: Vec::new(),
-            sex: StartingSex::Male,
+            sex: Sex::Male,
             presentation: StartingPresentation::Man,
             inclination: StartingInclination::Women,
         },
@@ -673,12 +669,8 @@ pub fn generate(
     Ok(spec)
 }
 
-fn generated_sex(seed: &str, tier: StartingAgeTier, slot: u8) -> StartingSex {
-    if tier_random("sex", seed, tier, slot).boolean() {
-        StartingSex::Female
-    } else {
-        StartingSex::Male
-    }
+fn generated_sex(seed: &str, tier: StartingAgeTier, slot: u8) -> Sex {
+    *tier_random("sex", seed, tier, slot).choose(Sex::VARIANTS)
 }
 
 fn personality_with_demographics(
@@ -693,21 +685,21 @@ fn personality_with_demographics(
         tier_random("presentation", seed, tier, slot).index(100),
     ) {
         (_, 0..=3) => StartingPresentation::Ambiguous,
-        (StartingSex::Female, 4) => StartingPresentation::Man,
-        (StartingSex::Male, 4) => StartingPresentation::Woman,
-        (StartingSex::Female, _) => StartingPresentation::Woman,
-        (StartingSex::Male, _) => StartingPresentation::Man,
+        (Sex::Female, 4) => StartingPresentation::Man,
+        (Sex::Male, 4) => StartingPresentation::Woman,
+        (Sex::Female, _) => StartingPresentation::Woman,
+        (Sex::Male, _) => StartingPresentation::Man,
     };
     let inclination = match tier_random("inclination", seed, tier, slot).index(100) {
         0 => StartingInclination::Neither,
         1..=4 => StartingInclination::Either,
         5..=9 => match sex {
-            StartingSex::Female => StartingInclination::Women,
-            StartingSex::Male => StartingInclination::Men,
+            Sex::Female => StartingInclination::Women,
+            Sex::Male => StartingInclination::Men,
         },
         _ => match sex {
-            StartingSex::Female => StartingInclination::Men,
-            StartingSex::Male => StartingInclination::Women,
+            Sex::Female => StartingInclination::Men,
+            Sex::Male => StartingInclination::Women,
         },
     };
     StartingPersonality {
@@ -1535,7 +1527,12 @@ mod tests {
         let john = default_character("owner-a");
         assert_eq!(john.name, default_character_name());
         assert_eq!(john.age_years, 20);
-        assert_eq!(john.personality.sex, StartingSex::Male);
+        assert_eq!(john.personality.sex, Sex::Male);
+        let shared_sex: Sex = john.personality.sex;
+        let encoded = serde_json::to_value(&john.personality).unwrap();
+        assert_eq!(encoded["sex"], "male");
+        let decoded: StartingPersonality = serde_json::from_value(encoded).unwrap();
+        assert_eq!(decoded.sex, shared_sex);
         assert!(john.personality.traits.is_empty());
         assert_eq!(john.attributes.strength, 4.0);
         assert_eq!(john.attributes.agility, 4.0);
@@ -1954,8 +1951,7 @@ mod tests {
             neither += usize::from(c.personality.inclination == StartingInclination::Neither);
             same += usize::from(matches!(
                 (c.personality.sex, c.personality.inclination),
-                (StartingSex::Female, StartingInclination::Women)
-                    | (StartingSex::Male, StartingInclination::Men)
+                (Sex::Female, StartingInclination::Women) | (Sex::Male, StartingInclination::Men)
             ));
         }
         assert!((40..140).contains(&ambiguous));

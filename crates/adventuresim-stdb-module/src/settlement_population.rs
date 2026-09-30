@@ -1,7 +1,7 @@
 //! Persistent strategic settlement residents and authoritative observable presences.
 use crate::{
     character::{NpcLifeFacts, character, character__view, insert_persistent_npc_character},
-    personality::{Presentation, Sex, character_personality, character_personality__view},
+    personality::{Presentation, character_personality, character_personality__view},
     relationship::{NpcPolicy, npc_policy},
     strategic::{settlement, strategic_gateway_authority__view},
 };
@@ -13,8 +13,11 @@ use adventuresim_core::strategic_place::{SettlementVenueKind, StrategicPlaceId};
 use adventuresim_core::strategic_presence::{
     DailyPresenceWindow, PresenceFrontier, ScheduledStrategicPresence, StrategicPresence,
 };
-use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use adventuresim_world_schema::settlement_buildings::BusinessId;
+use adventuresim_world_schema::{
+    Sex,
+    calendar::{MINUTES_PER_DAY, StrategicMinute},
+};
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 use std::collections::BTreeSet;
@@ -88,7 +91,7 @@ pub struct ResolvedSettlementResident {
     pub profile: SettlementResidentProfile,
     pub name: String,
     pub age_band: NpcAgeBand,
-    pub sex: crate::personality::Sex,
+    pub sex: adventuresim_world_schema::Sex,
     pub presentation: crate::personality::Presentation,
 }
 

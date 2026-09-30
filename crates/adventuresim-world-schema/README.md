@@ -29,3 +29,14 @@ unwrapped calendar values and arithmetic inside calendar constructors outside
 the owning module. Both checks run in the repository lint workflow. Keep raw
 conversions in source, storage, or presentation boundary adapters; ordinary
 domain logic should retain the shared types.
+
+## Demographic vocabulary
+
+`Sex` is the shared female/male type for personality, starting characters,
+personal names, and sex-specific quest rules. `Culture` currently has only the
+German variant because the catalog has only German names. It is distinct from
+`OralLanguage` or `WrittenLanguage`.
+
+Unknown private sex in observer-facing quest data is `None`, serialized as
+`null`. Generated SpacetimeDB client types remain transport types and require
+explicit conversion at client boundaries.

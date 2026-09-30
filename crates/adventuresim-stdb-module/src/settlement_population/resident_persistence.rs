@@ -124,12 +124,8 @@ fn insert_identity(
     let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
         .birth_year_for_age(prepared.exact_age(draft))
         .ok_or("Resident age predates the calendar")?;
-    let name_sex = match draft.sex {
-        Sex::Female => adventuresim_world_schema::person_names::NameSex::Female,
-        Sex::Male => adventuresim_world_schema::person_names::NameSex::Male,
-    };
     let identity = crate::character::generated_historical_identity(
-        name_sex,
+        draft.sex,
         prepared.stable_seed.into(),
         birth_year,
         draft.inherited_surname.clone(),
@@ -138,7 +134,7 @@ fn insert_identity(
         &identity,
         identity.native_culture,
         adventuresim_world_schema::person_names::NameRegister::Everyday,
-        name_sex,
+        draft.sex,
     )
     .map_err(|error| error.to_string())?
     .into_string();
