@@ -141,7 +141,7 @@ fn sheets(indices: &[u32], vertex_count: usize) -> Vec<Vec<usize>> {
         vertex
     }
     let mut parents = (0..vertex_count).collect::<Vec<_>>();
-    for triangle in indices.chunks_exact(3) {
+    for triangle in indices.as_chunks::<3>().0 {
         let a = root(&mut parents, triangle[0] as usize);
         for &corner in &triangle[1..] {
             let b = root(&mut parents, corner as usize);

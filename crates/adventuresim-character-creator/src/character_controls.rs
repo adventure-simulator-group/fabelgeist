@@ -9,7 +9,9 @@ const IDENTITY_LIMIT: f32 = 3.0;
 /// Expression blend weights run from full negative to full positive.
 const EXPRESSION_LIMIT: f32 = 1.0;
 /// Randomized identity stays within a plausible range of the population.
-const RANDOM_IDENTITY_LIMIT: f32 = 1.35;
+pub(super) const RANDOM_IDENTITY_LIMIT: f32 = 1.35;
+pub(super) const IDENTITY_STREAM: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("character-creator.identity");
 
 /// One page of the character tab.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -139,9 +141,9 @@ fn expression(ui: &mut egui::Ui, studio: &mut Studio) {
 pub(super) fn randomize(studio: &mut Studio) {
     studio.seed = studio.seed.wrapping_add(1);
     studio.recipe.proportions = CharacterProportions::from_character_id(studio.seed);
-    let mut rng = StdRng::seed_from_u64(studio.seed);
+    let mut rng = IDENTITY_STREAM.rng(studio.seed, &[]);
     for value in &mut studio.recipe.identity {
-        *value = rng.random_range(-RANDOM_IDENTITY_LIMIT..=RANDOM_IDENTITY_LIMIT);
+        *value = rng.range_f32(-RANDOM_IDENTITY_LIMIT, RANDOM_IDENTITY_LIMIT);
     }
     studio.dirty = true;
     studio.status = "Rolled a new appearance".into();

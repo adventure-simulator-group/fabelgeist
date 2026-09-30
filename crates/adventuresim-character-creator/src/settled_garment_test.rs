@@ -6,7 +6,6 @@ use adventuresim_character_creator::{
 
 /// Bodies the saved garment is worn on, as the studio rolls them.
 const WEARER_SEEDS: [u64; 3] = [7, 1545, 90210];
-const RANDOM_IDENTITY_LIMIT: f32 = 1.35;
 /// How much further from a new wearer than from its own body a fitted garment
 /// may sit on average, in metres: it keeps the fit it settled with.
 const MAXIMUM_ADDED_DISTANCE_M: f32 = 0.01;
@@ -25,9 +24,12 @@ fn wearer(seed: u64) -> CharacterRecipe {
     };
     recipe.proportions =
         adventuresim_core::character_proportions::CharacterProportions::from_character_id(seed);
-    let mut rng = StdRng::seed_from_u64(seed);
+    let mut rng = character_controls::IDENTITY_STREAM.rng(seed, &[]);
     for value in &mut recipe.identity {
-        *value = rng.random_range(-RANDOM_IDENTITY_LIMIT..=RANDOM_IDENTITY_LIMIT);
+        *value = rng.range_f32(
+            -character_controls::RANDOM_IDENTITY_LIMIT,
+            character_controls::RANDOM_IDENTITY_LIMIT,
+        );
     }
     recipe
 }

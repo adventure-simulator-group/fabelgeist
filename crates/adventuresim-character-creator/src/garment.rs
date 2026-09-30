@@ -31,6 +31,8 @@ pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, Garment
 pub use settled::{BodyTopology, SettledDrape, SettledGarment};
 pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
 
+type SkinTransferArrays = (Vec<[u32; 8]>, Vec<[f32; 8]>);
+
 #[derive(Clone)]
 pub struct DrapeInput {
     pub selection: GarmentSelection,
@@ -187,7 +189,7 @@ fn clear_panels(
             (normal * -1.0, backward)
         };
         for point in &mut positions[range] {
-            *point = *point + direction * shift;
+            *point += direction * shift;
         }
     }
 }
@@ -236,7 +238,7 @@ impl SewnSurface {
         let mut ids = std::collections::BTreeMap::new();
         let mut groups = Vec::<Vec<usize>>::new();
         let mut mapping = vec![0u32; count];
-        for vertex in 0..count {
+        for (vertex, slot) in mapping.iter_mut().enumerate().take(count) {
             let root = root(&parents, vertex);
             let next = groups.len();
             let id = *ids.entry(root).or_insert_with(|| {
@@ -244,7 +246,7 @@ impl SewnSurface {
                 next
             });
             groups[id].push(vertex);
-            mapping[vertex] = id as u32;
+            *slot = id as u32;
         }
         let render_faces: Vec<_> = triangles
             .iter()
@@ -283,7 +285,7 @@ pub fn normals(positions: &[[f32; 3]], faces: &[[u32; 3]]) -> Vec<[f32; 3]> {
         let [a, b, c] = f.map(|i| vector(positions[i as usize]));
         let n = (b - a).cross(c - a);
         for i in f {
-            normals[*i as usize] = normals[*i as usize] + n;
+            normals[*i as usize] += n;
         }
     }
     normals
@@ -363,10 +365,7 @@ fn orient_faces(
 
 // Sample each side outside the nearest-leg discontinuity, then interpolate
 // across the hip span. Side vertices retain full leg motion; the centre blends.
-fn transfer_skirt_skin(
-    input: &DrapeInput,
-    positions: &[[f32; 3]],
-) -> Result<(Vec<[u32; 8]>, Vec<[f32; 8]>)> {
+fn transfer_skirt_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinTransferArrays> {
     let hip = |name: &str| -> Result<[f32; 8]> {
         let index = input
             .names
@@ -430,10 +429,7 @@ fn transfer_skirt_skin(
     }
     Ok((ids, weights))
 }
-pub fn transfer_skin(
-    input: &DrapeInput,
-    positions: &[[f32; 3]],
-) -> Result<(Vec<[u32; 8]>, Vec<[f32; 8]>)> {
+pub fn transfer_skin(input: &DrapeInput, positions: &[[f32; 3]]) -> Result<SkinTransferArrays> {
     if input.indices.len() != input.positions.len() || input.weights.len() != input.positions.len()
     {
         bail!("body skin arrays do not match its vertices");

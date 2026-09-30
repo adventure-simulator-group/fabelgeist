@@ -10,6 +10,8 @@ use bare_body::BareBody;
 use drape_worker::DrapeWorker;
 use studio_generation::PreviewScene;
 
+type WardrobeVisibilityFilter = Or<(With<WardrobeBody>, With<WardrobeGarment>)>;
+
 /// The wardrobe library and where it is saved.
 pub(super) struct WardrobeLibrary {
     pub library: Wardrobe,
@@ -308,7 +310,7 @@ fn spawn(
 /// Show the wardrobe's body and garment on its tab only.
 pub(super) fn display(
     studio: Res<Studio>,
-    mut shown: Query<&mut Visibility, Or<(With<WardrobeBody>, With<WardrobeGarment>)>>,
+    mut shown: Query<&mut Visibility, WardrobeVisibilityFilter>,
 ) {
     let visibility = if studio.tab == studio_ui::StudioTab::Wardrobe {
         Visibility::Inherited
