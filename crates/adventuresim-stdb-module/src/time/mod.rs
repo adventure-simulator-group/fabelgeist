@@ -5,11 +5,13 @@ use adventuresim_core::strategic_schedule::{
     settlement_activity_outcome,
 };
 use adventuresim_core::strategic_time::{
-    MAX_SETTLEMENT_REST_MINUTES, MINUTES_PER_DAY, WORLD_START_MINUTE, allocated_schedule_minutes,
-    official_minutes as calculate_official_minutes,
+    MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes,
+    official_minute as calculate_official_minute,
 };
 use adventuresim_core::survival::{ExposureShelter, FieldShelter};
 use adventuresim_core::{capability::aggregate_bounded_party_check, prelude::*};
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, reducer, table};
 
 use crate::capability::StrategicEquipment;
@@ -54,7 +56,7 @@ include!("stationary.rs");
 pub(crate) fn settle_lifecycle_after_character_time_write(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     crate::relationship::settle_character_age(ctx, character_id, minute);
     crate::continuity::settle_continuity_for_character(ctx, character_id, minute)?;

@@ -9,6 +9,7 @@ use super::incident_id_type::IncidentId;
 use super::incident_kind_type::IncidentKind;
 use super::incident_source_id_type::IncidentSourceId;
 use super::incident_status_type::IncidentStatus;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -24,7 +25,7 @@ pub struct StrategicIncident {
     pub status: IncidentStatus,
     pub case_site_id: CaseSiteId,
     pub hostile_group_id: String,
-    pub created_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for StrategicIncident {
@@ -46,7 +47,7 @@ pub struct StrategicIncidentCols {
     pub status: __sdk::__query_builder::Col<StrategicIncident, IncidentStatus>,
     pub case_site_id: __sdk::__query_builder::Col<StrategicIncident, CaseSiteId>,
     pub hostile_group_id: __sdk::__query_builder::Col<StrategicIncident, String>,
-    pub created_at_minute: __sdk::__query_builder::Col<StrategicIncident, u64>,
+    pub created_at_minute: __sdk::__query_builder::Col<StrategicIncident, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for StrategicIncident {

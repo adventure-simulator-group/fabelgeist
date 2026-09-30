@@ -1971,7 +1971,7 @@ mod tests {
                 settlement_id: "riverdale".into(),
             },
             ordinal: 0,
-            now_minute: 100,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100),
             incident_weather: crate::weather::Precipitation::Clear,
             requested_family: Some(TemplateFamily::RecurringDepredation),
             witness_candidates: test_witnesses(),

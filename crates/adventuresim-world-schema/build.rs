@@ -6,6 +6,9 @@ use std::{
     path::{Path, PathBuf},
 };
 
+#[path = "src/calendar.rs"]
+#[expect(dead_code, reason = "build script uses only calendar year validation")]
+mod calendar;
 #[path = "src/name_catalog_schema.rs"]
 mod name_catalog_schema;
 #[path = "src/name_catalog_validation.rs"]

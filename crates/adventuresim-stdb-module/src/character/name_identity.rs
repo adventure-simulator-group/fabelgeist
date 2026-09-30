@@ -1,9 +1,11 @@
 // Persistent semantic personal-name authority and projection helpers.
 
-use adventuresim_world_schema::person_names::{
-    NameBirthYear, NameCulture, NameGenerationContext, NameRegister, NameSex,
-    NameStableSeed, PersonalNameIdentity, SurnameId,
-    generate_personal_name, render_personal_name,
+use adventuresim_world_schema::{
+    calendar::CalendarYear,
+    person_names::{
+        NameCulture, NameGenerationContext, NameRegister, NameSex, NameStableSeed,
+        PersonalNameIdentity, SurnameId, generate_personal_name, render_personal_name,
+    },
 };
 
 /// Private semantic authority behind [`Character::name`]. Resolved generated
@@ -91,7 +93,7 @@ pub(crate) fn assign_generated_historical_name(
     ctx: &ReducerContext,
     character_id: CharacterId,
     stable_seed: NameSeed,
-    birth_year: NameBirthYear,
+    birth_year: CalendarYear,
     inherited_surname: Option<SurnameId>,
 ) -> Result<SurnameId, String> {
     let sex = character_name_sex(ctx, character_id)?;
@@ -107,7 +109,7 @@ pub(crate) fn assign_generated_historical_name(
 pub(crate) fn generated_historical_identity(
     sex: NameSex,
     stable_seed: NameSeed,
-    birth_year: NameBirthYear,
+    birth_year: CalendarYear,
     inherited_surname: Option<SurnameId>,
 ) -> Result<PersonalNameIdentity, String> {
     generate_personal_name(
@@ -122,7 +124,7 @@ pub(crate) fn assign_generated_historical_name_for_age(
     ctx: &ReducerContext,
     character_id: CharacterId,
     stable_seed: NameSeed,
-    minute: WorldMinute,
+    minute: StrategicMinute,
     inherited_surname: Option<SurnameId>,
 ) -> Result<SurnameId, String> {
     let age_years = ctx
@@ -136,10 +138,9 @@ pub(crate) fn assign_generated_historical_name_for_age(
         ctx,
         character_id,
         stable_seed,
-        NameBirthYear::new(adventuresim_core::strategic_time::birth_year_from_age(
-            minute.get(),
-            age_years,
-        )),
+        minute
+            .birth_year_for_age(age_years)
+            .ok_or("Character age predates the calendar")?,
         inherited_surname,
     )
 }
@@ -149,7 +150,7 @@ pub(crate) fn assign_newborn_historical_name(
     child_id: CharacterId,
     father_id: CharacterId,
     mother_id: CharacterId,
-    due_minute: WorldMinute,
+    due_minute: StrategicMinute,
     stable_seed: NameSeed,
     sex: crate::personality::Sex,
 ) -> Result<(), String> {
@@ -174,7 +175,7 @@ pub(crate) fn assign_newborn_historical_name(
         ctx,
         child_id,
         stable_seed,
-        NameBirthYear::new(adventuresim_core::strategic_time::world_year_at(due_minute.get())),
+        due_minute.calendar_year(),
         inherited_surname,
     )?;
     Ok(())

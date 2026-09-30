@@ -1,4 +1,6 @@
 // Owns travel, investigation, party synchronization, and neutral wait advancement policy.
+include!("advancement/lifecycle.rs");
+
 /// Record time spent travelling without applying recovery, activities, or
 /// training. Travel time belongs only to the character's personal clock.
 pub fn advance_character_time(
@@ -15,14 +17,12 @@ pub fn advance_character_time(
         .find(character_id)
         .ok_or_else(|| "Character time record not found".to_string())?;
     let starting_minute = character_time.minutes;
-    let requested_end = starting_minute.saturating_add(minutes);
-    if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
+    if let Some(first) = first_lifecycle_segment(
         ctx,
         character_id,
         starting_minute,
-        requested_end,
+        minutes,
     ) {
-        let first = boundary.saturating_sub(starting_minute);
         if !advance_character_time(ctx, character_id, first)? {
             return Ok(false);
         }
@@ -40,7 +40,8 @@ pub fn advance_character_time(
     let settled =
         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
     let elapsed = settled.elapsed;
-    character_time.minutes = character_time.minutes.saturating_add(elapsed);
+    let interval_end = character_time.minutes.saturating_add_minutes(elapsed);
+    character_time.minutes = interval_end;
     ctx.db
         .character_time()
         .character_id()
@@ -59,7 +60,7 @@ pub fn advance_character_time(
     settle_lifecycle_after_character_time_write(
         ctx,
         character_id,
-        starting_minute.saturating_add(elapsed),
+        interval_end,
     )?;
     advance_married_family_by(ctx, character_id, elapsed)?;
     if terminal.is_some() || !settled.alive {
@@ -86,14 +87,12 @@ fn advance_character_time_in_plan(
         .find(character_id)
         .ok_or_else(|| "Character time record not found".to_string())?;
     let starting_minute = character_time.minutes;
-    let requested_end = starting_minute.saturating_add(minutes);
-    if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
+    if let Some(first) = first_lifecycle_segment(
         ctx,
         character_id,
         starting_minute,
-        requested_end,
+        minutes,
     ) {
-        let first = boundary.saturating_sub(starting_minute);
         if !advance_character_time_in_plan(ctx, character_id, first, plan)? {
             return Ok(false);
         }
@@ -121,7 +120,9 @@ fn advance_character_time_in_plan(
     let settled =
         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
     let elapsed = settled.elapsed;
-    character_time.minutes = character_time.minutes.saturating_add(elapsed);
+    character_time.minutes = character_time.minutes
+        .saturating_add_minutes(elapsed)
+        ;
     ctx.db
         .character_time()
         .character_id()
@@ -132,7 +133,7 @@ fn advance_character_time_in_plan(
     settle_lifecycle_after_character_time_write(
         ctx,
         character_id,
-        starting_minute.saturating_add(settled.elapsed),
+        starting_minute.saturating_add_minutes(settled.elapsed),
     )?;
     advance_married_family_by(ctx, character_id, elapsed)?;
     if terminal.is_some() || !settled.alive {
@@ -209,15 +210,15 @@ pub fn advance_travel_time(
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(0, |row| row.minutes);
+            .map_or(StrategicMinute::ZERO, |t| t.minutes);
         let alive = advance_character_time(ctx, character_id, chunk)?;
         let after = ctx
             .db
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(before, |row| row.minutes);
-        let elapsed = after.saturating_sub(before);
+            .map_or(before, |t| t.minutes);
+        let elapsed = after.elapsed_since(before);
         crate::filth::record_travel_elapsed(ctx, character_id, elapsed, after)?;
         if !alive || elapsed < chunk {
             return Ok(false);
@@ -240,15 +241,15 @@ pub fn advance_travel_time_in_plan(
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(0, |row| row.minutes);
+            .map_or(StrategicMinute::ZERO, |t| t.minutes);
         let alive = advance_character_time_in_plan(ctx, character_id, chunk, plan)?;
         let after = ctx
             .db
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(before, |row| row.minutes);
-        let elapsed = after.saturating_sub(before);
+            .map_or(before, |t| t.minutes);
+        let elapsed = after.elapsed_since(before);
         crate::filth::record_travel_elapsed(ctx, character_id, elapsed, after)?;
         if !alive || elapsed < chunk {
             return Ok(false);
@@ -278,15 +279,15 @@ pub fn advance_investigation_time(
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(0, |row| row.minutes);
+            .map_or(StrategicMinute::ZERO, |t| t.minutes);
         let alive = advance_character_time(ctx, character_id, safe)?;
         let after = ctx
             .db
             .character_time()
             .character_id()
             .find(character_id)
-            .map_or(before, |row| row.minutes);
-        let elapsed = after.saturating_sub(before);
+            .map_or(before, |t| t.minutes);
+        let elapsed = after.elapsed_since(before);
         if !alive || elapsed < safe {
             return Ok(false);
         }
@@ -302,7 +303,7 @@ pub(crate) fn synchronize_party_activity_time(
     ctx: &ReducerContext,
     member_ids: &[u64],
     leader_id: u64,
-) -> Result<Option<u64>, String> {
+) -> Result<Option<StrategicMinute>, String> {
     if !member_ids.contains(&leader_id) {
         return Err("Party leader is not a living activity participant".into());
     }
@@ -427,14 +428,12 @@ pub fn advance_character_wait_time(
         .find(character_id)
         .ok_or("Character time record not found")?;
     let starting_minute = time.minutes;
-    let requested_end = starting_minute.saturating_add(minutes);
-    if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
+    if let Some(first) = first_lifecycle_segment(
         ctx,
         character_id,
         starting_minute,
-        requested_end,
+        minutes,
     ) {
-        let first = boundary.saturating_sub(starting_minute);
         if !advance_character_wait_time(ctx, character_id, first)? {
             return Ok(false);
         }
@@ -455,7 +454,9 @@ pub fn advance_character_wait_time(
         elapsed,
         InjuryRecoveryMinutes::new(elapsed),
     )?;
-    time.minutes = time.minutes.saturating_add(settled.elapsed);
+    time.minutes = time.minutes
+        .saturating_add_minutes(settled.elapsed)
+        ;
     ctx.db.character_time().character_id().update(time);
     advance_married_family_by(ctx, character_id, settled.elapsed)?;
     let at_settlement = ctx
@@ -482,7 +483,7 @@ pub fn advance_character_wait_time(
     settle_lifecycle_after_character_time_write(
         ctx,
         character_id,
-        starting_minute.saturating_add(settled.elapsed),
+        starting_minute.saturating_add_minutes(settled.elapsed),
     )?;
     if terminal.is_some() || !settled.alive {
         return Ok(false);
@@ -512,14 +513,12 @@ pub fn advance_character_wait_time_in_plan(
         .find(character_id)
         .ok_or("Character time record not found")?;
     let starting_minute = time.minutes;
-    let requested_end = starting_minute.saturating_add(minutes);
-    if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
+    if let Some(first) = first_lifecycle_segment(
         ctx,
         character_id,
         starting_minute,
-        requested_end,
+        minutes,
     ) {
-        let first = boundary.saturating_sub(starting_minute);
         if !advance_character_wait_time_in_plan(ctx, character_id, first, plan)? {
             return Ok(false);
         }
@@ -550,7 +549,9 @@ pub fn advance_character_wait_time_in_plan(
         elapsed,
         InjuryRecoveryMinutes::new(elapsed),
     )?;
-    time.minutes = time.minutes.saturating_add(settled.elapsed);
+    time.minutes = time.minutes
+        .saturating_add_minutes(settled.elapsed)
+        ;
     ctx.db.character_time().character_id().update(time);
     advance_married_family_by(ctx, character_id, settled.elapsed)?;
     crate::organization::settle_membership_dues(ctx, character_id)?;
@@ -559,7 +560,7 @@ pub fn advance_character_wait_time_in_plan(
     settle_lifecycle_after_character_time_write(
         ctx,
         character_id,
-        starting_minute.saturating_add(settled.elapsed),
+        starting_minute.saturating_add_minutes(settled.elapsed),
     )?;
     if terminal.is_some() || !settled.alive {
         return Ok(false);

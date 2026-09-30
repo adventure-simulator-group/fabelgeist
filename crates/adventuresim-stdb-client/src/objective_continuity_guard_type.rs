@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::objective_continuity_kind_type::ObjectiveContinuityKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,9 +18,9 @@ pub struct ObjectiveContinuityGuard {
     pub site_id: String,
     pub subject_id: String,
     pub custody_version: Option<u32>,
-    pub started_at_minute: u64,
-    pub through_minute: u64,
-    pub broken_at_minute: Option<u64>,
+    pub started_at_minute: StrategicMinute,
+    pub through_minute: StrategicMinute,
+    pub broken_at_minute: Option<StrategicMinute>,
     pub completed: bool,
 }
 
@@ -39,9 +40,10 @@ pub struct ObjectiveContinuityGuardCols {
     pub site_id: __sdk::__query_builder::Col<ObjectiveContinuityGuard, String>,
     pub subject_id: __sdk::__query_builder::Col<ObjectiveContinuityGuard, String>,
     pub custody_version: __sdk::__query_builder::Col<ObjectiveContinuityGuard, Option<u32>>,
-    pub started_at_minute: __sdk::__query_builder::Col<ObjectiveContinuityGuard, u64>,
-    pub through_minute: __sdk::__query_builder::Col<ObjectiveContinuityGuard, u64>,
-    pub broken_at_minute: __sdk::__query_builder::Col<ObjectiveContinuityGuard, Option<u64>>,
+    pub started_at_minute: __sdk::__query_builder::Col<ObjectiveContinuityGuard, StrategicMinute>,
+    pub through_minute: __sdk::__query_builder::Col<ObjectiveContinuityGuard, StrategicMinute>,
+    pub broken_at_minute:
+        __sdk::__query_builder::Col<ObjectiveContinuityGuard, Option<StrategicMinute>>,
     pub completed: __sdk::__query_builder::Col<ObjectiveContinuityGuard, bool>,
 }
 

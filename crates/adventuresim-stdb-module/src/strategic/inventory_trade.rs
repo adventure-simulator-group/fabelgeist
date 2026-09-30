@@ -501,7 +501,7 @@ pub(crate) fn add_to_party_inventory_checked(
             .id()
             .find(party_id.to_string())
             .and_then(|party| ctx.db.character_time().character_id().find(party.leader_id))
-            .map_or(0, |time| time.minutes);
+            .map_or(StrategicMinute::ZERO, |time| time.minutes);
         for _ in 0..quantity {
             let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
                 id: 0,
@@ -2431,7 +2431,7 @@ fn validate_personal_storefront_purchase(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |time| time.minutes);
     if !crate::settlement_population::npc_is_present(ctx, &presence, minute) {
         return Err(adventuresim_core::reducer_error::coded_reducer_error(
             adventuresim_core::reducer_error::ReducerErrorCode::MerchantProviderUnavailable,
@@ -2594,7 +2594,7 @@ fn finalize_storefront_trade_impl(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |time| time.minutes);
     if provider.home_settlement_id != settlement_id
         || provider.service_id != service_id
         || provider_presence.settlement_id != settlement_id

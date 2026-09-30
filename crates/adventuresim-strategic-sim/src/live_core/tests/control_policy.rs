@@ -492,15 +492,15 @@ fn quest_fixture_lane_plan_is_exact_and_order_independent() {
 fn simulation_duration_is_relative_to_the_post_bootstrap_world_clock() {
     let absolute_start = 8_000_000;
     assert_eq!(
-        simulation_elapsed_minutes(absolute_start, absolute_start),
+        simulation_elapsed_minutes(StrategicMinute::new(absolute_start), StrategicMinute::new(absolute_start)),
         0
     );
     assert_eq!(
-        simulation_elapsed_minutes(absolute_start, absolute_start + 1_440),
+        simulation_elapsed_minutes(StrategicMinute::new(absolute_start), StrategicMinute::new(absolute_start + 1_440)),
         1_440
     );
     assert_eq!(
-        simulation_elapsed_minutes(absolute_start, absolute_start - 1),
+        simulation_elapsed_minutes(StrategicMinute::new(absolute_start), StrategicMinute::new(absolute_start - 1)),
         0
     );
 

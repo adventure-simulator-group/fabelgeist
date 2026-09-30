@@ -525,7 +525,7 @@ mod tests {
             .get::<SceneEnvironment>()
             .unwrap()
             .clone();
-        environment.absolute_minute += 60;
+        environment.absolute_minute = environment.absolute_minute.saturating_add_minutes(60);
         app.world_mut()
             .entity_mut(scene)
             .insert(environment.clone());

@@ -25,20 +25,20 @@ pub(super) fn public_discovery_contact_identity(
 pub(super) struct PublicDiscoveryFingerprint {
     pub(super) settlement_id: String,
     pub(super) contacts: Vec<PublicDiscoveryContactIdentity>,
-    pub(super) active_symptoms: Vec<(String, String, u64, u64)>,
+    pub(super) active_symptoms: Vec<(String, String, StrategicMinute, StrategicMinute)>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub(super) struct PublicDiscoveryBackoff {
     pub(super) fingerprint: PublicDiscoveryFingerprint,
     pub(super) last_contact: PublicDiscoveryContactIdentity,
-    pub(super) retry_at: u64,
+    pub(super) retry_at: StrategicMinute,
 }
 
 pub(super) fn public_discovery_backoff_active(
     backoff: &PublicDiscoveryBackoff,
     fingerprint: &PublicDiscoveryFingerprint,
-    official_minute: u64,
+    official_minute: StrategicMinute,
 ) -> bool {
     backoff.fingerprint == *fingerprint && official_minute < backoff.retry_at
 }
@@ -113,7 +113,7 @@ pub(super) struct PublicDiscoveryReferral {
     pub(super) expected_location: String,
     pub(super) current_learned_location: String,
     pub(super) corrected_by: String,
-    pub(super) recorded_at: u64,
+    pub(super) recorded_at: StrategicMinute,
 }
 
 impl From<BackendInvestigationLead> for PublicDiscoveryReferral {
@@ -127,7 +127,7 @@ impl From<BackendInvestigationLead> for PublicDiscoveryReferral {
             expected_location: lead.expected_location,
             current_learned_location: lead.current_learned_location,
             corrected_by: lead.corrected_by,
-            recorded_at: lead.recorded_at,
+            recorded_at: StrategicMinute::new(lead.recorded_at.minutes),
         }
     }
 }
@@ -246,20 +246,12 @@ pub(super) fn npc_is_publicly_present(
     end_minute: u16,
     context_suppressed: bool,
     health_suppressed: bool,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> bool {
     if context_suppressed || health_suppressed {
         return false;
     }
-    let minute = minute % MINUTES_PER_DAY;
-    let start = u64::from(start_minute);
-    let end = u64::from(end_minute);
-    start != end
-        && if start < end {
-            start <= minute && minute < end
-        } else {
-            minute >= start || minute < end
-        }
+    minute.contains_daily_window(start_minute, end_minute)
 }
 
 pub(super) fn stable_public_npc_candidates(
@@ -282,7 +274,7 @@ pub(super) fn stable_public_npc_candidates(
 
 pub(super) fn stable_owned_open_cases(
     owner_character_id: u64,
-    rows: impl IntoIterator<Item = (u64, String, String, DomainCaseStatus, u64)>,
+    rows: impl IntoIterator<Item = (u64, String, String, DomainCaseStatus, StrategicMinute)>,
 ) -> Vec<(String, String)> {
     let mut cases = rows
         .into_iter()

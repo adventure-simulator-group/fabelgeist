@@ -112,7 +112,7 @@ pub(super) async fn party_social(
     let target_minute =
         query_single::<CharacterTime>(&state, db::character_time_by_character_id(target_id))
             .await
-            .map_or(0, |v| v.minutes);
+            .map_or(StrategicMinute::ZERO, |v| StrategicMinute::new(v.minutes.minutes));
     let affinity_id = format!("{target_id}:{}", active.id);
     let affinity_result = state
         .db
@@ -120,10 +120,7 @@ pub(super) async fn party_social(
         .await;
     let affinity_available = affinity_result.is_ok();
     let affinity = affinity_result.ok().flatten().map_or(0.0, |v| {
-        adventuresim_core::social::settle_affinity(
-            v.anchor,
-            target_minute.saturating_sub(v.anchor_minute),
-        )
+        settle_affinity(v.anchor, target_minute.elapsed_since(StrategicMinute::new(v.anchor_minute.minutes)))
     });
     let (low, high) = (active.id.min(target_id), active.id.max(target_id));
     let familiarity_id = format!("{low}:{high}");

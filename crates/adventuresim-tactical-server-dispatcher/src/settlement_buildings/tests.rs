@@ -118,8 +118,8 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         source: SceneSource::SyntheticFixture("city".into()),
         latitude_microdegrees: 53_500_000,
         longitude_microdegrees: 10_000_000,
-        absolute_minute: 1,
-        lunar_phase_minute: 1,
+        absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
+        lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(1),
         absolute_elevation_metres: 0,
         playable: TerrainSampleGrid {
             width: 101,
@@ -138,7 +138,13 @@ fn dense_city_layout_passes_tactical_pad_validation() {
         distant_buildings: Vec::new(),
         establishments: Vec::new(),
         vista: VistaSample::default(),
-        weather: adventuresim_core::weather::weather_at(42, 1, 53_500_000, 10_000_000, 0),
+        weather: adventuresim_core::weather::weather_at(
+            42,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1),
+            53_500_000,
+            10_000_000,
+            0,
+        ),
     };
     input.validate().unwrap();
     let generated = input.generate().unwrap();

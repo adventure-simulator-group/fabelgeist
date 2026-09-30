@@ -20,6 +20,7 @@ use adventuresim_world_schema::{
     SurfaceGeology, SurfaceLithology, TopsoilOrganicCarbon, TravelEdgeImport, TravelRoute,
     TreeSpeciesProfile, UnconsolidatedDeposit, WesternChristianArrangement, WorldNodeImport,
     WrbReferenceGroup,
+    calendar::{CalendarYear, WORLD_START_YEAR},
 };
 use clap::Parser;
 use reqwest::{Url, blocking::Client};
@@ -27,7 +28,6 @@ use serde_json::{Value, json};
 
 mod geology_cli;
 
-const WORLD_YEAR: i32 = 1544;
 /// Conservative upper bound for one complete JSON reducer-call body.
 const MAX_REDUCER_REQUEST_BYTES: usize = 512 * 1024;
 
@@ -72,7 +72,7 @@ struct Args {
         default_value = "target/strategic-map/terrain-routing-base-v3.pack"
     )]
     base_terrain_pack: PathBuf,
-    #[arg(long, default_value_t = WORLD_YEAR)]
+    #[arg(long, default_value_t = WORLD_START_YEAR.get())]
     year: i32,
     #[arg(long, default_value_t = GridCellSizeMeters::default())]
     grid_cell_size_meters: GridCellSizeMeters,
@@ -135,8 +135,10 @@ fn run(args: Args) -> Result<()> {
     if args.batch_size == 0 {
         return Err(Error::Validation("batch size must be positive".into()));
     }
+    let year = CalendarYear::new(args.year)
+        .ok_or_else(|| Error::Validation("world year must be positive".into()))?;
     if let Some(output) = &args.derive_owda_profiles {
-        return derive_owda_profiles(&args.viabundus_dir, &args.drought_netcdf, output, args.year);
+        return derive_owda_profiles(&args.viabundus_dir, &args.drought_netcdf, output, year);
     }
     if let Some(input) = &args.input {
         let mut artifact = std::fs::read(input)?;
@@ -158,7 +160,7 @@ fn run(args: Args) -> Result<()> {
     }
     let base_terrain =
         adventuresim_terrain::TerrainPack::load(&args.base_terrain, &args.base_terrain_pack)?;
-    let world = WorldBuilder::new(args.year)
+    let world = WorldBuilder::new(year)
         .with_spatial_grid(SpatialGridSpec::new(args.grid_cell_size_meters))
         .with_playable_bounds()
         .build_from_sources_with_base_terrain(
@@ -181,7 +183,7 @@ fn run(args: Args) -> Result<()> {
     let output = args
         .output
         .clone()
-        .unwrap_or_else(|| default_output(args.year));
+        .unwrap_or_else(|| repository_root().join(format!("target/world-{}.json", args.year)));
     if let Some(parent) = output.parent() {
         std::fs::create_dir_all(parent)?;
     }
@@ -1385,10 +1387,6 @@ fn default_hydrology_directory() -> PathBuf {
     repository_root().join("target/world-data-sources/raw/hydrology")
 }
 
-fn default_output(year: i32) -> PathBuf {
-    repository_root().join(format!("target/world-{year}.json"))
-}
-
 #[cfg(test)]
 mod tests {
     use adventuresim_world_schema::{
@@ -1414,7 +1412,7 @@ mod tests {
 
     use super::{
         Args, HttpReducerCallError, HttpReducerClient, MAX_REDUCER_REQUEST_BYTES,
-        begin_import_arguments, default_output, encode_settlement, encode_settlement_description,
+        begin_import_arguments, encode_settlement, encode_settlement_description,
         encode_travel_edge, ensure_request_body_budget, execute_batch_adaptively,
         execute_http_batch_adaptively, json_body_bytes, manifest_audit_markdown,
         parse_spacetime_login_token, serialize_batches,
@@ -1439,7 +1437,7 @@ mod tests {
                 schema_version: WORLD_SCHEMA_VERSION,
                 inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
                 spatial_grid: SpatialGridSpec::new(GridCellSizeMeters::new(cell_size).unwrap()),
-                world_year: 1544,
+                world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                 manifest_digest: "0".repeat(64),
                 sources: Vec::new(),
                 road_types: Vec::new(),
@@ -1488,7 +1486,7 @@ mod tests {
                 schema_version: WORLD_SCHEMA_VERSION,
                 inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
                 spatial_grid: SpatialGridSpec::default(),
-                world_year: 1544,
+                world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                 manifest_digest: "0".repeat(64),
                 sources: vec![source.clone()],
                 road_types: vec![],
@@ -1545,7 +1543,7 @@ mod tests {
                     schema_version: WORLD_SCHEMA_VERSION,
                     inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
                     spatial_grid: SpatialGridSpec::default(),
-                    world_year: 1544,
+                    world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                     manifest_digest: "a".repeat(64),
                     sources: vec![],
                     road_types: vec![],
@@ -1569,7 +1567,7 @@ mod tests {
                     schema_version: WORLD_SCHEMA_VERSION,
                     inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
                     spatial_grid: SpatialGridSpec::default(),
-                    world_year: 1544,
+                    world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                     manifest_digest: "a".repeat(64),
                     sources: vec![],
                     road_types: vec![],
@@ -1593,7 +1591,7 @@ mod tests {
                     schema_version: WORLD_SCHEMA_VERSION,
                     inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
                     spatial_grid: SpatialGridSpec::default(),
-                    world_year: 1544,
+                    world_year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
                     manifest_digest: "a".repeat(64),
                     sources: vec![],
                     road_types: vec![],
@@ -2117,11 +2115,6 @@ mod tests {
         .unwrap_err();
         assert!(matches!(error, HttpReducerCallError::Failed { .. }));
         assert_eq!(calls, vec![vec![1, 2, 3, 4]]);
-    }
-
-    #[test]
-    fn default_output_names_the_selected_world_year() {
-        assert!(default_output(1600).ends_with("target/world-1600.json"));
     }
 
     #[test]

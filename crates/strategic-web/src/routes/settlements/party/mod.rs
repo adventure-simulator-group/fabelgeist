@@ -4,6 +4,9 @@
 // exchange request forms and presentation state. The settlement facade only
 // imports the handlers and projections consumed outside this domain.
 
+use adventuresim_core::social::settle_affinity;
+use adventuresim_world_schema::calendar::StrategicMinute;
+
 include!("location_personal.rs");
 include!("containers.rs");
 include!("cooking.rs");

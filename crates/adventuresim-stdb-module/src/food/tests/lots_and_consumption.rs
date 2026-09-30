@@ -53,7 +53,7 @@ fn partial_lot_retains_quality_and_scales_every_flavor() {
         mass_kg: 1.0,
         nutrition_kcal: 100.0,
         total_value: 10.0,
-        created_at_minute: 0,
+        created_at_minute: StrategicMinute::ZERO,
     };
     retain_lot_fraction(&mut lot, 0.25).unwrap();
     assert_eq!(lot.quality, 4);

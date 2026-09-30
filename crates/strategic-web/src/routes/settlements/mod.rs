@@ -36,6 +36,7 @@ mod entry;
 
 mod medical {
     use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("medical.rs");
 }
 mod overview {
@@ -44,6 +45,7 @@ mod overview {
 }
 mod camp {
     use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("camp.rs");
 }
 mod service_quests {
@@ -61,6 +63,7 @@ mod commerce {
 }
 mod rest {
     use super::*;
+    use adventuresim_world_schema::calendar::StrategicMinute;
     include!("rest.rs");
     include!("rest_tests.rs");
     include!("herbalist_tests.rs");

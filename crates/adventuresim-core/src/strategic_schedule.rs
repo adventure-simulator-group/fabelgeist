@@ -5,12 +5,10 @@ use crate::equipment::WeaponSkillDistribution;
 use crate::organization::{OrganizationDefinition, TrainingTarget};
 use crate::personality::Transparency;
 use crate::skill::{Skill, apply_direct_training};
-use crate::{
-    activity::*,
-    strategic_time::{MINUTES_PER_DAY, training_hours_increment},
-};
+use crate::{activity::*, strategic_time::training_hours_increment};
 use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, BestiaryHours, OfficialReligion, ReligionHours,
+    calendar::{MINUTES_PER_DAY, StrategicMinute},
 };
 
 mod allocation;
@@ -127,24 +125,20 @@ impl SkillHours {
 /// adjacent chunks telescope exactly without persisting a fractional remainder.
 pub fn restorative_leisure_minutes(
     schedule: DailySchedule,
-    interval_start_minute: u64,
+    interval_start_minute: StrategicMinute,
     elapsed_minutes: u64,
 ) -> u64 {
     let leisure = MINUTES_PER_DAY.saturating_sub(schedule.allocated_minutes());
-    let cumulative = |minute: u64| {
-        minute
-            .saturating_mul(leisure)
-            .checked_div(MINUTES_PER_DAY)
-            .unwrap_or(0)
-    };
-    cumulative(interval_start_minute.saturating_add(elapsed_minutes))
-        .saturating_sub(cumulative(interval_start_minute))
+    interval_start_minute
+        .saturating_add_minutes(elapsed_minutes)
+        .cumulative_daily_share_minutes(leisure)
+        .saturating_sub(interval_start_minute.cumulative_daily_share_minutes(leisure))
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct RestorativeLeisureSpan {
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
 }
 
 /// Enumerate the canonical realized Leisure portions of an absolute interval.
@@ -156,33 +150,33 @@ pub struct RestorativeLeisureSpan {
 /// describe the same spans instead of each claiming its checkpoint's prefix.
 pub fn restorative_leisure_spans(
     schedule: DailySchedule,
-    interval_start_minute: u64,
+    interval_start_minute: StrategicMinute,
     elapsed_minutes: u64,
 ) -> Vec<RestorativeLeisureSpan> {
-    let interval_end = interval_start_minute.saturating_add(elapsed_minutes);
+    let interval_end = interval_start_minute.saturating_add_minutes(elapsed_minutes);
     let allocated = schedule.allocated_minutes().min(MINUTES_PER_DAY);
     if interval_end <= interval_start_minute || allocated == MINUTES_PER_DAY {
         return Vec::new();
     }
     let mut spans = Vec::new();
-    let mut day = interval_start_minute / MINUTES_PER_DAY;
+    let mut day_start = interval_start_minute.day_start();
     loop {
-        let day_start = day.saturating_mul(MINUTES_PER_DAY);
         if day_start >= interval_end {
             break;
         }
-        let start = interval_start_minute.max(day_start.saturating_add(allocated));
-        let end = interval_end.min(day_start.saturating_add(MINUTES_PER_DAY));
+        let start = interval_start_minute.max(day_start.saturating_add_minutes(allocated));
+        let next_day = day_start.saturating_add_days(1);
+        let end = interval_end.min(next_day);
         if end > start {
             spans.push(RestorativeLeisureSpan {
                 start_minute: start,
                 end_minute: end,
             });
         }
-        if day == u64::MAX / MINUTES_PER_DAY {
+        if next_day <= day_start {
             break;
         }
-        day += 1;
+        day_start = next_day;
     }
     spans
 }
@@ -210,8 +204,8 @@ pub fn settlement_leisure_outcome(
     if elapsed_minutes == 0 {
         return LeisureOutcome::default();
     }
-    let days = elapsed_minutes as f32 / crate::strategic_time::MINUTES_PER_DAY as f32;
-    let leisure_hours_per_day = (crate::strategic_time::MINUTES_PER_DAY
+    let days = elapsed_minutes as f32 / adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32;
+    let leisure_hours_per_day = (adventuresim_world_schema::calendar::MINUTES_PER_DAY
         .saturating_sub(schedule.allocated_minutes())) as f32
         / 60.0;
     let labor_hours = days * f32::from(schedule.labor) / 60.0;
@@ -238,7 +232,8 @@ pub fn settlement_leisure_outcome(
         // fatigue reaches zero. Both that crossing and the daily quality are
         // rates, making the earned total independent of interval partitioning.
         morale: qualifying_days * daily_morale_quality,
-        morale_earning_minutes: qualifying_days * crate::strategic_time::MINUTES_PER_DAY as f32,
+        morale_earning_minutes: qualifying_days
+            * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32,
         leisure_hours: days * leisure_hours_per_day,
     }
 }
@@ -655,7 +650,7 @@ pub fn settlement_activity_outcome(
     elapsed_minutes: u64,
     inputs: ActivityOutcomeInputs,
 ) -> ActivityOutcome {
-    let days = elapsed_minutes as f32 / crate::strategic_time::MINUTES_PER_DAY as f32;
+    let days = elapsed_minutes as f32 / adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32;
     let hours = |minutes: u16| days * f32::from(minutes) / 60.0;
     let labor_hours = hours(schedule.labor);
     let thievery_hours = hours(schedule.thievery);
@@ -733,7 +728,7 @@ mod tests {
     }
     use crate::body::BodyPart;
     use crate::prelude::{LimbAttribute, SimpleAttribute};
-    use crate::strategic_time::MINUTES_PER_DAY;
+    use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 
     struct NeutralAttributes;
     impl PlayerAttributes for NeutralAttributes {
@@ -896,20 +891,53 @@ mod tests {
     #[test]
     fn restorative_leisure_is_proportional_and_chunk_invariant() {
         let none = DailySchedule::default();
-        assert_eq!(restorative_leisure_minutes(none, 0, 1_440), 1_440);
+        assert_eq!(
+            restorative_leisure_minutes(
+                none,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            1_440
+        );
         let full = DailySchedule {
             labor: 1_440,
             ..Default::default()
         };
-        assert_eq!(restorative_leisure_minutes(full, 0, 1_440), 0);
+        assert_eq!(
+            restorative_leisure_minutes(
+                full,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            0
+        );
         let half = DailySchedule {
             labor: 720,
             ..Default::default()
         };
-        assert_eq!(restorative_leisure_minutes(half, 0, 1_440), 720);
-        let bulk = restorative_leisure_minutes(half, 17, 1_000);
-        let first = restorative_leisure_minutes(half, 17, 333);
-        let second = restorative_leisure_minutes(half, 350, 667);
+        assert_eq!(
+            restorative_leisure_minutes(
+                half,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
+                1_440
+            ),
+            720
+        );
+        let bulk = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(17),
+            1_000,
+        );
+        let first = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(17),
+            333,
+        );
+        let second = restorative_leisure_minutes(
+            half,
+            adventuresim_world_schema::calendar::StrategicMinute::new(350),
+            667,
+        );
         assert_eq!(bulk, first + second);
     }
 
@@ -919,18 +947,30 @@ mod tests {
             labor: 8 * 60,
             ..Default::default()
         };
-        let whole = restorative_leisure_spans(schedule, 0, 2 * MINUTES_PER_DAY);
-        let mut mixed = restorative_leisure_spans(schedule, 0, 700);
-        mixed.extend(restorative_leisure_spans(schedule, 700, 1_113));
+        let whole = restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            2 * MINUTES_PER_DAY,
+        );
+        let mut mixed = restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            700,
+        );
         mixed.extend(restorative_leisure_spans(
             schedule,
-            1_813,
+            adventuresim_world_schema::calendar::StrategicMinute::new(700),
+            1_113,
+        ));
+        mixed.extend(restorative_leisure_spans(
+            schedule,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_813),
             2 * MINUTES_PER_DAY - 1_813,
         ));
         let minutes = |spans: &[RestorativeLeisureSpan]| {
             spans
                 .iter()
-                .map(|span| span.end_minute - span.start_minute)
+                .map(|span| span.end_minute.elapsed_since(span.start_minute))
                 .sum::<u64>()
         };
         assert_eq!(minutes(&whole), 2 * (MINUTES_PER_DAY - 8 * 60));
@@ -939,12 +979,12 @@ mod tests {
             whole,
             vec![
                 RestorativeLeisureSpan {
-                    start_minute: 480,
-                    end_minute: 1_440,
+                    start_minute: StrategicMinute::new(480),
+                    end_minute: StrategicMinute::new(1_440),
                 },
                 RestorativeLeisureSpan {
-                    start_minute: 1_920,
-                    end_minute: 2_880,
+                    start_minute: StrategicMinute::new(1_920),
+                    end_minute: StrategicMinute::new(2_880),
                 },
             ]
         );

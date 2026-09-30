@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BloodExposureCheckpoint {
     pub id: String,
     pub character_id: u64,
     pub disease_id: String,
-    pub evaluated_through: u64,
+    pub evaluated_through: StrategicMinute,
 }
 
 impl __sdk::InModule for BloodExposureCheckpoint {
@@ -24,7 +26,7 @@ pub struct BloodExposureCheckpointCols {
     pub id: __sdk::__query_builder::Col<BloodExposureCheckpoint, String>,
     pub character_id: __sdk::__query_builder::Col<BloodExposureCheckpoint, u64>,
     pub disease_id: __sdk::__query_builder::Col<BloodExposureCheckpoint, String>,
-    pub evaluated_through: __sdk::__query_builder::Col<BloodExposureCheckpoint, u64>,
+    pub evaluated_through: __sdk::__query_builder::Col<BloodExposureCheckpoint, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BloodExposureCheckpoint {

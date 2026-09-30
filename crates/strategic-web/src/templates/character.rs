@@ -325,7 +325,7 @@ pub fn character_candidates_page(
         can_renounce: false,
         organization_memberships: &candidate.organization_memberships,
         organization_presentation: candidate.organization_presentation.as_ref(),
-        organization_minute: 0,
+        organization_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
         physiology_dialog_id: None,
         surgery: None,
         injuries: &[],
@@ -604,17 +604,22 @@ impl From<&StartingCharacterSpec> for CandidatePresentation {
                 let paid_through =
                     adventuresim_core::organization::organization(&organization.organization_id)
                         .and_then(|definition| definition.dues.as_ref())
-                        .map_or(u64::MAX, |dues| {
-                            u64::from(dues.interval_days)
-                                * adventuresim_core::strategic_time::MINUTES_PER_DAY
-                        });
+                        .map_or(
+                            adventuresim_world_schema::calendar::StrategicMinute::MAX,
+                            |dues| {
+                                adventuresim_world_schema::calendar::StrategicMinute::ZERO
+                                    .saturating_add_days(u64::from(dues.interval_days))
+                            },
+                        );
                 BackendOrganizationMembership {
                     id: 0,
                     character_id: spec.id,
                     organization_id: organization.organization_id.clone(),
                     role_id: organization.role_id.clone(),
-                    joined_minute: 0,
-                    dues_paid_through_minute: paid_through,
+                    joined_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                    dues_paid_through_minute: adventuresim_stdb_client::StrategicMinute {
+                        minutes: paid_through.get(),
+                    },
                     status: OrganizationMembershipStatus::Active,
                     apprenticeship_minutes_accrued: 0,
                     practice_minutes_accrued: 0,
@@ -913,9 +918,17 @@ mod creation_tests {
         let membership = &preview.organization_memberships[0];
         let definition =
             adventuresim_core::organization::organization(&membership.organization_id).unwrap();
-        let expected = u64::from(definition.dues.as_ref().unwrap().interval_days)
-            * adventuresim_core::strategic_time::MINUTES_PER_DAY;
-        assert_eq!(membership.joined_minute, 0);
-        assert_eq!(membership.dues_paid_through_minute, expected);
+        let expected = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+            .saturating_add_days(u64::from(definition.dues.as_ref().unwrap().interval_days));
+        assert_eq!(
+            membership.joined_minute,
+            adventuresim_stdb_client::StrategicMinute { minutes: 0 }
+        );
+        assert_eq!(
+            membership.dues_paid_through_minute,
+            adventuresim_stdb_client::StrategicMinute {
+                minutes: expected.get(),
+            }
+        );
     }
 }

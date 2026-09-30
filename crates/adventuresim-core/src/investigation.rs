@@ -10,7 +10,7 @@ use crate::bestiary::{
 };
 #[cfg(test)]
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
-use adventuresim_world_schema::UnitBasisPoints;
+use adventuresim_world_schema::{UnitBasisPoints, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
 
@@ -195,8 +195,8 @@ pub fn adapt_evidence_knowledge(
     case_id: &str,
     evidence_id: &str,
     source_id: &str,
-    learned_at: u64,
-    observer_personal_minute: u64,
+    learned_at: StrategicMinute,
+    observer_personal_minute: StrategicMinute,
 ) -> Result<AdaptedEvidenceKnowledge, EvidenceKnowledgeAdapterError> {
     use crate::knowledge::{
         KnowledgeConfidence, KnowledgeEnvelope, KnowledgeLineage, KnowledgeRecordId,
@@ -255,8 +255,8 @@ mod evidence_knowledge_adapter_tests {
             "case:mill",
             "evidence:print",
             "attempt:inspect:1",
-            120,
-            120,
+            StrategicMinute::new(120),
+            StrategicMinute::new(120),
         )
         .unwrap();
         assert_eq!(
@@ -279,8 +279,8 @@ mod evidence_knowledge_adapter_tests {
                 "case:mill",
                 "evidence:print",
                 "attempt:inspect:1",
-                120,
-                119,
+                StrategicMinute::new(120),
+                StrategicMinute::new(119),
             ),
             Err(EvidenceKnowledgeAdapterError::InvalidKnowledge(
                 KnowledgeError::BeyondObserverTime
@@ -363,14 +363,14 @@ impl AtomicProposition {
 pub struct CanonicalEvent {
     pub id: EventId,
     pub case_id: CaseId,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
     pub propositions: Vec<AtomicProposition>,
 }
 impl CanonicalEvent {
     pub fn new(
         id: EventId,
         case_id: CaseId,
-        occurred_at: u64,
+        occurred_at: StrategicMinute,
         propositions: Vec<AtomicProposition>,
     ) -> Result<Self, ValidationError> {
         validate_unique(&propositions, |p| &p.id)?;
@@ -499,7 +499,7 @@ pub struct Claim {
     pub confidence: BasisPoints,
     pub disclosure: DisclosureMode,
     pub transmission: TransmissionCondition,
-    pub received_at: u64,
+    pub received_at: StrategicMinute,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Evidence {
@@ -508,7 +508,7 @@ pub struct Evidence {
     pub proposition_id: PropositionId,
     pub description: String,
     pub confidence: BasisPoints,
-    pub discovered_at: u64,
+    pub discovered_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -541,7 +541,7 @@ pub struct BeliefRevision {
     pub confidence: BasisPoints,
     pub provenance: Provenance,
     pub supersedes: Option<RevisionId>,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -579,7 +579,7 @@ pub enum DestinationKnowledge {
         location_id: String,
         latitude_e7: i32,
         longitude_e7: i32,
-        visited_at: u64,
+        visited_at: StrategicMinute,
     },
 }
 impl DestinationKnowledge {
@@ -623,7 +623,7 @@ pub struct SharingReceipt {
     pub recipient_id: u64,
     pub source_record_id: String,
     pub payload_fingerprint: String,
-    pub shared_at: u64,
+    pub shared_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -644,7 +644,7 @@ pub struct PipelineInput {
     pub memory: MemoryCondition,
     pub disclosure: DisclosureMode,
     pub transmission: TransmissionCondition,
-    pub received_at: u64,
+    pub received_at: StrategicMinute,
 }
 
 pub fn process_report(
@@ -917,7 +917,7 @@ mod tests {
             memory,
             disclosure,
             transmission,
-            received_at: 12,
+            received_at: StrategicMinute::new(12),
         })
         .unwrap()
     }
@@ -952,7 +952,7 @@ mod tests {
             memory: MemoryCondition::Accurate,
             disclosure: DisclosureMode::Disclose,
             transmission: TransmissionCondition::Clear,
-            received_at: 12,
+            received_at: StrategicMinute::new(12),
         };
         let second = process_report(input.clone()).unwrap();
         assert_ne!(first.0.id, second.0.id);
@@ -1036,7 +1036,7 @@ mod tests {
         let truth = CanonicalEvent::new(
             id(EventId::new, "event:1"),
             id(CaseId::new, "case:1"),
-            1,
+            StrategicMinute::new(1),
             vec![
                 AtomicProposition::new(
                     id(PropositionId::new, "prop:shape"),
@@ -1083,7 +1083,7 @@ mod tests {
                 revision_id: id(RevisionId::new, "revision:1"),
             },
             supersedes: Some(id(RevisionId::new, "revision:1")),
-            recorded_at: 20,
+            recorded_at: StrategicMinute::new(20),
         };
         assert_eq!(correction.revision, 2);
         assert_eq!(truth, snapshot);

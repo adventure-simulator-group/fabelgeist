@@ -3,7 +3,7 @@
 use std::{collections::BTreeMap, fs, path::Path};
 
 use adventuresim_world_schema::{
-    DroughtHistory, DroughtProfile, PalmerDroughtSeverityIndex, SummerHydroclimate,
+    DroughtHistory, DroughtProfile, PalmerDroughtSeverityIndex, calendar::CalendarYear,
 };
 use netcdf_reader::{NcFile, NcFormat, NcSliceInfo, NcSliceInfoElem, NcType};
 use serde::{Deserialize, Serialize};
@@ -75,57 +75,8 @@ pub(crate) fn enrich(
     )
 }
 
-fn source_note(year: i32, sample: Sample) -> String {
-    let start = year - i32::from(DroughtHistory::WINDOW_YEARS) + 1;
-    let spatial = if sample.used_neighbor {
-        "the containing cell was missing, so the nearest complete grid point within the 1.5° cutoff was used"
-    } else {
-        "the containing grid point was used"
-    };
-    history_note(year, start, sample.history, spatial, "reconstructed")
-}
-
-fn fallback_note(year: i32, history: DroughtHistory) -> String {
-    let start = year - i32::from(DroughtHistory::WINDOW_YEARS) + 1;
-    history_note(
-        year,
-        start,
-        history,
-        "no complete grid point was available within the 1.5° cutoff; a neutral fallback was used",
-        "inferred",
-    )
-}
-
-fn history_note(
-    year: i32,
-    start: i32,
-    history: DroughtHistory,
-    spatial: &str,
-    classification: &str,
-) -> String {
-    format!(
-        "**[NOAA OWDA v1.0](https://doi.org/10.25921/rjm6-mq74), [Cook et al.](https://doi.org/10.1126/sciadv.1500561):** Regional 0.5° summer PDSI estimate, not an exact settlement observation; {spatial}. {year}: {current} milli-PDSI ({condition}); {start}–{year} mean: {mean} milli-PDSI, rounded to the nearest milli-unit, with {dry} drought (≤ -2000) and {wet} wet (≥ 2000) summers. Profile is {classification}; tree-ring reconstruction and spatial assignment remain uncertain.",
-        current = history.current_summer().milli_units(),
-        mean = history.twenty_year_mean().milli_units(),
-        dry = history.drought_summers(),
-        wet = history.wet_summers(),
-        condition = condition_name(history.current_summer().condition()),
-    )
-}
-
-const fn condition_name(condition: SummerHydroclimate) -> &'static str {
-    match condition {
-        SummerHydroclimate::ExtremeDrought => "extreme drought",
-        SummerHydroclimate::SevereDrought => "severe drought",
-        SummerHydroclimate::ModerateDrought => "moderate drought",
-        SummerHydroclimate::MildDrought => "mild drought",
-        SummerHydroclimate::NearNormal => "near normal",
-        SummerHydroclimate::MildlyWet => "mildly wet",
-        SummerHydroclimate::ModeratelyWet => "moderately wet",
-        SummerHydroclimate::VeryWet => "very wet",
-        SummerHydroclimate::ExtremelyWet => "extremely wet",
-    }
-}
+mod notes;
+use notes::{fallback_note, source_note};
 
 fn finish(
     mut draft: WorldDraft<ReligionSettlementDraft>,
@@ -183,7 +134,7 @@ enum DroughtInput {
 }
 
 impl DroughtInput {
-    fn open(path: &Path, year: i32) -> Result<Self> {
+    fn open(path: &Path, year: CalendarYear) -> Result<Self> {
         if path
             .extension()
             .is_some_and(|extension| extension.eq_ignore_ascii_case("json"))
@@ -267,9 +218,9 @@ pub fn derive_profiles(
     viabundus_directory: &Path,
     raw_owda: &Path,
     output: &Path,
-    year: i32,
+    year: CalendarYear,
 ) -> Result<()> {
-    if year != 1544 {
+    if year != adventuresim_world_schema::calendar::WORLD_START_YEAR {
         return Err(Error::Validation(
             "OWDA developer profiles are currently reviewed only for 1544".into(),
         ));
@@ -311,7 +262,7 @@ pub fn derive_profiles(
     if !settlement_ids_path.exists() {
         let generated = serde_json::json!({
             "schema": 1,
-            "year": year,
+            "year": year.get(),
             "settlement_ids": profiles.iter().map(|profile| profile.settlement_id.clone()).collect::<Vec<_>>(),
         });
         fs::write(&settlement_ids_path, serde_json::to_vec(&generated)?)?;
@@ -325,7 +276,7 @@ pub fn derive_profiles(
             ))
         })?;
     if declared.schema != 1
-        || declared.year != year
+        || declared.year != year.get()
         || declared.settlement_ids.is_empty()
         || declared
             .settlement_ids
@@ -346,7 +297,7 @@ pub fn derive_profiles(
         schema: 1,
         source: "noaa-owda-v1-derived",
         version: "1544",
-        year,
+        year: year.get(),
         viabundus_inventory_sha256: inventory_hash,
         viabundus_settlement_ids_sha256: settlement_ids_hash,
         profiles,
@@ -369,7 +320,7 @@ struct DerivedProfiles {
 }
 
 impl DerivedProfiles {
-    fn open(path: &Path, year: i32) -> Result<Self> {
+    fn open(path: &Path, year: CalendarYear) -> Result<Self> {
         const MAX_DERIVED_BYTES: u64 = 8 * 1024 * 1024;
         if !path.is_file() || fs::metadata(path)?.len() > MAX_DERIVED_BYTES {
             return Err(Error::MissingSource(path.to_path_buf()));
@@ -384,7 +335,7 @@ impl DerivedProfiles {
         if parsed.schema != 1
             || parsed.source != "noaa-owda-v1-derived"
             || parsed.version != "1544"
-            || parsed.year != year
+            || parsed.year != year.get()
             || parsed.viabundus_inventory_sha256.len() != 64
             || !parsed
                 .viabundus_inventory_sha256
@@ -468,7 +419,7 @@ struct OwdaGrid {
 }
 
 impl OwdaGrid {
-    fn open(path: &Path, year: i32) -> Result<Self> {
+    fn open(path: &Path, year: CalendarYear) -> Result<Self> {
         if !path.is_file() {
             return Err(Error::MissingSource(path.to_path_buf()));
         }
@@ -514,7 +465,7 @@ impl OwdaGrid {
         let times = read_axis(&file, path, "time", YEARS, 0.0)?;
         let year_index = times
             .iter()
-            .position(|value| *value == f64::from(year))
+            .position(|value| *value == f64::from(year.get()))
             .ok_or_else(|| Error::Validation(format!("OWDA does not contain year {year}")))?;
         let window = usize::from(DroughtHistory::WINDOW_YEARS);
         if year_index + 1 < window {
@@ -818,7 +769,7 @@ mod tests {
             r#"{"schema":1,"source":"noaa-owda-v1-derived","version":"1544","year":1544,"viabundus_inventory_sha256":"0000000000000000000000000000000000000000000000000000000000000000","viabundus_settlement_ids_sha256":"0000000000000000000000000000000000000000000000000000000000000000","profiles":[{"settlement_id":"a","sampling":"nearest","current_milli_pdsi":-2000,"mean_milli_pdsi":-100,"drought_summers":1,"wet_summers":0}]}"#,
         )
         .unwrap();
-        let profiles = DerivedProfiles::open(&path, 1544).unwrap();
+        let profiles = DerivedProfiles::open(&path, CalendarYear::new(1544).unwrap()).unwrap();
         assert_eq!(
             profiles
                 .sample("a")
@@ -962,7 +913,7 @@ mod tests {
     #[test]
     fn provenance_uses_configured_year_and_both_dois() {
         let note = source_note(
-            1600,
+            adventuresim_world_schema::calendar::CalendarYear::new(1600).unwrap(),
             Sample {
                 history: neutral_history(),
                 used_neighbor: true,
@@ -978,7 +929,7 @@ mod tests {
     #[test]
     fn empty_world_still_requires_the_source() {
         let draft = WorldDraft {
-            year: 1544,
+            year: adventuresim_world_schema::calendar::WORLD_START_YEAR,
             spatial_grid: adventuresim_world_schema::SpatialGridSpec::default(),
             sources: Vec::new(),
             road_types: Vec::new(),
@@ -999,7 +950,7 @@ mod tests {
     #[ignore = "requires the manually downloaded 228 MB NOAA OWDA NetCDF file"]
     fn reads_downloaded_owda_source() {
         let path = std::env::var_os("OWDA_NETCDF").expect("set OWDA_NETCDF");
-        let grid = OwdaGrid::open(Path::new(&path), 1544).unwrap();
+        let grid = OwdaGrid::open(Path::new(&path), CalendarYear::new(1544).unwrap()).unwrap();
         assert_eq!(grid.valid_cells.len(), 5_414);
         let sample = grid.sample(53.5, 10.0).unwrap();
         assert_eq!(sample.history.current_summer().milli_units(), -837);
@@ -1010,10 +961,10 @@ mod tests {
     fn samples_every_real_viabundus_settlement() {
         let owda = std::env::var_os("OWDA_NETCDF").expect("set OWDA_NETCDF");
         let viabundus = std::env::var_os("VIABUNDUS_DIR").expect("set VIABUNDUS_DIR");
-        let grid = OwdaGrid::open(Path::new(&owda), 1544).unwrap();
+        let grid = OwdaGrid::open(Path::new(&owda), CalendarYear::new(1544).unwrap()).unwrap();
         let draft = crate::sources::viabundus::compile(
             Path::new(&viabundus),
-            1544,
+            adventuresim_world_schema::calendar::WORLD_START_YEAR,
             adventuresim_world_schema::SpatialGridSpec::default(),
             None,
         )

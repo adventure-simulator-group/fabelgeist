@@ -646,7 +646,7 @@ fn dialogue_fact_context(
                 .character_time()
                 .character_id()
                 .find(character_id)
-                .map_or(0, |time| time.minutes);
+                .map_or(StrategicMinute::ZERO, |t| t.minutes);
             let membership_state = membership.as_ref().map_or("none", |row| {
                 if crate::organization::membership_is_current(row, minute) {
                     "current"
@@ -836,7 +836,7 @@ fn dialogue_fact_context(
         .facts
         .insert(FactKey::SocialCheck, FactValue::Bool(false));
     if let Some(time) = ctx.db.character_time().character_id().find(character_id) {
-        let period = match time.minutes % adventuresim_core::strategic_time::MINUTES_PER_DAY {
+        let period = match time.minutes.minute_of_day() {
             300..720 => "morning",
             720..1020 => "afternoon",
             1020..1260 => "evening",
@@ -1005,7 +1005,7 @@ fn bind_organization_business_terms(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let standing = membership.as_ref().map_or("not enrolled", |membership| {
         if crate::organization::membership_is_current(membership, minute) {
             "current"
@@ -1269,10 +1269,10 @@ fn dialogue_runtime_bindings(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     bindings.bind(
         S::TimeWindow,
-        match minute % adventuresim_core::strategic_time::MINUTES_PER_DAY {
+        match minute.minute_of_day() {
             300..720 => "in the morning",
             720..1_020 => "in the afternoon",
             1_020..1_260 => "in the evening",

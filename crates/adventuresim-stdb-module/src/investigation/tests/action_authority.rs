@@ -23,7 +23,7 @@ fn action_graph_covers_all_methods_and_enforces_authoritative_boundaries() {
     assert!(source.contains("require_party_ready(ctx, party_id)?"));
     assert!(source.contains("require_no_unresolved_encounter(ctx, party_id)?"));
     assert!(source.contains("synchronize_party_activity_time"));
-    assert!(source.contains("started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY"));
+    assert!(source.contains("started_at.minute_of_day()"));
     assert!(source.contains("validate_pickup_custody"));
     assert!(source.contains("current.holder_kind != CustodyHolderKind::Site"));
     assert!(source.contains("resolution.risk_triggered"));
@@ -158,7 +158,7 @@ fn generated_graph_issues_owner_scoped_initial_site_knowledge() {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::Outbreak),
         witness_candidates: test_witnesses(),
@@ -247,7 +247,7 @@ fn generated_pattern_actions_require_the_exact_earned_clue() {
         .expect("typed corroborated-clue authority");
     assert!(clue_authority.contains("proposition.case_id.as_str() == case_id"));
     assert!(clue_authority.contains("proposition.evidence_id.as_str() == evidence_id"));
-    assert!(validator.contains("started_at % adventuresim_core::strategic_time::MINUTES_PER_DAY"));
+    assert!(validator.contains("started_at.minute_of_day()"));
     assert!(validator.contains(
         "capability.target_kind != action::InvestigationTargetKind::Route"
     ));
@@ -299,48 +299,48 @@ fn pattern_route_support_requires_exact_observer_clue_knowledge() {
         case_id: "case".into(),
         evidence_id: "pattern-clue".into(),
         source_id: "search-attempt".into(),
-        learned_at: 50_000,
+        learned_at: StrategicMinute::new(50_000),
     };
     assert!(observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        49_999,
+        StrategicMinute::new(49_999),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         Vec::<InvestigationEvidenceKnowledge>::new(),
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         8,
         "case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "other-case",
         "pattern-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned.clone()],
     ));
     assert!(!observer_pattern_route_has_live_corroborated_clue(
         7,
         "case",
         "other-clue",
-        50_000,
+        StrategicMinute::new(50_000),
         [learned],
     ));
 
@@ -411,7 +411,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),
@@ -457,7 +457,7 @@ fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive
         )
         .to_ascii_lowercase(),
         seed: 1,
-        evidence_age_origin_minute: 0,
+        evidence_age_origin_minute: StrategicMinute::ZERO,
         uncertainty_bps: 0,
         safe_summary: generated.safe_summary.clone(),
         known_prerequisites,
@@ -803,7 +803,7 @@ fn exact_generated_testimony_requires_matching_private_site_authority() {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),

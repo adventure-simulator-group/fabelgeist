@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CharacterFamiliarity {
@@ -11,7 +13,7 @@ pub struct CharacterFamiliarity {
     pub low_id: u64,
     pub high_id: u64,
     pub shared_minutes: u64,
-    pub joint_minute_anchor: u64,
+    pub joint_minute_anchor: StrategicMinute,
 }
 
 impl __sdk::InModule for CharacterFamiliarity {
@@ -26,7 +28,7 @@ pub struct CharacterFamiliarityCols {
     pub low_id: __sdk::__query_builder::Col<CharacterFamiliarity, u64>,
     pub high_id: __sdk::__query_builder::Col<CharacterFamiliarity, u64>,
     pub shared_minutes: __sdk::__query_builder::Col<CharacterFamiliarity, u64>,
-    pub joint_minute_anchor: __sdk::__query_builder::Col<CharacterFamiliarity, u64>,
+    pub joint_minute_anchor: __sdk::__query_builder::Col<CharacterFamiliarity, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterFamiliarity {

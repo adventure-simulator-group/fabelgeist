@@ -7,7 +7,7 @@ fn pair_id_is_order_independent() {
 fn engagement_is_one_year_notice() {
     assert_eq!(
         WEDDING_NOTICE_MINUTES,
-        adventuresim_core::strategic_time::MINUTES_PER_YEAR
+        adventuresim_world_schema::calendar::MINUTES_PER_YEAR
     );
 }
 

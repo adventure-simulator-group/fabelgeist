@@ -1,5 +1,6 @@
 //! Unified strategic presence and contextual role authority for every Character.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -72,8 +73,8 @@ pub struct CharacterContextMembership {
     pub role: CharacterContextRole,
     pub ordinal: u16,
     pub active: bool,
-    pub entered_at: u64,
-    pub left_at: Option<u64>,
+    pub entered_at: StrategicMinute,
+    pub left_at: Option<StrategicMinute>,
     pub revision: u32,
     pub contact_decision: ContextualDecisionState,
     /// Explicit treatment answer. Narrow emergency bandaging is evaluated live
@@ -169,38 +170,7 @@ pub fn backend_context_characters(ctx: &ViewContext) -> Vec<BackendContextCharac
                 .party_authority()
                 .gateway_bucket()
                 .filter(0u8)
-                .filter(|party| {
-                    ctx.db
-                        .character_time()
-                        .character_id()
-                        .find(party.leader_id)
-                        .is_some_and(|time| {
-                            context_membership_valid_at(&row, time.minutes)
-                                && character_case_site_occupancy_at_view(
-                                    ctx,
-                                    party.leader_id,
-                                    time.minutes,
-                                )
-                                .map(|occupancy| occupancy.case_site_id.to_place())
-                                .zip(canonical_case_site_place(&row.location_id))
-                                .is_some_and(
-                                    |(party_place, context_place)| party_place == context_place,
-                                )
-                                && exact_case_site_visible_to_observer_view(
-                                    ctx,
-                                    party.leader_id,
-                                    &row.location_id,
-                                    time.minutes,
-                                )
-                                && (row.role != CharacterContextRole::Patient
-                                    || crate::outbreak::case_patient_visible_to_character_view(
-                                        ctx,
-                                        party.leader_id,
-                                        &row.context_id,
-                                        time.minutes,
-                                    ))
-                        })
-                })
+                .filter(|party| case_context_party_visible_at_view(ctx, &row, party))
                 .filter_map(|party| {
                     let minute = ctx
                         .db
@@ -444,7 +414,7 @@ pub(crate) fn materialize_context_roster(
             ctx,
             crate::character::CharacterId::new(id),
             crate::character::NameSeed::new(id),
-            crate::character::WorldMinute::new(entered_at),
+            entered_at,
             None,
         )?;
         ctx.db
@@ -533,158 +503,9 @@ pub(crate) fn rebind_road_cast_to_strategic_encounter(
     )
 }
 
-fn context_interval_is_well_formed(active: bool, entered_at: u64, left_at: Option<u64>) -> bool {
-    active == left_at.is_none() && left_at.is_none_or(|left_at| left_at >= entered_at)
-}
+include!("world_actor/presence.rs");
 
-pub(crate) fn context_membership_interval_is_well_formed(row: &CharacterContextMembership) -> bool {
-    context_interval_is_well_formed(row.active, row.entered_at, row.left_at)
-}
-
-pub(crate) fn context_membership_valid_at(row: &CharacterContextMembership, minute: u64) -> bool {
-    context_membership_interval_is_well_formed(row)
-        && row.entered_at <= minute
-        && row.left_at.is_none_or(|left_at| minute < left_at)
-}
-
-fn exact_context_claim_matches(
-    kind: CharacterContextKind,
-    contact_ref: &str,
-    expected_revision: u32,
-    actual_revision: u32,
-) -> bool {
-    matches!(
-        kind,
-        CharacterContextKind::CaseSite | CharacterContextKind::HostileGroup
-    ) && contact_ref == EXACT_CASE_CONTEXT_CONTACT_REF
-        && expected_revision == actual_revision
-}
-
-fn exactly_one<T>(mut values: impl Iterator<Item = T>) -> Option<T> {
-    let value = values.next()?;
-    values.next().is_none().then_some(value)
-}
-
-fn projected_case_context_claim(
-    ctx: &ReducerContext,
-    observer_character_id: u64,
-    membership: &CharacterContextMembership,
-    minute: u64,
-) -> Option<(String, u32)> {
-    context_membership_valid_at(membership, minute)
-        .then(|| (membership.id.clone(), membership.revision))
-        .filter(|_| {
-            crate::investigation::exact_case_site_for_observer_at(
-                ctx,
-                observer_character_id,
-                &membership.location_id,
-                minute,
-            )
-            .is_some()
-        })
-}
-
-fn character_case_site_occupancy_at_view(
-    ctx: &ViewContext,
-    character_id: u64,
-    minute: u64,
-) -> Option<crate::investigation::CharacterCaseSiteOccupancy> {
-    let mut rows = ctx
-        .db
-        .character_case_site_occupancy()
-        .character_id()
-        .filter(character_id)
-        .filter(|row| row.entered_at <= minute && row.left_at.is_none_or(|left| minute < left));
-    let row = rows.next()?;
-    rows.next().is_none().then_some(row)
-}
-
-pub(crate) fn character_alive_at_for_view(
-    ctx: &ViewContext,
-    character_id: u64,
-    minute: u64,
-) -> bool {
-    ctx.db.character().id().find(character_id).is_some()
-        && ctx
-            .db
-            .character_birth()
-            .character_id()
-            .find(character_id)
-            .is_none_or(|birth| i128::from(birth.birth_minute) <= i128::from(minute))
-        && ctx
-            .db
-            .character_death()
-            .character_id()
-            .find(character_id)
-            .is_none_or(|death| death.strategic_minute > minute)
-}
-
-fn exact_case_site_visible_to_observer_view(
-    ctx: &ViewContext,
-    observer_character_id: u64,
-    case_site_id: &str,
-    minute: u64,
-) -> bool {
-    let Some(place) = canonical_case_site_place(case_site_id) else {
-        return false;
-    };
-    let Some(site) = ctx
-        .db
-        .case_site_authority()
-        .id_key()
-        .find(case_site_id.to_owned())
-    else {
-        return false;
-    };
-    if site.id.to_place() != place {
-        return false;
-    }
-    let Some(generated_aliases) = case_site_provenance_view(ctx, &site) else {
-        return false;
-    };
-    ctx.db
-        .investigation_lead()
-        .owner_character_id()
-        .filter(observer_character_id)
-        .any(|lead| {
-            lead.recorded_at <= minute
-                && canonical_case_site_place(&lead.exact_location_id).as_ref() == Some(&place)
-                && (lead.case_id == site.case_id
-                    || generated_aliases
-                        .as_ref()
-                        .is_some_and(|aliases| lead.case_id == aliases.1.as_str()))
-                && lead.latitude_e7 == site.latitude_e7
-                && lead.longitude_e7 == site.longitude_e7
-                && lead.destination_stage.is_exact()
-                && (lead.corrected_by.is_empty()
-                    || ctx
-                        .db
-                        .investigation_lead()
-                        .id()
-                        .find(&lead.corrected_by)
-                        .is_some_and(|correction| {
-                            correction.owner_character_id == lead.owner_character_id
-                                && correction.recorded_at > minute
-                        }))
-        })
-}
-
-pub(crate) fn deactivate_context_roster_at(ctx: &ReducerContext, context_id: &str, minute: u64) {
-    for mut row in context_members(ctx, context_id) {
-        if !row.active {
-            continue;
-        }
-        row.active = false;
-        row.left_at = Some(minute.max(row.entered_at));
-        row.revision = row.revision.saturating_add(1);
-        ctx.db.character_context_membership().id().update(row);
-    }
-}
-
-pub(crate) fn deactivate_context_roster(ctx: &ReducerContext, context_id: &str) {
-    let minute = crate::time::refresh_clock(ctx).unwrap_or(0);
-    deactivate_context_roster_at(ctx, context_id, minute);
-}
+include!("world_actor/roster.rs");
 
 /// Materialize every individualized mortal in a compiled road cast as an
 /// ordinary, fully componentized Character. Cast order is the stable identity
@@ -694,7 +515,7 @@ pub(crate) fn materialize_road_encounter_cast(
     ctx: &ReducerContext,
     context_id: &str,
     definition: &adventuresim_core::road_encounter_catalog::EncounterDefinition,
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
 ) -> Result<Vec<u64>, String> {
     use adventuresim_core::road_encounter_catalog::{
         AuthoredInteractionDecision, CharacterCastRole, SpeakerBacking,
@@ -814,16 +635,7 @@ pub(crate) fn characters_are_contextually_present(
     {
         return true;
     }
-    let actor_minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(actor_id)
-        .map(|row| row.minutes);
-    let actor_case_presence = actor_minute.and_then(|minute| {
-        case_site_presence_for_observer(ctx, actor_id, actor_id, minute)
-            .map(|presence| (presence, minute))
-    });
+    let actor_case_presence = actor_case_presence(ctx, actor_id);
     if let Some((actor_presence, minute)) = actor_case_presence.as_ref()
         && case_site_presence_for_observer(ctx, actor_id, target_id, *minute).is_some_and(
             |target_presence| {
@@ -853,8 +665,9 @@ pub(crate) fn characters_are_contextually_present(
                 actor_case_presence
                     .as_ref()
                     .is_some_and(|(actor_presence, minute)| {
+                        let minute = *minute;
                         let Some((projected_id, projected_revision)) =
-                            projected_case_context_claim(ctx, actor_id, &row, *minute)
+                            projected_case_context_claim(ctx, actor_id, &row, minute)
                         else {
                             return false;
                         };
@@ -864,7 +677,7 @@ pub(crate) fn characters_are_contextually_present(
                             &row,
                             &projected_id,
                             projected_revision,
-                            *minute,
+                            minute,
                         )
                         .is_some_and(|target_presence| {
                             adventuresim_core::strategic_presence::are_co_present(
@@ -1074,7 +887,7 @@ fn contextual_treatment_decision_with_emergency(
         .character_time()
         .character_id()
         .find(actor_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let contextual = ctx
         .db
         .character_context_membership()
@@ -1218,8 +1031,7 @@ pub fn contact_context_character(
         .find(actor_id)
         .ok_or("Contact actor has no personal time")?
         .minutes;
-    let actor_case_presence =
-        case_site_presence_for_observer(ctx, actor_id, actor_id, actor_minute);
+    let case_presence = case_site_presence_for_observer(ctx, actor_id, actor_id, actor_minute);
     let candidates = ctx
         .db
         .character_context_membership()
@@ -1241,7 +1053,7 @@ pub fn contact_context_character(
                         &contact_ref,
                         expected_revision,
                         row.revision,
-                    ) && actor_case_presence.as_ref().is_some_and(|actor_presence| {
+                    ) && case_presence.as_ref().is_some_and(|actor_presence| {
                         case_context_presence_for_observer(
                             ctx,
                             actor_id,
@@ -1377,7 +1189,7 @@ mod tests {
     use super::{
         CharacterContextKind, CharacterContextMembership, CharacterContextRole,
         ContextualDecisionState, ContextualTreatmentClaim, EXACT_CASE_CONTEXT_CONTACT_REF,
-        context_interval_is_well_formed, contextual_treatment_claim_matches,
+        StrategicMinute, context_interval_is_well_formed, contextual_treatment_claim_matches,
         exact_context_claim_matches, exactly_one, treatment_target_answer,
     };
 
@@ -1391,7 +1203,7 @@ mod tests {
             role: CharacterContextRole::Patient,
             ordinal: 0,
             active: true,
-            entered_at: 1,
+            entered_at: StrategicMinute::new(1),
             left_at: None,
             revision: 4,
             contact_decision: ContextualDecisionState::Allowed,
@@ -1401,11 +1213,24 @@ mod tests {
 
     #[test]
     fn context_intervals_reject_malformed_active_and_chronology_shapes() {
-        assert!(context_interval_is_well_formed(true, 10, None));
-        assert!(context_interval_is_well_formed(false, 10, Some(10)));
-        assert!(!context_interval_is_well_formed(true, 10, Some(11)));
-        assert!(!context_interval_is_well_formed(false, 10, None));
-        assert!(!context_interval_is_well_formed(false, 10, Some(9)));
+        let entered = StrategicMinute::new(10);
+        assert!(context_interval_is_well_formed(true, entered, None));
+        assert!(context_interval_is_well_formed(
+            false,
+            entered,
+            Some(entered)
+        ));
+        assert!(!context_interval_is_well_formed(
+            true,
+            entered,
+            Some(StrategicMinute::new(11))
+        ));
+        assert!(!context_interval_is_well_formed(false, entered, None));
+        assert!(!context_interval_is_well_formed(
+            false,
+            entered,
+            Some(StrategicMinute::new(9))
+        ));
     }
 
     #[test]

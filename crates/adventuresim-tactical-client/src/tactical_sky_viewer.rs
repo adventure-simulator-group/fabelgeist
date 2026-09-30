@@ -1,11 +1,5 @@
-use std::{
-    fs,
-    path::PathBuf,
-    process::Command,
-    sync::{Arc, Mutex},
-};
-
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::{LatitudeMicrodegrees, LongitudeMicrodegrees};
 use bevy::{
     app::AppExit,
@@ -25,6 +19,15 @@ use bevy::{
     window::{PresentMode, WindowResolution},
 };
 use serde::Serialize;
+use std::{
+    fs,
+    path::PathBuf,
+    process::Command,
+    sync::{Arc, Mutex},
+};
+
+mod configuration;
+use configuration::sky_view_configuration;
 
 use crate::{
     SkyView,
@@ -47,7 +50,7 @@ struct SkyCaptureState {
     prime_complete: bool,
     in_flight: bool,
     view: SkyView,
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     sun_altitude_degrees: f32,
     moon_altitude_degrees: f32,
     lunar_illumination: f32,
@@ -60,7 +63,7 @@ struct SkyCaptureState {
 
 #[derive(Clone, Copy)]
 struct SkyViewConfiguration {
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     sun_altitude_degrees: f32,
     moon_altitude_degrees: f32,
     lunar_illumination: f32,
@@ -210,58 +213,6 @@ pub(super) fn run(view: SkyView, output: PathBuf, settle_frames: u32) {
     let exit = app.run();
     if exit != AppExit::Success {
         std::process::exit(1);
-    }
-}
-
-fn sky_view_configuration(view: SkyView) -> SkyViewConfiguration {
-    let absolute_minute = match view {
-        SkyView::Sun => 172 * MINUTES_PER_DAY + 12 * 60,
-        // Clear midsummer low Sun: demonstrates atmospheric extinction and
-        // aureole structure without changing the production solar model.
-        SkyView::SunDetail => 172 * MINUTES_PER_DAY + 19 * 60,
-        SkyView::Twilight => 80 * MINUTES_PER_DAY + 18 * 60,
-        // Day 249 23:00: dark sky, Moon +24.6 degrees and 99% illuminated.
-        // Keep this identical to the compact matrix's verified moonlit slot.
-        SkyView::Moon => 359_940,
-        // Canonical new moon at 23:00 on day 77.
-        SkyView::Stars => 637_860,
-        SkyView::CloudCumulus
-        | SkyView::CloudStratocumulus
-        | SkyView::CloudCirrus
-        | SkyView::CloudOvercast
-        | SkyView::CloudStorm => 172 * MINUTES_PER_DAY + 15 * 60,
-    };
-    let celestial = celestial_directions(absolute_minute, LATITUDE, LONGITUDE);
-    let sun = to_bevy_direction(celestial.sun);
-    let moon = to_bevy_direction(celestial.moon);
-    let view_direction = match view {
-        SkyView::Sun => horizon_view(sun, 0.5),
-        SkyView::SunDetail => sun,
-        SkyView::Twilight => horizon_view(sun, 0.03),
-        SkyView::Moon => moon,
-        SkyView::Stars => Vec3::new(0.15, 0.55, -0.82).normalize(),
-        SkyView::CloudCumulus
-        | SkyView::CloudStratocumulus
-        | SkyView::CloudCirrus
-        | SkyView::CloudOvercast
-        | SkyView::CloudStorm => horizon_view(sun, 0.34),
-    };
-    SkyViewConfiguration {
-        absolute_minute,
-        sun_altitude_degrees: celestial.sun[1].asin().to_degrees(),
-        moon_altitude_degrees: celestial.moon[1].asin().to_degrees(),
-        lunar_illumination: celestial.lunar_illumination,
-        camera_translation: Vec3::new(0.0, 2.0, 8.0),
-        camera_direction: view_direction,
-        vertical_fov_degrees: if matches!(view, SkyView::Moon) {
-            12.0
-        } else if matches!(view, SkyView::SunDetail) {
-            20.0
-        } else if is_cloud_view(view) {
-            72.0
-        } else {
-            80.0
-        },
     }
 }
 
@@ -498,7 +449,7 @@ fn capture_view(
             let manifest = SkyManifest {
                 pipeline: "tactical_sky_native_capture_v4",
                 view: sky_view_slug(state.view),
-                absolute_minute: state.absolute_minute,
+                absolute_minute: state.absolute_minute.get(),
                 resolution: [VIEW_WIDTH, VIEW_HEIGHT],
                 settle_frames: state.settle_frames,
                 camera_version: 1,

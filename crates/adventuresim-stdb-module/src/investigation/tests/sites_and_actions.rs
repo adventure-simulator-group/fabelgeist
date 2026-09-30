@@ -20,7 +20,7 @@ fn non_exact_rows_are_sanitized_without_coordinates() {
         current_learned_location: String::new(),
         contradiction_group: String::new(),
         corrected_by: String::new(),
-        recorded_at: 1,
+        recorded_at: StrategicMinute::new(1),
     };
     let safe = sanitize_lead(row, None);
     assert!(safe.exact_location_id.is_empty());
@@ -49,7 +49,7 @@ fn journal_cross_scope_references_degrade_to_safe_chronology() {
         current_learned_location: String::new(),
         contradiction_group: String::new(),
         corrected_by: "lead:later".into(),
-        recorded_at: 1,
+        recorded_at: StrategicMinute::new(1),
     };
     let mut correction = lead.clone();
     correction.id = "lead:later".into();
@@ -85,7 +85,7 @@ fn journal_cross_scope_references_degrade_to_safe_chronology() {
         provenance_kind: "witness".into(),
         provenance_label: "Greta".into(),
         supersedes: "revision:one".into(),
-        recorded_at: 2,
+        recorded_at: StrategicMinute::new(2),
     };
     let mut earlier = revision.clone();
     earlier.id = "revision:one".into();
@@ -273,7 +273,7 @@ fn exact_witness_belief_projects_a_pin_without_route_completion() {
         current_learned_location: site.name.clone(),
         contradiction_group: "reported-place".into(),
         corrected_by: String::new(),
-        recorded_at: 1,
+        recorded_at: StrategicMinute::new(1),
     };
     assert!(lead_projects_exact_case_site_pin(
         &lead,
@@ -520,7 +520,7 @@ fn corrected_contact_referral_is_not_live_at_any_action_boundary() {
         current_learned_location: String::new(),
         contradiction_group: String::new(),
         corrected_by: corrected_by.into(),
-        recorded_at: 50_000,
+        recorded_at: StrategicMinute::new(50_000),
     };
     let live = referral(7, "case", "");
     assert!(lead_is_live_contact_referral(&live, 7, "case"));
@@ -743,12 +743,12 @@ fn changed_victim_cohort_projects_one_generic_observer_safe_reason() {
 
 #[test]
 fn nighttime_projection_wait_is_exact_and_bounded() {
-    assert_eq!(night_window_wait_minutes(0), 0);
-    assert_eq!(night_window_wait_minutes(359), 0);
-    assert_eq!(night_window_wait_minutes(360), 840);
-    assert_eq!(night_window_wait_minutes(1_199), 1);
-    assert_eq!(night_window_wait_minutes(1_200), 0);
-    assert_eq!(night_window_wait_minutes(1_440 + 600), 600);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(0)), 0);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(359)), 0);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(360)), 840);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_199)), 1);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_200)), 0);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_440 + 600)), 600);
 
     let blocked = projected_action_availability(true, None, false, 37);
     assert_eq!(
@@ -785,17 +785,20 @@ fn locate_contact_projection_mirrors_public_scheduled_presence() {
         health_suppressed: false,
     };
     assert_eq!(
-        public_contact_schedule_wait_minutes(&presence, 600),
+        public_contact_schedule_wait_minutes(&presence, StrategicMinute::new(600)),
         Some(0)
     );
     assert_eq!(
-        public_contact_schedule_wait_minutes(&presence, 1_020),
+        public_contact_schedule_wait_minutes(&presence, StrategicMinute::new(1_020)),
         Some(900)
     );
 
     let mut suppressed = presence.clone();
     suppressed.health_suppressed = true;
-    assert_eq!(public_contact_schedule_wait_minutes(&suppressed, 600), None);
+    assert_eq!(
+        public_contact_schedule_wait_minutes(&suppressed, StrategicMinute::new(600)),
+        None
+    );
 
     let source = INVESTIGATION_SOURCE;
     let projection = source
@@ -878,8 +881,8 @@ fn progressed_single_patrol_frontier_is_valid_after_public_night_wait() {
         ..exact_capability(7, "case-a", "site-a")
     };
 
-    assert_eq!(night_window_wait_minutes(360), 840);
-    assert_eq!(night_window_wait_minutes(1_200), 0);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(360)), 840);
+    assert_eq!(night_window_wait_minutes(StrategicMinute::new(1_200)), 0);
     assert_eq!(
         successful_action_successor_ids(&[inspect.clone(), patrol.clone()], &inspect),
         [patrol.id.clone()]

@@ -4,7 +4,7 @@ mod smiths;
 use adventuresim_core::durability::DamageBins;
 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
 use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 pub(crate) use smiths::ensure_settlement_smith;
 use smiths::service_skill;
 use spacetimedb::{ReducerContext, Table, reducer, table};
@@ -77,8 +77,8 @@ pub struct RepairOrder {
     pub item_id: String,
     pub settlement_id: String,
     pub smith_skill: u8,
-    pub submitted_at_minutes: u64,
-    pub ready_at_minutes: u64,
+    pub submitted_at_minutes: StrategicMinute,
+    pub ready_at_minutes: StrategicMinute,
     pub target_condition: f32,
     pub equipped_placement_id: Option<String>,
     pub attachment_targets: Vec<crate::character::EquipmentAttachmentTargetSelection>,
@@ -200,7 +200,7 @@ fn submit(
         .character_id()
         .find(character_id)
         .map(|v| v.minutes)
-        .unwrap_or(0);
+        .unwrap_or_default();
     let minutes = (repairable * REPAIR_MINUTES_PER_FULL_ITEM as f32).ceil() as u64;
     let quoted_cost =
         adventuresim_core::durability::repair_quote(definition.base_value.unwrap_or(1), repairable);
@@ -249,7 +249,7 @@ fn submit(
         settlement_id: settlement_id.to_owned(),
         smith_skill: skill,
         submitted_at_minutes: now,
-        ready_at_minutes: now.saturating_add(minutes.max(1)),
+        ready_at_minutes: now.saturating_add_minutes(minutes.max(1)),
         target_condition,
         equipped_placement_id: equipped.map(|row| row.placement_id),
         attachment_targets,
@@ -359,7 +359,7 @@ fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<()
         .character_id()
         .find(character_id)
         .map(|v| v.minutes)
-        .unwrap_or(0);
+        .unwrap_or_default();
     if now < order.ready_at_minutes {
         return Err("Repair is not complete yet".into());
     }
@@ -457,7 +457,7 @@ pub fn retrieve_repaired_items(
         .character_id()
         .find(character_id)
         .map(|value| value.minutes)
-        .unwrap_or(0);
+        .unwrap_or_default();
     let mut ids: Vec<_> = ctx
         .db
         .repair_order()

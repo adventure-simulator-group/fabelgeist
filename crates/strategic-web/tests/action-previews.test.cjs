@@ -1,7 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { restBooking } = require("../static/action-previews.js");
-const calendar = { minutesPerDay: 1440, daysPerYear: 365 };
+const calendar = require("./strategic-calendar-fixture.cjs");
 
 test("lodging previews show the selected cost and the game's one-based calendar", () => {
   assert.equal(restBooking(2, 2, 8 * 60, calendar), "4 coin for lodging. Wake on day 3, 08:00.");

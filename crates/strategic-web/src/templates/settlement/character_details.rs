@@ -5,7 +5,7 @@ use adventuresim_core::{
     organization::{OrganizationDefinition, OrganizationRoleDefinition, organization},
     strategic_schedule::CombatTrainingProfile,
 };
-use adventuresim_world_schema::OfficialReligion;
+use adventuresim_world_schema::{OfficialReligion, calendar::StrategicMinute};
 use maud::{Markup, html};
 
 use super::{
@@ -87,7 +87,7 @@ pub(crate) struct CharacterSheetView<'a> {
     pub can_renounce: bool,
     pub organization_memberships: &'a [BackendOrganizationMembership],
     pub organization_presentation: Option<&'a OrganizationPresentation>,
-    pub organization_minute: u64,
+    pub organization_minute: StrategicMinute,
     pub physiology_dialog_id: Option<&'a str>,
     pub surgery: Option<(&'a str, Option<&'a str>)>,
     pub injuries: &'a [LimbInjury],
@@ -200,7 +200,7 @@ pub fn party_personal_page(
     religion_id: Option<&str>,
     organization_memberships: &[BackendOrganizationMembership],
     organization_presentation: Option<&OrganizationPresentation>,
-    organization_minute: u64,
+    organization_minute: StrategicMinute,
     prayer_religion_check: f32,
     schedule: Option<&CharacterTrainingSchedule>,
     combat_profile: CombatTrainingProfile,
@@ -415,7 +415,7 @@ pub fn party_stats_page(
         can_renounce: selected.id == active_character.id,
         organization_memberships: &[],
         organization_presentation: None,
-        organization_minute: 0,
+        organization_minute: StrategicMinute::ZERO,
         physiology_dialog_id: Some("physiology-chart-dialog"),
         surgery: Some((&surgery_path_template, surgery_open)),
         injuries,
@@ -468,7 +468,7 @@ fn character_bio_rail(
     location_path: &str,
     organization_memberships: &[BackendOrganizationMembership],
     organization_presentation: Option<&OrganizationPresentation>,
-    organization_minute: u64,
+    organization_minute: StrategicMinute,
 ) -> Markup {
     html! {
         (sidebar_section("Bio", html! {
@@ -599,7 +599,7 @@ fn organization_identity_picker(
     _location_path: &str,
     memberships: &[BackendOrganizationMembership],
     presentation: Option<&OrganizationPresentation>,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Markup {
     let choices = memberships
         .iter()
@@ -607,7 +607,7 @@ fn organization_identity_picker(
             let definition = organization(&membership.organization_id)?;
             let role = definition.role(&membership.role_id)?;
             (membership.status == OrganizationMembershipStatus::Active
-                && minute <= membership.dues_paid_through_minute
+                && minute <= StrategicMinute::new(membership.dues_paid_through_minute.minutes)
                 && definition.recognition.includes(settlement_id))
             .then_some((membership, definition, role))
         })

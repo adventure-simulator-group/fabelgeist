@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct SpouseLeisureOverlap {
@@ -11,7 +13,7 @@ pub struct SpouseLeisureOverlap {
     pub first_slice_id: String,
     pub second_slice_id: String,
     pub joint_minutes: u64,
-    pub resolved_minute: u64,
+    pub resolved_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for SpouseLeisureOverlap {
@@ -26,7 +28,7 @@ pub struct SpouseLeisureOverlapCols {
     pub first_slice_id: __sdk::__query_builder::Col<SpouseLeisureOverlap, String>,
     pub second_slice_id: __sdk::__query_builder::Col<SpouseLeisureOverlap, String>,
     pub joint_minutes: __sdk::__query_builder::Col<SpouseLeisureOverlap, u64>,
-    pub resolved_minute: __sdk::__query_builder::Col<SpouseLeisureOverlap, u64>,
+    pub resolved_minute: __sdk::__query_builder::Col<SpouseLeisureOverlap, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for SpouseLeisureOverlap {

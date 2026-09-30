@@ -1,4 +1,5 @@
 mod rank;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use rank::skill_rank_bar_with_tooltip;
 pub(super) use rank::{SkillRankBarOptions, skill_rank_bar, skill_rank_tier};
 
@@ -13,7 +14,6 @@ use adventuresim_core::{
         LEISURE_FATIGUE_RECOVERY_PER_HOUR, LEISURE_MORALE_LIMIT, LEISURE_MORALE_SCALE_FATIGUE,
         LeisureOutcome, settlement_leisure_outcome,
     },
-    strategic_time::MINUTES_PER_DAY,
 };
 use adventuresim_world_schema::{
     BestiaryCategory, OfficialReligion, OralLanguage, WrittenLanguage,
@@ -809,7 +809,7 @@ impl ActivityPreviewRates {
         _skills: Option<&CharacterSkills>,
         memberships: &[BackendOrganizationMembership],
         settlement_id: &str,
-        minute: u64,
+        minute: adventuresim_world_schema::calendar::StrategicMinute,
     ) -> Self {
         let Some(attributes) = attributes else {
             return self;
@@ -821,7 +821,7 @@ impl ActivityPreviewRates {
                 continue;
             };
             if row.status != OrganizationMembershipStatus::Active
-                || minute > row.dues_paid_through_minute
+                || crate::spacetimedb::calendar_minute(&row.dues_paid_through_minute) < minute
                 || !definition.has_chapter(settlement_id)
             {
                 continue;
@@ -3571,8 +3571,8 @@ mod tests {
                 character_id: 1,
                 organization_id: organization_id.into(),
                 role_id: role_id.into(),
-                joined_minute: 0,
-                dues_paid_through_minute: 1,
+                joined_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                dues_paid_through_minute: adventuresim_stdb_client::StrategicMinute { minutes: 1 },
                 status: OrganizationMembershipStatus::Active,
                 apprenticeship_minutes_accrued: 0,
                 practice_minutes_accrued: 0,
@@ -3582,7 +3582,7 @@ mod tests {
                 None,
                 &[membership],
                 "viabundus-0",
-                0,
+                adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             );
             let profession = preview.profession.get(organization_id).unwrap();
             let rendered = activity_training_cell(

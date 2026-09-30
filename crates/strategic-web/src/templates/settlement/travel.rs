@@ -5,6 +5,7 @@ use adventuresim_core::{
     errantry::{FeyPresenterCatalogId, FeySpeechPart, fey_speech},
     strategic_time::{ItinerarySegment, ItinerarySegmentKind},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use maud::{Markup, html};
 
 use super::{
@@ -21,6 +22,7 @@ use crate::spacetimedb::{
     BackendContract, BackendRoadChallenge, ChallengePresenterCatalogId, CharacterView,
     JourneyEndpointExt, JourneyPrecipitation, JourneyTerrainKind, PartyJourney,
     PartyJourneyRouteView, PartyView, SettlementView, StrategicEncounter, StrategicEncounterStatus,
+    calendar_minute,
 };
 use crate::templates::{
     camp_location_layout_with_session, decorative_game_icon, empty_state, game_icon,
@@ -440,9 +442,7 @@ pub(crate) fn travel_planner_bar(
         None,
         None,
         provision_forecast,
-        selected
-            .map(|destination| destination.departure_minute)
-            .unwrap_or(0),
+        selected.map_or(StrategicMinute::ZERO, |d| d.departure_minute),
         selected
             .map(|destination| destination.itinerary_total_elapsed_minutes)
             .unwrap_or(selected_minutes),
@@ -477,7 +477,7 @@ pub(crate) fn travel_planner_bar_for(
     journey: Option<&PartyJourney>,
     journey_route: Option<&PartyJourneyRouteView>,
     provision_forecast: Option<&TravelProvisionForecast>,
-    preview_departure_minute: u64,
+    preview_departure_minute: StrategicMinute,
     preview_elapsed_minutes: u64,
     preview_segments: &str,
     terrain_spans: &str,
@@ -538,7 +538,7 @@ pub(crate) fn travel_planner_bar_for(
             data-journey-total-movement-minutes=(journey_total_movement_minutes)
             data-journey-turnaround-minutes=(journey_turnaround_minutes)
             data-journey-completed-movement-minutes=(journey_completed_movement_minutes)
-            data-departure-minute=(journey.map_or(preview_departure_minute, |item| item.departure_minute))
+            data-departure-minute=(journey.map_or(preview_departure_minute.get(), |item| item.departure_minute.minutes))
             data-total-elapsed-minutes=(journey.map_or(preview_elapsed_minutes, |item| item.total_elapsed_minutes))
             data-completed-elapsed-minutes=(journey.map_or(0, |item| item.completed_elapsed_minutes))
             data-itinerary-segments=(preview_segments)
@@ -963,7 +963,7 @@ pub fn camp_page(
                     (format_journey_time(party.wilderness_elapsed_minutes)) " elapsed since setting out"
                 }
                 div class="travel-planner-vertical" {
-                    (travel_planner_bar_for(destination_name, "", false, party.camp_remaining_minutes, "", "", party.camp_fatigue_percent, journey, terrain_route, provision_forecast, journey.map_or(0, |item| item.departure_minute), journey.map_or(party.camp_remaining_minutes, |item| item.total_elapsed_minutes), &journey.map_or_else(String::new, format_persisted_itinerary), &format_persisted_terrain_spans(terrain_route)))
+                    (travel_planner_bar_for(destination_name, "", false, party.camp_remaining_minutes, "", "", party.camp_fatigue_percent, journey, terrain_route, provision_forecast, journey.map_or(StrategicMinute::ZERO, |item| calendar_minute(&item.departure_minute)), journey.map_or(party.camp_remaining_minutes, |item| item.total_elapsed_minutes), &journey.map_or_else(String::new, format_persisted_itinerary), &format_persisted_terrain_spans(terrain_route)))
                 }
                 (camp_continue_control(continue_block_reason))
                 p class="travel-action-status" data-travel-action-status role="alert" hidden {}
@@ -1256,7 +1256,7 @@ mod tests {
             gateway_bucket: 0,
             package_digest: "a".repeat(64),
             weather_rules_version: 1,
-            weather_interval_start: 0,
+            weather_interval_start: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             precipitation: JourneyPrecipitation::Rain,
             intensity_bps: 8_000,
             ground_moisture_bps: 8_000,
@@ -1285,7 +1285,7 @@ mod tests {
             roll_index: 3,
             journey_movement_minute: 540,
             journey_elapsed_minute: 700,
-            absolute_minute: 1_700,
+            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 1_700 },
             longitude_e_7: 1,
             latitude_e_7: 2,
             terrain: "road".into(),
@@ -1538,7 +1538,7 @@ mod tests {
             actual_camp_intervals: Vec::new(),
             forecast_camp_intervals: Vec::new(),
             fatigue_percent: 50,
-            departure_minute: 10_000,
+            departure_minute: adventuresim_stdb_client::StrategicMinute { minutes: 10_000 },
             total_elapsed_minutes: 2_040,
             completed_elapsed_minutes: 780,
             walking_minutes_per_day: 480,

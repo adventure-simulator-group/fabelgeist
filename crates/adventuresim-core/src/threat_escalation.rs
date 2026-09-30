@@ -1,7 +1,7 @@
 //! Bounded, deterministic escalation, normalized combat power, and public
 //! public-awareness math for unresolved recurring hostile cases.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 use serde::{Deserialize, Serialize};
 
 pub const PUBLIC_THRESHOLD_BPS: u16 = 6_500;
@@ -108,12 +108,12 @@ pub fn first_public_incident(investigability: u8) -> Option<u16> {
 }
 
 pub fn scheduled_public_since_minute(
-    starts_at: u64,
+    starts_at: StrategicMinute,
     incident_interval_minutes: u64,
     investigability: u8,
-) -> Option<u64> {
+) -> Option<StrategicMinute> {
     first_public_incident(investigability).map(|ordinal| {
-        starts_at.saturating_add(
+        starts_at.saturating_add_minutes(
             u64::from(ordinal.saturating_sub(1)).saturating_mul(incident_interval_minutes),
         )
     })
@@ -336,7 +336,7 @@ pub fn public_threat_journal_id(owner_character_id: u64, public_case_id: &str) -
 /// problem identity so a crowded world cannot make referral work unbounded or
 /// starve an older case nondeterministically.
 pub fn bounded_public_threat_candidates<T>(
-    mut candidates: Vec<(u64, String, String, T)>,
+    mut candidates: Vec<(StrategicMinute, String, String, T)>,
 ) -> Vec<T> {
     candidates
         .sort_by(|left, right| (&left.0, &left.1, &left.2).cmp(&(&right.0, &right.1, &right.2)));
@@ -366,8 +366,8 @@ mod tests {
         assert_eq!(orc[0], 0);
         assert_eq!(first_public_incident(80), Some(5));
         assert_eq!(
-            scheduled_public_since_minute(100, 60, 80),
-            Some(340),
+            scheduled_public_since_minute(StrategicMinute::new(100), 60, 80),
+            Some(StrategicMinute::new(340)),
             "catch-up and incremental refreshes retain the scheduled crossing"
         );
         assert!(is_public(orc[4]));
@@ -570,14 +570,19 @@ mod tests {
             .rev()
             .map(|ordinal| {
                 (
-                    ordinal / 2,
+                    StrategicMinute::new(ordinal / 2),
                     format!("settlement-{}", ordinal % 2),
                     format!("problem-{ordinal:03}"),
                     ordinal,
                 )
             })
             .collect::<Vec<_>>();
-        inputs.push((0, "settlement-0".into(), "problem-000".into(), 999));
+        inputs.push((
+            StrategicMinute::ZERO,
+            "settlement-0".into(),
+            "problem-000".into(),
+            999,
+        ));
         let selected = bounded_public_threat_candidates(inputs);
         assert_eq!(selected.len(), MAX_PUBLIC_THREAT_CANDIDATES);
         assert_eq!(selected[0], 0);

@@ -4,6 +4,7 @@
 //! strategic gateway derives a pseudonymous owner key from the signed opaque
 //! cookie and uses these rows to resolve the browser's roster and selection.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -362,39 +363,7 @@ pub fn select_browser_character(
         .as_ref()
         .is_some_and(|grant| grant.origin == BrowserCharacterGrantOrigin::AdultDescendant)
     {
-        let birth = ctx
-            .db
-            .character_birth()
-            .character_id()
-            .find(character_id)
-            .ok_or("Adult descendant birth coordinate not found")?;
-        let adulthood_minute = u64::try_from(i128::from(birth.birth_minute).saturating_add(
-            i128::from(adventuresim_core::courtship::ADULT_AGE_YEARS)
-                * i128::from(adventuresim_core::strategic_time::MINUTES_PER_YEAR),
-        ))
-        .map_err(|_| "Adult descendant adulthood coordinate is invalid")?;
-        let selected_living_observer_minute = ctx
-            .db
-            .browser_character_selection()
-            .owner_key()
-            .find(&owner_key)
-            .and_then(|selection| {
-                ctx.db
-                    .character()
-                    .id()
-                    .find(selection.character_id)
-                    .filter(|selected| selected.alive)?;
-                ctx.db
-                    .character_time()
-                    .character_id()
-                    .find(selection.character_id)
-                    .map(|time| time.minutes)
-            });
-        if !descendant_grant_visible_at(adulthood_minute, selected_living_observer_minute, minute) {
-            return Err(
-                "Adult descendant is not yet visible at the selected character's date".into(),
-            );
-        }
+        validate_descendant_grant(ctx, &owner_key, character_id, minute)?;
     }
     let selection = BrowserCharacterSelection {
         owner_key: owner_key.clone(),
@@ -443,23 +412,6 @@ fn is_strategic_gateway(ctx: &ViewContext) -> bool {
         .is_some_and(|authority| authority.identity == ctx.sender())
 }
 
-fn descendant_grant_visible_at(
-    adulthood_minute: u64,
-    selected_living_observer_minute: Option<u64>,
-    descendant_frontier: u64,
-) -> bool {
-    adulthood_minute <= selected_living_observer_minute.unwrap_or(descendant_frontier)
-}
-
-fn adulthood_minute_for_view(ctx: &ViewContext, character_id: u64) -> Option<u64> {
-    let birth = ctx.db.character_birth().character_id().find(character_id)?;
-    let minute = i128::from(birth.birth_minute).saturating_add(
-        i128::from(adventuresim_core::courtship::ADULT_AGE_YEARS)
-            * i128::from(adventuresim_core::strategic_time::MINUTES_PER_YEAR),
-    );
-    u64::try_from(minute).ok()
-}
-
 #[view(accessor = backend_browser_character_access, public)]
 pub fn backend_browser_character_access(ctx: &ViewContext) -> Vec<BackendBrowserCharacterAccess> {
     if !is_strategic_gateway(ctx) {
@@ -498,29 +450,8 @@ pub fn backend_browser_character_access(ctx: &ViewContext) -> Vec<BackendBrowser
             let Some(adulthood_minute) = adulthood_minute_for_view(ctx, grant.character_id) else {
                 return false;
             };
-            let selected_living_observer_minute = ctx
-                .db
-                .browser_character_selection()
-                .owner_key()
-                .find(&grant.owner_key)
-                .and_then(|selection| {
-                    let selected_grant = ctx
-                        .db
-                        .browser_character_grant()
-                        .character_id()
-                        .find(selection.character_id)?;
-                    let selected_character =
-                        ctx.db.character().id().find(selection.character_id)?;
-                    (selected_grant.owner_key == grant.owner_key && selected_character.alive)
-                        .then(|| {
-                            ctx.db
-                                .character_time()
-                                .character_id()
-                                .find(selection.character_id)
-                                .map(|time| time.minutes)
-                        })
-                        .flatten()
-                });
+            let selected_living_observer_minute =
+                selected_living_observer_minute_for_grant(ctx, grant);
             descendant_grant_visible_at(adulthood_minute, selected_living_observer_minute, minute)
         })
         .map(|grant| {
@@ -572,17 +503,7 @@ pub fn backend_browser_character_access(ctx: &ViewContext) -> Vec<BackendBrowser
     rows
 }
 
-fn effective_age_years_for_view(ctx: &ViewContext, character_id: u64, minute: u64) -> Option<u16> {
-    let character = ctx.db.character().id().find(character_id)?;
-    let Some(birth) = ctx.db.character_birth().character_id().find(character_id) else {
-        return Some(character.age_years);
-    };
-    let elapsed = i128::from(minute).saturating_sub(i128::from(birth.birth_minute));
-    Some(
-        (elapsed.max(0) as u128 / u128::from(adventuresim_core::strategic_time::MINUTES_PER_YEAR))
-            .min(u128::from(u16::MAX)) as u16,
-    )
-}
+include!("browser_session/descendants.rs");
 
 #[cfg(test)]
 mod tests {
@@ -609,14 +530,30 @@ mod tests {
 
     #[test]
     fn selected_observer_frontier_hides_future_adulthood() {
-        assert!(!descendant_grant_visible_at(1_000, Some(999), 2_000));
-        assert!(descendant_grant_visible_at(1_000, Some(1_000), 2_000));
+        assert!(!descendant_grant_visible_at(
+            StrategicMinute::new(1_000),
+            Some(StrategicMinute::new(999)),
+            StrategicMinute::new(2_000)
+        ));
+        assert!(descendant_grant_visible_at(
+            StrategicMinute::new(1_000),
+            Some(StrategicMinute::new(1_000)),
+            StrategicMinute::new(2_000)
+        ));
     }
 
     #[test]
     fn absent_or_dead_selection_allows_successor_recovery() {
-        assert!(descendant_grant_visible_at(1_000, None, 1_000));
-        assert!(!descendant_grant_visible_at(1_000, None, 999));
+        assert!(descendant_grant_visible_at(
+            StrategicMinute::new(1_000),
+            None,
+            StrategicMinute::new(1_000)
+        ));
+        assert!(!descendant_grant_visible_at(
+            StrategicMinute::new(1_000),
+            None,
+            StrategicMinute::new(999)
+        ));
     }
 
     #[test]

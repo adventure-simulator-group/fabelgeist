@@ -2,6 +2,7 @@ use adventuresim_core::{
     investigation_action::InvestigationActionKind,
     quest_generation::{CausalBridge, FactorTrace, RouteClass, TemplateFamily},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
@@ -77,7 +78,7 @@ pub struct PlayerFrame {
     pub version: u32,
     pub case_id: String,
     pub step: u32,
-    pub game_minute: u64,
+    pub game_minute: StrategicMinute,
     pub discovery: DiscoveryView,
     pub journal: JournalView,
     pub party: EvaluationPartyView,
@@ -307,7 +308,7 @@ impl PreparationOutcome {
 pub struct PublicTraceEvent {
     pub step: u32,
     /// Player-visible in-world time at which this action began.
-    pub game_minute: u64,
+    pub game_minute: StrategicMinute,
     pub location: String,
     pub observation_provenance: String,
     pub pre_observation_digest: String,

@@ -144,8 +144,8 @@ pub(super) fn public_alive_to_dead_ids(before: &[(u64, bool)], after: &[(u64, bo
 
 pub(super) fn public_terminal_rest_elapsed(
     terminal_ids: &[u64],
-    before: &[(u64, u64)],
-    after: &[(u64, u64)],
+    before: &[(u64, StrategicMinute)],
+    after: &[(u64, StrategicMinute)],
 ) -> Option<u64> {
     terminal_ids
         .iter()
@@ -158,7 +158,7 @@ pub(super) fn public_terminal_rest_elapsed(
                 .iter()
                 .find(|(after_id, _)| after_id == character_id)?
                 .1;
-            after_elapsed.checked_sub(before_elapsed)
+            after_elapsed.checked_elapsed_since(before_elapsed)
         })
         .collect::<Option<Vec<_>>>()?
         .into_iter()
@@ -197,8 +197,11 @@ pub(super) fn classify_post_encounter_journey(
     }
 }
 
-pub(super) fn simulation_elapsed_minutes(starting_minute: u64, current_minute: u64) -> u64 {
-    current_minute.saturating_sub(starting_minute)
+pub(super) fn simulation_elapsed_minutes(
+    starting_minute: StrategicMinute,
+    current_minute: StrategicMinute,
+) -> u64 {
+    current_minute.elapsed_since(starting_minute)
 }
 
 pub(super) fn public_effective_inventory_quantity(

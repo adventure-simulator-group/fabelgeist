@@ -127,7 +127,7 @@ pub(super) fn simulate_outfit(
 pub(super) fn simulate(
     skin: &mut ClothSkin,
     targets: Option<&[Vec3]>,
-    body: Option<&(Vec<Vec3>, Vec<[u32; 3]>, fabelgeist_bvh::TriangleBvh)>,
+    body: Option<&ContactSurface>,
     dt: f32,
     settings: &SimulationSettings,
 ) {

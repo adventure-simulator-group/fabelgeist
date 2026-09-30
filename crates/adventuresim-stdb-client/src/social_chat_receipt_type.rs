@@ -6,6 +6,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::social_chat_outcome_type::SocialChatOutcome;
 use super::social_chat_target_kind_type::SocialChatTargetKind;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,7 +18,7 @@ pub struct SocialChatReceipt {
     pub target_id: String,
     pub requested_minutes: u64,
     pub outcome: SocialChatOutcome,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for SocialChatReceipt {
@@ -35,7 +36,7 @@ pub struct SocialChatReceiptCols {
     pub target_id: __sdk::__query_builder::Col<SocialChatReceipt, String>,
     pub requested_minutes: __sdk::__query_builder::Col<SocialChatReceipt, u64>,
     pub outcome: __sdk::__query_builder::Col<SocialChatReceipt, SocialChatOutcome>,
-    pub occurred_at_minute: __sdk::__query_builder::Col<SocialChatReceipt, u64>,
+    pub occurred_at_minute: __sdk::__query_builder::Col<SocialChatReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for SocialChatReceipt {

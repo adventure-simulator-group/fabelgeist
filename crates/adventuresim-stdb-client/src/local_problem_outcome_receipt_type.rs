@@ -4,13 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct LocalProblemOutcomeReceipt {
     pub id: String,
     pub problem_id: String,
     pub source_outcome_id: String,
-    pub applied_at: u64,
+    pub applied_at: StrategicMinute,
     pub mitigation_bps: u16,
     pub resolved: bool,
     pub payload_fingerprint: String,
@@ -27,7 +29,7 @@ pub struct LocalProblemOutcomeReceiptCols {
     pub id: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, String>,
     pub problem_id: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, String>,
     pub source_outcome_id: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, String>,
-    pub applied_at: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, u64>,
+    pub applied_at: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, StrategicMinute>,
     pub mitigation_bps: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, u16>,
     pub resolved: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, bool>,
     pub payload_fingerprint: __sdk::__query_builder::Col<LocalProblemOutcomeReceipt, String>,

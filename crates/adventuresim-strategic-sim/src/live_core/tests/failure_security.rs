@@ -56,7 +56,7 @@ fn activity_detail_exposes_public_pre_post_values_and_signed_deltas() {
         water_days: 2.0,
         visible_food_kcal: 2_000.0,
         visible_water_ml: 4_000.0,
-        elapsed_minutes: 1_440,
+        elapsed_minutes: StrategicMinute::new(1_440),
     };
     let after = ActivityObservation {
         personal_gold_coin: 9,
@@ -67,7 +67,7 @@ fn activity_detail_exposes_public_pre_post_values_and_signed_deltas() {
         water_days: 0.25,
         visible_food_kcal: 0.0,
         visible_water_ml: 500.0,
-        elapsed_minutes: 2_880,
+        elapsed_minutes: StrategicMinute::new(2_880),
     };
     let diagnostic = ActivityExecutionDiagnostic {
         plan: ActivityPlanDiagnostic {
@@ -131,7 +131,7 @@ fn failed_activity_error_classification_never_echoes_raw_backend_text() {
             water_days: 0.0,
             visible_food_kcal: 0.0,
             visible_water_ml: 0.0,
-            elapsed_minutes: 0,
+            elapsed_minutes: StrategicMinute::ZERO,
         },
         category,
     );
@@ -773,11 +773,11 @@ fn contact_schedule_recheck_uses_typed_identity_and_public_presence() {
         health_suppressed: false,
     };
     assert_eq!(
-        current_contact_schedule_wait_minutes(&action, [presence.clone()], 77),
+        current_contact_schedule_wait_minutes(&action, [presence.clone()], StrategicMinute::new(77)),
         Some(163)
     );
     assert_eq!(
-        current_contact_schedule_wait_minutes(&action, [presence], 300),
+        current_contact_schedule_wait_minutes(&action, [presence], StrategicMinute::new(300)),
         Some(0)
     );
 }

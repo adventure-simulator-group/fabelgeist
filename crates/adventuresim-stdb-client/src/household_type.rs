@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct Household {
     pub id: String,
     pub home_settlement_id: String,
-    pub created_minute: u64,
+    pub created_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for Household {
@@ -22,7 +24,7 @@ impl __sdk::InModule for Household {
 pub struct HouseholdCols {
     pub id: __sdk::__query_builder::Col<Household, String>,
     pub home_settlement_id: __sdk::__query_builder::Col<Household, String>,
-    pub created_minute: __sdk::__query_builder::Col<Household, u64>,
+    pub created_minute: __sdk::__query_builder::Col<Household, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for Household {

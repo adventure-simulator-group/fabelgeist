@@ -13,7 +13,8 @@ use adventuresim_core::courtship::{
     uncovered_minute_spans,
 };
 use adventuresim_core::strategic_schedule::{DailySchedule, restorative_leisure_spans};
-use adventuresim_core::strategic_time::{MINUTES_PER_DAY, MINUTES_PER_YEAR};
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::character::{character, character__view, character_death};
@@ -30,6 +31,9 @@ use crate::social::{CharacterAffinity, character_affinity};
 use crate::strategic::{settlement, strategic_gateway_authority__view};
 use crate::time::{character_time, character_time__view};
 use std::collections::BTreeSet;
+
+mod newborn_residence;
+use newborn_residence::attach_newborn_residence;
 
 // Assembles ordered relationship owners and coordinates the one global queue
 // that dispatches both wedding and birth lifecycle events.
@@ -50,16 +54,17 @@ include!("courtship.rs");
 /// temporarily deferred player events do not consume capacity.
 pub fn settle_due_lifecycle_events_global(
     ctx: &ReducerContext,
-    now: u64,
+    now: StrategicMinute,
     limit: usize,
 ) -> Result<usize, String> {
     let mut due: Vec<_> = ctx
         .db
         .exclusive_commitment()
-        .effective_minute()
-        .filter(..=now)
+        .iter()
         .filter(|row| {
-            row.status == CommitmentStatus::Reserved && row.kind == CommitmentKind::Engagement
+            row.effective_minute <= now
+                && row.status == CommitmentStatus::Reserved
+                && row.kind == CommitmentKind::Engagement
         })
         .map(|row| DueLifecycleEvent::Wedding {
             effective_minute: row.effective_minute,
@@ -69,9 +74,8 @@ pub fn settle_due_lifecycle_events_global(
         .chain(
             ctx.db
                 .pregnancy()
-                .due_minute()
-                .filter(..=now)
-                .filter(|row| row.status == PregnancyStatus::Active)
+                .iter()
+                .filter(|row| row.due_minute <= now && row.status == PregnancyStatus::Active)
                 .map(|row| DueLifecycleEvent::Birth {
                     effective_minute: row.due_minute,
                     id: row.id,

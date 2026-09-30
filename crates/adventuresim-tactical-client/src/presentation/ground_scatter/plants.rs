@@ -2,7 +2,6 @@
 mod streams;
 use super::{GroundScatterLayer, scatter_ground_without_patch};
 use crate::presentation::{bps, stable_text_seed};
-use adventuresim_core::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 use adventuresim_plant_generator::{
     PlantSpecies,
     habitat::{PlantGround, PlantHabitat},
@@ -11,6 +10,7 @@ use adventuresim_tactical_core::prelude::{
     GroundCover, GroundSubstrate, GroundSurface, SceneEnvironment, SceneGround, SceneId,
     SceneTerrain, TerrainLandformRecipe,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::prelude::*;
 mod lod;
 pub(crate) use lod::PlantLodInstance;
@@ -198,7 +198,7 @@ fn habitat(surface: GroundSurface, e: &SceneEnvironment) -> PlantHabitat {
         cultivation: bps(e.cultivation_bps),
         moisture: bps(e.weather.ground_moisture_bps),
         snow: bps(e.weather.snow_cover_bps),
-        day_of_year: ((e.absolute_minute / MINUTES_PER_DAY) % DAYS_PER_YEAR + 1) as u16,
+        day_of_year: e.absolute_minute.day_of_year(),
         ground,
     }
 }

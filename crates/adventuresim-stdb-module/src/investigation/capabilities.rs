@@ -190,7 +190,7 @@ pub(crate) fn issue_investigation_action_capability(
     Ok(())
 }
 
-fn character_strategic_minute(ctx: &ReducerContext, character_id: u64) -> u64 {
+fn character_strategic_minute(ctx: &ReducerContext, character_id: u64) -> StrategicMinute {
     ctx.db
         .character_time()
         .character_id()
@@ -621,7 +621,7 @@ fn capability_has_live_pattern_support_reducer(
             .character_time()
             .character_id()
             .find(capability.owner_character_id)
-            .map_or(0, |time| time.minutes),
+            .map_or(StrategicMinute::ZERO, |time| time.minutes),
         ctx.db
             .investigation_evidence_knowledge()
             .owner_character_id()

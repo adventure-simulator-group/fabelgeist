@@ -7,8 +7,8 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 
-use crate::strategic_time::MINUTES_PER_DAY;
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 
 pub const PHYSIOLOGY_RULESET_VERSION: u16 = 1;
 pub const PHENOTYPE_KEY_VERSION: u16 = 1;
@@ -679,8 +679,8 @@ pub struct Administration {
     pub route: InterventionRoute,
     pub dose: DoseMilliunits,
     pub region: Option<BodyRegion>,
-    pub administered_at: u64,
-    pub stopped_at: Option<u64>,
+    pub administered_at: StrategicMinute,
+    pub stopped_at: Option<StrategicMinute>,
     /// Secret-derived bounded sensitivity, persisted for replay without
     /// persisting or exposing the phenotype itself.
     pub sensitivity_bps: i16,
@@ -688,7 +688,7 @@ pub struct Administration {
 }
 
 impl Administration {
-    pub fn effect_at(&self, now: u64) -> MeterVector {
+    pub fn effect_at(&self, now: StrategicMinute) -> MeterVector {
         let Some(profile) = intervention_profile(&self.preparation_id, self.profile_version) else {
             return MeterVector::ZERO;
         };
@@ -699,11 +699,11 @@ impl Administration {
             .stopped_at
             .unwrap_or_else(|| {
                 self.administered_at
-                    .saturating_add(profile.duration_minutes)
+                    .saturating_add_minutes(profile.duration_minutes)
             })
             .min(
                 self.administered_at
-                    .saturating_add(profile.duration_minutes),
+                    .saturating_add_minutes(profile.duration_minutes),
             );
         if now >= end {
             return MeterVector::ZERO;
@@ -802,7 +802,7 @@ pub fn disease_meter_state(
 pub fn combined_meter_state(
     disease_states: impl IntoIterator<Item = MeterVector>,
     interventions: &[Administration],
-    now: u64,
+    now: StrategicMinute,
 ) -> MeterVector {
     let mut combined = MeterVector::ZERO;
     for disease in disease_states {
@@ -819,9 +819,9 @@ pub fn combined_meter_state(
 /// classification plus bounded binary search is exact and independent of
 /// caller chunking without scanning every elapsed minute.
 pub fn first_terminal_crossing(
-    structural_minutes: &[u64],
-    mut state_at: impl FnMut(u64) -> MeterVector,
-) -> Option<(u64, Meter)> {
+    structural_minutes: &[StrategicMinute],
+    mut state_at: impl FnMut(StrategicMinute) -> MeterVector,
+) -> Option<(StrategicMinute, Meter)> {
     let mut points = structural_minutes.to_vec();
     points.sort_unstable();
     points.dedup();
@@ -833,8 +833,8 @@ pub fn first_terminal_crossing(
         if state_at(right).terminal().is_none() {
             continue;
         }
-        while left + 1 < right {
-            let middle = left + (right - left) / 2;
+        while right.elapsed_since(left) > 1 {
+            let middle = left.midpoint(right);
             if state_at(middle).terminal().is_some() {
                 right = middle;
             } else {
@@ -852,8 +852,8 @@ pub fn first_terminal_crossing(
 pub struct PresenceSpan {
     pub observer_id: u64,
     pub patient_id: u64,
-    pub started_at: u64,
-    pub ended_at: Option<u64>,
+    pub started_at: StrategicMinute,
+    pub ended_at: Option<StrategicMinute>,
     /// Historical capability is pinned at the span boundary so later training
     /// cannot retroactively sharpen an old notebook.
     pub physiology_band: u8,
@@ -863,8 +863,8 @@ impl PresenceSpan {
     pub fn canonical(
         first_id: u64,
         second_id: u64,
-        first_clock: u64,
-        second_clock: u64,
+        first_clock: StrategicMinute,
+        second_clock: StrategicMinute,
         physiology_band: u8,
     ) -> Self {
         Self {
@@ -876,12 +876,12 @@ impl PresenceSpan {
         }
     }
 
-    pub fn close(&mut self, first_clock: u64, second_clock: u64) {
+    pub fn close(&mut self, first_clock: StrategicMinute, second_clock: StrategicMinute) {
         let end = first_clock.min(second_clock).max(self.started_at);
         self.ended_at = Some(end);
     }
 
-    pub fn contains(&self, minute: u64) -> bool {
+    pub fn contains(&self, minute: StrategicMinute) -> bool {
         minute >= self.started_at && self.ended_at.is_none_or(|end| minute <= end)
     }
 }
@@ -889,13 +889,13 @@ impl PresenceSpan {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum ChartEntry {
     Reading {
-        minute: u64,
+        minute: StrategicMinute,
         humour_deviations_bps: [i16; HUMOUR_COUNT],
         known_interventions: Vec<String>,
     },
     Gap {
-        from: u64,
-        to: u64,
+        from: StrategicMinute,
+        to: StrategicMinute,
     },
 }
 
@@ -941,11 +941,11 @@ pub fn observation_noise(
     patient_id: u64,
     region: BodyRegion,
     humour: Humour,
-    minute: u64,
+    minute: StrategicMinute,
     physiology_band: u8,
 ) -> f32 {
-    let day = minute / MINUTES_PER_DAY;
-    let fraction = (minute % MINUTES_PER_DAY) as f32 / MINUTES_PER_DAY as f32;
+    let day = minute.day_index();
+    let fraction = f32::from(minute.minute_of_day()) / MINUTES_PER_DAY as f32;
     let discriminator = (region as u8)
         .saturating_mul(HUMOUR_COUNT as u8)
         .saturating_add(humour as u8);
@@ -1013,39 +1013,61 @@ mod tests {
             route: InterventionRoute::Oral,
             dose: DoseMilliunits::STANDARD,
             region: None,
-            administered_at: 10,
+            administered_at: StrategicMinute::new(10),
             stopped_at: None,
             sensitivity_bps: 0,
             adverse_bps: 0,
         };
-        assert!(dose.effect_at(11).get(Meter::Hydration) < 0.0);
-        assert_eq!(dose.effect_at(10 + 8 * 60), MeterVector::ZERO);
+        assert!(
+            dose.effect_at(StrategicMinute::new(11))
+                .get(Meter::Hydration)
+                < 0.0
+        );
+        assert_eq!(
+            dose.effect_at(StrategicMinute::new(10 + 8 * 60)),
+            MeterVector::ZERO
+        );
     }
 
     #[test]
     fn crossing_is_exact_chunk_independent_and_ties_by_meter() {
-        let state = |minute| {
+        let state = |minute: StrategicMinute| {
             MeterVector::from_entries(&[
-                (Meter::Perfusion, minute as f32 / 100.0),
-                (Meter::Oxygenation, minute as f32 / 100.0),
+                (Meter::Perfusion, minute.get() as f32 / 100.0),
+                (Meter::Oxygenation, minute.get() as f32 / 100.0),
             ])
         };
-        let whole = first_terminal_crossing(&[0, 200], state);
-        let chunks = (0..4)
-            .find_map(|chunk| first_terminal_crossing(&[chunk * 50, (chunk + 1) * 50], state));
-        assert_eq!(whole, Some((100, Meter::Oxygenation)));
+        let whole =
+            first_terminal_crossing(&[StrategicMinute::ZERO, StrategicMinute::new(200)], state);
+        let chunks = (0..4).find_map(|chunk| {
+            first_terminal_crossing(
+                &[
+                    StrategicMinute::new(chunk * 50),
+                    StrategicMinute::new((chunk + 1) * 50),
+                ],
+                state,
+            )
+        });
+        assert_eq!(whole, Some((StrategicMinute::new(100), Meter::Oxygenation)));
         assert_eq!(whole, chunks);
     }
 
     #[test]
     fn presence_uses_asymmetric_min_clock_and_preserves_reentry() {
-        let mut first = PresenceSpan::canonical(1, 2, 100, 80, 3);
-        first.close(150, 120);
-        let second = PresenceSpan::canonical(1, 2, 200, 190, 4);
-        assert_eq!(first.started_at, 80);
-        assert_eq!(first.ended_at, Some(120));
-        assert_eq!(second.started_at, 190);
-        assert!(!first.contains(190));
+        let mut first =
+            PresenceSpan::canonical(1, 2, StrategicMinute::new(100), StrategicMinute::new(80), 3);
+        first.close(StrategicMinute::new(150), StrategicMinute::new(120));
+        let second = PresenceSpan::canonical(
+            1,
+            2,
+            StrategicMinute::new(200),
+            StrategicMinute::new(190),
+            4,
+        );
+        assert_eq!(first.started_at, StrategicMinute::new(80));
+        assert_eq!(first.ended_at, Some(StrategicMinute::new(120)));
+        assert_eq!(second.started_at, StrategicMinute::new(190));
+        assert!(!first.contains(StrategicMinute::new(190)));
     }
 
     #[test]
@@ -1077,7 +1099,7 @@ mod tests {
                 23,
                 BodyRegion::Chest,
                 Humour::Phlegmatic,
-                minute,
+                StrategicMinute::new(minute),
                 band,
             )
         };

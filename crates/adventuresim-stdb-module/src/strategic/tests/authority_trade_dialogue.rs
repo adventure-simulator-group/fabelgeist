@@ -80,9 +80,9 @@ fn forged_recruitment_mutations_must_cross_character_authority() {
 
 #[test]
 fn incident_sources_are_retry_stable_and_group_resolution_is_exact() {
-    let first = activity_incident_source_id("raiding", "party", "town", 7, 1440);
-    let retry = activity_incident_source_id("raiding", "party", "town", 7, 1440);
-    let next = activity_incident_source_id("raiding", "party", "town", 7, 1441);
+    let first = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
+    let retry = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1440));
+    let next = activity_incident_source_id("raiding", "party", "town", 7, StrategicMinute::new(1441));
     assert_eq!(first, retry);
     assert_ne!(first, next);
     assert!(incident_group_matches(
@@ -556,7 +556,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
         "provider.home_settlement_id != settlement_id",
         "provider.service_id != service_id",
         "provider_presence.location_id != location_id",
-        "npc_is_present(ctx, &provider_presence, problem_minute)",
+        "npc_is_present(",
         "default_merchant_provider(ctx, &settlement_id, &service_id, location_id)",
         "storefront_stocks(",
         "settlement_allowlist",
@@ -569,6 +569,7 @@ fn merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider() {
             "missing merchant authority check: {authority_check}"
         );
     }
+    assert!(trade.contains("let problem_minute = StrategicMinute::new("));
     assert!(
         !trade.contains("let storefront = match catalog_kind"),
         "the reducer must not infer a different storefront from item kind"

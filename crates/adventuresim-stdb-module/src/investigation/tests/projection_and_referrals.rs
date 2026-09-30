@@ -262,7 +262,7 @@ fn exact_site_provenance_accepts_only_valid_manual_or_generated_tuples() {
             settlement_id: "lubeck".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),
@@ -348,7 +348,7 @@ fn explicit_secondary_referral_and_context_are_exact() {
             settlement_id: "riverdale".into(),
         },
         ordinal: 0,
-        now_minute: 50_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: Some(TemplateFamily::RecurringDepredation),
         witness_candidates: test_witnesses(),
@@ -380,7 +380,7 @@ fn explicit_secondary_referral_and_context_are_exact() {
         source_testimony_index: 0,
         source_proposition_id: primary.testimony[0].proposition_id.clone(),
         catalog_revision: generated.catalog_revision.clone(),
-        granted_at: 50_000,
+        granted_at: StrategicMinute::new(50_000),
     };
     assert!(witness_referral_context_matches(
         &referral,
@@ -505,7 +505,7 @@ fn both_generated_families_issue_root_and_successor_action_text() {
                 settlement_id: "lubeck".into(),
             },
             ordinal: 0,
-            now_minute: 50_000,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
             incident_weather: adventuresim_core::weather::Precipitation::Clear,
             requested_family: Some(family),
             witness_candidates: test_witnesses(),
@@ -579,7 +579,7 @@ fn root_rumor_then_every_referred_witness_pipeline_is_valid_in_both_families() {
                 settlement_id: "lubeck".into(),
             },
             ordinal: 0,
-            now_minute: 50_000,
+            now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
             incident_weather: adventuresim_core::weather::Precipitation::Clear,
             requested_family: Some(family),
             witness_candidates: test_witnesses(),
@@ -606,7 +606,7 @@ fn root_rumor_then_every_referred_witness_pipeline_is_valid_in_both_families() {
                         &generated,
                         witness,
                         index,
-                        50_000,
+                        adventuresim_world_schema::calendar::StrategicMinute::new(50_000),
                     )
                     .expect("referred witness should produce a pipeline");
                 assert!(receipt_id.starts_with("testimony:"));

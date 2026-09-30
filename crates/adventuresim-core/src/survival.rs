@@ -5,7 +5,7 @@
 //! same result, provided the same minute snapshots are supplied.
 
 use crate::weather::{Precipitation, WeatherSnapshot};
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 
 pub const MAX_WETNESS_BPS: u16 = BASIS_POINTS_PER_WHOLE;
 pub const MAX_THERMAL_STRAIN: i32 = 10_000;
@@ -238,14 +238,20 @@ pub fn thermal_incapacitation(strain: i32) -> f32 {
 /// Choose one least-protected peripheral at a canonical event minute. Ties
 /// rotate deterministically so repeated exposure does not always punish the
 /// same side, while interval partitioning cannot alter the result.
-pub fn frostbite_peripheral_index(protection_bps: [u16; 4], absolute_event_minute: u64) -> usize {
+pub fn frostbite_peripheral_index(
+    protection_bps: [u16; 4],
+    absolute_event_minute: StrategicMinute,
+) -> usize {
     let minimum = protection_bps.into_iter().min().unwrap_or(0);
     let tied = protection_bps
         .into_iter()
         .enumerate()
         .filter_map(|(index, protection)| (protection == minimum).then_some(index))
         .collect::<Vec<_>>();
-    tied[(absolute_event_minute % tied.len() as u64) as usize]
+    let tie_index = absolute_event_minute
+        .offset_within_interval_minutes(tied.len() as u64)
+        .expect("at least one body region has minimum protection");
+    tied[tie_index as usize]
 }
 
 #[cfg(test)]
@@ -255,7 +261,7 @@ mod tests {
     fn weather(temp: i32, wind: u16, rain: bool) -> WeatherSnapshot {
         WeatherSnapshot {
             rules_version: crate::weather::WEATHER_RULES_VERSION,
-            interval_start_minute: 0,
+            interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
             cell_latitude: 0,
             cell_longitude: 0,
             temperature_deci_c: temp,
@@ -408,8 +414,17 @@ mod tests {
     #[test]
     fn frostbite_targets_only_a_least_protected_peripheral_deterministically() {
         let protection = [9_000, 2_000, 2_000, 8_000];
-        assert_eq!(frostbite_peripheral_index(protection, 0), 1);
-        assert_eq!(frostbite_peripheral_index(protection, 1), 2);
-        assert_eq!(frostbite_peripheral_index(protection, 2), 1);
+        assert_eq!(
+            frostbite_peripheral_index(protection, StrategicMinute::new(0)),
+            1
+        );
+        assert_eq!(
+            frostbite_peripheral_index(protection, StrategicMinute::new(1)),
+            2
+        );
+        assert_eq!(
+            frostbite_peripheral_index(protection, StrategicMinute::new(2)),
+            1
+        );
     }
 }

@@ -105,6 +105,7 @@ fn ensure_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), 
     {
         ctx.db.character_time().insert(CharacterTime {
             character_id,
+            scan_id: character_id,
             minutes: official_minutes,
         });
     }

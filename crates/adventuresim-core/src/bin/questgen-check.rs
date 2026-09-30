@@ -17,7 +17,7 @@ fn context(seed: u64, ordinal: u16) -> GenerationContext {
             settlement_id: "developer".into(),
         },
         ordinal,
-        now_minute: 10_000,
+        now_minute: adventuresim_world_schema::calendar::StrategicMinute::new(10_000),
         incident_weather: adventuresim_core::weather::Precipitation::Clear,
         requested_family: None,
         witness_candidates: test_witnesses(),

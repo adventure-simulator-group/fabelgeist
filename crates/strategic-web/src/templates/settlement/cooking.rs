@@ -13,6 +13,7 @@ use crate::spacetimedb::{
 };
 use crate::templates::{decorative_game_icon, item_display_name, item_type_icon, sidebar_section};
 use adventuresim_stdb_client::CookingMethod;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use maud::{Markup, html};
 
 #[expect(
@@ -36,13 +37,13 @@ pub fn fireplace_page(
     dish: Option<&BackendFireplaceDish>,
     vessel_stations: &[BackendFireplaceStation],
     vessel_dishes: &[BackendFireplaceDish],
-    character_minute: u64,
+    character_minute: StrategicMinute,
     layout: impl FnOnce(Markup) -> Markup,
 ) -> Markup {
     let instrument = station.and_then(|row| row.instrument_item_id.as_deref());
     let method = "roast";
     let elapsed = dish.map_or(0, |row| {
-        character_minute.saturating_sub(row.started_at_minute)
+        character_minute.elapsed_since(StrategicMinute::new(row.started_at_minute.minutes))
     });
     let remaining = dish.map_or(1, |row| {
         u64::from(row.target_minutes).saturating_sub(elapsed).max(1)

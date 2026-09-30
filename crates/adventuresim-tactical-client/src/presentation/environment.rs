@@ -321,12 +321,12 @@ mod tests {
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
             latitude_microdegrees: 53_500_000,
             longitude_microdegrees: 10_000_000,
-            absolute_minute: 12 * 60,
-            lunar_phase_minute: 12 * 60,
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(12 * 60),
             absolute_elevation_metres: 20,
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
-                interval_start_minute: 0,
+                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
                 cell_latitude: 0,
                 cell_longitude: 0,
                 temperature_deci_c: 100,
@@ -467,7 +467,9 @@ mod tests {
         let first_environment = environment(Precipitation::Clear, 0);
         let mut second_environment = environment(Precipitation::Rain, 7_000);
         second_environment.scene_digest = "second".into();
-        second_environment.absolute_minute += 60;
+        second_environment.absolute_minute = second_environment
+            .absolute_minute
+            .saturating_add_minutes(60);
         let first = app.world_mut().spawn(first_environment.clone()).id();
         app.update();
         assert_eq!(
@@ -512,7 +514,7 @@ mod tests {
 
         let mut replacement = environment(Precipitation::Snow, 8_000);
         replacement.scene_digest = "replacement".into();
-        replacement.absolute_minute += 720;
+        replacement.absolute_minute = replacement.absolute_minute.saturating_add_minutes(720);
         app.world_mut()
             .entity_mut(entity)
             .insert(replacement.clone());

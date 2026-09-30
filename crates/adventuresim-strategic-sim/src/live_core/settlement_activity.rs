@@ -228,7 +228,7 @@ pub(super) fn storefront_offer_unchanged(
 
 pub(super) fn visible_unique_default_provider(
     providers: &[(u64, u16, u16, bool, bool)],
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<u64> {
     let [(provider, start_minute, end_minute, context_suppressed, health_suppressed)] = providers
     else {
@@ -352,7 +352,7 @@ pub(super) fn format_activity_detail(
         signed_float_delta(after.visible_water_ml, before.visible_water_ml),
         before.elapsed_minutes,
         after.elapsed_minutes,
-        signed_delta(after.elapsed_minutes, before.elapsed_minutes),
+        signed_delta(after.elapsed_minutes.get(), before.elapsed_minutes.get()),
     )
 }
 

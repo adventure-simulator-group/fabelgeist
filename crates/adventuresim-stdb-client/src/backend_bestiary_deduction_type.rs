@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendBestiaryDeduction {
@@ -12,7 +14,7 @@ pub struct BackendBestiaryDeduction {
     pub monster_kind: String,
     pub support_band: String,
     pub provenance_json: String,
-    pub updated_at: u64,
+    pub updated_at: StrategicMinute,
 }
 
 impl __sdk::InModule for BackendBestiaryDeduction {
@@ -28,7 +30,7 @@ pub struct BackendBestiaryDeductionCols {
     pub monster_kind: __sdk::__query_builder::Col<BackendBestiaryDeduction, String>,
     pub support_band: __sdk::__query_builder::Col<BackendBestiaryDeduction, String>,
     pub provenance_json: __sdk::__query_builder::Col<BackendBestiaryDeduction, String>,
-    pub updated_at: __sdk::__query_builder::Col<BackendBestiaryDeduction, u64>,
+    pub updated_at: __sdk::__query_builder::Col<BackendBestiaryDeduction, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendBestiaryDeduction {

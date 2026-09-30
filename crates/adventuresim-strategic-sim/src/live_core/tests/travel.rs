@@ -341,8 +341,8 @@ fn terminal_member_transitions_reclassify_short_and_zero_rest() {
     assert_eq!(
         public_terminal_rest_elapsed(
             &companion_death,
-            &[(10, 1_000), (20, 1_000)],
-            &[(10, 1_360), (20, 1_360)],
+            &[(10, StrategicMinute::new(1_000)), (20, StrategicMinute::new(1_000))],
+            &[(10, StrategicMinute::new(1_360)), (20, StrategicMinute::new(1_360))],
         ),
         Some(360)
     );

@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct OutbreakAuthority {
@@ -22,7 +24,7 @@ pub struct OutbreakAuthority {
     pub chronology_json: String,
     pub remediation_id: String,
     pub remediation_json: String,
-    pub remediated_at: Option<u64>,
+    pub remediated_at: Option<StrategicMinute>,
     pub remediated_by_party_id: Option<String>,
     pub remediation_source_id: Option<String>,
 }
@@ -51,7 +53,7 @@ pub struct OutbreakAuthorityCols {
     pub chronology_json: __sdk::__query_builder::Col<OutbreakAuthority, String>,
     pub remediation_id: __sdk::__query_builder::Col<OutbreakAuthority, String>,
     pub remediation_json: __sdk::__query_builder::Col<OutbreakAuthority, String>,
-    pub remediated_at: __sdk::__query_builder::Col<OutbreakAuthority, Option<u64>>,
+    pub remediated_at: __sdk::__query_builder::Col<OutbreakAuthority, Option<StrategicMinute>>,
     pub remediated_by_party_id: __sdk::__query_builder::Col<OutbreakAuthority, Option<String>>,
     pub remediation_source_id: __sdk::__query_builder::Col<OutbreakAuthority, Option<String>>,
 }

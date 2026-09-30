@@ -1,6 +1,5 @@
-//! Settlement residences: permanent three-tier offers, durable legal
-//! holdings, one designated primary home, explicit occupancy, and
-//! chronological recurring billing.
+//! Settlement residences own offers, holdings, and primary homes.
+//! Occupancy and recurring billing follow explicit chronological rules.
 
 use std::collections::BTreeMap;
 
@@ -10,6 +9,7 @@ use adventuresim_core::courtship::{
 };
 use adventuresim_core::strategic_place::StrategicPlaceId;
 use adventuresim_core::strategic_presence::{PresenceFrontier, StrategicPresence, are_co_present};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::character::character;
@@ -19,7 +19,6 @@ use crate::strategic::{settlement, strategic_gateway_authority__view};
 use crate::time::{character_time, character_time__view};
 
 pub const RESIDENCE_BILLING_PERIOD_MINUTES: u64 = HOUSING_BILLING_PERIOD_MINUTES;
-
 #[derive(Clone, Debug)]
 #[table(accessor = settlement_residence_offer, public)]
 pub struct SettlementResidenceOffer {
@@ -65,10 +64,10 @@ pub struct ResidenceHolding {
     pub tenure: ResidenceTenure,
     pub status: ResidenceHoldingStatus,
     pub acquired_ordinal: u64,
-    pub acquired_minute: u64,
-    pub last_billed_minute: u64,
-    pub next_due_minute: u64,
-    pub resolved_minute: Option<u64>,
+    pub acquired_minute: StrategicMinute,
+    pub last_billed_minute: StrategicMinute,
+    pub next_due_minute: StrategicMinute,
+    pub resolved_minute: Option<StrategicMinute>,
 }
 
 /// Exactly one designated home per character, independent of how many legal
@@ -80,7 +79,7 @@ pub struct PrimaryResidence {
     pub character_id: u64,
     #[index(btree)]
     pub holding_id: String,
-    pub designated_minute: u64,
+    pub designated_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -101,7 +100,7 @@ pub struct ResidenceCharge {
     pub holding_id: String,
     #[index(btree)]
     pub owner_character_id: u64,
-    pub due_minute: u64,
+    pub due_minute: StrategicMinute,
     pub base_housing_amount: u64,
     pub adult_necessities_amount: u64,
     pub dependent_necessities_amount: u64,
@@ -109,7 +108,7 @@ pub struct ResidenceCharge {
     pub supported_adults: u32,
     pub supported_dependents: u32,
     pub outcome: ResidenceChargeOutcome,
-    pub recorded_minute: u64,
+    pub recorded_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -120,7 +119,7 @@ pub struct ResidenceOccupant {
     pub character_id: u64,
     #[index(btree)]
     pub holding_id: String,
-    pub admitted_minute: u64,
+    pub admitted_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -160,7 +159,7 @@ pub struct ResidenceTransition {
     #[index(btree)]
     pub affected_character_id: u64,
     pub kind: ResidenceTransitionKind,
-    pub minute: u64,
+    pub minute: StrategicMinute,
 }
 
 /// Gateway-only summary of the home a character may currently use. Legal
@@ -177,9 +176,9 @@ pub struct BackendCharacterResidenceStatus {
     pub active: bool,
     pub primary: bool,
     pub occupied: bool,
-    pub acquired_minute: u64,
-    pub last_billed_minute: u64,
-    pub next_due_minute: u64,
+    pub acquired_minute: StrategicMinute,
+    pub last_billed_minute: StrategicMinute,
+    pub next_due_minute: StrategicMinute,
 }
 
 fn residence_view_is_gateway(ctx: &ViewContext) -> bool {
@@ -190,7 +189,7 @@ fn residence_view_is_gateway(ctx: &ViewContext) -> bool {
         .is_some_and(|authority| authority.identity == ctx.sender())
 }
 
-fn holding_active_at_view(ctx: &ViewContext, holding_id: &str, minute: u64) -> bool {
+fn holding_active_at_view(ctx: &ViewContext, holding_id: &str, minute: StrategicMinute) -> bool {
     let mut transitions = ctx
         .db
         .residence_transition()
@@ -219,7 +218,7 @@ fn holding_active_at_view(ctx: &ViewContext, holding_id: &str, minute: u64) -> b
 fn occupant_holding_id_at_view(
     ctx: &ViewContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<String> {
     let mut transitions = ctx
         .db
@@ -255,6 +254,8 @@ fn occupant_holding_id_at_view(
         })
 }
 
+include!("residence/view.rs");
+
 #[view(accessor = backend_character_residence_statuses, public)]
 pub fn backend_character_residence_statuses(
     ctx: &ViewContext,
@@ -267,49 +268,7 @@ pub fn backend_character_residence_statuses(
         .owner_character_id()
         .filter(0u64..)
         .flat_map(|holding| {
-            let holding_id = holding.id.clone();
-            let mut character_ids = ctx
-                .db
-                .residence_occupant()
-                .holding_id()
-                .filter(&holding_id)
-                .filter(|row| {
-                    ctx.db
-                        .character_time()
-                        .character_id()
-                        .find(row.character_id)
-                        .is_some_and(|time| row.admitted_minute <= time.minutes)
-                })
-                .map(|row| row.character_id)
-                .collect::<Vec<_>>();
-            // Legal ownership must remain visible to the owner even after a
-            // different holding becomes primary and moves their occupancy.
-            // Otherwise an unoccupied property continues billing privately
-            // but cannot be inspected or managed through the gateway.
-            character_ids.push(holding.owner_character_id);
-            character_ids.extend(
-                ctx.db
-                    .primary_residence()
-                    .holding_id()
-                    .filter(&holding_id)
-                    .filter(|row| {
-                        ctx.db
-                            .character_time()
-                            .character_id()
-                            .find(row.character_id)
-                            .is_some_and(|time| row.designated_minute <= time.minutes)
-                    })
-                    .map(|row| row.character_id),
-            );
-            character_ids.extend(
-                ctx.db
-                    .residence_transition()
-                    .holding_id()
-                    .filter(&holding_id)
-                    .map(|transition| transition.affected_character_id),
-            );
-            character_ids.sort_unstable();
-            character_ids.dedup();
+            let character_ids = view_character_ids_for_holding(ctx, &holding);
             character_ids
                 .into_iter()
                 .map(move |character_id| (holding.clone(), character_id))
@@ -351,12 +310,12 @@ pub fn backend_character_residence_statuses(
                 last_billed_minute: if owns_holding {
                     holding.last_billed_minute
                 } else {
-                    0
+                    StrategicMinute::ZERO
                 },
                 next_due_minute: if owns_holding {
                     holding.next_due_minute
                 } else {
-                    0
+                    StrategicMinute::ZERO
                 },
             })
         })
@@ -382,7 +341,7 @@ fn holding_id(
 fn transition_id(
     holding_id: &str,
     affected_character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     kind: ResidenceTransitionKind,
 ) -> String {
     format!(
@@ -395,7 +354,7 @@ fn record_transition(
     ctx: &ReducerContext,
     holding: &ResidenceHolding,
     affected_character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     kind: ResidenceTransitionKind,
 ) {
     let id = transition_id(&holding.id, affected_character_id, minute, kind);
@@ -447,7 +406,7 @@ pub fn ensure_settlement_residence_offers(
     Ok(())
 }
 
-fn residence_now(ctx: &ReducerContext, character_id: u64) -> Result<u64, String> {
+fn residence_now(ctx: &ReducerContext, character_id: u64) -> Result<StrategicMinute, String> {
     ctx.db
         .character_time()
         .character_id()
@@ -543,7 +502,11 @@ pub(crate) fn active_residence_presence(
 /// Whether a holding was usable at an effective personal minute. Current
 /// status alone is insufficient because a later unpaid bill or recovery may
 /// have changed the mutable row after the event being materialized.
-pub(crate) fn holding_active_at(ctx: &ReducerContext, holding_id: &str, minute: u64) -> bool {
+pub(crate) fn holding_active_at(
+    ctx: &ReducerContext,
+    holding_id: &str,
+    minute: StrategicMinute,
+) -> bool {
     let mut transitions = ctx
         .db
         .residence_transition()
@@ -584,7 +547,7 @@ const fn residence_transition_precedence(kind: ResidenceTransitionKind) -> u8 {
 pub(crate) fn occupant_holding_id_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<String> {
     occupant_holding_at(ctx, character_id, minute).map(|(holding_id, _)| holding_id)
 }
@@ -592,8 +555,8 @@ pub(crate) fn occupant_holding_id_at(
 fn occupant_holding_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
-) -> Option<(String, u64)> {
+    minute: StrategicMinute,
+) -> Option<(String, StrategicMinute)> {
     let mut transitions = ctx
         .db
         .residence_transition()
@@ -637,7 +600,7 @@ pub(crate) fn move_residence_occupant_effective(
     ctx: &ReducerContext,
     holding_id: &str,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let holding = ctx
         .db
@@ -700,7 +663,7 @@ pub(crate) fn move_residence_occupant_effective(
 pub(crate) fn remove_nonowned_occupancy_effective(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let Some(holding_id) = occupant_holding_id_at(ctx, character_id, minute) else {
         return;
@@ -742,7 +705,7 @@ pub(crate) fn remove_nonowned_occupancy_effective(
 pub(crate) fn remove_occupant_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<ResidenceOccupant> {
     let occupant = ctx
         .db
@@ -770,7 +733,7 @@ pub(crate) fn move_residence_occupant_internal(
     ctx: &ReducerContext,
     holding_id: &str,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let holding = ctx
         .db
@@ -809,7 +772,7 @@ fn admission_relationship_authorized(
     ctx: &ReducerContext,
     owner_character_id: u64,
     occupant_id: u64,
-    actor_minute: u64,
+    actor_minute: StrategicMinute,
 ) -> bool {
     use crate::relationship::KinshipKind;
 
@@ -943,7 +906,7 @@ fn relinquish_holding_at(
     ctx: &ReducerContext,
     character_id: u64,
     holding_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut holding = ctx
         .db
@@ -975,9 +938,9 @@ fn relinquish_holding_at(
 fn supported_occupant_counts_at(
     ctx: &ReducerContext,
     holding_id: &str,
-    due_minute: u64,
+    due_minute: StrategicMinute,
 ) -> (u32, u32) {
-    let mut latest: BTreeMap<u64, (u64, bool)> = BTreeMap::new();
+    let mut latest: BTreeMap<u64, (StrategicMinute, bool)> = BTreeMap::new();
     for transition in ctx
         .db
         .residence_transition()
@@ -1041,7 +1004,7 @@ fn supported_occupant_counts_at(
 fn period_charge(
     ctx: &ReducerContext,
     holding: &ResidenceHolding,
-    due_minute: u64,
+    due_minute: StrategicMinute,
 ) -> Result<
     (
         u32,
@@ -1118,7 +1081,8 @@ fn settle_one_holding_period(
         *available = available.saturating_sub(amount);
         *total_spent = total_spent.saturating_add(amount);
         holding.last_billed_minute = due_minute;
-        holding.next_due_minute = due_minute.saturating_add(RESIDENCE_BILLING_PERIOD_MINUTES);
+        holding.next_due_minute =
+            due_minute.saturating_add_minutes(RESIDENCE_BILLING_PERIOD_MINUTES);
     }
     ctx.db.residence_holding().id().update(holding);
     Ok(())
@@ -1179,7 +1143,7 @@ pub fn apply_residence_leisure_morale(
     ctx: &ReducerContext,
     character_id: u64,
     baseline_morale: f32,
-    now: u64,
+    now: StrategicMinute,
 ) -> Result<(), String> {
     if baseline_morale <= 0.0 || !baseline_morale.is_finite() {
         return Ok(());
@@ -1209,6 +1173,10 @@ pub fn apply_residence_leisure_morale(
         .character_id()
         .filter(character_id)
         .find(|event| event.source_id.as_deref() == Some(&source));
+    let as_refreshable = |event: &MoraleEvent| RefreshableMorale {
+        milli_points: (event.magnitude.max(0.0) * 1_000.0).round() as u32,
+        expires_at_minute: event.expires_at_minute,
+    };
     let spouse = ctx
         .db
         .morale_event()
@@ -1220,17 +1188,11 @@ pub fn apply_residence_leisure_morale(
                 .as_deref()
                 .is_some_and(|source| LeisureMoraleSourceId::parse(source).is_spouse())
         })
-        .map_or(RefreshableMorale::default(), |event| RefreshableMorale {
-            milli_points: (event.magnitude.max(0.0) * 1_000.0).round() as u32,
-            expires_at_minute: event.expires_at_minute,
-        });
+        .map_or(RefreshableMorale::default(), |event| as_refreshable(&event));
     let refreshed = refresh_bounded_leisure_morale(
         existing
             .as_ref()
-            .map_or(RefreshableMorale::default(), |event| RefreshableMorale {
-                milli_points: (event.magnitude.max(0.0) * 1_000.0).round() as u32,
-                expires_at_minute: event.expires_at_minute,
-            }),
+            .map_or(RefreshableMorale::default(), as_refreshable),
         spouse,
         now,
         earned_milli,
@@ -1261,7 +1223,7 @@ fn designate_holding_at(
     ctx: &ReducerContext,
     character_id: u64,
     holding_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let holding = ctx
         .db
@@ -1349,7 +1311,7 @@ fn acquire_residence_internal(
         acquired_ordinal,
         acquired_minute: now,
         last_billed_minute: now,
-        next_due_minute: now.saturating_add(RESIDENCE_BILLING_PERIOD_MINUTES),
+        next_due_minute: now.saturating_add_minutes(RESIDENCE_BILLING_PERIOD_MINUTES),
         resolved_minute: None,
     };
     ctx.db.residence_holding().insert(holding.clone());
@@ -1685,7 +1647,7 @@ mod tests {
         assert!(source.contains("adult_necessities_amount"));
         assert!(source.contains("dependent_necessities_amount"));
         assert!(source.contains("supported_occupant_counts_at"));
-        assert!(source.contains("next_due_minute = due_minute.saturating_add"));
+        assert!(source.contains("next_due_minute ="));
     }
 
     #[test]
@@ -1698,7 +1660,8 @@ mod tests {
             .split("fn period_charge")
             .next()
             .unwrap();
-        assert!(counts.contains("effective_age_years(ctx, character_id, due_minute)"));
+        assert!(counts.contains("effective_age_years("));
+        assert!(counts.contains("due_minute: StrategicMinute"));
         assert!(counts.contains("age < adventuresim_core::courtship::ADULT_AGE_YEARS"));
         assert!(counts.contains("member.role = HouseholdRole::AdultChild"));
     }
@@ -1713,9 +1676,11 @@ mod tests {
             .split("pub fn offer_id")
             .next()
             .unwrap();
-        assert!(projection.contains("character_ids.push(holding.owner_character_id)"));
-        assert!(projection.contains("residence_occupant()"));
-        assert!(projection.contains("primary_residence()"));
+        let visibility = crate::production_source(include_str!("residence/view.rs"));
+        assert!(projection.contains("view_character_ids_for_holding(ctx, &holding)"));
+        assert!(visibility.contains("character_ids.push(holding.owner_character_id)"));
+        assert!(visibility.contains("residence_occupant()"));
+        assert!(visibility.contains("primary_residence()"));
         assert!(
             projection.contains("let owns_holding = holding.owner_character_id == character_id")
         );

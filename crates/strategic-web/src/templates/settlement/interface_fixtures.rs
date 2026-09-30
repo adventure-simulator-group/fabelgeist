@@ -137,7 +137,7 @@ fn export_interface_review_fixtures() {
     let candidates = roster(GENERATOR_VERSION, seed, StartingAgeTier::Adult).unwrap();
     let medical = MedicalPresentation {
         readings: vec![ChartReadingPresentation {
-            minute: 1440,
+            minute: adventuresim_world_schema::calendar::StrategicMinute::new(1440),
             physiology_band: 2,
             observation_minutes: 60,
             humour_deviations_bps: [[200, -100, 0, 0]; 7],
@@ -262,7 +262,7 @@ fn export_interface_review_fixtures() {
                 None,
                 &[],
                 &[],
-                1440,
+                adventuresim_world_schema::calendar::StrategicMinute::new(1440),
                 |content| place.render_layout("Cooking", content, Some(&characters[0].name)),
             ),
         ),

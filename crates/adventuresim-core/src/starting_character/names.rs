@@ -1,6 +1,7 @@
 //! Historically sourced names for starting-character projections.
 
 use super::{DEFAULT_CHARACTER_AGE_YEARS, StartingCharacterSpec, StartingProfession, StartingSex};
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::person_names::{
     NameCulture, NameEducation, NameGenerationContext, NameRegister, NameSex, NameSocialClass,
     NameStableSeed, PersonalNameIdentity, generate_personal_name, render_personal_name,
@@ -20,7 +21,9 @@ fn historical_name(
     };
     let mut context = NameGenerationContext::german_lutheran(
         name_sex,
-        crate::strategic_time::WORLD_START_YEAR.saturating_sub(i32::from(age_years)),
+        StrategicMinute::ZERO
+            .birth_year_for_age(age_years)
+            .expect("starting character age fits the calendar"),
     );
     if profession == Some(StartingProfession::LearnedReligiousPractitioner) {
         context.social_class = NameSocialClass::Clergy;

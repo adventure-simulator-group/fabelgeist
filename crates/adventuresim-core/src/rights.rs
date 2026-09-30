@@ -1,12 +1,14 @@
 //! Pure, typed questions and evidence for strategic rights decisions.
 //!
-//! These values do not grant authority and have no persistence or wire format.
-//! Domain reducers gather private authoritative evidence, ask exact questions,
-//! and remain responsible for transactional mutation and consequences.
+//! These values grant no authority and have no persistence or wire format.
+//! Reducers gather private evidence and own mutation and consequences.
 
 use std::{fmt, num::NonZeroU64};
 
 use sha2::{Digest, Sha256};
+
+mod validity;
+pub use validity::RightsValidity;
 
 use crate::{
     physical_object::{
@@ -14,7 +16,6 @@ use crate::{
     },
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
 };
-
 pub trait DomainRightsSubject: Clone + fmt::Debug + Eq {}
 pub trait DomainRightsResource: Clone + fmt::Debug + Eq {}
 pub trait DomainRightsOperation: Clone + fmt::Debug + Eq {}
@@ -413,34 +414,6 @@ impl fmt::Display for RightsIdentityError {
 
 impl std::error::Error for RightsIdentityError {}
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub struct RightsValidity {
-    pub valid_from_minute: u64,
-    pub valid_through_minute: Option<u64>,
-}
-
-impl RightsValidity {
-    pub fn try_new(
-        valid_from_minute: u64,
-        valid_through_minute: Option<u64>,
-    ) -> Result<Self, RightsIdentityError> {
-        if valid_through_minute.is_some_and(|through| through < valid_from_minute) {
-            return Err(RightsIdentityError::InvalidValidityWindow);
-        }
-        Ok(Self {
-            valid_from_minute,
-            valid_through_minute,
-        })
-    }
-
-    pub fn contains(self, minute: u64) -> bool {
-        minute >= self.valid_from_minute
-            && self
-                .valid_through_minute
-                .is_none_or(|through| minute <= through)
-    }
-}
-
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum RightsGrantSource<S: DomainRightsSubject, G: DomainGrantSource> {
     Owner(RightsSubject<S>),
@@ -638,7 +611,7 @@ pub fn assess_permission_grant<
 >(
     question: &RightsQuestion<S, R, O, J>,
     grant: &PermissionGrant<S, R, O, J, G, C>,
-    current_minute: u64,
+    current_minute: adventuresim_world_schema::calendar::StrategicMinute,
     attempt_id: RightsAttemptId,
     action_provenance: RightsActionProvenance,
 ) -> GrantAssessment<C> {
@@ -826,6 +799,7 @@ pub enum PublicRightsDecision<P: PublicRightsAllowance> {
 mod tests {
     use super::*;
     use crate::strategic_place::{SettlementVenueKind, StrategicFixtureId, StrategicPlaceId};
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     #[derive(Clone, Debug, Eq, PartialEq)]
     enum Subject {
@@ -927,7 +901,7 @@ mod tests {
         assess_permission_grant(
             question,
             grant,
-            current_minute,
+            StrategicMinute::new(current_minute),
             attempt_id,
             action_provenance(byte),
         )
@@ -943,7 +917,8 @@ mod tests {
             RightsRevision(9),
             question,
             RightsGrantSource::JurisdictionAuthority(Source::Magistrate),
-            RightsValidity::try_new(100, Some(200)).unwrap(),
+            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+                .unwrap(),
             mode,
             state,
         )
@@ -1007,7 +982,8 @@ mod tests {
             RightsRevision(9),
             query.clone(),
             RightsGrantSource::JurisdictionAuthority(Source::Magistrate),
-            RightsValidity::try_new(100, Some(200)).unwrap(),
+            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+                .unwrap(),
             RightsGrantMode::SingleUse,
             RightsGrantState::Revoked {
                 at_revision: RightsRevision(8),
@@ -1022,7 +998,8 @@ mod tests {
             RightsRevision(9),
             query,
             RightsGrantSource::JurisdictionAuthority(Source::Magistrate),
-            RightsValidity::try_new(100, Some(200)).unwrap(),
+            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+                .unwrap(),
             RightsGrantMode::SingleUse,
             RightsGrantState::Revoked {
                 at_revision: RightsRevision(9),
@@ -1180,7 +1157,13 @@ mod tests {
         );
         assert_eq!(receipt.committed_outcome(), &CommittedOutcome(77));
         assert_eq!(
-            assess_permission_grant(&query, &consumed, 150, attempt(4), action_provenance(9),),
+            assess_permission_grant(
+                &query,
+                &consumed,
+                StrategicMinute::new(150),
+                attempt(4),
+                action_provenance(9),
+            ),
             GrantAssessment::ProvenanceCollision(
                 RightsProvenanceCollision::AttemptReusedForDifferentAction
             )

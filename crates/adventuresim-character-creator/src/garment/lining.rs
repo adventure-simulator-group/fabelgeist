@@ -146,7 +146,7 @@ impl SewnCloth {
                 }
             }
             for (point, press) in sewn.iter_mut().zip(spread) {
-                *point = *point + press;
+                *point += press;
             }
         }
         self.expand(sewn)

@@ -9,6 +9,7 @@ mod tests {
     };
     use adventuresim_core::quest_generation::BestiaryEvidenceImplication;
     use adventuresim_world_schema::BestiaryCategory;
+    use adventuresim_world_schema::calendar::StrategicMinute;
 
     include!("tests/bestiary_and_corrections.rs");
     include!("tests/projection_and_referrals.rs");

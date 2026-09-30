@@ -4,7 +4,7 @@ pub fn generated_testimony_pipeline(
     generated: &GeneratedCase,
     witness: &WitnessBinding,
     index: usize,
-    received_at: u64,
+    received_at: adventuresim_world_schema::calendar::StrategicMinute,
 ) -> Result<(String, crate::investigation::PipelineInput), crate::investigation::ValidationError> {
     use crate::investigation::{
         AtomicProposition, CaseId, DisclosureMode, EventId, MemoryCondition, PerceptionCondition,

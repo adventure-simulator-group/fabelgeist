@@ -65,6 +65,7 @@ pub use adventuresim_stdb_client::{
     BackendPhysiologyDifferential, FilthOrigin, FilthSubstance, FoodPreparation,
     JourneyCaseSiteEndpoint, JourneySettlementEndpoint, StrategicEncounterLoss,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_json::Value;
 use spacetimedb_sats::{ser::Serialize as SatsSerialize, serde::SerdeWrapper};
@@ -570,7 +571,8 @@ pub struct PartyView {
     pub walking_minutes_per_day: u16,
     pub travel_at_night: bool,
     pub journey_start_minute_of_day: u16,
-    pub wilderness_canonical_anchor_minute: Option<u64>,
+    pub wilderness_canonical_anchor_minute:
+        Option<adventuresim_world_schema::calendar::StrategicMinute>,
     pub wilderness_elapsed_minutes: u64,
     pub camp_destination: Option<JourneyEndpoint>,
     pub camp_remaining_minutes: u64,
@@ -619,7 +621,9 @@ impl TryFrom<sats::Party> for PartyView {
             walking_minutes_per_day,
             travel_at_night,
             journey_start_minute_of_day,
-            wilderness_canonical_anchor_minute,
+            wilderness_canonical_anchor_minute: wilderness_canonical_anchor_minute.map(|minute| {
+                adventuresim_world_schema::calendar::StrategicMinute::new(minute.minutes)
+            }),
             wilderness_elapsed_minutes,
             camp_destination,
             camp_remaining_minutes,
@@ -670,7 +674,7 @@ pub struct PartyJourneyRouteView {
     pub gateway_bucket: u8,
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
+    pub weather_interval_start: StrategicMinute,
     pub precipitation: JourneyPrecipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
@@ -705,7 +709,7 @@ impl From<sats::PartyJourneyRoute> for PartyJourneyRouteView {
             gateway_bucket,
             package_digest,
             weather_rules_version,
-            weather_interval_start,
+            weather_interval_start: StrategicMinute::new(weather_interval_start.minutes),
             precipitation,
             intensity_bps,
             ground_moisture_bps,
@@ -2326,7 +2330,9 @@ mod tests {
             walking_minutes_per_day: 480,
             travel_at_night: true,
             journey_start_minute_of_day: 360,
-            wilderness_canonical_anchor_minute: Some(1_000),
+            wilderness_canonical_anchor_minute: Some(adventuresim_stdb_client::StrategicMinute {
+                minutes: 1_000,
+            }),
             wilderness_elapsed_minutes: 90,
             camp_destination: None,
             camp_remaining_minutes: 30,
@@ -2354,7 +2360,7 @@ mod tests {
             gateway_bucket: 3,
             package_digest: "a".repeat(64),
             weather_rules_version: 2,
-            weather_interval_start: 10,
+            weather_interval_start: sats::StrategicMinute { minutes: 10 },
             precipitation: sats::JourneyPrecipitation::Rain,
             intensity_bps: 100,
             ground_moisture_bps: 200,
@@ -2420,8 +2426,8 @@ mod tests {
             requested_by: 7,
             longitude_e_7: 100,
             latitude_e_7: 200,
-            absolute_minute: 300,
-            lunar_phase_minute: 400,
+            absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
+            lunar_phase_minute: sats::StrategicMinute { minutes: 400 },
             expected_party_members: 2,
             authorized_party_member_ids: vec![7, 8],
             required_enemy_kills: 9,

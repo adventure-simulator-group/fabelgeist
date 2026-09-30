@@ -5,6 +5,7 @@
 //! settlement case whose hidden cause must be discovered.
 
 use adventuresim_puzzles::*;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -99,10 +100,10 @@ pub fn tactical_insight_for(threat_id: crate::bestiary::ThreatId) -> Option<Tact
 /// A camp's stable identity within one journey. Elapsed time is deliberately
 /// absent: resting advances elapsed time without moving the camp.
 pub fn journey_camp_identity_matches(
-    journey_departure_minute: u64,
+    journey_departure_minute: StrategicMinute,
     completed_movement_minute: u64,
     camp_stop_minutes: &[u64],
-    bound_departure_minute: u64,
+    bound_departure_minute: StrategicMinute,
     bound_movement_minute: u64,
 ) -> bool {
     journey_departure_minute == bound_departure_minute
@@ -111,11 +112,11 @@ pub fn journey_camp_identity_matches(
 }
 
 pub fn rested_road_trial_camp_matches(
-    journey_departure_minute: u64,
+    journey_departure_minute: StrategicMinute,
     completed_movement_minute: u64,
     completed_elapsed_minute: u64,
     camp_stop_minutes: &[u64],
-    bound_departure_minute: u64,
+    bound_departure_minute: StrategicMinute,
     bound_movement_minute: u64,
     available_at_elapsed_minute: u64,
 ) -> bool {
@@ -462,28 +463,76 @@ mod tests {
     #[test]
     fn camp_identity_survives_rest_but_not_movement_or_a_new_journey() {
         let stops = [60, 120];
-        assert!(journey_camp_identity_matches(40, 60, &stops, 40, 60));
+        assert!(journey_camp_identity_matches(
+            StrategicMinute::new(40),
+            60,
+            &stops,
+            StrategicMinute::new(40),
+            60
+        ));
         // Rest is not an input: only stable journey and movement coordinates
         // identify the persisted camp.
-        assert!(!journey_camp_identity_matches(40, 120, &stops, 40, 60));
-        assert!(!journey_camp_identity_matches(41, 60, &stops, 40, 60));
-        assert!(!journey_camp_identity_matches(40, 60, &[120], 40, 60));
+        assert!(!journey_camp_identity_matches(
+            StrategicMinute::new(40),
+            120,
+            &stops,
+            StrategicMinute::new(40),
+            60
+        ));
+        assert!(!journey_camp_identity_matches(
+            StrategicMinute::new(41),
+            60,
+            &stops,
+            StrategicMinute::new(40),
+            60
+        ));
+        assert!(!journey_camp_identity_matches(
+            StrategicMinute::new(40),
+            60,
+            &[120],
+            StrategicMinute::new(40),
+            60
+        ));
     }
 
     #[test]
     fn road_trial_interrupts_rest_only_at_its_bound_camp() {
         let stops = [60, 120];
         assert!(!rested_road_trial_camp_matches(
-            40, 60, 119, &stops, 40, 60, 120
+            StrategicMinute::new(40),
+            60,
+            119,
+            &stops,
+            StrategicMinute::new(40),
+            60,
+            120
         ));
         assert!(rested_road_trial_camp_matches(
-            40, 60, 120, &stops, 40, 60, 120
+            StrategicMinute::new(40),
+            60,
+            120,
+            &stops,
+            StrategicMinute::new(40),
+            60,
+            120
         ));
         assert!(!rested_road_trial_camp_matches(
-            40, 120, 180, &stops, 40, 60, 120
+            StrategicMinute::new(40),
+            120,
+            180,
+            &stops,
+            StrategicMinute::new(40),
+            60,
+            120
         ));
         assert!(!rested_road_trial_camp_matches(
-            41, 60, 180, &stops, 40, 60, 120
+            StrategicMinute::new(41),
+            60,
+            180,
+            &stops,
+            StrategicMinute::new(40),
+            60,
+            120
         ));
     }
 

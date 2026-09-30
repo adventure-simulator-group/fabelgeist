@@ -24,6 +24,7 @@ use adventuresim_core::{
     },
     settlement_economy::player_visible_npc_tabs,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use axum::{
     Form, Json, Router,
     extract::State,
@@ -159,7 +160,9 @@ async fn active_context(
         ))
         .await
         .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| {
+            StrategicMinute::new(t.minutes.minutes)
+        });
     let literal = sql_string_literal(&settlement_id);
     let npc_sql =
         format!("SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {literal}");

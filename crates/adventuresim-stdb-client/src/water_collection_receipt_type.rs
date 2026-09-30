@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct WaterCollectionReceipt {
@@ -20,7 +22,7 @@ pub struct WaterCollectionReceipt {
     pub source_amount_after_ml: u64,
     pub contaminant_load_microunits: u64,
     pub amount_ml: u64,
-    pub collected_at: u64,
+    pub collected_at: StrategicMinute,
 }
 
 impl __sdk::InModule for WaterCollectionReceipt {
@@ -44,7 +46,7 @@ pub struct WaterCollectionReceiptCols {
     pub source_amount_after_ml: __sdk::__query_builder::Col<WaterCollectionReceipt, u64>,
     pub contaminant_load_microunits: __sdk::__query_builder::Col<WaterCollectionReceipt, u64>,
     pub amount_ml: __sdk::__query_builder::Col<WaterCollectionReceipt, u64>,
-    pub collected_at: __sdk::__query_builder::Col<WaterCollectionReceipt, u64>,
+    pub collected_at: __sdk::__query_builder::Col<WaterCollectionReceipt, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for WaterCollectionReceipt {

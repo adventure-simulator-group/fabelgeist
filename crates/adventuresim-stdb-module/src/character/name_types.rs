@@ -48,26 +48,6 @@ impl From<u64> for NameSeed {
     }
 }
 
-/// Absolute strategic minute used to derive a name's historical period.
-#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
-pub(crate) struct WorldMinute(u64);
-
-impl WorldMinute {
-    pub(crate) const fn new(value: u64) -> Self {
-        Self(value)
-    }
-
-    pub(crate) const fn get(self) -> u64 {
-        self.0
-    }
-}
-
-impl From<u64> for WorldMinute {
-    fn from(value: u64) -> Self {
-        Self::new(value)
-    }
-}
-
 /// Validated serialized form of a [`PersonalNameIdentity`] row.
 #[derive(Clone, Debug, Eq, PartialEq, spacetimedb::SpacetimeType)]
 pub struct NameIdentityJson {

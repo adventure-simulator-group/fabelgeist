@@ -650,12 +650,12 @@ fn run_core_loop_inner(
                 .backend_character_times()
                 .iter()
                 .find(|row| row.character_id == *character_id)
-                .map(|row| (*character_id, row.minutes))
+                .map(|row| (*character_id, StrategicMinute::new(row.minutes.minutes)))
                 .ok_or("missing simulation-start character clock")
         })
         .collect::<Result<HashMap<_, _>, _>>()?;
     let duration_minutes =
-        u64::from(config.duration_days) * adventuresim_core::strategic_time::MINUTES_PER_DAY;
+        u64::from(config.duration_days) * adventuresim_world_schema::calendar::MINUTES_PER_DAY;
     for cycle in 0..config.cycles {
         let mut active = false;
         let mut held = false;
@@ -700,7 +700,7 @@ fn run_core_loop_inner(
                 *simulation_start_minutes
                     .get(&pre_recovery_leader)
                     .ok_or("missing simulation-start leader clock")?,
-                recovery_started_at,
+                StrategicMinute::new(recovery_started_at.minutes),
             ) < duration_minutes;
             if !recovery_started_in_budget {
                 continue;
@@ -757,7 +757,7 @@ fn run_core_loop_inner(
                 *simulation_start_minutes
                     .get(&leader)
                     .ok_or("missing simulation-start leader clock")?,
-                elapsed,
+                StrategicMinute::new(elapsed.minutes),
             );
             if elapsed >= duration_minutes
                 && !(recovery_outcome == ExpeditionRecoveryOutcome::Resumed
@@ -1023,7 +1023,7 @@ fn run_core_loop_inner(
                 .reducers
                 .advance_simulation_world_time_then(
                     config.run_nonce.clone(),
-                    adventuresim_core::strategic_time::MINUTES_PER_DAY,
+                    adventuresim_world_schema::calendar::MINUTES_PER_DAY,
                     cb,
                 ));
             runner.call(result)?;
@@ -1200,7 +1200,7 @@ fn run_core_loop_inner(
                     *simulation_start_minutes
                         .get(&character.id)
                         .ok_or("missing simulation-start final character clock")?,
-                    elapsed_minutes,
+                    StrategicMinute::new(elapsed_minutes.minutes),
                 ),
                 personal_gold_coin,
                 party_treasury,

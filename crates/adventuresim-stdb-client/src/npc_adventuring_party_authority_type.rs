@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct NpcAdventuringPartyAuthority {
@@ -12,7 +14,7 @@ pub struct NpcAdventuringPartyAuthority {
     pub name: String,
     pub member_resident_character_ids_json: String,
     pub capability: u16,
-    pub available_at: u64,
+    pub available_at: StrategicMinute,
 }
 
 impl __sdk::InModule for NpcAdventuringPartyAuthority {
@@ -29,7 +31,7 @@ pub struct NpcAdventuringPartyAuthorityCols {
     pub member_resident_character_ids_json:
         __sdk::__query_builder::Col<NpcAdventuringPartyAuthority, String>,
     pub capability: __sdk::__query_builder::Col<NpcAdventuringPartyAuthority, u16>,
-    pub available_at: __sdk::__query_builder::Col<NpcAdventuringPartyAuthority, u64>,
+    pub available_at: __sdk::__query_builder::Col<NpcAdventuringPartyAuthority, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for NpcAdventuringPartyAuthority {

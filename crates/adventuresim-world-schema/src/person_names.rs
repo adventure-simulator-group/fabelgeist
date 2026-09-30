@@ -1,6 +1,6 @@
 //! Historically sourced personal-name identities, generation, and rendering.
 
-use crate::OfficialReligion;
+use crate::{OfficialReligion, calendar::CalendarYear};
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 use std::sync::OnceLock;
@@ -57,30 +57,6 @@ impl NameFormSelectionSeed {
 
     pub const fn get(self) -> u64 {
         self.0
-    }
-}
-
-/// Calendar year used by the historical name repertoire.
-///
-/// Keeping the year distinct from arbitrary integers prevents callers from
-/// accidentally passing a world minute, age, or repertoire weight into the
-/// name-generation API.
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
-pub struct NameBirthYear(i32);
-
-impl NameBirthYear {
-    pub const fn new(value: i32) -> Self {
-        Self(value)
-    }
-
-    pub const fn get(self) -> i32 {
-        self.0
-    }
-}
-
-impl From<i32> for NameBirthYear {
-    fn from(value: i32) -> Self {
-        Self::new(value)
     }
 }
 
@@ -246,19 +222,19 @@ pub struct NameGenerationContext {
     pub culture: NameCulture,
     pub religion: OfficialReligion,
     pub geographic_region: NameGeographicRegion,
-    pub birth_year: NameBirthYear,
+    pub birth_year: CalendarYear,
     pub social_class: NameSocialClass,
     pub education: NameEducation,
 }
 
 impl NameGenerationContext {
-    pub fn german_lutheran(sex: NameSex, birth_year: impl Into<NameBirthYear>) -> Self {
+    pub fn german_lutheran(sex: NameSex, birth_year: CalendarYear) -> Self {
         Self {
             sex,
             culture: NameCulture::German,
             religion: OfficialReligion::Lutheran,
             geographic_region: NameGeographicRegion::Mvp,
-            birth_year: birth_year.into(),
+            birth_year,
             social_class: NameSocialClass::Commoner,
             education: NameEducation::Unlettered,
         }
@@ -449,7 +425,7 @@ fn matching_repertoire(
             repertoire.culture == context.culture
                 && repertoire.religious_tradition
                     == NameReligiousTradition::for_religion(context.religion)
-                && (repertoire.start_year..=repertoire.end_year).contains(&context.birth_year.get())
+                && (repertoire.start_year..=repertoire.end_year).contains(&context.birth_year)
         })
         .ok_or(NameCatalogError::NoMatchingRepertoire)
 }
@@ -546,7 +522,8 @@ mod tests {
 
     #[test]
     fn generated_name_has_resolved_family_and_stable_rendering() {
-        let context = NameGenerationContext::german_lutheran(NameSex::Male, 1522);
+        let context =
+            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1522).unwrap());
         let identity = generate_personal_name(context, NameStableSeed::new(42), None).unwrap();
         let first = render_personal_name(
             &identity,
@@ -677,7 +654,8 @@ mod tests {
 
     #[test]
     fn culture_and_period_select_the_baseline_without_invented_modifiers() {
-        let lutheran = NameGenerationContext::german_lutheran(NameSex::Male, 1520);
+        let lutheran =
+            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1520).unwrap());
         let mut catholic_elsewhere = lutheran;
         catholic_elsewhere.religion = OfficialReligion::RomanCatholic;
         catholic_elsewhere.geographic_region = NameGeographicRegion::Unspecified;
@@ -770,7 +748,8 @@ mod tests {
         extra_frequency.form_id = "johannes_test_variant_de".into();
         repertoire.everyday_forms.push(extra_frequency);
 
-        let context = NameGenerationContext::german_lutheran(NameSex::Male, 1520);
+        let context =
+            NameGenerationContext::german_lutheran(NameSex::Male, CalendarYear::new(1520).unwrap());
         for seed in 0..256 {
             let original = generate_personal_name_from_catalog(
                 catalog(),

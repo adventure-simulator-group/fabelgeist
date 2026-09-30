@@ -7,6 +7,7 @@ use super::journey_route_leg_type::JourneyRouteLeg;
 use super::journey_route_point_type::JourneyRoutePoint;
 use super::journey_terrain_span_type::JourneyTerrainSpan;
 use super::party_journey_route_type::PartyJourneyRoute;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `party_journey_route`.

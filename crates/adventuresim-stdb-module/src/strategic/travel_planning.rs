@@ -145,9 +145,9 @@ fn validate_journey_route_payload(
         return Err("Terrain route has an invalid package digest".into());
     }
     if route.weather_rules_version != adventuresim_core::weather::WEATHER_RULES_VERSION
-        || !route
-            .weather_interval_start
-            .is_multiple_of(adventuresim_core::weather::WEATHER_INTERVAL_MINUTES)
+        || route.weather_interval_start.floor_to_interval_minutes(
+            adventuresim_core::weather::WEATHER_INTERVAL_MINUTES,
+        ) != Some(route.weather_interval_start)
         || route.intensity_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         || route.ground_moisture_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
         || route.snow_cover_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
@@ -239,10 +239,11 @@ fn validate_journey_route_payload(
 
 fn validate_route_departure_weather_interval(
     route: &JourneyRoutePlan,
-    departure_minute: u64,
+    departure_minute: StrategicMinute,
 ) -> Result<(), String> {
-    let expected = departure_minute / adventuresim_core::weather::WEATHER_INTERVAL_MINUTES
-        * adventuresim_core::weather::WEATHER_INTERVAL_MINUTES;
+    let expected = departure_minute
+        .floor_to_interval_minutes(adventuresim_core::weather::WEATHER_INTERVAL_MINUTES)
+        .expect("weather interval is positive");
     if route.weather_interval_start != expected {
         return Err("Terrain route weather snapshot is stale after clock synchronization".into());
     }
@@ -251,7 +252,7 @@ fn validate_route_departure_weather_interval(
 
 fn validate_camp_redirect_weather_interval(
     route: &JourneyRoutePlan,
-    redirect_departure_minute: u64,
+    redirect_departure_minute: StrategicMinute,
 ) -> Result<(), String> {
     validate_route_departure_weather_interval(route, redirect_departure_minute)
 }

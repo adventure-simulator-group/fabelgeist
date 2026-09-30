@@ -15,6 +15,7 @@ use std::{
 
 use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, LandUseFraction, LandUseProfile, SourceProvenance,
+    calendar::CalendarYear,
 };
 use netcdf_reader::{NcFile, NcFormat, NcSliceInfo, NcSliceInfoElem, NcType};
 use sha2::{Digest, Sha256};
@@ -48,7 +49,7 @@ pub struct HydeCropCell {
 /// rounded settlement profile.
 pub fn crop_cells(
     directory: &Path,
-    year: i32,
+    year: CalendarYear,
     bounds: [f64; 4],
 ) -> Result<(Vec<HydeCropCell>, String)> {
     let [west, south, east, north] = bounds;
@@ -343,7 +344,7 @@ struct HydeGrid {
 }
 
 impl HydeGrid {
-    fn open(directory: &Path, year: i32, coordinates: &[(f64, f64)]) -> Result<Self> {
+    fn open(directory: &Path, year: CalendarYear, coordinates: &[(f64, f64)]) -> Result<Self> {
         let first_path = require(directory, COMPONENTS[0].filename)?;
         let reference = Schema::read(&first_path, COMPONENTS[0])?;
         let selection = TimeSelection::for_year(&first_path, &reference.times, year)?;
@@ -574,7 +575,7 @@ struct TimeSelection {
 }
 
 impl TimeSelection {
-    fn for_year(path: &Path, times: &[f64], year: i32) -> Result<Self> {
+    fn for_year(path: &Path, times: &[f64], year: CalendarYear) -> Result<Self> {
         let years = times
             .iter()
             .map(|time| hyde_calendar_year(path, *time))
@@ -606,7 +607,9 @@ impl TimeSelection {
         Ok(Self {
             start,
             end,
-            amount: f64::from(year - first) / f64::from(last - first),
+            amount: year
+                .interpolation_fraction_between(first, last)
+                .expect("ordered HYDE years bracket the requested year"),
         })
     }
 }
@@ -640,7 +643,7 @@ fn require_hyde_time_axis(
     Ok(())
 }
 
-fn hyde_calendar_year(path: &Path, days: f64) -> Result<i32> {
+fn hyde_calendar_year(path: &Path, days: f64) -> Result<CalendarYear> {
     const HYDE_DAYS_PER_YEAR: f64 = 365.0;
 
     let years = days / HYDE_DAYS_PER_YEAR;
@@ -653,12 +656,20 @@ fn hyde_calendar_year(path: &Path, days: f64) -> Result<i32> {
             "expected a whole HYDE 365-day year",
         ));
     }
-    i32::try_from(rounded as i64 + 1).map_err(|_| {
+    let raw = i32::try_from(rounded as i64 + 1).map_err(|_| {
         invalid(
             path,
             "time",
             days.to_string(),
             "HYDE calendar year is out of range",
+        )
+    })?;
+    CalendarYear::try_from(raw).map_err(|_| {
+        invalid(
+            path,
+            "time",
+            days.to_string(),
+            "HYDE calendar year must be positive",
         )
     })
 }
@@ -974,7 +985,7 @@ mod tests {
         let selection = TimeSelection::for_year(
             std::path::Path::new("hyde.nc"),
             &[547_135.0, 583_635.0],
-            1544,
+            super::CalendarYear::new(1544).unwrap(),
         )
         .unwrap();
         assert_eq!(selection.start, 0);
@@ -982,7 +993,7 @@ mod tests {
         assert!((selection.amount - 0.44).abs() < f64::EPSILON);
         assert_eq!(
             hyde_calendar_year(std::path::Path::new("hyde.nc"), 547_135.0).unwrap(),
-            1500
+            super::CalendarYear::new(1500).unwrap()
         );
     }
 

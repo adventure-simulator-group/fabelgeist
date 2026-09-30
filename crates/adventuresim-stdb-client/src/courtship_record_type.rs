@@ -8,6 +8,7 @@ use super::courtship_kind_type::CourtshipKind;
 use super::courtship_secrecy_reason_type::CourtshipSecrecyReason;
 use super::courtship_status_type::CourtshipStatus;
 use super::courtship_terminal_reason_type::CourtshipTerminalReason;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -21,9 +22,9 @@ pub struct CourtshipRecord {
     pub approved_father_id: Option<u64>,
     pub planned_dowry_amount: u32,
     pub weaker_deception_baseline: f32,
-    pub started_minute: u64,
+    pub started_minute: StrategicMinute,
     pub next_discovery_day: u64,
-    pub resolved_minute: Option<u64>,
+    pub resolved_minute: Option<StrategicMinute>,
     pub terminal_reason: Option<CourtshipTerminalReason>,
 }
 
@@ -45,9 +46,9 @@ pub struct CourtshipRecordCols {
     pub approved_father_id: __sdk::__query_builder::Col<CourtshipRecord, Option<u64>>,
     pub planned_dowry_amount: __sdk::__query_builder::Col<CourtshipRecord, u32>,
     pub weaker_deception_baseline: __sdk::__query_builder::Col<CourtshipRecord, f32>,
-    pub started_minute: __sdk::__query_builder::Col<CourtshipRecord, u64>,
+    pub started_minute: __sdk::__query_builder::Col<CourtshipRecord, StrategicMinute>,
     pub next_discovery_day: __sdk::__query_builder::Col<CourtshipRecord, u64>,
-    pub resolved_minute: __sdk::__query_builder::Col<CourtshipRecord, Option<u64>>,
+    pub resolved_minute: __sdk::__query_builder::Col<CourtshipRecord, Option<StrategicMinute>>,
     pub terminal_reason:
         __sdk::__query_builder::Col<CourtshipRecord, Option<CourtshipTerminalReason>>,
 }

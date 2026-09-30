@@ -71,7 +71,7 @@ fn record_contract_issuer_interaction(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     if issuer.home_settlement_id != contract.settlement_id
         || issuer.service_id != contract.service_id
         || presence.settlement_id != contract.settlement_id

@@ -122,7 +122,7 @@ pub(super) fn repair_custody_panel(
     orders: &[crate::spacetimedb::RepairOrder],
     conditions: &[crate::spacetimedb::ItemCondition],
     items: &[crate::spacetimedb::CatalogItemView],
-    now: u64,
+    now: adventuresim_world_schema::calendar::StrategicMinute,
     smith_skill: u8,
 ) -> Markup {
     let service_id = shop.service_id();
@@ -136,7 +136,12 @@ pub(super) fn repair_custody_panel(
                     .is_some_and(|item| shop.stocks(item))
         })
         .collect();
-    matching.sort_by_key(|order| (order.submitted_at_minutes, order.id));
+    matching.sort_by_key(|order| {
+        (
+            crate::spacetimedb::calendar_minute(&order.submitted_at_minutes),
+            order.id,
+        )
+    });
     html! {
         section class="repair-custody-panel" aria-label="Items entrusted for repair"
             data-repair-custody-service=(service_id) hidden {
@@ -179,8 +184,9 @@ pub(super) fn repair_custody_panel(
                         @for order in matching {
                             @let condition = conditions.iter().find(|condition| condition.inventory_item_id == order.inventory_item_id);
                             @let definition = items.iter().find(|item| item.id == order.item_id);
-                            @let ready = now >= order.ready_at_minutes;
-                            @let remaining = order.ready_at_minutes.saturating_sub(now);
+                            @let ready_at = adventuresim_world_schema::calendar::StrategicMinute::new(order.ready_at_minutes.minutes);
+                            @let ready = now >= ready_at;
+                            @let remaining = ready_at.elapsed_since(now);
                             tr class="trade-inventory-row trade-row-merchant repair-order-row" {
                                 td class="inventory-item-type" { (item_type_icon(&order.item_id)) }
                                 td class="inventory-item-name" { (item_name_with_quality(&order.item_id, definition)) }
@@ -345,8 +351,8 @@ mod tests {
                 item_id: "sword".into(),
                 settlement_id: "viabundus-1".into(),
                 smith_skill: 3,
-                submitted_at_minutes: 0,
-                ready_at_minutes: 10,
+                submitted_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                ready_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
                 target_condition: 1.0,
                 equipped_placement_id: None,
                 attachment_targets: Vec::new(),
@@ -359,8 +365,8 @@ mod tests {
                 item_id: "cuirass".into(),
                 settlement_id: "viabundus-1".into(),
                 smith_skill: 3,
-                submitted_at_minutes: 0,
-                ready_at_minutes: 10,
+                submitted_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                ready_at_minutes: adventuresim_stdb_client::StrategicMinute { minutes: 10 },
                 target_condition: 1.0,
                 equipped_placement_id: None,
                 attachment_targets: Vec::new(),
@@ -409,7 +415,7 @@ mod tests {
             &orders,
             &[],
             &items,
-            0,
+            adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             4,
         )
         .into_string();
@@ -419,7 +425,7 @@ mod tests {
             &orders,
             &[],
             &items,
-            0,
+            adventuresim_world_schema::calendar::StrategicMinute::ZERO,
             3,
         )
         .into_string();

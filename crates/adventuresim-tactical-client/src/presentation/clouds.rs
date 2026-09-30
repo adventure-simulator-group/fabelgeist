@@ -1176,12 +1176,14 @@ mod tests {
             generation_version: TACTICAL_SCENE_GENERATION_VERSION,
             latitude_microdegrees: 53_500_000,
             longitude_microdegrees: 10_000_000,
-            absolute_minute: 100_000,
-            lunar_phase_minute: 100_000,
+            absolute_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
+            lunar_phase_minute: adventuresim_world_schema::calendar::StrategicMinute::new(100_000),
             absolute_elevation_metres: 20,
             weather: WeatherSnapshot {
                 rules_version: WEATHER_RULES_VERSION,
-                interval_start_minute: 100_000,
+                interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(
+                    100_000,
+                ),
                 cell_latitude: 0,
                 cell_longitude: 0,
                 temperature_deci_c: 150,

@@ -40,7 +40,7 @@ pub struct DevelopmentScenarioUpdateReceipt {
     pub scenario_slug: String,
     pub problem_id: String,
     pub resulting_incident_ordinal: u16,
-    pub occurred_at_minute: u64,
+    pub occurred_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]

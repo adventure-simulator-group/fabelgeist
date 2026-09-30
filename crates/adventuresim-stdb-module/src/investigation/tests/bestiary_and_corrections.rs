@@ -59,7 +59,7 @@ fn later_revisit_augments_one_stable_observation_without_duplicates() {
         passed: true,
         narration: "Eyesight check passed: This appears to be a canine print.".into(),
         bestiary_results_json: first_results.clone(),
-        attempted_at: 10,
+        attempted_at: StrategicMinute::new(10),
     };
 
     let (augmented, changed) = augment_physical_evidence_inspection(
@@ -79,7 +79,7 @@ fn later_revisit_augments_one_stable_observation_without_duplicates() {
 
     assert!(changed);
     assert_eq!(augmented.id, "canonical-inspection");
-    assert_eq!(augmented.attempted_at, 10);
+    assert_eq!(augmented.attempted_at, StrategicMinute::new(10));
     assert_eq!(augmented.stat_label, "Eyesight");
     assert_eq!(
         augmented.narration,
@@ -118,7 +118,7 @@ fn failed_physical_observation_can_never_gain_bestiary_results() {
         passed: false,
         narration: "Eyesight check failed: You cannot make out anything more.".into(),
         bestiary_results_json: "[]".into(),
-        attempted_at: 10,
+        attempted_at: StrategicMinute::new(10),
     };
     let (still_failed, changed) = augment_physical_evidence_inspection(
         failed,
@@ -194,8 +194,8 @@ fn failed_attempt(
         owner_character_id,
         expected_version,
         method: method.into(),
-        started_at: 0,
-        completed_at: 1,
+        started_at: StrategicMinute::ZERO,
+        completed_at: StrategicMinute::new(1),
         duration_minutes: 1,
         success,
         resulting_uncertainty_bps: 9_000,
@@ -226,7 +226,7 @@ fn exact_lead(owner: u64, case_id: &str, site_id: &str) -> InvestigationLead {
         current_learned_location: String::new(),
         contradiction_group: "group".into(),
         corrected_by: String::new(),
-        recorded_at: 0,
+        recorded_at: StrategicMinute::ZERO,
     }
 }
 
@@ -243,7 +243,7 @@ fn exact_capability(owner: u64, case_id: &str, site_id: &str) -> InvestigationAc
         target_id: site_id.into(),
         target_terrain: "forest".into(),
         seed: 1,
-        evidence_age_origin_minute: 0,
+        evidence_age_origin_minute: StrategicMinute::ZERO,
         uncertainty_bps: 9_000,
         safe_summary: "Inspect".into(),
         known_prerequisites: String::new(),

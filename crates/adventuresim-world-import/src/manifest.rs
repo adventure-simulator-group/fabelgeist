@@ -777,14 +777,14 @@ struct Identity<'a> {
 }
 
 pub(crate) fn digest(
-    year: i32,
+    year: adventuresim_world_schema::calendar::CalendarYear,
     grid: SpatialGridSpec,
     sources: &[SourceProvenance],
 ) -> Result<String> {
     let bytes = serde_json::to_vec(&Identity {
         schema_version: WORLD_SCHEMA_VERSION,
         inference_rules_version: CURRENT_INFERENCE_RULES_VERSION,
-        world_year: year,
+        world_year: year.get(),
         spatial_grid: grid,
         sources,
     })?;
@@ -837,8 +837,18 @@ mod tests {
         canonicalize(&mut second).unwrap();
         assert_eq!(first, second);
         assert_eq!(
-            digest(1544, SpatialGridSpec::default(), &first).unwrap(),
-            digest(1544, SpatialGridSpec::default(), &second).unwrap()
+            digest(
+                adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
+                SpatialGridSpec::default(),
+                &first
+            )
+            .unwrap(),
+            digest(
+                adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
+                SpatialGridSpec::default(),
+                &second
+            )
+            .unwrap()
         );
 
         first.push(first[0].clone());
@@ -854,7 +864,7 @@ mod tests {
     fn identity_changes_for_every_manifest_field_and_build_dimension() {
         let original = fixture();
         let baseline = digest(
-            1544,
+            adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
             SpatialGridSpec::default(),
             std::slice::from_ref(&original),
         )
@@ -899,13 +909,18 @@ mod tests {
         for variant in variants {
             assert_ne!(
                 baseline,
-                digest(1544, SpatialGridSpec::default(), &[variant]).unwrap()
+                digest(
+                    adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
+                    SpatialGridSpec::default(),
+                    &[variant]
+                )
+                .unwrap()
             );
         }
         assert_ne!(
             baseline,
             digest(
-                1545,
+                adventuresim_world_schema::calendar::CalendarYear::new(1545).unwrap(),
                 SpatialGridSpec::default(),
                 std::slice::from_ref(&original)
             )
@@ -914,7 +929,7 @@ mod tests {
         assert_ne!(
             baseline,
             digest(
-                1544,
+                adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
                 SpatialGridSpec::new(GridCellSizeMeters::new(250).unwrap()),
                 std::slice::from_ref(&original)
             )
@@ -985,7 +1000,12 @@ mod tests {
     #[test]
     fn fixture_digest_is_stable() {
         assert_eq!(
-            digest(1544, SpatialGridSpec::default(), &[fixture()]).unwrap(),
+            digest(
+                adventuresim_world_schema::calendar::CalendarYear::new(1544).unwrap(),
+                SpatialGridSpec::default(),
+                &[fixture()]
+            )
+            .unwrap(),
             "4db541327cea1a8692096e3bcba0afe9fdf842095db73cd46d0c251a05eb77f8"
         );
     }

@@ -92,7 +92,7 @@ pub(super) async fn settlement_map(
                 journey_minutes: crate::routes::quests::offroad_journey_minutes(distance_m),
                 camp_stop_minutes: Vec::new(),
                 camp_forecasts: Vec::new(),
-                departure_minute: 0,
+                departure_minute: adventuresim_world_schema::calendar::StrategicMinute::ZERO,
                 itinerary_total_elapsed_minutes: crate::routes::quests::offroad_journey_minutes(
                     distance_m,
                 )
@@ -165,7 +165,7 @@ pub(super) async fn settlement_map(
         .filter_map(|member| stats.iter().find(|row| row.character_id == member.id))
         .map(|row| {
             (row.calories_used.max(0.0) / STRATEGIC_TRAVEL_KCAL_PER_DAY
-                * adventuresim_core::strategic_time::MINUTES_PER_DAY as f32)
+                * adventuresim_world_schema::calendar::MINUTES_PER_DAY as f32)
                 .ceil() as u64
         })
         .max()

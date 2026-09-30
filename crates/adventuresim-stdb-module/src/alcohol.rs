@@ -1,5 +1,8 @@
 //! Measured alcohol consumption, durable evening history, and shared selection.
 
+mod rest_ledger;
+use rest_ledger::mark_evening_evaluated;
+
 use adventuresim_core::alcohol::{
     AlcoholProperties, HEAVY_ETHANOL_ML, LOW_MORALE_THRESHOLD, NIGHTLY_MORALE_SOURCE_ID,
     ROLLING_WEEK_DAYS, TemperancePreference, emergency_hydration_ml, ethanol_ml, evening_target,
@@ -8,6 +11,7 @@ use adventuresim_core::alcohol::{
 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
 use adventuresim_core::item_references::TAVERN_DRINK_ITEM_ID;
 use adventuresim_core::physical_object::CarriedInventoryScope;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, table};
 
 use crate::character::character;
@@ -46,7 +50,12 @@ fn ledger_id(character_id: u64, evening_id: u64) -> String {
     format!("{character_id}:{evening_id}")
 }
 
-pub fn record_consumed_ethanol(ctx: &ReducerContext, character_id: u64, minute: u64, amount: u32) {
+pub fn record_consumed_ethanol(
+    ctx: &ReducerContext,
+    character_id: u64,
+    minute: StrategicMinute,
+    amount: u32,
+) {
     if amount == 0 {
         return;
     }
@@ -423,8 +432,8 @@ fn tavern_purchase(ctx: &ReducerContext, character_id: u64, target: u32) -> u32 
 pub fn process_rest_evenings(
     ctx: &ReducerContext,
     character_id: u64,
-    start: u64,
-    end: u64,
+    start: StrategicMinute,
+    end: StrategicMinute,
     settled: bool,
 ) -> Result<(), String> {
     use crate::personality::Temperance;
@@ -488,25 +497,7 @@ pub fn process_rest_evenings(
             consumed =
                 consumed.saturating_add(tavern_purchase(ctx, character_id, target - consumed));
         }
-        let mut row = ctx
-            .db
-            .alcohol_consumption()
-            .id()
-            .find(&id)
-            .unwrap_or(AlcoholConsumption {
-                id: id.clone(),
-                character_id,
-                evening_id: evening,
-                ethanol_ml: 0,
-                morale_evaluated: false,
-            });
-        row.ethanol_ml = consumed;
-        row.morale_evaluated = true;
-        if ctx.db.alcohol_consumption().id().find(&id).is_some() {
-            ctx.db.alcohol_consumption().id().update(row);
-        } else {
-            ctx.db.alcohol_consumption().insert(row);
-        }
+        mark_evening_evaluated(ctx, character_id, evening, &id, consumed);
         let effect =
             nightly_morale_effect(evening, preference, had_recent_heavy, consumed >= target)
                 .ok_or("Alcohol morale effect unexpectedly absent")?;
@@ -542,7 +533,7 @@ pub fn consume_emergency_hydration(
     ctx: &ReducerContext,
     character_id: u64,
     requested_ml: f32,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> u32 {
     let mut supplied = 0_u32;
     while supplied as f32 + f32::EPSILON < requested_ml {

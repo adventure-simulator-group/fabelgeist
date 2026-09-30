@@ -2,7 +2,8 @@
 //!
 //! Hidden causes stay in the strategic authority.  Consumers receive only the
 //! bounded effects returned by [`aggregate`] and safe public symptoms.
-use crate::{encounter::EncounterArchetype, strategic_time::MINUTES_PER_DAY};
+use crate::encounter::EncounterArchetype;
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, UnitBasisPoints};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeSet;
@@ -25,7 +26,7 @@ pub const INCIDENT_INTERVAL_MINUTES: u64 = 2 * MINUTES_PER_DAY;
 /// Each follow-up incident makes the unresolved consequences 25% more severe.
 pub const INCIDENT_SEVERITY_STEP_BPS: u32 = 2_500;
 
-pub fn due_incident_count(starts_at: u64, minute: u64) -> u16 {
+pub fn due_incident_count(starts_at: StrategicMinute, minute: StrategicMinute) -> u16 {
     due_incident_count_configured(
         starts_at,
         minute,
@@ -35,8 +36,8 @@ pub fn due_incident_count(starts_at: u64, minute: u64) -> u16 {
 }
 
 pub fn due_incident_count_configured(
-    starts_at: u64,
-    minute: u64,
+    starts_at: StrategicMinute,
+    minute: StrategicMinute,
     interval_minutes: u64,
     maximum_incidents: u16,
 ) -> u16 {
@@ -44,7 +45,7 @@ pub fn due_incident_count_configured(
         return 0;
     }
     assert!(interval_minutes > 0 && maximum_incidents > 0);
-    let follow_ups = minute.saturating_sub(starts_at) / interval_minutes;
+    let follow_ups = minute.elapsed_since(starts_at) / interval_minutes;
     u16::try_from(follow_ups.saturating_add(1))
         .unwrap_or(u16::MAX)
         .min(maximum_incidents)
@@ -150,15 +151,15 @@ pub struct LocalProblem {
     pub cause: Cause,
     pub symptom: Symptom,
     pub effects: Effects,
-    pub starts_at: u64,
-    pub ends_at: u64,
+    pub starts_at: StrategicMinute,
+    pub ends_at: StrategicMinute,
     pub mitigation_bps: u16,
-    pub resolved_at: Option<u64>,
+    pub resolved_at: Option<StrategicMinute>,
     pub bridge_keys: BTreeSet<String>,
 }
 
 impl LocalProblem {
-    pub fn active_fraction_bps(&self, minute: u64) -> u16 {
+    pub fn active_fraction_bps(&self, minute: StrategicMinute) -> u16 {
         if minute < self.starts_at
             || minute >= self.ends_at
             || self.resolved_at.is_some_and(|at| at <= minute)
@@ -170,7 +171,7 @@ impl LocalProblem {
     pub fn mitigate(&mut self, bps: u16) {
         self.mitigation_bps = self.mitigation_bps.max(bps.min(BASIS_POINTS_PER_WHOLE));
     }
-    pub fn resolve(&mut self, minute: u64) {
+    pub fn resolve(&mut self, minute: StrategicMinute) {
         self.resolved_at = Some(self.resolved_at.map_or(minute, |old| old.min(minute)));
     }
 }
@@ -293,7 +294,7 @@ fn hash(value: &str) -> u64 {
 pub fn generate(
     context: &GenerationContext,
     ordinal: usize,
-    starts_at: u64,
+    starts_at: StrategicMinute,
 ) -> Result<(LocalProblem, GenerationExplanation), String> {
     if ordinal >= MAX_ACTIVE_PER_SCOPE {
         return Err("local-problem generation limit reached".into());
@@ -340,7 +341,7 @@ pub fn generate(
             symptom: chosen.symptom,
             effects,
             starts_at,
-            ends_at: starts_at.saturating_add(30 * MINUTES_PER_DAY),
+            ends_at: starts_at.saturating_add_days(30),
             mitigation_bps: 0,
             resolved_at: None,
             bridge_keys: bridges.clone(),
@@ -411,16 +412,16 @@ pub struct ConsequenceInput {
     pub sell_penalty_bps: i32,
     pub encounter_frequency_bps: u16,
     pub disease_intensity: u16,
-    pub starts_at: u64,
-    pub ends_at: u64,
+    pub starts_at: StrategicMinute,
+    pub ends_at: StrategicMinute,
     pub mitigation_bps: u16,
-    pub resolved_at: Option<u64>,
+    pub resolved_at: Option<StrategicMinute>,
     pub incident_count: u16,
 }
 
 pub fn aggregate_consequences<'a>(
     rows: impl IntoIterator<Item = &'a ConsequenceInput>,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> AggregateEffects {
     let mut rows: Vec<_> = rows
         .into_iter()
@@ -462,7 +463,7 @@ pub fn aggregate_consequences<'a>(
 pub fn aggregate<'a>(
     problems: impl IntoIterator<Item = &'a LocalProblem>,
     scope: &Scope,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> AggregateEffects {
     let mut rows: Vec<_> = problems
         .into_iter()
@@ -593,6 +594,10 @@ impl ReferralPresentation {
 mod tests {
     use super::*;
 
+    fn at(minute: u64) -> StrategicMinute {
+        StrategicMinute::new(minute)
+    }
+
     #[test]
     fn disease_mitigation_uses_the_shared_unit_fraction() {
         assert_eq!(mitigated_disease_exposure(500, UnitBasisPoints::ZERO), 0.5);
@@ -650,22 +655,25 @@ mod tests {
     }
     #[test]
     fn generator_is_deterministic_and_explains_separate_weights() {
-        let a = generate(&ctx("x"), 0, 12).unwrap();
-        assert_eq!(a, generate(&ctx("x"), 0, 12).unwrap());
+        let a = generate(&ctx("x"), 0, at(12)).unwrap();
+        assert_eq!(a, generate(&ctx("x"), 0, at(12)).unwrap());
         assert!(a.1.plausibility > 0);
         assert!(a.1.curation > 0);
     }
     #[test]
     fn unresolved_incidents_arrive_periodically_and_stop_at_the_cap() {
-        let start = 10_000;
-        assert_eq!(due_incident_count(start, start - 1), 0);
+        let start = at(10_000);
+        assert_eq!(due_incident_count(start, at(9_999)), 0);
         assert_eq!(due_incident_count(start, start), 1);
         assert_eq!(
-            due_incident_count(start, start + INCIDENT_INTERVAL_MINUTES),
+            due_incident_count(
+                start,
+                start.saturating_add_minutes(INCIDENT_INTERVAL_MINUTES)
+            ),
             2
         );
         assert_eq!(
-            due_incident_count(start, u64::MAX),
+            due_incident_count(start, StrategicMinute::MAX),
             MAX_INCIDENTS_PER_PROBLEM
         );
         assert_eq!(incident_severity_bps(1), 10_000);
@@ -679,13 +687,13 @@ mod tests {
             sell_penalty_bps: 200,
             encounter_frequency_bps: 300,
             disease_intensity: 100,
-            starts_at: 0,
-            ends_at: u64::MAX,
+            starts_at: StrategicMinute::ZERO,
+            ends_at: StrategicMinute::MAX,
             mitigation_bps: 0,
             resolved_at: None,
             incident_count: 3,
         };
-        let effects = aggregate_consequences([&row], 1);
+        let effects = aggregate_consequences([&row], at(1));
         assert_eq!(effects.buy_bps, 750);
         assert_eq!(effects.sell_penalty_bps, 300);
         assert_eq!(effects.encounter_frequency_bps, 450);
@@ -717,7 +725,7 @@ mod tests {
     #[test]
     fn hard_zero_and_bridge_are_enforced() {
         for n in 0..MAX_ACTIVE_PER_SCOPE {
-            let (p, e) = generate(&ctx(&format!("s{n}")), n, 0).unwrap();
+            let (p, e) = generate(&ctx(&format!("s{n}")), n, StrategicMinute::ZERO).unwrap();
             assert_ne!(
                 (p.cause, p.symptom),
                 (Cause::ContaminatedWell, Symptom::MissingCaravans)
@@ -730,33 +738,33 @@ mod tests {
         let mut found = false;
         for n in 0..500 {
             c.seed = format!("bridge-{n}");
-            if generate(&c, 0, 0).unwrap().0.cause == Cause::Smugglers {
+            if generate(&c, 0, StrategicMinute::ZERO).unwrap().0.cause == Cause::Smugglers {
                 found = true;
                 break;
             }
         }
         assert!(found);
-        assert!(generate(&c, MAX_ACTIVE_PER_SCOPE, 0).is_err());
+        assert!(generate(&c, MAX_ACTIVE_PER_SCOPE, StrategicMinute::ZERO).is_err());
     }
     #[test]
     fn lifecycle_aggregation_is_absolute_capped_and_stable() {
-        let (mut p, _) = generate(&ctx("a"), 0, 100).unwrap();
-        assert_eq!(p.active_fraction_bps(99), 0);
+        let (mut p, _) = generate(&ctx("a"), 0, at(100)).unwrap();
+        assert_eq!(p.active_fraction_bps(at(99)), 0);
         p.mitigate(4_000);
         p.mitigate(2_000);
-        assert_eq!(p.active_fraction_bps(100), 6_000);
-        p.resolve(200);
-        p.resolve(220);
-        assert_eq!(p.resolved_at, Some(200));
-        assert_eq!(p.active_fraction_bps(200), 0);
+        assert_eq!(p.active_fraction_bps(at(100)), 6_000);
+        p.resolve(at(200));
+        p.resolve(at(220));
+        assert_eq!(p.resolved_at, Some(at(200)));
+        assert_eq!(p.active_fraction_bps(at(200)), 0);
         let mut rows = Vec::new();
         for n in 0..3 {
-            let (mut q, _) = generate(&ctx(&format!("q{n}")), 0, 0).unwrap();
+            let (mut q, _) = generate(&ctx(&format!("q{n}")), 0, StrategicMinute::ZERO).unwrap();
             q.effects.buy_bps = MAX_TRADE_BPS;
             q.effects.disease_intensity = MAX_DISEASE_INTENSITY;
             rows.push(q);
         }
-        let a = aggregate(rows.iter(), &ctx("z").scope, 1);
+        let a = aggregate(rows.iter(), &ctx("z").scope, at(1));
         assert_eq!(a.buy_bps, MAX_TRADE_BPS);
         assert_eq!(a.disease_intensity, MAX_DISEASE_INTENSITY);
     }
@@ -775,8 +783,8 @@ mod tests {
                 DiseaseId::Influenza,
                 7,
                 "problem:stable",
-                from,
-                to,
+                at(from),
+                at(to),
                 0.7,
                 0.4,
                 0.0,
@@ -814,7 +822,7 @@ mod tests {
                 scope: Scope::route("a", "b"),
                 allowed_bridges: BTreeSet::new(),
             };
-            let (p, _) = generate(&c, 0, 50_000).unwrap();
+            let (p, _) = generate(&c, 0, at(50_000)).unwrap();
             assert_ne!(p.cause, Cause::ContaminatedWell);
             assert!(p.effects.encounter_frequency_bps > 0);
         }
@@ -823,31 +831,35 @@ mod tests {
     fn symptoms_are_ambiguous_and_public_scope_does_not_recover_private_selection() {
         let mut causes = BTreeSet::new();
         for n in 0..2_000 {
-            let (p, _) = generate(&ctx(&format!("private-{n}")), 0, 0).unwrap();
+            let (p, _) = generate(&ctx(&format!("private-{n}")), 0, StrategicMinute::ZERO).unwrap();
             if p.symptom == Symptom::NightScreams {
                 causes.insert(p.cause);
             }
         }
         assert!(causes.len() >= 3);
-        let public = generate(&ctx("local-problems:lubeck"), 0, 0)
+        let public = generate(&ctx("local-problems:lubeck"), 0, StrategicMinute::ZERO)
             .unwrap()
             .0
             .cause;
         assert!((0..100).any(|n| {
-            generate(&ctx(&format!("private-entropy-{n}")), 0, 0)
-                .unwrap()
-                .0
-                .cause
+            generate(
+                &ctx(&format!("private-entropy-{n}")),
+                0,
+                StrategicMinute::ZERO,
+            )
+            .unwrap()
+            .0
+            .cause
                 != public
         }));
     }
     #[test]
     fn expired_or_resolved_history_does_not_count_active_at_late_cycle() {
-        let (mut old, _) = generate(&ctx("old"), 0, 0).unwrap();
-        assert_eq!(old.active_fraction_bps(43_201), 0);
-        old.resolve(10);
-        assert_eq!(old.active_fraction_bps(20), 0);
-        let (new, _) = generate(&ctx("new-private"), 0, 43_201).unwrap();
-        assert!(new.active_fraction_bps(43_201) > 0);
+        let (mut old, _) = generate(&ctx("old"), 0, StrategicMinute::ZERO).unwrap();
+        assert_eq!(old.active_fraction_bps(at(43_201)), 0);
+        old.resolve(at(10));
+        assert_eq!(old.active_fraction_bps(at(20)), 0);
+        let (new, _) = generate(&ctx("new-private"), 0, at(43_201)).unwrap();
+        assert!(new.active_fraction_bps(at(43_201)) > 0);
     }
 }

@@ -5,15 +5,16 @@ use crate::spacetimedb::{
     BackendCharacterCaseSiteLocation, CaseSiteId, CharacterDeath, CharacterTime, CharacterView,
     Result, SpacetimeError,
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 
-async fn character_minute(state: &AppState, character_id: u64) -> Result<Option<u64>> {
+async fn character_minute(state: &AppState, character_id: u64) -> Result<Option<StrategicMinute>> {
     state
         .db
         .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
             character_id,
         ))
         .await
-        .map(|time| time.map(|time| time.minutes))
+        .map(|time| time.map(|time| StrategicMinute::new(time.minutes.minutes)))
 }
 
 /// Mutable Character columns have no effective-dated history yet. They are
@@ -114,7 +115,9 @@ pub(crate) async fn project_alive_as_observed(
             return Ok(());
         }
     };
-    let Some(observer_minute) = observer_time.map(|time| time.minutes) else {
+    let Some(observer_minute) =
+        observer_time.map(|time| StrategicMinute::new(time.minutes.minutes))
+    else {
         // Without an observer frontier the gateway cannot safely decide that a
         // broad current death is already knowable. Preserve availability and
         // leave authoritative reducers to reject actions when appropriate.
@@ -138,7 +141,9 @@ pub(crate) async fn project_alive_as_observed(
                 continue;
             }
         };
-        character.alive = death.is_none_or(|death| death.strategic_minute > observer_minute);
+        character.alive = death.is_none_or(|death| {
+            StrategicMinute::new(death.strategic_minute.minutes) > observer_minute
+        });
     }
     Ok(())
 }
@@ -261,7 +266,10 @@ mod tests {
             .unwrap();
         assert!(projection.contains("character_time_by_character_id"));
         assert!(projection.contains("character_death_by_character_id"));
-        assert!(projection.contains("death.strategic_minute > observer_minute"));
+        assert!(
+            projection
+                .contains("StrategicMinute::new(death.strategic_minute.minutes) > observer_minute")
+        );
         assert!(projection.contains("let Some(observer_minute)"));
         assert!(projection.contains("character.alive = true"));
         assert!(!projection.contains("character_death WHERE"));

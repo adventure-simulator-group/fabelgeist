@@ -146,7 +146,8 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
     app.world_mut().resource_mut::<Time<Virtual>>().pause();
     let mut environment =
         SceneEnvironmentFixture::TemperateHills.snapshot("interior-exposure-test");
-    environment.absolute_minute = 340_440;
+    environment.absolute_minute =
+        adventuresim_world_schema::calendar::StrategicMinute::new(340_440);
     let scene = app.world_mut().spawn(environment.clone()).id();
     app.world_mut().resource_mut::<ActiveTacticalScene>().entity = Some(scene);
     app.world_mut()
@@ -184,7 +185,7 @@ fn exposure_adapts_during_pause_recovers_outdoors_and_preserves_night() {
         step(&mut app);
     }
     assert_eq!(app.world().get::<Exposure>(camera).unwrap().ev100, baseline);
-    environment.absolute_minute += 12 * 60;
+    environment.absolute_minute = environment.absolute_minute.saturating_add_minutes(12 * 60);
     app.world_mut().entity_mut(scene).insert(environment);
     app.world_mut()
         .entity_mut(camera)

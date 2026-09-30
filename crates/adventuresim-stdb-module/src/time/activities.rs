@@ -11,7 +11,7 @@ fn apply_activity_outcomes(
     character_id: u64,
     schedule: &ScheduleAllocation,
     elapsed: u64,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
 ) -> Result<ActivityRisks, String> {
     apply_activity_outcomes_inner(
         ctx,
@@ -28,7 +28,7 @@ fn apply_activity_outcomes_without_leisure(
     character_id: u64,
     schedule: &ScheduleAllocation,
     elapsed: u64,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
 ) -> Result<ActivityRisks, String> {
     apply_activity_outcomes_inner(
         ctx,
@@ -45,7 +45,7 @@ fn apply_activity_outcomes_inner(
     character_id: u64,
     schedule: &ScheduleAllocation,
     elapsed: u64,
-    interval_end_minute: u64,
+    interval_end_minute: StrategicMinute,
     apply_leisure: bool,
 ) -> Result<ActivityRisks, String> {
     let location = activity_execution_location(ctx, character_id)?;
@@ -102,10 +102,7 @@ fn apply_activity_outcomes_inner(
         settlement.population_level,
         settlement.population_estimate,
     );
-    let combat = capability
-        .weapon_precision
-        .max(capability.athletics)
-        .max(capability.endurance);
+    let combat = capability.weapon_precision.max(capability.athletics).max(capability.endurance);
     let outcome = settlement_activity_outcome(
         core_schedule(schedule),
         elapsed,
@@ -159,7 +156,7 @@ fn apply_activity_outcomes_inner(
         crate::relationship::apply_spouse_leisure_conception(
             ctx,
             character_id,
-            interval_end_minute.saturating_sub(elapsed),
+            interval_end_minute.saturating_sub_minutes(elapsed),
             interval_end_minute,
             core_schedule(schedule),
         )?;
@@ -277,11 +274,10 @@ pub fn perform_immediate_activity(
     let settled =
         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
     let elapsed = settled.elapsed;
-    character_time.minutes = character_time
-        .minutes
-        .checked_add(elapsed)
+    let interval_end = starting_minute
+        .checked_add_minutes(elapsed)
         .ok_or("Character clock overflow")?;
-    let interval_end = character_time.minutes;
+    character_time.minutes = interval_end;
     ctx.db
         .character_time()
         .character_id()
@@ -428,7 +424,7 @@ fn apply_organization_outcomes(
                     .character_time()
                     .character_id()
                     .find(character_id)
-                    .map_or(0, |time| time.minutes);
+                    .map_or(StrategicMinute::ZERO, |t| t.minutes);
                 crate::reputation::record_event(
                     ctx,
                     format!("profession:{character_id}:{organization_id}:{minute}"),

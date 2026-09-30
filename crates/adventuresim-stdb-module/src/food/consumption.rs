@@ -3,7 +3,7 @@ fn expose_to_dysentery(
     ctx: &ReducerContext,
     character_id: u64,
     lot_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     dose: f32,
     consumed_fraction_bps: u16,
 ) -> Result<(), String> {
@@ -37,7 +37,7 @@ pub(crate) fn expose_food_water_dysentery(
     character_id: u64,
     exposure_id: &str,
     carrier_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
     dose: f32,
     contribution_digest: &str,
     consumed_fraction_bps: u16,
@@ -55,7 +55,12 @@ pub(crate) fn expose_food_water_dysentery(
     if disease::has_unresolved_disease(&episodes, DiseaseId::Dysentery, minute, immunity) {
         return Ok(());
     }
-    let prior = disease::acquired_immunity(&episodes, DiseaseId::Dysentery, minute, immunity);
+    let prior = disease::acquired_immunity(
+        &episodes,
+        DiseaseId::Dysentery,
+        minute,
+        immunity,
+    );
     let seed = disease::outbreak_exposure_seed(character_id, exposure_id);
     let protected_dose = crate::disease::protected_point_exposure(
         ctx,

@@ -167,7 +167,7 @@ reason = "The texture lab adapts recipe images to CLI input and PNG filesystem o
 name = "calendar-year"
 literals = ["365", "365.0"]
 identifier_pattern = '(?i)(days?_per_year|year_days|duration_days|simulation_days|matched_days)'
-owners = ["crates/adventuresim-core/src/strategic_time.rs"]
+owners = ["crates/adventuresim-world-schema/src/calendar.rs"]
 
 [[semantic_families]]
 name = "basis-points"

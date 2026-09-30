@@ -116,7 +116,7 @@ fn start_party_journey(
     origin: JourneyEndpoint,
     destination: JourneyEndpoint,
     total_movement_minutes: u64,
-    departure_minute: u64,
+    departure_minute: StrategicMinute,
     route: Option<&JourneyRoutePlan>,
 ) -> Result<(), String> {
     require_no_unresolved_encounter(ctx, &party.id)?;
@@ -302,7 +302,7 @@ pub(crate) fn current_journey_camp_place(
     }
     adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
         party_id,
-        journey.departure_minute,
+journey.departure_minute,
         journey.completed_movement_minutes,
     )
     .map_err(|_| "Journey camp has an invalid canonical identity".into())
@@ -613,20 +613,19 @@ pub(crate) fn advance_party_wilderness_elapsed(
     Ok(())
 }
 
-pub(crate) fn journey_local_minute(journey: &PartyJourney, elapsed: u64) -> u64 {
-    let frozen_day = journey.departure_minute / MINUTES_PER_DAY * MINUTES_PER_DAY;
-    let minute_of_day = (journey.departure_minute % MINUTES_PER_DAY + elapsed)
-        % MINUTES_PER_DAY;
-    frozen_day.saturating_add(minute_of_day)
+pub(crate) fn journey_local_minute(journey: &PartyJourney, elapsed: u64) -> StrategicMinute {
+    journey.departure_minute.wrapping_day_offset(elapsed)
 }
 
-pub(crate) fn party_wilderness_environment_minutes(party: &Party) -> Option<(u64, u64)> {
+pub(crate) fn party_wilderness_environment_minutes(
+    party: &Party,
+) -> Option<(StrategicMinute, StrategicMinute)> {
     let anchor = party.wilderness_canonical_anchor_minute?;
-    let frozen_day = anchor / MINUTES_PER_DAY * MINUTES_PER_DAY;
-    let minute_of_day = (u64::from(party.journey_start_minute_of_day)
-        + party.wilderness_elapsed_minutes)
-        % MINUTES_PER_DAY;
-    Some((frozen_day.saturating_add(minute_of_day), anchor))
+    let now = anchor.with_wrapped_time_of_day(
+        party.journey_start_minute_of_day,
+        party.wilderness_elapsed_minutes,
+    );
+    Some((now, anchor))
 }
 
 fn zero_boundary_requires_settlement(actual_minutes: u64, safe_prefix: u64) -> bool {

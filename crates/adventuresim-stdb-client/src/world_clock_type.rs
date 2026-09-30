@@ -4,11 +4,13 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct WorldClock {
     pub id: u64,
-    pub official_minutes: u64,
+    pub official_minutes: StrategicMinute,
     pub epoch_micros: i64,
 }
 
@@ -21,7 +23,7 @@ impl __sdk::InModule for WorldClock {
 /// Provides typed access to columns for query building.
 pub struct WorldClockCols {
     pub id: __sdk::__query_builder::Col<WorldClock, u64>,
-    pub official_minutes: __sdk::__query_builder::Col<WorldClock, u64>,
+    pub official_minutes: __sdk::__query_builder::Col<WorldClock, StrategicMinute>,
     pub epoch_micros: __sdk::__query_builder::Col<WorldClock, i64>,
 }
 

@@ -28,6 +28,7 @@ mod healing_tests {
         validated_generated_dialogue_manifest,
     };
     use adventuresim_core::encounter::EncounterArchetype;
+    use adventuresim_world_schema::calendar::StrategicMinute;
     use std::collections::HashSet;
 
     include!("tests/combat_party.rs");

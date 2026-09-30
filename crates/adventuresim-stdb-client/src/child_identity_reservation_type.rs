@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ChildIdentityReservation {
     pub character_id: u64,
     pub pregnancy_id: String,
-    pub reserved_minute: u64,
+    pub reserved_minute: StrategicMinute,
 }
 
 impl __sdk::InModule for ChildIdentityReservation {
@@ -22,7 +24,7 @@ impl __sdk::InModule for ChildIdentityReservation {
 pub struct ChildIdentityReservationCols {
     pub character_id: __sdk::__query_builder::Col<ChildIdentityReservation, u64>,
     pub pregnancy_id: __sdk::__query_builder::Col<ChildIdentityReservation, String>,
-    pub reserved_minute: __sdk::__query_builder::Col<ChildIdentityReservation, u64>,
+    pub reserved_minute: __sdk::__query_builder::Col<ChildIdentityReservation, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for ChildIdentityReservation {

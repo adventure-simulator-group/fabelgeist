@@ -189,7 +189,7 @@ fn weather_material(
     let seed = StreamId::new("visual.weather.interval")
         .seed(
             stable_text_seed(&environment.scene_digest),
-            &[environment.weather.interval_start_minute],
+            &[environment.weather.interval_start_minute.get()],
         )
         .to_u64();
     let seed = StreamId::new("visual.weather.shader-seed")

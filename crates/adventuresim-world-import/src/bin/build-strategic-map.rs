@@ -4,6 +4,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use adventuresim_world_import::hyde_crop_cells;
+use adventuresim_world_schema::calendar::{CalendarYear, WORLD_START_YEAR};
 use adventuresim_world_schema::{CompiledWorld, PLAYABLE_BOUNDS, TravelEdgeProvenance};
 use clap::Parser;
 use raster::{ElevationLayer, ForestLayer, MapRasterLayers};
@@ -12,6 +14,9 @@ use sha2::{Digest, Sha256};
 
 #[path = "build-strategic-map/raster.rs"]
 mod raster;
+#[path = "build-strategic-map/road_history.rs"]
+mod road_history;
+use road_history::active;
 #[path = "build-strategic-map/terrain_features.rs"]
 mod terrain_features;
 #[path = "build-strategic-map/tiles.rs"]
@@ -19,7 +24,6 @@ mod tiles;
 
 const PACKAGE_SCHEMA: u32 = 5;
 const RENDERER_REVISION: u32 = 10;
-const YEAR: i32 = 1544;
 const VIABUNDUS_DOI: &str = "https://doi.org/10.5281/zenodo.16611998";
 const RECORD_URL: &str = "https://zenodo.org/api/records/16611998";
 const BOUNDS: [f64; 4] = PLAYABLE_BOUNDS;
@@ -558,7 +562,7 @@ fn cultivated_land(
             });
         }
     }
-    let (hyde, source_sha256) = adventuresim_world_import::hyde_crop_cells(hyde_dir, YEAR, BOUNDS)?;
+    let (hyde, source_sha256) = hyde_crop_cells(hyde_dir, WORLD_START_YEAR, BOUNDS)?;
     let quotas = hyde
         .into_iter()
         .map(|cell| {
@@ -694,7 +698,7 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
     let mut reader = csv::Reader::from_path(root.join("edges.csv"))?;
     for row in reader.deserialize::<BTreeMap<String, String>>() {
         let row = row?;
-        if !active(&row, YEAR) {
+        if !active(&row, WORLD_START_YEAR) {
             continue;
         }
         let zoom = row
@@ -761,7 +765,7 @@ fn build(root: &Path, layers: MapRasterLayers) -> Result<Package, Box<dyn std::e
     };
     let package = Package {
         schema: PACKAGE_SCHEMA,
-        year: YEAR,
+        year: WORLD_START_YEAR.get(),
         bounds: BOUNDS,
         source,
         roads,
@@ -877,18 +881,6 @@ fn package_digest(package: &DeploymentPackage<'_>) -> Result<String, serde_json:
         "{:x}",
         Sha256::digest(serde_json::to_vec(package)?)
     ))
-}
-
-fn active(row: &BTreeMap<String, String>, year: i32) -> bool {
-    let from = row
-        .get("fromyear")
-        .and_then(|v| v.parse::<i32>().ok())
-        .unwrap_or(i32::MIN);
-    let to = row
-        .get("toyear")
-        .and_then(|v| v.parse::<i32>().ok())
-        .unwrap_or(i32::MAX);
-    from <= year && year < to
 }
 
 fn coordinates(wkt: &str) -> Vec<Point> {
@@ -1257,8 +1249,8 @@ mod tests {
             ("fromyear".into(), "1544".into()),
             ("toyear".into(), "1545".into()),
         ]);
-        assert!(active(&row, 1544));
-        assert!(!active(&row, 1545));
+        assert!(active(&row, WORLD_START_YEAR));
+        assert!(!active(&row, CalendarYear::new(1545).unwrap()));
     }
 
     #[test]

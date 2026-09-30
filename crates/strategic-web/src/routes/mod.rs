@@ -1,5 +1,3 @@
-//! Route handlers
-
 pub mod challenges;
 pub mod characters;
 mod data;
@@ -18,8 +16,16 @@ pub mod quests;
 pub mod settlements;
 pub(crate) mod travel;
 mod weapon_icons;
-
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use crate::live::LiveState;
+use crate::session::{Session, SessionCodec};
+use crate::spacetimedb::{
+    BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
+    CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
+    PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
+    SettlementView, SpacetimeClient, WorldClock, sql_string_literal,
+};
+use adventuresim_core::strategic_time::official_minute;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::{Wgs84CoordinateE7, Wgs84CoordinateMicrodegrees};
 use axum::{
     Router,
@@ -32,16 +38,6 @@ use axum::{
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::time::{SystemTime, UNIX_EPOCH};
-
-use crate::live::LiveState;
-use crate::session::{Session, SessionCodec};
-use crate::spacetimedb::sql_string_literal;
-use crate::spacetimedb::{
-    BackendCaseSitePin, BackendCharacterCaseSiteLocation, CaseSiteId, CharacterAttributes,
-    CharacterLimbs, CharacterSkills, CharacterStrategicCondition, CharacterTime, CharacterView,
-    PartyActionRequestView, PartyJourney, PartyJourneyRouteView, PartyMember, PartyView,
-    SettlementView, SpacetimeClient, WorldClock,
-};
 
 /// Application state shared across routes
 #[derive(Clone)]
@@ -493,7 +489,7 @@ fn terrain_mental_check(training_rank: f32, intelligence: f32, head_health: f32)
 async fn authoritative_party_departure_minute(
     state: &AppState,
     actor: &CharacterView,
-) -> Result<u64, String> {
+) -> Result<StrategicMinute, String> {
     let member_ids = if let Some(party_id) = actor.party_id.as_deref() {
         state
             .db
@@ -509,7 +505,7 @@ async fn authoritative_party_departure_minute(
     } else {
         vec![actor.id]
     };
-    let mut departure = 0;
+    let mut departure = StrategicMinute::ZERO;
     for id in member_ids {
         let living = data::character_as_observed(state, id, actor.id)
             .await
@@ -526,7 +522,7 @@ async fn authoritative_party_departure_minute(
             .await
             .map_err(|error| error.to_string())?
         {
-            departure = departure.max(time.minutes);
+            departure = departure.max(StrategicMinute::new(time.minutes.minutes));
         }
     }
     Ok(departure)
@@ -822,7 +818,7 @@ mod terrain_route_payload_tests {
             None,
             adventuresim_core::weather::weather_at(
                 adventuresim_core::weather::WORLD_WEATHER_SEED,
-                0,
+                adventuresim_world_schema::calendar::StrategicMinute::new(0),
                 53_000_000,
                 10_000_000,
                 0,
@@ -866,7 +862,9 @@ mod readiness_tests {
             walking_minutes_per_day: 480,
             travel_at_night: false,
             journey_start_minute_of_day: 0,
-            wilderness_canonical_anchor_minute: case_site_id.is_some().then_some(0),
+            wilderness_canonical_anchor_minute: case_site_id
+                .is_some()
+                .then_some(adventuresim_world_schema::calendar::StrategicMinute::ZERO),
             wilderness_elapsed_minutes: 0,
             camp_destination: None,
             camp_remaining_minutes: 0,
@@ -1032,10 +1030,8 @@ async fn current_time(State(state): State<AppState>, session: Session) -> Respon
             .duration_since(UNIX_EPOCH)
             .unwrap_or_default()
             .as_micros();
-        adventuresim_core::strategic_time::official_minutes(
-            clock.epoch_micros,
-            i64::try_from(now_micros).unwrap_or(i64::MAX),
-        )
+        let now = i64::try_from(now_micros).unwrap_or(i64::MAX);
+        official_minute(clock.epoch_micros, now).get()
     });
     let active_character = state
         .db
@@ -1061,11 +1057,12 @@ async fn current_time(State(state): State<AppState>, session: Session) -> Respon
                 .next()
                 .and_then(|party| {
                     party.wilderness_canonical_anchor_minute.map(|anchor| {
-                        let frozen_day = anchor / MINUTES_PER_DAY * MINUTES_PER_DAY;
-                        let minute_of_day = (u64::from(party.journey_start_minute_of_day)
-                            + party.wilderness_elapsed_minutes)
-                            % MINUTES_PER_DAY;
-                        frozen_day + minute_of_day
+                        anchor
+                            .with_wrapped_time_of_day(
+                                party.journey_start_minute_of_day,
+                                party.wilderness_elapsed_minutes,
+                            )
+                            .get()
                     })
                 })
                 .unwrap_or(official_minutes)

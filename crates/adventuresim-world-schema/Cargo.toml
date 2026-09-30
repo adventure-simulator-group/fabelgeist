@@ -20,6 +20,7 @@ spacetimedb = { workspace = true, optional = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 sha2.workspace = true
+spacetimedb.workspace = true
 
 [dev-dependencies]
 serde_json.workspace = true

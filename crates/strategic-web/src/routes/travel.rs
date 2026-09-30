@@ -12,6 +12,7 @@ use adventuresim_core::{
         ItineraryMember, ItinerarySegment, OVERLAND_WALKING_SPEED_KM_PER_HOUR, forecast_itinerary,
     },
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use serde::Deserialize;
 
 use crate::spacetimedb::{
@@ -28,7 +29,7 @@ struct TerrainPlanKey {
     coordinates: [i32; 4],
     profile: adventuresim_terrain::TerrainSkillProfile,
     weather_rules_version: u16,
-    weather_interval_start: u64,
+    weather_interval_start: StrategicMinute,
     ground_moisture_bps: u16,
     snow_cover_bps: u16,
     snow_check_millirank: u16,
@@ -51,7 +52,8 @@ impl TerrainPlanKey {
             ],
             profile,
             weather_rules_version: weather.map_or(0, |value| value.rules_version),
-            weather_interval_start: weather.map_or(0, |value| value.interval_start_minute),
+            weather_interval_start: weather
+                .map_or(StrategicMinute::ZERO, |w| w.interval_start_minute),
             ground_moisture_bps: weather.map_or(0, |value| value.ground_moisture_bps),
             snow_cover_bps: weather.map_or(0, |value| value.snow_cover_bps),
             snow_check_millirank,
@@ -282,7 +284,7 @@ pub struct TravelDestination {
     /// Cumulative minutes for server-derived camp forecasts.
     pub camp_stop_minutes: Vec<u64>,
     pub camp_forecasts: Vec<TravelCampForecast>,
-    pub departure_minute: u64,
+    pub departure_minute: StrategicMinute,
     pub itinerary_total_elapsed_minutes: u64,
     pub itinerary_segments: Vec<ItinerarySegment>,
     /// Whether travel planning includes an estimated return to the origin.
@@ -298,11 +300,9 @@ pub struct TravelDestination {
 impl TravelDestination {
     pub fn forecast_minutes(&self) -> u64 {
         if self.round_trip_destination {
-            self.journey_minutes.saturating_add(
-                self.return_terrain_route
-                    .as_ref()
-                    .map_or(self.journey_minutes, |route| route.minutes),
-            )
+            let route = self.return_terrain_route.as_ref();
+            let return_minutes = route.map_or(self.journey_minutes, |r| r.minutes);
+            self.journey_minutes.saturating_add(return_minutes)
         } else {
             self.journey_minutes
         }
@@ -335,7 +335,7 @@ pub(crate) fn settlement_destination(
         journey_minutes,
         camp_stop_minutes: Vec::new(),
         camp_forecasts: Vec::new(),
-        departure_minute: 0,
+        departure_minute: StrategicMinute::ZERO,
         itinerary_total_elapsed_minutes: journey_minutes,
         itinerary_segments: Vec::new(),
         round_trip_destination: false,
@@ -456,9 +456,9 @@ pub(crate) fn populate_itinerary_forecasts(
     let departure = party_members
         .iter()
         .filter_map(|id| times.iter().find(|row| row.character_id == *id))
-        .map(|row| row.minutes)
+        .map(|row| StrategicMinute::new(row.minutes.minutes))
         .max()
-        .unwrap_or(0);
+        .unwrap_or(StrategicMinute::ZERO);
     for destination in destinations {
         if let Some(forecast) = forecast_itinerary(
             departure,
@@ -593,7 +593,7 @@ mod tests {
     fn route_cache_identity_distinguishes_departure_weather() {
         let clear = adventuresim_core::weather::WeatherSnapshot {
             rules_version: adventuresim_core::weather::WEATHER_RULES_VERSION,
-            interval_start_minute: 0,
+            interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(0),
             cell_latitude: 0,
             cell_longitude: 0,
             temperature_deci_c: 120,
@@ -605,7 +605,7 @@ mod tests {
             atmosphere: Default::default(),
         };
         let wet = adventuresim_core::weather::WeatherSnapshot {
-            interval_start_minute: 360,
+            interval_start_minute: adventuresim_world_schema::calendar::StrategicMinute::new(360),
             precipitation: adventuresim_core::weather::Precipitation::Rain,
             intensity_bps: 8_000,
             ground_moisture_bps: 7_000,

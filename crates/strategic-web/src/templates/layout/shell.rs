@@ -1,5 +1,6 @@
 //! Document shell, assets, and persistent renderer lifetime.
 use super::*;
+use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, MINUTES_PER_DAY};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub(super) enum ScriptProfile {
@@ -83,6 +84,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
                     "window.strategicCalendar=Object.freeze({{minutesPerDay:{MINUTES_PER_DAY},daysPerYear:{DAYS_PER_YEAR},lunarCycleMinutes:{LUNAR_CYCLE_MINUTES}}});"
                 )))
             }
+            script src="/static/strategic-calendar.js?v=shared-calendar-1" {}
             script src="/static/background-fetch.js?v=background-fetch-2" {}
             script src="/static/location-urls.js?v=location-urls-1" {}
             script src="/static/developer-mode.js?v=development-clock-2" defer {}

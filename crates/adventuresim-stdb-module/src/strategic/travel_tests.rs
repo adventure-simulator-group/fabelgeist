@@ -1,5 +1,6 @@
 #[cfg(test)]
 mod departure_invariant_tests {
+    use adventuresim_world_schema::calendar::StrategicMinute;
     use super::{
         CaseSiteId, JourneyCaseSiteEndpoint, JourneyEndpoint, JourneyPrecipitation,
         JourneyRoutePlan, JourneyRoutePoint, JourneySettlementEndpoint, JourneyTerrainKind,
@@ -28,7 +29,7 @@ mod departure_invariant_tests {
         };
         assert_eq!(
             authoritative_case_route_binding_digest(
-                1_234,
+                StrategicMinute::new(1_234),
                 &origin,
                 &destination,
                 true,
@@ -249,7 +250,7 @@ mod departure_invariant_tests {
     #[test]
     fn unplanned_case_route_persists_coherent_disclosed_straight_line_geometry() {
         let route = authoritative_straight_line_case_route(
-            332_661,
+            StrategicMinute::new(332_661),
             (10.0, 53.0),
             (10.01, 53.01),
             true,
@@ -383,7 +384,7 @@ mod departure_invariant_tests {
         JourneyRoutePlan {
             package_digest: "a".repeat(64),
             weather_rules_version: adventuresim_core::weather::WEATHER_RULES_VERSION,
-            weather_interval_start: 0,
+            weather_interval_start: StrategicMinute::ZERO,
             precipitation: JourneyPrecipitation::Clear,
             intensity_bps: 0,
             ground_moisture_bps: 0,
@@ -503,21 +504,21 @@ mod departure_invariant_tests {
     #[test]
     fn departure_weather_interval_closes_clock_sync_boundary() {
         let mut route = route_fixture();
-        route.weather_interval_start = 0;
-        assert!(validate_route_departure_weather_interval(&route, 359).is_ok());
-        assert!(validate_route_departure_weather_interval(&route, 360).is_err());
-        route.weather_interval_start = 360;
-        assert!(validate_route_departure_weather_interval(&route, 360).is_ok());
+        route.weather_interval_start = StrategicMinute::ZERO;
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(359)).is_ok());
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_err());
+        route.weather_interval_start = StrategicMinute::new(360);
+        assert!(validate_route_departure_weather_interval(&route, StrategicMinute::new(360)).is_ok());
     }
 
     #[test]
     fn camp_redirect_rejects_stale_six_hour_weather_snapshot() {
         let mut route = route_fixture();
-        route.weather_interval_start = 360;
-        assert!(validate_camp_redirect_weather_interval(&route, 719).is_ok());
-        assert!(validate_camp_redirect_weather_interval(&route, 720).is_err());
-        route.weather_interval_start = 720;
-        assert!(validate_camp_redirect_weather_interval(&route, 720).is_ok());
+        route.weather_interval_start = StrategicMinute::new(360);
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(719)).is_ok());
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(720)).is_err());
+        route.weather_interval_start = StrategicMinute::new(720);
+        assert!(validate_camp_redirect_weather_interval(&route, StrategicMinute::new(720)).is_ok());
     }
 
     #[test]
@@ -623,7 +624,7 @@ fn zero_minute_terminal_is_settled_before_survivors_retry() {
             walking_minutes_per_day: DEFAULT_WALKING_MINUTES_PER_DAY,
             travel_at_night: false,
             journey_start_minute_of_day: DEFAULT_JOURNEY_START_MINUTE_OF_DAY,
-            wilderness_canonical_anchor_minute: Some(10_000),
+            wilderness_canonical_anchor_minute: Some(StrategicMinute::new(10_000)),
             wilderness_elapsed_minutes: 0,
             camp_destination: Some(JourneyEndpoint::Settlement(JourneySettlementEndpoint {
                 id: "destination".into(),
@@ -742,13 +743,13 @@ fn journey_local_time_wraps_without_advancing_the_frozen_date() {
         actual_camp_intervals: Vec::new(),
         forecast_camp_intervals: Vec::new(),
         fatigue_percent: 0,
-        departure_minute: 10 * MINUTES_PER_DAY + 23 * MINUTES_PER_HOUR,
+        departure_minute: StrategicMinute::day_start_for_index(10).saturating_add_minutes(23 * MINUTES_PER_HOUR),
         total_elapsed_minutes: 60,
         completed_elapsed_minutes: 0,
         walking_minutes_per_day: DEFAULT_WALKING_MINUTES_PER_DAY,
         travel_at_night: false,
     };
-    let expected = 10 * MINUTES_PER_DAY + MINUTES_PER_HOUR;
+    let expected = StrategicMinute::day_start_for_index(10).saturating_add_minutes(MINUTES_PER_HOUR);
     assert_eq!(journey_local_minute(&journey, 120), expected);
     assert_eq!(journey_local_minute(&journey, 90 * MINUTES_PER_DAY + 120), expected);
 }

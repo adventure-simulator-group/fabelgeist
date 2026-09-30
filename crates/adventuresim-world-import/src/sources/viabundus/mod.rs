@@ -5,7 +5,7 @@ use std::{
 
 use adventuresim_world_schema::{
     EdgeEndpoint, SpatialGridSpec, TravelEdgeKind, WorldBuildReport, WorldNodeImport,
-    coordinates_in_bounds,
+    calendar::CalendarYear, coordinates_in_bounds,
 };
 use serde::{Deserialize, Deserializer, de};
 
@@ -14,8 +14,11 @@ use crate::{
     draft::{SettlementDraft, TravelEdgeDraft, TravelRouteDraft, WorldDraft},
 };
 
+mod chronology;
 mod descriptions;
 mod names;
+
+use chronology::{ActiveInterval, DatedFeature, optional_calendar_year};
 
 const SOURCE_DOI: &str = "https://doi.org/10.5281/zenodo.16611998";
 
@@ -82,7 +85,7 @@ struct RawPopulation {
 
 pub(crate) fn compile(
     directory: &Path,
-    year: i32,
+    year: adventuresim_world_schema::calendar::CalendarYear,
     spatial_grid: SpatialGridSpec,
     bounds: Option<[f64; 4]>,
 ) -> Result<WorldDraft<SettlementDraft>> {
@@ -134,10 +137,10 @@ pub(crate) fn compile(
         }
     }
 
-    let mut population_by_node: HashMap<u64, (i32, u32)> = HashMap::new();
+    let mut population_by_node: HashMap<u64, (CalendarYear, u32)> = HashMap::new();
     for raw in read_csv::<RawPopulation>(&population_path)? {
         let node_id = optional_number(&population_path, "nodesid", &raw.nodesid)?;
-        let population_year = optional_number(&population_path, "year", &raw.year)?;
+        let population_year = optional_calendar_year(&population_path, "year", &raw.year)?;
         let inhabitants = optional_number(&population_path, "inhabitants", &raw.inhabitants)?;
         let (Some(node_id), Some(population_year), Some(inhabitants)) =
             (node_id, population_year, inhabitants)
@@ -376,104 +379,6 @@ struct SourceNode {
     settlement_interval: ActiveInterval,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-struct ActiveInterval {
-    from: Option<i32>,
-    to: Option<i32>,
-}
-
-impl ActiveInterval {
-    fn parse(
-        path: &Path,
-        from_field: &'static str,
-        from: &str,
-        to_field: &'static str,
-        to: &str,
-    ) -> Result<Self> {
-        let interval = Self {
-            from: optional_number(path, from_field, from)?,
-            to: optional_number(path, to_field, to)?,
-        };
-        if interval
-            .from
-            .zip(interval.to)
-            .is_some_and(|(from, to)| from > to)
-        {
-            return Err(Error::InvalidField {
-                path: path.into(),
-                field: from_field,
-                value: format!("{:?}..{:?}", interval.from, interval.to),
-                message: format!("{from_field} must not be later than {to_field}"),
-            });
-        }
-        Ok(interval)
-    }
-
-    fn contains(self, year: i32) -> bool {
-        self.from.is_none_or(|from| from <= year) && self.to.is_none_or(|to| year < to)
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum DatedFeature {
-    Absent,
-    ContradictoryEmptyRange { year: i32 },
-    Present { from: Option<i32>, to: Option<i32> },
-}
-
-impl DatedFeature {
-    fn parse(
-        path: &Path,
-        field: &'static str,
-        present: SourceFlag,
-        from: &str,
-        to: &str,
-    ) -> Result<Self> {
-        let from_year = optional_number(path, field, from)?;
-        let to_year = optional_number(path, field, to)?;
-        if !present.is_set() {
-            if from_year.is_some() || to_year.is_some() {
-                return Err(Error::InvalidField {
-                    path: path.into(),
-                    field,
-                    value: format!("{from:?}..{to:?}"),
-                    message: "feature dates are present while its source flag is unset".into(),
-                });
-            }
-            return Ok(Self::Absent);
-        }
-        if let Some((from, to)) = from_year.zip(to_year)
-            && from == to
-        {
-            return Ok(Self::ContradictoryEmptyRange { year: from });
-        }
-        if from_year.zip(to_year).is_some_and(|(from, to)| from > to) {
-            return Err(Error::InvalidField {
-                path: path.into(),
-                field,
-                value: format!("{from:?}..{to:?}"),
-                message: "feature end year must be later than its start year".into(),
-            });
-        }
-        Ok(Self::Present {
-            from: from_year,
-            to: to_year,
-        })
-    }
-
-    fn active_in(self, year: i32) -> bool {
-        match self {
-            Self::Absent => false,
-            Self::ContradictoryEmptyRange { .. } => false,
-            Self::Present { from, to } => ActiveInterval { from, to }.contains(year),
-        }
-    }
-
-    const fn is_contradictory(self) -> bool {
-        matches!(self, Self::ContradictoryEmptyRange { .. })
-    }
-}
-
 #[derive(Clone, Copy, Debug, Default)]
 struct SourceFlag(bool);
 
@@ -603,19 +508,23 @@ fn increment(counts: &mut BTreeMap<String, usize>, key: String) {
 mod tests {
     use serde::Deserialize;
 
-    use super::{ActiveInterval, DatedFeature, SourceFlag, population_estimate, population_level};
+    use super::{
+        ActiveInterval, CalendarYear, DatedFeature, SourceFlag, optional_calendar_year,
+        population_estimate, population_level,
+    };
 
     #[test]
     fn end_year_is_exclusive() {
         let path = std::path::Path::new("source.csv");
+        let year = |value| CalendarYear::new(value).unwrap();
         let interval = ActiveInterval::parse(path, "from", "1500", "to", "1545").unwrap();
-        assert!(interval.contains(1544));
-        assert!(!interval.contains(1545));
+        assert!(interval.contains(year(1544)));
+        assert!(!interval.contains(year(1545)));
         assert!(ActiveInterval::parse(path, "from", "1600", "to", "1500").is_err());
         assert!(
             ActiveInterval::parse(path, "from", "", "to", "")
                 .unwrap()
-                .contains(1544)
+                .contains(year(1544))
         );
     }
 
@@ -667,23 +576,36 @@ mod tests {
     #[test]
     fn dated_features_parse_into_valid_states() {
         let path = std::path::Path::new("nodes.csv");
+        let year = |value| CalendarYear::new(value).unwrap();
         assert_eq!(
             DatedFeature::parse(path, "Bridge", SourceFlag(false), "", "").unwrap(),
             DatedFeature::Absent
         );
         let bridge = DatedFeature::parse(path, "Bridge", SourceFlag(true), "1500", "1600").unwrap();
-        assert!(bridge.active_in(1544));
-        assert!(!bridge.active_in(1600));
+        assert!(bridge.active_in(year(1544)));
+        assert!(!bridge.active_in(year(1600)));
         assert!(DatedFeature::parse(path, "Bridge", SourceFlag(false), "1500", "").is_err());
         assert!(DatedFeature::parse(path, "Bridge", SourceFlag(true), "1600", "1500").is_err());
         let contradiction =
             DatedFeature::parse(path, "Bridge", SourceFlag(true), "1544", "1544").unwrap();
         assert_eq!(
             contradiction,
-            DatedFeature::ContradictoryEmptyRange { year: 1544 }
+            DatedFeature::ContradictoryEmptyRange { year: year(1544) }
         );
-        assert!(!contradiction.active_in(1544));
+        assert!(!contradiction.active_in(year(1544)));
         assert!(contradiction.is_contradictory());
+    }
+
+    #[test]
+    fn source_years_must_be_positive_calendar_years() {
+        let path = std::path::Path::new("nodes.csv");
+        assert_eq!(optional_calendar_year(path, "from", "").unwrap(), None);
+        assert!(optional_calendar_year(path, "from", "0").is_err());
+        assert!(optional_calendar_year(path, "from", "-1").is_err());
+        assert_eq!(
+            optional_calendar_year(path, "from", "1544").unwrap(),
+            CalendarYear::new(1544)
+        );
     }
 
     #[test]

@@ -336,6 +336,10 @@ pub struct BodyMotion {
     positions: Vec<Vec3>,
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects these system parameters independently"
+)]
 pub fn deform_cloth(
     preview: Res<WalkPreview>,
     time: Res<Time>,

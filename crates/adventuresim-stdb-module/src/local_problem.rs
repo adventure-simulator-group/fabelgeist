@@ -15,9 +15,10 @@ use crate::{
     time::{character_time, character_time__view, world_clock},
 };
 use adventuresim_core::strategic_place::CaseSiteId;
-use adventuresim_core::strategic_time::MINUTES_PER_DAY;
+use adventuresim_core::threat_escalation as escalation;
 use adventuresim_core::threat_escalation::bounded_public_threat_candidates as bounded_public_candidates;
 use adventuresim_core::{encounter::EncounterArchetype, local_problem as lp};
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use serde::{Deserialize, Serialize};
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 use std::cmp::Reverse;
@@ -43,15 +44,15 @@ pub struct LocalProblemAuthority {
     pub encounter_archetype: Option<EncounterArchetype>,
     pub disease_intensity: u16,
     pub disease_id: String,
-    pub starts_at: u64,
-    pub ends_at: u64,
+    pub starts_at: StrategicMinute,
+    pub ends_at: StrategicMinute,
     pub mitigation_bps: u16,
     /// Includes the original offence represented by the generated case.
     pub incident_count: u16,
     pub recurring_hostile: bool,
     pub public_awareness_bps: u16,
-    pub public_since_minute: Option<u64>,
-    pub resolved_at: Option<u64>,
+    pub public_since_minute: Option<StrategicMinute>,
+    pub resolved_at: Option<StrategicMinute>,
     pub opaque_case_ref: String,
 }
 
@@ -68,7 +69,7 @@ pub struct GeneratedProblemIncident {
     #[index(btree)]
     pub problem_id: String,
     pub ordinal: u16,
-    pub occurred_at: u64,
+    pub occurred_at: StrategicMinute,
     pub event_id: String,
     pub proposition_id: String,
     pub witness_resident_character_id: u64,
@@ -99,8 +100,8 @@ pub struct LocalProblemSymptom {
     pub settlement_id: String,
     pub symptom: String,
     pub public_summary: String,
-    pub active_from: u64,
-    pub active_until: u64,
+    pub active_from: StrategicMinute,
+    pub active_until: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -129,9 +130,9 @@ pub struct LocalProblemReceipt {
     pub expected_location_id: String,
     pub safe_summary: String,
     /// Observer chronology used by owner-facing journal projections.
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
     /// Authoritative world chronology used only by server-side fairness rules.
-    pub official_learned_at: u64,
+    pub official_learned_at: StrategicMinute,
 }
 
 /// Private, one-shot discovery ordering used by explicit development demos.
@@ -174,7 +175,7 @@ pub struct LocalProblemIncidentReceipt {
     pub character_id: u64,
     pub problem_id: String,
     pub incident_id: String,
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
 }
 
 /// Observer-scoped canonical disclosure for a publicly notorious hostile case.
@@ -192,7 +193,7 @@ pub struct PublicThreatDisclosure {
     pub approximate_count: String,
     pub source_kind: String,
     pub source_resident_character_id: u64,
-    pub learned_at: u64,
+    pub learned_at: StrategicMinute,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -211,7 +212,7 @@ pub struct LocalProblemOutcomeReceipt {
     pub id: String,
     pub problem_id: String,
     pub source_outcome_id: String,
-    pub applied_at: u64,
+    pub applied_at: StrategicMinute,
     pub mitigation_bps: u16,
     pub resolved: bool,
     pub payload_fingerprint: String,
@@ -276,7 +277,7 @@ pub fn backend_local_problem_trade_effects(
     let mut characters: Vec<_> = ctx
         .db
         .character_time()
-        .minutes()
+        .scan_id()
         .filter(0u64..)
         .filter_map(|time| {
             ctx.db
@@ -339,12 +340,12 @@ pub fn backend_local_problem_rumors(ctx: &ViewContext) -> Vec<BackendLocalProble
         .collect()
 }
 
-pub(crate) fn official_minute(ctx: &ReducerContext) -> u64 {
+pub(crate) fn official_minute(ctx: &ReducerContext) -> StrategicMinute {
     ctx.db
         .world_clock()
         .id()
         .find(0)
-        .map_or(0, |r| r.official_minutes)
+        .map_or(StrategicMinute::ZERO, |r| r.official_minutes)
 }
 
 pub(crate) fn prefer_next_rumor(
@@ -394,9 +395,9 @@ pub(crate) fn materialize_generated_problem(
             adventuresim_core::quest_generation::CanonicalCause::Hostile(_)
         );
     let ends_at = if recurring_hostile {
-        u64::MAX
+        StrategicMinute::MAX
     } else {
-        starts_at.saturating_add(30 * MINUTES_PER_DAY)
+        starts_at.saturating_add_days(30)
     };
     let mechanism = match consequence.symptom {
         lp::Symptom::MissingCaravans => "supply_disruption",
@@ -482,13 +483,11 @@ fn follow_up_summary(symptom: &str) -> &'static str {
     }
 }
 
-/// Append every follow-up incident that is due for an unresolved generated
-/// problem. IDs and modular choices derive from immutable generation inputs,
-/// so retries and delayed refreshes materialize the same bounded history.
+/// Append due follow-ups with deterministic IDs and choices across retries.
 pub(crate) fn ensure_generated_incidents(
     ctx: &ReducerContext,
     settlement_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     ensure_generated_incidents_inner(ctx, settlement_id, minute, None, None)
 }
@@ -496,7 +495,7 @@ pub(crate) fn ensure_generated_incidents(
 pub(crate) fn trigger_next_generated_incident(
     ctx: &ReducerContext,
     problem_id: &str,
-    occurred_at: u64,
+    occurred_at: StrategicMinute,
 ) -> Result<u16, String> {
     let problem = ctx
         .db
@@ -532,9 +531,9 @@ pub(crate) fn trigger_next_generated_incident(
 fn ensure_generated_incidents_inner(
     ctx: &ReducerContext,
     settlement_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
     target_problem_id: Option<&str>,
-    forced_occurred_at: Option<u64>,
+    forced_occurred_at: Option<StrategicMinute>,
 ) -> Result<(), String> {
     let scope = format!("settlement:{settlement_id}");
     let problems: Vec<_> = ctx
@@ -608,7 +607,7 @@ fn ensure_generated_incidents_inner(
             let proposition_id = format!("{id}:proposition");
             let evidence_id = format!("{id}:evidence");
             let occurred_at = forced_occurred_at.unwrap_or_else(|| {
-                problem.starts_at.saturating_add(
+                problem.starts_at.saturating_add_minutes(
                     u64::from(ordinal.saturating_sub(1))
                         .saturating_mul(validated.manifest.incident_interval_minutes),
                 )
@@ -686,24 +685,22 @@ fn ensure_generated_incidents_inner(
                 return Err("Recurring-hostile authority has a non-hostile manifest".into());
             };
             let profile = adventuresim_core::bestiary::profile(threat);
-            let next_awareness = adventuresim_core::threat_escalation::awareness_for_incident(
-                profile.investigation.investigability,
-                due,
-            );
+            let investigability = profile.investigation.investigability;
+            let next_awareness = escalation::awareness_for_incident(investigability, due);
             problem.public_awareness_bps = problem.public_awareness_bps.max(next_awareness);
             if problem.public_since_minute.is_none()
-                && adventuresim_core::threat_escalation::is_public(problem.public_awareness_bps)
+                && escalation::is_public(problem.public_awareness_bps)
             {
                 problem.public_since_minute = forced_occurred_at.or_else(|| {
-                    adventuresim_core::threat_escalation::scheduled_public_since_minute(
+                    escalation::scheduled_public_since_minute(
                         problem.starts_at,
                         validated.manifest.incident_interval_minutes,
-                        profile.investigation.investigability,
+                        investigability,
                     )
                 });
-                if problem.public_since_minute.is_none() {
-                    return Err("Public awareness crossed without a crossing ordinal".into());
-                }
+                problem
+                    .public_since_minute
+                    .ok_or("Public crossing ordinal missing")?;
             }
             let Some((group_id, _, _, _)) = validated.manifest.hostile_groups.first() else {
                 return Err("Recurring hostile case has no hostile group".into());
@@ -761,7 +758,7 @@ pub fn ensure_settlement_problems(ctx: &ReducerContext, settlement_id: &str) -> 
     {
         return Ok(());
     }
-    let cycle = minute / (30 * MINUTES_PER_DAY);
+    let cycle = minute.period_index(30 * MINUTES_PER_DAY).unwrap_or(0);
     let private_entropy = ctx.random::<u64>();
     let context = lp::GenerationContext {
         seed: format!("private:{private_entropy:016x}:cycle:{cycle}"),
@@ -825,7 +822,7 @@ pub fn ensure_route_problem(
     ctx: &ReducerContext,
     left: &str,
     right: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let scope = lp::Scope::route(left, right);
     let key = scope_key(&scope);
@@ -840,7 +837,9 @@ pub fn ensure_route_problem(
     {
         return Ok(());
     }
-    let cycle = minute / (30 * MINUTES_PER_DAY);
+    let cycle = minute
+        .period_index(30 * MINUTES_PER_DAY)
+        .expect("month interval is positive");
     let private_entropy = ctx.random::<u64>();
     let context = lp::GenerationContext {
         seed: format!("private:{private_entropy:016x}:route-cycle:{cycle}"),
@@ -887,24 +886,12 @@ pub fn ensure_route_problem(
     Ok(())
 }
 
-fn is_active(row: &LocalProblemAuthority, minute: u64) -> bool {
-    minute >= row.starts_at
-        && (row.recurring_hostile || minute < row.ends_at)
-        && row.resolved_at.is_none_or(|at| minute < at)
-        && row.mitigation_bps < adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
-}
-fn scaled(value: i32, mitigation: u16) -> i32 {
-    (i64::from(value)
-        * i64::from(
-            adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
-                .saturating_sub(mitigation.min(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)),
-        )
-        / i64::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE)) as i32
-}
+include!("local_problem/effects.rs");
+
 pub fn settlement_effects(
     ctx: &ReducerContext,
     settlement_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> lp::AggregateEffects {
     let key = format!("settlement:{settlement_id}");
     let rows: Vec<_> = ctx
@@ -932,7 +919,7 @@ pub fn route_encounter_influence(
     ctx: &ReducerContext,
     left: &str,
     right: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<adventuresim_core::encounter::LocalProblemInfluence> {
     let scope = lp::Scope::route(left, right);
     let key = scope_key(&scope);
@@ -964,7 +951,7 @@ pub fn route_encounter_influence(
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub(crate) struct LocalProblemOutcomeInput {
     pub source_outcome_id: String,
-    pub at_minute: u64,
+    pub at_minute: StrategicMinute,
     pub mitigation_bps: u16,
     pub resolve: bool,
 }
@@ -1210,7 +1197,7 @@ fn source_may_disclose_public_threat(
     source_npc: &crate::settlement_population::SettlementResidentProfile,
     listener_settlement_id: &str,
     location_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<&'static str> {
     let organization_id = crate::strategic::exact_organization_representative(
         ctx,
@@ -1263,8 +1250,8 @@ fn surface_public_threat(
     source_npc: &crate::settlement_population::SettlementResidentProfile,
     listener_settlement_id: &str,
     location_id: &str,
-    observer_minute: u64,
-    official_world_minute: u64,
+    observer_minute: StrategicMinute,
+    official_world_minute: StrategicMinute,
 ) -> Result<bool, String> {
     let Some(source_kind) = source_may_disclose_public_threat(
         ctx,
@@ -1312,7 +1299,7 @@ fn surface_public_threat(
                         || graph.distances.contains_key(&node)
                 });
             plausibly_local.then_some((
-                problem.public_since_minute.unwrap_or(u64::MAX),
+                problem.public_since_minute.unwrap_or(StrategicMinute::MAX),
                 afflicted.clone(),
                 problem.id.clone(),
                 (problem, afflicted, settlement.source_node_id),
@@ -1360,7 +1347,7 @@ fn surface_public_threat(
             already_known,
             problem
                 .and_then(|problem| problem.public_since_minute)
-                .unwrap_or(u64::MAX),
+                .unwrap_or(StrategicMinute::new(u64::MAX)),
             validated.manifest.public_case_id.clone(),
         )
     });
@@ -1488,8 +1475,8 @@ fn surface_new_problem(
     source_resident_character_id: u64,
     source_npc: Option<&crate::settlement_population::ResolvedSettlementResident>,
     settlement_id: &str,
-    observer_minute: u64,
-    official_world_minute: u64,
+    observer_minute: StrategicMinute,
+    official_world_minute: StrategicMinute,
 ) -> Result<bool, String> {
     if ctx
         .db
@@ -1684,6 +1671,8 @@ pub(crate) fn discover_development_problem(
     Ok(())
 }
 
+include!("local_problem/inn_contact.rs");
+
 /// Surface at most one active problem. A private one-shot preference may order
 /// an explicit development demo first, but disclosure still occurs through
 /// ordinary eligible rumor dialogue and creates the normal observer receipt.
@@ -1717,7 +1706,7 @@ pub fn surface_problem(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |t| t.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let scope = format!("settlement:{settlement_id}");
     let active_problems = stable_eligible_candidates(
         ctx.db
@@ -1729,38 +1718,7 @@ pub fn surface_problem(
         |problem| validated_problem_generation(ctx, problem, &settlement_id).is_some(),
         |problem| (problem.id.clone(), problem.opaque_case_ref.clone()),
     );
-    let inn_service = ctx
-        .db
-        .settlement()
-        .id()
-        .find(&settlement_id)
-        .is_some_and(|s| {
-            s.economy
-                .has_service(adventuresim_world_schema::SettlementService::Inn)
-        });
-    let inn_available = inn_service
-        && ctx
-            .db
-            .settlement_resident_presence()
-            .settlement_id()
-            .filter(&settlement_id)
-            .any(|presence| {
-                let npc = ctx
-                    .db
-                    .settlement_resident_profile()
-                    .character_id()
-                    .find(presence.character_id);
-                dialogue_capable_inn_contact(
-                    &presence.settlement_id,
-                    &settlement_id,
-                    &presence.location_id,
-                    crate::settlement_population::npc_is_present(ctx, &presence, observer_minute),
-                    npc.as_ref().is_some_and(|npc| {
-                        npc.home_settlement_id == settlement_id
-                            && crate::settlement_population::resident_is_dialogue_capable(npc)
-                    }),
-                )
-            });
+    let inn_available = inn_contact_available_at(ctx, &settlement_id, observer_minute);
     let can_discover_new =
         lp::discovery_action(location_id, inn_available, false) == lp::DiscoveryAction::NewRumor;
     if can_discover_new
@@ -2106,7 +2064,7 @@ mod tests {
             .rev()
             .map(|index| {
                 (
-                    index,
+                    adventuresim_world_schema::calendar::StrategicMinute::new(index),
                     format!("settlement-{index:03}"),
                     format!("problem-{index:03}"),
                     index,
@@ -2257,7 +2215,9 @@ mod tests {
         assert!(surface.contains("let observer_minute = ctx"));
         assert!(surface.contains("is_active(problem, official_world_minute)"));
         assert!(!surface.contains("is_active(problem, observer_minute)"));
-        assert!(surface.contains("npc_is_present(ctx, &presence, observer_minute)"));
+        let inn_contact = crate::production_source(include_str!("local_problem/inn_contact.rs"));
+        assert!(surface.contains("inn_contact_available_at("));
+        assert!(inn_contact.contains("npc_is_present(ctx, &presence, observer_minute)"));
         let new_problem = source
             .split("fn surface_new_problem")
             .nth(1)
@@ -2504,7 +2464,10 @@ mod tests {
     #[test]
     fn discovery_and_outcome_boundaries_are_bounded() {
         let source = crate::production_source(include_str!("local_problem.rs"));
-        assert!(source.contains("has_service(adventuresim_world_schema::SettlementService::Inn)"));
+        let inn_contact = crate::production_source(include_str!("local_problem/inn_contact.rs"));
+        assert!(
+            inn_contact.contains("has_service(adventuresim_world_schema::SettlementService::Inn)")
+        );
         assert!(source.contains("stable_eligible_candidates"));
         assert!(source.contains("eligible_candidates.truncate(limit)"));
         let discovery = source.split("pub fn surface_problem").nth(1).unwrap();

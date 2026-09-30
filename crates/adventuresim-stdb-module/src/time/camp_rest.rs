@@ -187,14 +187,14 @@ pub fn rest_at_camp(
             InjuryRecoveryMinutes::new(injury_elapsed),
         )?;
         let member_elapsed = settled.elapsed;
-        time.minutes = time.minutes.saturating_add(member_elapsed);
-        let interval_end_minute = time.minutes;
+        let end = time.minutes.saturating_add_minutes(member_elapsed);
+        time.minutes = end;
         ctx.db.character_time().character_id().update(time);
         advance_married_family_by(ctx, member_id, member_elapsed)?;
         crate::condition::apply_weather_exposure(
             ctx,
             member_id,
-            interval_end_minute.saturating_sub(member_elapsed),
+            end.saturating_sub_minutes(member_elapsed),
             member_elapsed,
             false,
             ExposureShelter::Field(shelter),
@@ -203,15 +203,15 @@ pub fn rest_at_camp(
         crate::social::settle_shared_party_time(ctx, member_id);
         crate::condition::apply_elapsed_needs(ctx, member_id, member_elapsed)?;
         crate::disease::finish_disease_interval(ctx, member_id, terminal)?;
-        settle_lifecycle_after_character_time_write(ctx, member_id, interval_end_minute)?;
+        settle_lifecycle_after_character_time_write(ctx, member_id, end)?;
         if terminal.is_some() || !settled.alive {
             continue;
         }
         crate::alcohol::process_rest_evenings(
             ctx,
             member_id,
-            interval_end_minute.saturating_sub(member_elapsed),
-            interval_end_minute,
+            end.saturating_sub_minutes(member_elapsed),
+            end,
             false,
         )?;
         crate::condition::apply_camp_rest_recovery_condition(ctx, member_id, member_elapsed)?;
@@ -288,7 +288,7 @@ pub fn rest_at_camp(
                 member_id,
                 core_schedule(&allowed),
                 downtime,
-                interval_end_minute,
+                end,
             )?;
             automatic_chat_downtime.push((member_id, downtime));
         }

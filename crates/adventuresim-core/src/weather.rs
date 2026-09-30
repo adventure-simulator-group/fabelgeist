@@ -11,7 +11,7 @@ use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, coordinates::LatitudeMic
 use fabelgeist_determinism::StreamId;
 use serde::{Deserialize, Serialize};
 
-use crate::strategic_time::{DAYS_PER_YEAR, MINUTES_PER_DAY};
+use adventuresim_world_schema::calendar::{DAYS_PER_YEAR, StrategicMinute};
 
 pub const WEATHER_RULES_VERSION: u16 = 4;
 /// One domain seed shared by every authoritative and player-visible weather
@@ -99,7 +99,7 @@ impl Default for AtmosphericSnapshot {
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub struct WeatherSnapshot {
     pub rules_version: u16,
-    pub interval_start_minute: u64,
+    pub interval_start_minute: StrategicMinute,
     pub cell_latitude: i32,
     pub cell_longitude: i32,
     /// Ambient air temperature in tenths of a degree Celsius.
@@ -120,7 +120,7 @@ impl Default for WeatherSnapshot {
     fn default() -> Self {
         Self {
             rules_version: WEATHER_RULES_VERSION,
-            interval_start_minute: 0,
+            interval_start_minute: StrategicMinute::ZERO,
             cell_latitude: 0,
             cell_longitude: 0,
             temperature_deci_c: 100,
@@ -173,14 +173,16 @@ impl WeatherSnapshot {
 /// later algorithms without storing per-cell simulation rows.
 pub fn weather_at(
     world_seed: u64,
-    absolute_minute: u64,
+    absolute_minute: StrategicMinute,
     latitude_microdegrees: i32,
     longitude_microdegrees: i32,
     elevation_m: i16,
 ) -> WeatherSnapshot {
     let cell_latitude = latitude_microdegrees.div_euclid(WEATHER_CELL_MICRODEGREES);
     let cell_longitude = longitude_microdegrees.div_euclid(WEATHER_CELL_MICRODEGREES);
-    let interval = absolute_minute / WEATHER_INTERVAL_MINUTES;
+    let interval = absolute_minute
+        .period_index(WEATHER_INTERVAL_MINUTES)
+        .expect("weather interval has positive width");
     let current = interval_weather(
         world_seed,
         interval,
@@ -203,7 +205,9 @@ pub fn weather_at(
     }
     WeatherSnapshot {
         rules_version: WEATHER_RULES_VERSION,
-        interval_start_minute: interval * WEATHER_INTERVAL_MINUTES,
+        interval_start_minute: absolute_minute
+            .floor_to_interval_minutes(WEATHER_INTERVAL_MINUTES)
+            .expect("weather interval is positive"),
         cell_latitude,
         cell_longitude,
         temperature_deci_c: current.temperature_deci_c,
@@ -363,7 +367,7 @@ fn interval_weather(
     let wind_shear_bps = ((u32::from(shear_field) + pressure_gradient * 3) / 4)
         .min(u32::from(BASIS_POINTS_PER_WHOLE)) as u16;
 
-    let hour = interval * WEATHER_INTERVAL_MINUTES / 60 % 24;
+    let hour = weather_interval_start(interval).day_hour_minute().1;
     let daylight_heating = triangle_wave_bps((hour + 21) % 24, 24).max(0) as u32;
     let instability_bps = (u32::from(convective_field) * 5 / 10
         + u32::from(relative_humidity_bps) * 2 / 10
@@ -585,6 +589,11 @@ fn coverage_from_signal(signal: u32, onset: u32, span: u32) -> u16 {
     }
 }
 
+fn weather_interval_start(interval: u64) -> StrategicMinute {
+    StrategicMinute::checked_period_start_for_index(interval, WEATHER_INTERVAL_MINUTES)
+        .expect("weather interval start fits an absolute minute")
+}
+
 fn temperature_deci_c(
     world_seed: u64,
     interval: u64,
@@ -592,8 +601,9 @@ fn temperature_deci_c(
     cell_longitude: i32,
     elevation_m: i16,
 ) -> i32 {
-    let day = (interval * WEATHER_INTERVAL_MINUTES / MINUTES_PER_DAY) % DAYS_PER_YEAR;
-    let hour = (interval * WEATHER_INTERVAL_MINUTES / 60) % 24;
+    let minute = weather_interval_start(interval);
+    let day = u64::from(minute.day_of_year() - 1);
+    let hour = minute.day_hour_minute().1;
     let latitude_degrees =
         cell_latitude * WEATHER_CELL_MICRODEGREES / LatitudeMicrodegrees::UNITS_PER_DEGREE;
     let mean = 95 - (latitude_degrees.abs() - 53).abs() * 4;
@@ -658,13 +668,37 @@ pub fn snow_training_exposure(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::strategic_time::MINUTES_PER_YEAR;
+    use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, MINUTES_PER_YEAR};
 
     #[test]
     fn replay_is_stable_within_an_interval_and_cells_are_coarse() {
-        let a = weather_at(42, 123_456, 53_551_000, 9_993_000, 10);
-        assert_eq!(a, weather_at(42, 123_456, 53_551_000, 9_993_000, 10));
-        assert_eq!(a, weather_at(42, 123_457, 53_599_999, 9_999_999, 10));
+        let a = weather_at(
+            42,
+            adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+            53_551_000,
+            9_993_000,
+            10,
+        );
+        assert_eq!(
+            a,
+            weather_at(
+                42,
+                adventuresim_world_schema::calendar::StrategicMinute::new(123_456),
+                53_551_000,
+                9_993_000,
+                10
+            )
+        );
+        assert_eq!(
+            a,
+            weather_at(
+                42,
+                adventuresim_world_schema::calendar::StrategicMinute::new(123_457),
+                53_599_999,
+                9_999_999,
+                10
+            )
+        );
         assert_eq!(a.rules_version, WEATHER_RULES_VERSION);
         assert!((-800..=500).contains(&a.temperature_deci_c));
         assert!(a.wind_speed_bps <= 10_000);
@@ -672,7 +706,13 @@ mod tests {
 
     #[test]
     fn epoch_start_samples_interval_zero_once() {
-        let snapshot = weather_at(42, 0, 53_000_000, 10_000_000, 0);
+        let snapshot = weather_at(
+            42,
+            adventuresim_world_schema::calendar::StrategicMinute::new(0),
+            53_000_000,
+            10_000_000,
+            0,
+        );
         let sample = interval_weather(42, 0, snapshot.cell_latitude, snapshot.cell_longitude, 0);
         let (moisture, snow) = advance_ground(0, 0, sample, sample.temperature_deci_c);
         assert_eq!(snapshot.ground_moisture_bps, moisture.min(10_000) as u16);
@@ -706,7 +746,8 @@ mod tests {
 
     #[test]
     fn initialized_world_uses_late_summer_temperature() {
-        let interval = crate::strategic_time::WORLD_START_MINUTE / WEATHER_INTERVAL_MINUTES;
+        let interval = adventuresim_world_schema::calendar::WORLD_START_MINUTE.get()
+            / WEATHER_INTERVAL_MINUTES;
         let day = interval * WEATHER_INTERVAL_MINUTES / MINUTES_PER_DAY % DAYS_PER_YEAR;
         assert_eq!(day, 231);
         assert!(temperature_deci_c(7, interval, 214, 40, 0) > 100);
@@ -715,7 +756,13 @@ mod tests {
     #[test]
     fn moisture_and_snow_are_bounded_and_have_memory() {
         for minute in (0..MINUTES_PER_YEAR).step_by(360) {
-            let sample = weather_at(19, minute, 53_500_000, 10_000_000, 80);
+            let sample = weather_at(
+                19,
+                adventuresim_world_schema::calendar::StrategicMinute::new(minute),
+                53_500_000,
+                10_000_000,
+                80,
+            );
             assert!(sample.ground_moisture_bps <= 10_000);
             assert!(sample.snow_cover_bps <= 10_000);
         }

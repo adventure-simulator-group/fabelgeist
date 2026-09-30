@@ -13,6 +13,7 @@ use adventuresim_core::{
     prelude::{PlayerSkills, Skill, apply_direct_training},
     strategic_place::{StrategicFixtureId, StrategicPlaceId},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{

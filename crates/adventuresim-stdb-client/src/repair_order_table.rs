@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use super::equipment_attachment_target_selection_type::EquipmentAttachmentTargetSelection;
 use super::repair_order_type::RepairOrder;
+use super::strategic_minute_type::StrategicMinute;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `repair_order`.

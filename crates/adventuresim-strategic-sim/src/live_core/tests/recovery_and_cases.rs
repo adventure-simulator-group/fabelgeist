@@ -20,7 +20,7 @@ fn off_settlement_recovery_is_bounded_public_and_precedes_quest_selection() {
         party_tent_quantity: 1,
         symptomatic: false,
         critical: false,
-        elapsed_minutes: 1_440,
+        elapsed_minutes: StrategicMinute::new(1_440),
     };
     assert!(expedition_member_needs_recovery(&recovering));
     assert!(!expedition_member_needs_recovery(
@@ -119,7 +119,7 @@ fn passive_no_actionable_recovery_is_camp_only_typed_and_publicly_gated() {
         party_tent_quantity: 1,
         symptomatic: false,
         critical: false,
-        elapsed_minutes: 1_440,
+        elapsed_minutes: StrategicMinute::new(1_440),
     };
     let incapacitated_companion = ExpeditionMemberObservation {
         agent_id: 1,
@@ -275,21 +275,21 @@ fn passive_no_actionable_recovery_is_camp_only_typed_and_publicly_gated() {
 
     let before = [
         ExpeditionMemberObservation {
-            elapsed_minutes: 100,
+            elapsed_minutes: StrategicMinute::new(100),
             ..members[0].clone()
         },
         ExpeditionMemberObservation {
-            elapsed_minutes: 120,
+            elapsed_minutes: StrategicMinute::new(120),
             ..members[1].clone()
         },
     ];
     let after = [
         ExpeditionMemberObservation {
-            elapsed_minutes: 160,
+            elapsed_minutes: StrategicMinute::new(160),
             ..members[0].clone()
         },
         ExpeditionMemberObservation {
-            elapsed_minutes: 180,
+            elapsed_minutes: StrategicMinute::new(180),
             ..members[1].clone()
         },
     ];

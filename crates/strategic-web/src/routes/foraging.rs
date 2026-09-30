@@ -1,5 +1,6 @@
 mod feedback;
 
+use adventuresim_world_schema::calendar::StrategicMinute;
 use adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees;
 use axum::{
     Router,
@@ -65,9 +66,7 @@ fn parse_forage_form(body: &[u8]) -> Result<ForageForm, ()> {
             return Err(());
         }
         match key.as_ref() {
-            // Repeated checkbox names are the canonical browser encoding for
-            // zero, one, or many selected sources. Preserve duplicates so the
-            // authoritative reducer can reject that malformed contract.
+            // Preserve duplicates so the reducer can reject malformed requests.
             "source" => {
                 if source.len() >= FORAGE_FORM_MAX_SOURCES
                     || value.len() > FORAGE_FORM_MAX_SOURCE_LEN
@@ -164,7 +163,7 @@ async fn advisory_privileges(
         .await
         .ok()
         .flatten()
-        .map(|row| row.minutes);
+        .map(|row| StrategicMinute::new(row.minutes.minutes));
     advisory_privileges_for(
         presentation
             .as_ref()
@@ -177,7 +176,7 @@ async fn advisory_privileges(
 fn advisory_privileges_for(
     presented_organization_id: Option<&str>,
     memberships: &[BackendOrganizationMembership],
-    minute: Option<u64>,
+    minute: Option<StrategicMinute>,
 ) -> BTreeSet<adventuresim_core::organization::Privilege> {
     let Some((presented_organization_id, minute)) = presented_organization_id.zip(minute) else {
         return BTreeSet::new();
@@ -189,7 +188,7 @@ fn advisory_privileges_for(
     let Some(membership) = memberships.iter().find(|membership| {
         membership.organization_id == presented_organization_id
             && membership.status == OrganizationMembershipStatus::Active
-            && minute <= membership.dues_paid_through_minute
+            && minute <= StrategicMinute::new(membership.dues_paid_through_minute.minutes)
     }) else {
         return BTreeSet::new();
     };
@@ -382,9 +381,7 @@ fn forage_error_code(_error: &str) -> &'static str {
 }
 
 fn forage_error_href(return_to: &str, code: &str) -> String {
-    let code = forage_error_message(code)
-        .map(|_| code)
-        .unwrap_or("unavailable");
+    let code = forage_error_message(code).map_or("unavailable", |_| code);
     format!(
         "{return_to}{}forage=true&forage_error={code}",
         if return_to.contains('?') { "&" } else { "?" }
@@ -738,8 +735,10 @@ mod tests {
             character_id: 7,
             organization_id: "lodge_hart_king".into(),
             role_id: role_id.into(),
-            joined_minute: 0,
-            dues_paid_through_minute: paid_through,
+            joined_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+            dues_paid_through_minute: adventuresim_stdb_client::StrategicMinute {
+                minutes: paid_through,
+            },
             status,
             apprenticeship_minutes_accrued: 0,
             practice_minutes_accrued: 0,
@@ -753,7 +752,7 @@ mod tests {
         let common = advisory_privileges_for(
             Some("lodge_hart_king"),
             std::slice::from_ref(&warden),
-            Some(100),
+            Some(StrategicMinute::new(100)),
         );
         assert!(common.contains(&Privilege::ForageLowGame));
         assert!(common.contains(&Privilege::ForageFish));
@@ -762,23 +761,46 @@ mod tests {
 
         let master = ranger_membership("master", OrganizationMembershipStatus::Active, 100);
         assert!(
-            advisory_privileges_for(Some("lodge_hart_king"), &[master], Some(100))
-                .contains(&Privilege::ForageHighGame)
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[master],
+                Some(StrategicMinute::new(100))
+            )
+            .contains(&Privilege::ForageHighGame)
         );
-        assert!(advisory_privileges_for(None, std::slice::from_ref(&warden), Some(100)).is_empty());
+        assert!(
+            advisory_privileges_for(
+                None,
+                std::slice::from_ref(&warden),
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
+        );
         assert!(
             advisory_privileges_for(
                 Some("hunt_pale_lantern"),
                 std::slice::from_ref(&warden),
-                Some(100)
+                Some(StrategicMinute::new(100))
             )
             .is_empty()
         );
         let lapsed = ranger_membership("master", OrganizationMembershipStatus::Active, 99);
-        assert!(advisory_privileges_for(Some("lodge_hart_king"), &[lapsed], Some(100)).is_empty());
+        assert!(
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[lapsed],
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
+        );
         let suspended = ranger_membership("master", OrganizationMembershipStatus::Suspended, 100);
         assert!(
-            advisory_privileges_for(Some("lodge_hart_king"), &[suspended], Some(100)).is_empty()
+            advisory_privileges_for(
+                Some("lodge_hart_king"),
+                &[suspended],
+                Some(StrategicMinute::new(100))
+            )
+            .is_empty()
         );
     }
 

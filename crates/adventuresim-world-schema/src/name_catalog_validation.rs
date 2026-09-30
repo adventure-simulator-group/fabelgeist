@@ -7,6 +7,8 @@ use super::name_catalog_schema::{
 };
 use std::collections::{BTreeMap, BTreeSet};
 
+use crate::calendar::CalendarYear;
+
 #[path = "name_catalog_validation/derivations.rs"]
 mod derivations;
 
@@ -217,8 +219,18 @@ fn validate_repertoires(
 }
 
 fn repertoire_selectors_overlap(
-    left: (NameCulture, NameReligiousTradition, i32, i32),
-    right: (NameCulture, NameReligiousTradition, i32, i32),
+    left: (
+        NameCulture,
+        NameReligiousTradition,
+        CalendarYear,
+        CalendarYear,
+    ),
+    right: (
+        NameCulture,
+        NameReligiousTradition,
+        CalendarYear,
+        CalendarYear,
+    ),
 ) -> bool {
     left.0 == right.0 && left.1 == right.1 && left.2 <= right.3 && right.2 <= left.3
 }
@@ -418,19 +430,20 @@ mod tests {
 
     #[test]
     fn overlapping_selectors_are_ambiguous_but_adjacent_periods_are_not() {
+        let year = |value| CalendarYear::new(value).unwrap();
         let first = (
             NameCulture::German,
             NameReligiousTradition::WesternChristian,
-            1500,
-            1550,
+            year(1500),
+            year(1550),
         );
         assert!(repertoire_selectors_overlap(
             first,
             (
                 NameCulture::German,
                 NameReligiousTradition::WesternChristian,
-                1550,
-                1600
+                year(1550),
+                year(1600)
             )
         ));
         assert!(!repertoire_selectors_overlap(
@@ -438,8 +451,8 @@ mod tests {
             (
                 NameCulture::German,
                 NameReligiousTradition::WesternChristian,
-                1551,
-                1600
+                year(1551),
+                year(1600)
             )
         ));
         assert!(!repertoire_selectors_overlap(
@@ -447,8 +460,8 @@ mod tests {
             (
                 NameCulture::English,
                 NameReligiousTradition::WesternChristian,
-                1500,
-                1550
+                year(1500),
+                year(1550)
             )
         ));
         assert!(!repertoire_selectors_overlap(
@@ -456,8 +469,8 @@ mod tests {
             (
                 NameCulture::German,
                 NameReligiousTradition::Jewish,
-                1500,
-                1550
+                year(1500),
+                year(1550)
             )
         ));
     }
@@ -468,8 +481,8 @@ mod tests {
             id: "fixture_repertoire".into(),
             culture: NameCulture::German,
             religious_tradition: NameReligiousTradition::WesternChristian,
-            start_year: 1500,
-            end_year: 1600,
+            start_year: CalendarYear::new(1500).unwrap(),
+            end_year: CalendarYear::new(1600).unwrap(),
             female_families: vec![],
             male_families: vec![
                 super::super::name_catalog_schema::FrequencyFamilyDefinition {

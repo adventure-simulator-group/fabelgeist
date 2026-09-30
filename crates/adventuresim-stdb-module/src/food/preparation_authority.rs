@@ -67,7 +67,7 @@ fn preparation_material_source_digest(ctx: &ReducerContext, food_lot_id: u64) ->
     if let Some(row) = ctx.db.food_contamination().food_lot_id().find(food_lot_id) {
         hash.update(row.concentration_anchor.to_bits().to_le_bytes());
         hash.update(row.growth_per_hour.to_bits().to_le_bytes());
-        hash.update(row.anchor_minute.to_le_bytes());
+        hash.update(row.anchor_minute.get().to_le_bytes());
     }
     let mut components = ctx
         .db
@@ -94,7 +94,7 @@ fn preparation_material_source_digest(ctx: &ReducerContext, food_lot_id: u64) ->
 fn preparation_material_current_digest(
     ctx: &ReducerContext,
     food_lot_id: u64,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> String {
     use sha2::Digest as _;
     let mut hash = sha2::Sha256::new();
@@ -104,7 +104,7 @@ fn preparation_material_current_digest(
         let current = food::contamination_at(
             row.concentration_anchor,
             row.growth_per_hour,
-            current_minute.saturating_sub(row.anchor_minute),
+            current_minute.elapsed_since(row.anchor_minute),
         );
         hash.update(current.to_bits().to_le_bytes());
     }
@@ -173,7 +173,7 @@ fn material_snapshot(
     lot: &FoodLot,
     object: &crate::InventoryObject,
     custody: adventuresim_core::physical_object::OperationalCustody,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> Result<
     adventuresim_core::material::PrivateMaterialSnapshot<
         herbalism::IngredientMaterialPreparation,
@@ -225,7 +225,7 @@ fn material_snapshot(
             let current = food::contamination_at(
                 row.concentration_anchor,
                 row.growth_per_hour,
-                current_minute.saturating_sub(row.anchor_minute),
+                current_minute.elapsed_since(row.anchor_minute),
             );
             let load = f64::from(current.max(0.0)) * mass_milligrams as f64;
             NonZeroU64::new(load.round() as u64).map(|load| ContaminantLoad {
@@ -350,7 +350,7 @@ fn load_preparation_authority(
     request_id: &str,
     expected_revision: u64,
     action: IngredientPreparationAction,
-    current_minute: u64,
+    current_minute: StrategicMinute,
 ) -> Result<PreparationAuthority, String> {
     let inventory_scope =
         CarriedInventoryScope::try_from(inventory_scope).map_err(|error| error.to_string())?;
@@ -453,8 +453,8 @@ fn build_preparation_planner(
     authority: &PreparationAuthority,
     request_id: &str,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> Result<herbalism::PreparationPlanningOutcome, String> {
     use adventuresim_core::{
@@ -539,8 +539,8 @@ fn preparation_authority_digest(
     actor: &crate::Character,
     authority: &PreparationAuthority,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> [u8; 32] {
     preparation_authority_digest_parts(
@@ -585,8 +585,8 @@ fn preparation_authority_digest_parts(
     material_source_digest: &str,
     material_current_digest: &str,
     action: IngredientPreparationAction,
-    current_minute: u64,
-    terminal_minute: Option<u64>,
+    current_minute: StrategicMinute,
+    terminal_minute: Option<StrategicMinute>,
     attempt_generation: u64,
 ) -> [u8; 32] {
     use sha2::Digest as _;
@@ -607,10 +607,10 @@ fn preparation_authority_digest_parts(
     frame(lot.display_name.as_bytes());
     frame(&[lot.preparation as u8]);
     frame(&[lot.quality]);
-    frame(&lot.created_at_minute.to_le_bytes());
+    frame(&lot.created_at_minute.get().to_le_bytes());
     frame(&duration.to_le_bytes());
-    frame(&current_minute.to_le_bytes());
-    frame(&terminal_minute.unwrap_or(u64::MAX).to_le_bytes());
+    frame(&current_minute.get().to_le_bytes());
+    frame(&terminal_minute.unwrap_or(StrategicMinute::MAX).get().to_le_bytes());
     frame(&attempt_generation.to_le_bytes());
     frame(&[match skill {
         Skill::Knife => 1,

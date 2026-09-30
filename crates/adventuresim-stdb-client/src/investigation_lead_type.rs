@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::destination_knowledge_stage_type::DestinationKnowledgeStage;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -28,7 +29,7 @@ pub struct InvestigationLead {
     pub current_learned_location: String,
     pub contradiction_group: String,
     pub corrected_by: String,
-    pub recorded_at: u64,
+    pub recorded_at: StrategicMinute,
 }
 
 impl __sdk::InModule for InvestigationLead {
@@ -59,7 +60,7 @@ pub struct InvestigationLeadCols {
     pub current_learned_location: __sdk::__query_builder::Col<InvestigationLead, String>,
     pub contradiction_group: __sdk::__query_builder::Col<InvestigationLead, String>,
     pub corrected_by: __sdk::__query_builder::Col<InvestigationLead, String>,
-    pub recorded_at: __sdk::__query_builder::Col<InvestigationLead, u64>,
+    pub recorded_at: __sdk::__query_builder::Col<InvestigationLead, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for InvestigationLead {

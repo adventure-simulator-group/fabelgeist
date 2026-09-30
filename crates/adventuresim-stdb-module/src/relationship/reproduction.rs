@@ -3,7 +3,7 @@ pub fn establish_pregnancy(
     ctx: &ReducerContext,
     mother_id: u64,
     father_id: u64,
-    conceived_minute: u64,
+    conceived_minute: StrategicMinute,
     birth_settlement_id: &str,
 ) -> Result<Pregnancy, String> {
     if let Some(existing) = ctx
@@ -16,7 +16,7 @@ pub fn establish_pregnancy(
         return Ok(existing);
     }
     let ordinal = ctx.db.pregnancy().mother_id().filter(mother_id).count() as u64;
-    let due_minute = conceived_minute.saturating_add(GESTATION_MINUTES);
+    let due_minute = conceived_minute.saturating_add_minutes(GESTATION_MINUTES);
     if ctx
         .db
         .settlement()
@@ -52,7 +52,7 @@ pub fn establish_pregnancy(
         &mother_id.to_string(),
         &father_id.to_string(),
         adventuresim_core::courtship::PregnancyOrdinal::new(ordinal),
-        adventuresim_core::courtship::ChildBirthMinute::new(due_minute),
+        due_minute,
         birth_settlement_id,
     );
     let mut reserved_child_id = seeds.identity.get();
@@ -102,7 +102,7 @@ fn conception_parents(
     ctx: &ReducerContext,
     first_id: u64,
     second_id: u64,
-    trial_minute: u64,
+    trial_minute: StrategicMinute,
 ) -> Result<Option<(u64, u64)>, String> {
     let first = ctx
         .db
@@ -131,10 +131,7 @@ fn conception_parents(
                 .iter()
                 .find(|pregnancy| pregnancy.birth_character_id == Some(character_id))
                 .is_none_or(|birth| {
-                    birth.due_minute.saturating_add(
-                        u64::from(ADULT_AGE_YEARS)
-                            * adventuresim_core::strategic_time::MINUTES_PER_YEAR,
-                    ) <= trial_minute
+                    birth.due_minute.saturating_add_years(ADULT_AGE_YEARS) <= trial_minute
                 })
     };
     let married_at_trial = ctx.db.marriage().iter().any(|marriage| {
@@ -179,7 +176,7 @@ fn refresh_spouse_pair_morale(
     first_id: u64,
     second_id: u64,
     joint_minutes: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let earned = spouse_leisure_earned_milli(joint_minutes);
     if earned == 0 {
@@ -322,7 +319,7 @@ fn settle_spouse_leisure_pair(
             {
                 continue;
             }
-            let minute = overlap_start.saturating_add(trial.crossing_offset_minutes);
+            let minute = overlap_start.saturating_add_minutes(trial.crossing_offset_minutes);
             let ordinal = trial.ordinal.to_string();
             let entropy = (stable_lifecycle_hash(
                 "spouse-conception",
@@ -386,8 +383,8 @@ fn settle_spouse_leisure_pair(
 pub fn apply_spouse_leisure_conception(
     ctx: &ReducerContext,
     character_id: u64,
-    interval_start: u64,
-    interval_end: u64,
+    interval_start: StrategicMinute,
+    interval_end: StrategicMinute,
     schedule: DailySchedule,
 ) -> Result<(), String> {
     if interval_end <= interval_start {
@@ -408,7 +405,7 @@ pub fn apply_spouse_leisure_conception(
         marriage.first_character_id
     };
     let interval_start = interval_start.max(marriage.married_minute);
-    let interval_end = interval_end.min(marriage.resolved_minute.unwrap_or(u64::MAX));
+    let interval_end = interval_end.min(marriage.resolved_minute.unwrap_or(StrategicMinute::MAX));
     if interval_end <= interval_start {
         return Ok(());
     }
@@ -424,7 +421,7 @@ pub fn apply_spouse_leisure_conception(
     for realized in restorative_leisure_spans(
         schedule,
         interval_start,
-        interval_end.saturating_sub(interval_start),
+        interval_end.elapsed_since(interval_start),
     ) {
         let existing: Vec<_> = ctx
             .db
@@ -446,7 +443,8 @@ pub fn apply_spouse_leisure_conception(
         ) {
             let id = format!(
                 "spouse-leisure-slice:{character_id}:{}:{}:{location_id}",
-                uncovered.start_minute, uncovered.end_minute
+                uncovered.start_minute.get(),
+                uncovered.end_minute.get()
             );
             ctx.db.spouse_leisure_slice().insert(SpouseLeisureSlice {
                 id,
@@ -463,7 +461,11 @@ pub fn apply_spouse_leisure_conception(
 /// Materialize due children as ordinary full Characters under NPC policy.
 /// Age-restricted behavior remains elsewhere, but the child already has the
 /// complete data/skills/needs surface and canonical family edges.
-pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Result<(), String> {
+pub fn settle_due_births(
+    ctx: &ReducerContext,
+    mother_id: u64,
+    now: StrategicMinute,
+) -> Result<(), String> {
     if let Some(pregnancy) = ctx
         .db
         .active_pregnancy()
@@ -514,7 +516,8 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
             age_years: 0,
             organization_id: None,
             literacy: None,
-        }; crate::character::insert_character_with_origin(
+        };
+        crate::character::insert_character_with_origin(
             ctx,
             "Pending newborn name".into(),
             child_id,
@@ -535,14 +538,14 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
         record_character_birth(
             ctx,
             child_id,
-            i64::try_from(pregnancy.due_minute).unwrap_or(i64::MAX),
+            i64::try_from(pregnancy.due_minute.get()).unwrap_or(i64::MAX),
         );
         crate::character::assign_newborn_historical_name(
             ctx,
             crate::character::CharacterId::new(child_id),
             crate::character::CharacterId::new(father.id),
             crate::character::CharacterId::new(mother.id),
-            crate::character::WorldMinute::new(pregnancy.due_minute),
+            pregnancy.due_minute,
             crate::character::NameSeed::new(pregnancy.child_name_seed),
             pregnancy.child_sex,
         )?;
@@ -603,32 +606,13 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
                 HouseholdRole::Dependent,
             );
         }
-        if let Some(residence_holding_id) = [mother.id, father.id]
-            .into_iter()
-            .filter_map(|parent_id| {
-                crate::residence::occupant_holding_id_at(ctx, parent_id, pregnancy.due_minute)
-            })
-            .find(|holding_id| {
-                ctx.db
-                    .residence_holding()
-                    .id()
-                    .find(holding_id.to_owned())
-                    .is_some_and(|holding| {
-                        crate::residence::holding_active_at(ctx, &holding.id, pregnancy.due_minute)
-                            && holding.settlement_id == settlement_id
-                    })
-            })
-        {
-            // Housing is ancillary to an uncomplicated birth. If household
-            // or occupancy authority changed during the pregnancy, the child
-            // is still born and simply remains without this residence link.
-            let _ = crate::residence::move_residence_occupant_effective(
-                ctx,
-                &residence_holding_id,
-                child_id,
-                pregnancy.due_minute,
-            );
-        }
+        attach_newborn_residence(
+            ctx,
+            child_id,
+            [mother.id, father.id],
+            pregnancy.due_minute,
+            &settlement_id,
+        );
         pregnancy.status = PregnancyStatus::Born;
         pregnancy.birth_character_id = Some(child_id);
         pregnancy.resolved_minute = Some(pregnancy.due_minute);
@@ -652,7 +636,11 @@ pub fn settle_due_births(ctx: &ReducerContext, mother_id: u64, now: u64) -> Resu
 /// Resolve a parent's household at an effective minute. Marriage history is
 /// authoritative even when a later divorce or household move has replaced the
 /// mutable active membership row.
-fn household_id_at(ctx: &ReducerContext, character_id: u64, minute: u64) -> Option<String> {
+fn household_id_at(
+    ctx: &ReducerContext,
+    character_id: u64,
+    minute: StrategicMinute,
+) -> Option<String> {
     let marriage_household = ctx
         .db
         .marriage()
@@ -721,7 +709,7 @@ fn validate_due_birth(ctx: &ReducerContext, pregnancy: &Pregnancy) -> Result<(),
 /// per-mother settlement call cannot exceed this selected batch.
 pub fn settle_due_births_global(
     ctx: &ReducerContext,
-    now: u64,
+    now: StrategicMinute,
     limit: usize,
 ) -> Result<usize, String> {
     let mut due: Vec<_> = ctx

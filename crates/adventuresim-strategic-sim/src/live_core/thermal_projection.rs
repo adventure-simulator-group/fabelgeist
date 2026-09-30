@@ -39,7 +39,7 @@ pub(super) fn case_site_movement_minutes(distance_m: u64) -> Option<u64> {
 }
 
 pub(super) fn projected_itinerary_thermal_safe(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     itinerary: &adventuresim_core::strategic_time::ItineraryForecast,
     origin: PublicRoutePoint,
     destination: PublicRoutePoint,
@@ -80,7 +80,7 @@ pub(super) struct PublicThermalTraveler {
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct RoundTripThermalProjection<'a> {
-    pub(super) starting_minute: u64,
+    pub(super) starting_minute: StrategicMinute,
     pub(super) outbound_itinerary: &'a adventuresim_core::strategic_time::ItineraryForecast,
     pub(super) return_itinerary: &'a adventuresim_core::strategic_time::ItineraryForecast,
     pub(super) action_minutes: u64,
@@ -89,7 +89,7 @@ pub(super) struct RoundTripThermalProjection<'a> {
 }
 
 pub(super) fn projected_itinerary_thermal_state(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     itinerary: &adventuresim_core::strategic_time::ItineraryForecast,
     origin: PublicRoutePoint,
     destination: PublicRoutePoint,
@@ -138,7 +138,7 @@ pub(super) fn projected_itinerary_thermal_state(
             .clamp(i32::from(i16::MIN), i32::from(i16::MAX)) as i16;
             let weather = adventuresim_core::weather::weather_at(
                 adventuresim_core::weather::WORLD_WEATHER_SEED,
-                starting_minute.saturating_add(offset),
+                starting_minute.saturating_add_minutes(offset),
                 interpolate(origin.latitude.get(), destination.latitude.get()),
                 interpolate(origin.longitude.get(), destination.longitude.get()),
                 elevation,
@@ -173,7 +173,7 @@ pub(super) fn projected_itinerary_thermal_state(
 }
 
 pub(super) fn projected_stationary_outdoor_thermal_state(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     duration_minutes: u64,
     location: PublicRoutePoint,
     starting_state: adventuresim_core::survival::SurvivalState,
@@ -190,7 +190,7 @@ pub(super) fn projected_stationary_outdoor_thermal_state(
 }
 
 pub(super) fn projected_stationary_field_thermal_state(
-    starting_minute: u64,
+    starting_minute: StrategicMinute,
     duration_minutes: u64,
     location: PublicRoutePoint,
     starting_state: adventuresim_core::survival::SurvivalState,
@@ -262,7 +262,8 @@ pub(super) fn projected_round_trip_thermal_safe(
         insulation_bps,
         has_tent,
     )?;
-    let action_start = starting_minute.saturating_add(outbound_itinerary.total_elapsed_minutes);
+    let action_start =
+        starting_minute.saturating_add_minutes(outbound_itinerary.total_elapsed_minutes);
     let action = projected_stationary_outdoor_thermal_state(
         action_start,
         action_minutes,
@@ -271,7 +272,7 @@ pub(super) fn projected_round_trip_thermal_safe(
         insulation_bps,
     )?;
     let returned = projected_itinerary_thermal_state(
-        action_start.saturating_add(action_minutes),
+        action_start.saturating_add_minutes(action_minutes),
         return_itinerary,
         destination,
         origin,
@@ -311,7 +312,8 @@ pub(super) fn projected_recovery_round_trip_thermal_safe(
         insulation_bps,
         has_tent,
     )?;
-    let recovery_start = starting_minute.saturating_add(outbound_itinerary.total_elapsed_minutes);
+    let recovery_start =
+        starting_minute.saturating_add_minutes(outbound_itinerary.total_elapsed_minutes);
     let recovery = projected_stationary_field_thermal_state(
         recovery_start,
         recovery_minutes,
@@ -320,7 +322,7 @@ pub(super) fn projected_recovery_round_trip_thermal_safe(
         insulation_bps,
         has_tent,
     )?;
-    let action_start = recovery_start.saturating_add(recovery_minutes);
+    let action_start = recovery_start.saturating_add_minutes(recovery_minutes);
     let action = projected_stationary_outdoor_thermal_state(
         action_start,
         action_minutes,
@@ -329,7 +331,7 @@ pub(super) fn projected_recovery_round_trip_thermal_safe(
         insulation_bps,
     )?;
     let returned = projected_itinerary_thermal_state(
-        action_start.saturating_add(action_minutes),
+        action_start.saturating_add_minutes(action_minutes),
         return_itinerary,
         destination,
         origin,

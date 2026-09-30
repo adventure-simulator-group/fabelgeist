@@ -12,8 +12,8 @@ pub struct SceneEnvironment {
     pub generation_version: u16,
     pub latitude_microdegrees: i32,
     pub longitude_microdegrees: i32,
-    pub absolute_minute: u64,
-    pub lunar_phase_minute: u64,
+    pub absolute_minute: StrategicMinute,
+    pub lunar_phase_minute: StrategicMinute,
     pub absolute_elevation_metres: i16,
     pub weather: WeatherSnapshot,
     pub canopy_bps: u16,
@@ -37,12 +37,14 @@ impl SceneEnvironmentFixture {
                 generation_version: TACTICAL_SCENE_GENERATION_VERSION,
                 latitude_microdegrees: 53_500_000,
                 longitude_microdegrees: 10_000_000,
-                absolute_minute: MINUTES_PER_DAY / 2,
-                lunar_phase_minute: MINUTES_PER_DAY / 2,
+                absolute_minute: StrategicMinute::ZERO.saturating_add_minutes(MINUTES_PER_DAY / 2),
+                lunar_phase_minute: StrategicMinute::ZERO
+                    .saturating_add_minutes(MINUTES_PER_DAY / 2),
                 absolute_elevation_metres: 20,
                 weather: WeatherSnapshot {
                     rules_version: WEATHER_RULES_VERSION,
-                    interval_start_minute: 0,
+                    interval_start_minute:
+                        adventuresim_world_schema::calendar::StrategicMinute::new(0),
                     cell_latitude: 0,
                     cell_longitude: 0,
                     temperature_deci_c: 100,

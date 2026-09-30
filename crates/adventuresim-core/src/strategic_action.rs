@@ -5,7 +5,7 @@
 //! construct plans here, and apply effects transactionally only after a fresh
 //! replan passes [`validate_commit`]. A plan is evidence, never authority.
 
-use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, calendar::StrategicMinute};
 use std::{collections::BTreeSet, fmt, num::NonZeroU64};
 
 use crate::{
@@ -336,13 +336,13 @@ pub enum DurationError {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct ScheduledInterruption<I: DomainInterruption> {
-    pub at_minute: u64,
+    pub at_minute: StrategicMinute,
     pub cause: I,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct TimeBoundaries<I: DomainInterruption> {
-    pub terminal_minute: Option<u64>,
+    pub terminal_minute: Option<StrategicMinute>,
     pub interruption: Option<ScheduledInterruption<I>>,
 }
 
@@ -357,10 +357,10 @@ pub enum TimeOutcome<I: DomainInterruption> {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct TimeResolution<I: DomainInterruption> {
-    pub start_minute: u64,
+    pub start_minute: StrategicMinute,
     pub requested_minutes: u64,
     pub elapsed_minutes: u64,
-    pub end_minute: u64,
+    pub end_minute: StrategicMinute,
     pub outcome: TimeOutcome<I>,
 }
 
@@ -372,12 +372,12 @@ impl<I: DomainInterruption> TimeResolution<I> {
 }
 
 pub fn resolve_time<I: DomainInterruption>(
-    current_minute: u64,
+    current_minute: StrategicMinute,
     duration: RequestedDuration,
     boundaries: &TimeBoundaries<I>,
 ) -> TimeResolution<I> {
-    let requested_end = current_minute.checked_add(duration.minutes());
-    let latest_representable_end = requested_end.unwrap_or(u64::MAX);
+    let requested_end = current_minute.checked_add_minutes(duration.minutes());
+    let latest_representable_end = requested_end.unwrap_or(StrategicMinute::MAX);
     let terminal = boundaries
         .terminal_minute
         .map(|minute| minute.max(current_minute));
@@ -396,15 +396,15 @@ pub fn resolve_time<I: DomainInterruption>(
             (at, TimeOutcome::Interrupted(cause))
         }
         _ => match requested_end {
-            Some(u64::MAX) => (u64::MAX, TimeOutcome::ClockExhausted),
+            Some(end) if end == StrategicMinute::MAX => (end, TimeOutcome::ClockExhausted),
             Some(end) => (end, TimeOutcome::Completed),
-            None => (u64::MAX, TimeOutcome::ClockExhausted),
+            None => (StrategicMinute::MAX, TimeOutcome::ClockExhausted),
         },
     };
     TimeResolution {
         start_minute: current_minute,
         requested_minutes: duration.minutes(),
-        elapsed_minutes: end_minute.saturating_sub(current_minute),
+        elapsed_minutes: end_minute.elapsed_since(current_minute),
         end_minute,
         outcome,
     }
@@ -414,8 +414,8 @@ pub fn resolve_time<I: DomainInterruption>(
 pub enum ActionEffect<E: DomainEffect> {
     AdvanceActorTime {
         actor: CustodyCharacterId,
-        from_minute: u64,
-        to_minute: u64,
+        from_minute: StrategicMinute,
+        to_minute: StrategicMinute,
     },
     TransferObjectCustody(Box<CustodyTransfer>),
     Domain(E),
@@ -514,7 +514,7 @@ pub struct PlanInput<
     pub coordinates: ActionCoordinates<T>,
     pub provenance: PlanProvenance,
     pub snapshot: AuthoritativeSnapshot,
-    pub current_minute: u64,
+    pub current_minute: StrategicMinute,
     pub duration: RequestedDuration,
     pub boundaries: TimeBoundaries<I>,
     pub requirements: Vec<RequirementCheck<R, C>>,
@@ -773,7 +773,7 @@ mod tests {
                 authority_binding: AuthorityBinding([3; 32]),
             },
             snapshot,
-            current_minute: 100,
+            current_minute: StrategicMinute::new(100),
             duration: RequestedDuration::try_new(60).unwrap(),
             boundaries: TimeBoundaries {
                 terminal_minute: None,
@@ -802,20 +802,20 @@ mod tests {
     fn clipping_is_partition_invariant() {
         for boundary in 100..=220 {
             let whole = resolve_time(
-                100,
+                StrategicMinute::new(100),
                 RequestedDuration::try_new(120).unwrap(),
                 &TimeBoundaries::<Interrupt> {
-                    terminal_minute: Some(boundary),
+                    terminal_minute: Some(StrategicMinute::new(boundary)),
                     interruption: None,
                 },
             );
-            let mut cursor = 100;
+            let mut cursor = StrategicMinute::new(100);
             for part in [17, 31, 72] {
                 let resolved = resolve_time(
                     cursor,
                     RequestedDuration::try_new(part).unwrap(),
                     &TimeBoundaries::<Interrupt> {
-                        terminal_minute: Some(boundary),
+                        terminal_minute: Some(StrategicMinute::new(boundary)),
                         interruption: None,
                     },
                 );
@@ -832,11 +832,15 @@ mod tests {
     fn exact_endpoint_boundaries_never_enable_completion_effects_when_partitioned() {
         let duration = RequestedDuration::try_new(60).unwrap();
         let terminal = TimeBoundaries::<Interrupt> {
-            terminal_minute: Some(160),
+            terminal_minute: Some(StrategicMinute::new(160)),
             interruption: None,
         };
-        let terminal_whole = resolve_time(100, RequestedDuration::try_new(120).unwrap(), &terminal);
-        let terminal_partition = resolve_time(100, duration, &terminal);
+        let terminal_whole = resolve_time(
+            StrategicMinute::new(100),
+            RequestedDuration::try_new(120).unwrap(),
+            &terminal,
+        );
+        let terminal_partition = resolve_time(StrategicMinute::new(100), duration, &terminal);
         assert_eq!(terminal_whole.end_minute, terminal_partition.end_minute);
         assert_eq!(terminal_partition.outcome, TimeOutcome::TerminalBoundary);
         assert!(!terminal_partition.permits_completion_effects());
@@ -844,13 +848,16 @@ mod tests {
         let interrupted = TimeBoundaries {
             terminal_minute: None,
             interruption: Some(ScheduledInterruption {
-                at_minute: 160,
+                at_minute: StrategicMinute::new(160),
                 cause: Interrupt::Encounter,
             }),
         };
-        let interrupted_whole =
-            resolve_time(100, RequestedDuration::try_new(120).unwrap(), &interrupted);
-        let interrupted_partition = resolve_time(100, duration, &interrupted);
+        let interrupted_whole = resolve_time(
+            StrategicMinute::new(100),
+            RequestedDuration::try_new(120).unwrap(),
+            &interrupted,
+        );
+        let interrupted_partition = resolve_time(StrategicMinute::new(100), duration, &interrupted);
         assert_eq!(
             interrupted_whole.end_minute,
             interrupted_partition.end_minute
@@ -895,7 +902,7 @@ mod tests {
     #[test]
     fn clock_exhaustion_is_typed_and_partition_end_is_not_completion() {
         let whole = resolve_time(
-            u64::MAX - 5,
+            StrategicMinute::new(u64::MAX - 5),
             RequestedDuration::try_new(10).unwrap(),
             &TimeBoundaries::<Interrupt> {
                 terminal_minute: None,
@@ -903,12 +910,12 @@ mod tests {
             },
         );
         assert_eq!(whole.elapsed_minutes, 5);
-        assert_eq!(whole.end_minute, u64::MAX);
+        assert_eq!(whole.end_minute, StrategicMinute::MAX);
         assert_eq!(whole.outcome, TimeOutcome::ClockExhausted);
         assert!(!whole.permits_completion_effects());
 
         let first = resolve_time(
-            u64::MAX - 5,
+            StrategicMinute::new(u64::MAX - 5),
             RequestedDuration::try_new(5).unwrap(),
             &TimeBoundaries::<Interrupt> {
                 terminal_minute: None,
@@ -933,7 +940,7 @@ mod tests {
         assert!(!second.permits_completion_effects());
 
         let at_maximum = resolve_time(
-            u64::MAX,
+            StrategicMinute::new(u64::MAX),
             RequestedDuration::try_new(1).unwrap(),
             &TimeBoundaries::<Interrupt> {
                 terminal_minute: None,
@@ -949,7 +956,7 @@ mod tests {
         let snap = snapshot(1, 1);
         let mut first = input(snap);
         first.boundaries.interruption = Some(ScheduledInterruption {
-            at_minute: 125,
+            at_minute: StrategicMinute::new(125),
             cause: Interrupt::Encounter,
         });
         let planned = build_plan(first.clone(), calculate);
@@ -973,15 +980,19 @@ mod tests {
     #[test]
     fn current_or_tied_terminal_boundary_clips_to_zero_deterministically() {
         let terminal = TimeBoundaries {
-            terminal_minute: Some(100),
+            terminal_minute: Some(StrategicMinute::new(100)),
             interruption: Some(ScheduledInterruption {
-                at_minute: 100,
+                at_minute: StrategicMinute::new(100),
                 cause: Interrupt::Encounter,
             }),
         };
-        let resolved = resolve_time(100, RequestedDuration::try_new(60).unwrap(), &terminal);
+        let resolved = resolve_time(
+            StrategicMinute::new(100),
+            RequestedDuration::try_new(60).unwrap(),
+            &terminal,
+        );
         assert_eq!(resolved.elapsed_minutes, 0);
-        assert_eq!(resolved.end_minute, 100);
+        assert_eq!(resolved.end_minute, StrategicMinute::new(100));
         assert_eq!(resolved.outcome, TimeOutcome::TerminalBoundary);
     }
 

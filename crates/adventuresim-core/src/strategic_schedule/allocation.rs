@@ -1,6 +1,6 @@
 //! Validated daily allocations and read-only, location-dependent redistribution.
 use crate::activity::{ACTIVITY_SEGMENT_MINUTES, ActivityLocation, LocationActivity};
-use crate::strategic_time::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
 use fabelgeist_determinism::StreamId;
 
 /// A parsed organization allocation: zero minutes cannot carry a stale

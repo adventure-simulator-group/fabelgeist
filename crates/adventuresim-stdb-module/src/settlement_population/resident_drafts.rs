@@ -241,12 +241,9 @@ fn assign_household_surnames(
             .iter()
             .find(|draft| draft.character_id() == *first_character_id)
             .ok_or("Household surname references an unknown resident")?;
-        let birth_year = adventuresim_world_schema::person_names::NameBirthYear::new(
-            adventuresim_core::strategic_time::birth_year_from_age(
-                0,
-                first.exact_age.unwrap_or(30),
-            ),
-        );
+        let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+            .birth_year_for_age(first.exact_age.unwrap_or(30))
+            .ok_or("Resident age predates the calendar")?;
         let identity = crate::character::generated_historical_identity(
             name_sex(first.sex),
             resident_random(&first.seed, ResidentEntropyStream::Identity)

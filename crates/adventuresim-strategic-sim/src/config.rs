@@ -1,5 +1,5 @@
 use crate::FORMAT_VERSION;
-use adventuresim_core::strategic_time::DAYS_PER_YEAR;
+use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
 use serde::{Deserialize, Serialize};
 
 pub const MAX_POPULATION: u32 = 10_000;

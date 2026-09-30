@@ -4,11 +4,13 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendTinctureStatus {
     pub container_object_id: u64,
-    pub ready_at_world_minute: u64,
+    pub ready_at_world_minute: StrategicMinute,
     pub matured: bool,
 }
 
@@ -21,7 +23,7 @@ impl __sdk::InModule for BackendTinctureStatus {
 /// Provides typed access to columns for query building.
 pub struct BackendTinctureStatusCols {
     pub container_object_id: __sdk::__query_builder::Col<BackendTinctureStatus, u64>,
-    pub ready_at_world_minute: __sdk::__query_builder::Col<BackendTinctureStatus, u64>,
+    pub ready_at_world_minute: __sdk::__query_builder::Col<BackendTinctureStatus, StrategicMinute>,
     pub matured: __sdk::__query_builder::Col<BackendTinctureStatus, bool>,
 }
 

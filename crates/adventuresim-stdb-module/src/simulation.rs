@@ -1,19 +1,19 @@
 //! Enforceable isolation for reducer-backed balance simulations.
 
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
 use spacetimedb::{
     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
 };
 
 use adventuresim_core::simulation_security::MAX_SIMULATION_SKILL_HOURS;
-use adventuresim_core::strategic_time::{
-    MINUTES_PER_DAY, MINUTES_PER_YEAR, real_micros_for_official_minutes,
-};
+use adventuresim_core::strategic_time::real_micros_for_official_minutes;
+use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
 
 use crate::character::character;
 use crate::investigation::investigation_witness_referral__view;
 use crate::local_problem::local_problem_receipt__view;
 use crate::strategic::{case_authority__view, quest_generation_authority__view};
-use crate::time::{character_time, world_clock};
+use crate::time::{character_time, settle_lifecycle_after_character_time_write, world_clock};
 use crate::{
     CharacterAttributes, CharacterSkills, CharacterTrainingSchedule, DeathCause, DeathSource,
     ScheduleAllocation, character_attributes, character_skills, character_training_schedule,
@@ -406,7 +406,7 @@ pub fn advance_simulation_world_time(
         .epoch_micros
         .checked_sub(delta_micros)
         .ok_or("Simulation world epoch underflow")?;
-    clock.official_minutes = clock.official_minutes.saturating_add(delta_minutes);
+    clock.official_minutes = clock.official_minutes.saturating_add_minutes(delta_minutes);
     ctx.db.world_clock().id().update(clock);
     Ok(())
 }
@@ -628,7 +628,7 @@ pub fn seed_simulation_disease(
             id: 0,
             character_id,
             disease_id,
-            contracted_at: 0,
+            contracted_at: StrategicMinute::ZERO,
             ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
             phenotype_key_version: adventuresim_core::physiology::PHENOTYPE_KEY_VERSION,
         });
@@ -659,11 +659,11 @@ pub fn seed_simulation_disease(
         elapsed,
         crate::surgery::InjuryRecoveryMinutes::NONE,
     )?;
-    time.minutes = time.minutes.saturating_add(settled.elapsed);
-    let interval_end = time.minutes;
+    let interval_end = time.minutes.saturating_add_minutes(settled.elapsed);
+    time.minutes = interval_end;
     ctx.db.character_time().character_id().update(time);
     crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
-    crate::time::settle_lifecycle_after_character_time_write(ctx, character_id, interval_end)?;
+    settle_lifecycle_after_character_time_write(ctx, character_id, interval_end)?;
     if terminal.is_some() || !settled.alive {
         return Ok(());
     }
@@ -770,7 +770,7 @@ mod tests {
     fn simulation_world_time_advance_is_positive_and_bounded() {
         assert!(!valid_simulation_clock_advance(0));
         assert!(valid_simulation_clock_advance(
-            adventuresim_core::strategic_time::MINUTES_PER_DAY
+            adventuresim_world_schema::calendar::MINUTES_PER_DAY
         ));
         assert!(valid_simulation_clock_advance(
             MAX_SIMULATION_CLOCK_ADVANCE_MINUTES
@@ -779,11 +779,11 @@ mod tests {
             MAX_SIMULATION_CLOCK_ADVANCE_MINUTES + 1
         ));
         let shift =
-            simulation_epoch_shift_micros(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+            simulation_epoch_shift_micros(adventuresim_world_schema::calendar::MINUTES_PER_DAY)
                 .unwrap();
         assert_eq!(
             adventuresim_core::strategic_time::elapsed_official_minutes(-shift, 0),
-            adventuresim_core::strategic_time::MINUTES_PER_DAY
+            adventuresim_world_schema::calendar::MINUTES_PER_DAY
         );
     }
 }

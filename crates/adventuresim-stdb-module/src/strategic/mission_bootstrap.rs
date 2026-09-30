@@ -804,9 +804,9 @@ pub fn seed_standalone_tactical_mission(
             latitude_e7: case_site.latitude_e7,
             settlement,
             absolute_minute: party_wilderness_environment_minutes(&party)
-                .map_or(adventuresim_core::strategic_time::WORLD_START_MINUTE, |value| value.0),
+                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
             lunar_phase_minute: party_wilderness_environment_minutes(&party)
-                .map_or(adventuresim_core::strategic_time::WORLD_START_MINUTE, |value| value.1),
+                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
             expected_party_members,
             authorized_party_member_ids,
             required_enemy_kills,
@@ -1377,15 +1377,14 @@ fn ensure_npc_recruiting_parties(ctx: &ReducerContext, settlement_id: &str) -> R
             leader_id,
             status: RecruitmentOfferStatus::Open,
             created_at_minute: now,
-            expires_at_minute: now
-                .saturating_add(7 * adventuresim_core::strategic_time::MINUTES_PER_DAY),
+            expires_at_minute: renewed_recruitment_offer_expiry(now),
         });
     }
     Ok(())
 }
 
-fn renewed_recruitment_offer_expiry(now: u64) -> u64 {
-    now.saturating_add(7 * adventuresim_core::strategic_time::MINUTES_PER_DAY)
+fn renewed_recruitment_offer_expiry(now: StrategicMinute) -> StrategicMinute {
+    now.saturating_add_days(7)
 }
 
 fn generated_witness_visible_description(
@@ -1629,7 +1628,7 @@ fn generate_quest_for_settlement(ctx: &ReducerContext, settlement_id: &str) -> R
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-        now_minute.saturating_sub(180),
+now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,
@@ -1682,7 +1681,7 @@ fn materialize_preferred_generated_fixture(
         .find(&settlement_id)
         .ok_or("Current settlement not found")?;
 
-    let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
+    let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
     let entropy = streams::FIXTURE.seed(character_id, &[seed_salt]).to_u64();
     let initial_context = qg::GenerationContext {
         seed: entropy,
@@ -1803,7 +1802,7 @@ fn materialize_simulation_acceptance_outbreak(
         .id()
         .find(&settlement_id)
         .ok_or("Quest acceptance outbreak settlement not found")?;
-    let now_minute = crate::time::refresh_clock(ctx)?.max(4_000);
+    let now_minute = crate::time::refresh_clock(ctx)?.max(StrategicMinute::new(4_000));
     let entropy = streams::ACCEPTANCE.seed(character_id, &[policy_seed]).to_u64();
     for candidate in 0..MAX_CANDIDATES {
         let candidate_entropy =
@@ -1994,7 +1993,7 @@ fn ensure_simulation_quest_provisioning_environment(
         .character_time()
         .character_id()
         .find(leader_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     let provider_id = default_merchant_provider(ctx, &settlement_id, "merchants", "market")
         .map_err(|error| error.to_string())?
         .get();
@@ -2046,7 +2045,7 @@ pub(crate) fn seed_simulation_quest_fixture_inner(
         .character_time()
         .character_id()
         .find(direct_leader_id)
-        .map_or(720, |time| time.minutes);
+        .map_or(StrategicMinute::new(720), |time| time.minutes);
     let has_keep = matches!(
         settlement.category,
         SettlementCategory::Town | SettlementCategory::City | SettlementCategory::Capital
@@ -2510,7 +2509,7 @@ pub fn spawn_developer_quest(
     .ok_or("Settlement has invalid WGS84 coordinates")?;
     let incident_weather = adventuresim_core::weather::weather_at(
         adventuresim_core::weather::WORLD_WEATHER_SEED,
-        now_minute.saturating_sub(180),
+now_minute.saturating_sub_minutes(180),
         weather_coordinate.latitude().get(),
         weather_coordinate.longitude().get(),
         0,

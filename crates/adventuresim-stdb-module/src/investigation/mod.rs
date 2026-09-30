@@ -8,6 +8,8 @@
 //! authority or observer-safe projection that owns them; tests are partitioned
 //! by evidence, projection, site/action, and authority behavior.
 
+use adventuresim_world_schema::calendar::StrategicMinute;
+
 #[cfg(test)]
 pub(crate) const INVESTIGATION_SOURCE: &str = concat!(
     include_str!("model.rs"),

@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct TinctureProcess {
     pub container_object_id: u64,
-    pub started_at_world_minute: u64,
-    pub ready_at_world_minute: u64,
+    pub started_at_world_minute: StrategicMinute,
+    pub ready_at_world_minute: StrategicMinute,
     pub matured: bool,
     pub preparer_character_id: u64,
     pub intervention_profile_id: String,
@@ -29,8 +31,8 @@ impl __sdk::InModule for TinctureProcess {
 /// Provides typed access to columns for query building.
 pub struct TinctureProcessCols {
     pub container_object_id: __sdk::__query_builder::Col<TinctureProcess, u64>,
-    pub started_at_world_minute: __sdk::__query_builder::Col<TinctureProcess, u64>,
-    pub ready_at_world_minute: __sdk::__query_builder::Col<TinctureProcess, u64>,
+    pub started_at_world_minute: __sdk::__query_builder::Col<TinctureProcess, StrategicMinute>,
+    pub ready_at_world_minute: __sdk::__query_builder::Col<TinctureProcess, StrategicMinute>,
     pub matured: __sdk::__query_builder::Col<TinctureProcess, bool>,
     pub preparer_character_id: __sdk::__query_builder::Col<TinctureProcess, u64>,
     pub intervention_profile_id: __sdk::__query_builder::Col<TinctureProcess, String>,
@@ -89,7 +91,7 @@ impl __sdk::__query_builder::HasCols for TinctureProcess {
 /// Provides typed access to indexed columns for query building.
 pub struct TinctureProcessIxCols {
     pub container_object_id: __sdk::__query_builder::IxCol<TinctureProcess, u64>,
-    pub ready_at_world_minute: __sdk::__query_builder::IxCol<TinctureProcess, u64>,
+    pub preparer_character_id: __sdk::__query_builder::IxCol<TinctureProcess, u64>,
 }
 
 impl __sdk::__query_builder::HasIxCols for TinctureProcess {
@@ -100,9 +102,9 @@ impl __sdk::__query_builder::HasIxCols for TinctureProcess {
                 table_name,
                 "container_object_id",
             ),
-            ready_at_world_minute: __sdk::__query_builder::IxCol::new(
+            preparer_character_id: __sdk::__query_builder::IxCol::new(
                 table_name,
-                "ready_at_world_minute",
+                "preparer_character_id",
             ),
         }
     }

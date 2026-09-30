@@ -59,7 +59,7 @@ pub(crate) enum RestDurationError {
 
 impl std::fmt::Display for RestDurationError {
     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        use adventuresim_core::strategic_time::DAYS_PER_YEAR;
+        use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
 
         match self {
             Self::SettlementBelowMinimum => {
@@ -92,7 +92,7 @@ impl std::error::Error for RestDurationError {}
 
 pub(super) fn settlement_rest_minutes(form: &RestForm) -> Result<u64, RestDurationError> {
     let minutes = parsed_rest_minutes(form)?;
-    if minutes < adventuresim_core::strategic_time::MINUTES_PER_DAY {
+    if minutes < adventuresim_world_schema::calendar::MINUTES_PER_DAY {
         return Err(RestDurationError::SettlementBelowMinimum);
     }
     if minutes > MAX_SETTLEMENT_REST_MINUTES {
@@ -151,7 +151,7 @@ pub(super) fn parsed_rest_minutes(form: &RestForm) -> Result<u64, RestDurationEr
                 .duration
                 .parse::<u64>()
                 .map_err(|_| RestDurationError::DaysNotWhole)?;
-            days.saturating_mul(adventuresim_core::strategic_time::MINUTES_PER_DAY)
+            days.saturating_mul(adventuresim_world_schema::calendar::MINUTES_PER_DAY)
         }
         _ => return Err(RestDurationError::UnknownUnit),
     })
@@ -430,7 +430,7 @@ pub(super) fn rest_summary(observation: RestSummaryObservation<'_>) -> RestSumma
         requested_minutes,
     } = observation;
     let minutes = before_time.zip(after_time).map_or(0, |(before, after)| {
-        after.minutes.saturating_sub(before.minutes)
+        StrategicMinute::new(after.minutes.minutes).elapsed_since(StrategicMinute::new(before.minutes.minutes))
     });
     let currency_total = |inventory: &[InventoryItem]| -> u32 {
         inventory

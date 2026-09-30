@@ -2,6 +2,8 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::calendar::CalendarYear;
+
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct NameCatalogDocument {
@@ -188,8 +190,8 @@ pub struct NameRepertoireDefinition {
     pub id: String,
     pub culture: NameCulture,
     pub religious_tradition: NameReligiousTradition,
-    pub start_year: i32,
-    pub end_year: i32,
+    pub start_year: CalendarYear,
+    pub end_year: CalendarYear,
     pub female_families: Vec<FrequencyFamilyDefinition>,
     pub male_families: Vec<FrequencyFamilyDefinition>,
     pub everyday_forms: Vec<FrequencyFormDefinition>,

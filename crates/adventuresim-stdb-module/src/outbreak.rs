@@ -2,6 +2,12 @@
 //!
 //! Canonical disease, source and remediation facts never cross a public view.
 
+mod patient_chronology;
+mod water_time;
+use patient_chronology::resolve_patient_death;
+use water_time::concentration_at_collection;
+
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, Table, ViewContext, reducer, table};
 use std::str::FromStr;
 
@@ -50,7 +56,7 @@ pub struct OutbreakAuthority {
     pub chronology_json: String,
     pub remediation_id: String,
     pub remediation_json: String,
-    pub remediated_at: Option<u64>,
+    pub remediated_at: Option<StrategicMinute>,
     pub remediated_by_party_id: Option<String>,
     pub remediation_source_id: Option<String>,
 }
@@ -82,8 +88,8 @@ pub struct OutbreakSourcePresenceSpan {
     #[index(btree)]
     /// Canonical `StrategicPlaceId::CaseSite` encoding.
     pub source_place_id: String,
-    pub started_at: u64,
-    pub ended_at: Option<u64>,
+    pub started_at: StrategicMinute,
+    pub ended_at: Option<StrategicMinute>,
 }
 
 /// Private material truth for one ordinary collectible water source.
@@ -98,7 +104,7 @@ pub struct WaterMaterialLot {
     pub liquid_item_id: String,
     pub concentration_anchor: f32,
     pub growth_per_hour: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 /// Private fixture stock. Public views expose neither contamination nor its
@@ -112,7 +118,7 @@ pub struct OutbreakWaterSource {
     pub material_lot_id: u64,
     pub available_ml: u64,
     pub revision: u64,
-    pub disabled_at: Option<u64>,
+    pub disabled_at: Option<StrategicMinute>,
 }
 
 /// Private immutable output identity for one successful fixture draw.
@@ -128,7 +134,7 @@ pub struct WaterOutputLot {
     pub contaminant_load_microunits: u64,
     pub concentration_anchor: f32,
     pub growth_per_hour: f32,
-    pub anchor_minute: u64,
+    pub anchor_minute: StrategicMinute,
 }
 
 /// Private exact material contributions in one physical container.
@@ -141,7 +147,7 @@ pub struct ContainerWaterContribution {
     pub container_object_id: u64,
     pub amount_microliters: u64,
     pub contaminant_load_microunits: u64,
-    pub collected_at: u64,
+    pub collected_at: StrategicMinute,
 }
 
 pub(crate) fn delete_container_water_contributions(ctx: &ReducerContext, container_object_id: u64) {
@@ -239,7 +245,7 @@ fn expose_to_water_contributions(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |row| row.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let mut digest = Sha256::new();
     let mut dose = 0.0_f32;
     for &(output_lot_id, amount_microliters, anchor_load) in moved {
@@ -257,7 +263,7 @@ fn expose_to_water_contributions(
         let current = adventuresim_core::food::contamination_at(
             anchor_concentration,
             lot.growth_per_hour,
-            minute.saturating_sub(lot.anchor_minute),
+            minute.elapsed_since(lot.anchor_minute),
         );
         dose += current * amount_ml / 1_000.0;
     }
@@ -296,7 +302,7 @@ pub struct WaterCollectionReceipt {
     pub source_amount_after_ml: u64,
     pub contaminant_load_microunits: u64,
     pub amount_ml: u64,
-    pub collected_at: u64,
+    pub collected_at: StrategicMinute,
 }
 
 #[reducer]
@@ -424,7 +430,7 @@ pub fn collect_fixture_water_into_container(
     let rights = decide_public_water_collection(
         &question,
         source.disabled_at.is_none(),
-        source.disabled_at.unwrap_or(lot.anchor_minute),
+        (source.disabled_at.unwrap_or(lot.anchor_minute)).get(),
     );
     let container_question = water_container_alter_question(
         CustodyCharacterId::try_new(character_id).map_err(|_| "Invalid water collector")?,
@@ -432,8 +438,11 @@ pub fn collect_fixture_water_into_container(
         fixture.place().clone(),
     )
     .map_err(|_| "Water collection is unavailable")?;
-    let container_rights =
-        decide_public_water_collection(&container_question, container_custody, lot.anchor_minute);
+    let container_rights = decide_public_water_collection(
+        &container_question,
+        container_custody,
+        (lot.anchor_minute).get(),
+    );
     let mut hash = Sha256::new();
     hash.update(b"water-collection-snapshot-v1");
     hash.update(request_id.as_bytes());
@@ -464,7 +473,7 @@ pub fn collect_fixture_water_into_container(
     )
     .map_err(|_| "Water collection coordinates are inconsistent")?;
     let snapshot = AuthoritativeSnapshot {
-        revision: SnapshotRevision(lot.anchor_minute),
+        revision: SnapshotRevision((lot.anchor_minute).get()),
         digest: SnapshotDigest(digest),
     };
     let action_minute = ctx
@@ -472,7 +481,7 @@ pub fn collect_fixture_water_into_container(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |time| time.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     let plan = build_water_collection_plan(WaterCollectionAuthority {
         coordinates: coordinates.clone(),
         plan: PlanInput {
@@ -578,11 +587,7 @@ pub fn collect_fixture_water_into_container(
     }
     let source_before = source.available_ml;
     let source_revision_before = source.revision;
-    let current_concentration = adventuresim_core::food::contamination_at(
-        lot.concentration_anchor,
-        lot.growth_per_hour,
-        plan.time().end_minute.saturating_sub(lot.anchor_minute),
-    );
+    let current_concentration = concentration_at_collection(&lot, plan.time().end_minute);
     let requested_microliters = Microliters::try_from_milliliters(Milliliters::new(requested_ml))
         .map_err(|_| "Requested water volume exceeds the material range")?;
     let contaminant_load_microunits =
@@ -649,7 +654,7 @@ pub fn collect_fixture_water_into_container(
 pub(crate) fn contained_water_contamination(
     ctx: &ReducerContext,
     container_object_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<Vec<(u64, f32, f32, Microliters)>, String> {
     let source_total = match ctx
         .db
@@ -675,7 +680,7 @@ fn container_water_contamination(
     container_object_id: u64,
     source_total: Microliters,
     moved: Microliters,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<Vec<(u64, f32, f32, Microliters)>, String> {
     let mut contributions = ctx
         .db
@@ -713,7 +718,7 @@ fn container_water_contamination(
         let current = adventuresim_core::food::contamination_at(
             held_anchor_concentration,
             lot.growth_per_hour,
-            minute.saturating_sub(lot.anchor_minute),
+            minute.elapsed_since(lot.anchor_minute),
         );
         result.push((lot.id, current, lot.growth_per_hour, amount_microliters));
     }
@@ -791,7 +796,7 @@ pub(crate) fn case_patient_visible_to_character_view(
     ctx: &ViewContext,
     character_id: u64,
     case_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> bool {
     let Some(authority) = ctx
         .db
@@ -816,7 +821,7 @@ pub(crate) fn case_patient_visible_to_character(
     ctx: &ReducerContext,
     character_id: u64,
     case_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> bool {
     let Some(authority) = ctx
         .db
@@ -842,7 +847,7 @@ fn materialize_patient_corpse(
     generated: &adventuresim_core::quest_generation::GeneratedCase,
     exposure: &adventuresim_core::quest_generation::OutbreakExposure,
     settlement_id: &str,
-    death_minute: u64,
+    death_minute: StrategicMinute,
 ) -> Result<String, String> {
     use adventuresim_core::{
         autopsy::SystemicPathologySnapshot,
@@ -1017,7 +1022,7 @@ pub(crate) fn materialize_generated_outbreak(
     ctx: &ReducerContext,
     generated: &adventuresim_core::quest_generation::GeneratedCase,
     settlement_id: &str,
-    now_minute: u64,
+    now_minute: StrategicMinute,
 ) -> Result<(), String> {
     use adventuresim_core::quest_generation::OutbreakSource;
 
@@ -1268,10 +1273,10 @@ pub(crate) fn materialize_generated_outbreak(
         let definition = adventuresim_core::disease::definition(outbreak.disease);
         let course_end = exposure
             .exposed_at
-            .saturating_add(definition.incubation_minutes)
-            .saturating_add(definition.rise_minutes)
-            .saturating_add(definition.peak_minutes)
-            .saturating_add(definition.recovery_minutes);
+            .saturating_add_minutes(definition.incubation_minutes)
+            .saturating_add_minutes(definition.rise_minutes)
+            .saturating_add_minutes(definition.peak_minutes)
+            .saturating_add_minutes(definition.recovery_minutes);
         let private_terminal = crate::disease::first_private_terminal(
             ctx,
             exposure.patient_character_id,
@@ -1280,33 +1285,11 @@ pub(crate) fn materialize_generated_outbreak(
             course_end,
             immunity,
         )?;
-        let mut resolved_exposure = exposure.clone();
-        match exposure.death_kind {
-            Some(adventuresim_core::quest_generation::OutbreakPatientDeathKind::Disease) => {
-                resolved_exposure.died_at = private_terminal.map(|value| value.0);
-                resolved_exposure.death_kind = private_terminal.map(|_| {
-                    adventuresim_core::quest_generation::OutbreakPatientDeathKind::Disease
-                });
-            }
-            Some(adventuresim_core::quest_generation::OutbreakPatientDeathKind::CarrierAttack) => {
-                let latest_attack = private_terminal
-                    .map(|(terminal_at, _)| terminal_at.saturating_sub(1))
-                    .unwrap_or(now_minute)
-                    .min(now_minute);
-                let attack_at = exposure
-                    .died_at
-                    .unwrap_or(latest_attack)
-                    .min(latest_attack)
-                    .max(exposure.became_symptomatic_at);
-                if attack_at <= latest_attack {
-                    resolved_exposure.died_at = Some(attack_at);
-                } else {
-                    resolved_exposure.died_at = None;
-                    resolved_exposure.death_kind = None;
-                }
-            }
-            None => {}
-        }
+        let resolved_exposure = resolve_patient_death(
+            exposure,
+            private_terminal.map(|(minute, _)| minute),
+            now_minute,
+        );
         let row_id = resolved_exposure.patient_ref.clone();
         let corpse_id = resolved_exposure
             .died_at
@@ -1441,7 +1424,7 @@ pub(crate) fn commit_source_remediation(
     source_id: &str,
     remediation_id: &str,
     source_site_id: &str,
-    at_minute: u64,
+    at_minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut authority = ctx
         .db
@@ -1523,7 +1506,11 @@ pub(crate) fn commit_source_remediation(
     Ok(())
 }
 
-fn deactivate_outbreak_patient_contexts(ctx: &ReducerContext, case_id: &str, at_minute: u64) {
+fn deactivate_outbreak_patient_contexts(
+    ctx: &ReducerContext,
+    case_id: &str,
+    at_minute: StrategicMinute,
+) {
     crate::world_actor::deactivate_context_roster_at(ctx, case_id, at_minute);
     for mut patient in ctx
         .db
@@ -1555,7 +1542,7 @@ fn deactivate_outbreak_patient_contexts(ctx: &ReducerContext, case_id: &str, at_
 pub(crate) fn patient_presence_suppression_at(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::PresenceSuppression> {
     let alive_at_observer = crate::relationship::character_alive_at(ctx, character_id, minute);
     let mut aggregate = adventuresim_core::strategic_presence::PresenceSuppression {
@@ -1581,10 +1568,10 @@ pub(crate) fn patient_presence_suppression_at(
         let definition = adventuresim_core::disease::definition(disease_id);
         let recovery_minute = episode
             .contracted_at
-            .checked_add(definition.incubation_minutes)?
-            .checked_add(definition.rise_minutes)?
-            .checked_add(definition.peak_minutes)?
-            .checked_add(definition.recovery_minutes)?;
+            .checked_add_minutes(definition.incubation_minutes)?
+            .checked_add_minutes(definition.rise_minutes)?
+            .checked_add_minutes(definition.peak_minutes)?
+            .checked_add_minutes(definition.recovery_minutes)?;
         let suppression = adventuresim_core::strategic_presence::outbreak_patient_suppression_at(
             episode.contracted_at,
             recovery_minute,
@@ -1605,7 +1592,7 @@ pub(crate) fn patient_presence_suppression_at(
 pub(crate) fn patient_presence_suppression_at_view(
     ctx: &ViewContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Option<adventuresim_core::strategic_presence::PresenceSuppression> {
     let alive_at_observer = ctx.db.character().id().find(character_id).is_some()
         && ctx
@@ -1613,7 +1600,7 @@ pub(crate) fn patient_presence_suppression_at_view(
             .character_birth()
             .character_id()
             .find(character_id)
-            .is_none_or(|birth| i128::from(birth.birth_minute) <= i128::from(minute))
+            .is_none_or(|birth| minute.is_at_or_after_signed_birth(birth.birth_minute))
         && ctx
             .db
             .character_death()
@@ -1643,10 +1630,10 @@ pub(crate) fn patient_presence_suppression_at_view(
         let definition = adventuresim_core::disease::definition(disease_id);
         let recovery_minute = episode
             .contracted_at
-            .checked_add(definition.incubation_minutes)?
-            .checked_add(definition.rise_minutes)?
-            .checked_add(definition.peak_minutes)?
-            .checked_add(definition.recovery_minutes)?;
+            .checked_add_minutes(definition.incubation_minutes)?
+            .checked_add_minutes(definition.rise_minutes)?
+            .checked_add_minutes(definition.peak_minutes)?
+            .checked_add_minutes(definition.recovery_minutes)?;
         let suppression = adventuresim_core::strategic_presence::outbreak_patient_suppression_at(
             episode.contracted_at,
             recovery_minute,
@@ -1704,7 +1691,7 @@ mod water_integration_contract_tests {
 pub(crate) fn refresh_patient_context_after_time_write(
     ctx: &ReducerContext,
     character_id: u64,
-    minute: u64,
+    minute: StrategicMinute,
 ) {
     let alive = ctx
         .db
@@ -1736,10 +1723,10 @@ pub(crate) fn refresh_patient_context_after_time_write(
                 minute
                     >= episode
                         .contracted_at
-                        .saturating_add(definition.incubation_minutes)
-                        .saturating_add(definition.rise_minutes)
-                        .saturating_add(definition.peak_minutes)
-                        .saturating_add(definition.recovery_minutes)
+                        .saturating_add_minutes(definition.incubation_minutes)
+                        .saturating_add_minutes(definition.rise_minutes)
+                        .saturating_add_minutes(definition.peak_minutes)
+                        .saturating_add_minutes(definition.recovery_minutes)
             });
         if alive && !recovered {
             continue;
@@ -1789,7 +1776,7 @@ pub(crate) fn commit_carrier_remediation(
     party_id: &str,
     source_id: &str,
     remediation_id: &str,
-    at_minute: u64,
+    at_minute: StrategicMinute,
 ) -> Result<(), String> {
     let mut authority = ctx
         .db
@@ -1857,9 +1844,9 @@ pub(crate) fn exposure_windows(
     ctx: &ReducerContext,
     problem_id: &str,
     character_id: u64,
-    from: u64,
-    to: u64,
-) -> Vec<(String, u64, u64)> {
+    from: StrategicMinute,
+    to: StrategicMinute,
+) -> Vec<(String, StrategicMinute, StrategicMinute)> {
     let Some(authority) = ctx
         .db
         .outbreak_authority()
@@ -1918,7 +1905,7 @@ pub(crate) fn record_case_site_presence_transition(
         .character_time()
         .character_id()
         .find(character_id)
-        .map_or(0, |row| row.minutes);
+        .map_or(StrategicMinute::ZERO, |t| t.minutes);
     for mut span in ctx
         .db
         .outbreak_source_presence_span()
@@ -1968,7 +1955,7 @@ pub(crate) fn discover_case_corpses(
     ctx: &ReducerContext,
     case_id: &str,
     character_id: u64,
-    discovered_at: u64,
+    discovered_at: StrategicMinute,
 ) -> Result<(), String> {
     if ctx
         .db
@@ -2013,6 +2000,8 @@ pub(crate) fn discover_case_corpses(
 
 #[cfg(test)]
 mod tests {
+    use adventuresim_world_schema::calendar::StrategicMinute;
+
     #[test]
     fn outbreak_authority_and_patients_are_private_and_real() {
         let source = crate::production_source(include_str!("outbreak.rs"));
@@ -2052,9 +2041,15 @@ mod tests {
 
     #[test]
     fn patient_problem_knowledge_is_frontier_bounded() {
-        let visible = |learned_at: u64, minute: u64| learned_at <= minute;
-        assert!(!visible(101, 100));
-        assert!(visible(100, 100));
+        let visible = |learned_at: StrategicMinute, minute: StrategicMinute| learned_at <= minute;
+        assert!(!visible(
+            StrategicMinute::new(101),
+            StrategicMinute::new(100)
+        ));
+        assert!(visible(
+            StrategicMinute::new(100),
+            StrategicMinute::new(100)
+        ));
     }
 
     #[test]

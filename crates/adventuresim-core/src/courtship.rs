@@ -4,15 +4,16 @@
 //! thresholds and clock arithmetic here makes reducers deterministic and lets
 //! callers advance a long interval in exactly the same way as smaller chunks.
 
-use crate::strategic_time::{MINUTES_PER_DAY, MINUTES_PER_YEAR};
 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute};
 use serde::{Deserialize, Serialize};
 use std::{fmt, str::FromStr};
 
 mod child_identity;
 pub use child_identity::{
-    ChildBirthMinute, ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed,
-    PregnancyOrdinal, deterministic_child_seeds,
+    ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed, PregnancyOrdinal,
+    deterministic_child_seeds,
 };
 
 pub const ADULT_AGE_YEARS: u16 = 16;
@@ -292,12 +293,12 @@ pub fn authored_housing_catalog() -> [(HousingTier, HousingEconomy); 3] {
 /// requested frontier. Overflow terminates the finite authoritative timeline.
 #[derive(Clone, Copy, Debug)]
 pub struct DuePeriods {
-    next: Option<u64>,
-    through_minute: u64,
+    next: Option<StrategicMinute>,
+    through_minute: StrategicMinute,
 }
 
 impl Iterator for DuePeriods {
-    type Item = u64;
+    type Item = StrategicMinute;
 
     fn next(&mut self) -> Option<Self::Item> {
         let due = self.next?;
@@ -305,12 +306,15 @@ impl Iterator for DuePeriods {
             self.next = None;
             return None;
         }
-        self.next = due.checked_add(HOUSING_BILLING_PERIOD_MINUTES);
+        self.next = due.checked_add_minutes(HOUSING_BILLING_PERIOD_MINUTES);
         Some(due)
     }
 }
 
-pub const fn due_periods(next_due_minute: u64, through_minute: u64) -> DuePeriods {
+pub const fn due_periods(
+    next_due_minute: StrategicMinute,
+    through_minute: StrategicMinute,
+) -> DuePeriods {
     DuePeriods {
         next: Some(next_due_minute),
         through_minute,
@@ -326,8 +330,8 @@ pub struct DueSettlementPlan {
     /// The next date to persist after all successful payments. On failure this
     /// remains the first unpaid date, which makes retry and chunk behavior
     /// unambiguous.
-    pub next_due_minute: u64,
-    pub first_unpaid_due_minute: Option<u64>,
+    pub next_due_minute: StrategicMinute,
+    pub first_unpaid_due_minute: Option<StrategicMinute>,
 }
 
 /// Settle recurring bills one period at a time. A bill is indivisible: funds
@@ -336,8 +340,8 @@ pub struct DueSettlementPlan {
 /// frontier produces the same plan as one call when the returned funds and
 /// next due date are carried forward.
 pub fn plan_due_period_settlement(
-    next_due_minute: u64,
-    through_minute: u64,
+    next_due_minute: StrategicMinute,
+    through_minute: StrategicMinute,
     available_funds: u64,
     charge_per_period: u64,
 ) -> DueSettlementPlan {
@@ -348,7 +352,8 @@ pub fn plan_due_period_settlement(
     let periods_paid = periods_due.min(affordable);
     let amount_spent = periods_paid.saturating_mul(charge_per_period);
     let first_unpaid_due_minute = (periods_paid < periods_due).then(|| {
-        next_due_minute.saturating_add(periods_paid.saturating_mul(HOUSING_BILLING_PERIOD_MINUTES))
+        next_due_minute
+            .saturating_add_minutes(periods_paid.saturating_mul(HOUSING_BILLING_PERIOD_MINUTES))
     });
     DueSettlementPlan {
         periods_due,
@@ -356,7 +361,7 @@ pub fn plan_due_period_settlement(
         amount_spent,
         funds_remaining: available_funds.saturating_sub(amount_spent),
         next_due_minute: next_due_minute
-            .saturating_add(periods_paid.saturating_mul(HOUSING_BILLING_PERIOD_MINUTES)),
+            .saturating_add_minutes(periods_paid.saturating_mul(HOUSING_BILLING_PERIOD_MINUTES)),
         first_unpaid_due_minute,
     }
 }
@@ -364,7 +369,7 @@ pub fn plan_due_period_settlement(
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct RefreshableMorale {
     pub milli_points: u32,
-    pub expires_at_minute: u64,
+    pub expires_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -395,35 +400,35 @@ const fn min_u64(left: u64, right: u64) -> u64 {
 /// beyond the source cap.
 pub const fn refresh_morale(
     current: RefreshableMorale,
-    now_minute: u64,
+    now_minute: StrategicMinute,
     earned_milli: u32,
     spec: RefreshableMoraleSpec,
 ) -> RefreshableMorale {
     if earned_milli == 0 {
         return current;
     }
-    let live = if current.expires_at_minute > now_minute {
+    let live = if current.expires_at_minute.is_after(now_minute) {
         current.milli_points
     } else {
         0
     };
     RefreshableMorale {
         milli_points: min_u32(live.saturating_add(earned_milli), spec.cap_milli),
-        expires_at_minute: now_minute.saturating_add(spec.duration_minutes),
+        expires_at_minute: now_minute.saturating_add_minutes(spec.duration_minutes),
     }
 }
 
 pub const fn bounded_leisure_morale_total(
     residence: RefreshableMorale,
     spouse: RefreshableMorale,
-    at_minute: u64,
+    at_minute: StrategicMinute,
 ) -> u32 {
-    let residence = if residence.expires_at_minute > at_minute {
+    let residence = if residence.expires_at_minute.is_after(at_minute) {
         min_u32(residence.milli_points, RESIDENCE_MORALE_CAP_MILLI)
     } else {
         0
     };
-    let spouse = if spouse.expires_at_minute > at_minute {
+    let spouse = if spouse.expires_at_minute.is_after(at_minute) {
         min_u32(spouse.milli_points, SPOUSE_LEISURE_MORALE_CAP_MILLI)
     } else {
         0
@@ -440,7 +445,7 @@ pub const fn bounded_leisure_morale_total(
 pub const fn refresh_bounded_leisure_morale(
     current: RefreshableMorale,
     other: RefreshableMorale,
-    now_minute: u64,
+    now_minute: StrategicMinute,
     earned_milli: u32,
     spec: RefreshableMoraleSpec,
 ) -> RefreshableMorale {
@@ -448,7 +453,7 @@ pub const fn refresh_bounded_leisure_morale(
     if earned_milli == 0 {
         return refreshed;
     }
-    let other_live = if other.expires_at_minute > now_minute {
+    let other_live = if other.expires_at_minute.is_after(now_minute) {
         other.milli_points
     } else {
         0
@@ -485,8 +490,8 @@ pub const fn spouse_leisure_earned_milli(joint_leisure_minutes: u64) -> u32 {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct LeisureInterval<'a> {
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
     pub location_id: &'a str,
 }
 
@@ -498,7 +503,7 @@ pub fn joint_leisure_minutes(left: LeisureInterval<'_>, right: LeisureInterval<'
     }
     left.end_minute
         .min(right.end_minute)
-        .saturating_sub(left.start_minute.max(right.start_minute))
+        .elapsed_since(left.start_minute.max(right.start_minute))
 }
 
 /// Accrue a joint span inside an arbitrary checkpoint interval. Integer
@@ -506,8 +511,8 @@ pub fn joint_leisure_minutes(left: LeisureInterval<'_>, right: LeisureInterval<'
 pub fn joint_leisure_minutes_in(
     left: LeisureInterval<'_>,
     right: LeisureInterval<'_>,
-    checkpoint_start: u64,
-    checkpoint_end: u64,
+    checkpoint_start: StrategicMinute,
+    checkpoint_end: StrategicMinute,
 ) -> u64 {
     joint_leisure_minutes(
         LeisureInterval {
@@ -525,8 +530,8 @@ pub fn joint_leisure_minutes_in(
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct MinuteSpan {
-    pub start_minute: u64,
-    pub end_minute: u64,
+    pub start_minute: StrategicMinute,
+    pub end_minute: StrategicMinute,
 }
 
 /// Return candidate coverage not already represented by existing spans.
@@ -694,9 +699,12 @@ pub const fn succeeds_daily_trial(day_entropy: u16, numerator: u16) -> bool {
 
 /// Count daily event boundaries crossed by an interval.  The event's state is
 /// keyed by that day, so callers can process each returned day exactly once.
-pub fn crossed_days(start_minute: u64, end_minute: u64) -> impl Iterator<Item = u64> {
-    let first = start_minute / MINUTES_PER_DAY;
-    let last = end_minute / MINUTES_PER_DAY;
+pub fn crossed_days(
+    start_minute: StrategicMinute,
+    end_minute: StrategicMinute,
+) -> impl Iterator<Item = u64> {
+    let first = start_minute.day_index();
+    let last = end_minute.day_index();
     (first + 1)..=last
 }
 
@@ -750,9 +758,12 @@ mod tests {
 
     #[test]
     fn day_boundaries_are_chunk_invariant() {
-        let whole: Vec<_> = crossed_days(20, 3 * MINUTES_PER_DAY + 20).collect();
-        let mut split = crossed_days(20, MINUTES_PER_DAY + 20).collect::<Vec<_>>();
-        split.extend(crossed_days(MINUTES_PER_DAY + 20, 3 * MINUTES_PER_DAY + 20));
+        let start = StrategicMinute::new(20);
+        let middle = StrategicMinute::new(MINUTES_PER_DAY + 20);
+        let end = StrategicMinute::new(3 * MINUTES_PER_DAY + 20);
+        let whole: Vec<_> = crossed_days(start, end).collect();
+        let mut split = crossed_days(start, middle).collect::<Vec<_>>();
+        split.extend(crossed_days(middle, end));
         assert_eq!(whole, split);
     }
 
@@ -787,14 +798,14 @@ mod tests {
 
     #[test]
     fn due_periods_are_chronological_and_chunk_invariant() {
-        let first = 100;
-        let through = first + 4 * HOUSING_BILLING_PERIOD_MINUTES + 12;
+        let first = StrategicMinute::new(100);
+        let through = first.saturating_add_minutes(4 * HOUSING_BILLING_PERIOD_MINUTES + 12);
         let whole: Vec<_> = due_periods(first, through).collect();
-        let checkpoint = first + 2 * HOUSING_BILLING_PERIOD_MINUTES - 1;
+        let checkpoint = first.saturating_add_minutes(2 * HOUSING_BILLING_PERIOD_MINUTES - 1);
         let mut chunks: Vec<_> = due_periods(first, checkpoint).collect();
-        let next = chunks
-            .last()
-            .map_or(first, |paid| paid + HOUSING_BILLING_PERIOD_MINUTES);
+        let next = chunks.last().map_or(first, |paid| {
+            paid.saturating_add_minutes(HOUSING_BILLING_PERIOD_MINUTES)
+        });
         chunks.extend(due_periods(next, through));
         assert_eq!(whole, chunks);
         assert_eq!(whole.len(), 5);
@@ -803,8 +814,8 @@ mod tests {
 
     #[test]
     fn due_plan_retains_partial_funds_and_stops_at_first_unpaid_period() {
-        let first = HOUSING_BILLING_PERIOD_MINUTES;
-        let through = 4 * HOUSING_BILLING_PERIOD_MINUTES;
+        let first = StrategicMinute::new(HOUSING_BILLING_PERIOD_MINUTES);
+        let through = StrategicMinute::new(4 * HOUSING_BILLING_PERIOD_MINUTES);
         let plan = plan_due_period_settlement(first, through, 25, 8);
         assert_eq!(
             plan,
@@ -813,13 +824,20 @@ mod tests {
                 periods_paid: 3,
                 amount_spent: 24,
                 funds_remaining: 1,
-                next_due_minute: 4 * HOUSING_BILLING_PERIOD_MINUTES,
-                first_unpaid_due_minute: Some(4 * HOUSING_BILLING_PERIOD_MINUTES),
+                next_due_minute: StrategicMinute::new(4 * HOUSING_BILLING_PERIOD_MINUTES),
+                first_unpaid_due_minute: Some(StrategicMinute::new(
+                    4 * HOUSING_BILLING_PERIOD_MINUTES
+                )),
             }
         );
 
         let whole = plan_due_period_settlement(first, through, 40, 8);
-        let early = plan_due_period_settlement(first, 2 * HOUSING_BILLING_PERIOD_MINUTES, 40, 8);
+        let early = plan_due_period_settlement(
+            first,
+            StrategicMinute::new(2 * HOUSING_BILLING_PERIOD_MINUTES),
+            40,
+            8,
+        );
         let late =
             plan_due_period_settlement(early.next_due_minute, through, early.funds_remaining, 8);
         assert_eq!(whole.periods_paid, early.periods_paid + late.periods_paid);
@@ -846,34 +864,40 @@ mod tests {
 
     #[test]
     fn refreshable_morale_caps_expires_and_has_a_stack_bound() {
+        let at = StrategicMinute::new(100);
         let residence = refresh_morale(
             RefreshableMorale::default(),
-            100,
+            at,
             RESIDENCE_MORALE_CAP_MILLI + 500,
             RESIDENCE_MORALE_SPEC,
         );
         let spouse = refresh_morale(
             RefreshableMorale::default(),
-            100,
+            at,
             SPOUSE_LEISURE_MORALE_CAP_MILLI + 500,
             SPOUSE_LEISURE_MORALE_SPEC,
         );
         assert_eq!(residence.milli_points, RESIDENCE_MORALE_CAP_MILLI);
         assert_eq!(spouse.milli_points, SPOUSE_LEISURE_MORALE_CAP_MILLI);
         assert_eq!(
-            bounded_leisure_morale_total(residence, spouse, 100),
+            bounded_leisure_morale_total(residence, spouse, at),
             LEISURE_MORALE_STACK_CAP_MILLI
         );
         assert_eq!(
             bounded_leisure_morale_total(
                 residence,
                 spouse,
-                100 + RESIDENCE_MORALE_DURATION_MINUTES
+                at.saturating_add_minutes(RESIDENCE_MORALE_DURATION_MINUTES)
             ),
             SPOUSE_LEISURE_MORALE_CAP_MILLI
         );
         assert_eq!(
-            refresh_morale(residence, 200, 0, RESIDENCE_MORALE_SPEC),
+            refresh_morale(
+                residence,
+                StrategicMinute::new(200),
+                0,
+                RESIDENCE_MORALE_SPEC
+            ),
             residence
         );
         assert_eq!(residence_leisure_bonus_milli(4_000, 11_000), 400);
@@ -887,28 +911,28 @@ mod tests {
         let residence_first = refresh_bounded_leisure_morale(
             RefreshableMorale::default(),
             RefreshableMorale::default(),
-            100,
+            at,
             8_000,
             RESIDENCE_MORALE_SPEC,
         );
         let spouse_second = refresh_bounded_leisure_morale(
             RefreshableMorale::default(),
             residence_first,
-            100,
+            at,
             12_000,
             SPOUSE_LEISURE_MORALE_SPEC,
         );
         let spouse_first = refresh_bounded_leisure_morale(
             RefreshableMorale::default(),
             RefreshableMorale::default(),
-            100,
+            at,
             12_000,
             SPOUSE_LEISURE_MORALE_SPEC,
         );
         let residence_second = refresh_bounded_leisure_morale(
             RefreshableMorale::default(),
             spouse_first,
-            100,
+            at,
             8_000,
             RESIDENCE_MORALE_SPEC,
         );
@@ -950,13 +974,13 @@ mod tests {
     #[test]
     fn joint_leisure_requires_overlap_and_identical_location() {
         let first = LeisureInterval {
-            start_minute: 100,
-            end_minute: 220,
+            start_minute: StrategicMinute::new(100),
+            end_minute: StrategicMinute::new(220),
             location_id: "town",
         };
         let overlapping = LeisureInterval {
-            start_minute: 160,
-            end_minute: 280,
+            start_minute: StrategicMinute::new(160),
+            end_minute: StrategicMinute::new(280),
             location_id: "town",
         };
         assert_eq!(joint_leisure_minutes(first, overlapping), 60);
@@ -974,8 +998,8 @@ mod tests {
             joint_leisure_minutes(
                 first,
                 LeisureInterval {
-                    start_minute: 220,
-                    end_minute: 300,
+                    start_minute: StrategicMinute::new(220),
+                    end_minute: StrategicMinute::new(300),
                     location_id: "town",
                 }
             ),
@@ -986,18 +1010,32 @@ mod tests {
     #[test]
     fn joint_leisure_checkpoint_accrual_telescopes() {
         let first = LeisureInterval {
-            start_minute: 10,
-            end_minute: 310,
+            start_minute: StrategicMinute::new(10),
+            end_minute: StrategicMinute::new(310),
             location_id: "town",
         };
         let second = LeisureInterval {
-            start_minute: 80,
-            end_minute: 260,
+            start_minute: StrategicMinute::new(80),
+            end_minute: StrategicMinute::new(260),
             location_id: "town",
         };
-        let whole = joint_leisure_minutes_in(first, second, 0, 400);
-        let chunked = joint_leisure_minutes_in(first, second, 0, 137)
-            + joint_leisure_minutes_in(first, second, 137, 400);
+        let whole = joint_leisure_minutes_in(
+            first,
+            second,
+            StrategicMinute::new(0),
+            StrategicMinute::new(400),
+        );
+        let chunked = joint_leisure_minutes_in(
+            first,
+            second,
+            StrategicMinute::new(0),
+            StrategicMinute::new(137),
+        ) + joint_leisure_minutes_in(
+            first,
+            second,
+            StrategicMinute::new(137),
+            StrategicMinute::new(400),
+        );
         assert_eq!(whole, 180);
         assert_eq!(whole, chunked);
     }
@@ -1005,33 +1043,33 @@ mod tests {
     #[test]
     fn retries_and_alternative_slices_only_return_uncovered_time() {
         let candidate = MinuteSpan {
-            start_minute: 100,
-            end_minute: 300,
+            start_minute: StrategicMinute::new(100),
+            end_minute: StrategicMinute::new(300),
         };
         let existing = [
             MinuteSpan {
-                start_minute: 180,
-                end_minute: 240,
+                start_minute: StrategicMinute::new(180),
+                end_minute: StrategicMinute::new(240),
             },
             MinuteSpan {
-                start_minute: 120,
-                end_minute: 200,
+                start_minute: StrategicMinute::new(120),
+                end_minute: StrategicMinute::new(200),
             },
             MinuteSpan {
-                start_minute: 120,
-                end_minute: 200,
+                start_minute: StrategicMinute::new(120),
+                end_minute: StrategicMinute::new(200),
             },
         ];
         assert_eq!(
             uncovered_minute_spans(candidate, existing),
             vec![
                 MinuteSpan {
-                    start_minute: 100,
-                    end_minute: 120,
+                    start_minute: StrategicMinute::new(100),
+                    end_minute: StrategicMinute::new(120),
                 },
                 MinuteSpan {
-                    start_minute: 240,
-                    end_minute: 300,
+                    start_minute: StrategicMinute::new(240),
+                    end_minute: StrategicMinute::new(300),
                 },
             ]
         );
@@ -1088,14 +1126,14 @@ mod tests {
             "anna",
             "beatrice",
             PregnancyOrdinal::new(3),
-            ChildBirthMinute::new(900),
+            StrategicMinute::new(900),
             "wittenberg",
         );
         let reversed = deterministic_child_seeds(
             "beatrice",
             "anna",
             PregnancyOrdinal::new(3),
-            ChildBirthMinute::new(900),
+            StrategicMinute::new(900),
             "wittenberg",
         );
         assert_eq!(first, reversed);
@@ -1107,7 +1145,7 @@ mod tests {
                 "anna",
                 "beatrice",
                 PregnancyOrdinal::new(4),
-                ChildBirthMinute::new(900),
+                StrategicMinute::new(900),
                 "wittenberg",
             )
         );

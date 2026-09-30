@@ -13,9 +13,11 @@ fn birth_uses_reserved_identity_and_constructs_age_zero() {
     assert!(birth.contains("age_years: 0"));
     assert!(birth.contains("record_character_birth"));
     assert!(birth.contains("household_id_at(ctx, mother.id, pregnancy.due_minute)"));
-    assert!(birth.contains("occupant_holding_id_at("));
-    assert!(birth.contains("holding_active_at("));
-    assert!(birth.contains("move_residence_occupant_effective"));
+    assert!(birth.contains("attach_newborn_residence("));
+    let housing = crate::production_source(include_str!("../newborn_residence.rs"));
+    assert!(housing.contains("occupant_holding_id_at("));
+    assert!(housing.contains("holding_active_at("));
+    assert!(housing.contains("move_residence_occupant_effective"));
     assert!(!birth.contains("pregnancy.birth_residence_holding_id"));
     assert!(!birth.contains("child.age_years = 0"));
     assert!(birth.contains("active_pregnancy()"));
@@ -31,7 +33,7 @@ fn birth_uses_reserved_identity_and_constructs_age_zero() {
         .unwrap();
     assert!(newborn.contains("character_hereditary_surname(ctx, father_id)"));
     assert!(newborn.contains("character_hereditary_surname(ctx, mother_id)"));
-    assert!(newborn.contains("world_year_at(due_minute)"));
+    assert!(newborn.contains("due_minute.calendar_year()"));
     let sex_assignment = newborn.find("personality.sex =").unwrap();
     let naming = newborn.find("assign_generated_historical_name").unwrap();
     assert!(sex_assignment < naming);

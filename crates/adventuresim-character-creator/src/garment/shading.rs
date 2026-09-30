@@ -9,6 +9,27 @@ impl DrapedGarment {
     }
 }
 
+impl DrapedGarment {
+    pub(super) fn from_pattern(
+        selection: &GarmentSelection,
+        mesh: &fabelgeist_cloth::GarmentMesh,
+    ) -> Self {
+        DrapedGarment {
+            form: selection.form(),
+            fabric: selection.fabric,
+            // Pattern metres; surfaces scale them to their own texture repeat.
+            texcoords: mesh.material.iter().map(|p| [p.x, p.y]).collect(),
+            name: format!("{} · {}", selection.name, selection.fabric.label()),
+            positions: Vec::new(),
+            normals: Vec::new(),
+            faces: mesh.triangles.clone(),
+            indices: Vec::new(),
+            weights: Vec::new(),
+            stage: DrapeStage::Placed,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -45,26 +66,5 @@ mod tests {
                 .iter()
                 .all(|&n| (vector(n).length() - 1.0).abs() < 1e-6)
         );
-    }
-}
-
-impl DrapedGarment {
-    pub(super) fn from_pattern(
-        selection: &GarmentSelection,
-        mesh: &fabelgeist_cloth::GarmentMesh,
-    ) -> Self {
-        DrapedGarment {
-            form: selection.form(),
-            fabric: selection.fabric,
-            // Pattern metres; surfaces scale them to their own texture repeat.
-            texcoords: mesh.material.iter().map(|p| [p.x, p.y]).collect(),
-            name: format!("{} · {}", selection.name, selection.fabric.label()),
-            positions: Vec::new(),
-            normals: Vec::new(),
-            faces: mesh.triangles.clone(),
-            indices: Vec::new(),
-            weights: Vec::new(),
-            stage: DrapeStage::Placed,
-        }
     }
 }

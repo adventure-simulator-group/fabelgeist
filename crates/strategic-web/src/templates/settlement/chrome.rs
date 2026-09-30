@@ -5,7 +5,8 @@ pub(crate) use portraits::{
 
 use std::collections::BTreeSet;
 
-use adventuresim_core::strategic_time::DAYS_PER_YEAR;
+use adventuresim_world_schema::calendar::DAYS_PER_YEAR;
+use adventuresim_world_schema::calendar::StrategicMinute;
 use maud::{Markup, html};
 
 use super::social::{npc_description_stage, npc_portrait_strip, settlement_resident_chat_area};
@@ -471,7 +472,7 @@ fn residence_offer_panel(
                         @let owns_holding = holding.owner_character_id == active_character_id;
                         @let tier = residence_tier_label(holding.tier);
                         @let tenure = match holding.tenure { ResidenceTenure::Renter => "Rental", ResidenceTenure::Owner => "Owned property" };
-                        @let payment_label = if holding.active { format!("Next payment {}", format_residence_date(holding.next_due_minute)) } else { format!("Payment overdue since {}", format_residence_date(holding.next_due_minute)) };
+                        @let payment_label = if holding.active { format!("Next payment {}", format_residence_date(StrategicMinute::new(holding.next_due_minute.minutes))) } else { format!("Payment overdue since {}", format_residence_date(StrategicMinute::new(holding.next_due_minute.minutes))) };
                         article class="residence-holding" data-holding-id=(&holding.holding_id) {
                             div class="residence-holding-heading" {
                                 (decorative_game_icon("house"))
@@ -620,13 +621,9 @@ fn format_morale_percent(basis_points: u16) -> String {
     }
 }
 
-fn format_residence_date(minute: u64) -> String {
-    let day = minute / adventuresim_core::strategic_time::MINUTES_PER_DAY;
-    format!(
-        "year {}, day {}",
-        adventuresim_core::strategic_time::world_year_at(minute),
-        day % DAYS_PER_YEAR + 1
-    )
+fn format_residence_date(minute: StrategicMinute) -> String {
+    let year = minute.calendar_year();
+    format!("year {year}, day {}", minute.day_of_year())
 }
 
 fn settlement_alias_labels(
@@ -1124,9 +1121,9 @@ mod tests {
                 active: true,
                 primary: true,
                 occupied: true,
-                acquired_minute: 0,
-                last_billed_minute: 0,
-                next_due_minute: 43_200,
+                acquired_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                last_billed_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                next_due_minute: adventuresim_stdb_client::StrategicMinute { minutes: 43_200 },
             },
             BackendCharacterResidenceStatus {
                 character_id: 1,
@@ -1138,9 +1135,9 @@ mod tests {
                 active: false,
                 primary: false,
                 occupied: false,
-                acquired_minute: 0,
-                last_billed_minute: 0,
-                next_due_minute: 43_200,
+                acquired_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                last_billed_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                next_due_minute: adventuresim_stdb_client::StrategicMinute { minutes: 43_200 },
             },
             BackendCharacterResidenceStatus {
                 character_id: 1,
@@ -1152,9 +1149,9 @@ mod tests {
                 active: true,
                 primary: false,
                 occupied: true,
-                acquired_minute: 0,
-                last_billed_minute: 0,
-                next_due_minute: 43_200,
+                acquired_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                last_billed_minute: adventuresim_stdb_client::StrategicMinute { minutes: 0 },
+                next_due_minute: adventuresim_stdb_client::StrategicMinute { minutes: 43_200 },
             },
         ];
         let markup = residence_offer_panel(

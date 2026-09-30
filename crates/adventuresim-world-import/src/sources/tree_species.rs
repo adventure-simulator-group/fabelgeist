@@ -959,7 +959,7 @@ mod tests {
         let archive = std::env::var_os("EU_TREES4F_ARCHIVE").expect("set EU_TREES4F_ARCHIVE");
         let mut raw = crate::sources::viabundus::compile(
             Path::new(&viabundus),
-            1544,
+            adventuresim_world_schema::calendar::WORLD_START_YEAR,
             adventuresim_world_schema::SpatialGridSpec::default(),
             None,
         )

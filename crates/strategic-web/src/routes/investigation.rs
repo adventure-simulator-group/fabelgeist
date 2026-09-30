@@ -79,8 +79,18 @@ async fn journal_response(
     );
     match (entries, leads, cases, deductions) {
         (Ok(mut entries), Ok(mut leads), Ok(cases), Ok(deductions)) => {
-            entries.sort_by_key(|row| (row.case_id.clone(), row.recorded_at));
-            leads.sort_by_key(|row| (row.case_id.clone(), row.recorded_at));
+            entries.sort_by_key(|row| {
+                (
+                    row.case_id.clone(),
+                    crate::spacetimedb::calendar_minute(&row.recorded_at),
+                )
+            });
+            leads.sort_by_key(|row| {
+                (
+                    row.case_id.clone(),
+                    crate::spacetimedb::calendar_minute(&row.recorded_at),
+                )
+            });
             (
                 status,
                 Html(

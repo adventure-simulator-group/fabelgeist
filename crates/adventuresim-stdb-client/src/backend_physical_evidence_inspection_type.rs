@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::strategic_minute_type::StrategicMinute;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct BackendPhysicalEvidenceInspection {
@@ -14,7 +16,7 @@ pub struct BackendPhysicalEvidenceInspection {
     pub stat_label: String,
     pub passed: bool,
     pub narration: String,
-    pub attempted_at: u64,
+    pub attempted_at: StrategicMinute,
 }
 
 impl __sdk::InModule for BackendPhysicalEvidenceInspection {
@@ -32,7 +34,8 @@ pub struct BackendPhysicalEvidenceInspectionCols {
     pub stat_label: __sdk::__query_builder::Col<BackendPhysicalEvidenceInspection, String>,
     pub passed: __sdk::__query_builder::Col<BackendPhysicalEvidenceInspection, bool>,
     pub narration: __sdk::__query_builder::Col<BackendPhysicalEvidenceInspection, String>,
-    pub attempted_at: __sdk::__query_builder::Col<BackendPhysicalEvidenceInspection, u64>,
+    pub attempted_at:
+        __sdk::__query_builder::Col<BackendPhysicalEvidenceInspection, StrategicMinute>,
 }
 
 impl __sdk::__query_builder::HasCols for BackendPhysicalEvidenceInspection {

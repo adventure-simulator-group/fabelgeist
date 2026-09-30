@@ -1,9 +1,14 @@
 //! Authoritative bounded herbal preparation.
 
+mod ingredient;
+use ingredient::consume_tincture_ingredient;
+
 use adventuresim_core::{
     food::FoodPreparation,
+    physiology::DoseMilliunits,
     prelude::{PlayerSkills, Skill, apply_direct_training},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
 
 use crate::{
@@ -12,6 +17,7 @@ use crate::{
     inventory_object,
     item::item,
     strategic::strategic_gateway_authority__view,
+    time::refresh_clock,
 };
 
 const POPPY_PROFILE_ID: &str = "poppy_tincture";
@@ -25,10 +31,10 @@ pub struct TinctureProcess {
     #[primary_key]
     pub container_object_id: u64,
     /// Shared chronology keeps elapsed maturation invariant across custody transfers.
-    pub started_at_world_minute: u64,
-    #[index(btree)]
-    pub ready_at_world_minute: u64,
+    pub started_at_world_minute: StrategicMinute,
+    pub ready_at_world_minute: StrategicMinute,
     pub matured: bool,
+    #[index(btree)]
     pub preparer_character_id: u64,
     pub intervention_profile_id: String,
     pub profile_version: u16,
@@ -43,7 +49,7 @@ pub struct TinctureProcess {
 #[derive(Clone, Debug, SpacetimeType)]
 pub struct BackendTinctureStatus {
     pub container_object_id: u64,
-    pub ready_at_world_minute: u64,
+    pub ready_at_world_minute: StrategicMinute,
     pub matured: bool,
 }
 
@@ -58,9 +64,10 @@ pub fn backend_tincture_statuses(ctx: &ViewContext) -> Vec<BackendTinctureStatus
     {
         return Vec::new();
     }
+    // Views require an indexed scan; preparer IDs enumerate all processes.
     ctx.db
         .tincture_process()
-        .ready_at_world_minute()
+        .preparer_character_id()
         .filter(0u64..)
         .map(|row| BackendTinctureStatus {
             container_object_id: row.container_object_id,
@@ -128,7 +135,7 @@ pub(crate) fn delete_container_medicine(ctx: &ReducerContext, object_id: u64) {
     }
 }
 
-fn materialize_mature_tincture(ctx: &ReducerContext, object_id: u64, now: u64) {
+fn materialize_mature_tincture(ctx: &ReducerContext, object_id: u64, now: StrategicMinute) {
     let Some(mut process) = ctx
         .db
         .tincture_process()
@@ -196,9 +203,8 @@ pub(crate) fn consume_food_medicine(
     }
     for mut row in rows {
         let used = row.potency_units * fraction;
-        let dose =
-            adventuresim_core::physiology::DoseMilliunits::try_from_standard_doses_rounded(used)
-                .map_err(|_| "Medicinal food dose is outside the supported range")?;
+        let dose = DoseMilliunits::try_from_standard_doses_rounded(used)
+            .map_err(|_| "Medicinal food dose is outside the supported range")?;
         crate::disease::administer_intervention_component(
             ctx,
             patient_id,
@@ -435,20 +441,10 @@ pub fn start_poppy_tincture(
     }
     let now = crate::time::refresh_clock(ctx)?;
     let ready = now
-        .checked_add(adventuresim_core::herbalism::POPPY_TINCTURE_MATURATION_MINUTES)
+        .checked_add_minutes(adventuresim_core::herbalism::POPPY_TINCTURE_MATURATION_MINUTES)
         .ok_or("Tincture completion time overflow")?;
     // Commit boundary: consume the exact measured ingredient and its stable object.
-    crate::food::delete_personal_food_lot(ctx, inventory.id);
-    ctx.db
-        .inventory_item_amount()
-        .inventory_item_id()
-        .delete(inventory.id);
-    ctx.db
-        .inventory_containment()
-        .child_object_id()
-        .delete(ingredient.id);
-    ctx.db.inventory_object().id().delete(ingredient.id);
-    ctx.db.inventory_item().id().delete(inventory.id);
+    consume_tincture_ingredient(ctx, inventory.id, ingredient.id);
     let gain = apply_direct_training(
         Skill::Herbalism,
         &mut skills.herbalism_hours,
@@ -496,7 +492,7 @@ pub fn refresh_tincture(
         .find(character_id)
         .ok_or("Character not found")?;
     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
-    materialize_mature_tincture(ctx, object_id, crate::time::refresh_clock(ctx)?);
+    materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
     Ok(())
 }
 
@@ -510,11 +506,9 @@ pub fn administer_tincture_from_container(
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
     crate::disease::require_intervention_relationship(ctx, actor_id, patient_id)?;
-    let tincture_dose = adventuresim_core::physiology::DoseMilliunits::try_new(dose_milliunits)
+    let tincture_dose = DoseMilliunits::try_new(dose_milliunits)
         .map_err(|_| "Tincture dose must be between 1 and 1000 milliunits")?;
-    if tincture_dose.is_zero()
-        || tincture_dose > adventuresim_core::physiology::DoseMilliunits::STANDARD
-    {
+    if tincture_dose.is_zero() || tincture_dose > DoseMilliunits::STANDARD {
         return Err("Tincture dose must be between 1 and 1000 milliunits".into());
     }
     let object = require_tincture_vessel(ctx, object_id)?;
@@ -525,7 +519,7 @@ pub fn administer_tincture_from_container(
         .find(actor_id)
         .ok_or("Character not found")?;
     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
-    materialize_mature_tincture(ctx, object_id, crate::time::refresh_clock(ctx)?);
+    materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
     let process = ctx
         .db
         .tincture_process()
@@ -544,13 +538,10 @@ pub fn administer_tincture_from_container(
         .ok_or("Mature tincture has no medicinal component")?;
     let fraction = tincture_dose.as_standard_doses();
     let standard_doses = component.potency_units * fraction;
-    let mut administered_dose =
-        adventuresim_core::physiology::DoseMilliunits::try_from_standard_doses_rounded(
-            standard_doses,
-        )
+    let mut administered_dose = DoseMilliunits::try_from_standard_doses_rounded(standard_doses)
         .map_err(|_| "Tincture potency is outside the supported dose range")?;
     if administered_dose.is_zero() {
-        administered_dose = adventuresim_core::physiology::DoseMilliunits::MINIMUM_NONZERO;
+        administered_dose = DoseMilliunits::MINIMUM_NONZERO;
     }
     crate::disease::administer_intervention_component(
         ctx,
@@ -590,7 +581,11 @@ pub fn administer_tincture_from_container(
 mod tests {
     #[test]
     fn tincture_lifecycle_is_private_pinned_consuming_and_transfer_safe() {
-        let source = crate::production_source(include_str!("herbalism.rs"));
+        let source = format!(
+            "{}{}",
+            crate::production_source(include_str!("herbalism.rs")),
+            crate::production_source(include_str!("herbalism/ingredient.rs")),
+        );
         assert!(source.contains("started_at_world_minute"));
         assert!(source.contains("pinned_potency_units"));
         assert!(source.contains("ingredient_object_id"));

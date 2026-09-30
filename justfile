@@ -746,8 +746,10 @@ fmt-check:
     @cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
 
 lint: verify-db-client
+    @{{ python_bin }} -B -m unittest scripts.test_check_calendar_api
     @{{ python_bin }} -B -m unittest scripts.test_check_deterministic_rng
     @{{ python_bin }} scripts/check_deterministic_rng.py
+    @{{ python_bin }} scripts/check_calendar_api.py
     @cargo run --package fabelgeist-rust-quality -- check .
     @cargo clippy --package adventuresim-tactical-client --lib --target wasm32-unknown-unknown -- -D warnings
     @cargo clippy --workspace --all-targets --all-features -- -D warnings

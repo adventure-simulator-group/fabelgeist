@@ -6,7 +6,7 @@
 pub(crate) fn advance_stationary_character_to(
     ctx: &ReducerContext,
     character_id: u64,
-    target_minutes: u64,
+    target_minutes: StrategicMinute,
 ) -> Result<(), String> {
     ensure_character_time(ctx, character_id)?;
     let character = ctx
@@ -26,17 +26,18 @@ pub(crate) fn advance_stationary_character_to(
         .character_id()
         .find(character_id)
         .ok_or_else(|| "Character time record not found".to_string())?;
-    if target_minutes < character_time.minutes {
+    let starting_minute = character_time.minutes;
+    if target_minutes < starting_minute {
         return Err("Character time cannot be advanced retroactively".into());
     }
-    let requested_elapsed = target_minutes.saturating_sub(character_time.minutes);
+    let requested_elapsed = target_minutes.elapsed_since(starting_minute);
     if requested_elapsed == 0 {
         return Ok(());
     }
     if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
         ctx,
         character_id,
-        character_time.minutes,
+        starting_minute,
         target_minutes,
     ) {
         let was_npc_controlled = ctx
@@ -64,7 +65,6 @@ pub(crate) fn advance_stationary_character_to(
         }
         return advance_stationary_character_to(ctx, character_id, target_minutes);
     }
-    let starting_minute = character_time.minutes;
     let saved_schedule = ctx
         .db
         .character_training_schedule()
@@ -106,7 +106,7 @@ pub(crate) fn advance_stationary_character_to(
         InjuryRecoveryMinutes::new(elapsed),
     )?;
     let elapsed = settled.elapsed;
-    character_time.minutes = character_time.minutes.saturating_add(elapsed);
+    character_time.minutes = starting_minute.saturating_add_minutes(elapsed);
     ctx.db
         .character_time()
         .character_id()
@@ -130,7 +130,7 @@ pub(crate) fn advance_stationary_character_to(
     settle_lifecycle_after_character_time_write(
         ctx,
         character_id,
-        starting_minute.saturating_add(elapsed),
+        starting_minute.saturating_add_minutes(elapsed),
     )?;
     if terminal.is_some() || !settled.alive {
         crate::organization::settle_membership_dues(ctx, character_id)?;
@@ -143,7 +143,7 @@ pub(crate) fn advance_stationary_character_to(
             ctx,
             character_id,
             effective_schedule.socializing_minutes,
-            target_minutes.saturating_sub(training_elapsed),
+            target_minutes.saturating_sub_minutes(training_elapsed),
             target_minutes,
         )?;
     }

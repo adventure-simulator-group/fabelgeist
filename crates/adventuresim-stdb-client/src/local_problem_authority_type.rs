@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::encounter_archetype_type::EncounterArchetype;
+use super::strategic_minute_type::StrategicMinute;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -21,14 +22,14 @@ pub struct LocalProblemAuthority {
     pub encounter_archetype: Option<EncounterArchetype>,
     pub disease_intensity: u16,
     pub disease_id: String,
-    pub starts_at: u64,
-    pub ends_at: u64,
+    pub starts_at: StrategicMinute,
+    pub ends_at: StrategicMinute,
     pub mitigation_bps: u16,
     pub incident_count: u16,
     pub recurring_hostile: bool,
     pub public_awareness_bps: u16,
-    pub public_since_minute: Option<u64>,
-    pub resolved_at: Option<u64>,
+    pub public_since_minute: Option<StrategicMinute>,
+    pub resolved_at: Option<StrategicMinute>,
     pub opaque_case_ref: String,
 }
 
@@ -53,14 +54,15 @@ pub struct LocalProblemAuthorityCols {
         __sdk::__query_builder::Col<LocalProblemAuthority, Option<EncounterArchetype>>,
     pub disease_intensity: __sdk::__query_builder::Col<LocalProblemAuthority, u16>,
     pub disease_id: __sdk::__query_builder::Col<LocalProblemAuthority, String>,
-    pub starts_at: __sdk::__query_builder::Col<LocalProblemAuthority, u64>,
-    pub ends_at: __sdk::__query_builder::Col<LocalProblemAuthority, u64>,
+    pub starts_at: __sdk::__query_builder::Col<LocalProblemAuthority, StrategicMinute>,
+    pub ends_at: __sdk::__query_builder::Col<LocalProblemAuthority, StrategicMinute>,
     pub mitigation_bps: __sdk::__query_builder::Col<LocalProblemAuthority, u16>,
     pub incident_count: __sdk::__query_builder::Col<LocalProblemAuthority, u16>,
     pub recurring_hostile: __sdk::__query_builder::Col<LocalProblemAuthority, bool>,
     pub public_awareness_bps: __sdk::__query_builder::Col<LocalProblemAuthority, u16>,
-    pub public_since_minute: __sdk::__query_builder::Col<LocalProblemAuthority, Option<u64>>,
-    pub resolved_at: __sdk::__query_builder::Col<LocalProblemAuthority, Option<u64>>,
+    pub public_since_minute:
+        __sdk::__query_builder::Col<LocalProblemAuthority, Option<StrategicMinute>>,
+    pub resolved_at: __sdk::__query_builder::Col<LocalProblemAuthority, Option<StrategicMinute>>,
     pub opaque_case_ref: __sdk::__query_builder::Col<LocalProblemAuthority, String>,
 }
 

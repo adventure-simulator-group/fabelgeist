@@ -48,8 +48,8 @@ pub(crate) struct ValidatedQuestGenerationAuthority {
 const QUEST_GENERATION_CONTEXT_COMMITMENT_VERSION: u16 = 1;
 
 pub(crate) fn quest_generation_context_commitment(context_json: &str) -> Result<String, String> {
-    let value: serde_json::Value = serde_json::from_str(context_json)
-        .map_err(|_| "Quest generation context is invalid")?;
+    let value: serde_json::Value =
+        serde_json::from_str(context_json).map_err(|_| "Quest generation context is invalid")?;
     let canonical_json = serde_json::to_vec(&value)
         .map_err(|_| "Could not encode canonical quest generation context")?;
     let mut hasher = Sha256::new();
@@ -160,8 +160,8 @@ pub struct ContractAuthority {
     pub accepted_by: Option<String>,
     pub opposition_wording: String,
     pub opposition_count_wording: String,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
 }
 
 impl ContractAuthority {
@@ -212,8 +212,8 @@ pub struct BackendContract {
     /// autoresolve will construct: authored profile, base difficulty, incident
     /// scale, equipment, training, and current enemy count.
     pub opposition_combat_power: u64,
-    pub accepted_at_minute: Option<u64>,
-    pub paid_at_minute: Option<u64>,
+    pub accepted_at_minute: Option<StrategicMinute>,
+    pub paid_at_minute: Option<StrategicMinute>,
     /// Conservative public one-way preflight distance: the greatest distance
     /// among this contract's possible case destinations. Site identity stays
     /// private until ordinary exact disclosure.
@@ -270,10 +270,7 @@ pub fn backend_contracts(ctx: &ViewContext) -> Vec<BackendContract> {
                 })
                 .try_fold((0u32, 0u64), |(count, total), group| {
                     let (group_count, power) = group?;
-                    Some((
-                        count.checked_add(group_count)?,
-                        total.checked_add(power)?,
-                    ))
+                    Some((count.checked_add(group_count)?, total.checked_add(power)?))
                 })?;
             Some(BackendContract {
                 id: row.id,
@@ -308,7 +305,7 @@ pub struct CaseOutcome {
     pub party_id: String,
     pub status: CaseStatus,
     pub winning_path_index: Option<u16>,
-    pub resolved_at_minute: u64,
+    pub resolved_at_minute: StrategicMinute,
     pub selected_finale_id: String,
     pub finale_executed: bool,
 }
@@ -325,7 +322,7 @@ pub struct CaseOutcomeFact {
     #[unique]
     pub source_id: String,
     pub fact_json: String,
-    pub happened_at_minute: u64,
+    pub happened_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -364,9 +361,9 @@ pub struct ObjectiveContinuityGuard {
     pub site_id: String,
     pub subject_id: String,
     pub custody_version: Option<u32>,
-    pub started_at_minute: u64,
-    pub through_minute: u64,
-    pub broken_at_minute: Option<u64>,
+    pub started_at_minute: StrategicMinute,
+    pub through_minute: StrategicMinute,
+    pub broken_at_minute: Option<StrategicMinute>,
     pub completed: bool,
 }
 
@@ -393,7 +390,7 @@ pub struct CaseFinaleExecution {
     pub source_id: String,
     pub case_id: String,
     pub party_id: String,
-    pub executed_at_minute: u64,
+    pub executed_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
@@ -421,7 +418,7 @@ pub struct ContractIssuerInteractionReceipt {
     pub stage: ContractInteractionStage,
     pub issuer_resident_character_id: u64,
     pub interacting_character_id: u64,
-    pub interacted_at_minute: u64,
+    pub interacted_at_minute: StrategicMinute,
     pub dialogue_session_id: String,
     pub dialogue_action_id: String,
     pub dialogue_revision: u64,
@@ -479,7 +476,7 @@ pub struct StrategicIncident {
     pub case_site_id: CaseSiteId,
     #[unique]
     pub hostile_group_id: String,
-    pub created_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
 }
 
 /// Private server entropy persisted for one activity interval. The public
@@ -531,8 +528,8 @@ pub struct RecruitmentOffer {
     pub location_id: String,
     pub leader_id: u64,
     pub status: RecruitmentOfferStatus,
-    pub created_at_minute: u64,
-    pub expires_at_minute: u64,
+    pub created_at_minute: StrategicMinute,
+    pub expires_at_minute: StrategicMinute,
 }
 
 #[derive(Clone, Debug)]
@@ -564,7 +561,7 @@ pub struct Party {
     pub journey_start_minute_of_day: u16,
     /// Canonical instant at which the current wilderness excursion began.
     /// Its calendar date and lunar phase remain fixed until settlement return.
-    pub wilderness_canonical_anchor_minute: Option<u64>,
+    pub wilderness_canonical_anchor_minute: Option<StrategicMinute>,
     /// Total subjective party time since the current wilderness excursion
     /// began. This survives individual legs, camps, redirects, and case sites.
     pub wilderness_elapsed_minutes: u64,
@@ -663,7 +660,7 @@ pub struct PartyJourney {
     /// Journey-local minute at the beginning of this leg, represented on the
     /// excursion's frozen canonical day. `completed_elapsed_minutes` remains
     /// the monotonic progress coordinate for this leg.
-    pub departure_minute: u64,
+    pub departure_minute: StrategicMinute,
     pub total_elapsed_minutes: u64,
     pub completed_elapsed_minutes: u64,
     pub walking_minutes_per_day: u16,
@@ -711,7 +708,7 @@ pub struct StrategicEncounter {
     pub roll_index: u64,
     pub journey_movement_minute: u64,
     pub journey_elapsed_minute: u64,
-    pub absolute_minute: u64,
+    pub absolute_minute: StrategicMinute,
     pub longitude_e7: i32,
     pub latitude_e7: i32,
     pub terrain: String,
@@ -814,7 +811,7 @@ pub struct JourneyRouteLeg {
 pub struct JourneyRoutePlan {
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
+    pub weather_interval_start: StrategicMinute,
     pub precipitation: JourneyPrecipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,
@@ -842,7 +839,7 @@ pub struct PartyJourneyRoute {
     pub gateway_bucket: u8,
     pub package_digest: String,
     pub weather_rules_version: u16,
-    pub weather_interval_start: u64,
+    pub weather_interval_start: StrategicMinute,
     pub precipitation: JourneyPrecipitation,
     pub intensity_bps: u16,
     pub ground_moisture_bps: u16,

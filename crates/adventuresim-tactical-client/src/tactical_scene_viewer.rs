@@ -820,7 +820,8 @@ pub(crate) fn run(
         environment.canopy_bps = canopy_bps;
     }
     if let Some(absolute_minute) = absolute_minute {
-        environment.absolute_minute = absolute_minute;
+        environment.absolute_minute =
+            adventuresim_world_schema::calendar::StrategicMinute::new(absolute_minute);
     }
     let output = output.map_or_else(
         || default_output(&repository_root, &fixture, &generated.digest),
@@ -1542,7 +1543,11 @@ mod capture_lighting_tests {
 
     #[test]
     fn named_moonlit_minute_has_risen_illuminated_moon_and_dark_sky() {
-        let sky = capture_celestial(359_940, 53_500_000, 10_000_000);
+        let sky = capture_celestial(
+            adventuresim_world_schema::calendar::StrategicMinute::new(359_940),
+            53_500_000,
+            10_000_000,
+        );
         assert!(sky.sun_altitude_degrees < -12.0);
         assert!(sky.moon_altitude_degrees > 20.0);
         assert!(sky.lunar_illumination > 0.9);
@@ -4632,7 +4637,7 @@ fn build_manifest(
         source_input: state.input_path.display().to_string(),
         scene_digest: state.digest.clone(),
         seed: state.seed,
-        absolute_minute: state.absolute_minute,
+        absolute_minute: state.absolute_minute.get(),
         canopy_bps: state.canopy_bps,
         generation_version: state.generation_version,
         scene_source: state.scene_source.clone(),
@@ -4688,7 +4693,7 @@ fn capture_revision() -> String {
 }
 
 fn capture_celestial(
-    absolute_minute: u64,
+    absolute_minute: adventuresim_world_schema::calendar::StrategicMinute,
     latitude_microdegrees: i32,
     longitude_microdegrees: i32,
 ) -> CelestialProvenance {

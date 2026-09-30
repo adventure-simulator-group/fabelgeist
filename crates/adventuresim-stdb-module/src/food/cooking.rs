@@ -655,7 +655,7 @@ pub fn retrieve_fireplace_dish(
         return Err("Dish selector conflicts with its fireplace container".into());
     }
     let minute = current_minute(ctx, character_id);
-    let elapsed = minute.saturating_sub(dish.started_at_minute);
+    let elapsed = minute.elapsed_since(dish.started_at_minute);
     let doneness = food::method_doneness_outcome(dish.method, elapsed, dish.target_minutes);
     let quality = dish
         .ready_quality

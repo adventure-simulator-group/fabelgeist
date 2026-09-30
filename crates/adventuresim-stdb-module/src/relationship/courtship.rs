@@ -56,7 +56,7 @@ fn validate_canonical_courtship_pair(
     ctx: &ReducerContext,
     suitor_id: u64,
     partner_id: u64,
-) -> Result<u64, CourtshipPairError> {
+) -> Result<StrategicMinute, CourtshipPairError> {
     if suitor_id == partner_id {
         return Err("A character cannot court themself".into());
     }
@@ -158,7 +158,7 @@ fn establish_courtship(
     partner_id: u64,
     kind: CourtshipKind,
     secrecy_reason: Option<CourtshipSecrecyReason>,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), CourtshipPairError> {
     let (first_character_id, second_character_id) = canonical_pair(suitor_id, partner_id);
     let id = format!("courtship:{first_character_id}:{second_character_id}");
@@ -216,7 +216,7 @@ fn establish_courtship(
         planned_dowry_amount,
         weaker_deception_baseline,
         started_minute: minute,
-        next_discovery_day: minute / MINUTES_PER_DAY,
+        next_discovery_day: minute.day_index(),
         resolved_minute: None,
         terminal_reason: None,
     });
@@ -665,7 +665,7 @@ pub fn cancel_wedding(
 pub fn expire_wedding_reservation(
     ctx: &ReducerContext,
     commitment_id: &str,
-    minute: u64,
+    minute: StrategicMinute,
 ) -> Result<(), String> {
     let commitment = ctx
         .db
