@@ -154,6 +154,7 @@ fn distant_garden_in_stitching_band_retains_its_accepted_pose_on_sloped_playable
     let mut input = boundary_fixture(Vec2::new(0.0, 70.0));
     let owner = input.buildings.remove(0);
     input.distant_buildings.push(DistantBuildingPlacement {
+        prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
         id: owner.id,
         archetype: owner.program.archetype,
         usage: owner.program.usage,

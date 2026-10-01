@@ -5,6 +5,9 @@ use crate::{BuildingPlan, OpeningUse, Stair};
 use bevy::math::Vec2;
 use std::collections::{BTreeMap, VecDeque};
 
+mod occupancy;
+pub(super) use occupancy::Occupancy;
+
 pub(super) struct Navigation {
     pub floors: Vec<Floor>,
     pub nodes: Vec<InteriorWaypoint>,
@@ -292,51 +295,9 @@ impl Navigation {
             .find(|&index| !self.edges[index].is_empty())
     }
     pub fn flood(&self, placements: &[InteriorPlacement]) -> Flood {
-        let blocked = self
-            .nodes
-            .iter()
-            .map(|n| {
-                placements.iter().any(|p| {
-                    p.storey == n.storey
-                        && p.footprint()
-                            .expanded(PERSON_RADIUS)
-                            .contains(n.position_metres)
-                })
-            })
-            .collect::<Vec<_>>();
-        let mut parents = vec![None; self.nodes.len()];
-        let mut queue = VecDeque::new();
-        if !blocked[self.entry] {
-            parents[self.entry] = Some(self.entry);
-            queue.push_back(self.entry);
-        }
-        while let Some(index) = queue.pop_front() {
-            for &next in &self.edges[index] {
-                if blocked[next] || parents[next].is_some() {
-                    continue;
-                }
-                let a = self.nodes[index];
-                let b = self.nodes[next];
-                let swept = Rect::new(
-                    (a.position_metres + b.position_metres) * 0.5,
-                    (a.position_metres - b.position_metres).abs() * 0.5
-                        + Vec2::splat(PERSON_RADIUS),
-                );
-                if a.storey == b.storey
-                    && placements
-                        .iter()
-                        .any(|p| p.storey == a.storey && p.footprint().overlaps(swept))
-                {
-                    continue;
-                }
-                parents[next] = Some(index);
-                queue.push_back(next);
-            }
-        }
-        Flood {
-            parents,
-            entry: self.entry,
-        }
+        let mut occupancy = Occupancy::new(self);
+        occupancy.add(placements);
+        occupancy.flood()
     }
     pub fn verify_rooms(&self, flood: &Flood) -> Result<(), InteriorLayoutError> {
         for (storey, room_id, nodes) in &self.room_nodes {

@@ -177,19 +177,17 @@ impl CityBuildingAssets<'_> {
         establishment: Option<&SceneEstablishment>,
         detail: BuildingDetail,
     ) -> Result<bool> {
-        let compiled = cached_building_levels(
-            &mut self.cache,
-            &placement.program(),
-            detail,
-            &mut self.meshes,
-            None,
-        )?;
+        let program = placement.exterior_program();
+        let scale = placement.exterior_scale(&program);
+        let compiled =
+            cached_building_levels(&mut self.cache, &program, detail, &mut self.meshes, None)?;
         let transform = Transform::from_xyz(
             placement.centre_metres.x,
-            placement.base_elevation_metres + compiled.floor_offset_metres,
+            placement.base_elevation_metres + compiled.floor_offset_metres * scale,
             placement.centre_metres.y,
         )
-        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
+        .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()))
+        .with_scale(Vec3::splat(scale));
         let mut entity = commands.spawn((
             Name::new(format!("Distant city building {}", placement.id)),
             DistantCityBuildingPresentation,
@@ -197,7 +195,7 @@ impl CityBuildingAssets<'_> {
             transform,
         ));
         self.gpu
-            .push(entity.id(), &transform, placement.id, &compiled);
+            .push(entity.id(), &transform, *placement, &compiled);
         entity.with_children(|parent| {
             let sign = establishment.and_then(|establishment| {
                 establishment.shop_name.clone().and_then(|name| {

@@ -7,7 +7,9 @@ use serde::{Deserialize, Serialize};
 
 use super::{GeneratedObstacle, SceneInputError, invalid};
 use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
+mod exterior;
 mod pads;
+pub use exterior::DistantBuildingVariant;
 pub(super) use pads::level_building_pads;
 
 pub(crate) const MAX_TACTICAL_BUILDINGS: usize = 64;
@@ -75,13 +77,15 @@ pub struct TacticalBuildingPlacement {
 
 /// Compact presentation-only building outside the authoritative tactical area.
 ///
-/// Distant buildings deliberately carry a curated recipe key instead of a
-/// complete [`BuildingProgram`]. Clients reconstruct and batch their shell LODs;
-/// the tactical server never gives them collision or simulation state.
+/// The compact occupied recipe supports promotion into a playable venue. Display
+/// uses a bounded exterior family and prosperity palette instead of compiling a
+/// distinct mesh for each occupation and service size. Distant instances never
+/// receive authoritative collision or tactical simulation state.
 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DistantBuildingPlacement {
     pub id: u64,
+    pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub archetype: BuildingArchetype,
     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
     pub service_size: Option<adventuresim_building_generator::ServiceBuildingSize>,
@@ -92,7 +96,8 @@ pub struct DistantBuildingPlacement {
 }
 
 impl DistantBuildingPlacement {
-    pub fn program(self) -> BuildingProgram {
+    /// The occupied recipe is retained for promotion into a playable venue.
+    pub fn occupied_program(self) -> BuildingProgram {
         let mut program = match self.usage {
             Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
             None => BuildingProgram::fixture(self.archetype, self.seed),
@@ -369,6 +374,7 @@ mod occupied_recipe_tests {
     #[test]
     fn distant_buildings_reconstruct_the_same_occupied_recipe() {
         let placement = DistantBuildingPlacement {
+            prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
             id: 1,
             archetype: BuildingArchetype::HallHouse,
             usage: Some(BuildingUse::Stable),
@@ -379,7 +385,7 @@ mod occupied_recipe_tests {
             orientation: BuildingOrientation::IDENTITY,
         };
         assert_eq!(
-            placement.program(),
+            placement.occupied_program(),
             BuildingProgram::settlement(
                 BuildingArchetype::HallHouse,
                 Some(BuildingUse::Stable),
@@ -388,7 +394,7 @@ mod occupied_recipe_tests {
             .with_service_size(adventuresim_building_generator::ServiceBuildingSize::Large)
         );
         assert_ne!(
-            placement.program(),
+            placement.occupied_program(),
             BuildingProgram::fixture(BuildingArchetype::HallHouse, 42)
         );
     }

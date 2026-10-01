@@ -56,6 +56,7 @@ pub enum CompoundIssue {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct CompiledCityLayout {
+    pub prosperity: adventuresim_world_schema::ProsperityTier,
     pub parishes: Vec<CityParish>,
     pub buildings: Vec<TacticalBuildingPlacement>,
     pub compounds: Vec<CityCompound>,
@@ -150,6 +151,7 @@ impl GeneratedCityLayout {
             })
         }));
         Ok(CompiledCityLayout {
+            prosperity: self.prosperity,
             gardens,
             parishes,
             buildings,
@@ -248,6 +250,7 @@ impl CompiledCityLayout {
                 result.playable.push(building);
             } else {
                 result.distant.push(DistantBuildingPlacement {
+                    prosperity: self.prosperity,
                     id: building.id,
                     archetype: building.program.archetype,
                     usage: building.program.usage,

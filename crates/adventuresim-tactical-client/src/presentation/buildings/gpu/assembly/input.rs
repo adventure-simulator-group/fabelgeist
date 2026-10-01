@@ -12,7 +12,7 @@ pub(in crate::presentation::buildings) struct PendingGpuBuildings {
 pub(super) struct Placement {
     root: Entity,
     transform: Mat4,
-    building_id: u64,
+    appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
     compiled: Arc<CompiledBuildingLevels>,
 }
 
@@ -27,13 +27,13 @@ impl PendingGpuBuildings {
         &mut self,
         root: Entity,
         transform: &Transform,
-        building_id: u64,
+        appearance: adventuresim_tactical_core::scene_input::DistantBuildingPlacement,
         compiled: &Arc<CompiledBuildingLevels>,
     ) {
         self.buildings.push(Placement {
             root,
             transform: transform.to_matrix(),
-            building_id,
+            appearance,
             compiled: compiled.clone(),
         });
     }
@@ -42,22 +42,32 @@ impl PendingGpuBuildings {
         self.parts.is_empty() && self.buildings.is_empty()
     }
 
-    pub(super) fn iter<'a>(
-        &'a self,
-        materials: Option<&'a TacticalBuildingMaterials>,
-    ) -> impl Iterator<Item = Part> + Clone + 'a {
-        self.parts
-            .iter()
-            .cloned()
-            .chain(self.buildings.iter().flat_map(move |placement| {
+    pub(super) fn groups(&self, materials: Option<&TacticalBuildingMaterials>) -> Vec<Group> {
+        let mut groups = Group::from_parts(self.parts.iter().cloned());
+        let mut prototypes = HashMap::new();
+        for placement in &self.buildings {
+            let palette = materials
+                .expect("city building materials")
+                .for_distant_building(
+                    placement.appearance.prosperity,
+                    placement.appearance.exterior_variant(),
+                );
+            // The palette's infill is unique to each appearance. Geometry and
+            // appearance are independent; placements share both before packing.
+            let key = (
+                Arc::as_ptr(&placement.compiled),
+                palette
+                    .get(BuildingLodMaterial::Wall(
+                        adventuresim_building_generator::WallMaterialClass::TimberInfill,
+                    ))
+                    .id(),
+            );
+            let index = *prototypes.entry(key).or_insert_with(|| {
                 let compiled = &placement.compiled;
-                let palette = materials
-                    .expect("city building materials")
-                    .for_building(placement.building_id);
-                [&compiled.lod0, &compiled.lod1, &compiled.lod2]
+                let parts = [&compiled.lod0, &compiled.lod1, &compiled.lod2]
                     .into_iter()
                     .enumerate()
-                    .flat_map(move |(level, batches)| {
+                    .flat_map(|(level, batches)| {
                         batches.iter().map(move |batch| Part {
                             entity: None,
                             root: placement.root,
@@ -75,6 +85,40 @@ impl PendingGpuBuildings {
                             fade: None,
                         })
                     })
-            }))
+                    .collect();
+                let index = groups.len();
+                groups.push(Group {
+                    parts,
+                    placements: Vec::new(),
+                });
+                index
+            });
+            groups[index].placements.push(placement.transform);
+        }
+        groups
+    }
+}
+
+pub(super) struct Group {
+    pub parts: Vec<Part>,
+    pub placements: Vec<Mat4>,
+}
+
+impl Group {
+    pub fn from_parts(parts: impl Iterator<Item = Part>) -> Vec<Self> {
+        let mut roots = HashMap::new();
+        let mut groups: Vec<Self> = Vec::new();
+        for part in parts {
+            let index = *roots.entry(part.root).or_insert_with(|| {
+                let index = groups.len();
+                groups.push(Self {
+                    placements: vec![part.transform],
+                    parts: Vec::new(),
+                });
+                index
+            });
+            groups[index].parts.push(part);
+        }
+        groups
     }
 }

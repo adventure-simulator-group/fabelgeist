@@ -357,6 +357,7 @@ pub(super) fn sync_environment(
             Ref<bevy::core_pipeline::tonemapping::Tonemapping>,
             Ref<bevy::pbr::DistanceFog>,
             Ref<Msaa>,
+            Ref<bevy::light::ShadowFilteringMethod>,
             Option<Ref<EnvironmentMapLight>>,
             Option<Ref<bevy::pbr::AtmosphereSettings>>,
         ),
@@ -364,13 +365,14 @@ pub(super) fn sync_environment(
     >,
     targets: Query<(Entity, Ref<StrategicCamera>)>,
 ) {
-    let Ok((exposure, tone, fog, msaa, environment, atmosphere)) = source.single() else {
+    let Ok((exposure, tone, fog, msaa, shadows, environment, atmosphere)) = source.single() else {
         return;
     };
     let changed = exposure.is_changed()
         || tone.is_changed()
         || fog.is_changed()
         || msaa.is_changed()
+        || shadows.is_changed()
         || environment.as_ref().is_some_and(|value| value.is_changed())
         || atmosphere.as_ref().is_some_and(|value| value.is_changed());
     for (entity, marker) in &targets {
@@ -380,7 +382,7 @@ pub(super) fn sync_environment(
             continue;
         }
         let mut target = commands.entity(entity);
-        target.insert((*exposure, *tone, (*fog).clone(), *msaa));
+        target.insert((*exposure, *tone, (*fog).clone(), *msaa, *shadows));
         if let Some(environment) = &environment {
             target.insert((**environment).clone());
         }

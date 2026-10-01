@@ -53,8 +53,8 @@ pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
 pub mod furniture;
 
 pub use buildings::{
-    BuildingOrientation, DistantBuildingPlacement, GeneratedBuilding, SceneBuilding, SceneDoor,
-    SceneWindow, TacticalBuildingPlacement,
+    BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
+    SceneBuilding, SceneDoor, SceneWindow, TacticalBuildingPlacement,
 };
 
 pub const TREE_TRUNK_RADIUS_METRES: f32 = 0.35;
@@ -1297,6 +1297,7 @@ mod tests {
         let mut input = fixture();
         let empty_digest = input.digest().unwrap();
         input.distant_buildings.push(DistantBuildingPlacement {
+            prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
             usage: None,
             service_size: None,
             id: 1,

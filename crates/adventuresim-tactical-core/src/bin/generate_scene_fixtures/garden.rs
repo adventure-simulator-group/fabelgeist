@@ -87,6 +87,7 @@ pub(super) fn layout() -> CitySceneLayout {
     }
     yards.extend(distant_yards);
     let distant = DistantBuildingPlacement {
+        prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
         id: distant_garden.front_building_id,
         archetype: front.program.archetype,
         usage: front.program.usage,

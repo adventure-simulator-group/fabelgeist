@@ -21,6 +21,7 @@ fn compound_loaded_scene_rejects_broken_membership_and_authority() {
     let mut split = input.clone();
     let rear = split.buildings.remove(0);
     split.distant_buildings.push(DistantBuildingPlacement {
+        prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
         id: rear.id,
         archetype: rear.program.archetype,
         usage: rear.program.usage,

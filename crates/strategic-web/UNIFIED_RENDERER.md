@@ -15,7 +15,7 @@ logical core for the document where available. They share the compiled Wasm
 module, but each owns its generation memory. Workers never boot Bevy, create a
 canvas, or request a GPU device. They terminate after preparation.
 
-The static tactical scene and each distinct background building program are
+The static tactical scene and each distinct background exterior prototype are
 independent jobs. Workers return locally generated CBOR products through
 transferable buffers while the renderer loads textures. Rust parses the original
 scene JSON and verifies each returned product against its requested identity.
@@ -66,6 +66,18 @@ it across modular components. Ground-mask rasterization computes each noise
 lattice corner once, then interpolates the same values for neighboring pixels.
 Neither changes the generated appearance or requires stored render products.
 
+Interior furnishing retains navigation obstruction counts while trying candidate
+groups. Accepted furniture remains in the graph; rejecting a group removes only
+its contributions. The same reachability and access-path checks still decide
+placement in both the scene worker and promoted strategic venues.
+
+Grass derives one seed for each spatially identified tuft and draws its jitter,
+species, rotation, and shader variation from fixed slots in that tuft's stream.
+This avoids repeatedly hashing the same identity for individual visual fields.
+Tuft density, representation, coverage, and fade distances remain unchanged.
+Street and yard meshes query a bounds hierarchy over the presented terrain
+triangles before clipping, preserving terrain seams and exact surface heights.
+
 ## Presentation and authority
 
 `/api/scene-assets` prepares the dispatcher's `TacticalSceneInput` for the
@@ -95,9 +107,34 @@ across repeated building recipes. Each instance follows its parent building's
 GPU visibility and LOD selection. Geometry ranges reference deduplicated lists
 of building placements; the GPU expands only selected instances into draws.
 The preload queue retains shared compiled recipes instead of expanding every
-member into a separate CPU record. Cut masonry, gable face selections, and other
-specialized surfaces retain their semantic geometry compilers. Tactical plans,
-collision, and operable elements keep their authoritative representation.
+member into a separate CPU record. Assembly groups recipes by geometry and
+palette, resolves component geometry once per group, and passes shared owner
+lists directly to range packing. Even temporary draw records stay grouped;
+duplicate components retain their draw multiplicity. Cut masonry, gable face
+selections, and other specialized surfaces retain their semantic geometry
+compilers. Tactical plans, collision, and operable elements keep their
+authoritative representation.
+Buildings outside the tactical boundary use three shared exterior variants per
+architectural family. Occupation, service size, and individual building seeds do
+not create additional exterior meshes. The settlement's canonical prosperity
+tier travels with each distant placement: poorer settlements omit ornate
+merchant-house exteriors and use plain or weathered finishes; richer settlements
+can use brick infill and decorative finishes. Geometry and finish select the
+same variant, keeping the prototype pool bounded. Landmarks retain their
+frontage direction. Each model may shrink uniformly to fit its reserved plot,
+but never expands the plot or changes the city's placement.
+Outdoor furniture also uses the prototype's scaled footprint and doors; its
+occupation still selects the kind of street activity. Preparing this scenery
+does not reconstruct the original occupied buildings.
+The strategic street reserves its camera approach before placing background
+tree stands, so changes to scene identity cannot put foliage in front of tabs.
+
+The occupied recipe remains available for buildings promoted to the strategic
+street or playable tactical area. Those buildings retain their original plans,
+equipment, furnishings, collision, and detailed assets. All exterior prototypes
+are generated on the client and participate in the existing local cache; no
+prebuilt geometry is served. Scene documents use the current schema directly.
+
 Common rectangular civilian background shells compile from their programmes and
 the shared roof-plane recipe. This distant representation keeps wall heights,
 upper-storey projection, roof pitch, and metric texture scale, with simplified
@@ -415,6 +452,19 @@ Startup profiles also record WebGPU pipeline-creation calls and sampled queue
 completion callbacks. Callback latency includes main-thread scheduling and
 earlier queued work; synchronous pipeline-creation calls can return before the
 browser/backend finishes preparing the pipeline.
+
+Add `STRATEGIC_STARTUP_BROWSER_TRACE=1` to capture browser GPU-service events,
+including Dawn pipeline creation and DirectX shader compilation where the
+backend exposes them. The `*-browser.json` files use the Chrome trace format;
+`city-document-start` aligns them with the page's performance clock. Nested
+pipeline and shader-compiler spans overlap and must not be added together.
+Shader sources and pipeline descriptors are included in startup trace events
+to attribute compiler work to material and vertex-layout variants.
+
+Add `STRATEGIC_STARTUP_WORKERS=1` to sample generation workers separately. The
+diagnostic pauses workers at startup to attach the profiler and collects their
+profiles before the pool terminates them. These worker profiles have their own
+clocks and sampling overhead; their summed CPU time is not elapsed readiness.
 
 Add `STRATEGIC_STARTUP_GPU_TIMESTAMPS=1` to sample pass timestamps in every eighth
 command encoder, with at most two readbacks outstanding. This opt-in diagnostic

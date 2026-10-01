@@ -187,7 +187,7 @@ impl PlacementBounds {
             })
             .chain(distant.iter().map(|building| Self {
                 centre: building.centre_metres,
-                half_extents: building.program().plot_dimensions_metres() * 0.5,
+                half_extents: building.occupied_program().plot_dimensions_metres() * 0.5,
                 orientation: building.orientation,
             }))
             .collect()
@@ -316,6 +316,7 @@ mod tests {
             BuildingOrientation::IDENTITY,
         )];
         let distant_city = DistantBuildingPlacement {
+            prosperity: adventuresim_world_schema::ProsperityTier::Comfortable,
             usage: None,
             service_size: None,
             id: 2,

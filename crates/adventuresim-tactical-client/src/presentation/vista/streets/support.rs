@@ -2,21 +2,14 @@
 
 use super::*;
 use bevy::mesh::VertexAttributeValues;
-use std::collections::BTreeMap;
+mod index;
 
 const CLIP_EPSILON: f32 = 0.00001;
 
 #[derive(Clone, Default)]
 pub(in crate::presentation::vista) struct GroundSupport {
-    chunks: BTreeMap<(i32, i32), SupportChunk>,
-    maximum_triangle_reach_metres: f32,
-}
-
-#[derive(Clone)]
-struct SupportChunk {
-    minimum: Vec2,
-    maximum: Vec2,
     triangles: Vec<[Vec3; 3]>,
+    index: std::sync::OnceLock<index::TriangleIndex>,
 }
 
 impl GroundSupport {
@@ -42,30 +35,9 @@ impl GroundSupport {
             {
                 continue;
             }
-            let centre = (triangle[0] + triangle[1] + triangle[2]) / 3.0;
-            self.maximum_triangle_reach_metres = self.maximum_triangle_reach_metres.max(
-                triangle
-                    .into_iter()
-                    .map(|point| (point.xz() - centre.xz()).abs().max_element())
-                    .fold(0.0, f32::max),
-            );
-            let key = (centre.xz() / partition::SPATIAL_CELL_METRES)
-                .floor()
-                .as_ivec2();
-            let chunk = self
-                .chunks
-                .entry((key.x, key.y))
-                .or_insert_with(|| SupportChunk {
-                    minimum: Vec2::splat(f32::INFINITY),
-                    maximum: Vec2::splat(f32::NEG_INFINITY),
-                    triangles: Vec::new(),
-                });
-            for point in triangle {
-                chunk.minimum = chunk.minimum.min(point.xz());
-                chunk.maximum = chunk.maximum.max(point.xz());
-            }
-            chunk.triangles.push(triangle);
+            self.triangles.push(triangle);
         }
+        self.index.take();
     }
 
     pub(super) fn clip(&self, corners: [Vec2; 4], mut emit: impl FnMut([Vec3; 3])) {
@@ -75,44 +47,34 @@ impl GroundSupport {
         let maximum = corners
             .into_iter()
             .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-        let reach = Vec2::splat(self.maximum_triangle_reach_metres);
-        let key_minimum = ((minimum - reach) / partition::SPATIAL_CELL_METRES)
-            .floor()
-            .as_ivec2();
-        let key_maximum = ((maximum + reach) / partition::SPATIAL_CELL_METRES)
-            .floor()
-            .as_ivec2();
-        let chunks = (key_minimum.x..=key_maximum.x).flat_map(|x| {
-            (key_minimum.y..=key_maximum.y).filter_map(move |y| self.chunks.get(&(x, y)))
-        });
-        for chunk in chunks.filter(|chunk| {
-            chunk.maximum.cmpge(minimum).all() && chunk.minimum.cmple(maximum).all()
-        }) {
-            for &triangle in &chunk.triangles {
-                let tri_minimum = triangle
-                    .map(|point| point.xz())
-                    .into_iter()
-                    .fold(Vec2::splat(f32::INFINITY), Vec2::min);
-                let tri_maximum = triangle
-                    .map(|point| point.xz())
-                    .into_iter()
-                    .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
-                if !tri_maximum.cmpge(minimum).all() || !tri_minimum.cmple(maximum).all() {
-                    continue;
-                }
-                let polygon = clip_polygon(triangle.to_vec(), corners);
-                for index in 1..polygon.len().saturating_sub(1) {
-                    let clipped = [polygon[0], polygon[index], polygon[index + 1]];
-                    if (clipped[1] - clipped[0])
-                        .cross(clipped[2] - clipped[0])
-                        .length_squared()
-                        > CLIP_EPSILON * CLIP_EPSILON
-                    {
-                        emit(clipped);
-                    }
+        let index = self
+            .index
+            .get_or_init(|| index::TriangleIndex::new(&self.triangles));
+        index.query(minimum, maximum, |index| {
+            let triangle = self.triangles[index];
+            let tri_minimum = triangle
+                .map(|point| point.xz())
+                .into_iter()
+                .fold(Vec2::splat(f32::INFINITY), Vec2::min);
+            let tri_maximum = triangle
+                .map(|point| point.xz())
+                .into_iter()
+                .fold(Vec2::splat(f32::NEG_INFINITY), Vec2::max);
+            if !tri_maximum.cmpge(minimum).all() || !tri_minimum.cmple(maximum).all() {
+                return;
+            }
+            let polygon = clip_polygon(triangle.to_vec(), corners);
+            for index in 1..polygon.len().saturating_sub(1) {
+                let clipped = [polygon[0], polygon[index], polygon[index + 1]];
+                if (clipped[1] - clipped[0])
+                    .cross(clipped[2] - clipped[0])
+                    .length_squared()
+                    > CLIP_EPSILON * CLIP_EPSILON
+                {
+                    emit(clipped);
                 }
             }
-        }
+        });
     }
 }
 

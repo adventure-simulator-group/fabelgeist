@@ -250,7 +250,7 @@ fn select_buildings(
                     .iter()
                     .find(|b| b.id == id)
                     .ok_or("missing building placement")?;
-                let program = placement.program();
+                let program = placement.occupied_program();
                 let recipe = generated
                     .building_recipes
                     .get_or_generate(&program)

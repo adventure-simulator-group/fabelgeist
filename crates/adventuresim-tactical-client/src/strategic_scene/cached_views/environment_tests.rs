@@ -13,6 +13,7 @@ fn new_and_reused_capture_cameras_inherit_environment_before_the_first_render() 
         Tonemapping::None,
         bevy::pbr::DistanceFog::default(),
         Msaa::Sample4,
+        bevy::light::ShadowFilteringMethod::Hardware2x2,
         EnvironmentMapLight {
             intensity: 123.0,
             ..default()
@@ -50,6 +51,10 @@ fn new_and_reused_capture_cameras_inherit_environment_before_the_first_render() 
             .expect("capture started");
         let view = app.world().entity(camera);
         assert_eq!(view.get::<Msaa>(), Some(&Msaa::Sample4));
+        assert_eq!(
+            view.get::<bevy::light::ShadowFilteringMethod>(),
+            Some(&bevy::light::ShadowFilteringMethod::Hardware2x2)
+        );
         assert_eq!(view.get::<Tonemapping>(), Some(&Tonemapping::None));
         assert_eq!(view.get::<Exposure>().unwrap().ev100, 12.5);
         assert_eq!(view.get::<EnvironmentMapLight>().unwrap().intensity, 123.0);
